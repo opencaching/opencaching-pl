@@ -185,7 +185,7 @@
 					$email_headers .= "From: Opencaching.pl <noreply@opencaching.pl>\r\n";
 					$email_headers .= "Reply-To: ".$usr['email']."\r\n";
 	
-					mail(getUserEmail($oldOwnerId), "[OC PL] Nowy właściciel Twojej skrzynki", "Witaj!\nNowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid'])." został użytkownik: ".$usr['username'].".", $email_headers);
+					mb_send_mail(getUserEmail($oldOwnerId), "[OC PL] Nowy właściciel Twojej skrzynki", "Witaj!\nNowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid'])." został użytkownik: ".$usr['username'].".", $email_headers);
 					}
 			}
 			if( isset($_GET['accept']) && $_GET['accept'] == 0 )
@@ -198,7 +198,7 @@
 				if( mysql_affected_rows() > 0 )
 				{
 					tpl_set_var("info_msg", "Zaproszenie do przejęcia skrzynki zostało przez Ciebie odrzucone.<br><br>");
-					mail(getUserEmail($oldOwnerId), "[OC PL] Użytkownik nie przyjął Twojej skrzynki", "Witaj!\nNiestety użytkownik: ".$usr['username']." nie chce być nowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid']).".", $email_headers);
+					mb_send_mail(getUserEmail($oldOwnerId), "[OC PL] Użytkownik nie przyjął Twojej skrzynki", "Witaj!\nNiestety użytkownik: ".$usr['username']." nie chce być nowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid']).".", $email_headers);
 				}
 				else
 					tpl_set_var("error_msg", "Wystąpił błąd podczas zmiany właściciela skrzynki.<br><br>");

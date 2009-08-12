@@ -20,7 +20,7 @@
 		{
 			// wysłanie
 			$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-			$email_headers .= "From: Zespol Opencaching.pl <rr@opencaching.pl>\r\n";
+			$email_headers .= "From: Opencaching.pl <rr@opencaching.pl>\r\n";
 			$email_headers .= "Reply-To: rr@opencaching.pl\r\n";
 			
 			$bulletin = ($_SESSION['bulletin']);
@@ -33,7 +33,7 @@
 			$query = @mysql_query($sql);
 			while( $email = @mysql_fetch_array($query))
 			{
-				mail($email['email'], "[OC PL] Biuletyn informacyjny ".date("Y-m-d"), stripslashes($bulletin), $email_headers);
+				mb_send_mail($email['email'], "[OC PL] Biuletyn informacyjny ".date("Y-m-d"), stripslashes($bulletin), $email_headers);
 			}
 			$_SESSION['submitted'] = true;
 			tpl_set_var('bulletin', stripslashes($_SESSION['bulletin']));

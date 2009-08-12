@@ -1,45 +1,43 @@
+		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/profile/22x22-email.png" border="0" width="22" height="22" align="middle"/>&nbsp;Przeglądaj zgłoszenie</div>
+	<div class="buffer"></div>
+	<p>{confirm_resp_change}{confirm_status_change}</p>
+	{email_sent}
+	<p>Przejdź do: [<a href='viewreports.php'>Listy bieżących zgłoszeń</a>] [<a href='viewreports.php?archiwum=1'>Archiwum zgłoszeń</a>]</p>
 		<input type="hidden" name="cacheid" value="{cacheid}"/>
-		<font size="1">
-		<table class="table">
-			<colgroup>
-				<col width="200">
-				<col>
-			</colgroup>
-			<tr><td colspan="2"><img src="tpl/stdstyle/images/profile/22x22-email.png" border="0" width="22" height="22" align="middle"> <b>	Przeglądaj zgłoszenie</b></td></tr>
-			<tr><td colspan="2">{confirm_resp_change}{confirm_status_change}</td></tr>
-			<tr><td colspan="2" class="info"></tr>
-			{email_sent}
-			
-			<table border='0' width='1000'>
-			<tr><td colspan='10'>
-			Przejdź do: [<a href='viewreports.php'>Listy bieżących zgłoszeń</a>] [<a href='viewreports.php?archiwum=1'>Archiwum zgłoszeń</a>]
-			</td></tr>			
+		<table border='1' class="table" width="90%">
 			<tr>
-				<td bgcolor='#D5D9FF'>ID zgłoszenia</td>
-				<td bgcolor='#D5D9FF'>Data zgłoszenia</td>
-				<td bgcolor='#D5D9FF'>Cache</td>
-				<td bgcolor='#D5D9FF'>Status skrzynki</td>
-				<td bgcolor='#D5D9FF'>Rodzaj problemu</td>
-				<td bgcolor='#D5D9FF'>Zgłaszający</td>
-				<td bgcolor='#D5D9FF'>Prowadzący</td>
-				<td bgcolor='#D5D9FF'>Status</td>
-				<td bgcolor='#D5D9FF'>Zmieniony przez</td>
-				<td bgcolor='#D5D9FF'>Ostatnio zmieniony</td>
+				<th >ID</th>
+				<th >Data zgłoszenia</th>
+				<th >Cache</th>
+				<th >Status skrzynki</th>
+				<th >Rodzaj problemu</th>
+				<th >Zgłaszający</th>
+				<th >Prowadzący</th>
+				<th >Status</th>
+				<th >Zmieniony przez</th>
 			</tr>
 			{content}
-			<tr><td colspan='10' bgcolor='#D5D9FF'></td></tr>
+		</table>
+		<div class="buffer" style="height:50px;"></div>
+		<div class="content2-container line-box">
+			<p class="content-title-noshade-size1">{report_text_lbl}</p><br/>
+			<p>{report_text}</p>
+		</div>
+		<div class="content2-container line-box">
+			<p class="content-title-noshade-size1">{note_lbl}</p><br/>
+			<p>{active_form}</p>
+			<p>{note_area}</p>
+		</div>
 			
-			</table>
-			<br>
-			Podejmij działania:<br>
+		<div class="buffer"></div>
+		<div class="content2-container line-box">
+			<p class="content-title-noshade-size1">{perform_action_lbl}</p>
 			<ul>
 				{mail_actions}
 			</ul>
 			<ul>
 				{actions}
 			</ul>
-			<br>
-			Przejdź do: [<a href='viewreports.php'>Listy bieżących zgłoszeń</a>] [<a href='viewreports.php?archiwum=1'>Archiwum zgłoszeń</a>]
-			<tr><td class="spacer" colspan="2"></td></tr>
-		</table>
-		</font>
+			<br/>
+		</div>
+			<p>Przejdź do: [<a href='viewreports.php'>Listy bieżących zgłoszeń</a>] [<a href='viewreports.php?archiwum=1'>Archiwum zgłoszeń</a>]</p>

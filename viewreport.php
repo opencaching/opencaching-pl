@@ -98,7 +98,7 @@ $email_form = "";
 			$email_form = "<form action='viewreport.php' method='post'>
 	<input type='hidden' name='reportid' value='".intval($_REQUEST['reportid'])."'>
 	<input type='hidden' name='mailto' value='".intval($_REQUEST['mailto'])."'>
-	<textarea name='email_content' cols='110' rows='10'></textarea>
+	<textarea name='email_content' cols='80' rows='5'></textarea>
 	<br>
 	<input type='submit' value='Wyślij e-mail'>
 	<a href='viewreport.php?reportid=".$_REQUEST['reportid']."'>Anuluj</a>
@@ -285,29 +285,28 @@ $email_form = "";
 			$content .= "</select><br><input type='hidden' name='reportid' value='".$report['report_id']."'><input type='submit' name='new_status' value='Zmień'></form>";
 			
 			$content .= "</td>";
-			$content .= "<td>".($report['changed_by']=='0'?'':getUsername($report['changed_by']))."</td>";
-			$content .= "<td>".($report['changed_date'])."</td>";
+			$content .= "<td>".($report['changed_by']=='0'?'':(getUsername($report['changed_by']).'<br/><font size=\"1\">('.($report['changed_date']).')</font>'))."</td>\n";
+			$content .= "</tr>\n";
 			
-			$content .= "</tr>";
-
-			$content .= "<tr><td height='30'></td></tr>";
-			$content .= "<tr><td colspan='10' bgcolor='#D5D9FF'>Treść zgłoszenia</td></tr>";
-			$content .= "<tr><td colspan='10'><font size='2'>".strip_tags($report['text'])."</font></td></tr>";
-			$content .= "<tr><td height='30'></td></tr>";
+			tpl_set_var('content', $content);
+			tpl_set_var('report_text_lbl', 'Treść zgłoszenia');
+			tpl_set_var('report_text', strip_tags($report['text']));
+			tpl_set_var('perform_action_lbl', 'Podejmij działania');
+			
 			if( !isset($_GET['mailto']))
 			{
-				$content .= "<tr><td colspan='10' bgcolor='#D5D9FF'>Notatka</td></tr>";
-				$content .= "<tr><td colspan='10'><form action='viewreport.php' method='POST'><input type='hidden' name='reportid' value='".intval($_REQUEST['reportid'])."'><textarea name='note' cols='110' rows='5'></textarea><br><input type='submit' value='Zapisz'></form>&nbsp;".$saved."</td></tr>";
+				$active_form = "<form action='viewreport.php' method='POST'><input type='hidden' name='reportid' value='".intval($_REQUEST['reportid'])."'><textarea name='note' cols='80' rows='5'></textarea><br><input type='submit' value='Zapisz'></form>&nbsp;".$saved;
+				tpl_set_var('note_lbl', "Notatka");
 			}
-			
-
-			if( isset( $_GET['mailto']))
+			else
 			{
 				// display email form
-				$content .= "<tr><td colspan='10' bgcolor='#D5D9FF'>Wyślij e-mail do ".writeRe($_REQUEST['mailto'])."</td></tr>";
-				$content .= "<tr><td colspan='10'>".$email_form."</td></tr>";
+				tpl_set_var('note_lbl', "Wyślij e-mail do ".writeRe($_REQUEST['mailto']));
+				$active_form = $email_form;
 			}
-			$content .= "<tr><td colspan='10'><font size='2'>".nl2br($report['note'])."</font></td></tr>";
+			tpl_set_var('note_area', nl2br($report['note']));
+			tpl_set_var('active_form', $active_form);
+			
 			$actions = '';
 			//$actions .= "<li><a href='voting.php?reportid=".$report['report_id']."'>Zarządź głosowanie</a></li>";
 			for( $i=0;$i<3;$i++)
@@ -315,7 +314,7 @@ $email_form = "";
 			
 			//$actions .= "<br><li><a href='viewreport.php?reportid=".$report['report_id']."&amp;delete=1'>usuń zgłoszenie</a></li>";
 			
-			tpl_set_var('content',$content);
+			
 			tpl_set_var('reportid', $report['report_id']);
 			tpl_set_var('actions', $actions);
 			tpl_set_var('mail_actions', $mail_actions);

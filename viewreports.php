@@ -1,5 +1,5 @@
 <?php
-
+global $bgcolor1, $bgcolor2;
 	function writeReason($type)
 	{
 		switch( $type )
@@ -84,24 +84,33 @@
 		}
 		$sql = "SELECT cache_status.id AS cs_id, cache_status.pl AS cache_status, reports.id as report_id, reports.user_id as user_id, reports.changed_by as changed_by, reports.changed_date as changed_date, reports.cache_id as cache_id, reports.type as type, reports.text as text, reports.submit_date as submit_date, reports.responsible_id as responsible_id, reports.status as status, user.username as username, user.user_id as user_id, caches.name as cachename, caches.status AS c_status FROM cache_status, reports, user, caches WHERE cache_status.id = caches.status AND ".sql_escape($show_archive)." user.user_id = reports.user_id AND caches.cache_id = reports.cache_id ORDER BY submit_date ".sql_escape($sorting_order);
 		$query = mysql_query($sql) or die("DB error");
+		$row_num = 0;
 		while( $report = mysql_fetch_array($query) )
 		{
-			$content .= "<tr>";
+			if( $row_num % 2 )
+				$bgcolor = "bgcolor1";
+			else
+				$bgcolor = "bgcolor2";
+		
+			$content .= "<tr>\n";
 			//$username_sql = "SELECT username FROM user WHERE user_id='".sql_escape($report['user_id'])."'";
 			//$username_query = mysql_query($username_sql) or die("DB error");
 			//$username = mysql_result($username_query,0);
-			
-			$content .= "<td bgcolor='white'>".$report['report_id']."</td>";
-			$content .= "<td bgcolor='white'>".$report['submit_date']."</td>";
-			$content .= "<td bgcolor='white'><a href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a></td>";
-			$content .= "<td bgcolor='white'>".colorCacheStatus($report['cache_status'], $report['c_status'])."</td>";
-			$content .= "<td bgcolor='white'><a href='viewreport.php?reportid=".$report['report_id']."'>".writeReason($report['type'])."</a></td>";
-			$content .= "<td bgcolor='white'><a href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>";
-			$content .= "<td bgcolor='white'><a href='viewprofile.php?userid=".$report['responsible_id']."'>".getUsername($report['responsible_id'])."</a></td>";
-			$content .= "<td bgcolor='white' width='60'>".writeStatus($report['status'])."</td>";
-			$content .= "<td bgcolor='white'>".($report['changed_by']=='0'?'':getUsername($report['changed_by']))."</td>";
-			$content .= "<td bgcolor='white'>".($report['changed_date'])."</td>";
-			$content .= "</tr>";
+			if( $usr['userid'] == $report['responsible_id'])
+				$addborder = "style='border-width:2px;'";
+			else
+				$addborder = "";
+			$content .= "<td ".$addborder." class='".$bgcolor."'>".$report['report_id']."</td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'>".$report['submit_date']."</td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><a href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a></td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><font size='1'>".colorCacheStatus($report['cache_status'], $report['c_status'])."</font></td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><font size='1'><a href='viewreport.php?reportid=".$report['report_id']."'>".writeReason($report['type'])."</a></td></font>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><a href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><a href='viewprofile.php?userid=".$report['responsible_id']."'>".getUsername($report['responsible_id'])."</a></td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."' width='60'>".writeStatus($report['status'])."</td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'>".($report['changed_by']=='0'?'':(getUsername($report['changed_by']).'<br/><font size=\"1\">('.($report['changed_date']).')</font>'))."</td>\n";
+			$content .= "</tr>\n";
+			$row_num++;
 		}
 		tpl_set_var('content', $content);
 	}
