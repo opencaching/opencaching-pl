@@ -148,30 +148,30 @@ if ($error == false)
 
 				$file_content .= "<p>";
 				$file_content .= htmlspecialchars(date("d.m.Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8');
-				$file_content .= ' <img src="/tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" align="left" alt="" />';
-				$file_content .= ' <img src="/tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" align="left" alt=""/>';
+				$file_content .= ' <img src="/tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" />&nbsp;';
+				$file_content .= ' <img src="/tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/>&nbsp;';
         //$rating_picture
 				if ($log_record['recommended'] == 1) {
-					$file_content .= ' <img src="/images/rating-star.gif" border="0" align="left" alt=""/>';
+					$file_content .= ' <img src="/images/rating-star.gif" border="0" alt=""/>';
 				}	
 				$file_content .= ' - <a href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a>';
 
 				switch( $log_record['log_type'] )
 				{
 					case 1:
-						$file_content .= ' znalazł ';
+						$file_content .= ' - znaleziony przez ';
 					break;
 					case 2:
-						$file_content .= ' nie znalazł ';
+						$file_content .= ' - nieznaleziony przez ';
 					break;
 					case 3:
-						$file_content .= ' komentarz ';
+						$file_content .= ' - skomentowany przez ';
 					break;
 					case 7:
-						$file_content .= ' uczestniczył ';
+						$file_content .= ' - uczestniczył(a) ';
 					break;
 					case 8:
-						$file_content .= ' będzie uczestniczył ';
+						$file_content .= ' - zamierza uczestniczyć ';
 					break;
 				}
 				$file_content .= '<a href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a>';

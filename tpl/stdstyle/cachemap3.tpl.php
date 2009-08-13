@@ -47,23 +47,23 @@
 				<li class="group"><input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{h_de_label}</label></li>
 			<li class="group">{score_label} {from}:	
 			<select id="min_score" name="min_score" onchange="reload()">
-				<option value="-3" {min_sel_3}>-3</option>
-				<option value="-2" {min_sel_2}>-2</option>
-				<option value="-1" {min_sel_1}>-1</option>
 				<option value="0" {min_sel0}>0</option>
 				<option value="1" {min_sel1}>1</option>
 				<option value="2" {min_sel2}>2</option>
 				<option value="3" {min_sel3}>3</option>
+				<option value="4" {min_sel4}>4</option>
+				<option value="5" {min_sel5}>5</option>
+				<option value="6" {min_sel6}>6</option>
 			</select>
 			 {to}: 
 			<select id="max_score" name="max_score" onchange="reload()">
-				<option value="-3" {max_sel_3}>-3</option>
-				<option value="-2" {max_sel_2}>-2</option>
-				<option value="-1" {max_sel_1}>-1</option>
 				<option value="0" {max_sel0}>0</option>
 				<option value="1" {max_sel1}>1</option>
 				<option value="2" {max_sel2}>2</option>
 				<option value="3" {max_sel3}>3</option>
+				<option value="4" {max_sel4}>4</option>
+				<option value="5" {max_sel5}>5</option>
+				<option value="6" {max_sel6}>6</option>
 			</select>
 			</li>
 			<li class="group"><input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">{show_noscore}</label></li>
@@ -265,15 +265,12 @@
 								var print_topratings;
 								if( score != "" && votes > 2)
 								{
-									if( score > 0 )
-										show_score = "<br><b>{score}:</b> +" + score;
-									else
-										show_score = "<br><b>{score}:</b> " + score;
-									if( score >= 2 )
+									show_score = "<br><b>{score}:</b> " + score;
+									if( score >= 5 )
 										score = "3";
-									else if( score >= 0.4 )
+									else if( score >= 4.4 )
 										score = "2";
-									else if( score >= -0.5 )
+									else if( score >= 2.5 )
 										score = "1";
 									else
 										score = "0";
@@ -319,7 +316,7 @@
 									notfound_will_attend = "{not_found}";
 								}
 
-								infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\">";
+								infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\" class=\"table\">";
 								infoWindowContent += "<tr><td colspan=\"2\" width=\"100%\"><table cellspacing=\"0\" width=\"100%\"><tr><td width=\"90%\">";
 								infoWindowContent += "<center><img align=\"left\" width=\"20\" height=\"20\" src=\"tpl/stdstyle/images/cache/"+typeToImageName(type, status)+"\"></center>";
 								infoWindowContent += "&nbsp;<a href=\""+domain+"viewcache.php?cacheid=" + cache_id + "\" target=\"_blank\">" + name + "</a>";

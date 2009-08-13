@@ -19,31 +19,27 @@
 
 /****************************************************************************
 	  
-   Unicode Reminder メモ
+   Unicode Reminder ??
                                        				                                
 	 view all logs of a cache
 
  ****************************************************************************/
 ?>
-<table class="content">
-	<tr>
-		<td class="header">
-			<img src="tpl/stdstyle/images/description/22x22-logs.png" width="22" height="22" align="middle" border="0">
-			<b>Wpisy do Logów dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
+			<img src="tpl/stdstyle/images/description/22x22-logs.png" width="22" height="22" align="middle" border="0"/>
+			<b>Wpisy do logów dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
 			<span style="font-weight: 400;">&nbsp;&nbsp;
 			{found_icon} {founds}x 
 			{notfound_icon} {notfounds}x 
 			{note_icon} {notes}x<br /></span>
+		{logs}
+
+<table class="table">
+	<tr>
+		<td class="buffer">
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<br>
-		</td>
-	</tr>
-		{logs}
-	<tr>
-		<td class="header-small">
 			<span style="font-weight: 400;">[<a href="viewcache.php?cacheid={cacheid}">Powrót do skrzynki</a>]</span><br />
 		</td>
 	</tr>

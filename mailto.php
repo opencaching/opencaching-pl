@@ -156,7 +156,7 @@
 			{
 				tpl_set_var('message_start', '');
 				tpl_set_var('message_end', '');
-				tpl_set_var('message', $message);
+				tpl_set_var('message', strip_tags($message));
 				tpl_set_var('formular_start', '<!--');
 				tpl_set_var('formular_end', '-->');
 			}
@@ -164,7 +164,7 @@
 			{
 				tpl_set_var('message_start', '<!--');
 				tpl_set_var('message_end', '-->');
-				tpl_set_var('message', $message);
+				tpl_set_var('message', strip_tags($message));
 				tpl_set_var('formular_start', '');
 				tpl_set_var('formular_end', '');
 				tpl_set_var('subject', htmlspecialchars($subject, ENT_COMPAT, 'UTF-8'));

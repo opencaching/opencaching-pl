@@ -44,6 +44,7 @@ AND cache_logs.user_id = user.user_id
 )
 GROUP BY scores.cache_id");*/
 $result = mysql_query("SELECT cache_id FROM caches");
+set_time_limit(3600);
 		while($rs = mysql_fetch_array($result))
 		{
 			// usuniecie falszywych ocen
@@ -57,7 +58,7 @@ $result = mysql_query("SELECT cache_id FROM caches");
 			$sql = "SELECT score FROM scores WHERE cache_id='".sql_escape($rs['cache_id'])."'";
 			$score = mysql_query($sql);
 			$suma = 0;
-			
+
 			// repair founds
 			$founds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE cache_id = ".sql_escape($rs['cache_id'])." AND (type=1 OR type=7)");
 			$founds = mysql_result($founds_query,0);
@@ -88,7 +89,7 @@ $result = mysql_query("SELECT cache_id FROM caches");
 			echo $sql2 = "UPDATE caches SET watcher='".sql_escape($fixwatchers['watches'])."' WHERE cache_id='".sql_escape($fixwatchers['cache_id'])."'";
 			mysql_query($sql2);
 		}*/
-		
+		set_time_limit(60);
 		db_disconnect();
 
 	}

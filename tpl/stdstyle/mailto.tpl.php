@@ -19,7 +19,7 @@
 
 /****************************************************************************
 	   
-   Unicode Reminder メモ
+   Unicode Reminder ??
                                       				                                
 	 log a cache visit
 	 
@@ -36,12 +36,12 @@
 ?>
 <form action="mailto.php" method="post" enctype="application/x-www-form-urlencoded" name="mailto_form" dir="ltr">
 <input type="hidden" name="userid" value="{userid}"/>
-<table class="content">
+<table class="table">
 	<colgroup>
 		<col width="200">
 		<col>
 	</colgroup>
-	<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/profile/22x22-email.png" border="0" width="22" height="22" alt="" title="Neuer Cache" align="middle"> <b>Wysłanie E-Mail do <a href='viewprofile.php?userid={userid}'>{to_username}</a></b></td></tr>
+	<tr><td colspan="2"><img src="tpl/stdstyle/images/profile/22x22-email.png" border="0" width="22" height="22" alt="" title="Neuer Cache" align="middle"> <b>Wysyłanie wiadomości e-mail do <a href='viewprofile.php?userid={userid}'>{to_username}</a></b></td></tr>
 	<tr><td colspan="2">&nbsp;</td></tr>
 
 	{message_start}

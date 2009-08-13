@@ -55,6 +55,9 @@
         if (!isset($cookiedomain)) $cookiedomain = '';
 
 	$hide_coords = false;
+	// scores range
+	$MIN_SCORE = 0;
+	$MAX_SCORE = 6;
 	//Debug?
 	if (!isset($debug_page)) $debug_page = false;
 	$develwarning = '';

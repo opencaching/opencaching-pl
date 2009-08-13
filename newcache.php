@@ -55,7 +55,7 @@
 			$record = sql_fetch_array($rs);
 			$ilosc = $record['ilosc'];
 			
-			if (($hide_flag == 0) && (($data == 0) || ($ilosc < 5))) {
+			if ((($hide_flag == 0) && (($data == 0) || ($ilosc < 5000))) && $block_new_user_caches ) {
 				
 				$tplname = 'newcache_forbidden';
 				require_once($rootpath . '/lib/caches.inc.php');

@@ -169,13 +169,6 @@
 		tpl_set_var('average_dist_hidden_caches_label', $language[$lang]['average_dist_hidden_caches_label']);
 		tpl_set_var('average_dist_hidden_caches', $average_dist_hidden_caches);
 
-	
-	
-	
-	
-	
-	
-	
 		$rs = sql("SELECT `user`.`username`, `user`.`stat_ban`, `user`.`email`, `user`.`pmr_flag`, `user`.`date_created`, `user`.`latitude`, `user`.`longitude`, `countries`.`pl` AS `country`, `user`.`hidden_count`, `user`.`founds_count`, `user`.`uuid` FROM `user` LEFT JOIN `countries` ON (`user`.`country`=`countries`.`short`) WHERE `user`.`user_id`='&1'", $userid);
 
 		if (mysql_num_rows($rs) == 0)
@@ -311,7 +304,7 @@
 			
 			// Umożliwienie zakładania skrzynek dla nowych użytkowników
 
-			if( $usr['admin'] ) {
+			if( $usr['admin'] && $block_new_user_caches ) {
 				$rs = sql("SELECT `user_id` as data FROM `user` WHERE `date_created` < CURDATE() + INTERVAL -1 MONTH AND `user_id` =  ". sql_escape($userid)."");
 				$data = mysql_num_rows($rs);
 			

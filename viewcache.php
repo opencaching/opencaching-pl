@@ -261,28 +261,28 @@
 				tpl_set_var('score_end', "");
 				$score = sprintf("%.1f",$cache_record['score']);
 				$font_size = "4";
-				if( $score <= -2.5 )
+				if( $score <= 0.5 )
 					$scorecolor = "#FF0000";
 				else
-				if( $score > -2.5 && $score <= -2.0 )
+				if( $score > 0.5 && $score <= 1.0 )
 					$scorecolor = "#FF3300";
 				else
-				if( $score > -2.0 && $score <= -1.5 )
+				if( $score > 1.0 && $score <= 1.5 )
 					$scorecolor = "#FF6600";
 				else
-				if( $score > -1.5 && $score <= 0.5 )
+				if( $score > 1.5 && $score <= 3.5 )
 					$scorecolor = "#FF9900";
 				else
-				if( $score > 0.5 && $score <= 1.5 )
+				if( $score > 3.5 && $score <= 4.5 )
 					$scorecolor = "#99FF00";
 				else
-				if( $score > 1.5 && $score <= 2.0 )
+				if( $score > 4.5 && $score <= 5.0 )
 					$scorecolor = "#66FF00";
 				else
-				if( $score > 2.0 && $score <= 2.5 )
+				if( $score > 5.0 && $score <= 5.5 )
 					$scorecolor = "#33FF00";
 				else
-				if( $score > 2.5)
+				if( $score > 5.5)
 					$scorecolor = "#00FF00";
 			}
 			tpl_set_var('score', $score);
