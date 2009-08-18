@@ -409,22 +409,22 @@ function switchCat2()
 			<td valign="top" class="content-title-noshade">{score}:</td>
 			<td class="content-title-noshade">
 				{from} <select name="cachevote_1" class="input40" onchange="javascript:sync_options(this)">
-					<option value="-3" selected="selected">-3</option>
-					<option value="-2">-2</option>
-					<option value="-1">-1</option>
+					<option value="0" selected="selected">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+				</select>
+				{to} <select name="cachevote_2" class="input40" onchange="javascript:sync_options(this)">
 					<option value="0">0</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
-				</select>
-				{to} <select name="cachevote_2" class="input40" onchange="javascript:sync_options(this)">
-					<option value="-3">-3</option>
-					<option value="-2">-2</option>
-					<option value="-1">-1</option>
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3" selected="selected">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6" selected="selected">6</option>
 				</select>
 				<input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/><label for="l_cachenovote">{with_hidden_score}</label>
 			</td>

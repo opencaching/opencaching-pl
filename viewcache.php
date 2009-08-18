@@ -175,7 +175,7 @@
 			{
 				$lm = sql_fetch_array($rs);
 				$last_modified = strtotime($lm['last_modified']);
-				tpl_set_var('last_modified', htmlspecialchars(strftime("%d %B %Y", $last_modified), ENT_COMPAT, 'UTF-8'));
+				tpl_set_var('last_modified', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $last_modified), ENT_COMPAT, 'UTF-8')));
 			}
 			mysql_free_result($rs);
 			unset($ls);
@@ -426,7 +426,7 @@
 			tpl_set_var('cache_log_pw', (($cache_record['logpw'] == NULL) || ($cache_record['logpw'] == '')) ? '' : $cache_log_pw);
 			tpl_set_var('nocrypt', $no_crypt);
 			$hidden_date = strtotime($cache_record['date_hidden']);
-			tpl_set_var('hidden_date', htmlspecialchars(strftime("%d %B %Y", $hidden_date), ENT_COMPAT, 'UTF-8'));
+			tpl_set_var('hidden_date', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $hidden_date), ENT_COMPAT, 'UTF-8')));
 
 			$listed_on = array();
 			if($cache_record['wp_gc'] != '')
@@ -458,7 +458,7 @@
 			}
 
 			$date_created = strtotime($cache_record['date_created']);
-			tpl_set_var('date_created', htmlspecialchars(strftime("%d %B %Y", $date_created), ENT_COMPAT, 'UTF-8'));
+			tpl_set_var('date_created', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $date_created), ENT_COMPAT, 'UTF-8')));
 
 			tpl_set_var('difficulty_icon_diff', icon_difficulty("diff", $cache_record['difficulty']));
 			tpl_set_var('difficulty_text_diff', htmlspecialchars(sprintf($difficulty_text_diff, $cache_record['difficulty'] / 2), ENT_COMPAT, 'UTF-8'));

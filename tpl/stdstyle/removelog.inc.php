@@ -19,15 +19,15 @@
 
 /****************************************************************************
 	       
-   Unicode Reminder メモ
+   Unicode Reminder ??
                                   				                                
 	 language specific vars
 		
  ****************************************************************************/
 
- $error_wrong_node = "Wpis do tego LOG'u pochodzi z innego OpenCaching serwera i tam może być tylko usunięty.";
+ $error_wrong_node = "Wpis do tego logu pochodzi z innego serwera Opencaching i tylko tam można go usunąć.";
 
- $removed_log_title = 'Info: twoj wpis do Logu został usunięty przez właściciela skrzynki';
- $removed_message_titel = "Właściciel skrzynki napisał do ciebie nastepujący komentarz:\n---";
+ $removed_log_title = 'Twój wpis do logu został usunięty przez właściciela skrzynki';
+ $removed_message_titel = "Właściciel skrzynki napisał do Ciebie następujący komentarz:\n---";
  $removed_message_end = "---";
 ?>

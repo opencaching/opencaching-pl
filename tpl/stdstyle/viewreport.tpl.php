@@ -27,8 +27,7 @@
 			<p class="content-title-noshade-size1">{note_lbl}</p><br/>
 			<p>{active_form}</p>
 			<p>{note_area}</p>
-		</div>
-			
+		</div>			
 		<div class="buffer"></div>
 		<div class="content2-container line-box">
 			<p class="content-title-noshade-size1">{perform_action_lbl}</p>

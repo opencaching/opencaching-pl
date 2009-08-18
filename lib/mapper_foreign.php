@@ -29,29 +29,29 @@
 			else
 			{
 				// show cache's score
-				if( $score <= -2.5 )
+				if( $score <= 0.5 )
 					return imagecolorallocate($im, 255,0,0);
-				if( $score > -2.5 && $score <= -2.0 )
+				if( $score > 0.5 && $score <= 1.0 )
 					return imagecolorallocate($im, 255,51,0);
-				if( $score > -2.0 && $score <= -1.5 )
+				if( $score > 1.0 && $score <= 1.5 )
 					return imagecolorallocate($im, 255,102,0);
-				if( $score > -1.5 && $score <= 0.5 )
+				if( $score > 1.5 && $score <= 3.5 )
 					return imagecolorallocate($im, 255,153,0);
-				if( $score > 0.5 && $score <= 1.5 )
+				if( $score > 3.5 && $score <= 4.5 )
 					return imagecolorallocate($im, 153,255,0);
-				if( $score > 1.5 && $score <= 2.0 )
+				if( $score > 4.5 && $score <= 5.0 )
 					return imagecolorallocate($im, 102,255,0);
-				if( $score > 2.0 && $score <= 2.5 )
+				if( $score > 5.0 && $score <= 5.5 )
 					return imagecolorallocate($im, 51,255,0);
-				if( $score > 2.5)
+				if( $score > 5.5)
 					return imagecolorallocate($im, 0,255,0);
 			}
 	}
 	
 	function latlon_to_pix($lat,$lon, $rect) 
 	{
-		$lat = abs($lat);
-		$lon = abs($lon);
+		$lat = ($lat);
+		$lon = ($lon);
 		$x_min   = 0;  $x_max   = 256;
 		$y_min   = 0;  $y_max   = 256;
 		$lon_max = $rect->x; $lon_min = $rect->x+$rect->width;

@@ -277,13 +277,14 @@ function toggleAttr(id)
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	{pictures}
-	<tr><td class="buffer" colspan="2"></td></tr>
-	<tr><td class="header-small" colspan="2">
-		<img src="tpl/stdstyle/images/description/22x22-misc.png" width="22" height="22" align="middle" border="0">
-		Inne</td></tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td>Data ukrycia:</td>
+		<td colspan="2">
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/description/22x22-misc.png" width="22" height="22" align="middle" border="0"/>Inne</p>
+		</td>
+	</tr>
+	<tr><td class="buffer" colspan="2"></td></tr>
+	<tr>
+		<td class="content-title-noshade">Data ukrycia:</td>
 		<td>
 			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}"/>.
 			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{date_month}"/>.
@@ -291,24 +292,21 @@ function toggleAttr(id)
 			{date_message}
 		</td>
 	</tr>
-	<tr><td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwaga" title="Uwaga"><font color="red">UWAGA! W przypadku skrzynki typu WYDARZENIE data ukrycia to data rozpoczecia wydarzenia.</font></td></tr>
-
+	<tr><td colspan="2"><div class="notice">W przypadku skrzynki typu WYDARZENIE, należy podać datę rozpoczęcia wydarzenia.</div></td></tr>
 	{activation_form}
-
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td nowrap>Hasło do Logu:</td>
-		<td><input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> (pozostaw puste jeśli bez hasła)</td>
+		<td class="content-title-noshade" nowrap="nowrap">Hasło do Logu:</td>
+		<td ><input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> (pozostaw puste jeśli bez hasła)</td>
 	</tr>
-	<tr><td class="help" colspan="2"><img src="/tpl/stdstyle/images/misc/hint-link.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi">Zapoznaj się z <a href="articles.php?page=cacheinfo#logpw" target="_blank">informacją o hasle w Logu</a>!</td></tr>
-	<tr><td class="help" colspan="2"><img src="/tpl/stdstyle/images/misc/hint-link.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi"><font color="red">Zakładając nową skrzynkę akceptujesz <a href="articles.php?page=impressum#tos" target="_blank">Zasady użytkowania OC PL</a></font></td></tr>
+	<tr><td colspan="2"><div class="notice">Zapoznaj się z <a href="articles.php?page=cacheinfo#logpw" target="_blank">informacją o haśle w logu</a>!</div></td></tr>
+	<tr><td colspan="2"><div class="notice">Zakładając nową skrzynkę akceptujesz <a href="articles.php?page=impressum#tos" target="_blank">Zasady użytkowania OC PL</a>.</div></td></tr>
 
-	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
+	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="header-small" colspan="2">
-			<input type="reset" name="reset" value="{reset}" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submit" value="{submit}" style="width:120px"/>
+		<td colspan="2">
+			<input type="reset" name="reset" value="{reset}" class="formbuttons"/>&nbsp;&nbsp;
+			<input type="submit" name="submit" value="{submit}" class="formbuttons"/>
 		</td>
 	</tr>
 </table>

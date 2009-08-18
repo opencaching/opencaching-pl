@@ -19,7 +19,7 @@
 
 /****************************************************************************
 	  
-   Unicode Reminder メモ
+   Unicode Reminder ??
                                        				                                
 	 remove a cache log
 		
@@ -32,20 +32,9 @@
 <form action="removelog.php" method="post" enctype="application/x-www-form-urlencoded" name="removelog_form" dir="ltr">
 <input type="hidden" name="commit" value="1"/>
 <input type="hidden" name="logid" value="{logid}"/>
-<table class="content">
-	<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/description/22x22-logs.png" border="0" width="32" height="32" alt="" title="" align="middle"> <b>Kasowanie wpisu z LOGu dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
-	<tr><td class="spacer"></td></tr>
-
-	<tr><td>Jesteś pewien że chcesz usunąć wpis z Logu?</td></tr>
-	<tr><td class="spacer"></td></tr>
-
-	<tr><TD>{log}</TD></tr>
-	<tr><td class="spacer"></td></tr>
-
-	<tr>
-		<td class="header-small">
-		<input type="submit" name="submit" value="Usunac wpis z Logu" style="width:120px"/>
-		</td>
-	</tr>
-</table>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/description/22x22-logs.png" border="0" width="22" height="22" alt="" title="" align="middle"/>&nbsp;Kasowanie wpisu z logu dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
+<div class="buffer"></div>
+<p>Czy na pewno chcesz usunąć wpis z logu?</p>
+<p>{log}</p>
+<p><input type="submit" name="submit" value="Usuń wpis z logu" class="formbuttons"/></p>
 </form>

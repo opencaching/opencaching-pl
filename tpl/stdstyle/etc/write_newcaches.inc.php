@@ -143,7 +143,39 @@
 			'icon_large' => $record['icon_large']
 		);
 	}
+	uksort($newcaches, 'cmp');
 
+	$file_content = '
+		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle"/>&nbsp;Najnowsze skrzynki poza Polską</div>
+		<div class="content2-container line-box">
+			';
+	if (isset($newcaches))
+	{
+		foreach ($newcaches AS $countryname => $country_record)
+		{
+			$file_content .= '<p class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</p>';
+
+			foreach ($country_record AS $cache_record)
+			{
+				$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($cache_record['icon_large']);
+
+				$file_content .= "<p>";
+				$file_content .= htmlspecialchars(date("d.m.Y", strtotime($cache_record['date'])), ENT_COMPAT, 'UTF-8');
+				$file_content .= ' - <img src="'.$cacheicon.'" border="0" width="16" height="16" alt="Cache" title="Cache"/>';
+				$file_content .= '<a href="viewcache.php?cacheid=' . htmlspecialchars($cache_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . '</a>';
+				$file_content .= ' założona przez <a href="viewprofile.php?userid=' . $cache_record['userid'] . '">' . htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8') . '</a>' . "\n";
+				$file_content .= "</p>";
+			}
+		}
+	}
+
+	$file_content .= '</div>';
+	//$n_file = fopen($dynstylepath . "newcachesrest.tpl.php", 'w');
+	$n_file = fopen("../html/newcachesrest.tpl.php", 'w');
+	fwrite($n_file, $file_content);
+	fclose($n_file);
+	unset($newcaches);
+	
 	//nextevents.include
 	$rs = sql('	SELECT	`user`.`user_id` `user_id`,
 				`user`.`username` `username`,

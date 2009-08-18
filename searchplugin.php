@@ -32,9 +32,9 @@
 	// initialize
 	$keyword_name = 'name';
 	$keyword_finder = 'finder';
-	$keyword_owner = 'besitzer';
-	$keyword_town = 'ort';
-	$keyword_zipcode = 'plz';
+	$keyword_owner = 'owner';
+	$keyword_town = 'town';
+	$keyword_zipcode = 'place';
 	$keyword_cacheid = 'id';
 	$keyword_wp = 'wp';
 

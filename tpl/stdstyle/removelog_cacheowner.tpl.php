@@ -19,7 +19,7 @@
 
 /****************************************************************************
 	   
-   Unicode Reminder メモ
+   Unicode Reminder ??
                                       				                                
 	 remove a cache log
 		
@@ -28,27 +28,27 @@
 <form action="removelog.php" method="post" enctype="application/x-www-form-urlencoded" name="removelog_form" dir="ltr">
 <input type="hidden" name="commit" value="1"/>
 <input type="hidden" name="logid" value="{logid}"/>
-<table class="content">
-	<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/description/22x22-logs.png" border="0" width="32" height="32" alt="" title="" align="middle"> <b>Kasowanie wpisu z LOGu dla <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
-	<tr><td class="spacer"></td></tr>
+<table class="table">
+	<tr><td colspan="2"><img src="tpl/stdstyle/images/description/22x22-logs.png" border="0" width="32" height="32" alt="" title="" align="middle"/> <b>Kasowanie wpisu z lohu dla <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
+	<tr><td class="buffer"></td></tr>
 
-	<tr><td>Jesteś pewien że chcesz usunąć wpis z Logu?</td></tr>
-	<tr><td class="spacer"></td></tr>
+	<tr><td>Czy na pewno chcesz usunąć wpis z logu?</td></tr>
+	<tr><td class="buffer"></td></tr>
 
 	<tr><TD>{log}</TD></tr>
-	<tr><td class="spacer"></td></tr>
+	<tr><td class="buffer"></td></tr>
 
-	<tr><td class="header-small">Chciałbyś wysłać dodatkowo uwagę do {log_user_name}?</td></tr>
+	<tr><td >Chciałbyś wysłać dodatkowo uwagę do {log_user_name}?</td></tr>
 	<tr>
 		<td>
 		<textarea class="logs" name="logowner_message"></textarea>
 		</td>
 	</tr>
-	<tr><td class="spacer"></td></tr>
+	<tr><td class="buffer"></td></tr>
 
 	<tr>
-		<td class="header-small">
-		<input type="submit" name="submit" value="Usunac wpis z Logu" style="width:120px"/>
+		<td >
+		<input type="submit" name="submit" value="Usuń wpis z logu" class="formbuttons"/>
 		</td>
 	</tr>
 </table>

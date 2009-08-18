@@ -344,7 +344,7 @@
 			else
 			{
 				if (isset($_REQUEST['showresult']))
-					tpl_errorMsg('search', 'Unbekannter Suchtyp');
+					tpl_errorMsg('search', 'Waypoint musi być w jednym z podanych formatów: OPxxxx, GCxxxxx, NCxxxx');
 				else
 				{
 					$options['searchtype'] = 'byname';
@@ -856,7 +856,7 @@
 				}
 				else
 				{
-					tpl_errorMsg('search', 'Unbekannter Suchtyp');
+					tpl_errorMsg('search', 'Waypoint musi być w jednym z podanych formatów: OPxxxx, GCxxxxx, NCxxxx');
 				}
 
 				// additional options
@@ -962,10 +962,10 @@
 					$options['cachevote_1']='';	
 					$options['cachevote_2']='';	
 				}
-				if( ( ($options['cachevote_1'] != '') && ($options['cachevote_2'] != '') ) && ( ($options['cachevote_1'] != '-3') || ($options['cachevote_2'] != '3') ) && ( (!isset($options['cachenovote'])) || ($options['cachenovote'] != '1') ) )
+				if( ( ($options['cachevote_1'] != '') && ($options['cachevote_2'] != '') ) && ( ($options['cachevote_1'] != '0') || ($options['cachevote_2'] != '6') ) && ( (!isset($options['cachenovote'])) || ($options['cachenovote'] != '1') ) )
 				{
 					$sql_where[] = '`caches`.`score` BETWEEN \'' . sql_escape($options['cachevote_1']) . '\' AND \'' . sql_escape($options['cachevote_2']) . '\' AND `caches`.`votes` > 3';
-				} else if ( ($options['cachevote_1'] != '') && ($options['cachevote_2'] != '') && ( ($options['cachevote_1'] != '-3') || ($options['cachevote_2'] != '3') ) && isset($options['cachenovote']) && ($options['cachenovote'] == '1') )  {
+				} else if ( ($options['cachevote_1'] != '') && ($options['cachevote_2'] != '') && ( ($options['cachevote_1'] != '0') || ($options['cachevote_2'] != '6') ) && isset($options['cachenovote']) && ($options['cachenovote'] == '1') )  {
 					$sql_where[] = '((`caches`.`score` BETWEEN \'' . sql_escape($options['cachevote_1']) . '\' AND \'' . sql_escape($options['cachevote_2']) . '\' AND `caches`.`votes` > 3) OR (`caches`.`votes` < 4))';
 				}
 

@@ -19,7 +19,7 @@
 
 /****************************************************************************
 	    
-   Unicode Reminder メモ
+   Unicode Reminder ??
                                      				                                
 	 language vars
 	
@@ -35,5 +35,5 @@
 	$pictureline = '<td><a href="javascript:SelectFile(\'{link}\');">{title}<br/><img src="{link}" width="180"></a></td>';
 	$picturelines = '{lines}';
 
-	$submit = 'Wyslij';
+	$submit = 'Wyślij';
 ?>

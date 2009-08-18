@@ -53,7 +53,7 @@ $error_general = '<div class="warning">'.$language[$lang]['error_new_cache'].'</
 	$default_lang = 'PL';
 
 	 $activation_form = '
-		<tr><td class="spacer" colspan="2"></td></tr>
+		<tr><td class="buffer" colspan="2"></td></tr>
 		<tr>
 			<td>Publikacja skrzynki:</td>
 			<td>

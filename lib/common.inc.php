@@ -502,6 +502,7 @@ session_start();
 		tpl_set_var('finder_label',$language[$lang]['finder_label']);
 		tpl_set_var('search',$language[$lang]['search']);
 		tpl_set_var('cache_label',$language[$lang]['cache']);
+		tpl_set_var('waypoint_label',$language[$lang]['waypoint']);
 
 		$bTemplateBuild = new Cbench;
 		$bTemplateBuild->Start();
@@ -1231,4 +1232,20 @@ function wpToId($wp)
 	return mysql_result(mysql_query($sql),1);
 }
 
+function fixPlMonth($string)
+{
+	$string = str_ireplace('styczeń', 'stycznia', $string);
+	$string = str_ireplace('luty', 'lutego', $string);
+	$string = str_ireplace('marzec', 'marca', $string);
+	$string = str_ireplace('kwiecień', 'kwietnia', $string);
+	$string = str_ireplace('maj', 'maja', $string);
+	$string = str_ireplace('czerwiec', 'czerwca', $string);
+	$string = str_ireplace('lipiec', 'lipca', $string);
+	$string = str_ireplace('sierpień', 'sierpnia', $string);
+	$string = str_ireplace('wrzesień', 'września', $string);
+	$string = str_ireplace('październik', 'października', $string);
+	$string = str_ireplace('listopad', 'listopada', $string);
+	$string = str_ireplace('grudzień', 'grudnia', $string);
+	return $string;
+}
 ?>

@@ -19,7 +19,7 @@
 
 /****************************************************************************
 	      
-   Unicode Reminder メモ
+   Unicode Reminder ??
                                    				                                
 	 edit a cache listing
 	
@@ -43,86 +43,55 @@
 <input type="hidden" name="show_all_langs_value" value="{show_all_langs_value}"/>
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
-<table class="content">
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/description/22x22-description.png" border="0" width="22" height="22" alt="" title="" align="middle"/>&nbsp;Edycja opisu skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
+	<table class="table">
 	<colgroup>
-		<col width="100">
-		<col>
+		<col width="100"/>
+		<col/>
 	</colgroup>
-	<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/description/22x22-description.png" border="0" width="22" height="22" alt="" title="Nowy Cache" align="middle"> <b>Edycja opisu skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-
 	<tr>
-		<td>Język:</td>
+		<td class="content-title-noshade">Język:</td>
 		<td>
 			<select name="desclang">
 				{desclangs}
 			</select>{show_all_langs_submit}
 		</td>
 	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-
+	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td>Krótki opis:</td>
+		<td class="content-title-noshade">Krótki opis:</td>
 		<td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400"/></td>
 	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr>
-		<td colspan="2" class="help"><img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwaga" title="Uwaga">
-		Możesz dołożyć dodatkowe atrybuty do opisy skrzynki korzystając z tego formularza: <b><a href="cache-atr.php" target="_BLANK">Dodatkowe atrybuty skrzynki</a></b>.
-		</td>
-	</tr>
-
-	<tr>
-		<td colspan="2">Pełny opis:{desc_err}</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<div class="menuBar">
-				<span id="descText" class="buttonNormal" onclick="btnSelect(1)" onmouseover="btnMouseOver(1)" onmouseout="btnMouseOut(1)">Text</span>
-				<span class="buttonSplitter">|</span>
-				<span id="descHtml" class="buttonNormal" onclick="btnSelect(2)" onmouseover="btnMouseOver(2)" onmouseout="btnMouseOut(2)">&lt;html&gt;</span>
-				<span class="buttonSplitter">|</span>
-				<span id="descHtmlEdit" class="buttonNormal" onclick="btnSelect(3)" onmouseover="btnMouseOver(3)" onmouseout="btnMouseOut(3)">Editor</span>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<span id="scriptwarning" class="errormsg">Javascript jest włączona przez twoją przeglądarke.Możesz tylko wprowadzić zwykły tekst. Aby wprawdzić kod HTML i użyć edytor musisz włączyć obsługe Javascript.</span>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<textarea id="desc" name="desc" cols="80" rows="25">{desc}</textarea>
-    </td>	
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr>
-		<td class="help" colspan="2">
-			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi"> Używaj tylko znaczników HTML do formatowania tekstu. Wykaz dozwolonych znaczników znajdziesz
-			<a href="articles.php?page=htmltags">TUTAJ</a>.<br>
-			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwaga" title="Uwaga">
-			Proszę nie używać obrazków z geocaching.com.
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr>
-		<td colspan="2">Dodatkowe informacje które będą kodowane:</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<textarea name="hints" class="mceNoEditor" cols="80" rows="15">{hints}</textarea>
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr>
-		<td class="header-small" colspan="2">
-			<input type="reset" name="reset" value="{reset}" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submitform" value="{submit}" style="width:120px"/>
-		</td>
-	</tr>
-</table>
+	<tr><td class="buffer" colspan="2"></td></tr>
+	</table>
+	<div class="notice">Możesz dołożyć dodatkowe atrybuty do opisy skrzynki korzystając z tego formularza: <a href="cache-atr.php" target="_BLANK">Dodatkowe atrybuty skrzynki</a>.</div>
+	<div class="buffer"></div>
+	<div>
+		<p class="content-title-noshade-size1">Pełny opis:{desc_err}</p>
+		<div class="buffer"></div>
+		<div class="menuBar">
+			<span id="descText" class="buttonNormal" onclick="btnSelect(1)" onmouseover="btnMouseOver(1)" onmouseout="btnMouseOut(1)">Text</span>
+			<span class="buttonSplitter">|</span>
+			<span id="descHtml" class="buttonNormal" onclick="btnSelect(2)" onmouseover="btnMouseOver(2)" onmouseout="btnMouseOut(2)">&lt;html&gt;</span>
+			<span class="buttonSplitter">|</span>
+			<span id="descHtmlEdit" class="buttonNormal" onclick="btnSelect(3)" onmouseover="btnMouseOver(3)" onmouseout="btnMouseOut(3)">Editor</span>
+		</div>
+	</div>
+	<p id="scriptwarning" class="errormsg">Javascript jest wyłączona w Twojej przeglądarce. Możesz tylko wprowadzić zwykły tekst. Aby wprawdzić kod HTML i użyć edytor musisz włączyć obsługę Javascript.</p>
+	<p><textarea id="desc" name="desc" cols="80" rows="25">{desc}</textarea></p>
+	<div class="buffer"></div>
+	<div class="notice">Używaj tylko znaczników HTML do formatowania tekstu. Wykaz dozwolonych znaczników znajdziesz <a href="articles.php?page=htmltags">tutaj</a>.</div>
+	<div class="notice">Proszę nie używać obrazków z geocaching.com.</div>
+	<div class="buffer"></div>
+	<div><p class="content-title-noshade-size1">Dodatkowe informacje które będą kodowane:</p></div>
+	<div class="buffer"></div>
+	<div><textarea name="hints" class="mceNoEditor" cols="80" rows="15">{hints}</textarea></div>
+	<div class="buffer"></div>
+	<div>
+			<input type="reset" name="reset" value="{reset}" class="formbuttons"/>&nbsp;&nbsp;
+			<input type="submit" name="submitform" value="{submit}" class="formbuttons"/>
+	</div>
+	<div class="buffer"></div>
 </form>
 <script language="javascript" type="text/javascript">
 <!--
