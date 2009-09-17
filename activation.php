@@ -69,20 +69,20 @@
 				$rs = sql("SELECT `user_id` `id`, `activation_code` `code` FROM `user` WHERE `email`='&1'", $email);
 				if ($r = sql_fetch_array($rs))
 				{
-					//if (($r['code'] == $code) && ($code != ''))
-					//{
+					if (($r['code'] == $code) && ($code != ''))
+					{
 						// ok, account aktivieren
 						sql("UPDATE `user` SET `is_active_flag`=1, `activation_code`='' WHERE `user_id`='&1'", $r['id']);
 
 						$tplname = 'activation_confirm';
-					/*}
+					}
 					else
 					{
 						tpl_set_var('message_start', '');
 						tpl_set_var('message_end', '');
 						tpl_set_var('message', $message_no_success);
 					}
-*/				}
+				}
 				else
 				{
 					tpl_set_var('message_start', '');
