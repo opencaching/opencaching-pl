@@ -77,7 +77,7 @@ if( $usr['admin'] )
 			
 			$sql = "SELECT COUNT(*) founds_count 
 							FROM cache_logs 
-							WHERE user_id='$userid' AND type=1";
+							WHERE user_id='$userid' AND type=1 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
 				$founds_count = mysql_result($odp,0);
@@ -86,7 +86,7 @@ if( $usr['admin'] )
 			
 			$sql = "SELECT COUNT(*) not_founds_count 
 							FROM cache_logs 
-							WHERE user_id='$userid' AND type=2";
+							WHERE user_id='$userid' AND type=2 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
 				$not_founds_count = mysql_result($odp,0);

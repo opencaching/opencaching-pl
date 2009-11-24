@@ -28,7 +28,7 @@
 		$_GET['h_arch'] = "true";
 	}
 	else
-		$own_not_attempt = "caches.cache_id IN (SELECT cache_id FROM cache_logs WHERE user_id='".sql_escape($user_id)."' AND (type=1 OR type=8))";
+		$own_not_attempt = "caches.cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='".sql_escape($user_id)."' AND (type=1 OR type=8))";
 	
 	$hide_by_type = "";
 	if( $_GET['h_u'] == "true" )

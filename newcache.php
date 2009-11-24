@@ -51,11 +51,13 @@
 			$rs = sql("SELECT `user_id` as data FROM `user` WHERE `date_created` < CURDATE() + INTERVAL -1 MONTH AND `user_id` =  ". sql_escape($usr['userid'])."");
 			$data = mysql_num_rows($rs);
 			
-			$rs = sql("SELECT COUNT(`cache_logs`.`id`) as ilosc FROM `cache_logs`, `caches` WHERE `cache_logs`.`type` = 1 AND `caches`.`cache_id` = `cache_logs`.`cache_id` AND `caches`.`type` NOT IN(4,5) AND `cache_logs`.`user_id` = ". sql_escape($usr['userid'])."");
+			$rs = sql("SELECT COUNT(`cache_logs`.`id`) as ilosc FROM `cache_logs`, `caches` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`type` = 1 AND `caches`.`cache_id` = `cache_logs`.`cache_id` AND `caches`.`type` NOT IN(4,5) AND `cache_logs`.`user_id` = ". sql_escape($usr['userid'])."");
 			$record = sql_fetch_array($rs);
 			$ilosc = $record['ilosc'];
 			
-			if ((($hide_flag == 0) && (($data == 0) || ($ilosc < 5000))) && $block_new_user_caches ) {
+			// $hide_flag = 0 --> block new user caches.
+			// $hide_flag = 10 --> force block
+			if (((($hide_flag == 0) && (($data == 0) || ($ilosc < 5))) && $block_new_user_caches) || $hide_flag == 10) {
 				
 				$tplname = 'newcache_forbidden';
 				require_once($rootpath . '/lib/caches.inc.php');

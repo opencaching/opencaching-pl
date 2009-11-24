@@ -92,7 +92,7 @@
 					case 1:
 						sql("UPDATE `cache_logs` SET `picturescount`=`picturescount`-1 WHERE `id`='&1'", $objectid);
 						
-						$rs = sql("SELECT `cache_id` FROM `cache_logs` WHERE `id`='&1'", $objectid);
+						$rs = sql("SELECT `cache_id` FROM `cache_logs` WHERE `deleted`=0 AND `id`='&1'", $objectid);
 						$r = sql_fetch_array($rs);
 						mysql_free_result($rs);
 

@@ -2,7 +2,7 @@
 /***************************************************************************
  *  You can find the license in the docs directory
  *
- *  Unicode Reminder メモ
+ *  Unicode Reminder ??
  *
  *  Display some status information about the server and Opencaching
  ***************************************************************************/
@@ -21,7 +21,8 @@
 		   FROM `caches`
 	  LEFT JOIN `cache_logs` ON `caches`.`cache_id`=`cache_logs`.`cache_id` AND 
 				`cache_logs`.`type`=1 AND 
-				`cache_logs`.`date`>'2007-02-21' 
+				`cache_logs`.`date`>'2007-02-21' AND
+				`cache_logs`.`deleted`=0 
 	   GROUP BY `caches`.`cache_id`");
 	sql("UPDATE `topFounds` SET `founds`=0 WHERE ISNULL(`founds`)");
 

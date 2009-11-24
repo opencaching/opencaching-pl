@@ -63,7 +63,7 @@
 			
 			$sql = "SELECT COUNT(*) founds_count 
 							FROM cache_logs 
-							WHERE user_id=$userid AND type=1";
+							WHERE user_id=$userid AND type=1 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
 				$founds_count = mysql_result($odp,0);
@@ -72,7 +72,7 @@
 			
 			$sql = "SELECT COUNT(*) events_count 
 							FROM cache_logs 
-							WHERE user_id=$userid AND type=7";
+							WHERE user_id=$userid AND type=7 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
 				$events_count = mysql_result($odp,0);
@@ -81,7 +81,7 @@
 			
 			$sql = "SELECT COUNT(*) notfounds_count 
 							FROM cache_logs 
-							WHERE user_id=$userid AND type=2";
+							WHERE user_id=$userid AND type=2 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
 				$notfounds_count = mysql_result($odp,0);
@@ -90,7 +90,7 @@
 			
 			$sql = "SELECT COUNT(*) log_notes_count 
 							FROM cache_logs 
-							WHERE user_id=$userid AND type=3";
+							WHERE user_id=$userid AND type=3 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
 				$log_notes_count = mysql_result($odp,0);
@@ -110,7 +110,8 @@
 					SELECT `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `caches`.`name` `name`,
 						`log_types`.`icon_small`, `log_types_text`.`text_combo`
 					FROM `cache_logs`, `caches`, `log_types`, `log_types_text`
-					WHERE `cache_logs`.`user_id`='&1'
+					WHERE `cache_logs`.`user_id`='&1' 
+					AND `cache_logs`.`deleted`=0 
 					AND `cache_logs`.`cache_id`=`caches`.`cache_id`
 					AND `log_types`.`id`=`cache_logs`.`type`
 					AND `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`='&2'

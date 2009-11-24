@@ -87,10 +87,6 @@ switch($_GET['order']) {
 		$ORDERBY = "cache_id DESC";
 }
 
-//$user_id = (int) $_GET['klaun'];
-//$result = mysql_query("SELECT cache_id, name, username, caches.latitude, caches.longitude, caches.type, caches.status, datediff(now(), caches.date_hidden) as old, caches.user_id, IF(cache_id IN (SELECT cache_id FROM cache_logs WHERE user_id='".sql_escape($user_id)."' AND type=1), 1, 0) as found FROM user, caches WHERE (caches.user_id = user.user_id) AND (caches.status != 4) AND ((caches.latitude>'".sql_escape($latSW)."' AND caches.latitude<'".sql_escape($latNE)."') AND (caches.longitude>'".sql_escape($lonSW)."' AND caches.longitude<'".sql_escape($lonNE)."')) ORDER BY cache_desc DESC LIMIT ".sql_escape($page).", " . sql_escape($PER_PAGE));
-//$sysres = mysql_query("SELECT count(cache_id) as num FROM caches WHERE (caches.status != 4) AND ((caches.latitude>'".sql_escape($latSW)."' AND caches.latitude<'".sql_escape($latNE)."') AND (caches.longitude>'".sql_escape($lonSW)."' AND caches.longitude<'".sql_escape($lonNE)."'));");
-
 $filter_by_type_string = "";
 $typy = array('u','t','m','v','w','e','q','o','c','d','I','W','Z','A','N','C','T','Y');
 
@@ -114,11 +110,11 @@ for( $i=0;$i<strlen($filter);$i++)
 			$filter_by_type_string .= " AND cache_id NOT IN (SELECT cache_id FROM caches WHERE user_id='".sql_escape($user_id)."')";
 		
 		if( $i == 12 && $filter[$i] == 0 ) // Z
-			$filter_by_type_string .= " AND cache_id NOT IN (SELECT cache_id FROM cache_logs WHERE user_id='".sql_escape($user_id)."' AND (type='1' OR type='8'))";
+			$filter_by_type_string .= " AND cache_id NOT IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='".sql_escape($user_id)."' AND (type='1' OR type='8'))";
 		
 		
 		if( $i == 13 && $filter[$i] == 0 ) // A
-			$filter_by_type_string .= " AND (cache_id IN (SELECT cache_logs.cache_id FROM cache_logs WHERE cache_logs.user_id='".sql_escape($user_id)."' AND (cache_logs.type='1' OR cache_logs.type='8')) OR caches.user_id='".sql_escape($user_id)."')";
+			$filter_by_type_string .= " AND (cache_id IN (SELECT cache_logs.cache_id FROM cache_logs WHERE deleted=0 AND cache_logs.user_id='".sql_escape($user_id)."' AND (cache_logs.deleted=0 AND (cache_logs.type='1' OR cache_logs.type='8'))) OR caches.user_id='".sql_escape($user_id)."')";
 		
 		if( $i == 14 && $filter[$i] == 0 ) // N
 			$filter_by_type_string .= " AND caches.cache_id IN (SELECT cache_id FROM caches WHERE wp_oc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) OR (wp_gc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<> 4 AND typeid<>2)) AND wp_gc <> '') OR (wp_nc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) AND wp_nc <> '')) ";
@@ -132,7 +128,7 @@ for( $i=0;$i<strlen($filter);$i++)
 }
 //$only_active = " AND caches.status = 1";
 
-$result = mysql_query("SELECT caches.cache_id, caches.name, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, IF(cache_id IN (SELECT cache_id FROM cache_logs WHERE user_id='".sql_escape($user_id)."' AND (type=1 OR type=8)), 1, 0) as found FROM user, caches WHERE (caches.user_id = user.user_id) AND ((caches.latitude>'".sql_escape($latSW)."' AND caches.latitude<'".sql_escape($latNE)."') AND (caches.longitude>'".sql_escape($lonSW)."' AND caches.longitude<'".sql_escape($lonNE)."')) ".sql_escape($only_active)." ".($filter_by_type_string)." ORDER BY ".sql_escape($ORDERBY)." LIMIT ".sql_escape($page).", " . sql_escape($PER_PAGE));
+$result = mysql_query("SELECT caches.cache_id, caches.name, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, IF(cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='".sql_escape($user_id)."' AND (type=1 OR type=8)), 1, 0) as found FROM user, caches WHERE (caches.user_id = user.user_id) AND ((caches.latitude>'".sql_escape($latSW)."' AND caches.latitude<'".sql_escape($latNE)."') AND (caches.longitude>'".sql_escape($lonSW)."' AND caches.longitude<'".sql_escape($lonNE)."')) ".sql_escape($only_active)." ".($filter_by_type_string)." ORDER BY ".sql_escape($ORDERBY)." LIMIT ".sql_escape($page).", " . sql_escape($PER_PAGE));
 
 echo "<?xml version=\"1.0\" encoding=\"".$ENCODING."\"?>\n";
 echo "<markers>\n";
@@ -141,9 +137,9 @@ while($res = mysql_fetch_array($result)) {
 	if( onTheList($_SESSION['print_list'], $res['cache_id']) == -1 )
 		$druk = "druk=\"y\"";
 	else $druk = "druk=\"n\"";
-	$founds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE cache_id = ".sql_escape($res['cache_id'])." AND (type=1 OR type=8)");
+	$founds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = ".sql_escape($res['cache_id'])." AND (type=1 OR type=8)");
 	$founds = mysql_result($founds_query,0);
-	$notfounds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE cache_id = ".sql_escape($res['cache_id'])." AND type=2");
+	$notfounds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = ".sql_escape($res['cache_id'])." AND type=2");
 	$notfounds = mysql_result($notfounds_query,0);
 
 	if( $res['votes'] > 2 ) $score = $res['score']; else $score="";
@@ -172,11 +168,11 @@ for( $i=0;$i<strlen($filter);$i++)
 			$filter_by_type_string_foreign .= " AND cache_id NOT IN (SELECT cache_id FROM foreign_caches WHERE user_id='".sql_escape($user_id)."')";
 		
 		if( $i == 12 && $filter[$i] == 0 ) // Z
-			$filter_by_type_string_foreign .= " AND cache_id NOT IN (SELECT cache_id FROM cache_logs WHERE user_id='".sql_escape($user_id)."' AND (type='1' OR type='8'))";
+			$filter_by_type_string_foreign .= " AND cache_id NOT IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='".sql_escape($user_id)."' AND (type='1' OR type='8'))";
 		
 		
 		if( $i == 13 && $filter[$i] == 0 ) // A
-			$filter_by_type_string_foreign .= " AND (cache_id IN (SELECT cache_logs.cache_id FROM cache_logs WHERE cache_logs.user_id='".sql_escape($user_id)."' AND (cache_logs.type='1' OR cache_logs.type='8')) OR foreign_caches.user_id='".sql_escape($user_id)."')";
+			$filter_by_type_string_foreign .= " AND (cache_id IN (SELECT cache_logs.cache_id FROM cache_logs WHERE deleted=0 AND cache_logs.user_id='".sql_escape($user_id)."' AND (cache_logs.deleted=0 AND (cache_logs.type='1' OR cache_logs.type='8'))) OR foreign_caches.user_id='".sql_escape($user_id)."')";
 		
 		if( $i == 14 && $filter[$i] == 0 ) // N
 			$filter_by_type_string_foreign .= " AND foreign_caches.cache_id IN (SELECT cache_id FROM foreign_caches WHERE wp_oc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) OR (wp_gc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<> 4 AND typeid<>2)) AND wp_gc <> '') OR (wp_nc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) AND wp_nc <> '')) ";
@@ -190,7 +186,7 @@ for( $i=0;$i<strlen($filter);$i++)
 }
 //$only_active_foreign = " AND foreign_caches.status = 1";
 
-$sql = "SELECT foreign_caches.cache_id, foreign_caches.name, foreign_caches.username, foreign_caches.wp_oc as wp, /*foreign_caches.votes, foreign_caches.score,*/ foreign_caches.topratings, foreign_caches.latitude, foreign_caches.longitude, foreign_caches.type, foreign_caches.status as status, datediff(now(), foreign_caches.date_hidden) as old, foreign_caches.user_id, IF(cache_id IN (SELECT cache_id FROM cache_logs WHERE user_id='".sql_escape($user_id)."' AND (type=1 OR type=8)), 1, 0) as found FROM foreign_caches WHERE ((foreign_caches.latitude>'".sql_escape($latSW)."' AND foreign_caches.latitude<'".sql_escape($latNE)."') AND (foreign_caches.longitude>'".sql_escape($lonSW)."' AND foreign_caches.longitude<'".sql_escape($lonNE)."')) ".$only_active_foreign." ".$filter_by_type_string_foreign." ORDER BY ".sql_escape($ORDERBY)." LIMIT ".sql_escape($page).", " . sql_escape($PER_PAGE);
+$sql = "SELECT foreign_caches.cache_id, foreign_caches.name, foreign_caches.username, foreign_caches.wp_oc as wp, /*foreign_caches.votes, foreign_caches.score,*/ foreign_caches.topratings, foreign_caches.latitude, foreign_caches.longitude, foreign_caches.type, foreign_caches.status as status, datediff(now(), foreign_caches.date_hidden) as old, foreign_caches.user_id, IF(cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='".sql_escape($user_id)."' AND (type=1 OR type=8)), 1, 0) as found FROM foreign_caches WHERE ((foreign_caches.latitude>'".sql_escape($latSW)."' AND foreign_caches.latitude<'".sql_escape($latNE)."') AND (foreign_caches.longitude>'".sql_escape($lonSW)."' AND foreign_caches.longitude<'".sql_escape($lonNE)."')) ".$only_active_foreign." ".$filter_by_type_string_foreign." ORDER BY ".sql_escape($ORDERBY)." LIMIT ".sql_escape($page).", " . sql_escape($PER_PAGE);
 $result = mysql_query($sql);
 
 while($res = mysql_fetch_array($result)) {
@@ -198,9 +194,9 @@ while($res = mysql_fetch_array($result)) {
 	if( onTheList($_SESSION['print_list'], $res['cache_id']) == -1 )
 		$druk = "druk=\"y\"";
 	else $druk = "druk=\"n\"";
-	$founds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE cache_id = ".sql_escape($res['cache_id'])." AND (type=1 OR type=8)");
+	$founds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = ".sql_escape($res['cache_id'])." AND (type=1 OR type=8)");
 	$founds = mysql_result($founds_query,0);
-	$notfounds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE cache_id = ".sql_escape($res['cache_id'])." AND type=2");
+	$notfounds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = ".sql_escape($res['cache_id'])." AND type=2");
 	$notfounds = mysql_result($notfounds_query,0);
 
 	if( $res['votes'] > 2 ) $score = $res['score']; else $score="";

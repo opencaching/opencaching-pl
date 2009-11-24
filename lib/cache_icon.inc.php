@@ -37,7 +37,7 @@ function getCacheIcon($user_id, $cache_id, $cache_status, $cache_userid, $iconna
 	if(isset($user_id))
 	{
 		$found = 0;
-		$resp = sql("SELECT `type` FROM `cache_logs` WHERE `cache_id`='&1' AND `user_id`='&2' ORDER BY `type`", $cache_id, $user_id);
+		$resp = sql("SELECT `type` FROM `cache_logs` WHERE `cache_id`='&1' AND `user_id`='&2' AND `deleted`=&3 ORDER BY `type`", $cache_id, $user_id, 0);
 		while($row = sql_fetch_assoc($resp))
 		{
 			if($found <= 0)

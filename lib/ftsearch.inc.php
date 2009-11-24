@@ -19,7 +19,7 @@
 
 /****************************************************************************
 
-		Unicode Reminder メモ
+		Unicode Reminder ??
 
 	functions for the full text search-engine
 
@@ -184,25 +184,25 @@ function ftsearch_text2sort($str)
 	$str = mb_ereg_replace('ß', 'ss', $str);
 
   // akzente usw.
-  $str = mb_ereg_replace('à', 'a', $str);
+  $str = mb_ereg_replace('a', 'a', $str);
   $str = mb_ereg_replace('á', 'a', $str);
   $str = mb_ereg_replace('â', 'a', $str);
-	$str = mb_ereg_replace('è', 'e', $str);
+	$str = mb_ereg_replace('e', 'e', $str);
 	$str = mb_ereg_replace('é', 'e', $str);
 	$str = mb_ereg_replace('ë', 'e', $str);
 	$str = mb_ereg_replace('É', 'e', $str);
 	$str = mb_ereg_replace('ô', 'o', $str);
 	$str = mb_ereg_replace('ó', 'o', $str);
-	$str = mb_ereg_replace('ò', 'o', $str);
-	$str = mb_ereg_replace('ê', 'e', $str);
+	$str = mb_ereg_replace('o', 'o', $str);
+	$str = mb_ereg_replace('e', 'e', $str);
 	$str = mb_ereg_replace('ě', 'e', $str);
-	$str = mb_ereg_replace('û', 'u', $str);
+	$str = mb_ereg_replace('u', 'u', $str);
 	$str = mb_ereg_replace('ç', 'c', $str);
 	$str = mb_ereg_replace('c', 'c', $str);
 	$str = mb_ereg_replace('ć', 'c', $str);
 	$str = mb_ereg_replace('î', 'i', $str);
-	$str = mb_ereg_replace('ï', 'i', $str);
-	$str = mb_ereg_replace('ì', 'i', $str);
+	$str = mb_ereg_replace('i', 'i', $str);
+	$str = mb_ereg_replace('i', 'i', $str);
 	$str = mb_ereg_replace('í', 'i', $str);
 	$str = mb_ereg_replace('ł', 'l', $str);
 	$str = mb_ereg_replace('š', 's', $str);
@@ -212,9 +212,9 @@ function ftsearch_text2sort($str)
 	$str = mb_ereg_replace('ž', 'z', $str);
 	$str = mb_ereg_replace('Ž', 'Z', $str);
 
-	$str = mb_ereg_replace('Æ', 'ae', $str);
-	$str = mb_ereg_replace('æ', 'ae', $str);
-	$str = mb_ereg_replace('œ', 'oe', $str);
+	$str = mb_ereg_replace('A', 'ae', $str);
+	$str = mb_ereg_replace('a', 'ae', $str);
+	$str = mb_ereg_replace('o', 'oe', $str);
 
 	// sonstiges
 	$str = mb_ereg_replace('[^A-Za-z ]', '', $str);
@@ -277,7 +277,7 @@ function ftsearch_refresh_all_pictures()
 
 function ftsearch_refresh_picture($id)
 {
-	$rs = sql("SELECT `caches`.`cache_id`, `pictures`.`title`, `pictures`.`last_modified` FROM `pictures` INNER JOIN `caches` ON `pictures`.`object_type`=2 AND `caches`.`cache_id`=`pictures`.`object_id` WHERE `pictures`.`id`='&1' UNION DISTINCT SELECT `cache_logs`.`cache_id` , `pictures`.`title`, `pictures`.`last_modified` FROM `pictures` INNER JOIN `cache_logs` ON `pictures`.`object_type`=1 AND `cache_logs`.`id`=`pictures`.`object_id` WHERE `pictures`.`id`='&1' LIMIT 1", $id);
+	$rs = sql("SELECT `caches`.`cache_id`, `pictures`.`title`, `pictures`.`last_modified` FROM `pictures` INNER JOIN `caches` ON `pictures`.`object_type`=2 AND `caches`.`cache_id`=`pictures`.`object_id` WHERE `pictures`.`id`='&1' UNION DISTINCT SELECT `cache_logs`.`cache_id` , `pictures`.`title`, `pictures`.`last_modified` FROM `pictures` INNER JOIN `cache_logs` ON `pictures`.`object_type`=1 AND `cache_logs`.`id`=`pictures`.`object_id` WHERE `cache_logs`.`deleted`=0 AND `pictures`.`id`='&1' LIMIT 1", $id);
 	if ($r = sql_fetch_assoc($rs))
 	{
 		ftsearch_set_entries(6, $id, $r['cache_id'], $r['title'], $r['last_modified']);
@@ -287,7 +287,7 @@ function ftsearch_refresh_picture($id)
 
 function ftsearch_refresh_all_cache_logs()
 {
-	$rs = sql('SELECT `cache_logs`.`id` FROM `cache_logs` LEFT JOIN `search_index_times` ON `cache_logs`.`id`=`search_index_times`.`object_id` AND 1=`search_index_times`.`object_type` WHERE ISNULL(`search_index_times`.`object_id`) UNION DISTINCT SELECT `cache_logs`.`id` FROM `cache_logs` INNER JOIN `search_index_times` ON `search_index_times`.`object_type`=1 AND `cache_logs`.`id`=`search_index_times`.`object_id` WHERE `cache_logs`.`last_modified`>`search_index_times`.`last_refresh`');
+	$rs = sql('SELECT `cache_logs`.`id` FROM `cache_logs` LEFT JOIN `search_index_times` ON `cache_logs`.`id`=`search_index_times`.`object_id` AND 1=`search_index_times`.`object_type` WHERE ISNULL(`search_index_times`.`object_id`) UNION DISTINCT SELECT `cache_logs`.`id` FROM `cache_logs` INNER JOIN `search_index_times` ON `search_index_times`.`object_type`=1 AND `cache_logs`.`id`=`search_index_times`.`object_id` WHERE `cache_logs`.`last_modified`>`search_index_times`.`last_refresh` AND `cache_logs`.`deleted`=0');
 	while ($r = sql_fetch_assoc($rs))
 		ftsearch_refresh_cache_logs($r['id']);
 	sql_free_result($rs);
@@ -295,7 +295,7 @@ function ftsearch_refresh_all_cache_logs()
 
 function ftsearch_refresh_cache_logs($id)
 {
-	$rs = sql("SELECT `cache_id`, `text`, `last_modified` FROM `cache_logs` WHERE `id`='&1'", $id);
+	$rs = sql("SELECT `cache_id`, `text`, `last_modified` FROM `cache_logs` WHERE `id`='&1' AND `cache_logs`.`deleted` = &2", $id, 0);
 	if ($r = sql_fetch_assoc($rs))
 	{
 		$r['text'] = ftsearch_strip_html($r['text']);

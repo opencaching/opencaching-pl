@@ -69,7 +69,7 @@ function insertSmiley(parSmiley) {
 
 function _chkFound () {
 <?php 
-	$sql = "SELECT count(cache_id) FROM cache_logs WHERE cache_id = (SELECT cache_id FROM cache_logs WHERE id = '".sql_escape(intval($_REQUEST['logid']))."') AND user_id = '".sql_escape($usr['userid'])."' AND type='1'";
+	$sql = "SELECT count(cache_id) FROM cache_logs WHERE deleted=0 AND cache_id = (SELECT cache_id FROM cache_logs WHERE deleted=0 AND id = '".sql_escape(intval($_REQUEST['logid']))."') AND user_id = '".sql_escape($usr['userid'])."' AND type='1'";
 	$founds = mysql_result(mysql_query($sql),0);
 ?>
   if (document.editlog.logtype.value == "1" || (<?php echo $founds;?>>0 && document.editlog.logtype.value == "3") || document.editlog.logtype.value == "7") {

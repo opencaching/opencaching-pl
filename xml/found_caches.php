@@ -64,7 +64,7 @@ $encoding = "UTF-8";
 
 $user_id = mysql_escape_string($_GET['uid']);
 mysql_query("SET NAMES 'utf8'");
-$result = mysql_query("SELECT `cache_logs`.`cache_id` `cache_id` , `caches`.`latitude`, `caches`.`longitude`,  `caches`.`type` `type` , `cache_logs`.`date` `date` , `caches`.`name` `name` , `log_types`.`icon_small` , `log_types_text`.`text_combo` FROM `cache_logs` , `caches` , `log_types` , `log_types_text` WHERE `cache_logs`.`user_id` = '".$user_id."' AND `cache_logs`.`cache_id` = `caches`.`cache_id` AND `cache_logs`.`type` = 1 AND `log_types`.`id` = `cache_logs`.`type` AND `log_types_text`.`log_types_id` = `log_types`.`id` AND `log_types_text`.`lang` = '".$language."' ORDER BY `cache_logs`.`date` DESC , `cache_logs`.`date_created` DESC");
+$result = mysql_query("SELECT `cache_logs`.`cache_id` `cache_id` , `caches`.`latitude`, `caches`.`longitude`,  `caches`.`type` `type` , `cache_logs`.`date` `date` , `caches`.`name` `name` , `log_types`.`icon_small` , `log_types_text`.`text_combo` FROM `cache_logs` , `caches` , `log_types` , `log_types_text` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id` = '".$user_id."' AND `cache_logs`.`cache_id` = `caches`.`cache_id` AND `cache_logs`.`type` = 1 AND `log_types`.`id` = `cache_logs`.`type` AND `log_types_text`.`log_types_id` = `log_types`.`id` AND `log_types_text`.`lang` = '".$language."' ORDER BY `cache_logs`.`date` DESC , `cache_logs`.`date_created` DESC");
 
 echo "<?xml version=\"1.0\" encoding=\"".$encoding."\"?>\n";
 echo "<markers>\n";

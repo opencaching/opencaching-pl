@@ -178,14 +178,16 @@ $login=0;
 		// das letzte found suchen
 		$sql = 'SELECT `cache_logs`.`id` `id`, `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `log_types`.`icon_small` `icon_small`
 				FROM `cache_logs`, `log_types`
-				WHERE `cache_logs`.`cache_id`=\'' . sql_escape($caches_record['cache_id']) . '\'
+				WHERE `cache_logs`.`deleted`=0 
+				AND `cache_logs`.`cache_id`=\'' . sql_escape($caches_record['cache_id']) . '\'
 				AND `log_types`.`id`=`cache_logs`.`type`
 				ORDER BY `cache_logs`.`date` DESC LIMIT 6';
 		$result = sql($sql);
 
 		$sql_liczniki = 'SELECT count(cache_logs.type) as typy, cache_logs.type as type
 				FROM `cache_logs`, `log_types`
-				WHERE `cache_logs`.`cache_id`=\'' . sql_escape($caches_record['cache_id']) . '\'
+				WHERE `cache_logs`.`cache_id`=\'' . sql_escape($caches_record['cache_id']) . '\' 
+				AND `cache_logs`.`deleted`=0 
 				AND `log_types`.`id`=`cache_logs`.`type`
 				GROUP BY cache_logs.type
 				ORDER BY cache_logs.type ASC';

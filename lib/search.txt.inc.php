@@ -258,7 +258,7 @@ LOGi:
 
 			// logs ermitteln
 			$logentries = '';
-			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`text_html`, `log_types`.`pl` `type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username` FROM `cache_logs`, `user`, `log_types` WHERE `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`type`=`log_types`.`id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC LIMIT 20", $r['cacheid']);
+			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`text_html`, `log_types`.`pl` `type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username` FROM `cache_logs`, `user`, `log_types` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`type`=`log_types`.`id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC LIMIT 20", $r['cacheid']);
 			while ($rLog = sql_fetch_array($rsLogs))
 			{
 				$thislog = $txtLogs;

@@ -26,7 +26,7 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
   //
   $rsCaches = sql('SELECT COUNT(*) `count`, DAY(`date_created`) `day`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE caches.status=1 GROUP BY DAY(`date_created`), MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC');
 
-  $rsLogs = sql('SELECT COUNT(*) `count`, DAY(`date_created`) `day`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `cache_logs` WHERE `type`=1 GROUP BY DAY(`date_created`), MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC');
+  $rsLogs = sql('SELECT COUNT(*) `count`, DAY(`date_created`) `day`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `cache_logs` WHERE `type`=1 AND `deleted`=0 GROUP BY DAY(`date_created`), MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC');
 
   $rCaches = mysql_fetch_array($rsCaches);
   $rLogs = mysql_fetch_array($rsLogs);
@@ -124,7 +124,7 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
   $lineCaches->SetStepStyle();
   $graph->Add($lineCaches);
 
-//  $foundEntries = sqlValue(sql("SELECT COUNT(*) FROM `cache_logs` WHERE `type`=1"), 0);
+//  $foundEntries = sqlValue(sql("SELECT COUNT(*) FROM `cache_logs` WHERE `type`=1 AND `deleted`=0"), 0);
   $lineFound = new LinePlot($yDataLogs, $xDate);
   $lineFound->SetLegend("Ile razy odkryto skrzynki");
   $lineFound->SetColor("darkgreen");
@@ -155,13 +155,13 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
   $txtStat3->SetFont(FF_ARIAL, FS_NORMAL, 8);
   $txtStat3->SetColor('blue');
 
-//  $logEntries = sqlValue(sql("SELECT COUNT(*) FROM `cache_logs`"), 0);
+//  $logEntries = sqlValue(sql("SELECT COUNT(*) FROM `cache_logs` WHERE `deleted`=0"), 0);
 //  $txtStat4 = new Text('Wpisy do logów: ' . str_replace(',', '.', number_format($logEntries)));
 //  $txtStat4->SetPos(55, 55 + $lineHeight * 4.0);
 //  $txtStat4->SetFont(FF_GEORGIA, FS_NORMAL, 8);
 //  $txtStat4->SetColor('darkgreen');
 
-  $foundEntries = sqlValue(sql("SELECT COUNT(*) FROM `cache_logs` WHERE `type`=1"), 0);
+  $foundEntries = sqlValue(sql("SELECT COUNT(*) FROM `cache_logs` WHERE `type`=1 AND `deleted`=0"), 0);
   $txtStat5 = new Text('Ile razy odkryto skrzynki: ' . str_replace(',', '.', number_format($foundEntries)));
   $txtStat5->SetPos(55, 55 + $lineHeight * 5.0);
   $txtStat5->SetFont(FF_ARIAL, FS_NORMAL, 8);

@@ -71,7 +71,7 @@
 			  {
 					// log
 					case 1:
-						$rs = sql("SELECT `user_id`, `cache_id` FROM `cache_logs` WHERE `id`='&1'", $objectid);
+						$rs = sql("SELECT `user_id`, `cache_id` FROM `cache_logs` WHERE `deleted`=0 AND `id`='&1'", $objectid);
 
 						if (mysql_num_rows($rs) == 0)
 						  $allok = false;

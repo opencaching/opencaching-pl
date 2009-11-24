@@ -40,7 +40,7 @@
 /* end db connect */
   
 /* begin owner notifies */
-  $rsNewLogs = sql("SELECT cache_logs.id log_id, caches.user_id user_id FROM cache_logs, caches WHERE cache_logs.cache_id=caches.cache_id AND cache_logs.owner_notified=0");
+  $rsNewLogs = sql("SELECT cache_logs.id log_id, caches.user_id user_id FROM cache_logs, caches WHERE cache_logs.deleted=0 AND cache_logs.cache_id=caches.cache_id AND cache_logs.owner_notified=0");
   for ($i = 0; $i < mysql_num_rows($rsNewLogs); $i++)
   {
 		$rNewLog = sql_fetch_array($rsNewLogs);
@@ -66,7 +66,7 @@
   {
 		$rcw = sql_fetch_array($rscw);
 	
-		$rsLogs = sql("SELECT * FROM cache_logs WHERE cache_id='&1' AND date_created > '&2'", $rcw['cache_id'], date($sDateformat, strtotime($rcw['last_executed'])));
+		$rsLogs = sql("SELECT * FROM cache_logs WHERE deleted=0 AND cache_id='&1' AND date_created > '&2'", $rcw['cache_id'], date($sDateformat, strtotime($rcw['last_executed'])));
 		for ($j = 0; $j < mysql_num_rows($rsLogs); $j++)
 		{
 			$rLog = sql_fetch_array($rsLogs);
@@ -199,7 +199,7 @@ function process_owner_log($user_id, $log_id)
 
 //	echo "process_owner_log($user_id, $log_id)\n";
 	
-	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, caches.name cachename, cache_logs.type type FROM `cache_logs`, `user`, `caches` WHERE (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id ='&1')", $log_id);
+	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, caches.name cachename, cache_logs.type type FROM `cache_logs`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id ='&1')", $log_id);
 	$rLog = sql_fetch_array($rsLog);
 	mysql_free_result($rsLog);
 	
@@ -256,7 +256,7 @@ function process_log_watch($user_id, $log_id)
 
 //	echo "process_log_watch($user_id, $log_id)\n";
 	
-	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, caches.name cachename, cache_logs.type type FROM `cache_logs`, `user`, `caches` WHERE (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id = '&1')", $log_id);
+	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, caches.name cachename, cache_logs.type type FROM `cache_logs`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id = '&1')", $log_id);
 	$rLog = sql_fetch_array($rsLog);
 	mysql_free_result($rsLog);
 	

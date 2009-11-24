@@ -100,15 +100,15 @@
 		$rs = mysql_query('SELECT `cache_id` FROM caches', $dblink);
 		while ($r = mysql_fetch_array($rs))
 		{
-			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `type`=1 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
+			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `deleted`=0 AND `type`=1 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
 			$rFound = mysql_fetch_array($rsLog);
 			mysql_free_result($rsLog);
 			
-			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `type`=2 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
+			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `deleted`=0 AND `type`=2 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
 			$rNotFound = mysql_fetch_array($rsLog);
 			mysql_free_result($rsLog);
 
-			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `type`=3 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
+			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `deleted`=0 AND `type`=3 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
 			$rNotes = mysql_fetch_array($rsLog);
 			mysql_free_result($rsLog);
 			
@@ -116,7 +116,7 @@
 			$rPictures = mysql_fetch_array($rsLog);
 			mysql_free_result($rsLog);
 
-			$rsLog = mysql_query('SELECT `date` FROM cache_logs WHERE type=1 AND cache_id=\'' . sql_escape($r['cache_id']) . '\' ORDER BY `date` DESC LIMIT 1', $dblink);
+			$rsLog = mysql_query('SELECT `date` FROM cache_logs WHERE deleted=0 AND type=1 AND cache_id=\'' . sql_escape($r['cache_id']) . '\' ORDER BY `date` DESC LIMIT 1', $dblink);
 			$rLastLog = mysql_fetch_array($rsLog);
 			mysql_free_result($rsLog);
 
@@ -130,17 +130,17 @@
 		while ($r = mysql_fetch_array($rs))
 		{
 			// notfounds_count
-			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `type`=2 AND user_id=\'' . sql_escape($r['user_id']) . '\'', $dblink);
+			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `deleted`=0 AND `type`=2 AND user_id=\'' . sql_escape($r['user_id']) . '\'', $dblink);
 			$rNotfounds_count = mysql_fetch_array($rsLog);
 			mysql_free_result($rsLog);
 
 			// founds_count
-			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `type`=1 AND user_id=\'' . sql_escape($r['user_id']) . '\'', $dblink);
+			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `deleted`=0 AND `type`=1 AND user_id=\'' . sql_escape($r['user_id']) . '\'', $dblink);
 			$rFounds_count = mysql_fetch_array($rsLog);
 			mysql_free_result($rsLog);
 
 			// log_notes_count
-			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `type`=3 AND user_id=\'' . sql_escape($r['user_id']) . '\'', $dblink);
+			$rsLog = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `deleted`=0 AND `type`=3 AND user_id=\'' . sql_escape($r['user_id']) . '\'', $dblink);
 			$rLog_notes_count = mysql_fetch_array($rsLog);
 			mysql_free_result($rsLog);
 
@@ -586,28 +586,28 @@
 			echo 'caches ' . $r['cache_id'] . ': Null-Datum in Feld date_hidden<br/>';
 		
 		// founds
-		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE type=1 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
+		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE `deleted`=0 AND type=1 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
 		$rC = mysql_fetch_array($rsC);
 		if ($rC['count'] != $r['founds'])
 			echo 'caches ' . $r['cache_id'] . ': anzahl founds stimmt nicht<br/>';
 		mysql_free_result($rsC);
 
 		// notfounds
-		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE type=2 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
+		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE deleted=0 AND type=2 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
 		$rC = mysql_fetch_array($rsC);
 		if ($rC['count'] != $r['notfounds'])
 			echo 'caches ' . $r['cache_id'] . ': anzahl notfounds stimmt nicht<br/>';
 		mysql_free_result($rsC);
 
 		// notes
-		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE type=3 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
+		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE deleted=0 AND type=3 AND cache_id=\'' . sql_escape($r['cache_id']) . '\'', $dblink);
 		$rC = mysql_fetch_array($rsC);
 		if ($rC['count'] != $r['notes'])
 			echo 'caches ' . $r['cache_id'] . ': anzahl notes stimmt nicht<br/>';
 		mysql_free_result($rsC);
 
 		// last_found
-		$rsC = mysql_query('SELECT `date` FROM cache_logs WHERE type=1 AND cache_id=\'' . sql_escape($r['cache_id']) . '\' ORDER BY `date` DESC LIMIT 1', $dblink);
+		$rsC = mysql_query('SELECT `date` FROM cache_logs WHERE deleted=0 AND type=1 AND cache_id=\'' . sql_escape($r['cache_id']) . '\' ORDER BY `date` DESC LIMIT 1', $dblink);
 		if (mysql_num_rows($rsC) == 0)
 		{
 			if (($r['last_found'] != null) && ($r['last_found'] != '0000-00-00 00:00:00'))
@@ -833,7 +833,7 @@
 		switch ($r['object_type'])
 		{
 			case 1:
-				$rsCache = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE id=\'' . sql_escape($r['object_id']) . '\'', $dblink);
+				$rsCache = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE deleted=0 AND id=\'' . sql_escape($r['object_id']) . '\'', $dblink);
 				$rCache = mysql_fetch_array($rsCache);
 				if ($rCache['count'] != 1)
 					echo 'pictures ' . $r['id'] . ': cache_log ' . $r['object_id'] . ' nicht vorhanden<br/>';
@@ -909,7 +909,7 @@
 		switch ($r['type'])
 		{
 			case 1:
-				$rsCache = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE id=\'' . sql_escape($r['localid']) . '\'', $dblink);
+				$rsCache = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE deleted=0 AND id=\'' . sql_escape($r['localid']) . '\'', $dblink);
 				$rCache = mysql_fetch_array($rsCache);
 				if ($rCache['count'] != 0)
 					echo 'removed_objects ' . $r['id'] . ': cache_log ' . $r['localid'] . ' still available<br/>';
@@ -1033,7 +1033,7 @@
 		mysql_free_result($rsC);
 		
 		// log_notes_count
-		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE user_id=\'' . sql_escape($r['id']) . '\' AND type=3', $dblink);
+		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE deleted=0 AND user_id=\'' . sql_escape($r['id']) . '\' AND type=3', $dblink);
 		$rC = mysql_fetch_array($rsC);
 		if ($r['log_notes_count'] == null) $r['log_notes_count'] = 0;
 		if ($rC['count'] != $r['log_notes_count'])
@@ -1041,7 +1041,7 @@
 		mysql_free_result($rsC);
 		
 		// founds_count
-		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE user_id=\'' . sql_escape($r['id']) . '\' AND type=1', $dblink);
+		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE deleted=0 AND user_id=\'' . sql_escape($r['id']) . '\' AND type=1', $dblink);
 		$rC = mysql_fetch_array($rsC);
 		if ($r['founds_count'] == null) $r['founds_count'] = 0;
 		if ($rC['count'] != $r['founds_count'])
@@ -1049,7 +1049,7 @@
 		mysql_free_result($rsC);
 
 		// notfounds_count
-		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE user_id=\'' . sql_escape($r['id']) . '\' AND type=2', $dblink);
+		$rsC = mysql_query('SELECT COUNT(*) count FROM cache_logs WHERE deleted=0 AND user_id=\'' . sql_escape($r['id']) . '\' AND type=2', $dblink);
 		$rC = mysql_fetch_array($rsC);
 		if ($r['notfounds_count'] == null) $r['notfounds_count'] = 0;
 		if ($rC['count'] != $r['notfounds_count'])

@@ -37,7 +37,7 @@ class ClearFakeVotes
 	$scores_query = mysql_query($sql);
 	while( $scores = mysql_fetch_array($scores_query) )
 	{
-		$sql2 = "SELECT * FROM cache_logs WHERE user_id = ".sql_escape($scores['user_id'])." AND cache_id = ".sql_escape($scores['cache_id'])." AND (`type`=1 OR `type`=7)";
+		$sql2 = "SELECT * FROM cache_logs WHERE `deleted`=0 AND user_id = ".sql_escape($scores['user_id'])." AND cache_id = ".sql_escape($scores['cache_id'])." AND (`type`=1 OR `type`=7)";
 		$logs_query = mysql_query($sql2);
 		if( mysql_num_rows($logs_query)==0)
 		{

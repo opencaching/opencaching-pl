@@ -204,7 +204,7 @@
 				$sql = "SELECT count(*) FROM scores WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(intval($cache_id))."'";
 
 				// disable backscoring
-				// $sql = "SELECT count(*) FROM cache_logs WHERE type='1' AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(intval($cache_id))."'";
+				// $sql = "SELECT count(*) FROM cache_logs WHERE `deleted`=0 AND type='1' AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(intval($cache_id))."'";
 				$is_scored_query = mysql_query($sql);
 //				mysql_result($is_scored_query,0);
 				if( mysql_result($is_scored_query,0) == 0 && $usr['userid'] != $record['user_id'])
@@ -336,7 +336,7 @@
 				}
 
 				// not a found log? then ignore the rating
-				$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($cache_id)."' AND type='1'";
+				$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE `deleted`=0 AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($cache_id)."' AND type='1'";
 				$res = mysql_fetch_array(mysql_query($sql));
 				if( $res['founds'] == 0 )
 					if ($log_type != 1 && $log_type != 7 /* && $log_type != 3 */)
@@ -509,7 +509,7 @@
 				}
 				else
 				{
-					$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($cache_id)."' AND type='1'";
+					$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE `deleted`=0 AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($cache_id)."' AND type='1'";
 					$res = mysql_fetch_array(mysql_query($sql));
 					$sql = "SELECT status, type FROM `caches` WHERE cache_id='".sql_escape($cache_id)."'";
 					$res2 = mysql_fetch_array(mysql_query($sql));

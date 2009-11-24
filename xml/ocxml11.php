@@ -489,7 +489,9 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 	       INNER JOIN `tmpxml_cachelogs` ON `cache_logs`.`id`=`tmpxml_cachelogs`.`id`
 	       INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id`
 	       INNER JOIN `caches` ON `caches`.`cache_id`=`cache_logs`.`cache_id`
-	        LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`');
+	        LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+					`cache_logs`.`deleted`=0
+					');
 	while ($r = sql_fetch_array($rs))
 	{
 		$r['text'] = mb_ereg_replace('<br />', '', $r['text']);
@@ -614,7 +616,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 		if ($bCachelog == 1)
 		{
 			sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-			     SELECT &1, 1, `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` WHERE `cache_logs`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4",
+			     SELECT &1, 1, `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` WHERE `cache_logs`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4 `cache_logs`.`deleted`=0",
 			     $sessionid,
 			     $sModifiedSince);
 			$recordcount['cachelogs'] = mysql_affected_rows();
@@ -643,7 +645,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 			                                                        `pictures`.`object_id`=`cache_logs`.`id` INNER JOIN 
 			                                        `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` 
 			                                  WHERE `pictures`.`last_modified` >= '&2' AND 
-			                                        `caches`.`status`!=5 AND `status`!=6 AND `status`!=4",
+			                                        `caches`.`status`!=5 AND `status`!=6 AND `status`!=4 AND `cache_logs`.`deleted`=0",
 			     $sessionid,
 			     $sModifiedSince);
 			$recordcount['pictures'] = mysql_affected_rows();
@@ -716,7 +718,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 		{
 			sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
 			     SELECT DISTINCT &1, 1, `cache_logs`.`id` FROM `cache_logs`, `tmpxmlSesssionCaches`
-			     WHERE `cache_logs`.`cache_id`=`tmpxmlSesssionCaches`.`cache_id` AND `cache_logs`.`last_modified` >= '&2'",
+			     WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`cache_id`=`tmpxmlSesssionCaches`.`cache_id` AND `cache_logs`.`last_modified` >= '&2'",
 			     $sessionid,
 			     $sModifiedSince);
 			$recordcount['cachelogs'] = mysql_affected_rows();
@@ -738,7 +740,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 			{
 				sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
 				     SELECT DISTINCT &1, 6, `pictures`.id FROM `pictures` , `cache_logs`, `tmpxmlSesssionCaches` 
-				     WHERE `tmpxmlSesssionCaches`.`cache_id`=`cache_logs`.`cache_id` AND 
+				     WHERE `tmpxmlSesssionCaches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`deleted`=0 AND
 				           `pictures`.`object_type`=1 AND `pictures`.`object_id`=`cache_logs`.`id` AND 
 				           `pictures`.`last_modified` >= '&2'",
 			     $sessionid,
@@ -929,7 +931,7 @@ function log_id2uuid($id)
 {
 	global $dblink;
 	
-	$rs = sql("SELECT `uuid` FROM `cache_logs` WHERE `id`='&1'", $id);
+	$rs = sql("SELECT `uuid` FROM `cache_logs` WHERE `cache_logs`.`deleted`=0 AND `id`='&1'", $id);
 	$r = sql_fetch_array($rs);
 	mysql_free_result($rs);
 	return $r['uuid'];

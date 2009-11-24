@@ -108,10 +108,19 @@
 			tpl_set_var('notfounds', htmlspecialchars($cache_record['notfounds'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('notes', htmlspecialchars($cache_record['notes'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('total_number_of_logs', htmlspecialchars($cache_record['notes'] + $cache_record['notfounds'] + $cache_record['founds'], ENT_COMPAT, 'UTF-8'));
-
-			//prepare the logs
-			$rs = sql("
-			  SELECT `cache_logs`.`user_id` AS `userid`,
+			
+			// prepare the logs - show logs marked as deleted if admin
+			//
+			$show_deleted_logs = "";
+			$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
+			if( $usr['admin'] )
+			{
+				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
+				$show_deleted_logs2 = "";
+			}
+			
+			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
+					".$show_deleted_logs."
 					`cache_logs`.`id` AS `log_id`,
 					`cache_logs`.`picturescount` AS `picturescount`,
 					`cache_logs`.`user_id` AS `user_id`,
@@ -129,12 +138,18 @@
 				INNER JOIN `user` ON `user`.`user_id` = `cache_logs`.`user_id`
 				LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 				WHERE `cache_logs`.`cache_id`='&2'
+				".$show_deleted_logs2."
 				ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT &3, &4", $lang, $cache_id, $start+0, $count+0);
 
 			$logs = '';
 			for ($i = 0; $i < mysql_num_rows($rs); $i++)
 			{
 				$record = sql_fetch_array($rs);
+				$show_deleted = "";
+				if( isset( $record['deleted'] ) && $record['deleted'] )
+				{
+					$show_deleted = "show_deleted";
+				}
 				$tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
 
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
@@ -145,6 +160,7 @@
 				if ($record['text_html'] == 0)
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
 
+				$tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
 				$tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
 				$tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);
 				$tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
@@ -162,20 +178,21 @@
 				$tmpedit = mb_ereg_replace('{logid}', $record['log_id'], $edit_log);
 				$tmpremove = mb_ereg_replace('{logid}', $record['log_id'], $remove_log);
 				$tmpnewpic = mb_ereg_replace('{logid}', $record['log_id'], $upload_picture);
-
-				if( $usr['admin']) 
+				if( $record['deleted']!=1 )
 				{
-					$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $functions_end;
-				} 
-				else if ($record['user_id'] == $usr['userid'])
-				{
-					$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $tmpnewpic . $functions_end;
+					if( $usr['admin']) 
+					{
+						$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $functions_end;
+					} 
+					else if ($record['user_id'] == $usr['userid'])
+					{
+						$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $tmpnewpic . $functions_end;
+					}
+					elseif ($owner_id == $usr['userid'])
+					{
+						$logfunctions = $functions_start . $tmpremove . $functions_end;
+					}
 				}
-				elseif ($owner_id == $usr['userid'])
-				{
-					$logfunctions = $functions_start . $tmpremove . $functions_end;
-				}
-				
 				$tmplog = mb_ereg_replace('{logfunctions}', $logfunctions, $tmplog);
 
 				// pictures

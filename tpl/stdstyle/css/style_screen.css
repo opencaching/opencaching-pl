@@ -483,3 +483,5 @@ input.formbuttons {background-color:rgb(219,230,241); width:120px; border:1px so
 textarea.cachedesc {width:600px; height:500px; }	/* only cacheeditor */
 textarea.hint {		width:600px; height:100px; }	/* only cacheditor */
 textarea.logs {		width:600px; height:300px; }	/* only logeditor */
+
+.show_deleted { text-decoration: line-through; }

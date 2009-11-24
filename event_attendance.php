@@ -67,7 +67,8 @@
 			   FROM `cache_logs`
 			   INNER JOIN `user` ON (`user`.`user_id`=`cache_logs`.`user_id`)
 			   WHERE `cache_logs`.`type`=8
-			     AND `cache_logs`.`cache_id`='&1'
+					AND `cache_logs`.`deleted`=0 
+			    AND `cache_logs`.`cache_id`='&1'
 			   ORDER BY `user`.`username`", $cache_id);
 
 		$attendants = '';

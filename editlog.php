@@ -52,7 +52,7 @@
 		else
 		{
 			//does log with this logid exist?
-			$log_rs = sql("SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`, `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`, `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw` FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`) WHERE `id`='&1'", $log_id);
+			$log_rs = sql("SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`, `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`, `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw` FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`) WHERE `id`='&1' AND `deleted` = &2", $log_id, 0);
 
 			if (mysql_num_rows($log_rs) > 0)
 			{
@@ -252,7 +252,7 @@
 					}
 
 					// not a found log? then ignore the rating
-					$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE user_id='".sql_escape($log_record['user_id'])."' AND cache_id='".sql_escape($log_record['cache_id'])."' AND type='1'";
+					$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE user_id='".sql_escape($log_record['user_id'])."' AND cache_id='".sql_escape($log_record['cache_id'])."' AND type='1' AND deleted=0";
 					$res = mysql_fetch_array(mysql_query($sql));
 					if( $res['founds'] == 0 )
 					if ($log_type != 1 && $log_type != 7 /*&& $log_type != 3*/)
@@ -393,7 +393,7 @@
 							sql("DELETE FROM `cache_rating` WHERE `user_id`='&1' AND `cache_id`='&2'", $log_record['user_id'], $log_record['cache_id']);
 
 						//Update last found
-						$lastfound_rs = sql("SELECT MAX(`cache_logs`.`date`) AS `date` FROM `cache_logs` WHERE ((`cache_logs`.`type`=1) AND (`cache_logs`.`cache_id`='&1'))", $log_record['cache_id']);
+						$lastfound_rs = sql("SELECT MAX(`cache_logs`.`date`) AS `date` FROM `cache_logs` WHERE ((`cache_logs`.`type`=1) AND (`cache_logs`.`cache_id`='&1') AND deleted=&2)", $log_record['cache_id'], 0);
 						$lastfound_record = sql_fetch_array($lastfound_rs);
 
 						if ($lastfound_record['date'] === NULL)
@@ -415,12 +415,12 @@
 
 					// check if user has already found this cache and is not editing the found log (i.e. is able to change another comment's type to 'found')
 					$already_found_in_other_comment = 0;
-					$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($log_record['cache_id'])."' AND type='1'";
+					$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($log_record['cache_id'])."' AND type='1' AND deleted=0";
 					$res = mysql_fetch_array(mysql_query($sql));
 					
 					if( $res['founds'] > 0 )
 					{
-						$sql2 = "SELECT count(*) as founds FROM `cache_logs` WHERE id='".sql_escape(intval($log_id))."' AND type='1'";
+						$sql2 = "SELECT count(*) as founds FROM `cache_logs` WHERE id='".sql_escape(intval($log_id))."' AND type='1' AND deleted=0";
 						$res2 = mysql_fetch_array(mysql_query($sql2));
 						if( $res2['founds'] == 0 )
 							$already_found_in_other_comment = 1;
@@ -549,7 +549,10 @@
 			}
 			else
 			{
-				//TODO: show error
+				// no such log or log marked as deleted
+				header('HTTP/1.0 404 not found');
+				include('./komunikaty_bledow/404.html');
+				die();
 			}
 		}
 	}

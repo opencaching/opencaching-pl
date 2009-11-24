@@ -40,7 +40,7 @@
 	{
 		$sql = "SELECT count(*)
 						FROM cache_logs, caches 	
-						WHERE cache_logs.user_id='$userid' AND cache_logs.`type`='$logtype' AND cache_logs.`cache_id` = caches.cache_id AND caches.`type` = '".intval($types['id'])."'";
+						WHERE cache_logs.`deleted`=0 AND cache_logs.user_id='$userid' AND cache_logs.`type`='$logtype' AND cache_logs.`cache_id` = caches.cache_id AND caches.`type` = '".intval($types['id'])."'";
 						
 		$founds = mysql_result(mysql_query($sql),0);
 		if( $founds > 0 ) {
@@ -127,7 +127,7 @@
 		tpl_set_var('show', $language[$lang]['show']);
 		tpl_set_var('statistics', $language[$lang]['statistics']);
 		
-		$days_since_first_find = @mysql_result(@mysql_query("SELECT datediff(now(), date) as old FROM cache_logs WHERE user_id = $userid AND type=1 ORDER BY date LIMIT 1"),0);
+		$days_since_first_find = @mysql_result(@mysql_query("SELECT datediff(now(), date) as old FROM cache_logs WHERE deleted=0 AND user_id = $userid AND type=1 ORDER BY date LIMIT 1"),0);
 		$days_went_caching;
 		$days_no_caching;
 		$obsession_indicator;
@@ -202,7 +202,7 @@
 			
 			$sql = "SELECT COUNT(*) founds_count 
 							FROM cache_logs 
-							WHERE user_id='$userid' AND type=1";
+							WHERE user_id='$userid' AND type=1 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
 				$founds_count = mysql_result($odp,0);
@@ -211,7 +211,7 @@
 			
 			$sql = "SELECT COUNT(*) not_founds_count 
 							FROM cache_logs 
-							WHERE user_id='$userid' AND type=2";
+							WHERE user_id='$userid' AND type=2 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
 				$not_founds_count = mysql_result($odp,0);
@@ -274,6 +274,7 @@
 					FROM `cache_logs`, `caches`, `log_types`, `log_types_text`
 					WHERE `cache_logs`.`user_id`='&1'
 					AND `cache_logs`.`cache_id`=`caches`.`cache_id`
+					AND `cache_logs`.`deleted`=0 
 					AND `log_types`.`id`=`cache_logs`.`type`
 					AND `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`='&2'
 					ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
@@ -308,7 +309,7 @@
 				$rs = sql("SELECT `user_id` as data FROM `user` WHERE `date_created` < CURDATE() + INTERVAL -1 MONTH AND `user_id` =  ". sql_escape($userid)."");
 				$data = mysql_num_rows($rs);
 			
-				$rs = sql("SELECT COUNT(`cache_logs`.`id`) as ilosc FROM `cache_logs`, `caches` WHERE `cache_logs`.`type` = 1 AND `caches`.`cache_id` = `cache_logs`.`cache_id` AND `caches`.`type` NOT IN(4,5) AND `cache_logs`.`user_id` = ". sql_escape($userid)."");
+				$rs = sql("SELECT COUNT(`cache_logs`.`id`) as ilosc FROM `cache_logs`, `caches` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`type` = 1 AND `caches`.`cache_id` = `cache_logs`.`cache_id` AND `caches`.`type` NOT IN(4,5) AND `cache_logs`.`user_id` = ". sql_escape($userid)."");
 				$record = sql_fetch_array($rs);
 				$ilosc = $record['ilosc'];
 			

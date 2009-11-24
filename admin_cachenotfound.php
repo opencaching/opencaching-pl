@@ -32,6 +32,7 @@
 			WHERE 
 				c.cache_id = cl.cache_id
 				AND c.status =1
+				AND cl.deleted = 0 
 				AND cl.type = 2 
 				AND cl.date > (SELECT IFNULL(c1.last_modified, str_to_date('2000-01-01', '%Y-%m-%d')) FROM caches c1 WHERE c1.cache_id = c.cache_id)
 				AND cl.date > (SELECT IFNULL(c2.last_found, str_to_date('2000-01-01', '%Y-%m-%d')) FROM caches c2 WHERE c2.cache_id = c.cache_id)

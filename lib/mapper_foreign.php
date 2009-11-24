@@ -105,7 +105,7 @@
 	else
 		$filter_by_type_string = "";
 	
-	$sql = "SELECT $h_sel_ignored foreign_caches.cache_id, foreign_caches.name, foreign_caches.wp_oc as wp, foreign_caches.latitude, foreign_caches.longitude, foreign_caches.type, foreign_caches.status as status, datediff(now(), foreign_caches.date_hidden) as old, foreign_caches.user_id, IF(foreign_caches.cache_id IN (SELECT cache_id FROM cache_logs WHERE user_id='".sql_escape($user_id)."' AND (type=1 OR type=8)), 1, 0) as found 
+	$sql = "SELECT $h_sel_ignored foreign_caches.cache_id, foreign_caches.name, foreign_caches.wp_oc as wp, foreign_caches.latitude, foreign_caches.longitude, foreign_caches.type, foreign_caches.status as status, datediff(now(), foreign_caches.date_hidden) as old, foreign_caches.user_id, IF(foreign_caches.cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='".sql_escape($user_id)."' AND (type=1 OR type=8)), 1, 0) as found 
 	FROM foreign_caches 
 	$h_ignored 
 	WHERE ( foreign_caches.latitude BETWEEN ".($rect->y-$rect->height*$bound)." AND ".($rect->y + $rect->height+$rect->height*$bound)." ) AND ( foreign_caches.longitude BETWEEN ".($rect->x-$rect->width*$bound)." AND ".($rect->x+$rect->width+$rect->width*$bound)." )".$filter_by_type_string;

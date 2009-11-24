@@ -278,7 +278,7 @@
 	if ((($nPrimary == 0) && ($bLogs == 1)) || ($nPrimary == 1))
 	{
 		// Cachelogs
-		$rs = sql('SELECT `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `caches`.`cache_id`=`cache_logs`.`cache_id` WHERE `caches`.`status`!=5 AND `cache_logs`.`last_modified`>= \'' . $sModifiedSince . '\'');
+		$rs = sql('SELECT `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `caches`.`cache_id`=`cache_logs`.`cache_id` WHERE `caches`.`status`!=5 AND `cache_logs`.`deleted`=0 AND `cache_logs`.`last_modified`>= \'' . $sModifiedSince . '\'');
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
 			$r = this_sql_fetch_array($rs);
@@ -337,7 +337,9 @@
 			                                     `pictures`.`object_id`=`cache_logs`.`id` INNER JOIN 
 			                                     `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` 
 			                               WHERE `pictures`.`last_modified` >= \'' . $sModifiedSince . '\' AND 
-			                                     `caches`.`status`!=5');
+			                                     `caches`.`status`!=5 AND
+																					 `cache_logs`.`deleted`=0
+																					 ');
 			                                        		
 		
 		
@@ -382,7 +384,7 @@
 			$sIds .= ', ' . $id;
 		$sIds = substr($sIds, 2);
 		
-		$rs = sql('SELECT `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `date_created`, `last_modified`, `UUID` FROM cache_logs WHERE id IN (' . $sIds . ')');
+		$rs = sql('SELECT `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `date_created`, `last_modified`, `UUID` FROM cache_logs WHERE `cache_logs`.`deleted`=0 AND id IN (' . $sIds . ')');
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
 			$r = this_sql_fetch_array($rs);
@@ -587,7 +589,7 @@ function log_id2uuid($id)
 {
 	global $dblink;
 	
-	$rs = sql('SELECT uuid FROM cache_logs WHERE id=' . sql_escape($id));
+	$rs = sql('SELECT uuid FROM cache_logs WHERE `cache_logs`.`deleted`=0 AND id=' . sql_escape($id));
 	$r = this_sql_fetch_array($rs);
 	mysql_free_result($rs);
 	return $r['uuid'];

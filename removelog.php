@@ -42,7 +42,8 @@ function removelog($log_id, $language, $lang)
 					  AND `cache_logs`.`user_id`=`user`.`user_id`
 					  AND `caches`.`cache_id`=`cache_logs`.`cache_id`
 					  AND `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`='&2'
-					  AND `log_types`.`id`=`cache_logs`.`type`", $log_id, $lang);
+						AND `cache_logs`.`deleted` = &3 
+					  AND `log_types`.`id`=`cache_logs`.`type`", $log_id, $lang, 0);
 
 			//log exists?
 			if (mysql_num_rows($log_rs) == 1)
@@ -111,21 +112,23 @@ function removelog($log_id, $language, $lang)
 					if ($commit == 1)
 					{
 						//log in removed_objects
-						sql("INSERT INTO `removed_objects` (`id`, `localID`, `uuid`, `type`, `removed_date`, `node`) VALUES ('', '&1', '&2', '1', NOW(), '&3')", $log_id, $log_record['uuid'], $oc_nodeid);
+						//sql("INSERT INTO `removed_objects` (`id`, `localID`, `uuid`, `type`, `removed_date`, `node`) VALUES ('', '&1', '&2', '1', NOW(), '&3')", $log_id, $log_record['uuid'], $oc_nodeid);
 
 						//log entfernen
-						sql("DELETE FROM `cache_logs` WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
-
+						//sql("DELETE FROM `cache_logs` WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
+						// do not acually delete logs - just mark them as deleted.
+						sql("UPDATE `cache_logs` SET deleted = 1 WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
 						//user stats aktualisieren
 						// moegliche racecondition, wenn jemand gleichzeitig loggt koennen die Zaehler auseinanderlaufen! -orotl-
 						$user_rs = sql("SELECT `founds_count`, `notfounds_count`, `log_notes_count` FROM `user` WHERE `user_id`='&1'", $log_record['log_user_id']);
 						$user_record = sql_fetch_array($user_rs);
 						mysql_free_result($user_rs);
 						
-						// remove cache from users top caches, because the found log was deleted for some reason
-						sql("DELETE FROM `cache_rating` WHERE `user_id` = '&1' AND `cache_id` = '&2'", $log_record['log_user_id'], $log_record['cache_id']);
+						
 						if ($log_record['log_type'] == 1 || $log_record['log_type'] == 7)
 						{
+							// remove cache from users top caches, because the found log was deleted for some reason
+							sql("DELETE FROM `cache_rating` WHERE `user_id` = '&1' AND `cache_id` = '&2'", $log_record['log_user_id'], $log_record['cache_id']);
 							$user_record['founds_count']--;
 						}
 						elseif ($log_record['log_type'] == 2)

@@ -694,6 +694,7 @@
 					$sql_from[] = '`caches`, `cache_logs`';
 					$sql_where[] = '`caches`.`cache_id`=`cache_logs`.`cache_id`';
 					$sql_where[] = '`cache_logs`.`user_id`=\'' . sql_escape($finder_id) . '\'';
+					$sql_where[] = '`cache_logs`.`deleted`=0';
 					if( $options['logtype'] == "" )
 						$sql_where[] = '(`cache_logs`.`type`=1 OR `cache_logs`.`type`=7)'; // found und attended
 					else
@@ -866,7 +867,7 @@
 				if(!isset($options['f_userfound'])) $options['f_userfound']='0';
 				if($options['f_userfound'] != 0) 
 				{ 
-					$sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_logs`.`cache_id` FROM `cache_logs` WHERE `cache_logs`.`user_id`=\'' . sql_escape($usr['userid']) . '\' AND `cache_logs`.`type` IN (1, 7))';
+					$sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_logs`.`cache_id` FROM `cache_logs` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=\'' . sql_escape($usr['userid']) . '\' AND `cache_logs`.`type` IN (1, 7))';
 				}
 
 				if(!isset($options['f_geokret'])) $options['f_geokret']='0';
@@ -914,18 +915,6 @@
 						$sql_where[] = '`caches`.`type` IN (' . sql_escape(implode(",", $c_type)) . ')';
 					}
 				}
-/*
-				if(!isset($options['logtype'])) $options['logtype']='';
-				if($options['logtype'] != '')
-				{
-				
-					if( $options['f_userowner'] != 0 )
-						$findby = $options['ownerid'];
-					else 
-						$findby = $options['finderid'];
-					$sql_where[] = '`caches`.`cache_id` IN (SELECT `cache_logs`.`cache_id` FROM `cache_logs` WHERE `cache_logs`.`cache_id`=`caches`.`cache_id` AND `cache_logs`.`user_id` = \''.sql_escape($findby).'\' AND `cache_logs`.`type`=\''.sql_escape($options['logtype']).'\')';
-				}
-*/
 				if(isset($options['cache_attribs']) && count($options['cache_attribs']) > 0)
 				{
 					for($i=0; $i < count($options['cache_attribs']); $i++)

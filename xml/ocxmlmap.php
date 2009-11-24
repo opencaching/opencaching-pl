@@ -483,7 +483,7 @@ function log_id2uuid($id)
 {
 	global $dblink;
 	
-	$rs = mysql_query('SELECT uuid FROM cache_logs WHERE id=' . addslashes($id));
+	$rs = mysql_query('SELECT uuid FROM cache_logs WHERE `cache_logs`.`deleted`=0 AND id=' . addslashes($id));
 	$r = mysql_fetch_array($rs);
 	mysql_free_result($rs);
 	return $r['uuid'];
@@ -501,7 +501,7 @@ function user_id2uuid($id)
 
  function htmlentities_iso88592($r) 
  {
- $pl_iso = array('ê', 'ó', '±', '¶', '³', '¿', '¼', 'æ', 'ñ', 'Ê', 'Ó', '¡', '¦', '£', '¯', '¬', 'Æ', 'Ñ');
+ $pl_iso = array('Ä™', 'Ã³', 'Â±', 'Â¶', 'Å‚', 'Å¼', 'Ä½', 'Ä‡', 'Å„', 'Ä˜', 'Ã“', 'Ë‡', 'Â¦', 'Å', 'Å»', 'Â¬', 'Ä†', 'Åƒ');
  $entitles = get_html_translation_table(HTML_ENTITIES);
  $entitles = array_diff($entitles, $pl_iso);
  return strtr($string, $entitles);

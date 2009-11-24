@@ -73,7 +73,7 @@ function makeFilter()
 
 function getCacheData($cacheid)
 {
-	$query = sql("SELECT caches.longitude, caches.latitude, caches.wp_oc as wp, caches.votes, (SELECT count(*) FROM cache_logs WHERE cache_id=".sql_escape($cacheid)." AND type=1) as founds, (SELECT count(*) FROM cache_logs WHERE cache_id=".sql_escape($cacheid)." AND type=2) as notfounds, caches.topratings, caches.score as score, caches.name as cachename, user.username as username FROM caches, user WHERE user.user_id = caches.user_id AND cache_id = '".sql_escape($cacheid)."'");
+	$query = sql("SELECT caches.longitude, caches.latitude, caches.wp_oc as wp, caches.votes, (SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id=".sql_escape($cacheid)." AND type=1) as founds, (SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id=".sql_escape($cacheid)." AND type=2) as notfounds, caches.topratings, caches.score as score, caches.name as cachename, user.username as username FROM caches, user WHERE user.user_id = caches.user_id AND cache_id = '".sql_escape($cacheid)."'");
 	return mysql_fetch_array($query);
 	
 }

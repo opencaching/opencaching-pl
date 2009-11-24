@@ -37,8 +37,8 @@ $line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b
 	echo '</table></td></tr></table></center><br>';
 
 
-$rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(cache_logs.user_id) FROM `cache_logs` WHERE `type`=1 GROUP BY `user_id`) `users_with_founds`');
-$fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `type`=1');
+$rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(cache_logs.user_id) FROM `cache_logs` WHERE `type`=1 AND `deleted`=0 GROUP BY `user_id`) `users_with_founds`');
+$fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `type`=1 AND `deleted`=0');
   $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
 
@@ -50,8 +50,8 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `type`=1');
 
 
   mysql_query("SET NAMES 'utf8'"); 
-  $rsUser = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id` WHERE `cache_logs`.`type`=1 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20');
-  $rmax = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `cache_logs` INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id` WHERE `cache_logs`.`type`=1 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 1');
+  $rsUser = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id` WHERE `cache_logs`.`type`=1 AND `cache_logs`.`deleted`=0 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20');
+  $rmax = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `cache_logs` INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id` WHERE `cache_logs`.`type`=1 AND `cache_logs`.`deleted`=0 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 1');
   $rsmax = mysql_fetch_array($rmax);
   while ($rs = mysql_fetch_array($rsUser))
   {
@@ -75,8 +75,8 @@ $line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b
 
   mysql_query("SET NAMES 'utf8'"); 
 
-  $r = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `cache_logs`.`type`=1 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20');
-  $rmax = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `cache_logs`.`type`=1 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 1');
+  $r = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `cache_logs`.`type`=1 AND `cache_logs`.`deleted`=0 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20');
+  $rmax = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `cache_logs`.`type`=1 AND `cache_logs`.`deleted`=0 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 1');
   $rsmax = mysql_fetch_array($rmax);
 
   while ($rs = mysql_fetch_array($r))
@@ -98,8 +98,8 @@ $line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b
 	echo '<tr><td><center><table bgcolor=white><tr><td><font color=blue><b>Nazwa skrzynki</b></font></td><td></td><td><font color=blue><b>Liczba odkryć</b></font></td></tr>';
 
   mysql_query("SET NAMES 'utf8'"); 
-  $r = sql('SELECT COUNT(*) `count`, `caches`.`name`, `cache_logs`.`cache_id`, `user`.`username` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `cache_logs`.`type`=1 GROUP BY `caches`.`cache_id` ORDER BY `count` DESC, `caches`.`name` ASC LIMIT 20');
-  $rmax = sql('SELECT COUNT(*) `count`, `caches`.`name`, `cache_logs`.`cache_id` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` WHERE `cache_logs`.`type`=1 GROUP BY `caches`.`cache_id` ORDER BY `count` DESC LIMIT 1');
+  $r = sql('SELECT COUNT(*) `count`, `caches`.`name`, `cache_logs`.`cache_id`, `user`.`username` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `cache_logs`.`type`=1 AND `cache_logs`.`deleted`=0 GROUP BY `caches`.`cache_id` ORDER BY `count` DESC, `caches`.`name` ASC LIMIT 20');
+  $rmax = sql('SELECT COUNT(*) `count`, `caches`.`name`, `cache_logs`.`cache_id` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` WHERE `cache_logs`.`type`=1 AND `cache_logs`.`deleted`=0 GROUP BY `caches`.`cache_id` ORDER BY `count` DESC LIMIT 1');
   $rsmax = mysql_fetch_array($rmax);
 
   while ($rs = mysql_fetch_array($r))

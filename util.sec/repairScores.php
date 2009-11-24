@@ -28,21 +28,6 @@ class ClearFakeVotes
 		}
 	/* end db connect */
 	
-/*		$result = mysql_query("SELECT scores.cache_id, user.username, user.user_id
-FROM caches, scores, user
-WHERE user.user_id = scores.user_id
-AND scores.cache_id NOT
-IN (
-
-SELECT cache_id
-FROM cache_logs
-WHERE (
-cache_logs.`type` =1
-OR cache_logs.`type` =7
-)
-AND cache_logs.user_id = user.user_id
-)
-GROUP BY scores.cache_id");*/
 $result = mysql_query("SELECT cache_id FROM caches");
 set_time_limit(3600);
 		while($rs = mysql_fetch_array($result))
@@ -60,11 +45,11 @@ set_time_limit(3600);
 			$suma = 0;
 
 			// repair founds
-			$founds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE cache_id = ".sql_escape($rs['cache_id'])." AND (type=1 OR type=7)");
+			$founds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = ".sql_escape($rs['cache_id'])." AND (type=1 OR type=7)");
 			$founds = mysql_result($founds_query,0);
-			$notfounds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE cache_id = ".sql_escape($rs['cache_id'])." AND (type=2 OR type=8)");
+			$notfounds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = ".sql_escape($rs['cache_id'])." AND (type=2 OR type=8)");
 			$notfounds = mysql_result($notfounds_query,0);
-			$notes_query = mysql_query("SELECT count(*) FROM cache_logs WHERE cache_id = ".sql_escape($rs['cache_id'])." AND type=3");
+			$notes_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = ".sql_escape($rs['cache_id'])." AND type=3");
 			$notes = mysql_result($notes_query,0);
 			$watcher_query = mysql_query("SELECT count(*) FROM cache_watches WHERE cache_id = ".sql_escape($rs['cache_id']));
 			$watcher = mysql_result($watcher_query,0);

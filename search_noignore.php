@@ -632,6 +632,7 @@
 					$sql_select[] = '`caches`.`cache_id` `cache_id`';
 					$sql_from[] = '`caches`, `cache_logs`';
 					$sql_where[] = '`caches`.`cache_id`=`cache_logs`.`cache_id`';
+					$sql_where[] = '`cache_logs`.`deleted`=0';
 					$sql_where[] = '`cache_logs`.`user_id`=\'' . sql_escape($finder_id) . '\'';
 					$sql_where[] = '(`cache_logs`.`type`=1 OR `cache_logs`.`type`=7)'; // found und attended
 				}
@@ -778,7 +779,7 @@
 				if(!isset($options['f_userfound'])) $options['f_userfound']='0';
 				if($options['f_userfound'] != 0) 
 				{ 
-					$sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_logs`.`cache_id` FROM `cache_logs` WHERE `cache_logs`.`user_id`=\'' . sql_escape($usr['userid']) . '\' AND `cache_logs`.`type` IN (1, 7))';
+					$sql_where[] = '`caches`.`cache_id` NOT IN (SELECT `cache_logs`.`cache_id` FROM `cache_logs` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=\'' . sql_escape($usr['userid']) . '\' AND `cache_logs`.`type` IN (1, 7))';
 				}
 				if(!isset($options['f_inactive'])) $options['f_inactive']='0';
 				if($options['f_inactive'] != 0)  $sql_where[] = '`caches`.`status`=1';
