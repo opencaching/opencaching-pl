@@ -127,7 +127,7 @@ $gpxLog = '
 	$gpxType[5] = 'Webcam Cache';		//OC: Webcam
 	$gpxType[6] = 'Event Cache';		//OC: Event
 	// unknown ... converted
-	$gpxType[7] = 'Multi-cache'; 		//OC: Multi
+	$gpxType[7] = 'Unknown Cache'; 		//OC: Multi
 	$gpxType[8] = 'Multi-cache'; 		//OC: Multi
 	$gpxType[9] = 'Traditional Cache'; 	//OC: Traditional
 	$gpxType[10] = 'Traditional Cache'; //OC: Traditional
