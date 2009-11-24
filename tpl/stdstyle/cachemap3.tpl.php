@@ -76,7 +76,6 @@
 	var h_t = 0;
 	var map=null;
 	var tlo=null;
-	var tlo_foreign=null;
 	var old_temp_unavail_value=null;
 	var old_arch_value=null;
 
@@ -159,26 +158,12 @@
 		tlo = new GTileLayerOverlay(
 			new GTileLayer(null, null, null, 
 				{
-					tileUrlTemplate: "lib/mapper.php?userid={userid}&z={Z}&x={X}&y={Y}&sc={sc}&h_u="+document.getElementById('h_u').checked+"&h_t="+document.getElementById('h_t').checked+"&h_m="+document.getElementById('h_m').checked+"&h_v="+document.getElementById('h_v').checked+"&h_w="+document.getElementById('h_w').checked+"&h_e="+document.getElementById('h_e').checked+"&h_q="+document.getElementById('h_q').checked+"&h_o="+document.getElementById('h_o').checked+"&h_ignored="+document.getElementById('h_ignored').checked+"&h_own="+document.getElementById('h_own').checked+"&h_found="+document.getElementById('h_found').checked+"&h_noattempt="+document.getElementById('h_noattempt').checked+"&h_nogeokret="+document.getElementById('h_nogeokret').checked+"&h_avail="+document.getElementById('h_avail').checked+"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+"&h_arch="+document.getElementById('h_arch').checked+"&signes="+document.getElementById('signes').checked+"&be_ftf="+document.getElementById('be_ftf').checked+"&h_de="+document.getElementById('h_de').checked+"&h_pl="+document.getElementById('h_pl').checked+"&min_score="+document.getElementById('min_score').value+"&max_score="+document.getElementById('max_score').value+"&h_noscore="+document.getElementById('h_noscore').checked, 
-					isPng:false,
-					opacity:0.8
+						tileUrlTemplate: "lib/cgi-bin/mapper.fcgi?userid={userid}&z={Z}&x={X}&y={Y}&sc={sc}&h_u="+document.getElementById('h_u').checked+"&h_t="+document.getElementById('h_t').checked+"&h_m="+document.getElementById('h_m').checked+"&h_v="+document.getElementById('h_v').checked+"&h_w="+document.getElementById('h_w').checked+"&h_e="+document.getElementById('h_e').checked+"&h_q="+document.getElementById('h_q').checked+"&h_o="+document.getElementById('h_o').checked+"&h_ignored="+document.getElementById('h_ignored').checked+"&h_own="+document.getElementById('h_own').checked+"&h_found="+document.getElementById('h_found').checked+"&h_noattempt="+document.getElementById('h_noattempt').checked+"&h_nogeokret="+document.getElementById('h_nogeokret').checked+"&h_avail="+document.getElementById('h_avail').checked+"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+"&h_arch="+document.getElementById('h_arch').checked+"&signes="+document.getElementById('signes').checked+"&be_ftf="+document.getElementById('be_ftf').checked+"&h_de="+document.getElementById('h_de').checked+"&h_pl="+document.getElementById('h_pl').checked+"&min_score="+document.getElementById('min_score').value+"&max_score="+document.getElementById('max_score').value+"&h_noscore="+document.getElementById('h_noscore').checked,
+						isPng:true,
+						opacity:1.0
 				})
 		);
 		map.addOverlay(tlo);
-		reload_foreign();
-	}
-
-	function reload_foreign()
-	{
-		tlo_foreign = new GTileLayerOverlay(
-			new GTileLayer(null, null, null, 
-				{
-					tileUrlTemplate: "lib/mapper_foreign.php?userid={userid}&z={Z}&x={X}&y={Y}&sc={sc}&h_u="+document.getElementById('h_u').checked+"&h_t="+document.getElementById('h_t').checked+"&h_m="+document.getElementById('h_m').checked+"&h_v="+document.getElementById('h_v').checked+"&h_w="+document.getElementById('h_w').checked+"&h_e="+document.getElementById('h_e').checked+"&h_q="+document.getElementById('h_q').checked+"&h_o="+document.getElementById('h_o').checked+"&h_ignored="+document.getElementById('h_ignored').checked+"&h_own="+document.getElementById('h_own').checked+"&h_found="+document.getElementById('h_found').checked+"&h_noattempt="+document.getElementById('h_noattempt').checked+"&h_nogeokret="+document.getElementById('h_nogeokret').checked+"&h_avail="+document.getElementById('h_avail').checked+"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+"&h_arch="+document.getElementById('h_arch').checked+"&signes="+document.getElementById('signes').checked+"&be_ftf="+document.getElementById('be_ftf').checked+"&h_pl="+document.getElementById('h_pl').checked+"&h_de="+document.getElementById('h_de').checked+"", 
-					isPng:false,
-					opacity:0.8
-				})
-		);
-		map.addOverlay(tlo_foreign);
 	}
 	
 	function load() 
@@ -189,19 +174,10 @@
 			tlo = new GTileLayerOverlay(
 				new GTileLayer(null, null, null, 
 					{
-						tileUrlTemplate: "lib/mapper.php?userid={userid}&z={Z}&x={X}&y={Y}&sc={sc}&h_u={h_u}&h_t={h_t}&h_m={h_m}&h_v={h_v}&h_w={h_w}&h_e={h_e}&h_q={h_q}&h_o={h_o}&h_ignored={h_ignored}&h_own={h_own}&h_found={h_found}&h_noattempt={h_noattempt}&h_nogeokret={h_nogeokret}&h_avail={h_avail}&h_temp_unavail={h_temp_unavail}&h_arch={h_arch}&signes={signes}&be_ftf={be_ftf}&h_de={h_de}&h_pl={h_pl}&min_score={min_score}&max_score={max_score}&h_noscore={h_noscore}", 
-						isPng:false,
-						opacity:0.8
-					})
-			);
-			
-			tlo_foreign = new GTileLayerOverlay(
-				new GTileLayer(null, null, null, 
-					{
-						tileUrlTemplate: "lib/mapper_foreign.php?userid={userid}&z={Z}&x={X}&y={Y}&sc={sc}&h_u={h_u}&h_t={h_t}&h_m={h_m}&h_v={h_v}&h_w={h_w}&h_e={h_e}&h_q={h_q}&h_o={h_o}&h_ignored={h_ignored}&h_own={h_own}&h_found={h_found}&h_noattempt={h_noattempt}&h_nogeokret={h_nogeokret}&h_avail={h_avail}&h_temp_unavail={h_temp_unavail}&h_arch={h_arch}&signes={signes}&be_ftf={be_ftf}&h_de={h_de}&h_pl={h_pl}", 
-						isPng:false,
-						opacity:0.8
-					})
+						tileUrlTemplate: "lib/cgi-bin/mapper.fcgi?userid={userid}&z={Z}&x={X}&y={Y}&sc={sc}&h_u="+document.getElementById('h_u').checked+"&h_t="+document.getElementById('h_t').checked+"&h_m="+document.getElementById('h_m').checked+"&h_v="+document.getElementById('h_v').checked+"&h_w="+document.getElementById('h_w').checked+"&h_e="+document.getElementById('h_e').checked+"&h_q="+document.getElementById('h_q').checked+"&h_o="+document.getElementById('h_o').checked+"&h_ignored="+document.getElementById('h_ignored').checked+"&h_own="+document.getElementById('h_own').checked+"&h_found="+document.getElementById('h_found').checked+"&h_noattempt="+document.getElementById('h_noattempt').checked+"&h_nogeokret="+document.getElementById('h_nogeokret').checked+"&h_avail="+document.getElementById('h_avail').checked+"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+"&h_arch="+document.getElementById('h_arch').checked+"&signes="+document.getElementById('signes').checked+"&be_ftf="+document.getElementById('be_ftf').checked+"&h_de="+document.getElementById('h_de').checked+"&h_pl="+document.getElementById('h_pl').checked+"&min_score="+document.getElementById('min_score').value+"&max_score="+document.getElementById('max_score').value+"&h_noscore="+document.getElementById('h_noscore').checked,
+						isPng:true,
+						opacity:1.0
+                    })
 			);
 			
 			map.setCenter(new GLatLng({coords}),{zoom},G_PHYSICAL_MAP);
@@ -215,7 +191,6 @@
 			map.addControl(new GOverviewMapControl());			
 			map.setMapType({map_type});
 			map.addOverlay(tlo);
-			map.addOverlay(tlo_foreign);
 			GEvent.addListener(map, "moveend", function() 
 			{
 			});

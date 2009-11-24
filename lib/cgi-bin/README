@@ -1,0 +1,34 @@
+Author: Damian Kaczmarek
+        aka "rushcore'
+Query code based on php code by Krzysztof "trojmiasto" Mazurkiewicz.
+
+For opencaching.pl project. Attribution on graphics usage would be nice.
+See the code license inside source files.
+
+>> Dependencies:
+- libmysql
+- SDL
+- SDL_gfx
+- libpng
+- SDL_image
+- fcgi (for Makefile.fcgi)
+
+>> How to compile:
+For bare CGI version:
+make -f Makefile.cgi
+
+For FastCGI version:
+make -f Makefile.fcgi
+
+
+>> Note on FastCGI:
+You can increase number of processes running by adding a rule to Apache such as
+
+---
+FastCgiServer /path/to/the/mapper/program/cgi-bin/mapper.fcgi -processes 4
+---
+
+It can help parallelize queries / rendering on distributed / multithreading systems.
+
+>> Configuation/Database:
+Edit data/mapper.ini-example and set connection details. When done, rename to mapper.ini
