@@ -141,9 +141,14 @@ int main(void)
 	MYSQL *conn = NULL;
 	char buf[4096];
 
+	config_handle* conf = config_load(DATA_PATH"/mapper.ini");
+	if(!conf) {
+		fprintf(stderr, "Config "DATA_PATH"/mapper.ini could not have been loaded.");
+		return 1;
+	}
+
 	conn = mysql_init(NULL);
 
-	config_handle* conf = config_load(DATA_PATH"/mapper.ini");
 
 	const char *server = config_get(conf, "Connection", "Host", "localhost");
 	const char *user = config_get(conf, "Connection", "Username", "");
