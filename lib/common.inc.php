@@ -598,6 +598,13 @@ session_start();
 		exit;
 	}
 
+	function tpl_get_current_page()
+	{
+#		$pos = strrchr($_SERVER['SCRIPT_NAME'], '/');
+#		return substr($_SERVER['REQUEST_URI'], $pos);
+		return substr($_SERVER["REQUEST_URI"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
+	}
+
 	//redirect to another absolute url
 	function tpl_redirect_absolute($absolute_server_URI)
 	{

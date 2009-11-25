@@ -8,8 +8,8 @@
 		//user logged in?
 		if ($usr == false)
 		{
-			$target = urlencode(substr($_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'], 1));
-			header('Location: login.php?target='.$target);
+		    $target = urlencode(tpl_get_current_page());^
+		    tpl_redirect('login.php?target='.$target);
 		}
 		else
 		{
