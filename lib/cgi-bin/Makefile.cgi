@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-std=c99 -D_BSD_SOURCE -g `sdl-config --cflags`
 BINARY=mapper.cgi
 OBJECTS=hashtable.o hashtable_itr.o microcgi.o mapper.o config.o IMG_savepng.o
-LDFLAGS=-lmysqlclient -lm `sdl-config --libs` -lpng -lSDL_image -lSDL_gfx
+LDFLAGS=-lmysqlclient -lm `sdl-config --libs` -lpng -lSDL_image -lSDL_gfx -lSDL_ttf
 
 all: clean $(BINARY)
 

@@ -20,10 +20,13 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_gfxBlitFunc.h>
+#include <SDL/SDL_ttf.h>
 #include <math.h>
 #include <mysql/mysql.h>
 #include "IMG_savepng.h"
 #include "config.h"
+
+#define LABEL_FONT_SIZE 10
 
 typedef struct geotile  {
 	double lon;
@@ -175,6 +178,8 @@ int main(void)
 	SDL_Surface *fcgi_markerfoundimg[20];
 	SDL_Surface *fcgi_markernewimg[20];
 	SDL_Surface *fcgi_markerownimg[20];
+
+
 	for(int z = 0;z < 20;++z) {
 		for(int i = 0;i < 11;++i) {
 			snprintf(buf, sizeof(buf), "%s/%s%i.png", DATA_PATH, type2name(i), z);
@@ -198,11 +203,17 @@ int main(void)
 		fcgi_markerownimg[z] = IMG_Load(buf);
 	}
 #endif
+	TTF_Font* font = NULL;
+
+	TTF_Init();
+	snprintf(buf, sizeof(buf), "%s/DejaVuSans.ttf", DATA_PATH);	
+	font = TTF_OpenFont(buf, LABEL_FONT_SIZE);
+//	TTF_SetFontStyle(font, TTF_STYLE_BOLD);
 
 	_LOOPBEGIN;
 
 	microcgi_init();
-	
+
 	int x = microcgi_getint(CGI_GET, "x");
 	int y = microcgi_getint(CGI_GET, "y");
 	int zoom = microcgi_getint(CGI_GET, "z");
@@ -216,8 +227,12 @@ int main(void)
 
 	geotile rect = get_lat_long_xyz(x, y, zoom);
 	SDL_Surface *im = create_image(256, 256);
-	
+
+	int show_signs = !(strcmp(microcgi_getstr(CGI_GET, "signes"), "true"));
+
 	double bound = 0.15;
+	if(show_signs && zoom > 13)
+		bound = 0.55;
 	char *h_sel_ignored = NULL;
 	char *h_ignored = NULL;
 	char *own_not_attempt = NULL;
@@ -346,6 +361,7 @@ int main(void)
 	int hide_pl = (strcmp(microcgi_getstr(CGI_GET, "h_pl"), "true"));
 	int hide_de = (strcmp(microcgi_getstr(CGI_GET, "h_de"), "true"));
 	int hide_noscore = !(strcmp(microcgi_getstr(CGI_GET, "h_noscore"), "false"));
+	int mapid = microcgi_getint(CGI_GET, "mapid");
 
 	for(int i = 0;i < 2;++i) {
 		if(i == 0 && hide_pl)
@@ -402,9 +418,11 @@ int main(void)
 				) // hide caches blocked by RR
 				continue;
 
-			
-			int x, y;
-			latlon_to_pix(latitude, longitude, rect, &x, &y);		
+					   
+			int orig_x, orig_y;
+			latlon_to_pix(latitude, longitude, rect, &orig_x, &orig_y);		
+
+			int x = orig_x, y = orig_y;
 			
 
 			int xpoint_offset = markerimg->w/2;
@@ -428,7 +446,7 @@ int main(void)
 					SDL_gfxBlitRGBA(markerimgnew, NULL, im, &r);
 			}
 			else {
-				if(markerimg)
+				if(markerimg && font)
 					SDL_gfxBlitRGBA(markerimg, NULL, im, &r);
 			}
 
@@ -459,6 +477,38 @@ int main(void)
 				SDL_Rect r = (SDL_Rect){x-redflagimg->w/2,y-redflagimg->h/2,0,0};
 				SDL_gfxBlitRGBA(redflagimg, NULL, im, &r);
 			}
+
+			if(font && show_signs && zoom > 13) {
+				SDL_Color fgcolor = {30, 30, 30};
+				SDL_Color bgcolor = {255, 255, 255};
+				if(mapid == 1 || mapid == 2) {
+					fgcolor = (SDL_Color){255, 255, 255};
+					bgcolor = (SDL_Color){30, 30, 30};
+				}
+
+				SDL_Surface* fglabel = TTF_RenderUTF8_Blended(font, name, fgcolor);
+				SDL_Surface* bglabel = TTF_RenderUTF8_Blended(font, name, bgcolor);
+				SDL_Rect r = (SDL_Rect){orig_x - fglabel->w/2, orig_y + fglabel->h/2};
+				
+
+				SDL_Rect r2;
+				r2 = r;
+				r2.x = r.x - 1;
+				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+				r2 = r;
+				r2.x = r.x + 1;
+				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+				r2 = r;
+				r2.y = r.y + 1;
+				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+				r2 = r;
+				r2.y = r.y - 1;
+				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+
+				SDL_gfxBlitRGBA(fglabel, NULL, im, &r);
+				SDL_FreeSurface(fglabel);
+			}
+
 		}
 		mysql_free_result(res);
 	}
@@ -496,6 +546,7 @@ end_of_request:;
 
 	_LOOPEND;
 
+	TTF_CloseFont(font);
 
 #ifdef WITH_FASTCGI
 	for(int z = 0;z < 20;++z) {
