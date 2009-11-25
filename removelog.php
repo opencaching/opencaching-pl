@@ -256,7 +256,7 @@ function removelog($log_id, $language, $lang)
 		//user logged in?
 		if ($usr == false)
 		{
-		    $target = urlencode(tpl_get_current_page());^
+		    $target = urlencode(tpl_get_current_page());
 		    tpl_redirect('login.php?target='.$target);
 		}
 		else

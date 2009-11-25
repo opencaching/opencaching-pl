@@ -150,7 +150,7 @@ $get_userid = strip_tags($_REQUEST['userid']);
 //user logged in?
 		if ($usr == false)
 		{
-		    $target = urlencode(tpl_get_current_page());^
+		    $target = urlencode(tpl_get_current_page());
 		    tpl_redirect('login.php?target='.$target);
 		}
 		else
