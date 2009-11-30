@@ -23,10 +23,12 @@
 #include <SDL/SDL_ttf.h>
 #include <math.h>
 #include <mysql/mysql.h>
+#include <mysql/errmsg.h>
 #include "IMG_savepng.h"
 #include "config.h"
 
 #define LABEL_FONT_SIZE 10
+
 
 typedef struct geotile  {
 	double lon;
@@ -377,8 +379,17 @@ int main(void)
 
 		/* send SQL query */
 		if (mysql_query(conn, query[i])) {
-			printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
-			fprintf(stdout, "%s\n", mysql_error(conn));
+			if(mysql_errno(conn) == CR_SERVER_GONE_ERROR) {
+				if (!mysql_real_connect(conn, server,
+								user, password, database, port, NULL, 0)) {
+					printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
+					fprintf(stdout, "Can't reconnect to MySQL: %s\n", mysql_error(conn));
+				}
+			}
+			else {
+					printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
+					fprintf(stdout, "%s\n", mysql_error(conn));				
+			}
 			goto end_of_request;
 		}
 		res = mysql_use_result(conn);		
