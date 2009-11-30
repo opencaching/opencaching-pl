@@ -11,6 +11,10 @@ div#map_canvas img { behavior: none; }
 
 }
 
+input, button {
+	color: black;
+}
+
 .naviframe {
   float:left;
   padding:5px;

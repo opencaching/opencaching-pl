@@ -900,12 +900,14 @@
 					$ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore);
 					$is_ignored = "addignore.php?cacheid=".$cache_id."&amp;target=viewcache.php%3Fcacheid%3D".$cache_id;
 					$ignore_label = $language[$lang]['ignore'];
+					$ignore_icon = 'images/actions/ignore';
 				}
 				else
 				{
 					$ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore_not);
 					$is_ignored = "removeignore.php?cacheid=".$cache_id."&amp;target=viewcache.php%3Fcacheid%3D".$cache_id;
 					$ignore_label = $language[$lang]['ignore_not'];
+					$ignore_icon = 'images/actions/ignore';
 				}
 
 					
@@ -926,16 +928,18 @@
 				{
 					$print_list = "viewcache.php?cacheid=$cache_id&amp;print_list=y";
 					$print_list_label = $addToPrintList;
+					$print_list_icon = 'images/actions/list-add';
 				}
 				else
 				{
 					$print_list = "viewcache.php?cacheid=$cache_id&amp;print_list=n";
 					$print_list_label = $removeFromPrintList;
+					$print_list_icon = 'images/actions/list-remove';
 				}
 				
 				$cache_menu = array(
-					'title' => "Menu skrzynki",
-					'menustring' => "Menu skrzynki",
+					'title' => $language[$lang]['cache_menu'],
+					'menustring' => $language[$lang]['cache_menu'],
 					'siteid' => 'cachelisting',
 					'navicolor' => '#E8DDE4',
 					'visible' => false,
@@ -947,7 +951,8 @@
 							'visible' => true,
 							'filename' => 'log.php?cacheid='.$cache_id,
 							'newwindow' => false,
-							'siteid' => 'new_log'
+							'siteid' => 'new_log',
+							'icon' => 'images/actions/new-entry'
 						),
 						array(
 							'title' => $watch_label,
@@ -955,7 +960,8 @@
 							'visible' => true,
 							'filename' => $is_watched,
 							'newwindow' => false,
-							'siteid' => 'observe_cache'
+							'siteid' => 'observe_cache',
+							'icon' => 'images/actions/watch'
 						),
 						array(
 							'title' => $language[$lang]['report_problem'],
@@ -963,7 +969,8 @@
 							'visible' => true,
 							'filename' => 'reportcache.php?cacheid='.$cache_id,
 							'newwindow' => false,
-							'siteid' => 'report_cache'
+							'siteid' => 'report_cache',
+							'icon' => 'images/actions/report-problem'
 						),
 						array(
 							'title' => $language[$lang]['print'],
@@ -971,7 +978,8 @@
 							'visible' => true,
 							'filename' => 'viewcache.php?cacheid='.$cache_id.'&amp;print=y',
 							'newwindow' => false,
-							'siteid' => 'print_cache'
+							'siteid' => 'print_cache',
+							'icon' => 'images/actions/print'
 						),
 						array(
 							'title' => $print_list_label,
@@ -979,7 +987,8 @@
 							'visible' => true,
 							'filename' => $print_list,
 							'newwindow' => false,
-							'siteid' => 'print_list_cache'
+							'siteid' => 'print_list_cache',
+							'icon' => $print_list_icon
 						),
 						array(
 							'title' => $ignore_label,
@@ -987,7 +996,8 @@
 							'visible' => true,
 							'filename' => $is_ignored,
 							'newwindow' => false,
-							'siteid' => 'ignored_cache'
+							'siteid' => 'ignored_cache',
+							'icon' => $ignore_icon
 						),
 						array(
 							'title' => $language[$lang]['edit'],
@@ -995,7 +1005,8 @@
 							'visible' => $show_edit,
 							'filename' => 'editcache.php?cacheid='.$cache_id,
 							'newwindow' => false,
-							'siteid' => 'edit_cache'
+							'siteid' => 'edit_cache',
+							'icon' => 'images/actions/edit'
 						)
 					)
 				);

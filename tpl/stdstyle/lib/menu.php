@@ -703,6 +703,31 @@ $menu = array(
 	$cache_menu
 );
 
+
+function mnu_MainMenuIndexFromPageId($menustructure, $pageid)
+{
+	/* selmenuitem contains the selected (bold) menu item */
+	global $mnu_selmenuitem;
+
+	for ($i = 0, $ret = -1; ($i < count($menustructure)) && ($ret == -1); $i++)
+	{
+		if ($menustructure[$i]['siteid'] == $pageid)
+		{
+			$mnu_selmenuitem = $menustructure[$i];
+			return $i;
+		}
+		else
+		{
+			if (isset($menustructure[$i]['submenu']))
+			{
+				$ret = mnu_MainMenuIndexFromPageId($menustructure[$i]['submenu'], $pageid);
+				if ($ret != -1) return $i;
+			}
+		}
+	}
+	return $ret;
+}
+
 /*
  * mnu_EchoMainMenu - echos the top level menus
  *
@@ -783,27 +808,33 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 	{
 		if ($menustructure[$i]['visible'] == true)
 		{
+			if($menustructure[$i]['icon']) {
+				$icon = 'style="background-image: url('.$menustructure[$i]['icon'].'-18.png);background-repeat:no-repeat;"';
+			}
+			else
+				$icon = "";
+
 			if ($menustructure[$i]['siteid'] == $pageid)
 			{
 				echo '<li class="'.$cssclass.' '.$cssclass.'_active"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
 			}
 			else
 			{
-				if (isset($menustructure[$i]['submenu']))
-				{
-					if (mnu_IsMenuParentOf($menustructure[$i]['submenu'], $pageid))
-					{
-						echo '<li class="' . $cssclass . '"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
-					}
-					else
-					{
-						echo '<li class="' . $cssclass . '"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
-					}
-				}
-				else
-				{
-					echo '<li class="' . $cssclass . '"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
-				}
+//				if (isset($menustructure[$i]['submenu']))
+//				{
+//					if (mnu_IsMenuParentOf($menustructure[$i]['submenu'], $pageid))
+					//{
+//						echo '<li class="' . $cssclass . '"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+//					}
+//					else
+//					{
+//						echo '<li class="' . $cssclass . '"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+//					}
+//				}
+//				else
+//				{
+					echo '<li class="' . $cssclass . '"><a '.$icon.'href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+//				}
 			}
 
 			if (isset($menustructure[$i]['submenu']))

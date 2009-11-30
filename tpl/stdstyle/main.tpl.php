@@ -145,7 +145,6 @@ function chname( newName )
 		</div>
     <!-- Buffer after header -->    
 		<div class="buffer" style="height:30px;"></div>
-
 		<!-- NAVIGATION -->				
   	<!-- Navigation Level 3 -->
 		<div class="nav3">
@@ -169,19 +168,7 @@ function chname( newName )
 			?>
 			<?php
 				if( $usr )
-				{
-					// cachelisting
-					$clidx = mnu_MainMenuIndexFromPageId($menu, "cachelisting");
-					if( $menu[$clidx]['title'] != '' )
-					{
-						echo '<ul>';					
-						$menu[$clidx]['visible'] = false;
-						echo '<li class="title">'.$menu[$clidx]["title"].'</li>';
-						mnu_EchoSubMenu($menu[$clidx]['submenu'], $tplname, 1, false);
-						echo '</ul>';
-					}
-					//end cachelisting
-				
+				{				
 					$myhomeidx = mnu_MainMenuIndexFromPageId($menu, "myhome");
 					$myprofileidx = mnu_MainMenuIndexFromPageId($menu[$myhomeidx]["submenu"], "myprofile");
 					
@@ -236,7 +223,7 @@ function chname( newName )
 					<a href="/index.php?page=sitemap">{main_page}</a><br/>
 					{runtime}
 				</p>
-				 <p><a href="http://validator.w3.org/check?uri=referer" title="Validate code as W3C XHTML 1.1 Strict Compliant">W3C XHTML 1.0</a> | <a href="http://jigsaw.w3.org/css-validator/" title="Validate Style Sheet as W3C CSS 2.0 Compliant">W3C CSS 2.0</a></p>
+				 <p><a href="http://validator.w3.org/check?uri=referer" title="Validate code as W3C XHTML 1.0 Compliant">W3C XHTML 1.0</a> | <a href="http://jigsaw.w3.org/css-validator/" title="Validate Style Sheet as W3C CSS 2.0 Compliant">W3C CSS 2.0</a></p>
 			</div>
 		</div>
 </body>

@@ -19,24 +19,54 @@
 ?>
 
 <!-- Text container -->
+
 			<div class="content2-container line-box">
+
 				<div class="content2-container-2col-left" style="width:60px;">
-					<div style="float:left"><img src="{icon_cache}" border="0" width="32" height="32" align="left" alt="{cachetype}" title="{cachetype}"/></div><div>{difficulty_icon_diff}</div><div>
-						{difficulty_icon_terr}
-						</div>
+
 					<div align="center" class="content-score">
 						<p>{score_start}<b><font color="{scorecolor}" size="{font_size}">{score}</font></b>{score_end}{noscore_start}<img src="images/noscore.png" alt="N/A"/>{noscore_end}</p>
 					</div>
+<div><img src="{icon_cache}" border="0" width="32" height="32" align="left" alt="{cachetype}" title="{cachetype}"/></div>
+					<div>{difficulty_icon_diff}</div><div>
+						{difficulty_icon_terr}
+						</div>
+
 				</div>
-				<div class="content2-container-2col-left" style="width:500px;padding: 5px;">
+			<div class="">
+				<div class="nav4">
+<?
+
+					if ($usr == false) 
+					{
+						echo '<span class="notlogged-cacheview">Musisz być zalogowany by dokonywać wpisów do logu i inne operacje.</span>';
+					}
+					// cachelisting
+					$clidx = mnu_MainMenuIndexFromPageId($menu, "cachelisting");
+					if( $menu[$clidx]['title'] != '' )
+					{
+						echo '<ul>';					
+						$menu[$clidx]['visible'] = false;
+						echo '<li class="title" ';
+						echo '>'.$menu[$clidx]["title"].'</li>';
+						mnu_EchoSubMenu($menu[$clidx]['submenu'], $tplname, 1, false);
+						echo '</ul>';
+					}
+					//end cachelisting
+?>
+				</div>
+			</div>
+				<div class="content2-container-2col-left" id="cache_name_block" style="padding: 5px;">
 					<span class="content-title-noshade-size5">{cachename}</span><br />
 					<p class="content-title-noshade-size1">{short_desc}</p>
 					<p>{created_by} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a></p>
 					{event_attendance_list}
 				</div>
-			</div>
-<!-- End Text Container -->
 
+
+			</div>
+
+<!-- End Text Container -->
 <!-- Text container -->
 			<div class="content2-container line-box">
 				<div class="content2-container-2col-left" style="width:400px;">

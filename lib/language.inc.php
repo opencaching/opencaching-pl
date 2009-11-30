@@ -4,6 +4,7 @@ $language = array();
 ////////////////////////////////////////// POLISH ////////////////////////////////////////////
 $language['pl']['main_menu'] = 'Menu główne';
 $language['pl']['user_menu'] = 'Menu użytkownika';
+$language['pl']['cache_menu'] = 'Menu skrzynki';
 $language['pl']['activation_code_failed'] = 'Kod aktywacyjny lub adres e-mail jest niepoprawny.<br/>Aktywacja twojego konta przebiegła niepoprawnie. Proszę sprawdzić, czy nie popełniłeś błędu. Jeśli problem nadal występuje, proszę zgłosić go na adres ocpl (at) opencaching.pl.';
 $language['pl']['email_incorrect'] = 'Podany adres e-mail jest niepoprawny.';
 $language['pl']['account_activation'] = 'Aktywacja konta';
@@ -478,6 +479,7 @@ $language['pl']['forgotten_your_password'] = 'Zapomniałeś hasła? <a href="new
 ////////////////////////////////////////// ENGLISH //////////////////////////////////////////
 $language['en']['main_menu'] = 'Main Menu';
 $language['en']['user_menu'] = 'User\'s Menu';
+$language['en']['cache_menu'] = 'Cache Menu';
 $language['en']['activation_code_failed'] = 'Activation code or e-mail address is incorrect.<br/>Your account has not been activated successfully. Please check if you have not made a mistake. If problem still occurs, please contact us at: ocpl (at) opencaching.pl.';
 $language['en']['email_incorrect'] = 'E-mail address is incorrect.';
 $language['en']['account_activation'] = 'Account activation';
@@ -951,6 +953,7 @@ $language['en']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw
 ////////////////////////////////////// GERMAN  ////////////////////////////////////////////////
 $language['de']['main_menu'] = 'Main Menu';
 $language['de']['user_menu'] = 'User\'s Menu';
+$language['de']['cache_menu'] = 'Cache Menu';
 $language['de']['activation_code_failed'] = 'Der Aktivierungscode oder die E-Mail-Adresse ist nicht korrekt.<br />Die Aktivierung deines Account war nicht erfolgreich.<br />Verwende bitte die E-Mail-Adresse aus der Registrierungsbestätigung, die du per E-Mail bekommen hast.<br />Überprüfe bitte, ob du dich vertippt hast - sollten die Probleme längere Zeit bestehen, melde dich bitte unter ocpl (at) opencaching.pl.';
 $language['de']['email_incorrect'] = 'E-Mail-Adresse ist nicht korrekt.';
 $language['de']['account_activation'] = 'Account-Aktivierung';
@@ -1222,7 +1225,7 @@ $language['de']['you_have_participated_in'] = 'Sie haben an '; // dh" _you haben
 $language['de']['found_x_events'] = 'Events'; // zB "Sie haben in 10 _events_@myhome.php"
 $language['de']['your_new_log_entries'] = 'Ihre letzten Log-Einträge ';
 $language['de']['user_new_log_entries'] = 'Aktuelle Log-Einträge ';
-$language['pl']['your_caches_new_log_entries'] = 'Najnowsze wpisy w Twoich skrzynkach';
+$language['de']['your_caches_new_log_entries'] = 'Najnowsze wpisy w Twoich skrzynkach';
 $language['de']['your_latest_hiddens'] = 'Ihre kürzlich versteckten Caches';
 $language['de']['number_of_your_hiddens'] ='Anzahl der Caches versteckt, indem Sie';
 $language['de']['not_yet_published'] = 'Ihr-Caches, die noch nicht veröffentlicht';
@@ -1424,6 +1427,7 @@ $language['de']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw
 ///////////////////////////////////////////////////// CZECH ///////////////////////////////////////////////////
 $language['cs']['main_menu'] = 'Main Menu';
 $language['cs']['user_menu'] = 'User\'s Menu';
+$language['cs']['cache_menu'] = 'Cache Menu';
 $language['cs']['activation_code_failed'] =	'Aktivační kód, nebo e-mailová adresa je neplatná. <br/> Aktivovat svůj účet se pokazilo. Prosím zkontrolujte popełniłeś chybu. Pokud problém přetrvává, prosím, zprávu na adresu ocpl (at) opencaching.pl. ';
 $language['cs']['email_incorrect'] =	  'E-mailová adresa je neplatná.';
 $language['cs']['account_activation'] =	  'Aktivace';
@@ -1695,7 +1699,7 @@ $language['cs']['you_have_participated_in'] =	  'Zúčastnila';
 $language['cs']['found_x_events'] =	  'setkání';
 $language['cs']['your_new_log_entries'] =	  'Vaše poslední zápisy do logů';
 $language['cs']['user_new_log_entries'] =	  'Poslední přihlášení záznamy';
-$language['pl']['your_caches_new_log_entries'] = 'Najnowsze wpisy w Twoich skrzynkach';
+$language['cs']['your_caches_new_log_entries'] = 'Najnowsze wpisy w Twoich skrzynkach';
 $language['cs']['your_latest_hiddens'] =	  'Lidé, skryté ve schránce';
 $language['cs']['number_of_your_hiddens'] =	  'Počet skrytých políček vy';
 $language['cs']['not_yet_published'] =	  'Vaše schránka dosud nepublikovaných';
@@ -1897,6 +1901,7 @@ $language['cs']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw
 /////////////////////////////////////////////////// FRENCH ////////////////////////////////////////////////
 $language['fr']['main_menu'] = 'Main Menu';
 $language['fr']['user_menu'] = 'User\'s Menu';
+$language['fr']['cache_menu'] = 'Cache Menu';
 $language['fr']['activation_code_failed'] =	"Code d'activation ou par e-mail est valide. <br/> Activez votre compte ne va pas. S'il vous plaît vérifier  erreur. Si le probleme persiste, s'il vous plaît signalez-le a l'adresse ocpl (at) opencaching.pl .";
 $language['fr']['email_incorrect'] =	  "L'adresse e-mail est invalide.";
 $language['fr']['account_activation'] =	"Activation";
@@ -2168,7 +2173,7 @@ $language['fr']['you_have_participated_in'] =	  "Participation a ";
 $language['fr']['found_x_events'] =	  "réunions";
 $language['fr']['your_new_log_entries'] =	  "Vos plus récentes entrées dans les journaux";
 $language['fr']['user_new_log_entries'] =	  "Les récentes entrées dans le journal";
-$language['pl']['your_caches_new_log_entries'] = 'Najnowsze wpisy w Twoich skrzynkach';
+$language['fr']['your_caches_new_log_entries'] = 'Najnowsze wpisy w Twoich skrzynkach';
 $language['fr']['your_latest_hiddens'] =	  "Récemment, caché dans votre boîte de réception";
 $language['fr']['number_of_your_hiddens'] =	  "Le nombre de cases que vous caché";
 $language['fr']['not_yet_published'] =	  "Votre boîte aux lettres encore inédites";
@@ -2370,6 +2375,7 @@ $language['fr']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw
 /////////////////////////////////// SPANISH ///////////////////////////////////////
 $language['es']['main_menu'] = 'Main Menu';
 $language['es']['user_menu'] = 'User\'s Menu';
+$language['es']['cache_menu'] = 'Cache Menu';
 $language['es']['activation_code_failed'] = "Código de activación o dirección de correo electrónico no es válida. <br/> Active su cuenta ha fallado. Por favor, compruebe error. Si el problema persiste, por favor repórtelo a la dirección ocpl (a) opencaching.pl.";
 $language['es']['email_incorrect'] 	= "Su dirección de correo electrónico no es válida .";
 $language['es']['account_activation'] 	= "Activación";
@@ -2641,7 +2647,7 @@ $language['es']['you_have_participated_in'] 	= "Participó en ";
 $language['es']['found_x_events'] = "reuniones ";
 $language['es']['your_new_log_entries'] 	= "Su más reciente de las entradas en los registros";
 $language['es']['user_new_log_entries'] 	= "Las recientes entradas de registro";
-$language['pl']['your_caches_new_log_entries'] = 'Najnowsze wpisy w Twoich skrzynkach';
+$language['es']['your_caches_new_log_entries'] = 'Najnowsze wpisy w Twoich skrzynkach';
 $language['es']['your_latest_hiddens'] 	= "Recientemente, oculta en su bandeja de entrada";
 $language['es']['number_of_your_hiddens'] 	= "El número de cajas que oculta ";
 $language['es']['not_yet_published'] 	= "Su buzón de correo aún no ha sido publicada ";

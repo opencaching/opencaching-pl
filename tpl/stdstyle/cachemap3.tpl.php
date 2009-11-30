@@ -184,6 +184,7 @@
 	{
 		map.clearOverlays(tlo);
 		addocoverlay();
+		map.addOverlay(tlo);
 	}
 	
 	function load() 

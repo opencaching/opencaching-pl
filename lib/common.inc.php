@@ -1169,30 +1169,6 @@ session_start();
 			$dziubek = ">";
 		return array( "kraj"=>$kraj, "woj"=>$wojewodztwo, "miasto"=>$miasto, "dziubek"=>$dziubek);
 	}
-function mnu_MainMenuIndexFromPageId($menustructure, $pageid)
-{
-	/* selmenuitem contains the selected (bold) menu item */
-	global $mnu_selmenuitem;
-
-	for ($i = 0, $ret = -1; ($i < count($menustructure)) && ($ret == -1); $i++)
-	{
-		if ($menustructure[$i]['siteid'] == $pageid)
-		{
-			$mnu_selmenuitem = $menustructure[$i];
-			return $i;
-		}
-		else
-		{
-			if (isset($menustructure[$i]['submenu']))
-			{
-				$ret = mnu_MainMenuIndexFromPageId($menustructure[$i]['submenu'], $pageid);
-				if ($ret != -1) return $i;
-			}
-		}
-	}
-
-	return $ret;
-}
 
 function typeToLetter($type)
 {

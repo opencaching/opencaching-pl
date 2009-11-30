@@ -173,6 +173,7 @@ int main(void)
 		config_free(conf);
 		return -1;
 	}
+	mysql_query(conn,"SET NAMES utf8;");
 #ifdef WITH_FASTCGI
 
 	SDL_Surface *fcgi_cacheimgs[20][11];
@@ -236,7 +237,7 @@ int main(void)
 	int show_signs = !(strcmp(microcgi_getstr(CGI_GET, "signes"), "true"));
 
 	double bound = 0.15;
-	if(show_signs && zoom > 13)
+	if(show_signs && zoom >= 13)
 		bound = 0.55;
 	char *h_sel_ignored = NULL;
 	char *h_ignored = NULL;
