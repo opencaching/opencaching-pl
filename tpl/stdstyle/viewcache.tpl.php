@@ -22,18 +22,11 @@
 
 			<div class="content2-container line-box">
 
-				<div class="content2-container-2col-left" style="width:60px;">
 
-					<div align="center" class="content-score">
-						<p>{score_start}<b><font color="{scorecolor}" size="{font_size}">{score}</font></b>{score_end}{noscore_start}<img src="images/noscore.png" alt="N/A"/>{noscore_end}</p>
-					</div>
-<div><img src="{icon_cache}" border="0" width="32" height="32" align="left" alt="{cachetype}" title="{cachetype}"/></div>
-					<div>{difficulty_icon_diff}</div><div>
-						{difficulty_icon_terr}
-						</div>
-
-				</div>
 			<div class="">
+
+
+
 				<div class="nav4">
 <?
 
@@ -55,6 +48,20 @@
 					//end cachelisting
 ?>
 				</div>
+				<div class="content2-container-2col-left" style="width:60px; clear: left;">
+
+
+
+			<div><img src="{icon_cache}" border="0" width="32" height="32" align="left" alt="{cachetype}" title="{cachetype}"/></div>
+					<div>{difficulty_icon_diff}</div><div>
+						{difficulty_icon_terr}
+					</div>
+
+					<div align="center" class="content-score">
+						<p>{score_start}<b><font color="{scorecolor}" size="{font_size}">{score}</font></b>{score_end}{noscore_start}<img src="images/noscore.png" alt="N/A"/>{noscore_end}</p>
+					</div>
+
+				</div>
 			</div>
 				<div class="content2-container-2col-left" id="cache_name_block" style="padding: 5px;">
 					<span class="content-title-noshade-size5">{cachename}</span><br />
@@ -64,7 +71,9 @@
 				</div>
 
 
+
 			</div>
+
 
 <!-- End Text Container -->
 <!-- Text container -->
