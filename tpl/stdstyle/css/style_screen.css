@@ -16,6 +16,7 @@
 
 img { behavior: url(iepngfix/iepngfix.htc); vertical-align:middle; border-width:0px;border-style:none; }
 div#map_canvas img { behavior: none; }
+div#cacheinfo { background-color: blue;}
 
 body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #cccccc; font-family: arial, sans-serif;}
 .page-container-1 {width: 970px; margin: 0px auto; padding: 0px; background-color:#ffffff; border: solid 1px rgb(100,100,100);}
@@ -107,19 +108,21 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 /*----------------------------*/
 /*.nav4 {overflow: hidden; clear: both; margin: 0px; padding: 0px; color: rgb(75,75,75); font-size: 1.0em;margin: 0;}
 */
-/*.nav4 ul {width: 160px; margin: 0px 0px 0px 0px; padding: 0px; border-bottom: solid 1px rgb(216,206,159); background-color: rgb(219,230,241);}	*/
-.nav4 li {float: left; /*background-color: rgb(219,230,241);*/list-style: none; margin: 0px; padding: 0px;}
+/*.nav4 ul {width: 160px; margin: 0px 0px 0px 0px; padding: 0px; border-bottom: solid 1px rgb(216,206,159); background-color: rgb(219,230,241);}*/
+.nav4 li {float: left; list-style: none; margin: 0px; padding: 0px;padding-bottom: 5px;}
 .nav4 li.title {display: none; margin: 0px 0px 0px 0px; padding: 3px 5px 2px 5px; background-color: rgb(156,186,214); color: rgb(255,255,255); text-transform: uppercase; font-weight: bold; font-size: 120%;}
 .nav4 li.group a {background-color: rgb(219,230,241);display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; margin-right: 3px; padding: 0px 7px 0px 20px; border-top: solid 1px rgb(200,200,200); border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); font-weight: bold; font-size: 120%;}
 .nav4 li.group_active a {border-left: solid 7px rgb(156,186,214); background-color: rgb(156,186,214);}
 .nav4 li.subgroup a {display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 0px; border-top: solid 1px rgb(200,200,200); border-left: solid 14px rgb(219,230,241); color: rgb(75,75,75); font-weight: normal; font-size: 120%;}
 .nav4 li.subgroup_active a {border-left: solid 14px rgb(156,186,214); background-color: rgb(156,186,214);}
 
-.nav4 li a {display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 40px 0px 40px; border-left: solid 40px rgb(219,230,241); color: rgb(75,75,75); text-decoration: none; font-size: 120%;}
+.nav4 li a {display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; border-left: solid 40px rgb(219,230,241); color: rgb(75,75,75); text-decoration: none; font-size: 120%;}
 .nav4 li a:hover, .nav4 li a.selected {border-left: solid 7px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
 .nav4 li.subgroup a:hover, .nav4 li a.selected {border-left: solid 14px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
 
-.notlogged-cacheview { float: left; display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 7px 0px 0px 7px; color: rgb(150,75,75); font-size: 120%; }
+ul#cachemenu { padding: 0px; margin: 0px;}
+
+.notlogged-cacheview { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 1px 0px 0px 7px; color: rgb(150,75,75); font-size: 120%; }
 
 /******************************************************/
 /* SECTION 4 - SPECIFIC CLASSES FOR LAYOUTS #2 and #3 */
@@ -129,7 +132,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 
 .errormsg {color: rgb(240,100,100); font-weight: bold;}
 
-#cache_name_block { width: 670px; }
+#cache_name_block { width: 670px; padding-left: 5px; padding-top: 5px;}
 
 .content2 {float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
 .content3 {float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
@@ -157,7 +160,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 .content-title-noshade-size5 {margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 200%;}
 
 .content-txtbox-noshade {margin: 0px; padding: 7px 0px 0px 0px; background-color: rgb(255,255,255);}
-.content-score {margin: 0px; margin-top: 7px; padding: 4px 0px 0px 0px; background-color: rgb(255,255,255); border-style:dotted; border-width:1px; width:55px; height:20px;vertical-align:middle;}
+.content-score {margin: 0px; margin-top: 3px; padding: 4px 0px 0px 0px; background-color: rgb(255,255,255); border-style:dotted; border-width:1px; width:55px; height:20px;vertical-align:middle;}
 
 /* Headings */
 h1 {margin: 1.0em 0px 0.5em 0px; font-weight: bold; font-size: 160%;}

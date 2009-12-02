@@ -38,7 +38,7 @@
 					$clidx = mnu_MainMenuIndexFromPageId($menu, "cachelisting");
 					if( $menu[$clidx]['title'] != '' )
 					{
-						echo '<ul>';					
+						echo '<ul id="cachemenu">';
 						$menu[$clidx]['visible'] = false;
 						echo '<li class="title" ';
 						echo '>'.$menu[$clidx]["title"].'</li>';
@@ -48,36 +48,35 @@
 					//end cachelisting
 ?>
 				</div>
+
+
+
 				<div class="content2-container-2col-left" style="width:60px; clear: left;">
 
-
-
-			<div><img src="{icon_cache}" border="0" width="32" height="32" align="left" alt="{cachetype}" title="{cachetype}"/></div>
-					<div>{difficulty_icon_diff}</div><div>
-						{difficulty_icon_terr}
-					</div>
+					<div><img src="{icon_cache}" border="0" width="32" height="32" align="left" alt="{cachetype}" title="{cachetype}"/></div>
+					<div>{difficulty_icon_diff}</div><div>{difficulty_icon_terr}</div>
 
 					<div align="center" class="content-score">
 						<p>{score_start}<b><font color="{scorecolor}" size="{font_size}">{score}</font></b>{score_end}{noscore_start}<img src="images/noscore.png" alt="N/A"/>{noscore_end}</p>
 					</div>
 
+				
 				</div>
-			</div>
-				<div class="content2-container-2col-left" id="cache_name_block" style="padding: 5px;">
+				<div class="content2-container-2col-left" id="cache_name_block">
 					<span class="content-title-noshade-size5">{cachename}</span><br />
-					<p class="content-title-noshade-size1">{short_desc}</p>
+					<p class="content-title-noshade-size1">&nbsp;{short_desc}</p>
 					<p>{created_by} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a></p>
 					{event_attendance_list}
 				</div>
 
 
-
+			</div>
 			</div>
 
 
 <!-- End Text Container -->
 <!-- Text container -->
-			<div class="content2-container line-box">
+			<div class="content2-container">
 				<div class="content2-container-2col-left" style="width:400px;">
 					<p class="content-title-noshade-size3">
 						<img src="tpl/stdstyle/images/description/22x22-location.png"  width="22" height="22" border="0" alt="" title="" align="left"/>
