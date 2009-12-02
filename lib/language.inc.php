@@ -474,6 +474,7 @@ $language['pl']['logoutsuccess'] = 'Wylogowanie przebiegło z powodzeniem';
 $language['pl']['error_usernotactive'] = 'Twoje konto nie było aktywowane jeszcze lub było ponownie zdeaktywowane.<br />Konto możesz <a href=activation.php>TUTAJ</a>Aktywować.';
 $language['pl']['not_registered'] = 'Chcesz się zarejestrować? <a href="register.php">Rejestracja</a>';
 $language['pl']['forgotten_your_password'] = 'Zapomniałeś hasła? <a href="newpw.php">Nowe hasło</a>';
+$language['pl']['cache_logged_required'] = 'Musisz być zalogowany by wpisywać się do logu i dokonywać operacji na skrzynce.';
 
 
 ////////////////////////////////////////// ENGLISH //////////////////////////////////////////
@@ -949,6 +950,7 @@ $language['en']['logoutsuccess'] = 'Logout was successful';
 $language['en']['error_usernotactive'] = 'Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.';
 $language['en']['not_registered'] = 'Not registered? <a href="register.php">Register</a>';
 $language['en']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw.php">Remind me</a>';
+$language['en']['cache_logged_required'] = 'You have to be logged to add new log entries and operate on this cache.';
 
 ////////////////////////////////////// GERMAN  ////////////////////////////////////////////////
 $language['de']['main_menu'] = 'Main Menu';
@@ -1423,6 +1425,7 @@ $language['de']['logoutsuccess'] = 'Logout was successful';
 $language['de']['error_usernotactive'] = 'Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.';
 $language['de']['not_registered'] = 'Not registered? <a href="register.php">Register</a>';
 $language['de']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw.php">Remind me</a>';
+$language['de']['cache_logged_required'] = 'You have to be logged to add new log entries and operate on this cache.';
 
 ///////////////////////////////////////////////////// CZECH ///////////////////////////////////////////////////
 $language['cs']['main_menu'] = 'Main Menu';
@@ -1897,6 +1900,7 @@ $language['cs']['logoutsuccess'] = 'Logout was successful';
 $language['cs']['error_usernotactive'] = 'Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.';
 $language['cs']['not_registered'] = 'Not registered? <a href="register.php">Register</a>';
 $language['cs']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw.php">Remind me</a>';
+$language['cs']['cache_logged_required'] = 'You have to be logged to add new log entries and operate on this cache.';
 
 /////////////////////////////////////////////////// FRENCH ////////////////////////////////////////////////
 $language['fr']['main_menu'] = 'Main Menu';
@@ -2371,6 +2375,7 @@ $language['fr']['logoutsuccess'] = 'Logout was successful';
 $language['fr']['error_usernotactive'] = 'Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.';
 $language['fr']['not_registered'] = 'Not registered? <a href="register.php">Register</a>';
 $language['fr']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw.php">Remind me</a>';
+$language['fr']['cache_logged_required'] = 'You have to be logged to add new log entries and operate on this cache.';
 
 /////////////////////////////////// SPANISH ///////////////////////////////////////
 $language['es']['main_menu'] = 'Main Menu';
@@ -2845,5 +2850,6 @@ $language['es']['logoutsuccess'] = 'Logout was successful';
 $language['es']['error_usernotactive'] = 'Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.';
 $language['es']['not_registered'] = 'Not registered? <a href="register.php">Register</a>';
 $language['es']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw.php">Remind me</a>';
+$language['es']['cache_logged_required'] = 'You have to be logged to add new log entries and operate on this cache.';
 
 ?>

@@ -239,122 +239,127 @@
 				
 			});
 			
-			GEvent.addListener(map, "click", function(overlay,point) 
+
+			var onClickFunc = function(overlay,point) 
 			{
 				if( point==undefined )
 					return;
 				
-	GDownloadUrl("lib/xmlmap.php?lat="+point.lat()+"&lon="+point.lng()+"&userid={userid}&h_u="+document.getElementById('h_u').checked+"&h_t="+document.getElementById('h_t').checked+"&h_m="+document.getElementById('h_m').checked+"&h_v="+document.getElementById('h_v').checked+"&h_w="+document.getElementById('h_w').checked+"&h_e="+document.getElementById('h_e').checked+"&h_q="+document.getElementById('h_q').checked+"&h_o="+document.getElementById('h_o').checked+"&h_ignored="+document.getElementById('h_ignored').checked+"&h_own="+document.getElementById('h_own').checked+"&h_found="+document.getElementById('h_found').checked+"&h_noattempt="+document.getElementById('h_noattempt').checked+"&h_nogeokret="+document.getElementById('h_nogeokret').checked+"&h_avail="+document.getElementById('h_avail').checked+"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+"&h_arch="+document.getElementById('h_arch').checked+"&signes="+document.getElementById('signes').checked+"&be_ftf="+document.getElementById('be_ftf').checked+"&h_pl="+document.getElementById('h_pl').checked+"&h_de="+document.getElementById('h_de').checked+"&min_score="+document.getElementById('min_score').value+"&max_score="+document.getElementById('max_score').value+"&h_noscore="+document.getElementById('h_noscore').checked, function(data, responseCode) 
-						{
-							var xml = GXml.parse(data);
+				GDownloadUrl("lib/xmlmap.php?lat="+point.lat()+"&lon="+point.lng()+"&userid={userid}&h_u="+document.getElementById('h_u').checked+"&h_t="+document.getElementById('h_t').checked+"&h_m="+document.getElementById('h_m').checked+"&h_v="+document.getElementById('h_v').checked+"&h_w="+document.getElementById('h_w').checked+"&h_e="+document.getElementById('h_e').checked+"&h_q="+document.getElementById('h_q').checked+"&h_o="+document.getElementById('h_o').checked+"&h_ignored="+document.getElementById('h_ignored').checked+"&h_own="+document.getElementById('h_own').checked+"&h_found="+document.getElementById('h_found').checked+"&h_noattempt="+document.getElementById('h_noattempt').checked+"&h_nogeokret="+document.getElementById('h_nogeokret').checked+"&h_avail="+document.getElementById('h_avail').checked+"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+"&h_arch="+document.getElementById('h_arch').checked+"&signes="+document.getElementById('signes').checked+"&be_ftf="+document.getElementById('be_ftf').checked+"&h_pl="+document.getElementById('h_pl').checked+"&h_de="+document.getElementById('h_de').checked+"&min_score="+document.getElementById('min_score').value+"&max_score="+document.getElementById('max_score').value+"&h_noscore="+document.getElementById('h_noscore').checked, function(data, responseCode) 
+					{
+						var xml = GXml.parse(data);
 							
-							var caches = xml.documentElement.getElementsByTagName("cache");
-							var cache_id = caches[0].getAttribute("cache_id");
-							var name = stripslashes(caches[0].getAttribute("name"));
-							var username = stripslashes(caches[0].getAttribute("username"));
-							var wp = caches[0].getAttribute("wp");
-							var votes = caches[0].getAttribute("votes");
-							var score = caches[0].getAttribute("score");
-							var topratings = caches[0].getAttribute("topratings");
-							var lat = caches[0].getAttribute("lat");
-							var lon = caches[0].getAttribute("lon");
-							var type = caches[0].getAttribute("type");
-							var status = caches[0].getAttribute("status");
-							var user_id = caches[0].getAttribute("user_id");
-							var founds = caches[0].getAttribute("founds");
-							var notfounds = caches[0].getAttribute("notfounds");
-							var node = caches[0].getAttribute("node");
+						var caches = xml.documentElement.getElementsByTagName("cache");
+						var cache_id = caches[0].getAttribute("cache_id");
+						var name = stripslashes(caches[0].getAttribute("name"));
+						var username = stripslashes(caches[0].getAttribute("username"));
+						var wp = caches[0].getAttribute("wp");
+						var votes = caches[0].getAttribute("votes");
+						var score = caches[0].getAttribute("score");
+						var topratings = caches[0].getAttribute("topratings");
+						var lat = caches[0].getAttribute("lat");
+						var lon = caches[0].getAttribute("lon");
+						var type = caches[0].getAttribute("type");
+						var status = caches[0].getAttribute("status");
+						var user_id = caches[0].getAttribute("user_id");
+						var founds = caches[0].getAttribute("founds");
+						var notfounds = caches[0].getAttribute("notfounds");
+						var node = caches[0].getAttribute("node");
 							
-							if( cache_id != "" )
-							{							
-								var show_score;
-								var print_topratings;
-								if( score != "" && votes > 2)
-								{
-									show_score = "<br><b>{score}:</b> " + score;
-									if( score >= 5 )
-										score = "3";
-									else if( score >= 4.4 )
-										score = "2";
-									else if( score >= 2.5 )
-										score = "1";
-									else
-										score = "0";
-								}
-								else show_score = "";
-								
-								if( topratings == 0 )
-									print_topratings = "";
-								else 
-								{
-									print_topratings = "<br><b>{recommendations}: </b>";
-									var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.gif\" alt=\"R\">";
-									var ii;
-									for( ii=0;ii<topratings;ii++)
-										print_topratings += gwiazdka;
-								}
-
-								var infoWindowContent = "";
-								var domain="";
-								switch( node )
-								{
-									case "1":
-										domain = "http://www.opencaching.de/";
-										break;
-									case "2":
-										domain = "";
-										break;
-									case "3":
-										domain = "http://www.opencaching.cz/";
-										break;
-									default:
-										domain = "";
-								}
-								
-								if( type == 6 )
-								{
-									found_attended = "{attended}";
-									notfound_will_attend = "{will_attend}";
-								}
+						if( cache_id != "" )
+						{							
+							var show_score;
+							var print_topratings;
+							if( score != "" && votes > 2)
+							{
+								show_score = "<br><b>{score}:</b> " + score;
+								if( score >= 5 )
+									score = "3";
+								else if( score >= 4.4 )
+									score = "2";
+								else if( score >= 2.5 )
+									score = "1";
 								else
-								{
-									found_attended = "{found}";
-									notfound_will_attend = "{not_found}";
-								}
-
-								infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\" class=\"table\">";
-								infoWindowContent += "<tr><td colspan=\"2\" width=\"100%\"><table cellspacing=\"0\" width=\"100%\"><tr><td width=\"90%\">";
-								infoWindowContent += "<center><img align=\"left\" width=\"20\" height=\"20\" src=\"tpl/stdstyle/images/cache/"+typeToImageName(type, status)+"\"></center>";
-								infoWindowContent += "&nbsp;<a href=\""+domain+"viewcache.php?cacheid=" + cache_id + "\" target=\"_blank\">" + name + "</a>";
-								infoWindowContent += "</td><td width=\"10%\">";
-								infoWindowContent += "<b>"+wp+"</b></td></tr></table>";
-								infoWindowContent += "</td></tr>";
-								infoWindowContent += "<tr><td width=\"70%\" valign=\"top\">";
-								infoWindowContent += "<b>{created_by}:</b> " + username + show_score + print_topratings;
-					
-								infoWindowContent += "</td>";
-								infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\"><tr><td width=\"100%\">";
-								infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+founds+" x "+found_attended+"</nobr></td></tr>";
-								infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+notfounds+" x "+notfound_will_attend+"</nobr><nobr></td></tr>";
-								if( node == 2 )
-									infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+votes+" x {scored}</nobr>";
-
-								infoWindowContent += "</td></tr></table></td></tr>";
-								infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
-								/*if( node == 2 )
-									infoWindowContent += "<font size=\"0\"><a href=\"cachemap3.php?lat="+"\"><?php echo ($yn=='y'?$language[$lang]['add_to']:$language[$lang]['remove_from']);?> {to_print_list}</a></font>";*/
-								infoWindowContent += "</td></tr></table></td></tr>";
-								infoWindowContent += "</table>";
-								
-								map.openInfoWindowHtml(new GLatLng(lat,lon), infoWindowContent,{onCloseFn: function() {
-								
-								}});
+									score = "0";
 							}
-						});
-			});
+							else show_score = "";
+							
+							if( topratings == 0 )
+								print_topratings = "";
+							else 
+							{
+								print_topratings = "<br><b>{recommendations}: </b>";
+								var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.gif\" alt=\"R\">";
+								var ii;
+								for( ii=0;ii<topratings;ii++)
+									print_topratings += gwiazdka;
+							}
+
+							var infoWindowContent = "";
+							var domain="";
+							switch( node )
+							{
+								case "1":
+									domain = "http://www.opencaching.de/";
+									break;
+								case "2":
+									domain = "";
+									break;
+								case "3":
+									domain = "http://www.opencaching.cz/";
+									break;
+								default:
+									domain = "";
+							}
+								
+							if( type == 6 )
+							{
+								found_attended = "{attended}";
+								notfound_will_attend = "{will_attend}";
+							}
+							else
+							{
+								found_attended = "{found}";
+								notfound_will_attend = "{not_found}";
+							}
+
+							infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\" class=\"table\">";
+							infoWindowContent += "<tr><td colspan=\"2\" width=\"100%\"><table cellspacing=\"0\" width=\"100%\"><tr><td width=\"90%\">";
+							infoWindowContent += "<center><img align=\"left\" width=\"20\" height=\"20\" src=\"tpl/stdstyle/images/cache/"+typeToImageName(type, status)+"\"></center>";
+							infoWindowContent += "&nbsp;<a href=\""+domain+"viewcache.php?cacheid=" + cache_id + "\" target=\"_blank\">" + name + "</a>";
+							infoWindowContent += "</td><td width=\"10%\">";
+							infoWindowContent += "<b>"+wp+"</b></td></tr></table>";
+							infoWindowContent += "</td></tr>";
+							infoWindowContent += "<tr><td width=\"70%\" valign=\"top\">";
+							infoWindowContent += "<b>{created_by}:</b> " + username + show_score + print_topratings;
+				
+							infoWindowContent += "</td>";
+							infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\"><tr><td width=\"100%\">";
+							infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+founds+" x "+found_attended+"</nobr></td></tr>";
+							infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+notfounds+" x "+notfound_will_attend+"</nobr><nobr></td></tr>";
+							if( node == 2 )
+								infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+votes+" x {scored}</nobr>";
+
+							infoWindowContent += "</td></tr></table></td></tr>";
+							infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
+							/*if( node == 2 )
+								infoWindowContent += "<font size=\"0\"><a href=\"cachemap3.php?lat="+"\"><?php echo ($yn=='y'?$language[$lang]['add_to']:$language[$lang]['remove_from']);?> {to_print_list}</a></font>";*/
+							infoWindowContent += "</td></tr></table></td></tr>";
+							infoWindowContent += "</table>";
+							
+							map.openInfoWindowHtml(new GLatLng(lat,lon), infoWindowContent,{onCloseFn: function() {
+								
+						}
+					});
+					}
+				});
+			};
+
+			GEvent.addListener(map, "click", onClickFunc);
 
 			
 		}
 		document.getElementsByTagName("body")[0].onclick = saveMapType;
+		onClickFunc(tlo, new GLatLng({coords}));
 	}
 </script>

@@ -214,7 +214,8 @@ else
 			unset($_SESSION['print_list'][onTheList($_SESSION['print_list'], $_REQUEST['cacheid'])]);
 		$_SESSION['print_list'] = array_values($_SESSION['print_list']);
 	}
-		
+	
+	tpl_set_var('doopen', $_REQUEST['cacheid']?"true":"false");
 	tpl_set_var('coords', $coordsXY);
 	tpl_set_var('username', $record[username]);
 	tpl_set_var('map_width', isset($_GET['print'])?($x_print."px"):("99%"));

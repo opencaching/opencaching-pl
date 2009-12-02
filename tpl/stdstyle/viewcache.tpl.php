@@ -32,7 +32,7 @@
 
 					if ($usr == false) 
 					{
-						echo '<span class="notlogged-cacheview">Musisz być zalogowany by dokonywać wpisów do logu i inne operacje.</span>';
+						echo '<span class="notlogged-cacheview">'.$language[$lang]['cache_logged_required'].'</span>';
 					}
 					// cachelisting
 					$clidx = mnu_MainMenuIndexFromPageId($menu, "cachelisting");
@@ -142,7 +142,7 @@ else
 							else
 							{
 					echo "<b>Dostępne mapy:</b>
-											<a target=\"_blank\" href='cachemap2.php?lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;cacheid=";?>{cacheid}<?php echo "'>Opencaching.pl</a>, 
+											<a target=\"_blank\" href='cachemap3.php?lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;cacheid=";?>{cacheid}<?php echo "&amp;inputZoom=14'>Opencaching.pl</a>, 
 											<a href=\"http://mapa.szukacz.pl/?n=";?>{latitude}<?php echo "&amp;e=";?>{longitude}<?php echo "&amp;t=Skrzynka Geocache\" target=\"_blank\">AutoMapa</a>, 
 											<a href=\"http://www.mapquest.com/maps/map.adp?latlongtype=decimal&amp;latitude=";?>{latitude}<?php echo "&amp;longitude=";?>{longitude}<?php echo "\" target=\"_blank\">Mapquest</a>, 
 											<a href=\"http://maps.google.com/maps?q=";?>{latitude}<?php echo "+";?>{longitude}<?php echo "\" target=\"_blank\">Google&nbsp;Maps</a>, 
