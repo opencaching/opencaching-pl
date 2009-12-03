@@ -510,3 +510,6 @@ textarea.hint {		width:600px; height:100px; }	/* only cacheditor */
 textarea.logs {		width:600px; height:300px; }	/* only logeditor */
 
 .show_deleted { text-decoration: line-through; }
+
+div#new-caches-area { width: 500px; }
+div#new-events-area { width: 500px; }

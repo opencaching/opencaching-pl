@@ -101,7 +101,7 @@ return true;
 			</div>
 <!-- Text container -->
 			<div class="content2-container line-box">
-				<div class="content2-container-2col-left" style="width:500px;">
+				<div class="content2-container-2col-left" id="new-caches-area">
 					<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle" />&nbsp;{newest_caches}</p>
 					<div class="content-txtbox-noshade">
 						<?php
@@ -119,7 +119,7 @@ return true;
 
 <!-- Text container -->
 			<div class="content2-container line-box">
-				<div class="content2-container-2col-left">
+				<div class="content2-container-2col-left" id="new-events-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/cache/event.png" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle" />&nbsp;{incomming_events}</p>
 		<?php
 			global $dynstylepath;
