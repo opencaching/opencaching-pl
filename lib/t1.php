@@ -15,7 +15,7 @@
 	echo $rsUs[count]; 
 	echo ' .::. Liczba aktywnych skrzynek:';
 	echo $fCt[count]; 
-	echo '</td></tr></table><table bgcolor="white" width=800>' . "\n";
+	echo '</td></tr></table><table bgcolor="white" width=600>' . "\n";
 
 //  mysql_query("SET NAMES 'utf8'"); 
 // $rsUser = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `caches`.`status`=1 AND `caches`.`type`!=4 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20'); 

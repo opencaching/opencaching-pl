@@ -12,7 +12,7 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `deleted`=0 AND `type
   $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
 
-	echo '<center><table><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby odkryć</b></font><br>Użytkowników którzy znalezli:';
+	echo '<center><table width="600"><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby odkryć</b></font><br>Użytkowników którzy znalezli:';
 	echo $rsUs[count]; 
 	echo ' .::. Ile razy odkryto skrzynki:';
 	echo $fCt[count]; 
