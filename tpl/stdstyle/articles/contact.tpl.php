@@ -1,13 +1,13 @@
-<table width=600 class="content">
+<table class="content">
 	<colgroup><col width="100"></colgroup>
-	<tr><td width=600 class="content2-pagetitle">
+	<tr><td width=750 class="content2-pagetitle">
 	<img src="tpl/stdstyle/images/blue/rproblems.png" border="0" width="32" height="32" alt="OC" title="Kontakt" align="middle">
 	<font size="4">  <b>Kontakt</b></font></td></tr>
 		<tr><td class="spacer"></td></tr>
 
 </table>
 <br>
-<b>Zadawanie pytań o Geocaching</b>
+<h1>Zadawanie pytań o Geocaching</h1>
 <p>Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
 <br />
 Chciałbyś wymienić swoje uwagi zadać pytania innym, możesz to zrobić na <a href="http://forum.opencaching.pl">Forum GC PL</a>
@@ -18,7 +18,7 @@ Chcesz pomóc w rozwoju projektu ?<br />
 Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.eu">Forum</a> projektu OpenCaching.
 </p>
 <br>
-<b>OpenCaching PL Team </b><p>
+<h1>OpenCaching PL Team </h1><p>
 
 <b>Rada Techniczna</b>:<br>
 - filips (Filip) - geokrety.org / OC PL dla urządzeń mobilnych<br>
@@ -50,11 +50,11 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 - StaryPatyk (16) <br>
 </span>
 </p>
-<b>Inne</b>
+<h1>Inne</h1>
 <p>W sprawach bezpośrednio związanych z funkcjonowaniem serwisu OpenCaching PL możesz napisać list na adres 
 <font color="black">ocpl</font> <font color="black">@</font> <font color="black">opencaching.pl</font> . Otrzymanie odpowiedzi może potrwać, więc bądź cierpliwy<br></p>
 
-<b>Polska wersja OpenCaching</b>
+<h1>Polska wersja OpenCaching</h1>
 <p>Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldemar Ogonowski (sp2ong) + duża pomoc kolegów którzy brali udział w testowaniu<br></p>
 
 
