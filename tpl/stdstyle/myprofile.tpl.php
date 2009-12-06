@@ -34,7 +34,7 @@
 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blueprofile.png" border="0" width="32" height="32" alt="{your_data}" title="{your_data}" align="middle">&nbsp;{your_data}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" border="0" width="32" height="32" alt="{your_data}" title="{your_data}" align="middle">&nbsp;{your_data}</div>
 <div class="notice">
 {gray_field_is_hidden}
 </div>
