@@ -221,7 +221,7 @@ $menu = array(
 		'title' => $language[$lang]['geoblog'],
 		'menustring' => $language[$lang]['geoblog'],
 		'siteid' => 'GeoBlog',
-		'visible' => true,
+		'visible' => false,
 		'filename' => 'http://www.geoblog.com.pl',
 		'newwindow' => 'true'
 	),
