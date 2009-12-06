@@ -87,7 +87,7 @@
 						{hidelistingsites_start}{listed_also_on}: {listed_on}<br />{hidelistingsites_end}
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
-								<td style="vertical-align: top"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0">Atrybuty skrzynki:&nbsp;</td>								
+								<td style="vertical-align: top"><br><br><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0">Atrybuty skrzynki:&nbsp;</td>								
 								<td>{cache_attributes}{password_req}</td>								
 							</tr>
 						</table>
@@ -106,7 +106,7 @@
 						}
 						//]]>
 						</script>
-						<div id="map" style="width: 200px; height: 200px;"></div>
+						<div id="map" style="width: 600px; height: 400px;"></div>
 				</td>
 				</tr>
 			</table>
