@@ -35,7 +35,7 @@ session_start();
 	global $menu;
 	$interface_output = 'html';
 
-	$lang_array = array("pl", "en", "de", "cs", "fr", "es");
+	$lang_array = array("pl", "en", "sv", "de", "cs", "fr", "es");
 	$datetimeformat = '%d %B %Y um %H:%M:%S Uhr';
 	$dateformat = '%d %B %Y';
 	$simpledateformat = '%d.%m.%Y';
