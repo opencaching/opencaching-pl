@@ -60,27 +60,27 @@ c9.src = "/images/mini-mapa/9.jpg";
 //preload images:
 if (rollOvers) {
 map = new Image(302,284);
-map.src = "/tmp/mapa.png";
+map.src = "tmp/mapa.png";
 c0 = new Image(302,284);
-c0.src = "/tmp/0.png";
+c0.src = "tmp/0.png";
 c1 = new Image(302,284);
-c1.src = "/tmp/1.png";
+c1.src = "tmp/1.png";
 c2 = new Image(302,284);
-c2.src = "/tmp/2.png";
+c2.src = "tmp/2.png";
 c3 = new Image(302,284);
-c3.src = "/tmp/3.png";
+c3.src = "tmp/3.png";
 c4 = new Image(302,284);
-c4.src = "/tmp/4.png";
+c4.src = "tmp/4.png";
 c5 = new Image(302,284);
-c5.src = "/tmp/5.png";
+c5.src = "tmp/5.png";
 c6 = new Image(302,284);
-c6.src = "/tmp/6.png";
+c6.src = "tmp/6.png";
 c7 = new Image(302,284);
-c7.src = "/tmp/7.png";
+c7.src = "tmp/7.png";
 c8 = new Image(302,284);
-c8.src = "/tmp/8.png";
+c8.src = "tmp/8.png";
 c9 = new Image(302,284);
-c9.src = "/tmp/9.png";
+c9.src = "tmp/9.png";
 }
 
 //image swapping function:
