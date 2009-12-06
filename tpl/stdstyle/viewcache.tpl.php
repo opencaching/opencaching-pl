@@ -47,7 +47,7 @@
 					}
 					//end cachelisting
 ?>
-				</div><p></p>
+				</div><br><br>
 
 
 				<div class="content2-container-2col-left" style="width:60px; clear: left;">
