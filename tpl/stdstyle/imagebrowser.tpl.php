@@ -25,7 +25,7 @@
 <br />
 <table width="100%">
 	<tr>
-		<td class="header-small"><img src="tpl/stdstyle/images/description/22x22-image.png" height="22px" width="22px" alt="Obrazki" /> Obrazki dla {cachename}</td>
+		<td class="header-small"><img src="tpl/stdstyle/images/blue/picture.png" height="32px" width="32px" alt="Obrazki" /> Obrazki dla {cachename}</td>
 	</tr>
 </table>
 <table>

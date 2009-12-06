@@ -5,7 +5,7 @@
 				<col width="200">
 				<col>
 			</colgroup>
-			<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/profile/22x22-email.png" border="0" width="22" height="22" align="middle"> <b>	Zgłoszenie problemu dotyczącego skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
+			<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/rproblems.png" border="0" width="32" height="32" align="middle"> <b>	Zgłoszenie problemu dotyczącego skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr><td colspan="2" class="info">
 				Zgłoszenie zostało wysłane do właściciela skrzynki.

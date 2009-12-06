@@ -79,7 +79,7 @@
 			<div class="content2-container">
 				<div class="content2-container-2col-left" style="width:400px;">
 					<p class="content-title-noshade-size3">
-						<img src="tpl/stdstyle/images/description/22x22-location.png"  width="22" height="22" border="0" alt="" title="" align="left"/>
+						<img src="tpl/stdstyle/images/blue/compas.png"  width="22" height="22" border="0" alt="" title="" align="left"/>
 						<b>{coords}</b> <span class="content-title-noshade-size0">(WGS84)</span><br />
 					</p>
 					<p>
@@ -157,7 +157,7 @@ else
 			<div class="content2-container line-box">
 				<p class="content-title-noshade-size1">
 					{cache_attributes_start}
-					<img src="tpl/stdstyle/images/description/22x22-encrypted.png" width="22" height="22" style="vertical-align:middle" border="0" alt="enc"/>
+					<img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
 					{cache_attributes_label}
 				</p>
 				<p>
@@ -171,7 +171,7 @@ else
 			<div class="content2-container line-box">
 				<p class="content-title-noshade-size1">
 					
-					<img src="tpl/stdstyle/images/description/22x22-description.png" width="22" height="22" style="vertical-align:middle" border="0" alt="desc"/>
+					<img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="desc"/>
 					{rr_comment_label}
 				</p>
 				<p><br/>
@@ -183,7 +183,7 @@ else
 <!-- Text container -->
 			<div class="content2-container line-box">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/description/22x22-description.png" width="22" height="22" style="vertical-align:middle" border="0" alt="desc"/>
+					<img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" style="vertical-align:middle" border="0" alt="desc"/>
 					{description}&nbsp;&nbsp;
 					{desc_langs}&nbsp;{add_rr_comment}&nbsp;{remove_rr_comment}
 				</p>
@@ -199,10 +199,10 @@ else
 {hidehint_start}
 			<div class="content2-container line-box">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/description/22x22-encrypted.png" width="22" height="22" style="vertical-align:middle" border="0" alt="enc"/>
+					<img src="tpl/stdstyle/images/blue/crypt.png" width="22" height="22" style="vertical-align:middle" border="0" alt="enc"/>
 					<b>{additional_hints}</b>&nbsp;&nbsp;
 					{decrypt_link_start}
-					<img src="tpl/stdstyle/images/action/16x16-encrypt.png" width="16" height="16" style="vertical-align:middle" border="0" alt="enc"/>
+					<img src="tpl/stdstyle/images/blue/decrypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
 					{decrypt_link}
 					{decrypt_link_end}
 					<br/>
@@ -225,7 +225,7 @@ else
 {geokrety_begin}
 			<div class="content2-container line-box">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/description/22x22-geokret.png" width="22" height="22" style="vertical-align:middle" border="0" alt="geokrety"/>
+					<img src="tpl/stdstyle/images/blue/travelbug.png" width="32" height="32" style="vertical-align:middle" border="0" alt="geokrety"/>
 					Geokrety
 				</p>
 				<p>
@@ -238,7 +238,7 @@ else
 {hidepictures_start}
 			<div class="content2-container line-box">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/description/22x22-image.png" width="22" height="22" style="vertical-align:middle" border="0" alt="images"/>
+					<img src="tpl/stdstyle/images/blue/picture.png" width="32" height="32" style="vertical-align:middle" border="0" alt="images"/>
 					{images}
 				</p>
 				<p>
@@ -251,7 +251,7 @@ else
 			<div class="content2-container line-box">
 				<p class="content-title-noshade-size1">
 					<!-- End Text Container -->
-					<img src="tpl/stdstyle/images/description/22x22-utility.png" width="22" height="22" style="vertical-align:middle" border="0" title="" alt="utilities"/>&nbsp;{utilities}
+					<img src="tpl/stdstyle/images/blue/utils.png" width="32" height="32" style="vertical-align:middle" border="0" title="" alt="utilities"/>&nbsp;{utilities}
 				</p>
 			<p>
 			- {search_geocaches_nearby}<?php echo ":
@@ -281,7 +281,7 @@ else
 <!-- Text container -->
 			<div class="content2-container line-box">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/description/22x22-logs.png" width="22" height="22" style="vertical-align:middle" border="0" alt="logs"/>
+					<img src="tpl/stdstyle/images/blue/logs.png" width="32" height="32" style="vertical-align:middle" border="0" alt="logs"/>
 					{log_entries}
 					&nbsp;&nbsp;
 					{found_icon} {founds}x

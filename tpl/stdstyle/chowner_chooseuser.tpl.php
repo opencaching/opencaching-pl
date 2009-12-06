@@ -4,7 +4,7 @@
 				<col width="200">
 				<col>
 			</colgroup>
-			<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/profile/22x22-email.png" border="0" width="22" height="22" align="middle"> <b>	Przekazujesz skrzynkę: <font color="#ff0000">{cachename}</font></b></td></tr>
+			<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/email.png" border="0" width="32" height="32" align="middle"> <b>	Przekazujesz skrzynkę: <font color="#ff0000">{cachename}</font></b></td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr>
 				<td>

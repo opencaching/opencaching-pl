@@ -1,8 +1,9 @@
 <table width=600 class="content">
 	<colgroup><col width="100"></colgroup>
-	<tr><td width=600 class="header">
-	<img src="tpl/stdstyle/images/misc/32x32-tools.png" border="0" width="32" height="32" alt="OC" title="O projekcie OC" align="middle">
+	<tr><td width=600 class="content2-pagetitle">
+	<img src="tpl/stdstyle/images/blue/about.png" border="0" width="32" height="32" alt="OC" title="O projekcie OC" align="middle">
 	<font size="4">  <b>O projekcie OpenCaching</b></font></td></tr>
+
 		<tr><td class="spacer"></td></tr>
 
 </table>
@@ -30,28 +31,17 @@ Oferta internetowa Opencaching została stworzona przez wspólną pracę wielu l
 z pewnymi wyjątkami, gdzie przytoczony jest autor. Za te imienne wkłady odpowiada każdorazowo autor.</p>
 
 <h1>OpenCaching PL Team</h1>
+
 <p>
-<b>Rada Techniczna</b> (zespół który zajmuje sie aspektami technicznymi, zmiana kodu OC, serwis serwerow itp):<br>
-- filips (Filip) - geokrety.org / OC PL dla urządzeń mobilnych <br>
-- shchenka - OpenGeoWiki <br>
-- tboniasty (Przemek) - Forum OC PL<br>
-- starypatyk (Darek) - OC PL<br>
-- elektronika (Bartek) - GeoBlog<br>
-- trojmiasto (Krzysztof) - OC PL<br>
-- spider (Krzysztof) - OC PL<br>
-- sp2ong (Waldek) - OC PL<br>
+<b>Rada Techniczna</b> (zespół który zajmuje sie aspektami technicznymi, zmiana kodu OC, serwis serwerow itp)<br>
+
 <br>
-<b>Rada Rejsu</b> wybierana na okres 1 roku - w nawiasie podana liczba otrzymanych głosów -(obecna kadencja rozpoczyna się 1 czerwca 2008):<br>
-- Filips (39) <br>
-- ZYR (35) <br>
-- Ted69 (25) <br>
-- Bas (23) <br>
-- Darkmoor (20) <br>
-- Shchenka (19) <br>
-- StaryPatyk (16) <br>
+<b>Rada Rejsu</b> wybierana na okres 1 roku - w nawiasie podana liczba otrzymanych głosów<br>
+
 <br>
 1. Rada Rejsu zostaje powołana wola wiekszości dla dobra wszystkich uczestnikow Opencaching.pl<br>
 2. Rada Rejsu składa się z 5-7 osób, które wybierane są wśród wszystkich uczestników OC na okres 1 roku<br>
+
 3. Do podstawowych zadan Rada Rejsu nalezy:<br>
  a) interwencja u właściciela skrzynki w przypadku rażącego naruszenia regulaminu OC<br>
  b) rozpatrywanie skarg pochodzacych od uczestników OC bądź Instytucji,<br>

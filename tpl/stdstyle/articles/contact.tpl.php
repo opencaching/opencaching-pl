@@ -1,3 +1,11 @@
+<table width=600 class="content">
+	<colgroup><col width="100"></colgroup>
+	<tr><td width=600 class="content2-pagetitle">
+	<img src="tpl/stdstyle/images/blue/rproblems.png" border="0" width="32" height="32" alt="OC" title="Kontakt" align="middle">
+	<font size="4">  <b>Kontakt</b></font></td></tr>
+		<tr><td class="spacer"></td></tr>
+
+</table>
 <br>
 <b>Zadawanie pytań o Geocaching</b>
 <p>Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
@@ -13,24 +21,24 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 <b>OpenCaching PL Team </b><p>
 
 <b>Rada Techniczna</b>:<br>
-- filips (Filip) - geokrety.org / OC PL dla urządzeń mobilnych <br>
-- shchenka - OpenGeoWiki <br>
-- tboniasty (Przemek) - Forum OC PL<br>
-- starypatyk (Darek) - OC PL<br>
-- trojmiasto (Krzysztof) - OC PL<br>
-- elektronika (Bartek) - GeoBlog <br>
-- spider (Krzysztof) - OC PL<br>
-- sp2ong (Waldek) - OC PL<br>
+- filips (Filip) - geokrety.org / OC PL dla urządzeń mobilnych<br>
+- shchenka - OpenGeoWiki<br>
+- starypatyk<br>
+- trojmiasto<br>
+- rushcore<br>
+- mardoq<br>
+- sp2ong <br>
 <br>
 <br>
 <b>Rada Rejsu</b> - w nawiasie podana liczba otrzymanych głosów -(obecna kadencja rozpoczyna się 1 czerwca 2009):<br>
 - filips (119) <br>
 - ZYR (109) <br>
 - trojmiasto (94) <br>
-- Saracen (80) <br>
-- Ted69 (73) <br>
 - Voit (57) <br>
 - bogobig (49) <br>
+- wanoga (48) <br>
+- Bazyl69 (47) <br>
+
 <br>
 <span style="color:#808080"><b>Kadencja 1.06.2008 - 31.05.2009:</b><br>
 - Filips (39) <br>

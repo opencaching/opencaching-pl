@@ -33,7 +33,7 @@
 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/misc/32x32-statistic.png" border="0" align="middle" width="32" height="32" alt="" title="" align="middle">&nbsp;{choose_statpic}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" border="0" align="middle" width="32" height="32" alt="" title="" align="middle">&nbsp;{choose_statpic}</div>
 <p class="content-title-noshade-size2">{statpic_previews}:</p>
 <div class="buffer"></div>
 <table class="table">

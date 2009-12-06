@@ -25,7 +25,7 @@
 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/misc/32x32-searchresults.png" border="0" width="32" height="32" alt="{title_text}" title="{title_text}" align="middle">&nbsp;{title_text}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/colected.png" border="0" width="32" height="32" alt="{title_text}" title="{title_text}" align="middle">&nbsp;{title_text}</div>
 {no_ignores}
 <table class="table">
 	<colgroup>

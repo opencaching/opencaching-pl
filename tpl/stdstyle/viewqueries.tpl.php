@@ -10,7 +10,7 @@
 
 	***************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/misc/32x32-searchresults.png" border="0" width="32" height="32" alt="" title="" align="middle"/>&nbsp;Zgromadzone poszukiwania</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/colected.png" border="0" width="32" height="32" alt="" title="" align="middle"/>&nbsp;Zgromadzone poszukiwania</div>
 <table class="table" width="700px">
 	<colgroup>
 		<col width="100"/>

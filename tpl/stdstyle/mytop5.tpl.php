@@ -10,7 +10,7 @@
 
 	***************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/misc/32x32-searchresults.png" border="0" width="32" height="32" alt="Moje rekomendacje" title="Moje rekomendacje" align="middle"/>&nbsp;Moje rekomendowane skrzynki</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/recommendation.png" border="0" width="32" height="32" alt="Moje rekomendacje" title="Moje rekomendacje" align="middle"/>&nbsp;Moje rekomendowane skrzynki</div>
 {msg_delete}
 <table class="table">
 	<colgroup>

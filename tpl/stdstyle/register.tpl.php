@@ -36,7 +36,7 @@
 	 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/profile/32x32-profile.png" border="0" align="middle" width="32" height="32" alt="" title="Twoje konto" align="middle">&nbsp;{register_new}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" border="0" align="middle" width="32" height="32" alt="" title="Twoje konto" align="middle">&nbsp;{register_new}</div>
 <table>
 <form name="register" action="register.php" method="post" enctype="application/x-www-form-urlencoded" style="display: inline;">
 <input type="hidden" name="allcountries" value="{show_all_countries}" />

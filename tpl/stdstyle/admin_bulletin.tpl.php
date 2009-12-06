@@ -1,6 +1,6 @@
 <table class="content">
 <tr>
-	<td class="header">
+	<td class="content-pagetitle">
 		<img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Wyślij biuletyn</b></font>
 	</td>
 </tr>

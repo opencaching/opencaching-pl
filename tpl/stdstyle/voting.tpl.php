@@ -30,12 +30,12 @@
 		<col width="260">
 		<col>
 	</colgroup>
-	<tr><td class="header" colspan="2">
+	<tr><td class="content2-pagetitle" colspan="2">
 		<table border="0" class="null">
 			<tr>
-				<td><img src="tpl/stdstyle/images/misc/32x32-home.png" border="0" width="32" height="32" alt="Głosowanie" title="Głosowanie" align="middle"><font size="4">  <b>Głosowanie - problem {id}</b></font>
+				<td><img src="tpl/stdstyle/images/blue/home.png" border="0" width="32" height="32" alt="Głosowanie" title="Głosowanie" align="middle"><font size="4">  <b>Głosowanie - problem {id}</b></font>
 				</td>
-				<td width="250" align="right"><a href="mailto.php?uuid='{uuid}'"><img src="/tpl/stdstyle/images/misc/16x16-email.png" width="16" height="16" border="0" alt="Email" title="Email" align="middle"></a>&nbsp;[<a href="mailto.php?userid={userid}">Email do użytkownika</a>]
+				<td width="250" align="right"><a href="mailto.php?uuid='{uuid}'"><img src="/tpl/stdstyle/images/blue/email.png" width="32" height="32" border="0" alt="Email" title="Email" align="middle"></a>&nbsp;[<a href="mailto.php?userid={userid}">Email do użytkownika</a>]
 				</td>
 			</tr>
 		</table>

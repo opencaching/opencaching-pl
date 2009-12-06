@@ -46,7 +46,7 @@
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/description/22x22-description.png" border="0" width="22" height="22" alt="" title="New Cache" align="middle"> <b>Nowy opis dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{name}</a></b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/describe.png" border="0" width="32" height="32" alt="" title="New Cache" align="middle"> <b>Nowy opis dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{name}</a></b></td></tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td>Język:</td>

@@ -132,7 +132,7 @@ function toggleAttr(id)
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
 <input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"/>&nbsp;{edit_cache} &#8211; {name}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="" title="" align="middle"/>&nbsp;{edit_cache} &#8211; {name}</div>
 	{general_message}
 	<div class="buffer"></div>
 	<table class="table" border="0">
@@ -245,7 +245,7 @@ function toggleAttr(id)
 	</tr>
 	<tr>
 		<td colspan="2">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/misc/32x32-news.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{cache_attributes}</p>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{cache_attributes}</p>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -258,7 +258,7 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/misc/32x32-news.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p>
 			<p class="content-title-noshade"><img src="tpl/stdstyle/images/action/16x16-adddesc.png" width="16" height="16" align="middle" border="0" align="Dodaj nowy opis" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}"/>{add_new_desc}</a></p>
 		</td>
 	</tr>
@@ -271,7 +271,7 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/description/22x22-image.png" width="22" height="22" align="middle" border="0" alt=""/>&nbsp;&nbsp;{pictures_label}</p>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" width="22" height="22" align="middle" border="0" alt=""/>&nbsp;&nbsp;{pictures_label}</p>
 			<p class="content-title-noshade"><img src="tpl/stdstyle/images/action/16x16-addimage.png" width="16" height="16" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2">{add_new_pict}</a></p>
 		</td>
 	</tr>
@@ -279,7 +279,7 @@ function toggleAttr(id)
 	{pictures}
 	<tr>
 		<td colspan="2">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/description/22x22-misc.png" width="22" height="22" align="middle" border="0"/>Inne</p>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0"/>Inne</p>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>

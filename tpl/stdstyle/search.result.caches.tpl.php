@@ -26,11 +26,11 @@
 	****************************************************************************/
 	global $usr, $hide_coords;
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Wyszukiwanie" title="Suchergebnis" align="middle">&nbsp;Wyniki poszukiwań. Liczba znalezionych skrzynek: {results_count}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Wyszukiwanie" title="Suchergebnis" align="middle">&nbsp;Wyniki poszukiwań. Liczba znalezionych skrzynek: {results_count}</div>
 <div class="content-title-noshade">
 	<p align="left">
-		<img src="/tpl/stdstyle/images/misc/32x32-searchresults.png" width="32" height="32" border="0" alt="Search results" title="Search results" align="middle"/>&nbsp;<a href="search.php?queryid={queryid}&showresult=0">Szukaj</a>&nbsp;&nbsp;
-		<img src="/tpl/stdstyle/images/profile/32x32-statistic.png" width="32" height="32" border="0" alt="Save results" title="Save results" align="middle"/>&nbsp;{safelink}<br/>
+		<img src="/tpl/stdstyle/images/blue/search3.png" width="32" height="32" border="0" alt="Search results" title="Search results" align="middle"/>&nbsp;<a href="search.php?queryid={queryid}&showresult=0">Szukaj</a>&nbsp;&nbsp;
+		<img src="/tpl/stdstyle/images/blue/save.png" width="32" height="32" border="0" alt="Save results" title="Save results" align="middle"/>&nbsp;{safelink}<br/>
 		{pages}<br/>
 	</p>
 </div>

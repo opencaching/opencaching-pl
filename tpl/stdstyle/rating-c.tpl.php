@@ -34,7 +34,7 @@
 	<colgroup>
 		<col width="100">
 	</colgroup>
-	<tr><td width=600 class="header"><img src="tpl/stdstyle/images/misc/32x32-tools.png" border="0" width="32" height="32" alt="ABC" title="ABC" align="middle"><font size="4">  <b>System oceny skrzynki</b></font></td></tr>
+	<tr><td width=600 class="hcontent2-pagetitle"><img src="tpl/stdstyle/images/blue/utils.png" border="0" width="32" height="32" alt="ABC" title="ABC" align="middle"><font size="4">  <b>System oceny skrzynki</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 </table>
 

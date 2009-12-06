@@ -1,1 +1,1 @@
-Zarządzanie OC PL<br>
+Zarządzanie OC<br>

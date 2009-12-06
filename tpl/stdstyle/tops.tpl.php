@@ -4,7 +4,7 @@
  *  Unicode Reminder メモ
  ***************************************************************************}
 <table width="100%">
-	<tr><td class="header" style="background-color:#E9E9E9;"><img src="tpl/stdstyle/images/misc/32x32-winner.png" border="0" width="32" height="32" alt="{t}Special caches{/t}" title="{t}Special caches{/t}" align="middle"><font size="4">  <b>{t}Special caches{/t}</b></font></td></tr>
+	<tr><td class="content2-pagetitle" style="background-color:#E9E9E9;"><img src="tpl/stdstyle/images/misc/32x32-winner.png" border="0" width="32" height="32" alt="{t}Special caches{/t}" title="{t}Special caches{/t}" align="middle"><font size="4">  <b>{t}Special caches{/t}</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 	<tr>
 		<td style="padding-left:32px; padding-bottom:32px;">
@@ -38,7 +38,7 @@
 		<p>
 			<table width="100%">
 				<tr>
-					<td class="header" style="background-color:#E9E9E9;" colspan="4">
+					<td class="content2-pagetitle" style="background-color:#E9E9E9;" colspan="4">
 						<a name="{$adm1item.name|urlencode}{if $adm2item.name==null}null{else}{$adm2item.name|urlencode}{/if}"></a>
 						<font size="3">
 							<b>

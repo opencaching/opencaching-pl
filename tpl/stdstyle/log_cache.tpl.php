@@ -126,8 +126,8 @@ function toogleLayer( whichLayer, val )
 <input id="descMode" type="hidden" name="descMode" value="1" />
 <table class="content">
 	<tr>
-		<td colspan="2">
-			<img src="tpl/stdstyle/images/description/22x22-logs.png" border="0" width="22" height="22" alt="" title="Neuer Cache" align="middle">
+		<td class="content2-pagetitle" colspan="2">
+			<img src="tpl/stdstyle/images/blue/logs.png" border="0" width="32" height="32" alt="" title="Neuer Cache" align="middle">
 			<b>{post_new_log} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
 		</td>
 	</tr>

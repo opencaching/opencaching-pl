@@ -19,7 +19,7 @@
 		<col width="150">
 		<col>
 	</colgroup>
-	<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/misc/32x32-searchresults.png" border="0" width="32" height="32" alt="Zapamiętaj szukanie" title="Zapamiętaj szukanie" align="middle"> <b>Zapamiętaj szukanie</b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/save.png" border="0" width="32" height="32" alt="Zapamiętaj szukanie" title="Zapamiętaj szukanie" align="middle"> <b>Zapamiętaj szukanie</b></td></tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td class="header-small" colspan="2">Opcje szukania jako nowe szukanie</td>

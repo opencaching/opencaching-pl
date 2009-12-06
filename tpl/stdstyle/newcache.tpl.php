@@ -139,7 +139,7 @@ function toggleAttr(id)
 <input type="hidden" name="version2" value="1"/>
 <input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
 <input id="descMode" type="hidden" name="descMode" value="1" />
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="{new_cache}" align="middle"/>&nbsp;{new_cache}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="" title="{new_cache}" align="middle"/>&nbsp;{new_cache}</div>
 	{general_message}
 	<div class="buffer"></div>
 	<div class="notice">
@@ -246,7 +246,7 @@ function toggleAttr(id)
 	</tr>
 	<tr>
 		<td colspan="2">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/misc/32x32-news.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{cache_attributes}</p>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{cache_attributes}</p>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -258,7 +258,7 @@ function toggleAttr(id)
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
 		<td colspan="2">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/misc/32x32-news.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p>
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
@@ -322,7 +322,7 @@ function toggleAttr(id)
 	<tr>
 		<td class="header-small" colspan="2">
 			<div class="buffer"></div>
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/misc/32x32-news.png" width="32" height="32" align="middle" border="0" alt=""/>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0" alt=""/>
 				{other}
 			</p>
 		</td>

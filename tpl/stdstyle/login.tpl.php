@@ -31,7 +31,7 @@
 	
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/profile/32x32-profile.png" border="0" width="32" height="32" alt="" title="Login" align="middle"/>&nbsp;Login</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" border="0" width="32" height="32" alt="" title="Login" align="middle"/>&nbsp;Login</div>
 	{message_start}
 	{message}
 	{message_end}

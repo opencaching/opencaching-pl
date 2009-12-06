@@ -307,7 +307,7 @@ function switchCat2()
 }
 //-->
 </script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/>&nbsp;{search_cache}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/blue/cache.png" border="0" width="32" height="32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/><img src="tpl/stdstyle/blue/search3.png" border="0" width="32" height="32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/>&nbsp;{search_cache}</div>
 <form name="optionsform" style="display:inline;" action="search.php" method="post">
 	<table class="table">
 		<colgroup>

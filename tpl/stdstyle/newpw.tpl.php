@@ -36,7 +36,7 @@
 	
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/profile/32x32-profile.png" border="0" width="32" height="32" alt="" title="{change_password_msg1}" align="middle">&nbsp;{change_password_msg1}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/password.png" border="0" width="32" height="32" alt="" title="{change_password_msg1}" align="middle">&nbsp;{change_password_msg1}</div>
 {message}
 <p class="content-title-noshade-size2">{step1}</p>
 <div class="notice">

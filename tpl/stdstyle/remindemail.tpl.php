@@ -31,18 +31,18 @@
 		<col width="150">
 		<col>
 	</colgroup>
-	<tr><td class="header" colspan="2"><img src="tpl/stdstyle/images/profile/32x32-profile.png" border="0" width="32" height="32" alt="" title="Neuer Cache" align="middle"><font size="4">  <b>E-Mail-Adresse vergessen</b></font></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/profile.png" border="0" width="32" height="32" alt="" title="Neuer Cache" align="middle"><font size="4">  <b>E-Mail-Adresse vergessen</b></font></td></tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td class="help" colspan="2">
 			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Hinweis" title="Hinweis" align="middle">
-			Gibt hier deinen Benutzername ein und wir senden dir eine E-Mail an die E-Mail-Adresse, die du bei der Registrierung verwendet hast.
+			
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>
-		<td>Benutzername:</td>
+		<td>Username:</td>
 		<td>
 			<input name="username" type="text" value="{username}" maglength="60" class="input200"  /> {username_message}
 		</td>

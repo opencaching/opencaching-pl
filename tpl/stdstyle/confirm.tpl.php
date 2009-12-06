@@ -24,8 +24,8 @@
 <table class="content">
 	
 	<tr>
-		<td class="header" colspan="2">
-			<img src="lang/pl/stdstyle/images/description/22x22-description.png" border="0" align="middle" width="22" height="22" alt="" title="Regulamin" align="middle"><font size="4"> <b>Regulamin</b></font>
+		<td class="content2-pagetitle" colspan="2">
+			<img src="lang/pl/stdstyle/images/blue/describe.png" border="0" align="middle" width="32" height="32" alt="" title="Regulamin" align="middle"><font size="4"> <b>Regulamin</b></font>
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
