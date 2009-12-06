@@ -258,9 +258,10 @@ function toggleAttr(id)
 		<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;">{attributes_edit_hint} {additional_attributes_hint} <a href="cache-atr.php" target="_BLANK">{additional_attributes}</a>. {attributes_desc_hint}</div></td></tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td colspan="2">
+		<td colspan="2"><div class="content2-container line-box">
 			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p>
-		</td>
+			</div>
+			</td>
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
@@ -322,10 +323,11 @@ function toggleAttr(id)
 	</tr>
 	<tr>
 		<td class="header-small" colspan="2">
-			<div class="buffer"></div>
+			<div class="content2-container line-box">
 			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0" alt=""/>
 				{other}
 			</p>
+			</div>
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
