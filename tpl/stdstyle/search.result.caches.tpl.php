@@ -29,8 +29,8 @@
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Wyszukiwanie" title="Suchergebnis" align="middle">&nbsp;Wyniki poszukiwań. Liczba znalezionych skrzynek: {results_count}</div>
 <div class="content-title-noshade">
 	<p align="left">
-		<img src="/tpl/stdstyle/images/blue/search3.png" width="32" height="32" border="0" alt="Search results" title="Search results" align="middle"/>&nbsp;<a href="search.php?queryid={queryid}&showresult=0">Szukaj</a>&nbsp;&nbsp;
-		<img src="/tpl/stdstyle/images/blue/save.png" width="32" height="32" border="0" alt="Save results" title="Save results" align="middle"/>&nbsp;{safelink}<br/>
+		<img src="tpl/stdstyle/images/blue/search3.png" width="32" height="32" border="0" alt="Search results" title="Search results" align="middle"/>&nbsp;<a href="search.php?queryid={queryid}&showresult=0">Szukaj</a>&nbsp;&nbsp;
+		<img src="tpl/stdstyle/images/blue/save.png" width="32" height="32" border="0" alt="Save results" title="Save results" align="middle"/>&nbsp;{safelink}<br/>
 		{pages}<br/>
 	</p>
 </div>
@@ -64,7 +64,7 @@ $googlemaps = "";
 if ($usr || !$hide_coords){ echo "
 <table class=\"content\">
 	<tr>
-		<td width=\"230px\"><b>Pobierz</b></td>
+		<td width=\"230px\"><img src="tpl/stdstyle/images/blue/save.png" width="32" height="32" border="0" alt="Save results" title="Save results" align="middle"/><b>Pobierz</b></td>
 		<td align=\"right\" style=\"padding-right:20px;\">
 			Wykaz z tej strony:
 			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=gpx&startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx\">GPX</a>
