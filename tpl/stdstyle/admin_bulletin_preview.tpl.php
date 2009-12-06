@@ -1,7 +1,7 @@
 <table class="content">
 <tr>
 	<td class="content-pagetitle">
-		<img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Wyślij biuletyn</b></font>
+		<img src="tpl/stdstyle/images/blue/write.png" border="0" width="32" height="32" alt="" title="" align="middle"><font size="4">  <b>Wyślij biuletyn</b></font>
 	</td>
 </tr>
 <tr><td class="spacer" colspan="2"></td></tr>
