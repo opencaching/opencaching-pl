@@ -35,5 +35,5 @@
 	
 	$remove_picture = ' [<a href="removepic.php?uuid={uuid}">Usuń</a>]';
 
-	$rating_picture = '<img src="images/rating-star.gif" alt="Rekomendacja" /> '
+	$rating_picture = '<img src="images/rating-star.png" alt="Rekomendacja" /> '
 ?>

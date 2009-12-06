@@ -153,7 +153,7 @@ if ($error == false)
 				$file_content .= ' <img src="/tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/>&nbsp;';
         //$rating_picture
 				if ($log_record['recommended'] == 1) {
-					$file_content .= ' <img src="/images/rating-star.gif" border="0" alt=""/>';
+					$file_content .= ' <img src="/images/rating-star.png" border="0" alt=""/>';
 				}	
 				$file_content .= ' - <a href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a>';
 

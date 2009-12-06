@@ -57,7 +57,7 @@
 
 				<tr>
 					<td align="right">{t}Index{/t}</td>
-					<td align="center"><img src="images/rating-star.gif" border="0" alt="{t}Recommendations{/t}"></td>
+					<td align="center"><img src="images/rating-star.png" border="0" alt="{t}Recommendations{/t}"></td>
 					<td align="center"><img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0" alt="{t}Found{/t}"></td>
 					<td>&nbsp;</td>
 				</tr>

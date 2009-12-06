@@ -6,9 +6,6 @@
   See respective license files in the main directory of the project.
 */
 
-/*
-  TODO: reconnect to mysql in fcgi mode, if the connection has been severed.
-*/
 
 #ifdef WITH_FASTCGI
 #include <fcgi_stdio.h>

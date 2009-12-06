@@ -106,8 +106,8 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
  $cache_notfound_text = "x ".$language[$lang]['not_found'];
 
  $recommend_link = '&nbsp;&nbsp;<a href="recommendations.php?cacheid={cacheid}"/>('.$language[$lang]['show_recommended'].')</a>';
- $rating_stat_show_singular = '<img src="images/rating-star.gif" border="0"/> {ratings} '.$language[$lang]['recommendation'].'<br />';
- $rating_stat_show_plural = '<img src="images/rating-star.gif" border="0"/> {ratings} '.$language[$lang]['recommendations'].'<br />';
+ $rating_stat_show_singular = '<img src="images/rating-star.png" border="0"/> {ratings} '.$language[$lang]['recommendation'].'<br />';
+ $rating_stat_show_plural = '<img src="images/rating-star.png" border="0"/> {ratings} '.$language[$lang]['recommendations'].'<br />';
 
 $found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0"/>';
 $notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" width="16" height="16" border="0"/>';

@@ -18,7 +18,7 @@
 
 	$tops = array();
 	echo '<center><table><tr><td align=center><font size=+0><b>Ranking skrzynek wg liczonego indeksu</b></font><br></td></tr>';
-	echo '<tr><td><center><table bgcolor="white" width=700><tr><td align="right">Indeks</td><td align="center"><img src="/images/rating-star.gif" border="0" alt=""></td><td align="center"><img src="/tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0" alt=""></td><td></td></tr>';
+	echo '<tr><td><center><table bgcolor="white" width=700><tr><td align="right">Indeks</td><td align="center"><img src="/images/rating-star.png" border="0" alt=""></td><td align="center"><img src="/tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0" alt=""></td><td></td></tr>';
 
 //  mysql_query("SET NAMES 'utf8'"); 
 	// Alle Caches für diese Gruppe finden

@@ -289,7 +289,7 @@
 							else 
 							{
 								print_topratings = "<br><b>{recommendations}: </b>";
-								var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.gif\" alt=\"R\">";
+								var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"R\">";
 								var ii;
 								for( ii=0;ii<topratings;ii++)
 									print_topratings += gwiazdka;

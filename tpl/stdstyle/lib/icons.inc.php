@@ -86,7 +86,7 @@ function icon_rating($founds, $topratings)
 		$nIconsCount = $topratings;
 
 	$sRetval = '';
-	$sRetval .= str_repeat('<img src="images/rating-star.gif" alt="' . $sAltText . '" title="' . $sAltText . '" width="17px" height="16px" />', $nIconsCount);
+	$sRetval .= str_repeat('<img src="images/rating-star.png" alt="' . $sAltText . '" title="' . $sAltText . '" width="17px" height="16px" />', $nIconsCount);
 
 	if ($topratings > 3)
 		$sRetval .= '<img src="images/rating-plus.gif" alt="' . $sAltText . '" title="' . $sAltText . '" width="17px" height="16px" />';
