@@ -475,7 +475,7 @@ $language['pl']['error_usernotactive'] = 'Twoje konto nie było aktywowane jeszc
 $language['pl']['not_registered'] = 'Chcesz się zarejestrować? <a href="register.php">Rejestracja</a>';
 $language['pl']['forgotten_your_password'] = 'Zapomniałeś hasła? <a href="newpw.php">Nowe hasło</a>';
 $language['pl']['cache_logged_required'] = 'Musisz być zalogowany by wpisywać się do logu i dokonywać operacji na skrzynce.';
-$language['pl']['basic_information'] = 'Podstawowe informacje.';
+$language['pl']['basic_information'] = 'Podstawowe informacje';
 
 
 ////////////////////////////////////////// ENGLISH //////////////////////////////////////////
