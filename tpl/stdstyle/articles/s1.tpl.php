@@ -1,4 +1,4 @@
-<table width=600 class="content2-pagetitle">
+<table width=600 class="content">
 	<colgroup>
 		<col width="100">
 	</colgroup>

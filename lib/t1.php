@@ -11,11 +11,11 @@
   $fC = sql('SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
     $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
-	echo '<center><table><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby założonych skrzynek</b></font><br>tylko aktywne skrzynki<br>Użytkowników którzy założyli skrzynki:';
+	echo '<center><table width="750"><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby założonych skrzynek</b></font><br>tylko aktywne skrzynki<br>Użytkowników którzy założyli skrzynki:';
 	echo $rsUs[count]; 
 	echo ' .::. Liczba aktywnych skrzynek:';
 	echo $fCt[count]; 
-	echo '</td></tr></table><table bgcolor="white" width=600>' . "\n";
+	echo '</td></tr></table><table bgcolor="white" width=750>' . "\n";
 
 //  mysql_query("SET NAMES 'utf8'"); 
 // $rsUser = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `caches`.`status`=1 AND `caches`.`type`!=4 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20'); 
