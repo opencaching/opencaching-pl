@@ -475,6 +475,7 @@ $language['pl']['error_usernotactive'] = 'Twoje konto nie było aktywowane jeszc
 $language['pl']['not_registered'] = 'Chcesz się zarejestrować? <a href="register.php">Rejestracja</a>';
 $language['pl']['forgotten_your_password'] = 'Zapomniałeś hasła? <a href="newpw.php">Nowe hasło</a>';
 $language['pl']['cache_logged_required'] = 'Musisz być zalogowany by wpisywać się do logu i dokonywać operacji na skrzynce.';
+$language['pl']['basic_information'] = 'Podstawowe informacje.';
 
 
 ////////////////////////////////////////// ENGLISH //////////////////////////////////////////
@@ -951,6 +952,7 @@ $language['en']['error_usernotactive'] = 'Yor account is not active or deactive.
 $language['en']['not_registered'] = 'Not registered? <a href="register.php">Register</a>';
 $language['en']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw.php">Remind me</a>';
 $language['en']['cache_logged_required'] = 'You have to be logged to add new log entries and operate on this cache.';
+$language['en']['basic_information'] = 'Basic information.';
 
 ////////////////////////////////////// GERMAN  ////////////////////////////////////////////////
 $language['de']['main_menu'] = 'Main Menu';
@@ -1426,7 +1428,7 @@ $language['de']['error_usernotactive'] = 'Yor account is not active or deactive.
 $language['de']['not_registered'] = 'Not registered? <a href="register.php">Register</a>';
 $language['de']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw.php">Remind me</a>';
 $language['de']['cache_logged_required'] = 'You have to be logged to add new log entries and operate on this cache.';
-
+$language['de']['basic_information'] = 'Basic information.';
 ///////////////////////////////////////////////////// CZECH ///////////////////////////////////////////////////
 $language['cs']['main_menu'] = 'Main Menu';
 $language['cs']['user_menu'] = 'User\'s Menu';
@@ -1901,7 +1903,7 @@ $language['cs']['error_usernotactive'] = 'Yor account is not active or deactive.
 $language['cs']['not_registered'] = 'Not registered? <a href="register.php">Register</a>';
 $language['cs']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw.php">Remind me</a>';
 $language['cs']['cache_logged_required'] = 'You have to be logged to add new log entries and operate on this cache.';
-
+$language['cs']['basic_information'] = 'Basic information.';
 /////////////////////////////////////////////////// FRENCH ////////////////////////////////////////////////
 $language['fr']['main_menu'] = 'Main Menu';
 $language['fr']['user_menu'] = 'User\'s Menu';
@@ -2376,7 +2378,7 @@ $language['fr']['error_usernotactive'] = 'Yor account is not active or deactive.
 $language['fr']['not_registered'] = 'Not registered? <a href="register.php">Register</a>';
 $language['fr']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw.php">Remind me</a>';
 $language['fr']['cache_logged_required'] = 'You have to be logged to add new log entries and operate on this cache.';
-
+$language['fr']['basic_information'] = 'Basic information.';
 /////////////////////////////////// SPANISH ///////////////////////////////////////
 $language['es']['main_menu'] = 'Main Menu';
 $language['es']['user_menu'] = 'User\'s Menu';
@@ -2851,7 +2853,7 @@ $language['es']['error_usernotactive'] = 'Yor account is not active or deactive.
 $language['es']['not_registered'] = 'Not registered? <a href="register.php">Register</a>';
 $language['es']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw.php">Remind me</a>';
 $language['es']['cache_logged_required'] = 'You have to be logged to add new log entries and operate on this cache.';
-
+$language['es']['basic_information'] = 'Basic information.';
 
 ///////////////////////////////////// SWEDISH //////////////////////////////////////////
 $language['sv']['activation_code_failed'] = 'Aktiveringskod eller e-postadress är felaktig. <br> Ditt konto har inte aktiverats. Kontrollera om du har gjort ett misstag. Om problemet kvarstår, vänligen kontakta oss på: ocpl (at) opencaching.pl.';
@@ -3323,5 +3325,5 @@ $language['sv']['logoutsuccess'] = 'Utloggad';
 $language['sv']['error_usernotactive'] = 'Ditt konto inte är aktivt eller avaktiverat. <br /> Du kan aktivera ditt konto genom att <a href=activation.php>klicka här</a>.';
 $language['sv']['not_registered'] = 'Inte registrerad? <a href=register.php>Registrera dig</a>';
 $language['sv']['forgotten_your_password'] = 'Glömt ditt lösenord? <a href=newpw.php>Påminn mig</a>';
-
+$language['sv']['basic_information'] = 'Basic information.';
 ?>

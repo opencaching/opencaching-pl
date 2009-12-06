@@ -142,6 +142,11 @@ function toggleAttr(id)
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="" title="{new_cache}" align="middle"/>&nbsp;{new_cache}</div>
 	{general_message}
 	<div class="buffer"></div>
+	<div class="content2-container line-box">
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{basic_information}</p>
+		</div>
+
+	<div class="buffer"></div>
 	<div class="notice">
 		{first_cache}.
 	</div>
