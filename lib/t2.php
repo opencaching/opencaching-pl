@@ -45,7 +45,7 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `deleted`=0 AND `type
 	echo '<br/><input type="submit" value="Filtruj">';
 	
 	echo '</form></td></tr>';
-	echo '<tr><td> <table bgcolor="white" width=800>' . "\n";
+	echo '<tr><td> <table bgcolor="white" width=750>' . "\n";
 
 $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id FROM caches, cache_logs, user ".
      "WHERE `cache_logs`.`deleted`=0 AND cache_logs.user_id=user.user_id AND cache_logs.type=1 AND cache_logs.cache_id = caches.cache_id ".$typ." ".
