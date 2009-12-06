@@ -33,17 +33,19 @@
 
 	$tplname = 'coordinates';
 	require_once('./lib/common.inc.php');
-
+//phpinfo();
+//die();
 	require($stylepath . '/coordinates.inc.php');
-	require_once("./lib/cs2cs.inc.php");
+	//require_once("./lib/cs2cs.inc.php");
+	require_once("./lib/tm_ll_lib.php");
 
 	$lat_float = 0;
 	if (isset($_REQUEST['lat']))
-		$lat_float += $_REQUEST['lat'];
+		$lat_float = (float) $_REQUEST['lat'];
 
 	$lon_float = 0;
 	if (isset($_REQUEST['lon']))
-		$lon_float += $_REQUEST['lon'];
+		$lon_float = (float) $_REQUEST['lon'];
 
 	list($lon_dir, $lon_deg_int, $lon_min_int, $lon_sec_int, $lon_min_float) = help_lonToArray2($lon_float);
 	list($lat_dir, $lat_deg_int, $lat_min_int, $lat_sec_int, $lat_min_float) = help_latToArray2($lat_float);
@@ -62,7 +64,7 @@
 	tpl_set_var('lat_sec_int', $lat_sec_int);
 	tpl_set_var('lat_min_float', $lat_min_float);
 
-	$utm = cs2cs_utm($lat_float, $lon_float);
+	/*$utm = cs2cs_utm($lat_float, $lon_float);
 
 	tpl_set_var('utm_zone', $utm[0]);
 	tpl_set_var('utm_letter', $utm[1]);
@@ -80,7 +82,16 @@
 
 	$qthlocator = help_latlongToQTH($lat_float, $lon_float);
 
-	tpl_set_var('qthlocator', $qthlocator);
+	tpl_set_var('qthlocator', $qthlocator);*/
+ 
+	$utm = ll2utm($lat_float, $lon_float);
+	
+	tpl_set_var('utm2_zone', $utm[0]);
+	tpl_set_var('utm2_letter', $utm[1]);
+	tpl_set_var('utm2_NS', $utm[2]);
+	tpl_set_var('utm2_north', (int) $utm[3]);
+	tpl_set_var('utm2_EW', $utm[4]);
+	tpl_set_var('utm2_east', (int) $utm[5]);
 
 	tpl_set_var('nocacheid_start', '<!--');
 	tpl_set_var('nocacheid_end', '-->');
