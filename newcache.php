@@ -93,7 +93,7 @@
 			tpl_set_var('diff_message', '');
 			
 			tpl_set_var('new_cache', $language[$lang]['new_cache']);
-			tpl_set_var('new_cache', $language[$lang]['basic_information']);
+			tpl_set_var('basic_information', $language[$lang]['basic_information']);
 			tpl_set_var('first_cache', $language[$lang]['first_cache']);
 			tpl_set_var('name_label', $language[$lang]['name_label']);
 			tpl_set_var('cache_type', $language[$lang]['cache_type']);
