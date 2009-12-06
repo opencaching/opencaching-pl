@@ -95,6 +95,15 @@
 					tpl_set_var('short_desc_label', $language[$lang]['short_desc_label']);
 					tpl_set_var('pictures_label', $language[$lang]['images']);
 					tpl_set_var('add_new_pict', $language[$lang]['add_picture']);
+					tpl_set_var('other', $language[$lang]['other']);
+					tpl_set_var('date_hidden_label', $language[$lang]['date_hidden_label']);
+
+					tpl_set_var('event_hidden_hint', $language[$lang]['event_hidden_hint']);
+					tpl_set_var('log_password', $language[$lang]['log_password']);
+					tpl_set_var('no_password_label', $language[$lang]['no_password_label']);
+					tpl_set_var('please_readr', $language[$lang]['please_read']);
+					tpl_set_var('creating_cache', $language[$lang]['creating_cache']);					
+					
 					//here we read all used information from the form if submitted, otherwise from DB
 					
 					// bez wirtuali i webcamów - zabezpieczenie przeciw spreparowanym POSTom

@@ -263,7 +263,7 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<div class="content2-container line-box"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p></div>
+			<div class="content2-container line-box"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p></div>
 			<p class="content-title-noshade"><img src="tpl/stdstyle/images/action/16x16-adddesc.png" width="16" height="16" align="middle" border="0" align="Dodaj nowy opis" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}"/>{add_new_desc}</a></p>
 		</td>
 	</tr>
@@ -305,14 +305,14 @@ function toggleAttr(id)
 		<td><input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> ({no_password_label})</td>
 	</tr>
 	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{please_read}</div></td></tr>
-	<tr><td colspan="2"><div class="errormsg"><br>{creating_cache}<br><br></div></td></tr>
+	<tr><td colspan="2"><div class="errormsg"><br>{creating_cache}<br></div></td></tr>
 
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
 			<input type="reset" name="reset" value="{reset}" class="formbuttons"/>&nbsp;&nbsp;
 			<input type="submit" name="submit" value="{submit}" class="formbuttons"/>
-		</td>
+		<br><br></td>
 	</tr>
 </table>
 </form>
