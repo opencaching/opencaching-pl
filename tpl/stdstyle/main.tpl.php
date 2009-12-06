@@ -113,10 +113,19 @@ function chname( newName )
 		  </div>
     </div>
     <!-- Header banner	 -->	 						    		 						
+<?php
+	$myrandnum = array(); 
+	for ($i=0;$i<5;$i++) { 
+	 $mynum = rand(1,13); 
+	 if (!in_array($mynum,$myrandnum)) $myrandnum[] = $mynum; 
+	 else $i--; 
+		}
+?>	
 		<div class="header">
-			<div style="width:970px; padding-top:1px;"><img src="./images/header/logo.jpg" alt="" style="border:0px;" />
-			</div>
+		<div style="width:970px; padding-top:1px;"><a href="1"><img src="./images/header/header_<?php echo $myrandnum[1];?>.jpg" alt="" style="border:0px;" /></a><a href="2"><img src="./images/header/header_<?php echo $myrandnum[2];?>.jpg" alt="" style="border:0px;" /></a><a href="3"><img src="./images/header/header_<?php echo $myrandnum[3];?>.jpg" alt="" style="border:0px;" /></a><a href="4"><img src="./images/header/header_<?php echo $myrandnum[4];?>.jpg" alt="" style="border:0px;" /></a>
+		</div>
 		</div>		
+   	
     <!-- Navigation Level 2 -->												
 	  <div class="nav2">			
 			<ul>
