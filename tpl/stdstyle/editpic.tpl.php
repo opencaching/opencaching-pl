@@ -52,7 +52,7 @@ function checkForm()
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" border="0" width="32" height="32" alt="" title="edit picture" align="middle"> <b>Edycja {pictypedesc} <a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" border="0" width="32" height="32" alt="" title="edit picture" align="middle"> <b>Edit {pictypedesc} </b><br><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>
 	<tr><td class="spacer" colspan="2"><br></td></tr>
 
 	<tr>
