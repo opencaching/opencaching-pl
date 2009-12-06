@@ -97,7 +97,7 @@ return true;
 			<div class="content-txtbox-noshade line-box">
 				<p>{what_do_you_find_intro}</p>
 				<div class="buffer" style="width:500px;"></div>
-				<p>{total_of_active_caches}: <span class="content-title-noshade">{hiddens}</span> | {number_of_founds}: <span class="content-title-noshade">{founds}</span> | {number_of_active_users}: <span class="content-title-noshade">{users} </span></p>
+				<b><p>{total_of_active_caches}: <span class="content-title-noshade">{hiddens}</span> | {number_of_founds}: <span class="content-title-noshade">{founds}</span> | {number_of_active_users}: <span class="content-title-noshade">{users} </span></p></b>
 			</div>
 <!-- Text container -->
 			<div class="content2-container line-box">

@@ -39,10 +39,19 @@
 	//pagetitle
 	if (!isset($pagetitle)) $pagetitle = 'Opencaching - Geocaching w Polsce';
 
-	//id of the node
+
+	/* Well known node id's - required for synchronization
+	 * 1 Opencaching Germany (www.opencaching.de)
+	 * 2 Opencaching Poland (www.opencaching.pl)
+	 * 3 Opencaching Tschechien (www.opencaching.cz)
+	 * 4 Local Development
+	 * 5 Opencaching Entwicklung Deutschland (devel.opencaching.de)
+	 * 6 OC UK
+	 * 7 OC SE
+	 */
 	$oc_nodeid = 2;
-	//OC Waypoint OC for DE, OP for PL, OZ for CZ,
-	//$oc_waypoint = OP;
+	//OC Waypoint OC for DE, OP for PL, OZ for CZ, OS for OC SE, OK for OC UK
+	$oc_waypoint = OP;
 	
         //name of the cookie
         $opt['cookie']['name'] = 'ocpl';
@@ -54,6 +63,8 @@
         if (!isset($cookiepath)) $cookiepath = '/';
         if (!isset($cookiedomain)) $cookiedomain = '';
 
+
+	// Hide coordinates for users not login
 	$hide_coords = false;
 	// scores range
 	$MIN_SCORE = 0;
@@ -88,7 +99,13 @@
 	if (!isset($maxpicsize)) $maxpicsize = 152400;
 	
 	// allowed extensions of images
-	if (!isset($picextensions)) $picextensions = ';jpg;jpeg;gif;png;bmp;';
+	if (!isset($picextensions)) $picextensions = 'jpg;jpeg;gif;png;bmp';
+
+	// maximal size of mp3 for PodCache
+	if (!isset($maxmp3size)) $maxmp3size = 200000;
+	
+	// allowed extensions of images
+	if (!isset($mp3extensions)) $mp3extensions = 'mp3';	
 	
 	// news settings
 	$use_news_approving = true;
