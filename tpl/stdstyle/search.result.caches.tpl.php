@@ -64,7 +64,7 @@ $googlemaps = "";
 if ($usr || !$hide_coords){ echo "
 <table class=\"content\">
 	<tr>
-		<td width=\"230px\"><img src="tpl/stdstyle/images/blue/save.png" width="32" height="32" border="0" alt="Save results" title="Save results" align="middle"/><b>Pobierz</b></td>
+		<td width=\"230px\"><b>Pobierz</b></td>
 		<td align=\"right\" style=\"padding-right:20px;\">
 			Wykaz z tej strony:
 			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=gpx&startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx\">GPX</a>
