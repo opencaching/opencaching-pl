@@ -135,6 +135,11 @@ function toggleAttr(id)
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="" title="" align="middle"/>&nbsp;{edit_cache} &#8211; {name}</div>
 	{general_message}
 	<div class="buffer"></div>
+	<div class="content2-container line-box">
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{basic_information}</p>
+		</div>
+
+	<div class="buffer"></div>
 	<table class="table" border="0">
 	<colgroup>
 		<col width="180"/>
@@ -245,7 +250,7 @@ function toggleAttr(id)
 	</tr>
 	<tr>
 		<td colspan="2">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{cache_attributes}</p>
+			<div class="content2-container line-box"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{cache_attributes}</p></div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -258,7 +263,7 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p>
+			<div class="content2-container line-box"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p></div>
 			<p class="content-title-noshade"><img src="tpl/stdstyle/images/action/16x16-adddesc.png" width="16" height="16" align="middle" border="0" align="Dodaj nowy opis" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}"/>{add_new_desc}</a></p>
 		</td>
 	</tr>
@@ -271,7 +276,7 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" width="22" height="22" align="middle" border="0" alt=""/>&nbsp;&nbsp;{pictures_label}</p>
+			<div class="content2-container line-box"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;&nbsp;{pictures_label}</p></div>
 			<p class="content-title-noshade"><img src="tpl/stdstyle/images/action/16x16-addimage.png" width="16" height="16" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2">{add_new_pict}</a></p>
 		</td>
 	</tr>
@@ -279,12 +284,12 @@ function toggleAttr(id)
 	{pictures}
 	<tr>
 		<td colspan="2">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0"/>Inne</p>
+			<div class="content2-container line-box"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0"/>{other}</p></div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">Data ukrycia:</td>
+		<td class="content-title-noshade">{date_hidden_label}:</td>
 		<td>
 			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}"/>.
 			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{date_month}"/>.
@@ -292,15 +297,15 @@ function toggleAttr(id)
 			{date_message}
 		</td>
 	</tr>
-	<tr><td colspan="2"><div class="notice">W przypadku skrzynki typu WYDARZENIE, należy podać datę rozpoczęcia wydarzenia.</div></td></tr>
+	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{event_hidden_hint}</div></td></tr>
 	{activation_form}
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade" nowrap="nowrap">Hasło do Logu:</td>
-		<td ><input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> (pozostaw puste jeśli bez hasła)</td>
+		<td><p class="content-title-noshade">{log_password}:</p></td>
+		<td><input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> ({no_password_label})</td>
 	</tr>
-	<tr><td colspan="2"><div class="notice">Zapoznaj się z <a href="articles.php?page=cacheinfo#logpw" target="_blank">informacją o haśle w logu</a>!</div></td></tr>
-	<tr><td colspan="2"><div class="notice">Zakładając nową skrzynkę akceptujesz <a href="articles.php?page=impressum#tos" target="_blank">Zasady użytkowania OC PL</a>.</div></td></tr>
+	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{please_read}</div></td></tr>
+	<tr><td colspan="2"><div class="errormsg"><br>{creating_cache}<br><br></div></td></tr>
 
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>

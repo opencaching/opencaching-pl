@@ -63,6 +63,7 @@
 					require($stylepath . '/editcache.inc.php');
 					
 					tpl_set_var('edit_cache', $language[$lang]['edit_cache']);
+					tpl_set_var('basic_information', $language[$lang]['basic_information']);
 					tpl_set_var('name_label', $language[$lang]['name_label']);
 					tpl_set_var('status_label', $language[$lang]['status_label']);
 					tpl_set_var('cache_type', $language[$lang]['cache_type']);
