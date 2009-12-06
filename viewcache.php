@@ -228,7 +228,7 @@
 				$geokrety_content = '';
 				while( $geokret = sql_fetch_array($geokret_query) )
 				{
-					$geokrety_content .= "- <a href='http://geokrety.org/konkret.php?id=".$geokret['id']."'>".$geokret['name']."</a> - ".$language[$lang]['total_distance'].": ".$geokret['distance']." km<br/>";
+					$geokrety_content .= "<img src=/images/geokret.gif alt=gk align=absmiddle>&nbsp;<a href='http://geokrety.org/konkret.php?id=".$geokret['id']."'>".$geokret['name']."</a> - ".$language[$lang]['total_distance'].": ".$geokret['distance']." km<br/>";
 //					$geokrety_content .= "Przebyty dystans: ".$geokret['distance']."km<br><br>";
 				}
 				tpl_set_var('geokrety_begin', '');
