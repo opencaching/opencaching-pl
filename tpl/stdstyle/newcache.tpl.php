@@ -319,7 +319,7 @@ function toggleAttr(id)
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td colspan="2"><p class="content-title-noshade">{additional_enc_info}</p></td>
+		<td colspan="2"><div class="notice" style="width:500px;height:24px;">{additional_enc_info}</p></td>
 	</tr>
 	<tr>
 		<td colspan="2">
