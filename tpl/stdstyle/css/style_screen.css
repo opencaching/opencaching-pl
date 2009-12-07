@@ -514,3 +514,54 @@ textarea.logs {		width:600px; height:300px; }	/* only logeditor */
 
 div#new-caches-area { width: 500px; }
 div#new-events-area { width: 500px; }
+
+
+/*************************/
+/* SECTION  - TABLE from old main.css */
+/*************************/
+table.null { 		margin: 0px; border-spacing: 0px; border-width: 0px; border-style: solid;
+					padding-left: 0px; padding-right: 0px;
+					padding-top: 0px; padding-bottom: 0px;
+					width: 100%; }
+
+
+/* styles for main content-table with new layout */
+table.content {
+  background-color:#E9E9E9;
+  width:100%;
+  font-size:small;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-spacing: 0;}
+
+td.spacer {			height:5px; }
+
+td.gallery  {
+			border-bottom: 1px solid #000000;
+			border-top: 1px solid #000000;
+			border-left: 1px solid #000000;
+			border-right: 1px solid #000000;
+			}
+
+td.header
+{
+	background-color:#E6E2E6;
+	height:32px;
+	vertical-align:bottom;
+	padding-left:5px; padding-right:5px;
+	border: 0px;
+	font-family: verdana,sans-serif;
+}
+
+td.header-small {	background-color:#E6E2E6;
+					height:22px;
+					vertical-align : middle;
+					padding-left:5px; padding-right:5px;
+					font-family: verdana,sans-serif;
+					font-weight: bold;}
+
+/* for normal contents the next two definitions should have the same attributes */
+table.content td {		padding-left: 5px; padding-right: 5px; }
+/*table.content td {	padding-left: 5px; padding-right: 5px; }*/
