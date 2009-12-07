@@ -152,18 +152,21 @@ else
 				</div>
 			</div>
 <!-- End Text Container -->
+			<div class="content2-container line-box"></div>
 <!-- Text container -->
+					{cache_attributes_start}
 			<div class="content2-container line-box">
 				<p class="content-title-noshade-size1">
-					{cache_attributes_start}
+
 					<img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
 					{cache_attributes_label}
 				</p>
 				<p>
 					{cache_attributes}{password_req}
-					{cache_attributes_end}
+
 				</p>
 			</div>
+					{cache_attributes_end}
 <!-- End Text Container -->
 <!-- Text container -->
 			{start_rr_comment}
