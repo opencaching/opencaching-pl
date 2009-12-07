@@ -360,6 +360,7 @@
 			
 		}
 		document.getElementsByTagName("body")[0].onclick = saveMapType;
-		onClickFunc(tlo, new GLatLng({coords}));
+		if({doopen})
+			onClickFunc(tlo, new GLatLng({coords}));
 	}
 </script>
