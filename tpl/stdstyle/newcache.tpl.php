@@ -580,3 +580,7 @@ function toggleAttr(id)
 	}
 //-->
 </script>
+
+	}
+//-->
+</script>

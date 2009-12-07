@@ -20,12 +20,9 @@
 
 <!-- Text container -->
 
-			<div class="content2-container line-box">
-
+		<div class="content2-container line-box">
 
 			<div class="">
-
-
 
 				<div class="nav4">
 <?
@@ -47,7 +44,8 @@
 					}
 					//end cachelisting
 ?>
-				</div><br><br><br>
+				</div>
+				<br><br><br>
 
 
 				<div class="content2-container-2col-left" style="width:60px; clear: left;">
@@ -61,21 +59,21 @@
 
 				
 				</div>
-				<div class="content2-container-2col-left" id="cache_name_block">
+					<div class="content2-container-2col-left" id="cache_name_block">
 					<span class="content-title-noshade-size5">{cachename}</span><br />
 					<p class="content-title-noshade-size1">&nbsp;{short_desc}</p>
 					<p>{created_by} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a></p>
 					{event_attendance_list}
-				</div>
+					</div>
 
 
 			</div>
-			</div>
+		</div>
 
 
 <!-- End Text Container -->
 <!-- Text container -->
-			<div class="content2-container">
+			<div class="content2-container line-box">
 				<div class="content2-container-2col-left" style="width:400px;">
 					<p class="content-title-noshade-size3">
 						<img src="tpl/stdstyle/images/blue/compas.png"  width="22" height="22" border="0" alt="" title="" align="left"/>
@@ -152,7 +150,7 @@ else
 				</div>
 			</div>
 <!-- End Text Container -->
-			<div class="content2-container line-box"></div>
+	
 <!-- Text container -->
 					{cache_attributes_start}
 			<div class="content2-container line-box">

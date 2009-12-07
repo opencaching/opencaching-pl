@@ -146,7 +146,7 @@
 	uksort($newcaches, 'cmp');
 
 	$file_content = '
-		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle"/>&nbsp;Najnowsze skrzynki poza Polską</div>
+		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Cachesuche" title="Cache" align="middle"/>&nbsp;Najnowsze skrzynki poza Polską</div>
 		<div class="content2-container line-box">
 			';
 	if (isset($newcaches))
