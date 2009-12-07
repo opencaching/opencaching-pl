@@ -44,13 +44,13 @@ $error_general = '<div class="warning">'.$language[$lang]['error_new_cache'].'</
 
 	$status_message = '&nbsp;<span class="errormsg">Status skrzynki nie pasuje do opcji publikacji.</span>';
 	$nopictures = '<tr><td colspan="2"><div class="notice">Nie ma załączonych obrazków.</div></td></tr>';
-	$pictureline = '<tr><td colspan="2"><a href="{link}">{title}</a> [<a href="editpic.php?uuid={uuid}">'.$edit.'</a>] [<a href="removepic.php?uuid={uuid}">'.$remove.'</a>]</td></tr>';
+	$pictureline = '<tr><td colspan="2"><a href="{link}">{title}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/action/16x16-properties.png" border="0" align="middle" border="0" width="16" height="16" alt="" title=""> [<a href="editpic.php?uuid={uuid}">'.$edit.'</a>] <img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" border="0" width="16" height="16" alt="" title="">[<a href="removepic.php?uuid={uuid}">'.$remove.'</a>]</td></tr>';
 	$picturelines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';
 
 	$cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
 	$cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})" />&nbsp;';
 
-	$default_lang = 'PL';
+	$default_lang = $lang;
 
 	 $activation_form = '
 		<tr><td class="buffer" colspan="2"></td></tr>
