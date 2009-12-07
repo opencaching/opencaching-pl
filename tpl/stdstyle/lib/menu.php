@@ -227,11 +227,10 @@ $menu = array(
 	),
 		array(
 		'title' => $language[$lang]['links'],
-		'menustring' => $language[$lang]['links'],
-		'navicolor' => '#DDDDDD',
-		'siteid' => 'articles/links',
 		'visible' => true,
-		'filename' => 'articles.php?page=links'
+		'filename' => 'articles.php?page=links',
+		'menustring' => $language[$lang]['links'],
+		'siteid' => 'articles/links'
 	),
 	array(
 		'title' => 'RSS',
@@ -748,8 +747,8 @@ function mnu_EchoMainMenu($selmenuid)
 			else
 				$target_blank = "";
 				
-			//if ($menu[$i]['siteid'] == $selmenuid)
-			if ($menu[$i]['siteid'] == 'start')
+			if ($menu[$i]['siteid'] == $selmenuid)
+	//		if ($menu[$i]['siteid'] == 'start')
 			{
 				echo '<li><a class="selected bg-green06" href="' . $menu[$i]['filename'] . '">' . htmlspecialchars($menu[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>';
 			}
@@ -816,8 +815,9 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 
 			if ($menustructure[$i]['siteid'] == $pageid)
 			{
-				echo '<li class="'.$cssclass.' '.$cssclass.'_active"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
-			}
+//				echo '<li class="'.$cssclass.' '.$cssclass.'_active"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+				echo '<li class="'.$cssclass.' bg-green02"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+				}
 			else
 			{
 //				if (isset($menustructure[$i]['submenu']))
