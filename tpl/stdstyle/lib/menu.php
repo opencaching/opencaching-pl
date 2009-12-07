@@ -206,7 +206,7 @@ $menu = array(
 		'menustring' => 'IRC',
 		'siteid' => 'irc',
 		'visible' => true,
-		'filename' => 'irc://chat.eu.freenode.net/opencaching.pl',
+		'filename' => 'http://webchat.freenode.net/?nick='.$usr['username'].'&channels=opencaching.pl&prompt=1',
 		'newwindow' => true
 	),
 	array(
