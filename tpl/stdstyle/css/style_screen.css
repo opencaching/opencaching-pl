@@ -519,6 +519,13 @@ div#new-events-area { width: 500px; }
 /*************************/
 /* SECTION  - TABLE from old main.css */
 /*************************/
+header-small {	background-color:#E6E2E6;
+					height:22px;
+					vertical-align : middle;
+					padding-left:5px; padding-right:5px;
+					font-family: verdana,sans-serif;
+					font-weight: bold;}
+
 table.null { 		margin: 0px; border-spacing: 0px; border-width: 0px; border-style: solid;
 					padding-left: 0px; padding-right: 0px;
 					padding-top: 0px; padding-bottom: 0px;
