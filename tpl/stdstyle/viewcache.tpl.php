@@ -73,7 +73,7 @@
 
 <!-- End Text Container -->
 <!-- Text container -->
-			<div class="content2-container line-box">
+			<div class="content2-container">
 				<div class="content2-container-2col-left" style="width:400px;">
 					<p class="content-title-noshade-size3">
 						<img src="tpl/stdstyle/images/blue/compas.png"  width="22" height="22" border="0" alt="" title="" align="left"/>
@@ -153,27 +153,29 @@ else
 	
 <!-- Text container -->
 					{cache_attributes_start}
-			<div class="content2-container line-box">
+			<div class="content2-container bg-green02">
 				<p class="content-title-noshade-size1">
-
 					<img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
 					{cache_attributes_label}
 				</p>
+			</div>
+			<div class="content2-container">
 				<p>
 					{cache_attributes}{password_req}
-
 				</p>
 			</div>
 					{cache_attributes_end}
 <!-- End Text Container -->
 <!-- Text container -->
 			{start_rr_comment}
-			<div class="content2-container line-box">
+			<div class="content2-container bg-green02">
 				<p class="content-title-noshade-size1">
 					
 					<img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="desc"/>
 					{rr_comment_label}
 				</p>
+				</div>
+				<div class="content2-container">
 				<p><br/>
 				{rr_comment}
 				</p>
@@ -181,12 +183,13 @@ else
 			{end_rr_comment}
 <!-- End Text Container -->
 <!-- Text container -->
-			<div class="content2-container line-box">
+			<div class="content2-container bg-green02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" style="vertical-align:middle" border="0" alt="desc"/>
 					{description}&nbsp;&nbsp;
 					{desc_langs}&nbsp;{add_rr_comment}&nbsp;{remove_rr_comment}
-				</p>
+				</p></div>
+				<div class="content2-container">
 				<div id='branding'>{branding}</div>
 				<div id="description">
 					<p>
@@ -197,7 +200,7 @@ else
 <!-- End Text Container -->
 <!-- Text container -->
 {hidehint_start}
-			<div class="content2-container line-box">
+			<div class="content2-container bg-green02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/crypt.png" width="22" height="22" style="vertical-align:middle" border="0" alt="enc"/>
 					<b>{additional_hints}</b>&nbsp;&nbsp;
@@ -205,7 +208,7 @@ else
 					<img src="tpl/stdstyle/images/blue/decrypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
 					{decrypt_link}
 					{decrypt_link_end}
-					<br/>
+					<br/></div><div class="content2-container">
 					<div id='hint' style="float:left">
 					<p>
 						{hints}
@@ -223,11 +226,12 @@ else
 <!-- End Text Container -->
 <!-- Text container -->
 {geokrety_begin}
-			<div class="content2-container line-box">
+			<div class="content2-container bg-green02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/travelbug.png" width="32" height="32" style="vertical-align:middle" border="0" alt="geokrety"/>
 					Geokrety
-				</p>
+				</p></div>
+				<div class="content2-container">
 				<p>
 					{geokrety_content}
 				</p>
@@ -236,11 +240,12 @@ else
 <!-- End Text Container -->
 <!-- Text container -->
 {hidepictures_start}
-			<div class="content2-container line-box">
+			<div class="content2-container bg-green02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/picture.png" width="32" height="32" style="vertical-align:middle" border="0" alt="images"/>
 					{images}
-				</p>
+				</p></div>
+				<div class="content2-container">
 				<p>
 					{pictures}
 				</p>
@@ -248,11 +253,12 @@ else
 {hidepictures_end}
 <!-- End Text Container -->
 <!-- Text container -->
-			<div class="content2-container line-box">
+			<div class="content2-container bg-green02">
 				<p class="content-title-noshade-size1">
 					<!-- End Text Container -->
 					<img src="tpl/stdstyle/images/blue/utils.png" width="32" height="32" style="vertical-align:middle" border="0" title="" alt="utilities"/>&nbsp;{utilities}
-				</p>
+				</p></div>
+				<div class="content2-container">
 			<p>
 			- {search_geocaches_nearby}<?php echo ":
 			<a href=\"search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;latNS=";?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h="; ?>{lon_h}<?php echo "&amp;lon_min="; ?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">";?>{all_geocaches}<?php echo "</a>&nbsp;
@@ -279,7 +285,7 @@ else
 				</p>
 			</div>
 <!-- Text container -->
-			<div class="content2-container line-box">
+			<div class="content2-container bg-green02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/logs.png" width="32" height="32" style="vertical-align:middle" border="0" alt="logs"/>
 					{log_entries}
