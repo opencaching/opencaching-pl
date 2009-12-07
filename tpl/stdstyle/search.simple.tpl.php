@@ -844,7 +844,7 @@ function switchCat2()
 			<col/>
 		</colgroup>
 		<tr>
-			<td colspan="3"><p class="content-title-noshade-size1">{search_by_finder}</p></td>
+			<td class="header-small" colspan="3"><p class="content-title-noshade-size1">{search_by_finder}</p></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
