@@ -34,6 +34,8 @@ typedef struct geotile  {
 	double latHeight;
 } geotile;
 
+#define CACHE_TYPES_NUM 13 // number of different types, it equals maxid+1
+
 const char* type2name(int type)
 {
 	switch(type)
@@ -49,6 +51,8 @@ const char* type2name(int type)
     case 8: return "moving"; break;
     case 9: return "quiz"; break;
     case 10: return "traditional"; break;
+	case 11: return "podcache"; break;
+	case 12: return "challenge"; break;
     }
 }
 
@@ -175,7 +179,7 @@ int main(void)
 	mysql_query(conn,"SET NAMES utf8;");
 #ifdef WITH_FASTCGI
 
-	SDL_Surface *fcgi_cacheimgs[20][11];
+	SDL_Surface *fcgi_cacheimgs[20][CACHE_TYPES_NUM];
 	SDL_Surface *fcgi_redflagimg[20];
 	SDL_Surface *fcgi_foundimg[20];
 	SDL_Surface *fcgi_archivedimg[20];
@@ -186,7 +190,7 @@ int main(void)
 
 
 	for(int z = 0;z < 20;++z) {
-		for(int i = 0;i < 11;++i) {
+		for(int i = 0;i < CACHE_TYPES_NUM;++i) {
 			snprintf(buf, sizeof(buf), "%s/%s%i.png", DATA_PATH, type2name(i), z);
 			fcgi_cacheimgs[z][i] = IMG_Load(buf);
 			if(!fcgi_cacheimgs[z][i])
@@ -302,7 +306,7 @@ int main(void)
 	MYSQL_RES *res;
 	MYSQL_ROW row;
          
-	SDL_Surface *cacheimgs[11];
+	SDL_Surface *cacheimgs[CACHE_TYPES_NUM];
 	bzero(cacheimgs, sizeof(cacheimgs));
 	SDL_Surface *redflagimg = NULL;
 	SDL_Surface *foundimg = NULL;
@@ -313,7 +317,7 @@ int main(void)
 	SDL_Surface* markerimgown = NULL;
 
 #ifndef WITH_FASTCGI
-	for(int i = 0;i < 11;++i) {
+	for(int i = 0;i < CACHE_TYPES_NUM;++i) {
 		snprintf(buf, sizeof(buf), "%s/%s%i.png", DATA_PATH, type2name(i), zoom);
 		cacheimgs[i] = IMG_Load(buf);
 		if(!cacheimgs[i])
@@ -335,7 +339,7 @@ int main(void)
     markerimgown = IMG_Load(buf);
 
 #else
-	for(int i = 0;i < 11;++i) {
+	for(int i = 0;i < CACHE_TYPES_NUM;++i) {
 		cacheimgs[i] = fcgi_cacheimgs[zoom][i];
 	}
 	redflagimg = fcgi_redflagimg[zoom];
@@ -533,7 +537,7 @@ int main(void)
 end_of_request:;
 
 #ifndef WITH_FASTCGI
-	for(int i = 0;i< 11;++i)
+	for(int i = 0;i< CACHE_TYPES_NUM;++i)
 		SDL_FreeSurface(cacheimgs[i]);
 	SDL_FreeSurface(redflagimg);
 	SDL_FreeSurface(foundimg);
@@ -564,7 +568,7 @@ end_of_request:;
 
 #ifdef WITH_FASTCGI
 	for(int z = 0;z < 20;++z) {
-		for(int i = 0;i < 11;++i)
+		for(int i = 0;i < CACHE_TYPES_NUM;++i)
 			SDL_FreeSurface(fcgi_cacheimgs[z][i]);
 		SDL_FreeSurface(fcgi_redflagimg[z]);
 		SDL_FreeSurface(fcgi_foundimg[z]);
