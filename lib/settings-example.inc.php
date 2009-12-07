@@ -101,6 +101,10 @@
 	// allowed extensions of images
 	if (!isset($picextensions)) $picextensions = 'jpg;jpeg;gif;png;bmp';
 
+	// location of cache mp3 files
+	if (!isset($mp3dir)) $mp3dir = $dynbasepath . 'mp3/uploads';
+	if (!isset($mp3url)) $mp3url = 'http://www.opencaching.pl/mp3/uploads';
+
 	// maximal size of mp3 for PodCache
 	if (!isset($maxmp3size)) $maxmp3size = 200000;
 	
