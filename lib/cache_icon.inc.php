@@ -33,6 +33,8 @@ function getCacheIcon($user_id, $cache_id, $cache_status, $cache_userid, $iconna
 	$cacheicon_type = "";
 	$inactive = false;
 
+	$iconname = str_replace("mystery", "quiz", $iconname);
+
 	// mark if found
 	if(isset($user_id))
 	{
