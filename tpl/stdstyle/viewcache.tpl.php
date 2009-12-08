@@ -44,7 +44,7 @@
 					}
 					//end cachelisting
 ?>
-				</div><br>
+				</div>
 				<div class="content2-container-2col-left" style="width:60px; clear: left;">
 
 					<div><img src="{icon_cache}" border="0" width="32" height="32" align="left" alt="{cachetype}" title="{cachetype}"/></div>
