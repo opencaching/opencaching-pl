@@ -43,7 +43,7 @@
 		}
 		else
 		{
-			$tplname = 'editpic'; 
+			$tplname = 'editmp3'; 
 			require_once($stylepath . '/editmp3.inc.php');
 
 			$uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : 0;
@@ -59,7 +59,7 @@
 				else
 				{
 					if (!$row = sql_fetch_array($resp))
-						$message = $message_picture_not_found;
+						$message = $message_mp3_not_found;
 				}
 
 				if(isset($_POST['submit']))
@@ -110,8 +110,8 @@
 							
 																							
 							// datei verschieben und in DB eintragen
-							//echo $_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension;
-							move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
+							//echo $_FILES['file']['tmp_name'], $mp3dir . '/' . $uuid . '.' . $extension;
+							move_uploaded_file($_FILES['file']['tmp_name'], $mp3dir . '/' . $uuid . '.' . $extension);
 						}
 					}
 					

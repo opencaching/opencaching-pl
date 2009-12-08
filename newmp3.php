@@ -21,7 +21,7 @@
 	          
    Unicode Reminder ăĄă˘
                                				                                
-	 add a picture for "my profile", caches, logs etc.
+	 add a mp3 for "my profile", caches, logs etc.
 	
 	 requiered page-arguments
 	   - logged in (userid)
@@ -63,7 +63,7 @@
 
 			if ($allok == true)
 			{
-			  //check if object exists and we are the owner (allowed to upload a pic)
+			  //check if object exists and we are the owner (allowed to upload a mp3)
 			  switch ($type)
 			  {
 					// log
@@ -81,7 +81,7 @@
 								
 							$cacheid = $r['cache_id'];
 							tpl_set_var('cacheid', $cacheid);
-							tpl_set_var('pictypedesc', $pictypedesc_log);
+							tpl_set_var('mp3typedesc', $mp3typedesc_log);
 
 							$rsCache = sql("SELECT `name` FROM `caches` WHERE `cache_id`='&1'", $cacheid);
 							$rCache = sql_fetch_array($rsCache);
@@ -194,23 +194,21 @@
 																							
 							// datei verschieben und in DB eintragen
 							move_uploaded_file($_FILES['file']['tmp_name'], $mp3dir . '/' . $uuid . '.' . $extension);
-							sql("INSERT INTO mp3 (`uuid`, 
-										`url`, 
-										`last_modified`, 	
-										`title`,
-										`description`,
-										`desc_html`, 
-										`date_created`, 
-										`last_url_check`, 
-										`object_id`, 
-										`object_type`, 
-										`user_id`,
-										`local`,
-										`display`,
-										`node`
-										'', 0, NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8')",
-										'.' . $extension, $title, $objectid, $type, $usr['userid'], ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid);
+sql("INSERT INTO mp3 (`uuid`, 
+																				 `url`, 
+																				 `last_modified`, 
+																				 `title`, 
 
+`date_created`, 
+																				 `last_url_check`, 
+																				 `object_id`, 
+																				 `object_type`, 
+																				 `user_id`,
+																				 `local`,
+																				 `display`,
+																				 `node`
+															) VALUES ('&1', '&2', NOW(), '&3', NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8')",
+															$uuid, $mp3url . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'], ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid);
 							switch ($type)
 							{
 								// log
@@ -238,11 +236,11 @@
 					tpl_set_var('type', htmlspecialchars($type, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('objectid', htmlspecialchars($objectid, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('title', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
-					tpl_set_var('maxmp3size', $maxpicsize);
+					tpl_set_var('maxmp3size', $maxmp3size);
 					tpl_set_var('submit', $submit);
 
 					tpl_set_var('errnotitledesc', '');
-					tpl_set_var('errnopicgivendesc', '');
+					tpl_set_var('errnomp3givendesc', '');
 			  }
 			  else
 			  {
@@ -253,14 +251,14 @@
 						tpl_set_var('type', htmlspecialchars($type, ENT_COMPAT, 'UTF-8'));
 						tpl_set_var('objectid', htmlspecialchars($objectid, ENT_COMPAT, 'UTF-8'));
 						tpl_set_var('title', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
-						tpl_set_var('maxmp3size', $maxpicsize);
+						tpl_set_var('maxmp3size', $maxmp3size);
 						tpl_set_var('submit', $submit);
 
-						tpl_set_var('errnopicgivendesc', '');
+						tpl_set_var('errnomp3givendesc', '');
 						tpl_set_var('errnotitledesc', '');
 
 						if ($errnofilegiven == true)
-							tpl_set_var('errnopicgivendesc', $errnopicgivendesc);
+							tpl_set_var('errnomp3givendesc', $errnomp3givendesc);
 						
 						if ($errnotitle == true)
 							tpl_set_var('errnotitledesc', $errnotitledesc);

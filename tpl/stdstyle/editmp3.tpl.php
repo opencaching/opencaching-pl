@@ -1,6 +1,6 @@
 <?php
 /***************************************************************************
-												./tpl/stdstyle/editpic.tpl.php
+												./tpl/stdstyle/editmp3.tpl.php
 															-------------------
 		begin                : Sat 16 October 2005
 		copyright            : (C) 2004 The OpenCaching Group
@@ -21,7 +21,7 @@
 	   
    Unicode Reminder ??
                                       				                                
-	 edit properties of a picture
+	 edit properties of a mp3
 	
  ****************************************************************************/
 ?>
@@ -29,13 +29,13 @@
 <!--
 function checkForm()
 	{
-		if(document.editpic_form.title.value == "")
+		if(document.editmp3_form.title.value == "")
 		{
 			alert("Proszę nadać nazwę plikowi!");
 			return false;
 		}
 
-		if(document.editpic_form.file.value == "")
+		if(document.editmp3_form.file.value == "")
 		{
 			/*alert("Proszę podać źródło obrazka!");
 			return false;*/
@@ -45,14 +45,14 @@ function checkForm()
 	}//-->
 </script>
 
-<form action="editpic.php" method="post" enctype="multipart/form-data" name="editmp3_form" dir="ltr" onsubmit="return checkForm();">
+<form action="editmp3.php" method="post" enctype="multipart/form-data" name="editmp3_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="uuid" value="{uuid}" />
 <table class="content">
 	<colgroup>
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" border="0" width="32" height="32" alt="" title="edit picture" align="middle"> <b>{mp3typedesc} </b><font size="2"><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></font></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" border="0" width="32" height="32" alt="" title="edit mp3" align="middle"> <b>{mp3typedesc} </b><font size="2"><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></font></td></tr>
 	
 	<tr><td class="spacer" colspan="2"><br><br></td></tr>
 	<tr>

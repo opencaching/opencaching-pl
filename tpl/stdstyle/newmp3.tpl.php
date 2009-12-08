@@ -32,13 +32,13 @@
 <!--
 	function checkForm()
 	{
-		if(document.newpic_form.title.value == "")
+		if(document.newmp3_form.title.value == "")
 		{
 			alert("Proszę nadać nazwę plikowi!");
 			return false;
 		}
 
-		if(document.newpic_form.file.value == "")
+		if(document.newmp3_form.file.value == "")
 		{
 			alert("Proszę podać źródło pliku!");
 			return false;
@@ -66,7 +66,7 @@
 
 	<tr>
 		<td valign="top">Nazwa pliku:</td>
-		<td><input class="input200" name="file" type="file" maxlength="{maxpicsize}" /> {errnopicgivendesc}</td>
+		<td><input class="input200" name="file" type="file" maxlength="{maxmp3size}" /> {errnomp3givendesc}</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
