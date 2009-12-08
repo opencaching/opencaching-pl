@@ -250,9 +250,9 @@ function toggleAttr(id)
 		<td><div class="notice" style="width:500px;height:44px;">{waypoint_other_portal_info}</div><div class="buffer"></div></td>
 	</tr>
 	<tr>
-		<td class="bg-white" style="width:769px;margin:0 0 0 0;border-top:1px solid rgb(54,83,151);border-left:1px solid rgb(54,83,151);border-right:1px solid rgb(54,83,151);border-bottom:1px solid rgb(54,83,151);" colspan="2">
+		<td colspan="2"><div class="bg-white" style="width:769px;margin:0 0 0 0;border-top:1px solid rgb(54,83,151);border-left:1px solid rgb(54,83,151);border-right:1px solid rgb(54,83,151);border-bottom:1px solid rgb(54,83,151);">
 			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{cache_attributes}</p>
-		
+		</div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
