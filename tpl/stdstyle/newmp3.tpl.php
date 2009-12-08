@@ -34,13 +34,13 @@
 	{
 		if(document.newpic_form.title.value == "")
 		{
-			alert("Proszę nadać nazwę obrazkowi!");
+			alert("Proszę nadać nazwę plikowi!");
 			return false;
 		}
 
 		if(document.newpic_form.file.value == "")
 		{
-			alert("Proszę podać źródło obrazka!");
+			alert("Proszę podać źródło pliku!");
 			return false;
 		}
 
@@ -48,7 +48,7 @@
 	}
 	//-->
 </script>
-<form action="newpic.php" method="post" enctype="multipart/form-data" name="newpic_form" dir="ltr" onsubmit="return checkForm();">
+<form action="newmp3.php" method="post" enctype="multipart/form-data" name="newmp3_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="objectid" value="{objectid}" />
 <input type="hidden" name="type" value="{type}" />
 <table class="content">
@@ -56,8 +56,7 @@
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" border="0" width="32" height="32" alt="" title="Neuw Cache" align="middle"> <b>{pictypedesc} <a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
-	<tr><td class="spacer" colspan="2"><br><font color="red"><b>Umieszczaj tylko istotne obrazki związane z skrzynką. Nie rób fotoalbumu okolicy.</b></font></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" border="0" width="32" height="32" alt="" title="Cache" align="middle"> <b>{mp3typedesc} <a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 
 	<tr>
 		<td valign="top">Tytuł:</td>
@@ -70,21 +69,16 @@
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
-	<tr>
-		<td align="right"><input class="checkbox" type="checkbox" name="spoiler" value="1"{spoilerchecked}/></td>
-		<td>Nie pokazuj miniatury (SPOILER) - użyj tej opcji jeśli wgrywasz zdjęcie na którym pokazane jest miejsce ukrycia skrzynki. 
-		Dopiero jak ktoś kliknie na SPOILER pokaże mu się wgrany obrazek. <td>
-	</tr>
 	{begin_cacheonly}
 	<tr>
 		<td align="right"><input class="checkbox" type="checkbox" name="notdisplay" value="1"{notdisplaychecked}/></td>
-		<td>Tego zdjęcia nie pokazuj</td>
+		<td>Tego pliku nie pokazuj</td>
 	</tr>
 	{end_cacheonly}
 
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwaga" title="Uwaga"> Nastpujące formaty są akceptowane: BMP, GIF, PNG i JPG - dla zdjęć rekomendowany format JPG .<br>Maksymalna wielkość pliku dozwolona 100 KB. Zalecane wymiary obrazków: 480 Pixel szerokość i 360 Pixel wysokość. <br>Po potwierdzeniu następna strona, która się pojawi może potrwać chwilę.</td>
+		<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.png" border="0" alt="Uwaga" title="Uwaga"> Nastpujacy format jest akceptowany: MP3<br>Maksymalna wielkość pliku dozwolona .... KB. Zalecane jakość MP3 22kHZ MONO.</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 

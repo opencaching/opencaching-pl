@@ -45,14 +45,14 @@ function checkForm()
 	}//-->
 </script>
 
-<form action="editpic.php" method="post" enctype="multipart/form-data" name="editpic_form" dir="ltr" onsubmit="return checkForm();">
+<form action="editpic.php" method="post" enctype="multipart/form-data" name="editmp3_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="uuid" value="{uuid}" />
 <table class="content">
 	<colgroup>
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" border="0" width="32" height="32" alt="" title="edit picture" align="middle"> <b>{pictypedesc} </b><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" border="0" width="32" height="32" alt="" title="edit picture" align="middle"> <b>{mp3typedesc} </b><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>
 	<tr><td class="spacer" colspan="2"><br></td></tr>
 
 	<tr>
@@ -62,7 +62,7 @@ function checkForm()
 
 	<tr>
 		<td valign="top">Nazwa pliku:</td>
-		<td><input class="input200" name="file" type="file" maxlength="{maxpicsize}" /></td>
+		<td><input class="input200" name="file" type="file" maxlength="{maxmp3size}" /></td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	{begin_cacheonly}

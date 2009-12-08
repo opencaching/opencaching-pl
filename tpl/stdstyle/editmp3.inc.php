@@ -3,8 +3,8 @@
   // Unicode Reminder ??
 	$submit = 'Wyślij';
 	
-	$pictypedesc_cache = 'Nowy PodCast dla skrznyki ';
-	$pictypedesc_log = 'PodCast dla wpisu w LOGu ';
+	$mp3typedesc_cache = 'Nowy PodCast dla skrznyki ';
+	$mp3typedesc_log = 'PodCast dla wpisu w LOGu ';
 
 	$errnotitledesc = '<span class="errormsg">Brak tytułu</span>';
 
@@ -17,6 +17,6 @@
 	$message_title_wrongext = 'Niepoprawny typ pliku';
 	$message_wrongext = 'Wysłany plik ma niedozwolony format. Dozwolone format to MP3. Zalecana jakosc MONO 22kHz.';
 	
-	$message_picture_not_found = 'Pliku MP3 nie ma w bazie danych';
+	$message_mp3_not_found = 'Pliku MP3 nie ma w bazie danych';
 
 ?>

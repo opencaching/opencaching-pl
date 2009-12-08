@@ -162,13 +162,13 @@
 
 				if($row['object_type'] == "2")
 				{
-					tpl_set_var('pictypedesc', $pictypedesc_cache);
+					tpl_set_var('mp3typedesc', $mp3typedesc_cache);
 					tpl_set_var('begin_cacheonly', "");
 					tpl_set_var('end_cacheonly', "");
 				}
 				else if($row['object_type'] == "1")
 				{
-					tpl_set_var('pictypedesc', $pictypedesc_log);
+					tpl_set_var('mp3typedesc', $mp3typedesc_log);
 					tpl_set_var('begin_cacheonly', "<!--");
 					tpl_set_var('end_cacheonly', "-->");
 				}

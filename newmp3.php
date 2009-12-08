@@ -107,7 +107,7 @@
 						
 								tpl_set_var('cachename', htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8'));
 								tpl_set_var('cacheid', $r['cache_id']);
-								tpl_set_var('pictypedesc', $pictypedesc_cache);
+								tpl_set_var('mp3typedesc', $mp3typedesc_cache);
 
 						  	if ($r['user_id'] != $usr['userid'])
 									$allok = false;
@@ -194,23 +194,22 @@
 																							
 							// datei verschieben und in DB eintragen
 							move_uploaded_file($_FILES['file']['tmp_name'], $mp3dir . '/' . $uuid . '.' . $extension);
-							
 							sql("INSERT INTO mp3 (`uuid`, 
-																				 `url`, 
-																				 `last_modified`, 
-																				 `title`, 
-																				 `description`, 
-																				 `desc_html`, 
-																				 `date_created`, 
-																				 `last_url_check`, 
-																				 `object_id`, 
-																				 `object_type`, 
-																				 `user_id`,
-																				 `local`,
-																				 `display`,
-																				 `node`
-															) VALUES ('&1', '&2', NOW(), '&3', '', 0, NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8')",
-															$uuid, $picurl . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'], ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid);
+										`url`, 
+										`last_modified`, 	
+										`title`,
+										`description`,
+										`desc_html`, 
+										`date_created`, 
+										`last_url_check`, 
+										`object_id`, 
+										`object_type`, 
+										`user_id`,
+										`local`,
+										`display`,
+										`node`
+										'', 0, NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8')",
+										'.' . $extension, $title, $objectid, $type, $usr['userid'], ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid);
 
 							switch ($type)
 							{
