@@ -142,7 +142,7 @@ function toggleAttr(id)
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="" title="{new_cache}" align="middle"/>&nbsp;{new_cache}</div>
 	{general_message}
 	<div class="buffer"></div>
-	<div class="bg-yellow01" style="width:769px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;">
+	<div class="bg-yellow01" style="width:769px;margin:0 0 0 0;border-top:1px solid rgb(54,83,151);border-left:1px solid rgb(54,83,151);border-right:1px solid rgb(54,83,151);border-bottom:1px solid rgb(54,83,151);">
 			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{basic_information}</p>
 		</div>
 
