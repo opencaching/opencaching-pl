@@ -56,7 +56,7 @@
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" border="0" width="32" height="32" alt="" title="Cache" align="middle"> <b>{mp3typedesc} </b><font size="1"><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></font></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" border="0" width="32" height="32" alt="" title="Cache" align="middle"> <b>{mp3typedesc}: </b><font size="+1"><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></font></td></tr>
 
 	<tr><td class="spacer" colspan="2"><br><br></td></tr>
 	<tr>
