@@ -123,7 +123,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 
 ul#cachemenu { padding: 0px; margin: 0px;}
 
-.notlogged-cacheview { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 1px 0px 0px 7px; color: rgb(150,75,75); font-size: 120%; }
+.notlogged-cacheview { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 0px 6px 7px; color: rgb(150,75,75); font-size: 120%; }
 
 /******************************************************/
 /* SECTION 4 - SPECIFIC CLASSES FOR LAYOUTS #2 and #3 */
@@ -514,10 +514,6 @@ textarea.logs {		width:600px; height:300px; }	/* only logeditor */
 .show_deleted { text-decoration: line-through; }
 
 div#new-caches-area { width: 500px; }
-div#new-events-area { width: 500px; }
-
-
-00px; }
 div#new-events-area { width: 500px; }
 
 
