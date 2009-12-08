@@ -135,7 +135,7 @@ function toggleAttr(id)
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="" title="" align="middle"/>&nbsp;{edit_cache} &#8211; {name}</div>
 	{general_message}
 	<div class="buffer"></div>
-	<div class="content2-container bg-green02">
+	<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;">
 			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{basic_information}</p>
 		</div>
 	<div class="buffer"></div>
@@ -249,7 +249,7 @@ function toggleAttr(id)
 	</tr>
 	<tr>
 		<td colspan="2">
-			<div class="content2-container bg-green02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{cache_attributes}</p></div>
+			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{cache_attributes}</p></div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -262,7 +262,7 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<div class="content2-container bg-green02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p></div>
+			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p></div>
 			<p class="content-title-noshade"><img src="tpl/stdstyle/images/action/16x16-adddesc.png" width="16" height="16" align="middle" border="0" align="Dodaj nowy opis" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}"/>{add_new_desc}</a></p>
 		</td>
 	</tr>
@@ -275,7 +275,7 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<div class="content2-container bg-green02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;&nbsp;{pictures_label}</p></div>
+			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;&nbsp;{pictures_label}</p></div>
 			<p class="content-title-noshade"><img src="tpl/stdstyle/images/action/16x16-addimage.png" width="16" height="16" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2">{add_new_pict}</a></p>
 		</td>
 	</tr>
@@ -283,7 +283,7 @@ function toggleAttr(id)
 	{pictures}
 	<tr>
 		<td colspan="2">
-			<div class="content2-container bg-green02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0"/>{other}</p></div>
+			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0"/>{other}</p></div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
