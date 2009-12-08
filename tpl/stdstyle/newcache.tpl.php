@@ -581,5 +581,4 @@ function toggleAttr(id)
 //-->
 </script>
 
-	}
 
