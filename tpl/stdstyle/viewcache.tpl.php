@@ -150,7 +150,7 @@ else
 	
 <!-- Text container -->
 					{cache_attributes_start}
-			<div class="content2-container bg-green02">
+			<div class="content2-container bg-yellow01">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
 					{cache_attributes_label}
@@ -180,7 +180,7 @@ else
 			{end_rr_comment}
 <!-- End Text Container -->
 <!-- Text container -->
-			<div class="content2-container bg-green02">
+			<div class="content2-container bg-yellow02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" style="vertical-align:middle" border="0" alt="desc"/>
 					{description}&nbsp;&nbsp;
@@ -197,7 +197,7 @@ else
 <!-- End Text Container -->
 <!-- Text container -->
 {hidehint_start}
-			<div class="content2-container bg-green02">
+			<div class="content2-container bg-green01">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/crypt.png" width="22" height="22" style="vertical-align:middle" border="0" alt="enc"/>
 					<b>{additional_hints}</b>&nbsp;&nbsp;
