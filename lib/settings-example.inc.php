@@ -51,7 +51,7 @@
 	 */
 	$oc_nodeid = 2;
 	//OC Waypoint OC for DE, OP for PL, OZ for CZ, OS for OC SE, OK for OC UK
-	$oc_waypoint = OP;
+	$OCWP = OP;
 	
         //name of the cookie
         $opt['cookie']['name'] = 'ocpl';
@@ -89,7 +89,7 @@
 
 	// location of cache images
 	if (!isset($picdir)) $picdir = $dynbasepath . 'images/uploads';
-	if (!isset($picurl)) $picurl = 'http://www.opencaching.pl/images/uploads';
+	if (!isset($picurl)) $picurl = 'images/uploads';
 
 	// Thumbsize
 	$thumb_max_width = 175;
@@ -103,7 +103,7 @@
 
 	// location of cache mp3 files
 	if (!isset($mp3dir)) $mp3dir = $dynbasepath . 'mp3/uploads';
-	if (!isset($mp3url)) $mp3url = 'http://www.opencaching.pl/mp3/uploads';
+	if (!isset($mp3url)) $mp3url = 'mp3/uploads';
 
 	// maximal size of mp3 for PodCache 5 Mb ?
 	if (!isset($maxmp3size)) $maxmp3size = 5000000;
@@ -121,6 +121,11 @@
 	$dbserver = 'localhost';
 	$dbpasswd = '[ENTER YOUR DB PASSWORD HERE]';
 	$dbpconnect = false;
+ 
+  $opt['db']['server'] = 'localhost';
+  $opt['db']['name'] = 'ocpl';
+  $opt['db']['username'] = '[DB USERNAME]';
+  $opt['db']['password'] = '[ENTER YOUR DB PASSWORD HERE]';
 
 	$tmpdbname = 'temp';
 
@@ -137,18 +142,17 @@
 	$zip_basedir = $dynbasepath . 'download/zip/';
 	$zip_wwwdir = '/download/zip/';
 
+	// Please generate google map key for site name
 	$googlemap_key = "ABQIAAAAKzfMHoyn1s1VSuNTwlFfzhTqTxhHAgqKNaAck663VX5jr8OSJBQrTiL58t4Rt3olsGRlxSuqVkU5Xg"; // key for opencaching.pl
 	$googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
 	
 	$super_admin_id = 2619; // user_id of admin who can delete all user logs on viewprofile.php page.
 	$dberrormail = 'ocpl@opencaching.pl';
 
-  $opt['db']['server'] = 'localhost';
-  $opt['db']['name'] = 'ocpl';
-  $opt['db']['username'] = '[DB USERNAME]';
-  $opt['db']['password'] = '[ENTER YOUR DB PASSWORD HERE]';
 
-  // cache_maps-settings
+  
+  
+// cache_maps-settings -- ???????????? old code ?????
 //  $cachemap_wms_url = 'http://10.0.0.1/cgi-bin/mapserv?map=/var/www/maps.geocaching.de/mapserver/caches.map&&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&LAYERS=relief,builtup_areas,inland_water,watercourses,staatsgrenze,strassen,places&SRS=EPSG:4326&BBOX={min_lon},{min_lat},{max_lon},{max_lat}&WIDTH=200&HEIGHT=200&FORMAT=image/jpeg&STYLES=&EXCEPTIONS=XML';
  $cachemap_wms_url = 'http://maps.geocaching.de/cgi-bin/mapserv?map=/var/www/maps.geocaching.de/mapserver/caches.map&&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&LAYERS=relief,builtup_areas,inland_water,watercourses,staatsgrenze,strassen,places&SRS=EPSG:4326&BBOX={min_lon},{min_lat},{max_lon},{max_lat}&WIDTH=200&HEIGHT=200&FORMAT=image/jpeg&STYLES=&EXCEPTIONS=XML';
    $cachemap_size_lat = 0.4;
