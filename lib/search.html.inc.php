@@ -143,7 +143,7 @@
 		// sp2ong
 
 	$ratingA = $caches_record['toprating'];
-	if ($ratingA > 0) $ratingimg='<img src="images/rating-star22.png" alt="Rekomendowana" title="Rekomendowana">'; else $ratingimg=''; 
+	if ($ratingA > 0) $ratingimg='<img src="images/rating-star.png" alt="Rekomendowana" title="Rekomendowana">'; else $ratingimg=''; 
 	$tmpline = str_replace('{ratpic}', $ratingimg, $tmpline);
 $login=0;
 	if ($usr == false ) {
