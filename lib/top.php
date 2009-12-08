@@ -92,6 +92,6 @@ $widthB = round(100 * ($rCaches[idx]/200)/1,0);
 	sql('DROP TEMPORARY TABLE topRatings');
 	sql('DROP TEMPORARY TABLE topResult');
 //	echo '</table></td></tr><tr><td>W nawiasie liczba ile razy skrzynka została znaleziona po 21.02.2007 (data wprowadzenia rekomendacji skrzynek)</td></tr></table></center><br>';
-	echo '</table></td></tr><tr><td>Wzór na Indeks = 100 * (a+1)* (a+1)/(b+(c/10)+3)<br>a = liczba rekomendacji<br>b = liczba znalezien po 21.02.2007(data od kiedy można przydzielać rekomendacje)<br>c = liczba wszystkich znalezien skrzynki</td></tr></table></center><br>';
+	echo '</table></td></tr><tr><td></td></tr></table></center><br>';
 //	echo '</table></td></tr><tr><td>Wzór na Indeks = 100 * (a+1)* (a+1)/(b+(c/10)+3)<br>a = liczba rekomendacji<br>b = liczba znalezien po 21.02.2007(data od kiedy można przydzielać rekomendacje)<br>c = liczba wszystkich znalezien skrzynki</td></tr></table></center><br>';
 ?>
