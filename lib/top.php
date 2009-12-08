@@ -3,6 +3,8 @@
  *  You can find the license in the docs directory
  *
  *  Unicode Reminder ??
+ * 
+ *        AND  `cache_logs`.`date`>'2007-02-21' 
  *
  *  Display some status information about the server and Opencaching
  ***************************************************************************/
@@ -29,15 +31,14 @@
 		   FROM `caches`
 	  LEFT JOIN `cache_logs` ON `caches`.`cache_id`=`cache_logs`.`cache_id` AND 
 				`cache_logs`.`type`=1 AND 
-				`cache_logs`.`deleted`=0 AND 
-				`cache_logs`.`date`>'2007-02-21' 
+				`cache_logs`.`deleted`=0 
 	   GROUP BY `caches`.`cache_id`");
 	sql("UPDATE `topFounds` SET `founds`=0 WHERE ISNULL(`founds`)");
 
 	sql("CREATE TEMPORARY TABLE topRatings (`cache_id` INT(11) PRIMARY KEY, `ratings` INT(11)) SELECT `cache_rating`.`cache_id`, COUNT(`cache_rating`.`cache_id`) AS `ratings` FROM `cache_rating` INNER JOIN `caches` ON `cache_rating`.`cache_id`=`caches`.`cache_id` WHERE `cache_rating`.`user_id`!=`caches`.`user_id` GROUP BY `cache_rating`.`cache_id`");
 
 	sql("CREATE TEMPORARY TABLE topResult (`idx` INT(11), `cache_id` INT(11) PRIMARY KEY, `ratings` INT(11), `founds` INT(11)) 
-		 SELECT (`topRatings`.`ratings`+1)*(topRatings.`ratings`+1)/(`topFounds`.`founds`+`caches`.`founds`/10+3)*100 AS `idx`, 
+		 SELECT (`topRatings`.`ratings`+1)*(topRatings.`ratings`+1)/(`topFounds`.`founds`/10+1)*100 AS `idx`, 
 				`topFounds`.`cache_id`,
 				`topRatings`.`ratings`, 
 				`topFounds`.`founds`
