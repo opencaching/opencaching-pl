@@ -36,13 +36,13 @@ $mailtext_email .= "'{from_username}' o adresie Email {from_email} kontaktuje si
 $mailtext_email .= "Profil uzytkownika: http://www.opencaching.pl/viewprofile.php?userid={from_userid}\n";
 $mailtext_email .= "Aby odpowiedziec na ten E-mail uzyj funkcji odpowiedzi w swoim programie pocztowym.\n";
 $mailtext_email .= "----------------------\n\n";
-$mailtext_email .= "{text}\n";
+$mailtext_email .= "{{text}}\n";
 
 $mailtext_anonymous = "Witaj {to_username},\n\n";
 $mailtext_anonymous .= "'{from_username}' kontaktuje sie z toba poprzez www.opencaching.pl\n";
 $mailtext_anonymous .= "Profil uzytkownika: http://www.opencaching.pl/viewprofile.php?userid={from_userid}\n";
 $mailtext_anonymous .= "Aby odpowiedziec na ten email uzyj funkcji EMAIL-DO-UZYTKOWNIKA w profilu tego uzytkownika.\n";
 $mailtext_anonymous .= "----------------------\n";
-$mailtext_anonymous .= "{text}\n";
+$mailtext_anonymous .= "{{text}}\n";
 
 ?>

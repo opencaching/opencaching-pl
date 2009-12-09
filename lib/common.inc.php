@@ -153,9 +153,6 @@ session_start();
 
 	require_once($rootpath . 'lib/xml2ary.inc.php');	
 	// set footer tpl varset
-	tpl_set_var('main_page', tr('main_page'));
-	tpl_set_var('contact', tr('contact'));
-	tpl_set_var('impressum', tr('impressum'));
 	
 	$ok = false;
 	foreach($lang_array as $lang_element)
@@ -296,8 +293,6 @@ session_start();
 	mysql_free_result($rs);
 	$newscontent .= '';
 	tpl_set_var('news', $newscontent);
-	tpl_set_var('more_news',tr('more_news'));
-	tpl_set_var('latest_news',tr('latest_news'));
 	$newscontent = '';
 
 	// end news
@@ -505,11 +500,6 @@ session_start();
 		$bScriptExecution->Stop();
 		tpl_set_var('scripttime', sprintf('%1.3f', $bScriptExecution->Diff()));
 		tpl_set_var('language_flags',writeLanguageFlags($lang_array));
-		tpl_set_var('owner_label',tr('owner_label'));
-		tpl_set_var('finder_label',tr('finder_label'));
-		tpl_set_var('search',tr('search'));
-		tpl_set_var('cache_label',tr('cache'));
-		tpl_set_var('waypoint_label',tr('waypoint'));
 
 		$bTemplateBuild = new Cbench;
 		$bTemplateBuild->Start();

@@ -69,6 +69,6 @@ Aby zmienić adres e-mail najpierw musisz otrzymać kod, który zostanie wysłan
 	</tr>
 </table>
 <div class="buffer"></div>
-<input type="reset" name="reset" value="{reset}" class="formbuttons" />&nbsp;&nbsp;
+<input type="reset" name="reset" value="{{reset}}" class="formbuttons" />&nbsp;&nbsp;
 <input type="submit" name="submit_changeemail" value="{change_email}" class="formbuttons" />
 </form>

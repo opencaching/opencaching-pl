@@ -31,13 +31,13 @@
 Wspolrzedne: {lon} {lat}
 Status: {status}
 
-Zalozona: {time}
-Waypoint: {waypoint}
+Zalozona: {{time}}
+Waypoint: {{waypoint}}
 Kraj: {country}
 Typ: {type}
 Wielkosc: {container}
 Z/T: {difficulty}/{terrain}
-Online: http://www.opencaching.pl/viewcache.php?wp={waypoint}
+Online: http://www.opencaching.pl/viewcache.php?wp={{waypoint}}
 
 Krotki opis: {shortdesc}
 
@@ -61,7 +61,7 @@ LOGi:
 	$txtLogs = "<===================>
 {username} / {date} / {type}
 
-{text}
+{{text}}
 ";
 
 	if( $usr || !$hide_coords )
@@ -213,8 +213,8 @@ LOGi:
 			$thisline = str_replace('{lon}', help_lonToDegreeStr($lon), $thisline);
 
 			$time = date('d.m.Y', strtotime($r['date_hidden']));
-			$thisline = str_replace('{time}', $time, $thisline);
-			$thisline = str_replace('{waypoint}', $r['waypoint'], $thisline);
+			$thisline = str_replace('{{time}}', $time, $thisline);
+			$thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
 			$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = str_replace('{cachename}', $r['name'], $thisline);
 			$thisline = str_replace('{country}', db_CountryFromShort($r['country']), $thisline);
@@ -271,9 +271,9 @@ LOGi:
 				
 				$thislog = str_replace('{type}', $logtype, $thislog);
 				if ($rLog['text_html'] == 0)
-					$thislog = str_replace('{text}', $rLog['text'], $thislog);
+					$thislog = str_replace('{{text}}', $rLog['text'], $thislog);
 				else
-					$thislog = str_replace('{text}', html2txt($rLog['text']), $thislog);
+					$thislog = str_replace('{{text}}', html2txt($rLog['text']), $thislog);
 
 				$logentries .= $thislog . "\n";
 			}

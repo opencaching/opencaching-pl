@@ -54,18 +54,7 @@
 			$tplname = 'myhome';
 			tpl_set_var('username', htmlspecialchars($usr['username'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('userid', htmlspecialchars($usr['userid'], ENT_COMPAT, 'UTF-8'));
-			tpl_set_var('welcome', tr('welcome'));
 			
-			tpl_set_var('view_your_profile', tr('view_your_profile'));
-			tpl_set_var('no_hidden_caches', tr('no_hidden_caches'));
-			tpl_set_var('show_all', tr('show_all'));
-			tpl_set_var('show_all_logs', tr('show_all_logs'));
-			tpl_set_var('your_new_log_entries', tr('your_new_log_entries'));
-			tpl_set_var('your_latest_hiddens', tr('your_latest_hiddens'));
-			tpl_set_var('your_caches_new_log_entries', tr('your_caches_new_log_entries'));
-			tpl_set_var('number_of_your_hiddens', tr('number_of_your_hiddens'));
-			tpl_set_var('not_yet_published', tr('not_yet_published'));
-			tpl_set_var('emails_sent_label', tr('emails_sent_label'));
 
 			//get user record
 			$userid = $usr['userid'];

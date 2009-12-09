@@ -110,22 +110,6 @@
 			$sql = "UPDATE user SET hide_flag = 1 - hide_flag WHERE user_id = ".intval($userid);
 			mysql_query($sql);
 		}		
-		tpl_set_var('user_profile', tr('user_profile'));
-		tpl_set_var('email_user', tr('email_user'));
-		tpl_set_var('show_user_map', tr('show_user_map'));
-		tpl_set_var('user_desc', tr('user_desc'));
-		tpl_set_var('profile_data', tr('profile_data'));
-		tpl_set_var('country_label', tr('country_label'));
-		tpl_set_var('registered_since_label', tr('registered_since_label'));
-		tpl_set_var('statpic_label', tr('statpic_label'));
-		tpl_set_var('hidden_caches', tr('hidden_caches'));
-		tpl_set_var('found_caches', tr('found_caches'));
-		tpl_set_var('not_found_caches', tr('not_found_caches'));
-		tpl_set_var('show_all', tr('show_all'));
-		tpl_set_var('my_recommendations', tr('my_recommendations'));
-		tpl_set_var('out_of', tr('out_of'));
-		tpl_set_var('show', tr('show'));
-		tpl_set_var('statistics', tr('statistics'));
 		
 		$days_since_first_find = @mysql_result(@mysql_query("SELECT datediff(now(), date) as old FROM cache_logs WHERE deleted=0 AND user_id = $userid AND type=1 ORDER BY date LIMIT 1"),0);
 		$days_went_caching;
@@ -142,31 +126,18 @@
 		$average_dist_hidden_caches;
 
 		
-		tpl_set_var('days_since_first_find_label', tr('days_since_first_find_label'));
 		tpl_set_var('days_since_first_find', $days_since_first_find);
-		tpl_set_var('days_went_caching_label', tr('days_went_caching_label'));
 		tpl_set_var('days_went_caching', $days_went_caching);
-		tpl_set_var('days_no_caching_label', tr('days_no_caching_label'));
 		tpl_set_var('days_no_caching', $days_no_caching);
-		tpl_set_var('obsession_indicator_label', tr('obsession_indicator_label'));
 		tpl_set_var('obsession_indicator', $obsession_indicator);
-		tpl_set_var('hide_to_find_label', tr('hide_to_find_label'));
 		tpl_set_var('hide_to_find', $hide_to_find);
-		tpl_set_var('caching_karma_label', tr('caching_karma_label'));
 		tpl_set_var('caching_karma', $caching_karma);
-		tpl_set_var('verbosity_label', tr('verbosity_label'));
 		tpl_set_var('verbosity', $verbosity);
-		tpl_set_var('total_dist_attempted_caches_label', tr('total_dist_attempted_caches_label'));
 		tpl_set_var('total_dist_attempted_caches', $total_dist_attempted_caches);
-		tpl_set_var('median_dist_attempted_caches_label', tr('median_dist_attempted_caches_label'));
 		tpl_set_var('median_dist_attempted_caches', $median_dist_attempted_caches);
-		tpl_set_var('average_dist_attempted_caches_label', tr('average_dist_attempted_caches_label'));
 		tpl_set_var('average_dist_attempted_caches', $average_dist_attempted_caches);
-		tpl_set_var('total_dist_hidden_caches_label', tr('total_dist_hidden_caches_label'));
 		tpl_set_var('total_dist_hidden_caches', $total_dist_hidden_caches);
-		tpl_set_var('median_dist_hidden_caches_label', tr('median_dist_hidden_caches_label'));
 		tpl_set_var('median_dist_hidden_caches', $median_dist_hidden_caches);
-		tpl_set_var('average_dist_hidden_caches_label', tr('average_dist_hidden_caches_label'));
 		tpl_set_var('average_dist_hidden_caches', $average_dist_hidden_caches);
 
 		$rs = sql("SELECT `user`.`username`, `user`.`stat_ban`, `user`.`email`, `user`.`pmr_flag`, `user`.`date_created`, `user`.`latitude`, `user`.`longitude`, `countries`.`pl` AS `country`, `user`.`hidden_count`, `user`.`founds_count`, `user`.`uuid` FROM `user` LEFT JOIN `countries` ON (`user`.`country`=`countries`.`short`) WHERE `user`.`user_id`='&1'", $userid);
@@ -266,7 +237,6 @@
 			
 			//get last logs
 			
-			tpl_set_var('user_new_log_entries', tr('user_new_log_entries'));
 			
 			$rs_logs = sql("
 					SELECT `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `caches`.`name` `name`,

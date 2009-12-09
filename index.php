@@ -58,15 +58,6 @@
 		// example: 
 		// tpl_set_var('foo', 'myfooreplacement');
 		// will replace {foo} in the templates
-		tpl_set_var('incomming_events',tr('incomming_events'));
-		tpl_set_var('newest_caches',tr('newest_caches'));
-		tpl_set_var('total_of_active_caches',tr('total_of_active_caches'));
-		tpl_set_var('number_of_active_users',tr('number_of_active_users'));
-		tpl_set_var('number_of_founds',tr('number_of_founds'));
-		tpl_set_var('latest_news',tr('latest_news'));
-		tpl_set_var('what_do_you_find',tr('what_do_you_find'));
-		tpl_set_var('what_do_you_find_intro',tr('what_do_you_find_intro'));
-		tpl_set_var('created_by',tr('created_by'));
 	}
 	
 	//make the template and send it out

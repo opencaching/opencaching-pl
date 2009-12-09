@@ -34,14 +34,14 @@
   <author>Geocaching</author>
   <url>http://www.opencaching.pl</url>
   <urlname>www.opencaching.pl</urlname>
-  <time>{time}</time>
+  <time>{{time}}</time>
 ';
 	
 	$gpxLine = 
 '
 	<wpt lat="{lat}" lon="{lon}">
-	<time>{time}</time>
-	<name>{waypoint}</name>
+	<time>{{time}}</time>
+	<name>{{waypoint}}</name>
 	<desc>{cachename}</desc>
 	<src>www.opencaching.pl</src>
 	<url>http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</url>
@@ -74,7 +74,7 @@
 	<time>{date}</time>
 	<geocacher>{username}</geocacher>
 	<type>{type}</type>
-	<text>{text}</text>
+	<text>{{text}}</text>
 </log>
 ';
 
@@ -231,7 +231,7 @@
 		}
 	}
 	
-	$gpxHead = mb_ereg_replace('{time}', date($gpxTimeFormat, time()), $gpxHead);
+	$gpxHead = mb_ereg_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
 	append_output($gpxHead);
 
 	// ok, ausgabe ...
@@ -247,8 +247,8 @@
 		$thisline = mb_ereg_replace('{lon}', $lon, $thisline);
 
 		$time = date($gpxTimeFormat, strtotime($r['date_hidden']));
-		$thisline = mb_ereg_replace('{time}', $time, $thisline);
-		$thisline = mb_ereg_replace('{waypoint}', $r['waypoint'], $thisline);
+		$thisline = mb_ereg_replace('{{time}}', $time, $thisline);
+		$thisline = mb_ereg_replace('{{waypoint}}', $r['waypoint'], $thisline);
 		$thisline = mb_ereg_replace('{cacheid}', $r['cacheid'], $thisline);
 		$thisline = mb_ereg_replace('{cachename}', cleanup_text($r['name']), $thisline);
 		$thisline = mb_ereg_replace('{country}', $r['country'], $thisline);
@@ -302,7 +302,7 @@
 				$logtype = $gpxLogType[0];
 				
 			$thislog = mb_ereg_replace('{type}', $logtype, $thislog);
-                        $thislog = mb_ereg_replace('{text}', cleanup_text($rLog['text']), $thislog);
+                        $thislog = mb_ereg_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
 			$logentries .= $thislog . "\n";
 		}
 		$thisline = mb_ereg_replace('{logs}', $logentries, $thisline);

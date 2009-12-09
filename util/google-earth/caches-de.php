@@ -39,7 +39,7 @@
   $kmlLine = 
 '
 <Placemark>
-  <description><![CDATA[<a href="http://www.opencaching.de/viewcache.php?cacheid={cacheid}">Beschreibung ansehen</a><br>Von {username}<br>&nbsp;<br><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Art: {type}<br>Gr&ouml;&szlig;e: {size}</td></tr><tr><td colspan="2">Schwierigkeit: {difficulty} von 5.0<br>Gel&auml;nde: {terrain} von 5.0</td></tr></table>]]></description>
+  <description><![CDATA[<a href="http://www.opencaching.de/viewcache.php?cacheid={cacheid}">Beschreibung ansehen</a><br>Von {username}<br>&nbsp;<br><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Art: {type}<br>Gr&ouml;&szlig;e: {{size}}</td></tr><tr><td colspan="2">Schwierigkeit: {difficulty} von 5.0<br>Gel&auml;nde: {terrain} von 5.0</td></tr></table>]]></description>
   <name>{name}</name>
   <LookAt>
     <longitude>{lon}</longitude>
@@ -169,7 +169,7 @@
     $thisline = mb_ereg_replace('{lon}', $lon, $thisline);
 
     $time = date($kmlTimeFormat, strtotime($r['date_hidden']));
-    $thisline = mb_ereg_replace('{time}', $time, $thisline);
+    $thisline = mb_ereg_replace('{{time}}', $time, $thisline);
 
     $thisline = mb_ereg_replace('{name}', xmlentities($r['name']), $thisline);
 		
@@ -184,7 +184,7 @@
       $thisline = mb_ereg_replace('{archivedflag}', '', $thisline);
 		
     $thisline = mb_ereg_replace('{type}', xmlentities($r['typedesc']), $thisline);
-    $thisline = mb_ereg_replace('{size}', xmlentities($r['sizedesc']), $thisline);
+    $thisline = mb_ereg_replace('{{size}}', xmlentities($r['sizedesc']), $thisline);
 		
     $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
     $thisline = mb_ereg_replace('{difficulty}', $difficulty, $thisline);
@@ -193,7 +193,7 @@
     $thisline = mb_ereg_replace('{terrain}', $terrain, $thisline);
 
     $time = date($kmlTimeFormat, strtotime($r['date_hidden']));
-    $thisline = mb_ereg_replace('{time}', $time, $thisline);
+    $thisline = mb_ereg_replace('{{time}}', $time, $thisline);
 
     $thisline = mb_ereg_replace('{username}', xmlentities($r['username']), $thisline);
     $thisline = mb_ereg_replace('{cacheid}', xmlentities($r['cacheid']), $thisline);

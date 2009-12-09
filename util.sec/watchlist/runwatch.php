@@ -238,8 +238,8 @@ function process_owner_log($user_id, $log_id)
 	
 	$watchtext = mb_ereg_replace('{date}', date('d.m.Y', strtotime($rLog['logdate'])), $watchtext);
 	$watchtext = mb_ereg_replace('{cacheid}', $rLog['cache_id'], $watchtext);
-	$watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
-	$watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
+	$watchtext = mb_ereg_replace('{{text}}', $logtext, $watchtext);
+	$watchtext = mb_ereg_replace('{{user}}', $rLog['username'], $watchtext);
 	$watchtext = mb_ereg_replace('{logtype}', $logtype, $watchtext);
 	$watchtext = mb_ereg_replace('{cachename}', $rLog['cachename'], $watchtext);
 	
@@ -295,8 +295,8 @@ function process_log_watch($user_id, $log_id)
 	
 	$watchtext = mb_ereg_replace('{date}', date('d.m.Y', strtotime($rLog['logdate'])), $watchtext);
 	$watchtext = mb_ereg_replace('{cacheid}', $rLog['cache_id'], $watchtext);
-	$watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
-	$watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
+	$watchtext = mb_ereg_replace('{{text}}', $logtext, $watchtext);
+	$watchtext = mb_ereg_replace('{{user}}', $rLog['username'], $watchtext);
 	$watchtext = mb_ereg_replace('{logtype}', $logtype, $watchtext);
 	$watchtext = mb_ereg_replace('{cachename}', $rLog['cachename'], $watchtext);
 	

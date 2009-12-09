@@ -307,7 +307,7 @@ function switchCat2()
 }
 //-->
 </script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/><img src="tpl/stdstyle/images/blue/search3.png" border="0" width="32" height="32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/>&nbsp;{search_cache}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/><img src="tpl/stdstyle/images/blue/search3.png" border="0" width="32" height="32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/>&nbsp;{{search_cache}}</div>
 <form name="optionsform" style="display:inline;" action="search.php" method="post">
 	<table class="table">
 		<colgroup>
@@ -316,33 +316,33 @@ function switchCat2()
 		</colgroup>
 		<tr><td class="buffer" colspan="3"><span id="scriptwarning" class="errormsg">Obsługa JavaScript są wyłączone przez co możesz mieć wiele funkcji obsługi tego serwisu niedostepne.</span></td></tr>
 		<tr>
-			<td class="content-title-noshade">{omit_caches}:</td>
+			<td class="content-title-noshade">{{omit_caches}}:</td>
 			<td class="content-title-noshade" colspan="2">
-				<input type="checkbox" name="f_inactive" value="1" id="l_inactive" class="checkbox" onclick="javascript:sync_options(this)" {f_inactive_checked} /> <label for="l_inactive">{not_active}</label>
-				<input type="checkbox" name="f_ignored" value="1" id="l_ignored" class="checkbox" onclick="javascript:sync_options(this)" {f_ignored_disabled} /> <label for="l_ignored">{ignored}</label>
-				<input type="checkbox" name="f_userfound" value="1" id="l_userfound" class="checkbox" onclick="javascript:sync_options(this)" {f_userfound_disabled} /> <label for="l_userfound">{founds}</label>&nbsp;&nbsp;
-				<input type="checkbox" name="f_userowner" value="1" id="l_userowner" class="checkbox" onclick="javascript:sync_options(this)" {f_userowner_disabled} /> <label for="l_userowner">{of_owner}</label>&nbsp;&nbsp;
-				<input type="checkbox" name="f_watched" value="1" id="l_watched" class="checkbox" onclick="javascript:sync_options(this)" {f_watched_disabled} /> <label for="l_watched">{observed}</label>
-				<!--<input type="checkbox" name="f_geokret" value="1" id="l_geokret" class="checkbox" onclick="javascript:sync_options(this)" {f_geokret_checked} /> <label for="l_geokret">{geokret}</label>-->			
+				<input type="checkbox" name="f_inactive" value="1" id="l_inactive" class="checkbox" onclick="javascript:sync_options(this)" {f_inactive_checked} /> <label for="l_inactive">{{not_active}}</label>
+				<input type="checkbox" name="f_ignored" value="1" id="l_ignored" class="checkbox" onclick="javascript:sync_options(this)" {f_ignored_disabled} /> <label for="l_ignored">{{ignored}}</label>
+				<input type="checkbox" name="f_userfound" value="1" id="l_userfound" class="checkbox" onclick="javascript:sync_options(this)" {f_userfound_disabled} /> <label for="l_userfound">{{founds}}</label>&nbsp;&nbsp;
+				<input type="checkbox" name="f_userowner" value="1" id="l_userowner" class="checkbox" onclick="javascript:sync_options(this)" {f_userowner_disabled} /> <label for="l_userowner">{{of_owner}}</label>&nbsp;&nbsp;
+				<input type="checkbox" name="f_watched" value="1" id="l_watched" class="checkbox" onclick="javascript:sync_options(this)" {f_watched_disabled} /> <label for="l_watched">{{observed}}</label>
+				<!--<input type="checkbox" name="f_geokret" value="1" id="l_geokret" class="checkbox" onclick="javascript:sync_options(this)" {f_geokret_checked} /> <label for="l_geokret">{{geokret}}</label>-->			
 			</td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td class="content-title-noshade">{cache_type}:</td>
+			<td class="content-title-noshade">{{cache_type}}:</td>
 			<td class="content-title-noshade">
 				{cachetype_options}
 			</td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td valign="top" class="content-title-noshade">{cache_size}:</td>
+			<td valign="top" class="content-title-noshade">{{cache_size}}:</td>
 			<td class="content-title-noshade">
 				{cachesize_options}
 			</td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td valign="middle" class="content-title-noshade">{cache_attributes}:</td>
+			<td valign="middle" class="content-title-noshade">{{cache_attributes}}:</td>
 			<td class="content-title-noshade">
 				<div>{cache_attrib_list}</div>
 				<div id="attributesCat2">{cache_attribCat2_list}</div>
@@ -350,9 +350,9 @@ function switchCat2()
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td valign="top" class="content-title-noshade">{task_difficulty}:</td>
+			<td valign="top" class="content-title-noshade">{{task_difficulty}}:</td>
 			<td class="content-title-noshade">
-				{from} <select name="cachedifficulty_1" class="input40" onchange="javascript:sync_options(this)">
+				{{from}} <select name="cachedifficulty_1" class="input40" onchange="javascript:sync_options(this)">
 					<option value="1" selected="selected">1</option>
 					<option value="1.5">1.5</option>
 					<option value="2">2</option>
@@ -363,7 +363,7 @@ function switchCat2()
 					<option value="4.5">4.5</option>
 					<option value="5">5</option>
 				</select>
-				{to} <select name="cachedifficulty_2" class="input40" onchange="javascript:sync_options(this)">
+				{{to}} <select name="cachedifficulty_2" class="input40" onchange="javascript:sync_options(this)">
 					<option value="1">1</option>
 					<option value="1.5">1.5</option>
 					<option value="2">2</option>
@@ -378,9 +378,9 @@ function switchCat2()
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td valign="top" class="content-title-noshade">{terrain_difficulty}:</td>
+			<td valign="top" class="content-title-noshade">{{terrain_difficulty}}:</td>
 			<td class="content-title-noshade">
-				{from} <select name="cacheterrain_1" class="input40" onchange="javascript:sync_options(this)">
+				{{from}} <select name="cacheterrain_1" class="input40" onchange="javascript:sync_options(this)">
 					<option value="1" selected="selected">1</option>
 					<option value="1.5">1.5</option>
 					<option value="2">2</option>
@@ -391,7 +391,7 @@ function switchCat2()
 					<option value="4.5">4.5</option>
 					<option value="5">5</option>
 				</select>
-				{to} <select name="cacheterrain_2" class="input40" onchange="javascript:sync_options(this)">
+				{{to}} <select name="cacheterrain_2" class="input40" onchange="javascript:sync_options(this)">
 					<option value="1">1</option>
 					<option value="1.5">1.5</option>
 					<option value="2">2</option>
@@ -406,9 +406,9 @@ function switchCat2()
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td valign="top" class="content-title-noshade">{score}:</td>
+			<td valign="top" class="content-title-noshade">{{score}}:</td>
 			<td class="content-title-noshade">
-				{from} <select name="cachevote_1" class="input40" onchange="javascript:sync_options(this)">
+				{{from}} <select name="cachevote_1" class="input40" onchange="javascript:sync_options(this)">
 					<option value="0" selected="selected">0</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -417,7 +417,7 @@ function switchCat2()
 					<option value="5">5</option>
 					<option value="6">6</option>
 				</select>
-				{to} <select name="cachevote_2" class="input40" onchange="javascript:sync_options(this)">
+				{{to}} <select name="cachevote_2" class="input40" onchange="javascript:sync_options(this)">
 					<option value="0">0</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -426,21 +426,21 @@ function switchCat2()
 					<option value="5">5</option>
 					<option value="6" selected="selected">6</option>
 				</select>
-				<input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/><label for="l_cachenovote">{with_hidden_score}</label>
+				<input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/><label for="l_cachenovote">{{with_hidden_score}}</label>
 			</td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td class="content-title-noshade">{search_recommendations}:</td>
+			<td class="content-title-noshade">{{search_recommendations}}:</td>
 			<td class="content-title-noshade" colspan="2">
-				<input type="radio" name="cache_rec" value="0" tabindex="0" id="l_all_caches" class="radio" onclick="javascript:sync_options(this)" {all_caches_checked} /> <label for="l_all_caches">{search_all_caches}</label>&nbsp;
-				<input type="radio" name="cache_rec" value="1" tabindex="1" id="l_recommended_caches" class="radio" onclick="javascript:sync_options(this)" {recommended_caches_checked} /> <label for="l_recommended_caches">{search_recommended_caches}</label>&nbsp;
+				<input type="radio" name="cache_rec" value="0" tabindex="0" id="l_all_caches" class="radio" onclick="javascript:sync_options(this)" {all_caches_checked} /> <label for="l_all_caches">{{search_all_caches}}</label>&nbsp;
+				<input type="radio" name="cache_rec" value="1" tabindex="1" id="l_recommended_caches" class="radio" onclick="javascript:sync_options(this)" {recommended_caches_checked} /> <label for="l_recommended_caches">{{search_recommended_caches}}</label>&nbsp;
 				<input type="text" name="cache_min_rec" value="{cache_min_rec}" maxlength="3" class="input50" onchange="javascript:sync_options(this)" {min_rec_caches_disabled} />
 			</td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td class="content-title-noshade">{country_label}:</td>
+			<td class="content-title-noshade">{{country_label}}:</td>
 			<td class="content-title-noshade">
 				<select name="country" class="input200" onchange="javascript:sync_options(this)">
 					{countryoptions}
@@ -449,11 +449,11 @@ function switchCat2()
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td class="content-title-noshade">{sort_by}:</td>
+			<td class="content-title-noshade">{{sort_by}}:</td>
 			<td colspan="2" class="content-title-noshade">
-				<input type="radio" name="sort" value="byname" tabindex="0" id="l_sortbyname" class="radio" onclick="javascript:sync_options(this)" {byname_checked}/> <label for="l_sortbyname">{cache_name}</label>&nbsp;
-				<input type="radio" name="sort" value="bydistance" tabindex="1" id="l_sortbydistance" class="radio" onclick="javascript:sync_options(this)" {bydistance_checked}/> <label for="l_sortbydistance">{distance_label}</label>&nbsp;
-				<input type="radio" name="sort" value="bycreated" tabindex="1" id="l_sortbycreated" class="radio" onclick="javascript:sync_options(this)" {bycreated_checked}/> <label for="l_sortbycreated">{date_created_label}</label>
+				<input type="radio" name="sort" value="byname" tabindex="0" id="l_sortbyname" class="radio" onclick="javascript:sync_options(this)" {byname_checked}/> <label for="l_sortbyname">{{cache_name}}</label>&nbsp;
+				<input type="radio" name="sort" value="bydistance" tabindex="1" id="l_sortbydistance" class="radio" onclick="javascript:sync_options(this)" {bydistance_checked}/> <label for="l_sortbydistance">{{distance_label}}</label>&nbsp;
+				<input type="radio" name="sort" value="bycreated" tabindex="1" id="l_sortbycreated" class="radio" onclick="javascript:sync_options(this)" {bycreated_checked}/> <label for="l_sortbycreated">{{date_created_label}}</label>
 
 			</td>
 		</tr>
@@ -523,13 +523,13 @@ function switchCat2()
 			<col/>
 		</colgroup>
 		<tr>
-			<td colspan="3"><p class="content-title-noshade-size1">{search_by_name}</p></td>
+			<td colspan="3"><p class="content-title-noshade-size1">{{search_by_name}}</p></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td class="content-title-noshade">{cache_name}:</td>
+			<td class="content-title-noshade">{{cache_name}}:</td>
 			<td><input type="text" name="cachename" value="{cachename}" class="input200" /></td>
-			<td><input type="submit" value="{search}" class="formbuttons" /></td>
+			<td><input type="submit" value="{{search}}" class="formbuttons" /></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
@@ -576,11 +576,11 @@ function switchCat2()
 			<col/>
 		</colgroup>
 		<tr>
-			<td colspan="3"><p class="content-title-noshade-size1">{search_by_distance}</p></td>
+			<td colspan="3"><p class="content-title-noshade-size1">{{search_by_distance}}</p></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td valign="top" class="content-title-noshade">{coordinates}:</td>
+			<td valign="top" class="content-title-noshade">{{coordinates}}:</td>
 			<td colspan="2" valign="top">
 				<select name="latNS" class="input40">
 					<option value="N" {latN_sel}>N</option>
@@ -598,16 +598,16 @@ function switchCat2()
 			</td>
 		</tr>
 		<tr>
-			<td class="content-title-noshade">{max_distance}:</td>
+			<td class="content-title-noshade">{{max_distance}}:</td>
 			<td class="content-title-noshade">
 				<input type="text" name="distance" value="{distance}" maxlength="4" class="input50" />&nbsp;
 				<select name="unit" class="input100">
-					<option value="km" {sel_km}>{kilometer}</option>
-					<option value="sm" {sel_sm}>{mile}</option>
-					<option value="nm" {sel_nm}>{nautical_mile}</option>
+					<option value="km" {sel_km}>{{kilometer}}</option>
+					<option value="sm" {sel_sm}>{{mile}}</option>
+					<option value="nm" {sel_nm}>{{nautical_mile}}</option>
 				</select>
 			</td>
-			<td class="content-title-noshade"><input type="submit" value="{search}" class="formbuttons" /></td>
+			<td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
@@ -654,7 +654,7 @@ function switchCat2()
 		<col/>
 	</colgroup>
 	<tr>
-		<td colspan="3"><p class="content-title-noshade-size1">{search_by_city}</p></td>
+		<td colspan="3"><p class="content-title-noshade-size1">{{search_by_city}}</p></td>
 	</tr>
 	<tr><td class="buffer" colspan="3"></td></tr>
 	{ortserror}
@@ -667,20 +667,20 @@ function switchCat2()
 			<col/>
 		</colgroup>
 		<tr>
-			<td class="content-title-noshade">{city_name}:</td>
+			<td class="content-title-noshade">{{city_name}}:</td>
 			<td class="content-title-noshade" colspan="2" valign="top"><input type="text" name="ort" value="{ort}" class="input200" /></td>
 		</tr>
 		<tr>
-			<td class="content-title-noshade">{max_distance}:</td>
+			<td class="content-title-noshade">{{max_distance}}:</td>
 			<td class="content-title-noshade">
 				<input type="text" name="distance" value="{distance}" maxlength="4" class="input50" />&nbsp;
 				<select name="unit" class="input100">
-					<option value="km" {sel_km}>{kilometer}</option>
-					<option value="sm" {sel_sm}>{mile}</option>
-					<option value="nm" {sel_nm}>{nautical_mile}</option>
+					<option value="km" {sel_km}>{{kilometer}}</option>
+					<option value="sm" {sel_sm}>{{mile}}</option>
+					<option value="nm" {sel_nm}>{{nautical_mile}}</option>
 				</select>
 			</td>
-			<td class="content-title-noshade"><input type="submit" value="{search}" class="formbuttons" /></td>
+			<td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
@@ -727,22 +727,22 @@ function switchCat2()
 			<col/>
 		</colgroup>
 		<tr>
-			<td colspan="3"><p class="content-title-noshade-size1">{search_text}</p></td>
+			<td colspan="3"><p class="content-title-noshade-size1">{{search_text}}</p></td>
 		</tr>	
 		<tr><td class="buffer" colspan="3"></td></tr>
 		{fulltexterror}
 		<tr>
-			<td class="content-title-noshade">{text}:</td>
+			<td class="content-title-noshade">{{text}}:</td>
 			<td class="content-title-noshade"><input type="text" name="fulltext" value="{fulltext}" class="input200" /></td>
-			<td class="content-title-noshade"><input type="submit" value="{search}" class="formbuttons" /></td>
+			<td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
 		</tr>
 		<tr>
 			<td></td>
 			<td colspan="2" align="center" class="content-title-noshade">
-								<input type="checkbox" name="ft_name" id="ft_name" class="checkbox" value="1" {ft_name_checked} /> <label for="ft_name">{cache_name}</label>
-						<input type="checkbox" name="ft_desc" id="ft_desc" class="checkbox" value="1" {ft_desc_checked} /> <label for="ft_desc">{description}</label>
-						<input type="checkbox" name="ft_logs" id="ft_logs" class="checkbox" value="1" {ft_logs_checked} /> <label for="ft_logs">{logs_label}</label>
-						<input type="checkbox" name="ft_pictures" id="ft_pictures" class="checkbox" value="1" {ft_pictures_checked} /> <label for="ft_pictures">{pictures}</label>
+								<input type="checkbox" name="ft_name" id="ft_name" class="checkbox" value="1" {ft_name_checked} /> <label for="ft_name">{{cache_name}}</label>
+						<input type="checkbox" name="ft_desc" id="ft_desc" class="checkbox" value="1" {ft_desc_checked} /> <label for="ft_desc">{{description}}</label>
+						<input type="checkbox" name="ft_logs" id="ft_logs" class="checkbox" value="1" {ft_logs_checked} /> <label for="ft_logs">{{logs_label}}</label>
+						<input type="checkbox" name="ft_pictures" id="ft_pictures" class="checkbox" value="1" {ft_pictures_checked} /> <label for="ft_pictures">{{pictures}}</label>
 	
 			</td>
 		</tr>
@@ -791,13 +791,13 @@ function switchCat2()
 			<col/>
 		</colgroup>
 		<tr>
-			<td colspan="3"><p class="content-title-noshade-size1">{search_by_owner}</p></td>
+			<td colspan="3"><p class="content-title-noshade-size1">{{search_by_owner}}</p></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td class="content-title-noshade">{owner_label}:</td>
+			<td class="content-title-noshade">{{owner_label}}:</td>
 			<td class="content-title-noshade"><input type="text" name="owner" value="{owner}" maxlength="40" class="input200" /></td>
-			<td class="content-title-noshade"><input type="submit" value="{search}" class="formbuttons" /></td>
+			<td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
@@ -844,13 +844,13 @@ function switchCat2()
 			<col/>
 		</colgroup>
 		<tr>
-			<td colspan="3"><p class="content-title-noshade-size1">{search_by_finder}</p></td>
+			<td colspan="3"><p class="content-title-noshade-size1">{{search_by_finder}}</p></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td class="content-title-noshade">{finder_label}:</td>
+			<td class="content-title-noshade">{{finder_label}}:</td>
 			<td class="content-title-noshade"><input type="text" name="finder" value="{finder}" maxlength="40" class="input200" /></td>
-			<td class="content-title-noshade"><input type="submit" value="{search}" class="formbuttons" /></td>
+			<td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>

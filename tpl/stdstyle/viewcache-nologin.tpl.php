@@ -97,7 +97,7 @@
 						{hidelistingsites_start}Zarejestrowana także na: {listed_on}<br />{hidelistingsites_end}
 					</td>
 					<td valign="top" width="170">
-						<img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0"> {founds} {found_text}<br />
+						<img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0"> {{founds}} {found_text}<br />
 						<nobr><img src="tpl/stdstyle/images/log/16x16-dnf.png" width="16" height="16" border="0"> {notfounds} {notfound_text}</nobr><br />
 						<img src="tpl/stdstyle/images/log/16x16-note.png" width="16" height="16" border="0"> {notes} komentarze<br />
 						<img src="tpl/stdstyle/images/action/16x16-watch.png" width="16" height="16" border="0"> {watcher} obserwatorów<br />
@@ -144,7 +144,7 @@
 	</tr>
 	<tr>
 		<td valign="top">
-			{cache_attributes}
+			{{cache_attributes}}
 		</td>
 	</tr>
 	<tr><td class="spacer"><br /></td></tr>
@@ -216,7 +216,7 @@
 	</tr>
 	<tr>
 		<td>
-		{pictures}
+		{{pictures}}
 		</td>
 	</tr>
 	{hidepictures_end}
@@ -256,7 +256,7 @@
 		<td class="header-small" height="26" valign="middle" style="padding-left: 5px; padding-right: 5px;">
 			<div><img src="tpl/stdstyle/images/description/22x22-logs.png" width="22" height="22" style="vertical-align:middle" border="0">
 			<b>Wpisy w LOGu</b><span style="font-weight: 400;">&nbsp;&nbsp;
-			<img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" align="middle" border="0" align="left" alt="Znaleziona" title="Znaleziona"> {founds}x
+			<img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" align="middle" border="0" align="left" alt="Znaleziona" title="Znaleziona"> {{founds}}x
 			<img src="tpl/stdstyle/images/log/16x16-dnf.png" width="16" height="16" align="middle" border="0" align="left" alt="Nie znaleziona" title="Nie znaleziona"> {notfounds}x
 			<img src="tpl/stdstyle/images/log/16x16-note.png" width="16" height="16" align="middle" border="0" align="left" align="Komentarz" title="Komentarz"> {notes}x </span>
 			&nbsp;&nbsp;

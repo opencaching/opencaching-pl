@@ -58,7 +58,7 @@
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td colspan="2" valign="top">{description}</td>
+		<td colspan="2" valign="top">{{description}}</td>
 	</tr>
 
 	{opis_end}
@@ -98,7 +98,7 @@
 	<tr>
 		<td class="header-small">
 		<img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" align="middle" border="0" alt="Znalezione" title="Znalezione">&nbsp;Znalezienia:</td>
-		<td class="header-small" >{founds}
+		<td class="header-small" >{{founds}}
 			[<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;finderid={userid}&amp;searchbyfinder=&logtype=1">pokaż wszystkie</a>]
 		</td>
 	</tr>

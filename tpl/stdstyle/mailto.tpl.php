@@ -61,7 +61,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<textarea class="logs" name="text" cols="68" rows="15">{text}</textarea>
+			<textarea class="logs" name="text" cols="68" rows="15">{{text}}</textarea>
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>

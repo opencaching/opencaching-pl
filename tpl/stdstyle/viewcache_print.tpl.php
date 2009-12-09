@@ -77,18 +77,18 @@
 				<tr>
 					<td valign="top" width="500">
 						</span><font size="3"><b>{coords}</b></font> <font size="1">(WGS84)</font><br />
-						{size}: {cachesize}<br />
-						{hidetime_start}{time}: {search_time}&nbsp;&nbsp;{length}: {way_length}<br />{hidetime_end}
-						{status_label}: {status}<br />
-						{date_hidden_label}: {hidden_date}<br />
-						{date_created_label}: {date_created}<br />
-						{last_modified_label}: {last_modified}<br />
-						{waypoint}: {oc_waypoint}<br />
-						{hidelistingsites_start}{listed_also_on}: {listed_on}<br />{hidelistingsites_end}
+						{{size}}: {cachesize}<br />
+						{hidetime_start}{{time}}: {search_time}&nbsp;&nbsp;{{length}}: {way_length}<br />{hidetime_end}
+						{{status_label}}: {status}<br />
+						{{date_hidden_label}}: {hidden_date}<br />
+						{{date_created_label}}: {date_created}<br />
+						{{last_modified_label}}: {last_modified}<br />
+						{{waypoint}}: {oc_waypoint}<br />
+						{hidelistingsites_start}{{listed_also_on}}: {listed_on}<br />{hidelistingsites_end}
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td style="vertical-align: top"><br><br><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0">Atrybuty skrzynki:&nbsp;</td>								
-								<td>{cache_attributes}{password_req}</td>								
+								<td>{{cache_attributes}}{password_req}</td>								
 							</tr>
 						</table>
 					</td>
@@ -127,7 +127,7 @@
 	<tr>
 		<td class="header-small">
 			<img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" style="vertical-align:middle" border="0">
-			<b>{rr_comment_label}</b>
+			<b>{{rr_comment_label}}</b>
 		</td>
 	</tr>
 	<tr>
@@ -189,7 +189,7 @@
 	<tr>
 		<td>
 		<br>
-		{pictures}
+		{{pictures}}
 		</td>
 	</tr>
 	{hidepictures_end}
@@ -199,7 +199,7 @@
 		<td height="26" valign="middle" class="header-small">
 			<img src="tpl/stdstyle/images/blue/logs.png" width="32" height="32" align="middle" border="0">
 			<b>Wpisy do LOGu</b><span style="font-weight: 400;">&nbsp;&nbsp;
-			<img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" align="middle" border="0" align="left" alt="znaleziony" title="znaleziona"> {founds}x
+			<img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" align="middle" border="0" align="left" alt="znaleziony" title="znaleziona"> {{founds}}x
 			<img src="tpl/stdstyle/images/log/16x16-dnf.png" width="16" height="16" align="middle" border="0" align="left" alt="Nie znaleziony" title="nie znaleziona"> {notfounds}x
 			<img src="tpl/stdstyle/images/log/16x16-note.png" width="16" height="16" align="middle" border="0" align="left" alt="Komentarze" title="skomentowana"> {notes}x </span>
 			&nbsp;&nbsp;

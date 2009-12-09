@@ -1054,51 +1054,6 @@ function outputSearchForm($options)
 	tpl_set_var('filters', $filters, false);
 	tpl_set_var('formmethod', 'get');
 
-	tpl_set_var('search_wildcard_info', tr('search_wildcard_info'));
-	tpl_set_var('sort_by', tr('sort_by'));
-	tpl_set_var('cache_name', tr('cache_name'));
-	tpl_set_var('distance_label', tr('distance_label'));
-	tpl_set_var('date_created_label', tr('date_created_label'));
-	tpl_set_var('omit_caches', tr('omit_caches'));
-	tpl_set_var('of_owner', tr('of_owner'));
-	tpl_set_var('not_active', tr('not_active'));
-	tpl_set_var('founds', tr('founds'));
-	tpl_set_var('ignored', tr('ignored'));
-	tpl_set_var('observed', tr('observed'));
-	tpl_set_var('geokret', tr('without_geokret'));
-	tpl_set_var('cache_type', tr('cache_type'));
-	tpl_set_var('country_label', tr('country_label'));
-	tpl_set_var('cache_size', tr('cache_size'));
-	tpl_set_var('score', tr('score'));
-	tpl_set_var('search_recommendations', tr('search_recommendations'));
-	tpl_set_var('search_all_caches', tr('search_all_caches'));
-	tpl_set_var('search_recommended_caches', tr('search_recommended_caches'));
-	tpl_set_var('task_difficulty', tr('task_difficulty'));
-	tpl_set_var('terrain_difficulty', tr('terrain_difficulty'));
-	tpl_set_var('cache_attributes', tr('cache_attributes'));
-	tpl_set_var('from', tr('from'));
-	tpl_set_var('to', tr('to'));
-	tpl_set_var('with_hidden_score', tr('with_hidden_score'));
-	tpl_set_var('search', tr('search'));
-	tpl_set_var('search_by_distance', tr('search_by_distance'));
-	tpl_set_var('coordinates', tr('coordinates'));
-	tpl_set_var('search_by_name', tr('search_by_name'));
-	tpl_set_var('max_distance', tr('max_distance'));
-	tpl_set_var('kilometer', tr('kilometer'));
-	tpl_set_var('mile', tr('mile'));
-	tpl_set_var('nautical_mile', tr('nautical_mile'));
-	tpl_set_var('search_by_city', tr('search_by_city'));
-	tpl_set_var('city_name', tr('city_name'));
-	tpl_set_var('search_text', tr('search_text'));
-	tpl_set_var('text', tr('text'));
-	tpl_set_var('description', tr('description'));
-	tpl_set_var('logs_label', tr('logs_label'));
-	tpl_set_var('pictures', tr('pictures'));
-	tpl_set_var('search_by_owner', tr('search_by_owner'));
-	tpl_set_var('owner_label', tr('owner_label'));
-	tpl_set_var('finder_label', tr('finder_label'));
-	tpl_set_var('search_by_finder', tr('search_by_finder'));
-	tpl_set_var('search_cache', tr('search_cache'));
 	
 	
 	// checkboxen

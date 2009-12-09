@@ -86,10 +86,10 @@ function chname( newName )
 			<div class="site-slogan">
 				<div style="width:100%; text-align:left;">
 				<p class="search">
-				  <input type="radio" onclick="chname('cachename');" name="searchto" id="st_1" value="searchbyname" class="radio" checked="checked"/> <label for="st_1">{cache_label}</label>&nbsp;&nbsp;
-					<input type="radio" onclick="chname('owner');" name="searchto" id="st_2" value="searchbyowner" class="radio" /> <label for="st_2">{owner_label}</label>&nbsp;&nbsp;
-					<input type="radio" onclick="chname('finder');" name="searchto" id="st_3" value="searchbyfinder" class="radio" /> <label for="st_3">{finder_label}</label>&nbsp;&nbsp;
-					<input type="radio" onclick="chname('waypoint');" name="searchto" id="st_4" value="searchbywaypoint" class="radio"/> <label for="st_4">{waypoint_label}</label>&nbsp;&nbsp;
+				  <input type="radio" onclick="chname('cachename');" name="searchto" id="st_1" value="searchbyname" class="radio" checked="checked"/> <label for="st_1">{{cache_label}}</label>&nbsp;&nbsp;
+					<input type="radio" onclick="chname('owner');" name="searchto" id="st_2" value="searchbyowner" class="radio" /> <label for="st_2">{{owner_label}}</label>&nbsp;&nbsp;
+					<input type="radio" onclick="chname('finder');" name="searchto" id="st_3" value="searchbyfinder" class="radio" /> <label for="st_3">{{finder_label}}</label>&nbsp;&nbsp;
+					<input type="radio" onclick="chname('waypoint');" name="searchto" id="st_4" value="searchbywaypoint" class="radio"/> <label for="st_4">{{waypoint_label}}</label>&nbsp;&nbsp;
 					<input type="hidden" name="showresult" value="1"/>
 					<input type="hidden" name="expert" value="0"/>
 					<input type="hidden" name="output" value="HTML"/>
@@ -102,7 +102,7 @@ function chname( newName )
 					<input type="hidden" name="f_geokret" value="0"/>
 				</p>
 				</div>
-				<div style="float:right;  margin-top:3px;"><input id="search_input" type="text" name="cachename" class="input100;" style="color:gray;" />&nbsp;&nbsp;<input type="submit" name="submit" value="{search}" class="formbuttons" /></div>
+				<div style="float:right;  margin-top:3px;"><input id="search_input" type="text" name="cachename" class="input100;" style="color:gray;" />&nbsp;&nbsp;<input type="submit" name="submit" value="{{search}}" class="formbuttons" /></div>
       </div>
 			</form>
 		</div>	
@@ -213,12 +213,12 @@ function chname( newName )
 				}
 			?>
       <!-- Main title -->
-      <p class="sidebar-maintitle">{latest_news}</p>
+      <p class="sidebar-maintitle">{{latest_news}}</p>
 			<!-- Textbox -->
 			<div class="sidebar-txtbox-noshade">
 	  		{news}
 				<br/>
-				<p><a href="/news.php">[{more_news} ...]</a></p>
+				<p><a href="/news.php">[{{more_news}} ...]</a></p>
       </div>
     </div>				
   	<!-- 	CONTENT -->
@@ -229,9 +229,9 @@ function chname( newName )
 		<!-- FOOTER -->
 			<div class="footer">
 				 <p>
-					<a href="articles.php?page=impressum">{impressum}</a> | 
-					<a href="articles.php?page=contact">{contact}</a> |
-					<a href="/index.php?page=sitemap">{main_page}</a><br/>
+					<a href="articles.php?page=impressum">{{impressum}}</a> | 
+					<a href="articles.php?page=contact">{{contact}}</a> |
+					<a href="/index.php?page=sitemap">{{main_page}}</a><br/>
 					{runtime}
 				</p>
 				 <p><a href="http://validator.w3.org/check?uri=referer" title="Validate code as W3C XHTML 1.0 Compliant">W3C XHTML 1.0</a> | <a href="http://jigsaw.w3.org/css-validator/" title="Validate Style Sheet as W3C CSS 2.0 Compliant">W3C CSS 2.0</a></p>

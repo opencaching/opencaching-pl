@@ -128,7 +128,7 @@ function toogleLayer( whichLayer, val )
 	<tr>
 		<td class="content2-pagetitle" colspan="2">
 			<img src="tpl/stdstyle/images/blue/logs.png" border="0" width="32" height="32" alt="" title="Neuer Cache" align="middle">
-			<b>{post_new_log} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
+			<b>{{post_new_log}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
 		</td>
 	</tr>
 </table>
@@ -136,7 +136,7 @@ function toogleLayer( whichLayer, val )
 <table class="content">
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr>
-		<td width="180px">{type_of_log}:</td>
+		<td width="180px">{{type_of_log}}:</td>
 		<td>
 			<select onLoad="javascript:toogleLayer('ocena');" name="logtype" onChange="toogleLayer('ocena');">
 				{logtypeoptions}
@@ -145,7 +145,7 @@ function toogleLayer( whichLayer, val )
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td width="180px">{date_logged}:</td>
+		<td width="180px">{{date_logged}}:</td>
 		<td>
 			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>.
 			<input class="input20" type="text" name="logmonth" maxlength="2" value="{logmonth}"/>.
@@ -161,7 +161,7 @@ function toogleLayer( whichLayer, val )
 <table class="content">
 <tr>
 	<td width="180px"><b>{score_header}</b></td>
-	<td width="*">{score}<br/>
+	<td width="*">{{score}}<br/>
 	{score_message}
 	</td>
 </tr>
@@ -175,7 +175,7 @@ function toogleLayer( whichLayer, val )
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2"><br>{comments_log}:</td>
+		<td colspan="2"><br>{{comments_log}}:</td>
 		</td>
 	</tr>
 	<tr>
@@ -211,7 +211,7 @@ function toogleLayer( whichLayer, val )
 	<tr><td class="spacer" colspan="2"></td></tr>
 	{listed_start}
 	<tr>
-		<td colspan="2" width="600px">{listed_other}:&nbsp;{listed_on}
+		<td colspan="2" width="600px">{{listed_other}}:&nbsp;{listed_on}
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
@@ -219,7 +219,7 @@ function toogleLayer( whichLayer, val )
 	<tr>
 		<td class="header-small" colspan="2">
 			<input type="reset" name="reset" value="Reset" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submitform" id="submitform" value="{submit_log_entry}" style="width:120px"/>
+			<input type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="width:120px"/>
 		</td>
 	</tr>
 </table>

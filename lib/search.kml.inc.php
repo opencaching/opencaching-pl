@@ -29,7 +29,7 @@
 	$kmlLine = 
 '
 <Placemark>
-  <description><![CDATA[<a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}">Zobacz szczegoly skrzynki</a><br>Zalozona przez {username}<br>&nbsp;<br><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Rodzaj: {type}<br>Wielkosc: {size}</td></tr><tr><td colspan="2">Zadania: {difficulty} z 5.0<br>Teren: {terrain} z 5.0</td></tr></table>]]></description>
+  <description><![CDATA[<a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}">Zobacz szczegoly skrzynki</a><br>Zalozona przez {username}<br>&nbsp;<br><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Rodzaj: {type}<br>Wielkosc: {{size}}</td></tr><tr><td colspan="2">Zadania: {difficulty} z 5.0<br>Teren: {terrain} z 5.0</td></tr></table>]]></description>
    <name>{name}</name>
   <LookAt>
     <longitude>{lon}</longitude>
@@ -196,7 +196,7 @@
 		$kmlDetailHead = str_replace('{minlon}', $rMinMax['minlon'], $kmlDetailHead);
 		$kmlDetailHead = str_replace('{maxlat}', $rMinMax['maxlat'], $kmlDetailHead);
 		$kmlDetailHead = str_replace('{maxlon}', $rMinMax['maxlon'], $kmlDetailHead);
-		$kmlDetailHead = str_replace('{time}', date($kmlTimeFormat), $kmlDetailHead);
+		$kmlDetailHead = str_replace('{{time}}', date($kmlTimeFormat), $kmlDetailHead);
 		
 		append_output($kmlDetailHead);
 
@@ -264,7 +264,7 @@
 			$thisline = str_replace('{lon}', $lon, $thisline);
 
 			$time = date($kmlTimeFormat, strtotime($r['date_hidden']));
-			$thisline = str_replace('{time}', $time, $thisline);
+			$thisline = str_replace('{{time}}', $time, $thisline);
 
 			$thisline = str_replace('{name}', xmlentities(PlConvert("UTF-8", "POLSKAWY", $r['name'])), $thisline);
 			
@@ -279,7 +279,7 @@
 				$thisline = str_replace('{archivedflag}', '', $thisline);
 			
 			$thisline = str_replace('{type}', xmlentities(PlConvert("UTF-8", "POLSKAWY", $r['typedesc'])), $thisline);
-			$thisline = str_replace('{size}', xmlentities(PlConvert("UTF-8", "POLSKAWY", $r['sizedesc'])), $thisline);
+			$thisline = str_replace('{{size}}', xmlentities(PlConvert("UTF-8", "POLSKAWY", $r['sizedesc'])), $thisline);
 			
 			$difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
 			$thisline = str_replace('{difficulty}', $difficulty, $thisline);
@@ -288,7 +288,7 @@
 			$thisline = str_replace('{terrain}', $terrain, $thisline);
 
 			$time = date($kmlTimeFormat, strtotime($r['date_hidden']));
-			$thisline = str_replace('{time}', $time, $thisline);
+			$thisline = str_replace('{{time}}', $time, $thisline);
 
 			$thisline = str_replace('{username}', xmlentities(PlConvert("UTF-8", "POLSKAWY", $r['username'])), $thisline);
 			$thisline = str_replace('{cacheid}', xmlentities($r['cacheid']), $thisline);

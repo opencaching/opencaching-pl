@@ -334,35 +334,7 @@
 			
 			tpl_set_var('googlemap_key', $googlemap_key);
 			tpl_set_var('map_msg', $map_msg);
-			tpl_set_var('cache', tr('cache'));
-			tpl_set_var('created_by', tr('created_by'));
 			tpl_set_var('coords_other', $coords_other);
-			tpl_set_var('size', tr('size'));
-			tpl_set_var('time', tr('time'));
-			tpl_set_var('length', tr('length'));
-			tpl_set_var('status_label', tr('status_label'));
-			tpl_set_var('date_hidden_label', tr('date_hidden_label'));
-			tpl_set_var('date_created_label', tr('date_created_label'));
-			tpl_set_var('last_modified_label', tr('last_modified_label'));
-			tpl_set_var('waypoint', tr('waypoint'));
-			tpl_set_var('listed_also_on', tr('listed_also_on'));
-			tpl_set_var('comments', tr('comments'));
-			tpl_set_var('scored', tr('scored'));
-			tpl_set_var('watchers', tr('watchers'));
-			tpl_set_var('visitors', tr('visitors'));
-			tpl_set_var('description', tr('description'));
-			tpl_set_var('additional_hints', tr('additional_hints'));
-			tpl_set_var('images', tr('images'));
-			tpl_set_var('utilities', tr('utilities'));
-			tpl_set_var('log_entries', tr('log_entries'));
-			tpl_set_var('cache_attributes_label', tr('cache_attributes'));
-			tpl_set_var('download_as_file', tr('download_as_file'));
-			tpl_set_var('search_geocaches_nearby', tr('search_geocaches_nearby'));
-			tpl_set_var('accept_terms_of_use', tr('accept_terms_of_use'));
-			tpl_set_var('find_geocaches_on', tr('find_geocaches_on'));
-			tpl_set_var('send_to_gps', tr('send_to_gps'));
-			tpl_set_var('searchable', tr('searchable'));
-			tpl_set_var('all_geocaches', tr('all_geocaches'));
 			tpl_set_var('typeLetter', typeToLetter($cache_record['type']));
 			
 			tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
@@ -682,7 +654,6 @@
 			{
 				tpl_set_var('start_rr_comment', '', true);
 				tpl_set_var('end_rr_comment','', true);
-				tpl_set_var('rr_comment_label', tr('rr_comment_label'));
 				tpl_set_var('rr_comment', $desc_record['rr_comment'], true);
 			}
 			else

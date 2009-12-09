@@ -55,20 +55,20 @@
 	<email>ocpl@opencaching.pl</email>
 	<url>http://www.opencaching.pl</url>
 	<urlname>Opencaching.pl - Geocaching w Polsce</urlname>
-	<time>{time}</time>
+	<time>{{time}}</time>
 	<keywords>cache, geocache</keywords>
 ';
 	
 $gpxLine = '
 	<wpt lat="{lat}" lon="{lon}">
-		<time>{time}</time>
-		<name>{waypoint}</name>
+		<time>{{time}}</time>
+		<name>{{waypoint}}</name>
 		<desc>{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
 		<url>http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</url>
 		<urlname>{cachename} by {owner}, {type_text}</urlname>
 		<sym>Geocache</sym>
 		<type>Geocache</type>
-		<groundspeak:cache id="{cacheid}" available="{available}" archived="{archived}" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0">
+		<groundspeak:cache id="{cacheid}" available="{available}" archived="{{archived}}" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0">
 			<groundspeak:name>{cachename}</groundspeak:name>
 			<groundspeak:placed_by>{owner}</groundspeak:placed_by>
 			<groundspeak:owner id="0">{owner}</groundspeak:owner>
@@ -79,7 +79,7 @@ $gpxLine = '
 			<groundspeak:country>{country}</groundspeak:country>
 			<groundspeak:state></groundspeak:state>
 			<groundspeak:short_description html="False">{shortdesc}</groundspeak:short_description>
-			<groundspeak:long_description html="True">{desc}{rr_comment}&lt;br&gt;{images}</groundspeak:long_description>
+			<groundspeak:long_description html="True">{desc}{rr_comment}&lt;br&gt;{{images}}</groundspeak:long_description>
 			<groundspeak:encoded_hints>{hints}</groundspeak:encoded_hints>
 			<groundspeak:logs>
 			{logs}
@@ -93,7 +93,7 @@ $gpxLog = '
         			<groundspeak:date>{date}</groundspeak:date>
 					<groundspeak:type>{type}</groundspeak:type>
 					<groundspeak:finder id="0">{username}</groundspeak:finder>
-					<groundspeak:text encoded="False">{text}</groundspeak:text>
+					<groundspeak:text encoded="False">{{text}}</groundspeak:text>
 				</groundspeak:log>
 ';
 
@@ -289,7 +289,7 @@ $gpxLog = '
 			}
 		}
 		
-		$gpxHead = str_replace('{time}', date($gpxTimeFormat, time()), $gpxHead);
+		$gpxHead = str_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
 		append_output($gpxHead);
 
 		// ok, ausgabe ...
@@ -304,8 +304,8 @@ $gpxLog = '
 			$thisline = str_replace('{lon}', $lon, $thisline);
 
 			$time = date($gpxTimeFormat, strtotime($r['date_hidden']));
-			$thisline = str_replace('{time}', $time, $thisline);
-			$thisline = str_replace('{waypoint}', $r['waypoint'], $thisline);
+			$thisline = str_replace('{{time}}', $time, $thisline);
+			$thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
 			$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
 			$thisline = str_replace('{country}', $r['country'], $thisline);
@@ -325,7 +325,7 @@ $gpxLog = '
 			else
 				$thisline = str_replace('{rr_comment}', cleanup_text("<br><br>--------<br>".$r['rr_comment']."<br>"), $thisline);
 			
-			$thisline = str_replace('{images}', getPictures($r['cacheid'], false, $r['picturescount']), $thisline);
+			$thisline = str_replace('{{images}}', getPictures($r['cacheid'], false, $r['picturescount']), $thisline);
 
 			if (isset($gpxType[$r['type']]))
 				$thisline = str_replace('{type}', $gpxType[$r['type']], $thisline);
@@ -348,9 +348,9 @@ $gpxLog = '
 				$thisline = str_replace('{available}', $gpxAvailable[1], $thisline);
 			
 			if (isset($gpxArchived[$r['status']]))
-				$thisline = str_replace('{archived}', $gpxArchived[$r['status']], $thisline);
+				$thisline = str_replace('{{archived}}', $gpxArchived[$r['status']], $thisline);
 			else
-				$thisline = str_replace('{archived}', $gpxArchived[1], $thisline);
+				$thisline = str_replace('{{archived}}', $gpxArchived[1], $thisline);
 
 			$difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
 			$thisline = str_replace('{difficulty}', $difficulty, $thisline);
@@ -377,7 +377,7 @@ $gpxLog = '
 					$logtype = $gpxLogType[0];
 					
 				$thislog = str_replace('{type}', $logtype, $thislog);
-													$thislog = str_replace('{text}', cleanup_text($rLog['text']), $thislog);
+													$thislog = str_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
 				$logentries .= $thislog . "\n";
 				
 			}

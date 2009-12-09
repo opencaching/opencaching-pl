@@ -53,14 +53,14 @@
   <author>Geocaching</author>
   <url>http://www.opencaching.pl</url>
   <urlname>www.opencaching.pl</urlname>
-  <time>{time}</time>
+  <time>{{time}}</time>
 ';
 	
 	$gpxLine = 
 '
 	<wpt lat="{lat}" lon="{lon}">
-	<time>{time}</time>
-	<name>{waypoint}</name>
+	<time>{{time}}</time>
+	<name>{{waypoint}}</name>
 	<desc>{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
 	<src>www.opencaching.pl</src>
 	<url>http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</url>
@@ -78,7 +78,7 @@
 			<difficulty>{difficulty}</difficulty>
 			<terrain>{terrain}</terrain>
 			<summary html="false">{shortdesc}</summary>
-			<description html="true">{desc}{rr_comment}&lt;br&gt;{images}</description>
+			<description html="true">{desc}{rr_comment}&lt;br&gt;{{images}}</description>
 			{hints}
 			<licence></licence>
 			<logs>
@@ -93,7 +93,7 @@
 	<time>{date}</time>
 	<geocacher>{username}</geocacher>
 	<type>{type}</type>
-	<text>{text}</text>
+	<text>{{text}}</text>
 </log>
 ';
 
@@ -292,7 +292,7 @@
 			}
 		}
 		
-		$gpxHead = str_replace('{time}', date($gpxTimeFormat, time()), $gpxHead);
+		$gpxHead = str_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
 		append_output($gpxHead);
 
 		// ok, ausgabe ...
@@ -307,8 +307,8 @@
 			$thisline = str_replace('{lon}', $lon, $thisline);
 
 			$time = date($gpxTimeFormat, strtotime($r['date_hidden']));
-			$thisline = str_replace('{time}', $time, $thisline);
-			$thisline = str_replace('{waypoint}', $r['waypoint'], $thisline);
+			$thisline = str_replace('{{time}}', $time, $thisline);
+			$thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
 			$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
 			$thisline = str_replace('{country}', $r['country'], $thisline);
@@ -327,7 +327,7 @@
 			else
 				$thisline = str_replace('{rr_comment}', cleanup_text("<br><br>--------<br>".$r['rr_comment']."<br>"), $thisline);
 			
-			$thisline = str_replace('{images}', getPictures($r['cacheid'], false, $r['picturescount']), $thisline);
+			$thisline = str_replace('{{images}}', getPictures($r['cacheid'], false, $r['picturescount']), $thisline);
 
 			if (isset($gpxType[$r['type']]))
 				$thisline = str_replace('{type}', $gpxType[$r['type']], $thisline);
@@ -379,7 +379,7 @@
 					$logtype = $gpxLogType[0];
 					
 				$thislog = str_replace('{type}', $logtype, $thislog);
-													$thislog = str_replace('{text}', cleanup_text($rLog['text']), $thislog);
+													$thislog = str_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
 				$logentries .= $thislog . "\n";
 				
 			}

@@ -28,7 +28,7 @@
 			<img src="tpl/stdstyle/images/blue/logs.png" width="32" height="32" align="middle" border="0"/>
 			<b>Wpisy do logów dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
 			<span style="font-weight: 400;">&nbsp;&nbsp;
-			{found_icon} {founds}x 
+			{found_icon} {{founds}}x 
 			{notfound_icon} {notfounds}x 
 			{note_icon} {notes}x<br /></span>
 		{logs}

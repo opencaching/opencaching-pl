@@ -34,10 +34,6 @@
 
 	$no_tpl_build = false;
 	$message = false;
-		tpl_set_var('password', tr('password'));
-		tpl_set_var('username_label', tr('username_label'));
-		tpl_set_var('not_registered', tr('not_registered'));
-		tpl_set_var('forgotten_your_password', tr('forgotten_your_password'));		
 
 	//Preprocessing
 	if ($error == false)

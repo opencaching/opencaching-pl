@@ -27,7 +27,7 @@
 					<td class="header-small" width="10px">&nbsp;</td>
 					<td class="header-small">Nazwa</td>
 				</tr>
-				{recommendations}
+				{{recommendations}}
 			</table>
 		</td>
 	</tr>

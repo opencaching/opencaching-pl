@@ -62,47 +62,7 @@
 					require_once($rootpath . 'lib/caches.inc.php');
 					require($stylepath . '/editcache.inc.php');
 					
-					tpl_set_var('edit_cache', tr('edit_cache'));
-					tpl_set_var('basic_information', tr('basic_information'));
-					tpl_set_var('name_label', tr('name_label'));
-					tpl_set_var('status_label', tr('status_label'));
-					tpl_set_var('cache_type', tr('cache_type'));
-					tpl_set_var('cache_size', tr('cache_size'));
-					tpl_set_var('coordinates', tr('coordinates'));
-					tpl_set_var('in_wgs84_system', tr('in_wgs84_system'));
-					tpl_set_var('add_new_desc', tr('new_desc'));
-					tpl_set_var('country_label', tr('country_label'));
-					tpl_set_var('difficulty_level', tr('difficulty_level'));
-					tpl_set_var('task_difficulty', tr('task_difficulty'));
-					tpl_set_var('terrain_difficulty', tr('terrain_difficulty'));
-					tpl_set_var('difficulty_problem', tr('difficulty_problem'));
-					tpl_set_var('rating_system', tr('rating_system'));
-					tpl_set_var('additional_information', tr('additional_information'));
-					tpl_set_var('optional', tr('optional'));
-					tpl_set_var('time', tr('time'));
-					tpl_set_var('length', tr('length'));
-					tpl_set_var('time_distance_hint', tr('time_distance_hint'));
-					tpl_set_var('waypoint', tr('waypoint'));
-					tpl_set_var('waypoint_other_portal_info', tr('waypoint_other_portal_info'));
-					tpl_set_var('cache_attributes', tr('cache_attributes'));
-					tpl_set_var('attributes_edit_hint', tr('attributes_edit_hint'));
-					tpl_set_var('additional_attributes', tr('additional_attributes'));
-					tpl_set_var('additional_attributes_hint', tr('additional_attributes_hint'));
-					tpl_set_var('attributes_desc_hint', tr('attributes_desc_hint'));
-					tpl_set_var('description', tr('description'));
-					tpl_set_var('language', tr('language'));
-					tpl_set_var('other_languages_desc', tr('other_languages_desc'));
-					tpl_set_var('short_desc_label', tr('short_desc_label'));
-					tpl_set_var('pictures_label', tr('images'));
-					tpl_set_var('add_new_pict', tr('add_picture'));
-					tpl_set_var('other', tr('other'));
-					tpl_set_var('date_hidden_label', tr('date_hidden_label'));
 
-					tpl_set_var('event_hidden_hint', tr('event_hidden_hint'));
-					tpl_set_var('log_password', tr('log_password'));
-					tpl_set_var('no_password_label', tr('no_password_label'));
-					tpl_set_var('please_read', tr('please_read'));
-					tpl_set_var('creating_cache', tr('creating_cache'));					
 					
 					//here we read all used information from the form if submitted, otherwise from DB
 					

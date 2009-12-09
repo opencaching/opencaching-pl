@@ -132,11 +132,11 @@ function toggleAttr(id)
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
 <input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="" title="" align="middle"/>&nbsp;{edit_cache} &#8211; {name}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="" title="" align="middle"/>&nbsp;{{edit_cache}} &#8211; {name}</div>
 	{general_message}
 	<div class="buffer"></div>
 	<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{basic_information}</p>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{{basic_information}}</p>
 		</div>
 	<div class="buffer"></div>
 	<table class="table" border="0">
@@ -146,7 +146,7 @@ function toggleAttr(id)
 	</colgroup>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{status_label}:</td>
+		<td class="content-title-noshade">{{status_label}}:</td>
 		<td class="content-title-noshade">
 			<select name="status" class="input200" {disablestatusoption}>
 				{statusoptions}
@@ -155,12 +155,12 @@ function toggleAttr(id)
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{name_label}:</td>
+		<td class="content-title-noshade">{{name_label}}:</td>
 		<td class="content-title-noshade"><input type="text" name="name" value="{name}" maxlength="60" class="input400">{name_message}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{cache_type}:</td>
+		<td class="content-title-noshade">{{cache_type}}:</td>
 		<td>
 			<select name="type" class="input200" onChange="return _chkVirtual()">
 				{typeoptions}
@@ -168,7 +168,7 @@ function toggleAttr(id)
 		</td>
 	</tr>
 	<tr>
-		<td class="content-title-noshade">{cache_size}:</td>
+		<td class="content-title-noshade">{{cache_size}}:</td>
 		<td class="content-title-noshade">
 			<select name="size" class="input200" onChange="return _chkVirtual()">
 				{sizeoptions}
@@ -177,7 +177,7 @@ function toggleAttr(id)
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td valign="top" class="content-title-noshade">{coordinates}:</td>
+		<td valign="top" class="content-title-noshade">{{coordinates}}:</td>
 		<td class="content-title-noshade">
 			<select name="latNS" class="input40">
 				<option value="N"{selLatN}>N</option>
@@ -193,12 +193,12 @@ function toggleAttr(id)
 			</select>
 			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
 			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
-			{in_wgs84_system} {lon_message}
+			{{in_wgs84_system}} {lon_message}
 		</td>
 	</tr>
 		<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td><p class="content-title-noshade">{country_label}:</p></td>
+		<td><p class="content-title-noshade">{{country_label}}:</p></td>
 		<td>
 			<select name="country" class="input200">
 				{countryoptions}
@@ -207,13 +207,13 @@ function toggleAttr(id)
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
-	<tr><td><p class="content-title-noshade">{difficulty_level}:</p></td>
+	<tr><td><p class="content-title-noshade">{{difficulty_level}}:</p></td>
 		<td>
-			{task_difficulty}:
+			{{task_difficulty}}:
 			<select name="difficulty" class="input50">
 				{difficultyoptions}
 			</select>&nbsp;&nbsp;
-			{terrain_difficulty}:
+			{{terrain_difficulty}}:
 			<select name="terrain" class="input50">
 				{terrainoptions}
 			</select>
@@ -221,35 +221,35 @@ function toggleAttr(id)
 	</tr>
 		<tr>
 		<td>&nbsp;</td>
-		<td><div class="notice" style="width:500px;height:44px;">{difficulty_problem} <a href="rating-c.php" target="_BLANK">{rating_system}</a>.</div>
+		<td><div class="notice" style="width:500px;height:44px;">{{difficulty_problem}} <a href="rating-c.php" target="_BLANK">{{rating_system}}</a>.</div>
 		</td>
 	</tr>
-	<tr><td><p class="content-title-noshade">{additional_information} ({optional}):</p></td>
+	<tr><td><p class="content-title-noshade">{{additional_information}} ({{optional}}):</p></td>
 	    <td>
-				{time}:
+				{{time}}:
 				<input type="text" name="search_time" maxlength="10" value="{search_time}" class="input30" /> h
 				&nbsp;&nbsp;
-				{length}:
+				{{length}}:
 				<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> km &nbsp; {effort_message}
 			</td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><div class="notice" style="width:500px;height:44px">{time_distance_hint}</div><div class="buffer"></div></td>
+		<td><div class="notice" style="width:500px;height:44px">{{time_distance_hint}}</div><div class="buffer"></div></td>
 	</tr>
 	<tr>
-		<td><p class="content-title-noshade">{waypoint} ({optional}):</p></td>
+		<td><p class="content-title-noshade">{{waypoint}} ({{optional}}):</p></td>
 		<td>geocaching.com: <input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" class="input50"/>
 			gpsgames.org: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="input50"/>
 		</td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><div class="notice" style="width:500px;height:44px;">{waypoint_other_portal_info}</div><div class="buffer"></div></td>
+		<td><div class="notice" style="width:500px;height:44px;">{{waypoint_other_portal_info}}</div><div class="buffer"></div></td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{cache_attributes}</p></div>
+			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{{cache_attributes}}</p></div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -257,13 +257,13 @@ function toggleAttr(id)
 		<td colspan="2">{cache_attrib_list}</td>
 	</tr>
 	<tr>
-		<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;"> {additional_attributes_hint} <a href="cache-atr.php" target="_BLANK">{additional_attributes}</a>. {attributes_desc_hint}</div></td>
+		<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;"> {{additional_attributes_hint}} <a href="cache-atr.php" target="_BLANK">{{additional_attributes}}</a>. {{attributes_desc_hint}}</div></td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p></div>
-			<p class="content-title-noshade"><img src="tpl/stdstyle/images/action/16x16-adddesc.png" width="16" height="16" align="middle" border="0" align="Dodaj nowy opis" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}"/>{add_new_desc}</a></p>
+			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{{description}}</p></div>
+			<p class="content-title-noshade"><img src="tpl/stdstyle/images/action/16x16-adddesc.png" width="16" height="16" align="middle" border="0" align="Dodaj nowy opis" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}"/>{{add_new_desc}}</a></p>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -275,20 +275,20 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;&nbsp;{pictures_label}</p></div>
-			<p class="content-title-noshade"><img src="tpl/stdstyle/images/action/16x16-addimage.png" width="16" height="16" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2">{add_new_pict}</a></p>
+			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;&nbsp;{{pictures_label}}</p></div>
+			<p class="content-title-noshade"><img src="tpl/stdstyle/images/action/16x16-addimage.png" width="16" height="16" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2">{{add_new_pict}}</a></p>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
-	{pictures}
+	{{pictures}}
 	<tr>
 		<td colspan="2">
-			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0"/>{other}</p></div>
+			<div style="width:750px;margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0"/>{{other}}</p></div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{date_hidden_label}:</td>
+		<td class="content-title-noshade">{{date_hidden_label}}:</td>
 		<td>
 			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}"/>.
 			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{date_month}"/>.
@@ -296,20 +296,20 @@ function toggleAttr(id)
 			{date_message}
 		</td>
 	</tr>
-	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{event_hidden_hint}</div></td></tr>
+	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{event_hidden_hint}}</div></td></tr>
 	{activation_form}
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td><p class="content-title-noshade">{log_password}:</p></td>
-		<td><input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> ({no_password_label})</td>
+		<td><p class="content-title-noshade">{{log_password}}:</p></td>
+		<td><input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})</td>
 	</tr>
-	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{please_read}</div></td></tr>
-	<tr><td colspan="2"><div class="errormsg"><br>{creating_cache}<br></div></td></tr>
+	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{please_read}}</div></td></tr>
+	<tr><td colspan="2"><div class="errormsg"><br>{{creating_cache}}<br></div></td></tr>
 
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<input type="reset" name="reset" value="{reset}" class="formbuttons"/>&nbsp;&nbsp;
+			<input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;
 			<input type="submit" name="submit" value="{submit}" class="formbuttons"/>
 		<br><br></td>
 	</tr>

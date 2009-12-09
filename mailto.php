@@ -115,7 +115,7 @@
 						$subject = mb_ereg_replace('{subject}', $subject, $mailsubject);
 						$subject = mb_ereg_replace('{from_username}', $from_username, $subject);
 
-						$text = mb_ereg_replace('{text}', $text, $send_emailaddress == 1 ? $mailtext_email : $mailtext_anonymous);
+						$text = mb_ereg_replace('{{text}}', $text, $send_emailaddress == 1 ? $mailtext_email : $mailtext_anonymous);
 						$text = mb_ereg_replace('{from_userid}', $usr["userid"], $text);
 						$text = mb_ereg_replace('{from_email}', $from_email, $text);
 						$text = mb_ereg_replace('{from_username}', $from_username, $text);

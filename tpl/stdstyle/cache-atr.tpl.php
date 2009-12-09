@@ -48,7 +48,7 @@
 	  $atr45 = $_POST["atr45"];
 
 ?>
-<H1><b>{preview_attributes}</b></h1><br></center>
+<H1><b>{{preview_attributes}}</b></h1><br></center>
 <table align="center" border="0" cellpadding="2" cellspacing="0">
 <tr><td align="center">
 <?php
@@ -159,53 +159,53 @@ if ($atr2 == ivy) echo '<img src="/images/cacheatr/ivy.gif" border="1" title="'.
   } else {
 ?>
 <form action='?' method="post">
-<center><h1><b>{preview_attributes}:</b></h1></center>
+<center><h1><b>{{preview_attributes}}:</b></h1></center>
 <table align="center" bgcolor="#ffffff" cellpadding="2" cellspacing="4" width="100%">	
 <tr>
 		<td class="form" valign="top" width="50%">
 
-<input name="atr2" value="ivy" type="checkbox"><img src="/images/cacheatr/ivy.gif" align="middle" border="1" vspace="1"> {toxic_plants}<br>
-<input name="atr3" value="thorn" type="checkbox"><img src="/images/cacheatr/thorn.gif" align="middle" border="1" vspace="1"> {thorns}<br>
-<input name="atr4" value="trash" type="checkbox"><img src="/images/cacheatr/trash.gif" align="middle" border="1" vspace="1"> {cito}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr5" value="dog" type="hidden"><img src="/images/cacheatr/dog2.gif" align="middle" border="1" vspace="1"> {dogs_allowed}<input name="atr5" value="yes" type="radio"> {dogs_not_allowed}<input name="atr5" value="no" type="radio"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr6" value="date" type="hidden"><img src="/images/cacheatr/date.gif" align="middle" border="1" vspace="1"> {all_year}<input name="atr6" value="yes" type="radio"> {not_all_year}<input name="atr6" value="no" type="radio"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr8" value="snow" type="hidden"><img src="/images/cacheatr/snow_icon.gif" align="middle" border="1" vspace="1"> {accessible_winter}<input name="atr8" value="yes" type="radio"> {not_accessible_winter}<input name="atr8" value="no" type="radio"><br>
-<input name="atr9" value="weather" type="checkbox"><img src="/images/cacheatr/weather.gif" title="{depends_weather}" align="middle" border="1" vspace="1"> {depends_weather}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr11" value="bike" type="hidden"><img src="/images/cacheatr/bike2.gif" align="middle" border="1" vspace="1"> {bikes_allowed}<input name="atr11" value="yes" type="radio"> {bikes_not_allowed}<input name="atr11" value="no" type="radio"><br>
-<input name="atr12" value="car" type="checkbox"><img src="/images/cacheatr/car.gif" align="middle" border="1" vspace="1"> {cars_allowed}<br>
-<input name="atr13" value="spelunk" type="checkbox"><img src="/images/cacheatr/spelunk.gif" align="middle" border="1" vspace="1"> {cave}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr14" value="offtrail2" type="hidden"><img src="/images/cacheatr/offtrail2.gif" align="middle" border="1" vspace="1"> {outside_path_allowed}<input name="atr14" value="yes" type="radio"> {outside_path_not_allowed}<input name="atr14" value="no" type="radio"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr15" value="offroad1" type="hidden"><img src="/images/cacheatr/offroad1.gif" align="middle" border="1" vspace="1"> {drive_outside_road_allowed}<input name="atr15" value="yes" type="radio"> {drive_outside_road_not_allowed}<input name="atr15" value="no" type="radio"><br>
-<input name="atr16" value="hydro" type="checkbox"><img src="/images/cacheatr/hydro.gif" align="middle" border="1" vspace="1"> {water_cache}<br>
-<input name="atr18" value="wading" type="checkbox"><img src="/images/cacheatr/wading.gif" align="middle" border="1" vspace="1"> {wading}<br>
-<input name="atr19" value="swimming" type="checkbox"><img src="/images/cacheatr/swim_icon.gif" align="middle" border="1" vspace="1"> {swimming_pool_nearby}<br>
-<input name="atr20" value="mud" type="checkbox"><img src="/images/cacheatr/mud1.gif" align="middle" border="1" vspace="1"> {warning_mud}<br>
-<input name="atr21" value="smokey" type="checkbox"><img src="/images/cacheatr/smokey.gif" title="Fire Danger" align="middle" border="1" vspace="1"> {fire_danger}<br>
-<input name="atr22" value="tbughotel" type="checkbox"><img src="/images/cacheatr/tbughotel.gif" align="middle" border="1" vspace="1"> {travel_bug_hotel}<br>
+<input name="atr2" value="ivy" type="checkbox"><img src="/images/cacheatr/ivy.gif" align="middle" border="1" vspace="1"> {{toxic_plants}}<br>
+<input name="atr3" value="thorn" type="checkbox"><img src="/images/cacheatr/thorn.gif" align="middle" border="1" vspace="1"> {{thorns}}<br>
+<input name="atr4" value="trash" type="checkbox"><img src="/images/cacheatr/trash.gif" align="middle" border="1" vspace="1"> {{cito}}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr5" value="dog" type="hidden"><img src="/images/cacheatr/dog2.gif" align="middle" border="1" vspace="1"> {{dogs_allowed}}<input name="atr5" value="yes" type="radio"> {{dogs_not_allowed}}<input name="atr5" value="no" type="radio"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr6" value="date" type="hidden"><img src="/images/cacheatr/date.gif" align="middle" border="1" vspace="1"> {{all_year}}<input name="atr6" value="yes" type="radio"> {{not_all_year}}<input name="atr6" value="no" type="radio"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr8" value="snow" type="hidden"><img src="/images/cacheatr/snow_icon.gif" align="middle" border="1" vspace="1"> {{accessible_winter}}<input name="atr8" value="yes" type="radio"> {{not_accessible_winter}}<input name="atr8" value="no" type="radio"><br>
+<input name="atr9" value="weather" type="checkbox"><img src="/images/cacheatr/weather.gif" title="{{depends_weather}}" align="middle" border="1" vspace="1"> {{depends_weather}}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr11" value="bike" type="hidden"><img src="/images/cacheatr/bike2.gif" align="middle" border="1" vspace="1"> {{bikes_allowed}}<input name="atr11" value="yes" type="radio"> {{bikes_not_allowed}}<input name="atr11" value="no" type="radio"><br>
+<input name="atr12" value="car" type="checkbox"><img src="/images/cacheatr/car.gif" align="middle" border="1" vspace="1"> {{cars_allowed}}<br>
+<input name="atr13" value="spelunk" type="checkbox"><img src="/images/cacheatr/spelunk.gif" align="middle" border="1" vspace="1"> {{cave}}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr14" value="offtrail2" type="hidden"><img src="/images/cacheatr/offtrail2.gif" align="middle" border="1" vspace="1"> {{outside_path_allowed}}<input name="atr14" value="yes" type="radio"> {{outside_path_not_allowed}}<input name="atr14" value="no" type="radio"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr15" value="offroad1" type="hidden"><img src="/images/cacheatr/offroad1.gif" align="middle" border="1" vspace="1"> {{drive_outside_road_allowed}}<input name="atr15" value="yes" type="radio"> {{drive_outside_road_not_allowed}}<input name="atr15" value="no" type="radio"><br>
+<input name="atr16" value="hydro" type="checkbox"><img src="/images/cacheatr/hydro.gif" align="middle" border="1" vspace="1"> {{water_cache}}<br>
+<input name="atr18" value="wading" type="checkbox"><img src="/images/cacheatr/wading.gif" align="middle" border="1" vspace="1"> {{wading}}<br>
+<input name="atr19" value="swimming" type="checkbox"><img src="/images/cacheatr/swim_icon.gif" align="middle" border="1" vspace="1"> {{swimming_pool_nearby}}<br>
+<input name="atr20" value="mud" type="checkbox"><img src="/images/cacheatr/mud1.gif" align="middle" border="1" vspace="1"> {{warning_mud}}<br>
+<input name="atr21" value="smokey" type="checkbox"><img src="/images/cacheatr/smokey.gif" title="Fire Danger" align="middle" border="1" vspace="1"> {{fire_danger}}<br>
+<input name="atr22" value="tbughotel" type="checkbox"><img src="/images/cacheatr/tbughotel.gif" align="middle" border="1" vspace="1"> {{travel_bug_hotel}}<br>
 		</td>
 		<td width="5%">
 		&nbsp;
 		</td>
 		<td class="form" valign="top" width="45%">
-&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr24" value="handicap" type="hidden"><img src="/images/cacheatr/handicap.gif" align="middle" border="1" vspace="1"> {handicap_allowed}<input name="atr24" value="yes" type="radio"> {handicap_not_allowed}<input name="atr24" value="no" type="radio"><br>  
-<input name="atr26" value="grab" type="checkbox"><img src="/images/cacheatr/grab.gif" align="middle" border="1" vspace="1"> {can_drive_in}<br>
-<input name="atr28" value="noshorts" type="checkbox"><img src="/images/cacheatr/noshorts.gif" align="middle" border="1" vspace="1"> {no_shorts}<br>
-<input name="atr29" value="hunting" type="checkbox"><img src="/images/cacheatr/hunting.gif" align="middle" border="1" vspace="1"> {hunting_area}<br>
-<input name="atr30" value="supervise" type="checkbox"><img src="/images/cacheatr/supervise.gif" align="middle" border="1" vspace="1"> {danger_area}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr31" value="rest1" type="hidden"><img src="/images/cacheatr/rest.gif" align="middle" border="1" vspace="1"> {toilet_nearby}<input name="atr31" value="yes" type="radio"> {no_toilet_nearby}<input name="atr31" value="no" type="radio"><br>
-<input name="atr32" value="drink" type="checkbox"><img src="/images/cacheatr/drink.gif" align="middle" border="1" vspace="1"> {drink_water}<br>
-<input name="atr33" value="hiking" type="checkbox"><img src="/images/cacheatr/lighthike.gif" align="middle" border="1" vspace="1"> {hiking}<br>
-<input name="atr34" value="pencil" type="checkbox"><img src="/images/cacheatr/pencil.gif" align="middle" border="1" vspace="1"> {take_pencil}<br>
-<input name="atr35" value="easyclimb" type="checkbox"><img src="/images/cacheatr/climb.gif" align="middle" border="1" vspace="1"> {easy_climb}<br>
-<input name="atr36" value="steep" type="checkbox"><img src="/images/cacheatr/steep.gif" align="middle" border="1" vspace="1"> {medium_climb}<br>
-<input name="atr37" value="exclimb" type="checkbox"><img src="/images/cacheatr/exclimb.gif" align="middle" border="1" vspace="1"> {extreme_climb}<br>
-<input name="atr38" value="horses" type="checkbox"><img src="/images/cacheatr/ears.gif" align="middle" border="1" vspace="1"> {horse_path}<br>
-<input name="atr39" value="tide" type="checkbox"><img src="/images/cacheatr/tide.gif" align="middle" border="1" vspace="1"> {check_tide}<br>
-<input name="atr40" value="compass" type="checkbox"><img src="/images/cacheatr/compass.gif" align="middle" border="1" vspace="1"> {take_compass}<br>
-<input name="atr41" value="sight" type="checkbox"><img src="/images/cacheatr/sight.gif" align="middle" border="1" vspace="1"> {sights}<br>
-<input name="atr43" value="skeeter" type="checkbox"><img src="/images/cacheatr/skeeter.gif" align="middle" border="1" vspace="1"> {skeeter}<br>
-<input name="atr44" value="ticks" type="checkbox"><img src="/images/cacheatr/tick2.gif" align="middle" border="1" vspace="1"> {tick}<br>
-<input name="atr45" value="snakes" type="checkbox"><img src="/images/cacheatr/snake.gif" align="middle" border="1" vspace="1"> {snake}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr24" value="handicap" type="hidden"><img src="/images/cacheatr/handicap.gif" align="middle" border="1" vspace="1"> {{handicap_allowed}}<input name="atr24" value="yes" type="radio"> {{handicap_not_allowed}}<input name="atr24" value="no" type="radio"><br>  
+<input name="atr26" value="grab" type="checkbox"><img src="/images/cacheatr/grab.gif" align="middle" border="1" vspace="1"> {{can_drive_in}}<br>
+<input name="atr28" value="noshorts" type="checkbox"><img src="/images/cacheatr/noshorts.gif" align="middle" border="1" vspace="1"> {{no_shorts}}<br>
+<input name="atr29" value="hunting" type="checkbox"><img src="/images/cacheatr/hunting.gif" align="middle" border="1" vspace="1"> {{hunting_area}}<br>
+<input name="atr30" value="supervise" type="checkbox"><img src="/images/cacheatr/supervise.gif" align="middle" border="1" vspace="1"> {{danger_area}}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr31" value="rest1" type="hidden"><img src="/images/cacheatr/rest.gif" align="middle" border="1" vspace="1"> {{toilet_nearby}}<input name="atr31" value="yes" type="radio"> {{no_toilet_nearby}}<input name="atr31" value="no" type="radio"><br>
+<input name="atr32" value="drink" type="checkbox"><img src="/images/cacheatr/drink.gif" align="middle" border="1" vspace="1"> {{drink_water}}<br>
+<input name="atr33" value="hiking" type="checkbox"><img src="/images/cacheatr/lighthike.gif" align="middle" border="1" vspace="1"> {{hiking}}<br>
+<input name="atr34" value="pencil" type="checkbox"><img src="/images/cacheatr/pencil.gif" align="middle" border="1" vspace="1"> {{take_pencil}}<br>
+<input name="atr35" value="easyclimb" type="checkbox"><img src="/images/cacheatr/climb.gif" align="middle" border="1" vspace="1"> {{easy_climb}}<br>
+<input name="atr36" value="steep" type="checkbox"><img src="/images/cacheatr/steep.gif" align="middle" border="1" vspace="1"> {{medium_climb}}<br>
+<input name="atr37" value="exclimb" type="checkbox"><img src="/images/cacheatr/exclimb.gif" align="middle" border="1" vspace="1"> {{extreme_climb}}<br>
+<input name="atr38" value="horses" type="checkbox"><img src="/images/cacheatr/ears.gif" align="middle" border="1" vspace="1"> {{horse_path}}<br>
+<input name="atr39" value="tide" type="checkbox"><img src="/images/cacheatr/tide.gif" align="middle" border="1" vspace="1"> {{check_tide}}<br>
+<input name="atr40" value="compass" type="checkbox"><img src="/images/cacheatr/compass.gif" align="middle" border="1" vspace="1"> {{take_compass}}<br>
+<input name="atr41" value="sight" type="checkbox"><img src="/images/cacheatr/sight.gif" align="middle" border="1" vspace="1"> {{sights}}<br>
+<input name="atr43" value="skeeter" type="checkbox"><img src="/images/cacheatr/skeeter.gif" align="middle" border="1" vspace="1"> {{skeeter}}<br>
+<input name="atr44" value="ticks" type="checkbox"><img src="/images/cacheatr/tick2.gif" align="middle" border="1" vspace="1"> {{tick}}<br>
+<input name="atr45" value="snakes" type="checkbox"><img src="/images/cacheatr/snake.gif" align="middle" border="1" vspace="1"> {{snake}}<br>
 
 		</td>
 	</tr>
@@ -213,14 +213,14 @@ if ($atr2 == ivy) echo '<img src="/images/cacheatr/ivy.gif" border="1" title="'.
 	<tr>
 		<td colspan="3" class="form" align="center">
 		<input type="hidden" name="cache_icon" value="TRUE">
-		<input type="submit" name="submit" value="{generate_code}">		
+		<input type="submit" name="submit" value="{{generate_code}}">		
 		</td>
 	</tr>	
 
 </table>
 </form>
 <br>
-{9keycom}
+{{9keycom}}
 <?php
   };
 ?>

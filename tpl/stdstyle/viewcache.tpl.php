@@ -51,7 +51,7 @@
 					<div>{difficulty_icon_diff}</div><div>{difficulty_icon_terr}</div>
 
 					<div align="center" class="content-score">
-						<p>{score_start}<b><font color="{scorecolor}" size="{font_size}">{score}</font></b>{score_end}{noscore_start}<img src="images/noscore.png" alt="N/A"/>{noscore_end}</p>
+						<p>{score_start}<b><font color="{scorecolor}" size="{font_size}">{{score}}</font></b>{score_end}{noscore_start}<img src="images/noscore.png" alt="N/A"/>{noscore_end}</p>
 					</div>
 
 				
@@ -59,7 +59,7 @@
 					<div class="content2-container-2col-left" id="cache_name_block">
 					<span class="content-title-noshade-size5">{cachename}</span><br />
 					<p class="content-title-noshade-size1">&nbsp;{short_desc}</p>
-					<p>{created_by} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a></p>
+					<p>{{created_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a></p>
 					{event_attendance_list}
 					</div>
 
@@ -78,14 +78,14 @@
 					</p>
 					<p>
 						<font size="1">{coords_other}</font><br />
-						{size}: {cachesize}<br />
-						{hidetime_start}{time}: {search_time}&nbsp;&nbsp;{length}: {way_length}<br />{hidetime_end}
-						{status_label}: {status}<br />
-						{date_hidden_label}: {hidden_date}<br />
-						{date_created_label}: {date_created}<br />
-						{last_modified_label}: {last_modified}<br />
-						{waypoint}: {oc_waypoint}<br />
-						{hidelistingsites_start}{listed_also_on}: {listed_on}<br />{hidelistingsites_end}
+						{{size}}: {cachesize}<br />
+						{hidetime_start}{{time}}: {search_time}&nbsp;&nbsp;{{length}}: {way_length}<br />{hidetime_end}
+						{{status_label}}: {status}<br />
+						{{date_hidden_label}}: {hidden_date}<br />
+						{{date_created_label}}: {date_created}<br />
+						{{last_modified_label}}: {last_modified}<br />
+						{{waypoint}}: {oc_waypoint}<br />
+						{hidelistingsites_start}{{listed_also_on}}: {listed_on}<br />{hidelistingsites_end}
 					</p>
 					<?php
 global $usr, $lang, $hide_coords;			
@@ -98,7 +98,7 @@ if ($usr == false && $hide_coords)
 else
 {
 
-						echo "<font size=\"2\"><a href=\"#\" onclick=\"javascript:window.open('garmin.php?lat="; ?>{latitude}<?php echo "&amp;long="; ?>{longitude}<?php echo "&amp;wp="; ?>{oc_waypoint}<?php echo "&amp;name="; ?>{cachename}<?php echo "&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><input type=\"button\" name=\"SendToGPS\" value=\""; ?>{send_to_gps}<?php echo "\" id=\"SendToGPS\"></a></font><p></p>";
+						echo "<font size=\"2\"><a href=\"#\" onclick=\"javascript:window.open('garmin.php?lat="; ?>{latitude}<?php echo "&amp;long="; ?>{longitude}<?php echo "&amp;wp="; ?>{oc_waypoint}<?php echo "&amp;name="; ?>{cachename}<?php echo "&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><input type=\"button\" name=\"SendToGPS\" value=\""; ?>{{send_to_gps}}<?php echo "\" id=\"SendToGPS\"></a></font><p></p>";
 } ?>
 
 				</div>
@@ -115,12 +115,12 @@ else
 					?>
 						<div class="content2-container-2col-left" style="width: 140px; height: 170px;" align="left">
 						<p><br/><br/>
-							<nobr>{found_icon} {founds} {found_text}</nobr><br />
+							<nobr>{found_icon} {{founds}} {found_text}</nobr><br />
 							<nobr>{notfound_icon} {notfounds} {notfound_text}</nobr><br />
-							<nobr>{note_icon} {notes} {comments}</nobr><br />
-							<nobr>{vote_icon} {votes_count} x {scored}</nobr><br />
-							<nobr>{watch_icon} {watcher} {watchers}</nobr><br />
-							<nobr>{visit_icon} {visits} {visitors}</nobr><br />
+							<nobr>{note_icon} {notes} {{comments}}</nobr><br />
+							<nobr>{vote_icon} {votes_count} x {{scored}}</nobr><br />
+							<nobr>{watch_icon} {watcher} {{watchers}}</nobr><br />
+							<nobr>{visit_icon} {visits} {{visitors}}</nobr><br />
 							{rating_stat}
 							</p>
 						</div>
@@ -153,12 +153,12 @@ else
 			<div class="content2-container bg-yellow01">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
-					{cache_attributes_label}
+					{{cache_attributes_label}}
 				</p>
 			</div>
 			<div class="content2-container">
 				<p>
-					{cache_attributes}{password_req}
+					{{cache_attributes}}{password_req}
 				</p>
 			</div>
 					{cache_attributes_end}
@@ -169,7 +169,7 @@ else
 				<p class="content-title-noshade-size1">
 					
 					<img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="desc"/>
-					{rr_comment_label}
+					{{rr_comment_label}}
 				</p>
 				</div>
 				<div class="content2-container">
@@ -183,7 +183,7 @@ else
 			<div class="content2-container bg-yellow02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" style="vertical-align:middle" border="0" alt="desc"/>
-					{description}&nbsp;&nbsp;
+					{{description}}&nbsp;&nbsp;
 					{desc_langs}&nbsp;{add_rr_comment}&nbsp;{remove_rr_comment}
 				</p></div>
 				<div class="content2-container">
@@ -200,7 +200,7 @@ else
 			<div class="content2-container bg-green01">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/crypt.png" width="22" height="22" style="vertical-align:middle" border="0" alt="enc"/>
-					<b>{additional_hints}</b>&nbsp;&nbsp;
+					<b>{{additional_hints}}</b>&nbsp;&nbsp;
 					{decrypt_link_start}
 					<img src="tpl/stdstyle/images/blue/decrypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
 					{decrypt_link}
@@ -240,11 +240,11 @@ else
 			<div class="content2-container bg-green02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/picture.png" width="32" height="32" style="vertical-align:middle" border="0" alt="images"/>
-					{images}
+					{{images}}
 				</p></div>
 				<div class="content2-container">
 				<p>
-					{pictures}
+					{{pictures}}
 				</p>
 			</div>
 {hidepictures_end}
@@ -253,19 +253,19 @@ else
 			<div class="content2-container bg-green02">
 				<p class="content-title-noshade-size1">
 					<!-- End Text Container -->
-					<img src="tpl/stdstyle/images/blue/utils.png" width="32" height="32" style="vertical-align:middle" border="0" title="" alt="utilities"/>&nbsp;{utilities}
+					<img src="tpl/stdstyle/images/blue/utils.png" width="32" height="32" style="vertical-align:middle" border="0" title="" alt="utilities"/>&nbsp;{{utilities}}
 				</p></div>
 				<div class="content2-container">
 			<p>
-			- {search_geocaches_nearby}<?php echo ":
-			<a href=\"search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;latNS=";?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h="; ?>{lon_h}<?php echo "&amp;lon_min="; ?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">";?>{all_geocaches}<?php echo "</a>&nbsp;
-			<a href=\"search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=1&amp;f_userfound=1&amp;f_inactive=1&amp;latNS="; ?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h=";?>{lon_h}<?php echo "&amp;lon_min=";?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">";?>{searchable}<?php echo "</a>&nbsp;&nbsp;&nbsp;<br/>"; ?>- {find_geocaches_on}<?php echo ":&nbsp;<b>
+			- {{search_geocaches_nearby}}<?php echo ":
+			<a href=\"search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;latNS=";?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h="; ?>{lon_h}<?php echo "&amp;lon_min="; ?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">";?>{{all_geocaches}}<?php echo "</a>&nbsp;
+			<a href=\"search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=1&amp;f_userfound=1&amp;f_inactive=1&amp;latNS="; ?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h=";?>{lon_h}<?php echo "&amp;lon_min=";?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">";?>{{searchable}}<?php echo "</a>&nbsp;&nbsp;&nbsp;<br/>"; ?>- {{find_geocaches_on}}<?php echo ":&nbsp;<b>
 			<a href=\"http://www.geocaching.com/seek/nearest.aspx?origin_lat=";?>{latitude}<?php echo "&amp;origin_long=";?>{longitude}<?php echo "&amp;dist=100&amp;submit8=Submit\">Geocaching.com</a>&nbsp;&nbsp;&nbsp;
         		<a href=\"http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&amp;download=Google+Maps&amp;zoom=8&amp;lat_1=";?>{latitude}<?php echo "&amp;lon_1=";?>{longitude}<?php echo "\">GPSgames.org</a>&nbsp;&nbsp;&nbsp;
         		<a href=\"http://www.opencaching.cz/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS=";?>{latNS}<?php echo "&amp;lat_h=";?>{lat_h}<?php echo "&amp;lat_min=";?>{lat_min}<?php echo "&amp;lonEW=";?>{lonEW}<?php echo "&amp;lon_h=";?>{lon_h}<?php echo "&amp;lon_min=";?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">OpenCaching.cz</a>&nbsp;&nbsp;&nbsp;
         		<a href=\"http://www.opencaching.de/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS=";?>{latNS}<?php echo "&amp;lat_h=";?>{lat_h}<?php echo "&amp;lat_min=";?>{lat_min}<?php echo "&amp;lonEW=";?>{lonEW}<?php echo "&amp;lon_h=";?>{lon_h}<?php echo "&amp;lon_min=";?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">OpenCaching.de</a></b></p>
 						<p>
-			"; ?>- {download_as_file}<?php echo ":
+			"; ?>- {{download_as_file}}<?php echo ":
 			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=gpx\" title=\"GPS Exchange Format .gpx\">GPX</a>
 			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=gpxgc\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a>
 			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=loc\" title=\"Waypoint .loc\">LOC</a>
@@ -276,7 +276,7 @@ else
 			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=wpt\" title=\"Oziexplorer .wpt\">WPT</a>
 			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=uam\" title=\"AutoMapa .uam\">UAM</a>
 			<br />
-			<span class=\"help\">"; ?>- {accept_terms_of_use}<?php echo "</span>
+			<span class=\"help\">"; ?>- {{accept_terms_of_use}}<?php echo "</span>
 ";
 	 ?>
 				</p>
@@ -285,9 +285,9 @@ else
 			<div class="content2-container bg-green02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/logs.png" width="32" height="32" style="vertical-align:middle" border="0" alt="logs"/>
-					{log_entries}
+					{{log_entries}}
 					&nbsp;&nbsp;
-					{found_icon} {founds}x
+					{found_icon} {{founds}}x
 					{notfound_icon} {notfounds}x
 					{note_icon} {notes}x
 					&nbsp;&nbsp;

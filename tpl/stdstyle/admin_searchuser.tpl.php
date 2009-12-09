@@ -7,7 +7,7 @@ global $usr;
 <tr><td class="spacer"></td></tr>
 <tr>
 	<td><br><br>
-		{not_found}
+		{{not_found}}
 		<input type="text" name="username" value="{username}" class="input200" /> <input type="submit" value="Szukaj" class="formbuttons" /><br/>
 	</td>
 </tr>

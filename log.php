@@ -193,12 +193,6 @@
 				}
 				tpl_set_var('rating_message', mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl));
 				
-			tpl_set_var('post_new_log', tr('post_new_log'));
-			tpl_set_var('type_of_log', tr('type_of_log'));
-			tpl_set_var('date_logged', tr('date_logged'));
-			tpl_set_var('comments_log', tr('comments_log'));
-			tpl_set_var('submit_log_entry', tr('submit_log_entry'));
-			tpl_set_var('listed_other', tr('listed_other'));
 				
 				// enable backscoring
 				$sql = "SELECT count(*) FROM scores WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(intval($cache_id))."'";

@@ -32,7 +32,7 @@ $locHead = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 	
 $locLine = '
 <waypoint>
-	<name id="{waypoint}"><![CDATA[{cachename} by {owner}, {type_text} ({difficulty}/{terrain})]]></name>
+	<name id="{{waypoint}}"><![CDATA[{cachename} by {owner}, {type_text} ({difficulty}/{terrain})]]></name>
 	<coord lat="{lat}" lon="{lon}"/>
 	<type>Geocache</type>
 	<link text="Cache Details">http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</link>
@@ -215,7 +215,7 @@ $cacheTypeText[10] = 'Unknown Cache';
 			$lon = sprintf('%01.5f', $r['longitude']);
 			$thisline = mb_ereg_replace('{lon}', $lon, $thisline);
 
-			$thisline = mb_ereg_replace('{waypoint}', $r['waypoint'], $thisline);
+			$thisline = mb_ereg_replace('{{waypoint}}', $r['waypoint'], $thisline);
 			$thisline = mb_ereg_replace('{cachename}', PLConvert('UTF-8','POLSKAWY',$r['name']), $thisline);
 			
 //			if (($r['status'] == 2) || ($r['status'] == 3))
@@ -229,7 +229,7 @@ $cacheTypeText[10] = 'Unknown Cache';
 //				$thisline = mb_ereg_replace('{archivedflag}', '', $thisline);
 			
 			$thisline = mb_ereg_replace('{type_text}', $cacheTypeText[$r['type_id']], $thisline);
-			$thisline = mb_ereg_replace('{size}', PLConvert('UTF-8','POLSKAWY',$r['sizedesc']), $thisline);
+			$thisline = mb_ereg_replace('{{size}}', PLConvert('UTF-8','POLSKAWY',$r['sizedesc']), $thisline);
 			
 			$difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
 			$thisline = mb_ereg_replace('{difficulty}', $difficulty, $thisline);

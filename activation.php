@@ -40,14 +40,6 @@
 		$email = isset($_REQUEST['email']) ? $_REQUEST['email'] : '';
 		$code = isset($_REQUEST['code']) ? $_REQUEST['code'] : '';
 
-		tpl_set_var('account_activation', tr('account_activation'));
-		tpl_set_var('finish_registration_hint', tr('finish_registration_hint'));
-		tpl_set_var('email_address', tr('email_address'));
-		tpl_set_var('activation_code', tr('activation_code'));
-		tpl_set_var('confirm', tr('confirm'));
-		tpl_set_var('reset', tr('reset'));
-		tpl_set_var('activation_success', tr('activation_success'));
-		tpl_set_var('goto_login', tr('goto_login'));
 		
 		tpl_set_var('email', htmlspecialchars($email, ENT_COMPAT, 'UTF-8'));
 		tpl_set_var('code', htmlspecialchars($code, ENT_COMPAT, 'UTF-8'));

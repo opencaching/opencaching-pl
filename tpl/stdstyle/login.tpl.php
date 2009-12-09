@@ -44,16 +44,16 @@
 		<col />
 	</colgroup>
 	<tr>
-		<td class="content-title-noshade">{username_label}:</td>
+		<td class="content-title-noshade">{{username_label}}:</td>
 		<td><input name="email" maxlength="80" type="text" value="{username}" class="input150" /></td>
 	</tr>
 	<tr>
-		<td class="content-title-noshade">{password}:</td>
+		<td class="content-title-noshade">{{password}}:</td>
 		<td><input name="password" maxlength="60" type="password" value="" class="input150" /></td>
 	</tr>
 </table>
 <input type="reset" name="reset" value="Reset" class="formbuttons" />&nbsp;&nbsp;
 <input type="submit" name="LogMeIn" value="Login" class="formbuttons" />
 </form>
-<p class="content-title-noshade">{not_registered}<br />
-{forgotten_your_password}</p>
+<p class="content-title-noshade">{{not_registered}}<br />
+{{forgotten_your_password}}</p>

@@ -248,9 +248,9 @@ function load_data(page) {
 		if( cache_score != "" )
 		{
 			if( cache_score > 0 )
-				show_score = "<br><b>{score}:</b> +" + cache_score;
+				show_score = "<br><b>{{score}}:</b> +" + cache_score;
 			else
-				show_score = "<br><b>{score}:</b> " + cache_score;
+				show_score = "<br><b>{{score}}:</b> " + cache_score;
 			if( cache_score >= 2 )
 				cache_score = "3";
 			else if( cache_score >= 0.4 )
@@ -266,7 +266,7 @@ function load_data(page) {
 			print_topratings = "";
 		else 
 		{
-			print_topratings = "<br><b>{recommendations}: </b>";
+			print_topratings = "<br><b>{{recommendations}}: </b>";
 			var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.gif\" alt=\"R\">";
 			var i=0;
 			for( i=0;i<cache_topratings;i++)
@@ -299,9 +299,9 @@ function load_data(page) {
 			var yntext = "";
 			
 			if( cache_druk == "y" )
-				yntext="{add_to}";
+				yntext="{{add_to}}";
 			else
-				yntext="{remove_from}";
+				yntext="{{remove_from}}";
 		
 			var infoWindowContent = "";
 			infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\">";
@@ -312,18 +312,18 @@ function load_data(page) {
 			infoWindowContent += "<b>"+cache_wp+"</b></td></tr></table>";
 			infoWindowContent += "</td></tr>";
 			infoWindowContent += "<tr><td width=\"70%\" valign=\"top\">";
-			infoWindowContent += "<b>{created_by}:</b> " + cache_owner + show_score + print_topratings;
+			infoWindowContent += "<b>{{created_by}}:</b> " + cache_owner + show_score + print_topratings;
 			
 			infoWindowContent += "</td>";
 			infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\"><tr><td width=\"100%\">";
-			infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_founds+" x {found}</nobr></td></tr>";
-			infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_notfounds+" x {not_found}</nobr><nobr></td></tr>";
+			infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_founds+" x {{found}}</nobr></td></tr>";
+			infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_notfounds+" x {{not_found}}</nobr><nobr></td></tr>";
 			if( getForeignAddress(cache_wp)=="" )
-				infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_votes+" x {scored}</nobr>";
+				infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_votes+" x {{scored}}</nobr>";
 			infoWindowContent += "</td></tr></table></td></tr>";
 			infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
 			if( getForeignAddress(cache_wp)=="" )
-				infoWindowContent += "<font size=\"0\"><a href=\"cachemap2.php?lat="+document.getElementById("lat").value+"&lon="+document.getElementById("lon").value+"&cacheid="+cache_id+"&print_list="+cache_druk+"&inputZoom="+document.getElementById("inputZoom").value+"\">"+yntext+" {to_print_list}</a></font>";
+				infoWindowContent += "<font size=\"0\"><a href=\"cachemap2.php?lat="+document.getElementById("lat").value+"&lon="+document.getElementById("lon").value+"&cacheid="+cache_id+"&print_list="+cache_druk+"&inputZoom="+document.getElementById("inputZoom").value+"\">"+yntext+" {{to_print_list}}</a></font>";
 			infoWindowContent += "</td></tr></table></td></tr>";
 			infoWindowContent += "</table>";
 			
@@ -367,9 +367,9 @@ function load_data(page) {
 				if( cache_score != "" && cache_votes > 2)
 				{
 					if( cache_score > 0 )
-						show_score = "<br><b>{score}:</b> +" + cache_score;
+						show_score = "<br><b>{{score}}:</b> +" + cache_score;
 					else
-						show_score = "<br><b>{score}:</b> " + cache_score;
+						show_score = "<br><b>{{score}}:</b> " + cache_score;
 					if( cache_score >= 2 )
 						cache_score = "3";
 					else if( cache_score >= 0.4 )
@@ -385,7 +385,7 @@ function load_data(page) {
 					print_topratings = "";
 				else 
 				{
-					print_topratings = "<br><b>{recommendations}: </b>";
+					print_topratings = "<br><b>{{recommendations}}: </b>";
 					var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.gif\" alt=\"R\">";
 					var ii;
 					for( ii=0;ii<cache_topratings;ii++)
@@ -403,18 +403,18 @@ function load_data(page) {
 					infoWindowContent += "<b>"+cache_wp+"</b></td></tr></table>";
 					infoWindowContent += "</td></tr>";
 					infoWindowContent += "<tr><td width=\"70%\" valign=\"top\">";
-					infoWindowContent += "<b>{created_by}:</b> " + cache_owner + show_score + print_topratings;
+					infoWindowContent += "<b>{{created_by}}:</b> " + cache_owner + show_score + print_topratings;
 					
 					infoWindowContent += "</td>";
 					infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\"><tr><td width=\"100%\">";
-					infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_founds+" x {found}</nobr></td></tr>";
-					infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_notfounds+" x {not_found}</nobr><nobr></td></tr>";
+					infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_founds+" x {{found}}</nobr></td></tr>";
+					infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_notfounds+" x {{not_found}}</nobr><nobr></td></tr>";
 					if( getForeignAddress(cache_wp)=="" )
-						infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_votes+" x {scored}</nobr>";
+						infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_votes+" x {{scored}}</nobr>";
 					infoWindowContent += "</td></tr></table></td></tr>";
 					infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
 					if( getForeignAddress(cache_wp)=="" )
-						infoWindowContent += "<font size=\"0\"><a href=\"cachemap2.php?lat="+document.getElementById("lat").value+"&lon="+document.getElementById("lon").value+"&cacheid="+cache_id+"&print_list=<?php echo $yn;?>&inputZoom="+document.getElementById("inputZoom").value+"\"><?php echo ($yn=='y'?tr('add_to'):tr('remove_from'));?> {to_print_list}</a></font>";
+						infoWindowContent += "<font size=\"0\"><a href=\"cachemap2.php?lat="+document.getElementById("lat").value+"&lon="+document.getElementById("lon").value+"&cacheid="+cache_id+"&print_list=<?php echo $yn;?>&inputZoom="+document.getElementById("inputZoom").value+"\"><?php echo ($yn=='y'?tr('add_to'):tr('remove_from'));?> {{to_print_list}}</a></font>";
 					infoWindowContent += "</td></tr></table></td></tr>";
 					infoWindowContent += "</table>";
 			
@@ -427,7 +427,7 @@ function load_data(page) {
 		
 		
 			var system = xmlDoc.documentElement.getElementsByTagName("data");
-			document.getElementById('list').innerHTML = system[0].getAttribute("count") + " {active_caches_in_area} | " + markers.length + " {shown}<br>{next}: "+ system[0].getAttribute("pager");
+			document.getElementById('list').innerHTML = system[0].getAttribute("count") + " {{active_caches_in_area}} | " + markers.length + " {{shown}}<br>{{next}}: "+ system[0].getAttribute("pager");
 		}
 	}
 	
@@ -494,14 +494,14 @@ else
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 <tr>
 	<td>
-{user_map} <b>{username}</b> | {current_zoom}: <input type="text" id="zoom" size="2" disabled>
+{{user_map}} <b>{username}</b> | {{current_zoom}}: <input type="text" id="zoom" size="2" disabled>
 	</td>
 	<td align="right">
 		<?php echo (!isset($_GET['print'])?('[<a href="cachemap2.php?print=y">'.tr('printer_friendly').'</a>]'):'');?>
 	</td>
 </tr>
 	<td colspan="2">
-{colors}: <b><font color="#dddd00">{yellow}</font></b> - {last_10_days}, <b><font color="#00dd00">{green}</font></b> - {own}, <b><font color="#aaaaaa">{gray}</font></b> - {found}, <b><font color="#ff0000">{red}</font></b> - {rest} <br>
+{{colors}}: <b><font color="#dddd00">{{yellow}}</font></b> - {{last_10_days}}, <b><font color="#00dd00">{{green}}</font></b> - {{own}}, <b><font color="#aaaaaa">{{gray}}</font></b> - {{found}}, <b><font color="#ff0000">{{red}}</font></b> - {{rest}} <br>
 	</td>
 </tr>
 <tr><td colspan="2" width="100%"><div id="map" style="width: <?php echo (isset($_GET['print'])?($x_print."px"):("100%"));?>; height: <?php echo (isset($_GET['print'])?$y_print:("600"));?>px; float:left; border: 1px solid #000;">
@@ -515,7 +515,7 @@ else
 <?php if(isset($_GET['print'])) echo "<!--";?>
 	<div id="list" style="border:1px solid black; background-color: #B6C0C0;float:left; margin-left: 5px; margin-top: 5px; padding: 2px;"></div>
 	<div id="settings" style="border:1px solid black; background-color: #B6C0C0;float:left; margin-left: 5px; margin-top: 5px; padding: 2px;">
-		{max_caches_per_page}: <select onchange="caches=this.options[this.selectedIndex].value; document.getElementById('cachelimit').value = this.options[this.selectedIndex].value; load_data(0);" style="border: none; background-color: #B6C0B0;">
+		{{max_caches_per_page}}: <select onchange="caches=this.options[this.selectedIndex].value; document.getElementById('cachelimit').value = this.options[this.selectedIndex].value; load_data(0);" style="border: none; background-color: #B6C0B0;">
 			<?
 				for ($a=0; $a<10; $a++) {
 					?>
@@ -524,37 +524,37 @@ else
 				}
 			?>
 			</select><br/>
-		{sort_by}: <select onchange="order=this.options[this.selectedIndex].value; document.getElementById('cachesort').value = this.options[this.selectedIndex].value; load_data(0);" style="border: none; background-color: #B6C0B0;">
+		{{sort_by}}: <select onchange="order=this.options[this.selectedIndex].value; document.getElementById('cachesort').value = this.options[this.selectedIndex].value; load_data(0);" style="border: none; background-color: #B6C0B0;">
 		<option value="1" <? if ($filter[20] == "1") echo "selected" ?>>cache ID</option>
-		<option value="2" <? if ($filter[20] == "2") echo "selected" ?>>{by_name}</option>
-		<option value="3" <? if ($filter[20] == "3") echo "selected" ?>>{by_date}</option>
+		<option value="2" <? if ($filter[20] == "2") echo "selected" ?>>{{by_name}}</option>
+		<option value="3" <? if ($filter[20] == "3") echo "selected" ?>>{{by_date}}</option>
 		</select></div>
 	</td>
 </tr>
 <tr>
 	<td colspan="2">
-<div style="border:1px solid black; background-color: #B6C0C0;float:left; margin-left: 5px; margin-top: 5px; padding: 2px;"><b>{hide_caches_type}:</b>
+<div style="border:1px solid black; background-color: #B6C0C0;float:left; margin-left: 5px; margin-top: 5px; padding: 2px;"><b>{{hide_caches_type}}:</b>
 <form method="post" action="cachemap2.php" id="settingsForm" onsubmit="setMapSettings()">
-	<input id="nieznany" name="u" value="1" type="checkbox" <?php echo ($filter[0])?"":"checked";?>><label for="nieznany">{unknown_type} (U)</label> | 
-	<input id="tradycyjna" name="t" value="1" type="checkbox" <?php echo ($filter[1])?"":"checked";?>><label for="tradycyjna">{traditional} (T)</label> | 
-	<input id="multi" name="m" value="1" type="checkbox" <?php echo ($filter[2])?"":"checked";?>><label for="multi">{multicache} (M)</label> | 
-	<input id="wirtualna" name="v" value="1" type="checkbox" <?php echo ($filter[3])?"":"checked";?>><label for="wirtualna">{virtual} (V)</label> | 
+	<input id="nieznany" name="u" value="1" type="checkbox" <?php echo ($filter[0])?"":"checked";?>><label for="nieznany">{{unknown_type}} (U)</label> | 
+	<input id="tradycyjna" name="t" value="1" type="checkbox" <?php echo ($filter[1])?"":"checked";?>><label for="tradycyjna">{{traditional}} (T)</label> | 
+	<input id="multi" name="m" value="1" type="checkbox" <?php echo ($filter[2])?"":"checked";?>><label for="multi">{{multicache}} (M)</label> | 
+	<input id="wirtualna" name="v" value="1" type="checkbox" <?php echo ($filter[3])?"":"checked";?>><label for="wirtualna">{{virtual}} (V)</label> | 
 	<input id="webcam" name="w" value="1" type="checkbox" <?php echo ($filter[4])?"":"checked";?>><label for="webcam">Webcam (W)</label> | 
-	<input id="wydarzenia" name="e" value="1" type="checkbox" <?php echo ($filter[5])?"":"checked";?>><label for="wydarzenia">{event} (E)</label> | 
+	<input id="wydarzenia" name="e" value="1" type="checkbox" <?php echo ($filter[5])?"":"checked";?>><label for="wydarzenia">{{event}} (E)</label> | 
 	<input id="quiz" name="q" value="1" type="checkbox" <?php echo ($filter[6])?"":"checked";?>><label for="quiz">Quiz (Q)</label> | 
-	<input id="mobilna" name="o" value="1" type="checkbox" <?php echo ($filter[7])?"":"checked";?>><label for="mobilna">{moving} (O)</label>
-	<br><b>{hide_caches}:</b><br>
-	<input id="ignorowane" name="I" value="1" type="checkbox" <?php echo ($filter[10])?"":"checked";?>><label for="ignorowane">{ignored}</label> | 
-	<input id="wlasne" name="W" value="1" type="checkbox" <?php echo ($filter[11])?"":"checked";?>><label for="wlasne">{own}</label> | 
-	<input id="znalezione" name="Z" value="1" type="checkbox" <?php echo ($filter[12])?"":"checked";?>><label for="znalezione">{founds}</label> | 
-	<input id="jeszczenieznalezione" name="A" value="1" type="checkbox" <?php echo ($filter[13])?"":"checked";?>><label for="jeszczenieznalezione">{not_yet_found}</label> | 
-	<input id="geokrety" name="N" value="1" type="checkbox" <?php echo ($filter[14])?"":"checked";?>><label for="geokrety">{without_geokret}</label>	| 
-	<input id="nieaktywne" name="Y" value="1" type="checkbox" <?php echo ($filter[17])?"":"checked";?> onClick="switchActiveFilter('nieaktywne')"><label for="nieaktywne">{ready_to_find}</label>	| 
-	<input id="aktywne" name="T" value="1" type="checkbox" <?php echo ($filter[16])?"":"checked";?> onClick="switchActiveFilter('aktywne')"><label for="aktywne">{temp_unavailables}</label>	
+	<input id="mobilna" name="o" value="1" type="checkbox" <?php echo ($filter[7])?"":"checked";?>><label for="mobilna">{{moving}} (O)</label>
+	<br><b>{{hide_caches}}:</b><br>
+	<input id="ignorowane" name="I" value="1" type="checkbox" <?php echo ($filter[10])?"":"checked";?>><label for="ignorowane">{{ignored}}</label> | 
+	<input id="wlasne" name="W" value="1" type="checkbox" <?php echo ($filter[11])?"":"checked";?>><label for="wlasne">{{own}}</label> | 
+	<input id="znalezione" name="Z" value="1" type="checkbox" <?php echo ($filter[12])?"":"checked";?>><label for="znalezione">{{founds}}</label> | 
+	<input id="jeszczenieznalezione" name="A" value="1" type="checkbox" <?php echo ($filter[13])?"":"checked";?>><label for="jeszczenieznalezione">{{not_yet_found}}</label> | 
+	<input id="geokrety" name="N" value="1" type="checkbox" <?php echo ($filter[14])?"":"checked";?>><label for="geokrety">{{without_geokret}}</label>	| 
+	<input id="nieaktywne" name="Y" value="1" type="checkbox" <?php echo ($filter[17])?"":"checked";?> onClick="switchActiveFilter('nieaktywne')"><label for="nieaktywne">{{ready_to_find}}</label>	| 
+	<input id="aktywne" name="T" value="1" type="checkbox" <?php echo ($filter[16])?"":"checked";?> onClick="switchActiveFilter('aktywne')"><label for="aktywne">{{temp_unavailables}}</label>	
 	<br>
-	<b>{other_options}:</b>
+	<b>{{other_options}}:</b>
 	<br>
-	<input id="podpisy" name="C" value="1" type="checkbox" <?php echo (!$filter[15])?"":"checked";?>><label for="podpisy">{show_signes}</label>	
+	<input id="podpisy" name="C" value="1" type="checkbox" <?php echo (!$filter[15])?"":"checked";?>><label for="podpisy">{{show_signes}}</label>	
 	
 	<br>
 	<input type="submit" name="submit" value="Filtruj">

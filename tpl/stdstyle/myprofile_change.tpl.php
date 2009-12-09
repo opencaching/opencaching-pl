@@ -48,12 +48,12 @@
 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" border="0" width="32" height="32" alt="{change_account_data}" title="{change_account_data}" align="middle">&nbsp;{change_account_data}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" border="0" width="32" height="32" alt="{{change_account_data}}" title="{{change_account_data}}" align="middle">&nbsp;{{change_account_data}}</div>
 <div class="notice">
-{gray_field_is_hidden}
+{{gray_field_is_hidden}}
 </div>
 <div class="buffer"></div>
-<p class="content-title-noshade-size2">{data_in_profile}:</p>
+<p class="content-title-noshade-size2">{{data_in_profile}}:</p>
 <div class="buffer"></div>
 <table class="table">
 <form name="change" action="myprofile.php?action=change" method="post" enctype="application/x-www-form-urlencoded"  style="display: inline;">
@@ -63,7 +63,7 @@
 		<col>
 	</colgroup>
 	<tr>
-		<td class="content-title-noshade">{username_label}:</td>
+		<td class="content-title-noshade">{{username_label}}:</td>
 		<td class="txt-grey07">
       <?
       if ($usr['admin']) {
@@ -82,12 +82,12 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07">{email_address}:</font></td>
+		<td class="content-title-noshade txt-grey07">{{email_address}}:</font></td>
 		<td class="txt-grey07">{email}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{country_label}:</td>
+		<td class="content-title-noshade">{{country_label}}:</td>
 		<td>
 			<select name="country" class="input200">
 				{countrylist}
@@ -97,7 +97,7 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07" valign="top">{coordinates}:</td>
+		<td class="content-title-noshade txt-grey07" valign="top">{{coordinates}}:</td>
 		<td class="txt-grey07" valign="top">
 			<select name="latNS" class="input40">
 				<option value="N"{latNsel}>N</option>
@@ -118,64 +118,64 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07" valign="top">{notification}:</td>
+		<td class="content-title-noshade txt-grey07" valign="top">{{notification}}:</td>
 		<td class="txt-grey07" valign="top">
-			{notify_new_caches_radius}&nbsp;
+			{{notify_new_caches_radius}}&nbsp;
 			<input type="text" name="notify_radius" maxlength="3" value="{notify_radius}" class="input30" />
-			&nbsp;km {from_home_coords}.
+			&nbsp;km {{from_home_coords}}.
 			&nbsp;
 			<div class="errormsg">{notify_message}</div><br/>
-			<div class="notice" style="width:500px;height:44px;">{radius_hint}</div>
+			<div class="notice" style="width:500px;height:44px;">{{radius_hint}}</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07" valign="top">{bulletin}:</td>
+		<td class="content-title-noshade txt-grey07" valign="top">{{bulletin}}:</td>
 		<td class="txt-grey07" valign="middle">
 			<input type="checkbox" name="bulletin" id="bulletin" value="1" {is_checked} class="checkbox" />
-			<label for="bulletin">{get_bulletin}</label>&nbsp;
+			<label for="bulletin">{{get_bulletin}}</label>&nbsp;
 			&nbsp;<br />
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade" valign="top">{my_description}:</td>
+		<td class="content-title-noshade" valign="top">{{my_description}}:</td>
 		<td valign="top">
-			<textarea name="description" cols="50" rows="5">{description}</textarea>
+			<textarea name="description" cols="50" rows="5">{{description}}</textarea>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07" valign="top">{other}:</td>
+		<td class="content-title-noshade txt-grey07" valign="top">{{other}}:</td>
 		<td class="txt-grey07" valign="top">
 			<input type="checkbox" name="using_permanent_login" value="1"{permanent_login_sel} id="l_using_permanent_login" class="checkbox" />
-			<label for="l_using_permanent_login">{no_auto_logout}</label><br/>
-			<div class="notice" style="width:500px;height:44px;">{no_auto_logout_warning}</div>
+			<label for="l_using_permanent_login">{{no_auto_logout}}</label><br/>
+			<div class="notice" style="width:500px;height:44px;">{{no_auto_logout_warning}}</div>
 		</td>
 	</tr>
 	<tr>
 		<td valign="top">&nbsp;</td>
 		<td valign="top">
-			<span class="txt-grey07"><input type="checkbox" name="no_htmledit" value="1"{no_htmledit_sel} id="l_no_htmledit" class="checkbox" /> <label for="l_no_htmledit">{hide_html_editor}</label></span><br/>
-			<input type="checkbox" name="using_pmr" value="1"{pmr_sel} id="l_using_pmr" class="checkbox" /> <label for="l_using_pmr">{pmr_message}</label>
+			<span class="txt-grey07"><input type="checkbox" name="no_htmledit" value="1"{no_htmledit_sel} id="l_no_htmledit" class="checkbox" /> <label for="l_no_htmledit">{{hide_html_editor}}</label></span><br/>
+			<input type="checkbox" name="using_pmr" value="1"{pmr_sel} id="l_using_pmr" class="checkbox" /> <label for="l_using_pmr">{{pmr_message}}</label>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07" valign="top">{ozi_path_label}:</td>
+		<td class="content-title-noshade txt-grey07" valign="top">{{ozi_path_label}}:</td>
 		<td class="txt-grey07" valign="top"><input type="text" size="46" name="ozi_path" value="{ozi_path}"><br/>
-		<div class="notice" style="width:500px;height:44px;">{ozi_path_info}</div>
+		<div class="notice" style="width:500px;height:44px;">{{ozi_path_info}}</div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{registered_since_label}:</td>
+		<td class="content-title-noshade">{{registered_since_label}}:</td>
 		<td>{registered_since}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<input type="reset" name="reset" value="{reset}" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submit" value="{change}" style="width:120px"/>
+			<input type="reset" name="reset" value="{{reset}}" style="width:120px"/>&nbsp;&nbsp;
+			<input type="submit" name="submit" value="{{change}}" style="width:120px"/>
 		</td>
 	</tr>
 </form>

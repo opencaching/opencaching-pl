@@ -1,7 +1,7 @@
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/world.png" border="0" align="middle" width="32" height="32" alt="" title="" align="middle">{user_map} {username}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/world.png" border="0" align="middle" width="32" height="32" alt="" title="" align="middle">{{user_map}} {username}</div>
 <div class="content2-container">
-<p class="content-title-noshade-size1">{current_zoom}: <input type="text" id="zoom" size="2" disabled="disabled"/></p>
-<p class="content-title-noshade">{colors}: <b><font color="#dddd00">{yellow}</font></b> - {last_10_days}, <b><font color="#00dd00">{green}</font></b> - {own}, <b><font color="#aaaaaa">{gray}</font></b> - {found}, <b><font color="#ff0000">{red}</font></b> - {rest}</p>
+<p class="content-title-noshade-size1">{{current_zoom}}: <input type="text" id="zoom" size="2" disabled="disabled"/></p>
+<p class="content-title-noshade">{{colors}}: <b><font color="#dddd00">{{yellow}}</font></b> - {{last_10_days}}, <b><font color="#00dd00">{{green}}</font></b> - {{own}}, <b><font color="#aaaaaa">{{gray}}</font></b> - {{found}}, <b><font color="#ff0000">{{red}}</font></b> - {{rest}}</p>
 </div>
 <div id="map_canvas" style="width: {map_width}; height: {map_height}; float:left; border: 1px solid #000;">
 </div>
@@ -10,42 +10,42 @@
 	<td width="33%">
 		<div class="nav3">
 			<ul>
-				<li class="title">{hide_caches_type}:</li>
-				<li class="group"><input class="chbox" id="h_u" name="h_u" value="1" type="checkbox" {h_u_checked} onclick="reload()"/><label for="h_u">{unknown_type} (U)</label></li>
-				<li class="group"><input class="chbox" id="h_t" name="h_t" value="1" type="checkbox" {h_t_checked} onclick="reload()"/><label for="h_t">{traditional} (T)</label></li>
-				<li class="group"><input class="chbox" id="h_m" name="h_m" value="1" type="checkbox" {h_m_checked} onclick="reload()"/><label for="h_m">{multicache} (M)</label></li>
-				<li class="group"><input class="chbox" id="h_v" name="h_v" value="1" type="checkbox" {h_v_checked} onclick="reload()"/><label for="h_v">{virtual} (V)</label></li>
+				<li class="title">{{hide_caches_type}}:</li>
+				<li class="group"><input class="chbox" id="h_u" name="h_u" value="1" type="checkbox" {h_u_checked} onclick="reload()"/><label for="h_u">{{unknown_type}} (U)</label></li>
+				<li class="group"><input class="chbox" id="h_t" name="h_t" value="1" type="checkbox" {h_t_checked} onclick="reload()"/><label for="h_t">{{traditional}} (T)</label></li>
+				<li class="group"><input class="chbox" id="h_m" name="h_m" value="1" type="checkbox" {h_m_checked} onclick="reload()"/><label for="h_m">{{multicache}} (M)</label></li>
+				<li class="group"><input class="chbox" id="h_v" name="h_v" value="1" type="checkbox" {h_v_checked} onclick="reload()"/><label for="h_v">{{virtual}} (V)</label></li>
 				<li class="group"><input class="chbox" id="h_w" name="h_w" value="1" type="checkbox" {h_w_checked} onclick="reload()"/><label for="h_w">Webcam (W)</label></li>
-				<li class="group"><input class="chbox" id="h_e" name="h_e" value="1" type="checkbox" {h_e_checked} onclick="reload()"/><label for="h_e">{event} (E)</label></li>
+				<li class="group"><input class="chbox" id="h_e" name="h_e" value="1" type="checkbox" {h_e_checked} onclick="reload()"/><label for="h_e">{{event}} (E)</label></li>
 				<li class="group"><input class="chbox" id="h_q" name="h_q" value="1" type="checkbox" {h_q_checked} onclick="reload()"/><label for="h_q">Quiz (Q)</label></li>
-				<li class="group"><input class="chbox" id="h_o" name="h_o" value="1" type="checkbox" {h_o_checked} onclick="reload()"/><label for="h_o">{moving} (O)</label></li>
+				<li class="group"><input class="chbox" id="h_o" name="h_o" value="1" type="checkbox" {h_o_checked} onclick="reload()"/><label for="h_o">{{moving}} (O)</label></li>
 			</ul>
 		</div>
 	</td>
 	<td width="*">
 		<div class="nav3">
 			<ul>
-				<li class="title">{hide_caches}:</li>
-				<li class="group"><input class="chbox" id="h_ignored" name="h_ignored" value="1" type="checkbox" {h_ignored_checked} onclick="reload()"/><label for="h_ignored">{ignored}</label></li>
-				<li class="group"><input class="chbox" id="h_own" name="h_own" value="1" type="checkbox" {h_own_checked} onclick="reload()"/><label for="h_own">{own}</label></li>
-				<li class="group"><input class="chbox" id="h_found" name="h_found" value="1" type="checkbox" {h_found_checked} onclick="reload()"/><label for="h_found">{founds}</label></li>
-				<li class="group"><input class="chbox" id="h_noattempt" name="h_noattempt" value="1" type="checkbox" {h_noattempt_checked} onclick="reload()"/><label for="h_noattempt">{not_yet_found}</label></li>
-				<li class="group"><input class="chbox" id="h_nogeokret" name="h_nogeokret" value="1" type="checkbox" {h_nogeokret_checked} onclick="reload()"/><label for="h_nogeokret">{without_geokret}</label></li>
-				<li class="group"><input class="chbox" id="h_avail" name="h_avail" value="1" type="checkbox" {h_avail_checked} onclick="reload()"/><label for="h_avail">{ready_to_find}</label></li>
-				<li class="group"><input class="chbox" id="h_temp_unavail" name="h_temp_unavail" value="1" type="checkbox" {h_temp_unavail_checked} onclick="reload()"/><label for="h_temp_unavail">{temp_unavailables}</label></li>
-				<li class="group"><input class="chbox" id="h_arch" name="h_arch" value="1" type="checkbox" {h_arch_checked} onclick="reload()"/><label for="h_arch">{archived}</label></li>	
+				<li class="title">{{hide_caches}}:</li>
+				<li class="group"><input class="chbox" id="h_ignored" name="h_ignored" value="1" type="checkbox" {h_ignored_checked} onclick="reload()"/><label for="h_ignored">{{ignored}}</label></li>
+				<li class="group"><input class="chbox" id="h_own" name="h_own" value="1" type="checkbox" {h_own_checked} onclick="reload()"/><label for="h_own">{{own}}</label></li>
+				<li class="group"><input class="chbox" id="h_found" name="h_found" value="1" type="checkbox" {h_found_checked} onclick="reload()"/><label for="h_found">{{founds}}</label></li>
+				<li class="group"><input class="chbox" id="h_noattempt" name="h_noattempt" value="1" type="checkbox" {h_noattempt_checked} onclick="reload()"/><label for="h_noattempt">{{not_yet_found}}</label></li>
+				<li class="group"><input class="chbox" id="h_nogeokret" name="h_nogeokret" value="1" type="checkbox" {h_nogeokret_checked} onclick="reload()"/><label for="h_nogeokret">{{without_geokret}}</label></li>
+				<li class="group"><input class="chbox" id="h_avail" name="h_avail" value="1" type="checkbox" {h_avail_checked} onclick="reload()"/><label for="h_avail">{{ready_to_find}}</label></li>
+				<li class="group"><input class="chbox" id="h_temp_unavail" name="h_temp_unavail" value="1" type="checkbox" {h_temp_unavail_checked} onclick="reload()"/><label for="h_temp_unavail">{{temp_unavailables}}</label></li>
+				<li class="group"><input class="chbox" id="h_arch" name="h_arch" value="1" type="checkbox" {h_arch_checked} onclick="reload()"/><label for="h_arch">{{archived}}</label></li>	
 			</ul>
 		</div>
 	</td>
 	<td width="33%">
 		<div class="nav3">
 			<ul>
-				<li class="title">{other_options}:</li>
-				<li class="group"><input class="chbox" id="signes" name="signes" value="1" type="checkbox" {signes_checked} onclick="reload()" disabled="disabled"/><label for="signes">{show_signes}</label></li>
-				<li class="group"><input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload();check_field()"/><label for="be_ftf">{be_ftf_label}</label></li>
-				<li class="group"><input class="chbox" id="h_pl" name="h_pl" value="1" type="checkbox" {h_pl_checked} onclick="reload()"/><label for="h_pl">{h_pl_label}</label></li>
-				<li class="group"><input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{h_de_label}</label></li>
-			<li class="group">{score_label} {from}:	
+				<li class="title">{{other_options}}:</li>
+				<li class="group"><input class="chbox" id="signes" name="signes" value="1" type="checkbox" {signes_checked} onclick="reload()" disabled="disabled"/><label for="signes">{{show_signes}}</label></li>
+				<li class="group"><input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload();check_field()"/><label for="be_ftf">{{be_ftf_label}}</label></li>
+				<li class="group"><input class="chbox" id="h_pl" name="h_pl" value="1" type="checkbox" {h_pl_checked} onclick="reload()"/><label for="h_pl">{{h_pl_label}}</label></li>
+				<li class="group"><input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{{h_de_label}}</label></li>
+			<li class="group">{{score_label}} {{from}}:	
 			<select id="min_score" name="min_score" onchange="reload()">
 				<option value="0" {min_sel0}>0</option>
 				<option value="1" {min_sel1}>1</option>
@@ -55,7 +55,7 @@
 				<option value="5" {min_sel5}>5</option>
 				<option value="6" {min_sel6}>6</option>
 			</select>
-			 {to}: 
+			 {{to}}: 
 			<select id="max_score" name="max_score" onchange="reload()">
 				<option value="0" {max_sel0}>0</option>
 				<option value="1" {max_sel1}>1</option>
@@ -66,7 +66,7 @@
 				<option value="6" {max_sel6}>6</option>
 			</select>
 			</li>
-			<li class="group"><input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">{show_noscore}</label></li>
+			<li class="group"><input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">{{show_noscore}}</label></li>
 			</ul>
 		</div>
 	</td>
@@ -272,7 +272,7 @@
 							var print_topratings;
 							if( score != "" && votes > 2)
 							{
-								show_score = "<br><b>{score}:</b> " + score;
+								show_score = "<br><b>{{score}}:</b> " + score;
 								if( score >= 5 )
 									score = "3";
 								else if( score >= 4.4 )
@@ -288,7 +288,7 @@
 								print_topratings = "";
 							else 
 							{
-								print_topratings = "<br><b>{recommendations}: </b>";
+								print_topratings = "<br><b>{{recommendations}}: </b>";
 								var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"R\">";
 								var ii;
 								for( ii=0;ii<topratings;ii++)
@@ -314,13 +314,13 @@
 								
 							if( type == 6 )
 							{
-								found_attended = "{attended}";
-								notfound_will_attend = "{will_attend}";
+								found_attended = "{{attended}}";
+								notfound_will_attend = "{{will_attend}}";
 							}
 							else
 							{
-								found_attended = "{found}";
-								notfound_will_attend = "{not_found}";
+								found_attended = "{{found}}";
+								notfound_will_attend = "{{not_found}}";
 							}
 
 							infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\" class=\"table\">";
@@ -331,19 +331,19 @@
 							infoWindowContent += "<b>"+wp+"</b></td></tr></table>";
 							infoWindowContent += "</td></tr>";
 							infoWindowContent += "<tr><td width=\"70%\" valign=\"top\">";
-							infoWindowContent += "<b>{created_by}:</b> " + username + show_score + print_topratings;
+							infoWindowContent += "<b>{{created_by}}:</b> " + username + show_score + print_topratings;
 				
 							infoWindowContent += "</td>";
 							infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\"><tr><td width=\"100%\">";
 							infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+founds+" x "+found_attended+"</nobr></td></tr>";
 							infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+notfounds+" x "+notfound_will_attend+"</nobr><nobr></td></tr>";
 							if( node == 2 )
-								infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+votes+" x {scored}</nobr>";
+								infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+votes+" x {{scored}}</nobr>";
 
 							infoWindowContent += "</td></tr></table></td></tr>";
 							infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
 							/*if( node == 2 )
-								infoWindowContent += "<font size=\"0\"><a href=\"cachemap3.php?lat="+"\"><?php echo ($yn=='y'?tr('add_to'):tr('remove_from'));?> {to_print_list}</a></font>";*/
+								infoWindowContent += "<font size=\"0\"><a href=\"cachemap3.php?lat="+"\"><?php echo ($yn=='y'?tr('add_to'):tr('remove_from'));?> {{to_print_list}}</a></font>";*/
 							infoWindowContent += "</td></tr></table></td></tr>";
 							infoWindowContent += "</table>";
 							

@@ -10,7 +10,7 @@
 		Podgląd biuletynu:<br>
 		<form action='admin_bulletin.php' method='POST'>
 			<input type="hidden" name="bulletin_final" value="1">
-			{bulletin}
+			{{bulletin}}
 			<br>
 			<input type='submit' value='Wyślij biuletyn'>
 		</form>

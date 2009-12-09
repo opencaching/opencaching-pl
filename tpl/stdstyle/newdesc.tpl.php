@@ -113,7 +113,7 @@
 
 	<tr>
 		<td class="header-small" colspan="2">
-			<input type="reset" name="reset" value="{reset}" class="formbuttons" />&nbsp;&nbsp;
+			<input type="reset" name="reset" value="{{reset}}" class="formbuttons" />&nbsp;&nbsp;
 			<input type="submit" name="submitform" value="{submit}" class="formbuttons" />
 		</td>
 	</tr>

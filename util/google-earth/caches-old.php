@@ -36,7 +36,7 @@
   $kmlLine = 
 '
 <Placemark>
-  <description><![CDATA[<a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}">Zobacz więcej szczegółów skrzynki</a><br> założona przez {username}<br>&nbsp;<br><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Rodzaj: {type}<br>Wielkosc: {size}</td></tr><tr><td colspan="2">Zadania: {difficulty} z 5.0<br>Teren: {terrain} z 5.0</td></tr></table>]]></description>
+  <description><![CDATA[<a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}">Zobacz więcej szczegółów skrzynki</a><br> założona przez {username}<br>&nbsp;<br><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Rodzaj: {type}<br>Wielkosc: {{size}}</td></tr><tr><td colspan="2">Zadania: {difficulty} z 5.0<br>Teren: {terrain} z 5.0</td></tr></table>]]></description>
   <name>{name}</name>
   <LookAt>
     <longitude>{lon}</longitude>
@@ -187,7 +187,7 @@ $iso2utf8tr = array (
     $thisline = str_replace('{lon}', $lon, $thisline);
 
     $time = date($kmlTimeFormat, strtotime($r['date_hidden']));
-    $thisline = str_replace('{time}', $time, $thisline);
+    $thisline = str_replace('{{time}}', $time, $thisline);
 
 $iso_string = $r['name'];
 $utf8 = strtr($iso_string, $iso2utf8tr); 
@@ -205,7 +205,7 @@ $utf8 = strtr($iso_string, $iso2utf8tr);
       $thisline = str_replace('{archivedflag}', '', $thisline);
 		
     $thisline = str_replace('{type}', xmlentities($r['typedesc']), $thisline);
-    $thisline = str_replace('{size}', xmlentities($r['sizedesc']), $thisline);
+    $thisline = str_replace('{{size}}', xmlentities($r['sizedesc']), $thisline);
 		
     $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
     $thisline = str_replace('{difficulty}', $difficulty, $thisline);
@@ -214,7 +214,7 @@ $utf8 = strtr($iso_string, $iso2utf8tr);
     $thisline = str_replace('{terrain}', $terrain, $thisline);
 
     $time = date($kmlTimeFormat, strtotime($r['date_hidden']));
-    $thisline = str_replace('{time}', $time, $thisline);
+    $thisline = str_replace('{{time}}', $time, $thisline);
 
     $thisline = str_replace('{username}', xmlentities($r['username']), $thisline);
     $thisline = str_replace('{cacheid}', xmlentities($r['cacheid']), $thisline);

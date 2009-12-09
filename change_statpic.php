@@ -45,12 +45,6 @@
 			$rs = sql("SELECT `statpic_text`, `statpic_logo` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
 			$record = sql_fetch_array($rs);
 
-			tpl_set_var('choose_statpic', tr('choose_statpic'));
-			tpl_set_var('statpic_previews', tr('statpic_previews'));
-			tpl_set_var('change', tr('change'));
-			tpl_set_var('no_statpics_available', tr('no_statpics_available'));
-			tpl_set_var('user_statpic_text', tr('user_statpic_text'));
-			tpl_set_var('available_statpics', tr('available_statpics'));
 			
 			tpl_set_var('statpic_text', htmlspecialchars($record['statpic_text'], ENT_COMPAT, 'UTF-8'));
 			$using_logo = $record['statpic_logo'];
@@ -93,7 +87,6 @@
 			{
 				//load from database
 				$statpic_text = $record['statpic_text'];
- 				tpl_set_var('statpic_text_message', tr('statpic_text_message'));
 
 				$stmp = '';
 				$rs2 = sql('SELECT `id`, `previewpath`, `description` FROM `statpics`');
@@ -115,7 +108,6 @@
 				}
 				if ($stmp == '')
 				{
-					tpl_set_var('available_logos', tr('illegal_char'));
 				}
 				else
 				{
@@ -127,8 +119,6 @@
 			}
 
 			//set buttons
-			tpl_set_var('reset', tr('reset'));
-			tpl_set_var('change_data', tr('change_data'));
 		}
 	}
 

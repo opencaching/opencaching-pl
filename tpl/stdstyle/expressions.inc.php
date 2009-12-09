@@ -26,7 +26,7 @@
 	****************************************************************************/
 
 	//only debugging
- 	$runtime = 'Runtime: {time} Sek';
+ 	$runtime = 'Runtime: {{time}} Sek';
 
 	// set Date/Time language
 	setlocale(LC_TIME, 'pl_PL.UTF-8');

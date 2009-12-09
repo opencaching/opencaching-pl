@@ -93,16 +93,16 @@ return true;
 </script> 
   	  
 			<!-- Page title -->		
-		  <div class="content2-pagetitle">{what_do_you_find}</div>
+		  <div class="content2-pagetitle">{{what_do_you_find}}</div>
 			<div class="content-txtbox-noshade line-box">
-				<p>{what_do_you_find_intro}</p>
+				<p>{{what_do_you_find_intro}}</p>
 				<div class="buffer" style="width:500px;"></div>
-				<b><p>{total_of_active_caches}: <span class="content-title-noshade">{hiddens}</span> | {number_of_founds}: <span class="content-title-noshade">{founds}</span> | {number_of_active_users}: <span class="content-title-noshade">{users} </span></p></b>
+				<b><p>{{total_of_active_caches}}: <span class="content-title-noshade">{hiddens}</span> | {{number_of_founds}}: <span class="content-title-noshade">{founds}</span> | {{number_of_active_users}}: <span class="content-title-noshade">{users} </span></p></b>
 			</div>
 <!-- Text container -->
 			<div class="content2-container line-box">
 				<div class="content2-container-2col-left" id="new-caches-area">
-					<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle" />&nbsp;{newest_caches}</p>
+					<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle" />&nbsp;{{newest_caches}}</p>
 					<div class="content-txtbox-noshade">
 						<?php
 							global $dynstylepath;
@@ -120,7 +120,7 @@ return true;
 <!-- Text container -->
 			<div class="content2-container line-box">
 				<div class="content2-container-2col-left" id="new-events-area">
-				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle" />&nbsp;{incomming_events}</p>
+				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" border="0" width="32" height="32" alt="Cachesuche" title="Cachesuche" align="middle" />&nbsp;{{incomming_events}}</p>
 		<?php
 			global $dynstylepath;
 			include ($dynstylepath . "nextevents.inc.php");
