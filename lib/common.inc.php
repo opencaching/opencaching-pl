@@ -551,10 +551,12 @@ session_start();
 
 
 
-		$sCode = tpl_do_translate($sCode);
+
 
 		//process the template replacements
 		$sCode = tpl_do_replace($sCode);
+
+		$sCode = tpl_do_translate($sCode);
 
 		//store the cookie
 		write_cookie_settings();
