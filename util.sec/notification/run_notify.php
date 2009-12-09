@@ -87,7 +87,7 @@ function process_new_cache($notify)
 		$mailbody = mb_ereg_replace('{date}', date('d.m.Y', strtotime($notify['date_hidden'])), $mailbody);
 		$mailbody = mb_ereg_replace('{cacheid}', $notify['cache_id'], $mailbody);
 		$mailbody = mb_ereg_replace('{wp_oc}', $notify['wp_oc'], $mailbody);
-		$mailbody = mb_ereg_replace('{{user}}', $notify['username'], $mailbody);
+		$mailbody = mb_ereg_replace('{user}', $notify['username'], $mailbody);
 		$mailbody = mb_ereg_replace('{cachename}', $notify['cachename'], $mailbody);
 		$mailbody = mb_ereg_replace('{distance}', round(calcDistance($notify['lat1'], $notify['lon1'], $notify['lat2'], $notify['lon2'], 1), 1), $mailbody);
 		$mailbody = mb_ereg_replace('{unit}', 'km', $mailbody);

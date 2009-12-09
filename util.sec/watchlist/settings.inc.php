@@ -9,6 +9,6 @@
 	
 	$nologs = 'Brak wpisów do logu.';
 	
-	$logowner_text = '{date} {{user}} zrobił wpis ({logtype}) do logu skrzynki "{cachename}" .' . "\n" . 'http://www.opencaching.pl/viewcache.php?cacheid={cacheid}' . "\n\n" . '{{text}}' . "\n\n\n\n";
-	$logwatch_text = '{date} {{user}} zrobił wpis ({logtype}) do logu skrzynki "{cachename}" .' . "\n" . 'http://www.opencaching.pl/viewcache.php?cacheid={cacheid}' . "\n\n" . '{{text}}' . "\n\n\n\n";
+	$logowner_text = '{date} {user} zrobił wpis ({logtype}) do logu skrzynki "{cachename}" .' . "\n" . 'http://www.opencaching.pl/viewcache.php?cacheid={cacheid}' . "\n\n" . '{text}' . "\n\n\n\n";
+	$logwatch_text = '{date} {user} zrobił wpis ({logtype}) do logu skrzynki "{cachename}" .' . "\n" . 'http://www.opencaching.pl/viewcache.php?cacheid={cacheid}' . "\n\n" . '{text}' . "\n\n\n\n";
 ?>
