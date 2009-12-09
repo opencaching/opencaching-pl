@@ -51,7 +51,7 @@
 					<div>{difficulty_icon_diff}</div><div>{difficulty_icon_terr}</div>
 
 					<div align="center" class="content-score">
-						<p>{score_start}<b><font color="{scorecolor}" size="{font_size}">{{score}}</font></b>{score_end}{noscore_start}<img src="images/noscore.png" alt="N/A"/>{noscore_end}</p>
+						<p>{score_start}<b><font color="{scorecolor}" size="{font_size}">{score}</font></b>{score_end}{noscore_start}<img src="images/noscore.png" alt="N/A"/>{noscore_end}</p>
 					</div>
 
 				
@@ -115,7 +115,7 @@ else
 					?>
 						<div class="content2-container-2col-left" style="width: 140px; height: 170px;" align="left">
 						<p><br/><br/>
-							<nobr>{found_icon} {{founds}} {found_text}</nobr><br />
+							<nobr>{found_icon} {founds} {found_text}</nobr><br />
 							<nobr>{notfound_icon} {notfounds} {notfound_text}</nobr><br />
 							<nobr>{note_icon} {notes} {{comments}}</nobr><br />
 							<nobr>{vote_icon} {votes_count} x {{scored}}</nobr><br />
@@ -158,7 +158,7 @@ else
 			</div>
 			<div class="content2-container">
 				<p>
-					{{cache_attributes}}{password_req}
+					{cache_attributes}{password_req}
 				</p>
 			</div>
 					{cache_attributes_end}
@@ -244,7 +244,7 @@ else
 				</p></div>
 				<div class="content2-container">
 				<p>
-					{{pictures}}
+					{pictures}
 				</p>
 			</div>
 {hidepictures_end}
@@ -287,7 +287,7 @@ else
 					<img src="tpl/stdstyle/images/blue/logs.png" width="32" height="32" style="vertical-align:middle" border="0" alt="logs"/>
 					{{log_entries}}
 					&nbsp;&nbsp;
-					{found_icon} {{founds}}x
+					{found_icon} {founds}x
 					{notfound_icon} {notfounds}x
 					{note_icon} {notes}x
 					&nbsp;&nbsp;
