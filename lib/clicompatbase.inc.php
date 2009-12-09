@@ -153,6 +153,9 @@
 		sql("UPDATE `caches`, `cache_desc` SET `cache_desc`.`last_modified`=NOW() WHERE `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`cache_id`='&1'", $cacheid);
 		sql("UPDATE `caches`, `pictures` SET `pictures`.`last_modified`=NOW() WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`object_type`=2 AND `caches`.`cache_id`='&1'", $cacheid);
 		sql("UPDATE `caches`, `cache_logs`, `pictures` SET `pictures`.`last_modified`=NOW() WHERE `caches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`id`=`pictures`.`object_id` AND `pictures`.`object_type`=1 AND `caches`.`cache_id`='&1' AND `cache_logs`.`deleted`=&2", $cacheid, 0);
+		sql("UPDATE `caches`, `mp3` SET `mp3`.`last_modified`=NOW() WHERE `caches`.`cache_id`=`mp3`.`object_id` AND `mp3`.`object_type`=2 AND `caches`.`cache_id`='&1'", $cacheid);
+		sql("UPDATE `caches`, `cache_logs`, `mp3` SET `mp3`.`last_modified`=NOW() WHERE `caches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`id`=`mp3`.`object_id` AND `mp3`.`object_type`=1 AND `caches`.`cache_id`='&1' AND `cache_logs`.`deleted`=&2", $cacheid, 0);
+
 	}
 
 	// read a file and return it as a string
