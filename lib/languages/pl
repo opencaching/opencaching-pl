@@ -1,7 +1,7 @@
 main_menu Menu główne
 user_menu Menu użytkownika
 cache_menu Menu skrzynki
-activation_code_failed Kod aktywacyjny lub adres e-mail jest niepoprawny.<br/>Aktywacja twojego konta przebiegła niepoprawnie. Proszę sprawdzić, czy nie popełniłeś błędu. Jeśli problem nadal występuje, proszę zgłosić go na adres ocpl (at) opencaching.pl.
+activation_code_failed Kod aktywacyjny lub adres e-mail jest niepoprawny.<br/>Aktywacja Twojego konta przebiegła niepoprawnie. Proszę sprawdzić, czy nie popełniłeś błędu. Jeśli problem nadal występuje, proszę zgłosić go na adres ocpl (at) opencaching.pl.
 email_incorrect Podany adres e-mail jest niepoprawny.
 account_activation Aktywacja konta
 finish_registration_hint W celu zakończenia rejestracji musisz potwierdzić adres e-mail oraz wprowadzić kod aktywacyjny.
@@ -410,7 +410,7 @@ number_of_active_users Liczba aktywnych użytkowników
 number_of_founds Liczba odkryć skrzynek
 latest_news Aktualności
 what_do_you_find Witamy na Opencaching.pl
-what_do_you_find_intro Na tej stronie znajdziesz wszystko, co dotyczy geocachingu w Polsce - począwszy od <b><a href="http://wiki.opencaching.pl">ABC Geocachingu</a></b> do forum, gdzie możesz prowadzić dyskusje z innymi geocacherami. <b>Opencaching PL</b> wystartował w <span class="content-title-noshade">maju 2006 roku</span>. Nasza baza skrzynek pracuje na projekcie opensource <b><a href="http://oc-server.svn.sourceforge.net/viewvc/oc-server/"> Opencaching </a></b>.
+what_do_you_find_intro Na tej stronie znajdziesz wszystko, co dotyczy geocachingu w Polsce - począwszy od <b><a href="http://wiki.opencaching.pl">ABC Geocachingu</a></b> do forum, gdzie możesz prowadzić dyskusje z innymi geocacherami. <b>Opencaching.pl</b> wystartował w <span class="content-title-noshade">maju 2006 roku</span>. Nasza baza skrzynek pracuje na projekcie opensource <b><a href="http://oc-server.svn.sourceforge.net/viewvc/oc-server/"> Opencaching </a></b>.
 more_news więcej nowości
 filename_rules http://wiki.opencaching.pl/index.php/Regulamin_OC_PL
 filename_describe_cache http://wiki.opencaching.pl/index.php/Parametry_skrzynki
@@ -418,7 +418,7 @@ map_msg Aby zobaczyć współrzędne oraz<br/> mapę lokalizacji skrzynki <br/> 
 additional_hints Dodatkowe informacje
 images Obrazki/Zdjęcia
 utilities Użyteczne
-search_geocaches_nearby Szukaj skrzynek w pobliżu (100 km promien) na OC PL
+search_geocaches_nearby Szukaj skrzynek w promieniu 100km
 download_as_file Pobierz dane
 accept_terms_of_use Pobierając dane z Opencaching PL akceptujesz <a href="http://wiki.opencaching.pl/index.php/Regulamin_OC_PL">warunki ich użycia</a>.
 find_geocaches_on Pokaż najbliższe skrzynki na
