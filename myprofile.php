@@ -86,7 +86,7 @@
 			$userinfo = @mysql_fetch_array($query);
 			$description = $userinfo['description'];
 			$bulletin = $userinfo['get_bulletin'];
-			tpl_set_var('bulletin_label', $bulletin==1?(tr('bulletin_label_yes')):($language[$lang]['bulletin_label_no']));
+			tpl_set_var('bulletin_label', $bulletin==1?(tr('bulletin_label_yes')):(tr('bulletin_label_no')));
 			tpl_set_var('bulletin_value', $bulletin);
 			tpl_set_var('bulletin', tr('bulletin'));
 			tpl_set_var('is_checked', $bulletin==1?("checked"):(""));

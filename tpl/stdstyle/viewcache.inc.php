@@ -86,8 +86,8 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
  $viewlogs = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="tpl/stdstyle/images/action/16x16-showall.png" width="16" height="16" align="middle" border="0" align="left"/></a>&nbsp;<a href="'.(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') .'.php?cacheid={cacheid_urlencode}'.$linkargs.'&amp;showlogsall=y">Wszystkie wpisy do logu</a>';
 
 
- $difficulty_text_diff = tr('task_difficulty').": %01.1f ".$language[$lang]['out_of']." 5.0";
- $difficulty_text_terr = tr('terrain_difficulty').": %01.1f ".$language[$lang]['out_of']." 5.0";
+ $difficulty_text_diff = tr('task_difficulty').": %01.1f ".tr('out_of')." 5.0";
+ $difficulty_text_terr = tr('terrain_difficulty').": %01.1f ".tr('out_of')." 5.0";
 
  $viewtext_on = tr('enter_text');
  $viewtext_off = tr('enter_text_error');

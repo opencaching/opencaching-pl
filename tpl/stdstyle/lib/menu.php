@@ -254,10 +254,10 @@ $menu = array(
 		'filename' => 'mylist.php'
 	),
 	array(
-		'title' => tr('login').'/'.$language[$lang]['logout'],
+		'title' => tr('login').'/'.tr('logout'),
 		'visible' => false,
 		'filename' => 'login.php',
-		'menustring' => tr('login').'/'.$language[$lang]['logout'],
+		'menustring' => tr('login').'/'.tr('logout'),
 		'navicolor' => '#E8DDE4',
 		'siteid' => 'login'
 	),

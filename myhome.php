@@ -44,7 +44,7 @@
 		{
 			
 			if( $usr['admin'] )
-				tpl_set_var('reports',"<b>".tr('administrating_oc').":</b><br>[<a href='viewreports.php'>".$language[$lang]['view_reports']."</a>]");
+				tpl_set_var('reports',"<b>".tr('administrating_oc').":</b><br>[<a href='viewreports.php'>".tr('view_reports')."</a>]");
 			else
 				tpl_set_var('reports','');
 		
@@ -113,10 +113,10 @@
 				$log_notes_count = 0;
 			
 			if( $events_count > 0 )
-				$events = tr('you_have_participated_in')." ".$events_count." ".$language[$lang]['found_x_events'].".";
+				$events = tr('you_have_participated_in')." ".$events_count." ".tr('found_x_events').".";
 			else $events = "";
 			
-			tpl_set_var('founds', tr('you_have_found')." ".$founds_count." ".$language[$lang]['found_x_caches'].".");
+			tpl_set_var('founds', tr('you_have_found')." ".$founds_count." ".tr('found_x_caches').".");
 			tpl_set_var('hidden', $hidden_count);
 			tpl_set_var('events', $events);
 

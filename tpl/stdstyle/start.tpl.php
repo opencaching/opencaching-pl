@@ -93,7 +93,7 @@ return true;
 </script> 
   	  
 			<!-- Page title -->		
-		  <div class="content2-pagetitle">{what_do_you_find}</div>			
+		  <div class="content2-pagetitle">{what_do_you_find}</div>
 			<div class="content-txtbox-noshade line-box">
 				<p>{what_do_you_find_intro}</p>
 				<div class="buffer" style="width:500px;"></div>

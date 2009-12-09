@@ -559,6 +559,10 @@ session_start();
 		$sTemplate = read_file($stylepath . '/' . $tplname . '.tpl.php');
 		$sCode = mb_ereg_replace('{template}', $sTemplate, $sCode);
 
+
+
+		$sCode = tpl_do_translate($sCode);
+
 		//process the template replacements
 		$sCode = tpl_do_replace($sCode);
 
@@ -623,12 +627,27 @@ session_start();
 		exit;
 	}
 
+
+	function handle_translation_clause($matches)
+	{
+		$clause = substr($matches[0], 2, strlen($matches[0])-4);;
+		return tr($clause);
+	}
+
+	function tpl_do_translate($str)
+	{
+		return preg_replace_callback('/{{.*?}}/', handle_translation_clause, $str);
+	}
+
+
 	//process the template replacements
 	//no_eval_replace - if true, variables will be replaced that are
 	//                  marked as "no_eval"
 	function tpl_do_replace($str)
 	{
 		global $vars, $no_eval_vars;
+
+
 
 		if (is_array($vars))
 		{
@@ -650,6 +669,8 @@ session_start();
 				}
 			}
 		}
+
+		
 
 		return $str;
 	}

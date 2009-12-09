@@ -414,7 +414,7 @@ function load_data(page) {
 					infoWindowContent += "</td></tr></table></td></tr>";
 					infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
 					if( getForeignAddress(cache_wp)=="" )
-						infoWindowContent += "<font size=\"0\"><a href=\"cachemap2.php?lat="+document.getElementById("lat").value+"&lon="+document.getElementById("lon").value+"&cacheid="+cache_id+"&print_list=<?php echo $yn;?>&inputZoom="+document.getElementById("inputZoom").value+"\"><?php echo ($yn=='y'?tr('add_to'):$language[$lang]['remove_from']);?> {to_print_list}</a></font>";
+						infoWindowContent += "<font size=\"0\"><a href=\"cachemap2.php?lat="+document.getElementById("lat").value+"&lon="+document.getElementById("lon").value+"&cacheid="+cache_id+"&print_list=<?php echo $yn;?>&inputZoom="+document.getElementById("inputZoom").value+"\"><?php echo ($yn=='y'?tr('add_to'):tr('remove_from'));?> {to_print_list}</a></font>";
 					infoWindowContent += "</td></tr></table></td></tr>";
 					infoWindowContent += "</table>";
 			
