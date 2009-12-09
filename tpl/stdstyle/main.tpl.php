@@ -239,4 +239,3 @@ function chname( newName )
 		</div>
 </body>
 </html>
-

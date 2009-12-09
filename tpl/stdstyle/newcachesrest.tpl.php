@@ -4,4 +4,3 @@
 	//include ($dynstylepath . "newcachesrest.tpl.php");
 	include ("tpl/stdstyle/html/newcachesrest.tpl.php");
 ?>
-

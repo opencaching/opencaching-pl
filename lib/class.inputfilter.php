@@ -567,4 +567,3 @@ class InputFilter
 }
 
 ?>
-

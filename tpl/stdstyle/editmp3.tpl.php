@@ -82,4 +82,3 @@ function checkForm()
 	</tr>
   </table>
 </form>
-

@@ -224,4 +224,3 @@ function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoile
 }
 
 ?>
-

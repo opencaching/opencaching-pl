@@ -33,4 +33,3 @@ tpl_set_var('htmlheaders', '<link rel="stylesheet" href="tpl/stdstyle/css/commun
 tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
 
 ?>
-

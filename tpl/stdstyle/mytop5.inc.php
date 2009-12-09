@@ -23,4 +23,3 @@
 	$bgcolor1 = '#eeeeee';
 	$bgcolor2 = '#e0e0e0';
 ?>
-

@@ -37,4 +37,3 @@
 
 	$rating_picture = '<img src="images/rating-star.png" alt="Rekomendacja" /> '
 ?>
-

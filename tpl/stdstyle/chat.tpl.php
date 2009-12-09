@@ -35,4 +35,3 @@ DrawCounter();
 			<td class="row1" align="center" valign="middle" rowspan="4"><iframe bgcolor="#000033" src="http://forum.opencaching.pl/shoutbox.php" width="100%" height="500" border="2"></iframe></td>
 			</tr>
 			</table>
-

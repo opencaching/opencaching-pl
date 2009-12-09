@@ -30,6 +30,9 @@ session_start();
 
  ****************************************************************************/
 
+
+
+
 	// we are in HTML-mode ... maybe plain (for CLI scripts)
 	global $interface_output;
 	global $menu;

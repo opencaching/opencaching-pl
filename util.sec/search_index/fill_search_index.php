@@ -16,4 +16,3 @@
 
 	ftsearch_refresh();
 ?>
-

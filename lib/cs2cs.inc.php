@@ -189,4 +189,3 @@ function cs2cs_gk($lat, $lon) {
 
 
 ?>
-

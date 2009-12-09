@@ -44,4 +44,3 @@ a znalaz³by taki pojemnik, ¿eby go nie wyrzuci³.</p>
 		</td>
 	</tr>
 </table>
-

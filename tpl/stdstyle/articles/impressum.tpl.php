@@ -49,5 +49,3 @@ z pewnymi wyjątkami, gdzie przytoczony jest autor. Za te imienne wkłady odpowi
 4. W przypadku niemożności polubownego rostrzygnięcia sporu Rada Rejsu ma prawo zawiesić czasowo sporną skrzynkę<br>
 5. Decyzje Rada Rejsu zapadają zwykłą większością głosów i są ostateczne. <br>
 </p>
-
-

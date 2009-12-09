@@ -105,4 +105,3 @@ if ($usr || !$hide_coords){ echo "
 		</td>
 	</tr>
 </table>"; } ?>
-

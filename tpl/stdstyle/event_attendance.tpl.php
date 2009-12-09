@@ -41,4 +41,3 @@
 		{attendants}
 	</div>
 </p>
-

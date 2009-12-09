@@ -97,4 +97,3 @@ if (mysql_num_rows($rs) == 0)
 	}
 */
 ?>
-

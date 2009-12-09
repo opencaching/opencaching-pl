@@ -29,4 +29,3 @@ jest wykaz chętnych zapisanych na to wydarzenie w LOGu
 <li>Skrzynki które posiadają hasło do wpisu do LOGu teraz to hasło jest wymagane tylko do wpisu typu ZNALEZIONA, inne opcje wpisu nie wymagaja hasła.
 </ul>
 <p>oraz poprawiono wiele błędów kodu PHP</p>
-

@@ -855,4 +855,3 @@ function switchCat2()
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
 </form>
-

@@ -32,4 +32,3 @@ Możliwe przyczyny:</h1>
 <li>Skrzynka jeszcze nie została opublikowana</li>
 <li>Skrzynka została zawieszona przez OC Team</li>
 </ul>
-

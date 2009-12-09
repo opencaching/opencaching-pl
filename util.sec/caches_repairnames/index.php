@@ -65,4 +65,3 @@
 	}
 	mysql_free_result($rs);
 ?>
-

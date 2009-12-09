@@ -25,4 +25,3 @@
 <tr><td colspan="4" align="center"><p>Ostatnia aktualizacja 10.06.2006</p></td></tr>
 
 </table>
-

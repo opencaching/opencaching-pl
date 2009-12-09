@@ -16,4 +16,3 @@
 	$message_title_wrongext = 'Niepoprawny typ obrazka';
 	$message_wrongext = 'Wysłany plik ma niedozwolony format. Dozwolone formaty to BMP, GIF, PNG i JPG - dla zdjęć zalecany JPG. Dopuszczalna wielkość pliku to 100 KB. Zalecana rozdzielczość 480 Pixel szerokość 360 Pixel wysokość.';
 ?>
-

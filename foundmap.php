@@ -7,5 +7,3 @@ tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=ap
 
 tpl_BuildTemplate(); 
 ?>
-
-

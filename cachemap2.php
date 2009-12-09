@@ -323,5 +323,3 @@ $get_userid = strip_tags($_REQUEST['userid']);
 	tpl_BuildTemplate(); 
 }
 ?>
-
-

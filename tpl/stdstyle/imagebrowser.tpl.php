@@ -33,4 +33,3 @@
 </table>
 <p><input type="checkbox" id="insertthumb" style="border:0;" /> <label for="insertthumb">Podgląd obrazka</label></p>
 <a href="javascript:CancelSelect();"><img border="0" height="16px" width="16px" src="tpl/stdstyle/images/log/16x16-stop.png" alt="" /></a> <a href="javascript:CancelSelect();">Przerwij</a>
-

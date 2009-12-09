@@ -956,4 +956,3 @@ function mnu_EchoQuicklinks($selmenuitem)
 	}
 }
 ?>
-

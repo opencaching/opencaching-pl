@@ -60,4 +60,3 @@
 	<Folder>
 		<Name>Geocaches (Opencaching) PL</Name>
 		<Open>0</Open>
-

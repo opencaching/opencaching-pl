@@ -85,4 +85,3 @@ $clearFakeVotes = new ClearFakeVotes();
 $clearFakeVotes->run();
 
 ?>
-

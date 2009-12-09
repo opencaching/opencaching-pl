@@ -57,5 +57,3 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 <h1>Polska wersja OpenCaching</h1>
 <p>Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldemar Ogonowski (sp2ong) + duża pomoc kolegów którzy brali udział w testowaniu<br></p>
 
-
-

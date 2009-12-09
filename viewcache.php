@@ -1213,4 +1213,3 @@ tpl_set_var('bodyMod', '');
 
 	tpl_BuildTemplate();
 ?>
-

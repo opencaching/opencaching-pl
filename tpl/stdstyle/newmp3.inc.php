@@ -16,4 +16,3 @@
 	$message_title_wrongext = 'Niepoprawny typ pliku';
 	$message_wrongext = 'Wysłany plik ma niedozwolony format. Dozwolone format to MP3. Zalecana jakość MONO 22kHz';
 ?>
-

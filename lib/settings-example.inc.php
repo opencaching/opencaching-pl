@@ -162,4 +162,3 @@
   $cachemap_url = 'images/cachemaps/';
   $cachemap_dir = $rootpath . $cachemap_url;
 ?>
-

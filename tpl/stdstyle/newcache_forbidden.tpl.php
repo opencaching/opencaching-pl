@@ -73,4 +73,3 @@
 	</tr>
 	<tr><td class="spacer"></td></tr>
 </table>
-

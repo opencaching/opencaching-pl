@@ -276,4 +276,3 @@
 	</tr>
 	{viewlogs_end}
 </table>
-

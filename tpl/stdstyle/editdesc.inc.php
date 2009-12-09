@@ -37,4 +37,3 @@
 
 	$submit = 'Wyślij';
 ?>
-

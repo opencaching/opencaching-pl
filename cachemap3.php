@@ -329,5 +329,3 @@ else
 	tpl_BuildTemplate(); 
 }
 ?>
-
-

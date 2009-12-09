@@ -1859,4 +1859,3 @@ function outputLocidSelectionForm($locSql, $urlparams)
 	exit;
 }
 ?>
-

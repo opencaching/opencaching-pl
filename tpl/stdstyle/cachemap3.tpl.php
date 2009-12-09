@@ -364,4 +364,3 @@
 			onClickFunc(tlo, new GLatLng({coords}));
 	}
 </script>
-

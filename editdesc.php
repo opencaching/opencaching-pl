@@ -279,4 +279,3 @@
 	//make the template and send it out
 	tpl_BuildTemplate();
 ?>
-

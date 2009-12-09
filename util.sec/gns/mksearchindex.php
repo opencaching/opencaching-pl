@@ -75,4 +75,3 @@ function nonalpha($str)
 	return false;
 }
 ?>
-

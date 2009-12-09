@@ -588,4 +588,3 @@ else
 <?php
 } else echo tr('cachemap_must_login');
 ?>
-

@@ -16,4 +16,3 @@ Wzór etykietki do GeoLutina z wersj± jêzyka polskiego, która jest dostêpna w for
 		</td>
 	</tr>
 </table>
-

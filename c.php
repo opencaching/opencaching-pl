@@ -16,4 +16,3 @@ $test2 = GMapTile::fromTileCoord($p->x, $p->y, $zoom);
 var_dump($test2);
 
 ?>
-

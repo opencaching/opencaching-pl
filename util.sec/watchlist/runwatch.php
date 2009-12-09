@@ -304,4 +304,3 @@ function process_log_watch($user_id, $log_id)
 																		'&1', '&2', 1, NOW(), '&3', 2)", $user_id, $log_id, $watchtext);
 }
 ?>
-

@@ -320,4 +320,3 @@ echo	"<tr>
 	</tr>
 	{viewlogs_end}
 </table>
-
