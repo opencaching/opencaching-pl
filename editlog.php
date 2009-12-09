@@ -551,7 +551,7 @@
 			{
 				// no such log or log marked as deleted
 				header('HTTP/1.0 404 not found');
-				include('./komunikaty_bledow/404.html');
+				include('./error_pages/404.html');
 				die();
 			}
 		}
