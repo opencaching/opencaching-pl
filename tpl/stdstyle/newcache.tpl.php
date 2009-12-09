@@ -142,7 +142,7 @@ function toggleAttr(id)
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="" title="{new_cache}" align="middle"/>&nbsp;{new_cache}</div>
 	{general_message}
 	<div class="buffer"></div>
-	<div class="bg-yellow01" style="width:769px;margin:0 0 0 0;border-top:1px solid rgb(54,83,151);border-left:1px solid rgb(54,83,151);border-right:1px solid rgb(54,83,151);border-bottom:1px solid rgb(54,83,151);">
+	<div class="content2-container bg-yellow01" >
 			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{basic_information}</p>
 		</div>
 
@@ -250,7 +250,7 @@ function toggleAttr(id)
 		<td><div class="notice" style="width:500px;height:44px;">{waypoint_other_portal_info}</div><div class="buffer"></div></td>
 	</tr>
 	<tr>
-		<td colspan="2"><div class="bg-white" style="width:769px;margin:0 0 0 0;border-top:1px solid rgb(54,83,151);border-left:1px solid rgb(54,83,151);border-right:1px solid rgb(54,83,151);border-bottom:1px solid rgb(54,83,151);">
+		<td colspan="2"><div class="content2-container bg-yellow02">
 			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{cache_attributes}</p>
 		</div>
 		</td>
@@ -263,7 +263,7 @@ function toggleAttr(id)
 		<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;">{attributes_edit_hint} {additional_attributes_hint} <a href="cache-atr.php" target="_BLANK">{additional_attributes}</a>. {attributes_desc_hint}</div></td></tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td colspan="2"><div class="bg-green01" style="width:769px;margin:0 0 0 0;border-top:1px solid rgb(54,83,151);border-left:1px solid rgb(54,83,151);border-right:1px solid rgb(54,83,151);border-bottom:1px solid rgb(54,83,151);"> 
+		<td colspan="2"><div class="content2-container bg-green01"> 
 			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{description}</p>
 			</div>
 			</td>
@@ -327,7 +327,7 @@ function toggleAttr(id)
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2"><div class="bg-green02" style="width:769px;margin:0 0 0 0;border-top:1px solid rgb(54,83,151);border-left:1px solid rgb(54,83,151);border-right:1px solid rgb(54,83,151);border-bottom:1px solid rgb(54,83,151);">
+		<td colspan="2"><div class="content2-container bg-green02">
 		
 			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0" alt=""/>
 				{other}
