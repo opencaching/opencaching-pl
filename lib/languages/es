@@ -303,7 +303,7 @@ optional opcional
 time_distance_hint El tiempo y la distancia son a menudo vinculadas a las condiciones externas, por lo que si no son capaces de calcular estos datos, escriba en la caja por encima de la congelación.  Estos datos son útiles, por ejemplo, en los casos de tipo <b> multicache </b> y <b> evento </b>. 
 select_one Por favor, elija!
 waypoint_other_portal_info Punto de referencia a partir de otras bases de datos en este cuadro. No hay datos se recogen automáticamente. 
-cache_attributes Atributos de caja
+cache_attributes_label Atributos de caja
 attributes_edit_hint Los atributos se pueden cambiar durante la edición posterior.
 additional_attributes_hint Usted puede agregar atributos adicionales para el nombre del buzón de correo utilizando el formulario 
 additional_attributes Atributos adicionales de la caja

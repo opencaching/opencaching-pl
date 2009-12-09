@@ -299,7 +299,7 @@ optional facultatif
 time_distance_hint Le temps et la distance sont souvent liées a des conditions externes, donc si vous n'etes pas en mesure d'estimer ces données, tapez dans la case au-dessus de zéro.  Ces données sont utiles par exemple dans les cas de type <b> multicache </b> et <b> événement </b>. 
 select_one S'il vous plaît choisir!
 waypoint_other_portal_info Waypoint a partir d'autres bases de données dans cette case. Les données ne sont collectées automatiquement. 
-cache_attributes Zone Attributs
+cache_attributes_label Zone Attributs
 additional_attributes_hint Vous pouvez ajouter des attributs supplémentaires au nom de la boîte aux lettres en utilisant le formulaire 
 additional_attributes D'autres attributs de la boîte
 attributes_desc_hint Lire la <a href='http://wiki.opencaching.pl/index.php/Cache_parameters' target='_blank'> description des attributs OC </a>. 

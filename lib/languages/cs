@@ -303,7 +303,7 @@ optional nepovinné
 time_distance_hint Čas a vzdálenost, jsou často spojeny s vnějším podmínkám, takže pokud si nejste schopni odhadnout tyto údaje, zadejte do kolonky výše mrazu.  Tyto údaje jsou užitečné například v případech typu <b> multicache </b> a <b> události </b>. 
 select_one Prosím vyberte!
 waypoint_other_portal_info Navigační bod z jiných databází v této kolonce. Žádné údaje jsou shromažďovány automaticky. 
-cache_attributes Atributy políčko
+cache_attributes_label Atributy políčko
 attributes_edit_hint Atributy lze měnit v průběhu následných úpravách.
 additional_attributes_hint Můžete přidat další atributy na název schránky pomocí formuláře
 additional_attributes Další atributy políčko

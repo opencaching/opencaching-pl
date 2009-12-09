@@ -303,7 +303,7 @@ optional optional
 time_distance_hint Time and distance to travel often depends on external conditions, so if you are having trouble with estimating this data, you should enter zeros to the fields above. This kind of data is useful for example in <b>multicache</b> or <b>event</b> cache types.
 select_one select one!
 waypoint_other_portal_info Waypoint for this cache in other databases. No data will be automaticly taken.
-cache_attributes Cache attributes
+cache_attributes_label Cache attributes
 attributes_edit_hint Attributes can also be modified later.
 additional_attributes_hint You can add some more attributes to your cache's description with this tool:
 additional_attributes Additional cache attributes

@@ -303,7 +303,7 @@ optional opcjonalnie
 time_distance_hint Czas i odległość zależą często od warunków zęwnetrznych, więc jeśli nie jesteś w stanie oszacować tych danych, wpisz w powyższe pola zera. Więcej informacji znajdziesz w artykule <a href="http://wiki.opencaching.pl/index.php/Parametry_skrzynki" target="_BLANK">"czas i droga"</a>. Dane te przydatne są na przykład przy skrzynkach typu <b>multicache</b> i <b>wydarzenie</b>.
 select_one proszę wybrać!
 waypoint_other_portal_info Waypoint z innych baz danych dla tej skrzynki. Żadne dane nie są pobierane automatycznie.
-cache_attributes Atrybuty skrzynki
+cache_attributes_label Atrybuty skrzynki
 attributes_edit_hint Atrybuty można zmieniać także podczas późniejszej edycji.
 additional_attributes_hint Możesz dołożyć dodatkowe atrybuty do opisu skrzynki korzystając z formularza
 additional_attributes Dodatkowe atrybuty skrzynki
