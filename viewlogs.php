@@ -160,6 +160,8 @@
 				if ($record['text_html'] == 0)
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
 
+				$tmplog_text = tidy_html_description($tmplog_text);
+
 				$tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
 				$tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
 				$tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);

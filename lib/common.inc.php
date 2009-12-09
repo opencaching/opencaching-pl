@@ -1251,4 +1251,13 @@ function fixPlMonth($string)
 	$string = str_ireplace('grudzień', 'grudnia', $string);
 	return $string;
 }
+
+function tidy_html_description($text)
+{
+	$options = array("input-encoding" => "utf8", "output-encoding" => "utf8", "output-xhtml" => true, "doctype" => "omit", "show-body-only" => true, "char-encoding" => "utf8", "quote-ampersand" => true, "quote-nbsp" => true);
+	$tidy =  tidy_parse_string(html_entity_decode($text, ENT_NOQUOTES, "UTF-8"), $options);
+	tidy_clean_repair($tidy);
+	return $tidy;
+}
+
 ?>

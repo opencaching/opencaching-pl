@@ -629,6 +629,9 @@
 			// TODO: UTF-8 compatible str_replace (with arrays)
 			$desc = str_replace($smileytext, $smileyimage, $desc);
 
+			$desc = tidy_html_description($desc);
+
+
 			if ($desc_record['desc_html'] == 0)
 				$desc = help_addHyperlinkToURL($desc);
 			$res = '';
@@ -769,6 +772,8 @@
 
 				if ($record['text_html'] == 0)
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
+
+				$tmplog_text = tidy_html_description($tmplog_text);
 
 				if ($record['picturescount'] > 0)
 				{
