@@ -223,7 +223,7 @@ else
 <!-- End Text Container -->
 <!-- Text container -->
 {geokrety_begin}
-			<div class="content2-container bg-green02">
+			<div class="box-blue bg-green02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/travelbug.png" width="32" height="32" style="vertical-align:middle" border="0" alt="geokrety"/>
 					Geokrety

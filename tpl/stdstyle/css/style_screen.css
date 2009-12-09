@@ -380,7 +380,7 @@ ul.linklist-indent {margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; lis
 /*---------------------------*/
 /* 7.5  Bottom border colors */
 /*---------------------------*/
-.box-blue {width:769px; margin:0 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;}
+.box-blue {width:769px; height: 40px; margin:10 0 0 0;border-top:1px solid blue;border-left:1px solid blue;border-right:1px solid blue;border-bottom:1px solid blue;}
 .line-box {border-bottom: solid 1px rgb(200,200,200); padding-bottom: 7px; margin: 0px 0px 15px 0px;}
 
 .line-white {border-bottom: solid 1px rgb(255,255,255); padding-bottom: 2px; margin: 0px 0px 1px 0px;}
