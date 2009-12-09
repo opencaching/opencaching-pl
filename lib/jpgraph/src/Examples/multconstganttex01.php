@@ -28,3 +28,4 @@ $graph->Add($bar3);
 $graph->Stroke(); 
 
 ?>
+

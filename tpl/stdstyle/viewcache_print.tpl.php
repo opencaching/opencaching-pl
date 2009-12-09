@@ -209,3 +209,4 @@
 	<tr><td class="spacer"><br></td></tr>
 	{logs}
 </table>
+

@@ -62,3 +62,4 @@ $graph->Add($bplot);
 // .. and stroke the graph
 $graph->Stroke();
 ?>
+

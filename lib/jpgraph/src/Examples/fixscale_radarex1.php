@@ -35,3 +35,4 @@ $graph->Add($plot);
 $graph->Stroke();
 
 ?>
+

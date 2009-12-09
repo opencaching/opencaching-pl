@@ -53,3 +53,4 @@ $graph->legend->Pos(0.4,0.95,"center","bottom");
 // Display the graph
 $graph->Stroke();
 ?>
+

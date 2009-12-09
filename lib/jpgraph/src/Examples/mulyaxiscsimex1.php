@@ -73,3 +73,4 @@ $graph->AddY(1,$lp3);
 // to retrieve the image.
 $graph->StrokeCSIM('auto');
 ?>
+

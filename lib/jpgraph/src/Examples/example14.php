@@ -35,3 +35,4 @@ $graph->xaxis->SetTickLabels($datax);
 // Display the graph
 $graph->Stroke();
 ?>
+

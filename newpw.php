@@ -55,15 +55,15 @@
 		tpl_set_var('changepw', $changepw);
 		tpl_set_var('getcode', $getcode);
 		tpl_set_var('reset', $reset);
-		tpl_set_var('step1', $language[$lang]['step1']);
-		tpl_set_var('step2', $language[$lang]['step2']);	
-		tpl_set_var('new_password_msg1', $language[$lang]['new_password_msg1']);
-		tpl_set_var('new_password_msg2', $language[$lang]['new_password_msg2']);
-		tpl_set_var('security_code', $language[$lang]['security_code']);
-		tpl_set_var('change_password_msg1', $language[$lang]['change_password_msg1']);
-		tpl_set_var('new_password', $language[$lang]['new_password']);		
-		tpl_set_var('password_confirm', $language[$lang]['password_confirm']);
-		tpl_set_var('email_address', $language[$lang]['email_address']);
+		tpl_set_var('step1', tr('step1'));
+		tpl_set_var('step2', tr('step2'));	
+		tpl_set_var('new_password_msg1', tr('new_password_msg1'));
+		tpl_set_var('new_password_msg2', tr('new_password_msg2'));
+		tpl_set_var('security_code', tr('security_code'));
+		tpl_set_var('change_password_msg1', tr('change_password_msg1'));
+		tpl_set_var('new_password', tr('new_password'));		
+		tpl_set_var('password_confirm', tr('password_confirm'));
+		tpl_set_var('email_address', tr('email_address'));
 		
 		if (isset($_POST['submit_getcode']) || isset($_POST['submit_changepw']))
 		{

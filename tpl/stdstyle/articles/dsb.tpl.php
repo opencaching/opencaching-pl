@@ -36,3 +36,4 @@ Jest możliwa tylko deaktywacja konta.
 Będą wtedy usunięte wszystkie dane e-mail z profilu ale nazwa użytkownika zostanie zachowana. Jeśli chcesz deaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail, a deaktywujemy Twoje konto.
 
 <p>W przypadkach niejasnych prosimy o kontakt ocpl @ opencaching.pl Dziękujemy.</p>
+

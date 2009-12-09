@@ -44,36 +44,36 @@
 		else
 		{
 			tpl_set_var('desc_updated', '');
-			tpl_set_var('your_data', $language[$lang]['your_data']);
-			tpl_set_var('data_in_profile', $language[$lang]['data_in_profile']);
-			tpl_set_var('username_label', $language[$lang]['username_label']);
-			tpl_set_var('gray_field_is_hidden', $language[$lang]['gray_field_is_hidden']);
-			tpl_set_var('email_address', $language[$lang]['email_address']);
-			tpl_set_var('coordinates', $language[$lang]['coordinates']);
-			tpl_set_var('notification', $language[$lang]['notification']);
-			tpl_set_var('country_label', $language[$lang]['country_label']);
-			tpl_set_var('other', $language[$lang]['other']);
-			tpl_set_var('registered_since_label', $language[$lang]['registered_since_label']);
-			tpl_set_var('statpic_label', $language[$lang]['statpic_label']);
-			tpl_set_var('my_description', $language[$lang]['my_description']);
-			tpl_set_var('html_statpic_link', $language[$lang]['html_statpic_link']);
-			tpl_set_var('bbcode_statpic', $language[$lang]['bbcode_statpic']);
-			tpl_set_var('change_account_data', $language[$lang]['change_account_data']);
-			tpl_set_var('from_home_coords', $language[$lang]['from_home_coords']);
-			tpl_set_var('notify_new_caches_radius', $language[$lang]['notify_new_caches_radius']);
-			tpl_set_var('radius_hint', $language[$lang]['radius_hint']);
-			tpl_set_var('no_auto_logout', $language[$lang]['no_auto_logout']);
-			tpl_set_var('hide_html_editor', $language[$lang]['hide_html_editor']);
-			tpl_set_var('no_auto_logout_warning', $language[$lang]['no_auto_logout_warning']);
-			tpl_set_var('pmr_message', $language[$lang]['pmr_message']);
-			tpl_set_var('change', $language[$lang]['change']);
-			tpl_set_var('reset', $language[$lang]['reset']);
+			tpl_set_var('your_data', tr('your_data'));
+			tpl_set_var('data_in_profile', tr('data_in_profile'));
+			tpl_set_var('username_label', tr('username_label'));
+			tpl_set_var('gray_field_is_hidden', tr('gray_field_is_hidden'));
+			tpl_set_var('email_address', tr('email_address'));
+			tpl_set_var('coordinates', tr('coordinates'));
+			tpl_set_var('notification', tr('notification'));
+			tpl_set_var('country_label', tr('country_label'));
+			tpl_set_var('other', tr('other'));
+			tpl_set_var('registered_since_label', tr('registered_since_label'));
+			tpl_set_var('statpic_label', tr('statpic_label'));
+			tpl_set_var('my_description', tr('my_description'));
+			tpl_set_var('html_statpic_link', tr('html_statpic_link'));
+			tpl_set_var('bbcode_statpic', tr('bbcode_statpic'));
+			tpl_set_var('change_account_data', tr('change_account_data'));
+			tpl_set_var('from_home_coords', tr('from_home_coords'));
+			tpl_set_var('notify_new_caches_radius', tr('notify_new_caches_radius'));
+			tpl_set_var('radius_hint', tr('radius_hint'));
+			tpl_set_var('no_auto_logout', tr('no_auto_logout'));
+			tpl_set_var('hide_html_editor', tr('hide_html_editor'));
+			tpl_set_var('no_auto_logout_warning', tr('no_auto_logout_warning'));
+			tpl_set_var('pmr_message', tr('pmr_message'));
+			tpl_set_var('change', tr('change'));
+			tpl_set_var('reset', tr('reset'));
 			
 			if( isset($_POST['description']) )
 			{
 				$sql = "UPDATE user SET description = '".strip_tags(sql_escape($_POST['description']))."' WHERE user_id='".sql_escape($usr['userid'])."'";
 				@mysql_query($sql);
-				tpl_set_var('desc_updated',"<font color='green'>".$language[$lang]['desc_updated']."</font>");
+				tpl_set_var('desc_updated',"<font color='green'>".tr('desc_updated')."</font>");
 			
 			}
 			if( isset($_POST['submit']) )
@@ -86,11 +86,11 @@
 			$userinfo = @mysql_fetch_array($query);
 			$description = $userinfo['description'];
 			$bulletin = $userinfo['get_bulletin'];
-			tpl_set_var('bulletin_label', $bulletin==1?($language[$lang]['bulletin_label_yes']):($language[$lang]['bulletin_label_no']));
+			tpl_set_var('bulletin_label', $bulletin==1?(tr('bulletin_label_yes')):($language[$lang]['bulletin_label_no']));
 			tpl_set_var('bulletin_value', $bulletin);
-			tpl_set_var('bulletin', $language[$lang]['bulletin']);
+			tpl_set_var('bulletin', tr('bulletin'));
 			tpl_set_var('is_checked', $bulletin==1?("checked"):(""));
-			tpl_set_var('get_bulletin', $language[$lang]['get_bulletin']);
+			tpl_set_var('get_bulletin', tr('get_bulletin'));
 			tpl_set_var('description',$description);
 
 			$tplname = 'myprofile';
@@ -109,7 +109,7 @@
 			tpl_set_var('coords', htmlspecialchars(help_latToDegreeStr($record['latitude']), ENT_COMPAT, 'UTF-8') . '<br>' . htmlspecialchars(help_lonToDegreeStr($record['longitude']), ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('registered_since', htmlspecialchars(strftime($dateformat, strtotime($record['date_created'])), ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('notify_radius', htmlspecialchars($record['notify_radius'] + 0, ENT_COMPAT, 'UTF-8'));
-			tpl_set_var('ozi_path_label',$language[$lang]['ozi_path_label']);
+			tpl_set_var('ozi_path_label',tr('ozi_path_label'));
 			if($record['notify_radius'] + 0 > 0)
 			{
 				tpl_set_var('notify', mb_ereg_replace('{radius}', $record['notify_radius'] + 0, $notify_radius_message));
@@ -583,7 +583,7 @@
 				tpl_set_var('ozi_path', strip_tags($_POST['ozi_path']));
 			else
 				tpl_set_var('ozi_path', $ozi_path);
-			tpl_set_var('ozi_path_info', $language[$lang]['ozi_path_info']);
+			tpl_set_var('ozi_path_info', tr('ozi_path_info'));
 		}
 	}
 

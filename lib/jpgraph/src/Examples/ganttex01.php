@@ -38,3 +38,4 @@ $graph->Add($activity);
 // ... and display it
 $graph->Stroke();
 ?>
+

@@ -46,3 +46,4 @@ $graph->AddY2($y2bplot);
 // .. and finally stroke the image back to browser
 $graph->Stroke();
 ?>
+

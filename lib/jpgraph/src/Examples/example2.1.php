@@ -28,3 +28,4 @@ $graph->yaxis->title->Set("Y-title");
 // Display the graph
 $graph->Stroke();
 ?>
+

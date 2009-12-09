@@ -50,3 +50,4 @@ z pewnymi wyjątkami, gdzie przytoczony jest autor. Za te imienne wkłady odpowi
 5. Decyzje Rada Rejsu zapadają zwykłą większością głosów i są ostateczne. <br>
 </p>
 
+

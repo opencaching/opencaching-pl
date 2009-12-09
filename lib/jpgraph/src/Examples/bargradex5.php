@@ -50,3 +50,4 @@ $graph->xaxis->title->SetFont(FF_VERDANA,FS_BOLD,10);
 // Finally send the graph to the browser
 $graph->Stroke();
 ?>
+

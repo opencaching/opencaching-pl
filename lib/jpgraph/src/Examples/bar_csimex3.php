@@ -86,3 +86,4 @@ $graph->Add($abplot);
 $graph->StrokeCSIM('bar_csimex3.php','bar_csimex3');
 
 ?>
+

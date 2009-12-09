@@ -60,3 +60,4 @@ $graph->xaxis->title->SetCSIMTarget('#55','X-axis title');
 $graph->StrokeCSIM('titlecsimex01.php');
 
 ?>
+

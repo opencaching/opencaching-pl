@@ -25,12 +25,12 @@
 
  ****************************************************************************/
 
- $change_data = $language[$lang]['change'];
- $allcountries = $language[$lang]['show_all'];
- $no_answer = $language[$lang]['no_choice'];
+ $change_data = tr('change');
+ $allcountries = tr('show_all');
+ $no_answer = tr('no_choice');
 
- $error_username_not_ok = '<span class="errormsg">'.$language[$lang]['username_incorrect'].'</span>';
- $error_username_exists = '<span class="errormsg">'.$language[$lang]['username_exists'].'</span>';
- $error_coords_not_ok = '<span class="errormsg">'.$language[$lang]['bad_coordinates'].'</span>';
- $error_radius_not_ok = '<span class="errormsg">'.$language[$lang]['bad_radius'].'</span>';
+ $error_username_not_ok = '<span class="errormsg">'.tr('username_incorrect').'</span>';
+ $error_username_exists = '<span class="errormsg">'.tr('username_exists').'</span>';
+ $error_coords_not_ok = '<span class="errormsg">'.tr('bad_coordinates').'</span>';
+ $error_radius_not_ok = '<span class="errormsg">'.tr('bad_radius').'</span>';
 ?>

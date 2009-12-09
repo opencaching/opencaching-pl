@@ -54,22 +54,22 @@
 
 // Languages
 
-			tpl_set_var('email_address', $language[$lang]['email_address']);
-			tpl_set_var('user', $language[$lang]['user']);
-			tpl_set_var('password', $language[$lang]['password']);
-			tpl_set_var('country_label', $language[$lang]['country_label']);
-			tpl_set_var('registration', $language[$lang]['registration']);
+			tpl_set_var('email_address', tr('email_address'));
+			tpl_set_var('user', tr('user'));
+			tpl_set_var('password', tr('password'));
+			tpl_set_var('country_label', tr('country_label'));
+			tpl_set_var('registration', tr('registration'));
 
-			tpl_set_var('register_new', $language[$lang]['register_new']);
-			tpl_set_var('password_confirm', $language[$lang]['password_confirm']);
-			tpl_set_var('register_msg1', $language[$lang]['register_msg1']);
-			tpl_set_var('register_msg2', $language[$lang]['register_msg2']);
-			tpl_set_var('register_msg3', $language[$lang]['register_msg3']);
-			tpl_set_var('register_msg4', $language[$lang]['register_msg4']);
-			tpl_set_var('register_msg5', $language[$lang]['register_msg5']);
-			tpl_set_var('register_msg6', $language[$lang]['register_msg6']);
+			tpl_set_var('register_new', tr('register_new'));
+			tpl_set_var('password_confirm', tr('password_confirm'));
+			tpl_set_var('register_msg1', tr('register_msg1'));
+			tpl_set_var('register_msg2', tr('register_msg2'));
+			tpl_set_var('register_msg3', tr('register_msg3'));
+			tpl_set_var('register_msg4', tr('register_msg4'));
+			tpl_set_var('register_msg5', tr('register_msg5'));
+			tpl_set_var('register_msg6', tr('register_msg6'));
 
-//			tpl_set_var('no_answer', $language[$lang]['no_answer']);
+//			tpl_set_var('no_answer', tr('no_answer'));
 
 
 		if (isset($_POST['submit']) || isset($_POST['show_all_countries_submit']))
@@ -258,3 +258,4 @@
 	//make the template and send it out
 	tpl_BuildTemplate();
 ?>
+

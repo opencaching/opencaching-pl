@@ -16,3 +16,4 @@
 
 	ftsearch_refresh();
 ?>
+

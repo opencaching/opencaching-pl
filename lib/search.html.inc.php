@@ -147,8 +147,8 @@
 	$tmpline = str_replace('{ratpic}', $ratingimg, $tmpline);
 $login=0;
 	if ($usr == false ) {
-	$tmpline = str_replace('{long}',$language[$lang]['please_login'], $tmpline);
-	$tmpline = str_replace('{lat}',$language[$lang]['to_see_coords'], $tmpline);
+	$tmpline = str_replace('{long}',tr('please_login'), $tmpline);
+	$tmpline = str_replace('{lat}',tr('to_see_coords'), $tmpline);
 } else {
 	$tmpline = str_replace('{long}', htmlspecialchars(help_lonToDegreeStr($caches_record['longitude'])), $tmpline);
 	$tmpline = str_replace('{lat}', htmlspecialchars(help_latToDegreeStr($caches_record['latitude'])), $tmpline);

@@ -23,3 +23,4 @@ header ("Content-type: image/png");
 ImagePng ($img);
 
 ?>
+

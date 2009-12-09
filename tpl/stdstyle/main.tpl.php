@@ -172,7 +172,7 @@ function chname( newName )
 					else
 						$menu[$mainmenuidx]['submenu'][$registeridx]['visible'] = true;
 					echo '<ul>';
-					echo '<li class="title">'.$language[$lang]['main_menu'].'</li>';
+					echo '<li class="title">'.tr('main_menu').'</li>';
 					mnu_EchoSubMenu($menu[$mainmenuidx]['submenu'], $tplname, 1, false);
 					echo '</ul>';
 				}
@@ -239,3 +239,4 @@ function chname( newName )
 		</div>
 </body>
 </html>
+

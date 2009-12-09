@@ -193,12 +193,12 @@
 				}
 				tpl_set_var('rating_message', mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl));
 				
-			tpl_set_var('post_new_log', $language[$lang]['post_new_log']);
-			tpl_set_var('type_of_log', $language[$lang]['type_of_log']);
-			tpl_set_var('date_logged', $language[$lang]['date_logged']);
-			tpl_set_var('comments_log', $language[$lang]['comments_log']);
-			tpl_set_var('submit_log_entry', $language[$lang]['submit_log_entry']);
-			tpl_set_var('listed_other', $language[$lang]['listed_other']);
+			tpl_set_var('post_new_log', tr('post_new_log'));
+			tpl_set_var('type_of_log', tr('type_of_log'));
+			tpl_set_var('date_logged', tr('date_logged'));
+			tpl_set_var('comments_log', tr('comments_log'));
+			tpl_set_var('submit_log_entry', tr('submit_log_entry'));
+			tpl_set_var('listed_other', tr('listed_other'));
 				
 				// enable backscoring
 				$sql = "SELECT count(*) FROM scores WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(intval($cache_id))."'";
@@ -225,8 +225,8 @@
 					for( $score_radio=$MIN_SCORE;$score_radio<=$MAX_SCORE;$score_radio++)
 						$score .= "<td width='14%' align='center'><label style='color:#ffffff;font-weight:bold;font-size:12px;' for='r$score_radio'>$score_radio</label>";
 					$score .= "</tr></table>";
-					$score .= "<input style='border-style:none;background : transparent; color : black' type='radio' name='r' id='r-10' value='-10'><label for='r-10'>".$language[$lang]['do_not_rate']."</label>";
-					$score_header = $language[$lang]['rate_cache'];
+					$score .= "<input style='border-style:none;background : transparent; color : black' type='radio' name='r' id='r-10' value='-10'><label for='r-10'>".tr('do_not_rate')."</label>";
+					$score_header = tr('rate_cache');
 					$display = "block";
 				}
 				else
@@ -242,7 +242,7 @@
 				// check if geokret is in this cache
 				if( isGeokretInCache($cache_id) )
 				{
-					tpl_set_var('log_geokret', "<br><b>".$language[$lang]['geokret_log']." <a href='http://geokrety.org/ruchy.php'>geokrety.org</a></b>");
+					tpl_set_var('log_geokret', "<br><b>".tr('geokret_log')." <a href='http://geokrety.org/ruchy.php'>geokrety.org</a></b>");
 				}
 				else
 					tpl_set_var('log_geokret', "");

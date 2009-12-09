@@ -97,3 +97,4 @@ $graph->Add($bplot);
 
 $graph->Stroke();
 ?>
+

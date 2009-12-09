@@ -34,8 +34,9 @@ function available_languages()
 
 function tr($str)
 {
-	if($language[$lang])
-		return $language[$lang];
+	global $language, $lang;
+	if($language[$lang][$str])
+		return $language[$lang][$str];
 	else
 		return $str . "-todo";
 }

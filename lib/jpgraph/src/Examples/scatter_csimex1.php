@@ -42,3 +42,4 @@ $graph->Add($sp1);
 $graph->StrokeCSIM('scatter_csimex1.php');
 
 ?>
+

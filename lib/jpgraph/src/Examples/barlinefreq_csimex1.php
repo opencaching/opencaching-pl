@@ -98,3 +98,4 @@ $graph->Add($bplot);
 $graph->StrokeCSIM('barlinefreq_csimex1.php');
 
 ?>
+

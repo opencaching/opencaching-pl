@@ -414,7 +414,7 @@ function load_data(page) {
 					infoWindowContent += "</td></tr></table></td></tr>";
 					infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
 					if( getForeignAddress(cache_wp)=="" )
-						infoWindowContent += "<font size=\"0\"><a href=\"cachemap2.php?lat="+document.getElementById("lat").value+"&lon="+document.getElementById("lon").value+"&cacheid="+cache_id+"&print_list=<?php echo $yn;?>&inputZoom="+document.getElementById("inputZoom").value+"\"><?php echo ($yn=='y'?$language[$lang]['add_to']:$language[$lang]['remove_from']);?> {to_print_list}</a></font>";
+						infoWindowContent += "<font size=\"0\"><a href=\"cachemap2.php?lat="+document.getElementById("lat").value+"&lon="+document.getElementById("lon").value+"&cacheid="+cache_id+"&print_list=<?php echo $yn;?>&inputZoom="+document.getElementById("inputZoom").value+"\"><?php echo ($yn=='y'?tr('add_to'):$language[$lang]['remove_from']);?> {to_print_list}</a></font>";
 					infoWindowContent += "</td></tr></table></td></tr>";
 					infoWindowContent += "</table>";
 			
@@ -497,7 +497,7 @@ else
 {user_map} <b>{username}</b> | {current_zoom}: <input type="text" id="zoom" size="2" disabled>
 	</td>
 	<td align="right">
-		<?php echo (!isset($_GET['print'])?('[<a href="cachemap2.php?print=y">'.$language[$lang]['printer_friendly'].'</a>]'):'');?>
+		<?php echo (!isset($_GET['print'])?('[<a href="cachemap2.php?print=y">'.tr('printer_friendly').'</a>]'):'');?>
 	</td>
 </tr>
 	<td colspan="2">
@@ -586,5 +586,6 @@ else
 </tr>
 </table>
 <?php
-} else echo $language[$lang]['cachemap_must_login'];
+} else echo tr('cachemap_must_login');
 ?>
+

@@ -39,3 +39,4 @@ $graph->title->Set('BAND_VLINE');
 
 $graph->Stroke();
 ?>
+

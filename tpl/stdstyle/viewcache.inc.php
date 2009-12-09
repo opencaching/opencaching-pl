@@ -49,19 +49,19 @@
 
  // $short_desc_title = 'Charakterisierung: ';
 
- $function_log = "<li><a href='log.php?cacheid={cacheid}'>".$language[$lang]['write_to_log']."</a></li>";
+ $function_log = "<li><a href='log.php?cacheid={cacheid}'>".tr('write_to_log')."</a></li>";
 
- $function_edit = "<li'><a href='editcache.php?cacheid={cacheid}'>".$language[$lang]['edit']."</a></li>";
+ $function_edit = "<li'><a href='editcache.php?cacheid={cacheid}'>".tr('edit')."</a></li>";
 
- $function_watch = "<li><a href='watchcache.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".$language[$lang]['watch']."</a></li>";
+ $function_watch = "<li><a href='watchcache.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".tr('watch')."</a></li>";
 
- $function_watch_not = "<li><a href='removewatch.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".$language[$lang]['watch_not']."</a></li>";
+ $function_watch_not = "<li><a href='removewatch.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".tr('watch_not')."</a></li>";
 
-$function_ignore = "<li><a href='addignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".$language[$lang]['ignore']."</a></li>";
+$function_ignore = "<li><a href='addignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".tr('ignore')."</a></li>";
 
-$function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".$language[$lang]['ignore_not']."</a></li>";
+$function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".tr('ignore_not')."</a></li>";
 
- $decrypt_link = '<span style="font-weight:400"><a href="viewcache.php?cacheid={cacheid_urlencode}&amp;nocrypt=1&amp;desclang={desclang}'.  $linkargs.'">'.$language[$lang]['decrypt'].'</a></span>';
+ $decrypt_link = '<span style="font-weight:400"><a href="viewcache.php?cacheid={cacheid_urlencode}&amp;nocrypt=1&amp;desclang={desclang}'.  $linkargs.'">'.tr('decrypt').'</a></span>';
 
 //  $logtype_found = 'den Cache gefunden';
 //  $logtype_notfound = 'den Cache nicht gefunden';
@@ -76,38 +76,38 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
  $pictures = '<p>{picturelines}</p>';
 
  $logpictureline = '<a href="{link}" title="{title}" rel="lytebox[vacation]">{title}</a>{functions}<br />';
- $logpictures = '<tr><td><b>'.$language[$lang]['pictures_included'].':</b><br />{lines}</td></tr>';
+ $logpictures = '<tr><td><b>'.tr('pictures_included').':</b><br />{lines}</td></tr>';
 
  //$cache_watchers = '<br/>Dieser Cache wird von {watcher} Opencaching.de Nutzern beobachtet.';
- $cache_log_pw = '<br/>'.$language[$lang]['password_required'];
+ $cache_log_pw = '<br/>'.tr('password_required');
 
- $viewlogs_last = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="tpl/stdstyle/images/action/16x16-showall.png" width="16" height="16" align="middle" border="0" align="left"/></a>&nbsp;<a href="'.(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') .'.php?cacheid={cacheid_urlencode}&amp;showlogs=4'.$linkargs.'">'.$language[$lang]['last_log_entries'].'</a>';
+ $viewlogs_last = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="tpl/stdstyle/images/action/16x16-showall.png" width="16" height="16" align="middle" border="0" align="left"/></a>&nbsp;<a href="'.(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') .'.php?cacheid={cacheid_urlencode}&amp;showlogs=4'.$linkargs.'">'.tr('last_log_entries').'</a>';
 
  $viewlogs = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="tpl/stdstyle/images/action/16x16-showall.png" width="16" height="16" align="middle" border="0" align="left"/></a>&nbsp;<a href="'.(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') .'.php?cacheid={cacheid_urlencode}'.$linkargs.'&amp;showlogsall=y">Wszystkie wpisy do logu</a>';
 
 
- $difficulty_text_diff = $language[$lang]['task_difficulty'].": %01.1f ".$language[$lang]['out_of']." 5.0";
- $difficulty_text_terr = $language[$lang]['terrain_difficulty'].": %01.1f ".$language[$lang]['out_of']." 5.0";
+ $difficulty_text_diff = tr('task_difficulty').": %01.1f ".$language[$lang]['out_of']." 5.0";
+ $difficulty_text_terr = tr('terrain_difficulty').": %01.1f ".$language[$lang]['out_of']." 5.0";
 
- $viewtext_on = $language[$lang]['enter_text'];
- $viewtext_off = $language[$lang]['enter_text_error'];
+ $viewtext_on = tr('enter_text');
+ $viewtext_off = tr('enter_text_error');
 
- $listed_only_oc = $language[$lang]['only_these'];
+ $listed_only_oc = tr('only_these');
 
  $default_lang = 'PL';
 
- $event_attendance_list = '<br /><b><font color="blue"><a href="#" onclick="javascript:window.open(\'event_attendance.php?id={id}&amp;popup=y\',\'Lista_zapisanych_uczestnikow\',\'width=320,height=440,resizable=no,scrollbars=1\')">'.$language[$lang]['list_of_participants'].'</a></b></font>';
+ $event_attendance_list = '<br /><b><font color="blue"><a href="#" onclick="javascript:window.open(\'event_attendance.php?id={id}&amp;popup=y\',\'Lista_zapisanych_uczestnikow\',\'width=320,height=440,resizable=no,scrollbars=1\')">'.tr('list_of_participants').'</a></b></font>';
 # $event_attendance_list = '<br /><a href="#" onclick="javascript:window.open(\'event_attendance.php?id={id}&amp;popup=y\',\'Lista_zapisanych_uczestnikow\',\'width=320,height=440,resizable=no,scrollbars=1\')">Lista zapisanych uczestnikow</a>';
  
- $event_attended_text = " ".$language[$lang]['attendends'];
- $event_will_attend_text = " ".$language[$lang]['will_attend'];
+ $event_attended_text = " ".tr('attendends');
+ $event_will_attend_text = " ".tr('will_attend');
 
- $cache_found_text = "x ".$language[$lang]['found'];
- $cache_notfound_text = "x ".$language[$lang]['not_found'];
+ $cache_found_text = "x ".tr('found');
+ $cache_notfound_text = "x ".tr('not_found');
 
- $recommend_link = '&nbsp;&nbsp;<a href="recommendations.php?cacheid={cacheid}"/>('.$language[$lang]['show_recommended'].')</a>';
- $rating_stat_show_singular = '<img src="images/rating-star.png" border="0"/> {ratings} '.$language[$lang]['recommendation'].'<br />';
- $rating_stat_show_plural = '<img src="images/rating-star.png" border="0"/> {ratings} '.$language[$lang]['recommendations'].'<br />';
+ $recommend_link = '&nbsp;&nbsp;<a href="recommendations.php?cacheid={cacheid}"/>('.tr('show_recommended').')</a>';
+ $rating_stat_show_singular = '<img src="images/rating-star.png" border="0"/> {ratings} '.tr('recommendation').'<br />';
+ $rating_stat_show_plural = '<img src="images/rating-star.png" border="0"/> {ratings} '.tr('recommendations').'<br />';
 
 $found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0"/>';
 $notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" width="16" height="16" border="0"/>';
@@ -224,3 +224,4 @@ function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoile
 }
 
 ?>
+

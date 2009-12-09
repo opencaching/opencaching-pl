@@ -39,3 +39,4 @@
  $error_tos = '<br><span class="errormsg">'.$language[$lang][error_tos].'</span>';
 
  ?>
+

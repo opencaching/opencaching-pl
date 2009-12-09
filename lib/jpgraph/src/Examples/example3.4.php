@@ -39,3 +39,4 @@ $lineplot->SetWeight(2);
 // Display the graph
 $graph->Stroke();
 ?>
+

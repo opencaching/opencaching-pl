@@ -42,3 +42,4 @@ $graph->legend->Pos(0.05,0.5,"right","center");
 // Display the graph
 $graph->Stroke();
 ?>
+

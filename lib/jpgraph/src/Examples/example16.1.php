@@ -44,3 +44,4 @@ $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
 // Display the graph
 $graph->Stroke();
 ?>
+

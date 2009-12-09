@@ -590,3 +590,4 @@ function switchCat2()
 		<tr><td class="spacer" colspan="3"></td></tr>
 	</table>
 </form>
+

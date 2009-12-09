@@ -44,7 +44,7 @@
 		{
 			
 			if( $usr['admin'] )
-				tpl_set_var('reports',"<b>".$language[$lang]['administrating_oc'].":</b><br>[<a href='viewreports.php'>".$language[$lang]['view_reports']."</a>]");
+				tpl_set_var('reports',"<b>".tr('administrating_oc').":</b><br>[<a href='viewreports.php'>".$language[$lang]['view_reports']."</a>]");
 			else
 				tpl_set_var('reports','');
 		
@@ -54,18 +54,18 @@
 			$tplname = 'myhome';
 			tpl_set_var('username', htmlspecialchars($usr['username'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('userid', htmlspecialchars($usr['userid'], ENT_COMPAT, 'UTF-8'));
-			tpl_set_var('welcome', $language[$lang]['welcome']);
+			tpl_set_var('welcome', tr('welcome'));
 			
-			tpl_set_var('view_your_profile', $language[$lang]['view_your_profile']);
-			tpl_set_var('no_hidden_caches', $language[$lang]['no_hidden_caches']);
-			tpl_set_var('show_all', $language[$lang]['show_all']);
-			tpl_set_var('show_all_logs', $language[$lang]['show_all_logs']);
-			tpl_set_var('your_new_log_entries', $language[$lang]['your_new_log_entries']);
-			tpl_set_var('your_latest_hiddens', $language[$lang]['your_latest_hiddens']);
-			tpl_set_var('your_caches_new_log_entries', $language[$lang]['your_caches_new_log_entries']);
-			tpl_set_var('number_of_your_hiddens', $language[$lang]['number_of_your_hiddens']);
-			tpl_set_var('not_yet_published', $language[$lang]['not_yet_published']);
-			tpl_set_var('emails_sent_label', $language[$lang]['emails_sent_label']);
+			tpl_set_var('view_your_profile', tr('view_your_profile'));
+			tpl_set_var('no_hidden_caches', tr('no_hidden_caches'));
+			tpl_set_var('show_all', tr('show_all'));
+			tpl_set_var('show_all_logs', tr('show_all_logs'));
+			tpl_set_var('your_new_log_entries', tr('your_new_log_entries'));
+			tpl_set_var('your_latest_hiddens', tr('your_latest_hiddens'));
+			tpl_set_var('your_caches_new_log_entries', tr('your_caches_new_log_entries'));
+			tpl_set_var('number_of_your_hiddens', tr('number_of_your_hiddens'));
+			tpl_set_var('not_yet_published', tr('not_yet_published'));
+			tpl_set_var('emails_sent_label', tr('emails_sent_label'));
 
 			//get user record
 			$userid = $usr['userid'];
@@ -113,10 +113,10 @@
 				$log_notes_count = 0;
 			
 			if( $events_count > 0 )
-				$events = $language[$lang]['you_have_participated_in']." ".$events_count." ".$language[$lang]['found_x_events'].".";
+				$events = tr('you_have_participated_in')." ".$events_count." ".$language[$lang]['found_x_events'].".";
 			else $events = "";
 			
-			tpl_set_var('founds', $language[$lang]['you_have_found']." ".$founds_count." ".$language[$lang]['found_x_caches'].".");
+			tpl_set_var('founds', tr('you_have_found')." ".$founds_count." ".$language[$lang]['found_x_caches'].".");
 			tpl_set_var('hidden', $hidden_count);
 			tpl_set_var('events', $events);
 
@@ -284,3 +284,4 @@
 	//make the template and send it out
 	tpl_BuildTemplate();
 ?>
+

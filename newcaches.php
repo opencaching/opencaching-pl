@@ -73,7 +73,7 @@
 			$thisline = mb_ereg_replace('{date}', date('d.m.Y', strtotime($r['date'])), $thisline);
 			$thisline = mb_ereg_replace('{country}', htmlspecialchars($r['country'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($r['icon_large']), $thisline);
-			$thisline = mb_ereg_replace('{created_by}', htmlspecialchars($language[$lang]['created_by'], ENT_COMPAT, 'UTF-8'), $thisline);
+			$thisline = mb_ereg_replace('{created_by}', htmlspecialchars(tr('created_by'), ENT_COMPAT, 'UTF-8'), $thisline);
 			
 
 			$content .= $thisline . "\n";
@@ -124,8 +124,8 @@
 		$pages = mb_ereg_replace('{last_img_inactive}', $last_img_inactive, $pages);
 		
 		tpl_set_var('pages', $pages);
-		tpl_set_var('newcaches_label', $language[$lang]['new_caches']);
-		tpl_set_var('created_by', $language[$lang]['created_by']);
+		tpl_set_var('newcaches_label', tr('new_caches'));
+		tpl_set_var('created_by', tr('created_by'));
 	}
 
 	//make the template and send it out

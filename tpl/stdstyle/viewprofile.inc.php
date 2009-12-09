@@ -25,13 +25,13 @@
 	
  ****************************************************************************/
 
-	$err_no_user = $language[$lang]['no_userprofile'];
+	$err_no_user = tr('no_userprofile');
 	
-	$logtype[1] = $language[$lang]['found'];
-	$logtype[2] = $language[$lang]['not_found'];
-	$logtype[3] = $language[$lang]['comment'];
+	$logtype[1] = tr('found');
+	$logtype[2] = tr('not_found');
+	$logtype[3] = tr('comment');
 
-	$no_logs = '<tr><td colspan="2" class="content-title-noshade">'.$language[$lang]['no_logs'].'</td></tr>';
+	$no_logs = '<tr><td colspan="2" class="content-title-noshade">'.tr('no_logs').'</td></tr>';
 	//$log_line = '<tr><td>{logimage}&nbsp;{logtype}</td><td>{date}</td><td><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>';
 	$log_line = '<tr><td class="content-title-noshade">{logimage}&nbsp;{date}</td><td class="content-title-noshade"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>';
 

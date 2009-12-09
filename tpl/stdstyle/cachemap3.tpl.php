@@ -343,7 +343,7 @@
 							infoWindowContent += "</td></tr></table></td></tr>";
 							infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
 							/*if( node == 2 )
-								infoWindowContent += "<font size=\"0\"><a href=\"cachemap3.php?lat="+"\"><?php echo ($yn=='y'?$language[$lang]['add_to']:$language[$lang]['remove_from']);?> {to_print_list}</a></font>";*/
+								infoWindowContent += "<font size=\"0\"><a href=\"cachemap3.php?lat="+"\"><?php echo ($yn=='y'?tr('add_to'):$language[$lang]['remove_from']);?> {to_print_list}</a></font>";*/
 							infoWindowContent += "</td></tr></table></td></tr>";
 							infoWindowContent += "</table>";
 							
@@ -364,3 +364,4 @@
 			onClickFunc(tlo, new GLatLng({coords}));
 	}
 </script>
+

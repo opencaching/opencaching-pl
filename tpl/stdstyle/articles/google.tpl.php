@@ -17,3 +17,4 @@ Zapisz pobrany plik na dysku i otwórz go w programie Google Earth. Na mapie Pols
 		</td>
 	</tr>
 </table>
+

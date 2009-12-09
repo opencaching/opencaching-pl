@@ -960,3 +960,4 @@ class AccBarPlot extends BarPlot {
 
 /* EOF */
 ?>
+

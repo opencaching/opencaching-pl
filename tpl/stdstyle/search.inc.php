@@ -151,3 +151,4 @@ function dateDiff($interval, $dateTimeBegin, $dateTimeEnd)
   }
 }
 ?>
+

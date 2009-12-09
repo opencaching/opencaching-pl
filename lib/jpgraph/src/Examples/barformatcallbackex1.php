@@ -28,3 +28,4 @@ $graph->Add($bar1);
 // .. and send the graph back to the browser
 $graph->Stroke();
 ?>
+

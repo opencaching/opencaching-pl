@@ -39,3 +39,4 @@ $graph->title->Set('BAND_HLINE');
 
 $graph->Stroke();
 ?>
+

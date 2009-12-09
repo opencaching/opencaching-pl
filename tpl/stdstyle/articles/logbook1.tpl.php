@@ -17,3 +17,4 @@ Dziennik jest dostêpny w 2 formatch, A5 i A7.</p>
 <br><b>Oficjalne LOGO OpenCaching mo¿esz pobraæ <a href=download/logo-oc.jpg>TUTAJ</a></td>
 </tr>
 </table>
+

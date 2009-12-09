@@ -17,3 +17,4 @@ tylko dla nich i wk�adaj� now� od siebie. Co to b�dzie zale�y tylko od
 		</td>
 	</tr>
 </table>
+

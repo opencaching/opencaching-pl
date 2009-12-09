@@ -12,3 +12,4 @@ $graph->Add($activity);
 // Display the Gantt chart
 $graph->Stroke();
 ?>
+

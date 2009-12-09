@@ -81,3 +81,4 @@ $graph->Add($txt);
 // .. and stroke the graph
 $graph->Stroke();
 ?>
+

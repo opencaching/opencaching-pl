@@ -76,3 +76,4 @@ $g->img->StrokeText($w/2,0,"Canvas Spiral");
 $g->Stroke();
 ?>
 
+

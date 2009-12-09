@@ -179,3 +179,4 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
   //
   $graph->Stroke();
 ?>
+

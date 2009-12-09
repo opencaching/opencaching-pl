@@ -76,3 +76,4 @@ href="articles?page=skrzynka">TUTAJ</a>
 <H1>UWAGA</h1> 
 <p>Pamiêtaj, aby wybieraj±c siê na wycieczkê w poszukiwaniu skrzynki przestrzegaæ
 zasad bezpieczeñstwa i nie niszczyæ ¶rodowiska naturalnego.
+

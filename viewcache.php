@@ -228,7 +228,7 @@
 				$geokrety_content = '';
 				while( $geokret = sql_fetch_array($geokret_query) )
 				{
-					$geokrety_content .= "<img src=/images/geokret.gif alt=gk align=absmiddle>&nbsp;<a href='http://geokrety.org/konkret.php?id=".$geokret['id']."'>".$geokret['name']."</a> - ".$language[$lang]['total_distance'].": ".$geokret['distance']." km<br/>";
+					$geokrety_content .= "<img src=/images/geokret.gif alt=gk align=absmiddle>&nbsp;<a href='http://geokrety.org/konkret.php?id=".$geokret['id']."'>".$geokret['name']."</a> - ".tr('total_distance').": ".$geokret['distance']." km<br/>";
 //					$geokrety_content .= "Przebyty dystans: ".$geokret['distance']."km<br><br>";
 				}
 				tpl_set_var('geokrety_begin', '');
@@ -315,11 +315,11 @@
 			if( $usr == true || !$hide_coords)
 			{
 				$coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($cache_record['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($cache_record['longitude']), ENT_COMPAT, 'UTF-8'));
-				$coords_other = "<a href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=".$cache_record['latitude']."&amp;lon=".$cache_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=no,scrollbars=0')\">".$language[$lang]['coords_other']."</a>";
+				$coords_other = "<a href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=".$cache_record['latitude']."&amp;lon=".$cache_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=no,scrollbars=0')\">".tr('coords_other')."</a>";
 			}
 			else
 			{
-				$coords = $language[$lang]['hidden_coords'];
+				$coords = tr('hidden_coords');
 				$coords_other = "";
 			}
 
@@ -330,39 +330,39 @@
 			list($lon_dir, $lon_h, $lon_min) = help_lonToArray($cache_record['longitude']);
 
 			$tpl_subtitle = htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . ' - ';
-			$map_msg = mb_ereg_replace("{target}", urlencode("viewcache.php?cacheid=".$cache_id), $language[$lang]['map_msg']);
+			$map_msg = mb_ereg_replace("{target}", urlencode("viewcache.php?cacheid=".$cache_id), tr('map_msg'));
 			
 			tpl_set_var('googlemap_key', $googlemap_key);
 			tpl_set_var('map_msg', $map_msg);
-			tpl_set_var('cache', $language[$lang]['cache']);
-			tpl_set_var('created_by', $language[$lang]['created_by']);
+			tpl_set_var('cache', tr('cache'));
+			tpl_set_var('created_by', tr('created_by'));
 			tpl_set_var('coords_other', $coords_other);
-			tpl_set_var('size', $language[$lang]['size']);
-			tpl_set_var('time', $language[$lang]['time']);
-			tpl_set_var('length', $language[$lang]['length']);
-			tpl_set_var('status_label', $language[$lang]['status_label']);
-			tpl_set_var('date_hidden_label', $language[$lang]['date_hidden_label']);
-			tpl_set_var('date_created_label', $language[$lang]['date_created_label']);
-			tpl_set_var('last_modified_label', $language[$lang]['last_modified_label']);
-			tpl_set_var('waypoint', $language[$lang]['waypoint']);
-			tpl_set_var('listed_also_on', $language[$lang]['listed_also_on']);
-			tpl_set_var('comments', $language[$lang]['comments']);
-			tpl_set_var('scored', $language[$lang]['scored']);
-			tpl_set_var('watchers', $language[$lang]['watchers']);
-			tpl_set_var('visitors', $language[$lang]['visitors']);
-			tpl_set_var('description', $language[$lang]['description']);
-			tpl_set_var('additional_hints', $language[$lang]['additional_hints']);
-			tpl_set_var('images', $language[$lang]['images']);
-			tpl_set_var('utilities', $language[$lang]['utilities']);
-			tpl_set_var('log_entries', $language[$lang]['log_entries']);
-			tpl_set_var('cache_attributes_label', $language[$lang]['cache_attributes']);
-			tpl_set_var('download_as_file', $language[$lang]['download_as_file']);
-			tpl_set_var('search_geocaches_nearby', $language[$lang]['search_geocaches_nearby']);
-			tpl_set_var('accept_terms_of_use', $language[$lang]['accept_terms_of_use']);
-			tpl_set_var('find_geocaches_on', $language[$lang]['find_geocaches_on']);
-			tpl_set_var('send_to_gps', $language[$lang]['send_to_gps']);
-			tpl_set_var('searchable', $language[$lang]['searchable']);
-			tpl_set_var('all_geocaches', $language[$lang]['all_geocaches']);
+			tpl_set_var('size', tr('size'));
+			tpl_set_var('time', tr('time'));
+			tpl_set_var('length', tr('length'));
+			tpl_set_var('status_label', tr('status_label'));
+			tpl_set_var('date_hidden_label', tr('date_hidden_label'));
+			tpl_set_var('date_created_label', tr('date_created_label'));
+			tpl_set_var('last_modified_label', tr('last_modified_label'));
+			tpl_set_var('waypoint', tr('waypoint'));
+			tpl_set_var('listed_also_on', tr('listed_also_on'));
+			tpl_set_var('comments', tr('comments'));
+			tpl_set_var('scored', tr('scored'));
+			tpl_set_var('watchers', tr('watchers'));
+			tpl_set_var('visitors', tr('visitors'));
+			tpl_set_var('description', tr('description'));
+			tpl_set_var('additional_hints', tr('additional_hints'));
+			tpl_set_var('images', tr('images'));
+			tpl_set_var('utilities', tr('utilities'));
+			tpl_set_var('log_entries', tr('log_entries'));
+			tpl_set_var('cache_attributes_label', tr('cache_attributes'));
+			tpl_set_var('download_as_file', tr('download_as_file'));
+			tpl_set_var('search_geocaches_nearby', tr('search_geocaches_nearby'));
+			tpl_set_var('accept_terms_of_use', tr('accept_terms_of_use'));
+			tpl_set_var('find_geocaches_on', tr('find_geocaches_on'));
+			tpl_set_var('send_to_gps', tr('send_to_gps'));
+			tpl_set_var('searchable', tr('searchable'));
+			tpl_set_var('all_geocaches', tr('all_geocaches'));
 			tpl_set_var('typeLetter', typeToLetter($cache_record['type']));
 			
 			tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
@@ -665,11 +665,11 @@
 			
 			if( $usr['admin'] )
 			{
-				tpl_set_var('add_rr_comment', '[<a href="add_rr_comment.php?cacheid='.$cache_id.'">'.$language[$lang]['add_rr_comment'].'</a>]');
+				tpl_set_var('add_rr_comment', '[<a href="add_rr_comment.php?cacheid='.$cache_id.'">'.tr('add_rr_comment').'</a>]');
 				if( $desc_record['rr_comment'] == "" )
 					tpl_set_var('remove_rr_comment', '');
 				else
-					tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1">'.$language[$lang]['remove_rr_comment'].'</a>]');
+					tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1">'.tr('remove_rr_comment').'</a>]');
 				
 			}
 			else
@@ -682,7 +682,7 @@
 			{
 				tpl_set_var('start_rr_comment', '', true);
 				tpl_set_var('end_rr_comment','', true);
-				tpl_set_var('rr_comment_label', $language[$lang]['rr_comment_label']);
+				tpl_set_var('rr_comment_label', tr('rr_comment_label'));
 				tpl_set_var('rr_comment', $desc_record['rr_comment'], true);
 			}
 			else
@@ -886,13 +886,13 @@
 				{
 					$watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch);
 					$is_watched = 'watchcache.php?cacheid='.$cache_id.'&amp;target=viewcache.php%3Fcacheid='.$cache_id;
-					$watch_label = $language[$lang]['watch'];
+					$watch_label = tr('watch');
 				}
 				else
 				{
 					$watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch_not);
 					$is_watched = 'removewatch.php?cacheid='.$cache_id.'&amp;target=viewcache.php%3Fcacheid='.$cache_id;
-					$watch_label = $language[$lang]['watch_not'];
+					$watch_label = tr('watch_not');
 				}
 				//is this cache ignored by this user?
 				$rs = sql("SELECT `cache_id` FROM `cache_ignore` WHERE `cache_id`='&1' AND `user_id`='&2'", $cache_id, $usr['userid']);
@@ -900,14 +900,14 @@
 				{
 					$ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore);
 					$is_ignored = "addignore.php?cacheid=".$cache_id."&amp;target=viewcache.php%3Fcacheid%3D".$cache_id;
-					$ignore_label = $language[$lang]['ignore'];
+					$ignore_label = tr('ignore');
 					$ignore_icon = 'images/actions/ignore';
 				}
 				else
 				{
 					$ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore_not);
 					$is_ignored = "removeignore.php?cacheid=".$cache_id."&amp;target=viewcache.php%3Fcacheid%3D".$cache_id;
-					$ignore_label = $language[$lang]['ignore_not'];
+					$ignore_label = tr('ignore_not');
 					$ignore_icon = 'images/actions/ignore';
 				}
 
@@ -921,9 +921,9 @@
 				$log_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_log);
 				
 				
-				$printt=$language[$lang]['print'];
-				$addToPrintList = $language[$lang]['add_to_list'];
-				$removeFromPrintList = $language[$lang]['remove_from_list'];
+				$printt=tr('print');
+				$addToPrintList = tr('add_to_list');
+				$removeFromPrintList = tr('remove_from_list');
 							
 				if( onTheList($_SESSION['print_list'], $cache_id)==-1 )
 				{
@@ -939,16 +939,16 @@
 				}
 				
 				$cache_menu = array(
-					'title' => $language[$lang]['cache_menu'],
-					'menustring' => $language[$lang]['cache_menu'],
+					'title' => tr('cache_menu'),
+					'menustring' => tr('cache_menu'),
 					'siteid' => 'cachelisting',
 					'navicolor' => '#E8DDE4',
 					'visible' => false,
 					'filename' => 'viewcache.php',
 					'submenu' => array(
 						array(
-							'title' => $language[$lang]['new_log_entry'],
-							'menustring' => $language[$lang]['new_log_entry'],
+							'title' => tr('new_log_entry'),
+							'menustring' => tr('new_log_entry'),
 							'visible' => true,
 							'filename' => 'log.php?cacheid='.$cache_id,
 							'newwindow' => false,
@@ -965,8 +965,8 @@
 							'icon' => 'images/actions/watch'
 						),
 						array(
-							'title' => $language[$lang]['report_problem'],
-							'menustring' => $language[$lang]['report_problem'],
+							'title' => tr('report_problem'),
+							'menustring' => tr('report_problem'),
 							'visible' => true,
 							'filename' => 'reportcache.php?cacheid='.$cache_id,
 							'newwindow' => false,
@@ -974,8 +974,8 @@
 							'icon' => 'images/actions/report-problem'
 						),
 						array(
-							'title' => $language[$lang]['print'],
-							'menustring' => $language[$lang]['print'],
+							'title' => tr('print'),
+							'menustring' => tr('print'),
 							'visible' => true,
 							'filename' => 'viewcache.php?cacheid='.$cache_id.'&amp;print=y',
 							'newwindow' => false,
@@ -1001,8 +1001,8 @@
 							'icon' => $ignore_icon
 						),
 						array(
-							'title' => $language[$lang]['edit'],
-							'menustring' => $language[$lang]['edit'],
+							'title' => tr('edit'),
+							'menustring' => tr('edit'),
 							'visible' => $show_edit,
 							'filename' => 'editcache.php?cacheid='.$cache_id,
 							'newwindow' => false,
@@ -1011,7 +1011,7 @@
 						)
 					)
 				);
-				$report_action = "<li><a href=\"reportcache.php?cacheid=$cache_id\">".$language[$lang]['report_problem']."</a></li>";
+				$report_action = "<li><a href=\"reportcache.php?cacheid=$cache_id\">".tr('report_problem')."</a></li>";
 			}
 
 			tpl_set_var('log', $log_action);
@@ -1213,3 +1213,4 @@ tpl_set_var('bodyMod', '');
 
 	tpl_BuildTemplate();
 ?>
+

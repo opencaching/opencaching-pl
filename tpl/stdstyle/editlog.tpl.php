@@ -394,3 +394,4 @@ function toogleLayer( whichLayer, val )
 	}
 //-->
 </script>
+

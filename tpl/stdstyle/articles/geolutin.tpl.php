@@ -74,3 +74,4 @@ A tu jeszcze link do spolszczenia ¿eby by³o wiadomo jak to wygl±da
 		</td>
 	</tr>
 </table>
+

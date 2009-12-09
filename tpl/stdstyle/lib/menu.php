@@ -52,29 +52,29 @@ global $menu, $usr, $lang, $cache_menu;
 
 $menu = array(
 	array(
-		'title' => $language[$lang]['main_page'],
-		'menustring' => $language[$lang]['main_page'],
+		'title' => tr('main_page'),
+		'menustring' => tr('main_page'),
 		'siteid' => 'start',
 		'visible' => true,
 		'filename' => 'index.php',
 		'submenu' => array(
 			array(
-				'title' => $language[$lang]['registration'],
-				'menustring' => $language[$lang]['registration'],
+				'title' => tr('registration'),
+				'menustring' => tr('registration'),
 				'visible' => true,
 				'filename' => 'register.php',
 				'siteid' => 'register',
 				'submenu' => array(
 					array(
-						'title' => $language[$lang]['account_activation'],
-						'menustring' => $language[$lang]['account_activation'],
+						'title' => tr('account_activation'),
+						'menustring' => tr('account_activation'),
 						'visible' => false,
 						'filename' => 'activation.php',
 						'siteid' => 'activation'
 					),
 					array(
-						'title' => $language[$lang]['account_activation'],
-						'menustring' => $language[$lang]['account_activation'],
+						'title' => tr('account_activation'),
+						'menustring' => tr('account_activation'),
 						'visible' => false,
 						'filename' => 'activation.php',
 						'siteid' => 'activation_confirm'
@@ -82,15 +82,15 @@ $menu = array(
 				)
 			),
 			array(
-				'title' => $language[$lang]['new_caches'],
-				'menustring' => $language[$lang]['new_caches'],
+				'title' => tr('new_caches'),
+				'menustring' => tr('new_caches'),
 				'visible' => true,
 				'filename' => 'newcaches.php',
 				'siteid' => 'newcaches',
 				'submenu' => array(
 					array(
-						'title' => $language[$lang]['abroad_poland'],
-						'menustring' => $language[$lang]['abroad_poland'],
+						'title' => tr('abroad_poland'),
+						'menustring' => tr('abroad_poland'),
 						'visible' => true,
 						'filename' => 'newcachesrest.php',
 						'siteid' => 'newcachesrest'
@@ -98,87 +98,87 @@ $menu = array(
 				)
 			),
 			array(
-			'title' => $language[$lang]['new_logs'],
-			'menustring' => $language[$lang]['new_logs'],
+			'title' => tr('new_logs'),
+			'menustring' => tr('new_logs'),
 			'visible' => true,
 			'filename' => 'newlogs.php',
 			'siteid' => 'newlogs'
 			),
 			array(
-				'title' => $language[$lang]['cache_map'],
-				'menustring' => $language[$lang]['cache_map'],
+				'title' => tr('cache_map'),
+				'menustring' => tr('cache_map'),
 				'siteid' => 'cachemap3',
 				'visible' => true,
 				'filename' => 'cachemap3.php'
 			),
 			array(
-				'title' => $language[$lang]['search_cache'],
-				'menustring' => $language[$lang]['search_cache'],
+				'title' => tr('search_cache'),
+				'menustring' => tr('search_cache'),
 				'siteid' => 'search',
 				'visible' => true,
 				'filename' => 'search.php'
 			),
 		
 			/*array(
-					'title' => $language[$lang]['recommended_caches'],
-					'menustring' => $language[$lang]['recommended_caches'],
+					'title' => tr('recommended_caches'),
+					'menustring' => tr('recommended_caches'),
 					'visible' => true,
 					'filename' => 'newcacherating.php',
 					'siteid' => 'ratings'
 			),*/
 			array(
-				'title' => $language[$lang]['statistics'],
-				'menustring' => $language[$lang]['statistics'],
+				'title' => tr('statistics'),
+				'menustring' => tr('statistics'),
 				'visible' => true,
 				'filename' => 'articles.php?page=stat',
 				'siteid' => 'articles/stat'
 			),
 			array(
-				'title' => $language[$lang]['rules'],
+				'title' => tr('rules'),
 				'visible' => true,
-				'filename' => $language[$lang]['filename_rules'],
-				'menustring' => $language[$lang]['rules'],
+				'filename' => tr('filename_rules'),
+				'menustring' => tr('rules'),
 				'siteid' => 'articles/regulamin'
 			),
 			array(
-				'title' => $language[$lang]['links'],
-				'menustring' => $language[$lang]['links'],
+				'title' => tr('links'),
+				'menustring' => tr('links'),
 				'siteid' => 'articles/links',
 				'navicolor' => '#FFFFC5',
 				'visible' => false,
 				'filename' => 'articles.php?page=links'
 			),
 			array(
-				'title' => $language[$lang]['statistics'],
-				'menustring' => $language[$lang]['statistics'],
+				'title' => tr('statistics'),
+				'menustring' => tr('statistics'),
 				'siteid' => 'articles/s1',
 				'visible' => false,
 				'filename' => 'articles.php?page=s1'
 			),
 			array(
-				'title' => $language[$lang]['statistics'],
-				'menustring' => $language[$lang]['statistics'],
+				'title' => tr('statistics'),
+				'menustring' => tr('statistics'),
 				'siteid' => 'articles/s2',
 				'visible' => false,
 				'filename' => 'articles.php?page=s2'
 			),
 			array(
-				'title' => $language[$lang]['statistics'],
-				'menustring' => $language[$lang]['statistics'],
+				'title' => tr('statistics'),
+				'menustring' => tr('statistics'),
 				'siteid' => 'articles/s3',
 				'visible' => false,
 				'filename' => 'articles.php?page=s3'
 			),
 			array(
-				'title' => $language[$lang]['statistics'],
-				'menustring' => $language[$lang]['statistics'],
+				'title' => tr('statistics'),
+				'menustring' => tr('statistics'),
 				'siteid' => 'articles/s4',
 				'visible' => false,
 				'filename' => 'articles.php?page=s4'
 			),
 			array(
-				'title' => $language[$lang]['statistics'],
-				'menustring' => $language[$lang]['statistics'],
+				'title' => tr('statistics'),
+				'menustring' => tr('statistics'),
 				'siteid' => 'articles/s5',
 				'visible' => false,
 				'filename' => 'articles.php?page=s5'
@@ -186,16 +186,16 @@ $menu = array(
 		)
 	),
 	array(
-		'title' => $language[$lang]['abc'],
-		'menustring' => $language[$lang]['abc'],
+		'title' => tr('abc'),
+		'menustring' => tr('abc'),
 		'siteid' => 'articles/info',
 		'visible' => true,
 		'filename' => 'http://wiki.opencaching.pl',
 		'newwindow' => true
 	),
 	array(
-		'title' => $language[$lang]['forum'],
-		'menustring' => $language[$lang]['forum'],
+		'title' => tr('forum'),
+		'menustring' => tr('forum'),
 		'siteid' => 'forum',
 		'visible' => true,
 		'filename' => 'http://forum.opencaching.pl',
@@ -210,26 +210,26 @@ $menu = array(
 		'newwindow' => true
 	),
 	array(
-		'title' => $language[$lang]['geokrets'],
-		'menustring' => $language[$lang]['geokrets'],
+		'title' => tr('geokrets'),
+		'menustring' => tr('geokrets'),
 		'siteid' => 'GeoKrety',
 		'visible' => true,
 		'filename' => 'http://geokrety.org/index.php?lang=pl_PL.UTF-8',
 		'newwindow' => 'true'
 	),
 	array(
-		'title' => $language[$lang]['geoblog'],
-		'menustring' => $language[$lang]['geoblog'],
+		'title' => tr('geoblog'),
+		'menustring' => tr('geoblog'),
 		'siteid' => 'GeoBlog',
 		'visible' => false,
 		'filename' => 'http://www.geoblog.com.pl',
 		'newwindow' => 'true'
 	),
 		array(
-		'title' => $language[$lang]['links'],
+		'title' => tr('links'),
 		'visible' => true,
 		'filename' => 'articles.php?page=links',
-		'menustring' => $language[$lang]['links'],
+		'menustring' => tr('links'),
 		'siteid' => 'articles/links'
 	),
 	array(
@@ -240,103 +240,103 @@ $menu = array(
 		'filename' => 'http://www.opencaching.pl/rss/newcaches.xml'
 	),
 	array(
-		'title' => $language[$lang]['contact'],
+		'title' => tr('contact'),
 		'visible' => true,
 		'filename' => 'articles.php?page=contact',
-		'menustring' => $language[$lang]['contact'],
+		'menustring' => tr('contact'),
 		'siteid' => 'articles/contact'
 	),
 	array(
-		'title' => $language[$lang]['clipboard'],
-		'menustring' => $language[$lang]['clipboard'],
+		'title' => tr('clipboard'),
+		'menustring' => tr('clipboard'),
 		'siteid' => 'dowydruku',
 		'visible' => false,
 		'filename' => 'mylist.php'
 	),
 	array(
-		'title' => $language[$lang]['login'].'/'.$language[$lang]['logout'],
+		'title' => tr('login').'/'.$language[$lang]['logout'],
 		'visible' => false,
 		'filename' => 'login.php',
-		'menustring' => $language[$lang]['login'].'/'.$language[$lang]['logout'],
+		'menustring' => tr('login').'/'.$language[$lang]['logout'],
 		'navicolor' => '#E8DDE4',
 		'siteid' => 'login'
 	),
 	array(
-		'title' => $language[$lang]['add_picture'],
+		'title' => tr('add_picture'),
 		'visible' => false,
 		'filename' => 'newpic.php',
-		'menustring' => $language[$lang]['add_picture'],
+		'menustring' => tr('add_picture'),
 		'siteid' => 'newpic'
 	),
 	array(
-		'title' => $language[$lang]['edit_picture'],
+		'title' => tr('edit_picture'),
 		'visible' => false,
 		'filename' => 'editpic.php',
-		'menustring' => $language[$lang]['edit_picture'],
+		'menustring' => tr('edit_picture'),
 		'siteid' => 'editpic'
 	),
 	array(
-		'title' => $language[$lang]['new_password'],
+		'title' => tr('new_password'),
 		'visible' => false,
 		'filename' => 'newpw.php',
-		'menustring' => $language[$lang]['new_password'],
+		'menustring' => tr('new_password'),
 		'siteid' => 'newpw'
 	),
 	array(
-		'title' => $language[$lang]['new_topic'],
+		'title' => tr('new_topic'),
 		'visible' => false,
 		'filename' => 'newstopic.php',
-		'menustring' => $language[$lang]['new_topic'],
+		'menustring' => tr('new_topic'),
 		'siteid' => 'newstopic',
 		'showsitemap' => false
 	),
 	array(
-		'title' => $language[$lang]['page_error'],
-		'menustring' => $language[$lang]['page_error'],
+		'title' => tr('page_error'),
+		'menustring' => tr('page_error'),
 		'visible' => false,
 		'filename' => 'index.php',
 		'siteid' => 'error'
 	),
 	array(
-		'title' => $language[$lang]['contact'],
+		'title' => tr('contact'),
 		'visible' => false,
 		'filename' => 'articles.php?page=contact',
-		'menustring' => $language[$lang]['contact'],
+		'menustring' => tr('contact'),
 		'siteid' => 'articles/contact'
 	),
 	array(
-		'title' => $language[$lang]['personal_data'],
+		'title' => tr('personal_data'),
 		'visible' => false,
 		'filename' => 'articles.php?page=dsb',
-		'menustring' => $language[$lang]['personal_data'],
+		'menustring' => tr('personal_data'),
 		'siteid' => 'articles/dsb'
 	),
 	array(
-		'title' => $language[$lang]['message'],
+		'title' => tr('message'),
 		'visible' => false,
 		'filename' => 'index.php',
-		'menustring' => $language[$lang]['message'],
+		'menustring' => tr('message'),
 		'siteid' => 'message'
 	),
 	array(
-		'title' => $language[$lang]['register_confirm'],
+		'title' => tr('register_confirm'),
 		'visible' => false,
 		'filename' => 'register.php',
-		'menustring' => $language[$lang]['register_confirm'],
+		'menustring' => tr('register_confirm'),
 		'siteid' => 'register_confirm'
 	),
 	array(
-		'title' => $language[$lang]['cache_map'],
+		'title' => tr('cache_map'),
 		'visible' => false,
 		'filename' => 'cachemap.php',
-		'menustring' => $language[$lang]['cache_map'],
+		'menustring' => tr('cache_map'),
 		'siteid' => 'mapa1'
 	),
 	array(
-		'title' => $language[$lang]['main_page'],
+		'title' => tr('main_page'),
 		'visible' => false,
 		'filename' => 'index.php',
-		'menustring' => $language[$lang]['main_page'],
+		'menustring' => tr('main_page'),
 		'siteid' => 'sitemap'
 	),
 	// OC management 
@@ -348,8 +348,8 @@ $menu = array(
 		'filename' => 'viewreports.php',
 		'submenu' => array(
 			array(
-			'title' => $language[$lang]['reports'],
-			'menustring' => $language[$lang]['reports'],
+			'title' => tr('reports'),
+			'menustring' => tr('reports'),
 			'siteid' => 'viewreports',
 			'visible' => true,
 			'filename' => 'viewreports.php'
@@ -369,8 +369,8 @@ $menu = array(
 			'filename' => 'admin_searchuser.php'
 			),
 			array(
-			'title' => $language[$lang]['bugs'],
-			'menustring' => $language[$lang]['bugs'],
+			'title' => tr('bugs'),
+			'menustring' => tr('bugs'),
 			'siteid' => 'bledy',
 			'visible' => true,
 			'filename' => 'http://bugs.opencaching.pl',
@@ -394,87 +394,87 @@ $menu = array(
 	),
 	// My profile (my home)
 	array(
-		'title' => $language[$lang]['user_menu'],
-		'menustring' => $language[$lang]['user_menu'],
+		'title' => tr('user_menu'),
+		'menustring' => tr('user_menu'),
 		'siteid' => 'myhome',
 		'visible' => false,
 		'filename' => 'myhome.php',
 		'navicolor' => '#D5D9FF',
 		'submenu' => array(
 			array(
-				'title' => $language[$lang]['new_cache'],
-				'menustring' => $language[$lang]['new_cache'],
+				'title' => tr('new_cache'),
+				'menustring' => tr('new_cache'),
 				'visible' => true,
 				'filename' => 'newcache.php',
 				'siteid' => 'newcache'
 			),
 			array(
-				'title' => $language[$lang]['general'],
-				'menustring' => $language[$lang]['general'],
+				'title' => tr('general'),
+				'menustring' => tr('general'),
 				'visible' => true,
 				'filename' => 'myhome.php',
 				'siteid' => 'myhome'
 			),
 			array(
-				'title' => $language[$lang]['my_logs'],
-				'menustring' => $language[$lang]['my_logs'],
+				'title' => tr('my_logs'),
+				'menustring' => tr('my_logs'),
 				'visible' => false,
 				'filename' => 'myhome2.php',
 				'siteid' => 'myhome2'
 			),
 			array(
-				'title' => $language[$lang]['my_account'],
-				'menustring' => $language[$lang]['my_account'],
+				'title' => tr('my_account'),
+				'menustring' => tr('my_account'),
 				'visible' => true,
 				'filename' => 'myprofile.php',
 				'siteid' => 'myprofile',
 				'submenu' => array(
 					array(
-						'title' => $language[$lang]['change_data'],
-						'menustring' => $language[$lang]['change_data'],
+						'title' => tr('change_data'),
+						'menustring' => tr('change_data'),
 						'visible' => false,
 						'filename' => 'myprofile.php?action=change',
 						'siteid' => 'myprofile_change',
 					),
 					array(
-						'title' => $language[$lang]['change_email'],
-						'menustring' => $language[$lang]['change_email'],
+						'title' => tr('change_email'),
+						'menustring' => tr('change_email'),
 						'visible' => false,
 						'filename' => 'newemail.php',
 						'siteid' => 'newemail',
 					),
 					array(
-						'title' => $language[$lang]['change_password'],
-						'menustring' => $language[$lang]['change_password'],
+						'title' => tr('change_password'),
+						'menustring' => tr('change_password'),
 						'visible' => false,
 						'filename' => 'newpw.php',
 						'siteid' => 'newpw',
 					),
 					array(
-						'title' => $language[$lang]['choose_statpic'],
-						'menustring' => $language[$lang]['choose_statpic'],
+						'title' => tr('choose_statpic'),
+						'menustring' => tr('choose_statpic'),
 						'visible' => false,
 						'filename' => 'change_statpic.php',
 						'siteid' => 'change_statpic'),
 				)
 			),
 			array(
-				'title' => $language[$lang]['collected_queries'],
-				'menustring' => $language[$lang]['collected_queries'],
+				'title' => tr('collected_queries'),
+				'menustring' => tr('collected_queries'),
 				'visible' => true,
 				'filename' => 'query.php',
 				'siteid' => 'viewqueries'
 			),
 			array(
-				'title' => $language[$lang]['watched_caches'],
-				'menustring' => $language[$lang]['watched_caches'],
+				'title' => tr('watched_caches'),
+				'menustring' => tr('watched_caches'),
 				'visible' => true,
 				'filename' => 'mywatches.php',
 				'siteid' => 'mywatches',
 				'submenu' => array(
 					array(
-						'title' => $language[$lang]['settings'],
-						'menustring' => $language[$lang]['settings'],
+						'title' => tr('settings'),
+						'menustring' => tr('settings'),
 						'visible' => true,
 						'filename' => 'mywatches.php?rq=properties',
 						'siteid' => 'mywatches_properties'
@@ -482,15 +482,15 @@ $menu = array(
 				)
 			),
 			array(
-				'title' => $language[$lang]['ignored_caches'],
-				'menustring' => $language[$lang]['ignored_caches'],
+				'title' => tr('ignored_caches'),
+				'menustring' => tr('ignored_caches'),
 				'visible' => true,
 				'filename' => 'myignores.php',
 				'siteid' => 'myignores'
 			),
 			array(
-				'title' => $language[$lang]['my_recommendations'],
-				'menustring' => $language[$lang]['my_recommendations'],
+				'title' => tr('my_recommendations'),
+				'menustring' => tr('my_recommendations'),
 				'visible' => true,
 				'filename' => 'mytop5.php',
 				'siteid' => 'mytop5'
@@ -506,79 +506,79 @@ $menu = array(
 	),
 	// Caches
 	array(
-		'title' => $language[$lang]['caches'],
-		'menustring' => $language[$lang]['caches'],
+		'title' => tr('caches'),
+		'menustring' => tr('caches'),
 		'siteid' => 'search',
 		'visible' => false,
 		'filename' => 'search.php',
 		'navicolor' => '#BDE3E7',
 		'submenu' => array(
 			array(
-				'title' => $language[$lang]['search'],
-				'menustring' => $language[$lang]['search'],
+				'title' => tr('search'),
+				'menustring' => tr('search'),
 				'visible' => true,
 				'filename' => 'search.php',
 				'siteid' => 'search',
 				'submenu' => array(
 					array(
-						'title' => $language[$lang]['view_cache'],
-						'menustring' => $language[$lang]['view_cache'],
+						'title' => tr('view_cache'),
+						'menustring' => tr('view_cache'),
 						'visible' => false,
 						'filename' => 'viewcache.php',
 						'siteid' => 'viewcache',
 						'submenu' => array(
 							array(
-								'title' => $language[$lang]['new_log_entry'],
-								'menustring' => $language[$lang]['new_log_entry'],
+								'title' => tr('new_log_entry'),
+								'menustring' => tr('new_log_entry'),
 								'visible' => false,
 								'filename' => 'log.php',
 								'siteid' => 'log_cache'
 							),
 							array(
-								'title' => $language[$lang]['edit_log'],
-								'menustring' => $language[$lang]['edit_log'],
+								'title' => tr('edit_log'),
+								'menustring' => tr('edit_log'),
 								'visible' => false,
 								'filename' => 'editlog.php',
 								'siteid' => 'editlog'
 							),
 							array(
-								'title' => $language[$lang]['remove_log'],
-								'menustring' => $language[$lang]['remove_log'],
+								'title' => tr('remove_log'),
+								'menustring' => tr('remove_log'),
 								'visible' => false,
 								'filename' => 'removelog.php',
 								'siteid' => 'removelog_logowner'
 							),
 							array(
-								'title' => $language[$lang]['remove_log'],
-								'menustring' => $language[$lang]['remove_log'],
+								'title' => tr('remove_log'),
+								'menustring' => tr('remove_log'),
 								'visible' => false,
 								'filename' => 'removelog.php',
 								'siteid' => 'removelog_cacheowner'
 							),
 							array(
-								'title' => $language[$lang]['edit_cache'],
-								'menustring' => $language[$lang]['edit_cache'],
+								'title' => tr('edit_cache'),
+								'menustring' => tr('edit_cache'),
 								'visible' => false,
 								'filename' => 'editcache.php',
 								'siteid' => 'editcache'
 							),
 							array(
-								'title' => $language[$lang]['new_desc'],
-								'menustring' => $language[$lang]['new_desc'],
+								'title' => tr('new_desc'),
+								'menustring' => tr('new_desc'),
 								'visible' => false,
 								'filename' => 'newdesc.php',
 								'siteid' => 'newdesc'
 							),
 							array(
-								'title' => $language[$lang]['edit_desc'],
-								'menustring' => $language[$lang]['edit_desc'],
+								'title' => tr('edit_desc'),
+								'menustring' => tr('edit_desc'),
 								'visible' => false,
 								'filename' => 'editdesc.php',
 								'siteid' => 'editdesc'
 							),
 							array(
-								'title' => $language[$lang]['remove_desc'],
-								'menustring' => $language[$lang]['remove_desc'],
+								'title' => tr('remove_desc'),
+								'menustring' => tr('remove_desc'),
 								'visible' => false,
 								'filename' => 'removedesc.php',
 								'siteid' => 'removedesc'
@@ -586,36 +586,36 @@ $menu = array(
 						)
 					),
 					array(
-						'title' => $language[$lang]['search_loc'],
-						'menustring' => $language[$lang]['search_loc'],
+						'title' => tr('search_loc'),
+						'menustring' => tr('search_loc'),
 						'visible' => false,
 						'filename' => 'search.php',
 						'siteid' => 'selectlocid',
 					),
 					array(
-						'title' => $language[$lang]['search_results'],
-						'menustring' => $language[$lang]['search'],
+						'title' => tr('search_results'),
+						'menustring' => tr('search'),
 						'visible' => false,
 						'filename' => 'search.php',
 						'siteid' => 'search.result.caches',
 					),
 					array(
-						'title' => $language[$lang]['show_log'],
-						'menustring' => $language[$lang]['show_log'],
+						'title' => tr('show_log'),
+						'menustring' => tr('show_log'),
 						'visible' => false,
 						'filename' => 'viewlogs.php',
 						'siteid' => 'viewlogs',
 					),
 					array(
-						'title' => $language[$lang]['store_queries'],
-						'menustring' => $language[$lang]['store_queries'],
+						'title' => tr('store_queries'),
+						'menustring' => tr('store_queries'),
 						'visible' => false,
 						'filename' => 'query.php?action=save',
 						'siteid' => 'savequery'
 					),
 					array(
-						'title' => $language[$lang]['cache_recommendation'],
-						'menustring' => $language[$lang]['cache_recommendation'],
+						'title' => tr('cache_recommendation'),
+						'menustring' => tr('cache_recommendation'),
 						'visible' => false,
 						'filename' => 'recommendations.php',
 						'siteid' => 'recommendations'
@@ -623,43 +623,43 @@ $menu = array(
 				)
 			),
 			array(
-				'title' => $language[$lang]['new_cache'],
-				'menustring' => $language[$lang]['new_cache'],
+				'title' => tr('new_cache'),
+				'menustring' => tr('new_cache'),
 				'visible' => true,
 				'filename' => 'newcache.php',
 				'siteid' => 'newcache',
 				'submenu' => array(
 					array(
-						'title' => $language[$lang]['cache_descriptions'],
-						'menustring' => $language[$lang]['cache_descriptions'],
+						'title' => tr('cache_descriptions'),
+						'menustring' => tr('cache_descriptions'),
 						'visible' => true,
-						'filename' => $language[$lang]['filename_describe_cache'],
+						'filename' => tr('filename_describe_cache'),
 						'siteid' => 'articles/cacheinfo'
 					),
 					array(
-						'title' => $language[$lang]['html_preview'],
-						'menustring' => $language[$lang]['html_preview'],
+						'title' => tr('html_preview'),
+						'menustring' => tr('html_preview'),
 						'visible' => false,
 						'filename' => 'htmlprev.php',
 						'siteid' => 'htmlprev',
 						'submenu' => array(
 							array(
-								'title' => $language[$lang]['html_preview'],
-								'menustring' => $language[$lang]['html_preview'],
+								'title' => tr('html_preview'),
+								'menustring' => tr('html_preview'),
 								'visible' => false,
 								'filename' => 'htmlprev.php',
 								'siteid' => 'htmlprev_step2'
 							),
 							array(
-								'title' => $language[$lang]['html_preview'],
-								'menustring' => $language[$lang]['html_preview'],
+								'title' => tr('html_preview'),
+								'menustring' => tr('html_preview'),
 								'visible' => false,
 								'filename' => 'htmlprev.php',
 								'siteid' => 'htmlprev_step3'
 							),
 							array(
-								'title' => $language[$lang]['html_preview'],
-								'menustring' => $language[$lang]['html_preview'],
+								'title' => tr('html_preview'),
+								'menustring' => tr('html_preview'),
 								'visible' => false,
 								'filename' => 'htmlprev.php',
 								'siteid' => 'htmlprev_step3err'
@@ -667,8 +667,8 @@ $menu = array(
 						)
 					),
 					array(
-						'title' => $language[$lang]['allowed_html_tags'],
-						'menustring' => $language[$lang]['allowed_html_tags'],
+						'title' => tr('allowed_html_tags'),
+						'menustring' => tr('allowed_html_tags'),
 						'visible' => true,
 						'filename' => 'articles.php?page=htmltags',
 						'siteid' => 'articles/htmltags'
@@ -676,22 +676,22 @@ $menu = array(
 				)
 			),
 			array(
-				'title' => $language[$lang]['special_caches'],
-				'menustring' => $language[$lang]['special_caches'],
+				'title' => tr('special_caches'),
+				'menustring' => tr('special_caches'),
 				'visible' => false,
 				'filename' => 'articles.php?page=specialcaches',
 				'siteid' => 'articles/specialcaches'
 			),
 			array(
-				'title' => $language[$lang]['user_ident'],
-				'menustring' => $language[$lang]['user_ident'],
+				'title' => tr('user_ident'),
+				'menustring' => tr('user_ident'),
 				'filename' => 'viewprofile.php',
 				'siteid' => 'viewprofile',
 				'visible' => false
 			),
 			array(
-				'title' => $language[$lang]['recommendations'],
-				'menustring' => $language[$lang]['recommendations'],
+				'title' => tr('recommendations'),
+				'menustring' => tr('recommendations'),
 				'filename' => 'usertops.php',
 				'siteid' => 'usertops',
 				'visible' => false
@@ -956,3 +956,4 @@ function mnu_EchoQuicklinks($selmenuitem)
 	}
 }
 ?>
+

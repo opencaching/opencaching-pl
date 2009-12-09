@@ -266,3 +266,4 @@ TinyMCECompressed.prototype.addPlugin = function(n, p) {
 
 var tinyMCE = new TinyMCECompressed();
 var tinyMCECompressed = tinyMCE;
+

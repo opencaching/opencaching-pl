@@ -24,3 +24,4 @@
 		{queries}
 </table>
 <div class="notice">Pobierając dane z Opencaching.pl akceptujesz <a href="articles.php?page=impressum#tos">warunki użycia danych</a>.</div>
+

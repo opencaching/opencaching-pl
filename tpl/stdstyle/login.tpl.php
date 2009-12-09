@@ -58,3 +58,4 @@
 <p class="content-title-noshade">{not_registered}<br />
 {forgotten_your_password}</p>
 
+

@@ -49,3 +49,4 @@ $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->StrokeCSIM('bar_csimex2.php');
 
 ?>
+

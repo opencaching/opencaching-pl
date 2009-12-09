@@ -3,3 +3,4 @@
 	global $dynstylepath;
 	include ($dynstylepath . "ratings.tpl.php");
 ?>
+

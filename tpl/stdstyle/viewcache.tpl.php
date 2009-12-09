@@ -29,7 +29,7 @@
 
 					if ($usr == false) 
 					{
-						echo '<span class="notlogged-cacheview">'.$language[$lang]['cache_logged_required'].'</span>';
+						echo '<span class="notlogged-cacheview">'.tr('cache_logged_required').'</span>';
 					}
 					// cachelisting
 					$clidx = mnu_MainMenuIndexFromPageId($menu, "cachelisting");
@@ -300,3 +300,4 @@ else
 				</p>
 			</div>
 <!-- End Text Container -->
+

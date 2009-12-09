@@ -50,3 +50,4 @@ $graph->StrokeCSIM('bar_csimex1.php','bar_csimex1');
 
 
 ?>
+

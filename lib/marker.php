@@ -220,3 +220,4 @@ if($res2_foreign = mysql_fetch_array($sysres_foreign)) {
 }
 echo "</markers>";
 ?>
+

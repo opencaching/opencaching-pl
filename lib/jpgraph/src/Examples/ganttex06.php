@@ -50,3 +50,4 @@ $graph->Add($vline);
 // ... and display it
 $graph->Stroke();
 ?>
+

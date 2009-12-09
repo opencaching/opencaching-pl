@@ -4,3 +4,4 @@ $tplname = 'chat';
 tpl_BuildTemplate(); 
 ?>
 
+

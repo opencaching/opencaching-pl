@@ -72,8 +72,8 @@
 	tpl_set_var('coords', '');	
 	tpl_set_var('cachemap_c_u_f', '');	
 	//set up main template specific string
-	$sLoggedOut = '<form action="login.php" method="post" enctype="application/x-www-form-urlencoded" name="login" dir="ltr" style="display: inline;">'.$language[$lang]['user'].':&nbsp;<input name="email" size="10" type="text" class="textboxes" value="" />&nbsp;'.$language[$lang]['password'].':&nbsp;<input name="password" size="10" type="password" class="textboxes" value="" />&nbsp;<input type="hidden" name="action" value="login" /><input type="hidden" name="target" value="{target}" /><input type="submit" name="LogMeIn" value="'.$language[$lang]['login'].'" class="formbuttons" style="width:50px;" /></form>';
-	$sLoggedIn = $language[$lang]['logged_as'].' <a href="myhome.php">{username}</a> - <a href="logout.php">'.$language[$lang]['logout'].'</a>';
+	$sLoggedOut = '<form action="login.php" method="post" enctype="application/x-www-form-urlencoded" name="login" dir="ltr" style="display: inline;">'.tr('user').':&nbsp;<input name="email" size="10" type="text" class="textboxes" value="" />&nbsp;'.$language[$lang]['password'].':&nbsp;<input name="password" size="10" type="password" class="textboxes" value="" />&nbsp;<input type="hidden" name="action" value="login" /><input type="hidden" name="target" value="{target}" /><input type="submit" name="LogMeIn" value="'.$language[$lang]['login'].'" class="formbuttons" style="width:50px;" /></form>';
+	$sLoggedIn = tr('logged_as').' <a href="myhome.php">{username}</a> - <a href="logout.php">'.$language[$lang]['logout'].'</a>';
 
 	// target in Loginbox setzen
 	$target = basename($_SERVER['PHP_SELF']).'?';
