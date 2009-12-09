@@ -1,4 +1,4 @@
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/map.png" border="0" align="middle" width="32" height="32" alt="" title="" align="middle">{user_map} {username}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/world.png" border="0" align="middle" width="32" height="32" alt="" title="" align="middle">{user_map} {username}</div>
 <div class="content2-container">
 <p class="content-title-noshade-size1">{current_zoom}: <input type="text" id="zoom" size="2" disabled="disabled"/></p>
 <p class="content-title-noshade">{colors}: <b><font color="#dddd00">{yellow}</font></b> - {last_10_days}, <b><font color="#00dd00">{green}</font></b> - {own}, <b><font color="#aaaaaa">{gray}</font></b> - {found}, <b><font color="#ff0000">{red}</font></b> - {rest}</p>
