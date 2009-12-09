@@ -816,7 +816,7 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 			if ($menustructure[$i]['siteid'] == $pageid)
 			{
 //				echo '<li class="'.$cssclass.' '.$cssclass.'_active"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
-				echo '<li class="'.$cssclass.' bg-green02"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+				echo '<li class="'.$cssclass.' '.$cssclass.'_active "><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
 				}
 			else
 			{
