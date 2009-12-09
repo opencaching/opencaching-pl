@@ -1,0 +1,474 @@
+main_menu Main Menu
+user_menu User's Menu
+cache_menu Cache Menu
+activation_code_failed Der Aktivierungscode oder die E-Mail-Adresse ist nicht korrekt.<br />Die Aktivierung deines Account war nicht erfolgreich.<br />Verwende bitte die E-Mail-Adresse aus der Registrierungsbestätigung, die du per E-Mail bekommen hast.<br />Überprüfe bitte, ob du dich vertippt hast - sollten die Probleme längere Zeit bestehen, melde dich bitte unter ocpl (at) opencaching.pl.
+email_incorrect E-Mail-Adresse ist nicht korrekt.
+account_activation Account-Aktivierung
+finish_registration_hint Um die Registrierung abzuschließen, müssen Sie Ihre E-Mail-Adresse und geben Sie den Aktivierungs-Code 
+email_address E-Mail Adresse 
+activation_code Aktivierungs-Code 
+confirm Bestätigen
+reset Reset
+activation_success Ihr Konto wurde erfolgreich aktiviert. Jetzt können Sie sich anmelden 
+goto_login Gehen Sie zur Login-Seite 
+preview_attributes Vorschau der zusätzlichen Cache-Attribute 
+toxic_plants Giftige Pflanzen
+thorns Thorns
+cito Cache in - Trash Out
+dogs_allowed Hunde erlaubt
+dogs_not_allowed Hunde sind nicht erlaubt
+all_year Das ganze Jahr
+not_all_year Erreichbar in einigen Jahreszeiten
+accessible_winter Erreichbar im Winter
+not_accessible_winter Nicht im Winter
+depends_weather Der Zugang hängt vom Wetter ab
+bikes_allowed Fahrräder erlaubt
+bikes_not_allowed Bikes nicht erlaubt
+cars_allowed Autos dürfen
+cave Höhle
+outside_path_allowed Wandern außerhalb der Pfad ist erlaubt
+outside_path_not_allowed Wandern außerhalb der Weg ist nicht erlaubt
+drive_outside_road_allowed Fahren außerhalb der Straße erlaubt ist 
+drive_outside_road_not_allowed Fahren außerhalb der Straße ist nicht erlaubt
+water_cache Wasser-Cache - kann unter Wasser
+wading Mögliche watend
+swimming_pool_nearby Swimming Pool in der Nähe
+warning_mud Achtung, Schlamm 
+fire_danger Gefahr von Feuer
+travel_bug_hotel Die Reise-Bug Hotel 
+handicap_allowed Verfügbar für Behinderte
+handicap_not_allowed Nicht verfügbar für Behinderte
+can_drive_in Kann Drive-in direkt in der Nähe von cache 
+no_shorts Tragen Sie keine kurzen Hosen 
+hunting_area Jagdgebiet
+danger_area Gefährlich Bereich
+toilet_nearby Die Toiletten in der Nähe
+no_toilet_nearby Keine Toiletten in der Nähe
+drink_water Trinkwasser
+hiking Mehr als 500 m von der großen Straße
+take_pencil Nehmen Sie Bleistift
+easy_climb Easy Aufstieg
+medium_climb Steilen Anstieg
+extreme_climb Extreme Aufstieg
+horse_path HIPIC Pfad 
+check_tide Check Flut
+take_compass Nehmen Sie Kompass
+sights Sehenswürdigkeiten
+skeeter Tragen Sie etwas Insekten-Resist
+tick Ticks
+snake Achtung! Snakes
+generate_code Code generieren
+9keycom Zusätzliche Attribute auf http://www.9key.com/selector.asp 
+score Bewerten
+scored Bewertung
+recommendations Empfehlungen
+recommendation Empfehlung
+created_by erstellt von
+found gefunden
+founds gefunden
+only_founds nur
+only_new Nur Neues
+not_found nicht gefunden
+add_to Hinzufügen
+add_to_list Zur Liste hinzufügen
+remove_from_list Entfernen Sie aus der Liste
+print Drucken
+remove_from entfernen
+to_print_list print Liste
+to_print So drucken Sie 
+clipboard Clipboard
+active_caches_in_area aktive Caches im Bereich
+shown angezeigt
+next Weiter
+printer_friendly Druckerfreundliche
+user_map Karte der Benutzer 
+current_zoom Aktuelle zoom 
+colors Farben
+yellow Gelb
+green Grün
+gray Grau
+red Rot
+last_10_days von der letzten 10 Tage
+own eigenen
+rest Alle anderen
+max_caches_per_page Max. Anzahl der Caches pro Seite 
+sort_by Sortieren nach
+by_name Name
+by_date date
+hide_caches_type Verstecken Caches nach Art 
+unknown_type Sonstige
+traditional Traditionellen
+multicache Multicache 
+virtual Virtuelle
+webcam Webcam
+event Event
+quiz Quiz
+moving Verschieben
+hide_caches Caches ausblenden
+ignored ignoriert
+not_yet_found noch nicht gefunden
+temp_unavailables vorübergehend nicht verfügbar
+ready_to_find bereit für die Suche 
+other_options Andere Optionen
+show_signes Signes zeigen 
+filter Filter
+without_geokret ohne geokret 
+show_caches Show-Caches
+archived_plural archiviert
+choose_statpic Wählen Sie statpic 
+statpic_previews Statpic Vorschauen sind unten aufgeführt
+change Veränderung
+no_statpics_available Nein statpics verfügbar
+user_statpic_text User ' s Label 
+available_statpics Verfügbare statpics
+statpic_text_message (max. 30 Zeichen) 
+illegal_char Nicht erlaubtes Zeichen!
+main_page Startseite
+what_is_geocaching Was ist Geocaching?
+registration Registrieren
+news Aktuelles
+new_caches Neue-Caches
+new_cache New cache 
+abroad_poland Polen im Ausland
+recommended_caches Empfohlene Caches
+new_logs Die neuesten logs
+statistics Statistik
+rules Nutzungsbedingungen
+links Links
+geochat Geocaching Chat
+contact Kontakt
+my_account Mein Konto
+general Allgemein
+my_logs Mein logs
+change_data Daten ändern
+change_email Ändern E-Mail-Adresse
+change_password Passwort ändern
+collected_queries Gesammelte Fragen 
+watched_caches Gesehen-Caches
+settings Einstellungen
+ignored_caches Ignorierte Caches
+my_recommendations Meine Empfehlungen
+search_cache Suchen Sie einen Cache 
+caches Caches
+cache Geocache
+search Suchen
+view_cache Cache-Verzeichnis
+new_log_entry Neue Log-Eintrag
+edit_log Log-Eintrag bearbeiten
+remove_log Log-Eintrag entfernen
+edit_cache Bearbeiten Cache-Verzeichnis
+new_desc Beschreibung hinzufügen
+edit_desc Beschreibung ändern
+remove_desc Entfernen Beschreibung 
+search_loc Suche nach Ort
+search_results Suchergebnisse
+show_log View Log
+store_queries Speichern Anfragen 
+cache_recommendation Empfehlen einen Cache 
+login Login
+logout Logout
+cache_descriptions Wie beschreiben Sie einen Cache?
+html_preview HTML-Vorschau 
+allowed_html_tags Erlaubte HTML-Tags
+special_caches Besondere Caches
+user_ident User ' s Identifikation 
+cache_map Karte des Caches
+old_cache_map Ältere Version von cachemap 
+abc Geocaching ABC 
+forum Forum
+geokrets Geokrety 
+geoblog Geoblog 
+reports Berichte
+bugs Bugs
+add_picture Bild
+edit_picture Bild bearbeiten
+new_password Neues Passwort
+new_topic Neues Thema
+page_error Site error 
+contact Kontakt
+personal_data Persönliche Daten
+message Nachricht
+register_confirm Bestätigung
+impressum Über
+user Benutzer
+password Passwort
+logged_as Angemeldet als
+coords_other Koordinaten in andere Systeme
+size Größe
+time Zeit erforderlich
+length Entfernung zu reisen
+status_label Status
+date_hidden_label Datum hidden 
+date_created_label Erstellungsdatum
+last_modified_label Letzte Änderung
+waypoint waypoint
+listed_also_on Auch auf 
+comments Kommentare
+comment Kommentar
+write_to_log Melden Sie Ihren Besuch 
+edit Bearbeiten
+watch Watch
+watch_not Don ' t watch 
+ignore Ignorieren
+ignore_not Don ' t ignorieren 
+decrypt Entschlüsseln
+pictures_included Bilder im Zusammenhang mit dieser Log-Eintrag
+attendends Besuch
+will_attend Wird an
+enter_text Geben Sie Text
+enter_text_error Text wurde noch nicht eingetragen 
+only_these nur diese
+password_required Passwort erforderlich, um ein Log-Eintrag.
+last_log_entries Die letzte Log-Einträge 
+terrain_difficulty Terrain Schwierigkeiten
+task_difficulty Task Schwierigkeiten
+out_of aus
+list_of_participants Die Liste der Teilnehmer
+show_recommended Show empfohlen
+show_all Alle anzeigen
+no_choice Auswahl nicht verfügbar
+username_incorrect Benutzername ist nicht korrekt.
+username_exists Angesichts Benutzername ist bereits vergeben.
+bad_coordinates Angesichts Koordinaten sind ungültig.
+bad_radius Da Radius ist ungültig.
+your_data Ihre Daten
+data_in_profile Die nachstehend aufgeführten Daten ist derzeit in Ihrem Benutzer's Profil
+desc_updated Ihre Beschreibung wurde erfolgreich aktualisiert.
+gray_field_is_hidden Grau Felder sind nicht sichtbar für andere Nutzer.
+username_label Username
+country_label Land
+coordinates Koordinaten
+notification Anmeldung
+my_description Meine Beschreibung
+other Andere
+registered_since_label Hier seit 
+statpic_label Statpic 
+html_statpic_link HTML-Code für Ihre statpic 
+bbcode_statpic BBCode für Ihre statpic 
+pmr_message I bin mit PMR-Funk auf Kanal 2
+no_auto_logout Keine automatische Abmeldung nach 15 Minuten der Inaktivität.
+hide_html_editor Verwenden Sie nicht den HTML-Editor.
+notify_new_caches_radius Benachrichtigung über neue Caches in 
+no_new_caches_notification Benachrichtigung über neue Caches deaktiviert ist.
+change_account_data Ändern Sie Ihr Profil Daten 
+from_home_coords Koordinaten von meinem Haus
+radius_hint Maximale gültig ist 150 km Radius. So schalten Sie die Meldungen aus, geben Sie bitte <b> 0 </ b>. 
+no_auto_logout_warning Achtung! Wenn Sie diese Option verwenden, müssen Sie sich bewusst sein, dass, wenn Sie nicht logout, jemand in der Lage, auf Ihr Konto zuzugreifen. 
+hidden_coords Bitte melden Sie sich an, um zu sehen, die Koordinaten.
+watchers Beobachter
+visitors Besucher
+view_reports Berichte anzeigen
+report_problem Problem melden
+no_not_published_caches Nein nicht veröffentlicht Caches
+no_logs Keine Log-Einträge 
+no_time_indicated Noch keine Zeit angegeben
+welcome Willkommen
+administrating_oc OCPL Administration 
+view_your_profile Gehen Sie zu Ihrem Profil 
+no_logs Keine Log-Einträge 
+you_have_found Sie haben sie gefunden
+found_x_caches Caches
+you_have_participated_in Sie haben an 
+found_x_events Events
+your_new_log_entries Ihre letzten Log-Einträge 
+user_new_log_entries Aktuelle Log-Einträge 
+your_caches_new_log_entries Najnowsze wpisy w Twoich skrzynkach
+your_latest_hiddens Ihre kürzlich versteckten Caches
+number_of_your_hiddens Anzahl der Caches versteckt, indem Sie
+not_yet_published Ihr-Caches, die noch nicht veröffentlicht
+emails_sent_label Gesendete Nachrichten
+user_profile Benutzer's Profil
+no_userprofile User's Profil kann nicht angezeigt werden, weil die angegebene Benutzer nicht gefunden wurde in der Datenbank.
+show_all_logs Zeige alle Log-Einträge 
+email_user E-Mail an diesen Benutzer
+show_user_map Zeige Benutzer's-Karte
+profile_data Profil-Daten 
+hidden_caches Hidden-Caches
+found_caches Gefunden Caches
+not_found_caches Nicht gründet 
+show show
+lock Lock
+unlock Entsperren
+user_stats Benutzer's Statistiken
+first_cache Wenn es das erste Mal, Sie eine Cache, Bitte beachten Sie, zu lesen Sie die folgenden <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank"> Beschreibung</a>
+name_label Name
+cache_type Cache-Typ 
+cache_size Cache-Größe
+in_wgs84_system in WGS-84-System 
+difficulty_level Schwierigkeiten
+difficulty_problem Wenn Sie Probleme mit der Schwierigkeit, empfehlen wir die Verwendung von 
+rating_system Cache-Rating-System 
+additional_information Weitere Informationen
+optional optional
+time_distance_hint Zeit und Entfernung zu reisen oft abhängig von äußeren Bedingungen, so dass, wenn Sie Probleme mit der Schätzung dieser Daten, sollten Sie Nullen in den Bereichen vor.  Diese Art von Daten ist beispielsweise nützlich, in <b> multicache</b> oder <b> Veranstaltung</b> Cache-Typen.
+select_one Wählen Sie ein!
+waypoint_other_portal_info Wegpunkt für diesen Cache in anderen Datenbanken. Es werden keine Daten automatisch getroffen.
+cache_attributes Cache-Attribute 
+attributes_edit_hint Attribute können auch später geändert werden
+additional_attributes_hint Sie können noch weitere Attribute zu Ihrem Cache's Beschreibung mit diesem Tool:
+additional_attributes Zusätzliche Cache-Attribute 
+attributes_desc_hint Bitte lesen Sie die <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank"> Opencaching Attribute Beschreibung </a> Artikel
+description Beschreibung
+language Sprache
+other_languages_desc Beschreibung in anderen Sprachen hinzugefügt werden können nach der Registrierung einen Cache.
+short_desc_label Kurzbeschreibung
+error_new_cache Ein oder mehrere Fehler aufgetreten sind. Bitte korrigieren Sie die markierten Felder! 
+time_incorrect Die Zeit ist falsch
+distance_incorrect Entfernung ist nicht korrekt. Legal-Format: aa.aaa 
+date_incorrect Datum ist falsch. Legal-Format: DD-MM-YYYY 
+no_cache_name No-Cache Name 
+new_cache_no_terms Der Cache ist nicht registriert werden, weil Sie nicht überprüft haben, dass Sie die Nutzungsbedingungen Opencaching.pl
+html_incorrect Dieser HTML-Code ist nicht erlaubt.
+type_incorrect No-Cache angegeben! 
+size_incorrect Cache-Größe ist nicht korrekt!
+diff_incorrect Schwierigkeitsgrad ist falsch!
+virtual_cache_size Cache-Größe muss als" nicht-Container ", wenn Cache eingestellt ist oder als Event!
+cache_submitted Ihr Cache wurde auf Opencaching PL.
+full_description Vollständig
+mandatory_field Dieses Feld ist obligatorisch
+full_desc_long_text Bitte schreiben Sie zum Beispiel, warum haben Sie den Cache verstecken und merken Sie sich hier - ein in der Lage sein muß, um den Cache mit den Koordinaten und diese Beschreibung nur, so geben Sie alle erforderlichen Informationen finden Sie hier.
+description_hint Bitte geben Sie kurze und knappe Beschreibung. Nicht neu zu schreiben Informationen finden Sie unter Internet-Link zu bieten, sondern sie.
+no_javascript Ihr Browser unterstützt kein Javascript unterstützt. Sie können nur reinen Text. Zur Aktivierung der HTML-Editor, aktivieren Sie bitte Javascript-Unterstützung.
+html_usage Bitte verwenden Sie HTML-Tags nur für die Bearbeitung eines Textes.
+available_html Liste der verfügbaren HTML-Tags
+additional_enc_info <b> <font color="red"> Zusätzliche </font> verschlüsselten Hinweis. </b> <i> Nicht ein Pflichtfeld </i>. Sie können einige weitere Hinweise hier. Informationen erforderlich sind, um eine Cache ist in "Vollständig"-Feld. "	red>Additional</font> encrypted hint.</b> <i>Not a mandatory field</i>. Your can place some additional hints here. Information neccessary to find a cache has to be placed in "Full description" field.
+add_photo_newcache Bilder und Fotos können nach der Registrierung einen Cache.
+search_wildcard_info Verwenden Sie"% "als Platzhalter.
+event_hidden_hint Hinweis: Bei Veranstaltungen, die" versteckte Datum "-Feld sollte ein Tag, an dem die Veranstaltung beginnt
+submit_new_cache Veröffentlichen
+publish_now Los!
+publish_date Veröffentlicht
+hour Stunde
+dont_publish_yet Nicht veröffentlichen noch 
+log_password Log-Passwort 
+no_password_label Leer lassen, wenn kein Passwort 
+please_read Please read <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">information about passwords in logs!</a>
+password_info_label Informationen über Passwörter in logs
+creating_cache Creating a new cache you accept <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">Terms of Use</a> with all consequences.
+with_all_consequences mit allen Konsequenzen.
+sort_by Sortieren von Suchergebnissen
+cache_name Cache-Name 
+distance_label Distanz
+omit_caches Omit Caches
+of_owner Besitzer's
+not_active nicht aktiv
+observed beobachtet
+from aus
+to bis
+with_hidden_score Show-Caches ohne Satz
+search_by_distance Suche nach der Entfernung 
+search_by_name Suche nach Namen-Cache
+max_distance Maximaler Abstand
+kilometer km
+mile Meilen
+nautical_mile -Meilen-Zone 
+search_by_city Suche nach Stadt
+city_name City
+search_text Suche Text
+text Text
+logs_label logs
+pictures Bilder
+search_by_owner Suche nach Cache-Besitzer 
+owner_label Cache-Besitzer
+finder_label Finder
+search_by_finder Suche nach Finder
+short_desc_label Kurzbeschreibung
+search_recommendations Empfehlungen
+search_all_caches alle Caches
+search_recommended_caches Mindest-Reihe von Empfehlungen:
+incomming_events Eingehende Ereignisse 
+rr_comment_label Opencaching.pl Rat Kommentar 
+add_rr_comment RR Kommentar hinzufügen
+remove_rr_comment Nehmen Sie RR Kommentar 
+get_bulletin Ich möchte Bulletins
+bulletin_label_yes Nutzer erhalten Bulletins
+bulletin_label_no Nutzer erhalten keine Bulletins
+bulletin Bulletin
+user_desc User-Beschreibung
+days_since_first_find_label Tage seit der ersten Cache finden
+days_went_caching_label Tage ging Caching
+days_no_caching_label Tage nicht ging Geocaching
+obsession_indicator_label Obsession Indikator
+hide_to_find_label Hide-Verhältnis zu finden
+caching_karma_label Caching Karma
+verbosity_label Ausführlichkeit
+total_dist_attempted_caches_label Total Abstand zwischen versucht Caches
+median_dist_attempted_caches_label Die mittlere Entfernung zwischen versucht Caches
+average_dist_attempted_caches_label Durchschnittlicher Abstand zwischen versucht Caches
+total_dist_hidden_caches_label Total Abstand zwischen versteckten Caches
+median_dist_hidden_caches_label Die mittlere Entfernung zwischen versteckten Caches
+average_dist_hidden_caches_label Durchschnittlicher Abstand zwischen versteckten Caches
+be_ftf_label Seien Sie Erster zu finden!
+please_login Bitte melden Sie sich.
+to_see_coords Koordinaten versteckt.
+h_pl_label Show-Caches von opencaching.pl
+h_de_label Show-Caches von opencaching.de
+ozi_path_label Pfad zum Ordner" OP "auf PDA
+ozi_path_info Geeignet für Ozi Explorer-Nutzer mit Filips-Datenbank. Wenn Sie den korrekten Pfad zum "OP" -Ordner, werden Sie zum Download WPT-Dateien als Suchergebnis mit Lokalisierung von Informationen über die Cache-Beschreibung. Danach können Sie auf den Cache auf Ozi Explorer anzeigen, und wählen Sie Öffnen Anlage-Option. Es öffnet sich detaillierte Beschreibung über den Cache. Beispiele: <b>\SDMMC\Baza\</b>, <b>\ Speicherkarte\bf\</b>
+newest_caches Die neuesten Caches
+total_of_active_caches Total der aktiven Caches
+number_of_active_users Anzahl der aktiven Benutzer
+number_of_founds Gründet
+latest_news Aktuelles
+what_do_you_find Wilkommen auf Opencaching.pl
+what_do_you_find_intro Hier finden Sie alles über Geocaching in Polen. Opencaching in Polen wurde im <span class="content-title-noshade"> Mai 2006 </span>. <br/> Dies ist die wichtigste Polen Geocaching Website. Unsere Datenbank an <b> OpenSource Projekt <a href="http://oc-server.svn.sourceforge.net/viewvc/oc-server/"> Opencaching </a> </b>.<br/>
+more_news Mehr News
+filename_rules http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use 
+filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
+map_msg To view coordinates and <br/> map of location cache<br/> you must be <a href="login.php?target={target}">logged in</a>
+additional_hints Additional hints
+images Pictures
+utilities Utilities
+log_entries Logentries
+search_geocaches_nearby Find geocaches nearby on OC PL (radius 100 km)
+download_as_file Download as file
+accept_terms_of_use When downloading this file, you accept our <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">terms of use</a>.
+find_geocaches_on Find geocaches on
+searchable searchable
+all_geocaches all
+register_new Register new user
+password_confirm Confirm password
+register_msg1 To create an account on opencaching.de, you have to enter a vaild E-Mail address and an username. An E-Mail will be sent to the address you supplied with an activation code. Only one account can be created per E-Mail address.
+register_msg2 * are required
+register_msg3 If you have further questions, please contact us before you create your account.
+register_msg4 I have read and understand <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">the terms of use</a></b> and accept them. 
+register_msg5 New account has been registered
+register_msg6 The activation code was sent via E-mail to you. Please follow the instruction which was send via E-Mail.
+total_distance Total distance
+send_to_gps Send WayPoint to GPS
+rate_cache Rate this cache: <br/><a href="http://wiki.opencaching.pl/index.php/Cache_rating" target="_blank">Description of scale</a>
+do_not_rate I do not want to rate this cache
+geokret_log Did you take Geokret? Rgeister this on 
+post_new_log Post new log in reference to
+type_of_log Type of log
+date_logged Date
+my_recommend Recommendation
+want_to_recommend I want to recommend this cache
+number_my_recommend Number of my recommendations
+number_possible_recommend from
+possible_recommend You must find following number of caches to get possibility set recommendations
+comments_log Comments
+submit_log_entry Submit log entry
+listed_other This cache please log on the following pages
+all_countries show all countries
+not_spcified not spcified
+register_email_subject Registration confirmation Opencaching PL
+error_username_not_ok Username is incorrect
+error_username_exists Selected username exist in Opencaching PL. Please select other username
+error_email_not_ok E-Mail-Address is incorrect
+error_email_exists Selected e-mail address exist in Opencaching PL. You can register one user per e-mail address
+error_password_not_ok Password is too short
+error_password_diffs Confirmed password is different
+error_tos You do not mark options that you are read and agree with term of use Opencaching PL
+step1 Step 1
+step2 Step 2
+new_password_msg1 To change your password, you have to request a security code which will be sent to you via E-Mail.
+new_password_msg2 Please enter your E-Mail-Address, the security code you received and your new password. <br/>The security code is only 3 days valid. You have to request a new one after that time.
+security_code Security code
+change_password Change password
+logoutsuccess Logout was successful
+error_usernotactive Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.
+not_registered Not registered? <a href="register.php">Register</a>
+forgotten_your_password Forgot your e-mail? <a href="newpw.php">Remind me</a>
+cache_logged_required You have to be logged to add new log entries and operate on this cache.
+basic_information Basic information.

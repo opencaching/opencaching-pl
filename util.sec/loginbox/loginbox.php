@@ -20,7 +20,7 @@
 	global $dblink, $language, $lang;
 
 	require('../../lib/settings.inc.php');
-	require('../../lib/language.inc.php');
+	require_once('../../lib/language.inc.php');
 	
 	require('settings.inc.php');
 	

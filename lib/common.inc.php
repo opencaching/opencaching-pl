@@ -35,7 +35,10 @@ session_start();
 	global $menu;
 	$interface_output = 'html';
 
-	$lang_array = array("pl", "en", "sv", "de", "cs", "fr", "es");
+
+	require_once($rootpath . 'lib/language.inc.php');
+
+	$lang_array = available_languages();//array("pl", "en", "sv", "de", "cs", "fr", "es");
 	$datetimeformat = '%d %B %Y um %H:%M:%S Uhr';
 	$dateformat = '%d %B %Y';
 	$simpledateformat = '%d.%m.%Y';
@@ -143,7 +146,8 @@ session_start();
 	}
 
 	// load language settings
-	require_once($rootpath . 'lib/language.inc.php');
+	load_language_file($lang);
+
 	require_once($rootpath . 'lib/xml2ary.inc.php');	
 	// set footer tpl varset
 	tpl_set_var('main_page', $language[$lang]['main_page']);

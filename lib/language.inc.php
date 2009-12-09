@@ -1,6 +1,46 @@
 <?php
 $language = array();
 
+function load_language_file($lang)
+{
+	global $language;
+	$fhandle = fopen(dirname(__FILE__) . "/languages/".$lang, "r");
+	if($fhandle) {
+		while($line = fgets($fhandle, 4096)) {
+			$pos = strpos($line, ' ');
+			$short = substr($line, 0, $pos);
+			$translation =substr($line, $pos+1, -1);
+			$language[$lang][$short]=$translation;
+		}
+		fclose($fhandle);
+		return true;
+	}
+	return false;
+}
+
+function available_languages()
+{
+	$available_langs = array();
+	if ($handle = opendir(dirname(__FILE__).'/languages')) {
+    	while (false !== ($file = readdir($handle))) {
+	       	if (substr($file, 0, 1) != '.' && strlen($file) == 2) {
+				array_push($available_langs, $file);
+	        }
+	    }
+		closedir($handle);
+		return $available_langs;
+	}
+}
+
+function tr($str)
+{
+	if($language[$lang])
+		return $language[$lang];
+	else
+		return $str . "-todo";
+}
+
+/*
 ////////////////////////////////////////// POLISH ////////////////////////////////////////////
 $language['pl']['main_menu'] = 'Menu główne';
 $language['pl']['user_menu'] = 'Menu użytkownika';
@@ -753,7 +793,7 @@ $language['en']['you_have_participated_in'] = 'You have participated in'; // i.e
 $language['en']['found_x_events'] = 'events'; // i.e. "you have participated in 10 _events_ @ myhome.php"
 $language['en']['your_new_log_entries'] = 'Your latest log entries';
 $language['en']['user_new_log_entries'] = 'Latest log entries';
-$language['pl']['your_caches_new_log_entries'] = 'Latest log entries in your caches';
+$language['en']['your_caches_new_log_entries'] = 'Latest log entries in your caches';
 $language['en']['your_latest_hiddens'] = 'Your recently hidden caches';
 $language['en']['number_of_your_hiddens'] = 'Number of caches hidden by you';
 $language['en']['not_yet_published'] = 'Your caches that have not been published yet';
@@ -3326,4 +3366,5 @@ $language['sv']['error_usernotactive'] = 'Ditt konto inte är aktivt eller avakt
 $language['sv']['not_registered'] = 'Inte registrerad? <a href=register.php>Registrera dig</a>';
 $language['sv']['forgotten_your_password'] = 'Glömt ditt lösenord? <a href=newpw.php>Påminn mig</a>';
 $language['sv']['basic_information'] = 'Basic information.';
+*/
 ?>

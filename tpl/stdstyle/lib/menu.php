@@ -47,7 +47,7 @@
 	),
 
  ****************************************************************************/
-include('lib/language.inc.php');
+include_once('lib/language.inc.php');
 global $menu, $usr, $lang, $cache_menu;
 
 $menu = array(
