@@ -723,6 +723,7 @@
 			                  `cache_logs`.`text` `text`,
 			                  `cache_logs`.`text_html` `text_html`,
 			                  `cache_logs`.`picturescount` `picturescount`,
+							  `cache_logs`.`mp3count` `mp3count`,
 			                  `user`.`username` `username`,
 			                  `log_types`.`icon_small` `icon_small`,
 			                  `log_types_text`.`text_listing` `text_listing`,
@@ -776,7 +777,7 @@
 //						if( $showspoiler )
 //			                $showspoiler = "showspoiler=1&amp;";
 
-						$thisline = mb_ereg_replace('{imgsrc}', 'http://opencaching.pl/thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
+						$thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
 						$thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
 						if ($pic_record['user_id'] == $usr['userid'])
