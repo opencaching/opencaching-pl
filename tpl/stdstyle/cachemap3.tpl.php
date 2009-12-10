@@ -270,7 +270,7 @@
 							var print_topratings;
 							if( score != "" && votes > 2)
 							{
-								show_score = "<br><b>{{score}}:</b> " + score;
+								show_score = "<br><b>{{score_label}}:</b> " + score;
 							}
 							else show_score = "";
 							
@@ -325,10 +325,10 @@
 				
 							infoWindowContent += "</td>";
 							infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\"><tr><td width=\"100%\">";
-							infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+founds+" x "+found_attended+"</nobr></td></tr>";
-							infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+notfounds+" x "+notfound_will_attend+"</nobr><nobr></td></tr>";
+							infoWindowContent += "<p><nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+founds+" x "+found_attended+"</nobr></p></td></tr>";
+							infoWindowContent += "<tr><td width=\"100%\"><p><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+notfounds+" x "+notfound_will_attend+"</nobr></p></td></tr>";
 							if( node == 2 )
-								infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+votes+" x {{scored}}</nobr>";
+								infoWindowContent += "<tr><td width=\"100%\"><p><nobr><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+votes+" x {{scored}}</nobr></p>";
 
 							infoWindowContent += "</td></tr></table></td></tr>";
 							infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
