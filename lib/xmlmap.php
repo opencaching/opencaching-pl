@@ -184,7 +184,7 @@
 		@$writer->writeAttribute('username', addslashes($cache['username']));
 		$writer->writeAttribute('wp', $cache['wp']);
 		$writer->writeAttribute('votes', $cache['votes']);
-		$writer->writeAttribute('score', $ratingDesc[round($cache['score'])-1];
+		$writer->writeAttribute('score', $ratingDesc[round($cache['score'])-1]);
 		$writer->writeAttribute('topratings', $cache['topratings']);
 		$writer->writeAttribute('lat', $cache['latitude']);
 		$writer->writeAttribute('lon', $cache['longitude']);
