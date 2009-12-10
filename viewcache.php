@@ -1027,7 +1027,7 @@
 				}
 			
 				if( $has_password )
-					tpl_set_var('password_req', '<img src="images/attributes/password.png" alt="Potrzebne hasło"/>');
+					tpl_set_var('password_req', '<img src="images/attributes/password.png" title="Potrzbne haslo do logu / Password for log" alt="Potrzebne hasło"/>');
 				else
 					tpl_set_var('password_req', '');
 				tpl_set_var('cache_attributes', $cache_attributes);
