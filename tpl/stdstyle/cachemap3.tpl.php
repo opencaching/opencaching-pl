@@ -325,10 +325,10 @@
 				
 							infoWindowContent += "</td>";
 							infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\"><tr><td width=\"100%\">";
-							infoWindowContent += "<p><nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+founds+" x "+found_attended+"</nobr></p></td></tr>";
-							infoWindowContent += "<tr><td width=\"100%\"><p><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+notfounds+" x "+notfound_will_attend+"</nobr></p></td></tr>";
+							infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+founds+" x "+found_attended+"</nobr></td></tr>";
+							infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+notfounds+" x "+notfound_will_attend+"</nobr></td></tr>";
 							if( node == 2 )
-								infoWindowContent += "<tr><td width=\"100%\"><p><nobr><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+votes+" x {{scored}}</nobr></p>";
+								infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+votes+" x {{scored}}</nobr>";
 
 							infoWindowContent += "</td></tr></table></td></tr>";
 							infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
