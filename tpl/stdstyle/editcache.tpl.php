@@ -256,9 +256,6 @@ function toggleAttr(id)
 	<tr>
 		<td colspan="2">{cache_attrib_list}</td>
 	</tr>
-	<tr>
-		<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;"> {{additional_attributes_hint}} <a href="cache-atr.php" target="_BLANK">{{additional_attributes}}</a>. {{attributes_desc_hint}}</div></td>
-	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
