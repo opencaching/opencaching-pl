@@ -133,6 +133,7 @@
 												`caches`.`votes` `votes`,
 												`caches`.`score` `score`,
 			                  `caches`.`picturescount` `picturescount`,
+							  `caches`.`mp3count` `mp3count`,
 			                  `caches`.`desc_languages` `desc_languages`,
 				          `caches`.`topratings` `topratings`,
 			                  `caches`.`ignorer_count` `ignorer_count`,

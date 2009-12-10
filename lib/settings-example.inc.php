@@ -27,6 +27,8 @@
  
  /* YOU HAVE TO RENAME THIS FILE TO settings.inc.php */
  
+   // Please replay <domain> to real your domain name site for example www.opencaching.pl
+ 
  	//relative path to the root directory
 	if (!isset($rootpath)) $rootpath = './';
 
@@ -50,8 +52,9 @@
 	 * 7 OC SE
 	 */
 	$oc_nodeid = 2;
-	//OC Waypoint OC for DE, OP for PL, OZ for CZ, OS for OC SE, OK for OC UK
-	$OCWP = OP;
+	
+	//OC Waypoint  name unique for every OC site.: OC for DE, OP for PL, OZ for CZ, OS for OC SE, OK for OC UK,
+	$ocWP = OP;
 	
         //name of the cookie
         $opt['cookie']['name'] = 'ocpl';
@@ -78,10 +81,10 @@
 	
 	//if you are running this site on a other domain than staging.opencaching.de, you can set
 	//this in private_db.inc.php, but don't forget the ending /
-	$absolute_server_URI = '';
+	$absolute_server_URI = 'http://<domain>';
 	
 	// EMail address of the sender
-	if (!isset($emailaddr)) $emailaddr = 'noreply@opencaching.pl';
+	if (!isset($emailaddr)) $emailaddr = 'noreply@<domain>';
 	
 	// location for dynamically generated files
 	$dynbasepath = '/var/www/ocpl-data/';
@@ -89,7 +92,7 @@
 
 	// location of cache images
 	if (!isset($picdir)) $picdir = $dynbasepath . 'images/uploads';
-	if (!isset($picurl)) $picurl = 'images/uploads';
+	if (!isset($picurl)) $picurl = 'http://http://<domain>/images/uploads';
 
 	// Thumbsize
 	$thumb_max_width = 175;
@@ -99,11 +102,11 @@
 	if (!isset($maxpicsize)) $maxpicsize = 152400;
 	
 	// allowed extensions of images
-	if (!isset($picextensions)) $picextensions = ';jpg;jpeg;gif;png;bmp;';
+	if (!isset($picextensions)) $picextensions = ';jpg;jpeg;gif;png;';
 
 	// location of cache mp3 files
 	if (!isset($mp3dir)) $mp3dir = $dynbasepath . 'mp3/uploads';
-	if (!isset($mp3url)) $mp3url = 'mp3/uploads';
+	if (!isset($mp3url)) $mp3url = 'http://http://<domain>/mp3/uploads';
 
 	// maximal size of mp3 for PodCache 5 Mb ?
 	if (!isset($maxmp3size)) $maxmp3size = 5000000;
@@ -113,7 +116,7 @@
 	
 	// news settings
 	$use_news_approving = true;
-	$news_approver_email = 'ocpl@opencaching.pl';
+	$news_approver_email = 'ocpl@<domain>';
 	
 	//local database settings
 	$dbusername = '[DB USERNAME]';
@@ -130,7 +133,7 @@
 	$tmpdbname = 'temp';
 
 	// warnlevel for sql-execution
-	$sql_errormail = 'ocpl@opencaching.pl';
+	$sql_errormail = 'ocpl@<domain>';
 	$sql_warntime = 1;
 
 	// replacements for sql()
@@ -147,7 +150,7 @@
 	$googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
 	
 	$super_admin_id = 2619; // user_id of admin who can delete all user logs on viewprofile.php page.
-	$dberrormail = 'ocpl@opencaching.pl';
+	$dberrormail = 'ocpl@<domain>';
 
 
   
