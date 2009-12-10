@@ -516,4 +516,6 @@ textarea.logs {		width:600px; height:300px; }	/* only logeditor */
 div#new-caches-area { width: 500px; }
 div#new-events-area { width: 500px; }
 
+div#cacheview-attributesinfo { }
+
 

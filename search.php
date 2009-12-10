@@ -1409,8 +1409,8 @@ function outputSearchForm($options)
 
 		$cachetype_icon = str_replace("mystery", "quiz", $cachetype_icon); // mystery is an outdated name, we use 'quiz' now :-)
 		$cachetype_icon_bw = $cachetype_icon;
-		$cachetype_icon    = str_replace(".png", "-i.png",    $cachetype_icon);
-		$cachetype_icon_bw = str_replace(".png", "-i-bw.png", $cachetype_icon_bw);
+		$cachetype_icon    = str_replace(".gif", "-i.png",    $cachetype_icon);
+		$cachetype_icon_bw = str_replace(".gif", "-i-bw.png", $cachetype_icon_bw);
 
 		$hidden_css = "position: absolute; visibility: hidden;"; // css required to hide an image
 
