@@ -304,7 +304,7 @@
 								
 							if( type == 6 )
 							{
-								found_attended = "{{attended}}";
+								found_attended = "{{attendends}}";
 								notfound_will_attend = "{{will_attend}}";
 							}
 							else
