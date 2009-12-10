@@ -271,14 +271,6 @@
 							if( score != "" && votes > 2)
 							{
 								show_score = "<br><b>{{score}}:</b> " + score;
-								if( score >= 5 )
-									score = "3";
-								else if( score >= 4.4 )
-									score = "2";
-								else if( score >= 2.5 )
-									score = "1";
-								else
-									score = "0";
 							}
 							else show_score = "";
 							
