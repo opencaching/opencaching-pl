@@ -49,8 +49,8 @@ function getDBFilter($user_id)
 									"be_ftf"=>0,
 									"h_pl"=>1,
 									"h_de"=>1,
-									"min_score"=>0,
-									"max_score"=>6,
+									"min_score"=>$MIN_SCORE,
+									"max_score"=>$MAX_SCORE,
 									"h_noscore"=>1
 									); // default filter
 	$query = mysql_query("SELECT * from map_settings WHERE `user_id`=$user_id");
@@ -166,20 +166,16 @@ else
 	tpl_set_var('map_height', isset($_GET['print'])?$y_print:("512")."px"); 
 	
 	$filter = getDBFilter($usr['userid']);
-		tpl_set_var("min_sel0", "");
 		tpl_set_var("min_sel1", "");
 		tpl_set_var("min_sel2", "");
 		tpl_set_var("min_sel3", "");
 		tpl_set_var("min_sel4", "");
 		tpl_set_var("min_sel5", "");
-		tpl_set_var("min_sel6", "");
-		tpl_set_var("max_sel0", "");
 		tpl_set_var("max_sel1", "");
 		tpl_set_var("max_sel2", "");
 		tpl_set_var("max_sel3", "");
 		tpl_set_var("max_sel4", "");
 		tpl_set_var("max_sel5", "");
-		tpl_set_var("max_sel6", "");
 	foreach($filter as $key=>$value)
 	{
 		$value = intval($value);

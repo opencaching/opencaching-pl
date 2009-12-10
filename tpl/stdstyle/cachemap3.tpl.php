@@ -47,23 +47,19 @@
 				<li class="group"><input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{{h_de_label}}</label></li>
 			<li class="group">{{score_label}} {{from}}:	
 			<select id="min_score" name="min_score" onchange="reload()">
-				<option value="0" {min_sel0}>0</option>
 				<option value="1" {min_sel1}>1</option>
 				<option value="2" {min_sel2}>2</option>
 				<option value="3" {min_sel3}>3</option>
 				<option value="4" {min_sel4}>4</option>
 				<option value="5" {min_sel5}>5</option>
-				<option value="6" {min_sel6}>6</option>
 			</select>
 			 {{to}}: 
 			<select id="max_score" name="max_score" onchange="reload()">
-				<option value="0" {max_sel0}>0</option>
 				<option value="1" {max_sel1}>1</option>
 				<option value="2" {max_sel2}>2</option>
 				<option value="3" {max_sel3}>3</option>
 				<option value="4" {max_sel4}>4</option>
 				<option value="5" {max_sel5}>5</option>
-				<option value="6" {max_sel6}>6</option>
 			</select>
 			</li>
 			<li class="group"><input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">{{show_noscore}}</label></li>
