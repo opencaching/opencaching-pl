@@ -50,7 +50,7 @@
 		}
 		else
 		{
-			$cache_rs = sql("SELECT `user_id`, `name`, `picturescount`, `type`, `size`, `date_hidden`, `date_activate`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`, `desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+			$cache_rs = sql("SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`, `desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
 			if (mysql_num_rows($cache_rs) == 1)
 			{
 				$cache_record = sql_fetch_array($cache_rs);
@@ -724,6 +724,30 @@
 					}
 					else
 						tpl_set_var('pictures', $nopictures);
+
+					if ($cache_record['mp3count'] > 0)
+					{
+						$mp3_files = '';
+						$rsmp3 = sql("SELECT `url`, `title`, `uuid` FROM `mp3` WHERE `object_id`='&1' AND `object_type`=2", $cache_id);
+
+						for ($i = 0; $i < mysql_num_rows($rsmp3); $i++)
+						{
+							$tmpline = $mp3line;
+							$pic_record = sql_fetch_array($rsmp3);
+
+							$tmpline = mb_ereg_replace('{link}', htmlspecialchars($mp3_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline);
+							$tmpline = mb_ereg_replace('{title}', htmlspecialchars($mp3_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline);
+							$tmpline = mb_ereg_replace('{uuid}', htmlspecialchars($mp3_record['uuid'], ENT_COMPAT, 'UTF-8'), $tmpline);
+
+							$mp3_files .= $tmpline;
+						}
+
+						$mp3_files = mb_ereg_replace('{lines}', $mp3, $mp3lines);
+						mysql_free_result($rsmp3);
+						tpl_set_var('mp3_files', $mp3_files);
+					}
+					else
+						tpl_set_var('mp3_files', $nomp3);
 
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('name', htmlspecialchars($cache_name, ENT_COMPAT, 'UTF-8'));
