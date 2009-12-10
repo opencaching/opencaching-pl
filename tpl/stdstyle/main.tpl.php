@@ -50,13 +50,13 @@
 	<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_screen.css" />
   <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
 	<link rel="SHORTCUT ICON" href="favicon.ico" />
+<script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
   <title><?php echo $tpl_subtitle; ?>{title}</title>
 	{htmlheaders}
 	{cachemap_header}	
 	{viewcache_header}
 </head>
 <body{bodyMod}>
-<script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
 
 <script language="javascript" type="text/javascript">
 function chname( newName )
