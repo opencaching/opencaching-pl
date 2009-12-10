@@ -5,20 +5,21 @@
 </div>
 <div id="map_canvas" style="width: {map_width}; height: {map_height}; float:left; border: 1px solid #000;">
 </div>
+<div class="content2-container">
 <table width="100%">
 <tr>
 	<td width="33%">
 		<div class="nav3">
 			<ul>
 				<li class="title">{{hide_caches_type}}:</li>
-				<li class="group"><input class="chbox" id="h_u" name="h_u" value="1" type="checkbox" {h_u_checked} onclick="reload()"/><label for="h_u">{{unknown_type}} (U)</label></li>
-				<li class="group"><input class="chbox" id="h_t" name="h_t" value="1" type="checkbox" {h_t_checked} onclick="reload()"/><label for="h_t">{{traditional}} (T)</label></li>
-				<li class="group"><input class="chbox" id="h_m" name="h_m" value="1" type="checkbox" {h_m_checked} onclick="reload()"/><label for="h_m">{{multicache}} (M)</label></li>
-				<li class="group"><input class="chbox" id="h_v" name="h_v" value="1" type="checkbox" {h_v_checked} onclick="reload()"/><label for="h_v">{{virtual}} (V)</label></li>
-				<li class="group"><input class="chbox" id="h_w" name="h_w" value="1" type="checkbox" {h_w_checked} onclick="reload()"/><label for="h_w">Webcam (W)</label></li>
-				<li class="group"><input class="chbox" id="h_e" name="h_e" value="1" type="checkbox" {h_e_checked} onclick="reload()"/><label for="h_e">{{event}} (E)</label></li>
-				<li class="group"><input class="chbox" id="h_q" name="h_q" value="1" type="checkbox" {h_q_checked} onclick="reload()"/><label for="h_q">Quiz (Q)</label></li>
-				<li class="group"><input class="chbox" id="h_o" name="h_o" value="1" type="checkbox" {h_o_checked} onclick="reload()"/><label for="h_o">{{moving}} (O)</label></li>
+				<li class="group"><input class="chbox" id="h_u" name="h_u" value="1" type="checkbox" {h_u_checked} onclick="reload()"/><label for="h_u">{{unknown_type}}</label></li>
+				<li class="group"><input class="chbox" id="h_t" name="h_t" value="1" type="checkbox" {h_t_checked} onclick="reload()"/><label for="h_t">{{traditional}}</label></li>
+				<li class="group"><input class="chbox" id="h_m" name="h_m" value="1" type="checkbox" {h_m_checked} onclick="reload()"/><label for="h_m">{{multicache}}</label></li>
+				<li class="group"><input class="chbox" id="h_v" name="h_v" value="1" type="checkbox" {h_v_checked} onclick="reload()"/><label for="h_v">{{virtual}}</label></li>
+				<li class="group"><input class="chbox" id="h_w" name="h_w" value="1" type="checkbox" {h_w_checked} onclick="reload()"/><label for="h_w">Webcam</label></li>
+				<li class="group"><input class="chbox" id="h_e" name="h_e" value="1" type="checkbox" {h_e_checked} onclick="reload()"/><label for="h_e">{{event}}</label></li>
+				<li class="group"><input class="chbox" id="h_q" name="h_q" value="1" type="checkbox" {h_q_checked} onclick="reload()"/><label for="h_q">Quiz</label></li>
+				<li class="group"><input class="chbox" id="h_o" name="h_o" value="1" type="checkbox" {h_o_checked} onclick="reload()"/><label for="h_o">{{moving}}</label></li>
 			</ul>
 		</div>
 	</td>
@@ -33,7 +34,7 @@
 				<li class="group"><input class="chbox" id="h_nogeokret" name="h_nogeokret" value="1" type="checkbox" {h_nogeokret_checked} onclick="reload()"/><label for="h_nogeokret">{{without_geokret}}</label></li>
 				<li class="group"><input class="chbox" id="h_avail" name="h_avail" value="1" type="checkbox" {h_avail_checked} onclick="reload()"/><label for="h_avail">{{ready_to_find}}</label></li>
 				<li class="group"><input class="chbox" id="h_temp_unavail" name="h_temp_unavail" value="1" type="checkbox" {h_temp_unavail_checked} onclick="reload()"/><label for="h_temp_unavail">{{temp_unavailables}}</label></li>
-				<li class="group"><input class="chbox" id="h_arch" name="h_arch" value="1" type="checkbox" {h_arch_checked} onclick="reload()"/><label for="h_arch">{{archived}}</label></li>	
+				<li class="group"><input class="chbox" id="h_arch" name="h_arch" value="1" type="checkbox" {h_arch_checked} onclick="reload()"/><label for="h_arch">{{archived_plural}}</label></li>	
 			</ul>
 		</div>
 	</td>
@@ -45,21 +46,21 @@
 				<li class="group"><input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload();check_field()"/><label for="be_ftf">{{be_ftf_label}}</label></li>
 				<li class="group"><input class="chbox" id="h_pl" name="h_pl" value="1" type="checkbox" {h_pl_checked} onclick="reload()"/><label for="h_pl">{{h_pl_label}}</label></li>
 				<li class="group"><input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{{h_de_label}}</label></li>
-			<li class="group">{{score_label}} {{from}}:	
+			<li class="group">{{from}}:	
 			<select id="min_score" name="min_score" onchange="reload()">
-				<option value="1" {min_sel1}>1</option>
-				<option value="2" {min_sel2}>2</option>
-				<option value="3" {min_sel3}>3</option>
-				<option value="4" {min_sel4}>4</option>
-				<option value="5" {min_sel5}>5</option>
-			</select>
+				<option value="1" {min_sel1}>{{rating_poor}}</option>
+				<option value="2" {min_sel2}>{{rating_mediocre}}</option>
+				<option value="3" {min_sel3}>{{rating_avarage}}</option>
+				<option value="4" {min_sel4}>{{rating_good}}</option>
+				<option value="5" {min_sel5}>{{rating_excellent}}</option>
+			</select><br/>
 			 {{to}}: 
 			<select id="max_score" name="max_score" onchange="reload()">
-				<option value="1" {max_sel1}>1</option>
-				<option value="2" {max_sel2}>2</option>
-				<option value="3" {max_sel3}>3</option>
-				<option value="4" {max_sel4}>4</option>
-				<option value="5" {max_sel5}>5</option>
+				<option value="1" {max_sel1}>{{rating_poor}}</option>
+				<option value="2" {max_sel2}>{{rating_mediocre}}</option>
+				<option value="3" {max_sel3}>{{rating_avarage}}</option>
+				<option value="4" {max_sel4}>{{rating_good}}</option>
+				<option value="5" {max_sel5}>{{rating_excellent}}</option>
 			</select>
 			</li>
 			<li class="group"><input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">{{show_noscore}}</label></li>
@@ -68,6 +69,7 @@
 	</td>
 </tr>
 </table>
+</div>
 	<script type="text/javascript" language="javascript">
 	var h_t = 0;
 	var map=null;
