@@ -72,10 +72,10 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
 
  //$cryptedhints = '<h1>Hinweise {decrypt_link}</h1><p>{hints}</p>';
 
- $pictureline = '<a href="{link}" rel="lytebox[vacation]">{title}</a><br />';
+ $pictureline = '<a href="{link}">{title}</a><br />';
  $pictures = '<p>{picturelines}</p>';
 
- $logpictureline = '<a href="{link}" title="{title}" rel="lytebox[vacation]">{title}</a>{functions}<br />';
+ $logpictureline = '<a href="{link}" title="{title}" onclick="return false;"><img src="{imgsrc}" alt="{title}" onclick="enlarge(this)" longdesc="{longdesc}"/></a>{functions}<br />';
  $logpictures = '<tr><td><b>'.tr('pictures_included').':</b><br />{lines}</td></tr>';
 
  //$cache_watchers = '<br/>Dieser Cache wird von {watcher} Opencaching.de Nutzern beobachtet.';
@@ -149,8 +149,8 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 			else $showspoiler = "";
 			
 			$retval .= '<td width="180" align="center" valign="top">';
-			$retval .= '<a href="'.$r['url'].'" title="'.$r['title'].'" rel="lytebox[vacation]">';
-			$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" border="0" alt="'.$r['title'].'" title="'.$r['title'].'" align="bottom"/>';
+			$retval .= '<a href="'.$r['url'].'" title="'.$r['title'].'" onclick="return false;">';
+			$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" border="0" alt="'.$r['title'].'" title="'.$r['title'].'" align="bottom" onclick="enlarge(this)" longdesc="'.$r['url'].'" />';
 			$retval .= '</a><br>';
 			if($viewtext)
 				$retval .= $r['title'];
@@ -184,6 +184,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 */
 }
 
+// Hmm, is this references at all?
 function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoiler_only = false, $picturescount)
 {
 	global $dblink;
@@ -202,7 +203,7 @@ function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoile
 	while ($r = sql_fetch_array($rs))
 	{
 		$retval .= '<tr><td width="180" align="center" valign="top">';
-		$retval .= '<img src="'.$r['url'].'" border="0" alt="'.$r['title'].'" title="'.$r['title'].'" align="bottom"/>';
+		$retval .= '<img src="'.$r['url'].'" border="0" alt="'.$r['title'].'" title="'.$r['title'].'" align="bottom" />';
 		$retval .= '<br>';
 		if($viewtext)
 			$retval .= $r['title'];

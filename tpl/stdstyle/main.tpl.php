@@ -56,6 +56,8 @@
 	{viewcache_header}
 </head>
 <body{bodyMod}>
+<script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
+
 <script language="javascript" type="text/javascript">
 function chname( newName )
 {

@@ -246,32 +246,48 @@
 				$score = "";
 				$scorecolor = "";
 				$font_size = "";
-				tpl_set_var('score', "N/A");
-				tpl_set_var('scorecolor', "#000000");
+				tpl_set_var('noscore_start', "");
+				tpl_set_var('noscore_end', "");
+				tpl_set_var('score_start', "<!--");
+				tpl_set_var('score_end', "-->");
 			}
 			else
 			{
 				// show cache's score
-				$score = round($cache_record['score'])-1;
-				$font_size = "2";
-				if( $score == 0 )
-					$scorecolor = "#DD0000";
+				
+				tpl_set_var('noscore_start', "<!--");
+				tpl_set_var('noscore_end', "-->");
+				tpl_set_var('score_start', "");
+				tpl_set_var('score_end', "");
+				$score = sprintf("%.1f",$cache_record['score']);
+				$font_size = "4";
+				if( $score <= 0.5 )
+					$scorecolor = "#FF0000";
 				else
-				if( $score == 1 )
-					$scorecolor = "#F06464";
+				if( $score > 0.5 && $score <= 1.0 )
+					$scorecolor = "#FF3300";
 				else
-				if( $score == 2 )
-					$scorecolor = "#DD7700";
+				if( $score > 1.0 && $score <= 1.5 )
+					$scorecolor = "#FF6600";
 				else
-				if( $score == 3 )
-					$scorecolor = "#77CC00";
+				if( $score > 1.5 && $score <= 3.5 )
+					$scorecolor = "#FF9900";
 				else
-				if( $score == 4 )
-					$scorecolor = "#00DD00";
-				tpl_set_var('score', $ratingDesc[$score]);
-				tpl_set_var('scorecolor', $scorecolor);	
-			}			
-			
+				if( $score > 3.5 && $score <= 4.5 )
+					$scorecolor = "#99FF00";
+				else
+				if( $score > 4.5 && $score <= 5.0 )
+					$scorecolor = "#66FF00";
+				else
+				if( $score > 5.0 && $score <= 5.5 )
+					$scorecolor = "#33FF00";
+				else
+				if( $score > 5.5)
+					$scorecolor = "#00FF00";
+			}
+			tpl_set_var('score', $score);
+			tpl_set_var('scorecolor', $scorecolor);
+			tpl_set_var('font_size', $font_size);
 			// begin visit-counter
 			// delete cache_visits older 1 day 60*60*24 = 86400
 			sql("DELETE FROM `cache_visits` WHERE `cache_id`=&1 AND `user_id_ip` != '0' AND NOW()-`last_visited` > 86400", $cache_id);
@@ -770,6 +786,12 @@
 						$thisline = $logpictureline;
 
 						$thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
+						$thisline = mb_ereg_replace('{longdesc}', $pic_record['url'], $thisline);
+
+//						if( $showspoiler )
+//			                $showspoiler = "showspoiler=1&amp;";
+
+						$thisline = mb_ereg_replace('{imgsrc}', 'http://opencaching.pl/thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
 						$thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
 						if ($pic_record['user_id'] == $usr['userid'])
@@ -1031,8 +1053,6 @@
 
 
 $viewcache_header = '
-<script type="text/javascript" src="tpl/{style}/js/lytebox.js"></script>
-<link rel="stylesheet" href="tpl/{style}/css/lytebox.css" type="text/css" media="screen" />
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript" src="rot13.js"></script>
     <script type="text/javascript">
