@@ -198,7 +198,7 @@ else
 {hidehint_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/blue/crypt.png" width="22" height="22" style="vertical-align:middle" border="0" alt="enc"/>
+					<img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
 					<b>{{additional_hints}}</b>&nbsp;&nbsp;
 					{decrypt_link_start}
 					<img src="tpl/stdstyle/images/blue/decrypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
