@@ -10,6 +10,7 @@ function load_language_file($lang)
 			$pos = strpos($line, ' ');
 			$short = substr($line, 0, $pos);
 			$translation =substr($line, $pos+1, -1);
+			$translation = rtrim($translation, "\r\n");
 			$language[$lang][$short]=$translation;
 		}
 		fclose($fhandle);
