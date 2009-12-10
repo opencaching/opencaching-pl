@@ -246,48 +246,32 @@
 				$score = "";
 				$scorecolor = "";
 				$font_size = "";
-				tpl_set_var('noscore_start', "");
-				tpl_set_var('noscore_end', "");
-				tpl_set_var('score_start', "<!--");
-				tpl_set_var('score_end', "-->");
+				tpl_set_var('score', "N/A");
+				tpl_set_var('scorecolor', "#000000");
 			}
 			else
 			{
 				// show cache's score
-				
-				tpl_set_var('noscore_start', "<!--");
-				tpl_set_var('noscore_end', "-->");
-				tpl_set_var('score_start', "");
-				tpl_set_var('score_end', "");
-				$score = sprintf("%.1f",$cache_record['score']);
-				$font_size = "4";
-				if( $score <= 0.5 )
-					$scorecolor = "#FF0000";
+				$score = round($cache_record['score'])-1;
+				$font_size = "2";
+				if( $score == 0 )
+					$scorecolor = "#DD0000";
 				else
-				if( $score > 0.5 && $score <= 1.0 )
-					$scorecolor = "#FF3300";
+				if( $score == 1 )
+					$scorecolor = "#F06464";
 				else
-				if( $score > 1.0 && $score <= 1.5 )
-					$scorecolor = "#FF6600";
+				if( $score == 2 )
+					$scorecolor = "#DD7700";
 				else
-				if( $score > 1.5 && $score <= 3.5 )
-					$scorecolor = "#FF9900";
+				if( $score == 3 )
+					$scorecolor = "#77CC00";
 				else
-				if( $score > 3.5 && $score <= 4.5 )
-					$scorecolor = "#99FF00";
-				else
-				if( $score > 4.5 && $score <= 5.0 )
-					$scorecolor = "#66FF00";
-				else
-				if( $score > 5.0 && $score <= 5.5 )
-					$scorecolor = "#33FF00";
-				else
-				if( $score > 5.5)
-					$scorecolor = "#00FF00";
-			}
-			tpl_set_var('score', $score);
-			tpl_set_var('scorecolor', $scorecolor);
-			tpl_set_var('font_size', $font_size);
+				if( $score == 4 )
+					$scorecolor = "#00DD00";
+				tpl_set_var('score', $ratingDesc[$score]);
+				tpl_set_var('scorecolor', $scorecolor);	
+			}			
+			
 			// begin visit-counter
 			// delete cache_visits older 1 day 60*60*24 = 86400
 			sql("DELETE FROM `cache_visits` WHERE `cache_id`=&1 AND `user_id_ip` != '0' AND NOW()-`last_visited` > 86400", $cache_id);
