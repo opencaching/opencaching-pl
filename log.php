@@ -203,23 +203,30 @@
 //				mysql_result($is_scored_query,0);
 				if( mysql_result($is_scored_query,0) == 0 && $usr['userid'] != $record['user_id'])
 				{
-					$color_table = array("#FF0000","#FF6600","#FF9900","#99FF00","#66FF00","#33FF00","#00FF00");
-					$score = "<table border='0' style='border-width:1px;border-style:dotted;background-image: url(/images/pasek.png);width:306px;' cellspacing='0' cellpadding='0' width='50%'>";
-					$score .= "<tr>";
+					//$color_table = array("#FF0000","#FF6600","#FF9900","#99FF00","#66FF00","#33FF00","#00FF00");
+					$score = "<select name='r'>
+						";
+					if( isset($_POST['r']) && $_POST['r'] == -10)
+						$checked = " selected";
+					else
+						$checked = "";
+						
+					$score .= "<option value='-10' $checked>".tr('do_not_rate')."</option>";
 					for( $score_radio=$MIN_SCORE;$score_radio<=$MAX_SCORE;$score_radio++)
 					{
 						if( isset($_POST['r']) && $score_radio == $_POST['r'] )
-							$checked = " checked";
+							$checked = " selected";
 						else
 							$checked = "";
-						$score .= "<td width='14%' align='center'><input style='border-style:none; color : black;background:transparent;' type='radio' name='r' id='r$score_radio' value='$score_radio' $checked></td>";
+						$score .= "<option value='$score_radio' $checked>".$ratingDesc[$score_radio-1]."</option>";
 					}
-					$score .= "</tr><tr>";
-					
+					$score .= "</select>";
+					/*
 					for( $score_radio=$MIN_SCORE;$score_radio<=$MAX_SCORE;$score_radio++)
-						$score .= "<td width='14%' align='center'><label style='color:#ffffff;font-weight:bold;font-size:12px;' for='r$score_radio'>$score_radio</label>";
+						$score .= "<td width='14%' align='center'><label style='color:#ffffff;font-weight:bold;font-size:12px;' for='r$score_radio'>".$ratingDesc[$score_radio-1]."</label>";
 					$score .= "</tr></table>";
 					$score .= "<input style='border-style:none;background : transparent; color : black' type='radio' name='r' id='r-10' value='-10'><label for='r-10'>".tr('do_not_rate')."</label>";
+					*/
 					$score_header = tr('rate_cache');
 					$display = "block";
 				}

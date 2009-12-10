@@ -435,7 +435,7 @@ register_msg5 Nowy użytkownik został zarejstrowany
 register_msg6 Kod aktywacyjny został wysłany na twój adres E-Mail.<br/>W celu zakończenia procesu rejestracji proszę się kierować instrukcją dostarczoną na twój adres E-Mail.<br/><b>Uwaga! Niektóre serwery pocztowe odrzucają list z kodem aktywacyjnym z serwera OC PL. Jeśli nie otrzymałeś kodu w ciągu najbliższych godzinach prosimy o kontakt na adres <font color=black>ocpl</font> <font color=black>@</font> <font color=black>opencaching.pl</font> (podaj swój username jaki użyłeś podczas rejestracji)
 total_distance Całkowity dystans
 send_to_gps Wyślij WayPoint do GPS
-post_new_log Wpis do LOGu skrzynki
+post_new_log Wpis do logu skrzynki
 type_of_log Rodzaj wpisu do logu
 date_logged Data
 want_to_recommend Tak, chcę zarekomendować tę skrzynkę
@@ -446,19 +446,19 @@ possible_recommend Aby móc rekomendować inne skrzynki, musisz jeszcze znależ�
 comments_log Treść wpisu
 submit_log_entry Wyślij wpis do logu
 geokret_log Zabrałeś geokreta? Zarejestruj ten fakt na
-rate_cache Oceń skrzynkę: <br/> &nbsp;&nbsp;<a href="http://wiki.opencaching.pl/index.php/Oceny_skrzynek">Opis skali</a>
-do_not_rate Nie chcę ocenić tej skrzynki
-listed_other Proszę wpisać się w LOGi także na następujących stronach
+rate_cache Oceń skrzynkę: <br/><a href="http://wiki.opencaching.pl/index.php/Oceny_skrzynek">Opis skali</a>
+do_not_rate Nie chcę oceniać tej skrzynki
+listed_other Proszę wpisać się w logi także na następujących stronach
 not_spcified nie wybrano
 all_countries pokaż wszystkie kraje
 register_email_subject Rejestracja użytkownika Opencaching PL
 error_username_not_ok Nazwa użytkownika jest niepoprawna
 error_username_exists Podany użytkownik już jest zajęty. Wybierz inny
-error_email_not_ok E-Mail-Adres jest niepoprawny
-error_email_exists Podany adres E-mail jest już użyty. Możesz tylko jednego użytkownika zarejstrować na jeden adres E-mail
-error_password_not_ok Hasło zawiera nielegalne znaki lub jest zbyt krótkie
-error_password_diffs Hasło powtórzone jest różne
-error_tos Nie zaznaczyłeś, że zapoznałeś się i zobowiązujesz się przestrzegać regulamiu Opencaching PL.
+error_email_not_ok Adres e-mail jest niepoprawny
+error_email_exists Podany adres e-mail jest już użyty.
+error_password_not_ok Hasło zawiera niedozwolone znaki lub jest zbyt krótkie
+error_password_diffs Hasła się różnią
+error_tos Nie zaznaczyłeś, że zapoznałeś się i zobowiązujesz się przestrzegać regulamiu Opencaching.pl.
 step1 Krok 1
 step2 Krok 2
 new_password_msg1 Aby zmienić hasło, należy otrzymać unikalny kod, który zostanie wysłany na Twój adres e-mail.
@@ -472,3 +472,9 @@ not_registered Chcesz się zarejestrować? <a href="register.php">Rejestracja</a
 forgotten_your_password Zapomniałeś hasła? <a href="newpw.php">Nowe hasło</a>
 cache_logged_required Musisz być zalogowany by wpisywać się do logu i dokonywać operacji na skrzynce.
 basic_information Podstawowe informacje
+rating_poor słaba
+rating_mediocre mierna
+rating_avarage średnia
+rating_good dobra
+rating_excellent znakomita
+score_label Oceniona jako

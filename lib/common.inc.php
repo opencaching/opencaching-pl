@@ -297,6 +297,17 @@ session_start();
 
 	// end news
 	
+	// rating conversion array
+	$ratingDesc = array(
+									tr('rating_poor'),
+									tr('rating_mediocre'),
+									tr('rating_avarage'),
+									tr('rating_good'),
+									tr('rating_excellent'),
+									);
+	
+	// Convert from -3..3 to 1..5: update scores set score = (score +3)*5/6+1
+	
 	
 	// get the country name from a given shortage
 	// on success return the name, otherwise false
@@ -1260,4 +1271,4 @@ function tidy_html_description($text)
 	return $tidy;
 }
 
-?>
+?>

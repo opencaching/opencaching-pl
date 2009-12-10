@@ -161,7 +161,7 @@ ul#cachemenu { padding: 0px; margin: 0px;}
 .content-title-noshade-size5 {margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 200%;}
 
 .content-txtbox-noshade {margin: 0px; padding: 7px 0px 0px 0px; background-color: rgb(255,255,255);}
-.content-score {margin: 0px; margin-top: 3px; padding: 4px 0px 0px 0px; background-color: rgb(255,255,255); border-style:dotted; border-width:1px; width:55px; height:20px;vertical-align:middle;}
+.content-score {margin: 0px; margin-top: 3px; padding: 4px 0px 0px 0px; background-color: rgb(255,255,255); border-style:dotted; border-width:1px; width:75px; height:20px;vertical-align:middle;}
 
 /* Headings */
 h1 {margin: 1.0em 0px 0.5em 0px; font-weight: bold; font-size: 160%;}
@@ -284,7 +284,7 @@ ul.linklist-indent {margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; lis
 .txt-yellow10 {color: rgb(247,224,23);}
 
 .txt-blue01 {color: rgb(238,237,249);}
-.txt-blue02 {color: rgb(222,220,242);}
+.txt-blue02 {color: rgb(219,230,241);}
 .txt-blue03 {color: rgb(205,202,236);}
 .txt-blue04 {color: rgb(189,185,229);}
 .txt-blue05 {color: rgb(172,167,223);}
@@ -345,7 +345,7 @@ ul.linklist-indent {margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; lis
 .bg-yellow10 {background-color: rgb(247,224,23);}
 
 .bg-blue01 {background-color: rgb(238,237,249);}
-.bg-blue02 {background-color: rgb(222,220,242);}
+.bg-blue02 {background-color: rgb(219,230,241);}
 .bg-blue03 {background-color: rgb(205,202,236);}
 .bg-blue04 {background-color: rgb(189,185,229);}
 .bg-blue05 {background-color: rgb(172,167,223);}

@@ -50,9 +50,6 @@
 					<div><img src="{icon_cache}" border="0" width="32" height="32" align="left" alt="{cachetype}" title="{cachetype}"/></div>
 					<div>{difficulty_icon_diff}</div><div>{difficulty_icon_terr}</div>
 
-					<div align="center" class="content-score">
-						<p>{score_start}<b><font color="{scorecolor}" size="{font_size}">{score}</font></b>{score_end}{noscore_start}<img src="images/noscore.png" alt="N/A"/>{noscore_end}</p>
-					</div>
 
 				
 				</div>
@@ -81,6 +78,7 @@
 						{{size}}: {cachesize}<br />
 						{hidetime_start}{{time}}: {search_time}&nbsp;&nbsp;{{length}}: {way_length}<br />{hidetime_end}
 						{{status_label}}: {status}<br />
+						{{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
 						{{date_hidden_label}}: {hidden_date}<br />
 						{{date_created_label}}: {date_created}<br />
 						{{last_modified_label}}: {last_modified}<br />
@@ -150,7 +148,7 @@ else
 	
 <!-- Text container -->
 					{cache_attributes_start}
-			<div class="content2-container bg-yellow01">
+			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
 					{{cache_attributes_label}}
@@ -165,7 +163,7 @@ else
 <!-- End Text Container -->
 <!-- Text container -->
 			{start_rr_comment}
-			<div class="content2-container bg-green02">
+			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					
 					<img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="desc"/>
@@ -180,7 +178,7 @@ else
 			{end_rr_comment}
 <!-- End Text Container -->
 <!-- Text container -->
-			<div class="content2-container bg-yellow02">
+			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" style="vertical-align:middle" border="0" alt="desc"/>
 					{{description}}&nbsp;&nbsp;
@@ -197,7 +195,7 @@ else
 <!-- End Text Container -->
 <!-- Text container -->
 {hidehint_start}
-			<div class="content2-container bg-green01">
+			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/crypt.png" width="22" height="22" style="vertical-align:middle" border="0" alt="enc"/>
 					<b>{{additional_hints}}</b>&nbsp;&nbsp;
@@ -223,7 +221,7 @@ else
 <!-- End Text Container -->
 <!-- Text container -->
 {geokrety_begin}
-			<div class="content2-container bg-green02">
+			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/travelbug.png" width="32" height="32" style="vertical-align:middle" border="0" alt="geokrety"/>
 					Geokrety
@@ -237,7 +235,7 @@ else
 <!-- End Text Container -->
 <!-- Text container -->
 {hidepictures_start}
-			<div class="content2-container bg-green02">
+			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/picture.png" width="32" height="32" style="vertical-align:middle" border="0" alt="images"/>
 					{{images}}
@@ -250,7 +248,7 @@ else
 {hidepictures_end}
 <!-- End Text Container -->
 <!-- Text container -->
-			<div class="content2-container bg-green02">
+			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<!-- End Text Container -->
 					<img src="tpl/stdstyle/images/blue/utils.png" width="32" height="32" style="vertical-align:middle" border="0" title="" alt="utilities"/>&nbsp;{{utilities}}
@@ -282,7 +280,7 @@ else
 				</p>
 			</div>
 <!-- Text container -->
-			<div class="content2-container bg-green02">
+			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/logs.png" width="32" height="32" style="vertical-align:middle" border="0" alt="logs"/>
 					{{log_entries}}
