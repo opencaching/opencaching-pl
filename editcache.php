@@ -753,7 +753,8 @@
 						}
 					else
 						tpl_set_var('mp3_files', $nomp3);
-			
+						tpl_set_var('hidemp3_start', '');
+						tpl_set_var('hidemp3_end', '');
 					}
 					else
 					{
