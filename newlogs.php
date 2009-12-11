@@ -160,19 +160,19 @@ if ($error == false)
 				switch( $log_record['log_type'] )
 				{
 					case 1:
-						$file_content .= ' - tr("found_it") ';
+						$file_content ' - '.tr("found_it"); 
 					break;
 					case 2:
-						$file_content .= ' - {{did_not_found}} ';
+						$file_content .= ' - '.{{did_not_found}};
 					break;
 					case 3:
-						$file_content .= ' - {{write_note}} ';
+						$file_content .= ' - '.{{write_note}};
 					break;
 					case 7:
-						$file_content .= ' - {{attended}} ';
+						$file_content .= ' - '.{{attended}};
 					break;
 					case 8:
-						$file_content .= ' - {{will_attended}} ';
+						$file_content .= ' - '.{{will_attended}};
 					break;
 				}
 				$file_content .= '<a href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a>';
