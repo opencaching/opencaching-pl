@@ -270,7 +270,7 @@ else
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<!-- End Text Container -->
-					<img src="tpl/stdstyle/images/blue/utils.png" class="icon32" alt="" />&nbsp;{{utilities}}
+					<img src="tpl/stdstyle/images/blue/tools.png" class="icon32" alt="" />&nbsp;{{utilities}}
 				</p></div>
 				<div class="content2-container">
 			<div id="viewcache-utility">
