@@ -406,6 +406,7 @@ filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
 map_msg To view coordinates and <br/> map of location cache<br/> you must be <a href="login.php?target={target}">logged in</a>
 additional_hints Additional hints
 images Pictures
+mp3_files_info PodCasts - MP3 files
 utilities Utilities
 log_entries Logentries
 search_geocaches_nearby Find geocaches nearby on OC PL (radius 100 km)

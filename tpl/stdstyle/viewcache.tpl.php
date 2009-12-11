@@ -238,6 +238,21 @@ else
 {geokrety_end}
 <!-- End Text Container -->
 <!-- Text container -->
+{hidemp3_start}
+			<div class="content2-container bg-blue02">
+				<p class="content-title-noshade-size1">
+					<img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="" />
+					{{mp3_files_info}}
+				</p></div>
+				<div class="content2-container">
+				<div id="viewcache-pictures">
+					{mp3_files}
+				</div>
+			</div>
+{hidemp3_end}
+<!-- End Text Container -->
+
+<!-- Text container -->
 {hidepictures_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">

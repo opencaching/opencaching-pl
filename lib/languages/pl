@@ -417,6 +417,7 @@ filename_describe_cache http://wiki.opencaching.pl/index.php/Parametry_skrzynki
 map_msg Aby zobaczyć współrzędne oraz<br/> mapę lokalizacji skrzynki <br/> musisz się <a href="login.php?target={target}">zalogować</a>.
 additional_hints Dodatkowe informacje
 images Obrazki/Zdjęcia
+mp3_files_info PodCasts - pliki MP3
 utilities Użyteczne
 search_geocaches_nearby Szukaj skrzynek w promieniu 100km
 download_as_file Pobierz dane

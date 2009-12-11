@@ -415,6 +415,7 @@ filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
 map_msg För att visa koordinater och <br> karta över platsen <br> måste du vara <a href=http://www.opencaching.pl/login.php> inloggad</a>
 additional_hints Ytterligare tips
 images Bilder
+mp3_files_info PodCasts - MP3 files
 utilities Tjänster
 log_entries Loggar
 search_geocaches_nearby Hitta cacher i närheten på OC PL (radie 100 km)
