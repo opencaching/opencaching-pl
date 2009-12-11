@@ -522,7 +522,7 @@ div#viewlogs-end { font-weight: bold; font-size: 120%; margin-bottom: 10px;}
 
 img#viewcache-cacheicon { float: left; }
 
-div#viewcache-baseinfo { width:338px; text-align: left; }
+div#viewcache-baseinfo { width:339px; height: 190px; text-align: left; }
 div#viewcache-maptypes { width:430px; text-align: right; }
 div#viewcache-numstats { width: 140px; height: 190px; text-align: left; }
 div#viewcache-map { width: 190px; height: 190px; }
