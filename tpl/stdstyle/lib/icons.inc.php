@@ -30,7 +30,7 @@
 function icon_log_type($icon_small, $text)
 {
 	global $stylepath;
-	return "<img src='$stylepath/images/$icon_small' width='16' height='16' align='middle' border='0' align='left' alt='$text' title='$text'/>";
+	return "<img src='$stylepath/images/$icon_small' class='icon16' alt='$text' title='$text'/>";
 }
 
 function icon_cache_status($status, $text)
@@ -47,7 +47,7 @@ function icon_cache_status($status, $text)
 
 		default: $icon = "log/16x16-go.png"; break;
 	}
-	return "<img src='$stylepath/images/$icon' width='16' height='16' align='middle' border='0' align='left' alt='$text' title='$text'/>";
+	return "<img src='$stylepath/images/$icon' class='icon16' alt='$text' title='$text'/>";
 }
 
 function icon_difficulty($what, $difficulty)

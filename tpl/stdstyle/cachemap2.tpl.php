@@ -265,7 +265,7 @@ function load_data(page) {
 		else 
 		{
 			print_topratings = "<br><b>{{recommendations}}: </b>";
-			var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"R\">";
+			var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\">";
 			var i=0;
 			for( i=0;i<cache_topratings;i++)
 				print_topratings += gwiazdka;
@@ -384,7 +384,7 @@ function load_data(page) {
 				else 
 				{
 					print_topratings = "<br><b>{{recommendations}}: </b>";
-					var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"R\">";
+					var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}\">";
 					var ii;
 					for( ii=0;ii<cache_topratings;ii++)
 						print_topratings += gwiazdka;

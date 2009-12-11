@@ -47,7 +47,7 @@
 				</div>
 				<div class="content2-container-2col-left" style="width:60px; clear: left;">
 
-					<div><img src="{icon_cache}" border="0" width="32" height="32" align="left" alt="{cachetype}" title="{cachetype}"/></div>
+					<div><img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/></div>
 					<div>{difficulty_icon_diff}</div><div>{difficulty_icon_terr}</div>
 
 
@@ -70,7 +70,7 @@
 			<div class="content2-container">
 				<div class="content2-container-2col-left" style="width:400px;">
 					<p class="content-title-noshade-size3">
-						<img src="tpl/stdstyle/images/blue/compas.png"  width="22" height="22" border="0" alt="" title="" align="left"/>
+						<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" title="" />
 						<b>{coords}</b> <span class="content-title-noshade-size0">(WGS84)</span><br />
 					</p>
 					<p>
@@ -96,11 +96,11 @@ if ($usr == false && $hide_coords)
 else
 {
 
-						echo "<font size=\"2\"><a href=\"#\" onclick=\"javascript:window.open('garmin.php?lat="; ?>{latitude}<?php echo "&amp;long="; ?>{longitude}<?php echo "&amp;wp="; ?>{oc_waypoint}<?php echo "&amp;name="; ?>{cachename}<?php echo "&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><input type=\"button\" name=\"SendToGPS\" value=\""; ?>{{send_to_gps}}<?php echo "\" id=\"SendToGPS\"></a></font><p></p>";
+						echo "<a class=\"send-to-gps\" href=\"#\" onclick=\"javascript:window.open('garmin.php?lat="; ?>{latitude}<?php echo "&amp;long="; ?>{longitude}<?php echo "&amp;wp="; ?>{oc_waypoint}<?php echo "&amp;name="; ?>{cachename}<?php echo "&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><input type=\"button\" name=\"SendToGPS\" value=\""; ?>{{send_to_gps}}<?php echo "\" id=\"SendToGPS\"/></a><p></p>";
 } ?>
 
 				</div>
-				<div class="content2-container-2col-right" style="width:310px;" align="right">
+				<div class="content2-container-2col-right" id="viewcache-maptypes">
 					<?php
 					if ($usr == false && $hide_coords)
 							{
@@ -111,19 +111,19 @@ else
 							else
 							{
 					?>
-						<div class="content2-container-2col-left" style="width: 140px; height: 170px;" align="left">
+						<div class="content2-container-2col-left" id="viewcache-numstats">
 						<p><br/><br/>
-							<nobr>{found_icon} {founds} {found_text}</nobr><br />
-							<nobr>{notfound_icon} {notfounds} {notfound_text}</nobr><br />
-							<nobr>{note_icon} {notes} {{comments}}</nobr><br />
-							<nobr>{vote_icon} {votes_count} x {{scored}}</nobr><br />
-							<nobr>{watch_icon} {watcher} {{watchers}}</nobr><br />
-							<nobr>{visit_icon} {visits} {{visitors}}</nobr><br />
+							{found_icon} {founds} {found_text}<br />
+							{notfound_icon} {notfounds} {notfound_text}<br />
+							{note_icon} {notes} {{comments}}<br />
+							{vote_icon} {votes_count} x {{scored}}<br />
+							{watch_icon} {watcher} {{watchers}}<br />
+							{visit_icon} {visits} {{visitors}}<br />
 							{rating_stat}
 							</p>
 						</div>
-						<div id="map" class="content2-container-2col-right" style="width: 170px; height: 170px;">
-							<img src="http://maps.google.com/staticmap?center={latitude},{longitude}&amp;zoom=8&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers={latitude},{longitude},blue{typeLetter}&amp;format=png" alt="mapa"/>
+						<div id="viewcache-map" class="content2-container-2col-right">
+							<img src="http://maps.google.com/staticmap?center={latitude},{longitude}&amp;zoom=8&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers={latitude},{longitude},blue{typeLetter}&amp;format=png" alt="{{map}}" />
 						</div>
 					<?php
 							}
@@ -133,7 +133,7 @@ else
 							}
 							else
 							{
-					echo "<b>Dostępne mapy:</b>
+					echo "<b>{{available_maps}}:</b>
 											<a target=\"_blank\" href='cachemap3.php?lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;cacheid=";?>{cacheid}<?php echo "&amp;inputZoom=14'>Opencaching.pl</a>, 
 											<a href=\"http://mapa.szukacz.pl/?n=";?>{latitude}<?php echo "&amp;e=";?>{longitude}<?php echo "&amp;t=Skrzynka Geocache\" target=\"_blank\">AutoMapa</a>, 
 											<a href=\"http://www.mapquest.com/maps/map.adp?latlongtype=decimal&amp;latitude=";?>{latitude}<?php echo "&amp;longitude=";?>{longitude}<?php echo "\" target=\"_blank\">Mapquest</a>, 
@@ -150,7 +150,7 @@ else
 					{cache_attributes_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
+					<img src="tpl/stdstyle/images/blue/attributes.png" class="icon32" alt="" />
 					{{cache_attributes_label}}
 				</p>
 			</div>
@@ -159,7 +159,7 @@ else
 					{cache_attributes}{password_req}
 				</p>
 			</div>
-<div class="notice" style="width:500px;min-height:24px;height:auto;">{{attributes_edit_hint}} {{attributes_desc_hint}}</div>
+<div class="notice" id="viewcache-attributesend">{{attributes_edit_hint}} {{attributes_desc_hint}}</div>
 					{cache_attributes_end}
 <!-- End Text Container -->
 <!-- Text container -->
@@ -167,7 +167,7 @@ else
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					
-					<img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="desc"/>
+					<img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" />
 					{{rr_comment_label}}
 				</p>
 				</div>
@@ -181,16 +181,16 @@ else
 <!-- Text container -->
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" style="vertical-align:middle" border="0" alt="desc"/>
+					<img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />
 					{{description}}&nbsp;&nbsp;
 					{desc_langs}&nbsp;{add_rr_comment}&nbsp;{remove_rr_comment}
 				</p></div>
 				<div class="content2-container">
 				<div id='branding'>{branding}</div>
 				<div id="description">
-					<p>
+					<div>
 						{desc}
-					</p>
+					</div>
 				</div>
 			</div>
 <!-- End Text Container -->
@@ -198,33 +198,36 @@ else
 {hidehint_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
+					<img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" />
 					<b>{{additional_hints}}</b>&nbsp;&nbsp;
 					{decrypt_link_start}
-					<img src="tpl/stdstyle/images/blue/decrypt.png" width="32" height="32" style="vertical-align:middle" border="0" alt="enc"/>
+					<img src="tpl/stdstyle/images/blue/decrypt.png" class="icon32" alt="" />
 					{decrypt_link}
 					{decrypt_link_end}
-					<br/></div><div class="content2-container">
-					<div id='hint' style="float:left">
-					<p>
-						{hints}
-					</p>
-					</div>
+					<br/>
+
+				</p>
+			</div>
+					<div class="content2-container">
+						<div id="viewcache-hints">
+							{hints}
+						</div>
+
 					<div style="width:200px;align:right;float:right">
 						{decrypt_table_start}
 						<font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">A|B|C|D|E|F|G|H|I|J|K|L|M</font>
 						<font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font>
 						{decrypt_table_end}
 					</div>
-				</p>
-			</div>
+				</div>
+
 {hidehint_end}
 <!-- End Text Container -->
 <!-- Text container -->
 {geokrety_begin}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/blue/travelbug.png" width="32" height="32" style="vertical-align:middle" border="0" alt="geokrety"/>
+					<img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="" />
 					Geokrety
 				</p></div>
 				<div class="content2-container">
@@ -238,7 +241,7 @@ else
 {hidepictures_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/blue/picture.png" width="32" height="32" style="vertical-align:middle" border="0" alt="images"/>
+					<img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" />
 					{{images}}
 				</p></div>
 				<div class="content2-container">
@@ -252,18 +255,18 @@ else
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<!-- End Text Container -->
-					<img src="tpl/stdstyle/images/blue/utils.png" width="32" height="32" style="vertical-align:middle" border="0" title="" alt="utilities"/>&nbsp;{{utilities}}
+					<img src="tpl/stdstyle/images/blue/utils.png" class="icon32" alt="" />&nbsp;{{utilities}}
 				</p></div>
 				<div class="content2-container">
-			<p>
+			<div id="viewcache-utility">
 			- {{search_geocaches_nearby}}<?php echo ":
 			<a href=\"search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;latNS=";?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h="; ?>{lon_h}<?php echo "&amp;lon_min="; ?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">";?>{{all_geocaches}}<?php echo "</a>&nbsp;
 			<a href=\"search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=1&amp;f_userfound=1&amp;f_inactive=1&amp;latNS="; ?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h=";?>{lon_h}<?php echo "&amp;lon_min=";?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">";?>{{searchable}}<?php echo "</a>&nbsp;&nbsp;&nbsp;<br/>"; ?>- {{find_geocaches_on}}<?php echo ":&nbsp;<b>
 			<a href=\"http://www.geocaching.com/seek/nearest.aspx?origin_lat=";?>{latitude}<?php echo "&amp;origin_long=";?>{longitude}<?php echo "&amp;dist=100&amp;submit8=Submit\">Geocaching.com</a>&nbsp;&nbsp;&nbsp;
         		<a href=\"http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&amp;download=Google+Maps&amp;zoom=8&amp;lat_1=";?>{latitude}<?php echo "&amp;lon_1=";?>{longitude}<?php echo "\">GPSgames.org</a>&nbsp;&nbsp;&nbsp;
         		<a href=\"http://www.opencaching.cz/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS=";?>{latNS}<?php echo "&amp;lat_h=";?>{lat_h}<?php echo "&amp;lat_min=";?>{lat_min}<?php echo "&amp;lonEW=";?>{lonEW}<?php echo "&amp;lon_h=";?>{lon_h}<?php echo "&amp;lon_min=";?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">OpenCaching.cz</a>&nbsp;&nbsp;&nbsp;
-        		<a href=\"http://www.opencaching.de/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS=";?>{latNS}<?php echo "&amp;lat_h=";?>{lat_h}<?php echo "&amp;lat_min=";?>{lat_min}<?php echo "&amp;lonEW=";?>{lonEW}<?php echo "&amp;lon_h=";?>{lon_h}<?php echo "&amp;lon_min=";?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">OpenCaching.de</a></b></p>
-						<p>
+        		<a href=\"http://www.opencaching.de/search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;country=&amp;cachetype=&amp;cache_attribs=&amp;cache_attribs_not=7&amp;latNS=";?>{latNS}<?php echo "&amp;lat_h=";?>{lat_h}<?php echo "&amp;lat_min=";?>{lat_min}<?php echo "&amp;lonEW=";?>{lonEW}<?php echo "&amp;lon_h=";?>{lon_h}<?php echo "&amp;lon_min=";?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">OpenCaching.de</a></b>
+						
 			"; ?>- {{download_as_file}}<?php echo ":
 			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=gpx\" title=\"GPS Exchange Format .gpx\">GPX</a>
 			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=gpxgc\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a>
@@ -278,12 +281,12 @@ else
 			<div class=\"notice buffer\">"; ?> {{accept_terms_of_use}}<?php echo "</div>
 ";
 	 ?>
-				</p>
+				</div>
 			</div>
 <!-- Text container -->
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/blue/logs.png" width="32" height="32" style="vertical-align:middle" border="0" alt="logs"/>
+					<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
 					{{log_entries}}
 					&nbsp;&nbsp;
 					{found_icon} {founds}x
@@ -293,9 +296,7 @@ else
 					{viewlogs}
 				</p>
 			</div>
-			<div class="content2-container">
-				<p>
+			<div class="content2-container" id="viewcache-logs">
 					{logs}
-				</p>
 			</div>
 <!-- End Text Container -->

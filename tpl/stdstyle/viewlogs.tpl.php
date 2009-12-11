@@ -25,22 +25,12 @@
 
  ****************************************************************************/
 ?>
-			<img src="tpl/stdstyle/images/blue/logs.png" width="32" height="32" align="middle" border="0"/>
+			<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" />
 			<b>Wpisy do logów dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
-			<span style="font-weight: 400;">&nbsp;&nbsp;
-			{found_icon} {{founds}}x 
+			<span id="viewlogs-total">&nbsp;&nbsp;
+			{found_icon} {founds}x 
 			{notfound_icon} {notfounds}x 
 			{note_icon} {notes}x<br /></span>
 		{logs}
 
-<table class="table">
-	<tr>
-		<td class="buffer">
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<span style="font-weight: 400;">[<a href="viewcache.php?cacheid={cacheid}">Powrót do skrzynki</a>]</span><br />
-		</td>
-	</tr>
-</table>
+<div id="viewlogs-end">[<a href="viewcache.php?cacheid={cacheid}">Powrót do skrzynki</a>]</div>

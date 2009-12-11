@@ -485,10 +485,10 @@ session_start();
 		{
 			if( $s_lang != $lang)
 			{
-				$language_flags .= '<li><a style="text-decoration:none;" href="'.$_SERVER['PHP_SELF'];
+				$language_flags .= '<li><a style="text-decoration:none;" href="'.($_SERVER['PHP_SELF']);
 				
 				if(strlen($_SERVER['QUERY_STRING']) > 0) 
-					$language_flags .= '?'.$_SERVER['QUERY_STRING'] . '&amp;lang='.$s_lang.'"><img class="img-navflag" border="0" src="images/'.$s_lang.'.jpg" alt="'.$s_lang.' version" title=""/>&nbsp;';
+					$language_flags .= '?'.htmlspecialchars($_SERVER['QUERY_STRING']) . '&amp;lang='.$s_lang.'"><img class="img-navflag" border="0" src="images/'.$s_lang.'.jpg" alt="'.$s_lang.' version" title=""/>&nbsp;';
 				else
 					$language_flags .= '?lang='.$s_lang.'"><img class="img-navflag" border="0" src="images/'.$s_lang.'.jpg" alt="'.$s_lang.' version" title=""/>&nbsp;';
 				

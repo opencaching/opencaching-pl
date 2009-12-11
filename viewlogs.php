@@ -171,7 +171,7 @@
 				$tmplog = mb_ereg_replace('{logimage}', icon_log_type($record['icon_small'], $tmplog['type']), $tmplog);
 //$rating_picture
 				if ($record['recommended'] == 1)
-					$tmplog = mb_ereg_replace('{ratingimage}','<img src=images/rating-star.png>', $tmplog);
+					$tmplog = mb_ereg_replace('{ratingimage}','<img src="images/rating-star.png" alt="'.tr('recommendation').'" />', $tmplog);
 				else
 					$tmplog = mb_ereg_replace('{ratingimage}', '', $tmplog);
 

@@ -75,15 +75,15 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
  $pictureline = '<a href="{link}">{title}</a><br />';
  $pictures = '<p>{picturelines}</p>';
 
- $logpictureline = '<a href="{link}" title="{title}" onclick="return false;"><img src="{imgsrc}" alt="{title}" onclick="enlarge(this)" longdesc="{longdesc}"/></a>{functions}<br />';
- $logpictures = '<tr><td><b>'.tr('pictures_included').':</b><br />{lines}</td></tr>';
+ $logpictureline = '<div class="logimage"><a href="{link}" title="{title}" onclick="return false;"><img src="{imgsrc}" alt="{title}" onclick="enlarge(this)" longdesc="{longdesc}"/></a><span class="desc">{title}</span>{functions}</div>';
+ $logpictures = '<div class="viewlogs-logpictures"><span class="info">'.tr('pictures_included').':</span><div class="allimages">{lines}</div></div><br style="clear: both" />';
 
  //$cache_watchers = '<br/>Dieser Cache wird von {watcher} Opencaching.de Nutzern beobachtet.';
  $cache_log_pw = '<br/>'.tr('password_required');
 
- $viewlogs_last = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="tpl/stdstyle/images/action/16x16-showall.png" width="16" height="16" align="middle" border="0" align="left"/></a>&nbsp;<a href="'.(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') .'.php?cacheid={cacheid_urlencode}&amp;showlogs=4'.$linkargs.'">'.tr('last_log_entries').'</a>';
+ $viewlogs_last = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt=""/></a>&nbsp;<a href="'.(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') .'.php?cacheid={cacheid_urlencode}&amp;showlogs=4'.$linkargs.'">'.tr('last_log_entries').'</a>';
 
- $viewlogs = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="tpl/stdstyle/images/action/16x16-showall.png" width="16" height="16" align="middle" border="0" align="left"/></a>&nbsp;<a href="'.(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') .'.php?cacheid={cacheid_urlencode}'.$linkargs.'&amp;showlogsall=y">Wszystkie wpisy do logu</a>';
+ $viewlogs = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt=""/></a>&nbsp;<a href="'.(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') .'.php?cacheid={cacheid_urlencode}'.$linkargs.'&amp;showlogsall=y">Wszystkie wpisy do logu</a>';
 
 
  $difficulty_text_diff = tr('task_difficulty').": %01.1f ".tr('out_of')." 5.0";
@@ -106,17 +106,17 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
  $cache_notfound_text = "x ".tr('not_found');
 
  $recommend_link = '&nbsp;&nbsp;<a href="recommendations.php?cacheid={cacheid}"/>('.tr('show_recommended').')</a>';
- $rating_stat_show_singular = '<img src="images/rating-star.png" border="0"/> {ratings} '.tr('recommendation').'<br />';
- $rating_stat_show_plural = '<img src="images/rating-star.png" border="0"/> {ratings} '.tr('recommendations').'<br />';
+ $rating_stat_show_singular = '<img src="images/rating-star.png" alt="{{recomendation}}" /> {ratings} '.tr('recommendation').'<br />';
+ $rating_stat_show_plural = '<img src="images/rating-star.png" alt="{{recommendation}}" /> {ratings} '.tr('recommendations').'<br />';
 
-$found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0"/>';
-$notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" width="16" height="16" border="0"/>';
-$note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" width="16" height="16" border="0"/>';
-$vote_icon = '<img src="tpl/stdstyle/images/action/16x16-adddesc.png" width="16" height="16" border="0"/>';
-$watch_icon = '<img src="tpl/stdstyle/images/action/16x16-watch.png" width="16" height="16" border="0"/>';
-$visit_icon = '<img src="tpl/stdstyle/images/description/16x16-visitors.png" width="16" height="16" border="0"/>';
-$exist_icon = '<img src="tpl/stdstyle/images/log/16x16-go.png" width="16" height="16" border="0"/>';
-$trash_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" width="16" height="16" border="0"/>';
+$found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}" />';
+$notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />';
+$note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{comment}}" />';
+$vote_icon = '<img src="tpl/stdstyle/images/action/16x16-adddesc.png" class="icon16" alt="" />';
+$watch_icon = '<img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="" />';
+$visit_icon = '<img src="tpl/stdstyle/images/description/16x16-visitors.png" class="icon16" alt="" />';
+$exist_icon = '<img src="tpl/stdstyle/images/log/16x16-go.png" class="icon16" alt="" />';
+$trash_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" />';
 
 // gibt eine tabelle für viewcache mit thumbnails von allen bildern zurück
 function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = true, $spoiler_only = false, $showspoiler = false, $picturescount)
@@ -126,7 +126,6 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 	global $thumb_max_height;
 
 	$nCol = 0;
-	$retval = "<table>\n<tr>\n";
 
 	if($spoiler_only) $spoiler_only = 'spoiler=1 AND';
 		else $spoiler_only = "";
@@ -140,7 +139,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 		{
 			if ($nCol == 4)
 			{
-				$retval .= "<td>&nbsp;</td></tr>\n<tr>\n";
+
 				$nCol = 0;
 			}
 
@@ -148,13 +147,12 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 				$showspoiler = "showspoiler=1&amp;";
 			else $showspoiler = "";
 			
-			$retval .= '<td width="180" align="center" valign="top">';
+
 			$retval .= '<a href="'.$r['url'].'" title="'.$r['title'].'" onclick="return false;">';
 			$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" border="0" alt="'.$r['title'].'" title="'.$r['title'].'" align="bottom" onclick="enlarge(this)" longdesc="'.$r['url'].'" />';
-			$retval .= '</a><br>';
+			$retval .= '</a>';
 			if($viewtext)
 				$retval .= $r['title'];
-			$retval .= "</td>\n";
 
 			$nCol++;
 		}
@@ -167,12 +165,6 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 	}
 
 	mysql_free_result($rs);
-
-	if($nCol > 0 && $nCol < 4)
-		$retval .= "<td colspan='". (4 - $nCol + 1) . "'>&nbsp;</td>\n";
-	else
-		$retval .= "<td>&nbsp;</td>\n";
-	$retval .= "</tr>\n</table>\n";
 
 	return $retval;
 
