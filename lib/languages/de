@@ -473,3 +473,11 @@ not_registered Not registered? <a href="register.php">Register</a>
 forgotten_your_password Forgot your e-mail? <a href="newpw.php">Remind me</a>
 cache_logged_required You have to be logged to add new log entries and operate on this cache.
 basic_information Basic information.
+rating_poor poor
+rating_mediocre mediocre
+rating_avarage avarage
+rating_good good
+rating_excellent excellent
+score_label Rated as
+show_noscore Show without score
+available_maps Available maps
