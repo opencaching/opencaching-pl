@@ -79,7 +79,7 @@
 
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.png" border="0" alt="Uwaga" title="Uwaga"> Następujacy format pliku jest akceptowany: MP3. Maksymalna wielkość pliku dozwolona .... KB. Zalecane jakość MP3 22kHZ MONO.</td>
+		<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.png" border="0" alt="Uwaga" title="Uwaga"> Następujacy format pliku jest akceptowany: MP3. Maksymalna wielkość pliku dozwolona 5 Mb. Zalecane jakość MP3 22kHZ MONO.</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 

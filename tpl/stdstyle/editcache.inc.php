@@ -48,7 +48,7 @@ $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
 	$picturelines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';
 	
 	$nomp3 = '<tr><td colspan="2"><div class="notice">Nie ma załączonych plików MP3.</div></td></tr>';
-	$mp3line = '<tr><td colspan="2"><a href="{link}">{title}</a>&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" border="0" alt="" title=""> [<a href="editpic.php?uuid={uuid}">'.$edit.'</a>] <img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" border="0" width="16" height="16" alt="" title="">[<a href="removemp3.php?uuid={uuid}">'.$remove.'</a>]</td></tr>';
+	$mp3line = '<tr><td colspan="2"><a href="{link}">{title}</a>&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" border="0" alt="" title=""> [<a href="editmp3.php?uuid={uuid}">'.$edit.'</a>] <img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" border="0" width="16" height="16" alt="" title="">[<a href="removemp3.php?uuid={uuid}">'.$remove.'</a>]</td></tr>';
 	$mp3lines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';
 
 	$cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
