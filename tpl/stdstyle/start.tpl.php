@@ -111,7 +111,7 @@ return true;
 						?>
 					</div>
 				</div>
-				<div class="content2-container-2col-right" style="width:270px;"><div class="img-shadow">
+				<div class="content2-container-2col-right" id="startpage-map"><div class="img-shadow">
 					<img src="tmp/mapa.png" id="stickermap" name="roll" alt="Karte" /></div>
 				</div>
 			</div>
