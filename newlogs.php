@@ -163,16 +163,16 @@ if ($error == false)
 						$file_content .=' - '.tr("found_it"); 
 					break;
 					case 2:
-						$file_content .= ' - '.{{did_not_found}};
+						$file_content .= ' - '.tr("did_not_found");
 					break;
 					case 3:
-						$file_content .= ' - '.{{write_note}};
+						$file_content .= ' - '.tr("write_note");
 					break;
 					case 7:
-						$file_content .= ' - '.{{attended}};
+						$file_content .= ' - '.tr("attended");
 					break;
 					case 8:
-						$file_content .= ' - '.{{will_attended}};
+						$file_content .= ' - '.tr("will_attended");
 					break;
 				}
 				$file_content .= '<a href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a>';
