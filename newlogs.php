@@ -175,7 +175,7 @@ if ($error == false)
 						$file_content .= ' - '.tr("will_attended");
 					break;
 				}
-				$file_content .= '&nbsp;&nbsp;<a href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a>';
+				$file_content .= '&nbsp;<a href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a>';
 
 				$file_content .= "</p>";
 				$file_content .= "\n";
