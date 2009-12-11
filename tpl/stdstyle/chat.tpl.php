@@ -6,12 +6,12 @@
 
 
 <p><h1>Geocaching Chat - Liczba osób na czacie:  <b>
-<script language="JavaScript" src="http://www.polchat.pl/ile/?room=Geocaching Polska"></script></p><br>
+<script language="JavaScript" src="http://www.polchat.pl/ile/?room=Geocaching Polska"></script></p><br />
 <APPLET CODE=Chat.class ARCHIVE=c.jar CODEBASE=http://s1.polchat.pl/ WIDTH="620px" HEIGHT="620px">
 <param name="room" value="Geocaching Polska">  <param name="bgtextcolor" value="#000000">  <param name="bgcolor" value="#ffffc0"> <param name="fgtextcolor" value="#ffffff"> <param name="password_input" value="0">   <param name="rooms_button" value="0"> <param name="pref_beep_incoming" value="1">
 </APPLET>
 
-<font color="blue"><b>Liczba osób na GeoChat&nbsp;: <font color="red" size="+1"><span id="counter"></span></font></b><br>
+<font color="blue"><b>Liczba osób na GeoChat&nbsp;: <font color="red" size="+1"><span id="counter"></span></font></b><br />
 <script type="text/javascript">
 var a=0;
 var anim=[".","..","..."];

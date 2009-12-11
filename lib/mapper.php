@@ -386,7 +386,7 @@ $debug = $_GET['debug'];
       $latHeight = 2.0 / $tilesAtThisZoom;
       $lat       = (($tilesAtThisZoom/2 - $y-1) * $latHeight);
 
-if ($debug) {echo("(uniform) lat:$lat latHt:$latHeight<br>");}
+if ($debug) {echo("(uniform) lat:$lat latHt:$latHeight<br />");}
       // convert lat and latHeight to degrees in a transverse mercator projection
       // note that in fact the coordinates go from about -85 to +85 not -90 to 90!
       $latHeight += $lat;
@@ -397,9 +397,9 @@ if ($debug) {echo("(uniform) lat:$lat latHt:$latHeight<br>");}
       $lat *= (180 / PI());
 
 
-if ($debug) {echo("pre subtract lat: $lat latHeight $latHeight<br>");}
+if ($debug) {echo("pre subtract lat: $lat latHeight $latHeight<br />");}
       $latHeight -= $lat;
-if ($debug) {echo("lat: $lat latHeight $latHeight<br>");}
+if ($debug) {echo("lat: $lat latHeight $latHeight<br />");}
 
       if ($lonWidth < 0) {
          $lon      = $lon + $lonWidth;

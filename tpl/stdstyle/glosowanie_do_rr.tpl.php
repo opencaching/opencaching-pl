@@ -8,16 +8,16 @@
 <tr>
 	<td>
 		<form action="glosowanie_do_rr.php" method="POST" name="glosowanie" enctype="application/x-www-form-urlencoded" dir="ltr" style="display:inline;">
-		<br>
-		<b>{vote_warning}Wybierz od 1 do 7 kandydatów z listy i zagłosuj.</b><br>
-		<br>
+		<br/>
+		<b>{vote_warning}Wybierz od 1 do 7 kandydatów z listy i zagłosuj.</b><br/>
+		<br/>
 		<table>
 			<tr><td>#</td><td><b>Kandydat</b></td><td><b>Miejscowość</b></td><td><b>Profil</b></td></tr>
 		{candidate_vote_list}
 		</table>
 		<input type='hidden' name='glosowanie' value='1' />
 		<input type='submit' value='Oddaj głos' class="formbuttons" />
-		<br><br>
+		<br/><br/>
 		{vote_info}
 		</form>
 	</td>

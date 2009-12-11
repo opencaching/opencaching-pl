@@ -10,7 +10,7 @@
 	require('./lib/common.inc.php');
 
 	$tops = array();
-	echo '<center><table><tr><td align=center><font size=+0><b>Ranking skrzynek wg liczonego indeksu</b></font><br>(w nawiasie liczba znalezien po otrzymaniu rekomendacji)</td></tr>';
+	echo '<center><table><tr><td align=center><font size=+0><b>Ranking skrzynek wg liczonego indeksu</b></font><br />(w nawiasie liczba znalezien po otrzymaniu rekomendacji)</td></tr>';
 	echo '<tr><td><center><table bgcolor=white><tr><td align="right">Indeks</td><td align="center"><img src="/images/rating-star.png" border="0" alt=""></td><td align="center"><img src="/tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0" alt=""></td><td></td></tr>';
 
   mysql_query("SET NAMES 'utf8'"); 
@@ -82,5 +82,5 @@ $widthB = round(100 * ($rCaches[idx]/200)/1,0);
 	sql('DROP TEMPORARY TABLE topFounds');
 	sql('DROP TEMPORARY TABLE topRatings');
 	sql('DROP TEMPORARY TABLE topResult');
-	echo '</table></td></tr><tr><td>Wzór na Indeks = (a+1)* (a+1)/(b+3) *100<br>a = liczba rekomendacji<br>b = liczba znalezien po 21.02.2007(data od kiedy można przydzielać rekomendacje)</td></tr></table></center><br>';
+	echo '</table></td></tr><tr><td>Wzór na Indeks = (a+1)* (a+1)/(b+3) *100<br />a = liczba rekomendacji<br />b = liczba znalezien po 21.02.2007(data od kiedy można przydzielać rekomendacje)</td></tr></table></center><br />';
 ?>

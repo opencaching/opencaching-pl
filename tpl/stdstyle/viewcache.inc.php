@@ -244,7 +244,7 @@ function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoile
 	{
 		$retval .= '<tr><td width="180" align="center" valign="top">';
 		$retval .= '<img src="'.$r['url'].'" border="0" alt="'.$r['title'].'" title="'.$r['title'].'" align="bottom" />';
-		$retval .= '<br>';
+		$retval .= '<br />';
 		if($viewtext)
 			$retval .= $r['title'];
 		$retval .= "</td></tr>\n";

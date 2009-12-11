@@ -73,8 +73,8 @@
 	<tr>
 		<td class="help" colspan="2">
 			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Hinweis" title="Uwaga" align="middle"> 
-			W wyniku wybrania tej opcji odbiorca będzie znał twój adres e-mail i będzie mógł odpowiedzieć ci bezposrednio.<br>
-			<br>
+			W wyniku wybrania tej opcji odbiorca będzie znał twój adres e-mail i będzie mógł odpowiedzieć ci bezposrednio.<br />
+			<br />
 
 
 		</td>

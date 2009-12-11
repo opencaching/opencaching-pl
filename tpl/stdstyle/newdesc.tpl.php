@@ -93,7 +93,7 @@
 		<td class="help" colspan="2">
 			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi"> Proszę używać znaczniki HTML tylko do formatowania tesktu.
 			Lista dozwolonych znaczników HTML jestt dostępna
-                        <a href="articles.php?page=htmltags">TUTAJ</a>.<br>
+                        <a href="articles.php?page=htmltags">TUTAJ</a>.<br />
 			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi">
 			Proszę nie używać obrazków z geocaching.com.
 		</td>

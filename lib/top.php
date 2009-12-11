@@ -19,7 +19,7 @@
 //	require('./lib/common.inc.php');
 
 	$tops = array();
-	echo '<center><table><tr><td align=center><font size=+0><b>Ranking skrzynek wg liczonego indeksu</b></font><br></td></tr>';
+	echo '<center><table><tr><td align=center><font size=+0><b>Ranking skrzynek wg liczonego indeksu</b></font><br /></td></tr>';
 	echo '<tr><td class="spacer"></td></tr><tr><td style="padding-left:32px; padding-bottom:32px;">The following list is automatically generated from user recommendations. <br /> The numbers in the list below mean:<br /> <img src="images/rating-star.png" border="0" alt="Recommendations"> Number of users that recommend this cache<br /> <img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0" alt="Found"> Number of times the cache has been found<br /> The Index tries to calculate a quality ranking of geocaches from the recommendation and the number of find logs.<br /> <img src="images/tops-formula.png" border="0" alt="Formula"></td></tr>';
 	echo '<tr><td><center><table bgcolor="white" width=700><tr><td align="right">Indeks</td><td align="center"><img src="images/rating-star.png" border="0" alt=""></td><td align="center"><img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0" alt=""></td><td></td></tr>';
 
@@ -92,7 +92,7 @@ $widthB = round(100 * ($rCaches[idx]/200)/1,0);
 	sql('DROP TEMPORARY TABLE topFounds');
 	sql('DROP TEMPORARY TABLE topRatings');
 	sql('DROP TEMPORARY TABLE topResult');
-//	echo '</table></td></tr><tr><td>W nawiasie liczba ile razy skrzynka została znaleziona po 21.02.2007 (data wprowadzenia rekomendacji skrzynek)</td></tr></table></center><br>';
-	echo '</table></td></tr><tr><td></td></tr></table></center><br>';
-//	echo '</table></td></tr><tr><td>Wzór na Indeks = 100 * (a+1)* (a+1)/(b+(c/10)+3)<br>a = liczba rekomendacji<br>b = liczba znalezien po 21.02.2007(data od kiedy można przydzielać rekomendacje)<br>c = liczba wszystkich znalezien skrzynki</td></tr></table></center><br>';
+//	echo '</table></td></tr><tr><td>W nawiasie liczba ile razy skrzynka została znaleziona po 21.02.2007 (data wprowadzenia rekomendacji skrzynek)</td></tr></table></center><br />';
+	echo '</table></td></tr><tr><td></td></tr></table></center><br />';
+//	echo '</table></td></tr><tr><td>Wzór na Indeks = 100 * (a+1)* (a+1)/(b+(c/10)+3)<br />a = liczba rekomendacji<br />b = liczba znalezien po 21.02.2007(data od kiedy można przydzielać rekomendacje)<br />c = liczba wszystkich znalezien skrzynki</td></tr></table></center><br />';
 ?>

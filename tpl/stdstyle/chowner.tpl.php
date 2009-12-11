@@ -13,7 +13,7 @@
 					<table border='0' width='800'>
 					<tr>
 						<td colspan="2">
-							Poniżej znajduje się lista skrzynek, które oczekują na Twoją akceptację. Wybierz [akceptuj] albo [odrzuć], aby przejąć skrzynkę lub odrzucić zaproszenie.<br><br>
+							Poniżej znajduje się lista skrzynek, które oczekują na Twoją akceptację. Wybierz [akceptuj] albo [odrzuć], aby przejąć skrzynkę lub odrzucić zaproszenie.<br /><br />
 						</td>
 					</tr>
 					<tr>
@@ -35,7 +35,7 @@
 						<td colspan="2">
 							<font color="#ff0000">{error_msg}</font>
 							<font color="green">{info_msg}</font>
-							Za pośrednictwem tej strony możesz przekazać swoją skrzynkę innemu użytkownikowi. Wybierz skrzynkę z listy:<br><br>
+							Za pośrednictwem tej strony możesz przekazać swoją skrzynkę innemu użytkownikowi. Wybierz skrzynkę z listy:<br /><br />
 						</td>
 					</tr>
 					<tr>
@@ -47,6 +47,6 @@
 					</table>
 				</td>
 			</tr>
-			<br>
+			<br />
 		</table>
 		</font>

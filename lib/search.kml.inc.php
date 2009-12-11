@@ -29,7 +29,7 @@
 	$kmlLine = 
 '
 <Placemark>
-  <description><![CDATA[<a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}">Zobacz szczegoly skrzynki</a><br>Zalozona przez {username}<br>&nbsp;<br><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Rodzaj: {type}<br>Wielkosc: {{size}}</td></tr><tr><td colspan="2">Zadania: {difficulty} z 5.0<br>Teren: {terrain} z 5.0</td></tr></table>]]></description>
+  <description><![CDATA[<a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}">Zobacz szczegoly skrzynki</a><br />Zalozona przez {username}<br />&nbsp;<br /><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Rodzaj: {type}<br />Wielkosc: {{size}}</td></tr><tr><td colspan="2">Zadania: {difficulty} z 5.0<br />Teren: {terrain} z 5.0</td></tr></table>]]></description>
    <name>{name}</name>
   <LookAt>
     <longitude>{lon}</longitude>

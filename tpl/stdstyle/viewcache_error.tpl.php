@@ -25,7 +25,7 @@
 	
  ****************************************************************************/
 ?>
-<h1>Opis skrzynki nie może zostać wyświetlony.<br>
+<h1>Opis skrzynki nie może zostać wyświetlony.<br />
 Możliwe przyczyny:</h1>
 <ul>
 <li>Skrzynka nie została znaleziona w bazie</li>

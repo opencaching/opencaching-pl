@@ -18,7 +18,7 @@ $t1="CREATE TEMPORARY TABLE ocpl.tmp (id INT(11) unsigned NOT NULL auto_incremen
 $r=mysql_query($t1) or die(mysql_error());
 //mysql_query("SET NAMES 'utf8'"); 
 $a="SELECT count,name, cache_id, username FROM tmp GROUP BY `name` ORDER BY `count` DESC, `name`";
-echo "<br>";
+echo "<br />";
 
 $r=mysql_query($a) or die(mysql_error());
 echo "<tr bgcolor=#D5D5D5><td align=right><font size=2>&nbsp;&nbsp;<b>Ranking</b>&nbsp;&nbsp;</td><td align=center>&nbsp;&nbsp;<font size=2><b>Liczba odkryć</b></font>&nbsp;&nbsp;</td><td align=center>&nbsp;&nbsp;<font size=2><b>Nazwa skrzynki (Username)</b></font>&nbsp;&nbsp;</td>";

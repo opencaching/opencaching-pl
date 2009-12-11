@@ -29,7 +29,7 @@ class MakeLogo
 			$tmp = imagecreatefromjpeg($path);
 			$totalWidth += imagesx($tmp);
 		/*	echo "total=".$totalWidth;
-			echo "<br>";
+			echo "<br />";
 			echo "im_".$number."=".imagesx($tmp);*/
 			if( $totalWidth >= $MAX_LEN )
 			{

@@ -63,9 +63,9 @@
 						{difficulty_icon_terr}
 					</td>
 					<td valign="top">
-						Skrzynka <b>{cachename}</b> założona przez <b>{owner_name}</b><br>
+						Skrzynka <b>{cachename}</b> założona przez <b>{owner_name}</b><br />
 						Krótki opis: {short_desc}
-						<font size="1"><br></font>
+						<font size="1"><br /></font>
 					</td>
 				</tr>
 			</table>
@@ -87,7 +87,7 @@
 						{hidelistingsites_start}{{listed_also_on}}: {listed_on}<br />{hidelistingsites_end}
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
-								<td style="vertical-align: top"><br><br><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0">Atrybuty skrzynki:&nbsp;</td>								
+								<td style="vertical-align: top"><br /><br /><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0">Atrybuty skrzynki:&nbsp;</td>								
 								<td>{{cache_attributes}}{password_req}</td>								
 							</tr>
 						</table>
@@ -145,7 +145,7 @@
 			<img src="tpl/stdstyle/images/blue/decrypt.png" width="32" height="32" align="middle" border="0">
 			{decrypt_link}
 			{decrypt_link_end}
-			<br>
+			<br />
 		</td>
 	</tr>
 	<tr>
@@ -167,7 +167,7 @@
 							</tr>
 							<tr>
 								<td>
-									<font face="Courier" style="font-family : 'Courier New', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font><br><br>
+									<font face="Courier" style="font-family : 'Courier New', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font><br /><br />
 								</td>
 							</tr>
 						</table>
@@ -188,12 +188,12 @@
 	</tr>
 	<tr>
 		<td>
-		<br>
+		<br />
 		{{pictures}}
 		</td>
 	</tr>
 	{hidepictures_end}
-	<tr><td class="spacer"><br></td></tr>
+	<tr><td class="spacer"><br /></td></tr>
 
 	<tr>
 		<td height="26" valign="middle" class="header-small">
@@ -206,6 +206,6 @@
 			<span style="font-weight:400">{viewlogs_last}&nbsp;&nbsp;{viewlogs}</span>
 		</td>
 	</tr>
-	<tr><td class="spacer"><br></td></tr>
+	<tr><td class="spacer"><br /></td></tr>
 	{logs}
 </table>

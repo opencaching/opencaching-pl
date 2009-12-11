@@ -81,7 +81,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td><br><img src='tpl/stdstyle/images/description/22x22-location.png'  width='22' height='22' border='0' alt='' title='' align="left">
+		<td><br /><img src='tpl/stdstyle/images/description/22x22-location.png'  width='22' height='22' border='0' alt='' title='' align="left">
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 				<tr>					<td valign="top" width="360">
 
@@ -106,9 +106,9 @@
 						<br />
 					</td>
 					<td valign="top" width="80" nowrap>
-						<span style="background-color : #E6E2E6;"><b>{country}</b></span><br>
-						<a href="http://www.mapquest.com/maps/map.adp?latlongtype=decimal&latitude={latitude}&longitude={longitude}" target="_blank">Mapquest</a><br>
-						<a href="http://maps.google.com/maps?q={latitude}+{longitude}" target="_blank">Google&nbsp;Maps</a><br>
+						<span style="background-color : #E6E2E6;"><b>{country}</b></span><br />
+						<a href="http://www.mapquest.com/maps/map.adp?latlongtype=decimal&latitude={latitude}&longitude={longitude}" target="_blank">Mapquest</a><br />
+						<a href="http://maps.google.com/maps?q={latitude}+{longitude}" target="_blank">Google&nbsp;Maps</a><br />
 
 					</td>
 					<td valign="top" nowrap><center>
@@ -173,7 +173,7 @@
 			<img src="tpl/stdstyle/images/action/16x16-encrypt.png" width="16" height="16" style="vertical-align:middle" border="0">
 			{decrypt_link}
 			{decrypt_link_end}
-			<br>
+			<br />
 		</td>
 	</tr>
 	<tr>
@@ -195,7 +195,7 @@
 							</tr>
 							<tr>
 								<td>
-									<font face="Courier" style="font-family : 'Courier New', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font><br><br>
+									<font face="Courier" style="font-family : 'Courier New', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font><br /><br />
 								</td>
 							</tr>
 						</table>
@@ -220,7 +220,7 @@
 		</td>
 	</tr>
 	{hidepictures_end}
-	<tr><td class="spacer"><br></td></tr>
+	<tr><td class="spacer"><br /></td></tr>
 
 	<tr>
 		<td class="header-small" valign="middle">
@@ -228,12 +228,12 @@
 			Użyteczne
 		</td>
 	</tr>
-	<tr><td class="spacer"><br></td></tr>
+	<tr><td class="spacer"><br /></td></tr>
 	<tr>
 		<td valign="top">
 			Szukaj skrzynek w pobliżu (150 km promień) na OC PL:
 			<a href="search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=1&latNS={latNS}&lat_h={lat_h}&lat_min={lat_min}&lonEW={lonEW}&lon_h={lon_h}&lon_min={lon_min}&distance=150&unit=km">wszystkie</a>&nbsp;
-			<a href="search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=1&f_userfound=1&f_inactive=1&latNS={latNS}&lat_h={lat_h}&lat_min={lat_min}&lonEW={lonEW}&lon_h={lon_h}&lon_min={lon_min}&distance=150&unit=km">znalezione</a>&nbsp;&nbsp;&nbsp;<br><font color=blue>Pokaż najbliższe skrzynki na:&nbsp;<b>
+			<a href="search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=1&f_userfound=1&f_inactive=1&latNS={latNS}&lat_h={lat_h}&lat_min={lat_min}&lonEW={lonEW}&lon_h={lon_h}&lon_min={lon_min}&distance=150&unit=km">znalezione</a>&nbsp;&nbsp;&nbsp;<br /><font color=blue>Pokaż najbliższe skrzynki na:&nbsp;<b>
 			<a href="http://www.geocaching.com/seek/nearest.aspx?origin_lat={latitude}&origin_long={longitude}&submit3=Submit">Geocaching.com</a>&nbsp;&nbsp;&nbsp;
         		<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&download=Google+Maps&zoom=8&lat_1={latitude}&lon_1={longitude}">GPSgames.org</a></font></b>
 			</td>
@@ -265,7 +265,7 @@
 			{log}
 		</td>
 	</tr>
-	<tr><td class="spacer"><br></td></tr>
+	<tr><td class="spacer"><br /></td></tr>
 	{logs}
 
 	{viewlogs_start}

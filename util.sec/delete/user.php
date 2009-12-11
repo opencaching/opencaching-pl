@@ -62,7 +62,7 @@
 				if (is_file($picdir . '/' . $filename))
 				{
 					unlink($picdir . '/' . $filename);
-					echo $filename . "<br>";
+					echo $filename . "<br />";
 				}
 			}
 			sql("DELETE FROM `pictures` WHERE `user_id`=&1 AND `object_type`=1", $userid);

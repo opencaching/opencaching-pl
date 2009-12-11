@@ -36,83 +36,51 @@
 	 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" border="0" align="middle" width="32" height="32" alt="" title="Twoje konto" align="middle">&nbsp;{{register_new}}</div>
-<table>
-<form name="register" action="register.php" method="post" enctype="application/x-www-form-urlencoded" style="display: inline;">
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" alt="" title="{{your_account}}" class="icon32"/>&nbsp;{{register_new}}</div>
+
+<form name="register" action="register.php" method="post" enctype="application/x-www-form-urlencoded" style="display: inline;" id="register">
 <input type="hidden" name="allcountries" value="{show_all_countries}" />
-	<colgroup>
-		<col width="150">
-		<col>
-	</colgroup>
-	<tr>
-		<td colspan="2" class="help">
-			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwaga" title="Uwaga" align="middle">
+
+	<div>
+			<img src="tpl/stdstyle/images/misc/hint.gif" alt="{{warning}}" title="{{warning}"/>
 			{{register_msg1}}
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
+	</div>
+	<div>
+		<label for="username">{{username_label}}</label>
+		<input type="text" name="username" id="username" maxlength="60" value="{username}" class="input200" />* {username_message}
+	</div>
+	<div>
+		<label for="country">{{country_label}}</label>
 
-	<tr>
-		<td width="145" valign="top">{{user}}:</td>
-		<td valign="top"><input type="text" name="username" maxlength="60" value="{username}" class="input200" />* {username_message}
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-
-	<tr>
-		<td valign="top">{{country_label}}:</td>
-		<td valign="top">
-			<select name="country" class="input200" >
+			<select name="country" id="country" class="input200" >
 				{countries_list}
-			</select>&nbsp;{all_countries_submit}</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
+			</select>&nbsp;{all_countries_submit}
+	</div>
+	<div>
+		<label for="email">{{email_address}}:</label>
+		<input type="text" name="email" maxlength="80" id="email" value="{email}" class="input200" />*&nbsp;{email_message}
+	</div>
+	<div><label for="password1">{{password}}:</label>
+		<input type="password" name="password1" maxlength="80" id="password1" value="" class="input200" />*&nbsp;{password_message}
+	</div>
+	<div><label for="password2">{{password_confirm}}</label>
+		<input type="password" name="password2" maxlength="80" id="password2" value="" class="input200" />*
+	</div>
+	<div>
+			{{register_msg2}}
+	</div>
+	<div>
+			<img src="tpl/stdstyle/images/misc/hint.gif" alt="{{warning}" title="{{warning}}"/>
+			{{register_msg3}}
+	</div>
 
-	<tr>
-		<td width="145" valign="top">{{email_address}}:</td>
-		<td valign="top"><input type="text" name="email" maxlength="80" value="{email}" class="input200" />*&nbsp;{email_message}
-			</td>
-	</tr>
-	<tr>
-		<td width="145" valign="top">{{password}}:</td>
-		<td valign="top"><input type="password" name="password1" maxlength="80" value="" class="input200" />*&nbsp;{password_message}
-		</td>
-	</tr>
-	<tr>
-		<td width="145" valign="top">{{password_confirm}}:</td>
-		<td valign="top"><input type="password" name="password2" maxlength="80" value="" class="input200" />*
-		</td>
-	</tr>
-	<tr>
-		<td width="145" valign="top">&nbsp;</td>
-		<td valign="top">
-			{{register_msg2}}</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-
-	<tr>
-		<td colspan="2" class="help">
-			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwaga" title="Uwaga" align="middle">
-			{{register_msg3}}</B>
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-
-	<tr>
-		<td colspan="2">
+	<div>
 		    <input type="checkbox" name="TOS" value="ON" style="border:0;" />{{register_msg4}}
 			{tos_message}
-		</td>
-	</tr>
+	</div>
 
-	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-
-	<tr>
-		<td class="header-small" colspan="2">
+	<div>
 			<input type="reset" name="reset" value="Reset" class="formbuttons"/>&nbsp;&nbsp;
 			<input type="submit" name="submit" value="{{registration}}" class="formbuttons"/>
-		</td>
-	</tr>
-</table>
+	</div>
 </form>

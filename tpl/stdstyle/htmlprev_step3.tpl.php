@@ -30,14 +30,14 @@
 	<tr><td class="spacer"></td></tr>
 	<tr>
 	<td>
-		<b>Schritt 3:</b> So sieht dein HTML Code in einem Browser aus.<br>
-		---<br>
+		<b>Schritt 3:</b> So sieht dein HTML Code in einem Browser aus.<br />
+		---<br />
 			{thecode}
-		<br>---<br>
+		<br />---<br />
 		<p>Hier nochmals der HTML Code, den du nun abspeichern kannst oder direkt als Beschreibung eingeben.
-		<br>---<br>
+		<br />---<br />
 			{thehtmlcode}
-		<br>---</p>
+		<br />---</p>
 			<form action="htmlprev.php" name="text2html" method="post" enctype="application/x-www-form-urlencoded">
 				<input type="hidden" name="thetext" value="{thetext}" />
 				<input type="hidden" name="thehtml" value="{orghtml}" />

@@ -45,7 +45,7 @@ class ClearFakeVotes
 			$sql3 = "SELECT username FROM user WHERE user_id = ".$scores['user_id'];
 			$fakeUser = mysql_result(mysql_query($sql3),0);
 			//echo "uzytkownik: ".$scores['user_id']."=".$fakeUser." ocenil skrzynke: ".$scores['cache_id']." na ".$scores['score'];
-			//echo "<br>";
+			//echo "<br />";
 			$sql_del = "DELETE FROM scores WHERE user_id = ".sql_escape($scores['user_id'])." AND cache_id = ".sql_escape($scores['cache_id']);
 			mysql_query($sql_del);
 			
@@ -74,7 +74,7 @@ class ClearFakeVotes
 				$sql3 = "SELECT username FROM user WHERE user_id = ".sql_escape($scores['user_id']);
 				$fakeUser = mysql_result(mysql_query($sql3),0);
 				//echo "uzytkownik: ".$scores['user_id']."=".$fakeUser." ocenil skrzynke: ".$scores['cache_id']." na ".$scores['score'];
-				//echo "<br>";
+				//echo "<br />";
 				$sql_del = "DELETE FROM scores WHERE user_id = ".sql_escape($scores['user_id'])." AND cache_id = ".sql_escape($scores['cache_id']);
 				mysql_query($sql_del);
 				

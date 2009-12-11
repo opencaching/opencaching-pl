@@ -45,13 +45,13 @@
 		$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
 		$fdesc = $myFilter->process($r['desc']);
 		
-		echo '<b>- Orginal HTML -</b><br><br>' . "\n";
+		echo '<b>- Orginal HTML -</b><br /><br />' . "\n";
 		echo nl2br(htmlspecialchars($r['desc'])) . "\n";
-		echo '<br><br><b>- Korrigiertes HTML -</b><br><br>' . "\n";
+		echo '<br /><br /><b>- Korrigiertes HTML -</b><br /><br />' . "\n";
 		echo nl2br(htmlspecialchars($fdesc)) . "\n";
-		echo '<br><br><b>- Orginal Vorschau -</b><br><br>' . "\n";
+		echo '<br /><br /><b>- Orginal Vorschau -</b><br /><br />' . "\n";
 		echo $r['desc'] . "\n";
-		echo '<br><br><b>- Korrigierte Vorschau -</b><br><br>' . "\n";
+		echo '<br /><br /><b>- Korrigierte Vorschau -</b><br /><br />' . "\n";
 		echo $fdesc . "\n";
 		
 		echo '</body></html>';
@@ -277,7 +277,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle cache_logs</b> [<a href="index.php?action=recalclogpics">picturescount neu berechnen</a>]<br/>';
+	echo '<br /><b>Tabelle cache_logs</b> [<a href="index.php?action=recalclogpics">picturescount neu berechnen</a>]<br/>';
 
 	$rs = mysql_query('SELECT `id`, `cache_id`, `user_id`, `type`, `date`, `text`, `last_modified`, `uuid`, `picturescount`, `date_created`, `owner_notified` FROM cache_logs', $dblink);
 	while ($r = mysql_fetch_array($rs))
@@ -370,7 +370,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle cache_size</b><br/>';
+	echo '<br /><b>Tabelle cache_size</b><br/>';
 	$rs = mysql_query('SELECT `id`, `de`, `en` FROM cache_size', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -403,7 +403,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle cache_status</b><br/>';
+	echo '<br /><b>Tabelle cache_status</b><br/>';
 	$rs = mysql_query('SELECT `id`, `de`, `en` FROM cache_status', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -436,7 +436,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle cache_type</b><br/>';
+	echo '<br /><b>Tabelle cache_type</b><br/>';
 	$rs = mysql_query('SELECT `id`, `short`, `de`, `en`, `icon_large` FROM cache_type', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -478,7 +478,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle cache_visits</b> [<a href="index.php?action=removevisits">unbekannte entfernen</a>]<br/>';
+	echo '<br /><b>Tabelle cache_visits</b> [<a href="index.php?action=removevisits">unbekannte entfernen</a>]<br/>';
 	$rs = mysql_query('SELECT `cache_id`, `user_id`, `count`, `last_visited` FROM cache_visits', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -504,7 +504,7 @@
 	mysql_free_result($rs);
 	
 
-	echo '<br><b>Tabelle cache_watches</b><br/>';
+	echo '<br /><b>Tabelle cache_watches</b><br/>';
 	$rs = mysql_query('SELECT `cache_id`, `user_id`, `last_executed` FROM cache_watches', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -528,7 +528,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle caches</b> [<a href="index.php?action=recalccachevisits">summen neu berechnen</a>]<br/>';
+	echo '<br /><b>Tabelle caches</b> [<a href="index.php?action=recalccachevisits">summen neu berechnen</a>]<br/>';
 	$rs = mysql_query('SELECT `cache_id`,`user_id`,`name`,`longitude`,`latitude`,`last_modified`,`date_created`,`type`,`status`,`country`,`date_hidden`,`founds`,`notfounds`,`notes`,`last_found`,`desc_languages`,`size`,`difficulty`,`terrain`,`uuid`,`watcher`,`logpw`,`picturescount` FROM `caches`', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -686,7 +686,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle countries</b><br/>';
+	echo '<br /><b>Tabelle countries</b><br/>';
 	$rs = mysql_query('SELECT `country_id`,`de`,`en`,`pl`,`short`,`list_default_de`,`sort_de`,`list_default_en`, `sort_en`,`list_default_pl`, `sort_pl` FROM `countries`', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -731,7 +731,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle languages</b><br/>';
+	echo '<br /><b>Tabelle languages</b><br/>';
 	$rs = mysql_query('SELECT `id`,`de`,`en`,`pl`,`short`,`list_default_de`,`list_default_en`,`list_default_pl` FROM `languages`', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -768,7 +768,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle log_types</b><br/>';
+	echo '<br /><b>Tabelle log_types</b><br/>';
 	$rs = mysql_query('SELECT `id`,`en`,`pl`,`icon_small` FROM `log_types`', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -805,7 +805,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle pictures</b><br/>';
+	echo '<br /><b>Tabelle pictures</b><br/>';
 	$rs = mysql_query('SELECT `id`,`uuid`,`url`,`last_modified`,`title`,`date_created`,`object_id`,`object_type`,`user_id`,`thumb_url`,`thumb_last_generated`,`spoiler`,`local`,`unknown_format`,`display` FROM `pictures`', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -878,7 +878,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle queries</b><br/>';
+	echo '<br /><b>Tabelle queries</b><br/>';
 	$rs = mysql_query('SELECT `user_id`, `uuid` FROM `queries`', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -901,7 +901,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle removed_objects</b><br/>';
+	echo '<br /><b>Tabelle removed_objects</b><br/>';
 	$rs = mysql_query('SELECT `id`,`localid`,`uuid`,`type`,`removed_date` FROM `removed_objects`', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -960,7 +960,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle watches_waiting</b><br/>';
+	echo '<br /><b>Tabelle watches_waiting</b><br/>';
 	$rs = mysql_query('SELECT `user_id` FROM `watches_waiting`', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
@@ -973,7 +973,7 @@
 
 	flush();
 
-	echo '<br><b>Tabelle user</b> [<a href="index.php?action=recalcuserstat">Summen neu berechnen</a>]<br/>';
+	echo '<br /><b>Tabelle user</b> [<a href="index.php?action=recalcuserstat">Summen neu berechnen</a>]<br/>';
 	$rs = mysql_query('SELECT `user_id` id, `username`, `password`, `email`, `latitude`, `longitude`, `last_modified`, `was_loggedin`, `country`, `date_created`, `hidden_count`, `log_notes_count`, `founds_count`, `notfounds_count`, `uuid`, `cache_watches` FROM `user`', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{

@@ -682,7 +682,7 @@ foreach( $ret as $elem )
 {
 	//echo ($text[$elem+9])." ";
 	$nawias_on = strpos( $text, "(", $elem+8)+1;
-	$do_ciecia = substr($text, $nawias_on, strpos($text, ")", $nawias_on ) - $nawias_on)."<br>";
+	$do_ciecia = substr($text, $nawias_on, strpos($text, ")", $nawias_on ) - $nawias_on)."<br />";
 	$coords[] = explode(",", $do_ciecia); // 0 = x, 1 = y
 	
 	
@@ -695,7 +695,7 @@ foreach( $ret as $elem )
 {
 	//echo ($text[$elem+9])." ";
 	$nawias_on = strpos( $text, "(", $elem)+1;
-	$do_ciecia = substr($text, $nawias_on, strpos($text, ")", $nawias_on ) - $nawias_on)."<br>";
+	$do_ciecia = substr($text, $nawias_on, strpos($text, ")", $nawias_on ) - $nawias_on)."<br />";
 	$colors[] = explode(",", $do_ciecia); // 0 = x, 1 = y
 
 }
@@ -712,7 +712,7 @@ foreach( $colors as $color )
 	$black = imagecolorallocate($im, 0,0,0);
 for( $i=0;$i<sizeof($coords);$i++ )
 {
-	//echo "c0=".$coords[$i][0]." c1=".$coords[$i][1]." col=".$col[$i]."<br>";
+	//echo "c0=".$coords[$i][0]." c1=".$coords[$i][1]." col=".$col[$i]."<br />";
 	imagefilledrectangle( $im, $coords[$i][0], $coords[$i][1], $coords[$i][0], $coords[$i][1], $col[$i] );
 }
 imagepng($im,'',9); 

@@ -12,7 +12,7 @@
 //	$rs = mysql_query('SELECT `user`.`username` `username`, `caches`.`cache_id` `cache_id`, `caches`.`name` `name`, `caches`.`date_created` `date_created` FROM `caches`, `user` WHERE `caches`.`user_id`=`user`.`user_id` AND `type`!=6 AND `status`=1 ORDER BY `date_created` DESC LIMIT 0 , 10', $dblink);
 	while ($r = mysql_fetch_array($rs))
 	{
-		$line = '{date} : <a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}" target="_blank">{cachename}</a> by {ownername}<br>';
+		$line = '{date} : <a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}" target="_blank">{cachename}</a> by {ownername}<br />';
 		
 		$line = str_replace('{date}', date('d.m.Y', strtotime($r['date_created'])), $line);
 		$line = str_replace('{cacheid}', $r['cache_id'], $line);

@@ -99,7 +99,7 @@ $email_form = "";
 	<input type='hidden' name='reportid' value='".intval($_REQUEST['reportid'])."'>
 	<input type='hidden' name='mailto' value='".intval($_REQUEST['mailto'])."'>
 	<textarea name='email_content' cols='80' rows='5'></textarea>
-	<br>
+	<br />
 	<input type='submit' value='Wyślij e-mail'>
 	<a href='viewreport.php?reportid=".$_REQUEST['reportid']."'>Anuluj</a>
 </form>";
@@ -163,7 +163,7 @@ $email_form = "";
 			$email_sent = "<b><font color='green'>E-mail został wysłany do ".writeRe($_REQUEST['mailto']).".</font></b>";
 	
 			$note = nl2br(sql_escape($note_content));
-			$sql = "UPDATE reports SET note=CONCAT('[".sql_escape(date("Y-m-d H:i:s"))."] <b>".sql_escape($usr['username'])."</b>: ".$note."<br>', note), changed_by='".sql_escape(intval($usr['userid']))."', changed_date='".sql_escape(date("Y-m-d H:i:s"))."' WHERE id='".sql_escape(intval($_REQUEST['reportid']))."'";
+			$sql = "UPDATE reports SET note=CONCAT('[".sql_escape(date("Y-m-d H:i:s"))."] <b>".sql_escape($usr['username'])."</b>: ".$note."<br />', note), changed_by='".sql_escape(intval($usr['userid']))."', changed_date='".sql_escape(date("Y-m-d H:i:s"))."' WHERE id='".sql_escape(intval($_REQUEST['reportid']))."'";
 			@mysql_query($sql);
 			//$saved = "<b><font color='green'>Informacja o wysłaniu e-maila została zapisana w notatkach poniżej.</font></b>";
 		}
@@ -220,7 +220,7 @@ $email_form = "";
 			$note = strip_tags(sql_escape(($_POST['note'])));
 			if( $note != "" )
 			{
-				$sql = "UPDATE reports SET note=CONCAT('[".sql_escape(date("Y-m-d H:i:s"))."] <b>".sql_escape($usr['username'])."</b>: ".$note."<br>', note), changed_by='".sql_escape(intval($usr['userid']))."', changed_date='".sql_escape(date("Y-m-d H:i:s"))."' WHERE id='".sql_escape(intval($_REQUEST['reportid']))."'";
+				$sql = "UPDATE reports SET note=CONCAT('[".sql_escape(date("Y-m-d H:i:s"))."] <b>".sql_escape($usr['username'])."</b>: ".$note."<br />', note), changed_by='".sql_escape(intval($usr['userid']))."', changed_date='".sql_escape(date("Y-m-d H:i:s"))."' WHERE id='".sql_escape(intval($_REQUEST['reportid']))."'";
 				@mysql_query($sql);
 				$saved = "<b><font color='green'>Notatka została zapisana.</font></b>";
 			}
@@ -263,7 +263,7 @@ $email_form = "";
 					$selected = "";
 				$content .= "<option value='".$admins['user_id']."' $selected>".$admins['username']."</option>";
 			}
-			$content .= "</select><br><input type='submit' name='new_resp' value='Zmień'>";
+			$content .= "</select><br /><input type='submit' name='new_resp' value='Zmień'>";
 			$content .= "</td>";
 			
 			$content .= "<td>";
@@ -282,7 +282,7 @@ $email_form = "";
 			
 			}
 			
-			$content .= "</select><br><input type='hidden' name='reportid' value='".$report['report_id']."'><input type='submit' name='new_status' value='Zmień'></form>";
+			$content .= "</select><br /><input type='hidden' name='reportid' value='".$report['report_id']."'><input type='submit' name='new_status' value='Zmień'></form>";
 			
 			$content .= "</td>";
 			$content .= "<td>".($report['changed_by']=='0'?'':(getUsername($report['changed_by']).'<br/><font size=\"1\">('.($report['changed_date']).')</font>'))."</td>\n";
@@ -295,7 +295,7 @@ $email_form = "";
 			
 			if( !isset($_GET['mailto']))
 			{
-				$active_form = "<form action='viewreport.php' method='POST'><input type='hidden' name='reportid' value='".intval($_REQUEST['reportid'])."'><textarea name='note' cols='80' rows='5'></textarea><br><input type='submit' value='Zapisz'></form>&nbsp;".$saved;
+				$active_form = "<form action='viewreport.php' method='POST'><input type='hidden' name='reportid' value='".intval($_REQUEST['reportid'])."'><textarea name='note' cols='80' rows='5'></textarea><br /><input type='submit' value='Zapisz'></form>&nbsp;".$saved;
 				tpl_set_var('note_lbl', "Notatka");
 			}
 			else
@@ -312,7 +312,7 @@ $email_form = "";
 			for( $i=0;$i<3;$i++)
 				$mail_actions .= "<li><a href='viewreport.php?reportid=".$report['report_id']."&amp;mailto=$i'>Wyślij e-mail do ".writeRe($i)."</a></li>";
 			
-			//$actions .= "<br><li><a href='viewreport.php?reportid=".$report['report_id']."&amp;delete=1'>usuń zgłoszenie</a></li>";
+			//$actions .= "<br /><li><a href='viewreport.php?reportid=".$report['report_id']."&amp;delete=1'>usuń zgłoszenie</a></li>";
 			
 			
 			tpl_set_var('reportid', $report['report_id']);

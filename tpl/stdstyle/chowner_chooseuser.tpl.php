@@ -12,8 +12,8 @@
 					<table border='0' width='800'>
 					<tr>
 						<td colspan="2">
-							Proszę wpisać nazwę użytkownika, który ma stać się nowym właścicielem Twojej skrzynki. Gdy tylko potwierdzi on chęć przejęcia skrzynki, procedura zostanie zakończona.<br>
-							Aby unieważnić prośbę o zmianę właściciela, wróć do <a href='chowner.php'>listy skrzynek</a> i wybierz odnośnik "anuluj przekazanie".<br><br>
+							Proszę wpisać nazwę użytkownika, który ma stać się nowym właścicielem Twojej skrzynki. Gdy tylko potwierdzi on chęć przejęcia skrzynki, procedura zostanie zakończona.<br/>
+							Aby unieważnić prośbę o zmianę właściciela, wróć do <a href='chowner.php'>listy skrzynek</a> i wybierz odnośnik "anuluj przekazanie".<br/><br/>
 							<font color="#ff0000">UWAGA! Opcja ta będzie aktywna tylko dopóki nowy właściciel nie potwierdzi zmiany.</font>
 						</td>
 					</tr>
@@ -41,6 +41,6 @@
 				</form>
 				</td>
 			</tr>
-			<br>
+			<br/>
 		</table>
 		</font>

@@ -323,7 +323,7 @@ function toggleAttr(id)
 	</tr>
 	<tr>
 		<td colspan="2">
-			<textarea name="hints" rows="5" cols="20" class="hint mceNoEditor">{hints}</textarea><br><br>
+			<textarea name="hints" rows="5" cols="20" class="hint mceNoEditor">{hints}</textarea><br /><br />
 		</td>
 	</tr>
 	<tr>
@@ -367,12 +367,12 @@ function toggleAttr(id)
 		<td><input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})</td>
 	</tr>
 	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{please_read}}</div></td></tr>
-	<tr><td colspan="2"><div class="errormsg"><br>{{creating_cache}}<br><br></div></td></tr>
+	<tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /><br /></div></td></tr>
 	<tr>
 		<td colspan="2">
 		<input type="reset" name="reset" value="{{reset}}" class="formbuttons" style="width:120px"/>&nbsp;&nbsp;
 		<input type="submit" name="submitform" value="{submit}" class="formbuttons" style="width:130px"/>
-		<br><br></td>
+		<br /><br /></td>
 	</tr>
 </table>
 </form>

@@ -1,4 +1,4 @@
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/world.png" border="0" align="middle" width="32" height="32" alt="" title="" align="middle">{{user_map}} {username}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="" title=""/>{{user_map}} {username}</div>
 <div class="content2-container">
 <p class="content-title-noshade-size1">{{current_zoom}}: <input type="text" id="zoom" size="2" disabled="disabled"/></p>
 <p class="content-title-noshade">{{colors}}: <b><font color="#dddd00">{{yellow}}</font></b> - {{last_10_days}}, <b><font color="#00dd00">{{green}}</font></b> - {{own}}, <b><font color="#aaaaaa">{{gray}}</font></b> - {{found}}, <b><font color="#ff0000">{{red}}</font></b> - {{rest}}</p>
@@ -23,7 +23,7 @@
 			</ul>
 		</div>
 	</td>
-	<td width="*">
+	<td>
 		<div class="nav3">
 			<ul>
 				<li class="title">{{hide_caches}}:</li>
@@ -70,7 +70,7 @@
 </tr>
 </table>
 </div>
-	<script type="text/javascript" language="javascript">
+	<script type="text/javascript" language="javascript"><!--
 	var h_t = 0;
 	var map=null;
 	var tlo=null;
@@ -194,14 +194,14 @@
 			addocoverlay();
 
 			// UMP
-			var copyUMP = new GCopyrightCollection("<a href=\"http://ump.waw.pl/\">UMP-PcPL</a>");
+			var copyUMP = new GCopyrightCollection("<a href=\"http://ump.waw.pl/\">UMP-PcPL<\/a>");
 			copyUMP.addCopyright(new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, " "));
 			var tilesUMP = new GTileLayer(copyUMP, 1, 18, {tileUrlTemplate: "http://tiles.ump.waw.pl/ump_tiles/{Z}/{X}/{Y}.png"});
 			var mapUMP = new GMapType([tilesUMP], G_NORMAL_MAP.getProjection(), "UMP");
 			map.addMapType(mapUMP);
 
 			// OpenStreetMap
-			var copyOSM = new GCopyrightCollection("<a href=\"http://www.openstreetmap.org/\">OpenStreetMaps</a>");
+			var copyOSM = new GCopyrightCollection("<a href=\"http://www.openstreetmap.org/\">OpenStreetMaps<\/a>");
 			copyOSM.addCopyright(new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, " "));
 			var tilesOSM = new GTileLayer(copyOSM, 1, 18, {tileUrlTemplate: "http://tile.openstreetmap.org/{Z}/{X}/{Y}.png"});
 			var mapOSM = new GMapType([tilesOSM], G_NORMAL_MAP.getProjection(), "OSM");
@@ -270,7 +270,7 @@
 							var print_topratings;
 							if( score != "" && votes > 2)
 							{
-								show_score = "<br><b>{{score_label}}:</b> " + score;
+								show_score = "<br><b>{{score_label}}:<\/b> " + score;
 							}
 							else show_score = "";
 							
@@ -278,7 +278,7 @@
 								print_topratings = "";
 							else 
 							{
-								print_topratings = "<br><b>{{recommendations}}: </b>";
+								print_topratings = "<br><b>{{recommendations}}: <\/b>";
 								var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\">";
 								var ii;
 								for( ii=0;ii<topratings;ii++)
@@ -315,27 +315,27 @@
 
 							infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\" class=\"table\">";
 							infoWindowContent += "<tr><td colspan=\"2\" width=\"100%\"><table cellspacing=\"0\" width=\"100%\"><tr><td width=\"90%\">";
-							infoWindowContent += "<center><img align=\"left\" width=\"20\" height=\"20\" src=\"tpl/stdstyle/images/cache/"+typeToImageName(type, status)+"\"></center>";
-							infoWindowContent += "&nbsp;<a href=\""+domain+"viewcache.php?cacheid=" + cache_id + "\" target=\"_blank\">" + name + "</a>";
-							infoWindowContent += "</td><td width=\"10%\">";
-							infoWindowContent += "<b>"+wp+"</b></td></tr></table>";
-							infoWindowContent += "</td></tr>";
+							infoWindowContent += "<center><img align=\"left\" width=\"20\" height=\"20\" src=\"tpl/stdstyle/images/cache/"+typeToImageName(type, status)+"\"><\/center>";
+							infoWindowContent += "&nbsp;<a href=\""+domain+"viewcache.php?cacheid=" + cache_id + "\" target=\"_blank\">" + name + "<\/a>";
+							infoWindowContent += "<\/td><td width=\"10%\">";
+							infoWindowContent += "<b>"+wp+"<\/b><\/td><\/tr><\/table>";
+							infoWindowContent += "<\/td><\/tr>";
 							infoWindowContent += "<tr><td width=\"70%\" valign=\"top\">";
-							infoWindowContent += "<b>{{created_by}}:</b> " + username + show_score + print_topratings;
+							infoWindowContent += "<b>{{created_by}}:<\/b> " + username + show_score + print_topratings;
 				
-							infoWindowContent += "</td>";
+							infoWindowContent += "<\/td>";
 							infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\" class=\"table\"><tr><td width=\"100%\">";
-							infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+founds+" x "+found_attended+"</nobr></td></tr>";
-							infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+notfounds+" x "+notfound_will_attend+"</nobr></td></tr>";
+							infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+founds+" x "+found_attended+"<\/nobr><\/td><\/tr>";
+							infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+notfounds+" x "+notfound_will_attend+"<\/nobr><\/td><\/tr>";
 							if( node == 2 )
-								infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+votes+" x {{scored}}</nobr>";
+								infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+votes+" x {{scored}}<\/nobr>";
 
-							infoWindowContent += "</td></tr></table></td></tr>";
+							infoWindowContent += "<\/td><\/tr><\/table><\/td><\/tr>";
 							infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
 							/*if( node == 2 )
-								infoWindowContent += "<font size=\"0\"><a href=\"cachemap3.php?lat="+"\"><?php echo ($yn=='y'?tr('add_to'):tr('remove_from'));?> {{to_print_list}}</a></font>";*/
-							infoWindowContent += "</td></tr></table></td></tr>";
-							infoWindowContent += "</table>";
+								infoWindowContent += "<font size=\"0\"><a href=\"cachemap3.php?lat="+"\"><?php echo ($yn=='y'?tr('add_to'):tr('remove_from'));?> {{to_print_list}}<\/a><\/font>";*/
+							infoWindowContent += "<\/td><\/tr><\/table><\/td><\/tr>";
+							infoWindowContent += "<\/table>";
 							
 							map.openInfoWindowHtml(new GLatLng(lat,lon), infoWindowContent,{onCloseFn: function() {
 								
@@ -353,4 +353,5 @@
 		if({doopen})
 			onClickFunc(tlo, new GLatLng({coords}));
 	}
+// -->
 </script>

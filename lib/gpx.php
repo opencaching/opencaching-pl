@@ -342,12 +342,12 @@
         function cleanup_text($str)
         {
           $str = PLConvert('UTF-8','POLSKAWY',$str);
-          $str = strip_tags($str, "<p><br><li>");
+          $str = strip_tags($str, "<p><br /><li>");
           // <p> -> nic
-          // </p>, <br> -> nowa linia
+          // </p>, <br /> -> nowa linia
           $from[] = '<p>'; $to[] = '';
           $from[] = '</p>'; $to[] = "\n";
-          $from[] = '<br>'; $to[] = "\n";
+          $from[] = '<br />'; $to[] = "\n";
           $from[] = '<br />'; $to[] = "\n";
             
           $from[] = '<li>'; $to[] = " - ";

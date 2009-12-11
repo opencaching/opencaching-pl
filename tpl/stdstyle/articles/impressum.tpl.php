@@ -33,19 +33,19 @@ z pewnymi wyjątkami, gdzie przytoczony jest autor. Za te imienne wkłady odpowi
 <h1>OpenCaching PL Team</h1>
 
 <p>
-<b>Rada Techniczna</b> (zespół który zajmuje sie aspektami technicznymi, zmiana kodu OC, serwis serwerow itp)<br>
+<b>Rada Techniczna</b> (zespół który zajmuje sie aspektami technicznymi, zmiana kodu OC, serwis serwerow itp)<br />
 
-<br>
-<b>Rada Rejsu</b> wybierana na okres 1 roku - w nawiasie podana liczba otrzymanych głosów<br>
+<br />
+<b>Rada Rejsu</b> wybierana na okres 1 roku - w nawiasie podana liczba otrzymanych głosów<br />
 
-<br>
-1. Rada Rejsu zostaje powołana wola wiekszości dla dobra wszystkich uczestnikow Opencaching.pl<br>
-2. Rada Rejsu składa się z 5-7 osób, które wybierane są wśród wszystkich uczestników OC na okres 1 roku<br>
+<br />
+1. Rada Rejsu zostaje powołana wola wiekszości dla dobra wszystkich uczestnikow Opencaching.pl<br />
+2. Rada Rejsu składa się z 5-7 osób, które wybierane są wśród wszystkich uczestników OC na okres 1 roku<br />
 
-3. Do podstawowych zadan Rada Rejsu nalezy:<br>
- a) interwencja u właściciela skrzynki w przypadku rażącego naruszenia regulaminu OC<br>
- b) rozpatrywanie skarg pochodzacych od uczestników OC bądź Instytucji,<br>
- c) rozpatrywanie spraw spornych między uczestnikami OC na prośbę jednej ze stron konfliktu (np. spór o nazwę skrzynki, sposób opisu, zawartość skrzynki itp).<br>
-4. W przypadku niemożności polubownego rostrzygnięcia sporu Rada Rejsu ma prawo zawiesić czasowo sporną skrzynkę<br>
-5. Decyzje Rada Rejsu zapadają zwykłą większością głosów i są ostateczne. <br>
+3. Do podstawowych zadan Rada Rejsu nalezy:<br />
+ a) interwencja u właściciela skrzynki w przypadku rażącego naruszenia regulaminu OC<br />
+ b) rozpatrywanie skarg pochodzacych od uczestników OC bądź Instytucji,<br />
+ c) rozpatrywanie spraw spornych między uczestnikami OC na prośbę jednej ze stron konfliktu (np. spór o nazwę skrzynki, sposób opisu, zawartość skrzynki itp).<br />
+4. W przypadku niemożności polubownego rostrzygnięcia sporu Rada Rejsu ma prawo zawiesić czasowo sporną skrzynkę<br />
+5. Decyzje Rada Rejsu zapadają zwykłą większością głosów i są ostateczne. <br />
 </p>

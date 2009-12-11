@@ -758,7 +758,7 @@
 					}
 					else
 					{
-					tpl_set_var('mp3_files', '<br>');
+					tpl_set_var('mp3_files', '<br />');
 					tpl_set_var('hidemp3_start', '<!--');
 					tpl_set_var('hidemp3_end', '-->');
 					}

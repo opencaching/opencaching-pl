@@ -9,7 +9,7 @@
 	<td>
 		<form action='admin_bulletin.php' method='POST'>
 		<textarea name='bulletin' cols='80' rows='15'></textarea>
-		<br>
+		<br />
 		<input type='submit' value='Wyślij biuletyn'>
 		</form>
 	</td>

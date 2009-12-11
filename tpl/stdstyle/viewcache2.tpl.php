@@ -81,7 +81,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td><br><img src="tpl/stdstyle/images/description/22x22-location.png"  width="22" height="22" border="0" alt="" title="" align="left">
+		<td><br /><img src="tpl/stdstyle/images/description/22x22-location.png"  width="22" height="22" border="0" alt="" title="" align="left">
 			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 				<tr>
 					<td valign="top" width="360">
@@ -124,9 +124,9 @@ echo "";
 		else
 		{
 
-						echo "<span style=\"background-color : #E6E2E6;\"><b>"; ?>{country}<?php echo "</b></span><br>
-						<a href=\"http://www.mapquest.com/maps/map.adp?latlongtype=decimal&latitude=";?>{latitude}<?php echo "&longitude=";?>{longitude}<?php echo "\" target=\"_blank\">Mapquest</a><br>
-						<a href=\"http://maps.google.com/maps?q=";?>{latitude}<?php echo "+";?>{longitude}<?php echo "\" target=\"_blank\">Google&nbsp;Maps</a><br>";
+						echo "<span style=\"background-color : #E6E2E6;\"><b>"; ?>{country}<?php echo "</b></span><br />
+						<a href=\"http://www.mapquest.com/maps/map.adp?latlongtype=decimal&latitude=";?>{latitude}<?php echo "&longitude=";?>{longitude}<?php echo "\" target=\"_blank\">Mapquest</a><br />
+						<a href=\"http://maps.google.com/maps?q=";?>{latitude}<?php echo "+";?>{longitude}<?php echo "\" target=\"_blank\">Google&nbsp;Maps</a><br />";
 } ?>
 					</td>
 					<td valign="top" nowrap><center>
@@ -134,7 +134,7 @@ echo "";
 global $usr;			
 if ($usr === false)
 		{
-echo "<b>Aby zobaczyć współrzędne oraz<br> mape lokalizacji skrzynki <br> musisz się zalogować.</b>";
+echo "<b>Aby zobaczyć współrzędne oraz<br /> mape lokalizacji skrzynki <br /> musisz się zalogować.</b>";
 		}
 		else
 		{
@@ -151,7 +151,7 @@ echo "<b>Aby zobaczyć współrzędne oraz<br> mape lokalizacji skrzynki <br> mu
 						}
 						//]]>
 						</script>
-						<div id=\"map\" style=\"width: 200px; height: 200px;\"></div><br>";
+						<div id=\"map\" style=\"width: 200px; height: 200px;\"></div><br />";
  } ?>
 					</td>
 
@@ -207,7 +207,7 @@ echo "<tr>
 			<?php echo "<img src=\"tpl/stdstyle/images/action/16x16-encrypt.png\" width=\"16\" height=\"16\" style=\"vertical-align:middle\" border=\"0\">";?>
 			{decrypt_link}
 			{decrypt_link_end}
-<?php echo"			<br>
+<?php echo"			<br />
 		</td>
 	</tr>
 	<tr>
@@ -229,7 +229,7 @@ echo "<tr>
 							</tr>
 							<tr>
 								<td>
-									<font face=\"Courier\" style=\"font-family : 'Courier New', FreeMono, Monospace;\">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font><br><br>
+									<font face=\"Courier\" style=\"font-family : 'Courier New', FreeMono, Monospace;\">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font><br /><br />
 								</td>
 							</tr>
 						</table>";?>
@@ -250,12 +250,12 @@ echo "<tr>
 		</td>
 	</tr>
 	<tr>
-		<td><br>
+		<td><br />
 		{{pictures}}
 		</td>
 	</tr>
 	{hidepictures_end}
-	<tr><td class="spacer"><br></td></tr>
+	<tr><td class="spacer"><br /></td></tr>
 
 <?php			
 if ($usr === false)
@@ -271,12 +271,12 @@ echo	"<tr>
 			Użyteczne
 		</td>
 	</tr>
-	<tr><td class=\"spacer\"><br></td></tr>
+	<tr><td class=\"spacer\"><br /></td></tr>
 	<tr>
 		<td valign=\"top\">
 			Szukaj skrzynek w pobliżu (150 km promień) na OC PL:
 			<a href=\"search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=1&latNS=";?>{latNS}<?php echo "&lat_h="; ?>{lat_h}<?php echo "&lat_min="; ?>{lat_min}<?php echo "&lonEW="; ?>{lonEW}<?php echo "&lon_h="; ?>{lon_h}<?php echo "&lon_min="; ?>{lon_min}<?php echo "&distance=150&unit=km\">wszystkie</a>&nbsp;
-			<a href=\"search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=1&f_userfound=1&f_inactive=1&latNS="; ?>{latNS}<?php echo "&lat_h="; ?>{lat_h}<?php echo "&lat_min="; ?>{lat_min}<?php echo "&lonEW="; ?>{lonEW}<?php echo "&lon_h=";?>{lon_h}<?php echo "&lon_min=";?>{lon_min}<?php echo "&distance=150&unit=km\">znalezione</a>&nbsp;&nbsp;&nbsp;<br><font color=blue>Pokaż najbliższe skrzynki na:&nbsp;<b>
+			<a href=\"search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=1&f_userfound=1&f_inactive=1&latNS="; ?>{latNS}<?php echo "&lat_h="; ?>{lat_h}<?php echo "&lat_min="; ?>{lat_min}<?php echo "&lonEW="; ?>{lonEW}<?php echo "&lon_h=";?>{lon_h}<?php echo "&lon_min=";?>{lon_min}<?php echo "&distance=150&unit=km\">znalezione</a>&nbsp;&nbsp;&nbsp;<br /><font color=blue>Pokaż najbliższe skrzynki na:&nbsp;<b>
 			<a href=\"http://www.geocaching.com/seek/nearest.aspx?origin_lat=";?>{latitude}<?php echo "&origin_long=";?>{longitude}<?php echo "&submit3=Submit\">Geocaching.com</a>&nbsp;&nbsp;&nbsp;
         		<a href=\"http://geocaching.gpsgames.org/cgi-bin/ge.pl?basic=yes&download=Google+Maps&zoom=8&lat_1=";?>{latitude}<?php echo "&lon_1=";?>{longitude}<?php echo "\">GPSgames.org</a></font></b>
 			</td>
@@ -309,7 +309,7 @@ echo	"<tr>
 			{log}
 		</td>
 	</tr>
-	<tr><td class="spacer"><br></td></tr>
+	<tr><td class="spacer"><br /></td></tr>
 	{logs}
 
 	{viewlogs_start}

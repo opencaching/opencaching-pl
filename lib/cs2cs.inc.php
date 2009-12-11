@@ -42,7 +42,7 @@ function cs2cs_core($lat, $lon, $to) {
     // (Vinnie, 2006-02-09)
 
     if ($stderr) {
-    	die("proc_open() failed:<br>command='$command'<br>stderr='" . $stderr . "'");
+    	die("proc_open() failed:<br />command='$command'<br />stderr='" . $stderr . "'");
     }
  
     proc_close($process);
@@ -91,7 +91,7 @@ function cs2cs_core2($lat, $lon, $to) {
     // (Vinnie, 2006-02-09)
 
     if ($stderr) {
-    	die("proc_open() failed:<br>command='$command'<br>stderr='" . $stderr . "'");
+    	die("proc_open() failed:<br />command='$command'<br />stderr='" . $stderr . "'");
     }
  
     proc_close($process);

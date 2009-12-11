@@ -10,7 +10,7 @@
 <form action='viewcache.php' method='POST'>
 	<input type='hidden' name='cacheid' value='{cacheid}'>
 	<textarea name='rr_comment' cols='80' rows='15'></textarea>
-	<br>
+	<br />
 	<input type='submit' value='Dodaj komentarz'>
 	<a href='viewcache.php?cacheid={cacheid}'>Anuluj</a>
 </form>

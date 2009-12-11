@@ -31,7 +31,7 @@
 	<tr>
 	<td>
 		Du willst in deiner Cachebeschreibung einen Teil des Textes <b>fett</b> oder <i>kursiv</i> machen, 
-		hast jedoch keine Ahnung von HTML?<br>
+		hast jedoch keine Ahnung von HTML?<br />
 		<p>Kein Problem, mit dieser Anleitung wird das zum Kinderspiel!</p>
 		<p><b>Schritt 1:</b> Als erstes musst du in das folgende Textfeld deinen Text eingeben und 
 			auf Weiter klicken.

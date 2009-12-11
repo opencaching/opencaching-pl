@@ -50,7 +50,7 @@ class ss_zip{
 		$this->cdir=array();
 	}
 		/**opens zip file.
-		<center><hr nashade>*** This functionality is available in PRO version only. ***<br><a href='http://smiledsoft.com/demos/phpzip/' target='_blank'>please upgrade </a><hr nashade></center>
+		<center><hr nashade>*** This functionality is available in PRO version only. ***<br /><a href='http://smiledsoft.com/demos/phpzip/' target='_blank'>please upgrade </a><hr nashade></center>
 	This function opens file pointed by zipfile parameter and creates all necessary structures
 	@param str zipfile path to the file
 	@param bool append if true the newlly opened archive will be appended to existing object structure
@@ -191,14 +191,14 @@ class ss_zip{
 		return $idx;
 	}
 	/** Reads an entry from the arcive which is pointed by inner index pointer.
-		<center><hr nashade>*** This functionality is available in PRO version only. ***<br><a href='http://smiledsoft.com/demos/phpzip/' target='_blank'>please upgrade </a><hr nashade></center>
+		<center><hr nashade>*** This functionality is available in PRO version only. ***<br /><a href='http://smiledsoft.com/demos/phpzip/' target='_blank'>please upgrade </a><hr nashade></center>
 	The curent index can be changed by seek_idx() method.
 	@return array Returns associative array of the following structure
 	<ul>
 	<li>'idx'=>	index of the entry </li>
 	<li>'name'=>full path to the entry </li>
 	<li>'attr'=>integer file attribute of the entry </li>
-	<li>'attrstr'=>string file attribute of the entry <br>
+	<li>'attrstr'=>string file attribute of the entry <br />
 	This can be:
 		 <ul>
 			 <li>'file' if the integer attribute was 32</li>
@@ -223,7 +223,7 @@ class ss_zip{
 	
 	
 	/** extracts data from the archive and return it as a string.
-		<center><hr nashade>*** This functionality is available in PRO version only. ***<br><a href='http://smiledsoft.com/demos/phpzip/' target='_blank'>please upgrade </a><hr nashade></center>
+		<center><hr nashade>*** This functionality is available in PRO version only. ***<br /><a href='http://smiledsoft.com/demos/phpzip/' target='_blank'>please upgrade </a><hr nashade></center>
 	This function returns data identified by idx parameter. 
 	@param int idx index of the entry
 	@return array returns associative array of the folloving structure:
@@ -239,7 +239,7 @@ class ss_zip{
 	
 	
 	/** extracts the entry and creates it in the file system.
-		<center><hr nashade>*** This functionality is available in PRO version only. ***<br><a href='http://smiledsoft.com/demos/phpzip/' target='_blank'>please upgrade </a><hr nashade></center>
+		<center><hr nashade>*** This functionality is available in PRO version only. ***<br /><a href='http://smiledsoft.com/demos/phpzip/' target='_blank'>please upgrade </a><hr nashade></center>
 	@param int idx Index of the entry
 	@param string path the first part of the path where the entry will be stored. So if this 
 	is '/my/server/path' and entry is arhived/file/path/file.txt then the function will attempt to

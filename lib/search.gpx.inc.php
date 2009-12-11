@@ -322,13 +322,13 @@
 			else
 				$thisline = str_replace('{hints}', '<hints>' . cleanup_text($r['hint']) . '</hints>', $thisline);
 			
-			$logpw = ($r['logpw']==""?"":"UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!<br>");			
+			$logpw = ($r['logpw']==""?"":"UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!<br />");			
 			$thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
 			$thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
 			if( $r['rr_comment'] == '' )
 				$thisline = str_replace('{rr_comment}', '', $thisline);
 			else
-				$thisline = str_replace('{rr_comment}', cleanup_text("<br><br>--------<br>".$r['rr_comment']."<br>"), $thisline);
+				$thisline = str_replace('{rr_comment}', cleanup_text("<br /><br />--------<br />".$r['rr_comment']."<br />"), $thisline);
 			
 			$thisline = str_replace('{{images}}', getPictures($r['cacheid'], false, $r['picturescount']), $thisline);
 
@@ -429,12 +429,12 @@
 
 		return html2text($str);
 
-          $str = strip_tags($str, "<p><br><li>");
+          $str = strip_tags($str, "<p><br /><li>");
           // <p> -> nic
-          // </p>, <br> -> nowa linia
+          // </p>, <br /> -> nowa linia
           $from[] = '<p>'; $to[] = '';
           $from[] = '</p>'; $to[] = "\n";
-          $from[] = '<br>'; $to[] = "\n";
+          $from[] = '<br />'; $to[] = "\n";
           $from[] = '<br />'; $to[] = "\n";
 					$from[] = '<br/>'; $to[] = "\n";
             

@@ -86,7 +86,7 @@ c9.src = "tmp/9.png";
 //image swapping function:
 function Lite(img) {
 if (rollOvers) {
-document.roll.src = eval(img + ".src");
+document.getElementById('main-cachemap').src = eval(img + ".src");
 return true;
 }}
 //end hiding -->
@@ -97,7 +97,7 @@ return true;
 			<div class="content-txtbox-noshade line-box">
 				<p>{{what_do_you_find_intro}}</p>
 				<div class="buffer" style="width:500px;"></div>
-				<b><p>{{total_of_active_caches}}: <span class="content-title-noshade">{hiddens}</span> | {{number_of_founds}}: <span class="content-title-noshade">{founds}</span> | {{number_of_active_users}}: <span class="content-title-noshade">{users} </span></p></b>
+				<p class="main-totalstats">{{total_of_active_caches}}: <span class="content-title-noshade">{hiddens}</span> | {{number_of_founds}}: <span class="content-title-noshade">{founds}</span> | {{number_of_active_users}}: <span class="content-title-noshade">{users} </span></p>
 			</div>
 <!-- Text container -->
 			<div class="content2-container line-box">
@@ -111,8 +111,10 @@ return true;
 						?>
 					</div>
 				</div>
-				<div class="content2-container-2col-right" id="startpage-map"><div class="img-shadow">
-					<img src="tmp/mapa.png" id="stickermap" name="roll" alt="Karte" /></div>
+				<div class="content2-container-2col-right" id="main-cachemap-block">
+					<div class="img-shadow">
+						<img src="tmp/mapa.png" id="main-cachemap" name="main-cachemap" alt="{{map}}" />
+					</div>
 				</div>
 			</div>
 <!-- End Text Container -->

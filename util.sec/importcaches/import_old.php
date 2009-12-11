@@ -24,7 +24,7 @@ class importCaches
 	function copyFile($url,$dirname){
     @$file = fopen ($url, "r");
     if (!$file) {
-        echo"<font color=red>Failed to copy $url!</font><br>";
+        echo"<font color=red>Failed to copy $url!</font><br />";
         return false;
     }else {
         $filename = basename($url);
@@ -34,7 +34,7 @@ class importCaches
            fwrite($fc,$line);
         }
         fclose($fc);
-        echo "<font color=blue>File $url saved to PC!</font><br>";
+        echo "<font color=blue>File $url saved to PC!</font><br />";
         return true;
     }
 	}
@@ -245,7 +245,7 @@ class importCaches
 		
 		$lastmodified = addslashes($this->GetNodeValue($element, 'lastmodified'));
 		
-		echo $sql = "REPLACE INTO foreign_caches (cache_id, user_id, username, name, longitude, latitude, last_modified, date_created, type, status, country, date_hidden, desc_languages, size, difficulty, terrain, uuid, search_time, way_length, wp_gc, wp_nc, wp_oc, default_desclang, node) VALUES ($id, $userid, '$username', '$name', $longitude, $latitude, '$lastmodified', '$datecreated', $typeid, $statusid, '$countryid', '$datehidden', '$desclanguages', $sizeid, $difficulty, $terrain, '$useruuid', $needtime, $waylength, '$gcwaypoint', '$ncwaypoint', '$ocwaypoint', UCASE('".$oc_country."'), $node_id);"."<br>";
+		echo $sql = "REPLACE INTO foreign_caches (cache_id, user_id, username, name, longitude, latitude, last_modified, date_created, type, status, country, date_hidden, desc_languages, size, difficulty, terrain, uuid, search_time, way_length, wp_gc, wp_nc, wp_oc, default_desclang, node) VALUES ($id, $userid, '$username', '$name', $longitude, $latitude, '$lastmodified', '$datecreated', $typeid, $statusid, '$countryid', '$datehidden', '$desclanguages', $sizeid, $difficulty, $terrain, '$useruuid', $needtime, $waylength, '$gcwaypoint', '$ncwaypoint', '$ocwaypoint', UCASE('".$oc_country."'), $node_id);"."<br />";
 		
 			//			mysql_query($sql);
 	}

@@ -224,7 +224,7 @@ LOGi:
 			else
 				$thisline = str_replace('{hints}', str_rot13_html(strip_tags($r['hint'])), $thisline);
 			
-			$logpw = ($r['logpw']==""?"":"UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!<br>");			
+			$logpw = ($r['logpw']==""?"":"UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!<br />");			
 			
 			$thisline = str_replace('{shortdesc}', $r['short_desc'], $thisline);
 			
@@ -242,7 +242,7 @@ LOGi:
 			if( $r['rr_comment'] == '' )
 				$thisline = str_replace('{rr_comment}', '', $thisline);
 			else
-				$thisline = str_replace('{rr_comment}', html2txt("<br><br>--------<br>".$r['rr_comment']), $thisline);
+				$thisline = str_replace('{rr_comment}', html2txt("<br /><br />--------<br />".$r['rr_comment']), $thisline);
 				
 			$thisline = str_replace('{type}', $r['type'], $thisline);
 			$thisline = str_replace('{container}', $r['size'], $thisline);
@@ -305,7 +305,7 @@ LOGi:
 		$str = str_replace("\r\n", '', $html);
 		$str = str_replace("\n", '', $str);
 		$str = str_replace('<br />', "\n", $str);
-		$str = str_replace('<br>', "\n", $str);
+		$str = str_replace('<br />', "\n", $str);
 		$str = strip_tags($str);
 		return $str;
 	}

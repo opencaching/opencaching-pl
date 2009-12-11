@@ -12,7 +12,7 @@
 		{vote_results_header}
 		{vote_results_list}
 		{vote_results_foother}
-		<br><br>
+		<br /><br />
 		{vote_info}
 	</td>
 </tr>

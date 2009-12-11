@@ -164,7 +164,7 @@
 				{
 					$oldOwnerId = getCacheOwner($_GET['cacheid']);
 					
-					tpl_set_var("error_msg", "Wystąpił błąd podczas zmiany właściciela skrzynki.<br><br>");
+					tpl_set_var("error_msg", "Wystąpił błąd podczas zmiany właściciela skrzynki.<br /><br />");
 					tpl_set_var("info_msg", "");
 					$sql = "DELETE FROM chowner WHERE cache_id = '".sql_escape(intval($_GET['cacheid']))."' AND user_id = '".sql_escape(intval($usr['userid']))."'";
 					mysql_query($sql);
@@ -180,7 +180,7 @@
 					mysql_query($sql);
 					
 					tpl_set_var("error_msg", "");
-					tpl_set_var("info_msg", "Gratulacje! Stałeś się nowym właścicielem skrzynki ".getCacheName($_GET['cacheid'])."<br><br>");	
+					tpl_set_var("info_msg", "Gratulacje! Stałeś się nowym właścicielem skrzynki ".getCacheName($_GET['cacheid'])."<br /><br />");	
 					$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
 					$email_headers .= "From: Opencaching.pl <noreply@opencaching.pl>\r\n";
 					$email_headers .= "Reply-To: ".$usr['email']."\r\n";
@@ -197,11 +197,11 @@
 				mysql_query($sql);
 				if( mysql_affected_rows() > 0 )
 				{
-					tpl_set_var("info_msg", "Zaproszenie do przejęcia skrzynki zostało przez Ciebie odrzucone.<br><br>");
+					tpl_set_var("info_msg", "Zaproszenie do przejęcia skrzynki zostało przez Ciebie odrzucone.<br /><br />");
 					mb_send_mail(getUserEmail($oldOwnerId), "[OC PL] Użytkownik nie przyjął Twojej skrzynki", "Witaj!\nNiestety użytkownik: ".$usr['username']." nie chce być nowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid']).".", $email_headers);
 				}
 				else
-					tpl_set_var("error_msg", "Wystąpił błąd podczas zmiany właściciela skrzynki.<br><br>");
+					tpl_set_var("error_msg", "Wystąpił błąd podczas zmiany właściciela skrzynki.<br /><br />");
 				
 			}
 			
@@ -211,9 +211,9 @@
 				$sql = "DELETE FROM chowner WHERE cache_id = '".sql_escape(intval($_GET['cacheid']))."'";
 				mysql_query($sql);
 				if( mysql_affected_rows() > 0 )
-					tpl_set_var('info_msg', "Procedura zmiany właściciela skrzynki została przerwana.<br><br>");
+					tpl_set_var('info_msg', "Procedura zmiany właściciela skrzynki została przerwana.<br /><br />");
 				else
-					tpl_set_var('error_msg', "Wystąpił błąd podczas próby przerwania procedury zmiany właściciela skrzynki.<br><br>");
+					tpl_set_var('error_msg', "Wystąpił błąd podczas próby przerwania procedury zmiany właściciela skrzynki.<br /><br />");
 			}
 
 			if( isAcceptanceNeeded($usr['userid']) )
@@ -245,20 +245,20 @@
 				{
 					// przekazywanie samemu sobie
 					//if( $usr['username'] == $_POST['username'] )
-					//	tpl_set_var('error_msg', "Nie możesz przekazać skrzynki samemu sobie...<br><br>");
+					//	tpl_set_var('error_msg', "Nie możesz przekazać skrzynki samemu sobie...<br /><br />");
 					//else
 					{
 						// uzytkownik istnieje, mozna kontynuowac procedure
 						$sql = "INSERT INTO chowner (cache_id, user_id) VALUES (".sql_escape(intval($_REQUEST['cacheid'])).", ".sql_escape(intval(doesUserExist(strip_tags(sql_escape($_POST['username']))))).")";
 						mysql_query($sql);
 						if( mysql_affected_rows() > 0 )
-							tpl_set_var('info_msg', "Procedura zmiany właściciela skrzynki została rozpoczęta.<br><br>");
+							tpl_set_var('info_msg', "Procedura zmiany właściciela skrzynki została rozpoczęta.<br /><br />");
 						else
-							tpl_set_var('error_msg', "Wystąpił błąd podczas rozpoczynania procedury zmiany właściciela skrzynki.<br><br>");
+							tpl_set_var('error_msg', "Wystąpił błąd podczas rozpoczynania procedury zmiany właściciela skrzynki.<br /><br />");
 					}
 				}
 				else 
-					tpl_set_var('error_msg', "Użytkownik ".$_POST['username']." nie istnieje.<br><br>");
+					tpl_set_var('error_msg', "Użytkownik ".$_POST['username']." nie istnieje.<br /><br />");
 			}
 			// strona glowna - wybor skrzynki
 			foreach( listUserCaches($usr['userid']) as $cache)

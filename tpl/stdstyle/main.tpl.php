@@ -180,7 +180,7 @@ function chname( newName )
 				}
 			?>
 			<?php
-				if( $usr )
+				if( $usr && isset($_SESSION['user_id']))
 				{				
 					$myhomeidx = mnu_MainMenuIndexFromPageId($menu, "myhome");
 					$myprofileidx = mnu_MainMenuIndexFromPageId($menu[$myhomeidx]["submenu"], "myprofile");

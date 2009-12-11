@@ -11,7 +11,7 @@
   $fC = sql('SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
     $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
-	echo '<center><table><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby założonych skrzynek</b></font><br>tylko aktywne skrzynki<br>Użytkowników którzy założyli skrzynki:';
+	echo '<center><table><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby założonych skrzynek</b></font><br />tylko aktywne skrzynki<br />Użytkowników którzy założyli skrzynki:';
 	echo $rsUs[count]; 
 	echo ' .::. Liczba aktywnych skrzynek:';
 	echo $fCt[count]; 
@@ -34,7 +34,7 @@ $line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b
 
   }
 
-	echo '</table></td></tr></table></center><br>';
+	echo '</table></td></tr></table></center><br />';
 
 
 $rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(cache_logs.user_id) FROM `cache_logs` WHERE `type`=1 AND `deleted`=0 GROUP BY `user_id`) `users_with_founds`');
@@ -42,7 +42,7 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `type`=1 AND `deleted
   $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
 
-	echo '<center><table><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby odkryć</b></font><br>Użytkowników którzy znalezli:';
+	echo '<center><table><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby odkryć</b></font><br />Użytkowników którzy znalezli:';
 	echo $rsUs[count]; 
 	echo ' .::. Ile razy odkryto skrzynki:';
 	echo $fCt[count]; 
@@ -65,7 +65,7 @@ $line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b
 
   }
 
-	echo '</table></td></tr></table></center><br>';
+	echo '</table></td></tr></table></center><br />';
 
   setlocale(LC_TIME, 'pl_PL.UTF-8');
 
@@ -92,7 +92,7 @@ $line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b
   }
 
 
-	echo '</table></td></tr></table></center><br>';
+	echo '</table></td></tr></table></center><br />';
 
 	echo '<center><table><tr><td align=center><font size=+0><b>Ranking skrzynek wg liczby odkryć</b></font></td></tr>';
 	echo '<tr><td><center><table bgcolor=white><tr><td><font color=blue><b>Nazwa skrzynki</b></font></td><td></td><td><font color=blue><b>Liczba odkryć</b></font></td></tr>';
@@ -117,6 +117,6 @@ $line = '<tr><td><a href=http://www.opencaching.pl/viewcache.php?cacheid={cachei
   }
 
 
-	echo '</table></td></tr></table></center><br>';
+	echo '</table></td></tr></table></center><br />';
 	
 ?>

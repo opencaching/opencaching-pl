@@ -201,7 +201,7 @@ else
 			$chk = ' checked="checked"';
 		else
 			$chk = "";
-		//echo "k=".$key.":".$chk."(".($value).")<br>";
+		//echo "k=".$key.":".$chk."(".($value).")<br />";
 		tpl_set_var($key."_checked", $chk);
 		if( $key == "map_type" )
 			tpl_set_var($key, getMapType($value));

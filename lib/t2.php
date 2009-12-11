@@ -12,12 +12,12 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `deleted`=0 AND `type
   $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
 
-	echo '<center><table width="600"><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby odkryć</b></font><br>Użytkowników którzy znalezli:';
+	echo '<center><table width="600"><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby odkryć</b></font><br />Użytkowników którzy znalezli:';
 	echo $rsUs[count]; 
 	echo ' .::. Ile razy odkryto skrzynki:';
 	echo $fCt[count]; 
 	echo '</td></tr>';
-	echo '<tr><td bgcolor="#D5D5D5"><b>Nie licz statystyk dla skrzynek typu:</b><br><form action="articles.php" method="GET">';
+	echo '<tr><td bgcolor="#D5D5D5"><b>Nie licz statystyk dla skrzynek typu:</b><br /><form action="articles.php" method="GET">';
 	
 	
 	$sql = "SELECT * FROM cache_type";
@@ -39,7 +39,7 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `deleted`=0 AND `type
 		if( $no_types % 5 != 0 )
 			echo ' | ';
 		if( $no_types == 5 )
-			echo '<br>';
+			echo '<br />';
 	}
 	echo '<input type="hidden" name="page" value="s2">';
 	echo '<br/><input type="submit" value="Filtruj">';
@@ -52,7 +52,7 @@ $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id FROM caches, cache
      "GROUP BY user.user_id ".
      "ORDER BY 1 DESC, user.username ASC";
 
-echo "<br>";
+echo "<br />";
 
 $r=mysql_query($a) or die(mysql_error());
 echo    "<tr bgcolor=#D5D5D5>".

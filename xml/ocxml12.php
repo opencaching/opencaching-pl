@@ -804,7 +804,7 @@ function outputXmlSessionFile($sessionid, $filenr, $bOcXmlTag, $bDocType, $bXmlD
 	else
 		$endat = $recordnr[6] - $startat;
 
-//	echo $startat . ' ' . $endat . '<br><br>';
+//	echo $startat . ' ' . $endat . '<br /><br />';
 //	echo '<table>';
 //	echo '<tr><td>sql-start</td><td>sql-count</td><td>count</td><td>begin</td><td>end</td></tr>';
 	for ($i = 0; $i < 6; $i++)
@@ -846,7 +846,7 @@ function outputXmlSessionFile($sessionid, $filenr, $bOcXmlTag, $bDocType, $bXmlD
 	}
 //	echo '</table>';
 	
-//	echo '<a href="ocxml12.php?sessionid=' . $sessionid . '&file=' . ($filenr - 1) . '">Zurück</a><br>';
+//	echo '<a href="ocxml12.php?sessionid=' . $sessionid . '&file=' . ($filenr - 1) . '">Zurück</a><br />';
 //	echo '<a href="ocxml12.php?sessionid=' . $sessionid . '&file=' . ($filenr + 1) . '">Vor</a>';
 
 	/* end calculate which records to transfer */

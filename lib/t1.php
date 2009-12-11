@@ -11,7 +11,7 @@
   $fC = sql('SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
     $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
-	echo '<center><table width="750"><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby założonych skrzynek</b></font><br>tylko aktywne skrzynki<br>Użytkowników którzy założyli skrzynki:';
+	echo '<center><table width="750"><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby założonych skrzynek</b></font><br />tylko aktywne skrzynki<br />Użytkowników którzy założyli skrzynki:';
 	echo $rsUs[count]; 
 	echo ' .::. Liczba aktywnych skrzynek:';
 	echo $fCt[count]; 
@@ -29,7 +29,7 @@ $t1="CREATE TEMPORARY TABLE ocpl.tmp (id INT(11) unsigned NOT NULL auto_incremen
 $r=mysql_query($t1) or die(mysql_error());
 //mysql_query("SET NAMES 'utf8'"); 
 $a="SELECT count, username, user_id FROM tmp GROUP BY `username` ORDER BY `count` DESC, `username`";
-echo "<br>";
+echo "<br />";
 
 $r=mysql_query($a) or die(mysql_error());
 echo "

@@ -10,12 +10,12 @@
 			<tr><td colspan="2" class="info">				
 			</td></tr>
 			<tr><td colspan="2">
-				<b>Wyślij zgłoszenie problemu do:</b><br>
-				<input type="radio" name="adresat" id="adresat1" value="owner" checked><label for="adresat1">Właściciela skrzynki</label><br>
+				<b>Wyślij zgłoszenie problemu do:</b><br />
+				<input type="radio" name="adresat" id="adresat1" value="owner" checked><label for="adresat1">Właściciela skrzynki</label><br />
 				<input type="radio" name="adresat" id="adresat2" value="rr"><label for="adresat2">Rady Opencaching.pl (właściciel skrzynki otrzyma kopię zgłoszenia)</label>
-				<br>
+				<br />
 				<font color="#ff0000"><b>UWAGA!</b> Zanim zdecydujesz się wysłać zgłoszenie do Rady Opencaching.pl, skontaktuj się z właścicielem skrzynki w celu podjęcia próby rozwiązania problemu.
-				<br><br>
+				<br /><br />
 				</font>
 				
 			</td></tr>

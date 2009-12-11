@@ -389,7 +389,7 @@ function switchCat2()
 				</select>&nbsp;
 				<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />&nbsp;°&nbsp;
 				<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input40" />&nbsp;'&nbsp;
-				<br>
+				<br />
 				<select name="lonEW" class="input40">
 					<option value="E" {lonE_sel}>E</option>
 					<option value="W" {lonW_sel}>W</option>

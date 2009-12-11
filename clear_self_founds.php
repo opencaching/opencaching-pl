@@ -14,13 +14,13 @@ while( $result = mysql_fetch_array($res))
 	echo '<table border="0">
 	<tr>
 		<td bgcolor="#cccccc">';
-	//echo 'uid='.$result['user_id'].' cid='.$result['cache_id'].'<br>';
-	echo '<b>CACHE ID: '.$result['cache_id'].'<br><a href="viewcache.php?cacheid='.$result['cache_id'].'">'.$result['name'].'</a></b><br>';
-	echo ''.$result['text'].'<br>
+	//echo 'uid='.$result['user_id'].' cid='.$result['cache_id'].'<br />';
+	echo '<b>CACHE ID: '.$result['cache_id'].'<br /><a href="viewcache.php?cacheid='.$result['cache_id'].'">'.$result['name'].'</a></b><br />';
+	echo ''.$result['text'].'<br />
 		</td>
 	</tr>
 	</table>
-	<br>';
+	<br />';
 	//$sql = "SELECT "
 }
 

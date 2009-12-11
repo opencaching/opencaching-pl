@@ -7,7 +7,7 @@
 <tr><td class="spacer" colspan="2"></td></tr>
 <tr>
 	<td>
-		Biuletyn został wysłany.<br>
+		Biuletyn został wysłany.<br />
 	</td>
 </tr>
 </table>

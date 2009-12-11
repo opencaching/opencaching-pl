@@ -45,8 +45,8 @@
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			{reports}<br><br>
-			<b>Twoje najnowsze wpisy w LOGach:</b><br>
+			{reports}<br /><br />
+			<b>Twoje najnowsze wpisy w LOGach:</b><br />
 			<table>
 			{lastlogs}
 			</table>

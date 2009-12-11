@@ -23,7 +23,7 @@ map.addZoomLong();
 //Get valid map types, returns array [YAHOO_MAP_REG, YAHOO_MAP_SAT, YAHOO_MAP_HYB]
 //var myMapTypes = map.getMapTypes(); 
 </script>
-<br><br>
+<br /><br />
 <b>Legenda:</b>
 <table>
 <tr><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-traditional.png">  Tradycyjna</td><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-multi.png">  Multicache</td><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-quiz.png">  Quiz</td><td><img src="http://opencaching.pl/tpl/stdstyle/images/cache/16x16-moving.png">  Mobilna</td></tr>

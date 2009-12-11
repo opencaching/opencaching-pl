@@ -9,7 +9,7 @@
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr><td colspan="2" class="info">
 				Zgłoszenie zostało wysłane do właściciela skrzynki.
-				<br>
+				<br />
 				[<a href="index.php">Strona główna</a>]&nbsp;[<a href="viewcache.php?cacheid={cacheid}">Powrót do skrzynki</a>]
 			</td></tr>
 			

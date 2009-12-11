@@ -46,7 +46,7 @@ class AutoArch
 		$emailheaders .= "From: Opencaching.pl <rr@opencaching.pl>\r\n";
 		$emailheaders .= "Reply-To: Opencaching.pl <rr@opencaching.pl>";
 
-		//echo "email:".$cache['email']."-->".$emailheaders."<br>".$email_content."<br>";		
+		//echo "email:".$cache['email']."-->".$emailheaders."<br />".$email_content."<br />";		
 		mb_send_mail($cache['email'], "[OCPL] Automatyczna archiwizacja Twojej skrzynki", $email_content, $emailheaders);
 		
 	}
@@ -79,7 +79,7 @@ class AutoArch
 //						echo "Autoarchiwizacja zakończona.";
 					break;
 				}
-//				echo " cache: <a href='http://www.opencaching.pl/viewcache.php?cacheid=".$linia['cache_id']."'>".$linia['name']."</a> użytkownik: ".$linia['username']."<br>";
+//				echo " cache: <a href='http://www.opencaching.pl/viewcache.php?cacheid=".$linia['cache_id']."'>".$linia['name']."</a> użytkownik: ".$linia['username']."<br />";
 			}
 		// anulowanie procedury archiwizacji, jeśli opis skrzynki został zmodyfikowany w ciągu 6 miesięcy
 		$sql = "SELECT caches.cache_id FROM caches, cache_arch WHERE cache_arch.cache_id = caches.cache_id AND last_modified >= now() - interval 6 month";
@@ -87,7 +87,7 @@ class AutoArch
 		while($rs = mysql_fetch_array($result))
 		{
 			$del_sql = "DELETE FROM cache_arch WHERE cache_id = ".intval($rs['cache_id']);
-			//echo "<br>";
+			//echo "<br />";
 			@mysql_query($del_sql);
 		}
 		
@@ -102,7 +102,7 @@ class AutoArch
 			{
 				$step_array = @mysql_fetch_array($step_query);
 				$step = $step_array['step'];
-				//echo "cache ". $rs['cache_id']." jest na stepie ".$step."<br>";
+				//echo "cache ". $rs['cache_id']." jest na stepie ".$step."<br />";
 			}
 			else $step = $STEP["START"];
 			

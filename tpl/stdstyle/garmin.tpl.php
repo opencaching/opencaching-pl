@@ -38,5 +38,5 @@
         });
         }
     </script>
-    <br><center>
+    <br /><center>
     <div id="garminDisplay"></div>

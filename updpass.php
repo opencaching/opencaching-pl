@@ -37,7 +37,7 @@ class ClearFakeVotes
 		$query = mysql_query($sql);
 		while( $res = mysql_fetch_array($query) )
 		{
-			//echo "has³o dla ".$res['user_id'].": ".$res['password']."<br>";
+			//echo "has³o dla ".$res['user_id'].": ".$res['password']."<br />";
 			$passold = $res['password'];
 			$passnew = hash('sha512', $res['password']);
 			$sql2 = "UPDATE user SET password='".$passnew."' WHERE user_id = ".$res['user_id'];

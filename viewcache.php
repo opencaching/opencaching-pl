@@ -230,7 +230,7 @@
 				while( $geokret = sql_fetch_array($geokret_query) )
 				{
 					$geokrety_content .= "<img src=\"/images/geokret.gif\" alt=\"\"/>&nbsp;<a href='http://geokrety.org/konkret.php?id=".$geokret['id']."'>".$geokret['name']."</a> - ".tr('total_distance').": ".$geokret['distance']." km<br/>";
-//					$geokrety_content .= "Przebyty dystans: ".$geokret['distance']."km<br><br>";
+//					$geokrety_content .= "Przebyty dystans: ".$geokret['distance']."km<br /><br />";
 				}
 				tpl_set_var('geokrety_begin', '');
 				tpl_set_var('geokrety_end', '');
@@ -560,7 +560,7 @@
 			}
 			else
 			{
-				tpl_set_var('mp3_files', '<br>');
+				tpl_set_var('mp3_files', '<br />');
 				tpl_set_var('hidemp3_start', '<!--');
 				tpl_set_var('hidemp3_end', '-->');
 			}
@@ -591,7 +591,7 @@
 			}
 			else
 			{
-				tpl_set_var('pictures', '<br>');
+				tpl_set_var('pictures', '<br />');
 				tpl_set_var('hidepictures_start', '<!--');
 				tpl_set_var('hidepictures_end', '-->');
 			}

@@ -44,7 +44,7 @@
 		{
 			
 			if( $usr['admin'] )
-				tpl_set_var('reports',"<b>".tr('administrating_oc').":</b><br>[<a href='viewreports.php'>".tr('view_reports')."</a>]");
+				tpl_set_var('reports',"<b>".tr('administrating_oc').":</b><br />[<a href='viewreports.php'>".tr('view_reports')."</a>]");
 			else
 				tpl_set_var('reports','');
 		

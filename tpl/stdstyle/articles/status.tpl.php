@@ -1,5 +1,5 @@
 
-<br>
+<br />
 <table>
 <tr bgcolor="#FFD700"><td align="center" colspan="4"><b>Biezacy status OpenCaching Network</b></td></tr>
 <tr><td align="center" bgcolor="silver">Server ID</td>

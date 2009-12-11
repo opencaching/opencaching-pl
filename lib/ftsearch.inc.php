@@ -328,7 +328,7 @@ function ftsearch_strip_html($text)
 	$text = str_replace("\r", ' ', $text);
 	$text = str_replace('<br />', ' ', $text);
 	$text = str_replace('<br/>', ' ', $text);
-	$text = str_replace('<br>', ' ', $text);
+	$text = str_replace('<br />', ' ', $text);
 	$text = strip_tags($text);
 	$text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
 	

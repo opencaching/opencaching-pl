@@ -20,7 +20,7 @@ class importCaches
 	function copyFile($url,$dirname){
     @$file = fopen ($url, "r");
     if (!$file) {
-        echo"<font color=red>Failed to copy $url!</font><br>";
+        echo"<font color=red>Failed to copy $url!</font><br />";
         return false;
     }else {
         $filename = basename($url);
@@ -30,7 +30,7 @@ class importCaches
            fwrite($fc,$line);
         }
         fclose($fc);
-        echo "<font color=blue>File $url saved to PC!</font><br>";
+        echo "<font color=blue>File $url saved to PC!</font><br />";
         return true;
     }
 	}

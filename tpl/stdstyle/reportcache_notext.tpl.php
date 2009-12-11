@@ -9,7 +9,7 @@
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr><td colspan="2" class="info">
 				Nie podano treści zgłoszenia.
-				<br>
+				<br />
 				[<a href="index.php">Strona główna</a>]
 			</td></tr>
 			

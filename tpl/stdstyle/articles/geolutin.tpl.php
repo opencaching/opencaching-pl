@@ -21,41 +21,41 @@ wk³adamy go do swojej skrzynki lub innej i fakt ten odnotowujemy na stronie nasz
 GL uzywaj±c opcji <b>Appearance</b> podaj±c UID, Wspó³rzêdne i data oraz link
 do skrzynki w któr± go w³o¿ylismy. Teraz tylko zostaje czekaæ nam jak bêdzie 
 wêdrowa³ nasz GL z skrzynki do skrzynki i jak± drogê przebêdzie sledz±c to na
-stronie naszego GL. <br>
+stronie naszego GL. <br />
 <p>
 Uwaga dla ka¿dego który tworzy swojego GL i robi mu zdjêcie z etykietk±. 
 Po zrobieniu zdjêcia i je¶li chcecie publikowaæ je na stronie GLs.com itp 
 to zrobcie edycje obrazka i nale¿y rozmazaæ UID  GL aby nie by³ czytelny gdy¿ 
 on zabezpiecza przed fa³szywymi wpisami - takie sa zalecenia z HELPU na s
-tronie GLs.com<br>
+tronie GLs.com<br />
 <p>
 Tak wiêc swoj± przygodê z geocaching mo¿esz zacz±æ od stworzenia GeoLutina i uwoliniæ go :-)
 <p>
 Mo¿na pobraæ wzór etykietki do GeoLutina z wersj± jêzyka polskiego,
 która jest dostêpna <a href=http://www.opencaching.pl/articles.php?page=gl>TUTAJ</a>. Zalecana szeroko¶æ etykietki przy wydruku ok 9.5 cm</b>
-<br>
+<br />
 <p>
 Poniewa¿ kilka GeoLutinów ju¿ kr±zy w Polsce, a nawet jeden zmienia miejsce wiêc kilka uwag.
 <p>
 1. Je¶li znalaz³e¶ GL zobacz w opisie (pierwsza strona etykietki) czy nale¿y z nim zrobiæ
-   co¶ wiêcej ni¿ tylko prze³o¿yæ do innej skrzynki.<br>
+   co¶ wiêcej ni¿ tylko prze³o¿yæ do innej skrzynki.<br />
 2. zabierz GL z sob± (je¶li na tej samej wycieczce wk³adasz go do
-   innej swojej/obcej skrzynki to KONIECZNIE ZAPISZ JEGO NUMER)<br>
-3. Po powrocie z wêdrówki wejd¼ na stronê www.geolutins.com<br>
-4. wchodzimy w zak³adkê Appearance & disappearance of a GeoLutin<br>
-5. Je¶li nie jeste¶ w serwisie zarejestrowany/zalogowany to musisz to zrobiæ<br>
-6. Po wej¶ciu na ww. zak³adkê zaznaczasz akcjê swojego GL<br>
-   * <b>Disappearance</b> oznacza wyjêcie ze skrzynki (znikniêcie z zarejestrowanego miejsca)<br>
-   * <b>Appearance</b> oznacza pojawienie siê GL (skrzynka, do której go w³o¿yli¶my)<br>
-Dalej podajemy kolejno:<br>
+   innej swojej/obcej skrzynki to KONIECZNIE ZAPISZ JEGO NUMER)<br />
+3. Po powrocie z wêdrówki wejd¼ na stronê www.geolutins.com<br />
+4. wchodzimy w zak³adkê Appearance & disappearance of a GeoLutin<br />
+5. Je¶li nie jeste¶ w serwisie zarejestrowany/zalogowany to musisz to zrobiæ<br />
+6. Po wej¶ciu na ww. zak³adkê zaznaczasz akcjê swojego GL<br />
+   * <b>Disappearance</b> oznacza wyjêcie ze skrzynki (znikniêcie z zarejestrowanego miejsca)<br />
+   * <b>Appearance</b> oznacza pojawienie siê GL (skrzynka, do której go w³o¿yli¶my)<br />
+Dalej podajemy kolejno:<br />
 
       numer GeoLutina
       Datê i czas akcji
       Miejscowo¶æ
       Kraj
-      Wspó³rzêdne<br>
+      Wspó³rzêdne<br />
       i KONIECZNIE odno¶nik do strony, na której jest zarejestrowany GeoCache.
-      <br>W przypadku znalezienia - odno¶nik do strony z GC, z którego zabrali¶my GL,
+      <br />W przypadku znalezienia - odno¶nik do strony z GC, z którego zabrali¶my GL,
       a w przypadku w³o¿enia - do strony skrzynki, do której wk³adamy.
       Mo¿emy dodaæ jeszcze krótki opis.
 <p>

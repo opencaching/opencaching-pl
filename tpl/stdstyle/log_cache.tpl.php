@@ -168,7 +168,7 @@ function toogleLayer( whichLayer, val )
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2"><br>{{comments_log}}:</td>
+		<td colspan="2"><br />{{comments_log}}:</td>
 		</td>
 	</tr>
 	<tr>

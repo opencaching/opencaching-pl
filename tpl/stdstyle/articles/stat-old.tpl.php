@@ -9,14 +9,14 @@
 <table width="800">
 <tr><td align="left">
 <center><img src="/graphs/new-caches-oc.php" alt="Statystyka OC PL" /></center>
-<br></td></tr>
+<br /></td></tr>
 <tr><td>
 <?php include ("ranking-skrzynek.php"); ?>
 
-<br></td></tr>
+<br /></td></tr>
 <tr><td>
 <?php include ("top.php");?>
-<br></td></tr>
+<br /></td></tr>
 <tr><td>
 <p aligin="center">
 <center><img src="/graphs/cachetypes-oc.php" alt="Statystyka OC PL" /></center>

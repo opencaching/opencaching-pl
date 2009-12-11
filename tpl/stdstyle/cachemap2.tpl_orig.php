@@ -248,9 +248,9 @@ function load_data(page) {
 		if( cache_score != "" )
 		{
 			if( cache_score > 0 )
-				show_score = "<br><b>{{score}}:</b> +" + cache_score;
+				show_score = "<br /><b>{{score}}:</b> +" + cache_score;
 			else
-				show_score = "<br><b>{{score}}:</b> " + cache_score;
+				show_score = "<br /><b>{{score}}:</b> " + cache_score;
 			if( cache_score >= 2 )
 				cache_score = "3";
 			else if( cache_score >= 0.4 )
@@ -266,7 +266,7 @@ function load_data(page) {
 			print_topratings = "";
 		else 
 		{
-			print_topratings = "<br><b>{{recommendations}}: </b>";
+			print_topratings = "<br /><b>{{recommendations}}: </b>";
 			var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.gif\" alt=\"R\">";
 			var i=0;
 			for( i=0;i<cache_topratings;i++)
@@ -367,9 +367,9 @@ function load_data(page) {
 				if( cache_score != "" && cache_votes > 2)
 				{
 					if( cache_score > 0 )
-						show_score = "<br><b>{{score}}:</b> +" + cache_score;
+						show_score = "<br /><b>{{score}}:</b> +" + cache_score;
 					else
-						show_score = "<br><b>{{score}}:</b> " + cache_score;
+						show_score = "<br /><b>{{score}}:</b> " + cache_score;
 					if( cache_score >= 2 )
 						cache_score = "3";
 					else if( cache_score >= 0.4 )
@@ -385,7 +385,7 @@ function load_data(page) {
 					print_topratings = "";
 				else 
 				{
-					print_topratings = "<br><b>{{recommendations}}: </b>";
+					print_topratings = "<br /><b>{{recommendations}}: </b>";
 					var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.gif\" alt=\"R\">";
 					var ii;
 					for( ii=0;ii<cache_topratings;ii++)
@@ -427,7 +427,7 @@ function load_data(page) {
 		
 		
 			var system = xmlDoc.documentElement.getElementsByTagName("data");
-			document.getElementById('list').innerHTML = system[0].getAttribute("count") + " {{active_caches_in_area}} | " + markers.length + " {{shown}}<br>{{next}}: "+ system[0].getAttribute("pager");
+			document.getElementById('list').innerHTML = system[0].getAttribute("count") + " {{active_caches_in_area}} | " + markers.length + " {{shown}}<br />{{next}}: "+ system[0].getAttribute("pager");
 		}
 	}
 	
@@ -501,13 +501,13 @@ else
 	</td>
 </tr>
 	<td colspan="2">
-{{colors}}: <b><font color="#dddd00">{{yellow}}</font></b> - {{last_10_days}}, <b><font color="#00dd00">{{green}}</font></b> - {{own}}, <b><font color="#aaaaaa">{{gray}}</font></b> - {{found}}, <b><font color="#ff0000">{{red}}</font></b> - {{rest}} <br>
+{{colors}}: <b><font color="#dddd00">{{yellow}}</font></b> - {{last_10_days}}, <b><font color="#00dd00">{{green}}</font></b> - {{own}}, <b><font color="#aaaaaa">{{gray}}</font></b> - {{found}}, <b><font color="#ff0000">{{red}}</font></b> - {{rest}} <br />
 	</td>
 </tr>
 <tr><td colspan="2" width="100%"><div id="map" style="width: <?php echo (isset($_GET['print'])?($x_print."px"):("100%"));?>; height: <?php echo (isset($_GET['print'])?$y_print:("600"));?>px; float:left; border: 1px solid #000;">
 </div>
 
-<br><br>
+<br /><br />
 	</td>
 </tr>
 <tr>
@@ -543,7 +543,7 @@ else
 	<input id="wydarzenia" name="e" value="1" type="checkbox" <?php echo ($filter[5])?"":"checked";?>><label for="wydarzenia">{{event}} (E)</label> | 
 	<input id="quiz" name="q" value="1" type="checkbox" <?php echo ($filter[6])?"":"checked";?>><label for="quiz">Quiz (Q)</label> | 
 	<input id="mobilna" name="o" value="1" type="checkbox" <?php echo ($filter[7])?"":"checked";?>><label for="mobilna">{{moving}} (O)</label>
-	<br><b>{{hide_caches}}:</b><br>
+	<br /><b>{{hide_caches}}:</b><br />
 	<input id="ignorowane" name="I" value="1" type="checkbox" <?php echo ($filter[10])?"":"checked";?>><label for="ignorowane">{{ignored}}</label> | 
 	<input id="wlasne" name="W" value="1" type="checkbox" <?php echo ($filter[11])?"":"checked";?>><label for="wlasne">{{own}}</label> | 
 	<input id="znalezione" name="Z" value="1" type="checkbox" <?php echo ($filter[12])?"":"checked";?>><label for="znalezione">{{founds}}</label> | 
@@ -551,12 +551,12 @@ else
 	<input id="geokrety" name="N" value="1" type="checkbox" <?php echo ($filter[14])?"":"checked";?>><label for="geokrety">{{without_geokret}}</label>	| 
 	<input id="nieaktywne" name="Y" value="1" type="checkbox" <?php echo ($filter[17])?"":"checked";?> onClick="switchActiveFilter('nieaktywne')"><label for="nieaktywne">{{ready_to_find}}</label>	| 
 	<input id="aktywne" name="T" value="1" type="checkbox" <?php echo ($filter[16])?"":"checked";?> onClick="switchActiveFilter('aktywne')"><label for="aktywne">{{temp_unavailables}}</label>	
-	<br>
+	<br />
 	<b>{{other_options}}:</b>
-	<br>
+	<br />
 	<input id="podpisy" name="C" value="1" type="checkbox" <?php echo (!$filter[15])?"":"checked";?>><label for="podpisy">{{show_signes}}</label>	
 	
-	<br>
+	<br />
 	<input type="submit" name="submit" value="Filtruj">
 	<input type="hidden" name="userid" value="<?php echo $userid;?>">
 	<input type="hidden" name="maptype" id="maptype" value="<? echo $filter[18]; ?>">

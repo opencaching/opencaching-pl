@@ -7,11 +7,11 @@
 <tr><td class="spacer" colspan="2"></td></tr>
 <tr>
 	<td>
-		Podgląd biuletynu:<br>
+		Podgląd biuletynu:<br />
 		<form action='admin_bulletin.php' method='POST'>
 			<input type="hidden" name="bulletin_final" value="1">
 			{{bulletin}}
-			<br>
+			<br />
 			<input type='submit' value='Wyślij biuletyn'>
 		</form>
 	</td>

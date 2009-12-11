@@ -40,8 +40,8 @@
 
 <table>
 <tr>
-  <td class="top" colspan=2><br><font color=blue>Twoja skrzynka została oceniona na: <strong><?php echo ($Difficulty + 1) . '/' . ($terrain + 1); ?></font></strong>
-  <br><br>Uwaga:  Jeśli stopień trudności jest pomiędzy np 1 a 2 to w ustawieniach skrzynki możesz podawać poziomy trudności z dokładnością 0.5 np 1.5
+  <td class="top" colspan=2><br /><font color=blue>Twoja skrzynka została oceniona na: <strong><?php echo ($Difficulty + 1) . '/' . ($terrain + 1); ?></font></strong>
+  <br /><br />Uwaga:  Jeśli stopień trudności jest pomiędzy np 1 a 2 to w ustawieniach skrzynki możesz podawać poziomy trudności z dokładnością 0.5 np 1.5
   </td>
 </tr>
 <tr>
@@ -183,7 +183,7 @@
 <tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Length" value="0" checked></td>
-  <td class="odd">mniej niż 1 km<br></td>
+  <td class="odd">mniej niż 1 km<br /></td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Length" value="1"></td>
@@ -210,26 +210,26 @@
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Trail" value="0" checked></td>
   <td class="odd">Droga utwardzona 
-      <br><em>asfalt, beton lub kostka brukowa.</em>
+      <br /><em>asfalt, beton lub kostka brukowa.</em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Trail" value="1"></td>
   <td class="even">Droga gruntowa
-      <br><em> 	Droga gruntowa
+      <br /><em> 	Droga gruntowa
       można wjechać zwykłym rowerem, pchać wózek.</em>
   </td>
 </tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Trail" value="2"></td>
   <td class="odd">Inny rodzaj drogi 
-      <br><em>szuter, piasek, błoto..., jesli rower to tylko górski.</em>
+      <br /><em>szuter, piasek, błoto..., jesli rower to tylko górski.</em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Trail" value="3"></td>
   <td class="even">Szlak? Jaki szlak? 
-      <br><em>Nie ma żadnej scieżki, dojazd nie wchodzi w grę.</em>
+      <br /><em>Nie ma żadnej scieżki, dojazd nie wchodzi w grę.</em>
   </td>
 </tr>
 <tr>
@@ -245,25 +245,25 @@
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Overgrowth" value="0" checked></td>
   <td class="odd">Nie 
-      <br><em></em>
+      <br /><em></em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Overgrowth" value="1"></td>
   <td class="even">Niewielkie zarosla 
-      <br><em></em>
+      <br /><em></em>
   </td>
 </tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Overgrowth" value="2"></td>
   <td class="odd">Tak, wysokie zarosla, kolce 
-      <br><em></em>
+      <br /><em></em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Overgrowth" value="3"></td>
   <td class="even">Totalne haszcze 
-      <br><em>Nie widać drugiej strony, potrzebna maczeta lub inny przyrzad. Najczęsciej kolce lub trujace rosliny.</em>
+      <br /><em>Nie widać drugiej strony, potrzebna maczeta lub inny przyrzad. Najczęsciej kolce lub trujace rosliny.</em>
   </td>
 </tr>
 </tr>
@@ -279,25 +279,25 @@
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Elevation" value="0" checked></td>
   <td class="odd">Przeważnie płaskie 
-      <br><em>Niewielkie różnice wysokosci. Można pokonać rowerem, wózkiem dziecięcym, inwalidzkim....</em>
+      <br /><em>Niewielkie różnice wysokosci. Można pokonać rowerem, wózkiem dziecięcym, inwalidzkim....</em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Elevation" value="1"></td>
   <td class="even">Niewielkie wzniesienia 
-      <br><em>Można pokonać rowerem.</em>
+      <br /><em>Można pokonać rowerem.</em>
   </td>
 </tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Elevation" value="2"></td>
   <td class="odd">Teren stromy 
-      <br><em>Duża stromizna, rower trzeba pchać pod górę</em>
+      <br /><em>Duża stromizna, rower trzeba pchać pod górę</em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Elevation" value="3"></td>
   <td class="even">Urwisko 
-      <br><em> 	Urwisko
+      <br /><em> 	Urwisko
       Do wejscia potrzebne cztery kończyny.</em>
   </td>
 </tr>

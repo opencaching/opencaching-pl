@@ -9,11 +9,11 @@
 <tr><td class="spacer" colspan="2"></td></tr>
 <tr>
 	<td>
-		<br>
+		<br />
 		{vote_info}
-		<br>
-		<b>Lista kandydatów do wyborów Rady Rejsu 2009:</b><br>
-		<br>
+		<br />
+		<b>Lista kandydatów do wyborów Rady Rejsu 2009:</b><br />
+		<br />
 		<table>
 			<tr><td><b>Kandydat</b></td><td><b>Miejscowość</b></td><td><b>Profil</b></td></tr>
 			{candidate_info_list}

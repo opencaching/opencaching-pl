@@ -33,7 +33,7 @@ set_time_limit(3600);
 		while($rs = mysql_fetch_array($result))
 		{
 			// usuniecie falszywych ocen
-			//echo "cache_logs.cache_id=".sql_escape($rs['cache_id']).", user.username=".sql_escape($rs['user_id'])."<br>";
+			//echo "cache_logs.cache_id=".sql_escape($rs['cache_id']).", user.username=".sql_escape($rs['user_id'])."<br />";
 			//$sql = "DELETE FROM scores WHERE cache_id = '".sql_escape($rs['cache_id'])."' AND user_id = '".sql_escape($rs['user_id'])."'";
 			//mysql_query($sql);
 			
@@ -63,7 +63,7 @@ set_time_limit(3600);
 			else $srednia = 0;
 			
 			$sql = "UPDATE caches SET votes='".sql_escape($liczba)."', score='".sql_escape($srednia)."', founds=".sql_escape(intval($founds)).", notfounds=".sql_escape(intval($notfounds)).", notes=".sql_escape(intval($notes)).", watcher=".sql_escape(intval($watcher))." WHERE cache_id='".sql_escape($rs['cache_id'])."'";
-			//echo "<br>";
+			//echo "<br />";
 			mysql_query($sql);
 		}
 		

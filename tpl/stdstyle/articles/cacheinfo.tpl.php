@@ -66,7 +66,7 @@
 			</table>
 		
 		</p>
-<br>
+<br />
 
 		<p><b>Współrzędne:</b> Pozycja skrzynki (pobrana z GPS) w układzie WGS-84, docelowego miejsca, obszaru lub parkingu. Jeśli współrzędne nie wskazują pozycji skrzynki
 		wszystko co jest potrzebne do znalezienia skrzynki powinno być w opisie.</p>
