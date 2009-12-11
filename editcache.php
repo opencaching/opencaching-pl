@@ -755,12 +755,12 @@
 						tpl_set_var('mp3_files', $nomp3);
 			
 					}
-				else
-				{
-				tpl_set_var('mp3_files', '<br>');
-				tpl_set_var('hidemp3_start', '<!--');
-				tpl_set_var('hidemp3_end', '-->');
-				}
+					else
+					{
+					tpl_set_var('mp3_files', '<br>');
+					tpl_set_var('hidemp3_start', '<!--');
+					tpl_set_var('hidemp3_end', '-->');
+					}
 					
 
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
