@@ -68,7 +68,7 @@
 <!-- End Text Container -->
 <!-- Text container -->
 			<div class="content2-container">
-				<div class="content2-container-2col-left" style="width:380px;">
+				<div class="content2-container-2col-left" style="width:400px;">
 					<p class="content-title-noshade-size3">
 						<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" title="" />
 						<b>{coords}</b> <span class="content-title-noshade-size0">(WGS84)</span><br />
@@ -123,7 +123,7 @@ else
 							</p>
 						</div>
 						<div id="viewcache-map" class="content2-container-2col-right">
-							<img class="img-shadow" src="http://maps.google.com/staticmap?center={latitude},{longitude}&amp;zoom=8&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers={latitude},{longitude},blue{typeLetter}&amp;format=png" alt="{{map}}" />
+							<img src="http://maps.google.com/staticmap?center={latitude},{longitude}&amp;zoom=8&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers={latitude},{longitude},blue{typeLetter}&amp;format=png" alt="{{map}}" />
 						</div>
 					<?php
 							}
