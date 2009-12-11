@@ -148,7 +148,6 @@ function viewcache_getmp3table($cacheid, $mp3count)
 			$retval .= '</div>';
 
 			$nCol++;
-		}
 
 	}
 
