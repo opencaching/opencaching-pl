@@ -159,7 +159,7 @@ else
 					{cache_attributes}{password_req}
 				</p>
 			</div>
-<div class="notice" id="viewcache-attributesend">{{attributes_edit_hint}} {{attributes_desc_hint}}</div>
+<div class="notice" id="viewcache-attributesend">{{attributes_desc_hint}}</div>
 					{cache_attributes_end}
 <!-- End Text Container -->
 <!-- Text container -->
