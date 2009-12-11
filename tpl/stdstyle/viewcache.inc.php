@@ -75,7 +75,7 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
  $pictureline = '<a href="{link}">{title}</a><br />';
  $pictures = '<p>{picturelines}</p>';
 
- $logpictureline = '<div class="logimage"><a href="{link}" title="{title}" onclick="return false;"><div class="img-shadow"><img src="{imgsrc}" alt="{title}" onclick="enlarge(this)" longdesc="{longdesc}"/></div></a><span class="desc">{title}</span>{functions}</div>';
+ $logpictureline = '<div class="logimage"><div class="img-shadow"><a href="{link}" title="{title}" onclick="return false;"><img src="{imgsrc}" alt="{title}" onclick="enlarge(this)" longdesc="{longdesc}"/></a></div><span class="desc">{title}</span>{functions}</div>';
  $logpictures = '<div class="viewlogs-logpictures"><span class="info">'.tr('pictures_included').':</span><div class="allimages">{lines}</div></div><br style="clear: both" />';
 
  //$cache_watchers = '<br/>Dieser Cache wird von {watcher} Opencaching.de Nutzern beobachtet.';
