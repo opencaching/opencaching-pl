@@ -1460,6 +1460,7 @@ function outputSearchForm($options)
 	$rs = sql("SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language`='&1' ORDER BY `id`", $lang);
 	while ($record = sql_fetch_array($rs))
 	{
+	
 		// icon specified
 		$line = $cache_attrib_jsarray_line;
 		$line = mb_ereg_replace('{id}', $record['id'], $line);
@@ -1485,6 +1486,7 @@ function outputSearchForm($options)
 		$line = $cache_attrib_img_line;
 		$line = mb_ereg_replace('{id}', $record['id'], $line);
 		$line = mb_ereg_replace('{text_long}', $record['text_long'], $line);
+	
 		if (array_search($record['id'], $options['cache_attribs']) === false)
 		{
 			if (array_search($record['id'], $options['cache_attribs_not']) === false)

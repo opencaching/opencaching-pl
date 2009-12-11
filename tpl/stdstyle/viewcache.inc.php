@@ -150,7 +150,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 			$retval .= '<div class="viewcache-pictureblock">';
 
 			$retval .= '<div class="img-shadow"><a href="'.$r['url'].'" title="'.htmlspecialchars($r['title']).'" onclick="return false;">';
-			$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" border="0" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" onclick="enlarge(this)" longdesc="'.$r['url'].'" />';
+			$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" onclick="enlarge(this)" longdesc="'.$r['url'].'" />';
 			$retval .= '</a></div>';
 			if($viewtext)
 				$retval .= '<span class="title">'.$r['title'].'</span>';

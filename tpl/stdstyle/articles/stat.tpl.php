@@ -6,7 +6,7 @@
 <img src="tpl/stdstyle/images/blue/stat2.png"/><a href="articles.php?page=s4">Ranking skrzynek według liczby odkryć</a><br/>
 <img src="tpl/stdstyle/images/blue/stat2.png"/><a href="articles.php?page=s5">Ranking skrzynek według liczonego wskaznika</a><br/>
 <img src="tpl/stdstyle/images/blue/stat2.png"/><a href="articles.php?page=s3">Ranking użytkowników według liczby odkryć skrzynek danego użytkownika</a><br/>
-<img src="/graphs/new-caches-oc.php" alt="Statystyka OC PL" /><br/>
+<img src="/beta/graphs/new-caches-oc.php" alt="Statystyka OC PL" /><br/>
 <div class="buffer"></div>
-<img src="/graphs/cachetypes-oc.php" alt="Statystyka OC PL" /><br/>
+<img src="/beta/graphs/cachetypes-oc.php" alt="Statystyka OC PL" /><br/>
 </div>

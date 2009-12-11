@@ -833,7 +833,7 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 //				}
 //				else
 //				{
-					echo '<li class="' . $cssclass . '"><a '.$icon.'href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+					echo '<li class="' . $cssclass . '"><a '.$icon.' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
 //				}
 			}
 
