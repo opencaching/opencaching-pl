@@ -724,7 +724,8 @@
 					}
 					else
 						tpl_set_var('pictures', $nopictures);
-
+					
+					//MP3 files
 					if ($cache_record['mp3count'] > 0)
 					{
 						$mp3_files = '';
@@ -733,7 +734,7 @@
 						for ($i = 0; $i < mysql_num_rows($rsmp3); $i++)
 						{
 							$tmpline = $mp3line;
-							$pic_record = sql_fetch_array($rsmp3);
+							$mp3_record = sql_fetch_array($rsmp3);
 
 							$tmpline = mb_ereg_replace('{link}', htmlspecialchars($mp3_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline);
 							$tmpline = mb_ereg_replace('{title}', htmlspecialchars($mp3_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline);
