@@ -535,3 +535,28 @@ div.viewlogs-logpictures a { width: 64px; height: 64px; margin: 5px;}
 div.viewlogs-logpictures img { max-width: 64px; max-height: 64px; vertical-align: top;}
 
 div#viewcache-utility { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-family: arial, sans serif; font-size: 120%; }
+
+div.viewcache_log-content { font-family: arial, sans serif; line-height: 1.3em; font-size: 12px; margin-top: 5px;}
+div#viewcache-description { font-family: arial, sans serif; line-height: 1.3em; font-size: 12px; margin-top: 5px;}
+
+div.viewcache-pictureblock { float: left; }
+
+div.viewcache-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left;}
+
+.img-shadow {
+  float:left;
+  background: url(shadowAlpha.png) no-repeat bottom right !important;
+/*  background: url(shadow.gif) no-repeat bottom right;*/
+/*	background-color: red;*/
+  margin: 10px 0 0 10px !important;
+  margin: 10px 0 0 5px;
+  }
+
+.img-shadow img {
+  display: block;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #a9a9a9;
+  margin: -4px 4px 4px -4px;
+  padding: 2px;
+}

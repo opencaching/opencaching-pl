@@ -75,7 +75,7 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
  $pictureline = '<a href="{link}">{title}</a><br />';
  $pictures = '<p>{picturelines}</p>';
 
- $logpictureline = '<div class="logimage"><a href="{link}" title="{title}" onclick="return false;"><img src="{imgsrc}" alt="{title}" onclick="enlarge(this)" longdesc="{longdesc}"/></a><span class="desc">{title}</span>{functions}</div>';
+ $logpictureline = '<div class="logimage"><a href="{link}" title="{title}" onclick="return false;"><div class="img-shadow"><img src="{imgsrc}" alt="{title}" onclick="enlarge(this)" longdesc="{longdesc}"/></div></a><span class="desc">{title}</span>{functions}</div>';
  $logpictures = '<div class="viewlogs-logpictures"><span class="info">'.tr('pictures_included').':</span><div class="allimages">{lines}</div></div><br style="clear: both" />';
 
  //$cache_watchers = '<br/>Dieser Cache wird von {watcher} Opencaching.de Nutzern beobachtet.';
@@ -147,12 +147,14 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 				$showspoiler = "showspoiler=1&amp;";
 			else $showspoiler = "";
 			
+			$retval .= '<div class="viewcache-pictureblock">';
 
-			$retval .= '<a href="'.$r['url'].'" title="'.$r['title'].'" onclick="return false;">';
-			$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" border="0" alt="'.$r['title'].'" title="'.$r['title'].'" align="bottom" onclick="enlarge(this)" longdesc="'.$r['url'].'" />';
-			$retval .= '</a>';
+			$retval .= '<div class="img-shadow"><a href="'.$r['url'].'" title="'.htmlspecialchars($r['title']).'" onclick="return false;">';
+			$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" border="0" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" onclick="enlarge(this)" longdesc="'.$r['url'].'" />';
+			$retval .= '</a></div>';
 			if($viewtext)
-				$retval .= $r['title'];
+				$retval .= '<span class="title">'.$r['title'].'</span>';
+			$retval .= '</div>';
 
 			$nCol++;
 		}
@@ -160,7 +162,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 		{
 			$retval .= '<a href="'.$r['url'].'" title="'.$r['title'].'">';
 			$retval .= $r['title'];
-			$retval .= "</a><br />\n";
+			$retval .= "</a>\n";
 		}
 	}
 
