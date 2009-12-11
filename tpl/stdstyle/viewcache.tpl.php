@@ -68,7 +68,7 @@
 <!-- End Text Container -->
 <!-- Text container -->
 			<div class="content2-container">
-				<div class="content2-container-2col-left" style="width:400px;">
+				<div class="content2-container-2col-left" style="width:380px;">
 					<p class="content-title-noshade-size3">
 						<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" title="" />
 						<b>{coords}</b> <span class="content-title-noshade-size0">(WGS84)</span><br />
