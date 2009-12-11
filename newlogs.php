@@ -163,7 +163,7 @@ if ($error == false)
 						$file_content .=' - '.tr("found_it"); 
 					break;
 					case 2:
-						$file_content .= ' - '.tr("did_not_found");
+						$file_content .= ' - '.tr("did_not_finf_it");
 					break;
 					case 3:
 						$file_content .= ' - '.tr("write_note");
@@ -175,7 +175,7 @@ if ($error == false)
 						$file_content .= ' - '.tr("will_attended");
 					break;
 				}
-				$file_content .= '<a href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a>';
+				$file_content .= ' <a href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a>';
 
 				$file_content .= "</p>";
 				$file_content .= "\n";
