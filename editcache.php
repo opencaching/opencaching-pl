@@ -728,13 +728,13 @@
 					//MP3 files only for type of cache: PodCache
 					if ($cache_record['type'] == 11)
 					{
-					if ($cache_record['mp3count'] > 0)
-					{
+						if ($cache_record['mp3count'] > 0)
+						{
 						$mp3_files = '';
 						$rsmp3 = sql("SELECT `url`, `title`, `uuid` FROM `mp3` WHERE `object_id`='&1' AND `object_type`=2", $cache_id);
 
 						for ($i = 0; $i < mysql_num_rows($rsmp3); $i++)
-						{
+							{
 							$tmpline = $mp3line;
 							$mp3_record = sql_fetch_array($rsmp3);
 
@@ -743,15 +743,25 @@
 							$tmpline = mb_ereg_replace('{uuid}', htmlspecialchars($mp3_record['uuid'], ENT_COMPAT, 'UTF-8'), $tmpline);
 
 							$mp3_files .= $tmpline;
-						}
+							}
 
 						$mp3_files = mb_ereg_replace('{lines}', $mp3, $mp3lines);
 						mysql_free_result($rsmp3);
 						tpl_set_var('mp3_files', $mp3_files);
-					}
+						tpl_set_var('hidemp3_start', '');
+						tpl_set_var('hidemp3_end', '');
+						}
 					else
 						tpl_set_var('mp3_files', $nomp3);
+			
 					}
+				else
+				{
+				tpl_set_var('mp3_files', '<br>');
+				tpl_set_var('hidemp3_start', '<!--');
+				tpl_set_var('hidemp3_end', '-->');
+				}
+					
 
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('name', htmlspecialchars($cache_name, ENT_COMPAT, 'UTF-8'));

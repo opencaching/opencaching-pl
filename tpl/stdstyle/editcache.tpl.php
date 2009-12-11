@@ -283,6 +283,8 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	{{pictures}}
 	<tr><td class="buffer" colspan="2"></td></tr>
+<!-- Text container -->
+{hidemp3_start}
 	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;&nbsp;{{mp3_label}}</p></div>
@@ -290,14 +292,18 @@ function toggleAttr(id)
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
-	{{mp3_files}}
+	{mp3_files}
 
+{hidemp3_end}
+<!-- End Text Container -->
 	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0"/>{{other}}</p></div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
+			</div>
+
 	<tr>
 		<td class="content-title-noshade">{{date_hidden_label}}:</td>
 		<td>
