@@ -30,7 +30,7 @@
 	setlocale(LC_TIME, 'pl_PL.UTF-8');
 
 	global $lang, $rootpath;
-	setlocale(LC_ALL, "pl_PL");
+	// setlocale(LC_ALL, "pl_PL");
 
 	if (!isset($rootpath)) $rootpath = '../../../';
 
@@ -66,7 +66,7 @@
 
 			
 	
-	$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" border="0" width="16" height="16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}" onmouseover="Lite(\'c{cache_count}\')" onmouseout="Lite(\'map\')">{cachename}</a> założona przez <a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></li>';
+	$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" border="0" width="16" height="16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}" onmouseover="Lite(\'c{cache_count}\')" onmouseout="Lite(\'map\')">{cachename}</a> {{hidden_by}} <a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></li>';
 		
 	$file_content = '<ul>';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -146,7 +146,7 @@
 	uksort($newcaches, 'cmp');
 
 	$file_content = '
-		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Cachesuche" title="Cache" align="middle"/>&nbsp;Najnowsze skrzynki poza Polską</div>
+		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Cachesuche" title="Cache" align="middle"/>&nbsp;{{abroad_caches}}</div>
 		<div class="content2-container line-box">
 			';
 	if (isset($newcaches))
@@ -163,7 +163,7 @@
 				$file_content .= htmlspecialchars(date("d.m.Y", strtotime($cache_record['date'])), ENT_COMPAT, 'UTF-8');
 				$file_content .= ' - <img src="'.$cacheicon.'" border="0" width="16" height="16" alt="Cache" title="Cache"/>';
 				$file_content .= '<a href="viewcache.php?cacheid=' . htmlspecialchars($cache_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . '</a>';
-				$file_content .= ' założona przez <a href="viewprofile.php?userid=' . $cache_record['userid'] . '">' . htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8') . '</a>' . "\n";
+				$file_content .= ' {{hidden_by}} <a href="viewprofile.php?userid=' . $cache_record['userid'] . '">' . htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8') . '</a>' . "\n";
 				$file_content .= "</p>";
 			}
 		}
@@ -199,11 +199,11 @@
 	$file_content = '';
 	if (mysql_num_rows($rs) == 0)
 	{
-		$file_content = 'Lista wydarzeń jest pusta.';
+		$file_content = '{{list_of_events_is_empty}}';
 	}
 	else
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" border="0" width="16" height="16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a> założona przez <a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></li>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" border="0" width="16" height="16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a> {{hidden_by}} <a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></li>';
 		$file_content = '<ul>';
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{

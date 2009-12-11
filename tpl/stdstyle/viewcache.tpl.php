@@ -56,7 +56,7 @@
 					<div class="content2-container-2col-left" id="cache_name_block">
 					<span class="content-title-noshade-size5">{cachename}</span><br />
 					<p class="content-title-noshade-size1">&nbsp;{short_desc}</p>
-					<p>{{created_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a></p>
+					<p>{{hidden_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a></p>
 					{event_attendance_list}
 					</div>
 

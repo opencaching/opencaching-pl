@@ -29,7 +29,7 @@
 	****************************************************************************/
 
 // ini_set ('display_errors',on);
-	$cacheline = '<tr><td rowspan="1" align="right"><img src="{cacheicon}" border="0" width="16" height="16" alt="Cache" title="Cache" />&nbsp;</td><td><font size="1"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a> założona przez <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></td></tr>';
+	$cacheline = '<tr><td rowspan="1" align="right"><img src="{cacheicon}" border="0" width="16" height="16" alt="Cache" title="Cache" />&nbsp;</td><td><font size="1"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a> {{hidden_by}} <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></td></tr>';
 		
 	global $lang, $rootpath;
 
