@@ -280,7 +280,7 @@ function toggleAttr(id)
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
-	{{pictures}}
+	{pictures}
 	<tr><td class="buffer" colspan="2"></td></tr>
 <!-- Text container -->
 {hidemp3_start}
