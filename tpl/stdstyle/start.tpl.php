@@ -111,8 +111,8 @@ return true;
 						?>
 					</div>
 				</div>
-				<div class="content2-container-2col-right" style="width:255px;">
-					<img src="tmp/mapa.png" id="stickermap" name="roll" alt="Karte" />
+				<div class="content2-container-2col-right" style="width:255px;"><div class="img-shadow">
+					<img src="tmp/mapa.png" id="stickermap" name="roll" alt="Karte" /></div>
 				</div>
 			</div>
 <!-- End Text Container -->
