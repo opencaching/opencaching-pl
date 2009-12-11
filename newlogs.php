@@ -163,7 +163,7 @@ if ($error == false)
 						$file_content .=' - '.tr("found_it"); 
 					break;
 					case 2:
-						$file_content .= ' - '.tr("did_not_finf_it");
+						$file_content .= ' - '.tr("did_not_find_it");
 					break;
 					case 3:
 						$file_content .= ' - '.tr("write_note");
