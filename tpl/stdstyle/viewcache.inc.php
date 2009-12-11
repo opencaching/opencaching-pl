@@ -118,6 +118,53 @@ $visit_icon = '<img src="tpl/stdstyle/images/description/16x16-visitors.png" cla
 $exist_icon = '<img src="tpl/stdstyle/images/log/16x16-go.png" class="icon16" alt="" />';
 $trash_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" />';
 
+// MP3 Files table
+function viewcache_getmp3table($cacheid, $mp3count)
+{
+	global $dblink;
+
+	$nCol = 0;
+
+	$sql = 'SELECT uuid, title, url FROM mp3 WHERE object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY date_created';
+	
+
+	$rs = sql($sql);
+	while ($r = sql_fetch_array($rs))
+	{
+
+			if ($nCol == 4)
+			{
+
+				$nCol = 0;
+			}
+			
+			$retval .= '<div class="viewcache-pictureblock">';
+
+			$retval .= '<div class="img-shadow"><a href="'.$r['url'].'" title="'.htmlspecialchars($r['title']).'" onclick="return false;">';
+			$retval .= '<img src="tpl/stdstyle/images/blue/100x100-get-mp3.png" alt="" title="Get MP3 file" />';
+			$retval .= '</a></div>';
+			if($viewtext)
+				$retval .= '<span class="title">'.$r['title'].'</span>';
+			$retval .= '</div>';
+
+			$nCol++;
+		}
+
+	}
+
+	mysql_free_result($rs);
+
+	return $retval;
+
+/*
+		$thisline = $pictureline;
+
+		$thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
+		$thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
+*/
+}
+
+
 // gibt eine tabelle für viewcache mit thumbnails von allen bildern zurück
 function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = true, $spoiler_only = false, $showspoiler = false, $picturescount)
 {

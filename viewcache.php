@@ -133,7 +133,7 @@
 												`caches`.`votes` `votes`,
 												`caches`.`score` `score`,
 			                  `caches`.`picturescount` `picturescount`,
-							  `caches`.`mp3count` `mp3count`,
+					   `caches`.`mp3count` `mp3count`,
 			                  `caches`.`desc_languages` `desc_languages`,
 				          `caches`.`topratings` `topratings`,
 			                  `caches`.`ignorer_count` `ignorer_count`,
@@ -543,6 +543,28 @@
 			}
 
 			tpl_set_var('desc_langs', $langlist);
+
+			// show mp3 files for PodCache
+			//
+
+			if ($cache_record['mp3count'] > 0)
+			{
+
+			if(isset($_REQUEST['mp3_files']) && $_REQUEST['mp3_files'] == 'no')
+					tpl_set_var('mp3_files', "");
+				else
+					tpl_set_var('mp3_files', viewcache_mp3table($cache_id, $cache_record['mp3count']));
+
+				tpl_set_var('hidemp3_start', '');
+				tpl_set_var('hidemp3_end', '');
+			}
+			else
+			{
+				tpl_set_var('mp3_files', '<br>');
+				tpl_set_var('hidemp3_start', '<!--');
+				tpl_set_var('hidemp3_end', '-->');
+			}
+
 
 			// show pictures
 			//
