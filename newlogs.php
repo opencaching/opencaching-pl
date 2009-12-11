@@ -161,6 +161,7 @@ if ($error == false)
 				{
 					case 1:
 						$file_content .= ' - {{found_it}} ';
+						$log_t = {{found_it}} ;
 					break;
 					case 2:
 						$file_content .= ' - {{did_not_found}} ';
@@ -175,6 +176,7 @@ if ($error == false)
 						$file_content .= ' - {{will_attended}} ';
 					break;
 				}
+				$file_content .= $log_t;
 				$file_content .= '<a href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a>';
 
 				$file_content .= "</p>";
