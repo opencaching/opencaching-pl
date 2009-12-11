@@ -160,7 +160,7 @@ if ($error == false)
 				switch( $log_record['log_type'] )
 				{
 					case 1:
-						$file_content .= ' - {{found_it}} ';
+						$file_content .= ' - tr(found_it) ';
 					break;
 					case 2:
 						$file_content .= ' - {{did_not_found}} ';
