@@ -124,7 +124,7 @@ else
 						</div>
 						<div id="viewcache-map" class="content2-container-2col-right"><div class="img-shadow">
 							<img src="http://maps.google.com/staticmap?center={latitude},{longitude}&amp;zoom=8&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers={latitude},{longitude},blue{typeLetter}&amp;format=png" alt="{{map}}" />
-						</div>
+						</div></div>
 					<?php
 							}
 					if ($usr == false && $hide_coords)
@@ -141,7 +141,7 @@ else
 											<a target=\"_blank\" href='http://mapa.ump.waw.pl/ump-www/?zoom=14&amp;lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;layers=B00000T&amp;mlat=";?>{latitude}<?php echo "&amp;mlon=";?>{longitude}<?php echo "'>UMP</a>, <a target=\"_blank\" href='http://www.zumi.pl/namapie.html?&amp;lat=";?>{latitude}<?php echo "&amp;long=";?>{longitude}<?php echo "&amp;type=1&amp;scale=4'>Zumi</a>";
 								
 					} 
-					?>	</div>			
+					?>				
 				</div>
 			</div>
 <!-- End Text Container -->
