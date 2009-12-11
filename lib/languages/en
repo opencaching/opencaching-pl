@@ -332,7 +332,7 @@ no_javascript Your browser does not currently support Javascript. You can enter 
 html_usage Please use HTML tags only for editing a text.
 available_html List of available HTML tags
 additional_enc_info <b><font color="red">Additional</font> encrypted hint.</b> <i>Not a mandatory field</i>. Your can place some additional hints here. Information neccessary to find a cache has to be placed in "Full description" field.
-add_photo_newcache Pictures and photos can be added after registering a cache.
+add_photo_newcache Pictures, photos and MP3 files can be added after registering a cache.
 search_wildcard_info Use "%" as a wildcard.
 event_hidden_hint Hint: In EVENTS, the "date hidden" field should contain a date when the event begins.
 submit_new_cache Publish

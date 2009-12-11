@@ -332,7 +332,7 @@ no_javascript Obsługa Javascript jest obecnie wyłączona w Twojej przeglądarc
 html_usage Proszę używać znaczników HTML wyłącznie do formatowania tekstu.
 available_html Wykaz dostępnych znaczników HTML
 additional_enc_info <b><font color="red">Dodatkowe</font> informacje kodowane.</b> <i>Pole nieobowiązkowe</i>. Tutaj możesz umieścić dodatkowe informacje ułatwiające znalezienie skrzynki. Informacje bez których znalezienie skrzynki nie będzie możliwe, muszą znaleźć się w polu "Pełen opis".
-add_photo_newcache Obrazki i zdjęcia można dodać po zarejestrowaniu skrzynki.
+add_photo_newcache Obrazki,zdjęcia pliki MP3 można dodać po zarejestrowaniu skrzynki.
 search_wildcard_info Wpisz "%", aby wyszukiwać dowolny ciąg znaków.
 event_hidden_hint Wskazówka: W przypadku skrzynki typu WYDARZENIE data ukrycia to data rozpoczęcia wydarzenia.
 submit_new_cache Publikacja

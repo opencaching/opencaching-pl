@@ -332,7 +332,7 @@ no_javascript Apoyo a javascript está deshabilitado en su navegador. Puede intr
 html_usage Por favor, sólo usar etiquetas HTML para dar formato a texto.
 available_html La lista de etiquetas HTML
 additional_enc_info <font color=\"red\"> <b> adicional </font> información codificada </b>. <i> campo opcional </i>. Aquí usted puede poner información adicional para ayudar a encontrar un buzón de correo. Información sin que el buzón de correo para encontrar que no será posible, deben incluirse en la 'descripción completa'. 
-add_photo_newcache Imágenes y fotos se pueden anadir después el registro de la caja.
+add_photo_newcache Imágenes y fotos MP3 se pueden anadir después el registro de la caja.
 search_wildcard_info Tipo \"%\" para buscar cualquier cadena de caracteres.
 event_hidden_hint Sugerencia: Para un cuadro de tipo de datos EVENTOS ocultar la fecha de inicio del evento. 
 submit_new_cache Release

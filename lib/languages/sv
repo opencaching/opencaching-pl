@@ -329,7 +329,7 @@ no_javascript Din webbläsare stöder för närvarande inte Javascript. Du kan b
 html_usage Använd HTML-taggar endast för att formatera texten.
 available_html Lista över tillgängliga HTML-taggar
 additional_enc_info <b><font color="red">Ytterligare</font> krypterad ledtråd.</b> <i>inte ett obligatoriskt fält</i>. Du kan lämna ytterligare tips här. Nödvändig information för att hitta en cache måste skrivas i "Fullständig beskrivning"-fältet.
-add_photo_newcache Bilder och foton kan läggas till efter registrering av cachen.
+add_photo_newcache Bilder och foton och MP3 kan läggas till efter registrering av cachen.
 search_wildcard_info Använd "%" som ett jokertecken.
 event_hidden_hint Tips: För Event, "Gömd dag"-fältet ska innehålla det datum när händelsen börjar.
 submit_new_cache Publicera
