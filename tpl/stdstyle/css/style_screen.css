@@ -522,9 +522,9 @@ div#viewlogs-end { font-weight: bold; font-size: 120%; margin-bottom: 10px;}
 
 img#viewcache-cacheicon { float: left; }
 
-div#viewcache-maptypes { width:400px; text-align: right; }
-div#viewcache-numstats { width: 140px; height: 170px; text-align: left; }
-div#viewcache-map { width: 170px; height: 170px; }
+div#viewcache-maptypes { width:430px; text-align: right; }
+div#viewcache-numstats { width: 140px; height: 190px; text-align: left; }
+div#viewcache-map { width: 190px; height: 190px; }
 
 div.viewcache_log-content { margin-left: 20px }	
 div.viewlogs-logpictures span.info { font-weight: bold; font-size: 120%;display: block;}
