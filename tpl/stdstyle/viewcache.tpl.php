@@ -123,7 +123,7 @@ else
 							</p>
 						</div>
 						<div id="viewcache-map" class="content2-container-2col-right"><div class="img-shadow">
-							<img src="http://maps.google.com/staticmap?center={latitude},{longitude}&amp;zoom=8&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers={latitude},{longitude},blue{typeLetter}&amp;format=png" alt="{{map}}" />
+							<img src="http://maps.google.com/staticmap?center={latitude},{longitude}&amp;zoom=8&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers={latitude},{longitude},blue{typeLetter}&amp;format=png" longdesc="ifr::cachemap-mini.php?inputZoom=14&amp;lat={latitude}&amp;lon={longitude}&amp;cacheid={cacheid}::480::385" onclick="enlarge(this);" alt="{{map}}" />
 						</div></div>
 					<?php
 							}

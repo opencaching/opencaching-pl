@@ -237,7 +237,7 @@ else
 						ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
 					} catch (e){
 						// Something went wrong
-						alert("Wystąpił błąd podczas zapisywania typu mapy.");
+						alert("'.tr("error_loading_map").'");
 						return false;
 					}
 				}

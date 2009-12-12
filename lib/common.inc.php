@@ -499,7 +499,7 @@ session_start();
 	}
 	
 	//read the templates and echo it to the user
-	function tpl_BuildTemplate($dbdisconnect=true)
+	function tpl_BuildTemplate($dbdisconnect=true, $minitpl=false)
 	{
 		//template handling vars
 		global $stylepath, $tplname, $vars, $langpath, $lang_array, $lang, $language;
@@ -538,7 +538,9 @@ session_start();
 		include $langpath . '/expressions.inc.php';
 
 		//load main template
-		if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y')
+		if($minitpl)
+			$sCode = read_file($stylepath . '/mini.tpl.php');
+		else if (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y')
 			$sCode = read_file($stylepath . '/main_print.tpl.php');
 		else if (isset($_REQUEST['popup']) && $_REQUEST['popup'] == 'y')
 			$sCode = read_file($stylepath . '/popup.tpl.php');
