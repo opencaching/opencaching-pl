@@ -103,9 +103,10 @@
 
 				$file_content .= "<p>";
 				$file_content .= htmlspecialchars(date("d.m.Y", strtotime($cache_record['date'])), ENT_COMPAT, 'UTF-8');
-				$file_content .= ' - <img src="'.$cacheicon.'" border="0" width="16" height="16" alt="Cache" title="Cache"/>';
-				$file_content .= '<a href="viewcache.php?cacheid=' . htmlspecialchars($cache_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . '</a>';
-				$file_content .= ' zalozona <a href="viewprofile.php?userid=' . $cache_record['userid'] . '">' . htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8') . '</a>' . "\n";
+				$file_content .= '  <img src="'.$cacheicon.'" border="0" width="16" height="16" alt="Cache" title="Cache"/>';
+				$file_content .= '  <a href="viewcache.php?cacheid=' . htmlspecialchars($cache_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . '</a> ';
+				$file_content .= htmlspecialchars(tr('hidden_by'), ENT_COMPAT, 'UTF-8');
+				$file_content .= ' <a href="viewprofile.php?userid=' . $cache_record['userid'] . '">' . htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8') . '</a>' . "\n";
 				$file_content .= "</p>";
 			}
 		}
