@@ -37,11 +37,13 @@
 	{
 		//get the news
 		$tplname = 'newcachesrest';
-//		require('tpl/stdstyle/newcaches.inc.php');
+		require('tpl/stdstyle/newcachesrest.inc.php');
 //		require($stylepath . '/newcachesresst.inc.php');
 
 
 		$content = '';
+		$cache_country='';
+		
 				if(checkField('countries','list_default_'.$lang) )
 				$lang_db = $lang;
 			else
@@ -90,29 +92,29 @@
 
 //	uksort($newcaches, 'cmp');
 
-	$file_content = '';
+
 	if (isset($newcaches))
 	{
 		foreach ($newcaches AS $countryname => $country_record)
 		{
-			$file_content .= '<p class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</p>';
-
+			$cache_country = '<br /><p class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</p>';
+			$content .= $cache_country;
 			foreach ($country_record AS $cache_record)
 			{
-				$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($cache_record['icon_large']);
-
-				$file_content .= "<p>";
-				$file_content .= htmlspecialchars(date("d.m.Y", strtotime($cache_record['date'])), ENT_COMPAT, 'UTF-8');
-				$file_content .= '  <img src="'.$cacheicon.'" border="0" width="16" height="16" alt="Cache" title="Cache"/>';
-				$file_content .= '  <a href="viewcache.php?cacheid=' . htmlspecialchars($cache_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . '</a> ';
-				$file_content .= htmlspecialchars(tr('hidden_by'), ENT_COMPAT, 'UTF-8');
-				$file_content .= ' <a href="viewprofile.php?userid=' . $cache_record['userid'] . '">' . htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8') . '</a>' . "\n";
-				$file_content .= "</p>";
+			$thisline = $tpl_line;
+			$thisline = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $thisline);
+			$thisline = mb_ereg_replace('{userid}', $cache_record['userid'], $thisline);
+			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
+			$thisline = mb_ereg_replace('{username}', htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
+			$thisline = mb_ereg_replace('{date}', date('d.m.Y', strtotime($cache_record['date'])), $thisline);
+			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($cache_record['icon_large']), $thisline);
+			$thisline = mb_ereg_replace('{{hidden_by}}', htmlspecialchars(tr('created_by'), ENT_COMPAT, 'UTF-8'), $thisline);
+			$content .= $thisline . "\n";
 			}
 		}
 
 	}
-		$content .= $file_content . "\n";
+
 
 	mysql_free_result($rs);
 	tpl_set_var('newcachesrest', $content);
