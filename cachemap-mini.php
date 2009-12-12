@@ -31,7 +31,7 @@ global $lang;
 
 $user_id = '';
 
-$get_userid = intval($_REQUEST['userid']);
+$get_userid = $_REQUEST['userid'];
 //user logged in?
 	session_start();
 
@@ -39,7 +39,7 @@ $get_userid = intval($_REQUEST['userid']);
 	tpl_set_var('sc', intval($_GET['sc']));
 	
 	if( $get_userid == '')
-		$user_id = $usr['userid'];
+		$user_id = -1;
 	else 
 		$user_id = $get_userid;
 		
@@ -62,8 +62,8 @@ $get_userid = intval($_REQUEST['userid']);
 		$coordsX="$record[latitude]";
 		if ($coordsX=="" || $coordsX==0) 
 		{
-			$coordsXY="52.5,19.2";
-			tpl_set_var('zoom', 6);
+			$coordsXY=$country_coordinates;
+			tpl_set_var('zoom', $default_country_zoom);
 		}
 		else
 			tpl_set_var('zoom', 11);

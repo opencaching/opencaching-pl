@@ -98,6 +98,15 @@
 	$thumb_max_width = 175;
 	$thumb_max_height = 175;
 
+        // Small thumbsize
+        $thumb2_max_width = 64;
+        $thumb2_max_height = 64;
+
+	// default coordinates for cachemap, set to your country's center of gravity
+	$country_coordinates = "52.5,19.2";
+	// zoom at which your whole country/region is visible
+	$default_country_zoom = 6;
+
 	// maximal size of images
 	if (!isset($maxpicsize)) $maxpicsize = 152400;
 	

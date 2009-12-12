@@ -146,6 +146,7 @@
 					$thumbheight = $imheight;
 				}
 
+
 				// Thumb erstellen und speichern
 				$thumbimage = imagecreatetruecolor($thumbwidth, $thumbheight);
 				imagecopyresampled($thumbimage, $im, 0, 0, 0, 0, $thumbwidth, $thumbheight, $imwidth, $imheight);
@@ -158,6 +159,7 @@
 				
 				$savedir = $thumbdir . '2/' . mb_substr($filename, 0, 1) . '/' . mb_substr($filename, 1, 1);
 				
+
 				switch ($extension)
 				{
 					case 'jpg':

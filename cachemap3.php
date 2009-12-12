@@ -136,8 +136,8 @@ else
 		$coordsX="$record[latitude]";
 		if ($coordsX=="" || $coordsX==0) 
 		{
-			$coordsXY="52.5,19.2";
-			tpl_set_var('zoom', 6);
+			$coordsXY=$country_coordinates
+			tpl_set_var('zoom', $default_country_zoom);
 		}
 		else
 			tpl_set_var('zoom', 11);

@@ -119,6 +119,7 @@ session_start();
 	}
 
 	if (!isset($rootpath)) $rootpath = './';
+
 	require_once($rootpath . 'lib/clicompatbase.inc.php');
 
 	// load HTML specific includes
@@ -533,7 +534,6 @@ session_start();
 
 			tpl_set_var('functionsbox', $functionsbox);
 		}
-
 		//include language specific expressions, so that they are available in the template code
 		include $langpath . '/expressions.inc.php';
 
