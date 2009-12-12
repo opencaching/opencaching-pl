@@ -70,7 +70,8 @@ $get_userid = $_REQUEST['userid'];
 	}
 	
 	
-	tpl_set_var('doopen', $_REQUEST['cacheid']?"true":"false");
+//	tpl_set_var('doopen', $_REQUEST['cacheid']?"true":"false");
+	tpl_set_var('doopen', "false");
 	tpl_set_var('coords', $coordsXY);
 	tpl_set_var('username', $record[username]);
 	

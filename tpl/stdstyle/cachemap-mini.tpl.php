@@ -95,31 +95,6 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 		return str;
 	}
 	
-	function check_field()
-	{
-		if( document.getElementById('be_ftf').checked )
-		{
-			// store previews values of temp_unavail and arch checkboxes
-			old_temp_unavail_value = document.getElementById('h_temp_unavail').checked;
-			old_arch_value = document.getElementById('h_arch').checked;
-
-			document.getElementById('h_temp_unavail').checked = true;
-			document.getElementById('h_arch').checked = true;
-			
-			document.getElementById('h_temp_unavail').disabled = true;
-			document.getElementById('h_arch').disabled = true;
-		}
-		else
-		{
-			// restore previews values of temp_unavail and arch checkboxes
-			document.getElementById('h_temp_unavail').checked = old_temp_unavail_value;
-			document.getElementById('h_arch').checked = old_arch_value;
-			
-			document.getElementById('h_temp_unavail').disabled = false;
-			document.getElementById('h_arch').disabled = false;
-		}
-	}
-	
 	function get_current_mapid()
 	{
 		switch (map.getCurrentMapType()) {
@@ -140,11 +115,9 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 	{
 			var tilelayer = new GTileLayer(null, null, null, 
 					{
-//						tileUrlTemplate: "lib/cgi-bin/mapper.fcgi?userid=8595&z={Z}&x={X}&y={Y}&sc=0&h_u="+document.getElementById('h_u').checked+"&h_t="+document.getElementById('h_t').checked+"&h_m="+document.getElementById('h_m').checked+"&h_v="+document.getElementById('h_v').checked+"&h_w="+document.getElementById('h_w').checked+"&h_e="+document.getElementById('h_e').checked+"&h_q="+document.getElementById('h_q').checked+"&h_o="+document.getElementById('h_o').checked+"&h_ignored="+document.getElementById('h_ignored').checked+"&h_own="+document.getElementById('h_own').checked+"&h_found="+document.getElementById('h_found').checked+"&h_noattempt="+document.getElementById('h_noattempt').checked+"&h_nogeokret="+document.getElementById('h_nogeokret').checked+"&h_avail="+document.getElementById('h_avail').checked+"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+"&h_arch="+document.getElementById('h_arch').checked+"&signes="+document.getElementById('signes').checked+"&be_ftf="+document.getElementById('be_ftf').checked+"&h_de="+document.getElementById('h_de').checked+"&h_pl="+document.getElementById('h_pl').checked+"&min_score="+document.getElementById('min_score').value+"&max_score="+document.getElementById('max_score').value+"&h_noscore="+document.getElementById('h_noscore').checked,
 						isPng:true,
 						opacity:1.0
                     });
-//			tilelayer.getTileUrl = function(tile, zoom) { return "lib/cgi-bin/mapper.fcgi?userid=8595&z="+zoom+"&x="+tile.x+"&y="+tile.y+"&sc=0&h_u="+document.getElementById('h_u').checked+"&h_t="+document.getElementById('h_t').checked+"&h_m="+document.getElementById('h_m').checked+"&h_v="+document.getElementById('h_v').checked+"&h_w="+document.getElementById('h_w').checked+"&h_e="+document.getElementById('h_e').checked+"&h_q="+document.getElementById('h_q').checked+"&h_o="+document.getElementById('h_o').checked+"&h_ignored="+document.getElementById('h_ignored').checked+"&h_own="+document.getElementById('h_own').checked+"&h_found="+document.getElementById('h_found').checked+"&h_noattempt="+document.getElementById('h_noattempt').checked+"&h_nogeokret="+document.getElementById('h_nogeokret').checked+"&h_avail="+document.getElementById('h_avail').checked+"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+"&h_arch="+document.getElementById('h_arch').checked+"&signes="+document.getElementById('signes').checked+"&be_ftf="+document.getElementById('be_ftf').checked+"&h_de="+document.getElementById('h_de').checked+"&h_pl="+document.getElementById('h_pl').checked+"&min_score="+document.getElementById('min_score').value+"&max_score="+document.getElementById('max_score').value+"&h_noscore="+document.getElementById('h_noscore').checked+"&mapid="+get_current_mapid(); };
 
 			tilelayer.getTileUrl = function(tile, zoom) { return "lib/cgi-bin/mapper.fcgi?userid={userid}&z="+zoom+"&x="+tile.x+"&y="+tile.y+"&sc=0&h_u=false&h_t=false&h_m=false&h_v=false&h_w=false&h_e=false&h_q=false&h_o=false&h_ignored=false&h_own=false&h_found=false&h_noattempt=false&h_nogeokret=false&h_avail=false&h_temp_unavail=true&h_arch=true&signes=true&be_ftf=false&h_de=true&h_pl=true&min_score=1&max_score=5&h_noscore=true&mapid="+get_current_mapid();};
 			tlo = new GTileLayerOverlay(tilelayer);
@@ -215,7 +188,7 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 				if( point==undefined )
 					return;
 				
-				GDownloadUrl("lib/xmlmap.php?lat="+point.lat()+"&lon="+point.lng()+"&userid={userid}&h_u="+document.getElementById('h_u').checked+"&h_t="+document.getElementById('h_t').checked+"&h_m="+document.getElementById('h_m').checked+"&h_v="+document.getElementById('h_v').checked+"&h_w="+document.getElementById('h_w').checked+"&h_e="+document.getElementById('h_e').checked+"&h_q="+document.getElementById('h_q').checked+"&h_o="+document.getElementById('h_o').checked+"&h_ignored="+document.getElementById('h_ignored').checked+"&h_own="+document.getElementById('h_own').checked+"&h_found="+document.getElementById('h_found').checked+"&h_noattempt="+document.getElementById('h_noattempt').checked+"&h_nogeokret="+document.getElementById('h_nogeokret').checked+"&h_avail="+document.getElementById('h_avail').checked+"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+"&h_arch="+document.getElementById('h_arch').checked+"&signes="+document.getElementById('signes').checked+"&be_ftf="+document.getElementById('be_ftf').checked+"&h_pl="+document.getElementById('h_pl').checked+"&h_de="+document.getElementById('h_de').checked+"&min_score="+document.getElementById('min_score').value+"&max_score="+document.getElementById('max_score').value+"&h_noscore="+document.getElementById('h_noscore').checked, function(data, responseCode) 
+				GDownloadUrl("lib/xmlmap.php?lat="+point.lat()+"&lon="+point.lng()+"&userid={userid}&h_u=false&h_t=false&h_m=false&h_v=false&h_w=false&h_e=false&h_q=false&h_o=false&h_ignored=false&h_own=false&h_found=false&h_noattempt=false&h_nogeokret=false&h_avail=false&h_temp_unavail=true&h_arch=true&signes=true&be_ftf=false&h_de=true&h_pl=true&min_score=1&max_score=5&h_noscore=true", function(data, responseCode) 
 					{
 						var xml = GXml.parse(data);
 							

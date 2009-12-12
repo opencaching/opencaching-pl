@@ -1,4 +1,4 @@
-/*************************************************************/
+/*************************************************6************/
 /*   Design:  MultiFlex-2 (Screen)                           */
 /*   Author:  G. Wolfgang (gw@actamail.com)                  */
 /*   Date:    June 8, 2006                                   */
@@ -572,3 +572,4 @@ p.main-totalstats { font-weight: bold; }
 form#register label { text-align: right; width: 14em; padding-right: 20px; display: block; float: left;}
 
 form#register div { margin: 7px 0 5px 0; }
+
