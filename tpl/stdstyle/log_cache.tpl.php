@@ -127,7 +127,7 @@ function toogleLayer( whichLayer, val )
 <table class="content">
 	<tr>
 		<td class="content2-pagetitle" colspan="2">
-			<img src="tpl/stdstyle/images/blue/logs.png" border="0" width="32" height="32" alt="" title="Neuer Cache" align="middle">
+			<img src="tpl/stdstyle/images/blue/logs.png" border="0" width="32" height="32" alt="" title="Neuer Cache" align="middle" />
 			<b>{{post_new_log}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
 		</td>
 	</tr>
@@ -158,7 +158,7 @@ function toogleLayer( whichLayer, val )
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td width="180px"><b>{score_header}</b></td>
-		<td width="*">{score}<br/>
+		<td width="*">{score}<br/></td>
 	</tr>
 </table>
 <table class="content">
@@ -169,7 +169,6 @@ function toogleLayer( whichLayer, val )
 	</tr>
 	<tr>
 		<td colspan="2"><br />{{comments_log}}:</td>
-		</td>
 	</tr>
 	<tr>
 		<td colspan="2">
