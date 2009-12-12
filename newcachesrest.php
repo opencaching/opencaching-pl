@@ -25,11 +25,13 @@
 	
  ****************************************************************************/
  
+	global $lang, $rootpath;
+
+
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	require_once('./lib/cache_icon.inc.php');
-	$lang = "pl";
-	
+
 	//Preprocessing
 	if ($error == false)
 	{
@@ -37,6 +39,13 @@
 		$tplname = 'newcachesrest';
 //		require('tpl/stdstyle/newcaches.inc.php');
 //		require($stylepath . '/newcachesresst.inc.php');
+
+
+		$content = '';
+				if(checkField('countries','list_default_'.$lang) )
+				$lang_db = $lang;
+			else
+				$lang_db = "en";
 
 	$rs = sql("	SELECT	`caches`.`cache_id` `cache_id`,
 				`caches`.`user_id` `userid`,
@@ -60,7 +69,7 @@
 				AND `caches`.`date_hidden` <= NOW() 
 				AND `caches`.`date_created` <= NOW()
 			ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
-			LIMIT 0, 200", $lang);
+			LIMIT 0, 200", $lang_db);
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
@@ -78,12 +87,10 @@
 			'icon_large' => $record['icon_large']
 		);
 	}
-	uksort($newcaches, 'cmp');
 
-	$file_content = '
-		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Cachesuche" title="Cache" align="middle"/>&nbsp;{{abroad_caches}}</div>
-		<div class="content2-container line-box">
-			';
+//	uksort($newcaches, 'cmp');
+
+	$file_content = '';
 	if (isset($newcaches))
 	{
 		foreach ($newcaches AS $countryname => $country_record)
@@ -98,26 +105,18 @@
 				$file_content .= htmlspecialchars(date("d.m.Y", strtotime($cache_record['date'])), ENT_COMPAT, 'UTF-8');
 				$file_content .= ' - <img src="'.$cacheicon.'" border="0" width="16" height="16" alt="Cache" title="Cache"/>';
 				$file_content .= '<a href="viewcache.php?cacheid=' . htmlspecialchars($cache_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . '</a>';
-				$file_content .= ' {{hidden_by}} <a href="viewprofile.php?userid=' . $cache_record['userid'] . '">' . htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8') . '</a>' . "\n";
+				$file_content .= ' zalozona <a href="viewprofile.php?userid=' . $cache_record['userid'] . '">' . htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8') . '</a>' . "\n";
 				$file_content .= "</p>";
 			}
-			$content_country .= $file_content;
 		}
-		$content .= $content_country . "\n";
+
 	}
+		$content .= $file_content . "\n";
+
 	mysql_free_result($rs);
 	tpl_set_var('newcachesrest', $content);
 
-	//user definied sort function
-	function cmp($a, $b)
-	{
-		if ($a == $b)
-		{
-			return 0;
-		}
-		return ($a > $b) ? 1 : -1;
-	}	
-	
+	}
 	//make the template and send it out
 	tpl_BuildTemplate();
 ?>
