@@ -34,7 +34,7 @@
 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" border="0" width="32" height="32" alt="{{your_data}}" title="{{your_data}}" align="middle">&nbsp;{{your_data}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" border="0" width="32" height="32" alt="{{your_data}}" title="{{your_data}}" align="middle" />&nbsp;{{your_data}}</div>
 <div class="notice">
 {{gray_field_is_hidden}}
 </div>
@@ -43,8 +43,8 @@
 <div class="buffer"></div>
 <table class="table">
 	<colgroup>
-		<col width="150">
-		<col>
+		<col width="150" />
+		<col/>
 	</colgroup>
 	<tr>
 		<td class="content-title-noshade">{{username_label}}:</td>
@@ -102,7 +102,7 @@
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td class="content-title-noshade" style="vertical-align:top;">{{statpic_label}}:</td>
-		<td><img src="statpics/{userid}.jpg" align="middle"></td>
+		<td><img src="statpics/{userid}.jpg" align="middle" alt="" /></td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
