@@ -149,8 +149,7 @@ if ($error == false)
 
 				$file_content .= '<tr>';
 				$file_content .= '<td>'. htmlspecialchars(date("d.m.Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
-				$file_content .= '<td><img src="/tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
-        //$rating_picture
+				        //$rating_picture
 				if ($log_record['recommended'] == 1) 
 					{
 					$file_content .= '<td><img src="/images/rating-star.png" border="0" alt=""/></td>';
@@ -158,13 +157,11 @@ if ($error == false)
 					else
 					{
 					$file_content .= '<td>&nbsp;</td>';
-					}			
+					}	
+				$file_content .= '<td><img src="/tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
 				$file_content .= '<td><img src="/tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
-	
 				$file_content .= '<td><a href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></td>';
-
 				$file_content .= '<td><a href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></td>';
-
 				$file_content .= "</tr>";
 			}
 		}

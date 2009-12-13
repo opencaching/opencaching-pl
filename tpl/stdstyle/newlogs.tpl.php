@@ -16,6 +16,7 @@
 <td colspan="6"><hr></hr></td>
 </tr>
 		{file_content}
+<tr>
 <td colspan="6"><hr></hr></td>
 </tr>
 </table>

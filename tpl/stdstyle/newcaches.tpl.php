@@ -27,7 +27,8 @@
 <td colspan="5"><hr></hr></td>
 </tr>
 		{newcaches}
-<td colspan="5"><hr></hr></td>
+<tr><
+td colspan="5"><hr></hr></td>
 </tr>
 </table>
 	<p>
