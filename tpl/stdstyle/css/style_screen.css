@@ -550,6 +550,8 @@ div.viewcache-pictureblock span.title { display: block; max-width: 175px; paddin
 
 div#main-cachemap-block { width: 265px; }
 
+#viewprofile-table td { width: 260px; }
+
 p.main-totalstats { font-weight: bold; }
 
 .img-shadow {

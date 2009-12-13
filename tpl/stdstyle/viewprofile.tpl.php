@@ -35,11 +35,6 @@
 	{remove_all_logs}<br/>
 </p>
 </div>
-<style type="text/css">
-#viewprofile-table td {
-	width: 260px;
-}
-</style>
 <table class="table" border="0" id="viewprofile-table">
 	{opis_start}
 	<tr>
@@ -47,7 +42,7 @@
 		<p class="content-title-noshade-size2"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{user_desc}}" title="Logs"/>&nbsp;{{user_desc}}</p></td>
 	</tr>
 	<tr>
-		<td class="content-title-noshade" colspan="2" valign="top">{{description}}</td>
+		<td class="content-title-noshade" colspan="2" valign="top">{description}</td>
 	</tr>
 	{opis_end}
 	<tr>
@@ -82,7 +77,7 @@
 		<td><p class="content-title-noshade-size2">
 		<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found_caches}}" title="Znalezione"/>&nbsp;{{found_caches}}:</p></td>
 		<td>
-		<p class="content-title-noshade-size2">{{founds}}
+		<p class="content-title-noshade-size2">{founds}
 			<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;finderid={userid}&amp;searchbyfinder=&logtype=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0" style="color: rgb(102, 102, 102); font-size: 12px;">{{show_all}}</a>
 			</p>
 		</td>
