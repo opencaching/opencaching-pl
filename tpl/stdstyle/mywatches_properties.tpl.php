@@ -53,7 +53,7 @@ function intervalChanged()
 	}
 //-->
 </script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/clock.png" border="0" width="32" height="32" alt="" title="" align="middle">&nbsp;Obserwowane skrzynki - ustawienia</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/clock.png" class="icon32" alt="" >&nbsp;Obserwowane skrzynki - ustawienia</div>
 {commit}
 <form action="mywatches.php" method="post" enctype="application/x-www-form-urlencoded" name="forgot_pw_form" dir="ltr" style="display: inline;">
 <input type="hidden" name="rq" value="properties">
@@ -102,3 +102,4 @@ function intervalChanged()
 intervalChanged();
 //-->
 </script>
+
