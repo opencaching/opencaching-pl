@@ -33,7 +33,7 @@
 	<tr>
 		<td class="header-small" colspan="2">
 		<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Logs" title="Logs"/>&nbsp;
-		Znalazłeś {{founds}} skrzynek.
+		Znalazłeś {founds} skrzynek.
 		{events}
 		<span style="font-weight: 400;">
 		[<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=byname&amp;finderid={userid}&amp;searchbyfinder=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">Pokaż wszystkie</a>]</span>
@@ -43,7 +43,7 @@
 	<tr>
 		<td colspan="2">
 			{reports}<br /><br />
-			<b>Twoje najnowsze wpisy w LOGach:</b><br />
+			<b>{{your_newest_log_entries}}:</b><br />
 			<table>
 			{lastlogs}
 			</table>

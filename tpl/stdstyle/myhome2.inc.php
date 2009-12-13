@@ -25,9 +25,9 @@
 
  ****************************************************************************/
 
- $no_hiddens = '<tr><td>Brak ukrytych skrzynek</td></tr>';
- $no_notpublished = '<tr><td>Nie ma nieopublikowanych skrzynek</td></tr>';
- $no_logs = '<tr><td>Nie ma wpisów do LOGów</td></tr>';
+ $no_hiddens = '<tr><td>{{no_hidden_caches}}</td></tr>';
+ $no_notpublished = '<tr><td>{{no_not_published_caches}}</td></tr>';
+ $no_logs = '<tr><td>{{no_log_entries}}</td></tr>';
  $no_time_set = 'Still no time indicated';
 
  $logtype[1] = 'Znalezine';
