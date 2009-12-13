@@ -14,7 +14,7 @@
 </tr>
 		{newcachesrest}
 <tr><
-td colspan="4"><hr></hr></td>
+<td colspan="4"><hr></hr></td>
 </tr>
 </table>
 <!-- End Text Container -->
