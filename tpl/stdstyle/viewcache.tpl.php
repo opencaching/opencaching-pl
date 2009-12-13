@@ -75,6 +75,7 @@
 					</p>
 					<p>
 						<font size="1">{coords_other}</font><br />
+						{{Location}}:<span style="color: rgb(88,144,168)"> {kraj} {dziubek} {woj}</span>
 						{{size}}: {cachesize}<br />
 						{hidetime_start}{{time}}: {search_time}&nbsp;&nbsp;{{length}}: {way_length}<br />{hidetime_end}
 						{{status_label}}: {status}<br />

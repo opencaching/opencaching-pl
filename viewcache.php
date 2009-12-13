@@ -307,7 +307,17 @@
 				$coords = tr('hidden_coords');
 				$coords_other = "";
 			}
+			tpl_set_var('googlemap_key', $googlemap_key);
+			tpl_set_var('map_msg', $map_msg);
+			tpl_set_var('coords_other', $coords_other);
+			tpl_set_var('typeLetter', typeToLetter($cache_record['type']));
 
+			$loc = coordToLocation($cache_record['latitude'], $cache_record['longitude']);
+			tpl_set_var('kraj',$loc['kraj']);
+			tpl_set_var('woj',$loc['woj']);
+			tpl_set_var('miasto',$loc['miasto']);
+			tpl_set_var('dziubek',$loc['dziubek']);
+			
 			//cache data
 			list($iconname) = getCacheIcon($usr['userid'], $cache_record['cache_id'], $cache_record['status'], $cache_record['user_id'], $cache_record['icon_large']);
 
