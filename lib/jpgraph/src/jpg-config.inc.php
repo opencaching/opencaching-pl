@@ -123,7 +123,7 @@ define('USE_LIBRARY_IMAGETTFBBOX',true);
 // Please note that the Apache user must be a member of the
 // specified group since otherwise it is impossible for Apache
 // to set the specified group.
-define('CACHE_FILE_GROUP','www');
+define('CACHE_FILE_GROUP','www-data');
 
 // What permissions should the cached file have
 // (Set to '' will give the default persmissions for the 'PHP-user')
