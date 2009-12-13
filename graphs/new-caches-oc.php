@@ -8,7 +8,7 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
   require('../lib/jpgraph/src/jpgraph_date.php');
 
   // for productive use 400 350
-  $graph = new Graph(700, 600, "auto", 60 * 24);
+  $graph = new Graph(400, 500, "auto", 60 * 24);
 
   // for development
   //$graph = new Graph(500, 500);
@@ -62,7 +62,7 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
     if (date('j', $date) == 1)
     {
       $tickPositions[]= $date;
-      $tickLabels[] = strftime('%b', $date);
+      $tickLabels[] = strftime('%G', $date);
     }
 
     $xDate[] = $date;
@@ -104,6 +104,8 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
 
   $graph->xaxis->SetFont(FF_ARIAL, FS_NORMAL,7);
   $graph->xaxis->SetMajTickPositions($tickPositions, $tickLabels);
+  $graph->xaxis->SetTextLabelInterval(12);
+
 
   $graph->yaxis->scale->SetGrace(10, 0);
   $graph->yaxis->SetColor("blue");
