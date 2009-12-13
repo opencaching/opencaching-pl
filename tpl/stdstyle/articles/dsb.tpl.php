@@ -3,7 +3,7 @@
 		<col width="100">
 	</colgroup>
 	<tr><td width=600 class="header">
-	<img src="tpl/stdstyle/images/misc/32x32-tools.png" class="icon32" alt="ABC" title="ABC" align="middle">
+	<img src="tpl/stdstyle/images/misc/32x32-tools.png" class="icon32" alt="ABC" title="ABC" align="middle" />
 	<font size="4">  <b>Ochrona danych osobowych</b></font></td></tr>
 	<tr><td class="spacer"></td></tr></table>
 

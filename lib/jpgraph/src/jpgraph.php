@@ -1363,7 +1363,7 @@ class Graph {
                 // to be converted to real arguments.
                 $tmp = str_replace('?','%3f',$baseimg);
                 $htmlwrap = $this->GetHTMLImageMap($aCSIMName)."\n".
-                            '<img src="'.CSIMCACHE_HTTP_DIR.$tmp.'" ismap="ismap" usemap="#'.$aCSIMName.'" border="'.$aBorder.'" width="'.$this->img->width.'" height="'.$this->img->height."\" alt=\"".$this->iCSIMImgAlt."\" />\n";
+                            '<img src="'.CSIMCACHE_HTTP_DIR.$tmp.'" ismap="ismap" usemap="#'.$aCSIMName.'" border="'.$aBorder.'" width="'.$this- />img->width.'" height="'.$this->img->height."\" alt=\"".$this->iCSIMImgAlt."\" />\n";
 
                 if($fh =  @fopen($basecsim,'w') ) {
                     fwrite($fh,$htmlwrap);
@@ -1398,7 +1398,7 @@ class Graph {
             $aScriptName=basename($_SERVER['PHP_SELF']);
         }
         $urlarg = $this->GetURLArguments(true);
-        return "<img src=\"".$aScriptName.'?'.$urlarg."\" ismap=\"ismap\" usemap=\"#".$aCSIMName.'" border="'.$aBorder.'" width="'.$this->img->width.'" height="'.$this->img->height."\" alt=\"".$this->iCSIMImgAlt."\" />\n";
+        return "<img src=\"".$aScriptName.'?'.$urlarg."\" ismap=\"ismap\" usemap=\"#".$aCSIMName.'" border="'.$aBorder.'" width="'.$this- />img->width.'" height="'.$this->img->height."\" alt=\"".$this->iCSIMImgAlt."\" />\n";
     }
 
     function GetTextsYMinMax($aY2=false) {

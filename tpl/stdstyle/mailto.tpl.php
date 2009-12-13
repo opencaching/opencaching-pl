@@ -41,7 +41,7 @@
 		<col width="200">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="" title="Neuer Cache" align="middle"> <b>Wysyłanie wiadomości e-mail do <a href='viewprofile.php?userid={userid}'>{to_username}</a></b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="" title="Neuer Cache" align="middle" /> <b>Wysyłanie wiadomości e-mail do <a href='viewprofile.php?userid={userid}'>{to_username}</a></b></td></tr>
 	<tr><td colspan="2">&nbsp;</td></tr>
 
 	{message_start}
@@ -72,7 +72,7 @@
 	</tr>
 	<tr>
 		<td class="help" colspan="2">
-			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Hinweis" title="Uwaga" align="middle"> 
+			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Hinweis" title="Uwaga" align="middle" /> 
 			W wyniku wybrania tej opcji odbiorca będzie znał twój adres e-mail i będzie mógł odpowiedzieć ci bezposrednio.<br />
 			<br />
 

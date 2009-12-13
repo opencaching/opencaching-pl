@@ -30,7 +30,7 @@
 	 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="E-Mail-Adres" title="E-Mail-Adres" align="middle">&nbsp;Zmiana adresu e-mail</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="E-Mail-Adres" title="E-Mail-Adres" align="middle" />&nbsp;Zmiana adresu e-mail</div>
 {message}
 <div class="notice">
 Aby zmienić adres e-mail najpierw musisz otrzymać kod, który zostanie wysłany na nowy adres e-mail.

@@ -25,7 +25,7 @@
 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="{{profile_data}}" title="{{profile_data}}" align="middle">&nbsp;{username} {email} - {{user_profile}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="{{profile_data}}" title="{{profile_data}}" align="middle" />&nbsp;{username} {email} - {{user_profile}}</div>
 <div class="content-title-noshade">
 <p>
 	<img src="/tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle"/>&nbsp;<a href="mailto.php?userid={userid}">{{email_user}}</a><br/>
@@ -47,7 +47,7 @@
 	{opis_end}
 	<tr>
 		<td colspan="2">
-		<p class="content-title-noshade-size2"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{profile_data}}" title="Logs">&nbsp;{{profile_data}}</p></td>
+		<p class="content-title-noshade-size2"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{profile_data}}" title="Logs" />&nbsp;{{profile_data}}</p></td>
 	</tr>
 	<tr>
 		<td class="content-title-noshade">{{country_label}}:</td>
@@ -59,7 +59,7 @@
 	</tr>
 	<tr>
 		<td class="content-title-noshade">{{statpic_label}}:</td>
-		<td class="content-title-noshade"><img src="statpics/{userid}.jpg" align="middle"></td>
+		<td class="content-title-noshade"><img src="statpics/{userid}.jpg" align="middle" /></td>
 	</tr>
 	<tr><td class="buffer"></td></tr>
 	<tr>
@@ -110,7 +110,7 @@
 	<tr>
 		<td style="vertical-align:top" colspan="2">
 		<p class="content-title-noshade-size2">
-			<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="{{my_recommendations}}" title="{{my_recommendations}}">&nbsp;{{user_new_log_entries}}:
+			<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="{{my_recommendations}}" title="{{my_recommendations}}" />&nbsp;{{user_new_log_entries}}:
 		</p>
 		</td>
 	</tr>

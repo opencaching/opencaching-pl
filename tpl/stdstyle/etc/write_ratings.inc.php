@@ -63,7 +63,7 @@ if (mysql_num_rows($rs) == 0)
 
 
 	$file_content = '<table class="content"> <colgroup> <col width="100"></colgroup>
-			<tr><td class="header"><img src="/images/32x32-rating-star.png" class="icon32" alt="" title="Cache" align="middle"></td><td class="header" align="middle" vlign="top"><font size="4"> <b>Skrzynki rekomendowane</b></font></td></tr>';	
+			<tr><td class="header"><img src="/images/32x32-rating-star.png" class="icon32" alt="" title="Cache" align="middle" /></td><td class="header" align="middle" vlign="top"><font size="4"> <b>Skrzynki rekomendowane</b></font></td></tr>';	
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);

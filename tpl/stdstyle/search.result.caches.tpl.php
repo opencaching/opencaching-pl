@@ -26,7 +26,7 @@
 	****************************************************************************/
 	global $usr, $hide_coords;
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Wyszukiwanie" title="Suchergebnis" align="middle">&nbsp;Wyniki poszukiwań. Liczba znalezionych skrzynek: {results_count}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Wyszukiwanie" title="Suchergebnis" align="middle" />&nbsp;Wyniki poszukiwań. Liczba znalezionych skrzynek: {results_count}</div>
 <div class="content-title-noshade">
 	<p align="left">
 		<img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt="Search results" title="Search results" align="middle"/>&nbsp;<a href="search.php?queryid={queryid}&showresult=0">Szukaj</a>&nbsp;&nbsp;

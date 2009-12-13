@@ -92,7 +92,7 @@
 				$rs2 = sql('SELECT `id`, `previewpath`, `description` FROM `statpics`');
 				while ($record2 = sql_fetch_array($rs2))
 				{
-					$logo_temp = '<tr><td class="content-title-noshade">{statpic_desc}</td><td><input type="radio" name="statpic_logo" class="radio" value={statpic_id}{statpic_selected}/><img src="{statpic_preview}" align=middle></td></tr><tr><td class="spacer" colspan="2"></td></tr>';
+					$logo_temp = '<tr><td class="content-title-noshade">{statpic_desc}</td><td><input type="radio" name="statpic_logo" class="radio" value={statpic_id}{statpic_selected}/><img src="{statpic_preview}" align=middle /></td></tr><tr><td class="spacer" colspan="2"></td></tr>';
 					$logo_temp = mb_ereg_replace('{statpic_id}', $record2['id'], $logo_temp);
 					if($record2['id'] == $using_logo)
 					{

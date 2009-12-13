@@ -1,7 +1,7 @@
 <table class="content">
 	<colgroup><col width="100"></colgroup>
 	<tr><td width=750 class="content2-pagetitle">
-	<img src="tpl/stdstyle/images/blue/about.png" class="icon32" alt="OC" title="O projekcie OC" align="middle">
+	<img src="tpl/stdstyle/images/blue/about.png" class="icon32" alt="OC" title="O projekcie OC" align="middle" />
 	<font size="4">  <b>O projekcie OpenCaching</b></font></td></tr>
 
 		<tr><td class="spacer"></td></tr>
