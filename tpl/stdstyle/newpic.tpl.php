@@ -56,7 +56,7 @@
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" border="0" width="32" height="32" alt="" title="Neuw Cache" align="middle"> <b>{pictypedesc} <a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" title="Neuw Cache" align="middle"> <b>{pictypedesc} <a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 	<tr><td class="spacer" colspan="2"><br /><font color="red"><b>Umieszczaj tylko istotne obrazki związane z skrzynką. Nie rób fotoalbumu okolicy.</b></font></td></tr>
 
 	<tr>

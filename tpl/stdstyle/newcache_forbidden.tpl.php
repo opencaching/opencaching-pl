@@ -66,7 +66,7 @@
 ?>
 
 <table class="content" border="0">
-	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="" title="{{new_cache}}" align="middle"><font size="4" <b>Nowa skrzynka</b></font></td></tr>
+	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}" align="middle"><font size="4" <b>Nowa skrzynka</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 	<tr>
 		<td>Użytkownik ma prawo założyć skrzynkę, jeśli znalazł 5 lub więcej skrzynek klasycznych (zawierajacych logbook) oraz posiada aktywne konto w Serwisie od nie mniej niż 30 dni. W wyjątkowych sytuacjach, wcześniejsze założenie skrzynki jest możliwe za zgodą RR.</td>

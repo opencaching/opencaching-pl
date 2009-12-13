@@ -58,7 +58,7 @@
 		<td class="content2-pagetitle">
 			<table class="null">
 				<tr>
-					<td valign="top" width="70"><img src="{icon_cache}" border="0" width="32" height="32" align="left" alt="{cachetype}" title="{cachetype}">
+					<td valign="top" width="70"><img src="{icon_cache}" class="icon32" align="left" alt="{cachetype}" title="{cachetype}">
 						{difficulty_icon_diff}
 						{difficulty_icon_terr}
 					</td>
@@ -87,7 +87,7 @@
 						{hidelistingsites_start}{{listed_also_on}}: {listed_on}<br />{hidelistingsites_end}
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
-								<td style="vertical-align: top"><br /><br /><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0">Atrybuty skrzynki:&nbsp;</td>								
+								<td style="vertical-align: top"><br /><br /><img src="tpl/stdstyle/images/blue/attributes.png" class="icon32">Atrybuty skrzynki:&nbsp;</td>								
 								<td>{{cache_attributes}}{password_req}</td>								
 							</tr>
 						</table>
@@ -114,7 +114,7 @@
 	</tr>
 	<tr>
 		<td class="header-small">
-			<img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0">
+			<img src="tpl/stdstyle/images/blue/describe.png" class="icon32">
 			<b>Opis</b>&nbsp;&nbsp;<span style="font-weight: 400;">{desc_langs}</span>&nbsp;
 		</td>
 	</tr>
@@ -139,10 +139,10 @@
 	{hidehint_start}
 	<tr>
 		<td class="header-small">
-			<img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0">
+			<img src="tpl/stdstyle/images/blue/crypt.png" class="icon32">
 			<b>Odnosnik kodowania</b>&nbsp;&nbsp;
 			{decrypt_link_start}
-			<img src="tpl/stdstyle/images/blue/decrypt.png" width="32" height="32" align="middle" border="0">
+			<img src="tpl/stdstyle/images/blue/decrypt.png" class="icon32">
 			{decrypt_link}
 			{decrypt_link_end}
 			<br />
@@ -181,7 +181,7 @@
 	{hidepictures_start}
 	<tr>
 		<td class="header-small">
-			<img src="tpl/stdstyle/images/blue/picture.png" width="32" height="32" align="middle" border="0">
+			<img src="tpl/stdstyle/images/blue/picture.png" class="icon32">
 			<b>Obrazki/Zdjęia</b> &nbsp;&nbsp;
 			&nbsp;
 		</td>
@@ -197,11 +197,11 @@
 
 	<tr>
 		<td height="26" valign="middle" class="header-small">
-			<img src="tpl/stdstyle/images/blue/logs.png" width="32" height="32" align="middle" border="0">
+			<img src="tpl/stdstyle/images/blue/logs.png" class="icon32">
 			<b>Wpisy do LOGu</b><span style="font-weight: 400;">&nbsp;&nbsp;
-			<img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" align="middle" border="0" align="left" alt="znaleziony" title="znaleziona"> {{founds}}x
-			<img src="tpl/stdstyle/images/log/16x16-dnf.png" width="16" height="16" align="middle" border="0" align="left" alt="Nie znaleziony" title="nie znaleziona"> {notfounds}x
-			<img src="tpl/stdstyle/images/log/16x16-note.png" width="16" height="16" align="middle" border="0" align="left" alt="Komentarze" title="skomentowana"> {notes}x </span>
+			<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" align="left" alt="znaleziony" title="znaleziona"> {{founds}}x
+			<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" align="left" alt="Nie znaleziony" title="nie znaleziona"> {notfounds}x
+			<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" align="left" alt="Komentarze" title="skomentowana"> {notes}x </span>
 			&nbsp;&nbsp;
 			<span style="font-weight:400">{viewlogs_last}&nbsp;&nbsp;{viewlogs}</span>
 		</td>

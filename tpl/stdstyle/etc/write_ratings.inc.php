@@ -29,7 +29,7 @@
 	****************************************************************************/
 
 // ini_set ('display_errors',on);
-	$cacheline = '<tr><td rowspan="1" align="right"><img src="{cacheicon}" border="0" width="16" height="16" alt="Cache" title="Cache" />&nbsp;</td><td><font size="1"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a> {{hidden_by}} <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></td></tr>';
+	$cacheline = '<tr><td rowspan="1" align="right"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;</td><td><font size="1"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a> {{hidden_by}} <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></td></tr>';
 		
 	global $lang, $rootpath;
 
@@ -63,7 +63,7 @@ if (mysql_num_rows($rs) == 0)
 
 
 	$file_content = '<table class="content"> <colgroup> <col width="100"></colgroup>
-			<tr><td class="header"><img src="/images/32x32-rating-star.png" border="0" width="32" height="32" alt="" title="Cache" align="middle"></td><td class="header" align="middle" vlign="top"><font size="4"> <b>Skrzynki rekomendowane</b></font></td></tr>';	
+			<tr><td class="header"><img src="/images/32x32-rating-star.png" class="icon32" alt="" title="Cache" align="middle"></td><td class="header" align="middle" vlign="top"><font size="4"> <b>Skrzynki rekomendowane</b></font></td></tr>';	
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);

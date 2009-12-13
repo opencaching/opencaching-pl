@@ -1,4 +1,4 @@
-		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/rproblems.png" border="0" width="32" height="32" align="middle"/>&nbsp;Przeglądaj zgłoszenie</div>
+		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" align="middle"/>&nbsp;Przeglądaj zgłoszenie</div>
 	<div class="buffer"></div>
 	<p>{confirm_resp_change}{confirm_status_change}</p>
 	{email_sent}

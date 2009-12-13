@@ -31,7 +31,7 @@
 		<col width="150">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/profile.png" border="0" width="32" height="32" alt="" title="Neuer Cache" align="middle"><font size="4">  <b>E-Mail-Adresse vergessen</b></font></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="" title="Neuer Cache" align="middle"><font size="4">  <b>E-Mail-Adresse vergessen</b></font></td></tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td class="help" colspan="2">

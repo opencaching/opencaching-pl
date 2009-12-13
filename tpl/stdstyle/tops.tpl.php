@@ -4,7 +4,7 @@
  *  Unicode Reminder メモ
  ***************************************************************************}
 <table width="100%">
-	<tr><td class="content2-pagetitle" style="background-color:#E9E9E9;"><img src="tpl/stdstyle/images/misc/32x32-winner.png" border="0" width="32" height="32" alt="{t}Special caches{/t}" title="{t}Special caches{/t}" align="middle"><font size="4">  <b>{t}Special caches{/t}</b></font></td></tr>
+	<tr><td class="content2-pagetitle" style="background-color:#E9E9E9;"><img src="tpl/stdstyle/images/misc/32x32-winner.png" class="icon32" alt="{t}Special caches{/t}" title="{t}Special caches{/t}" align="middle"><font size="4">  <b>{t}Special caches{/t}</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 	<tr>
 		<td style="padding-left:32px; padding-bottom:32px;">
@@ -58,7 +58,7 @@
 				<tr>
 					<td align="right">{t}Index{/t}</td>
 					<td align="center"><img src="images/rating-star.png" border="0" alt="{t}Recommendations{/t}"></td>
-					<td align="center"><img src="tpl/stdstyle/images/log/16x16-found.png" width="16" height="16" border="0" alt="{t}Found{/t}"></td>
+					<td align="center"><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{t}Found{/t}"></td>
 					<td>&nbsp;</td>
 				</tr>
 				{foreach name=cache from=$adm2item.items item=cacheItem}

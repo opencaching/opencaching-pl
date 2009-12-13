@@ -41,7 +41,7 @@
 		<col width="200">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/email.png" border="0" width="32" height="32" alt="" title="Neuer Cache" align="middle"> <b>Wysyłanie wiadomości e-mail do <a href='viewprofile.php?userid={userid}'>{to_username}</a></b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="" title="Neuer Cache" align="middle"> <b>Wysyłanie wiadomości e-mail do <a href='viewprofile.php?userid={userid}'>{to_username}</a></b></td></tr>
 	<tr><td colspan="2">&nbsp;</td></tr>
 
 	{message_start}

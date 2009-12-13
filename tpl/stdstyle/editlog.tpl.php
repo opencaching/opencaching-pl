@@ -117,7 +117,7 @@ function toogleLayer( whichLayer, val )
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
 <table class="content">
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/logs.png" border="0" width="32" height="32" alt="" title="edit log Cache" align="middle"> <b>Edycja logu dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="edit log Cache" align="middle"> <b>Edycja logu dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 </table>
 <table class="content">
 	<tr><td class="spacer" colspan="2"></td></tr>

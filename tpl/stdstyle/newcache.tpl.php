@@ -139,11 +139,11 @@ function toggleAttr(id)
 <input type="hidden" name="version2" value="1"/>
 <input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
 <input id="descMode" type="hidden" name="descMode" value="1" />
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="" title="{{new_cache}}" align="middle"/>&nbsp;{{new_cache}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}" align="middle"/>&nbsp;{{new_cache}}</div>
 	{general_message}
 	<div class="buffer"></div>
 	<div class="content2-container bg-blue02" >
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{{basic_information}}</p>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" class="icon32" alt=""/>&nbsp;{{basic_information}}</p>
 		</div>
 
 	<div class="buffer"></div>
@@ -251,7 +251,7 @@ function toggleAttr(id)
 	</tr>
 	<tr>
 		<td colspan="2"><div class="content2-container bg-blue02">
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{{cache_attributes}}</p>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/attributes.png" class="icon32" alt=""/>&nbsp;{{cache_attributes}}</p>
 		</div>
 		</td>
 	</tr>
@@ -264,7 +264,7 @@ function toggleAttr(id)
 		<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;">{{attributes_edit_hint}} {{attributes_desc_hint}}</div></td></tr>
 	<tr>
 		<td colspan="2"><div class="content2-container bg-blue02"> 
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" width="32" height="32" align="middle" border="0" alt=""/>&nbsp;{{description}}</p>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{description}}</p>
 			</div>
 			</td>
 	</tr>
@@ -329,7 +329,7 @@ function toggleAttr(id)
 	<tr>
 		<td colspan="2"><div class="content2-container bg-blue02">
 		
-			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" width="32" height="32" align="middle" border="0" alt=""/>
+			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt=""/>
 				{{other}}
 			</p>
 			</div>

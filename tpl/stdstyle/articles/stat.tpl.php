@@ -1,4 +1,4 @@
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" border="0" width="32" height="32" alt="{title_text}" title="{title_text}" align="middle">&nbsp;Statystyki Opencaching.pl</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{title_text}" title="{title_text}" align="middle">&nbsp;Statystyki Opencaching.pl</div>
 <div>
 <img src="tpl/stdstyle/images/blue/stat2.png"><a class="content-title-noshade" href="articles.php?page=s1">Ranking użytkowników według liczby założych skrzynek</a><br/>
 <img src="tpl/stdstyle/images/blue/stat2.png"><a class="content-title-noshade" href="articles.php?page=s2">Ranking użytkowników według liczby odkryć</a>

@@ -2,7 +2,7 @@
 	<colgroup>
 		<col width="100">
 	</colgroup>
-	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/cache/traditional.png" border="0" width="32" height="32" alt="�ber" title="�ber" align="middle"><font size="4">  <b>Co to jest geocaching?</b></font></td></tr>
+	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/cache/traditional.png" class="icon32" alt="�ber" title="�ber" align="middle"><font size="4">  <b>Co to jest geocaching?</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 	<tr>
 		<td>

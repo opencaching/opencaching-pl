@@ -127,7 +127,7 @@ function toogleLayer( whichLayer, val )
 <table class="content">
 	<tr>
 		<td class="content2-pagetitle" colspan="2">
-			<img src="tpl/stdstyle/images/blue/logs.png" border="0" width="32" height="32" alt="" title="Neuer Cache" align="middle" />
+			<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Neuer Cache" align="middle" />
 			<b>{{post_new_log}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
 		</td>
 	</tr>

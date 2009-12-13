@@ -34,7 +34,7 @@
 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" border="0" width="32" height="32" alt="{{your_data}}" title="{{your_data}}" align="middle" />&nbsp;{{your_data}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{your_data}}" title="{{your_data}}" />&nbsp;{{your_data}}</div>
 <div class="notice">
 {{gray_field_is_hidden}}
 </div>
@@ -42,10 +42,6 @@
 <p class="content-title-noshade-size2">{{data_in_profile}}:</p>
 <div class="buffer"></div>
 <table class="table">
-	<colgroup>
-		<col width="150" />
-		<col/>
-	</colgroup>
 	<tr>
 		<td class="content-title-noshade">{{username_label}}:</td>
 		<td>{username}</td>
