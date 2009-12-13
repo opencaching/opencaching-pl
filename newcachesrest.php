@@ -97,7 +97,7 @@
 	{
 		foreach ($newcaches AS $countryname => $country_record)
 		{
-			$cache_country = '<br /><p class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</p>';
+			$cache_country = '<tr><td colspan="4" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
 			$content .= $cache_country;
 			foreach ($country_record AS $cache_record)
 			{
@@ -108,7 +108,7 @@
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{date}', date('d.m.Y', strtotime($cache_record['date'])), $thisline);
 			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($cache_record['icon_large']), $thisline);
-			$thisline = mb_ereg_replace('{{hidden_by}}', htmlspecialchars(tr('created_by'), ENT_COMPAT, 'UTF-8'), $thisline);
+//			$thisline = mb_ereg_replace('{{hidden_by}}', htmlspecialchars(tr('created_by'), ENT_COMPAT, 'UTF-8'), $thisline);
 			$content .= $thisline . "\n";
 			}
 		}
