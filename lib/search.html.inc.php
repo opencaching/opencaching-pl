@@ -143,7 +143,7 @@
 		// sp2ong
 
 	$ratingA = $caches_record['toprating'];
-	if ($ratingA > 0) $ratingimg='<img src="images/rating-star.png" alt="Rekomendowana" title="Rekomendowana" />'; else $ratingimg=''; 
+	if ($ratingA > 0) $ratingimg='<img src="images/rating-star.png" alt="Rekomendowana" title="Rekomendowana">'; else $ratingimg=''; 
 	$tmpline = str_replace('{ratpic}', $ratingimg, $tmpline);
 $login=0;
 	if ($usr == false ) {
@@ -237,7 +237,7 @@ $login=0;
 		}
 		$tmpline = str_replace('{desclangs}', $desclangs, $tmpline);
 		if($usr || !$hide_coords)
-			$tmpline = str_replace('{sendtogps}', ("<a href=\"#\" onClick=\"javascript:window.open('garmin.php?lat=".$caches_record['latitude']."&long=".$caches_record['longitude']."&wp=".$caches_record['wp_oc']."&name=".$caches_record['name']."&popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><img src='/images/garmin.jpg' alt='Send to GPS' title='Wyślij do GPS' border='0' /></a>"), $tmpline);
+			$tmpline = str_replace('{sendtogps}', ("<a href=\"#\" onClick=\"javascript:window.open('garmin.php?lat=".$caches_record['latitude']."&long=".$caches_record['longitude']."&wp=".$caches_record['wp_oc']."&name=".$caches_record['name']."&popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><img src='/images/garmin.jpg' alt='Send to GPS' title='Wyślij do GPS' border='0'></a>"), $tmpline);
 		else
 			$tmpline = str_replace('{sendtogps}', "", $tmpline);
 		$tmpline = str_replace('{cachename}', htmlspecialchars($caches_record['name'], ENT_COMPAT, 'UTF-8'), $tmpline);

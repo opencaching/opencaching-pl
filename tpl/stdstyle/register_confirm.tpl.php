@@ -37,14 +37,14 @@
 	</colgroup>
 	<tr>
 		<td class="content2-pagetitle" colspan="2">
-			<img src="tpl/stdstyle/images/blue/profile.png" border="0" align="middle" width="32" height="32" alt="" title="Twoje konto" align="middle" /><font size="4"> <b>{{register_msg5}}</b></font>
+			<img src="tpl/stdstyle/images/blue/profile.png" border="0" align="middle" width="32" height="32" alt="" title="Twoje konto" align="middle"><font size="4"> <b>{{register_msg5}}</b></font>
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>
 		<td colspan="2" class="help">
-			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" align="middle" />
+			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" align="middle">
 			{{register_msg6}}
 			</b> 
 		</td>

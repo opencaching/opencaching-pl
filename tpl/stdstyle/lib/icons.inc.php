@@ -114,7 +114,7 @@ function icon_rating($founds, $topratings)
 //		$text = mb_ereg_replace('{rating}', $rating, $rating_text);
 //	}
 //
-//	return "<img src='$icon' border='0' width='19' height='16' hspace='2' alt='$text' title='$text' />";
+//	return "<img src='$icon' border='0' width='19' height='16' hspace='2' alt='$text' title='$text'>";
 
 //}
 

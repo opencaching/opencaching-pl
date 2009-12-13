@@ -32,7 +32,7 @@
 	$error_desc_exists = '(Internal error) has been established name in that language.';
 
 	$nopictures = 'There are no pictures';
-	$pictureline = '<td><a href="javascript:SelectFile(\'{link}\');">{title}<br/><img src="{link}" width="180" /></a></td>';
+	$pictureline = '<td><a href="javascript:SelectFile(\'{link}\');">{title}<br/><img src="{link}" width="180"></a></td>';
 	$picturelines = '{lines}';
 
 	$submit = 'Submit';

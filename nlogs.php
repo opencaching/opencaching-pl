@@ -97,7 +97,7 @@ if ($error == false)
 			<colgroup>
 				<col width="100">
 			</colgroup>
-			<tr><td class="header"><img src="tpl/stdstyle/images/description/22x22-logs.png" border="0" width="22" height="22" alt="Cachesuche" title="Cachesuche" align="middle" /><font size="4">  <b>Najnowsze wpisy do LOGów</b></font></td></tr>
+			<tr><td class="header"><img src="tpl/stdstyle/images/description/22x22-logs.png" border="0" width="22" height="22" alt="Cachesuche" title="Cachesuche" align="middle"><font size="4">  <b>Najnowsze wpisy do LOGów</b></font></td></tr>
 			<tr><td class="spacer"></td></tr>
 			';
 
@@ -112,7 +112,7 @@ if ($error == false)
 
 				$file_content .= "<tr><td>";
 				$file_content .= htmlspecialchars(date("d.m.Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8');
-				$file_content .= ' <img src="/tpl/stdstyle/images/' . $log_record['icon_small'] . '" class="icon16" align="left" alt="" title="" />';
+				$file_content .= ' <img src="/tpl/stdstyle/images/' . $log_record['icon_small'] . '" class="icon16" align="left" alt="" title="">';
 				$file_content .= ' - <a href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a>';
 
 				if ($log_record['log_type'] == 1)

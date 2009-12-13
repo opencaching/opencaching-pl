@@ -43,7 +43,7 @@
 <input type="hidden" name="show_all_langs_value" value="{show_all_langs_value}"/>
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />&nbsp;Edycja opisu skrzynki <a href="viewcache.php?cacheid={cacheid}" />{cachename}</a></div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />&nbsp;Edycja opisu skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
 	<table class="table">
 	<colgroup>
 		<col width="100"/>

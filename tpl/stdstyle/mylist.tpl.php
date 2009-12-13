@@ -30,7 +30,7 @@
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/colected.png" class="icon32" alt="{title_text}" title="{title_text}" align="middle" /> <b>{title_text}</b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/colected.png" class="icon32" alt="{title_text}" title="{title_text}" align="middle"> <b>{title_text}</b></td></tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>

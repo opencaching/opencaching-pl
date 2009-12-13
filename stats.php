@@ -11,7 +11,7 @@
 
 	$tops = array();
 	echo '<center><table><tr><td align=center><font size=+0><b>Ranking skrzynek wg liczonego indeksu</b></font><br />(w nawiasie liczba znalezien po otrzymaniu rekomendacji)</td></tr>';
-	echo '<tr><td><center><table bgcolor=white><tr><td align="right">Indeks</td><td align="center"><img src="/images/rating-star.png" border="0" alt="" /></td><td align="center"><img src="/tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="" /></td><td></td></tr>';
+	echo '<tr><td><center><table bgcolor=white><tr><td align="right">Indeks</td><td align="center"><img src="/images/rating-star.png" border="0" alt=""></td><td align="center"><img src="/tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt=""></td><td></td></tr>';
 
   mysql_query("SET NAMES 'utf8'"); 
 	// Alle Caches für diese Gruppe finden
@@ -65,7 +65,7 @@
 $widthB = round(100 * ($rCaches[idx]/200)/1,0);
 	
 //	echo $rCaches['idx'] . ' ' . $rCaches['name'] . '<br />';
-//	$line = '<tr><td><a href=http://www.opencaching.pl/viewcache.php?cacheid={cacheid} target=_blank>{name}</a> (<b>{username}</b>)</td><td align=right>&nbsp;(<b>{count}</b>)&nbsp;</td><td><img src=/graphs/images/leftbar.gif /><img src=/graphs/images/mainbar.gif height=14 width={widthB} /><img src=/graphs/images/rightbar.gif /> </td> </tr>';		
+//	$line = '<tr><td><a href=http://www.opencaching.pl/viewcache.php?cacheid={cacheid} target=_blank>{name}</a> (<b>{username}</b>)</td><td align=right>&nbsp;(<b>{count}</b>)&nbsp;</td><td><img src=/graphs/images/leftbar.gif><img src=/graphs/images/mainbar.gif height=14 width={widthB}><img src=/graphs/images/rightbar.gif> </td> </tr>';		
 	$line = '<tr><td width="40px" align="right">{index}</td><td width="40px" align="center">{rating}</td><td  width="60px" align="center">{fbr}&nbsp;({far})</td><td><a href=http://www.opencaching.pl/viewcache.php?cacheid={cacheid} target=_blank>{name}</a> &nbsp;({username})</td></tr>';		
 		$line = str_replace('{index}', $rCaches[idx], $line);
 		$line = str_replace('{rating}', $rCaches[ratings], $line);

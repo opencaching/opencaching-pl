@@ -4,7 +4,7 @@
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 	<tr>
 		<td class="header">
-			<img src="tpl/stdstyle/images/cache/traditional.png" class="icon32" alt="Miejsce" title="Miejsce" align="middle" />
+			<img src="tpl/stdstyle/images/cache/traditional.png" class="icon32" alt="Miejsce" title="Miejsce" align="middle">
 			 <b>Liczba znnalezionych miejsc:</b> {resultscount}
 		</td>
 	</tr>

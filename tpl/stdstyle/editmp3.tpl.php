@@ -52,7 +52,7 @@ function checkForm()
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="" title="edit mp3" align="middle" /> <b>{mp3typedesc} </b><font size="2"><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></font></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="" title="edit mp3" align="middle"> <b>{mp3typedesc} </b><font size="2"><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></font></td></tr>
 	
 	<tr><td class="spacer" colspan="2"><br /><br /></td></tr>
 	<tr>

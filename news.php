@@ -35,7 +35,7 @@
 		$tplname = 'news';
 		$newscontent = '
 				<div class="content2-pagetitle">
-				<img src="tpl/stdstyle/images/description/22x22-description.png" border="0" width="22" height="22" alt="News" title="news" align="middle" />Aktualności</div>
+				<img src="tpl/stdstyle/images/description/22x22-description.png" border="0" width="22" height="22" alt="News" title="news" align="middle">Aktualności</div>
 				
 				';
 		require($stylepath . '/news.inc.php');

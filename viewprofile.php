@@ -208,7 +208,7 @@
 			tpl_set_var('registered', strftime($dateformat, strtotime($record['date_created'])));
 			if( $usr['userid']==$super_admin_id )
 			{
-				tpl_set_var('remove_all_logs', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="removelog.php?userid='.$userid.'" /><font color="#ff0000">Usuń wszystkie logi tego użytkownika</font></a>');
+				tpl_set_var('remove_all_logs', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="removelog.php?userid='.$userid.'"><font color="#ff0000">Usuń wszystkie logi tego użytkownika</font></a>');
 			}
 			else
 				tpl_set_var('remove_all_logs', '');
@@ -217,9 +217,9 @@
 			{
 				tpl_set_var('email', '(<a href="mailto:'.strip_tags($record['email']).'">'.strip_tags($record['email']).'</a>)');
 				if( !$record['stat_ban'] )
-					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&stat_ban=1" /><font color="#ff0000">'.tr('lock').' '.tr('user_stats').'</font></a>');
+					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&stat_ban=1"><font color="#ff0000">'.tr('lock').' '.tr('user_stats').'</font></a>');
 				else
-					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&stat_ban=1" /><font color="#00ff00">'.tr('unlock').' '.tr('user_stats').'</font></a>');
+					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&stat_ban=1"><font color="#00ff00">'.tr('unlock').' '.tr('user_stats').'</font></a>');
 			}
 			else
 			{
@@ -290,9 +290,9 @@
 					$hide_flag = $record['hide_flag'];
 					
 					if ($hide_flag == 0) {
-						tpl_set_var('hide_flag', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&hide_flag=1" />Dodaj możliwość zakładania skrzynek dla użytkownika</a>');
+						tpl_set_var('hide_flag', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&hide_flag=1">Dodaj możliwość zakładania skrzynek dla użytkownika</a>');
 					} else {
-						tpl_set_var('hide_flag', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&hide_flag=1" />Usuń możliwość zakładania skrzynek dla użytkownika</a>');
+						tpl_set_var('hide_flag', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&hide_flag=1">Usuń możliwość zakładania skrzynek dla użytkownika</a>');
 					}
 	
 				} else {

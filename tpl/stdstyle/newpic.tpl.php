@@ -56,7 +56,7 @@
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" title="Neuw Cache" align="middle" /> <b>{pictypedesc} <a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" title="Neuw Cache" align="middle"> <b>{pictypedesc} <a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 	<tr><td class="spacer" colspan="2"><br /><font color="red"><b>Umieszczaj tylko istotne obrazki związane z skrzynką. Nie rób fotoalbumu okolicy.</b></font></td></tr>
 
 	<tr>
@@ -84,7 +84,7 @@
 
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwaga" title="Uwaga" /> Nastpujące formaty są akceptowane: BMP, GIF, PNG i JPG - dla zdjęć rekomendowany format JPG .<br />Maksymalna wielkość pliku dozwolona 100 KB. Zalecane wymiary obrazków: 480 Pixel szerokość i 360 Pixel wysokość. <br />Po potwierdzeniu następna strona, która się pojawi może potrwać chwilę.</td>
+		<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwaga" title="Uwaga"> Nastpujące formaty są akceptowane: BMP, GIF, PNG i JPG - dla zdjęć rekomendowany format JPG .<br />Maksymalna wielkość pliku dozwolona 100 KB. Zalecane wymiary obrazków: 480 Pixel szerokość i 360 Pixel wysokość. <br />Po potwierdzeniu następna strona, która się pojawi może potrwać chwilę.</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 

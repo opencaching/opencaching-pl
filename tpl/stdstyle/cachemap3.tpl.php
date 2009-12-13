@@ -1,4 +1,4 @@
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="" title=""/>{{user_map}} {username}</div />
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="" title=""/>{{user_map}} {username}</div>
 <div class="content2-container">
 <p class="content-title-noshade-size1">{{current_zoom}}: <input type="text" id="zoom" size="2" disabled="disabled"/></p>
 <p class="content-title-noshade">{{colors}}: <b><font color="#dddd00">{{yellow}}</font></b> - {{last_10_days}}, <b><font color="#00dd00">{{green}}</font></b> - {{own}}, <b><font color="#aaaaaa">{{gray}}</font></b> - {{found}}, <b><font color="#ff0000">{{red}}</font></b> - {{rest}}</p>
@@ -279,7 +279,7 @@
 							else 
 							{
 								print_topratings = "<br><b>{{recommendations}}: <\/b>";
-								var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\" />";
+								var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\">";
 								var ii;
 								for( ii=0;ii<topratings;ii++)
 									print_topratings += gwiazdka;
@@ -315,7 +315,7 @@
 
 							infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\" class=\"table\">";
 							infoWindowContent += "<tr><td colspan=\"2\" width=\"100%\"><table cellspacing=\"0\" width=\"100%\"><tr><td width=\"90%\">";
-							infoWindowContent += "<center><img align=\"left\" width=\"20\" height=\"20\" src=\"tpl/stdstyle/images/cache/"+typeToImageName(type, status)+"\" /><\/center>";
+							infoWindowContent += "<center><img align=\"left\" width=\"20\" height=\"20\" src=\"tpl/stdstyle/images/cache/"+typeToImageName(type, status)+"\"><\/center>";
 							infoWindowContent += "&nbsp;<a href=\""+domain+"viewcache.php?cacheid=" + cache_id + "\" target=\"_blank\">" + name + "<\/a>";
 							infoWindowContent += "<\/td><td width=\"10%\">";
 							infoWindowContent += "<b>"+wp+"<\/b><\/td><\/tr><\/table>";
@@ -325,10 +325,10 @@
 				
 							infoWindowContent += "<\/td>";
 							infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\" class=\"table\"><tr><td width=\"100%\">";
-							infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\" /> "+founds+" x "+found_attended+"<\/nobr><\/td><\/tr>";
-							infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\" /> "+notfounds+" x "+notfound_will_attend+"<\/nobr><\/td><\/tr>";
+							infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+founds+" x "+found_attended+"<\/nobr><\/td><\/tr>";
+							infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+notfounds+" x "+notfound_will_attend+"<\/nobr><\/td><\/tr>";
 							if( node == 2 )
-								infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\" /> "+votes+" x {{scored}}<\/nobr>";
+								infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+votes+" x {{scored}}<\/nobr>";
 
 							infoWindowContent += "<\/td><\/tr><\/table><\/td><\/tr>";
 							infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";

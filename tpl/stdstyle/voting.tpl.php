@@ -33,9 +33,9 @@
 	<tr><td class="content2-pagetitle" colspan="2">
 		<table border="0" class="null">
 			<tr>
-				<td><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="Głosowanie" title="Głosowanie" align="middle" /><font size="4">  <b>Głosowanie - problem {id}</b></font>
+				<td><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="Głosowanie" title="Głosowanie" align="middle"><font size="4">  <b>Głosowanie - problem {id}</b></font>
 				</td>
-				<td width="250" align="right"><a href="mailto.php?uuid='{uuid}'"><img src="/tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle" /></a>&nbsp;[<a href="mailto.php?userid={userid}">Email do użytkownika</a>]
+				<td width="250" align="right"><a href="mailto.php?uuid='{uuid}'"><img src="/tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle"></a>&nbsp;[<a href="mailto.php?userid={userid}">Email do użytkownika</a>]
 				</td>
 			</tr>
 		</table>
@@ -54,7 +54,7 @@
 	{opis_start}
 	<tr>
 		<td class="header" colspan="2">
-		<img src="tpl/stdstyle/images/profile/32x32-profile.png" class="icon32" alt="Dane profilu" title="Logs" />&nbsp;<b>Opis użytkownika</b></td>
+		<img src="tpl/stdstyle/images/profile/32x32-profile.png" class="icon32" alt="Dane profilu" title="Logs">&nbsp;<b>Opis użytkownika</b></td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
@@ -64,7 +64,7 @@
 	{opis_end}
 	<tr>
 		<td class="header" colspan="2">
-		<img src="tpl/stdstyle/images/profile/32x32-profile.png" class="icon32" alt="Dane profilu" title="Logs" />&nbsp;<b>Dane Profilu</b></td>
+		<img src="tpl/stdstyle/images/profile/32x32-profile.png" class="icon32" alt="Dane profilu" title="Logs">&nbsp;<b>Dane Profilu</b></td>
 	</tr>
 	<tr>
 		<td class="header"><b>Kraj:</b></td>
@@ -80,12 +80,12 @@
 	</tr>
 	<tr>
 		<td class="header"><b>Obrazek statystyki:</b></td>
-		<td><img src="statpics/{userid}.jpg" align="middle" /></td>
+		<td><img src="statpics/{userid}.jpg" align="middle"></td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td class="header-small">
-		<img src="tpl/stdstyle/images/cache/22x22-traditional.png" width="22" height="22" align="middle" border="0" alt="Logs" title="Logs" />&nbsp;Ukryte skrzynki:</td>
+		<img src="tpl/stdstyle/images/cache/22x22-traditional.png" width="22" height="22" align="middle" border="0" alt="Logs" title="Logs">&nbsp;Ukryte skrzynki:</td>
 		<td class="header-small">{hidden}
 			[<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;ownerid={userid}&amp;searchbyowner=">pokaż wszystkie</a>]
 
@@ -97,7 +97,7 @@
 
 	<tr>
 		<td class="header-small">
-		<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="Znalezione" title="Znalezione" />&nbsp;Znalezienia:</td>
+		<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="Znalezione" title="Znalezione">&nbsp;Znalezienia:</td>
 		<td class="header-small" >{{founds}}
 			[<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;finderid={userid}&amp;searchbyfinder=&logtype=1">pokaż wszystkie</a>]
 		</td>
@@ -108,7 +108,7 @@
 
 	<tr>
 		<td class="header-small">
-		<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="Nienalezione" title="Nienalezione" />&nbsp;Nieznalezienia:</td>
+		<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="Nienalezione" title="Nienalezione">&nbsp;Nieznalezienia:</td>
 		<td class="header-small" >{not_founds}
 			[<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;finderid={userid}&amp;searchbyfinder=&logtype=2">pokaż wszystkie</a>]
 		</td>
@@ -119,7 +119,7 @@
 
 	<tr>
 		<td class="header-small">
-		<img src="tpl/stdstyle/images/cache/22x22-traditional.png" width="22" height="22" align="middle" border="0" alt="Rekomendowane" title="Rekomendowane" />&nbsp;Rekomendowane skrzynki:</td>
+		<img src="tpl/stdstyle/images/cache/22x22-traditional.png" width="22" height="22" align="middle" border="0" alt="Rekomendowane" title="Rekomendowane">&nbsp;Rekomendowane skrzynki:</td>
 		<td class="header-small" >{recommended} z możliwych {maxrecommended} [<a href="usertops.php?userid={userid}">pokaż wszystkie</a>]
 		</td>
 	</tr>

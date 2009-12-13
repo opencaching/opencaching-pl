@@ -1,7 +1,7 @@
 <table class="content">
 <tr>
 	<td class="content2-pagetitle">
-		<img src="tpl/stdstyle/images/blue/write.png" class="icon32" alt="" /><font size="4" /> {{add_comment_OCTeam_label}} "<a href="viewcache.php?cacheid={cacheid}">{cachename}</a>"</font>
+		<img src="tpl/stdstyle/images/blue/write.png" class="icon32" alt="" /><font size="4"> {{add_comment_OCTeam_label}} "<a href="viewcache.php?cacheid={cacheid}">{cachename}</a>"</font>
 	</td>
 </tr>
 <tr><td class="spacer" colspan="2"></td></tr>

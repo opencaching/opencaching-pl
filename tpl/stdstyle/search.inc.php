@@ -32,14 +32,14 @@
  	$caches_newstring = '<b>NOWA</b>&nbsp;';
  	$caches_olddays = 7;
 
-	$next_img = '<img src="'.$stylepath.'/images/action/16x16-next.png" alt="&gt;" />';
-	$prev_img = '<img src="'.$stylepath.'/images/action/16x16-prev.png" alt="&lt;" />';
-	$last_img = '<img src="'.$stylepath.'/images/action/16x16-last.png" alt="&gt;&gt;" />';
-	$first_img = '<img src="'.$stylepath.'/images/action/16x16-first.png" alt="&lt&lt;;" />';
-	$next_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-next_inactive.png" alt="&gt;" />';
-	$prev_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-prev_inactive.png" alt="&lt;" />';
-	$last_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-last_inactive.png" alt="&gt;&gt;" />';
-	$first_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-first_inactive.png" alt="&lt&lt;" />';
+	$next_img = '<img src="'.$stylepath.'/images/action/16x16-next.png" alt="&gt;">';
+	$prev_img = '<img src="'.$stylepath.'/images/action/16x16-prev.png" alt="&lt;">';
+	$last_img = '<img src="'.$stylepath.'/images/action/16x16-last.png" alt="&gt;&gt;">';
+	$first_img = '<img src="'.$stylepath.'/images/action/16x16-first.png" alt="&lt&lt;;">';
+	$next_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-next_inactive.png" alt="&gt;">';
+	$prev_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-prev_inactive.png" alt="&lt;">';
+	$last_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-last_inactive.png" alt="&gt;&gt;">';
+	$first_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-first_inactive.png" alt="&lt&lt;">';
 	
  	$bgcolor1 = 'bgcolor1';			// even lines
  	$bgcolor2 = 'bgcolor2';			// odd lines
@@ -48,9 +48,9 @@
 	$bgcolor_inactive = "#fafafa";	// if cache is inactive
 
  	$logdateformat = 'd.m.Y';
- 	$logpics[1] = '<img alt="Znaleziona" border="0" src="images/ok.gif" />';
- 	$logpics[2] = '<img alt="Nie znaleziona" border="0" src="images/redcross.gif" />';
- 	$logpics[3] = '<img alt="Komentarz" border="0" src="images/info.gif" />';
+ 	$logpics[1] = '<img alt="Znaleziona" border="0" src="images/ok.gif">';
+ 	$logpics[2] = '<img alt="Nie znaleziona" border="0" src="images/redcross.gif">';
+ 	$logpics[3] = '<img alt="Komentarz" border="0" src="images/info.gif">';
 
  	$diffpics[2] = 'diff-10.gif';
  	$diffpics[3] = 'diff-15.gif';

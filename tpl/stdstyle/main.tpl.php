@@ -68,7 +68,7 @@ function chname( newName )
   <div class="page-container-1">
   	<!-- HEADER -->
 		<!-- OC-Logo -->
-		<div><img src="./images/oc_logo.png" alt="" style="margin-top:5px; margin-left:3px;" /></div />
+		<div><img src="./images/oc_logo.png" alt="" style="margin-top:5px; margin-left:3px;" /></div>
     <!-- Sitename -->
 		<div class="site-name">
       <p class="title"><a href="index.php">OPENCACHING.pl</a></p>

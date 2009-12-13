@@ -29,7 +29,7 @@
 <input type="hidden" name="commit" value="1"/>
 <input type="hidden" name="logid" value="{logid}"/>
 <table class="table">
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" /> <b />Kasowanie wpisu z lohu dla <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" /> <b>Kasowanie wpisu z lohu dla <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 	<tr><td class="buffer"></td></tr>
 
 	<tr><td>Czy na pewno chcesz usunąć wpis z logu?</td></tr>

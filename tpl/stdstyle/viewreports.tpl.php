@@ -1,4 +1,4 @@
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" align="middle"/>&nbsp;Zgłoszenia problemów</div />
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" align="middle"/>&nbsp;Zgłoszenia problemów</div>
 	<div class="buffer"></div>
 	<p>[Przejdź do <a href="viewreports.php?archiwum={archiwum}">{arch_curr}</a>]</p>
 		<input type="hidden" name="cacheid" value="{cacheid}"/>

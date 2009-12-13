@@ -47,7 +47,7 @@
 				</div>
 				<div class="content2-container-2col-left" style="width:60px; clear: left;">
 
-					<div><img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/></div />
+					<div><img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/></div>
 					<div>{difficulty_icon_diff}</div><div>{difficulty_icon_terr}</div>
 
 
