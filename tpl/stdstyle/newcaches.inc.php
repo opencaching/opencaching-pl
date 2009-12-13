@@ -34,5 +34,5 @@
  $last_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-last_inactive.png" alt="&gt;&gt;"/>';
  $first_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-first_inactive.png" alt="&lt;&lt;"/>';
  
- $tpl_line = '<tr><td>{date}</td><td class="img-shadow"><img src="images/flags/{country}.gif" border="0" alt="Country" title="Country" style="margin-top:4px;" /></td><td><img src="{imglink}" width="16" height="16" border="0" alt="Cache" title="Cache" style="margin-top:4px;" /></td><td><b><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td><td><b><a href="viewprofile.php?userid={userid}">{username}</a></b></td></tr>';
+ $tpl_line = '<tr><td>{date}</td><td><img src="images/flags/{country}.gif" border="0" alt="Country" title="Country" style="margin-top:4px;" /></td><td><img src="{imglink}" width="16" height="16" border="0" alt="Cache" title="Cache" style="margin-top:4px;" /></td><td><b><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td><td><b><a href="viewprofile.php?userid={userid}">{username}</a></b></td></tr>';
 ?>
