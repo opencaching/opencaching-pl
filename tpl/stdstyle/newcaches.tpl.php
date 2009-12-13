@@ -12,15 +12,25 @@
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Cache" title="Cache" align="middle"/>&nbsp;{{newcaches_label}}</div>
 <!-- Text container -->
-<div class="content2-container line-box">
-	<p class="line-box">
-		{pages}
-	</p>
-	<p class="line-box">
-		{newcaches}
-	</p>
 	<p>
 		{pages}
 	</p>
-</div>
+<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;" width="97%">
+<tr>
+<td><strong>Data</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><strong>Cache</strong></td>
+<td><strong>User</strong></td>
+</tr>
+<tr>
+<td colspan="5"><hr></hr></td>
+</tr>
+		{newcaches}
+<td colspan="5"><hr></hr></td>
+</tr>
+</table>
+	<p>
+		{pages}
+	</p>
 <!-- End Text Container -->
