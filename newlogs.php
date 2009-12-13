@@ -142,43 +142,30 @@ if ($error == false)
 	{
 		foreach ($newlogs AS $countryname => $country_record)
 		{
-			$file_content .= '<p class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</p>';
+			$file_content .= '<tr><td colspan="6" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
 
 			foreach ($country_record AS $log_record)
 			{
 
-				$file_content .= "<p>";
-				$file_content .= htmlspecialchars(date("d.m.Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8');
-				$file_content .= ' <img src="/tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" />&nbsp;';
-				$file_content .= ' <img src="/tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/>&nbsp;';
+				$file_content .= '<tr>';
+				$file_content .= '<td>'. htmlspecialchars(date("d.m.Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+				$file_content .= '<td><img src="/tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
         //$rating_picture
-				if ($log_record['recommended'] == 1) {
-					$file_content .= ' <img src="/images/rating-star.png" border="0" alt=""/>';
-				}	
-				$file_content .= ' - <a href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a>';
+				if ($log_record['recommended'] == 1) 
+					{
+					$file_content .= '<td><img src="/images/rating-star.png" border="0" alt=""/></td>';
+					}
+					else
+					{
+					$file_content .= '<td>&nbsp;</td>';
+					}			
+				$file_content .= '<td><img src="/tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
+	
+				$file_content .= '<td><a href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></td>';
 
-				switch( $log_record['log_type'] )
-				{
-					case 1:
-						$file_content .=' - '.tr("found_it"); 
-					break;
-					case 2:
-						$file_content .= ' - '.tr("did_not_find_it");
-					break;
-					case 3:
-						$file_content .= ' - '.tr("write_note");
-					break;
-					case 7:
-						$file_content .= ' - '.tr("attended");
-					break;
-					case 8:
-						$file_content .= ' - '.tr("will_attended");
-					break;
-				}
-				$file_content .= '&nbsp;<a href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a>';
+				$file_content .= '<td><a href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></td>';
 
-				$file_content .= "</p>";
-				$file_content .= "\n";
+				$file_content .= "</tr>";
 			}
 		}
 	}
