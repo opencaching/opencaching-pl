@@ -129,6 +129,7 @@
 					`cache_logs`.`text` AS `text`,
 					`cache_logs`.`text_html` AS `text_html`,
 					`user`.`username` AS `username`,
+                    `user`.`admin` AS `admin`,
 					`log_types`.`icon_small` AS `icon_small`,
 					`log_types_text`.`text_listing` AS `text_listing`,
 			    IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
@@ -182,14 +183,14 @@
 				$tmpnewpic = mb_ereg_replace('{logid}', $record['log_id'], $upload_picture);
 				if( $record['deleted']!=1 )
 				{
-					if( $usr['admin']) 
-					{
-						$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $functions_end;
-					} 
-					else if ($record['user_id'] == $usr['userid'])
+					if ($record['user_id'] == $usr['userid'])
 					{
 						$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $tmpnewpic . $functions_end;
 					}
+					else if( $usr['admin']) 
+					{
+						$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $functions_end;
+					} 
 					elseif ($owner_id == $usr['userid'])
 					{
 						$logfunctions = $functions_start . $tmpremove . $functions_end;
@@ -216,7 +217,7 @@
                         $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
 
-						if ($pic_record['user_id'] == $usr['userid'])
+						if ($pic_record['user_id'] == $usr['userid'] || $usr['admin'])
 						{
 							$thisfunctions = $remove_picture;
 							$thisfunctions = mb_ereg_replace('{uuid}', urlencode($pic_record['uuid']), $thisfunctions);

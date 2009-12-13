@@ -747,6 +747,7 @@
 			                  `cache_logs`.`picturescount` `picturescount`,
 							  `cache_logs`.`mp3count` `mp3count`,
 			                  `user`.`username` `username`,
+                              `user`.`admin` `admin`,
 			                  `log_types`.`icon_small` `icon_small`,
 			                  `log_types_text`.`text_listing` `text_listing`,
 			                  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
@@ -802,7 +803,7 @@
 						$thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
 						$thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
-						if ($pic_record['user_id'] == $usr['userid'])
+						if ($pic_record['user_id'] == $usr['userid'] || $user['admin'])
 							$thisline = mb_ereg_replace('{functions}', mb_ereg_replace('{uuid}', $pic_record['uuid'], $remove_picture), $thisline);
 						else
 							$thisline = mb_ereg_replace('{functions}', '', $thisline);

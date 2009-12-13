@@ -1,4 +1,5 @@
-<div id="map_canvas" style="width: 100%; height: 100%; position: absolute;">
+
+<div id="map_canvas" style="width: 100%; height: 100%; position: absolute; top: 0p; bottom: 0px;">
 </div>
 
 <!--
@@ -34,6 +35,8 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 
 
 -->
+
+
 
 <input class="chbox" id="zoom" name="zoom" value="{zoom}" type="hidden" />
 
