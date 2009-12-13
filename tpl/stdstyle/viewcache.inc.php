@@ -96,7 +96,7 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
 
  $default_lang = 'PL';
 
- $event_attendance_list = '<br /><b><font color="blue"><a href="#" onclick="javascript:window.open(\'event_attendance.php?id={id}&amp;popup=y\',\'Lista_zapisanych_uczestnikow\',\'width=320,height=440,resizable=no,scrollbars=1\')">'.tr('list_of_participants').'</a></b></font>';
+ $event_attendance_list = '<span class="participants"><a href="#" onclick="javascript:window.open(\'event_attendance.php?id={id}&amp;popup=y\',\'Lista_zapisanych_uczestnikow\',\'width=320,height=440,resizable=no,scrollbars=1\')">'.tr('list_of_participants').'</span>';
 # $event_attendance_list = '<br /><a href="#" onclick="javascript:window.open(\'event_attendance.php?id={id}&amp;popup=y\',\'Lista_zapisanych_uczestnikow\',\'width=320,height=440,resizable=no,scrollbars=1\')">Lista zapisanych uczestnikow</a>';
  
  $event_attended_text = " ".tr('attendends');
