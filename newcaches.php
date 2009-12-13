@@ -64,6 +64,8 @@
 						LIMIT ' . ($startat+0) . ', ' . ($perpage+0));
 		while ($r = sql_fetch_array($rs))
 		{
+			$rss = sql("SELECT `en` `country_name` FROM `countries` WHERE `short` = '&1'",$r['country']);
+			$rr = sql_fetch_array($rss);
 			$thisline = $tpl_line;
 			$thisline = mb_ereg_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = mb_ereg_replace('{userid}', $r['userid'], $thisline);
@@ -72,7 +74,7 @@
 			$thisline = mb_ereg_replace('{date}', date('d.m.Y', strtotime($r['date'])), $thisline);
 			$thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($r['icon_large']), $thisline);
-//			$thisline = mb_ereg_replace('{{hidden_by}}', htmlspecialchars(tr('created_by'), ENT_COMPAT, 'UTF-8'), $thisline);
+			$thisline = mb_ereg_replace('{country_name}', htmlspecialchars($rr['country_name'], ENT_COMPAT, 'UTF-8'), $thisline);
 			
 
 			$content .= $thisline . "\n";
