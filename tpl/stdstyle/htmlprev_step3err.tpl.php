@@ -26,7 +26,7 @@
  ****************************************************************************/
 ?>
 <table class="content">
-	<tr><td class="header"><img src="tpl/stdstyle/images/misc/32x32-tools.png" class="icon32" alt="HTML-Vorschau" title="HTML-Vorschau" align="middle"><font size="4">  <b>HTML Vorschau</b></font></td></tr>
+	<tr><td class="header"><img src="tpl/stdstyle/images/misc/32x32-tools.png" class="icon32" alt="HTML-Vorschau" title="HTML-Vorschau" align="middle" /><font size="4">  <b>HTML Vorschau</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 	<tr>
 	<td>

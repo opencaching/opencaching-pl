@@ -56,7 +56,7 @@
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="" title="Cache" align="middle"> <b>{mp3typedesc}: </b><font size="2"><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></font></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt="" title="Cache" align="middle" /> <b>{mp3typedesc}: </b><font size="2"><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></font></td></tr>
 
 	<tr><td class="spacer" colspan="2"><br /><br /></td></tr>
 	<tr>
@@ -79,7 +79,7 @@
 
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.png" border="0" alt="Uwaga" title="Uwaga"> Następujacy format pliku jest akceptowany: MP3. Maksymalna wielkość pliku dozwolona 5 Mb. Zalecane jakość MP3 22kHZ MONO.</td>
+		<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.png" border="0" alt="Uwaga" title="Uwaga" /> Następujacy format pliku jest akceptowany: MP3. Maksymalna wielkość pliku dozwolona 5 Mb. Zalecane jakość MP3 22kHZ MONO.</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 

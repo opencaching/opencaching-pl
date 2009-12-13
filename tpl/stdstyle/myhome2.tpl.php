@@ -27,7 +27,7 @@
 ?>
 <table class="content">
 
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/blue.png" alt="Moje konto" title="Moje konto" /><font size="4">  <b>Logi {username}</b></font></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/blue.png" alt="Moje konto" title="Moje konto" /><font size="4" />  <b>Logi {username}</b></font></td></tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>

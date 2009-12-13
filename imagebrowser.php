@@ -25,7 +25,7 @@
 			if ($colcount == 0)
 				$pictures .= '<tr height="' . ($thumb_max_height + 5) . 'px">';
 			
-			$pictures .= '<td valign="middle" align="center" width="' . ($thumb_max_width + 5) . 'px"><a href="javascript:SelectFile(\'' . $rPictures['url'] . '\', \'' . $absolute_server_URI . 'thumbs.php?showspoiler=1&uuid=' . $rPictures['uuid'] . '\');"><img border="0" rel="lightbox" src="thumbs.php?showspoiler=1&uuid=' . $rPictures['uuid'] . '" title="' . addslashes($rPictures['title']) . '" alt="' . addslashes($rPictures['title']) . '" /></a></td>';
+			$pictures .= '<td valign="middle" align="center" width="' . ($thumb_max_width + 5) . 'px"><a href="javascript:SelectFile(\'' . $rPictures['url'] . '\', \'' . $absolute_server_URI . 'thumbs.php?showspoiler=1&uuid=' . $rPictures['uuid'] . '\');"><img border="0" rel="lightbox" src="thumbs.php?showspoiler=1&uuid=' . $rPictures['uuid'] . '" title="' . addslashes($rPictures['title']) . '" alt="' . addslashes($rPictures['title']) . '" /></a /></td>';
 			
 			$colcount++;
 			if ($colcount == 2)

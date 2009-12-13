@@ -102,7 +102,7 @@ return true;
 <!-- Text container -->
 			<div class="content2-container line-box">
 				<div class="content2-container-2col-left" id="new-caches-area">
-					<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cachesuche" title="Cachesuche" align="middle" />&nbsp;{{newest_caches}}</p>
+					<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cachesuche" title="Cachesuche" align="middle" />&nbsp;{{newest_caches}}</p />
 					<div class="content-txtbox-noshade">
 						<?php
 							global $dynstylepath;
@@ -122,7 +122,7 @@ return true;
 <!-- Text container -->
 			<div class="content2-container line-box">
 				<div class="content2-container-2col-left" id="new-events-area">
-				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Cachesuche" title="Cachesuche" align="middle" />&nbsp;{{incomming_events}}</p>
+				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Cachesuche" title="Cachesuche" align="middle" />&nbsp;{{incomming_events}}</p />
 		<?php
 			global $dynstylepath;
 			include ($dynstylepath . "nextevents.inc.php");

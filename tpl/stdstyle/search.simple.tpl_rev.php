@@ -238,7 +238,7 @@ function switchCat2()
 			<col width="200">
 			<col>
 		</colgroup>
-		<tr><td class="header" colspan="3"><img src="tpl/stdstyle/images/cache/traditional.gif" class="icon32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"><font size="4">  <b>Szukanie skrzynek</b></font></td></tr>
+		<tr><td class="header" colspan="3"><img src="tpl/stdstyle/images/cache/traditional.gif" class="icon32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle" /><font size="4">  <b>Szukanie skrzynek</b></font></td></tr>
 		<tr><td class="spacer" colspan="3"><span id="scriptwarning" class="errormsg">Obsługa JavaScript są wyłączone przez co możesz mieć wiele funkcji obsługi tego serwisu niedostepne.</span></td></tr>
 		<tr>
 			<td>Wynik szukania sortuj wg:</td>
@@ -251,7 +251,7 @@ function switchCat2()
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
-			<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" align="middle">Odległość użyteczna wtedy gdy dane oraz wspołrzędne własne są wprowadzone.
+			<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" align="middle" />Odległość użyteczna wtedy gdy dane oraz wspołrzędne własne są wprowadzone.
 			</td>
 		</tr>
 		<tr>
@@ -266,7 +266,7 @@ function switchCat2()
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
-			<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" align="middle">Użyteczne jeśli dane wprowadzone.
+			<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" align="middle" />Użyteczne jeśli dane wprowadzone.
 			</td>
 		</tr>
 		<tr>

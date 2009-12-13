@@ -26,7 +26,7 @@
   {
 $widthB = round(200 * ($rs[count]/$rsmax[count])/1,0);
 
-$line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b>)&nbsp;&nbsp;</td><td><img src=/graphs/images/leftbar.gif><img src=/graphs/images/mainbar.gif height=14 width={widthB}><img src=/graphs/images/rightbar.gif> </td></tr>';		
+$line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b>)&nbsp;&nbsp;</td><td><img src=/graphs/images/leftbar.gif /><img src=/graphs/images/mainbar.gif height=14 width={widthB} /><img src=/graphs/images/rightbar.gif /> </td></tr>';		
 		$line = str_replace('{widthB}', $widthB, $line);
 		$line = str_replace('{name}', $rs[username], $line);
 		$line = str_replace('{count1}', $rs[count], $line);
@@ -57,7 +57,7 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `type`=1 AND `deleted
   {
 $widthB = round(200 * ($rs[count]/$rsmax[count])/1,0);
 
-$line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b>)&nbsp;&nbsp;</td><td><img src=/graphs/images/leftbar.gif><img src=/graphs/images/mainbar.gif height="14" width="{widthB}"><img src=/graphs/images/rightbar.gif> </td></tr>';		
+$line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b>)&nbsp;&nbsp;</td><td><img src=/graphs/images/leftbar.gif /><img src=/graphs/images/mainbar.gif height="14" width="{widthB}" /><img src=/graphs/images/rightbar.gif /> </td></tr>';		
 		$line = str_replace('{widthB}', $widthB, $line);
 		$line = str_replace('{name}', $rs[username], $line);
 		$line = str_replace('{count1}', $rs[count], $line);
@@ -83,7 +83,7 @@ $line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b
   {
 $widthB = round(200 * ($rs[count]/$rsmax[count])/1,0);
 
-$line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b>)&nbsp;&nbsp;</td><td><img src=/graphs/images/leftbar.gif><img src=/graphs/images/mainbar.gif height="14" width="{widthB}"><img src=/graphs/images/rightbar.gif> </td></tr>';		
+$line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b>)&nbsp;&nbsp;</td><td><img src=/graphs/images/leftbar.gif /><img src=/graphs/images/mainbar.gif height="14" width="{widthB}" /><img src=/graphs/images/rightbar.gif /> </td></tr>';		
 		$line = str_replace('{widthB}', $widthB, $line);
 		$line = str_replace('{name}', $rs[username], $line);
 		$line = str_replace('{count1}', $rs[count], $line);
@@ -106,7 +106,7 @@ $line = '<tr><td align="left"><b>{name}</b></td> <td>&nbsp;&nbsp;(<b>{count1}</b
   {
 $widthB = round(100 * ($rs[count]/$rsmax[count])/1,0);
 
-$line = '<tr><td><a href=http://www.opencaching.pl/viewcache.php?cacheid={cacheid} target=_blank>{name}</a> (<b>{username}</b>)</td><td align=right>&nbsp;(<b>{count1}</b>)&nbsp;</td><td><img src=/graphs/images/leftbar.gif><img src=/graphs/images/mainbar.gif height=14 width={widthB}><img src=/graphs/images/rightbar.gif> </td> </tr>';		
+$line = '<tr><td><a href=http://www.opencaching.pl/viewcache.php?cacheid={cacheid} target=_blank>{name}</a> (<b>{username}</b>)</td><td align=right>&nbsp;(<b>{count1}</b>)&nbsp;</td><td><img src=/graphs/images/leftbar.gif /><img src=/graphs/images/mainbar.gif height=14 width={widthB} /><img src=/graphs/images/rightbar.gif /> </td> </tr>';		
 		$line = str_replace('{count1}', $rs[count], $line);
 		$line = str_replace('{username}', $rs[username], $line);
 		$line = str_replace('{widthB}', $widthB, $line);

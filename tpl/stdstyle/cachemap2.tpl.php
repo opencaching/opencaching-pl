@@ -265,7 +265,7 @@ function load_data(page) {
 		else 
 		{
 			print_topratings = "<br /><b>{{recommendations}}: </b>";
-			var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\">";
+			var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\" />";
 			var i=0;
 			for( i=0;i<cache_topratings;i++)
 				print_topratings += gwiazdka;
@@ -304,7 +304,7 @@ function load_data(page) {
 			var infoWindowContent = "";
 			infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\">";
 			infoWindowContent += "<tr><td colspan=\"2\" width=\"100%\"><table cellspacing=\"0\" width=\"100%\"><tr><td width=\"90%\" align=\"left\">";
-			infoWindowContent += "<center><img align=\"left\" width=\"20\" height=\"20\" src=\"tpl/stdstyle/images/cache/"+typeToImageName(cache_type, cache_status)+"\"></center>";
+			infoWindowContent += "<center><img align=\"left\" width=\"20\" height=\"20\" src=\"tpl/stdstyle/images/cache/"+typeToImageName(cache_type, cache_status)+"\" /></center>";
 			infoWindowContent += "&nbsp;<a href=\"" + foreign_address + "viewcache.php?cacheid=" + cache_id + "\" target=\"_blank\">" + cache_name + "</a></font>";
 			infoWindowContent += "</td><td width=\"10%\">";
 			infoWindowContent += "<b>"+cache_wp+"</b></td></tr></table>";
@@ -314,10 +314,10 @@ function load_data(page) {
 			
 			infoWindowContent += "</td>";
 			infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\"><tr><td width=\"100%\">";
-			infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_founds+" x {{found}}</nobr></td></tr>";
-			infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_notfounds+" x {{not_found}}</nobr><nobr></td></tr>";
+			infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\" /> "+cache_founds+" x {{found}}</nobr></td></tr>";
+			infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\" /> "+cache_notfounds+" x {{not_found}}</nobr><nobr></td></tr>";
 			if( getForeignAddress(cache_wp)=="" )
-				infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_votes+" x {{scored}}</nobr>";
+				infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\" /> "+cache_votes+" x {{scored}}</nobr>";
 			infoWindowContent += "</td></tr></table></td></tr>";
 			infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
 			if( getForeignAddress(cache_wp)=="" )
@@ -384,7 +384,7 @@ function load_data(page) {
 				else 
 				{
 					print_topratings = "<br /><b>{{recommendations}}: </b>";
-					var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}\">";
+					var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}\" />";
 					var ii;
 					for( ii=0;ii<cache_topratings;ii++)
 						print_topratings += gwiazdka;
@@ -405,10 +405,10 @@ function load_data(page) {
 					
 					infoWindowContent += "</td>";
 					infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\"><tr><td width=\"100%\">";
-					infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_founds+" x {{found}}</nobr></td></tr>";
-					infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_notfounds+" x {{not_found}}</nobr><nobr></td></tr>";
+					infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\" /> "+cache_founds+" x {{found}}</nobr></td></tr>";
+					infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\" /> "+cache_notfounds+" x {{not_found}}</nobr><nobr></td></tr>";
 					if( getForeignAddress(cache_wp)=="" )
-						infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\"> "+cache_votes+" x {{scored}}</nobr>";
+						infoWindowContent += "<tr><td width=\"100%\"><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\" /> "+cache_votes+" x {{scored}}</nobr>";
 					infoWindowContent += "</td></tr></table></td></tr>";
 					infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
 					if( getForeignAddress(cache_wp)=="" )

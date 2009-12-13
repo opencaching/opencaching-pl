@@ -36,7 +36,7 @@
 	 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" alt="" title="{{your_account}}" class="icon32"/>&nbsp;{{register_new}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" alt="" title="{{your_account}}" class="icon32"/>&nbsp;{{register_new}}</div />
 
 <form name="register" action="register.php" method="post" enctype="application/x-www-form-urlencoded" style="display: inline;" id="register">
 <input type="hidden" name="allcountries" value="{show_all_countries}" />
