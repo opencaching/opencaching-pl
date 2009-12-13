@@ -33,8 +33,8 @@
 	$bgcolor1 = '#eeeeee';
 	$bgcolor2 = '#e0e0e0';
 	
-	$ignoree = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap>[<a href="removeignore.php?cacheid={cacheid}&target=myignores.php">Remove Ignore</a>]</td></tr>';
-	$ignoreo = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap>[<a href="removeignore.php?cacheid={cacheid}&target=myignores.php">Remove Ignore</a>]</td></tr>';
+	$ignoree = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap="nowrap">[<a href="removeignore.php?cacheid={cacheid}&target=myignores.php">Remove Ignore</a>]</td></tr>';
+	$ignoreo = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap="nowrap">[<a href="removeignore.php?cacheid={cacheid}&target=myignores.php">Remove Ignore</a>]</td></tr>';
 	$no_ignores = '<div class="notice">You do not have any ignored caches</div>';
 	$title_text = 'Ignored caches';
 	

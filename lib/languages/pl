@@ -505,3 +505,8 @@ no_not_published_caches Nie ma nieopublikowanych skrzynek
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
+stat_picture Obrazek statystyk
+show_in_google_maps Pokaż w Google Maps
+download_for_various_apps Pobierz wykaz dla różnych aplikacji
+download Pobierz
+listing_from_to Wykaz od {startatp1} do {endat}

@@ -59,7 +59,7 @@
 	</tr>
 	<tr>
 		<td class="content-title-noshade">{{statpic_label}}:</td>
-		<td class="content-title-noshade"><img src="statpics/{userid}.jpg" align="middle" /></td>
+		<td class="content-title-noshade"><img src="statpics/{userid}.jpg" align="middle" alt=""/></td>
 	</tr>
 	<tr><td class="buffer"></td></tr>
 	<tr>
@@ -78,7 +78,7 @@
 		<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found_caches}}" title="Znalezione"/>&nbsp;{{found_caches}}:</p></td>
 		<td>
 		<p class="content-title-noshade-size2">{founds}
-			<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;finderid={userid}&amp;searchbyfinder=&logtype=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0" style="color: rgb(102, 102, 102); font-size: 12px;">{{show_all}}</a>
+			<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;finderid={userid}&amp;searchbyfinder=&amp;logtype=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0" style="color: rgb(102, 102, 102); font-size: 12px;">{{show_all}}</a>
 			</p>
 		</td>
 	</tr>
@@ -93,7 +93,7 @@
 		<td>
 		<p class="content-title-noshade-size2">
 			{not_founds}
-			<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;finderid={userid}&amp;searchbyfinder=&logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0" style="color: rgb(102, 102, 102); font-size: 12px;">{{show_all}}</a>
+			<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;finderid={userid}&amp;searchbyfinder=&amp;logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0" style="color: rgb(102, 102, 102); font-size: 12px;">{{show_all}}</a>
 		</p>
 		</td>
 	</tr>

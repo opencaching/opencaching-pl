@@ -52,7 +52,7 @@
 	tpl_set_var('results_count', $r['count']);
 
 	//build lines
-	$cache_line = read_file($stylepath . '/search.result.caches.row.tpl.php');
+	$cache_line = tpl_do_translate(read_file($stylepath . '/search.result.caches.row.tpl.php'));
 	$caches_output = '';
 
 	/*
@@ -233,11 +233,11 @@ $login=0;
 		$aLangs = mb_split(',', $caches_record['desc_languages']);
 		foreach ($aLangs AS $thislang)
 		{
-			$desclangs .= '<a href="viewcache.php?cacheid=' . urlencode($caches_record['cache_id']) . '&desclang=' . urlencode($thislang) . '" style="text-decoration:none;"><b><font color="blue">' . htmlspecialchars($thislang, ENT_COMPAT, 'UTF-8') . '</font></b></a> ';
+			$desclangs .= '<a href="viewcache.php?cacheid=' . urlencode($caches_record['cache_id']) . '&amp;desclang=' . urlencode($thislang) . '" style="text-decoration:none;"><b><font color="blue">' . htmlspecialchars($thislang, ENT_COMPAT, 'UTF-8') . '</font></b></a> ';
 		}
 		$tmpline = str_replace('{desclangs}', $desclangs, $tmpline);
 		if($usr || !$hide_coords)
-			$tmpline = str_replace('{sendtogps}', ("<a href=\"#\" onClick=\"javascript:window.open('garmin.php?lat=".$caches_record['latitude']."&long=".$caches_record['longitude']."&wp=".$caches_record['wp_oc']."&name=".$caches_record['name']."&popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><img src='/images/garmin.jpg' alt='Send to GPS' title='Wyślij do GPS' border='0' /></a>"), $tmpline);
+			$tmpline = str_replace('{sendtogps}', ("<a href=\"#\" onclick=\"javascript:window.open('garmin.php?lat=".$caches_record['latitude']."&amp;long=".$caches_record['longitude']."&amp;wp=".$caches_record['wp_oc']."&amp;name=".urlencode($caches_record['name'])."&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><img src='/images/garmin.jpg' alt='Send to GPS' title='Wyślij do GPS' border='0' /></a>"), $tmpline);
 		else
 			$tmpline = str_replace('{sendtogps}', "", $tmpline);
 		$tmpline = str_replace('{cachename}', htmlspecialchars($caches_record['name'], ENT_COMPAT, 'UTF-8'), $tmpline);
@@ -276,7 +276,7 @@ $login=0;
 	//more than one page?
 	if ($startat > 0)
 	{
-		$pages = '<a href="search.php?queryid=' . $options['queryid'] . '&startat=0">{first_img}</a> <a href="search.php?queryid=' . $options['queryid'] . '&startat=' . ($startat - $caches_per_page) . '">{prev_img}</a> ';
+		$pages = '<a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=0">{first_img}</a> <a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=' . ($startat - $caches_per_page) . '">{prev_img}</a> ';
 	}
 	else
 	{
@@ -299,13 +299,13 @@ $login=0;
 		}
 		else
 		{
-			$pages .= ' <a href="search.php?queryid=' . $options['queryid'] . '&startat=' . (($i - 1) * $caches_per_page) . '">' . $i . '</a>';
+			$pages .= ' <a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=' . (($i - 1) * $caches_per_page) . '">' . $i . '</a>';
 		}
 	}
 
 	if ($startat / $caches_per_page < ($maxpage - 1))
 	{
-		$pages .= ' <a href="search.php?queryid=' . $options['queryid'] . '&startat=' . ($startat + $caches_per_page) . '">{next_img}</a> <a href="search.php?queryid=' . $options['queryid'] . '&startat=' . (($maxpage - 1) * $caches_per_page) . '">{last_img}</a> ';
+		$pages .= ' <a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=' . ($startat + $caches_per_page) . '">{next_img}</a> <a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=' . (($maxpage - 1) * $caches_per_page) . '">{last_img}</a> ';
 	}
 	else
 	{
@@ -322,7 +322,7 @@ $login=0;
 	$pages = mb_ereg_replace('{first_img_inactive}', $first_img_inactive, $pages);
 	$pages = mb_ereg_replace('{last_img_inactive}', $last_img_inactive, $pages);
 	
-	//'<a href="search.php?queryid=' . $options['queryid'] . '&startat=20">20</a> 40 60 80 100';
+	//'<a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=20">20</a> 40 60 80 100';
 	//$caches_per_page
 	//count($caches) - 1
 	tpl_set_var('pages', $pages);

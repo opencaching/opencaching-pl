@@ -9,7 +9,7 @@
                 unlockOnPageLoad: false,
                 hideIfBrowserNotSupported: false,
                 showStatusElement: true,
-		poweredByGarmin: "Powered by <a href='http://www.opencaching.pl' target='_new'>OpenCaching PL</a>  &  <a href='http://www.garmin.com/products/communicator/' target='_new'>Garmin Communicator</a>",
+		poweredByGarmin: "Powered by <a href='http://www.opencaching.pl' target='_new'>OpenCaching PL</a>  &  <a href='http://www.garmin.com/products/communicator/' target='_blank'>Garmin Communicator</a>",
 		noDeviceDetectedStatusText: "Nie znalazłem GPSa",
 		lookingForDevices: "Szukam podłączonego GPS",
                 autoFindDevices: false,

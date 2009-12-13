@@ -63,7 +63,7 @@
 						{difficulty_icon_terr}
 					</td>
 					<td valign="top">
-						Skrzynka <b>{cachename}</b> założona przez <b>{owner_name}</b><br />
+						Skrzynka <b>{cachename}</b> {{created_by}} <b>{owner_name}</b><br />
 						Krótki opis: {short_desc}
 						<font size="1"><br /></font>
 					</td>
@@ -92,7 +92,7 @@
 							</tr>
 						</table>
 					</td>
-					<td valign="top" nowrap>
+					<td valign="top" nowrap="nowrap">
 						<script type="text/javascript">
 						//<![CDATA[
 						function load() {

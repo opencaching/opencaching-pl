@@ -636,7 +636,7 @@ session_start();
 	function handle_translation_clause($matches)
 	{
 		$clause = substr($matches[0], 2, strlen($matches[0])-4);;
-		return tr($clause);
+		return tpl_do_replace(tr($clause));
 	}
 
 	function tpl_do_translate($str)

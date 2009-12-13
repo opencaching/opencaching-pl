@@ -51,27 +51,27 @@
   <th class="head" colspan=2 align="left">Poziom trudności zadania: <em><?php echo ($Difficulty + 1); ?></em></th>
 </tr>
 <tr>
-  <td class="odd" align="right" nowrap>*</td>
+  <td class="odd" align="right" nowrap="nowrap">*</td>
   <td class="odd"><?php if ($Difficulty == 0) echo '<strong><em>'; ?>Łatwy. Łatwo widoczna i może być znaleziona w przeciągu paru minut poszukiwań.
       <?php if ($Difficulty == 0) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
-  <td class="even" align="right" nowrap>**</td>
+  <td class="even" align="right" nowrap="nowrap">**</td>
   <td class="even"><?php if ($Difficulty == 1) echo '<strong><em>'; ?>Średni. Przeciętny poszukiwacz skrzynek znajdzie ją w czasie mniejszym niż 30 min poszukiwań.
       <?php if ($Difficulty == 1) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
-  <td class="odd" align="right" nowrap>***</td>
+  <td class="odd" align="right" nowrap="nowrap">***</td>
   <td class="odd"><?php if ($Difficulty == 2) echo '<strong><em>'; ?>Wyzwanie. Doświadczonemu poszukiwaczowi skrzynek może zająć dużą część dnia na odszukanie skrzynki.
       <?php if ($Difficulty == 2) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
-  <td class="even" align="right" nowrap>****</td>
+  <td class="even" align="right" nowrap="nowrap">****</td>
   <td class="even"><?php if ($Difficulty == 3) echo '<strong><em>'; ?>Trudny. Prawdziwe wyzwanie dla doświadczonego poszukiwacza skrzynek. Może wymagać specjalnych umiejętności lub wiedzy lub gruntownego przygotowania do poszukiwań. Może wymagać wielu dni/wycieczek aby znaleźć skrzynkę.
       <?php if ($Difficulty == 3) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
-  <td class="odd" align="right" nowrap>*****</td>
+  <td class="odd" align="right" nowrap="nowrap">*****</td>
   <td class="odd"><?php if ($Difficulty == 4) echo '<strong><em>'; ?>Ekstremalne. Poważne psychczne lub fizyczne wyzwanie. Wymagające wyspecjalizowanej wiedzy i umiejętności lub sprzętu aby odnaleźć skrzynkę.
       <?php if ($Difficulty == 4) echo '</em></strong>'; ?></td>
 </tr>
@@ -82,27 +82,27 @@
   <th class="head" colspan=2 align="left">Poziom trudności terenu: <em><?php echo ($terrain + 1); ?></em></th>
 </tr>
 <tr>
-  <td class="odd" align="right" nowrap>*</td>
+  <td class="odd" align="right" nowrap="nowrap">*</td>
   <td class="odd"><?php if ($intTerr == 0) echo '<strong><em>'; ?>Dostępny dla niepełnosprawnych. Teren wybetonowany, utwardzony i stosunkowo płaski. Mniej niż 0.5 km wymagana jest wycieczka.
       <?php if ($intTerr == 0) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
-  <td class="even" align="right" nowrap>**</td>
+  <td class="even" align="right" nowrap="nowrap">**</td>
   <td class="even"><?php if ($intTerr == 1) echo '<strong><em>'; ?>Dostępny dla małych dzieci. Teren jest ogólnie wzdłuż oznakowanych szlaków. Nie ma stromych zmian elewacji terenu. Mniej niż 3 km wymagana wędrówka
       <?php if ($intTerr == 1) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
-  <td class="odd" align="right" nowrap>***</td>
+  <td class="odd" align="right" nowrap="nowrap">***</td>
   <td class="odd"><?php if ($intTerr == 2) echo '<strong><em>'; ?>Niedostępne dla małych dzieci. Przeciętny dorosły lub starsze dziecko powinno byc OK w zależności od kondycji. Teren możliwe jest że leży poza szlakami, drogami, mogą być strome zmiany elewacji terenu i więcej niż 3 km wędrówka wymagana.
       <?php if ($intTerr == 2) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
-  <td class="even" align="right" nowrap>****</td>
+  <td class="even" align="right" nowrap="nowrap">****</td>
   <td class="even"><?php if ($intTerr == 3) echo '<strong><em>'; ?>Tylko dla zaawasnowanych entuzajstów wycieczek. Teren jest pradopodobnie poza szlakami i drogami. Będzie posiadał jedną lub więcej nastepujących cech: bardzo nachylone elelwacje terenu (wymagające użycia rąk) i więcej niż 16 km wędrówka wymagana.       
   <?php if ($intTerr == 3) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
-  <td class="odd" align="right" nowrap>*****</td>
+  <td class="odd" align="right" nowrap="nowrap">*****</td>
   <td class="odd"><?php if ($intTerr == 4) echo '<strong><em>'; ?>Wymaga wyspecjalizowanego sprzętu i wiedzy lub doświadczenia (łódki, samochodu 4x4, wspinaczka na skałach, nurkowanie, itp) lub ogólnie jest ekstremalnie cięzki.
       <?php if ($intTerr == 4) echo '</em></strong>'; ?></td>
 </tr>

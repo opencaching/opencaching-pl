@@ -27,7 +27,7 @@
 
  	$outputformat_notexist = 'Output format does not exist!';
  	$error_query_not_found = 'The retrieval query could not be implemented, please enter the search data again.';
- 	$safelink = '<a href="query.php?action=save&queryid={queryid}">Save</a>';
+ 	$safelink = '<a href="query.php?action=save&amp;queryid={queryid}">Save</a>';
 
  	$caches_newstring = '<b>NEW</b>&nbsp;';
  	$caches_olddays = 7;
@@ -35,11 +35,11 @@
 	$next_img = '<img src="'.$stylepath.'/images/action/16x16-next.png" alt="&gt;" />';
 	$prev_img = '<img src="'.$stylepath.'/images/action/16x16-prev.png" alt="&lt;" />';
 	$last_img = '<img src="'.$stylepath.'/images/action/16x16-last.png" alt="&gt;&gt;" />';
-	$first_img = '<img src="'.$stylepath.'/images/action/16x16-first.png" alt="&lt&lt;;" />';
+	$first_img = '<img src="'.$stylepath.'/images/action/16x16-first.png" alt="&lt;&lt;;" />';
 	$next_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-next_inactive.png" alt="&gt;" />';
 	$prev_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-prev_inactive.png" alt="&lt;" />';
 	$last_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-last_inactive.png" alt="&gt;&gt;" />';
-	$first_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-first_inactive.png" alt="&lt&lt;" />';
+	$first_img_inactive = '<img src="'.$stylepath.'/images/action/16x16-first_inactive.png" alt="&lt;&lt;" />';
 	
  	$bgcolor1 = 'bgcolor1';			// even lines
  	$bgcolor2 = 'bgcolor2';			// odd lines

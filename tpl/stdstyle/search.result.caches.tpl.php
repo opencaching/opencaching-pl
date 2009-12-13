@@ -29,15 +29,15 @@
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Wyszukiwanie" title="Suchergebnis" align="middle" />&nbsp;Wyniki poszukiwań. Liczba znalezionych skrzynek: {results_count}</div>
 <div class="content-title-noshade">
 	<p align="left">
-		<img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt="Search results" title="Search results" align="middle"/>&nbsp;<a href="search.php?queryid={queryid}&showresult=0">Szukaj</a>&nbsp;&nbsp;
+		<img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt="Search results" title="Search results" align="middle"/>&nbsp;<a href="search.php?queryid={queryid}&amp;showresult=0">Szukaj</a>&nbsp;&nbsp;
 		<img src="tpl/stdstyle/images/blue/save.png" class="icon32" alt="Save results" title="Save results" align="middle"/>&nbsp;{safelink}<br/>
 		{pages}<br/>
 	</p>
 </div>
-<table class="content" border="0" cellspacing="0px" cellpadding="0px">
+<table class="content" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td colspan="2" style="padding-left: 0px; padding-right: 0px;">
-			<table border="0" cellspacing="0px" cellpadding="0px" class="null">
+			<table border="0" cellspacing="0" cellpadding="0" class="null">
 				<tr>
 				<td width="18" height="13" bgcolor="#E6E6E6">#</td>
 				<td width="15" height="13" bgcolor="#E6E6E6"><b>{distanceunit}</b></td>
@@ -64,44 +64,41 @@ $googlemaps = "";
 if ($usr || !$hide_coords){ echo "
 <table class=\"content\">
 	<tr>
-		<td width=\"230px\"><b>Pobierz</b></td>
+		<td width=\"230\"><b>".tr('download')."</b></td>
 		<td align=\"right\" style=\"padding-right:20px;\">
-			Wykaz z tej strony:
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=gpx&startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx\">GPX</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=gpxgc&startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=loc&startat=";?>{startat}<?php echo "\" title=\"Waypoint .loc\">LOC</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=kml&startat=";?>{startat}<?php echo "\" title=\"Google Earth .kml\">KML</a>
-			<a href='http://maps.google.pl/maps?f=q&hl=pl&geocode=&q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "' target='_new' title='Pokaż w Google Maps'>GoogleMaps</a> ";
-			echo "<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=ov2&startat=";?>{startat}<?php echo "\" title=\"TomTom POI .ov2\">OV2</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=ovl&startat=";?>{startat}<?php echo "\" title=\"TOP50-Overlay .ovl\">OVL</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=txt&startat=";?>{startat}<?php echo "\" title=\"Text .txt\">TXT</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=wpt&startat=";?>{startat}<?php echo "\" title=\"Oziexplorer .wpt\">WPT</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=uam&startat=";?>{startat}<?php echo "\" title=\"AutoMapa .uam\">UAM</a>
+			".tr('listing_from_this_page').":
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpx&amp;startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx\">GPX</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpxgc&amp;startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=loc&amp;startat=";?>{startat}<?php echo "\" title=\"Waypoint .loc\">LOC</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=kml&amp;startat=";?>{startat}<?php echo "\" title=\"Google Earth .kml\">KML</a>
+			<a href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> ";
+			echo "<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ov2&amp;startat=";?>{startat}<?php echo "\" title=\"TomTom POI .ov2\">OV2</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ovl&amp;startat=";?>{startat}<?php echo "\" title=\"TOP50-Overlay .ovl\">OVL</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=txt&amp;startat=";?>{startat}<?php echo "\" title=\"Text .txt\">TXT</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=wpt&amp;startat=";?>{startat}<?php echo "\" title=\"Oziexplorer .wpt\">WPT</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=uam&amp;startat=";?>{startat}<?php echo "\" title=\"AutoMapa .uam\">UAM</a>
 
 			</td>
 	</tr>
 	<tr>
-		<td width=\"230px\" class=\"help\">
-			Pobierz wykaz dla różnych aplikacji
+		<td width=\"230\" class=\"help\">
+			".tr('download_for_various_apps')."
 		</td>
-		<td align=\"right\" style=\"padding-right:20px;\">
-			Wykaz od";?> {startatp1}<?php echo" do ";?>{endat}<?php echo " :
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=gpx&startat=";?>{startat}<?php echo "&count=max&zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=gpxgc&startat=";?>{startat}<?php echo "&count=max&zip=1\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=loc&startat=";?>{startat}<?php echo "&count=max&zip=1\" title=\"Waypoint .loc\">LOC</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=kml&startat=";?>{startat}<?php echo "&count=max&zip=1\" title=\"Google Earth .kml\">KML</a>
-			<a href='http://maps.google.pl/maps?f=q&hl=pl&geocode=&q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "%26count%3Dmax%26zip%3D1&ie=UTF8&z=7' target='_new' title='Pokaż w Google Maps'>GoogleMaps</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=ov2&startat=";?>{startat}<?php echo "&count=max&zip=1\" title=\"TomTom POI .ov2\">OV2</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=ovl&startat=";?>{startat}<?php echo "&count=max&zip=1\" title=\"TOP50-Overlay .ovl\">OVL</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=txt&startat=";?>{startat}<?php echo "&count=max&zip=1\" title=\"Text .txt\">TXT</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=wpt&startat=";?>{startat}<?php echo "&count=max&zip=1\" title=\"Oziexplorer .wpt\">WPT</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&output=uam&startat=";?>{startat}<?php echo "&count=max&zip=1\" title=\"AutoMapa .uam\">UAM</a>
+		<td align=\"right\" style=\"padding-right:20px;\">";?> {{listing_from_to}}<?php echo " :
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpx&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpxgc&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=loc&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=kml&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Google Earth .kml\">KML</a>
+			<a href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "%26count%3Dmax%26zip%3D1&amp;ie=UTF8&amp;z=7' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ov2&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TomTom POI .ov2\">OV2</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ovl&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TOP50-Overlay .ovl\">OVL</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=txt&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Text .txt\">TXT</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=wpt&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Oziexplorer .wpt\">WPT</a>
+			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=uam&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"AutoMapa .uam\">UAM</a>
 
 			</td>
 	</tr>
 	<tr>
-		<td class=\"help\" colspan=\"2\" align=\"right\">
-			Pobierając dane z Opencaching PL zgadzasz się z <a href=http://wiki.opencaching.pl/index.php/Regulamin_OC_PL>warunkami używania tych danych</a>.&nbsp;&nbsp;
-		</td>
-	</tr>
+		<td class=\"help\" colspan=\"2\" align=\"right\">" . '{{accept_terms_of_use}}' .
+"	</td></tr>
 </table>"; } ?>

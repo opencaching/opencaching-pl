@@ -35,15 +35,15 @@
 	$export_list = '
 				<tr>
 					<td colspan="4">Pobież dane skrzynek ze schowka:
-						<a href="search.php?searchto=searchbylist&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&output=gpx" title="GPS Exchange Format .gpx">GPX</a>
-						<a href="search.php?searchto=searchbylist&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&output=gpxgc" title="GPS Exchange Format (Groundspeak) .gpx">GPX GC</a>
-						<a href="search.php?searchto=searchbylist&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&output=loc" title="Waypoint .loc">LOC</a>
-						<a href="search.php?searchto=searchbylist&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&output=kml" title="Google Earth .kml">KML</a>
-						<a href="search.php?searchto=searchbylist&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&output=ov2" title="TomTom POI .ov2">OV2</a>
-						<a href="search.php?searchto=searchbylist&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&output=ovl" title="TOP50-Overlay .ovl">OVL</a>
-						<a href="search.php?searchto=searchbylist&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&output=txt" title="Tekst .txt">TXT</a>
-						<a href="search.php?searchto=searchbylist&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&output=wpt" title="Oziexplorer .wpt">WPT</a>
-						<a href="search.php?searchto=searchbylist&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&output=uam" title="AutoMapa .uam">UAM</a>
+						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=gpx" title="GPS Exchange Format .gpx">GPX</a>
+						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=gpxgc" title="GPS Exchange Format (Groundspeak) .gpx">GPX GC</a>
+						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=loc" title="Waypoint .loc">LOC</a>
+						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=kml" title="Google Earth .kml">KML</a>
+						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=ov2" title="TomTom POI .ov2">OV2</a>
+						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=ovl" title="TOP50-Overlay .ovl">OVL</a>
+						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=txt" title="Tekst .txt">TXT</a>
+						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=wpt" title="Oziexplorer .wpt">WPT</a>
+						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=uam" title="AutoMapa .uam">UAM</a>
 						<br />
 						<span class="help">Pobierając dane z OpenCaching PL akceptujesz <a href=http://wiki.opencaching.pl/index.php/Regulamin_OC_PL>warunki ich użycia</a>.</span>
 					</td>

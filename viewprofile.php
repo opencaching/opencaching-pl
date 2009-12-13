@@ -217,9 +217,9 @@
 			{
 				tpl_set_var('email', '(<a href="mailto:'.strip_tags($record['email']).'">'.strip_tags($record['email']).'</a>)');
 				if( !$record['stat_ban'] )
-					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&stat_ban=1"><font color="#ff0000">'.tr('lock').' '.tr('user_stats').'</font></a>');
+					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&amp;stat_ban=1"><font color="#ff0000">'.tr('lock').' '.tr('user_stats').'</font></a>');
 				else
-					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&stat_ban=1"><font color="#00ff00">'.tr('unlock').' '.tr('user_stats').'</font></a>');
+					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$userid.'&amp;stat_ban=1"><font color="#00ff00">'.tr('unlock').' '.tr('user_stats').'</font></a>');
 			}
 			else
 			{
