@@ -43,7 +43,7 @@
 		else
 		{
 			if( $usr['admin'] )
-				tpl_set_var('reports',"<b>Zarządzanie OCPL:</b><br />[<a href='viewreports.php'>Przeglądaj zgłoszenia problemów</a>]");
+				tpl_set_var('reports',"<b>{{manage_ocpl}}:</b><br />[<a href='viewreports.php'>{{browse_problem_reports}}</a>]");
 			else
 				tpl_set_var('reports','');
 			require($stylepath . '/myhome2.inc.php');
