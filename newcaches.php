@@ -65,13 +65,12 @@
 		while ($r = sql_fetch_array($rs))
 		{
 			$thisline = $tpl_line;
-
 			$thisline = mb_ereg_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = mb_ereg_replace('{userid}', $r['userid'], $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{date}', date('d.m.Y', strtotime($r['date'])), $thisline);
-			$thisline = strtolower(mb_ereg_replace('{country}', htmlspecialchars($r['country'], ENT_COMPAT, 'UTF-8')), $thisline);
+			$thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($r['icon_large']), $thisline);
 //			$thisline = mb_ereg_replace('{{hidden_by}}', htmlspecialchars(tr('created_by'), ENT_COMPAT, 'UTF-8'), $thisline);
 			

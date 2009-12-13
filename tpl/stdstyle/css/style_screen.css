@@ -22,7 +22,7 @@ img { behavior: url(iepngfix/iepngfix.htc); vertical-align:middle; border-width:
 div#map_canvas img { behavior: none; }
 div#cacheinfo { background-color: blue;}
 
-body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #cccccc; font-family: arial, sans-serif;}
+body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #cccccc; font-family: arial, sans-serif, Tahoma, Verdana;}
 .page-container-1 {width: 970px; margin: 0px auto; padding: 0px; background-color:#ffffff; border: solid 1px rgb(100,100,100);}
 
 /*************************************/
@@ -573,4 +573,20 @@ p.main-totalstats { font-weight: bold; }
 form#register label { text-align: right; width: 14em; padding-right: 20px; display: block; float: left;}
 
 form#register div { margin: 7px 0 5px 0; }
+
+form, input, textarea, button {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 8pt;
+}
+
+hr {
+	height: 1px;
+}
+
+/* links */
+a strong {
+	color: #3b3b3b;
+}
+
+
 
