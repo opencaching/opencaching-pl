@@ -1,76 +1,153 @@
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="" title=""/>{{user_map}} {username}</div>
-<div class="content2-container">
-<p class="content-title-noshade-size1">{{current_zoom}}: <input type="text" id="zoom" size="2" disabled="disabled"/></p>
-<p class="content-title-noshade">{{colors}}: <b><font color="#dddd00">{{yellow}}</font></b> - {{last_10_days}}, <b><font color="#00dd00">{{green}}</font></b> - {{own}}, <b><font color="#aaaaaa">{{gray}}</font></b> - {{found}}, <b><font color="#ff0000">{{red}}</font></b> - {{rest}}</p>
+<div id="map_canvas" style="width: 100%; height: 100%; position: absolute; top: 0p; bottom: 0px;">
 </div>
-<div id="map_canvas" style="width: {map_width}; height: {map_height}; float:left; border: 1px solid #000;">
-</div>
-<div class="content2-container">
-<table width="100%">
-<tr>
-	<td width="33%">
-		<div class="nav3">
-			<ul>
-				<li class="title">{{hide_caches_type}}:</li>
-				<li class="group"><input class="chbox" id="h_u" name="h_u" value="1" type="checkbox" {h_u_checked} onclick="reload()"/><label for="h_u">{{unknown_type}}</label></li>
-				<li class="group"><input class="chbox" id="h_t" name="h_t" value="1" type="checkbox" {h_t_checked} onclick="reload()"/><label for="h_t">{{traditional}}</label></li>
-				<li class="group"><input class="chbox" id="h_m" name="h_m" value="1" type="checkbox" {h_m_checked} onclick="reload()"/><label for="h_m">{{multicache}}</label></li>
-				<li class="group"><input class="chbox" id="h_v" name="h_v" value="1" type="checkbox" {h_v_checked} onclick="reload()"/><label for="h_v">{{virtual}}</label></li>
-				<li class="group"><input class="chbox" id="h_w" name="h_w" value="1" type="checkbox" {h_w_checked} onclick="reload()"/><label for="h_w">Webcam</label></li>
-				<li class="group"><input class="chbox" id="h_e" name="h_e" value="1" type="checkbox" {h_e_checked} onclick="reload()"/><label for="h_e">{{event}}</label></li>
-				<li class="group"><input class="chbox" id="h_q" name="h_q" value="1" type="checkbox" {h_q_checked} onclick="reload()"/><label for="h_q">Quiz</label></li>
-				<li class="group"><input class="chbox" id="h_o" name="h_o" value="1" type="checkbox" {h_o_checked} onclick="reload()"/><label for="h_o">{{moving}}</label></li>
-			</ul>
-		</div>
-	</td>
-	<td>
-		<div class="nav3">
-			<ul>
-				<li class="title">{{hide_caches}}:</li>
-				<li class="group"><input class="chbox" id="h_ignored" name="h_ignored" value="1" type="checkbox" {h_ignored_checked} onclick="reload()"/><label for="h_ignored">{{ignored}}</label></li>
-				<li class="group"><input class="chbox" id="h_own" name="h_own" value="1" type="checkbox" {h_own_checked} onclick="reload()"/><label for="h_own">{{own}}</label></li>
-				<li class="group"><input class="chbox" id="h_found" name="h_found" value="1" type="checkbox" {h_found_checked} onclick="reload()"/><label for="h_found">{{founds}}</label></li>
-				<li class="group"><input class="chbox" id="h_noattempt" name="h_noattempt" value="1" type="checkbox" {h_noattempt_checked} onclick="reload()"/><label for="h_noattempt">{{not_yet_found}}</label></li>
-				<li class="group"><input class="chbox" id="h_nogeokret" name="h_nogeokret" value="1" type="checkbox" {h_nogeokret_checked} onclick="reload()"/><label for="h_nogeokret">{{without_geokret}}</label></li>
-				<li class="group"><input class="chbox" id="h_avail" name="h_avail" value="1" type="checkbox" {h_avail_checked} onclick="reload()"/><label for="h_avail">{{ready_to_find}}</label></li>
-				<li class="group"><input class="chbox" id="h_temp_unavail" name="h_temp_unavail" value="1" type="checkbox" {h_temp_unavail_checked} onclick="reload()"/><label for="h_temp_unavail">{{temp_unavailables}}</label></li>
-				<li class="group"><input class="chbox" id="h_arch" name="h_arch" value="1" type="checkbox" {h_arch_checked} onclick="reload()"/><label for="h_arch">{{archived_plural}}</label></li>	
-			</ul>
-		</div>
-	</td>
-	<td width="33%">
-		<div class="nav3">
-			<ul>
-				<li class="title">{{other_options}}:</li>
-				<li class="group"><input class="chbox" id="signes" name="signes" value="1" type="checkbox" {signes_checked} onclick="reload()" disabled="disabled"/><label for="signes">{{show_signes}}</label></li>
-				<li class="group"><input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload();check_field()"/><label for="be_ftf">{{be_ftf_label}}</label></li>
-				<li class="group"><input class="chbox" id="h_pl" name="h_pl" value="1" type="checkbox" {h_pl_checked} onclick="reload()"/><label for="h_pl">{{h_pl_label}}</label></li>
-				<li class="group"><input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{{h_de_label}}</label></li>
-			<li class="group">{{from}}:	
-			<select id="min_score" name="min_score" onchange="reload()">
-				<option value="1" {min_sel1}>{{rating_poor}}</option>
-				<option value="2" {min_sel2}>{{rating_mediocre}}</option>
-				<option value="3" {min_sel3}>{{rating_avarage}}</option>
-				<option value="4" {min_sel4}>{{rating_good}}</option>
-				<option value="5" {min_sel5}>{{rating_excellent}}</option>
-			</select><br/>
-			 {{to}}: 
-			<select id="max_score" name="max_score" onchange="reload()">
-				<option value="1" {max_sel1}>{{rating_poor}}</option>
-				<option value="2" {max_sel2}>{{rating_mediocre}}</option>
-				<option value="3" {max_sel3}>{{rating_avarage}}</option>
-				<option value="4" {max_sel4}>{{rating_good}}</option>
-				<option value="5" {max_sel5}>{{rating_excellent}}</option>
-			</select>
-			</li>
-			<li class="group"><input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">{{show_noscore}}</label></li>
-			</ul>
-		</div>
-	</td>
-</tr>
-</table>
-</div>
+<input class="chbox" id="zoom" name="zoom" value="{zoom}" type="hidden" />
 	<script type="text/javascript" language="javascript"><!--
+
+
+function CacheFilterControl() {
+}
+
+
+CacheFilterControl.prototype = new GControl();
+
+
+function toggleFilterTab(obj)
+{
+    var filters1 = document.getElementById('cache_type_filters');
+    var filters2 = document.getElementById('cache_status_filters');
+    var filters3 = document.getElementById('other_filters');
+    var filters1_tab = document.getElementById('cache_type_filters_tab');
+    var filters2_tab = document.getElementById('cache_status_filters_tab');
+    var filters3_tab = document.getElementById('other_filters_tab');
+    if(filters1_tab != obj)
+        filters1.style.display='none';
+    else
+        filters1.style.display='';
+    if(filters2_tab != obj)
+        filters2.style.display='none';
+    else
+        filters2.style.display='';
+    if(filters3_tab != obj)
+        filters3.style.display='none';
+    else
+        filters3.style.display='';
+}
+
+// Creates a one DIV for each of the buttons and places them in a container
+// DIV which is returned as our control element. We add the control to
+// to the map container and return the element for the map class to
+// position properly.
+CacheFilterControl.prototype.initialize = function(map) {
+  var container = document.createElement("div");
+
+  var filters = document.createElement("div");
+
+  var toggleFilters = document.createElement("div");
+//  toggleFilters.style.styleFloat = "right";
+  filters.style.position = "absolute";
+  filters.style.right = "0";
+
+  this.setButtonStyle_(toggleFilters);
+  container.appendChild(toggleFilters);
+  toggleFilters.appendChild(document.createTextNode("{{toggle_filters}}"));
+filters.style.backgroundColor = 'white';
+  filters.style.border = "1px solid black";
+  filters.style.width = "150px";
+
+
+ filters.innerHTML = '\
+<div id="fullscreen_map_filters">\
+<div id="cache_type_filters_tab" style="background-image: url(images/horizontal_tab.png); cursor: default;">{{hide_caches_type}}:</div>\
+<div id="cache_type_filters">\
+<input class="chbox" id="h_u" name="h_u" value="1" type="checkbox" {h_u_checked} onclick="reload()"/><label for="h_u">{{unknown_type}}</label><br/>\
+<input class="chbox" id="h_t" name="h_t" value="1" type="checkbox" {h_t_checked} onclick="reload()"/><label for="h_t">{{traditional}}</label><br/>\
+<input class="chbox" id="h_m" name="h_m" value="1" type="checkbox" {h_m_checked} onclick="reload()"/><label for="h_m">{{multicache}}</label><br/>\
+<input class="chbox" id="h_v" name="h_v" value="1" type="checkbox" {h_v_checked} onclick="reload()"/><label for="h_v">{{virtual}}</label><br/>\
+<input class="chbox" id="h_w" name="h_w" value="1" type="checkbox" {h_w_checked} onclick="reload()"/><label for="h_w">Webcam</label><br/>\
+<input class="chbox" id="h_e" name="h_e" value="1" type="checkbox" {h_e_checked} onclick="reload()"/><label for="h_e">{{event}}</label><br/>\
+<input class="chbox" id="h_q" name="h_q" value="1" type="checkbox" {h_q_checked} onclick="reload()"/><label for="h_q">Quiz</label><br/>\
+<input class="chbox" id="h_o" name="h_o" value="1" type="checkbox" {h_o_checked} onclick="reload()"/><label for="h_o">{{moving}}</label><br/>\
+</div>\
+<div id="cache_status_filters_tab" style="background-image: url(images/horizontal_tab.png); cursor: default;">{{hide_caches}}:</div>\
+<div id="cache_status_filters">\
+<input class="chbox" id="h_ignored" name="h_ignored" value="1" type="checkbox" {h_ignored_checked} onclick="reload()"/><label for="h_ignored">{{ignored}}</label><br/>\
+<input class="chbox" id="h_own" name="h_own" value="1" type="checkbox" {h_own_checked} onclick="reload()"/><label for="h_own">{{own}}</label><br/>\
+<input class="chbox" id="h_found" name="h_found" value="1" type="checkbox" {h_found_checked} onclick="reload()"/><label for="h_found">{{founds}}</label><br/>\
+<input class="chbox" id="h_noattempt" name="h_noattempt" value="1" type="checkbox" {h_noattempt_checked} onclick="reload()"/><label for="h_noattempt">{{not_yet_found}}</label><br/>\
+<input class="chbox" id="h_nogeokret" name="h_nogeokret" value="1" type="checkbox" {h_nogeokret_checked} onclick="reload()"/><label for="h_nogeokret">{{without_geokret}}</label><br/>\
+<input class="chbox" id="h_avail" name="h_avail" value="1" type="checkbox" {h_avail_checked} onclick="reload()"/><label for="h_avail">{{ready_to_find}}</label><br/>\
+<input class="chbox" id="h_temp_unavail" name="h_temp_unavail" value="1" type="checkbox" {h_temp_unavail_checked} onclick="reload()"/><label for="h_temp_unavail">{{temp_unavailables}}</label><br/>\
+<input class="chbox" id="h_arch" name="h_arch" value="1" type="checkbox" {h_arch_checked} onclick="reload()"/><label for="h_arch">{{archived_plural}}</label><br/>\
+</div>\
+<div id="other_filters_tab" style="background-image: url(images/horizontal_tab.png); cursor: default;">{{other_options}}:</div>\
+<div id="other_filters">\
+<input class="chbox" id="signes" name="signes" value="1" type="checkbox" {signes_checked} onclick="reload()" disabled="disabled"/><label for="signes">{{show_signes}}</label><br/>\
+<input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload();check_field()"/><label for="be_ftf">{{be_ftf_label}}</label><br/>\
+<input class="chbox" id="h_pl" name="h_pl" value="1" type="checkbox" {h_pl_checked} onclick="reload()"/><label for="h_pl">{{h_pl_label}}</label><br/>\
+<input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{{h_de_label}}</label><br/>\
+{{from}}: \
+<select id="min_score" name="min_score" onchange="reload()">\
+    <option value="1" {min_sel1}>{{rating_poor}}</option>\
+    <option value="2" {min_sel2}>{{rating_mediocre}}</option>\
+    <option value="3" {min_sel3}>{{rating_avarage}}</option>\
+    <option value="4" {min_sel4}>{{rating_good}}</option>\
+    <option value="5" {min_sel5}>{{rating_excellent}}</option>\
+</select><br/>\
+{{to}}:\
+<select id="max_score" name="max_score" onchange="reload()">\
+    <option value="1" {max_sel1}>{{rating_poor}}</option>\
+    <option value="2" {max_sel2}>{{rating_mediocre}}</option>\
+    <option value="3" {max_sel3}>{{rating_avarage}}</option>\
+    <option value="4" {max_sel4}>{{rating_good}}</option>\
+    <option value="5" {max_sel5}>{{rating_excellent}}</option>\
+</select><br/>\
+<input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">{{show_noscore}}</label>\
+</div>\
+</div>\
+';
+
+  container.appendChild(filters);
+
+  map.getContainer().appendChild(container);
+
+    GEvent.addDomListener(document.getElementById('cache_type_filters_tab'), "click", function() {
+        toggleFilterTab(document.getElementById('cache_type_filters_tab'));
+    });
+    GEvent.addDomListener(document.getElementById('cache_status_filters_tab'), "click", function() {
+        toggleFilterTab(document.getElementById('cache_status_filters_tab'));
+    });
+    GEvent.addDomListener(document.getElementById('other_filters_tab'), "click", function() {
+        toggleFilterTab(document.getElementById('other_filters_tab'));
+    });
+    GEvent.addDomListener(toggleFilters, "click", function() {
+        if(filters.style.display == 'none')
+            filters.style.display = '';
+        else
+            filters.style.display = 'none';
+    });
+  toggleFilterTab(document.getElementById('cache_type_filters_tab'));
+    filters.style.display = 'none';
+  return container;
+}
+
+CacheFilterControl.prototype.getDefaultPosition = function() {
+  return new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(7, 60));
+}
+
+CacheFilterControl.prototype.setButtonStyle_ = function(button) {
+  button.style.textDecoration = "none";
+  button.style.color = "#000000";
+  button.style.backgroundColor = "white";
+  button.style.font = "small Arial";
+  button.style.border = "1px solid black";
+  button.style.padding = "2px";
+  button.style.marginBottom = "3px";
+  button.style.textAlign = "center";
+  button.style.width = "7em";
+  button.style.cursor = "pointer";
+}
+
+
 	var h_t = 0;
 	var map=null;
 	var tlo=null;
@@ -190,6 +267,8 @@
 	 if (GBrowserIsCompatible()) 
 		{
 			map = new GMap2(document.getElementById("map_canvas"), {draggableCursor: 'crosshair', draggingCursor: 'pointer'});
+			map.addControl(new CacheFilterControl());
+
 
 			addocoverlay();
 
@@ -208,6 +287,13 @@
 			map.addMapType(mapOSM);
 
 
+
+
+
+
+
+
+
 			
 			map.setCenter(new GLatLng({coords}),{zoom},G_PHYSICAL_MAP);
 			document.getElementById("zoom").value = map.getZoom();
@@ -218,6 +304,7 @@
 			map.addMapType(G_PHYSICAL_MAP);
 			map.addControl(new GHierarchicalMapTypeControl(true));
 			map.addControl(new GOverviewMapControl());			
+
 
 			map.setMapType({map_type});
 			map.addOverlay(tlo);

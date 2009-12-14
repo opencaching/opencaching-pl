@@ -40,9 +40,6 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 
 <input class="chbox" id="zoom" name="zoom" value="{zoom}" type="hidden" />
 
-
-
-
 	<script type="text/javascript" language="javascript"><!--
 	var h_t = 0;
 	var map=null;
@@ -166,6 +163,7 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 			map.addMapType(G_PHYSICAL_MAP);
 			map.addControl(new GHierarchicalMapTypeControl(true));
 			map.addControl(new GOverviewMapControl());			
+
 			map.setMapType({map_type});
 			map.addOverlay(tlo);
 			GEvent.addListener(map, "moveend", function() 
