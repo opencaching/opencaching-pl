@@ -33,7 +33,7 @@
 	$remove_log = '<a href="removelog.php?logid={logid}"><img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="{{Trash}}" title=""/></a>&nbsp;<a href="removelog.php?logid={logid}">Usuń</a>&nbsp;';
 	$upload_picture = '<a href="newpic.php?objectid={logid}&amp;type=1"><img src="tpl/stdstyle/images/action/16x16-addimage.png" class="icon16" alt="" title=""/></a>&nbsp;<a href="newpic.php?objectid={logid}&amp;type=1">Dodaj obrazek</a>&nbsp;';
 	
-	$remove_picture = ' <span class="removepic"><a href="removepic.php?uuid={uuid}">Usuń</a></span>';
+	$remove_picture = ' <span class="removepic"><img src="tpl/stdstyle/images/action/16x16-trash.png" class="icon16" alt="" title=""/><a href="removepic.php?uuid={uuid}">Usuń</a></span>';
 
 	$rating_picture = '<img src="images/rating-star.png" alt="Rekomendacja" /> '
 ?>
