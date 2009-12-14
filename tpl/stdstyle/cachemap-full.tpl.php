@@ -4,6 +4,49 @@
 	<script type="text/javascript" language="javascript"><!--
 
 
+function FullscreenOffControl() {
+}
+
+FullscreenOffControl.prototype = new GControl();
+
+
+
+FullscreenOffControl.prototype.initialize = function(map) {
+  var container = document.createElement("div");
+
+  var toggleFullscreen = document.createElement("div");
+
+  this.setButtonStyle_(toggleFullscreen);
+  container.appendChild(toggleFullscreen);
+  toggleFullscreen.appendChild(document.createTextNode("{{disable_fullscreen}}"));
+
+
+  map.getContainer().appendChild(container);
+
+    GEvent.addDomListener(toggleFullscreen, "click", function() {
+		window.location = "cachemap3.php?lat="+map.getCenter().lat()+"&lon="+map.getCenter().lng();
+    });
+
+  return container;
+}
+
+FullscreenOffControl.prototype.getDefaultPosition = function() {
+  return new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(70, 7));
+}
+
+FullscreenOffControl.prototype.setButtonStyle_ = function(button) {
+  button.style.textDecoration = "none";
+  button.style.color = "#000000";
+  button.style.backgroundColor = "white";
+  button.style.font = "small Arial";
+  button.style.border = "1px solid black";
+  button.style.padding = "2px";
+  button.style.marginBottom = "3px";
+  button.style.textAlign = "center";
+  button.style.cursor = "pointer";
+}
+
+
 function CacheFilterControl() {
 }
 
@@ -304,6 +347,7 @@ CacheFilterControl.prototype.setButtonStyle_ = function(button) {
 			map.addMapType(G_PHYSICAL_MAP);
 			map.addControl(new GHierarchicalMapTypeControl(true));
 			map.addControl(new GOverviewMapControl());			
+			map.addControl(new FullscreenOffControl());			
 
 
 			map.setMapType({map_type});

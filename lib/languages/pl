@@ -511,3 +511,5 @@ download_for_various_apps Pobierz wykaz dla różnych aplikacji
 download Pobierz
 listing_from_to Wykaz od {startatp1} do {endat}
 toggle_filters Przełącz filtry
+fullscreen Pełny ekran
+disable_fullscreen Wyłącz pełny ekran
