@@ -32,7 +32,7 @@
 			<span id="viewlogs-total">&nbsp;&nbsp;
 			{found_icon} {founds}x 
 			{notfound_icon} {notfounds}x 
-			{note_icon} {notes}x<br /></span></p></div>
+			{note_icon} {notes}x<br /></span></p></div><br />
 		{logs}
 
 <div id="viewlogs-end">[<a href="viewcache.php?cacheid={cacheid}">Powrót do skrzynki</a>]</div>
