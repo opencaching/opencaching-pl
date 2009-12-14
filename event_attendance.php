@@ -52,6 +52,21 @@
 			   INNER JOIN `user` ON (`user`.`user_id`=`caches`.`user_id`)
 			   WHERE `caches`.`cache_id`='&1'", $cache_id);
 
+	/* compare date current ($time1) with date hidden ($time2)
+
+	$time1= time();
+	$time2=$r['date_hidden'];
+	if ($time1 > $tmie2)
+	{ $evnet_was=1;
+		
+	 } else {
+		$event_was=0; 
+		}
+
+
+
+	*/
+
 		if ($r = sql_fetch_array($rs))
 		{
 			tpl_set_var('nocacheid_start', '');
@@ -61,7 +76,8 @@
 			tpl_set_var('cachename', htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('event_date', htmlspecialchars(strftime($dateformat, strtotime($r['date_hidden'])), ENT_COMPAT, 'UTF-8'));
 		}
-
+		
+		// log_type 8 will attended, 7 attended
 
 		$rs = sql("SELECT DISTINCT `user`.`username`
 			   FROM `cache_logs`
