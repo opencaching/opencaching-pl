@@ -8,7 +8,7 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
   require('../lib/jpgraph/src/jpgraph_date.php');
 
   // for productive use 400 350
-  $graph = new Graph(400, 500, "auto", 60 * 24);
+  $graph = new Graph(500, 400, "auto", 60 * 24);
 
   // for development
   //$graph = new Graph(500, 500);
