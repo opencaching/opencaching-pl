@@ -57,7 +57,7 @@
 
  $function_watch_not = "<li><a href='removewatch.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".tr('watch_not')."</a></li>";
 
-$function_ignore = "<li><a href='addignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".tr('ignore')."</a></li>";
+ $function_ignore = "<li><a href='addignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".tr('ignore')."</a></li>";
 
 $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".tr('ignore_not')."</a></li>";
 
@@ -96,7 +96,7 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
 
  $default_lang = 'PL';
 
- $event_attendance_list = '<span class="participants"><a href="#" onclick="javascript:window.open(\'event_attendance.php?id={id}&amp;popup=y\',\'Lista_zapisanych_uczestnikow\',\'width=320,height=440,resizable=no,scrollbars=1\')">'.tr('list_of_participants').'</a></span>';
+ $event_attendance_list = '<span class="participants"><img src="tpl/stdstyle/images/blue/meeting.png" width="22" height="22" alt=""/>&nbsp;<a href="#" onclick="javascript:window.open(\'event_attendance.php?id={id}&amp;popup=y\',\'Lista_zapisanych_uczestnikow\',\'width=320,height=440,resizable=no,scrollbars=1\')">'.tr('list_of_participants').'</a></span>';
 # $event_attendance_list = '<br /><a href="#" onclick="javascript:window.open(\'event_attendance.php?id={id}&amp;popup=y\',\'Lista_zapisanych_uczestnikow\',\'width=320,height=440,resizable=no,scrollbars=1\')">Lista zapisanych uczestnikow</a>';
  
  $event_attended_text = " ".tr('attendends');
