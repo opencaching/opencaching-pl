@@ -30,14 +30,15 @@
 
 <p>
 	{nocacheid_start}
+	<img src="tpl/stdstyle/images/blue/meeting.png" alt=""/>
 	<div style="margin-top:4px;">
-		<font size="2" color="#000080">Wydarzenie <b>{cachename}</b></font><br />
-		<font size="2" color="#000080">które odbedzie się dnia:<b> {event_date}</b></font><br />
-		<font size="2" color="#000080">organizowane przez <b>{owner}</b></font>
+		<font size="2" color="#000080">Wydarzenie: <b>{cachename}</b></font><br />
+		<font size="2" color="#000080">Dnia:<b> {event_date}</b></font><br />
+		<font size="2" color="#000080">Organizowane przez: <b>{owner}</b></font>
 	</div>
 	{nocacheid_end}
 	<div style="margin-top:16px;">
-		<font size="2" color="#000080"><b>Potencjalni uczestnicy wydarzenia</b>&nbsp;<br/>(Liczba: {att_count})</font><br/>
+		<font size="2" color="#000080"><b>Uczestnicy wydarzenia:</b>&nbsp;<br/>(Liczba: {att_count})</font><br/>
 		{attendants}
 	</div>
 </p>
