@@ -152,7 +152,7 @@ if ($error == false)
 				        //$rating_picture
 				if ($log_record['recommended'] == 1) 
 					{
-					$file_content .= '<td><img src="/images/rating-star.png" border="0" alt=""/></td>';
+					$file_content .= '<td><img src="images/rating-star.png" border="0" alt=""/></td>';
 					}
 					else
 					{
