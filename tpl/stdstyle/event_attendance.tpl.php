@@ -29,12 +29,20 @@
 ?>
 
 <p>
+
 	{nocacheid_start}
 	<img src="tpl/stdstyle/images/blue/meeting.png" alt=""/>
 	<div style="margin-top:4px;">
+<<<<<<< .mine
+	<img src="tpl/stdstyle/images/blue/meeting.png"alt=""/><br />
+		<font size="2" color="#000080">Wydarzenie <b>{cachename}</b></font><br />
+		<font size="2" color="#000080">które odbedzie się dnia:<b> {event_date}</b></font><br />
+		<font size="2" color="#000080">organizowane przez <b>{owner}</b></font>
+=======
 		<font size="2" color="#000080">Wydarzenie: <b>{cachename}</b></font><br />
 		<font size="2" color="#000080">Dnia:<b> {event_date}</b></font><br />
 		<font size="2" color="#000080">Organizowane przez: <b>{owner}</b></font>
+>>>>>>> .r401
 	</div>
 	{nocacheid_end}
 	<div style="margin-top:16px;">
