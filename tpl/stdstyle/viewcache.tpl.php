@@ -117,9 +117,9 @@ else
 							{found_icon} {founds} {found_text}<br />
 							{notfound_icon} {notfounds} {notfound_text}<br />
 							{note_icon} {notes} {{comments}}<br />
-							{vote_icon} {votes_count} x {{scored}}<br />
 							{watch_icon} {watcher} {{watchers}}<br />
 							{visit_icon} {visits} {{visitors}}<br />
+							{vote_icon} {votes_count} x {{scored}}<br />
 							{rating_stat}
 							</p>
 						</div>
