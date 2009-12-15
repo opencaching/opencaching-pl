@@ -498,7 +498,7 @@ add_new_pict Dodaj nowy obrazek
 mp3_label Podcast MP3 dla skrzynki PodCache
 add_new_mp3 Dodaj nowy plik MP3
 map Mapa
-manage_ocpl Zarządzanie OCPL
+manage_ocpl Zarządzanie OC PL
 browse_problem_reports Przeglądaj zgłoszenia problemów
 no_hidden_caches Brak ukrytych skrzynek
 no_not_published_caches Nie ma nieopublikowanych skrzynek
@@ -513,3 +513,16 @@ listing_from_to Wykaz od {startatp1} do {endat}
 toggle_filters Przełącz filtry
 fullscreen Pełny ekran
 disable_fullscreen Wyłącz pełny ekran
+stats Statystyki
+ranking_by_number_of_created_caches Ranking użytkowników według liczby założonych skrzynek
+ranking_by_number_of_finds Ranking użytkowników według liczby odkryć
+cache_ranking_by_number_of_finds Ranking skrzynek według liczby odkryć
+cache_ranking_by_calculated_indicator Ranking skrzynek według liczonego wskaznika
+user_ranking_by_number_of_finds_of_their_caches Ranking użytkowników według liczby odkryć skrzynek danego użytkownika
+oc_statistics Statystyki OC PL
+only_active_caches tylko aktywne skrzynki
+users_who_created_caches Użytkowników, którzy założyli skrzynki
+number_of_active_caches Liczba aktywnych skrzynek
+username Użytkownik
+number_of_caches Liczba skrzynek
+ranking Ranking

@@ -11,11 +11,11 @@
   $fC = sql('SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
     $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
-	echo '<center><table width="750"><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby założonych skrzynek</b></font><br />tylko aktywne skrzynki<br />Użytkowników którzy założyli skrzynki:';
+	echo '<table width="750"><tr><td align="center"><b>'.tr('ranking_by_number_of_created_caches').'</b><br />'.tr('only_active_caches').'<br />'.tr('users_who_created_caches').':';
 	echo $rsUs[count]; 
-	echo ' .::. Liczba aktywnych skrzynek:';
+	echo ' .::. '.tr('number_of_active_caches').':';
 	echo $fCt[count]; 
-	echo '</td></tr></table><table bgcolor="white" width=750>' . "\n";
+	echo '</td></tr></table><table bgcolor="white" width="750">' . "\n";
 
 //  mysql_query("SET NAMES 'utf8'"); 
 // $rsUser = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `caches`.`status`=1 AND `caches`.`type`!=4 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20'); 
@@ -29,23 +29,23 @@ $t1="CREATE TEMPORARY TABLE ocpl.tmp (id INT(11) unsigned NOT NULL auto_incremen
 $r=mysql_query($t1) or die(mysql_error());
 //mysql_query("SET NAMES 'utf8'"); 
 $a="SELECT count, username, user_id FROM tmp GROUP BY `username` ORDER BY `count` DESC, `username`";
-echo "<br />";
+//echo "<br />";
 
 $r=mysql_query($a) or die(mysql_error());
-echo "
-<tr bgcolor=#D5D5D5>
-	<td align=right>
-		<font size=2>&nbsp;&nbsp;<b>Ranking</b>&nbsp;&nbsp;
+echo '
+<tr bgcolor="#D5D5D5">
+	<td align="right">
+		&nbsp;&nbsp;<b>'.tr('ranking').'</b>&nbsp;&nbsp;
 	</td>
-	<td align=center>
-		&nbsp;&nbsp;<font size=2><b>Liczba skrzynek</b></font>&nbsp;&nbsp;
+	<td align="center">
+		&nbsp;&nbsp;<b>'.tr('number_of_caches').'</b>&nbsp;&nbsp;
 	</td>
-	<td align=center>
-		&nbsp;&nbsp;<font size=2><b>Username</b></font>&nbsp;&nbsp;
+	<td align="center">
+		&nbsp;&nbsp;<b>'.tr('username').'</b>&nbsp;&nbsp;
 	</td>
 </tr>
-<tr><td height='2'><font size='1'>
-";
+<tr><td height="2">
+';
 $l2="";
 $licznik=0;
 while ($line=mysql_fetch_array($r))
@@ -55,30 +55,29 @@ $licznik++;
 
 if ($l2!=$l1)
 {
-    echo "
-			</font>
+    echo '
 			</td>
 		</tr>
-		<tr bgcolor='#D5D5D5'>
-			<td align='right'>
-				<font size='2'>&nbsp;&nbsp;<b>$licznik</b>&nbsp;&nbsp;
+		<tr bgcolor="#D5D5D5">
+			<td align="right">
+				&nbsp;&nbsp;<b>'.$licznik.'</b>&nbsp;&nbsp;
 			</td>
-			<td align='right'>
-				&nbsp;&nbsp;<font size='2'><b>$l1</b></font>&nbsp;&nbsp;
+			<td align="right">
+				&nbsp;&nbsp;<b>'.$l1.'</b>&nbsp;&nbsp;
 			</td>
 			<td>
-				<font size='2'><a href='viewprofile.php?userid=$line[user_id]'>$line[username]</a>";
+				<a href="viewprofile.php?userid='.$line[user_id].'">'.htmlspecialchars($line[username]).'</a>';
     $l2=$l1;
 }
 else {
-    echo ", <a href='viewprofile.php?userid=$line[user_id]'>$line[username]</a>";
+    echo ', <a href="viewprofile.php?userid='.$line[user_id].'">'.htmlspecialchars($line[username]).'</a>';
     }
 }
-echo "</font>
-	</td>
-</tr>";
+//echo "
+//	</td>
+//</tr>";
 
 
-	echo '</table>' . "\n";
+//	echo '</table>' . "\n";
 
 ?>
