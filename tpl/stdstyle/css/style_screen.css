@@ -169,7 +169,7 @@ h5 {margin: 0px 0px 0.2em 0px; font-weight: bold; font-size: 130%;}
 h6 {margin: 0px 0px 0.2em 0px;font-weight: bold; font-style: italic; font-size: 130%;}
 
 /* Paragraphs */
-p {margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-family: arial, sans serif; font-size: 120%; }
+p {margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-family: arial, sans serif; font-size: 12px; }
 p.readmore {margin: 1.0em 0px 0.5em 0px; padding: 0px; line-height: 1.2em; font-size: 110%; }
 p.quote {margin: 0em 30px 0.6em 30px;	line-height: 120%; font-size: 120%;}
 p.embed {float: left; width: 120px; margin: 7px 7px 5px 0px; padding: 5px 5px 5px 5px; background-color: rgb(238,237,249); font-style: italic; font-weight: bold;  line-height: 1.2em; font-size: 140%;}
