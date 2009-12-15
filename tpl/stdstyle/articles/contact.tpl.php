@@ -13,7 +13,7 @@
 Chciałbyś wymienić swoje uwagi zadać pytania innym, możesz to zrobić na <a href="http://forum.opencaching.pl">Forum GC PL</a>
 <br /><br />
 <b>Rozwój projektu OpenCaching</b>
-<p>Masz pomysł albo sugestie poprawy działania projektu <a href=http://sourceforge.net/projects/oc-server/><i>Opencaching</i></a>?<br />
+<p>Masz pomysł albo sugestie poprawy działania projektu <i>Opencaching</i>?<br />
 Chcesz pomóc w rozwoju projektu ?<br />
 Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.eu">Forum</a> projektu OpenCaching.
 </p>
