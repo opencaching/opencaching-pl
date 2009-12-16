@@ -33,6 +33,8 @@ Podzial statystyk - czy na jednym wykresie roznymi kolorami bary znalezione /zal
 
 
 ==== Aktywnosc znalezionych skrzynek ====
+$rsCacheFindYear = mysql('SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `cache_logs` WHERE type=1 AND user_id=449 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC');
+$rsCacheFindMonth=mysql('SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , MONTH(`date_created`) `month` FROM `cache_logs` WHERE type=1 AND user_id=449 GROUP BY MONTH(`date_created`) , YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`)  ASC');
 
 Statystyki roczne - liczba skrzynek 
 Pierwszy rok brany z $startdate ostatni rok z $endtime
@@ -43,10 +45,52 @@ Zalozonych
 zalozone
 dane z SELECT count() ....  FROM caches  WHERE user_id=user.user_id GROUP BY
 */
-$rsCreateCachesYear= sql('SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE caches.status=1 AND user_id=449 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC');
-  $rsccy = mysql_fetch_array($rsCreateCachesYear);
+$rsCreateCachesYear= sql('SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE user_id=449 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC');
+//  $rsccy = mysql_fetch_array($rsCreateCachesYear);
   $y=array();
-   $y=$rsccy['count'];
+  $x=array();
+				while ($rccy = mysql_fetch_array($rsCreateCachesYear)){
+					$y[] = $rccy['count'];
+					$x[] = $rccy['year'];}
+				mysql_free_result($rsCreateCachesYear);
+// Create the graph. These two calls are always required
+$graph2 = new Graph(600,200,'auto');
+$graph2->SetScale('textint');
+ 
+// Add a drop shadow
+$graph2->SetShadow();
+ 
+// Adjust the margin a bit to make more room for titles
+ $graph2->SetMargin(40,30,20,40);
+ 
+// Create a bar pot
+$bplot = new BarPlot($y);
+ 
+// Adjust fill color
+$bplot->SetFillColor('steelblue2');
+$graph2->Add($bplot);
+ 
+// Setup the titles
+$graph2->title->Set('Statystyka usera');
+$graph2->xaxis->title->Set('Rok');
+$graph2->xaxis->SetTickLabels($x);
+$graph2->yaxis->title->Set('Liczba skrzynek');
+ 
+$graph2->title->SetFont(FF_FONT1,FS_BOLD);
+$graph2->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph2->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+ 
+  
+// Setup the values that are displayed on top of each bar
+$bplot->value->Show();
+ 
+// Must use TTF fonts if we want text at an arbitrary angle
+$bplot->value->SetFont(FF_FONT1,FS_BOLD);
+$bplot->value->SetAngle(0);
+
+// Display the graph
+
+ $graph2->Stroke();
 
 /*
 -----------------------------
@@ -61,8 +105,56 @@ Pierwszy rok brany z $startdate ostatni rok z $endtime
 
 zalozone */
 
-$rsCreateCachesMonth = sql('SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE caches.status=1 AND user_id=449 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC');
+$rsCreateCachesMonth = sql('SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE user_id=449 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC');
+ $ym=array();
+ $xm=array();
+//				for ($i = 0; $i < mysql_num_rows($rsCreateCachesMonth); $i++)
+ //{
+				while ($rccm = mysql_fetch_array($rsCreateCachesMonth)){
+					$ym[] = $rccm['count'];
+					$xm[] = $rccm['month'];}
+// Create the graph. These two calls are always required
+$graph = new Graph(600,200,'auto');
+$graph->SetScale('textint');
+ 
+// Add a drop shadow
+$graph->SetShadow();
+ 
+// Adjust the margin a bit to make more room for titles
+ $graph->SetMargin(40,30,20,40);
+ 
+// Create a bar pot
+$bplot2 = new BarPlot($ym);
+ 
+// Adjust fill color
+$bplot2->SetFillColor('steelblue2');
+$graph->Add($bplot2);
+ 
+// Setup the titles
+$graph->title->Set('Statystyka usera');
+$graph->xaxis->title->Set('Rok');
+$graph->xaxis->SetTickLabels($xm);
+$graph->yaxis->title->Set('Liczba skrzynek');
+ 
+$graph->title->SetFont(FF_FONT1,FS_BOLD);
+$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+ 
+  
+// Setup the values that are displayed on top of each bar
+$bplot2->value->Show();
+ 
+// Must use TTF fonts if we want text at an arbitrary angle
+$bplot2->value->SetFont(FF_FONT1,FS_BOLD);
+$bplot2->value->SetAngle(0);
 
+// Display the graph
+
+  $graph->Stroke();
+//}
+  mysql_free_result($rsCreateCachesMonth);
+				
+				
 /*
 znalezione
 SELECT  count() ..... FROM cache_logs WHERE user_id=user.user_id GROUP BY
@@ -70,105 +162,4 @@ SELECT  count() ..... FROM cache_logs WHERE user_id=user.user_id GROUP BY
 
 
 */
-//  setlocale(LC_TIME, 'pl_PL.UTF-8');
-// setlocale(LC_TIME, 'pl_PL.utf-8');
-// setlocale(LC_TIME, 'en_EN.UTF-8');
-/*
-  // Start von Opencaching
-  $startDate = mktime(0, 0, 0, 5, 1, 2006);
-
-$rsstat = sql('SELECT COUNT(*) `count`, YEAR(`date_created`) `year`, MONTH(`date_created`) `month` FROM `caches` WHERE caches.status=1 AND user_id=449 GROUP BY MONTH(`date_created`) ORDER BY YEAR(`date_created`) `year`, MONTH(`date_created`) ASC');
-  $rstat = mysql_fetch_array($rsstat);
-
- //
-  // Daten abfragen
-  //
- // $rsCaches = sql('SELECT COUNT(*) `count`, DAY(`date_created`) `day`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE caches.status=1 GROUP BY DAY(`date_created`), MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC');
- $rsCaches = sql('SELECT COUNT(*) `count`, DAY(`date_created`) `day`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE caches.status=1 AND user_id=49 GROUP BY DAY(`date_created`), MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC');
-
- // $rsCaches = sql('SELECT COUNT(*) `count`, DAY(`date_created`) `day`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE caches.status=1 GROUP BY DAY(`date_created`), MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC');
-
- $rsLogs = sql('SELECT COUNT(*) `count`, DAY(`date_created`) `day`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `cache_logs` WHERE `type`=1 AND `deleted`=0 GROUP BY DAY(`date_created`), MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC');
-// $rsLogs_found = sql('SELECT COUNT(*) `count`, DAY(`date_created`) `day`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `cache_logs` WHERE `type`=1 AND `cache_id`=1 AND `deleted`=0 GROUP BY DAY(`date_created`), MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC');
- // $rsLogs_notfound = sql('SELECT COUNT(*) `count`, DAY(`date_created`) `day`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `cache_logs` WHERE `type`=2 AND `cache_id`=1 AND `deleted`=0 GROUP BY DAY(`date_created`), MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC');
-
-  $rCaches = mysql_fetch_array($rsCaches);
-//  $rLogs = mysql_fetch_array($rsLogs);
- 
-
- 
-  $cachesCount = 0;
-  $logsCount = 0;
-
-  $yDataCaches = array();
-  $yDataLogs = array();
-  $xDate = array();
-  $tickPositions = array();
-  $tickLabels = array();
-
-  // alle tage von 01-08-2005 bis heute durchgehen
-  $days = 0;
-  $date = $startDate;
-  while ($date < time())
-  {
-    while (($rCaches !== false) && (strtotime($rCaches['year'] . '-' . $rCaches['month'] . '-' . $rCaches['day']) < $date))
-      $rCaches = mysql_fetch_array($rsCaches);
-
-    if ($rCaches['year'] . '-' . $rCaches['month'] . '-' . $rCaches['day'] == date('Y-n-j', $date))
-      $cachesCount += $rCaches['count'];
-
-    while (($rLogs !== false) && (strtotime($rLogs['year'] . '-' . $rLogs['month'] . '-' . $rLogs['day']) < $date))
-      $rLogs = mysql_fetch_array($rsLogs);
-
-    if ($rLogs['year'] . '-' . $rLogs['month'] . '-' . $rLogs['day'] == date('Y-n-j', $date))
-      $logsCount += $rLogs['count'];
-
-    $yDataCaches[] = $cachesCount;
-    $yDataLogs[] = $logsCount;
-    if (date('j', $date) == 1)
-    {
-      $tickPositions[]= $date;
-      $tickLabels[] = strftime('%b', $date);
-    }
-
-    $xDate[] = $date;
-
-    $days++;
-    $date = mktime(0, 0, 0, 5, 1 + $days, 2006);
-  }
-  mysql_free_result($rsCaches);
-  mysql_free_result($rsLogs);
-*/
-$datay=array(12,8,19,3,10,5);
-
-// Create the graph. These two calls are always required
-$graph = new Graph(300,200);
-$graph->SetScale('intlin');
- 
-// Add a drop shadow
-$graph->SetShadow();
- 
-// Adjust the margin a bit to make more room for titles
-// $graph->SetMargin(40,30,20,40);
- 
-// Create a bar pot
-$bplot = new BarPlot($y);
- 
-// Adjust fill color
-$bplot->SetFillColor('orange');
-$graph->Add($bplot);
- 
-// Setup the titles
-$graph->title->Set('Statystyka usera');
-$graph->xaxis->title->Set('X-title');
-$graph->yaxis->title->Set('Liczba skrzynek');
- 
-$graph->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
- 
-// Display the graph
-
-  $graph->Stroke();
-
   ?>
