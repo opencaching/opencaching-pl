@@ -14,7 +14,7 @@ require("../lib/jpgraph/src/jpgraph_pie3d.php");
 
   require('../lib/web.inc.php');
   sql('USE `ocpl`');
-  
+		$year='';
 		// check for old-style parameters
 		if (isset($_REQUEST['userid']) && isset($_REQUEST['title']))
 		{
@@ -54,6 +54,8 @@ if ($tit == "ccy") {
 $rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
 				if ($rsCreateCachesYear !== false){
+				$descibe="Roczna statystyka";
+				$xtitle="";
 					while ($ry = mysql_fetch_array($rsCreateCachesYear)){
 					$y[] = $ry['count'];
 					$x[] = $ry['year'];}
@@ -66,7 +68,8 @@ if ($tit == "ccm") {
 $rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 AND YEAR(`date_created`)=&2 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year);
 
  				if ($rsCreateCachesMonth !== false) {
-
+				$descibe="Miesiêczna statystyka za rok";
+				$xtitle=$year;
 				while ($rm = mysql_fetch_array($rsCreateCachesMonth)){
 					$y[] = $rm['count'];
 					$x[] = $rm['month'];}
@@ -80,6 +83,8 @@ if ($tit == "cfy") {
 $rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `cache_logs` WHERE type=1 AND user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
   				if ($rsCachesFindYear !== false) {
+				$descibe="Roczna statystyka";
+				$xtitle="";
 				while ($rfy = mysql_fetch_array($rsCachesFindYear)){
 					$y[] = $rfy['count'];
 					$x[] = $rfy['year'];}
@@ -91,7 +96,9 @@ if ($tit == "cfm") {
 $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , MONTH(`date_created`) `month` FROM `cache_logs` WHERE type=1 AND user_id=&1 AND YEAR(`date_created`)=&2 GROUP BY MONTH(`date_created`) , YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year);
 
  				if ($rsCachesFindMonth !== false){
-
+				$descibe="Miesiêczna statystyka za rok ";
+				$describe .= $year;
+				$xtitle=$year;
 				while ($rfm = mysql_fetch_array($rsCachesFindMonth)){
 					$y[] = $rfm['count'];
 					$x[] = $rfm['month'];}
@@ -102,7 +109,7 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , M
 
 				
 // Create the graph. These two calls are always required
-$graph = new Graph(600,200,'auto');
+$graph = new Graph(500,200,'auto');
 $graph->SetScale('textint');
  
 // Add a drop shadow
@@ -119,8 +126,8 @@ $bplot->SetFillColor('steelblue2');
 $graph->Add($bplot);
  
 // Setup the titles
-$graph->title->Set('Statystyka usera');
-$graph->xaxis->title->Set('Rok');
+$graph->title->Set($descibe);
+$graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
 $graph->yaxis->title->Set('Liczba skrzynek');
  
@@ -135,6 +142,8 @@ $bplot->value->Show();
 // Must use TTF fonts if we want text at an arbitrary angle
 $bplot->value->SetFont(FF_FONT1,FS_BOLD);
 $bplot->value->SetAngle(0);
+$bplot->value->SetFormat('%d');
+
 
 // Display the graph
 
