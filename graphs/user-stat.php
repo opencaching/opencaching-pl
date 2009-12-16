@@ -1,4 +1,14 @@
 <?php
+require("../lib/jpgraph/src/jpgraph.php");
+require('../lib/jpgraph/src/jpgraph_bar.php');
+require('../lib/jpgraph/src/jpgraph_date.php');
+require("../lib/jpgraph/src/jpgraph_pie.php");
+require("../lib/jpgraph/src/jpgraph_pie3d.php");
+
+
+
+  require('../lib/web.inc.php');
+  sql('USE `ocpl`');
 
 /*
 Zalozenia:
@@ -32,6 +42,13 @@ Zalozonych
 
 zalozone
 dane z SELECT count() ....  FROM caches  WHERE user_id=user.user_id GROUP BY
+*/
+$rsCreateCachesYear= sql('SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE caches.status=1 AND user_id=449 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC');
+  $rsccy = mysql_fetch_array($rsCreateCachesYear);
+  $y=array();
+   $y=$rsccy['count'];
+
+/*
 -----------------------------
 znalezione
 SELECT   FROM cache_logs count() ......   WHERE type=1 AND user_id= user.user_id GROUP BY
@@ -42,8 +59,11 @@ Pierwszy rok brany z $startdate ostatni rok z $endtime
           10            4
 2007  1 2 3 4 5 6 7 8 9 10 11 12   dla kazdego miesiaca
 
-zalozone
-SELECT  count() ..... FROM caches WHERE user_id=user.user_id GROUP BY
+zalozone */
+
+$rsCreateCachesMonth = sql('SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE caches.status=1 AND user_id=449 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC');
+
+/*
 znalezione
 SELECT  count() ..... FROM cache_logs WHERE user_id=user.user_id GROUP BY
 
@@ -53,23 +73,14 @@ SELECT  count() ..... FROM cache_logs WHERE user_id=user.user_id GROUP BY
 //  setlocale(LC_TIME, 'pl_PL.UTF-8');
 // setlocale(LC_TIME, 'pl_PL.utf-8');
 // setlocale(LC_TIME, 'en_EN.UTF-8');
-require("../lib/jpgraph/src/jpgraph.php");
-require('../lib/jpgraph/src/jpgraph_bar.php');
-require('../lib/jpgraph/src/jpgraph_date.php');
-require("../lib/jpgraph/src/jpgraph_pie.php");
-require("../lib/jpgraph/src/jpgraph_pie3d.php");
-
-
-
-  require('../lib/web.inc.php');
-  sql('USE `ocpl`');
-
+/*
   // Start von Opencaching
   $startDate = mktime(0, 0, 0, 5, 1, 2006);
 
+$rsstat = sql('SELECT COUNT(*) `count`, YEAR(`date_created`) `year`, MONTH(`date_created`) `month` FROM `caches` WHERE caches.status=1 AND user_id=449 GROUP BY MONTH(`date_created`) ORDER BY YEAR(`date_created`) `year`, MONTH(`date_created`) ASC');
+  $rstat = mysql_fetch_array($rsstat);
 
-
-  //
+ //
   // Daten abfragen
   //
  // $rsCaches = sql('SELECT COUNT(*) `count`, DAY(`date_created`) `day`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE caches.status=1 GROUP BY DAY(`date_created`), MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC');
@@ -127,7 +138,7 @@ require("../lib/jpgraph/src/jpgraph_pie3d.php");
   }
   mysql_free_result($rsCaches);
   mysql_free_result($rsLogs);
-
+*/
 $datay=array(12,8,19,3,10,5);
 
 // Create the graph. These two calls are always required
@@ -138,10 +149,10 @@ $graph->SetScale('intlin');
 $graph->SetShadow();
  
 // Adjust the margin a bit to make more room for titles
-$graph->SetMargin(40,30,20,40);
+// $graph->SetMargin(40,30,20,40);
  
 // Create a bar pot
-$bplot = new BarPlot($rCaches['month']);
+$bplot = new BarPlot($y);
  
 // Adjust fill color
 $bplot->SetFillColor('orange');
