@@ -5,7 +5,7 @@ Zalozenia:
 
 zmienna weyjsciowa user_id wiec zapytanie typu user_stat.php?user_id=xx
 $startdate = user.date_created (data rejstracji)
-$endtime = time(); biezaca data
+$endtime = date("Y-m-d H:i:s"); biezaca data
 $tartdate-$endtime= $difftime   ilosc dni jakie upynelo od rejstracji na OC PL
 --------------------------------
 
@@ -31,10 +31,10 @@ Zalozonych
 2006 2007 2008
 
 zalozone
-dane z SELECT count() ....  FROM caches  WHERE user_id=user.user_id
+dane z SELECT count() ....  FROM caches  WHERE user_id=user.user_id GROUP BY
 -----------------------------
 znalezione
-SELECT   FROM cache_logs count() ......   WHERE type=1 AND user_id= user.user_id
+SELECT   FROM cache_logs count() ......   WHERE type=1 AND user_id= user.user_id GROUP BY
 ----------------------
 
 Statystyki miesieczne - aktywnosc
@@ -43,9 +43,9 @@ Pierwszy rok brany z $startdate ostatni rok z $endtime
 2007  1 2 3 4 5 6 7 8 9 10 11 12   dla kazdego miesiaca
 
 zalozone
-SELECT  count() ..... FROM caches WHERE user_id=user.user_id
+SELECT  count() ..... FROM caches WHERE user_id=user.user_id GROUP BY
 znalezione
-SELECT  count() ..... FROM cache_logs WHERE user_id=user.user_id
+SELECT  count() ..... FROM cache_logs WHERE user_id=user.user_id GROUP BY
 
 
 
