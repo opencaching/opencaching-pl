@@ -20,6 +20,12 @@ require("../lib/jpgraph/src/jpgraph_pie3d.php");
 		{
 			$user_id = $_REQUEST['userid'];
 			$titles = $_REQUEST['title'];
+			if (strlen($titles) >3) {
+			$year = substr ($titles,-4);
+			$tit= substr($titles,0,-4);
+			}
+			else
+			{ $tit=$titles;}
 		}
 		
   $y=array();
@@ -44,7 +50,7 @@ W ilu uczestniczyl wydarzeniach: search cache_logs count() WHERE type=7 AND user
 ------------------------------
 */
 
-if ($titles == "CreateCachesYear") {
+if ($tit == "ccy") {
 $rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
 				if ($rsCreateCachesYear !== false){
@@ -56,8 +62,8 @@ $rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FR
 		}
 
 
-if ($titles == "CreateCachesMonth") {
-$rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id);
+if ($tit == "ccm") {
+$rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 AND YEAR(`date_created`)=&2 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year);
 
  				if ($rsCreateCachesMonth !== false) {
 
@@ -70,7 +76,7 @@ $rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `mont
 				
 				}
 
-if ($titles == "CachesFindYear") {
+if ($tit == "cfy") {
 $rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `cache_logs` WHERE type=1 AND user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
   				if ($rsCachesFindYear !== false) {
@@ -81,8 +87,8 @@ $rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FRO
 				mysql_free_result($rsCachesFindYear);
 }
 
-if ($titles == "CachesFindMonth") {
-$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , MONTH(`date_created`) `month` FROM `cache_logs` WHERE type=1 AND user_id=&1 GROUP BY MONTH(`date_created`) , YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id);
+if ($tit == "cfm") {
+$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , MONTH(`date_created`) `month` FROM `cache_logs` WHERE type=1 AND user_id=&1 AND YEAR(`date_created`)=&2 GROUP BY MONTH(`date_created`) , YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year);
 
  				if ($rsCachesFindMonth !== false){
 
