@@ -65,7 +65,7 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , M
 		}
 				mysql_free_result($rsCachesFindMonth);
 
-
+			$content .='<tr><td>Visted</td></tr><tr<td><img=images/PLmapa250.jpg alt="" /></td</tr>';
 	tpl_set_var('content',$content);
 	$tplname = 'users-stats';
 }
