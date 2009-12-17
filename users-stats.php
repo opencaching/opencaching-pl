@@ -13,7 +13,7 @@
 		}
 
 	$content="";
-	// calculate diif days between fate of registers to current date
+	// calculate diif days between date of register on OC  to current date
 	  $rdd=sql("select TO_DAYS(NOW()) - TO_DAYS(`date_created`) `diff` from `user` WHERE user_id=&1 ",$user_id);
 	  $ddays = mysql_fetch_array($rdd);
 	  mysql_free_result($rdd);
@@ -37,16 +37,15 @@
 	$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccy" border="0" alt="" /></td></tr>';
 			
 	}
-	mysql_free_result($rsCreateCachesYear);
 
 	$rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id);
 
  				if ($rsCreateCachesMonth !== false) {
-				$rccm = mysql_fetch_array($rsCreateCachesMonth); 
+			while ($rccm = mysql_fetch_array($rsCreateCachesYear)){
 
-		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm' . $rccm['year'] . '" border="0" alt="" /></td></tr>';
-			
 
+		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm' . $rccm['year'] . '" border="0" alt="" /></td></tr>';		
+				}
 		}
  			mysql_free_result($rsCreateCachesMonth);
 
@@ -59,20 +58,22 @@
 		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfy"  border="0" alt="" /></td></tr>';					
 
 			}
-				mysql_free_result($rsCachesFindYear);
+
 
 $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , MONTH(`date_created`) `month` FROM `cache_logs` WHERE type=1 AND user_id=&1 GROUP BY MONTH(`date_created`) , YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id);
 
  				if ($rsCachesFindMonth !== false){
-				$rcfm = mysql_fetch_array($rsCachesFindMonth); 
+				while ($rcfm = mysql_fetch_array($rsCachesFindYear)){
 
 		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfm' . $rcfm['year'] . '"  border="0" alt="" /></td></tr>';					
-
+			}
 		}
 				mysql_free_result($rsCachesFindMonth);
 
 			$content .='<br><br><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Visted PL regions </b></td></tr><tr><td width="500"><center><img src=images/PLmapa250.jpg alt="" /></center></td</tr></table>';
-	tpl_set_var('content',$content);
+			mysql_free_result($rsCachesFindYear);
+			mysql_free_result($rsCreateCachesYear);
+			tpl_set_var('content',$content);
 	$tplname = 'users-stats';
 }
 	tpl_BuildTemplate();
