@@ -455,6 +455,7 @@
 			tpl_set_var('vote_icon', $vote_icon);
 			tpl_set_var('watch_icon', $watch_icon);
 			tpl_set_var('visit_icon', $visit_icon);
+			tpl_set_var('score_icon', $score_icon);
 			
 			if ($cache_record['type'] == 6)
 			{

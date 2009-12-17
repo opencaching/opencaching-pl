@@ -79,7 +79,6 @@
 						{{size}}: {cachesize}<br />
 						{hidetime_start}{{time}}: {search_time}&nbsp;&nbsp;{{length}}: {way_length}<br />{hidetime_end}
 						{{status_label}}: {status}<br />
-						{{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
 						{{date_hidden_label}}: {hidden_date}<br />
 						{{date_created_label}}: {date_created}<br />
 						{{last_modified_label}}: {last_modified}<br />
@@ -120,6 +119,7 @@ else
 							{watch_icon} {watcher} {{watchers}}<br />
 							{visit_icon} {visits} {{visitors}}<br />
 							{vote_icon} {votes_count} x {{scored}}<br />
+							{score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
 							{rating_stat}
 							</p>
 						</div>
