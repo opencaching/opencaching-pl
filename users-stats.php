@@ -14,8 +14,8 @@
 
 	$content="";
 
-	$dd=sqlValue(sql("select to_days(`current_date`)-to_days(`date_created`) from tabela `user` WHERE user_id=&1 ",$user_id));
-	echo $dd;
+//	$dd=sql("select to_days(current_date())-to_days(`date_created`) from `user` WHERE user_id=&1 ",$user_id);
+//	echo $dd;
 	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, username FROM `user` WHERE user_id=&1 ",$user_id);
 	if ($rsGeneralStat !== false){
 			$user_record = sql_fetch_array($rsGeneralStat);
@@ -37,7 +37,7 @@
 
 	$rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id);
 
- 				if (mysql_num_rows($result)==0) {
+ 				if ($rsCreateCachesMonth !== false) {
 				$rccm = mysql_fetch_array($rsCreateCachesMonth); 
 
 		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm' . $rccm['year'] . '" border="0" alt="" /></td></tr>';
