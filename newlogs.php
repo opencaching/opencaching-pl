@@ -166,9 +166,7 @@ if ($error == false)
 			}
 		}
 	}
-	//$n_file = fopen("/tpl/stdstyle/html/newlogs.tpl.php", 'w');
-	//fwrite($n_file, $file_content);
-	//fclose($n_file);
+
 	$pages = mb_ereg_replace('{last_img}', $last_img, $pages);
 	$pages = mb_ereg_replace('{first_img}', $first_img, $pages);
 	
