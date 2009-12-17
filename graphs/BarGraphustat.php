@@ -99,6 +99,7 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , M
 				$descibe="Miesieczna statystyka znalezionych skrzynek";
 				$describe .= $year;
 				$xtitle=$year;
+
 				while ($rfm = mysql_fetch_array($rsCachesFindMonth)){
 					$y[] = $rfm['count'];
 					$x[] = $rfm['month'];}
@@ -111,12 +112,12 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , M
 // Create the graph. These two calls are always required
 $graph = new Graph(500,200,'auto');
 $graph->SetScale('textint');
- 
+
 // Add a drop shadow
 $graph->SetShadow();
  
 // Adjust the margin a bit to make more room for titles
- $graph->SetMargin(40,30,20,40);
+ $graph->SetMargin(50,30,30,40);
  
 // Create a bar pot
 $bplot = new BarPlot($y);
@@ -125,10 +126,16 @@ $bplot = new BarPlot($y);
 $bplot->SetFillColor('steelblue2');
 $graph->Add($bplot);
  
+ 
 // Setup the titles
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
+
+
+// Some extra margin looks nicer
+//$graph->xaxis->SetLabelMargin(10);
+
 $graph->yaxis->title->Set('Liczba skrzynek');
  
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
