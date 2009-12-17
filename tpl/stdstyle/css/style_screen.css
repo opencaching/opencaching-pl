@@ -585,6 +585,25 @@ form, input, textarea, button {
 
 #SendToGPS { BACKGROUND: rgb(234,239,247); BORDER-RIGHT: #005e9d 2px outset; BORDER-TOP: #000000 1px outset; FONT-WEIGHT: bold; FONT-SIZE: 8pt; PADDING-BOTTOM: 2px; BORDER-LEFT: #000000 1px outset; PADDING-TOP: 2px; BORDER-BOTTOM: #005e9d 2px outset; FONT-FAMILY: verdana }
 
+div.gsc-resultsRoot, div.gsc-branding-text, img.gsc-branding-img {
+	display: none;
+}
+
+#ext_search input.gsc-input {
+	font-size: 14px;
+	width: 150px;
+}
+
+#ext_search input.gsc-search-button {
+	font-size: 12px;
+}
 
 
+#map_canvas input.gsc-input {
+	font-size: 15px;
+}
+
+#map_canvas input.gsc-search-button {
+	font-size: 14px;
+}
 

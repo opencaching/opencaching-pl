@@ -35,14 +35,14 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `deleted`=0 AND `type
 		else
 			$checked = '';
 			
-		echo '<input type="checkbox" value="1" name="'.intval($res['id']).'" id="'.intval($res['id']).'" '.$checked.'><label for="'.intval($res['id']).'">'.strip_tags($res['pl']).'</label>';
+		echo '<input type="checkbox" value="1" name="'.intval($res['id']).'" id="'.intval($res['id']).'" '.$checked.' /><label for="'.intval($res['id']).'">'.strip_tags($res['pl']).'</label>';
 		if( $no_types % 5 != 0 )
 			echo ' | ';
 		if( $no_types == 5 )
 			echo '<br />';
 	}
 	echo '<input type="hidden" name="page" value="s2">';
-	echo '<br/><input type="submit" value="Filtruj">';
+	echo '<br/><input type="submit" value="{{filter_out}}">';
 	
 	echo '</form></td></tr>';
 	echo '<tr><td> <table bgcolor="white" width=750>' . "\n";
@@ -55,11 +55,11 @@ $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id FROM caches, cache
 echo "<br />";
 
 $r=mysql_query($a) or die(mysql_error());
-echo    "<tr bgcolor=#D5D5D5>".
-        "<td align=center><font size=2>&nbsp;&nbsp;<b>Ranking</b>&nbsp;&nbsp;</td>".
-        "<td align=center><font size=2><b>Miejsce ex-aequo</b></td>".
-	"<td align=center><font size=2><b>Liczba odkryć</b></font></td>".
-	"<td align=center>&nbsp;&nbsp;<font size=2><b>Username</b></font>&nbsp;&nbsp;</td>";
+echo    '<tr bgcolor="#D5D5D5">'.
+        '<td align="center">&nbsp;&nbsp;<b>{{ranking}</b>&nbsp;&nbsp;</td>'.
+        '<td align="center"><b>{{place_ex-aequo}}</b></td>'.
+	'<td align="center"><b>{{number_of_finds}}</b></td>'.
+	'<td align="center">&nbsp;&nbsp;<b>{{username}}</b>&nbsp;&nbsp;</td>';
 
 $l2=""; // number of users within the same rank
 $rank=0; // rank number; increamented by one for each group of users having the same caches discovered
@@ -80,26 +80,26 @@ while ($line=mysql_fetch_array($r))
     if ($l2!=$l1)
     {
         // new rank (finish recent row and start new one)
-	echo "</font></td></tr>";
+	echo '</font></td></tr>';
 	$rank++;
-        echo "<tr bgcolor=#D5D5D5>".
-	     "<td align=right><font size=2>&nbsp;&nbsp;<b>$rank</b>&nbsp;&nbsp;</td>".
-             "<td align=right><font size=2>&nbsp;&nbsp;$position&nbsp;&nbsp;</td>".
-	     "<td align=right>&nbsp;&nbsp;<font size=2><b>$l1</b></font>&nbsp;&nbsp;</td>".
-             "<td><font size=2><a style='color:$color' href='viewprofile.php?userid=$line[user_id]'>$line[username]$banned</a>";
+        echo '<tr bgcolor="#D5D5D5>"'.
+	     '<td align="right">&nbsp;&nbsp;<b>'.$rank.'</b>&nbsp;&nbsp;</td>'.
+             '<td align="right">&nbsp;&nbsp;'.$position.'&nbsp;&nbsp;</td>'.
+	     '<td align="right">&nbsp;&nbsp;<b>'.$l1.'</b>&nbsp;&nbsp;</td>'.
+             '<td><a style="color:'.$color.'" href="viewprofile.php?userid='.$line[user_id].'">'.htmlspecialchars($line[username]).$banned.'</a>';
         $l2=$l1;
     }
     else 
     {
         // the same rank (continue row)
-        echo ", <a style='color:$color' href='viewprofile.php?userid=$line[user_id]'>$line[username] $banned</a>";
+        echo ', <a style="color:'.$color.'" href="viewprofile.php?userid='.$line[user_id].'">'.htmlspecialchars($line[username]).$banned.'</a>';
     }
     $position++;
 	}
 }
 
 // end table
-echo "</font></td></tr>";
+echo "</td></tr>";
 echo "</table></td></tr></table>\n";
 
 ?>

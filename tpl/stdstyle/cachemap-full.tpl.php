@@ -1,8 +1,33 @@
-<div id="map_canvas" style="width: 100%; height: 100%; position: absolute; top: 0p; bottom: 0px;">
+<div id="map_canvas" style="width: 100%; height: 100%; position: absolute; top: 0px; bottom: 0px;">
 </div>
 <input class="chbox" id="zoom" name="zoom" value="{zoom}" type="hidden" />
 	<script type="text/javascript" language="javascript"><!--
 
+
+function MySearchControl() {
+}
+
+MySearchControl.prototype = new GControl();
+
+
+
+MySearchControl.prototype.initialize = function(map) {
+  var container = document.createElement("div");
+
+  var searchArea = document.createElement("div");
+
+  searchArea.setAttribute("id", "search_control");
+
+  container.appendChild(searchArea);
+
+  map.getContainer().appendChild(container);
+
+  return container;
+}
+
+MySearchControl.prototype.getDefaultPosition = function() {
+  return new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(30, 50));
+}
 
 function FullscreenOffControl() {
 }
@@ -309,7 +334,7 @@ CacheFilterControl.prototype.setButtonStyle_ = function(button) {
 	{
 	 if (GBrowserIsCompatible()) 
 		{
-			map = new GMap2(document.getElementById("map_canvas"), {draggableCursor: 'crosshair', draggingCursor: 'pointer'});
+			map = new GMap2(document.getElementById("map_canvas"), {draggableCursor: 'crosshair', draggingCursor: 'pointer', googleBarOptions : { style: "new", } });
 			map.addControl(new CacheFilterControl());
 
 
@@ -329,10 +354,7 @@ CacheFilterControl.prototype.setButtonStyle_ = function(button) {
 			var mapOSM = new GMapType([tilesOSM], G_NORMAL_MAP.getProjection(), "OSM");
 			map.addMapType(mapOSM);
 
-
-
-
-
+			
 
 
 
@@ -348,6 +370,34 @@ CacheFilterControl.prototype.setButtonStyle_ = function(button) {
 			map.addControl(new GHierarchicalMapTypeControl(true));
 			map.addControl(new GOverviewMapControl());			
 			map.addControl(new FullscreenOffControl());			
+			map.addControl(new MySearchControl());
+
+
+	      // Create a search control
+	      var searchControl = new google.search.SearchControl();
+
+	      // Add in local search
+	      var localSearch = new google.search.LocalSearch();
+	      var options = new google.search.SearcherOptions();
+	      options.setExpandMode(GSearchControl.EXPAND_MODE_OPEN);
+	      searchControl.addSearcher(localSearch, options);
+
+	      // Set the Local Search center point
+	      localSearch.setCenterPoint("Poland");
+
+	      // Tell the searcher to draw itself and tell it where to attach
+	      searchControl.draw(document.getElementById("search_control"));
+
+		searchControl.setSearchCompleteCallback(this, function(sc, searcher) { 		
+			if(searcher.results.length < 1)
+				return;
+			var result = searcher.results[0];
+			var p = new GLatLng(parseFloat(result.lat), parseFloat(result.lng));
+			map.setCenter(p, 13, map.getCurrentMapType());
+			document.getElementById("search_control").getElementsByTagName("input")[0].value = "";
+		});
+
+
 
 
 			map.setMapType({map_type});

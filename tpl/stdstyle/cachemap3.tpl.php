@@ -6,6 +6,9 @@
 <div class="nav4">
 <ul id="topmapmenu"><li class="group"><a style="background-image: url(images/actions/fullscreen-18.png);background-repeat:no-repeat;" href="cachemap-full.php" onclick='window.location = "cachemap-full.php?lat="+map.getCenter().lat()+"&lon="+map.getCenter().lng(); return false;'>{{fullscreen}}</a></li></ul>
 </div>
+<div id="ext_search">
+<div id="search_control" style="float: left;">&nbsp;</div>
+</div>
 <div id="map_canvas" style="width: {map_width}; height: {map_height}; float:left; border: 1px solid #000;">
 </div>
 <div class="content2-container">
@@ -221,6 +224,34 @@
 			map.addMapType(G_PHYSICAL_MAP);
 			map.addControl(new GHierarchicalMapTypeControl(true));
 			map.addControl(new GOverviewMapControl());			
+
+
+
+          // Create a search control
+          var searchControl = new google.search.SearchControl();
+
+          // Add in local search
+          var localSearch = new google.search.LocalSearch();
+          var options = new google.search.SearcherOptions();
+          options.setExpandMode(GSearchControl.EXPAND_MODE_OPEN);
+          searchControl.addSearcher(localSearch, options);
+
+          // Set the Local Search center point
+          localSearch.setCenterPoint("Poland");
+
+          // Tell the searcher to draw itself and tell it where to attach
+          searchControl.draw(document.getElementById("search_control"));
+
+        searchControl.setSearchCompleteCallback(this, function(sc, searcher) {
+            if(searcher.results.length < 1)
+                return;
+            var result = searcher.results[0];
+            var p = new GLatLng(parseFloat(result.lat), parseFloat(result.lng));
+            map.setCenter(p, 13, map.getCurrentMapType());
+            document.getElementById("search_control").getElementsByTagName("input")[0].value = "";
+        });
+
+
 
 			map.setMapType({map_type});
 			map.addOverlay(tlo);
