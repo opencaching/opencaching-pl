@@ -47,7 +47,7 @@
 
   				if ($rsCachesFindYear !== false) {
 
-		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfy"  border="0" alt="" /></td></tr>';					
+		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfy"  border="0" alt="" /></td></tr><tr><td>&nbsp;</td></tr>';					
 
 			}
 				mysql_free_result($rsCachesFindYear);
