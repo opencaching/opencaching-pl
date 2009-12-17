@@ -13,9 +13,11 @@
 		}
 
 	$content="";
+	// calculate diif days between fate of registers to current date
+	  $rdd=sql("select TO_DAYS(NOW()) - TO_DAYS(`date_created`) `diff` from `user` WHERE user_id=&1 ",$user_id);
+	  $ddays = mysql_fetch_array($rdd);
+	  mysql_free_result($rdd);
 
-//	$dd=sql("select to_days(current_date())-to_days(`date_created`) from `user` WHERE user_id=&1 ",$user_id);
-//	echo $dd;
 	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, username FROM `user` WHERE user_id=&1 ",$user_id);
 	if ($rsGeneralStat !== false){
 			$user_record = sql_fetch_array($rsGeneralStat);
