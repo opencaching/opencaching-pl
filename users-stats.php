@@ -19,7 +19,8 @@
 			$user_record = sql_fetch_array($rsGeneralStat);
 			mysql_free_result($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);
-			$content .= '<table border="1"><tr><td width="100" colspan="4" bgcolor="#C6E2FF"><b>General statistics </b></td></tr><tr><td> Total Found </td> <td>' . $user_record['founds_count'] . '</td> <td> Find Rate </td> <td> 100% </td></tr><tr><td> Caches created </td> <td>' . $user_record['hidden_count'] . '</td> <td> Avg. difficulty / terrain </td> <td></td></tr><tr><td> Avg cache/day </td> <td> </td> <td>First Cache</td><td> </td></tr><tr><td> Most cache/day </td> <td></td> <td>Latest Cache</td><td></td></tr></table><br /><br />';	
+			$content .= '<table style="border-collapse: collapse" border="1" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>General statistics </b></td></tr><tr><td> Total Found </td> <td>' . $user_record['founds_count'] . '</td> <td> Find Rate </td> <td>  </td></tr><tr><td> Caches created </td> <td>' . $user_record['hidden_count'] . '</td> <td> Total logs entry </td> <td>' . $user_record['log_notes_count'] . '</td></tr><tr><td> Avg cache/day </td> <td> </td> <td>First Cache</td><td> </td></tr><tr><td> Most cache/day </td> <td></td> <td>Latest Cache</td><td></td></tr></table><br /><br />';	
+
 		}
 
 	$rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
