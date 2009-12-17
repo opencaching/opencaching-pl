@@ -16,10 +16,10 @@ require("../lib/jpgraph/src/jpgraph_pie3d.php");
   sql('USE `ocpl`');
 		$year='';
 		// check for old-style parameters
-		if (isset($_REQUEST['userid']) && isset($_REQUEST['title']))
+		if (isset($_REQUEST['userid']) && isset($_REQUEST['t']))
 		{
 			$user_id = $_REQUEST['userid'];
-			$titles = $_REQUEST['title'];
+			$titles = $_REQUEST['t'];
 			if (strlen($titles) >3) {
 			$year = substr ($titles,-4);
 			$tit= substr($titles,0,-4);
