@@ -1,6 +1,6 @@
  	<!-- 	CONTENT -->
 <div class="content2">
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{Statystyki usera}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{Statystyki usera}}: </div>
 
 
 <img src="graphs/user-stat.php?userid=449&title=ccy" />
