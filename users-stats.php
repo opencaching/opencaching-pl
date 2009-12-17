@@ -36,7 +36,16 @@
 
 		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfy"  border="0" alt="" /></td></tr>';					
 				mysql_free_result($rsCachesFindYear);
-}
+			}
+
+$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , MONTH(`date_created`) `month` FROM `cache_logs` WHERE type=1 AND user_id=&1 AND YEAR(`date_created`)=&2 GROUP BY MONTH(`date_created`) , YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year);
+
+ 				if ($rsCachesFindMonth !== false){
+
+
+		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfm2009"  border="0" alt="" /></td></tr>';					
+				mysql_free_result($rsCachesFindMonth);
+		}
 
 
 
