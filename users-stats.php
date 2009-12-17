@@ -23,7 +23,7 @@
 	$rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 AND YEAR(`date_created`)=&2 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year);
 
  				if ($rsCreateCachesMonth !== false) {
-		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccym2009" border="0" alt="" /></td></tr>';
+		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm2009" border="0" alt="" /></td></tr>';
 
  			mysql_free_result($rsCreateCachesMonth);
 		}
@@ -34,7 +34,7 @@
 
   				if ($rsCachesFindYear !== false) {
 
-		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfy"  border="0" alt="" /></td></tr>';					}
+		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfy"  border="0" alt="" /></td></tr>';					
 				mysql_free_result($rsCachesFindYear);
 }
 
