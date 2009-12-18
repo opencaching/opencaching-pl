@@ -615,7 +615,7 @@
 							$gc_com_refs = true;
 						sql_free_result($resp);
 
-						$edit_url = 'editdesc.php?cacheid=' . urlencode($cache_id) . '&amp;desclang=' . urlencode($desclang);
+						$edit_url = 'editdesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
 
 						$cache_descs .= '<tr><td colspan="2">' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . ' [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '">' . $edit . '</a>]' . $removedesc . '</td></tr>';
 					}
