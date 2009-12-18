@@ -36,8 +36,8 @@
 
 			tpl_set_var('username',$user_record['username']);
 }
-			$content .= '<table style="border-collapse: collapse" border="0" width="750"><tr><td width="150"><b><a href="users-stats.php?userid=' . $user_id . '">Statystyka ogolna</a></b></td> <td width="200" bgcolor="#C6E2FF"><b><a href="ustatsg1.php?userid=' . $user_id . '"Wykresy skrzynek zalozonych</a></b></td> <td width="200"><b> Wykresy skrzynek znalezionych</b></td><td width="300" ></td> </tr></table><br /><br />';
-			$content .='<br><br><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Wykresy statystyk skrzynek zalozonych </b></td></tr></table><br /><br />';	
+			$content .= '<table style="border-collapse: collapse" border="0" width="750"><tr><td width="150"><b><a href="users-stats.php?userid=' . $user_id . '">Statystyka ogolna</a></b></td> <td width="200"><b><a href="ustatsg1.php?userid=' . $user_id . '">Wykresy skrzynek zalozonych</a></b></td> <td width="200"  bgcolor="#C6E2FF"><b> Wykresy skrzynek znalezionych</b></td><td width="300" ></td> </tr></table><br /><br />';
+			$content .='<br><br><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Statystyka skrzynek znalezionych </b></td></tr></table><br /><br />';	
 
 		
 			mysql_free_result($rsGeneralStat);
@@ -59,8 +59,7 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , M
 			}
 		}
 				mysql_free_result($rsCachesFindMonth);
-
-			$content .='<br><br><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Visted PL regions </b></td></tr><tr><td width="500"><center><img src=images/PLmapa250.jpg alt="" /></center></td</tr></table>';
+
 			mysql_free_result($rsCachesFindYear);
 
 			tpl_set_var('content',$content);
