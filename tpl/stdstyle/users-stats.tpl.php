@@ -7,14 +7,14 @@
 
 
 					// statlisting
-					$clidx = mnu_MainMenuIndexFromPageId($menu, "statlisting");
+					$statidx = mnu_MainMenuIndexFromPageId($menu, "statlisting");
 					if( $menu[$clidx]['title'] != '' )
 					{
 						echo '<ul id="statmenu">';
-						$menu[$clidx]['visible'] = false;
+						$menu[$statidx]['visible'] = false;
 						echo '<li class="title" ';
-						echo '>'.$menu[$clidx]["title"].'</li>';
-						mnu_EchoSubMenu($menu[$clidx]['submenu'], $tplname, 1, false);
+						echo '>'.$menu[$statidx]["title"].'</li>';
+						mnu_EchoSubMenu($menu[$statidx]['submenu'], $tplname, 1, false);
 						echo '</ul>';
 					}
 					//end statlisting
