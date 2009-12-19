@@ -1,4 +1,4 @@
-<?php
+Ôªø<?php
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 		global $stat_menu;
@@ -22,16 +22,16 @@
 					'filename' => 'users-stats.php?userid='.$user_id,
 					'submenu' => array(
 									array(
-							'title' => tr('Statystyka ogÛlna'),
-							'menustring' => tr('Statystka ogÛlna'),
+							'title' => tr('Statystyka og√≥lna'),
+							'menustring' => tr('Statystka og√≥lna'),
 							'visible' => true,
 							'filename' => 'users-stats.php?userid='.$user_id,
 							'newwindow' => false,
 							'siteid' => 'stat_general'
 						),
 						array(
-							'title' => tr('Skrzynki za≥oøone'),
-							'menustring' => tr('Skrzynki za≥oøone'),
+							'title' => tr('Skrzynki za≈Ço≈ºone'),
+							'menustring' => tr('Skrzynki za≈Ço≈ºone'),
 							'visible' => true,
 							'filename' => 'ustatg1?userid='.$user_id,
 							'newwindow' => false,
@@ -58,7 +58,7 @@
 
 
 			$content .= '<table style="border-collapse: collapse" border="0" width="750"><tr><td width="150" bgcolor="#C6E2FF">Statystyka ogolna</b></td> <td width="200"><b><a href="ustatsg1.php?userid=' . $user_id . '">Wykresy skrzynek zalozonych</a></b></td> <td width="200"><b><a href="ustatsg2.php?userid=' . $user_id . '"> Wykresy skrzynek znalezionych</a></b></td><td width="300" ></td> </tr></table><br /><br />';
-			$content .='<br><br><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>OgÛlna statystyka liczbowa</b></td></tr></table><br /><br />';	
+			$content .='<br><br><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Og√≥lna statystyka liczbowa</b></td></tr></table><br /><br />';	
 
 	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, username FROM `user` WHERE user_id=&1 ",$user_id);
 	if ($rsGeneralStat !== false){
@@ -66,14 +66,14 @@
 
 			tpl_set_var('username',$user_record['username']);
 
-			$content .= '<table style="border-collapse: collapse" border="1" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Statystyka skrzynek za≥oøonych</b></td></tr><tr><td> Total created caches</td> <td>' . $user_record['hidden_count'] . '</td> <td> Create Rate </td> <td> .... </td></tr><tr><td> Avg cache/day </td> <td> ....</td> <td>First Cache created</td><td>.... </td></tr><tr><td> Most cache/day </td> <td>....</td> <td>Latest Cache created</td><td>....</td></tr></table><br /><br />';	
+			$content .= '<table style="border-collapse: collapse" border="1" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Statystyka skrzynek za≈Ço≈ºonych</b></td></tr><tr><td> Total created caches</td> <td>' . $user_record['hidden_count'] . '</td> <td> Create Rate </td> <td> .... </td></tr><tr><td> Avg cache/day </td> <td> ....</td> <td>First Cache created</td><td>.... </td></tr><tr><td> Most cache/day </td> <td>....</td> <td>Latest Cache created</td><td>....</td></tr></table><br /><br />';	
 
 		}
 
 		$content .= '<br><br><table style="border-collapse: collapse" border="1" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Statystka skrzynek znalezionych</b></td></tr><tr><td> Total Found it Caches</td> <td>' . $user_record['founds_count'] . '</td> <td> Find Rate </td> <td> &nbsp;.... </td></tr><tr><td> Avg cache/day </td> <td> &nbsp;....</td> <td>  First Found it Cache  </td> <td>&nbsp;....</td></tr><tr><td> Most cache/day</td> <td> &nbsp;....</td> <td> Latest Found it Cache</td><td>&nbsp;....</td></tr></table><br /><br />';	
 
 
-			$content .='<br><br><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Odwiedzone wojewÛdztwa Polski podczas poszukiwan (w opracowaniu) </b></td></tr><tr><td width="500"><center><img src=images/PLmapa250.jpg alt="" /></center></td</tr></table>';
+			$content .='<br><br><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Odwiedzone wojew√≥dztwa Polski podczas poszukiwan (w opracowaniu) </b></td></tr><tr><td width="500"><center><img src=images/PLmapa250.jpg alt="" /></center></td</tr></table>';
 			mysql_free_result($rsGeneralStat);
 			tpl_set_var('content',$content);
 	$tplname = 'users-stats';
