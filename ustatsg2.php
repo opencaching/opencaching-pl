@@ -11,7 +11,7 @@
 
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-	
+		global $stat_menu;	
 	//Preprocessing
 	if ($error == false)
 	{
@@ -21,6 +21,33 @@
 			$user_id = $_REQUEST['userid'];
 		
 		}
+				$tplname = 'createstat';
+
+	$stat_menu = array(
+					'title' => 'Statystyka',
+					'menustring' => 'Statystyka',
+					'siteid' => 'statlisting',
+					'visible' => false,
+					'filename' => 'ustatsg2.php?userid='.$user_id,
+					'submenu' => array(
+									array(
+							'title' => 'Statystyka ogolna',
+							'menustring' => 'Statystka ogólna',
+							'visible' => true,
+							'filename' => 'users-stats.php?userid='.$user_id,
+							'newwindow' => false,
+							'siteid' => 'general_stat'
+						),
+						array(
+							'title' => 'Skrzynki zalozone',
+							'menustring' => 'Skrzynki za³o¿one',
+							'visible' => true,
+							'filename' => 'ustatsg1.php?userid='.$user_id,
+							'newwindow' => false,
+							'siteid' => 'createstat'
+						)
+					)
+				);
 
 	$content="";
 	// calculate diif days between date of register on OC  to current date
@@ -36,8 +63,7 @@
 
 			tpl_set_var('username',$user_record['username']);
 }
-			$content .= '<table style="border-collapse: collapse" border="0" width="750"><tr><td width="150"><b><a href="users-stats.php?userid=' . $user_id . '">Statystyka ogolna</a></b></td> <td width="200"><b><a href="ustatsg1.php?userid=' . $user_id . '">Wykresy skrzynek zalozonych</a></b></td> <td width="200"  bgcolor="#C6E2FF"><b> Wykresy skrzynek znalezionych</b></td><td width="300" ></td> </tr></table><br /><br />';
-			$content .='<br><br><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Statystyka skrzynek znalezionych </b></td></tr></table><br /><br />';	
+				$content .='<p><b>Statystyka skrzynek znalezionych </b></p>';	
 
 		
 			mysql_free_result($rsGeneralStat);
@@ -45,7 +71,7 @@
 
   				if ($rsCachesFindYear !== false) {
 
-		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfy"  border="0" alt="" /></td></tr>';					
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfy"  border="0" alt="" /></p>';					
 
 			}
 
@@ -55,11 +81,12 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , M
  				if ($rsCachesFindMonth !== false){
 				while ($rcfm = mysql_fetch_array($rsCachesFindYear)){
 
-		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfm' . $rcfm['year'] . '"  border="0" alt="" /></td></tr>';					
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfm' . $rcfm['year'] . '"  border="0" alt="" /></p>';					
 			}
 		}
 				mysql_free_result($rsCachesFindMonth);
-
+
+
 			mysql_free_result($rsCachesFindYear);
 
 			tpl_set_var('content',$content);

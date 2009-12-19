@@ -11,7 +11,7 @@
 
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-	
+		global $stat_menu;	
 	//Preprocessing
 	if ($error == false)
 	{
@@ -21,6 +21,35 @@
 			$user_id = $_REQUEST['userid'];
 		
 		}
+		
+				$tplname = 'users-stats';
+				$stat_menu = array(
+					'title' => 'Statystyka',
+					'menustring' => 'Statystyka',
+					'siteid' => 'statlisting',
+					'navicolor' => '#E8DDE4',
+					'visible' => false,
+					'filename' => 'users-stats.php?userid='.$user_id,
+					'submenu' => array(					
+						array(
+							'title' => 'Statystyka ogolna',
+							'menustring' => 'Statystka ogólna',
+							'visible' => true,
+							'filename' => 'users-stats.php?userid='.$user_id,
+							'newwindow' => false,
+							'siteid' => 'general_stat'
+						),
+						array(
+							'title' => 'Skrzynki znalezione',
+							'menustring' => 'Skrzynki znalezione',
+							'visible' => true,
+							'filename' => 'ustatsg2.php?userid='.$user_id,
+							'newwindow' => false,
+							'siteid' => 'findstat'
+						)
+					)
+				);
+
 
 	$content="";
 	// calculate diif days between date of register on OC  to current date
@@ -36,8 +65,7 @@
 
 			tpl_set_var('username',$user_record['username']);
 }
-			$content .= '<table style="border-collapse: collapse" border="0" width="750"><tr><td width="150"><b><a href="users-stats.php?userid=' . $user_id . '">Statystyka ogolna</a></b></td> <td width="200" bgcolor="#C6E2FF"><b>Wykresy skrzynek zalozonych</b></td> <td width="200"><b><a href="ustatsg2.php?userid=' . $user_id . '"> Wykresy skrzynek znalezionych </a></b></td><td width="300" ></td> </tr></table><br /><br />';
-			$content .='<br><br><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><b>Wykresy statystyk skrzynek zalozonych </b></td></tr></table><br /><br />';	
+			$content .='<p><b>Wykresy statystyk skrzynek zalozonych </b></p>';	
 
 		
 			mysql_free_result($rsGeneralStat);
@@ -45,7 +73,7 @@
 	$rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
 	if ($rsCreateCachesYear !== false){
-	$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccy" border="0" alt="" /></td></tr>';
+	$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccy" border="0" alt="" /></p>';
 			
 	}
 
@@ -55,7 +83,7 @@
 			while ($rccm = mysql_fetch_array($rsCreateCachesYear)){
 
 
-		$content .= '<tr><td><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm' . $rccm['year'] . '" border="0" alt="" /></td></tr>';		
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm' . $rccm['year'] . '" border="0" alt="" /></p>';		
 				}
 		}
  			mysql_free_result($rsCreateCachesMonth);
