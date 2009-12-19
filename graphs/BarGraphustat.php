@@ -112,7 +112,7 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , M
 // Create the graph. These two calls are always required
 $graph = new Graph(500,200,'auto');
 $graph->SetScale('textint');
-
+// ,0,0,0,max($y)-min($y)+5);
 // Add a drop shadow
 $graph->SetShadow();
  

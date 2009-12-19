@@ -119,6 +119,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 .nav4 li.subgroup a:hover, .nav4 li a.selected {border-left: solid 14px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
 
 ul#cachemenu { padding: 0px; margin: 0px;}
+ul#statmenu { padding: 0px; margin: 0px;}
 
 .notlogged-cacheview { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 0px 6px 7px; color: rgb(150,75,75); font-size: 120%; }
 
