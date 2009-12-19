@@ -48,7 +48,7 @@
 
  ****************************************************************************/
 include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu;
+global $menu, $usr, $lang, $cache_menu, $stat_menu;
 
 $menu = array(
 	array(
@@ -699,7 +699,8 @@ $menu = array(
 		)
 	),
 	
-	$cache_menu
+	$cache_menu,
+	$stat_menu
 );
 
 

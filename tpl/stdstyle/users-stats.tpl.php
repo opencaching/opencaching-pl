@@ -20,8 +20,8 @@
 					//end statlisting
 ?>
 				</div>
-<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;" width="97%">
+
 {content}
-</table>
+
 </div>
 
