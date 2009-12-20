@@ -23,7 +23,7 @@
 					'submenu' => array(
 						array(
 							'title' => tr('Skrzynki założone'),
-							'menustring' => tr('Skrzynki założone'),
+							'menustring' => tr('Wykresy skrzynek założonych'),
 							'visible' => true,
 							'filename' => 'ustatsg1.php?userid='.$user_id,
 							'newwindow' => false,
@@ -31,7 +31,7 @@
 						),
 						array(
 							'title' => tr('Skrzynki znalezione'),
-							'menustring' => tr('Skrzynki znalezione'),
+							'menustring' => tr('Wykresy skrzynek znalezionych'),
 							'visible' => true,
 							'filename' => 'ustatsg2.php?userid='.$user_id,
 							'newwindow' => false,
@@ -52,7 +52,7 @@
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);
-			$content .= '<p>&nbsp;</p><p>&nbsp;</p><strong><p><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><strong>Statystka skrzynek założonych</strong></td></tr></table></p><p>&nbsp;</p>';			
+			$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek założonych</p></div>';			
 		if ($user_record['hidden_count'] == 0) {
 			$content .= '<p> <b>Nie ma jeszcze żadnej skrzynki ukrytej<b></p>';
 						  }
@@ -62,11 +62,11 @@
 			$rcc1 = mysql_fetch_array($rscc1);
 			$rscc2=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_hidden,'%Y-%m-%d') data FROM caches WHERE `status` != 5 AND user_id=&1 GROUP BY YEAR(`date_hidden`), MONTH(`date_hidden`), DAY(`date_hidden`) ORDER BY YEAR(`date_hidden`) DESC, MONTH(`date_hidden`) DESC, DAY(`date_hidden`) DESC LIMIT 1",$user_id);
 			$rcc2 = mysql_fetch_array($rscc2);
-			$content .= '<p>Liczba wszystkich założonych skrzynek: ' . $user_record['hidden_count'] . '</p><p>Liczba dni zakladanych skrzynek: .... </p><p>Avg cache/day: ....</p><p>Most cache/day: ....</p><p>Pierwsza założona skrzynka:&nbsp;&nbsp<a href="viewcache.php?cacheid=' . $rcc1['cache_id'] . '">' . $rcc1['wp_oc'] . '</a> ' . $rcc1['data'] . '</p><p>Najnowsza założona skrzynka:&nbsp;&nbsp<a href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a> ' . $rcc2['data'] . '</p></strong>';	
+			$content .= '<p>Liczba wszystkich założonych skrzynek: <strong>' . $user_record['hidden_count'] . '</strong></p><p>Liczba dni "keszowania": <strong></strong></p><p>Średnio skrzynek/dzień: <strong></strong></p><p>Najwięcej skrzynek/dzień: <strong></strong></p><p>Pierwsza założona skrzynka:&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rcc1['cache_id'] . '">' . $rcc1['wp_oc'] . '</a>&nbsp;&nbsp;' . $rcc1['data'] . '</strong></p><p>Najnowsza założona skrzynka:&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;' . $rcc2['data'] . '</strong></p>';	
 			mysql_free_result($rscc1);
 			mysql_free_result($rscc2);
 			}
-		$content .= '<p>&nbsp;</p><p>&nbsp;</p><strong><p><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><strong>Statystka skrzynek znakezionych</strong></td></tr></table></p><p>&nbsp;</p>';
+		$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek znalezionych</p></div>';
 		if ($user_record['founds_count'] == 0) {
 			$content .= '<p> <b>Nie ma jeszcze żadnej skrzynki znalezionej</b></p>';
 						  }
@@ -85,10 +85,10 @@
 			$rsfc2=sql("SELECT cache_id,  DATE_FORMAT(date_created,'%Y-%m-%d') data FROM cache_logs WHERE type='1' AND user_id=&1 AND deleted='0' GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) DESC, MONTH(`date_created`) DESC, DAY(`date_created`) DESC LIMIT 1",$user_id);
 			$rfc2 = mysql_fetch_array($rsfc2);
 
-			$content .= '<p>Liczba znalezionych skrzynek: ' . $user_record['founds_count'] . '</p><p>Liczba nie znalezionych skrzynek: ' . $user_record['notfounds_count'] . '</p><p>Liczba komentarzy w logach: ' . $user_record['log_notes_count'] . '</p><p>Liczba uczestnictwa w spotkaniach: ' . $events_count . '</p><p> Avg cache/day: .... </p><p>Most cache/day: ....</p><p>Pierwsza znaleziona skrzynka:&nbsp;&nbsp<a href="viewcache.php?cacheid=' . $rfc1['cache_id'] . '"> Skrzynka </a> ' . $rfc1['data'] . '</p><p>Ostatnia znaleziona skrzynka:&nbsp;&nbsp<a href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '"> Skrzynka </a> ' . $rfc2['data'] . '</p></strong>';	
+			$content .= '<p>Liczba znalezionych skrzynek: <strong>' . $user_record['founds_count'] . '</strong></p><p>Liczba nie znalezionych skrzynek: <strong>' . $user_record['notfounds_count'] . '</strong></p><p>Liczba komentarzy w logach: <strong>' . $user_record['log_notes_count'] . '</strong></p><p>Liczba uczestnictw w spotkaniach: <strong>' . $events_count . '</strong></p><p>Liczba dni "keszowania": <strong></strong></p><p>Średnio skrzynek/dzień: <strong></strong></p><p>Najwięcej skrzynek/dzień: <strong></strong></p><p>Pierwsza znaleziona skrzynka:&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc1['cache_id'] . '">Skrzynka</a>&nbsp;&nbsp;' . $rfc1['data'] . '</strong></p><p>Ostatnia znaleziona skrzynka:&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">Skrzynka</a>&nbsp;&nbsp;' . $rfc2['data'] . '</strong></p>';	
 			mysql_free_result($rsfc1);
 			mysql_free_result($rsfc2);
-			$content .='<p>&nbsp;</p><p><table style="border-collapse: collapse" border="0" width="500"><tr><td colspan="4" bgcolor="#C6E2FF"><strong>Odwiedzone województwa podczas poszukiwań ( w przygotowaniu)</strong></td></tr></table></p><p><img src=images/PLmapa250.jpg alt="" /></p>';
+			$content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
 						  
 
 						  }
