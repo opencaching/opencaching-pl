@@ -30,7 +30,7 @@
 			$user_id = $_REQUEST['userid'];
 		
 		}
-				$tplname = 'createstat';
+				$tplname = 'users-stats';
 
 	$stat_menu = array(
 					'title' => 'Statictics',
