@@ -10,8 +10,7 @@
 require("../lib/jpgraph/src/jpgraph.php");
 require('../lib/jpgraph/src/jpgraph_bar.php');
 require('../lib/jpgraph/src/jpgraph_date.php');
-require("../lib/jpgraph/src/jpgraph_pie.php");
-require("../lib/jpgraph/src/jpgraph_pie3d.php");
+
 
   require('../lib/web.inc.php');
   sql('USE `ocpl`');
