@@ -52,9 +52,9 @@
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);
-			$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek założonych</p></div>';			
+			$content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek założonych</p></div><br />';			
 		if ($user_record['hidden_count'] == 0) {
-			$content .= '<p> <b>Nie ma jeszcze żadnej skrzynki ukrytej<b></p>';
+			$content .= '<br /><p> <b>Nie ma jeszcze żadnej założonej skrzynki</b></p>';
 						  }
 						  else 
 						  { 
@@ -68,7 +68,7 @@
 			}
 		$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek znalezionych</p></div>';
 		if ($user_record['founds_count'] == 0) {
-			$content .= '<p> <b>Nie ma jeszcze żadnej skrzynki znalezionej</b></p>';
+			$content .= '<br /><p> <b>Nie ma jeszcze żadnej skrzynki znalezionej</b></p>';
 						  }
 						  else 
 						  { 
@@ -80,12 +80,13 @@
 				$events_count = mysql_result($odp,0);
 			else 
 				$events_count = 0;
-			$rsfc1=sql("SELECT cache_id,  DATE_FORMAT(date_created,'%Y-%m-%d') data FROM cache_logs WHERE type='1' AND user_id=&1 AND cache_logs.deleted='0' GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC LIMIT 1",$user_id);
+					   
+			$rsfc1=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date_created,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date_created ASC LIMIT 1",$user_id);
 			$rfc1 = mysql_fetch_array($rsfc1);
-			$rsfc2=sql("SELECT cache_id,  DATE_FORMAT(date_created,'%Y-%m-%d') data FROM cache_logs WHERE type='1' AND user_id=&1 AND deleted='0' GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) DESC, MONTH(`date_created`) DESC, DAY(`date_created`) DESC LIMIT 1",$user_id);
+			$rsfc2=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date_created,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date_created DESC LIMIT 1",$user_id);
 			$rfc2 = mysql_fetch_array($rsfc2);
 
-			$content .= '<p>Liczba znalezionych skrzynek: <strong>' . $user_record['founds_count'] . '</strong></p><p>Liczba nie znalezionych skrzynek: <strong>' . $user_record['notfounds_count'] . '</strong></p><p>Liczba komentarzy w logach: <strong>' . $user_record['log_notes_count'] . '</strong></p><p>Liczba uczestnictw w spotkaniach: <strong>' . $events_count . '</strong></p><p>Liczba dni "keszowania": <strong></strong></p><p>Średnio skrzynek/dzień: <strong></strong></p><p>Najwięcej skrzynek/dzień: <strong></strong></p><p>Pierwsza znaleziona skrzynka:&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc1['cache_id'] . '">Skrzynka</a>&nbsp;&nbsp;' . $rfc1['data'] . '</strong></p><p>Ostatnia znaleziona skrzynka:&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">Skrzynka</a>&nbsp;&nbsp;' . $rfc2['data'] . '</strong></p>';	
+			$content .= '<p>Liczba znalezionych skrzynek: <strong>' . $user_record['founds_count'] . '</strong></p><p>Liczba nie znalezionych skrzynek: <strong>' . $user_record['notfounds_count'] . '</strong></p><p>Liczba komentarzy w logach: <strong>' . $user_record['log_notes_count'] . '</strong></p><p>Liczba uczestnictw w spotkaniach: <strong>' . $events_count . '</strong></p><p>Liczba dni "keszowania": <strong></strong></p><p>Średnio skrzynek/dzień: <strong></strong></p><p>Najwięcej skrzynek/dzień: <strong></strong></p><p>Pierwsza znaleziona skrzynka:&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc1['cache_id'] . '">' . $rfc1['cache_wp'] . '</a>&nbsp;&nbsp;' . $rfc1['data'] . '</strong></p><p>Ostatnia znaleziona skrzynka:&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;' . $rfc2['data'] . '</strong></p>';	
 			mysql_free_result($rsfc1);
 			mysql_free_result($rsfc2);
 			$content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';

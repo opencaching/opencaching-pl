@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**************************************************************
 
@@ -33,7 +33,7 @@
 					'submenu' => array(					
 						array(
 							'title' => 'Statystyka ogolna',
-							'menustring' => 'Statystka og�lna',
+							'menustring' => 'Statystyka ogólna',
 							'visible' => true,
 							'filename' => 'users-stats.php?userid='.$user_id,
 							'newwindow' => false,
@@ -41,7 +41,7 @@
 						),
 						array(
 							'title' => 'Skrzynki znalezione',
-							'menustring' => 'Skrzynki znalezione',
+							'menustring' => 'Wykresy skrzynek znalezionych',
 							'visible' => true,
 							'filename' => 'ustatsg2.php?userid='.$user_id,
 							'newwindow' => false,
@@ -52,6 +52,18 @@
 
 
 	$content="";
+
+	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, username FROM `user` WHERE user_id=&1 ",$user_id);
+
+			$user_record = sql_fetch_array($rsGeneralStat);
+			tpl_set_var('username',$user_record['username']);		
+		if ($user_record['hidden_count'] == 0) {
+			$content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Wykresy statystyk dla skrzynek założonych</p></div><br /><br /><p> <b>Nie ma jeszcze żadnej założonej skrzynki</b></p>';
+						  }
+						  else 
+						  { 
+
+
 	// calculate diif days between date of register on OC  to current date
 	  $rdd=sql("select TO_DAYS(NOW()) - TO_DAYS(`date_created`) `diff` from `user` WHERE user_id=&1 ",$user_id);
 	  $ddays = mysql_fetch_array($rdd);
@@ -65,7 +77,7 @@
 
 			tpl_set_var('username',$user_record['username']);
 }
-			$content .='<p><b>Wykresy statystyk skrzynek zalozonych </b></p>';	
+			$content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Wykresy statystyk dla skrzynek założonych</p></div><br />';	
 
 		
 			mysql_free_result($rsGeneralStat);
@@ -87,9 +99,8 @@
 				}
 		}
  			mysql_free_result($rsCreateCachesMonth);
-
-
 			mysql_free_result($rsCreateCachesYear);
+			}
 			tpl_set_var('content',$content);
 	$tplname = 'users-stats';
 }
