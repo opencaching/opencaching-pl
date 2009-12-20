@@ -1,12 +1,19 @@
 <?php
 setlocale(LC_TIME, 'pl_PL.utf-8');
   //prepare the templates and include all neccessary
-//	require_once('./lib/common.inc.php');
+	require_once('./lib/common.inc.php');
 	
 	//Preprocessing
 	if ($error == false)
 	{
-
+			//user logged in?
+		if ($usr == false)
+		{
+		    $target = urlencode(tpl_get_current_page());
+		    tpl_redirect('login.php?target='.$target);
+		}
+		else
+		{
 require("../lib/jpgraph/src/jpgraph.php");
 require('../lib/jpgraph/src/jpgraph_bar.php');
 require('../lib/jpgraph/src/jpgraph_date.php');
@@ -32,24 +39,6 @@ require('../lib/jpgraph/src/jpgraph_date.php');
   $x=array();
   
   
-/*
-Zalozenia:
-
-zmienna weyjsciowa user_id wiec zapytanie typu user_stat.php?user_id=xx
-$startdate = user.date_created (data rejstracji)
-$endtime = date("Y-m-d H:i:s"); biezaca data
-$tartdate-$endtime= $difftime   ilosc dni jakie upynelo od rejstracji na OC PL
---------------------------------
-
-Ogolny stat:
-Liczba ukrytych: user.hidden_count
-Liczba znalezionych: user.founds_count
-Liczba nieznalezionych: user.notfounds_count
-Liczba komentarzy: user.log_notes_count
-W ilu uczestniczyl wydarzeniach: search cache_logs count() WHERE type=7 AND user_id=user.user_id
-------------------------------
-*/
-
 if ($tit == "ccy") {
 $rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
@@ -165,7 +154,7 @@ $bplot->value->SetFormat('%d');
 
   $graph->Stroke();
    
-  
+  }
   }
   
   ?>
