@@ -68,7 +68,7 @@ if ($tit == "ccm") {
 $rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 AND YEAR(`date_created`)=&2 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year);
 
  				if ($rsCreateCachesMonth !== false) {
-				$descibe="Miesieczna statystyka zalozonych skrzynek";
+				$descibe = "Miesieczna statystyka zalozonych skrzynek";
 				$xtitle=$year;
 				while ($rm = mysql_fetch_array($rsCreateCachesMonth)){
 					$y[] = $rm['count'];
@@ -111,10 +111,19 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , M
 				
 // Create the graph. These two calls are always required
 $graph = new Graph(500,200,'auto');
-$graph->SetScale('textint');
+$graph->SetScale('textint',0,max($y)+(max($y)*0.2),0,0);
 // ,0,0,0,max($y)-min($y)+5);
 // Add a drop shadow
 $graph->SetShadow();
+
+
+// Label callback
+//function year_callback($aLabel) {
+//    return 1700+(int)$aLabel;
+//}
+//$graph->xaxis->SetLabelFormatCallback('year_callback');
+// $graph->SetScale('intint',0,0,0,max($year)-min($year)+1);
+
  
 // Adjust the margin a bit to make more room for titles
  $graph->SetMargin(50,30,30,40);
