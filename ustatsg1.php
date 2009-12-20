@@ -33,7 +33,7 @@
 					'submenu' => array(					
 						array(
 							'title' => tr('generla_stat'),
-							'menustring' => tr('general_stat)',
+							'menustring' => tr('general_stat'),
 							'visible' => true,
 							'filename' => 'users-stats.php?userid='.$user_id,
 							'newwindow' => false,
