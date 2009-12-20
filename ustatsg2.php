@@ -15,6 +15,15 @@
 	//Preprocessing
 	if ($error == false)
 	{
+			//user logged in?
+		if ($usr == false)
+		{
+		    $target = urlencode(tpl_get_current_page());
+		    tpl_redirect('login.php?target='.$target);
+		}
+		else
+		{
+
 		// check for old-style parameters
 		if (isset($_REQUEST['userid']))
 		{
@@ -99,9 +108,9 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , M
 
 
 			mysql_free_result($rsCachesFindYear);
-}
+		}
 			tpl_set_var('content',$content);
-	$tplname = 'users-stats';
+	}
 }
 	tpl_BuildTemplate();
 ?>
