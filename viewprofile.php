@@ -27,6 +27,14 @@
 
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
+		//user logged in?
+		if ($usr == false)
+		{
+		    $target = urlencode(tpl_get_current_page());
+		    tpl_redirect('login.php?target='.$target);
+		}
+		else
+		{
 	
  function type_found($userid, $logtype, $lang, $language)
  {
@@ -305,6 +313,6 @@
 
 		}
 	}
-
+}
 	tpl_BuildTemplate();
 ?>
