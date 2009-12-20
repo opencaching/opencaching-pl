@@ -32,16 +32,16 @@
 					'filename' => 'users-stats.php?userid='.$user_id,
 					'submenu' => array(					
 						array(
-							'title' => 'Statystyka ogolna',
-							'menustring' => 'Statystyka ogólna',
+							'title' => tr('generla_stat'),
+							'menustring' => tr('general_stat)',
 							'visible' => true,
 							'filename' => 'users-stats.php?userid='.$user_id,
 							'newwindow' => false,
 							'siteid' => 'general_stat'
 						),
 						array(
-							'title' => 'Skrzynki znalezione',
-							'menustring' => 'Wykresy skrzynek znalezionych',
+							'title' => tr('graph_find'),
+							'menustring' => tr('graph_find'),
 							'visible' => true,
 							'filename' => 'ustatsg2.php?userid='.$user_id,
 							'newwindow' => false,

@@ -14,24 +14,24 @@
 		}
 				$tplname = 'users-stats';
 				$stat_menu = array(
-					'title' => tr('Statystyka'),
-					'menustring' => tr('Statystyka'),
+					'title' => tr('Statictics'),
+					'menustring' => tr('Statictics'),
 					'siteid' => 'statlisting',
 					'navicolor' => '#E8DDE4',
 					'visible' => false,
 					'filename' => 'users-stats.php?userid='.$user_id,
 					'submenu' => array(
 						array(
-							'title' => tr('Skrzynki założone'),
-							'menustring' => tr('Wykresy skrzynek założonych'),
+							'title' => tr('graph_created'),
+							'menustring' => tr('graph_created'),
 							'visible' => true,
 							'filename' => 'ustatsg1.php?userid='.$user_id,
 							'newwindow' => false,
 							'siteid' => 'createstat'
 						),
 						array(
-							'title' => tr('Skrzynki znalezione'),
-							'menustring' => tr('Wykresy skrzynek znalezionych'),
+							'title' => tr('graph_find'),
+							'menustring' => tr('graph_find'),
 							'visible' => true,
 							'filename' => 'ustatsg2.php?userid='.$user_id,
 							'newwindow' => false,

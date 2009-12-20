@@ -24,23 +24,23 @@
 				$tplname = 'createstat';
 
 	$stat_menu = array(
-					'title' => 'Statystyka',
-					'menustring' => 'Statystyka',
+					'title' => 'Statictics',
+					'menustring' => 'Statistics',
 					'siteid' => 'statlisting',
 					'visible' => false,
 					'filename' => 'ustatsg2.php?userid='.$user_id,
 					'submenu' => array(
 									array(
-							'title' => 'Statystyka ogolna',
-							'menustring' => 'Statystyka ogólna',
+							'title' => tr('generla_stat'),
+							'menustring' => tr('general_stat'),
 							'visible' => true,
 							'filename' => 'users-stats.php?userid='.$user_id,
 							'newwindow' => false,
 							'siteid' => 'general_stat'
 						),
 						array(
-							'title' => 'Skrzynki zalozone',
-							'menustring' => 'Wyrkesy skrzynek założonych',
+							'title' => tr('graph_created'),
+							'menustring' => tr('graph_created'),
 							'visible' => true,
 							'filename' => 'ustatsg1.php?userid='.$user_id,
 							'newwindow' => false,
