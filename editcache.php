@@ -66,7 +66,7 @@
 					
 					//here we read all used information from the form if submitted, otherwise from DB
 					
-					// bez wirtuali i webcamów - zabezpieczenie przeciw spreparowanym POSTom
+					// wihout virtuals and webcams
 					if( ($_POST['type'] == 4 && $cache_record['type'] != 4 ) || ($_POST['type'] == 5 && $cache_record['type'] != 5 ) )
 						$_POST['type'] = $cache_record['type'];
 						
@@ -336,7 +336,7 @@
 						$size_not_ok = true;
 					}
 					
-					// sprawdzenie czy nie następuje zmiana na "bez pojemnika"
+					// check if the user haven't changed type to 'without container
 					if( (($_POST['type'] == 1 && $cache_record['type'] != 1) 
 						|| ($_POST['type'] == 2 )
 						|| ($_POST['type'] == 3 )
@@ -347,7 +347,7 @@
 						$size_not_ok = true;
 					}
 					
-					// jeśli w bazie jest to inny typ bez pojemnika, to pozwól takim pozostać
+					// if there is already a cache without container, let it stay this way
 					if( $cache_record['type'] == 1 && $cache_record['size'] == 7)
 						tpl_set_var('other_nobox', 'true');
 					else

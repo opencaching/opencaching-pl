@@ -65,6 +65,7 @@ function getCacheIcon($user_id, $cache_id, $cache_status, $cache_userid, $iconna
 			case 3: $cacheicon_searchable = "-a"; break;
 			case 4: $cacheicon_searchable = "-a"; break;
 			case 6: $cacheicon_searchable = "-d"; break;
+			default: $cacheicon_searchable = "-s"; break;
 		}
 
 	}
