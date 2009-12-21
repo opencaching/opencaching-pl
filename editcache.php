@@ -730,35 +730,35 @@
 					{
 						if ($cache_record['mp3count'] > 0)
 						{
-						$mp3_files = '';
+						$mp3files = '';
 						$rsmp3 = sql("SELECT `url`, `title`, `uuid` FROM `mp3` WHERE `object_id`='&1' AND `object_type`=2", $cache_id);
 
 						for ($i = 0; $i < mysql_num_rows($rsmp3); $i++)
 							{
-							$tmpline = $mp3line;
+							$tmpline1 = $mp3line;
 							$mp3_record = sql_fetch_array($rsmp3);
 
-							$tmpline = mb_ereg_replace('{link}', htmlspecialchars($mp3_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline);
-							$tmpline = mb_ereg_replace('{title}', htmlspecialchars($mp3_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline);
-							$tmpline = mb_ereg_replace('{uuid}', htmlspecialchars($mp3_record['uuid'], ENT_COMPAT, 'UTF-8'), $tmpline);
+							$tmpline1 = mb_ereg_replace('{link}', htmlspecialchars($mp3_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{title}', htmlspecialchars($mp3_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{uuid}', htmlspecialchars($mp3_record['uuid'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 
-							$mp3_files .= $tmpline;
+							$mp3files .= $tmpline1;
 							}
 
-						$mp3_files = mb_ereg_replace('{lines}', $mp3, $mp3lines);
+						$mp3files = mb_ereg_replace('{lines}', $mp3files, $mp3lines);
 						mysql_free_result($rsmp3);
-						tpl_set_var('mp3_files', $mp3_files);
+						tpl_set_var('mp3files', $mp3files);
 						tpl_set_var('hidemp3_start', '');
 						tpl_set_var('hidemp3_end', '');
 						}
 					else
-						tpl_set_var('mp3_files', $nomp3);
+						tpl_set_var('mp3files', $nomp3);
 						tpl_set_var('hidemp3_start', '');
 						tpl_set_var('hidemp3_end', '');
 					}
 					else
 					{
-					tpl_set_var('mp3_files', '<br />');
+					tpl_set_var('mp3files', '<br />');
 					tpl_set_var('hidemp3_start', '<!--');
 					tpl_set_var('hidemp3_end', '-->');
 					}

@@ -142,7 +142,7 @@ function viewcache_getmp3table($cacheid, $mp3count)
 			$retval .= '<div class="viewcache-pictureblock">';
 
 			$retval .= '<div class="img-shadow"><a href="'.$r['url'].'">';
-			$retval .= '<img src="tpl/stdstyle/images/blue/64x64-get-mp3.png" alt="" title="Download MP3 file"/>';
+			$retval .= '<img src="tpl/stdstyle/images/blue/32x32-get-mp3.png" alt="" title="Download MP3 file"/>';
 			$retval .= '</a></div>';
 //			if($viewtext)
 				$retval .= '<span class="title">'.$r['title'].'</span>';

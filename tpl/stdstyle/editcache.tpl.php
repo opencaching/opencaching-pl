@@ -291,7 +291,7 @@ function toggleAttr(id)
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
-	{mp3_files}
+	{mp3files}
 
 {hidemp3_end}
 <!-- End Text Container -->
