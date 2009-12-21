@@ -92,7 +92,7 @@
 
 	// location of cache images
 	if (!isset($picdir)) $picdir = $dynbasepath . 'images/uploads';
-	if (!isset($picurl)) $picurl = 'http://http://<domain>/images/uploads';
+	if (!isset($picurl)) $picurl = 'http://<domain>/images/uploads';
 
 	// Thumbsize
 	$thumb_max_width = 175;
@@ -115,7 +115,7 @@
 
 	// location of cache mp3 files
 	if (!isset($mp3dir)) $mp3dir = $dynbasepath . 'mp3';
-	if (!isset($mp3url)) $mp3url = 'http://http://<domain>/mp3';
+	if (!isset($mp3url)) $mp3url = 'http://<domain>/mp3';
 
 	// maximal size of mp3 for PodCache 5 Mb ?
 	if (!isset($maxmp3size)) $maxmp3size = 5000000;
