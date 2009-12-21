@@ -564,7 +564,7 @@
 			if(isset($_REQUEST['mp3_files']) && $_REQUEST['mp3_files'] == 'no')
 					tpl_set_var('mp3_files', "");
 				else
-					tpl_set_var('mp3_files', viewcache_mp3table($cache_id, $cache_record['mp3count']));
+					tpl_set_var('mp3_files', viewcache_getmp3table($cache_id, $cache_record['mp3count']));
 
 				tpl_set_var('hidemp3_start', '');
 				tpl_set_var('hidemp3_end', '');
