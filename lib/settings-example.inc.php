@@ -114,8 +114,8 @@
 	if (!isset($picextensions)) $picextensions = ';jpg;jpeg;gif;png;';
 
 	// location of cache mp3 files
-	if (!isset($mp3dir)) $mp3dir = $dynbasepath . 'mp3/uploads';
-	if (!isset($mp3url)) $mp3url = 'http://http://<domain>/mp3/uploads';
+	if (!isset($mp3dir)) $mp3dir = $dynbasepath . 'mp3';
+	if (!isset($mp3url)) $mp3url = 'http://http://<domain>/mp3';
 
 	// maximal size of mp3 for PodCache 5 Mb ?
 	if (!isset($maxmp3size)) $maxmp3size = 5000000;
