@@ -76,6 +76,7 @@
 			$aver1= round(($user_record['hidden_count']/$ddays['diff']), 2);
 			$aver2= round(($user_record['hidden_count']/$num_rows), 2);			
 			$content .= '<p><span style="color: rgb(88,144,168)">Liczba wszystkich założonych skrzynek: </span><strong>' . $user_record['hidden_count'] . '</strong></p>';
+			$content .= '<p><span style="color: rgb(88,144,168)">Liczba otrzymanych rekomendacji:</span> <strong>' . sqlValue("SELECT COUNT(*) FROM `cache_rating`, caches WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0) . '</strong></p>';
 			$content .= '<p><span style="color: rgb(88,144,168)">Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
 			$content .= '<p><span style="color: rgb(88,144,168)">Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
 			$content .= '<p><span style="color: rgb(88,144,168)">Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
