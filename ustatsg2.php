@@ -45,7 +45,8 @@
 							'visible' => true,
 							'filename' => 'users-stats.php?userid='.$user_id,
 							'newwindow' => false,
-							'siteid' => 'general_stat'
+							'siteid' => 'general_stat',
+							'icon' => 'images/actions/stat'
 						),
 						array(
 							'title' => tr('graph_created'),
@@ -53,7 +54,8 @@
 							'visible' => true,
 							'filename' => 'ustatsg1.php?userid='.$user_id,
 							'newwindow' => false,
-							'siteid' => 'createstat'
+							'siteid' => 'createstat',
+							'icon' => 'images/actions/stat'
 						)
 					)
 				);

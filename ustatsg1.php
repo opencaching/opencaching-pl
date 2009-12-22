@@ -47,7 +47,8 @@
 							'visible' => true,
 							'filename' => 'users-stats.php?userid='.$user_id,
 							'newwindow' => false,
-							'siteid' => 'general_stat'
+							'siteid' => 'general_stat',
+							'icon' => 'images/actions/stat'
 						),
 						array(
 							'title' => tr('graph_find'),
@@ -55,7 +56,8 @@
 							'visible' => true,
 							'filename' => 'ustatsg2.php?userid='.$user_id,
 							'newwindow' => false,
-							'siteid' => 'findstat'
+							'siteid' => 'findstat',
+							'icon' => 'images/actions/stat'
 						)
 					)
 				);
