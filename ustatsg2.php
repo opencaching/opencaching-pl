@@ -84,7 +84,7 @@
 			tpl_set_var('username',$user_record['username']);
 }
 				$content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Wykresy statystyk dla skrzynek znalezionych</p></div><br />';	
-
+				$content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&t=cf"  border="0" alt="" /></p>';	
 		
 			mysql_free_result($rsGeneralStat);
 	$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `cache_logs` WHERE type=1 AND user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
