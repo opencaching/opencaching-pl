@@ -125,7 +125,7 @@ function toogleLayer( whichLayer, val )
 		<td width="180px">Rodzaj wpisu:</td>
 		<td align="left">
 			<!--<select name="logtype" onChange="return _chkFound()">-->
-			<select onLoad="javascript:toogleLayer('ocena');" name="logtype" onChange="javascript:toogleLayer('ocena');">
+			<select onload="javascript:toogleLayer('ocena');" name="logtype" onchange="javascript:toogleLayer('ocena');">
 				{logtypeoptions}
 			</select>
 		</td>
@@ -147,7 +147,6 @@ function toogleLayer( whichLayer, val )
 <table class="content">
 	<tr>
 		<td colspan="2">Treść wpisu:</td>
-		</td>
 	</tr>
 	<tr>
 		<td colspan="2">
@@ -183,7 +182,7 @@ function toogleLayer( whichLayer, val )
 	<tr>
 		<td class="header-small" colspan="2">
 			<input type="reset" name="reset" value="{{reset}}" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submitform" value="{submit}" style="width:120px"/>
+			<input type="submit" name="submitform" value="{{submit}}" style="width:120px"/>
 		</td>
 	</tr>
 </table>
@@ -221,28 +220,58 @@ function toogleLayer( whichLayer, val )
 		mnuSetElementsNormal();
 	}
 
-	function SwitchToTextDesc()
+	function toggleEditor(id) {
+		if (!tinyMCE.getInstanceById(id))
+			tinyMCE.execCommand('mceAddControl', false, id);
+		else
+			tinyMCE.execCommand('mceRemoveControl', false, id);
+	}
+
+
+	function SwitchToTextDesc(oldMode)
 	{
 		document.getElementById("descMode").value = 1;
 
-		if (use_tinymce == 1)
-			document.editlog.submit();
+		if(use_tinymce)
+			toggleEditor("logtext");
+		use_tinymce = 0;
+		// convert HTML to text
+		var desc = document.getElementById("logtext").value;
+
+		desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
+
+		document.getElementById("logtext").value = desc;
 	}
 
-	function SwitchToHtmlDesc()
+	function SwitchToHtmlDesc(oldMode)
 	{
 		document.getElementById("descMode").value = 2;
 
-		if (use_tinymce == 1)
-			document.editlog.submit();
+		if(use_tinymce)
+			toggleEditor("logtext");
+		use_tinymce = 0;
+
+		// convert text to HTML
+		var desc = document.getElementById("logtext").value;
+
+		if(oldMode != 3)
+			desc = htmlspecialchars(desc, ['ENT_NOQUOTES']);
+
+		document.getElementById("logtext").value = desc;
 	}
 
-	function SwitchToHtmlEditDesc()
+	function SwitchToHtmlEditDesc(oldMode)
 	{
 		document.getElementById("descMode").value = 3;
+		use_tinymce = 1;
 
-		if (use_tinymce == 0)
-			document.editlog.submit();
+		if(oldMode == 2) {
+			var desc = document.getElementById("logtext").value;
+			desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
+			document.getElementById("logtext").value = desc;
+		}
+
+		toggleEditor("logtext");
 	}
 
 	function mnuSelectElement(e)
@@ -313,42 +342,20 @@ function toogleLayer( whichLayer, val )
 		descMode = mode;
 		mnuSetElementsNormal();
 
-		if ((oldMode == 1) && (descMode != 1))
-		{
-			// convert text to HTML
-			var desc = document.getElementById("logtext").value;
-
-			if ((desc.indexOf('&amp;') == -1) &&
-			    (desc.indexOf('&quot;') == -1) &&
-			    (desc.indexOf('&lt;') == -1) &&
-			    (desc.indexOf('&gt;') == -1) &&
-			    (desc.indexOf('<p>') == -1) &&
-			    (desc.indexOf('<i>') == -1) &&
-			    (desc.indexOf('<strong>') == -1) &&
-			    (desc.indexOf('<br />') == -1))
-			{
-				desc = desc.replace(/&/g, "&amp;");
-				desc = desc.replace(/"/g, "&quot;");
-				desc = desc.replace(/</g, "&lt;");
-				desc = desc.replace(/>/g, "&gt;");
-				desc = desc.replace(/\r\n/g, "\<br />");
-				desc = desc.replace(/\n/g, "<br />");
-				desc = desc.replace(/<br \/>/g, "<br />\n");
-			}
-
-			document.getElementById("logtext").value = desc;
-		}
+		if(oldMode == descMode)
+			return;
 
 		switch (mode)
 		{
 			case 1:
-				SwitchToTextDesc();
+				SwitchToTextDesc(oldMode);
 				break;
 			case 2:
-				SwitchToHtmlDesc();
+				SwitchToHtmlDesc(oldMode);
 				break;
 			case 3:
-				SwitchToHtmlEditDesc();
+
+				SwitchToHtmlEditDesc(oldMode);
 				break;
 		}
 	}
@@ -392,5 +399,7 @@ function toogleLayer( whichLayer, val )
 				break;
 		}
 	}
+
+
 //-->
 </script>

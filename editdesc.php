@@ -245,26 +245,24 @@
 					tpl_set_var('desclang', htmlspecialchars($desc_lang, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('desclang_name', htmlspecialchars(db_LanguageFromShort($desc_lang), ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('cachename', htmlspecialchars($desc_record['name'], ENT_COMPAT, 'UTF-8'));
-					tpl_set_var('reset', $reset);
-					tpl_set_var('submit', $submit);
 
 					// Text / normal HTML / HTML editor
 					tpl_set_var('use_tinymce', (($desc_htmledit == 1) ? 1 : 0));
 
 					if (($desc_html == 1) && ($desc_htmledit == 1))
 					{
-						// TinyMCE
-						$headers = tpl_get_var('htmlheaders') . "\n";
-						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce_gzip.php"></script>' . "\n";
-						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
-						tpl_set_var('htmlheaders', $headers);
-
 						tpl_set_var('descMode', 3);
 					}
 					else if ($desc_html == 1)
 						tpl_set_var('descMode', 2);
 					else
 						tpl_set_var('descMode', 1);
+					// TinyMCE
+					$headers = tpl_get_var('htmlheaders') . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
+					tpl_set_var('htmlheaders', $headers);
 				}
 				else
 				{

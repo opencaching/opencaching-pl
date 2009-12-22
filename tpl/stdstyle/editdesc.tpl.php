@@ -43,14 +43,14 @@
 <input type="hidden" name="show_all_langs_value" value="{show_all_langs_value}"/>
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />&nbsp;Edycja opisu skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />&nbsp;{{edit_cache_description}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
 	<table class="table">
 	<colgroup>
 		<col width="100"/>
 		<col/>
 	</colgroup>
 	<tr>
-		<td class="content-title-noshade">Język:</td>
+		<td class="content-title-noshade">{{language}}:</td>
 		<td>
 			<select name="desclang">
 				{desclangs}
@@ -59,15 +59,15 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">Krótki opis:</td>
+		<td class="content-title-noshade">{{short_description}}:</td>
 		<td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400"/></td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	</table>
-	<div class="notice">Możesz dołożyć dodatkowe atrybuty do opisy skrzynki korzystając z tego formularza: <a href="cache-atr.php" target="_BLANK">Dodatkowe atrybuty skrzynki</a>.</div>
+	<div class="notice">{{extra_attrs_info}}</div>
 	<div class="buffer"></div>
 	<div>
-		<p class="content-title-noshade-size1">Pełny opis:{desc_err}</p>
+		<p class="content-title-noshade-size1">{{full_description}}:{desc_err}</p>
 		<div class="buffer"></div>
 		<div class="menuBar">
 			<span id="descText" class="buttonNormal" onclick="btnSelect(1)" onmouseover="btnMouseOver(1)" onmouseout="btnMouseOut(1)">Text</span>
@@ -77,19 +77,19 @@
 			<span id="descHtmlEdit" class="buttonNormal" onclick="btnSelect(3)" onmouseover="btnMouseOver(3)" onmouseout="btnMouseOut(3)">Editor</span>
 		</div>
 	</div>
-	<p id="scriptwarning" class="errormsg">Javascript jest wyłączona w Twojej przeglądarce. Możesz tylko wprowadzić zwykły tekst. Aby wprawdzić kod HTML i użyć edytor musisz włączyć obsługę Javascript.</p>
+	<p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
 	<p><textarea id="desc" name="desc" cols="80" rows="25">{desc}</textarea></p>
 	<div class="buffer"></div>
-	<div class="notice">Używaj tylko znaczników HTML do formatowania tekstu. Wykaz dozwolonych znaczników znajdziesz <a href="articles.php?page=htmltags">tutaj</a>.</div>
-	<div class="notice">Proszę nie używać obrazków z geocaching.com.</div>
+	<div class="notice">{{html_edit_info}}</div>
+	<div class="notice">{{geocaching_com_foto_info}}</div>
 	<div class="buffer"></div>
-	<div><p class="content-title-noshade-size1">Dodatkowe informacje które będą kodowane:</p></div>
+	<div><p class="content-title-noshade-size1">{{extra_coded_info}}:</p></div>
 	<div class="buffer"></div>
 	<div><textarea name="hints" class="mceNoEditor" cols="80" rows="15">{hints}</textarea></div>
 	<div class="buffer"></div>
 	<div>
 			<input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;
-			<input type="submit" name="submitform" value="{submit}" class="formbuttons"/>
+			<input type="submit" name="submitform" value="{{submit}}" class="formbuttons"/>
 	</div>
 	<div class="buffer"></div>
 </form>
@@ -124,28 +124,61 @@
 		mnuSetElementsNormal();
 	}
 
-	function SwitchToTextDesc()
-	{
-		document.getElementById("descMode").value = 1;
-	
-		if (use_tinymce == 1)
-			document.descform.submit();
+
+
+
+	function toggleEditor(id) {
+		if (!tinyMCE.getInstanceById(id))
+			tinyMCE.execCommand('mceAddControl', false, id);
+		else
+			tinyMCE.execCommand('mceRemoveControl', false, id);
 	}
 
-	function SwitchToHtmlDesc()
+
+	function SwitchToTextDesc(oldMode)
+	{
+		document.getElementById("descMode").value = 1;
+
+		if(use_tinymce)
+			toggleEditor("desc");
+		use_tinymce = 0;
+		// convert HTML to text
+		var desc = document.getElementById("desc").value;
+
+		desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
+
+		document.getElementById("desc").value = desc;
+	}
+
+	function SwitchToHtmlDesc(oldMode)
 	{
 		document.getElementById("descMode").value = 2;
 
-		if (use_tinymce == 1)
-			document.descform.submit();
+		if(use_tinymce)
+			toggleEditor("desc");
+		use_tinymce = 0;
+
+		// convert text to HTML
+		var desc = document.getElementById("desc").value;
+
+		if(oldMode != 3)
+			desc = htmlspecialchars(desc, ['ENT_NOQUOTES']);
+
+		document.getElementById("desc").value = desc;
 	}
 
-	function SwitchToHtmlEditDesc()
+	function SwitchToHtmlEditDesc(oldMode)
 	{
 		document.getElementById("descMode").value = 3;
+		use_tinymce = 1;
 
-		if (use_tinymce == 0)
-			document.descform.submit();
+		if(oldMode == 2) {
+			var desc = document.getElementById("desc").value;
+			desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
+			document.getElementById("desc").value = desc;
+		}
+
+		toggleEditor("desc");
 	}
 
 	function mnuSelectElement(e)
@@ -216,42 +249,20 @@
 		descMode = mode;
 		mnuSetElementsNormal();
 
-		if ((oldMode == 1) && (descMode != 1))
-		{
-			// convert text to HTML
-			var desc = document.getElementById("desc").value;
-
-			if ((desc.indexOf('&amp;') == -1) && 
-			    (desc.indexOf('&quot;') == -1) &&
-			    (desc.indexOf('&lt;') == -1) &&
-			    (desc.indexOf('&gt;') == -1) &&
-			    (desc.indexOf('<p>') == -1) &&
-			    (desc.indexOf('<i>') == -1) &&
-			    (desc.indexOf('<strong>') == -1) &&
-			    (desc.indexOf('<br />') == -1))
-			{
-				desc = desc.replace(/&/g, "&amp;");
-				desc = desc.replace(/"/g, "&quot;");
-				desc = desc.replace(/</g, "&lt;");
-				desc = desc.replace(/>/g, "&gt;");
-				desc = desc.replace(/\r\n/g, "\<br />");
-				desc = desc.replace(/\n/g, "<br />");
-				desc = desc.replace(/<br \/>/g, "<br />\n");
-			}
-
-			document.getElementById("desc").value = desc;
-		}
+		if(oldMode == descMode)
+			return;
 
 		switch (mode)
 		{
 			case 1:
-				SwitchToTextDesc();
+				SwitchToTextDesc(oldMode);
 				break;
 			case 2:
-				SwitchToHtmlDesc();
+				SwitchToHtmlDesc(oldMode);
 				break;
 			case 3:
-				SwitchToHtmlEditDesc();
+
+				SwitchToHtmlEditDesc(oldMode);
 				break;
 		}
 	}

@@ -116,7 +116,7 @@
 							if ($cache_user_id != $usr['userid']) {
 								$rating_msg = mb_ereg_replace('{chk_sel}', '', $rating_allowed.'<br />'.$rating_stat);
 							} else {
-								$rating_msg = mb_ereg_replace('{chk_dis}', ' disabled', $rating_own.'<br />'.$rating_stat);
+								$rating_msg = mb_ereg_replace('{chk_dis}', ' disabled="disabled"', $rating_own.'<br />'.$rating_stat);
 							}
 							$rating_msg = mb_ereg_replace('{max}', floor($user_founds * rating_percentage/100), $rating_msg);
 							$rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
@@ -482,33 +482,31 @@
 					tpl_set_var('logyear', htmlspecialchars($log_date_year, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('cachename', htmlspecialchars($cache_name, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('cacheid', $log_record['cache_id']);
-					tpl_set_var('reset', $reset);
-					tpl_set_var('submit', $submit);
 					tpl_set_var('logid', $log_id);
 					tpl_set_var('date_message', ($date_not_ok == true) ? $date_message : '');
 
 					if ($descMode != 1)
-						tpl_set_var('logtext', htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'), true);
+						tpl_set_var('logtext', htmlspecialchars($log_text, ENT_NOQUOTES, 'UTF-8'), true);
 					else
 						tpl_set_var('logtext', $log_text);
 
 					// Text / normal HTML / HTML editor
 					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
 
+
+					// TinyMCE
+					$headers = tpl_get_var('htmlheaders') . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
+					tpl_set_var('htmlheaders', $headers);
+
 					if ($descMode == 1)
 						tpl_set_var('descMode', 1);
 					else if ($descMode == 2)
 						tpl_set_var('descMode', 2);
 					else
-					{
-						// TinyMCE
-						$headers = tpl_get_var('htmlheaders') . "\n";
-						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce_gzip.php"></script>' . "\n";
-						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?logid=0"></script>' . "\n";
-						tpl_set_var('htmlheaders', $headers);
-
 						tpl_set_var('descMode', 3);
-					}
 
 					if ($use_log_pw == true && $log_pw != '')
 					{

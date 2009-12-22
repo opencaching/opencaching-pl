@@ -526,10 +526,16 @@ number_of_active_caches Liczba aktywnych skrzynek
 username Użytkownik
 number_of_caches Liczba skrzynek
 ranking Ranking
+submit wyślij
+edit_cache_description Edycja opisu skrzynki
+short_description Krótki opis
+extra_attrs_info Możesz dołożyć dodatkowe atrybuty do opisy skrzynki korzystając z tego formularza: <a href="cache-atr.php" target="_BLANK">Dodatkowe atrybuty skrzynki</a>.
+full_description Pełny opis
+javascript_edit_info Javascript jest wyłączona w Twojej przeglądarce. Możesz tylko wprowadzić zwykły tekst. Aby wprawdzić kod HTML i użyć edytor musisz włączyć obsługę Javascript.
+html_edit_info Używaj tylko znaczników HTML do formatowania tekstu. Wykaz dozwolonych znaczników znajdziesz <a href="articles.php?page=htmltags">tutaj</a>.
+geocaching_com_foto_info Proszę nie używać obrazków z geocaching.com.
+extra_coded_info Dodatkowe informacje które będą kodowane
 statistics_users Statystyka użytkownika
 general_stat Ogólna statystyka
 graph_created Wykresy skrzynek założonych
 graph_find Wykresy skrzynek znalezionych
-
- 
-

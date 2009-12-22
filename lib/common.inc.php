@@ -139,18 +139,8 @@ session_start();
 	//restore cookievars[]
 	load_cookie_settings();
 
-	//language changed?
-	if (isset($_POST['lang']))
-	{
-		$lang = $_POST['lang'];
-	}
-	if (isset($_GET['lang']))
-	{
-		$lang = $_GET['lang'];
-	}
+ 	require_once($rootpath . 'lib/loadlanguage.php');	
 
-	// load language settings
-	load_language_file($lang);
 
 	require_once($rootpath . 'lib/xml2ary.inc.php');	
 	// set footer tpl varset
