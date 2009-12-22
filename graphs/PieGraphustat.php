@@ -7,7 +7,6 @@
 	if ($error == false)
 	{
 require("../lib/jpgraph/src/jpgraph.php");
-require('../lib/jpgraph/src/jpgraph_bar.php');
 require('../lib/jpgraph/src/jpgraph_date.php');
 require("../lib/jpgraph/src/jpgraph_pie.php");
 require("../lib/jpgraph/src/jpgraph_pie3d.php");
@@ -32,23 +31,6 @@ require("../lib/jpgraph/src/jpgraph_pie3d.php");
   $x=array();
   
   
-/*
-Zalozenia:
-
-zmienna weyjsciowa user_id wiec zapytanie typu user_stat.php?user_id=xx
-$startdate = user.date_created (data rejstracji)
-$endtime = date("Y-m-d H:i:s"); biezaca data
-$tartdate-$endtime= $difftime   ilosc dni jakie upynelo od rejstracji na OC PL
---------------------------------
-
-Ogolny stat:
-Liczba ukrytych: user.hidden_count
-Liczba znalezionych: user.founds_count
-Liczba nieznalezionych: user.notfounds_count
-Liczba komentarzy: user.log_notes_count
-W ilu uczestniczyl wydarzeniach: search cache_logs count() WHERE type=7 AND user_id=user.user_id
-------------------------------
-*/
 
 if ($tit == "ccy") {
 $rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
@@ -108,46 +90,41 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , M
 
 
 				
-// Create the graph. These two calls are always required
-$graph = new Graph(500,200,'auto');
-$graph->SetScale('textint');
- 
-// Add a drop shadow
+/// A new pie graph
+$graph = new PieGraph(250,200,"auto");
 $graph->SetShadow();
  
-// Adjust the margin a bit to make more room for titles
- $graph->SetMargin(40,30,20,40);
- 
-// Create a bar pot
-$bplot = new BarPlot($y);
- 
-// Adjust fill color
-$bplot->SetFillColor('steelblue2');
-$graph->Add($bplot);
- 
-// Setup the titles
-$graph->title->Set($descibe);
-$graph->xaxis->title->Set($xtitle);
-$graph->xaxis->SetTickLabels($x);
-$graph->yaxis->title->Set('Liczba skrzynek');
- 
+// Title setup
+$graph->title->Set("Exploding all slices");
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+//$graph ->legend->Pos( 0.25,0.8,"right" ,"bottom"); 
  
-  
-// Setup the values that are displayed on top of each bar
-$bplot->value->Show();
+// Setup the pie plot
+$p1 = new PiePlot($data);
+$p1->SetLabelType(PIE_VALUE_ABS);
+
+// Adjust size and position of plot
+$p1->SetSize(0.35);
+$p1->SetCenter(0.5,0.52);
  
-// Must use TTF fonts if we want text at an arbitrary angle
-$bplot->value->SetFont(FF_FONT1,FS_BOLD);
-$bplot->value->SetAngle(0);
-$bplot->value->SetFormat('%d');
+// Setup slice labels and move them into the plot
+$p1->value->SetFont(FF_FONT1,FS_BOLD);
+$p1->value->SetColor("darkred");
+$p1->SetLabelPos(0.65);
+ 
+// Explode all slices
+$p1->ExplodeAll(10);
+ 
+// Add drop shadow
+$p1->SetShadow();
+ 
+// Finally add the plot
+$graph->Add($p1);
+ 
+// ... and stroke it
+$graph->Stroke();
+ 
 
-
-// Display the graph
-
-  $graph->Stroke();
   }
   
   ?>

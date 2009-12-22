@@ -64,7 +64,6 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	</table>
-	<div class="notice">{{extra_attrs_info}}</div>
 	<div class="buffer"></div>
 	<div>
 		<p class="content-title-noshade-size1">{{full_description}}:{desc_err}</p>
