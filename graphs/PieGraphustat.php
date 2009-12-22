@@ -58,10 +58,6 @@ $rsCachesFindYear = sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl
 /// A new pie graph
 $graph = new PieGraph(500,300,"auto");
 $graph->SetScale('textint');
-//$graph->SetShadow();
-
-
-
 
 // Title setup
 $graph->title->Set("Wg typów skrzynek");
@@ -91,7 +87,9 @@ $p1->ExplodeAll(20);
  
 // Finally add the plot
 $graph->Add($p1);
- 
+
+$graph->SetShadow();
+
 // ... and stroke it
 $graph->Stroke();
  
