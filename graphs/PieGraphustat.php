@@ -80,7 +80,7 @@ $p1->SetLegends($x);
 
  
 // Explode all slices
-$p1->ExplodeAll(20);
+//$p1->ExplodeAll(10);
  
 // Finally add the plot
 $graph->Add($p1);

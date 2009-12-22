@@ -34,7 +34,7 @@ if ($tit == "ccy") {
 $rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
 				if ($rsCreateCachesYear !== false){
-				$descibe="Roczna statystyka zalozonych skrzynek";
+				$descibe="Roczna statystyka za³o¿onych skrzynek";
 				$xtitle="";
 					while ($ry = mysql_fetch_array($rsCreateCachesYear)){
 					$y[] = $ry['count'];
@@ -48,7 +48,7 @@ if ($tit == "ccm") {
 $rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 AND YEAR(`date_created`)=&2 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year);
 
  				if ($rsCreateCachesMonth !== false) {
-				$descibe = "Miesieczna statystyka zalozonych skrzynek";
+				$descibe = "Miesieczna statystyka za³o¿onych skrzynek";
 				$xtitle=$year;
 				while ($rm = mysql_fetch_array($rsCreateCachesMonth)){
 					$y[] = $rm['count'];
