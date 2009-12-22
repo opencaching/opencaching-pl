@@ -59,7 +59,7 @@
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);
-			$content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek założonych</p></div><br />';			
+			$content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content-title-noshade content2-container bg-blue02"><p class="content-title-noshade content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek założonych</p></div><br />';			
 		if ($user_record['hidden_count'] == 0) {
 			$content .= '<br /><p> <b>Nie ma jeszcze żadnej założonej skrzynki</b></p>';
 						  }
@@ -75,19 +75,19 @@
 			$num_rows = mysql_num_rows($rsncd); 
 			$aver1= round(($user_record['hidden_count']/$ddays['diff']), 2);
 			$aver2= round(($user_record['hidden_count']/$num_rows), 2);			
-			$content .= '<p><span style="color: rgb(88,144,168)">Liczba wszystkich założonych skrzynek: </span><strong>' . $user_record['hidden_count'] . '</strong></p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Liczba otrzymanych rekomendacji:</span> <strong>' . sqlValue("SELECT COUNT(*) FROM `cache_rating`, caches WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0) . '</strong></p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Pierwsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rcc1['cache_id'] . '">' . $rcc1['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc1['data'] . ')</p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Najnowsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';	
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Liczba wszystkich założonych skrzynek: </span><strong>' . $user_record['hidden_count'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Liczba otrzymanych rekomendacji:</span> <strong>' . sqlValue("SELECT COUNT(*) FROM `cache_rating`, caches WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0) . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Pierwsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rcc1['cache_id'] . '">' . $rcc1['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc1['data'] . ')</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Najnowsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';	
 			mysql_free_result($rsncd);
 			mysql_free_result($rsc);
 			mysql_free_result($rscc1);
 			mysql_free_result($rscc2);
 			}
-		$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek znalezionych</p></div>';
+		$content .= '<p>&nbsp;</p><div class="content-title-noshade content2-container bg-blue02"><p class="content-title-noshade content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek znalezionych</p></div>';
 		if ($user_record['founds_count'] == 0) {
 			$content .= '<br /><p> <b>Nie ma jeszcze żadnej skrzynki znalezionej</b></p>';
 						  }
@@ -112,21 +112,21 @@
 			$num_rows = mysql_num_rows($rsncd);
 			$aver1= round(($user_record['founds_count']/$ddays['diff']), 2);
 			$aver2= round(($user_record['founds_count']/$num_rows), 2);
-			$content .= '<p><span style="color: rgb(88,144,168)">Liczba znalezionych skrzynek:</span><strong> ' . $user_record['founds_count'] . '</strong></p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Liczba nie znalezionych skrzynek:</span> <strong>' . $user_record['notfounds_count'] . '</strong></p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Liczba komentarzy w logach:</span> <strong>' . $user_record['log_notes_count'] . '</strong></p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Liczba uczestnictw w spotkaniach:</span> <strong>' . $events_count . '</strong></p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Liczba przyznanych rekomendacji:</span> <strong>' . sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0) . '</strong></p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Pierwsza znaleziona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc1['cache_id'] . '">' . $rfc1['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc1['data'] . ')</p>';
-			$content .= '<p><span style="color: rgb(88,144,168)">Ostatnia znaleziona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';	
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Liczba znalezionych skrzynek:</span><strong> ' . $user_record['founds_count'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Liczba nie znalezionych skrzynek:</span> <strong>' . $user_record['notfounds_count'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Liczba komentarzy w logach:</span> <strong>' . $user_record['log_notes_count'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Liczba uczestnictw w spotkaniach:</span> <strong>' . $events_count . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Liczba przyznanych rekomendacji:</span> <strong>' . sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0) . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Pierwsza znaleziona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc1['cache_id'] . '">' . $rfc1['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc1['data'] . ')</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue10" >Ostatnia znaleziona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';	
 			mysql_free_result($rsncd);
 			mysql_free_result($rsc);
 			mysql_free_result($rsfc1);
 			mysql_free_result($rsfc2);
-			$content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
+			$content .='<p>&nbsp;</p><div class="content-title-noshade content2-container bg-blue02"><p class="content-title-noshade content-title-noshade-size1">&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
 						  
 
 						  }
