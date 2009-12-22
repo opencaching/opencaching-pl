@@ -59,7 +59,7 @@
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);
-			$content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content-title-noshade content2-container bg-blue02"><p class="content-title-noshade content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek założonych</p></div><br />';			
+			$content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek założonych</p></div><br />';			
 		if ($user_record['hidden_count'] == 0) {
 			$content .= '<br /><p> <b>Nie ma jeszcze żadnej założonej skrzynki</b></p>';
 						  }
@@ -87,7 +87,7 @@
 			mysql_free_result($rscc1);
 			mysql_free_result($rscc2);
 			}
-		$content .= '<p>&nbsp;</p><div class="content-title-noshade content2-container bg-blue02"><p class="content-title-noshade content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek znalezionych</p></div>';
+		$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Statystyka liczbowa skrzynek znalezionych</p></div>';
 		if ($user_record['founds_count'] == 0) {
 			$content .= '<br /><p> <b>Nie ma jeszcze żadnej skrzynki znalezionej</b></p>';
 						  }
@@ -126,7 +126,7 @@
 			mysql_free_result($rsc);
 			mysql_free_result($rsfc1);
 			mysql_free_result($rsfc2);
-			$content .='<p>&nbsp;</p><div class="content-title-noshade content2-container bg-blue02"><p class="content-title-noshade content-title-noshade-size1">&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
+			$content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
 						  
 
 						  }
