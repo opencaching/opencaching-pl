@@ -37,7 +37,6 @@ $rsCreateCachesYear= sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`p
 					}
 				mysql_free_result($rsCreateCachesYear);
 		}
-WHERE cache_logs.`deleted`=0 AND cache_logs.user_id='$userid' AND cache_logs.`type`='$logtype' AND cache_logs.`cache_id` = caches.cache_id 
 
 if ($tit == "cf") {
 $rsCachesFindYear = sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl` `type` FROM `cache_logs`, caches INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE cache_logs.`deleted`=0 AND cache_logs.user_id=&1 AND cache_logs.`type`='1' AND cache_logs.`cache_id` = caches.cache_id  GROUP BY `caches`.`type` ORDER BY `count` DESC",$user_id);
