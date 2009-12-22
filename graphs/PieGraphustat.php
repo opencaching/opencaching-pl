@@ -30,7 +30,6 @@ if ($tit == "cc") {
 $rsCreateCachesYear= sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl` `type` FROM `caches` INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE `user_id`=&1 AND `status`!=5 GROUP BY `caches`.`type` ORDER BY `count` DESC",$user_id);
 
 				if ($rsCreateCachesYear !== false){
-				$descibe="Roczna statystyka";
 				$xtitle="";
 					while ($ry = mysql_fetch_array($rsCreateCachesYear)){
 					$y[] = $ry['count'];
@@ -44,11 +43,10 @@ if ($tit == "cf") {
 $rsCachesFindYear = sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl` `type` FROM `cache_logs`, caches INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE cache_logs.`deleted`=0 AND cache_logs.user_id=&1 AND cache_logs.`type`='1' AND cache_logs.`cache_id` = caches.cache_id  GROUP BY `caches`.`type` ORDER BY `count` DESC",$user_id);
 
   				if ($rsCachesFindYear !== false) {
-				$descibe="Roczna statystyka";
 				$xtitle="";
 				while ($rfy = mysql_fetch_array($rsCachesFindYear)){
 					$y[] = $rfy['count'];
-					$x[] = $rfy['year'];}
+					$x[] = $rfy['type'];}
 					}
 				mysql_free_result($rsCachesFindYear);
 }
