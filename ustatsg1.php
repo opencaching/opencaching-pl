@@ -32,20 +32,20 @@
 		
 		}
 		
-				$tplname = 'users-stats';
+				$tplname = 'viewprofile';
 				$stat_menu = array(
 					'title' => 'Statystyka',
 					'menustring' => 'Statystyka',
 					'siteid' => 'statlisting',
 					'navicolor' => '#E8DDE4',
 					'visible' => false,
-					'filename' => 'users-stats.php?userid='.$user_id,
+					'filename' => 'viewprofile.php?userid='.$user_id,
 					'submenu' => array(					
 						array(
 							'title' => tr('generla_stat'),
 							'menustring' => tr('general_stat'),
 							'visible' => true,
-							'filename' => 'users-stats.php?userid='.$user_id,
+							'filename' => 'viewprofile.php?userid='.$user_id,
 							'newwindow' => false,
 							'siteid' => 'general_stat',
 							'icon' => 'images/actions/stat'

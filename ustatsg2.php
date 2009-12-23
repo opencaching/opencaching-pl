@@ -30,7 +30,7 @@
 			$user_id = $_REQUEST['userid'];
 		
 		}
-				$tplname = 'users-stats';
+				$tplname = 'viewprofile';
 
 	$stat_menu = array(
 					'title' => 'Statictics',
@@ -43,7 +43,7 @@
 							'title' => tr('generla_stat'),
 							'menustring' => tr('general_stat'),
 							'visible' => true,
-							'filename' => 'users-stats.php?userid='.$user_id,
+							'filename' => 'viewprofile.php?userid='.$user_id,
 							'newwindow' => false,
 							'siteid' => 'general_stat',
 							'icon' => 'images/actions/stat'
