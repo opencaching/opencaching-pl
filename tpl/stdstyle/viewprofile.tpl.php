@@ -10,17 +10,19 @@
 ?>
 <!-- 	CONTENT -->
 <div class="content2-container">
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{user_profile}}: {username} </div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{user_profile}}: {username} </div>
 <div class="content-title-noshade">
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;" width="97%">
-<tr><td ><img src="tpl/stdstyle/images/blue/profile1.png"  alt="" title="Profile" align="middle"/></td>
-<td>{username} {{registered_since_label}} {registered}<br /><br />{{description_user}}:<br />{description_start}{description}{description_end}</td>
-<td>
-	<img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle"/>&nbsp;<a href="mailto.php?userid={userid}">{{email_user}}</a><br/>
-	<img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle"/>&nbsp;<a href="cachemap2.php?userid={userid}">{{show_user_map}}</a>
-	{description_start}{description}{description_end}
-
+<tr>
+<td rowspan="2" width="64"><img src="tpl/stdstyle/images/blue/profile1.png"  alt="" title="Profile" align="middle"/></td>
+<td>{{registered_since_label}} {registered}</td>
+<td rowspan="2">
+<img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle"/>&nbsp;<a href="mailto.php?userid={userid}">{{email_user}}</a><br />
+<img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle"/>&nbsp;<a href="cachemap2.php?userid={userid}">{{show_user_map}}</a>
 </td>
+</tr>
+<tr>
+<td>{{description_user}}:<br />{description_start}{description}{description_end}</td>
 </tr>
 <tr>
 <td colspan="3"><hr></hr></td>

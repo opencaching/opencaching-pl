@@ -67,7 +67,7 @@
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);		
 		if ($user_record['founds_count'] == 0) {
-			$content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Wykresy statystyk dla skrzynek znalezionych</p></div><br /><br /><p> <b>Nie ma jeszcze żadnej znalezionej skrzynki</b></p>';
+			$content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Wykresy statystyk dla skrzynek znalezionych</p></div><br /><br /><p> <b>Nie ma jeszcze żadnej znalezionej skrzynki</b></p>';
 						  }
 						  else 
 						  { 
@@ -85,7 +85,7 @@
 
 			tpl_set_var('username',$user_record['username']);
 }
-				$content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Wykresy statystyk dla skrzynek znalezionych</p></div><br />';	
+				$content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Wykresy statystyk dla skrzynek znalezionych</p></div><br />';	
 				$content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&t=cf"  border="0" alt="" /></p>';	
 		
 			mysql_free_result($rsGeneralStat);
