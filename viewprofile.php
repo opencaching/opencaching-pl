@@ -158,7 +158,6 @@
 			
 			mysql_free_result($rsGeneralStat);
 			tpl_set_var('content',$content);
-	$tplname = 'users-stats';
 	}
 }
 	tpl_BuildTemplate();
