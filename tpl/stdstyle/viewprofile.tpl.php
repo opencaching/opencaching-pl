@@ -28,8 +28,8 @@
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="{{profile_data}}" title="{{profile_data}}" align="middle" />&nbsp;{username} {email} - {{user_profile}}</div>
 <div class="content-title-noshade">
 <p>
-	<img src="/tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle"/>&nbsp;<a href="mailto.php?userid={userid}">{{email_user}}</a><br/>
-		<img src="/tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle"/>&nbsp;<a href="cachemap2.php?userid={userid}">{{show_user_map}}</a>
+	<img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle"/>&nbsp;<a href="mailto.php?userid={userid}">{{email_user}}</a><br/>
+	<img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle"/>&nbsp;<a href="cachemap2.php?userid={userid}">{{show_user_map}}</a>
 	{hide_flag}<br/>
 	{stat_ban}<br/>
 	{remove_all_logs}<br/>
