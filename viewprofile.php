@@ -145,11 +145,38 @@
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Pierwsza znaleziona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc1['cache_id'] . '">' . $rfc1['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc1['data'] . ')</p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Ostatnia znaleziona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';	
+//			$content .= '<p><span class="content-title-noshade txt-blue08" >Pierwsza znaleziona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc1['cache_id'] . '">' . $rfc1['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc1['data'] . ')</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Milestones czyli "kamienie milowe":</span></p><ul>';	
+
+			$rsms=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date_created,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date_created ASC",$user_id);
+			if (mysql_num_rows($rsms) <= 100) {
+			for ($i = 0; $i < mysql_num_rows($rsms); $i+=10)
+				{		
+				$ii=$i;
+				$is=$i-1;
+				if ($i==0) {$ii=1; $is=0;}
+				mysql_data_seek($rsms, $is);	
+				$rms = mysql_fetch_array($rsms);
+				$content .= '<li><span class="content-title-noshade txt-blue08" >' . $ii . ' znaleziona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rms['data'] . ')</li>';
+				}
+			}
+			if (mysql_num_rows($rsms) > 100) {
+			for ($i = 0; $i < mysql_num_rows($rsms); $i+=100)
+			{		
+			$ii=$i;
+				$is=$i-1;
+				if ($i==0) {$ii=1; $is=0;}
+				mysql_data_seek($rsms, $is);	
+
+			$rms = mysql_fetch_array($rsms);
+			$content .= '<li><span class="content-title-noshade txt-blue08" >' . $ii . ' znaleziona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rms['data'] . ')</li>';
+			}}
+			$content .= '</ul><p><span class="content-title-noshade txt-blue08" >Ostatnia znaleziona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';	
+			mysql_free_result($rsms);
+			mysql_free_result($rsfc1);			
 			mysql_free_result($rsncd);
 			mysql_free_result($rsc);
-			mysql_free_result($rsfc1);
+
 			mysql_free_result($rsfc2);
 			$content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
 						  
