@@ -32,7 +32,7 @@
 		
 		}
 		
-				$tplname = 'viewprofile';
+				$tplname = 'ustat';
 				$stat_menu = array(
 					'title' => 'Statystyka',
 					'menustring' => 'Statystyka',

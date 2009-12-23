@@ -30,7 +30,7 @@
 			$user_id = $_REQUEST['userid'];
 		
 		}
-				$tplname = 'viewprofile';
+				$tplname = 'ustat';
 
 	$stat_menu = array(
 					'title' => 'Statictics',
