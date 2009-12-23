@@ -277,7 +277,7 @@ your_latest_hiddens Your recently hidden caches
 number_of_your_hiddens Number of caches hidden by you
 not_yet_published Your caches that have not been published yet
 emails_sent_label Messages sent
-user_profile user's profile
+user_profile User's profile
 no_userprofile User's profile cannot be displayed, because the given user has not been found in database.
 show_all_logs Show all log entries
 email_user e-mail this user
