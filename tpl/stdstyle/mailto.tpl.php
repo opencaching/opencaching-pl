@@ -36,12 +36,10 @@
 ?>
 <form action="mailto.php" method="post" enctype="application/x-www-form-urlencoded" name="mailto_form" dir="ltr">
 <input type="hidden" name="userid" value="{userid}"/>
+
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt=""  align="middle" /> {{email_user}} &nbsp;<a href='viewprofile.php?userid={userid}'>{to_username}</a></div>
 <table class="table">
-	<colgroup>
-		<col width="200">
-		<col>
-	</colgroup>
-	<tr><td colspan="2"><div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt=""  align="middle" /> <b>{{email_user}} &nbsp;<a href='viewprofile.php?userid={userid}'>{to_username}</a></b></div></td></tr>
+
 	<tr><td colspan="2">&nbsp;</td></tr>
 
 	{message_start}
@@ -50,14 +48,14 @@
 	{formular_start}
 	
 	<tr>
-		<td colspan="2">{{titles}}: <input type="text" name="subject" value="{subject}" class="input400"> {errnosubject}
+		<td colspan="2">{{titles}}: <input type="text" name="subject" value="{subject}" class="input400" /> {errnosubject}
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>
 		<td colspan="2">{{content}} {errnotext}</td>
-		</td>
+		
 	</tr>
 	<tr>
 		<td colspan="2">
@@ -83,8 +81,8 @@
 
 	<tr>
 		<td class="header-small" colspan="2">
-			<input type="reset" name="reset" value="Powrót" class="formbuttons">&nbsp;&nbsp;
-			<input type="submit" name="submit" value="Wyslij" class="formbuttons">
+			<input type="reset" name="reset" value="Powrót" class="formbuttons" />&nbsp;&nbsp;
+			<input type="submit" name="submit" value="Wyslij" class="formbuttons" />
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
