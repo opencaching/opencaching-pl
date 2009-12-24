@@ -398,7 +398,7 @@ $menu = array(
 		'menustring' => tr('user_menu'),
 		'siteid' => 'myhome',
 		'visible' => false,
-		'filename' => 'myhome.php',
+		'filename' => 'viewprofile.php?userid='.$usr['userid'].'',
 		'navicolor' => '#D5D9FF',
 		'submenu' => array(
 			array(
@@ -412,7 +412,7 @@ $menu = array(
 				'title' => tr('general'),
 				'menustring' => tr('general'),
 				'visible' => true,
-				'filename' => 'myhome.php',
+				'filename' => 'viewprofile.php?userid='.$usr['userid'].'',
 				'siteid' => 'myhome'
 			),
 			array(
