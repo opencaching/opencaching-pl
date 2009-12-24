@@ -1,7 +1,7 @@
 <?php
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-	$tplname="admin_users";
+
 	if( $usr['admin'] )
 	{
 
@@ -28,12 +28,12 @@
 		}	
 			if( $usr['userid']==$super_admin_id )
 			{
-				tpl_set_var('remove_all_logs', '<img src="'.$stylepath.'/images/blue/logs.png" class="icon32" alt="" />&nbsp;<a href="removelog.php?userid='.$user_id.'"><font color="#ff0000">Usuń wszystkie logi tego użytkownika</font></a>');
+				tpl_set_var('remove_all_logs', '<img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="removelog.php?userid='.$user_id.'"><font color="#ff0000">Usuń wszystkie logi tego użytkownika</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" class="icon32" alt="" />');
 			}
 			else
 				tpl_set_var('remove_all_logs', '');
 
-	$rsuser =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, 
+			$rsuser =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, 
 								username, date_created,description, email,is_active_flag,
 								stat_ban,activation_code,hide_flag,countries.pl country
 								FROM `user` LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1 ",$user_id);
@@ -47,15 +47,15 @@
 			tpl_set_var('activation_codes',$record['activation_code']);
 
 			if( $record['is_active_flag'] )
-					tpl_set_var('is_active_flags', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#ff0000">'.tr('lock').' '.tr('user_account').'</font></a>');
+					tpl_set_var('is_active_flags', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#ff0000">'.tr('lock').' '.tr('user_account').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" class="icon32" alt="" />');
 				else
-					tpl_set_var('is_active_flags', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="limegreen">'.tr('unlock').' '.tr('user_account').'</font></a>');
+					tpl_set_var('is_active_flags', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="limegreen">'.tr('unlock').' '.tr('user_account').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" class="icon32" alt="" />');
 
 
 			if( !$record['stat_ban'] )
-					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="#ff0000">'.tr('lock').' '.tr('user_stats').'</font></a>');
+					tpl_set_var('stat_ban', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="#ff0000">'.tr('lock').' '.tr('user_stats').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" class="icon32" alt="" />');
 				else
-					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="limegreen ">'.tr('unlock').' '.tr('user_stats').'</font></a>');
+					tpl_set_var('stat_ban', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="limegreen ">'.tr('unlock').' '.tr('user_stats').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" class="icon32" alt="" />');
 	
 			if( $usr['admin'] && $block_new_user_caches ) {
 				$rs = sql("SELECT `user_id` as data FROM `user` WHERE `date_created` < CURDATE() + INTERVAL -1 MONTH AND `user_id` =  ". sql_escape($userid)."");
@@ -73,9 +73,9 @@
 					$hide_flag = $record['hide_flag'];
 					
 					if ($hide_flag == 0) {
-						tpl_set_var('hide_flag', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$user_id.'&hide_flag=1">Dodaj możliwość zakładania skrzynek dla użytkownika</a>');
+						tpl_set_var('hide_flag', '<img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="viewprofile.php?userid='.$user_id.'&hide_flag=1">Dodaj możliwość zakładania skrzynek dla użytkownika</a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" class="icon32" alt="" />');
 					} else {
-						tpl_set_var('hide_flag', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="viewprofile.php?userid='.$user_id.'&hide_flag=1">Usuń możliwość zakładania skrzynek dla użytkownika</a>');
+						tpl_set_var('hide_flag', '<img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="viewprofile.php?userid='.$user_id.'&hide_flag=1">Usuń możliwość zakładania skrzynek dla użytkownika</a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" class="icon32" alt="" />');
 					}
 	
 				} else {
