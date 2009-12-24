@@ -90,13 +90,6 @@
 						//here we read all used information from the form if submitted
 						$descMode = isset($_POST['descMode']) ? $_POST['descMode'] : 1;
 
-						// fuer alte Versionen von OCProp
-						if (isset($_POST['submit']) && !isset($_POST['version2']))
-						{
-							$descMode = (isset($_POST['desc_html']) && ($_POST['desc_html']==1)) ? 2 : 1;
-							$_POST['submitform'] = $_POST['submit'];
-						}
-
 						switch ($descMode)
 						{
 							case 2:
@@ -118,24 +111,11 @@
 						$show_all_langs = isset($_POST['show_all_langs_value']) ? $_POST['show_all_langs_value'] : 0;
 						if (!is_numeric($show_all_langs)) $show_all_langs = 0;
 
-						// fuer alte Versionen von OCProp
-						if (isset($_POST['submit']) && !isset($_POST['version2']))
-						{
-							$short_desc = iconv("ISO-8859-1", "UTF-8", $short_desc);
-							$hint = iconv("ISO-8859-1", "UTF-8", $hint);
-						}
-
 						if ($desc_html == 1)
 						{
 							// Text from textarea
 							$desc = $_POST['desc'];
 						
-							// fuer alte Versionen von OCProp
-							if (isset($_POST['submit']) && !isset($_POST['version2']))
-							{
-								$desc = iconv("ISO-8859-1", "UTF-8", $desc);
-							}
-
 							// check input
 							require_once($rootpath . 'lib/class.inputfilter.php');
 							$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
@@ -146,11 +126,6 @@
 							// escape text
 							$desc = htmlspecialchars($_POST['desc'], ENT_COMPAT, 'UTF-8');
 
-							// fuer alte Versionen von OCProp
-							if (isset($_POST['submit']) && !isset($_POST['version2']))
-							{
-								$desc = iconv("ISO-8859-1", "UTF-8", $desc);
-							}
 						}
 
 						if (isset($_POST['submitform']))
@@ -162,6 +137,11 @@
 								tpl_errorMsg('editdesc', $error_desc_exists);
 							mysql_free_result($rs);
 						
+							if($desc_html == 0)
+								$desc = nl2br($desc);
+
+							$desc = tidy_html_description($desc);
+
 							sql("UPDATE `cache_desc` SET 
 							            `last_modified`=NOW(), 
     					            `desc_html`='&1',
@@ -173,7 +153,7 @@
 							      WHERE `id`='&7'",
 							            (($desc_html == 1) ? '1' : '0'), 
 							            (($desc_htmledit == 1) ? '1' : '0'),
-							            (($desc_html == 1) ? $desc : nl2br($desc)),
+							            $desc,
 							            $short_desc,
 							            nl2br($hint),
 							            $desclang,
@@ -199,7 +179,7 @@
 						$desc_htmledit = $desc_record['desc_htmledit'];
 						$desc_html = $desc_record['desc_html'];
 						$desc_lang = $desc_record['language'];
-
+	
 						if ($desc_html == 1)
 							$desc = $desc_record['desc'];
 						else{
@@ -208,7 +188,6 @@
 					}
 					
 					//here we only set up the template variables
-					
 					if ($desc_html == 1)
 						tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'), true);
 					else

@@ -292,7 +292,7 @@
 						                       WHERE `id`='&6'",
 						                             $log_type,
 						                             date('Y-m-d', mktime(0, 0, 0, $log_date_month, $log_date_day, $log_date_year)),
-						                             (($descMode != 1) ? $log_text : nl2br($log_text)),
+						                             tidy_html_description((($descMode != 1) ? $log_text : nl2br($log_text))),
 						                             (($descMode != 1) ? 1 : 0),
 						                             (($descMode == 3) ? 1 : 0),
 						                             $log_id);
@@ -484,6 +484,8 @@
 					tpl_set_var('cacheid', $log_record['cache_id']);
 					tpl_set_var('logid', $log_id);
 					tpl_set_var('date_message', ($date_not_ok == true) ? $date_message : '');
+
+					$log_text = tidy_html_description($log_text);
 
 					if ($descMode != 1)
 						tpl_set_var('logtext', htmlspecialchars($log_text, ENT_NOQUOTES, 'UTF-8'), true);

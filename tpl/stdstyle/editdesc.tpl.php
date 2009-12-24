@@ -106,10 +106,12 @@
 	// descMode auf 1 oder 2 stellen ... wenn Editor erfolgreich geladen wieder auf 3 Stellen
 	if (descMode == 3)
 	{
-		if (document.getElementById("desc").value == '')
+		toggleEditor("desc");
+		use_tinymce = 1;
+/*		if (document.getElementById("desc").value == '')
 			descMode = 1;
 		else
-			descMode = 2;
+			descMode = 2;*/
 	}
 
 	document.getElementById("descMode").value = descMode;
