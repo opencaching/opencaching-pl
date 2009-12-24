@@ -4,7 +4,7 @@
 <p class="content-title-noshade">{{colors}}: <b><font color="#dddd00">{{yellow}}</font></b> - {{last_10_days}}, <b><font color="#00dd00">{{green}}</font></b> - {{own}}, <b><font color="#aaaaaa">{{gray}}</font></b> - {{found}}, <b><font color="#ff0000">{{red}}</font></b> - {{rest}}</p>
 </div>
 <div class="nav4">
-<ul id="topmapmenu"><li class="group"><a style="background-image: url(images/actions/fullscreen-18.png);background-repeat:no-repeat;" href="cachemap-full.php" onclick='window.location = "cachemap-full.php?lat="+map.getCenter().lat()+"&lon="+map.getCenter().lng(); return false;'>{{fullscreen}}</a></li></ul>
+<ul id="topmapmenu"><li class="group"><a style="background-image: url(images/actions/fullscreen-18.png);background-repeat:no-repeat;" href="cachemap-full.php" onclick='window.location = "cachemap-full.php?lat="+map.getCenter().lat()+"&amp;lon="+map.getCenter().lng(); return false;'>{{fullscreen}}</a></li></ul>
 </div>
 <div id="ext_search">
 <div id="search_control" style="float: left;">&nbsp;</div>

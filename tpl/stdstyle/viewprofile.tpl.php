@@ -18,7 +18,7 @@
 <td>{{registered_since_label}} {registered}</td>
 <td rowspan="2">
 <img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle"/>&nbsp;<a href="mailto.php?userid={userid}">{{email_user}}</a><br />
-<img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle"/>&nbsp;<a href="cachemap2.php?userid={userid}">{{show_user_map}}</a>
+<img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle"/>&nbsp;<a href="cachemap3.php?userid={userid}">{{show_user_map}}</a>
 </td>
 </tr>
 <tr>
