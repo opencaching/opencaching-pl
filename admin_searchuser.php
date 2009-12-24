@@ -19,7 +19,7 @@
 				$record = sql_fetch_array($rs);
 				tpl_set_var('username', '');
 				tpl_set_var('not_found', '');
-				tpl_redirect('admin_users.php?userid=' . htmlspecialchars($record['user_id'], ENT_COMPAT, 'UTF-8'));
+				tpl_redirect('admin-users.php?userid=' . htmlspecialchars($record['user_id'], ENT_COMPAT, 'UTF-8'));
 			} else { // Nie znaleziono użytkownika
           tpl_set_var('username', $options['username']);
           tpl_set_var('not_found', '<b>Nie znaleziono użytkownika: '. $options['username'] .'</b><br/><br/>');
