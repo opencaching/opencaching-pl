@@ -72,8 +72,11 @@ function chname( newName )
     <!-- Sitename -->
 		<div class="site-name">
       <p class="title"><a href="index.php">OPENCACHING.pl</a></p>
+
       <p class="subtitle"><a href="index.php">Geocaching w Polsce</a></p>
+
     </div>
+		<img src="./images/xmasniuchacz.png" alt="" style="margin-top:-70px; margin-left:300px;" />
 		<!-- Flag navigations -->
     <div class="navflag-container">
       <div class="navflag">
