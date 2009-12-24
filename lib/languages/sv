@@ -305,7 +305,7 @@ attributes_edit_hint Attribut kan också ändras senare.
 additional_attributes_hint Du kan lägga till fler attribut för cachebeskrivningen  med det här verktyget:
 additional_attributes Ytterligare cacheattribut
 attributes_desc_hint Vänligen läs <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank"> Opencaching attributbeskrivning</a>.
-description Beskrivning
+descriptions Beskrivning
 language Språk
 other_languages_desc Beskrivning på fler språk kan läggas till efter registrering av cachen.
 short_desc_label Kort beskrivning

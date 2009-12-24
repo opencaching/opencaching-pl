@@ -308,7 +308,7 @@ attributes_edit_hint Attributes can also be modified later.
 additional_attributes_hint You can add some more attributes to your cache's description with this tool:
 additional_attributes Additional cache attributes
 attributes_desc_hint Please read the <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Opencaching attributes description</a> article.
-description_user Description
+descriptions Description
 language Language
 other_languages_desc Description in other languages can be added after registering a cache.
 short_desc_label Short description

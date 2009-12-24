@@ -22,7 +22,7 @@
 </td>
 </tr>
 <tr>
-<td>{{description_user}}:<br />{description_start}{description}{description_end}</td>
+<td>{{descriptions}}:<br />{description_start}{description}{description_end}</td>
 </tr>
 <tr>
 <td colspan="3"><hr></hr></td>

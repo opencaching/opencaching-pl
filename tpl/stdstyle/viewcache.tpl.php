@@ -182,7 +182,7 @@ else
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />
-					{{description}}&nbsp;&nbsp;
+					{{descriptions}}&nbsp;&nbsp;
 					{desc_langs}&nbsp;{add_rr_comment}&nbsp;{remove_rr_comment}
 				</p></div>
 				<div class="content2-container">
