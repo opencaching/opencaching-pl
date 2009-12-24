@@ -27,16 +27,11 @@
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/search1.png" class="icon32" alt="{title_text}" title="{title_text}" align="middle" />&nbsp;{title_text}</div>
 <table class="table" border="0" cellspacing="0">
-	<colgroup>
-		<col>
-		<col width="10">
-		<col width="130">
-		<col width="90">
-	</colgroup>
+
 	<tr>
-		<td><p class="content-title-noshade">Nazwa skrzynki</p></td>
+		<td><p class="content-title-noshade">Geocache</p></td>
 		<td>&nbsp;</td>
-		<td nowrap="nowrap"><p class="content-title-noshade">Ostatnio znaleziona</p></td>
+		<td nowrap="nowrap"><p class="content-title-noshade">{{last_found}}</p></td>
 		<td nowrap="nowrap">&nbsp;</td>
 	</tr>
 	{watches}
