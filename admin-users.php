@@ -28,7 +28,7 @@
 		}	
 			if( $usr['userid']==$super_admin_id )
 			{
-				tpl_set_var('remove_all_logs', '<img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="removelog.php?userid='.$user_id.'"><font color="#ff0000">Usuń wszystkie logi tego użytkownika</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" class="icon32" alt="" />');
+				tpl_set_var('remove_all_logs', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="removelog.php?userid='.$user_id.'"><font color="#ff0000">Usuń wszystkie logi tego użytkownika</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" /></p>');
 			}
 			else
 				tpl_set_var('remove_all_logs', '');
@@ -47,44 +47,44 @@
 			tpl_set_var('activation_codes',$record['activation_code']);
 
 			if( $record['is_active_flag'] )
-					tpl_set_var('is_active_flags', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#ff0000">'.tr('lock').' '.tr('user_account').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" class="icon32" alt="" />');
+					tpl_set_var('is_active_flags', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#ff0000">'.tr('lock').' '.tr('user_account').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" />');
 				else
-					tpl_set_var('is_active_flags', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="limegreen">'.tr('unlock').' '.tr('user_account').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" class="icon32" alt="" />');
+					tpl_set_var('is_active_flags', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#228b22">'.tr('unlock').' '.tr('user_account').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" align="bottom" alt="" />');
 
 
 			if( !$record['stat_ban'] )
-					tpl_set_var('stat_ban', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="#ff0000">'.tr('lock').' '.tr('user_stats').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" class="icon32" alt="" />');
+					tpl_set_var('stat_ban', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="#ff0000">'.tr('lock').' '.tr('user_stats').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" />');
 				else
-					tpl_set_var('stat_ban', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="limegreen ">'.tr('unlock').' '.tr('user_stats').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" class="icon32" alt="" />');
+					tpl_set_var('stat_ban', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="#228b22">'.tr('unlock').' '.tr('user_stats').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" align="top" alt="" />');
 	
-			if( $usr['admin'] && $block_new_user_caches ) {
-				$rs = sql("SELECT `user_id` as data FROM `user` WHERE `date_created` < CURDATE() + INTERVAL -1 MONTH AND `user_id` =  ". sql_escape($userid)."");
-				$data = mysql_num_rows($rs);
-			
-				$rs = sql("SELECT COUNT(`cache_logs`.`id`) as ilosc FROM `cache_logs`, `caches` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`type` = 1 AND `caches`.`cache_id` = `cache_logs`.`cache_id` AND `caches`.`type` NOT IN(4,5) AND `cache_logs`.`user_id` = ". sql_escape($userid)."");
-				$record = sql_fetch_array($rs);
-				$ilosc = $record['ilosc'];
+//			if( $usr['admin'] && $block_new_user_caches ) {
+//				$rs = sql("SELECT `user_id` as data FROM `user` WHERE `date_created` < CURDATE() + INTERVAL -1 MONTH AND `user_id` =  ". sql_escape($user_id)."");
+//				$data = mysql_num_rows($rs);
+//			
+//				$rs = sql("SELECT COUNT(`cache_logs`.`id`) as ilosc FROM `cache_logs`, `caches` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`type` = 1 AND `caches`.`cache_id` = `cache_logs`.`cache_id` AND `caches`.`type` NOT IN(4,5) AND `cache_logs`.`user_id` = ". sql_escape($user_id)."");
+//				$record = sql_fetch_array($rs);
+//				$ilosc = $record['ilosc'];
 
 				// Umożliwienie zakładania skrzynek dla nowych użytkowników			
-				if (($data == 0) || ($ilosc < 5)) {
+//				if (($data == 0) || ($ilosc < 5)) {
 					
-					$rs = sql("SELECT `hide_flag` as hide_flag FROM `user` WHERE `user_id` =  ". sql_escape($user_id)."");
-					$record = sql_fetch_array($rs);
+//					$rs = sql("SELECT `hide_flag` as hide_flag FROM `user` WHERE `user_id` =  ". sql_escape($user_id)."");
+//					$record = sql_fetch_array($rs);
 					$hide_flag = $record['hide_flag'];
 					
 					if ($hide_flag == 0) {
-						tpl_set_var('hide_flag', '<img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="viewprofile.php?userid='.$user_id.'&hide_flag=1">Dodaj możliwość zakładania skrzynek dla użytkownika</a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" class="icon32" alt="" />');
+						tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;hide_flag=1"><font color="#228b22">Dodaj możliwość zakładania skrzynek dla użytkownika</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" align="top" alt="" /></p>');
 					} else {
-						tpl_set_var('hide_flag', '<img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="viewprofile.php?userid='.$user_id.'&hide_flag=1">Usuń możliwość zakładania skrzynek dla użytkownika</a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" class="icon32" alt="" />');
+						tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;hide_flag=1"><font color="#ff0000">Usuń możliwość zakładania skrzynek dla użytkownika</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" /></p>');
 					}
 	
-				} else {
-					tpl_set_var('hide_flag', '');
-				}
-	
-			} else {
-				tpl_set_var('hide_flag', '');
-			}
+//				} else {
+//					tpl_set_var('hide_flag', '');
+//				}
+//	
+//			} else {
+//				tpl_set_var('hide_flag', '');
+//			}
 					
 					
 					
