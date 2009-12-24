@@ -325,7 +325,7 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;
+			<input type="reset" name="reset" value="{reset}" class="formbuttons"/>&nbsp;&nbsp;
 			<input type="submit" name="submit" value="{submit}" class="formbuttons"/>
 		<br /><br /></td>
 	</tr>
