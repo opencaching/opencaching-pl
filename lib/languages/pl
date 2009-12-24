@@ -280,7 +280,7 @@ emails_sent_label Wysłane wiadomości
 user_profile Profil użytkownika
 no_userprofile Profil użytkownika nie może być wyświetlony, ponieważ wskazany użytkownik jest nieprawidłowy lub nie ma go w bazie.
 show_all_logs Pokaż wszystkie wpisy do logów
-email_user e-mail do użytkownika
+email_user Napisz E-mail do użytkownika
 show_user_map Pokaż mapę użytkownika
 profile_data Dane profilu
 hidden_caches Ukryte skrzynki
@@ -540,3 +540,5 @@ general_stat Ogólna statystyka
 graph_created Wykresy skrzynek założonych
 graph_find Wykresy skrzynek znalezionych
 user_account konto użytkownika
+management_users: Zarządzanie użytkownikiem 
+

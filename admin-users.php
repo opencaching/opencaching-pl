@@ -42,20 +42,20 @@
 			tpl_set_var('username',$record['username']);
 			tpl_set_var('country', htmlspecialchars($record['country'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('registered', strftime($dateformat, strtotime($record['date_created'])));
-			tpl_set_var('email', '<a href="mailto:'.strip_tags($record['email']).'">'.strip_tags($record['email']).'</a>');
+			tpl_set_var('email',strip_tags($record['email']));
 			tpl_set_var('description',nl2br($record['description']));		
 			tpl_set_var('activation_codes',$record['activation_code']);
 
 			if( $record['is_active_flag'] )
 					tpl_set_var('is_active_flags', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#ff0000">'.tr('lock').' '.tr('user_account').'</font></a>');
 				else
-					tpl_set_var('is_active_flags', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#00ff00">'.tr('unlock').' '.tr('user_account').'</font></a>');
+					tpl_set_var('is_active_flags', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="yellowgreen ">'.tr('unlock').' '.tr('user_account').'</font></a>');
 
 
 			if( !$record['stat_ban'] )
 					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="#ff0000">'.tr('lock').' '.tr('user_stats').'</font></a>');
 				else
-					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="#00ff00">'.tr('unlock').' '.tr('user_stats').'</font></a>');
+					tpl_set_var('stat_ban', '<img src="'.$stylepath.'/images/misc/32x32-impressum.png" class="icon32" alt="" />&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="yellowgreen">'.tr('unlock').' '.tr('user_stats').'</font></a>');
 	
 			if( $usr['admin'] && $block_new_user_caches ) {
 				$rs = sql("SELECT `user_id` as data FROM `user` WHERE `date_created` < CURDATE() + INTERVAL -1 MONTH AND `user_id` =  ". sql_escape($userid)."");
