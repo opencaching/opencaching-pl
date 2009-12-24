@@ -66,7 +66,7 @@
 	  $ddays = mysql_fetch_array($rdd);
 	  mysql_free_result($rdd);
 
-	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, username, `countries`.`pl` AS `country`,date_created,description FROM `user` WHERE user_id=&1 ",$user_id);
+	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, username, `countries`.`pl` AS `country`,date_created,description FROM `user` LEFT JOIN `countries` ON (`user`.`country`=`countries`.`short`) WHERE user_id=&1 ",$user_id);
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);
