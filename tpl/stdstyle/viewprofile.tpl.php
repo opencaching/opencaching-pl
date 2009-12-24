@@ -26,8 +26,7 @@
 </tr>
 <tr>
 <td colspan="3"><hr></hr></td>
-</tr>
-</table>
+</tr></table><br />
 </div>
 
 <div class="nav4">
