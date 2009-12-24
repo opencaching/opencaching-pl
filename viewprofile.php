@@ -66,12 +66,13 @@
 	  $ddays = mysql_fetch_array($rdd);
 	  mysql_free_result($rdd);
 
-	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, username, date_created,description FROM `user` WHERE user_id=&1 ",$user_id);
+	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, username, `countries`.`pl` AS `country`,date_created,description FROM `user` WHERE user_id=&1 ",$user_id);
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);
 			tpl_set_var('country', htmlspecialchars($user_record['country'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('registered', strftime($dateformat, strtotime($user_record['date_created'])));
+			tpl_set_var('country', htmlspecialchars($r_user_record['country'], ENT_COMPAT, 'UTF-8'));
 			$description = $user_record['description'];
 			tpl_set_var('description',nl2br($description));		
 			if( $description != "" )
@@ -90,8 +91,8 @@
 						  }
 						  else 
 						  { 
-			$rscc1=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%Y-%m-%d') data FROM caches WHERE `status` != 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC LIMIT 1",$user_id);
-			$rcc1 = mysql_fetch_array($rscc1);
+//			$rscc1=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%Y-%m-%d') data FROM caches WHERE `status` != 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC LIMIT 1",$user_id);
+//			$rcc1 = mysql_fetch_array($rscc1);
 			$rscc2=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%Y-%m-%d') data FROM caches WHERE `status` != 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) DESC, MONTH(`date_created`) DESC, DAY(`date_created`) DESC LIMIT 1",$user_id);
 			$rcc2 = mysql_fetch_array($rscc2);
 			$rsc=sql("SELECT COUNT(*) number FROM caches WHERE status != 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY number DESC LIMIT 1",$user_id);
@@ -105,11 +106,38 @@
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Pierwsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rcc1['cache_id'] . '">' . $rcc1['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc1['data'] . ')</p>';
+//			$content .= '<p><span class="content-title-noshade txt-blue08" >Pierwsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rcc1['cache_id'] . '">' . $rcc1['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc1['data'] . ')</p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Najnowsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';	
+			$content .= '<table style="border-collapse: collapse;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b> Milestones "kamienie milowe"</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
+			$rsms=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%Y-%m-%d') data FROM caches WHERE `status` != 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC",$user_id);
+			$rms = mysql_fetch_array($rsms);
+			if (mysql_num_rows($rsms) <= 100) {
+			for ($i = 0; $i < mysql_num_rows($rsms); $i+=10)
+				{		
+				$ii=$i;
+				$is=$i-1;
+				if ($i==0) {$ii=1; $is=0;}
+				mysql_data_seek($rsms, $is);	
+				$rms = mysql_fetch_array($rsms);
+				$content .= '<tr> <td>' . $ii . '</td><td>'  . $rms['data'] . '</td><td><a href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['wp_oc'] . '</a></td></tr>';
+				}
+			}
+			if (mysql_num_rows($rsms) > 100) {
+			for ($i = 0; $i < mysql_num_rows($rsms); $i+=100)
+			{		
+			$ii=$i;
+				$is=$i-1;
+				if ($i==0) {$ii=1; $is=0;}
+				mysql_data_seek($rsms, $is);	
+
+			$rms = mysql_fetch_array($rsms);
+			$content .= '<tr><td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
+			}}
+			$content .='</table>';
+			mysql_free_result($rsms);	
 			mysql_free_result($rsncd);
 			mysql_free_result($rsc);
-			mysql_free_result($rscc1);
+//			mysql_free_result($rscc1);
 			mysql_free_result($rscc2);
 			}
 		$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Statystyka liczbowa skrzynek znalezionych</p></div>';
@@ -127,8 +155,8 @@
 			else 
 				$events_count = 0;
 			$days_since_first_find = @mysql_result(@mysql_query("SELECT datediff(now(), date) as old FROM cache_logs WHERE deleted=0 AND user_id = $user_id AND type=1 ORDER BY date LIMIT 1"),0);					   
-			$rsfc1=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date_created,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date_created ASC LIMIT 1",$user_id);
-			$rfc1 = mysql_fetch_array($rsfc1);
+//			$rsfc1=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date_created,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date_created ASC LIMIT 1",$user_id);
+//			$rfc1 = mysql_fetch_array($rsfc1);
 			$rsfc2=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date_created,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date_created DESC LIMIT 1",$user_id);
 			$rfc2 = mysql_fetch_array($rsfc2);
 	        $rsc=sql("SELECT COUNT(*) number FROM cache_logs WHERE type=1 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY number DESC LIMIT 1",$user_id);
@@ -174,10 +202,9 @@
 			}}
 			$content .='</table>';
 			mysql_free_result($rsms);
-			mysql_free_result($rsfc1);			
+//			mysql_free_result($rsfc1);			
 			mysql_free_result($rsncd);
 			mysql_free_result($rsc);
-
 			mysql_free_result($rsfc2);
 			$content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
 						  
