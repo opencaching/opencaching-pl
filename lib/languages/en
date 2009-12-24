@@ -499,3 +499,7 @@ mp3_label Podcast MP3 for cache type PodCache
 add_new_mp3 Add new MP3 file
 map Map
 location Location
+titles Subject
+content Message
+my_email_will_send My e-mail address will be sent in that message
+emial_publish As a result of selecting this option, the recipient will know your e-mail address and will respond to you directly

@@ -41,7 +41,7 @@
 		<col width="200">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="" title="Neuer Cache" align="middle" /> <b>Wysyłanie wiadomości e-mail do <a href='viewprofile.php?userid={userid}'>{to_username}</a></b></td></tr>
+	<tr><td colspan="2"><div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt=""  align="middle" /> <b>{{email_user}} &nbsp;<a href='viewprofile.php?userid={userid}'>{to_username}</a></b></div></td></tr>
 	<tr><td colspan="2">&nbsp;</td></tr>
 
 	{message_start}
@@ -50,31 +50,31 @@
 	{formular_start}
 	
 	<tr>
-		<td colspan="2">Tytuł: <input type="text" name="subject" value="{subject}" class="input400"> {errnosubject}
+		<td colspan="2">{{titles}}: <input type="text" name="subject" value="{subject}" class="input400"> {errnosubject}
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>
-		<td colspan="2">Treść listu {errnotext}</td>
+		<td colspan="2">{{content}} {errnotext}</td>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<textarea class="logs" name="text" cols="68" rows="15">{{text}}</textarea>
+			<textarea class="logs" name="text" cols="68" rows="15">{text}</textarea>
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>
-		<td colspan="2"><label for="l_send_emailaddress">Mój adres email będzie wysłany w tym liście </label><input type="checkbox" name="send_emailaddress" value="1"{send_emailaddress_sel} id="l_send_emailaddress" class="checkbox" />
+		<td colspan="2"><label for="l_send_emailaddress">{{my_email_will_send}}</label><input type="checkbox" name="send_emailaddress" value="1"{send_emailaddress_sel} id="l_send_emailaddress" class="checkbox" />
 		</td>
 	</tr>
 	<tr>
 		<td class="help" colspan="2">
-			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Hinweis" title="Uwaga" align="middle" /> 
-			W wyniku wybrania tej opcji odbiorca będzie znał twój adres e-mail i będzie mógł odpowiedzieć ci bezposrednio.<br />
-			<br />
+			<div class="notice" style="width:500px;height:44px;"> 
+			{{email_publish}}<br />
+			</div>
 
 
 		</td>
