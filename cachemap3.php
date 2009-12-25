@@ -178,7 +178,7 @@ else
 		tpl_set_var("max_sel5", "");
 	foreach($filter as $key=>$value)
 	{
-		$value = intval($value);
+
 		if( $key == "min_score" || $key == "max_score")
 		{
 			if( $key == "min_score" )
@@ -186,7 +186,7 @@ else
 			else
 				$minmax = "max";
 			
-			tpl_set_var($minmax."_sel".$value, 'selected="selected"');
+			tpl_set_var($minmax."_sel".intval(score2ratingnum($value)+1), 'selected="selected"');
 			tpl_set_var($key, $value);
 			continue;
 		}
@@ -197,6 +197,7 @@ else
 			$value = 1-$value;
 		}
 		
+		$value = intval($value);
 		if( $value )
 			$chk = ' checked="checked"';
 		else
