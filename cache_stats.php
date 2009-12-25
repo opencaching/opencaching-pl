@@ -45,7 +45,7 @@
 						  else 
 						  {
 
-//				$content .='<p>&nbsp;</p><p>&nbsp;</p><div style="overflow: hidden; width: 400px; margin: 0px 0px 10px 0px; padding: 0px 0px 2px 0px; border-bottom: solid 3px rgb(88,144,168); color: rgb(88,144,168); font-weight: bold;  background-color: rgb(219,230,241);"><p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 60%;">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Wykresy statystyk dla skrzynki: ' . $cachename . '</p></div><br />';	
+			$content .='<p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 80%;"><img src="tpl/stdstyle/images/blue/cache.png" align="middle" alt="" title="Caches" />&nbsp;Wykresy statystyk dla skrzynki: ' . $cachename . '</p></div><br />';	
 				$content .= '<center><p><img src="graphs/PieGraphcstat.php?cacheid=' . $cache_id . '&t=cs"  border="0" alt="" /></p>';	
 
 		$year=date("Y");
