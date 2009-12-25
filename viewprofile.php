@@ -176,9 +176,16 @@
 			$rc = sql_fetch_array($rsc);
 			$rsncd= sql ("SELECT COUNT(*) FROM cache_logs WHERE type=1 AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)",$user_id);
 			$num_rows = mysql_num_rows($rsncd);
+			$sql = "SELECT COUNT(*) founds_count 
+					FROM cache_logs 
+					WHERE user_id=$user_id AND type=1 AND deleted=0";
+			if( $odp = mysql_query($sql) )
+			$found = mysql_result($odp,0);
+			else 
+			$found = 0;
 			$aver1= round(($user_record['founds_count']/$ddays['diff']), 2);
 			$aver2= round(($user_record['founds_count']/$num_rows), 2);
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba znalezionych skrzynek:</span><strong> ' . $user_record['founds_count'] . '</strong>&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=byname&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba znalezionych skrzynek:</span><strong> ' . $found . '</strong>&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=byname&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba nie znalezionych skrzynek:</span> <strong>' . $user_record['notfounds_count'] . '</strong>&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba komentarzy w logach:</span> <strong>' . $user_record['log_notes_count'] . '</strong></p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba uczestnictw w spotkaniach:</span> <strong>' . $events_count . '</strong>&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=byname&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=7&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';
