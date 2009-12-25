@@ -226,21 +226,20 @@ function toogleLayer( whichLayer, val )
 	var use_tinymce = 0;
 	var descMode = {descMode};
 	document.getElementById("scriptwarning").firstChild.nodeValue = "";
-	
+	//toogleLayer('ocena', 'none');
+
 	// descMode auf 1 oder 2 stellen ... wenn Editor erfolgreich geladen wieder auf 3 Stellen
 	if (descMode == 3)
 	{
-		toggleEditor("desc");
-		use_tinymce = 1;
-/*		if (document.getElementById("desc").value == '')
+		if (document.getElementById("logtext").value == '')
 			descMode = 1;
 		else
-			descMode = 2;*/
+			descMode = 2;
 	}
 
 	document.getElementById("descMode").value = descMode;
 	mnuSetElementsNormal();
-	
+
 	function postInit()
 	{
 		descMode = 3;
@@ -249,61 +248,28 @@ function toogleLayer( whichLayer, val )
 		mnuSetElementsNormal();
 	}
 
-
-
-
-	function toggleEditor(id) {
-		if (!tinyMCE.getInstanceById(id))
-			tinyMCE.execCommand('mceAddControl', false, id);
-		else
-			tinyMCE.execCommand('mceRemoveControl', false, id);
-	}
-
-
-	function SwitchToTextDesc(oldMode)
+	function SwitchToTextDesc()
 	{
 		document.getElementById("descMode").value = 1;
 
-		if(use_tinymce)
-			toggleEditor("desc");
-		use_tinymce = 0;
-		// convert HTML to text
-		var desc = document.getElementById("desc").value;
-
-		desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
-
-		document.getElementById("desc").value = desc;
+		if (use_tinymce == 1)
+			document.logform.submit();
 	}
 
-	function SwitchToHtmlDesc(oldMode)
+	function SwitchToHtmlDesc()
 	{
 		document.getElementById("descMode").value = 2;
 
-		if(use_tinymce)
-			toggleEditor("desc");
-		use_tinymce = 0;
-
-		// convert text to HTML
-		var desc = document.getElementById("desc").value;
-
-		if(oldMode != 3)
-			desc = htmlspecialchars(desc, ['ENT_NOQUOTES']);
-
-		document.getElementById("desc").value = desc;
+		if (use_tinymce == 1)
+			document.logform.submit();
 	}
 
-	function SwitchToHtmlEditDesc(oldMode)
+	function SwitchToHtmlEditDesc()
 	{
 		document.getElementById("descMode").value = 3;
-		use_tinymce = 1;
 
-		if(oldMode == 2) {
-			var desc = document.getElementById("desc").value;
-			desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
-			document.getElementById("desc").value = desc;
-		}
-
-		toggleEditor("desc");
+		if (use_tinymce == 0)
+			document.logform.submit();
 	}
 
 	function mnuSelectElement(e)
@@ -374,24 +340,46 @@ function toogleLayer( whichLayer, val )
 		descMode = mode;
 		mnuSetElementsNormal();
 
-		if(oldMode == descMode)
-			return;
+		if ((oldMode == 1) && (descMode != 1))
+		{
+			// convert text to HTML
+			var desc = document.getElementById("logtext").value;
+
+			if ((desc.indexOf('&amp;') == -1) &&
+			    (desc.indexOf('&quot;') == -1) &&
+			    (desc.indexOf('&lt;') == -1) &&
+			    (desc.indexOf('&gt;') == -1) &&
+			    (desc.indexOf('<p>') == -1) &&
+			    (desc.indexOf('<i>') == -1) &&
+			    (desc.indexOf('<strong>') == -1) &&
+			    (desc.indexOf('<br />') == -1))
+			{
+				desc = desc.replace(/&/g, "&amp;");
+				desc = desc.replace(/"/g, "&quot;");
+				desc = desc.replace(/</g, "&lt;");
+				desc = desc.replace(/>/g, "&gt;");
+				desc = desc.replace(/\r\n/g, "\<br />");
+				desc = desc.replace(/\n/g, "<br />");
+				desc = desc.replace(/<br \/>/g, "<br />\n");
+			}
+
+			document.getElementById("logtext").value = desc;
+		}
 
 		switch (mode)
 		{
 			case 1:
-				SwitchToTextDesc(oldMode);
+				SwitchToTextDesc();
 				break;
 			case 2:
-				SwitchToHtmlDesc(oldMode);
+				SwitchToHtmlDesc();
 				break;
 			case 3:
-
-				SwitchToHtmlEditDesc(oldMode);
+				SwitchToHtmlEditDesc();
 				break;
 		}
 	}
-	
+
 	function btnMouseOver(id)
 	{
 		var descText = document.getElementById("descText").style;
@@ -411,7 +399,7 @@ function toogleLayer( whichLayer, val )
 				break;
 		}
 	}
-	
+
 	function btnMouseOut(id)
 	{
 		var descText = document.getElementById("descText").style;
