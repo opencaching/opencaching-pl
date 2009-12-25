@@ -90,6 +90,18 @@
 						  }
 						  else 
 						  { 
+			// nie licz spotkan, skrzynek jeszcze nieaktywnych, zarchiwizowanych i wstrzymanych
+			$sql = "SELECT COUNT(*) FROM caches WHERE user_id='$user_id' AND status <> 3 AND status <> 4 AND status <> 5 AND status <> 6 AND type <> 6";
+			if( $odp = mysql_query($sql) )
+				$hidden = mysql_result($odp,0);
+			else 
+			$hidden = 0;	
+			$sql = "SELECT COUNT(*) FROM caches WHERE user_id='$user_id' AND status <> 4 AND status <> 5 AND status <> 6 AND type=6";
+			if( $odp = mysql_query($sql) )
+				$hidden_event = mysql_result($odp,0);
+			else 
+			$hidden_event = 0;			
+			
 //			$rscc1=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%Y-%m-%d') data FROM caches WHERE `status` != 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC LIMIT 1",$user_id);
 //			$rcc1 = mysql_fetch_array($rscc1);
 			$rscc2=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%Y-%m-%d') data FROM caches WHERE `status` != 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) DESC, MONTH(`date_created`) DESC, DAY(`date_created`) DESC LIMIT 1",$user_id);
@@ -100,7 +112,8 @@
 			$num_rows = mysql_num_rows($rsncd); 
 			$aver1= round(($user_record['hidden_count']/$ddays['diff']), 2);
 			$aver2= round(($user_record['hidden_count']/$num_rows), 2);			
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba wszystkich założonych skrzynek:  </span><strong>' . $user_record['hidden_count'] . '</strong>&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=byname&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba wszystkich założonych skrzynek:  </span><strong>' . $user_record['hidden_count'] . '</strong>  w tym aktywnych <strong>' . $hidden . '</strong>&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba zorganizowanych spotkań (events):  </span><strong>' . $hidden_event . '</strong>&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="http://www.opencaching.pl/beta/search.php?searchto=searchbyowner&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;f_geokret=0&amp;country=&amp;cachetype=0000010000">'.tr('show').'</a>)</p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba otrzymanych rekomendacji:</span> <strong>' . sqlValue("SELECT COUNT(*) FROM `cache_rating`, caches WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0) . '</strong>&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=byname&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">'.tr('show').'</a>)</p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
