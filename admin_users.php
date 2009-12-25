@@ -29,7 +29,7 @@
 			
 			if( $usr['userid']==$super_admin_id )
 			{
-				tpl_set_var('remove_all_logs', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="removelog.php?userid='.$user_id.'"><font color="#ff0000">{{Usuń wszystkie logi tego użytkownika}}</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" /></p>');
+				tpl_set_var('remove_all_logs', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="removelog.php?userid='.$user_id.'"><font color="#ff0000">'.tr('Usuń wszystkie logi tego użytkownika').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" /></p>');
 			}
 			else
 				tpl_set_var('remove_all_logs', '');
@@ -53,15 +53,15 @@
 
 
 			if( $record['is_active_flag'] )
-					tpl_set_var('is_active_flags', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#ff0000">'.tr('lock').' '.tr('user_account').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" />');
+					tpl_set_var('is_active_flags', '&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#ff0000">'.tr('lock').' '.tr('user_account').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" />');
 				else
-					tpl_set_var('is_active_flags', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#228b22">'.tr('unlock').' '.tr('user_account').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" align="bottom" alt="" />');
+					tpl_set_var('is_active_flags', '&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#228b22">'.tr('unlock').' '.tr('user_account').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" align="bottom" alt="" />');
 
 
 			if( !$record['stat_ban'] )
-					tpl_set_var('stat_ban', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="#ff0000">'.tr('lock').' '.tr('user_stats').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" />');
+					tpl_set_var('stat_ban', '&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="#ff0000">'.tr('lock').' '.tr('user_stats').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" />');
 				else
-					tpl_set_var('stat_ban', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="#228b22">'.tr('unlock').' '.tr('user_stats').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" align="top" alt="" />');
+					tpl_set_var('stat_ban', '&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;stat_ban=1"><font color="#228b22">'.tr('unlock').' '.tr('user_stats').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" align="top" alt="" />');
 	
 //			if( $usr['admin'] && $block_new_user_caches ) {
 //				$rs = sql("SELECT `user_id` as data FROM `user` WHERE `date_created` < CURDATE() + INTERVAL -1 MONTH AND `user_id` =  ". sql_escape($user_id)."");
@@ -79,9 +79,9 @@
 					$hide_flag = $record['hide_flag'];
 					
 					if ($hide_flag == 1) {
-						tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;hide_flag=1"><font color="#228b22">Dodaj możliwość zakładania skrzynek dla użytkownika</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" align="top" alt="" /></p>');
+						tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;hide_flag=1"><font color="#228b22">'.tr('Dodaj możliwość zakładania skrzynek dla użytkownika').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" align="top" alt="" /></p>');
 					} else {
-						tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;hide_flag=1"><font color="#ff0000">Usuń możliwość zakładania skrzynek dla użytkownika</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" /></p>');
+						tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;hide_flag=1"><font color="#ff0000">'.tr('Usuń możliwość zakładania skrzynek dla użytkownika').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" /></p>');
 					}
 	
 //				} else {
