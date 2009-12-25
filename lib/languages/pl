@@ -539,6 +539,7 @@ statistics_users Statystyka użytkownika
 general_stat Ogólna statystyka
 graph_created Wykresy skrzynek założonych
 graph_find Wykresy skrzynek znalezionych
+with_password Skrzynka z hasłem
 user_account konto użytkownika
 management_users Zarządzanie użytkownikiem 
 titles Tytuł

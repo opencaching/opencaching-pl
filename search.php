@@ -344,7 +344,7 @@
 			else
 			{
 				if (isset($_REQUEST['showresult']))
-					tpl_errorMsg('search', 'Waypoint musi być w jednym z podanych formatów: OPxxxx, GCxxxxx, NCxxxx');
+					tpl_errorMsg('search', tr("waypoint_error"));
 				else
 				{
 					$options['searchtype'] = 'byname';
@@ -919,9 +919,13 @@
 				{
 					for($i=0; $i < count($options['cache_attribs']); $i++)
 					{
-						$sql_from[] = '`caches_attributes` `a' . ($options['cache_attribs'][$i]+0) . '`';
-						$sql_where[] = '`a' . ($options['cache_attribs'][$i]+0) . '`.`cache_id`=`caches`.`cache_id`';
-						$sql_where[] = '`a' . ($options['cache_attribs'][$i]+0) . '`.`attrib_id`=' . ($options['cache_attribs'][$i]+0);
+						if($options['cache_attribs'][$i] == 99) // special password attribute case
+							$sql_where[] = '`caches`.`logpw` != ""';
+						else {
+							$sql_from[] = '`caches_attributes` `a' . ($options['cache_attribs'][$i]+0) . '`';
+							$sql_where[] = '`a' . ($options['cache_attribs'][$i]+0) . '`.`cache_id`=`caches`.`cache_id`';
+							$sql_where[] = '`a' . ($options['cache_attribs'][$i]+0) . '`.`attrib_id`=' . ($options['cache_attribs'][$i]+0);
+						}
 					}
 				}
 
@@ -929,7 +933,10 @@
 				{
 					for($i=0; $i < count($options['cache_attribs_not']); $i++)
 					{
-						$sql_where[] = 'NOT EXISTS (SELECT `caches_attributes`.`cache_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=`caches`.`cache_id` AND `caches_attributes`.`attrib_id`=\'' . sql_escape($options['cache_attribs_not'][$i]) . '\')';
+						if($options['cache_attribs_not'][$i] == 99) // special password attribute case
+							$sql_where[] = '`caches`.`logpw` = ""';
+						else
+							$sql_where[] = 'NOT EXISTS (SELECT `caches_attributes`.`cache_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=`caches`.`cache_id` AND `caches_attributes`.`attrib_id`=\'' . sql_escape($options['cache_attribs_not'][$i]) . '\')';
 					}
 				}
 				
@@ -1453,6 +1460,53 @@ function outputSearchForm($options)
 
 	tpl_set_var('cachesize_options', $cachesize_options);
 
+
+
+
+function attr_jsline($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconundef, $category)
+{
+	$line = $tpl;
+	
+		$line = mb_ereg_replace('{id}', $id, $line);
+
+		if (array_search($id, $options['cache_attribs']) === false)
+		{
+			if (array_search($id, $options['cache_attribs_not']) === false)
+				$line = mb_ereg_replace('{state}', 0, $line);
+			else
+				$line = mb_ereg_replace('{state}', 2, $line);
+		}
+		else
+			$line = mb_ereg_replace('{state}', 1, $line);
+
+		$line = mb_ereg_replace('{text_long}', addslashes($textlong), $line);
+		$line = mb_ereg_replace('{icon}', $iconlarge, $line);
+		$line = mb_ereg_replace('{icon_no}', $iconno, $line);
+		$line = mb_ereg_replace('{icon_undef}', $iconundef, $line);
+		$line = mb_ereg_replace('{category}', $category, $line);
+
+		return $line;
+}
+
+function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconundef, $category)
+{
+	$line = $tpl;
+
+	$line = mb_ereg_replace('{id}', $id, $line);
+	$line = mb_ereg_replace('{text_long}', $textlong, $line);
+
+	if (array_search($id, $options['cache_attribs']) === false)
+	{
+		if (array_search($id, $options['cache_attribs_not']) === false)
+			$line = mb_ereg_replace('{icon}', $iconundef, $line);
+		else
+			$line = mb_ereg_replace('{icon}', $iconno, $line);
+	}
+	else
+		$line = mb_ereg_replace('{icon}', $iconlarge, $line);
+	return $line;
+}
+
 	// cache-attributes
 	$attributes_jsarray = '';
 	$attributes_img = '';
@@ -1462,46 +1516,25 @@ function outputSearchForm($options)
 	{
 	
 		// icon specified
-		$line = $cache_attrib_jsarray_line;
-		$line = mb_ereg_replace('{id}', $record['id'], $line);
+		$line = attr_jsline($cache_attrib_jsarray_line, $options, $record['id'], $record['text_long'], $record['icon_large'], $record['icon_no'], $record['icon_undef'], $record['category']);
 
-		if (array_search($record['id'], $options['cache_attribs']) === false)
-		{
-			if (array_search($record['id'], $options['cache_attribs_not']) === false)
-				$line = mb_ereg_replace('{state}', 0, $line);
-			else
-				$line = mb_ereg_replace('{state}', 2, $line);
-		}
-		else
-			$line = mb_ereg_replace('{state}', 1, $line);
-
-		$line = mb_ereg_replace('{text_long}', addslashes($record['text_long']), $line);
-		$line = mb_ereg_replace('{icon}', $record['icon_large'], $line);
-		$line = mb_ereg_replace('{icon_no}', $record['icon_no'], $line);
-		$line = mb_ereg_replace('{icon_undef}', $record['icon_undef'], $line);
-		$line = mb_ereg_replace('{category}', $record['category'], $line);
 		if ($attributes_jsarray != '') $attributes_jsarray .= ",\n";
 		$attributes_jsarray .= $line;
 
-		$line = $cache_attrib_img_line;
-		$line = mb_ereg_replace('{id}', $record['id'], $line);
-		$line = mb_ereg_replace('{text_long}', $record['text_long'], $line);
-	
-		if (array_search($record['id'], $options['cache_attribs']) === false)
-		{
-			if (array_search($record['id'], $options['cache_attribs_not']) === false)
-				$line = mb_ereg_replace('{icon}', $record['icon_undef'], $line);
-			else
-				$line = mb_ereg_replace('{icon}', $record['icon_no'], $line);
-		}
-		else
-			$line = mb_ereg_replace('{icon}', $record['icon_large'], $line);
+		$line = attr_image($cache_attrib_img_line, $options, $record['id'], $record['text_long'], $record['icon_large'], $record['icon_no'], $record['icon_undef'], $record['category']);
+
 
 		if ($record['category'] != 1)
 			$attributesCat2_img .= $line;
 		else
 			$attributes_img .= $line;
 	}
+	$line = attr_jsline($cache_attrib_jsarray_line, $options, "99", tr("with_password"), "images/attributes/password.png", "images/attributes/password-no.png", "images/attributes/password-undef.png", 0);
+	$attributes_jsarray .= ",\n".$line;
+
+	$line = attr_image($cache_attrib_img_line, $options, "99", tr("with_password"), "images/attributes/password.png", "images/attributes/password-no.png", "images/attributes/password-undef.png", 0);
+	$attributes_img .= $line;
+
 	tpl_set_var('cache_attrib_list', $attributes_img);
 	tpl_set_var('cache_attribCat2_list', $attributesCat2_img);
 	tpl_set_var('attributes_jsarray', $attributes_jsarray);
