@@ -192,15 +192,17 @@
 					$name = iconv("utf-8", "UTF-8", $name);
 			}
 
-			// Text / normal HTML / HTML editor
-			tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
+					// Text / normal HTML / HTML editor
+					tpl_set_var('use_tinymce', (($desc_htmledit == 1) ? 1 : 0));
 
-			if ($descMode == 1)
-				tpl_set_var('descMode', 1);
-			else if ($descMode == 2)
-				tpl_set_var('descMode', 2);
-			else
-			{
+					if (($desc_html == 1) && ($desc_htmledit == 1))
+					{
+						tpl_set_var('descMode', 3);
+					}
+					else if ($desc_html == 1)
+						tpl_set_var('descMode', 2);
+					else
+						tpl_set_var('descMode', 1);
 				// TinyMCE
 					$headers = tpl_get_var('htmlheaders') . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
@@ -208,8 +210,8 @@
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
 					tpl_set_var('htmlheaders', $headers);
 
-				tpl_set_var('descMode', 3);
-			}
+//				tpl_set_var('descMode', 3);
+//			}
 
 			//effort
 			$search_time = isset($_POST['search_time']) ? $_POST['search_time'] : '0';
