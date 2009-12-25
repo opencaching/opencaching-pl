@@ -492,10 +492,18 @@
 					else
 						tpl_set_var('logtext', $log_text);
 
+
 					// Text / normal HTML / HTML editor
-					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
+					tpl_set_var('use_tinymce', (($desc_htmledit == 1) ? 1 : 0));
 
-
+					if (($desc_html == 1) && ($desc_htmledit == 1))
+					{
+						tpl_set_var('descMode', 3);
+					}
+					else if ($desc_html == 1)
+						tpl_set_var('descMode', 2);
+					else
+						tpl_set_var('descMode', 1);
 					// TinyMCE
 					$headers = tpl_get_var('htmlheaders') . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
@@ -503,12 +511,6 @@
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
 					tpl_set_var('htmlheaders', $headers);
 
-					if ($descMode == 1)
-						tpl_set_var('descMode', 1);
-					else if ($descMode == 2)
-						tpl_set_var('descMode', 2);
-					else
-						tpl_set_var('descMode', 3);
 
 					if ($use_log_pw == true && $log_pw != '')
 					{
