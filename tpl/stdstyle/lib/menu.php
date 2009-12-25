@@ -14,6 +14,8 @@
 	*   it under the terms of the GNU General Public License as published by
 	*   the Free Software Foundation; either version 2 of the License, or
 	*   (at your option) any later version.
+	
+					'filename' => 'viewprofile.php?userid='.$usr['userid'].'',
 	*
 	***************************************************************************/
 /****************************************************************************
@@ -412,7 +414,7 @@ $menu = array(
 				'title' => tr('general'),
 				'menustring' => tr('general'),
 				'visible' => true,
-				'filename' => 'viewprofile.php?userid='.$usr['userid'].'',
+				'filename' => 'myhome.php',
 				'siteid' => 'myhome'
 			),
 			array(
