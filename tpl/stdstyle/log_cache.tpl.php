@@ -119,6 +119,103 @@ function toogleLayer( whichLayer, val )
 }
 
 //-->
+</script>
+<form action="log.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" dir="ltr" onsubmit="disable()">
+<input type="hidden" name="cacheid" value="{cacheid}"/>
+<input type="hidden" name="version2" value="1"/>
+<input id="descMode" type="hidden" name="descMode" value="1" />
+<table class="content">
+	<tr>
+		<td class="content2-pagetitle" colspan="2">
+			<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Neuer Cache" align="middle" />
+			<b>{{post_new_log}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
+		</td>
+	</tr>
+</table>
+
+<table class="content">
+	<tr><td colspan="2">&nbsp;</td></tr>
+	<tr>
+		<td width="180px">{{type_of_log}}:</td>
+		<td>
+			<select onLoad="javascript:toogleLayer('ocena');" name="logtype" onChange="toogleLayer('ocena');">
+				{logtypeoptions}
+			</select>
+		</td>
+	</tr>
+	<tr><td class="spacer" colspan="2"></td></tr>
+	<tr>
+		<td width="180px">{{date_logged}}:</td>
+		<td>
+			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>.
+			<input class="input20" type="text" name="logmonth" maxlength="2" value="{logmonth}"/>.
+			<input class="input40" type="text" name="logyear" maxlength="4" value="{logyear}"/>
+			{date_message}
+		</td>
+	</tr>
+	<tr><td class="spacer" colspan="2"></td></tr>
+	{rating_message}
+	<tr><td class="spacer" colspan="2"></td></tr>
+	<tr>
+		<td width="180px"><b>{score_header}</b></td>
+		<td width="*">{score}<br/></td>
+	</tr>
+</table>
+<table class="content">
+	<tr>
+		<td colspan="2">
+			{log_geokret}
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><br />{{comments_log}}:</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div class="menuBar">
+				<span id="descText" class="buttonNormal" onclick="btnSelect(1)" onmouseover="btnMouseOver(1)" onmouseout="btnMouseOut(1)">Text</span>
+				<span class="buttonSplitter">|</span>
+				<span id="descHtml" class="buttonNormal" onclick="btnSelect(2)" onmouseover="btnMouseOver(2)" onmouseout="btnMouseOut(2)">&lt;html&gt;</span>
+				<span class="buttonSplitter">|</span>
+				<span id="descHtmlEdit" class="buttonNormal" onclick="btnSelect(3)" onmouseover="btnMouseOver(3)" onmouseout="btnMouseOut(3)">Editor</span>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<span id="scriptwarning" class="errormsg">Javascript jest wyłączona przez twoją przeglądarke.Możesz tylko wprowadzić zwykły tekst. Aby wprawdzić kod HTML i użyć edytor musisz włączyć obsługe Javascript.</span>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<textarea name="logtext" id="logtext" cols="68" rows="25" >{logtext}</textarea>
+    </td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			{smilies}
+		</td>
+	</tr>
+	<tr><td class="spacer" colspan="2"></td></tr>
+
+		{log_pw_field}
+
+	<tr><td class="spacer" colspan="2"></td></tr>
+	{listed_start}
+	<tr>
+		<td colspan="2" width="600px">{{listed_other}}:&nbsp;{listed_on}
+		</td>
+	</tr>
+	<tr><td class="spacer" colspan="2"></td></tr>
+	{listed_end}
+	<tr>
+		<td class="header-small" colspan="2">
+			<input type="reset" name="reset" value="Reset" style="width:120px"/>&nbsp;&nbsp;
+			<input type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="width:120px"/>
+		</td>
+	</tr>
+</table>
+</form>
 <script language="javascript" type="text/javascript">
 <!--
 	/*
