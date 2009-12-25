@@ -27,8 +27,8 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 <input class="chbox" id="be_ftf" name="be_ftf" value="false" type="hidden" />
 <input class="chbox" id="h_pl" name="h_pl" value="false" type="hidden" />
 <input class="chbox" id="h_de" name="h_de" value="false" type="hidden" />
-<input id="min_score" name="min_score" type="hidden" value="1" />
-<input id="max_score" name="max_score" type="hidden" value="5" />
+<input id="min_score" name="min_score" type="hidden" value="-3" />
+<input id="max_score" name="max_score" type="hidden" value="3.0" />
 <input class="chbox" id="h_noscore" name="h_noscore" value="false" type="hidden" />
 
 
@@ -189,7 +189,7 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 				if( point==undefined )
 					return;
 				
-				GDownloadUrl("lib/xmlmap.php?lat="+point.lat()+"&lon="+point.lng()+"&userid={userid}&h_u=false&h_t=false&h_m=false&h_v=false&h_w=false&h_e=false&h_q=false&h_o=false&h_ignored=false&h_own=false&h_found=false&h_noattempt=false&h_nogeokret=false&h_avail=false&h_temp_unavail=true&h_arch=true&signes=true&be_ftf=false&h_de=true&h_pl=true&min_score=1&max_score=5&h_noscore=true", function(data, responseCode) 
+				GDownloadUrl("lib/xmlmap.php?lat="+point.lat()+"&lon="+point.lng()+"&userid={userid}&h_u=false&h_t=false&h_m=false&h_v=false&h_w=false&h_e=false&h_q=false&h_o=false&h_ignored=false&h_own=false&h_found=false&h_noattempt=false&h_nogeokret=false&h_avail=false&h_temp_unavail=true&h_arch=true&signes=true&be_ftf=false&h_de=true&h_pl=true&min_score=-3&max_score=3&h_noscore=true", function(data, responseCode) 
 					{
 						var xml = GXml.parse(data);
 							

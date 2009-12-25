@@ -429,7 +429,7 @@ int main(void)
 				(hide_temp_unavailable && status == 2) || // hide all temporary unavailable caches
 				(hide_archived && status == 3) || // hide archived caches
 				(hide_noattempt && !found) || // hide caches not yet fond
-				( (score <= min_score || score >= max_score) && votes >= 3 && i == 0) || // hide caches not matching score criteria
+				( (score < min_score || score > max_score) && votes >= 3 && i == 0) || // hide caches not matching score criteria
 				(votes < 3 && hide_noscore && i == 0) || // hide caches without definite score
 				status > 3 ||
 				0
