@@ -40,12 +40,17 @@
 								FROM `user` LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1 ",$user_id);
 
 			$record = sql_fetch_array($rsuser);
+			if ( !$record['activation_code']) {
+						tpl_set_var('activation_codes',tr('account_is_actived'));			
+					} else {
+					tpl_set_var('activation_codes',$record['activation_code']);
+							}
 			tpl_set_var('username',$record['username']);
 			tpl_set_var('country', htmlspecialchars($record['country'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('registered', strftime($dateformat, strtotime($record['date_created'])));
 			tpl_set_var('email',strip_tags($record['email']));
 			tpl_set_var('description',nl2br($record['description']));		
-			tpl_set_var('activation_codes',$record['activation_code']);
+
 
 			if( $record['is_active_flag'] )
 					tpl_set_var('is_active_flags', '&nbsp;<a href="admin-users.php?userid='.$user_id.'&amp;is_active_flag=1"><font color="#ff0000">'.tr('lock').' '.tr('user_account').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" />');
