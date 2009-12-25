@@ -155,19 +155,19 @@ filters.style.backgroundColor = 'white';
 <input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{{h_de_label}}</label><br/>\
 {{from}}: \
 <select id="min_score" name="min_score" onchange="reload()">\
-    <option value="1" {min_sel1}>{{rating_poor}}</option>\
-    <option value="2" {min_sel2}>{{rating_mediocre}}</option>\
-    <option value="3" {min_sel3}>{{rating_avarage}}</option>\
-    <option value="4" {min_sel4}>{{rating_good}}</option>\
-    <option value="5" {min_sel5}>{{rating_excellent}}</option>\
+    <option value="-3" {min_sel1}>{{rating_poor}}</option>\
+    <option value="0.5" {min_sel2}>{{rating_mediocre}}</option>\
+    <option value="1.2" {min_sel3}>{{rating_avarage}}</option>\
+    <option value="2" {min_sel4}>{{rating_good}}</option>\
+    <option value="2.5" {min_sel5}>{{rating_excellent}}</option>\
 </select><br/>\
 {{to}}:\
 <select id="max_score" name="max_score" onchange="reload()">\
-    <option value="1" {max_sel1}>{{rating_poor}}</option>\
-    <option value="2" {max_sel2}>{{rating_mediocre}}</option>\
-    <option value="3" {max_sel3}>{{rating_avarage}}</option>\
-    <option value="4" {max_sel4}>{{rating_good}}</option>\
-    <option value="5" {max_sel5}>{{rating_excellent}}</option>\
+    <option value="-3" {max_sel1}>{{rating_poor}}</option>\
+    <option value="0.5" {max_sel2}>{{rating_mediocre}}</option>\
+    <option value="1.2" {max_sel3}>{{rating_avarage}}</option>\
+    <option value="2" {max_sel4}>{{rating_good}}</option>\
+    <option value="2.5" {max_sel5}>{{rating_excellent}}</option>\
 </select><br/>\
 <input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">{{show_noscore}}</label>\
 </div>\

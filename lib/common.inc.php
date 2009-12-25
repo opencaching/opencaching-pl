@@ -296,6 +296,41 @@ session_start();
 									tr('rating_good'),
 									tr('rating_excellent'),
 									);
+
+	function score2ratingnum($score)
+	{
+		if($score > 2.5)
+			return 4;
+		else if($score > 2.0)
+			return 3;
+		else if($score > 1.2)
+			return 2;
+		else if($score > 0.5)
+			return 1;
+		else
+			return 0;
+	}
+
+	function score2rating($score)
+	{
+		global $ratingDesc;
+		return $ratingDesc[score2ratingnum($score)];
+	}
+
+	function new2oldscore($score)
+	{
+		if($score == 4)
+			return 3.0;
+		else if($score == 3)
+			return 2.25;
+		else if($score == 2)
+			return 1.4;
+		else if($score == 1)
+			return 0.7;
+		else
+			return -0.5;
+	}
+
 	
 	// Convert from -3..3 to 1..5: update scores set score = (score +3)*5/6+1
 	

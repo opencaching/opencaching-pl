@@ -65,7 +65,7 @@
 		$hide_by_type .= " AND cache_ignore.id IS NULL ";
 	if( isset($_GET['min_score']) && isset($_GET['max_score']))
 	{
-		$score_filter = " AND ((caches.score BETWEEN ".intval($_GET['min_score'])." AND ".intval($_GET['max_score'])." AND caches.votes>=3 ";
+		$score_filter = " AND ((caches.score BETWEEN ".floatval($_GET['min_score'])." AND ".floatval($_GET['max_score'])." AND caches.votes>=3 ";
 		if( $_GET['h_noscore'] == "true" )
 		{
 			$score_filter .= ") OR (caches.votes<3";
@@ -184,7 +184,7 @@
 		@$writer->writeAttribute('username', addslashes($cache['username']));
 		$writer->writeAttribute('wp', $cache['wp']);
 		$writer->writeAttribute('votes', $cache['votes']);
-		$writer->writeAttribute('score', $ratingDesc[round($cache['score'])-1]);
+		$writer->writeAttribute('score', score2rating($cache['score']));
 		$writer->writeAttribute('topratings', $cache['topratings']);
 		$writer->writeAttribute('lat', $cache['latitude']);
 		$writer->writeAttribute('lon', $cache['longitude']);

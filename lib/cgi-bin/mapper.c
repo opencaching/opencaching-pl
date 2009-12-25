@@ -296,10 +296,10 @@ int main(void)
 			 (rect.lon - rect.lonWidth*bound),
 			 (rect.lon + rect.lonWidth + rect.lonWidth*bound), filter_by_type_string2);
 
-	int min_score = microcgi_getint(CGI_GET, "min_score");
+	double min_score = microcgi_getdouble(CGI_GET, "min_score");
 	if(microcgi_getstr(CGI_GET, "min_score")[0] == 0)
 		min_score = -3;
-	int max_score = microcgi_getint(CGI_GET, "max_score");
+	double max_score = microcgi_getdouble(CGI_GET, "max_score");
 	if(microcgi_getstr(CGI_GET, "max_score")[0] == 0)
 		max_score = 3;
 

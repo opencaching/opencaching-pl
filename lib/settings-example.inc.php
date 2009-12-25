@@ -71,7 +71,7 @@
 	$hide_coords = false;
 	// scores range
 	$MIN_SCORE = 0;
-	$MAX_SCORE = 6;
+	$MAX_SCORE = 4;
 	//Debug?
 	if (!isset($debug_page)) $debug_page = false;
 	$develwarning = '';

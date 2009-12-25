@@ -253,23 +253,24 @@
 			else
 			{
 				// show cache's score
-				$score = round($cache_record['score'])-1;
+				$score = $cache_record['score'];
+				$scorenum = score2ratingnum($cache_record['score']);
 				$font_size = "2";
-				if( $score == 0 )
+				if( $scorenum == 0 )
 					$scorecolor = "#DD0000";
 				else
-				if( $score == 1 )
+				if( $scorenum == 1 )
 					$scorecolor = "#F06464";
 				else
-				if( $score == 2 )
+				if( $scorenum == 2 )
 					$scorecolor = "#DD7700";
 				else
-				if( $score == 3 )
+				if( $scorenum == 3 )
 					$scorecolor = "#77CC00";
 				else
-				if( $score == 4 )
+				if( $scorenum == 4 )
 					$scorecolor = "#00DD00";
-				tpl_set_var('score', $ratingDesc[$score]);
+				tpl_set_var('score', score2rating($score));
 				tpl_set_var('scorecolor', $scorecolor);	
 			}			
 			

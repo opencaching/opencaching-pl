@@ -218,7 +218,7 @@
 							$checked = " selected";
 						else
 							$checked = "";
-						$score .= "<option value='$score_radio' $checked>".$ratingDesc[$score_radio-1]."</option>";
+						$score .= "<option value='".new2oldscore($score_radio)."' $checked>".$ratingDesc[$score_radio]."</option>";
 					}
 					$score .= "</select>";
 					/*
@@ -375,6 +375,7 @@
 					{
 						$_POST['r'] = -10;
 					}
+					$_POST['r'] = score2ratingnum($_POST['r']); // convert to old score format
 					
 					if( $_POST['r'] == -10 || ($_POST['r'] >= $MIN_SCORE && $_POST['r'] <= $MAX_SCORE))
 					{

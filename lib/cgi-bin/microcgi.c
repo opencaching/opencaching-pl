@@ -125,7 +125,7 @@ double microcgi_getdouble(formtype type, const char* variable)
   const char *found = microcgi_getstr(type, variable);
   if(found) {
     double d;
-    sscanf(found, "%Lf", &d);
+    sscanf(found, "%lf", &d);
     return d;
   }
   else
