@@ -301,6 +301,8 @@
 			if( $usr == true || !$hide_coords)
 			{
 				$coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($cache_record['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($cache_record['longitude']), ENT_COMPAT, 'UTF-8'));
+				$coords2 = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($cache_record['latitude'], 0), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($cache_record['longitude'], 0), ENT_COMPAT, 'UTF-8'));
+				$coords3 = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($cache_record['latitude'], 2), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($cache_record['longitude'], 2), ENT_COMPAT, 'UTF-8'));
 				$coords_other = "<a href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=".$cache_record['latitude']."&amp;lon=".$cache_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=no,scrollbars=0')\">".tr('coords_other')."</a>";
 			}
 			else
@@ -312,6 +314,8 @@
 			tpl_set_var('cache_stats', $cache_stats);
 			tpl_set_var('googlemap_key', $googlemap_key);
 			tpl_set_var('map_msg', $map_msg);
+			tpl_set_var('coords2', $coords2);
+			tpl_set_var('coords3', $coords3);
 			tpl_set_var('coords_other', $coords_other);
 			tpl_set_var('typeLetter', typeToLetter($cache_record['type']));
 
@@ -583,7 +587,13 @@
 			// show pictures
 			//
 
-			if ($cache_record['picturescount'] > 0)
+			if ($cache_record['picturescount'] ==  0 || ($_REQUEST['print'] && $_REQUEST['pictures'] == 'no'))
+			{
+				tpl_set_var('pictures', '<br />');
+				tpl_set_var('hidepictures_start', '<!--');
+				tpl_set_var('hidepictures_end', '-->');
+			}
+			else
 			{
 				//if(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y')
 					//tpl_set_var('pictures', viewcache_getpicturestable($cache_id, true, true, false, true, $cache_record['picturescount']));
@@ -603,12 +613,7 @@
 				tpl_set_var('hidepictures_start', '');
 				tpl_set_var('hidepictures_end', '');
 			}
-			else
-			{
-				tpl_set_var('pictures', '<br />');
-				tpl_set_var('hidepictures_start', '<!--');
-				tpl_set_var('hidepictures_end', '-->');
-			}
+
 
 			// add RR comment
 			if( $usr['admin'] && isset($_POST['rr_comment']) && $_POST['rr_comment']!= "" && $_SESSION['submitted'] != true)

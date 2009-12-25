@@ -710,7 +710,7 @@ session_start();
 	*/
 
 	// decimal longitude to string E/W hhh°mm.mmm
-	function help_lonToDegreeStr($lon)
+	function help_lonToDegreeStr($lon, $type = 1)
 	{
 		if ($lon < 0)
 		{
@@ -721,16 +721,30 @@ session_start();
 		{
 			$retval = 'E ';
 		}
+		
+		if($type == 1) {
+			$retval = $retval . sprintf("%03d", floor($lon)) . '° ';
+			$lon = $lon - floor($lon);
+			$retval = $retval . sprintf("%06.3f", round($lon * 60, 3)) . '\'';
+		}
+		else if($type == 0){
+			$retval .= sprintf("%.5f", $lon) . '° ';
+		}
+		else if($type == 2) {
+			$retval = $retval . sprintf("%03d", floor($lon)) . '° ';
+			$lon = $lon - floor($lon);
+			$lon *= 60;
+			$retval = $retval . sprintf("%02d", floor($lon)) . '\' ';
 
-		$retval = $retval . sprintf("%03d", floor($lon)) . '° ';
-		$lon = $lon - floor($lon);
-		$retval = $retval . sprintf("%06.3f", round($lon * 60, 3)) . '\'';
+			$lonmin = $lon - floor($lon);		
+			$retval = $retval . sprintf("%02d", floor($lonmin*60)) . '\'\'';
+		}
 
 		return $retval;
 	}
 
 	// decimal latitude to string N/S hh°mm.mmm
-	function help_latToDegreeStr($lat)
+	function help_latToDegreeStr($lat, $type = 1)
 	{
 		if ($lat < 0)
 		{
@@ -742,9 +756,23 @@ session_start();
 			$retval = 'N ';
 		}
 
-		$retval = $retval . sprintf("%02d", floor($lat)) . '° ';
-		$lat = $lat - floor($lat);
-		$retval = $retval . sprintf("%06.3f", round($lat * 60, 3)) . '\'';
+		if($type == 1) {
+			$retval = $retval . sprintf("%02d", floor($lat)) . '° ';
+			$lat = $lat - floor($lat);
+			$retval = $retval . sprintf("%06.3f", round($lat * 60, 3)) . '\'';
+		}
+		else if($type == 0){
+			$retval .= sprintf("%.5f", $lat) . '° ';
+		}
+		else if($type == 2) {
+			$retval = $retval . sprintf("%02d", floor($lat)) . '° ';
+			$lat = $lat - floor($lat);
+			$lat *= 60;
+			$retval = $retval . sprintf("%02d", floor($lat)) . '\' ';
+
+			$latmin = $lat - floor($lat);		
+			$retval = $retval . sprintf("%02d", floor($latmin*60)) . '\'\'';
+		}
 
 		return $retval;
 	}

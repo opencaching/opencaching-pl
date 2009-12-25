@@ -20,12 +20,12 @@
 		<title><?php echo $tpl_subtitle; ?>Opencaching PL - drukowanie</title>
 		<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
-		<meta http-equiv="Content-Language" content="pl" />
+		<meta http-equiv="Content-Language" content="{lang}" />
 		<meta http-equiv="gallerimg" content="no" />
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="cache-control" content="no-cache" />
 		<!-- Favicon noch nicht vorhanden <link rel="shortcut icon" href="favicon.ico" />-->
-		<link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/main_print.css" />
+		<link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/style_print.css" />
 	</head>
 
 <script>
@@ -120,7 +120,7 @@ for( $i=1000;$i<2000;$i+=200)
 	foreach( $caches_list as $id )
 	{
 		$include_caches .= "clientSideInclude('include".$id."', 'viewcache.php?cacheid=".$id."&print=y".$pictures.$showlogs.$nocrypt.$spoiler_only."');";
-		$include_caches_list .= "<span id='include".$id."'></span>";
+		$include_caches_list .= "<div id='include".$id."'></div>";
 	}
 	
 	$checked_1 = ""; $checked_2 = ""; $checked_3 = ""; $checked_4 = ""; $checked_5 = ""; $checked_6 = ""; $checked_7 = ""; $checked_8 = "";
@@ -147,7 +147,7 @@ for( $i=1000;$i<2000;$i+=200)
 	
 ?>
 
-<body onLoad="<?php echo $include_caches;?>">
+<body onload="<?php echo $include_caches;?>">
 <?
 if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
 ?>
@@ -160,52 +160,37 @@ if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
 }
 ?>
 <span class="text_gray">
-<table width="100%" border="0">
-<tr>
-	<td>
+<div>
 		<input type="radio" name="showlogs" id="shownologs" value="" <?php echo $checked_1;?>><label for="shownologs">Nie pokazuj logów</label>
 		<input type="radio" name="showlogs" id="showlogs" value="&showlogs=4" <?php echo $checked_2;?>><label for="showlogs">Pokaż ostatnie logi</label>
 		<input type="radio" name="showlogs" id="showalllogs" value="&showlogsall=y" <?php echo $checked_3;?>><label for="showalllogs">Pokaż wszystkie logi</label>
-	</td>
-</tr>
-<tr>
-	<td>
+</div>
 		<input type="radio" name="showpictures" id="shownopictures" value="&pictures=no" <?php echo $checked_4;?>><label for="shownopictures">Nie pokazuj zdjęć</label>
 		<input type="radio" name="showpictures" id="showpictures" value="&pictures=small" <?php echo $checked_5;?>><label for="showpictures">Pokaż miniatury</label>
 		<input type="radio" name="showpictures" id="showallpictures" value="&pictures=big" <?php echo $checked_6;?>><label for="showallpictures">Pokaż duże zdjęcia</label>
-	</td>
-</tr>
-<tr>
-	<td>
+<div>
 		<input type="checkbox" name="nocrypt" id="nocrypt" value="&nocrypt=1" <?php echo $checked_7;?>><label for="nocrypt">Odszyfruj podpowiedzi</label>&nbsp;&nbsp;&nbsp;
 		<input type="checkbox" name="spoiler_only" id="spoiler_only" value="&spoiler_only=1" <?php echo $checked_8;?>><label for="spoiler_only">Tylko spoilery</label>&nbsp;&nbsp;&nbsp;
+</div>
 		<input type="submit" name="submit" value="Zmień">
+
 <?
 if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
 ?>
 		&nbsp;&nbsp;&nbsp;
-		<input type="submit" name="flush_print_list" value="Opróżnij listę (<?php echo count($_SESSION['print_list']);?>)">
+		<input type="submit" name="flush_print_list" value="<?php echo tr("clear_list") . " (" . count($_SESSION['print_list']);?>)">
 <?
 }
 ?>
-	</td>
-</tr>
-</table>
 </span>
 </form>
 <hr>
 <?php
 echo $include_caches_list;
 ?>
-	<table class="null">
-		<tr>
-			<td>
+
+<div id="printedcaches">
 				<?php echo $content;?>
-			</td>
-			<td>
-				<img src="/images/trans.gif" width="10" height="1" alt="" />
-			</td>
-		</tr>
-	</table>
+</div>
 	</body>
 </html>

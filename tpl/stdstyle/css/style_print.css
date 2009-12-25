@@ -1,4 +1,4 @@
-/*************************************************************/
+/*************************************************6************/
 /*   Design:  MultiFlex-2 (Screen)                           */
 /*   Author:  G. Wolfgang (gw@actamail.com)                  */
 /*   Date:    June 8, 2006                                   */
@@ -10,16 +10,14 @@
 /*   Check out my favorite website: www.sda.org              */
 /*************************************************************/
 
-/*************************/
-/* SECTION 1 - MAIN BODY */
-/*************************/
-#SendToGPS { BACKGROUND: #dde3d6; BORDER-RIGHT: #005e9d 2px outset; BORDER-TOP: #000000 1px outset; FONT-WEIGHT: bold; FONT-SIZE: 8pt; PADDING-BOTTOM: 2px; BORDER-LEFT: #000000 1px outset; PADDING-TOP: 2px; BORDER-BOTTOM: #005e9d 2px outset; FONT-FAMILY: verdana }
+
 
 img { behavior: url(iepngfix/iepngfix.htc); vertical-align:middle; border-width:0px;border-style:none; }
 div#map_canvas img { behavior: none; }
+div#cacheinfo { background-color: blue;}
 
-body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #cccccc; font-family: arial, sans-serif;}
-.page-container-1 {width: 970px; margin: 0px auto; padding: 0px; background-color:#ffffff; border: solid 1px rgb(100,100,100);}
+body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ffffff; font-family: arial, sans-serif, Tahoma, Verdana;}
+.page-container-1 { margin: 0px auto; padding: 0px; background-color:#ffffff; border: solid 1px rgb(100,100,100);}
 
 /*************************************/
 /* SECTION 2 - HEADER AND NAVIGATION */
@@ -33,7 +31,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 /*-----------------------------------*/
 /* 2.1 - Sitename, slogan and banner */
 /*-----------------------------------*/
-/.header {background-image: url(../../../images/header/logo.jpg); height:81px;}
+.header {background-image: url(../../../images/header970.jpg); height:81px;}
 .mapa {background-image: url(../../../images/celownik.png); height:180px; width:180px;}
 
 .site-name {width: 300px; height: 45px; top: 12px; position: absolute; z-index: 4; overflow: hidden; margin: 0px; padding-left: 80px;}
@@ -42,9 +40,9 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 .site-name a {margin: 0px; padding: 0px; text-decoration: none; color: rgb(0,0,0);}
 .site-name a:hover {text-decoration: none;}
 
-.site-slogan-container {text-align:right; width: 970px; top: 86px; position: absolute; z-index: 1; overflow: hidden; background-color: transparent; }
+.site-slogan-container {text-align:right;  top: 86px; position: absolute; z-index: 1; overflow: hidden; background-color: transparent; }
 
-.site-slogan {float: right; width: 260px; margin: 0px; padding: 5px; background-color: rgb(127,162,202); font-size: 10px; border-left:1px solid rgb(100,100,100); border-top:1px solid rgb(100,100,100); border-bottom:1px solid rgb(100,100,100);}
+.site-slogan {float: right; width: 300px; margin: 0px; padding: 5px; background-color: rgb(127,162,202); font-size: 10px; border-left:1px solid rgb(100,100,100); border-top:1px solid rgb(100,100,100); border-bottom:1px solid rgb(100,100,100);}
 
 .site-slogan p.title {float: right; width: 900px; margin: 0px; padding: 0px; color: rgb(234,239,247); font-family: arial, sans serif;  text-align: right; font-weight: bold; font-size: 220%;}
 .site-slogan p.subtitle {clear: both; float: right; width: 900px; margin: -5px 0px 0px 0px; padding: 0px; color: rgb(234,239,247); font-family: arial, sans serif; text-align: right; font-weight: bold; font-size: 200%;}
@@ -59,7 +57,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 /*--------------------------*/
 /* 2.2 - Navigation - Flags */
 /*--------------------------*/
-.navflag-container {width: 970px; top: 14px; position: absolute; z-index: 2; background-color: transparent;}
+.navflag-container { top: 14px; position: absolute; z-index: 2; background-color: transparent;}
 .navflag {margin: 0px; padding: 0px; font-size: 1.0em;}	
 .navflag ul {float: right; margin: 0px; padding: 0px 20px 0px 0px;}	
 .navflag li {display: inline; list-style: none; margin: 0px; padding: 0px;}
@@ -70,7 +68,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 /*----------------------------*/
 /* 2.3 - Navigation - Level 1 */
 /*----------------------------*/
-.nav1-container {width: 970px; top: 35px; position: absolute; z-index: 3; background: transparent;}
+.nav1-container { top: 35px; position: absolute; z-index: 3; background: transparent;}
 .nav1 {margin: 0px; padding: 0px; font-family: verdana, arial, sans serif; font-size: 1.0em;}
 .nav1 ul {float: right; margin: 0px; padding: 0px 20px 0px 0px; border-left: solid 1px rgb(115,162,182); background-color: rgb(255,255,255); font-weight: bold;}	
 .nav1 li {display: inline; list-style: none; margin: 0px; padding: 0px;}
@@ -81,7 +79,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 /* 2.4 - Navigation - Level 2 */
 /*----------------------------*/
 .nav2 {clear: both; margin: 0px; padding: 0px; font-family: verdana, arial, sans serif; font-size: 1.0em;}
-.nav2 ul {float: left; width: 970px; margin: 0px; padding: 0px; border-top: solid 1px rgb(54,83,151); border-bottom: solid 1px rgb(54,83,151); background-color: rgb(127,162,202); font-weight: bold;}	
+.nav2 ul {float: left;  margin: 0px; padding: 0px; border-top: solid 1px rgb(54,83,151); border-bottom: solid 1px rgb(54,83,151); background-color: rgb(127,162,202); font-weight: bold;}	
 .nav2 li {display: inline; list-style: none; margin: 0px; padding: 0px;}
 .nav2 li a {display: block; float: left; margin: 0px 0px 0px 0px; padding: 5px 10px 5px 10px; border-right: solid 1px rgb(54,83,151); color: rgb(255,255,255); text-transform: uppercase; text-decoration: none; font-size: 100%;}
 .nav2 a:hover, .nav2 a.selected {color: rgb(50,50,50); text-decoration: none;}
@@ -103,21 +101,46 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 .nav3 li a:hover, .nav3 li a.selected {border-left: solid 7px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
 .nav3 li.subgroup a:hover, .nav3 li a.selected {border-left: solid 14px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
 
+/*----------------------------*/
+/* 2.5 - Navigation - Level 4 */
+/*----------------------------*/
+/*.nav4 {overflow: hidden; clear: both; margin: 0px; padding: 0px; color: rgb(75,75,75); font-size: 1.0em;margin: 0;}
+*/
+/*.nav4 ul {width: 160px; margin: 0px 0px 0px 0px; padding: 0px; border-bottom: solid 1px rgb(216,206,159); background-color: rgb(219,230,241);}*/
+.nav4 li {float: left; list-style: none; margin: 0px; padding: 0px;padding-bottom: 5px;}
+.nav4 li.title {display: none; margin: 0px 0px 0px 0px; padding: 3px 5px 2px 5px; background-color: rgb(156,186,214); color: rgb(255,255,255); text-transform: uppercase; font-weight: bold; font-size: 120%;}
+.nav4 li.group a {background-color: rgb(219,230,241);display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; margin-right: 3px; padding: 0px 7px 0px 20px; border-top: solid 1px rgb(200,200,200); border-left: solid 7px rgb(219,230,241); color: rgb(75,75,75); font-weight: bold; font-size: 120%;}
+.nav4 li.group_active a {border-left: solid 7px rgb(156,186,214); background-color: rgb(156,186,214);}
+.nav4 li.subgroup a {display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 7px 0px 0px; border-top: solid 1px rgb(200,200,200); border-left: solid 14px rgb(219,230,241); color: rgb(75,75,75); font-weight: normal; font-size: 120%;}
+.nav4 li.subgroup_active a {border-left: solid 14px rgb(156,186,214); background-color: rgb(156,186,214);}
+
+.nav4 li a {display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; border-left: solid 40px rgb(219,230,241); color: rgb(75,75,75); text-decoration: none; font-size: 120%;}
+.nav4 li a:hover, .nav4 li a.selected {border-left: solid 7px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
+.nav4 li.subgroup a:hover, .nav4 li a.selected {border-left: solid 14px rgb(156,186,214);  color: rgb(100,100,100); text-decoration: none;}
+
+ul#cachemenu { padding: 0px; margin: 0px;}
+ul#statmenu { padding: 0px; margin: 0px;}
+
+.notlogged-cacheview { display: block; min-height: 1.7em; height: auto !important; height: 1.7em; line-height: 1.7em; margin: 0px; padding: 0px 0px 6px 7px; color: rgb(150,75,75); font-size: 120%; }
+
 /******************************************************/
 /* SECTION 4 - SPECIFIC CLASSES FOR LAYOUTS #2 and #3 */
 /******************************************************/
-.notice {overflow: hidden; width: 735px; height: 24px; margin: 0px 0px 0px 0px; padding: 8px 0px 0px 32px; color: rgb(88,144,168); font-weight: italic; font-size: 11px; background-image: url(../images/misc/32x32-info.png); background-position: top left; background-repeat:no-repeat;behavior: url(iepngfix/iepngfix.htc);}
+.notice {overflow: hidden; width: 735px; height: 24px; margin: 0px 0px 0px 0px; padding: 0px 16px 12px 20px; color: rgb(88,144,168); font-weight: italic; font-size: 11px; background-image: url(../images/misc/16x16-info.png); background-position: top left; background-repeat:no-repeat;behavior: url(iepngfix/iepngfix.htc);}
 .warning {overflow: hidden;  width: 735px; height: 24px; border: 1px solid black; background-color: rgb(240,100,100); margin: 0px 0px 0px 0px; padding: 8px 0px 0px 32px; color: rgb(50,50,50); font-weight: bold; font-size: 12px; background-image: url(../images/misc/32x32-impressum.png); background-position: top left; background-repeat:no-repeat;behavior: url(iepngfix/iepngfix.htc);}
 
 .errormsg {color: rgb(240,100,100); font-weight: bold;}
 
+#cache_name_block { width: 670px; padding-left: 5px; padding-top: 5px;}
+
 .content2 {float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
 .content3 {float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
-.content2-container, .content3-container {clear: both; float: left; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
-.content2-container-1col, .content3-container-1col {overflow: hidden; width: 769px; margin: 0px; padding: 0px;}
-.content2-container-2col-left, .content3-container-2col-left {overflow: hidden; float: left; width: 372px; margin: 0px; padding: 0px;}
+.content2-container, .content3-container {clear: both; float: left; width: 100%; margin: 0px 0px 15px 0px; padding: 0px;}
+.content2-container-1col, .content3-container-1col {overflow: hidden; width: 100%; margin: 0px; padding: 0px;}
+.content2-container-2col {overflow: hidden; width: 272px; margin: 0px; padding: 0px;}
+.content2-container-2col-left, .content3-container-2col-left {overflow: hidden; float: left; width: 272px; margin: 0px; padding: 0px;}
 .content2-container-2col-right, .content3-container-2col-right {overflow: hidden; float: right; width: 372px; margin: 0px; padding: 0px;}
-.content2-pagetitle, .content3-pagetitle {overflow: hidden; width: 769px; margin: 0px 0px 10px 0px; padding: 0px 0px 2px 0px; border-bottom: solid 3px rgb(88,144,168); color: rgb(88,144,168); font-weight: bold; font-size: 180%;}
+.content2-pagetitle, .content3-pagetitle {overflow: hidden; margin: 0px 0px 10px 0px; padding: 0px 0px 2px 0px; border-bottom: solid 3px rgb(88,144,168); color: rgb(88,144,168); font-weight: bold; font-size: 180%;}
 
 /*********************************/
 /* SECTION 6 - COMMON PARAMETERS */
@@ -136,7 +159,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 .content-title-noshade-size5 {margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 200%;}
 
 .content-txtbox-noshade {margin: 0px; padding: 7px 0px 0px 0px; background-color: rgb(255,255,255);}
-.content-score {margin: 0px; padding: 4px 0px 0px 0px; background-color: rgb(255,255,255); border-style:dotted; border-width:1px; width:55px; height:20px;vertical-align:middle;}
+.content-score {margin: 0px; margin-top: 3px; padding: 4px 0px 0px 0px; background-color: rgb(255,255,255); border-style:dotted; border-width:1px; width:75px; height:20px;vertical-align:middle;}
 
 /* Headings */
 h1 {margin: 1.0em 0px 0.5em 0px; font-weight: bold; font-size: 160%;}
@@ -147,7 +170,7 @@ h5 {margin: 0px 0px 0.2em 0px; font-weight: bold; font-size: 130%;}
 h6 {margin: 0px 0px 0.2em 0px;font-weight: bold; font-style: italic; font-size: 130%;}
 
 /* Paragraphs */
-p {margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-family: arial, sans serif; font-size: 120%; }
+p {margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-family: arial, sans serif; font-size: 12px; }
 p.readmore {margin: 1.0em 0px 0.5em 0px; padding: 0px; line-height: 1.2em; font-size: 110%; }
 p.quote {margin: 0em 30px 0.6em 30px;	line-height: 120%; font-size: 120%;}
 p.embed {float: left; width: 120px; margin: 7px 7px 5px 0px; padding: 5px 5px 5px 5px; background-color: rgb(238,237,249); font-style: italic; font-weight: bold;  line-height: 1.2em; font-size: 140%;}
@@ -171,7 +194,7 @@ ul.linklist-indent {margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; lis
 .table {font-size: 100%; clear: left; padding: 0px; margin: 0.5em 0px 0.2em 0px; border: solid 0px rgb(150,150,150); empty-cells: show; border-collapse: collapse; background-color: rgb(255,255,255);}
 .table tr {margin: 0px; padding: 0px;}
 .table td {padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); text-align: left; font-size: 120%;}
-.table th {margin: 0px; padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); empty-cells: show; text-align: left; font-size: 120%; 	}
+.table th {margin: 0px; background-color: rgb(127,162,202); padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); empty-cells: show; text-align: left; font-size: 120%; color: rgb(255,255,255);	}
 .table-caption {margin: 0.5em 0px 1.0em 30px; padding: 0px; clear: both; text-align: left; font-size: 120%;}
 
 /* Images */
@@ -199,7 +222,7 @@ ul.linklist-indent {margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; lis
 /*--------------------*/
 /* 6.3 - Footer Area  */
 /*--------------------*/
-.footer {overflow: hidden; clear: both; width: 970px; height: 3.0em; margin: 0px; padding: 0.5em 0px 0.5em 0px; border-top: solid 1px rgb(125,125,125); background-color: rgb(128,161,202); color: rgb(255,255,255); font-size: 1.0em;}
+.footer {overflow: hidden; clear: both;  height: 3.0em; margin: 0px; padding: 0.5em 0px 0.5em 0px; border-top: solid 1px rgb(125,125,125); background-color: rgb(128,161,202); color: rgb(255,255,255); font-size: 1.0em;}
 .footer p {margin: 0px; padding: 0px; text-align: center; line-height: 1.3em; font-size: 110%;}
 
 /*-------------------*/
@@ -259,7 +282,7 @@ ul.linklist-indent {margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; lis
 .txt-yellow10 {color: rgb(247,224,23);}
 
 .txt-blue01 {color: rgb(238,237,249);}
-.txt-blue02 {color: rgb(222,220,242);}
+.txt-blue02 {color: rgb(219,230,241);}
 .txt-blue03 {color: rgb(205,202,236);}
 .txt-blue04 {color: rgb(189,185,229);}
 .txt-blue05 {color: rgb(172,167,223);}
@@ -320,7 +343,7 @@ ul.linklist-indent {margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; lis
 .bg-yellow10 {background-color: rgb(247,224,23);}
 
 .bg-blue01 {background-color: rgb(238,237,249);}
-.bg-blue02 {background-color: rgb(222,220,242);}
+.bg-blue02 {background-color: rgb(219,230,241);}
 .bg-blue03 {background-color: rgb(205,202,236);}
 .bg-blue04 {background-color: rgb(189,185,229);}
 .bg-blue05 {background-color: rgb(172,167,223);}
@@ -352,10 +375,12 @@ ul.linklist-indent {margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; lis
 .bg-red09 {background-color: rgb(225,79,55);}
 .bg-red10 {background-color: rgb(222,59,33);}
 
+
 /*---------------------------*/
 /* 7.5  Bottom border colors */
 /*---------------------------*/
-.line-box {border-bottom: solid 1px rgb(200,200,200); padding-bottom: 15px; margin: 0px 0px 15px 0px;}
+.box-blue {padding: 15px 9px 5px 10px; margin:10 10 10 10;border-top:1px solid rgb(88,144,168);border-left:1px solid rgb(88,144,168);border-right:1px solid rgb(88,144,168);border-bottom:1px solid rgb(88,144,168);}
+.line-box {border-bottom: solid 1px rgb(200,200,200); padding-bottom: 7px; margin: 0px 0px 15px 0px;}
 
 .line-white {border-bottom: solid 1px rgb(255,255,255); padding-bottom: 2px; margin: 0px 0px 1px 0px;}
 .line-black {border-bottom: solid 1px rgb(0,0,0); padding-bottom: 2px; margin: 0px 0px 1px 0px;}
@@ -425,7 +450,7 @@ br {clear: none;}
 
 
 /* styles for inputfields */
-input {	border:1px solid black;	background-color:white;	padding:1px; font-size:11px;}
+input {	border:1px solid black;	background-color:white;	padding:1px; font-size:11px;color: black;}
 
 *.input20  {width:20px;}  /* day,month */
 *.input30  {width:30px;}
@@ -438,11 +463,11 @@ input {	border:1px solid black;	background-color:white;	padding:1px; font-size:1
 *.input300 {width:300px;}
 *.input400 {width:400px;}	/* short cachedescription */
 
-input.checkbox {width:12px; height:12px; text-size:16px; font-size:12px; border:0;}
+input.checkbox {width:12px; height:12px; font-size:12px; border:0;}
 
 input.radio {border:0px; border-width: 0px; width:12px; height:12px; background-color: rgb(127,162,202);}
 
-select {border:1px solid black; background-color:white; padding:1px; font-size:12px;}
+select {border:1px solid black; background-color:white; padding:1px; font-size:12px; color: black;}
 
 
 input.formbuttons {background-color:rgb(219,230,241); width:120px; border:1px solid black; padding:0px; color: #000000; }
@@ -484,3 +509,103 @@ input.formbuttons {background-color:rgb(219,230,241); width:120px; border:1px so
 textarea.cachedesc {width:600px; height:500px; }	/* only cacheeditor */
 textarea.hint {		width:600px; height:100px; }	/* only cacheditor */
 textarea.logs {		width:600px; height:300px; }	/* only logeditor */
+
+.show_deleted { text-decoration: line-through; }
+
+div#new-caches-area { width: 500px; }
+div#new-events-area { width: 500px; }
+
+div#cacheview-attributesinfo { }
+
+div#viewlogs-end { font-weight: bold; font-size: 120%; margin-bottom: 10px;}
+
+img#viewcache-cacheicon { float: left; }
+
+div#viewcache-baseinfo { width: 60%; text-align: left;}
+div#viewcache-maptypes { width:340px; text-align: right;}
+div#viewcache-maptypes .content2-container-2col-right{}
+div#viewcache-numstats { width: 150px; height: 185px; text-align: left; }
+div#viewcache-map { width: 185px; height: 185px; float: right;}
+div#viewcache-map .img-shadow{ }
+
+div.viewcache_log-content { margin-left: 20px }	
+div.viewlogs-logpictures span.info { font-weight: bold; font-size: 120%;display: block;}
+div.viewlogs-logpictures div.logimage { float: left; }
+div.viewlogs-logpictures div.allimages { background-color: rgb(219,230,241);padding: 5px;  max-width: 750px; float: left;}
+div.viewlogs-logpictures span.desc { vertical-align: center; display: block; float: right; width: 112px; margin-top: 5px; padding-left: 3px;} /* should fit 4 images */
+div.viewlogs-logpictures img { max-width: 64px; max-height: 64px; vertical-align: top;}
+div.viewlogs-logpictures span.removepic { display: block; }
+
+div#viewcache-utility { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.3em; font-family: arial, sans serif; font-size: 120%; }
+
+div.viewcache_log-content { font-family: arial, sans serif; line-height: 1.3em; font-size: 12px; margin-top: 5px;}
+div#viewcache-description { font-family: arial, sans serif; line-height: 1.3em; font-size: 12px; margin-top: 5px;}
+
+div.viewcache-pictureblock { float: left; }
+
+div.viewcache-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left;}
+
+div#main-cachemap-block { width: 265px; }
+
+#viewprofile-table td { width: 260px; }
+
+p.main-totalstats { font-weight: bold; }
+
+div#fullscreen_map_filters * {
+	font-size: 11px;
+}
+
+.img-shadow {
+  float:left;
+  background: url(shadowAlpha.png) no-repeat bottom right !important;
+/*  background: url(shadow.gif) no-repeat bottom right;*/
+/*	background-color: red;*/
+  margin: 10px 0 0 10px !important;
+  margin: 10px 0 0 5px;
+  }
+
+.img-shadow img {
+  display: block;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #a9a9a9;
+  margin: -4px 4px 4px -4px;
+  padding: 2px;
+}
+
+form#register label { text-align: right; width: 14em; padding-right: 20px; display: block; float: left;}
+
+form#register div { margin: 7px 0 5px 0; }
+
+form, input, textarea, button {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 8pt;
+}
+
+/* kolor dla klawisza Wysli Waypoint do GPS */
+#send-to-gps { BACKGROUND: rgb(234,239,247); BORDER-RIGHT: #005e9d 2px outset; BORDER-TOP: #000000 1px outset; FONT-WEIGHT: bold; FONT-SIZE: 8pt; PADDING-BOTTOM: 2px; BORDER-LEFT: #000000 1px outset; PADDING-TOP: 2px; BORDER-BOTTOM: #005e9d 2px outset; FONT-FAMILY: verdana }
+
+#SendToGPS { BACKGROUND: rgb(234,239,247); BORDER-RIGHT: #005e9d 2px outset; BORDER-TOP: #000000 1px outset; FONT-WEIGHT: bold; FONT-SIZE: 8pt; PADDING-BOTTOM: 2px; BORDER-LEFT: #000000 1px outset; PADDING-TOP: 2px; BORDER-BOTTOM: #005e9d 2px outset; FONT-FAMILY: verdana }
+
+div.gsc-resultsRoot, div.gsc-branding-text, img.gsc-branding-img {
+	display: none;
+}
+
+#ext_search input.gsc-input {
+	font-size: 14px;
+	width: 150px;
+}
+
+#ext_search input.gsc-search-button {
+	font-size: 12px;
+}
+
+
+#map_canvas input.gsc-input {
+	font-size: 15px;
+}
+
+#map_canvas input.gsc-search-button {
+	font-size: 14px;
+}
+

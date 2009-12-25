@@ -47,21 +47,12 @@
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="cache-control" content="no-cache" />
 		<!-- Favicon noch nicht vorhanden <link rel="shortcut icon" href="favicon.ico" />-->
-		<link rel="stylesheet" type="text/css" href="lang/{lang}/{style}/css/main_print.css" />
+		<link rel="stylesheet" type="text/css" href="tpl/{style}/css/style_print.css" />
 		{htmlheaders}
 		{cachemap_header}
 		{viewcache_header}
 	</head>
 	<body onload="load()" onunload="GNuload()">
-	<table class="null">
-		<tr>
-			<td>
-				{template}
-			</td>
-			<td>
-				<img src="/images/trans.gif" width="10" height="1" alt="" />
-			</td>
-		</tr>
-	</table>
+		{template}
 	</body>
 </html>

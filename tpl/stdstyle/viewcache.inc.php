@@ -196,8 +196,15 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 			
 			$retval .= '<div class="viewcache-pictureblock">';
 
-			$retval .= '<div class="img-shadow"><a href="'.$r['url'].'" title="'.htmlspecialchars($r['title']).'" onclick="return false;">';
-			$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" onclick="enlarge(this)" longdesc="'.$r['url'].'" />';
+			if($_REQUEST['print'] != 'y') {
+				$retval .= '<div class="img-shadow"><a href="'.$r['url'].'" title="'.htmlspecialchars($r['title']).'" onclick="return false;">';
+				$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" onclick="enlarge(this)" longdesc="'.$r['url'].'" />';
+			}
+			else
+			{
+				$retval .= '<div class="img-shadow"><a href="'.$r['url'].'" title="'.htmlspecialchars($r['title']).'" >';
+				$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" />';
+			}
 			$retval .= '</a></div>';
 			if($viewtext)
 				$retval .= '<span class="title">'.$r['title'].'</span>';
@@ -233,7 +240,6 @@ function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoile
 	global $thumb_max_height;
 
 	$nCol = 0;
-	$retval = "<table>\n";
 	if($spoiler_only) $spoiler_only = 'spoiler=1 AND';
 		else $spoiler_only = "";
 	
@@ -243,17 +249,15 @@ function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoile
 	$rs = sql($sql);
 	while ($r = sql_fetch_array($rs))
 	{
-		$retval .= '<tr><td width="180" align="center" valign="top">';
-		$retval .= '<img src="'.$r['url'].'" border="0" alt="'.$r['title'].'" title="'.$r['title'].'" align="bottom" />';
-		$retval .= '<br />';
+		$retval .= '<div style="display: block; float: left; margin: 3px;">';
 		if($viewtext)
-			$retval .= $r['title'];
-		$retval .= "</td></tr>\n";
+			$retval .= '<div style=""><p>'.$r['title'].'</p></div>';
+		$retval .= '<img style="max-width: 600px;" src="'.$r['url'].'" alt="'.$r['title'].'" title="'.$r['title'].'" />';
+
+		$retval .= '</div>';
 	}
 
 	mysql_free_result($rs);
-
-	$retval .= "\n</table>\n";
 
 	return $retval;
 

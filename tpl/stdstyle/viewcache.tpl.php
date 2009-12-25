@@ -245,7 +245,7 @@ else
 					{{mp3_files_info}}
 				</p></div>
 				<div class="content2-container">
-				<div id="viewcache-pictures">
+				<div id="viewcache-mp3s">
 					{mp3_files}
 				</div>
 			</div>
