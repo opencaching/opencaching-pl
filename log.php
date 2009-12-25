@@ -572,22 +572,27 @@
 					tpl_set_var('date_message', '');
 					tpl_set_var('top_cache', $top_cache);
 
-					// Text / normal HTML / HTML editor
-					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
 
-					if ($descMode == 1)
-						tpl_set_var('descMode', 1);
-					else if ($descMode == 2)
+					// Text / normal HTML / HTML editor
+					tpl_set_var('use_tinymce', (($desc_htmledit == 1) ? 1 : 0));
+
+					if (($desc_html == 1) && ($desc_htmledit == 1))
+					{
+						tpl_set_var('descMode', 3);
+					}
+					else if ($desc_html == 1)
 						tpl_set_var('descMode', 2);
 					else
-					{
-						// TinyMCE
-						$headers = tpl_get_var('htmlheaders') . "\n";
-						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce_gzip.php"></script>' . "\n";
-						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?logid=0"></script>' . "\n";
+						tpl_set_var('descMode', 1);
+					// TinyMCE
+					$headers = tpl_get_var('htmlheaders') . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
+//					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
 						tpl_set_var('htmlheaders', $headers);
 
-						tpl_set_var('descMode', 3);
+
 					}
 
 					if ($descMode != 1)
