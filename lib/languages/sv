@@ -1,5 +1,6 @@
 activation_code_failed Aktiveringskod eller e-postadress är felaktig. <br> Ditt konto har inte aktiverats. Kontrollera om du har gjort ett misstag. Om problemet kvarstår, vänligen kontakta oss på: ocpl (at) opencaching.pl.
 email_incorrect E-postadressen är felaktig.
+new NEW
 account_activation Kontoaktivering
 finish_registration_hint För att slutföra registreringen måste du bekräfta din e-postadress och ange aktiveringskoden
 email_address E-postadress
