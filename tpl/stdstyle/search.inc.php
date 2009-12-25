@@ -29,7 +29,7 @@
  	$error_query_not_found = 'The retrieval query could not be implemented, enters it please the search data again.';
  	$safelink = '<a href="query.php?action=save&amp;queryid={queryid}">Zapamiętaj</a>';
 
- 	$caches_newstring = '<b>{{NEW}}</b>&nbsp;';
+ 	$caches_newstring = '<b>'.tr('new').'</b>&nbsp;';
  	$caches_olddays = 7;
 
 	$next_img = '<img src="'.$stylepath.'/images/action/16x16-next.png" alt="&gt;" />';
