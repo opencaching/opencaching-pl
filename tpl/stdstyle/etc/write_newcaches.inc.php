@@ -66,7 +66,7 @@
 
 			
 	
-	$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}" onmouseover="Lite(\'c{cache_count}\')" onmouseout="Lite(\'map\')">{cachename}</a> {{hidden_by}} <a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
+	$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}" onmouseover="Lite(\'c{cache_count}\')" onmouseout="Lite(\'map\')">{cachename}</a>' .tr(hidden_by). '<a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
 		
 	$file_content = '<ul>';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -97,8 +97,8 @@
 	}
 
 	$file_content .= '</ul>';
-	//$n_file = fopen($dynstylepath . "start_newcaches.inc.php", 'w');
-	$n_file = fopen("./start_newcaches.inc.php", 'w');
+	$n_file = fopen($dynstylepath . "start_newcaches.inc.php", 'w');
+//	$n_file = fopen("./start_newcaches.inc.php", 'w');
 	fwrite($n_file, $file_content);
 	fclose($n_file);
 
@@ -130,7 +130,7 @@
 	}
 	else
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a> {{hidden_by}} <a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a>' .tr(hidden_by). '<a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
 		$file_content = '<ul>';
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
@@ -155,8 +155,8 @@
 		$file_content .= '</ul>';
 	}
 
-	//$n_file = fopen($dynstylepath . "nextevents.inc.php", 'w');
-	$n_file = fopen("./nextevents.inc.php", 'w');
+	$n_file = fopen($dynstylepath . "nextevents.inc.php", 'w');
+	//$n_file = fopen("./nextevents.inc.php", 'w');
 	fwrite($n_file, $file_content);
 	fclose($n_file);
 
