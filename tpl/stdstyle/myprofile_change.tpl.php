@@ -140,7 +140,7 @@
 	<tr>
 		<td class="content-title-noshade" valign="top">{{my_description}}:</td>
 		<td valign="top">
-			<textarea name="description" cols="50" rows="5">{{description}}</textarea>
+			<textarea name="description" cols="50" rows="5">{description}</textarea>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
