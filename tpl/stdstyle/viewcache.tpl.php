@@ -49,7 +49,7 @@
 
 					<div><img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/></div>
 					<div>{difficulty_icon_diff}</div><div>{difficulty_icon_terr}</div>
-
+					<div>{cache_stats}</div>
 
 				
 				</div>
