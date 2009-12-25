@@ -40,7 +40,7 @@
 
 			$cache_record = sql_fetch_array($rsGeneralStat);	
 		if ($cache_record['count'] == 0) {
-//			$content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Wykresy statystyk dla skrzynki: ' . $cachename . '</p></div><br /><br /><p> <b>Ta skrzynka nie była jeszcze znaleziona</b></p>';
+			$content .= '<p>&nbsp;</p><p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 80%;"> <b>Ta skrzynka:<br /> ' .$cachename . '<br /> nie była jeszcze znaleziona</b></p>';
 						  }
 						  else 
 						  {
