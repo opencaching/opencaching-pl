@@ -27,7 +27,7 @@ require("../lib/jpgraph/src/jpgraph_pie3d.php");
 
 if ($tit == "cc") {
 // Ustawic sprawdzanie jezyka  w cache_type.pl !!!!
-$rsCreateCachesYear= sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl` `type` FROM `caches` INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE `user_id`=&1 AND `status`!=5 GROUP BY `caches`.`type` ORDER BY `count` DESC",$user_id);
+$rsCreateCachesYear= sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl` `type` FROM `caches` INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE `user_id`=&1 AND status <> 4 AND status <>5 GROUP BY `caches`.`type` ORDER BY `count` DESC",$user_id);
 
 				if ($rsCreateCachesYear !== false){
 				$xtitle="";

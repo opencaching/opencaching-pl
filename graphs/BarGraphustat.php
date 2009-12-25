@@ -31,7 +31,7 @@ require('../lib/jpgraph/src/jpgraph_date.php');
   
   
 if ($tit == "ccy") {
-$rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
+$rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE status <> 4 AND status <> 5 AND user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
 				if ($rsCreateCachesYear !== false){
 				$descibe="Roczna statystyka za³o¿onych skrzynek";
@@ -45,7 +45,7 @@ $rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FR
 
 
 if ($tit == "ccm") {
-$rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE user_id=&1 AND YEAR(`date_created`)=&2 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year);
+$rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE status <>4 AND status <> 5 AND user_id=&1 AND YEAR(`date_created`)=&2 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year);
 
  				if ($rsCreateCachesMonth !== false) {
 				$descibe = "Miesieczna statystyka za³o¿onych skrzynek";
