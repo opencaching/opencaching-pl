@@ -308,7 +308,7 @@
 				$coords = tr('hidden_coords');
 				$coords_other = "";
 			}
-			$cache_stats = "<a href=\"#\" onclick=\"javascript:window.open('cache_stats.php?cacheid=".$cache_record['cache_id']."&amp;popup=y','Cache_Statistics','width=450,height=700,resizable=no,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"Zobacz statystyke skrzynki\" /></a>";
+			$cache_stats = "<a href=\"#\" onclick=\"javascript:window.open('cache_stats.php?cacheid=".$cache_record['cache_id']."&amp;popup=y','Cache_Statistics','width=450,height=750,resizable=no,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"Zobacz statystyke skrzynki\" /></a>";
 			tpl_set_var('cache_stats', $cache_stats);
 			tpl_set_var('googlemap_key', $googlemap_key);
 			tpl_set_var('map_msg', $map_msg);
