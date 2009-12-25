@@ -104,7 +104,7 @@
 			
 //			$rscc1=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%Y-%m-%d') data FROM caches WHERE `status` != 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC LIMIT 1",$user_id);
 //			$rcc1 = mysql_fetch_array($rscc1);
-			$rscc2=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%Y-%m-%d') data FROM caches WHERE status <> 4 AND status <> 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) DESC, MONTH(`date_created`) DESC, DAY(`date_created`) DESC LIMIT 1",$user_id);
+			$rscc2=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%Y-%m-%d') data FROM caches WHERE status <> 4 AND status <> 5 AND and status <> 6 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) DESC, MONTH(`date_created`) DESC, DAY(`date_created`) DESC LIMIT 1",$user_id);
 			$rcc2 = mysql_fetch_array($rscc2);
 			$rsc=sql("SELECT COUNT(*) number FROM caches WHERE status <> 4 AND status <> 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY number DESC LIMIT 1",$user_id);
 			$rc = sql_fetch_array($rsc);
