@@ -202,10 +202,11 @@
 			else
 			{
 				// TinyMCE
-				$headers = tpl_get_var('htmlheaders') . "\n";
-				$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce_gzip.php"></script>' . "\n";
-				$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?cacheid=0"></script>' . "\n";
-				tpl_set_var('htmlheaders', $headers);
+					$headers = tpl_get_var('htmlheaders') . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
+					tpl_set_var('htmlheaders', $headers);
 
 				tpl_set_var('descMode', 3);
 			}
