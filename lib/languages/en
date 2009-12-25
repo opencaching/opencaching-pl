@@ -411,7 +411,7 @@ number_of_active_users Number of active users
 number_of_founds Founds
 latest_news News
 what_do_you_find Welcome on Opencaching.pl
-what_do_you_find_intro You can find everything about geocaching in Poland. Opencaching in Poland was started in <span class="content-title-noshade">May 2006</span>.<br/> This is the main Poland geocaching site. Our database working on <b>opensource project <a href="http://oc-server.svn.sourceforge.net/viewvc/oc-server/">Opencaching</a></b>.
+what_do_you_find_intro You can find everything about geocaching in Poland. Opencaching in Poland was started in <span class="content-title-noshade">May 2006</span>.<br/> This is the main Poland geocaching site. Our database working on <b>opensource project Opencaching</b>.
 more_news More news
 filename_rules http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use
 filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
