@@ -119,7 +119,7 @@
 
 			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';}
 
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba zorganizowanych spotkań (events):  </span><strong>' . $hidden_event . '</strong>':
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba zorganizowanych spotkań (events):  </span><strong>' . $hidden_event . '</strong>';
 			if ($hidden_event == 0) 
 				{$content .= '</p>';}
 				else						
