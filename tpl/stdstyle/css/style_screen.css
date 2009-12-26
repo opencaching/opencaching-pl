@@ -520,10 +520,10 @@ div#viewlogs-end { font-weight: bold; font-size: 120%; margin-bottom: 10px;}
 
 img#viewcache-cacheicon { float: left; }
 
-div#viewcache-baseinfo { width:420px; text-align: left;}
-div#viewcache-maptypes { width:340px; text-align: right;}
+div#viewcache-baseinfo { width:410px; text-align: left;}
+div#viewcache-maptypes { width:350px; text-align: right;}
 div#viewcache-maptypes .content2-container-2col-right{}
-div#viewcache-numstats { width: 150px; height: 185px; text-align: left; }
+div#viewcache-numstats { width: 160px; height: 185px; text-align: left; }
 div#viewcache-map { width: 185px; height: 185px; float: right;}
 div#viewcache-map .img-shadow{ }
 
