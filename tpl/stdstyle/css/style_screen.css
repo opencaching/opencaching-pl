@@ -133,7 +133,7 @@ ul#statmenu { padding: 0px; margin: 0px;}
 
 #cache_name_block { width: 670px; padding-left: 5px; padding-top: 5px;}
 
-.content2 {float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em; font-size: 12px;}
+.content2 {float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
 .content3 {float: left; width: 790px; min-height: 500px; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(75,75,75); font-size: 1.0em;}
 .content2-container, .content3-container {clear: both; float: left; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
 .content2-container-1col, .content3-container-1col {overflow: hidden; width: 769px; margin: 0px; padding: 0px;}

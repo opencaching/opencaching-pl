@@ -94,7 +94,7 @@
 	$h_ignored
 	WHERE caches.user_id = user.user_id AND caches.status < 4
 	".$hide_by_type.$filter_by_type_string.$score_filter."
-	HAVING distance < 0.00007 ORDER BY distance ASC LIMIT 1";
+	HAVING distance < 0.00004 ORDER BY distance ASC LIMIT 1";	
 	
 	
 	// for foreign caches -------------------------------------------------------------------------------------

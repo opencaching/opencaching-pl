@@ -163,11 +163,11 @@ filters.style.backgroundColor = 'white';
 </select><br/>\
 {{to}}:\
 <select id="max_score" name="max_score" onchange="reload()">\
-    <option value="-3" {max_sel1}>{{rating_poor}}</option>\
-    <option value="0.5" {max_sel2}>{{rating_mediocre}}</option>\
-    <option value="1.2" {max_sel3}>{{rating_avarage}}</option>\
-    <option value="2" {max_sel4}>{{rating_good}}</option>\
-    <option value="2.5" {max_sel5}>{{rating_excellent}}</option>\
+    <option value="0.499" {max_sel1}>{{rating_poor}}</option>\
+    <option value="1.199" {max_sel2}>{{rating_mediocre}}</option>\
+    <option value="1.999" {max_sel3}>{{rating_avarage}}</option>\
+    <option value="2.499" {max_sel4}>{{rating_good}}</option>\
+    <option value="3.000" {max_sel5}>{{rating_excellent}}</option>\
 </select><br/>\
 <input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">{{show_noscore}}</label>\
 </div>\
