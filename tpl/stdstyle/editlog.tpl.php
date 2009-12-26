@@ -343,7 +343,31 @@ function toogleLayer( whichLayer, val )
 		mnuSetElementsNormal();
 
 		if(oldMode == descMode)
-			return;
+	{
+			// convert text to HTML
+			var desc = document.getElementById("desc").value;
+
+			if ((desc.indexOf('&amp;') == -1) &&
+			    (desc.indexOf('&quot;') == -1) &&
+			    (desc.indexOf('&lt;') == -1) &&
+			    (desc.indexOf('&gt;') == -1) &&
+			    (desc.indexOf('<p>') == -1) &&
+			    (desc.indexOf('<i>') == -1) &&
+			    (desc.indexOf('<strong>') == -1) &&
+			    (desc.indexOf('<br />') == -1))
+			{
+				desc = desc.replace(/&/g, "&amp;");
+				desc = desc.replace(/"/g, "&quot;");
+				desc = desc.replace(/</g, "&lt;");
+				desc = desc.replace(/>/g, "&gt;");
+				desc = desc.replace(/\r\n/g, "\<br />");
+				desc = desc.replace(/\n/g, "<br />");
+				desc = desc.replace(/<br \/>/g, "<br />\n");
+			}
+
+			document.getElementById("desc").value = desc;
+		}
+
 
 		switch (mode)
 		{
