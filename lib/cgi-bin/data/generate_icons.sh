@@ -18,7 +18,7 @@ for file in marker.svg markerown.svg markerfound.svg markernew.svg;do
 	inkscape $file -e ${file%*.svg}19.png -w 35
 done
 
-for file in archivedmap.svg event.svg foundmap.svg moving.svg multi.svg quiz.svg redflagmap.svg traditional.svg unknown.svg virtual.svg challenge.svg podcache.svg;do
+for file in archivedmap.svg event.svg foundmap.svg moving.svg multi.svg quiz.svg redflagmap.svg traditional.svg unknown.svg virtual.svg challenge.svg podcache.svg webcam.svg;do
 	inkscape $file -e ${file%*.svg}4.png -w 4
 	inkscape $file -e ${file%*.svg}5.png -w 6
 	inkscape $file -e ${file%*.svg}6.png -w 6
