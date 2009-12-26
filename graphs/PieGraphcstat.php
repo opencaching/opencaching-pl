@@ -27,7 +27,7 @@ require("../lib/jpgraph/src/jpgraph_pie3d.php");
 
 if ($tit == "cs") {
 // Ustawic sprawdzanie jezyka  w cache_type.pl !!!!
-$rsCreateCachesYear= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `count` DESC",$cache_id);
+$rsCreateCachesYear= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` DESC",$cache_id);
 
 				if ($rsCreateCachesYear !== false){
 				$xtitle="";
@@ -67,7 +67,7 @@ $p1 = new PiePlot($y);
 $p1->SetTheme("earth");
 $p1->value->SetFormat("%d");
 $p1->SetLabelType(PIE_VALUE_ABS);
-$p1->SetSliceColors(array('red','green','blue')); 
+$p1->SetSliceColors(array('blue','red','green')); 
 
 // Adjust size and position of plot
 $p1->SetSize(0.35);
