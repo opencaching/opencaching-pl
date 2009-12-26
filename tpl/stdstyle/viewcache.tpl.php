@@ -209,9 +209,9 @@ else
 				</p>
 			</div>
 					<div class="content2-container">
-						<div id="viewcache-hints">
+<!--						<div id="viewcache-hints">    -->
 							{hints}
-						</div>
+<!--						</div>  -->
 
 					<div style="width:200px;align:right;float:right">
 						{decrypt_table_start}
