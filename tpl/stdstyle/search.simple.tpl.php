@@ -736,7 +736,7 @@ function switchCat2()
 			<td></td>
 			<td colspan="2" align="center" class="content-title-noshade">
 								<input type="checkbox" name="ft_name" id="ft_name" class="checkbox" value="1" {ft_name_checked} /> <label for="ft_name">{{cache_name}}</label>
-						<input type="checkbox" name="ft_desc" id="ft_desc" class="checkbox" value="1" {ft_desc_checked} /> <label for="ft_desc">{{description}}</label>
+						<input type="checkbox" name="ft_desc" id="ft_desc" class="checkbox" value="1" {ft_desc_checked} /> <label for="ft_desc">{{descriptions}}</label>
 						<input type="checkbox" name="ft_logs" id="ft_logs" class="checkbox" value="1" {ft_logs_checked} /> <label for="ft_logs">{{logs_label}}</label>
 						<input type="checkbox" name="ft_pictures" id="ft_pictures" class="checkbox" value="1" {ft_pictures_checked} /> <label for="ft_pictures">{{pictures}}</label>
 	
