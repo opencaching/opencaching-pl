@@ -60,7 +60,7 @@ $rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `mont
 				}
 
 if ($tit == "cfy") {
-$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache_logs` WHERE type=1 AND user_id=&1 GROUP BY YEAR(`date`) ORDER BY YEAR(`date`) ASC",$user_id);
+$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`) ORDER BY YEAR(`date`) ASC",$user_id);
 
   				if ($rsCachesFindYear !== false) {
 				$descibe="Roczna statystyka znalezionych skrzynek";
@@ -73,7 +73,7 @@ $rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache
 }
 
 if ($tit == "cfm") {
-$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND user_id=&1 AND YEAR(`date`)=&2 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$user_id,$year);
+$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 AND YEAR(`date`)=&2 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$user_id,$year);
 
  				if ($rsCachesFindMonth !== false){
 				$descibe="Miesieczna statystyka znalezionych skrzynek";
