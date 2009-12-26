@@ -185,8 +185,18 @@
 			$found = 0;
 			$aver1= round(($found/$ddays['diff']), 2);
 			$aver2= round(($found/$num_rows), 2);
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba znalezionych skrzynek:</span><strong> ' . $found . '</strong>&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba nie znalezionych skrzynek:</span> <strong>' . $user_record['notfounds_count'] . '</strong>&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba znalezionych skrzynek:</span><strong> ' . $found . '</strong>';
+						if ($found == 0) 
+				{$content .= '</p>';}
+				else
+			{ $content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';}
+			
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba nie znalezionych skrzynek:</span> <strong>' . $user_record['notfounds_count'] . '</strong>';
+		
+			if ($user_record['notfounds_count'] == 0) 
+				{$content .= '</p>';}
+				else		
+			{ $content .=&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';}
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba komentarzy w logach:</span> <strong>' . $user_record['log_notes_count'] . '</strong></p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba uczestnictw w spotkaniach:</span> <strong>' . $events_count . '</strong>';
 			if ($events_count == 0) 
@@ -194,7 +204,14 @@
 				else
 			{ $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=7&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';}
 
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba przyznanych rekomendacji:</span> <strong>' . sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0) . '</strong>&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="usertops.php?userid=' . $user_id . '">'.tr('show').'</a>)</p>';
+			$recomendf =  sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba przyznanych rekomendacji:</span> <strong>' . $recomendf . '</strong>';
+		
+			if ($recomendf == 0) 
+				{$content .= '</p>';}
+				else					
+			{$content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="usertops.php?userid=' . $user_id . '">'.tr('show').'</a>)</p>';}
+
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
