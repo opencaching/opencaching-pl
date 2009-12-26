@@ -60,12 +60,14 @@ $graph->SetScale('textint');
 $graph->title->Set("Wg typów logów");
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 //$graph ->legend->Pos( 0.25,0.8,"right" ,"bottom"); 
- 
+
+
 // Setup the pie plot
 $p1 = new PiePlot($y);
 $p1->SetTheme("earth");
 $p1->value->SetFormat("%d");
 $p1->SetLabelType(PIE_VALUE_ABS);
+$p1->SetSliceColors(array('red','green','blue')); 
 
 // Adjust size and position of plot
 $p1->SetSize(0.35);
@@ -74,7 +76,7 @@ $p1->SetCenter(0.25,0.52);
 // Setup slice labels and move them into the plot
 
 $p1->value->SetFont(FF_FONT1,FS_BOLD);
-$p1->value->SetColor("darkred");
+$p1->value->SetColor("black");
 $p1->SetLabelPos(0.65);
 $p1->SetLegends($x);
 
