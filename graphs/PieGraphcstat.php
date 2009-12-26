@@ -67,7 +67,7 @@ $p1 = new PiePlot($y);
 $p1->SetTheme("earth");
 $p1->value->SetFormat("%d");
 $p1->SetLabelType(PIE_VALUE_ABS);
-$p1->SetSliceColors(array('deepskyblue','chocolate2','chartreuse3')); 
+$p1->SetSliceColors(array('wheat1','chocolate2','chartreuse3')); 
 
 // Adjust size and position of plot
 $p1->SetSize(0.35);
