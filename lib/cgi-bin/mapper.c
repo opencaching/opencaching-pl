@@ -525,6 +525,7 @@ int main(void)
 
 				SDL_gfxBlitRGBA(fglabel, NULL, im, &r);
 				SDL_FreeSurface(fglabel);
+				SDL_FreeSurface(bglabel);
 			}
 
 		}
