@@ -207,7 +207,7 @@
 					}
 					else
 					{
-					$tmp_log = mb_ereg_replace('{rateimage}', &nbsp;, $tmp_log);
+					$tmp_log = mb_ereg_replace('{rateimage}', '&nbsp;', $tmp_log);
 					}	
 
 					$tmp_log = $cache_line_my_caches;
@@ -403,7 +403,7 @@
 					}
 					else
 					{
-					$tmp_log = mb_ereg_replace('{rateimage}', &nbsp;, $tmp_log);
+					$tmp_log = mb_ereg_replace('{rateimage}', '&nbsp;', $tmp_log);
 					}	
 
 					$tmp_log = $log_line;
