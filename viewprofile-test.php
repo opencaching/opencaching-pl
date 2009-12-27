@@ -177,8 +177,8 @@
 //			mysql_free_result($rscc1);
 			mysql_free_result($rscc2);
 //  ----------------- begin  owner section  ----------------------------------
-			if ($user_id == $usr['userid']) 
-				{
+		if ($user_id == $usr['userid']) 
+		{
 			if(checkField('cache_status',$lang) )
 				$lang_db = $lang;
 			else
@@ -259,11 +259,9 @@
 				$content .='</p>';
 			}
 
-
-				
-				}
+		}		
 // ------------------ end owner section ---------------------------------			
-			}
+	}
 //------------ end created caches section ------------------------------
 
 // -----------  begin Find section -------------------------------------
@@ -381,7 +379,7 @@
 
 			if (mysql_num_rows($rs_logs) != 0) {
 			
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje najnowsze wpisy do logów:</span></p><p>';
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje najnowsze wpisy do logów:</span></p><p><ul>';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 					{
 					$record_logs = sql_fetch_array($rs_logs);
@@ -395,7 +393,7 @@
 
 					$content .= "\n" . $tmp_log;
 					}
-					$content .= '</p>';
+					$content .= '</ul></p>';
 					mysql_free_result($rs_logs);
 				}
 
