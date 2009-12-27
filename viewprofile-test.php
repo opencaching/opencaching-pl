@@ -367,7 +367,7 @@
 			
 						$rs_logs = sql("
 					SELECT `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `caches`.`name` `name`,
-						`log_types`.`icon_small`, `log_types_text`.`text_combo`,`cache_type`.`icon_small` `cache_icon_small`, `caches`.`type`  `cache_type`
+						`log_types`.`icon_small`, `log_types_text`.`text_combo`,`cache_type`.`icon_small` `cache_icon_small`
 					FROM `cache_logs`, `caches`, `log_types`, `log_types_text` INNER JOIN cache_type ON (caches.type = cache_type.id)
 					WHERE `cache_logs`.`user_id`='&1'
 					AND `cache_logs`.`cache_id`=`caches`.`cache_id` 
