@@ -26,7 +26,7 @@
 	****************************************************************************/
 
 	global $content, $bUseZip, $sqldebug, $usr, $hide_coords;
-	require_once ('util/html2text.php');
+//	require_once ('util/html2text.php');
 	require_once ('lib/common.inc.php');
 
 
@@ -427,7 +427,7 @@
           $str = PLConvert('UTF-8','POLSKAWY',$str);
 
 
-		return html2text($str);
+//		return html2text($str);
 
           $str = strip_tags($str, "<p><br /><li>");
           // <p> -> nic

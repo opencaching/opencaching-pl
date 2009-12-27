@@ -475,8 +475,8 @@ forgotten_your_password Zapomniałeś hasła? <a href="newpw.php">Nowe hasło</a
 cache_logged_required Musisz być zalogowany by wpisywać się do logu i dokonywać operacji na skrzynce.
 basic_information Podstawowe informacje
 rating_poor słaba
-rating_mediocre mierna
-rating_avarage przeciętna
+rating_mediocre poniżej przeciętnej
+rating_avarage normalna
 rating_good dobra
 rating_excellent znakomita
 score_label Oceniona jako

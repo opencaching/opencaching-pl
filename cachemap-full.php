@@ -186,7 +186,8 @@ else
 			else
 				$minmax = "max";
 			
-			tpl_set_var($minmax."_sel".$value, 'selected="selected"');
+			tpl_set_var($minmax."_sel".intval(score2ratingnum($value)+1), 'selected="selected"');
+			
 			tpl_set_var($key, $value);
 			continue;
 		}
