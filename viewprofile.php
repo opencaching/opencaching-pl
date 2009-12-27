@@ -176,50 +176,7 @@
 			mysql_free_result($rsc);
 //			mysql_free_result($rscc1);
 			mysql_free_result($rscc2);
-//  ----------------- begin  owner section  ----------------------------------
-		if ($user_id == $usr['userid']) 
-		{
-			if(checkField('cache_status',$lang) )
-				$lang_db = $lang;
-			else
-				$lang_db = "en";
 
-			//get not published caches
-			$rs_caches = sql("	SELECT  `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, `caches`.`date_activate`, `caches`.`status`, `cache_status`.`&1` AS `cache_status_text`
-						FROM `caches`, `cache_status`
-						WHERE `user_id`='&2'
-						AND `cache_status`.`id`=`caches`.`status`
-						AND `caches`.`status` = 5
-						ORDER BY `date_activate` DESC, `caches`.`date_created` DESC ",$lang_db, $usr['userid']);
-			if (mysql_num_rows($rs_caches) != 0)
-			{
-	
-				$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
-				for ($i = 0; $i < mysql_num_rows($rs_caches); $i++)
-				{
-					$record_caches = sql_fetch_array($rs_caches);
-
-					$tmp_cache = $cache_notpublished_line;
-
-					$tmp_cache = mb_ereg_replace('{cacheimage}', icon_cache_status($record_caches['status'], $record_caches['cache_status_text']), $tmp_cache);
-					$tmp_cache = mb_ereg_replace('{cachestatus}', htmlspecialchars($record_caches['cache_status_text'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
-					$tmp_cache = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_caches['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_cache);
-					if(is_null($record_caches['date_activate']))
-					{
-						$tmp_cache = mb_ereg_replace('{date}', $no_time_set, $tmp_cache);
-					}
-					else
-					{
-						$tmp_cache = mb_ereg_replace('{date}', strftime($datetimeformat , strtotime($record_caches['date_activate'])), $tmp_cache);
-					}
-					$tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_caches['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
-
-					$content .= "\n" . $tmp_cache;
-				}
-				$content .='</ul></div>';
-			}
-// ------------------ end owner section ---------------------------------			
-	}	
 	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
@@ -262,6 +219,52 @@
 
 		}		
 
+		
+//  ----------------- begin  owner section  ----------------------------------
+		if ($user_id == $usr['userid']) 
+		{
+			if(checkField('cache_status',$lang) )
+				$lang_db = $lang;
+			else
+				$lang_db = "en";
+
+			//get not published caches
+			$rs_caches = sql("	SELECT  `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, `caches`.`date_activate`, `caches`.`status`, `cache_status`.`&1` AS `cache_status_text`
+						FROM `caches`, `cache_status`
+						WHERE `user_id`='&2'
+						AND `cache_status`.`id`=`caches`.`status`
+						AND `caches`.`status` = 5
+						ORDER BY `date_activate` DESC, `caches`.`date_created` DESC ",$lang_db, $usr['userid']);
+			if (mysql_num_rows($rs_caches) != 0)
+			{
+	
+				$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				for ($i = 0; $i < mysql_num_rows($rs_caches); $i++)
+				{
+					$record_caches = sql_fetch_array($rs_caches);
+
+					$tmp_cache = $cache_notpublished_line;
+
+					$tmp_cache = mb_ereg_replace('{cacheimage}', icon_cache_status($record_caches['status'], $record_caches['cache_status_text']), $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{cachestatus}', htmlspecialchars($record_caches['cache_status_text'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_caches['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_cache);
+					if(is_null($record_caches['date_activate']))
+					{
+						$tmp_cache = mb_ereg_replace('{date}', $no_time_set, $tmp_cache);
+					}
+					else
+					{
+						$tmp_cache = mb_ereg_replace('{date}', strftime($datetimeformat , strtotime($record_caches['date_activate'])), $tmp_cache);
+					}
+					$tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_caches['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
+
+					$content .= "\n" . $tmp_cache;
+				}
+				$content .='</ul></div>';
+			}
+		
+	}	
+// ------------------ end owner section ---------------------------------			
 //------------ end created caches section ------------------------------
 
 // -----------  begin Find section -------------------------------------
