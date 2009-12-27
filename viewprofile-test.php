@@ -224,6 +224,7 @@
 //				$lang_db = "en";
 
 			//get last logs in your caches
+/*
 			$rs_logs = sql("
 					SELECT `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `caches`.`name` `name`,
 						`log_types`.`icon_small`, `log_types_text`.`text_combo`, `cache_logs`.`user_id` `user_id`, `user`.`username` `username`
@@ -237,6 +238,25 @@
 					ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
 					LIMIT 5", $usr['userid'], $lang);
 
+	*/		
+	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
+	                          cache_logs.type AS log_type,
+	                          cache_logs.date AS log_date,
+	                          caches.name AS cache_name,
+	                          user.username AS user_name,
+							  user.user_id AS user_id,
+							  caches.type AS cache_type,
+							  cache_type.icon_small AS cache_icon_small,
+							  log_types.icon_small AS icon_small,
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
+	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
+					  WHERE cache_logs.deleted=0 AND `caches`.`user_id`='&1'
+					  		AND `cache_logs`.`cache_id`=`caches`.`cache_id` 
+							AND `user`.`user_id`=`cache_logs`.`user_id`
+	                   ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
+					LIMIT 5", $usr['userid']);
+
+
 			if (mysql_num_rows($rs_logs) != 0)
 			{
 				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w Moich skrzynkach:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
@@ -245,8 +265,8 @@
 					$record_logs = sql_fetch_array($rs_logs);
 
 					$tmp_log = $cache_line_my_caches;
-					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], $record_logs['text_combo']), $tmp_log);
-					$tmp_log = mb_ereg_replace('{logtype}', $record_logs['text_combo'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
+					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
 					$tmp_log = mb_ereg_replace('{date}', strftime($dateformat , strtotime($record_logs['date'])), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
