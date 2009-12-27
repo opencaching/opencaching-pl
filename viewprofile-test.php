@@ -267,11 +267,11 @@
 					$tmp_log = $cache_line_my_caches;
 					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
-					$tmp_log = mb_ereg_replace('{date}', strftime($dateformat , strtotime($record_logs['date'])), $tmp_log);
-					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{date}', strftime($dateformat , strtotime($record_logs['log_date'])), $tmp_log);
+					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{userid}', htmlspecialchars($record_logs['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
-					$tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['username'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['user_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 
 					$content .= "\n" . $tmp_log;
 				}
