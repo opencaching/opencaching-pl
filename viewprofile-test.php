@@ -194,7 +194,7 @@
 			if (mysql_num_rows($rs_caches) != 0)
 			{
 	
-				$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><p>';
+				$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><div><ul>';
 				for ($i = 0; $i < mysql_num_rows($rs_caches); $i++)
 				{
 					$record_caches = sql_fetch_array($rs_caches);
@@ -216,7 +216,7 @@
 
 					$content .= "\n" . $tmp_cache;
 				}
-				$content .='';
+				$content .='</ul></div>';
 			}
 //			if(checkField('log_types_text',$lang) )
 //				$lang_db = $lang;
@@ -239,7 +239,7 @@
 
 			if (mysql_num_rows($rs_logs) != 0)
 			{
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w Moich skrzynkach:</span></p><p>';
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w Moich skrzynkach:</span></p><div><ul>';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 				{
 					$record_logs = sql_fetch_array($rs_logs);
@@ -256,7 +256,7 @@
 					$content .= "\n" . $tmp_log;
 				}
 							mysql_free_result($rs_logs);
-				$content .='</p>';
+				$content .='</ul></div>';
 			}
 
 		}		
@@ -379,7 +379,7 @@
 
 			if (mysql_num_rows($rs_logs) != 0) {
 			
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje najnowsze wpisy do logów:</span></p><p><ul>';
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje najnowsze wpisy do logów:</span></p><div><ul style="margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 120%;">';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 					{
 					$record_logs = sql_fetch_array($rs_logs);
@@ -393,7 +393,7 @@
 
 					$content .= "\n" . $tmp_log;
 					}
-					$content .= '</ul></p>';
+					$content .= '</ul></div>';
 					mysql_free_result($rs_logs);
 				}
 

@@ -21,6 +21,6 @@
 
  $cache_line = '<li>{cacheimage}&nbsp;{cachestatus} &nbsp; {date} &nbsp; <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></li>';
  $cache_notpublished_line = '<li class="linklist-noindent">{cacheimage}&nbsp;{cachestatus} &nbsp; <a href="editcache.php?cacheid={cacheid}">{date}</a> &nbsp; <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></li>';
- $log_line = '<li class="linklist-noindent">{logimage}&nbsp;{logtype} &nbsp; {date} &nbsp; <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></li>';
+ $log_line = '<li>{logimage}&nbsp;{logtype} &nbsp; {date} &nbsp; <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></li>';
  $cache_line_my_caches = '<li class="linklist-noindent">{logimage}&nbsp;{logtype}&nbsp; {date} &nbsp; <a href="viewcache.php?cacheid={cacheid}">{cachename}</a> - <a href="viewprofile.php?userid={userid}">{username}</a></li>';
 ?>
