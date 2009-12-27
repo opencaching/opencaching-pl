@@ -218,10 +218,10 @@
 				}
 				$content .='';
 			}
-			if(checkField('log_types_text',$lang) )
-				$lang_db = $lang;
-			else
-				$lang_db = "en";
+//			if(checkField('log_types_text',$lang) )
+//				$lang_db = $lang;
+//			else
+//				$lang_db = "en";
 
 			//get last logs in your caches
 			$rs_logs = sql("
@@ -235,7 +235,7 @@
 					AND `log_types`.`id`=`cache_logs`.`type`
 					AND `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`='&2'
 					ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
-					LIMIT 5", $usr['userid'], $lang_db);
+					LIMIT 5", $usr['userid'], $lang);
 
 			if (mysql_num_rows($rs_logs) == 0)
 			{
