@@ -10,7 +10,7 @@
 	
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-		global $stat_menu;
+		global $stat_menu; $lang;
 	
 	//Preprocessing
 	if ($error == false)
@@ -194,7 +194,7 @@
 			if (mysql_num_rows($rs_caches) != 0)
 			{
 	
-				$content .= '<p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><p>';
+				$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><p>';
 				for ($i = 0; $i < mysql_num_rows($rs_caches); $i++)
 				{
 					$record_caches = sql_fetch_array($rs_caches);
@@ -239,7 +239,7 @@
 
 			if (mysql_num_rows($rs_logs) != 0)
 			{
-				$content .= '<p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy do logach w Moich skrzynkach:</span></p><p>';
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w Moich skrzynkach:</span></p><p>';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 				{
 					$record_logs = sql_fetch_array($rs_logs);
@@ -255,6 +255,7 @@
 
 					$lcontent .= "\n" . $tmp_log;
 				}
+							mysql_free_result($rs_logs);
 				$content .='</p>';
 			}
 
@@ -380,7 +381,7 @@
 
 			if (mysql_num_rows($rs_logs) != 0) {
 			
-				$content .= '<p><span class="content-title-noshade txt-blue08" >Moje najnowsze wpisy do logów:</span></p><p>';
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje najnowsze wpisy do logów:</span></p><p>';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 					{
 					$record_logs = sql_fetch_array($rs_logs);
@@ -395,6 +396,7 @@
 					$content .= "\n" . $tmp_log;
 					}
 					$content .= '</p>';
+					mysql_free_result($rs_logs);
 				}
 
 
