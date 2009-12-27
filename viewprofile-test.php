@@ -253,7 +253,7 @@
 					$tmp_log = mb_ereg_replace('{userid}', htmlspecialchars($record_logs['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['username'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 
-					$lcontent .= "\n" . $tmp_log;
+					$content .= "\n" . $tmp_log;
 				}
 							mysql_free_result($rs_logs);
 				$content .='</p>';
