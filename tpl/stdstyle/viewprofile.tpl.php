@@ -50,4 +50,3 @@
 
 {content}
 </div>
-
