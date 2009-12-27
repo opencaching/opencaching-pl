@@ -176,6 +176,58 @@
 			mysql_free_result($rsc);
 //			mysql_free_result($rscc1);
 			mysql_free_result($rscc2);
+
+	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
+	                          cache_logs.type AS log_type,
+	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
+	                          caches.name AS cache_name,
+	                          user.username AS user_name,
+							  user.user_id AS user_id,
+							  caches.type AS cache_type,
+							  cache_type.icon_small AS cache_icon_small,
+							  log_types.icon_small AS icon_small,
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
+	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
+					  WHERE cache_logs.deleted=0 AND `caches`.`user_id`='&1'
+					  		AND `cache_logs`.`cache_id`=`caches`.`cache_id` 
+							AND `user`.`user_id`=`cache_logs`.`user_id`
+	                   ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
+					LIMIT 5", $user_id);
+
+
+			if (mysql_num_rows($rs_logs) != 0)
+			{
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w skrzynkach:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
+				{
+					$record_logs = sql_fetch_array($rs_logs);
+				if ($record_logs['recommended'] == 1) 
+					{
+					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt=""/>', $tmp_log);
+					}
+					else
+					{
+					$tmp_log = mb_ereg_replace('{rateimage}', &nbsp;, $tmp_log);
+					}	
+
+					$tmp_log = $cache_line_my_caches;
+					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
+					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{date}', $record_logs['log_date'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{userid}', htmlspecialchars($record_logs['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['user_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+
+					$content .= "\n" . $tmp_log;
+				}
+							mysql_free_result($rs_logs);
+				$content .='</ul></div>';
+			}
+
+		}		
+
+		
 //  ----------------- begin  owner section  ----------------------------------
 		if ($user_id == $usr['userid']) 
 		{
@@ -218,50 +270,9 @@
 				}
 				$content .='</ul></div>';
 			}
-// ------------------ end owner section ---------------------------------			
+		
 	}	
-	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
-	                          cache_logs.type AS log_type,
-	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
-	                          caches.name AS cache_name,
-	                          user.username AS user_name,
-							  user.user_id AS user_id,
-							  caches.type AS cache_type,
-							  cache_type.icon_small AS cache_icon_small,
-							  log_types.icon_small AS icon_small,
-							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
-	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
-					  WHERE cache_logs.deleted=0 AND `caches`.`user_id`='&1'
-					  		AND `cache_logs`.`cache_id`=`caches`.`cache_id` 
-							AND `user`.`user_id`=`cache_logs`.`user_id`
-	                   ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
-					LIMIT 5", $user_id);
-
-
-			if (mysql_num_rows($rs_logs) != 0)
-			{
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w skrzynkach:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
-				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
-				{
-					$record_logs = sql_fetch_array($rs_logs);
-
-					$tmp_log = $cache_line_my_caches;
-					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
-					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
-					$tmp_log = mb_ereg_replace('{date}', $record_logs['log_date'], $tmp_log);
-					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
-					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
-					$tmp_log = mb_ereg_replace('{userid}', htmlspecialchars($record_logs['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
-					$tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['user_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
-
-					$content .= "\n" . $tmp_log;
-				}
-							mysql_free_result($rs_logs);
-				$content .='</ul></div>';
-			}
-
-		}		
-
+// ------------------ end owner section ---------------------------------			
 //------------ end created caches section ------------------------------
 
 // -----------  begin Find section -------------------------------------
@@ -386,6 +397,14 @@
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 					{
 					$record_logs = sql_fetch_array($rs_logs);
+				if ($record_logs['recommended'] == 1) 
+					{
+					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt=""/>', $tmp_log);
+					}
+					else
+					{
+					$tmp_log = mb_ereg_replace('{rateimage}', &nbsp;, $tmp_log);
+					}	
 
 					$tmp_log = $log_line;
 					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);

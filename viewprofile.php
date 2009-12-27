@@ -30,7 +30,7 @@
 			$user_id = $_REQUEST['userid'];
 			tpl_set_var('userid',$user_id);		
 		}
-			require($stylepath . '/viewprofile-test.inc.php');
+			require($stylepath . '/viewprofile.inc.php');
 			require($stylepath . '/lib/icons.inc.php');
 				$tplname = 'viewprofile';
 				$stat_menu = array(
