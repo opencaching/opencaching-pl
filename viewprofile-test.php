@@ -367,8 +367,8 @@
 			
 						$rs_logs = sql("
 					SELECT `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `caches`.`name` `name`,
-						`log_types`.`icon_small`, `log_types_text`.`text_combo`
-					FROM `cache_logs`, `caches`, `log_types`, `log_types_text`
+						`log_types`.`icon_small`, `log_types_text`.`text_combo`,`cache_type`.`icon_small` `cache_icon_small`,
+					FROM `cache_logs`, `caches`, `log_types`, `log_types_text` INNER JOIN cache_type ON (caches.type = cache_type.id)
 					WHERE `cache_logs`.`user_id`='&1'
 					AND `cache_logs`.`cache_id`=`caches`.`cache_id` 
 					AND `cache_logs`.`deleted`=0 
@@ -386,7 +386,8 @@
 
 					$tmp_log = $log_line;
 					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], $record_logs['text_combo']), $tmp_log);
-					$tmp_log = mb_ereg_replace('{logtype}', $record_logs['text_combo'], $tmp_log);
+//					$tmp_log = mb_ereg_replace('{logtype}', $record_logs['text_combo'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
 					$tmp_log = mb_ereg_replace('{date}', strftime($dateformat , strtotime($record_logs['date'])), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
