@@ -32,7 +32,7 @@
 		}
 			require($stylepath . '/viewprofile-test.inc.php');
 			require($stylepath . '/lib/icons.inc.php');
-				$tplname = 'viewprofile-test';
+				$tplname = 'viewprofile';
 				$stat_menu = array(
 					'title' => tr('Statictics'),
 					'menustring' => tr('Statictics'),
