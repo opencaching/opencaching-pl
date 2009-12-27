@@ -241,7 +241,7 @@
 	*/		
 	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
-	                          cache_logs.date AS log_date,
+	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
 	                          caches.name AS cache_name,
 	                          user.username AS user_name,
 							  user.user_id AS user_id,
@@ -267,7 +267,7 @@
 					$tmp_log = $cache_line_my_caches;
 					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
-					$tmp_log = mb_ereg_replace('{date}', strftime($dateformat , strtotime($record_logs['log_date'])), $tmp_log);
+					$tmp_log = mb_ereg_replace('{date}', $record_logs['log_date'], $tmp_log);
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{userid}', htmlspecialchars($record_logs['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
@@ -387,7 +387,7 @@
 			
 	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
-	                          cache_logs.date AS log_date,
+	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d')  AS log_date,
 	                          caches.name AS cache_name,
 	                          countries.pl AS country_name,
 	                          user.username AS user_name,
@@ -412,7 +412,7 @@
 					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
 //					$tmp_log = mb_ereg_replace('{logtype}', $record_logs['text_combo'], $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
-					$tmp_log = mb_ereg_replace('{date}', strftime($dateformat , strtotime($record_logs['log_date'])), $tmp_log);
+					$tmp_log = mb_ereg_replace('{date}',$record_logs['log_date'], $tmp_log);
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
 
