@@ -68,7 +68,7 @@
 	  $ddays = mysql_fetch_array($rdd);
 	  mysql_free_result($rdd);
 
-	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, username, countries.pl country, date_created, description FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1",$user_id);
+	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, username, countries.pl country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1",$user_id);
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);
@@ -270,7 +270,11 @@
 				}
 				$content .='</ul></div>';
 			}
+// if user have blocked create new cache display owner prfile this info	
+			if ($user_record['hide_flag'] == 1)
+			{		$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-red08" ><strong>UWAGA! Masz zablokowaną możliwość zakładania nowych skrzynek. Proszę kontaktować się z OC Team rr@opencaching.pl</strong></span></p><br />';}
 		
+	
 	}	
 // ------------------ end owner section ---------------------------------			
 //------------ end created caches section ------------------------------
