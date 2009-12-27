@@ -191,7 +191,7 @@
 						AND `cache_status`.`id`=`caches`.`status`
 						AND `caches`.`status` = 5
 						ORDER BY `date_activate` DESC, `caches`.`date_created` DESC ",$lang_db, $usr['userid']);
-			if (mysql_num_rows($rs_caches) == 0)
+			if (mysql_num_rows($rs_caches) != 0)
 			{
 	
 				$content .= '<p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><p>';
@@ -237,7 +237,7 @@
 					ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
 					LIMIT 5", $usr['userid'], $lang);
 
-			if (mysql_num_rows($rs_logs) == 0)
+			if (mysql_num_rows($rs_logs) != 0)
 			{
 				$content .= '<p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy do logach w Moich skrzynkach:</span></p><p>';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
@@ -378,7 +378,7 @@
 					ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
 					LIMIT 5", $usr['userid'], $lang);
 
-			if (mysql_num_rows($rs_logs) == 0) {
+			if (mysql_num_rows($rs_logs) != 0) {
 			
 				$content .= '<p><span class="content-title-noshade txt-blue08" >Moje najnowsze wpisy do logów:</span></p><p>';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
