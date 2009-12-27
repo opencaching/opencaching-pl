@@ -271,7 +271,7 @@
 				$content .='</ul></div>';
 			}
 // if user have blocked create new cache display owner prfile this info	
-			if ($user_record['country'] == 1)
+			if ($user_record['hide_flag'] == 1)
 			{		$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-red08" ><strong>UWAGA! Masz zablokowaną możliwość zakładania nowych skrzynek. Proszę kontaktować się z OC Team rr@opencaching.pl</strong></span></p><br />';}
 		
 	
