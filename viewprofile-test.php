@@ -209,7 +209,7 @@
 					}
 					else
 					{
-					$tmp_log = mb_ereg_replace('{rateimage}', '&nbsp;', $tmp_log);
+					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
 					}	
 					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
@@ -404,7 +404,7 @@
 					}
 					else
 					{
-					$tmp_log = mb_ereg_replace('{rateimage}', '&nbsp;', $tmp_log);
+					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
 					}	
 					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
