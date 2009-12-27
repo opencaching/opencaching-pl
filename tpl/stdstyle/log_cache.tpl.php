@@ -149,8 +149,8 @@ function toogleLayer( whichLayer, val )
 		<td>
 			<input class="input40" type="text" name="logyear" maxlength="4" value="{logyear}"/>
 			<input class="input20" type="text" name="logmonth" maxlength="2" value="{logmonth}"/>
-			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>		
-			<input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/>
+			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>&nbsp;		
+			<input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/>:
 			<input class="input20" type="text" name="logmin" maxlength="2" value="{logmin}"/>
 			{date_message}
 		</td>
