@@ -223,8 +223,8 @@ function getCachetypeFilter(){
 	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_6').style.visibility == 'hidden' ? 0 : 1);
 	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_7').style.visibility == 'hidden' ? 0 : 1);
 	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_8').style.visibility == 'hidden' ? 0 : 1);
-	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_11').style.visibility == 'hidden' ? 0 : 1);
-	cachetype_filter = cachetype_filter.concat('0');
+	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_9').style.visibility == 'hidden' ? 0 : 1);
+	cachetype_filter = cachetype_filter.concat(document.getElementById('cachetype_10').style.visibility == 'hidden' ? 0 : 1);
 	return cachetype_filter;
 }
 
