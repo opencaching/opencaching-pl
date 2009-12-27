@@ -1,5 +1,5 @@
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{stats}}</div>
-<div>
+<div style=" font-size: 115%;">
 <img src="tpl/stdstyle/images/blue/stat2.png" alt="" /><a class="content-title-noshade" href="articles.php?page=s1">{{ranking_by_number_of_created_caches}}</a><br/>
 <img src="tpl/stdstyle/images/blue/stat2.png" alt="" /><a class="content-title-noshade" href="articles.php?page=s2">{{ranking_by_number_of_finds}}</a>
 <br/>
