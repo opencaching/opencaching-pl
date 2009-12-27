@@ -66,9 +66,9 @@
 
 			
 	
-//	$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}" onmouseover="Lite(\'c{cache_count}\')" onmouseout="Lite(\'map\')">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
+	$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}" onmouseover="Lite(\'c{cache_count}\')" onmouseout="Lite(\'map\')">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
 	
-	$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}" onmouseover="Lite(\'c{cache_count}\')" onmouseout="Lite(\'map\')">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a href="viewprofile.php?userid={userid}">{username}</a></li>';
+//	$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}" onmouseover="Lite(\'c{cache_count}\')" onmouseout="Lite(\'map\')">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a href="viewprofile.php?userid={userid}">{username}</a></li>';
 		
 	$file_content = '<ul>';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -76,15 +76,15 @@
 		$record = sql_fetch_array($rs);
 		setlocale(LC_ALL, "pl_PL");
 
-//		$loc = coordToLocation($record['latitude'], $record['longitude']);
+		$loc = coordToLocation($record['latitude'], $record['longitude']);
 		
 		$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
 	
 		$thisline = $cacheline;
-//		$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
-//		$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
-//		$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
-//		$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
+		$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
+		$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
+		$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
+		$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
 		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d.m.Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 		$thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
@@ -132,18 +132,18 @@
 	}
 	else
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a href="viewprofile.php?userid={userid}">{username}</a></li>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
 		$file_content = '<ul>';
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
 			$record = sql_fetch_array($rs);
-//			$loc = coordToLocation($record['latitude'], $record['longitude']);
+			$loc = coordToLocation($record['latitude'], $record['longitude']);
 		
 			$thisline = $cacheline;
-//			$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
-//			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
-//			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
-//			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
+			$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
+			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
+			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
+			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
 			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d.m.Y", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
