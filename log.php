@@ -124,6 +124,8 @@
 				
 				$log_text  = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
 				$log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
+				$log_date_min = isset($_POST['logmin']) ? ($_POST['logmin']+0) : date('i');
+				$log_date_hour = isset($_POST['loghour']) ? ($_POST['loghour']+0) : date('H');
 				$log_date_day = isset($_POST['logday']) ? ($_POST['logday']+0) : date('d');
 				$log_date_month = isset($_POST['logmonth']) ? ($_POST['logmonth']+0) : date('m');
 				$log_date_year = isset($_POST['logyear']) ? ($_POST['logyear']+0) : date('Y');
@@ -286,14 +288,14 @@
 				}
 
 				//validate data
-				if (is_numeric($log_date_month) && is_numeric($log_date_day) && is_numeric($log_date_year))
+				if (is_numeric($log_date_month) && is_numeric($log_date_day) && is_numeric($log_date_year) && is_numeric($log_date_hour) && is_numeric($log_date_min))
 				{
-					$date_not_ok = (checkdate($log_date_month, $log_date_day, $log_date_year) == false);
+					$date_not_ok = (checkdate($log_date_month, $log_date_day, $log_date_year, $log_date_hour,$log_date_min) == false);
 					if($date_not_ok == false)
 					{
 						if (isset($_POST['submitform']))
 						{
-							if(mktime(0, 0, 0, $log_date_month, $log_date_day, $log_date_year)>=mktime())
+							if(mktime(0, 0, 0, 0, 0, $log_date_month, $log_date_day, $log_date_year, $log_date_hour, $log_date_min)>=mktime())
 							{
 								$date_not_ok = true;
 							}
@@ -412,7 +414,7 @@
 						// nie wybrano opcji oceny
 						
 					}
-					$log_date = date('Y-m-d', mktime(0, 0, 0, $log_date_month, $log_date_day, $log_date_year));
+					$log_date = date('Y-m-d H:i:s', mktime(0, 0, 0, 0, 0,  $log_date_year, $log_date_month, $log_date_day, $log_date_hour, $log_date_min));
 
 					$log_uuid = create_uuid();
 					//add logentry to db
@@ -563,6 +565,8 @@
 					//set tpl vars
 					tpl_set_var('cachename', htmlspecialchars($cachename, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
+					tpl_set_var('logmin', htmlspecialchars($log_date_min, ENT_COMPAT, 'UTF-8'));
+					tpl_set_var('loghour', htmlspecialchars($log_date_hour, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logday', htmlspecialchars($log_date_day, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logmonth', htmlspecialchars($log_date_month, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logyear', htmlspecialchars($log_date_year, ENT_COMPAT, 'UTF-8'));
