@@ -218,27 +218,8 @@
 				}
 				$content .='</ul></div>';
 			}
-//			if(checkField('log_types_text',$lang) )
-//				$lang_db = $lang;
-//			else
-//				$lang_db = "en";
-
-			//get last logs in your caches
-/*
-			$rs_logs = sql("
-					SELECT `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `caches`.`name` `name`,
-						`log_types`.`icon_small`, `log_types_text`.`text_combo`, `cache_logs`.`user_id` `user_id`, `user`.`username` `username`
-					FROM `cache_logs`, `caches`, `log_types`, `log_types_text`, `user`
-					WHERE `caches`.`user_id`='&1'
-					AND `cache_logs`.`cache_id`=`caches`.`cache_id` 
-					AND `cache_logs`.`deleted`=0 
-					AND `user`.`user_id`=`cache_logs`.`user_id`
-					AND `log_types`.`id`=`cache_logs`.`type`
-					AND `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`='&2'
-					ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
-					LIMIT 5", $usr['userid'], $lang);
-
-	*/		
+// ------------------ end owner section ---------------------------------			
+	}	
 	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
@@ -254,12 +235,12 @@
 					  		AND `cache_logs`.`cache_id`=`caches`.`cache_id` 
 							AND `user`.`user_id`=`cache_logs`.`user_id`
 	                   ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
-					LIMIT 5", $usr['userid']);
+					LIMIT 5", $user_id);
 
 
 			if (mysql_num_rows($rs_logs) != 0)
 			{
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w Moich skrzynkach:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w skrzynkach:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 				{
 					$record_logs = sql_fetch_array($rs_logs);
@@ -280,8 +261,7 @@
 			}
 
 		}		
-// ------------------ end owner section ---------------------------------			
-	}
+
 //------------ end created caches section ------------------------------
 
 // -----------  begin Find section -------------------------------------
@@ -382,28 +362,27 @@
 			mysql_free_result($rsfc2);
 			
 //------------ begin owner section			
-			if ($user_id == $usr['userid']) 
-			{
+//			if ($user_id == $usr['userid']) 
+//			{
 			
 	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d')  AS log_date,
 	                          caches.name AS cache_name,
-	                          countries.pl AS country_name,
 	                          user.username AS user_name,
 							  user.user_id AS user_id,
 							  caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
 							  log_types.icon_small AS icon_small,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
-	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN countries ON (caches.country = countries.short)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
+	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
 	                   WHERE cache_logs.deleted=0 AND `cache_logs`.`user_id`='&1'
 	                   ORDER BY cache_logs.date_created DESC
-					LIMIT 5", $usr['userid']);
+					LIMIT 5", $user_id);
 
 			if (mysql_num_rows($rs_logs) != 0) {
 			
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje najnowsze wpisy do logów:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy do logów:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 					{
 					$record_logs = sql_fetch_array($rs_logs);
@@ -423,7 +402,7 @@
 				}
 
 
-			}
+//			}
 // ----------- end owner section			
 			$content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
 						  

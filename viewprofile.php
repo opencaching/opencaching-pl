@@ -10,7 +10,7 @@
 	
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-		global $stat_menu;
+		global $stat_menu; $lang;
 	
 	//Preprocessing
 	if ($error == false)
@@ -30,7 +30,9 @@
 			$user_id = $_REQUEST['userid'];
 			tpl_set_var('userid',$user_id);		
 		}
-				$tplname = 'viewprofile';
+			require($stylepath . '/viewprofile-test.inc.php');
+			require($stylepath . '/lib/icons.inc.php');
+				$tplname = 'viewprofile-test';
 				$stat_menu = array(
 					'title' => tr('Statictics'),
 					'menustring' => tr('Statictics'),
@@ -84,8 +86,12 @@
 				tpl_set_var('description_start', '<!--');
 				tpl_set_var('description_end', '-->');
 			}
+			
+//------------ begin created caches ---------------------------			
 			$content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created" />&nbsp;&nbsp;&nbsp;Statystyka liczbowa skrzynek założonych</p></div><br />';			
-		if ($user_record['hidden_count'] == 0) {
+
+
+			if ($user_record['hidden_count'] == 0) {
 			$content .= '<br /><p> <b>Nie ma jeszcze żadnej założonej skrzynki</b></p>';
 						  }
 						  else 
@@ -170,7 +176,95 @@
 			mysql_free_result($rsc);
 //			mysql_free_result($rscc1);
 			mysql_free_result($rscc2);
+//  ----------------- begin  owner section  ----------------------------------
+		if ($user_id == $usr['userid']) 
+		{
+			if(checkField('cache_status',$lang) )
+				$lang_db = $lang;
+			else
+				$lang_db = "en";
+
+			//get not published caches
+			$rs_caches = sql("	SELECT  `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, `caches`.`date_activate`, `caches`.`status`, `cache_status`.`&1` AS `cache_status_text`
+						FROM `caches`, `cache_status`
+						WHERE `user_id`='&2'
+						AND `cache_status`.`id`=`caches`.`status`
+						AND `caches`.`status` = 5
+						ORDER BY `date_activate` DESC, `caches`.`date_created` DESC ",$lang_db, $usr['userid']);
+			if (mysql_num_rows($rs_caches) != 0)
+			{
+	
+				$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				for ($i = 0; $i < mysql_num_rows($rs_caches); $i++)
+				{
+					$record_caches = sql_fetch_array($rs_caches);
+
+					$tmp_cache = $cache_notpublished_line;
+
+					$tmp_cache = mb_ereg_replace('{cacheimage}', icon_cache_status($record_caches['status'], $record_caches['cache_status_text']), $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{cachestatus}', htmlspecialchars($record_caches['cache_status_text'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_caches['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_cache);
+					if(is_null($record_caches['date_activate']))
+					{
+						$tmp_cache = mb_ereg_replace('{date}', $no_time_set, $tmp_cache);
+					}
+					else
+					{
+						$tmp_cache = mb_ereg_replace('{date}', strftime($datetimeformat , strtotime($record_caches['date_activate'])), $tmp_cache);
+					}
+					$tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_caches['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
+
+					$content .= "\n" . $tmp_cache;
+				}
+				$content .='</ul></div>';
 			}
+// ------------------ end owner section ---------------------------------			
+	}	
+	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
+	                          cache_logs.type AS log_type,
+	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
+	                          caches.name AS cache_name,
+	                          user.username AS user_name,
+							  user.user_id AS user_id,
+							  caches.type AS cache_type,
+							  cache_type.icon_small AS cache_icon_small,
+							  log_types.icon_small AS icon_small,
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
+	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
+					  WHERE cache_logs.deleted=0 AND `caches`.`user_id`='&1'
+					  		AND `cache_logs`.`cache_id`=`caches`.`cache_id` 
+							AND `user`.`user_id`=`cache_logs`.`user_id`
+	                   ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
+					LIMIT 5", $user_id);
+
+
+			if (mysql_num_rows($rs_logs) != 0)
+			{
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w skrzynkach:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
+				{
+					$record_logs = sql_fetch_array($rs_logs);
+
+					$tmp_log = $cache_line_my_caches;
+					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
+					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{date}', $record_logs['log_date'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{userid}', htmlspecialchars($record_logs['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['user_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+
+					$content .= "\n" . $tmp_log;
+				}
+							mysql_free_result($rs_logs);
+				$content .='</ul></div>';
+			}
+
+		}		
+
+//------------ end created caches section ------------------------------
+
+// -----------  begin Find section -------------------------------------
 		$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Statystyka liczbowa skrzynek znalezionych</p></div>';
 		if ($user_record['founds_count'] == 0) {
 			$content .= '<br /><p> <b>Nie ma jeszcze żadnej skrzynki znalezionej</b></p>';
@@ -266,11 +360,55 @@
 			mysql_free_result($rsncd);
 			mysql_free_result($rsc);
 			mysql_free_result($rsfc2);
+			
+//------------ begin owner section			
+//			if ($user_id == $usr['userid']) 
+//			{
+			
+	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
+	                          cache_logs.type AS log_type,
+	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d')  AS log_date,
+	                          caches.name AS cache_name,
+	                          user.username AS user_name,
+							  user.user_id AS user_id,
+							  caches.type AS cache_type,
+							  cache_type.icon_small AS cache_icon_small,
+							  log_types.icon_small AS icon_small,
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
+	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
+	                   WHERE cache_logs.deleted=0 AND `cache_logs`.`user_id`='&1'
+	                   ORDER BY cache_logs.date_created DESC
+					LIMIT 5", $user_id);
+
+			if (mysql_num_rows($rs_logs) != 0) {
+			
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy do logów:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
+					{
+					$record_logs = sql_fetch_array($rs_logs);
+
+					$tmp_log = $log_line;
+					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
+//					$tmp_log = mb_ereg_replace('{logtype}', $record_logs['text_combo'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{date}',$record_logs['log_date'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
+
+					$content .= "\n" . $tmp_log;
+					}
+					$content .= '</ul></div>';
+					mysql_free_result($rs_logs);
+				}
+
+
+//			}
+// ----------- end owner section			
 			$content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
 						  
 
-						  }
-			
+			}
+//------------ end find section			
 			mysql_free_result($rsGeneralStat);
 			tpl_set_var('content',$content);
 	}
