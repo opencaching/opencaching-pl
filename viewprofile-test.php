@@ -200,7 +200,9 @@
 				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w skrzynkach:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 				{
-					$record_logs = sql_fetch_array($rs_logs);
+				$record_logs = sql_fetch_array($rs_logs);
+				
+				$tmp_log = $cache_line_my_caches;
 				if ($record_logs['recommended'] == 1) 
 					{
 					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt=""/>', $tmp_log);
@@ -209,8 +211,6 @@
 					{
 					$tmp_log = mb_ereg_replace('{rateimage}', '&nbsp;', $tmp_log);
 					}	
-
-					$tmp_log = $cache_line_my_caches;
 					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
 					$tmp_log = mb_ereg_replace('{date}', $record_logs['log_date'], $tmp_log);
@@ -397,7 +397,8 @@
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 					{
 					$record_logs = sql_fetch_array($rs_logs);
-				if ($record_logs['recommended'] == 1) 
+					$tmp_log = $log_line;
+					if ($record_logs['recommended'] == 1) 
 					{
 					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt=""/>', $tmp_log);
 					}
@@ -405,10 +406,7 @@
 					{
 					$tmp_log = mb_ereg_replace('{rateimage}', '&nbsp;', $tmp_log);
 					}	
-
-					$tmp_log = $log_line;
 					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
-//					$tmp_log = mb_ereg_replace('{logtype}', $record_logs['text_combo'], $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
 					$tmp_log = mb_ereg_replace('{date}',$record_logs['log_date'], $tmp_log);
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
