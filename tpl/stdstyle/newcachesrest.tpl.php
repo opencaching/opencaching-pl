@@ -2,7 +2,7 @@
 <img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cache" title="Cache" align="middle"/>&nbsp;{{abroad_caches}}
 </div>
 <!-- Text container -->
-<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;" width="77%">
+<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; font-size: 115%;" width="80%">
 <tr>
 <td><strong>Data</strong></td>
 <td>&nbsp;</td>
