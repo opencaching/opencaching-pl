@@ -41,6 +41,7 @@ $rsCachesFindYear1 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cach
 					$y1[] = $rfy1['count'];
 					$x1[] = $rfy1['year'];}
 					}
+					echo $y1[];
 				mysql_free_result($rsCachesFindYear1);
 $rsCachesFindYear2 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache_logs` WHERE type=2 AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`) ORDER BY YEAR(`date`) ASC",$cache_id);
 
