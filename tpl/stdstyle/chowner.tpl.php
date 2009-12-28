@@ -1,6 +1,6 @@
 		<input type="hidden" name="cacheid" value="{cacheid}"/>
 		<font size="1">
-		<table class="content">
+		<table class="content" width="97%">
 			<colgroup>
 				<col width="200">
 				<col>
@@ -10,7 +10,7 @@
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr>
 				<td>
-					<table border='0' width='800'>
+					<table border='0' width='97%'>
 					<tr>
 						<td colspan="2">
 							Poniżej znajduje się lista skrzynek, które oczekują na Twoją akceptację. Wybierz [akceptuj] albo [odrzuć], aby przejąć skrzynkę lub odrzucić zaproszenie.<br /><br />
@@ -30,7 +30,7 @@
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr>
 				<td>
-					<table border='0' width='800'>
+					<table border='0' width='97%'>
 					<tr>
 						<td colspan="2">
 							<font color="#ff0000">{error_msg}</font>
