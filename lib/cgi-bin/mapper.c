@@ -238,6 +238,7 @@ int main(void)
 	SDL_Surface *im = create_image(256, 256);
 
 	int show_signs = !(strcmp(microcgi_getstr(CGI_GET, "signes"), "true"));
+	int show_wp = !(strcmp(microcgi_getstr(CGI_GET, "waypoints"), "true"));
 
 	double bound = 0.15;
 	if(show_signs && zoom >= 13)
@@ -508,6 +509,39 @@ int main(void)
 				SDL_Surface* bglabel = TTF_RenderUTF8_Blended(font, name, bgcolor);
 				SDL_Rect r = (SDL_Rect){orig_x - fglabel->w/2, orig_y + fglabel->h/2};
 				
+
+				SDL_Rect r2;
+				r2 = r;
+				r2.x = r.x - 1;
+				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+				r2 = r;
+				r2.x = r.x + 1;
+				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+				r2 = r;
+				r2.y = r.y + 1;
+				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+				r2 = r;
+				r2.y = r.y - 1;
+				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+
+				SDL_gfxBlitRGBA(fglabel, NULL, im, &r);
+				SDL_FreeSurface(fglabel);
+				SDL_FreeSurface(bglabel);
+			}
+			if(font && show_wp && zoom > 13) {
+				SDL_Color fgcolor = {30, 30, 30};
+				SDL_Color bgcolor = {255, 255, 255};
+				if(mapid == 1 || mapid == 2) {
+					fgcolor = (SDL_Color){255, 255, 255};
+					bgcolor = (SDL_Color){30, 30, 30};
+				}
+				TTF_SetFontStyle(font, TTF_STYLE_BOLD);
+
+				SDL_Surface* fglabel = TTF_RenderUTF8_Blended(font, wp, fgcolor);
+				SDL_Surface* bglabel = TTF_RenderUTF8_Blended(font, wp, bgcolor);
+				SDL_Rect r = (SDL_Rect){orig_x - fglabel->w/2, orig_y - markerimg->h - 2*fglabel->h/3};
+				
+				TTF_SetFontStyle(font, 0);
 
 				SDL_Rect r2;
 				r2 = r;
