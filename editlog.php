@@ -307,6 +307,26 @@
 							if ($log_record['logtype'] == 1 || $log_record['logtype'] == 7)
 							{
 								$user_record['founds_count']--;
+								
+								// recalc scores for this cache
+								sql("DELETE FROM `scores` WHERE `user_id` = '&1' AND `cache_id` = '&2'", $log_record['user_id'], $log_record['cache_id']);
+								$sql = "SELECT count(*) FROM scores WHERE cache_id='".sql_escape($log_record['cache_id'])."'";
+								$liczba = mysql_result(mysql_query($sql),0);
+								$sql = "SELECT SUM(score) FROM scores WHERE cache_id='".sql_escape($log_record['cache_id'])."'";
+								$suma = @mysql_result(@mysql_query($sql),0)+0;
+
+								// obliczenie nowej sredniej
+								if( $liczba != 0)
+								{
+									$srednia = $suma / $liczba;
+								}
+								else 
+								{
+									$srednia = 0;
+								}
+								
+								$sql = "UPDATE caches SET votes='".sql_escape($liczba)."', score='".sql_escape($srednia)."' WHERE cache_id='".sql_escape($log_record['cache_id'])."'";
+								mysql_query($sql);
 							}
 							elseif ($log_record['logtype'] == 2)
 							{
