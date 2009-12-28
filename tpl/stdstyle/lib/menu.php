@@ -113,6 +113,14 @@ $menu = array(
 				'visible' => true,
 				'filename' => 'cachemap3.php'
 			),
+				array(
+				'title' => tr('cache_mapv2'),
+				'menustring' => tr('cache_mapv2'),
+				'siteid' => 'cachemap2',
+				'visible' => true,
+				'filename' => 'cachemap2.php'
+			),
+
 			array(
 				'title' => tr('search_cache'),
 				'menustring' => tr('search_cache'),
