@@ -469,6 +469,14 @@ $menu = array(
 				)
 			),
 			array(
+				'title' => tr('adoption_cache'),
+				'menustring' => tr('adoption_cache'),
+				'visible' => true,
+				'filename' => 'chowner.php',
+				'siteid' => 'adoption'
+			),
+
+			array(
 				'title' => tr('collected_queries'),
 				'menustring' => tr('collected_queries'),
 				'visible' => true,
