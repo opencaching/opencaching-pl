@@ -156,11 +156,15 @@ function toogleLayer( whichLayer, val )
 	<tr><td class="spacer" colspan="2"></td></tr>
 	{rating_message}
 	<tr><td class="spacer" colspan="2"></td></tr>
+</table>
+<div class="content" id="ocena" style="display:{display};">
+<table class="content">
 	<tr>
 		<td width="180px"><b>{score_header}</b></td>
 		<td width="*">{score}<br/></td>
 	</tr>
 </table>
+</div>
 <table class="content">
 	<tr>
 		<td colspan="2">
