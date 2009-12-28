@@ -171,7 +171,7 @@
 
 <h2>Letterboxing</h2>
 
-<table>
+<table style="font-size: 125%;">
 	<tbody><tr>
 		<td style="width: 25%;">
 			Bazy danych letterboxing:
@@ -209,7 +209,7 @@
 
 <h2>Systemy typu Travel Bug itp</h2>
 
-<table>
+<table style="font-size: 125%;">
 	<tbody>
 	
 	<tr>
@@ -259,7 +259,7 @@
 
 <h2>Inne</h2>
 		
-<table>
+<table style="font-size: 125%;">
 	<tbody>
 	
 	<tr>
