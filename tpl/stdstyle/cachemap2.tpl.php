@@ -488,11 +488,11 @@ else
 	$y_print = 1000;
 }
 ?>
-
-<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<div class="content2-pagetitle">&nbsp;<img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="" title=""/>&nbsp;&nbsp;{{user_map}} {username}</div><br />
+<table border="0" cellspacing="0" cellpadding="0" width="99%" style="font-size: 115%;">
 <tr>
 	<td>
-{{user_map}} <b>{username}</b> | {{current_zoom}}: <input type="text" id="zoom" size="2" disabled>
+{{current_zoom}}: <input type="text" id="zoom" size="2" disabled>
 	</td>
 	<td align="right">
 		<?php echo (!isset($_GET['print'])?('[<a href="cachemap2.php?print=y">'.tr('printer_friendly').'</a>]'):'');?>
