@@ -1,5 +1,5 @@
 		<font size="1">
-		<table class="content" width="97%">
+		<table class="content"  width="97%">
 			<colgroup>
 				<col width="200">
 				<col>
@@ -9,7 +9,7 @@
 			<tr>
 				<td>
 				<form action="chowner.php" method="post">
-					<table border='0' width='800'>
+					<table border='0' style="font-size: 120%;" width='97%'>
 					<tr>
 						<td colspan="2">
 							Proszę wpisać nazwę użytkownika, który ma stać się nowym właścicielem Twojej skrzynki. Gdy tylko potwierdzi on chęć przejęcia skrzynki, procedura zostanie zakończona.<br/>

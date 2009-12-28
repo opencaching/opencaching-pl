@@ -1,6 +1,6 @@
 		<input type="hidden" name="cacheid" value="{cacheid}"/>
 		<font size="1">
-		<table class="content" width="97%">
+		<table class="content" style="font-size: 120%;" width="97%">
 			<colgroup>
 				<col width="200">
 				<col>
