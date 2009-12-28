@@ -1,18 +1,18 @@
-<table width=600 class="content">
+<table width="600" class="content">
 	<colgroup>
 		<col width="100">
 	</colgroup>
-	<tr><td width=600 class="content2-pagetitle">
+	<tr><td width="600" class="content2-pagetitle">
 	<img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="ABC" title="ABC" align="middle" />
 	<font size="4">  <b>Linki do różnych stron związanych z Geocaching</b></font></td></tr>
 	<tr><td class="spacer"></td></tr></table>
 
 <h2>Geocaching</h2>
 
-<table>
+<table style="font-size: 125%;">
 	<tbody><tr>
 		<td style="width: 25%;">
-			Opencaching Network Bazy danych Geocaching: <a href="http://www.opencaching.eu">http://www.opencaching.eu</a> 
+			<b>Opencaching Network:</b> 
 		</td>
 		</tr>
 	
@@ -58,6 +58,25 @@
 	</tr>
 	<tr>
 		<td style="width: 25%;">
+			&nbsp;
+		</td>
+		<td>
+					
+		</td>
+	</tr>
+
+
+	<tr>
+		<td style="width: 25%;">
+			Inne serwisy Geocaching'owe:
+		</td>
+		<td>
+					
+		</td>
+	</tr>
+
+	<tr>
+		<td style="width: 25%;">
 			Australia
 		</td>
 		
@@ -81,6 +100,7 @@
 			<a href="http://www.geopeitus.ee/english.html">http://www.geopeitus.ee</a>
 		</td>
 	</tr>
+	<tr>
 		<td>
 			Rumunia
 		</td>
