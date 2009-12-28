@@ -12,7 +12,7 @@
 <div class="content2-container">
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{user_profile}}: {username} </div>
 <div class="content-title-noshade">
-<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;font-size: 110%;" width="97%">
+<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;font-size: 115%;" width="97%">
 <tr>
 <td rowspan="2" width="64"><img src="tpl/stdstyle/images/blue/profile1.png"  alt="" title="Profile" align="middle"/></td>
 <td><span class="txt-blue08" >{{registered_since_label}}:</span> <span class="txt-black"> {registered}</span><br /><br /><span class="txt-blue08" >{{country_label}}:</span><span class="txt-black"> {country}</span></td>
@@ -22,7 +22,7 @@
 </td>
 </tr>
 <tr>
-<td><span class="txt-blue08" >{{descriptions}}:</span><br /><span class="txt-black"> {description_start}{description}{description_end}</span></td>
+<td><span class="txt-blue08" >{{descriptions}}:</span><br /><span class="txt-black" style="line-height: 0.5cm;"> {description_start}{description}{description_end}</span></td>
 </tr>
 <tr>
 <td colspan="3"><hr></hr></td>
