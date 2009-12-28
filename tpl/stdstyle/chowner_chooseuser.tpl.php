@@ -1,5 +1,5 @@
 		<font size="1">
-		<table class="content">
+		<table class="content" width="97%">
 			<colgroup>
 				<col width="200">
 				<col>
