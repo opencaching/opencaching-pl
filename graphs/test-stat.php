@@ -82,9 +82,9 @@ $graph->SetShadow();
 $graph->img->SetMargin(40,30,20,40);
  
 // Create the bar plots
-$b1plot = new BarPlot($y1);
+$b1plot = new BarPlot($y1,$x1);
 $b1plot->SetFillColor("orange");
-$b2plot = new BarPlot($y2);
+$b2plot = new BarPlot($y2,$x2);
 $b2plot->SetFillColor("blue");
  
 // Create the grouped bar plot
@@ -93,9 +93,9 @@ $gbplot = new GroupBarPlot(array($b1plot,$b2plot));
 // ...and add it to the graPH
 $graph->Add($gbplot);
  
-$graph->title->Set("Example 21");
-$graph->xaxis->title->Set("X-title");
-$graph->yaxis->title->Set("Y-title");
+$graph->title->Set($descibe);
+$graph->xaxis->title->Set("");
+$graph->yaxis->title->Set("Liczba wpisów w logu");
  
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
