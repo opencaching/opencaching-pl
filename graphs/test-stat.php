@@ -34,25 +34,25 @@ if ($tit == "csy") {
 $rsCachesFindYear1 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`) ORDER BY YEAR(`date`) ASC",$cache_id);
 
 //$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year`, type type FROM `cache_logs` WHERE (type=1 OR type=2) AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`), type ORDER BY YEAR(`date`) ASC",$cache_id);
-  				if ($rsCachesFindYear !== false) {
+  				if ($rsCachesFindYear1 !== false) {
 				$descibe="Roczna statystyka skrzynki";
 				$xtitle="";
-				while ($rfy = mysql_fetch_array($rsCachesFindYear)){
-					$y1[] = $rfy['count'];
-					$x1[] = $rfy['year'];}
+				while ($rfy1 = mysql_fetch_array($rsCachesFindYear1)){
+					$y1[] = $rfy1['count'];
+					$x1[] = $rfy1['year'];}
 					}
-				mysql_free_result($rsCachesFindYear);
+				mysql_free_result($rsCachesFindYear1);
 $rsCachesFindYear2 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache_logs` WHERE type=2 AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`) ORDER BY YEAR(`date`) ASC",$cache_id);
 
 //$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year`, type type FROM `cache_logs` WHERE (type=1 OR type=2) AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`), type ORDER BY YEAR(`date`) ASC",$cache_id);
-  				if ($rsCachesFindYear !== false) {
+  				if ($rsCachesFindYear2 !== false) {
 				$descibe="Roczna statystyka skrzynki";
 				$xtitle="";
-				while ($rfy = mysql_fetch_array($rsCachesFindYear)){
-					$y2[] = $rfy['count'];
-					$x2[] = $rfy['year'];}
+				while ($rfy2 = mysql_fetch_array($rsCachesFindYear2)){
+					$y2[] = $rfy2['count'];
+					$x2[] = $rfy2['year'];}
 					}
-				mysql_free_result($rsCachesFindYear);
+				mysql_free_result($rsCachesFindYear2);
 				
 				}
 
@@ -75,7 +75,8 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
 				
 // Create the graph. These two calls are always required
 $graph = new Graph(400,200,'auto');
-$graph->SetScale('textint',0,max($y)+(max($y)*0.2),0,0);
+$graph->SetScale('textint');
+//$graph->SetScale('textint',0,max($y)+(max($y)*0.2),0,0);
 // ,0,0,0,max($y)-min($y)+5);
 // Add a drop shadow
 $graph->SetShadow();
@@ -119,12 +120,12 @@ $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
  
   
 // Setup the values that are displayed on top of each bar
-$bplot->value->Show();
+$b1plot->value->Show();
  
 // Must use TTF fonts if we want text at an arbitrary angle
-$bplot->value->SetFont(FF_FONT1,FS_BOLD);
-$bplot->value->SetAngle(0);
-$bplot->value->SetFormat('%d');
+//$b1plot->value->SetFont(FF_FONT1,FS_BOLD);
+//$b1plot->value->SetAngle(0);
+//$b1plot->value->SetFormat('%d');
 
 // Create the grouped bar plot
 $gbplot = new GroupBarPlot(array($b1plot,$b2plot));
