@@ -374,7 +374,10 @@
 					{
 						$_POST['r'] = -10;
 					}
-					$_POST['r'] = score2ratingnum($_POST['r']); // convert to old score format
+					if( $_POST['r'] != -10 )
+					{
+						$_POST['r'] = score2ratingnum($_POST['r']); // convert to old score format
+					}
 					
 					if( $_POST['r'] == -10 || ($_POST['r'] >= $MIN_SCORE && $_POST['r'] <= $MAX_SCORE))
 					{

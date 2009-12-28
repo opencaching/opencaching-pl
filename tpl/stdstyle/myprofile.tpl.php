@@ -34,7 +34,7 @@
 
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{your_data}}" title="{{your_data}}" />&nbsp;{{your_data}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{my_account}}" title="{{my_account}}" />&nbsp;{{my_account}}</div>
 <div class="notice">
 {{gray_field_is_hidden}}
 </div>
@@ -69,11 +69,11 @@
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td class="content-title-noshade" valign="top">{{bulletin}}:</td>
-		<td class="txt-grey07" valign="middle">{{bulletin_label}}</td>
+		<td class="txt-grey07" valign="middle">{bulletin_label}</td>
 	</tr>
 	<tr>
 		<td class="content-title-noshade" valign="top">{{my_description}}:</td>
-		<td class="txt-grey07">{{description}}</td>
+		<td class="txt-grey07">{description}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
