@@ -16,7 +16,7 @@
 <tr>
 <td rowspan="2" width="64"><img src="tpl/stdstyle/images/blue/profile1.png"  alt="" title="Profile" align="middle"/></td>
 <td>{{registered_since_label}} {registered}<br /><br />{{country_label}}: {country}</td>
-<td rowspan="2">
+<td rowspan="2" width="30%">
 <img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle"/>&nbsp;<a href="mailto.php?userid={userid}">{{email_user}}</a><br />
 <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle"/>&nbsp;<a href="cachemap3.php?userid={userid}">{{show_user_map}}</a>
 </td>
