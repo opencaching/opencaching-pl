@@ -50,14 +50,14 @@
 				<div class="content2-container-2col-left" id="viewcache-baseinfo">
 					<p class="content-title-noshade-size3">
 						<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" title="" />
-						<b>{coords}</b> 
+						<b>{coords}</b> <br/>
 						<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" title="" />
-						<b>{coords2}</b>
+						<b>{coords2}</b><br/>
 						<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" title="" />
 						<b>{coords3}</b> <span class="content-title-noshade-size0">(WGS84)</span><br />
 					</p>
 					<p>
-						{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek} {woj}</span></b><br />
+<!--						{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek} {woj}</span></b><br />-->
 						{{size}}: {cachesize}<br />
 						{hidetime_start}{{time}}: {search_time}&nbsp;&nbsp;{{length}}: {way_length}<br />{hidetime_end}
 						{{status_label}}: {status}<br />
@@ -88,7 +88,7 @@ global $usr, $lang, $hide_coords;
 							</p>
 						</div>
 						<div id="viewcache-map" class="content2-container-2col-right"><div class="img-shadow">
-							<img src="http://maps.google.com/staticmap?center={latitude},{longitude}&amp;zoom=8&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers={latitude},{longitude},blue{typeLetter}&amp;format=png" alt="{{map}}" />
+							<img src="http://maps.google.com/staticmap?center={latitude},{longitude}&amp;zoom=13&amp;size=170x170&amp;maptype=terrain&amp;key={googlemap_key}&amp;sensor=false&amp;markers={latitude},{longitude},blue{typeLetter}&amp;format=png" alt="{{map}}" />
 						</div></div>
 				</div>
 			</div>
@@ -107,7 +107,6 @@ global $usr, $lang, $hide_coords;
 					{cache_attributes}{password_req}
 				</p>
 			</div>
-<div class="notice" id="viewcache-attributesend">{{attributes_desc_hint}}</div>
 					{cache_attributes_end}
 <!-- End Text Container -->
 <!-- Text container -->

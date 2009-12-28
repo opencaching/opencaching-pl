@@ -987,7 +987,7 @@
 							'title' => tr('print'),
 							'menustring' => tr('print'),
 							'visible' => true,
-							'filename' => 'viewcache.php?cacheid='.$cache_id.'&amp;print=y',
+							'filename' => 'printcache.php?cacheid='.$cache_id,
 							'newwindow' => false,
 							'siteid' => 'print_cache',
 							'icon' => 'images/actions/print'

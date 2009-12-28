@@ -343,7 +343,7 @@ ul.linklist-indent {margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; lis
 .bg-yellow10 {background-color: rgb(247,224,23);}
 
 .bg-blue01 {background-color: rgb(238,237,249);}
-.bg-blue02 {background-color: rgb(219,230,241);}
+.bg-blue02 {background-color: rgb(230,230,230);}
 .bg-blue03 {background-color: rgb(205,202,236);}
 .bg-blue04 {background-color: rgb(189,185,229);}
 .bg-blue05 {background-color: rgb(172,167,223);}
@@ -521,7 +521,7 @@ div#viewlogs-end { font-weight: bold; font-size: 120%; margin-bottom: 10px;}
 
 img#viewcache-cacheicon { float: left; }
 
-div#viewcache-baseinfo { width: 60%; text-align: left;}
+div#viewcache-baseinfo { width: 40%; text-align: left;}
 div#viewcache-maptypes { width:340px; text-align: right;}
 div#viewcache-maptypes .content2-container-2col-right{}
 div#viewcache-numstats { width: 150px; height: 185px; text-align: left; }

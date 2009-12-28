@@ -8,10 +8,12 @@
 		$_SESSION['print_list'] = array();
 	
 	//Preprocessing
-	if ($error == true || !$usr || ((count($_SESSION['print_list'])==0) && ($_GET['source'] != 'mywatches')))
-	{
-		header("Location:index.php");
-		die();
+	if($_GET['cacheid'] == '') {
+    	    if ($error == true || !$usr || ((count($_SESSION['print_list'])==0 ) && ($_GET['source'] != 'mywatches')) )
+    	    {
+	    	    header("Location:index.php");
+		    die();
+	    }
 	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -75,7 +77,13 @@ function clientSideInclude(id, url) {
 </script>
 
 <?php
-if( $_POST['flush_print_list'] != "" || $_POST['submit']!= "")
+if($_GET['cacheid'] != "") {
+	$showlogs = $_POST['showlogs'];
+	$pictures = $_POST['showpictures']!=""?$_POST['showpictures']:"&pictures=no";
+	$nocrypt = $_POST['nocrypt'];
+	$spoiler_only = $_POST['spoiler_only'];
+}
+else if( $_POST['flush_print_list'] != "" || $_POST['submit']!= "")
 {
 	$showlogs = $_POST['showlogs'];
 	$pictures = $_POST['showpictures'];
@@ -100,8 +108,12 @@ else
 					//var_dump($record);
 				}
 			}
-
-	} else {
+	}
+	else if($_GET['cacheid'] != "") {
+	    $caches_list = array();
+	    $caches_list[] = $_GET['cacheid'];
+	}
+	else {
 		$caches_list = $_SESSION['print_list'];
 	}
 	
@@ -148,8 +160,13 @@ for( $i=1000;$i<2000;$i+=200)
 ?>
 
 <body onload="<?php echo $include_caches;?>">
+
 <?
-if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
+if ($_GET['cacheid']) {
+?>
+<form action="printcache.php?cacheid=<?print intval($_GET['cacheid']);?>" method="POST">
+<?
+} else if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
 ?>
 <form action="printcache.php" method="POST">
 <?
@@ -175,9 +192,11 @@ if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
 		<input type="submit" name="submit" value="Zmień">
 
 <?
+if($_GET['cacheid'] == '')
 if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
 ?>
 		&nbsp;&nbsp;&nbsp;
+
 		<input type="submit" name="flush_print_list" value="<?php echo tr("clear_list") . " (" . count($_SESSION['print_list']);?>)">
 <?
 }
