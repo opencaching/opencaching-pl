@@ -20,7 +20,7 @@ class MakeLogo
 		$alpha = imagecolorallocate($im, 255,255,255);
 		imagefilledrectangle($im, 0,0,800,80, $alpha);
 		imagecolortransparent($im, $alpha);
-		$numbers = $this->mrand(1, 13, 13);
+		$numbers = $this->mrand(1, 41, 41);
 		
 		while( $totalWidth < $MAX_LEN && $counter < 10)
 		{
