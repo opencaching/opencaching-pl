@@ -24,7 +24,7 @@
 
 			<div class="">
 
-				<div class="content2-container-2col-left" style="width:60px; clear: left;">
+				<div class="content2-container-2col-left" style="width:60px; clear: left; float: left;">
 
 					<div><img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/></div>
 					<div>{difficulty_icon_diff}</div><div>{difficulty_icon_terr}</div>
@@ -32,7 +32,7 @@
 
 				
 				</div>
-					<div class="content2-container-2col-left" id="cache_name_block">
+					<div class="content2-container-2col-left"id="cache_name_block" style="width: 80%">
 					<span class="content-title-noshade-size5">{cachename}</span><br />
 					<p class="content-title-noshade-size1">&nbsp;{short_desc}</p>
 					<p>{{hidden_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a></p>
