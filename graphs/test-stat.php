@@ -76,16 +76,19 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
 				
 // Create the graph. These two calls are always required
 $graph = new Graph(400,200);    
-$graph->SetScale("textlin");
+$graph->SetScale("datlin");
  
 $graph->SetShadow();
-$graph->img->SetMargin(40,30,20,40);
- 
+$graph->img->SetMargin(50,30,30,40);
+
+$year = $gDateLocale->GetShortMonth();
+$graph->xaxis->SetTickLabels($year);
+
 // Create the bar plots
 $b1plot = new BarPlot($y1);
-$b1plot->SetFillColor("red");
+$b1plot->SetFillColor("steelblue2");
 $b2plot = new BarPlot($y2);
-$b2plot->SetFillColor("steelblue2");
+$b2plot->SetFillColor("chocolate2");
  
 // Create the grouped bar plot
 $gbplot = new GroupBarPlot(array($b1plot,$b2plot));
