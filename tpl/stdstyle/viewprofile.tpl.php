@@ -15,14 +15,14 @@
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;font-size: 110%;" width="97%">
 <tr>
 <td rowspan="2" width="64"><img src="tpl/stdstyle/images/blue/profile1.png"  alt="" title="Profile" align="middle"/></td>
-<td>{{registered_since_label}} {registered}<br /><br />{{country_label}}: {country}</td>
+<td><span class="txt-blue08" >{{registered_since_label}}:</span> <span class="txt-black"> {registered}</span><br /><br /><span class="txt-blue08" >{{country_label}}:</span><span class="txt-black"> {country}</span></td>
 <td rowspan="2" width="30%">
 <img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="Email" title="Email" align="middle"/>&nbsp;<a href="mailto.php?userid={userid}">{{email_user}}</a><br />
 <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="Mapa" title="Map" align="middle"/>&nbsp;<a href="cachemap3.php?userid={userid}">{{show_user_map}}</a>
 </td>
 </tr>
 <tr>
-<td>{{descriptions}}:<br />{description_start}{description}{description_end}</td>
+<td><span class="txt-blue08" >{{descriptions}}:</span><br /><span class="txt-black"> {description_start}{description}{description_end}</span></td>
 </tr>
 <tr>
 <td colspan="3"><hr></hr></td>
