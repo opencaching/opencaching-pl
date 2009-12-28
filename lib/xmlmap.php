@@ -9,7 +9,52 @@
 	}
 	
 	
-	$lat = ($_GET['lat'])+0;
+
+	function distance4zoom($zoom)
+	{
+		switch($zoom)
+		{
+			case 14:
+				return 0.0000096;
+			case 15:
+				return 0.0000048;
+			case 16:
+				return 0.0000024;
+			case 17:
+				return 0.0000012;
+			case 18:
+				return 0.0000007;
+			case 19:
+				return 0.0000004;
+			default:
+				return 0.0;
+		}
+
+	}
+	function mod4zoom($zoom)
+	{
+		switch($zoom)
+		{
+			case 14:
+				return -0.00080;
+			case 15:
+				return -0.00040;
+			case 16:
+				return -0.00020;
+			case 17:
+				return -0.00010;
+			case 18:
+				return -0.00005;
+			case 19:
+				return -0.00003;
+			default:
+				return 0.0;
+		}
+
+	}
+
+	$zoom = $_GET['zoom'];
+	$lat = ($_GET['lat'])+0+mod4zoom($zoom);
 	$lon = ($_GET['lon'])+0;
 	$user_id = intval($_GET['userid']);
 	$username = getUsername($user_id);
@@ -94,7 +139,7 @@
 	$h_ignored
 	WHERE caches.user_id = user.user_id AND caches.status < 4
 	".$hide_by_type.$filter_by_type_string.$score_filter."
-	HAVING distance < 0.00004 ORDER BY distance ASC LIMIT 1";	
+	HAVING distance < ".distance4zoom($zoom)." ORDER BY distance ASC LIMIT 1";	
 	
 	
 	// for foreign caches -------------------------------------------------------------------------------------
