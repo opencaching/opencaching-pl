@@ -112,15 +112,14 @@ $graph->xaxis->title->Set($xtitle);
 // Some extra margin looks nicer
 //$graph->xaxis->SetLabelMargin(10);
 
-$graph->yaxis->title->Set('Liczba wpisów');
- 
+$graph->yaxis->title->Set('Liczba wpisów'); 
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
  
   
 // Setup the values that are displayed on top of each bar
-$b1plot->value->Show();
+//$b1plot->value->Show();
  
 // Must use TTF fonts if we want text at an arbitrary angle
 //$b1plot->value->SetFont(FF_FONT1,FS_BOLD);

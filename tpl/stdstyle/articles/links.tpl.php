@@ -12,59 +12,51 @@
 <table>
 	<tbody><tr>
 		<td style="width: 25%;">
-			Bazy danych Geocaching:
+			Opencaching Network Bazy danych Geocaching: <a href="http://www.opencaching.eu">http://www.opencaching.eu</a> 
 		</td>
 		</tr>
-	<tr>
-
-		<td>
-		</td>
-		
-		<td>
-			<a href="http://www.geocaching.com//">http://www.geocaching.com</a>
-		</td>
-	</tr>
 	
 	<tr>
 		<td>
+			Polska
 		</td>
-		
 		<td>
-			<a href="http://www.terracaching.com//">http://www.terracaching.com</a>
+					<a href="http://www.opencaching.pl">http://www.opencaching.pl</a>	
 		</td>
 	</tr>
 	<tr>
 		<td>
-			
+			Niemcy
 		</td>
-		
 		<td>
-			<a href="http://geocaching.gpsgames.org/">http://www.gpsgames.org</a>
+					<a href="http://www.opencaching.de">http://www.opencaching.de</a>	
 		</td>
 	</tr>
-	
 	<tr>
 		<td>
-			
+			Wielka Brytania
 		</td>
-	
 		<td>
-			<a href="http://www.navicache.com/">http://www.navicache.com</a>
+					<a href="http://www.opencaching.org.uk">http://www.opencaching.org.uk</a>	
 		</td>
-	
 	</tr>
-	
 	<tr>
 		<td>
-			Opencaching Network:
+			Szwecja
 		</td>
-		
 		<td>
-		
-	<a href="http://www.opencaching.eu/">http://www.opencaching.eu</a> 
+					<a href="http://www.opencaching.se">http://www.opencaching.se</a>	
 		</td>
 	</tr>
-		<tr>
+	<tr>
+		<td>
+			Czechy
+		</td>
+		<td>
+					<a href="http://www.opencaching.cz">http://www.opencaching.cz</a>	
+		</td>
+	</tr>
+	<tr>
 		<td style="width: 25%;">
 			Australia
 		</td>
@@ -111,6 +103,45 @@
 		<td>
 			<a href="http://www.geocaching.su/">http://www.geocaching.su</a>
 		</td>
+	</tr>
+
+	<tr>
+
+		<td>
+		</td>
+		
+		<td>
+			<a href="http://www.geocaching.com//">http://www.geocaching.com</a>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+		</td>
+		
+		<td>
+			<a href="http://www.terracaching.com//">http://www.terracaching.com</a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			
+		</td>
+		
+		<td>
+			<a href="http://geocaching.gpsgames.org/">http://www.gpsgames.org</a>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			
+		</td>
+	
+		<td>
+			<a href="http://www.navicache.com/">http://www.navicache.com</a>
+		</td>
+	
 	</tr>
 
 
