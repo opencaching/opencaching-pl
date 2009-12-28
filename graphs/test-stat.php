@@ -41,7 +41,7 @@ $rsCachesFindYear1 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cach
 					$y1[] = $rfy1['count'];
 					$x1[] = $rfy1['year'];}
 					}
-					echo $y1[];
+//					echo $y1[];
 				mysql_free_result($rsCachesFindYear1);
 $rsCachesFindYear2 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache_logs` WHERE type=2 AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`) ORDER BY YEAR(`date`) ASC",$cache_id);
 
@@ -75,68 +75,35 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
 
 				
 // Create the graph. These two calls are always required
-$graph = new Graph(400,200,'auto');
-$graph->SetScale('textint');
-//$graph->SetScale('textint',0,max($y)+(max($y)*0.2),0,0);
-// ,0,0,0,max($y)-min($y)+5);
-// Add a drop shadow
+$graph = new Graph(310,200);    
+$graph->SetScale("textlin");
+ 
 $graph->SetShadow();
-
-
-// Label callback
-//function year_callback($aLabel) {
-//    return 1700+(int)$aLabel;
-//}
-//$graph->xaxis->SetLabelFormatCallback('year_callback');
-// $graph->SetScale('intint',0,0,0,max($year)-min($year)+1);
-
+$graph->img->SetMargin(40,30,20,40);
  
-// Adjust the margin a bit to make more room for titles
- $graph->SetMargin(50,30,30,40);
+// Create the bar plots
+$b1plot = new BarPlot($y1);
+$b1plot->SetFillColor("orange");
+$b2plot = new BarPlot($y2);
+$b2plot->SetFillColor("blue");
  
-// Create a bar pot
-$b1plot = new BarPlot($y1,$x1); 
-// Adjust fill color
-$b1plot->SetFillColor('steelblue2');
- 
- // Create a bar pot
-$b2plot = new BarPlot($y2,$x2);
-// Adjust fill color
-$b1plot->SetFillColor('red');
-
-// Setup the titles
-$graph->title->Set($descibe);
-$graph->xaxis->title->Set($xtitle);
-//$graph->xaxis->SetTickLabels($x);
-
-
-// Some extra margin looks nicer
-//$graph->xaxis->SetLabelMargin(10);
-
-$graph->yaxis->title->Set('Liczba wpisów'); 
-$graph->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
- 
-  
-// Setup the values that are displayed on top of each bar
-//$b1plot->value->Show();
- 
-// Must use TTF fonts if we want text at an arbitrary angle
-//$b1plot->value->SetFont(FF_FONT1,FS_BOLD);
-//$b1plot->value->SetAngle(0);
-//$b1plot->value->SetFormat('%d');
-
 // Create the grouped bar plot
 $gbplot = new GroupBarPlot(array($b1plot,$b2plot));
  
 // ...and add it to the graPH
 $graph->Add($gbplot);
-
-
+ 
+$graph->title->Set("Example 21");
+$graph->xaxis->title->Set("X-title");
+$graph->yaxis->title->Set("Y-title");
+ 
+$graph->title->SetFont(FF_FONT1,FS_BOLD);
+$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+ 
 // Display the graph
+$graph->Stroke();
 
-  $graph->Stroke();
    
   }
  
