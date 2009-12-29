@@ -1,153 +1,129 @@
 <?php
 
-  
+  //prepare the templates and include all neccessary
+//	require_once('./lib/common.inc.php');
 	
 	//Preprocessing
 	if ($error == false)
 	{
 require("../lib/jpgraph/src/jpgraph.php");
-require('../lib/jpgraph/src/jpgraph_bar.php');
-require('../lib/jpgraph/src/jpgraph_date.php');
-
+require("../lib/jpgraph/src/jpgraph_pie.php");
+require("../lib/jpgraph/src/jpgraph_pie3d.php");
 
   require('../lib/web.inc.php');
   sql('USE `ocpl`');
 		$year='';
+		// check for old-style parameters
 		if (isset($_REQUEST['cacheid']) && isset($_REQUEST['t']))
 		{
 			$cache_id = $_REQUEST['cacheid'];
-			$titles = $_REQUEST['t'];
-			if (strlen($titles) >3) {
-			$year = substr ($titles,-4);
-			$tit= substr($titles,0,-4);
-			}
-			else
-			{ $tit=$titles;}
+			$tit = $_REQUEST['t'];
 		}
-
 		
   $y=array();
   $x=array();
   
+  
 
-if ($tit == "csy") {
-$rsCachesFindYear1 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`) ORDER BY YEAR(`date`) ASC",$cache_id);
+if ($tit == "cs") {
+// Ustawic sprawdzanie jezyka  w cache_type.pl !!!!
+$rsCSF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=1 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
 
-//$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year`, type type FROM `cache_logs` WHERE (type=1 OR type=2) AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`), type ORDER BY YEAR(`date`) ASC",$cache_id);
-  				if ($rsCachesFindYear1 !== false) {
-				$descibe="Roczna statystyka skrzynki";
+		if (mysql_num_rows($rsCSF) != 0){
 				$xtitle="";
-				while ($rfy1 = mysql_fetch_array($rsCachesFindYear1)){
-					$y1[] = $rfy1['count'];
-					$x1[] = $rfy1['year'];}
-					}
-//					echo $y1[];
-				mysql_free_result($rsCachesFindYear1);
-$rsCachesFindYear2 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache_logs` WHERE type=2 AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`) ORDER BY YEAR(`date`) ASC",$cache_id);
+					$ry = mysql_fetch_array($rsCSF);
+					$y[] = $ry['count'];
+					$x[] = $ry['type'];
+					} else {
+					$x[] = "znaleziona";
+//					$y[] = "0";
+}
 
-//$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year`, type type FROM `cache_logs` WHERE (type=1 OR type=2) AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`), type ORDER BY YEAR(`date`) ASC",$cache_id);
-  				if ($rsCachesFindYear2 !== false) {
-				$descibe="Roczna statystyka skrzynki";
+$rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=2 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
+
+		if (mysql_num_rows($rsCSNF) != 0){
 				$xtitle="";
-				while ($rfy2 = mysql_fetch_array($rsCachesFindYear2)){
-					$y2[] = $rfy2['count'];
-					$x2[] = $rfy2['year'];}
+					$ry = mysql_fetch_array($rsCSNF);
+					$y[] = $ry['count'];
+					$x[] = $ry['type'];
+					} else {
+					$x[] = "nieznaleziona";
+//					$y[] = "0";
+				}
+				
+
+$rsCSC= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=3 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
+
+		if (mysql_num_rows($rsCSC) != 0){
+				$xtitle="";
+					$ry = mysql_fetch_array($rsCSC);
+					$y[] = $ry['count'];
+					$x[] = $ry['type'];
+					} else {
+					$x[] = "komentarze";
+	//				$y[] = "0";
 					}
-				mysql_free_result($rsCachesFindYear2);
-				
-				}
+					
+				mysql_free_result($rsCSF);
+				mysql_free_result($rsCSNF);
+				mysql_free_result($rsCSC);
+		}
 
-if ($tit == "csm") {
-				$descibe="Miesiêczna statystyka skrzynki (ostatni rok)";
-				$describe .= $year;
-				$xtitle=$year;
-			for ($i = 1; $i < 12; $i++) {
-			$month= $i;
-$rsCachesFindMonth1= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND cache_id=&1 AND YEAR(`date`)=&2 AND MONTH(`date`)=&3 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$cache_id,$year, $month);
+if ($tit == "cf") {
+$rsCachesFindYear = sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl` `type` FROM `cache_logs`, caches INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE cache_logs.`deleted`=0 AND cache_logs.cache_id=&1 AND cache_logs.`type`='1' AND cache_logs.`cache_id` = caches.cache_id  GROUP BY `caches`.`type` ORDER BY `count` DESC",$cache_id);
 
- 				if (mysql_num_rows($rsCachesFindMonth1) != 0){
-
-				$rfm = mysql_fetch_array($rsCachesFindMonth1);
-					$y1[] = $rfm['count'];
-					$x1[] = $rfm['month'];
-				}
-				else
-				{ $y1[] = $i;
-				  $x1[] = 0;
-				}
-				}
-				mysql_free_result($rsCachesFindMonth1);
-
-	for ($i = 1; $i < 12; $i++) {
-			$month= $i;
-$rsCachesFindMonth2= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=2 AND cache_logs.deleted='0' AND cache_id=&1 AND YEAR(`date`)=&2 AND MONTH(`date`)=&3 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$cache_id,$year,$month);
-
- 				if ($rsCachesFindMonth2 !== false){
-				
-				$rfm = mysql_fetch_array($rsCachesFindMonth2);
-					$y2[] = $rfm['count'];
-					$x2[] = $rfm['month'];
-				}
-				else
-				{ $y2[] = $i;
-				  $x2[] = 0;
-				}
-				}
-				mysql_free_result($rsCachesFindMonth2);
+  				if ($rsCachesFindYear !== false) {
+				$xtitle="";
+				while ($rfy = mysql_fetch_array($rsCachesFindYear)){
+					$y[] = $rfy['count'];
+					$x[] = $rfy['type'];}
+					}
+				mysql_free_result($rsCachesFindYear);
 }
 
 
-setlocale(LC_ALL, 'pl_PL.utf8');	
-$dateLocale = new DateLocale();
-// Use Swedish locale
-$dateLocale->Set('pl_PL.utf8'); 			
-// Create the graph. These two calls are always required
-$graph = new Graph(400,200);    
-$graph->SetScale("textlin");
- 
-$graph->SetShadow();
-$graph->img->SetMargin(50,30,30,55);
+				
+/// A new pie graph
+$graph = new PieGraph(400,200,"auto");
+$graph->SetScale('textint');
 
-
-
-// Create the bar plots
-$b1plot = new BarPlot($y1);
-$b1plot->SetFillColor("steelblue2");
-$b2plot = new BarPlot($y2);
-$b2plot->SetFillColor("chocolate2");
- // Set the legends for the plots
-$b1plot->SetLegend('Znalezione');
-$b2plot->SetLegend('Nie znalezione');
-// Adjust the legend position
-//$graph->legend->Pos(0.5,0.8,'right','center');
-//$graph->legend->SetPos(0.2,0.2,'center','bottom');
-$graph->legend->SetLayout(LEGEND_HOR);
-$graph->legend->Pos(0.5, 0.95, "center", "bottom");
-$graph->legend->SetLineWeight(8);
-
-// Create the grouped bar plot
-$gbplot = new GroupBarPlot(array($b1plot,$b2plot));
-//$gbplot->SetLegends($x); 
-
-// ...and add it to the graPH
-$graph->Add($gbplot);
- 
-$graph->title->Set($descibe);
-$graph->xaxis->title->Set($xtitle);
-$graph->yaxis->title->Set("Liczba wpisów w logu");
-
-//$year = $gDateLocale->GetShortMonth();
-//$graph->xaxis->SetTickLabels($year);
-
+// Title setup
+$graph->title->Set("Wg typów logów");
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
- 
-// Display the graph
-$graph->Stroke();
+//$graph ->legend->Pos( 0.25,0.8,"right" ,"bottom"); 
 
-   
-  }
+
+// Setup the pie plot
+$p1 = new PiePlot($y);
+$p1->SetTheme("earth");
+$p1->value->SetFormat("%d");
+$p1->SetLabelType(PIE_VALUE_ABS);
+$p1->SetSliceColors(array('chartreuse3','chocolate2','wheat1')); 
+
+// Adjust size and position of plot
+$p1->SetSize(0.35);
+$p1->SetCenter(0.25,0.52);
  
+// Setup slice labels and move them into the plot
+
+$p1->value->SetFont(FF_FONT1,FS_BOLD);
+$p1->value->SetColor("black");
+$p1->SetLabelPos(0.65);
+$p1->SetLegends($x);
+
+ 
+// Explode all slices
+//$p1->ExplodeAll(10);
+ 
+// Finally add the plot
+$graph->Add($p1);
+
+$graph->SetShadow();
+
+// ... and stroke it
+$graph->Stroke();
+ 
+
+  }
   
   ?>
