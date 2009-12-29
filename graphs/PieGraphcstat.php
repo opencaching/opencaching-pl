@@ -31,7 +31,7 @@ $rsCSF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` 
 					$y[] = $ry['count'];
 					$x[] = $ry['type'];
 					} else {
-					$x[] = "znaleziona";
+					$x[] = "Znaleziona";
 							}
 
 $rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=2 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
@@ -42,7 +42,8 @@ $rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type`
 					$y[] = $ry['count'];
 					$x[] = $ry['type'];
 					} else {
-					$x[] = "nieznaleziona";
+					$x[] = "Nieznaleziona";
+					$y[] = 0;
 							}	
 				
 
@@ -54,7 +55,7 @@ $rsCSC= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` 
 					$y[] = $ry['count'];
 					$x[] = $ry['type'];
 					} else {
-					$x[] = "komentarze";
+					$x[] = "Komentarz";
 					}
 					
 				mysql_free_result($rsCSF);
