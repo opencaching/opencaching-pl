@@ -91,7 +91,7 @@
 			mysql_free_result($rsGeneralStat);
 
 $year=date("Y");
-$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date) `month` FROM `cache_logs` WHERE type=1 AND user_id=&1 AND YEAR(`date`)=&2 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$user_id,$year);
+$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 AND YEAR(`date`)=&2 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$user_id,$year);
 
  				if ($rsCachesFindMonth !== false){
 	//			while ($rcfm = mysql_fetch_array($rsCachesFindYear)){
