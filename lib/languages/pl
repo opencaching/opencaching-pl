@@ -302,7 +302,7 @@ difficulty_problem Jeśli masz problem z oceną poziomów trudności, skorzystaj
 rating_system system oceny skrzynek
 additional_information Informacje dodatkowe
 optional opcjonalnie
-time_distance_hint Czas i odległość zależą często od warunków zęwnetrznych, więc jeśli nie jesteś w stanie oszacować tych danych, wpisz w powyższe pola zera. Więcej informacji znajdziesz w artykule <a href="http://wiki.opencaching.pl/index.php/Parametry_skrzynki" target="_BLANK">"czas i droga"</a>. Dane te przydatne są na przykład przy skrzynkach typu <b>multicache</b> i <b>wydarzenie</b>.
+time_distance_hint Czas i odległość zależą często od warunków zewnętrznych, więc jeśli nie jesteś w stanie oszacować tych danych, wpisz w powyższe pola zera. Więcej informacji znajdziesz w artykule <a href="http://wiki.opencaching.pl/index.php/Parametry_skrzynki" target="_BLANK">"czas i droga"</a>. Dane te przydatne są na przykład przy skrzynkach typu <b>multicache</b> i <b>wydarzenie</b>.
 select_one proszę wybrać!
 waypoint_other_portal_info Waypoint z innych baz danych dla tej skrzynki. Żadne dane nie są pobierane automatycznie.
 cache_attributes_label Atrybuty skrzynki
