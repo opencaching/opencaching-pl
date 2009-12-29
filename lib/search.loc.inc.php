@@ -26,7 +26,7 @@
 	****************************************************************************/
 
 	global $content, $bUseZip, $sqldebug, $hide_coords, $usr;
-
+	set_time_limit(1800);
 $locHead = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <loc version="1.0" src="www.opencaching.pl">' . "\n";
 	

@@ -43,7 +43,7 @@ Rekordy (kazdy 362 znaki)
 	****************************************************************************/
 //	require_once("./lib/cs2cs.inc.php");
 	require_once("./lib/wgs21992.php");
-	
+	set_time_limit(1800);
         global $content, $bUseZip, $sqldebug, $hide_coords, $usr;
 
         $uamSize[1] = 'o'; //'Other'

@@ -29,7 +29,7 @@
 setlocale(LC_TIME, 'pl_PL.UTF-8');
 
         global $content, $bUseZip, $sqldebug, $usr, $hide_coords;
-
+	set_time_limit(1800);
         $wptSize[1] = 'Inny'; //'Other'
         $wptSize[2] = 'Mikro'; //'Micro'
         $wptSize[3] = 'Mala'; //'Small'

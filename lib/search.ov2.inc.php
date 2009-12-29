@@ -26,7 +26,7 @@
 	****************************************************************************/
 
 	global $content, $bUseZip, $sqldebug, $hide_coords, $usr;
-
+	set_time_limit(1800);
 $cacheTypeText[1] = 'Unknown Cache';
 $cacheTypeText[2] = 'Traditional Cache';
 $cacheTypeText[3] = 'Multi-Cache';

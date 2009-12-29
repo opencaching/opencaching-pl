@@ -32,7 +32,7 @@
 
 	require_once($stylepath . '/lib/icons.inc.php');
 	require_once('lib/cache_icon.inc.php');
-
+	set_time_limit(1800);
 	//prepare the output
 	$tplname = 'search.result.caches';
 	$caches_per_page = 20;

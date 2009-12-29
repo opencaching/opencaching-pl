@@ -26,7 +26,7 @@
 	****************************************************************************/
 
 	global $content, $bUseZip, $sqldebug, $hide_coords, $usr;
-
+	set_time_limit(1800);
 	$txtLine = "Nazwa: {cachename} przez {owner}
 Wspolrzedne: {lon} {lat}
 Status: {status}
