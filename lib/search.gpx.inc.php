@@ -28,7 +28,7 @@
 	global $content, $bUseZip, $sqldebug, $usr, $hide_coords;
 //	require_once ('util/html2text.php');
 	require_once ('lib/common.inc.php');
-
+	set_time_limit(1800);
 
 	function getPictures($cacheid, $picturescount)
 	{

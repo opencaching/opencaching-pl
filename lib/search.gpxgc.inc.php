@@ -26,7 +26,8 @@
 	****************************************************************************/
 
 	global $content, $bUseZip, $sqldebug, $usr, $hide_coords;
-
+	set_time_limit(1800);
+	
 	function getPictures($cacheid, $picturescount)
 	{
 		global $dblink;
