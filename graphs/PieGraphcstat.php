@@ -42,9 +42,7 @@ $rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type`
 					$y[] = $ry['count'];
 					$x[] = $ry['type'];
 					} else {
-					$rs=sql("SELECT pl type FROM log_types WHERE id=2");
-					$r = mysql_fetch_array($rs);
-					$x[] = $r['type'];
+					$x[] = ['Nieznaleziona'];
 							}	
 				
 
@@ -63,7 +61,7 @@ $rsCSC= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` 
 				mysql_free_result($rsCSNF);
 				mysql_free_result($rsCSC);
 
-				
+
 /// A new pie graph
 $graph = new PieGraph(400,200,"auto");
 $graph->SetScale('textint');
