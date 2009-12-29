@@ -148,8 +148,8 @@
 
 			$rsms=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%Y-%m-%d') data FROM caches WHERE status <>4 AND status <>5 AND status <> 6 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC",$user_id);
 			$rms = mysql_fetch_array($rsms);
-			if (mysql_num_rows($rsms) <= 100) {
-			for ($i = 0; $i < mysql_num_rows($rsms); $i+=10)
+			if (mysql_num_rows($rsms) < 101) {
+			for ($i = 0; $i <= mysql_num_rows($rsms); $i+=10)
 				{		
 				$ii=$i;
 				$is=$i-1;
@@ -348,7 +348,7 @@
 			$content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b> Milestones "kamienie milowe"</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 			$rsms=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date ASC",$user_id);
 			if (mysql_num_rows($rsms) < 101) {
-			for ($i = 0; $i < mysql_num_rows($rsms); $i+=10)
+			for ($i = 0; $i <= mysql_num_rows($rsms); $i+=10)
 				{		
 				$ii=$i;
 				$is=$i-1;
