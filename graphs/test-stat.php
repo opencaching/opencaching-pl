@@ -127,8 +127,8 @@ $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->yaxis->title->Set("Liczba wpisów w logu");
 
-$year = $gDateLocale->GetShortMonth();
-$graph->xaxis->SetTickLabels($year);
+//$year = $gDateLocale->GetShortMonth();
+//$graph->xaxis->SetTickLabels($year);
 
 
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
