@@ -389,6 +389,7 @@
 			$thisline = str_replace('{logs}', $logentries, $thisline);
 
 			append_output($thisline);
+			ob_flush();
 		}
 		mysql_free_result($rs);
 		
