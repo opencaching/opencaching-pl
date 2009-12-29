@@ -14,6 +14,22 @@
 	{
 		switch($zoom)
 		{
+			case 6:
+				return 0.0008000;
+			case 7:
+				return 0.0004500;
+			case 8:
+				return 0.0002800;
+			case 9:
+				return 0.0001400;
+			case 10:
+				return 0.0000700;
+			case 11:
+				return 0.0000440;
+			case 12:
+				return 0.0000240;
+			case 13:
+				return 0.0000120;
 			case 14:
 				return 0.0000096;
 			case 15:
@@ -35,6 +51,22 @@
 	{
 		switch($zoom)
 		{
+			case 6:
+				return -0.06000;
+			case 7:
+				return -0.04800;
+			case 8:
+				return -0.02400;
+			case 9:
+				return -0.01200;
+			case 10:
+				return -0.00600;
+			case 11:
+				return -0.00380;
+			case 12:
+				return -0.00250;
+			case 13:
+				return -0.00140;
 			case 14:
 				return -0.00080;
 			case 15:
