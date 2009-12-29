@@ -45,15 +45,23 @@ $rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FR
 
 
 if ($tit == "ccm") {
-$rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE status <>4 AND status <> 5 AND status <> 6 AND user_id=&1 AND YEAR(`date_created`)=&2 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year);
+	for ($i = 1; $i < 13; $i++) 
+			{
+			$month= $i;
+$rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE status <>4 AND status <> 5 AND status <> 6 AND user_id=&1 AND YEAR(`date_created`)=&2 AND MONTH(`date_created`)=&3 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year,$month);
 
  				if ($rsCreateCachesMonth !== false) {
-				$descibe = "Miesieczna statystyka za³o¿onych skrzynek";
+				$descibe = "Miesieczna statystyka za³o¿onych skrzynek (ostatni rok)";
 				$xtitle=$year;
-				while ($rm = mysql_fetch_array($rsCreateCachesMonth)){
+				$rm = mysql_fetch_array($rsCreateCachesMonth);
 					$y[] = $rm['count'];
-					$x[] = $rm['month'];}
-					}
+					$x[] = $rm['month'];
+				}
+				else
+				{ $y1[] = $i;
+				  $x1[] = 0;
+				}
+			}
 
  mysql_free_result($rsCreateCachesMonth);
 				
@@ -73,17 +81,25 @@ $rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache
 }
 
 if ($tit == "cfm") {
-$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 AND YEAR(`date`)=&2 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$user_id,$year);
+	for ($i = 1; $i < 13; $i++) 
+			{
+			$month= $i;
+$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 AND YEAR(`date`)=&2 AND MONTH(`date`)=&3 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$user_id,$year,$month);
 
  				if ($rsCachesFindMonth !== false){
-				$descibe="Miesieczna statystyka znalezionych skrzynek";
-				$describe .= $year;
+				$descibe="Miesieczna statystyka znalezionych skrzynek (ostatni rok)";
 				$xtitle=$year;
 
-				while ($rfm = mysql_fetch_array($rsCachesFindMonth)){
+				$rfm = mysql_fetch_array($rsCachesFindMonth);
 					$y[] = $rfm['count'];
-					$x[] = $rfm['month'];}
+					$x[] = $rfm['month'];
 				}
+				else
+				{ $y1[] = $i;
+				  $x1[] = 0;
+				}
+			}
+
 				mysql_free_result($rsCachesFindMonth);
 }
 

@@ -89,7 +89,20 @@
 				$content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&t=cf"  border="0" alt="" /></p>';	
 		
 			mysql_free_result($rsGeneralStat);
-	$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `cache_logs` WHERE type=1 AND user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
+
+$year=date("Y");
+$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date) `month` FROM `cache_logs` WHERE type=1 AND user_id=&1 AND YEAR(`date`)=&2 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$user_id,$year);
+
+ 				if ($rsCachesFindMonth !== false){
+	//			while ($rcfm = mysql_fetch_array($rsCachesFindYear)){
+
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfm' . $year . '"  border="0" alt="" /></p>';					
+//			}
+		}
+				mysql_free_result($rsCachesFindMonth);
+
+
+			$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `cache_logs` WHERE type=1 AND user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
   				if ($rsCachesFindYear !== false) {
 
@@ -98,15 +111,6 @@
 			}
 
 
-$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` , MONTH(`date_created`) `month` FROM `cache_logs` WHERE type=1 AND user_id=&1 GROUP BY MONTH(`date_created`) , YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id);
-
- 				if ($rsCachesFindMonth !== false){
-				while ($rcfm = mysql_fetch_array($rsCachesFindYear)){
-
-		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfm' . $rcfm['year'] . '"  border="0" alt="" /></p>';					
-			}
-		}
-				mysql_free_result($rsCachesFindMonth);
 
 
 			mysql_free_result($rsCachesFindYear);
