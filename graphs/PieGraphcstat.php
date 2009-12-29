@@ -43,6 +43,7 @@ $rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type`
 					$x[] = $ry['type'];
 					} else {
 					$x[] = "Nieznaleziona";
+					$y[] = '0';
 							}	
 				
 
@@ -84,11 +85,11 @@ $p1->SetSize(0.35);
 $p1->SetCenter(0.25,0.52);
  
 // Setup slice labels and move them into the plot
-
+$xx= array("Znaleziona","Nieznaleziona","Komenatrz");
 $p1->value->SetFont(FF_FONT1,FS_BOLD);
 $p1->value->SetColor("black");
 $p1->SetLabelPos(0.65);
-$p1->SetLegends($x);
+$p1->SetLegends($xx);
 
  
 // Explode all slices
