@@ -23,7 +23,7 @@
 		}		
 		if($_GET['is_active_flag'] == 1 && $usr['admin'] )
 		{
-			$sql = "UPDATE user SET is_active_flag = 1 - is_active_flag WHERE user_id = ".intval($user_id);
+			$sql = "UPDATE user SET is_active_flag = 1 - is_active_flag, `activation_code`='' WHERE user_id = ".intval($user_id);
 			mysql_query($sql);
 		}	
 			
@@ -83,14 +83,7 @@
 					} else {
 						tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;hide_flag=1"><font color="#ff0000">'.tr('Usuń możliwość zakładania skrzynek dla użytkownika').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" /></p>');
 					}
-	
-//				} else {
-//					tpl_set_var('hide_flag', '');
-//				}
-//	
-//			} else {
-//				tpl_set_var('hide_flag', '');
-//			}
+	;
 					
 					
 					
