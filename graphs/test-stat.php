@@ -1,5 +1,5 @@
 <?php
-setlocale(LC_TIME, 'pl_PL.utf-8');
+
   
 	
 	//Preprocessing
@@ -58,31 +58,57 @@ $rsCachesFindYear2 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cach
 				}
 
 if ($tit == "csm") {
-$rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND cache_id=&1 AND YEAR(`date`)=&2 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$cache_id,$year);
-
- 				if ($rsCachesFindMonth !== false){
 				$descibe="Miesiêczna statystyka skrzynki (ostatni rok)";
 				$describe .= $year;
 				$xtitle=$year;
+			for ($i = 1; $i < 12; $i++) {
+			$month= $i;
+$rsCachesFindMonth1= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND cache_id=&1 AND YEAR(`date`)=&2 AND MONTH(`date`)=&3 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$cache_id,$year, $month);
 
-				while ($rfm = mysql_fetch_array($rsCachesFindMonth)){
-					$y[] = $rfm['count'];
-					$x[] = $rfm['month'];}
+ 				if (mysql_num_rows($rsCachesFindMonth1) != 0){
+
+				$rfm = mysql_fetch_array($rsCachesFindMonth1);
+					$y1[] = $rfm['count'];
+					$x1[] = $rfm['month'];
 				}
-				mysql_free_result($rsCachesFindMonth);
+				else
+				{ $y1[] = $i;
+				  $x1[] = 0;
+				}
+				}
+				mysql_free_result($rsCachesFindMonth1);
+
+	for ($i = 1; $i < 12; $i++) {
+			$month= $i;
+$rsCachesFindMonth2= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=2 AND cache_logs.deleted='0' AND cache_id=&1 AND YEAR(`date`)=&2 AND MONTH(`date`)=&3 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$cache_id,$year,$month);
+
+ 				if ($rsCachesFindMonth2 !== false){
+				
+				$rfm = mysql_fetch_array($rsCachesFindMonth2);
+					$y2[] = $rfm['count'];
+					$x2[] = $rfm['month'];
+				}
+				else
+				{ $y2[] = $i;
+				  $x2[] = 0;
+				}
+				}
+				mysql_free_result($rsCachesFindMonth2);
 }
 
 
-				
+setlocale(LC_ALL, 'pl_PL.utf8');	
+$dateLocale = new DateLocale();
+// Use Swedish locale
+$dateLocale->Set('pl_PL.utf8'); 			
 // Create the graph. These two calls are always required
 $graph = new Graph(400,200);    
-$graph->SetScale("datlin");
+$graph->SetScale("textlin");
  
 $graph->SetShadow();
 $graph->img->SetMargin(50,30,30,40);
 
-$year = $gDateLocale->GetShortMonth();
-$graph->xaxis->SetTickLabels($year);
+
 
 // Create the bar plots
 $b1plot = new BarPlot($y1);
@@ -92,14 +118,19 @@ $b2plot->SetFillColor("chocolate2");
  
 // Create the grouped bar plot
 $gbplot = new GroupBarPlot(array($b1plot,$b2plot));
- 
+//$gbplot->SetLegends($x); 
+
 // ...and add it to the graPH
 $graph->Add($gbplot);
  
 $graph->title->Set($descibe);
-$graph->xaxis->title->Set("");
+$graph->xaxis->title->Set($xtitle);
 $graph->yaxis->title->Set("Liczba wpisów w logu");
- 
+
+$year = $gDateLocale->GetShortMonth();
+$graph->xaxis->SetTickLabels($year);
+
+
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
