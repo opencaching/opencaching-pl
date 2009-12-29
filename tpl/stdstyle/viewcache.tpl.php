@@ -209,7 +209,7 @@ else
 				</p>
 			</div>
 					<div class="content2-container">
-					<p>   
+					<p id="decrypt-hints">   
 							{hints}
 					</p>  
 
