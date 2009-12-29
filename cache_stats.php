@@ -36,11 +36,11 @@
 	$content="";
 	$cachename=sqlValue("SELECT name FROM caches WHERE `cache_id`=$cache_id", 0);
 	tpl_set_var('cachename',$cachename);
-	$rsGeneralStat =sql("SELECT count(*) count FROM `cache_logs` WHERE cache_logs.deleted=0 AND type=1 AND cache_id=&1 ",$cache_id);
+	$rsGeneralStat =sql("SELECT count(*) count FROM `cache_logs` WHERE cache_logs.deleted=0 AND (type=1 OR type=2) AND cache_id=&1 ",$cache_id);
 
 			$cache_record = sql_fetch_array($rsGeneralStat);	
 		if ($cache_record['count'] == 0) {
-			$content .= '<p>&nbsp;</p><p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 80%;"> <b>Ta skrzynka:<br /> ' .$cachename . '<br /> nie była jeszcze znaleziona</b></p>';
+			$content .= '<p>&nbsp;</p><p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 80%;"> <b>Ta skrzynka:<br /> ' .$cachename . '<br /> nie ma jeszcze statystki</b></p>';
 						  }
 						  else 
 						  {
@@ -50,7 +50,7 @@
 
 		$year=date("Y");
 
-		$content .= '<p><img src="graphs/BarGraphcstat.php?cacheid=' . $cache_id . '&t=csm' . $year . '"  border="0" alt="" /></p>';								
+		$content .= '<p><img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&t=csm' . $year . '"  border="0" alt="" /></p>';								
 		
 		$content .= '<p><img src="graphs/BarGraphcstat.php?cacheid=' . $cache_id . '&t=csy"  border="0" alt="" /></p></center>';					
 			mysql_free_result($rsGeneralStat);

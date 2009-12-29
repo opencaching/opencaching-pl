@@ -61,12 +61,12 @@ if ($tit == "csm") {
 				$descibe="Miesiêczna statystyka skrzynki (ostatni rok)";
 				$describe .= $year;
 				$xtitle=$year;
-			for ($i = 1; $i < 12; $i++) {
+	for ($i = 1; $i < 12; $i++) {
 			$month= $i;
 $rsCachesFindMonth1= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND cache_id=&1 AND YEAR(`date`)=&2 AND MONTH(`date`)=&3 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$cache_id,$year, $month);
 
- 				if (mysql_num_rows($rsCachesFindMonth1) != 0){
-
+ //				if (mysql_num_rows($rsCachesFindMonth1) != 0){
+ 				if ($rsCachesFindMonth1 !== false){
 				$rfm = mysql_fetch_array($rsCachesFindMonth1);
 					$y1[] = $rfm['count'];
 					$x1[] = $rfm['month'];
