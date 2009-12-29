@@ -200,10 +200,12 @@ else
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" />
 					<b>{{additional_hints}}</b>&nbsp;&nbsp;
+					<span id="decrypt-info">
 					{decrypt_link_start}
 					<img src="tpl/stdstyle/images/blue/decrypt.png" class="icon32" alt="" />
 					{decrypt_link}
 					{decrypt_link_end}
+					</span>
 					<br/>
 
 				</p>

@@ -61,7 +61,7 @@
 
 $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;target=viewcache.php%3Fcacheid%3D{cacheid}'>".tr('ignore_not')."</a></li>";
 
- $decrypt_link = '<span style="font-weight:400"><a href="viewcache.php?cacheid={cacheid_urlencode}&amp;nocrypt=1&amp;desclang={desclang}'.  $linkargs.'">'.tr('decrypt').'</a></span>';
+ $decrypt_link = '<span style="font-weight:400"><a href="viewcache.php?cacheid={cacheid_urlencode}&amp;nocrypt=1&amp;desclang={desclang}'.  $linkargs.'" onclick="decrypt(document.getElementById(\'decrypt-hints\')); document.getElementById(\'decrypt-info\').style.display = \'none\'; return false;">'.tr('decrypt').'</a></span>';
 
 //  $logtype_found = 'den Cache gefunden';
 //  $logtype_notfound = 'den Cache nicht gefunden';

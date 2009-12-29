@@ -1082,6 +1082,10 @@
 
 	//make the template and send it out
 
+$decrypt_script = '
+<script type="text/javascript">
+	var last="";var rot13map;function decryptinit(){var a=new Array();var s="abcdefghijklmnopqrstuvwxyz";for(i=0;i<s.length;i++)a[s.charAt(i)]=s.charAt((i+13)%26);for(i=0;i<s.length;i++)a[s.charAt(i).toUpperCase()]=s.charAt((i+13)%26).toUpperCase();return a}function decrypt(elem){var a = elem.firstChild.data; if(!rot13map)rot13map=decryptinit();s="";for(i=0;i<a.length;i++){var b=a.charAt(i);s+=(b>=\'A\'&&b<=\'Z\'||b>=\'a\'&&b<=\'z\'?rot13map[b]:b)}elem.firstChild.data = s}
+</script>';
 
 $viewcache_header = '
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
@@ -1089,6 +1093,8 @@ $viewcache_header = '
     <script type="text/javascript">
 
     google.load("language", "1");
+
+
 
     function translateDesc() 
 		{
@@ -1210,13 +1216,13 @@ $viewcache_header = '
 if( !$enable_google_translation )
 {
 	tpl_set_var('branding', "");
-	tpl_set_var('viewcache_header', "");
+	tpl_set_var('viewcache_header', $decrypt_script);
 
 }
 else
 {
 	tpl_set_var('branding', "<span class='txt-green07'>Automatic translation thanks to:</span>");
-	tpl_set_var('viewcache_header', $viewcache_header);
+	tpl_set_var('viewcache_header', $viewcache_header.$decrypt_script);
 }
 
 tpl_set_var('bodyMod', '');
