@@ -122,7 +122,7 @@ $b2plot->SetLegend('Nie znalezione');
 //$graph->legend->Pos(0.5,0.8,'right','center');
 //$graph->legend->SetPos(0.2,0.2,'center','bottom');
 $graph->legend->SetLayout(LEGEND_HOR);
-$graph->legend->Pos(0.5, 0.95, "center", "bottom");
+$graph->legend->Pos(0.5, 0.94, "center", "bottom");
 $graph->legend->SetLineWeight(8);
 
 // Create the grouped bar plot
