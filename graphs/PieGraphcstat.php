@@ -12,43 +12,55 @@ require("../lib/jpgraph/src/jpgraph_pie3d.php");
 
   require('../lib/web.inc.php');
   sql('USE `ocpl`');
-		$year='';
+
 		// check for old-style parameters
-		if (isset($_REQUEST['cacheid']) && isset($_REQUEST['t']))
+		if (isset($_REQUEST['cacheid']))
 		{
 			$cache_id = $_REQUEST['cacheid'];
-			$tit = $_REQUEST['t'];
 		}
 		
   $y=array();
   $x=array();
   
-  
-
-if ($tit == "cs") {
 // Ustawic sprawdzanie jezyka  w cache_type.pl !!!!
-$rsCreateCachesYear= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
+$rsCSF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=1 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
 
-				if ($rsCreateCachesYear !== false){
+		if (mysql_num_rows($rsCSF) != 0){
 				$xtitle="";
-					while ($ry = mysql_fetch_array($rsCreateCachesYear)){
+					$ry = mysql_fetch_array($rsCSF);
 					$y[] = $ry['count'];
-					$x[] = $ry['type'];}
-					}
-				mysql_free_result($rsCreateCachesYear);
-		}
-
-if ($tit == "cf") {
-$rsCachesFindYear = sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl` `type` FROM `cache_logs`, caches INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE cache_logs.`deleted`=0 AND cache_logs.cache_id=&1 AND cache_logs.`type`='1' AND cache_logs.`cache_id` = caches.cache_id  GROUP BY `caches`.`type` ORDER BY `count` DESC",$cache_id);
-
-  				if ($rsCachesFindYear !== false) {
-				$xtitle="";
-				while ($rfy = mysql_fetch_array($rsCachesFindYear)){
-					$y[] = $rfy['count'];
-					$x[] = $rfy['type'];}
-					}
-				mysql_free_result($rsCachesFindYear);
+					$x[] = $ry['type'];
+					} else {
+					$x[] = "znaleziona";
 }
+
+$rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=2 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
+
+		if (mysql_num_rows($rsCSNF) != 0){
+				$xtitle="";
+					$ry = mysql_fetch_array($rsCSNF);
+					$y[] = $ry['count'];
+					$x[] = $ry['type'];
+					} else {
+					$x[] = "nieznaleziona";
+				}
+				
+
+$rsCSC= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=3 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
+
+		if (mysql_num_rows($rsCSC) != 0){
+				$xtitle="";
+					$ry = mysql_fetch_array($rsCSC);
+					$y[] = $ry['count'];
+					$x[] = $ry['type'];
+					} else {
+					$x[] = "komentarze";
+					}
+					
+				mysql_free_result($rsCSF);
+				mysql_free_result($rsCSNF);
+				mysql_free_result($rsCSC);
+		}
 
 
 				
@@ -67,7 +79,7 @@ $p1 = new PiePlot($y);
 $p1->SetTheme("earth");
 $p1->value->SetFormat("%d");
 $p1->SetLabelType(PIE_VALUE_ABS);
-$p1->SetSliceColors(array('wheat1','chocolate2','chartreuse3')); 
+$p1->SetSliceColors(array('chartreuse3','chocolate2','wheat1')); 
 
 // Adjust size and position of plot
 $p1->SetSize(0.35);

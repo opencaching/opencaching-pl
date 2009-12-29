@@ -112,7 +112,7 @@ $graph->img->SetMargin(50,30,30,55);
 
 // Create the bar plots
 $b1plot = new BarPlot($y1);
-$b1plot->SetFillColor("steelblue2");
+$b1plot->SetFillColor("chartreuse3");
 $b2plot = new BarPlot($y2);
 $b2plot->SetFillColor("chocolate2");
  // Set the legends for the plots

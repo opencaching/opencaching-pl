@@ -46,7 +46,7 @@
 						  {
 
 			$content .='<p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 80%;"><img src="tpl/stdstyle/images/blue/cache.png" align="middle" alt="" title="Caches" />Statystyka dla skrzynki: ' . $cachename . '</p></div><br />';	
-				$content .= '<center><p><img src="graphs/PieGraphcstat.php?cacheid=' . $cache_id . '&t=cs"  border="0" alt="" /></p>';	
+				$content .= '<center><p><img src="graphs/PieGraphcstat.php?cacheid=' . $cache_id . '"  border="0" alt="" /></p>';	
 
 		$year=date("Y");
 

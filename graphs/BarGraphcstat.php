@@ -83,7 +83,7 @@ $graph->SetShadow();
 $bplot = new BarPlot($y);
  
 // Adjust fill color
-$bplot->SetFillColor('steelblue2');
+$bplot->SetFillColor('chartreuse3');
 $graph->Add($bplot);
  
  
