@@ -207,6 +207,7 @@ $cacheTypeText[10] = 'Unknown Cache';
 			$record = pack("CLllA*x", 2, 1 + 4 + 4 + 4 + strlen($line) + 1, (int)$lon, (int)$lat, $line);
 			
 			append_output($record);
+			ob_flush();
 		}
 		mysql_free_result($rs);
 		

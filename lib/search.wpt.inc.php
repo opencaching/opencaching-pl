@@ -254,6 +254,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 						$record  = "-1,$name,$lat,$lon,,117,1,4,0,$kolor,$line,0,0,0, -777,8,0,17,0,10.0,2,$attach,,\r\n";
 						
 						append_output($record);
+						ob_flush();
 					}
 					mysql_free_result($rs);
 

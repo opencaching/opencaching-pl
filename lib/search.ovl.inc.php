@@ -196,6 +196,7 @@
 			$thisline = mb_ereg_replace('{symbolnr2}', $nr + 1, $thisline);
 
 			append_output($thisline);
+			ob_flush();
 			$nr += 2;
 		}
 		mysql_free_result($rs);

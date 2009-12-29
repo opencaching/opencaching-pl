@@ -294,6 +294,7 @@
 			$thisline = str_replace('{cacheid}', xmlentities($r['cacheid']), $thisline);
 
 			append_output($thisline);
+			ob_flush();
 		}
 		mysql_free_result($rs);
 		

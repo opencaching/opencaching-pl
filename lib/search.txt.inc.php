@@ -287,6 +287,7 @@ LOGi:
 			{
 				$phpzip->add_data($r['waypoint'] . '.txt', $thisline);
 			}
+			ob_flush();
 		}
 		mysql_free_result($rs);
 		

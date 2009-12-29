@@ -241,6 +241,7 @@ $cacheTypeText[10] = 'Unknown Cache';
 			$thisline = mb_ereg_replace('{cacheid}', $r['cacheid'], $thisline);
 
 			append_output($thisline);
+			ob_flush();
 		}
 		mysql_free_result($rs);
 		

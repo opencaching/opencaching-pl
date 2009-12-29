@@ -232,6 +232,7 @@ Rekordy (kazdy 362 znaki)
 			$record  = pack("llca64a255cca32",$x,$y,2,$poiname,$descr,1,99,'Geocaching');
 			
 									append_output($record);
+									ob_flush();
 					}
 					mysql_free_result($rs);
 
