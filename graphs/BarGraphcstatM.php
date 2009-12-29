@@ -116,8 +116,8 @@ $b1plot->SetFillColor("chartreuse3");
 $b2plot = new BarPlot($y2);
 $b2plot->SetFillColor("chocolate2");
  // Set the legends for the plots
-$b1plot->SetLegend('Znalezione');
-$b2plot->SetLegend('Nie znalezione');
+$b1plot->SetLegend('znaleziona');
+$b2plot->SetLegend('nieznaleziona');
 // Adjust the legend position
 //$graph->legend->Pos(0.5,0.8,'right','center');
 //$graph->legend->SetPos(0.2,0.2,'center','bottom');
