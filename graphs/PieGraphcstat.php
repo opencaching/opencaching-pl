@@ -42,8 +42,9 @@ $rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type`
 					$y[] = $ry['count'];
 					$x[] = $ry['type'];
 					} else {
-					$x[] = "Nieznaleziona";
-					$y[] = 0;
+					$rs=sql(Select pl type FROM log_types WHERE id=2);
+					$r = mysql_fetch_array($rs);
+					$x[] = $r['type'];
 							}	
 				
 
