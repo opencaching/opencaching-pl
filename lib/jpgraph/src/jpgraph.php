@@ -348,7 +348,7 @@ class JpgTimer {
 //===================================================
 class DateLocale {
 
-    public $iLocale = 'pl_PL.utf8'; // environmental locale be used by default
+    public $iLocale = 'C'; // environmental locale be used by default
     private $iDayAbb = null, $iShortDay = null, $iShortMonth = null, $iMonthName = null;
 
     function __construct() {
