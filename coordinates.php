@@ -36,8 +36,8 @@
 //phpinfo();
 //die();
 	require($stylepath . '/coordinates.inc.php');
-	require_once("./lib/cs2cs.inc.php");
-//	require_once("./lib/tm_ll_lib.php");
+	//require_once("./lib/cs2cs.inc.php");
+	require_once("./lib/tm_ll_lib.php");
 
 	$lat_float = 0;
 	if (isset($_REQUEST['lat']))
