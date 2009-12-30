@@ -10,5 +10,3 @@
 ?>
 <!-- 	CONTENT -->
 {content}
-
-
