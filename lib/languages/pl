@@ -319,7 +319,7 @@ time_incorrect Podany czas jest niepoprawny
 distance_incorrect Podano odległość w niepoprawnym formacie. Prawidłowy format: aa.aaa
 date_incorrect Data ma niepoprawny format. Prawidłowy format: DD-MM-RRRR
 no_cache_name Brak nazwy skrzynki
-new_cache_no_terms Skrzynka nie została zarejstrowana, gdyż nie zaznaczyłeś, że zapoznałeś się i akceptujesz regulamin serwisu Opencaching PL.
+new_cache_no_terms Skrzynka nie została zarejestrowana, gdyż nie zaznaczyłeś, że zapoznałeś się i akceptujesz regulamin serwisu Opencaching PL.
 html_incorrect Ten kod HTML jest niedozwolony.
 type_incorrect Brak typu skrzynki!
 size_incorrect Brak wielkości skrzynki!
@@ -412,7 +412,7 @@ number_of_active_users Liczba aktywnych użytkowników
 number_of_founds Liczba odkryć skrzynek
 latest_news Aktualności
 what_do_you_find Witamy na Opencaching.pl
-what_do_you_find_intro Na tej stronie znajdziesz wszystko, co dotyczy geocachingu w Polsce - począwszy od <b><a href="http://wiki.opencaching.pl">ABC Geocachingu</a></b> do forum, gdzie możesz prowadzić dyskusje z innymi geocacherami. <b>Opencaching.pl</b> wystartował w <span class="content-title-noshade">maju 2006 roku</span>. Nasza baza skrzynek pracuje na projekcie opensource <b> Opencaching </b>.
+what_do_you_find_intro Geocaching to gra terenowa użytkowników GPS polegająca na poszukiwaniu "skarbów" ukrytych przez jej innych uczestników. Poszukiwane skarby, tzw. skrzynki to odpowiednio zabezpieczone, wodoszczelne pojemniki zawierające drobne upominki oraz dziennik, w którym kolejni znalazcy odnotowują swoje odkrycia. Na tej stronie znajdziesz wszystko, co dotyczy geocachingu w Polsce - począwszy od <b><a href="http://wiki.opencaching.pl">ABC Geocachingu</a></b> do forum, gdzie możesz prowadzić dyskusje z innymi geocacherami. <b>Opencaching.pl</b> wystartował w <span class="content-title-noshade">maju 2006 roku</span>. Nasza baza skrzynek pracuje na projekcie opensource <b> Opencaching </b>.
 more_news więcej nowości
 filename_rules http://wiki.opencaching.pl/index.php/Regulamin_OC_PL
 filename_describe_cache http://wiki.opencaching.pl/index.php/Parametry_skrzynki

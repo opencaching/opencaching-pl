@@ -117,16 +117,6 @@ function chname( newName )
 		  </div>
     </div>
     <!-- Header banner	 -->	 						    		 						
-<?php
-/*	
-// edit by trojmiasto: header pics will be recreated by make_logo.php script called by cron every 5 minutes.
-	$myrandnum = array(); 
-	for ($i=0;$i<5;$i++) { 
-	 $mynum = rand(1,13); 
-	 if (!in_array($mynum,$myrandnum)) $myrandnum[] = $mynum; 
-	 else $i--; 
-		}*/
-?>	
 		<div class="header">
 		<div style="width:970px; padding-top:1px;"><img src="./images/header/logo.jpg" alt="" style="border:0px;" />
 		</div>
