@@ -1,13 +1,13 @@
 <?php
-
-/**************************************************************
-
- Statictics of users OC PL 
- Graphs statictics created caches by users
-
-
-*/
-
+/***************************************************************************
+	*                                         				                                
+	*   This program is free software; you can redistribute it and/or modify  	
+	*   it under the terms of the GNU General Public License as published by  
+	*   the Free Software Foundation; either version 2 of the License, or	    	
+	*   (at your option) any later version.
+	*   
+	*  UTF-8 ąść
+	***************************************************************************/
 
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
@@ -40,12 +40,12 @@
 
 			$cache_record = sql_fetch_array($rsGeneralStat);	
 		if ($cache_record['count'] == 0) {
-			$content .= '<p>&nbsp;</p><p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 80%;"> <b>Ta skrzynka:<br /> ' .$cachename . '<br /> nie ma jeszcze statystyki</b></p>';
+			$content .= '<p>&nbsp;</p><p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 110%;"> <b>Ta skrzynka:<br /> <br />' .$cachename . '<br /> <br />nie ma jeszcze statystyki</b></p>';
 						  }
 						  else 
 						  {
 
-		$content .='<p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 100%;"><img src="tpl/stdstyle/images/blue/cache.png" align="middle" alt="" title="Caches" />Statystyka dla skrzynki: ' . $cachename . '</p></div><br />';	
+		$content .='<p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 100%;"><img src="tpl/stdstyle/images/blue/cache.png" align="middle" alt="" title="Caches" />Statystyka dla skrzynki: ' . $cachename . '</p></div>';	
 		$content .= '<center><p><img src="graphs/PieGraphcstat.php?cacheid=' . $cache_id . '"  border="0" alt="" /></p>';	
 
 		$year=date("Y");
