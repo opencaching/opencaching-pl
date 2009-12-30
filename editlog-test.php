@@ -530,7 +530,7 @@
 					// TinyMCE
 					$headers = tpl_get_var('htmlheaders') . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
-					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce_gzip.php"></script>' . "\n";
+					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
 					tpl_set_var('htmlheaders', $headers);
 
