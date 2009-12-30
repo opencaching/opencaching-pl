@@ -112,7 +112,7 @@ function toogleLayer( whichLayer, val )
 }
 //-->
 </script>
-<form action="editlog.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" dir="ltr">
+<form action="editlog-test.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" dir="ltr">
 <input type="hidden" name="logid" value="{logid}"/>
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
