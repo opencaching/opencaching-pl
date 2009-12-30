@@ -123,6 +123,7 @@
 				
 				$log_text  = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
 				$log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
+				$log_date_min = isset($_POST['logmin']) ? ($_POST['logmin']+0) : date('i');
 				$log_date_hour = isset($_POST['loghour']) ? ($_POST['loghour']+0) : date('H');
 				$log_date_day = isset($_POST['logday']) ? ($_POST['logday']+0) : date('d');
 				$log_date_month = isset($_POST['logmonth']) ? ($_POST['logmonth']+0) : date('m');
@@ -286,14 +287,14 @@
 				}
 
 				//validate data
-				if (is_numeric($log_date_month) && is_numeric($log_date_day) && is_numeric($log_date_year) && is_numeric($log_date_hour))
+				if (is_numeric($log_date_month) && is_numeric($log_date_day) && is_numeric($log_date_year) && is_numeric($log_date_hour)&& is_numeric($log_date_min))
 				{
-					$date_not_ok = (checkdate($log_date_month, $log_date_day, $log_date_year) == false || $log_date_hour < 0 || $log_date_hour > 23);
+					$date_not_ok = (checkdate($log_date_month, $log_date_day, $log_date_year) == false || $log_date_hour < 0 || $log_date_hour > 23 || $log_date_min < 0 || $log_date_min > 60);
 					if($date_not_ok == false)
 					{
 						if (isset($_POST['submitform']))
 						{
-							if(mktime(0, 0, 0, 0, log_date_hour, $log_date_month, $log_date_day, $log_date_year)>=mktime())
+							if(mktime(0, 0, 0, 0, 0, $log_date_min, $log_date_hour, $log_date_month, $log_date_day, $log_date_year)>=mktime())
 							{
 								$date_not_ok = true;
 							}
@@ -415,7 +416,7 @@
 						// nie wybrano opcji oceny
 						
 					}
-					$log_date = date('Y-m-d H', mktime(0, 0, 0, 0, log_date_hour, $log_date_month, $log_date_day, $log_date_year));
+					$log_date = date('Y-m-d H', mktime(0, 0, 0, 0, $log_date_min,$log_date_hour, $log_date_month, $log_date_day, $log_date_year));
 
 					$log_uuid = create_uuid();
 					//add logentry to db
@@ -436,14 +437,14 @@
 						{
 							$tmpset_var = '`founds`=\'' . ($record['founds'] + 1) . '\'';
 
-							$dlog_date = mktime(0, 0, 0, $log_date_month, $log_date_day, $log_date_year);
+							$dlog_date = mktime(0, 0, 0, 0, $log_date_min,$log_date_hour,  $log_date_month, $log_date_day, $log_date_year);
 							if ($record['last_found'] == NULL)
 							{
-								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H', $dlog_date)) . '\'';
+								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i', $dlog_date)) . '\'';
 							}
 							elseif (strtotime($record['last_found']) < $dlog_date)
 							{
-								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H', $dlog_date)) . '\'';
+								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i', $dlog_date)) . '\'';
 							}
 						}
 						elseif ($log_type == 2 || $log_type == 8) // fuer Events wird not found als will attend Zaehler missbraucht
@@ -566,6 +567,7 @@
 					//set tpl vars
 					tpl_set_var('cachename', htmlspecialchars($cachename, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
+					tpl_set_var('logmin', htmlspecialchars($log_date_min, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('loghour', htmlspecialchars($log_date_hour, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logday', htmlspecialchars($log_date_day, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logmonth', htmlspecialchars($log_date_month, ENT_COMPAT, 'UTF-8'));
