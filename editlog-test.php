@@ -70,7 +70,7 @@
 				//is this log from this user?
 				if (($log_record['user_id'] == $usr['userid'] && $log_record['cachestatus'] != 3 && $log_record['cachestatus'] != 6) || $usr['admin'])
 				{
-					$tplname = 'editlog';
+					$tplname = 'editlog-test';
 
 					//load settings
 					$cache_name = $log_record['cachename'];
