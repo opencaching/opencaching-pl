@@ -45,14 +45,14 @@
 						  else 
 						  {
 
-			$content .='<p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 80%;"><img src="tpl/stdstyle/images/blue/cache.png" align="middle" alt="" title="Caches" />Statystyka dla skrzynki: ' . $cachename . '</p></div><br />';	
-				$content .= '<center><p><img src="graphs/PieGraphcstat.php?cacheid=' . $cache_id . '"  border="0" alt="" /></p>';	
+		$content .='<p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 80%;"><img src="tpl/stdstyle/images/blue/cache.png" align="middle" alt="" title="Caches" />Statystyka dla skrzynki: ' . $cachename . '</p></div><br />';	
+		$content .= '<center><p><img src="graphs/PieGraphcstat.php?cacheid=' . $cache_id . '"  border="0" alt="" /></p>';	
 
 		$year=date("Y");
 
-		$content .= '<p><img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&t=csm' . $year . '"  border="0" alt="" /></p>';								
+		$content .= '<p><img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&amp;t=csm' . $year . '"  border="0" alt="" /></p>';								
 		
-		$content .= '<p><img src="graphs/BarGraphcstat.php?cacheid=' . $cache_id . '&t=csy"  border="0" alt="" /></p></center>';					
+		$content .= '<p><img src="graphs/BarGraphcstat.php?cacheid=' . $cache_id . '&amp;t=csy"  border="0" alt="" /></p></center>';					
 			mysql_free_result($rsGeneralStat);
 		}
 			tpl_set_var('content',$content);
