@@ -95,7 +95,7 @@ return true;
 			<!-- Page title -->		
 		  <div class="content2-pagetitle">{{what_do_you_find}}</div>
 			<div class="content-txtbox-noshade line-box">
-				<p>{{what_do_you_find_intro}}</p>
+				<p style="line-height: 1.6em;">{{what_do_you_find_intro}}</p>
 				<div class="buffer" style="width:500px;"></div>
 				<p class="main-totalstats">{{total_of_active_caches}}: <span class="content-title-noshade">{hiddens}</span> | {{number_of_founds}}: <span class="content-title-noshade">{founds}</span> | {{number_of_active_users}}: <span class="content-title-noshade">{users} </span></p>
 			</div>
