@@ -205,7 +205,7 @@
 					$date_not_ok = true;
 					if (is_numeric($log_date_day) && is_numeric($log_date_month) && is_numeric($log_date_year) && is_numeric($log_date_hour)&& is_numeric($log_date_min))
 					{
-						if (checkdate($log_date_month, $log_date_day, $log_date_year) == true || $log_date_hour > 0 || $log_date_hour < 23 || $log_date_min => 0 || $log_date_min < 60)
+						if (checkdate($log_date_month, $log_date_day, $log_date_year) == true || $log_date_hour > 0 || $log_date_hour < 23 || $log_date_min >= 0 || $log_date_min < 60)
 						{
 							$date_not_ok = false;
 						}
