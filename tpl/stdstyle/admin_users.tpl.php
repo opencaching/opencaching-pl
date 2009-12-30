@@ -1,29 +1,13 @@
 <?php
 /***************************************************************************
-											./tpl/stdstyle/viewprofile.tpl.php
-															-------------------
-		begin                : August 21 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
-	*
-	*   This program is free software; you can redistribute it and/or modify
-	*   it under the terms of the GNU General Public License as published by
-	*   the Free Software Foundation; either version 2 of the License, or
+	*                                         				                                
+	*   This program is free software; you can redistribute it and/or modify  	
+	*   it under the terms of the GNU General Public License as published by  
+	*   the Free Software Foundation; either version 2 of the License, or	    	
 	*   (at your option) any later version.
-	*
+	*   
+	*  UTF-8 ąść
 	***************************************************************************/
-
-/****************************************************************************
-
-   Unicode Reminder ??
-
-	 view another players profile
-
- ****************************************************************************/
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/aprove-cache.png" class="icon32" alt="{{profile_data}}" title="{{profile_data}}" align="middle" />&nbsp;{{management_users}}: {username}</div>
 
