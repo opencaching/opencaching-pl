@@ -204,11 +204,9 @@
 					//validate date
 					$date_not_ok = true;
 					if (is_numeric($log_date_day) && is_numeric($log_date_month) && is_numeric($log_date_year) && is_numeric($log_date_hour)&& is_numeric($log_date_min))
-					{
-						if (checkdate($log_date_month, $log_date_day, $log_date_year) == true || $log_date_hour > 0 || $log_date_hour < 23 || $log_date_min >= 0 || $log_date_min < 60)
 						{
-							$date_not_ok = false;
-						}
+						$date_not_ok =(checkdate($log_date_month, $log_date_day, $log_date_year) == false || $log_date_hour < 0 || $log_date_hour > 23 || $log_date_min < 0 || $log_date_min > 60);
+						
 						if($date_not_ok == false)
 						{
 							if(isset($_POST['submitform']))
@@ -224,6 +222,10 @@
 							}
 						}
 					}
+				else
+				{
+					$date_not_ok = true;
+				}
 
 					if ($cache_type == 6)
 					{
@@ -279,7 +281,7 @@
 							$all_ok = false;
 						}
 					}
- echo date('Y-m-d H:i:s', mktime( $log_date_hour,$log_date_min,0, $log_date_month, $log_date_day, $log_date_year));
+
 					//store?
 					if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false)
 					{
