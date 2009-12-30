@@ -150,7 +150,7 @@ function toogleLayer( whichLayer, val )
 			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>.
 			<input class="input20" type="text" name="logmonth" maxlength="2" value="{logmonth}"/>.
 			<input class="input40" type="text" name="logyear" maxlength="4" value="{logyear}"/>
-			  {{Time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
+			  {{time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
 			<input class="input20" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
 			{date_message}
 		</td>

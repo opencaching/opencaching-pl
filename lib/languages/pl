@@ -553,3 +553,5 @@ find_user Szukaj użytkownika
 clear_list Wyczyść listę
 adoption_cache Adopcja skrzynki
 show_waypoints pokaż waypointy
+time Czas
+
