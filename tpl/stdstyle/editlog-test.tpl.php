@@ -197,7 +197,7 @@ function toogleLayer( whichLayer, val )
 		2 = HTML
 		3 = HTML-Editor
 	*/
-	var use_tinymce = 1;
+	var use_tinymce = 0;
 	var descMode = {descMode};
 	document.getElementById("scriptwarning").firstChild.nodeValue = "";
 
@@ -213,7 +213,7 @@ function toogleLayer( whichLayer, val )
 	document.getElementById("descMode").value = descMode;
 	mnuSetElementsNormal();
 
-	//_chkFound();
+	_chkFound();
 
 	function postInit()
 	{
@@ -223,58 +223,28 @@ function toogleLayer( whichLayer, val )
 		mnuSetElementsNormal();
 	}
 
-	function toggleEditor(id) {
-		if (!tinyMCE.getInstanceById(id))
-			tinyMCE.execCommand('mceAddControl', false, id);
-		else
-			tinyMCE.execCommand('mceRemoveControl', false, id);
-	}
-
-
-	function SwitchToTextDesc(oldMode)
+	function SwitchToTextDesc()
 	{
 		document.getElementById("descMode").value = 1;
 
-		if(use_tinymce)
-			toggleEditor("logtext");
-		use_tinymce = 0;
-		// convert HTML to text
-		var desc = document.getElementById("logtext").value;
-
-		desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
-
-		document.getElementById("logtext").value = desc;
+		if (use_tinymce == 1)
+			document.editlog.submit();
 	}
 
-	function SwitchToHtmlDesc(oldMode)
+	function SwitchToHtmlDesc()
 	{
 		document.getElementById("descMode").value = 2;
 
-		if(use_tinymce)
-			toggleEditor("logtext");
-		use_tinymce = 0;
-
-		// convert text to HTML
-		var desc = document.getElementById("logtext").value;
-
-		if(oldMode != 3)
-			desc = htmlspecialchars(desc, ['ENT_NOQUOTES']);
-
-		document.getElementById("logtext").value = desc;
+		if (use_tinymce == 1)
+			document.editlog.submit();
 	}
 
-	function SwitchToHtmlEditDesc(oldMode)
+	function SwitchToHtmlEditDesc()
 	{
 		document.getElementById("descMode").value = 3;
-		use_tinymce = 1;
 
-		if(oldMode == 2) {
-			var desc = document.getElementById("logtext").value;
-			desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
-			document.getElementById("logtext").value = desc;
-		}
-
-		toggleEditor("logtext");
+		if (use_tinymce == 0)
+			document.editlog.submit();
 	}
 
 	function mnuSelectElement(e)
@@ -345,10 +315,10 @@ function toogleLayer( whichLayer, val )
 		descMode = mode;
 		mnuSetElementsNormal();
 
-		if(oldMode == descMode)
-	{
+		if ((oldMode == 1) && (descMode != 1))
+		{
 			// convert text to HTML
-			var desc = document.getElementById("desc").value;
+			var desc = document.getElementById("logtext").value;
 
 			if ((desc.indexOf('&amp;') == -1) &&
 			    (desc.indexOf('&quot;') == -1) &&
@@ -368,21 +338,19 @@ function toogleLayer( whichLayer, val )
 				desc = desc.replace(/<br \/>/g, "<br />\n");
 			}
 
-			document.getElementById("desc").value = desc;
+			document.getElementById("logtext").value = desc;
 		}
-
 
 		switch (mode)
 		{
 			case 1:
-				SwitchToTextDesc(oldMode);
+				SwitchToTextDesc();
 				break;
 			case 2:
-				SwitchToHtmlDesc(oldMode);
+				SwitchToHtmlDesc();
 				break;
 			case 3:
-
-				SwitchToHtmlEditDesc(oldMode);
+				SwitchToHtmlEditDesc();
 				break;
 		}
 	}
@@ -426,7 +394,5 @@ function toogleLayer( whichLayer, val )
 				break;
 		}
 	}
-
-
 //-->
 </script>
