@@ -197,7 +197,7 @@ function toogleLayer( whichLayer, val )
 		2 = HTML
 		3 = HTML-Editor
 	*/
-	var use_tinymce = 0;
+	var use_tinymce = 1;
 	var descMode = {descMode};
 	document.getElementById("scriptwarning").firstChild.nodeValue = "";
 
