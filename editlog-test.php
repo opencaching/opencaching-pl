@@ -150,28 +150,22 @@
 
 					tpl_set_var('rating_message', mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl));
 
-					//save to DB?
-					if (isset($_POST['post']))
+					if (isset($_POST['descMode']))
 					{
-						//here we read all used information from the form if submitted
-						$descMode = isset($_POST['descMode']) ? $_POST['descMode'] : 1;
+						$descMode = $_POST['descMode']+0;
+						if (($descMode < 1) || ($descMode > 3)) $descMode = 3;
+					}
+					else
+					{
+						if ($log_record['text_html'] == 1)
+							if ($log_record['text_htmledit'] == 1)
+								$descMode = 3;
+							else
+								$descMode = 2;
+						else
+							$descMode = 1;
+					}
 
-						switch ($descMode)
-						{
-							case 2:
-								$text_htmledit = 0;
-								$text_html = 1;
-								break;
-							case 3:
-								$text_htmledit = 1;
-								$text_html = 1;
-								break;
-							default:
-								$text_htmledit = 0;
-								$text_html = 0;
-								break;
-						}
-/*	
 					// fuer alte Versionen von OCProp
 					if (isset($_POST['submit']) && !isset($_POST['version2']))
 					{
@@ -206,7 +200,7 @@
 							$log_text = iconv("ISO-8859-1", "UTF-8", $log_text);
 						}
 					}
-*/
+
 					//validate date
 					$date_not_ok = true;
 					if (is_numeric($log_date_day) && is_numeric($log_date_month) && is_numeric($log_date_year) && is_numeric($log_date_hour)&& is_numeric($log_date_min))
