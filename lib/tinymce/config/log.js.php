@@ -1,5 +1,5 @@
 tinyMCE.init({
-	mode : "none",
+	mode : "textareas",
 	theme : "advanced",
 
 	plugins : "advhr,contextmenu,emotions,insertdatetime,paste,table,inlinepopups,autosave",",
