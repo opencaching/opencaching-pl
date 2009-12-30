@@ -213,7 +213,7 @@
 						{
 							if(isset($_POST['submitform']))
 							{
-								if(mktime(0, 0, 0, 0, 0, 0, $log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)>=mktime())
+								if(mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)>=mktime())
 								{
 									$date_not_ok = true;
 								}
@@ -279,7 +279,7 @@
 							$all_ok = false;
 						}
 					}
-
+ echo date('Y-m-d H:i:s', mktime( $log_date_hour,$log_date_min,0, $log_date_month, $log_date_day, $log_date_year));
 					//store?
 					if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false)
 					{
@@ -292,7 +292,7 @@
 						                             `last_modified`=NOW()
 						                       WHERE `id`='&6'",
 						                             $log_type,
-						                             date('Y-m-d H:i:s', mktime(0, 0, 0, 0, 0, 0, $log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
+						                             date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
 						                             tidy_html_description((($descMode != 1) ? $log_text : nl2br($log_text))),
 						                             (($descMode != 1) ? 1 : 0),
 						                             (($descMode == 3) ? 1 : 0),

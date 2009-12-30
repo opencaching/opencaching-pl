@@ -294,7 +294,7 @@
 					{
 						if (isset($_POST['submitform']))
 						{
-							if(mktime(0, 0, 0, 0, 0, $log_date_min, $log_date_hour, $log_date_month, $log_date_day, $log_date_year)>=mktime())
+							if(mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year)>=mktime())
 							{
 								$date_not_ok = true;
 							}
@@ -416,7 +416,7 @@
 						// nie wybrano opcji oceny
 						
 					}
-					$log_date = date('Y-m-d H:i', mktime(0, 0, 0, 0, $log_date_min, $log_date_hour, $log_date_month, $log_date_day, $log_date_year));
+					$log_date = date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year));
 
 					$log_uuid = create_uuid();
 					//add logentry to db
@@ -437,14 +437,14 @@
 						{
 							$tmpset_var = '`founds`=\'' . ($record['founds'] + 1) . '\'';
 
-							$dlog_date = mktime(0, 0, 0, 0, $log_date_min, $log_date_hour,  $log_date_month, $log_date_day, $log_date_year);
+							$dlog_date = mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year);
 							if ($record['last_found'] == NULL)
 							{
-								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i', $dlog_date)) . '\'';
+								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
 							}
 							elseif (strtotime($record['last_found']) < $dlog_date)
 							{
-								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i', $dlog_date)) . '\'';
+								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
 							}
 						}
 						elseif ($log_type == 2 || $log_type == 8) // fuer Events wird not found als will attend Zaehler missbraucht
