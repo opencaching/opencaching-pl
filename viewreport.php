@@ -23,13 +23,13 @@ $email_form = "";
 		switch( $status )
 		{
 			case '0':
-				return "<font color='red'>nowe</font>";
+				return "<span class='txt-red10'>nowe</span>";
 			case '1':
-				return "<font color='orange'>w toku</font>";
+				return "<span class='txt-red05'>w toku</span>";
 			case '2':
-				return "<font color='green'>zamknięte</font>";
+				return "<span class='txt-green10'>zamknięte</span>";
 			case '3':
-				return "<font color='blue'>zajrzyj tu!</font>";
+				return "<span class='txt-blue10'>zajrzyj tu!</span>";
 		}
 	}
 
@@ -38,13 +38,13 @@ $email_form = "";
 		switch( $id )
 		{
 			case '1':
-				return "<font color='green'>$text</font>";
+				return "<span class='txt-green10'>$text</span>";
 			case '2':
-				return "<font color='orange'>$text</font>";
+				return "<span class='txt-red05'>$text</span>";
 			case '3':
-				return "<font color='red'>$text</font>";
+				return "<span class='txt-red10'>$text</span>";
 			default:
-				return "<font color='gray'>$text</font>";
+				return "<span class='txt-grey05'>$text</span>";
 		}
 	}
 	
@@ -77,6 +77,65 @@ $email_form = "";
 		return null;
 	}
 	
+	function getCachename($reportid)
+	{
+		$sql = "SELECT caches.name FROM caches, reports WHERE reports.id ='".intval($reportid)."' AND reports.cache_id = caches.cache_id";
+		$query = mysql_query($sql) or die();
+		if( mysql_num_rows($query) > 0)
+			return mysql_result($query,0);
+		return null;
+	}
+	
+	function makeSchemaReplace($text)
+	{
+		global $usr;
+		$text = str_replace("%rr_member_name%", $usr['username'], $text );
+		$text = str_replace("%cachename%", getCachename($_REQUEST['reportid']), $text );
+		return $text;
+	}
+	
+	function getSchemas($receiver)
+	{
+		// $receiver - who can receive the message:
+		// 0 - reporter
+		// 1 - cacher owner
+		// 2 - both
+		switch( $receiver )
+		{
+			case 0:
+			case 1:
+				$sql_receiver = "WHERE receiver = ".intval($receiver)." OR receiver = 2";
+				break;
+			case 2:
+				$sql_receiver = "WHERE receiver = 2";
+				break;
+			default:
+				$sql_receiver = "";
+				break;
+		}
+				
+		$text_result = "<p class='content-title-noshade-size1'>Skorzystaj z szablonu</p><br/>
+		<table border='0'>
+		";
+		
+		$sql = "SELECT name, shortdesc, text FROM email_schemas ".$sql_receiver." ORDER BY id ASC";
+		$query = mysql_query($sql) or die();
+		while( $schema = mysql_fetch_array($query) )
+		{
+			$text_result .= "
+			<tr>
+				<td><input class='radio-white' type='radio' name='schema' onclick='addtext(this);' value='".makeSchemaReplace($schema['text'])."' id='r_".$schema['name']."'/></td>
+				<td>
+					<span class='content-title-noshade'>".$schema['shortdesc']."</span><br/>
+					<label for='r_".$schema['name']."'>".makeSchemaReplace(nl2br($schema['text']))."</label><br/><br/></td>
+			</tr>
+			";
+		}
+		$text_result .= "</table>
+		";
+		return $text_result;
+	}
+	
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	$tplname = 'viewreport';
@@ -95,14 +154,16 @@ $email_form = "";
 		if( isset($_GET['mailto']) )
 		{
 			// show mail form
-			$email_form = "<form action='viewreport.php' method='post'>
+			$email_form = "
 	<input type='hidden' name='reportid' value='".intval($_REQUEST['reportid'])."'>
 	<input type='hidden' name='mailto' value='".intval($_REQUEST['mailto'])."'>
-	<textarea name='email_content' cols='80' rows='5'></textarea>
+	<textarea name='email_content' cols='120' rows='8'>".$_POST['init_text']."</textarea>
 	<br />
 	<input type='submit' value='Wyślij e-mail'>
 	<a href='viewreport.php?reportid=".$_REQUEST['reportid']."'>Anuluj</a>
-</form>";
+	<br/>
+";
+			$email_form .= getSchemas($_REQUEST['mailto']);
 		}
 		if( isset($_REQUEST['reportid']) && isset($_REQUEST['email_content']) && isset($_REQUEST['mailto']) && $_REQUEST['email_content'] != "")
 		{
@@ -160,12 +221,11 @@ $email_form = "";
 				break;
 			}
 			
-			$email_sent = "<b><font color='green'>E-mail został wysłany do ".writeRe($_REQUEST['mailto']).".</font></b>";
+			$email_sent = "<b><span class='txt-green10'>E-mail został wysłany do ".writeRe($_REQUEST['mailto']).".</span></b>";
 	
 			$note = nl2br(sql_escape($note_content));
 			$sql = "UPDATE reports SET note=CONCAT('[".sql_escape(date("Y-m-d H:i:s"))."] <b>".sql_escape($usr['username'])."</b>: ".$note."<br />', note), changed_by='".sql_escape(intval($usr['userid']))."', changed_date='".sql_escape(date("Y-m-d H:i:s"))."' WHERE id='".sql_escape(intval($_REQUEST['reportid']))."'";
 			@mysql_query($sql);
-			//$saved = "<b><font color='green'>Informacja o wysłaniu e-maila została zapisana w notatkach poniżej.</font></b>";
 		}
 		
 		tpl_set_var('confirm_resp_change', "");
@@ -175,16 +235,16 @@ $email_form = "";
 			$sql = "UPDATE reports SET responsible_id = '".sql_escape(intval($_POST['respSel']))."' WHERE id='".sql_escape(intval($_REQUEST['reportid']))."'";
 			@mysql_query($sql);
 			if( $_POST['respSel'] != 0 )
-				tpl_set_var('confirm_resp_change', "<b><font color='green'>Nowym prowadzącym problem jest ".getUsername($_POST['respSel']).".</font></b>");
+				tpl_set_var('confirm_resp_change', "<b><span class='txt-green10'>Nowym prowadzącym problem jest ".getUsername($_POST['respSel']).".</span></b>");
 			else
-				tpl_set_var('confirm_resp_change', "<b><font color='green'>Nie wybrano prowadzącego problem.</font></b>");
+				tpl_set_var('confirm_resp_change', "<b><span class='txt-green10'>Nie wybrano prowadzącego problem.</span></b>");
 		}
 		
 		if( isset($_POST['new_status']) && isset($_REQUEST['reportid']))
 		{
 			$sql = "UPDATE reports SET status='".sql_escape(intval($_POST['statusSel']))."', changed_by='".sql_escape(intval($usr['userid']))."', changed_date='".sql_escape(date("Y-m-d H:i:s"))."' WHERE id='".sql_escape(intval($_REQUEST['reportid']))."'";
 			@mysql_query($sql);
-			tpl_set_var('confirm_status_change', "<b><font color='green'>Zmieniono status zgłoszenia na ".writeStatus($_POST['statusSel']).".</font></b>");
+			tpl_set_var('confirm_status_change', "<b><span class='txt-green10'>Zmieniono status zgłoszenia na ".writeStatus($_POST['statusSel']).".</span></b>");
 			if( $_POST['statusSel'] == 3 )
 			{
 				// jezeli zmieniono status na "zajrzyj tu!", nastepuje rozeslanie maili do rr
@@ -213,7 +273,7 @@ $email_form = "";
 				$responsible_id = mysql_result($res,0);
 				if( $responsible_id == "" )
 				{
-					$sql2 = "UPDATE reports SET responsible_id = ".sql_escape($usr['userid'])." WHERE id = '".sql_escape(intval($_REQUEST['reportid']))."'";
+					$sql2 = "UPDATE reports SET status = 1, responsible_id = ".sql_escape($usr['userid'])." WHERE id = '".sql_escape(intval($_REQUEST['reportid']))."'";
 					@mysql_query($sql2);
 				}
 			}
@@ -222,7 +282,7 @@ $email_form = "";
 			{
 				$sql = "UPDATE reports SET note=CONCAT('[".sql_escape(date("Y-m-d H:i:s"))."] <b>".sql_escape($usr['username'])."</b>: ".$note."<br />', note), changed_by='".sql_escape(intval($usr['userid']))."', changed_date='".sql_escape(date("Y-m-d H:i:s"))."' WHERE id='".sql_escape(intval($_REQUEST['reportid']))."'";
 				@mysql_query($sql);
-				$saved = "<b><font color='green'>Notatka została zapisana.</font></b>";
+				$saved = "<b><span class='txt-green10'>Notatka została zapisana.</span></b>";
 			}
 		}
 
@@ -241,29 +301,29 @@ $email_form = "";
 			
 			$content .= "<tr>";
 			
-			$content .= "<td>".$report['report_id']."</td>";			
-			$content .= "<td>".$report['submit_date']."</td>";
-			$content .= "<td><a href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a></td>";
-			$content .= "<td>".colorCacheStatus($report['cache_status'], $report['c_status'])."</td>";
-			$content .= "<td>".writeReason($report['type'])."</td>";
-			$content .= "<td><a href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>";
+			$content .= "<td><span class='content-title-noshade-size05'>".$report['report_id']."</span></td>";			
+			$content .= "<td><span class='content-title-noshade-size05'>".$report['submit_date']."</span></td>";
+			$content .= "<td><a class='content-title-noshade-size05' href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a></td>";
+			$content .= "<td><span class='content-title-noshade-size05'>".colorCacheStatus($report['cache_status'], $report['c_status'])."</span></td>";
+			$content .= "<td><span class='content-title-noshade-size05'>".writeReason($report['type'])."</span></td>";
+			$content .= "<td><a class='content-title-noshade-size05' href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>";
 			//$content .= "<td><a href='viewprofile.php?userid=".$report['responsible_id']."'>".getUsername($report['responsible_id'])."</a></td>";
 			
 			$content .= "<td>";
-			$content .= "<form action='viewreport.php' method='post'><select name='respSel'>";
+			$content .= "<select name='respSel'>";
 			$content .= "<option value='0'>brak</option>";
 			$selected = "";
 			while( $admins = mysql_fetch_array($admins_query) )
 			{
 				if( $report['responsible_id'] == $admins['user_id'] )
 				{
-					$selected = "selected";
+					$selected = "selected='selected'";
 				}
 				else
 					$selected = "";
 				$content .= "<option value='".$admins['user_id']."' $selected>".$admins['username']."</option>";
 			}
-			$content .= "</select><br /><input type='submit' name='new_resp' value='Zmień'>";
+			$content .= "</select><br /><input type='submit' name='new_resp' value='Zmień'/>";
 			$content .= "</td>";
 			
 			$content .= "<td>";
@@ -272,7 +332,7 @@ $email_form = "";
 			{
 				if( $report['status']==$i )
 				{
-					$selected = "selected";
+					$selected = "selected='selected'";
 				}
 				else
 				{
@@ -282,10 +342,10 @@ $email_form = "";
 			
 			}
 			
-			$content .= "</select><br /><input type='hidden' name='reportid' value='".$report['report_id']."'><input type='submit' name='new_status' value='Zmień'></form>";
+			$content .= "</select><br /><input type='hidden' name='reportid' value='".$report['report_id']."'><input type='submit' name='new_status' value='Zmień'/>";
 			
 			$content .= "</td>";
-			$content .= "<td>".($report['changed_by']=='0'?'':(getUsername($report['changed_by']).'<br/><font size=\"1\">('.($report['changed_date']).')</font>'))."</td>\n";
+			$content .= "<td><span class='content-title-noshade-size05'>".($report['changed_by']=='0'?'':(getUsername($report['changed_by']).'<br/>('.($report['changed_date']).')'))."</span></td>\n";
 			$content .= "</tr>\n";
 			
 			tpl_set_var('content', $content);
@@ -295,7 +355,7 @@ $email_form = "";
 			
 			if( !isset($_GET['mailto']))
 			{
-				$active_form = "<form action='viewreport.php' method='POST'><input type='hidden' name='reportid' value='".intval($_REQUEST['reportid'])."'><textarea name='note' cols='80' rows='5'></textarea><br /><input type='submit' value='Zapisz'></form>&nbsp;".$saved;
+				$active_form = "<input type='hidden' name='reportid' value='".intval($_REQUEST['reportid'])."'/><textarea name='note' cols='80' rows='5'></textarea><br /><input type='submit' value='Zapisz'/>&nbsp;".$saved;
 				tpl_set_var('note_lbl', "Notatka");
 			}
 			else

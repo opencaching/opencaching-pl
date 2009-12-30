@@ -1,9 +1,18 @@
-		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" align="middle"/>&nbsp;Przeglądaj zgłoszenie</div>
+<script language="javascript" type="text/javascript">
+function addtext(obj) 
+{
+	var newtext = obj.value;
+	document.myform.email_content.value = newtext;
+}
+</script>
+
+		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/rproblems.png" alt="" class="icon32" align="middle"/>&nbsp;Przeglądaj zgłoszenie</div>
 	<div class="buffer"></div>
 	<p>{confirm_resp_change}{confirm_status_change}</p>
 	{email_sent}
 	<p>Przejdź do: [<a href='viewreports.php'>Listy bieżących zgłoszeń</a>] [<a href='viewreports.php?archiwum=1'>Archiwum zgłoszeń</a>]</p>
 		<input type="hidden" name="cacheid" value="{cacheid}"/>
+		<form action='viewreport.php' method='post' name='myform'>
 		<table border='1' class="table" width="90%">
 			<tr>
 				<th >ID</th>
@@ -26,6 +35,8 @@
 		<div class="content2-container line-box">
 			<p class="content-title-noshade-size1">{note_lbl}</p><br/>
 			<p>{active_form}</p>
+		</div>
+		<div class="content2-container line-box">
 			<p>{note_area}</p>
 		</div>			
 		<div class="buffer"></div>
@@ -40,3 +51,4 @@
 			<br/>
 		</div>
 			<p>Przejdź do: [<a href='viewreports.php'>Listy bieżących zgłoszeń</a>] [<a href='viewreports.php?archiwum=1'>Archiwum zgłoszeń</a>]</p>
+		</form>
