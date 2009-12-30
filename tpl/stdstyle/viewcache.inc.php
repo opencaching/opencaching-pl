@@ -193,19 +193,18 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 			if( $showspoiler )
 				$showspoiler = "showspoiler=1&amp;";
 			else $showspoiler = "";
-			
 			$retval .= '<div class="viewcache-pictureblock">';
 
 			if($_REQUEST['print'] != 'y') {
-				$retval .= '<div class="img-shadow"><a href="'.$r['url'].'" title="'.htmlspecialchars($r['title']).'" onclick="return false;">';
-				$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" onclick="enlarge(this)" class="viewcache-thumbimg" longdesc="'.$r['url'].'" />';
+				$retval .= '<div class="img-shadow">';
+				$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" onclick="enlarge(this)" class="viewcache-thumbimg" longdesc="'.str_replace("images/uploads","upload",$r['url']).'" />';
 			}
 			else
 			{
 				$retval .= '<div class="img-shadow"><a href="'.$r['url'].'" title="'.htmlspecialchars($r['title']).'" >';
 				$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" />';
 			}
-			$retval .= '</a></div>';
+			$retval .= '</div>';
 			if($viewtext)
 				$retval .= '<span class="title">'.$r['title'].'</span>';
 			$retval .= '</div>';
