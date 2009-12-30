@@ -317,7 +317,7 @@ short_desc_label Krótki opis
 error_new_cache Wystąpiły błędy. Proszę poprawić zaznaczone pola!
 time_incorrect Podany czas jest niepoprawny
 distance_incorrect Podano odległość w niepoprawnym formacie. Prawidłowy format: aa.aaa
-date_incorrect Data ma niepoprawny format. Prawidłowy format: DD-MM-RRRR
+date_incorrect Data ma niepoprawny format. Prawidłowy format: DD-MM-RRRR HH:MM
 no_cache_name Brak nazwy skrzynki
 new_cache_no_terms Skrzynka nie została zarejestrowana, gdyż nie zaznaczyłeś, że zapoznałeś się i akceptujesz regulamin serwisu Opencaching PL.
 html_incorrect Ten kod HTML jest niedozwolony.
