@@ -416,7 +416,7 @@
 						// nie wybrano opcji oceny
 						
 					}
-					$log_date = date('Y-m-d H', mktime(0, 0, 0, 0, $log_date_min,$log_date_hour, $log_date_month, $log_date_day, $log_date_year));
+					$log_date = date('Y-m-d H:i', mktime(0, 0, 0, 0, $log_date_min, $log_date_hour, $log_date_month, $log_date_day, $log_date_year));
 
 					$log_uuid = create_uuid();
 					//add logentry to db
@@ -437,7 +437,7 @@
 						{
 							$tmpset_var = '`founds`=\'' . ($record['founds'] + 1) . '\'';
 
-							$dlog_date = mktime(0, 0, 0, 0, $log_date_min,$log_date_hour,  $log_date_month, $log_date_day, $log_date_year);
+							$dlog_date = mktime(0, 0, 0, 0, $log_date_min, $log_date_hour,  $log_date_month, $log_date_day, $log_date_year);
 							if ($record['last_found'] == NULL)
 							{
 								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i', $dlog_date)) . '\'';
