@@ -33,6 +33,8 @@ session_start();
 
 
 
+        ob_start("ob_gzhandler");
+	
 	// we are in HTML-mode ... maybe plain (for CLI scripts)
 	global $interface_output;
 	global $menu;
@@ -384,7 +386,7 @@ session_start();
 			return $record[$lang];
 		}
 		else
-		{
+  		{
 			//language not found
 			return false;
 		}
