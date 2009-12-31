@@ -534,9 +534,9 @@ div.viewcache_log-content { margin-left: 20px }
 div.viewlogs-logpictures span.info { font-weight: bold; font-size: 120%;display: block;}
 div.viewlogs-logpictures div.logimage { float: left; }
 div.viewlogs-logpictures div.allimages { background-color: rgb(219,230,241);padding: 5px;  max-width: 750px; float: left;}
-div.viewlogs-logpictures span.desc { vertical-align: center; display: block; float: right; width: 112px; margin-top: 5px; padding-left: 3px;} /* should fit 4 images */
+div.viewlogs-logpictures span.desc { vertical-align: center; display: block; float: right; width: 112px; margin-top: 5px; padding-left: 3px;font-size: 12px;} /* should fit 4 images */
 div.viewlogs-logpictures img { max-width: 64px; max-height: 64px; vertical-align: top;}
-div.viewlogs-logpictures span.removepic { display: block; }
+div.viewlogs-logpictures span.removepic { display: block; font-size: 12px;}
 
 div#viewcache-utility { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.6em; font-family: arial, sans serif; font-size: 120%; }
 
