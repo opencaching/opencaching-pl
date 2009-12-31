@@ -129,13 +129,13 @@ $menu = array(
 				'filename' => 'search.php'
 			),
 		
-			/*array(
+			array(
 					'title' => tr('recommended_caches'),
 					'menustring' => tr('recommended_caches'),
 					'visible' => true,
 					'filename' => 'newcacherating.php',
 					'siteid' => 'ratings'
-			),*/
+			),
 			array(
 				'title' => tr('statistics'),
 				'menustring' => tr('statistics'),
