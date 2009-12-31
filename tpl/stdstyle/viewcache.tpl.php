@@ -188,7 +188,7 @@ else
 				<div class="content2-container">
 				<div id='branding'>{branding}</div>
 				<div id="description">
-					<div id="viewcache-description">
+					<div class="viewcache-description">
 						{desc}
 					</div>
 				</div>
