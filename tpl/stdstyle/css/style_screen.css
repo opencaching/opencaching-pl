@@ -541,7 +541,7 @@ div.viewlogs-logpictures span.removepic { display: block; font-size: 12px;}
 div#viewcache-utility { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.6em; font-family: arial, sans serif; font-size: 120%; }
 
 div.viewcache_log-content { font-family: arial, sans serif; line-height: 0.5cm; font-size: 125%; margin-top: 5px;}
-div#viewcache-description { font-family: arial, sans serif; line-height: 0.5cm; font-size: 125%; margin-top: 5px;}
+div.viewcache-description { font-family: arial, sans serif; line-height: 0.5cm; font-size: 125%; margin-top: 5px;}
 
 div.viewcache-pictureblock { float: left; }
 
