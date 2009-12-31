@@ -1,13 +1,4 @@
 <?php
-	require_once('./lib/common.inc.php');
-/***************************************************************************
-											./tpl/stdstyle/log_cache.tpl.php
-															-------------------
-		begin                : July 4 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -16,24 +7,10 @@
 	*   the Free Software Foundation; either version 2 of the License, or
 	*   (at your option) any later version.
 	*
+	*  UTF8 remaider śąłó
 	***************************************************************************/
 
-/****************************************************************************
-
-   Unicode Reminder ??
-
-	 log a cache visit
-
-	 template replacements:
-
-		cacheid
-		logtypeoptions
-		logdate
-		logtext
-		reset
-		submit
-
- ****************************************************************************/
+	require_once('./lib/common.inc.php');
 ?>
 <script type="text/javascript">
 <!--
@@ -120,6 +97,7 @@ function toogleLayer( whichLayer, val )
 
 //-->
 </script>
+{descMode} (use_tinymce)
 <form action="log-test.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" dir="ltr" onsubmit="disable()">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="version2" value="1"/>

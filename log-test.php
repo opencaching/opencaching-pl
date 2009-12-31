@@ -1,32 +1,14 @@
 <?php
 /***************************************************************************
-																./log.php
-															-------------------
-		begin                : July 4 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
 	*   it under the terms of the GNU General Public License as published by
 	*   the Free Software Foundation; either version 2 of the License, or
 	*   (at your option) any later version.
 	*
+	*    Unicode Reminder ąśłó
 	***************************************************************************/
-/****************************************************************************
 
-   Unicode Reminder ăĄă˘
-
-	 log a cache visit
-
-	 used template(s): log
-
-	 GET Parameter: cacheid
-
- ****************************************************************************/
 
 	function isGeokretInCache($cacheid)
 	{
@@ -580,23 +562,22 @@
 
 
 					// Text / normal HTML / HTML editor
-					tpl_set_var('use_tinymce', (($desc_htmledit == 1) ? 1 : 0));
+					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
 
-					if (($desc_html == 1) && ($desc_htmledit == 1))
-					{
-						tpl_set_var('descMode', 3);
-					}
-					else if ($desc_html == 1)
+					if ($descMode == 1)
+						tpl_set_var('descMode', 1);
+					else if ($descMode == 2)
 						tpl_set_var('descMode', 2);
 					else
-						tpl_set_var('descMode', 1);
+					{
 					// TinyMCE
 					$headers = tpl_get_var('htmlheaders') . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
 					tpl_set_var('htmlheaders', $headers);
-					
+						tpl_set_var('descMode', 3);
+					}
 					
 					if ($descMode != 1)
 						tpl_set_var('logtext', htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'), true);
