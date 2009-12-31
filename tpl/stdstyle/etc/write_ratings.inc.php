@@ -29,7 +29,6 @@
 	****************************************************************************/
 
 // ini_set ('display_errors',on);
-	$cacheline = '<tr><td rowspan="1" align="right"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;</td><td><font size="1"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp; <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></td></tr>';
 		
 	global $lang, $rootpath;
 
@@ -38,6 +37,7 @@
 	//include template handling
 	require_once($rootpath . 'lib/common.inc.php');
 	require_once($rootpath . 'lib/cache_icon.inc.php');
+	global $dynbasepath;
 
 	//start_ratings.include
 	$rs = sql("	SELECT	`user`.`user_id` `user_id`,
@@ -53,7 +53,10 @@
 			  AND `caches`.`type`=`cache_type`.`id`
 			GROUP BY `user`.`user_id`, `user`.`username`, `caches`.`cache_id`, `caches`.`name`, `cache_type`.`icon_large`
 			ORDER BY `anzahl` DESC, `caches`.`name` ASC
-			LIMIT 0 , 1000");
+			LIMIT 0 , 100");
+			
+	$cacheline = '<tr><td rowspan="1" align="right"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;</td><td><font size="1"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp; <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></td></tr>';
+
 if (mysql_num_rows($rs) == 0)
 	{
 		$file_content = 'Nie ma nowych skrzynek z rekomendacjami';
