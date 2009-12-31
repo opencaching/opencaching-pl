@@ -214,7 +214,7 @@ function toogleLayer( whichLayer, val )
 
 	if (descMode == 3)
 	{
-		toggleEditor("desc");
+		toggleEditor("logtext");
 		use_tinymce = 1;
 /*		if (document.getElementById("desc").value == '')
 			descMode = 1;
