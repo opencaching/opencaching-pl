@@ -1,42 +1,13 @@
 <?php
 /***************************************************************************
-											./tpl/stdstyle/editlog.tpl.php
-															-------------------
-		begin                : Mon July 5 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
-	*
-	*   This program is free software; you can redistribute it and/or modify
-	*   it under the terms of the GNU General Public License as published by
-	*   the Free Software Foundation; either version 2 of the License, or
+	*                                         				                                
+	*   This program is free software; you can redistribute it and/or modify  	
+	*   it under the terms of the GNU General Public License as published by  
+	*   the Free Software Foundation; either version 2 of the License, or	    	
 	*   (at your option) any later version.
-	*
+	*   
+	*  UTF-8 ąść
 	***************************************************************************/
-
-/****************************************************************************
-
-   Unicode Reminder ??
-
-	 edit a log listing
-
-	 template replacement(s):
-
-			cachename
-			logid
-			logtypeoptions
-			date_message
-			logday
-			logmonth
-			logyear
-			logtext
-			reset
-			submit
-
- ****************************************************************************/
 ?>
 <script type="text/javascript">
 <!--

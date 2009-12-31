@@ -1,32 +1,13 @@
 <?php
 /***************************************************************************
-												./tpl/stdstyle/newpic.tpl.php
-															-------------------
-		begin                : August 17 2005
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
 	*                                         				                                
 	*   This program is free software; you can redistribute it and/or modify  	
 	*   it under the terms of the GNU General Public License as published by  
 	*   the Free Software Foundation; either version 2 of the License, or	    	
 	*   (at your option) any later version.
-	*
+	*   
+	*  UTF-8 ąść
 	***************************************************************************/
-
-/****************************************************************************
-	        
-   Unicode Reminder ??
-                                 				                                
-	 add a picture for "my profile", caches, logs etc.
-	 
-	 replacements:
-	 
-	
- ****************************************************************************/
 ?>
 <script type="text/javascript">
 <!--

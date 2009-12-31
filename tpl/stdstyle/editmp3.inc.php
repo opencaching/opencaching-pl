@@ -1,6 +1,14 @@
 <?php
-
-  // Unicode Reminder ??
+/***************************************************************************
+	*                                         				                                
+	*   This program is free software; you can redistribute it and/or modify  	
+	*   it under the terms of the GNU General Public License as published by  
+	*   the Free Software Foundation; either version 2 of the License, or	    	
+	*   (at your option) any later version.
+	*   
+	*  UTF-8 ąść
+	***************************************************************************/
+	
 	$submit = 'Wyślij';
 	
 	$mp3typedesc_cache = 'Nowy PodCast dla skrznyki ';
