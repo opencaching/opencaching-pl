@@ -1,4 +1,3 @@
-
 <script type="text/javascript">
 	        var waypoint = null;
 			var type = "Geocache|";
@@ -40,3 +39,4 @@
     </script>
     <br /><center>
     <div id="garminDisplay"></div>
+	
