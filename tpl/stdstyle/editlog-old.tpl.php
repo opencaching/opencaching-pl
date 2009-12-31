@@ -1,13 +1,18 @@
 <?php
+
 /***************************************************************************
-	*                                         				                                
-	*   This program is free software; you can redistribute it and/or modify  	
-	*   it under the terms of the GNU General Public License as published by  
-	*   the Free Software Foundation; either version 2 of the License, or	    	
+	*
+	*   This program is free software; you can redistribute it and/or modify
+	*   it under the terms of the GNU General Public License as published by
+	*   the Free Software Foundation; either version 2 of the License, or
 	*   (at your option) any later version.
-	*   
-	*  UTF-8 ąść
+	*
 	***************************************************************************/
+
+/****************************************************************************
+
+   Unicode Reminder ąśćł
+*/
 ?>
 <script type="text/javascript">
 <!--
@@ -83,7 +88,7 @@ function toogleLayer( whichLayer, val )
 }
 //-->
 </script>
-<form action="editlog-test.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" dir="ltr">
+<form action="editlog.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" dir="ltr">
 <input type="hidden" name="logid" value="{logid}"/>
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
@@ -109,10 +114,7 @@ function toogleLayer( whichLayer, val )
 			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>.
 			<input class="input20" type="text" name="logmonth" maxlength="2" value="{logmonth}"/>.
 			<input class="input40" type="text" name="logyear" maxlength="4" value="{logyear}"/>
-			<input class="input40" type="text" name="logyear" maxlength="4" value="{logyear}"/>
-			  {{time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
-			<input class="input20" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
-			<br />{date_message}
+			{date_message}
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>

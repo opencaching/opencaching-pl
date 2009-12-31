@@ -1,4 +1,13 @@
 <?php
+	require_once('./lib/common.inc.php');
+/***************************************************************************
+											./tpl/stdstyle/log_cache.tpl.php
+															-------------------
+		begin                : July 4 2004
+		copyright            : (C) 2004 The OpenCaching Group
+		forum contact at     : http://www.opencaching.com/phpBB2
+
+	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -7,12 +16,24 @@
 	*   the Free Software Foundation; either version 2 of the License, or
 	*   (at your option) any later version.
 	*
-	*  UTF8 remaider śąłó
 	***************************************************************************/
 
+/****************************************************************************
 
-require_once('./lib/common.inc.php');
+   Unicode Reminder ??
 
+	 log a cache visit
+
+	 template replacements:
+
+		cacheid
+		logtypeoptions
+		logdate
+		logtext
+		reset
+		submit
+
+ ****************************************************************************/
 ?>
 <script type="text/javascript">
 <!--
@@ -99,7 +120,7 @@ function toogleLayer( whichLayer, val )
 
 //-->
 </script>
-<form action="log-test.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" dir="ltr" onsubmit="disable()">
+<form action="log.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" dir="ltr" onsubmit="disable()">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
@@ -129,9 +150,7 @@ function toogleLayer( whichLayer, val )
 			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>.
 			<input class="input20" type="text" name="logmonth" maxlength="2" value="{logmonth}"/>.
 			<input class="input40" type="text" name="logyear" maxlength="4" value="{logyear}"/>
-			  {{time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
-			<input class="input20" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
-			<br />{date_message}
+			{date_message}
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
@@ -359,7 +378,7 @@ function toogleLayer( whichLayer, val )
 		if(oldMode == descMode)
 	{
 			// convert text to HTML
-			var desc = document.getElementById("logtext").value;
+			var desc = document.getElementById("desc").value;
 
 			if ((desc.indexOf('&amp;') == -1) &&
 			    (desc.indexOf('&quot;') == -1) &&
@@ -379,7 +398,7 @@ function toogleLayer( whichLayer, val )
 				desc = desc.replace(/<br \/>/g, "<br />\n");
 			}
 
-			document.getElementById("logtext").value = desc;
+			document.getElementById("desc").value = desc;
 		}
 
 

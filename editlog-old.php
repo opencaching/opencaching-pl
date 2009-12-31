@@ -1,5 +1,12 @@
 <?php
+/***************************************************************************
+																./editlog.php
+															-------------------
+		begin                : July 5 2004
+		copyright            : (C) 2004 The OpenCaching Group
+		forum contact at     : http://www.opencaching.com/phpBB2
 
+	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -12,9 +19,15 @@
 
 /****************************************************************************
 
-   Unicode Reminder ąśćł
+   Unicode Reminder ăĄă˘
 
-*/
+	 edit a log listing
+
+	 used template(s): editlog
+
+	 GET/POST Parameter: logid
+
+ ****************************************************************************/
 
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
@@ -57,15 +70,14 @@
 				//is this log from this user?
 				if (($log_record['user_id'] == $usr['userid'] && $log_record['cachestatus'] != 3 && $log_record['cachestatus'] != 6) || $usr['admin'])
 				{
-					$tplname = 'editlog-test';
+					$tplname = 'editlog';
 
 					//load settings
 					$cache_name = $log_record['cachename'];
 					$cache_type = $log_record['cachetype'];
 					$cache_user_id = $log_record['cache_user_id'];
 					$log_type = isset($_POST['logtype']) ? $_POST['logtype'] : $log_record['logtype'];
-					$log_date_min = isset($_POST['logmin']) ? $_POST['logmin'] : date('i', strtotime($log_record['date']));
-					$log_date_hour = isset($_POST['loghour']) ? $_POST['loghour'] : date('H', strtotime($log_record['date']));
+
 					$log_date_day = isset($_POST['logday']) ? $_POST['logday'] : date('d', strtotime($log_record['date']));
 					$log_date_month = isset($_POST['logmonth']) ? $_POST['logmonth'] : date('m', strtotime($log_record['date']));
 					$log_date_year = isset($_POST['logyear']) ? $_POST['logyear'] : date('Y', strtotime($log_record['date']));
@@ -190,15 +202,17 @@
 
 					//validate date
 					$date_not_ok = true;
-					if (is_numeric($log_date_day) && is_numeric($log_date_month) && is_numeric($log_date_year) && is_numeric($log_date_hour)&& is_numeric($log_date_min))
+					if (is_numeric($log_date_day) && is_numeric($log_date_month) && is_numeric($log_date_year))
+					{
+						if (checkdate($log_date_month, $log_date_day, $log_date_year) == true)
 						{
-						$date_not_ok =(checkdate($log_date_month, $log_date_day, $log_date_year) == false || $log_date_hour < 0 || $log_date_hour > 23 || $log_date_min < 0 || $log_date_min > 60);
-						
+							$date_not_ok = false;
+						}
 						if($date_not_ok == false)
 						{
 							if(isset($_POST['submitform']))
 							{
-								if(mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)>=mktime())
+								if(mktime(0, 0, 0, $log_date_month, $log_date_day, $log_date_year)>=mktime())
 								{
 									$date_not_ok = true;
 								}
@@ -209,10 +223,6 @@
 							}
 						}
 					}
-				else
-				{
-					$date_not_ok = true;
-				}
 
 					if ($cache_type == 6)
 					{
@@ -281,7 +291,7 @@
 						                             `last_modified`=NOW()
 						                       WHERE `id`='&6'",
 						                             $log_type,
-						                             date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
+						                             date('Y-m-d', mktime(0, 0, 0, $log_date_month, $log_date_day, $log_date_year)),
 						                             tidy_html_description((($descMode != 1) ? $log_text : nl2br($log_text))),
 						                             (($descMode != 1) ? 1 : 0),
 						                             (($descMode == 3) ? 1 : 0),
@@ -487,8 +497,6 @@
 					//set template vars
 					tpl_set_var('cachename', htmlspecialchars($cache_name, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logtypeoptions', $logtypeoptions);
-					tpl_set_var('logmin', htmlspecialchars($log_date_min, ENT_COMPAT, 'UTF-8'));
-					tpl_set_var('loghour', htmlspecialchars($log_date_hour, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logday', htmlspecialchars($log_date_day, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logmonth', htmlspecialchars($log_date_month, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logyear', htmlspecialchars($log_date_year, ENT_COMPAT, 'UTF-8'));
@@ -506,14 +514,16 @@
 
 
 					// Text / normal HTML / HTML editor
-					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
+					tpl_set_var('use_tinymce', (($desc_htmledit == 1) ? 1 : 0));
 
-					if ($descMode == 1)
-						tpl_set_var('descMode', 1);
-					else if ($descMode == 2)
+					if (($desc_html == 1) && ($desc_htmledit == 1))
+					{
+						tpl_set_var('descMode', 3);
+					}
+					else if ($desc_html == 1)
 						tpl_set_var('descMode', 2);
 					else
-					{
+						tpl_set_var('descMode', 1);
 					// TinyMCE
 					$headers = tpl_get_var('htmlheaders') . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
@@ -521,8 +531,7 @@
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
 					tpl_set_var('htmlheaders', $headers);
 
-						tpl_set_var('descMode', 3);
-					}
+
 					if ($use_log_pw == true && $log_pw != '')
 					{
 						if ($pw_not_ok == true && isset($_POST['submitform']))

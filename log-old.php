@@ -1,14 +1,32 @@
 <?php
 /***************************************************************************
+																./log.php
+															-------------------
+		begin                : July 4 2004
+		copyright            : (C) 2004 The OpenCaching Group
+		forum contact at     : http://www.opencaching.com/phpBB2
+
+	***************************************************************************/
+
+/***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
 	*   it under the terms of the GNU General Public License as published by
 	*   the Free Software Foundation; either version 2 of the License, or
 	*   (at your option) any later version.
 	*
-	*    Unicode Reminder ąśłó
 	***************************************************************************/
+/****************************************************************************
 
+   Unicode Reminder ăĄă˘
+
+	 log a cache visit
+
+	 used template(s): log
+
+	 GET Parameter: cacheid
+
+ ****************************************************************************/
 
 	function isGeokretInCache($cacheid)
 	{
@@ -62,7 +80,7 @@
 		else
 		{
 			//set here the template to process
-			$tplname = 'log_cache-test';
+			$tplname = 'log_cache';
 
 			require($stylepath . '/log_cache.inc.php');
 			require_once($rootpath . 'lib/caches.inc.php');
@@ -105,8 +123,6 @@
 				
 				$log_text  = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
 				$log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
-				$log_date_min = isset($_POST['logmin']) ? ($_POST['logmin']+0) : date('i');
-				$log_date_hour = isset($_POST['loghour']) ? ($_POST['loghour']+0) : date('H');
 				$log_date_day = isset($_POST['logday']) ? ($_POST['logday']+0) : date('d');
 				$log_date_month = isset($_POST['logmonth']) ? ($_POST['logmonth']+0) : date('m');
 				$log_date_year = isset($_POST['logyear']) ? ($_POST['logyear']+0) : date('Y');
@@ -269,14 +285,14 @@
 				}
 
 				//validate data
-				if (is_numeric($log_date_month) && is_numeric($log_date_day) && is_numeric($log_date_year) && is_numeric($log_date_hour)&& is_numeric($log_date_min))
+				if (is_numeric($log_date_month) && is_numeric($log_date_day) && is_numeric($log_date_year))
 				{
-					$date_not_ok = (checkdate($log_date_month, $log_date_day, $log_date_year) == false || $log_date_hour < 0 || $log_date_hour > 23 || $log_date_min < 0 || $log_date_min > 60);
+					$date_not_ok = (checkdate($log_date_month, $log_date_day, $log_date_year) == false);
 					if($date_not_ok == false)
 					{
 						if (isset($_POST['submitform']))
 						{
-							if(mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year)>=mktime())
+							if(mktime(0, 0, 0, $log_date_month, $log_date_day, $log_date_year)>=mktime())
 							{
 								$date_not_ok = true;
 							}
@@ -398,7 +414,7 @@
 						// nie wybrano opcji oceny
 						
 					}
-					$log_date = date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year));
+					$log_date = date('Y-m-d', mktime(0, 0, 0, $log_date_month, $log_date_day, $log_date_year));
 
 					$log_uuid = create_uuid();
 					//add logentry to db
@@ -419,14 +435,14 @@
 						{
 							$tmpset_var = '`founds`=\'' . ($record['founds'] + 1) . '\'';
 
-							$dlog_date = mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year);
+							$dlog_date = mktime(0, 0, 0, $log_date_month, $log_date_day, $log_date_year);
 							if ($record['last_found'] == NULL)
 							{
-								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
+								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d', $dlog_date)) . '\'';
 							}
 							elseif (strtotime($record['last_found']) < $dlog_date)
 							{
-								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
+								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d', $dlog_date)) . '\'';
 							}
 						}
 						elseif ($log_type == 2 || $log_type == 8) // fuer Events wird not found als will attend Zaehler missbraucht
@@ -549,8 +565,6 @@
 					//set tpl vars
 					tpl_set_var('cachename', htmlspecialchars($cachename, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
-					tpl_set_var('logmin', htmlspecialchars($log_date_min, ENT_COMPAT, 'UTF-8'));
-					tpl_set_var('loghour', htmlspecialchars($log_date_hour, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logday', htmlspecialchars($log_date_day, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logmonth', htmlspecialchars($log_date_month, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('logyear', htmlspecialchars($log_date_year, ENT_COMPAT, 'UTF-8'));
@@ -562,22 +576,23 @@
 
 
 					// Text / normal HTML / HTML editor
-					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
+					tpl_set_var('use_tinymce', (($desc_htmledit == 1) ? 1 : 0));
 
-					if ($descMode == 1)
-						tpl_set_var('descMode', 1);
-					else if ($descMode == 2)
+					if (($desc_html == 1) && ($desc_htmledit == 1))
+					{
+						tpl_set_var('descMode', 3);
+					}
+					else if ($desc_html == 1)
 						tpl_set_var('descMode', 2);
 					else
-					{
+						tpl_set_var('descMode', 1);
 					// TinyMCE
 					$headers = tpl_get_var('htmlheaders') . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
 					tpl_set_var('htmlheaders', $headers);
-						tpl_set_var('descMode', 3);
-					}
+					
 					
 					if ($descMode != 1)
 						tpl_set_var('logtext', htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'), true);
