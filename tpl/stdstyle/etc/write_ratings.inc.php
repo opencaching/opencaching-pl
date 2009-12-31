@@ -1,12 +1,4 @@
 <?php
-	/***************************************************************************
-												./lang/<speach>/<style>/etc/write_newcaches.php
-																-------------------
-			begin                : Mon June 28 2004
-			copyright            : (C) 2004 The OpenCaching Group
-			forum contact at     : http://www.opencaching.com/phpBB2
-
-		***************************************************************************/
 
 	/***************************************************************************
 		*
@@ -19,13 +11,9 @@
 
 	/****************************************************************************
 
-   Unicode Reminder ??
+   Unicode Reminder ?? ąść
 
-		writing /html/newcaches.inc.php and /html/start_newcaches.inc.php
-		/html/nextevents.inc.php
-
-						<tr><td style="padding-bottom:3px;"><font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></td></tr>';
-
+	
 	****************************************************************************/
 
 // ini_set ('display_errors',on);
@@ -55,7 +43,7 @@
 			ORDER BY `anzahl` DESC, `caches`.`name` ASC
 			LIMIT 0 , 100");
 			
-	$cacheline = '<p><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;<font size="1"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp; <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></p>';
+	$cacheline = '<p><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp; <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></p>';
 
 if (mysql_num_rows($rs) == 0)
 	{
@@ -67,7 +55,7 @@ if (mysql_num_rows($rs) == 0)
 
 	$file_content = '<table width="97%" class="content" style="font-size:115%; line-height: 0.5cm;">
 			<tr><td class="content2-pagetitle">
-	<img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="OC" title="Cache ratings" align="middle" /><font size="4"> <b>Skrzynki rekomendowane</b></font></td></tr></table><div class="content2-container" style="font-size: 115%; line-height: 0.5cm;">';	
+	<img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="OC" title="Cache ratings" align="middle" /><font size="4"> <b>Skrzynki rekomendowane</b></font></td></tr></table><div class="content2-container" style="font-size: 125%; line-height: 0.5cm;"><br />';	
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
