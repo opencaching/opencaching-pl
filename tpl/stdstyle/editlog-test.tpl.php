@@ -172,15 +172,15 @@ function toogleLayer( whichLayer, val )
 	var descMode = {descMode};
 	document.getElementById("scriptwarning").firstChild.nodeValue = "";
 
+	// descMode auf 1 oder 2 stellen ... wenn Editor erfolgreich geladen wieder auf 3 Stellen
 	if (descMode == 3)
 	{
-		toggleEditor("logtext");
-		use_tinymce = 1;
-/*		if (document.getElementById("desc").value == '')
+		if (document.getElementById("logtext").value == '')
 			descMode = 1;
 		else
-			descMode = 2;*/
+			descMode = 2;
 	}
+
 	document.getElementById("descMode").value = descMode;
 	mnuSetElementsNormal();
 
