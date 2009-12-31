@@ -27,7 +27,7 @@
 		writeDataButtonText: "WP zapisany w GPS",
                 showProgressBar: true,              
 		getWriteData: function() {   
-            var waypoint = new Garmin.WayPoint("{lat}", "{long}", "0", "{wp_oc}", "OC PL: {cachename}","Geocache", "Traditional");
+            var waypoint = new Garmin.WayPoint("{lat}", "{long}", "0", "{wp_oc}",null,"OC PL: {cachename}","Geocache", "Traditional",null);
             var factory = new Garmin.GpsDataFactory();
             var gpx = factory.produceGpxString(null, [waypoint]);
             return gpx;
