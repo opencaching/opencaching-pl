@@ -188,7 +188,7 @@ else
 				<div class="content2-container">
 				<div id='branding'>{branding}</div>
 
-					<div id="viewcache-description">
+					<div style="font-size: 125%; line-height: 0.5cm;">
 						{desc}
 					</div>
 			</div>
