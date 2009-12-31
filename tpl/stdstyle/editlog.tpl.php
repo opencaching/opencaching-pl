@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-											./tpl/stdstyle/editlog.tpl.php
-															-------------------
-		begin                : Mon July 5 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -19,24 +11,8 @@
 
 /****************************************************************************
 
-   Unicode Reminder ??
-
-	 edit a log listing
-
-	 template replacement(s):
-
-			cachename
-			logid
-			logtypeoptions
-			date_message
-			logday
-			logmonth
-			logyear
-			logtext
-			reset
-			submit
-
- ****************************************************************************/
+   Unicode Reminder ąśćł
+*/
 ?>
 <script type="text/javascript">
 <!--
@@ -345,7 +321,7 @@ function toogleLayer( whichLayer, val )
 		if(oldMode == descMode)
 	{
 			// convert text to HTML
-			var desc = document.getElementById("desc").value;
+			var desc = document.getElementById("logtext").value;
 
 			if ((desc.indexOf('&amp;') == -1) &&
 			    (desc.indexOf('&quot;') == -1) &&
@@ -365,7 +341,7 @@ function toogleLayer( whichLayer, val )
 				desc = desc.replace(/<br \/>/g, "<br />\n");
 			}
 
-			document.getElementById("desc").value = desc;
+			document.getElementById("logtext").value = desc;
 		}
 
 

@@ -1,12 +1,5 @@
 <?php
-/***************************************************************************
-																./editlog.php
-															-------------------
-		begin                : July 5 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
 
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -19,15 +12,9 @@
 
 /****************************************************************************
 
-   Unicode Reminder ăĄă˘
+   Unicode Reminder ąśćł
 
-	 edit a log listing
-
-	 used template(s): editlog
-
-	 GET/POST Parameter: logid
-
- ****************************************************************************/
+*/
 
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
