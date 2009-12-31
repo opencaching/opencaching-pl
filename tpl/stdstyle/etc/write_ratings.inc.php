@@ -67,7 +67,7 @@ if (mysql_num_rows($rs) == 0)
 
 	$file_content = '<table width="97%" class="content" style="font-size:115%; line-height: 0.5cm;">
 			<tr><td class="content2-pagetitle">
-	<img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="OC" title="Cache ratings" align="middle" /><font size="4"> <b>Skrzynki rekomendowane</b></font></td></tr>';	
+	<img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="OC" title="Cache ratings" align="middle" /><font size="4"> <b>Skrzynki rekomendowane</b></font></td></tr></table><div class="content2-container" style="font-size: 115%; line-height: 0.5cm;">';	
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
@@ -84,7 +84,7 @@ if (mysql_num_rows($rs) == 0)
 		$file_content .= $thisline . "\n";
 	}
 
-	$file_content .= '</table>';
+	$file_content .= '</div>';
 }
 	$n_file = fopen($dynstylepath . "ratings.tpl.php", 'w');
 	fwrite($n_file, $file_content);
