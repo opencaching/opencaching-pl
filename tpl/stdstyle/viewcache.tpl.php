@@ -187,10 +187,11 @@ else
 				</p></div>
 				<div class="content2-container">
 				<div id='branding'>{branding}</div>
-
-					<p style="line-height: 1.6em;">
+				<div id="description">
+					<div id="viewcache-description">
 						{desc}
-					</p>
+					</div>
+				</div>
 			</div>
 <!-- End Text Container -->
 <!-- Text container -->
