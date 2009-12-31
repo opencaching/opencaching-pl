@@ -188,9 +188,9 @@ else
 				<div class="content2-container">
 				<div id='branding'>{branding}</div>
 
-					<div style="font-size: 125%; line-height: 0.5cm;">
+					<p style="line-height: 1.6em;">
 						{desc}
-					</div>
+					</p>
 			</div>
 <!-- End Text Container -->
 <!-- Text container -->
