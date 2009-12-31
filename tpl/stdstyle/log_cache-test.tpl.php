@@ -10,7 +10,9 @@
 	*  UTF8 remaider śąłó
 	***************************************************************************/
 
-	require_once('./lib/common.inc.php');
+
+require_once('./lib/common.inc.php');
+
 ?>
 <script type="text/javascript">
 <!--
@@ -97,7 +99,6 @@ function toogleLayer( whichLayer, val )
 
 //-->
 </script>
-{descMode} (use_tinymce)
 <form action="log-test.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" dir="ltr" onsubmit="disable()">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="version2" value="1"/>
@@ -358,7 +359,7 @@ function toogleLayer( whichLayer, val )
 		if(oldMode == descMode)
 	{
 			// convert text to HTML
-			var desc = document.getElementById("desc").value;
+			var desc = document.getElementById("logtext").value;
 
 			if ((desc.indexOf('&amp;') == -1) &&
 			    (desc.indexOf('&quot;') == -1) &&
@@ -378,7 +379,7 @@ function toogleLayer( whichLayer, val )
 				desc = desc.replace(/<br \/>/g, "<br />\n");
 			}
 
-			document.getElementById("desc").value = desc;
+			document.getElementById("logtext").value = desc;
 		}
 
 
