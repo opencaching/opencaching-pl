@@ -45,7 +45,7 @@
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="cache-control" content="no-cache" />
 		<link rel="SHORTCUT ICON" href="favicon.ico">
-		<link rel="stylesheet" type="text/css" href="lang/{lang}/{style}/css/{css}" />
+		<link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/style_screen" />
 		{htmlheaders}
 	</head>
 	<body{bodyMod}>
