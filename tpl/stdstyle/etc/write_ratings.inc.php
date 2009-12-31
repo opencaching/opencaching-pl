@@ -43,7 +43,7 @@
 			ORDER BY `anzahl` DESC, `caches`.`name` ASC
 			LIMIT 0 , 100");
 			
-	$cacheline = '<p><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp; <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></p>';
+	$cacheline = '<p><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp; <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font color="#001BBC">Rekomendowane: {rating_absolute}</font></p>';
 
 if (mysql_num_rows($rs) == 0)
 	{
@@ -55,7 +55,7 @@ if (mysql_num_rows($rs) == 0)
 
 	$file_content = '<table width="97%" class="content" style="font-size:115%; line-height: 0.5cm;">
 			<tr><td class="content2-pagetitle">
-	<img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="OC" title="Cache ratings" align="middle" /><font size="4"> <b>Skrzynki rekomendowane</b></font></td></tr></table><div class="content2-container" style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px;line-height: 1.6em; font-size: 115%;"><br />';	
+	<img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="OC" title="Cache ratings" align="middle" /><font size="4"> <b>Skrzynki rekomendowane</b></font></td></tr></table><div class="content2-container" style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px;line-height: 1.8em; font-size: 115%;"><br />';	
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
