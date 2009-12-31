@@ -55,7 +55,7 @@
 			ORDER BY `anzahl` DESC, `caches`.`name` ASC
 			LIMIT 0 , 100");
 			
-	$cacheline = '<tr><td rowspan="1" align="right"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;</td><td><font size="1"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp; <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></td></tr>';
+	$cacheline = '<p><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;<font size="1"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp; <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font size="1" color="#001BBC">Rekomendowane: {rating_absolute}</font></p>';
 
 if (mysql_num_rows($rs) == 0)
 	{
