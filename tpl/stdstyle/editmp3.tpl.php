@@ -76,8 +76,8 @@ function checkForm()
 
 	<tr>
 		<td class="header-small" colspan="2">
-			<input type="reset" name="reset" value="Powrót" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submit" value="Wyslij" style="width:120px"/>
+			<input type="reset" name="reset" value="{{reset}}" style="width:120px"/>&nbsp;&nbsp;
+			<input type="submit" name="submit" value="{{submit}}" style="width:120px"/>
 		</td>
 	</tr>
   </table>
