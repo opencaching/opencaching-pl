@@ -172,15 +172,15 @@ function toogleLayer( whichLayer, val )
 	var descMode = {descMode};
 	document.getElementById("scriptwarning").firstChild.nodeValue = "";
 
-	// descMode auf 1 oder 2 stellen ... wenn Editor erfolgreich geladen wieder auf 3 Stellen
 	if (descMode == 3)
 	{
-		if (document.getElementById("logtext").value == '')
+		toggleEditor("logtext");
+		use_tinymce = 1;
+/*		if (document.getElementById("desc").value == '')
 			descMode = 1;
 		else
-			descMode = 2;
+			descMode = 2;*/
 	}
-
 	document.getElementById("descMode").value = descMode;
 	mnuSetElementsNormal();
 
@@ -319,7 +319,7 @@ function toogleLayer( whichLayer, val )
 		if(oldMode == descMode)
 	{
 			// convert text to HTML
-			var desc = document.getElementById("desc").value;
+			var desc = document.getElementById("logtext").value;
 
 			if ((desc.indexOf('&amp;') == -1) &&
 			    (desc.indexOf('&quot;') == -1) &&
@@ -339,7 +339,7 @@ function toogleLayer( whichLayer, val )
 				desc = desc.replace(/<br \/>/g, "<br />\n");
 			}
 
-			document.getElementById("desc").value = desc;
+			document.getElementById("logtext").value = desc;
 		}
 
 
