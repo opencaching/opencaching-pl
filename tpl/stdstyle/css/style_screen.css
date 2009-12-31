@@ -545,7 +545,7 @@ div#viewcache-description { font-family: arial, sans serif; line-height: 1.6em; 
 
 div.viewcache-pictureblock { float: left; }
 
-div.viewcache-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left;}
+div.viewcache-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 125%;}
 
 div#main-cachemap-block { width: 265px; }
 
