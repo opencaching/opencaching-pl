@@ -41,7 +41,7 @@
 			  AND `caches`.`type`=`cache_type`.`id`
 			GROUP BY `user`.`user_id`, `user`.`username`, `caches`.`cache_id`, `caches`.`name`, `cache_type`.`icon_large`
 			ORDER BY `anzahl` DESC, `caches`.`name` ASC
-			LIMIT 0 , 100");
+			LIMIT 0 , 200");
 			
 	$cacheline = '<p><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp; <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font color="#001BBC">Rekomendowane: {rating_absolute}</font></p>';
 
