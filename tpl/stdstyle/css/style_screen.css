@@ -611,3 +611,12 @@ div.gsc-resultsRoot, div.gsc-branding-text, img.gsc-branding-img {
 	font-size: 14px;
 }
 
+
+/* linki w recomendation cache sp2ong */
+a.1{text-decoration:none;}
+a.1:hover{	text-transform: uppercase;
+	font-weight:bold;
+	color:blue;
+	background-color:yellow;
+;}
+
