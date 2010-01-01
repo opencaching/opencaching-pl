@@ -636,5 +636,23 @@ a.links:hover {
 	background-color:rgb(219,230,241);
 	text-decoration:none;
 }
+a.info{
+    position:relative; /*this is the key*/
+    z-index:24; background-color:#FFFFFF;
+    color:#0000;
+    text-decoration:none;
+	font-weight:bold;}
 
+a.info:hover{z-index:25; background-color:#FFFFFF;font-weight:bold;}
+
+a.info span{display: none}
+
+a.info:hover span{ /*the span will display just on :hover state*/
+    display:block;
+    position:absolute;
+    top:2em; left:2em; width:15em;
+    border:1px solid #0cf;
+    background-color:#FFFFCC; color:#0000;
+    text-align: center;
+	font-weight:bold;}
 
