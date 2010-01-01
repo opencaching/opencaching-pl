@@ -793,6 +793,7 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 {
 	/* enthĂ¤lt die Hintergrundfarbe des MenĂźs */
 	global $mnu_bgcolor;
+	global $usr;
 
 	if (!$bHasSubmenu)
 	{
@@ -831,6 +832,10 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 			}
 			else
 				$icon = "";
+
+			if($menustructure[$i]['onlylogged'] == true && $usr == false) {
+				continue;
+			}
 
 			if ($menustructure[$i]['siteid'] == $pageid)
 			{
