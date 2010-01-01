@@ -51,7 +51,7 @@
 
 	if (sqlValue("SELECT COUNT(*) FROM `topResult`", 0) > 20)
 	{
-		$min_idx = sqlValue("SELECT `idx` FROM `topResult` ORDER BY `idx` DESC LIMIT 200, 1", 0);
+		$min_idx = sqlValue("SELECT `idx` FROM `topResult` ORDER BY `idx` DESC LIMIT 9999, 1", 0);
 		sql("DELETE FROM `topResult` WHERE `idx`<'&1'", $min_idx);
 	}
 
