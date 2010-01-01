@@ -543,6 +543,8 @@ div#viewcache-utility { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.
 div.viewcache_log-content { font-family: arial, sans serif; line-height: 1.6em; font-size: 12px; margin-top: 5px;}
 div#viewcache-description { font-family: arial, sans serif; line-height: 1.6em; font-size: 12px; margin-top: 5px;}
 
+div#viewcache-description p { line-height: 1.6em; }
+
 div.viewcache-pictureblock { float: left; }
 
 div.viewcache-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 125%;}
