@@ -614,11 +614,13 @@ div.gsc-resultsRoot, div.gsc-branding-text, img.gsc-branding-img {
 
 /* linki w recomendation cache sp2ong */
 a.links:link {
-	color: blue;
+	font-weight:bold;
+	color: black;
 	text-decoration:none;
 }
 
 a.links:visited {
+	font-weight:bold;
 	color: purple;
 	text-decoration:none;
 }

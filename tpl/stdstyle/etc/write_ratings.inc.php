@@ -43,7 +43,7 @@
 			ORDER BY `anzahl` DESC, `caches`.`name` ASC
 			LIMIT 0 , 200");
 			
-	$cacheline = '<tr><td>&nbsp;</td><td><span class="content-title-noshade txt-blue08" >{rating_absolute}</span></td><td><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></td><td><strong><a style="text-decoration:none;" href="viewcache.php?cacheid={cacheid}">{cachename}</a></strong></td><td><strong><a style="text-decoration:none;" href="viewprofile.php?userid={userid}">{username}</a></strong></td></tr>';
+	$cacheline = '<tr><td>&nbsp;</td><td><span class="content-title-noshade txt-blue08" >{rating_absolute}</span></td><td><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></td><td><strong><a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a></strong></td><td><strong><a class="links" href="viewprofile.php?userid={userid}">{username}</a></strong></td></tr>';
 
 if (mysql_num_rows($rs) == 0)
 	{
