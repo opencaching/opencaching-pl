@@ -62,7 +62,7 @@
 		else
 		{
 			//set here the template to process
-			$tplname = 'log_cache-test';
+			$tplname = 'log_cache';
 
 			require($stylepath . '/log_cache.inc.php');
 			require_once($rootpath . 'lib/caches.inc.php');

@@ -31,8 +31,18 @@
 	//Preprocessing
 	if ($error == false)
 	{
+			//user logged in?
+		if ($usr == false)
+		{
+		    $target = urlencode(tpl_get_current_page());
+		    tpl_redirect('login.php?target='.$target);
+		}
+		else
+		{
+
 		// get the news
 		$tplname = 'ratings';
+		}
 	}
 	
 	//make the template and send it out
