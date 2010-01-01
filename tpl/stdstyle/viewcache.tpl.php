@@ -120,7 +120,7 @@ else
 							{visit_icon} {visits} {{visitors}}<br />
 							{vote_icon} {votes_count} x {{scored}}<br />
 							{score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
-							{rating_stat}
+							{list_of_rating_begin}{rating_stat}{list_of_rating_end}
 							</p>
 						</div>
 						<div id="viewcache-map" class="content2-container-2col-right"><div class="img-shadow">

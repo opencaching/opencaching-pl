@@ -654,6 +654,6 @@ a.info:hover span{ /*the span will display just on :hover state*/
     bottom:15em; left:0em; width:15em;
     border:1px solid #000;
     background-color:#FFFFCC; color:#000;
-    text-align: left; font-size: 11px;font-weight:bold;
+    text-align: left; font-size: 11px;
 	}
 

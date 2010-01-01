@@ -369,7 +369,25 @@
 				tpl_set_var('rating_stat', mb_ereg_replace('{ratings}', $cache_record['topratings'], $rating_stat_show_plural));
 			else
 				tpl_set_var('rating_stat', '');
+			// cache_rating list of users
+							// no geokrets in this cache
+				tpl_set_var('list_of_rating_begin', '');
+				tpl_set_var('list_of_rating_end', '');
 
+			$rscr= sql("SELECT user.username username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=&1 ORDER BY username",$cache_id);
+			if ( $rscr == flase) {tpl_set_var('list_of_rating_begin', '');
+				tpl_set_var('list_of_rating_end', '');}
+			else { tpl_set_var('list_of_rating_begin','<a class="info" href="#">');
+			$lists = '';
+			for ($i = 0; $i < mysql_num_rows($rscr); $i++)
+			{
+				$record = sql_fetch_array($rscr);
+				$lists .= $record['username'];
+				$lists .= ', ';
+
+				}
+
+				tpl_set_var('list_of_rating_end','<span>Rekomendowana przez:<br />' . $lists . '</span></a>');}
 
 			if ((($cache_record['way_length'] == null) && ($cache_record['search_time'] == null)) ||
 			    (($cache_record['way_length'] == 0) && ($cache_record['search_time'] == 0)))
@@ -1034,6 +1052,7 @@
 			tpl_set_var('edit', $edit_action);
 			tpl_set_var('print', $print_action);
 			tpl_set_var('print_list', $print_list);
+
 
 			// check if password is required
 			$has_password = isPasswordRequired($cache_id);
