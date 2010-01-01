@@ -111,6 +111,7 @@ $menu = array(
 				'menustring' => tr('cache_map'),
 				'siteid' => 'cachemap3',
 				'visible' => true,
+				'onlylogged' = true,
 				'filename' => 'cachemap3.php'
 			),
 				array(
@@ -118,6 +119,7 @@ $menu = array(
 				'menustring' => tr('cache_mapv2'),
 				'siteid' => 'cachemap2',
 				'visible' => true,
+				'onlylogged' = true,
 				'filename' => 'cachemap2.php'
 			),
 
@@ -133,6 +135,7 @@ $menu = array(
 					'title' => tr('recommended_caches'),
 					'menustring' => tr('recommended_caches'),
 					'visible' => true,
+					'onlylogged' = true,
 					'filename' => 'newcacherating.php',
 					'siteid' => 'ratings'
 			),
