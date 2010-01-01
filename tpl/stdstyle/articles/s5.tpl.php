@@ -3,10 +3,4 @@
 	<tr><td class="spacer"></td></tr>
 </table>
 
-<table>
-<tr>
-<td><?php include ("top.php");?>
-</td></tr>
-</table>
-
-</td></tr></table>
+<?php include ("top.php");?>

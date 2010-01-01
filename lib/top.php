@@ -19,9 +19,11 @@
 //	require('./lib/common.inc.php');
 
 	$tops = array();
-	echo '<center><table><tr><td align=center><font size=+0><b>Ranking skrzynek wg liczonego indeksu</b></font><br /></td></tr>';
-	echo '<tr><td class="spacer"></td></tr><tr><td style="padding-left:32px; padding-bottom:32px;">The following list is automatically generated from user recommendations. <br /> The numbers in the list below mean:<br /> <img src="images/rating-star.png" border="0" alt="Recommendations" /> Number of users that recommend this cache<br /> <img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="Found" /> Number of times the cache has been found<br /> The Index tries to calculate a quality ranking of geocaches from the recommendation and the number of find logs.<br /> <img src="images/tops-formula.png" border="0" alt="Formula" /></td></tr>';
-	echo '<tr><td><center><table bgcolor="white" width=700><tr><td align="right">Indeks</td><td align="center"><img src="images/rating-star.png" border="0" alt="" /></td><td align="center"><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="" /></td><td></td></tr>';
+	echo '<center><table style="padding-left:32px; padding-bottom:32px; line-heigh: 1.6em; font-size: 12px;">';
+	echo '<tr><td align="center" style="font-size: 16px;"><b>Ranking skrzynek wg liczonego indeksu</b><br /></td></tr>';
+	echo '<tr><td>The following list is automatically generated from user recommendations. The numbers in the list below mean:<br /> <br /><img src="images/rating-star.png" border="0" alt="Recommendations" /> Number of users that recommend this cache<br /><br /><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="Found" /> Number of times the cache has been found<br /><br /> The Index tries to calculate a quality ranking of geocaches from the recommendation and the number of find logs.</td></tr>';
+	echo '<tr><td align="center"><img src="images/tops-formula.png" border="0" alt="Formula" /></td></tr></table></center>';
+	echo '<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;line-high: 1.6em; font-size: 12px;" width="97%"><tr><td>&nbsp;</td><td><strong>Indeks</strong></td><td><img src="images/rating-star.png" border="0" alt="" /></td><td><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="" /></td><td><strong>Cache</strong></td><td><strong>User</strong></td></tr><tr><td colspan="6"><hr></hr></td></tr>';
 
 //  mysql_query("SET NAMES 'utf8'"); 
 	// Alle Caches für diese Gruppe finden
@@ -49,7 +51,7 @@
 
 	if (sqlValue("SELECT COUNT(*) FROM `topResult`", 0) > 20)
 	{
-		$min_idx = sqlValue("SELECT `idx` FROM `topResult` ORDER BY `idx` DESC LIMIT 99999, 1", 0);
+		$min_idx = sqlValue("SELECT `idx` FROM `topResult` ORDER BY `idx` DESC LIMIT 200, 1", 0);
 		sql("DELETE FROM `topResult` WHERE `idx`<'&1'", $min_idx);
 	}
 
@@ -76,13 +78,14 @@ $widthB = round(100 * ($rCaches[idx]/200)/1,0);
 	
 //	echo $rCaches['idx'] . ' ' . $rCaches['name'] . '<br />';
 //	$line = '<tr><td><a href=http://www.opencaching.pl/viewcache.php?cacheid={cacheid} target=_blank>{name}</a> (<b>{username}</b>)</td><td align=right>&nbsp;(<b>{count}</b>)&nbsp;</td><td><img src=/graphs/images/leftbar.gif /><img src=/graphs/images/mainbar.gif height=14 width={widthB} /><img src=/graphs/images/rightbar.gif /> </td> </tr>';		
-	$line = '<tr><td width="40px" align="right">{index}</td><td width="40px" align="center">{rating}</td><td  width="60px" align="center">{fbr}</td><td><a href=http://www.opencaching.pl/viewcache.php?cacheid={cacheid} target=_blank>{name}</a> &nbsp;({username})</td></tr>';		
+	$line = '<tr><td>&nbsp;</td><td><span class="content-title-noshade txt-blue08" >{index}</span></td><td><span class="content-title-noshade txt-green10">{rating}</span></td><td><span class="content-title-noshade txt-green10">{fbr}</span></td><td><a class="links" href="viewcache.php?cacheid={cacheid}" target="_blank">{name}</a></td><td><a class="links" href="viewprofile.php?userid={userid}" target="_blank">{username}</a></td></tr>';		
 		$line = str_replace('{index}', $rCaches[idx], $line);
 		$line = str_replace('{rating}', $rCaches[ratings], $line);
 		$line = str_replace('{fbr}', $rCaches[founds], $line);
 		$line = str_replace('{far}', $rCaches[foundAfterRating], $line);
 		$line = str_replace('{username}', $rCaches[username], $line);
 		$line = str_replace('{widthB}', $widthB, $line);
+		$line = str_replace('{userid}', $rCaches[userid], $line);
 		$line = str_replace('{cacheid}', $rCaches[cache_id], $line);
 		$line = str_replace('{name}', $rCaches[name], $line);
 		echo $line;
@@ -93,6 +96,8 @@ $widthB = round(100 * ($rCaches[idx]/200)/1,0);
 	sql('DROP TEMPORARY TABLE topRatings');
 	sql('DROP TEMPORARY TABLE topResult');
 //	echo '</table></td></tr><tr><td>W nawiasie liczba ile razy skrzynka została znaleziona po 21.02.2007 (data wprowadzenia rekomendacji skrzynek)</td></tr></table></center><br />';
-	echo '</table></td></tr><tr><td></td></tr></table></center><br />';
+	
+	echo '<tr><td colspan="6"><hr></hr></td></tr></table>';
+	
 //	echo '</table></td></tr><tr><td>Wzór na Indeks = 100 * (a+1)* (a+1)/(b+(c/10)+3)<br />a = liczba rekomendacji<br />b = liczba znalezien po 21.02.2007(data od kiedy można przydzielać rekomendacje)<br />c = liczba wszystkich znalezien skrzynki</td></tr></table></center><br />';
 ?>

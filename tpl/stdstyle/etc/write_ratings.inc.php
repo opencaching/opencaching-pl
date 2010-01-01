@@ -47,7 +47,7 @@
 
 if (mysql_num_rows($rs) == 0)
 	{
-		$file_content = '<tr><td colspan="5">Nie ma nowych skrzynek z rekomendacjami</td></tr>';
+		$file_content = '<tr><td colspan="5"><strong>Nie ma nowych skrzynek z rekomendacjami</strong></td></tr>';
 	}
 	else
 	{
