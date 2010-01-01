@@ -143,6 +143,7 @@ $menu = array(
 				'title' => tr('statistics'),
 				'menustring' => tr('statistics'),
 				'visible' => true,
+				'onlylogged' => true,
 				'filename' => 'articles.php?page=stat',
 				'siteid' => 'articles/stat'
 			),
