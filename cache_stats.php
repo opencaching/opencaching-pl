@@ -50,7 +50,9 @@
 
 		$year=date("Y");
 
-		$content .= '<p><img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&amp;t=csm' . $year . '"  border="0" alt="" /></p>';								
+		$content .= '<p><img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&amp;t=csm' . $year . '"  border="0" alt="" /></p>';	
+		$yearr = $year -1;
+		$content .= '<p><img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&amp;t=csm' . $yearr . '"  border="0" alt="" /></p>';		
 		
 		$content .= '<p><img src="graphs/BarGraphcstat.php?cacheid=' . $cache_id . '&amp;t=csy"  border="0" alt="" /></p></center>';					
 			mysql_free_result($rsGeneralStat);

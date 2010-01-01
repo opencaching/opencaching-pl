@@ -96,7 +96,10 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
  				if ($rsCachesFindMonth !== false){
 	//			while ($rcfm = mysql_fetch_array($rsCachesFindYear)){
 
-		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfm' . $year . '"  border="0" alt="" /></p>';					
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfm' . $year . '"  border="0" alt="" /></p>';		
+		$yearr = $year -1;	
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfm' . $yearr . '"  border="0" alt="" /></p>';					
+
 //			}
 		}
 				mysql_free_result($rsCachesFindMonth);

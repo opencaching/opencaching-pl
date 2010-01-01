@@ -47,7 +47,7 @@ if ($tit == "csm") {
 $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND cache_id=&1 AND YEAR(`date`)=&2 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$cache_id,$year);
 
  				if ($rsCachesFindMonth !== false){
-				$descibe="Miesiêczna statystyka znalezieñ skrzynki (ostatni rok)";
+				$descibe="Miesiêczna statystyka znalezieñ skrzynki";
 				$describe .= $year;
 				$xtitle=$year;
 

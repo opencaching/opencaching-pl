@@ -58,7 +58,7 @@ $rsCachesFindYear2 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cach
 				}
 
 if ($tit == "csm") {
-				$descibe="Miesiêczna statystyka skrzynki (ostatni rok)";
+				$descibe="Miesiêczna statystyka skrzynki";
 				$describe .= $year;
 				$xtitle=$year;
 	for ($i = 1; $i < 13; $i++) {

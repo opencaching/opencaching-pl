@@ -51,7 +51,7 @@ if ($tit == "ccm") {
 $rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE status <>4 AND status <> 5 AND status <> 6 AND user_id=&1 AND YEAR(`date_created`)=&2 AND MONTH(`date_created`)=&3 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year,$month);
 
  				if ($rsCreateCachesMonth !== false) {
-				$descibe = "Miesieczna statystyka za³o¿onych skrzynek (ostatni rok)";
+				$descibe = "Miesieczna statystyka za³o¿onych skrzynek";
 				$xtitle=$year;
 				$rm = mysql_fetch_array($rsCreateCachesMonth);
 					$y[] = $rm['count'];

@@ -102,6 +102,9 @@
 
 
 		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm' . $year . '" border="0" alt="" /></p>';		
+		$yearr= $year-1;	
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm' . $yearr . '" border="0" alt="" /></p>';		
+
 //				}
 		}
  			mysql_free_result($rsCreateCachesMonth);
