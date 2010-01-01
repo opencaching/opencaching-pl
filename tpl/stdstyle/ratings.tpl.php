@@ -1,5 +1,27 @@
+
+	<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Recommendation" align="middle"/>&nbsp;{{recommended_caches}} cache</div>
+<!-- Text container -->
+	<p style="font-size: 12px; line-heigh: 1.6em;"><span class="content-title-noshade txt-blue08" >
+		{{recommendation_rating}} &nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" />&nbsp; <a href="articles.php?page=s5">({{show}})</a> </span>
+	</p>
+<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;line-high: 1.6em; font-size: 12px;" width="97%">
+<tr>
+<td>&nbsp;</td>
+<td><img src="images/rating-star.png" border="0" alt=""/></td>
+<td>&nbsp;</td>
+<td><strong>Cache</strong></td>
+<td><strong>User</strong></td>
+</tr>
+<tr>
+<td colspan="5"><hr></hr></td>
+</tr>
 <?php
 	// Wzorzec jest generowany dynamicznie przez skrypt /tpl/stdstyle/etc/write_ratings.inc.php
 	global $dynstylepath;
 	include ($dynstylepath . "ratings.tpl.php");
-?>
+?>	
+<tr>
+<td colspan="5"><hr></hr></td>
+</tr>
+</table>
+

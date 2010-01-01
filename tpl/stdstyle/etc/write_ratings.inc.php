@@ -43,19 +43,15 @@
 			ORDER BY `anzahl` DESC, `caches`.`name` ASC
 			LIMIT 0 , 200");
 			
-	$cacheline = '<p><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp; <a href="viewprofile.php?userid={userid}">{username}</a>&nbsp; => &nbsp;<font color="#001BBC">Rekomendowane: {rating_absolute}</font></p>';
+	$cacheline = '<tr><td>&nbsp;</td><td><span class="content-title-noshade txt-blue08" >{rating_absolute}</span></td><td><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></td><td><strong><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></strong></td><td><strong><a href="viewprofile.php?userid={userid}">{username}</a></strong></td></tr>';
 
 if (mysql_num_rows($rs) == 0)
 	{
-		$file_content = 'Nie ma nowych skrzynek z rekomendacjami';
+		$file_content = '<tr><td colspan="5">Nie ma nowych skrzynek z rekomendacjami</td></tr>';
 	}
 	else
 	{
 
-
-	$file_content = '<table width="97%" class="content" style="font-size:115%; line-height: 0.5cm;">
-			<tr><td class="content2-pagetitle">
-	<img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="OC" title="Cache ratings" align="middle" /><font size="4"> <b>Skrzynki rekomendowane</b></font></td></tr></table><div class="content2-container" style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px;line-height: 1.8em; font-size: 115%;"><br />';	
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
@@ -72,7 +68,6 @@ if (mysql_num_rows($rs) == 0)
 		$file_content .= $thisline . "\n";
 	}
 
-	$file_content .= '</div>';
 }
 	$n_file = fopen($dynstylepath . "ratings.tpl.php", 'w');
 	fwrite($n_file, $file_content);

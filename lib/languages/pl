@@ -226,7 +226,7 @@ terrain_difficulty Trudność terenu
 task_difficulty Trudność zadań
 out_of z
 list_of_participants Lista uczestników
-show_recommended Wskaż rekomendowany
+show_recommended Wskaz rekomendowanych 
 show_all pokaż wszystkie
 no_choice Brak wyboru
 username_incorrect Nazwa użytkownika jest niepoprawna.
@@ -554,4 +554,6 @@ clear_list Wyczyść listę
 adoption_cache Adopcja skrzynki
 show_waypoints pokaż waypointy
 time Czas
+recommendation_rating Zobacz ranking skrzynek rekomendowanych wg liczonego wskaznika
+
 

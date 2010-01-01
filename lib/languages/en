@@ -508,3 +508,5 @@ account_is_actived account was actived
 adoption_cache Adoption cache
 show_waypoints Show waypoints
 time Time
+recommendation_rating Show ranking of caches calculated by formula
+ 
