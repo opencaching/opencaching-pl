@@ -613,10 +613,24 @@ div.gsc-resultsRoot, div.gsc-branding-text, img.gsc-branding-img {
 
 
 /* linki w recomendation cache sp2ong */
-a.1{text-decoration:none;}
-a.1:hover{	text-transform: uppercase;
-	font-weight:bold;
-	color:blue;
-	background-color:yellow;
-;}
+a.links:link {
+	color: blue;
+	text-decoration:none;
+}
+
+a.links:visited {
+	color: purple;
+	text-decoration:none;
+}
+
+a.links:active {
+	background-color: yellow;
+	text-decoration:none;
+}
+
+a.links:hover {
+	color:red;
+	text-decoration:none;
+}
+
 

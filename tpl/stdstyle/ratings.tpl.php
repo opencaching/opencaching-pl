@@ -2,7 +2,7 @@
 	<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Recommendation" align="middle"/>&nbsp;{{recommended_caches}} cache</div>
 <!-- Text container -->
 	<p style="font-size: 12px; line-heigh: 1.6em;"><span class="content-title-noshade txt-blue08" >
-		{{recommendation_rating}} &nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" />&nbsp; <a class="1"  href="articles.php?page=s5">({{show}})</a> </span>
+		{{recommendation_rating}} </span>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" />&nbsp; <a class="links"  href="articles.php?page=s5">({{show}})</a>
 	</p>
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;line-high: 1.6em; font-size: 12px;" width="97%">
 <tr>
