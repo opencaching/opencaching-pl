@@ -21,24 +21,6 @@
 	
 	$uuid = uniqid();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-		<title>Jquery WITS Form</title>
-	    <link rel="stylesheet" type="text/css" href="http://t.wits.sg/misc/css/reset.css"/>
-	    <link rel="stylesheet" type="text/css" href="http://t.wits.sg/misc/css/base.css"/>
-	    <link rel="stylesheet" type="text/css" href="http://t.wits.sg/misc/css/template.css"/>
-	    <link rel="stylesheet" type="text/css" href="http://t.wits.sg/misc/css/form.css"/>
-		<script type="text/javascript">
-			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-			</script>
-			<script type="text/javascript">
-			try {
-			var pageTracker = _gat._getTracker("UA-1120774-3");
-			pageTracker._trackPageview();
-			} catch(err) {}
-		</script>
 		<script type="text/javascript" src="tpl/stdstyle/js/jquery.js"></script>
 		<script type="text/javascript" src="tpl/stdstyle/js/jquery.progressbar.min.js"></script>
 		<script type="text/javascript">
@@ -178,5 +160,4 @@ function beginUpload() {
 		</div>
 		<!-- Ok, you so need this iframe for Safari and Chrome to work, the webkit engine doesnt allow ajax calls to be made after a form begins submission -->
 		<iframe style="display: none;" name="progressFrame"></iframe>
-	</body>
-</html>
+
