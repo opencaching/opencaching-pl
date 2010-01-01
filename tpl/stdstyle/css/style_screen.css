@@ -631,7 +631,7 @@ a.links:active {
 a.links:hover {
 	font-weight:bold;
 	color:blue;
-	background-color:yellow;
+	background-color:rgb(219,230,241);
 	text-decoration:none;
 }
 
