@@ -378,7 +378,8 @@
 			if ( $rscr == flase) {tpl_set_var('list_of_rating_begin', '');
 				tpl_set_var('list_of_rating_end', '');}
 			else { tpl_set_var('list_of_rating_begin','<a class="info" href="#">');
-				tpl_set_var('list_of_rating_end','<span>Recomended by:<br />' . $rscr . '</span></a>');}
+					$rcr = mysql_fetch_array($rscr);
+				tpl_set_var('list_of_rating_end','<span>Recomended by:<br />' . $rcr . '</span></a>');}
 
 			if ((($cache_record['way_length'] == null) && ($cache_record['search_time'] == null)) ||
 			    (($cache_record['way_length'] == 0) && ($cache_record['search_time'] == 0)))
