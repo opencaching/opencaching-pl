@@ -374,12 +374,20 @@
 				tpl_set_var('list_of_rating_begin', '');
 				tpl_set_var('list_of_rating_end', '');
 
-			$rscr= sql("SELECT user.username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=&1",$cache_id);
+			$rscr= sql("SELECT user.username username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=&1",$cache_id);
 			if ( $rscr == flase) {tpl_set_var('list_of_rating_begin', '');
 				tpl_set_var('list_of_rating_end', '');}
 			else { tpl_set_var('list_of_rating_begin','<a class="info" href="#">');
-					$rcr = mysql_fetch_array($rscr);
-				tpl_set_var('list_of_rating_end','<span>Recomended by:<br />' . $rcr . '</span></a>');}
+			$lists = '';
+			for ($i = 0; $i < mysql_num_rows($rscr); $i++)
+			{
+				$record = sql_fetch_array($rscr);
+				$lists .= $record['username'];
+				$lists .= ', ';
+
+				}
+
+				tpl_set_var('list_of_rating_end','<span>Rekomendowana przez:<br />' . $lists . '</span></a>');}
 
 			if ((($cache_record['way_length'] == null) && ($cache_record['search_time'] == null)) ||
 			    (($cache_record['way_length'] == 0) && ($cache_record['search_time'] == 0)))
