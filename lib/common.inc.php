@@ -44,7 +44,7 @@ session_start();
 	require_once($rootpath . 'lib/language.inc.php');
 
 	$lang_array = available_languages();//array("pl", "en", "sv", "de", "cs", "fr", "es");
-	$datetimeformat = '%d %B %Y um %H:%M:%S Uhr';
+	$datetimeformat = '%d %B %Y o godz. %H:%M:%S ';
 	$dateformat = '%d %B %Y';
 	$simpledateformat = '%d.%m.%Y';
 	
