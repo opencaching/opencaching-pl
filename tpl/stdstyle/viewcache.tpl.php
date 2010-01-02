@@ -312,9 +312,9 @@ else
 					{note_icon} {notes}x
 					&nbsp;&nbsp;
 					{viewlogs}
-					&nbsp;<br />
+					<br />&nbsp;&nbsp;
 					<img src="images/actions/new-entry-18.png" alt=""/>
-					<a href="log.php?cacheid={cacheid_urlencode}">{{new_log_entry}}</a>
+					<a href="log.php?cacheid={cacheid_urlencode}">{{new_log_entry}}</a><br />
 				</p>
 			</div>
 			<div class="content2-container" id="viewcache-logs">
