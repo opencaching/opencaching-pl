@@ -373,11 +373,11 @@
 							// no geokrets in this cache
 				tpl_set_var('list_of_rating_begin', '');
 				tpl_set_var('list_of_rating_end', '');
-
+				tpl_set_var('body_scripts','');
 			$rscr= sql("SELECT user.username username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=&1 ORDER BY username",$cache_id);
 			if ( $rscr == flase) {tpl_set_var('list_of_rating_begin', '');
 				tpl_set_var('list_of_rating_end', '');}
-			else { tpl_set_var('list_of_rating_begin','<a class="info" href="#">');
+			else { 
 			$lists = '';
 			for ($i = 0; $i < mysql_num_rows($rscr); $i++)
 			{
@@ -386,8 +386,14 @@
 				$lists .= ', ';
 
 				}
+				tpl_set_var('body_scripts', '<script type="text/javascript" src="lib/js/wz_tooltip.js"></script><script type="text/javascript" src="lib/js/tip_balloon.js"></script><script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
+	
+				$content_list = "<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('<b> Rekomendowana przez: </b><br /><br />";
+				$content_list .= $lists;
+				$content_list .= "<br /><br/>', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\">";
 
-				tpl_set_var('list_of_rating_end','<span>Rekomendowana przez:<br />' . $lists . '</span></a>');}
+				tpl_set_var('list_of_rating_begin', $content_list);
+				tpl_set_var('list_of_rating_end','</a>');}
 
 			if ((($cache_record['way_length'] == null) && ($cache_record['search_time'] == null)) ||
 			    (($cache_record['way_length'] == 0) && ($cache_record['search_time'] == 0)))
