@@ -201,7 +201,7 @@
 							$checked = " selected";
 						else
 							$checked = "";
-						$score .= "<option value='".new2oldscore($score_radio)."' $checked>".$ratingDesc[$score_radio]."</option>";
+						$score .= "<option value='".$score_radio."' $checked>".$ratingDesc[$score_radio]."</option>";
 					}
 					$score .= "</select>";
 					/*
@@ -360,10 +360,10 @@
 					}
 					if( $_POST['r'] != -10 )
 					{
-						$_POST['r'] = score2ratingnum($_POST['r']); // convert to old score format
+						$_POST['r'] = new2oldscore(intval($_POST['r'])); // convert to old score format
 					}
 					
-					if( $_POST['r'] == -10 || ($_POST['r'] >= $MIN_SCORE && $_POST['r'] <= $MAX_SCORE))
+					if( $_POST['r'] == -10 || ($_POST['r'] >= -3 && $_POST['r'] <= 3))
 					{
 						$score_not_ok = false;
 					}
@@ -380,16 +380,16 @@
 				
 				if( isset($_POST['submitform']) && ($all_ok == true) )
 				{
-					if( $_POST['r'] >= $MIN_SCORE && $_POST['r'] <= $MAX_SCORE )
+					if( $_POST['r'] >= -3 && $_POST['r'] <= 3 )
 					{
 						// oceniono skrzynkę
-						$sql = "SELECT count(*) FROM scores WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(intval($cache_id))."'";
+						$sql = "SELECT count(*) FROM scores WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(floatval($cache_id))."'";
 						$is_scored_query = mysql_query($sql);
 						if( mysql_result($is_scored_query,0) == 0 && $usr['userid'] != $record['user_id'])
 						{					
-							$sql = "UPDATE caches SET score=(score*votes+".sql_escape(intval($_POST['r'])).")/(votes+1), votes=votes+1 WHERE cache_id=".sql_escape($cache_id);
+							$sql = "UPDATE caches SET score=(score*votes+".sql_escape(floatval($_POST['r'])).")/(votes+1), votes=votes+1 WHERE cache_id=".sql_escape($cache_id);
 							mysql_query($sql);
-							$sql = "INSERT INTO scores (user_id, cache_id, score) VALUES('".sql_escape($usr['userid'])."', '".sql_escape(intval($cache_id))."', '".sql_escape(intval($_POST['r']))."')";
+							$sql = "INSERT INTO scores (user_id, cache_id, score) VALUES('".sql_escape($usr['userid'])."', '".sql_escape(floatval($cache_id))."', '".sql_escape(floatval($_POST['r']))."')";
 							mysql_query($sql);						
 						}
 					}
