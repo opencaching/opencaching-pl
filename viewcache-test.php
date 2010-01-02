@@ -401,7 +401,7 @@
 					if ($i == $numr ){ $lists .= ' ';} else { $lists .= ', ';}
 						}
 				}	
-				$content_list = "<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('<b>" .tr('recommeded_by'). ": </b><br /><br />";
+				$content_list = "<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('<b>" .tr('recommended_by'). ": </b><br /><br />";
 				$content_list .= $lists;
 				$content_list .= "<br /><br/>', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\">";
 
