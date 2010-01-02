@@ -489,8 +489,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 	       INNER JOIN `tmpxml_cachelogs` ON `cache_logs`.`id`=`tmpxml_cachelogs`.`id`
 	       INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id`
 	       INNER JOIN `caches` ON `caches`.`cache_id`=`cache_logs`.`cache_id`
-	        LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-					`cache_logs`.`deleted`=0
+	        LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` AND	`cache_logs`.`deleted`=0
 					');
 	while ($r = sql_fetch_array($rs))
 	{
@@ -616,7 +615,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 		if ($bCachelog == 1)
 		{
 			sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-			     SELECT &1, 1, `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` WHERE `cache_logs`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4 `cache_logs`.`deleted`=0",
+			     SELECT &1, 1, `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` WHERE `cache_logs`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4 AND `cache_logs`.`deleted`=0",
 			     $sessionid,
 			     $sModifiedSince);
 			$recordcount['cachelogs'] = mysql_affected_rows();
