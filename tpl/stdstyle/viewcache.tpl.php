@@ -312,7 +312,7 @@ else
 					{note_icon} {notes}x
 					&nbsp;&nbsp;
 					{viewlogs}
-					&nbsp;
+					&nbsp;<br />
 					<img src="images/actions/new-entry-18.png" alt=""/>
 					<a href="log.php?cacheid={cacheid_urlencode}">{{new_log_entry}}</a>
 				</p>
