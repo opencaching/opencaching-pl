@@ -26,11 +26,17 @@
 			$sql = "UPDATE user SET stat_ban = 1 - stat_ban WHERE user_id = ".intval($user_id);
 			mysql_query($sql);
 		}
-		if($_GET['hide_flag'] == 1 && $usr['admin'] )
+		if($_GET['hide_flag'] == 10 && $usr['admin'] )
 		{
-			$sql = "UPDATE user SET hide_flag = 1 - hide_flag WHERE user_id = ".intval($user_id);
+			$sql = "UPDATE user SET hide_flag = 10  WHERE user_id = ".intval($user_id);
+			mysql_query($sql);
+		}	
+		if($_GET['hide_flag'] == 0 && $usr['admin'] )
+		{
+			$sql = "UPDATE user SET hide_flag = 0  WHERE user_id = ".intval($user_id);
 			mysql_query($sql);
 		}		
+			
 		if($_GET['is_active_flag'] == 1 && $usr['admin'] )
 		{
 			$sql = "UPDATE user SET is_active_flag = 1 - is_active_flag, `activation_code`='' WHERE user_id = ".intval($user_id);
@@ -88,10 +94,10 @@
 //					$record = sql_fetch_array($rs);
 					$hide_flag = $record['hide_flag'];
 					
-					if ($hide_flag == 1) {
-						tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;hide_flag=1"><font color="#228b22">'.tr('Dodaj możliwość zakładania skrzynek dla użytkownika').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" align="top" alt="" /></p>');
+					if ($hide_flag == 10) {
+						tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;hide_flag=0"><font color="#228b22">'.tr('Dodaj możliwość zakładania skrzynek dla użytkownika').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-green.png" align="top" alt="" /></p>');
 					} else {
-						tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;hide_flag=1"><font color="#ff0000">'.tr('Usuń możliwość zakładania skrzynek dla użytkownika').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" /></p>');
+						tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;hide_flag=10"><font color="#ff0000">'.tr('Usuń możliwość zakładania skrzynek dla użytkownika').'</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" /></p>');
 					}
 	;
 					
