@@ -46,8 +46,8 @@
 						  else 
 						  {
 
-		$content .='<p style="background-color: #FFFFFF; margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 14px;"><img src="tpl/stdstyle/images/blue/cache.png" align="middle" alt="" title="Caches" />Statystyka dla skrzynki: ' . $cachename . '</p>';	
-		$content .= '<center><p style="background-color: #FFFFFF; "><img src="graphs/PieGraphcstat.php?cacheid=' . $cache_id . '"  border="0" alt="" /><br /><br />';	
+		$content .='<center><p style="background-color: #FFFFFF; margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 14px;">Statystyka dla skrzynki: ' . $cachename . '<br /></p>';	
+		$content .= '<p style="background-color: #FFFFFF; "><img src="graphs/PieGraphcstat.php?cacheid=' . $cache_id . '"  border="0" alt="Statystyka skrzynki" /><br /><br />';	
 
 		$year=date("Y");
 
