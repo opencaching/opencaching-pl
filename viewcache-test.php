@@ -386,8 +386,12 @@
 				$lists .= ', ';
 
 				}
-				tpl_set_var('list_of_rating_begin', '<a href="javascript:void(0)" onmouseover="Tip(\'. $lists. ' \', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8)" onmouseout="UnTip()">');
+				tpl_set_var('htmlheaders', '<script type="text/javascript" src="lib/js/wz_tooltip.js"></script><script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
+				$content_list = "<a href=\"javascript:void(0)\" onmouseover=\"Tip(\' Rekomendowana przez: ";
+				$content_list .= $lists;
+				$content_list .= "\', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8)\" onmouseout=\"UnTip()\">";
 
+				tpl_set_var('list_of_rating_begin', $content_list);
 				tpl_set_var('list_of_rating_end','</a>');}
 
 			if ((($cache_record['way_length'] == null) && ($cache_record['search_time'] == null)) ||
