@@ -424,7 +424,7 @@
 
         function cleanup_text($str)
         {
-			$str= tidy_html_description($str);
+//			$str= tidy_html_description($str);
           $str = PLConvert('UTF-8','POLSKAWY',$str);
 
 
