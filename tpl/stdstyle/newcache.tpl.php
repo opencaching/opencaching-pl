@@ -150,6 +150,7 @@ function toggleAttr(id)
 	<div class="notice">
 		{{first_cache}}.
 	</div>
+	{approvement_note}
 	<div class="buffer"></div>
 	<table class="table" border="0">
 	<colgroup>
@@ -347,6 +348,7 @@ function toggleAttr(id)
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{event_hidden_hint}}</div></td></tr>
+	{hide_publish_start}
 	<tr>
 		<td><p class="content-title-noshade">{{submit_new_cache}}:</p></td>
 		<td>
@@ -362,6 +364,7 @@ function toggleAttr(id)
 			<div class="buffer"></div>
 		</td>
 	</tr>
+	{hide_publish_end}
 	<tr>
 		<td><p class="content-title-noshade">{{log_password}}:</p></td>
 		<td><input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})</td>

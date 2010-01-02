@@ -278,7 +278,7 @@
 	if ((($nPrimary == 0) && ($bLogs == 1)) || ($nPrimary == 1))
 	{
 		// Cachelogs
-		$rs = sql('SELECT `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `caches`.`cache_id`=`cache_logs`.`cache_id` WHERE `caches`.`status`!=5 AND `cache_logs`.`deleted`=0 AND `cache_logs`.`last_modified`>= \'' . $sModifiedSince . '\'');
+		$rs = sql('SELECT `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `caches`.`cache_id`=`cache_logs`.`cache_id` WHERE `caches`.`status`!=4 && `caches`.`status`!=5 AND `caches`.`status`!=6 AND `cache_logs`.`deleted`=0 AND `cache_logs`.`last_modified`>= \'' . $sModifiedSince . '\'');
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
 			$r = this_sql_fetch_array($rs);
@@ -290,7 +290,7 @@
 	if ((($nPrimary == 0) && ($bCaches == 1)) || ($nPrimary == 2))
 	{
 		// Caches
-		$rs = sql('SELECT `cache_id` `id` FROM `caches` WHERE `last_modified`>= \'' . $sModifiedSince . '\' AND `status`!=5');
+		$rs = sql('SELECT `cache_id` `id` FROM `caches` WHERE `last_modified`>= \'' . $sModifiedSince . '\' AND `status`!=4 AND `status`!=5 AND `status`!=6');
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
 			$r = this_sql_fetch_array($rs);
@@ -302,7 +302,7 @@
 	if ((($nPrimary == 0) && ($bDescs == 1)) || ($nPrimary == 3))
 	{
 		// Cachesdesc
-		$rs = sql('SELECT `id` FROM `cache_desc` INNER JOIN `caches` ON `caches`.`cache_id`=`cache_desc`.`cache_id` WHERE `cache_desc`.`last_modified`>= \'' . $sModifiedSince . '\' AND `caches`.`status`!=5');
+		$rs = sql('SELECT `id` FROM `cache_desc` INNER JOIN `caches` ON `caches`.`cache_id`=`cache_desc`.`cache_id` WHERE `cache_desc`.`last_modified`>= \'' . $sModifiedSince . '\' AND `caches`.`status`!=4 AND `caches`.`status`!=5 AND `caches`.`status`!=6');
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
 			$r = this_sql_fetch_array($rs);
@@ -330,14 +330,18 @@
 		                                       `caches` ON `pictures`.`object_type`=2 AND 
 		     	                                 `pictures`.`object_id`=`caches`.`cache_id` 
 			                               WHERE `pictures`.`last_modified` >= \'' . $sModifiedSince . '\' AND 
-			                                     `caches`.`status`!=5
+																					 `caches`.`status`!=4 AND 
+			                                     `caches`.`status`!=5 AND 
+																					 `caches`.`status`!=6 
 			         UNION DISTINCT 
 			         SELECT `pictures`.`id` FROM `pictures` INNER JOIN 
 			                                     `cache_logs` ON `pictures`.`object_type`=1 AND 
 			                                     `pictures`.`object_id`=`cache_logs`.`id` INNER JOIN 
 			                                     `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` 
 			                               WHERE `pictures`.`last_modified` >= \'' . $sModifiedSince . '\' AND 
-			                                     `caches`.`status`!=5 AND
+			                                     `caches`.`status`!=4 AND 
+			                                     `caches`.`status`!=5 AND 
+																					 `caches`.`status`!=6 AND
 																					 `cache_logs`.`deleted`=0
 																					 ');
 			                                        		

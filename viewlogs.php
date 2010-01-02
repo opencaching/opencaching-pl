@@ -75,7 +75,7 @@
 			{
 				$cache_record = sql_fetch_array($rs);
 				// check if the cache is published, if not only the owner is allowed to view the log
-				if(($cache_record['status'] == 5 || $cache_record['status'] == 6 ) && ($cache_record['user_id'] != $usr['userid'] && !$usr['admin']))
+				if(($cache_record['status'] == 4 || $cache_record['status'] == 5 || $cache_record['status'] == 6 ) && ($cache_record['user_id'] != $usr['userid'] && !$usr['admin']))
 				{
 					$cache_id = 0;
 				}

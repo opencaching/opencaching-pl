@@ -28,7 +28,7 @@
 	$getcode = 'Generuj kod';
 	$changepw = 'Zmień hasło';
 	$emailnotexist = '<div class="errormsg">Podany adres nie jest poprawny dla tego użytkownika.</div>';
-	$newpw_subject = '<div class="notice" style="width:500px;height:24px;">Specjalny kod do zmiany hasła</div>';
+	$newpw_subject = 'Specjalny kod do zmiany hasła';
 	$emailsend = '<div class="notice" style="width:500px;height:44px;">Wiadomość z kodem została wysłana na podany adres e-mail.</div>';
 	$pw_not_ok = '<div class="errormsg">Hasło zawiera niedozwolone znaki.</div>';
 	$pw_no_match = '<div class="errormsg">Powtórzone hasło nie zgadza się z pierwszym.</div>';

@@ -26,8 +26,8 @@
  ****************************************************************************/
 
 	$submit = 'Zapisz';
-	$remove = 'Usun';
-	$edit = 'Edit';
+	$remove = 'Usuń';
+	$edit = 'Edytuj';
 $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
  $error_coords_not_ok = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">'.tr('bad_coordinates').'</span>';
  $time_not_ok_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">'.tr('time_incorrect').'</span>';

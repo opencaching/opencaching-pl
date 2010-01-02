@@ -369,6 +369,13 @@ $menu = array(
 			'filename' => 'viewreports.php'
 			),
 			array(
+			'title' => tr('pendings'),
+			'menustring' => tr('pendings'),
+			'siteid' => 'viewpendings',
+			'visible' => true,
+			'filename' => 'viewpendings.php'
+			),
+			array(
 			'title' => 'Skrzynki nieznalezione',
 			'menustring' => 'Skrzynki nieznalezione',
 			'siteid' => 'admin_cachenotfound',

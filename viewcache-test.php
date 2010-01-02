@@ -198,7 +198,7 @@
 			$_SESSION['print_list'] = array_values($_SESSION['print_list']);
 		}
 		
-		if ($cache_id != 0 && (($cache_record['status'] != 5 && ($cache_record['status'] != 6 /*|| $cache_record['type'] == 6*/))|| $usr['userid'] == $cache_record['user_id'] || $usr['admin'] ))
+		if ($cache_id != 0 && (($cache_record['status'] != 4 && $cache_record['status'] != 5 && ($cache_record['status'] != 6 /*|| $cache_record['type'] == 6*/))|| $usr['userid'] == $cache_record['user_id'] || $usr['admin'] ))
 		{
 			//ok, cache is here, let's process
 			$owner_id = $cache_record['user_id'];

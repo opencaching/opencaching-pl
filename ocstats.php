@@ -18,7 +18,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 	$rs = sql("SELECT `username`, `statpic_logo`, `statpic_text` FROM `user` WHERE `user_id`='&1'", $userid);
 	
 	// nie licz spotkan, skrzynek jeszcze nieaktywnych, zarchiwizowanych i wstrzymanych
-	$sql = "SELECT COUNT(*) FROM caches WHERE user_id='$userid' AND status <> 3 AND status <> 5 AND status <> 6 AND type <> 6";
+	$sql = "SELECT COUNT(*) FROM caches WHERE user_id='$userid' AND status <> 3 AND status <> 4 AND status <> 5 AND status <> 6 AND type <> 6";
 	if( $odp = mysql_query($sql) )
 		$hidden = mysql_result($odp,0);
 	else 

@@ -141,7 +141,8 @@ function chname( newName )
 					$lookhere_reports = mysql_result(mysql_query($sql),0);
 					$sql = "SELECT count(status) FROM reports WHERE status <> 2";
 					$active_reports = mysql_result(mysql_query($sql),0);
-					
+					$sql = "SELECT value FROM sysconfig WHERE name = 'hidden_for_approval'";
+					$new_pendings = mysql_result(mysql_query($sql),0);
 				}
 
 				mnu_EchoMainMenu($menu[$pageidx]['siteid']);
@@ -202,6 +203,9 @@ function chname( newName )
 					$zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewreports");
 					if( $active_reports > 0)
 						$menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (".$new_reports."/".$active_reports.")"; 
+					$zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewpendings");
+					if( $new_pendings > 0)
+						$menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (".$new_pendings.")"; 
 					mnu_EchoSubMenu($menu[$adminidx]['submenu'], $tplname, 1, false);
 					echo '</ul>';
 				}

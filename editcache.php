@@ -634,7 +634,7 @@
 
 					//Status
 					$statusoptions = '';
-					if( ($status_old == 3 || $status_old == 6) && !$usr['admin'])
+					if( ( ($status_old == 3 || $status_old == 6 ) && !$usr['admin']) || $status_old == 4)
 					{
 						$disablestatusoption = ' disabled';
 					}
@@ -645,7 +645,7 @@
 					foreach ($cache_status AS $tmpstatus)
 					{
 						//hide id 4 => hidden by approvers, hide id 5 if it is not the current status
-						if ($tmpstatus['id'] != 4 && ($tmpstatus['id'] != 5 || $status_old == 5) && ($tmpstatus['id'] != 6 || $usr['admin'])  )
+						if (($tmpstatus['id'] != 4 || $status_old == 4 ) && ($tmpstatus['id'] != 5 || $status_old == 5) && ($tmpstatus['id'] != 6 || $usr['admin'])  )
 						{
 							if ($tmpstatus['id'] == $status)
 							{

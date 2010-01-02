@@ -43,7 +43,8 @@ if ($error == false)
 	$rs = sql("	SELECT `cache_logs`.`id`
 			FROM `cache_logs`, `caches`
 			WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
-			  AND `caches`.`status` != 5 
+			  AND `caches`.`status` != 4
+				AND `caches`.`status` != 5 
 				AND `caches`.`status` != 6
 			ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`last_modified` DESC
 			LIMIT 0, 150");

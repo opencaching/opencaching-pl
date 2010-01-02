@@ -293,6 +293,7 @@ lock Zablokuj
 unlock Odblokuj
 user_stats statystyki użytkownika
 first_cache Jeśli rejestrujesz skrzynkę na Opencaching.pl po raz pierwszy, proszę zapoznać się z <a href="http://wiki.opencaching.pl/index.php/Parametry_skrzynki">podstawowymi informacjami</a>
+first_cache_approvement Ponieważ jest to jedna z pięciu pierwszych Twoich skrzynek, będzie ona widoczna dla innych, gdy zostanie zaakceptowana przez Zespół Opencaching.pl.
 name_label Nazwa
 cache_type Rodzaj skrzynki
 cache_size Rozmiar skrzynki

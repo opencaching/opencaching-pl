@@ -425,7 +425,14 @@
 				$sql_having = array();
 				$sql_group = array();
 
-				$sql_where[] = '`caches`.`status` != 5'; // show only published caches
+				// show only published caches
+				$sql_where[] = '`caches`.`status` != 4';
+				$sql_where[] = '`caches`.`status` != 5';
+				if(!$usr['admin'])
+				{
+					$sql_where[] = '`caches`.`status` != 6';
+				}
+				
 
 				//check the entered data and build SQL
 				if(!isset($options['searchtype'])) $options['searchtype']='';
