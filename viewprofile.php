@@ -311,8 +311,22 @@
 			$found = mysql_result($odp,0);
 			else 
 			$found = 0;
-			$aver1= round(($found/$ddays['diff']), 2);
-			$aver2= round(($found/$num_rows), 2);
+			if( $ddays['diff'] == 0 )
+			{
+				$aver1 = 0;
+			}
+			else
+			{
+				$aver1= round(($found/$ddays['diff']), 2);
+			}
+			if( $num_rows == 0 )
+			{
+				$aver2 = 0;
+			}
+			else
+			{
+				$aver2= round(($found/$num_rows), 2);
+			}
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba znalezionych skrzynek:</span><strong> ' . $found . '</strong>';
 						if ($found == 0) 
 				{$content .= '</p>';}
