@@ -77,6 +77,29 @@ global $bgcolor1, $bgcolor2;
 		return false;
 	}
 	
+	function getAssignedUserId($cacheid)
+	{
+		// check if cache requires activation
+		$sql = "SELECT user_id FROM approval_status WHERE cache_id='".sql_escape(intval($cacheid))."'";
+		$query = mysql_query($sql) or die();
+		if( mysql_num_rows($query) > 0 )
+			return mysql_result($query,0);
+		return false;
+	}
+	
+	function assignUserToCase($userid, $cacheid)
+	{
+		// check if user is in RR
+		$sql = "SELECT user_id FROM user WHERE admin = 1 AND user_id = '".sql_escape(intval($userid))."'";
+		if( mysql_num_rows(mysql_query($sql)) == 0 )
+			return false;
+			
+		$sql = "INSERT INTO approval_status (cache_id, user_id, status) VALUES
+						(".sql_escape(intval($cacheid)).", ".sql_escape(intval($userid)).", 2)
+						ON DUPLICATE KEY UPDATE user_id = '".sql_escape(intval($userid))."'";
+		$query = mysql_query($sql) or die();
+	}
+	
 	function notifyOwner($cacheid)
 	{
 		global $stylepath;
@@ -110,43 +133,56 @@ global $bgcolor1, $bgcolor2;
 	{
 		if( isset($_GET['cacheid']) )
 		{
-			if( actionRequired($_GET['cacheid']) )
+			if( isset($_GET['assign']) )
 			{
-				// requires activation
-				if( isset($_GET['confirm']) && $_GET['confirm'] == 1 )
+				if( assignUserToCase($_GET['assign'], $_GET['cacheid']) )
 				{
-					// confirmed - change the status and notify the owner now
-					if( activateCache($_GET['cacheid']) )
-					{
-						notifyOwner($_GET['cacheid']);
-						$confirm = "<p>Skrzynka została zaakceptowana. Właściciel został powiadomiony o tym fakcie.</p>";
-					}
-					else
-					{
-						$confirm = "<p>Wystąpił problem z akceptacją skrzynki. Żadna zmiana nie została wprowadzona.</p>";
-					}
-					
-					
+					$confirm = "<p>Przypisano użytkownika ".getUsername(sql_escape($_GET['assign']))." do zgłoszenia.</p>";
+					tpl_set_var('confirm', $confirm);
 				}
 				else
 				{
-					// require confirmation
-					$confirm = "<p>Zamierzasz zaakceptować skrzynkę \"<a href='viewcache.php?cacheid=".$_GET['cacheid']."'>".getCachename($_GET['cacheid'])."</a>\" użytkownika ".getCacheOwnername($_GET['cacheid']).". Status skrzynki zostanie zmieniony na \"Jeszcze niedostępna\".</p>";
-					$confirm .= "<p><a href='viewpendings.php?cacheid=".$_GET['cacheid']."&amp;confirm=1'>Potwierdzam</a> | 
-					<a href='viewpendings.php'>Powrót</a></p>";
+					tpl_set_var('confirm', '');
 				}
-				tpl_set_var('confirm', $confirm);
 			}
 			else
 			{
-				tpl_set_var('confirm', '<p>Wybrana skrzynka jest już aktywna albo nie istnieje.</p>');
+				if( actionRequired($_GET['cacheid']) )
+				{
+					// requires activation
+					if( isset($_GET['confirm']) && $_GET['confirm'] == 1 )
+					{
+						// confirmed - change the status and notify the owner now
+						if( activateCache($_GET['cacheid']) )
+						{
+							assignUserToCase($usr['userid'], $_GET['cacheid']);
+							notifyOwner($_GET['cacheid']);
+							$confirm = "<p>Skrzynka została zaakceptowana. Właściciel został powiadomiony o tym fakcie.</p>";
+						}
+						else
+						{
+							$confirm = "<p>Wystąpił problem z akceptacją skrzynki. Żadna zmiana nie została wprowadzona.</p>";
+						}
+					}
+					else
+					{
+						// require confirmation
+						$confirm = "<p>Zamierzasz zaakceptować skrzynkę \"<a href='viewcache.php?cacheid=".$_GET['cacheid']."'>".getCachename($_GET['cacheid'])."</a>\" użytkownika ".getCacheOwnername($_GET['cacheid']).". Status skrzynki zostanie zmieniony na \"Jeszcze niedostępna\".</p>";
+						$confirm .= "<p><a href='viewpendings.php?cacheid=".$_GET['cacheid']."&amp;confirm=1'>Potwierdzam</a> | 
+						<a href='viewpendings.php'>Powrót</a></p>";
+					}
+					tpl_set_var('confirm', $confirm);
+				}
+				else
+				{
+					tpl_set_var('confirm', '<p>Wybrana skrzynka jest już aktywna albo nie istnieje.</p>');
+				}
 			}
 		}
 		else
 		{
 			tpl_set_var('confirm', '');
 		}
-		
 		$sql = "SELECT cache_status.id AS cs_id, 
 									 cache_status.pl AS cache_status, 
 									 user.username AS username, 
@@ -158,11 +194,11 @@ global $bgcolor1, $bgcolor2;
 						WHERE cache_status.id = caches.status 
 									AND caches.user_id = user.user_id
 									AND caches.status = 4";
-
 		$query = mysql_query($sql) or die("DB error");
 		$row_num = 0;
 		while( $report = mysql_fetch_array($query) )
 		{
+			$assignedUserId = getAssignedUserId($report['cache_id']);
 			if( $row_num % 2 )
 				$bgcolor = "bgcolor1";
 			else
@@ -172,12 +208,13 @@ global $bgcolor1, $bgcolor2;
 			$content .= "<td class='".$bgcolor."'><a href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a></td>\n";
 			$content .= "<td class='".$bgcolor."'>".$report['date_created']."</td>\n";
 			$content .= "<td class='".$bgcolor."'><a href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>\n";
-			$content .= "<td class='".$bgcolor."'><a href='viewpendings.php?cacheid=".$report['cache_id']."'>Zaakceptuj</a></td>\n";
+			$content .= "<td class='".$bgcolor."'><a href='viewpendings.php?cacheid=".$report['cache_id']."'>Zaakceptuj</a><br/>
+			<a href='viewpendings.php?cacheid=".$report['cache_id']."&amp;assign=".$usr['userid']."'>Przypisz siebie do zgłoszenia</a></td>\n";
+			$content .= "<td class='".$bgcolor."'><a href='viewprofile.php?userid=".$assignedUserId."'>".getUsername($assignedUserId)."</a><br/>";
 			$content .= "</tr>\n";
 			$row_num++;
 		}
 		tpl_set_var('content', $content);
-		
 	}
 	else
 	{

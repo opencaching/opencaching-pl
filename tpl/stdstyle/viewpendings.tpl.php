@@ -8,6 +8,7 @@
 			<th >Data utworzenia</th>
 			<th >Właściciel</th>
 			<th >Akcja</th>
+			<th >Przypisane do</th>
 		</tr>
 		{content}
 	</table>
