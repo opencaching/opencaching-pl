@@ -46,7 +46,7 @@
 	{
 		$url .= urlencode($color).",";
 	}
-	echo $url = substr($url, 0, -1);
+	$url = substr($url, 0, -1);
 	//header("Content-type: image/png");
-	//include( $url );
+	include( $url );
 ?>
