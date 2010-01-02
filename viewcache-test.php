@@ -310,16 +310,20 @@
 				$coords = tr('hidden_coords');
 				$coords_other = "";
 			}
-			$stat = $cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes'];
 
-			if ($cache_record['type'] = 6 ) {$cache_stats='';}
-			else {
-			if ($stat != 0) {
-//	$cache_record['type'] != 6  || 		$cache_stats = "<a href=\"#\" onclick=\"javascript:window.open('cache_stats.php?cacheid=".$cache_record['cache_id']."&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"Zobacz statystyke skrzynki\" /></a>";
-			$cache_stats = "<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('Zobacz statystyki skrzynki', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"Statystyka skrzynki\" title=\"\" longdesc=\"ifr::cache_stats.php?cacheid=".$cache_record['cache_id']."::500::750\" onclick=\"enlarge(this);\"/></a>";
+			//	$cache_stats = "<a href=\"#\" onclick=\"javascript:window.open('cache_stats.php?cacheid=".$cache_record['cache_id']."&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"Zobacz statystyke skrzynki\" /></a>";
+
+
+			if ($cache_record['type'] == 6 ) 
+			{$cache_stats='';
+			} else { 
+			if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) != 0) 
+			{
+			$cache_stats = "<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('show_statictics_cache'). "', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"Statystyka skrzynki\" title=\"\" longdesc=\"ifr::cache_stats.php?cacheid=".$cache_record['cache_id']."::500::750\" onclick=\"enlarge(this);\"/></a>";
 			} else {
-			$cache_stats="<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('Ta skrzynka nie ma statystyki', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"\" /></a>";}
-				}
+			$cache_stats="<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('not_stat_cache'). "', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"\" /></a>";
+					}
+			}			
 			tpl_set_var('cache_stats', $cache_stats);
 			tpl_set_var('googlemap_key', $googlemap_key);
 			tpl_set_var('map_msg', $map_msg);
@@ -397,7 +401,7 @@
 					if ($i == $numr ){ $lists .= ' ';} else { $lists .= ', ';}
 						}
 				}	
-				$content_list = "<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('<b> Rekomendowana przez: </b><br /><br />";
+				$content_list = "<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('<b>" .tr('recommeded_by'). ": </b><br /><br />";
 				$content_list .= $lists;
 				$content_list .= "<br /><br/>', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\">";
 

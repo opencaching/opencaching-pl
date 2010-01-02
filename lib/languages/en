@@ -509,4 +509,7 @@ adoption_cache Adoption cache
 show_waypoints Show waypoints
 time Time
 recommendation_rating Show ranking of caches calculated by formula
- 
+show_statictics_cache Show cache statistics
+not_stat_cache This cache do not have statistics yet
+recommended_by This cache recommende by
+
