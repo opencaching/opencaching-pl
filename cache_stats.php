@@ -11,7 +11,6 @@
 
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-		global $stat_menu;	
 	//Preprocessing
 	if ($error == false)
 	{
@@ -33,32 +32,35 @@
 		
 	$tplname = 'cache_stats';
 
+
 	$content="";
+	
 	$cachename=sqlValue("SELECT name FROM caches WHERE `cache_id`=$cache_id", 0);
 	tpl_set_var('cachename',$cachename);
 	$rsGeneralStat =sql("SELECT count(*) count FROM `cache_logs` WHERE cache_logs.deleted=0 AND (type=1 OR type=2) AND cache_id=&1 ",$cache_id);
 
 			$cache_record = sql_fetch_array($rsGeneralStat);	
 		if ($cache_record['count'] == 0) {
-			$content .= '<p>&nbsp;</p><p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 110%;"> <b>Ta skrzynka:<br /> <br />' .$cachename . '<br /> <br />nie ma jeszcze statystyki</b></p>';
+			$content .= '<p>&nbsp;</p><p style="background-color: #FFFFFF; margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 14px;"> <b>Ta skrzynka:<br /> <br />' .$cachename . '<br /> <br />nie ma jeszcze statystyki</b></p>';
 						  }
 						  else 
 						  {
 
-		$content .='<p style="margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 100%;"><img src="tpl/stdstyle/images/blue/cache.png" align="middle" alt="" title="Caches" />Statystyka dla skrzynki: ' . $cachename . '</p></div>';	
-		$content .= '<center><p><img src="graphs/PieGraphcstat.php?cacheid=' . $cache_id . '"  border="0" alt="" /></p>';	
+		$content .='<p style="background-color: #FFFFFF; margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 14px;"><img src="tpl/stdstyle/images/blue/cache.png" align="middle" alt="" title="Caches" />Statystyka dla skrzynki: ' . $cachename . '</p>';	
+		$content .= '<center><p style="background-color: #FFFFFF; "><img src="graphs/PieGraphcstat.php?cacheid=' . $cache_id . '"  border="0" alt="" /><br /><br />';	
 
 		$year=date("Y");
 
-		$content .= '<p><img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&amp;t=csm' . $year . '"  border="0" alt="" /></p>';	
+		$content .= '<img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&amp;t=csm' . $year . '"  border="0" alt="" /><br /><br />';	
 		$yearr = $year -1;
-		$content .= '<p><img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&amp;t=csm' . $yearr . '"  border="0" alt="" /></p>';		
+		$content .= '<img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&amp;t=csm' . $yearr . '"  border="0" alt="" /><br /><br />';		
 		
-		$content .= '<p><img src="graphs/BarGraphcstat.php?cacheid=' . $cache_id . '&amp;t=csy"  border="0" alt="" /></p></center>';					
+		$content .= '<img src="graphs/BarGraphcstat.php?cacheid=' . $cache_id . '&amp;t=csy"  border="0" alt="" /><br /><br /><br /></p></center>';					
 			mysql_free_result($rsGeneralStat);
 		}
 			tpl_set_var('content',$content);
+			tpl_set_var('bodyMod', ' bgcolor="#FFFFFF"');
 	}
 }
-	tpl_BuildTemplate();
+	tpl_BuildTemplate(true, true); 
 ?>
