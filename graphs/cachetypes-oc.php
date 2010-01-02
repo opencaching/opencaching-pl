@@ -1,106 +1,52 @@
 <?php
-
-//ini_set ('display_errors', On); 
-  //
-  // Basic setup
-  //
+  function normTo100($value, $sum)
+  {
+  	return $value * 100 / $sum;
+  }
   setlocale(LC_TIME, 'pl_PL.UTF-8');
-  require('../lib/jpgraph/src/jpgraph.php');
-  require('../lib/jpgraph/src/jpgraph_pie.php');
-
-  // for productive use
-  $graph = new PieGraph(700, 600, "auto", 60 * 24);
-
-  // for development
-  //$graph = new PieGraph(550, 350);
-
+ 
   require('../lib/web.inc.php');
   sql('USE `ocpl`');
 
-  // Start von Opencaching
+  // Start date of Opencaching
   $startDate = mktime(0, 0, 0, 1, 1, 2006);
-
-
-
-  //
-  // Daten abfragen
-  //
+	
+	// Get data 
   $rsTypes = sql('SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl` `type`, `cache_type`.`color` FROM `caches` INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE `status`=1 GROUP BY `caches`.`type` ORDER BY `count` DESC');
-
+	
   $yData = array();
   $xData = array();
   $colors = array();
+	$url = "http://chart.apis.google.com/chart?chs=550x200&chd=t:";
+	$sum = 0;
   while ($rTypes = mysql_fetch_array($rsTypes))
   {
     $yData[] = ' (' . $rTypes['count'] . ') ' . $rTypes['type'];
-	$xData[] = $rTypes['count'];
-    $colors[] = $rTypes['color'];
+		$xData[] = $rTypes['count'];
+    $colors[] = substr($rTypes['color'], 1);
+		$sum += $rTypes['count'];
   }
-
   mysql_free_result($rsTypes);
-
-
-  //
-  // Titel, Footer, Legende und Hintergrund
-  //
-  $graph->title->SetFont(FF_GEORGIA, FS_NORMAL, 14);
-  $graph->title->Set("Statystyka rodzajów skrzynek na OC PL");
-  $graph->title->SetMargin(5);
-
-  $graph->subtitle->SetFont(FF_GEORGIA, FS_NORMAL, 9);
-  $graph->subtitle->SetColor(array(0, 0, 255));
-  $graph->subtitle->Set("(tylko aktywne skrzynki)");
-  $graph->subtitle->SetMargin(0);
-
-
-  $graph->footer->center->Set("Dane dla www.opencaching.pl :: Data " . date('d:m:Y H:i:s'));
-  $graph->footer->center->SetFont(FF_ARIAL, FS_NORMAL, 7);
-  $graph->footer->center->SetColor('darkgray');
-
-  $graph->legend->SetFont(FF_ARIAL, FS_NORMAL, 7);
-  $graph->legend->SetLayout(LEGEND_VERT);
-  $graph->legend->Pos(0.01, 0.3, "right", "center");
-
-  $graph->SetColor(array(238, 238, 238));
-  $graph->SetFrame(true, array(238, 238, 238), 0);
-
-  //
-  // Skalierung, X- und Y-Achse formatieren
-  //
-
-
-  //
-  // Linien hinzufuegen
-  //
-
-  $pieTypes = new PiePlot($xData);
-  $pieTypes->SetLegends($yData);
-  $pieTypes->SetCenter(0.3);
-  $pieTypes->value->SetFont(FF_ARIAL, FS_NORMAL, 9);
-/*
-  $pieTypes->SetSliceColors(array(
-                                  array(255, 0, 255),
-                                  array(255, 128, 255),
-                                  array(255, 128, 0),
-                                  array(255, 255, 0),
-                                  array(0, 255, 255),
-                                  array(0, 213, 255),
-                                  array(0, 123, 255),
-                                  array(0, 0, 255),
-                                  array(0, 255, 0),
-                                  array(0, 212, 0)
-                                ));
-*/
-  $pieTypes->SetSliceColors(array_reverse($colors));
-  $graph->Add($pieTypes);
-
-
-  //
-  // Infotexte einfuegen
-  //
-
-  //
-  // Display the graph
-  //
-  $graph->Stroke();
+	foreach( $xData as $count )
+	{
+		$url .= normTo100($count, $sum).",";
+	}
+	
+	$url = substr($url, 0, -1);
+	$url .= "&cht=p3&chl=";
+	
+	foreach( $yData as $label )
+	{
+		$url .= urlencode($label)."|";
+	}
+	$url = substr($url, 0, -1);
+	
+	$url .= "&chco=";
+	foreach( $colors as $color )
+	{
+		$url .= urlencode($color).",";
+	}
+	$url = substr($url, 0, -1);
+	header("Content-type: image/png");
+	include( $url );
 ?>
