@@ -59,7 +59,7 @@
 			mysql_free_result($rsGeneralStat);
 		}
 			tpl_set_var('content',$content);
-			tpl_set_var('bodyMod', ' bgcolor="#FFFFFF" style="border:none');
+			tpl_set_var('bodyMod', ' bgcolor="#FFFFFF" style="border:none"');
 	}
 }
 	tpl_BuildTemplate(true, true); 
