@@ -554,6 +554,7 @@ clear_list Wyczyść listę
 adoption_cache Adopcja skrzynki
 show_waypoints pokaż waypointy
 time Czas
+pendings Skrzynki oczekujące na akceptację
 recommendation_rating Zobacz ranking skrzynek rekomendowanych wg liczonego wskaznika
 show_statictics_cache Zobacz statystykę skrzynki
 not_stat_cache Skrzynka nie ma jeszcze statystyki
