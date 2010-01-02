@@ -381,12 +381,15 @@
 				tpl_set_var('list_of_rating_end', '');}
 			else { 
 			$lists = '';
+			$numr = (mysql_num_rows($rscr) - 1);
 			for ($i = 0; $i < mysql_num_rows($rscr); $i++)
 			{
 				$record = sql_fetch_array($rscr);
 				$lists .= $record['username'];
-				$lists .= ', ';
-
+				if ( mysql_num_rows($rscr) == 1){ $lists .= ' ';}
+				else { 
+					if ($i == $numr ){ $lists .= ' ';} else { $lists .= ', ';}
+				}
 				}
 				tpl_set_var('body_scripts', '<script type="text/javascript" src="lib/js/wz_tooltip.js"></script><script type="text/javascript" src="lib/js/tip_balloon.js"></script><script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
 	

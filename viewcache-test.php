@@ -312,7 +312,7 @@
 			}
 			if ($cache_record['type'] != 6) {
 //			$cache_stats = "<a href=\"#\" onclick=\"javascript:window.open('cache_stats.php?cacheid=".$cache_record['cache_id']."&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"Zobacz statystyke skrzynki\" /></a>";
-			$cache_stats = "<img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"Zobacz statystyke skrzynki\" longdesc=\"ifr::cache_stats-test.php?cacheid=".$cache_record['cache_id']."::500::750\" onclick=\"enlarge(this);\"/></a>";
+			$cache_stats = "<img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"Zobacz statystyke skrzynki\" longdesc=\"ifr::cache_stats.php?cacheid=".$cache_record['cache_id']."::500::750\" onclick=\"enlarge(this);\"/></a>";
 
 			} else {
 			$cache_stats="";}
@@ -381,12 +381,15 @@
 				tpl_set_var('list_of_rating_end', '');}
 			else { 
 			$lists = '';
+			$numr = (mysql_num_rows($rscr) - 1);
 			for ($i = 0; $i < mysql_num_rows($rscr); $i++)
 			{
 				$record = sql_fetch_array($rscr);
 				$lists .= $record['username'];
-				$lists .= ', ';
-
+				if ( mysql_num_rows($rscr) == 1){ $lists .= ' ';}
+				else { 
+					if ($i == $numr ){ $lists .= ' ';} else { $lists .= ', ';}
+				}
 				}
 				tpl_set_var('body_scripts', '<script type="text/javascript" src="lib/js/wz_tooltip.js"></script><script type="text/javascript" src="lib/js/tip_balloon.js"></script><script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
 	
