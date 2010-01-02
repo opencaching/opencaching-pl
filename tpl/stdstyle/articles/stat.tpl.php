@@ -7,5 +7,5 @@
 <img src="tpl/stdstyle/images/blue/stat2.png" alt="" /><a class="links" href="articles.php?page=s3">{{user_ranking_by_number_of_finds_of_their_caches}}</a><br /><br />
 <div class="img-shadow"><img src="graphs/new-caches-oc.php" alt="{{oc_statistics}}" /></div><br/>
 <div class="buffer"></div>
-<img src="graphs/cachetypes-oc.php" alt="{{oc_statistics}}" /><br />
+<img src="{oc_statistics_link}" alt="{{oc_statistics}}" /><br />
 </div>

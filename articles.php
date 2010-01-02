@@ -19,7 +19,7 @@
 
 /****************************************************************************
 	      
-   Unicode Reminder メモ
+   Unicode Reminder ăĄă˘
                                    				                                
 	 Display documents/articles with a minimum of code and no preprocessing
 	
@@ -31,7 +31,7 @@
  
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-	
+		
 	//Preprocessing
 	if ($error == false)
 	{
@@ -59,6 +59,15 @@
 		else
 		{
 			//set article inside the articles-directory
+			switch($_REQUEST['page'])
+			{
+				case 'stat':
+					require_once('./graphs/cachetypes-oc.php');
+					tpl_set_var('oc_statistics_link', genStatPieUrl() );
+					break;
+				default:
+					break;
+			}
 			$tplname = 'articles/' . $article;
 		}
 	}
