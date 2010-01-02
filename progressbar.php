@@ -29,7 +29,7 @@
 			$(document).ready(function() {
 				$("#pb1").progressBar();
 				$("#pb2").progressBar({ barImage: 'tpl/stdstyle/images/progressbar/progressbg_yellow.gif'} );
-				$("#pb3").progressBar({ barImage: 'tpl/stdstyle/images/progressbar/progressbg_orange.gif', showText: false} );
+				$("#pb3").progressBar({ barImage: 'tpl/stdstyle/images/progressbar/progressbg_green.gif', showText: false} );
 				$("#pb4").progressBar(65, { showText: false, barImage: 'tpl/stdstyle/images/progressbar/progressbg_red.gif'} );
 				$(".pb5").progressBar({ max: 2000, textFormat: 'fraction', callback: function(data) { if (data.running_value == data.value) { alert("Callback example: Target reached!"); } }} );
 				$("#uploadprogressbar").progressBar();
