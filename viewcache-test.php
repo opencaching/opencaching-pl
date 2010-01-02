@@ -373,7 +373,7 @@
 							// no geokrets in this cache
 				tpl_set_var('list_of_rating_begin', '');
 				tpl_set_var('list_of_rating_end', '');
-
+				tpl_set_var('body_scripts','');
 			$rscr= sql("SELECT user.username username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=&1 ORDER BY username",$cache_id);
 			if ( $rscr == flase) {tpl_set_var('list_of_rating_begin', '');
 				tpl_set_var('list_of_rating_end', '');}
@@ -386,7 +386,7 @@
 				$lists .= ', ';
 
 				}
-				tpl_set_var('htmlheaders', '<script type="text/javascript" src="lib/js/wz_tooltip.js"></script><script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
+				tpl_set_var('body_scripts', '<script type="text/javascript" src="lib/js/wz_tooltip.js"></script><script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
 				$content_list = "<a href=\"javascript:void(0)\" onmouseover=\"Tip(\' Rekomendowana przez: ";
 				$content_list .= $lists;
 				$content_list .= "\', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8)\" onmouseout=\"UnTip()\">";

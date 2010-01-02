@@ -58,8 +58,6 @@
 </head>
 <body{bodyMod}>
 
-{body_scripts}
-
 <script language="javascript" type="text/javascript">
 function chname( newName )
 {
