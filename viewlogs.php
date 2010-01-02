@@ -212,7 +212,7 @@
 
 
                         $thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
-                        $thisline = mb_ereg_replace('{longdesc}', $pic_record['url'], $thisline);
+                        $thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads","upload",$pic_record['url']), $thisline);
 	                    $thisline = mb_ereg_replace('{imgsrc}', 'http://opencaching.pl/thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
                         $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 

@@ -854,7 +854,7 @@
 						$thisline = $logpictureline;
 
 						$thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
-						$thisline = mb_ereg_replace('{longdesc}', $pic_record['url'], $thisline);
+						$thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads","upload",$pic_record['url']), $thisline);
 
 //						if( $showspoiler )
 //			                $showspoiler = "showspoiler=1&amp;";
