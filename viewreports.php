@@ -100,15 +100,15 @@ global $bgcolor1, $bgcolor2;
 				$addborder = "style='border-width:2px;'";
 			else
 				$addborder = "";
-			$content .= "<td ".$addborder." class='".$bgcolor."'>".$report['report_id']."</td>\n";
-			$content .= "<td ".$addborder." class='".$bgcolor."'>".$report['submit_date']."</td>\n";
-			$content .= "<td ".$addborder." class='".$bgcolor."'><a href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a></td>\n";
-			$content .= "<td ".$addborder." class='".$bgcolor."'><font size='1'>".colorCacheStatus($report['cache_status'], $report['c_status'])."</font></td>\n";
-			$content .= "<td ".$addborder." class='".$bgcolor."'><font size='1'><a href='viewreport.php?reportid=".$report['report_id']."'>".writeReason($report['type'])."</a></td></font>\n";
-			$content .= "<td ".$addborder." class='".$bgcolor."'><a href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>\n";
-			$content .= "<td ".$addborder." class='".$bgcolor."'><a href='viewprofile.php?userid=".$report['responsible_id']."'>".getUsername($report['responsible_id'])."</a></td>\n";
-			$content .= "<td ".$addborder." class='".$bgcolor."' width='60'>".writeStatus($report['status'])."</td>\n";
-			$content .= "<td ".$addborder." class='".$bgcolor."'>".($report['changed_by']=='0'?'':(getUsername($report['changed_by']).'<br/><font size=\"1\">('.($report['changed_date']).')</font>'))."</td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><span class='content-title-noshade-size05'>".$report['report_id']."</span></td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><span class='content-title-noshade-size05'>".$report['submit_date']."</span></td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><a class='content-title-noshade-size05' href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a></td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><span class='content-title-noshade-size05'>".colorCacheStatus($report['cache_status'], $report['c_status'])."</span></td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><a class='content-title-noshade-size05' href='viewreport.php?reportid=".$report['report_id']."'>".writeReason($report['type'])."</a></td></font>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><a class='content-title-noshade-size05' href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><a class='content-title-noshade-size05' href='viewprofile.php?userid=".$report['responsible_id']."'>".getUsername($report['responsible_id'])."</a></td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."' width='60'><span class='content-title-noshade-size05'>".writeStatus($report['status'])."</span></td>\n";
+			$content .= "<td ".$addborder." class='".$bgcolor."'><span class='content-title-noshade-size05'>".($report['changed_by']=='0'?'':(getUsername($report['changed_by']).'<br/>('.($report['changed_date']).')'))."</span></td>\n";
 			$content .= "</tr>\n";
 			$row_num++;
 		}
