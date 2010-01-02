@@ -312,7 +312,7 @@
 			}
 			if ($cache_record['type'] != 6) {
 //			$cache_stats = "<a href=\"#\" onclick=\"javascript:window.open('cache_stats.php?cacheid=".$cache_record['cache_id']."&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"Zobacz statystyke skrzynki\" /></a>";
-			$cache_stats = "<img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"Zobacz statystyke skrzynki\" longdesc=\"ifr::cache_stats-test.php?cacheid=".$cache_record['cache_id']."::500::750\" onclick=\"enlarge(this);\"/></a>";
+			$cache_stats = "<img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"Zobacz statystyke skrzynki\" longdesc=\"ifr::cache_stats.php?cacheid=".$cache_record['cache_id']."::500::750\" onclick=\"enlarge(this);\"/></a>";
 
 			} else {
 			$cache_stats="";}
