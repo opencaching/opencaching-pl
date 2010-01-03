@@ -638,8 +638,30 @@ a.links:hover {
 /*	background-color:rgb(219,230,241); */
 	text-decoration: underline;
 }
+a.links2:link {
+	font-weight:bold;
+	color: black;
+	text-decoration:none;
+}
 
-a.info{
+a.links2:visited {
+	font-weight:bold;
+	color: black;
+	text-decoration:none;
+}
+
+a.links2:active {
+	background-color: yellow;
+	text-decoration:none;
+}
+
+a.links2:hover {
+	font-weight:bold;
+	color:blue;
+/*	background-color:rgb(219,230,241); */
+	text-decoration: none;
+}
+	a.info{
     position:relative; /*this is the key*/
     z-index:24; background-color:#FFFFFF;
     color:#000;
