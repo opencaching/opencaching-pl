@@ -194,7 +194,7 @@
 
 			if (mysql_num_rows($rs_logs) != 0)
 			{
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w skrzynkach użytkownika:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w skrzynkach użytkownika:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 				{
 				$record_logs = sql_fetch_array($rs_logs);
@@ -218,35 +218,36 @@
 
 					$content .= "\n" . $tmp_log;
 				}
-							mysql_free_result($rs_logs);
-				$content .='</ul></div>';
+					mysql_free_result($rs_logs);
+					$content .='</ul></div>';
 			}
 
 		}		
 
 		
 //  ----------------- begin  owner section  ----------------------------------
-//		if ($user_id == $usr['userid']) 
-//		{
+		if ($user_id == $usr['userid'] || $usr['admin']) 
+		{
 			if(checkField('cache_status',$lang) )
 				$lang_db = $lang;
 			else
 				$lang_db = "en";
 
 			//get not published caches
-			$rs_caches = sql("	SELECT  `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, `caches`.`date_activate`, `caches`.`status`, `cache_status`.`&1` AS `cache_status_text`
+			$rs_caches1 = sql("	SELECT  `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, DATE_FORMAT(`caches`.`date_activate`,'%Y-%m-%d'), `caches`.`status`, `cache_status`.`&1` AS `cache_status_text`
 						FROM `caches`, `cache_status`
 						WHERE `user_id`='&2'
 						AND `cache_status`.`id`=`caches`.`status`
 						AND `caches`.`status` = 5
-						ORDER BY `date_activate` DESC, `caches`.`date_created` DESC ",$lang_db, $usr['userid']);
-			if (mysql_num_rows($rs_caches) != 0)
+						ORDER BY `date_activate` DESC, `caches`.`date_created` DESC ",$lang_db,$user_id);
+
+			if (mysql_num_rows($rs_caches1) != 0)
 			{
 	
-				$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
-				for ($i = 0; $i < mysql_num_rows($rs_caches); $i++)
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				for ($i = 0; $i < mysql_num_rows($rs_caches1); $i++)
 				{
-					$record_caches = sql_fetch_array($rs_caches);
+					$record_caches = sql_fetch_array($rs_caches1);
 
 					$tmp_cache = $cache_notpublished_line;
 
@@ -259,23 +260,95 @@
 					}
 					else
 					{
-						$tmp_cache = mb_ereg_replace('{date}', strftime($datetimeformat , strtotime($record_caches['date_activate'])), $tmp_cache);
+						$tmp_cache = mb_ereg_replace('{date}', $record_caches['date_activate'], $tmp_cache);
 					}
 					$tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_caches['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
 
 					$content .= "\n" . $tmp_cache;
 				}
+				mysql_free_result($rs_caches1);
 				$content .='</ul></div>';
 		}
 		//get waiting to approve caches by OC Team
-		
+				//get last hidden caches
+			if(checkField('cache_status',$lang) )
+				$lang_db = $lang;
+			else
+				$lang_db = "en";
+				
+			$rs_caches2 = sql("	SELECT	`cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%Y-%m-%d') AS `date`, `status`,
+							`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`
+						FROM `caches`, `cache_status`
+						WHERE `user_id`='&2'
+						  AND `cache_status`.`id`=`caches`.`status` 
+						  AND `caches`.`status` = 4
+						ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC", $lang_db, $user_id);
+						
+			if (mysql_num_rows($rs_caches2) != 0)
+			{
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje skrzynki oczekujące na weryfikacje przez OC Team:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+
+				for ($i = 0; $i < mysql_num_rows($rs_caches2); $i++)
+				{
+					$record_logs = sql_fetch_array($rs_caches2);
+
+					$tmp_cache = $cache_line;
+
+					$tmp_cache = mb_ereg_replace('{cacheimage}', icon_cache_status($record_logs['status'], $record_logs['cache_status_text']), $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{cachestatus}', htmlspecialchars($record_logs['cache_status_text'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{date}', $record_logs['date'], $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
+
+					$content .= "\n" . $tmp_cache;
+				}
+			mysql_free_result($rs_caches2);
+			$content .='</ul></div>';
+			}
+			
+			//get blocked caches by OC Team
+				//get last hidden caches
+			if(checkField('cache_status',$lang) )
+				$lang_db = $lang;
+			else
+				$lang_db = "en";
+				
+			$rs_caches3 = sql("	SELECT	`cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%Y-%m-%d') AS `date`, `status`,
+							`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`
+						FROM `caches`, `cache_status`
+						WHERE `user_id`='&2'
+						  AND `cache_status`.`id`=`caches`.`status` 
+						  AND `caches`.`status` = 6
+						ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC", $lang_db, $user_id);
+						
+			if (mysql_num_rows($rs_caches3) != 0)
+			{
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje skrzynki zablokowane przez OC Team:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+
+				for ($i = 0; $i < mysql_num_rows($rs_caches3); $i++)
+				{
+					$record_logs = sql_fetch_array($rs_caches3);
+
+					$tmp_cache = $cache_line;
+
+					$tmp_cache = mb_ereg_replace('{cacheimage}', icon_cache_status($record_logs['status'], $record_logs['cache_status_text']), $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{cachestatus}', htmlspecialchars($record_logs['cache_status_text'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{date}', $record_logs['date'], $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
+
+					$content .= "\n" . $tmp_cache;
+				}
+			mysql_free_result($rs_caches3);
+			$content .='</ul></div>';
+			}
 		
 		// if user have blocked create new cache, display this info for owner of profile	
 			if ($user_record['hide_flag'] == 10 )
 			{		$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-red08" ><strong>UWAGA! Masz zablokowaną możliwość zakładania nowych skrzynek. Proszę kontaktować się z OC Team rr@opencaching.pl</strong></span></p><br />';}
 		
 	
-//		}	
+		}	
 // ------------------ end owner section ---------------------------------			
 //------------ end created caches section ------------------------------
 
@@ -354,9 +427,13 @@
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Ostatnia znaleziona skrzynka:</span>&nbsp;&nbsp;<strong><a href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';	
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Ostatnia znaleziona skrzynka:</span>&nbsp;&nbsp;';
+			if (mysql_num_rows($rsfc2) != 0 ) {
+			$content .='<strong><a href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';
+			} else { $content .= '</p>';}
 			$content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b> Milestones "kamienie milowe"</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 			$rsms=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date ASC",$user_id);
+			if (mysql_num_rows($rsms) != 0) {
 			if (mysql_num_rows($rsms) < 101) {
 			for ($i = 0; $i <= mysql_num_rows($rsms); $i+=10)
 				{		
@@ -379,6 +456,7 @@
 			$rms = mysql_fetch_array($rsms);
 			$content .= '<tr><td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
 			}}
+			}
 			$content .='</table>';
 			mysql_free_result($rsms);
 			mysql_free_result($rsncd);
