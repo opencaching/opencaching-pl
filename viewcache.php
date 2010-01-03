@@ -319,9 +319,9 @@
 			} else { 
 			if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) != 0) 
 			{
-			$cache_stats = "<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('show_statictics_cache'). "', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"Statystyka skrzynki\" title=\"\" longdesc=\"ifr::cache_stats.php?cacheid=".$cache_record['cache_id']."::500::700\" onclick=\"enlarge(this);\"/></a>";
+			$cache_stats = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('show_statictics_cache'). "', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"Statystyka skrzynki\" title=\"\" longdesc=\"ifr::cache_stats.php?cacheid=".$cache_record['cache_id']."::500::700\" onclick=\"enlarge(this);\"/></a>";
 			} else {
-			$cache_stats="<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('not_stat_cache'). "', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"\" /></a>";
+			$cache_stats="<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('not_stat_cache'). "', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"\" /></a>";
 					}
 			}			
 			tpl_set_var('cache_stats', $cache_stats);
@@ -401,7 +401,7 @@
 					if ($i == $numr ){ $lists .= ' ';} else { $lists .= ', ';}
 						}
 				}	
-				$content_list = "<a class =\"links\" href=\"javascript:void(0)\" onmouseover=\"Tip('<b>" .tr('recommended_by'). ": </b><br /><br />";
+				$content_list = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('<b>" .tr('recommended_by'). ": </b><br /><br />";
 				$content_list .= $lists;
 				$content_list .= "<br /><br/>', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\">";
 
