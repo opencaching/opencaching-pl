@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- OpenGPX.xsd version 1.0 - GPX extension for OpenCachng/Geocaching -->
+<xsd:schema
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.opencaching.pl/geocache/1"
+	targetNamespace="http://www.opencaching.pl/geocache/1"
+	attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+>
+<!-- OC cache -->
+ <xsd:element name="geocache">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="name"	type="xsd:string"/>
+		<xsd:element name="owner"	type="xsd:string">
+		  <xsd:complexType>
+              <xsd:extension base="xsd:string">
+				<!--  Owner ID corresponds to an account on Opencaching -->
+                <xsd:attribute name="id" form="unqualified" type="xsd:string" />
+              </xsd:extension>
+          </xsd:complexType>
+        </xsd:element>	
+        <xsd:element name="cacheID"	type="xsd:string"/>
+        <xsd:element name="locale"	type="xsd:string" minOccurs="0"/>
+        <xsd:element name="state"	type="xsd:string" minOccurs="0"/>
+        <xsd:element name="country"	type="xsd:string" minOccurs="0"/>
+	      <xsd:element name="type" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="Traditional"/>
+							<xsd:enumeration value="Multi"/>
+							<xsd:enumeration value="Virtual"/>
+							<xsd:enumeration value="Webcam"/>
+							<xsd:enumeration value="Event"/>
+							<xsd:enumeration value="Other"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+	      <xsd:element name="container" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="Virtual"/>
+							<xsd:enumeration value="Micro"/>
+							<xsd:enumeration value="Small"/>
+							<xsd:enumeration value="Regular"/>
+							<xsd:enumeration value="Large"/>
+							<xsd:enumeration value="Other"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+
+        <xsd:element name="difficulty" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:decimal">
+							<xsd:minInclusive value="1"/>
+							<xsd:maxInclusive value="5"/>
+							<xsd:fractionDigits value="1"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+        <xsd:element name="terrain" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:decimal">
+							<xsd:minInclusive value="1"/>
+							<xsd:maxInclusive value="5"/>
+							<xsd:fractionDigits value="1"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+        <xsd:element name="summary" minOccurs="0">
+          <xsd:complexType>
+            <xsd:simpleContent >
+              <xsd:extension base="xsd:string">
+                <xsd:attribute name="html" type="xsd:boolean"/>
+              </xsd:extension>
+            </xsd:simpleContent>
+          </xsd:complexType>
+        </xsd:element>
+
+        <xsd:element name="description" minOccurs="0">
+          <xsd:complexType>
+            <xsd:simpleContent >
+              <xsd:extension base="xsd:string">
+                <xsd:attribute name="html" type="xsd:boolean"/>
+              </xsd:extension>
+            </xsd:simpleContent>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="hints" type="xsd:string" minOccurs="0"/>
+        <xsd:element name="licence"	type="xsd:string"/>
+        <xsd:element name="logs" minOccurs="0">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="log" minOccurs="0" maxOccurs="unbounded">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="time"			type="xsd:dateTime"/>
+                    <xsd:element name="geocacher"	type="xsd:string"/>
+
+							      <xsd:element name="type">
+											<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+													<xsd:enumeration value="Found"/>
+													<xsd:enumeration value="Not Found"/>
+													<xsd:enumeration value="Not Attempted"/>
+													<xsd:enumeration value="Note"/>
+													<xsd:enumeration value="Other"/>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+                    <xsd:element name="text" maxOccurs="unbounded">
+                      <xsd:complexType>
+                        <xsd:simpleContent >
+                          <xsd:extension base="xsd:string">
+                            <xsd:attribute name="encoding" type="xsd:string"/>
+                          </xsd:extension>
+                        </xsd:simpleContent>
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="coords" minOccurs="0">
+                      <xsd:complexType>
+                        <xsd:attribute name="lat" type="xsd:decimal"/>
+                        <xsd:attribute name="lon" type="xsd:decimal"/>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                  <xsd:attribute name="id" type="xsd:string"/>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+		</xsd:sequence>
+      <xsd:attribute name="status">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Draft"/>
+						<xsd:enumeration value="Available"/>
+						<xsd:enumeration value="Unavailable"/>
+						<xsd:enumeration value="Archived"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+       <!--  GeoKrety -->
+        <xsd:element name="geokrety"  minOccurs="0" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="geokrety"  minOccurs="0" maxOccurs="unbounded">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                  </xsd:sequence>
+                  <xsd:attribute name="id" form="unqualified" type="xsd:string" />
+                  <xsd:attribute name="ref" form="unqualified" type="xsd:string" />
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+</xsd:schema>
