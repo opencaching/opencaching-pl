@@ -228,7 +228,11 @@
 //  ----------------- begin  owner section  ----------------------------------
 		if ($user_id == $usr['userid'] || $usr['admin']) 
 		{
-			if(checkField('cache_status',$lang) )
+		$rscheck =sqlValue("SELECT count(*) FROM caches WHERE (status = 4 OR status = 5 OR status = 6) AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+		
+		if ($rscheck != 0) {$content .= '<div class="content-title-noshade box-blue">';}
+		
+		if(checkField('cache_status',$lang) )
 				$lang_db = $lang;
 			else
 				$lang_db = "en";
@@ -244,7 +248,7 @@
 			if (mysql_num_rows($rs_caches1) != 0)
 			{
 	
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				$content .= '<p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 				for ($i = 0; $i < mysql_num_rows($rs_caches1); $i++)
 				{
 					$record_caches = sql_fetch_array($rs_caches1);
@@ -286,7 +290,7 @@
 						
 			if (mysql_num_rows($rs_caches2) != 0)
 			{
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje skrzynki oczekujące na weryfikacje przez OC Team:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				$content .= '<br /><p><span class="content-title-noshade txt-blue08" >Moje skrzynki oczekujące na weryfikacje przez OC Team:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 
 				for ($i = 0; $i < mysql_num_rows($rs_caches2); $i++)
 				{
@@ -323,7 +327,7 @@
 						
 			if (mysql_num_rows($rs_caches3) != 0)
 			{
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Moje skrzynki zablokowane przez OC Team:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				$content .= '<br /><p><span class="content-title-noshade txt-blue08" >Moje skrzynki zablokowane przez OC Team:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 
 				for ($i = 0; $i < mysql_num_rows($rs_caches3); $i++)
 				{
@@ -347,7 +351,7 @@
 			if ($user_record['hide_flag'] == 10 )
 			{		$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-red08" ><strong>UWAGA! Masz zablokowaną możliwość zakładania nowych skrzynek. Proszę kontaktować się z OC Team rr@opencaching.pl</strong></span></p><br />';}
 		
-	
+		if ($rscheck != 0){	$content .='</div>';}
 		}	
 // ------------------ end owner section ---------------------------------			
 //------------ end created caches section ------------------------------
