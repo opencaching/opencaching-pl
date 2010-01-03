@@ -403,7 +403,7 @@
 				}	
 				$content_list = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('<b>" .tr('recommended_by'). ": </b><br /><br />";
 				$content_list .= $lists;
-				$content_list .= "<br /><br/>', BALLOON, true, ABOVE, false, OFFSETX, -35, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\">";
+				$content_list .= "<br /><br/>', BALLOON, true, ABOVE, false, OFFSETY, 20, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\">";
 
 				tpl_set_var('list_of_rating_begin', $content_list);
 				tpl_set_var('list_of_rating_end','</a>');}
