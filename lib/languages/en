@@ -292,7 +292,7 @@ lock Lock
 unlock Unlock
 user_stats user's stats
 first_cache If it is the first time you are placing a cache, please be aware to read the following <a href="http://wiki.opencaching.pl/index.php/Cache_parameters">description</a>
-first_cache_approvement Because this is one of your first five caches, the listing will be available to others after approving by Opencaching Team.
+first_cache_approvement Because this is one of your first three caches, the listing will be available to others after approving by Opencaching Team.
 name_label Name
 cache_type Cache type
 cache_size Cache size
