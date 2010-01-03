@@ -173,4 +173,11 @@
   $cachemap_pixel_y = 200;
   $cachemap_url = 'images/cachemaps/';
   $cachemap_dir = $rootpath . $cachemap_url;
+
+  $site_name = 'Opencaching.pl';
+  $wiki_url  = 'http://wiki.opencaching.pl';
+  $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
+  $cache_param_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
+  $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
+  $contact_mail = 'ocpl (at) opencaching.pl'
 ?>
