@@ -2,7 +2,7 @@ main_menu Menu główne
 user_menu Menu użytkownika
 new NOWA
 cache_menu Menu skrzynki
-activation_code_failed Kod aktywacyjny lub adres e-mail jest niepoprawny.<br/>Aktywacja Twojego konta przebiegła niepoprawnie. Proszę sprawdzić, czy nie popełniłeś błędu. Jeśli problem nadal występuje, proszę zgłosić go na adres ocpl (at) opencaching.pl.
+activation_code_failed Kod aktywacyjny lub adres e-mail jest niepoprawny.<br/>Aktywacja Twojego konta przebiegła niepoprawnie. Proszę sprawdzić, czy nie popełniłeś błędu. Jeśli problem nadal występuje, proszę zgłosić go na adres <span class="mail>{contact_mail}</span>.
 email_incorrect Podany adres e-mail jest niepoprawny.
 account_activation Aktywacja konta
 finish_registration_hint W celu zakończenia rejestracji musisz potwierdzić adres e-mail oraz wprowadzić kod aktywacyjny.
@@ -292,8 +292,8 @@ show pokaż
 lock Zablokuj
 unlock Odblokuj
 user_stats statystyki użytkownika
-first_cache Jeśli rejestrujesz skrzynkę na Opencaching.pl po raz pierwszy, proszę zapoznać się z <a href="http://wiki.opencaching.pl/index.php/Parametry_skrzynki">podstawowymi informacjami</a>
-first_cache_approvement Ponieważ jest to jedna z pięciu pierwszych Twoich skrzynek, będzie ona widoczna dla innych, gdy zostanie zaakceptowana przez Zespół Opencaching.pl.
+first_cache Jeśli rejestrujesz skrzynkę na {site_name} po raz pierwszy, proszę zapoznać się z <a href="{cache_params_url}">podstawowymi informacjami</a>
+first_cache_approvement Ponieważ jest to jedna z pięciu pierwszych Twoich skrzynek, będzie ona widoczna dla innych, gdy zostanie zaakceptowana przez Zespół {site_name}.
 name_label Nazwa
 cache_type Rodzaj skrzynki
 cache_size Rozmiar skrzynki
@@ -303,14 +303,14 @@ difficulty_problem Jeśli masz problem z oceną poziomów trudności, skorzystaj
 rating_system system oceny skrzynek
 additional_information Informacje dodatkowe
 optional opcjonalnie
-time_distance_hint Czas i odległość zależą często od warunków zewnętrznych, więc jeśli nie jesteś w stanie oszacować tych danych, wpisz w powyższe pola zera. Więcej informacji znajdziesz w artykule <a href="http://wiki.opencaching.pl/index.php/Parametry_skrzynki" target="_BLANK">"czas i droga"</a>. Dane te przydatne są na przykład przy skrzynkach typu <b>multicache</b> i <b>wydarzenie</b>.
+time_distance_hint Czas i odległość zależą często od warunków zewnętrznych, więc jeśli nie jesteś w stanie oszacować tych danych, wpisz w powyższe pola zera. Więcej informacji znajdziesz w artykule <a href="{cache_params_url}" target="_BLANK">"czas i droga"</a>. Dane te przydatne są na przykład przy skrzynkach typu <b>multicache</b> i <b>wydarzenie</b>.
 select_one proszę wybrać!
 waypoint_other_portal_info Waypoint z innych baz danych dla tej skrzynki. Żadne dane nie są pobierane automatycznie.
 cache_attributes_label Atrybuty skrzynki
 attributes_edit_hint Atrybuty można zmieniać także podczas późniejszej edycji.
 additional_attributes_hint Możesz dołożyć dodatkowe atrybuty do opisu skrzynki korzystając z formularza
 additional_attributes Dodatkowe atrybuty skrzynki
-attributes_desc_hint Zapoznaj się z <a href="http://wiki.opencaching.pl/index.php/Atrybuty_skrzynki" target="_blank">opisem atrybutów OC</a>.
+attributes_desc_hint Zapoznaj się z <a href="{cache_params_url}" target="_blank">opisem atrybutów OC</a>.
 descriptions Opis
 language Język
 other_languages_desc Opisy w innych językach możesz wprowadzić po rejestracji skrzynki - poprzez jej edycję.
@@ -345,8 +345,8 @@ hour godzina
 dont_publish_yet Jeszcze nie publikuj
 log_password Hasło do logu
 no_password_label Pozostaw puste jeśli bez hasła
-please_read Zapoznaj się z <a href="http://wiki.opencaching.pl/index.php/Parametry_skrzynki" target="_blank">informacją o haśle w logu!</a>
-creating_cache Zakładając nową skrzynkę akceptujesz <a href="http://wiki.opencaching.pl/index.php/Regulamin_OC_PL" target="_blank">Regulamin</a> oraz konsekwencje wynikające z niego.
+please_read Zapoznaj się z <a href="{cache_params_url}" target="_blank">informacją o haśle w logu!</a>
+creating_cache Zakładając nową skrzynkę akceptujesz <a href="{rules_url}" target="_blank">Regulamin</a> oraz konsekwencje wynikające z niego.
 with_all_consequences oraz konsekwencje wynikające z niego.
 sort_by Wynik szukania sortuj według
 cache_name nazwa skrzynki
@@ -379,7 +379,7 @@ search_recommendations Rekomendacje
 search_all_caches wszystkie skrzynki
 search_recommended_caches minimalna ilość rekomendacji: 
 incomming_events Nadchodzące wydarzenia
-rr_comment_label Adnotacja Rady Opencaching.pl
+rr_comment_label Adnotacja Rady {site_name}
 add_rr_comment Dodaj adnotację RR do opisu
 remove_rr_comment Usuń adnotację RR do opisu
 get_bulletin Chcę otrzymywać biuletyny informacyjne
@@ -412,11 +412,11 @@ total_of_active_caches Liczba aktywnych skrzynek
 number_of_active_users Liczba aktywnych użytkowników
 number_of_founds Liczba odkryć skrzynek
 latest_news Aktualności
-what_do_you_find Witamy na Opencaching.pl
-what_do_you_find_intro Geocaching to gra terenowa użytkowników GPS polegająca na poszukiwaniu "skarbów" ukrytych przez jej innych uczestników. Poszukiwane skarby, tzw. skrzynki to odpowiednio zabezpieczone, wodoszczelne pojemniki zawierające drobne upominki oraz dziennik, w którym kolejni znalazcy odnotowują swoje odkrycia. Na tej stronie znajdziesz wszystko, co dotyczy geocachingu w Polsce - począwszy od <b><a href="http://wiki.opencaching.pl">ABC Geocachingu</a></b> do forum, gdzie możesz prowadzić dyskusje z innymi geocacherami. <b>Opencaching.pl</b> wystartował w <span class="content-title-noshade">maju 2006 roku</span>. Nasza baza skrzynek pracuje na projekcie opensource <b> Opencaching </b>.
+what_do_you_find Witamy na {site_name}
+what_do_you_find_intro Geocaching to gra terenowa użytkowników GPS polegająca na poszukiwaniu "skarbów" ukrytych przez jej innych uczestników. Poszukiwane skarby, tzw. skrzynki to odpowiednio zabezpieczone, wodoszczelne pojemniki zawierające drobne upominki oraz dziennik, w którym kolejni znalazcy odnotowują swoje odkrycia. Na tej stronie znajdziesz wszystko, co dotyczy geocachingu w Polsce - począwszy od <b><a href="{wiki_url}">ABC Geocachingu</a></b> do forum, gdzie możesz prowadzić dyskusje z innymi geocacherami. <b>{site_name}</b> wystartował w <span class="content-title-noshade">maju 2006 roku</span>. Nasza baza skrzynek pracuje na projekcie opensource <b> Opencaching </b>.
 more_news więcej nowości
-filename_rules http://wiki.opencaching.pl/index.php/Regulamin_OC_PL
-filename_describe_cache http://wiki.opencaching.pl/index.php/Parametry_skrzynki
+filename_rules {rules_url}
+filename_describe_cache {cache_params_url}
 map_msg Aby zobaczyć współrzędne oraz<br/> mapę lokalizacji skrzynki <br/> musisz się <a href="login.php?target={target}">zalogować</a>.
 additional_hints Dodatkowe informacje
 images Obrazki/Zdjęcia
@@ -424,7 +424,7 @@ mp3_files_info PodCast - słuchaj jak dotrzeć do skrzynki - plik MP3
 utilities Użyteczne
 search_geocaches_nearby Szukaj skrzynek w promieniu 100km
 download_as_file Pobierz dane
-accept_terms_of_use Pobierając dane z Opencaching PL akceptujesz <a href="http://wiki.opencaching.pl/index.php/Regulamin_OC_PL">warunki ich użycia</a>.
+accept_terms_of_use Pobierając dane z Opencaching PL akceptujesz <a href="{rules_url}">warunki ich użycia</a>.
 find_geocaches_on Pokaż najbliższe skrzynki na
 searchable bez moich własnych i znalezionych
 all_geocaches wszystkie
@@ -434,9 +434,9 @@ password_confirm Potwierdź hasło
 register_msg1 W celu rejestracji na Opencaching PL musisz posiadać rzeczywisty adres E-mail na który zostanie wysłany kod aktywacyjny. Możesz tylko jednego użytkownika zarejestrować na jeden adres E-mail. 
 register_msg2 Pola zaznaczone * są obowiązkowe.
 register_msg3 Jeżeli masz jakieś pytania, proszę skontaktować się z nami, zanim zarejestrujesz się. 
-register_msg4 Tak, zapoznałem się z <b><a href="http://wiki.opencaching.pl/index.php/Regulamin_OC_PL">Regulaminem</a></b> serwisu Opencaching PL i zobowiązuję się go przestrzegać.
+register_msg4 Tak, zapoznałem się z <b><a href="{rules_url}">Regulaminem</a></b> serwisu Opencaching PL i zobowiązuję się go przestrzegać.
 register_msg5 Nowy użytkownik został zarejstrowany
-register_msg6 Kod aktywacyjny został wysłany na twój adres E-Mail.<br/>W celu zakończenia procesu rejestracji proszę się kierować instrukcją dostarczoną na twój adres E-Mail.<br/><b>Uwaga! Niektóre serwery pocztowe odrzucają list z kodem aktywacyjnym z serwera OC PL. Jeśli nie otrzymałeś kodu w ciągu najbliższych godzinach prosimy o kontakt na adres <font color=black>ocpl</font> <font color=black>@</font> <font color=black>opencaching.pl</font> (podaj swój username jaki użyłeś podczas rejestracji)
+register_msg6 Kod aktywacyjny został wysłany na twój adres E-Mail.<br/>W celu zakończenia procesu rejestracji proszę się kierować instrukcją dostarczoną na twój adres E-Mail.<br/><b>Uwaga! Niektóre serwery pocztowe odrzucają list z kodem aktywacyjnym z serwera OC PL. Jeśli nie otrzymałeś kodu w ciągu najbliższych godzinach prosimy o kontakt na adres <span class="email">{contact_mail}</span> (podaj swój username jaki użyłeś podczas rejestracji)
 total_distance Całkowity dystans
 send_to_gps Wyślij WayPoint do GPS
 post_new_log Wpis do logu skrzynki
@@ -450,7 +450,7 @@ possible_recommend Aby móc rekomendować inne skrzynki, musisz jeszcze znależ�
 comments_log Treść wpisu
 submit_log_entry Wyślij wpis do logu
 geokret_log Zabrałeś geokreta? Zarejestruj ten fakt na
-rate_cache Oceń skrzynkę: <br/><a href="http://wiki.opencaching.pl/index.php/Oceny_skrzynek">Opis skali</a>
+rate_cache Oceń skrzynkę: <br/><a href="{rating_desc_url}">Opis skali</a>
 do_not_rate Nie chcę oceniać tej skrzynki
 listed_other Proszę wpisać się w logi także na następujących stronach
 not_spcified nie wybrano
@@ -462,7 +462,7 @@ error_email_not_ok Adres e-mail jest niepoprawny
 error_email_exists Podany adres e-mail jest już użyty.
 error_password_not_ok Hasło zawiera niedozwolone znaki lub jest zbyt krótkie
 error_password_diffs Hasła się różnią
-error_tos Nie zaznaczyłeś, że zapoznałeś się i zobowiązujesz się przestrzegać regulamiu Opencaching.pl.
+error_tos Nie zaznaczyłeś, że zapoznałeś się i zobowiązujesz się przestrzegać regulamiu {site_name}.
 step1 Krok 1
 step2 Krok 2
 new_password_msg1 Aby zmienić hasło, należy otrzymać unikalny kod, który zostanie wysłany na Twój adres e-mail.

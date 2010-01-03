@@ -143,7 +143,6 @@ session_start();
 
  	require_once($rootpath . 'lib/loadlanguage.php');	
 
-
 	require_once($rootpath . 'lib/xml2ary.inc.php');	
 	// set footer tpl varset
 	
@@ -190,6 +189,9 @@ session_start();
 	// thumbs-dir/url
 	if (!isset($thumbdir)) $thumbdir = $picdir . '/thumbs';
 	if (!isset($thumburl)) $thumburl = $picurl . '/thumbs';
+
+
+
 
 	//open a databse connection
 	db_connect();
@@ -298,6 +300,13 @@ session_start();
 									tr('rating_good'),
 									tr('rating_excellent'),
 									);
+
+    tpl_set_var('site_name', $site_name);
+	tpl_set_var('wiki_url', $wiki_url);
+	tpl_set_var('rules_url', $rules_url);
+	tpl_set_var('cache_params_url', $cache_params_url);
+	tpl_set_var('contact_mail', $contact_mail);
+	tpl_set_var('rating_desc_url', $rating_desc_url);
 
 	function score2ratingnum($score)
 	{
@@ -663,7 +672,8 @@ session_start();
 	function handle_translation_clause($matches)
 	{
 		$clause = substr($matches[0], 2, strlen($matches[0])-4);;
-		return tpl_do_replace(tr($clause));
+
+		return tr($clause);
 	}
 
 	function tpl_do_translate($str)
@@ -675,17 +685,16 @@ session_start();
 	//process the template replacements
 	//no_eval_replace - if true, variables will be replaced that are
 	//                  marked as "no_eval"
-	function tpl_do_replace($str)
+	function tpl_do_replace($str, $noeval = false)
 	{
 		global $vars, $no_eval_vars;
-
 
 
 		if (is_array($vars))
 		{
 			foreach ($vars as $varname=>$varvalue)
 			{
-				if ($no_eval_vars[$varname] == false)
+				if ($no_eval_vars[$varname] == false || $noeval)
 				{
 					$str = mb_ereg_replace('{' . $varname . '}', $varvalue, $str);
 				}

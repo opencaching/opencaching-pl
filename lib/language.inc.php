@@ -37,7 +37,7 @@ function tr($str)
 {
 	global $language, $lang;
 	if($language[$lang][$str])
-		return $language[$lang][$str];
+		return tpl_do_replace($language[$lang][$str], true);
 	else
 		return $str . "-todo";
 }
