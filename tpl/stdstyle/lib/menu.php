@@ -434,7 +434,7 @@ $menu = array(
 				'title' => tr('general'),
 				'menustring' => tr('general'),
 				'visible' => true,
-				'filename' => 'viewprofile.php?userid='.$usr['userid'].'',
+				'filename' => 'myhome.php',
 				'siteid' => 'myhome'
 			),
 			array(
