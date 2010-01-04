@@ -124,6 +124,12 @@
 
 			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> (<a href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>)</p>';}
 
+			$hidden_temp =  sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=2 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba czasowo niedostępnych skrzynek:  </span><strong>' . $hidden_temp . '</strong>';
+
+			$hidden_arch =  sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=3 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba zarchiwizowanych skrzynek:  </span><strong>' . $hidden_arch . '</strong>';
+		
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba zorganizowanych spotkań (events):  </span><strong>' . $hidden_event . '</strong>';
 			if ($hidden_event == 0) 
 				{$content .= '</p>';}
