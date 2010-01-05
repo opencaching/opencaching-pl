@@ -514,7 +514,8 @@
 			tpl_set_var('watch_icon', $watch_icon);
 			tpl_set_var('visit_icon', $visit_icon);
 			tpl_set_var('score_icon', $score_icon);
-			
+			tpl_set_var('save_icon', $save_icon);
+			tpl_set_var('search_icon', $search_icon);			
 			if ($cache_record['type'] == 6)
 			{
 				tpl_set_var('found_icon', $exist_icon);
