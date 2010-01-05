@@ -66,11 +66,11 @@
 
 			
 	
-	$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}" onmouseover="Lite(\'c{cache_count}\')" onmouseout="Lite(\'map\')">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
+	$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite(\'c{cache_count}\')" onmouseout="Lite(\'map\')">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
 	
 //	$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}" onmouseover="Lite(\'c{cache_count}\')" onmouseout="Lite(\'map\')">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a href="viewprofile.php?userid={userid}">{username}</a></li>';
 		
-	$file_content = '<ul>';
+	$file_content = '<ul style="font-size: 12px;">';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
@@ -132,8 +132,8 @@
 	}
 	else
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /><b>&nbsp;{date}&nbsp;<a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a href="viewprofile.php?userid={userid}">{username}</a><br/><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
-		$file_content = '<ul>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
+		$file_content = '<ul style="font-size: 12px;">';
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
 			$record = sql_fetch_array($rs);
