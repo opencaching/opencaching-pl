@@ -3,7 +3,7 @@
 	<p>
 		{pages}
 	</p>
-<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-heigh: 1.6em; font-size: 13px;" width="97%">
+<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="97%">
 <tr>
 <td><strong>Data</strong></td>
 <td>&nbsp;</td>
