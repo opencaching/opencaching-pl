@@ -34,7 +34,7 @@
 		{pages}<br/>
 	</p>
 </div>
-<table class="content" style="font-size: 12px; line-height: 1.6em;" border="0" cellspacing="0" cellpadding="0">
+<table class="content" style="font-size: 13px; line-height: 1.6em;" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td colspan="2" style="padding-left: 0px; padding-right: 0px;">
 			<table border="0" cellspacing="0" cellpadding="0" class="null">
