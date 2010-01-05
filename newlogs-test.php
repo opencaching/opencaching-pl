@@ -37,7 +37,7 @@
 if ($error == false)
 {
 	//get the news
-	$tplname = 'newlogs';
+	$tplname = 'newlogs-test';
 	require($stylepath . '/newlogs.inc.php');
 	
 	$LOGS_PER_PAGE = 150;
