@@ -2,7 +2,7 @@
 	<div class="buffer"></div>
 	{confirm}
 	<div class="buffer"></div>
-	<table border='1' class="table" width="90%">
+	<table border='1' class="table" width="97%">
 		<tr>
 			<th >Cache</th>
 			<th >Data utworzenia</th>

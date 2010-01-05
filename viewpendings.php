@@ -210,7 +210,7 @@ global $bgcolor1, $bgcolor2;
 			$content .= "<td class='".$bgcolor."'><a class=\"links\" href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>\n";
 			$content .= "<td class='".$bgcolor."'><img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=".$report['cache_id']."'>Zaakceptuj</a><br/>
 			<img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=".$report['cache_id']."&amp;assign=".$usr['userid']."'>Przypisz siebie do zgłoszenia</a></td>\n";
-			$content .= "<td class='".$bgcolor."'><a class=\"links\" href='viewprofile.php?userid=".$assignedUserId."'>".getUsername($assignedUserId)."</a><br/>";
+			$content .= "<td class='".$bgcolor."'><a class=\"links\" href='viewprofile.php?userid=".$assignedUserId."'>".getUsername($assignedUserId)."</a><br/></td>";
 			$content .= "</tr>\n";
 			$row_num++;
 		}
