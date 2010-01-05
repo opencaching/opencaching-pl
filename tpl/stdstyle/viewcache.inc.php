@@ -118,6 +118,7 @@ $watch_icon = '<img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon
 $visit_icon = '<img src="tpl/stdstyle/images/description/16x16-visitors.png" class="icon16" alt="" />';
 $exist_icon = '<img src="tpl/stdstyle/images/log/16x16-go.png" class="icon16" alt="" />';
 $trash_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" />';
+$wattend_icon = '<img src="tpl/stdstyle/images/log/16x16-wattend.png" class="icon16" alt="" />';
 
 // MP3 Files table
 function viewcache_getmp3table($cacheid, $mp3count)

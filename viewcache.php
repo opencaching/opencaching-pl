@@ -518,7 +518,7 @@
 			if ($cache_record['type'] == 6)
 			{
 				tpl_set_var('found_icon', $exist_icon);
-				tpl_set_var('notfound_icon', $trash_icon);
+				tpl_set_var('notfound_icon', $wattend_icon);
 
 				$event_attendance_list = mb_ereg_replace('{id}', urlencode($cache_id), $event_attendance_list);
 				tpl_set_var('event_attendance_list', $event_attendance_list);
