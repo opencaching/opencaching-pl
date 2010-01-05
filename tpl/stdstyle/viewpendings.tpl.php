@@ -1,8 +1,8 @@
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/aprove-cache.png" class="icon32" />&nbsp;Skrzynki oczekujące na akceptację</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/aprove-cache.png" class="icon32" alt="" />&nbsp;Skrzynki oczekujące na akceptację</div>
 	<div class="buffer"></div>
 	{confirm}
 	<div class="buffer"></div>
-	<table border='1' class="table" width="97%">
+	<table border='1' class="table" style="font-size: 12px; line-hight: 1.6em;" width="97%">
 		<tr>
 			<th >Cache</th>
 			<th >Data utworzenia</th>
