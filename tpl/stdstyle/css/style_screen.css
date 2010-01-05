@@ -194,7 +194,7 @@ ul.linklist-noindent {margin: -0.3em 0px 0.5em 0px; padding: 0px; list-style-typ
 ul.linklist-indent {margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 120%; }
 
 /* Tables */
-.table {font-size: 100%; clear: left; padding: 0px; margin: 0.5em 0px 0.2em 0px; border: solid 0px rgb(150,150,150); empty-cells: show; border-collapse: collapse; background-color: rgb(255,255,255);}
+.table {font-size: 10px; line-height: 2.0em; clear: left; padding: 0px; margin: 0.5em 0px 0.2em 0px; border: solid 0px rgb(150,150,150); empty-cells: show; border-collapse: collapse; background-color: rgb(255,255,255);}
 .table tr {margin: 0px; padding: 0px;}
 .table td {padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); text-align: left; font-size: 120%;}
 .table th {margin: 0px; background-color: rgb(127,162,202); padding: 2px 7px 2px 7px; border: solid 0px rgb(150,150,150); empty-cells: show; text-align: left; font-size: 120%; color: rgb(255,255,255);	}
