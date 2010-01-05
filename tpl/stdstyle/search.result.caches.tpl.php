@@ -34,7 +34,7 @@
 		{pages}<br/>
 	</p>
 </div>
-<table class="content" border="0" cellspacing="0" cellpadding="0">
+<table class="content" style="font-size: 12px; line-height: 1.6em;" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td colspan="2" style="padding-left: 0px; padding-right: 0px;">
 			<table border="0" cellspacing="0" cellpadding="0" class="null">
@@ -62,21 +62,21 @@ global $usr, $hide_coords;
 $login =0;
 $googlemaps = "";
 if ($usr || !$hide_coords){ echo "
-<table class=\"content\">
+<table class=\"content\" style=\"font-size: 12px; line-height: 1.6em;\">
 	<tr>
 		<td width=\"230\"><b>".tr('download')."</b></td>
 		<td align=\"right\" style=\"padding-right:20px;\">
 			".tr('listing_from_this_page').":
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpx&amp;startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx\">GPX</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpxgc&amp;startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=loc&amp;startat=";?>{startat}<?php echo "\" title=\"Waypoint .loc\">LOC</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=kml&amp;startat=";?>{startat}<?php echo "\" title=\"Google Earth .kml\">KML</a>
-			<a href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> ";
-			echo "<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ov2&amp;startat=";?>{startat}<?php echo "\" title=\"TomTom POI .ov2\">OV2</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ovl&amp;startat=";?>{startat}<?php echo "\" title=\"TOP50-Overlay .ovl\">OVL</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=txt&amp;startat=";?>{startat}<?php echo "\" title=\"Text .txt\">TXT</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=wpt&amp;startat=";?>{startat}<?php echo "\" title=\"Oziexplorer .wpt\">WPT</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=uam&amp;startat=";?>{startat}<?php echo "\" title=\"AutoMapa .uam\">UAM</a>
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpx&amp;startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx |\">GPX</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpxgc&amp;startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=loc&amp;startat=";?>{startat}<?php echo "\" title=\"Waypoint .loc\">LOC</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=kml&amp;startat=";?>{startat}<?php echo "\" title=\"Google Earth .kml\">KML</a> | 
+			<a class=\"links\" href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> | ";
+			echo "<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ov2&amp;startat=";?>{startat}<?php echo "\" title=\"TomTom POI .ov2\">OV2</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ovl&amp;startat=";?>{startat}<?php echo "\" title=\"TOP50-Overlay .ovl\">OVL</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=txt&amp;startat=";?>{startat}<?php echo "\" title=\"Text .txt\">TXT</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=wpt&amp;startat=";?>{startat}<?php echo "\" title=\"Oziexplorer .wpt\">WPT</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=uam&amp;startat=";?>{startat}<?php echo "\" title=\"AutoMapa .uam\">UAM</a>
 
 			</td>
 	</tr>
@@ -85,16 +85,16 @@ if ($usr || !$hide_coords){ echo "
 			".tr('download_for_various_apps')."
 		</td>
 		<td align=\"right\" style=\"padding-right:20px;\">";?> {{listing_from_to}}<?php echo " :
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpx&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpxgc&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=loc&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=kml&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Google Earth .kml\">KML</a>
-			<a href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "%26count%3Dmax%26zip%3D1&amp;ie=UTF8&amp;z=7' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ov2&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TomTom POI .ov2\">OV2</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ovl&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TOP50-Overlay .ovl\">OVL</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=txt&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Text .txt\">TXT</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=wpt&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Oziexplorer .wpt\">WPT</a>
-			<a href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=uam&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"AutoMapa .uam\">UAM</a>
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpx&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpxgc&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=loc&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=kml&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Google Earth .kml\">KML</a> | 
+			<a class=\"links\" href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "%26count%3Dmax%26zip%3D1&amp;ie=UTF8&amp;z=7' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ov2&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TomTom POI .ov2\">OV2</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ovl&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TOP50-Overlay .ovl\">OVL</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=txt&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Text .txt\">TXT</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=wpt&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Oziexplorer .wpt\"> WPT</a> | 
+			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=uam&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"AutoMapa .uam\">UAM</a>
 
 			</td>
 	</tr>
