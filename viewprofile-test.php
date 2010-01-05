@@ -207,8 +207,9 @@
 				$record_logs = sql_fetch_array($rs_logs);
 				
 				$tmp_log = $cache_line_my_caches;
-				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$wp_name."') AND stateid<>1 AND stateid<>4 AND typeid<>2",0);
-				if ( $geokrety_sql !=0)
+				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$record_logs['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2",0);
+
+				if ( $geokret_sql !=0)
 					{
 					$tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt=""/>', $tmp_log);
 					}
@@ -518,8 +519,8 @@
 					{
 					$record_logs = sql_fetch_array($rs_logs);
 					$tmp_log = $log_line;
-				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$wp_name."') AND stateid<>1 AND stateid<>4 AND typeid<>2",0);
-				if ( $geokrety_sql !=0)
+				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$record_logs['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2",0);
+				if ( $geokret_sql !=0)
 					{
 					$tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt=""/>', $tmp_log);
 					}
