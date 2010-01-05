@@ -115,6 +115,8 @@ $note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" a
 $vote_icon = '<img src="tpl/stdstyle/images/action/16x16-addscore.png" class="icon16" alt="" />';
 $score_icon = '<img src="images/cache-rate.png" class="icon16" alt="" />';
 $watch_icon = '<img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="" />';
+$search_icon = '<img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />';
+$save_icon = '<img src="tpl/stdstyle/images/action/16x16-save.png" class="icon16" alt="" />';
 $visit_icon = '<img src="tpl/stdstyle/images/description/16x16-visitors.png" class="icon16" alt="" />';
 $exist_icon = '<img src="tpl/stdstyle/images/log/16x16-go.png" class="icon16" alt="" />';
 $trash_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" />';
