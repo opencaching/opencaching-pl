@@ -112,7 +112,7 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
 $found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}" />';
 $notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />';
 $note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{comment}}" />';
-$vote_icon = '<img src="tpl/stdstyle/images/action/16x16-adddesc.png" class="icon16" alt="" />';
+$vote_icon = '<img src="tpl/stdstyle/images/action/16x16-addscore.png" class="icon16" alt="" />';
 $score_icon = '<img src="images/cache-rate.png" class="icon16" alt="" />';
 $watch_icon = '<img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="" />';
 $visit_icon = '<img src="tpl/stdstyle/images/description/16x16-visitors.png" class="icon16" alt="" />';
