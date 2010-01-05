@@ -125,19 +125,19 @@
 			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
 
 			$hidden_temp =  sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=2 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba czasowo niedostępnych skrzynek:  </span><strong>' . $hidden_temp . '</strong>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba czasowo niedostępnych skrzynek:  </span><strong>' . $hidden_temp . '</strong></p>';
 
 			$hidden_arch =  sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=3 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba zarchiwizowanych skrzynek:  </span><strong>' . $hidden_arch . '</strong>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba zarchiwizowanych skrzynek:</span><strong>' . $hidden_arch . '</strong></p>';
 		
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba zorganizowanych spotkań (events):  </span><strong>' . $hidden_event . '</strong>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba zorganizowanych spotkań (events):  </span><strong>' . $hidden_event . '</strong>';
 			if ($hidden_event == 0) 
 				{$content .= '</p>';}
 				else						
 			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?searchto=searchbyowner&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;f_geokret=0&amp;country=&amp;cachetype=0000010000">'.tr('show').'</a>]</p>';}
 			$recomendr = sqlValue("SELECT COUNT(*) FROM `cache_rating`, caches WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
 			
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba otrzymanych rekomendacji:</span> <strong>' . $recomendr . '</strong>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba otrzymanych rekomendacji:</span> <strong>' . $recomendr . '</strong>';
 				if ($recomendr == 0) 
 				{$content .= '</p>';}
 				else						
