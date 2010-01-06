@@ -40,7 +40,7 @@
 		$startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
 		$startat = $startat + 0;
 
-		$perpage = 100;
+		$perpage = 50;
 		$startat -= $startat % $perpage;
 
 		$content = '';
