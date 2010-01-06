@@ -65,7 +65,7 @@ if ($error == false)
 	$startat = max(0,floor((($start/$LOGS_PER_PAGE)+1)/$PAGES_LISTED)*$PAGES_LISTED);
 	
 	if( ($start/$LOGS_PER_PAGE)+1 >= $PAGES_LISTED )
-		$pages .= '<a href="newlogs.php?start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'">{first_img}</a> '; 
+		$pages .= '<a href="my_logs.php?userid='.$user_id.'&amp;start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'">{first_img}</a> '; 
 	else
 		$pages .= "{first_img_inactive}";
 	for( $i=max(1,$startat);$i<$startat+$PAGES_LISTED;$i++ )
@@ -73,13 +73,13 @@ if ($error == false)
 		$page_number = ($i-1)*$LOGS_PER_PAGE;
 		if( $page_number == $start )
 			$pages .= '<b>';
-		$pages .= '<a href="newlogs.php?start='.$page_number.'">'.$i.'</a> '; 
+		$pages .= '<a href="my_logs.php?userid='.$user_id.'&amp;start='.$page_number.'">'.$i.'</a> '; 
 		if( $page_number == $start )
 			$pages .= '</b>';
 		
 	}
 	if( $total_pages > $PAGES_LISTED )
-		$pages .= '<a href="newlogs.php?start='.(($i-1)*$LOGS_PER_PAGE).'">{last_img}</a> '; 
+		$pages .= '<a href="my_logs.php?userid='.$user_id.'&amp;start='.(($i-1)*$LOGS_PER_PAGE).'">{last_img}</a> '; 
 	else
 		$pages .= '{last_img_inactive}';
 	$rs = sql("SELECT `cache_logs`.`id`
@@ -122,42 +122,13 @@ if ($error == false)
 	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN countries ON (caches.country = countries.short)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
 	                   WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ") AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'
 	                   ORDER BY cache_logs.date_created DESC");
-	//$rs = mysql_query($sql);
-
-	for ($i = 0; $i < mysql_num_rows($rs); $i++)
-	{
-		//group by country
-		$record = sql_fetch_array($rs);
-
-		$newlogs[$record['country_name']][] = array(
-			'cache_id'   		=> $record['cache_id'],
-			'log_type'   		=> $record['log_type'],
-			'log_date'   		=> $record['log_date'],
-			'cache_name' 		=> $record['cache_name'],
-			'wp_name' 			=> $record['wp_name'],
-			'user_name'  		=> $record['user_name'],
-			'icon_small' 		=> $record['icon_small'],
-			'user_id'	 		=> $record['user_id'],
-			'cache_type'	 	=> $record['cache_type'],
-			'cache_icon_small'	=> $record['cache_icon_small'],
-			'recommended'	=> $record['recommended']			
-		);
-	}
-
-	//sort by country name
-	uksort($newlogs, 'cmp');
-
-	$file_content = '';
-
-	if (isset($newlogs))
-	{
-		foreach ($newlogs AS $countryname => $country_record)
-		{
-			$file_content .= '<tr><td colspan="6" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
-
-			foreach ($country_record AS $log_record)
+			if (mysql_num_rows($rs) != 0)
 			{
-
+				$file_content ='';
+				for ($i = 0; $i < mysql_num_rows($rs); $i++)
+				{
+				$log_record = sql_fetch_array($rs);
+				
 				$file_content .= '<tr>';
 				$file_content .= '<td>'. htmlspecialchars(date("d.m.Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$log_record['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2",0);
@@ -185,9 +156,8 @@ if ($error == false)
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 				$file_content .= "</tr>";
-			}
-		}
-	}
+					}
+				}
 
 	$pages = mb_ereg_replace('{last_img}', $last_img, $pages);
 	$pages = mb_ereg_replace('{first_img}', $first_img, $pages);
@@ -197,19 +167,12 @@ if ($error == false)
 		
 	tpl_set_var('file_content',$file_content);
 	tpl_set_var('pages', $pages);
-	unset($newcaches);
+//	unset($newcaches);
 
 	//user definied sort function
 	
 }
-function cmp($a, $b)
-	{
-		if ($a == $b)
-		{
-			return 0;
-		}
-		return ($a > $b) ? 1 : -1;
-	}
+
 //make the template and send it out
 tpl_BuildTemplate();
 ?>
