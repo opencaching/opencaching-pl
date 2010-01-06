@@ -1,4 +1,5 @@
 <?php
+
 	/***************************************************************************
 		*
 		*   This program is free software; you can redistribute it and/or modify
@@ -10,8 +11,9 @@
 
 	/****************************************************************************
 
-   Unicode Reminder ąśł
+   Unicode Reminder  ąść
 
+		new logs
 
 	****************************************************************************/
 	global $lang, $rootpath;
@@ -26,10 +28,29 @@
 //Preprocessing
 if ($error == false)
 {
+		//user logged in?
+		if ($usr == false)
+		{
+		    $target = urlencode(tpl_get_current_page());
+		    tpl_redirect('login.php?target='.$target);
+		}
+		else
+		{
+		
+	if (isset($_REQUEST['userid']))
+		{
+			$user_id = $_REQUEST['userid'];
+			tpl_set_var('userid',$user_id);		
+		}
+
 	//get the news
-	$tplname = 'my_caches';
-	require($stylepath . '/my_caches.inc.php');
-	
+	$tplname = 'mycaches_logs';
+	require($stylepath . '/newlogs.inc.php');
+	$rsGeneralStat =sql("SELECT  username FROM user WHERE user_id=&1",$user_id);
+
+			$user_record = sql_fetch_array($rsGeneralStat);
+			tpl_set_var('username',$user_record['username']);
+			mysql_free_result($rsGeneralStat);	
 	$LOGS_PER_PAGE = 50;
 	$PAGES_LISTED = 10;
 		
@@ -48,7 +69,7 @@ if ($error == false)
 	$startat = max(0,floor((($start/$LOGS_PER_PAGE)+1)/$PAGES_LISTED)*$PAGES_LISTED);
 	
 	if( ($start/$LOGS_PER_PAGE)+1 >= $PAGES_LISTED )
-		$pages .= '<a href="my_caches.php?start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'">{first_img}</a> '; 
+		$pages .= '<a href="mycaches_logs.php?userid='.$user_id.'&amp;start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'">{first_img}</a> '; 
 	else
 		$pages .= "{first_img_inactive}";
 	for( $i=max(1,$startat);$i<$startat+$PAGES_LISTED;$i++ )
@@ -56,13 +77,13 @@ if ($error == false)
 		$page_number = ($i-1)*$LOGS_PER_PAGE;
 		if( $page_number == $start )
 			$pages .= '<b>';
-		$pages .= '<a href="my_caches.php?start='.$page_number.'">'.$i.'</a> '; 
+		$pages .= '<a href="mycaches_logs.php?userid='.$user_id.'&amp;start='.$page_number.'">'.$i.'</a> '; 
 		if( $page_number == $start )
 			$pages .= '</b>';
 		
 	}
 	if( $total_pages > $PAGES_LISTED )
-		$pages .= '<a href="my_caches.php?start='.(($i-1)*$LOGS_PER_PAGE).'">{last_img}</a> '; 
+		$pages .= '<a href="mycaches_logs.php?userid='.$user_id.'&amp;start='.(($i-1)*$LOGS_PER_PAGE).'">{last_img}</a> '; 
 	else
 		$pages .= '{last_img_inactive}';
 	$rs = sql("SELECT `cache_logs`.`id`
@@ -72,6 +93,7 @@ if ($error == false)
 			  AND `caches`.`status` != 4
 				AND `caches`.`status` != 5 
 				AND `caches`.`status` != 6
+				AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'
 			ORDER BY  `cache_logs`.`date_created` DESC
 			LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE));
 	$log_ids = '';
@@ -90,56 +112,27 @@ if ($error == false)
 	mysql_free_result($rs);
 
 	$rs = sql("SELECT cache_logs.cache_id AS cache_id,
-	                         cache_logs.type AS log_type,
-	                         cache_logs.date AS log_date,
-	                         caches.name AS cache_name,
-	                         countries.pl AS country_name,
-	        		user.username AS user_name,
-				user.user_id AS user_id,
-				caches.wp_oc AS wp_name,
-				caches.type AS cache_type,
-				cache_type.icon_small AS cache_icon_small,
-				log_types.icon_small AS icon_small,
-				IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
+	                          cache_logs.type AS log_type,
+	                          cache_logs.date AS log_date,
+	                          caches.name AS cache_name,
+	                          countries.pl AS country_name,
+	                          user.username AS user_name,
+							  user.user_id AS user_id,
+							  caches.wp_oc AS wp_name,
+							  caches.type AS cache_type,
+							  cache_type.icon_small AS cache_icon_small,
+							  log_types.icon_small AS icon_small,
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
 	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN countries ON (caches.country = countries.short)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
-	                   WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ")
+	                   WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ") AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'
 	                   ORDER BY cache_logs.date_created DESC");
-	//$rs = mysql_query($sql);
-
-	for ($i = 0; $i < mysql_num_rows($rs); $i++)
-	{
-		//group by country
-		$record = sql_fetch_array($rs);
-
-		$newlogs[$record['country_name']][] = array(
-			'cache_id'   		=> $record['cache_id'],
-			'log_type'   		=> $record['log_type'],
-			'log_date'   		=> $record['log_date'],
-			'cache_name' 		=> $record['cache_name'],
-			'wp_name' 			=> $record['wp_name'],
-			'user_name'  		=> $record['user_name'],
-			'icon_small' 		=> $record['icon_small'],
-			'user_id'	 		=> $record['user_id'],
-			'cache_type'	 	=> $record['cache_type'],
-			'cache_icon_small'	=> $record['cache_icon_small'],
-			'recommended'	=> $record['recommended']			
-		);
-	}
-
-	//sort by country name
-	uksort($newlogs, 'cmp');
-
-	$file_content = '';
-
-	if (isset($newlogs))
-	{
-		foreach ($newlogs AS $countryname => $country_record)
-		{
-			$file_content .= '<tr><td colspan="6" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
-
-			foreach ($country_record AS $log_record)
+			if (mysql_num_rows($rs) != 0)
 			{
-
+				$file_content ='';
+				for ($i = 0; $i < mysql_num_rows($rs); $i++)
+				{
+				$log_record = sql_fetch_array($rs);
+				
 				$file_content .= '<tr>';
 				$file_content .= '<td>'. htmlspecialchars(date("d.m.Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$log_record['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2",0);
@@ -167,9 +160,8 @@ if ($error == false)
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 				$file_content .= "</tr>";
-			}
-		}
-	}
+					}
+				}
 
 	$pages = mb_ereg_replace('{last_img}', $last_img, $pages);
 	$pages = mb_ereg_replace('{first_img}', $first_img, $pages);
@@ -179,19 +171,9 @@ if ($error == false)
 		
 	tpl_set_var('file_content',$file_content);
 	tpl_set_var('pages', $pages);
-	unset($newcaches);
 
-	//user definied sort function
-	
+	}	
 }
-function cmp($a, $b)
-	{
-		if ($a == $b)
-		{
-			return 0;
-		}
-		return ($a > $b) ? 1 : -1;
-	}
 //make the template and send it out
 tpl_BuildTemplate();
 ?>

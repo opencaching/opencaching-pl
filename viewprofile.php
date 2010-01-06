@@ -375,13 +375,13 @@
 					  WHERE cache_logs.deleted=0 AND `caches`.`user_id`='&1'
 					  		AND `cache_logs`.`cache_id`=`caches`.`cache_id` 
 							AND `user`.`user_id`=`cache_logs`.`user_id`
-	                   ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`date_created` DESC
+	                   ORDER BY `cache_logs`.`date_created` DESC
 					LIMIT 5", $user_id);
 
 
 			if (mysql_num_rows($rs_logs) != 0)
 			{
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w skrzynkach użytkownika:</span> </p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">';
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w skrzynkach użytkownika:</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="mycaches_logs.php?userid='.$user_id.'">'.tr('show_all').'</a>] </p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 				{
 				$record_logs = sql_fetch_array($rs_logs);

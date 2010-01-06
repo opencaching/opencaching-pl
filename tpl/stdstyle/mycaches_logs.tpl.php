@@ -9,7 +9,7 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="New Log entry" align="middle"/>&nbsp;{{latest_logs}} wprowadzone przez użytkownika: {username}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="New Log entry" align="middle"/>&nbsp;{{latest_logs}} w skrzynkach użytkownika: {username}</div>
 <!-- Text container -->
 	<p>
 		{pages}
@@ -22,7 +22,7 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td><strong>Cache</strong></td>
-<td><strong>&nbsp;</strong></td>
+<td><strong>User</strong></td>
 </tr>
 <tr>
 <td colspan="7"><hr></hr></td>
