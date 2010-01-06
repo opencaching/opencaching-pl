@@ -353,6 +353,8 @@ $login=0;
 	else
 		tpl_set_var('distanceunit', $distance_unit);
 
+
+
 	if ($sqldebug == true)
 		sqldbg_end();
 	else

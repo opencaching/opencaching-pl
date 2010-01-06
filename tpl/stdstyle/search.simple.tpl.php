@@ -525,6 +525,7 @@ function switchCat2()
 			<td class="content-title-noshade">{{cache_name}}:</td>
 			<td><input type="text" name="cachename" value="{cachename}" class="input200" /></td>
 			<td><input type="submit" value="{{search}}" class="formbuttons" /></td>
+			<td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1" /><label for="showonmap1">{{show_on_map}}</label></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
@@ -603,6 +604,7 @@ function switchCat2()
 				</select>
 			</td>
 			<td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
+			<td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap2" /><label for="showonmap2">{{show_on_map}}</label></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
@@ -676,6 +678,7 @@ function switchCat2()
 				</select>
 			</td>
 			<td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
+			<td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap3" /><label for="showonmap3">{{show_on_map}}</label></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
@@ -730,6 +733,7 @@ function switchCat2()
 			<td class="content-title-noshade">{{text}}:</td>
 			<td class="content-title-noshade"><input type="text" name="fulltext" value="{fulltext}" class="input200" /></td>
 			<td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
+			<td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap4" /><label for="showonmap4">{{show_on_map}}</label></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -793,6 +797,7 @@ function switchCat2()
 			<td class="content-title-noshade">{{owner_label}}:</td>
 			<td class="content-title-noshade"><input type="text" name="owner" value="{owner}" maxlength="40" class="input200" /></td>
 			<td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
+			<td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap5" /><label for="showonmap5">{{show_on_map}}</label></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
@@ -846,6 +851,7 @@ function switchCat2()
 			<td class="content-title-noshade">{{finder_label}}:</td>
 			<td class="content-title-noshade"><input type="text" name="finder" value="{finder}" maxlength="40" class="input200" /></td>
 			<td class="content-title-noshade"><input type="submit" value="{{search}}" class="formbuttons" /></td>
+			<td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap6" /><label for="showonmap6">{{show_on_map}}</label></td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>

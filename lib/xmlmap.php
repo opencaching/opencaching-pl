@@ -85,6 +85,10 @@
 
 	}
 
+	if(isset($_GET['searchdata']) && preg_match('/^[a-f0-9]+/', $_GET['searchdata'])) {
+		$searchdata = $_GET['searchdata'];
+	}
+
 	$zoom = $_GET['zoom'];
 	$lat = ($_GET['lat'])+0+mod4zoom($zoom);
 	$lon = ($_GET['lon'])+0;
@@ -97,6 +101,8 @@
 	$writer->startDocument('1.0');
 	$writer->setIndent(4);
 	$writer->startElement('caches');
+
+	if(!isset($searchdata)) {
 
 	if( $_GET['be_ftf'] == "true" )
 	{
@@ -229,7 +235,7 @@
 	
 	$sql_foreign ="SELECT foreign_caches.cache_id, foreign_caches.name, foreign_caches.username, foreign_caches.node, foreign_caches.wp_oc as wp, foreign_caches.topratings, foreign_caches.latitude, foreign_caches.longitude, foreign_caches.type, foreign_caches.status as status, datediff(now(), foreign_caches.date_hidden) as old, foreign_caches.founds, foreign_caches.notfounds, ASIN(SQRT(POWER(SIN(($lat - ABS(COALESCE(foreign_caches.latitude,0))) * PI() / 180 / 2),2) + COS($lat * PI()/180) * COS(ABS(COALESCE(foreign_caches.latitude,0)) * PI() / 180) * POWER(SIN(($lon - COALESCE(foreign_caches.longitude,0)) * PI() / 180 / 2),2))) as distance FROM foreign_caches 
 	WHERE foreign_caches.status < 4 ".$hide_by_type.$filter_by_type_string."
-	HAVING distance < 0.00007 ORDER BY distance ASC LIMIT 1";
+	HAVING distance < ".distance4zoom($zoom)." ORDER BY distance ASC LIMIT 1";
 	
 	$query = mysql_query($sql);
 	$query_foreign = mysql_query($sql_foreign);
@@ -251,6 +257,27 @@
 	else
 	if( $cache['distance'] > $cache_foreign['distance'] )
 		$cache = $cache_foreign;
+
+
+	}
+	else { // searchdata
+		mysql_query("CREATE TEMPORARY TABLE cache_ids (id INTEGER PRIMARY KEY);");
+		mysql_query("LOAD DATA LOCAL INFILE '".$dynbasepath."/searchdata/".$searchdata."' INTO TABLE cache_ids FIELDS TERMINATED BY ' '  LINES TERMINATED BY '\\n' (id);");
+
+
+		$own_not_attempt = "caches.cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='".sql_escape($user_id)."' AND (type=1 OR type=8))";
+
+		$sql ="SELECT caches.cache_id, IF($own_not_attempt, 1, 0) as found, caches.name, caches.node, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, caches.founds, caches.notfounds, ASIN(SQRT(POWER(SIN(($lat - ABS(COALESCE(caches.latitude,0))) * PI() / 180 / 2),2) + COS($lat * PI()/180) * COS(ABS(COALESCE(caches.latitude,0)) * PI() / 180) * POWER(SIN(($lon - COALESCE(caches.longitude,0)) * PI() / 180 / 2),2))) as distance FROM user, caches 
+		WHERE caches.cache_id IN (SELECT * FROM cache_ids) AND caches.user_id = user.user_id AND caches.status < 4 
+		HAVING distance < ".distance4zoom($zoom)." ORDER BY distance ASC LIMIT 1";
+
+//		print $sql;
+		$query = mysql_query($sql);
+//		print mysql_error() . "\n";
+		$cache = mysql_fetch_array($query);
+		mysql_query("DROP TABLE cache_ids");
+
+	}
 	
 	//while( $cache = mysql_fetch_array($query) )
 	{
@@ -272,10 +299,17 @@
 		$writer->writeAttribute('notfounds', $cache['notfounds']);
 		$writer->writeAttribute('node', $cache['node']);
 		
-			
 		// End cache
 		$writer->endElement();
 	}
+
+	if(isset($query)) {
+		mysql_free_result($query);
+	}
+	if(isset($query_foreign)) {
+		mysql_free_result($query_foreign);
+	}
+
 	// End caches
 	$writer->endElement();
 	$writer->endDocument();

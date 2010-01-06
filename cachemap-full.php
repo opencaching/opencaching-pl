@@ -213,7 +213,27 @@ else
 	
 	}
 	
-	foreach($filter as $key)
+
+    if(isset($_GET['searchdata']) && preg_match('/^[a-f0-9]+/', $_GET['searchdata'])) {
+        tpl_set_var('filters_hidden', "display: none;");
+        tpl_set_var('searchdata', 'searchdata='.$_GET['searchdata']);
+        tpl_set_var('fromlat', floatval($_GET['fromlat']));
+        tpl_set_var('fromlon', floatval($_GET['fromlon']));
+        tpl_set_var('tolat', floatval($_GET['tolat']));
+        tpl_set_var('tolon', floatval($_GET['tolon']));
+        tpl_set_var('boundsurl', '&amp;fromlat='.floatval($_GET['fromlat']).'&amp;fromlon='.floatval($_GET['fromlon']).'&amp;tolat='.floatval($_GET['tolat']).'&amp;tolon='.floatval($_GET['tolon']));
+    }
+    else {
+        tpl_set_var('filters_hidden', "");
+        tpl_set_var('searchdata', '');
+        tpl_set_var('fromlat', '0');
+        tpl_set_var('fromlon', '0');
+        tpl_set_var('tolat', '0');
+        tpl_set_var('tolon', '0');
+        tpl_set_ver('boundsurl', '');
+    }
+
+
 	/*if( isset( $_POST['submit'] ) )
 	{
 			$makeFilterResult = makeDBFilter();

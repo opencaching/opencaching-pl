@@ -203,6 +203,12 @@
 			$options['expert'] = isset($_REQUEST['expert']) ? $_REQUEST['expert'] : 0;
 			$options['showresult'] = isset($_REQUEST['showresult']) ? $_REQUEST['showresult'] : 0;
 			$options['output'] = isset($_REQUEST['output']) ? $_REQUEST['output'] : 'HTML';
+			if(isset($_GET['showonmap'])) {
+				$_REQUEST['output'] = 'MAP';
+				$options['output'] = 'MAP';
+//			die($options['output']);
+			}
+
 			$options['logtype'] = isset($_REQUEST['logtype']) ? $_REQUEST['logtype'] : '';
 			
 			if (isset($_REQUEST['cache_attribs']))
@@ -351,6 +357,7 @@
 					$options['cachename'] = '';
 				}
 			}
+
 			
 			$options['sort'] = isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'bydistance';
 			$options['country'] = isset($_REQUEST['country']) ? $_REQUEST['country'] : '';
@@ -405,6 +412,7 @@
 		if(!isset($options['showresult'])) $options['showresult']='0';
 		if ($options['showresult'] == 1)
 		{
+
 			if(!isset($options['output'])) $options['output']='';
 			if ((mb_strpos($options['output'], '.') !== false) || 
 			    (mb_strpos($options['output'], '/') !== false) || 
@@ -413,6 +421,8 @@
 			{
 				$options['output'] = 'HTML';
 			}
+
+
 			
 			//make a list of cache-ids that are in the result
 			if(!isset($options['expert'])) $options['expert']='';

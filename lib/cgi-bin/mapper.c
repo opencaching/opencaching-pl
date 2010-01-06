@@ -139,6 +139,21 @@ static SDL_Surface* create_image(int w, int h)
 
 #define DATA_PATH "data"
 
+int validate_base16(const char* hash)
+{
+	if(!hash)
+		return 0;
+
+	static const char* base16 = "0123456789abcdef";
+
+	while(*hash) {
+		if(!strchr(base16, *hash)) // has character that is not base16
+			return 0;
+		hash++;
+	} 
+	return 1;
+}
+
 int main(void)
 {
 	MYSQL *conn = NULL;
@@ -249,6 +264,17 @@ int main(void)
 	char *filter_by_type_string = NULL;
 	char *filter_by_type_string2 = NULL;
 
+	const char* searchdata = microcgi_getstr(CGI_GET, "searchdata");
+
+
+
+	if(!searchdata[0]) // empty string
+		searchdata = NULL;
+	else if(!validate_base16(searchdata))
+		searchdata = NULL;
+
+
+
 	if(strcmp(microcgi_getstr(CGI_GET, "h_ignored"), "true") == 0) {
 		h_sel_ignored = strdup("cache_ignore.id as ignored,");
 		snprintf(buf, sizeof(buf), "LEFT JOIN cache_ignore ON (cache_ignore.user_id='%i' AND cache_ignore.cache_id=caches.cache_id)");
@@ -276,36 +302,7 @@ int main(void)
 		filter_by_type_string2 = strdup("");
 	}
 
-	char query[2][4096];
-	snprintf(query[0], sizeof(query[0]), "SELECT %s caches.cache_id, caches.name, caches.wp_oc as wp, caches.votes, caches.score, caches.latitude, caches.longitude, caches.type, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, IF(%s, 1, 0) as found "
-			 "FROM caches AS caches "
-			 "%s "
-			 "WHERE ( caches.latitude BETWEEN %lf AND %lf ) AND ( caches.longitude BETWEEN %lf AND %lf ) %s",
-			 h_sel_ignored, own_not_attempt, h_ignored,
-			 (rect.lat-rect.latHeight*bound),
-			 (rect.lat + rect.latHeight + rect.latHeight*bound),
-			 (rect.lon - rect.lonWidth*bound),
-			 (rect.lon + rect.lonWidth + rect.lonWidth*bound), filter_by_type_string);
 
-	snprintf(query[1], sizeof(query[1]), "SELECT %s caches.cache_id, caches.name, caches.wp_oc as wp, caches.votes, caches.score, caches.latitude, caches.longitude, caches.type, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, IF(%s, 1, 0) as found "
-			 "FROM foreign_caches AS caches "
-			 "%s "
-			 "WHERE ( caches.latitude BETWEEN %lf AND %lf ) AND ( caches.longitude BETWEEN %lf AND %lf ) %s",
-			 h_sel_ignored, own_not_attempt, h_ignored,
-			 (rect.lat-rect.latHeight*bound),
-			 (rect.lat + rect.latHeight + rect.latHeight*bound),
-			 (rect.lon - rect.lonWidth*bound),
-			 (rect.lon + rect.lonWidth + rect.lonWidth*bound), filter_by_type_string2);
-
-	double min_score = microcgi_getdouble(CGI_GET, "min_score");
-	if(microcgi_getstr(CGI_GET, "min_score")[0] == 0)
-		min_score = -3;
-	double max_score = microcgi_getdouble(CGI_GET, "max_score");
-	if(microcgi_getstr(CGI_GET, "max_score")[0] == 0)
-		max_score = 3;
-
-	MYSQL_RES *res;
-	MYSQL_ROW row;
          
 	SDL_Surface *cacheimgs[CACHE_TYPES_NUM];
 	bzero(cacheimgs, sizeof(cacheimgs));
@@ -352,6 +349,98 @@ int main(void)
 	markerimgnew = fcgi_markernewimg[zoom];
 #endif
 
+	char query[2][4096];
+	query[0][0] = 0;
+	query[1][0] = 0;
+
+
+	if(searchdata) {
+
+
+		snprintf(query[0], sizeof(query[0]), "CREATE TEMPORARY TABLE cache_ids (id INTEGER PRIMARY KEY);");
+
+//	printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
+//	fprintf(stdout, "%s %s\n", searchdata, config_get(conf, "Paths", "SearchDataDir", ""));
+//	return 0;
+		if (mysql_query(conn, query[0])) {
+
+			if(mysql_errno(conn) == CR_SERVER_GONE_ERROR) {
+				if (!mysql_real_connect(conn, server,
+								user, password, database, port, NULL, 0)) {
+					printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
+					fprintf(stdout, "Can't reconnect to MySQL: %s\n", mysql_error(conn));
+				}
+			}
+			else {
+					printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
+					fprintf(stdout, "%s\n", mysql_error(conn));				
+			}
+			goto end_of_request;
+		}
+
+
+		snprintf(query[0], sizeof(query[0]), "LOAD DATA LOCAL INFILE '%s/%s' INTO TABLE cache_ids FIELDS TERMINATED BY ' '  LINES TERMINATED BY '\\n' (id);", config_get(conf, "Paths", "SearchDataDir", ""), searchdata);
+		if (mysql_query(conn, query[0])) {
+			int err = 0;
+			if((err = mysql_errno(conn)) == CR_SERVER_GONE_ERROR) {
+				if (!mysql_real_connect(conn, server,
+								user, password, database, port, NULL, 0)) {
+					printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
+					fprintf(stdout, "Can't reconnect to MySQL: %s\n", mysql_error(conn));
+				}
+			}
+			else if(err == 2) {
+				printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
+				fprintf(stdout, "Bad search data.\n", mysql_error(conn));				
+				goto end_of_request;
+			}
+			else {
+					printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
+					fprintf(stdout, "%s\n", mysql_error(conn));				
+			}
+			goto end_of_request;
+		}		
+		snprintf(query[0], sizeof(query[0]), "SELECT 0, caches.cache_id, caches.name, caches.wp_oc as wp, caches.votes, caches.score, caches.latitude, caches.longitude, caches.type, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, IF(%s, 1, 0) as found "
+				 "FROM caches WHERE cache_id IN (SELECT * FROM cache_ids) AND ( caches.latitude BETWEEN %lf AND %lf ) AND ( caches.longitude BETWEEN %lf AND %lf );",
+				 own_not_attempt, 
+				 (rect.lat-rect.latHeight*bound),
+				 (rect.lat + rect.latHeight + rect.latHeight*bound),
+				 (rect.lon - rect.lonWidth*bound),
+				 (rect.lon + rect.lonWidth + rect.lonWidth*bound));
+	}
+	else {
+		snprintf(query[0], sizeof(query[0]), "SELECT %s caches.cache_id, caches.name, caches.wp_oc as wp, caches.votes, caches.score, caches.latitude, caches.longitude, caches.type, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, IF(%s, 1, 0) as found "
+				 "FROM caches AS caches "
+				 "%s "
+				 "WHERE ( caches.latitude BETWEEN %lf AND %lf ) AND ( caches.longitude BETWEEN %lf AND %lf ) %s",
+				 h_sel_ignored, own_not_attempt, h_ignored,
+				 (rect.lat-rect.latHeight*bound),
+				 (rect.lat + rect.latHeight + rect.latHeight*bound),
+				 (rect.lon - rect.lonWidth*bound),
+				 (rect.lon + rect.lonWidth + rect.lonWidth*bound), filter_by_type_string);
+	
+		snprintf(query[1], sizeof(query[1]), "SELECT %s caches.cache_id, caches.name, caches.wp_oc as wp, caches.votes, caches.score, caches.latitude, caches.longitude, caches.type, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, IF(%s, 1, 0) as found "
+				 "FROM foreign_caches AS caches "
+				 "%s "
+				 "WHERE ( caches.latitude BETWEEN %lf AND %lf ) AND ( caches.longitude BETWEEN %lf AND %lf ) %s",
+				 h_sel_ignored, own_not_attempt, h_ignored,
+				 (rect.lat-rect.latHeight*bound),
+				 (rect.lat + rect.latHeight + rect.latHeight*bound),
+				 (rect.lon - rect.lonWidth*bound),
+				 (rect.lon + rect.lonWidth + rect.lonWidth*bound), filter_by_type_string2);
+	}
+
+	double min_score = microcgi_getdouble(CGI_GET, "min_score");
+	if(microcgi_getstr(CGI_GET, "min_score")[0] == 0)
+		min_score = -3;
+	double max_score = microcgi_getdouble(CGI_GET, "max_score");
+	if(microcgi_getstr(CGI_GET, "max_score")[0] == 0)
+		max_score = 3;
+
+	MYSQL_RES *res;
+	MYSQL_ROW row;
+
+
 	int hide_unknown = !(strcmp(microcgi_getstr(CGI_GET, "h_u"), "true"));
 	int hide_traditional = !(strcmp(microcgi_getstr(CGI_GET, "h_t"), "true"));
 	int hide_multi = !(strcmp(microcgi_getstr(CGI_GET, "h_m"), "true"));
@@ -373,10 +462,15 @@ int main(void)
 	int hide_noscore = !(strcmp(microcgi_getstr(CGI_GET, "h_noscore"), "false"));
 	int mapid = microcgi_getint(CGI_GET, "mapid");
 
+
+	if(searchdata) // FIXME
+		hide_de = 1, hide_pl = 0;
+
+
 	for(int i = 0;i < 2;++i) {
 		if(i == 0 && hide_pl)
 			continue;
-		if(i == 1 && hide_de)
+		if(i == 1 && hide_de) // FIXME: very ugly .. searchdata handling here needs to be fixed
 			continue;
 
 		/* send SQL query */
@@ -414,6 +508,7 @@ int main(void)
 			int cache_userid = atoi(row[11]);
 			int found = atoi(row[12]);
 
+			if(! searchdata)
 			if( (hide_unknown && type == 1) || // hide unknown caches
 				(hide_traditional && type == 2) || // hide traditional caches
 				(hide_multi && type == 3) || // hide multi caches
@@ -571,6 +666,8 @@ int main(void)
 
 end_of_request:;
 
+	mysql_query(conn, "DROP TABLE cache_ids");
+
 #ifndef WITH_FASTCGI
 	for(int i = 0;i< CACHE_TYPES_NUM;++i)
 		SDL_FreeSurface(cacheimgs[i]);
@@ -582,7 +679,8 @@ end_of_request:;
 	SDL_FreeSurface(markerimgfound);
 	SDL_FreeSurface(markerimgnew);
 #endif
-	SDL_FreeSurface(im);
+	if(im)
+		SDL_FreeSurface(im);
 
 	if(h_sel_ignored)
 		free(h_sel_ignored);
@@ -599,7 +697,8 @@ end_of_request:;
 
 	_LOOPEND;
 
-	TTF_CloseFont(font);
+	if(font)
+		TTF_CloseFont(font);
 
 #ifdef WITH_FASTCGI
 	for(int z = 0;z < 20;++z) {
@@ -620,6 +719,7 @@ end_of_request:;
 	mysql_library_end();
 
 	config_free(conf);
+	TTF_Quit();
 
 	return 0;
 }
