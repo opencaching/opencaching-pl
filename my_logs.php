@@ -36,7 +36,15 @@
 //Preprocessing
 if ($error == false)
 {
-
+		//user logged in?
+		if ($usr == false)
+		{
+		    $target = urlencode(tpl_get_current_page());
+		    tpl_redirect('login.php?target='.$target);
+		}
+		else
+		{
+		
 	if (isset($_REQUEST['userid']))
 		{
 			$user_id = $_REQUEST['userid'];
@@ -46,7 +54,11 @@ if ($error == false)
 	//get the news
 	$tplname = 'my_logs';
 	require($stylepath . '/newlogs.inc.php');
-	
+	$rsGeneralStat =sql("SELECT  username FROM user WHERE user_id=&1",$user_id);
+
+			$user_record = sql_fetch_array($rsGeneralStat);
+			tpl_set_var('username',$user_record['username']);
+			mysql_free_result($rsGeneralStat);	
 	$LOGS_PER_PAGE = 50;
 	$PAGES_LISTED = 10;
 		
@@ -167,12 +179,9 @@ if ($error == false)
 		
 	tpl_set_var('file_content',$file_content);
 	tpl_set_var('pages', $pages);
-//	unset($newcaches);
 
-	//user definied sort function
-	
+	}	
 }
-
 //make the template and send it out
 tpl_BuildTemplate();
 ?>
