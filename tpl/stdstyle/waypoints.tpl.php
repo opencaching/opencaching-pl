@@ -11,13 +11,58 @@
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;{{waypoints_cache}} &#8211; {name}</div>
 
+<table cellSpacing="0" cellPadding="0" width="100%">
+	<tr>
+<form name="Form1" method="post" action="waypoints.php" onsubmit="javascript:return WebForm_OnSubmit();" id="Form1">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+			<td vAlign="top" align="left">
+				<span >
+					<span>{{Waypoint_collection}}</span>
+
+				</span>
+				<p></p>
+				<p>
+					{{for_geocache}}: {name} </font></strike></a> (Traditional Cache)
+				</p>
+				<P>
+
+
 <table>
 
 	<tr>
-		<td style="HEIGHT: 20px" vAlign="top" align="left" colSpan="2"><font size="+1"><strong>{{add_new_waypoint}}&nbsp;
-				</strong></font>&nbsp;
-			<a href="./wptlist.aspx"></a>
-			&nbsp;&nbsp;</td>
+<td style="HEIGHT: 20px" vAlign="top" align="left" colSpan="2"><font size="+1"><strong>{{add_new_waypoint}}&nbsp;</strong></font>&nbsp;&nbsp;&nbsp;</td>
 	</tr>
 	<tr>
 		<td vAlign="top" align="left">{{type}}</td>
@@ -110,6 +155,119 @@
 	<tr>
 		<td vAlign="top" align="left" colSpan="2"><input type="submit" name="WaypointEdit$SubmitIt" value="Create Waypoint" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;WaypointEdit$SubmitIt&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="WaypointEdit_SubmitIt" />&nbsp;
 			<input type="submit" name="WaypointEdit$ArchiveIt" value="Remove Waypoint" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;WaypointEdit$ArchiveIt&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="WaypointEdit_ArchiveIt" /></td>
+	</tr>
+</table>
+<P></P>
+</P>
+				<P></P>
+
+				<P>&nbsp;</P>
+			</td>
+		
+<script type="text/javascript">
+//<![CDATA[
+var Page_Validators =  new Array(document.getElementById("WaypointEdit_ValidateWaypointType"), document.getElementById("WaypointEdit_RegularExpressionValidator1"), document.getElementById("WaypointEdit_ValidatePrefixAlpha"), document.getElementById("WaypointEdit_Coordinates__requiredLatDeg"), document.getElementById("WaypointEdit_Coordinates__validatorLatDegs"), document.getElementById("WaypointEdit_Coordinates__requiredLatMins"), document.getElementById("WaypointEdit_Coordinates__validatorLatMins"), document.getElementById("WaypointEdit_Coordinates__requiredLongDeg"), document.getElementById("WaypointEdit_Coordinates__validatorLongDegs"), document.getElementById("WaypointEdit_Coordinates__requiredLongMins"), document.getElementById("WaypointEdit_Coordinates__validatorLongMins"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var WaypointEdit_ValidateWaypointType = document.all ? document.all["WaypointEdit_ValidateWaypointType"] : document.getElementById("WaypointEdit_ValidateWaypointType");
+WaypointEdit_ValidateWaypointType.errormessage = "There is an error with your waypoint type selection";
+WaypointEdit_ValidateWaypointType.evaluationfunction = "CustomValidatorEvaluateIsValid";
+var WaypointEdit_RegularExpressionValidator1 = document.all ? document.all["WaypointEdit_RegularExpressionValidator1"] : document.getElementById("WaypointEdit_RegularExpressionValidator1");
+WaypointEdit_RegularExpressionValidator1.controltovalidate = "WaypointEdit_WptCode";
+WaypointEdit_RegularExpressionValidator1.errormessage = "Please use A-Z or 0-9 in your lookup code";
+WaypointEdit_RegularExpressionValidator1.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+WaypointEdit_RegularExpressionValidator1.validationexpression = "^[a-zA-Z0-9]+$";
+var WaypointEdit_ValidatePrefixAlpha = document.all ? document.all["WaypointEdit_ValidatePrefixAlpha"] : document.getElementById("WaypointEdit_ValidatePrefixAlpha");
+WaypointEdit_ValidatePrefixAlpha.controltovalidate = "WaypointEdit_PrefixCode";
+WaypointEdit_ValidatePrefixAlpha.errormessage = "Please use A-Z or 0-9 in your Prefix Code";
+WaypointEdit_ValidatePrefixAlpha.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+WaypointEdit_ValidatePrefixAlpha.validationexpression = "^[a-zA-Z0-9]+$";
+var WaypointEdit_Coordinates__requiredLatDeg = document.all ? document.all["WaypointEdit_Coordinates__requiredLatDeg"] : document.getElementById("WaypointEdit_Coordinates__requiredLatDeg");
+WaypointEdit_Coordinates__requiredLatDeg.controltovalidate = "WaypointEdit_Coordinates__inputLatDegs";
+WaypointEdit_Coordinates__requiredLatDeg.errormessage = "Missing latitude degrees";
+WaypointEdit_Coordinates__requiredLatDeg.display = "Dynamic";
+WaypointEdit_Coordinates__requiredLatDeg.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+WaypointEdit_Coordinates__requiredLatDeg.initialvalue = "";
+var WaypointEdit_Coordinates__validatorLatDegs = document.all ? document.all["WaypointEdit_Coordinates__validatorLatDegs"] : document.getElementById("WaypointEdit_Coordinates__validatorLatDegs");
+WaypointEdit_Coordinates__validatorLatDegs.controltovalidate = "WaypointEdit_Coordinates__inputLatDegs";
+WaypointEdit_Coordinates__validatorLatDegs.errormessage = "Invalid latitude degrees";
+WaypointEdit_Coordinates__validatorLatDegs.display = "Dynamic";
+WaypointEdit_Coordinates__validatorLatDegs.type = "Integer";
+WaypointEdit_Coordinates__validatorLatDegs.evaluationfunction = "RangeValidatorEvaluateIsValid";
+WaypointEdit_Coordinates__validatorLatDegs.maximumvalue = "180";
+WaypointEdit_Coordinates__validatorLatDegs.minimumvalue = "0";
+var WaypointEdit_Coordinates__requiredLatMins = document.all ? document.all["WaypointEdit_Coordinates__requiredLatMins"] : document.getElementById("WaypointEdit_Coordinates__requiredLatMins");
+WaypointEdit_Coordinates__requiredLatMins.controltovalidate = "WaypointEdit_Coordinates__inputLatMins";
+WaypointEdit_Coordinates__requiredLatMins.errormessage = "Missing latitude minutes";
+WaypointEdit_Coordinates__requiredLatMins.display = "Dynamic";
+WaypointEdit_Coordinates__requiredLatMins.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+WaypointEdit_Coordinates__requiredLatMins.initialvalue = "";
+var WaypointEdit_Coordinates__validatorLatMins = document.all ? document.all["WaypointEdit_Coordinates__validatorLatMins"] : document.getElementById("WaypointEdit_Coordinates__validatorLatMins");
+WaypointEdit_Coordinates__validatorLatMins.controltovalidate = "WaypointEdit_Coordinates__inputLatMins";
+WaypointEdit_Coordinates__validatorLatMins.errormessage = "Invalid latitude minutes";
+WaypointEdit_Coordinates__validatorLatMins.display = "Dynamic";
+WaypointEdit_Coordinates__validatorLatMins.type = "Double";
+WaypointEdit_Coordinates__validatorLatMins.decimalchar = ".";
+WaypointEdit_Coordinates__validatorLatMins.evaluationfunction = "RangeValidatorEvaluateIsValid";
+WaypointEdit_Coordinates__validatorLatMins.maximumvalue = "60";
+WaypointEdit_Coordinates__validatorLatMins.minimumvalue = "0";
+var WaypointEdit_Coordinates__requiredLongDeg = document.all ? document.all["WaypointEdit_Coordinates__requiredLongDeg"] : document.getElementById("WaypointEdit_Coordinates__requiredLongDeg");
+WaypointEdit_Coordinates__requiredLongDeg.controltovalidate = "WaypointEdit_Coordinates__inputLongDegs";
+WaypointEdit_Coordinates__requiredLongDeg.errormessage = "Missing longitude degrees";
+WaypointEdit_Coordinates__requiredLongDeg.display = "Dynamic";
+WaypointEdit_Coordinates__requiredLongDeg.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+WaypointEdit_Coordinates__requiredLongDeg.initialvalue = "";
+var WaypointEdit_Coordinates__validatorLongDegs = document.all ? document.all["WaypointEdit_Coordinates__validatorLongDegs"] : document.getElementById("WaypointEdit_Coordinates__validatorLongDegs");
+WaypointEdit_Coordinates__validatorLongDegs.controltovalidate = "WaypointEdit_Coordinates__inputLongDegs";
+WaypointEdit_Coordinates__validatorLongDegs.errormessage = "Invalid longitude degrees";
+WaypointEdit_Coordinates__validatorLongDegs.display = "Dynamic";
+WaypointEdit_Coordinates__validatorLongDegs.type = "Integer";
+WaypointEdit_Coordinates__validatorLongDegs.evaluationfunction = "RangeValidatorEvaluateIsValid";
+WaypointEdit_Coordinates__validatorLongDegs.maximumvalue = "180";
+WaypointEdit_Coordinates__validatorLongDegs.minimumvalue = "0";
+var WaypointEdit_Coordinates__requiredLongMins = document.all ? document.all["WaypointEdit_Coordinates__requiredLongMins"] : document.getElementById("WaypointEdit_Coordinates__requiredLongMins");
+WaypointEdit_Coordinates__requiredLongMins.controltovalidate = "WaypointEdit_Coordinates__inputLongMins";
+WaypointEdit_Coordinates__requiredLongMins.errormessage = "Missing longitude minutes";
+WaypointEdit_Coordinates__requiredLongMins.display = "Dynamic";
+WaypointEdit_Coordinates__requiredLongMins.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+WaypointEdit_Coordinates__requiredLongMins.initialvalue = "";
+var WaypointEdit_Coordinates__validatorLongMins = document.all ? document.all["WaypointEdit_Coordinates__validatorLongMins"] : document.getElementById("WaypointEdit_Coordinates__validatorLongMins");
+WaypointEdit_Coordinates__validatorLongMins.controltovalidate = "WaypointEdit_Coordinates__inputLongMins";
+WaypointEdit_Coordinates__validatorLongMins.errormessage = "Invalid longitude minutes";
+WaypointEdit_Coordinates__validatorLongMins.display = "Dynamic";
+WaypointEdit_Coordinates__validatorLongMins.type = "Double";
+WaypointEdit_Coordinates__validatorLongMins.decimalchar = ".";
+WaypointEdit_Coordinates__validatorLongMins.evaluationfunction = "RangeValidatorEvaluateIsValid";
+WaypointEdit_Coordinates__validatorLongMins.maximumvalue = "60";
+WaypointEdit_Coordinates__validatorLongMins.minimumvalue = "0";
+//]]>
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        //]]>
+</script>
+</form>
+		&nbsp;
+
 	</tr>
 </table>
 
