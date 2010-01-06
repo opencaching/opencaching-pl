@@ -40,7 +40,7 @@ if ($error == false)
 	$tplname = 'newlogs';
 	require($stylepath . '/newlogs.inc.php');
 	
-	$LOGS_PER_PAGE = 150;
+	$LOGS_PER_PAGE = 50;
 	$PAGES_LISTED = 10;
 		
 	$rs = sql("SELECT count(id) FROM cache_logs WHERE deleted=0");
