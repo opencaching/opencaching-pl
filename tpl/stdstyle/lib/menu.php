@@ -840,7 +840,7 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 		if ($menustructure[$i]['visible'] == true)
 		{
 			if($menustructure[$i]['icon']) {
-				$icon = 'style="background-image: url('.$menustructure[$i]['icon'].'-16.png);background-repeat:no-repeat;"';
+				$icon = 'style="background-image: url('.$menustructure[$i]['icon'].'-18.png);background-repeat:no-repeat;"';
 			}
 			else
 				$icon = "";
