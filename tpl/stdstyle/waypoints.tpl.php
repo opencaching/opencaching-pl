@@ -9,33 +9,32 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" />&nbsp;{{waypoints_cache}} &#8211; {name}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;{{waypoints_cache}} &#8211; {name}</div>
 
 <table>
 
 	<tr>
-		<td style="HEIGHT: 20px" vAlign="top" align="left" colSpan="2"><font size="+1"><strong>Add a New Waypoint&nbsp;
+		<td style="HEIGHT: 20px" vAlign="top" align="left" colSpan="2"><font size="+1"><strong>{{add_new_waypoint}}&nbsp;
 				</strong></font>&nbsp;
 			<a href="./wptlist.aspx"></a>
 			&nbsp;&nbsp;</td>
 	</tr>
 	<tr>
-		<td vAlign="top" align="left">Type</td>
+		<td vAlign="top" align="left">{{type}}</td>
 
 		<td vAlign="top" align="left"><select name="WaypointEdit$WptTypeList" onchange="javascript:setTimeout('__doPostBack(\'WaypointEdit$WptTypeList\',\'\')', 0)" id="WaypointEdit_WptTypeList">
-	<option selected="selected" value="">-- Choose a Waypoint Type --</option>
-	<option value="220">Final Location</option>
-	<option value="217">Parking Area</option>
-	<option value="218">Question to Answer</option>
-	<option value="452">Reference Point</option>
-
-	<option value="219">Stages of a Multicache</option>
-	<option value="221">Trailhead</option>
+	<option selected="selected" value="">-- {{choose_waypoint_type}} --</option>
+	<option value="220">{{final_ocation}}</option>
+	<option value="217">{{parking_area}}</option>
+	<option value="218">{{question_to_answer}}</option>
+	<option value="452">{{reference_point}}</option>
+	<option value="219">{{stages_of_multicache}}</option>
+	<option value="221">{{trailhead}}</option>
 
 </select><span id="WaypointEdit_ValidateWaypointType" style="color:Red;visibility:hidden;">*</span></td>
 	</tr>
 	<tr>
-		<td vAlign="top" align="left">Name</td>
+		<td vAlign="top" align="left">{{name}}</td>
 		<td vAlign="top" align="left"><input name="WaypointEdit$Name" type="text" maxlength="50" size="40" id="WaypointEdit_Name" />&nbsp;&nbsp;</td>
 
 	</tr>
@@ -43,7 +42,7 @@
 		<td vAlign="top" align="left" colSpan="2">&nbsp;</td>
 	</tr>
 	<tr>
-		<td vAlign="top" align="left" colSpan="2">Coordinates
+		<td vAlign="top" align="left" colSpan="2">{{coordinates}}
 			&nbsp;</td>
 	</tr>
 	<tr>
@@ -82,7 +81,7 @@
 </table><input name="WaypointEdit$Coordinates:_currentLatLongFormat" type="hidden" value="1" /></td>
 	</tr>
 	<tr>
-		<td vAlign="top" align="left" colSpan="2">Description (UBB Code Allowed)
+		<td vAlign="top" align="left" colSpan="2">{{description}} 
 			&nbsp;</td>
 	</tr>
 	<tr>
@@ -92,12 +91,12 @@
 	<tr>
 		<td vAlign="top" align="left" colSpan="2"><table id="WaypointEdit_ViewMethod" border="0" style="width:600px;">
 	<tr>
-		<td><input id="WaypointEdit_ViewMethod_0" type="radio" name="WaypointEdit$ViewMethod" value="0" checked="checked" /><label for="WaypointEdit_ViewMethod_0">Show all information for this waypoint, including coordinates</label></td>
+		<td><input id="WaypointEdit_ViewMethod_0" type="radio" name="WaypointEdit$ViewMethod" value="0" checked="checked" /><label for="WaypointEdit_ViewMethod_0">{{Show all information for this waypoint, including coordinates}}</label></td>
 	</tr><tr>
-		<td><input id="WaypointEdit_ViewMethod_1" type="radio" name="WaypointEdit$ViewMethod" value="1" /><label for="WaypointEdit_ViewMethod_1">Show the details of this waypoint but hide the coordinates</label></td>
+		<td><input id="WaypointEdit_ViewMethod_1" type="radio" name="WaypointEdit$ViewMethod" value="1" /><label for="WaypointEdit_ViewMethod_1">{{Show the details of this waypoint but hide the coordinates}}</label></td>
 
 	</tr><tr>
-		<td><input id="WaypointEdit_ViewMethod_2" type="radio" name="WaypointEdit$ViewMethod" value="2" /><label for="WaypointEdit_ViewMethod_2">Hide this waypoint from view except by the owner or administrator</label></td>
+		<td><input id="WaypointEdit_ViewMethod_2" type="radio" name="WaypointEdit$ViewMethod" value="2" /><label for="WaypointEdit_ViewMethod_2">{{Hide this waypoint from view except by the owner or administrator}}</label></td>
 	</tr>
 </table></td>
 	</tr>
