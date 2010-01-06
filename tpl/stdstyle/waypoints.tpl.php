@@ -8,7 +8,16 @@
 	*   
 	*  UTF-8 ąść
 	***************************************************************************/
+
+
+/* 
+
+  Uwaga ponizsz tresc tego pliku jest tylko forma przykladu bazujaca na GC.com a nie gotowym kodem do uzycia !!!
+
+*/
+
 ?>
+
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;{{waypoints_cache}} &#8211; {name}</div>
 
 <table cellSpacing="0" cellPadding="0" width="100%">
