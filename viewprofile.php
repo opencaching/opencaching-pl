@@ -88,8 +88,191 @@
 				tpl_set_var('description_end', '-->');
 			}
 			
+
+
+// -----------  begin Find section -------------------------------------
+		$content .= '<br /><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache-open.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Statystyka liczbowa skrzynek znalezionych</p></div><br />';
+		if ($user_record['founds_count'] == 0) {
+			$content .= '<br /><p> <b>Nie ma jeszcze żadnej skrzynki znalezionej</b></p>';
+						  }
+						  else 
+						  { 
+			$sql = "SELECT COUNT(*) events_count 
+							FROM cache_logs 
+							WHERE user_id=$user_id AND type=7 AND deleted=0";
+			
+			if( $odp = mysql_query($sql) )
+				$events_count = mysql_result($odp,0);
+			else 
+				$events_count = 0;
+			$days_since_first_find = @mysql_result(@mysql_query("SELECT datediff(now(), date) as old FROM cache_logs WHERE deleted=0 AND user_id = $user_id AND type=1 ORDER BY date LIMIT 1"),0);					   
+			$rsfc2=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date DESC LIMIT 1",$user_id);
+			$rfc2 = mysql_fetch_array($rsfc2);
+	        $rsc=sql("SELECT COUNT(*) number FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`) ORDER BY number DESC LIMIT 1",$user_id);
+			$rc = sql_fetch_array($rsc);
+			$rsncd= sql ("SELECT COUNT(*) FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)",$user_id);
+			$num_rows = mysql_num_rows($rsncd);
+			$sql = "SELECT COUNT(*) founds_count 
+					FROM cache_logs 
+					WHERE user_id=$user_id AND type=1 AND deleted=0";
+			if( $odp = mysql_query($sql) )
+			$found = mysql_result($odp,0);
+			else 
+			$found = 0;
+			if( $ddays['diff'] == 0 )
+			{
+				$aver1 = 0;
+			}
+			else
+			{
+				$aver1= round(($found/$ddays['diff']), 2);
+			}
+			if( $num_rows == 0 )
+			{
+				$aver2 = 0;
+			}
+			else
+			{
+				$aver2= round(($found/$num_rows), 2);
+			}
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba znalezionych skrzynek:</span><strong> ' . $found . '</strong>';
+						if ($found == 0) 
+				{$content .= '</p>';}
+				else
+			{ $content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
+			
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba nie znalezionych skrzynek:</span> <strong>' . $user_record['notfounds_count'] . '</strong>';
+		
+			if ($user_record['notfounds_count'] == 0) 
+				{$content .= '</p>';}
+				else		
+			{ $content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba komentarzy w logach:</span> <strong>' . $user_record['log_notes_count'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba uczestnictw w spotkaniach:</span> <strong>' . $events_count . '</strong>';
+			if ($events_count == 0) 
+				{$content .= '</p>';}
+				else
+			{ $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=7&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
+
+			$recomendf =  sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba przyznanych rekomendacji:</span> <strong>' . $recomendf . '</strong>';
+		
+			if ($recomendf == 0) 
+				{$content .= '</p>';}
+				else					
+			{$content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="usertops.php?userid=' . $user_id . '">'.tr('show').'</a>]</p>';}
+
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Ostatnia znaleziona skrzynka:</span>&nbsp;&nbsp;';
+			if (mysql_num_rows($rsfc2) != 0 ) {
+			$content .='<strong><a class="links" href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';
+			} else { $content .= '</p>';}
+			$content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b> Milestones "kamienie milowe"</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
+			$rsms=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date ASC",$user_id);
+			if (mysql_num_rows($rsms) != 0) {
+			if (mysql_num_rows($rsms) < 101) {
+			for ($i = 0; $i <= mysql_num_rows($rsms); $i+=10)
+				{		
+				$ii=$i;
+				$is=$i-1;
+				if ($i==0) {$ii=1; $is=0;}
+				mysql_data_seek($rsms, $is);	
+				$rms = mysql_fetch_array($rsms);
+				$content .= '<tr> <td>' . $ii . '</td><td>'  . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
+				}
+			}
+			if (mysql_num_rows($rsms) > 100) {
+			for ($i = 0; $i < mysql_num_rows($rsms); $i+=100)
+			{		
+			$ii=$i;
+				$is=$i-1;
+				if ($i==0) {$ii=1; $is=0;}
+				mysql_data_seek($rsms, $is);	
+
+			$rms = mysql_fetch_array($rsms);
+			$content .= '<tr><td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
+			}}
+			}
+			$content .='</table>';
+			mysql_free_result($rsms);
+			mysql_free_result($rsncd);
+			mysql_free_result($rsc);
+			mysql_free_result($rsfc2);
+			
+//------------ begin owner section			
+//			if ($user_id == $usr['userid']) 
+//			{
+			
+	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
+	                          cache_logs.type AS log_type,
+	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d')  AS log_date,
+	                          caches.name AS cache_name,
+							  caches.wp_oc AS wp_name,
+	                          user.username AS user_name,
+							  user.user_id AS user_id,
+							  caches.type AS cache_type,
+							  cache_type.icon_small AS cache_icon_small,
+							  log_types.icon_small AS icon_small,
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
+	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
+	                   WHERE cache_logs.deleted=0 AND `cache_logs`.`user_id`='&1'
+	                   ORDER BY cache_logs.date_created DESC
+					LIMIT 5", $user_id);
+
+			if (mysql_num_rows($rs_logs) != 0) {
+			
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy do logów wprowadzone przez użytkownika:</span>';
+				if ($user_id == $usr['userid'] || $usr['admin']) 
+				{$content .='&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="myhome2.php">'.tr('show_all').'</a>]</p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				}else{$content .='</p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 115%;">';
+				}
+				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
+					{
+					$record_logs = sql_fetch_array($rs_logs);
+					$tmp_log = $log_line;
+				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$record_logs['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2",0);
+				if ( $geokret_sql !=0)
+					{
+					$tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $tmp_log);
+					}
+					else
+					{
+					$tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
+					}					
+
+					if ($record_logs['recommended'] == 1) 
+					{
+					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt=""/>', $tmp_log);
+					}
+					else
+					{
+					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
+					}	
+					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
+					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{date}',$record_logs['log_date'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{wpname}', htmlspecialchars($record_logs['wp_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
+
+					$content .= "\n" . $tmp_log;
+					}
+					$content .= '</ul></div>';
+					mysql_free_result($rs_logs);
+				}
+
+
+//			}
+// ----------- end owner section			
+//			$content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
+						  
+
+			}
+//------------ end find section	
 //------------ begin created caches ---------------------------			
-			$content .= '<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created" />&nbsp;&nbsp;&nbsp;Statystyka liczbowa skrzynek założonych</p></div><br />';			
+			$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created" />&nbsp;&nbsp;&nbsp;Statystyka liczbowa skrzynek założonych</p></div><br />';			
 
 
 			if ($user_record['hidden_count'] == 0) {
@@ -160,7 +343,7 @@
 				if ($i==0) {$ii=1; $is=0;}
 				mysql_data_seek($rsms, $is);	
 				$rms = mysql_fetch_array($rsms);
-				$content .= '<tr> <td>' . $ii . '</td><td>'  . $rms['data'] . '</td><td><a href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['wp_oc'] . '</a></td></tr>';
+				$content .= '<tr> <td>' . $ii . '</td><td>'  . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['wp_oc'] . '</a></td></tr>';
 				}
 			}
 			if (mysql_num_rows($rsms) > 100) {
@@ -172,7 +355,7 @@
 				mysql_data_seek($rsms, $is);	
 
 			$rms = mysql_fetch_array($rsms);
-			$content .= '<tr><td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
+			$content .= '<tr><td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
 			}}
 			$content .='</table>';
 			mysql_free_result($rsms);	
@@ -238,7 +421,7 @@
 					$content .= "\n" . $tmp_log;
 				}
 					mysql_free_result($rs_logs);
-					$content .='</ul></div>';
+					$content .='</ul></div><br />';
 			}
 
 		}		
@@ -376,188 +559,7 @@
 		}	
 // ------------------ end owner section ---------------------------------			
 //------------ end created caches section ------------------------------
-
-// -----------  begin Find section -------------------------------------
-		$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache-open.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Statystyka liczbowa skrzynek znalezionych</p></div>';
-		if ($user_record['founds_count'] == 0) {
-			$content .= '<br /><p> <b>Nie ma jeszcze żadnej skrzynki znalezionej</b></p>';
-						  }
-						  else 
-						  { 
-			$sql = "SELECT COUNT(*) events_count 
-							FROM cache_logs 
-							WHERE user_id=$user_id AND type=7 AND deleted=0";
-			
-			if( $odp = mysql_query($sql) )
-				$events_count = mysql_result($odp,0);
-			else 
-				$events_count = 0;
-			$days_since_first_find = @mysql_result(@mysql_query("SELECT datediff(now(), date) as old FROM cache_logs WHERE deleted=0 AND user_id = $user_id AND type=1 ORDER BY date LIMIT 1"),0);					   
-			$rsfc2=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date DESC LIMIT 1",$user_id);
-			$rfc2 = mysql_fetch_array($rsfc2);
-	        $rsc=sql("SELECT COUNT(*) number FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`) ORDER BY number DESC LIMIT 1",$user_id);
-			$rc = sql_fetch_array($rsc);
-			$rsncd= sql ("SELECT COUNT(*) FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)",$user_id);
-			$num_rows = mysql_num_rows($rsncd);
-			$sql = "SELECT COUNT(*) founds_count 
-					FROM cache_logs 
-					WHERE user_id=$user_id AND type=1 AND deleted=0";
-			if( $odp = mysql_query($sql) )
-			$found = mysql_result($odp,0);
-			else 
-			$found = 0;
-			if( $ddays['diff'] == 0 )
-			{
-				$aver1 = 0;
-			}
-			else
-			{
-				$aver1= round(($found/$ddays['diff']), 2);
-			}
-			if( $num_rows == 0 )
-			{
-				$aver2 = 0;
-			}
-			else
-			{
-				$aver2= round(($found/$num_rows), 2);
-			}
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba znalezionych skrzynek:</span><strong> ' . $found . '</strong>';
-						if ($found == 0) 
-				{$content .= '</p>';}
-				else
-			{ $content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
-			
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba nie znalezionych skrzynek:</span> <strong>' . $user_record['notfounds_count'] . '</strong>';
 		
-			if ($user_record['notfounds_count'] == 0) 
-				{$content .= '</p>';}
-				else		
-			{ $content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba komentarzy w logach:</span> <strong>' . $user_record['log_notes_count'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba uczestnictw w spotkaniach:</span> <strong>' . $events_count . '</strong>';
-			if ($events_count == 0) 
-				{$content .= '</p>';}
-				else
-			{ $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=7&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
-
-			$recomendf =  sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba przyznanych rekomendacji:</span> <strong>' . $recomendf . '</strong>';
-		
-			if ($recomendf == 0) 
-				{$content .= '</p>';}
-				else					
-			{$content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="usertops.php?userid=' . $user_id . '">'.tr('show').'</a>]</p>';}
-
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Ostatnia znaleziona skrzynka:</span>&nbsp;&nbsp;';
-			if (mysql_num_rows($rsfc2) != 0 ) {
-			$content .='<strong><a class="links" href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';
-			} else { $content .= '</p>';}
-			$content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b> Milestones "kamienie milowe"</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
-			$rsms=sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date ASC",$user_id);
-			if (mysql_num_rows($rsms) != 0) {
-			if (mysql_num_rows($rsms) < 101) {
-			for ($i = 0; $i <= mysql_num_rows($rsms); $i+=10)
-				{		
-				$ii=$i;
-				$is=$i-1;
-				if ($i==0) {$ii=1; $is=0;}
-				mysql_data_seek($rsms, $is);	
-				$rms = mysql_fetch_array($rsms);
-				$content .= '<tr> <td>' . $ii . '</td><td>'  . $rms['data'] . '</td><td><a href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
-				}
-			}
-			if (mysql_num_rows($rsms) > 100) {
-			for ($i = 0; $i < mysql_num_rows($rsms); $i+=100)
-			{		
-			$ii=$i;
-				$is=$i-1;
-				if ($i==0) {$ii=1; $is=0;}
-				mysql_data_seek($rsms, $is);	
-
-			$rms = mysql_fetch_array($rsms);
-			$content .= '<tr><td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
-			}}
-			}
-			$content .='</table>';
-			mysql_free_result($rsms);
-			mysql_free_result($rsncd);
-			mysql_free_result($rsc);
-			mysql_free_result($rsfc2);
-			
-//------------ begin owner section			
-//			if ($user_id == $usr['userid']) 
-//			{
-			
-	$rs_logs = sql("SELECT cache_logs.cache_id AS cache_id,
-	                          cache_logs.type AS log_type,
-	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d')  AS log_date,
-	                          caches.name AS cache_name,
-							  caches.wp_oc AS wp_name,
-	                          user.username AS user_name,
-							  user.user_id AS user_id,
-							  caches.type AS cache_type,
-							  cache_type.icon_small AS cache_icon_small,
-							  log_types.icon_small AS icon_small,
-							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
-	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
-	                   WHERE cache_logs.deleted=0 AND `cache_logs`.`user_id`='&1'
-	                   ORDER BY cache_logs.date_created DESC
-					LIMIT 5", $user_id);
-
-			if (mysql_num_rows($rs_logs) != 0) {
-			
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy do logów wprowadzone przez użytkownika:</span>';
-				if ($user_id == $usr['userid'] || $usr['admin']) 
-				{$content .='&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="myhome2.php">'.tr('show_all').'</a>]</p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
-				}else{$content .='</p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 115%;">';
-				}
-				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
-					{
-					$record_logs = sql_fetch_array($rs_logs);
-					$tmp_log = $log_line;
-				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$record_logs['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2",0);
-				if ( $geokret_sql !=0)
-					{
-					$tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $tmp_log);
-					}
-					else
-					{
-					$tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
-					}					
-
-					if ($record_logs['recommended'] == 1) 
-					{
-					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt=""/>', $tmp_log);
-					}
-					else
-					{
-					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
-					}	
-					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], "..."), $tmp_log);
-					$tmp_log = mb_ereg_replace('{cacheimage}', $record_logs['cache_icon_small'], $tmp_log);
-					$tmp_log = mb_ereg_replace('{date}',$record_logs['log_date'], $tmp_log);
-					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
-					$tmp_log = mb_ereg_replace('{wpname}', htmlspecialchars($record_logs['wp_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
-					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
-
-					$content .= "\n" . $tmp_log;
-					}
-					$content .= '</ul></div>';
-					mysql_free_result($rs_logs);
-				}
-
-
-//			}
-// ----------- end owner section			
-			$content .='<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Odwiedzone województwa podczas poszukiwań (w przygotowaniu)</p></div><p><img src="images/PLmapa250.jpg" alt="" /></p>';
-						  
-
-			}
-//------------ end find section			
 			mysql_free_result($rsGeneralStat);
 			tpl_set_var('content',$content);
 	}
