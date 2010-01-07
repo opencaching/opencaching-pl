@@ -10,7 +10,8 @@
 	***************************************************************************/
 /*
 Add  additional waypoints to cache
-table db 'waypoints' struture 'id' 'cache_id' 'type_wp'   ????
+table db 'waypoints' struture 
+'id', 'cache_id', 'type', 'longitude', 'latitude',  'describe', 'status'  ????
 
 type_wp:
 Final location, Parking area, Question to answer, Reference point, Stages of Multicaches.
