@@ -135,7 +135,7 @@ if ($error == false)
 				
 				$file_content .= '<tr>';
 				$file_content .= '<td>'. htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
-				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$log_record['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2",0);
+				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$log_record['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2 AND typeid !=5",0);
 
 				if ( $geokret_sql !=0)
 					{
