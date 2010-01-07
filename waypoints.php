@@ -15,6 +15,7 @@ table db 'waypoints' struture
 
 type:
 1 => Final location, 2 => Parking area, 3 => Question to answer, 4 => Reference point, 5 => Stages of Multicaches.
+Images for WP: images/waypoints/*.png
 
 status:
 1 => Show all information for this waypoint, including coordinates
