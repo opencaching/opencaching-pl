@@ -126,8 +126,8 @@ if ($error == false)
 	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN countries ON (caches.country = countries.short)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
 	                   WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ") AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'
 	                   ORDER BY cache_logs.date_created DESC");
-			if (mysql_num_rows($rs) != 0)
-			{
+		if (mysql_num_rows($rs) != 0)
+		{
 				$file_content ='';
 				for ($i = 0; $i < mysql_num_rows($rs); $i++)
 				{
@@ -160,8 +160,8 @@ if ($error == false)
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 				$file_content .= "</tr>";
-					}
 				}
+		}
 
 	$pages = mb_ereg_replace('{last_img}', $last_img, $pages);
 	$pages = mb_ereg_replace('{first_img}', $first_img, $pages);

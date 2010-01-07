@@ -115,40 +115,41 @@ if ($error == false)
 	                   WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ")
 	                   ORDER BY cache_logs.date_created DESC");
 	//$rs = mysql_query($sql);
-
-	for ($i = 0; $i < mysql_num_rows($rs); $i++)
+if (mysql_num_rows($rs) != 0)
 	{
-		//group by country
-		$record = sql_fetch_array($rs);
+	for ($i = 0; $i < mysql_num_rows($rs); $i++)
+		{
+	//	//group by country
+//		$record = sql_fetch_array($rs);
 
-		$newlogs[$record['country_name']][] = array(
-			'cache_id'   		=> $record['cache_id'],
-			'log_type'   		=> $record['log_type'],
-			'log_date'   		=> $record['log_date'],
-			'cache_name' 		=> $record['cache_name'],
-			'wp_name' 			=> $record['wp_name'],
-			'user_name'  		=> $record['user_name'],
-			'icon_small' 		=> $record['icon_small'],
-			'user_id'	 		=> $record['user_id'],
-			'cache_type'	 	=> $record['cache_type'],
-			'cache_icon_small'	=> $record['cache_icon_small'],
-			'recommended'	=> $record['recommended']			
-		);
-	}
+//		$newlogs[$record['country_name']][] = array(
+//			'cache_id'   		=> $record['cache_id'],
+//			'log_type'   		=> $record['log_type'],
+//			'log_date'   		=> $record['log_date'],
+//			'cache_name' 		=> $record['cache_name'],
+//			'wp_name' 			=> $record['wp_name'],
+//			'user_name'  		=> $record['user_name'],
+//			'icon_small' 		=> $record['icon_small'],
+//			'user_id'	 		=> $record['user_id'],
+//			'cache_type'	 	=> $record['cache_type'],
+//			'cache_icon_small'	=> $record['cache_icon_small'],
+//			'recommended'	=> $record['recommended']			
+//		);
+//	}
 
 	//sort by country name
-	uksort($newlogs, 'cmp');
+//	uksort($newlogs, 'cmp');
 
 	$file_content = '';
 
-	if (isset($newlogs))
-	{
-		foreach ($newlogs AS $countryname => $country_record)
-		{
-			$file_content .= '<tr><td colspan="6" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
-
-			foreach ($country_record AS $log_record)
-			{
+//	if (isset($newlogs))
+//	{
+//		foreach ($newlogs AS $countryname => $country_record)
+//		{
+//			$file_content .= '<tr><td colspan="6" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
+//
+//			foreach ($country_record AS $log_record)
+//			{
 
 				$file_content .= '<tr>';
 				$file_content .= '<td width="22">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
@@ -177,7 +178,7 @@ if ($error == false)
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 				$file_content .= "</tr>";
-			}
+//			}
 		}
 	}
 
@@ -194,14 +195,14 @@ if ($error == false)
 	//user definied sort function
 	
 }
-function cmp($a, $b)
-	{
-		if ($a == $b)
-		{
-			return 0;
-		}
-		return ($a > $b) ? 1 : -1;
-	}
+//function cmp($a, $b)
+//	{
+//		if ($a == $b)
+//		{
+//			return 0;
+//		}
+//		return ($a > $b) ? 1 : -1;
+//	}
 //make the template and send it out
 tpl_BuildTemplate();
 ?>

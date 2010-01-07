@@ -55,6 +55,7 @@
 							'title' => tr('graph_find'),
 							'menustring' => tr('graph_find'),
 							'visible' => true,
+							'navicolor' => '#FFFFC5',
 							'filename' => 'ustatsg2.php?userid='.$user_id,
 							'newwindow' => false,
 							'siteid' => 'findstat',
