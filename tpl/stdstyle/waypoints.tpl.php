@@ -78,12 +78,12 @@ return true;
 
 		<td vAlign="top" align="left"><select name="WaypointEdit$WptTypeList" onchange="javascript:setTimeout('__doPostBack(\'WaypointEdit$WptTypeList\',\'\')', 0)" id="WaypointEdit_WptTypeList">
 	<option selected="selected" value="">-- {{choose_waypoint_type}} --</option>
-	<option value="220">{{final_ocation}}</option>
+	<option value="220">{{final_location}}</option>
 	<option value="217">{{parking_area}}</option>
 	<option value="218">{{question_to_answer}}</option>
 	<option value="452">{{reference_point}}</option>
 	<option value="219">{{stages_of_multicache}}</option>
-	<option value="221">{{trailhead}}</option>
+
 
 </select><span id="WaypointEdit_ValidateWaypointType" style="color:Red;visibility:hidden;">*</span></td>
 	</tr>

@@ -13,7 +13,7 @@ Add  additional waypoints to cache
 table db 'waypoints' struture 'id' 'cache_id' 'type_wp'   ????
 
 type_wp:
-Final location, Parking area, Question to answer, Reference point, Stages of Multicaches, Trialhead.
+Final location, Parking area, Question to answer, Reference point, Stages of Multicaches.
 
 */
 //prepare the templates and include all neccessary
