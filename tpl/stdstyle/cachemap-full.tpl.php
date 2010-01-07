@@ -222,6 +222,108 @@ CacheFilterControl.prototype.setButtonStyle_ = function(button) {
   button.style.cursor = "pointer";
 }
 
+function ShowCoordsControl() {
+}
+ShowCoordsControl.prototype = new GControl();
+ShowCoordsControl.prototype.initialize = function(map) {
+  var container = document.createElement("div");
+
+  var showCoords = document.createElement("div");
+
+  var icon = document.createElement("img");
+  icon.src = "tpl/stdstyle/images/blue/compas.png";
+  icon.alt = "";
+  icon.style.height = "20px";
+  icon.style.float = "left";
+
+  this.type = 1;
+
+  this.showCoords = showCoords;
+
+//  this.setCoords(map.getCenter());
+
+  this.setStyle_(showCoords);
+  container.appendChild(showCoords);
+  showCoords.appendChild(icon);
+  showCoords.appendChild(document.createTextNode(""));
+  showCoords.owner = this;
+
+  map.getContainer().appendChild(container);
+
+  GEvent.addDomListener(showCoords, "click", function() {
+        this.owner.type = ((this.owner.type + 1) % 3);
+        this.owner.setCoords(this.owner.lastLatLng);
+    });
+
+  this.setCoords(map.getCenter());
+
+  return container;
+}
+ShowCoordsControl.prototype.getDefaultPosition = function() {
+  return new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(125, 20));
+}
+
+function toWGS84(type, latlng)
+{
+    var lat = latlng.lat(), lng = latlng.lng();
+    var latD = 'N', lngD = 'E';
+
+    if(lat < 0) {
+        lat = -lat;
+        latD = 'S';
+    }
+    if(lng < 0) {
+        lng = -lng;
+        lngD = 'W';
+    }
+
+    var latstr, lngstr;
+
+    if(type == 0) {
+        latstr = lat.toFixed(4) + "°";
+        lngstr = lng.toFixed(4) + "°";
+    }
+    else if(type == 1) {
+        var degs1 = lat | 0;
+        var degs2 = lng | 0;
+        var minutes1 = ((lat - degs1)*60);
+        var minutes2 = ((lng - degs2)*60);
+        latstr = degs1 + "° " + minutes1.toFixed(3) + "'";
+        lngstr = degs2 + "° " + minutes2.toFixed(3) + "'";
+    }
+    else if(type == 2) {
+        var degs1 = lat | 0;
+        var degs2 = lng | 0;
+        var minutes1 = ((lat - degs1)*60);
+        var minutes2 = ((lng - degs2)*60);
+        var seconds1 = (minutes1 - (minutes1 | 0))*60;
+        var seconds2 = (minutes2 - (minutes2 | 0))*60;
+        latstr = degs1 + "° " + (minutes1 | 0) + "' " + (seconds1 | 0) + "\"";
+        lngstr = degs2 + "° " + (minutes2 | 0) + "' " + (seconds2 | 0) + "\"";;
+    }
+    return latD + " " + latstr + " " + lngD + " " + lngstr;
+}
+
+ShowCoordsControl.prototype.setCoords = function(latlng) {
+    this.lastLatLng = latlng;
+    this.showCoords.childNodes[1].data = toWGS84(this.type, latlng);
+}
+
+ShowCoordsControl.prototype.setStyle_ = function(elem) {
+  elem.style.textDecoration = "none";
+  elem.style.color = "#000000";
+  elem.style.backgroundColor = "white";
+  elem.style.font = "small Arial";
+  elem.style.border = "1px solid black";
+  elem.style.padding = "2px";
+  elem.style.width = "190px";
+  elem.style.textAlign = "center";
+  elem.style.cursor = "pointer";
+}
+
+
+
+
 
 	var h_t = 0;
 	var map=null;
@@ -378,6 +480,9 @@ CacheFilterControl.prototype.setButtonStyle_ = function(button) {
 			map.addControl(new GOverviewMapControl());			
 			map.addControl(new FullscreenOffControl());			
 			map.addControl(new MySearchControl());
+            var showCoords = new ShowCoordsControl();
+            map.addControl(showCoords);
+            GEvent.addListener(map, "mousemove", function(latlng) {showCoords.setCoords(latlng);} );
 
 
 	      // Create a search control

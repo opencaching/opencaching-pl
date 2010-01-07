@@ -230,7 +230,7 @@ else
 		tpl_set_var('fromlon', '0');
 		tpl_set_var('tolat', '0');
 		tpl_set_var('tolon', '0');
-		tpl_set_ver('boundsurl', '');
+		tpl_set_var('boundsurl', '');
 	}
 
 
