@@ -13,8 +13,13 @@ Add  additional waypoints to cache
 table db 'waypoints' struture 
 'id', 'cache_id', 'type', 'longitude', 'latitude',  'describe', 'status'  ????
 
-type_wp:
-Final location, Parking area, Question to answer, Reference point, Stages of Multicaches.
+type:
+1 => Final location, 2 => Parking area, 3 => Question to answer, 4 => Reference point, 5 => Stages of Multicaches.
+
+status:
+1 => Show all information for this waypoint, including coordinates
+2 => Show the details of this waypoint but hide the coordinates ???? make to sens ?
+3 => Hide this waypoint from view except by the owner or administrator
 
 */
 //prepare the templates and include all neccessary
