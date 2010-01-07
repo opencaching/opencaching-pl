@@ -55,6 +55,7 @@
 				`caches`.`country` `countryshort`,
 				`caches`.`longitude` `longitude`,
 				`caches`.`latitude` `latitude`,
+				`caches`.`wp_oc` `wp_name`,
 				`caches`.`name` `name`,
 				`caches`.`date_hidden` `date_hidden`,
 				`caches`.`date_created` `date_created`,
@@ -79,6 +80,7 @@
 		$record = sql_fetch_array($rs);
 		$newcaches[$record['country']][] = array(
 			'name' => $record['name'],
+			'wp_name' => $record['wp_name'],
 			'userid' => $record['userid'],
 			'username' => $record['username'],
 			'cache_id' => $record['cache_id'],
@@ -97,21 +99,31 @@
 	{
 		foreach ($newcaches AS $countryname => $country_record)
 		{
-			$cache_country = '<tr><td colspan="4" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
+			$cache_country = '<tr><td colspan="5" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
 			$content .= $cache_country;
 			foreach ($country_record AS $cache_record)
 			{
+				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$cache_record['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2 AND stateid !=5",0);
 			$thisline = $tpl_line;
+				if ( $geokret_sql !=0)
+					{
+			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
+					}
+					else
+					{
+			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline);
+					}				
+
 			$thisline = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $thisline);
 			$thisline = mb_ereg_replace('{userid}', $cache_record['userid'], $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
-			$thisline = mb_ereg_replace('{date}', date('d.m.Y', strtotime($cache_record['date'])), $thisline);
+			$thisline = mb_ereg_replace('{date}', date('d-m-Y', strtotime($cache_record['date'])), $thisline);
 			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($cache_record['icon_large']), $thisline);
 //			$thisline = mb_ereg_replace('{{hidden_by}}', htmlspecialchars(tr('created_by'), ENT_COMPAT, 'UTF-8'), $thisline);
 			$content .= $thisline . "\n";
-			}
-		}
+			}$content .= '<tr><td colspan="5">&nbsp;</td></tr>';
+		} 				
 
 	}
 
