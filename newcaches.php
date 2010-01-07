@@ -48,6 +48,7 @@
 							`user`.`user_id` `userid`, 
 							`caches`.`country` `country`, 
 							`caches`.`name` `cachename`, 
+							`caches`.`wp_oc` `wp_name`, 
 							`user`.`username` `username`, 
 							`caches`.`date_created` `date_created`, 
 							`caches`.`date_hidden` `date_hidden`, 
@@ -67,11 +68,23 @@
 			$rss = sql("SELECT `en` `country_name` FROM `countries` WHERE `short` = '&1'",$r['country']);
 			$rr = sql_fetch_array($rss);
 			$thisline = $tpl_line;
+			
+				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$r['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2 AND stateid !=5",0);
+			$thisline = $tpl_line;
+				if ( $geokret_sql !=0)
+					{
+			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
+					}
+					else
+					{
+			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline);
+					}				
+
 			$thisline = mb_ereg_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = mb_ereg_replace('{userid}', $r['userid'], $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'), $thisline);
-			$thisline = mb_ereg_replace('{date}', date('d.m.Y', strtotime($r['date'])), $thisline);
+			$thisline = mb_ereg_replace('{date}', date('d-m-Y', strtotime($r['date'])), $thisline);
 			$thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($r['icon_large']), $thisline);
 			$thisline = mb_ereg_replace('{country_name}', htmlspecialchars($rr['country_name'], ENT_COMPAT, 'UTF-8'), $thisline);
