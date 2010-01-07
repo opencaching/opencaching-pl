@@ -37,10 +37,10 @@
 if ($error == false)
 {
 	//get the news
-	$tplname = 'newlogs-test';
+	$tplname = 'newlogs';
 	require($stylepath . '/newlogs.inc.php');
 	
-	$LOGS_PER_PAGE = 150;
+	$LOGS_PER_PAGE = 50;
 	$PAGES_LISTED = 10;
 		
 	$rs = sql("SELECT count(id) FROM cache_logs WHERE deleted=0");
@@ -115,71 +115,71 @@ if ($error == false)
 	                   WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ")
 	                   ORDER BY cache_logs.date_created DESC");
 	//$rs = mysql_query($sql);
-
+	$file_content = '';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		//group by country
-		$record = sql_fetch_array($rs);
+		$log_record = sql_fetch_array($rs);
 
-		$newlogs[$record['country_name']][] = array(
-			'cache_id'   		=> $record['cache_id'],
-			'log_type'   		=> $record['log_type'],
-			'log_date'   		=> $record['log_date'],
-			'cache_name' 		=> $record['cache_name'],
-			'wp_name' 			=> $record['wp_name'],
-			'user_name'  		=> $record['user_name'],
-			'icon_small' 		=> $record['icon_small'],
-			'user_id'	 		=> $record['user_id'],
-			'cache_type'	 	=> $record['cache_type'],
-			'cache_icon_small'	=> $record['cache_icon_small'],
-			'recommended'	=> $record['recommended']			
-		);
-	}
+//		$newlogs[$record['country_name']][] = array(
+//			'cache_id'   		=> $record['cache_id'],
+//			'log_type'   		=> $record['log_type'],
+//			'log_date'   		=> $record['log_date'],
+//			'cache_name' 		=> $record['cache_name'],
+//			'wp_name' 			=> $record['wp_name'],
+//			'user_name'  		=> $record['user_name'],
+//			'icon_small' 		=> $record['icon_small'],
+//			'user_id'	 		=> $record['user_id'],
+//			'cache_type'	 	=> $record['cache_type'],
+//			'cache_icon_small'	=> $record['cache_icon_small'],
+//			'recommended'	=> $record['recommended']			
+//		);
+//	}
 
 	//sort by country name
-	uksort($newlogs, 'cmp');
+//	uksort($newlogs, 'cmp');
 
-	$file_content = '';
 
-	if (isset($newlogs))
-	{
-		foreach ($newlogs AS $countryname => $country_record)
-		{
-			$file_content .= '<tr><td colspan="6" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
 
-			foreach ($country_record AS $log_record)
-			{
+//	if (isset($newlogs))
+//	{
+//		foreach ($newlogs AS $countryname => $country_record)
+//		{
+//			$file_content .= '<tr><td colspan="6" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
+
+//			foreach ($country_record AS $log_record)
+//			{
 
 				$file_content .= '<tr>';
-				$file_content .= '<td>'. htmlspecialchars(date("d.m.Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
-				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$log_record['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2",0);
+				$file_content .= '<td width="22">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$log_record['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2 AND stateid !=5",0);
 
 				if ( $geokret_sql !=0)
 					{
-					$file_content .= '<td><img src="images/gk.png" border="0" alt="" title="GeoKret" /></td>';
+					$file_content .= '<td width="22">&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" /></td>';
 					}
 					else
 					{
-					$file_content .='<td>&nbsp;</td>';
+					$file_content .='<td width="22">&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/></td>';
 					}					
 				
 				        //$rating_picture
 				if ($log_record['recommended'] == 1) 
 					{
-					$file_content .= '<td><img src="images/rating-star.png" border="0" alt=""/></td>';
+					$file_content .= '<td width="22"><img src="images/rating-star.png" border="0" alt=""/></td>';
 					}
 					else
 					{
-					$file_content .= '<td>&nbsp;</td>';
+					$file_content .= '<td width="22"><img src="images/rating-star-empty.png" border="0" alt=""/></td>';
 					}	
-				$file_content .= '<td><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
-				$file_content .= '<td><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
+				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
+				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 				$file_content .= "</tr>";
 			}
-		}
-	}
+//		}
+//	}
 
 	$pages = mb_ereg_replace('{last_img}', $last_img, $pages);
 	$pages = mb_ereg_replace('{first_img}', $first_img, $pages);
@@ -189,7 +189,7 @@ if ($error == false)
 		
 	tpl_set_var('file_content',$file_content);
 	tpl_set_var('pages', $pages);
-	unset($newcaches);
+//	unset($newcaches);
 
 	//user definied sort function
 	

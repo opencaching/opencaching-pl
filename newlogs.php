@@ -115,12 +115,11 @@ if ($error == false)
 	                   WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ")
 	                   ORDER BY cache_logs.date_created DESC");
 	//$rs = mysql_query($sql);
-if (mysql_num_rows($rs) != 0)
-	{
+	$file_content = '';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
-		{
-	//	//group by country
-//		$record = sql_fetch_array($rs);
+	{
+		//group by country
+		$log_record = sql_fetch_array($rs);
 
 //		$newlogs[$record['country_name']][] = array(
 //			'cache_id'   		=> $record['cache_id'],
@@ -140,14 +139,14 @@ if (mysql_num_rows($rs) != 0)
 	//sort by country name
 //	uksort($newlogs, 'cmp');
 
-	$file_content = '';
+
 
 //	if (isset($newlogs))
 //	{
 //		foreach ($newlogs AS $countryname => $country_record)
 //		{
 //			$file_content .= '<tr><td colspan="6" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
-//
+
 //			foreach ($country_record AS $log_record)
 //			{
 
@@ -178,9 +177,9 @@ if (mysql_num_rows($rs) != 0)
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 				$file_content .= "</tr>";
-//			}
-		}
-	}
+			}
+//		}
+//	}
 
 	$pages = mb_ereg_replace('{last_img}', $last_img, $pages);
 	$pages = mb_ereg_replace('{first_img}', $first_img, $pages);
@@ -190,19 +189,19 @@ if (mysql_num_rows($rs) != 0)
 		
 	tpl_set_var('file_content',$file_content);
 	tpl_set_var('pages', $pages);
-	unset($newcaches);
+//	unset($newcaches);
 
 	//user definied sort function
 	
 }
-//function cmp($a, $b)
-//	{
-//		if ($a == $b)
-//		{
-//			return 0;
-//		}
-//		return ($a > $b) ? 1 : -1;
-//	}
+function cmp($a, $b)
+	{
+		if ($a == $b)
+		{
+			return 0;
+		}
+		return ($a > $b) ? 1 : -1;
+	}
 //make the template and send it out
 tpl_BuildTemplate();
 ?>
