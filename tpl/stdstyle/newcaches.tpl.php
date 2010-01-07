@@ -21,15 +21,16 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 <td><strong>Cache</strong></td>
 <td><strong>User</strong></td>
 </tr>
 <tr>
-<td colspan="6"><hr></hr></td>
+<td colspan="7"><hr></hr></td>
 </tr>
 		{newcaches}
 <tr>
-<td colspan="6"><hr></hr></td>
+<td colspan="7"><hr></hr></td>
 </tr>
 </table>
 	<p>

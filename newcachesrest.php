@@ -99,7 +99,7 @@
 	{
 		foreach ($newcaches AS $countryname => $country_record)
 		{
-			$cache_country = '<tr><td colspan="5" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
+			$cache_country = '<tr><td colspan="6" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
 			$content .= $cache_country;
 			foreach ($country_record AS $cache_record)
 			{

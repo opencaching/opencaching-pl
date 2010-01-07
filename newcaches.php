@@ -68,9 +68,27 @@
 			$rss = sql("SELECT `en` `country_name` FROM `countries` WHERE `short` = '&1'",$r['country']);
 			$rr = sql_fetch_array($rss);
 			$thisline = $tpl_line;
+
+	$rs_log = sql("SELECT cache_logs.cache_id AS cache_id,
+	                          cache_logs.type AS log_type,
+	                          cache_logs.date AS log_date,
+				log_types.icon_small AS icon_small
+			FROM cache_logs INNER JOIN log_types ON (cache_logs.type = log_types.id)
+			WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1
+	                   ORDER BY cache_logs.date_created DESC LIMIT 1",$r['cacheid']);
+
+			if (mysql_num_rows($rs_log) != 0)
+			{
+			$r_log = sql_fetch_array($rs_log);
+
+			$thisline = mb_ereg_replace('{log_image}','<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt="" />',$thisline);
+			} else {
+			$thisline = mb_ereg_replace('{log_image}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline); }
+
+			mysql_free_result($rs_log);
 			
 				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$r['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2 AND stateid !=5",0);
-			$thisline = $tpl_line;
+
 				if ( $geokret_sql !=0)
 					{
 			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
