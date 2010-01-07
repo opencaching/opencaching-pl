@@ -151,29 +151,29 @@ if ($error == false)
 			{
 
 				$file_content .= '<tr>';
-				$file_content .= '<td>'. htmlspecialchars(date("d.m.Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+				$file_content .= '<td width="22">'. htmlspecialchars(date("d.m.Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$log_record['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2 AND typeid !=5",0);
 
 				if ( $geokret_sql !=0)
 					{
-					$file_content .= '<td><img src="images/gk.png" border="0" alt="" title="GeoKret" /></td>';
+					$file_content .= '<td width="22">&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" /></td>';
 					}
 					else
 					{
-					$file_content .='<td>&nbsp;</td>';
+					$file_content .='<td width="22">&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/></td>';
 					}					
 				
 				        //$rating_picture
 				if ($log_record['recommended'] == 1) 
 					{
-					$file_content .= '<td><img src="images/rating-star.png" border="0" alt=""/></td>';
+					$file_content .= '<td width="22"><img src="images/rating-star.png" border="0" alt=""/></td>';
 					}
 					else
 					{
-					$file_content .= '<td>&nbsp;</td>';
+					$file_content .= '<td width="22"><img src="images/rating-star-empty.png" border="0" alt=""/></td>';
 					}	
-				$file_content .= '<td><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
-				$file_content .= '<td><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
+				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
+				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 				$file_content .= "</tr>";
