@@ -1,4 +1,5 @@
 <?php
+
 	require "../lib/settings.inc.php";
 	
 	function db_connect()
