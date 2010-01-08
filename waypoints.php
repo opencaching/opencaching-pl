@@ -29,7 +29,7 @@ status:
 in viewcache.php presentation of WayPoints in separate section after Describe section
 with possiblity download WP as GPX and send to GPS directly with wp.status = 1
 
-| wp_icone | name of type | describe of wp | Dwonload GPX | Send to GPS |
+| wp_icone | name of type |X Y coordinates | Describe of WP | Dwonload GPX | Send to GPS |
 ......
 
 
