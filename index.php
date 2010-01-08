@@ -41,7 +41,7 @@
 		require($stylepath . '/news.inc.php');
 
 //		$newscontent = '<table border="0" cellspacing="0" cellpadding="0">';
-//		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content`, `news_topics`.`name` `topic` FROM `news` INNER JOIN //`news_topics` ON (`news`.`topic` = `news_topics`.`id`) WHERE `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 0, 1');
+//		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content`, `news_topics`.`name` `topic` FROM `news` INNER JOIN //`news_topics` ON (`news`.`topic` = `news_topics`.`id`) WHERE `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 1');
 //		while ($r = sql_fetch_array($rs))
 //		{
 //			$newsentry = $tpl_newstopic;
@@ -56,7 +56,7 @@
 //		$newscontent .= '</table>';
 //		tpl_set_var('news_one', $newscontent);
 //		$newscontent = '';
-//		tpl_set_var('more_news','[{{more_news}}]');
+//		tpl_set_var('more_news',[{{more_news}}]);
 
 		
 		// aktuelle Cache und Logzahlen
