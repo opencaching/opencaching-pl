@@ -100,14 +100,7 @@
 			<a href="http://www.geopeitus.ee/english.html">http://www.geopeitus.ee</a>
 		</td>
 	</tr>
-	<tr>
-		<td>
-			Rumunia
-		</td>
-		<td>
-			<a href="http://geocaching.plus.ro/">http://geocaching.plus.ro</a>
-		</td>
-	</tr>
+
 	<tr>
 		<td>
 			Turcja
