@@ -9,18 +9,29 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 /*
-Add  additional waypoints to cache
+
+Add  additional waypoints to cache:
+
+----------------------------------
 table db 'waypoints' struture 
 'id', 'cache_id', 'type', 'longitude', 'latitude',  'describe', 'status'  ????
 
 type:
 1 => Final location, 2 => Parking area, 3 => Question to answer, 4 => Reference point, 5 => Stage of Multicache.
-Images for WP: images/waypoints/*.png
+Images for WP: images/waypoints/*.png in separate tabel db ? or get icone_name by wp.type db ?
 
 status:
 1 => Show all information for this waypoint, including coordinates
 2 => Show the details of this waypoint but hide the coordinates ???? make to sens ?
 3 => Hide this waypoint from view except by the owner or administrator
+-------------------------------------
+
+in viewcache.php presentation of WayPoints in separate section after Describe section
+with possiblity download WP as GPX and send to GPS directly with wp.status = 1
+
+| wp_icone | name of type | describe of wp | Dwonload GPX | Send to GPS |
+......
+
 
 */
 //prepare the templates and include all neccessary
