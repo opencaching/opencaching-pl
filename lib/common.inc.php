@@ -342,6 +342,37 @@ session_start();
 			return -0.5;
 	}
 
+	function season()
+	{
+		$season = date("z");
+
+		if ($season <= 164 and $season >= 70)
+			$m_season = "spring";
+		else if ($season <= 295 and $season >= 165)
+			$m_season = "summer";
+		else if ($season <= 327 and $season >= 296)
+			$m_season = "autumn";
+		else
+			$m_season = "winter";
+		return $m_season;
+	}
+	function validate_style($style)
+	{
+		switch($style) {
+			case "spring":
+			case "summer":
+			case "autumn":
+			case "winter":
+			case "christmas":
+			case "easter":
+			case "test":
+				return $style;
+		}
+		return "";
+	}
+
+	tpl_set_var("season", isset($_GET['season'])?validate_style($_GET['season']):season());
+
 	
 	// Convert from -3..3 to 1..5: update scores set score = (score +3)*5/6+1
 	
