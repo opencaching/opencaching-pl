@@ -749,7 +749,7 @@ session_start();
 			$retval = $retval . sprintf("%02d", floor($lon)) . '\' ';
 
 			$lonmin = $lon - floor($lon);		
-			$retval = $retval . sprintf("%02d", floor($lonmin*60)) . '\'\'';
+			$retval = $retval . sprintf("%02.02f", $lonmin*60) . '\'\'';
 		}
 
 		return $retval;
@@ -783,7 +783,7 @@ session_start();
 			$retval = $retval . sprintf("%02d", floor($lat)) . '\' ';
 
 			$latmin = $lat - floor($lat);		
-			$retval = $retval . sprintf("%02d", floor($latmin*60)) . '\'\'';
+			$retval = $retval . sprintf("%02.02f", $latmin*60) . '\'\'';
 		}
 
 		return $retval;
@@ -817,9 +817,9 @@ session_start();
                 $lon_min_int = sprintf("%02d", floor($lon_min_float));
 
 		$lon_min_frac = $lon_min_float - $lon_min_int;
-		$lon_sec_int = sprintf("%02d", round($lon_min_frac * 60));
+		$lon_sec_float = sprintf("%02.2f", $lon_min_frac * 60);
 
-		return array($dir, $lon_h_int, $lon_min_int, $lon_sec_int, $lon_min_float);
+		return array($dir, $lon_h_int, $lon_min_int, $lon_sec_float, $lon_min_float);
 	}
 
 	// decimal latitude to array(direction, h, min)
@@ -850,9 +850,9 @@ session_start();
                 $lat_min_int = sprintf("%02d", floor($lat_min_float));
 
 		$lat_min_frac = $lat_min_float - $lat_min_int;
-		$lat_sec_int = sprintf("%02d", round($lat_min_frac * 60));
+		$lat_sec_float = sprintf("%02.2f", $lat_min_frac * 60);
 
-		return array($dir, $lat_h_int, $lat_min_int, $lat_sec_int, $lat_min_float);
+		return array($dir, $lat_h_int, $lat_min_int, $lat_sec_float, $lat_min_float);
 	}
 
 	// create qth locator

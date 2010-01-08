@@ -234,7 +234,6 @@ ShowCoordsControl.prototype.initialize = function(map) {
   icon.src = "tpl/stdstyle/images/blue/compas.png";
   icon.alt = "";
   icon.style.height = "20px";
-  icon.style.float = "left";
 
   this.type = 1;
 
@@ -280,8 +279,8 @@ function toWGS84(type, latlng)
     var latstr, lngstr;
 
     if(type == 0) {
-        latstr = lat.toFixed(4) + "°";
-        lngstr = lng.toFixed(4) + "°";
+        latstr = lat.toFixed(5) + "°";
+        lngstr = lng.toFixed(5) + "°";
     }
     else if(type == 1) {
         var degs1 = lat | 0;
@@ -298,8 +297,8 @@ function toWGS84(type, latlng)
         var minutes2 = ((lng - degs2)*60);
         var seconds1 = (minutes1 - (minutes1 | 0))*60;
         var seconds2 = (minutes2 - (minutes2 | 0))*60;
-        latstr = degs1 + "° " + (minutes1 | 0) + "' " + (seconds1 | 0) + "\"";
-        lngstr = degs2 + "° " + (minutes2 | 0) + "' " + (seconds2 | 0) + "\"";;
+        latstr = degs1 + "° " + (minutes1 | 0) + "' " + (seconds1.toFixed(2)) + "\"";
+        lngstr = degs2 + "° " + (minutes2 | 0) + "' " + (seconds2.toFixed(2)) + "\"";;
     }
     return latD + " " + latstr + " " + lngD + " " + lngstr;
 }
@@ -316,7 +315,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
   elem.style.font = "small Arial";
   elem.style.border = "1px solid black";
   elem.style.padding = "2px";
-  elem.style.width = "190px";
+  elem.style.width = "225px";
   elem.style.textAlign = "center";
   elem.style.cursor = "pointer";
 }

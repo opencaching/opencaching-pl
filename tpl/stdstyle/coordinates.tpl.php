@@ -29,14 +29,14 @@
 	 lon_dir
 	 lon_deg_int
 	 lon_min_int
-	 lon_sec_int
+	 lon_sec_float
 	 lon_min_float
 
 	 lat_float
 	 lat_dir
 	 lat_deg_int
 	 lat_min_int
-	 lat_sec_int
+	 lat_sec_float
 	 lat_min_float
 
  ****************************************************************************/
@@ -59,7 +59,7 @@
 	</div>
 	<div style="margin-top:4px;">
 		<font size="2" color="#000080"><b>DD&deg; MM&#39; SS&#39;&#39;</b></font> <font size="1">(WGS84)</font><br/>
-		{lat_dir} {lat_deg_int}&deg; {lat_min_int}&#39; {lat_sec_int}&#39;&#39;&nbsp;&nbsp;{lon_dir} {lon_deg_int}&deg; {lon_min_int}&#39; {lon_sec_int}&#39;&#39;<br/>
+		{lat_dir} {lat_deg_int}&deg; {lat_min_int}&#39; {lat_sec_float}&#39;&#39;&nbsp;&nbsp;{lon_dir} {lon_deg_int}&deg; {lon_min_int}&#39; {lon_sec_float}&#39;&#39;<br/>
 	</div>
 	<div style="margin-top:4px;">
 		<font size="2" color="#000080"><b>UTM</b></font> <font size="1">(WGS84)</font><br/>
