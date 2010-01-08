@@ -14,7 +14,7 @@ table db 'waypoints' struture
 'id', 'cache_id', 'type', 'longitude', 'latitude',  'describe', 'status'  ????
 
 type:
-1 => Final location, 2 => Parking area, 3 => Question to answer, 4 => Reference point, 5 => Stages of Multicaches.
+1 => Final location, 2 => Parking area, 3 => Question to answer, 4 => Reference point, 5 => Stage of Multicache.
 Images for WP: images/waypoints/*.png
 
 status:
@@ -40,13 +40,17 @@ status:
 		else
 		{
 
-	// check for old-style parameters
+	// 
 		if (isset($_REQUEST['cacheid']))
 		{
 			$cache_id = $_REQUEST['cacheid'];
 		
 		}
 
+// ToDo:
+// Check owner cache user_id must be usr.user_id !!!
+// GET action= edit or add 
+// if edit GET wp_id where wp_id must be equal from table waypoint.id
 		
 		
 		
