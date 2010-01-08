@@ -49,6 +49,7 @@
   <meta name="author" content="Opencaching.pl " />
 	<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_screen.css" />
   <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
+<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_{season}.css" />
 	<link rel="SHORTCUT ICON" href="favicon.ico" />
 <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
   <title><?php echo $tpl_subtitle; ?>{title}</title>
@@ -58,6 +59,7 @@
 </head>
 <body{bodyMod}>
 
+
 <script language="javascript" type="text/javascript">
 function chname( newName )
 {
@@ -65,7 +67,19 @@ function chname( newName )
 	return false;
 }
 </script>
-  <div class="page-container-1">
+
+<div id="overall">
+
+
+  <div class="page-container-1" style="position: relative;">
+<div id="bg1"">
+&nbsp;
+</div>
+<div id="bg2">
+&nbsp;
+</div>
+
+
   	<!-- HEADER -->
 		<!-- OC-Logo -->
 		<div><img src="./images/oc_logo.png" alt="" style="margin-top:5px; margin-left:3px;" /></div>
@@ -235,5 +249,6 @@ function chname( newName )
 				 <p><a href="http://validator.w3.org/check?uri=referer" title="Validate code as W3C XHTML 1.0 Compliant">W3C XHTML 1.0</a> | <a href="http://jigsaw.w3.org/css-validator/" title="Validate Style Sheet as W3C CSS 2.0 Compliant">W3C CSS 2.0</a></p>
 			</div>
 		</div>
+</div>
 </body>
 </html>

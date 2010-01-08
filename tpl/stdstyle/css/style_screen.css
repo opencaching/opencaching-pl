@@ -15,6 +15,10 @@
 img { behavior: url(iepngfix/iepngfix.htc); vertical-align:middle; border-width:0px;border-style:none; }
 div#map_canvas img { behavior: none; }
 div#cacheinfo { background-color: blue;}
+div#overall { min-width: 970px; width: 100%; overflow: hidden; }
+
+div#bg1 { display: none;}
+div#bg2 { display: none;}
 
 body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #cccccc; font-family: arial, sans-serif, Tahoma, Verdana;}
 .page-container-1 {width: 970px; margin: 0px auto; padding: 0px; background-color:#ffffff; border: solid 1px rgb(100,100,100);}
