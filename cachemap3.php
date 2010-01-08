@@ -285,8 +285,7 @@ else
 		}		 
 		
 		 if(document.getElementsByTagName) onload = function(){
-    document.getElementsByTagName("BODY")[0].onclick = saveMapType;
-		window.onbeforeunload = saveMapType;
+			window.onbeforeunload = saveMapType;
 		}
 
 		

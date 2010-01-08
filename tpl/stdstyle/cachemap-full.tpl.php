@@ -329,6 +329,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 	var tlo=null;
 	var old_temp_unavail_value=null;
 	var old_arch_value=null;
+	var prevMapType = {map_type};
 
 	function statusToImageName(status)
 	{
@@ -427,12 +428,15 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 						isPng:true,
 						opacity:1.0
                     });
-			tilelayer.getTileUrl = function(tile, zoom) { return "lib/cgi-bin/mapper.fcgi?userid={userid}&z="+zoom+"&x="+tile.x+"&y="+tile.y+"&sc={sc}&h_u="+document.getElementById('h_u').checked+"&h_t="+document.getElementById('h_t').checked+"&h_m="+document.getElementById('h_m').checked+"&h_v="+document.getElementById('h_v').checked+"&h_w="+document.getElementById('h_w').checked+"&h_e="+document.getElementById('h_e').checked+"&h_q="+document.getElementById('h_q').checked+"&h_o="+document.getElementById('h_o').checked+"&h_ignored="+document.getElementById('h_ignored').checked+"&h_own="+document.getElementById('h_own').checked+"&h_found="+document.getElementById('h_found').checked+"&h_noattempt="+document.getElementById('h_noattempt').checked+"&h_nogeokret="+document.getElementById('h_nogeokret').checked+"&h_avail="+document.getElementById('h_avail').checked+"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+"&h_arch="+document.getElementById('h_arch').checked+"&signes="+document.getElementById('signes').checked+"&waypoints="+document.getElementById('waypoints').checked+"&be_ftf="+document.getElementById('be_ftf').checked+"&h_de="+document.getElementById('h_de').checked+"&h_pl="+document.getElementById('h_pl').checked+"&min_score="+document.getElementById('min_score').value+"&max_score="+document.getElementById('max_score').value+"&h_noscore="+document.getElementById('h_noscore').checked+"&mapid="+get_current_mapid()+"&{searchdata}"; };
+			tilelayer.getTileUrl = function(tile, zoom) {
+				return "lib/cgi-bin/mapper.fcgi?userid={userid}&z="+zoom+"&x="+tile.x+"&y="+tile.y+"&sc={sc}&h_u="+document.getElementById('h_u').checked+"&h_t="+document.getElementById('h_t').checked+"&h_m="+document.getElementById('h_m').checked+"&h_v="+document.getElementById('h_v').checked+"&h_w="+document.getElementById('h_w').checked+"&h_e="+document.getElementById('h_e').checked+"&h_q="+document.getElementById('h_q').checked+"&h_o="+document.getElementById('h_o').checked+"&h_ignored="+document.getElementById('h_ignored').checked+"&h_own="+document.getElementById('h_own').checked+"&h_found="+document.getElementById('h_found').checked+"&h_noattempt="+document.getElementById('h_noattempt').checked+"&h_nogeokret="+document.getElementById('h_nogeokret').checked+"&h_avail="+document.getElementById('h_avail').checked+"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+"&h_arch="+document.getElementById('h_arch').checked+"&signes="+document.getElementById('signes').checked+"&waypoints="+document.getElementById('waypoints').checked+"&be_ftf="+document.getElementById('be_ftf').checked+"&h_de="+document.getElementById('h_de').checked+"&h_pl="+document.getElementById('h_pl').checked+"&min_score="+document.getElementById('min_score').value+"&max_score="+document.getElementById('max_score').value+"&h_noscore="+document.getElementById('h_noscore').checked+"&mapid="+get_current_mapid()+"&{searchdata}";
+			};
 			tlo = new GTileLayerOverlay(tilelayer);
 	}
 
 	function reload()
 	{
+		saveMapType();
 		map.clearOverlays(tlo);
 		addocoverlay();
 		map.addOverlay(tlo);
@@ -476,12 +480,15 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 //			map.removeMapType(G_HYBRID_MAP);
 			map.addMapType(G_PHYSICAL_MAP);
 			map.addControl(new GHierarchicalMapTypeControl(true));
+
 			map.addControl(new GOverviewMapControl());			
 			map.addControl(new FullscreenOffControl());			
 			map.addControl(new MySearchControl());
             var showCoords = new ShowCoordsControl();
             map.addControl(showCoords);
             GEvent.addListener(map, "mousemove", function(latlng) {showCoords.setCoords(latlng);} );
+
+			map.enableScrollWheelZoom();
 
 
 	      // Create a search control
@@ -646,7 +653,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 
 			
 		}
-		document.getElementsByTagName("body")[0].onclick = saveMapType;
+
 		if({doopen})
 			onClickFunc(tlo, new GLatLng({coords}));
 
@@ -667,6 +674,9 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
             var newZoom = map.getBoundsZoomLevel(area);
             map.setCenter(area.getCenter(), newZoom);
         }
+		GEvent.addListener(map, "tilesloaded", function() {
+               document.getElementById("hmtctl").onclick = saveMapType;
+        });
 	}
 // -->
 </script>

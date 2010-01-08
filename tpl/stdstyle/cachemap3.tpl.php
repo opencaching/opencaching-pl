@@ -290,6 +290,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 
 	function reload()
 	{
+		saveMapType();
 		map.clearOverlays(tlo);
 		addocoverlay();
 		map.addOverlay(tlo);
@@ -331,6 +332,8 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 			var showCoords = new ShowCoordsControl();
 			map.addControl(showCoords);
 			GEvent.addListener(map, "mousemove", function(latlng) {showCoords.setCoords(latlng);} );
+
+			map.enableScrollWheelZoom();
 
           // Create a search control
           var searchControl = new google.search.SearchControl();
@@ -493,7 +496,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 
 			
 		}
-		document.getElementsByTagName("body")[0].onclick = saveMapType;
+
 		if({doopen})
 			onClickFunc(tlo, new GLatLng({coords}));
         if( map.getZoom() > 13 ) {
@@ -512,6 +515,18 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 			var newZoom = map.getBoundsZoomLevel(area);
 			map.setCenter(area.getCenter(), newZoom);
 		}
+
+
+
+
+/*		GEvent.addDomListener(document.getElementById("amtc_option_1"), "click", function() { saveMapType(); })
+		GEvent.addDomListener(document.getElementById("amtc_option_2"), "click", function() { saveMapType(); })
+		GEvent.addDomListener(document.getElementById("amtc_option_3"), "click", function() { saveMapType(); })
+		GEvent.addDomListener(document.getElementById("amtc_option_4"), "click", function() { saveMapType(); })*/
+
+		 GEvent.addListener(map, "tilesloaded", function() {
+			   document.getElementById("hmtctl").onclick = saveMapType;
+	    });
 
 	}
 // -->
