@@ -352,7 +352,7 @@
 				mysql_data_seek($rsms, $is);	
 
 			$rms = mysql_fetch_array($rsms);
-			$content .= '<tr><td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['cache_wp'] . '</a></td></tr>';
+			$content .= '<tr><td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['wp_oc'] . '</a></td></tr>';
 			}}
 			$content .='</table>';
 			mysql_free_result($rsms);	
