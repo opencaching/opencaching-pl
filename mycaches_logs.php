@@ -54,7 +54,14 @@ if ($error == false)
 	$LOGS_PER_PAGE = 50;
 	$PAGES_LISTED = 10;
 		
-	$rs = sql("SELECT count(id) FROM cache_logs WHERE deleted=0");
+	$rs = sql("SELECT count(id) FROM cache_logs, caches 
+			WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
+				AND `cache_logs`.`deleted`=0 
+			  AND `caches`.`status` != 4
+				AND `caches`.`status` != 5 
+				AND `caches`.`status` != 6
+				AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'");
+
 	$total_logs = mysql_result($rs,0);
 	mysql_free_result($rs);
 	
