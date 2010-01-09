@@ -100,7 +100,7 @@ $gpxLog = '
 
 	$gpxFoot = '</gpx>';
 
-	$gpxTimeFormat = 'Y-m-d\TH:i:s\Z';
+	$gpxTimeFormat = 'Y-m-d\TH:i:s';
 
 	$gpxAvailable[0] = 'False';	//OC: Unavailable
 	$gpxAvailable[1] = 'True';	//OC: Available

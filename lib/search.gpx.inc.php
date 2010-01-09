@@ -102,7 +102,7 @@
 
 	$gpxFoot = '</gpx>';
 
-	$gpxTimeFormat = 'Y-m-d\TH:i:s\Z';
+	$gpxTimeFormat = 'Y-m-d\TH:i:s';
 
 	$gpxStatus[0] = 'Unavailable'; // andere
 	$gpxStatus[1] = 'Available';
