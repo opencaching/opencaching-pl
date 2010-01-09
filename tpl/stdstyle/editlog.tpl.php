@@ -90,10 +90,10 @@ function toogleLayer( whichLayer, val )
 <table class="content">
 	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="edit log Cache" align="middle" /> <b>Edycja logu dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 </table>
-<table class="content">
+<table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td width="180px">Rodzaj wpisu:</td>
+		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
 		<td align="left">
 			<!--<select name="logtype" onChange="return _chkFound()">-->
 			<select onload="javascript:toogleLayer('ocena');" name="logtype" onchange="javascript:toogleLayer('ocena');">
@@ -104,7 +104,7 @@ function toogleLayer( whichLayer, val )
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>
-		<td width="180px">Data:</td>
+		<td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{date_logged}}:</td>
 		<td align="left">
 			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>.
 			<input class="input20" type="text" name="logmonth" maxlength="2" value="{logmonth}"/>.
@@ -117,9 +117,9 @@ function toogleLayer( whichLayer, val )
 	<tr><td class="spacer" colspan="2"></td></tr>
 	{rating_message}
 </table>
-<table class="content">
+<table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr>
-		<td colspan="2">Treść wpisu:</td>
+		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</td>
 	</tr>
 	<tr>
 		<td colspan="2">

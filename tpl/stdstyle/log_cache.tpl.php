@@ -188,7 +188,7 @@ function toogleLayer( whichLayer, val )
 	<tr><td class="spacer" colspan="2"></td></tr>
 	{listed_start}
 	<tr>
-		<td colspan="2" width="600px">{{listed_other}}:&nbsp;{listed_on}
+		<td colspan="2" width="600px"><strong>{{listed_other}}:&nbsp;{listed_on}</strong>
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
