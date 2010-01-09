@@ -72,7 +72,7 @@ function chname( newName )
 
 
   <div class="page-container-1" style="position: relative;">
-<div id="bg1"">
+<div id="bg1">
 &nbsp;
 </div>
 <div id="bg2">

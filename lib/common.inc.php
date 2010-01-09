@@ -31,9 +31,7 @@ session_start();
  ****************************************************************************/
 
 
-
-
-        ob_start("ob_gzhandler");
+    ob_start("ob_gzhandler");
 	
 	// we are in HTML-mode ... maybe plain (for CLI scripts)
 	global $interface_output;
@@ -650,6 +648,8 @@ session_start();
 		//run the template code
 		eval($sCode);
 
+		
+	
 		//disconnect the database
 		if ($dbdisconnect) db_disconnect();
 	}
