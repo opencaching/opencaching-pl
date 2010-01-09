@@ -90,7 +90,7 @@
 			tpl_set_var('username',$user_record['username']);
 }
 			$content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created" />&nbsp;&nbsp;&nbsp;Wykresy statystyk dla skrzynek założonych</p></div><br />';	
-			$content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&t=cc' . '" border="0" alt="" /></p>';	
+			$content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&t=cc' . '" border="0" alt="" width="500" height="300" /></p>';	
 		
 			mysql_free_result($rsGeneralStat);
 			
@@ -101,9 +101,9 @@
 //			while ($rccm = mysql_fetch_array($rsCreateCachesYear)){
 
 
-		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm' . $year . '" border="0" alt="" /></p>';		
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm' . $year . '" border="0" alt="" width="500" height="200" /></p>';		
 		$yearr= $year-1;	
-		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm' . $yearr . '" border="0" alt="" /></p>';		
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccm' . $yearr . '" border="0" alt="" width="500" height="200" /></p>';		
 
 //				}
 		}
@@ -111,7 +111,7 @@
 	$rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE status <> 4 AND status <> 5 AND user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
 	if ($rsCreateCachesYear !== false){
-	$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccy" border="0" alt="" /></p>';
+	$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=ccy" border="0" alt="" width="500" height="200" /></p>';
 			
 	}
 
