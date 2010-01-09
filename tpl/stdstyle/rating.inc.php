@@ -28,7 +28,7 @@
  ****************************************************************************/
 
 	$rating_tpl =	"<tr>
-				<td valign=\"top\">".tr('my_recommend').":</td>
+				<td valign=\"top\"><img src=\"images/rating-star.png\" class=\"icon16\" alt=\"\" title=\"\" align=\"middle\" />&nbsp;".tr('my_recommend').":</td>
 				<td valign=\"top\">
 					{rating_msg}
 					<noscript><br />Rekomendacje mogą być dodawane tylko podczas robienia wpisu do logu!</noscript>

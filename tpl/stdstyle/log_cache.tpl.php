@@ -106,7 +106,7 @@ function toogleLayer( whichLayer, val )
 <table class="content">
 	<tr>
 		<td class="content2-pagetitle" colspan="2">
-			<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Neuer Cache" align="middle" />
+			<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Cache" align="middle" />
 			<b>{{post_new_log}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
 		</td>
 	</tr>
@@ -115,7 +115,7 @@ function toogleLayer( whichLayer, val )
 <table class="content">
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr>
-		<td width="180px">{{type_of_log}}:</td>
+		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{type_of_log}}:</td>
 		<td>
 			<select onLoad="javascript:toogleLayer('ocena');" name="logtype" onChange="toogleLayer('ocena');">
 				{logtypeoptions}
@@ -124,7 +124,7 @@ function toogleLayer( whichLayer, val )
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td width="180px">{{date_logged}}:</td>
+		<td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_logged}}:</td>
 		<td>
 			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>.
 			<input class="input20" type="text" name="logmonth" maxlength="2" value="{logmonth}"/>.
@@ -141,7 +141,7 @@ function toogleLayer( whichLayer, val )
 <div class="content" id="ocena" style="display:{display};">
 <table class="content">
 	<tr>
-		<td width="180px"><b>{score_header}</b></td>
+		<td width="180px"><img src="tpl/stdstyle/images/free_icons/star.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{score_header}</b></td>
 		<td width="*">{score}<br/></td>
 	</tr>
 </table>
