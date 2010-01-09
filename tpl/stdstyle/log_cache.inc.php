@@ -31,9 +31,9 @@
 	$date_message = '<span class="errormsg">Data ma niepoprawny format. Poprawny format: DD-MM-RRRR</span>';
 	$score_message = '<span class="errormsg">Proszę ocenić skrzynkę lub zaznaczyć, że nie chcesz jej ocenić.</span>';
 
-	$log_pw_field = '<tr><td colspan="2">Hasło do logu: <input class="input100" type="text" name="log_pw" maxlength="20" value="" /> (tylko dla znalezionych skrzynek)</td></tr>
+	$log_pw_field = '<tr><td colspan="2"><img src="tpl/stdstyle/images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;Hasło do logu: <input class="input100" type="text" name="log_pw" maxlength="20" value="" /> (tylko dla znalezionych skrzynek)</td></tr>
 					<tr><td class="spacer" colspan="2"></td></tr>';
-	$log_pw_field_pw_not_ok = '<tr><td colspan="2">Hasło do logu: <input type="text" name="log_pw" maxlength="20" size="20" value=""/><span class="errormsg"> Nieprawidłowe hasło!</span></td></tr><tr><td class="spacer" colspan="2"></td></tr>';
+	$log_pw_field_pw_not_ok = '<tr><td colspan="2"><img src="tpl/stdstyle/images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;Hasło do logu: <input type="text" name="log_pw" maxlength="20" size="20" value=""/><span class="errormsg"> Nieprawidłowe hasło!</span></td></tr><tr><td class="spacer" colspan="2"></td></tr>';
 
 	$listed_only_oc = "Only here listed !";
 

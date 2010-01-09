@@ -586,7 +586,7 @@
 					
 					$listed_on = array();
 					if($wp_gc > "")
-						$listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp='.$wp_gc.'"  target="_blank">geocaching.com</a> <a href="http://www.geocaching.com/seek/log.aspx?wp='.$wp_gc.'" target="_blank">(loggen)</a>';
+						$listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp='.$wp_gc.'"  target="_blank">geocaching.com</a> <a href="http://www.geocaching.com/seek/log.aspx?wp='.$wp_gc.'" target="_blank">(logbook)</a>';
 					if($wp_nc > "")
 						$listed_on[] = 'navicache.com';
 
