@@ -86,7 +86,7 @@
 			tpl_set_var('username',$user_record['username']);
 }
 				$content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Wykresy statystyk dla skrzynek znalezionych</p></div><br />';	
-				$content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&t=cf"  border="0" alt="" width="500" height="300" /></p>';	
+				$content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&amp;t=cf"  border="0" alt="" width="500" height="300" /></p>';	
 		
 			mysql_free_result($rsGeneralStat);
 
@@ -96,9 +96,9 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
  				if ($rsCachesFindMonth !== false){
 	//			while ($rcfm = mysql_fetch_array($rsCachesFindYear)){
 
-		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfm' . $year . '"  border="0" alt="" width="500" height="200" /></p>';		
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&amp;t=cfm' . $year . '"  border="0" alt="" width="500" height="200" /></p>';		
 		$yearr = $year -1;	
-		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfm' . $yearr . '"  border="0" alt="" width="500" height="200" /></p>';					
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&amp;t=cfm' . $yearr . '"  border="0" alt="" width="500" height="200" /></p>';					
 
 //			}
 		}
@@ -109,7 +109,7 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
 
   				if ($rsCachesFindYear !== false) {
 
-		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&t=cfy"  border="0" alt="" width="500" height="200" /></p>';					
+		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&amp;t=cfy"  border="0" alt="" width="500" height="200" /></p>';					
 
 			}
 
