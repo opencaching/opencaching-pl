@@ -129,7 +129,7 @@ function toogleLayer( whichLayer, val )
 			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>.
 			<input class="input20" type="text" name="logmonth" maxlength="2" value="{logmonth}"/>.
 			<input class="input40" type="text" name="logyear" maxlength="4" value="{logyear}"/>
-			  {{time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
+			  <img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
 			<input class="input20" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
 			<br />{date_message}
 		</td>
