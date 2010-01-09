@@ -112,10 +112,10 @@ function toogleLayer( whichLayer, val )
 	</tr>
 </table>
 
-<table class="content">
+<table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr>
-		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{type_of_log}}:</td>
+		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
 		<td>
 			<select onLoad="javascript:toogleLayer('ocena');" name="logtype" onChange="toogleLayer('ocena');">
 				{logtypeoptions}
@@ -124,7 +124,7 @@ function toogleLayer( whichLayer, val )
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_logged}}:</td>
+		<td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{date_logged}}:</strong></td>
 		<td>
 			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>.
 			<input class="input20" type="text" name="logmonth" maxlength="2" value="{logmonth}"/>.
@@ -139,21 +139,21 @@ function toogleLayer( whichLayer, val )
 	<tr><td class="spacer" colspan="2"></td></tr>
 </table>
 <div class="content" id="ocena" style="display:{display};">
-<table class="content">
+<table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr>
 		<td width="180px"><img src="tpl/stdstyle/images/free_icons/star.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{score_header}</b></td>
 		<td width="*">{score}<br/></td>
 	</tr>
 </table>
 </div>
-<table class="content">
+<table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr>
 		<td colspan="2">
 			{log_geokret}
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2"><br />{{comments_log}}:</td>
+		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
 	</tr>
 	<tr>
 		<td colspan="2">

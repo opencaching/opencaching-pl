@@ -450,7 +450,7 @@ possible_recommend Aby móc rekomendować inne skrzynki, musisz jeszcze znależ�
 comments_log Treść wpisu
 submit_log_entry Wyślij wpis do logu
 geokret_log Zabrałeś geokreta? Zarejestruj ten fakt na
-rate_cache Oceń skrzynkę: <br/>&nbsp;&nbsp;<a href="{rating_desc_url}">Opis skali</a>
+rate_cache Oceń skrzynkę: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{rating_desc_url}">Opis skali</a>
 do_not_rate Nie chcę oceniać tej skrzynki
 listed_other Proszę wpisać się w logi także na następujących stronach
 not_spcified nie wybrano
