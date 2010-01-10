@@ -288,7 +288,8 @@
 				$hidden_event = mysql_result($odp,0);
 			else 
 			$hidden_event = 0;			
-			
+			$rsms=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%d-%m-%Y') data FROM caches WHERE user_id=&1 AND status <> 4 AND status <> 5 AND status <> 6 AND type <> 6 ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC, HOUR(`date_created`) ASC",$user_id);
+			$hidden_all=mysql_num_rows($rsms);			
 			$rscc2=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%d-%m-%Y') data FROM caches WHERE status <> 4 AND status <> 5 AND status <> 6 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) DESC, MONTH(`date_created`) DESC, DAY(`date_created`) DESC, HOUR(`date_created`) DESC LIMIT 1",$user_id);
 			$rcc2 = mysql_fetch_array($rscc2);
 			$rsc=sql("SELECT COUNT(*) number FROM caches WHERE status <> 4 AND status <> 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY number DESC LIMIT 1",$user_id);
@@ -297,12 +298,12 @@
 			$num_rows = mysql_num_rows($rsncd); 
 			$aver1= round(($user_record['hidden_count']/$ddays['diff']), 2);
 			$aver2= round(($user_record['hidden_count']/$num_rows), 2);			
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba wszystkich założonych skrzynek:  </span><strong>' . $user_record['hidden_count'] . '</strong>  w tym aktywnych <strong>' . $hidden . '</strong>';
+			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba wszystkich założonych skrzynek:  </span><strong>' . $hidden_all . '</strong>  w tym aktywnych <strong>' . $hidden . '</strong>';
 			if ($user_record['hidden_count'] == 0) 
 				{$content .= '</p>';}
 				else						
 
-			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
+			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=111110110&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
 
 			$hidden_temp =  sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=2 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
 			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba czasowo niedostępnych skrzynek:  </span><strong>' . $hidden_temp . '</strong></p>';
@@ -330,7 +331,6 @@
 			$content .= '<p><span class="content-title-noshade txt-blue08" >Najnowsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';	
 			$content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b> Milestones "kamienie milowe"</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 
-			$rsms=sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%d-%m-%Y') data FROM caches WHERE user_id=&1 AND status <> 2 AND status <> 3 AND status <> 4 AND status <> 5 AND status <> 6 AND type <> 6 ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC, HOUR(`date_created`) ASC",$user_id);
 			$rms = mysql_fetch_array($rsms);
 			if (mysql_num_rows($rsms) < 101) {
 			for ($i = 0; $i <= mysql_num_rows($rsms); $i+=10)
