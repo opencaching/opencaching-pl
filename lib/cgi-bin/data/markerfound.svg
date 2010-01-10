@@ -1511,15 +1511,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="600.54025"
+     inkscape:cx="565.18491"
      inkscape:cy="501.87021"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="889"
+     inkscape:window-width="1106"
      inkscape:window-height="779"
-     inkscape:window-x="332"
-     inkscape:window-y="42" />
+     inkscape:window-x="591"
+     inkscape:window-y="28" />
   <metadata
      id="metadata37191">
     <rdf:RDF>
@@ -1536,19 +1536,19 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="opacity:1;fill:url(#linearGradient3716);fill-opacity:1;stroke:#000000;stroke-width:15.50000000000000000;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:url(#linearGradient3716);fill-opacity:1;stroke:#000000;stroke-width:20;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M 91.52289,82.771387 C 203.10351,-11.869416 471.90304,-16.668769 579.22858,82.771387 C 694.80312,189.85448 668.85839,432.32965 579.22858,546.43649 C 452.33197,614.32859 416.14791,551.16901 333.44931,746.43649 C 236.52805,525.43909 163.91307,628.83758 71.52289,506.43649 C 7.2991757,369.61471 -9.2932895,211.39986 91.52289,82.771387 z"
        id="rect2847"
        sodipodi:nodetypes="cscccc" />
     <path
        sodipodi:type="arc"
-       style="opacity:1;fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:5.83986678000000037;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:5.83986664;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path3708"
        sodipodi:cx="654.57886"
        sodipodi:cy="747.97461"
        sodipodi:rx="40.406101"
        sodipodi:ry="35.355339"
        d="M 694.98496,747.97461 A 40.406101,35.355339 0 1 1 614.17276,747.97461 A 40.406101,35.355339 0 1 1 694.98496,747.97461 z"
-       transform="matrix(2.1428571,0,0,2.1428571,-1067.7652,-830.38141)" />
+       transform="matrix(2.9346105,0,0,2.9346105,-1586.0302,-1452.8974)" />
   </g>
 </svg>
