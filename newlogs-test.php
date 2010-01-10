@@ -99,7 +99,7 @@ if ($error == false)
 	}
 	mysql_free_result($rs);
 
-	$rs = sql("SELECT cache_logs.cache_id AS cache_id,
+$rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
 	                          caches.name AS cache_name,
@@ -110,10 +110,15 @@ if ($error == false)
 							  caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
 							  log_types.icon_small AS icon_small,
-							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
-	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN countries ON (caches.country = countries.short)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
-	                   WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ")
-	                   ORDER BY cache_logs.date_created DESC");
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
+							COUNT(gk_item.id) AS geokret_in
+							FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN countries ON (caches.country = countries.short)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
+							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5	
+							WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ")
+							GROUP BY cache_logs.id
+							ORDER BY cache_logs.date_created DESC");
 	//$rs = mysql_query($sql);
 	$file_content = '';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -152,9 +157,9 @@ if ($error == false)
 
 				$file_content .= '<tr>';
 				$file_content .= '<td width="22">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
-				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$log_record['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2 AND stateid !=5",0);
+//				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$log_record['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2 AND stateid !=5",0);
 
-				if ( $geokret_sql !=0)
+			if ( $log_record['geokret_in'] !='0')
 					{
 					$file_content .= '<td width="22">&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" /></td>';
 					}
