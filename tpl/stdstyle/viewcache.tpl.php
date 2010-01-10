@@ -73,17 +73,17 @@
 						<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" title="" />
 						<b>{coords}</b> <span class="content-title-noshade-size0">(WGS84)</span><br />
 					</p>
-					<p>
-						<font size="1">{coords_other}</font><br />
-<!--						{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek} {woj}</span></b><br />  -->
-						{{size}}: {cachesize}<br />
-						{hidetime_start}{{time}}: {search_time}&nbsp;&nbsp;{{length}}: {way_length}<br />{hidetime_end}
-						{{status_label}}: {status}<br />
-						{{date_hidden_label}}: {hidden_date}<br />
-						{{date_created_label}}: {date_created}<br />
-						{{last_modified_label}}: {last_modified}<br />
-						{{waypoint}}: {oc_waypoint}<br />
-						{hidelistingsites_start}{{listed_also_on}}: {listed_on}<br />{hidelistingsites_end}
+					<p style="line-height: 1.6em;">
+						<img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<font size="1">{coords_other}</font><br />
+<!--						<img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek} {woj}</span></b><br />  -->
+						<img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{size}}: {cachesize}<br />
+						{hidetime_start}<img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}}: {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{length}}: {way_length}<br />{hidetime_end}
+						<img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{status_label}}: {status}<br />
+						<img src="tpl/stdstyle/images/free_icons/date_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_hidden_label}}: {hidden_date}<br />
+						<img src="tpl/stdstyle/images/free_icons/date_add.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_created_label}}: {date_created}<br />
+						<img src="tpl/stdstyle/images/free_icons/date_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{last_modified_label}}: {last_modified}<br />
+						<img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{waypoint}}: <b>{oc_waypoint}</b><br />
+						{hidelistingsites_start}<img src="tpl/stdstyle/images/free_icons/world_link.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_also_on}}: {listed_on}<br />{hidelistingsites_end}
 					</p>
 					<?php
 global $usr, $lang, $hide_coords;			
@@ -112,7 +112,7 @@ else
 							{
 					?>
 						<div class="content2-container-2col-left" id="viewcache-numstats">
-						<p><br/><br/>
+						<p style="line-height: 1.4em;"><br /><br />
 							{found_icon} {founds} {found_text}<br />
 							{notfound_icon} {notfounds} {notfound_text}<br />
 							{note_icon} {notes} {{comments}}<br />
