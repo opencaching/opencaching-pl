@@ -76,7 +76,7 @@
 					<p style="line-height: 1.6em;">
 						<img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{coords_other}<br />
 <!--						<img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek} {woj}</span></b><br />  -->
-						<img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{size}}: {cachesize}<br />
+						<img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{size}}: <b>{cachesize}</b><br />
 						{hidetime_start}<img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}}: {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{length}}: {way_length}<br />{hidetime_end}
 						<img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{status_label}}: {status}<br />
 						<img src="tpl/stdstyle/images/free_icons/date_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_hidden_label}}: {hidden_date}<br />
