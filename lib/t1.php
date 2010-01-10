@@ -11,11 +11,11 @@
   $fC = sql('SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
     $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
-	echo '<table width="750"><tr><td align="center"><b>'.tr('ranking_by_number_of_created_caches').'</b><br />'.tr('only_active_caches').'<br />'.tr('users_who_created_caches').':';
+	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('ranking_by_number_of_created_caches').'</b> <br />'.tr('only_active_caches').'<br /> '.tr('users_who_created_caches').': ';
 	echo $rsUs[count]; 
-	echo ' .::. '.tr('number_of_active_caches').':';
+	echo ' .::. '.tr('number_of_active_caches').': ';
 	echo $fCt[count]; 
-	echo '</td></tr></table><table bgcolor="white" width="750">' . "\n";
+	echo '</center></td></tr></table><table bgcolor="white" width="97%">' . "\n";
 
 //  mysql_query("SET NAMES 'utf8'"); 
 // $rsUser = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `caches`.`status`=1 AND `caches`.`type`!=4 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20'); 
@@ -33,7 +33,7 @@ $a="SELECT count, username, user_id FROM tmp GROUP BY `username` ORDER BY `count
 
 $r=mysql_query($a) or die(mysql_error());
 echo '
-<tr bgcolor="#D5D5D5">
+<tr class="bgcolor2">
 	<td align="right">
 		&nbsp;&nbsp;<b>'.tr('ranking').'</b>&nbsp;&nbsp;
 	</td>
@@ -48,17 +48,23 @@ echo '
 ';
 $l2="";
 $licznik=0;
+
 while ($line=mysql_fetch_array($r))
 {
 $l1=$line[count];
+
 $licznik++;
+//			if( $row_num % 2 )
+//				$bgcolor = "bgcolor1";
+//			else
+//				$bgcolor = "bgcolor2";
 
 if ($l2!=$l1)
 {
     echo '
 			</td>
 		</tr>
-		<tr bgcolor="#D5D5D5">
+		<tr class="bgcolor2">
 			<td align="right">
 				&nbsp;&nbsp;<b>'.$licznik.'</b>&nbsp;&nbsp;
 			</td>
@@ -72,6 +78,7 @@ if ($l2!=$l1)
 else {
     echo ', <a href="viewprofile.php?userid='.$line[user_id].'">'.htmlspecialchars($line[username]).'</a>';
     }
+	$row_num++;
 }
 //echo "
 //	</td>

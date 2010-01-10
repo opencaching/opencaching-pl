@@ -3,7 +3,7 @@
 	<tr><td class="spacer"></td></tr>
 </table>
 
-<table>
+<table class="table" style="line-height: 1.6em; font-size: 10px;">
 <tr>
 <td><?php include ("t1.php");?>
 </td></tr>
