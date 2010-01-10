@@ -527,9 +527,9 @@ int main(void)
 				(hide_noattempt && !found) || // hide caches not yet fond
 				( (score < min_score || score > max_score) && votes >= 3 && i == 0) || // hide caches not matching score criteria
 				(votes < 3 && hide_noscore && i == 0) || // hide caches without definite score
-				status > 3 ||
+				status > 3 || // hide caches blocked by RR
 				0
-				) // hide caches blocked by RR
+				) 
 				continue;
 
 					   

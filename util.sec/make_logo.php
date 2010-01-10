@@ -12,11 +12,11 @@ class MakeLogo
 	function run()
 	{
 		global $dynbasepath, $rootpath;
-		$MAX_LEN = 630;
+		$MAX_LEN = 1100;
 		
 		$totalWidth = 0;
 		$counter = 0;
-		$im = imagecreatetruecolor(630,80);
+		$im = imagecreatetruecolor($MAX_LEN,80);
 		$alpha = imagecolorallocate($im, 255,255,255);
 		imagefilledrectangle($im, 0,0,800,80, $alpha);
 		imagecolortransparent($im, $alpha);
