@@ -12,12 +12,12 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `deleted`=0 AND `type
   $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
 
-	echo '<center><table width="600"><tr><td align=center><font size=+0><b>Ranking użytkowników wg liczby odkryć</b></font><br />Użytkowników którzy znalezli:';
+	echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>Ranking użytkowników wg liczby odkryć</b><br />Użytkowników którzy znalezli:';
 	echo $rsUs[count]; 
 	echo ' .::. Ile razy odkryto skrzynki:';
 	echo $fCt[count]; 
-	echo '</td></tr>';
-	echo '<tr><td bgcolor="#D5D5D5"><b>Nie licz statystyk dla skrzynek typu:</b><br /><form action="articles.php" method="GET">';
+	echo '</center></td></tr>';
+	echo '<tr><td class="bgcolor2"><b>Nie licz statystyk dla skrzynek typu:</b><br /><form action="articles.php" method="GET">';
 	
 	
 	$sql = "SELECT * FROM cache_type";
@@ -42,10 +42,10 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `deleted`=0 AND `type
 			echo '<br />';
 	}
 	echo '<input type="hidden" name="page" value="s2">';
-	echo '<br/><input type="submit" value="{{filter_out}}">';
+	echo '<br/><input type="submit" value="Filtruj">';
 	
-	echo '</form></td></tr>';
-	echo '<tr><td> <table bgcolor="white" width=750>' . "\n";
+	echo '</form></td></tr></table>';
+	echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
 
 $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id FROM caches, cache_logs, user ".
      "WHERE `cache_logs`.`deleted`=0 AND cache_logs.user_id=user.user_id AND cache_logs.type=1 AND cache_logs.cache_id = caches.cache_id ".$typ." ".
@@ -55,11 +55,11 @@ $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id FROM caches, cache
 echo "<br />";
 
 $r=mysql_query($a) or die(mysql_error());
-echo    '<tr bgcolor="#D5D5D5">'.
-        '<td align="center">&nbsp;&nbsp;<b>{{ranking}</b>&nbsp;&nbsp;</td>'.
-        '<td align="center"><b>{{place_ex-aequo}}</b></td>'.
-	'<td align="center"><b>{{number_of_finds}}</b></td>'.
-	'<td align="center">&nbsp;&nbsp;<b>{{username}}</b>&nbsp;&nbsp;</td>';
+echo    '<tr class="bgcolor2">'.
+        '<td align="center">&nbsp;&nbsp;<b>Ranking</b>&nbsp;&nbsp;</td>'.
+        '<td align="center"><b>Miejsce ex-aequo</b></td>'.
+	'<td align="center"><b>Liczba znalezionych</b></td>'.
+	'<td align="center">&nbsp;&nbsp;<b>User</b>&nbsp;&nbsp;</td></tr><tr><td>';
 
 $l2=""; // number of users within the same rank
 $rank=0; // rank number; increamented by one for each group of users having the same caches discovered
@@ -80,9 +80,9 @@ while ($line=mysql_fetch_array($r))
     if ($l2!=$l1)
     {
         // new rank (finish recent row and start new one)
-	echo '</font></td></tr>';
+	echo '</td></tr>';
 	$rank++;
-        echo '<tr bgcolor="#D5D5D5>"'.
+        echo '<tr class="bgcolor2">'.
 	     '<td align="right">&nbsp;&nbsp;<b>'.$rank.'</b>&nbsp;&nbsp;</td>'.
              '<td align="right">&nbsp;&nbsp;'.$position.'&nbsp;&nbsp;</td>'.
 	     '<td align="right">&nbsp;&nbsp;<b>'.$l1.'</b>&nbsp;&nbsp;</td>'.
@@ -99,7 +99,7 @@ while ($line=mysql_fetch_array($r))
 }
 
 // end table
-echo "</td></tr>";
-echo "</table></td></tr></table>\n";
+//echo "</td></tr>";
+echo "</table>\n";
 
 ?>

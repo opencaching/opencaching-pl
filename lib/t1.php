@@ -15,7 +15,7 @@
 	echo $rsUs[count]; 
 	echo ' .::. '.tr('number_of_active_caches').': ';
 	echo $fCt[count]; 
-	echo '</center></td></tr></table><table bgcolor="white" width="97%">' . "\n";
+	echo '</center></td></tr></table><table border="1" bgcolor="white" width="97%">' . "\n";
 
 //  mysql_query("SET NAMES 'utf8'"); 
 // $rsUser = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `caches`.`status`=1 AND `caches`.`type`!=4 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20'); 
@@ -44,8 +44,7 @@ echo '
 		&nbsp;&nbsp;<b>'.tr('username').'</b>&nbsp;&nbsp;
 	</td>
 </tr>
-<tr><td height="2">
-';
+<tr><td height="2">';
 $l2="";
 $licznik=0;
 
@@ -85,6 +84,6 @@ else {
 //</tr>";
 
 
-//	echo '</table>' . "\n";
+	echo '</td></tr></table>' . "\n";
 
 ?>
