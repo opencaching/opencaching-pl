@@ -525,6 +525,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 			map.addOverlay(tlo);
 			GEvent.addListener(map, "moveend", function() 
 			{
+				localSearch.setCenterPoint(map.getCenter());
 			});
 			
 			GEvent.addListener(map, "zoomend", function() 
