@@ -234,6 +234,7 @@ ShowCoordsControl.prototype.initialize = function(map) {
   icon.src = "tpl/stdstyle/images/blue/compas.png";
   icon.alt = "";
   icon.style.height = "20px";
+  icon.style.width = "20px";
 
   this.type = 1;
 
@@ -330,6 +331,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 	var old_temp_unavail_value=null;
 	var old_arch_value=null;
 	var prevMapType = {map_type};
+	var lastCoords = null; // hack for IE8, mouse click events have wrong coordinates but strangely enough mousemove is ok :)
 
 	function statusToImageName(status)
 	{
@@ -486,7 +488,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 			map.addControl(new MySearchControl());
             var showCoords = new ShowCoordsControl();
             map.addControl(showCoords);
-            GEvent.addListener(map, "mousemove", function(latlng) {showCoords.setCoords(latlng);} );
+            GEvent.addListener(map, "mousemove", function(latlng) {lastCoords = latlng; showCoords.setCoords(latlng);} );
 
 			map.enableScrollWheelZoom();
 
@@ -544,6 +546,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 
 			var onClickFunc = function(overlay,point) 
 			{
+				point = lastCoords; // hack for IE8, get coords from last mousemove event instead of the click
 				if( point==undefined )
 					return;
 				
@@ -674,8 +677,12 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
             var newZoom = map.getBoundsZoomLevel(area);
             map.setCenter(area.getCenter(), newZoom);
         }
-		GEvent.addListener(map, "tilesloaded", function() {
-               document.getElementById("hmtctl").onclick = saveMapType;
+
+         GEvent.addListener(map, "tilesloaded", function() {
+               var mapSelector = document.getElementById("hmtctl");
+                if(mapSelector) {
+                    mapSelector.onclick = saveMapType;
+                }
         });
 	}
 // -->

@@ -46,6 +46,7 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 	var tlo=null;
 	var old_temp_unavail_value=null;
 	var old_arch_value=null;
+	var lastCoords = null;
 
 	function statusToImageName(status)
 	{
@@ -164,6 +165,8 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 			map.addControl(new GHierarchicalMapTypeControl(true));
 			map.addControl(new GOverviewMapControl());			
 
+			GEvent.addListener(map, "mousemove", function(latlng) {lastCoords = latlng; } );
+
 			map.setMapType({map_type});
 			map.addOverlay(tlo);
 			GEvent.addListener(map, "moveend", function() 
@@ -186,6 +189,7 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 
 			var onClickFunc = function(overlay,point) 
 			{
+				point = lastCoords; // hack for IE8, get coords from last mousemove event instead of the click
 				if( point==undefined )
 					return;
 				
