@@ -503,7 +503,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 	      searchControl.addSearcher(localSearch, options);
 
 	      // Set the Local Search center point
-	      localSearch.setCenterPoint("Poland");
+			localSearch.setCenterPoint(map.getCenter());
 
 	      // Tell the searcher to draw itself and tell it where to attach
 	      searchControl.draw(document.getElementById("search_control"));
@@ -513,6 +513,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 				return;
 			var result = searcher.results[0];
 			var p = new GLatLng(parseFloat(result.lat), parseFloat(result.lng));
+			localSearch.setCenterPoint(p);
 			map.setCenter(p, 13, map.getCurrentMapType());
 			document.getElementById("search_control").getElementsByTagName("input")[0].value = "";
 		});
