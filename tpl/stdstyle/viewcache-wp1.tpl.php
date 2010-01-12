@@ -180,6 +180,12 @@ else
 <tr>
 <td align="center" valign="middle"><img src="images/waypoints/wp_question.png" alt="" /><td align="center" valign="middle">Question to answer</td><td align="center" valign="middle">N 49° 34.597' E 021° 35.988' (WGS84)</td><td align="center" valign="middle">W tym miesjcu znajdziesz odpowiedz na zadane pytanie w skrzynce quiz</td><td align="center" valign="middle"><a class="links" href="download.php">Download GPX</a></td><td align="center" valign="middle"><img src="images/garmin.jpg" alt="" title="Send to GPS" /></td>
 </tr>
+<tr>
+<td align="center" valign="middle"><img src="images/waypoints/wp_parking.png" alt="" /><td align="center" valign="middle">Parking</td><td align="center" valign="middle">N 49° 34.597' E 021° 35.988' (WGS84)</td><td align="center" valign="middle">W tym miesjcu znajdziesz parking</td><td align="center" valign="middle"><a class="links" href="download.php">Download GPX</a></td><td align="center" valign="middle"><img src="images/garmin.jpg" alt="" title="Send to GPS" /></td>
+</tr>
+
+<tr>
+<td align="center" valign="middle"><img src="images/waypoints/wp_reference.png" alt="" /><td align="center" valign="middle">Refercence point</td><td align="center" valign="middle">N 49° 34.597' E 021° 35.988' (WGS84)</td><td align="center" valign="middle">Punkt referencyjny</td><td align="center" valign="middle"><a class="links" href="download.php">Download GPX</a></td><td align="center" valign="middle"><img src="images/garmin.jpg" alt="" title="Send to GPS" /></td>
 </table>
 				</p><br />
 			</div>
