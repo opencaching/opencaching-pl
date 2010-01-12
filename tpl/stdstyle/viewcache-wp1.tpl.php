@@ -79,7 +79,6 @@
 						<img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{size}}: <b>{cachesize}</b><br />
 						<img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{status_label}}: {status}<br />
 						{hidetime_start}<img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}}: {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{length}}: {way_length}<br />{hidetime_end}	
-<img src="tpl/stdstyle/images/free_icons/arrow_join.png" class="icon16" alt="" title="" align="middle" />&nbsp;Długość przebytej trasy: <b>121 km</b><br />	
 						<img src="tpl/stdstyle/images/free_icons/date_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_hidden_label}}: {hidden_date}<br />
 						<img src="tpl/stdstyle/images/free_icons/date_add.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_created_label}}: {date_created}<br />
 						<img src="tpl/stdstyle/images/free_icons/date_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{last_modified_label}}: {last_modified}<br />
@@ -119,6 +118,7 @@ else
 							{note_icon} {notes} {{comments}}<br />
 							{watch_icon} {watcher} {{watchers}}<br />
 							{visit_icon} {visits} {{visitors}}<br />
+<img src="tpl/stdstyle/images/free_icons/arrow_join.png" class="icon16" alt="" title="" align="middle" />&nbsp;Długość trasy: <b>121 km</b><br />
 							{vote_icon} {votes_count} x {{scored}}<br />
 							{score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
 							{list_of_rating_begin}{rating_stat}{list_of_rating_end}
