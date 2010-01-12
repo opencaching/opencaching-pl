@@ -12,7 +12,7 @@ class MakeLogo
 	function run()
 	{
 		global $dynbasepath, $rootpath;
-		$MAX_LEN = 1100;
+		$MAX_LEN = 630;
 		
 		$totalWidth = 0;
 		$counter = 0;

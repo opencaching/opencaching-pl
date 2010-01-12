@@ -308,13 +308,13 @@ session_start();
 
 	function score2ratingnum($score)
 	{
-		if($score > 2.5)
+		if($score > 2.2)
 			return 4;
-		else if($score > 2.0)
+		else if($score > 1.4)
 			return 3;
-		else if($score > 1.2)
+		else if($score > 0.1)
 			return 2;
-		else if($score > 0.5)
+		else if($score > -1.0)
 			return 1;
 		else
 			return 0;
@@ -331,13 +331,13 @@ session_start();
 		if($score == 4)
 			return 3.0;
 		else if($score == 3)
-			return 2.25;
+			return 1.7;
 		else if($score == 2)
-			return 1.4;
-		else if($score == 1)
 			return 0.7;
+		else if($score == 1)
+			return 0.5;
 		else
-			return -0.5;
+			return -2.0;
 	}
 
 	function season()
