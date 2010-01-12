@@ -183,7 +183,8 @@ else
 <tr>
 <td align="center" valign="middle"><img src="images/waypoints/wp_parking.png" alt="" /><td align="center" valign="middle">Parking</td><td align="center" valign="middle">N 49° 34.597' E 021° 35.988' (WGS84)</td><td align="center" valign="middle">W tym miesjcu znajdziesz parking</td><td align="center" valign="middle"><a class="links" href="download.php">Download GPX</a></td><td align="center" valign="middle"><img src="images/garmin.jpg" alt="" title="Send to GPS" /></td>
 </tr>
-
+<tr>
+<td align="center" valign="middle"><img src="images/waypoints/wp_stage_multi.png" alt="" /><td align="center" valign="middle">Stage of Multicache</td><td align="center" valign="middle">N 49° 34.597' E 021° 35.988' (WGS84)</td><td align="center" valign="middle">Etap multicache</td><td align="center" valign="middle"><a class="links" href="download.php">Download GPX</a></td><td align="center" valign="middle"><img src="images/garmin.jpg" alt="" title="Send to GPS" /></td>
 <tr>
 <td align="center" valign="middle"><img src="images/waypoints/wp_reference.png" alt="" /><td align="center" valign="middle">Refercence point</td><td align="center" valign="middle">N 49° 34.597' E 021° 35.988' (WGS84)</td><td align="center" valign="middle">Punkt referencyjny</td><td align="center" valign="middle"><a class="links" href="download.php">Download GPX</a></td><td align="center" valign="middle"><img src="images/garmin.jpg" alt="" title="Send to GPS" /></td>
 </table>
