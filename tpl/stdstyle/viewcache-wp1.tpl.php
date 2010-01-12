@@ -172,14 +172,14 @@ else
 				</p>
 				</div>
 				<div class="content2-container">
-				<p><br/>
-<table width="97%" border="1" style="font-size: 12px; line-height: 1.6em">
+				<p>
+<table width="97%" border="1" style="border-collapse: collapse; font-weight: bold;font-size: 12px; line-height: 1.6em">
 <tr>
-<td><img src="images/waypoints/wp_final.png" alt="" /><td>Final location</td><td>N 49° 34.297' E 021° 38.988' (WGS84)</td><a class="links" href=download.php>Download GPX</td><td><img src="images/garmin.jpg" alt="" title="Send to GPS" />
+<td align="center" valign="middle"><img src="images/waypoints/wp_final.png" alt="" /><td align="center" valign="middle">New location</td><td align="center" valign="middle">N 49° 34.297' E 021° 38.988' (WGS84)</td><td align="center" valign="middle"><a class="links" href="download.php">Download GPX</a></td><td align="center" valign="middle"><img src="images/garmin.jpg" alt="" title="Send to GPS" /></td>
 
 </tr>
 </table>
-				</p>
+				</p><br />
 			</div>
 
 <!-- End Text Container -->
