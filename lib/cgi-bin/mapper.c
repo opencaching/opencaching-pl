@@ -277,7 +277,7 @@ int main(void)
 
 	if(strcmp(microcgi_getstr(CGI_GET, "h_ignored"), "true") == 0) {
 		h_sel_ignored = strdup("cache_ignore.id as ignored,");
-		snprintf(buf, sizeof(buf), "LEFT JOIN cache_ignore ON (cache_ignore.user_id='%i' AND cache_ignore.cache_id=caches.cache_id)");
+		snprintf(buf, sizeof(buf), "LEFT JOIN cache_ignore ON (cache_ignore.user_id='%i' AND cache_ignore.cache_id=caches.cache_id)", userid);
 		h_ignored = strdup(buf);
 	}
 	else {

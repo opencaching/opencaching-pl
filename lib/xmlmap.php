@@ -160,11 +160,11 @@
 	if( $_GET['h_ignored'] == "true" )
 	{
 		$h_sel_ignored = "cache_ignore.id as ignored,";
-		$h_ignored = " LEFT JOIN cache_ignore ON (cache_ignore.user_id='$user_id' AND cache_ignore.cache_id=caches.cache_id) ";
+		$h_ignored = " LEFT JOIN cache_ignore ON (cache_ignore.user_id=".$user_id." AND cache_ignore.cache_id=caches.cache_id) ";
 	}
 	else
 	{
-		$h_sel_ignored = "";
+		$h_sel_ignored = "0 as ignored,";
 		$h_ignored = "";
 	}
 
@@ -175,7 +175,7 @@
 		
 	$sql ="SELECT $h_sel_ignored caches.cache_id, IF($own_not_attempt, 1, 0) as found, caches.name, caches.node, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, caches.founds, caches.notfounds, ASIN(SQRT(POWER(SIN(($lat - ABS(COALESCE(caches.latitude,0))) * PI() / 180 / 2),2) + COS($lat * PI()/180) * COS(ABS(COALESCE(caches.latitude,0)) * PI() / 180) * POWER(SIN(($lon - COALESCE(caches.longitude,0)) * PI() / 180 / 2),2))) as distance FROM user, caches 
 	$h_ignored
-	WHERE caches.user_id = user.user_id AND caches.status < 4
+	WHERE caches.user_id = user.user_id AND caches.status < 4 
 	".$hide_by_type.$filter_by_type_string.$score_filter."
 	HAVING distance < ".distance4zoom($zoom)." ORDER BY distance ASC LIMIT 1";	
 	
@@ -216,12 +216,12 @@
 	//	$hide_by_type .= " AND IF($own_not_attempt, 1, 0)=1 ";
 	
 	// enable searching for ignored caches
-	//if( $_GET['h_ignored'] == "true" )
-	//{
-	//	$h_sel_ignored = "cache_ignore.id as ignored,";
-	//	$h_ignored = " LEFT JOIN cache_ignore ON (cache_ignore.user_id='$user_id' AND cache_ignore.cache_id=foreign_caches.cache_id) ";
-	//}
-	//else
+/*	if( $_GET['h_ignored'] == "true" )
+	{
+		$h_sel_ignored = "cache_ignore.id as ignored,";
+		$h_ignored = " LEFT JOIN cache_ignore ON (cache_ignore.user_id='$user_id' AND cache_ignore.cache_id=foreign_caches.cache_id) ";
+	}
+	else*/
 	{
 		$h_sel_ignored = "";
 		$h_ignored = "";
@@ -232,12 +232,15 @@
 	else
 		$filter_by_type_string = "";
 	
+
 	
 	$sql_foreign ="SELECT foreign_caches.cache_id, foreign_caches.name, foreign_caches.username, foreign_caches.node, foreign_caches.wp_oc as wp, foreign_caches.topratings, foreign_caches.latitude, foreign_caches.longitude, foreign_caches.type, foreign_caches.status as status, datediff(now(), foreign_caches.date_hidden) as old, foreign_caches.founds, foreign_caches.notfounds, ASIN(SQRT(POWER(SIN(($lat - ABS(COALESCE(foreign_caches.latitude,0))) * PI() / 180 / 2),2) + COS($lat * PI()/180) * COS(ABS(COALESCE(foreign_caches.latitude,0)) * PI() / 180) * POWER(SIN(($lon - COALESCE(foreign_caches.longitude,0)) * PI() / 180 / 2),2))) as distance FROM foreign_caches 
 	WHERE foreign_caches.status < 4 ".$hide_by_type.$filter_by_type_string."
 	HAVING distance < ".distance4zoom($zoom)." ORDER BY distance ASC LIMIT 1";
 	
 	$query = mysql_query($sql);
+
+	
 	$query_foreign = mysql_query($sql_foreign);
 	//if( mysql_num_rows($query) == 0 )
 		//die();
@@ -257,7 +260,6 @@
 	else
 	if( $cache['distance'] > $cache_foreign['distance'] )
 		$cache = $cache_foreign;
-
 
 	}
 	else { // searchdata

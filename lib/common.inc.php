@@ -308,13 +308,13 @@ session_start();
 
 	function score2ratingnum($score)
 	{
-		if($score > 2.2)
+		if($score >= 2.2)
 			return 4;
-		else if($score > 1.4)
+		else if($score >= 1.4)
 			return 3;
-		else if($score > 0.1)
+		else if($score >= 0.1)
 			return 2;
-		else if($score > -1.0)
+		else if($score >= -1.0)
 			return 1;
 		else
 			return 0;
