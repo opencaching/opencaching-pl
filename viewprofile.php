@@ -135,37 +135,37 @@
 			{
 				$aver2= round(($found/$num_rows), 2);
 			}
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba znalezionych skrzynek:</span><strong> ' . $found . '</strong>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba znalezionych skrzynek:</span><strong> ' . $found . '</strong>';
 						if ($found == 0) 
 				{$content .= '</p>';}
 				else
 			{ $content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
 			
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba nie znalezionych skrzynek:</span> <strong>' . $user_record['notfounds_count'] . '</strong>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba nie znalezionych skrzynek:</span> <strong>' . $user_record['notfounds_count'] . '</strong>';
 		
 			if ($user_record['notfounds_count'] == 0) 
 				{$content .= '</p>';}
 				else		
 			{ $content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba komentarzy w logach:</span> <strong>' . $user_record['log_notes_count'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba uczestnictw w spotkaniach:</span> <strong>' . $events_count . '</strong>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba komentarzy w logach:</span> <strong>' . $user_record['log_notes_count'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba uczestnictw w spotkaniach:</span> <strong>' . $events_count . '</strong>';
 			if ($events_count == 0) 
 				{$content .= '</p>';}
 				else
 			{ $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' . $user_id . '&amp;searchbyfinder=&amp;logtype=7&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
 
 			$recomendf =  sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba przyznanych rekomendacji:</span> <strong>' . $recomendf . '</strong>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba przyznanych rekomendacji:</span> <strong>' . $recomendf . '</strong>';
 		
 			if ($recomendf == 0) 
 				{$content .= '</p>';}
 				else					
 			{$content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="usertops.php?userid=' . $user_id . '">'.tr('show').'</a>]</p>';}
 
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Ostatnia znaleziona skrzynka:</span>&nbsp;&nbsp;';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Ostatnia znaleziona skrzynka:</span>&nbsp;&nbsp;';
 			if (mysql_num_rows($rsfc2) != 0 ) {
 			$content .='<strong><a class="links" href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';
 			} else { $content .= '</p>';}
@@ -227,7 +227,7 @@
 
 			if (mysql_num_rows($rs_logs) != 0) {
 			
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy do logów wprowadzone przez użytkownika:</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="my_logs.php?userid='.$user_id.'">'.tr('show_all').'</a>]</p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">Najnowsze wpisy do logów wprowadzone przez użytkownika:</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="my_logs.php?userid='.$user_id.'">'.tr('show_all').'</a>]</p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 					{
@@ -301,7 +301,7 @@
 			$num_rows = mysql_num_rows($rsncd); 
 			$aver1= round(($user_record['hidden_count']/$ddays['diff']), 2);
 			$aver2= round(($user_record['hidden_count']/$num_rows), 2);			
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba wszystkich założonych skrzynek:  </span><strong>' . $hidden_all . '</strong>  w tym aktywnych <strong>' . $hidden . '</strong>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba wszystkich założonych skrzynek:  </span><strong>' . $hidden_all . '</strong>  w tym aktywnych <strong>' . $hidden . '</strong>';
 			if ($user_record['hidden_count'] == 0) 
 				{$content .= '</p>';}
 				else						
@@ -328,10 +328,10 @@
 		
 			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">'.tr('show').'</a>]</p>';}
 			
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08" >Najnowsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';	
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Najnowsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';	
 			$content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b> Milestones "kamienie milowe"</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 
 			$rms = mysql_fetch_array($rsms);
@@ -388,13 +388,12 @@
 
 			if (mysql_num_rows($rs_logs) != 0)
 			{
-				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08" >Najnowsze wpisy w logach w skrzynkach użytkownika:</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="mycaches_logs.php?userid='.$user_id.'">'.tr('show_all').'</a>] </p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">';
+				$content .= '<p>&nbsp;</p><p><span class="content-title-noshade txt-blue08">Najnowsze wpisy w logach w skrzynkach użytkownika:</span>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="mycaches_logs.php?userid='.$user_id.'">'.tr('show_all').'</a>] </p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.6em; font-size: 12px;">';
 				for ($i = 0; $i < mysql_num_rows($rs_logs); $i++)
 				{
 				$record_logs = sql_fetch_array($rs_logs);
 				
 				$tmp_log = $cache_line_my_caches;
-//				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$record_logs['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2 AND stateid !=5",0);
 
 				if ( $record_logs['geokret_in'] !='0')
 					{
@@ -454,7 +453,7 @@
 			if (mysql_num_rows($rs_caches1) != 0)
 			{
 	
-				$content .= '<p><span class="content-title-noshade txt-blue08" >Moje nieopublikowane jeszcze skrzynki:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				$content .= '<p><span class="content-title-noshade txt-blue08">Moje nieopublikowane jeszcze skrzynki:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 				for ($i = 0; $i < mysql_num_rows($rs_caches1); $i++)
 				{
 					$record_caches = sql_fetch_array($rs_caches1);
@@ -496,7 +495,7 @@
 						
 			if (mysql_num_rows($rs_caches2) != 0)
 			{
-				$content .= '<br /><p><span class="content-title-noshade txt-blue08" >Moje skrzynki oczekujące na weryfikacje przez OC Team:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				$content .= '<br /><p><span class="content-title-noshade txt-blue08">Moje skrzynki oczekujące na weryfikacje przez OC Team:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 
 				for ($i = 0; $i < mysql_num_rows($rs_caches2); $i++)
 				{
@@ -535,7 +534,7 @@
 						
 			if (mysql_num_rows($rs_caches3) != 0)
 			{
-				$content .= '<br /><p><span class="content-title-noshade txt-blue08" >Moje skrzynki zablokowane przez OC Team:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
+				$content .= '<br /><p><span class="content-title-noshade txt-blue08">Moje skrzynki zablokowane przez OC Team:</span></p><br /><div><ul style="margin: -0.9em 0px 0.9em 0px; padding: 0px 0px 0px 10px; list-style-type: none; line-height: 1.2em; font-size: 115%;">';
 
 				for ($i = 0; $i < mysql_num_rows($rs_caches3); $i++)
 				{
@@ -557,7 +556,7 @@
 		
 		// if user have blocked create new cache, display this info for owner of profile	
 			if ($user_record['hide_flag'] == 10 )
-			{		$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-red08" ><strong>UWAGA! Masz zablokowaną możliwość zakładania nowych skrzynek. Proszę kontaktować się z OC Team rr@opencaching.pl</strong></span></p><br />';}
+			{		$content .= '<p>&nbsp</p><p><span class="content-title-noshade txt-red08"><strong>UWAGA! Masz zablokowaną możliwość zakładania nowych skrzynek. Proszę kontaktować się z OC Team rr@opencaching.pl</strong></span></p><br />';}
 		
 		if ($rscheck != 0){	$content .='</div>';}
 		}	
