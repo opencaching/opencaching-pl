@@ -28,6 +28,9 @@
 	<meta http-equiv="Content-Language" content="{lang}" />
 	<meta http-equiv="gallerimg" content="no" />
 	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="Cache-Control" content="post-check=0, pre-check=0" />
+	<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+	<meta http-equiv="Expires" content="0" />
   <meta name="KEYWORDS" content="geocaching, opencaching, skarby, poszukiwania,geocashing, longitude, latitude, utm, coordinates, treasure hunting, treasure, GPS, global positioning system, garmin, magellan, mapping, geo, hiking, outdoors, sport, hunt, stash, cache, geocaching, geocache, cache, treasure, hunting, satellite, navigation, tracking, bugs, travel bugs" />
 	<meta http-equiv="cache-control" content="no-cache" />
   <meta name="author" content="Opencaching.pl " />
