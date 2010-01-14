@@ -69,13 +69,16 @@
 			$rr = sql_fetch_array($rss);
 			$thisline = $tpl_line;
 
-	$rs_log = sql("SELECT cache_logs.cache_id AS cache_id,
+	$rs_log = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
-				log_types.icon_small AS icon_small
-			FROM cache_logs INNER JOIN log_types ON (cache_logs.type = log_types.id)
+				log_types.icon_small AS icon_small, COUNT(gk_item.id) AS geokret_in
+			FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN log_types ON (cache_logs.type = log_types.id)
+							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
+							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5				
 			WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1
-	                   ORDER BY cache_logs.date_created DESC LIMIT 1",$r['cacheid']);
+			 GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1",$r['cacheid']);
 
 			if (mysql_num_rows($rs_log) != 0)
 			{
@@ -87,9 +90,7 @@
 
 			mysql_free_result($rs_log);
 			
-				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$r['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2 AND stateid !=5",0);
-
-				if ( $geokret_sql !=0)
+			if ( $r_log['geokret_in'] !='0')
 					{
 			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
 					}

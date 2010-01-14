@@ -103,24 +103,21 @@
 			$content .= $cache_country;
 			foreach ($country_record AS $cache_record)
 			{
-				$geokret_sql = sqlValue("SELECT count(*) FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".$cache_record['wp_name']."') AND stateid<>1 AND stateid<>4 AND typeid<>2 AND stateid !=5",0);
 			$thisline = $tpl_line;
-				if ( $geokret_sql !=0)
-					{
-			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
-					}
-					else
-					{
-			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline);
-					}				
+			
 
-	$rs_log = sql("SELECT cache_logs.cache_id AS cache_id,
+	$rs_log = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
-				log_types.icon_small AS icon_small
-			FROM cache_logs INNER JOIN log_types ON (cache_logs.type = log_types.id)
+				log_types.icon_small AS icon_small, COUNT(gk_item.id) AS geokret_in
+			FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN log_types ON (cache_logs.type = log_types.id)
+							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
+							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5				
 			WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1
-	                   ORDER BY cache_logs.date_created DESC LIMIT 1",$cache_record['cache_id']);
+	                   GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1",$cache_record['cache_id']);
+					   
+					   
 
 			if (mysql_num_rows($rs_log) != 0)
 			{
@@ -128,6 +125,14 @@
 			$thisline = mb_ereg_replace('{logimage}','<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt="" />',$thisline);
 			} else {
 			$thisline = mb_ereg_replace('{logimage}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline); }
+			if ( $r_log['geokret_in'] !='0')
+					{
+			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
+					}
+					else
+					{
+			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline);
+					}	
 			mysql_free_result($rs_log);
 			$thisline = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $thisline);
 			$thisline = mb_ereg_replace('{userid}', $cache_record['userid'], $thisline);
