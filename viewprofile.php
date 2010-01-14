@@ -435,7 +435,7 @@
 		{
 		$rscheck =sqlValue("SELECT count(*) FROM caches WHERE (status = 4 OR status = 5 OR status = 6) AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
 		
-		if ($rscheck != 0) {$content .= '<div class="content-title-noshade box-blue">';}
+		if ($rscheck != 0) {$content .= '<p>&nbsp;</p><div class="content-title-noshade box-blue">';}
 		
 		if(checkField('cache_status',$lang) )
 				$lang_db = $lang;
