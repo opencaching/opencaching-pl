@@ -43,21 +43,21 @@
 					'filename' => 'viewprofile.php?userid='.$user_id,
 					'submenu' => array(
 						array(
-							'title' => tr('graph_created'),
-							'menustring' => tr('graph_created'),
-							'visible' => true,
-							'filename' => 'ustatsg1.php?userid='.$user_id,
-							'newwindow' => false,
-							'siteid' => 'createstat',
-							'icon' => 'images/actions/stat'
-						),
-						array(
 							'title' => tr('graph_find'),
 							'menustring' => tr('graph_find'),
 							'visible' => true,
 							'filename' => 'ustatsg2.php?userid='.$user_id,
 							'newwindow' => false,
 							'siteid' => 'findstat',
+							'icon' => 'images/actions/stat'
+						),
+						array(
+							'title' => tr('graph_created'),
+							'menustring' => tr('graph_created'),
+							'visible' => true,
+							'filename' => 'ustatsg1.php?userid='.$user_id,
+							'newwindow' => false,
+							'siteid' => 'createstat',
 							'icon' => 'images/actions/stat'
 						)
 					)
