@@ -88,7 +88,7 @@ function event_notify_new_cache($cache_id)
 
 	$distanceMultiplier = 1;
 
-	// TODO: `user`.`latitude` vorselektieren wie bei der suche mit max_lon / min_lon / max_lat / min_lat
+	// TODO: Seeking pre-select `user`. `latitude` like with max_lon / min_lon / max_lat / min_lat
 	sql('INSERT INTO `notify_waiting` (`id`, `cache_id`, `user_id`, `type`)
 		SELECT NULL, &4, `user`.`user_id`, &5
 		FROM `user`
