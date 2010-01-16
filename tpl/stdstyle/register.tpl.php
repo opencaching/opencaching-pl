@@ -41,41 +41,39 @@
 <form name="register" action="register.php" method="post" enctype="application/x-www-form-urlencoded" style="display: inline;" id="register">
 <input type="hidden" name="allcountries" value="{show_all_countries}" />
 
-	<div>
-			<img src="tpl/stdstyle/images/misc/hint.gif" alt="{{warning}}" title="{{warning}"/>
+	<div class="notice">
 			{{register_msg1}}
 	</div>
 	<div>
-		<label for="username">{{username_label}}</label>
+		<img src="tpl/stdstyle/images/free_icons/user_add.png" class="icon16" alt="" title="" align="middle" />&nbsp;<label for="username">{{username_label}}</label>
 		<input type="text" name="username" id="username" maxlength="60" value="{username}" class="input200" />* {username_message}
 	</div>
 	<div>
-		<label for="country">{{country_label}}</label>
+		<img src="tpl/stdstyle/images/free_icons/world_add.png" class="icon16" alt="" title="" align="middle" />&nbsp;<label for="country">{{country_label}}</label>
 
 			<select name="country" id="country" class="input200" >
 				{countries_list}
 			</select>&nbsp;{all_countries_submit}
 	</div>
 	<div>
-		<label for="email">{{email_address}}:</label>
+		<img src="tpl/stdstyle/images/free_icons/email_add.png" class="icon16" alt="" title="" align="middle" />&nbsp;<label for="email">{{email_address}}:</label>
 		<input type="text" name="email" maxlength="80" id="email" value="{email}" class="input200" />*&nbsp;{email_message}
 	</div>
-	<div><label for="password1">{{password}}:</label>
+	<div><img src="tpl/stdstyle/images/free_icons/key_add.png" class="icon16" alt="" title="" align="middle" />&nbsp;<label for="password1">{{password}}:</label>
 		<input type="password" name="password1" maxlength="80" id="password1" value="" class="input200" />*&nbsp;{password_message}
 	</div>
-	<div><label for="password2">{{password_confirm}}</label>
+	<div><img src="tpl/stdstyle/images/free_icons/key_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<label for="password2">{{password_confirm}}</label>
 		<input type="password" name="password2" maxlength="80" id="password2" value="" class="input200" />*
 	</div>
 	<div>
 			{{register_msg2}}
 	</div>
-	<div>
-			<img src="tpl/stdstyle/images/misc/hint.gif" alt="{{warning}" title="{{warning}}"/>
+	<div class="notice">
 			{{register_msg3}}
 	</div>
 
 	<div>
-		    <input type="checkbox" name="TOS" value="ON" style="border:0;" />{{register_msg4}}
+		    <img src="tpl/stdstyle/images/free_icons/script.png" class="icon16" alt="" title="" align="middle" />&nbsp;<input type="checkbox" name="TOS" value="ON" style="border:0;" />{{register_msg4}}
 			{tos_message}
 	</div>
 

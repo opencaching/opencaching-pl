@@ -37,32 +37,32 @@
 	</colgroup>
 	<tr>
 		<td class="content2-pagetitle" colspan="2">
-			<img src="tpl/stdstyle/images/blue/profile.png" border="0" align="middle" width="32" height="32" alt="" title="Twoje konto" align="middle" /><font size="4"> <b>{{register_msg5}}</b></font>
+			<img src="tpl/stdstyle/images/blue/profile.png" border="0" align="middle" width="32" height="32" alt="" title="" align="middle" /><font size="4"> <b>{{register_msg5}}</b></font>
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>
 		<td colspan="2" class="help">
-			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" align="middle" />
+	<div class="notice">
 			{{register_msg6}}
-			</b> 
+		</div>
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>
-		<td>{{user}}:</td>
+		<td><img src="tpl/stdstyle/images/free_icons/user.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{user}}:</td>
 		<td>{username}</td>
 	</tr>
 
 	<tr>
-		<td>{{email_address}}:</td>
+		<td><img src="tpl/stdstyle/images/free_icons/email.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{email_address}}:</td>
 		<td><b>{email}</b></td>
 	</tr>
 
 	<tr>
-		<td>{{country_label}}:</td>
+		<td><img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{country_label}}:</td>
 		<td>{country}</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>

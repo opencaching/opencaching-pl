@@ -43,46 +43,46 @@
 <div class="buffer"></div>
 <table class="table">
 	<tr>
-		<td class="content-title-noshade">{{username_label}}:</td>
+		<td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/user.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{username_label}}:</td>
 		<td>{username}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{{email_address}}:</td>
+		<td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/email.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{email_address}}:</td>
 		<td class="txt-grey07">{email}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{{country_label}}:</td>
+		<td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{country_label}}:</td>
 		<td>{country}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade" valign="top">{{coordinates}}:</td>
+		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{coordinates}}:</td>
 		<td class="txt-grey07">{coords}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade" valign="top">{{notification}}:</td>
+		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/email_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{notification}}:</td>
 		<td class="txt-grey07">{notify}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade" valign="top">{{bulletin}}:</td>
+		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/page_copy.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{bulletin}}:</td>
 		<td class="txt-grey07" valign="middle">{bulletin_label}</td>
 	</tr>
 	<tr>
-		<td class="content-title-noshade" valign="top">{{my_description}}:</td>
+		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/script.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{my_description}}:</td>
 		<td class="txt-grey07">{description}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade" valign="top">{{other}}:</td>
+		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/brick.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{other}}:</td>
 		<td class="txt-grey07" valign="top">{user_options}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade" valign="top">{{ozi_path_label}}:</td>
+		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/plugin.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{ozi_path_label}}:</td>
 		<td class="txt-grey07" valign="top">{ozi_path}</td>
 	</tr>
 	<tr>
@@ -92,22 +92,22 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{{registered_since_label}}:</td>
+		<td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/calendar.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{registered_since_label}}:</td>
 		<td>{registered_since}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade" style="vertical-align:top;">{{statpic_label}}:</td>
+		<td class="content-title-noshade" style="vertical-align:top;"><img src="tpl/stdstyle/images/free_icons/chart_bar.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{statpic_label}}:</td>
 		<td><img src="statpics/{userid}.jpg" align="middle" alt="" /></td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade" style="vertical-align:top;">{{html_statpic_link}}:</td>
+		<td class="content-title-noshade" style="vertical-align:top;"><img src="tpl/stdstyle/images/free_icons/html.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{html_statpic_link}}:</td>
 		<td class="txt-grey07">&lt;img src="{statlink}" alt="Opencaching PL - Statystyka dla {username_html}" title="Opencaching PL - Statystyka dla {username_html}" /></td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade" style="vertical-align:top;">{{bbcode_statpic}}:</td>
+		<td class="content-title-noshade" style="vertical-align:top;"><img src="tpl/stdstyle/images/free_icons/html.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{bbcode_statpic}}:</td>
 		<td class="txt-grey07">[url={profileurl}][img]{statlink}[/img][/url]</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>

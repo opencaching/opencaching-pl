@@ -63,7 +63,7 @@
 		<col>
 	</colgroup>
 	<tr>
-		<td class="content-title-noshade">{{username_label}}:</td>
+		<td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/user.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{username_label}}:</td>
 		<td class="txt-grey07">
       <?
       if ($usr['admin']) {
@@ -82,12 +82,12 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07">{{email_address}}:</font></td>
+		<td class="content-title-noshade txt-grey07"><img src="tpl/stdstyle/images/free_icons/email.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{email_address}}:</font></td>
 		<td class="txt-grey07">{email}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{{country_label}}:</td>
+		<td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{country_label}}:</td>
 		<td>
 			<select name="country" class="input200">
 				{countrylist}
@@ -97,7 +97,7 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07" valign="top">{{coordinates}}:</td>
+		<td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{coordinates}}:</td>
 		<td class="txt-grey07" valign="top">
 			<select name="latNS" class="input40">
 				<option value="N"{latNsel}>N</option>
@@ -118,7 +118,7 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07" valign="top">{{notification}}:</td>
+		<td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/email_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{notification}}:</td>
 		<td class="txt-grey07" valign="top">
 			{{notify_new_caches_radius}}&nbsp;
 			<input type="text" name="notify_radius" maxlength="3" value="{notify_radius}" class="input30" />
@@ -129,7 +129,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07" valign="top">{{bulletin}}:</td>
+		<td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/page_copy.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{bulletin}}:</td>
 		<td class="txt-grey07" valign="middle">
 			<input type="checkbox" name="bulletin" id="bulletin" value="1" {is_checked} class="checkbox" />
 			<label for="bulletin">{{get_bulletin}}</label>&nbsp;
@@ -138,14 +138,14 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade" valign="top">{{my_description}}:</td>
+		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/script.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{my_description}}:</td>
 		<td valign="top">
 			<textarea name="description" cols="50" rows="5">{description}</textarea>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07" valign="top">{{other}}:</td>
+		<td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/brick.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{other}}:</td>
 		<td class="txt-grey07" valign="top">
 			<input type="checkbox" name="using_permanent_login" value="1"{permanent_login_sel} id="l_using_permanent_login" class="checkbox" />
 			<label for="l_using_permanent_login">{{no_auto_logout}}</label><br/>
@@ -161,14 +161,14 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade txt-grey07" valign="top">{{ozi_path_label}}:</td>
+		<td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/plugin.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{ozi_path_label}}:</td>
 		<td class="txt-grey07" valign="top"><input type="text" size="46" name="ozi_path" value="{ozi_path}"><br/>
 		<div class="notice" style="width:500px;height:44px;">{{ozi_path_info}}</div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{{registered_since_label}}:</td>
+		<td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/calendar.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{registered_since_label}}:</td>
 		<td>{registered_since}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
