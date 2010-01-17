@@ -44,9 +44,9 @@
 	define('WS_ERR_LOGIN_BADUSERPW_STR', 'Username or password does not match');
 
 	$opt['rootpath'] = '../../';
-	require_once($opt['rootpath'] . 'lib2/nusoap.inc.php');
+	require_once($opt['rootpath'] . 'lib/nusoap.inc.php');
 
-	initSoapRequest('OCAPI10_SESSION', 'http://www.opencaching.de/xml/ocapi10/session');
+	initSoapRequest('OCAPI10_SESSION', 'http://www.opencaching.pl/xml/ocapi10/session');
 
 	$nuserver->register('Login', array('user' => 'xsd:string', 
 	                                   'pwmd5' => 'xsd:string'), 
