@@ -8,7 +8,8 @@
 	*   
 	*  UTF-8 ąść
 	***************************************************************************/
-?>
+global $user_id;
+	?>
 <!-- 	CONTENT -->
 <div class="content2-container">
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{user_profile}}: {username} </div>
@@ -51,3 +52,4 @@
 
 {content}
 </div>
+<?php 	if ( $user_id == $usr['userid']){ echo '<br /><br/><p style="font-size: 12px;">[<a class="links" href="myhome.php">Stara strona użytkownika</a>]</p><br/><br/>';} ?>
