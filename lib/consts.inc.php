@@ -1,14 +1,5 @@
 <?php
 /***************************************************************************
- 		 ./lib/consts.inc.php
- 		-------------------
-		begin                : Thu December 29 2005
-		copyright            : (C) 2005 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
 	*   it under the terms of the GNU General Public License as published by
@@ -24,6 +15,11 @@
 	named consts
 
  ****************************************************************************/
+
+ 
+ 	define('GUI_HTML', 0);
+	define('GUI_TEXT', 1);
+	define('GUI_NUSOAP', 2);
 
 	// for cachelists
 	define('cachelist_type_ignore', 1);
