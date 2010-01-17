@@ -233,6 +233,15 @@ $menu = array(
 		'newwindow' => 'true'
 	),
 	array(
+		'title' => Download,
+		'menustring' => Download,
+		'siteid' => 'Download',
+		'visible' => true,
+		'filename' => 'http://wiki.opencaching.pl/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL',
+		'newwindow' => 'true'
+	),
+
+	array(
 		'title' => tr('geoblog'),
 		'menustring' => tr('geoblog'),
 		'siteid' => 'GeoBlog',
