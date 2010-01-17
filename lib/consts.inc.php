@@ -16,10 +16,6 @@
 
  ****************************************************************************/
 
- 
- 	define('GUI_HTML', 0);
-	define('GUI_TEXT', 1);
-	define('GUI_NUSOAP', 2);
 
 	// for cachelists
 	define('cachelist_type_ignore', 1);

@@ -34,19 +34,26 @@
  *
  ******************************************************************************************/
 
+	// Empty user or password supplied
 	define('WS_ERR_LOGIN_EMPTY_USERPASSWORD_ID', 1000); 
-	define('WS_ERR_LOGIN_EMPTY_USERPASSWORD_STR', 'Empty user or password supplied');
+	define('WS_ERR_LOGIN_EMPTY_USERPASSWORD_STR', 'WS_ERR_LOGIN_EMPTY_USERPASSWORD');
+
+	// Too much logins in last hour
 	define('WS_ERR_LOGIN_TOOMUCHLOGINS_ID', 1001);
-	define('WS_ERR_LOGIN_TOOMUCHLOGINS_STR', 'Too much logins in last hour');
+	define('WS_ERR_LOGIN_TOOMUCHLOGINS_STR', 'WS_ERR_LOGIN_TOOMUCHLOGINS');
+
+	// The user has been deactivated
 	define('WS_ERR_LOGIN_USERNOTACTIVE_ID', 1002);
-	define('WS_ERR_LOGIN_USERNOTACTIVE_STR', 'The user has been deactivated');
+	define('WS_ERR_LOGIN_USERNOTACTIVE_STR', 'WS_ERR_LOGIN_USERNOTACTIVE');
+
+	// Username or password does not match
 	define('WS_ERR_LOGIN_BADUSERPW_ID', 1003);
-	define('WS_ERR_LOGIN_BADUSERPW_STR', 'Username or password does not match');
+	define('WS_ERR_LOGIN_BADUSERPW_STR', 'WS_ERR_LOGIN_BADUSERPW');
 
 	$opt['rootpath'] = '../../';
-	require_once($opt['rootpath'] . 'lib/nusoap.inc.php');
+	require_once($opt['rootpath'] . 'lib2/nusoap.inc.php');
 
-	initSoapRequest('OCAPI10_SESSION', 'http://www.opencaching.pl/xml/ocapi10/session');
+	initSoapRequest('OCAPI10_Session', 'http://www.opencaching.pl/xml/ocapi10');
 
 	$nuserver->register('Login', array('user' => 'xsd:string', 
 	                                   'pwmd5' => 'xsd:string'), 
@@ -67,6 +74,7 @@
 function Login($user, $pwMd5)
 {
 	global $login;
+	if ($err = initSoapFunction()) return $err;
 
 	$nRet = $login->try_login_md5($user, $pwMd5, false);
 	switch ($nRet)
@@ -105,6 +113,8 @@ function Login($user, $pwMd5)
 function IsValidSession($sessionid)
 {
 	global $login;
+	if ($err = initSoapFunction()) return $err;
+
 	return $login->restoreSession($sessionid);
 }
 
@@ -117,7 +127,8 @@ function IsValidSession($sessionid)
 function Logout($sessionid)
 {
 	global $login;
-	
+	if ($err = initSoapFunction()) return $err;
+
 	if ($login->restoreSession($sessionid))
 		$login->logout();
 }
