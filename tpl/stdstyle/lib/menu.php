@@ -443,7 +443,7 @@ $menu = array(
 				'title' => tr('general'),
 				'menustring' => tr('general'),
 				'visible' => true,
-				'filename' => 'filename' => 'viewprofile.php?userid='.$usr['userid'].'',
+				'filename' => 'viewprofile.php?userid='.$usr['userid'].'',
 				'siteid' => 'myhome'
 			),
 			array(
