@@ -67,6 +67,7 @@ $gpxLine = '
 		<desc>{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
 		<url>http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</url>
 		<urlname>{cachename} by {owner}, {type_text}</urlname>
+		<link href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}"/>
 		<sym>Geocache</sym>
 		<type>Geocache</type>
 		<groundspeak:cache id="{cacheid}" available="{available}" archived="{{archived}}" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0">
