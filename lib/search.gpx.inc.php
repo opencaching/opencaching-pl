@@ -68,7 +68,6 @@
 	<src>www.opencaching.pl</src>
 	<url>http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</url>
 	<urlname>{cachename}</urlname>
-	<link href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}"/>
 	<sym>Geocache</sym>
 	<type>Geocache|{geocache_type}</type>
 	<geocache status="{status}" xmlns="http://geocaching.com.au/geocache/1">
