@@ -11,7 +11,7 @@
  *
  *  CAUTION:
  *
- *   If an hacker can sniff traffic from and to the Opencaching.de Server it is
+ *   If an hacker can sniff traffic from and to the Opencaching.pl Server it is
  *   possible to make an offline brute force attack on the users password.
  *
  *   The entire security relies on the users password strength!
@@ -50,8 +50,9 @@
 	define('WS_ERR_LOGIN_BADUSERPW_ID', 1003);
 	define('WS_ERR_LOGIN_BADUSERPW_STR', 'WS_ERR_LOGIN_BADUSERPW');
 
-	$opt['rootpath'] = '../../';
-	require_once($opt['rootpath'] . 'lib2/nusoap.inc.php');
+//	$opt['rootpath'] = '';
+//	require_once($opt['rootpath'] . 'lib2/nusoap.inc.php');
+	require('../../lib2/nusoap.inc.php');
 
 	initSoapRequest('OCAPI10_Session', 'http://www.opencaching.pl/xml/ocapi10');
 
