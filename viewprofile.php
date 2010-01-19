@@ -312,7 +312,7 @@
 			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba czasowo niedostępnych skrzynek:  </span><strong>' . $hidden_temp . '</strong></p>';
 
 			$hidden_arch =  sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=3 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
-			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba zarchiwizowanych skrzynek:</span><strong>' . $hidden_arch . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba zarchiwizowanych skrzynek: </span><strong>' . $hidden_arch . '</strong></p>';
 		
 			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba zorganizowanych spotkań (events):  </span><strong>' . $hidden_event . '</strong>';
 			if ($hidden_event == 0) 
