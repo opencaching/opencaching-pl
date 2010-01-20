@@ -83,14 +83,13 @@
 			if (mysql_num_rows($rs_log) != 0)
 			{
 			$r_log = sql_fetch_array($rs_log);
-
+			
+			
 			$thisline = mb_ereg_replace('{log_image}','<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt="" />',$thisline);
 			} else {
 			$thisline = mb_ereg_replace('{log_image}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline); }
-
-			mysql_free_result($rs_log);
 			
-			if ( $r_log['geokret_in'] !='0')
+			if ( $r_log['geokret_in'] !=0)
 					{
 			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
 					}
@@ -106,10 +105,9 @@
 			$thisline = mb_ereg_replace('{date}', date('d-m-Y', strtotime($r['date'])), $thisline);
 			$thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($r['icon_large']), $thisline);
-			$thisline = mb_ereg_replace('{country_name}', htmlspecialchars($rr['country_name'], ENT_COMPAT, 'UTF-8'), $thisline);
-			
-
+			$thisline = mb_ereg_replace('{country_name}', htmlspecialchars($rr['country_name'], ENT_COMPAT, 'UTF-8'), $thisline);		
 			$content .= $thisline . "\n";
+			mysql_free_result($rs_log);
 		}
 		mysql_free_result($rs);
 		tpl_set_var('newcaches', $content);

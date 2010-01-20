@@ -122,6 +122,9 @@
 			if (mysql_num_rows($rs_log) != 0)
 			{
 			$r_log = sql_fetch_array($rs_log);
+			
+			
+			
 			$thisline = mb_ereg_replace('{logimage}','<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt="" />',$thisline);
 			} else {
 			$thisline = mb_ereg_replace('{logimage}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline); }
