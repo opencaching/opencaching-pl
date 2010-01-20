@@ -36,8 +36,10 @@
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC LIMIT ' . $perpage);
 	
-	while ($r = sql_fetch_array($rs))
+	//while ($r = sql_fetch_array($rs))
+		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
+			$r = sql_fetch_array($rs);
 			$thisline = "<item>\n<title>{cachename} - Użytkownik: {username} - Wpis: {logtype}</title>\n<description>Użytkownik: {username} - Wpis: {logtype} - Data: {date} </description>\n<link>http://www.opencaching.pl/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";
 			
 			$thisline = str_replace('{cacheid}', $r['cache_id'], $thisline);
