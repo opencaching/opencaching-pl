@@ -7,9 +7,9 @@
 
 </table>
 <br />
-<h1><a class="links" href="http://www.opencaching.pl/rss/newcaches.xml">Najnowsze skrzynki </a></h1>
-<h1><a class="links" href="http://www.opencaching.pl/rss/newlogs.xml">Najnowsze logi </a> </h1>
-<h1><a class="links" href="http://www.opencaching.pl/rss/newnews.xml">Najnowsze wiadomości </a></h1>
+<h1><img src="tpl/stdstyle/images/free_icons/feed.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="http://www.opencaching.pl/rss/newcaches.xml">Najnowsze skrzynki </a></h1>
+<h1><img src="tpl/stdstyle/images/free_icons/feed.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="http://www.opencaching.pl/rss/newlogs.xml">Najnowsze logi </a> </h1>
+<h1><img src="tpl/stdstyle/images/free_icons/feed.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="http://www.opencaching.pl/rss/newnews.xml">Najnowsze wiadomości </a></h1>
 <br />
 
 
