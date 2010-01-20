@@ -261,7 +261,7 @@ $menu = array(
 		'menustring' => 'RSS',
 		'siteid' => 'RSS feed',
 		'visible' => true,
-		'filename' => 'http://www.opencaching.pl/rss/newcaches.xml'
+		'filename' => 'articles.php?page=rss'
 	),
 	array(
 		'title' => tr('contact'),
