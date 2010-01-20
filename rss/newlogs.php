@@ -19,20 +19,34 @@
 		//get the news
 		$perpage = 20;
 		
-		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE rss PUBLIC \"-//Netscape Communications//DTD RSS 0.91//EN\" \"http://my.netscape.com/publish/formats/rss-0.91.dtd\">\n<rss version=\"2.0\">\n<channel>\n<title>Opencaching.pl - Njanowsze logi</title>\n<description>Najnowsze logi na OpenCaching.PL </description>\n<link>http://www.opencaching.pl/newlogs.php</link>\n\n";
+		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE rss PUBLIC \"-//Netscape Communications//DTD RSS 0.91//EN\" \"http://my.netscape.com/publish/formats/rss-0.91.dtd\">\n<rss version=\"2.0\">\n<channel>\n<title>Opencaching.pl - Najnowsze logi</title>\n<description>Najnowsze logi na OpenCaching.PL </description>\n<link>http://www.opencaching.pl/newlogs.php</link>\n\n";
 		
-		$rs = sql('SELECT `caches`.`cache_id` `cacheid`, `user`.`user_id` `userid`, `caches`.`country` `country`, `caches`.`name` `cachename`, `user`.`username` `username`, `caches`.`date_created` `date_created`, `cache_type`.`icon_large` `icon_large` FROM `caches`, `user`, `cache_type` WHERE `caches`.`status`=1 AND `caches`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` ORDER BY `caches`.`date_created` DESC LIMIT ' . $perpage);
+		$rs = sql('SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+	                          cache_logs.type AS log_type,
+	                          cache_logs.date AS log_date,
+	                          caches.name AS cache_name,
+	                          user.username AS user_name,
+							  user.user_id AS user_id,
+							  caches.type AS cache_type,
+							  `log_types_text`.`text_combo` AS log_name,
+							  cache_type.icon_small AS cache_icon_small,
+							  log_types.icon_small AS icon_small
+							FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN countries ON (caches.country = countries.short)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) , `log_types_text`
+							WHERE cache_logs.deleted=0 AND
+					      `log_types_text`.`log_types_id`=`log_types`.`id` 
+							GROUP BY cache_logs.id
+							ORDER BY cache_logs.date_created DESC LIMIT ' . $perpage);
 	
 	while ($r = sql_fetch_array($rs))
 		{
-			$thisline = "<item>\n<title>{cachename}</title>\n<description>{cachename} - {username} - {date} - {country}</description>\n<link>http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</link>\n</item>\n";
+			$thisline = "<item>\n<title>{cachename} - Użytkownik: {username} - Wpis: {logtype}</title>\n<description>Użytkownik: {username} - Wpis: {logtype} - Data: {date} </description>\n<link>http://www.opencaching.pl/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";
 			
-			$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
-			$thisline = str_replace('{userid}', $r['userid'], $thisline);
-			$thisline = str_replace('{cachename}', htmlspecialchars($r['cachename']), $thisline);
-			$thisline = str_replace('{username}', htmlspecialchars($r['username']), $thisline);
-			$thisline = str_replace('{date}', date('d.m.Y', strtotime($r['date_created'])), $thisline);
-			$thisline = str_replace('{country}', htmlspecialchars($r['country']), $thisline);
+			$thisline = str_replace('{cacheid}', $r['cache_id'], $thisline);
+//			$thisline = str_replace('{userid}', $r['userid'], $thisline);
+			$thisline = str_replace('{cachename}', htmlspecialchars($r['cache_name']), $thisline);
+			$thisline = str_replace('{logtype}', htmlspecialchars($r['log_name']), $thisline);
+			$thisline = str_replace('{username}', htmlspecialchars($r['user_name']), $thisline);
+			$thisline = str_replace('{date}', date('d-m-Y', strtotime($r['log_date'])), $thisline);
 			//$thisline = str_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($r['icon_large']), $thisline);
 
 			$content .= $thisline . "\n";
