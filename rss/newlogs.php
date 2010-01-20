@@ -26,12 +26,8 @@
 	                          cache_logs.date AS log_date,
 	                          caches.name AS cache_name,
 	                          user.username AS user_name,
-							  user.user_id AS user_id,
-							  caches.type AS cache_type,
-							  `log_types_text`.`text_combo` AS log_name,
-							  cache_type.icon_small AS cache_icon_small,
-							  log_types.icon_small AS icon_small
-							FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN countries ON (caches.country = countries.short)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) , `log_types_text`
+							  `log_types_text`.`text_combo` AS log_name
+							FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) , `log_types_text`
 							WHERE cache_logs.deleted=0 AND
 					      `log_types_text`.`log_types_id`=`log_types`.`id` 
 							GROUP BY cache_logs.id
