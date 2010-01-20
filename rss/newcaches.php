@@ -19,7 +19,7 @@
 		//get the news
 		$perpage = 20;
 		
-		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE rss PUBLIC \"-//Netscape Communications//DTD RSS 0.91//EN\" \"http://my.netscape.com/publish/formats/rss-0.91.dtd\">\n<rss version=\"2.0\">\n<channel>\n<title>Opencaching.pl - Nowe skrzynki</title>\n<description>Nowe skrzynki</description>\n<link>http://www.opencaching.pl</link><ttl>5</ttl>
+		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE rss PUBLIC \"-//Netscape Communications//DTD RSS 0.91//EN\" \"http://my.netscape.com/publish/formats/rss-0.91.dtd\">\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Nowe skrzynki</title>\n<description>Nowe skrzynki</description>\n<link>http://www.opencaching.pl</link><ttl>5</ttl>
 	<image>
 		<title>OpenCaching.PL</title>
 		<url>http://www.opencaching.pl/images/oc.png</url>
