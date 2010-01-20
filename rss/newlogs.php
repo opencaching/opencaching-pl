@@ -39,7 +39,7 @@
 	
 	while ($r = sql_fetch_array($rs))
 		{
-			$thisline = "<item>\n<title>{cachename} - Użytkownik: {username} - Wpis: {logtype}</title>\n<description>Użytkownik: {username} - Wpis: {logtype} - Data: {date} </description>\n<link>http://www.opencaching.pl/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";
+			$thisline = "<item>\n<title>Data: {date} - {cachename} - Użytkownik: {username} - Wpis: {logtype}</title>\n<description>Użytkownik: {username} - Wpis: {logtype} - Data: {date} </description>\n<link>http://www.opencaching.pl/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";
 			
 			$thisline = str_replace('{cacheid}', $r['cache_id'], $thisline);
 //			$thisline = str_replace('{userid}', $r['userid'], $thisline);
