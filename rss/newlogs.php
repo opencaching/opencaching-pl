@@ -30,7 +30,7 @@
 	                          caches.name AS cache_name,
 	                          user.username AS user_name,
 							  `log_types_text`.`text_combo` AS log_name
-							FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) , `log_types_text`
+							FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) , `log_types_text`
 							WHERE cache_logs.deleted=0 AND
 					      `log_types_text`.`log_types_id`=`log_types`.`id` 
 							GROUP BY cache_logs.id
