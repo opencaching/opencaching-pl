@@ -21,8 +21,8 @@
 		
 		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>Opencaching.pl - Najnowsze wiadomości</title>\n<link>http://www.opencaching.pl/news.php</link>\n <description><![CDATA[Najnowsze wiadomości]]></description><image>
 		<title>OpenCaching.PL</title>
-		<url>http://www.opencaching.pl/images/oc_logo.png</url>
-		<link>http://www.opencaching.pl</link><width>70</width><height>28</height></image>\n";
+		<url>http://www.opencaching.pl/images/oc.png</url>
+		<link>http://www.opencaching.pl</link><width>100</width><height>28</height></image>\n";
 		
 		
 			$rsNews = sql('SELECT `date_posted`, `content` FROM `news` WHERE `topic`=2 AND `display`=1 ORDER BY `date_posted` DESC LIMIT ' . $perpage);

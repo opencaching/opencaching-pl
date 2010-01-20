@@ -22,8 +22,8 @@
 		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE rss PUBLIC \"-//Netscape Communications//DTD RSS 0.91//EN\" \"http://my.netscape.com/publish/formats/rss-0.91.dtd\">\n<rss version=\"2.0\">\n<channel>\n<title>Opencaching.pl - Nowe skrzynki</title>\n<description>Nowe skrzynki</description>\n<link>http://www.opencaching.pl</link><ttl>5</ttl>
 	<image>
 		<title>OpenCaching.PL</title>
-		<url>http://www.opencaching.pl/images/oc_logo.png</url>
-		<link>http://www.opencaching.pl</link><width>70</width><height>28</height></image>\n\n";
+		<url>http://www.opencaching.pl/images/oc.png</url>
+		<link>http://www.opencaching.pl</link><width>100</width><height>28</height></image>\n\n";
 		$rs = sql('SELECT `caches`.`cache_id` `cacheid`, `user`.`user_id` `userid`, `caches`.`country` `country`, `caches`.`name` `cachename`, `user`.`username` `username`, `caches`.`date_created` `date_created`, `cache_type`.`icon_large` `icon_large` FROM `caches`, `user`, `cache_type` WHERE `caches`.`status`=1 AND `caches`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` ORDER BY `caches`.`date_created` DESC LIMIT ' . $perpage);
 		while ($r = sql_fetch_array($rs))
 		{
