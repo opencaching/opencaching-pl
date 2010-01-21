@@ -24,17 +24,21 @@
 		<url>http://www.opencaching.pl/images/oc.png</url>
 		<link>http://www.opencaching.pl</link><width>100</width><height>28</height></image>\n\n";
 		
-		$rs = sql('SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
-	                          cache_logs.type AS log_type,
-	                          cache_logs.date AS log_date,
-	                          caches.name AS cache_name,
-	                          user.username AS user_name,
-							  `log_types_text`.`text_combo` AS log_name
-							FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) , `log_types_text`
-							WHERE cache_logs.deleted=0 AND
-					      `log_types_text`.`log_types_id`=`log_types`.`id` 
-							GROUP BY cache_logs.id
-							ORDER BY cache_logs.date_created DESC LIMIT ' . $perpage);
+		$rs = sql("SELECT  cache_logs.id,
+       cache_logs.cache_id AS cache_id,
+       cache_logs.type AS log_type,
+       cache_logs.date AS log_date,
+       (SELECT name FROM caches
+       WHERE cache_id = cache_logs.cache_id) AS cache_name,
+       (SELECT username FROM user
+       WHERE user_id = cache_logs.user_id) AS user_name,
+       (SELECT text_combo FROM log_types_text
+       WHERE log_types_id = cache_logs.type AND
+               lang = 'PL') AS log_name
+FROM    cache_logs
+WHERE   cache_logs.deleted = 0
+ORDER BY cache_logs.date_created DESC
+LIMIT 20");
 	
 	//while ($r = sql_fetch_array($rs))
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
