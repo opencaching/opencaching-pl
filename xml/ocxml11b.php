@@ -399,7 +399,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 	}
 	if ($bAttrlist == '1')
 	{
-		$rs = sql("SELECT `id`, `text_short`, `icon_large`, `icon_no`, `icon_undef` FROM `cache_attrib` WHERE `language`=`PL`");
+		$rs = sql("SELECT `id`, `text_short`, `icon_large`, `icon_no`, `icon_undef` FROM `cache_attrib` WHERE `language`='pl'");
 		fwrite($f, $t1 . '<attrlist>' . "\n");
 		while ($r = sql_fetch_assoc($rs))
 		{
@@ -454,11 +454,11 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 		fwrite($f, $t2 . '<datecreated>' . date($sDateformat, strtotime($r['date_created'])) . '</datecreated>' . "\n");
 		fwrite($f, $t2 . '<lastmodified>' . date($sDateformat, strtotime($r['last_modified'])) . '</lastmodified>' . "\n");
 
-		$rsAttributes = sql("SELECT `cache_attrib`.`id`, `cache_attrib`.`name` FROM `caches_attributes` INNER JOIN `cache_attrib` ON `caches_attributes`.`attrib_id`=`cache_attrib`.`id` WHERE `caches_attributes`.`cache_id`='&1'", $r['id']);
+		$rsAttributes = sql("SELECT `cache_attrib`.`id`, `cache_attrib`.`text_short` FROM `caches_attributes` INNER JOIN `cache_attrib` ON `caches_attributes`.`attrib_id`=`cache_attrib`.`id` WHERE `language`='pl' AND `caches_attributes`.`cache_id`='&1'", $r['id']);
 		fwrite($f, $t2 . '<attributes>' . "\n");
 		while ($rAttribute = sql_fetch_assoc($rsAttributes))
 		{
-			fwrite($f, $t3 . '<attribute id="' . ($rAttribute['id']+0) . '">' . xmlcdata($rAttribute['name']) . '</attribute>' . "\n");
+			fwrite($f, $t3 . '<attribute id="' . ($rAttribute['id']+0) . '">' . xmlcdata($rAttribute['text_short']) . '</attribute>' . "\n");
 		}
 		fwrite($f, $t2 . '</attributes>' . "\n");
 		sql_free_result($rsAttributes);
