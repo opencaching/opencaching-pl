@@ -46,10 +46,12 @@ New OC PL
 	$bXmlDecl	 = isset($_REQUEST['xmldecl']) ? $_REQUEST['xmldecl'] : '1';
 	$sCharset = isset($_REQUEST['charset']) ? mb_strtolower($_REQUEST['charset']) : 'utf-8';
 	$bXmlCData = isset($_REQUEST['cdata']) ? $_REQUEST['cdata'] : '1';
+	$bAttrlist = isset($_REQUEST['attrlist']) ? $_REQUEST['attrlist'] : '0';
 	
 	if ((($bOcXmlTag != '0') && ($bOcXmlTag != '1')) || 
 			(($bDocType != '0') && ($bDocType != '1')) || 
 			(($bXmlCData != '0') && ($bXmlCData != '1')) || 
+			(($bAttrlist != '0') && ($bAttrlist != '1')) || 
 			(($bXmlDecl != '0') && ($bXmlDecl != '1')))
 	{
 		echo 'Invalid xml options value';
@@ -294,7 +296,7 @@ New OC PL
 
 function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $ziptype)
 {
-	global $zip_basedir, $zip_wwwdir, $sDateformat, $sDateshort, $t1, $t2, $safemode_zip, $safemode_zip, $sCharset;
+	global $zip_basedir, $zip_wwwdir, $sDateformat, $sDateshort, $t1, $t2, $safemode_zip, $safemode_zip, $sCharset, $bAttrlist, $absolute_server_URI;
 	// alle records aus tmpxml_* übertragen
 	
 	if (!mb_ereg_match('^[0-9]{1,11}', $sessionid))
@@ -395,7 +397,17 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 		fwrite($f, '<oc11xml version="1.1" date="' . date($sDateformat, strtotime($r['date_created'])) . '" since="' . date($sDateformat, strtotime($r['modified_since'])) . '">' . "\n");
 		mysql_free_result($rs);
 	}
-	
+	if ($bAttrlist == '1')
+	{
+		$rs = sql("SELECT `id`, `text_short`, `icon_large`, `icon_no`, `icon_undef` FROM `cache_attrib` WHERE `language`='pl'");
+		fwrite($f, $t1 . '<attrlist>' . "\n");
+		while ($r = sql_fetch_assoc($rs))
+		{
+			fwrite($f, $t2 . '<attr id="' . $r['id'] . '" icon_large="' . xmlentities($absolute_server_URI . $r['icon_large']) . '" icon_no="' . xmlentities($absolute_server_URI . $r['icon_no']) . '" icon_undef="' . xmlentities($absolute_server_URI . $r['icon_undef']) . '">' . xmlcdata($r['text_short']) . '</attr>' . "\n");
+		}
+		fwrite($f, $t1 . '</attrlist>' . "\n");
+		sql_free_result($rs);
+	}	
 	$rs = sql('SELECT `user`.`user_id` `id`, `user`.`node` `node`, `user`.`uuid` `uuid`, `user`.`username` `username`, `user`.`pmr_flag` `pmr_flag`, `user`.`date_created` `date_created`, `user`.`last_modified` `last_modified` FROM `tmpxml_users`, `user` WHERE `tmpxml_users`.`id`=`user`.`user_id`');
 	while ($r = sql_fetch_array($rs))
 	{
@@ -441,6 +453,15 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 		fwrite($f, $t2 . '<datehidden>' . date($sDateformat, strtotime($r['date_hidden'])) . '</datehidden>' . "\n");
 		fwrite($f, $t2 . '<datecreated>' . date($sDateformat, strtotime($r['date_created'])) . '</datecreated>' . "\n");
 		fwrite($f, $t2 . '<lastmodified>' . date($sDateformat, strtotime($r['last_modified'])) . '</lastmodified>' . "\n");
+
+		$rsAttributes = sql("SELECT `cache_attrib`.`id`, `cache_attrib`.`text_short` FROM `caches_attributes` INNER JOIN `cache_attrib` ON `caches_attributes`.`attrib_id`=`cache_attrib`.`id` WHERE `language`='pl' AND `caches_attributes`.`cache_id`='&1'", $r['id']);
+		fwrite($f, $t2 . '<attributes>' . "\n");
+		while ($rAttribute = sql_fetch_assoc($rsAttributes))
+		{
+			fwrite($f, $t3 . '<attribute id="' . ($rAttribute['id']+0) . '">' . xmlcdata($rAttribute['text_short']) . '</attribute>' . "\n");
+		}
+		fwrite($f, $t2 . '</attributes>' . "\n");
+		sql_free_result($rsAttributes);
 
 		fwrite($f, $t1 . '</cache>' . "\n");
 	}

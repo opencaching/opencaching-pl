@@ -1,10 +1,11 @@
-<!ELEMENT oc11xml (user*, cache*, cachedesc*, cachelog*, picture*, removedobject*)>
+<!ELEMENT oc11xml (attrlist*,user*, cache*, cachedesc*, cachelog*, picture*, removedobject*)>
 <!ATTLIST oc11xml
 	version CDATA #REQUIRED
   date CDATA #REQUIRED
   since CDATA #REQUIRED
 >
 
+<!ELEMENT attrlist (attr*)>
 <!ELEMENT user (id, username, pmr, datecreated, lastmodified)>
 <!ELEMENT cache (id, userid, name, longitude, latitude, type, status, country, size, desclanguages, difficulty, terrain, rating, waypoints, datehidden, datecreated, lastmodified)>
 <!ELEMENT cachedesc (id, cacheid, language, shortdesc, desc, hint, lastmodified)>
@@ -20,6 +21,15 @@
 >
 <!ELEMENT datecreated (#PCDATA)>
 <!ELEMENT lastmodified (#PCDATA)>
+
+<!-- attrlist -->
+<!ELEMENT attr (#PCDATA)>
+<!ATTLIST attr
+	id CDATA #REQUIRED
+	icon_large CDATA #REQUIRED
+	icon_no CDATA #REQUIRED
+	icon_undef CDATA #REQUIRED
+>
 
 <!-- user -->
 <!ELEMENT username (#PCDATA)>
