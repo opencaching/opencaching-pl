@@ -150,7 +150,7 @@ if ($error == false)
 					}
 					else
 					{
-					$file_content .='<td width="26">&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/></td>';
+					$file_content .='<td width="26">&nbsp;</td>';
 					}					
 				
 				        //$rating_picture
@@ -160,7 +160,7 @@ if ($error == false)
 					}
 					else
 					{
-					$file_content .= '<td width="22"><img src="images/rating-star-empty.png" border="0" alt=""/></td>';
+					$file_content .= '<td width="22">&nbsp;</td>';
 					}	
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
