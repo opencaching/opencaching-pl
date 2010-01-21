@@ -127,14 +127,14 @@
 			
 			$thisline = mb_ereg_replace('{logimage}','<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt="" />',$thisline);
 			} else {
-			$thisline = mb_ereg_replace('{logimage}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline); }
+			$thisline = mb_ereg_replace('{logimage}','&nbsp;', $thisline); }
 			if ( $r_log['geokret_in'] !='0')
 					{
 			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
 					}
 					else
 					{
-			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline);
+			$thisline = mb_ereg_replace('{gkimage}','&nbsp;', $thisline);
 					}	
 			mysql_free_result($rs_log);
 			$thisline = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $thisline);
