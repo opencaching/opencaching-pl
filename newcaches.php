@@ -87,15 +87,15 @@
 			
 			$thisline = mb_ereg_replace('{log_image}','<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt="" />',$thisline);
 			} else {
-			$thisline = mb_ereg_replace('{log_image}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline); }
-			
+			$thisline = mb_ereg_replace('{log_image}','&nbsp;', $thisline); }
+
 			if ( $r_log['geokret_in'] !=0)
-					{
+					{ 	
 			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
 					}
 					else
 					{
-			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/>', $thisline);
+			$thisline = mb_ereg_replace('{gkimage}','&nbsp;', $thisline);
 					}				
 
 			$thisline = mb_ereg_replace('{cacheid}', $r['cacheid'], $thisline);
