@@ -297,7 +297,7 @@ New OC PL
 
 function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $ziptype)
 {
-	global $zip_basedir, $zip_wwwdir, $sDateformat, $sDateshort, $t1, $t2, $safemode_zip, $safemode_zip, $sCharset, $bAttrlist, $absolute_server_URI;
+	global $zip_basedir, $zip_wwwdir, $sDateformat, $sDateshort, $t1, $t2, $t3, $safemode_zip, $safemode_zip, $sCharset, $bAttrlist, $absolute_server_URI;
 	// alle records aus tmpxml_* übertragen
 	
 	if (!mb_ereg_match('^[0-9]{1,11}', $sessionid))
@@ -431,7 +431,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 	                  `caches`.`difficulty` `difficulty`, `caches`.`terrain` `terrain`, `caches`.`way_length` `way_length`, 
 	                  `caches`.`search_time` `search_time`, `caches`.`wp_gc` `wp_gc`, `caches`.`wp_nc` `wp_nc`, 
 	                  `caches`.`wp_oc` `wp_oc`, `caches`.`date_hidden` `date_hidden`, `caches`.`date_created` `date_created`, 
-	                  `caches`.`last_modified` `last_modified`, `caches`.`status` `status`, `caches`.`node` `node`
+	                  `caches`.`last_modified` `last_modified`, `caches`.`status` `status`, `caches`.`node` `node`,`caches`.`topratings` `topratings`
 	             FROM `tmpxml_caches`, `caches`, `user` WHERE `tmpxml_caches`.`id`=`caches`.`cache_id` AND `caches`.`user_id`=`user`.`user_id`');
 	while ($r = sql_fetch_array($rs))
 	{
@@ -454,7 +454,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 		fwrite($f, $t2 . '<datehidden>' . date($sDateformat, strtotime($r['date_hidden'])) . '</datehidden>' . "\n");
 		fwrite($f, $t2 . '<datecreated>' . date($sDateformat, strtotime($r['date_created'])) . '</datecreated>' . "\n");
 		fwrite($f, $t2 . '<lastmodified>' . date($sDateformat, strtotime($r['last_modified'])) . '</lastmodified>' . "\n");
-
+		fwrite($f, $t2 . '<recommendations>' . sprintf('%u',$r['topratings']) . '</recommendations>' . "\n");
 		$rsAttributes = sql("SELECT `cache_attrib`.`id`, `cache_attrib`.`text_long` FROM `caches_attributes` INNER JOIN `cache_attrib` ON `caches_attributes`.`attrib_id`=`cache_attrib`.`id` WHERE `language`='pl' AND `caches_attributes`.`cache_id`='&1'", $r['id']);
 		fwrite($f, $t2 . '<attributes>' . "\n");
 		while ($rAttribute = sql_fetch_assoc($rsAttributes))
