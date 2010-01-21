@@ -399,11 +399,11 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 	}
 	if ($bAttrlist == '1')
 	{
-		$rs = sql("SELECT `id`, `text_short`, `icon_large`, `icon_no`, `icon_undef` FROM `cache_attrib` WHERE `language`='pl'");
+		$rs = sql("SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef` FROM `cache_attrib` WHERE `language`='pl'");
 		fwrite($f, $t1 . '<attrlist>' . "\n");
 		while ($r = sql_fetch_assoc($rs))
 		{
-			fwrite($f, $t2 . '<attr id="' . $r['id'] . '" icon_large="' . xmlentities($absolute_server_URI . $r['icon_large']) . '" icon_no="' . xmlentities($absolute_server_URI . $r['icon_no']) . '" icon_undef="' . xmlentities($absolute_server_URI . $r['icon_undef']) . '">' . xmlcdata($r['text_short']) . '</attr>' . "\n");
+			fwrite($f, $t2 . '<attr id="' . $r['id'] . '" icon_large="' . xmlentities($absolute_server_URI . $r['icon_large']) . '" icon_no="' . xmlentities($absolute_server_URI . $r['icon_no']) . '" icon_undef="' . xmlentities($absolute_server_URI . $r['icon_undef']) . '">' . xmlcdata($r['text_long]) . '</attr>' . "\n");
 		}
 		fwrite($f, $t1 . '</attrlist>' . "\n");
 		sql_free_result($rs);
@@ -454,15 +454,24 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 		fwrite($f, $t2 . '<datecreated>' . date($sDateformat, strtotime($r['date_created'])) . '</datecreated>' . "\n");
 		fwrite($f, $t2 . '<lastmodified>' . date($sDateformat, strtotime($r['last_modified'])) . '</lastmodified>' . "\n");
 
-		$rsAttributes = sql("SELECT `cache_attrib`.`id`, `cache_attrib`.`text_short` FROM `caches_attributes` INNER JOIN `cache_attrib` ON `caches_attributes`.`attrib_id`=`cache_attrib`.`id` WHERE `language`='pl' AND `caches_attributes`.`cache_id`='&1'", $r['id']);
+		$rsAttributes = sql("SELECT `cache_attrib`.`id`, `cache_attrib`.`text_long` FROM `caches_attributes` INNER JOIN `cache_attrib` ON `caches_attributes`.`attrib_id`=`cache_attrib`.`id` WHERE `language`='pl' AND `caches_attributes`.`cache_id`='&1'", $r['id']);
 		fwrite($f, $t2 . '<attributes>' . "\n");
 		while ($rAttribute = sql_fetch_assoc($rsAttributes))
 		{
-			fwrite($f, $t3 . '<attribute id="' . ($rAttribute['id']+0) . '">' . xmlcdata($rAttribute['text_short']) . '</attribute>' . "\n");
+			fwrite($f, $t3 . '<attribute id="' . ($rAttribute['id']+0) . '">' . xmlcdata($rAttribute['text_long']) . '</attribute>' . "\n");
 		}
 		fwrite($f, $t2 . '</attributes>' . "\n");
 		sql_free_result($rsAttributes);
 
+		$rsGeoKrety = sql("SELECT `name`.`id`, `cache_attrib`.`text_long` FROM `gk_item` INNER JOIN `cache_attrib` ON `caches_attributes`.`attrib_id`=`cache_attrib`.`id` WHERE `language`='pl' AND `caches_attributes`.`cache_id`='&1'", $r['id']);
+		fwrite($f, $t2 . '<geokrety>' . "\n");
+		while ($rGeoKrety = sql_fetch_assoc($rsGeoKrety))
+		{
+			fwrite($f, $t3 . '<geokrety id="' . ($rGeoKrety['id']+0) . '">' . xmlcdata($rGeoKrety['name']) . '</geokrety>' . "\n");
+		}
+		fwrite($f, $t2 . '</geokrety>' . "\n");
+		sql_free_result($rsGeoKrety);
+		
 		fwrite($f, $t1 . '</cache>' . "\n");
 	}
 	mysql_free_result($rs);
