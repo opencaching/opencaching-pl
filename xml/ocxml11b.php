@@ -1,10 +1,7 @@
 <?php
 /***************************************************************************
-															 ./xml/ocxml11.php
-															-------------------
-		begin                : December 27, 2005
-		copyright            : (C) 2005 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
+
+-
 
 		Unicode Reminder ??
 New OC PL
@@ -47,6 +44,7 @@ New OC PL
 	$sCharset = isset($_REQUEST['charset']) ? mb_strtolower($_REQUEST['charset']) : 'utf-8';
 	$bXmlCData = isset($_REQUEST['cdata']) ? $_REQUEST['cdata'] : '1';
 	$bAttrlist = isset($_REQUEST['attrlist']) ? $_REQUEST['attrlist'] : '0';
+	$bAttrlist = isset($_REQUEST['gklist']) ? $_REQUEST['gklist'] : '0';
 	
 	if ((($bOcXmlTag != '0') && ($bOcXmlTag != '1')) || 
 			(($bDocType != '0') && ($bDocType != '1')) || 
@@ -463,7 +461,8 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 		fwrite($f, $t2 . '</attributes>' . "\n");
 		sql_free_result($rsAttributes);
 
-		$rsGeoKrety = sql("SELECT `name`.`id`, `cache_attrib`.`text_long` FROM `gk_item` INNER JOIN `cache_attrib` ON `caches_attributes`.`attrib_id`=`cache_attrib`.`id` WHERE `language`='pl' AND `caches_attributes`.`cache_id`='&1'", $r['id']);
+
+		$rsGeoKrety =sql"(SELECT id, name, distancetravelled as distance FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp =&1 AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2",$r['wp_oc']);
 		fwrite($f, $t2 . '<geokrety>' . "\n");
 		while ($rGeoKrety = sql_fetch_assoc($rsGeoKrety))
 		{
