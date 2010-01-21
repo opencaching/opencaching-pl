@@ -47,7 +47,7 @@ New OC PL
 	$sCharset = isset($_REQUEST['charset']) ? mb_strtolower($_REQUEST['charset']) : 'utf-8';
 	$bXmlCData = isset($_REQUEST['cdata']) ? $_REQUEST['cdata'] : '1';
 	$bAttrlist = isset($_REQUEST['attrlist']) ? $_REQUEST['attrlist'] : '0';
-		$bAttrlist = isset($_REQUEST['gklist']) ? $_REQUEST['gklist'] : '0';
+
 		
 	if ((($bOcXmlTag != '0') && ($bOcXmlTag != '1')) || 
 			(($bDocType != '0') && ($bDocType != '1')) || 
@@ -468,7 +468,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 		fwrite($f, $t2 . '<geokrety>' . "\n");
 		while ($rGeoKrety = sql_fetch_assoc($rsGeoKrety))
 		{
-			fwrite($f, $t3 . '<geokrety id="' . ($rGeoKrety['id']+0) . '">' . xmlcdata($rGeoKrety['name']) . '</geokrety>' . "\n");
+			fwrite($f, $t3 . '<geokret id="' . ($rGeoKrety['id']+0) . '">' . xmlcdata($rGeoKrety['name']) . '</geokret>' . "\n");
 		}
 		fwrite($f, $t2 . '</geokrety>' . "\n");
 		sql_free_result($rsGeoKrety);
