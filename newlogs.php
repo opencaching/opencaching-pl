@@ -103,7 +103,6 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
 	                          caches.name AS cache_name,
-	                          countries.pl AS country_name,
 	                          user.username AS user_name,
 							  user.user_id AS user_id,
 							  caches.wp_oc AS wp_name,
@@ -164,7 +163,7 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 					}
 					else
 					{
-					$file_content .='<td width="22">&nbsp;<img src="images/rating-star-empty.png" border="0" alt=""/></td>';
+					$file_content .='<td width="22">&nbsp;</td>';
 					}					
 				
 				        //$rating_picture
@@ -174,7 +173,7 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 					}
 					else
 					{
-					$file_content .= '<td width="22"><img src="images/rating-star-empty.png" border="0" alt=""/></td>';
+					$file_content .= '<td width="22">&nbsp;</td>';
 					}	
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
