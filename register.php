@@ -202,6 +202,7 @@
 	  tpl_set_var('username', htmlspecialchars($username, ENT_COMPAT, 'UTF-8'));
 
 	  //make countries list
+	  
 		if ($country == 'XX')
 		{
 			$stmp = '<option value="XX" selected="selected">' . $no_answer . '</option>';
@@ -210,15 +211,19 @@
 		{
 			$stmp = '<option value="XX">' . $no_answer . '</option>';
 		}
+		if(checkField('countries','list_default_'.$lang) )
+					$lang_db = $lang;
+				else
+					$lang_db = "en";
 
 		if ($display_all_countries == 0)
 		{
-		  $rs = sql('SELECT `&1`, `short` FROM `countries` WHERE `list_default_' . $lang . '`=1 ORDER BY `sort_' . $lang . '` ASC', $lang);
+		  $rs = sql('SELECT `&1`, `short` FROM `countries` WHERE `list_default_' . $lang_db . '`=1 ORDER BY `sort_' . $lang_db . '` ASC', $lang_db);
 		  tpl_set_var('all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $allcountries . '" />');
 		}
 		else
 		{
-		  $rs = sql('SELECT `&1`, `short` FROM `countries` ORDER BY `sort_' . $lang . '` ASC', $lang);
+		  $rs = sql('SELECT `&1`, `short` FROM `countries` ORDER BY `sort_' . $lang_db . '` ASC', $lang_db);
 		}
 
   	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -227,11 +232,11 @@
 
 			if ($country == $record['short'])
 			{
-				$stmp .= '<option value="' . $record['short'] . '" selected="selected">' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . "</option>\n";
+				$stmp .= '<option value="' . $record['short'] . '" selected="selected">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . "</option>\n";
 			}
 			else
 			{
-				$stmp .= '<option value="' . $record['short'] . '">' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . "</option>\n";
+				$stmp .= '<option value="' . $record['short'] . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . "</option>\n";
 			}
 		}
 
