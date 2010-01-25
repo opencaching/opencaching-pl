@@ -19,10 +19,10 @@
 		//get the news
 		$perpage = 20;
 		
-		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE rss PUBLIC \"-//Netscape Communications//DTD RSS 0.91//EN\" \"http://my.netscape.com/publish/formats/rss-0.91.dtd\">\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze logi</title>\n<description>Najnowsze logi na OpenCaching.PL </description>\n<link>http://www.opencaching.pl/newlogs.php</link>	<image>
-		<title>OpenCaching.PL</title>
+		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze logi</title>\n<description>Najnowsze logi na OpenCaching.PL </description>\n<link>http://www.opencaching.pl/newlogs.php</link><image>
+		<title>OC PL - Najnowsze logi</title>
 		<url>http://www.opencaching.pl/images/oc.png</url>
-		<link>http://www.opencaching.pl</link><width>100</width><height>28</height></image>\n\n";
+		<link>http://www.opencaching.pl/newlogs.php</link><width>100</width><height>28</height></image>\n\n";
 		
 		$rs = sql("SELECT  cache_logs.id,
        cache_logs.cache_id AS cache_id,
