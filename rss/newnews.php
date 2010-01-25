@@ -19,7 +19,7 @@
 		//get the news
 		$perpage = 20;
 		
-		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze wiadomości</title>\n<link>http://www.opencaching.pl/news.php</link>\n <description><![CDATA[Najnowsze wiadomości]]></description><image>
+		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze wiadomości</title>\n<ttl>60</ttl><link>http://www.opencaching.pl/news.php</link>\n <description><![CDATA[Najnowsze wiadomości]]></description><image>
 		<title>OC PL - Najnowsze wiadomości</title>
 		<url>http://www.opencaching.pl/images/oc.png</url>
 		<link>http://www.opencaching.pl/news.php</link><width>100</width><height>28</height></image>\n";
