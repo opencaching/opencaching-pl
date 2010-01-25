@@ -37,7 +37,7 @@
 			FROM `caches`, `user`, `cache_type`, `cache_rating`
 			WHERE `caches`.`user_id`=`user`.`user_id`
 			  AND `cache_rating`.`cache_id`=`caches`.`cache_id`
-			  AND `status`=1
+			  AND `status`=1  AND `type` <> 6
 			  AND `caches`.`type`=`cache_type`.`id`
 			GROUP BY `user`.`user_id`, `user`.`username`, `caches`.`cache_id`, `caches`.`name`, `cache_type`.`icon_large`
 			ORDER BY `anzahl` DESC, `caches`.`name` ASC
