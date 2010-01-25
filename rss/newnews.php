@@ -20,16 +20,16 @@
 		$perpage = 20;
 		
 		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze wiadomości</title>\n<link>http://www.opencaching.pl/news.php</link>\n <description><![CDATA[Najnowsze wiadomości]]></description><image>
-		<title>OpenCaching.PL</title>
+		<title>OC PL - Najnowsze wiadomości</title>
 		<url>http://www.opencaching.pl/images/oc.png</url>
-		<link>http://www.opencaching.pl</link><width>100</width><height>28</height></image>\n";
+		<link>http://www.opencaching.pl/news.php</link><width>100</width><height>28</height></image>\n";
 		
 		
 			$rsNews = sql('SELECT `date_posted`, `content` FROM `news` WHERE `topic`=2 AND `display`=1 ORDER BY `date_posted` DESC LIMIT ' . $perpage);
 			
 			while ($rNews = sql_fetch_array($rsNews))
 			{
-			$thisline = "<item>\n<title>{date}</title>\n<description>{message}</description>\n<link>http://www.opencaching.pl/news.php</link><pubDate>{date}</pubDate>\n</item>\n";
+			$thisline = "<item>\n<title>{date}</title>\n<description>{message}</description>\n<link>http://www.opencaching.pl/news.php</link>\n</item>\n";
 			
 				$thisline =str_replace('{date}',date('d-m-Y', strtotime($rNews['date_posted'])), $thisline);
 				$thisline = str_replace('{message}', htmlspecialchars($rNews['content']), $thisline);
