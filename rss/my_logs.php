@@ -68,9 +68,7 @@ header('Content-type: application/xml; charset="utf-8"');
 				{
 				$r = sql_fetch_array($rs);
 
-			$thisline = "<item>\n<title>{cachename}</title>\n<description>  Data: {date} - Wpis: {logtype}{rate}{gk} </description>\n<link>http://www.opencaching.pl/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";				
-
-
+			$thisline = "<item>\n<title>{cachename}</title>\n<description>  Data: {date} - Wpis: {logtype}{rate}{gk}</description>\n<link>http://www.opencaching.pl/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";	
 
 			if ( $r['geokret_in'] !='0')
 					{
@@ -94,7 +92,6 @@ header('Content-type: application/xml; charset="utf-8"');
 			$thisline = str_replace('{cachename}', htmlspecialchars($r['cache_name']), $thisline);
 			$thisline = str_replace('{logtype}', htmlspecialchars($r['log_name']), $thisline);
 			$thisline = str_replace('{date}', date('d-m-Y', strtotime($r['log_date'])), $thisline);
-
 			$content .= $thisline . "\n";
 		}
 		mysql_free_result($rs);
