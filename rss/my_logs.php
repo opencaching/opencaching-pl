@@ -35,14 +35,14 @@ if ($error == false)
 	$rsGeneralStat =sql("SELECT  username FROM user WHERE user_id=&1",$user_id);
 
 			$user_record = sql_fetch_array($rsGeneralStat);
-			tpl_set_var('username',$user_record['username']);
 
-		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze logi</title>\n<ttl>60</ttl><description>Najnowsze logi na OpenCaching.PL </description>\n<link>http://www.opencaching.pl/newlogs.php</link><image>
-		<title>OC PL - Najnowsze logi</title>
+
+		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze logi użytkownika: {username}</title>\n<ttl>60</ttl><description>Najnowsze wpisy do logów wprowadzone przez użytkownika {username}</description>\n<link>http://www.opencaching.pl/newlogs.php</link><image>
+		<title>OC PL - Najnowsze logi użytkownika: {username}</title>
 		<url>http://www.opencaching.pl/images/oc.png</url>
 		<link>http://www.opencaching.pl/newlogs.php</link><width>100</width><height>28</height></image>\n\n";
 
-
+					$content = str_replace('{username}', $user_record['username'], $content);
 
 	$rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
@@ -52,6 +52,9 @@ if ($error == false)
 							  user.user_id AS user_id,
 							  caches.wp_oc AS wp_name,
 							  caches.type AS cache_type,
+  (SELECT text_combo FROM log_types_text
+       WHERE log_types_id = cache_logs.type AND
+               lang = 'PL') AS log_name,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,COUNT(gk_item.id) AS geokret_in
 	                  FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
 							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
