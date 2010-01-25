@@ -37,6 +37,8 @@ if ($error == false)
 	$rsGeneralStat =sql("SELECT  username FROM user WHERE user_id=&1",$user_id);
 
 			$user_record = sql_fetch_array($rsGeneralStat);
+
+header('Content-type: application/xml; charset="utf-8"');
 			
 					$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze logi w skrzynkach użytkownika: {userowner}</title>\n<ttl>60</ttl><description>Najnowsze wpisy do logów w skrzynkach użytkownika {userowner}</description>\n<link>http://www.opencaching.pl</link><image>
 		<title>OC PL - Najnowsze logi w skrzynkach użytkownika: {userowner}</title>

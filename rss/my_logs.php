@@ -36,6 +36,7 @@ if ($error == false)
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 
+header('Content-type: application/xml; charset="utf-8"');
 
 		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze logi użytkownika: {username}</title>\n<ttl>60</ttl><description>Najnowsze wpisy do logów wprowadzone przez użytkownika {username}</description>\n<link>http://www.opencaching.pl</link><image>
 		<title>OC PL - Najnowsze logi użytkownika: {username}</title>
