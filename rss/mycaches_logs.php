@@ -38,12 +38,12 @@ if ($error == false)
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 			
-					$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze logi w skrzynkach użytkownika: {userowner}</title>\n<ttl>60</ttl><description>Najnowsze wpisy do logów w skrzynkach  użytkownika {userowner}</description>\n<link>http://www.opencaching.pl</link><image>
+					$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze logi w skrzynkach użytkownika: {userowner}</title>\n<ttl>60</ttl><description>Najnowsze wpisy do logów w skrzynkach użytkownika {userowner}</description>\n<link>http://www.opencaching.pl</link><image>
 		<title>OC PL - Najnowsze logi w skrzynkach użytkownika: {userowner}</title>
 		<url>http://www.opencaching.pl/images/oc.png</url>
 		<link>http://www.opencaching.pl</link><width>100</width><height>28</height></image>\n\n";
 
-					$content = str_replace('{userowner}', $user_record['username'], $content);
+					$content = str_replace('{userowner}',  htmlspecialchars($user_record['username']), $content);
 
 	$rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
