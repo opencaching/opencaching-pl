@@ -49,9 +49,9 @@
 	 INNER JOIN `caches` ON `topFounds`.`cache_id`=`caches`.`cache_id`
 	   ORDER BY `idx` DESC");
 
-	if (sqlValue("SELECT COUNT(*) FROM `topResult`", 0) > 20)
+	if (sqlValue("SELECT COUNT(*) FROM `topResult`", 0) > 10)
 	{
-		$min_idx = sqlValue("SELECT `idx` FROM `topResult` ORDER BY `idx` DESC LIMIT 9999, 1", 0);
+		$min_idx = sqlValue("SELECT `idx` FROM `topResult` ORDER BY `idx` DESC LIMIT 99999, 1", 0);
 		sql("DELETE FROM `topResult` WHERE `idx`<'&1'", $min_idx);
 	}
 
@@ -68,7 +68,7 @@
 					   FROM `topResult`
 				 INNER JOIN `caches` ON `topResult`.`cache_id`=`caches`.`cache_id` 
 				 INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` 
-				 WHERE `topResult`.`cache_id` = `caches`.`cache_id` AND `caches`.`type` <> 6
+				 WHERE `topResult`.`cache_id` = `caches`.`cache_id` AND `caches`.`type` <> 6  AND `caches`.`status` = 1
 				   ORDER BY `idx` DESC");
 
 	$items = array();
