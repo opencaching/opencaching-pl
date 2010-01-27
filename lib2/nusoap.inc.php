@@ -40,17 +40,17 @@
 	define('WS_ERR_REQUIRE_AUTH_STR', 'WS_ERR_REQUIRE_AUTH');
 
 	// setup rootpath
-	if (!isset($opt['rootpath'])) $opt['rootpath'] = './';
+	if (!isset($opt['rootpath'])) $opt['rootpath'] = '';
 
 	// chicken-egg problem ...
-	require($opt['rootpath'] . 'lib2/const.inc.php');
+	require($opt['rootpath'] . 'const.inc.php');
 
 	// do all output in text format
 	$opt['gui'] = GUI_NUSOAP;
 
 	// include the main library
-	require_once($opt['rootpath'] . 'lib2/common.inc.php');
-	require_once($opt['rootpath'] . 'lib2/nusoap/nusoap.php');
+	require_once($opt['rootpath'] . 'common.inc.php');
+	require_once($opt['rootpath'] . 'nusoap/nusoap.php');
 
 	function initSoapRequest($namespace, $nsurl)
 	{

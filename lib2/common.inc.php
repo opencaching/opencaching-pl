@@ -18,8 +18,8 @@
 	fix_magic_quotes_gpc();
 
 	// set options
-	require($opt['rootpath'] . 'config2/settings-dist.inc.php');
-	require($opt['rootpath'] . 'config2/settings.inc.php');
+	require($opt['rootpath'] . 'settings-dist.inc.php');
+	require($opt['rootpath'] . 'settings.inc.php');
 
 	set_domain();
 
@@ -36,7 +36,7 @@
 
 	configure_php();
 
-	require($opt['rootpath'] . 'lib2/cookie.class.php');
+	require($opt['rootpath'] . 'cookie.class.php');
 	normalize_settings();
 	set_language();
 
@@ -57,17 +57,17 @@
 	/* setup smarty
 	 *
 	 */
-	require($opt['rootpath'] . 'lib2/OcSmarty.class.php');
+	require($opt['rootpath'] . 'OcSmarty.class.php');
 	$tpl = new OcSmarty();
 
 	// include all we need
-	require_once($opt['rootpath'] . 'lib2/logic/const.inc.php');
-	require_once($opt['rootpath'] . 'lib2/error.inc.php');
-	require_once($opt['rootpath'] . 'lib2/util.inc.php');
-	require_once($opt['rootpath'] . 'lib2/db.inc.php');
-	require_once($opt['rootpath'] . 'lib2/login.class.php');
-	require_once($opt['rootpath'] . 'lib2/menu.class.php');
-	require_once($opt['rootpath'] . 'lib2/throttle.inc.php');
+	require_once($opt['rootpath'] . 'logic/const.inc.php');
+	require_once($opt['rootpath'] . 'error.inc.php');
+	require_once($opt['rootpath'] . 'util.inc.php');
+	require_once($opt['rootpath'] . 'db.inc.php');
+	require_once($opt['rootpath'] . 'login.class.php');
+	require_once($opt['rootpath'] . 'menu.class.php');
+	require_once($opt['rootpath'] . 'throttle.inc.php');
 
 // normalize important settings
 function normalize_settings()
