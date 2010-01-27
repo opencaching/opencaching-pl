@@ -519,7 +519,7 @@ disable_fullscreen Wyłącz pełny ekran
 stats Statystyki
 ranking_by_number_of_created_caches Ranking użytkowników według liczby założonych skrzynek
 ranking_by_number_of_finds Ranking użytkowników według liczby odkryć
-ranking_by_number_of_recommnedations Ranking użytkowników według otrzymanych rekomendacji
+ranking_by_number_of_recommnedations Ranking użytkowników według liczby otrzymanych rekomendacji
 cache_ranking_by_number_of_finds Ranking skrzynek według liczby odkryć
 cache_ranking_by_calculated_indicator Ranking skrzynek według liczonego wskaznika
 user_ranking_by_number_of_finds_of_their_caches Ranking użytkowników według liczby odkryć skrzynek danego użytkownika
