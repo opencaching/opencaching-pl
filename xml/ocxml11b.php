@@ -464,11 +464,21 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 		fwrite($f, $t2 . '</attributes>' . "\n");
 		sql_free_result($rsAttributes);
 
-		$rsGeoKrety =sql("SELECT `id`, `name`, `distancetravelled` as `distance` FROM `gk_item` WHERE `id` IN (SELECT `id` FROM `gk_item_waypoint` WHERE `wp`='&1')  AND `stateid`<>1 AND `stateid`<>4 AND `stateid` <>5 AND `typeid`<>2",$r['wp_oc']);
+// old		$rsGeoKrety =sql("SELECT `id`, `name`, `distancetravelled` as `distance` FROM `gk_item` WHERE `id` IN (SELECT `id` FROM `gk_item_waypoint` WHERE `wp`='&1')  AND `stateid`<>1 AND `stateid`<>4 AND `stateid` <>5 AND `typeid`<>2",$r['wp_oc']);
+
+		$rsGeoKrety =sql("SELECT  gk_item.id,gk_item.name, gk_item.distancetravelled AS distance
+				FROM gk_item, gk_item_waypoint
+				WHERE   gk_item_waypoint.wp = '&1' AND
+			       gk_item.id = gk_item_waypoint.id AND
+				gk_item.stateid <> 1 AND
+			       gk_item.stateid <> 4 AND
+			       gk_item.stateid <> 5 AND
+       				gk_item.typeid <> 2",$r['wp_oc']);
+
 		fwrite($f, $t2 . '<geokrety>' . "\n");
 		while ($rGeoKrety = sql_fetch_assoc($rsGeoKrety))
 		{
-			fwrite($f, $t3 . '<geokret id="' . ($rGeoKrety['id']+0) . '">' . xmlcdata($rGeoKrety['name']) . '</geokret>' . "\n");
+			fwrite($f, $t3 . '<geokret id="' . ($rGeoKrety['id']+0) . '">' . xmlcdata( xmlentities($rGeoKrety['name'])) . '</geokret>' . "\n");
 		}
 		fwrite($f, $t2 . '</geokrety>' . "\n");
 		sql_free_result($rsGeoKrety);
