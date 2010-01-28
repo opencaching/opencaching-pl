@@ -17,7 +17,7 @@ $r=mysql_query($t1) or die(mysql_error());
 $a="SELECT count, username, user_id FROM tmp GROUP BY `username` ORDER BY `count` DESC, `username`";
 
 $r=mysql_query($a) or die(mysql_error());
-echo '<tr><td class="bgcolor2" align="right">&nbsp;&nbsp;<b>Ranking</b>&nbsp;&nbsp;</td><td class="bgcolor2" align="center">&nbsp;&nbsp;<b>Liczba rekomendacji</b>&nbsp;&nbsp;</td><td class="bgcolor2" align="center">&nbsp;&nbsp;<b>Username</b>&nbsp;&nbsp;</td></tr><tr><td>';
+echo '<tr><td class="bgcolor2" align="right">&nbsp;&nbsp;<b>Ranking</b>&nbsp;&nbsp;</td><td class="bgcolor2" align="center"><img src="images/rating-star.png" border="0" alt="Recommendations" />&nbsp;<b>Liczba rekomendacji</b>&nbsp;&nbsp;</td><td class="bgcolor2" align="center">&nbsp;&nbsp;<b>Username</b>&nbsp;&nbsp;</td></tr><tr><td>';
 $l2="";
 $licznik=0;
 while ($line=mysql_fetch_array($r))
