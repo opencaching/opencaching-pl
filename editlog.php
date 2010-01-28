@@ -135,8 +135,14 @@
 						$rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
 					}
 
+// sp2ong 28.I.2010 recommendation all caches except events
+				if ( $log_record['cachetype'] != 6 ) {
 					tpl_set_var('rating_message', mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl));
 
+				} else {
+				tpl_set_var('rating_message', ""); 			
+				}
+				
 					if (isset($_POST['descMode']))
 					{
 						$descMode = $_POST['descMode']+0;
