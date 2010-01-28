@@ -325,14 +325,22 @@
 			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?searchto=searchbyowner&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;f_geokret=0&amp;country=&amp;cachetype=0000010000">'.tr('show').'</a>]</p>';}
 			$recomendr = sqlValue("SELECT COUNT(*) FROM `cache_rating`, caches WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND caches.type <> 6 AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
 			$recommend_caches = sqlValue("SELECT COUNT(*) FROM caches WHERE `caches`.`topratings` >= 1 AND caches.type <> 6 AND  `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+if ( $recomendr != 0){
 			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba otrzymanych rekomendacji:</span> <strong>' . $recomendr . '</strong> dla <strong>' .$recommend_caches. '</strong> skrzynek';
 				if ($recomendr == 0) 
-				{$content .= '</p>';}
-				else						
-		
-			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=111110111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">'.tr('show').'</a>]</p>';}
-			
-			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
+				{$content .= '</p>';}				else								
+			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=111110111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">'.tr('show').'</a>]</p>';} 
+}
+
+
+$numberGK_in_caches = sqlValue("SELECT count(*) FROM gk_item, gk_item_waypoint,caches
+				WHERE gk_item_waypoint.wp = caches.wp_oc AND
+			       gk_item.id = gk_item_waypoint.id AND
+				gk_item.stateid <> 1 AND gk_item.stateid <> 4 AND gk_item.stateid <> 5 AND gk_item.typeid <> 2 AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+if ( $numberGK_in_caches !=0){
+$content .= '<p><span class="content-title-noshade txt-blue08">Liczba GeoKretów w skrzynkach:</span> <strong>' . $numberGK_in_caches . '</strong></p>';	
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>'; }
+
 			$content .= '<p><span class="content-title-noshade txt-blue08">Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08">Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08">Najnowsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';	
