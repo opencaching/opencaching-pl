@@ -30,11 +30,11 @@ if ($l2!=$l1)
 {
 $licznik=$licznik+1;
     echo "</td></tr><tr><td class=\"bgcolor2\" align=\"right\">&nbsp;&nbsp;<b>$licznik</b>&nbsp;&nbsp;</td><td class=\"bgcolor2\" align=\"right\">&nbsp;&nbsp;<b>$l1</b>&nbsp;&nbsp;</td>";
-    echo  "<td class=\"bgcolor2\"><a class=\"links\" href=\"viewprofile.php?userid=$line[user_id]\">".htmlspecialchars($line[username])."(<font color=\"green\">$x</font>/<font color=\"blue\">$y</font>)</a>";
+    echo  "<td class=\"bgcolor2\"><a class=\"links\" href=\"viewprofile.php?userid=$line[user_id]\">".htmlspecialchars($line[username])."_(<font color=\"green\">$x</font>/<font color=\"blue\">$y</font>)</a>";
     $l2=$l1;
 }
 else {
-    echo ", <a class=\"links\" href=\"viewprofile.php?userid=$line[user_id]\">".htmlspecialchars($line[username])."(<font color=\"green\">$x</font>/<font color=\"blue\">$y</font>)</a>";
+    echo ", <a class=\"links\" href=\"viewprofile.php?userid=$line[user_id]\">".htmlspecialchars($line[username])."_(<font color=\"green\">$x</font>/<font color=\"blue\">$y</font>)</a>";
     }
 
 }
