@@ -174,8 +174,13 @@
 					$rating_msg = mb_ereg_replace('{max}', floor($user_founds * rating_percentage/100), $rating_msg);
 					$rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
 				}
-				tpl_set_var('rating_message', mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl));
-				
+
+// sp2ong 28.I.2010 recommendation all caches except events
+				if ( $cache_type != 6 ) {
+				tpl_set_var('rating_message', mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl)); 
+				} else {
+				tpl_set_var('rating_message', ""); 			
+				}
 				
 				// enable backscoring
 				$sql = "SELECT count(*) FROM scores WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(intval($cache_id))."'";
