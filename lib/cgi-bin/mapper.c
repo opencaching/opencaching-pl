@@ -440,7 +440,6 @@ int main(void)
 	MYSQL_RES *res;
 	MYSQL_ROW row;
 
-
 	int hide_unknown = !(strcmp(microcgi_getstr(CGI_GET, "h_u"), "true"));
 	int hide_traditional = !(strcmp(microcgi_getstr(CGI_GET, "h_t"), "true"));
 	int hide_multi = !(strcmp(microcgi_getstr(CGI_GET, "h_m"), "true"));

@@ -233,6 +233,7 @@ else
         tpl_set_var('boundsurl', '');
     }
 
+	tpl_set_var("cachemap_mapper", $cachemap_mapper);
 
 	/*if( isset( $_POST['submit'] ) )
 	{

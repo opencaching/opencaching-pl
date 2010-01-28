@@ -120,7 +120,7 @@ http://rushbase.net:5580/~rush/ocpl/lib/cgi-bin/mapper.fcgi?userid=8595&z=13&x=4
 						opacity:1.0
                     });
 
-			tilelayer.getTileUrl = function(tile, zoom) { return "lib/cgi-bin/mapper.fcgi?userid={userid}&z="+zoom+"&x="+tile.x+"&y="+tile.y+"&sc=0&h_u=false&h_t=false&h_m=false&h_v=false&h_w=false&h_e=false&h_q=false&h_o=false&h_ignored=false&h_own=false&h_found=false&h_noattempt=false&h_nogeokret=false&h_avail=false&h_temp_unavail=true&h_arch=true&signes=true&be_ftf=false&h_de=true&h_pl=true&min_score=-3&max_score=3&h_noscore=true&mapid="+get_current_mapid();};
+			tilelayer.getTileUrl = function(tile, zoom) { return "{cachemap_mapper}?userid={userid}&z="+zoom+"&x="+tile.x+"&y="+tile.y+"&sc=0&h_u=false&h_t=false&h_m=false&h_v=false&h_w=false&h_e=false&h_q=false&h_o=false&h_ignored=false&h_own=false&h_found=false&h_noattempt=false&h_nogeokret=false&h_avail=false&h_temp_unavail=true&h_arch=true&signes=true&be_ftf=false&h_de=true&h_pl=true&min_score=-3&max_score=3&h_noscore=true&mapid="+get_current_mapid();};
 			tlo = new GTileLayerOverlay(tilelayer);
 	}
 

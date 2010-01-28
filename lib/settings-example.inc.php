@@ -162,7 +162,8 @@
 	$dberrormail = 'ocpl@<domain>';
 
 
-  
+    // Changee to mapper.cgi if you don't have FastCGI installed or to some other custom script
+  $cachemap_mapper = "lib/cgi-bin/mapper.fcgi";
   
 // cache_maps-settings -- ???????????? old code ?????
 //  $cachemap_wms_url = 'http://10.0.0.1/cgi-bin/mapserv?map=/var/www/maps.geocaching.de/mapserver/caches.map&&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&LAYERS=relief,builtup_areas,inland_water,watercourses,staatsgrenze,strassen,places&SRS=EPSG:4326&BBOX={min_lon},{min_lat},{max_lon},{max_lat}&WIDTH=200&HEIGHT=200&FORMAT=image/jpeg&STYLES=&EXCEPTIONS=XML';

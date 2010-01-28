@@ -234,6 +234,8 @@ else
 	}
 
 
+	tpl_set_var("cachemap_mapper", $cachemap_mapper);
+
 	
 //	foreach($filter as $key)
 	/*if( isset( $_POST['submit'] ) )
