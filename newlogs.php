@@ -40,7 +40,7 @@ if ($error == false)
 	$tplname = 'newlogs';
 	require($stylepath . '/newlogs.inc.php');
 	
-	$LOGS_PER_PAGE = 50;
+	$LOGS_PER_PAGE = 100;
 	$PAGES_LISTED = 10;
 		
 	$rs = sql("SELECT count(id) FROM cache_logs WHERE deleted=0");
@@ -57,24 +57,28 @@ if ($error == false)
 	
 	$startat = max(0,floor((($start/$LOGS_PER_PAGE)+1)/$PAGES_LISTED)*$PAGES_LISTED);
 	
-	if( ($start/$LOGS_PER_PAGE)+1 >= $PAGES_LISTED )
-		$pages .= '<a href="newlogs.php?start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'">{first_img}</a> '; 
+	if( $start > 0 )
+	{
+		$pages .= '<a href="newlogs.php?start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'">{first_img}</a> ';
+		$pages .= '<a href="newlogs.php?start='.max(0,$start-$LOGS_PER_PAGE).'">{prev_img}</a> ';
+	}
 	else
-		$pages .= "{first_img_inactive}";
+		$pages .= "{first_img_inactive} {prev_img_inactive} ";
 	for( $i=max(1,$startat);$i<$startat+$PAGES_LISTED;$i++ )
 	{
 		$page_number = ($i-1)*$LOGS_PER_PAGE;
 		if( $page_number == $start )
-			$pages .= '<b>';
-		$pages .= '<a href="newlogs.php?start='.$page_number.'">'.$i.'</a> '; 
-		if( $page_number == $start )
-			$pages .= '</b>';
-		
+			$pages .= "<b>$i</b> ";
+		else
+			$pages .= "<a href='newlogs.php?start=$page_number'>$i</a> ";
 	}
 	if( $total_pages > $PAGES_LISTED )
-		$pages .= '<a href="newlogs.php?start='.(($i-1)*$LOGS_PER_PAGE).'">{last_img}</a> '; 
+	{
+		$pages .= '<a href="newlogs.php?start='.($start+$LOGS_PER_PAGE).'">{next_img}</a> ';
+		$pages .= '<a href="newlogs.php?start='.(($i-1)*$LOGS_PER_PAGE).'">{last_img}</a> ';
+	}
 	else
-		$pages .= '{last_img_inactive}';
+		$pages .= ' {next_img_inactive} {last_img_inactive}';
 	$rs = sql("SELECT `cache_logs`.`id`
 			FROM `cache_logs`, `caches`
 			WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
@@ -184,9 +188,13 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 //		}
 //	}
 
+	$pages = mb_ereg_replace('{prev_img}', $prev_img, $pages);
+	$pages = mb_ereg_replace('{next_img}', $next_img, $pages);
 	$pages = mb_ereg_replace('{last_img}', $last_img, $pages);
 	$pages = mb_ereg_replace('{first_img}', $first_img, $pages);
 	
+	$pages = mb_ereg_replace('{prev_img_inactive}', $prev_img_inactive, $pages);
+	$pages = mb_ereg_replace('{next_img_inactive}', $next_img_inactive, $pages);
 	$pages = mb_ereg_replace('{first_img_inactive}', $first_img_inactive, $pages);
 	$pages = mb_ereg_replace('{last_img_inactive}', $last_img_inactive, $pages);
 		
