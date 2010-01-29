@@ -163,8 +163,8 @@
 			{$content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="usertops.php?userid=' . $user_id . '">'.tr('show').'</a>]</p>';}
 
 			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08">Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08">Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Średnio skrzynek/dzień:</span> <strong>' . sprintf("%u",$aver2) . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Najwięcej skrzynek/dzień:</span> <strong>' . sprintf("%u",$rc['number']) . '</strong></p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08">Ostatnia znaleziona skrzynka:</span>&nbsp;&nbsp;';
 			if (mysql_num_rows($rsfc2) != 0 ) {
 			$content .='<strong><a class="links" href="viewcache.php?cacheid=' . $rfc2['cache_id'] . '">' . $rfc2['cache_wp'] . '</a>&nbsp;&nbsp;</strong>(' . $rfc2['data'] . ')</p>';
@@ -341,8 +341,8 @@ if ( $numberGK_in_caches !=0){
 $content .= '<p><span class="content-title-noshade txt-blue08">Liczba GeoKretów w skrzynkach:</span> <strong>' . $numberGK_in_caches . '</strong></p>';	
 			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba dni "keszowania":</span> <strong>' . $num_rows . '</strong> z całkowitej ilości dni: <strong>' . $ddays['diff'] . '</strong></p>'; }
 
-			$content .= '<p><span class="content-title-noshade txt-blue08">Średnio skrzynek/dzień:</span> <strong>' . $aver2 . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
-			$content .= '<p><span class="content-title-noshade txt-blue08">Najwięcej skrzynek/dzień:</span> <strong>' . $rc['number'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Średnio skrzynek/dzień:</span> <strong>' . sprintf("%u",$aver2) . '</strong>/dzień keszowania i <strong>' . $aver1 . '</strong>/dzień</p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">Najwięcej skrzynek/dzień:</span> <strong>' . sprintf("%u",$rc['number']) . '</strong></p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08">Najnowsza założona skrzynka:</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';	
 			$content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b> Milestones "kamienie milowe"</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 
