@@ -326,10 +326,10 @@
 			$recomendr = sqlValue("SELECT COUNT(*) FROM `cache_rating`, caches WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND caches.type <> 6 AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
 			$recommend_caches = sqlValue("SELECT COUNT(*) FROM caches WHERE `caches`.`topratings` >= 1 AND caches.type <> 6 AND  `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
 if ( $recomendr != 0){
-			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba otrzymanych rekomendacji:</span> <strong>' . $recomendr . '</strong> dla <strong>' .$recommend_caches. '</strong> skrzynek';
-				if ($recomendr == 0) 
-				{$content .= '</p>';}				else								
-			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=111110111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">'.tr('show').'</a>]</p>';} 
+
+			$ratio= sprintf("%.1f",$recommend_caches/$hidden_all);
+			$content .= '<p><span class="content-title-noshade txt-blue08">Liczba otrzymanych rekomendacji:</span> <strong>' . $recomendr . '</strong> dla <strong>' .$recommend_caches. '</strong> skrzynek &nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=111110111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">'.tr('show').'</a>]</p>
+<p><span class="content-title-noshade txt-blue08">Stosunek liczby skrzynek rekomendowanych do wszystkich:</span> <strong>'.$ratio.'</strong></p>'; 
 }
 
 
