@@ -1,0 +1,12 @@
+RewriteEngine on
+RewriteBase /
+RewriteRule ^(search)\.gpx$ $1.php?%{QUERY_STRING} [NC]
+RewriteRule ^(search)\.kml$ $1.php?%{QUERY_STRING} [NC]
+RewriteRule ^(search)\.loc$ $1.php?%{QUERY_STRING} [NC]
+RewriteRule ^(search)\.ov2$ $1.php?%{QUERY_STRING} [NC]
+RewriteRule ^(search)\.ovl$ $1.php?%{QUERY_STRING} [NC]
+RewriteRule ^(search)\.txt$ $1.php?%{QUERY_STRING} [NC]
+RewriteRule ^(search)\.wpt$ $1.php?%{QUERY_STRING} [NC]
+RewriteRule ^(search)\.uam$ $1.php?%{QUERY_STRING} [NC]
+RewriteRule ^ocpl(\d+)\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam)$ search.php?queryid=$1&output=$2&%{QUERY_STRING} [NC]
+RewriteRule ^ocplgc(\d+)\.(gpx)$ search.php?queryid=$1&output=gpxgc&%{QUERY_STRING} [NC]

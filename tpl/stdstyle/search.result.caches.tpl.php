@@ -67,16 +67,16 @@ if ($usr || !$hide_coords){ echo "
 		<td width=\"230\"><b>".tr('download')."</b></td>
 		<td align=\"right\" style=\"padding-right:20px;\">
 			".tr('listing_from_this_page').":
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpx&amp;startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx |\">GPX</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpxgc&amp;startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=loc&amp;startat=";?>{startat}<?php echo "\" title=\"Waypoint .loc\">LOC</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=kml&amp;startat=";?>{startat}<?php echo "\" title=\"Google Earth .kml\">KML</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx |\">GPX</a> | 
+			<a class=\"links\" href=\"ocplgc";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=";?>{startat}<?php echo "\" title=\"Waypoint .loc\">LOC</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".kml?startat=";?>{startat}<?php echo "\" title=\"Google Earth .kml\">KML</a> | 
 			<a class=\"links\" href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> | ";
-			echo "<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ov2&amp;startat=";?>{startat}<?php echo "\" title=\"TomTom POI .ov2\">OV2</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ovl&amp;startat=";?>{startat}<?php echo "\" title=\"TOP50-Overlay .ovl\">OVL</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=txt&amp;startat=";?>{startat}<?php echo "\" title=\"Text .txt\">TXT</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=wpt&amp;startat=";?>{startat}<?php echo "\" title=\"Oziexplorer .wpt\">WPT</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=uam&amp;startat=";?>{startat}<?php echo "\" title=\"AutoMapa .uam\">UAM</a>
+			echo "<a class=\"links\" href=\"search.ov2?queryid=";?>{queryid}<?php echo "&amp;output=ov2&amp;startat=";?>{startat}<?php echo "\" title=\"TomTom POI .ov2\">OV2</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ovl?startat=";?>{startat}<?php echo "\" title=\"TOP50-Overlay .ovl\">OVL</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".txt?startat=";?>{startat}<?php echo "\" title=\"Text .txt\">TXT</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".wpt?startat=";?>{startat}<?php echo "\" title=\"Oziexplorer .wpt\">WPT</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".uam?startat=";?>{startat}<?php echo "\" title=\"AutoMapa .uam\">UAM</a>
 
 			</td>
 	</tr>
@@ -85,16 +85,16 @@ if ($usr || !$hide_coords){ echo "
 			".tr('download_for_various_apps')."
 		</td>
 		<td align=\"right\" style=\"padding-right:20px;\">";?> {{listing_from_to}}<?php echo " :
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpx&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=gpxgc&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=loc&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=kml&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Google Earth .kml\">KML</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a> | 
+			<a class=\"links\" href=\"ocplgc";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".kml?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Google Earth .kml\">KML</a> | 
 			<a class=\"links\" href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "%26count%3Dmax%26zip%3D1&amp;ie=UTF8&amp;z=7' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ov2&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TomTom POI .ov2\">OV2</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=ovl&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TOP50-Overlay .ovl\">OVL</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=txt&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Text .txt\">TXT</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=wpt&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Oziexplorer .wpt\"> WPT</a> | 
-			<a class=\"links\" href=\"search.php?queryid=";?>{queryid}<?php echo "&amp;output=uam&amp;startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"AutoMapa .uam\">UAM</a>
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ov2?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TomTom POI .ov2\">OV2</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ovl?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TOP50-Overlay .ovl\">OVL</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".txt?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Text .txt\">TXT</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".wpt?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Oziexplorer .wpt\"> WPT</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".uam?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"AutoMapa .uam\">UAM</a>
 
 			</td>
 	</tr>

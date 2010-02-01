@@ -513,7 +513,8 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 						var xml = GXml.parse(data);
 						var caches = xml.documentElement.getElementsByTagName("cache");
 						var cache_id = caches[0].getAttribute("cache_id");
-						window.open("viewcache.php?cacheid="+cache_id,"_blank2");
+						if(cache_id != "")
+	    					    window.open("viewcache.php?cacheid="+cache_id,"_blank");
 					});
 			}
 			GEvent.addListener(map, "singlerightclick", onRightClickFunc);
