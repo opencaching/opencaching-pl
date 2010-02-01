@@ -129,7 +129,7 @@ $graph2->Add($bplot2);
  
  
 // Setup the titles
-$descibe2="Statystyka RR2 - skrzynki zatwierdzone";
+$descibe2="Statystyka RR2 - skrzynki weryfikowane";
 $graph2->title->Set($descibe2);
 $graph2->xaxis->title->Set($xtitle);
 $graph2->xaxis->SetTickLabels($x2);
