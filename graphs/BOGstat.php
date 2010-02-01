@@ -25,7 +25,7 @@ require('../lib/jpgraph/src/jpgraph_mgraph.php');
 
 $rsreports= sql("SELECT count(*) count, responsible_id, username from reports,user WHERE submit_date > '2009-05-31 00:00:00' and responsible_id <>0 AND responsible_id != 1883 AND user.user_id=responsible_id GROUP BY responsible_id ORDER  BY username");
 
-$rscaches= sql("SELECT count(*) count, username from approval_status,user WHERE user.user_id=approval_status.user_id  GROUP BY approval_status.user_id");
+$rscaches= sql("SELECT count(*) count, username from approval_status,user WHERE user.user_id=approval_status.user_id  GROUP BY approval_status.user_id ORDER  BY username");
 
 
 				$xtitle="";
