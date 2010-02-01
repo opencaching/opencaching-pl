@@ -1,10 +1,11 @@
 <?php
 setlocale(LC_TIME, 'pl_PL.utf-8');
   
-	
+
 	//Preprocessing
 	if ($error == false)
 	{
+
 require("../lib/jpgraph/src/jpgraph.php");
 require('../lib/jpgraph/src/jpgraph_bar.php');
 require('../lib/jpgraph/src/jpgraph_date.php');
@@ -13,7 +14,10 @@ require('../lib/jpgraph/src/jpgraph_mgraph.php');
   require('../lib/web.inc.php');
   sql('USE `ocpl`');
 
-	
+//prepare the templates and include all neccessary
+//	require('../lib/common.inc.php');	
+//	if( $usr['admin'] )
+//	{ 	
   $y=array();
   $x=array();
   $y2=array();
@@ -165,6 +169,7 @@ $mgraph->Add($graph);
 $mgraph->Add($graph2,0,220);
 $mgraph->Stroke();
 
+//}
    
   }
  
