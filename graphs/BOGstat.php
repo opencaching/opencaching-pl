@@ -159,10 +159,10 @@ $bplot2->value->SetFormat('%d');
 // Create a multigraph
 //----------------------
 $mgraph = new MGraph();
-$mgraph->SetMargin(8,8,8,8);
+$mgraph->SetMargin(10,10,10,10);
 $mgraph->SetFrame(true,'darkgray',2);
 $mgraph->Add($graph);
-$mgraph->Add($graph2,0,240);
+$mgraph->Add($graph2,0,220);
 $mgraph->Stroke();
 
    
