@@ -386,6 +386,13 @@ $menu = array(
 			'filename' => 'viewpendings.php'
 			),
 			array(
+			'title' => 'Statystyka RR',
+			'menustring' => 'Statystyka RR',
+			'siteid' => 'articles/bog',
+			'visible' => true,
+			'filename' => 'articles.php?page=bog'
+			),
+			array(
 			'title' => 'Skrzynki nieznalezione',
 			'menustring' => 'Skrzynki nieznalezione',
 			'siteid' => 'admin_cachenotfound',
