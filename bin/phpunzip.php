@@ -15,7 +15,7 @@
 		
 	***************************************************************************/
 
-	$basedir = '/www/opencaching_www/www/download/zip/';
+$basedir = '/www/opencaching_www/www/download/zip/';
 
   $zipper['zip'] = 'nice --adjustment=19 unzip -qq -nj {src} -d {dst}';
   $zipper['gzip'] = 'nice --adjustment=19 gunzip -c -d -q {src} > {dst}';

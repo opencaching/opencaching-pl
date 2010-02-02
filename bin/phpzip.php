@@ -15,7 +15,7 @@
 		
 	***************************************************************************/
 
-$basedir = '/var/www/ocpl-data/download/zip/';
+	$basedir = '/var/www/ocpl-data/download/zip/';
 
   $zipper['zip'] = 'nice --adjustment=19 zip -j -q -1 {dst} {src}';
   $zipper['gzip'] = 'nice --adjustment=19 gzip -1 -c {src} > {dst}';
