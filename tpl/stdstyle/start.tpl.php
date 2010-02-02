@@ -21,6 +21,8 @@
 <script language="javascript" type="text/javascript">
 <!-- hide script from old browsers
 
+var map_image_cache;
+
 //detect browser:
 if ((navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 3) || parseInt(navigator.appVersion) >= 4) {
         rollOvers = 1;
@@ -32,63 +34,33 @@ if ((navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 3) || 
         }
 }
 
-//preload images:
-/*if (rollOvers) {
-map = new Image(302,284);
-map.src = "/images/mini-mapa/mapa-new.jpg";
-c0 = new Image(302,284);
-c0.src = "/images/mini-mapa/0.jpg";
-c1 = new Image(302,284);
-c1.src = "/images/mini-mapa/1.jpg";
-c2 = new Image(302,284);
-c2.src = "/images/mini-mapa/2.jpg";
-c3 = new Image(302,284);
-c3.src = "/images/mini-mapa/3.jpg";
-c4 = new Image(302,284);
-c4.src = "/images/mini-mapa/4.jpg";
-c5 = new Image(302,284);
-c5.src = "/images/mini-mapa/5.jpg";
-c6 = new Image(302,284);
-c6.src = "/images/mini-mapa/6.jpg";
-c7 = new Image(302,284);
-c7.src = "/images/mini-mapa/7.jpg";
-c8 = new Image(302,284);
-c8.src = "/images/mini-mapa/8.jpg";
-c9 = new Image(302,284);
-c9.src = "/images/mini-mapa/9.jpg";
-}*/
-//preload images:
-if (rollOvers) {
-map = new Image(302,284);
-map.src = "tmp/mapa.png";
-c0 = new Image(302,284);
-c0.src = "tmp/0.png";
-c1 = new Image(302,284);
-c1.src = "tmp/1.png";
-c2 = new Image(302,284);
-c2.src = "tmp/2.png";
-c3 = new Image(302,284);
-c3.src = "tmp/3.png";
-c4 = new Image(302,284);
-c4.src = "tmp/4.png";
-c5 = new Image(302,284);
-c5.src = "tmp/5.png";
-c6 = new Image(302,284);
-c6.src = "tmp/6.png";
-c7 = new Image(302,284);
-c7.src = "tmp/7.png";
-c8 = new Image(302,284);
-c8.src = "tmp/8.png";
-c9 = new Image(302,284);
-c9.src = "tmp/9.png";
+window.onload = function() {
+	//preload images
+	if (rollOvers) {
+		map_image_cache = [];
+		for (i = 0; i < 10; i++)
+		{
+			map_image_cache[i] = new Image();
+			map_image_cache[i].src = document.getElementById('newcache' + i).getAttribute('maphref');
+		}
+		map_image_cache[10] = new Image();
+		map_image_cache[10].src = document.getElementById('main-cachemap').getAttribute('basesrc');
+	}
 }
 
 //image swapping function:
-function Lite(img) {
-if (rollOvers) {
-document.getElementById('main-cachemap').src = eval(img + ".src");
-return true;
-}}
+function Lite(nn) {
+	if (rollOvers) {
+		document.getElementById('main-cachemap').src = map_image_cache[nn].src;
+	}
+}
+
+function Unlite() {
+	if (rollOvers) {
+		document.getElementById('main-cachemap').src = map_image_cache[10].src;
+	}
+}
+
 //end hiding -->
 </script> 
   	  
@@ -113,7 +85,10 @@ return true;
 				</div>
 				<div class="content2-container-2col-right" id="main-cachemap-block">
 					<div class="img-shadow">
-						<img src="tmp/mapa.png" id="main-cachemap" name="main-cachemap" alt="{{map}}" />
+						<?php
+							global $dynstylepath;
+							include ($dynstylepath . "main_cachemap.inc.php");
+						?>
 					</div>
 				</div>
 			</div>
