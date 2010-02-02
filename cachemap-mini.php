@@ -77,8 +77,7 @@ $get_userid = $_REQUEST['userid'];
 	
 	tpl_set_var("map_type", "G_NORMAL_MAP");
 	
-
-	tpl_set_var("cachemap_mapper", $cachemap_mapper);
+	tpl_set_var('cachemap_mapper', $cachemap_mapper);
 
 //	foreach($filter as $key)
 	/*if( isset( $_POST['submit'] ) )
