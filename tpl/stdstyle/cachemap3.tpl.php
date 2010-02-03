@@ -92,19 +92,27 @@ function ShowCoordsControl() {
 ShowCoordsControl.prototype = new GControl();
 ShowCoordsControl.prototype.initialize = function(map) {
   var container = document.createElement("div");
-
   var showCoords = document.createElement("div");
+  var hideControl = document.createElement("img");
 
   var icon = document.createElement("img");
-  icon.src = "tpl/stdstyle/images/blue/compas.png";
+  icon.src = "tpl/stdstyle/images/blue/compas20.png";
   icon.alt = "";
-  icon.style.height = "20px";
-  icon.style.width = "20px";
+  icon.style.marginTop = "-2px"
 
   this.type = 1;
 
   this.showCoords = showCoords;
 
+  hideControl.style.width = "16px";
+  hideControl.style.height = "16px";
+  hideControl.style.marginLeft = "95%";
+  hideControl.style.position = "absolute";
+  hideControl.style.backgroundColor = "yellow";
+  hideControl.style.border = "1px solid black";
+  hideControl.src =  "tpl/stdstyle/images/show_hide.png";
+//  hideControl.style.backgroundImage = "tpl/stdstyle/images/show_hide.png";
+//  container.appendChild(hideControl);
 
   this.setStyle_(showCoords);
   container.appendChild(showCoords);
@@ -112,6 +120,8 @@ ShowCoordsControl.prototype.initialize = function(map) {
   var textNode = document.createTextNode("");
   showCoords.appendChild(textNode);
   showCoords.owner = this;
+
+
 
   map.getContainer().appendChild(container);
 
@@ -179,7 +189,8 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
   elem.style.backgroundColor = "white";
   elem.style.font = "small Arial";
   elem.style.border = "1px solid black";
-  elem.style.padding = "2px";
+  elem.style.fontWeight = "bold";
+  elem.style.paddingTop = "2px";
   elem.style.width = "225px";
   elem.style.textAlign = "center";
   elem.style.cursor = "pointer";

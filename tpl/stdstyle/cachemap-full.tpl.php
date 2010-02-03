@@ -231,10 +231,9 @@ ShowCoordsControl.prototype.initialize = function(map) {
   var showCoords = document.createElement("div");
 
   var icon = document.createElement("img");
-  icon.src = "tpl/stdstyle/images/blue/compas.png";
+  icon.src = "tpl/stdstyle/images/blue/compas20.png";
   icon.alt = "";
-  icon.style.height = "20px";
-  icon.style.width = "20px";
+  icon.style.marginTop = "-2px";
 
   this.type = 1;
 
@@ -245,7 +244,8 @@ ShowCoordsControl.prototype.initialize = function(map) {
   this.setStyle_(showCoords);
   container.appendChild(showCoords);
   showCoords.appendChild(icon);
-  showCoords.appendChild(document.createTextNode(""));
+  var textNode = document.createTextNode("");
+  showCoords.appendChild(textNode);
   showCoords.owner = this;
 
   map.getContainer().appendChild(container);
@@ -315,7 +315,8 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
   elem.style.backgroundColor = "white";
   elem.style.font = "small Arial";
   elem.style.border = "1px solid black";
-  elem.style.padding = "2px";
+  elem.style.fontWeight = "bold";
+  elem.style.paddingTop = "2px";
   elem.style.width = "225px";
   elem.style.textAlign = "center";
   elem.style.cursor = "pointer";
