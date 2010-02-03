@@ -191,6 +191,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 			{
 
 				$nCol = 0;
+				$retval .= '<br style="clear: left;" />';
 			}
 
 			if( $showspoiler )

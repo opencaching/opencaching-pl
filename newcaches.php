@@ -137,10 +137,10 @@
 			if ($i == $thissite)
 				$pages .= $i . ' ';
 			else
-				$pages .= '<a href="newcaches.php?startat=' . ($i - 1) * 100 . '">' . $i . '</a> ';
+				$pages .= '<a href="newcaches.php?startat=' . ($i - 1) * $perpage . '">' . $i . '</a> ';
 		}
 		if ($thissite < $topage)
-			$pages .= '<a href="newcaches.php?startat=' . ($startat + 100) . '">{next_img}</a> <a href="newcaches.php?startat=' . (ceil($count / 100) * 100 - 100) . '">{last_img}</a>';
+			$pages .= '<a href="newcaches.php?startat=' . ($startat + $perpage) . '">{next_img}</a> <a href="newcaches.php?startat=' . (ceil($count / 100) * 100 - 100) . '">{last_img}</a>';
 		else
 			$pages .= '{next_img_inactive} {last_img_inactive}';
 
