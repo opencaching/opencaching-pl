@@ -107,6 +107,11 @@
 		if ($cache_id != 0)
 		{	//mysql_query("SET NAMES 'utf8'");
 			//get cache record
+					if(checkField('countries','list_default_'.$lang) )
+					$lang_db = $lang;
+				else
+					$lang_db = "en";
+					
 			$rs = sql("SELECT `caches`.`cache_id` `cache_id`,
 			                  `caches`.`user_id` `user_id`,
 			                  `caches`.`status` `status`,
@@ -130,26 +135,26 @@
 			                  `caches`.`notfounds` `notfounds`,
 			                  `caches`.`notes` `notes`,
 			                  `caches`.`watcher` `watcher`,
-												`caches`.`votes` `votes`,
-												`caches`.`score` `score`,
-			                  `caches`.`picturescount` `picturescount`,
-					  `caches`.`mp3count` `mp3count`,
-			                  `caches`.`desc_languages` `desc_languages`,
-				          `caches`.`topratings` `topratings`,
-			                  `caches`.`ignorer_count` `ignorer_count`,
-												`caches`.`votes` `votes_count`,
-			                  `cache_type`.`icon_large` `icon_large`,
+								`caches`.`votes` `votes`,
+								`caches`.`score` `score`,
+								`caches`.`picturescount` `picturescount`,
+								`caches`.`mp3count` `mp3count`,
+								`caches`.`desc_languages` `desc_languages`,
+								`caches`.`topratings` `topratings`,
+								`caches`.`ignorer_count` `ignorer_count`,
+								`caches`.`votes` `votes_count`,
+								`cache_type`.`icon_large` `icon_large`,
 			                  `user`.`username` `username`,
+							  `countries`.`&1` AS `country_name`,
 				IFNULL(`cache_location`.`code1`, '') AS `code1`,
 				IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
 				IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
 				IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
 				IFNULL(`cache_location`.`adm4`, '') AS `adm4`
-			             FROM `caches`, `cache_type`, `user` 
-						 LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`
+			             FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `cache_type`, `user`
 				          WHERE `caches`.`user_id` = `user`.`user_id` AND
 					              `cache_type`.`id`=`caches`.`type` AND
-					              `caches`.`cache_id`='&1'", $cache_id);
+					              `caches`.`cache_id`='&2'", $lang_db, $cache_id);
 
 			if (mysql_num_rows($rs) == 0)
 			{
@@ -358,9 +363,9 @@ tpl_set_var('dziubek1',"");
 tpl_set_var('miasto',""); 
 tpl_set_var('dziubek2',""); 
 
-						if ($cache.adm1 !="") {tpl_set_var('kraj',$cache.adm1);}
-						if ($cache.adm3 !="") {tpl_set_var('woj',$cache.adm3); tpl_set_var('dziubek1',">");}
-						if ($cache.adm4 !="") {tpl_set_var('miasto',$cache.adm4); tpl_set_var('dziubek2',">");} 
+						if ($cache_record['adm1'] !="") {tpl_set_var('kraj',$cache_record['adm1']);} else {tpl_set_var('kraj',$cache_record['country_name']);}
+						if ($cache_record['adm3'] !="") {tpl_set_var('woj',$cache_record['adm3']); tpl_set_var('dziubek1',">");}
+						if ($cache_record['adm4'] !="") {tpl_set_var('miasto',$cache_record['adm4']); tpl_set_var('dziubek2',">");} 
 
 			
 //			$loc = coordToLocation($cache_record['latitude'], $cache_record['longitude']);
