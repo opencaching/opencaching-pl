@@ -96,7 +96,8 @@ class cache_location
 						$adm1 = sql_value("SELECT `name` FROM `nuts_codes` WHERE `code`='&1'", null, $sCode);
 				}
 
-				sql("INSERT INTO `cache_location` (`cache_id`, `adm1`, `adm2`, `adm3`, `adm4`, `code1`, `code2`, `code3`, `code4`) VALUES ('&1', '&2', '&3', '&4', '&5', '&6', '&7', '&8', '&9') ON DUPLICATE KEY UPDATE `adm1`='&2', `adm2`='&3', `adm3`='&4', `adm4`='&5', `code1`='&6', `code2`='&7', `code3`='&8', `code4`='&9'", $rCache['cache_id'], $adm1, $adm2, $adm3, $adm4, $code1, $code2, $code3, $code4);
+				$sql=sql("INSERT INTO `cache_location` (`cache_id`, `adm1`, `adm2`, `adm3`, `adm4`, `code1`, `code2`, `code3`, `code4`) VALUES ('&1', '&2', '&3', '&4', '&5', '&6', '&7', '&8', '&9') ON DUPLICATE KEY UPDATE `adm1`='&2', `adm2`='&3', `adm3`='&4', `adm4`='&5', `code1`='&6', `code2`='&7', `code3`='&8', `code4`='&9'", $rCache['cache_id'], $adm1, $adm2, $adm3, $adm4, $code1, $code2, $code3, $code4);
+			mysql_query($sql);
 			}
 			else
 			{
