@@ -90,7 +90,7 @@ class cache_location
 					 FROM `countries`
 					LEFT JOIN `sys_trans` ON `countries`.`trans_id`=`sys_trans`.`id` AND `countries`.`name`=`sys_trans`.`text`
 					LEFT JOIN `sys_trans_text` ON `sys_trans`.`id`=`sys_trans_text`.`trans_id` AND `sys_trans_text`.`lang`='&2'
-					WHERE `countries`.`short`='&1'", $sCode);
+					WHERE `countries`.`short`='&1'",null, $sCode);
 
 					if ($adm1 == null)
 						$adm1 = sql_value("SELECT `name` FROM `nuts_codes` WHERE `code`='&1'", null, $sCode);
