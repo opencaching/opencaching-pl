@@ -84,13 +84,16 @@ class cache_location
 				if (mb_strlen($sCode) == 2)
 				{
 					$code1 = $sCode;
-					
+	
+					if(checkField('countries','list_default_'.$lang) )
+						$lang_db = $lang;
+					else
+						$lang_db = "en";
+				
 					// try to get localised name first
-					$adm1 = sql_value("SELECT IFNULL(`sys_trans_text`.`text`, `countries`.`name`)
+					$adm1 = sql_value("SELECT `countries`.&2)
 					 FROM `countries`
-					LEFT JOIN `sys_trans` ON `countries`.`trans_id`=`sys_trans`.`id` AND `countries`.`name`=`sys_trans`.`text`
-					LEFT JOIN `sys_trans_text` ON `sys_trans`.`id`=`sys_trans_text`.`trans_id` AND `sys_trans_text`.`lang`='&2'
-					WHERE `countries`.`short`='&1'",null, $sCode);
+					WHERE `countries`.`short`='&1'",null, $sCode,$lang_db);
 
 					if ($adm1 == null)
 						$adm1 = sql_value("SELECT `name` FROM `nuts_codes` WHERE `code`='&1'", null, $sCode);
@@ -109,7 +112,7 @@ class cache_location
 				                        WHERE `caches`.`cache_id`='&1'", 
 				                              null, 
 				                              $rCache['cache_id'],
-				                              $opt['template']['default']['locale']);
+				                              );
 				$sCode1 = sql_value("SELECT `caches`.`country` FROM `caches` WHERE `caches`.`cache_id`='&1'", null, $rCache['cache_id']);
 				$sql=sql("INSERT INTO `cache_location` (`cache_id`, `adm1`, `code1`) VALUES ('&1', '&2', '&3') ON DUPLICATE KEY UPDATE `adm1`='&2', `adm2`=NULL, `adm3`=NULL, `adm4`=NULL, `code1`='&3', `code2`=NULL, `code3`=NULL, `code4`=NULL", $rCache['cache_id'], $sCountry, $sCode1);
 		mysql_query($sql);
