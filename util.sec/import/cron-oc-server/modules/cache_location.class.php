@@ -9,10 +9,11 @@
  *                         run it once a day
  *
  ***************************************************************************/
+	$rootpath = '../../';
+	require_once($rootpath.'lib2/logic/gis.class.php');
+	require_once($rootpath.'lib/clicompatbase.inc.php');
 
-require_once($opt['rootpath'] . 'lib2/logic/gis.class.php');
-
-checkJob(new cache_location());
+// checkJob(new cache_location());
 
 class cache_location
 {
@@ -21,15 +22,26 @@ class cache_location
 
 	function run()
 	{
-		global $opt;
+
+
+		/* begin db connect */
+		db_connect();
+		if ($dblink === false)
+		{
+			echo 'Unable to connect to database';
+			exit;
+		}
+	/* end db connect */
+
+//		global $opt;
 	
 		$rsCache = sql("SELECT `caches`.`cache_id`, `caches`.`latitude`, `caches`.`longitude` FROM `caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id` WHERE ISNULL(`cache_location`.`cache_id`) UNION SELECT `caches`.`cache_id`, `caches`.`latitude`, `caches`.`longitude` FROM `caches` INNER JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id` WHERE `caches`.`last_modified`>`cache_location`.`last_modified`");
-		while ($rCache = sql_fetch_assoc($rsCache))
+		while ($rCache = mysql_fetch_assoc($rsCache))
 		{
 			$sCode = '';
 
 			$rsLayers = sql("SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('&1'), `shape`) ORDER BY `level` DESC", 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')');
-			while ($rLayers = sql_fetch_assoc($rsLayers))
+			while ($rLayers = mysql_fetch_assoc($rsLayers))
 			{
 				if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')'))
 				{
@@ -37,7 +49,7 @@ class cache_location
 					break;
 				}
 			}
-			sql_free_result($rsLayers);
+			mysql_free_result($rsLayers);
 			
 			if ($sCode != '')
 			{
@@ -75,13 +87,10 @@ class cache_location
 					
 					// try to get localised name first
 					$adm1 = sql_value("SELECT IFNULL(`sys_trans_text`.`text`, `countries`.`name`)
-															 FROM `countries`
-													LEFT JOIN `sys_trans` ON `countries`.`trans_id`=`sys_trans`.`id` AND `countries`.`name`=`sys_trans`.`text`
-													LEFT JOIN `sys_trans_text` ON `sys_trans`.`id`=`sys_trans_text`.`trans_id` AND `sys_trans_text`.`lang`='&2'
-															WHERE `countries`.`short`='&1'", 
-																		null, 
-																		$sCode,
-																		$opt['template']['default']['locale']);
+					 FROM `countries`
+					LEFT JOIN `sys_trans` ON `countries`.`trans_id`=`sys_trans`.`id` AND `countries`.`name`=`sys_trans`.`text`
+					LEFT JOIN `sys_trans_text` ON `sys_trans`.`id`=`sys_trans_text`.`trans_id` AND `sys_trans_text`.`lang`='&2'
+					WHERE `countries`.`short`='&1'", $sCode);
 
 					if ($adm1 == null)
 						$adm1 = sql_value("SELECT `name` FROM `nuts_codes` WHERE `code`='&1'", null, $sCode);
@@ -101,10 +110,11 @@ class cache_location
 				                              $rCache['cache_id'],
 				                              $opt['template']['default']['locale']);
 				$sCode1 = sql_value("SELECT `caches`.`country` FROM `caches` WHERE `caches`.`cache_id`='&1'", null, $rCache['cache_id']);
-				sql("INSERT INTO `cache_location` (`cache_id`, `adm1`, `code1`) VALUES ('&1', '&2', '&3') ON DUPLICATE KEY UPDATE `adm1`='&2', `adm2`=NULL, `adm3`=NULL, `adm4`=NULL, `code1`='&3', `code2`=NULL, `code3`=NULL, `code4`=NULL", $rCache['cache_id'], $sCountry, $sCode1);
+				$sql=sql("INSERT INTO `cache_location` (`cache_id`, `adm1`, `code1`) VALUES ('&1', '&2', '&3') ON DUPLICATE KEY UPDATE `adm1`='&2', `adm2`=NULL, `adm3`=NULL, `adm4`=NULL, `code1`='&3', `code2`=NULL, `code3`=NULL, `code4`=NULL", $rCache['cache_id'], $sCountry, $sCode1);
+		mysql_query($sql);
 			}
 		}
-		sql_free_result($rsCache);
+		mysql_free_result($rsCache);
 	}
 }
 ?>
