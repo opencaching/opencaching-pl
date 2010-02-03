@@ -12,9 +12,9 @@
 	$rootpath = '../../';
 	require_once($rootpath.'lib2/logic/gis.class.php');
 	require_once($rootpath.'lib/clicompatbase.inc.php');
-
+	require_once($rootpath.'lib/common.inc.php');
 // checkJob(new cache_location());
-
+global $lang;
 class cache_location
 {
 	var $name = 'cache_location';
@@ -63,21 +63,21 @@ class cache_location
 				if (mb_strlen($sCode) == 5)
 				{
 					$code4 = $sCode;
-					$adm4 = sql_value("SELECT `name` FROM `nuts_codes` WHERE `code`='&1'", null, $sCode);
+					$adm4 = sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'",0);
 					$sCode = mb_substr($sCode, 0, 4);
 				}
 
 				if (mb_strlen($sCode) == 4)
 				{
 					$code3 = $sCode;
-					$adm3 = sql_value("SELECT `name` FROM `nuts_codes` WHERE `code`='&1'", null, $sCode);
+					$adm3 = sqlvalue("SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'",0);
 					$sCode = mb_substr($sCode, 0, 3);
 				}
 
 				if (mb_strlen($sCode) == 3)
 				{
 					$code2 = $sCode;
-					$adm2 = sql_value("SELECT `name` FROM `nuts_codes` WHERE `code`='&1'", null, $sCode);
+					$adm2 = sqlvalue("SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'", 0);
 					$sCode = mb_substr($sCode, 0, 2);
 				}
 
@@ -91,12 +91,12 @@ class cache_location
 						$lang_db = "en";
 				
 					// try to get localised name first
-					$adm1 = sql_value("SELECT `countries`.&2)
+					$adm1 = sqlvalue("SELECT `countries`.`pl`
 					 FROM `countries`
-					WHERE `countries`.`short`='&1'",null, $sCode,$lang_db);
+					WHERE `countries`.`short`='$sCode'",0);
 
 					if ($adm1 == null)
-						$adm1 = sql_value("SELECT `name` FROM `nuts_codes` WHERE `code`='&1'", null, $sCode);
+						$adm1 = sqlvalue("SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'", 0);
 				}
 
 				$sql=sql("INSERT INTO `cache_location` (`cache_id`, `adm1`, `adm2`, `adm3`, `adm4`, `code1`, `code2`, `code3`, `code4`) VALUES ('&1', '&2', '&3', '&4', '&5', '&6', '&7', '&8', '&9') ON DUPLICATE KEY UPDATE `adm1`='&2', `adm2`='&3', `adm3`='&4', `adm4`='&5', `code1`='&6', `code2`='&7', `code3`='&8', `code4`='&9'", $rCache['cache_id'], $adm1, $adm2, $adm3, $adm4, $code1, $code2, $code3, $code4);
@@ -108,19 +108,21 @@ class cache_location
 						$lang_db = $lang;
 					else
 						$lang_db = "en";		
-				$sCountry = sql_value("SELECT `countries`.&2
+				$sCountry = sqlvalue("SELECT `countries`.`pl`
 				                         FROM `caches` 
 				                   INNER JOIN `countries` ON `caches`.`country`=`countries`.`short`
-				                        WHERE `caches`.`cache_id`='&1'", 
-				                              null, 
-				                              $rCache['cache_id'],$lang_db
+				                        WHERE `caches`.`cache_id`='$rCache[cache_id]'",0
 				                              );
-				$sCode1 = sql_value("SELECT `caches`.`country` FROM `caches` WHERE `caches`.`cache_id`='&1'", null, $rCache['cache_id']);
+				$sCode1 = sqlvalue("SELECT `caches`.`country` FROM `caches` WHERE `caches`.`cache_id`='&1'", null, $rCache['cache_id']);
 				$sql=sql("INSERT INTO `cache_location` (`cache_id`, `adm1`, `code1`) VALUES ('&1', '&2', '&3') ON DUPLICATE KEY UPDATE `adm1`='&2', `adm2`=NULL, `adm3`=NULL, `adm4`=NULL, `code1`='&3', `code2`=NULL, `code3`=NULL, `code4`=NULL", $rCache['cache_id'], $sCountry, $sCode1);
 		mysql_query($sql);
 			}
 		}
 		mysql_free_result($rsCache);
+		
+		db_disconnect();
 	}
 }
+$cache_loc = new cache_location();
+$cache_loc->run();
 ?>

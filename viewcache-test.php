@@ -52,7 +52,7 @@
 		if(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y')
 			$tplname = 'viewcache_print';
 		else
-			$tplname = 'viewcache';
+			$tplname = 'viewcache-test';
 
 		require_once($rootpath . 'lib/caches.inc.php');
 		require_once($stylepath . '/lib/icons.inc.php');
@@ -139,8 +139,14 @@
 			                  `caches`.`ignorer_count` `ignorer_count`,
 												`caches`.`votes` `votes_count`,
 			                  `cache_type`.`icon_large` `icon_large`,
-			                  `user`.`username` `username`
-			             FROM `caches`, `cache_type`, `user`
+			                  `user`.`username` `username`,
+				IFNULL(`cache_location`.`code1`, '') AS `code1`,
+				IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
+				IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
+				IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
+				IFNULL(`cache_location`.`adm4`, '') AS `adm4`
+			             FROM `caches`, `cache_type`, `user` 
+						 LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`
 				          WHERE `caches`.`user_id` = `user`.`user_id` AND
 					              `cache_type`.`id`=`caches`.`type` AND
 					              `caches`.`cache_id`='&1'", $cache_id);
@@ -214,7 +220,7 @@
 			
 			// check if there is geokret in this cache
 			//mysql_query("SET NAMES 'utf8'");
-			$geokret_sql = "SELECT id, name, distancetravelled as distance FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".sql_escape($cache_wp)."') AND stateid<>1 AND stateid<>4 AND typeid<>2";
+			$geokret_sql = "SELECT id, name, distancetravelled as distance FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".sql_escape($cache_wp)."') AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2";
 			$geokret_query = sql($geokret_sql);
 			if (mysql_num_rows($geokret_query) == 0)
 			{
@@ -330,7 +336,7 @@
 			} else { 
 			if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) != 0) 
 			{
-			$cache_stats = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('show_statictics_cache'). "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\" onclick=\"javascript:window.open('cache_stats.php?cacheid=".$cache_record['cache_id']."&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"Statystyka skrzynki\" title=\"Statystyka skrzynki\" /></a></a>";
+			$cache_stats = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('show_statictics_cache'). "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\" onclick=\"javascript:window.open('cache_stats.php?cacheid=".$cache_record['cache_id']."&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"Statystyka skrzynki\" title=\"Statystyka skrzynki\" /></a>";
 			} else {
 			$cache_stats="<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('not_stat_cache'). "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"\" /></a>";
 					}
@@ -342,7 +348,21 @@
 			tpl_set_var('coords3', $coords3);
 			tpl_set_var('coords_other', $coords_other);
 			tpl_set_var('typeLetter', typeToLetter($cache_record['type']));
+			
+//			if ($cache.code1=="") <img src="images/flags/{$cache.countryCode|lower}.gif" style="vertical-align:middle" />&nbsp;
+//						{else}<img src="images/flags/{$cache.code1|lower}.gif" style="vertical-align:middle" />&nbsp;{/if}
+//						<span style="background-color:#E6E2E6;"><b>
+tpl_set_var('kraj',"");
+tpl_set_var('woj',""); 
+tpl_set_var('dziubek1',"");
+tpl_set_var('miasto',""); 
+tpl_set_var('dziubek2',""); 
 
+						if ($cache.adm1 !="") {tpl_set_var('kraj',$cache.adm1);}
+						if ($cache.adm3 !="") {tpl_set_var('woj',$cache.adm3); tpl_set_var('dziubek1',">");}
+						if ($cache.adm4 !="") {tpl_set_var('miasto',$cache.adm4); tpl_set_var('dziubek2',">");} 
+
+			
 //			$loc = coordToLocation($cache_record['latitude'], $cache_record['longitude']);
 //			tpl_set_var('kraj',$loc['kraj']);
 //			tpl_set_var('woj',$loc['woj']);
@@ -514,11 +534,12 @@
 			tpl_set_var('watch_icon', $watch_icon);
 			tpl_set_var('visit_icon', $visit_icon);
 			tpl_set_var('score_icon', $score_icon);
-			
+			tpl_set_var('save_icon', $save_icon);
+			tpl_set_var('search_icon', $search_icon);			
 			if ($cache_record['type'] == 6)
 			{
 				tpl_set_var('found_icon', $exist_icon);
-				tpl_set_var('notfound_icon', $trash_icon);
+				tpl_set_var('notfound_icon', $wattend_icon);
 
 				$event_attendance_list = mb_ereg_replace('{id}', urlencode($cache_id), $event_attendance_list);
 				tpl_set_var('event_attendance_list', $event_attendance_list);
@@ -1133,8 +1154,10 @@
 
 $decrypt_script = '
 <script type="text/javascript">
+<!--
 	var last="";var rot13map;function decryptinit(){var a=new Array();var s="abcdefghijklmnopqrstuvwxyz";for(i=0;i<s.length;i++)a[s.charAt(i)]=s.charAt((i+13)%26);for(i=0;i<s.length;i++)a[s.charAt(i).toUpperCase()]=s.charAt((i+13)%26).toUpperCase();return a}
 function decrypt(elem){if(elem.nodeType != 3) return; var a = elem.data;if(!rot13map)rot13map=decryptinit();s="";for(i=0;i<a.length;i++){var b=a.charAt(i);s+=(b>=\'A\'&&b<=\'Z\'||b>=\'a\'&&b<=\'z\'?rot13map[b]:b)}elem.data = s}
+-->
 </script>';
 
 $viewcache_header = '
