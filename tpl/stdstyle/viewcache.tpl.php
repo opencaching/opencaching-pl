@@ -70,7 +70,7 @@
 			<div class="content2-container">
 				<div class="content2-container-2col-left" id="viewcache-baseinfo">
 					<p class="content-title-noshade-size3">
-						<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" title="" />
+						<img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
 						<b>{coords}</b> <span class="content-title-noshade-size0">(WGS84)</span><br />
 					</p>
 					<p style="line-height: 1.6em;">
