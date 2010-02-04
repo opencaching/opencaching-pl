@@ -1,8 +1,7 @@
 <?php
 setlocale(LC_TIME, 'pl_PL.utf-8');
   
-  //prepare the templates and include all neccessary
-	require_once('./lib/common.inc.php');	
+
 	//Preprocessing
 	if ($error == false)
 	{
