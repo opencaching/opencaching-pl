@@ -137,7 +137,7 @@
 	$file_content = '';
 	if (mysql_num_rows($rs) == 0)
 	{
-		$file_content = '{{list_of_events_is_empty}}';
+		$file_content = tr("list_of_events_is_empty");
 	}
 	else
 	{
