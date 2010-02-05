@@ -36,8 +36,8 @@
 	 *
 	 */
 	$opt['db']['servername'] = 'localhost';
-	$opt['db']['username'] = 'ocpl';
-	$opt['db']['password'] = 'PorTal.';
+	$opt['db']['username'] = '';
+	$opt['db']['password'] = '';
 	$opt['db']['pconnect'] = true;
 
 	// ... how long a query can take without warning (0 <= disabled)
