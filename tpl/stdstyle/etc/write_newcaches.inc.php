@@ -141,7 +141,7 @@
 	}
 	else
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
 		$file_content = '<ul style="font-size: 11px;">';
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
@@ -149,6 +149,7 @@
 			$loc = coordToLocation($record['latitude'], $record['longitude']);
 		
 			$thisline = $cacheline;
+			$thisline = mb_ereg_replace('{nn}', $i + $markerpositions['plain_cache_num'], $thisline);
 			$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
 			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
 			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
@@ -159,7 +160,8 @@
 			$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
-		  $thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/22x22-event.png', $thisline);
+			$thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/22x22-event.png', $thisline);
+			$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i + $markerpositions['plain_cache_num']), $thisline);
 
 			$file_content .= $thisline . "\n";
 		}
@@ -173,6 +175,9 @@
 
 function get_marker_positions()
 {
+	$markerpos = array();
+	$markers = array();
+
 	$rs = sql("
 		SELECT	`cache_id`, `longitude`, `latitude`, `type`		FROM	`caches`
 		WHERE	`type` != 6 AND			`status` = 1 AND
@@ -181,7 +186,6 @@ function get_marker_positions()
 		ORDER BY IF((`date_hidden`>`date_created`), `date_hidden`, `date_created`) DESC, `cache_id` DESC
 		LIMIT 0, 10");
 
-	$markers = array();
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
@@ -190,27 +194,54 @@ function get_marker_positions()
 		$type = $record['type'];
 		$markers[] = array('lat' => $lat, 'lon' => $lon, 'type' => $type);
 	}
-	return $markers;
+
+	$markerpos['plain_cache_num'] = count($markers);
+
+	$rs = sql("
+		SELECT	`cache_id`, `longitude`, `latitude`, `type`
+		FROM	`caches`		WHERE	`date_hidden` >= curdate() AND			`type` = 6 AND			`status` = 1
+		ORDER BY `date_hidden` ASC		LIMIT 0, 10");
+
+	for ($i = 0; $i < mysql_num_rows($rs); $i++)
+	{
+		$record = sql_fetch_array($rs);
+		$lat = $record['latitude'];
+		$lon = $record['longitude'];
+		$type = $record['type'];
+		$markers[] = array('lat' => $lat, 'lon' => $lon, 'type' => $type);
+	}
+
+	$markerpos['markers'] = $markers;
+
+	return $markerpos;
 }
 
-function create_map_url($markers, $index)
+function create_map_url($markerpos, $index)
 {
 	global $googlemap_key;
 
+	$markers = $markerpos['markers'];
 	$markers_str = "markers=color:blue|size:small|";
+	$markers_ev_str = "&markers=color:orange|size:small|";
 	$sel_marker_str = "";
-	for ($i = 0; $i < 10; $i++)
+	foreach ($markers as $i => $marker)
 	{
-		$lat = sprintf("%.3f", $markers[$i]['lat']);
-		$lon = sprintf("%.3f", $markers[$i]['lon']);
-		$type = strtoupper(typeToLetter($markers[$i]['type']));
-		if ($i != $index)
-			$markers_str .= "$lat,$lon|";
+		$lat = sprintf("%.3f", $marker['lat']);
+		$lon = sprintf("%.3f", $marker['lon']);
+		$type = strtoupper(typeToLetter($marker['type']));
+		if (strcmp($type, 'E') == 0)
+			if ($i != $index)
+				$markers_ev_str .= "$lat,$lon|";
+			else
+				$sel_marker_str = "&markers=color:orange|label:$type|$lat,$lon|";
 		else
-			$sel_marker_str = "&markers=color:blue|label:$type|$lat,$lon|";
+			if ($i != $index)
+				$markers_str .= "$lat,$lon|";
+			else
+				$sel_marker_str = "&markers=color:blue|label:$type|$lat,$lon|";
 	}
 
-	$google_map = "http://maps.google.com/maps/api/staticmap?center=52.13,19.20&zoom=5&size=250x260&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$sel_marker_str;
+	$google_map = "http://maps.google.com/maps/api/staticmap?center=52.13,19.20&zoom=5&size=250x260&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
 
 	return $google_map;
 }

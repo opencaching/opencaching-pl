@@ -38,13 +38,17 @@ window.onload = function() {
 	//preload images
 	if (rollOvers) {
 		map_image_cache = [];
-		for (i = 0; i < 10; i++)
+		map_image_cache[-1] = new Image();
+		map_image_cache[-1].src = document.getElementById('main-cachemap').getAttribute('basesrc');
+		for (i = 0; i < 20; i++)
 		{
-			map_image_cache[i] = new Image();
-			map_image_cache[i].src = document.getElementById('newcache' + i).getAttribute('maphref');
+			var nc_elem = document.getElementById('newcache' + i);
+			if (nc_elem != null)
+			{
+				map_image_cache[i] = new Image();
+				map_image_cache[i].src = nc_elem.getAttribute('maphref');
+			}
 		}
-		map_image_cache[10] = new Image();
-		map_image_cache[10].src = document.getElementById('main-cachemap').getAttribute('basesrc');
 	}
 }
 
@@ -57,7 +61,7 @@ function Lite(nn) {
 
 function Unlite() {
 	if (rollOvers) {
-		document.getElementById('main-cachemap').src = map_image_cache[10].src;
+		document.getElementById('main-cachemap').src = map_image_cache[-1].src;
 	}
 }
 
@@ -83,7 +87,7 @@ function Unlite() {
 						?>
 					</div>
 				</div>
-				<div class="content2-container-2col-right" id="main-cachemap-block"><br /><br /><br /><br />
+				<div class="content2-container-2col-right" id="main-cachemap-block">
 					<div class="img-shadow">
 						<?php
 							global $dynstylepath;
@@ -91,11 +95,6 @@ function Unlite() {
 						?>
 					</div>
 				</div>
-			</div>
-<!-- End Text Container -->
-
-<!-- Text container -->
-			<div class="content2-container line-box">
 				<div class="content2-container-2col-left" id="new-events-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{incomming_events}}</p>
 		<?php
@@ -104,4 +103,5 @@ function Unlite() {
 		?>
 			</div>
 		</div>
+<!-- End Text Container -->
 	
