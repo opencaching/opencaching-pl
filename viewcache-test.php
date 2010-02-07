@@ -437,9 +437,9 @@ tpl_set_var('dziubek2',"");
 					if ($i == $numr ){ $lists .= ' ';} else { $lists .= ', ';}
 						}
 				}	
-				$content_list = "<script type=\"text/javascript\"> Tip('<b>recommended_by: </b><br /><br />";
+				$content_list = "<script type=\"text/javascript\">Tip('<b>recommended_by: </b><br /><br />";
 				$content_list .= $lists;
-				$content_list .= "<br /><br/>',FOLLOWMOUSE, false, BALLOON, true, ABOVE, false, PADDING, 8, WIDTH, -240)</script>";
+				$content_list .= "<br /><br/>', BALLOON, true, ABOVE, false, FIX, ['thiss', 0, 5], FOLLOWMOUSE, false,PADDING, 8, WIDTH, -240)</script><span id=\"thiss\"></span>";
 
 				tpl_set_var('list_of_rating_begin', $content_list);
 				tpl_set_var('list_of_rating_end','');}
