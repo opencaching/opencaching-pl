@@ -437,12 +437,12 @@ tpl_set_var('dziubek2',"");
 					if ($i == $numr ){ $lists .= ' ';} else { $lists .= ', ';}
 						}
 				}	
-				$content_list = "<script type=\"text/javascript\">Tip('<b>recommended_by: </b><br /><br />";
+				$content_list = "<script type=\"text/javascript\">Tip('<b>" .tr('recommended_by'). ": </b><br /><br />";
 				$content_list .= $lists;
-				$content_list .= "<br /><br/>', BALLOON, true, ABOVE, false, FIX, ['thiss', 0, 5], FOLLOWMOUSE, false,PADDING, 8, WIDTH, -240)</script><span id=\"thiss\"></span>";
+				$content_list .= "<br /><br/>', BALLOON, true, ABOVE, false,FIX, [this,600, 500], FOLLOWMOUSE, false, PADDING, 8, WIDTH, -240)</script><span id=\"this\"></span>";
 
 				tpl_set_var('list_of_rating_begin', $content_list);
-				tpl_set_var('list_of_rating_end','');}
+				tpl_set_var('list_of_rating_end','</a>');}
 
 			if ((($cache_record['way_length'] == null) && ($cache_record['search_time'] == null)) ||
 			    (($cache_record['way_length'] == 0) && ($cache_record['search_time'] == 0)))
