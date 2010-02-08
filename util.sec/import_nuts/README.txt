@@ -1,14 +1,8 @@
 
 
-     IMPORTANT
-
-     EUROSTAT CHANGED THE DOWNLOAD FORMAT AND A NEW IMPORT ROUTINE HAS TO BE WORKED OUT
-             THE DOWNLOAD FILE IN STEP 1) DOES NO MORE CONTAIN A SHP-FILE
-
-
 1. Download and unpack NUTS_RG_03M_2003 to data directory
 
-http://epp.eurostat.ec.europa.eu:80/portal/page?_pageid=2254,64099847,2254_64185160&_dad=portal&_schema=PORTAL
+http://epp.eurostat.ec.europa.eu/portal/page/portal/gisco/popups/references/administrative_units_statistical_units_1
 (1:3 Mill.)
 
 2. Import data with shp2mysql.pl to database gis
