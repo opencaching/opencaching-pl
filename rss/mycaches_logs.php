@@ -71,7 +71,7 @@ header('Content-type: application/xml; charset="utf-8"');
 				{
 				$r = sql_fetch_array($rs);
 
-			$thisline = "<item>\n<title>{cachename}</title>\n<description>  Data: {date} - Użytkownik: {username} - Wpis: {logtype}{rate}{gk} </description>\n<link>http://www.opencaching.pl/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";				
+			$thisline = "<item>\n<title>{cachename}</title>\n<description>Data: {date} - Użytkownik: {username} - Wpis: {logtype}{rate}{gk} </description>\n<link>http://www.opencaching.pl/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";				
 
 
 
