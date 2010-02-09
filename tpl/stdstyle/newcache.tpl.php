@@ -181,7 +181,8 @@ function toggleAttr(id)
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
 		<td valign="top"><p class="content-title-noshade">{{coordinates}}:</p></td>
-		<td><fieldset style="border: 1px solid black; width: 65%; height: 32%; background-color: #FFFACD;">
+		<td class="content-title-noshade">
+		<fieldset style="border: 1px solid black; width: 65%; height: 32%; background-color: #FFFACD;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
 			<select name="latNS" class="input40">
 				<option value="N"{latNsel}>N</option>
