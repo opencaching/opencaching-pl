@@ -99,7 +99,7 @@
 	<tr>
 		<td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{coordinates}}:</td>
 		<td class="content-title-noshade">
-		<fieldset style="border: 1px solid black; width: 65%; height: 32%; background-color: #FFFFCC;">
+		<fieldset style="border: 1px solid black; width: 50%; height: 32%; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
 			<select name="latNS" class="input40">
 				<option value="N"{latNsel}>N</option>
