@@ -63,9 +63,9 @@
 				$record = sql_fetch_array($rs);
 				$num_caches = $record['num_caches'];
 
-				if( $num_caches <= $NEED_APPROVE_LIMIT )
+				if( $num_caches < $NEED_APPROVE_LIMIT )
 				{
-					// user needs approvement for first 5 caches to be published
+					// user needs approvement for first 3 caches to be published
 					$needs_approvement = true;
 					tpl_set_var('hide_publish_start', '<!--');
 					tpl_set_var('hide_publish_end', '-->');
