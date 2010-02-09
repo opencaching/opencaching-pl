@@ -14,14 +14,14 @@ require('../lib/jpgraph/src/jpgraph_mgraph.php');
   require('../lib/web.inc.php');
   sql('USE `ocpl`');
 
-	
+		
   $y=array();
   $x=array();
   $y2=array();
   $x2=array();
   $y3=array();
   $x3=array();
-$rsreports= sql("SELECT count(*) count, responsible_id, username from reports,user WHERE submit_date > '2009-06-11 00:00:00' and responsible_id <>0 AND responsible_id != 1883 AND user.user_id=responsible_id GROUP BY responsible_id ORDER  BY username");
+$rsreports= sql("SELECT count(*) count, responsible_id, username from reports,user WHERE submit_date > '2009-06-1 00:00:00' and responsible_id <>0 AND responsible_id != 1883 AND user.user_id=responsible_id GROUP BY responsible_id ORDER  BY username");
 
 $rsreportsM= sql("SELECT count(*) count, MONTH(`submit_date`) `month` from reports WHERE submit_date > '2009-06-1 00:00:00' and responsible_id <>0 AND responsible_id != 1883 GROUP BY MONTH(`submit_date`) , YEAR(`submit_date`) ORDER BY YEAR(`submit_date`) ASC, MONTH(`submit_date`) ASC");
 
