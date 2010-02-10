@@ -39,6 +39,22 @@ CREATE TRIGGER `cacheDescAfterDelete` AFTER DELETE ON `cache_desc`
       UPDATE `caches`, (SELECT `cache_id`, GROUP_CONCAT(DISTINCT `language` ORDER BY `language` SEPARATOR ',') AS `lang` FROM `cache_desc` GROUP BY `cache_id`) AS `tbl2` SET `caches`.`desc_languages`=`tbl2`.`lang` WHERE `caches`.`cache_id`=`tbl2`.`cache_id` AND `tbl2`.`cache_id`=OLD.`cache_id`; 
     END;;
 
+DROP TRIGGER IF EXISTS cacheLocationBeforeInsert;;
+
+CREATE TRIGGER `cacheLocationBeforeInsert` BEFORE INSERT ON `cache_location`
+  FOR EACH ROW
+    BEGIN
+      SET NEW.`last_modified`=NOW();
+    END;;
+
+DROP TRIGGER IF EXISTS cacheLocationBeforeUpdate;;
+
+CREATE TRIGGER `cacheLocationBeforeUpdate` BEFORE UPDATE ON `cache_location`
+  FOR EACH ROW
+    BEGIN
+      SET NEW.`last_modified`=NOW();
+    END;;
+
 DROP TRIGGER IF EXISTS cacheRatingAfterInsert;;
 
 CREATE TRIGGER `cacheRatingAfterInsert` AFTER INSERT ON `cache_rating`
