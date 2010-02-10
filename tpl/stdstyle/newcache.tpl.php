@@ -341,35 +341,42 @@ function toggleAttr(id)
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr><td colspan="2"><div class="notice" style="width:500px;height:24px;">{{add_photo_newcache}}</div></td></tr>
 	<tr>
-		<td><p class="content-title-noshade">{{date_hidden_label}}:</p></td>
-		<td>
+		<td colspan="2">	
+		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
+			<legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
 			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{hidden_day}"/>.
 			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{hidden_month}"/>.
 			<input class="input40" type="text" name="hidden_year" maxlength="4" value="{hidden_year}"/>
 			{hidden_since_message}
+		</fieldset>		
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{event_hidden_hint}}</div></td></tr>
 	{hide_publish_start}
 	<tr>
-		<td><p class="content-title-noshade">{{submit_new_cache}}:</p></td>
-		<td>
+		<td colspan="2">		
+		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
+			<legend>&nbsp; <strong>{{submit_new_cache}} skrzynki</strong> &nbsp;</legend>
 			<input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}/>&nbsp;<label for="publish_now">{{publish_now}}</label><br />
 			<input type="radio" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}/>&nbsp;<label for="publish_later">{{publish_date}}:</label>
 			<input class="input20" type="text" name="activate_day" maxlength="2" value="{activate_day}"/>.
 			<input class="input20" type="text" name="activate_month" maxlength="2" value="{activate_month}"/>.
 			<input class="input40" type="text" name="activate_year" maxlength="4" value="{activate_year}"/>&nbsp;
-			<select name="activate_hour" class="input40">
-				{activation_hours}
+			<select name="activate_hour" class="input40">{activation_hours}
 			</select>&nbsp;{{hour}}&nbsp;{activate_on_message}<br />
 			<input type="radio" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}/>&nbsp;<label for="publish_notnow">{{dont_publish_yet}}</label>
-			<div class="buffer"></div>
+		</fieldset>
 		</td>
 	</tr>
 	{hide_publish_end}
 	<tr>
-		<td><p class="content-title-noshade">{{log_password}}:</p></td>
-		<td><input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})</td>
+
+		<td colspan="2"><br />	
+		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
+		<legend>&nbsp; <strong>{{log_password}}</strong> &nbsp;</legend>
+		<input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})
+		</fieldset>
+		</td>
 	</tr>
 	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{please_read}}</div></td></tr>
 	<tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /><br /></div></td></tr>
