@@ -173,8 +173,8 @@ html_preview HTML preview
 allowed_html_tags Allowed HTML tags
 special_caches Special caches
 user_ident User's identification
-cache_map Map of caches
-old_cache_map Older version of cachemap
+cache_map Map of caches v3
+cache_mapv2 Map of caches v2
 abc Geocaching ABC
 forum Forum
 geokrets Geokrety
@@ -515,4 +515,8 @@ ranking_by_number_of_recommnedations Ranking users by number of recommnedations 
 show_statictics_cache Show cache statistics
 not_stat_cache This cache do not have statistics yet
 recommended_by This cache recommende by
+graph_find Graph of found it caches
+graph_created Graph of created caches
+general_stat General statistics
+stat_number_found Statistics numerical caches found it
 
