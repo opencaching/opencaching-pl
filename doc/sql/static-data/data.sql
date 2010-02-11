@@ -68,14 +68,14 @@ INSERT INTO `cache_status` (`id`, `pl`, `en`) VALUES
 
 INSERT INTO `cache_type` (`id`, `sort`, `short`, `pl`, `en`, `icon_large`, `icon_small`, `color`) VALUES
 (1, 5, 'Other', 'Inny typ skrzynki', 'Unknown type', 'cache/unknown.png', 'cache/16x16-unknown.png', '#FFFF00'),
-(2, 1, 'Trad.', 'Tradycyjna', 'Traditional Cache', 'cache/traditional.png', 'cache/16x16-traditional.png', '#0000FF'),
+(2, 1, 'Trad.', 'Tradycyjna', 'Traditional', 'cache/traditional.png', 'cache/16x16-traditional.png', '#0000FF'),
 (3, 2, 'Multi', 'Multicache', 'Multicache', 'cache/multi.png', 'cache/16x16-multi.png', '#00D400'),
-(4, 8, 'Virt.', 'Wirtualna', 'Virtual Cache', 'cache/virtual.png', 'cache/16x16-virtual.png', '#00D5FF'),
-(5, 7, 'ICam.', 'Webcam', 'Webcam Cache', 'cache/webcam.png', 'cache/16x16-webcam.png', '#00FFFF'),
-(6, 6, 'Event', 'Wydarzenie', 'Event Cache', 'cache/event.png', 'cache/16x16-event.png', '#FF80FF'),
+(4, 8, 'Virt.', 'Wirtualna', 'Virtual', 'cache/virtual.png', 'cache/16x16-virtual.png', '#00D5FF'),
+(5, 7, 'ICam.', 'Webcam', 'Webcam', 'cache/webcam.png', 'cache/16x16-webcam.png', '#00FFFF'),
+(6, 6, 'Event', 'Wydarzenie', 'Event', 'cache/event.png', 'cache/16x16-event.png', '#FF80FF'),
 (7, 3, 'Quiz', 'Quiz', 'Quiz', 'cache/quiz.png', 'cache/16x16-quiz.png', '#FF8000'),
-(8, 4, 'Moving', 'Mobilna', 'Moving Cache', 'cache/moving.png', 'cache/16x16-moving.png', '#FF00FF'),
-(11, 10, 'Podcast', 'Podcast cache', 'Podcast cache', 'cache/podcache.gif', 'cache/16x16-podcache.gif', '#FF00FF');
+(8, 4, 'Moving', 'Mobilna', 'Moving', 'cache/moving.png', 'cache/16x16-moving.png', '#FF00FF'),
+(11, 10, 'Podcast', 'Podcast', 'Podcast cache', 'cache/podcache.gif', 'cache/16x16-podcache.gif', '#FF00FF');
 
 --
 -- Zrzut danych tabeli `countries`
