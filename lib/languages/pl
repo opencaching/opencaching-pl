@@ -277,7 +277,7 @@ user_new_log_entries Najnowsze wpisy do logów
 your_caches_new_log_entries Najnowsze wpisy w Twoich skrzynkach
 your_latest_hiddens Ostatnio ukryte przez ciebie skrzynki
 number_of_your_hiddens Liczba ukrytych przez ciebie skrzynek
-not_yet_published Twoje jeszcze nieopublikowane skrzynki
+not_yet_published Moje jeszcze nieopublikowane skrzynki
 emails_sent_label Wysłane wiadomości
 user_profile Profil użytkownika
 no_userprofile Profil użytkownika nie może być wyświetlony, ponieważ wskazany użytkownik jest nieprawidłowy lub nie ma go w bazie.
@@ -565,6 +565,37 @@ listing_from_this_page Wykaz z tej strony
 show_on_map Pokaż na mapie
 list_of_events_is_empty W najbliższym czasie nie ma żadnych wydarzeń.
 stat_number_found Statystyka liczbowa skrzynek znalezionych
+not_found_caches Nie ma jeszcze żadnej skrzynki znalezionej
+total_number_found_caches Liczba znalezionych skrzynek
+total_dnf_caches Liczba nie znalezionych skrzynek
+total_comments Liczba komentarzy w logach
+total_attended_events Liczba uczestnictw w spotkaniach
+number_recommendations_given Liczba przyznanych rekomendacji
+days_caching Liczba dni "keszowania"
+from_total_days z całkowitej ilości dni
+average_caches Średnio skrzynek na dzień "keszowania"
+most_caches Najwięcej skrzynek/dzień
+latest_cache Ostatnia znaleziona skrzynka
+milestones  Milestones "kamienie milowe"
+latest_logs_by_user Najnowsze wpisy do logów wprowadzone przez użytkownika
+stat_created_caches Statystyka liczbowa skrzynek założonych
+not_caches_created Nie ma jeszcze żadnej założonej skrzynki
+total_created_caches Liczba wszystkich założonych skrzynek
+active_caches w tym aktywnych
+number_temp_caches Liczba czasowo niedostępnych skrzynek
+number_archived_caches Liczba zarchiwizowanych skrzynek
+number_created_events Liczba zorganizowanych spotkań (events)
+number_obtain_recommendations Liczba otrzymanych rekomendacji
+for dla
+_caches_ skrzynek
+ratio_recommendations Stosunek liczby skrzynek rekomendowanych do wszystkich
+number_gk_in_caches Liczba GeoKretów w skrzynkach
+latest_created_cache Najnowsza założona skrzynka
+latest_logs_in_caches Najnowsze wpisy w logach w skrzynkach użytkownika
+caches_waiting_approve Moje skrzynki oczekujące na weryfikacje przez OC Team
+caches_blocked Moje skrzynki zablokowane przez OC Team
+blocked_create_caches UWAGA! Masz zablokowaną możliwość zakładania nowych skrzynek. Proszę kontaktować się z OC Team rr@opencaching.pl
+
 
 
 

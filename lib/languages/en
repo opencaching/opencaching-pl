@@ -276,7 +276,7 @@ user_new_log_entries Latest log entries
 your_caches_new_log_entries Latest log entries in your caches
 your_latest_hiddens Your recently hidden caches
 number_of_your_hiddens Number of caches hidden by you
-not_yet_published Your caches that have not been published yet
+not_yet_published My caches that have not been published yet
 emails_sent_label Messages sent
 user_profile User's profile
 no_userprofile User's profile cannot be displayed, because the given user has not been found in database.
@@ -518,5 +518,36 @@ recommended_by This cache recommende by
 graph_find Graph of found it caches
 graph_created Graph of created caches
 general_stat General statistics
-stat_number_found Statistics numerical caches found it
+stat_number_found Statistics numerical of caches found it
+total_number_found_caches Total number of found it caches
+total_dnf_caches Total didn't find caches
+total_comments Total number of comments
+total_attended_events Total numbers of attended in events
+number_recommendations_given Number of recommendations given
+days_caching Days caching 
+from_total_days from total days
+average_caches Average caches per caching day
+most_caches The most of find caches per day
+latest_cache The latest find cache
+milestones Milestones
+latest_logs_by_user The latest log entry by user
+stat_created_caches Statistics numerical of created caches
+not_caches_created  There is not created caches yet
+not_found_caches There is not find it caches yet
+total_created_caches Total number of creatde caches
+active_caches active caches
+number_temp_caches Number of temporarily unavailable caches
+number_archived_caches Number of archived caches
+number_created_events Number of arranged events
+number_obtain_recommendations Number of obtained recommendations
+for for
+_caches_ geocaches
+ratio_recommendations Ratio recommended caches to all caches
+number_gk_in_caches Number of GeoKrety in caches
+latest_created_cache The latest created cache
+latest_logs_in_caches The latest log entry in caches owner
+caches_waiting_approve My caches waiting to approve by OC Team
+caches_blocked My caches blocked by OC Team
+blocked_create_caches You have blocked possiblity to create new caches. Please contact with OC Team rr@opencaching.pl
+
 
