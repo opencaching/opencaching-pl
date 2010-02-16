@@ -70,20 +70,21 @@
 			<div class="content2-container">
 				<div class="content2-container-2col-left" id="viewcache-baseinfo">
 					<p class="content-title-noshade-size3">
-						<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" title="" />
-						<blink><b>{coords}</b></blink> <span class="content-title-noshade-size0">(WGS84)</span><br />
+						<img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
+						<b>{coords}</b> <span class="content-title-noshade-size0">(WGS84)</span><br />
 					</p>
 					<p style="line-height: 1.6em;">
 						<img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{coords_other}<br />
-<!--						<img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek} {woj}</span></b><br />  -->
-						<img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{size}}: <b>{cachesize}</b><br />
-						<img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{status_label}}: {status}<br />
-						{hidetime_start}<img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}}: {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{length}}: {way_length}<br />{hidetime_end}	
-						<img src="tpl/stdstyle/images/free_icons/date_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_hidden_label}}: {hidden_date}<br />
-						<img src="tpl/stdstyle/images/free_icons/date_add.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_created_label}}: {date_created}<br />
-						<img src="tpl/stdstyle/images/free_icons/date_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{last_modified_label}}: {last_modified}<br />
-						<img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{waypoint}}: <b>{oc_waypoint}</b><br />
-						{hidelistingsites_start}<img src="tpl/stdstyle/images/free_icons/world_link.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_also_on}}: {listed_on}<br />{hidelistingsites_end}
+						<img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek1} {woj} {dziubek2} {miasto}</span></b><br /> 
+						<img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{cache_type}}: <b>{cachetype}</b><br />
+						<img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{size}}: <b>{cachesize}</b><br />
+						<img src="tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{status_label}}: {status}<br />
+						{hidetime_start}<img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}}: {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{length}}: {way_length}<br />{hidetime_end}		
+						<img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_hidden_label}}: {hidden_date}<br />
+						<img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_created_label}}: {date_created}<br />
+						<img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{last_modified_label}}: {last_modified}<br />
+						<img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" align="middle" />&nbsp;Waypoint: <b>{oc_waypoint}</b><br />
+						{hidelistingsites_start}<img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_also_on}}: {listed_on}<br />{hidelistingsites_end}
 					</p>
 					<?php
 global $usr, $lang, $hide_coords;			
@@ -112,13 +113,12 @@ else
 							{
 					?>
 						<div class="content2-container-2col-left" id="viewcache-numstats">
-						<p style="line-height: 1.4em;"><br />
+						<p style="line-height: 1.4em;"><br /><br />
 							{found_icon} {founds} {found_text}<br />
 							{notfound_icon} {notfounds} {notfound_text}<br />
 							{note_icon} {notes} {{comments}}<br />
 							{watch_icon} {watcher} {{watchers}}<br />
 							{visit_icon} {visits} {{visitors}}<br />
-<img src="tpl/stdstyle/images/free_icons/arrow_join.png" class="icon16" alt="" title="" align="middle" />&nbsp;Długość trasy: <b>121 km</b><br />
 							{vote_icon} {votes_count} x {{scored}}<br />
 							{score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
 							{list_of_rating_begin}{rating_stat}{list_of_rating_end}
@@ -162,7 +162,7 @@ else
 			</div>
 <div class="notice" id="viewcache-attributesend">{{attributes_desc_hint}}</div>
 					{cache_attributes_end}
-
+<!-- End Text Container -->
 <!-- Text container -->
 
 			<div class="content2-container bg-blue02">
@@ -194,8 +194,27 @@ else
 
 <!-- End Text Container -->
 
+<!-- Text container -->
+
+			<div class="content2-container bg-blue02">
+				<p class="content-title-noshade-size1">
+					
+					<img src="tpl/stdstyle/images/blue/npav2.png" class="icon32" alt="" />
+					NATURA 2000 obszar
+				</p>
+				</div>
+				<div class="content2-container">
+				<p>
+<table width="97%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 12px; line-height: 1.6em">
+<tr>
+<td align="center" valign="middle"><img src="tpl/stdstyle/images/misc/npa-att.png" alt="" /><td align="center" valign="middle">Skrzynka prawdopodobnie znajduje się na obszarze NATURA 2000: PLH20045 - Dolina Wisły</td><td align="center" valign="middle"><a clas="links" href="http://natura2000.gdos.gov.pl/natura2000/pl/jednostki.php"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
+</tr>
+</table>
+				</p><br />
+			</div>
 
 <!-- End Text Container -->
+
 <!-- Text container -->
 			{start_rr_comment}
 			<div class="content2-container bg-blue02">
