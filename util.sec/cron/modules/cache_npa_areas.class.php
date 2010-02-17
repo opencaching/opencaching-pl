@@ -43,10 +43,13 @@ class cache_npa_areas
 //					mysql_query($sql);
 
 
-			$rsLayers = sql("SELECT `id`, `type_id`, AsText(`shape`) AS `geometry` FROM `npa_areas` WHERE WITHIN(GeomFromText('&1'), `shape`)", 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')');
-
+			$rsLayers = sql("SELECT `id`, AsText(`shape`) AS `geometry` FROM `npa_areas` WHERE WITHIN(GeomFromText('&1'), `shape`)", 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')');
+			$rLayers = mysql_fetch_assoc($rsLayers);
+						echo $rLayers['geometry'];
+						
 			while ($rLayers = mysql_fetch_assoc($rsLayers))
 			{
+				echo $rLayers['geometry'];
 				if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')'))
 				{
 
@@ -61,6 +64,7 @@ class cache_npa_areas
 //					mysql_query($sql);
 		}
 		mysql_free_result($rsCache);
+				db_disconnect();
 	}
 }
 $cache_npa = new cache_npa_areas();
