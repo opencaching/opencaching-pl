@@ -12,7 +12,7 @@
  
  ***************************************************************************/
 
-	$rootpath = '../../../';
+	$rootpath = './';
 	require_once($rootpath.'lib2/logic/gis.class.php');
 	require_once($rootpath.'lib/clicompatbase.inc.php');
 	require_once($rootpath.'lib/common.inc.php');
@@ -21,8 +21,8 @@
 
 class cache_npa_areas
 {
-	var $name = 'cache_npa_areas';
-	var $interval = 600;
+//	var $name = 'cache_npa_areas';
+//	var $interval = 600;
 
 	function run()
 	{
@@ -48,7 +48,8 @@ class cache_npa_areas
 						
 			while ($rLayers = mysql_fetch_assoc($rsLayers))
 			{
-				echo $rLayers['geometry'];
+			
+//				echo "progress";
 				if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')'))
 				{
 

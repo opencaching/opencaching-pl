@@ -386,10 +386,10 @@ tpl_set_var('dziubek2',"");
 			}
 			else
 			{
-				$npa_content = '';
+				$npa_content = 'Prawdopodobnie skrzynka znajduje się na obszarze <font color="green">NATURA 2000</font>:<br />';
 				while( $npa = mysql_fetch_array($rsArea) )
 				{
-					$npa_content .= "Prawdopodobnie skrzynka znajduje się na obszarze <font color=\"green\">NATURA 2000</font><font color=\"blue\">:&nbsp;&nbsp;&nbsp;".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</font>.";
+					$npa_content .= "<font color=\"blue\">".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</font><br />";
 				}
 				tpl_set_var('hidenpa_start', '');
 				tpl_set_var('hidenpa_end', '');
