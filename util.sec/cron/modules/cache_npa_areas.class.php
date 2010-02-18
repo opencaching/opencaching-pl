@@ -12,7 +12,7 @@
  
  ***************************************************************************/
 
-	$rootpath = './';
+	$rootpath = '../../../';
 	require_once($rootpath.'lib2/logic/gis.class.php');
 	require_once($rootpath.'lib/clicompatbase.inc.php');
 	require_once($rootpath.'lib/common.inc.php');
@@ -43,7 +43,7 @@ class cache_npa_areas
 //					mysql_query($sql);
 
 
-			$rsLayers = sql("SELECT `id`, AsText(`shape`) AS `geometry` FROM `npa_areas` WHERE WITHIN(GeomFromText('&1'), `shape`)", 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')');
+	$rsLayers = sql("SELECT `id`, AsText(`shape`) AS `geometry` FROM `npa_areas` WHERE WITHIN(GeomFromText('&1'), `shape`)", 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')');
 
 						
 			while ($rLayers = mysql_fetch_assoc($rsLayers))
@@ -52,8 +52,7 @@ class cache_npa_areas
 //				echo "progress";
 				if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')'))
 				{
-
-						$sql=sql("INSERT INTO `cache_npa_areas` (`cache_id`, `npa_id`, `calculated`) VALUES ('&1', '&2', 1) ON DUPLICATE KEY UPDATE `calculated`=1", $rCache['cache_id'], $rLayers['id']);
+					$sql=sql("INSERT INTO `cache_npa_areas` (`cache_id`, `npa_id`, `calculated`) VALUES ('&1', '&2', 1) ON DUPLICATE KEY UPDATE `calculated`=1", $rCache['cache_id'], $rLayers['id']);
 					mysql_query($sql);
 						
 				}
