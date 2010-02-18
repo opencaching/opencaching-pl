@@ -85,11 +85,6 @@ DROP TRIGGER IF EXISTS cachesBeforeInsert;;
 CREATE TRIGGER `cachesBeforeInsert` BEFORE INSERT ON `caches` 
 				FOR EACH ROW 
 					BEGIN 
-						/* dont overwrite date values while XML client is running */
-						IF ISNULL(@XMLSYNC) OR @XMLSYNC!=1 THEN
-							SET NEW.`date_created`=NOW();
-							SET NEW.`last_modified`=NOW();
-						END IF;
 						SET NEW.`need_npa_recalc`=1;
 					END;;
 					
