@@ -227,6 +227,26 @@ else
 {hidehint_end}
 <!-- End Text Container -->
 <!-- Text container -->
+{hidenpa_start}
+			<div class="content2-container bg-blue02">
+				<p class="content-title-noshade-size1">
+					
+					<img src="tpl/stdstyle/images/blue/npav2.png" class="icon32" alt="" />
+					NATURA 2000 obszar
+				</p>
+				</div>
+				<div class="content2-container">
+				<p>
+<table width="97%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 12px; line-height: 1.6em">
+<tr>
+<td align="center" valign="middle"><img src="tpl/stdstyle/images/misc/npa-att.png" alt="" /><td align="center" valign="middle">{npa_content}</td><td align="center" valign="middle"><a clas="links" href="http://natura2000.gdos.gov.pl/natura2000/pl/jednostki.php"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
+</tr>
+</table>
+				</p><br />
+			</div>
+{hidenpa_end}
+<!-- End Text Container -->
+<!-- Text container -->
 {geokrety_begin}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
