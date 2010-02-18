@@ -35,12 +35,12 @@ class cache_npa_areas
 			exit;
 		}
 	/* end db connect */
-//		$rsCache = sql("SELECT `cache_id`, `latitude`, `longitude` FROM `caches` WHERE `need_npa_recalc`=1");
-		$rsCache = sql("SELECT `cache_id`, `latitude`, `longitude` FROM `caches`");
+		$rsCache = sql("SELECT `cache_id`, `latitude`, `longitude` FROM `caches` WHERE `need_npa_recalc`=1");
+//		$rsCache = sql("SELECT `cache_id`, `latitude`, `longitude` FROM `caches`");
 		while ($rCache = mysql_fetch_assoc($rsCache))
 		{
-//					$sql=sql("DELETE FROM `cache_npa_areas` WHERE `cache_id`='&1' AND `calculated`=1", $rCache['cache_id']);
-//					mysql_query($sql);
+					$sql=sql("DELETE FROM `cache_npa_areas` WHERE `cache_id`='&1' AND `calculated`=1", $rCache['cache_id']);
+					mysql_query($sql);
 
 
 	$rsLayers = sql("SELECT `id`, AsText(`shape`) AS `geometry` FROM `npa_areas` WHERE WITHIN(GeomFromText('&1'), `shape`)", 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')');
@@ -59,8 +59,8 @@ class cache_npa_areas
 			}
 			mysql_free_result($rsLayers);
 			
-//			$sql=sql("UPDATE `caches` SET `need_npa_recalc`=0 WHERE `cache_id`='&1'", $rCache['cache_id']);
-//					mysql_query($sql);
+			$sql=sql("UPDATE `caches` SET `need_npa_recalc`=0 WHERE `cache_id`='&1'", $rCache['cache_id']);
+					mysql_query($sql);
 		}
 		mysql_free_result($rsCache);
 				db_disconnect();
