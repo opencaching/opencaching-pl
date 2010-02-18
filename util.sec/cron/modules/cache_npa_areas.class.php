@@ -44,8 +44,7 @@ class cache_npa_areas
 
 
 			$rsLayers = sql("SELECT `id`, AsText(`shape`) AS `geometry` FROM `npa_areas` WHERE WITHIN(GeomFromText('&1'), `shape`)", 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')');
-			$rLayers = mysql_fetch_assoc($rsLayers);
-						echo $rLayers['geometry'];
+
 						
 			while ($rLayers = mysql_fetch_assoc($rsLayers))
 			{
