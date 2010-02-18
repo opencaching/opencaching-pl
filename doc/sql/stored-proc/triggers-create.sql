@@ -80,6 +80,30 @@ CREATE TRIGGER `cacheRatingAfterDelete` AFTER DELETE ON `cache_rating`
       UPDATE `caches` SET `topratings`=(SELECT COUNT(*) FROM `cache_rating` WHERE `cache_rating`.`cache_id`=OLD.`cache_id`) WHERE `cache_id`=OLD.`cache_id`;
     END;;
 
+DROP TRIGGER IF EXISTS cachesBeforeInsert;;
+
+CREATE TRIGGER `cachesBeforeInsert` BEFORE INSERT ON `caches` 
+				FOR EACH ROW 
+					BEGIN 
+						/* dont overwrite date values while XML client is running */
+						IF ISNULL(@XMLSYNC) OR @XMLSYNC!=1 THEN
+							SET NEW.`date_created`=NOW();
+							SET NEW.`last_modified`=NOW();
+						END IF;
+						SET NEW.`need_npa_recalc`=1;
+					END;;
+					
+DROP TRIGGER IF EXISTS cachesBeforeUpdate;;
+
+CREATE TRIGGER `cachesBeforeUpdate` BEFORE UPDATE ON `caches` 
+				FOR EACH ROW 
+					BEGIN 
+						IF OLD.`longitude`!=NEW.`longitude` OR 
+						   OLD.`latitude`!=NEW.`latitude` THEN
+							SET NEW.`need_npa_recalc`=1;
+						END IF;
+					END;;
+					
 DROP TRIGGER IF EXISTS cachesAfterInsert;;
 
 CREATE TRIGGER `cachesAfterInsert` AFTER INSERT ON `caches`
@@ -120,6 +144,7 @@ CREATE TRIGGER `cachesAfterDelete` AFTER DELETE ON `caches`
     BEGIN
       DELETE FROM `cache_coordinates` WHERE `cache_id`=OLD.`cache_id`;
       DELETE FROM `cache_countries` WHERE `cache_id`=OLD.`cache_id`;
+	  DELETE FROM `cache_npa_areas` WHERE `cache_id`=OLD.`cache_id`;
       UPDATE `user`, (SELECT COUNT(*) AS `hidden_count` FROM `caches` WHERE `user_id`=OLD.`user_id` AND `status` IN (1, 2, 3)) AS `c` SET `user`.`hidden_count`=`c`.`hidden_count` WHERE `user`.`user_id`=OLD.`user_id`;
     END;;
 

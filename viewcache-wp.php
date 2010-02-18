@@ -367,8 +367,6 @@ tpl_set_var('dziubek2',"");
 //			if ($cache_record['adm4'] !="") {tpl_set_var('miasto',$cache_record['adm4']); tpl_set_var('dziubek2',">");} 
 
 			
-
-
 	/* nature protection areas
 	 */
 	$rsArea = sql("SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype` 
@@ -386,18 +384,15 @@ tpl_set_var('dziubek2',"");
 			}
 			else
 			{
-				$npa_content = 'Prawdopodobnie skrzynka znajduje się na obszarze <font color="green">NATURA 2000</font>:<br />';
+				$npa_content = "'.tr('npa_info').' <font color="green">NATURA 2000</font>:<br />";
 				while( $npa = mysql_fetch_array($rsArea) )
 				{
-					$npa_content .= "<font color=\"blue\">".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</font><br />";
+					$npa_content .= "<font color=\"blue\"><a class=\"links\" target=\"_blank\" href=\"http://natura2000.gdos.gov.pl/natura2000/pl/info.php?KodOstoi=".$npa['npaSitecode']."\">".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</a></font><br />";
 				}
 				tpl_set_var('hidenpa_start', '');
 				tpl_set_var('hidenpa_end', '');
 				tpl_set_var('npa_content', $npa_content);
-
 			}
-
-
 		
 			//cache data
 			list($iconname) = getCacheIcon($usr['userid'], $cache_record['cache_id'], $cache_record['status'], $cache_record['user_id'], $cache_record['icon_large']);
