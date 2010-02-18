@@ -195,7 +195,7 @@ else
 <!-- End Text Container -->
 
 <!-- Text container -->
-
+{hidenpa_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					
@@ -207,12 +207,12 @@ else
 				<p>
 <table width="97%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 12px; line-height: 1.6em">
 <tr>
-<td align="center" valign="middle"><img src="tpl/stdstyle/images/misc/npa-att.png" alt="" /><td align="center" valign="middle">Skrzynka prawdopodobnie znajduje się na obszarze NATURA 2000: PLH20045 - Dolina Wisły</td><td align="center" valign="middle"><a clas="links" href="http://natura2000.gdos.gov.pl/natura2000/pl/jednostki.php"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
+<td align="center" valign="middle"><img src="tpl/stdstyle/images/misc/npa-att.png" alt="" /><td align="center" valign="middle">{npa_content}</td><td align="center" valign="middle"><a clas="links" href="http://natura2000.gdos.gov.pl/natura2000/pl/jednostki.php"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
 </tr>
 </table>
 				</p><br />
 			</div>
-
+{hidenpa_end}
 <!-- End Text Container -->
 
 <!-- Text container -->
