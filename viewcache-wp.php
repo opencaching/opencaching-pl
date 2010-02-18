@@ -353,27 +353,52 @@
 			tpl_set_var('coords3', $coords3);
 			tpl_set_var('coords_other', $coords_other);
 			tpl_set_var('typeLetter', typeToLetter($cache_record['type']));
-			
-//			if ($cache.code1=="") <img src="images/flags/{$cache.countryCode|lower}.gif" style="vertical-align:middle" />&nbsp;
-//						{else}<img src="images/flags/{$cache.code1|lower}.gif" style="vertical-align:middle" />&nbsp;{/if}
-//						<span style="background-color:#E6E2E6;"><b>
+
+// cache location			
+
 tpl_set_var('kraj',"");
 tpl_set_var('woj',""); 
 tpl_set_var('dziubek1',"");
 tpl_set_var('miasto',""); 
 tpl_set_var('dziubek2',""); 
 
-						if ($cache_record['adm1'] !="") {tpl_set_var('kraj',$cache_record['adm1']);} else {tpl_set_var('kraj',$cache_record['country_name']);}
-						if ($cache_record['adm3'] !="") {tpl_set_var('woj',$cache_record['adm3']); tpl_set_var('dziubek1',">");}
-//						if ($cache_record['adm4'] !="") {tpl_set_var('miasto',$cache_record['adm4']); tpl_set_var('dziubek2',">");} 
+			if ($cache_record['adm1'] !="") {tpl_set_var('kraj',$cache_record['adm1']);} else {tpl_set_var('kraj',$cache_record['country_name']);}
+			if ($cache_record['adm3'] !="") {tpl_set_var('woj',$cache_record['adm3']); tpl_set_var('dziubek1',">");}
+//			if ($cache_record['adm4'] !="") {tpl_set_var('miasto',$cache_record['adm4']); tpl_set_var('dziubek2',">");} 
 
 			
-//			$loc = coordToLocation($cache_record['latitude'], $cache_record['longitude']);
-//			tpl_set_var('kraj',$loc['kraj']);
-//			tpl_set_var('woj',$loc['woj']);
-//			tpl_set_var('miasto',$loc['miasto']);
-//			tpl_set_var('dziubek',$loc['dziubek']);
-			
+
+
+	/* nature protection areas
+	 */
+	$rsArea = sql("SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype` 
+	             FROM `cache_npa_areas` 
+	       INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id` 
+	            WHERE `cache_npa_areas`.`cache_id`='&1'",$cache_record['cache_id']);
+
+
+			if (mysql_num_rows($rsArea) == 0)
+			{
+				
+				tpl_set_var('hidenpa_start', '<!--');
+				tpl_set_var('hidenpa_end', '-->');
+				tpl_set_var('npa_content', '');
+			}
+			else
+			{
+				$npa_content = '';
+				while( $npa = mysql_fetch_array($rsArea) )
+				{
+					$npa_content .= "Prawdopodobnie skrzynka znajduje się na obszarze <font color=\"green\">NATURA 2000</font><font color=\"blue\">:&nbsp;&nbsp;&nbsp;".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</font>.";
+				}
+				tpl_set_var('hidenpa_start', '');
+				tpl_set_var('hidenpa_end', '');
+				tpl_set_var('npa_content', $npa_content);
+
+			}
+
+
+		
 			//cache data
 			list($iconname) = getCacheIcon($usr['userid'], $cache_record['cache_id'], $cache_record['status'], $cache_record['user_id'], $cache_record['icon_large']);
 
