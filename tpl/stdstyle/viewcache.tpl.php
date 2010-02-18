@@ -231,7 +231,7 @@ else
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					
-					<img src="tpl/stdstyle/images/blue/npav2.png" class="icon32" alt="" />
+					<img src="tpl/stdstyle/images/blue/npav1.png" class="icon32" alt="" />
 					NATURA 2000 obszar
 				</p>
 				</div>
