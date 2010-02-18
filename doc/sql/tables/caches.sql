@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `caches` (
   `node` tinyint(4) NOT NULL default '0',
   `votes` int(11) NOT NULL default '0',
   `score` float(2,1) NOT NULL default '0.0',
+  `need_npa_recalc` tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (`cache_id`),
   UNIQUE KEY `wp_oc` (`wp_oc`),
   KEY `longitude` (`longitude`,`latitude`),
@@ -54,7 +55,6 @@ CREATE TABLE IF NOT EXISTS `caches` (
   KEY `name` (`name`),
   KEY `votes` (`votes`),
   KEY `picturescount` (`picturescount`),
-  KEY `user_id` (`user_id`)
+  KEY `user_id` (`user_id`),
+  KEY `need_npa_recalc` (`need_npa_recalc`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-;
-
