@@ -216,7 +216,7 @@ function nearbycache()
 		</td>
 	</tr>
 	<tr><td>&nbsp;</td>
-		<td><div class="notice" style="width:500px;height:44px;">{{check_nearby_caches}}</div>
+		<td><div class="notice" style="width:500px;height:44px;">{{check_nearby_caches_info}}</div>
 		</td></tr>
 	<tr>
 		<td><p class="content-title-noshade">{{country_label}}:</p></td>
