@@ -145,6 +145,21 @@ function nearbycache()
 	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=1&distance=0.15&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
 	return false;
 }//--></script>
+<script type="text/javascript"><!--
+function nearbycachemapOC()
+{
+
+		var lat_h = document.forms['newcacheform'].lat_h.value;
+		var lat_min = document.forms['newcacheform'].lat_min.value;
+		var lat ;
+		lat=(lat_h*1)+(lat_min/60);
+		var lon_h = document.forms['newcacheform'].lon_h.value;
+		var lon_min = document.forms['newcacheform'].lon_min.value;
+		var lon ;
+		lon=(lon_h*1)+(lon_min/60);
+		window.open('http://www.opencaching.pl/cachemap3.php?inputZoom=17&lat=' + lat + '&lon=' + lon);
+	return false;
+}//--></script>
 
 <form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr">
 <input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
@@ -195,7 +210,7 @@ function nearbycache()
 	<tr>
 		<td valign="top"><p class="content-title-noshade">{{coordinates}}:</p></td>
 		<td class="content-title-noshade">
-		<fieldset style="border: 1px solid black; width: 70%; height: 32%; background-color: #FAFBDF;">
+		<fieldset style="border: 1px solid black; width: 75%; height: 32%; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
 			<select name="latNS" class="input40">
 				<option value="N"{latNsel}>N</option>
@@ -203,6 +218,7 @@ function nearbycache()
 			</select>
 			&nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />
 			&deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" />&nbsp;'&nbsp;
+			<button onclick="return nearbycachemapOC()">{{check_nearby_caches_map}}</button>
 			{lat_message}<br />
 			&nbsp;&nbsp;&nbsp;
 			<select name="lonEW" class="input40">
