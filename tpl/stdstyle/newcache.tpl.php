@@ -142,7 +142,7 @@ function nearbycache()
 		var lonEW = document.forms['newcacheform'].lonEW.value;
 		var lon_h = document.forms['newcacheform'].lon_h.value;
 		var lon_min = document.forms['newcacheform'].lon_min.value;
-	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=1&distance=0.15&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
+	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=1&distance=0.15&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
 	return false;
 }//--></script>
 
