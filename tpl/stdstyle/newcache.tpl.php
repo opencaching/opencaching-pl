@@ -133,6 +133,19 @@ function toggleAttr(id)
 }
 //-->
 </script>
+<script type="text/javascript"><!--
+function nearbycache()
+{
+		var latNS = document.forms['newcacheform'].latNS.value;
+		var lat_h = document.forms['newcacheform'].lat_h.value;
+		var lat_min = document.forms['newcacheform'].lat_min.value;
+		var lonEW = document.forms['newcacheform'].lonEW.value;
+		var lon_h = document.forms['newcacheform'].lon_h.value;
+		var lon_min = document.forms['newcacheform'].lon_min.value;
+	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=1&distance=0.15&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
+	return false;
+}//--></script>
+
 <form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr">
 <input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
 <input type="hidden" name="show_all_langs" value="{show_all_langs}"/>
@@ -182,7 +195,7 @@ function toggleAttr(id)
 	<tr>
 		<td valign="top"><p class="content-title-noshade">{{coordinates}}:</p></td>
 		<td class="content-title-noshade">
-		<fieldset style="border: 1px solid black; width: 65%; height: 32%; background-color: #FAFBDF;">
+		<fieldset style="border: 1px solid black; width: 70%; height: 32%; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
 			<select name="latNS" class="input40">
 				<option value="N"{latNsel}>N</option>
@@ -198,10 +211,13 @@ function toggleAttr(id)
 			</select>
 			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
 			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
+			<button onclick="return nearbycache()">{{check_nearby_caches}}</button><br />
 			 {lon_message}</fieldset>
 		</td>
 	</tr>
-	<tr><td colspan="2"><div class="buffer"></div></td></tr>
+	<tr><td>&nbsp;</td>
+		<td><div class="notice" style="width:500px;height:44px;">{{check_nearby_caches}}</div>
+		</td></tr>
 	<tr>
 		<td><p class="content-title-noshade">{{country_label}}:</p></td>
 		<td>
