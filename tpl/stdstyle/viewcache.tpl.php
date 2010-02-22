@@ -236,9 +236,9 @@ else
 				</p>
 				</div>
 				<div class="content2-container"><center>
-<table width="95%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em">
+<table width="90%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em">
 <tr>
-<td align="center" valign="middle"><img src="tpl/stdstyle/images/misc/npa-att.png" alt="" /></td><td align="center" valign="middle">{npa_content}</td><td align="center" valign="middle"><a class="links" href="http://natura2000.gdos.gov.pl/natura2000/pl/o_obszarach.php" target="_blank"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
+<td align="center" valign="middle">&nbsp;</td><td align="center" valign="middle">{npa_content}</td><td align="center" valign="middle"><a class="links" href="http://natura2000.gdos.gov.pl/natura2000/pl/o_obszarach.php" target="_blank"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
 </tr>
 </table></center>
 			</div>
