@@ -361,6 +361,7 @@
 			
 			$options['sort'] = isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'bydistance';
 			$options['country'] = isset($_REQUEST['country']) ? $_REQUEST['country'] : '';
+			$options['region'] = isset($_REQUEST['region']) ? $_REQUEST['region'] : '';
 			$options['cachetype'] = isset($_REQUEST['cachetype']) ? $_REQUEST['cachetype'] : '11111111111';
 
 			$options['cachesize_1'] = isset($_REQUEST['cachesize_1']) ? $_REQUEST['cachesize_1'] : 1;
@@ -914,6 +915,12 @@
 					$sql_where[] = '`caches`.`country`=\'' . sql_escape($options['country']) . '\'';
 				}
 
+				if(!isset($options['region'])) $options['region']='';
+				if($options['region'] != '')
+				{
+					$sql_where[] = '`caches`.`cache_id` IN (SELECT `cache_location`.`cache_id` FROM `cache_location` WHERE `cache_location`.`code3`=\'' . sql_escape($options['region']) . '\')';
+				}
+
 				if(!isset($options['cachetype'])) $options['cachetype']='11111111111';
 				$pos = strpos($options['cachetype'], '0');
 
@@ -1143,6 +1150,14 @@ function outputSearchForm($options)
 		tpl_set_var('cacherating', '');
 	}
 
+	if (isset($options['region']))
+	{
+		tpl_set_var('region', htmlspecialchars($options['region'], ENT_COMPAT, 'UTF-8'));
+	}
+	else
+	{
+		tpl_set_var('region', '');
+	}
 	if (isset($options['country']))
 	{
 		tpl_set_var('country', htmlspecialchars($options['country'], ENT_COMPAT, 'UTF-8'));

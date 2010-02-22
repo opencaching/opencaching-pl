@@ -192,6 +192,7 @@ function sync_options(element)
 		document.forms[formnames[a]].f_watched.value = document.optionsform.f_watched.checked ? 1 : 0;
 		//document.forms[formnames[a]].f_geokret.value = document.optionsform.f_geokret.checked ? 1 : 0;
 		document.forms[formnames[a]].country.value = document.optionsform.country.value;
+		document.forms[formnames[a]].region.value = document.optionsform.region.value;
 		document.forms[formnames[a]].cachetype.value = getCachetypeFilter();
 		
 		document.forms[formnames[a]].cachesize_2.value = document.optionsform.cachesize_2.checked ? 1 : 0;
@@ -442,6 +443,32 @@ function switchCat2()
 				</select>
 			</td>
 		</tr>
+				</tr>
+		<tr><td class="buffer" colspan="3"></td></tr>
+		<tr>
+		<tr>
+			<td valign="top" class="content-title-noshade">Województwa:</td>
+			<td class="content-title-noshade">
+				<select name="region" class="input200" onchange="javascript:sync_options(this)">
+				<option value="" selected="selected">Wszystkie województwa</option>
+					<option value="PL51">Dolnosląskie</option>
+					<option value="PL61">Kujawsko-Pomorskie</option>
+					<option value="PL31">Lubelskie</option>
+					<option value="PL43">Lubuskie</option>
+					<option value="PL11">Łódzkie</option>
+					<option value="PL21">Małopolskie</option>
+					<option value="PL12">Mazowieckie</option>
+					<option value="PL52">Opolskie</option>
+					<option value="PL32">Podkarpackie</option>
+					<option value="PL34">Podlaskie</option>
+					<option value="PL63">Pomorskie</option>
+					<option value="PL22">Śląskie</option>
+					<option value="PL33">Świętokrzyskie</option>
+					<option value="PL62">Warmińskie-Mazurskie</option>
+					<option value="PL41">Wielkopolskie</option>
+					<option value="PL42">Zachodniopomorskie</option>
+					</select>
+			</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
 			<td class="content-title-noshade">{{sort_by}}:</td>
@@ -491,6 +518,7 @@ function switchCat2()
 	<input type="hidden" name="f_watched" value="{hidopt_watched}" />
 	<input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
 	<input type="hidden" name="country" value="{country}" />
+	<input type="hidden" name="region" value="{region}" />
 	<input type="hidden" name="cachetype" value="{cachetype}" />
 	<input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
 	<input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
@@ -545,6 +573,7 @@ function switchCat2()
 	<input type="hidden" name="f_watched" value="{hidopt_watched}" />
 	<input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
 	<input type="hidden" name="country" value="{country}" />
+	<input type="hidden" name="region" value="{region}" />
 	<input type="hidden" name="cachetype" value="{cachetype}" />
 	<input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
 	<input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
@@ -624,6 +653,7 @@ function switchCat2()
 	<input type="hidden" name="f_watched" value="{hidopt_watched}" />
 	<input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
 	<input type="hidden" name="country" value="{country}" />
+	<input type="hidden" name="region" value="{region}" />
 	<input type="hidden" name="cachetype" value="{cachetype}" />
 	<input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
 	<input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
@@ -698,6 +728,7 @@ function switchCat2()
 	<input type="hidden" name="f_watched" value="{hidopt_watched}" />
 	<input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
 	<input type="hidden" name="country" value="{country}" />
+	<input type="hidden" name="region" value="{region}" />
 	<input type="hidden" name="cachetype" value="{cachetype}" />
 	<input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
 	<input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
@@ -763,6 +794,7 @@ function switchCat2()
 	<input type="hidden" name="f_watched" value="{hidopt_watched}" />
 	<input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
 	<input type="hidden" name="country" value="{country}" />
+	<input type="hidden" name="region" value="{region}" />
 	<input type="hidden" name="cachetype" value="{cachetype}" />
 	<input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
 	<input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
@@ -817,6 +849,7 @@ function switchCat2()
 	<input type="hidden" name="f_watched" value="{hidopt_watched}" />
 	<input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
 	<input type="hidden" name="country" value="{country}" />
+	<input type="hidden" name="region" value="{region}" />
 	<input type="hidden" name="cachetype" value="{cachetype}" />
 	<input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
 	<input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
