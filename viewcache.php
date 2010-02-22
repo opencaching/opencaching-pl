@@ -384,10 +384,10 @@ tpl_set_var('dziubek2',"");
 			}
 			else
 			{
-				$npa_content = "".tr('npa_info')." <font color=\"green\">NATURA 2000</font>:<br />";
+				$npa_content = "<b>".tr('npa_info')." <font color=\"green\">NATURA 2000</font></b>:<br />";
 				while( $npa = mysql_fetch_array($rsArea) )
 				{
-					$npa_content .= "<font color=\"blue\"><a class=\"links\" target=\"_blank\" href=\"http://natura2000.gdos.gov.pl/natura2000/pl/info.php?KodOstoi=".$npa['npaSitecode']."\">".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</a></font><br />";
+					$npa_content .= "<font color=\"blue\"><a target=\"_blank\" href=\"http://natura2000.gdos.gov.pl/natura2000/pl/info.php?KodOstoi=".$npa['npaSitecode']."\">".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</a></font><br />";
 				}
 				tpl_set_var('hidenpa_start', '');
 				tpl_set_var('hidenpa_end', '');
