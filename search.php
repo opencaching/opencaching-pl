@@ -1423,7 +1423,7 @@ function outputSearchForm($options)
 
 	//regionoptions
 	$regionsoptions = '<option value="" selected="selected">Wszystkie województwa</option>';
-
+	
 	$rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` ASC");
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
