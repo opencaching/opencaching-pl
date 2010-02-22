@@ -450,23 +450,7 @@ function switchCat2()
 			<td valign="top" class="content-title-noshade">Województwa:</td>
 			<td class="content-title-noshade">
 				<select name="region" class="input200" onchange="javascript:sync_options(this)">
-				<option value="" selected="selected">Wszystkie województwa</option>
-					<option value="PL51">Dolnosląskie</option>
-					<option value="PL61">Kujawsko-Pomorskie</option>
-					<option value="PL31">Lubelskie</option>
-					<option value="PL43">Lubuskie</option>
-					<option value="PL11">Łódzkie</option>
-					<option value="PL21">Małopolskie</option>
-					<option value="PL12">Mazowieckie</option>
-					<option value="PL52">Opolskie</option>
-					<option value="PL32">Podkarpackie</option>
-					<option value="PL34">Podlaskie</option>
-					<option value="PL63">Pomorskie</option>
-					<option value="PL22">Śląskie</option>
-					<option value="PL33">Świętokrzyskie</option>
-					<option value="PL62">Warmińskie-Mazurskie</option>
-					<option value="PL41">Wielkopolskie</option>
-					<option value="PL42">Zachodniopomorskie</option>
+					{regionoptions}
 					</select>
 			</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>

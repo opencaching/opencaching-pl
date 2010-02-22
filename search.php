@@ -1421,6 +1421,25 @@ function outputSearchForm($options)
 
 	tpl_set_var('countryoptions', $countriesoptions);
 
+	//regionoptions
+	$regionsoptions = '<option value="" selected="selected">Wszystkie województwa</option>';
+
+	$rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` ASC");
+
+	for ($i = 0; $i < mysql_num_rows($rs); $i++)
+	{
+		$record = sql_fetch_array($rs);
+
+		if ($record['code'] == $options['region'])
+			$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+		else
+			$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+
+		$regionsoptions .= "\n";
+	}
+
+	tpl_set_var('regionoptions', $regionsoptions);
+
 	// Typ skrzynki
 	
 	$cachetype_options = '';

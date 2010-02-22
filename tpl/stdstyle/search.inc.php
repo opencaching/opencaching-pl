@@ -100,6 +100,7 @@
 	
 	$default_lang = 'PL';
 	$search_all_countries = '<option value="" selected="selected">Wszystkie kraje</option>';
+	$search_all_regions = '<option value="" selected="selected">Wszystkie województwa</option>';
 	//$search_all_cachetypes = '<option value="" selected="selected">Wszystkie typy skrzynek</option>';
 
 	$cache_attrib_jsarray_line = "new Array('{id}', {state}, '{text_long}', '{icon}', '{icon_no}', '{icon_undef}', '{category}')";
