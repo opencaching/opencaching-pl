@@ -145,7 +145,7 @@ function nearbycache()
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
 		alert("Proszê wprowadziæ poprawne wspó³rzêdne punktu"); 
 			} else {
-	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=1&distance=0.15&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
+	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=0&distance=0.15&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
 	}
 	return false;
 }//--></script>
