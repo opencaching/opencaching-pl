@@ -191,8 +191,17 @@ function sync_options(element)
 		document.forms[formnames[a]].f_userowner.value = document.optionsform.f_userowner.checked ? 1 : 0;
 		document.forms[formnames[a]].f_watched.value = document.optionsform.f_watched.checked ? 1 : 0;
 		//document.forms[formnames[a]].f_geokret.value = document.optionsform.f_geokret.checked ? 1 : 0;
+
+ 		 if (document.optionsform.country.value != "" && document.optionsform.country.value != "PL" ) 
+		{
+		document.optionsform.region.value = "";
+		document.optionsform.region.disabled = true;
 		document.forms[formnames[a]].country.value = document.optionsform.country.value;
-		document.forms[formnames[a]].region.value = document.optionsform.region.value;
+  		}else {
+		document.forms[formnames[a]].country.value = "PL";
+		document.optionsform.region.disabled = false;
+		document.forms[formnames[a]].region.value = document.optionsform.region.value;}
+	
 		document.forms[formnames[a]].cachetype.value = getCachetypeFilter();
 		
 		document.forms[formnames[a]].cachesize_2.value = document.optionsform.cachesize_2.checked ? 1 : 0;
@@ -307,6 +316,7 @@ function switchCat2()
 }
 //-->
 </script>
+
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/><img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/>&nbsp;{{search_cache}}</div>
 <form name="optionsform" style="display:inline;" action="search.php" method="post">
 	<table class="table">
