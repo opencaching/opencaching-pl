@@ -194,9 +194,11 @@ function sync_options(element)
 
  		 if (document.optionsform.country.value != "" && document.optionsform.country.value != "PL" ) 
 		{
-		document.optionsform.region.value = "";
-		document.optionsform.region.disabled = true;
 		document.forms[formnames[a]].country.value = document.optionsform.country.value;
+		document.optionsform.region.value = "";
+		document.forms[formnames[a]].region.value = "";
+		document.optionsform.region.disabled = true;
+
   		}else {
 		document.forms[formnames[a]].country.value = "PL";
 		document.optionsform.region.disabled = false;
