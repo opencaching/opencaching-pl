@@ -520,7 +520,7 @@ $menu = array(
 					array(
 						'title' => tr('settings'),
 						'menustring' => tr('settings'),
-						'visible' => false,
+						'visible' => true,
 						'filename' => 'mywatches.php?rq=properties',
 						'siteid' => 'mywatches_properties'
 					)
