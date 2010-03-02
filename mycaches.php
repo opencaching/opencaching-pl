@@ -42,7 +42,11 @@ if ($error == false)
 			$user_id = $_REQUEST['userid'];
 			tpl_set_var('userid',$user_id);		
 		}
-
+	if (isset($_REQUEST['status']))
+		{
+			$stat_cache = $_REQUEST['status'];
+			tpl_set_var('status',$stat_cache);		
+		}
 	//get the news
 	$tplname = 'mycaches';
 	require($stylepath . '/newlogs.inc.php');
@@ -55,7 +59,7 @@ if ($error == false)
 	$PAGES_LISTED = 10;
 		
 	$rs = sql("SELECT count(cache_id) FROM caches 
-			WHERE `caches`.`status` != 5 
+			WHERE `caches`.`status` = '" . sql_escape($_REQUEST['status']) . "'
 				AND `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'");
 
 	$total_logs = mysql_result($rs,0);
@@ -101,7 +105,7 @@ if ($error == false)
 						FROM `caches`, `cache_status`
 						WHERE `user_id`='" . sql_escape($_REQUEST['userid']) . "'
 						  AND `cache_status`.`id`=`caches`.`status`
-						  AND `caches`.`status` != 5
+						  AND `caches`.`status` = '" . sql_escape($_REQUEST['status']) . "'
 						ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC
 						LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE), $lang_db);
 
@@ -127,7 +131,7 @@ if ($error == false)
 						FROM `caches`  INNER JOIN cache_type ON (caches.type = cache_type.id),`cache_status`
 						WHERE `user_id`='" . sql_escape($_REQUEST['userid']) . "'
 						  AND `cache_status`.`id`=`caches`.`status`
-						  AND `caches`.`status` != 5
+						  AND `caches`.`status` = '" . sql_escape($_REQUEST['status']) . "'
 						ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC
 						LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE), $lang_db);
 
