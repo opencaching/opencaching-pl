@@ -61,7 +61,7 @@
 			{
 				$cache_record = sql_fetch_array($cache_rs);
 
-				if ($cache_record['user_id'] == $usr['userid'])
+				if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'] )
 				{
 					$desc_rs = sql("SELECT `id`, `uuid` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $desclang);
 					if (mysql_num_rows($desc_rs) == 1)

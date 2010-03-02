@@ -601,7 +601,7 @@
 					{
 						if (count($desclangs) > 1)
 						{
-							$remove_url = 'removedesc.php?cacheid=' . urlencode($cache_id) . '&amp;desclang=' . urlencode($desclang);
+							$remove_url = 'removedesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
 							$removedesc = '&nbsp;[<a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '">' . $remove . '</a>]';
 						}
 						else
