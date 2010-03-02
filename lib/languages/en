@@ -558,4 +558,17 @@ npa_info This geocache is probably placed within a nature protection area
 check_nearby_caches Check caches nearby on OC PL
 check_nearby_caches_info Before putting caches at the planned place check is no longer <br /> exist caches in radius 150 m
 check_nearby_caches_map Check caches nearby on Map&nbsp;&nbsp;&nbsp;
+my_caches_status My caches with status
+active Active
+temp_unavailable Unavailable
+archived Archived
+not_published Not published
+for_approval For approval
+blocked Blocked
+my_caches My caches
+
+
+
+
+
 

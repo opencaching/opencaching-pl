@@ -447,8 +447,15 @@ $menu = array(
 				'siteid' => 'newcache'
 			),
 			array(
-				'title' => tr('general'),
-				'menustring' => tr('general'),
+				'title' => tr('my_caches'),
+				'menustring' => tr('my_caches'),
+				'visible' => true,
+				'filename' => 'mycaches.php',
+				'siteid' => 'mycaches'
+			),
+			array(
+				'title' => tr('statistics'),
+				'menustring' => tr('statistics'),
 				'visible' => true,
 				'filename' => 'viewprofile.php?userid='.$usr['userid'].'',
 				'siteid' => 'myhome'
@@ -497,14 +504,6 @@ $menu = array(
 				)
 			),
 			array(
-				'title' => tr('adoption_cache'),
-				'menustring' => tr('adoption_cache'),
-				'visible' => true,
-				'filename' => 'chowner.php',
-				'siteid' => 'adoption'
-			),
-
-			array(
 				'title' => tr('collected_queries'),
 				'menustring' => tr('collected_queries'),
 				'visible' => true,
@@ -521,7 +520,7 @@ $menu = array(
 					array(
 						'title' => tr('settings'),
 						'menustring' => tr('settings'),
-						'visible' => true,
+						'visible' => false,
 						'filename' => 'mywatches.php?rq=properties',
 						'siteid' => 'mywatches_properties'
 					)
@@ -540,6 +539,13 @@ $menu = array(
 				'visible' => true,
 				'filename' => 'mytop5.php',
 				'siteid' => 'mytop5'
+			),
+			array(
+				'title' => tr('adoption_cache'),
+				'menustring' => tr('adoption_cache'),
+				'visible' => true,
+				'filename' => 'chowner.php',
+				'siteid' => 'adoption'
 			),
 			array(
 				'title' => 'Szukaj użytkownika',

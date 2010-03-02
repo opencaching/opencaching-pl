@@ -599,6 +599,15 @@ npa_info Prawdopodobnie skrzynka znajduje się na obszarze
 check_nearby_caches_info Przed założeniem skrzynki sprawdź czy w planowanym miejscu nie ma już <br /> założonych skrzynek w promieniu 150 m.
 check_nearby_caches Sprawdź czy są już skrzynki w okolicy na OC PL
 check_nearby_caches_map Sprawdź czy są już skrzynki w okolicy na Mapie&nbsp;
+my_caches_status Moje skrzynki o statusie
+active Aktywne
+temp_unavailable Niedostępne
+archived Zarchiwizowane
+not_published Nieopublikowane
+for_approval Weryfikowane
+blocked Blokowane
+my_caches Moje skrzynki
+
 
 
 
