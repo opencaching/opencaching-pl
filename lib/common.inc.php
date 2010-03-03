@@ -344,7 +344,7 @@ session_start();
 	{
 		$season = date("z");
 
-		if ($season <= 164 and $season >= 70)
+		if ($season <= 164 and $season >= 79)
 			$m_season = "spring";
 		else if ($season <= 295 and $season >= 165)
 			$m_season = "summer";
