@@ -201,6 +201,7 @@ function chname( newName )
 							$menu[$myhomeidx]["submenu"][$myprofileidx]['submenu'][$i]['visible'] = true;
 						}
 					}
+
 					echo '<ul>';
 					echo '<li class="title">'.$menu[$myhomeidx]["title"].'</li>';
 					mnu_EchoSubMenu($menu[$myhomeidx]['submenu'], $tplname, 1, false);
