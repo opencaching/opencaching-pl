@@ -500,7 +500,7 @@ $menu = array(
 						'menustring' => tr('choose_statpic'),
 						'visible' => false,
 						'filename' => 'change_statpic.php',
-						'siteid' => 'change_statpic'),
+						'siteid' => 'change_statpic')
 				)
 			),
 			array(
@@ -522,8 +522,7 @@ $menu = array(
 						'menustring' => tr('settings'),
 						'visible' => true,
 						'filename' => 'mywatches.php?rq=properties',
-						'siteid' => 'mywatches_properties'
-					)
+						'siteid' => 'mywatches_properties')
 				)
 			),
 			array(
