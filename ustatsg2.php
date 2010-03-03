@@ -62,7 +62,7 @@
 
 	$content="";
 	
-	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, username FROM `user` WHERE user_id=&1 ",$user_id);
+	$rsGeneralStat =sql("SELECT  hidden_count, founds_count, log_notes_count, notfounds_count, username FROM `user` WHERE user_id=&1 ",$user_id);
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);		
@@ -79,7 +79,7 @@
 	  // calculate days caching
 	 // sql ("SELECT COUNT(*) FROM cache_logs WHERE type=1 AND user_id=&1 GROUP BY GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)",$user_id);
 
-	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, username FROM `user` WHERE user_id=&1 ",$user_id);
+	$rsGeneralStat =sql("SELECT YEAR(`date_created`) usertime,hidden_count, founds_count, log_notes_count, username FROM `user` WHERE user_id=&1 ",$user_id);
 	if ($rsGeneralStat !== false){
 			$user_record = sql_fetch_array($rsGeneralStat);
 
@@ -87,8 +87,6 @@
 }
 				$content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Wykresy statystyk dla skrzynek znalezionych</p></div><br />';	
 				$content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&amp;t=cf"  border="0" alt="" width="500" height="300" /></p>';	
-		
-			mysql_free_result($rsGeneralStat);
 
 $year=date("Y");
 $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 AND YEAR(`date`)=&2 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$user_id,$year);
@@ -97,12 +95,15 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
 	//			while ($rcfm = mysql_fetch_array($rsCachesFindYear)){
 
 		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&amp;t=cfm' . $year . '"  border="0" alt="" width="500" height="200" /></p>';		
+
+		if ($user_record['usertime'] != $year){
 		$yearr = $year -1;	
 		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&amp;t=cfm' . $yearr . '"  border="0" alt="" width="500" height="200" /></p>';					
-
+				}
 //			}
 		}
-				mysql_free_result($rsCachesFindMonth);
+		mysql_free_result($rsGeneralStat);
+		mysql_free_result($rsCachesFindMonth);
 
 
 			$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `cache_logs` WHERE type=1 AND user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);

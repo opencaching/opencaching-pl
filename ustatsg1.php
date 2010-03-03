@@ -83,7 +83,7 @@
 	  // calculate days caching
 	 // sql ("SELECT COUNT(*) FROM cache_logs WHERE type=1 AND user_id=&1 GROUP BY GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)",$user_id);
 
-	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, username FROM `user` WHERE user_id=&1 ",$user_id);
+	$rsGeneralStat =sql("SELECT YEAR(`date_created`) usertime, hidden_count, founds_count, log_notes_count, username FROM `user` WHERE user_id=&1 ",$user_id);
 	if ($rsGeneralStat !== false){
 			$user_record = sql_fetch_array($rsGeneralStat);
 
@@ -91,8 +91,6 @@
 }
 			$content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Caches created" title="Caches created" />&nbsp;&nbsp;&nbsp;Wykresy statystyk dla skrzynek założonych</p></div><br />';	
 			$content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&amp;t=cc' . '" border="0" alt="" width="500" height="300" /></p>';	
-		
-			mysql_free_result($rsGeneralStat);
 			
 	$year=date("Y");
 	$rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE YEAR(`date_created`)=&1 AND status <> 4 AND status <> 5 AND user_id=&2 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$year,$user_id);
@@ -102,11 +100,13 @@
 
 
 		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&amp;t=ccm' . $year . '" border="0" alt="" width="500" height="200" /></p>';		
+		if ($user_record['usertime'] != $year){
 		$yearr= $year-1;	
 		$content .= '<p><img src="graphs/BarGraphustat.php?userid=' . $user_id . '&amp;t=ccm' . $yearr . '" border="0" alt="" width="500" height="200" /></p>';		
-
+					}
 //				}
 		}
+			mysql_free_result($rsGeneralStat);
  			mysql_free_result($rsCreateCachesMonth);
 	$rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE status <> 4 AND status <> 5 AND user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
