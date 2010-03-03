@@ -37,6 +37,8 @@
 	
 	$cachename=sqlValue("SELECT name FROM caches WHERE `cache_id`=$cache_id", 0);
 	tpl_set_var('cachename',$cachename);
+	$cachetime=sqlValue("SELECT YEAR(`date_hidden`) FROM caches WHERE `cache_id`=$cache_id", 0);
+		
 	$rsGeneralStat =sql("SELECT count(*) count FROM `cache_logs` WHERE cache_logs.deleted=0 AND (type=1 OR type=2) AND cache_id=&1 ",$cache_id);
 
 			$cache_record = sql_fetch_array($rsGeneralStat);	
@@ -52,9 +54,10 @@
 		$year=date("Y");
 
 		$content .= '<img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&amp;t=csm' . $year . '"  border="0" alt="" width="400" height="200" /><br /><br />';	
+		if ($cachetime != $year) {
 		$yearr = $year -1;
 		$content .= '<img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&amp;t=csm' . $yearr . '"  border="0" alt="" width="400" height="200" /><br /><br />';		
-		
+		}
 		$content .= '<img src="graphs/BarGraphcstat.php?cacheid=' . $cache_id . '&amp;t=csy"  border="0" alt="" width="400" height="200" /><br /><br /><br /></p></center>';					
 			mysql_free_result($rsGeneralStat);
 		}
