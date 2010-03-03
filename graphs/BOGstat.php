@@ -1,6 +1,18 @@
 <?php
+/***************************************************************************
+	*                                         				                                
+	*   This program is free software; you can redistribute it and/or modify  	
+	*   it under the terms of the GNU General Public License as published by  
+	*   the Free Software Foundation; either version 2 of the License, or	    	
+	*   (at your option) any later version.
+	*   
+	*
+	***************************************************************************/
 
-setlocale(LC_TIME, 'pl_PL.utf-8');
+//prepare the templates and include all neccessary
+//	require_once('./lib/common.inc.php');
+
+	setlocale(LC_TIME, 'pl_PL.utf-8');
 
 	//Preprocessing
 	if ($error == false)
@@ -14,16 +26,28 @@ require('../lib/jpgraph/src/jpgraph_mgraph.php');
   require('../lib/web.inc.php');
   sql('USE `ocpl`');
 
-		
+# Setup begining of stat for OC Team. Start timie 01 June every year
+$year = date('Y');
+$year_old= $year-1;
+$year_new=$year+1;
+$count_days= date('z');
+if ($count_days < 151) {$start_time = $year_old .'-06-1 00:00:00';
+	$title3='Numer miesi±ca '. $year_old .'/'. $year;
+	} else {
+		$start_time= $year .'-06-1 00:00:00';
+		$title3='Numer miesi±ca '. $year .'/'. $year_new;
+		}
+
+
   $y=array();
   $x=array();
   $y2=array();
   $x2=array();
   $y3=array();
   $x3=array();
-$rsreports= sql("SELECT count(*) count, responsible_id, username from reports,user WHERE submit_date > '2009-06-1 00:00:00' and responsible_id <>0 AND responsible_id != 1883 AND user.user_id=responsible_id GROUP BY responsible_id ORDER  BY username");
+$rsreports= sql("SELECT count(*) count, responsible_id, username from reports,user WHERE submit_date > '&1' and responsible_id <>0 AND responsible_id != 1883 AND user.user_id=responsible_id GROUP BY responsible_id ORDER  BY username",$start_time);
 
-$rsreportsM= sql("SELECT count(*) count, MONTH(`submit_date`) `month` from reports WHERE submit_date > '2009-06-1 00:00:00' and responsible_id <>0 AND responsible_id != 1883 GROUP BY MONTH(`submit_date`) , YEAR(`submit_date`) ORDER BY YEAR(`submit_date`) ASC, MONTH(`submit_date`) ASC");
+$rsreportsM= sql("SELECT count(*) count, MONTH(`submit_date`) `month` from reports WHERE submit_date > '&1' and responsible_id <>0 AND responsible_id != 1883 GROUP BY MONTH(`submit_date`) , YEAR(`submit_date`) ORDER BY YEAR(`submit_date`) ASC, MONTH(`submit_date`) ASC",$start_time);
 
 $rscaches= sql("SELECT count(*) count, username from approval_status,user WHERE user.user_id=approval_status.user_id  GROUP BY approval_status.user_id ORDER  BY username");
 
@@ -154,7 +178,8 @@ $graph3->Add($bplot3);
 // Setup the titles
 $descibe3="Statystyka RR2 Miesiêczna - zg³oszenia";
 $graph3->title->Set($descibe3);
-$graph3->xaxis->title->Set('Numer miesi±ca 2009/2010');
+//$graph3->xaxis->title->Set('Numer miesi±ca 2009/2010');
+$graph3->xaxis->title->Set($title3);
 $graph3->xaxis->SetTickLabels($x3);
 
 
