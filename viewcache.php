@@ -889,7 +889,7 @@ tpl_set_var('dziubek2',"");
 				$tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
 
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
-				$tmplog_date = htmlspecialchars(strftime("%d %B %Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8');
+				$tmplog_date = fixPlMonth(htmlspecialchars(strftime("%d %B %Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
 				$tmplog_text = $record['text'];
 
 				// replace smilies in log-text with images and add hyperlinks

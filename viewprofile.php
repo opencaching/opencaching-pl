@@ -74,7 +74,7 @@
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);
 			tpl_set_var('country', htmlspecialchars($user_record['country'], ENT_COMPAT, 'UTF-8'));
-			tpl_set_var('registered', strftime($dateformat, strtotime($user_record['date_created'])));
+			tpl_set_var('registered', fixPlMonth(strftime($dateformat, strtotime($user_record['date_created']))));
 			$description = $user_record['description'];
 			tpl_set_var('description',nl2br($description));		
 			if( $description != "" )

@@ -136,7 +136,7 @@
 					$tmp_log = $log_line;
 					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], $record_logs['text_combo']), $tmp_log);
 					$tmp_log = mb_ereg_replace('{logtype}', $record_logs['text_combo'], $tmp_log);
-					$tmp_log = mb_ereg_replace('{date}', strftime($dateformat , strtotime($record_logs['date'])), $tmp_log);
+					$tmp_log = mb_ereg_replace('{date}', fixPlMonth(strftime($dateformat , strtotime($record_logs['date']))), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
 
@@ -175,7 +175,7 @@
 					$tmp_cache = mb_ereg_replace('{cacheimage}', icon_cache_status($record_logs['status'], $record_logs['cache_status_text']), $tmp_cache);
 					$tmp_cache = mb_ereg_replace('{cachestatus}', htmlspecialchars($record_logs['cache_status_text'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
 					$tmp_cache = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_cache);
-					$tmp_cache = mb_ereg_replace('{date}', strftime($dateformat , strtotime($record_logs['date_hidden'])), $tmp_cache);
+					$tmp_cache = mb_ereg_replace('{date}', fixPlMonth(strftime($dateformat , strtotime($record_logs['date_hidden']))), $tmp_cache);
 					$tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
 
 					$caches .= "\n" . $tmp_cache;
@@ -212,7 +212,7 @@
 					}
 					else
 					{
-						$tmp_cache = mb_ereg_replace('{date}', strftime($datetimeformat , strtotime($record_caches['date_activate'])), $tmp_cache);
+						$tmp_cache = mb_ereg_replace('{date}', fixPlMonth(strftime($datetimeformat , strtotime($record_caches['date_activate']))), $tmp_cache);
 					}
 					$tmp_cache = mb_ereg_replace('{cachename}', htmlspecialchars($record_caches['name'], ENT_COMPAT, 'UTF-8'), $tmp_cache);
 
@@ -249,7 +249,7 @@
 					$tmp_log = $cache_line_my_caches;
 					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], $record_logs['text_combo']), $tmp_log);
 					$tmp_log = mb_ereg_replace('{logtype}', $record_logs['text_combo'], $tmp_log);
-					$tmp_log = mb_ereg_replace('{date}', strftime($dateformat , strtotime($record_logs['date'])), $tmp_log);
+					$tmp_log = mb_ereg_replace('{date}', fixPlMonth(strftime($dateformat , strtotime($record_logs['date']))), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{userid}', htmlspecialchars($record_logs['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);

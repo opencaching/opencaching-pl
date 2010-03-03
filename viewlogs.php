@@ -154,7 +154,7 @@
 				$tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
 
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
-				$tmplog_date = htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8');
+				$tmplog_date = fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
 				// replace smilies in log-text with images
 				$tmplog_text = str_replace($smileytext, $smileyimage, $record['text']);
 				
