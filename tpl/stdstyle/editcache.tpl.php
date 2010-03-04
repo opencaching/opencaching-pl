@@ -196,7 +196,7 @@ function toggleAttr(id)
 			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
 			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
 			{lon_message}
-			</filedset>
+			</fieldset>
 		</td>
 	</tr>
 		<tr><td colspan="2"><div class="buffer"></div></td></tr>
