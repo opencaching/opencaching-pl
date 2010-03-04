@@ -173,7 +173,7 @@ html_preview Podgląd HTML
 allowed_html_tags Dozwolone znaczniki HTML
 special_caches Skrzynki specjalne
 user_ident Identyfikacja użytkownika
-cache_map Mapa skrzynek
+cache_map Mapa skrzynek v3
 cache_mapv2 Mapa skrzynek v2
 old_cache_map Starsza wersja mapy skrzynek
 abc ABC Geocachingu
