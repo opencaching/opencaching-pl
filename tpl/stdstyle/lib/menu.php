@@ -112,8 +112,9 @@ $menu = array(
 				'siteid' => 'cachemap3',
 				'visible' => true,
 				'onlylogged' => true,
-				'filename' => 'cachemap3.php'
-			),
+				'filename' => 'cachemap3.php',
+				'submenu' => array(
+
 				array(
 				'title' => tr('cache_mapv2'),
 				'menustring' => tr('cache_mapv2'),
@@ -121,8 +122,9 @@ $menu = array(
 				'visible' => true,
 				'onlylogged' => true,
 				'filename' => 'cachemap2.php'
+				)
+			    )
 			),
-
 			array(
 				'title' => tr('search_cache'),
 				'menustring' => tr('search_cache'),
