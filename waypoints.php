@@ -14,7 +14,12 @@ Add  additional waypoints to cache:
 
 ----------------------------------
 table db 'waypoints' struture 
-'id', 'cache_id', 'type', 'longitude', 'latitude',  'describe', 'status'  ????
+'cache_id', 'type', 'longitude', 'latitude',  'describe', 'status'  ???? date ???
+
+table db waypoints_type
+'id','pl','en','icon'
+
+'pl' and 'en'  name of type wp in language, icon with path, images/waypoints/*.png
 
 type:
 1 => Final location, 2 => Parking area, 3 => Question to answer, 4 => Reference point, 5 => Stage of Multicache.
@@ -27,9 +32,15 @@ status:
 -------------------------------------
 
 in viewcache.php presentation of WayPoints in separate section after Describe section
-with possiblity download WP as GPX and send to GPS directly with wp.status = 1
+with possiblity download WP as GPX and send to GPS directly when wp.status = 1
 
 | wp_icone | name of type |X Y coordinates | Describe of WP | Dwonload GPX | Send to GPS |
+
+
+in editcache.php in section waypoints table with list of wp:
+
+| wp_icone | name of type |status | X Y coordinates | Describe of WP | edit_icone|
+
 ......
 
 
@@ -55,6 +66,7 @@ with possiblity download WP as GPX and send to GPS directly with wp.status = 1
 		if (isset($_REQUEST['cacheid']))
 		{
 			$cache_id = $_REQUEST['cacheid'];
+
 		
 		}
 
