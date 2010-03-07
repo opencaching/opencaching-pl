@@ -161,14 +161,14 @@ function sync_options(element)
 	var tmpattrib = "";
 	for (i = 0; i < maAttributes.length; i++)
 		if (maAttributes[i][1] == 1)
-			tmpattrib = tmpattrib + maAttributes[i][0] + ';';
+			tmpattrib = '' + tmpattrib + maAttributes[i][0] + ';';
 	if(tmpattrib.length > 0)
 		tmpattrib = tmpattrib.substr(0, tmpattrib.length-1);
 
 	var tmpattrib_not = "";
 	for (i = 0; i < maAttributes.length; i++)
 		if (maAttributes[i][1] == 2)
-			tmpattrib_not = tmpattrib_not + maAttributes[i][0] + ';';
+			tmpattrib_not =  '' + tmpattrib_not + maAttributes[i][0] + ';';
 	if(tmpattrib_not.length > 0)
 		tmpattrib_not = tmpattrib_not.substr(0, tmpattrib_not.length-1);
 

@@ -1665,7 +1665,7 @@ function outputUniidSelectionForm($uniSql, $urlparams)
 		{
 			$pnew = '';
 			foreach ($param AS $p)
-				if ($urlparamString != '')
+				if ($pnew != '')
 					$pnew .= ';' . $p;
 				else
 					$pnew .= $p;
@@ -1833,7 +1833,7 @@ function outputLocidSelectionForm($locSql, $urlparams)
 		{
 			$pnew = '';
 			foreach ($param AS $p)
-				if ($urlparamString != '')
+				if ($pnew != '')
 					$pnew .= ';' . $p;
 				else
 					$pnew .= $p;
