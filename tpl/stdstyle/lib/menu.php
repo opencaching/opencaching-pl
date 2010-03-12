@@ -409,14 +409,6 @@ $menu = array(
 			'filename' => 'admin_searchuser.php'
 			),
 			array(
-			'title' => tr('bugs'),
-			'menustring' => tr('bugs'),
-			'siteid' => 'bledy',
-			'visible' => true,
-			'filename' => 'http://bugs.opencaching.pl',
-			'newwindow' => true			
-			),
-			array(
 			'title' => 'Dodaj newsa',
 			'menustring' => 'Dodaj newsa',
 			'siteid' => 'admin_addnews',
