@@ -14,6 +14,7 @@
 <p>
 <img src="/doc/MoG.jpg" alt="" title="Magazyn OPENCACHING" width="200" />
 </p>
+<p><b>Liczba pobrań: </b></p>
 </center>
 <br /><br /><br />
 <table width="97%" class="content">
