@@ -22,6 +22,6 @@
 	</colgroup>
 	<tr><td width="97%" class="content2-pagetitle">
 	<img src="tpl/stdstyle/images/blue/archive.png" class="icon32" alt="" title="MOC" align="middle" />
-	<font size="4">  Numery archiwalne Magazynu <b>OPENCACHING</b></b></font></td></tr>
+	<font size="4">  Numery archiwalne</b></font></td></tr>
 	<tr><td class="spacer"></td></tr></table>
 
