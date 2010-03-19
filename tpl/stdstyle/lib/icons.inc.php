@@ -41,8 +41,8 @@ function icon_cache_status($status, $text)
 		case 1: $icon = "log/16x16-go.png"; break;
 		case 2: $icon = "log/16x16-stop.png"; break;
 		case 3: $icon = "log/16x16-trash.png"; break;
-		case 4: $icon = "log/16x16-trash.png"; break;
-		case 5: $icon = "log/16x16-stop.png"; break;
+		case 4: $icon = "log/16x16-wattend.png"; break;
+		case 5: $icon = "log/16x16-wattend.png"; break;
 		case 6: $icon = "log/16x16-stop.png"; break;
 
 		default: $icon = "log/16x16-go.png"; break;

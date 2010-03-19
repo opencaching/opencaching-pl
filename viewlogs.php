@@ -95,7 +95,7 @@
 			if ($cache_record['type'] == 6)
 			{
 				tpl_set_var('found_icon', $exist_icon);
-				tpl_set_var('notfound_icon', $trash_icon);
+				tpl_set_var('notfound_icon', $wattend_icon);
 			}
 			else
 			{
