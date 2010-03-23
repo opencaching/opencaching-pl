@@ -8,8 +8,8 @@
 
   setlocale(LC_TIME, 'pl_PL.UTF-8');
 
-  $rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(caches.user_id) FROM `caches` WHERE `status`=1 GROUP BY `user_id`) `users_with_founds`');
-  $fC = sql('SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
+  $rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(cache_logs.user_id) FROM `cache_logs` WHERE `type`=1 AND `deleted`=0 GROUP BY `user_id`) `users_with_founds`');
+  $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `type`=1 AND `deleted`=0');
     $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
  
@@ -17,7 +17,7 @@
 
 	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('activity_by_region').'</b> <br /><br /> '.tr('users_who_found_caches').': ';
 	echo $rsUs[count]; 
-	echo ' .::. '.tr('number_of_active_caches').': ';
+	echo ' .::. '.tr('number_of_found_caches').': ';
 	echo $fCt[count]; 
 	echo '</center></td></tr></table><br><table border="1" bgcolor="white" width="97%">' . "\n";
 
