@@ -568,6 +568,11 @@ blocked Blocked
 my_caches My caches
 region Region
 number_of_caches_by_region Number of caches by region
+activity_by_region Activity by region
+number_of_found_caches Number of founds
+users_who_found_caches Number of users who founds
+number_found_of_caches Number of found it caches
+
 
 
 

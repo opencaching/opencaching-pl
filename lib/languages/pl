@@ -609,6 +609,10 @@ blocked Blokowane
 my_caches Moje skrzynki
 region Województwo
 number_of_caches_by_region Liczba skrzynek w województwach
+activity_by_region Aktywność w województwach
+number_of_found_caches Liczba odkryć skrzynek
+users_who_found_caches Użytkowników którzy znalezli
+number_found_of_caches Liczba znalezionych skrzynek
 
 
 
