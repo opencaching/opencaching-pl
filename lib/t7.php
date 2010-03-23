@@ -25,7 +25,7 @@
 echo '
 <tr class="bgcolor2">
 	<td width="20%" align="right">
-		&nbsp;&nbsp;<b>'.tr('number_found_of_caches').'</b>&nbsp;&nbsp;
+		&nbsp;&nbsp;<b>'.tr('number_of_found_caches').'</b>&nbsp;&nbsp;
 	</td>
 	<td align="right">
 		&nbsp;&nbsp;<b>'.tr('region').'</b>&nbsp;&nbsp;
