@@ -15,10 +15,10 @@
  
  $rsfCR = sql("SELECT COUNT(*) `count`, `cache_location`.`adm3` region FROM `cache_location` INNER JOIN cache_logs ON cache_location.cache_id=cache_logs.cache_id WHERE `cache_location`.`code1`='PL' AND cache_logs.type='1' AND cache_logs.deleted='0' GROUP BY `cache_location`.`code3` ORDER BY count DESC");
 
-	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('activity_by_region').'</b> <br /><br /> '.tr('users_who_found_caches').': ';
-	echo $rsUs[count]; 
-	echo ' .::. '.tr('number_of_found_caches').': ';
-	echo $fCt[count]; 
+	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('activity_by_region').'</b> <br /><br /> '.tr('number_of_found_caches').': ';
+	echo $fCt[count];
+	echo ' .::. '.tr('users_who_found_caches').': ';
+ 	echo $rsUs[count]; 
 	echo '</center></td></tr></table><br><table border="1" bgcolor="white" width="97%">' . "\n";
 
  
