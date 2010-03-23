@@ -8,6 +8,8 @@
 <img src="tpl/stdstyle/images/free_icons/chart_bar.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s3">{{user_ranking_by_number_of_finds_of_their_caches}}</a><br />
 <img src="tpl/stdstyle/images/free_icons/chart_bar.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s7">{{number_of_caches_by_region}}</a><br />
 <br />
+<img src="tpl/stdstyle/images/free_icons/chart_bar.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s8">{{activity_by_region}}</a><br />
+<br />
 <div class="img-shadow"><img src="graphs/new-caches-oc.php" alt="{{oc_statistics}}" /></div><br/>
 <div class="buffer"></div>
 <img src="{oc_statistics_link}" alt="{{oc_statistics}}" /><br />
