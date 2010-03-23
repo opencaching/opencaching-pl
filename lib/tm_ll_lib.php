@@ -112,7 +112,7 @@ $L0=$Merid*$Deg2Rad; // Lon of True Origin (3,9,15 etc)
     $J5=$V/24*$SINK*($COSK3)*(5-($TANK2)+9*$H2);
     $J6=$V/720*$SINK*$COSK3*$COSK2*(61-58*($TANK2)+$TANK2*$TANK2);
     $North=$J3+$P2*$J4+$P4*$J5+$P4*$P2*$J6;
-		if ($NS) $North=$North+10000000.0; // UTM S hemisphere
+//		if ($NS) $North=$North+10000000.0; // UTM S hemisphere , nie wiem dlaczego ale w oryginale dodawa³o siê 10000000.0
     $J7=$V*$COSK;
     $J8=$V/6*$COSK3*($V/$R-$TANK2);
     $J9=$V/120*$COSK3*$COSK2;
@@ -121,7 +121,7 @@ $L0=$Merid*$Deg2Rad; // Lon of True Origin (3,9,15 etc)
     $IEast=round($East); $INorth=round($North); // should strictly be trunc
     $Easting=$IEast;
     $Northing=$INorth;
-  $EastStr=''+abs($IEast);
+	$EastStr=''+abs($IEast);
 	$NorthStr=''+abs($INorth);
   //while (EastStr.length<7) EastStr='0'+EastStr;
 	$EastStr = sprintf("%07.0f", $EastStr);
