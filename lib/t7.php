@@ -24,7 +24,7 @@
  
 echo '
 <tr class="bgcolor2">
-	<td width="20%" align="right">
+	<td width="20%" align="center">
 		&nbsp;&nbsp;<b>'.tr('number_of_found_caches').'</b>&nbsp;&nbsp;
 	</td>
 	<td align="right">
