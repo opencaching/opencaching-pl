@@ -15,7 +15,7 @@
  
  $rsfCR = sql("SELECT COUNT(*) `count`, `cache_location`.`adm3` region FROM `cache_location` INNER JOIN cache_logs ON cache_location.cache_id=cache_logs.cache_id WHERE `cache_location`.`code1`='PL' AND (cache_logs.type='1' OR cache_logs.type='2') AND cache_logs.deleted='0' GROUP BY `cache_location`.`code3` ORDER BY count DESC");
 
-	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('activity_by_region').'</b> <br /><br /> '.tr('number_of_visit_caches').' (znalezione + nie znalezione): <b>';
+	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('activity_by_region').'</b> <br /><br /> '.tr('number_of_visit_caches').' (znalezione + nieznalezione): <b>';
 	echo $fCt[count];
 	echo ' </b><br />'.tr('users_active').':<b> ';
  	echo $rsUs[count]; 
