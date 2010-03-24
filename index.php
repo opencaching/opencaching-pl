@@ -40,7 +40,7 @@
 		// news
 		require($stylepath . '/news.inc.php');
 
-		$newscontent = '<table border="0" cellspacing="0" cellpadding="0">';
+		$newscontent = '';
 		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 1');
 		while ($r = sql_fetch_array($rs))
 		{
@@ -54,7 +54,7 @@
 			$newscontent .= $newsentry . "\n";
 		}
 		mysql_free_result($rs);
-		$newscontent .= '</table>';
+		$newscontent .= '';
 		tpl_set_var('news_one', $newscontent);
 		$newscontent = '';
 //		tpl_set_var('more_news',[{{more_news}}]);
