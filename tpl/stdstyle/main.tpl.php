@@ -225,14 +225,15 @@ function chname( newName )
 					echo '</ul>';
 				}
 			?>
-      <!-- Main title -->
+      <!-- Main title 
       <p class="sidebar-maintitle">{{latest_news}}</p>
-			<!-- Textbox -->
+		
 			<div class="sidebar-txtbox-noshade">
 	  		{news}
 				<br/>
 				<p><a href="/news.php">[{{more_news}} ...]</a></p>
       </div>
+-->
     </div>				
   	<!-- 	CONTENT -->
 		<div class="content2">
