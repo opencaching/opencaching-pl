@@ -40,7 +40,7 @@
 		// news
 		require($stylepath . '/news.inc.php');
 
-		$newscontent = '';
+
 		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 1');
 		while ($r = sql_fetch_array($rs))
 		{
@@ -51,10 +51,9 @@
 			$newsentry = mb_ereg_replace('{topic}', htmlspecialchars($r['topic'], ENT_COMPAT, 'UTF-8'), $newsentry);
 			$newsentry = mb_ereg_replace('{message}', $r['content'], $newsentry);
 			
-			$newscontent .= $newsentry . "\n";
+			$newscontent = $newsentry . "\n";
 		}
 		mysql_free_result($rs);
-		$newscontent .= '';
 		tpl_set_var('news_one', $newscontent);
 		$newscontent = '';
 //		tpl_set_var('more_news',[{{more_news}}]);
