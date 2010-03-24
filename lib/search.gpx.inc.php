@@ -365,6 +365,9 @@
 
 			$thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
 
+		// tempore tablle drop
+		sql('DROP TABLE `gpxcontent`');
+
 			// logs ermitteln
 			$logentries = '';
 			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC", $r['cacheid']); // adam: removed LIMIT 20

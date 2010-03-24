@@ -72,7 +72,7 @@ $gpxLine = '
 		<groundspeak:cache id="{cacheid}" available="{available}" archived="{{archived}}" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0">
 			<groundspeak:name>{cachename}</groundspeak:name>
 			<groundspeak:placed_by>{owner}</groundspeak:placed_by>
-			<groundspeak:owner id="0">{owner}</groundspeak:owner>
+			<groundspeak:owner id="{ownerid}">{owner}</groundspeak:owner>
 			<groundspeak:type>{type}</groundspeak:type>
 			<groundspeak:container>{container}</groundspeak:container>
 			<groundspeak:difficulty>{difficulty}</groundspeak:difficulty>
@@ -93,7 +93,7 @@ $gpxLog = '
 				<groundspeak:log id="{id}">
         			<groundspeak:date>{date}</groundspeak:date>
 					<groundspeak:type>{type}</groundspeak:type>
-					<groundspeak:finder id="0">{username}</groundspeak:finder>
+					<groundspeak:finder id="{userid}">{username}</groundspeak:finder>
 					<groundspeak:text encoded="False">{{text}}</groundspeak:text>
 				</groundspeak:log>
 ';
@@ -294,7 +294,7 @@ $gpxLog = '
 		append_output($gpxHead);
 
 		// ok, ausgabe ...
-		$rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
+		$rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `ownerid`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
 		while($r = sql_fetch_array($rs))
 		{
 			$thisline = $gpxLine;
@@ -360,10 +360,14 @@ $gpxLog = '
 			$thisline = str_replace('{terrain}', $terrain, $thisline);
 
 			$thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
+			$thisline = str_replace('{ownerid}', xmlentities($r['ownerid']), $thisline);
+
+		// tempore tablle drop
+		sql('DROP TABLE `gpxcontent`');
 
 			// logs ermitteln
 			$logentries = '';
-			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC", $r['cacheid']); // adam: removed LIMIT 20
+			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC", $r['cacheid']); // adam: removed LIMIT 20
 			while ($rLog = sql_fetch_array($rsLogs))
 			{
 				$thislog = $gpxLog;
@@ -371,7 +375,7 @@ $gpxLog = '
 				$thislog = str_replace('{id}', $rLog['id'], $thislog);
 				$thislog = str_replace('{date}', date($gpxTimeFormat, strtotime($rLog['date'])), $thislog);
 				$thislog = str_replace('{username}', xmlentities($rLog['username']), $thislog);
-				
+				$thislog = str_replace('{userid}', xmlentities($rLog['userid']), $thislog);				
 				if (isset($gpxLogType[$rLog['type']]))
 					$logtype = $gpxLogType[$rLog['type']];
 				else
