@@ -46,7 +46,7 @@ while ($line=mysql_fetch_array($rsfCR))
 
 	echo '</table>' . "\n";
 
-mysql_free_result($rsFCR);
+mysql_free_result($rsfCR);
 
 
 ?>
