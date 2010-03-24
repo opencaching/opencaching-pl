@@ -45,7 +45,7 @@
 		while ($r = sql_fetch_array($rs))
 		{
 			$newsentry = $tpl_newstopic_header;
-			$newsentry .= $tpl_newstopic_without_topic;
+			$newsentry .= $tpl_newstopic_without_topics;
 			
 			$newsentry = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($r['date'])), ENT_COMPAT, 'UTF-8'), $newsentry);
 			$newsentry = mb_ereg_replace('{topic}', htmlspecialchars($r['topic'], ENT_COMPAT, 'UTF-8'), $newsentry);
