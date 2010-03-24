@@ -25,8 +25,8 @@
 	
  ****************************************************************************/
  
- $tpl_newstopic = '<p class="content-title-noshade-size3">{date}, <b>{topic}</b></p><p class="content-txtbox-noshade-size5">{message}</p><br/>';
+ $tpl_newstopic = '<p class="content-title-noshade-size3">{date}</p><p class="content-txtbox-noshade-size5">{message}</p><br/>';
  
- $tpl_newstopic_without_topic = '<p class="content-title-noshade-size1">{date}</p><p>{message}</p><div class="line-box"></div>';
- $tpl_newstopic_header = '<br/><p class="content-title-noshade-size5"><b>{topic}</b><br/></p><div class="line-box"></div>';
+ $tpl_newstopic_without_topic = '<p class="content-title-noshade-size1">{date}</p><p style="line-height: 1.6em;">{message}</p><p>&nbsp;</p>';
+ $tpl_newstopic_header = '<p class="content-title-noshade-size3"><b>Aktualności</b><br/></p><div class="line-box"></div>';
 ?>
