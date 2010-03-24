@@ -49,7 +49,7 @@
 			while ($rNews = sql_fetch_array($rsNews))
 			{
 				$thisnewscontent = $tpl_newstopic_without_topic;
-				$thisnewscontent = mb_ereg_replace('{date}',date('d.m.Y', strtotime($rNews['date_posted'])), $thisnewscontent);
+				$thisnewscontent = mb_ereg_replace('{date}',date('d-m-Y', strtotime($rNews['date_posted'])), $thisnewscontent);
 				$thisnewscontent = mb_ereg_replace('{message}', $rNews['content'], $thisnewscontent);
 				$newscontent .= $thisnewscontent . "\n";
 			}
