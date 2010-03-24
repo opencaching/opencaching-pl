@@ -77,7 +77,7 @@ $gpxLine = '
 			<groundspeak:container>{container}</groundspeak:container>
 			<groundspeak:difficulty>{difficulty}</groundspeak:difficulty>
 			<groundspeak:terrain>{terrain}</groundspeak:terrain>
-			<groundspeak:country>{country}</groundspeak:country>
+			<groundspeak:country>Polska</groundspeak:country>
 			<groundspeak:state></groundspeak:state>
 			<groundspeak:short_description html="False">{shortdesc}</groundspeak:short_description>
 			<groundspeak:long_description html="True">{desc}{rr_comment}&lt;br&gt;{{images}}</groundspeak:long_description>
@@ -309,7 +309,7 @@ $gpxLog = '
 			$thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
 			$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
-			$thisline = str_replace('{country}', $r['country'], $thisline);
+//			$thisline = str_replace('{country}', $r['country'], $thisline);
 			$thisline = str_replace('{state}', '', $thisline);
 			
 			if ($r['hint'] == '')
@@ -354,16 +354,17 @@ $gpxLog = '
 				$thisline = str_replace('{{archived}}', $gpxArchived[1], $thisline);
 
 			$difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
+			$difficulty = str_replace('.0', '', $difficulty); // garmin devices cannot handle .0 on integer values
 			$thisline = str_replace('{difficulty}', $difficulty, $thisline);
 
 			$terrain = sprintf('%01.1f', $r['terrain'] / 2);
+			$terrain = str_replace('.0', '', $terrain);
 			$thisline = str_replace('{terrain}', $terrain, $thisline);
 
 			$thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
 			$thisline = str_replace('{ownerid}', xmlentities($r['ownerid']), $thisline);
 
-		// tempore tablle drop
-		sql('DROP TABLE `gpxcontent`');
+
 
 			// logs ermitteln
 			$logentries = '';
@@ -392,7 +393,8 @@ $gpxLog = '
 			ob_flush();
 		}
 		mysql_free_result($rs);
-		
+			// tempore tablle drop
+		sql('DROP TABLE `gpxcontent`');	
 		append_output($gpxFoot);
 
 		if ($sqldebug == true) sqldbg_end();
