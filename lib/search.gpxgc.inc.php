@@ -127,11 +127,12 @@ $gpxLog = '
 	$gpxType[4] = 'Virtual Cache';		//OC: Virtual
 	$gpxType[5] = 'Webcam Cache';		//OC: Webcam
 	$gpxType[6] = 'Event Cache';		//OC: Event
-	// unknown ... converted
-	$gpxType[7] = 'Unknown Cache'; 		//OC: Multi
-	$gpxType[8] = 'Multi-cache'; 		//OC: Multi
-	$gpxType[9] = 'Traditional Cache'; 	//OC: Traditional
-	$gpxType[10] = 'Traditional Cache'; //OC: Traditional
+	
+	$gpxType[7] = 'Unknown Cache';		//OC: Quiz
+	$gpxType[8] = 'Unknown Cache';		//OC: Moving
+	$gpxType[9] = 'Unknown Cache';		//OC: PodCache
+	$gpxType[10] = 'Unknown Cache';		//OC: Educache
+	$gpxType[11] = 'Unknown Cache';		//OC: Challenge cache
 	// other
 	//$gpxType[] = 'Unknown Cache';
 	//$gpxType[] = 'Earthcache';
@@ -149,6 +150,7 @@ $gpxLog = '
 	$gpxGeocacheTypeText[7] = 'Quiz';
 	$gpxGeocacheTypeText[8] = 'Moving Cache';
 	$gpxGeocacheTypeText[10] = 'Unknown Cache';
+	$gpxGeocacheTypeText[11] = 'PodCast Cache';
 	
 	$gpxLogType[0] = 'Write note';			//OC: Other
 	$gpxLogType[1] = 'Found it'; 			//OC: Found
