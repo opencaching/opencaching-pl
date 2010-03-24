@@ -44,10 +44,11 @@
 		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 1');
 		while ($r = sql_fetch_array($rs))
 		{
+			$post_date = strtotime($r['date']);
 			$newsentry = $tpl_newstopic_header;
 			$newsentry .= $tpl_newstopic_without_topics;
 			
-			$newsentry = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($r['date'])), ENT_COMPAT, 'UTF-8'), $newsentry);
+			$newsentry = mb_ereg_replace('{date}', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $newsentry);
 			$newsentry = mb_ereg_replace('{topic}', htmlspecialchars($r['topic'], ENT_COMPAT, 'UTF-8'), $newsentry);
 			$newsentry = mb_ereg_replace('{message}', $r['content'], $newsentry);
 			
