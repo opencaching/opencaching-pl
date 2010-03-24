@@ -432,9 +432,9 @@ $gpxLog = '
           // </p>, <br /> -> nowa linia
           $from[] = '<p>'; $to[] = '';
           $from[] = '</p>'; $to[] = "\n";
+          $from[] = '<br>'; $to[] = "\n";
           $from[] = '<br />'; $to[] = "\n";
-          $from[] = '<br />'; $to[] = "\n";
-					$from[] = '<br/>'; $to[] = "\n";
+		  $from[] = '<br/>'; $to[] = "\n";
             
           $from[] = '<li>'; $to[] = " - ";
           $from[] = '</li>'; $to[] = "\n";
