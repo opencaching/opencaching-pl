@@ -211,7 +211,7 @@
 		echo $thisline;
 	}
 	mysql_free_result($rs);
-	
+	sql('DROP TABLE `xmlcontent` ');	
 	if ($sqldebug == true) sqldbg_end();
 	echo "</result>\n";
 	

@@ -257,7 +257,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 						ob_flush();
 					}
 					mysql_free_result($rs);
-
+					sql('DROP TABLE `wptcontent` ');
 					if ($sqldebug == true) sqldbg_end();
 
 					// phpzip versenden

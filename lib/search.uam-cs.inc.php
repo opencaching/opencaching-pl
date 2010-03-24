@@ -235,7 +235,7 @@ Rekordy (kazdy 362 znaki)
 									ob_flush();
 					}
 					mysql_free_result($rs);
-
+					sql('DROP TABLE `wptcontent` ');
 					if ($sqldebug == true) sqldbg_end();
 
 					// phpzip versenden

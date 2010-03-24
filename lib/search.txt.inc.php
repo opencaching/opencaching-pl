@@ -290,7 +290,7 @@ LOGi:
 			ob_flush();
 		}
 		mysql_free_result($rs);
-		
+		sql('DROP TABLE `txtcontent` ');		
 		if ($sqldebug == true) sqldbg_end();
 		
 		// phpzip versenden

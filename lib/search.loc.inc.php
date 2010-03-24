@@ -244,7 +244,7 @@ $cacheTypeText[10] = 'Unknown Cache';
 			ob_flush();
 		}
 		mysql_free_result($rs);
-		
+		sql('DROP TABLE `loccontent` ');		
 		append_output($locFoot);
 		
 		if ($sqldebug == true) sqldbg_end();

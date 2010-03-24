@@ -299,7 +299,7 @@
 		mysql_free_result($rs);
 		
 		append_output($kmlFoot);
-		
+		sql('DROP TABLE `kmlcontent` ');		
 		if ($sqldebug == true) outputSqlDebugForm();
 		
 		// phpzip versenden
