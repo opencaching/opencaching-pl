@@ -97,13 +97,11 @@
 	</wpt>
 ';
 
-$gpxAttribute = '<attribute id="{attribute_id}">{attribute_text}</attribute>
-		';
+$gpxAttribute = '<attribute id="{attribute_id}">{attribute_text}</attribute>';
 
 $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
-		<name>{geokret_name}</name> 
-		</geokret> 
-		';
+			<name>{geokret_name}</name> 
+			</geokret> ';
 
 	$gpxLog = '
 <log id="{id}">
@@ -422,7 +420,7 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 					$thisAttribute = str_replace('{attribute_id}', $rAttribute['attrib_id'], $thisAttribute);
 					$thisAttribute = str_replace('{attribute_text}', xmlentities($rAttribute['text_long']), $thisAttribute);
 									
-					$attributes .= $thisAttribute;// . "\n";
+					$attributes .= $thisAttribute . "\n";
 
 				
 			}
