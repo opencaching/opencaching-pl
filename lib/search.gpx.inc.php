@@ -500,8 +500,8 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
           $from[] = '<p>'; $to[] = '';
           $from[] = '</p>'; $to[] = "\n";
           $from[] = '<br />'; $to[] = "\n";
-          $from[] = '<br />'; $to[] = "\n";
-					$from[] = '<br/>'; $to[] = "\n";
+          $from[] = '<br>'; $to[] = "\n";
+	  $from[] = '<br>'; $to[] = "\n";
             
           $from[] = '<li>'; $to[] = " - ";
           $from[] = '</li>'; $to[] = "\n";
@@ -514,7 +514,7 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
           $from[] = '<'; $to[] = '&lt;';
           $from[] = '>'; $to[] = '&gt;';
           $from[] = ']]>'; $to[] = ']] >';
-					$from[] = ''; $to[] = '';
+	   $from[] = ''; $to[] = '';
               
           for ($i = 0; $i < count($from); $i++)
             $str = str_replace($from[$i], $to[$i], $str);

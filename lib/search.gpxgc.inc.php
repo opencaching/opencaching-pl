@@ -556,7 +556,7 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
           $from[] = '</p>'; $to[] = "\n";
           $from[] = '<br>'; $to[] = "\n";
           $from[] = '<br />'; $to[] = "\n";
-		  $from[] = '<br/>'; $to[] = "\n";
+	 $from[] = '<br/>'; $to[] = "\n";
             
           $from[] = '<li>'; $to[] = " - ";
           $from[] = '</li>'; $to[] = "\n";
