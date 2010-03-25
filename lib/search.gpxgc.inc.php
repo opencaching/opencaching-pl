@@ -72,7 +72,7 @@ $gpxLine = '
 		<groundspeak:cache id="{cacheid}" available="{available}" archived="{{archived}}" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0">
 			<groundspeak:name>{cachename}</groundspeak:name>
 			<groundspeak:placed_by>{owner}</groundspeak:placed_by>
-			<groundspeak:owner id="{ownerid}">{owner}</groundspeak:owner>
+			<groundspeak:owner id="{owner_id}">{owner}</groundspeak:owner>
 			<groundspeak:type>{type}</groundspeak:type>
 			<groundspeak:container>{container}</groundspeak:container>
 			<groundspeak:attributes>

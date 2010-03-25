@@ -72,7 +72,7 @@
 	<type>Geocache|{geocache_type}</type>
 	<geocache status="{status}" xmlns="http://geocaching.com.au/geocache/1">
 			<name>{cachename}</name>
-			<owner id="{ownerid}">{owner}</owner>
+			<owner id="{owner_id}">{owner}</owner>
 			<locale></locale>
 			<state>{state}</state>
 			<country>POLSKA</country>
