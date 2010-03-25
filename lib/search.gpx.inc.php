@@ -72,12 +72,15 @@
 	<type>Geocache|{geocache_type}</type>
 	<geocache status="{status}" xmlns="http://geocaching.com.au/geocache/1">
 			<name>{cachename}</name>
-			<owner>{owner}</owner>
+			<owner id="{ownerid}">{owner}</owner>
 			<locale></locale>
 			<state>{state}</state>
-			<country>{country}</country>
+			<country>POLSKA</country>
 			<type>{type}</type>
 			<container>{container}</container>
+			<attributes>
+				{attributes}
+			</attributes>
 			<difficulty>{difficulty}</difficulty>
 			<terrain>{terrain}</terrain>
 			<summary html="false">{shortdesc}</summary>
@@ -87,14 +90,25 @@
 			<logs>
 				{logs}
 			</logs>
+			<geokrety>
+				{geokrety}
+			</geokrety>
 		</geocache>
 	</wpt>
 ';
 
+$gpxAttribute = '<attribute id="{attribute_id}">{attribute_text}</attribute>
+		';
+
+$gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
+		<name>{geokret_name}</name> 
+		</geokret> 
+		';
+
 	$gpxLog = '
 <log id="{id}">
 	<time>{date}</time>
-	<geocacher>{username}</geocacher>
+	<geocacher id="{finder_id}">{username}</geocacher>
 	<type>{type}</type>
 	<text>{{text}}</text>
 </log>
@@ -232,7 +246,8 @@
 		if ($count > $maxlimit) $count = $maxlimit;
 
 		$sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
-
+		// cleanup (old gpxcontent lingers if gpx-download is cancelled by user)		
+		sql('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
 		// temporäre tabelle erstellen
 		sql('CREATE TEMPORARY TABLE `gpxcontent` ' . $sql . $sqlLimit);
 
@@ -299,7 +314,7 @@
 		append_output($gpxHead);
 
 		// ok, ausgabe ...
-		$rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
+		$rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,`cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
 		while($r = sql_fetch_array($rs))
 		{
 			$thisline = $gpxLine;
@@ -358,12 +373,15 @@
 				$thisline = str_replace('{status}', $gpxStatus[0], $thisline);
 			
 			$difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
+			$difficulty = str_replace('.0', '', $difficulty); // garmin devices cannot handle .0 on integer values
 			$thisline = str_replace('{difficulty}', $difficulty, $thisline);
 
 			$terrain = sprintf('%01.1f', $r['terrain'] / 2);
+			$terrain = str_replace('.0', '', $terrain);
 			$thisline = str_replace('{terrain}', $terrain, $thisline);
 
 			$thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
+			$thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
 
 		// tempore tablle drop
 		sql('DROP TABLE `gpxcontent`');
@@ -378,7 +396,8 @@
 				$thislog = str_replace('{id}', $rLog['id'], $thislog);
 				$thislog = str_replace('{date}', date($gpxTimeFormat, strtotime($rLog['date'])), $thislog);
 				$thislog = str_replace('{username}', xmlentities($rLog['username']), $thislog);
-				
+				$thislog = str_replace('{finder_id}', xmlentities($rLog['user_id']), $thislog);	
+			
 				if (isset($gpxLogType[$rLog['type']]))
 					$logtype = $gpxLogType[$rLog['type']];
 				else
@@ -390,6 +409,48 @@
 				
 			}
 			$thisline = str_replace('{logs}', $logentries, $thisline);
+
+			// Attributes
+			$attributes = '';
+			$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
+			while ($rAttribute = sql_fetch_array($rsAttributes))
+			{
+				$thisAttribute = $gpxAttribute;
+				
+
+					//$thisAttribute = str_replace('{attribute_id}', $gpxAttConv[$rAttribute['attrib_id']], $thisAttribute);
+					$thisAttribute = str_replace('{attribute_id}', $rAttribute['attrib_id'], $thisAttribute);
+					$thisAttribute = str_replace('{attribute_text}', xmlentities($rAttribute['text_long']), $thisAttribute);
+									
+					$attributes .= $thisAttribute;// . "\n";
+
+				
+			}
+			$thisline = str_replace('{attributes}', $attributes, $thisline);
+
+			// Travel Bug GeoKrety
+			$waypoint = $r['waypoint'];
+			$geokrety = '';
+			$geokret_sql = "SELECT id, name FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".sql_escape($waypoint)."') AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2";
+			$geokret_query = sql($geokret_sql);
+
+				while( $geokret = sql_fetch_array($geokret_query) )
+				{
+
+				$thisGeoKret = $gpxGeoKrety;
+
+				$gk_wp = strtoupper(dechex($geokret['id']));
+				while (mb_strlen($gk_wp) < 4) $gk_wp = '0' . $gk_wp;
+				$gkWP = 'GK' . mb_strtoupper($gk_wp);
+					$thisGeoKret = str_replace('{geokret_id}',xmlentities($geokret['id']) , $thisGeoKret);
+					$thisGeoKret = str_replace('{geokret_ref}',$gkWP, $thisGeoKret);
+					$thisGeoKret = str_replace('{geokret_name}', xmlentities($geokret['name']), $thisGeoKret);
+					$geokrety .= $thisGeoKret;// . "\n";
+				
+			}
+			$thisline = str_replace('{geokrety}', $geokrety, $thisline);
+
+
 
 			append_output($thisline);
 			ob_flush();
