@@ -142,19 +142,20 @@ $gpxLine = '
 //$gpxAttConv[57] = ;	//OC:Other cache type -> GC:
 //$gpxAttConv[58] = ;	//OC:Ask owner for start conditions -> GC:
 //$gpxAttConv[59] = 6;	//OC:Tides -> GC:
-$gpxAttConv[40] = 40 ;	//OC:Easy cache
+// OC PL attributes
+//$gpxAttConv[40] = 40 ;	//OC:Easy cache
 $gpxAttConv[41] = 6;	//OC:suited for children -> GC:Recommended for kids OC:Tides -> GC:
-$gpxAttConv[42] = 42 ;	//OC:GPS Free
-$gpxAttConv[43] = 43 ;	//OC:GeoHotel
+//$gpxAttConv[42] = 42 ;	//OC:GPS Free
+//$gpxAttConv[43] = 43 ;	//OC:GeoHotel
 $gpxAttConv[44] = 24;	//OC:AccessibleFor disabled GC: Wheelchair Accessible
-$gpxAttConv[47] = 47;	//OC:Compass -> GC:
-$gpxAttConv[48] = 48;	//OC:Take something to write
+//$gpxAttConv[47] = 47;	//OC:Compass -> GC:
+//$gpxAttConv[48] = 48;	//OC:Take something to write
 $gpxAttConv[60] = 8;	//OC:Natura
-$gpxAttConv[61] = 61;	//OC:Monumental place
+//$gpxAttConv[61] = 61;	//OC:Monumental place
 $gpxAttConv[80] = 2;	//OC:Periodical/Paid 
-$gpxAttConv[81] = 81;	//OC:Shovel - special equipment 
-$gpxAttConv[82] = 82;	//OC:flashlight -> GC:Flashlight required
-$gpxAttConv[83] = 83;	//OC:Special equipment
+//$gpxAttConv[81] = 81;	//OC:Shovel - special equipment 
+//$gpxAttConv[82] = 82;	//OC:flashlight -> GC:Flashlight required
+//$gpxAttConv[83] = 83;	//OC:Special equipment
 $gpxAttConv[90] = 23;	//OC:Dangerous territory -> GC:Dangerous area
 
 $gpxAttribute = '<groundspeak:attribute id="{attribute_id}" inc="{attribute_inc}">{attribute_text}</groundspeak:attribute>
