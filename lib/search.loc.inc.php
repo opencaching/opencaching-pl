@@ -127,6 +127,8 @@ $cacheTypeText[10] = 'Unknown Cache';
 
 		$sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
 
+		// cleanup (old gpxcontent lingers if gpx-download is cancelled by user)		
+		sql('DROP TEMPORARY TABLE IF EXISTS `loccontent`');
 		// temporäre tabelle erstellen
 		sql('CREATE TEMPORARY TABLE `loccontent` ' . $sql . $sqlLimit, $sqldebug);
 		
@@ -244,7 +246,7 @@ $cacheTypeText[10] = 'Unknown Cache';
 			ob_flush();
 		}
 		mysql_free_result($rs);
-		sql('DROP TABLE `loccontent` ');		
+		
 		append_output($locFoot);
 		
 		if ($sqldebug == true) sqldbg_end();

@@ -122,6 +122,8 @@
 
 		$sqlLimit .= ' LIMIT ' . $startat . ', ' . $count;
 
+		// cleanup (old gpxcontent lingers if gpx-download is cancelled by user)		
+		sql('DROP TEMPORARY TABLE IF EXISTS `kmlcontent`');
 		// temporäre tabelle erstellen
 		sql('CREATE TEMPORARY TABLE `kmlcontent` ' . $sql . $sqlLimit, $sqldebug);
 
@@ -299,7 +301,7 @@
 		mysql_free_result($rs);
 		
 		append_output($kmlFoot);
-		sql('DROP TABLE `kmlcontent` ');		
+	
 		if ($sqldebug == true) outputSqlDebugForm();
 		
 		// phpzip versenden

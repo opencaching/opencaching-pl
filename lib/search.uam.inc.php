@@ -144,6 +144,9 @@ Rekordy (kazdy 362 znaki)
 
 					$sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
 
+
+		// cleanup (old gpxcontent lingers if gpx-download is cancelled by user)		
+		sql('DROP TEMPORARY TABLE IF EXISTS `wptcontent`');					
 					// temporäre tabelle erstellen
 					sql('CREATE TEMPORARY TABLE `wptcontent` ' . $sql . $sqlLimit);
 
@@ -250,7 +253,7 @@ Rekordy (kazdy 362 znaki)
 									ob_flush();
 					}
 					mysql_free_result($rs);
-					sql('DROP TABLE `wptcontent` ');
+
 					if ($sqldebug == true) sqldbg_end();
 
 					// phpzip versenden

@@ -124,6 +124,8 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 
 					$sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
 
+		// cleanup (old gpxcontent lingers if gpx-download is cancelled by user)		
+		sql('DROP TEMPORARY TABLE IF EXISTS `wptcontent`');
 					// temporäre tabelle erstellen
 					sql('CREATE TEMPORARY TABLE `wptcontent` ' . $sql . $sqlLimit);
 					$rsCount = sql('SELECT COUNT(*) `count` FROM `wptcontent`');
@@ -257,7 +259,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 						ob_flush();
 					}
 					mysql_free_result($rs);
-					sql('DROP TABLE `wptcontent` ');
+
 					if ($sqldebug == true) sqldbg_end();
 
 					// phpzip versenden
