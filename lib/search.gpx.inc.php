@@ -83,6 +83,8 @@
 			</attributes>
 			<difficulty>{difficulty}</difficulty>
 			<terrain>{terrain}</terrain>
+			<recommended>{recommendations}</recommended>
+			<rate votes="{vote}">{score}</rate>
 			<summary html="false">{shortdesc}</summary>
 			<description html="true">{desc}{rr_comment}&lt;br&gt;{{images}}</description>
 			{hints}
@@ -209,9 +211,7 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 				mysql_free_result($rs_coords);
 			}
 		}
-		$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`user_id` `user_id`
-					FROM `caches`
-					WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+		$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`user_id` `user_id`, `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings`	FROM `caches` WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
 		
 		$sortby = $options['sort'];
 		if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
@@ -312,7 +312,7 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 		append_output($gpxHead);
 
 		// ok, ausgabe ...
-		$rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,`cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
+		$rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,`cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`, `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
 		while($r = sql_fetch_array($rs))
 		{
 			$thisline = $gpxLine;
@@ -381,8 +381,22 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 			$thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
 			$thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
 
-		// tempore tablle drop
-		sql('DROP TABLE `gpxcontent`');
+
+			if( $r['votes'] < 3 )
+			{
+			$thisline = str_replace('{score}', "N/A", $thisline);
+			$thisline = str_replace('{vote}', $r['votes'], $thisline);
+			}
+			else
+			{
+
+				$score = score2rating($r['score']);
+				$thisline = str_replace('{score}', $score, $thisline);
+				$thisline = str_replace('{vote}', $r['votes'], $thisline);
+			}
+				$thisline = str_replace('{recommendations}',$r['topratings'], $thisline);
+
+
 
 			// logs ermitteln
 			$logentries = '';
