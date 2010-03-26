@@ -88,7 +88,7 @@
 					$needs_approvement = true;
 					tpl_set_var('hide_publish_start', '<!--');
 					tpl_set_var('hide_publish_end', '-->');
-					tpl_set_var('approvement_note', '<div class="notice">'.tr('first_cache_approvement').'</div');
+					tpl_set_var('approvement_note', '<div class="notice"><font color="red"><b>'.tr('first_cache_approvement').'</b></font></div>');
 				}
 				else
 				{
