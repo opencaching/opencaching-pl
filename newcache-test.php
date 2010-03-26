@@ -43,6 +43,16 @@
 		}
 		else
 		{			
+			
+			if isset($_REQUEST['beginner'])
+				{$beginner=1;
+			} else { $beginner=0;}
+
+			$rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
+										AND status <> 4 AND status <> 5 AND status <> 6");
+			$record = sql_fetch_array($rsnc);
+			$num_caches = $record['num_caches'];
+
 			$rs = sql("SELECT `hide_flag` as hide_flag FROM `user` WHERE `user_id` =  ".sql_escape($usr['userid']));
 			$record = sql_fetch_array($rs);
 			$hide_flag = $record['hide_flag'];
@@ -54,13 +64,22 @@
 				require_once($rootpath . '/lib/caches.inc.php');
 				//require_once($stylepath . '/' . $tplname . '.inc.php');				
 			} 
+
+			elseif ( $num_caches < $NEED_APPROVE_LIMIT &&  $beginner=0 )
+			{
+
+				// user is banned for creating new caches for some reason
+				$tplname = 'newcache_beginner';
+				require_once($rootpath . '/lib/caches.inc.php');
+				//require_once($stylepath . '/' . $tplname . '.inc.php');	
+			}
 			else 
 			{
 				$errors = false; // set if there was any errors
 
-				$rs = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
+				$rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
 										AND status <> 4 AND status <> 5 AND status <> 6");
-				$record = sql_fetch_array($rs);
+				$record = sql_fetch_array($rsnc);
 				$num_caches = $record['num_caches'];
 
 				if( $num_caches < $NEED_APPROVE_LIMIT )
