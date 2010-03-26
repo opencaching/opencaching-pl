@@ -84,7 +84,7 @@
 			<difficulty>{difficulty}</difficulty>
 			<terrain>{terrain}</terrain>
 			<recommended>{recommendations}</recommended>
-			<rate votes="{vote}">{score}</rate>
+			<rate num="{score_num}">{score}</rate>
 			<summary html="false">{shortdesc}</summary>
 			<description html="true">{desc}{rr_comment}&lt;br&gt;{{images}}</description>
 			{hints}
@@ -385,14 +385,16 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 			if( $r['votes'] < 3 )
 			{
 			$thisline = str_replace('{score}', "N/A", $thisline);
-			$thisline = str_replace('{vote}', $r['votes'], $thisline);
+			$score_num = score2ratingnum($r['score']);
+			$thisline = str_replace('{score_num}', $score_num, $thisline);
 			}
 			else
 			{
 
 				$score = score2rating($r['score']);
+				$score_num = score2ratingnum($r['score']);
 				$thisline = str_replace('{score}', $score, $thisline);
-				$thisline = str_replace('{vote}', $r['votes'], $thisline);
+				$thisline = str_replace('{score_num}', $score_num, $thisline);
 			}
 				$thisline = str_replace('{recommendations}',$r['topratings'], $thisline);
 
