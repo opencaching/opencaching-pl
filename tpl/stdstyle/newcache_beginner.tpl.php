@@ -27,6 +27,6 @@
 </p>
 <br />
 <center>
-<H1> Czy chcesz zapoznać się z proponowanymi artykułami zanim założysz swoja skrzynkę?</H1>
+<H1> Czy chcesz zapoznać się z proponowanymi artykułami zanim założysz swoją skrzynkę?</H1>
 <p style="font-size: 20px;"><a class="links" href="articles.php?page=beginner">TAK</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="links" href="newcache-test.php?beginner">NIE</a></p>
 </center></div>
