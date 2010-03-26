@@ -340,13 +340,33 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 			map.addControl(new GScaleControl());
 //			map.removeMapType(G_HYBRID_MAP);
 			map.addMapType(G_PHYSICAL_MAP);
-			map.addControl(new GHierarchicalMapTypeControl(true));
+			var mapControl = new GHierarchicalMapTypeControl(true);
+			map.addControl(mapControl);
 			map.addControl(new GOverviewMapControl());			
 			var showCoords = new ShowCoordsControl();
 			map.addControl(showCoords);
 			GEvent.addListener(map, "mousemove", function(latlng) {lastCoords = latlng; showCoords.setCoords(latlng);} );
 
 			map.enableScrollWheelZoom();
+
+
+                        var tileGeoTopo = createWMSLayer('http://sdi.geoportal.gov.pl/wms_topo/wmservice.aspx', 'TOPO_50_65,TOPO_50_42,TOPO_25_65,TOPO_100_80,TOPO_10_92,TOPO_10_65,TOPO_10_42', '',                                                                                                                                                                  
+                                                      'image/jpeg');                                                                                                               
+                        var tileGeoOrto = createWMSLayer('http://sdi.geoportal.gov.pl/wms_orto/wmservice.aspx', 'ORTOFOTO', '', 'image/jpeg');                                     
+                        var layer1 = [tileGeoTopo];                                                                                                                                
+                        var layer2 = [tileGeoOrto];                                                                                                                                
+                        var layer3 = [tileGeoTopo, G_HYBRID_MAP.getTileLayers()[1]];                                                                                               
+                        var layer4 = [tileGeoOrto, G_HYBRID_MAP.getTileLayers()[1]];                                                                                               
+                        var custommap1 = new GMapType(layer1, G_SATELLITE_MAP.getProjection(), "Topo", G_SATELLITE_MAP);                                                           
+                        var custommap2 = new GMapType(layer2, G_SATELLITE_MAP.getProjection(), "Orto", G_SATELLITE_MAP);                                                           
+                        var custommap3 = new GMapType(layer3, G_SATELLITE_MAP.getProjection(), "Topo2", G_SATELLITE_MAP);                                                          
+                        var custommap4 = new GMapType(layer4, G_SATELLITE_MAP.getProjection(), "Orto2", G_SATELLITE_MAP);                                                          
+                        mapControl.addRelationship(custommap1, custommap3, "{{show_labels}}", true);                                                                               
+                        mapControl.addRelationship(custommap2, custommap4, "{{show_labels}}", true);                                                                               
+                        map.addMapType(custommap1);                                                                                                                                
+                        map.addMapType(custommap2);                                                                                                                                
+                        map.addMapType(custommap3);                                                                                                                                
+                        map.addMapType(custommap4);
 
           // Create a search control
           var searchControl = new google.search.SearchControl();

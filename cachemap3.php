@@ -249,6 +249,7 @@ else
 	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.99&amp;key='.$googlemap_key.'" type="text/javascript"></script>
     <script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;key='.$googlemap_key.'"
       type="text/javascript"></script>
+      <script src="lib/gmap-wms.js" type="text/javascript"></script>
 	<script language="JavaScript1.2" type="text/javascript">
 	<!-- 
 		function saveMapType()
