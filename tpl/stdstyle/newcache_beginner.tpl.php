@@ -31,5 +31,11 @@
 <br />
 <center>
 <H1> Czy chcesz zapoznać się z proponowanymi artykułami zanim założysz swoją skrzynkę?</H1>
-<p style="font-size: 20px;"><a class="links" href="articles.php?page=beginner">TAK</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="links" href="newcache.php?beginner=0">NIE</a></p>
+
+<table border="0" width="200"><tr><td>
+<form action="articles.php?page=beginner" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr">
+<input type="hidden" name="beginner" value="0"/>
+<button style="width:120;height:120; font-size:20px;"><b>TAK</b></button></form></td><td><form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr"><input type="hidden" name="beginner" value="0"/><button style="width:120;height:120; font-size:20px;"><b>NIE</b></button></td></tr>
+</table>
 </center></div>
+
