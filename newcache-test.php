@@ -43,10 +43,10 @@
 		}
 		else
 		{			
-			
+
 			if (isset($_REQUEST['beginner']))
-				{$beginner=1;
-			} else { $beginner=0;}
+				{$beginner=$_GET['beginner'];
+			} else { $beginner=1;}
 
 			$rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
 										AND status <> 4 AND status <> 5 AND status <> 6");
@@ -65,7 +65,7 @@
 				//require_once($stylepath . '/' . $tplname . '.inc.php');				
 			} 
 
-			elseif ( $num_caches < $NEED_APPROVE_LIMIT &&  $beginner=='0' )
+			elseif ( $num_caches < $NEED_APPROVE_LIMIT &&  $beginner=='1' )
 			{
 
 				// user is banned for creating new caches for some reason
