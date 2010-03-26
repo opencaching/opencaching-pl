@@ -44,7 +44,7 @@
 		else
 		{			
 			
-			if isset($_REQUEST['beginner'])
+			if (isset($_REQUEST['beginner']))
 				{$beginner=1;
 			} else { $beginner=0;}
 
@@ -65,13 +65,13 @@
 				//require_once($stylepath . '/' . $tplname . '.inc.php');				
 			} 
 
-			elseif ( $num_caches < $NEED_APPROVE_LIMIT &&  $beginner=0 )
+			elseif ( $num_caches < $NEED_APPROVE_LIMIT &&  $beginner=='0' )
 			{
 
 				// user is banned for creating new caches for some reason
 				$tplname = 'newcache_beginner';
 				require_once($rootpath . '/lib/caches.inc.php');
-				//require_once($stylepath . '/' . $tplname . '.inc.php');	
+				//require_once($stylepath . '/' . $tplname . '.inc.php');
 			}
 			else 
 			{
@@ -99,7 +99,7 @@
 				}
 
 				//set here the template to process
-				$tplname = 'newcache';
+				$tplname = 'newcache-test';
 				require_once($rootpath . '/lib/caches.inc.php');
 				require_once($stylepath . '/' . $tplname . '.inc.php');
 				
