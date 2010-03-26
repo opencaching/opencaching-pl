@@ -23,10 +23,10 @@
 </table>
 <br /><br />
 <div style="width: 750px;">
-<p style="font-size: 14px; line-height:1.6em; text-align: justify;">Ponieważ zkładasz pierwsze swoje skrzynki na serwise OpenCaching.pl polecamy Ci abyś zapoznał się z lekturą artykułów na naszym <a class="links" href="wiki.opencaching.pl">OpenGeoWiki</a> serwisie. Artykuły te przybliżą Ci zasady zakładania skrzynki, wyboru pojemników, typu skrzynki itd dzieki temu Twoj skrzynka będzie poprawnie założona i OC Team który będzie weryfikował te skrzynki nie będzie miał uwag. Pamiętaj że Twoja skrzynka jest Twoja wizytówką i inni użytkownicy będą ją oceniać w logach Twojej skrzynki.
+<p style="font-size: 14px; line-height:1.6em; text-align: justify;">Ponieważ zkładasz pierwsze swoje skrzynki na serwise OpenCaching.pl polecamy Ci abyś zapoznał się z lekturą artykułów na naszym <a class="links" href="wiki.opencaching.pl">OpenGeoWiki</a> serwisie. Artykuły te przybliżą Ci zasady zakładania skrzynki, wyboru pojemników, typu skrzynki itd, dzięki temu Twoja skrzynka będzie poprawnie założona i OC Team który będzie weryfikował te skrzynki nie będzie miał uwag. Pamiętaj że Twoja skrzynka jest Twoja wizytówką i inni użytkownicy będą ją oceniać w logach Twojej skrzynki.
 </p>
 <br />
 <center>
 <H1> Czy chcesz zapoznać się z proponowanymi artykułami zanim założysz swoja skrzynkę?</H1>
-<p style="font-size: 20px;"><a class="links" href="articles.php?page=beginner">TAK</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="links" href="newcache-test.php?beginner=no">NIE</a></p>
+<p style="font-size: 20px;"><a class="links" href="articles.php?page=beginner">TAK</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="links" href="newcache-test.php?beginner">NIE</a></p>
 </center></div>
