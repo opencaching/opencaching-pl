@@ -94,6 +94,7 @@ $menu = array(
 						'title' => tr('abroad_poland'),
 						'menustring' => tr('abroad_poland'),
 						'visible' => true,
+						'onlylogged' => true,
 						'filename' => 'newcachesrest.php',
 						'siteid' => 'newcachesrest'
 					)						
