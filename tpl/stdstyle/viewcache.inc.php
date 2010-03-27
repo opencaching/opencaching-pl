@@ -113,6 +113,7 @@ $found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16"
 $notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />';
 $note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{comment}}" />';
 $vote_icon = '<img src="tpl/stdstyle/images/action/16x16-addscore.png" class="icon16" alt="" />';
+$gk_icon = '<img src="images/gk.png" class="icon16" alt="" title="GeoKrety visited" />';
 $score_icon = '<img src="images/cache-rate.png" class="icon16" alt="" />';
 $watch_icon = '<img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="" />';
 $search_icon = '<img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />';
