@@ -4,7 +4,7 @@
 </table>
 <br /><br />
 <div style="width: 750px;">
-<p style="font-size: 14px; line-height:1.6em; text-align: justify;">Poniżej przedstawiamy wykaz opisów pomocnych, które zawierają 
+<p style="font-size: 14px; line-height:1.6em; text-align: justify;">Poniżej przedstawiamy wykaz artykułów, które zawierają 
 niezbędne informacje które przybliżą Ci zasady zakładania skrzynki, wyboru pojemników, typu skrzynki itd, dzięki temu Twoja skrzynka będzie poprawnie założona z ogólnie przyjętymi zasadami.
 </p>
 <br /><ul>
