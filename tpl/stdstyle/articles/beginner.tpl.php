@@ -5,7 +5,7 @@
 <br /><br />
 <div style="width: 750px;">
 <p style="font-size: 14px; line-height:1.6em; text-align: justify;">Poniżej przedstawiamy wykaz artykułów, które zawierają 
-niezbędne informacje które przybliżą Ci zasady zakładania skrzynki, wyboru pojemników, typu skrzynki itd, dzięki temu Twoja skrzynka będzie poprawnie założona z ogólnie przyjętymi zasadami.
+niezbędne informacje i przybliżą Ci zasady zakładania skrzynki, wyboru pojemników, typu skrzynki itd, dzięki temu Twoja skrzynka będzie poprawnie założona z ogólnie przyjętymi zasadami.
 </p>
 <br /><ul>
 <li><p style="font-size: 16px;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dla_pocz%C4%85tkuj%C4%85cych" target="_blank">Dla początkujących</a></p>
