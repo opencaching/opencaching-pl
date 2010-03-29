@@ -95,7 +95,7 @@ $graph->Add($bplot);
  
  
 // Setup the titles
-$descibe="Statystyka RR2 - zg³oszenia";
+$descibe="Statystyka RR2 - prowadzone zg³oszenia";
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
