@@ -102,7 +102,7 @@
 $gpxAttribute = '<attribute id="{attribute_id}">{attribute_text}</attribute>';
 
 $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
-			<geokret name>{geokret_name}</geokret name> 
+			<gkname>{geokret_name}</gkname> 
 			</geokret> ';
 
 	$gpxLog = '
