@@ -68,7 +68,7 @@ $gpxLine = '
 		<url>http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</url>
 		<urlname>{cachename} by {owner}, {type_text}</urlname>
 		<sym>Geocache</sym>
-		<type>Geocache</type>
+		<type>Geocache|{type}</type>
 		<groundspeak:cache id="{cacheid}" available="{available}" archived="{{archived}}" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0/1">
 			<groundspeak:name>{cachename}</groundspeak:name>
 			<groundspeak:placed_by>{owner}</groundspeak:placed_by>

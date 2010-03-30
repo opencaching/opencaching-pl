@@ -102,7 +102,7 @@
 $gpxAttribute = '<attribute id="{attribute_id}">{attribute_text}</attribute>';
 
 $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
-			<name>{geokret_name}</name> 
+			<geokret name>{geokret_name}</geokret name> 
 			</geokret> ';
 
 	$gpxLog = '
@@ -402,7 +402,7 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 
 			// logs ermitteln
 			$logentries = '';
-			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC", $r['cacheid']); // adam: removed LIMIT 20
+			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC", $r['cacheid']); // adam: removed LIMIT 20
 			while ($rLog = sql_fetch_array($rsLogs))
 			{
 				$thislog = $gpxLog;
@@ -410,7 +410,7 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 				$thislog = str_replace('{id}', $rLog['id'], $thislog);
 				$thislog = str_replace('{date}', date($gpxTimeFormat, strtotime($rLog['date'])), $thislog);
 				$thislog = str_replace('{username}', xmlentities($rLog['username']), $thislog);
-				$thislog = str_replace('{finder_id}', xmlentities($rLog['user_id']), $thislog);	
+				$thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);	
 			
 				if (isset($gpxLogType[$rLog['type']]))
 					$logtype = $gpxLogType[$rLog['type']];
