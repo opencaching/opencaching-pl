@@ -392,7 +392,7 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
 				$thislog = str_replace('{date}', date("Y-m-d\TH:i:s"), $thislog);
 				$thislog = str_replace('{username}', "SYSTEM", $thislog);
 				$thislog = str_replace('{finder_id}', "0", $thislog);						
-				$thislog = str_replace('{type}', "Komentarz", $thislog);
+				$thislog = str_replace('{type}', "Write note", $thislog);
 			// Attributes
 
 				$thislogs='';
