@@ -75,9 +75,6 @@ $gpxLine = '
 			<groundspeak:owner id="{owner_id}">{owner}</groundspeak:owner>
 			<groundspeak:type>{type}</groundspeak:type>
 			<groundspeak:container>{container}</groundspeak:container>
-			<groundspeak:attributes>
-			{attributes}
-			</groundspeak:attributes>
 			<groundspeak:difficulty>{difficulty}</groundspeak:difficulty>
 			<groundspeak:terrain>{terrain}</groundspeak:terrain>
 			<groundspeak:country>Polska</groundspeak:country>
@@ -94,73 +91,6 @@ $gpxLine = '
 		</groundspeak:cache>
 	</wpt>
 ';
-
-
-
-// Convert from OC Attribut to GC attribute for GPX file (Stefan Jormelius)
-//$gpxAttConv[1] = 14;  //OC:Only at night -> GC:Recommended at night;
-//$gpxAttConv[6] = ;	//OC:Listed on Opencaching only -> GC:
-//$gpxAttConv[8] = ;	//OC:Letterbox - stamp required -> GC:
-
-//$gpxAttConv[10] = ;	//OC:Active railway nearby -> GC:
-//$gpxAttConv[11] = 21;	//OC:Cliffs / rocks -> GC:Cliff / falling rocks
-//$gpxAttConv[12] = 22;	//OC:Hunting -> GC:Hunting
-//$gpxAttConv[13] = 39;	//OC:Thorn -> GC:Thorns
-//$gpxAttConv[14] = 19;	//OC:Ticks -> GC:Ticks
-//$gpxAttConv[15] = 20;	//OC:The cache leads to a (former) mining region -> GC:Abandoned mines
-//$gpxAttConv[16] = 17;	//OC:Poisonous Plants -> GC:Poison plants
-//$gpxAttConv[17] = 18;	//OC:Toxic / dangerous animals -> GC:Snakes
-//$gpxAttConv[18] = 25;	//OC:Parking area nearby -> GC:Parking available
-//$gpxAttConv[19] = 26;	//OC:Public transportation -> GC:Public transportation
-//$gpxAttConv[20] = 27;	//OC:Drinking water nearby -> GC:Drinking water nearby
-//$gpxAttConv[21] = 28;	//OC:Public restrooms nearby -> GC:Public restrooms nearby
-//$gpxAttConv[22] = 29;	//OC:Public phone nearby -> GC:Telephone nearby
-//$gpxAttConv[23] = ;	//OC:First aid available -> GC:
-//$gpxAttConv[24] = ;	//OC:Near the parking area -> GC:
-//$gpxAttConv[25] = 9;	//OC:Long walk -> GC:Significant hike
-//$gpxAttConv[26] = 11;	//OC:Swamp or marsh -> GC:May require wading
-//$gpxAttConv[27] = ;	//OC:Hilly Terrain -> GC:
-//$gpxAttConv[28] = 10;	//OC:Lightweight Climbing - without equipment -> GC:Difficult climbing
-//$gpxAttConv[29] = 12;	//OC:Swimming required -> GC:May require swimming
-//$gpxAttConv[30] = ;	//OC:Interesting place -> GC:
-//$gpxAttConv[31] = ;	//OC:Moving Target -> GC:
-//$gpxAttConv[32] = ;	//OC:Webcam  -> GC:
-//$gpxAttConv[33] = ;	//OC:Within enclosed rooms (caves, buildings etc.) -> GC:
-//$gpxAttConv[34] = ;	//OC:Underwater -> GC:
-//$gpxAttConv[35] = ;	//OC:Without GPS (letterboxes, cistes, compass juggling... -> GC:
-//$gpxAttConv[36] = 2;	//OC:Access or parking fee -> GC:Access or parking fee
-//$gpxAttConv[37] = ;	//OC:Overnight stay necessary -> GC:
-//$gpxAttConv[38] = 13;	//OC:Available 24 hours -> GC:Available at all times
-//$gpxAttConv[39] = ;	//OC:Only available at specified times -> GC:
-//$gpxAttConv[50] = ;	//OC:Cave equipment -> GC:
-//$gpxAttConv[51] = 5;	//OC:Diving equipment -> GC:Scuba gear
-//$gpxAttConv[52] = 4;	//OC:Watercraft -> GC:Boat
-//$gpxAttConv[53] = ;	//OC:Aircraft -> GC:
-//$gpxAttConv[54] = ;	//OC:Investigation additional information -> GC:
-//$gpxAttConv[55] = ;	//OC:Puzzle / Mystery -> GC:
-//$gpxAttConv[56] = ;	//OC:Arithmetical problem -> GC:
-//$gpxAttConv[57] = ;	//OC:Other cache type -> GC:
-//$gpxAttConv[58] = ;	//OC:Ask owner for start conditions -> GC:
-//$gpxAttConv[59] = 6;	//OC:Tides -> GC:
-// OC PL attributes
-//$gpxAttConv[40] = 40 ;	//OC:Easy cache
-$gpxAttConv[41] = 6;	//OC:suited for children -> GC:Recommended for kids OC:Tides -> GC:
-//$gpxAttConv[42] = 42 ;	//OC:GPS Free
-//$gpxAttConv[43] = 43 ;	//OC:GeoHotel
-$gpxAttConv[44] = 24;	//OC:AccessibleFor disabled GC: Wheelchair Accessible
-//$gpxAttConv[47] = 47;	//OC:Compass -> GC:
-//$gpxAttConv[48] = 48;	//OC:Take something to write
-$gpxAttConv[60] = 8;	//OC:Natura
-//$gpxAttConv[61] = 61;	//OC:Monumental place
-$gpxAttConv[80] = 2;	//OC:Periodical/Paid 
-//$gpxAttConv[81] = 81;	//OC:Shovel - special equipment 
-//$gpxAttConv[82] = 82;	//OC:flashlight -> GC:Flashlight required
-//$gpxAttConv[83] = 83;	//OC:Special equipment
-$gpxAttConv[90] = 23;	//OC:Dangerous territory -> GC:Dangerous area
-
-$gpxAttribute = '<groundspeak:attribute id="{attribute_id}" inc="{attribute_inc}">{attribute_text}</groundspeak:attribute>
-		';
-
 
 
 $gpxLog = '
@@ -277,7 +207,7 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
 				mysql_free_result($rs_coords);
 			}
 		}
-		$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`wp_oc` `cache_wp`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`user_id` `user_id`
+		$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`wp_oc` `cache_wp`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`user_id` `user_id` ,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings`
 					FROM `caches`
 					WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
 		
@@ -379,7 +309,7 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
 		append_output($gpxHead);
 
 		// ok, ausgabe ...
-		$rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
+		$rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
 		while($r = sql_fetch_array($rs))
 		{
 			$thisline = $gpxLine;
@@ -450,9 +380,46 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
 			$thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
 
 
+			$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
 			// logs ermitteln
 			$logentries = '';
+			
+	if (( $r['votes'] > 3 ) || 	( $r['topratings'] > 0 ) || (mysql_num_rows($rsAttributes) > 0 )) {
+				$thislog = $gpxLog;
+				
+				$thislog = str_replace('{id}', "0", $thislog);
+				$thislog = str_replace('{date}', date("Y-m-d\TH:i:s"), $thislog);
+				$thislog = str_replace('{username}', "SYSTEM", $thislog);
+				$thislog = str_replace('{finder_id}', "0", $thislog);						
+				$thislog = str_replace('{type}', "Komentarz", $thislog);
+			// Attributes
+
+				$thislogs='';
+				if (mysql_num_rows($rsAttributes) > 0) {
+				$attributes = 'Atrybuty: ';
+			while ($rAttribute = sql_fetch_array($rsAttributes))
+			{
+					$attributes .= cleanup_text(xmlentities($rAttribute['text_long']));									
+					$attributes .=  " | ";		
+			}
+			$thislogs .= $attributes;		
+	         }
+	
+			if( $r['votes'] > 3 ){
+
+				$score = cleanup_text(score2rating($r['score']));
+				$thislogs .= "\nOcena skrzynki: " .$score. "\n";
+			}
+			if( $r['topratings'] > 0 ){
+			$thislogs .= "Rekomendacje: " .$r['topratings']. "\n";}
+	
+			
+				$thislog = str_replace('{{text}}', $thislogs, $thislog);
+				
+				$logentries .= $thislog . "\n";
+		}	
+
 			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC", $r['cacheid']); // adam: removed LIMIT 20
 			while ($rLog = sql_fetch_array($rsLogs))
 			{
@@ -468,30 +435,12 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
 					$logtype = $gpxLogType[0];
 					
 				$thislog = str_replace('{type}', $logtype, $thislog);
-													$thislog = str_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
+				$thislog = str_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
 				$logentries .= $thislog . "\n";
 				
 			}
 			$thisline = str_replace('{logs}', $logentries, $thisline);
-			// Attributes
-			$attributes = '';
-			$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
-			while ($rAttribute = sql_fetch_array($rsAttributes))
-			{
-				$thisAttribute = $gpxAttribute;
-				
-				if (isset($gpxAttConv[$rAttribute['attrib_id']]))
-				{
-					$thisAttribute = str_replace('{attribute_id}', $gpxAttConv[$rAttribute['attrib_id']], $thisAttribute);
-					//$thisAttribute = str_replace('{attribute_id}', $rAttribute['attrib_id'], $thisAttribute);
-					$thisAttribute = str_replace('{attribute_inc}', '1', $thisAttribute);
-					$thisAttribute = str_replace('{attribute_text}', xmlentities($rAttribute['text_long']), $thisAttribute);
-									
-					$attributes .= $thisAttribute;// . "\n";
-				}
-				
-			}
-			$thisline = str_replace('{attributes}', $attributes, $thisline);
+
 
 			// Travel Bug GeoKrety
 			$waypoint = $r['waypoint'];
@@ -508,7 +457,7 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
 				$gkWP = 'GK' . mb_strtoupper($gk_wp);
 					$thisGeoKret = str_replace('{geokret_id}',xmlentities($geokret['id']) , $thisGeoKret);
 					$thisGeoKret = str_replace('{geokret_ref}',$gkWP, $thisGeoKret);
-					$thisGeoKret = str_replace('{geokret_name}', xmlentities($geokret['name']), $thisGeoKret);
+					$thisGeoKret = str_replace('{geokret_name}', cleanup_text(xmlentities($geokret['name'])), $thisGeoKret);
 									
 					$geokrety .= $thisGeoKret;// . "\n";
 				
