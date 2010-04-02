@@ -139,7 +139,7 @@ else
 					echo "<b>{{available_maps}}:</b>
 											<a target=\"_blank\" href='cachemap3.php?lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;cacheid=";?>{cacheid}<?php echo "&amp;inputZoom=14'>Opencaching.pl</a>,
 											<a target=\"_blank\" href='http://mapa.ump.waw.pl/ump-www/?zoom=14&amp;lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;layers=B00000T&amp;mlat=";?>{latitude}<?php echo "&amp;mlon=";?>{longitude}<?php echo "'>UMP</a>, <a target=\"_blank\" href='http://www.zumi.pl/namapie.html?&amp;lat=";?>{latitude}<?php echo "&amp;long=";?>{longitude}<?php echo "&amp;type=1&amp;scale=4'>Zumi</a>,<br/>											
-											<a href=\"http://maps.google.com/maps?q=";?>{latitude}<?php echo "+";?>{longitude}<?php echo '+(%22' . $vars['cachename']  . "%22)\" target=\"_blank\">Google&nbsp;Maps</a>, 
+											<a href=\"http://maps.google.com/maps?q=";?>{latitude}<?php echo "+";?>{longitude}<?php echo '+(%22' . urlencode($vars['cachename'])  . "%22)\" target=\"_blank\">Google&nbsp;Maps</a>, 
 											<a href=\"http://mapa.szukacz.pl/?n=";?>{latitude}<?php echo "&amp;e=";?>{longitude}<?php echo "&amp;t=Skrzynka%20Geocache\" target=\"_blank\">AutoMapa</a>";
 								
 					} 
