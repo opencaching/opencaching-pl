@@ -530,8 +530,8 @@ img#viewcache-cacheicon { float: left; }
 div#viewcache-baseinfo { width:400px; text-align: left;}
 div#viewcache-maptypes { width:360px; text-align: right;}
 div#viewcache-maptypes .content2-container-2col-right{}
-div#viewcache-numstats { width: 170px; height: 185px; text-align: left; }
-div#viewcache-map { width: 185px; height: 185px; float: right;}
+div#viewcache-numstats { width: 170px; height: 190px; text-align: left; }
+div#viewcache-map { width: 185px; height: 190px; float: right;}
 div#viewcache-map .img-shadow{ }
 
 div.viewcache_log-content { margin-left: 20px }	

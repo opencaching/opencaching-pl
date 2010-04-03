@@ -27,8 +27,8 @@ Images for WP: images/waypoints/*.png in separate tabel db ? or get icone_name b
 
 status:
 1 => Show all information for this waypoint, including coordinates
-2 => Show the details of this waypoint but hide the coordinates ???? make to sens ?
-3 => Hide this waypoint from view except by the owner or administrator
+2 => Hide this waypoint from view except by the owner or administrator
+3 => Show the details of this waypoint but hide the coordinates ???? make to sens ?
 -------------------------------------
 
 in viewcache.php presentation of WayPoints in separate section after Describe section

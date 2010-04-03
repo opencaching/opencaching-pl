@@ -117,8 +117,8 @@ else
 							{found_icon} {founds} {found_text}<br />
 							{notfound_icon} {notfounds} {notfound_text}<br />
 							{note_icon} {notes} {{comments}}<br />
-							{gk_icon} {gk_visited} {{visitors}}<br />
 							{watch_icon} {watcher} {{watchers}}<br />
+							{gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?lang=pl_PL.UTF-8&wpt={oc_waypoint}" target="_blank">{{history_gk}}</a><br />
 							{visit_icon} {visits} {{visitors}}<br />
 							{vote_icon} {votes_count} x {{scored}}<br />
 							{score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
@@ -136,10 +136,11 @@ else
 							}
 							else
 							{
+
 					echo "<b>{{available_maps}}:</b>
 											<a target=\"_blank\" href='cachemap3.php?lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;cacheid=";?>{cacheid}<?php echo "&amp;inputZoom=14'>Opencaching.pl</a>,
 											<a target=\"_blank\" href='http://mapa.ump.waw.pl/ump-www/?zoom=14&amp;lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;layers=B00000T&amp;mlat=";?>{latitude}<?php echo "&amp;mlon=";?>{longitude}<?php echo "'>UMP</a>, <a target=\"_blank\" href='http://www.zumi.pl/namapie.html?&amp;lat=";?>{latitude}<?php echo "&amp;long=";?>{longitude}<?php echo "&amp;type=1&amp;scale=4'>Zumi</a>,<br/>											
-											<a href=\"http://maps.google.com/maps?q=";?>{latitude}<?php echo "+";?>{longitude}<?php echo "+";?>({cachename})<?php echo "\" target=\"_blank\">Google&nbsp;Maps</a>, 
+											<a href=\"http://maps.google.com/maps?hl=UTF-8&q=";?>{latitude}<?php echo "+";?>{longitude}<?php echo '+(' . urlencode($vars['cachename'])  . ")\" target=\"_blank\">Google&nbsp;Maps</a>, 
 											<a href=\"http://mapa.szukacz.pl/?n=";?>{latitude}<?php echo "&amp;e=";?>{longitude}<?php echo "&amp;t=Skrzynka%20Geocache\" target=\"_blank\">AutoMapa</a>";
 								
 					} 
