@@ -11,11 +11,11 @@
   $fC = sql('SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
     $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
-	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('ranking_by_number_of_created_caches').'</b> <br />'.tr('only_active_caches').'<br /> '.tr('users_who_created_caches').': ';
+	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('ranking_by_number_of_created_caches').'</b><br><br /> '.tr('users_who_created_caches').': ';
 	echo $rsUs[count]; 
 	echo ' .::. '.tr('number_of_active_caches').': ';
 	echo $fCt[count]; 
-	echo '</center></td></tr></table><table border="1" bgcolor="white" width="97%">' . "\n";
+	echo '</center><br /></td></tr></table><table border="1" bgcolor="white" width="97%">' . "\n";
 
 //  mysql_query("SET NAMES 'utf8'"); 
 // $rsUser = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `caches`.`status`=1 AND `caches`.`type`!=4 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20'); 
@@ -24,7 +24,7 @@
 
   
 //mysql_query("SET NAMES 'utf8'"); 
-$t1="CREATE TEMPORARY TABLE ocpl.tmp (id INT(11) unsigned NOT NULL auto_increment PRIMARY KEY, count INT(11), username VARCHAR(60), user_id INT(11)) ENGINE=MEMORY SELECT COUNT(*) `count`, `user`.`username`, `user`.`user_id` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE (`caches`.`status`=1 OR `caches`.`status`=2) AND user.stat_ban = 0 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC"; 
+$t1="CREATE TEMPORARY TABLE ocpl.tmp (id INT(11) unsigned NOT NULL auto_increment PRIMARY KEY, count INT(11), username VARCHAR(60), user_id INT(11)) ENGINE=MEMORY SELECT COUNT(*) `count`, `user`.`username`, `user`.`user_id` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `caches`.`status`=1 AND `caches`.`type`<>6 AND user.stat_ban = 0 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC"; 
 //mysql_query("SET NAMES 'utf8'"); 
 $r=mysql_query($t1) or die(mysql_error());
 //mysql_query("SET NAMES 'utf8'"); 

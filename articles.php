@@ -37,6 +37,11 @@
 	{
 		//get the article name to display
 		$article = '';	
+			if (isset($_REQUEST['region']))
+		{
+			tpl_set_var('region', $_REQUEST['region']);
+			$region= $_REQUEST['region'];
+		}
 		if (isset($_REQUEST['page']) && 
 		    (mb_strpos($_REQUEST['page'], '.') === false) && 
 		    (mb_strpos($_REQUEST['page'], '/') === false) && 
