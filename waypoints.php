@@ -14,7 +14,7 @@ Add  additional waypoints to cache:
 
 ----------------------------------
 table db 'waypoints' struture 
-'cache_id', 'type', 'longitude', 'latitude',  'describe', 'status'  ???? date ???
+'cache_id', 'type', 'status' , 'longitude', 'latitude', 'name', 'describe', 
 
 table db waypoints_type
 'id','pl','en','icon'
