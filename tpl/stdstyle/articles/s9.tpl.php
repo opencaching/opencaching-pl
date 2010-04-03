@@ -27,7 +27,7 @@
     $fCt = mysql_fetch_array($fC);
 	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('ranking_by_number_of_created_caches').' </b><br />tylko aktywne skrzynki<br />';
 //	echo $rsUs[count]; 
-	echo '<br /><b>Województwo: ';
+	echo '<br /><b>Województwo ';
 	echo $woj;
 //	echo ' .::. '.tr('number_of_active_caches').': ';
 //	echo $fCt[count]; 
