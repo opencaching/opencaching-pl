@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `waypoints` (
   `status` int(11) default NULL,
    `name` varchar(60) default NULL,
    `desc` varchar(240) default NULL,
-  PRIMARY KEY  (`wp_id`),
+  PRIMARY KEY  (`wp_id`,`cache_id`),
   KEY `cache_id` (`cache_id`),
   KEY `longitude` (`longitude`,`latitude`),
   KEY `latitude` (`latitude`),
