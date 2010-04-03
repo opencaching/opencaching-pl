@@ -556,6 +556,7 @@ tpl_set_var('dziubek2',"");
 
 			tpl_set_var('note_icon', $note_icon);
 			tpl_set_var('vote_icon', $vote_icon);
+			tpl_set_var('gk_icon', $gk_icon);
 			tpl_set_var('watch_icon', $watch_icon);
 			tpl_set_var('visit_icon', $visit_icon);
 			tpl_set_var('score_icon', $score_icon);
