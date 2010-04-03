@@ -386,16 +386,25 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
 			$logentries = '';
 			
 	if (( $r['votes'] > 3 ) || 	( $r['topratings'] > 0 ) || (mysql_num_rows($rsAttributes) > 0 )) {
-				$thislog = $gpxLog;
+//				$thislog = $gpxLog;
+//				<groundspeak:log id="1">
+//        			<groundspeak:date>{date}</groundspeak:date>
+//					<groundspeak:type>{type}</groundspeak:type>
+//					<groundspeak:finder id="{finder_id}">{username}</groundspeak:finder>
+//					<groundspeak:text encoded="False">{{text}}</groundspeak:text>
+//				</groundspeak:log>
 				
-				$thislog = str_replace('{id}', "0", $thislog);
-				$thislog = str_replace('{date}', date("Y-m-d") ."T00:00:00", $thislog);
-				$thislog = str_replace('{username}', "SYSTEM", $thislog);
-				$thislog = str_replace('{finder_id}', "0", $thislog);						
-				$thislog = str_replace('{type}', "Write note", $thislog);
+//				$thislog = str_replace('{id}', "0", $thislog);
+//				$thislog = str_replace('{date}', date("Y-m-d") ."T00:00:00", $thislog);
+//				$thislog = str_replace('{username}', "SYSTEM", $thislog);
+//				$thislog = str_replace('{finder_id}', "0", $thislog);						
+//				$thislog = str_replace('{type}', "Write note", $thislog);
 			// Attributes
 
-				$thislogs='';
+				$thislogs ='<groundspeak:log id="1">';
+				$thislogs .='<groundspeak:date>' .date("Y-m-d\TH:i:s").'</groundspeak:date>';
+				$thislogs .='<groundspeak:finder id="0">SYSTEM</groundspeak:finder>';
+				$thislogs .='<groundspeak:text encoded="False">';				
 				if (mysql_num_rows($rsAttributes) > 0) {
 				$attributes = 'Atrybuty: ';
 			while ($rAttribute = sql_fetch_array($rsAttributes))
@@ -415,9 +424,9 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
 			$thislogs .= "Rekomendacje: " .$r['topratings']. "\n";}
 	
 			
-				$thislog = str_replace('{{text}}', $thislogs, $thislog);
+				$thislogs .= '</groundspeak:text></groundspeak:log>';
 				
-				$logentries .= $thislog . "\n";
+				$logentries .= $thislogs . "\n";
 		}	
 
 			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC", $r['cacheid']); // adam: removed LIMIT 20
