@@ -686,5 +686,18 @@ a.info:hover span{ /*the span will display just on :hover state*/
     background-color:#FFFFCC; color:#000;
     text-align: left; font-size: 11px;
 	}
- 
+/* links without decorations */
+ a.links3:link {
+	text-decoration:none;
+}
+a.links3:visited {
+	text-decoration:none;
+}
+a.links3:active {
+	text-decoration:none;
+}
+a.links3:hover {
+	text-decoration: none;
+}
+
 
