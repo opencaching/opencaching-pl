@@ -602,7 +602,7 @@
 						if (count($desclangs) > 1)
 						{
 							$remove_url = 'removedesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
-							$removedesc = '&nbsp;[<a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '">' . $remove . '</a>]';
+							$removedesc = '&nbsp;<img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="Delete" />[<a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '">' . $remove . '</a>]';
 						}
 						else
 						{
@@ -617,7 +617,7 @@
 
 						$edit_url = 'editdesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
 
-						$cache_descs .= '<tr><td colspan="2">' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . ' [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '">' . $edit . '</a>]' . $removedesc . '</td></tr>';
+						$cache_descs .= '<tr><td colspan="2"><img src="images/flags/'.strtolower($desclang).'.gif" class="icon16" alt=""  />&nbsp;' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" border="0" alt="" title="Edit" /> [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '">' . $edit . '</a>]' . $removedesc . '</td></tr>';
 					}
 					tpl_set_var('cache_descs', $cache_descs);
 
@@ -764,7 +764,7 @@
 					}
 		
 		//Add Waypoint
-			$wp_rs = sql("SELECT `wp_id`, type`, `longitude`, `latitude`,  `desc`, `status` FROM `waypoints` WHERE `cache_id`='&1'", $cache_id);
+			$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status` FROM `waypoints` WHERE `cache_id`='&1'", $cache_id);
 			if (mysql_num_rows($wp_rs) != 0)
 			{	
 						$waypoints = '<table width="97%" border="1" style="border-collapse: collapse; font-weight: bold;font-size: 12px; line-height: 1.6em">';
