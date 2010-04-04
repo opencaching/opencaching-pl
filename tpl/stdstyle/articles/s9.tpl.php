@@ -20,11 +20,11 @@
 		}
 //	$region="PL61";
     $woj=sqlValue("SELECT nuts_codes.name FROM nuts_codes WHERE code='$region'", 0);
-  setlocale(LC_TIME, 'pl_PL.UTF-8');
-  $rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(caches.user_id) FROM `caches` WHERE `status`=1 GROUP BY `user_id`) `users_with_founds`');
-  $fC = sql('SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
-    $rsUs = mysql_fetch_array($rsU);
-    $fCt = mysql_fetch_array($fC);
+
+//  $rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(caches.user_id) FROM `caches` WHERE `status`=1 GROUP BY `user_id`) `users_with_founds`');
+//  $fC = sql('SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
+//    $rsUs = mysql_fetch_array($rsU);
+//    $fCt = mysql_fetch_array($fC);
 	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('ranking_by_number_of_created_caches').' </b><br />tylko aktywne skrzynki<br />';
 //	echo $rsUs[count]; 
 	echo '<br /><b>Województwo ';
