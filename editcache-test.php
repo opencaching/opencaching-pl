@@ -764,7 +764,7 @@
 					}
 		
 		//Add Waypoint
-			$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status` FROM `waypoints` WHERE `cache_id`='&1'", $cache_id);
+			$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1'", $cache_id);
 			if (mysql_num_rows($wp_rs) != 0)
 			{	
 						$waypoints = '<table width="97%" border="1" style="border-collapse: collapse; font-weight: bold;font-size: 12px; line-height: 1.6em">';
@@ -773,14 +773,16 @@
 							$tmpline1 = $wpline;
 							$wp_record = sql_fetch_array($wp_rs);
 
-							$tmpline1 = mb_ereg_replace('{link}', htmlspecialchars($mp3_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{title}', htmlspecialchars($mp3_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{uuid}', htmlspecialchars($mp3_record['uuid'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-
+							$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{lon}', htmlspecialchars($wp_record['longitude'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{lat}', htmlspecialchars($wp_record['latitude'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{desc}', htmlspecialchars($wp_record['desc'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{status}', htmlspecialchars($wp_record['status'], ENT_COMPAT, 'UTF-8'), $tmpline1);							
 							$waypoints .= $tmpline1;
 							}
-
-						$waypoints = mb_ereg_replace('{lines}', $mp3files, $wplist);
+							$waypoints .= '</table>';
+//						$waypoints = mb_ereg_replace('{lines}', $mp3files, $wplist);
 						mysql_free_result($wp_rs);
 						tpl_set_var('cache_wp_list', $waypoints);
 					}
