@@ -51,6 +51,9 @@ $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
 	$mp3line = '<tr><td colspan="2"><a href="{link}">{title}</a>&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" border="0" alt="" title="" /> [<a href="editmp3.php?uuid={uuid}">'.$edit.'</a>] <img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="" />[<a href="removemp3.php?uuid={uuid}">'.$remove.'</a>]</td></tr>';
 	$mp3lines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';
 
+	$nowp = '<tr><td colspan="2"><div class="notice">Nie ma dodatkowych Waypoints dla skrzynki</div></td></tr>';
+	$wpline='<tr><td align="center" valign="middle"><img src="images/waypoints/{wp_icon}" alt="" /><td align="center" valign="middle">{type}</td><td align="center" valign="middle">{lon} {lat} (WGS84)</td><td align="center" valign="middle">{desc}</td><td align="center" valign="middle"><a class="links" href="{link}"><img src="tpl/stdstyle/images/action/edit-16.png" alt="" title="Edit WP" /></a></td></tr>';
+
 	$cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
 	$cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})" />&nbsp;';
 
