@@ -7,8 +7,8 @@
 	require_once($rootpath . 'lib/common.inc.php');
 
   setlocale(LC_TIME, 'pl_PL.UTF-8');
-$rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(cache_logs.user_id) FROM `cache_logs` WHERE `type`=1 AND `deleted`=0 GROUP BY `user_id`) `users_with_founds`');
-$fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE `deleted`=0 AND `type`=1');
+$rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(cache_logs.user_id) FROM `cache_logs` WHERE (type=1 OR type=7) AND `deleted`=0 GROUP BY `user_id`) `users_with_founds`');
+$fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE (type=1 OR type=7) AND `deleted`=0');
   $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
 
