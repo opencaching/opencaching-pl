@@ -71,7 +71,7 @@
 		tpl_set_var('founds', $r['founds']);
 		mysql_free_result($rs);
 		
-		$rs = sql('SELECT COUNT(*) AS `users` FROM (SELECT DISTINCT `user_id` FROM `cache_logs` WHERE `deleted`=0 UNION DISTINCT SELECT DISTINCT `user_id` FROM `caches`) AS `t`');
+		$rs = sql('SELECT COUNT(*) AS `users` FROM (SELECT DISTINCT `user_id` FROM `cache_logs` WHERE (`type`=1 OR `type`=2 OR `type`=7) AND `deleted`=0 UNION DISTINCT SELECT DISTINCT `user_id` FROM `caches`) AS `t`');
 		$r = sql_fetch_array($rs);
 		tpl_set_var('users', $r['users']);
 		mysql_free_result($rs);
