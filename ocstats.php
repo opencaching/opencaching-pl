@@ -26,7 +26,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 	
 	$sql = "SELECT COUNT(*) founds_count 
 					FROM cache_logs 
-					WHERE user_id=$userid AND type=1 AND deleted=0";
+					WHERE user_id=$userid AND (type=1 OR type=7) AND deleted=0";
 	if( $odp = mysql_query($sql) )
 		$found = mysql_result($odp,0);
 	else 
