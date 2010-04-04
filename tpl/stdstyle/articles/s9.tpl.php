@@ -36,7 +36,7 @@
 	// cleanup (old gpxcontent lingers if gpx-download is cancelled by user)		
 	mysql_query('DROP TEMPORARY TABLE IF EXISTS `ocpl.tmps9`');
 
-$t1="CREATE TEMPORARY TABLE ocpl.tmps9 (id INT(11) unsigned NOT NULL auto_increment PRIMARY KEY, count INT(11), username VARCHAR(60), user_id INT(11)) ENGINE=MEMORY SELECT COUNT(*) `count`, `user`.`username`, `user`.`user_id` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id`,  cache_location  WHERE (`cache_location`.`code3`='$region' AND `cache_location`.`cache_id`=`caches`.`cache_id`) AND `caches`.`status`=1 AND `caches`.`type`<>6 AND user.stat_ban = 0 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC"; 
+$t1="CREATE TEMPORARY TABLE ocpl.tmps9 (id INT(11) unsigned NOT NULL auto_increment PRIMARY KEY, count INT(11), username VARCHAR(60), user_id INT(11)) ENGINE=MEMORY SELECT COUNT(*) `count`, `user`.`username`, `user`.`user_id` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id`,  cache_location  WHERE (`cache_location`.`code3`='$region' AND `cache_location`.`cache_id`=`caches`.`cache_id`) AND `caches`.`status`=1 AND `caches`.`type`<>6 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC"; 
 
 $r=mysql_query($t1) or die(mysql_error());
 
