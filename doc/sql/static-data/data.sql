@@ -485,8 +485,7 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `email`, `latitude`, `lon
 --
 
 INSERT INTO `waypoint_type` (`id`,`pl`, `en`, `icon`) VALUES
-(1,'Koncowa pozycja', 'Final location', 'images/waypoints/wp_final.png'),
+(1,'Końcowy punkt', 'Final location', 'images/waypoints/wp_final.png'),
 (2,'Parking', 'Parking area', 'images/waypoints/wp_parking.png'),
-(3,'Question to answer', 'Question to answer','images/waypoints/wp_question.png'),
-(4,'Punkt referencyjny', 'Reference point', 'images/waypoints/wp_reference.png'),
-(5,'Etap Multicache', 'Stage of Multicache', 'images/waypoints/wp_stage_multi.png');
+(3,'Punkt referencyjny', 'Reference point', 'images/waypoints/wp_reference.png'),
+(4,'Etap Multicache', 'Stage of Multicache', 'images/waypoints/wp_stage_multi.png');
