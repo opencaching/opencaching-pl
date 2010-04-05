@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `waypoints` (
   `type` int(11) default NULL,
   `status` int(11) default NULL,
    `name` varchar(60) default NULL,
-   `desc` varchar(240) default NULL,
+   `desc` varchar(300) default NULL,
   PRIMARY KEY  (`wp_id`,`cache_id`),
   KEY `cache_id` (`cache_id`),
   KEY `longitude` (`longitude`,`latitude`),
