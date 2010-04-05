@@ -302,15 +302,24 @@
 			$rsc=sql("SELECT COUNT(*) number FROM caches WHERE status <> 4 AND status <> 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY number DESC LIMIT 1",$user_id);
 			$rc = sql_fetch_array($rsc);
 			$rsncd= sql ("SELECT COUNT(*) FROM caches WHERE status <> 5 AND status <> 4 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)",$user_id);
+			$rsnca= sql ("SELECT COUNT(*) FROM caches WHERE status <> 2 AND status <> 3 AND status <> 5 AND status <> 4 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)",$user_id);
+			$num_rows = mysql_num_rows($rsnca); 
 			$num_rows = mysql_num_rows($rsncd); 
 			$aver1= round(($user_record['hidden_count']/$ddays['diff']), 2);
 			$aver2= round(($user_record['hidden_count']/$num_rows), 2);			
-			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('total_created_caches').':  </span><strong>' . $hidden_all . '</strong>&nbsp;'.tr('active_caches').'&nbsp;<strong>' . $hidden . '</strong>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('total_created_caches').':  </span><strong>' . $hidden_all . '</strong>';
 			if ($user_record['hidden_count'] == 0) 
 				{$content .= '</p>';}
 				else						
 
 			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=111110111&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
+
+			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('total_of_active_caches').':  </span><strong>' . $hidden . '</strong>';	
+			if ($hidden == 0) 
+				{$content .= '</p>';}
+				else						
+
+			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=111110111&amp;searchbyowner=&amp;f_inactive=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
 
 			$hidden_temp =  sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=2 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
 			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_temp_caches').':  </span><strong>' . $hidden_temp . '</strong></p>';

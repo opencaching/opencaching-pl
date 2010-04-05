@@ -163,7 +163,7 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
 //  $txtStat4->SetFont(FF_GEORGIA, FS_NORMAL, 8);
 //  $txtStat4->SetColor('darkgreen');
 
-  $foundEntries = sqlValue(sql("SELECT COUNT(*) FROM `cache_logs` WHERE (`type`=1 OR `type`=7) AND `deleted`=0"), 0);
+  $foundEntries = sqlValue(sql("SELECT COUNT(*) FROM `cache_logs` WHERE `type`=1 AND `deleted`=0"), 0);
   $txtStat5 = new Text('Ile razy odkryto skrzynki: ' . str_replace(',', '.', number_format($foundEntries)));
   $txtStat5->SetPos(55, 55 + $lineHeight * 5.0);
   $txtStat5->SetFont(FF_ARIAL, FS_NORMAL, 8);
