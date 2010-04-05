@@ -7,8 +7,8 @@
 	require_once($rootpath . 'lib/common.inc.php');
 
   setlocale(LC_TIME, 'pl_PL.UTF-8');
-$rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(cache_logs.user_id) FROM `cache_logs` WHERE (type=1 OR type=7) AND `deleted`=0 GROUP BY `user_id`) `users_with_founds`');
-$fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE (type=1 OR type=7) AND `deleted`=0');
+$rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(cache_logs.user_id) FROM `cache_logs` WHERE type=1 AND `deleted`=0 GROUP BY `user_id`) `users_with_founds`');
+$fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE type=1 AND `deleted`=0');
   $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
 
@@ -20,7 +20,7 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE (type=1 OR type=7) AN
 	echo '<tr><td class="bgcolor2"><b>Nie licz statystyk dla skrzynek typu:</b><br /><form action="articles.php" method="GET">';
 	
 	
-	$sql = "SELECT * FROM cache_type";
+	$sql = "SELECT * FROM cache_type WHERE id != 6";
 	$res_q = mysql_query($sql);
 	$no_types = 0;
 	$typ = "";
@@ -48,7 +48,7 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE (type=1 OR type=7) AN
 	echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
 
 $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id FROM caches, cache_logs, user ".
-     "WHERE `cache_logs`.`deleted`=0 AND cache_logs.user_id=user.user_id AND (cache_logs.type=1 OR cache_logs.type=7) AND cache_logs.cache_id = caches.cache_id ".$typ." ".
+     "WHERE `cache_logs`.`deleted`=0 AND cache_logs.user_id=user.user_id AND cache_logs.type=1 AND cache_logs.cache_id = caches.cache_id ".$typ." ".
      "GROUP BY user.user_id ".
      "ORDER BY 1 DESC, user.username ASC";
 
