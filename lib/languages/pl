@@ -564,8 +564,8 @@ recommended_by Skrzynka rekomendowana przez
 listing_from_this_page Wykaz z tej strony
 show_on_map Pokaż na mapie
 list_of_events_is_empty W najbliższym czasie nie ma żadnych wydarzeń.
-stat_number_found Statystyka liczbowa skrzynek znalezionych
-not_found_caches Nie ma jeszcze żadnej skrzynki znalezionej
+stat_number_found Statystyka liczbowa skrzynek poszukiwanych
+not_found_caches Nie ma jeszcze żadnej skrzynki szukanej
 total_number_found_caches Liczba znalezionych skrzynek
 total_dnf_caches Liczba nie znalezionych skrzynek
 total_comments Liczba komentarzy w logach
