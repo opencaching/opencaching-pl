@@ -12,13 +12,13 @@
   $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE (`type`=1 OR `type`=2 OR `type`=7) AND `deleted`=0');
  //   $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
- 		$rs = sql('SELECT COUNT(*) AS `users` FROM (SELECT DISTINCT `user_id` FROM `cache_logs` WHERE (`type`=1 OR `type`=2 OR `type`=7) AND `deleted`=0 UNION DISTINCT SELECT DISTINCT `user_id` FROM `caches`) AS `t`');
+ 		$rs = sql('SELECT COUNT(*) AS `users` FROM (SELECT DISTINCT `user_id` FROM `cache_logs` WHERE (`type`=1 OR `type`=2) AND `deleted`=0 UNION DISTINCT SELECT DISTINCT `user_id` FROM `caches`) AS `t`');
 		$r = sql_fetch_array($rs);
 
 
- $rsfCR = sql("SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region FROM `cache_location` INNER JOIN cache_logs ON cache_location.cache_id=cache_logs.cache_id WHERE `cache_location`.`code1`='PL' AND (cache_logs.type='1' OR cache_logs.type='2' OR cache_logs.type='7') AND cache_logs.deleted='0' GROUP BY `cache_location`.`code3` ORDER BY count DESC");
+ $rsfCR = sql("SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region FROM `cache_location` INNER JOIN cache_logs ON cache_location.cache_id=cache_logs.cache_id WHERE `cache_location`.`code1`='PL' AND (cache_logs.type='1' OR cache_logs.type='2') AND cache_logs.deleted='0' GROUP BY `cache_location`.`code3` ORDER BY count DESC");
 
-	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('activity_by_region').'</b> <br /><br /> '.tr('number_of_visit_caches').' (znalezione + nieznalezione + uczestnictwo w spotkaniach "event"): <b>';
+	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('activity_by_region').'</b> <br /><br /> '.tr('number_of_visit_caches').' (znalezione + nieznalezione): <b>';
 	echo $fCt[count];
 	echo ' </b><br />'.tr('users_active').':<b> ';
  	echo  $r['users']; 
