@@ -22,7 +22,7 @@ table db waypoints_type
 'pl' and 'en'  name of type wp in language, icon with path, images/waypoints/*.png
 
 type:
-1 => Final location, 2 => Parking area, 3 => Question to answer, 4 => Reference point, 5 => Stage of Multicache.
+1 => Final location, 2 => Parking area,  3 => Reference point, 4 => Stage of Multicache.      5 => Question to answer, ???
 Images for WP: images/waypoints/*.png in separate tabel db ? or get icone_name by wp.type db ?
 
 status:
@@ -48,7 +48,7 @@ in editcache.php in section waypoints table with list of wp:
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	
-	$tplname = 'waypoints';
+
 
 	//Preprocessing
 	if ($error == false)
@@ -61,28 +61,61 @@ in editcache.php in section waypoints table with list of wp:
 		}
 		else
 		{
-
-	// 
+			//Create Waypoint
 		if (isset($_REQUEST['cacheid']))
-		{
+			{
 			$cache_id = $_REQUEST['cacheid'];
+			}
+			$cache_rs = sql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+			if (mysql_num_rows($cache_rs) == 1)
+			{
+				$cache_record = sql_fetch_array($cache_rs);
+			
+			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
+				{
+			$tplname = 'waypoints';
+			
+			
+			tpl_set_var("cache_name", $cache_record['name']);		
+				}
+			}
+			mysql_free_result($cache_rs);
 
-		
-		}
-
-// ToDo:
-// Check owner cache user_id must be usr.user_id !!!
-// GET action= edit or add 
-// if edit GET wp_id where wp_id must be equal from table waypoint.id
-		
-		
+			//Edit Waypoint
+			if (isset($_REQUEST['wpid']))
+			{
+			$wp_id = $_REQUEST['wpid'];			
+			}
+			
+			$wp_rs = sql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `wp_id`='&1'", $wp_id);
+			if (mysql_num_rows($wp_rs) == 1)
+			{	
+			$wp_record = sql_fetch_array($wp_rs);
+			$cache_id = $wp_record['cache_id'];
+			}
+			$cache_rs = sql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+			if (mysql_num_rows($cache_rs) == 1)
+			{
+				$cache_record = sql_fetch_array($cache_rs);
+			
+			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
+				{
+			$tplname = 'waypoints';
+			
+			tpl_set_var("desc", htmlspecialchars($wp_record['desc']);
+			tpl_set_var("cache_name", "xxxx");	
+			}
+			mysql_free_result($cache_rs);
+			mysql_free_result($wp_rs);
+		}	
 		
 		
 	
 		tpl_set_var("sample", "xxxx");
 	
 
-		}
+			}
+		
 	}
 	tpl_BuildTemplate();
 ?>
