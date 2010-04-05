@@ -78,19 +78,13 @@ return true;
 
 		<td vAlign="top" align="left"><select name="WaypointEdit$WptTypeList" onchange="javascript:setTimeout('__doPostBack(\'WaypointEdit$WptTypeList\',\'\')', 0)" id="WaypointEdit_WptTypeList">
 	<option selected="selected" value="">-- {{choose_waypoint_type}} --</option>
-	<option value="220">{{final_location}}</option>
-	<option value="217">{{parking_area}}</option>
-	<option value="218">{{question_to_answer}}</option>
-	<option value="452">{{reference_point}}</option>
-	<option value="219">{{stages_of_multicache}}</option>
+	<option value="1">{{final_location}}</option>
+	<option value="2">{{parking_area}}</option>
+	<option value="3">{{reference_point}}</option>
+	<option value="4">{{stages_of_multicache}}</option>
 
 
 </select><span id="WaypointEdit_ValidateWaypointType" style="color:Red;visibility:hidden;">*</span></td>
-	</tr>
-	<tr>
-		<td vAlign="top" align="left">{{name}}</td>
-		<td vAlign="top" align="left"><input name="WaypointEdit$Name" type="text" maxlength="50" size="40" id="WaypointEdit_Name" />&nbsp;&nbsp;</td>
-
 	</tr>
 	<tr>
 		<td vAlign="top" align="left" colSpan="2">&nbsp;</td>
@@ -145,12 +139,12 @@ return true;
 	<tr>
 		<td vAlign="top" align="left" colSpan="2"><table id="WaypointEdit_ViewMethod" border="0" style="width:600px;">
 	<tr>
-		<td><input id="WaypointEdit_ViewMethod_0" type="radio" name="WaypointEdit$ViewMethod" value="0" checked="checked" /><label for="WaypointEdit_ViewMethod_0">{{Show all information for this waypoint, including coordinates}}</label></td>
+		<td><input id="WaypointEdit_ViewMethod_0" type="radio" name="WaypointEdit$ViewMethod" value="1" checked="checked" /><label for="WaypointEdit_ViewMethod_0">{{Show all information for this waypoint, including coordinates}}</label></td>
 	</tr><tr>
-		<td><input id="WaypointEdit_ViewMethod_1" type="radio" name="WaypointEdit$ViewMethod" value="1" /><label for="WaypointEdit_ViewMethod_1">{{Show the details of this waypoint but hide the coordinates}}</label></td>
+		<td><input id="WaypointEdit_ViewMethod_1" type="radio" name="WaypointEdit$ViewMethod" value="2" /><label for="WaypointEdit_ViewMethod_1">{{Show the details of this waypoint but hide the coordinates}}</label></td>
 
 	</tr><tr>
-		<td><input id="WaypointEdit_ViewMethod_2" type="radio" name="WaypointEdit$ViewMethod" value="2" /><label for="WaypointEdit_ViewMethod_2">{{Hide this waypoint from view except by the owner or administrator}}</label></td>
+		<td><input id="WaypointEdit_ViewMethod_2" type="radio" name="WaypointEdit$ViewMethod" value="3" /><label for="WaypointEdit_ViewMethod_2">{{Hide this waypoint from view except by the owner or administrator}}</label></td>
 	</tr>
 </table></td>
 	</tr>
