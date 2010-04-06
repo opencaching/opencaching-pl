@@ -764,10 +764,11 @@
 					}
 		
 		//Add Waypoint
-			$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1'", $cache_id);
+			$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage` DESC", $cache_id);
 			if (mysql_num_rows($wp_rs) != 0)
 			{	
-						$waypoints = '<table width="97%" border="1" style="border-collapse: collapse; font-weight: bold;font-size: 12px; line-height: 1.6em">';
+						$waypoints = '<table width="97%" border="1" style="border-collapse: collapse; font-size: 10px; line-height: 1.6em">';
+						$waypoints .= '<tr><td><b>Etap</b></td><td><b>Symbol</b></td><td><b>Typ</b></td><td><b>Współrzędne</b></td><td><b>Opis</b></td><td><b>Status</b></td><td><b>Edycja</b></td></tr>';
 						for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
 							{
 							$tmpline1 = $wpline;
@@ -778,7 +779,12 @@
 							$tmpline1 = mb_ereg_replace('{lon}', htmlspecialchars($wp_record['longitude'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 							$tmpline1 = mb_ereg_replace('{lat}', htmlspecialchars($wp_record['latitude'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 							$tmpline1 = mb_ereg_replace('{desc}', htmlspecialchars($wp_record['desc'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{status}', htmlspecialchars($wp_record['status'], ENT_COMPAT, 'UTF-8'), $tmpline1);							
+							$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
+							$tmpline1 = mb_ereg_replace('{number}',$wp_record['stage'], $tmpline1);
+							if ($wp_record['status']==1) {$status_icon="tpl/stdstyle/images/free_icons/accept.png";}
+							if ($wp_record['status']==2) {$status_icon="tpl/stdstyle/images/free_icons/error.png";}
+							if ($wp_record['status']==3) {$status_icon="tpl/stdstyle/images/free_icons/stop.png";}
+							$tmpline1 = mb_ereg_replace('{status}', $status_icon, $tmpline1);							
 							$waypoints .= $tmpline1;
 							}
 							$waypoints .= '</table>';
