@@ -327,7 +327,7 @@
 			$hidden_temp =  sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=2 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
 			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_temp_caches').':  </span><strong>' . $hidden_temp . '</strong></p>';
 
-			$hidden_arch =  sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=3 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
+			$hidden_arch =  sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=3 AND type <> 6 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
 			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_archived_caches').': </span><strong>' . $hidden_arch . '</strong></p>';
 		
 			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_created_events').':  </span><strong>' . $hidden_event . '</strong>';
