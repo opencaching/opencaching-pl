@@ -75,7 +75,7 @@ INSERT INTO `cache_type` (`id`, `sort`, `short`, `pl`, `en`, `icon_large`, `icon
 (6, 6, 'Event', 'Wydarzenie', 'Event', 'cache/event.png', 'cache/16x16-event.png', '#FF80FF'),
 (7, 3, 'Quiz', 'Quiz', 'Quiz', 'cache/quiz.png', 'cache/16x16-quiz.png', '#FF8000'),
 (8, 4, 'Moving', 'Mobilna', 'Moving', 'cache/moving.png', 'cache/16x16-moving.png', '#FF00FF'),
-(11, 10, 'Podcast', 'Podcast', 'Podcast cache', 'cache/podcache.gif', 'cache/16x16-podcache.gif', '#FF00FF');
+(11, 10, 'Podcast', 'Podcast', 'Podcast cache', 'cache/podcache.png', 'cache/16x16-podcache.png', '#FF00FF');
 
 --
 -- Zrzut danych tabeli `countries`
