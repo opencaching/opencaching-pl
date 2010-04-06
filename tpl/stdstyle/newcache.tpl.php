@@ -206,6 +206,9 @@ function nearbycachemapOC()
 			</select>{type_message}
 		</td>
 	</tr>
+		<tr><td>&nbsp;</td>
+		<td><div class="notice" style="width:500px;height:44px;">Zapoznaj się z opisem jak wybrać <a class="links" href="http://wiki.opencaching.pl/index.php/Typ_skrzynki" target="_blank">Typ skrzynki</a></div>
+		</td></tr>
 	<tr>
 		<td><p class="content-title-noshade">{{cache_size}}:</p></td>
 		<td>
@@ -422,8 +425,8 @@ function nearbycachemapOC()
 	<tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /><br /></div></td></tr>
 	<tr>
 		<td colspan="2">
-		<input type="reset" name="reset" value="{{reset}}" class="formbuttons" style="width:120px"/>&nbsp;&nbsp;
-		<input type="submit" name="submitform" value="{submit}" class="formbuttons" style="width:130px"/>
+		<button type="submit" name="submitform" value="{submit}" style="font-size:14px;width:130px"><b>{submit}</b></button>
+
 		<br /><br /></td>
 	</tr>
 </table>
