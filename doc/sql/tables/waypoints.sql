@@ -2,14 +2,14 @@ SET NAMES 'utf8';
 DROP TABLE IF EXISTS `waypoints`;
 CREATE TABLE IF NOT EXISTS `waypoints` (
   `wp_id` int(11) NOT NULL auto_increment,
-  `cache_id` int(11) default NULL,
+  `cache_id` int(11) default NULL default '0',
   `longitude` double default NULL,
   `latitude` double default NULL,
   `type` int(11) default NULL,
   `status` int(11) default NULL,
-   `stage` int(11) default NULL,
-   `name` varchar(60) default NULL,
-   `desc` varchar(300) default NULL,
+  `stage` int(11) NOT NULL default '0',
+  `name` varchar(60) default NULL,
+  `desc` varchar(300) default NULL,
   PRIMARY KEY  (`wp_id`,`cache_id`),
   KEY `cache_id` (`cache_id`),
   KEY `longitude` (`longitude`,`latitude`),
