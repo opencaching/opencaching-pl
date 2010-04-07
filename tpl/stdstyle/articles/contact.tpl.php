@@ -23,6 +23,7 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 <b>Rada Techniczna</b>:<br />
 - filips (Filip) - geokrety.org / OC PL dla urządzeń mobilnych<br />
 - shchenka - OpenGeoWiki<br />
+- tATO - sprawy finasowe </br />
 - starypatyk<br />
 - trojmiasto<br />
 - rushcore<br />
