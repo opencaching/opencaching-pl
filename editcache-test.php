@@ -791,9 +791,9 @@
 							$waypoints .= $tmpline1;
 							}
 							$waypoints .= '</table>';
-							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>Show all information for this waypoint, including coordinates</span>';
-							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>Show the details of this waypoint but hide the coordinates</span>';
-							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>Hide this waypoint from view except by the owner or administrator</span>';
+							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa włączając w to współrzędne</span>';
+							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa z wyjątkiem współrzędnych</span>';
+							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>Ukryj ten waypoint z wyjątkiem dla właściciela skrzynki</span>';
 
 //						$waypoints = mb_ereg_replace('{lines}', $mp3files, $wplist);
 						mysql_free_result($wp_rs);
