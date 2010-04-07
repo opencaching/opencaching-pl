@@ -773,11 +773,15 @@
 							{
 							$tmpline1 = $wpline;
 							$wp_record = sql_fetch_array($wp_rs);
+				$coords_lat = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
+				$coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
+//				$coords2 = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude'], 0), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude'], 0), ENT_COMPAT, 'UTF-8'));
+//				$coords3 = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude'], 2), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude'], 2), ENT_COMPAT, 'UTF-8'));
 
 							$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 							$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{lon}', htmlspecialchars($wp_record['longitude'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{lat}', htmlspecialchars($wp_record['latitude'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{lon}', $coords_lon, $tmpline1);
+							$tmpline1 = mb_ereg_replace('{lat}', $coords_lat, $tmpline1);
 							$tmpline1 = mb_ereg_replace('{desc}', htmlspecialchars($wp_record['desc'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 							$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
 							if ($wp_record['stage']==0) {$tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
