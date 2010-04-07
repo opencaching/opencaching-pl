@@ -341,8 +341,8 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<input type="reset" name="reset" value="{reset}" class="formbuttons"/>&nbsp;&nbsp;
-			<input type="submit" name="submit" value="{submit}" class="formbuttons"/>
+
+			<button type="submit" name="submit" value="{submit}" style="font-size:14px;width:130px"><b>{submit}</b></button>
 		<br /><br /></td>
 	</tr>
 </table>
