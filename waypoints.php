@@ -14,7 +14,7 @@ Add  additional waypoints to cache:
 
 ----------------------------------
 table db 'waypoints' struture 
-'id','cache_id', 'type', 'status' , 'longitude', 'latitude', 'name', 'describe', 
+'wp_id','cache_id', 'type', 'status' , 'longitude', 'latitude', 'name', 'describe', 'stage', 
 
 table db waypoints_type
 'id','pl','en','icon'
@@ -22,27 +22,19 @@ table db waypoints_type
 'pl' and 'en'  name of type wp in language, icon with path, images/waypoints/*.png
 
 type:
-1 => Final location, 2 => Parking area,  3 => Reference point, 4 => Stage of Multicache.      5 => Question to answer, ???
+ 1 => Parking area,  2 => Reference point, 3 => Stage of Multicache.  4 => Final location,    5 => Question to answer, ???
 Images for WP: images/waypoints/*.png in separate tabel db ? or get icone_name by wp.type db ?
 
 status:
 1 => Show all information for this waypoint, including coordinates
 2 => Hide this waypoint from view except by the owner or administrator
-3 => Show the details of this waypoint but hide the coordinates ???? make to sens ?
+3 => Show the details of this waypoint but hide the coordinates 
 -------------------------------------
 
 in viewcache.php presentation of WayPoints in separate section after Describe section
 with possiblity download WP as GPX and send to GPS directly when wp.status = 1
 
-| wp_icone | name of type |X Y coordinates | Describe of WP | Dwonload GPX | Send to GPS |
-
-
-in editcache.php in section waypoints table with list of wp:
-
-| wp_icone | name of type |status | X Y coordinates | Describe of WP | edit_icone|
-
-......
-
+Stage| wp_icone |X Y coordinates | Describe of WP | Show on Map|  Dwonload GPX | Send to GPS |
 
 */
 //prepare the templates and include all neccessary
@@ -108,8 +100,7 @@ in editcache.php in section waypoints table with list of wp:
 			mysql_free_result($cache_rs);
 			mysql_free_result($wp_rs);
 		}	
-		
-		
+			
 	
 		tpl_set_var("sample", "xxxx");
 	
