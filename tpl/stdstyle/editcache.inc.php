@@ -52,7 +52,8 @@ $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
 	$mp3lines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';
 
 	$nowp = '<tr><td colspan="2"><div class="notice">Nie ma dodatkowych Waypoints dla skrzynki</div></td></tr>';
-	$wpline='<tr><td align="center" valign="middle"><center>{number}</center></td><td align="center" valign="middle"><img src="{wp_icon}" alt="" /></td><td align="center" valign="middle">{type}</td><td align="center" valign="middle">{lon}<br />{lat}</td><td align="center" valign="middle">{desc}</td><td align="center" valign="middle"><center><img src="{status}" alt="" title="Status" /></center></td><td align="center" valign="middle"><center><a class="links" href="waypoints.php?wpid={wpid}"><img src="images/actions/edit-16.png" alt="" title="Edit WP" /></a></center></td></tr>';
+	$wpline='<tr><td align="center" valign="middle"><center>{number}</center></td><td align="center" valign="middle"><img src="{wp_icon}" alt="" title="{type}" /></td><td align="center" valign="middle">{type}</td><td align="center" valign="middle">{lon}<br />{lat}</td><td align="center" valign="middle">{desc}</td><td align="center" valign="middle"><center><img src="{status}" alt="" title="Status" /></center></td><td align="center" valign="middle"><center><a class="links" href="waypoints.php?wpid={wpid}"><img src="images/actions/edit-16.png" alt="" title="Edit WP" /></a></center></td></tr>';
+
 
 	$cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
 	$cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})" />&nbsp;';
