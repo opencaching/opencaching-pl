@@ -794,6 +794,7 @@
 							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>Show all information for this waypoint, including coordinates</span>';
 							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>Show the details of this waypoint but hide the coordinates</span>';
 							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>Hide this waypoint from view except by the owner or administrator</span>';
+							$waypoints .= '<br /><br /><div class="notice"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych punktów/waypoints</a></div>';
 //						$waypoints = mb_ereg_replace('{lines}', $mp3files, $wplist);
 						mysql_free_result($wp_rs);
 						tpl_set_var('cache_wp_list', $waypoints);
