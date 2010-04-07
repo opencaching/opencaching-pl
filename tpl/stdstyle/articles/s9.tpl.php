@@ -27,11 +27,11 @@
 //    $fCt = mysql_fetch_array($fC);
 	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('ranking_by_number_of_created_caches').' </b><br />tylko aktywne skrzynki<br />';
 //	echo $rsUs[count]; 
-	echo '<br /><b>Województwo ';
+	echo '<br /><b><font color="blue">';
 	echo $woj;
 //	echo ' .::. '.tr('number_of_active_caches').': ';
 //	echo $fCt[count]; 
-	echo '</b></center><br /></td></tr></table><table border="1" bgcolor="white" width="97%">' . "\n";
+	echo '</font></b></center></td></tr></table><table border="1" bgcolor="white" width="97%">' . "\n";
 
 	// cleanup (old gpxcontent lingers if gpx-download is cancelled by user)		
 	mysql_query('DROP TEMPORARY TABLE IF EXISTS `ocpl.tmps9`');

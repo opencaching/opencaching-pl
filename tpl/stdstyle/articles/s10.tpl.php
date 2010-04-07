@@ -27,9 +27,9 @@
 
 	echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>Ranking użytkowników wg liczby poszukiwań w regionie<br />(znalezione + nieznalezione)  <b>';
 //	echo $rsUs[count]; 
-	echo '<br /><br /><b>Województwo ';
+	echo '<br /><br /><b><font color="blue">';
 	echo $woj;
-	echo '</b></center><br /></td></tr></table>';
+	echo '</font></b></center></td></tr></table>';
 
 	echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
 
