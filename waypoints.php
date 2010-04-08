@@ -8,35 +8,7 @@
 	*   
 	*  UTF-8 ąść
 	***************************************************************************/
-/*
 
-Add  additional waypoints to cache:
-
-----------------------------------
-table db 'waypoints' struture 
-'wp_id','cache_id', 'type', 'status' , 'longitude', 'latitude', 'name', 'describe', 'stage', 
-
-table db waypoints_type
-'id','pl','en','icon'
-
-'pl' and 'en'  name of type wp in language, icon with path, images/waypoints/*.png
-
-type:
- 1 => Parking area,  2 => Reference point, 3 => Stage of Multicache.  4 => Final location,    5 => Question to answer, ???
-Images for WP: images/waypoints/*.png in separate tabel db ? or get icone_name by wp.type db ?
-
-status:
-1 => Show all information for this waypoint, including coordinates
-2 => Hide this waypoint from view except by the owner or administrator
-3 => Show the details of this waypoint but hide the coordinates 
--------------------------------------
-
-in viewcache.php presentation of WayPoints in separate section after Describe section
-with possiblity download WP as GPX and send to GPS directly when wp.status = 1
-
-Stage| wp_icone |X Y coordinates | Describe of WP | Show on Map|  Dwonload GPX | Send to GPS |
-
-*/
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	
@@ -93,20 +65,129 @@ Stage| wp_icone |X Y coordinates | Describe of WP | Show on Map|  Dwonload GPX |
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 				{
 			$tplname = 'waypoints';
+
+					if (isset($_POST['latNS']))
+					{
+						//get coords from post-form
+						$coords_latNS = $_POST['latNS'];
+						$coords_lonEW = $_POST['lonEW'];
+						$coords_lat_h = $_POST['lat_h'];
+						$coords_lon_h = $_POST['lon_h'];
+						$coords_lat_min = $_POST['lat_min'];
+						$coords_lon_min = $_POST['lon_min'];
+					}
+					else
+					{
+						//get coords from DB
+						$coords_lon = $wp_record['longitude'];
+						$coords_lat = $wp_record['latitude'];
+
+						if ($coords_lon < 0)
+						{
+							$coords_lonEW = 'W';
+							$coords_lon = -$coords_lon;
+						}
+						else
+						{
+							$coords_lonEW = 'E';
+						}
+
+						if ($coords_lat < 0)
+						{
+							$coords_latNS = 'S';
+							$coords_lat = -$coords_lat;
+						}
+						else
+						{
+							$coords_latNS = 'N';
+						}
+
+						$coords_lat_h = floor($coords_lat);
+						$coords_lon_h = floor($coords_lon);
+
+						$coords_lat_min = sprintf("%02.3f", round(($coords_lat - $coords_lat_h) * 60, 3));
+						$coords_lon_min = sprintf("%02.3f", round(($coords_lon - $coords_lon_h) * 60, 3));
+					}
+
+					//here we validate the data
+
+					//coords
+					$lon_not_ok = false;
+
+					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lon_h))
+					{
+						$lon_not_ok = true;
+					}
+					else
+					{
+						$lon_not_ok = (($coords_lon_h >= 0) && ($coords_lon_h < 180)) ? false : true;
+					}
+
+					if (is_numeric($coords_lon_min))
+					{
+						// important: use here |=
+						$lon_not_ok |= (($coords_lon_min >= 0) && ($coords_lon_min < 60)) ? false : true;
+					}
+					else
+					{
+						$lon_not_ok = true;
+					}
+
+					//same with lat
+					$lat_not_ok = false;
+
+					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lat_h))
+					{
+						$lat_not_ok = true;
+					}
+					else
+					{
+						$lat_not_ok = (($coords_lat_h >= 0) && ($coords_lat_h < 180)) ? false : true;
+					}
+
+					if (is_numeric($coords_lat_min))
+					{
+						// important: use here |=
+						$lat_not_ok |= (($coords_lat_min >= 0) && ($coords_lat_min < 60)) ? false : true;
+					}
+					else
+					{
+						$lat_not_ok = true;
+					}
+
+					tpl_set_var('selLatN', ($coords_latNS == 'N') ? ' selected="selected"' : '');
+					tpl_set_var('selLatS', ($coords_latNS == 'S') ? ' selected="selected"' : '');
+					tpl_set_var('selLonE', ($coords_lonEW == 'E') ? ' selected="selected"' : '');
+					tpl_set_var('selLonW', ($coords_lonEW == 'W') ? ' selected="selected"' : '');
+					tpl_set_var('lat_h', htmlspecialchars($coords_lat_h, ENT_COMPAT, 'UTF-8'));
+					tpl_set_var('lat_min', htmlspecialchars($coords_lat_min, ENT_COMPAT, 'UTF-8'));
+					tpl_set_var('lon_h', htmlspecialchars($coords_lon_h, ENT_COMPAT, 'UTF-8'));
+					tpl_set_var('lon_min', htmlspecialchars($coords_lon_min, ENT_COMPAT, 'UTF-8'));
+
+					tpl_set_var('name_message', ($name_not_ok == true) ? $name_not_ok_message : '');
+					tpl_set_var('lon_message', ($lon_not_ok == true) ? $error_coords_not_ok : '');
+					tpl_set_var('lat_message', ($lat_not_ok == true) ? $error_coords_not_ok : '');
+
+
+
+
 			
-			tpl_set_var("desc", htmlspecialchars($wp_record['desc']);
-			tpl_set_var("type", htmlspecialchars($wp_record['type']);
-			tpl_set_var("stage", htmlspecialchars($wp_record['stage']);
-			tpl_set_var("status", htmlspecialchars($wp_record['status']);
-			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']);	
-			}
+			tpl_set_var("desc", htmlspecialchars($wp_record['desc']));
+			tpl_set_var("type", htmlspecialchars($wp_record['type']));
+			tpl_set_var("stage", htmlspecialchars($wp_record['stage']));
+			tpl_set_var("status", htmlspecialchars($wp_record['status']));
+			tpl_set_var("wpid", htmlspecialchars($wp_record['wp_id']));
+			tpl_set_var("cacheid", htmlspecialchars($wp_record['cache_id']));
+			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));	
+				}
 			mysql_free_result($cache_rs);
 			mysql_free_result($wp_rs);
-		}	
+			}	
 			
 	
-		tpl_set_var("sample", "xxxx");
+			tpl_set_var("sample", "xxxx");
 	
+
 
 			}
 		
