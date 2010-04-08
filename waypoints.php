@@ -95,7 +95,10 @@ Stage| wp_icone |X Y coordinates | Describe of WP | Show on Map|  Dwonload GPX |
 			$tplname = 'waypoints';
 			
 			tpl_set_var("desc", htmlspecialchars($wp_record['desc']);
-			tpl_set_var("cache_name", "xxxx");	
+			tpl_set_var("type", htmlspecialchars($wp_record['type']);
+			tpl_set_var("stage", htmlspecialchars($wp_record['stage']);
+			tpl_set_var("status", htmlspecialchars($wp_record['status']);
+			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']);	
 			}
 			mysql_free_result($cache_rs);
 			mysql_free_result($wp_rs);
