@@ -30,6 +30,7 @@
 
  $log_types = array();
  $cache_types = array();
+ $wp_types = array();
  $cache_status = array();
  $cache_size = array();
  
@@ -39,6 +40,7 @@
 // new: get *_types from database
  $log_types = get_log_types_from_database();
  $cache_types = get_cache_types_from_database();
+ $wp_types = get_wp_types_from_database();
  $cache_status = get_cache_status_from_database();
  $cache_size = get_cache_size_from_database();
  
@@ -66,6 +68,18 @@
 		$cache_types[] = $row;
 	}
 	return $cache_types;
+ }
+function get_wp_types_from_database()
+ {
+	global $dblink;
+	$wp_types = array();
+	
+	$resp = sql("SELECT * FROM waypoint_type ORDER BY id ASC");
+	while($row = sql_fetch_assoc($resp))
+	{
+		$wp_types[] = $row;
+	}
+	return $wp_types;
  }
 
  function get_cache_status_from_database()
