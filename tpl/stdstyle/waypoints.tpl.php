@@ -25,7 +25,9 @@
 <input type="hidden" name="cacheid" value="{wpid}"/>
 
 	
-<table width="98%" class="table" border="0">
+<table width="70%" class="table" border="0">
+
+
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td valign="top" class="content-title-noshade">{{coordinates}}:</td>
@@ -50,6 +52,15 @@
 			</fieldset>
 		</td>
 	</tr>
-		<tr><td colspan="2"><div class="buffer"></div></td></tr>
+	<tr><td colspan="2"><div class="buffer"></div></td></tr>
+
+
+	<tr>
+		<td colspan="2">
+			<button type="submit" name="submit" value="delete" style="font-size:14px;width:130px"><b>Usuń</b></button> &nbsp;&nbsp;
+			<button type="submit" name="submit" value="submit" style="font-size:14px;width:130px"><b>Zapisz</b></button>
+		<br /><br /></td>
+	</tr>
+
 </table>
 </form>
