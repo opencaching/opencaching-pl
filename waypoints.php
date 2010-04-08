@@ -65,6 +65,23 @@
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 				{
 			$tplname = 'waypoints';
+					$wp_type = isset($_POST['type']) ? $_POST['type'] : $wp_record['type'];
+					//build typeoptions
+					$types = '';
+					foreach ($wp_types as $type)
+					{
+
+						if ($type['id'] == $wp_type)
+						{
+							$types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+						}
+						else
+						{
+							$types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+						}
+					}
+					tpl_set_var('typeoptions', $types);
+
 
 					if (isset($_POST['latNS']))
 					{
