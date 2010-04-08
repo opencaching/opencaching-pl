@@ -65,6 +65,8 @@
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 				{
 			$tplname = 'waypoints';
+			require_once($rootpath . 'lib/caches.inc.php');
+
 					$wp_type = isset($_POST['type']) ? $_POST['type'] : $wp_record['type'];
 					//build typeoptions
 					$types = '';
