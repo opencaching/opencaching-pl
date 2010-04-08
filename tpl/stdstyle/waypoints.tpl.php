@@ -27,6 +27,14 @@
 	
 <table width="70%" class="table" border="0">
 
+	<tr>
+		<td class="content-title-noshade">{{wp_type}}:</td>
+		<td>
+			<select name="type" class="input200">
+				{typeoptions}
+			</select>
+		</td>
+	</tr>
 
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
