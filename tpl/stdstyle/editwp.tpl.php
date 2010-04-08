@@ -8,34 +8,37 @@
 	*   
 	*  UTF-8 ąść
 	***************************************************************************/
-
-
-/* 
-
-  Uwaga ponizsz tresc tego pliku jest tylko forma przykladu bazujaca na GC.com a nie gotowym kodem do uzycia !!!
-
-*/
-
 ?>
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;{{waypoints_cache}} &#8211; {cache_name}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;Dodatkowy waypoint dla skrzynki: {cache_name}</div>
 
 <form action="editwp.php" method="post" enctype="application/x-www-form-urlencoded" name="waypoints_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="cacheid" value="{wpid}"/>
 
 	
-<table width="70%" class="table" border="0">
-
+<table width="90%" class="table" border="0">
+	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{{wp_type}}:</td>
+		<td class="content-title-noshade">Typ waypointa:</td>
 		<td>
 			<select name="type" class="input200">
 				{typeoptions}
 			</select>
 		</td>
 	</tr>
-
+	<tr><td class="buffer" colspan="2"></td></tr>
+		<tr>
+		<td class="content-title-noshade">Numer etapu:</td>
+		<td>
+		<input type="text" name="stage" maxlength="2" value="{stage}" class="input30" />
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><div class="notice" style="width:300px;height:44px;">Numer etapu, jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0</div>
+		</td>
+	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td valign="top" class="content-title-noshade">{{coordinates}}:</td>
@@ -62,29 +65,31 @@
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td vAlign="top" align="left" colSpan="2">{{description}} 
-			&nbsp;</td>
+		<td valign="top" class="content-title-noshade">{{descriptions}}:</td>
+		<td class="content-title-noshade">
+		<textarea name="description" rows="5" cols="60" id="description">{desc}</textarea></td>
+	</td>
 	</tr>
 	<tr>
-
-		<td vAlign="top" align="left" colSpan="2"><textarea name="description" rows="5" cols="60" id="description">{desc}</textarea></td>
-	</tr>
+		<td valign="top" class="content-title-noshade">Status waypointa:</td>
+	</tr>	
 	<tr>
-		<td vAlign="top" align="left" colSpan="2"><table border="0" style="width:600px;">
-	<tr>
-		<td><input id="wps1" type="radio" name="wps1" value="1" checked="checked" /><label for="wps1">{{Show all information for this waypoint, including coordinates}}</label></td>
-	</tr><tr>
-		<td><input id="wps2" type="radio" name="wps2" value="2" /><label for="wps2">{{Show the details of this waypoint but hide the coordinates}}</label></td>
-
-	</tr><tr>
-		<td><input id="wps3" type="radio" name="wps3" value="3" /><label for="wps3">{{Hide this waypoint from view except by the owner or administrator}}</label></td>
-	</tr>
-	</table>
-
+		<td vAlign="top" align="left" colSpan="2">
+		<table border="0" style="width:600px;font-size: 12px; line-height: 1.6em;">
+		<tr><td><input id="wps1" type="radio" name="wps1" value="1" checked="checked" /><label for="wps1" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa włączając w to współrzędne</label>
+		</td></tr>
+		<tr><td>
+		<input id="wps2" type="radio" name="wps2" value="2" /><label for="wps2" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa z wyjątkiem współrzędnych</label>
+		</td></tr>
+		<tr><td>
+		<input id="wps3" type="radio" name="wps3" value="3" /><label for="wps3" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint z wyjątkiem dla właściciela skrzynki</label>
+		</td></tr></td>
+		</table>
+<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<button type="submit" name="submit" value="delete" style="font-size:14px;width:130px"><b>Usuń</b></button> &nbsp;&nbsp;
-			<button type="submit" name="submit" value="submit" style="font-size:14px;width:130px"><b>Zapisz</b></button>
+			<button type="submit" name="submit" value="delete" style="font-size:14px;width:140px"><b>Usuń waypoint</b></button> &nbsp;&nbsp;
+			<button type="submit" name="submit" value="submit" style="font-size:14px;width:140px"><b>Zapisz waypoint</b></button>
 		<br /><br /></td>
 	</tr>
 
