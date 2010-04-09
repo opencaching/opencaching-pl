@@ -12,8 +12,6 @@
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	
-
-
 	//Preprocessing
 	if ($error == false)
 	{
@@ -30,180 +28,289 @@
 			{
 			$cache_id = $_REQUEST['cacheid'];			
 			}
-			$add_wp = 0;
-			if (isset($_POST['add']))
+				if (isset($_POST['cacheid']))
 			{
-			$wp_id = $_POST['wpid'];				
-			$add_wp = 1;
-			}			
+			$cache_id = $_POST['cacheid'];			
+			}	
 			$wp_rs = sql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,`waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `wp_id`='&1'", $wp_id);
 			if (mysql_num_rows($wp_rs) == 1)
 			{	
 			$wp_record = sql_fetch_array($wp_rs);
-			$cache_id = $wp_record['cache_id'];
-			}
+			$next_stage = ($wp_record['stage']+1);
+			tpl_set_var("stage", $next_stage);			
+			} else {
+			tpl_set_var("stage", "0");	}
+			
 			$cache_rs = sql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
 			if (mysql_num_rows($cache_rs) == 1)
 			{
 				$cache_record = sql_fetch_array($cache_rs);
-			
+			tpl_set_var("cacheid", htmlspecialchars($wp_record['cache_id']));
+			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));	
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
-				{
+			{
 
-						if ($add_wp == 1)
-						{							
-							//remove 
-							sql("INSERT TO`waypoints` WHERE `cache_id`='&1'", $cache_id);
-							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
-							exit;
-						}
-
-
-				$tplname = 'editwp';
-			require_once($rootpath . 'lib/caches.inc.php');
-
-					$wp_type = isset($_POST['type']) ? $_POST['type'] : $wp_record['type'];
-					//build typeoptions
+				$tplname = 'newwp';
+		    	require_once($rootpath . 'lib/caches.inc.php');
+				require_once($stylepath . '/newcache.inc.php');
+				//set template replacements
+				tpl_set_var('lon_message', '');
+				tpl_set_var('lat_message', '');
+				tpl_set_var('general_message', '');
+				tpl_set_var('name_message', '');
+					
+					//build typeoptions					
+					$sel_type = isset($_POST['type']) ? $_POST['type'] : -1;	
+					if(checkField('waypoint_type',$lang) )
+					$lang_db = $lang;
+					else
+					$lang_db = "en";
 					$types = '';
 					foreach ($wp_types as $type)
 					{
-
-						if ($type['id'] == $wp_type)
-						{
-							$types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
-						}
-						else
-						{
-							$types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
-						}
-					}
-					tpl_set_var('typeoptions', $types);
-
-
-					if (isset($_POST['latNS']))
+					if ($type['id'] == $sel_type)
 					{
-						//get coords from post-form
-						$coords_latNS = $_POST['latNS'];
-						$coords_lonEW = $_POST['lonEW'];
-						$coords_lat_h = $_POST['lat_h'];
-						$coords_lon_h = $_POST['lon_h'];
-						$coords_lat_min = $_POST['lat_min'];
-						$coords_lon_min = $_POST['lon_min'];
+						$types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 					}
 					else
 					{
-						//get coords from DB
-						$coords_lon = $wp_record['longitude'];
-						$coords_lat = $wp_record['latitude'];
-
-						if ($coords_lon < 0)
-						{
-							$coords_lonEW = 'W';
-							$coords_lon = -$coords_lon;
-						}
-						else
-						{
-							$coords_lonEW = 'E';
-						}
-
-						if ($coords_lat < 0)
-						{
-							$coords_latNS = 'S';
-							$coords_lat = -$coords_lat;
-						}
-						else
-						{
-							$coords_latNS = 'N';
-						}
-
-						$coords_lat_h = floor($coords_lat);
-						$coords_lon_h = floor($coords_lon);
-
-						$coords_lat_min = sprintf("%02.3f", round(($coords_lat - $coords_lat_h) * 60, 3));
-						$coords_lon_min = sprintf("%02.3f", round(($coords_lon - $coords_lon_h) * 60, 3));
+						$types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 					}
-
-					//here we validate the data
-
-					//coords
-					$lon_not_ok = false;
-
-					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lon_h))
-					{
-						$lon_not_ok = true;
-					}
-					else
-					{
-						$lon_not_ok = (($coords_lon_h >= 0) && ($coords_lon_h < 180)) ? false : true;
-					}
-
-					if (is_numeric($coords_lon_min))
-					{
-						// important: use here |=
-						$lon_not_ok |= (($coords_lon_min >= 0) && ($coords_lon_min < 60)) ? false : true;
-					}
-					else
-					{
-						$lon_not_ok = true;
-					}
-
-					//same with lat
-					$lat_not_ok = false;
-
-					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lat_h))
-					{
-						$lat_not_ok = true;
-					}
-					else
-					{
-						$lat_not_ok = (($coords_lat_h >= 0) && ($coords_lat_h < 180)) ? false : true;
-					}
-
-					if (is_numeric($coords_lat_min))
-					{
-						// important: use here |=
-						$lat_not_ok |= (($coords_lat_min >= 0) && ($coords_lat_min < 60)) ? false : true;
-					}
-					else
-					{
-						$lat_not_ok = true;
-					}
-
-					tpl_set_var('selLatN', ($coords_latNS == 'N') ? ' selected="selected"' : '');
-					tpl_set_var('selLatS', ($coords_latNS == 'S') ? ' selected="selected"' : '');
-					tpl_set_var('selLonE', ($coords_lonEW == 'E') ? ' selected="selected"' : '');
-					tpl_set_var('selLonW', ($coords_lonEW == 'W') ? ' selected="selected"' : '');
-					tpl_set_var('lat_h', htmlspecialchars($coords_lat_h, ENT_COMPAT, 'UTF-8'));
-					tpl_set_var('lat_min', htmlspecialchars($coords_lat_min, ENT_COMPAT, 'UTF-8'));
-					tpl_set_var('lon_h', htmlspecialchars($coords_lon_h, ENT_COMPAT, 'UTF-8'));
-					tpl_set_var('lon_min', htmlspecialchars($coords_lon_min, ENT_COMPAT, 'UTF-8'));
-
-					tpl_set_var('name_message', ($name_not_ok == true) ? $name_not_ok_message : '');
-					tpl_set_var('lon_message', ($lon_not_ok == true) ? $error_coords_not_ok : '');
-					tpl_set_var('lat_message', ($lat_not_ok == true) ? $error_coords_not_ok : '');
-
-
-
-
-			
-			tpl_set_var("desc", htmlspecialchars($wp_record['desc']));
-			tpl_set_var("type", htmlspecialchars($wp_record['type']));
-			tpl_set_var("stage", htmlspecialchars($wp_record['stage']));
-			tpl_set_var("status", htmlspecialchars($wp_record['status']));
-			tpl_set_var("wpid", htmlspecialchars($wp_record['wp_id']));
-			tpl_set_var("cacheid", htmlspecialchars($wp_record['cache_id']));
-			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));	
 				}
+				tpl_set_var('typeoptions', $types);
+
+				//coords
+				$lonEW = isset($_POST['lonEW']) ? $_POST['lonEW'] : $default_EW;
+				if ($lonEW == 'E')
+				{
+					tpl_set_var('lonEsel', ' selected="selected"');
+					tpl_set_var('lonWsel', '');
+				}
+				else
+				{
+					tpl_set_var('lonEsel', '');
+					tpl_set_var('lonWsel', ' selected="selected"');
+				}
+				$lon_h = isset($_POST['lon_h']) ? $_POST['lon_h'] : '0';
+				tpl_set_var('lon_h', htmlspecialchars($lon_h, ENT_COMPAT, 'UTF-8'));
+
+				$lon_min = isset($_POST['lon_min']) ? $_POST['lon_min'] : '00.000';
+				tpl_set_var('lon_min', htmlspecialchars($lon_min, ENT_COMPAT, 'UTF-8'));
+
+				$latNS = isset($_POST['latNS']) ? $_POST['latNS'] : $default_NS;
+				if ($latNS == 'N')
+				{
+					tpl_set_var('latNsel', ' selected="selected"');
+					tpl_set_var('latSsel', '');
+				}
+				else
+				{
+					tpl_set_var('latNsel', '');
+					tpl_set_var('latSsel', ' selected="selected"');
+				}
+				$lat_h = isset($_POST['lat_h']) ? $_POST['lat_h'] : '0';
+				tpl_set_var('lat_h', htmlspecialchars($lat_h, ENT_COMPAT, 'UTF-8'));
+
+				$lat_min = isset($_POST['lat_min']) ? $_POST['lat_min'] : '00.000';
+				tpl_set_var('lat_min', htmlspecialchars($lat_min, ENT_COMPAT, 'UTF-8'));
+
+				//stage
+				$desc = isset($_POST['stage']) ? $_POST['stage'] : '0';
+				//status
+				$status = isset($_POST['status']) ? $_POST['status'] : '1';
+				//desc
+				$desc = isset($_POST['desc']) ? $_POST['desc'] : '';
+				tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
+				
+				
+				if (isset($_POST['submitform']))
+				{
+					//check the entered data
+
+					//check coordinates
+					if ($lat_h!='' || $lat_min!='')
+					{
+						if (!mb_ereg_match('^[0-9]{1,2}$', $lat_h))
+						{
+							tpl_set_var('lat_message', $error_coords_not_ok);
+							$error = true;
+							$lat_h_not_ok = true;
+						}
+						else
+						{
+							if (($lat_h >= 0) && ($lat_h < 90))
+							{
+								$lat_h_not_ok = false;
+							}
+							else
+							{
+								tpl_set_var('lat_message', $error_coords_not_ok);
+								$error = true;
+								$lat_h_not_ok = true;
+							}
+						}
+
+						if (is_numeric($lat_min))
+						{
+							if (($lat_min >= 0) && ($lat_min < 60))
+							{
+								$lat_min_not_ok = false;
+							}
+							else
+							{
+								tpl_set_var('lat_message', $error_coords_not_ok);
+								$error = true;
+								$lat_min_not_ok = true;
+							}
+						}
+						else
+						{
+							tpl_set_var('lat_message', $error_coords_not_ok);
+							$error = true;
+							$lat_min_not_ok = true;
+						}
+
+						$latitude = $lat_h + $lat_min / 60;
+						if ($latNS == 'S') $latitude = -$latitude;
+
+						if ($latitude == 0)
+						{
+							tpl_set_var('lon_message', $error_coords_not_ok);
+							$error = true;
+							$lat_min_not_ok = true;
+						}
+					}
+					else
+					{
+						$latitude = NULL;
+						$lat_h_not_ok = false;
+						$lat_min_not_ok = false;
+					}
+
+					if ($lon_h!='' || $lon_min!='')
+					{
+						if (!mb_ereg_match('^[0-9]{1,3}$', $lon_h))
+						{
+							tpl_set_var('lon_message', $error_coords_not_ok);
+							$error = true;
+							$lon_h_not_ok = true;
+						}
+						else
+						{
+							if (($lon_h >= 0) && ($lon_h < 180))
+							{
+								$lon_h_not_ok = false;
+							}
+							else
+							{
+								tpl_set_var('lon_message', $error_coords_not_ok);
+								$error = true;
+								$lon_h_not_ok = true;
+							}
+						}
+
+						if (is_numeric($lon_min))
+						{
+							if (($lon_min >= 0) && ($lon_min < 60))
+							{
+								$lon_min_not_ok = false;
+							}
+							else
+							{
+								tpl_set_var('lon_message', $error_coords_not_ok);
+								$error = true;
+								$lon_min_not_ok = true;
+							}
+						}
+						else
+						{
+							tpl_set_var('lon_message', $error_coords_not_ok);
+							$error = true;
+							$lon_min_not_ok = true;
+						}
+
+						$longitude = $lon_h + $lon_min / 60;
+						if ($lonEW == 'W') $longitude = -$longitude;
+
+						if ($longitude == 0)
+						{
+							tpl_set_var('lon_message', $error_coords_not_ok);
+							$error = true;
+							$lon_min_not_ok = true;
+						}
+					}
+					else
+					{
+						$longitude = NULL;
+						$lon_h_not_ok = false;
+						$lon_min_not_ok = false;
+					}
+
+					$lon_not_ok = $lon_min_not_ok || $lon_h_not_ok;
+					$lat_not_ok = $lat_min_not_ok || $lat_h_not_ok;
+					
+
+					//desc
+					if ($desc == '')
+					{
+						tpl_set_var('name_message', $name_not_ok_message);
+						$error = true;
+						$desc_not_ok = true;
+					}
+					else
+					{
+						$desc_not_ok = false;
+					}
+					//wp-type
+					$type_not_ok = false;
+					if ($sel_type == -1 )
+					{
+						tpl_set_var('type_message', $type_not_ok_message);
+						$error = true;
+						$type_not_ok = true;
+					}
+					
+					
+					//no errors?
+					if (!($desc_not_ok || $lon_not_ok || $lat_not_ok || $type_not_ok))
+					{
+						//add record to caches table
+						sql("INSERT INTO `waypoints` (
+													`wp_id`,
+													`cache_id`,
+													`longitude`,
+													`latitude`,
+													`type` ,
+													`status` ,
+													`stage` ,
+													`desc`
+												) VALUES (
+													'', '&1', '&2', '&3', '&4', '&5', '&6', '&7')",
+												$cache_id,
+												$longitude,
+												$latitude,
+												$sel_type,
+												$status,
+												$stage,
+												$desc);
+						$wp_id = mysql_insert_id($dblink);
+
+					
+							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+					// end of insert to sql
+					}else
+					{
+						tpl_set_var('general_message', $error_general);
+					}
+				
+					// end submit
+				}							
+
+			}
 			mysql_free_result($cache_rs);
 			mysql_free_result($wp_rs);
 			}	
-			
-	
-			tpl_set_var("sample", "xxxx");
-	
-
-
-			}
+		}
 		
 	}
 	tpl_BuildTemplate();
