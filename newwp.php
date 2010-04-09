@@ -25,16 +25,16 @@
 		}
 		else
 		{
-			//Edit Waypoint
-			if (isset($_REQUEST['wpid']))
+			//New Waypoint
+			if (isset($_REQUEST['cacheid']))
 			{
-			$wp_id = $_REQUEST['wpid'];			
+			$cache_id = $_REQUEST['cacheid'];			
 			}
-			$remove = 0;
-			if (isset($_POST['delete']))
+			$add_wp = 0;
+			if (isset($_POST['add']))
 			{
 			$wp_id = $_POST['wpid'];				
-			$remove = 1;
+			$add_wp = 1;
 			}			
 			$wp_rs = sql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,`waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `wp_id`='&1'", $wp_id);
 			if (mysql_num_rows($wp_rs) == 1)
@@ -50,10 +50,10 @@
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 				{
 
-						if ($remove == 1)
+						if ($add_wp == 1)
 						{							
 							//remove 
-							sql("DELETE FROM `waypoints` WHERE `wp_id`='&1'", $wp_id);
+							sql("INSERT TO`waypoints` WHERE `cache_id`='&1'", $cache_id);
 							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
 							exit;
 						}
