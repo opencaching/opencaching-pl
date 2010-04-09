@@ -14,9 +14,7 @@
 	{general_message}
 <form action="newwp.php" method="post" enctype="application/x-www-form-urlencoded" name="waypoints_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
-<input type="hidden" name="wpid" value="{wpid}"/>
 
-	
 <table width="90%" class="table" border="0">
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
@@ -24,7 +22,7 @@
 		<td>
 			<select name="type" class="input200">
 				{typeoptions}
-			</select>
+			</select>{type_message}
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -67,7 +65,7 @@
 	<tr>
 		<td valign="top" class="content-title-noshade">{{descriptions}}:</td>
 		<td class="content-title-noshade">
-		<textarea name="desc" rows="5" cols="60">{desc}</textarea>{name_message}</td>
+		<textarea name="desc" rows="5" cols="60">{desc}</textarea>{desc_message}</td>
 	</td>
 	</tr>
 	<tr>

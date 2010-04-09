@@ -23,16 +23,18 @@
 		}
 		else
 		{
+			$tplname = 'newwp';
 			//New Waypoint
 			if (isset($_REQUEST['cacheid']))
 			{
 			$cache_id = $_REQUEST['cacheid'];			
 			}
-				if (isset($_POST['cacheid']))
+			if (isset($_POST['cacheid']))
 			{
 			$cache_id = $_POST['cacheid'];			
-			}	
-			$wp_rs = sql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,`waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `wp_id`='&1'", $wp_id);
+			}
+			tpl_set_var("cacheid", $cache_id);			
+			$wp_rs = sql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,`waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1'", $cache_id);
 			if (mysql_num_rows($wp_rs) == 1)
 			{	
 			$wp_record = sql_fetch_array($wp_rs);
@@ -45,20 +47,21 @@
 			if (mysql_num_rows($cache_rs) == 1)
 			{
 				$cache_record = sql_fetch_array($cache_rs);
-			tpl_set_var("cacheid", htmlspecialchars($wp_record['cache_id']));
+
 			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));	
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 			{
 
-				$tplname = 'newwp';
+
 		    	require_once($rootpath . 'lib/caches.inc.php');
 				require_once($stylepath . '/newcache.inc.php');
 				//set template replacements
 				tpl_set_var('lon_message', '');
 				tpl_set_var('lat_message', '');
 				tpl_set_var('general_message', '');
-				tpl_set_var('name_message', '');
-					
+				tpl_set_var('desc_message', '');
+				tpl_set_var('type_message', '');
+				
 					//build typeoptions					
 					$sel_type = isset($_POST['type']) ? $_POST['type'] : -1;	
 					if(checkField('waypoint_type',$lang) )
@@ -115,7 +118,7 @@
 				tpl_set_var('lat_min', htmlspecialchars($lat_min, ENT_COMPAT, 'UTF-8'));
 
 				//stage
-				$desc = isset($_POST['stage']) ? $_POST['stage'] : '0';
+				$stage= isset($_POST['stage']) ? $_POST['stage'] : '0';
 				//status
 				$status = isset($_POST['status']) ? $_POST['status'] : '1';
 				//desc
@@ -253,28 +256,27 @@
 					//desc
 					if ($desc == '')
 					{
-						tpl_set_var('name_message', $name_not_ok_message);
+						tpl_set_var('desc_message', $descwp_not_ok_message);
 						$error = true;
-						$desc_not_ok = true;
+						$descwp_not_ok = true;
 					}
 					else
 					{
-						$desc_not_ok = false;
+						$descwp_not_ok = false;
 					}
 					//wp-type
 					$type_not_ok = false;
 					if ($sel_type == -1 )
 					{
-						tpl_set_var('type_message', $type_not_ok_message);
+						tpl_set_var('type_message', $typewp_not_ok_message);
 						$error = true;
 						$type_not_ok = true;
 					}
 					
-					
 					//no errors?
-					if (!($desc_not_ok || $lon_not_ok || $lat_not_ok || $type_not_ok))
+					if (!($descwp_not_ok || $lon_not_ok || $lat_not_ok || $type_not_ok))
 					{
-						//add record to caches table
+						//add record 
 						sql("INSERT INTO `waypoints` (
 													`wp_id`,
 													`cache_id`,
@@ -293,8 +295,6 @@
 												$status,
 												$stage,
 												$desc);
-						$wp_id = mysql_insert_id($dblink);
-
 					
 							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
 					// end of insert to sql
