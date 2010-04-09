@@ -50,15 +50,16 @@
 			
 			$newsentry = mb_ereg_replace('{date}', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $newsentry);
 			$newsentry = mb_ereg_replace('{topic}', htmlspecialchars($r['topic'], ENT_COMPAT, 'UTF-8'), $newsentry);
-			$newsentry = mb_ereg_replace('{message}', $r['content'], $newsentry);
-			
+			$newsentry = mb_ereg_replace('{message}', $r['content'], $newsentry);			
 			$newscontent = $newsentry . "\n";
+			$current_date= date(Ymd);
+			$posted_date=strftime("%Y%m%d", $post_date);
+			$diff=($current_date - $posted_date);
+			if ($diif < "100") {tpl_set_var('news_one', $newscontent);	} 
+			else {	tpl_set_var('news_one', '<br />');} 
 		}
 		mysql_free_result($rs);
-		tpl_set_var('news_one', $newscontent);
 		$newscontent = '';
-//		tpl_set_var('more_news',[{{more_news}}]);
-
 		
 		// aktuelle Cache und Logzahlen
 		$rs = sql('SELECT COUNT(*) AS `hiddens` FROM `caches` WHERE `status`=1');

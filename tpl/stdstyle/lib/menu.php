@@ -84,6 +84,13 @@ $menu = array(
 				)
 			),
 			array(
+				'title' => tr('news'),
+				'menustring' => tr('news'),
+				'visible' => true,
+				'filename' => 'news.php',
+				'siteid' => 'news'
+			),
+			array(
 				'title' => tr('new_caches'),
 				'menustring' => tr('new_caches'),
 				'visible' => true,
