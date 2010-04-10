@@ -666,7 +666,7 @@ tpl_set_var('dziubek2',"");
 			if (mysql_num_rows($wp_rs) != 0)
 			{	
 
-						$waypoints = '<table width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
+						$waypoints = '<table cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
 						$waypoints .= '<tr><td align="center" valign="middle" width="30"><b>Etap</b></td><td align="center" valign="middle" width="40">&nbsp;<b>Symbol</b>&nbsp;</td><td align="center" valign="middle" width="40">&nbsp;<b>Typ</b>&nbsp;</td><td width="50" align="center" valign="middle">&nbsp;<b>Współrzędne</b>&nbsp;</td><td align="center" valign="middle"><b>Opis</b></td><td width="22" align="center" valign="middle">&nbsp;<b>GPS</b>&nbsp;</td></tr>';
 						for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
 						{

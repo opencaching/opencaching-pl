@@ -204,11 +204,9 @@ else
 					<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />
 					Dodatkowe waypoints
 				</p></div>
-				<div class="content2-container">
 				<p>
 					{waypoints_content}
-				</p>
-			</div>
+				</p><br />
 			<div class="notice" id="viewcache-attributesend"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych punktów/waypoints</a></div>
 {waypoints_end}
 <!-- End Text Container -->
