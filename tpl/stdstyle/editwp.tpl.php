@@ -11,7 +11,7 @@
 ?>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;Dodatkowy waypoint dla skrzynki: {cache_name}</div>
-
+	{general_message}
 <form action="editwp.php" method="post" enctype="application/x-www-form-urlencoded" name="waypoints_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="wpid" value="{wpid}"/>
@@ -67,7 +67,7 @@
 	<tr>
 		<td valign="top" class="content-title-noshade">{{descriptions}}:</td>
 		<td class="content-title-noshade">
-		<textarea name="description" rows="5" cols="60" id="description">{desc}</textarea></td>
+		<textarea name="desc" rows="5" cols="60">{desc}</textarea>{desc_message}</td>
 	</td>
 	</tr>
 	<tr>
@@ -76,13 +76,13 @@
 	<tr>
 		<td vAlign="top" align="left" colSpan="2">
 		<table border="0" style="width:600px;font-size: 12px; line-height: 1.6em;">
-		<tr><td><input type="radio" name="wps1" value="1" checked="checked" /><label for="wps1" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa włączając w to współrzędne</label>
+		<tr><td><input type="radio" name="status" value="1" checked="checked" /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa włączając w to współrzędne</label>
 		</td></tr>
 		<tr><td>
-		<input type="radio" name="wps2" value="2" /><label for="wps2" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa z wyjątkiem współrzędnych</label>
+		<input type="radio" name="status" value="2" /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa z wyjątkiem współrzędnych</label>
 		</td></tr>
 		<tr><td>
-		<input  type="radio" name="wps3" value="3" /><label for="wps3" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint z wyjątkiem dla właściciela skrzynki</label>
+		<input  type="radio" name="status" value="3" /><label for="status" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint z wyjątkiem dla właściciela skrzynki</label>
 		</td></tr></td>
 		</table>
 <tr><td class="buffer" colspan="2"></td></tr>

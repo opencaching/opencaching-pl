@@ -11,7 +11,7 @@
 
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-	
+	$no_tpl_build = false;	
 	//Preprocessing
 	if ($error == false)
 	{
@@ -23,7 +23,7 @@
 		}
 		else
 		{
-			$tplname = 'newwp';
+
 			//New Waypoint
 			if (isset($_REQUEST['cacheid']))
 			{
@@ -34,11 +34,11 @@
 			$cache_id = $_POST['cacheid'];			
 			}
 			tpl_set_var("cacheid", $cache_id);			
-			$wp_rs = sql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,`waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1'", $cache_id);
-			if (mysql_num_rows($wp_rs) == 1)
+			$wp_rs = sql("SELECT `stage` FROM `waypoints`  WHERE `cache_id`='&1' ORDER BY `stage` DESC", $cache_id);
+			if (mysql_num_rows($wp_rs) != 0)
 			{	
 			$wp_record = sql_fetch_array($wp_rs);
-			$next_stage = ($wp_record['stage']+1);
+			$next_stage = ($wp_record['stage'] +1 );
 			tpl_set_var("stage", $next_stage);			
 			} else {
 			tpl_set_var("stage", "0");	}
@@ -51,7 +51,7 @@
 			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));	
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 			{
-
+			$tplname = 'newwp';
 
 		    	require_once($rootpath . 'lib/caches.inc.php');
 				require_once($stylepath . '/newcache.inc.php');
@@ -118,9 +118,9 @@
 				tpl_set_var('lat_min', htmlspecialchars($lat_min, ENT_COMPAT, 'UTF-8'));
 
 				//stage
-				$stage= isset($_POST['stage']) ? $_POST['stage'] : '0';
+				$stage= isset($_POST['stage']) ? $_POST['stage'] : '';
 				//status
-				$status = isset($_POST['status']) ? $_POST['status'] : '1';
+				$status = isset($_POST['status']) ? $_POST['status'] : '';
 				//desc
 				$desc = isset($_POST['desc']) ? $_POST['desc'] : '';
 				tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
@@ -305,13 +305,18 @@
 				
 					// end submit
 				}							
-
-			}
 			mysql_free_result($cache_rs);
 			mysql_free_result($wp_rs);
+			}
+			else { 	$no_tpl_build = true;}
 			}	
 		}
 		
 	}
-	tpl_BuildTemplate();
+	
+	if ($no_tpl_build == false)
+	{
+		//make the template and send it out
+		tpl_BuildTemplate();
+	}
 ?>
