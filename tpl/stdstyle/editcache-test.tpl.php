@@ -265,8 +265,8 @@ function toggleAttr(id)
 	</td></tr>
 	<tr>
 		<td colspan="2">
-			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt=""/>&nbsp;{{cache_waypoints}}</p></div>
-			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newwp.php?cacheid={cacheid}">{{add_new_wp}}</a></p>
+			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt=""/>&nbsp;Dodatkowe waypoints</p></div>
+			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newwp.php?cacheid={cacheid}">Dodaj nowy waypoint</a></p>
 
 			</td>
 	</tr>
@@ -274,9 +274,8 @@ function toggleAttr(id)
 	<tr>
 		<td colspan="2">{cache_wp_list}</td>
 	</tr>
-	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych punktów/waypoints</a></div></td>
+		<td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych punktów/waypoints</a></div></td>
 	</tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p></div>

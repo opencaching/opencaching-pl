@@ -227,8 +227,6 @@
 			//mysql_query("SET NAMES 'utf8'");
 			$geokret_sql = "SELECT id, name, distancetravelled as distance FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".sql_escape($cache_wp)."') AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2";
 			$geokret_query = sql($geokret_sql);
-			$gk_visited= sqlValue("SELECT COUNT(*) FROM gk_item_waypoint WHERE wp ='".sql_escape($cache_wp) . "'", 0);
-			tpl_set_var('gk_visited', $gk_visited);
 			if (mysql_num_rows($geokret_query) == 0)
 			{
 				// no geokrets in this cache
@@ -661,6 +659,52 @@ tpl_set_var('dziubek2',"");
 			}
 
 			tpl_set_var('desc_langs', $langlist);
+
+			// show additional waypoints
+			//
+			$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
+			if (mysql_num_rows($wp_rs) != 0)
+			{	
+
+						$waypoints = '<table width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
+						$waypoints .= '<tr><td align="center" valign="middle" width="30"><b>Etap</b></td><td align="center" valign="middle" width="40">&nbsp;<b>Symbol</b>&nbsp;</td><td align="center" valign="middle" width="40">&nbsp;<b>Typ</b>&nbsp;</td><td width="50" align="center" valign="middle">&nbsp;<b>Współrzędne</b>&nbsp;</td><td align="center" valign="middle"><b>Opis</b></td><td width="22" align="center" valign="middle">&nbsp;<b>GPS</b>&nbsp;</td></tr>';
+						for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
+						{
+							if ($wp_record['status'] != 3){
+							$tmpline1 = $wpline;
+							$wp_record = sql_fetch_array($wp_rs);
+							if ($wp_record['status'] == 1){
+							$coords_lat = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
+							$coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
+							}
+							if ($wp_record['status'] == 2){
+							$coords_lat = "&nbsp;??.?????";
+							$coords_lon = "&nbsp;??.?????";
+							}
+							$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{lon}', "&nbsp;&nbsp;".$coords_lon."&nbsp;&nbsp;", $tmpline1);
+							$tmpline1 = mb_ereg_replace('{lat}', "&nbsp;&nbsp;".$coords_lat."&nbsp;&nbsp;", $tmpline1);
+							$tmpline1 = mb_ereg_replace('{desc}', "&nbsp;&nbsp;".htmlspecialchars($wp_record['desc'], ENT_COMPAT, 'UTF-8')."&nbsp;&nbsp;", $tmpline1);
+							$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
+							if ($wp_record['stage']==0) {$tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
+							}else{
+							$tmpline1 = mb_ereg_replace('{number}',$wp_record['stage'], $tmpline1);}
+						
+							$waypoints .= $tmpline1;
+							}
+							}
+							$waypoints .= '</table>';
+				tpl_set_var('waypoints_content', $waypoints);
+				tpl_set_var('waypoints_start', '');
+				tpl_set_var('waypoints_end', '');
+			}
+			else
+			{
+				tpl_set_var('waypoints_content', '<br />');
+				tpl_set_var('waypoints_start', '<!--');
+				tpl_set_var('waypoints_end', '-->');
+			}
 
 			// show mp3 files for PodCache
 			//

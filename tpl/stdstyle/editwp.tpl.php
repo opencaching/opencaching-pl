@@ -76,13 +76,13 @@
 	<tr>
 		<td vAlign="top" align="left" colSpan="2">
 		<table border="0" style="width:600px;font-size: 12px; line-height: 1.6em;">
-		<tr><td><input type="radio" name="status" value="1" checked="checked" /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa włączając w to współrzędne</label>
+		<tr><td><input type="radio" name="status" value="1" {checked1} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa włączając w to współrzędne</label>
 		</td></tr>
 		<tr><td>
-		<input type="radio" name="status" value="2" /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa z wyjątkiem współrzędnych</label>
+		<input type="radio" name="status" value="2" {checked2} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa z wyjątkiem współrzędnych</label>
 		</td></tr>
 		<tr><td>
-		<input  type="radio" name="status" value="3" /><label for="status" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint z wyjątkiem dla właściciela skrzynki</label>
+		<input  type="radio" name="status" value="3" {checked3} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint z wyjątkiem dla właściciela skrzynki</label>
 		</td></tr></td>
 		</table>
 <tr><td class="buffer" colspan="2"></td></tr>

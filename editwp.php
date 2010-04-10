@@ -170,8 +170,17 @@
 						$lat_not_ok = true;
 					}
 					$wp_stage = isset($_POST['stage']) ? $_POST['stage'] : $wp_record['stage'];	
-					$wp_status = isset($_POST['status']) ? $_POST['status'] : $wp_record['status'];						
-
+					$status1="";
+					$status2="";
+					$status3="";
+					$wp_status = isset($_POST['status']) ? $_POST['status'] : $wp_record['status'];
+					if ($wp_status ==1) {$status1="checked";}
+					if ($wp_status ==2) {$status2="checked";}
+					if ($wp_status ==3) {$status3="checked";}					
+					tpl_set_var("checked1", $status1);
+					tpl_set_var("checked2", $status2);
+					tpl_set_var("checked3", $status3);
+				
 					$wp_desc = isset($_POST['desc']) ? $_POST['desc'] : $wp_record['desc'];
 					$descwp_not_ok = false;
 					if(isset($_POST['desc']))
@@ -194,7 +203,7 @@
 							//save to DB
 							sql("UPDATE `waypoints` SET `longitude`='&1', `latitude`='&2', `type`='&3',`status`='&4', `stage`='&5',`desc`='&6' WHERE `wp_id`='&7'", $wp_lon, $wp_lat, $wp_type, $wp_status,$wp_stage, $wp_desc, $wp_id);
 
-													//display cache-page
+							//display cache-page
 							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
 							exit;
 							}

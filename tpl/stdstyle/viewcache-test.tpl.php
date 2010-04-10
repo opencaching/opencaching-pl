@@ -198,6 +198,21 @@ else
 			</div>
 <!-- End Text Container -->
 <!-- Text container -->
+{waypoints_start}
+			<div class="content2-container bg-blue02">
+				<p class="content-title-noshade-size1">
+					<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />
+					Dodatkowe waypoints
+				</p></div>
+				<div class="content2-container">
+				<p>
+					{waypoints_content}
+				</p>
+			</div>
+			<div class="notice" id="viewcache-attributesend"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych punktów/waypoints</a></div>
+{waypoints_end}
+<!-- End Text Container -->
+<!-- Text container -->
 {hidehint_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">

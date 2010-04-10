@@ -764,11 +764,11 @@
 					}
 		
 		//Add Waypoint
-			$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id` DESC", $cache_id);
+			$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
 			if (mysql_num_rows($wp_rs) != 0)
 			{	
 						$waypoints = '<table width="97%" border="1" style="border-collapse: collapse; font-size: 10px; line-height: 1.6em">';
-						$waypoints .= '<tr><td><b>Etap</b></td><td><b>Symbol</b></td><td><b>Typ</b></td><td><b>Współrzędne</b></td><td><b>Opis</b></td><td><b>Status</b></td><td><b>Edycja</b></td></tr>';
+						$waypoints .= '<tr><td width="22"><b>Etap</b></td><td width="32"><b>Symbol</b></td><td width="32"><b>Typ</b></td><td width="32"><b>Współrzędne</b></td><td><b>Opis</b></td><td width="22"><b>Status</b></td><td width="22"><b>Edycja</b></td></tr>';
 						for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
 							{
 							$tmpline1 = $wpline;

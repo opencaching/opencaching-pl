@@ -77,6 +77,8 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
 
  $logpictureline = '<div class="logimage"><div class="img-shadow"><a href="{link}" title="{title}" onclick="return false;"><img src="{imgsrc}" alt="{title}" onclick="enlarge(this)" class="viewlogs-thumbimg" longdesc="{longdesc}"/></a></div><span class="desc">{title}</span>{functions}</div>';
  $logpictures = '<div class="viewlogs-logpictures"><span class="info">'.tr('pictures_included').':</span><div class="allimages">{lines}</div></div><br style="clear: both" />';
+// Waypoints line
+ $wpline='<tr><td align="center" valign="middle"><center>{number}</center></td><td align="center" valign="middle"><img src="{wp_icon}" alt="" title="{type}" /></td><td align="left" valign="middle">&nbsp;{type}&nbsp;</td><td align="left" valign="middle"><b><span style="color: rgb(88,144,168)">{lat}<br />{lon}</span></b></td><td align="left" valign="middle">{desc}</td><td align="center" valign="middle"><center><img src="images/garmin.jpg" alt="" title="Send to GPS" /></center></td></tr>';
 
  //$cache_watchers = '<br/>Dieser Cache wird von {watcher} Opencaching.de Nutzern beobachtet.';
  $cache_log_pw = '<br/>'.tr('password_required');

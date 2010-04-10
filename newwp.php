@@ -118,12 +118,23 @@
 				tpl_set_var('lat_min', htmlspecialchars($lat_min, ENT_COMPAT, 'UTF-8'));
 
 				//stage
-				$stage= isset($_POST['stage']) ? $_POST['stage'] : '';
-				//status
-				$status = isset($_POST['status']) ? $_POST['status'] : '';
+				$wp_stage= isset($_POST['stage']) ? $_POST['stage'] : '';
+				
+				//status				
+					$status1="";
+					$status2="";
+					$status3="";
+
+				$wp_status = isset($_POST['status']) ? $_POST['status'] : '';
+					if ($wp_status ==1) {$status1="checked";}
+					if ($wp_status ==2) {$status2="checked";}
+					if ($wp_status ==3) {$status3="checked";}					
+					tpl_set_var("checked1", $status1);
+					tpl_set_var("checked2", $status2);
+					tpl_set_var("checked3", $status3);				
 				//desc
-				$desc = isset($_POST['desc']) ? $_POST['desc'] : '';
-				tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
+				$wp_desc = isset($_POST['desc']) ? $_POST['desc'] : '';
+				tpl_set_var('desc', htmlspecialchars($wp_desc, ENT_COMPAT, 'UTF-8'));
 				
 				
 				if (isset($_POST['submitform']))
@@ -254,7 +265,7 @@
 					
 
 					//desc
-					if ($desc == '')
+					if ($wp_desc == '')
 					{
 						tpl_set_var('desc_message', $descwp_not_ok_message);
 						$error = true;
@@ -292,9 +303,9 @@
 												$longitude,
 												$latitude,
 												$sel_type,
-												$status,
-												$stage,
-												$desc);
+												$wp_status,
+												$wp_stage,
+												$wp_desc);
 					
 							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
 					// end of insert to sql
