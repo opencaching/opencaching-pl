@@ -782,7 +782,7 @@
 							$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 							$tmpline1 = mb_ereg_replace('{lon}', $coords_lon, $tmpline1);
 							$tmpline1 = mb_ereg_replace('{lat}', $coords_lat, $tmpline1);
-							$tmpline1 = mb_ereg_replace('{desc}', htmlspecialchars($wp_record['desc'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{desc}', $wp_record['desc'], $tmpline1);
 							$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
 							if ($wp_record['stage']==0) {$tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
 							}else{
@@ -797,7 +797,7 @@
 							$waypoints .= '</table>';
 							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa włączając w to współrzędne</span>';
 							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa z wyjątkiem współrzędnych</span>';
-							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>Ukryj ten waypoint z wyjątkiem dla właściciela skrzynki</span>';
+							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>Ukryj ten waypoint w wykazie punktów skrzynki</span>';
 
 //						$waypoints = mb_ereg_replace('{lines}', $mp3files, $wplist);
 						mysql_free_result($wp_rs);

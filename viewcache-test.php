@@ -663,6 +663,8 @@ tpl_set_var('dziubek2',"");
 			// show additional waypoints
 			//
 			$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
+
+//			if (mysql_num_rows($wp_rs) == 1 && $wp_record['status'] == 3) {tpl_set_var('waypoints_content', '<br />');} else {
 			if (mysql_num_rows($wp_rs) != 0)
 			{	
 
@@ -685,7 +687,7 @@ tpl_set_var('dziubek2',"");
 							$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 							$tmpline1 = mb_ereg_replace('{lon}', "&nbsp;&nbsp;".$coords_lon."&nbsp;&nbsp;", $tmpline1);
 							$tmpline1 = mb_ereg_replace('{lat}', "&nbsp;&nbsp;".$coords_lat."&nbsp;&nbsp;", $tmpline1);
-							$tmpline1 = mb_ereg_replace('{desc}', "&nbsp;&nbsp;".htmlspecialchars($wp_record['desc'], ENT_COMPAT, 'UTF-8')."&nbsp;&nbsp;", $tmpline1);
+							$tmpline1 = mb_ereg_replace('{desc}', "&nbsp;&nbsp;".$wp_record['desc']."&nbsp;&nbsp;", $tmpline1);
 							$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
 							if ($wp_record['stage']==0) {$tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
 							}else{
