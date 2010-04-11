@@ -124,11 +124,10 @@
 					$status1="";
 					$status2="";
 					$status3="";
-
 				$wp_status = isset($_POST['status']) ? $_POST['status'] : '';
-					if ($wp_status ==1) {$status1="checked";}
-					if ($wp_status ==2) {$status2="checked";}
-					if ($wp_status ==3) {$status3="checked";}					
+					if ($wp_status==1) {$status1="checked";}
+					if ($wp_status==2) {$status2="checked";}
+					if ($wp_status==3) {$status3="checked";}					
 					tpl_set_var("checked1", $status1);
 					tpl_set_var("checked2", $status2);
 					tpl_set_var("checked3", $status3);				
