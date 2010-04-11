@@ -108,9 +108,9 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
 		</groundspeak:travelbug> 
 		';
 		
-$gpxWaypoints = '<rtept lat="wp_lat" lon="wp_lon">
+$gpxWaypoints = '<rtept lat="{wp_lat}" lon="{wp_lon}">
 	<desc>{wp_desc}</desc>
-    <sym>{wp_type}/sym>
+    <sym>{wp_type}</sym>
     <name><![CDATA[Etap {wp_stage}]]></name>
     </rtept>
 		';
@@ -481,22 +481,22 @@ $gpxWaypoints = '<rtept lat="wp_lat" lon="wp_lon">
 			$thisline = str_replace('{geokrety}', $geokrety, $thisline);
 // Waypoints
 			$waypoints = '';
-			$rswp = sql("SELECT  `longitude`, `latitude`,`desc`,`stage`, `type`, `status` FROM `waypoints` WHERE  `waypoints`.`cache_id`=&1 ORDER BY `waypoints`.`stage` DESC, `waypoints`.`wp_id` DESC", $r['cacheid']); // adam: removed LIMIT 20
+			$rswp = sql("SELECT  `longitude`, `latitude`,`desc`,`stage`, `type`, `status` FROM `waypoints` WHERE  `waypoints`.`cache_id`=&1 ORDER BY `waypoints`.`stage`", $r['cacheid']); 
 			if (mysql_num_rows($rswp) != 0) {$waypoints ='<rte><name>'.cleanup_text($r['name']).'</name>';}
-			while ($rwp = sql_fetch_array($rswps))
+			while ($rwp = sql_fetch_array($rswp))
 			{
-			if ($rwp['status'] ==1) {
+			if ($rwp['status']==1) {
 				$thiswp = $gpxWaypoints;
 				$lat = sprintf('%01.5f', $rwp['latitude']);
 				$thiswp = str_replace('{wp_lat}', $lat, $thiswp);		
 				$lon = sprintf('%01.5f', $rwp['longitude']);
 				$thiswp = str_replace('{wp_lon}', $lon, $thiswp);
-				$thiswp = str_replace('{wp_stage}', $rwp['stage'], $thiswp);					
-				$thiswp = str_replace('{{desc}}', cleanup_text($rwp['desc']), $thiswp);
-				if ($rwp['type)'] == 1) {$thiswp = str_replace('{wp_type}',"Parking Area", $thiswp);
-				if ($rwp['type)'] == 2) {$thiswp = str_replace('{wp_type}',"Flag, Green", $thiswp);
-				if ($rwp['type)'] == 3) {$thiswp = str_replace('{wp_type}',"Flag, Blue", $thiswp);
-				if ($rwp['type)'] == 4) {$thiswp = str_replace('{wp_type}',"Flag, Red", $thiswp);
+				$thiswp = str_replace('{wp_stage}', $rwp['stage'], $thiswp);		
+				$thiswp = str_replace('{wp_desc}', cleanup_text($rwp['desc']), $thiswp);					
+				if ($rwp['type']==1){$thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);}
+				if ($rwp['type']==2){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
+				if ($rwp['type']==3){$thiswp = str_replace('{wp_type}', "Flag, Red", $thiswp);}
+				if ($rwp['type']==4){$thiswp = str_replace('{wp_type}', "Flag, Blue", $thiswp);}
 				$waypoints .= $thiswp . "\n";
 				}
 			}
