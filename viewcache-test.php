@@ -685,7 +685,7 @@ NAME
 						$wp_record = sql_fetch_array($wp_rs);
 						if ($wp_record['status'] == 1)
 						{
-							$coords_lat_lon = "<a href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=".$wp_record['latitude']."&amp;lon=".$wp_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc']." Waypoint", ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1')\">".mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude'])." <br /> ".help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'))."</a>";
+							$coords_lat_lon = "<a href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=".$wp_record['latitude']."&amp;lon=".$wp_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">".mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8')." <br> ".htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'))."</a>";
 						}
 						if ($wp_record['status'] == 2)
 						{
