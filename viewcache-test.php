@@ -667,36 +667,49 @@ tpl_set_var('dziubek2',"");
 //			if (mysql_num_rows($wp_rs) == 1 && $wp_record['status'] == 3) {tpl_set_var('waypoints_content', '<br />');} else {
 			if (mysql_num_rows($wp_rs) != 0)
 			{	
-
-						$waypoints = '<table cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
-						$waypoints .= '<tr><td align="center" valign="middle" width="30"><b>Etap</b></td><td align="center" valign="middle" width="40">&nbsp;<b>Symbol</b>&nbsp;</td><td align="center" valign="middle" width="40">&nbsp;<b>Typ</b>&nbsp;</td><td width="50" align="center" valign="middle">&nbsp;<b>Współrzędne</b>&nbsp;</td><td align="center" valign="middle"><b>Opis</b></td></tr>';
-						for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
+				$waypoints = '<table cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
+				$waypoints .= '<tr><td align="center" valign="middle" width="30"><b>Etap</b></td>
+				<td align="center" valign="middle" width="40">&nbsp;<b>Symbol</b>&nbsp;</td>
+				<td align="center" valign="middle" width="40">&nbsp;<b>Typ</b>&nbsp;</td>
+				<td width="50" align="center" valign="middle">&nbsp;<b>Współrzędne</b>&nbsp;</td>
+				<td align="center" valign="middle"><b>Opis</b></td></tr>';
+				for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
+				{
+/*
+$coords_other = "<a href=\"#\" onclick=\"javascript:window.open('http://opencaching.pl/coordinates.php?lat=".$wp_record['latitude']."&amp;lon=".$wp_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1')\">".tr('coords_other')."</a>";
+*/
+					if ($wp_record['status'] != 3)
+					{
+						$tmpline1 = $wpline;
+						$wp_record = sql_fetch_array($wp_rs);
+						if ($wp_record['status'] == 1)
 						{
-							if ($wp_record['status'] != 3){
-							$tmpline1 = $wpline;
-							$wp_record = sql_fetch_array($wp_rs);
-							if ($wp_record['status'] == 1){
 							$coords_lat = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
 							$coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
-							}
-							if ($wp_record['status'] == 2){
+						}
+						if ($wp_record['status'] == 2)
+						{
 							$coords_lat = "&nbsp;??.?????";
 							$coords_lon = "&nbsp;??.?????";
-							}
-							$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{lon}', "&nbsp;&nbsp;".$coords_lon."&nbsp;&nbsp;", $tmpline1);
-							$tmpline1 = mb_ereg_replace('{lat}', "&nbsp;&nbsp;".$coords_lat."&nbsp;&nbsp;", $tmpline1);
-							$tmpline1 = mb_ereg_replace('{desc}', "&nbsp;&nbsp;".$wp_record['desc']."&nbsp;&nbsp;", $tmpline1);
-							$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
-							if ($wp_record['stage']==0) {$tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
-							}else{
-							$tmpline1 = mb_ereg_replace('{number}',$wp_record['stage'], $tmpline1);}
-						
-							$waypoints .= $tmpline1;
-							}
-							}
-							$waypoints .= '</table>';
+						}
+						$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+						$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+						$tmpline1 = mb_ereg_replace('{lon}', "&nbsp;&nbsp;".$coords_lon."&nbsp;&nbsp;", $tmpline1);
+						$tmpline1 = mb_ereg_replace('{lat}', "&nbsp;&nbsp;".$coords_lat."&nbsp;&nbsp;", $tmpline1);
+						$tmpline1 = mb_ereg_replace('{desc}', "&nbsp;&nbsp;".$wp_record['desc']."&nbsp;&nbsp;", $tmpline1);
+						$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
+						if ($wp_record['stage']==0)
+						{
+							$tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
+						}
+						else
+						{
+							$tmpline1 = mb_ereg_replace('{number}',$wp_record['stage'], $tmpline1);
+						}
+						$waypoints .= $tmpline1;
+					}
+				}
+				$waypoints .= '</table>';
 				tpl_set_var('waypoints_content', $waypoints);
 				tpl_set_var('waypoints_start', '');
 				tpl_set_var('waypoints_end', '');
