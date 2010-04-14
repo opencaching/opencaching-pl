@@ -708,8 +708,8 @@ a.links3:hover {
     border: 1px solid black;
 }
 #gradient th {
-    background-color: #00c000;
-    background-image: url(images/gradient.png);
+    background-color: #a4d9ff;
+    background-image: url(/images/gradient.png);
     background-repeat: repeat-x;
     background-position: top left;
 }
