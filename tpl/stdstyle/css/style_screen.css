@@ -700,4 +700,17 @@ a.links3:hover {
 	text-decoration: none;
 }
 
+/* Gradien stylee */
+#gradient {
+    border-collapse: collapse;
+}
+#gradient td, #gradient th {
+    border: 1px solid black;
+}
+#gradient th {
+    background-color: #00c000;
+    background-image: url(images/gradient.png);
+    background-repeat: repeat-x;
+    background-position: top left;
+}
 
