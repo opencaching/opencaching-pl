@@ -666,12 +666,12 @@ tpl_set_var('dziubek2',"");
 //			if (mysql_num_rows($wp_rs) == 1 && $wp_record['status'] == 3) {tpl_set_var('waypoints_content', '<br />');} else {
 			if (mysql_num_rows($wp_rs) != 0)
 			{	
-				$waypoints = '<table cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
-				$waypoints .= '<tr><td align="center" valign="middle" width="30"><b>Etap</b></td>
-				<td align="center" valign="middle" width="40">&nbsp;<b>Symbol</b>&nbsp;</td>
-				<td align="center" valign="middle" width="40">&nbsp;<b>Typ</b>&nbsp;</td>
-				<td width="50" align="center" valign="middle">&nbsp;<b>Współrzędne</b>&nbsp;</td>
-				<td align="center" valign="middle"><b>Opis</b></td></tr>';
+				$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
+				$waypoints .= '<tr><th align="center" valign="middle" width="30"><b>Etap</b></th>
+				<th align="center" valign="middle" width="40">&nbsp;<b>Symbol</b>&nbsp;</th>
+				<th align="center" valign="middle" width="40">&nbsp;<b>Typ</b>&nbsp;</th>
+				<th width="50" align="center" valign="middle">&nbsp;<b>Współrzędne</b>&nbsp;</th>
+				<th align="center" valign="middle"><b>Opis</b></th></tr>';
 				for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
 				{
 /*
