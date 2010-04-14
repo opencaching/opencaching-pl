@@ -709,6 +709,7 @@ a.links3:hover {
 }
 #gradient th {
     background-color: #a4d9ff;
+    color: #000000;
     background-image: url(/images/gradient.png);
     background-repeat: repeat-x;
     background-position: top left;
