@@ -36,7 +36,7 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><div class="notice" style="width:300px;height:44px;">Numer etapu, jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0</div>
+		<td><div class="notice" style="width:400px;height:44px;">Numer etapu, jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0. Pośrednie etapy np dla etapu nr 2  można numerować np 2A, 2B, 2C gdzie cyfra poprzedzjąca litere jest numerem głównego etapu.</div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
