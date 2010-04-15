@@ -596,7 +596,7 @@ caches_waiting_approve Moje skrzynki oczekujące na weryfikacje przez OC Team
 caches_blocked Moje skrzynki zablokowane przez OC Team
 blocked_create_caches UWAGA! Masz zablokowaną możliwość zakładania nowych skrzynek. Proszę kontaktować się z OC Team rr@opencaching.pl
 npa_info Prawdopodobnie skrzynka znajduje się na obszarze
-check_nearby_caches_info Przed założeniem skrzynki sprawdź czy w planowanym miejscu nie ma już założonych <br />skrzynek w promieniu 150 m, jeśli są już poszukaj innego ciekawego miejsca na skrzynke.
+check_nearby_caches_info Przed założeniem skrzynki sprawdź czy w planowanym miejscu nie ma już założonych <br />skrzynek w promieniu 150 m, jeśli są już  prosimy rozważ czy nie warto poszukać innego ciekawego miejsca.
 check_nearby_caches Sprawdź czy są już skrzynki w okolicy na OC PL
 check_nearby_caches_map Sprawdź czy są już skrzynki w okolicy na Mapie&nbsp;
 my_caches_status Moje skrzynki o statusie
