@@ -124,7 +124,7 @@
 					$status1="";
 					$status2="";
 					$status3="";
-				$wp_status = isset($_POST['status']) ? $_POST['status'] : '';
+				$wp_status = isset($_POST['status']) ? $_POST['status'] : '1';
 					if ($wp_status==1) {$status1="checked";}
 					if ($wp_status==2) {$status2="checked";}
 					if ($wp_status==3) {$status3="checked";}					
