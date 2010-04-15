@@ -661,17 +661,25 @@ tpl_set_var('dziubek2',"");
 
 			// show additional waypoints
 			//
-			$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
-
-//			if (mysql_num_rows($wp_rs) == 1 && $wp_record['status'] == 3) {tpl_set_var('waypoints_content', '<br />');} else {
-			if (mysql_num_rows($wp_rs) != 0)
+			$waypoints_visible=0;
+			$wp_rsc = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
+			if (mysql_num_rows($wp_rsc) != 0)
 			{	
+							// check status all waypoints 
+							for ($i = 0; $i < mysql_num_rows($wp_rsc); $i++)
+							{ $wp_check = sql_fetch_array($wp_rsc);
+							 if ($wp_check['status'] ==1) { $waypoints_visible=1;}
+							 }
+				if ($waypoints_visible !=0) {			 
 				$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
 				$waypoints .= '<tr><th align="center" valign="middle" width="30"><b>Etap</b></th>
 				<th align="center" valign="middle" width="40">&nbsp;<b>Symbol</b>&nbsp;</th>
 				<th align="center" valign="middle" width="40">&nbsp;<b>Typ</b>&nbsp;</th>
 				<th width="50" align="center" valign="middle">&nbsp;<b>Współrzędne</b>&nbsp;</th>
-				<th align="center" valign="middle"><b>Opis</b></th></tr>';
+				<th align="center" valign="middle"><b>Opis</b></th></tr>';} 
+				
+				$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
+
 				for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
 				{
 /*
@@ -708,10 +716,16 @@ NAME
 						$waypoints .= $tmpline1;
 					}
 				}
-				$waypoints .= '</table>';
+				if ($waypoints_visible !=0) {	$waypoints .= '</table>';
 				tpl_set_var('waypoints_content', $waypoints);
 				tpl_set_var('waypoints_start', '');
 				tpl_set_var('waypoints_end', '');
+
+					} else {
+				tpl_set_var('waypoints_content', '<br />');
+				tpl_set_var('waypoints_start', '<!--');
+				tpl_set_var('waypoints_end', '-->');
+							}
 			}
 			else
 			{
