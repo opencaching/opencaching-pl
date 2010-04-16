@@ -59,6 +59,8 @@
 							//remove 
 							sql("DELETE FROM `cache_notes` WHERE `note_id`='&1'", $note_id);
 							tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
+							mysql_free_result($cache_rs);
+							mysql_free_result($note_rs);
 							exit;
 						}
 
@@ -70,15 +72,14 @@
 				tpl_set_var('desc_message', '');
 				tpl_set_var('general_message', '');
 
-				
-				$note_html = isset($_POST['checked']) ? $_POST['checked']:'';
-	echo $note_html;
-				if ($note_html==0) {$checked="";}else{$checked="checked";}
-				tpl_set_var('checked',$checked);					
+				$note_record['display'] = isset($_REQUEST['notehtml']) ? $_REQUEST['notehtml'] : 0;
+				if($note_record['desc_html'] == 0) $note_record['desc_html'] = 1; else $note_record['desc_html'] = 0; // reverse				
+		
+					
 				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : $note_record['desc'];
 
 				if ($note_desc != ''){
-				if ($note_html == 0)
+				if ($note_record['desc_html'] == 0)
 				$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
 				else
 				{
@@ -104,7 +105,7 @@
 					else
 					{
 						$descnote_not_ok = false;
-						if ($newshtml == 0)
+						if ($note_record['desc_html'] == 0)
 						$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
 						else
 						{
@@ -119,10 +120,12 @@
 						{
 
 							//save to DB
-							sql("UPDATE `cache_notes` SET  `desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$note_desc, $note_html,$note_id);
+							sql("UPDATE `cache_notes` SET  `desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$note_desc, (($note_record['desc_html'] == 1) ? '1' : '0'),$note_id);
 
 							//display cache-page
 							tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
+							mysql_free_result($cache_rs);
+							mysql_free_result($note_rs);
 							exit;
 						}	
 					}				
@@ -132,9 +135,10 @@
 						tpl_set_var('general_message', "");
 						tpl_set_var("cacheid", htmlspecialchars($note_record['cache_id']));
 						tpl_set_var("noteid", htmlspecialchars($note_record['note_id']));
-						tpl_set_var('newshtml', $note_html);
+						tpl_set_var('checked', $note_record['desc_html'] == '0' ? 'checked' : '');
 				}							
 			mysql_free_result($cache_rs);
+			mysql_free_result($note_rs);
 
 		}	
 

@@ -22,11 +22,10 @@
 		<td valign="top" class="content-title-noshade">Treść notatki:</td>
 		<td class="content-title-noshade">
 		<textarea name="desc" rows="10" cols="80">{desc}</textarea>{desc_message}</td>
-	</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr><td valign="top" class="content-title-noshade">&nbsp;</td>
-	<td valign="top"><input type="checkbox" name="newshtml" id="newshtml" value="{newshtml}" {checked} style="border:0;" /> <label for="newshtml"><b>Treść notatki zawiera kod HTML</b></label></td></tr>
+	<td valign="top"><input type="checkbox" name="notehtml" id="notehtml" value="1" {checked} style="border:0;" /> <label for="notehtml"><b>Treść notatki zawiera kod HTML</b></label></td></tr>
 
 
 <tr><td class="buffer" colspan="2"></td></tr>
