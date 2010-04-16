@@ -26,14 +26,14 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr><td valign="top" class="content-title-noshade">&nbsp;</td>
-	<td valign="top"><input type="checkbox" name="newshtml" id="newshtml" value="{newshtml}" style="border:0;" /> <label for="newshtml"><b>Treść notatki zawiera kod HTML</b></label></td></tr>
+	<td valign="top"><input type="checkbox" name="newshtml" id="newshtml" value="{newshtml}" {checked} style="border:0;" /> <label for="newshtml"><b>Treść notatki zawiera kod HTML</b></label></td></tr>
 
 
 <tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
 			<button type="submit" name="delete" value="delete" style="font-size:14px;width:140px"><b>Usuń notatkę</b></button> &nbsp;&nbsp;
-			<button type="submit" name="submitform" value="submit" style="font-size:14px;width:140px"><b>Dodaj notatkę</b></button>
+			<button type="submit" name="submit" value="submit" style="font-size:14px;width:140px"><b>Zapisz notatkę</b></button>
 		<br /><br /></td>
 	</tr>
 
