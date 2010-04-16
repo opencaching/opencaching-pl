@@ -35,7 +35,7 @@
 			$note_id = $_POST['noteid'];				
 			$remove = 1;
 			}
-			$note_rs = sql("SELECT `note_id`, `cache_id`, `date`, `desc_html`, `desc` FROM `cache_notes`  WHERE `note_id`='&1'", $note_id);
+			$note_rs = sql("SELECT `note_id`, `cache_id`, `user_id`,`date`, `desc_html`, `desc` FROM `cache_notes`  WHERE `note_id`='&1'", $note_id);
 			if (mysql_num_rows($note_rs) == 1)
 			{	
 			$note_record = sql_fetch_array($note_rs);
@@ -48,7 +48,7 @@
 
 			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));	
 
-			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
+			if ($note_record['user_id'] == $usr['userid'] || $usr['admin'])
 			{
 				
 				$cache_id = isset($_POST['cacheid']) ? $_POST['cacheid'] : $note_record['cache_id'];
@@ -71,14 +71,14 @@
 				tpl_set_var('general_message', '');
 
 				
-				$newshtml = isset($_POST['newshtml']) ? $_POST['newshtml'] : $note_record['desc_html'];
-				tpl_set_var('newshtml', $newshtml);
-				if ($newshtml==0) {$checked="";}else{$checked="checked";}
+				$note_html = isset($_POST['checked']) ? $_POST['checked']:'';
+	echo $note_html;
+				if ($note_html==0) {$checked="";}else{$checked="checked";}
 				tpl_set_var('checked',$checked);					
 				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : $note_record['desc'];
 
 				if ($note_desc != ''){
-				if ($newshtml == 0)
+				if ($note_html == 0)
 				$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
 				else
 				{
@@ -117,8 +117,9 @@
 					//no errors?
 					if (!($descnote_not_ok))
 						{
+
 							//save to DB
-							sql("UPDATE `cache_notes` SET  `desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$note_desc, $newshtml,$note_id);
+							sql("UPDATE `cache_notes` SET  `desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$note_desc, $note_html,$note_id);
 
 							//display cache-page
 							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
@@ -131,6 +132,7 @@
 						tpl_set_var('general_message', "");
 						tpl_set_var("cacheid", htmlspecialchars($note_record['cache_id']));
 						tpl_set_var("noteid", htmlspecialchars($note_record['note_id']));
+						tpl_set_var('newshtml', $note_html);
 				}							
 			mysql_free_result($cache_rs);
 
