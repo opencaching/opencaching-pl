@@ -72,9 +72,8 @@
 				tpl_set_var('desc_message', '');
 				tpl_set_var('general_message', '');
 
-				$note_record['display'] = isset($_REQUEST['notehtml']) ? $_REQUEST['notehtml'] : 0;
-				if($note_record['desc_html'] == 0) $note_record['desc_html'] = 1; else $note_record['desc_html'] = 0; // reverse				
-		
+				$note_record['desc_html'] = isset($_REQUEST['notehtml']) ? $_REQUEST['notehtml'] : 0;
+				if($note_record['desc_html'] == 0) $note_record['desc_html'] = 1; else $note_record['desc_html'] = 0; // reverse						
 					
 				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : $note_record['desc'];
 
