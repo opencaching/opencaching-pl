@@ -23,19 +23,15 @@
 		<textarea name="desc" rows="10" cols="80">{desc}</textarea>{desc_message}</td>
 	</td>
 	</tr>
-<tr><td><input type="checkbox" name="newshtml" id="newshtml" value="1" style="border:0;" {newshtml} /> <label for="newshtml">Treść zawiera kod HTML</label></td></tr>
-<tr>
-	<td>
-		<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Hinweis" title="Hinweis" align="middle" />
-		<span style="color:#666666; font-size:10px;">
-		</span>
-	</td>
-</tr>
+	<tr><td class="buffer" colspan="2"></td></tr>
+	<tr><td valign="top" class="content-title-noshade">&nbsp;</td>
+	<td valign="top"><input type="checkbox" name="newshtml" id="newshtml" value="1" style="border:0;" {newshtml} /> <label for="newshtml"><b>Treść notatki zawiera kod HTML</b></label></td></tr>
+
 
 <tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<button type="submit" name="submitform" value="submit" style="font-size:14px;width:140px"><b>Dodaj notatke</b></button>
+			<button type="submit" name="submitform" value="submit" style="font-size:14px;width:140px"><b>Dodaj notatkę</b></button>
 		<br /><br /></td>
 	</tr>
 
