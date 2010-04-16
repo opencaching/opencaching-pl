@@ -30,7 +30,7 @@
 			//get user record
 			$user_id = $usr['userid'];
 			tpl_set_var('userid',$user_id);	
-			tpl_set_var('no_notes_message', '');	
+
 
 			$notes_rs = sql("SELECT `cache_notes`.`note_id` `note_id`, `cache_notes`.`cache_id` `cacheid`,`cache_notes`.`date` `date`, `cache_notes`.`desc` `desc`, caches.name cache_name FROM `cache_notes`, caches  WHERE caches.user_id=&1 AND cache_notes.cache_id=caches.cache_id GROUP BY `cacheid` ORDER BY `date`,`cacheid`,`note_id`",$user_id);
 			if (mysql_num_rows($notes_rs) != 0)
@@ -51,7 +51,7 @@
 					}
 					else
 					{
-					tpl_set_var('no_notes_message', $no_notes);
+					tpl_set_var('notes_content', $no_notes);
 					}			
 
 
