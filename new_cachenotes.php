@@ -45,14 +45,25 @@
 			{
 			$tplname = 'new_cachenotes';
 
-		    	require_once($rootpath . 'lib/caches.inc.php');
+
 				require_once($stylepath . '/newcache.inc.php');
 				//set template replacements
 				tpl_set_var('desc_message', '');
 				tpl_set_var('general_message', '');
 
-				$note_desc = isset($_POST['desc']) ? $_POST['desc'] : '';
-				tpl_set_var('desc', htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8'));
+				$newshtml = isset($_POST['newshtml']) ? $_POST['newshtml'] : 0;
+				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : '';
+				if ($note_desc != ''){
+				if ($newshtml == 0)
+				$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
+				else
+				{
+				require_once($rootpath . 'lib/class.inputfilter.php');
+				$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+				$note_desc = $myFilter->process($note_desc);
+					}
+				}
+				tpl_set_var('desc', $note_desc);
 				
 				
 				if (isset($_POST['submitform']))
@@ -89,7 +100,7 @@
 										`date`,
 										`desc`
 										) VALUES (
-										'', '&1', NOW(), '&3')",
+										'', '&1', NOW(), '&2')",
 										$cache_id,
 										$note_desc);
 					
