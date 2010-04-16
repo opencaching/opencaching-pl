@@ -97,7 +97,7 @@
 					//desc
 					if ($note_desc == '')
 					{
-						tpl_set_var('desc_message', $descnote_not_ok_message);
+						tpl_set_var('desc_message', $descwp_not_ok_message);
 						$error = true;
 						$descnote_not_ok = true;
 					}

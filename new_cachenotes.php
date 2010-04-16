@@ -52,6 +52,10 @@
 				tpl_set_var('general_message', '');
 
 				$newshtml = isset($_POST['newshtml']) ? $_POST['newshtml'] : 0;
+				tpl_set_var('newshtml', $newshtml);
+				if ($newshtml==0) {$checked="";}else{$checked="checked";}
+				tpl_set_var('checked',$checked);
+
 				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : '';
 				if ($note_desc != ''){
 				if ($newshtml == 0)
@@ -73,7 +77,7 @@
 					//desc
 					if ($note_desc == '')
 					{
-						tpl_set_var('desc_message', $descnote_not_ok_message);
+						tpl_set_var('desc_message', $descwp_not_ok_message);
 						$error = true;
 						$descnote_not_ok = true;
 					}
