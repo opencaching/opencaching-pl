@@ -11,7 +11,7 @@
 
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-	$no_tpl_build = false;	
+
 	//Preprocessing
 	if ($error == false)
 	{
@@ -24,26 +24,45 @@
 		else
 		{
 
-			//New Waypoint
-			if (isset($_REQUEST['cacheid']))
+			//Edit Waypoint
+			if (isset($_REQUEST['noteid']))
 			{
-			$cache_id = $_REQUEST['cacheid'];			
+			$note_id = $_REQUEST['noteid'];			
 			}
-			if (isset($_POST['cacheid']))
+			$remove = 0;
+			if (isset($_POST['delete']))
 			{
-			$cache_id = $_POST['cacheid'];			
+			$note_id = $_POST['noteid'];				
+			$remove = 1;
 			}
-			tpl_set_var("cacheid", $cache_id);			
-			
+			$note_rs = sql("SELECT `note_id`, `cache_id`, `date`, `desc_html`, `desc` FROM `cache_notes`  WHERE `note_id`='&1'", $note_id);
+			if (mysql_num_rows($note_rs) == 1)
+			{	
+			$note_record = sql_fetch_array($note_rs);
+			$cache_id = $note_record['cache_id'];
+
+			}
 			$cache_rs = sql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
-			if (mysql_num_rows($cache_rs) == 1)
-			{
-				$cache_record = sql_fetch_array($cache_rs);
+
+			$cache_record = sql_fetch_array($cache_rs);
 
 			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));	
+
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 			{
-			$tplname = 'new_cachenotes';
+				
+				$cache_id = isset($_POST['cacheid']) ? $_POST['cacheid'] : $note_record['cache_id'];
+				$note_id = isset($_POST['noteid']) ? $_POST['noteid'] : $note_record['note_id'];	
+
+				if ($remove == 1)
+						{							
+							//remove 
+							sql("DELETE FROM `cache_notes` WHERE `note_id`='&1'", $note_id);
+							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+							exit;
+						}
+
+				$tplname = 'edit_cachenotes';
 
 
 				require_once($stylepath . '/newcache.inc.php');
@@ -51,8 +70,13 @@
 				tpl_set_var('desc_message', '');
 				tpl_set_var('general_message', '');
 
-				$newshtml = isset($_POST['newshtml']) ? $_POST['newshtml'] : 0;
-				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : '';
+				
+				$newshtml = isset($_POST['newshtml']) ? $_POST['newshtml'] : $note_record['desc_html'];
+				tpl_set_var('newshtml', $newshtml);
+				if ($newshtml==0) {$checked="";}else{$checked="checked";}
+				tpl_set_var('checked',$checked);					
+				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : $note_record['desc'];
+
 				if ($note_desc != ''){
 				if ($newshtml == 0)
 				$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
@@ -66,7 +90,7 @@
 				tpl_set_var('desc', $note_desc);
 				
 				
-				if (isset($_POST['submitform']))
+				if (isset($_POST['submit']))
 				{
 				//check the entered data
 
@@ -92,38 +116,29 @@
 
 					//no errors?
 					if (!($descnote_not_ok))
-					{
-						//add record 
-						sql("INSERT INTO `cache_notes` (
-										`note_id`,
-										`cache_id`,
-										`date`,
-										`desc`
-										) VALUES (
-										'', '&1', NOW(), '&2')",
-										$cache_id,
-										$note_desc);
-					
-					tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
-					// end of insert to sql
-					}else
-					{
+						{
+							//save to DB
+							sql("UPDATE `cache_notes` SET  `desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$note_desc, $newshtml,$note_id);
+
+							//display cache-page
+							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+							exit;
+						}	
+					}				
+						if( $descnote_not_ok)
 						tpl_set_var('general_message', $error_general);
-					}
-				
-					// end submit
+					else
+						tpl_set_var('general_message', "");
+						tpl_set_var("cacheid", htmlspecialchars($note_record['cache_id']));
+						tpl_set_var("noteid", htmlspecialchars($note_record['note_id']));
 				}							
 			mysql_free_result($cache_rs);
-			}
-			else { 	$no_tpl_build = true;}
-			}	
-		}
+
+		}	
+
 		
 	}
-	
-	if ($no_tpl_build == false)
-	{
-		//make the template and send it out
+
 		tpl_BuildTemplate();
-	}
+
 ?>
