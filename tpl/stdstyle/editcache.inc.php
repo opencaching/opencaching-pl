@@ -51,7 +51,7 @@ $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
 	$mp3line = '<tr><td colspan="2"><img src="tpl/stdstyle/images/free_icons/sound.png" class="icon32" alt=""  />&nbsp;<a href="{link}">{title}</a>&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" border="0" alt="" title="" /> [<a href="editmp3.php?uuid={uuid}">'.$edit.'</a>] <img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="" />[<a href="removemp3.php?uuid={uuid}">'.$remove.'</a>]</td></tr>';
 	$mp3lines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';
 
-	$no_notes = '<tr><td colspan="2"><div class="notice">Brak notatek. Notatkę dla skrzynki można dołożyć w ramach edycji skrzynki.</div></td></tr>';
+	$no_notes = '<tr><td colspan="2"><div class="notice">Brak notatek.</div></td></tr>';
 	$nowp = '<tr><td colspan="2"><div class="notice">Nie ma dodatkowych Waypoints dla skrzynki</div></td></tr>';
 	$wpline='<tr><td align="center" valign="middle"><center>{number}</center></td><td align="center" valign="middle"><img src="{wp_icon}" alt="" title="{type}" /></td><td align="center" valign="middle">{type}</td><td align="center" valign="middle"><b><span style="color: rgb(88,144,168)">{lat}<br />{lon}</span></b></td><td align="center" valign="middle">{desc}</td><td align="center" valign="middle"><center><img src="{status}" alt="" title="Status" /></center></td><td align="center" valign="middle"><center><a class="links" href="editwp.php?wpid={wpid}"><img src="images/actions/edit-16.png" alt="" title="Edit WP" /></a></center></td></tr>';
 

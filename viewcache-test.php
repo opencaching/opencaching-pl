@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-																./viewcache.php
-															-------------------
-		begin                : June 24 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -22,10 +14,6 @@
    Unicode Reminder ăĄă˘
 
 	 view a cache
-
-	 used template(s): viewcache, viewcache_error
-
-	 GET Parameter: cacheid[, desc_lang][, nocrypt]
 
  ****************************************************************************/
   //prepare the templates and include all neccessary
@@ -541,14 +529,16 @@ tpl_set_var('dziubek2',"");
 			tpl_set_var('total_number_of_logs', htmlspecialchars($cache_record['notes'] + $cache_record['notfounds'] + $cache_record['founds'], ENT_COMPAT, 'UTF-8'));
 
 			// number of cache notes
-			$crs = sql("SELECT COUNT(*) as `count` FROM `cache_notes` WHERE `cache_id`='&1' AND user_id='&2'", $cache_id, $usr['user_id']);
-			if (mysql_num_rows($crs) == 0)
+			$crs = sql("SELECT COUNT(*) as `count` FROM `cache_notes` WHERE (`cache_id`='&1' AND user_id='&2')", $cache_id, $usr['userid']);
+			if (mysql_num_rows($crs) == 0){
 				tpl_set_var('cache_notes', '0');
-			else
-			{
-				$cachenotes_record = sql_fetch_array($crs);
+				} else {				
+				echo $cachenotes_record['count'];
 				tpl_set_var('cache_notes', $cachenotes_record['count']);
 			}
+			tpl_set_var('cachenotes_link', '<a class="links" href="cache_notes.php?cacheid='.$cache_id.'">'.tr('cachenotes').'</a>');
+
+			mysql_free_result($crs);
 			tpl_set_var('watcher', $cache_record['watcher'] + 0);
 			tpl_set_var('ignorer_count', $cache_record['ignorer_count'] + 0);
 			tpl_set_var('votes_count', $cache_record['votes_count'] + 0);
