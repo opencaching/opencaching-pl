@@ -115,7 +115,8 @@ vertical-align: middle;">{type}</td><td align="left" valign="middle"><b><span st
 $found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}" />';
 $notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />';
 $note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{comment}}" />';
-$vote_icon = '<img src="tpl/stdstyle/images/action/16x16-addscore.png" class="icon16" alt="" />';
+$notes_icon = '<img src="tpl/stdstyle/images/free_icons/note.png" class="icon16" alt="" />';
+$vote_icon = '<img src="tpl/stdstyle/images/free_icons/medal_bronze_1.png" class="icon16" alt="" />';
 $gk_icon = '<img src="images/gk.png" class="icon16" alt="" title="GeoKrety visited" />';
 $score_icon = '<img src="images/cache-rate.png" class="icon16" alt="" />';
 $watch_icon = '<img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="" />';

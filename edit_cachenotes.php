@@ -58,7 +58,7 @@
 						{							
 							//remove 
 							sql("DELETE FROM `cache_notes` WHERE `note_id`='&1'", $note_id);
-							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+							tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
 							exit;
 						}
 
@@ -122,7 +122,7 @@
 							sql("UPDATE `cache_notes` SET  `desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$note_desc, $note_html,$note_id);
 
 							//display cache-page
-							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+							tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
 							exit;
 						}	
 					}				

@@ -808,29 +808,6 @@
 					tpl_set_var('cache_wp_list', $nowp);
 					}
 
-
-
-			$notes_rs = sql("SELECT `cache_notes`.`note_id` `note_id`, `cache_notes`.`date` `date`, `cache_notes`.`desc` `desc` FROM `cache_notes` WHERE cache_id=&1 ORDER BY `date`,`note_id`",$cache_id);
-			if (mysql_num_rows($notes_rs) != 0)
-			{	
-						$notes = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
-						$notes .= '<tr><th width="40"><b>Data</b></th><th><b>Treść notatki</b></th><th width="22"><b>Edycja</b></th></tr>';
-						for ($i = 0; $i < mysql_num_rows($notes_rs); $i++)
-							{
-							
-							$notes_record = sql_fetch_array($notes_rs);
-
-							$notes .= '<td align="center" valign="middle"><center></center>'.date("d-m-Y", strtotime($notes_record['date'])). '</td><td>'.$notes_record['desc'].'</td><td align="center" valign="middle"><center><a class="links" href="edit_cachenotes.php?noteid='.$notes_record['note_id'].'"><img src="images/actions/edit-16.png" alt="" title="Edit WP" /></a></center></td></tr>';
-							}
-							$notes .= '</table>';
-
-						mysql_free_result($notes_rs);
-						tpl_set_var('notes_content', $notes);
-					}
-					else
-					{
-					tpl_set_var('notes_content', $no_notes);
-					}			
 					
 
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));

@@ -540,20 +540,21 @@ tpl_set_var('dziubek2',"");
 			tpl_set_var('notes', htmlspecialchars($cache_record['notes'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('total_number_of_logs', htmlspecialchars($cache_record['notes'] + $cache_record['notfounds'] + $cache_record['founds'], ENT_COMPAT, 'UTF-8'));
 
-			// number of watchers
-//			$rs = sql("SELECT COUNT(*) as `count` FROM `cache_watches` WHERE `cache_id`='&1'", $cache_id);
-//			if (mysql_num_rows($rs) == 0)
-//				tpl_set_var('watcher', '0');
-//			else
-//			{
-//				$watcher_record = sql_fetch_array($rs);
-//				tpl_set_var('watcher', $watcher_record['count']);
-//			}
+			// number of cache notes
+			$crs = sql("SELECT COUNT(*) as `count` FROM `cache_notes` WHERE `cache_id`='&1' AND user_id='&2'", $cache_id, $usr['user_id']);
+			if (mysql_num_rows($crs) == 0)
+				tpl_set_var('cache_notes', '0');
+			else
+			{
+				$cachenotes_record = sql_fetch_array($crs);
+				tpl_set_var('cache_notes', $cachenotes_record['count']);
+			}
 			tpl_set_var('watcher', $cache_record['watcher'] + 0);
 			tpl_set_var('ignorer_count', $cache_record['ignorer_count'] + 0);
 			tpl_set_var('votes_count', $cache_record['votes_count'] + 0);
 
 			tpl_set_var('note_icon', $note_icon);
+			tpl_set_var('notes_icon', $notes_icon);
 			tpl_set_var('vote_icon', $vote_icon);
 			tpl_set_var('gk_icon', $gk_icon);
 			tpl_set_var('watch_icon', $watch_icon);
@@ -1136,6 +1137,15 @@ NAME
 							'newwindow' => false,
 							'siteid' => 'new_log',
 							'icon' => 'images/actions/new-entry'
+						),
+						array(
+							'title' => 'Notatka',
+							'menustring' => 'Notatka',
+							'visible' => true,
+							'filename' => 'new_cachenotes.php?cacheid='.$cache_id,
+							'newwindow' => false,
+							'siteid' => 'cache_notes',
+							'icon' => 'images/actions/list-add'
 						),
 						array(
 							'title' => $watch_label,
