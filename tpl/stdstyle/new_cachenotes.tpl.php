@@ -25,7 +25,7 @@
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr><td valign="top" class="content-title-noshade">&nbsp;</td>
-	<td valign="top"><input type="checkbox" name="newshtml" id="newshtml" value="1" style="border:0;" {newshtml} /> <label for="newshtml"><b>Treść notatki zawiera kod HTML</b></label></td></tr>
+	<td valign="top"><input type="checkbox" name="notehtml" id="notehtml" value="1" style="border:0;" {checked} /> <label for="notehtml"><b>Treść notatki zawiera kod HTML</b></label></td></tr>
 
 
 <tr><td class="buffer" colspan="2"></td></tr>

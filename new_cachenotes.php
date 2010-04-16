@@ -49,12 +49,7 @@
 				//set template replacements
 				tpl_set_var('desc_message', '');
 				tpl_set_var('general_message', '');
-
-				$newshtml = isset($_POST['newshtml']) ? $_POST['newshtml'] : 0;
-				tpl_set_var('newshtml', $newshtml);
-				if ($newshtml==0) {$checked="";}else{$checked="checked";}
-				tpl_set_var('checked',$checked);
-
+		
 				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : '';
 				if ($note_desc != ''){
 				if ($newshtml == 0)
@@ -72,7 +67,8 @@
 				if (isset($_POST['submitform']))
 				{
 				//check the entered data
-
+				$note_html = isset($_POST['notehtml']) ? $_POST['notehtml'] : 0;
+				if (($note_html != 0) && ($note_html != 1)) $note_html = 0;
 					//desc
 					if ($note_desc == '')
 					{
@@ -108,7 +104,7 @@
 										'', '&1', '&2',NOW(),'&3', '&4')",
 										$cache_id,
 										$user_id,
-										$newshtml,
+										($note_html == 1) ? '0' : '1',
 										$note_desc);
 					
 					tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
@@ -116,6 +112,7 @@
 					}else
 					{
 						tpl_set_var('general_message', $error_general);
+						tpl_set_var('checked', ($note_html == 1) ? ' checked="checked"' : '');
 					}
 				
 					// end submit

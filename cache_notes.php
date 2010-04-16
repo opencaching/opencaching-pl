@@ -28,8 +28,8 @@
 			$tplname = 'cache_notes';
 			require($stylepath . '/editcache.inc.php');
 			//get user record
-			$user_id = $usr['userid'];
-			tpl_set_var('userid',$user_id);	
+			$userid = $usr['userid'];
+
 			if (isset($_REQUEST['cacheid']))
 			{
 			$cache_id = $_REQUEST['cacheid'];	
@@ -37,7 +37,7 @@
 			} else { $cache_param="";}
 			tpl_set_var('cacheid',$cache_id);	
 
-			$notes_rs = sql("SELECT `cache_notes`.`note_id` `note_id`, `cache_notes`.`cache_id` `cacheid`,`cache_notes`.`date` `date`, `cache_notes`.`desc` `desc`, `caches`.`name` `cache_name`, `cache_type`.`icon_small` `icon_large` FROM `cache_notes` INNER JOIN caches ON (`caches`.`cache_id` = `cache_notes`.`cache_id`), `cache_type`  WHERE (`cache_notes`.`user_id`=&1 $cache_param) AND `cache_type`.`id`=`caches`.`type` GROUP BY `cacheid` ORDER BY `date`,`cacheid`,`note_id`",$user_id);
+			$notes_rs = sql("SELECT `cache_notes`.`note_id` `note_id`, `cache_notes`.`cache_id` `cacheid`,`cache_notes`.`date` `date`, `cache_notes`.`desc` `desc`, `caches`.`name` `cache_name`, `cache_type`.`icon_small` `icon_large` FROM `cache_notes` INNER JOIN caches ON (`caches`.`cache_id` = `cache_notes`.`cache_id`), `cache_type`  WHERE (`cache_notes`.`user_id`=&1 $cache_param) AND `cache_type`.`id`=`caches`.`type` GROUP BY `cacheid` ORDER BY `date`",$userid);
 			if (mysql_num_rows($notes_rs) != 0)
 			{	
 						$notes = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';

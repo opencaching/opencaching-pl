@@ -70,10 +70,7 @@
 				require_once($stylepath . '/newcache.inc.php');
 				//set template replacements
 				tpl_set_var('desc_message', '');
-				tpl_set_var('general_message', '');
-
-				$note_record['desc_html'] = isset($_REQUEST['notehtml']) ? $_REQUEST['notehtml'] : 0;
-				if($note_record['desc_html'] == 0) $note_record['desc_html'] = 1; else $note_record['desc_html'] = 0; // reverse						
+				tpl_set_var('general_message', '');						
 					
 				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : $note_record['desc'];
 
@@ -93,7 +90,8 @@
 				if (isset($_POST['submit']))
 				{
 				//check the entered data
-
+				$note_record['desc_html'] = isset($_POST['notehtml']) ? $_POST['notehtml'] : 0;
+				if($note_record['desc_html'] == 0) $note_record['desc_html'] = 1; else $note_record['desc_html'] = 0; // reverse
 					//desc
 					if ($note_desc == '')
 					{
