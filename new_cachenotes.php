@@ -98,10 +98,12 @@
 										`note_id`,
 										`cache_id`,
 										`date`,
+										`desc_html`,
 										`desc`
 										) VALUES (
-										'', '&1', NOW(), '&2')",
+										'', '&1', NOW(),'&2', '&3')",
 										$cache_id,
+										$newshtml,
 										$note_desc);
 					
 					tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
