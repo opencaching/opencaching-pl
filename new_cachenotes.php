@@ -49,6 +49,7 @@
 				require_once($stylepath . '/newcache.inc.php');
 				//set template replacements
 				tpl_set_var('desc_message', '');
+				tpl_set_var('general_message', '');
 
 				$note_desc = isset($_POST['desc']) ? $_POST['desc'] : '';
 				tpl_set_var('desc', htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8'));
