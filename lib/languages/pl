@@ -154,7 +154,7 @@ caches Skrzynki
 cache Skrzynka
 search Szukaj
 view_cache Opis skrzynki
-new_log_entry Nowy wpis do logu
+new_log_entry Wpis do logu
 edit_log Edycja wpisu w logu
 remove_log Usuń wpis z logu
 edit_cache Edycja opisu skrzynki
