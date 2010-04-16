@@ -25,62 +25,33 @@
 		}
 		else
 		{
-			//Create Cache Note
-		if (isset($_REQUEST['cacheid']))
-			{
-			$cache_id = $_REQUEST['cacheid'];
-			}
-			$cache_rs = sql("SELECT `user_id`, `name` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
-			if (mysql_num_rows($cache_rs) == 1)
-			{
-				$cache_record = sql_fetch_array($cache_rs);
-			
-			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
-				{
 			$tplname = 'cache_notes';
-			
-			
-			tpl_set_var("cache_name", $cache_record['name']);		
-				}
-			}
-			mysql_free_result($cache_rs);
+			//get user record
+			$user_id = $usr['userid'];
+			tpl_set_var('userid',$user_id);	
+			tpl_set_var('no_notes_message', '');	
 
-			//Edit cache Notes
-			if (isset($_REQUEST['noteid']))
-			{
-			$note_id = $_REQUEST['noteid'];			
-			}
-			
-			$note_rs = sql("SELECT `note_id`, `cache_id`, `desc`,FROM `cache_notes` WHERE `note_id`='&1'", $note_id);
-			if (mysql_num_rows($note_rs) == 1)
+			$notes_rs = sql("SELECT `cache_notes`.`note_id` `note_id`, `cache_notes`.`cache_id` `cacheid`, `cache_notes`.`desc` `desc`, caches.name cache_name FROM `cache_notes`, caches  WHERE caches.user_id=&1 AND cache_notes.cache_id=caches.cache_id ORDER BY `cacheid`,`note_id`",$user_id);
+			if (mysql_num_rows($notes_rs) != 0)
 			{	
-			$note_record = sql_fetch_array($wp_rs);
-			$cache_id = $wp_record['cache_id'];
-			}
-			$cache_rs = sql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
-			if (mysql_num_rows($cache_rs) == 1)
-			{
-				$cache_record = sql_fetch_array($cache_rs);
-			
-			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
-				{
-			$tplname = 'cache_note';
+						$notes = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
+						$notes .= '<tr><th width="80"><b>Nazwa skrzynki</b></th><th><b>Notatka</b></th><th width="22"><b>Edycja</b></th></tr>';
+						for ($i = 0; $i < mysql_num_rows($notes_rs); $i++)
+							{
+							
+							$notes_record = sql_fetch_array($notes_rs);
 
+							$notes .= '<td align="center" valign="middle"><center><a class="links" href="viewcache.php?cacheid='.$notes_record['cacheid'].'">'.$notes_record['cache_name'].'</a></center></td><td>'.$notes_record['desc'].'</td><td align="center" valign="middle"><center><a class="links" href="edit_cachenotes.php?noteid='.$notes_record['note_id'].'"><img src="images/actions/edit-16.png" alt="" title="Edit WP" /></a></center></td></tr>';
+							}
+							$notes .= '</table>';
 
-			
-			tpl_set_var("desc", htmlspecialchars($wp_record['desc']));
-			tpl_set_var("type", htmlspecialchars($wp_record['type']));
-			tpl_set_var("stage", htmlspecialchars($wp_record['stage']));
-			tpl_set_var("status", htmlspecialchars($wp_record['status']));
-			tpl_set_var("wpid", htmlspecialchars($wp_record['wp_id']));
-			tpl_set_var("cacheid", htmlspecialchars($wp_record['cache_id']));
-			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));	
-				}
-			mysql_free_result($cache_rs);
-			mysql_free_result($wp_rs);
-			}	
-		
-	
+						mysql_free_result($notes_rs);
+						tpl_set_var('notes_content', $notes);
+					}
+					else
+					{
+					tpl_set_var('no_notes_message', $no_notes);
+					}			
 
 
 			}
