@@ -532,12 +532,11 @@ tpl_set_var('dziubek2',"");
 			$crs = sql("SELECT COUNT(*) as `count` FROM `cache_notes` WHERE (`cache_id`='&1' AND user_id='&2')", $cache_id, $usr['userid']);
 			if (mysql_num_rows($crs) == 0){
 				tpl_set_var('cache_notes', '0');
-				} else {				
-				echo $cachenotes_record['count'];
+				} else {
+				$cachenotes_record = mysql_fetch_array($crs);
 				tpl_set_var('cache_notes', $cachenotes_record['count']);
 			}
 			tpl_set_var('cachenotes_link', '<a class="links" href="cache_notes.php?cacheid='.$cache_id.'">'.tr('cachenotes').'</a>');
-
 			mysql_free_result($crs);
 			tpl_set_var('watcher', $cache_record['watcher'] + 0);
 			tpl_set_var('ignorer_count', $cache_record['ignorer_count'] + 0);
