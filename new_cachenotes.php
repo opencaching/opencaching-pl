@@ -23,7 +23,7 @@
 		}
 		else
 		{
-
+			$user_id = $usr['userid'];
 			//New Waypoint
 			if (isset($_REQUEST['cacheid']))
 			{
@@ -35,14 +35,13 @@
 			}
 			tpl_set_var("cacheid", $cache_id);			
 			
-			$cache_rs = sql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+			$cache_rs = sql("SELECT  `name` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
 			if (mysql_num_rows($cache_rs) == 1)
 			{
 				$cache_record = sql_fetch_array($cache_rs);
 
 			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));	
-			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
-			{
+
 			$tplname = 'new_cachenotes';
 
 
@@ -101,12 +100,14 @@
 						sql("INSERT INTO `cache_notes` (
 										`note_id`,
 										`cache_id`,
+										`user_id`,
 										`date`,
 										`desc_html`,
 										`desc`
 										) VALUES (
-										'', '&1', NOW(),'&2', '&3')",
+										'', '&1', '&2',NOW(),'&3', '&4')",
 										$cache_id,
+										$user_id,
 										$newshtml,
 										$note_desc);
 					
@@ -124,8 +125,7 @@
 			else { 	$no_tpl_build = true;}
 			}	
 		}
-		
-	}
+
 	
 	if ($no_tpl_build == false)
 	{
