@@ -263,6 +263,18 @@ function toggleAttr(id)
 	<tr>
 	<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;">{{attributes_edit_hint}} {{attributes_desc_hint}}</div>
 	</td></tr>
+		<td colspan="2">
+			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p></div>
+			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" align="Dodaj nowy opis" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}"/>{{add_new_desc}}</a></p>
+		</td>
+	</tr>
+	<tr><td class="buffer" colspan="2"></td></tr>
+	{cache_descs}
+	{gc_com_refs_start}
+	<tr><td colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.gif" border="0" width="15" height="11" alt="" title="Hinweis"/><span style="color:red">.</span>
+	</td></tr>
+	{gc_com_refs_end}
+	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt=""/>&nbsp;Dodatkowe waypoints</p></div>
@@ -277,18 +289,21 @@ function toggleAttr(id)
 	<tr>
 		<td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych punktów/waypoints</a></div></td>
 	</tr>
+
+	<tr>
 		<td colspan="2">
-			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p></div>
-			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" align="Dodaj nowy opis" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}"/>{{add_new_desc}}</a></p>
-		</td>
+			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>&nbsp;Notatki dla skrzynki</p></div>
+			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="new_cachenotes.php?cacheid={cacheid}">Dodaj nowy notatkę</a></p>
+
+			</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
-	{cache_descs}
-	{gc_com_refs_start}
-	<tr><td colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.gif" border="0" width="15" height="11" alt="" title="Hinweis"/><span style="color:red">.</span>
-	</td></tr>
-	{gc_com_refs_end}
+	<tr>
+		<td colspan="2">{notes_content}</td>
+	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
+
+
 	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt=""/>&nbsp;&nbsp;{{pictures_label}}</p></div>
