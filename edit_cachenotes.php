@@ -117,7 +117,7 @@
 						{
 
 							//save to DB
-							sql("UPDATE `cache_notes` SET  `desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$note_desc, (($note_record['desc_html'] == 1) ? '1' : '0'),$note_id);
+							sql("UPDATE `cache_notes` SET `date`=NOW(),`desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$note_desc, (($note_record['desc_html'] == 1) ? '1' : '0'),$note_id);
 
 							//display cache-page
 							tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
