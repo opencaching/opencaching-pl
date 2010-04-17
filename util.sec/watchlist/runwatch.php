@@ -30,6 +30,18 @@
 
 /* end with some constants */
 
+// Check if another instance of the script is running
+	$lock_file = fopen("/tmp/watchlist-runwatch.lock", "w");
+	if (!flock($lock_file, LOCK_EX | LOCK_NB))
+	{
+		// Another instance of the script is running - exit
+		echo "Another instance of runwatch.php is currently running.\nExiting.\n";
+		fclose($lock_file);
+		exit;
+	}
+
+// No other instance - do normal processing
+
 /* begin db connect */
 	db_connect();
 	if ($dblink === false)
@@ -192,7 +204,10 @@
 	mysql_free_result($rsUsers);
 
 /* end send out everything that has to be sent */
- 
+
+// Release lock
+	fclose($lock_file);
+
 function process_owner_log($user_id, $log_id)
 {
 	global $dblink, $logowner_text;
