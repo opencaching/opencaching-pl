@@ -723,7 +723,7 @@ NAME
 				tpl_set_var('waypoints_start', '<!--');
 				tpl_set_var('waypoints_end', '-->');
 			}
-
+			mysql_free_result($wp_rs);
 			// show mp3 files for PodCache
 			//
 

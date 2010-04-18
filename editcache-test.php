@@ -775,8 +775,6 @@
 							$wp_record = sql_fetch_array($wp_rs);
 				$coords_lat = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
 				$coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
-//				$coords2 = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude'], 0), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude'], 0), ENT_COMPAT, 'UTF-8'));
-//				$coords3 = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude'], 2), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude'], 2), ENT_COMPAT, 'UTF-8'));
 
 							$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 							$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
@@ -798,16 +796,13 @@
 							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa włączając w to współrzędne</span>';
 							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa z wyjątkiem współrzędnych</span>';
 							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>Ukryj ten waypoint w wykazie punktów skrzynki</span>';
-
-//						$waypoints = mb_ereg_replace('{lines}', $mp3files, $wplist);
-						mysql_free_result($wp_rs);
 						tpl_set_var('cache_wp_list', $waypoints);
 					}
 					else
 					{
 					tpl_set_var('cache_wp_list', $nowp);
 					}
-
+					mysql_free_result($wp_rs);
 					
 
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
