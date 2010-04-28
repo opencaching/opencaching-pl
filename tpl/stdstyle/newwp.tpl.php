@@ -32,12 +32,12 @@
 		<tr>
 		<td class="content-title-noshade">Numer etapu:</td>
 		<td>
-		<input type="text" name="stage" maxlength="2" value="{stage}" class="input30" />
+		<input type="text" name="stage" maxlength="2" value="{stage}" class="input30" />{stage_message}
 		</td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><div class="notice" style="width:400px;height:44px;">Jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0.</div>
+		<td><div class="notice" style="width:410px;height:44px;">Jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0.</div>
 		</td>
 	</tr>
 	<tr>

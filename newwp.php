@@ -53,7 +53,7 @@
 			{
 			$tplname = 'newwp';
 
-		    	require_once($rootpath . 'lib/caches.inc.php');
+		    		require_once($rootpath . 'lib/caches.inc.php');
 				require_once($stylepath . '/newcache.inc.php');
 				//set template replacements
 				tpl_set_var('lon_message', '');
@@ -61,6 +61,7 @@
 				tpl_set_var('general_message', '');
 				tpl_set_var('desc_message', '');
 				tpl_set_var('type_message', '');
+				tpl_set_var('stage_message', '');
 				
 					//build typeoptions					
 					$sel_type = isset($_POST['type']) ? $_POST['type'] : -1;	
@@ -265,12 +266,11 @@
 					// stage only numeric					
 					if (is_numeric($wp_stage))
 						{
-						
 								$stage_not_ok = false;
 							}
 							else
 							{
-								tpl_set_var('stage_message', $error_stage_not_ok);
+								tpl_set_var('stage_message', $stage_not_ok);
 								$error = true;
 								$stage_not_ok = true;
 							}
