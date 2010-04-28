@@ -29,7 +29,6 @@
 		<td><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div></td>
 	</tr>
 
-	<tr><td class="buffer" colspan="2"></td></tr>
 		<tr>
 		<td class="content-title-noshade">Numer etapu:</td>
 		<td>
@@ -41,7 +40,6 @@
 		<td><div class="notice" style="width:400px;height:44px;">Numer etapu, jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0.</div>
 		</td>
 	</tr>
-	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td valign="top" class="content-title-noshade">{{coordinates}}:</td>
 		<td class="content-title-noshade">
