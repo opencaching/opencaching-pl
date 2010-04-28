@@ -10,11 +10,8 @@
 	***************************************************************************/
 
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" />&nbsp;Moje notatki dla skrzynek</div>
-<div class="buffer"></div>
-<p>&nbsp;</p>
-
-
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" />&nbsp;Moje notatki {cache_name}</div>
+<p>{notes_links}</p>
 	{notes_content}
 
 

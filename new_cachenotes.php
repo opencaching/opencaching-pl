@@ -51,24 +51,30 @@
 				tpl_set_var('general_message', '');
 		
 				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : '';
-				if ($note_desc != ''){
-				if ($newshtml == 0)
-				$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
-				else
-				{
-				require_once($rootpath . 'lib/class.inputfilter.php');
-				$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-				$note_desc = $myFilter->process($note_desc);
-					}
-				}
+//				if ($note_desc != ''){
+//				if ($newshtml == 0)
+//				$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
+//				else
+//				{
+//				require_once($rootpath . 'lib/class.inputfilter.php');
+//				$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+//				$note_desc = $myFilter->process($note_desc);
+//					}
+//				}
 				tpl_set_var('desc', $note_desc);
+				if (isset($_POST['back']))
+				{	
+							tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id));
+							mysql_free_result($cache_rs);
+							exit;
+				}
 				
 				
 				if (isset($_POST['submitform']))
 				{
 				//check the entered data
-				$note_html = isset($_POST['notehtml']) ? $_POST['notehtml'] : 0;
-				if (($note_html != 0) && ($note_html != 1)) $note_html = 0;
+//				$note_html = isset($_POST['notehtml']) ? $_POST['notehtml'] : 0;
+//				if (($note_html != 0) && ($note_html != 1)) $note_html = 0;
 					//desc
 					if ($note_desc == '')
 					{
@@ -79,14 +85,14 @@
 					else
 					{
 						$descnote_not_ok = false;
-						if ($newshtml == 0)
-						$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
-						else
-						{
-						require_once($rootpath . 'lib/class.inputfilter.php');
-						$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-						$note_desc = $myFilter->process($note_desc);
-						}
+	//					if ($newshtml == 0)
+	//					$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
+	//					else
+	//					{
+	//					require_once($rootpath . 'lib/class.inputfilter.php');
+	//					$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+	//					$note_desc = $myFilter->process($note_desc);
+	//					}
 					}
 
 					//no errors?
@@ -104,7 +110,7 @@
 										'', '&1', '&2',NOW(),'&3', '&4')",
 										$cache_id,
 										$user_id,
-										($note_html == 1) ? '0' : '1',
+										'1',
 										$note_desc);
 					
 					tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));

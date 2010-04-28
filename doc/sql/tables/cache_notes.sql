@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `cache_notes` (
   `cache_id` int(11) default NULL,
   `user_id` int(11) default NULL,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `desc_html` tinyint(1) NOT NULL default '0',
+  `desc_html` tinyint(1) NOT NULL default '1',
   `desc` text NOT NULL,
   PRIMARY KEY  (`note_id`),
   KEY `cache_id` (`cache_id`),

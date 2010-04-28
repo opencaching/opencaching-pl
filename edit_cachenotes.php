@@ -7,7 +7,9 @@
 	*   (at your option) any later version.
 	*   
 	*  UTF-8 ąść
-	***************************************************************************/
+	*
+	* (($note_record['desc_html'] == 1) ? '1' : '0')
+	**************************************************************************/
 
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
@@ -73,25 +75,29 @@
 				tpl_set_var('general_message', '');						
 					
 				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : $note_record['desc'];
-
-				if ($note_desc != ''){
-				if ($note_record['desc_html'] == 0)
-				$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
-				else
-				{
-				require_once($rootpath . 'lib/class.inputfilter.php');
-				$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-				$note_desc = $myFilter->process($note_desc);
-					}
-				}
+//				if ($note_desc != ''){
+//				if ($note_record['desc_html'] == '0')
+//				$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
+//				else
+//				{
+//				require_once($rootpath . 'lib/class.inputfilter.php');
+//				$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+//				$note_desc = $myFilter->process($note_desc);
+//					}
+//				}
 				tpl_set_var('desc', $note_desc);
-				
-				
+				if (isset($_POST['back']))
+				{	
+							tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
+							mysql_free_result($cache_rs);
+							mysql_free_result($note_rs);
+							exit;
+				}
 				if (isset($_POST['submit']))
 				{
 				//check the entered data
-				$note_record['desc_html'] = isset($_POST['notehtml']) ? $_POST['notehtml'] : 0;
-				if($note_record['desc_html'] == 0) $note_record['desc_html'] = 1; else $note_record['desc_html'] = 0; // reverse
+//				$note_record['desc_html'] = isset($_POST['notehtml']) ? $_POST['notehtml'] : 0;
+				//if($note_record['desc_html'] == 0) $note_record['desc_html'] = 1; else $note_record['desc_html'] = 0; // reverse
 					//desc
 					if ($note_desc == '')
 					{
@@ -102,14 +108,14 @@
 					else
 					{
 						$descnote_not_ok = false;
-						if ($note_record['desc_html'] == 0)
-						$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
-						else
-						{
-						require_once($rootpath . 'lib/class.inputfilter.php');
-						$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-						$note_desc = $myFilter->process($note_desc);
-						}
+						//if ($note_record['desc_html'] == 0)
+					//	$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
+				//		else
+				//		{
+//						require_once($rootpath . 'lib/class.inputfilter.php');
+//						$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+//						$note_desc = $myFilter->process($note_desc);
+					//	}
 					}
 
 					//no errors?
@@ -117,7 +123,7 @@
 						{
 
 							//save to DB
-							sql("UPDATE `cache_notes` SET `date`=NOW(),`desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$note_desc, (($note_record['desc_html'] == 1) ? '1' : '0'),$note_id);
+							sql("UPDATE `cache_notes` SET `date`=NOW(),`desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$note_desc, '1',$note_id);
 
 							//display cache-page
 							tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
@@ -132,7 +138,7 @@
 						tpl_set_var('general_message', "");
 						tpl_set_var("cacheid", htmlspecialchars($note_record['cache_id']));
 						tpl_set_var("noteid", htmlspecialchars($note_record['note_id']));
-						tpl_set_var('checked', $note_record['desc_html'] == '0' ? 'checked' : '');
+						tpl_set_var('checked', $note_record['desc_html'] == 1 ? 'checked' : '');
 				}							
 			mysql_free_result($cache_rs);
 			mysql_free_result($note_rs);

@@ -24,15 +24,15 @@
 		<textarea name="desc" rows="10" cols="80">{desc}</textarea>{desc_message}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
-	<tr><td valign="top" class="content-title-noshade">&nbsp;</td>
-	<td valign="top"><input type="checkbox" name="notehtml" id="notehtml" value="1" {checked} style="border:0;" /> <label for="notehtml"><b>Treść notatki zawiera kod HTML</b></label></td></tr>
-
 
 <tr><td class="buffer" colspan="2"></td></tr>
-	<tr>
-		<td colspan="2">
+	<tr>		
+	<td valign="top" class="content-title-noshade">&nbsp;</td>
+		<td>
+			<button type="submit" name="back" value="back" style="font-size:12px;width:140px"><b>Anuluj</b></button>&nbsp;&nbsp;
 			<button type="submit" name="delete" value="delete" style="font-size:12px;width:140px"><b>Usuń notatkę</b></button> &nbsp;&nbsp;
-			<button type="submit" name="submit" value="submit" style="font-size:12px;width:140px"><b>Zapisz notatkę</b></button>
+			<button type="submit" name="submit" value="submit" style="font-size:12px;width:140px"><b>Zapisz notatkę</b></button>			
+
 		<br /><br /></td>
 	</tr>
 
