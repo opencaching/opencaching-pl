@@ -67,7 +67,7 @@
 
 							$notes .= '<td align="center" valign="middle"><center><img src="tpl/stdstyle/images/'.$notes_record['icon_large'].'" title="" /></center></td><td align="center" valign="middle"><center><a class="links" href="viewcache.php?cacheid='.$notes_record['cacheid'].'">'.$notes_record['cache_name'].'</a></center></td><td align="center" valign="middle"><center></center>'.date("d-m-Y", strtotime($notes_record['date'])). '</td><td>'.$note_desc.'</td><td align="center" valign="middle"><center><a class="links" href="edit_cachenotes.php?noteid='.$notes_record['note_id'].'"><img src="images/actions/edit-16.png" alt="" title="Edycja notatki" /></a></center></td></tr>';
 							}
-							$notes .= '</table>';
+							$notes .= '</table><br /><br />';
 
 
 						tpl_set_var('notes_content', $notes);

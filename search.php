@@ -1337,8 +1337,8 @@ function outputSearchForm($options)
 			tpl_set_var('lon_min', '00.000');
 			tpl_set_var('latN_sel', ' selected="selected"');
 			tpl_set_var('latS_sel', '');
-			tpl_set_var('lonE_sel', '');
-			tpl_set_var('lonW_sel', ' selected="selected"');
+			tpl_set_var('lonE_sel', ' selected="selected"');
+			tpl_set_var('lonW_sel', '');
 		}
 	}
 	else
