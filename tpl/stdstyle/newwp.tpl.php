@@ -37,7 +37,7 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><div class="notice" style="width:400px;height:44px;">Numer etapu, jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0.</div>
+		<td><div class="notice" style="width:400px;height:44px;">Jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0.</div>
 		</td>
 	</tr>
 	<tr>
