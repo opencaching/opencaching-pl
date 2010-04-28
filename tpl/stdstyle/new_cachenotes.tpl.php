@@ -31,7 +31,7 @@
 <tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<button type="submit" name="submitform" value="submit" style="font-size:14px;width:140px"><b>Dodaj notatkę</b></button>
+			<button type="submit" name="submitform" value="submit" style="font-size:12px;width:140px"><b>Dodaj notatkę</b></button>
 		<br /><br /></td>
 	</tr>
 
