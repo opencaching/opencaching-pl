@@ -203,12 +203,12 @@ else
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />
-					Dodatkowe waypoints
+					Dodatkowe waypointy
 				</p></div>
 				<p>
 					{waypoints_content}
 				</p><br />
-			<div class="notice" id="viewcache-attributesend"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych punktów/waypoints</a></div>
+			<div class="notice" id="viewcache-attributesend"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div>
 {waypoints_end}
 <!-- End Text Container -->
 <!-- Text container -->
