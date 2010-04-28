@@ -34,7 +34,7 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><div class="notice" style="width:400px;height:44px;">Numer etapu, jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0. Pośrednie etapy np dla etapu nr 2  można numerować np 2A, 2B, 2C gdzie cyfra poprzedzjąca litere jest numerem głównego etapu.</div>
+		<td><div class="notice" style="width:400px;height:44px;">Numer etapu, jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0.</div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -63,7 +63,7 @@
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td valign="top" class="content-title-noshade">{{descriptions}}:</td>
+		<td valign="top" class="content-title-noshade">Opis waypointa:</td>
 		<td class="content-title-noshade">
 		<textarea name="desc" rows="5" cols="60">{desc}</textarea>{desc_message}</td>
 	</td>
@@ -77,16 +77,16 @@
 		<tr><td><input type="radio" name="status" value="1" {checked1} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa włączając w to współrzędne</label>
 		</td></tr>
 		<tr><td>
-		<input type="radio" name="status" value="2" {checked2} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa z wyjątkiem współrzędnych</label>
+		<input type="radio" name="status" value="2" {checked2} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa za wyjątkiem współrzędnych</label>
 		</td></tr>
 		<tr><td>
-		<input type="radio" name="status" value="3" {checked3} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint w wykazie punktów skrzynki</label>
+		<input type="radio" name="status" value="3" {checked3} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint w wykazie waypontów skrzynki</label>
 		</td></tr></td>
 		</table>
 <tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<button type="submit" name="submitform" value="submit" style="font-size:14px;width:140px"><b>Dodaj waypoint</b></button>
+			<button type="submit" name="submitform" value="submit" style="font-size:12px;width:140px"><b>Dodaj waypoint</b></button>
 		<br /><br /></td>
 	</tr>
 
