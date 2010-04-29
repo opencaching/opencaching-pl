@@ -34,6 +34,11 @@
 			$note_id = $_REQUEST['noteid'];			
 			}
 			$remove = 0;
+			if (isset($_REQUEST['delete']))
+			{
+			$note_id = $_REQUEST['noteid'];				
+			$remove = 1;
+			}
 			if (isset($_POST['delete']))
 			{
 			$note_id = $_POST['noteid'];				
