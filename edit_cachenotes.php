@@ -25,6 +25,8 @@
 		}
 		else
 		{
+//			$ref=@$HTTP_REFERER;
+//			echo $ref; 
 
 			//Edit Waypoint
 			if (isset($_REQUEST['noteid']))
