@@ -87,7 +87,7 @@
 							
 							$notes_record = sql_fetch_array($notes_rs);
 							
-							$notes .= '<tr><td><a class="links" href="cache_notes.php?cacheid='.$notes_record['cacheid'].'"><img src="tpl/stdstyle/images/free_icons/note_edit.png" alt="" title="Pokaż notatki" /></a></td><td width="22">'.$notes_record['count']. '</td><td width="22"><img src="tpl/stdstyle/images/'.$notes_record['icon_large'].'" alt="" /></td><td align="left" valign="middle"><a class="links" href="viewcache.php?cacheid='.$notes_record['cacheid'].'">'.$notes_record['cache_name'].'</a></td></tr>';
+							$notes .= '<tr><td><a class="links" href="mycache_notes.php?cacheid='.$notes_record['cacheid'].'"><img src="tpl/stdstyle/images/free_icons/note_edit.png" alt="" title="Pokaż notatki" /></a></td><td width="22">'.$notes_record['count']. '</td><td width="22"><img src="tpl/stdstyle/images/'.$notes_record['icon_large'].'" alt="" /></td><td align="left" valign="middle"><a class="links" href="viewcache.php?cacheid='.$notes_record['cacheid'].'">'.$notes_record['cache_name'].'</a></td></tr>';
 							}
 							$notes .= '<tr><td colspan="4"><hr></hr></td></tr></table><br /><br />';
 
