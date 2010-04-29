@@ -43,7 +43,7 @@
 
 				
 						$notes = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
-						$notes .= '<tr><th width="22"><b>Edycja</b></th><th width="40"><b>Data</b></th><th><b>Notatka</b></th></tr>';
+						$notes .= '<tr><th width="40"><b>Data</b></th><th><b>Notatka</b></th><th width="22"><b>Edycja</b></th><th width="22"><b>Usuń</b></th></tr>';
 						for ($i = 0; $i < mysql_num_rows($notes_rs); $i++)
 							{
 							
@@ -61,7 +61,7 @@
 					}
 				}
 
-							$notes .= '<td align="center" valign="middle"><center><a class="links" href="edit_cachenotes.php?noteid='.$notes_record['note_id'].'"><img src="images/actions/edit-16.png" alt="" title="Edycja notatki" /></a></center></td><td align="center" valign="middle"><center></center>'.date("d-m-Y", strtotime($notes_record['date'])). '</td><td>'.$note_desc.'</td></tr>';
+							$notes .= '<tr><td align="center" valign="middle"><center></center>'.date("d-m-Y", strtotime($notes_record['date'])). '</td><td>'.$note_desc.'</td><td align="center" valign="middle"><center><a class="links" href="edit_cachenotes.php?noteid='.$notes_record['note_id'].'"><img src="images/actions/edit-16.png" alt="" title="Edycja notatki" /></a></center></td><td align="center" valign="middle"><center><a class="links" href="edit_cachenotes.php?noteid='.$notes_record['note_id'].'"><img src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title="Usuń" /></a></center></td></tr>';
 							}
 							$notes .= '</table><br /><br />';
 
