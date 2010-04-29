@@ -25,9 +25,6 @@
 		}
 		else
 		{
-//			$ref=@$HTTP_REFERER;
-//			echo $ref; 
-// echo $_SERVER[ 'HTTP_REFERER' ] = ( empty( $_SERVER[ 'HTTP_REFERER' ] ) ? 'www.aa.pl/index.php' : $_SERVER[ 'HTTP_REFERER' ];
 			//Edit Waypoint
 			if (isset($_REQUEST['noteid']))
 			{
