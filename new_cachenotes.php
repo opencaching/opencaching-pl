@@ -113,7 +113,7 @@
 										'1',
 										$note_desc);
 					
-					tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
+					tpl_redirect('mycache_notes.php?cacheid=' . urlencode($cache_id));
 					// end of insert to sql
 					}else
 					{
