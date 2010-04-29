@@ -35,7 +35,7 @@
 			$cache_id = $_REQUEST['cacheid'];	
 			$cache_rs = sql("SELECT `caches`.`name` `cache_name` FROM `caches` WHERE cache_id=&1",$cache_id);
 			$cache_record = sql_fetch_array($cache_rs);
-			tpl_set_var('cache_name', 'dla skrzynki: '.$cache_record['cache_name']);
+			tpl_set_var('cache_name', 'dla skrzynki: <font color="black">'.$cache_record['cache_name'].'</font>');
 
 			tpl_set_var('notes_links', '<br /><img src="tpl/stdstyle/images/free_icons/add.png" title=""/>&nbsp;<a class="links" href="new_cachenotes.php?cacheid='.$cache_id.'">Dodaj nową notatkę dla skrzynki</a> &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/table_go.png" title=""/>&nbsp;<a class="links" href="viewcache.php?cacheid='.$cache_id.'">Wróć do skrzynki</a><br /><br />');
 			$cache_param='AND cache_notes.cache_id='.$cache_id;	
