@@ -142,7 +142,7 @@
 						if ($found == 0) 
 				{$content .= '</p>';}
 				else
-			{ $content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&cachetype=111110111">'.tr('show').'</a>]</p>';}
+			{ $content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="my_logsFind.php?userid='.$user_id .'">'.tr('show').'</a>]</p>';}
 			
 			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('total_dnf_caches').':</span> <strong>' . $user_record['notfounds_count'] . '</strong>';
 		

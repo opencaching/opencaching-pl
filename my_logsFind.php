@@ -13,7 +13,6 @@
 
    Unicode Reminder ąść
 
-		new logs
 
 	****************************************************************************/
 	global $lang, $rootpath;
@@ -40,11 +39,12 @@ if ($error == false)
 	if (isset($_REQUEST['userid']))
 		{
 			$user_id = $_REQUEST['userid'];
-			tpl_set_var('userid',$user_id);		
+			tpl_set_var('userid',$user_id);				
 		}
 
 	//get the news
 	$tplname = 'my_logs';
+	tpl_set_var('latest_logs_cache','Skrzynki znalezione');		
 	require($stylepath . '/newlogs.inc.php');
 	$rsGeneralStat =sql("SELECT  username FROM user WHERE user_id=&1",$user_id);
 
@@ -75,7 +75,7 @@ if ($error == false)
 	$startat = max(0,floor((($start/$LOGS_PER_PAGE)+1)/$PAGES_LISTED)*$PAGES_LISTED);
 	
 	if( ($start/$LOGS_PER_PAGE)+1 >= $PAGES_LISTED )
-		$pages .= '<a href="my_logs.php?userid='.$user_id.'&amp;start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'">{first_img}</a> '; 
+		$pages .= '<a href="my_logsFind.php?userid='.$user_id.'&amp;start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'">{first_img}</a> '; 
 	else
 		$pages .= "{first_img_inactive}";
 	for( $i=max(1,$startat);$i<$startat+$PAGES_LISTED;$i++ )
@@ -83,13 +83,13 @@ if ($error == false)
 		$page_number = ($i-1)*$LOGS_PER_PAGE;
 		if( $page_number == $start )
 			$pages .= '<b>';
-		$pages .= '<a href="my_logs.php?userid='.$user_id.'&amp;start='.$page_number.'">'.$i.'</a> '; 
+		$pages .= '<a href="my_logsFind.php?userid='.$user_id.'&amp;start='.$page_number.'">'.$i.'</a> '; 
 		if( $page_number == $start )
 			$pages .= '</b>';
 		
 	}
 	if( $total_pages > $PAGES_LISTED )
-		$pages .= '<a href="my_logs.php?userid='.$user_id.'&amp;start='.(($i-1)*$LOGS_PER_PAGE).'">{last_img}</a> '; 
+		$pages .= '<a href="my_logsFind.php?userid='.$user_id.'&amp;start='.(($i-1)*$LOGS_PER_PAGE).'">{last_img}</a> '; 
 	else
 		$pages .= '{last_img_inactive}';
 	$rs = sql("SELECT `cache_logs`.`id`

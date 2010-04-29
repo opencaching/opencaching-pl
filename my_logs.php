@@ -45,6 +45,7 @@ if ($error == false)
 
 	//get the news
 	$tplname = 'my_logs';
+		tpl_set_var('latest_logs_cache','Najnowsze logi wprowadzone');	
 	require($stylepath . '/newlogs.inc.php');
 	$rsGeneralStat =sql("SELECT  username FROM user WHERE user_id=&1",$user_id);
 
