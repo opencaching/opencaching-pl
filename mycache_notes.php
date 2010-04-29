@@ -37,7 +37,7 @@
 			$cache_record = sql_fetch_array($cache_rs);
 			tpl_set_var('cache_name', 'dla skrzynki: <font color="black">'.$cache_record['cache_name'].'</font>');
 
-			tpl_set_var('notes_links', '<br /><img src="tpl/stdstyle/images/free_icons/add.png" title=""/>&nbsp;<a class="links" href="new_cachenotes.php?cacheid='.$cache_id.'">Dodaj nową notatkę dla skrzynki</a> &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/table_go.png" title=""/>&nbsp;<a class="links" href="viewcache.php?cacheid='.$cache_id.'">Wróć do skrzynki</a><br /><br />');
+			tpl_set_var('notes_links', '<br /><img src="tpl/stdstyle/images/free_icons/add.png" title=""/>&nbsp;<a class="links" href="new_cachenotes.php?cacheid='.$cache_id.'">Dodaj nową notatkę</a> &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/table_go.png" title=""/>&nbsp;<a class="links" href="viewcache.php?cacheid='.$cache_id.'">Wróć do skrzynki</a><br /><br />');
 			$cache_param='AND cache_notes.cache_id='.$cache_id;	
 			tpl_set_var('cacheid',$cache_id);		
 			$notes_rs = sql("SELECT `cache_notes`.`note_id` `note_id`, `cache_notes`.`cache_id` `cacheid`,`cache_notes`.`date` `date`, `cache_notes`.`desc` `desc`, `cache_notes`.`desc_html` `desc_html`, `caches`.`name` `cache_name`, `cache_type`.`icon_small` `icon_large` FROM `cache_notes` INNER JOIN caches ON (`caches`.`cache_id` = `cache_notes`.`cache_id`), `cache_type`  WHERE (`cache_notes`.`user_id`=&1 $cache_param) AND `cache_type`.`id`=`caches`.`type` ORDER BY `cacheid`,`date` DESC",$userid);
