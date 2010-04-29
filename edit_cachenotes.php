@@ -67,7 +67,7 @@
 						{							
 							//remove 
 							sql("DELETE FROM `cache_notes` WHERE `note_id`='&1'", $note_id);
-							tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
+							tpl_redirect('mycache_notes.php?cacheid=' . urlencode($cache_id));
 							mysql_free_result($cache_rs);
 							mysql_free_result($note_rs);
 							exit;
@@ -95,7 +95,7 @@
 				tpl_set_var('desc', $note_desc);
 				if (isset($_POST['back']))
 				{	
-							tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
+							tpl_redirect('mycache_notes.php?cacheid=' . urlencode($cache_id));
 							mysql_free_result($cache_rs);
 							mysql_free_result($note_rs);
 							exit;
@@ -133,7 +133,7 @@
 							sql("UPDATE `cache_notes` SET `date`=NOW(),`desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$note_desc, '1',$note_id);
 
 							//display cache-page
-							tpl_redirect('cache_notes.php?cacheid=' . urlencode($cache_id));
+							tpl_redirect('mycache_notes.php?cacheid=' . urlencode($cache_id));
 							mysql_free_result($cache_rs);
 							mysql_free_result($note_rs);
 							exit;
