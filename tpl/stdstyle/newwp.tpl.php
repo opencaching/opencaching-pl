@@ -7,8 +7,39 @@
 	*   (at your option) any later version.
 	*   
 	*  UTF-8 ąść
+onChange="return _chkCacheType()
 	***************************************************************************/
 ?>
+<script type="text/javascript">
+<!--
+
+function _chkCacheType () 
+{
+  if (document.editcache_form.type.value == "4" || document.editcache_form.type.value == "5" || document.editcache_form.type.value == "6" || ({other_nobox} && document.editcache_form.type.value == "1") ) 
+	{
+		if( document.editcache_form.size.options[document.editcache_form.size.options.length - 1].value != "7" )
+		{
+			document.editcache_form.size.options[document.editcache_form.size.options.length] = new Option('Bez pojemnika', '7');
+		}
+		
+		if( !({other_nobox} && document.editcache_form.type.value == "1"))
+		{
+			document.editcache_form.size.value = "7";
+			document.editcache_form.size.disabled = true;
+		}
+		else
+			document.editcache_form.size.disabled = false;
+  }
+  else
+  {
+		if( document.editcache_form.size.options[document.editcache_form.size.options.length - 1].value == "7" )
+			document.editcache_form.size.options[document.editcache_form.size.options.length - 1 ] = null;
+		document.editcache_form.size.disabled = false;
+  }
+  return false;
+}
+//-->
+</script>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;Dodatkowy waypoint dla skrzynki: {cache_name}</div>
 	{general_message}
@@ -20,7 +51,7 @@
 	<tr>
 		<td class="content-title-noshade">Typ waypointa:</td>
 		<td>
-			<select name="type" class="input200">
+			<select name="type" class="input200" ">
 				{typeoptions}
 			</select>{type_message}
 		</td>
