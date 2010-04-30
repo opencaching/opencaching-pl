@@ -75,7 +75,7 @@ INSERT INTO `cache_type` (`id`, `sort`, `short`, `pl`, `en`, `icon_large`, `icon
 (6, 6, 'Event', 'Wydarzenie', 'Event', 'cache/event.png', 'cache/16x16-event.png', '#FF80FF'),
 (7, 3, 'Quiz', 'Quiz', 'Quiz', 'cache/quiz.png', 'cache/16x16-quiz.png', '#FF8000'),
 (8, 4, 'Moving', 'Mobilna', 'Moving', 'cache/moving.png', 'cache/16x16-moving.png', '#FF00FF'),
-(11, 10, 'Podcast', 'Podcast', 'Podcast cache', 'cache/podcache.png', 'cache/16x16-podcache.png', '#FF00FF');
+(9, 9, 'Podcast', 'Podcast', 'Podcast cache', 'cache/podcache.png', 'cache/16x16-podcache.png', '#FF00FF');
 
 --
 -- Zrzut danych tabeli `countries`
@@ -487,7 +487,8 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `email`, `latitude`, `lon
 INSERT INTO `waypoint_type` (`id`,`pl`, `en`, `icon`) VALUES
 (1,'Parking', 'Parking area', 'images/waypoints/wp_parking.png'),
 (2,'Punkt referencyjny', 'Reference point', 'images/waypoints/wp_reference.png'),
-(3,'Etap Multicache', 'Stage of Multicache', 'images/waypoints/wp_stage_multi.png'),
-(4,'Końcowa lokalizacja', 'Final location', 'images/waypoints/wp_final.png');
+(3,'Etap fizyczny', 'No virtual stage', 'images/waypoints/wp_stage_multi.png'),
+(4,'Etap wirtualny', 'Virtual stage', 'images/waypoints/wp_stage_virtual.png'),
+(5,'Końcowa lokalizacja', 'Final location', 'images/waypoints/wp_final.png');
 
 
