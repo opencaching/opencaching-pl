@@ -726,7 +726,7 @@
 						tpl_set_var('pictures', $nopictures);
 					
 					//MP3 files only for type of cache: PodCache ID 11
-					if ($cache_record['type'] == 11 )
+					if ($cache_record['type'] == 9 )
 					{
 						if ($cache_record['mp3count'] > 0)
 						{
