@@ -456,6 +456,13 @@ $menu = array(
 				'siteid' => 'mycaches'
 			),
 			array(
+				'title' => 'Moje notatki',
+				'menustring' => 'Moje notatki',
+				'visible' => true,
+				'filename' => 'mycache_notes.php',
+				'siteid' => 'mycache_notes'
+			),
+			array(
 				'title' => tr('statistics'),
 				'menustring' => tr('statistics'),
 				'visible' => true,
