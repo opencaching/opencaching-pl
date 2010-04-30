@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-																./viewcache.php
-															-------------------
-		begin                : June 24 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -22,10 +14,6 @@
    Unicode Reminder ăĄă˘
 
 	 view a cache
-
-	 used template(s): viewcache, viewcache_error
-
-	 GET Parameter: cacheid[, desc_lang][, nocrypt]
 
  ****************************************************************************/
   //prepare the templates and include all neccessary
@@ -405,7 +393,6 @@ tpl_set_var('dziubek2',"");
 			
 			tpl_set_var('googlemap_key', $googlemap_key);
 			tpl_set_var('map_msg', $map_msg);
-			tpl_set_var('coords_other', $coords_other);
 			tpl_set_var('typeLetter', typeToLetter($cache_record['type']));
 			
 			tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
@@ -541,20 +528,22 @@ tpl_set_var('dziubek2',"");
 			tpl_set_var('notes', htmlspecialchars($cache_record['notes'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('total_number_of_logs', htmlspecialchars($cache_record['notes'] + $cache_record['notfounds'] + $cache_record['founds'], ENT_COMPAT, 'UTF-8'));
 
-			// number of watchers
-//			$rs = sql("SELECT COUNT(*) as `count` FROM `cache_watches` WHERE `cache_id`='&1'", $cache_id);
-//			if (mysql_num_rows($rs) == 0)
-//				tpl_set_var('watcher', '0');
-//			else
-//			{
-//				$watcher_record = sql_fetch_array($rs);
-//				tpl_set_var('watcher', $watcher_record['count']);
-//			}
+			// number of cache notes
+			$crs = sql("SELECT COUNT(*) as `count` FROM `cache_notes` WHERE (`cache_id`='&1' AND user_id='&2')", $cache_id, $usr['userid']);
+			if (mysql_num_rows($crs) == 0){
+				tpl_set_var('cache_notes', '0');
+				} else {
+				$cachenotes_record = mysql_fetch_array($crs);
+				tpl_set_var('cache_notes', $cachenotes_record['count']);
+			}
+			tpl_set_var('cachenotes_link', '<a class="links" href="cache_notes.php?cacheid='.$cache_id.'">'.tr('cachenotes').'</a>');
+			mysql_free_result($crs);
 			tpl_set_var('watcher', $cache_record['watcher'] + 0);
 			tpl_set_var('ignorer_count', $cache_record['ignorer_count'] + 0);
 			tpl_set_var('votes_count', $cache_record['votes_count'] + 0);
 
 			tpl_set_var('note_icon', $note_icon);
+			tpl_set_var('notes_icon', $notes_icon);
 			tpl_set_var('vote_icon', $vote_icon);
 			tpl_set_var('gk_icon', $gk_icon);
 			tpl_set_var('watch_icon', $watch_icon);
@@ -659,6 +648,83 @@ tpl_set_var('dziubek2',"");
 			}
 
 			tpl_set_var('desc_langs', $langlist);
+
+
+
+			// show additional waypoints
+			//
+/*
+			$waypoints_visible=0;
+			$wp_rsc = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
+			if (mysql_num_rows($wp_rsc) != 0)
+			{	
+							// check status all waypoints 
+							for ($i = 0; $i < mysql_num_rows($wp_rsc); $i++)
+							{ $wp_check = sql_fetch_array($wp_rsc);
+							 if ($wp_check['status'] ==1) { $waypoints_visible=1;}
+							 }
+				if ($waypoints_visible !=0) {			 
+				$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
+				$waypoints .= '<tr><th align="center" valign="middle" width="30"><b>Etap</b></th>
+				<th align="center" valign="middle" width="40">&nbsp;<b>Symbol</b>&nbsp;</th>
+				<th align="center" valign="middle" width="40">&nbsp;<b>Typ</b>&nbsp;</th>
+				<th width="50" align="center" valign="middle">&nbsp;<b>Współrzędne</b>&nbsp;</th>
+				<th align="center" valign="middle"><b>Opis</b></th></tr>';} 
+				
+				$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
+
+				for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
+				{
+
+					$wp_record = sql_fetch_array($wp_rs);
+					if ($wp_record['status'] !=3)
+					{
+						$tmpline1 = $wpline;	// string in viewcache.inc.php
+
+						if ($wp_record['status'] ==1)
+						{
+							$coords_lat_lon = "<a href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=".$wp_record['latitude']."&amp;lon=".$wp_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">".mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8')."<br>".htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'))."</a>";
+						}
+						if ($wp_record['status'] == 2)
+						{
+							$coords_lat_lon = "&nbsp;&nbsp;?? ?????<br />&nbsp;&nbsp;?? ?????";
+						}
+						$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+						$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+						$tmpline1 = mb_ereg_replace('{lat_lon}', $coords_lat_lon, $tmpline1);
+						$tmpline1 = mb_ereg_replace('{desc}', "&nbsp;".$wp_record['desc']."&nbsp;", $tmpline1);
+						$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
+						if ($wp_record['stage']==0)
+						{
+							$tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
+						}
+						else
+						{
+							$tmpline1 = mb_ereg_replace('{number}',$wp_record['stage'], $tmpline1);
+						}
+						$waypoints .= $tmpline1;
+					}
+				}
+				if ($waypoints_visible !=0) {	$waypoints .= '</table>';
+				tpl_set_var('waypoints_content', $waypoints);
+				tpl_set_var('waypoints_start', '');
+				tpl_set_var('waypoints_end', '');
+
+					} else {
+				tpl_set_var('waypoints_content', '<br />');
+				tpl_set_var('waypoints_start', '<!--');
+				tpl_set_var('waypoints_end', '-->');
+							}
+			}
+			else
+			{
+*/
+				tpl_set_var('waypoints_content', '<br />');
+				tpl_set_var('waypoints_start', '<!--');
+				tpl_set_var('waypoints_end', '-->');
+//			}
+
+
 
 			// show mp3 files for PodCache
 			//
@@ -1062,6 +1128,15 @@ tpl_set_var('dziubek2',"");
 							'newwindow' => false,
 							'siteid' => 'new_log',
 							'icon' => 'images/actions/new-entry'
+						),
+						array(
+							'title' => 'Notatka',
+							'menustring' => 'Notatka',
+							'visible' => true,
+							'filename' => 'new_cachenotes.php?cacheid='.$cache_id,
+							'newwindow' => false,
+							'siteid' => 'cache_notes',
+							'icon' => 'images/actions/list-add'
 						),
 						array(
 							'title' => $watch_label,
