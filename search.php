@@ -362,7 +362,7 @@
 			$options['sort'] = isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'bydistance';
 			$options['country'] = isset($_REQUEST['country']) ? $_REQUEST['country'] : '';
 			$options['region'] = isset($_REQUEST['region']) ? $_REQUEST['region'] : '';
-			$options['cachetype'] = isset($_REQUEST['cachetype']) ? $_REQUEST['cachetype'] : '11111111111';
+			$options['cachetype'] = isset($_REQUEST['cachetype']) ? $_REQUEST['cachetype'] : '111111111';
 
 			$options['cachesize_1'] = isset($_REQUEST['cachesize_1']) ? $_REQUEST['cachesize_1'] : 1;
 			$options['cachesize_2'] = isset($_REQUEST['cachesize_2']) ? $_REQUEST['cachesize_2'] : 1;
@@ -921,7 +921,7 @@
 					$sql_where[] = '`caches`.`cache_id` IN (SELECT `cache_location`.`cache_id` FROM `cache_location` WHERE `cache_location`.`code3`=\'' . sql_escape($options['region']) . '\')';
 				}
 
-				if(!isset($options['cachetype'])) $options['cachetype']='11111111111';
+				if(!isset($options['cachetype'])) $options['cachetype']='111111111';
 				$pos = strpos($options['cachetype'], '0');
 
 				//echo $options['cachetype'];
