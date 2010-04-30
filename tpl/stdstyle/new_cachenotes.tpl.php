@@ -10,7 +10,7 @@
 	***************************************************************************/
 ?>
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" />&nbsp;Dodaj notatkę dla skrzynki: {cache_name}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" />&nbsp;Dodaj notatkę dla skrzynki: <font color="black">{cache_name}</font></div>
 	{general_message}
 <form action="new_cachenotes.php" method="post" enctype="application/x-www-form-urlencoded" name="newnotes_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
