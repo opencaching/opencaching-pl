@@ -9,13 +9,7 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
-<script>
-function confirmDelete(delUrl) {
-  if (confirm("Czy chcesz usnąć tę notatke?")) {
-    document.location = delUrl;
-  }
-}
-</script>
+
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" />&nbsp;Edycja notatki dla skrzynki: <font color="black">{cache_name}</font></div>
 	{general_message}
 <form action="edit_cachenotes.php" method="post" enctype="application/x-www-form-urlencoded" name="editnotes_form" dir="ltr">
