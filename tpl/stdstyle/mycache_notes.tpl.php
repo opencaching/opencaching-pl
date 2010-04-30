@@ -10,6 +10,14 @@
 	***************************************************************************/
 
 ?>
+
+<script>
+function confirmDelete(delUrl) {
+  if (confirm("Czy chcesz usnąć tę notatke?")) {
+    document.location = delUrl;
+  }
+}
+</script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" />&nbsp;Moje notatki {cache_name}</div>
 <p>{notes_links}</p>
 	{notes_content}
