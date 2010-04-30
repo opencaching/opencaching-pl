@@ -536,7 +536,7 @@ tpl_set_var('dziubek2',"");
 				$cachenotes_record = mysql_fetch_array($crs);
 				tpl_set_var('cache_notes', $cachenotes_record['count']);
 			}
-			tpl_set_var('cachenotes_link', '<a class="links" href="cache_notes.php?cacheid='.$cache_id.'">'.tr('cachenotes').'</a>');
+			tpl_set_var('cachenotes_link', '<a class="links" href="mycache_notes.php?cacheid='.$cache_id.'">'.tr('cachenotes').'</a>');
 			mysql_free_result($crs);
 			tpl_set_var('watcher', $cache_record['watcher'] + 0);
 			tpl_set_var('ignorer_count', $cache_record['ignorer_count'] + 0);
