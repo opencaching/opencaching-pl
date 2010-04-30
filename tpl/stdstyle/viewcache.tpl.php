@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-											./tpl/stdstyle/viewcache.tpl.php
-															-------------------
-		begin                : June 24 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -117,8 +109,9 @@ else
 							{found_icon} {founds} {found_text}<br />
 							{notfound_icon} {notfounds} {notfound_text}<br />
 							{note_icon} {notes} {{comments}}<br />
-							{watch_icon} {watcher} {{watchers}}<br />
+							{notes_icon} {cache_notes} {cachenotes_link}<br />
 							{gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?lang=pl_PL.UTF-8&wpt={oc_waypoint}" target="_blank">{{history_gk}}</a><br />
+							{watch_icon} {watcher} {{watchers}}<br />
 							{visit_icon} {visits} {{visitors}}<br />
 							{vote_icon} {votes_count} x {{scored}}<br />
 							{score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
@@ -196,6 +189,19 @@ else
 					</div>
 				</div>
 			</div>
+<!-- End Text Container -->
+<!-- Text container -->
+{waypoints_start}
+			<div class="content2-container bg-blue02">
+				<p class="content-title-noshade-size1">
+					<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />
+					Dodatkowe waypointy
+				</p></div>
+				<p>
+					{waypoints_content}
+				</p><br />
+			<div class="notice" id="viewcache-attributesend"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div>
+{waypoints_end}
 <!-- End Text Container -->
 <!-- Text container -->
 {hidehint_start}
