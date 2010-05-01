@@ -40,8 +40,7 @@
 // new: get *_types from database
  $log_types = get_log_types_from_database();
  $cache_types = get_cache_types_from_database();
- $wp_types1 = get_wp_types_from_database1();
- $wp_types2 = get_wp_types_from_database2();
+ $wp_types = get_wp_types_from_database($cachetype);
  $cache_status = get_cache_status_from_database();
  $cache_size = get_cache_size_from_database();
  
@@ -70,29 +69,19 @@
 	}
 	return $cache_types;
  }
-function get_wp_types_from_database1()
+function get_wp_types_from_database($cachetype)
  {
 	global $dblink;
-	$wp_types1 = array();
-	
-	$resp = sql("SELECT * FROM waypoint_type WHERE (id='4' AND id='5') ORDER BY id ASC");
+	$wp_types = array();
+//	$wp_types[] = array('id' => '-1', 'pl' =>'Proszę wybrać typ', 'en' => 'Select one');
+	if ($cachetype == '2' || $cachetype == '6' || $cachetype == '8' || $cachetype == '9')
+	{$param="id=-1 OR id=1 OR id=4";} else{$param = "id=-1 OR id=1 OR id=2 OR id=3 OR id=4";}
+	$resp = sql("SELECT * FROM waypoint_type WHERE $param ORDER BY id ASC");
 	while($row = sql_fetch_assoc($resp))
 	{
-		$wp_types1[] = $row;
+		$wp_types[] = $row;
 	}
-	return $wp_types1;
- }
-function get_wp_types_from_database2()
- {
-	global $dblink;
-	$wp_types2 = array();
-	
-	$resp = sql("SELECT * FROM waypoint_type WHERE (id='1' AND id='2' AND id='3' AND id='5') ORDER BY id ASC");
-	while($row = sql_fetch_assoc($resp))
-	{
-		$wp_types2[] = $row;
-	}
-	return $wp_types2;
+	return $wp_types;
  }
  function get_cache_status_from_database()
  {

@@ -768,7 +768,7 @@
 			if (mysql_num_rows($wp_rs) != 0)
 			{	
 						$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
-						$waypoints .= '<tr><th width="22"><b>Etap</b></th><th width="32"><b>Symbol</b></th><th width="32"><b>Typ</b></th><th width="32"><b>Współrzędne</b></th><th><b>Opis</b></th><th width="22"><b>Status</b></th><th width="22"><b>Edycja</b></th></tr>';
+						$waypoints .= '<tr><th width="22"><b>Etap</b></th><th width="32"><b>Symbol</b></th><th width="32"><b>Typ</b></th><th width="32"><b>Współrzędne</b></th><th><b>Opis</b></th><th width="22"><b>Status</b></th><th width="22"><b>Edycja</b></th><th width="22"><b>Usuń</b></th></tr>';
 						for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
 							{
 							$tmpline1 = $wpline;

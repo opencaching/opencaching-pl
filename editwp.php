@@ -31,6 +31,11 @@
 			$wp_id = $_REQUEST['wpid'];			
 			}
 			$remove = 0;
+			if (isset($_REQUEST['delete']))
+			{
+			$wp_id = $_REQUEST['wpid'];				
+			$remove = 1;
+			}
 			if (isset($_POST['delete']))
 			{
 			$wp_id = $_POST['wpid'];				
@@ -46,6 +51,11 @@
 			if (mysql_num_rows($cache_rs) == 1)
 			{
 				$cache_record = sql_fetch_array($cache_rs);
+
+			if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
+			{ tpl_set_var("start_stage", '<!--');	tpl_set_var("end_stage", '-->');}else {
+			 tpl_set_var("start_stage", '');	tpl_set_var("end_stage", '');	}
+				
 			
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 				{
@@ -66,7 +76,7 @@
 					$wp_type = isset($_POST['type']) ? $_POST['type'] : $wp_record['type'];
 					//build typeoptions
 					$types = '';
-					foreach ($wp_types as $type)
+					foreach (get_wp_types_from_database($cache_record['type'])  as $type)
 					{
 
 						if ($type['id'] == $wp_type)

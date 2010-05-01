@@ -34,7 +34,7 @@ function _chkCacheType ()
 //-->
 </script>
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;Dodatkowy waypoint dla skrzynki: {cache_name}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;Dodatkowy waypoint dla skrzynki: <font color="black">{cache_name}</color></div>
 	{general_message}
 <form action="newwp.php" method="post" enctype="application/x-www-form-urlencoded" name="waypoints_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
@@ -53,7 +53,7 @@ function _chkCacheType ()
 	<tr><td>&nbsp;</td>
 		<td><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div></td>
 	</tr>
-
+{start_stage}
 		<tr>
 		<td class="content-title-noshade">Numer etapu:</td>
 		<td>
@@ -62,13 +62,14 @@ function _chkCacheType ()
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><div class="notice" style="width:410px;height:44px;">Jeśli ten waypoint nie jest kolejnym etapem wymaganym do odnalezienia skrzynki typu multicache lub quiz wstaw wartość 0.</div>
+		<td><div class="notice" style="width:350px;height:44px;">Jeśli ten waypoint nie jest kolejnym etapem wymaganym do odnalezienia skrzynki typu multicache lub quiz wstaw wartość 0.</div>
 		</td>
 	</tr>
+{end_stage}	
 	<tr>
 		<td valign="top" class="content-title-noshade">{{coordinates}}:</td>
 		<td class="content-title-noshade">
-		<fieldset style="border: 1px solid black; width: 65%; height: 32%; background-color: #FAFBDF;">
+		<fieldset style="border: 1px solid black; width: 200px; height: 32%; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
 			<select name="latNS" class="input40">
 				<option value="N"{selLatN}>N</option>
@@ -112,8 +113,7 @@ function _chkCacheType ()
 		</table>
 <tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-	<td valign="top" class="content-title-noshade">&nbsp;</td>
-		<td>
+		<td valign="top" align="left" colspan="2">
 			<button type="submit" name="back" value="back" style="font-size:12px;width:140px"><b>Anuluj</b></button>&nbsp;&nbsp;
 			<button type="submit" name="submitform" value="submit" style="font-size:12px;width:140px"><b>Dodaj waypoint</b></button>
 		<br /><br /></td>

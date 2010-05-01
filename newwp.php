@@ -35,13 +35,6 @@
 			}
 			tpl_set_var("cacheid", $cache_id);			
 			$wp_rs = sql("SELECT `stage` FROM `waypoints`  WHERE `cache_id`='&1' ORDER BY `stage` DESC", $cache_id);
-			if (mysql_num_rows($wp_rs) != 0)
-			{	
-			$wp_record = sql_fetch_array($wp_rs);
-			$next_stage = ($wp_record['stage'] +1 );
-			tpl_set_var("stage", $next_stage);			
-			} else {
-			tpl_set_var("stage", "0");	}
 			
 			$cache_rs = sql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
 			if (mysql_num_rows($cache_rs) == 1)
@@ -49,7 +42,17 @@
 				$cache_record = sql_fetch_array($cache_rs);
 
 			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));
-			tpl_set_var("cachetype",  htmlspecialchars($cache_record['type']));			
+			tpl_set_var("cachetype",  htmlspecialchars($cache_record['type']));	
+			if (mysql_num_rows($wp_rs) != 0)
+			{	
+			$wp_record = sql_fetch_array($wp_rs);
+			if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
+			{ $next_stage = 0; $wp_stage = 0;	tpl_set_var("start_stage", '<!--');	tpl_set_var("end_stage", '-->');}else {
+			$next_stage = ($wp_record['stage'] +1 ); tpl_set_var("start_stage", '');	tpl_set_var("end_stage", '');	}
+			tpl_set_var("stage", $next_stage);			
+			} else {
+			tpl_set_var("stage", "0");	}
+			
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 			{
 			$tplname = 'newwp';
@@ -71,19 +74,20 @@
 					else
 					$lang_db = "en";
 					$types = '';
-					if ($cache_record['type'] == '2' || $cache_record['type'] == '6' $cache_record['type'] == '8' $cache_record['type'] == '9')
-					{ $wp_types = $wp_types1;} else { $wp_types = $wp_types2;}
-					foreach ($wp_types as $type)
+//					if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
+
+					foreach (get_wp_types_from_database($cache_record['type']) as $type)
 					{
 					if ($type['id'] == $sel_type)
 					{
 						$types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 					}
-					else
-					{
+						else
+						{
 						$types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
-					}
-				}
+						}
+					}					
+									
 				tpl_set_var('typeoptions', $types);
 
 				//coords
@@ -122,7 +126,7 @@
 				tpl_set_var('lat_min', htmlspecialchars($lat_min, ENT_COMPAT, 'UTF-8'));
 
 				//stage
-				$wp_stage= isset($_POST['stage']) ? $_POST['stage'] : '';
+				$wp_stage= isset($_POST['stage']) ? $_POST['stage'] : '0';
 				
 				//status				
 					$status1="";
