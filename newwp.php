@@ -34,7 +34,7 @@
 			$cache_id = $_POST['cacheid'];			
 			}
 			tpl_set_var("cacheid", $cache_id);			
-			$wp_rs = sql("SELECT `stage` FROM `waypoints`  WHERE `cache_id`='&1' ORDER BY `stage` DESC", $cache_id);
+			$wp_rs = sql("SELECT `stage`,`type` FROM `waypoints`  WHERE `cache_id`='&1' AND (type<>4 OR type<>5) ORDER BY `stage` DESC", $cache_id);
 			
 			$cache_rs = sql("SELECT `user_id`, `name`, `type`,  `longitude`, `latitude`,  `status`, `logpw` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
 			if (mysql_num_rows($cache_rs) == 1)
@@ -47,11 +47,20 @@
 			{	
 			$wp_record = sql_fetch_array($wp_rs);
 			if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
-			{ $next_stage = 0; $wp_stage = 0;	tpl_set_var("start_stage", '<!--');	tpl_set_var("end_stage", '-->');}else {
-			$next_stage = ($wp_record['stage'] +1 ); tpl_set_var("start_stage", '');	tpl_set_var("end_stage", '');	}
-			tpl_set_var("stage", $next_stage);			
+			{ $next_stage = 0; $wp_stage = 0; tpl_set_var("stage", "0");	tpl_set_var("nextstage", "0"); tpl_set_var("start_stage", '<!--');	tpl_set_var("end_stage", '-->');
 			} else {
-			tpl_set_var("stage", "0");	}
+			$next_stage = ($wp_record['stage'] +1 ); 
+			tpl_set_var("nextstage", $next_stage);				
+			tpl_set_var("stage", $next_stage);
+			tpl_set_var("start_stage", '');	
+			tpl_set_var("end_stage", '');}
+			} else {
+			if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
+			{ $wp_stage = 0; tpl_set_var("stage", "0");	tpl_set_var("nextstage", "0"); tpl_set_var("start_stage", '<!--');	tpl_set_var("end_stage", '-->');
+			}else {
+			tpl_set_var("start_stage", '');	tpl_set_var("end_stage", '');	}
+			
+			tpl_set_var("stage", "1");tpl_set_var("nextstage", "1");	}
 			
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 			{
@@ -142,6 +151,7 @@
 				//desc
 				$wp_desc = isset($_POST['desc']) ? $_POST['desc'] : '';
 				tpl_set_var('desc', htmlspecialchars($wp_desc, ENT_COMPAT, 'UTF-8'));
+				
 				if (isset($_POST['back']))
 				{	
 							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
@@ -153,7 +163,7 @@
 				if (isset($_POST['submitform']))
 				{
 					//check the entered data
-
+					if ($sel_type =='4' || $$sel_type == '5') $wp_stage=0;
 					//check coordinates
 					if ($lat_h!='' || $lat_min!='')
 					{

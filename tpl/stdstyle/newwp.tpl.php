@@ -7,45 +7,37 @@
 	*   (at your option) any later version.
 	*   
 	*  UTF-8 ąść
-onChange="return _chkCacheType()
 	***************************************************************************/
 ?>
 <script type="text/javascript">
 <!--
-
-function _chkCacheType () 
-{
-  if (document.waypoints_form.cachetype.value == "2" || document.waypoints_form.cachetype.value == "6" || document.waypoints_form.cachetype.value == "8" || document.waypoints_form.cachetype.value == "9") ) 
+function _chkType () 
+{var nextstage = document.forms['waypoints_form'].nextstage.value;
+  if (document.waypoints_form.type.value == "4" || document.waypoints_form.type.value == "5" ) 
 	{
-			document.waypoints_form.type.value = "4";
-			document.waypoints_form.type.disabled = false;
-		}
-		else
-			document.waypoints_form.type.disabled = false;
-  }
-  else
-  {
-		if( document.waypoints_form.type.options[document.waypoints_form.type.options.length - 1].value == "7" )
-			document.waypoints_form.type.options[document.waypoints_form.type.options.length - 1 ] = null;
-		document.waypoints_form.type.disabled = false;
-  }
+			document.waypoints_form.stage.value = "0";
+			document.waypoints_form.stage.disabled = true;
+	}		
+		else {
+			document.waypoints_form.stage.value = nextstage;
+			document.waypoints_form.stage.disabled = false; }
   return false;
 }
 //-->
 </script>
-
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;Dodatkowy waypoint dla skrzynki: <font color="black">{cache_name}</color></div>
 	{general_message}
 <form action="newwp.php" method="post" enctype="application/x-www-form-urlencoded" name="waypoints_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="cachetype" value="{cachetype}"/>
+<input type="hidden" name="nextstage" value="{nextstage}"/>
 
 <table width="90%" class="table" border="0">
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td class="content-title-noshade">Typ waypointa:</td>
 		<td>
-			<select name="type" class="input200" ">
+			<select name="type" class="input200" onChange="return _chkType()">
 				{typeoptions}
 			</select>{type_message}
 		</td>

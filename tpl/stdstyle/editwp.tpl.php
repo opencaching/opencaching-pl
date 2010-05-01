@@ -9,20 +9,35 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
-
+<script type="text/javascript">
+<!--
+function _chkType () 
+{var nextstage = document.forms['waypoints_form'].nextstage.value;
+  if (document.waypoints_form.type.value == "4" || document.waypoints_form.type.value == "5" ) 
+	{
+			document.waypoints_form.stage.value = "0";
+			document.waypoints_form.stage.disabled = true;
+	}		
+		else {
+			document.waypoints_form.stage.value = nextstage;
+			document.waypoints_form.stage.disabled = false; }
+  return false;
+}
+//-->
+</script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;Dodatkowy waypoint dla skrzynki: {cache_name}</div>
 	{general_message}
 <form action="editwp.php" method="post" enctype="application/x-www-form-urlencoded" name="waypoints_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="wpid" value="{wpid}"/>
-
+<input type="hidden" name="nextstage" value="{nextstage}"/>
 	
 <table width="90%" class="table" border="0">
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td class="content-title-noshade">Typ waypointa:</td>
 		<td>
-			<select name="type" class="input200">
+			<select name="type" class="input200" onChange="return _chkType()">
 				{typeoptions}
 			</select>
 		</td>

@@ -74,8 +74,8 @@ function get_wp_types_from_database($cachetype)
 	global $dblink;
 	$wp_types = array();
 //	$wp_types[] = array('id' => '-1', 'pl' =>'Proszę wybrać typ', 'en' => 'Select one');
-	if ($cachetype == '2' || $cachetype == '6' || $cachetype == '8' || $cachetype == '9')
-	{$param="id=-1 OR id=1 OR id=4";} else{$param = "id=-1 OR id=1 OR id=2 OR id=3 OR id=4";}
+	if ($cachetype == '2' ||$cachetype == '4' ||$cachetype == '5' || $cachetype == '6' || $cachetype == '8' || $cachetype == '9')
+	{$param="id=-1 OR id=4 OR id=5";} else{$param = "id=-1 OR id=1 OR id=2 OR id=3 OR id=4 OR id=5";}
 	$resp = sql("SELECT * FROM waypoint_type WHERE $param ORDER BY id ASC");
 	while($row = sql_fetch_assoc($resp))
 	{

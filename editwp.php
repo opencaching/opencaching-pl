@@ -210,6 +210,8 @@
 					if (isset($_POST['submit']))
 						{
 						//all validations ok?
+					//check the entered data
+						if ($wp_type =='4' || $wp_type == '5') $wp_stage='0';
 						if (!($lat_not_ok || $lon_not_ok || $descwp_not_ok))
 							{
 							$wp_lat = $coords_lat_h + $coords_lat_min / 60;
@@ -247,6 +249,7 @@
 					tpl_set_var("desc", htmlspecialchars($wp_desc));
 					tpl_set_var("type", htmlspecialchars($wp_type));
 					tpl_set_var("stage", htmlspecialchars($wp_stage));
+					tpl_set_var("nextstage", htmlspecialchars($wp_stage));
 					tpl_set_var("status", htmlspecialchars($wp_status));
 					tpl_set_var("wpid", htmlspecialchars($wp_record['wp_id']));
 					tpl_set_var("cacheid", htmlspecialchars($wp_record['cache_id']));
