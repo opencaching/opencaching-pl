@@ -52,7 +52,7 @@
 			{
 				$cache_record = sql_fetch_array($cache_rs);
 
-			if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
+			if ($cache_record['type'] == '2' || $cache_record['type'] == '4' || $cache_record['type'] == '5'|| $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
 			{ tpl_set_var("start_stage", '<!--');	tpl_set_var("end_stage", '-->');}else {
 			 tpl_set_var("start_stage", '');	tpl_set_var("end_stage", '');	}
 				

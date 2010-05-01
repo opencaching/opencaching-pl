@@ -46,7 +46,7 @@
 			if (mysql_num_rows($wp_rs) != 0)
 			{	
 			$wp_record = sql_fetch_array($wp_rs);
-			if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
+			if ($cache_record['type'] == '2' || $cache_record['type'] == '4' || $cache_record['type'] == '5'|| $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
 			{ $next_stage = 0; $wp_stage = 0; tpl_set_var("stage", "0");	tpl_set_var("nextstage", "0"); tpl_set_var("start_stage", '<!--');	tpl_set_var("end_stage", '-->');
 			} else {
 			$next_stage = ($wp_record['stage'] +1 ); 
@@ -55,7 +55,7 @@
 			tpl_set_var("start_stage", '');	
 			tpl_set_var("end_stage", '');}
 			} else {
-			if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
+			if ($cache_record['type'] == '2' || $cache_record['type'] == '4' || $cache_record['type'] == '5' ||$cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
 			{ $wp_stage = 0; tpl_set_var("stage", "0");	tpl_set_var("nextstage", "0"); tpl_set_var("start_stage", '<!--');	tpl_set_var("end_stage", '-->');
 			}else {
 			tpl_set_var("start_stage", '');	tpl_set_var("end_stage", '');	}
