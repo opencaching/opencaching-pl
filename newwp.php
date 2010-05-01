@@ -48,7 +48,8 @@
 			{
 				$cache_record = sql_fetch_array($cache_rs);
 
-			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));	
+			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));
+			tpl_set_var("cachetype",  htmlspecialchars($cache_record['type']));			
 			if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 			{
 			$tplname = 'newwp';
@@ -70,6 +71,8 @@
 					else
 					$lang_db = "en";
 					$types = '';
+					if ($cache_record['type'] == '2' || $cache_record['type'] == '6' $cache_record['type'] == '8' $cache_record['type'] == '9')
+					{ $wp_types = $wp_types1;} else { $wp_types = $wp_types2;}
 					foreach ($wp_types as $type)
 					{
 					if ($type['id'] == $sel_type)
@@ -135,7 +138,13 @@
 				//desc
 				$wp_desc = isset($_POST['desc']) ? $_POST['desc'] : '';
 				tpl_set_var('desc', htmlspecialchars($wp_desc, ENT_COMPAT, 'UTF-8'));
-				
+				if (isset($_POST['back']))
+				{	
+							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+							mysql_free_result($cache_rs);
+							mysql_free_result($wp_rs);
+							exit;
+				}				
 				
 				if (isset($_POST['submitform']))
 				{

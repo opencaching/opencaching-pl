@@ -187,7 +187,15 @@
 					{
 						if($_POST['desc'] == "")
 							$descwp_not_ok = true;
-					}					
+					}	
+
+				if (isset($_POST['back']))
+				{	
+							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+							mysql_free_result($cache_rs);
+							mysql_free_result($wp_rs);
+							exit;
+				}						
 					//try to save to DB?
 					if (isset($_POST['submit']))
 						{

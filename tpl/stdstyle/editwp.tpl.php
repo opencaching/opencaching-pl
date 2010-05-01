@@ -39,7 +39,7 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><div class="notice" style="width:400px;height:44px;">Numer etapu, jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0.</div>
+		<td><div class="notice" style="width:400px;height:44px;">Jeśli ten waypoint nie jest kolejnym etapem wymaganym do odnalezienia skrzynki typu multicache lub quiz wstaw wartość 0.</div>
 		</td>
 	</tr>
 	<tr>
@@ -84,13 +84,15 @@
 		<input type="radio" name="status" value="2" {checked2} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa za wyjątkiem współrzędnych</label>
 		</td></tr>
 		<tr><td>
-		<input  type="radio" name="status" value="3" {checked3} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint w wykazie punktów skrzynki</label>
+		<input  type="radio" name="status" value="3" {checked3} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint w wykazie waypointów skrzynki</label>
 		</td></tr></td>
 		</table>
 <tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td colspan="2">
-			<button type="submit" name="delete" value="delete" style="font-size:12px;width:140px"><b>Usuń waypoint</b></button> &nbsp;&nbsp;
+			<td valign="top" class="content-title-noshade">&nbsp;</td>
+		<td>
+			<button type="submit" name="back" value="back" style="font-size:12px;width:140px"><b>Anuluj</b></button>&nbsp;&nbsp;
+			<button type="submit" name="delete" value="delete" onclick="return confirm('Czy usunąć ten waypoint?');" style="font-size:12px;width:140px"><b>Usuń waypoint</b></button> &nbsp;&nbsp;
 			<button type="submit" name="submit" value="submit" style="font-size:12px;width:140px"><b>Zapisz waypoint</b></button>
 		<br /><br /></td>
 	</tr>

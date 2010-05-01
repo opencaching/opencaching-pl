@@ -795,7 +795,7 @@
 							$waypoints .= '</table>';
 							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa włączając w to współrzędne</span>';
 							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa za wyjątkiem współrzędnych</span>';
-							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>Ukryj ten waypoint w wykazie punktów skrzynki</span>';
+							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>Ukryj ten waypoint w wykazie waypointów skrzynki</span>';
 						tpl_set_var('cache_wp_list', $waypoints);
 					}
 					else

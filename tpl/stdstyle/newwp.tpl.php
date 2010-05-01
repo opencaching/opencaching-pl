@@ -15,26 +15,19 @@ onChange="return _chkCacheType()
 
 function _chkCacheType () 
 {
-  if (document.editcache_form.type.value == "4" || document.editcache_form.type.value == "5" || document.editcache_form.type.value == "6" || ({other_nobox} && document.editcache_form.type.value == "1") ) 
+  if (document.waypoints_form.cachetype.value == "2" || document.waypoints_form.cachetype.value == "6" || document.waypoints_form.cachetype.value == "8" || document.waypoints_form.cachetype.value == "9") ) 
 	{
-		if( document.editcache_form.size.options[document.editcache_form.size.options.length - 1].value != "7" )
-		{
-			document.editcache_form.size.options[document.editcache_form.size.options.length] = new Option('Bez pojemnika', '7');
-		}
-		
-		if( !({other_nobox} && document.editcache_form.type.value == "1"))
-		{
-			document.editcache_form.size.value = "7";
-			document.editcache_form.size.disabled = true;
+			document.waypoints_form.type.value = "4";
+			document.waypoints_form.type.disabled = false;
 		}
 		else
-			document.editcache_form.size.disabled = false;
+			document.waypoints_form.type.disabled = false;
   }
   else
   {
-		if( document.editcache_form.size.options[document.editcache_form.size.options.length - 1].value == "7" )
-			document.editcache_form.size.options[document.editcache_form.size.options.length - 1 ] = null;
-		document.editcache_form.size.disabled = false;
+		if( document.waypoints_form.type.options[document.waypoints_form.type.options.length - 1].value == "7" )
+			document.waypoints_form.type.options[document.waypoints_form.type.options.length - 1 ] = null;
+		document.waypoints_form.type.disabled = false;
   }
   return false;
 }
@@ -45,6 +38,7 @@ function _chkCacheType ()
 	{general_message}
 <form action="newwp.php" method="post" enctype="application/x-www-form-urlencoded" name="waypoints_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
+<input type="hidden" name="cachetype" value="{cachetype}"/>
 
 <table width="90%" class="table" border="0">
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -68,7 +62,7 @@ function _chkCacheType ()
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><div class="notice" style="width:410px;height:44px;">Jeśli nie chcesz aby dany waypoint był kolejnym numerem etapu wstaw wartość 0.</div>
+		<td><div class="notice" style="width:410px;height:44px;">Jeśli ten waypoint nie jest kolejnym etapem wymaganym do odnalezienia skrzynki typu multicache lub quiz wstaw wartość 0.</div>
 		</td>
 	</tr>
 	<tr>
@@ -113,12 +107,14 @@ function _chkCacheType ()
 		<input type="radio" name="status" value="2" {checked2} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa za wyjątkiem współrzędnych</label>
 		</td></tr>
 		<tr><td>
-		<input type="radio" name="status" value="3" {checked3} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint w wykazie waypontów skrzynki</label>
+		<input type="radio" name="status" value="3" {checked3} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint w wykazie waypointów skrzynki</label>
 		</td></tr></td>
 		</table>
 <tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td colspan="2">
+	<td valign="top" class="content-title-noshade">&nbsp;</td>
+		<td>
+			<button type="submit" name="back" value="back" style="font-size:12px;width:140px"><b>Anuluj</b></button>&nbsp;&nbsp;
 			<button type="submit" name="submitform" value="submit" style="font-size:12px;width:140px"><b>Dodaj waypoint</b></button>
 		<br /><br /></td>
 	</tr>
