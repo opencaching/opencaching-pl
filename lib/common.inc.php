@@ -766,7 +766,7 @@ session_start();
 
 		
 		if($type == 1) {
-			$retval = $retval . sprintf("%03d", floor($lon)) . '° ';
+			$retval = $retval . sprintf("%02d", floor($lon)) . '° ';
 			$lon = $lon - floor($lon);
 			$retval = $retval . sprintf("%06.3f", round($lon * 60, 3)) . '\'';
 		}
@@ -774,7 +774,7 @@ session_start();
 			$retval .= sprintf("%.5f", $lon) . '° ';
 		}
 		else if($type == 2) {
-			$retval = $retval . sprintf("%03d", floor($lon)) . '° ';
+			$retval = $retval . sprintf("%02d", floor($lon)) . '° ';
 			$lon = $lon - floor($lon);
 			$lon *= 60;
 			$retval = $retval . sprintf("%02d", floor($lon)) . '\' ';
