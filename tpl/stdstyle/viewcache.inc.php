@@ -78,7 +78,7 @@ $function_ignore_not = "<li><a href='removeignore.php?cacheid={cacheid}&amp;targ
  $logpictureline = '<div class="logimage"><div class="img-shadow"><a href="{link}" title="{title}" onclick="return false;"><img src="{imgsrc}" alt="{title}" onclick="enlarge(this)" class="viewlogs-thumbimg" longdesc="{longdesc}"/></a></div><span class="desc">{title}</span>{functions}</div>';
  $logpictures = '<div class="viewlogs-logpictures"><span class="info">'.tr('pictures_included').':</span><div class="allimages">{lines}</div></div><br style="clear: both" />';
 // Waypoints line
- $wpline='<tr><td align="center" valign="middle"><center>{number}</center></td><td align="center" valign="middle"><img src="{wp_icon}" alt="" title="{type}" /></td><td style="text-align: left;
+ $wpline='<tr>{stagehide_start}<td align="center" valign="middle"><center>{number}</center></td>{stagehide_end}<td align="center" valign="middle"><img src="{wp_icon}" alt="" title="{type}" /></td><td style="text-align: left;
 vertical-align: middle;">{type}</td><td align="left" valign="middle"><b><span style="color: rgb(88,144,168)">{lat_lon}</span></b></td><td align="left" valign="middle">{desc}</td></tr>';
 
  //$cache_watchers = '<br/>Dieser Cache wird von {watcher} Opencaching.de Nutzern beobachtet.';

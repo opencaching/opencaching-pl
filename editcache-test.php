@@ -763,10 +763,14 @@
 					tpl_set_var('hidemp3_end', '-->');
 					}
 		
-		//Add Waypoint
-			$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
-			if (mysql_num_rows($wp_rs) != 0)
-			{	
+			//Add Waypoint
+					if ($cache_record['type'] != 8 )
+					{ 
+					tpl_set_var('waypoints_start', '');
+					tpl_set_var('waypoints_end', '');
+				$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
+				if (mysql_num_rows($wp_rs) != 0)
+				{	
 						$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
 						$waypoints .= '<tr><th width="22"><b>Etap</b></th><th width="32"><b>Symbol</b></th><th width="32"><b>Typ</b></th><th width="32"><b>Współrzędne</b></th><th><b>Opis</b></th><th width="22"><b>Status</b></th><th width="22"><b>Edycja</b></th><th width="22"><b>Usuń</b></th></tr>';
 						for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
@@ -803,6 +807,9 @@
 					tpl_set_var('cache_wp_list', $nowp);
 					}
 					mysql_free_result($wp_rs);
+					} else {
+					tpl_set_var('waypoints_start', '<!--');
+					tpl_set_var('waypoints_end', '-->');}
 					
 
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));

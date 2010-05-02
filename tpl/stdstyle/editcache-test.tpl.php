@@ -282,6 +282,7 @@ function toggleAttr(id)
 
 			</td>
 	</tr>
+	{waypoints_start}
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">{cache_wp_list}</td>
@@ -289,8 +290,8 @@ function toggleAttr(id)
 	<tr>
 		<td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div></td>
 	</tr>
+	{waypoints_end}
 
-	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 
 		<td colspan="2">
