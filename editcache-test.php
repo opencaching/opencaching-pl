@@ -764,6 +764,7 @@
 					}
 		
 			//Add Waypoint
+					$cache_type=$cache_record['type'];
 					if ($cache_record['type'] != 8 )
 					{ 
 					tpl_set_var('waypoints_start', '');
@@ -772,7 +773,10 @@
 				if (mysql_num_rows($wp_rs) != 0)
 				{	
 						$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
-						$waypoints .= '<tr><th width="22"><b>Etap</b></th><th width="32"><b>Symbol</b></th><th width="32"><b>Typ</b></th><th width="32"><b>Współrzędne</b></th><th><b>Opis</b></th><th width="22"><b>Status</b></th><th width="22"><b>Edycja</b></th><th width="22"><b>Usuń</b></th></tr>';
+						$waypoints .= '<tr>';
+						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7) $waypoints .= '<th align="center" valign="middle" width="30"><b>Etap</b></th>';
+						
+						$waypoints .= '<th width="32"><b>Symbol</b></th><th width="32"><b>Typ</b></th><th width="32"><b>Współrzędne</b></th><th><b>Opis</b></th><th width="22"><b>Status</b></th><th width="22"><b>Edycja</b></th><th width="22"><b>Usuń</b></th></tr>';
 						for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
 							{
 							$tmpline1 = $wpline;
@@ -786,9 +790,13 @@
 							$tmpline1 = mb_ereg_replace('{lat}', $coords_lat, $tmpline1);
 							$tmpline1 = mb_ereg_replace('{desc}', $wp_record['desc'], $tmpline1);
 							$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
+						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7){
+						$tmpline1=mb_ereg_replace('{stagehide_end}', '', $tmpline1);	$tmpline1=mb_ereg_replace('{stagehide_start}', '', $tmpline1);
+
 							if ($wp_record['stage']==0) {$tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
 							}else{
 							$tmpline1 = mb_ereg_replace('{number}',$wp_record['stage'], $tmpline1);}
+							} else { $tmpline1=mb_ereg_replace('{stagehide_end}', '-->', $tmpline1);	$tmpline1=mb_ereg_replace('{stagehide_start}', '<!--', $tmpline1);}
 
 							if ($wp_record['status']==1) {$status_icon="tpl/stdstyle/images/free_icons/accept.png";}
 							if ($wp_record['status']==2) {$status_icon="tpl/stdstyle/images/free_icons/error.png";}

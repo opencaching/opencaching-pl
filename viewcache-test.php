@@ -651,10 +651,10 @@ tpl_set_var('dziubek2',"");
 
 			// show additional waypoints
 			//
-
+				$cache_type = $cache_record['type'];
 				$waypoints_visible=0;
 				$wp_rsc = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
-				if (mysql_num_rows($wp_rsc) != 0 && $cache_record['type'] != 8)
+				if (mysql_num_rows($wp_rsc) !=0 && $cache_record['type'] !=8)
 				{	
 							// check status all waypoints 
 							for ($i = 0; $i < mysql_num_rows($wp_rsc); $i++)
@@ -664,8 +664,7 @@ tpl_set_var('dziubek2',"");
 				if ($waypoints_visible !=0) {			 
 				$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
 				$waypoints .= '<tr>';
-				if ($cache_record['type'] != 1 || $cache_record['type'] != 9){
-				$waypoints .= '<th align="center" valign="middle" width="30"><b>Etap</b></th>';}
+				if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7) $waypoints .= '<th align="center" valign="middle" width="30"><b>Etap</b></th>';
 				
 				$waypoints .='<th align="center" valign="middle" width="40">&nbsp;<b>Symbol</b>&nbsp;</th>
 				<th align="center" valign="middle" width="40">&nbsp;<b>Typ</b>&nbsp;</th>
@@ -690,7 +689,7 @@ NAME
 						{
 							$coords_lat_lon = "<a class=\"links\" href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=".$wp_record['latitude']."&amp;lon=".$wp_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">".mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8')."<br>".htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'))."</a>";
 						}
-						if ($wp_record['status'] == 2)
+						if ($wp_record['status'] ==2)
 						{
 							$coords_lat_lon = "&nbsp;&nbsp;?? ?????<br />&nbsp;&nbsp;?? ?????";
 						}
@@ -700,7 +699,7 @@ NAME
 						$tmpline1 = mb_ereg_replace('{desc}', "&nbsp;".$wp_record['desc']."&nbsp;", $tmpline1);
 						$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
 						
-						if ($cache_record['type'] != 1 || $cache_record['type'] != 9){
+						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7){
 						$tmpline1=mb_ereg_replace('{stagehide_end}', '', $tmpline1);	$tmpline1=mb_ereg_replace('{stagehide_start}', '', $tmpline1);
 						if ($wp_record['stage']==0)
 						{
@@ -759,7 +758,7 @@ NAME
 			// show pictures
 			//
 
-			if ($cache_record['picturescount'] ==  0 || ($_REQUEST['print'] && $_REQUEST['pictures'] == 'no'))
+			if ($cache_record['picturescount'] == 0 || ($_REQUEST['print'] && $_REQUEST['pictures'] == 'no'))
 			{
 				tpl_set_var('pictures', '<br />');
 				tpl_set_var('hidepictures_start', '<!--');
