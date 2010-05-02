@@ -287,16 +287,16 @@
 					$lat_not_ok = $lat_min_not_ok || $lat_h_not_ok;
 					
 					// stage only numeric					
-					if (is_numeric($wp_stage))
-						{
-								$stage_not_ok = false;
-							}
-							else
-							{
-								tpl_set_var('stage_message', $stage_not_ok);
-								$error = true;
-								$stage_not_ok = true;
-							}
+//					if (is_numeric($wp_stage))
+//						{
+//								$stage_not_ok = false;
+//							}
+//							else
+//							{
+//								tpl_set_var('stage_message', $stage_not_ok);
+//								$error = true;
+//								$stage_not_ok = true;
+//							}
 					//desc
 					if ($wp_desc == '')
 					{
@@ -318,7 +318,7 @@
 					}
 					
 					//no errors?
-					if (!($descwp_not_ok || $lon_not_ok || $lat_not_ok || $stage_not_ok || $type_not_ok))
+					if (!($descwp_not_ok || $lon_not_ok || $lat_not_ok || $type_not_ok))
 					{
 						//add record 
 						sql("INSERT INTO `waypoints` (

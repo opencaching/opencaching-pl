@@ -699,6 +699,31 @@ a.links3:active {
 a.links3:hover {
 	text-decoration: none;
 }
+/*links with color  */
+a.links4:link {
+	font-weight:bold;
+	color: rgb(88,144,168);
+	text-decoration:none;
+}
+
+a.links4:visited {
+	font-weight:bold;
+	color: rgb(88,144,168);
+	text-decoration:none;
+}
+
+a.links4:active {
+	background-color: yellow;
+	text-decoration:none;
+}
+
+a.links4:hover {
+	font-weight:bold;
+	color:blue;
+/*	background-color:rgb(219,230,241); */
+	text-decoration: underline;
+}
+
 
 /* Gradien stylee */
 #gradient {

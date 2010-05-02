@@ -493,7 +493,8 @@ $gpxWaypoints = '<rtept lat="{wp_lat}" lon="{wp_lon}">
 				$thiswp = str_replace('{wp_lon}', $lon, $thiswp);
 				$thiswp = str_replace('{wp_stage}', $rwp['stage'], $thiswp);		
 				$thiswp = str_replace('{wp_desc}', cleanup_text($rwp['desc']), $thiswp);					
-				if ($rwp['type']==1){$thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);}
+				if ($rwp['type']==5){$thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);}
+				if ($rwp['type']==1){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
 				if ($rwp['type']==2){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
 				if ($rwp['type']==3){$thiswp = str_replace('{wp_type}', "Flag, Red", $thiswp);}
 				if ($rwp['type']==4){$thiswp = str_replace('{wp_type}', "Flag, Blue", $thiswp);}
