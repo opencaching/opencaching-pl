@@ -192,6 +192,7 @@
 					tpl_set_var("checked3", $status3);
 				
 					$wp_desc = isset($_POST['desc']) ? $_POST['desc'] : $wp_record['desc'];
+					$wp_desc = nl2br($wp_desc);
 					$descwp_not_ok = false;
 					if(isset($_POST['desc']))
 					{
