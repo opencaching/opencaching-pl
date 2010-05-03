@@ -1,14 +1,5 @@
 <?php
 /***************************************************************************
-											./tpl/stdstyle/editcache.tpl.php
-															-------------------
-		begin                : Mon July 6 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
 	*   it under the terms of the GNU General Public License as published by
@@ -19,43 +10,7 @@
 
 /****************************************************************************
 
-   Unicode Reminder ??
-
-	 edit a cache listing
-
-	 template replacement(s):
-
-			cacheid
-			show_all_countries
-			name
-			typeoptions
-			sizeoptions
-			selLatN
-			selLatS
-			selLonE
-			selLonW
-			lat_h
-			lat_min
-			lon_h
-			lon_min
-			lon_message
-			lat_message
-			countryoptions
-			show_all_countries_submit
-			difficultyoptions
-			terrainoptions
-			cache_descs
-			date_day
-			date_month
-			date_year
-			date_message
-			reset
-			submit
-			cacheid_urlencode
-			statusoptions
-			search_time
-			way_length
-			styleoptions
+   Unicode Reminder ąś
 
  ****************************************************************************/
 ?>
@@ -288,7 +243,7 @@ function toggleAttr(id)
 		<td colspan="2">{cache_wp_list}</td>
 	</tr>
 	<tr>
-		<td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div></td>
+		<td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div></td>
 	</tr>
 	{waypoints_end}
 

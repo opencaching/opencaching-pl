@@ -675,11 +675,6 @@ tpl_set_var('dziubek2',"");
 
 				for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
 				{
-/*
-$ccasdasdasd = "<a href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=".$wp_record['latitude']."&amp;lon=".$wp_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1')\">
-NAME
-</a>";
-*/
 					$wp_record = sql_fetch_array($wp_rs);
 					if ($wp_record['status'] !=3)
 					{
@@ -691,7 +686,7 @@ NAME
 						}
 						if ($wp_record['status'] ==2)
 						{
-							$coords_lat_lon = "&nbsp;&nbsp;?? ?????<br />&nbsp;&nbsp;?? ?????";
+							$coords_lat_lon = "N ?? ??????<br />E ?? ??????";
 						}
 						$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 						$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
