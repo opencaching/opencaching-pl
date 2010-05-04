@@ -356,7 +356,7 @@ function switchCat2()
 		<tr>
 			<td valign="middle" class="content-title-noshade">{{cache_attributes}}:</td>
 			<td class="content-title-noshade">
-				<div style="width:320px;">{cache_attrib_list}</div>
+				<div style="width:340px;">{cache_attrib_list}</div>
 				<div id="attributesCat2">{cache_attribCat2_list}</div>
 			</td>
 		</tr>
