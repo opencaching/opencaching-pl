@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `waypoints` (
   `latitude` double default NULL,
   `type` tinyint(1) default NULL,
   `status` tinyint(1) NOT NULL default '1',
-  `stage` varchar(2) NOT NULL default '0',
+  `stage` tinyint(1) NOT NULL default '0',
   `desc` varchar(300) default NULL,
   PRIMARY KEY  (`wp_id`,`cache_id`),
   KEY `cache_id` (`cache_id`),
