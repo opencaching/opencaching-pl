@@ -26,17 +26,21 @@ INSERT INTO `cache_attrib` (`id`, `language`, `text_short`, `text_long`, `icon_l
 (61, 'PL', 'Historyczna', 'Miejsce historyczne', 'images/attributes/monument.png', 'images/attributes/monument-no.png', 'images/attributes/monument-undef.png', 1, 0),
 (61, 'EN', 'Monumental', 'Monumental place', 'images/attributes/monument.png', 'images/attributes/monument-no.png', 'images/attributes/monument-undef.png', 1, 0),
 (80, 'PL', 'Okresowa/Płatna', 'Dostępna w określonych godzinach lub płatna', 'images/attributes/period.png', 'images/attributes/period-no.png', 'images/attributes/period-undef.png', 1, 0),
-(80, 'EN', 'Periodical/Paid', 'Monumental place', 'images/attributes/period.png', 'images/attributes/period-no.png', 'images/attributes/period-undef.png', 1, 0),
+(80, 'EN', 'Periodical/Paid', 'Periodical/Paid', 'images/attributes/period.png', 'images/attributes/period-no.png', 'images/attributes/period-undef.png', 1, 0),
 (83, 'PL', 'Sprzęt', 'Wymagany dodatkowy sprzęt', 'images/attributes/equip.png', 'images/attributes/equip-no.png', 'images/attributes/equip-undef.png', 1, 0),
 (83, 'EN', 'Equipment', 'Take special equipment', 'images/attributes/equip.png', 'images/attributes/equip-no.png', 'images/attributes/equip-undef.png', 1, 0),
 (81, 'PL', 'Łopatka', 'Potrzebna łopatka', 'images/attributes/dig.png', 'images/attributes/dig-no.png', 'images/attributes/dig-undef.png', 1, 0),
 (81, 'EN', 'Shovel', 'You will need a shovel', 'images/attributes/dig.png', 'images/attributes/dig-no.png', 'images/attributes/dig-undef.png', 1, 0),
 (44, 'PL', 'Niepelnosprawni', 'Dostępna dla niepełnosprawnych', 'images/attributes/disabled.png', 'images/attributes/disabled-no.png', 'images/attributes/disabled-undef.png', 1, 0),
 (44, 'EN', 'for disabled', 'Accessible for disabled', 'images/attributes/disabled.png', 'images/attributes/disabled-no.png', 'images/attributes/disabled-undef.png', 1, 0),
-(47, 'PL', 'Potrzebny kompas', 'Potrzeby kompas', 'images/attributes/compass.png', 'images/attributes/compass-no.png', 'images/attributes/compass-undef.png', 1, 0),
+(47, 'PL', 'Potrzebny kompas', 'Potrzebny kompas', 'images/attributes/compass.png', 'images/attributes/compass-no.png', 'images/attributes/compass-undef.png', 1, 0),
 (47, 'EN', 'Compass', 'Compass', 'images/attributes/compass.png', 'images/attributes/compass-no.png', 'images/attributes/compass-undef.png', 1, 0),
 (48, 'PL', 'Weź coś do pisania', 'Weź coś do pisania', 'images/attributes/pencil.png', 'images/attributes/pencil-no.png', 'images/attributes/pencil-undef.png', 1, 0),
-(48, 'EN', 'Take something to wr', 'Take something to write', 'images/attributes/pencil.png', 'images/attributes/pencil-no.png', 'images/attributes/pencil-undef.png', 1, 0);
+(48, 'EN', 'Take something to wr', 'Take something to write', 'images/attributes/pencil.png', 'images/attributes/pencil-no.png', 'images/attributes/pencil-undef.png', 1, 0),
+(49, 'PL', 'Magnes', 'Przyczepiona magnesem', 'images/attributes/magnet.png', 'images/attributes/magnet-no.png', 'images/attributes/magnet-undef.png', 1, 0),
+(49, 'EN', 'Magnet', 'Fixed by magnet', 'images/attributes/magnet.png', 'images/attributes/magnet-no.png', 'images/attributes/magnet-undef.png', 1, 0),
+(91, 'PL', 'Zalecane szukanie no', 'Zalecane szukanie nocą', 'images/attributes/night.png', 'images/attributes/night-no.png', 'images/attributes/night-undef.png', 1, 0),
+(91, 'EN', 'Recommended at night', 'Recommended at night', 'images/attributes/night.png', 'images/attributes/night-no.png', 'images/attributes/night-undef.png', 1, 0);
 
 --
 -- Zrzut danych tabeli `cache_size`
