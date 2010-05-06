@@ -230,6 +230,7 @@ function toggleAttr(id)
 	</td></tr>
 	{gc_com_refs_end}
 	<tr><td class="buffer" colspan="2"></td></tr>
+{waypoints_start}
 	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt=""/>&nbsp;Dodatkowe waypointy</p></div>
@@ -237,7 +238,7 @@ function toggleAttr(id)
 
 			</td>
 	</tr>
-	{waypoints_start}
+
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">{cache_wp_list}</td>
