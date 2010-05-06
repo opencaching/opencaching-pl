@@ -756,7 +756,7 @@
 		
 			//Add Waypoint
 					$cache_type=$cache_record['type'];
-					if ($cache_record['type'] != 8 )
+					if ($cache_type != 8 )
 					{ 
 					tpl_set_var('waypoints_start', '');
 					tpl_set_var('waypoints_end', '');
