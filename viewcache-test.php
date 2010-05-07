@@ -40,7 +40,7 @@
 		if(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y')
 			$tplname = 'viewcache_print';
 		else
-			$tplname = 'viewcache-test';
+			$tplname = 'viewcache';
 
 		require_once($rootpath . 'lib/caches.inc.php');
 		require_once($stylepath . '/lib/icons.inc.php');

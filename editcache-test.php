@@ -48,7 +48,7 @@
 
 				if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 				{
-					$tplname = 'editcache-test';
+					$tplname = 'editcache';
 
 					require_once($rootpath . 'lib/caches.inc.php');
 					require($stylepath . '/editcache.inc.php');

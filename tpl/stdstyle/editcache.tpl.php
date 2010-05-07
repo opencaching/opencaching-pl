@@ -1,14 +1,5 @@
 <?php
 /***************************************************************************
-											./tpl/stdstyle/editcache.tpl.php
-															-------------------
-		begin                : Mon July 6 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
 	*   it under the terms of the GNU General Public License as published by
@@ -19,43 +10,7 @@
 
 /****************************************************************************
 
-   Unicode Reminder ??
-
-	 edit a cache listing
-
-	 template replacement(s):
-
-			cacheid
-			show_all_countries
-			name
-			typeoptions
-			sizeoptions
-			selLatN
-			selLatS
-			selLonE
-			selLonW
-			lat_h
-			lat_min
-			lon_h
-			lon_min
-			lon_message
-			lat_message
-			countryoptions
-			show_all_countries_submit
-			difficultyoptions
-			terrainoptions
-			cache_descs
-			date_day
-			date_month
-			date_year
-			date_message
-			reset
-			submit
-			cacheid_urlencode
-			statusoptions
-			search_time
-			way_length
-			styleoptions
+   Unicode Reminder ąś
 
  ****************************************************************************/
 ?>
@@ -263,7 +218,6 @@ function toggleAttr(id)
 	<tr>
 	<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;">{{attributes_edit_hint}} {{attributes_desc_hint}}</div>
 	</td></tr>
-	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p></div>
 			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" align="Dodaj nowy opis" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}"/>{{add_new_desc}}</a></p>
@@ -276,7 +230,26 @@ function toggleAttr(id)
 	</td></tr>
 	{gc_com_refs_end}
 	<tr><td class="buffer" colspan="2"></td></tr>
+{waypoints_start}
 	<tr>
+		<td colspan="2">
+			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt=""/>&nbsp;Dodatkowe waypointy</p></div>
+			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newwp.php?cacheid={cacheid}">Dodaj nowy waypoint</a></p>
+
+			</td>
+	</tr>
+
+	<tr><td class="buffer" colspan="2"></td></tr>
+	<tr>
+		<td colspan="2">{cache_wp_list}</td>
+	</tr>
+	<tr>
+		<td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div></td>
+	</tr>
+	{waypoints_end}
+
+	<tr><td class="buffer" colspan="2"></td></tr>
+
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt=""/>&nbsp;&nbsp;{{pictures_label}}</p></div>
 			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2">{{add_new_pict}}</a></p>
@@ -328,8 +301,8 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<input type="reset" name="reset" value="{reset}" class="formbuttons"/>&nbsp;&nbsp;
-			<input type="submit" name="submit" value="{submit}" class="formbuttons"/>
+
+			<button type="submit" name="submit" value="{submit}" style="font-size:14px;width:130px"><b>{submit}</b></button>
 		<br /><br /></td>
 	</tr>
 </table>

@@ -155,7 +155,7 @@
 				
 				if (isset($_POST['back']))
 				{	
-							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+							tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
 							mysql_free_result($cache_rs);
 							mysql_free_result($wp_rs);
 							exit;
@@ -341,7 +341,7 @@
 												$wp_stage,
 												$wp_desc);
 					
-							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+							tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
 					// end of insert to sql
 					}else
 					{

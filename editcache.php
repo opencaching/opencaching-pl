@@ -1,14 +1,5 @@
 <?php
 /***************************************************************************
-																./editlog.php
-															-------------------
-		begin                : July 5 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
 	*   it under the terms of the GNU General Public License as published by
@@ -602,7 +593,7 @@
 						if (count($desclangs) > 1)
 						{
 							$remove_url = 'removedesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
-							$removedesc = '&nbsp;[<a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '">' . $remove . '</a>]';
+							$removedesc = '&nbsp;<img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="Delete" />[<a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '">' . $remove . '</a>]';
 						}
 						else
 						{
@@ -617,7 +608,7 @@
 
 						$edit_url = 'editdesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
 
-						$cache_descs .= '<tr><td colspan="2">' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . ' [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '">' . $edit . '</a>]' . $removedesc . '</td></tr>';
+						$cache_descs .= '<tr><td colspan="2"><img src="images/flags/'.strtolower($desclang).'.gif" class="icon16" alt=""  />&nbsp;' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" border="0" alt="" title="Edit" /> [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '">' . $edit . '</a>]' . $removedesc . '</td></tr>';
 					}
 					tpl_set_var('cache_descs', $cache_descs);
 
@@ -762,6 +753,62 @@
 					tpl_set_var('hidemp3_start', '<!--');
 					tpl_set_var('hidemp3_end', '-->');
 					}
+		
+			//Add Waypoint
+					$cache_type=$cache_record['type'];
+					if ($cache_type != 8 )
+					{ 
+					tpl_set_var('waypoints_start', '');
+					tpl_set_var('waypoints_end', '');
+				$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
+				if (mysql_num_rows($wp_rs) != 0)
+				{	
+						$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
+						$waypoints .= '<tr>';
+						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7) $waypoints .= '<th align="center" valign="middle" width="30"><b>Etap</b></th>';
+						
+						$waypoints .= '<th width="32"><b>Symbol</b></th><th width="32"><b>Typ</b></th><th width="32"><b>Współrzędne</b></th><th><b>Opis</b></th><th width="22"><b>Status</b></th><th width="22"><b>Edycja</b></th><th width="22"><b>Usuń</b></th></tr>';
+						for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
+							{
+							$tmpline1 = $wpline;
+							$wp_record = sql_fetch_array($wp_rs);
+				$coords_lat = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
+				$coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
+
+							$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+							$tmpline1 = mb_ereg_replace('{lon}', $coords_lon, $tmpline1);
+							$tmpline1 = mb_ereg_replace('{lat}', $coords_lat, $tmpline1);
+							$tmpline1 = mb_ereg_replace('{desc}', $wp_record['desc'], $tmpline1);
+							$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
+						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7){
+						$tmpline1=mb_ereg_replace('{stagehide_end}', '', $tmpline1);	$tmpline1=mb_ereg_replace('{stagehide_start}', '', $tmpline1);
+
+							if ($wp_record['stage']==0) {$tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
+							}else{
+							$tmpline1 = mb_ereg_replace('{number}',$wp_record['stage'], $tmpline1);}
+							} else { $tmpline1=mb_ereg_replace('{stagehide_end}', '-->', $tmpline1);	$tmpline1=mb_ereg_replace('{stagehide_start}', '<!--', $tmpline1);}
+
+							if ($wp_record['status']==1) {$status_icon="tpl/stdstyle/images/free_icons/accept.png";}
+							if ($wp_record['status']==2) {$status_icon="tpl/stdstyle/images/free_icons/error.png";}
+							if ($wp_record['status']==3) {$status_icon="tpl/stdstyle/images/free_icons/stop.png";}
+							$tmpline1 = mb_ereg_replace('{status}', $status_icon, $tmpline1);							
+							$waypoints .= $tmpline1;
+							}
+							$waypoints .= '</table>';
+							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa włączając w to współrzędne</span>';
+							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa za wyjątkiem współrzędnych</span>';
+							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>Ukryj ten waypoint w wykazie waypointów skrzynki</span>';
+						tpl_set_var('cache_wp_list', $waypoints);
+					}
+					else
+					{
+					tpl_set_var('cache_wp_list', $nowp);
+					}
+					mysql_free_result($wp_rs);
+					} else {
+					tpl_set_var('waypoints_start', '<!--');
+					tpl_set_var('waypoints_end', '-->');}
 					
 
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));

@@ -64,7 +64,7 @@
 						{							
 							//remove 
 							sql("DELETE FROM `waypoints` WHERE `wp_id`='&1'", $wp_id);
-							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+							tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
 							exit;
 						}
 
@@ -202,7 +202,7 @@
 
 				if (isset($_POST['back']))
 				{	
-							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+							tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
 							mysql_free_result($cache_rs);
 							mysql_free_result($wp_rs);
 							exit;
@@ -225,7 +225,7 @@
 							sql("UPDATE `waypoints` SET `longitude`='&1', `latitude`='&2', `type`='&3',`status`='&4', `stage`='&5',`desc`='&6' WHERE `wp_id`='&7'", $wp_lon, $wp_lat, $wp_type, $wp_status,$wp_stage, $wp_desc, $wp_id);
 
 							//display cache-page
-							tpl_redirect('editcache-test.php?cacheid=' . urlencode($cache_id));
+							tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
 							exit;
 							}
 						}
