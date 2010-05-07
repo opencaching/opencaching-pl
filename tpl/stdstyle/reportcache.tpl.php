@@ -24,7 +24,7 @@
 				<select name="reason">
 					<option value="0" selected="selected">=== Proszę wybrać ===</option>
 					<option value="1" >Uwaga co do lokalizacji skrzynki</option>
-					<option value="2" >Nieodpowiedni wpis w logu</option>
+					<option value="2" >Skrzynka wymag serwisu</option>
 					<option value="3" >Nieodpowiednia zawartość skrzynki</option>
 					<option value="4" >Inny</option>
 				</select>{noreason_error}
