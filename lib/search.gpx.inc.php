@@ -97,6 +97,7 @@
 			</geokrety>
 		</geocache>
 	</wpt>
+		  {cache_waypoints}
 ';
 
 $gpxAttribute = '<attribute id="{attribute_id}">{attribute_text}</attribute>';
@@ -463,6 +464,30 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 				
 			}
 			$thisline = str_replace('{geokrety}', $geokrety, $thisline);
+// Waypoints
+			$waypoints = '';
+			$rswp = sql("SELECT  `longitude`, `latitude`,`desc`,`stage`, `type`, `status` FROM `waypoints` WHERE  `waypoints`.`cache_id`=&1 ORDER BY `waypoints`.`stage`", $r['cacheid']); 
+			if (mysql_num_rows($rswp) != 0) {$waypoints ='<rte><name>'.cleanup_text($r['name']).'</name>';}
+			while ($rwp = sql_fetch_array($rswp))
+			{
+			if ($rwp['status']==1) {
+				$thiswp = $gpxWaypoints;
+				$lat = sprintf('%01.5f', $rwp['latitude']);
+				$thiswp = str_replace('{wp_lat}', $lat, $thiswp);		
+				$lon = sprintf('%01.5f', $rwp['longitude']);
+				$thiswp = str_replace('{wp_lon}', $lon, $thiswp);
+				$thiswp = str_replace('{wp_stage}', $rwp['stage'], $thiswp);		
+				$thiswp = str_replace('{wp_desc}', cleanup_text($rwp['desc']), $thiswp);					
+				if ($rwp['type']==5){$thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);}
+				if ($rwp['type']==1){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
+				if ($rwp['type']==2){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
+				if ($rwp['type']==3){$thiswp = str_replace('{wp_type}', "Flag, Red", $thiswp);}
+				if ($rwp['type']==4){$thiswp = str_replace('{wp_type}', "Flag, Blue", $thiswp);}
+				$waypoints .= $thiswp . "\n";
+				}
+			}
+			if (mysql_num_rows($rswp) != 0) {$waypoints .="</rte>";}
+			$thisline = str_replace('{cache_waypoints}', $waypoints, $thisline);
 
 
 
