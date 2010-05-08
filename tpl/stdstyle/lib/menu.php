@@ -463,8 +463,8 @@ $menu = array(
 				'siteid' => 'mycache_notes'
 			),
 			array(
-				'title' => tr('statistics'),
-				'menustring' => tr('statistics'),
+				'title' => tr('my_statistics'),
+				'menustring' => tr('my_statistics'),
 				'visible' => true,
 				'filename' => 'viewprofile.php?userid='.$usr['userid'].'',
 				'siteid' => 'myhome'
