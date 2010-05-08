@@ -462,7 +462,27 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 		}
 		fwrite($f, $t2 . '</attributes>' . "\n");
 		sql_free_result($rsAttributes);
+		
+		$rswaypoints = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' AND (`status`='1' OR `status`='2') ORDER BY `stage`,`wp_id`", $r['id']);
+		fwrite($f, $t2 . '<wpts>' . "\n");		
+		while ($rwpt = sql_fetch_assoc($rswaypoints))
+		{	
+		if ($rwpt['status']==1){
+		fwrite($f, $t3 . '<wpt lat="'. sprintf('%01.5f', $rwpt['latitude']) . '" lon="' . sprintf('%01.5f', $rwpt['longitude']) . '">' . "\n");
+		} else {
+		fwrite($f, $t3 . '<wpt lat="" lon="">' . "\n");}
+		fwrite($f, $t3 . '<wptype> ' . $rwpt['wp_type'] . ' </wptype>' . "\n");
+		fwrite($f, $t3 . '<stage> Etap: ' . ($rwpt['stage']+0) . '</stage>' . "\n");
+		$rwpt['desc'] = mb_ereg_replace('<br />', '', $rwpt['desc']);
+		$rwpt['desc'] = html_entity_decode($rwpt['desc'], ENT_COMPAT, 'UTF-8');
+		fwrite($f, $t3 . '<desc> ' . xmlcdata($rwpt['desc']) . ' </desc>' . "\n");
+		fwrite($f, $t3 . '</wpt>' . "\n");
+	}
+		fwrite($f, $t2 . '</wpts>' . "\n");
+		sql_free_result($rswaypoints);
 
+		
+		
 		fwrite($f, $t1 . '</cache>' . "\n");
 	}
 	mysql_free_result($rs);

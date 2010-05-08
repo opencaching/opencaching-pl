@@ -340,7 +340,7 @@
 												$wp_status,
 												$wp_stage,
 												$wp_desc);
-					
+							sql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`='&1'", $cache_id);												
 							tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
 					// end of insert to sql
 					}else

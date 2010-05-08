@@ -64,6 +64,7 @@
 						{							
 							//remove 
 							sql("DELETE FROM `waypoints` WHERE `wp_id`='&1'", $wp_id);
+							sql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`='&1'", $cache_id);
 							tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
 							exit;
 						}
@@ -223,6 +224,7 @@
 
 							//save to DB
 							sql("UPDATE `waypoints` SET `longitude`='&1', `latitude`='&2', `type`='&3',`status`='&4', `stage`='&5',`desc`='&6' WHERE `wp_id`='&7'", $wp_lon, $wp_lat, $wp_type, $wp_status,$wp_stage, $wp_desc, $wp_id);
+							sql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`='&1'", $cache_id);
 
 							//display cache-page
 							tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
