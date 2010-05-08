@@ -409,7 +409,9 @@ ozi_path_label Path to folder 'op' on PDA
 ozi_path_info Applicable for Ozi Explorer users with Filips' database. When you provide correct path to 'op' folder, you will be able to download WPT files as a search results with localization of information about cache description. After that, you can tap on the cache on Ozi Explorer's map and choose \"Open attachment\" option. This will open detailed description about the cache. Examples: <b>\\SDMMC\\baza\\</b>, <b>\\Memory card\\BF\\</b>
 newest_caches The latest caches
 total_of_active_caches Total of active caches
-number_of_active_users Number of active users
+total_of_caches Total of caches
+active_caches active
+number_of_active_users Number of users
 number_of_founds Founds
 latest_news News
 what_do_you_find Welcome on Opencaching.pl

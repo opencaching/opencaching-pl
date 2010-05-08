@@ -61,10 +61,11 @@
 		mysql_free_result($rs);
 		$newscontent = '';
 		
-		// aktuelle Cache und Logzahlen
+		$hiddenCaches = sqlValue("SELECT COUNT(*) FROM `caches` WHERE (`status`=1 OR `status`=2 OR `status`=3)", 0);		
 		$rs = sql('SELECT COUNT(*) AS `hiddens` FROM `caches` WHERE `status`=1');
 		$r = sql_fetch_array($rs);
 		tpl_set_var('hiddens', $r['hiddens']);
+		tpl_set_var('total_hiddens', $hiddenCaches);
 		mysql_free_result($rs);
 		
 		$rs = sql('SELECT COUNT(*) AS `founds` FROM `cache_logs` WHERE (`type`=1 OR `type`=2) AND `deleted`=0');

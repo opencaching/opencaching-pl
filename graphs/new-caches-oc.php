@@ -145,7 +145,7 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
 
   $lineHeight = $txtStat1->GetFontHeight($graph->img);
 
-  $hiddenCaches = sqlValue(sql("SELECT COUNT(*) FROM `caches`"), 0);
+  $hiddenCaches = sqlValue(sql("SELECT COUNT(*) FROM `caches` WHERE (`status`=1 OR `status`=2 OR `status`=3)"), 0);
   $txtStat2 = new Text('Ukryte skrzynki: ' . str_replace(',', '.', number_format($hiddenCaches)));
   $txtStat2->SetPos(55, 55 + $lineHeight * 1.5);
   $txtStat2->SetFont(FF_ARIAL, FS_NORMAL, 8);

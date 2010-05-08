@@ -409,7 +409,9 @@ ozi_path_label Ścieżka do katalogu 'op' na urządzeniu mobilnym
 ozi_path_info Dotyczy użytkowników Ozi Explorera i bazy Filipsa. Podanie ścieżki do katalogu 'op' bazy Filipsa, umożliwia pobieranie wyników wyszukiwania w formacie WPT z automatycznie zapisaną informacją o lokalizacji strony z opisem skrzynki. By skorzystać z tej opcji, wystarczy kliknąć na cache'a na mapie Ozi Explorera i wybrać "Open attachment". Przykładowe wpisy: <b>\\SDMMC\\baza\\</b>, <b>\\Memory card\\BF\\</b>
 newest_caches Najnowsze skrzynki
 total_of_active_caches Liczba aktywnych skrzynek
-number_of_active_users Liczba aktywnych użytkowników
+total_of_caches Liczba skrzynek
+active_caches w tym aktywnych
+number_of_active_users Liczba użytkowników
 number_of_founds Liczba poszukiwań skrzynek
 latest_news Aktualności
 what_do_you_find Witamy na {site_name}
