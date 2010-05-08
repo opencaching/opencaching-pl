@@ -779,7 +779,7 @@
 							$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 							$tmpline1 = mb_ereg_replace('{lon}', $coords_lon, $tmpline1);
 							$tmpline1 = mb_ereg_replace('{lat}', $coords_lat, $tmpline1);
-							$tmpline1 = mb_ereg_replace('{desc}', $wp_record['desc'], $tmpline1);
+							$tmpline1 = mb_ereg_replace('{desc}', nl2br($wp_record['desc']), $tmpline1);
 							$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
 						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7){
 						$tmpline1=mb_ereg_replace('{stagehide_end}', '', $tmpline1);	$tmpline1=mb_ereg_replace('{stagehide_start}', '', $tmpline1);

@@ -193,7 +193,7 @@
 					tpl_set_var("checked3", $status3);
 				
 					$wp_desc = isset($_POST['desc']) ? $_POST['desc'] : $wp_record['desc'];
-					$wp_desc = nl2br($wp_desc);
+//					$wp_desc = nl2br($wp_desc);
 					$descwp_not_ok = false;
 					if(isset($_POST['desc']))
 					{
@@ -222,6 +222,7 @@
 							$wp_lon = $coords_lon_h + $coords_lon_min / 60;
 							if ($coords_lonEW == 'W') $wp_lon = -$wp_lon;
 
+//							$wp_desc=nl2br($wp_desc);
 							//save to DB
 							sql("UPDATE `waypoints` SET `longitude`='&1', `latitude`='&2', `type`='&3',`status`='&4', `stage`='&5',`desc`='&6' WHERE `wp_id`='&7'", $wp_lon, $wp_lat, $wp_type, $wp_status,$wp_stage, $wp_desc, $wp_id);
 							sql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`='&1'", $cache_id);

@@ -691,7 +691,7 @@ tpl_set_var('dziubek2',"");
 						$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 						$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 						$tmpline1 = mb_ereg_replace('{lat_lon}', $coords_lat_lon, $tmpline1);
-						$tmpline1 = mb_ereg_replace('{desc}', "&nbsp;".$wp_record['desc']."&nbsp;", $tmpline1);
+						$tmpline1 = mb_ereg_replace('{desc}', "&nbsp;". nl2br($wp_record['desc']) ."&nbsp;", $tmpline1);
 						$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
 						
 						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7){

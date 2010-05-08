@@ -150,7 +150,7 @@
 					tpl_set_var("checked3", $status3);				
 				//desc
 				$wp_desc = isset($_POST['desc']) ? $_POST['desc'] : '';
-				$wp_desc = nl2br($wp_desc);
+//				$wp_desc = nl2br($wp_desc);
 				tpl_set_var('desc', htmlspecialchars($wp_desc, ENT_COMPAT, 'UTF-8'));
 				
 				if (isset($_POST['back']))
