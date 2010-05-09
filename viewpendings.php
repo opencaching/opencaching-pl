@@ -50,6 +50,15 @@ global $bgcolor1, $bgcolor2;
 		return null;
 	}
 	
+	function getCacheOwnerId($cacheid)
+	{
+		$sql = "SELECT user_id FROM caches WHERE cache_id='".sql_escape(intval($cacheid))."'";
+		$query = mysql_query($sql) or die();
+		if( mysql_num_rows($query) > 0)
+			return mysql_result($query,0);
+		return null;
+	}
+	
 	function actionRequired($cacheid)
 	{
 		// check if cache requires activation
@@ -62,10 +71,27 @@ global $bgcolor1, $bgcolor2;
 	
 	function activateCache($cacheid)
 	{
-		// activate the cache by changing its status to temporarly unavailable
+		// activate the cache by changing its status to yet unavailable
 		if( actionRequired($cacheid) )
 		{
 			$sql = "UPDATE caches SET status = 5 WHERE cache_id='".sql_escape(intval($cacheid))."'";
+			if( mysql_query($sql) )
+			{
+				sql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
+				return true;
+			}
+			else
+				return false;
+		}
+		return false;
+	}
+	
+	function declineCache($cacheid)
+	{
+		// activate the cache by changing its status to yet unavailable
+		if( actionRequired($cacheid) )
+		{
+			$sql = "UPDATE caches SET status = 3 WHERE cache_id='".sql_escape(intval($cacheid))."'";
 			if( mysql_query($sql) )
 			{
 				sql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
@@ -100,14 +126,21 @@ global $bgcolor1, $bgcolor2;
 		$query = mysql_query($sql) or die();
 	}
 	
-	function notifyOwner($cacheid)
+	function notifyOwner($cacheid, $msgType)
 	{
-		global $stylepath;
-		$user_id = getCacheOwnername($cacheid);
+		// msgType - 0 = cache accepted, 1 = cache declined (=archived)
+		global $stylepath, $usr;
+		$user_id = getCacheOwnerId($cacheid);
 		
 		$cachename = getCachename($cacheid);
-		$email_content = read_file($stylepath . '/email/activated_cache.email');
-		
+		if( $msgType == 0 )
+		{
+			$email_content = read_file($stylepath . '/email/activated_cache.email');
+		}
+		else
+		{
+			$email_content = read_file($stylepath . '/email/archived_cache.email');
+		}
 		$email_content = mb_ereg_replace('%cachename%', $cachename, $email_content);
 		$email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);	
 		$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
@@ -116,12 +149,21 @@ global $bgcolor1, $bgcolor2;
 		
 		$query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $user_id);
 		$owner_email = sql_fetch_array($query);
-		
-		//send email to owner
-		mb_send_mail($owner_email['email'], "[OC PL] Akceptacja skrzynki: ".$cachename, $email_content, $email_headers);
-		
-		//send email to approver
-		mb_send_mail($usr['email'], "[OC PL] Akceptacja skrzynki: ".$cachename, "Kopia potwierdzenia akceptacji skrzynki:\n".$email_content, $email_headers);
+	
+	  if( $msgType == 0 )
+		{
+			//send email to owner
+			mb_send_mail($owner_email['email'], "[OC PL] Akceptacja skrzynki: ".$cachename, $email_content, $email_headers);
+			//send email to approver
+			mb_send_mail($usr['email'], "[OC PL] Akceptacja skrzynki: ".$cachename, "Kopia potwierdzenia akceptacji skrzynki:\n".$email_content, $email_headers);
+		}
+		else
+		{
+			//send email to owner
+			mb_send_mail($owner_email['email'], "[OC PL] Odrzucenie skrzynki: ".$cachename, $email_content, $email_headers);
+			//send email to approver
+			mb_send_mail($usr['email'], "[OC PL] Odrzucenie skrzynki: ".$cachename, "Kopia potwierdzenia odrzucenia skrzynki:\n".$email_content, $email_headers);
+		}
 	}
 	
 	//prepare the templates and include all neccessary
@@ -156,7 +198,7 @@ global $bgcolor1, $bgcolor2;
 						if( activateCache($_GET['cacheid']) )
 						{
 							assignUserToCase($usr['userid'], $_GET['cacheid']);
-							notifyOwner($_GET['cacheid']);
+							notifyOwner($_GET['cacheid'], 0);
 							$confirm = "<p>Skrzynka została zaakceptowana. Właściciel został powiadomiony o tym fakcie.</p>";
 						}
 						else
@@ -164,18 +206,39 @@ global $bgcolor1, $bgcolor2;
 							$confirm = "<p>Wystąpił problem z akceptacją skrzynki. Żadna zmiana nie została wprowadzona.</p>";
 						}
 					}
-					else
+					else if( isset($_GET['confirm']) && $_GET['confirm'] == 2 )
+					{
+						// declined - change status to archived and notify the owner now
+						if( declineCache($_GET['cacheid']) )
+						{
+							assignUserToCase($usr['userid'], $_GET['cacheid']);
+							notifyOwner($_GET['cacheid'], 1);
+							$confirm = "<p>Skrzynka została odrzucona. Właściciel został powiadomiony o tym fakcie.</p>";
+						}
+						else
+						{
+							$confirm = "<p>Wystąpił problem z odrzuceniem skrzynki. Żadna zmiana nie została wprowadzona.</p>";
+						}
+					}
+					else if( $_GET['action'] == 1 )
 					{
 						// require confirmation
-						$confirm = "<p>Zamierzasz zaakceptować skrzynkę \"<a href='viewcache.php?cacheid=".$_GET['cacheid']."'>".getCachename($_GET['cacheid'])."</a>\" użytkownika ".getCacheOwnername($_GET['cacheid']).". Status skrzynki zostanie zmieniony na \"Jeszcze niedostępna\".</p>";
-						$confirm .= "<p><a href='viewpendings.php?cacheid=".$_GET['cacheid']."&amp;confirm=1'>Potwierdzam</a> | 
+						$confirm = "<p>Zamierzasz <b>zaakceptować</b> skrzynkę \"<a href='viewcache.php?cacheid=".$_GET['cacheid']."'>".getCachename($_GET['cacheid'])."</a>\" użytkownika ".getCacheOwnername($_GET['cacheid']).". Status skrzynki zostanie zmieniony na \"Jeszcze niedostępna\".</p>";
+						$confirm .= "<p><a href='viewpendings.php?cacheid=".$_GET['cacheid']."&amp;confirm=1'>Potwierdzam akceptację</a> | 
+						<a href='viewpendings.php'>Powrót</a></p>";
+					}
+					else if( $_GET['action'] == 2 )
+					{
+						// require confirmation
+						$confirm = "<p>Zamierzasz <b>odrzucić</b> skrzynkę \"<a href='viewcache.php?cacheid=".$_GET['cacheid']."'>".getCachename($_GET['cacheid'])."</a>\" użytkownika ".getCacheOwnername($_GET['cacheid']).". Status skrzynki zostanie zmieniony na \"Zarchiwizowana\".</p>";
+						$confirm .= "<p><a href='viewpendings.php?cacheid=".$_GET['cacheid']."&amp;confirm=2'>Potwierdzam archiwizację</a> | 
 						<a href='viewpendings.php'>Powrót</a></p>";
 					}
 					tpl_set_var('confirm', $confirm);
 				}
 				else
 				{
-					tpl_set_var('confirm', '<p>Wybrana skrzynka jest już aktywna albo nie istnieje.</p>');
+					tpl_set_var('confirm', '<p>Wybrana skrzynka jest już aktywna, zarchiwizowana albo nie istnieje.</p>');
 				}
 			}
 		}
@@ -208,7 +271,8 @@ global $bgcolor1, $bgcolor2;
 			$content .= "<td class='".$bgcolor."'><a class=\"links\" href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a></td>\n";
 			$content .= "<td class='".$bgcolor."'>".$report['date_created']."</td>\n";
 			$content .= "<td class='".$bgcolor."'><a class=\"links\" href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>\n";
-			$content .= "<td class='".$bgcolor."'><img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=".$report['cache_id']."'>Zaakceptuj</a><br/>
+			$content .= "<td class='".$bgcolor."'><img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=".$report['cache_id']."&amp;action=1'>Zaakceptuj</a><br/>
+			<img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=".$report['cache_id']."&amp;action=2'>Zarchiwizuj</a><br/>
 			<img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=".$report['cache_id']."&amp;assign=".$usr['userid']."'>Przypisz siebie do zgłoszenia</a></td>\n";
 			$content .= "<td class='".$bgcolor."'><a class=\"links\" href='viewprofile.php?userid=".$assignedUserId."'>".getUsername($assignedUserId)."</a><br/></td>";
 			$content .= "</tr>\n";
