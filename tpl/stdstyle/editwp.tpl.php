@@ -83,9 +83,9 @@ function _chkType ()
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td valign="top" class="content-title-noshade">Opis waypointa:</td>
+		<td valign="top" class="content-title-noshade">Opis waypointa (600 znaków):</td>
 		<td class="content-title-noshade">
-		<textarea name="desc" rows="5" cols="60">{desc}</textarea>{desc_message}</td>
+		<textarea name="desc" rows="10" cols="60">{desc}</textarea>{desc_message}</td>
 	</td>
 	</tr>
 	<tr>
