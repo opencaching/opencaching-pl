@@ -220,13 +220,13 @@ function toggleAttr(id)
 	</td></tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p></div>
-			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" align="Dodaj nowy opis" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}"/>{{add_new_desc}}</a></p>
+			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt="" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}">{{add_new_desc}}</a></p>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	{cache_descs}
 	{gc_com_refs_start}
-	<tr><td colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.gif" border="0" width="15" height="11" alt="" title="Hinweis"/><span style="color:red">.</span>
+	<tr><td colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.gif" border="0" width="15" height="11" alt="" title=""/><span style="color:red">.</span>
 	</td></tr>
 	{gc_com_refs_end}
 	<tr><td class="buffer" colspan="2"></td></tr>
