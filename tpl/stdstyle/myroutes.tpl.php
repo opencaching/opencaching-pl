@@ -1,156 +1,127 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<title>Google Maps JavaScript API Example: Advanced Directions</title>
+<script src=" http://maps.google.pl/?file=api&v=2.x&key=ABQIAAAA4DS0L5IhPNkkzhAejJ1YghQmw8g3SyoYQoey3nQkQjZ-xBIKWxQBStwSQ5otzHFYPFzfrBNiNotrGQ"
 
-<table width="100%">
-<tr>
-<td valign='top'>
+type="text/javascript"></script>
+<style type="text/css">
+body {
+font-family: Verdana, Arial, sans serif;
+font-size: 11px;
+margin: 2px;
+}
+table.directions th {
+background-color:#EEEEEE;
+}
 
-<h1>Dodaj Nową trasę</h1>
+img {
+color: #000000;
+}
+</style>
+<script type="text/javascript">
 
-<form enctype='multipart/form-data' method='post'>
-<table class='border'>
-<tr>
-<td valign='top' width='25%'>Nazwa trasy:</td>
-<td width='70%'><input type='text' name='name' size='50' value=''></td>
-</tr>
-</table>
-<table class='border'>
-<tr>
-<td valign='top' width='25%'>Opis trasy:</td>
-<td width='70%'><textarea name='description' cols='80' rows='3'></textarea></td>
-</tr>
-</table>
-<table class='border'>
-<tr>
-<td valign='top' width='25%'>Szukaj w promieniu (km):</td>
-<td width='70%'><input type='text' name='radius' size='5' value=''></td>
-</tr>
-</table>
-<table class='border'>
-<tr>
-<td valign='top' width='25%'>Wgraj plik KML :</td>
-<td width='70%'><input type='file' name='uploaded' size='50'></td>
-</tr>
-</table>
-<table class='border'>
-<tr>
-<td width='50%' colspan='2'>Typ skrzynki</td>
-<td width='25%'><input type='radio' name='typeix' id='typeix1' value='+' checked><label for='typeix1'> Wybrane typy skrzynek</label></td><td width='25%'><input type='radio' name='typeix' id='typeix2' value='-' ><label for='typeix2'> Bez zaznaczonych </label></td></tr>
-</tr>
-<tr>
-<td width='25%'><input type='checkbox' name='type[0]' id='type[0]' value='T' ><label for='type[0]'> Tradycyjna</label></td>
-<td width='25%'><input type='checkbox' name='type[5]' id='type[5]' value='M' ><label for='type[5]'> Multi-cache</label></td>
-<td width='25%'><input type='checkbox' name='type[6]' id='type[6]' value='Q' ><label for='type[6]'> Quiz</label></td>
-<td width='25%'><input type='checkbox' name='type[7]' id='type[7]' value='P' ><label for='type[9]'> Podcache</label></td>
-</tr>
-<tr>
-<td width='25%'><input type='checkbox' name='type[9]' id='type[9]' value='O' ><label for='type[9]'> Inny typ</label></td>
-<td width='25%'><input type='checkbox' name='type[10]' id='type[10]' value='U' ><label for='type[10]'> Mobilna</label></td>
-<td width='25%'><input type='checkbox' name='type[11]' id='type[11]' value='V' ><label for='type[11]'> Virtual</label></td>
-<td width='25%'><input type='checkbox' name='type[12]' id='type[12]' value='W' ><label for='type[12]'> Webcam</label></td>
-</tr>
-</table>
-<table class='border'>
-<tr>
-<td width='100%' colspan='4'>Wielkość skrzynki</td>
-</tr>
-<tr>
-<td width='20%'><input type='checkbox' name='container[1]' id='container[1]' value='M' ><label for='container[1]'> Mikro</label></td>
-<td width='20%'><input type='checkbox' name='container[2]' id='container[2]' value='S' ><label for='container[2]'> Mała</label></td>
-<td width='20%'><input type='checkbox' name='container[3]' id='container[3]' value='R' ><label for='container[3]'> Normalna</label></td>
-<td width='20%'><input type='checkbox' name='container[4]' id='container[4]' value='L' ><label for='container[4]'> Duża</label></td>
-<td width='20%'><input type='checkbox' name='container[6]' id='container[6]' value='O' ><label for='container[6]'> Bardzo duża</label></td>
-</tr>
-</table>
-<table class='border'>
-<tr>
-<td width='25%'>Trudność zadań</td>
-<td width='25%'>
-<select size='1' name='difficulty_start'>
-<option selected value='1'>1</option>
-<option  value='1.5'>1.5</option>
-<option  value='2'>2</option>
-<option  value='2.5'>2.5</option>
-<option  value='3'>3</option>
-<option  value='3.5'>3.5</option>
-<option  value='4'>4</option>
-<option  value='4.5'>4.5</option>
-<option  value='5'>5</option>
-</select>
-</td>
-<td width='25%'>
-<select size='1' name='difficulty_finish'>
-<option  value='1'>1</option>
-<option  value='1.5'>1.5</option>
-<option  value='2'>2</option>
-<option  value='2.5'>2.5</option>
-<option  value='3'>3</option>
-<option  value='3.5'>3.5</option>
-<option  value='4'>4</option>
-<option  value='4.5'>4.5</option>
-<option selected value='5'>5</option>
-</select>
-</td>
-<td width='45%'>&nbsp;</td>
-</tr>
-</table>
-<table class='border'>
-<tr>
-<td width='25%'>Trudność terenu</td>
-<td width='25%'>
-<select size='1' name='terrain_start'>
-<option selected value='1'>1</option>
-<option  value='1.5'>1.5</option>
-<option  value='2'>2</option>
-<option  value='2.5'>2.5</option>
-<option  value='3'>3</option>
-<option  value='3.5'>3.5</option>
-<option  value='4'>4</option>
-<option  value='4.5'>4.5</option>
-<option  value='5'>5</option>
-</select>
-</td>
-<td width='25%'>
-<select size='1' name='terrain_finish'>
-<option  value='1'>1</option>
-<option  value='1.5'>1.5</option>
-<option  value='2'>2</option>
-<option  value='2.5'>2.5</option>
-<option  value='3'>3</option>
-<option  value='3.5'>3.5</option>
-<option  value='4'>4</option>
-<option  value='4.5'>4.5</option>
-<option selected value='5'>5</option>
-</select>
-</td>
-<td width='45%'>&nbsp;</td>
-</tr>
-</table>
-<table class='border'>
-<tr>
-<td width='33%'><input type='radio' name='found' id='found1' value='F' onDblClick='this.checked=false' ><label for='found1'>Znaleziona</label></td>
-<td width='33%'><input type='radio' name='found' id='found2' value='N' onDblClick='this.checked=false' ><label for='found2'> Nieznaleziona</label></td>
-<td width='33%'><span class='smaller2'></span></td>
-<tr>
-</tr>
-<td width='33%'><input type='radio' name='owned' id='owned1' value='O' onDblClick='this.checked=false' ><label for='owned1'> Moja</label></td>
-<td width='33%'><input type='radio' name='owned' id='owned2' value='N' onDblClick='this.checked=false' ><label for='owned2'> Nie moja</label></td>
-<td width='33%'>&nbsp;</td>
-<tr>
-</tr>
-<td width='33%'><input type='radio' name='available' id='available1' value='A' onDblClick='this.checked=false' ><label for='available1'> Jest dostępna</label></td>
-<td width='33%'><input type='radio' name='available' id='available2' value='U' onDblClick='this.checked=false' ><label for='available2'> Jest niedostepna</label></td>
-<td width='33%'><input type='radio' name='available' id='available3' value='N' onDblClick='this.checked=false' ><label for='available3'> Zarchiwizowana</label></td>
-</tr>
-</table>
+var map;
+var gdir;
+var geocoder = null;
+var addressMarker;
+
+function initialize() {
+if (GBrowserIsCompatible()) {
+map = new GMap2(document.getElementById("map_canvas"));
+gdir = new GDirections(map, document.getElementById("directions"));
+GEvent.addListener(gdir, "load", onGDirectionsLoad);
+GEvent.addListener(gdir, "error", handleErrors);
+
+setDirections("San Francisco", "Mountain View", "en_US");
+}
+}
+
+function setDirections(fromAddress, toAddress, locale) {
+gdir.load("from: " + fromAddress + " to: " + toAddress,
+{ "locale": locale });
+}
+
+function handleErrors(){
+if (gdir.getStatus().code == G_GEO_UNKNOWN_ADDRESS)
+alert("No corresponding geographic location could be found for one of the specified addresses. This may be due to the fact that the address is relatively new, or it may be incorrect.\nError code: " + gdir.getStatus().code);
+else if (gdir.getStatus().code == G_GEO_SERVER_ERROR)
+alert("A geocoding or directions request could not be successfully processed, yet the exact reason for the failure is not known.\n Error code: " + gdir.getStatus().code);
+
+else if (gdir.getStatus().code == G_GEO_MISSING_QUERY)
+alert("The HTTP q parameter was either missing or had no value. For geocoder requests, this means that an empty address was specified as input. For directions requests, this means that no query was specified in the input.\n Error code: " + gdir.getStatus().code);
+
+// else if (gdir.getStatus().code == G_UNAVAILABLE_ADDRESS) <--- Doc bug... this is either not defined, or Doc is wrong
+// alert("The geocode for the given address or the route for the given directions query cannot be returned due to legal or contractual reasons.\n Error code: " + gdir.getStatus().code);
+
+else if (gdir.getStatus().code == G_GEO_BAD_KEY)
+alert("The given key is either invalid or does not match the domain for which it was given. \n Error code: " + gdir.getStatus().code);
+
+else if (gdir.getStatus().code == G_GEO_BAD_REQUEST)
+alert("A directions request could not be successfully parsed.\n Error code: " + gdir.getStatus().code);
+
+else alert("An unknown error occurred.");
+
+}
+
+function onGDirectionsLoad(){
+// Use this function to access information about the latest load()
+// results.
+
+// e.g.
+// document.getElementById("getStatus").innerHTML = gdir.getStatus().code;
+// and yada yada yada...
+}
+</script>
+
+</head>
+<body onload="initialize()" onunload="GUnload()">
+
+<h2>Maps API Directions Illustrated</h2>
+<form action="#" onsubmit="setDirections(this.from.value, this.to.value, this.locale.value); return false">
+
 <table>
-<tr>
-<td width='25%'><input name='button' type='submit' value='Zapisz trasę'></td>
-<td width='70%'>&nbsp;</td>
-</tr>
+
+<tr><th align="right">From:&nbsp;</th>
+
+<td><input type="text" size="25" id="fromAddress" name="from"
+value="San Francisco"/></td>
+<th align="right">&nbsp;&nbsp;To:&nbsp;</th>
+<td align="right"><input type="text" size="25" id="toAddress" name="to"
+value="Mountain View" /></td></tr>
+
+<tr><th>Language:&nbsp;</th>
+<td colspan="3"><select id="locale" name="locale">
+
+<option value="en" selected>English</option>
+
+<option value="fr">French</option>
+
+<option value="de">German</option>
+<option value="ja">Japanese</option>
+<option value="es">Spanish</option>
+</select>
+
+<input name="submit" type="submit" value="Get Directions!" />
+
+</td></tr>
 </table>
+
+
 </form>
 
-</td>
+<br/>
+<table class="directions">
+<tr><th>Formatted Directions</th><th>Map</th></tr>
+
+<tr>
+<td valign="top"><div id="directions" style="width: 275px"></div></td>
+<td valign="top"><div id="map_canvas" style="width: 310px; height: 400px"></div></td>
+
 </tr>
 </table>
-
+</body>
+</html>
