@@ -19,7 +19,7 @@
  
 // $rsfCR = sql("SELECT `cache_location`.`adm3` region, `cache_location`.`code3` code_region FROM `cache_location` WHERE `cache_location`.`code1`='PL' ORDER BY `cache_location`.`code3` DESC");
 
-	echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>Ranking skrzynek wg liczby odnalezień w regionie<br/><b>';
+	echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>Ranking skrzynek wg liczby odkryć w regionie<br/><b>';
 	echo '<br /><br />(Kliknij na nazwe województwa aby zobaczyć statytykę w danym województwie)</center></td></tr></table><br><table border="1" bgcolor="white" width="30%">' . "\n";
 
  

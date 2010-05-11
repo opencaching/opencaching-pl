@@ -22,7 +22,7 @@
 //	$region="PL61";
     $woj=sqlValue("SELECT nuts_codes.name FROM nuts_codes WHERE code='$region'", 0);
 	
-	echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>Ranking skrzynek wg liczby odnalezień w regionie<br/><b>';
+	echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>Ranking skrzynek wg liczby odkryć w regionie<br/><b>';
 	echo '<br /><br /><b><font color="blue">';
 	echo $woj;
 	echo '</font></b></center></td></tr></table>';
