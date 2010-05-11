@@ -7,6 +7,7 @@
 <?php if ($usr !== false){ echo '<img src="tpl/stdstyle/images/free_icons/chart_bar.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s5">{{cache_ranking_by_calculated_indicator}}</a><br />';} ?>
 <img src="tpl/stdstyle/images/free_icons/chart_bar.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s3">{{user_ranking_by_number_of_finds_of_their_caches}}</a><br />
 <img src="tpl/stdstyle/images/free_icons/chart_bar.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s7">{{number_of_caches_by_region}}</a><br />
+<img src="tpl/stdstyle/images/free_icons/chart_bar.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s11a">Ranking skrzynek wg liczby odnalezień w regionie</a><br />
 <img src="tpl/stdstyle/images/free_icons/chart_bar.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s8">{{activity_by_region}}</a><br />
 <br />
 <div class="img-shadow"><img src="graphs/new-caches-oc.php" alt="{{oc_statistics}}" /></div><br/>
