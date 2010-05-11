@@ -115,8 +115,6 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 </log>
 ';
 $gpxWaypoints = '<rtept lat="{wp_lat}" lon="{wp_lon}">
-	<desc>{wp_desc}</desc>
-    <sym>{wp_type}</sym>
     <name><![CDATA[Etap {wp_stage}]]></name>
     </rtept>
 		';
