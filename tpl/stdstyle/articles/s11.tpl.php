@@ -41,7 +41,7 @@ $a="SELECT count,name, cache_id, username FROM tmps11 GROUP BY `name` ORDER BY `
 $r=mysql_query($a) or die(mysql_error());
 echo    '<tr class="bgcolor2">'.
         '<td align="center">&nbsp;&nbsp;<b>Ranking</b>&nbsp;&nbsp;</td>'.
-	'<td align="center"><b>Liczba odnalezień</b></td>'.
+	'<td align="center"><b>Liczba odkryć</b></td>'.
 	'<td align="center">&nbsp;&nbsp;<b>Geocache (User)</b>&nbsp;&nbsp;</td></tr><tr><td>';
 	
 $l2="";
