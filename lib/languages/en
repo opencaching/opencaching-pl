@@ -147,6 +147,7 @@ change_password Change password
 collected_queries Collected queries
 watched_caches Watched caches
 settings Settings
+settings_notification Settings notification
 ignored_caches Ignored caches
 my_recommendations My recommendations
 search_cache Seek a cache

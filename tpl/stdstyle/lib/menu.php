@@ -524,15 +524,15 @@ $menu = array(
 				'menustring' => tr('watched_caches'),
 				'visible' => true,
 				'filename' => 'mywatches.php',
-				'siteid' => 'mywatches',
-				'submenu' => array(
-					array(
-						'title' => tr('settings'),
-						'menustring' => tr('settings'),
+				'siteid' => 'mywatches'
+			),
+			array(
+						'title' => tr('settings_notification'),
+						'menustring' => tr('settings_notification'),
 						'visible' => true,
 						'filename' => 'mywatches.php?rq=properties',
-						'siteid' => 'mywatches_properties')
-				)
+						'siteid' => 'mywatches_properties'
+				
 			),
 			array(
 				'title' => tr('ignored_caches'),
