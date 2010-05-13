@@ -1,6 +1,6 @@
 <table class="content">
 <tr>
-	<td class="header">
+	<td>
 		<img src="tpl/stdstyle/images/cache/traditional.png" class="icon32" alt=""  /><font size="4">  <b>Głosowanie do BOG 2010</b></font>
 	</td>
 </tr>
