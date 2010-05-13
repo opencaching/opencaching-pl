@@ -1,7 +1,7 @@
 <table class="content">
 <tr>
 	<td class="header">
-		<img src="tpl/stdstyle/images/cache/traditional.png" class="icon32" alt=""  /><font size="4">  <b>Głosowanie do Rady Rejsu 2009</b></font>
+		<img src="tpl/stdstyle/images/cache/traditional.png" class="icon32" alt=""  /><font size="4">  <b>Głosowanie do BOG 2010</b></font>
 	</td>
 </tr>
 <tr><td class="spacer" colspan="2"></td></tr>

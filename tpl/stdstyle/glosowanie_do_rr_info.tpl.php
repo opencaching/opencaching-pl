@@ -1,7 +1,7 @@
 <table class="content">
 <tr>
-	<td class="header">
-		<img src="tpl/stdstyle/images/cache/traditional.png" class="icon32" alt=""  /><font size="4">  <b>Głosowanie do Rady Rejsu 2009</b></font>
+	<td>
+		<img src="tpl/stdstyle/images/cache/traditional.png" class="icon32" alt=""  /><font size="4">  <b>Głosowanie do BOG 2010</b></font>
 	</td>
 </tr>
 <tr><td class="spacer" colspan="2"></td></tr>
@@ -9,15 +9,15 @@
 <tr><td class="spacer" colspan="2"></td></tr>
 <tr>
 	<td>
-		<br />
+		<br /><font size="2">
 		{vote_info}
 		<br />
-		<b>Lista kandydatów do wyborów Rady Rejsu 2009:</b><br />
+		<b>Lista kandydatów do wyborów BOG 2010:</b><br />
 		<br />
 		<table>
 			<tr><td><b>Kandydat</b></td><td><b>Miejscowość</b></td><td><b>Profil</b></td></tr>
 			{candidate_info_list}
-		</table>
+		</table></font>
 	</td>
 </tr>
 </table>
