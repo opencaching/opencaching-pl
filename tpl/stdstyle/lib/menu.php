@@ -513,6 +513,14 @@ $menu = array(
 				)
 			),
 			array(
+				'title' => tr('settings_notifications'),
+				'menustring' => tr('settings_notifications'),
+				'visible' => true,
+				'filename' => 'mywatches.php?rq=properties',
+				'siteid' => 'mywatches_properties'
+				
+			),
+			array(
 				'title' => tr('collected_queries'),
 				'menustring' => tr('collected_queries'),
 				'visible' => true,
@@ -526,14 +534,7 @@ $menu = array(
 				'filename' => 'mywatches.php',
 				'siteid' => 'mywatches'
 			),
-			array(
-						'title' => tr('settings_notification'),
-						'menustring' => tr('settings_notification'),
-						'visible' => true,
-						'filename' => 'mywatches.php?rq=properties',
-						'siteid' => 'mywatches_properties'
-				
-			),
+
 			array(
 				'title' => tr('ignored_caches'),
 				'menustring' => tr('ignored_caches'),
