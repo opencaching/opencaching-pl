@@ -22,7 +22,7 @@
 		Unicode Reminder ??
                                      				                                
 		GPX search output
-		
+				  {cache_waypoints}
 	****************************************************************************/
 
 	global $content, $bUseZip, $sqldebug, $usr, $hide_coords;
@@ -97,7 +97,6 @@
 			</geokrety>
 		</geocache>
 	</wpt>
-		  {cache_waypoints}
 ';
 
 $gpxAttribute = '<attribute id="{attribute_id}">{attribute_text}</attribute>';

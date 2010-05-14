@@ -90,7 +90,6 @@ $gpxLine = '
 			</groundspeak:travelbugs>
 		</groundspeak:cache>
 	</wpt>
-	  {cache_waypoints}
 ';
 
 
