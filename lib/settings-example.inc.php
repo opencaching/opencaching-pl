@@ -50,6 +50,7 @@
 	 * 5 Opencaching Entwicklung Deutschland (devel.opencaching.de)
 	 * 6 OC UK
 	 * 7 OC SE
+	 * 8 OC NO
 	 */
 	$oc_nodeid = 2;
 	
