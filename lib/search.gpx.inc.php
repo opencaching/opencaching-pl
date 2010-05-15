@@ -52,10 +52,10 @@
 	$gpxHead = 
 '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://geocaching.com.au/geocache/1 http://geocaching.com.au/geocache/1/geocache.xsd" xmlns="http://www.topografix.com/GPX/1/0" version="1.0" creator="www.opencaching.pl">
-  <desc>Geocache</desc>
-  <author>Geocaching</author>
+  <author>opencaching.pl</author>
   <url>http://www.opencaching.pl</url>
   <urlname>www.opencaching.pl</urlname>
+  <desc>Geocache</desc>
   <time>{{time}}</time>
 ';
 	
@@ -97,6 +97,7 @@
 			</geokrety>
 		</geocache>
 	</wpt>
+	{cache_waypoints}
 ';
 
 $gpxAttribute = '<attribute id="{attribute_id}">{attribute_text}</attribute>';
@@ -113,10 +114,17 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 	<text>{{text}}</text>
 </log>
 ';
-$gpxWaypoints = '<rtept lat="{wp_lat}" lon="{wp_lon}">
-    <name><![CDATA[Etap {wp_stage}]]></name>
-    </rtept>
-		';
+$gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
+	<time>{{time}}</time>
+	<name><![CDATA[{waypoint} {wp_stage}]]></name>
+    <cmt>{wp_type_name}</cmt>
+    <desc>{desc}</desc>
+    <url>http://opencaching.pl/viewcache.php?cacheid={cacheid}</url>
+    <urlname><![CDATA[{waypoint} {wp_stage}]]></urlname>
+    <sym>{wp_type}</sym>
+    <type>Waypoint|{wp_type}</type>
+  </wpt>
+';
 
 	$gpxFoot = '</gpx>';
 
@@ -469,8 +477,7 @@ $gpxWaypoints = '<rtept lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{geokrety}', $geokrety, $thisline);
 // Waypoints
 			$waypoints = '';
-			$rswp = sql("SELECT  `longitude`, `latitude`,`desc`,`stage`, `type`, `status` FROM `waypoints` WHERE  `waypoints`.`cache_id`=&1 ORDER BY `waypoints`.`stage`", $r['cacheid']); 
-			if (mysql_num_rows($rswp) != 0) {$waypoints ='<rte><name>'.cleanup_text($r['name']).'</name>';}
+			$rswp = sql("SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`.`pl` `wp_type_name` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE  `waypoints`.`cache_id`=&1 ORDER BY `waypoints`.`stage`", $r['cacheid']); 
 			while ($rwp = sql_fetch_array($rswp))
 			{
 			if ($rwp['status']==1) {
@@ -479,17 +486,23 @@ $gpxWaypoints = '<rtept lat="{wp_lat}" lon="{wp_lon}">
 				$thiswp = str_replace('{wp_lat}', $lat, $thiswp);		
 				$lon = sprintf('%01.5f', $rwp['longitude']);
 				$thiswp = str_replace('{wp_lon}', $lon, $thiswp);
-				$thiswp = str_replace('{wp_stage}', $rwp['stage'], $thiswp);		
-				$thiswp = str_replace('{wp_desc}', cleanup_text($rwp['desc']), $thiswp);					
+				$thiswp = str_replace('{waypoint}', $waypoint,$thiswp);
+				$thiswp = str_replace('{cacheid}', $rwp['cache_id'],$thiswp);
+				$thiswp = str_replace('{{time}}', $time, $thiswp);
+				$thiswp = str_replace('{wp_type_name}', $rwp['wp_type_name'], $thiswp);
+				if ($rwp['stage'] !=0) {
+				$thiswp = str_replace('{wp_stage}', " Etap" .$rwp['stage'], $thiswp);
+				} else {
+				$thiswp = str_replace('{wp_stage}',$rwp['wp_type_name'] , $thiswp);}				
+				$thiswp = str_replace('{desc}', cleanup_text($rwp['desc']), $thiswp);					
 				if ($rwp['type']==5){$thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);}
 				if ($rwp['type']==1){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
 				if ($rwp['type']==2){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
 				if ($rwp['type']==3){$thiswp = str_replace('{wp_type}', "Flag, Red", $thiswp);}
-				if ($rwp['type']==4){$thiswp = str_replace('{wp_type}', "Flag, Blue", $thiswp);}
-				$waypoints .= $thiswp . "\n";
+				if ($rwp['type']==4){$thiswp = str_replace('{wp_type}', "Circle with X", $thiswp);}
+				$waypoints .= $thiswp;
 				}
 			}
-			if (mysql_num_rows($rswp) != 0) {$waypoints .="</rte>";}
 			$thisline = str_replace('{cache_waypoints}', $waypoints, $thisline);
 
 
