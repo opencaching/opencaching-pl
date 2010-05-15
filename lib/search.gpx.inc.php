@@ -431,8 +431,17 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			}
 			if( $r['topratings'] > 0 ){
 			$thislogs .= "Rekomendacje: " .$r['topratings']. "\n";}
-	
 			
+				$rsArea = sql("SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype` 
+	             FROM `cache_npa_areas` 
+	       INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id` 
+	            WHERE `cache_npa_areas`.`cache_id`='&1'",$r['cacheid']);
+				if (mysql_num_rows($rsArea) != 0)
+				{ $thislogs .= "NATURA 2000: ";
+				while( $npa = mysql_fetch_array($rsArea) )
+					{
+			 $thislogs .= $npa['npaSitename']." - ".$npa['npaSitecode']. ",";}
+			 }			
 				$thislogs .= '</text></log>';
 				
 				$logentries .= $thislogs . "\n";
