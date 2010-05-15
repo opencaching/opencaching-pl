@@ -52,7 +52,7 @@
 <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0" creator="Groundspeak, Inc. All Rights Reserved. http://www.groundspeak.com" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd" xmlns="http://www.topografix.com/GPX/1/0">
 	<name>Cache Listing Generated from Opencaching.pl</name>
 	<desc>Cache Listing Generated from Opencaching.pl</desc>
-	<author> {owner} form Opencaching.pl</author>
+	<author>Opencaching.pl</author>
 	<email>ocpl@opencaching.pl</email>
 	<url>http://www.opencaching.pl</url>
 	<urlname>Opencaching.pl - Geocaching w Polsce</urlname>

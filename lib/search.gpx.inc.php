@@ -51,19 +51,22 @@
 
 	$gpxHead = 
 '<?xml version="1.0" encoding="utf-8"?>
-<gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://geocaching.com.au/geocache/1 http://geocaching.com.au/geocache/1/geocache.xsd" xmlns="http://www.topografix.com/GPX/1/0" version="1.0" creator="www.opencaching.pl">
-  <author>opencaching.pl</author>
+<gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://geocaching.com.au/geocache/1 http://geocaching.com.au/geocache/1/geocache.xsd"
+     xmlns="http://www.topografix.com/GPX/1/0"
+     version="1.0"
+     creator="www.opencaching.pl">
+  <desc>Geocache</desc>
+  <author>Geocaching Poland</author>
   <url>http://www.opencaching.pl</url>
   <urlname>www.opencaching.pl</urlname>
-  <desc>Geocache</desc>
-  <time>{{time}}</time>
+  <time>{time}</time>
 ';
 	
 	$gpxLine = 
-'
-	<wpt lat="{lat}" lon="{lon}">
-	<time>{{time}}</time>
-	<name>{{waypoint}}</name>
+'	<wpt lat="{lat}" lon="{lon}">
+	<time>{time}</time>
+	<name>{waypoint}</name>
 	<desc>{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
 	<src>www.opencaching.pl</src>
 	<url>http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</url>
@@ -72,19 +75,14 @@
 	<type>Geocache|{geocache_type}</type>
 	<geocache status="{status}" xmlns="http://geocaching.com.au/geocache/1">
 			<name>{cachename}</name>
-			<owner id="{owner_id}">{owner}</owner>
+			<owner>{owner}</owner>
 			<locale></locale>
 			<state>{state}</state>
 			<country>POLSKA</country>
 			<type>{type}</type>
 			<container>{container}</container>
-			<attributes>
-				{attributes}
-			</attributes>
 			<difficulty>{difficulty}</difficulty>
 			<terrain>{terrain}</terrain>
-			<recommended>{recommendations}</recommended>
-			<rate num="{score_num}">{score}</rate>
 			<summary html="false">{shortdesc}</summary>
 			<description html="true">{desc}{rr_comment}&lt;br&gt;{{images}}</description>
 			{hints}
@@ -93,14 +91,12 @@
 				{logs}
 			</logs>
 			<geokrety>
-				{geokrety}
+			{geokrety}
 			</geokrety>
 		</geocache>
 	</wpt>
 	{cache_waypoints}
 ';
-
-$gpxAttribute = '<attribute id="{attribute_id}">{attribute_text}</attribute>';
 
 $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 			<gkname>{geokret_name}</gkname> 
@@ -109,13 +105,13 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 	$gpxLog = '
 <log id="{id}">
 	<time>{date}</time>
-	<geocacher id="{finder_id}">{username}</geocacher>
+	<geocacher>{username}</geocacher>
 	<type>{type}</type>
-	<text>{{text}}</text>
+	<text>{text}</text>
 </log>
 ';
 $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
-	<time>{{time}}</time>
+	<time>{time}</time>
 	<name><![CDATA[{waypoint} {wp_stage}]]></name>
     <cmt>{wp_type_name}</cmt>
     <desc>{desc}</desc>
@@ -320,7 +316,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			}
 		}
 		
-		$gpxHead = str_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
+		$gpxHead = str_replace('{time}', date($gpxTimeFormat, time()), $gpxHead);
 		append_output($gpxHead);
 
 		// ok, ausgabe ...
@@ -335,8 +331,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{lon}', $lon, $thisline);
 
 			$time = date($gpxTimeFormat, strtotime($r['date_hidden']));
-			$thisline = str_replace('{{time}}', $time, $thisline);
-			$thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
+			$thisline = str_replace('{time}', $time, $thisline);
+			$thisline = str_replace('{waypoint}', $r['waypoint'], $thisline);
 			$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
 			$thisline = str_replace('{country}', $r['country'], $thisline);
@@ -393,27 +389,55 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
 			$thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
 
-
-			if( $r['votes'] < 3 )
-			{
-			$thisline = str_replace('{score}', "N/A", $thisline);
-			$score_num = score2ratingnum($r['score']);
-			$thisline = str_replace('{score_num}', $score_num, $thisline);
-			}
-			else
-			{
-
-				$score = score2rating($r['score']);
-				$score_num = score2ratingnum($r['score']);
-				$thisline = str_replace('{score}', $score, $thisline);
-				$thisline = str_replace('{score_num}', $score_num, $thisline);
-			}
-				$thisline = str_replace('{recommendations}',$r['topratings'], $thisline);
-
-
+			$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
 			// logs ermitteln
 			$logentries = '';
+			
+	if (( $r['votes'] > 3 ) || 	( $r['topratings'] > 0 ) || (mysql_num_rows($rsAttributes) > 0 )) {
+//				$thislog = $gpxLog;
+//				<groundspeak:log id="1">
+//        			<groundspeak:date>{date}</groundspeak:date>
+//					<groundspeak:type>{type}</groundspeak:type>
+//					<groundspeak:finder id="{finder_id}">{username}</groundspeak:finder>
+//					<groundspeak:text encoded="False">{{text}}</groundspeak:text>
+//				</groundspeak:log>
+				
+//				$thislog = str_replace('{id}', "0", $thislog);
+//				$thislog = str_replace('{date}', date("Y-m-d") ."T00:00:00", $thislog);
+//				$thislog = str_replace('{username}', "SYSTEM", $thislog);
+//				$thislog = str_replace('{finder_id}', "0", $thislog);						
+//				$thislog = str_replace('{type}', "Write note", $thislog);
+			// Attributes
+
+				$thislogs ='<log id="1">';
+				$thislogs .='<time>' .date("Y-m-d\TH:i:s").'</time>';
+				$thislogs .='<geocacher>SYSTEM</geocacher>';
+				$thislogs .='<text>';				
+				if (mysql_num_rows($rsAttributes) > 0) {
+				$attributes = 'Atrybuty: ';
+			while ($rAttribute = sql_fetch_array($rsAttributes))
+			{
+					$attributes .= cleanup_text(xmlentities($rAttribute['text_long']));									
+					$attributes .=  " | ";		
+			}
+			$thislogs .= $attributes;		
+	         }
+	
+			if( $r['votes'] > 3 ){
+
+				$score = cleanup_text(score2rating($r['score']));
+				$thislogs .= "\nOcena skrzynki: " .$score. "\n";
+			}
+			if( $r['topratings'] > 0 ){
+			$thislogs .= "Rekomendacje: " .$r['topratings']. "\n";}
+	
+			
+				$thislogs .= '</text></log>';
+				
+				$logentries .= $thislogs . "\n";
+		}	
+
 			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC", $r['cacheid']); // adam: removed LIMIT 20
 			while ($rLog = sql_fetch_array($rsLogs))
 			{
@@ -422,37 +446,18 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 				$thislog = str_replace('{id}', $rLog['id'], $thislog);
 				$thislog = str_replace('{date}', date($gpxTimeFormat, strtotime($rLog['date'])), $thislog);
 				$thislog = str_replace('{username}', xmlentities($rLog['username']), $thislog);
-				$thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);	
-			
+				$thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);				
 				if (isset($gpxLogType[$rLog['type']]))
 					$logtype = $gpxLogType[$rLog['type']];
 				else
 					$logtype = $gpxLogType[0];
 					
 				$thislog = str_replace('{type}', $logtype, $thislog);
-													$thislog = str_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
+				$thislog = str_replace('{text}', cleanup_text($rLog['text']), $thislog);
 				$logentries .= $thislog . "\n";
 				
 			}
 			$thisline = str_replace('{logs}', $logentries, $thisline);
-
-			// Attributes
-			$attributes = '';
-			$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
-			while ($rAttribute = sql_fetch_array($rsAttributes))
-			{
-				$thisAttribute = $gpxAttribute;
-				
-
-					//$thisAttribute = str_replace('{attribute_id}', $gpxAttConv[$rAttribute['attrib_id']], $thisAttribute);
-					$thisAttribute = str_replace('{attribute_id}', $rAttribute['attrib_id'], $thisAttribute);
-					$thisAttribute = str_replace('{attribute_text}', xmlentities($rAttribute['text_long']), $thisAttribute);
-									
-					$attributes .= $thisAttribute . "\n";
-
-				
-			}
-			$thisline = str_replace('{attributes}', $attributes, $thisline);
 
 			// Travel Bug GeoKrety
 			$waypoint = $r['waypoint'];
@@ -488,7 +493,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 				$thiswp = str_replace('{wp_lon}', $lon, $thiswp);
 				$thiswp = str_replace('{waypoint}', $waypoint,$thiswp);
 				$thiswp = str_replace('{cacheid}', $rwp['cache_id'],$thiswp);
-				$thiswp = str_replace('{{time}}', $time, $thiswp);
+				$thiswp = str_replace('{time}', $time, $thiswp);
 				$thiswp = str_replace('{wp_type_name}', $rwp['wp_type_name'], $thiswp);
 				if ($rwp['stage'] !=0) {
 				$thiswp = str_replace('{wp_stage}', " Etap" .$rwp['stage'], $thiswp);
