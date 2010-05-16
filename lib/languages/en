@@ -592,9 +592,19 @@ write_note Write note
 additional_waypoints Additional waypoints
 stage_wp Stage
 type_wp Type
+type_wp2 Type of waypoint
 coordinates_wp Coordinates
 describe_wp Description
 add_new_waypoint Add new waypoint
+wp_status1 Show all information for this waypoint, including coordinates
+wp_status2 Show the details of this waypoint but hide the coordinates
+wp_status3 Hide this waypoint from view cache
+number_stage_wp Stage #
+status_wp Status of wyapoint
+write_wp Write waypoint
+edit_wp Edit waypoint
+delete_wp Delete waypoint
+
 
 
 

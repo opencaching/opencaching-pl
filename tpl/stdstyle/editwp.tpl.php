@@ -25,7 +25,7 @@ function _chkType ()
 }
 //-->
 </script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;Dodatkowy waypoint dla skrzynki: <font color="black">{cache_name}</font></div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />&nbsp;{{edit_wp}} {{for_cache}}: <font color="black">{cache_name}</font></div>
 	{general_message}
 <form action="editwp.php" method="post" enctype="application/x-www-form-urlencoded" name="waypoints_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
@@ -35,7 +35,7 @@ function _chkType ()
 <table width="90%" class="table" border="0">
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">Typ waypointa:</td>
+		<td class="content-title-noshade">{{type_wp2}}:</td>
 		<td>
 			<select name="type" class="input200" onChange="return _chkType()">
 				{typeoptions}
@@ -47,7 +47,7 @@ function _chkType ()
 	</tr>
 {start_stage}
 		<tr>
-		<td class="content-title-noshade">Numer etapu:</td>
+		<td class="content-title-noshade">{{number_stage_wp}}:</td>
 		<td>
 		<input type="text" name="stage" maxlength="2" value="{stage}" class="input30" />
 		</td>
@@ -83,32 +83,32 @@ function _chkType ()
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td valign="top" class="content-title-noshade">Opis waypointa:</td>
+		<td valign="top" class="content-title-noshade">{{describe_wp}}:</td>
 		<td class="content-title-noshade">
 		<textarea name="desc" rows="10" cols="60">{desc}</textarea>{desc_message}</td>
 	</td>
 	</tr>
 	<tr>
-		<td valign="top" class="content-title-noshade">Status waypointa:</td>
+		<td valign="top" class="content-title-noshade">{{status_wp}}:</td>
 	</tr>	
 	<tr>
 		<td vAlign="top" align="left" colSpan="2">
 		<table border="0" style="width:600px;font-size: 12px; line-height: 1.6em;">
-		<tr><td><input type="radio" name="status" value="1" {checked1} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa włączając w to współrzędne</label>
+		<tr><td><input type="radio" name="status" value="1" {checked1} /><label for="status" style="font-size: 12px; line-height: 1.6em;">{{wp_status1}}</label>
 		</td></tr>
 		<tr><td>
-		<input type="radio" name="status" value="2" {checked2} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Pokaż wszystkie informacje waypointa za wyjątkiem współrzędnych</label>
+		<input type="radio" name="status" value="2" {checked2} /><label for="status" style="font-size: 12px; line-height: 1.6em;">{{wp_status2}}</label>
 		</td></tr>
 		<tr><td>
-		<input  type="radio" name="status" value="3" {checked3} /><label for="status" style="font-size: 12px; line-height: 1.6em;">Ukryj ten waypoint w wykazie waypointów skrzynki</label>
+		<input  type="radio" name="status" value="3" {checked3} /><label for="status" style="font-size: 12px; line-height: 1.6em;">{{wp_status3}}</label>
 		</td></tr></td>
 		</table>
 <tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td vAlign="top" align="left" colSpan="2">
-			<button type="submit" name="back" value="back" style="font-size:12px;width:140px"><b>Anuluj</b></button>&nbsp;&nbsp;
-			<button type="submit" name="delete" value="delete" onclick="return confirm('Czy usunąć ten waypoint?');" style="font-size:12px;width:140px"><b>Usuń waypoint</b></button> &nbsp;&nbsp;
-			<button type="submit" name="submit" value="submit" style="font-size:12px;width:140px"><b>Zapisz waypoint</b></button>
+			<button type="submit" name="back" value="back" style="font-size:12px;width:140px"><b>{{cancel}}</b></button>&nbsp;&nbsp;
+			<button type="submit" name="delete" value="delete" onclick="return confirm('Czy usunąć ten waypoint?');" style="font-size:12px;width:140px"><b>{{delete_wp}}</b></button> &nbsp;&nbsp;
+			<button type="submit" name="submit" value="submit" style="font-size:12px;width:140px"><b>{{write_wp}}</b></button>
 		<br /><br /></td>
 	</tr>
 

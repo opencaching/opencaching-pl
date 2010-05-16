@@ -755,19 +755,24 @@
 					}
 		
 			//Add Waypoint
+				if(checkField('waypoint_type',$lang) )
+					$lang_db = $lang;
+				else
+					$lang_db = "en";
+					
 					$cache_type=$cache_record['type'];
 					if ($cache_type != 8 )
 					{ 
 					tpl_set_var('waypoints_start', '');
 					tpl_set_var('waypoints_end', '');
-				$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
+				$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`", $lang_db,$cache_id);
 				if (mysql_num_rows($wp_rs) != 0)
 				{	
 						$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
 						$waypoints .= '<tr>';
-						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7) $waypoints .= '<th align="center" valign="middle" width="30"><b>Etap</b></th>';
+						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7) $waypoints .= '<th align="center" valign="middle" width="30"><b>'.tr('stage_wp').'</b></th>';
 						
-						$waypoints .= '<th width="32"><b>Symbol</b></th><th width="32"><b>Typ</b></th><th width="32"><b>Współrzędne</b></th><th><b>Opis</b></th><th width="22"><b>Status</b></th><th width="22"><b>Edycja</b></th><th width="22"><b>Usuń</b></th></tr>';
+						$waypoints .= '<th width="32"><b>Symbol</b></th><th width="32"><b>'.tr('type_wp').'</b></th><th width="32"><b>'.tr('coordinates_wp').'</b></th><th><b>'.tr('describe_wp').'</b></th><th width="22"><b>Status</b></th><th width="22"><b>'.tr('edit').'</b></th><th width="22"><b>'.tr('delete').'</b></th></tr>';
 						for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
 							{
 							$tmpline1 = $wpline;
@@ -796,9 +801,9 @@
 							$waypoints .= $tmpline1;
 							}
 							$waypoints .= '</table>';
-							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa włączając w to współrzędne</span>';
-							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>Pokaż wszystkie informacje waypointa za wyjątkiem współrzędnych</span>';
-							$waypoints .= '<br /><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>Ukryj ten waypoint w wykazie waypointów skrzynki</span>';
+							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>'.tr('wp_status1').'</span>';
+							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>'.tr('wp_status2').'</span>';
+							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>'.tr('wp_status3').'</span>';
 						tpl_set_var('cache_wp_list', $waypoints);
 					}
 					else
