@@ -195,7 +195,7 @@ else
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />
-					Dodatkowe waypointy
+					{{additional_waypoints}}
 				</p></div>
 				<p>
 					{waypoints_content}

@@ -620,6 +620,24 @@ history_gk historia wizyt
 cachenotes notatki
 my_statistics Moje statystyki
 mycache_note Moje notatki
+for_cache dla skrzynki
+add_new_note Dodaj nową notatkę
+back_to_cache Wróć do skrzynki
+cache_notes Notatki
+cache_note Notatka
+delete Usuń
+edit Edycja
+cancel Anuluj
+edit_cache_note Edycja notatki dla
+write_note Zapisz notatkę
+additional_waypoints Dodatkowe waypointy 
+stage_wp Etap
+type_wp Typ
+coordinates_wp Współrzędne
+describe_wp Opis
+add_new_waypoint Dodaj nowy waypoint
+
+
 
 
 

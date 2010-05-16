@@ -10,7 +10,7 @@
 	***************************************************************************/
 ?>
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" />&nbsp;Edycja notatki dla skrzynki: <font color="black">{cache_name}</font></div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" />&nbsp;{{edit_cache_note}}: <font color="black">{cache_name}</font></div>
 	{general_message}
 <form action="edit_cachenotes.php" method="post" enctype="application/x-www-form-urlencoded" name="editnotes_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
@@ -19,7 +19,7 @@
 <table width="90%" class="table" border="0">
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td valign="top" class="content-title-noshade">Treść notatki:</td>
+		<td valign="top" class="content-title-noshade">{{cache_note}}:</td>
 		<td class="content-title-noshade">
 		<textarea name="desc" rows="10" cols="80">{desc}</textarea>{desc_message}</td>
 	</tr>
@@ -29,9 +29,9 @@
 	<tr>		
 	<td valign="top" class="content-title-noshade">&nbsp;</td>
 		<td>
-			<button type="submit" name="back" value="back" style="font-size:12px;width:140px"><b>Anuluj</b></button>&nbsp;&nbsp;
-			<button type="submit" name="delete" value="delete" onclick="return confirm('Czy usunąć tę notatke?');" style="font-size:12px;width:140px"><b>Usuń notatkę</b></button> &nbsp;&nbsp;
-			<button type="submit" name="submit" value="submit" style="font-size:12px;width:140px"><b>Zapisz notatkę</b></button>			
+			<button type="submit" name="back" value="back" style="font-size:12px;width:140px"><b>{{cancel}}</b></button>&nbsp;&nbsp;
+			<button type="submit" name="delete" value="delete" onclick="return confirm('Czy usunąć tę notatke?');" style="font-size:12px;width:140px"><b>{{delete}}</b></button> &nbsp;&nbsp;
+			<button type="submit" name="submit" value="submit" style="font-size:12px;width:140px"><b>{{write_note}}</b></button>			
 
 		<br /><br /></td>
 	</tr>

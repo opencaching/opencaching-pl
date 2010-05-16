@@ -651,9 +651,14 @@ tpl_set_var('dziubek2',"");
 
 			// show additional waypoints
 			//
+				if(checkField('waypoint_type',$lang) )
+					$lang_db = $lang;
+				else
+					$lang_db = "en";
+					
 				$cache_type = $cache_record['type'];
 				$waypoints_visible=0;
-				$wp_rsc = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
+				$wp_rsc = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`",$lang_db,$cache_id);
 				if (mysql_num_rows($wp_rsc) !=0 && $cache_record['type'] !=8)
 				{	
 							// check status all waypoints 
@@ -664,14 +669,14 @@ tpl_set_var('dziubek2',"");
 				if ($waypoints_visible !=0) {			 
 				$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
 				$waypoints .= '<tr>';
-				if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7) $waypoints .= '<th align="center" valign="middle" width="30"><b>Etap</b></th>';
+				if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7) $waypoints .= '<th align="center" valign="middle" width="30"><b>'.tr('stage_wp').'</b></th>';
 				
 				$waypoints .='<th align="center" valign="middle" width="40">&nbsp;<b>Symbol</b>&nbsp;</th>
-				<th align="center" valign="middle" width="40">&nbsp;<b>Typ</b>&nbsp;</th>
-				<th width="50" align="center" valign="middle">&nbsp;<b>Współrzędne</b>&nbsp;</th>
-				<th align="center" valign="middle"><b>Opis</b></th></tr>';} 
+				<th align="center" valign="middle" width="40">&nbsp;<b>'.tr('type_wp').'</b>&nbsp;</th>
+				<th width="50" align="center" valign="middle">&nbsp;<b>'.tr('coordinates_wp').'</b>&nbsp;</th>
+				<th align="center" valign="middle"><b>'.tr('describe_wp').'</b></th></tr>';} 
 				
-				$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, waypoint_type.pl wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&1' ORDER BY `stage`,`wp_id`", $cache_id);
+				$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`",$lang_db,$cache_id);
 
 				for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
 				{
@@ -1132,8 +1137,8 @@ tpl_set_var('dziubek2',"");
 							'icon' => 'images/actions/new-entry'
 						),
 						array(
-							'title' => 'Notatka',
-							'menustring' => 'Notatka',
+							'title' => tr('cache_note'),
+							'menustring' => tr('cache_note'),
 							'visible' => true,
 							'filename' => 'new_cachenotes.php?cacheid='.$cache_id,
 							'newwindow' => false,

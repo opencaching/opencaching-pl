@@ -456,8 +456,8 @@ $menu = array(
 				'siteid' => 'mycaches'
 			),
 			array(
-				'title' => 'Moje notatki',
-				'menustring' => 'Moje notatki',
+				'title' => tr('mycache_note'),
+				'menustring' => tr('mycache_note'),
 				'visible' => true,
 				'filename' => 'mycache_notes.php',
 				'siteid' => 'mycache_notes'
