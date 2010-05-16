@@ -723,6 +723,14 @@ a.links4:hover {
 /*	background-color:rgb(219,230,241); */
 	text-decoration: underline;
 }
+/* external Links with symbol*/
+#ocmain a[href^="http:"], #ocmain a[href^="https:"]
+{
+	padding-right: 14px;
+	background-image: url('../images/misc/linkicon.png');
+	background-repeat: no-repeat;
+	background-position: right center;
+}
 
 
 /* Gradien stylee */
