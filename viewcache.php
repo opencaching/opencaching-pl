@@ -470,7 +470,8 @@ tpl_set_var('dziubek2',"");
 				else
 				{
 					$time_hours = floor($cache_record['search_time']);
-					$time_min = sprintf('%02d', ($cache_record['search_time'] - $time_hours) * 60);
+					$time_min=($cache_record['search_time'] - $time_hours) * 60;
+					$time_min = sprintf('%02d', round($time_min,1));
 					tpl_set_var('search_time', $time_hours . ':' . $time_min . ' h');
 				}
 
