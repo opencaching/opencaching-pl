@@ -848,7 +848,7 @@
 					tpl_set_var('show_all_countries_submit', ($show_all_countries == 0) ? $all_countries_submit: '');
 
 					$st_hours = floor($search_time);
-					$st_minutes = sprintf('%02d', ($search_time - $st_hours) * 60);
+					$st_minutes = sprintf('%02d', round(($search_time - $st_hours) * 60,1));
 
 					tpl_set_var('search_time', $st_hours . ':' . $st_minutes);
 

@@ -20,5 +20,4 @@ function calcLatLong($long, $lat, $distance, $bearing) {
 }
 
 print_r(calcLatLong(17, 52, 129289, 30.34));
-
 ?>
