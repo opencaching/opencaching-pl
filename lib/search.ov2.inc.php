@@ -35,7 +35,7 @@ $cacheTypeText[5] = 'Webcam Cache';
 $cacheTypeText[6] = 'Event Cache';
 $cacheTypeText[7] = 'Quiz';
 $cacheTypeText[8] = 'Moving Cache';
-$cacheTypeText[10] = 'Unknown Cache';
+$cacheTypeText[9] = 'PodCastCache';
 
 	if( $usr || !$hide_coords )
 	{
