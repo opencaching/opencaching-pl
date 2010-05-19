@@ -79,7 +79,7 @@
 				tpl_set_var('general_message', '');						
 					
 				$note_desc = isset($_POST['desc']) ? stripslashes($_POST['desc']) : $note_record['desc'];
-				$note_desc = nl2br($note_desc);
+//				$note_desc = nl2br($note_desc);
 //				if ($note_desc != ''){
 //				if ($note_record['desc_html'] == '0')
 //				$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
