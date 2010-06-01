@@ -252,8 +252,6 @@ int main(void)
 	geotile rect = get_lat_long_xyz(x, y, zoom);
 	SDL_Surface *im = create_image(256, 256);
 
-	fprintf(stderr, "%g %g %g %g\n", rect.lat, rect.lon, rect.latHeight, rect.lonWidth);
-
 	int show_signs = !(strcmp(microcgi_getstr(CGI_GET, "signes"), "true"));
 	int show_wp = !(strcmp(microcgi_getstr(CGI_GET, "waypoints"), "true"));
 
@@ -532,18 +530,10 @@ int main(void)
 				0
 				) 
 				continue;
-
-			fprintf(stderr, "%g %g\n", latitude, longitude);
 					   
 			int orig_x, orig_y;
-			latlon_to_pix(latitude, longitude-0.001, rect, &orig_x, &orig_y);		
-			fprintf(stderr, "%i %i\n", orig_x, orig_y);
-
-			latlon_to_pix(latitude, longitude+0.001, rect, &orig_x, &orig_y);		
-			fprintf(stderr, "%i %i\n", orig_x, orig_y);
 
 			latlon_to_pix(latitude, longitude, rect, &orig_x, &orig_y);		
-			fprintf(stderr, "%i %i\n", orig_x, orig_y);
 
 			int x = orig_x, y = orig_y;
 			
