@@ -49,10 +49,15 @@
 			}
 			else
 				tpl_set_var('remove_all_logs', '');
-
+				
+			if(checkField('countries',$lang) )
+				$lang_db = $lang;
+			else
+				$lang_db = "en";
+				
 			$rsuser =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, 
 								username, date_created,description, email,is_active_flag,
-								stat_ban,activation_code,hide_flag,countries.pl country
+								stat_ban,activation_code,hide_flag,countries.$lang_db country
 								FROM `user` LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1 ",$user_id);
 
 			$record = sql_fetch_array($rsuser);
