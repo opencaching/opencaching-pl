@@ -45,11 +45,16 @@ if ($count_days < 151) {$start_time = $year_old .'-06-1 00:00:00';
   $x2=array();
   $y3=array();
   $x3=array();
-$rsreports= sql("SELECT count(*) count, responsible_id, username from reports,user WHERE submit_date > '&1' and responsible_id <>0 AND responsible_id != 1883 AND user.user_id=responsible_id GROUP BY responsible_id ORDER  BY username",$start_time);
+  $y4=array();
+  $x4=array();
+
+  $rsreports= sql("SELECT count(*) count, responsible_id, username from reports,user WHERE submit_date > '&1' and responsible_id <>0 AND responsible_id != 1883 AND user.user_id=responsible_id GROUP BY responsible_id ORDER  BY username",$start_time);
 
 $rsreportsM= sql("SELECT count(*) count, MONTH(`submit_date`) `month` from reports WHERE submit_date > '&1' and responsible_id <>0 AND responsible_id != 1883 GROUP BY MONTH(`submit_date`) , YEAR(`submit_date`) ORDER BY YEAR(`submit_date`) ASC, MONTH(`submit_date`) ASC",$start_time);
 
-$rscaches= sql("SELECT count(*) count, username from approval_status,user WHERE user.user_id=approval_status.user_id  GROUP BY approval_status.user_id ORDER  BY username");
+$rscaches= sql("SELECT count(*) count, username from approval_status,user WHERE user.user_id=approval_status.user_id AND date_approval > '&1' GROUP BY approval_status.user_id ORDER  BY username",$start_time);
+
+$rscachesM= sql("SELECT count(*) count, MONTH(`date_approval`) `month` from approval_status WHERE date_approval > '&1' GROUP BY MONTH(`date_approval`) , YEAR(`date_approval`) ORDER BY YEAR(`date_approval`) ASC, MONTH(`date_approval`) ASC",$start_time);
 
 
 				$xtitle="";
@@ -68,10 +73,16 @@ $rscaches= sql("SELECT count(*) count, username from approval_status,user WHERE 
 					$y3[] = $ry3['count'];
 					$x3[] = $ry3['month'];
 					}
+					while ($ry4 = mysql_fetch_array($rscachesM))
+					{
+					$y4[] = $ry4['count'];
+					$x4[] = $ry4['month'];
+					}
+
 				mysql_free_result($rsreportsM);
 				mysql_free_result($rsreports);
 				mysql_free_result($rscaches);
-
+				mysql_free_result($rscachesM);
 
 				
 // Create the graph. These two calls are always required
@@ -198,6 +209,48 @@ $bplot3->value->SetFont(FF_FONT1,FS_BOLD);
 $bplot3->value->SetAngle(0);
 $bplot3->value->SetFormat('%d');
 
+// Create the graph. These two calls are always required
+$graph4 = new Graph(500,200,'auto');
+$graph4->SetScale('textint',0,max($y4)+(max($y4)*0.2),0,0);
+
+// Add a drop shadow
+$graph4->SetShadow();
+
+ 
+// Adjust the margin a bit to make more room for titles
+$graph4->SetMargin(50,30,30,40);
+ 
+// Create a bar pot
+$bplot4 = new BarPlot($y4);
+ 
+// Adjust fill color
+$bplot4->SetFillColor('purple1');
+$graph4->Add($bplot4);
+ 
+ 
+// Setup the titles
+$descibe4="Statystyka COG Miesiêczna - skrzynki weryfikowane";
+$graph4->title->Set($descibe4);
+//$graph3->xaxis->title->Set('Numer miesi±ca 2009/2010');
+$graph4->xaxis->title->Set($title3);
+$graph4->xaxis->SetTickLabels($x4);
+
+
+$graph4->yaxis->title->Set('Liczba skrzynek');
+ 
+$graph4->title->SetFont(FF_FONT1,FS_BOLD);
+$graph4->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph4->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+ 
+  
+// Setup the values that are displayed on top of each bar
+$bplot4->value->Show();
+ 
+// Must use TTF fonts if we want text at an arbitrary angle
+$bplot4->value->SetFont(FF_FONT1,FS_BOLD);
+$bplot4->value->SetAngle(0);
+$bplot4->value->SetFormat('%d');
+
 //-----------------------
 // Create a multigraph
 //----------------------
@@ -207,6 +260,7 @@ $mgraph->SetFrame(true,'darkgray',2);
 $mgraph->Add($graph);
 $mgraph->Add($graph3,0,220);
 $mgraph->Add($graph2,0,440);
+$mgraph->Add($graph4,0,660);
 $mgraph->Stroke();
    
   }

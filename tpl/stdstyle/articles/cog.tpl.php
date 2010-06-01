@@ -7,6 +7,6 @@
 
 	if( $usr['admin'] )
 	{ 
-	echo '<br /><img src="graphs/COGstat.php" alt="" title="" align="middle" />';
+	echo '<br/><img src="graphs/COGstat.php" alt="" title="" align="middle" /><br/><br/>';
 	} ?>
 </div>

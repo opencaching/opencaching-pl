@@ -78,10 +78,12 @@ global $bgcolor1, $bgcolor2;
 			if( mysql_query($sql) )
 			{
 				sql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
+				
 				return true;
 			}
 			else
 				return false;
+			
 		}
 		return false;
 	}
@@ -95,6 +97,8 @@ global $bgcolor1, $bgcolor2;
 			if( mysql_query($sql) )
 			{
 				sql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
+				sql("UPDATE `approval_status` SET `date_approval`=NOW() WHERE cache_id='".sql_escape(intval($cacheid))."'";
+
 				return true;
 			}
 			else
