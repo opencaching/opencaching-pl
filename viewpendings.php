@@ -77,8 +77,7 @@ global $bgcolor1, $bgcolor2;
 			$sql = "UPDATE caches SET status = 5 WHERE cache_id='".sql_escape(intval($cacheid))."'";
 			if( mysql_query($sql) )
 			{
-				sql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
-				
+				sql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");			
 				return true;
 			}
 			else
@@ -97,8 +96,6 @@ global $bgcolor1, $bgcolor2;
 			if( mysql_query($sql) )
 			{
 				sql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
-				sql("UPDATE `approval_status` SET `date_approval`=NOW() WHERE cache_id='".sql_escape(intval($cacheid))."'";
-
 				return true;
 			}
 			else
@@ -124,8 +121,8 @@ global $bgcolor1, $bgcolor2;
 		if( mysql_num_rows(mysql_query($sql)) == 0 )
 			return false;
 			
-		$sql = "INSERT INTO approval_status (cache_id, user_id, status) VALUES
-						(".sql_escape(intval($cacheid)).", ".sql_escape(intval($userid)).", 2)
+		$sql = "INSERT INTO approval_status (cache_id, user_id, status, date_approval) VALUES
+						(".sql_escape(intval($cacheid)).", ".sql_escape(intval($userid)).", 2,NOW())
 						ON DUPLICATE KEY UPDATE user_id = '".sql_escape(intval($userid))."'";
 		$query = mysql_query($sql) or die();
 	}
