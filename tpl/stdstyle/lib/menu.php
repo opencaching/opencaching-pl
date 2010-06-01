@@ -396,11 +396,11 @@ $menu = array(
 			'filename' => 'viewpendings.php'
 			),
 			array(
-			'title' => 'Statystyka RR',
-			'menustring' => 'Statystyka RR',
+			'title' => 'Statystyka COG',
+			'menustring' => 'Statystyka COG',
 			'siteid' => 'articles/bog',
 			'visible' => true,
-			'filename' => 'articles.php?page=bog'
+			'filename' => 'articles.php?page=cog'
 			),
 			array(
 			'title' => 'Skrzynki nieznalezione',

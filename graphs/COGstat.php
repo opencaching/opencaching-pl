@@ -95,7 +95,7 @@ $graph->Add($bplot);
  
  
 // Setup the titles
-$descibe="Statystyka RR2 - prowadzone zg這szenia";
+$descibe="Statystyka COG - prowadzone zg這szenia";
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
@@ -135,7 +135,7 @@ $graph2->Add($bplot2);
  
  
 // Setup the titles
-$descibe2="Statystyka RR2 - skrzynki weryfikowane";
+$descibe2="Statystyka COG - skrzynki weryfikowane";
 $graph2->title->Set($descibe2);
 $graph2->xaxis->title->Set($xtitle);
 $graph2->xaxis->SetTickLabels($x2);
@@ -176,7 +176,7 @@ $graph3->Add($bplot3);
  
  
 // Setup the titles
-$descibe3="Statystyka RR2 Miesi璚zna - zg這szenia";
+$descibe3="Statystyka COG Miesi璚zna - zg這szenia";
 $graph3->title->Set($descibe3);
 //$graph3->xaxis->title->Set('Numer miesi帷a 2009/2010');
 $graph3->xaxis->title->Set($title3);
