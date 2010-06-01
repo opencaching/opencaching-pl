@@ -381,8 +381,8 @@ search_all_caches wszystkie skrzynki
 search_recommended_caches minimalna ilość rekomendacji: 
 incomming_events Nadchodzące wydarzenia
 rr_comment_label Adnotacja Rady {site_name}
-add_rr_comment Dodaj adnotację RR do opisu
-remove_rr_comment Usuń adnotację RR do opisu
+add_rr_comment Dodaj adnotację COG do opisu
+remove_rr_comment Usuń adnotację COG do opisu
 get_bulletin Chcę otrzymywać biuletyny informacyjne
 bulletin_label_yes Użytkownik będzie otrzymywał biuletyny informacyjne
 bulletin_label_no Użytkownik nie będzie otrzymywał biuletynów informacyjnych
@@ -616,7 +616,7 @@ activity_by_region Aktywność w województwach
 number_of_visit_caches Liczba poszukiwań skrzynek
 users_active Liczba aktywnych użytkowników w poszukiwaniach
 show_labels Pokaż etykiety
-history_gk historia wizyt
+history_gk GeoKrety wizyty
 cachenotes notatki
 my_statistics Moje statystyki
 mycache_note Moje notatki

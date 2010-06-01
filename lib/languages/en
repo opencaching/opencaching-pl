@@ -381,8 +381,8 @@ search_all_caches all caches
 search_recommended_caches minimum number of recommendations: 
 incomming_events Upcomming events
 rr_comment_label Opencaching.pl Council comment
-add_rr_comment Add RR comment
-remove_rr_comment Remove RR comment
+add_rr_comment Add OC Team comment
+remove_rr_comment Remove OC Team comment
 get_bulletin I want to receive bulletins
 bulletin_label_yes User will receive bulletins
 bulletin_label_no User will not receive bulletins
@@ -575,7 +575,7 @@ activity_by_region Activity by region
 number_of_visit_caches Number of search caches
 users_active Number of active users
 number_found_of_caches Number of found it caches
-history_gk history of visit
+history_gk GeoKrety historie 
 cachenotes notes
 my_statistics My statistics
 mycache_note My cache notes
