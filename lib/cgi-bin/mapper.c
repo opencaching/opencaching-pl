@@ -65,8 +65,10 @@ void latlon_to_pix(double lat, double lon, geotile rect, int *x, int *y)
 	
 	*x = round(x_min + (x_max - x_min) * ( 1 - (lon - lon_min) / (lon_max - lon_min) ));
 	*y = round(y_max - (y_max - y_min) * ( (lat - lat_min) / (lat_max - lat_min) ));
-	if(*x < 0) *x = 256+*x;
-	if(*y < 0) *y = 256+*y;
+//	if(lon < 0)
+//		*x = 256+*x;
+//	if(lat < 0)
+//		*y = 256+*y;
 }
 
 geotile get_lat_long_xyz(int x, int y, int zoom)
