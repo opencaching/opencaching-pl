@@ -58,8 +58,6 @@ const char* type2name(int type)
 
 void latlon_to_pix(double lat, double lon, geotile rect, int *x, int *y)
 {
-	lat = fabs(lat);
-	lon = fabs(lon);
 	double x_min = 0, x_max = 256;
 	double y_min = 0, y_max = 256;
 	double lon_max = rect.lon, lon_min = rect.lon+rect.lonWidth;
@@ -67,6 +65,8 @@ void latlon_to_pix(double lat, double lon, geotile rect, int *x, int *y)
 	
 	*x = round(x_min + (x_max - x_min) * ( 1 - (lon - lon_min) / (lon_max - lon_min) ));
 	*y = round(y_max - (y_max - y_min) * ( (lat - lat_min) / (lat_max - lat_min) ));
+	if(*x < 0) *x = 256+*x;
+	if(*y < 0) *y = 256+*y;
 }
 
 geotile get_lat_long_xyz(int x, int y, int zoom)
@@ -251,6 +251,8 @@ int main(void)
 
 	geotile rect = get_lat_long_xyz(x, y, zoom);
 	SDL_Surface *im = create_image(256, 256);
+
+	fprintf(stderr, "%g %g %g %g\n", rect.lat, rect.lon, rect.latHeight, rect.lonWidth);
 
 	int show_signs = !(strcmp(microcgi_getstr(CGI_GET, "signes"), "true"));
 	int show_wp = !(strcmp(microcgi_getstr(CGI_GET, "waypoints"), "true"));
@@ -531,9 +533,17 @@ int main(void)
 				) 
 				continue;
 
+			fprintf(stderr, "%g %g\n", latitude, longitude);
 					   
 			int orig_x, orig_y;
+			latlon_to_pix(latitude, longitude-0.001, rect, &orig_x, &orig_y);		
+			fprintf(stderr, "%i %i\n", orig_x, orig_y);
+
+			latlon_to_pix(latitude, longitude+0.001, rect, &orig_x, &orig_y);		
+			fprintf(stderr, "%i %i\n", orig_x, orig_y);
+
 			latlon_to_pix(latitude, longitude, rect, &orig_x, &orig_y);		
+			fprintf(stderr, "%i %i\n", orig_x, orig_y);
 
 			int x = orig_x, y = orig_y;
 			

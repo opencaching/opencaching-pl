@@ -47,7 +47,7 @@ $get_userid = $_REQUEST['userid'];
 
 	$rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$user_id'");
 	$record = mysql_fetch_array($rs);
-	if( ($_REQUEST['lat'] != "" && $_REQUEST['lon'] != "") && ($_REQUEST['lat'] != 0 && $_REQUEST['lon'] != 0))
+	if( ($_REQUEST['lat'] != "" && $_REQUEST['lon'] != ""))
 	{
 		$coordsXY=$_REQUEST['lat'].",".$_REQUEST['lon'];
 		$coordsX=$_REQUEST['lat'];
