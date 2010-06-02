@@ -19,8 +19,15 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 </p>
 <br />
 <h1>OpenCaching PL Team </h1><p>
-
-<b>Rada Techniczna</b>:<br />
+<b>Rada Programowa</b>:<br />
+- Zyr<br />
+- trojmiasto<br />
+- rushcore<br />
+- filips<br />
+- sp2ong <br />
+<br/>
+<b>Rada Techniczna </b>:<br />
+<b>E-mial: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
 - filips (Filip) - geokrety.org / OC PL dla urządzeń mobilnych<br />
 - shchenka - OpenGeoWiki<br />
 - tATO - sprawy finasowe <br />
@@ -30,8 +37,17 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 - mardoq<br />
 - sp2ong <br />
 <br />
-<br />
-<b>Rada Rejsu</b> - w nawiasie podana liczba otrzymanych głosów -(obecna kadencja rozpoczyna się 1 czerwca 2009):<br />
+<b>Centrum Obsługi Geocachera </b>  - Kadencja 1.06.2010 - 31.05.2011 (w nawiasie liczba otrzymanych głosów):<br />
+<b>E-mial: <font color="black">cog</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
+- Voit (113) <br />
+- Whatever (111) <br />
+- Maciej eŚ (96) <br />
+- Saracen (84) <br />
+- Bazyl69 (77) <br />
+- Maliniak (77) <br />
+- Wallson (75) <br />
+<br /><br/>
+<span style="color:#808080"><b>Rada Rejsu</b>Kadencja 1.06.2009 - 31.05.2010:<br />
 - filips (119) <br />
 - ZYR (109) <br />
 - trojmiasto (94) <br />
@@ -39,7 +55,7 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 - bogobig (49) <br />
 - wanoga (48) <br />
 - Bazyl69 (47) <br />
-
+</span>
 <br />
 <span style="color:#808080"><b>Kadencja 1.06.2008 - 31.05.2009:</b><br />
 - Filips (39) <br />
@@ -53,7 +69,7 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 </p>
 <h1>Inne</h1>
 <p>W sprawach bezpośrednio związanych z funkcjonowaniem serwisu OpenCaching PL możesz napisać list na adres 
-<font color="black">ocpl</font> <font color="black">@</font> <font color="black">opencaching.pl</font> . Otrzymanie odpowiedzi może potrwać, więc bądź cierpliwy<br /></p>
+<font color="black">ocpl</font> <font color="black">at</font> <font color="black">opencaching.pl</font> . Otrzymanie odpowiedzi może potrwać, więc bądź cierpliwy<br /></p>
 
 <h1>Polska wersja OpenCaching</h1>
 <p>Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldemar Ogonowski (sp2ong) + duża pomoc kolegów którzy brali udział w testowaniu<br /></p>

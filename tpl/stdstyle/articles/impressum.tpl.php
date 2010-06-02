@@ -30,22 +30,8 @@ zasady i mają wpływ na kształt zawartości bazy skrzynek.</p>
 Oferta internetowa Opencaching została stworzona przez wspólną pracę wielu ludzi bez wynagrodzenia, 
 z pewnymi wyjątkami, gdzie przytoczony jest autor. Za te imienne wkłady odpowiada każdorazowo autor.</p>
 
-<h1>OpenCaching PL Team</h1>
-
-<p>
-<b>Rada Techniczna</b> (zespół który zajmuje sie aspektami technicznymi, zmiana kodu OC, serwis serwerow itp)<br />
-
-<br />
-<b>Rada Rejsu</b> wybierana na okres 1 roku - w nawiasie podana liczba otrzymanych głosów<br />
-
-<br />
-1. Rada Rejsu zostaje powołana wola wiekszości dla dobra wszystkich uczestnikow Opencaching.pl<br />
-2. Rada Rejsu składa się z 5-7 osób, które wybierane są wśród wszystkich uczestników OC na okres 1 roku<br />
-
-3. Do podstawowych zadan Rada Rejsu nalezy:<br />
- a) interwencja u właściciela skrzynki w przypadku rażącego naruszenia regulaminu OC<br />
- b) rozpatrywanie skarg pochodzacych od uczestników OC bądź Instytucji,<br />
- c) rozpatrywanie spraw spornych między uczestnikami OC na prośbę jednej ze stron konfliktu (np. spór o nazwę skrzynki, sposób opisu, zawartość skrzynki itp).<br />
-4. W przypadku niemożności polubownego rostrzygnięcia sporu Rada Rejsu ma prawo zawiesić czasowo sporną skrzynkę<br />
-5. Decyzje Rada Rejsu zapadają zwykłą większością głosów i są ostateczne. <br />
-</p>
+<p>&nbsp;</p>
+<h1>Polska wersja OpenCaching</h1>
+<p>Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldemar Ogonowski (sp2ong) + duża pomoc kolegów którzy brali udział w testowaniu<br /></p>
+<br /><br />
+<p>&nbsp;</p>
