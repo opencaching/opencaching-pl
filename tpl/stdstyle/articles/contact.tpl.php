@@ -24,7 +24,7 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 - trojmiasto<br />
 - rushcore<br />
 - filips<br />
-- sp2ong <br />
+
 <br/>
 <b>Rada Techniczna </b>:<br />
 <b>E-mial: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
