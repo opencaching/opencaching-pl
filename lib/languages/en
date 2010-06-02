@@ -380,7 +380,7 @@ search_recommendations Recommendations
 search_all_caches all caches
 search_recommended_caches minimum number of recommendations: 
 incomming_events Upcomming events
-rr_comment_label Opencaching.pl Council comment
+rr_comment_label Comment OC Team
 add_rr_comment Add OC Team comment
 remove_rr_comment Remove OC Team comment
 get_bulletin I want to receive bulletins
