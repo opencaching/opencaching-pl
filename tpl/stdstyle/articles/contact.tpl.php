@@ -69,8 +69,8 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 </span>
 </p>
 <h1>Inne</h1>
-<p>W sprawach bezpośrednio związanych z funkcjonowaniem serwisu OpenCaching PL możesz napisać list na adres 
-<font color="black">ocpl</font> <font color="black">at</font> <font color="black">opencaching.pl</font> . Otrzymanie odpowiedzi może potrwać, więc bądź cierpliwy<br /></p>
+<p>W sprawach bezpośrednio związanych z funkcjonowaniem serwisu OpenCaching PL możesz napisać list na adres <b>
+<font color="black">ocpl</font> <font color="black">at</font> <font color="black">opencaching.pl</font> </b>. Otrzymanie odpowiedzi może potrwać, więc bądź cierpliwy<br /></p>
 
 <h1>Polska wersja OpenCaching</h1>
 <p>Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldemar Ogonowski (sp2ong) + duża pomoc kolegów którzy brali udział w testowaniu<br /></p>
