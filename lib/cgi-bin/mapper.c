@@ -25,6 +25,8 @@
 #include "config.h"
 
 #define LABEL_FONT_SIZE 10
+#define LABEL_FONT_SIZE_2 9
+#define LABEL_FONT_SIZE_3 7
 
 
 typedef struct geotile  {
@@ -35,6 +37,19 @@ typedef struct geotile  {
 } geotile;
 
 #define CACHE_TYPES_NUM 13 // number of different types, it equals maxid+1
+
+int rects_collide(SDL_Rect a , SDL_Rect b)
+{
+	if(b.x + b.w < a.x)
+		return 0;
+	if(b.x > a.x + a.w)
+		return 0;
+	if(b.y + b.h < a.y)
+		return 0;
+	if(b.y > a.y + a.h)
+		return 0;
+	return 1;
+}
 
 const char* type2name(int type)
 {
@@ -65,10 +80,6 @@ void latlon_to_pix(double lat, double lon, geotile rect, int *x, int *y)
 	
 	*x = round(x_min + (x_max - x_min) * ( 1 - (lon - lon_min) / (lon_max - lon_min) ));
 	*y = round(y_max - (y_max - y_min) * ( (lat - lat_min) / (lat_max - lat_min) ));
-//	if(lon < 0)
-//		*x = 256+*x;
-//	if(lat < 0)
-//		*y = 256+*y;
 }
 
 geotile get_lat_long_xyz(int x, int y, int zoom)
@@ -113,7 +124,7 @@ static SDL_Surface* create_image(int w, int h)
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
     Uint32 rmask = 0xff000000, gmask = 0x00ff0000, bmask = 0x0000ff00, amask = 0x000000ff;
 #else
-    Uint32 rmask = 0x000000ff, gmask = 0x0000ff00, bmask = 0x00ff0000, amask = 0xff000000;
+	Uint32 rmask = 0x000000ff, gmask = 0x0000ff00, bmask = 0x00ff0000, amask = 0xff000000;
 #endif
 
 	
@@ -229,11 +240,15 @@ int main(void)
 		fcgi_markerownimg[z] = IMG_Load(buf);
 	}
 #endif
-	TTF_Font* font = NULL;
+	TTF_Font* font1 = NULL;
+	TTF_Font* font2 = NULL;
+	TTF_Font* font3 = NULL;
 
 	TTF_Init();
 	snprintf(buf, sizeof(buf), "%s/DejaVuSans.ttf", DATA_PATH);	
-	font = TTF_OpenFont(buf, LABEL_FONT_SIZE);
+	font1 = TTF_OpenFont(buf, LABEL_FONT_SIZE);
+	font2 = TTF_OpenFont(buf, LABEL_FONT_SIZE_2);
+	font3 = TTF_OpenFont(buf, LABEL_FONT_SIZE_3);
 //	TTF_SetFontStyle(font, TTF_STYLE_BOLD);
 
 	_LOOPBEGIN;
@@ -258,7 +273,7 @@ int main(void)
 	int show_wp = !(strcmp(microcgi_getstr(CGI_GET, "waypoints"), "true"));
 
 	double bound = 0.15;
-	if(show_signs && zoom >= 13)
+	if(show_signs && zoom >= 10)
 		bound = 0.55;
 	char *h_sel_ignored = NULL;
 	char *h_ignored = NULL;
@@ -491,6 +506,64 @@ int main(void)
 		}
 		res = mysql_use_result(conn);		
 
+
+		struct cache_row {
+			int ignored;
+			int cacheid;
+			char name[64];
+			char wp[10];
+			int votes;
+			double score;
+			double latitude;
+			double longitude;
+			int type;
+			int status;
+			unsigned int old;
+			int cache_userid;
+			int found;
+
+			SDL_Rect collide_rect;
+		} *caches = NULL;
+		int cache_count = 0;
+		int cache_alloced = 0;
+
+		void push_row(int ignored,
+					  int cacheid,
+					  const char* name,
+					  const char* wp,
+					  int votes,
+					  double score,
+					  double latitude,
+					  double longitude,
+					  int type,
+					  int status,
+					  unsigned int old,
+					  int cache_userid,
+					  int found) {
+			struct cache_row row = (struct cache_row){ignored, cacheid, {0}, {0}, votes, score, latitude, longitude,
+													  type, status, old, cache_userid, found};
+			strncpy(row.name, name, sizeof(row.name)-1);
+			row.name[sizeof(row.name)-1] = 0;
+			strncpy(row.wp, wp, sizeof(row.wp)-1);
+			row.wp[sizeof(row.wp)-1] = 0;
+
+			if(cache_count == cache_alloced) {
+				if(cache_alloced)
+					cache_alloced *= 2;
+				else
+					cache_alloced = 256;
+				caches = (struct cache_row*)realloc(caches, cache_alloced*sizeof(struct cache_row));
+			}
+			caches[cache_count++] = row;
+		}
+		void free_rows() {
+			free(caches);
+			caches = NULL;
+			cache_alloced = 0;
+			cache_count = 0;
+		}
+
+
 		/* output fields 1 and 2 of each row */
 		while ((row = mysql_fetch_row(res)) != NULL) {
 			int ignored = row[0]?atoi(row[0]):0;
@@ -509,30 +582,51 @@ int main(void)
 			int cache_userid = atoi(row[11]);
 			int found = atoi(row[12]);
 
-			if(! searchdata)
-			if( (hide_unknown && type == 1) || // hide unknown caches
-				(hide_traditional && type == 2) || // hide traditional caches
-				(hide_multi && type == 3) || // hide multi caches
-				(hide_virtual && type == 4) || // hide virtual caches
-				(hide_webcam && type == 5) || // hide events
-				(hide_event && type == 6) || // hide events
-				(hide_quiz && type == 7) || // hide quiz caches
-				(hide_mobile && type == 8) || // hide mobile caches
-				(hide_ignored && ignored) || // hide ignored caches
-				(hide_own && cache_userid == userid) || // hide own caches
-				(hide_found && found) || // hide found caches
-				(be_ftf && (found >= 1 || status != 1 || cache_userid == userid)) || // be first to find the cache!
-				(hide_available && status == 1) || // hide all available caches
-				(hide_temp_unavailable && status == 2) || // hide all temporary unavailable caches
-				(hide_archived && status == 3) || // hide archived caches
-				(hide_noattempt && !found) || // hide caches not yet fond
-				( (score < min_score || score > max_score) && votes >= 3 && i == 0) || // hide caches not matching score criteria
-				(votes < 3 && hide_noscore && i == 0) || // hide caches without definite score
-				status > 3 || // hide caches blocked by RR
-				0
-				) 
-				continue;
-					   
+			if(! searchdata) // ignore filters if we are displaying searchdata 
+				if( (hide_unknown && type == 1) || // hide unknown caches
+					(hide_traditional && type == 2) || // hide traditional caches
+					(hide_multi && type == 3) || // hide multi caches
+					(hide_virtual && type == 4) || // hide virtual caches
+					(hide_webcam && type == 5) || // hide events
+					(hide_event && type == 6) || // hide events
+					(hide_quiz && type == 7) || // hide quiz caches
+					(hide_mobile && type == 8) || // hide mobile caches
+					(hide_ignored && ignored) || // hide ignored caches
+					(hide_own && cache_userid == userid) || // hide own caches
+					(hide_found && found) || // hide found caches
+					(be_ftf && (found >= 1 || status != 1 || cache_userid == userid)) || // be first to find the cache!
+					(hide_available && status == 1) || // hide all available caches
+					(hide_temp_unavailable && status == 2) || // hide all temporary unavailable caches
+					(hide_archived && status == 3) || // hide archived caches
+					(hide_noattempt && !found) || // hide caches not yet fond
+					( (score < min_score || score > max_score) && votes >= 3 && i == 0) || // hide caches not matching score criteria
+					(votes < 3 && hide_noscore && i == 0) || // hide caches without definite score
+					status > 3 || // hide caches blocked by RR
+					0
+					) 
+					continue;
+			push_row(ignored, cacheid, name, wp, votes, score, latitude, longitude, type
+						, status, old, cache_userid, found);					   
+		}
+		mysql_free_result(res);
+		
+		// some preprocessing can be done here
+		
+		for(int i = 0;i < cache_count;++i) {
+			int ignored = caches[i].ignored;
+			int cacheid = caches[i].cacheid;
+			const char *name = caches[i].name;
+			const char *wp = caches[i].wp;
+			int votes = caches[i].votes;
+			double score = score;
+			double latitude = caches[i].latitude;;
+			double longitude = caches[i].longitude;;
+			int type = caches[i].type;;
+			int status = caches[i].status;
+			unsigned int old = caches[i].old;
+			int cache_userid = caches[i].cache_userid;
+			int found = caches[i].found;;
+
 			int orig_x, orig_y;
 
 			latlon_to_pix(latitude, longitude, rect, &orig_x, &orig_y);		
@@ -543,7 +637,9 @@ int main(void)
 			int xpoint_offset = markerimg->w/2;
 			int ypoint_offset = 1*markerimg->h/10;
 
-			SDL_Rect r = (SDL_Rect){x - xpoint_offset, y - markerimg->h + ypoint_offset};
+			SDL_Rect r = (SDL_Rect){x - xpoint_offset, y - markerimg->h + ypoint_offset, markerimg->w, markerimg->h};
+
+			caches[i].collide_rect = r;
 
 			x = r.x + markerimg->w/2;
 			y = r.y + 4*markerimg->h/10;
@@ -561,7 +657,7 @@ int main(void)
 					SDL_gfxBlitRGBA(markerimgnew, NULL, im, &r);
 			}
 			else {
-				if(markerimg && font)
+				if(markerimg)
 					SDL_gfxBlitRGBA(markerimg, NULL, im, &r);
 			}
 
@@ -593,73 +689,125 @@ int main(void)
 				SDL_gfxBlitRGBA(redflagimg, NULL, im, &r);
 			}
 
-			if(font && show_signs && zoom > 13) {
-				SDL_Color fgcolor = {30, 30, 30};
-				SDL_Color bgcolor = {255, 255, 255};
-				if(mapid == 1 || mapid == 2) {
-					fgcolor = (SDL_Color){255, 255, 255};
-					bgcolor = (SDL_Color){30, 30, 30};
-				}
-
-				SDL_Surface* fglabel = TTF_RenderUTF8_Blended(font, name, fgcolor);
-				SDL_Surface* bglabel = TTF_RenderUTF8_Blended(font, name, bgcolor);
-				SDL_Rect r = (SDL_Rect){orig_x - fglabel->w/2, orig_y + fglabel->h/2};
+		}
+//		fprintf(stderr, "cache _count %i\n", cache_count);
+//		cache_count = 1000;
+		if(zoom > 6 && font1 && font2 && font3)
+			for(int i = 0;i < cache_count;++i) {
+				const char *name = caches[i].name;
+				const char *wp = caches[i].wp;
+				double latitude = caches[i].latitude;
+				double longitude = caches[i].longitude;
+				int orig_x, orig_y;
 				
-
-				SDL_Rect r2;
-				r2 = r;
-				r2.x = r.x - 1;
-				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
-				r2 = r;
-				r2.x = r.x + 1;
-				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
-				r2 = r;
-				r2.y = r.y + 1;
-				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
-				r2 = r;
-				r2.y = r.y - 1;
-				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
-
-				SDL_gfxBlitRGBA(fglabel, NULL, im, &r);
-				SDL_FreeSurface(fglabel);
-				SDL_FreeSurface(bglabel);
-			}
-			if(font && show_wp && zoom > 13) {
-				SDL_Color fgcolor = {30, 30, 30};
-				SDL_Color bgcolor = {255, 255, 255};
-				if(mapid == 1 || mapid == 2) {
-					fgcolor = (SDL_Color){255, 255, 255};
-					bgcolor = (SDL_Color){30, 30, 30};
-				}
-				TTF_SetFontStyle(font, TTF_STYLE_BOLD);
-
-				SDL_Surface* fglabel = TTF_RenderUTF8_Blended(font, wp, fgcolor);
-				SDL_Surface* bglabel = TTF_RenderUTF8_Blended(font, wp, bgcolor);
-				SDL_Rect r = (SDL_Rect){orig_x - fglabel->w/2, orig_y - markerimg->h - 2*fglabel->h/3};
+				latlon_to_pix(latitude, longitude, rect, &orig_x, &orig_y);		
 				
-				TTF_SetFontStyle(font, 0);
+				int x = orig_x, y = orig_y;
+				
+				TTF_Font* font;
+				if(zoom < 9)
+					font = font3;
+				else if(zoom < 11)
+					font = font2;
+				else
+					font = font1;
+			
 
-				SDL_Rect r2;
-				r2 = r;
-				r2.x = r.x - 1;
-				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
-				r2 = r;
-				r2.x = r.x + 1;
-				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
-				r2 = r;
-				r2.y = r.y + 1;
-				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
-				r2 = r;
-				r2.y = r.y - 1;
-				SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+				SDL_Rect label_rect;
+				{
+					int label_w = 0, label_h = 0;
+					TTF_SizeUTF8(font, name, &label_w, &label_h);
+					label_rect = (SDL_Rect){orig_x - label_w/2, orig_y + label_h/2, label_w, label_h};
+				}
+				SDL_Rect wp_rect;
+				{
+					int wp_w = 0, wp_h = 0;
+					TTF_SizeUTF8(font, wp, &wp_w, &wp_h);
+					wp_rect = (SDL_Rect){orig_x - wp_w/2, orig_y - markerimg->h - 2*wp_h/3, wp_w, wp_h};
+				}
+				int draw_label = 1;
+				int draw_wp= 1;
 
-				SDL_gfxBlitRGBA(fglabel, NULL, im, &r);
-				SDL_FreeSurface(fglabel);
-				SDL_FreeSurface(bglabel);
-			}
+				// warning: O(n^2)
+				for(int j = 0;j < cache_count && (draw_label || draw_wp);++j) {
+					if(i == j) continue;
+					if(draw_label) {
+						if(rects_collide(label_rect, caches[j].collide_rect))
+							draw_label = 0;
+					}
+					if(draw_wp)
+						if(rects_collide(wp_rect, caches[j].collide_rect))
+							draw_wp = 0;
+				}
+				
+				if(show_signs && draw_label) {
+					SDL_Color fgcolor = {30, 30, 30};
+					SDL_Color bgcolor = {255, 255, 255};
+					if(mapid == 1 || mapid == 2) {
+						fgcolor = (SDL_Color){255, 255, 255};
+						bgcolor = (SDL_Color){30, 30, 30};
+					}
+					
+					SDL_Surface* fglabel = TTF_RenderUTF8_Blended(font, name, fgcolor);
+					SDL_Surface* bglabel = TTF_RenderUTF8_Blended(font, name, bgcolor);
+					SDL_Rect r = (SDL_Rect){orig_x - fglabel->w/2, orig_y + fglabel->h/2};
+					
+					
+					SDL_Rect r2;
+					r2 = r;
+					r2.x = r.x - 1;
+					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+					r2 = r;
+					r2.x = r.x + 1;
+					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+					r2 = r;
+					r2.y = r.y + 1;
+					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+					r2 = r;
+					r2.y = r.y - 1;
+					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+					
+					SDL_gfxBlitRGBA(fglabel, NULL, im, &r);
+					SDL_FreeSurface(fglabel);
+					SDL_FreeSurface(bglabel);
+				}
+				if(show_wp && draw_wp) {
+					SDL_Color fgcolor = {30, 30, 30};
+					SDL_Color bgcolor = {255, 255, 255};
+					if(mapid == 1 || mapid == 2) {
+						fgcolor = (SDL_Color){255, 255, 255};
+						bgcolor = (SDL_Color){30, 30, 30};
+					}
+					TTF_SetFontStyle(font, TTF_STYLE_BOLD);
+					
+					SDL_Surface* fglabel = TTF_RenderUTF8_Blended(font, wp, fgcolor);
+					SDL_Surface* bglabel = TTF_RenderUTF8_Blended(font, wp, bgcolor);
+					SDL_Rect r = (SDL_Rect){orig_x - fglabel->w/2, orig_y - markerimg->h - 2*fglabel->h/3};
+				
+					TTF_SetFontStyle(font, 0);
+					
+					SDL_Rect r2;
+					r2 = r;
+					r2.x = r.x - 1;
+					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+					r2 = r;
+					r2.x = r.x + 1;
+					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+					r2 = r;
+					r2.y = r.y + 1;
+					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+					r2 = r;
+					r2.y = r.y - 1;
+					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
+					
+					SDL_gfxBlitRGBA(fglabel, NULL, im, &r);
+					SDL_FreeSurface(fglabel);
+					SDL_FreeSurface(bglabel);
+				}				
 
 		}
-		mysql_free_result(res);
+
+		free_rows();
 	}
 	printf("Content-type: image/png\r\n\r\n");
 
@@ -698,8 +846,12 @@ end_of_request:;
 
 	_LOOPEND;
 
-	if(font)
-		TTF_CloseFont(font);
+	if(font1)
+		TTF_CloseFont(font1);
+	if(font2)
+		TTF_CloseFont(font2);
+	if(font3)
+		TTF_CloseFont(font3);
 
 #ifdef WITH_FASTCGI
 	for(int z = 0;z < 20;++z) {
