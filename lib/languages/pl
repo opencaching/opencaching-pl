@@ -645,6 +645,7 @@ status_wp Status waypointa
 write_wp Zapisz waypoint
 edit_wp Edycja waypointa
 delete_wp Usuń waypointa
+comment_octeam_visible Adnotacje COG są widzane tylko przez COG i własciciela skrzynki.
 
 
 
