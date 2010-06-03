@@ -1,14 +1,5 @@
 <?php
 /***************************************************************************
-														 ./lib/settings.inc.php
-															-------------------
-		begin                : Mon June 14 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
 	*                                         				                                
 	*   This program is free software; you can redistribute it and/or modify  	
 	*   it under the terms of the GNU General Public License as published by  
@@ -33,13 +24,13 @@
 	if (!isset($rootpath)) $rootpath = './';
 
 	//default used language
-	if (!isset($lang)) $lang = 'pl';
+	if (!isset($lang)) $lang = 'en';
 	
 	//default used style
 	if (!isset($style)) $style = 'stdstyle';
 
 	//pagetitle
-	if (!isset($pagetitle)) $pagetitle = 'Opencaching - Geocaching w Polsce';
+	if (!isset($pagetitle)) $pagetitle = 'Opencaching - Geocaching in ......';
 
 
 	/* Well known node id's - required for synchronization
@@ -58,12 +49,12 @@
 	$ocWP = OP;
 	
         //name of the cookie
-        $opt['cookie']['name'] = 'ocpl';
+        $opt['cookie']['name'] = 'oc';
         $opt['cookie']['path'] = '/';
         $opt['cookie']['domain'] = '';
 
         //name of the cookie
-        if (!isset($cookiename)) $cookiename = 'ocpl';
+        if (!isset($cookiename)) $cookiename = 'oc';
         if (!isset($cookiepath)) $cookiepath = '/';
         if (!isset($cookiedomain)) $cookiedomain = '';
 
@@ -99,9 +90,9 @@
 	$thumb_max_width = 175;
 	$thumb_max_height = 175;
 
-        // Small thumbsize
-        $thumb2_max_width = 64;
-        $thumb2_max_height = 64;
+     // Small thumbsize
+    $thumb2_max_width = 64;
+     $thumb2_max_height = 64;
 
 	// default coordinates for cachemap, set to your country's center of gravity
 	$country_coordinates = "52.5,19.2";
@@ -126,7 +117,7 @@
 	
 	// news settings
 	$use_news_approving = true;
-	$news_approver_email = 'ocpl@<domain>';
+	$news_approver_email = 'octeam@<domain>';
 	
 	//local database settings
 	$dbusername = '[DB USERNAME]';
@@ -143,7 +134,7 @@
 	$tmpdbname = 'temp';
 
 	// warnlevel for sql-execution
-	$sql_errormail = 'ocpl@<domain>';
+	$sql_errormail = 'octeam@<domain>';
 	$sql_warntime = 1;
 
 	// replacements for sql()
@@ -160,21 +151,19 @@
 	$googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
 	
 	$super_admin_id = 2619; // user_id of admin who can delete all user logs on viewprofile.php page.
-	$dberrormail = 'ocpl@<domain>';
+	$dberrormail = 'octeam@<domain>';
 
 
     // Changee to mapper.cgi if you don't have FastCGI installed or to some other custom script
-  $cachemap_mapper = "lib/cgi-bin/mapper.fcgi";
-  
-// cache_maps-settings -- ???????????? old code ?????
-//  $cachemap_wms_url = 'http://10.0.0.1/cgi-bin/mapserv?map=/var/www/maps.geocaching.de/mapserver/caches.map&&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&LAYERS=relief,builtup_areas,inland_water,watercourses,staatsgrenze,strassen,places&SRS=EPSG:4326&BBOX={min_lon},{min_lat},{max_lon},{max_lat}&WIDTH=200&HEIGHT=200&FORMAT=image/jpeg&STYLES=&EXCEPTIONS=XML';
- $cachemap_wms_url = 'http://maps.geocaching.de/cgi-bin/mapserv?map=/var/www/maps.geocaching.de/mapserver/caches.map&&REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&LAYERS=relief,builtup_areas,inland_water,watercourses,staatsgrenze,strassen,places&SRS=EPSG:4326&BBOX={min_lon},{min_lat},{max_lon},{max_lat}&WIDTH=200&HEIGHT=200&FORMAT=image/jpeg&STYLES=&EXCEPTIONS=XML';
-   $cachemap_size_lat = 0.4;
-  $cachemap_size_lon = 0.4;
-  $cachemap_pixel_x = 200;
-  $cachemap_pixel_y = 200;
-  $cachemap_url = 'images/cachemaps/';
-  $cachemap_dir = $rootpath . $cachemap_url;
+     $cachemap_mapper = "lib/cgi-bin/mapper.fcgi";
+ 
+ //old code???
+  // $cachemap_size_lat = 0.4;
+  //$cachemap_size_lon = 0.4;
+  //$cachemap_pixel_x = 200;
+  //$cachemap_pixel_y = 200;
+  //$cachemap_url = 'images/cachemaps/';
+  //$cachemap_dir = $rootpath . $cachemap_url;
 
   $site_name = 'Opencaching.pl';
   $wiki_url  = 'http://wiki.opencaching.pl';
@@ -182,4 +171,5 @@
   $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
   $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
   $contact_mail = 'ocpl (at) opencaching.pl'
+
 ?>

@@ -20,6 +20,7 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 <br />
 <h1>OpenCaching PL Team </h1><p>
 <b>Rada Programowa</b>:<br />
+<b>E-mial: <font color="black">rp</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
 - Zyr<br />
 - trojmiasto<br />
 - rushcore<br />
