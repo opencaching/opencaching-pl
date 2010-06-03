@@ -274,7 +274,7 @@ int main(void)
 
 	double bound = 0.15;
 	if(show_signs && zoom >= 10)
-		bound = 0.55;
+		bound = 0.65;
 	char *h_sel_ignored = NULL;
 	char *h_ignored = NULL;
 	char *own_not_attempt = NULL;
