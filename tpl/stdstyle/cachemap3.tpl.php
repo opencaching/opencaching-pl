@@ -363,10 +363,10 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
                         var custommap4 = new GMapType(layer4, G_SATELLITE_MAP.getProjection(), "Orto2", G_SATELLITE_MAP);                                                          
                         mapControl.addRelationship(custommap1, custommap3, "{{show_labels}}", true);                                                                               
                         mapControl.addRelationship(custommap2, custommap4, "{{show_labels}}", true);                                                                               
-                        map.addMapType(custommap1);                                                                                                                                
-                        map.addMapType(custommap2);                                                                                                                                
-                        map.addMapType(custommap3);                                                                                                                                
-                        map.addMapType(custommap4);
+//                        map.addMapType(custommap1);                                                                                                                                
+//                        map.addMapType(custommap2);                                                                                                                                
+//                        map.addMapType(custommap3);                                                                                                                                
+//                        map.addMapType(custommap4);
 
           // Create a search control
           var searchControl = new google.search.SearchControl();
@@ -405,7 +405,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 			GEvent.addListener(map, "zoomend", function() 
 			{
 				var zoom = map.getZoom();
-				if( zoom > 13 ) {
+				if( zoom > 7) {
 					document.getElementById('signes').disabled = false;
 					document.getElementById('waypoints').disabled = false;
 				}
