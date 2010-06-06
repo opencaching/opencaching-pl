@@ -47,11 +47,13 @@ if ($count_days < 151) {$start_time = $year_old .'-06-1 00:00:00';
   $x3=array();
   $y4=array();
   $x4=array();
-
-  $rsreports= sql("SELECT count(*) count, responsible_id, username from reports,user WHERE submit_date > '&1' and responsible_id <>0 AND responsible_id != 1883 AND user.user_id=responsible_id GROUP BY responsible_id ORDER  BY username",$start_time);
+  
+mysql_query("SET NAMES 'utf8'");
+$rsreports= sql("SELECT count(*) count, responsible_id, username from reports,user WHERE submit_date > '&1' and responsible_id <>0 AND responsible_id != 1883 AND user.user_id=responsible_id GROUP BY responsible_id ORDER  BY username",$start_time);
 
 $rsreportsM= sql("SELECT count(*) count, MONTH(`submit_date`) `month` from reports WHERE submit_date > '&1' and responsible_id <>0 AND responsible_id != 1883 GROUP BY MONTH(`submit_date`) , YEAR(`submit_date`) ORDER BY YEAR(`submit_date`) ASC, MONTH(`submit_date`) ASC",$start_time);
 
+mysql_query("SET NAMES 'utf8'");
 $rscaches= sql("SELECT count(*) count, username from approval_status,user WHERE user.user_id=approval_status.user_id AND date_approval > '&1' GROUP BY approval_status.user_id ORDER  BY username",$start_time);
 
 $rscachesM= sql("SELECT count(*) count, MONTH(`date_approval`) `month` from approval_status WHERE date_approval > '&1' GROUP BY MONTH(`date_approval`) , YEAR(`date_approval`) ORDER BY YEAR(`date_approval`) ASC, MONTH(`date_approval`) ASC",$start_time);
@@ -115,6 +117,8 @@ $graph->yaxis->title->Set('Liczba zg³oszeñ');
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph->xaxis->SetFont(FF_ARIAL,FS_NORMAL,8);
+
  
   
 // Setup the values that are displayed on top of each bar
@@ -157,6 +161,8 @@ $graph2->yaxis->title->Set('Liczba skrzynek');
 $graph2->title->SetFont(FF_FONT1,FS_BOLD);
 $graph2->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph2->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph2->xaxis->SetFont(FF_ARIAL,FS_NORMAL,8);
+
  
   
 // Setup the values that are displayed on top of each bar
