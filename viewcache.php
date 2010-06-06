@@ -775,9 +775,10 @@
 			// add OC Team comment
 			if( $usr['admin'] && isset($_POST['rr_comment']) && $_POST['rr_comment']!= "" && $_SESSION['submitted'] != true)
 			{
+				$sender_name = $usr['username'];
 				$comment = nl2br($_POST['rr_comment']);
 				$date=date("Y-m-d H:i:s");
-				$octeam_comment = '<b><span class="content-title-noshade txt-blue08">Data: '.$date.'</span></b><br/>'.$comment;
+				$octeam_comment = '<b><span class="content-title-noshade txt-blue08">Data: '.$date.', autor '.$sender_name.'</span></b><br/>'.$comment;
 				$sql = "UPDATE cache_desc 
 					SET rr_comment=CONCAT('".sql_escape($octeam_comment)."<br/><br/>', rr_comment), 
 							last_modified = NOW() 
@@ -787,8 +788,7 @@
 					
 		// send notify to owner cache and copy to OC Team
 		$query1 = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache_record['user_id'] );
-		$owner_email = sql_fetch_array($query1);	
-		$sender_name = $usr['username'];		
+		$owner_email = sql_fetch_array($query1);			
 		$email_content = read_file($stylepath . '/email/octeam_comment.email');
 		$email_content = mb_ereg_replace('%cachename%', $cache_record['name'], $email_content);
 		$email_content = mb_ereg_replace('%cacheid%', $cache_record['cache_id'], $email_content);
