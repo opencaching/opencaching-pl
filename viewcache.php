@@ -784,7 +784,6 @@
 				$_SESSION['submitted'] = true;
 					
 		// send notify to owner cache and copy to OC Team
-		$octeam_email="cog@opencaching.pl";
 		$query1 = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache_record['user_id'] );
 		$owner_email = sql_fetch_array($query1);	
 		$sender_name = $usr['username'];		

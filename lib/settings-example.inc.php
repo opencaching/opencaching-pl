@@ -171,5 +171,8 @@
   $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
   $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
   $contact_mail = 'ocpl (at) opencaching.pl'
-
+  global $octeam_email;
+  // E-mail address group of people from OC Team who solve problems, verify cache
+  $octeam_email = 'octeam@<domain>';
+  
 ?>
