@@ -775,9 +775,11 @@
 			// add OC Team comment
 			if( $usr['admin'] && isset($_POST['rr_comment']) && $_POST['rr_comment']!= "" && $_SESSION['submitted'] != true)
 			{
-				$octeam_comment = nl2br($_POST['rr_comment']);
+				$comment = nl2br($_POST['rr_comment']);
+				$date=date("Y-m-d H:i:s");
+				$octeam_comment = '<b><span class="content-title-noshade txt-blue08">Data: '.$date.'</span></b><br/>'.$comment;
 				$sql = "UPDATE cache_desc 
-					SET rr_comment=CONCAT('".sql_escape($octeam_comment)."<br/>', rr_comment), 
+					SET rr_comment=CONCAT('".sql_escape($octeam_comment)."<br/><br/>', rr_comment), 
 							last_modified = NOW() 
 					WHERE cache_id='".sql_escape(intval($cache_id))."'";
 				@mysql_query($sql);
