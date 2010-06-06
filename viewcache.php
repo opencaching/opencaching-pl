@@ -797,9 +797,9 @@
 		$email_headers .= "From: OpenCaching <".$octeam_email.">\r\n";
 		$email_headers .= "Reply-To: ".$octeam_email. "\r\n";
 		//send email to owner
-		mb_send_mail($owner_email['email'], "[OpenCaching] Adnotacja COG do skrzynki: ".$cache_record['name'], $email_content, $email_headers);
+		mb_send_mail($owner_email['email'], "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], $email_content, $email_headers);
 		//send copy email to OC Team
-		mb_send_mail($octeam_email, "[OpenCaching] Adnotacja COG do skrzynki: ".$cache_record['name'], "Kopia listu z adnotacja do skrzynki wysłana przez ".$sender_name.":\n\n".$email_content, $email_headers);
+		mb_send_mail($octeam_email, "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], "Kopia listu z adnotacja do skrzynki wysłana przez ".$sender_name.":\n\n".$email_content, $email_headers);
 			}
 			
 			// remove OC Team comment
@@ -845,7 +845,7 @@
 				if( $desc_record['rr_comment'] == "" )
 					tpl_set_var('remove_rr_comment', '');
 				else
-					tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1">'.tr('remove_rr_comment').'</a>]');
+					tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">'.tr('remove_rr_comment').'</a>]');
 				
 			}
 			else
