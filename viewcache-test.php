@@ -40,7 +40,7 @@
 		if(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y')
 			$tplname = 'viewcache_print';
 		else
-			$tplname = 'viewcache';
+			$tplname = 'viewcache-test';
 
 		require_once($rootpath . 'lib/caches.inc.php');
 		require_once($stylepath . '/lib/icons.inc.php');
@@ -784,9 +784,10 @@
 				$_SESSION['submitted'] = true;
 					
 		// send notify to owner cache and copy to OC Team
-		$octeam_email="cog@opencaching.pl";
+		$octeam_email="sp2ong@gmail.com";
 		$query1 = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache_record['user_id'] );
 		$owner_email = sql_fetch_array($query1);	
+//		$query2 = sql("SELECT `username` FROM `user` WHERE `user_id`='&1'", $usr['username'] );
 		$sender_name = $usr['username'];		
 		$email_content = read_file($stylepath . '/email/octeam_comment.email');
 		$email_content = mb_ereg_replace('%cachename%', $cache_record['name'], $email_content);
