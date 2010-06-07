@@ -16,27 +16,68 @@
 
 class importCaches
 {
+	function getCountryFromNodeId( $node_id )
+	{
+		switch( $node_id )
+		{
+					
+			/* Well known node id's - required for synchronization
+			 * 1 Opencaching Germany (www.opencaching.de)
+			 * 2 Opencaching Poland (www.opencaching.pl)
+			 * 3 Opencaching Tschechien (www.opencaching.cz)
+			 * 4 Local Development
+			 * 5 Opencaching Entwicklung Deutschland (devel.opencaching.de)
+			 * 6 OC UK
+			 * 7 OC SE
+			 * 8 OC NO
+			 */
+			case 8:
+				$oc_country = "no";
+				break;
+			case 7:
+				$oc_country = "se";
+				break;
+			case 6:
+				$oc_country = "org.uk";
+				break;
+			case 3:
+				$oc_country = "cz";
+				break;
+			case 2:
+				$oc_country = "pl";
+				break;
+			case 1:
+			default:
+				$oc_country = "de";
+		}
+		return $oc_country;
+	}
 	
-	function copyFile($url,$dirname){
+	function copyFile($url,$dirname)
+	{
     @$file = fopen ($url, "r");
-    if (!$file) {
-        echo"<font color=red>Failed to copy $url!</font><br />";
-        return false;
-    }else {
-        $filename = basename($url);
-        $fc = fopen($dirname.$filename, "w");
-        while (!feof ($file)) {
-           $line = fread ($file, 1028);
-           fwrite($fc,$line);
-        }
-        fclose($fc);
-        echo "<font color=blue>File $url saved to PC!</font><br />";
-        return true;
+    if (!$file) 
+		{
+      echo"<font color=red>Failed to copy $url!</font><br />";
+      return false;
+    }
+		else 
+		{
+      $filename = basename($url);
+      $fc = fopen($dirname.$filename, "w");
+      while (!feof ($file)) 
+			{
+        $line = fread ($file, 1028);
+        fwrite($fc,$line);
+      }
+      fclose($fc);
+      echo "<font color=blue>File $url saved to PC!</font><br />";
+      return true;
     }
 	}
 
 	
-	function run()
+	function run($node_id)
 	{
 		/* begin db connect */
 		db_connect();
@@ -45,66 +86,51 @@ class importCaches
 			echo 'Unable to connect to database';
 			exit;
 		}
-	/* end db connect */
+		/* end db connect */
 
-		$xmlfile = $this->loadXML();
+		$xmlfile = $this->loadXML($node_id);
 		if ($xmlfile == false) 
 		{
-			return;
+			return false;
 		}
-		$this->importXML($xmlfile);
+		$retValue = $this->importXML($xmlfile, $node_id);
+		
 		$this->removeXML($xmlfile);
 		db_disconnect();
+		
+		return $retValue;
 	}
 
 	/* get file from XML interface 
 	 * and return path of saved xml
 	 * or false on error
 	 */
-	function loadXML()
+	function loadXML( $node_id )
 	{
 		global $opt;
 		global $dynbasepath;
-		
-		switch( $_GET['country'] )
-		{
-			case 'cz':
-				$oc_country = "cz";
-				$node_id = 3;
-				break;
-			case 'uk':
-				$oc_country = "org.uk";
-				$node_id = 6;
-				break;
-			default:
-				$oc_country = "de";
-				$node_id = 1;
-		}
-		
-		if( $_GET['country'] == 'cz' )
-		{
-			
-		}
 		
 		@mkdir($dynbasepath . 'tmp/importcaches');
 		$path = $dynbasepath . 'tmp/importcaches/import.xml';
 
 		$this->removeXML($path);
 		
-		$sql = "SELECT value FROM sysconfig WHERE name='importcaches_".sql_escape($oc_country)."_lastupdate'";
-		$last_updated = mysql_result(mysql_query($sql),0);
-		$modifiedsince = strtotime($last_updated);
+		$sql = "SELECT updated FROM import_caches_date WHERE node_id = ".sql_escape($node_id);
+		$query = mysql_query($sql);
 		
-		//$modifiedsince = strtotime(getSysConfig('geokrety_lastupdate', '0'));
-		//echo 'dddd=http://geokrety.org/export.php?modifiedsince=' . date('YmdHis', $modifiedsince - 1);
+		// get the timestamp of last update for this node_id
+		$modifiedsince = ( @mysql_num_rows($query) > 0 ? @mysql_result( $query, 0 ) : 14400 );
+		
 		set_time_limit(300);
-		$copy_from = 'http://www.opencaching.'.$oc_country.'/xml/ocxml11.php?modifiedsince=' . date('YmdHis', $modifiedsince - 14400).'&session=0&cache=1&zip=0';
+		echo $copy_from = 'http://www.opencaching.'.($this->getCountryFromNodeId( $node_id )).'/xml/ocxml11.php?modifiedsince=' . date('YmdHis', $modifiedsince - 14400).'&session=0&cache=1&zip=0';
 		//$copy_from = "http://www.opencaching.cz/download/zip/ocxml11/442/442-1-2.xml";
+		
 		if (!copy($copy_from, $path))
 		{
-		echo "NIE";
+			echo "Unable to synchronize with opencaching.".($this->getCountryFromNodeId( $node_id ));
 			return false;
 		}
+		
 		return $path;
 	}
 
@@ -117,7 +143,7 @@ class importCaches
 
 	/* import the given XML file
 	 */
-	function importXML($file)
+	function importXML($file, $node_id)
 	{
 		global $opt;
 
@@ -125,21 +151,15 @@ class importCaches
     if (!$xr->open($file))
     {
       $xr->close();
-			return;
+			return false;
     }	
-$xr->read();
-$xr->read();
-    //while ($xr->read() && !($xr->name == 'oc11xml'));
-
-		/*if ($xr->nodeType != XMLReader::ELEMENT)
-    {
-      echo 'error: First element expected, aborted' . "\n";
-      return;
-    }*/
+		$xr->read();
+		$xr->read();
+    
     if ($xr->name != 'oc11xml')
     {
       echo 'error: First element not valid, aborted' . "\n";
-      return;
+      return false;
     }
 
 		$startupdate = $xr->getAttribute('date');
@@ -147,10 +167,10 @@ $xr->read();
     {
 			
       echo 'error: Date attribute not valid, aborted' . "\n";
-      return;
+      return false;
     }
 
-    while ($xr->read() && $xr->name != 'cache') ;
+    while ($xr->read() && $xr->name != 'cache');
 
     $nRecordsCount = 0;
     do
@@ -174,15 +194,9 @@ $xr->read();
     while ($xr->next());
 
     $xr->close();
-		// de or cz
-		$oc_country = "de";
-		$node_id = 1;
-		if( $_GET['country'] == 'cz' )
-		{
-			$oc_country = "cz";
-			$node_id = 3;
-		}
-		sql("UPDATE sysconfig SET value = '".sql_escape($startupdate)."' WHERE name='importcaches_".sql_escape($oc_country)."_lastupdate'");
+		
+		sql("UPDATE import_caches_date SET updated = '".sql_escape($startupdate)."' WHERE node_id=".sql_escape($node_id));
+		return true;
 	}
 
 	function importCache($element)
@@ -233,15 +247,8 @@ $xr->read();
 		
 		$lastmodified = addslashes($this->GetNodeValue($element, 'lastmodified'));
 		
-		$oc_country = "de";
-		$node_id = 1;
-		if( $_GET['country'] == 'cz' )
-		{
-			$oc_country = "cz";
-			$node_id = 3;
-		}
 		
-		$sql = "REPLACE INTO foreign_caches (cache_id, user_id, username, name, longitude, latitude, last_modified, date_created, type, status, country, date_hidden, desc_languages, size, difficulty, terrain, uuid, search_time, way_length, wp_gc, wp_nc, wp_oc, default_desclang, node) VALUES ($id, $userid, '$username', '$name', $longitude, $latitude, '$lastmodified', '$datecreated', $typeid, $statusid, '$countryid', '$datehidden', '$desclanguages', $sizeid, $difficulty, $terrain, '$useruuid', $needtime, $waylength, '$gcwaypoint', '$ncwaypoint', '$ocwaypoint', UCASE('".$oc_country."'), $node_id)";
+		$sql = "REPLACE INTO foreign_caches (cache_id, user_id, username, name, longitude, latitude, last_modified, date_created, type, status, country, date_hidden, desc_languages, size, difficulty, terrain, uuid, search_time, way_length, wp_gc, wp_nc, wp_oc, default_desclang, node) VALUES ($id, $userid, '$username', '$name', $longitude, $latitude, '$lastmodified', '$datecreated', $typeid, $statusid, '$countryid', '$datehidden', '$desclanguages', $sizeid, $difficulty, $terrain, '$useruuid', $needtime, $waylength, '$gcwaypoint', '$ncwaypoint', '$ocwaypoint', UCASE('".$this->getCountryFromNodeId( $node_id )."'), $node_id)";
 		
 		@mysql_query($sql);
 	}
@@ -266,6 +273,21 @@ $xr->read();
 }
 
 $importcaches = new importCaches();
-$importcaches->run();
+
+$valid_ocnodes = array(1,/*2,*/3,6,7,8); // do not import caches from local oc server
+
+// iterate through all valid Opencaching nodes
+foreach( $valid_ocnodes as $valid_ocnode )
+{
+
+	if( $importcaches->run( $valid_ocnode ) )
+	{
+		echo "Caches from opencaching.".$importcaches->getCountryFromNodeId($valid_ocnode)." update FAILED.<br/>\n";
+	}
+	else
+	{
+		echo "Caches from opencaching.".$importcaches->getCountryFromNodeId($valid_ocnode)." updated SUCCESSFULLY.<br/>\n";
+	}
+}
 
 ?>
