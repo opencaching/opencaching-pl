@@ -91,6 +91,7 @@ class importCaches
 		$xmlfile = $this->loadXML($node_id);
 		if ($xmlfile == false) 
 		{
+			db_disconnect();
 			return false;
 		}
 		$retValue = $this->importXML($xmlfile, $node_id);
