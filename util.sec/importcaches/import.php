@@ -295,7 +295,7 @@ class importCaches
 
 $importcaches = new importCaches();
 
-$valid_ocnodes = array(1,/*2,*/3,/*6,*/7,8); // do not import caches from local oc server
+$valid_ocnodes = array(1,/*2,3,6,*/7,8); // do not import caches from local oc server
 
 // iterate through all valid Opencaching nodes
 foreach( $valid_ocnodes as $valid_ocnode )
