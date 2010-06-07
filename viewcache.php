@@ -799,7 +799,7 @@
 		//send email to owner
 		mb_send_mail($owner_email['email'], "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], $email_content, $email_headers);
 		//send copy email to OC Team
-		mb_send_mail($octeam_email, "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], "Kopia listu z adnotacja do skrzynki wysłana przez ".$sender_name.":\n\n".$email_content, $email_headers);
+		mb_send_mail($octeam_email, "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], "Kopia listu z adnotacja do skrzynki dodaną przez ".$sender_name.":\n\n".$email_content, $email_headers);
 			}
 			
 			// remove OC Team comment
