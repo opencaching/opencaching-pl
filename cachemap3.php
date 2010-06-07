@@ -50,6 +50,8 @@ function getDBFilter($user_id)
 									"be_ftf"=>0,
 									"h_pl"=>1,
 									"h_de"=>1,
+									"h_no"=>1,
+									"h_se"=>1,
 									"min_score"=>$MIN_SCORE,
 									"max_score"=>$MAX_SCORE,
 									"h_noscore"=>1
@@ -77,6 +79,8 @@ function getDBFilter($user_id)
 		$filter["map_type"] = $row['maptype'];
 		$filter["h_arch"] = $row['archived'];
 		$filter["be_ftf"] = $row['be_ftf'];
+		$filter["h_no"] = $row['no'];
+		$filter["h_se"] = $row['se'];
 		$filter["h_de"] = $row['de'];
 		$filter["h_pl"] = $row['pl'];
 		$filter["min_score"] = $row['min_score'];
@@ -193,7 +197,7 @@ else
 			continue;
 		}
 		
-		if( !($key == "h_avail" || $key == "h_temp_unavail" || $key == "h_pl" || $key == "h_de" || $key == "be_ftf" || $key == "map_type" || $key == "signes" || $key == "waypoints" || $key == "h_noscore"))
+		if( !($key == "h_avail" || $key == "h_temp_unavail" || $key == "h_pl" || $key == "h_de" || $key == "h_no" || $key == "h_se" || $key == "be_ftf" || $key == "map_type" || $key == "signes" || $key == "waypoints" || $key == "h_noscore"))
 		{
 			// workaround for reversed values
 			$value = 1-$value;
@@ -282,7 +286,7 @@ else
 			}
 
 			var mapid = get_current_mapid();;
-			var queryString = "?maptype=" + mapid+"&h_u="+document.getElementById(\'h_u\').checked+"&h_t="+document.getElementById(\'h_t\').checked+"&h_m="+document.getElementById(\'h_m\').checked+"&h_v="+document.getElementById(\'h_v\').checked+"&h_w="+document.getElementById(\'h_w\').checked+"&h_e="+document.getElementById(\'h_e\').checked+"&h_q="+document.getElementById(\'h_q\').checked+"&h_o="+document.getElementById(\'h_o\').checked+"&h_ignored="+document.getElementById(\'h_ignored\').checked+"&h_own="+document.getElementById(\'h_own\').checked+"&h_found="+document.getElementById(\'h_found\').checked+"&h_noattempt="+document.getElementById(\'h_noattempt\').checked+"&h_nogeokret="+document.getElementById(\'h_nogeokret\').checked+"&h_avail="+document.getElementById(\'h_avail\').checked+"&h_temp_unavail="+document.getElementById(\'h_temp_unavail\').checked+"&h_arch="+document.getElementById(\'h_arch\').checked+"&signes="+document.getElementById(\'signes\').checked+"&waypoints="+document.getElementById(\'waypoints\').checked+"&be_ftf="+document.getElementById(\'be_ftf\').checked+"&h_pl="+document.getElementById(\'h_pl\').checked+"&h_de="+document.getElementById(\'h_de\').checked+"&min_score="+document.getElementById(\'min_score\').value+"&max_score="+document.getElementById(\'max_score\').value+"&h_noscore="+document.getElementById(\'h_noscore\').checked;
+			var queryString = "?maptype=" + mapid+"&h_u="+document.getElementById(\'h_u\').checked+"&h_t="+document.getElementById(\'h_t\').checked+"&h_m="+document.getElementById(\'h_m\').checked+"&h_v="+document.getElementById(\'h_v\').checked+"&h_w="+document.getElementById(\'h_w\').checked+"&h_e="+document.getElementById(\'h_e\').checked+"&h_q="+document.getElementById(\'h_q\').checked+"&h_o="+document.getElementById(\'h_o\').checked+"&h_ignored="+document.getElementById(\'h_ignored\').checked+"&h_own="+document.getElementById(\'h_own\').checked+"&h_found="+document.getElementById(\'h_found\').checked+"&h_noattempt="+document.getElementById(\'h_noattempt\').checked+"&h_nogeokret="+document.getElementById(\'h_nogeokret\').checked+"&h_avail="+document.getElementById(\'h_avail\').checked+"&h_temp_unavail="+document.getElementById(\'h_temp_unavail\').checked+"&h_arch="+document.getElementById(\'h_arch\').checked+"&signes="+document.getElementById(\'signes\').checked+"&waypoints="+document.getElementById(\'waypoints\').checked+"&be_ftf="+document.getElementById(\'be_ftf\').checked+"&h_pl="+document.getElementById(\'h_pl\').checked+"&h_de="+document.getElementById(\'h_de\').checked+"&h_no="+document.getElementById(\'h_no\').checked+"&h_se="+document.getElementById(\'h_se\').checked+"&min_score="+document.getElementById(\'min_score\').value+"&max_score="+document.getElementById(\'max_score\').value+"&h_noscore="+document.getElementById(\'h_noscore\').checked;
 			
 			ajaxRequest.open("GET", "cachemapsettings.php" + queryString, true);
 			ajaxRequest.send(null); 
