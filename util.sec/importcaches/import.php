@@ -216,7 +216,8 @@ class importCaches
 
     $xr->close();
 		
-		sql("UPDATE import_caches_date SET updated = '".sql_escape($startupdate)."' WHERE node_id=".sql_escape($node_id));
+		sql("INSERT INTO import_caches_date (updated, node_id ) VALUES ('".sql_escape($startupdate)."','".sql_escape($node_id)."') 
+			ON DUPLICATE KEY UPDATE updated = '".sql_escape($startupdate)."'");
 		return true;
 	}
 
