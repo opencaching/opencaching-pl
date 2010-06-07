@@ -122,7 +122,7 @@ class importCaches
 		$modifiedsince = ( @mysql_num_rows($query) > 0 ? @mysql_result( $query, 0 ) : 14400 );
 		
 		set_time_limit(300);
-		echo $copy_from = 'http://www.opencaching.'.($this->getCountryFromNodeId( $node_id )).'/xml/ocxml11.php?modifiedsince=' . date('YmdHis', $modifiedsince - 14400).'&session=0&cache=1&zip=0';
+		$copy_from = 'http://www.opencaching.'.($this->getCountryFromNodeId( $node_id )).'/xml/ocxml11.php?modifiedsince=' . date('YmdHis', $modifiedsince - 14400).'&session=0&cache=1&zip=0';
 		//$copy_from = "http://www.opencaching.cz/download/zip/ocxml11/442/442-1-2.xml";
 		
 		if (!copy($copy_from, $path))
