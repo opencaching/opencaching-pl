@@ -96,7 +96,7 @@ class importCaches
 		}
 		$retValue = $this->importXML($xmlfile, $node_id);
 		
-		//$this->removeXML($xmlfile);
+		$this->removeXML($xmlfile);
 		db_disconnect();
 		
 		return $retValue;
@@ -202,7 +202,7 @@ class importCaches
 				switch ($xr->name)
 				{
 					case 'cache':
-						$this->importCache($element);
+						$this->importCache($element, $node_id);
 						break;
 					case 'moves':
 						$this->importMove($element);
@@ -220,7 +220,7 @@ class importCaches
 		return true;
 	}
 
-	function importCache($element)
+	function importCache($element, $node_id)
 	{
 		global $opt;
 
@@ -269,7 +269,7 @@ class importCaches
 		$lastmodified = addslashes($this->GetNodeValue($element, 'lastmodified'));
 		
 		
-		$sql = "REPLACE INTO foreign_caches (cache_id, user_id, username, name, longitude, latitude, last_modified, date_created, type, status, country, date_hidden, desc_languages, size, difficulty, terrain, uuid, search_time, way_length, wp_gc, wp_nc, wp_oc, default_desclang, node) VALUES ($id, $userid, '$username', '$name', $longitude, $latitude, '$lastmodified', '$datecreated', $typeid, $statusid, '$countryid', '$datehidden', '$desclanguages', $sizeid, $difficulty, $terrain, '$useruuid', $needtime, $waylength, '$gcwaypoint', '$ncwaypoint', '$ocwaypoint', UCASE('".$this->getCountryFromNodeId( $node_id )."'), $node_id)";
+		$sql = "REPLACE INTO foreign_caches (cache_id, user_id, username, name, longitude, latitude, last_modified, date_created, type, status, country, date_hidden, desc_languages, size, difficulty, terrain, uuid, search_time, way_length, wp_gc, wp_nc, wp_oc, default_desclang, node) VALUES ($id, $userid, '$username', '$name', $longitude, $latitude, '$lastmodified', '$datecreated', $typeid, $statusid, '$countryid', '$datehidden', '$desclanguages', $sizeid, $difficulty, $terrain, '$useruuid', $needtime, $waylength, '$gcwaypoint', '$ncwaypoint', '$ocwaypoint', UCASE('".($this->getCountryFromNodeId( $node_id ))."'), $node_id)";
 		
 		@mysql_query($sql);
 	}
