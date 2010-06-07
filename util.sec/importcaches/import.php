@@ -126,12 +126,32 @@ class importCaches
 		$copy_from = 'http://www.opencaching.'.($this->getCountryFromNodeId( $node_id )).'/xml/ocxml11.php?modifiedsince=' . date('YmdHis', $modifiedsince - 14400).'&session=0&cache=1&zip=0';
 		//$copy_from = "http://www.opencaching.cz/download/zip/ocxml11/442/442-1-2.xml";
 		
-		if (!copy($copy_from, $path))
-		{
-			echo "Unable to synchronize with opencaching.".($this->getCountryFromNodeId( $node_id ));
-			return false;
-		}
+		$fp = fopen( $path, 'wb' );
 		
+		$options = array(
+        CURLOPT_RETURNTRANSFER => false,     // return web page
+        CURLOPT_HEADER         => false,    // don't return headers
+				CURLOPT_FILE					 => $fp,
+        CURLOPT_FOLLOWLOCATION => true,     // follow redirects
+        CURLOPT_ENCODING       => "",       // handle all encodings
+        CURLOPT_USERAGENT      => "opencaching.pl", // who am i
+        CURLOPT_AUTOREFERER    => true,     // set referer on redirect
+        CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
+        CURLOPT_TIMEOUT        => 300,      // timeout on response
+        CURLOPT_MAXREDIRS      => 10,       // stop after 10 redirects
+    );
+
+    $ch = curl_init( $copy_from );
+		
+    curl_setopt_array( $ch, $options );
+    if( curl_exec( $ch ) === false )
+		{
+			echo "Unable to synchronize with opencaching.".($this->getCountryFromNodeId( $node_id ))."\n";
+			echo "ERROR:".curl_error( $ch )."\n";
+		}
+    
+		curl_close( $ch );
+		fclose( $fp );
 		return $path;
 	}
 
