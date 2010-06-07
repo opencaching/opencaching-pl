@@ -162,7 +162,7 @@ class importCaches
       return false;
     }
 
-		$startupdate = $xr->getAttribute('date');
+		$startupdate = strtotime($xr->getAttribute('date'));
     if ($startupdate == '')
     {
 			
