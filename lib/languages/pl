@@ -406,6 +406,8 @@ please_login Zaloguj się.
 to_see_coords Współrzędne ukryte.
 h_pl_label Pokazuj skrzynki z opencaching.pl
 h_de_label Pokazuj skrzynki z opencaching.de
+h_se_label Pokazuj skrzynki z opencaching.se
+h_no_label Pokazuj skrzynki z opencaching.no
 ozi_path_label Ścieżka do katalogu 'op' na urządzeniu mobilnym
 ozi_path_info Dotyczy użytkowników Ozi Explorera i bazy Filipsa. Podanie ścieżki do katalogu 'op' bazy Filipsa, umożliwia pobieranie wyników wyszukiwania w formacie WPT z automatycznie zapisaną informacją o lokalizacji strony z opisem skrzynki. By skorzystać z tej opcji, wystarczy kliknąć na cache'a na mapie Ozi Explorera i wybrać "Open attachment". Przykładowe wpisy: <b>\\SDMMC\\baza\\</b>, <b>\\Memory card\\BF\\</b>
 newest_caches Najnowsze skrzynki

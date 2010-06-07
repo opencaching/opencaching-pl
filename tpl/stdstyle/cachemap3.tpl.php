@@ -53,6 +53,8 @@
 				<li class="group" style="{filters_hidden}"><input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload();check_field()"/><label for="be_ftf">{{be_ftf_label}}</label></li>
 				<li class="group" style="{filters_hidden}"><input class="chbox" id="h_pl" name="h_pl" value="1" type="checkbox" {h_pl_checked} onclick="reload()"/><label for="h_pl">{{h_pl_label}}</label></li>
 				<li class="group" style="{filters_hidden}"><input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{{h_de_label}}</label></li>
+				<li class="group" style="{filters_hidden}"><input class="chbox" id="h_se" name="h_se" value="1" type="checkbox" {h_se_checked} onclick="reload()"/><label for="h_se">{{h_se_label}}</label></li>
+				<li class="group" style="{filters_hidden}"><input class="chbox" id="h_no" name="h_no" value="1" type="checkbox" {h_no_checked} onclick="reload()"/><label for="h_no">{{h_no_label}}</label></li>
 			<li class="group" style="{filters_hidden}">{{from}}:	
 			<select id="min_score" name="min_score" onchange="reload()">
 				<option value="-3" {min_sel1}>{{rating_poor}}</option>
