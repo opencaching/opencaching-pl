@@ -168,9 +168,9 @@ else
 				</p>
 				</div>
 				<div class="content2-container">
-				<p><br/>
+				
 				{rr_comment}
-				</p>
+			
 			</div>
 		<div class="notice" id="viewcache-attributesend">{{comment_octeam_visible}}</div>
 			{end_rr_comment}
