@@ -870,6 +870,8 @@
 				tpl_set_var('add_rr_comment', '[<a href="add_octeam_comment.php?cacheid='.$cache_id.'">'.tr('add_rr_comment').'</a>]');				
 				tpl_set_var('start_rr_comment', '', true);
 				tpl_set_var('end_rr_comment','', true);
+				tpl_set_var('remove_rr_comment', '',true);
+				tpl_set_var('rr_comment', '', true);
 			
 				} else {
 
