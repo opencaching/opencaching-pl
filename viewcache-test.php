@@ -773,7 +773,7 @@
 
 
 			// add OC Team comment
-			if( $usr['admin'] && isset($_POST['rr_comment']) && $_POST['rr_comment']!= "" && $_SESSION['submitted'] != true)
+			if( ($usr['admin'] ||$cache_record['user_id'] == $usr['userid']) && isset($_POST['rr_comment']) && $_POST['rr_comment']!= "" && $_SESSION['submitted'] != true)
 			{
 				$sender_name = $usr['username'];
 				$comment = nl2br($_POST['rr_comment']);
@@ -858,7 +858,7 @@
 			if( $desc_record['rr_comment'] != "" && ($cache_record['user_id'] == $usr['userid'] || $usr['admin']))
 			{
 				tpl_set_var('add_rr_comment', '[<a href="add_octeam_comment.php?cacheid='.$cache_id.'">'.tr('add_rr_comment').'</a>]');				
-				if( $usr['admin'] ){tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">'.tr('remove_rr_comment').'</a>]');}
+				if( $usr['admin'] ){tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">'.tr('remove_rr_comment').'</a>]');} else {	tpl_set_var('remove_rr_comment', '',true);}
 				tpl_set_var('start_rr_comment', '', true);
 				tpl_set_var('end_rr_comment','', true);
 				tpl_set_var('rr_comment', $desc_record['rr_comment'], true);
