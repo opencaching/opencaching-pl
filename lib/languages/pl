@@ -380,9 +380,9 @@ search_recommendations Rekomendacje
 search_all_caches wszystkie skrzynki
 search_recommended_caches minimalna ilość rekomendacji: 
 incomming_events Nadchodzące wydarzenia
-rr_comment_label Adnotacja Centrum Obsługi Geocachera OC PL 
-add_rr_comment Dodaj adnotację COG do opisu
-remove_rr_comment Usuń adnotację COG do opisu
+rr_comment_label Adnotacje Centrum Obsługi Geocachera OC PL 
+add_rr_comment Dodaj komentarz do adnotacji COG
+remove_rr_comment Usuń adnotacje COG
 get_bulletin Chcę otrzymywać biuletyny informacyjne
 bulletin_label_yes Użytkownik będzie otrzymywał biuletyny informacyjne
 bulletin_label_no Użytkownik nie będzie otrzymywał biuletynów informacyjnych
