@@ -789,7 +789,7 @@
 		// send notify to owner cache and copy to OC Team
 		$query1 = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache_record['user_id'] );
 		$owner_email = sql_fetch_array($query1);
-		$sender_email=$usr['email'];			
+		
 		$email_content = read_file($stylepath . '/email/octeam_comment.email');
 		$email_content = mb_ereg_replace('%cachename%', $cache_record['name'], $email_content);
 		$email_content = mb_ereg_replace('%cacheid%', $cache_record['cache_id'], $email_content);
@@ -799,8 +799,15 @@
 		$email_headers .= "Reply-To: ".$octeam_email. "\r\n";
 		//send email to owner
 		mb_send_mail($owner_email['email'], "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], $email_content, $email_headers);
+
 		//send copy email to OC Team
+		$query1 = sql("SELECT `user`.`email`, `user_id` FROM `approval_status`,`user` WHERE `approval_status`.`cache_id`='&1' AND user.user_id=user_id", $cache_record['cache_id'] );
+		$query2 = sql("SELECT `user`.`email`, `responsible_id` FROM `reports`,`user` WHERE `reports`.`cache_id`='&1' AND `user`.`user_id`=`responsible_id`", $cache_record['cache_id'] );		
+		if(){
+		$sender_email=$semail;	
 		mb_send_mail($sender_email, "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], "Kopia listu z adnotacja do skrzynki dodaną przez ".$sender_name.":\n\n".$email_content, $email_headers);
+                 }
+
 			}
 			
 			// remove OC Team comment
