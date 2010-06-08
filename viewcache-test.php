@@ -840,34 +840,45 @@
 			
 			tpl_set_var('desc', $desc, true);
 			
-			if( $usr['admin'] )
-			{
-				tpl_set_var('add_rr_comment', '[<a href="add_octeam_comment.php?cacheid='.$cache_id.'">'.tr('add_rr_comment').'</a>]');
-				if( $desc_record['rr_comment'] == "" )
-					tpl_set_var('remove_rr_comment', '');
-				else
-					tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">'.tr('remove_rr_comment').'</a>]');
-				
-			}
-			else
-			{
-				tpl_set_var('add_rr_comment', '');
-				tpl_set_var('remove_rr_comment', '');
-			}
+//			if( $usr['admin'] )
+//			{
+//				tpl_set_var('add_rr_comment', '[<a href="add_octeam_comment.php?cacheid='.$cache_id.'">'.tr('add_rr_comment').'</a>]');
+//				if( $desc_record['rr_comment'] == "" )
+//					tpl_set_var('remove_rr_comment', '');
+//				else
+//					tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">'.tr('remove_rr_comment').'</a>]');
+//				
+//			}
+//			else
+//			{
+//				tpl_set_var('add_rr_comment', '');
+//				tpl_set_var('remove_rr_comment', '');
+//			}
 			
 			if( $desc_record['rr_comment'] != "" && ($cache_record['user_id'] == $usr['userid'] || $usr['admin']))
 			{
+				tpl_set_var('add_rr_comment', '[<a href="add_octeam_comment.php?cacheid='.$cache_id.'">'.tr('add_rr_comment').'</a>]');				
+				if( $usr['admin'] ){tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">'.tr('remove_rr_comment').'</a>]');}
 				tpl_set_var('start_rr_comment', '', true);
 				tpl_set_var('end_rr_comment','', true);
 				tpl_set_var('rr_comment', $desc_record['rr_comment'], true);
 			}
 			else
 			{
+
+			if( $usr['admin']){
+				tpl_set_var('add_rr_comment', '[<a href="add_octeam_comment.php?cacheid='.$cache_id.'">'.tr('add_rr_comment').'</a>]');				
+				tpl_set_var('start_rr_comment', '', true);
+				tpl_set_var('end_rr_comment','', true);
+			
+				} else {
+
 				tpl_set_var('rr_comment_label', '', true);
 				tpl_set_var('rr_comment', '', true);
 				tpl_set_var('start_rr_comment', '<!--', true);
 				tpl_set_var('end_rr_comment','-->', true);
 				$_POST['rr_comment']="";
+				}
 			}
 			// show hints
 			//
