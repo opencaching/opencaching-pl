@@ -801,14 +801,20 @@
 		mb_send_mail($owner_email['email'], "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], $email_content, $email_headers);
 
 		//send copy email to OC Team
-		$query1 = sql("SELECT `user`.`email`, `user_id` FROM `approval_status`,`user` WHERE `approval_status`.`cache_id`='&1' AND user.user_id=user_id", $cache_record['cache_id'] );
-		$query2 = sql("SELECT `user`.`email`, `responsible_id` FROM `reports`,`user` WHERE `reports`.`cache_id`='&1' AND `user`.`user_id`=`responsible_id`", $cache_record['cache_id'] );		
-		if(){
-		$sender_email=$semail;	
-		mb_send_mail($sender_email, "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], "Kopia listu z adnotacja do skrzynki dodaną przez ".$sender_name.":\n\n".$email_content, $email_headers);
-                 }
-
-			}
+		if ( $usr['userid']==$cache_record['user_id']){
+		//$sender_email=$usr['email'];	
+			$querys1 = sql("SELECT `user`.`email` FROM `approval_status`,`user` WHERE `approval_status`.`cache_id`='&1' AND `user`.`user_id`=`approval_status`.`user_id`", $cache_record['cache_id']);
+			if (mysql_num_rows($querys1) !=0)
+				{$sender_email = sql_fetch_array($querys1);
+				} else {
+			$querys2 = sql("SELECT `user`.`email` FROM `reports`,`user` WHERE `reports`.`cache_id`='&1' AND `user`.`user_id`=`reports`.`responsible_id`", $cache_record['cache_id'] );		
+			if (mysql_num_rows($querys1) !=0)
+				{$sender_email = sql_fetch_array($querys2);} else { $sender_email=$octeam_email;}
+				}
+			} else { $sender_email=$usr['email'];}	
+			mb_send_mail($sender_email, "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'],$email_content, $email_headers);  
+			
+		}
 			
 			// remove OC Team comment
 			if( $usr['admin'] && isset($_GET['removerrcomment']) && isset($_GET['cacheid']) )

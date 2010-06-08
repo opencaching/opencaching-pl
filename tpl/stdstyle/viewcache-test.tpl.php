@@ -167,10 +167,8 @@ else
 					{{rr_comment_label}}&nbsp;&nbsp;{add_rr_comment}&nbsp;{remove_rr_comment}
 				</p>
 				</div>
-				<div class="content2-container">
-				
-				{rr_comment}
-			
+				<div class="content2-container">				
+				<p>{rr_comment}</p>		
 			</div>
 		<div class="notice" id="viewcache-attributesend">{{comment_octeam_visible}}</div>
 			{end_rr_comment}

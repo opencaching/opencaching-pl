@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS `map_settings` (
   `be_ftf` int(1) default '0',
   `de` int(1) default '1',
   `pl` int(1) default '1',
+  `no` int(1) NOT NULL default '0',
+  `se` int(1) NOT NULL default '0',
   `min_score` int(1) NOT NULL default '-3',
   `max_score` int(1) NOT NULL default '3',
   `noscore` int(1) NOT NULL default '1',
