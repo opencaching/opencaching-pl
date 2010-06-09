@@ -481,8 +481,137 @@
 					$score_not_ok = false;
 				}
 				
+				if (isset($_POST['submitform']))
+				{				
+					//check coordinates
+					if ($lat_h!='' || $lat_min!='')
+					{
+						if (!mb_ereg_match('^[0-9]{1,2}$', $lat_h))
+						{
+							tpl_set_var('lat_message', $error_coords_not_ok);
+							$error = true;
+							$lat_h_not_ok = true;
+						}
+						else
+						{
+							if (($lat_h >= 0) && ($lat_h < 90))
+							{
+								$lat_h_not_ok = false;
+							}
+							else
+							{
+								tpl_set_var('lat_message', $error_coords_not_ok);
+								$error = true;
+								$lat_h_not_ok = true;
+							}
+						}
+
+						if (is_numeric($lat_min))
+						{
+							if (($lat_min >= 0) && ($lat_min < 60))
+							{
+								$lat_min_not_ok = false;
+							}
+							else
+							{
+								tpl_set_var('lat_message', $error_coords_not_ok);
+								$error = true;
+								$lat_min_not_ok = true;
+							}
+						}
+						else
+						{
+							tpl_set_var('lat_message', $error_coords_not_ok);
+							$error = true;
+							$lat_min_not_ok = true;
+						}
+
+						$latitude = $lat_h + $lat_min / 60;
+						if ($latNS == 'S') $latitude = -$latitude;
+
+						if ($latitude == 0)
+						{
+							tpl_set_var('lon_message', $error_coords_not_ok);
+							$error = true;
+							$lat_min_not_ok = true;
+						}
+					}
+					else
+					{
+						$latitude = NULL;
+						$lat_h_not_ok = false;
+						$lat_min_not_ok = false;
+					}
+
+					if ($lon_h!='' || $lon_min!='')
+					{
+						if (!mb_ereg_match('^[0-9]{1,3}$', $lon_h))
+						{
+							tpl_set_var('lon_message', $error_coords_not_ok);
+							$error = true;
+							$lon_h_not_ok = true;
+						}
+						else
+						{
+							if (($lon_h >= 0) && ($lon_h < 180))
+							{
+								$lon_h_not_ok = false;
+							}
+							else
+							{
+								tpl_set_var('lon_message', $error_coords_not_ok);
+								$error = true;
+								$lon_h_not_ok = true;
+							}
+						}
+
+						if (is_numeric($lon_min))
+						{
+							if (($lon_min >= 0) && ($lon_min < 60))
+							{
+								$lon_min_not_ok = false;
+							}
+							else
+							{
+								tpl_set_var('lon_message', $error_coords_not_ok);
+								$error = true;
+								$lon_min_not_ok = true;
+							}
+						}
+						else
+						{
+							tpl_set_var('lon_message', $error_coords_not_ok);
+							$error = true;
+							$lon_min_not_ok = true;
+						}
+
+						$longitude = $lon_h + $lon_min / 60;
+						if ($lonEW == 'W') $longitude = -$longitude;
+
+						if ($longitude == 0)
+						{
+							tpl_set_var('lon_message', $error_coords_not_ok);
+							$error = true;
+							$lon_min_not_ok = true;
+						}
+					}
+					else
+					{
+						$longitude = NULL;
+						$lon_h_not_ok = false;
+						$lon_min_not_ok = false;
+					}
+
+
+
+					$lon_not_ok = $lon_min_not_ok || $lon_h_not_ok;
+					$lat_not_ok = $lat_min_not_ok || $lat_h_not_ok;
+					}
+				
+				
 				if( isset($_POST['submitform']) && ($all_ok == true) )
 				{
+				
 					if( $_POST['r'] >= -3 && $_POST['r'] <= 3 )
 					{
 						// oceniono skrzynkę
@@ -509,9 +638,9 @@
 					// if comment is empty, then do not insert data into db
 					if( !($log_type == 3 && $log_text == ""))
 					{
-						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
-										 VALUES ('', '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW(), NOW(), '&8', '&9')",
-										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid);
+						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`,`longitude`,`latitude`)
+										 VALUES ('', '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW(), NOW(), '&8', '&9','&10','&11','&12')",
+										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid, $encrypt,$longitude,$latitude);
 
 						//inc cache stat and "last found"
 						$rs = sql("SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
