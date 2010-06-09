@@ -173,14 +173,15 @@ function toogleLayer( whichLayer, val )
 			</fieldset>
 		</td>
 	</tr>
-<tr><td colspan="2"><div class="buffer"></div></td></tr>
+	<tr><td colspan="2"><div class="notice" id="viewcache-attributesend" style="width:600px;">Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu.</div>
+	</td></tr>
 </table>
 {coordinates_end}
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
-	<tr>
-		<td colspan="2">
-			{log_geokret}
-		</td>
+	<tr>   
+    <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="top" />&nbsp;<strong><input id="encrypt" type="checkbox" name="encrypt" /><label for="encrypt">Zaszyfruj wpis do logu</label></strong>
+     
+    <div class="notice" id="viewcache-attributesend" style="width:600px;"> Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennik zawiera spoilery lub takie informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst w nawiasach [treść] nie będzie szyfrowana.</div></td>
 	</tr>
 	<tr>
 		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
@@ -211,32 +212,32 @@ function toogleLayer( whichLayer, val )
 			{smilies}
 		</td>
 	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	        <p>
-            <input id="encrypt" type="checkbox" name="encrypt" /><label for="encrypt">Zaszyfruj wpis do logu</label></p>
-        <p>
-            Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennika zawiera spoilery, takie jak informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst w nawiasach [treść] nie będzie szyfrowana.
-        </p>
-	<tr><td class="spacer" colspan="2"></td></tr>
-
-		{log_pw_field}
 
 	<tr><td class="spacer" colspan="2"></td></tr>
+	{log_pw_field}
 	{listed_start}
+	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2" width="600px"><strong><img src="tpl/stdstyle/images/free_icons/world_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_other}}:&nbsp;{listed_on}</strong>
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	{listed_end}
+		<tr>
+		<td colspan="2">
+			{log_geokret}
+		</td>
+	</tr>
+		<tr><td class="spacer" colspan="2">&nbsp;</td></tr>
 	<tr>
 		<td class="header-small" colspan="2">
-			<input type="reset" name="reset" value="Reset" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="width:120px"/>
+			<button type="reset" name="reset" value="Reset" style="font-size:12px;width:140px""/><b>Reset</b></button>&nbsp;&nbsp;
+			<button type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="font-size:12px;width:140px"/><b>{{submit_log_entry}}</b></button>
 		</td>
 	</tr>
 </table>
 </form>
+<br/><br/>
 <script language="javascript" type="text/javascript">
 <!--
 	/*
