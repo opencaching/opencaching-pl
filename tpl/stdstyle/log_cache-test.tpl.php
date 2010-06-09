@@ -212,6 +212,12 @@ function toogleLayer( whichLayer, val )
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
+	        <p>
+            <input id="encrypt" type="checkbox" name="encrypt" /><label for="encrypt">Zaszyfruj wpis do logu</label></p>
+        <p>
+            Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennika zawiera spoilery, takie jak informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst w nawiasach [treść] nie będzie szyfrowana.
+        </p>
+	<tr><td class="spacer" colspan="2"></td></tr>
 
 		{log_pw_field}
 
