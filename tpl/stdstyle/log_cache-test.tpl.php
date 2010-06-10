@@ -149,8 +149,12 @@ function toogleLayer( whichLayer, val )
 	</tr>
 </table>
 </div>
+	<tr>   
+    <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="top" />&nbsp;<strong><input id="addcoord" type="checkbox" name="addcoord" value="1" {is_checked} onChange="toogleLayer('coord');" /><label for="coord">Dodaj do logu współrzędne</label></strong>
+     </td>
+	</tr>
 {coordinates_start}
-<table width="95%" class="content" style="font-size: 12px; line-height: 1.6em;">
+<table width="95%" id="corrd" class="content" style="font-size: 12px; line-height: 1.6em; display: {display};">
 	<tr><td class="spacer" colspan="2"></td></tr>
 		<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
