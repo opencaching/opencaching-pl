@@ -45,7 +45,7 @@
 		require_once($rootpath . 'lib/caches.inc.php');
 		require_once($stylepath . '/lib/icons.inc.php');
 		require($stylepath . '/viewcache.inc.php');
-		require($stylepath . '/viewlogs-test.inc.php');
+		require($stylepath . '/viewlogs.inc.php');
 		require($stylepath.'/smilies.inc.php');
 		
 		$cache_id = 0;
