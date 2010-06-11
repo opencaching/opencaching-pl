@@ -164,11 +164,13 @@ else
 				<p class="content-title-noshade-size1">
 					
 					<img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" />
-					{{rr_comment_label}}&nbsp;&nbsp;{add_rr_comment}&nbsp;{remove_rr_comment}
+					{{rr_comment_label}}
 				</p>
 				</div>
-				<div class="content2-container">				
-				<p>{rr_comment}</p>		
+				<div class="content2-container">
+				<p><br/>
+				{rr_comment}
+				</p>
 			</div>
 		<div class="notice" id="viewcache-attributesend">{{comment_octeam_visible}}</div>
 			{end_rr_comment}
@@ -178,7 +180,7 @@ else
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />
 					{{descriptions}}&nbsp;&nbsp;
-					{desc_langs}
+					{desc_langs}&nbsp;{add_rr_comment}&nbsp;{remove_rr_comment}
 				</p></div>
 				<div class="content2-container">
 				<div id='branding'>{branding}</div>
