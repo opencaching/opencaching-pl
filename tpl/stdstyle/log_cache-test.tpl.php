@@ -96,7 +96,10 @@ function toogleLayer( whichLayer, val )
 	//	vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
 	//vis.display = (vis.display==''||vis.display=='block')?'none':'block';
 }
-
+function showHide(id){
+   el = document.getElementById(id);
+   el.style.display = (el.style.display != 'block')? 'block' : 'none';
+} 
 //-->
 </script>
 <form action="log-test.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" dir="ltr" onsubmit="disable()">
@@ -148,18 +151,21 @@ function toogleLayer( whichLayer, val )
 		<td width="*">{score}<br/></td>
 	</tr>
 </table>
-</div>
+</div>	
+<table class="content" style="font-size: 12px; line-height: 1.6em;">
+	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>   
-    <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="top" />&nbsp;<strong><input id="addcoord" type="checkbox" name="addcoord" value="1" {is_checked} onChange="toogleLayer('coord');" /><label for="coord">Dodaj do logu współrzędne</label></strong>
+    <td width="800px" colspan="2" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong><input id="addcoord" type="checkbox" name="addcoord" value="1" {is_checked} onclick="showHide('coord');" /><label for="coord">Dodaj do logu współrzędne</label></strong>
      </td>
 	</tr>
+</table>
 {coordinates_start}
-<table width="95%" id="corrd" class="content" style="font-size: 12px; line-height: 1.6em; display: {display};">
+<table width="95%" id="coord" class="content" style="font-size: 12px; line-height: 1.6em;display:none;">
 	<tr><td class="spacer" colspan="2"></td></tr>
 		<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td width="180px" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="top" />&nbsp;<b>Nowe {{coordinates}}:</b></td>
-		<td>
+		<td width="180px" valign="top"><b>{{coordinates}}:</b></td>
+		<td width="600px">
 		<fieldset style="border: 1px solid black; width: 30%; height: 32%; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
 			<select name="latNS" class="input40">
@@ -186,7 +192,7 @@ function toogleLayer( whichLayer, val )
 {coordinates_end}
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr>   
-    <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="top" />&nbsp;<strong><input id="encrypt" type="checkbox" name="encrypt" value="1" {is_checked} /><label for="encrypt">Zaszyfruj wpis do logu</label></strong>
+    <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="bottom" />&nbsp;<strong><input id="encrypt" type="checkbox" name="encrypt" value="1" {is_checked} /><label for="encrypt">Zaszyfruj wpis do logu</label></strong>
      
     <div class="notice" id="viewcache-attributesend" style="width:600px;"> Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennik zawiera spoilery lub takie informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst w nawiasach kwadratowych [treść] nie będzie szyfrowany.</div></td>
 	</tr>
