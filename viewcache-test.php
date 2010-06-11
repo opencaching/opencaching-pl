@@ -1045,7 +1045,7 @@
 				if($record['latitude']!=0){
 				$log_coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($record['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($record['longitude']), ENT_COMPAT, 'UTF-8'));
 
-				$log_coord='<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
+				$log_coord='<fieldset style="border: 1px solid black; width: 95%; height: 32%; background-color: #FFFFFF;">
 			<legend>&nbsp; <strong>Nowe współrzędne skrzynki</strong> &nbsp;</legend><p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
 						<b>'.$log_coords.'</b></p></fieldset><br/>';
 				}else{$log_coord="";}
