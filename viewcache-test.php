@@ -1026,9 +1026,12 @@
 						$tmpFunctions .= $edit_log . $functions_middle;
 					}
 					$tmpFunctions .= $remove_log;
-
+	
 					if ( $record['deleted']!=1 && $usr['userid'] == $record['userid'])
-						$tmpFunctions = $tmpFunctions . $functions_middle . $upload_picture;
+					$tmpFunctions = $tmpFunctions . $functions_middle . $upload_picture;
+	
+					if ( $record['encrypt']==1 && ($usr['userid'] == $record['userid'] ||$usr['userid']==$cache_record['cache_id'] ||$usr['admin'] ) )
+					$tmpFunctions = $tmpFunctions . $decrypt_log;
 
 					$tmpFunctions .= $functions_end;
 
@@ -1039,6 +1042,16 @@
 				else
 					$tmplog = mb_ereg_replace('{logfunctions}', '', $tmplog);
 
+				if($record['latitude']!=0){
+				$log_coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($record['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($record['longitude']), ENT_COMPAT, 'UTF-8'));
+
+				$log_coord='<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
+			<legend>&nbsp; <strong>Nowe współrzędne skrzynki</strong> &nbsp;</legend><p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
+						<b>'.$log_coords.'</b></p></fieldset><br/>';
+				}else{$log_coord="";}
+
+				$tmplog = mb_ereg_replace('{log_coordinates}', $log_coord, $tmplog);
+				tpl_set_var('log_coordinates', $log_coord, true);
 				$tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
 				$tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
 				$tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);
