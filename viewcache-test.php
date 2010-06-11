@@ -94,7 +94,7 @@
 		}
 		if (isset($_REQUEST['nocryptlog']))
 		{
-			$no_crypt_log = $_REQUEST['nocrypt'];
+			$no_crypt_log = $_REQUEST['nocryptlog'];
 		}
 		
 		if ($cache_id != 0)
@@ -1042,12 +1042,12 @@
 					if ( $record['encrypt']==1 && $no_crypt_log == 0 && ($usr['userid'] == $record['userid'] ||$usr['userid']==$cache_record['cache_id'] ||$usr['admin'] ) )
 					{
 					$tmpFunctions = $tmpFunctions . $decrypt_log;
-					$decrypt_log_id="decrypt_log_id_".$record['logid']."";
-					$decrypt_log_begin='<div id="decrypt_log_id_'.$record['logid'].'">';
+					$decrypt_log_id="log_id_".$record['logid']."";
+					$decrypt_log_begin='<div id="log_id_'.$record['logid'].'">';
 					$decrypt_log_end='</div>';
 					} else {
 					$decrypt_log_id="decrypt_log_id_".$record['logid']."";
-					$decrypt_log_begin='<div id="decrypt_log_id_'.$record['logid'].'">';
+					$decrypt_log_begin='<div id="log_id_'.$record['logid'].'">';
 					$decrypt_log_end='</div>';}
 
 					$tmpFunctions .= $functions_end;
@@ -1065,7 +1065,7 @@
 				if($record['latitude']!=0){
 				$log_coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($record['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($record['longitude']), ENT_COMPAT, 'UTF-8'));
 
-				$log_coord='<fieldset style="border: 1px solid black; width: 95%; height: 32%; background-color: #FFFFFF;">
+				$log_coord='<span id="logid">&nbsp;</span><fieldset style="border: 1px solid black; width: 95%; height: 32%; background-color: #FFFFFF;">
 			<legend>&nbsp; <strong>Nowe współrzędne skrzynki</strong> &nbsp;</legend><p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
 						<b>'.$log_coords.'</b></p></fieldset><br/>';
 				}else{$log_coord="";}
