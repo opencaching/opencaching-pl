@@ -45,7 +45,7 @@
 		require_once($rootpath . 'lib/caches.inc.php');
 		require_once($stylepath . '/lib/icons.inc.php');
 		require($stylepath . '/viewcache.inc.php');
-		require($stylepath . '/viewlogs.inc.php');
+		require($stylepath . '/viewlogs-test.inc.php');
 		require($stylepath.'/smilies.inc.php');
 		
 		$cache_id = 0;
@@ -773,7 +773,7 @@
 
 
 			// add OC Team comment
-			if( ($usr['admin'] ||$cache_record['user_id'] == $usr['userid']) && isset($_POST['rr_comment']) && $_POST['rr_comment']!= "" && $_SESSION['submitted'] != true)
+			if( $usr['admin'] && isset($_POST['rr_comment']) && $_POST['rr_comment']!= "" && $_SESSION['submitted'] != true)
 			{
 				$sender_name = $usr['username'];
 				$comment = nl2br($_POST['rr_comment']);
@@ -789,7 +789,7 @@
 		// send notify to owner cache and copy to OC Team
 		$query1 = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache_record['user_id'] );
 		$owner_email = sql_fetch_array($query1);
-		
+		$sender_email=$usr['email'];			
 		$email_content = read_file($stylepath . '/email/octeam_comment.email');
 		$email_content = mb_ereg_replace('%cachename%', $cache_record['name'], $email_content);
 		$email_content = mb_ereg_replace('%cacheid%', $cache_record['cache_id'], $email_content);
@@ -799,22 +799,9 @@
 		$email_headers .= "Reply-To: ".$octeam_email. "\r\n";
 		//send email to owner
 		mb_send_mail($owner_email['email'], "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], $email_content, $email_headers);
-
 		//send copy email to OC Team
-		if ( $usr['userid']==$cache_record['user_id']){
-		//$sender_email=$usr['email'];	
-			$querys1 = sql("SELECT `user`.`email` FROM `approval_status`,`user` WHERE `approval_status`.`cache_id`='&1' AND `user`.`user_id`=`approval_status`.`user_id`", $cache_record['cache_id']);
-			if (mysql_num_rows($querys1) !=0)
-				{$sender_email = sql_fetch_array($querys1);
-				} else {
-			$querys2 = sql("SELECT `user`.`email` FROM `reports`,`user` WHERE `reports`.`cache_id`='&1' AND `user`.`user_id`=`reports`.`responsible_id`", $cache_record['cache_id'] );		
-			if (mysql_num_rows($querys1) !=0)
-				{$sender_email = sql_fetch_array($querys2);} else { $sender_email=$octeam_email;}
-				}
-			} else { $sender_email=$usr['email'];}	
-			mb_send_mail($sender_email, "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'],$email_content, $email_headers);  
-			
-		}
+		mb_send_mail($sender_email, "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], "Kopia listu z adnotacja do skrzynki dodaną przez ".$sender_name.":\n\n".$email_content, $email_headers);
+			}
 			
 			// remove OC Team comment
 			if( $usr['admin'] && isset($_GET['removerrcomment']) && isset($_GET['cacheid']) )
@@ -853,47 +840,34 @@
 			
 			tpl_set_var('desc', $desc, true);
 			
-//			if( $usr['admin'] )
-//			{
-//				tpl_set_var('add_rr_comment', '[<a href="add_octeam_comment.php?cacheid='.$cache_id.'">'.tr('add_rr_comment').'</a>]');
-//				if( $desc_record['rr_comment'] == "" )
-//					tpl_set_var('remove_rr_comment', '');
-//				else
-//					tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">'.tr('remove_rr_comment').'</a>]');
-//				
-//			}
-//			else
-//			{
-//				tpl_set_var('add_rr_comment', '');
-//				tpl_set_var('remove_rr_comment', '');
-//			}
+			if( $usr['admin'] )
+			{
+				tpl_set_var('add_rr_comment', '[<a href="add_octeam_comment.php?cacheid='.$cache_id.'">'.tr('add_rr_comment').'</a>]');
+				if( $desc_record['rr_comment'] == "" )
+					tpl_set_var('remove_rr_comment', '');
+				else
+					tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">'.tr('remove_rr_comment').'</a>]');
+				
+			}
+			else
+			{
+				tpl_set_var('add_rr_comment', '');
+				tpl_set_var('remove_rr_comment', '');
+			}
 			
 			if( $desc_record['rr_comment'] != "" && ($cache_record['user_id'] == $usr['userid'] || $usr['admin']))
 			{
-				tpl_set_var('add_rr_comment', '[<a href="add_octeam_comment.php?cacheid='.$cache_id.'">'.tr('add_rr_comment').'</a>]');				
-				if( $usr['admin'] ){tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">'.tr('remove_rr_comment').'</a>]');} else {	tpl_set_var('remove_rr_comment', '',true);}
 				tpl_set_var('start_rr_comment', '', true);
 				tpl_set_var('end_rr_comment','', true);
 				tpl_set_var('rr_comment', $desc_record['rr_comment'], true);
 			}
 			else
 			{
-
-			if( $usr['admin']){
-				tpl_set_var('add_rr_comment', '[<a href="add_octeam_comment.php?cacheid='.$cache_id.'">'.tr('add_rr_comment').'</a>]');				
-				tpl_set_var('start_rr_comment', '', true);
-				tpl_set_var('end_rr_comment','', true);
-				tpl_set_var('remove_rr_comment', '',true);
-				tpl_set_var('rr_comment', '', true);
-			
-				} else {
-
 				tpl_set_var('rr_comment_label', '', true);
 				tpl_set_var('rr_comment', '', true);
 				tpl_set_var('start_rr_comment', '<!--', true);
 				tpl_set_var('end_rr_comment','-->', true);
 				$_POST['rr_comment']="";
-				}
 			}
 			// show hints
 			//
@@ -959,16 +933,19 @@
 			}
 			
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
-												".$show_deleted_logs."
+					  ".$show_deleted_logs."
+			                  `cache_logs`.`encrypt` `encrypt`,
+			                  `cache_logs`.`latitude` `latitude`,
+			                  `cache_logs`.`longitude` `longitude`,
 			                  `cache_logs`.`id` `logid`,
 			                  `cache_logs`.`date` `date`,
 			                  `cache_logs`.`type` `type`,
 			                  `cache_logs`.`text` `text`,
 			                  `cache_logs`.`text_html` `text_html`,
 			                  `cache_logs`.`picturescount` `picturescount`,
-							  `cache_logs`.`mp3count` `mp3count`,
+					  `cache_logs`.`mp3count` `mp3count`,
 			                  `user`.`username` `username`,
-                              `user`.`admin` `admin`,
+                            		  `user`.`admin` `admin`,
 			                  `log_types`.`icon_small` `icon_small`,
 			                  `log_types_text`.`text_listing` `text_listing`,
 			                  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
@@ -991,7 +968,7 @@
 					$show_deleted = "show_deleted";
 				}
 				
-				$tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
+				$tmplog = read_file($stylepath . '/viewcache_log-test.tpl.php');
 
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
 				$tmplog_date = fixPlMonth(htmlspecialchars(strftime("%d %B %Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
