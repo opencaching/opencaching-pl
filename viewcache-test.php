@@ -981,6 +981,9 @@
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
 
 				$tmplog_text = tidy_html_description($tmplog_text);
+					if ( $record['encrypt']==1)
+				//crypt the log ROT13, but keep HTML-Tags and Entities
+				$tmplog_text = str_rot13_html($tmplog_text);
 
 				if ($record['picturescount'] > 0)
 				{
@@ -1031,11 +1034,20 @@
 					$tmpFunctions = $tmpFunctions . $functions_middle . $upload_picture;
 	
 					if ( $record['encrypt']==1 && ($usr['userid'] == $record['userid'] ||$usr['userid']==$cache_record['cache_id'] ||$usr['admin'] ) )
+					{
 					$tmpFunctions = $tmpFunctions . $decrypt_log;
+					$decrypt_log_id="decrypt_id_".$record['logid']."";
+					$decrypt_log_begin='<span id="decrypt_id_'.$record['logid'].'">';
+					$decrypt_log_end='</span>';
+					} else {
+					$decrypt_log_begin='<span id="log_id_'.$record['logid'].'">';
+					$decrypt_long_end='</span>';}
 
 					$tmpFunctions .= $functions_end;
-
+					if ( $record['encrypt']==1)
+					$tmpFunctions = mb_ereg_replace('{decrypt_log_id}', $decrypt_log_id, $tmpFunctions);
 					$tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
+					$tmpFunctions = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $tmpFunctions);
 
 					$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
 				}
@@ -1057,7 +1069,7 @@
 				$tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);
 				$tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
 				$tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
-				$tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
+				$tmplog = mb_ereg_replace('{logtext}',$decrypt_log_begin.$tmplog_text.$decrypt_log_end, $tmplog);
 				$tmplog = mb_ereg_replace('{logimage}', icon_log_type($record['icon_small'], $tmplog['type']), $tmplog);
 
 				if ($record['recommended'] == 1)
