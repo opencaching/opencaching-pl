@@ -152,17 +152,18 @@ function showHide(id){
 	</tr>
 </table>
 </div>	
+{coordinates_start}
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
-	<tr><td class="spacer" colspan="2"></td></tr>
+	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
 	<tr>   
     <td width="800px" colspan="2" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong><input id="addcoord" type="checkbox" name="addcoord" value="1" {is_checked} onclick="showHide('coord');" /><label for="coord">Dodaj do logu współrzędne</label></strong>
      </td>
 	</tr>
+	<tr><td colspan="2"><div class="notice" id="viewcache-attributesend" style="width:600px;">Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu.</div>
+	</td></tr>
 </table>
-{coordinates_start}
 <table width="95%" id="coord" class="content" style="font-size: 12px; line-height: 1.6em;display:none;">
 	<tr><td class="spacer" colspan="2"></td></tr>
-		<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td width="180px" valign="top"><b>{{coordinates}}:</b></td>
 		<td width="600px">
@@ -186,11 +187,10 @@ function showHide(id){
 			</fieldset>
 		</td>
 	</tr>
-	<tr><td colspan="2"><div class="notice" id="viewcache-attributesend" style="width:600px;">Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu.</div>
-	</td></tr>
 </table>
 {coordinates_end}
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
+	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
 	<tr>   
     <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="bottom" />&nbsp;<strong><input id="encrypt" type="checkbox" name="encrypt" value="1" {is_checked} /><label for="encrypt">Zaszyfruj wpis do logu</label></strong>
      
