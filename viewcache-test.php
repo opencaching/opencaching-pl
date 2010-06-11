@@ -87,11 +87,16 @@
 		}
 
 		$no_crypt = 0;
+		$no_crypt_log = 0;		
 		if (isset($_REQUEST['nocrypt']))
 		{
 			$no_crypt = $_REQUEST['nocrypt'];
 		}
-
+		if (isset($_REQUEST['nocryptlog']))
+		{
+			$no_crypt_log = $_REQUEST['nocrypt'];
+		}
+		
 		if ($cache_id != 0)
 		{	//mysql_query("SET NAMES 'utf8'");
 			//get cache record
@@ -981,7 +986,8 @@
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
 
 				$tmplog_text = tidy_html_description($tmplog_text);
-					if ( $record['encrypt']==1)
+
+				if ( $record['encrypt']==1 && $no_crypt_log == 0)
 				//crypt the log ROT13, but keep HTML-Tags and Entities
 				$tmplog_text = str_rot13_html($tmplog_text);
 
@@ -1033,21 +1039,23 @@
 					if ( $record['deleted']!=1 && $usr['userid'] == $record['userid'])
 					$tmpFunctions = $tmpFunctions . $functions_middle . $upload_picture;
 	
-					if ( $record['encrypt']==1 && ($usr['userid'] == $record['userid'] ||$usr['userid']==$cache_record['cache_id'] ||$usr['admin'] ) )
+					if ( $record['encrypt']==1 && $no_crypt_log == 0 && ($usr['userid'] == $record['userid'] ||$usr['userid']==$cache_record['cache_id'] ||$usr['admin'] ) )
 					{
 					$tmpFunctions = $tmpFunctions . $decrypt_log;
-					$decrypt_log_id="decrypt_id_".$record['logid']."";
-					$decrypt_log_begin='<span id="decrypt_id_'.$record['logid'].'">';
-					$decrypt_log_end='</span>';
+					$decrypt_log_id="decrypt_log_id_".$record['logid']."";
+					$decrypt_log_begin='<div id="decrypt_log_id_'.$record['logid'].'">';
+					$decrypt_log_end='</div>';
 					} else {
-					$decrypt_log_begin='<span id="log_id_'.$record['logid'].'">';
-					$decrypt_long_end='</span>';}
+					$decrypt_log_id="decrypt_log_id_".$record['logid']."";
+					$decrypt_log_begin='<div id="decrypt_log_id_'.$record['logid'].'">';
+					$decrypt_log_end='</div>';}
 
 					$tmpFunctions .= $functions_end;
-					if ( $record['encrypt']==1)
+					if ( $record['encrypt']==1 && $no_crypt_log == 0){
 					$tmpFunctions = mb_ereg_replace('{decrypt_log_id}', $decrypt_log_id, $tmpFunctions);
+					$tmpFunctions = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $tmpFunctions);}
 					$tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
-					$tmpFunctions = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $tmpFunctions);
+
 
 					$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
 				}
@@ -1081,8 +1089,8 @@
 			}
 
 			//replace { and } to prevent replacing
-			$logs = mb_ereg_replace('{', '&#0123;', $logs);
-			$logs = mb_ereg_replace('}', '&#0125;', $logs);
+//			$logs = mb_ereg_replace('{', '&#0123;', $logs);
+//			$logs = mb_ereg_replace('}', '&#0125;', $logs);
 
 			tpl_set_var('logs', $logs, true);
 
