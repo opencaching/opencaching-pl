@@ -936,7 +936,42 @@
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
 			}
-			
+        function cleanup_text($str)
+        {
+          $str = strip_tags($str, "<p><br><li>");
+          // <p> -> nic
+          // </p>, <br /> -> nowa linia
+
+          $from[] = '<br>'; $to[] = "\n";
+          $from[] = '<br/>'; $to[] = "\n";
+		  $from[] = '<br/>'; $to[] = "\n";
+          $from[] = '<p>'; $to[] = '';
+          $from[] = '</p>'; $to[] = "\n";          
+          $from[] = '<li>'; $to[] = " - ";
+          $from[] = '</li>'; $to[] = "\n";
+          
+          $from[] = '&oacute;'; $to[] = 'o';
+          $from[] = '&quot;'; $to[] = '"';
+          $from[] = '&[^;]*;'; $to[] = '';
+          
+          $from[] = '&'; $to[] = '&amp;';
+          $from[] = '<'; $to[] = '&lt;';
+          $from[] = '>'; $to[] = '&gt;';
+          $from[] = ']]>'; $to[] = ']] >';
+					$from[] = ''; $to[] = '';
+              
+          for ($i = 0; $i < count($from); $i++)
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
+          return filterevilchars($str);
+        }
+        
+	
+        function filterevilchars($str)
+	{
+		return str_replace('[\\x00-\\x09|\\x0B-\\x0C|\\x0E-\\x1F]', '', $str);
+	}
+				
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					  ".$show_deleted_logs."
 			                  `cache_logs`.`encrypt` `encrypt`,
@@ -989,7 +1024,7 @@
 
 				if ( $record['encrypt']==1 && $no_crypt_log == 0)
 				//crypt the log ROT13, but keep HTML-Tags and Entities
-				$tmplog_text = str_rot13_html($tmplog_text);
+				$tmplog_text = str_rot13_html(cleanup_text($tmplog_text));
 
 				if ($record['picturescount'] > 0)
 				{
@@ -1065,7 +1100,7 @@
 				if($record['latitude']!=0){
 				$log_coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($record['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($record['longitude']), ENT_COMPAT, 'UTF-8'));
 
-				$log_coord='<span id="logid">&nbsp;</span><fieldset style="border: 1px solid black; width: 95%; height: 32%; background-color: #FFFFFF;">
+				$log_coord='<fieldset style="border: 1px solid black; width: 95%; height: 32%; background-color: #FFFFFF;">
 			<legend>&nbsp; <strong>Nowe współrzędne skrzynki</strong> &nbsp;</legend><p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
 						<b>'.$log_coords.'</b></p></fieldset><br/>';
 				}else{$log_coord="";}

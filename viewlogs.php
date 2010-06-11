@@ -1,14 +1,5 @@
 <?php
 /***************************************************************************
-																./viewlogs.php
-															-------------------
-		begin                : July 9 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
 	*   it under the terms of the GNU General Public License as published by
@@ -43,7 +34,8 @@
 		require($stylepath . '/viewcache.inc.php');
 		require($stylepath . '/viewlogs.inc.php');
 		require($stylepath.'/smilies.inc.php');
-
+		global $usr;
+		
 		$cache_id = 0;
 		if (isset($_REQUEST['cacheid']))
 		{
@@ -118,10 +110,48 @@
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
 			}
+       function cleanup_text($str)
+        {
+          $str = strip_tags($str, "<p><br><li>");
+          // <p> -> nic
+          // </p>, <br /> -> nowa linia
+
+          $from[] = '<br>'; $to[] = "\n";
+          $from[] = '<br/>'; $to[] = "\n";
+		  $from[] = '<br/>'; $to[] = "\n";
+          $from[] = '<p>'; $to[] = '';
+          $from[] = '</p>'; $to[] = "\n";          
+          $from[] = '<li>'; $to[] = " - ";
+          $from[] = '</li>'; $to[] = "\n";
+          
+          $from[] = '&oacute;'; $to[] = 'o';
+          $from[] = '&quot;'; $to[] = '"';
+          $from[] = '&[^;]*;'; $to[] = '';
+          
+          $from[] = '&'; $to[] = '&amp;';
+          $from[] = '<'; $to[] = '&lt;';
+          $from[] = '>'; $to[] = '&gt;';
+          $from[] = ']]>'; $to[] = ']] >';
+					$from[] = ''; $to[] = '';
+              
+          for ($i = 0; $i < count($from); $i++)
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
+          return filterevilchars($str);
+        }
+        
+	
+        function filterevilchars($str)
+	{
+		return str_replace('[\\x00-\\x09|\\x0B-\\x0C|\\x0E-\\x1F]', '', $str);
+	}
 			
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					".$show_deleted_logs."
 					`cache_logs`.`id` AS `log_id`,
+			         `cache_logs`.`encrypt` `encrypt`,
+			         `cache_logs`.`latitude` `latitude`,
+			          `cache_logs`.`longitude` `longitude`,
 					`cache_logs`.`picturescount` AS `picturescount`,
 					`cache_logs`.`user_id` AS `user_id`,
 					`cache_logs`.`date` AS `date`,
