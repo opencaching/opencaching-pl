@@ -172,7 +172,6 @@ else
 				{rr_comment}
 				</p>
 			</div>
-		<div class="notice" id="viewcache-attributesend">{{comment_octeam_visible}}</div>
 			{end_rr_comment}
 <!-- End Text Container -->
 <!-- Text container -->
