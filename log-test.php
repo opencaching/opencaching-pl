@@ -105,7 +105,6 @@
 				
 				$encrypt = (isset($_POST['encrypt']) ? 1 : 0);
  				$add_coord = (isset($_POST['add_coord']) ? 1 : 0);   
-				echo $add_coord; 
 				$log_text  = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
 				$log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
 				$log_date_min = isset($_POST['logmin']) ? ($_POST['logmin']+0) : date('i');
@@ -177,8 +176,8 @@
 					$rating_msg = mb_ereg_replace('{max}', floor($user_founds * rating_percentage/100), $rating_msg);
 					$rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
 				}
-// add xy cooridnates for caches type 8 "moving" to log entry
-
+			
+			// add xy cooridnates for caches type 8 "moving" to log entry
 				if ( $cache_type == 2 ) {
 					tpl_set_var('coordinates_start',"");
 					tpl_set_var('coordinates_end',"");
@@ -571,11 +570,13 @@
 
 						if (!($lat_not_ok || $lon_not_ok) && $add_coord==1)
 							{
+							if ($add_coord==0) {$longitude=NULL;$latitude=NULL;}else {
 							$latitude = $coords_lat_h + $coords_lat_min / 60;
 							if ($coords_latNS == 'S') $wp_lat = -$wp_lat;
 
 							$longitude = $coords_lon_h + $coords_lon_min / 60;
 							if ($coords_lonEW == 'W') $wp_lon = -$wp_lon;
+							}
 							}
 					
 					// if comment is empty, then do not insert data into db

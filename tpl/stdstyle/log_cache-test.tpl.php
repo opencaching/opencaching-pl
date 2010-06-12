@@ -244,8 +244,8 @@ function showHide(id){
 		<tr><td class="spacer" colspan="2">&nbsp;</td></tr>
 	<tr>
 		<td class="header-small" colspan="2">
-			<button type="reset" name="reset" value="Reset" style="font-size:12px;width:140px""/><b>Reset</b></button>&nbsp;&nbsp;
-			<button type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="font-size:12px;width:140px"/><b>{{submit_log_entry}}</b></button>
+			<button type="reset" name="reset" value="Reset" style="font-size:12px;width:140px;"/><b>Reset</b></button>&nbsp;&nbsp;
+			<button type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="font-size:12px;width:140px;"/><b>{{submit_log_entry}}</b></button>
 		</td>
 	</tr>
 </table>
