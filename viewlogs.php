@@ -110,41 +110,7 @@
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
 			}
-       function cleanup_text($str)
-        {
-          $str = strip_tags($str, "<p><br><li>");
-          // <p> -> nic
-          // </p>, <br /> -> nowa linia
-
-          $from[] = '<br>'; $to[] = "\n";
-          $from[] = '<br/>'; $to[] = "\n";
-		  $from[] = '<br/>'; $to[] = "\n";
-          $from[] = '<p>'; $to[] = '';
-          $from[] = '</p>'; $to[] = "\n";          
-          $from[] = '<li>'; $to[] = " - ";
-          $from[] = '</li>'; $to[] = "\n";
-          
-          $from[] = '&oacute;'; $to[] = 'o';
-          $from[] = '&quot;'; $to[] = '"';
-          $from[] = '&[^;]*;'; $to[] = '';
-          
-          $from[] = '&'; $to[] = '&amp;';
-          $from[] = '<'; $to[] = '&lt;';
-          $from[] = '>'; $to[] = '&gt;';
-          $from[] = ']]>'; $to[] = ']] >';
-					$from[] = ''; $to[] = '';
-              
-          for ($i = 0; $i < count($from); $i++)
-            $str = str_replace($from[$i], $to[$i], $str);
-                                 
-          return filterevilchars($str);
-        }
-        
-	
-        function filterevilchars($str)
-	{
-		return str_replace('[\\x00-\\x09|\\x0B-\\x0C|\\x0E-\\x1F]', '', $str);
-	}
+ 
 			
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					".$show_deleted_logs."
@@ -243,7 +209,7 @@
 
                         $thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
                         $thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads","upload",$pic_record['url']), $thisline);
-	                    $thisline = mb_ereg_replace('{imgsrc}', 'http://opencaching.pl/thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
+	                    $thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
                         $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
 

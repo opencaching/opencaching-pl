@@ -178,7 +178,7 @@
 				}
 			
 			// add xy cooridnates for caches type 8 "moving" to log entry
-				if ( $cache_type == 2 ) {
+				if ( $cache_type == 8 ) {
 					tpl_set_var('coordinates_start',"");
 					tpl_set_var('coordinates_end',"");
 					if (isset($_POST['latNS']))

@@ -79,8 +79,8 @@
 					if ($add_coord==1){tpl_set_var('is_checked_coord', "checked");} else {tpl_set_var('is_checked_coord', "");}
 					
 					
-								// add xy cooridnates for caches type 8 "moving" to log entry
-				if ( $cache_type == 2  ) {
+					// add xy cooridnates for caches type 8 "moving" to log entry
+				if ( $cache_type == 8  ) {
 					tpl_set_var('coordinates_start',"");
 					tpl_set_var('coordinates_end',"");
 					if (isset($_POST['latNS']))

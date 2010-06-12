@@ -936,41 +936,6 @@
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
 			}
-        function cleanup_text($str)
-        {
-          $str = strip_tags($str, "<p><br><li>");
-          // <p> -> nic
-          // </p>, <br /> -> nowa linia
-
-          $from[] = '<br>'; $to[] = "\n";
-          $from[] = '<br/>'; $to[] = "\n";
-		  $from[] = '<br/>'; $to[] = "\n";
-          $from[] = '<p>'; $to[] = '';
-          $from[] = '</p>'; $to[] = "\n";          
-          $from[] = '<li>'; $to[] = " - ";
-          $from[] = '</li>'; $to[] = "\n";
-          
-          $from[] = '&oacute;'; $to[] = 'o';
-          $from[] = '&quot;'; $to[] = '"';
-          $from[] = '&[^;]*;'; $to[] = '';
-          
-          $from[] = '&'; $to[] = '&amp;';
-          $from[] = '<'; $to[] = '&lt;';
-          $from[] = '>'; $to[] = '&gt;';
-          $from[] = ']]>'; $to[] = ']] >';
-					$from[] = ''; $to[] = '';
-              
-          for ($i = 0; $i < count($from); $i++)
-            $str = str_replace($from[$i], $to[$i], $str);
-                                 
-          return filterevilchars($str);
-        }
-        
-	
-        function filterevilchars($str)
-	{
-		return str_replace('[\\x00-\\x09|\\x0B-\\x0C|\\x0E-\\x1F]', '', $str);
-	}
 				
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					  ".$show_deleted_logs."
@@ -1024,7 +989,7 @@
 
 				if ( $record['encrypt']==1 && $no_crypt_log == 0)
 				//crypt the log ROT13, but keep HTML-Tags and Entities
-				$tmplog_text = str_rot13_html(cleanup_text($tmplog_text));
+				$tmplog_text = str_rot13_html($tmplog_text);
 
 				if ($record['picturescount'] > 0)
 				{
@@ -1097,7 +1062,7 @@
 				else
 					$tmplog = mb_ereg_replace('{logfunctions}', '', $tmplog);
 
-				if($record['latitude']!=0){
+				if($record['latitude']!=NULL){
 				$log_coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($record['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($record['longitude']), ENT_COMPAT, 'UTF-8'));
 
 				$log_coord='<fieldset style="border: 1px solid black; width: 300px; height: 50px; background-color: #FAFBDF;">
@@ -1124,8 +1089,8 @@
 			}
 
 			//replace { and } to prevent replacing
-//			$logs = mb_ereg_replace('{', '&#0123;', $logs);
-//			$logs = mb_ereg_replace('}', '&#0125;', $logs);
+			$logs = mb_ereg_replace('{', '&#0123;', $logs);
+			$logs = mb_ereg_replace('}', '&#0125;', $logs);
 
 			tpl_set_var('logs', $logs, true);
 
@@ -1339,9 +1304,67 @@
 $decrypt_script = '
 <script type="text/javascript">
 <!--
-	var last="";var rot13map;function decryptinit(){var a=new Array();var s="abcdefghijklmnopqrstuvwxyz";for(i=0;i<s.length;i++)a[s.charAt(i)]=s.charAt((i+13)%26);for(i=0;i<s.length;i++)a[s.charAt(i).toUpperCase()]=s.charAt((i+13)%26).toUpperCase();return a}
+var last="";var rot13map;function decryptinit(){var a=new Array();var s="abcdefghijklmnopqrstuvwxyz";for(i=0;i<s.length;i++)a[s.charAt(i)]=s.charAt((i+13)%26);for(i=0;i<s.length;i++)a[s.charAt(i).toUpperCase()]=s.charAt((i+13)%26).toUpperCase();return a}
 function decrypt(elem){if(elem.nodeType != 3) return; var a = elem.data;if(!rot13map)rot13map=decryptinit();s="";for(i=0;i<a.length;i++){var b=a.charAt(i);s+=(b>=\'A\'&&b<=\'Z\'||b>=\'a\'&&b<=\'z\'?rot13map[b]:b)}elem.data = s}
 -->
+var rot13tables;
+function createROT13tables() {
+	var A = 0, C = [], D = "abcdefghijklmnopqrstuvwxyz", B = D.length;
+	for (A = 0; A < B; A++) {
+		C[D.charAt(A)] = D.charAt((A + 13) % 26)
+	}
+	for (A = 0; A < B; A++) {
+		C[D.charAt(A).toUpperCase()] = D.charAt((A + 13) % 26).toUpperCase()
+	}
+	return C
+}
+function convertROT13String(C) {
+	var A = 0, B = C.length, D = "";
+	if (!rot13tables) {
+		rot13tables = createROT13tables()
+	}
+	for (A = 0; A < B; A++) {
+		D += convertROT13Char(C.charAt(A))
+	}
+	return D
+}
+function convertROT13Char(A) {
+	return (A >= "A" && A <= "Z" || A >= "a" && A <= "z" ? rot13tables[A] : A)
+}
+
+
+function convertROTStringWithBrackets(C) {
+	var F = "", D = "", E = true, A = 0, B = C.length;
+	if (!rot13tables) {
+		rot13tables = createROT13tables()
+	}
+	for (A = 0; A < B; A++) {
+		F = C.charAt(A);
+		if (A < (B - 4)) {
+			if (C.toLowerCase().substr(A, 4) == "<br/>") {
+				D += "<br>";
+				A += 3;
+				continue
+			}
+		}
+		if (F == "[" || F == "<") {
+			E = false
+		} else {
+			if (F == "]" || F == ">") {
+				E = true
+			} else {
+				if ((F == " ") || (F == "&dhbg;")) {
+				} else {
+					if (E) {
+						F = convertROT13Char(F)
+					}
+				}
+			}
+		}
+		D += F
+	}
+	return D
+};
 </script>';
 
 $viewcache_header = '
