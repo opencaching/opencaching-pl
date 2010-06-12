@@ -860,7 +860,7 @@
 				tpl_set_var('remove_rr_comment', '');
 			}
 			
-			if( $desc_record['rr_comment'] != "" && ($cache_record['user_id'] == $usr['userid'] || $usr['admin']))
+			if( $desc_record['rr_comment'] != "")
 			{
 				tpl_set_var('start_rr_comment', '', true);
 				tpl_set_var('end_rr_comment','', true);
