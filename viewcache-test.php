@@ -390,8 +390,28 @@
 			tpl_set_var('coords', $coords);
 			if( $usr || !$hide_coords )
 			{
+			if ($cache_record['type']==8){
+			$rsc = sql("SELECT `cache_logs`.`latitude` `latitude`,
+			                   `cache_logs`.`longitude` `longitude`
+								FROM `cache_logs` WHERE `cache_logs`.`cache_id`='&1' AND `cache_logs`.`deleted`='0'
+								AND `cache_logs`.`longitude` IS NOT NULL AND `cache_logs`.`latitude` IS NOT NULL	
+			         ORDER BY `cache_logs`.`date` DESC
+			            LIMIT 1", $cache_id);
+			if (mysql_num_rows($rsc) !=0)
+			{
+				$recordl = sql_fetch_array($rsc);
+				tpl_set_var('longitude', $recordl['longitude']);
+				tpl_set_var('latitude',  $recordl['latitude']);	
+				tpl_set_var('mobile_new_coord',"text-decoration:line-through;");	
+				} else {
 				tpl_set_var('longitude', $cache_record['longitude']);
 				tpl_set_var('latitude',  $cache_record['latitude']);
+				tpl_set_var('mobile_new_coord',"");	}
+				}else {
+				tpl_set_var('longitude', $cache_record['longitude']);
+				tpl_set_var('latitude',  $cache_record['latitude']);
+				tpl_set_var('mobile_new_coord',"");	}
+
 				tpl_set_var('lon_h', $lon_h);
 				tpl_set_var('lon_min', $lon_min);
 				tpl_set_var('lonEW', $lon_dir);
@@ -1309,62 +1329,18 @@ function decrypt(elem){if(elem.nodeType != 3) return; var a = elem.data;if(!rot1
 -->
 var rot13tables;
 function createROT13tables() {
-	var A = 0, C = [], D = "abcdefghijklmnopqrstuvwxyz", B = D.length;
-	for (A = 0; A < B; A++) {
-		C[D.charAt(A)] = D.charAt((A + 13) % 26)
-	}
-	for (A = 0; A < B; A++) {
-		C[D.charAt(A).toUpperCase()] = D.charAt((A + 13) % 26).toUpperCase()
-	}
-	return C
-}
+var A = 0, C = [], D = "abcdefghijklmnopqrstuvwxyz", B = D.length;
+for (A = 0; A < B; A++) {C[D.charAt(A)] = D.charAt((A + 13) % 26)}
+for (A = 0; A < B; A++) {C[D.charAt(A).toUpperCase()] = D.charAt((A + 13) % 26).toUpperCase()}return C}
 function convertROT13String(C) {
-	var A = 0, B = C.length, D = "";
-	if (!rot13tables) {
-		rot13tables = createROT13tables()
-	}
-	for (A = 0; A < B; A++) {
-		D += convertROT13Char(C.charAt(A))
-	}
-	return D
-}
-function convertROT13Char(A) {
-	return (A >= "A" && A <= "Z" || A >= "a" && A <= "z" ? rot13tables[A] : A)
-}
-
-
-function convertROTStringWithBrackets(C) {
-	var F = "", D = "", E = true, A = 0, B = C.length;
-	if (!rot13tables) {
-		rot13tables = createROT13tables()
-	}
-	for (A = 0; A < B; A++) {
-		F = C.charAt(A);
-		if (A < (B - 4)) {
-			if (C.toLowerCase().substr(A, 4) == "<br/>") {
-				D += "<br>";
-				A += 3;
-				continue
-			}
-		}
-		if (F == "[" || F == "<") {
-			E = false
-		} else {
-			if (F == "]" || F == ">") {
-				E = true
-			} else {
-				if ((F == " ") || (F == "&dhbg;")) {
-				} else {
-					if (E) {
-						F = convertROT13Char(F)
-					}
-				}
-			}
-		}
-		D += F
-	}
-	return D
-};
+var A = 0, B = C.length, D = "";if (!rot13tables) {rot13tables = createROT13tables()}for (A = 0; A < B; A++) {
+D += convertROT13Char(C.charAt(A))}return D}
+function convertROT13Char(A) {return (A >= "A" && A <= "Z" || A >= "a" && A <= "z" ? rot13tables[A] : A)}
+function convertROTStringWithBrackets(C) {var F = "", D = "", E = true, A = 0, B = C.length;if (!rot13tables) {
+rot13tables = createROT13tables()}
+for (A = 0; A < B; A++) {F = C.charAt(A);if (A < (B - 4)) {if (C.toLowerCase().substr(A, 4) == "<br/>") {D += "<br>";
+A += 3;continue}}if (F == "[" || F == "<") {E = false} else {if (F == "]" || F == ">") {E = true} else {
+if ((F == " ") || (F == "&dhbg;")) {} else {if (E) {F = convertROT13Char(F)}}}}D += F}return D};
 </script>';
 
 $viewcache_header = '
