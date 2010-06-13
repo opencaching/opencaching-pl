@@ -102,7 +102,8 @@
 			if ($cache_id != 0)
 			{
 				$all_ok = false;
-				
+				$encrypt =0;
+				$add_coord= 0;
 				$encrypt = (isset($_POST['encrypt']) ? 1 : 0);
  				$add_coord = (isset($_POST['add_coord']) ? 1 : 0);   
 				$log_text  = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
@@ -570,14 +571,13 @@
 
 						if (!($lat_not_ok || $lon_not_ok) && $add_coord==1)
 							{
-							if ($add_coord==0) {$longitude=NULL;$latitude=NULL;}else {
 							$latitude = $coords_lat_h + $coords_lat_min / 60;
 							if ($coords_latNS == 'S') $wp_lat = -$wp_lat;
-
 							$longitude = $coords_lon_h + $coords_lon_min / 60;
 							if ($coords_lonEW == 'W') $wp_lon = -$wp_lon;
-							}
-							}
+							// update caches coordinates
+//							sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $longitude, $latitude, $cache_id);
+							} else {$longitude=NULL; $latitude=NULL;}
 					
 					// if comment is empty, then do not insert data into db
 					if( !($log_type == 3 && $log_text == ""))

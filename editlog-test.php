@@ -390,12 +390,33 @@
 					//store?
 					if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false)
 					{
-					if ($add_coord==0) {$lon=NULL;$lat=NULL;}else {
+					if ($add_coord==0) 
+					{$lon=NULL;$lat=NULL;
+			// get previous coordinates
+			$rsc = sql("SELECT `id` , `longitude` , `latitude`
+						FROM `cache_coordinates`
+						WHERE `cache_id` ='&1'
+						ORDER BY `date_modified` DESC
+						LIMIT 1 ,1", $cache_id);
+			if (mysql_num_rows($rsc) !=0)
+			{
+				$recordl = sql_fetch_array($rsc);
+				echo $recordl['latitude'];
+				}
+					// update caches coordinates
+//					sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $cache_id);							
+//					sql("UPDATE `cache_logs` SET `longitude`='&1', `latitude`='&2', WHERE `id`='&3'",  $lon, $lat, $log_id);							
+					
+					} else {
 							$lat = $coords_lat_h + $coords_lat_min / 60;
 							if ($coords_latNS == 'S') $lat = -$wp_lat;
 
 							$lon = $coords_lon_h + $coords_lon_min / 60;
-							if ($coords_lonEW == 'W') $lon = -$lon;}
+							if ($coords_lonEW == 'W') $lon = -$lon;
+							// update caches coordinates
+//							sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $cache_id);							
+//							sql("UPDATE `cache_logs` SET `longitude`='&1', `latitude`='&2', WHERE `id`='&3'",  $lon, $lat, $log_id);							
+							}
 
 					
 						//store changed data
@@ -405,18 +426,14 @@
 						                             `text_html`='&4',
 						                             `text_htmledit`='&5',
 						                             `last_modified`=NOW(),
-													 `encrypt`='&6',
-													 `longitude`='&7',
-													 `latitude`='&8'
-						                       WHERE `id`='&9'",
+													 `encrypt`='&6'
+						                       WHERE `id`='&7'",
 						                             $log_type,
 						                             date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
 						                             tidy_html_description((($descMode != 1) ? $log_text : nl2br($log_text))),
 						                             (($descMode != 1) ? 1 : 0),
 						                             (($descMode == 3) ? 1 : 0),
 													 $encrypt,
-													 $lon,
-													 $lat,
 						                             $log_id);
 
 						//update user-stat if type changed
