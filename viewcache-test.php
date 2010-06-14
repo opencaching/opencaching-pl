@@ -388,6 +388,7 @@
 			tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('coords', $coords);
+
 			if( $usr || !$hide_coords )
 			{
 			if ($cache_record['type']==8){
@@ -400,15 +401,29 @@
 			            LIMIT 1", $cache_id);
 			if (mysql_num_rows($rsc) !=0)
 			{
+			// calculate distans
+				$distance=10;
+				tpl_set_var('distance', $distance.' km');
+				tpl_set_var('hidedistance_start', '');
+				tpl_set_var('hidedistance_end', '');
+
+			//show map
+
 				$recordl = sql_fetch_array($rsc);
 				tpl_set_var('longitude', $recordl['longitude']);
 				tpl_set_var('latitude',  $recordl['latitude']);	
 				tpl_set_var('mobile_new_coord',"text-decoration:line-through;");	
 				} else {
+				tpl_set_var('distance', '0 km');
+				tpl_set_var('hidedistance_start', '');
+				tpl_set_var('hidedistance_end', '');
 				tpl_set_var('longitude', $cache_record['longitude']);
 				tpl_set_var('latitude',  $cache_record['latitude']);
 				tpl_set_var('mobile_new_coord',"");	}
 				}else {
+				tpl_set_var('distance', '');
+				tpl_set_var('hidedistance_start', '<!--');
+				tpl_set_var('hidedistance_end', '-->');
 				tpl_set_var('longitude', $cache_record['longitude']);
 				tpl_set_var('latitude',  $cache_record['latitude']);
 				tpl_set_var('mobile_new_coord',"");	}
@@ -561,6 +576,7 @@
 			tpl_set_var('watch_icon', $watch_icon);
 			tpl_set_var('visit_icon', $visit_icon);
 			tpl_set_var('score_icon', $score_icon);
+
 			tpl_set_var('save_icon', $save_icon);
 			tpl_set_var('search_icon', $search_icon);			
 			if ($cache_record['type'] == 6)
