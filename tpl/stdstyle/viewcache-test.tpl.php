@@ -63,7 +63,7 @@
 				<div class="content2-container-2col-left" id="viewcache-baseinfo">
 					<p class="content-title-noshade-size3">
 						<img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
-						<span style="font-weight:bold;{mobile_new_coord}">{coords}</span> <span class="content-title-noshade-size0">(WGS84)</span><br />
+						{coords} <span class="content-title-noshade-size0">(WGS84)</span><br />
 					</p>
 					<p style="line-height: 1.6em;">
 						<img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{coords_other}<br />
