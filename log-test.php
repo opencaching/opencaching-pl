@@ -583,7 +583,7 @@
 							if ($coords_latNS == 'S') $latitude = -$latitude;
 							$longitude = $coords_lon_h + $coords_lon_min / 60;
 							if ($coords_lonEW == 'W') $longitude = -$longitude;
-						$log_id =  sqlValue("SELECT id FROM `cache_logs` WHERE `log_uuid`='" . sql_escape($log_uuid) . "'", 0);
+						$log_id =  sqlValue("SELECT id FROM `cache_logs` WHERE `uuid`='" . sql_escape($log_uuid) . "'", 0);
 						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`, `log_id`,`date`,`longitude`,`latitude`)
 										 VALUES ('', '&1', '&2', '&3', NOW(),'&4','&5')",
 										 $cache_id, $usr['userid'],$log_id,$longitude,$latitude);

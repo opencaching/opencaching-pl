@@ -391,6 +391,7 @@
 
 			// cache type Mobile add calculate distance
 			if ($cache_record['type']==8){
+			
 			$rsc = sql("SELECT `cache_moved`.`latitude` `latitude`,
 			                   `cache_moved`.`longitude` `longitude`
 					FROM `cache_moved` 
@@ -398,21 +399,26 @@
 					AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL	
 			         ORDER BY `cache_moved`.`date` ASC
 			            ", $cache_id);
-			if (mysql_num_rows($rsc) !=0)
-			{ }
-			$distance=0;
-//			$distance=calcDistance(,1);
-
+			if (mysql_num_rows($rsc) >=2)
+			{	$record = sql_fetch_array($rsc);
+				$firsty=$record['longitude'];
+				$firtsx=$record['latitude'];
+			for ($i = 1; $i < mysql_num_rows($rsc); $i++)
+			{
+				$record = sql_fetch_array($rsc);
+				$secy=$record['longitude'];
+				$secx=$record['latitude'];
+				$distance1=calcDistance($firtsx,$firsty,$secx,$secy,1);
+				$distance=$distance+$distance1;
+				$firsty=$secy;
+				$firtsx=$secx;				
+			}
 			// calculate distans
-
-
-				tpl_set_var('distance', $distance.' km');
+			}
+				$distance=sprintf("%u",$distance);
+				tpl_set_var('distance', $distance.' km &nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="cache_move_map.php?cacheid='.$cache_id.'">pokaż na mapie</a>]');
 				tpl_set_var('hidedistance_start', '');
 				tpl_set_var('hidedistance_end', '');
-
-			//show map
-
-
 				}else {
 				tpl_set_var('distance', '');
 				tpl_set_var('hidedistance_start', '<!--');
@@ -970,7 +976,22 @@
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
 			}
-				
+        function cleanup_text($str)
+        {
+          $str = strip_tags($str, "<p>");
+          $from[] = '<p>'; $to[] = '';
+          $from[] = '</p>'; $to[] = "<br/>";
+    
+          for ($i = 0; $i < count($from); $i++)
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
+          return ($str);
+        }	
+        function filterevilchars($str)
+	{
+		return str_replace('[\\x00-\\x09|\\x0B-\\x0C|\\x0E-\\x1F]', '', $str);
+	}
+					
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					  ".$show_deleted_logs."
 			                  `cache_logs`.`encrypt` `encrypt`,
