@@ -387,46 +387,43 @@
 			
 			tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
-			tpl_set_var('coords', $coords);
 
-			if( $usr || !$hide_coords )
-			{
+
+			// cache type Mobile add calculate distance
 			if ($cache_record['type']==8){
 			$rsc = sql("SELECT `cache_moved`.`latitude` `latitude`,
 			                   `cache_moved`.`longitude` `longitude`
 					FROM `cache_moved` 
 					WHERE `cache_moved`.`cache_id`='&1'
-					AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL AND `cache_moved`.`log_id` IS NOT NULL	
-			         ORDER BY `cache_moved`.`date` DESC
-			            LIMIT 1", $cache_id);
+					AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL	
+			         ORDER BY `cache_moved`.`date` ASC
+			            ", $cache_id);
 			if (mysql_num_rows($rsc) !=0)
-			{
+			{ }
+			$distance=0;
+//			$distance=calcDistance(,1);
+
 			// calculate distans
-				$distance=10;
+
+
 				tpl_set_var('distance', $distance.' km');
 				tpl_set_var('hidedistance_start', '');
 				tpl_set_var('hidedistance_end', '');
 
 			//show map
 
-				$recordl = sql_fetch_array($rsc);
-				tpl_set_var('longitude', $recordl['longitude']);
-				tpl_set_var('latitude',  $recordl['latitude']);	
-				tpl_set_var('mobile_new_coord',"text-decoration:line-through;");	
-				} else {
-				tpl_set_var('distance', '0 km');
-				tpl_set_var('hidedistance_start', '');
-				tpl_set_var('hidedistance_end', '');
-				tpl_set_var('longitude', $cache_record['longitude']);
-				tpl_set_var('latitude',  $cache_record['latitude']);
-				tpl_set_var('mobile_new_coord',"");	}
+
 				}else {
 				tpl_set_var('distance', '');
 				tpl_set_var('hidedistance_start', '<!--');
 				tpl_set_var('hidedistance_end', '-->');
+				}
+
+			tpl_set_var('coords', $coords);
+			if( $usr || !$hide_coords )
+			{
 				tpl_set_var('longitude', $cache_record['longitude']);
-				tpl_set_var('latitude',  $cache_record['latitude']);
-				tpl_set_var('mobile_new_coord',"");	}
+				tpl_set_var('latitude',  $cache_record['latitude']);	
 
 				tpl_set_var('lon_h', $lon_h);
 				tpl_set_var('lon_min', $lon_min);
