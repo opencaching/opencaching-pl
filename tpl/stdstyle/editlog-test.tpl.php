@@ -126,7 +126,7 @@ function showHide(id){
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
 	<tr>   
-    <td width="800px" colspan="2" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong><input id="add_coord" type="checkbox" name="add_coord" value="0" {is_checked_coord} onclick="showHide('coord');" /><label for="add_coord">Dodaj współrzędne do logu</label></strong>
+    <td width="800px" colspan="2" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong><input id="add_coord" type="checkbox" name="add_coord" value="1" {is_checked_coord} onclick="showHide('coord');" /><label for="add_coord">Dodaj współrzędne do logu</label></strong>
      </td>
 	</tr>
 	<tr><td colspan="2"><div class="notice" id="viewcache-attributesend" style="width:600px;">Możesz dodać lub usunąć współrzędne, które będą widzane w logu.</div>

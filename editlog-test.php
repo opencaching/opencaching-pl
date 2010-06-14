@@ -39,7 +39,7 @@
 		else
 		{
 			//does log with this logid exist?
-			$log_rs = sql("SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`encrypt` AS `encrypt`,`cache_logs`.`longitude` AS `longitude`,`cache_logs`.`latitude` AS `latitude`,`cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`, `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`, `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw` FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`) WHERE `id`='&1' AND `deleted` = &2", $log_id, 0);
+			$log_rs = sql("SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`encrypt` AS `encrypt`,`cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`, `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`, `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw` FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`) WHERE `id`='&1' AND `deleted` = &2", $log_id, 0);
 
 			if (mysql_num_rows($log_rs) > 0)
 			{
@@ -71,13 +71,10 @@
 					$log_date_year = isset($_POST['logyear']) ? $_POST['logyear'] : date('Y', strtotime($log_record['date']));
 					$top_cache = isset($_POST['rating']) ? $_POST['rating']+0 : 0;
 
-
+					$add_coord = (isset($_POST['add_coord']) ? 1 : 0); 
+ 					// !!!!!!!!!!! poprawic
 					if ($log_record['encrypt']==1){tpl_set_var('is_checked', "checked");} else {tpl_set_var('is_checked', "");}
-					$encrypt = (isset($_POST['encrypt']) ? 1 : 0);  
-					
-					$add_coord = (isset($_POST['add_coord']) ? 1 : 0);  
-					if ($add_coord==1){tpl_set_var('is_checked_coord', "checked");} else {tpl_set_var('is_checked_coord', "");}
-					
+					$encrypt = (isset($_POST['encrypt']) ? 1 : 0);  				
 					
 					// add xy cooridnates for caches type 8 "moving" to log entry
 				if ( $cache_type == 8  ) {
@@ -96,15 +93,28 @@
 					}
 					else
 					{
+			$rsc = sql("SELECT `cache_moved`.`latitude` `latitude`,
+			                   `cache_moved`.`longitude` `longitude`
+								FROM `cache_moved` WHERE `cache_moved`.`cache_id`='&1'
+								AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL AND user_id='&2' AND log_id='&3'	
+			         ORDER BY `cache_moved`.`date` DESC
+			            LIMIT 1", $log_record['cache_id'], $log_record['user_id'],$log_id);
+			if (mysql_num_rows($rsc) !=0)
+			{
+				$recordl = sql_fetch_array($rsc);
+
 						//get coords from DB
-						if ($log_record['longitude']!=NULL){
-						$coords_lon = $log_record['longitude'];
-						$coords_lat = $log_record['latitude'];
+						$coords_lon = $log_recordl['longitude'];
+						$coords_lat = $log_recordl['latitude'];
+						$coord_existDB=1;
+						$add_coord = (isset($_POST['add_coord']) ? 1 : 0);  
 						tpl_set_var('is_checked_coord',"checked");
 						tpl_set_var('display',"block");
-						} else { 						
+						} else { 
+						$coord_existDB=0;						
 						tpl_set_var('is_checked_coord',"");
-						tpl_set_var('display',"none");}
+						tpl_set_var('display',"none");
+						}
 						
 						if ($coords_lon < 0)
 						{
@@ -390,33 +400,47 @@
 					//store?
 					if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false)
 					{
-					if ($add_coord==0) 
-					{$lon=NULL;$lat=NULL;
-			// get previous coordinates
-			$rsc = sql("SELECT `id` , `longitude` , `latitude`
-						FROM `cache_coordinates`
+					// DELETE XY coord
+					if ($add_coord==1 && $coord_existDB==1) 
+					{
+					// get previous coordinates
+					$rsc = sql("SELECT `id` , `longitude` , `latitude`
+						FROM `cache_moved`
 						WHERE `cache_id` ='&1'
-						ORDER BY `date_modified` DESC
-						LIMIT 1 ,1", $cache_id);
-			if (mysql_num_rows($rsc) !=0)
-			{
-				$recordl = sql_fetch_array($rsc);
-				echo $recordl['latitude'];
-				}
+						ORDER BY `date` DESC
+						LIMIT 1 ,1", $record['cache_id']);
+					if (mysql_num_rows($rsc) !=0)
+					{
+					$recordll = sql_fetch_array($rsc);				
 					// update caches coordinates
-//					sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $cache_id);							
-//					sql("UPDATE `cache_logs` SET `longitude`='&1', `latitude`='&2', WHERE `id`='&3'",  $lon, $lat, $log_id);							
-					
-					} else {
-							$lat = $coords_lat_h + $coords_lat_min / 60;
-							if ($coords_latNS == 'S') $lat = -$wp_lat;
+//					sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'", $recordll['longitude'],$recordll['latitude'], $cache_id);							
+					sql("DELETE FROM `cache_moved` WHERE `cache_moved`.`log_id`='&1' LIMIT 1", $log_id);							
+					}}
 
-							$lon = $coords_lon_h + $coords_lon_min / 60;
-							if ($coords_lonEW == 'W') $lon = -$lon;
-							// update caches coordinates
-//							sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $cache_id);							
-//							sql("UPDATE `cache_logs` SET `longitude`='&1', `latitude`='&2', WHERE `id`='&3'",  $lon, $lat, $log_id);							
-							}
+					// Update XY coord
+					if ($add_coord==1 && $coord_existDB==1) 
+					{	$lat = $coords_lat_h + $coords_lat_min / 60;
+						if ($coords_latNS == 'S') $lat = -$lat;
+						$lon = $coords_lon_h + $coords_lon_min / 60;
+						if ($coords_lonEW == 'W') $lon = -$lon;
+						// update caches coordinates
+//						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);							
+						sql("UPDATE `cache_moved` SET `longitude`='&1', `latitude`='&2', WHERE `id`='&3'",  $lon, $lat, $log_id);							
+						} 
+
+					// ADD XY coord
+					if ($add_coord==1 && $coord_existDB==0) 
+					{	$lat = $coords_lat_h + $coords_lat_min / 60;
+						if ($coords_latNS == 'S') $lat = -$lat;
+						$lon = $coords_lon_h + $coords_lon_min / 60;
+						if ($coords_lonEW == 'W') $lon = -$lon;
+						// update caches coordinates
+//						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);							
+						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`, `log_id`,`date`,`longitude`,`latitude`)
+										 VALUES ('', '&1', '&2', '&3',NOW(),'&4','&5')",
+										 $log_record['cache_id'], $log_record['user_id'],$log_id,$lon,$lat);
+
+						} 
 
 					
 						//store changed data
@@ -426,14 +450,14 @@
 						                             `text_html`='&4',
 						                             `text_htmledit`='&5',
 						                             `last_modified`=NOW(),
-													 `encrypt`='&6'
+										`encrypt`='&6'
 						                       WHERE `id`='&7'",
 						                             $log_type,
 						                             date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
 						                             tidy_html_description((($descMode != 1) ? $log_text : nl2br($log_text))),
 						                             (($descMode != 1) ? 1 : 0),
 						                             (($descMode == 3) ? 1 : 0),
-													 $encrypt,
+										$encrypt,
 						                             $log_id);
 
 						//update user-stat if type changed

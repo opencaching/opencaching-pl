@@ -572,25 +572,24 @@
 					// if log entry is empty, then do not insert data into db
 					if( !($log_text == ""))
 					{
+
+						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+										 VALUES ('', '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW(), NOW(), '&8', '&9','&10')",
+										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid, $encrypt);
+
 						if (!($lat_not_ok || $lon_not_ok) && $add_coord==1)
 							{
 							$latitude = $coords_lat_h + $coords_lat_min / 60;
 							if ($coords_latNS == 'S') $latitude = -$latitude;
 							$longitude = $coords_lon_h + $coords_lon_min / 60;
 							if ($coords_lonEW == 'W') $longitude = -$longitude;
-
-						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`, `date_modified`,`longitude`,`latitude`)
-										 VALUES ('', '&1', '&2',  NOW(),'&3','&4')",
-										 $cache_id, $usr['userid'],$longitude,$latitude);
+						$log_id =  sqlValue("SELECT id FROM `cache_logs` WHERE `log_uuid`='" . sql_escape($log_uuid) . "'", 0);
+						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`, `log_id`,`date`,`longitude`,`latitude`)
+										 VALUES ('', '&1', '&2', '&3', NOW(),'&4','&5')",
+										 $cache_id, $usr['userid'],$log_id,$longitude,$latitude);
 							// update caches coordinates
 //							sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $longitude, $latitude, $cache_id);
 							}
-					
-
-
-						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`,`longitude`,`latitude`)
-										 VALUES ('', '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW(), NOW(), '&8', '&9','&10')",
-										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid, $encrypt,$longitude,$latitude);
 
 						//inc cache stat and "last found"
 						$rs = sql("SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
