@@ -1085,8 +1085,8 @@
 
 			$rsc = sql("SELECT `cache_moved`.`latitude` `latitude`,
 			                   `cache_moved`.`longitude` `longitude`
-								FROM `cache_moved` WHERE `cache_moved`.`cache_id`='&1'
-								AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL AND user_id='&2'AND log_id='&3'	
+					FROM `cache_moved` WHERE `cache_moved`.`cache_id`='&1'
+					AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL AND user_id='&2'AND log_id='&3'	
 			         ORDER BY `cache_moved`.`date` DESC
 			            LIMIT 1", $cache_id, $record['userid'],$record['logid']);
 			if (mysql_num_rows($rsc) !=0)

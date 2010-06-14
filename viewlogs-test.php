@@ -121,10 +121,7 @@
 					".$show_deleted_logs."
 					`cache_logs`.`id` AS `log_id`,
 			         `cache_logs`.`encrypt` `encrypt`,
-			         `cache_logs`.`latitude` `latitude`,
-			          `cache_logs`.`longitude` `longitude`,
 					`cache_logs`.`picturescount` AS `picturescount`,
-					`cache_logs`.`user_id` AS `user_id`,
 					`cache_logs`.`date` AS `date`,
 					`cache_logs`.`type` AS `type`,
 					`cache_logs`.`text` AS `text`,
@@ -168,8 +165,18 @@
 				//crypt the log ROT13, but keep HTML-Tags and Entities
 				$tmplog_text = str_rot13_html($tmplog_text);
 	
-			if($record['latitude']!=NULL){
-				$log_coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($record['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($record['longitude']), ENT_COMPAT, 'UTF-8'));
+//			if ($cache_record['type']==8){ ....?
+
+			$rsc = sql("SELECT `cache_moved`.`latitude` `latitude`,
+			                   `cache_moved`.`longitude` `longitude`
+					FROM `cache_moved` WHERE `cache_moved`.`cache_id`='&1'
+					AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL AND user_id='&2'AND log_id='&3'	
+			         ORDER BY `cache_moved`.`date` DESC
+			            LIMIT 1", $cache_id, $record['userid'],$record['log_id']);
+			if (mysql_num_rows($rsc) !=0)
+			{
+				$recordl = sql_fetch_array($rsc);
+				$log_coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($recordl['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($recordl['longitude']), ENT_COMPAT, 'UTF-8'));
 
 				$log_coord='<fieldset style="border: 1px solid black; width: 300px; height: 50px; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>Nowe współrzędne skrzynki</strong> &nbsp;</legend><p class="content-title-noshade-size3">&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
