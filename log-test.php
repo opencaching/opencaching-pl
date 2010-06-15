@@ -399,6 +399,7 @@
 					$date_not_ok = true;
 				}
 
+
 				if ($cache_type == 6)
 				{
 					switch($log_type)
