@@ -64,20 +64,9 @@
 	</colgroup>
 	<tr>
 		<td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/user.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{username_label}}:</td>
-		<td class="txt-grey07">
-      <?
-      if ($usr['admin']) {
-      ?>
+		<td>
 			<input type="text" name="username" maxlength="60" value="{username}" class="input200"/>
 			{username_message}
-      <?
-      } else {
-      ?>
-      <input type="hidden" name="username" maxlength="60" value="{username}"/>
-      {username}
-      <?
-      }
-      ?>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
