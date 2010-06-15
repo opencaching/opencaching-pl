@@ -116,8 +116,6 @@
 					".$show_deleted_logs."
 					`cache_logs`.`id` AS `log_id`,
 			         `cache_logs`.`encrypt` `encrypt`,
-			         `cache_logs`.`latitude` `latitude`,
-			          `cache_logs`.`longitude` `longitude`,
 					`cache_logs`.`picturescount` AS `picturescount`,
 					`cache_logs`.`user_id` AS `user_id`,
 					`cache_logs`.`date` AS `date`,
