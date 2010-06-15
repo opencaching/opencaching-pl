@@ -648,6 +648,9 @@ write_wp Zapisz waypoint
 edit_wp Edycja waypointa
 delete_wp Usuń waypointa
 comment_octeam_visible Adnotacje COG są widzane tylko przez COG i własciciela skrzynki.
+ready_to_search Skrzynka gotowa do szukania. Powodzenia!
+archived_cache Skrzynka została zarchiwizowana.
+temporarily_unavailable Skrzykna będzie czasowo niedostępna.
 
 
 

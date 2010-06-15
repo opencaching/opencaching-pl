@@ -607,6 +607,9 @@ write_wp Write waypoint
 edit_wp Edit waypoint
 delete_wp Delete waypoint
 comment_octeam_visible Comment by OC Team visible only for OC Team and owner cache.
+ready_to_search Geocache ready to search.
+archived_cache Geocache was archived.
+temporarily_unavailable Geocache will be temporarily unavailable.
 
 
 

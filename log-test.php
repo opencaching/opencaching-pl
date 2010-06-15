@@ -425,7 +425,6 @@
 							break;
 					}
 				}
-
 				// not a found log? then ignore the rating
 				$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE `deleted`=0 AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($cache_id)."' AND type='1'";
 				$res = mysql_fetch_array(mysql_query($sql));
@@ -705,7 +704,7 @@
 						if($cache_type == 6)
 						{
 							// skip found/notfound/moved if the cache is an event
-							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5)
+							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11)
 							{
 								continue;
 							}
@@ -715,12 +714,12 @@
 							if($cache_type == 8)
 							 {
 							// skip will attend/attended if the cache no event
-							if($type['id'] == 7 || $type['id'] == 8)
+							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 )
 							{
 								continue;
 							}}else{							
 							// skip will attend/attended/Moved  if the cache no event and Mobile
-							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8)
+							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 )
 							{
 								continue;
 							}}
@@ -740,7 +739,7 @@
 							$logtypeoptions .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
 						}
 					}
-
+					
 					//set tpl vars
 					tpl_set_var('cachename', htmlspecialchars($cachename, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
