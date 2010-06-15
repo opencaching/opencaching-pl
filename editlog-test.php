@@ -620,8 +620,8 @@
 							
 						if($already_found_in_other_comment)
 						{
-							// skip found/notfound if the cache is an event or user has already found this cache or it is not ready to search
-							if($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8 )
+							// skip found/notfound/moved/needs maintanance if the cache is an event or user has already found this cache or it is not ready to search
+							if($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 7 || $type['id'] == 8 )
 							{
 								continue;
 							}
@@ -629,19 +629,26 @@
 						if($cache_type == 6)
 						{
 							
-							// skip found/notfound if the cache is an event or user has already found this cache
-							if($type['id'] == 1 || $type['id'] == 2)
+							// skip found/notfound/moved/needs maintanace if the cache is an event or user has already found this cache
+							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5)
 							{
 								continue;
 							}
 						}
 						else
 						{
+							if($cache_type == 8)
+							 {
 							// skip will attend/attended if the cache no event
 							if($type['id'] == 7 || $type['id'] == 8)
 							{
 								continue;
-							}
+							}}else{							
+							// skip will attend/attended/Moved  if the cache no event and Mobile
+							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8)
+							{
+								continue;
+							}}
 						}
 						
 						
