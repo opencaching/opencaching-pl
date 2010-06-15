@@ -233,19 +233,40 @@ function process_owner_log($user_id, $log_id)
 	switch( $rLog['type'] )
 	{
 		case '1':
-			$logtype = "znalezienie";
+			$logtype = "Znalezienie";
 		break;
 		case '2':
-			$logtype = "nieznalezienie";
+			$logtype = "Nieznalezienie";
 		break;
 		case '3':
-			$logtype = "komentarz";
+			$logtype = "Komentarz";
+		break;
+		case '4':
+			$logtype = "Skrzynka przeniesiona";
+		break;
+		case '5':
+			$logtype = "Potrzebny serwis skrzynki";
+		break;
+		case '6':
+			$logtype = "Wskazana archiwizacja skrzynki";
 		break;
 		case '7':
-			$logtype = "uczestniczył w spotkaniu";
+			$logtype = "Uczestniczył w spotkaniu";
 		break;
 		case '8':
-			$logtype = "będzie uczestniczył w spotkaniu";
+			$logtype = "Będzie uczestniczył w spotkaniu";
+		break;
+		case '9':
+			$logtype = "Skrzynka została zarchiwizowana";
+		break;
+		case '10':
+			$logtype = "Skrzynka gotowa do szukania";
+		break;
+		case '11':
+			$logtype = "Skrzynka będzie niedostepna czasowo";
+		break;
+		case '12':
+			$logtype = "Komentarz Centrum Obsługi Geocachera";
 		break;
 		default:
 			$logtype = "";
@@ -279,19 +300,40 @@ function process_log_watch($user_id, $log_id)
 	switch( $rLog['type'] )
 	{
 		case '1':
-			$logtype = "znalezienie";
+			$logtype = "Znalezienie";
 		break;
 		case '2':
-			$logtype = "nieznalezienie";
+			$logtype = "Nieznalezienie";
 		break;
 		case '3':
-			$logtype = "komentarz";
+			$logtype = "Komentarz";
+		break;
+		case '4':
+			$logtype = "Skrzynka przeniesiona";
+		break;
+		case '5':
+			$logtype = "Potrzebny serwis skrzynki";
+		break;
+		case '6':
+			$logtype = "Wskazana archiwizacja skrzynki";
 		break;
 		case '7':
-			$logtype = "uczestniczył w spotkaniu";
+			$logtype = "Uczestniczył w spotkaniu";
 		break;
 		case '8':
-			$logtype = "będzie uczestniczył w spotkaniu";
+			$logtype = "Będzie uczestniczył w spotkaniu";
+		break;
+		case '9':
+			$logtype = "Skrzynka została zarchiwizowana";
+		break;
+		case '10':
+			$logtype = "Skrzynka gotowa do szukania";
+		break;
+		case '11':
+			$logtype = "Skrzynka będzie niedostepna czasowo";
+		break;
+		case '12':
+			$logtype = "Komentarz Centrum Obsługi Geocachera";
 		break;
 		default:
 			$logtype = "";
