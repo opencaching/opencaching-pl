@@ -1048,15 +1048,15 @@
 						// only if no approval is needed and cache is published NOW or activate_date is in the past
 						if(!$needs_approvement && ($publish == 'now' || ($publish == 'later' && mktime($activate_hour, 0, 0, $activate_month, $activate_day, $activate_year) <= $today)))
 						{
-					if ($sel_status==1){
+//					if ($sel_status==1){
 					// generate automatic log about status cache
-				$log_text=tr('ready_to_search');
-				$log_uuid = create_uuid();
-						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-									 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
-										 $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
-							}
-							//do event handling
+//				$log_text=tr('ready_to_search');
+//				$log_uuid = create_uuid();
+//						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+//									 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
+//										 $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+//							}
+//							//do event handling
 							include_once($rootpath . '/lib/eventhandler.inc.php');
 
 							event_notify_new_cache($cache_id + 0);
