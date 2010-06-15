@@ -67,6 +67,7 @@
 			require($stylepath . '/log_cache.inc.php');
 			require_once($rootpath . 'lib/caches.inc.php');
 			require($stylepath.'/rating.inc.php');
+			require($stylepath . '/editcache.inc.php');
 
 			$cachename = '';
 			if ($cache_id != 0)
@@ -503,6 +504,7 @@
 					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lon_h))
 					{
 						$lon_not_ok = true;
+						$all_ok = false;
 					}
 					else
 					{
@@ -517,6 +519,7 @@
 					else
 					{
 						$lon_not_ok = true;
+						$all_ok = false;
 					}
 
 					//same with lat
@@ -525,6 +528,7 @@
 					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lat_h))
 					{
 						$lat_not_ok = true;
+						$all_ok = false;
 					}
 					else
 					{
@@ -539,6 +543,7 @@
 					else
 					{
 						$lat_not_ok = true;
+						$all_ok = false;
 					}
 				}		
 				

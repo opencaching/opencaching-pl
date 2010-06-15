@@ -45,6 +45,7 @@
 				require($stylepath . '/editlog.inc.php');
 				require_once($rootpath . 'lib/caches.inc.php');
 				require($stylepath.'/rating.inc.php');
+				require($stylepath . '/editcache.inc.php');
 
 				if ($log_record['node'] != $oc_nodeid)
 				{
@@ -187,7 +188,7 @@
 				} else {
 					tpl_set_var('coordinates_start',"<!--");
 					tpl_set_var('coordinates_end',"-->");}
-echo $coord_existDB;
+
 					$log_pw = '';
 					$use_log_pw = (($log_record['logpw'] == NULL) || ($log_record['logpw'] == '')) ? false : true;
 					if (($use_log_pw) && $log_record['logtype']==1)
@@ -392,12 +393,10 @@ echo $coord_existDB;
 						}
 					}
 					//store?
-					if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false)
+					if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false && !($lat_not_ok || $lon_not_ok))
 					{
 					$coord_existDB = isset($_POST['existDB'])? $_POST['existDB'] :$coord_existDB; 
 					$add_coord = (isset($_POST['add_coord']) ? 1 : 0); 
-					echo $add_coord ;
-					echo $coord_existDB;
 					
 					// DELETE XY coord
 					if ($add_coord==0 && $coord_existDB==1) 
