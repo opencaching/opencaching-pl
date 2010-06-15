@@ -18,8 +18,6 @@ CREATE TABLE IF NOT EXISTS `cache_logs` (
   `node` tinyint(4) NOT NULL default '0',
   `deleted` tinyint(1) NOT NULL default '0',
   `encrypt` tinyint(1) NOT NULL default '0',
-  `longitude` double default NULL,
-  `latitude` double default NULL,
   PRIMARY KEY  (`id`),
   KEY `cache_id` (`cache_id`),
   KEY `user_id` (`user_id`),
