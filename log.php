@@ -506,7 +506,8 @@
 					$res = mysql_fetch_array(mysql_query($sql));
 					$sql = "SELECT status, type FROM `caches` WHERE cache_id='".sql_escape($cache_id)."'";
 					$res2 = mysql_fetch_array(mysql_query($sql));
-					//build logtypeoptions
+
+										//build logtypeoptions
 					$logtypeoptions = '';
 					foreach ($log_types AS $type)
 					{
@@ -522,26 +523,30 @@
 							continue;
 						if($cache_type == 6)
 						{
-							// skip found/notfound/moved if the cache is an event
+							if ($usr['admin']){
+							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11)
+							{continue;}} else{
 							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12)
-							{
-								continue;
-							}
+							{continue;}}							
 						}
 						else
 						{
 							if($cache_type == 8)
 							 {
+							 if ($usr['admin']){
 							// skip will attend/attended if the cache no event
-							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12 )
-							{
-								continue;
-							}}else{							
+							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 )
+							{continue;}} else {
+							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
+							{continue;}}							
+							}else{							
 							// skip will attend/attended/Moved  if the cache no event and Mobile
-							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12 )
-							{
-								continue;
-							}}
+							if ($usr['admin']) {
+							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 )
+							{ continue;}} else {
+							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
+							{ continue;}}												
+							}
 
 						}
 							if(checkField('log_types',$lang) )

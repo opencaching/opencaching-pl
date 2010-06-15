@@ -113,6 +113,8 @@
 			$rfc2 = mysql_fetch_array($rsfc2);
 	        $rsc=sql("SELECT COUNT(*) number FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`) ORDER BY number DESC LIMIT 1",$user_id);
 			$rc = sql_fetch_array($rsc);
+			$moved =  sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND user_id='" . sql_escape($_REQUEST['userid']) . "'", 0);
+
 			$rsncd= sql ("SELECT COUNT(*) FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)",$user_id);
 			$num_rows = mysql_num_rows($rsncd);
 			$sql = "SELECT COUNT(*) founds_count 
@@ -151,6 +153,7 @@
 				else		
 			{ $content .='&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;f_inactive=0&amp;output=HTML&amp;sort=bycreated&amp;finderid=' .$user_id . '&amp;searchbyfinder=&amp;logtype=2&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
 			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('total_comments').':</span> <strong>' . $user_record['log_notes_count'] . '</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('total_moved').':</span> <strong>' . $moved. '</strong></p>';
 			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('total_attended_events').':</span> <strong>' . $events_count . '</strong>';
 			if ($events_count == 0) 
 				{$content .= '</p>';}
