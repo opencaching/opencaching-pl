@@ -522,19 +522,27 @@
 							continue;
 						if($cache_type == 6)
 						{
-							// skip found/notfound if the cache is an event
-							if($type['id'] == 1 || $type['id'] == 2)
+							// skip found/notfound/moved if the cache is an event
+							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5)
 							{
 								continue;
 							}
 						}
 						else
 						{
+							if($cache_type == 8)
+							 {
 							// skip will attend/attended if the cache no event
 							if($type['id'] == 7 || $type['id'] == 8)
 							{
 								continue;
-							}
+							}}else{							
+							// skip will attend/attended/Moved  if the cache no event and Mobile
+							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8)
+							{
+								continue;
+							}}
+
 						}
 							if(checkField('log_types',$lang) )
 								$lang_db = $lang;
@@ -550,6 +558,7 @@
 							$logtypeoptions .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
 						}
 					}
+
 
 					//set tpl vars
 					tpl_set_var('cachename', htmlspecialchars($cachename, ENT_COMPAT, 'UTF-8'));

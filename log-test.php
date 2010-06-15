@@ -687,6 +687,7 @@
 					$res = mysql_fetch_array(mysql_query($sql));
 					$sql = "SELECT status, type FROM `caches` WHERE cache_id='".sql_escape($cache_id)."'";
 					$res2 = mysql_fetch_array(mysql_query($sql));
+
 					//build logtypeoptions
 					$logtypeoptions = '';
 					foreach ($log_types AS $type)
