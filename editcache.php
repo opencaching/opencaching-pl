@@ -41,7 +41,7 @@
 		}
 		else
 		{
-			$cache_rs = sql("SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`, `desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+			$cache_rs = sql("SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`, `desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc`,`node` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
 			if (mysql_num_rows($cache_rs) == 1)
 			{
 				$cache_record = sql_fetch_array($cache_rs);
@@ -110,7 +110,8 @@
 					$status_old = $cache_record['status'];
 					$search_time = isset($_POST['search_time']) ? $_POST['search_time'] : $cache_record['search_time'];
 					$way_length = isset($_POST['way_length']) ? $_POST['way_length'] : $cache_record['way_length'];
-
+					$oc_nodeid = $cache_record['node'];
+					
 					if($status_old == 5 && $status == 5)
 					{
 						if(isset($_POST['publish']))
@@ -429,13 +430,28 @@
 								event_notify_new_cache($cache_id);
 					// generate automatic log about status cache
 //					$log_text=tr('ready_to_search');
-//					$log_date = date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year));
 //					$log_uuid = create_uuid();
 //						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
 //										 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
 //										 $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
-
-
+							}
+							if (($status_old == 1 || $status_old==3) && $status == 2)
+							{
+					// generate automatic log about status cache
+//					$log_text=tr('temporarily_unavailable');
+//					$log_uuid = create_uuid();
+//						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+//										 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
+//										 $cache_id, $usr['userid'], 11, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+							}
+							if (($status_old == 2 || $status_old == 3) && $status ==1)
+							{
+					// generate automatic log about status cache
+//					$log_text=tr('ready_to_search');
+//					$log_uuid = create_uuid();
+//						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+//										 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
+//										 $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
 							}
 
 							//display cache-page
