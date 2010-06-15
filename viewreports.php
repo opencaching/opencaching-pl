@@ -7,7 +7,7 @@ global $bgcolor1, $bgcolor2;
 			case '1':
 				return "Uwaga co do lokalizacji skrzynki";
 			case '2':
-				return "Skrzynka wymaga serwisu";
+				return "Skrzynka wymaga archiwizacji";
 			case '3':
 				return "Nieodpowiednia zawartość skrzynki";
 			case '4':
