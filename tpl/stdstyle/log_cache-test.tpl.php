@@ -175,16 +175,15 @@ function showHide(id){
 			</select>
 			&nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />
 			&deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" />&nbsp;'&nbsp;
-			{lat_message}<br />
+			<br />
 			&nbsp;&nbsp;&nbsp;
 			<select name="lonEW" class="input40">
 				<option value="E"{selLonE}>E</option>
 				<option value="W"{selLonW}>W</option>
 			</select>
 			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
-			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
-			{lon_message}
-			</fieldset>
+			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;			
+			</fieldset>{lon_message} {lat_message}
 		</td>
 	</tr>
 </table>
