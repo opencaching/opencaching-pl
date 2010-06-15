@@ -1065,7 +1065,7 @@
 							$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
 							$email_headers .= "From: Opencaching.pl <notify@opencaching.pl>\r\n";
 							$email_headers .= "Reply-To: rr@opencaching.pl\r\n";
-							$rr_email = "rr@opencaching.pl";
+							$rr_email = "cog@opencaching.pl";
 
 							//send email to rr
 							mb_send_mail($rr_email, "[OC PL] Akceptacja skrzynki: ".$name, $email_content, $email_headers);
