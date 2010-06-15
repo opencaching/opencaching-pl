@@ -610,6 +610,7 @@ comment_octeam_visible Comment by OC Team visible only for OC Team and owner cac
 ready_to_search Geocache ready to search.
 archived_cache Geocache was archived.
 temporarily_unavailable Geocache will be temporarily unavailable.
+blocked_by_octeam Geocache blocked by OC Team.
 
 
 
