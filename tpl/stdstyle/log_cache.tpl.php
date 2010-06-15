@@ -115,7 +115,7 @@ function toogleLayer( whichLayer, val )
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr>
-		<td colspan="2"><div class="notice" style="width:500px;height:44px">Możesz zgłosić problem związany z skrzynką do właściciela skrzynki np że <b>skrzynka wymaga serwisu</b> (lub do Zespołu OC PL) wykorzystując ten formularz <img src="/tpl/stdstyle/images/blue/arrow.png" alt="" title=""/>&nbsp; <a class="links" href="reportcache.php?cacheid={cacheid}">Zgłoś problem</a> </div></td>
+		<td colspan="2"><div class="notice" style="width:500px;height:44px">Możesz zgłosić problem związany z skrzynką do właściciela skrzynki np <b>Uwagę do lokalizacji</b> (lub do Zespołu OC PL) wykorzystując ten formularz <img src="/tpl/stdstyle/images/blue/arrow.png" alt="" title=""/>&nbsp; <a class="links" href="reportcache.php?cacheid={cacheid}">Zgłoś problem</a> </div></td>
 	</tr>
 
 	<tr>
