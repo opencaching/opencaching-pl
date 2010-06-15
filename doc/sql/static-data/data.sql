@@ -390,7 +390,13 @@ INSERT INTO `log_types` (`id`, `cache_status`, `permission`, `pl`, `en`, `icon_s
 (3, 0, 'A', 'Komentarz', 'Note', 'log/16x16-note.png'),
 (7, 0, 'C', 'Uczestniczył', 'Attended', 'log/16x16-go.png'),
 (8, 0, 'C', 'Zamierza uczestniczyć', 'Will attended', 'log/16x16-wattend.png'),
-(5, 0, 'C', 'Potrzebny serwis', 'Needs maintenance', 'log/16x16-need-maintenance.png');
+(5, 0, 'C', 'Potrzebny serwis', 'Needs maintenance', 'log/16x16-need-maintenance.png'),
+(4, 0, 'C', 'Przeniesiona', 'Moved', 'log/16x16-moved.png'),
+(10, 0, 'C', 'Gotowa do szukania', 'Ready to search', 'log/16x16-published.png'),
+(11, 0, 'C', 'Niedostępna czasowo', 'Temporarily unavailable', 'log/16x16-stop.png'),
+(12, 0, 'C', 'Komentarz COG', 'OC Team comment', 'log/16x16-octeam.png'),
+(9, 0, 'C', 'Zarchiwizowana', 'Archived', 'log/16x16-trash.png');
+
 
 
 --
@@ -398,11 +404,11 @@ INSERT INTO `log_types` (`id`, `cache_status`, `permission`, `pl`, `en`, `icon_s
 --
 
 INSERT INTO `log_types_text` (`id`, `log_types_id`, `lang`, `text_combo`, `text_listing`) VALUES
-(1, 1, 'PL', 'Znaleziona', 'skrzynka znaleziona'),
-(2, 2, 'PL', 'Nie znaleziona', 'skrzynka nie znaleziona'),
-(3, 3, 'PL', 'Komentarz', 'komentarz do skrzynki'),
-(4, 4, 'PL', 'Przeniesiona', 'skrzynka przeniesiona'),
-(5, 5, 'PL', 'Potrzebny serwis', 'skrzynka wymaga serwisu'),
+(1, 1, 'PL', 'Znaleziona', 'Znaleziona'),
+(2, 2, 'PL', 'Nie znaleziona', 'Nie znaleziona'),
+(3, 3, 'PL', 'Komentarz', 'Komentarz'),
+(4, 4, 'PL', 'Przeniesiona', 'Skrzynka przeniesiona'),
+(5, 5, 'PL', 'Potrzebny serwis', 'Potrzebny serwis skrzynki'),
 (6, 6, 'PL', 'Wymagana archiwizacja', 'skrzynka wymaga archiwizacji'),
 (7, 7, 'PL', 'Uczestniczył', 'uczestniczył w wydarzeniu'),
 (8, 8, 'PL', 'Będzie uczestniczył', 'będzie uczestniczył w wydarzeniu'),
@@ -411,16 +417,17 @@ INSERT INTO `log_types_text` (`id`, `log_types_id`, `lang`, `text_combo`, `text_
 (15, 1, 'EN', 'Found it', 'Found it'),
 (16, 2, 'EN', 'Didn''t find it', 'Didn''t find it'),
 (17, 3, 'EN', 'Comment', 'Comment'),
-(9, 9, 'PL', 'Archiwizacja', 'Skrzynka zarchiwizowana'),
-(10, 10, 'PL', 'Gotowa do szukania', 'skrzynka gotowa do szukania'),
-(11, 11, 'PL', 'Niedostępna', 'Skrzynka czasowo niedostępna'),
-(12, 12, 'PL', 'COG komentarz', 'Komentarz Centrum Obsługi Geocachera'),
+(9, 9, 'PL', 'Zarchiwizowana', 'Zarchiwizowana'),
+(10, 10, 'PL', 'Gotowa do szukania', 'Gotowa do szukania'),
+(11, 11, 'PL', 'Niedostępna czasowo', 'Niedostępna czasowo'),
+(12, 12, 'PL', 'Komentarz COG', 'Komentarz Centrum Obsługi Geocachera'),
 (18, 4, 'EN', 'Moved', 'Cache moved'),
 (19, 5, 'EN', 'Needs maintenance', 'Cache needs maintenance'),
 (20, 9, 'EN', 'Needs archiving', 'Cache needs archiving'),
 (21, 10, 'EN', 'Published', 'Cache reday to search'),
 (22, 11, 'EN', 'Temporarily unavailable', 'Temporarily unavailable'),
 (23, 12, 'EN', 'OC Team comment', 'OC Team comment');
+
 
 --
 -- Zrzut danych tabeli `nodes`
