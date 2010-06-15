@@ -43,8 +43,8 @@ class AutoArch
 		$email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);		
 		
 		$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
-		$emailheaders .= "From: Opencaching.pl <rr@opencaching.pl>\r\n";
-		$emailheaders .= "Reply-To: Opencaching.pl <rr@opencaching.pl>";
+		$emailheaders .= "From: Opencaching.pl <cog@opencaching.pl>\r\n";
+		$emailheaders .= "Reply-To: Opencaching.pl <cog@opencaching.pl>";
 
 		//echo "email:".$cache['email']."-->".$emailheaders."<br />".$email_content."<br />";		
 		mb_send_mail($cache['email'], "[OCPL] Automatyczna archiwizacja Twojej skrzynki", $email_content, $emailheaders);
@@ -115,7 +115,7 @@ class AutoArch
 				$arch_sql = "UPDATE caches SET status = 3, notes=notes+1 WHERE cache_id=".intval($rs['cache_id']);
 				@mysql_query($arch_sql);
 				$log_uuid = create_uuid();
-				$log_sql = "INSERT INTO cache_logs (cache_id, user_id, uuid, date, type, last_modified, text, owner_notified, node) VALUES (".sql_escape(intval($rs['cache_id'])).", '".sql_escape($log_uuid)."', -1, NOW(), 3, NOW(), 'Automatyczna archiwizacja - 9 miesięcy w stanie \"Tymczasowo niedostępna\"', 1, 2)";
+				$log_sql = "INSERT INTO cache_logs (cache_id, user_id, uuid, date, type, last_modified, text, owner_notified, node) VALUES (".sql_escape(intval($rs['cache_id'])).", '".sql_escape($log_uuid)."', -1, NOW(), 9, NOW(), 'Automatyczna archiwizacja - 9 miesięcy w stanie \"Tymczasowo niedostępna\"', 1, 2)";
 				@mysql_query($log_sql);
 			}
 			else if( strtotime($rs['last_modified']) < time() - 8*31*24*60*60 && $step < $STEP["AFTER_SECOND_MAIL_SENT"])
