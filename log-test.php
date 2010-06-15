@@ -67,7 +67,7 @@
 			require($stylepath . '/log_cache.inc.php');
 			require_once($rootpath . 'lib/caches.inc.php');
 			require($stylepath.'/rating.inc.php');
-			require($stylepath . '/editcache.inc.php');
+				require($stylepath . '/editcache.inc.php');
 
 			$cachename = '';
 			if ($cache_id != 0)
@@ -399,7 +399,6 @@
 					$date_not_ok = true;
 				}
 
-
 				if ($cache_type == 6)
 				{
 					switch($log_type)
@@ -704,19 +703,27 @@
 							continue;
 						if($cache_type == 6)
 						{
-							// skip found/notfound if the cache is an event
-							if($type['id'] == 1 || $type['id'] == 2)
+							// skip found/notfound/moved if the cache is an event
+							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5)
 							{
 								continue;
 							}
 						}
 						else
 						{
+							if($cache_type == 8)
+							 {
 							// skip will attend/attended if the cache no event
 							if($type['id'] == 7 || $type['id'] == 8)
 							{
 								continue;
-							}
+							}}else{							
+							// skip will attend/attended/Moved  if the cache no event and Mobile
+							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8)
+							{
+								continue;
+							}}
+
 						}
 							if(checkField('log_types',$lang) )
 								$lang_db = $lang;
