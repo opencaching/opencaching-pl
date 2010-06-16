@@ -252,7 +252,7 @@
 					$tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
 					}					
 
-					if ($record_logs['recommended'] == 1) 
+					if ($record_logs['recommended'] == 1 && $record_logs['log_type']==1) 
 					{
 					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt=""/>', $tmp_log);
 					}
@@ -436,7 +436,7 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 					$tmp_log = mb_ereg_replace('{gkimage}', '<img src="images/rating-star-empty.png" border="0" alt=""/>', $tmp_log);
 					}					
 				
-				if ($record_logs['recommended'] == 1) 
+				if ($record_logs['recommended'] == 1 && $record_logs['log_type']==1) 
 					{
 					$tmp_log = mb_ereg_replace('{rateimage}', '<img src="images/rating-star.png" border="0" alt=""/>', $tmp_log);
 					}
