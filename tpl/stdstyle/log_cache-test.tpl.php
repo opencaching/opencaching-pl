@@ -178,7 +178,7 @@ function showHide(id){
 			</select>
 			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
 			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;			
-			</fieldset>{lon_message} {lat_message}
+			</fieldset>{lon_message} {lat_message} {coord_empty_message}
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="notice" id="viewcache-attributesend" style="width:600px;">Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu.</div>
@@ -193,7 +193,7 @@ function showHide(id){
     <div class="notice" id="viewcache-attributesend" style="width:600px;"> Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennik zawiera spoilery lub takie informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst poza nawiasami kwadratowymi [treść] nie będzie szyfrowany.</div></td>
 	</tr>
 	<tr>
-		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
+		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br />{log_empty_message}</td>
 	</tr>
 	<tr>
 		<td colspan="2">
