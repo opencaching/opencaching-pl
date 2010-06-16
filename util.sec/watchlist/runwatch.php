@@ -233,10 +233,10 @@ function process_owner_log($user_id, $log_id)
 	switch( $rLog['type'] )
 	{
 		case '1':
-			$logtype = "znalezienie";
+			$logtype = "znaleziena";
 		break;
 		case '2':
-			$logtype = "nieznalezienie";
+			$logtype = "nie znaleziena";
 		break;
 		case '3':
 			$logtype = "komentarz";
@@ -271,7 +271,7 @@ function process_owner_log($user_id, $log_id)
 		default:
 			$logtype = "";
 	}
-	if ($rLog['recommended'] !=0) {$recommended=" + rekomendacja";} else {$recommended="";}	
+	if ($rLog['recommended'] !=0 && $rLog['type']==1) {$recommended=" + rekomendacja";} else {$recommended="";}	
 	
 	$watchtext = mb_ereg_replace('{date}', date('d.m.Y', strtotime($rLog['logdate'])), $watchtext);
 	$watchtext = mb_ereg_replace('{cacheid}', $rLog['cache_id'], $watchtext);
@@ -300,10 +300,10 @@ function process_log_watch($user_id, $log_id)
 	switch( $rLog['type'] )
 	{
 		case '1':
-			$logtype = "znalezienie";
+			$logtype = "znaleziena";
 		break;
 		case '2':
-			$logtype = "nieznalezienie";
+			$logtype = "nie znaleziena";
 		break;
 		case '3':
 			$logtype = "komentarz";
@@ -338,7 +338,7 @@ function process_log_watch($user_id, $log_id)
 		default:
 			$logtype = "";
 	}
-	if ($rLog['recommended'] !=0) {$recommended=" + rekomendacja";} else {$recommended="";}
+	if ($rLog['recommended'] !=0 && $rLog['type']==1)  {$recommended=" + rekomendacja";} else {$recommended="";}
 	
 	$watchtext = $logwatch_text;
 	$logtext = $rLog['text'];
