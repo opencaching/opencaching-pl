@@ -186,7 +186,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 	$gpxLogType[9] = 'Archive'; 			//OC: Note
 	$gpxLogType[10] = 'Enable Listing'; 			//OC: Note
 	$gpxLogType[11] = 'Temporarily Disable Listing'; 			//OC: Note
-	$gpxLogType[12] = 'Write note'; 			//OC: Note
+	$gpxLogType[12] = 'Post Reviewer Note'; 			//OC: Note
 	
 	if( $usr || !$hide_coords )
 		{
