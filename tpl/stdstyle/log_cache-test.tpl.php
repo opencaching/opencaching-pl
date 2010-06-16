@@ -91,7 +91,7 @@ function toogleLayer( whichLayer, val )
 		vis.display = val;
 
 	var el;
-	el='add_coord_table';
+	el='coord_table';
 	if (document.logform.logtype.value == "4") 		
 	document.getElementById(el).style.display='block';
 
@@ -157,19 +157,10 @@ function showHide(id){
 </table>
 </div>	
 {coordinates_start}
-<table class="content" id="add_coord_table" style="font-size: 12px; line-height: 1.6em;display:none;">
-	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
-	<tr>   
-    <td width="800px" colspan="2" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong><input id="add_coord" type="checkbox" name="add_coord" value="1" {is_checked} onclick="showHide('coord');" /><label for="add_coord">Dodaj do logu współrzędne</label></strong>
-     </td>
-	</tr>
-	<tr><td colspan="2"><div class="notice" id="viewcache-attributesend" style="width:600px;">Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu.</div>
-	</td></tr>
-</table>
-<table width="95%" id="coord" class="content" style="font-size: 12px; line-height: 1.6em;display:none;">
+<table width="95%" id="coord_table" class="content" style="font-size: 12px; line-height: 1.6em;display:none;">
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td width="180px" valign="top"><b>{{coordinates}}:</b></td>
+		<td width="180px" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{{coordinates}}:</b></td>
 		<td width="600px">
 		<fieldset style="border: 1px solid black; width: 30%; height: 32%; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
@@ -190,6 +181,8 @@ function showHide(id){
 			</fieldset>{lon_message} {lat_message}
 		</td>
 	</tr>
+	<tr><td colspan="2"><div class="notice" id="viewcache-attributesend" style="width:600px;">Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu.</div>
+	</td></tr>
 </table>
 {coordinates_end}
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
