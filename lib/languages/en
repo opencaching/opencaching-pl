@@ -611,6 +611,8 @@ ready_to_search Geocache ready to search.
 archived_cache Geocache was archived.
 temporarily_unavailable Geocache will be temporarily unavailable.
 blocked_by_octeam Geocache blocked by OC Team.
+empty_coordinatest Please add new coordinates for moved mobile cache. 
+empty_log_text Log did not empty. Please write short note.
 
 
 
