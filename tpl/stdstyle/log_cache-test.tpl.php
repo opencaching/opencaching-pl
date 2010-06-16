@@ -193,7 +193,7 @@ function showHide(id){
     <div class="notice" id="viewcache-attributesend" style="width:600px;"> Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennik zawiera spoilery lub takie informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst poza nawiasami kwadratowymi [treść] nie będzie szyfrowany.</div></td>
 	</tr>
 	<tr>
-		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br />{log_empty_message}</td>
+		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong>{log_empty_message}<br /></td>
 	</tr>
 	<tr>
 		<td colspan="2">
