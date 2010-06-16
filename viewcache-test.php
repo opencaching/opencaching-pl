@@ -1087,10 +1087,14 @@
 					{
 						$tmpFunctions .= $edit_log . $functions_middle;
 					}
-					$tmpFunctions .= $remove_log;
+					if ($record['type']!=12 && ($usr['userid']==$cache_record['cache_id'] || $usr['admin']==false)){
+					$tmpFunctions .= $remove_log. $functions_middle;} 
+
+					if ($usr['admin']){
+					$tmpFunctions .= $remove_log. $functions_middle;} 
 	
 					if ( $record['deleted']!=1 && $usr['userid'] == $record['userid'])
-					$tmpFunctions = $tmpFunctions . $functions_middle . $upload_picture;
+					$tmpFunctions = $tmpFunctions . $upload_picture. $functions_middle;
 	
 					if ( $record['encrypt']==1 && $no_crypt_log == 0 && ($usr['userid'] == $record['userid'] ||$usr['userid']==$cache_record['cache_id'] ||$usr['admin'] ) )
 					{
