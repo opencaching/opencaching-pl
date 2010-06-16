@@ -221,6 +221,7 @@
 					if ($record['user_id'] == $usr['userid'])
 					{
 						$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $tmpnewpic;
+
 						if ( $record['encrypt']==1 && $no_crypt_log == 0 )						
 						{$logfunctions .= $functions_middle . $tmpdecryptlog . $functions_middle . $functions_end;}else {$logfunctions .= $functions_middle . $functions_end;}
 					}
@@ -233,7 +234,10 @@
 						} 
 					elseif ($owner_id == $usr['userid'])
 					{
-						$logfunctions = $functions_start . $tmpremove; 
+						$logfunctions = $functions_start;
+						if ($record['type']!=12){
+						$logfunctions .= $tmpremove;} 
+
 						if ( $record['encrypt']==1 && $no_crypt_log == 0 )						
 						{$logfunctions .= $functions_middle . $tmpdecryptlog . $functions_middle . $functions_end;}else {$logfunctions .= $functions_middle . $functions_end;}
 					}
