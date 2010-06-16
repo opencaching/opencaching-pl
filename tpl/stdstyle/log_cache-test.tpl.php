@@ -89,9 +89,13 @@ function toogleLayer( whichLayer, val )
 	}
 	else
 		vis.display = val;
-	
-	
-	
+
+	var el;
+	el='add_coord_table';
+	if (document.logform.logtype.value == "4") 		
+	document.getElementById(el).style.display='block';
+
+
 	//if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
 	//	vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
 	//vis.display = (vis.display==''||vis.display=='block')?'none':'block';
@@ -153,7 +157,7 @@ function showHide(id){
 </table>
 </div>	
 {coordinates_start}
-<table class="content" style="font-size: 12px; line-height: 1.6em;">
+<table class="content" id="add_coord_table" style="font-size: 12px; line-height: 1.6em;display:none;">
 	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
 	<tr>   
     <td width="800px" colspan="2" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong><input id="add_coord" type="checkbox" name="add_coord" value="1" {is_checked} onclick="showHide('coord');" /><label for="add_coord">Dodaj do logu współrzędne</label></strong>
