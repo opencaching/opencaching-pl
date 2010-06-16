@@ -698,8 +698,8 @@
 						if( $res2['type'] != 6 && ($usr['userid'] == $cache_user_id || $res['founds'] > 0 || $res2['status'] == 2 || $res2['status'] == 3 || $res2['status'] == 4 || $res2['status'] == 6))
 						{
 							if  ($res2['type'] == 8){
-							$logtypeoptions .= '<option value="4">Przeniesiona</option>' . "\n";}
 							$logtypeoptions .= '<option value="3">Komentarz</option>' . "\n";
+							$logtypeoptions .= '<option value="4">Przeniesiona</option>' . "\n";}
 							$logtypeoptions .= '<option value="5">Potrzebny serwis</option>' . "\n";
 							if ($usr['admin']==true){$logtypeoptions .= '<option value="12">Komentarz COG</option>' . "\n";}
 							break;
