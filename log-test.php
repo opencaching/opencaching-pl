@@ -500,9 +500,10 @@
 					}
 				//check put coordinates to Moved log type	
 				$coord_empty=false;
-				if ($log_type==4 && $coords_lat_h=="0" && $coords_lat_min=="0.000" && $coords_lon_h=="0" && $coords_lon_min=="0.000"  ) {$coord_empty="wspolrzedne puste"; $all_ok=false;}
+				if ($log_type==4 && $coords_lat_h=="0" && $coords_lat_min=="0.000" && $coords_lon_h=="0" && $coords_lon_min=="0.000"  ) {$coord_empty=true; $all_ok=false;}
+				$log_empty=false;
 				//check for exmpty text
-				if ($log_text==""){$all_ok=false; $log_text_empty=true;}
+				if ($log_text==""){$all_ok=false; $log_empty=true;}
 				}	
 
 				if( isset($_POST['submitform']) && ($all_ok == true) )
@@ -733,7 +734,8 @@
 					tpl_set_var('lon_min', htmlspecialchars($coords_lon_min, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('lon_message', ($lon_not_ok == true) ? $error_coords_not_ok : '');
 					tpl_set_var('lat_message', ($lat_not_ok == true) ? $error_coords_not_ok : '');
-
+					tpl_set_var('coord_empty_message', ($coord_empty == true) ? $coord__emty_message : '');
+					tpl_set_var('log_empty_message', ($log_empty == true) ? $logtext_empty_message : '');
 
 					// Text / normal HTML / HTML editor
 					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
