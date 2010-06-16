@@ -105,8 +105,7 @@
 				$all_ok = false;
 				$encrypt =0;
 				$add_coord= 0;
-				$encrypt = (isset($_POST['encrypt']) ? 1 : 0);
- 				$add_coord = (isset($_POST['add_coord']) ? 1 : 0);   
+				$encrypt = (isset($_POST['encrypt']) ? 1 : 0);   
 				$log_text  = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
 				$log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
 				$log_date_min = isset($_POST['logmin']) ? ($_POST['logmin']+0) : date('i');
@@ -196,9 +195,9 @@
 					}
 					else
 					{
-						//get coords from DB
-						$coords_lon = $record['longitude'];
-						$coords_lat = $record['latitude'];
+						
+						$coords_lon = "0.000";
+						$coords_lat = "0.000";
 
 						if ($coords_lon < 0)
 						{
@@ -225,53 +224,7 @@
 
 						$coords_lat_min = sprintf("%02.3f", round(($coords_lat - $coords_lat_h) * 60, 3));
 						$coords_lon_min = sprintf("%02.3f", round(($coords_lon - $coords_lon_h) * 60, 3));
-					}
-
-					//here we validate the data
-
-					//coords
-					$lon_not_ok = false;
-
-					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lon_h))
-					{
-						$lon_not_ok = true;
-					}
-					else
-					{
-						$lon_not_ok = (($coords_lon_h >= 0) && ($coords_lon_h < 180)) ? false : true;
-					}
-
-					if (is_numeric($coords_lon_min))
-					{
-						// important: use here |=
-						$lon_not_ok |= (($coords_lon_min >= 0) && ($coords_lon_min < 60)) ? false : true;
-					}
-					else
-					{
-						$lon_not_ok = true;
-					}
-
-					//same with lat
-					$lat_not_ok = false;
-
-					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lat_h))
-					{
-						$lat_not_ok = true;
-					}
-					else
-					{
-						$lat_not_ok = (($coords_lat_h >= 0) && ($coords_lat_h < 180)) ? false : true;
-					}
-
-					if (is_numeric($coords_lat_min))
-					{
-						// important: use here |=
-						$lat_not_ok |= (($coords_lat_min >= 0) && ($coords_lat_min < 60)) ? false : true;
-					}
-					else
-					{
-						$lat_not_ok = true;
-					}		
+					}	
 				
 				} else {
 					tpl_set_var('coordinates_start',"<!--");
@@ -374,6 +327,7 @@
 						//$log_text = strip_tags(htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'));
 					
 				}
+
 
 				//validate data
 				if (is_numeric($log_date_month) && is_numeric($log_date_day) && is_numeric($log_date_year) && is_numeric($log_date_hour)&& is_numeric($log_date_min))
@@ -544,9 +498,13 @@
 						$lat_not_ok = true;
 						$all_ok = false;
 					}
-				}		
-				
-				
+				//check put coordinates to Moved log type	
+				$coord_empty=false;
+				if ($log_type==4 && $coords_lat_h=="0" && $coords_lat_min=="0.000" && $coords_lon_h=="0" && $coords_lon_min=="0.000"  ) {$coord_empty="wspolrzedne puste"; $all_ok=false;}
+				//check for exmpty text
+				if ($log_text==""){$all_ok=false; $log_text_empty=true;}
+				}	
+
 				if( isset($_POST['submitform']) && ($all_ok == true) )
 				{
 				
