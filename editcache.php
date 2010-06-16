@@ -428,14 +428,9 @@
 								touchCache($cache_id);
 								// send new cache event
 								event_notify_new_cache($cache_id);
-					// generate automatic log about status cache
-					$log_text=tr('ready_to_search');
-					$log_uuid = create_uuid();
-						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-										 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
-										 $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+
 							}
-							if ($status_old !=2  && $status == 2)
+					if ($status_old !=2  && $status == 2)
 							{
 					// generate automatic log about status cache
 					$log_text=tr('temporarily_unavailable');
@@ -444,7 +439,7 @@
 										 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
 										 $cache_id, $usr['userid'], 11, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
 							}
-						if ($status_old !=3 && $status == 3)
+					if ($status_old !=3 && $status == 3)
 							{
 					// generate automatic log about status cache
 					$log_text=tr('archived_cache');
@@ -454,7 +449,7 @@
 										 $cache_id, $usr['userid'], 9, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
 							}
 
-							if ($status_old !=1 && $status ==1)
+					if ($status_old !=1 && $status ==1)
 							{
 					// generate automatic log about status cache
 					$log_text=tr('ready_to_search');
@@ -463,7 +458,7 @@
 										 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
 										 $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
 							}
-							if ($status_old !=6 && $status ==6)
+					if ($status_old !=6 && $status ==6)
 							{
 					// generate automatic log about status cache
 					$log_text=tr('blocked_by_octeam');
