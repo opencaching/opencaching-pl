@@ -1049,7 +1049,7 @@
 				$tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
 				$tmplog = mb_ereg_replace('{logimage}', icon_log_type($record['icon_small'], $tmplog['type']), $tmplog);
 
-				if ($record['recommended'] == 1)
+				if ($record['recommended'] == 1 && $record['type']==1)
 					$tmplog = mb_ereg_replace('{ratingimage}', $rating_picture, $tmplog);
 				else
 					$tmplog = mb_ereg_replace('{ratingimage}', '', $tmplog);
