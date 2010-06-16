@@ -179,7 +179,12 @@
 				{
 					if ($record['user_id'] == $usr['userid'])
 					{
-						$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $tmpnewpic . $functions_end;
+						$logfunctions = $functions_start . $tmpedit . $functions_middle; 
+					if ($record['type']!=12 && ($usr['userid']==$cache_record['cache_id'] || $usr['admin']==false)){					
+						$logfunctions .=$tmpremove . $functions_middle;}
+					if ($usr['admin']){					
+						$logfunctions .=$tmpremove . $functions_middle;}
+					 	$logfunctions .= $tmpnewpic . $functions_end;
 					}
 					else if( $usr['admin']) 
 					{
@@ -187,7 +192,11 @@
 					} 
 					elseif ($owner_id == $usr['userid'])
 					{
-						$logfunctions = $functions_start . $tmpremove . $functions_end;
+
+						$logfunctions = $functions_start;
+						if ($record['type']!=12){
+ 						$logfunctions .= $tmpremove;}
+						$logfunctions .= $functions_end;
 					}
 				}
 				$tmplog = mb_ereg_replace('{logfunctions}', $logfunctions, $tmplog);
