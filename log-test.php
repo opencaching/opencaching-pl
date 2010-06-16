@@ -104,7 +104,6 @@
 			{
 				$all_ok = false;
 				$encrypt =0;
-				$add_coord= 0;
 				$encrypt = (isset($_POST['encrypt']) ? 1 : 0);   
 				$log_text  = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
 				$log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
@@ -540,7 +539,7 @@
 										 VALUES ('', '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW(), NOW(), '&8', '&9','&10')",
 										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid, $encrypt);
 
-						if (!($lat_not_ok || $lon_not_ok) && $add_coord==1)
+						if (!($lat_not_ok || $lon_not_ok) && $log_type==4)
 							{
 							$latitude = $coords_lat_h + $coords_lat_min / 60;
 							if ($coords_latNS == 'S') $latitude = -$latitude;
@@ -645,8 +644,6 @@
 					$res = mysql_fetch_array(mysql_query($sql));
 					$sql = "SELECT status, type FROM `caches` WHERE cache_id='".sql_escape($cache_id)."'";
 					$res2 = mysql_fetch_array(mysql_query($sql));
-
-
 
 					//build logtypeoptions
 					$logtypeoptions = '';
