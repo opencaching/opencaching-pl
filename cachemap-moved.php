@@ -84,18 +84,15 @@ $get_cacheid = $_REQUEST['cacheid'];
 				$x=$record['latitude'];
 
 			$point .=" var point = new GLatLng(" . $x . "," . $y . ");\n";
-			$icon="icon";
-			if ($i==0) $icon="icon3";
-			if ($i==$nrows-1) $icon="icon2"; 
+			$icon="icon_yellow";
+			if ($i==0) $icon="icon_red";
+			if ($i==$nrows-1) $icon="icon_green"; 
 			$number=$i+1;
 			$point .="var marker".$number." = new GMarker(point,".$icon."); map0.addOverlay(marker".$number.");\n\n";
 			}
 
 		tpl_set_var('points', $point);	
 
-// var punkt = new GLatLng(52.30180,17.04562);  
-// var marker1 = new GMarker(punkt, icon3);
-//      map0.addOverlay(marker1);
 
 
 	$smallestLat = sqlValue("SELECT `cache_moved`.`latitude` `latitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`latitude` ASC LIMIT 1", 0);
