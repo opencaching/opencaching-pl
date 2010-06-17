@@ -659,6 +659,7 @@ route_cache Droga przebyta przez skrzynke
 start_point początek podróży
 trp_points punkty trasy
 recently_seen ostatnio widziana
+back_to_cache Powrót do skrzynki
 
 
 

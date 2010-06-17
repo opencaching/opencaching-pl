@@ -49,6 +49,6 @@ map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), 6);
 <img src="tpl/stdstyle/images/google_maps/red.png" alt="a" width="12" height="20" title="begin" /> = {{start_point}}
 <img src="tpl/stdstyle/images/google_maps/yellow.png" alt="b" width="12" height="20" title="point" /> = {{trp_points}}
 <img src="tpl/stdstyle/images/google_maps/green.png" alt="c" width="12" height="20" title="end"/> = {{recently_seen}}
-</p><bre/><br/>
+&nbsp;&nbsp;[<a class="links" href="viewcache-test.php?cacheid={cacheid}">{{back_to_cache}}</a>]</p><br/><br/>
 <div id="map0" style="width: 780px; height: 500px"></div>
 </div>
