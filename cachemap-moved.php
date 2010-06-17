@@ -42,7 +42,9 @@ $get_cacheid = $_REQUEST['cacheid'];
 		$cache_id =0;
 	else 
 		$cache_id = $get_cacheid;
-		
+
+	$cachename = sqlValue("SELECT `name` FROM `caches` WHERE `cache_id`='" . sql_escape($cache_id) . "'",0); 
+	tpl_set_var('cachename', $cachename);		
 	tpl_set_var('cacheid', $cache_id);
 
 			$rsc = sql("SELECT `cache_moved`.`latitude` `latitude`,
