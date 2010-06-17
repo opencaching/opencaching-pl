@@ -9,12 +9,12 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 INSERT INTO `cache_attrib` (`id`, `language`, `text_short`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category`, `default`) VALUES
-(60, 'PL', 'Natura', 'Natura', 'images/attributes/nature.png', 'images/attributes/nature-no.png', 'images/attributes/nature-undef.png', 1, 0),
+(60, 'PL', 'Natura', 'Umiejscowiona na łonie natury, lasy, góry itp', 'images/attributes/nature.png', 'images/attributes/nature-no.png', 'images/attributes/nature-undef.png', 1, 0),
 (40, 'PL', 'Szybka skrzynka', 'Szybka skrzynka', 'images/attributes/fast.png', 'images/attributes/fast-no.png', 'images/attributes/fast-undef.png', 1, 0),
 (40, 'EN', 'One-minute cache', 'One-minute cache', 'images/attributes/fast.png', 'images/attributes/fast-no.png', 'images/attributes/fast-undef.png', 1, 0),
 (41, 'EN', 'Children', 'Go geocaching with children', 'images/attributes/children.png', 'images/attributes/children-no.png', 'images/attributes/children-undef.png', 1, 0),
 (42, 'EN', 'GPS Free', 'GPS Free', 'images/attributes/gpsfree.png', 'images/attributes/gpsfree-no.png', 'images/attributes/gpsfree-undef.png', 1, 0),
-(42, 'PL', 'GPS Free', 'GPS Free', 'images/attributes/gpsfree.png', 'images/attributes/gpsfree-no.png', 'images/attributes/gpsfree-undef.png', 1, 0),
+(42, 'PL', 'Odszukasz skrzynkę b', 'Odszukasz skrzynkę bez GPSa', 'images/attributes/gpsfree.png', 'images/attributes/gpsfree-no.png', 'images/attributes/gpsfree-undef.png', 1, 0),
 (43, 'PL', 'GeoHotel', 'GeoHotel', 'images/attributes/geohotel.png', 'images/attributes/geohotel-no.png', 'images/attributes/geohotel-undef.png', 1, 0),
 (43, 'EN', 'GeoHotel', 'GeoHotel', 'images/attributes/geohotel.png', 'images/attributes/geohotel-no.png', 'images/attributes/geohotel-undef.png', 1, 0),
 (90, 'PL', 'Niebezpieczeństwo', 'Skrzynka niebezpieczna', 'images/attributes/danger.png', 'images/attributes/danger-no.png', 'images/attributes/danger-undef.png', 1, 0),
@@ -40,7 +40,9 @@ INSERT INTO `cache_attrib` (`id`, `language`, `text_short`, `text_long`, `icon_l
 (49, 'PL', 'Magnes', 'Przyczepiona magnesem', 'images/attributes/magnet.png', 'images/attributes/magnet-no.png', 'images/attributes/magnet-undef.png', 1, 0),
 (49, 'EN', 'Magnet', 'Fixed by magnet', 'images/attributes/magnet.png', 'images/attributes/magnet-no.png', 'images/attributes/magnet-undef.png', 1, 0),
 (91, 'PL', 'Zalecane szukanie no', 'Zalecane szukanie nocą', 'images/attributes/night.png', 'images/attributes/night-no.png', 'images/attributes/night-undef.png', 1, 0),
-(91, 'EN', 'Recommended at night', 'Recommended at night', 'images/attributes/night.png', 'images/attributes/night-no.png', 'images/attributes/night-undef.png', 1, 0);
+(91, 'EN', 'Recommended at night', 'Recommended at night', 'images/attributes/night.png', 'images/attributes/night-no.png', 'images/attributes/night-undef.png', 1, 0),
+(50, 'PL', 'Informacje MP3', 'Informacje zapisane w MP3', 'images/attributes/mp3.png', 'images/attributes/mp3-no.png', 'images/attributes/mp3-undef.png', 1, 0),
+(50, 'EN', 'Information in MP3 ', 'Information in  MP3 file', 'images/attributes/mp3.png', 'images/attributes/mp3-no.png', 'images/attributes/mp3-undef.png', 1, 0);
 
 --
 -- Zrzut danych tabeli `cache_size`
