@@ -50,9 +50,9 @@ obszar = new GLatLngBounds();
 <div class="content2-pagetitle">&nbsp;<img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="" title=""/>&nbsp;&nbsp;{{route_cache}} <font color="black">{cachename}</font></div>
 <div class="content2-container">
 <br/><p class="content-title-noshade-size1">
-<img src="tpl/stdstyle/images/google_maps/red.png" alt="a" width="12" height="20" title="begin" /> = {{początek podróży}}
+<img src="tpl/stdstyle/images/google_maps/red.png" alt="a" width="12" height="20" title="begin" /> = {{start_point}}
 <img src="tpl/stdstyle/images/google_maps/yellow.png" alt="b" width="12" height="20" title="point" /> = {{trp_points}}
-<img src="tpl/stdstyle/images/google_maps/green.png" alt="c" width="12" height="20" title="end"/> = {{ostatnio widziana}}
+<img src="tpl/stdstyle/images/google_maps/green.png" alt="c" width="12" height="20" title="end"/> = {{recently_seen}}
 </p><bre/><br/>
 <div id="map0" style="width: 780px; height: 500px"></div>
 </div>
