@@ -658,7 +658,7 @@ empty_log_text Log nie powinien być pusty. Napisz parę słów, które mogą by
 route_cache Droga przebyta przez skrzynke
 start_point początek podróży
 trp_points punkty trasys
-ostatnio widziana ostatnio widziana
+recently_seen ostatnio widziana
 
 
 
