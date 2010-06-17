@@ -36,6 +36,7 @@ map0.addControl(new GMapTypeControl());
 map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), 6);
 obszar = new GLatLngBounds(); 
 {route}
+{points}
  
 //   var nowyZoom = map0.getBoundsZoomLevel(obszar);  
 //   var nowyPunkt = obszar.getCenter();  
