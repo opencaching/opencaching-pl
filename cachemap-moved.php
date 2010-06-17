@@ -20,7 +20,7 @@ function getMapType($value)
 
 require_once('./lib/common.inc.php');
 $tplname = 'cachemap-moved';
-tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
+tpl_set_var('bodyMod', ' onload="initialize()" onunload="GUnload()"');
 //tpl_set_var('BodyMod', ' onload="load()" onunload="GUnload()"');
 global $usr;
 global $get_userid;
@@ -29,45 +29,62 @@ global $caches_list;
 global $language;
 global $lang;
 
-$user_id = '';
+$cache_id = '';
 
-$get_userid = $_REQUEST['userid'];
+$get_cacheid = $_REQUEST['cacheid'];
 //user logged in?
 	session_start();
 
 	
 	tpl_set_var('sc', intval($_GET['sc']));
 	
-	if( $get_userid == '')
-		$user_id = -1;
+	if( $get_cacheid == '')
+		$cache_id =0;
 	else 
-		$user_id = $get_userid;
+		$cache_id = $get_cacheid;
 		
-	tpl_set_var('userid', $user_id);
+	tpl_set_var('cacheid', $cache_id);
 
-	$rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$user_id'");
-	$record = mysql_fetch_array($rs);
-	if( ($_REQUEST['lat'] != "" && $_REQUEST['lon'] != ""))
-	{
-		$coordsXY=$_REQUEST['lat'].",".$_REQUEST['lon'];
-		$coordsX=$_REQUEST['lat'];
-		if( $_REQUEST['inputZoom'] != "" )
-			tpl_set_var('zoom', $_REQUEST['inputZoom']);
-		else
-			tpl_set_var('zoom', 11);
-	}
-	else
-	{
-		$coordsXY="$record[latitude],$record[longitude]";
-		$coordsX="$record[latitude]";
-		if ($coordsX=="" || $coordsX==0) 
-		{
-			$coordsXY=$country_coordinates;
-			tpl_set_var('zoom', $default_country_zoom);
+			$rsc = sql("SELECT `cache_moved`.`latitude` `latitude`,
+			                   `cache_moved`.`longitude` `longitude`
+					FROM `cache_moved` 
+					WHERE `cache_moved`.`cache_id`='&1'
+					AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL	
+			         ORDER BY `cache_moved`.`date` ASC
+			            ", $cache_id);
+			 $trasa ="var polyline = new GPolyline([";
+			for ($i = 0; $i < mysql_num_rows($rsc); $i++)
+			{
+				$record = sql_fetch_array($rsc);
+				$y=$record['longitude'];
+				$x=$record['latitude'];
+
+		$trasa .="new GLatLng(" . $x . "," . $y . "),";
 		}
-		else
+
+		 $trasa .="],\"#004080\", 5);\n map0.addOverlay(polyline);\n\n";
+
+$smallestLat = sqlValue("SELECT `cache_moved`.`latitude` `latitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`latitude` ASC LIMIT 1", 0);
+$largestLat = sqlValue("SELECT `cache_moved`.`latitude` `latitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`latitude` DESC LIMIT 1 ", 0);
+$smallestLon = sqlValue("SELECT `cache_moved`.`longitude` `longitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`longitude` ASC LIMIT 1", 0);
+$largestLon = sqlValue("SELECT `cache_moved`.`longitude` `longitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`longitude` DESC LIMIT 1", 0);
+	$mapcenterLat = ($smallestLat + $largestLat)/2;
+	$mapcenterLon = ($smallestLon + $largestLon)/2; 
+
+	tpl_set_var('mapcenterLat', $mapcenterLat);
+	tpl_set_var('mapcenterLon', $mapcenterLon);
+		tpl_set_var('route', $trasa);		
+
+//		$coordsXY="$record[latitude],$record[longitude]";
+//		$coordsX="$record[latitude]";
+//		if ($coordsX=="" || $coordsX==0) 
+//		{
+//			$coordsXY=$country_coordinates;
+//			tpl_set_var('zoom', $default_country_zoom);
+//		}
+//		else
 			tpl_set_var('zoom', 11);
-	}
+//	}
 	
 	
 //	tpl_set_var('doopen', $_REQUEST['cacheid']?"true":"false");
@@ -79,16 +96,10 @@ $get_userid = $_REQUEST['userid'];
 	
 	tpl_set_var('cachemap_mapper', $cachemap_mapper);
 
-//	foreach($filter as $key)
-	/*if( isset( $_POST['submit'] ) )
-	{
-			$makeFilterResult = makeDBFilter();
-			setDBFilter($usr['userid'],$makeFilterResult);
-			$filter = $makeFilterResult;
-	}*/
+
 
 	/*SET YOUR MAP CODE HERE*/
 	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.99&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
-	tpl_BuildTemplate(true, true); 
+	tpl_BuildTemplate(); 
 
 ?>
