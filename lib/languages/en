@@ -613,6 +613,10 @@ temporarily_unavailable Geocache will be temporarily unavailable.
 blocked_by_octeam Geocache blocked by OC Team.
 empty_coordinatest Please add new coordinates for moved mobile cache. 
 empty_log_text Log did not empty. Please write short note.
+route_cache Route of cache
+start_point start point
+trp_points trip points
+recently_seen recently seen 
 
 
 
