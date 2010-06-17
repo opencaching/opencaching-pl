@@ -657,7 +657,7 @@ empty_coordinatest Należy podać nowe współrzędne dla skrzynki przeniesionej
 empty_log_text Log nie powinien być pusty. Napisz parę słów, które mogą być cenna informacją dla właściciela skrzynki.
 route_cache Droga przebyta przez skrzynke
 start_point początek podróży
-trp_points punkty trasys
+trp_points punkty trasy
 recently_seen ostatnio widziana
 
 
