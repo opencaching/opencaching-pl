@@ -233,10 +233,10 @@ function process_owner_log($user_id, $log_id)
 	switch( $rLog['type'] )
 	{
 		case '1':
-			$logtype = "znaleziena";
+			$logtype = "znaleziona";
 		break;
 		case '2':
-			$logtype = "nie znaleziena";
+			$logtype = "nie znaleziona";
 		break;
 		case '3':
 			$logtype = "komentarz";
@@ -300,10 +300,10 @@ function process_log_watch($user_id, $log_id)
 	switch( $rLog['type'] )
 	{
 		case '1':
-			$logtype = "znaleziena";
+			$logtype = "znaleziona";
 		break;
 		case '2':
-			$logtype = "nie znaleziena";
+			$logtype = "nie znaleziona";
 		break;
 		case '3':
 			$logtype = "komentarz";
