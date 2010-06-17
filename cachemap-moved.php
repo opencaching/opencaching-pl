@@ -84,9 +84,9 @@ $get_cacheid = $_REQUEST['cacheid'];
 				$x=$record['latitude'];
 
 			$point .=" var point = new GLatLng(" . $x . "," . $y . ");\n";
-			$icon="icon_yellow";
-			if ($i==0) $icon="icon_red";
-			if ($i==$nrows-1) $icon="icon_green"; 
+			$icon="icon1";
+			if ($i==0) $icon="icon2";
+			if ($i==$nrows-1) $icon="icon3"; 
 			$number=$i+1;
 			$point .="var marker".$number." = new GMarker(point,".$icon."); map0.addOverlay(marker".$number.");\n\n";
 			}
