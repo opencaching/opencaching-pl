@@ -64,28 +64,51 @@ $get_cacheid = $_REQUEST['cacheid'];
 
 		 $trasa .="],\"#004080\", 5);\n map0.addOverlay(polyline);\n\n";
 
-$smallestLat = sqlValue("SELECT `cache_moved`.`latitude` `latitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`latitude` ASC LIMIT 1", 0);
-$largestLat = sqlValue("SELECT `cache_moved`.`latitude` `latitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`latitude` DESC LIMIT 1 ", 0);
-$smallestLon = sqlValue("SELECT `cache_moved`.`longitude` `longitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`longitude` ASC LIMIT 1", 0);
-$largestLon = sqlValue("SELECT `cache_moved`.`longitude` `longitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`longitude` DESC LIMIT 1", 0);
+		tpl_set_var('route', $trasa);		
+
+			$rscp = sql("SELECT `cache_moved`.`latitude` `latitude`,
+			                   `cache_moved`.`longitude` `longitude`
+					FROM `cache_moved` 
+					WHERE `cache_moved`.`cache_id`='&1'
+					AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL	
+			         ORDER BY `cache_moved`.`date` ASC
+			            ", $cache_id);
+			$point="";
+			$nrows=mysql_num_rows($rscp);
+			for ($i = 0; $i < mysql_num_rows($rscp); $i++)
+			{
+				$record = sql_fetch_array($rscp);
+				$y=$record['longitude'];
+				$x=$record['latitude'];
+
+			$point .=" var point = new GLatLng(" . $x . "," . $y . ");\n";
+			$icon="icon";
+			if ($i==0) $icon="icon3";
+			if ($i==$nrows-1) $icon="icon2"; 
+			$number=$i+1;
+			$point .="var marker".$number." = new GMarker(point,".$icon."); map0.addOverlay(marker".$number.");\n\n";
+			}
+
+		tpl_set_var('points', $point);	
+
+// var punkt = new GLatLng(52.30180,17.04562);  
+// var marker1 = new GMarker(punkt, icon3);
+//      map0.addOverlay(marker1);
+
+
+	$smallestLat = sqlValue("SELECT `cache_moved`.`latitude` `latitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`latitude` ASC LIMIT 1", 0);
+	$largestLat = sqlValue("SELECT `cache_moved`.`latitude` `latitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`latitude` DESC LIMIT 1 ", 0);
+	$smallestLon = sqlValue("SELECT `cache_moved`.`longitude` `longitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`longitude` ASC LIMIT 1", 0);
+	$largestLon = sqlValue("SELECT `cache_moved`.`longitude` `longitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`longitude` DESC LIMIT 1", 0);
 	$mapcenterLat = ($smallestLat + $largestLat)/2;
 	$mapcenterLon = ($smallestLon + $largestLon)/2; 
 
 	tpl_set_var('mapcenterLat', $mapcenterLat);
 	tpl_set_var('mapcenterLon', $mapcenterLon);
-		tpl_set_var('route', $trasa);		
 
-//		$coordsXY="$record[latitude],$record[longitude]";
-//		$coordsX="$record[latitude]";
-//		if ($coordsX=="" || $coordsX==0) 
-//		{
-//			$coordsXY=$country_coordinates;
-//			tpl_set_var('zoom', $default_country_zoom);
-//		}
-//		else
+
 			tpl_set_var('zoom', 11);
-//	}
-	
+
 	
 //	tpl_set_var('doopen', $_REQUEST['cacheid']?"true":"false");
 	tpl_set_var('doopen', "false");
