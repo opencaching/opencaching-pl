@@ -52,7 +52,7 @@ $get_cacheid = $_REQUEST['cacheid'];
 					FROM `cache_moved` 
 					WHERE `cache_moved`.`cache_id`='&1'
 					AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL	
-			         ORDER BY `cache_moved`.`date` ASC
+			         ORDER BY `cache_moved`.`date` DESC
 			            ", $cache_id);
 			 $trasa ="var polyline = new GPolyline([";
 			for ($i = 0; $i < mysql_num_rows($rsc); $i++)
@@ -73,7 +73,7 @@ $get_cacheid = $_REQUEST['cacheid'];
 					FROM `cache_moved` 
 					WHERE `cache_moved`.`cache_id`='&1'
 					AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL	
-			         ORDER BY `cache_moved`.`date` ASC
+			         ORDER BY `cache_moved`.`date` DESC
 			            ", $cache_id);
 			$point="";
 			$nrows=mysql_num_rows($rscp);
