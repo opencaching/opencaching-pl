@@ -71,6 +71,16 @@ var maAttributes = new Array({jsattributes_array});
 
 function _chkVirtual () 
 {
+	// disable password for traditional cache
+	if(document.newcacheform.type.value == "2")
+	{
+		document.newcacheform.log_pw.disabled = true;
+	}
+	else
+	{
+		document.newcacheform.log_pw.disabled = false;
+	}
+	
   if (document.newcacheform.type.value == "4" || document.newcacheform.type.value == "5" || document.newcacheform.type.value == "6" ) 
 	{
 		if( document.newcacheform.size.options[document.newcacheform.size.options.length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
@@ -143,7 +153,7 @@ function nearbycache()
 		var lon_h = document.forms['newcacheform'].lon_h.value;
 		var lon_min = document.forms['newcacheform'].lon_min.value;
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
-		alert("Prosze wprowadziv poprawne wspolrzedne punktu"); 
+		alert("Proszę wprowadzić poprawne współrzędne punktu"); 
 			} else {
 	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=0&distance=0.15&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
 	}
@@ -162,7 +172,7 @@ function nearbycachemapOC()
 		var lon ;
 		lon=(lon_h*1)+(lon_min/60);
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
-		alert("Prosze wprowadzic poprawne wspolrzedne punktu"); 
+		alert("Proszę wprowadzić poprawne współrzędne punktu"); 
 			} else {
 		window.open('http://www.opencaching.pl/cachemap3.php?inputZoom=17&lat=' + lat + '&lon=' + lon);}
 	return false;
@@ -417,7 +427,7 @@ function nearbycachemapOC()
 		<td colspan="2"><br />	
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
 		<legend>&nbsp; <strong>{{log_password}}</strong> &nbsp;</legend>
-		<input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})
+		<input class="input100" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})
 		</fieldset>
 		</td>
 	</tr>

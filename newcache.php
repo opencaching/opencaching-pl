@@ -78,7 +78,7 @@
 				$errors = false; // set if there was any errors
 
 				$rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
-										AND status <> 4 AND status <> 5 AND status <> 6");
+										AND status = 1");
 				$record = sql_fetch_array($rsnc);
 				$num_caches = $record['num_caches'];
 
@@ -354,8 +354,8 @@
 				}
 				tpl_set_var('activation_hours', $activation_hours);
 
-				//log-password
-				$log_pw = isset($_POST['log_pw']) ? mb_substr($_POST['log_pw'], 0, 20) : '';
+				//log-password (no password for traditional caches)
+				$log_pw = (isset($_POST['log_pw']) && $sel_type != 2) ? mb_substr($_POST['log_pw'], 0, 20) : '';
 				tpl_set_var('log_pw', htmlspecialchars($log_pw, ENT_COMPAT, 'UTF-8'));
 
 				// gc- and nc-waypoints

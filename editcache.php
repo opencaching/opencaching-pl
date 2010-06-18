@@ -41,7 +41,7 @@
 		}
 		else
 		{
-			$cache_rs = sql("SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`, `desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc`,`node` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+			$cache_rs = sql("SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `date_created`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`, `desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc`,`node` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
 			if (mysql_num_rows($cache_rs) == 1)
 			{
 				$cache_record = sql_fetch_array($cache_rs);
@@ -161,8 +161,17 @@
 							}
 						}
 					}
-
-					$log_pw = isset($_POST['log_pw']) ? mb_substr($_POST['log_pw'], 0, 20) : $cache_record['logpw'];
+					
+					// if cache has been placed after 18.06.2010, do not allow passwords in traditional caches.
+					$allow_pw = ($cache_type == 2 && 1276884198 < (strtotime($cache_record['date_created'])))?0:1;
+					if( $allow_pw )
+					{
+						$log_pw = isset($_POST['log_pw']) ? mb_substr($_POST['log_pw'], 0, 20) : $cache_record['logpw'];
+					}
+					else
+					{
+						$log_pw = "";
+					}
 					$wp_gc = isset($_POST['wp_gc']) ? $_POST['wp_gc'] : $cache_record['wp_gc'];
 					$wp_nc = isset($_POST['wp_nc']) ? $_POST['wp_nc'] : $cache_record['wp_nc'];
 

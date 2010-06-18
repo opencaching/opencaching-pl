@@ -293,7 +293,7 @@ function toggleAttr(id)
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td><p class="content-title-noshade">{{log_password}}:</p></td>
-		<td><input class="input100" type="text" name="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})</td>
+		<td><input class="input100" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})</td>
 	</tr>
 	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{please_read}}</div></td></tr>
 	<tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /></div></td></tr>
