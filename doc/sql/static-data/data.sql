@@ -397,7 +397,8 @@ INSERT INTO `log_types` (`id`, `cache_status`, `permission`, `pl`, `en`, `icon_s
 (10, 0, 'C', 'Gotowa do szukania', 'Ready to search', 'log/16x16-published.png'),
 (11, 0, 'C', 'Niedostępna czasowo', 'Temporarily unavailable', 'log/16x16-stop.png'),
 (12, 0, 'C', 'Komentarz COG', 'OC Team comment', 'log/16x16-octeam.png'),
-(9, 0, 'C', 'Zarchiwizowana', 'Archived', 'log/16x16-trash.png');
+(9, 0, 'C', 'Zarchiwizowana', 'Archived', 'log/16x16-trash.png'),
+(6, 0, 'C', 'Potrzebna archiwizacja', 'Needs archive', 'log/16x16-need-archive.png');
 
 
 
