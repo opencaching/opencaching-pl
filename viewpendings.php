@@ -92,7 +92,7 @@ global $bgcolor1, $bgcolor2;
 		// activate the cache by changing its status to yet unavailable
 		if( actionRequired($cacheid) )
 		{
-			$sql = "UPDATE caches SET status = 3 WHERE cache_id='".sql_escape(intval($cacheid))."'";
+			$sql = "UPDATE caches SET status = 6 WHERE cache_id='".sql_escape(intval($cacheid))."'";
 			if( mysql_query($sql) )
 			{
 				sql("UPDATE sysconfig SET value = value - 1 WHERE name = 'hidden_for_approval'");
@@ -145,8 +145,8 @@ global $bgcolor1, $bgcolor2;
 		$email_content = mb_ereg_replace('%cachename%', $cachename, $email_content);
 		$email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);	
 		$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-		$email_headers .= "From: Opencaching.pl <rr@opencaching.pl>\r\n";
-		$email_headers .= "Reply-To: rr@opencaching.pl\r\n";
+		$email_headers .= "From: Opencaching.pl <cog@opencaching.pl>\r\n";
+		$email_headers .= "Reply-To: cog@opencaching.pl\r\n";
 		
 		$query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $user_id);
 		$owner_email = sql_fetch_array($query);
@@ -231,8 +231,8 @@ global $bgcolor1, $bgcolor2;
 					else if( $_GET['action'] == 2 )
 					{
 						// require confirmation
-						$confirm = "<p>Zamierzasz <b>odrzucić</b> skrzynkę \"<a href='viewcache.php?cacheid=".$_GET['cacheid']."'>".getCachename($_GET['cacheid'])."</a>\" użytkownika ".getCacheOwnername($_GET['cacheid']).". Status skrzynki zostanie zmieniony na \"Zarchiwizowana\".</p>";
-						$confirm .= "<p><a href='viewpendings.php?cacheid=".$_GET['cacheid']."&amp;confirm=2'>Potwierdzam archiwizację</a> | 
+						$confirm = "<p>Zamierzasz <b>odrzucić</b> skrzynkę \"<a href='viewcache.php?cacheid=".$_GET['cacheid']."'>".getCachename($_GET['cacheid'])."</a>\" użytkownika ".getCacheOwnername($_GET['cacheid']).". Status skrzynki zostanie zmieniony na \"Zablokowana przez COG\".</p>";
+						$confirm .= "<p><a href='viewpendings.php?cacheid=".$_GET['cacheid']."&amp;confirm=2'>Potwierdzam blokade</a> | 
 						<a href='viewpendings.php'>Powrót</a></p>";
 					}
 					tpl_set_var('confirm', $confirm);
@@ -273,7 +273,7 @@ global $bgcolor1, $bgcolor2;
 			$content .= "<td class='".$bgcolor."'>".$report['date_created']."</td>\n";
 			$content .= "<td class='".$bgcolor."'><a class=\"links\" href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>\n";
 			$content .= "<td class='".$bgcolor."'><img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=".$report['cache_id']."&amp;action=1'>Zaakceptuj</a><br/>
-			<img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=".$report['cache_id']."&amp;action=2'>Zarchiwizuj</a><br/>
+			<img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=".$report['cache_id']."&amp;action=2'>Zablokuj</a><br/>
 			<img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=".$report['cache_id']."&amp;assign=".$usr['userid']."'>Przypisz siebie do zgłoszenia</a></td>\n";
 			$content .= "<td class='".$bgcolor."'><a class=\"links\" href='viewprofile.php?userid=".$assignedUserId."'>".getUsername($assignedUserId)."</a><br/></td>";
 			$content .= "</tr>\n";
