@@ -550,7 +550,6 @@
 							$logtypeoptions .= '<option value="4">Przeniesiona</option>' . "\n";}
 							$logtypeoptions .= '<option value="3">Komentarz</option>' . "\n";
 							$logtypeoptions .= '<option value="5">Potrzebny serwis</option>' . "\n";
-							$logtypeoptions .= '<option value="6">Wskazana archiwizacja</option>' . "\n";
 							if ($usr['admin']==true){$logtypeoptions .= '<option value="12">Komentarz COG</option>' . "\n";}
 							break;
 						}
@@ -560,9 +559,9 @@
 						if($cache_type == 6)
 						{
 							if ($usr['admin']){
-							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5 || $type['id'] == 6 || $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11)
+							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11)
 							{continue;}} else{
-							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5 || $type['id'] == 6 || $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12)
+							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12)
 							{continue;}}							
 						}
 						else
