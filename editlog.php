@@ -447,7 +447,7 @@
 					foreach ($log_types AS $type)
 					{
 						// skip if permission=O and not owner
-						if($type['permission'] == 'O' && ($log_record['user_id'] != $cache_user_id || $user['admin']==false))
+						if($type['permission'] == 'O' && ($log_record['user_id'] != $cache_user_id || $usr['admin']==false))
 							continue;
 						
 						if( $log_record['logtype'] != $type['id'] && $log_record['cachestatus'] != 1 )
