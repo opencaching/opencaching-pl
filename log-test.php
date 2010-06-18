@@ -739,6 +739,7 @@
 					tpl_set_var('lat_message', ($lat_not_ok == true) ? $error_coords_not_ok : '');
 					tpl_set_var('coord_empty_message', ($coord_empty == true) ? $coord__emty_message : '');
 					tpl_set_var('log_empty_message', ($log_empty == true) ? $logtext_empty_message : '');
+					tpl_set_var('bodyMod', ' onload="chkMoved()" onunload="GUnload()"');
 
 					// Text / normal HTML / HTML editor
 					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));

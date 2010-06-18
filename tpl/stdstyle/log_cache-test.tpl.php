@@ -8,6 +8,16 @@
 	*   (at your option) any later version.
 	*
 	*  UTF8 remaider śąłó
+	
+<script>
+    window.onload = function chkMoved()
+    {
+         	var el;
+	el='coord_table';
+	if (document.logform.logtype.value == "4") 		
+	document.getElementById(el).style.display='block';
+    }
+</script>
 	***************************************************************************/
 
 
@@ -68,13 +78,7 @@ function _chkFound () {
   return false;
 }
 
-function chkMoved{
-	var el;
-	el='coord_table';
-	if (document.logform.logtype.value == "4") 		
-	document.getElementById(el).style.display='block';
-	  return false;
-}
+
 
 function toogleLayer( whichLayer, val )
 {
@@ -98,22 +102,31 @@ function toogleLayer( whichLayer, val )
 	else
 		vis.display = val;
 
-	var el;
-	el='coord_table';
-	if (document.logform.logtype.value == "4") 		
-	document.getElementById(el).style.display='block';
+chkMoved();
 
 
 	//if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
 	//	vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
 	//vis.display = (vis.display==''||vis.display=='block')?'none':'block';
 }
+
+function chkMoved()
+    {
+         	var el;
+	el='coord_table';
+	if (document.logform.logtype.value == "4") 		
+	{document.getElementById(el).style.display='block';
+    } else {document.getElementById(el).style.display='none';
+    }
+
+	}
 function showHide(id){
    el = document.getElementById(id);
    el.style.display = (el.style.display != 'block')? 'block' : 'none';
 } 
 //-->
 </script>
+
 <form action="log-test.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" dir="ltr" onsubmit="disable()">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="version2" value="1"/>
@@ -135,7 +148,7 @@ function showHide(id){
 	<tr>
 		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
 		<td>
-			<select name="logtype" onChange="toogleLayer('ocena');">
+			<select name="logtype" onLoad="javascript:toogleLayer('ocena');" onChange="javascript:toogleLayer('ocena');">
 				{logtypeoptions}
 			</select>
 		</td>
@@ -165,7 +178,6 @@ function showHide(id){
 </table>
 </div>	
 {coordinates_start}
-<div onLoad="chkMoved();">
 <table width="95%" id="coord_table" class="content" style="font-size: 12px; line-height: 1.6em;display:none;">
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
@@ -193,7 +205,7 @@ function showHide(id){
 	<tr><td colspan="2"><div class="notice" id="viewcache-attributesend" style="width:600px;">Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu.</div>
 	</td></tr>
 </table>
-</div>
+
 {coordinates_end}
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
