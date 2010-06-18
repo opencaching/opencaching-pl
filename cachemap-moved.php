@@ -54,7 +54,9 @@ $get_cacheid = $_REQUEST['cacheid'];
 					AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL	
 			         ORDER BY `cache_moved`.`date` ASC
 			            ", $cache_id);
+
 			 $trasa ="var polyline = new GPolyline([";
+			 $latlongl ="var latlongl = [";
 			for ($i = 0; $i < mysql_num_rows($rsc); $i++)
 			{
 				$record = sql_fetch_array($rsc);
@@ -62,10 +64,11 @@ $get_cacheid = $_REQUEST['cacheid'];
 				$x=$record['latitude'];
 
 		$trasa .="new GLatLng(" . $x . "," . $y . "),";
+		$latlongl .="new GLatLng(" . $x . "," . $y . "),";
 		}
-
+		 $latlongl .="];\n\n";
 		 $trasa .="],\"#004080\", 5);\n map0.addOverlay(polyline);\n\n";
-
+		tpl_set_var('latlongl', $latlongl);
 		tpl_set_var('route', $trasa);		
 
 			$rscp = sql("SELECT `cache_moved`.`latitude` `latitude`,
@@ -90,7 +93,7 @@ $get_cacheid = $_REQUEST['cacheid'];
 			$number=$i+1;
 			$point .="var marker".$number." = new GMarker(point,".$icon."); map0.addOverlay(marker".$number.");\n\n";
 			}
-		tpl_set_var('latlongl', $latlongl);
+
 		tpl_set_var('points', $point);	
 
 
