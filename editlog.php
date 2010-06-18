@@ -447,7 +447,7 @@
 					foreach ($log_types AS $type)
 					{
 						// skip if permission=O and not owner
-						if($type['permission'] == 'O' && $log_record['user_id'] != $cache_user_id)
+						if($type['permission'] == 'O' && ($log_record['user_id'] != $cache_user_id || $user['admin']==false))
 							continue;
 						
 						if( $log_record['logtype'] != $type['id'] && $log_record['cachestatus'] != 1 )
@@ -457,7 +457,7 @@
 						{
 						if ($usr['admin']){
 							// skip found/notfound if the cache is an event or user has already found this cache or it is not ready to search
-							if($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 )
+							if($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10 )
 							{continue;}} else {
 							if($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
 							{continue;}}							
@@ -483,7 +483,7 @@
 							}else{							
 							// skip will attend/attended/Moved  if the cache no event and Mobile
 							if ($usr['admin']) {
-							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 )
+							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10 )
 							{ continue;}} else {
 							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
 							{ continue;}}												
