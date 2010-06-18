@@ -50,16 +50,23 @@
 			if(!$uuid)
 				$message = $message_picture_not_found;
 
+		$owner=sqlValue("SELECT `pictures`.`user_id`,`caches`.`cache_id` FROM `pictures`, `caches` WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`uuid`='$uuid' LIMIT 1", 0);
+			
+		if ($usr['admin'] || $owner==$usr['userid']){
 			if(!$message)
 			{
+			
+
+
 				// read from databese and check owner
 				if(!$resp = sql("SELECT `pictures`.`spoiler`, `pictures`.`display`, `pictures`.`title`, `pictures`.`object_id`, `pictures`.`object_type`, `caches`.`name`, `caches`.`cache_id` FROM `pictures`, `caches` 
-				                  WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`uuid`='&1' AND `pictures`.`user_id`='&2' LIMIT 1", $uuid, $usr['userid']))
+				                  WHERE `caches`.`cache_id`=`pictures`.`object_id` AND `pictures`.`uuid`='&1' AND `pictures`.`user_id`='&2' LIMIT 1", $uuid, $owner))
 					$message = $message_title_internal;
 				else
 				{
 					if (!$row = sql_fetch_array($resp))
 						$message = $message_picture_not_found;
+					}
 				}
 
 				if(isset($_POST['submit']))
