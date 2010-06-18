@@ -33,14 +33,16 @@ var map0 = new GMap2(document.getElementById("map0"));
 map0.addControl(new GSmallMapControl());
 map0.addControl(new GMapTypeControl());
 
+map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), 6);
+
 {latlongl}
 // map0.setCenter(new GLatLng(0,0),0);
 // var bounds = new GLatLngBounds();
-//bounds.extend(latlng);
+//bounds.extend(latlngl);
 //map0.setZoom(map0.getBoundsZoomLevel(bounds));
 // map0.setCenter(bounds.getCenter());
 
-map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), 6);
+
 
 {route}
 {points}
