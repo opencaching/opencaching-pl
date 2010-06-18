@@ -68,6 +68,14 @@ function _chkFound () {
   return false;
 }
 
+function chkMoved{
+	var el;
+	el='coord_table';
+	if (document.logform.logtype.value == "4") 		
+	document.getElementById(el).style.display='block';
+	  return false;
+}
+
 function toogleLayer( whichLayer, val )
 {
 	var elem, vis;
@@ -127,7 +135,7 @@ function showHide(id){
 	<tr>
 		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
 		<td>
-			<select onLoad="javascript:toogleLayer('ocena');" name="logtype" onChange="toogleLayer('ocena');">
+			<select name="logtype" onChange="toogleLayer('ocena');">
 				{logtypeoptions}
 			</select>
 		</td>
@@ -157,6 +165,7 @@ function showHide(id){
 </table>
 </div>	
 {coordinates_start}
+<div onLoad="chkMoved();">
 <table width="95%" id="coord_table" class="content" style="font-size: 12px; line-height: 1.6em;display:none;">
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
@@ -184,6 +193,7 @@ function showHide(id){
 	<tr><td colspan="2"><div class="notice" id="viewcache-attributesend" style="width:600px;">Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu.</div>
 	</td></tr>
 </table>
+</div>
 {coordinates_end}
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
