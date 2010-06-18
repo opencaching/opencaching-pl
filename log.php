@@ -416,35 +416,6 @@
 										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid);
 
 
-					// if log type Needs archive cache send report porblem to OC Team
-					if ( $log_type==6 ){
-					// get email sender
-					$query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-					$cache_reporter = sql_fetch_array($query);
-						// zstore problem in DB
-						$sql = "INSERT INTO reports (user_id, cache_id, text, type) VALUES ('".sql_escape($usr['userid'])."', '".sql_escape($record['cache_id'])."', '".strip_tags($log_text)."', 2)";
-						@mysql_query($sql) or die("DB error");
-						// wysłanie powiadomień
-						$email_content = read_file($stylepath . '/email/newreport_octeam.email');
-
-						$email_content = mb_ereg_replace('%date%', date("Y-m-d H:i:s"), $email_content);
-						$email_content = mb_ereg_replace('%submitter%', $usr['username'], $email_content);		
-						$email_content = mb_ereg_replace('%cachename%', $record['name'], $email_content);
-						$email_content = mb_ereg_replace('%cache_wp%', $record['wp_oc'], $email_content);
-						$email_content = mb_ereg_replace('%cacheid%', $record['cache_id'], $email_content);		
-						$email_content = mb_ereg_replace('%reason%', "Wskazana archiwizacja skrzynki", $email_content);		
-						$email_content = mb_ereg_replace('%text%', strip_tags(addslashes($log_text)), $email_content);		
-						// send email to OC Team
-						
-						$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
-						$emailheaders .= "From: Opencaching.pl <".$cache_reporter['email'].">\r\n";
-						$emailheaders .= "Reply-To: Opencaching.pl <".$cache_reporter['email'].">";
-						
-						mb_send_mail("cog@opencaching.pl", "Nowe zgłoszenie problemu na OC PL (".$cache['wp_oc'].")", $email_content, $emailheaders);
-
-							
-							}
-
 
 						//inc cache stat and "last found"
 						$rs = sql("SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
