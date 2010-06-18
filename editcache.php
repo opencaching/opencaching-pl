@@ -170,7 +170,7 @@
 					}
 					else
 					{
-						$log_pw = "";
+						$log_pw = ""; 
 					}
 					$wp_gc = isset($_POST['wp_gc']) ? $_POST['wp_gc'] : $cache_record['wp_gc'];
 					$wp_nc = isset($_POST['wp_nc']) ? $_POST['wp_nc'] : $cache_record['wp_nc'];
