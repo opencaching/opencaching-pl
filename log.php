@@ -72,7 +72,7 @@
 			if ($cache_id != 0)
 			{
 				//get cachename
-				$rs = sql("SELECT `name`, `user_id`, `logpw`, `wp_gc`, `wp_nc`, `type`, `status` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+				$rs = sql("SELECT `name`, `cache_id`, `user_id`, `logpw`, `wp_oc`,`wp_gc`, `wp_nc`, `type`, `status` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
 
 				if (mysql_num_rows($rs) == 0)
 				{
@@ -415,6 +415,37 @@
 										 VALUES ('', '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW(), NOW(), '&8', '&9')",
 										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid);
 
+
+					// if log type Needs archive cache send report porblem to OC Team
+					if ( $log_type==6 ){
+					// get email sender
+					$query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
+					$cache_reporter = sql_fetch_array($query);
+						// zstore problem in DB
+						$sql = "INSERT INTO reports (user_id, cache_id, text, type) VALUES ('".sql_escape($usr['userid'])."', '".sql_escape($record['cache_id'])."', '".strip_tags($log_text)."', 2)";
+						@mysql_query($sql) or die("DB error");
+						// wysłanie powiadomień
+						$email_content = read_file($stylepath . '/email/newreport_octeam.email');
+
+						$email_content = mb_ereg_replace('%date%', date("Y-m-d H:i:s"), $email_content);
+						$email_content = mb_ereg_replace('%submitter%', $usr['username'], $email_content);		
+						$email_content = mb_ereg_replace('%cachename%', $record['name'], $email_content);
+						$email_content = mb_ereg_replace('%cache_wp%', $record['wp_oc'], $email_content);
+						$email_content = mb_ereg_replace('%cacheid%', $record['cache_id'], $email_content);		
+						$email_content = mb_ereg_replace('%reason%', "Wskazana archiwizacja skrzynki", $email_content);		
+						$email_content = mb_ereg_replace('%text%', strip_tags(addslashes($log_text)), $email_content);		
+						// send email to OC Team
+						
+						$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
+						$emailheaders .= "From: Opencaching.pl <".$cache_reporter['email'].">\r\n";
+						$emailheaders .= "Reply-To: Opencaching.pl <".$cache_reporter['email'].">";
+						
+						mb_send_mail("cog@opencaching.pl", "Nowe zgłoszenie problemu na OC PL (".$cache['wp_oc'].")", $email_content, $emailheaders);
+
+							
+							}
+
+
 						//inc cache stat and "last found"
 						$rs = sql("SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
 						$record = sql_fetch_array($rs);
@@ -519,6 +550,7 @@
 							$logtypeoptions .= '<option value="4">Przeniesiona</option>' . "\n";}
 							$logtypeoptions .= '<option value="3">Komentarz</option>' . "\n";
 							$logtypeoptions .= '<option value="5">Potrzebny serwis</option>' . "\n";
+							$logtypeoptions .= '<option value="6">Wskazana archiwizacja</option>' . "\n";
 							if ($usr['admin']==true){$logtypeoptions .= '<option value="12">Komentarz COG</option>' . "\n";}
 							break;
 						}
@@ -528,9 +560,9 @@
 						if($cache_type == 6)
 						{
 							if ($usr['admin']){
-							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11)
+							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5 || $type['id'] == 6 || $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11)
 							{continue;}} else{
-							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12|| $type['id'] == 12)
+							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5 || $type['id'] == 6 || $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12)
 							{continue;}}							
 						}
 						else
@@ -541,14 +573,14 @@
 							// skip will attend/attended if the cache no event
 							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 )
 							{continue;}} else {
-							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12 || $type['id'] == 13)
+							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
 							{continue;}}							
 							}else{							
 							// skip will attend/attended/Moved  if the cache no event and Mobile
 							if ($usr['admin']) {
 							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11)
 							{ continue;}} else {
-							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12|| $type['id'] == 13)
+							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
 							{ continue;}}												
 							}
 
