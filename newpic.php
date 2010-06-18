@@ -79,7 +79,7 @@
 						{
 						  $r = sql_fetch_array($rs);
 
-						  if ($r['user_id'] != $usr['userid'])
+						  if ($r['user_id'] != $usr['userid'] && $usr['admin']==false )
 								$allok = false;
 								
 							$cacheid = $r['cache_id'];
@@ -112,7 +112,7 @@
 								tpl_set_var('cacheid', $r['cache_id']);
 								tpl_set_var('pictypedesc', $pictypedesc_cache);
 
-						  	if ($r['user_id'] != $usr['userid'])
+						  	if ($r['user_id'] != $usr['userid'] && $usr['admin']==false)
 									$allok = false;
 						}
 
