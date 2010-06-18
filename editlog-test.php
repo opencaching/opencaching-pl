@@ -682,6 +682,9 @@
 					tpl_set_var('lon_min', htmlspecialchars($coords_lon_min, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('lon_message', ($lon_not_ok == true) ? $error_coords_not_ok : '');
 					tpl_set_var('lat_message', ($lat_not_ok == true) ? $error_coords_not_ok : '');
+					tpl_set_var('coord_empty_message', ($coord_empty == true) ? $coord_empty_message : '');
+					tpl_set_var('log_empty_message', ($log_empty == true) ? $logtext_empty_message : '');
+					tpl_set_var('bodyMod', ' onload="chkMoved()" onunload="GUnload()"');
 					
 					if($lon_not_ok || $lat_not_ok || $descwp_not_ok)
 						tpl_set_var('general_message', $error_general);

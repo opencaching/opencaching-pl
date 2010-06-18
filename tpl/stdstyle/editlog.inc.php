@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-											./tpl/stdstyle/editlog.inc.php
-															-------------------
-		begin                : Mon July 5 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -26,6 +18,8 @@
  ****************************************************************************/
 
 	$submit = 'Wyslij';
+ $coord_empty_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">'.tr('empty_coordinatest').'</span>';
+ $logtext_empty_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">'.tr('empty_log_text').'</span>';
 
  	$error_wrong_node = "Ten wpis do logu został dostarczony przez inny Opencaching serwer i można go edytować tylko na tym serwerze.";
 
