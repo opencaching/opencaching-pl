@@ -113,6 +113,7 @@ vertical-align: middle;">{type}</td><td align="left" valign="middle"><b><span st
  $rating_stat_show_plural = '<img src="images/rating-star.png" alt="{{recommendation}}" /> {ratings} '.tr('recommendations').'<br />';
 
 $found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}" />';
+$moved_icon = '<img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="moved" />';
 $notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />';
 $note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{comment}}" />';
 $notes_icon = '<img src="tpl/stdstyle/images/free_icons/note_edit.png" class="icon16" alt="" />';

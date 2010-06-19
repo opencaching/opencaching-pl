@@ -391,7 +391,9 @@
 
 			// cache type Mobile add calculate distance
 			if ($cache_record['type']==8){
-			
+			tpl_set_var('moved_icon', $moved_icon);
+			$moved =  sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND cache_id='" . sql_escape($_REQUEST['cacheid']) . "'", 0);			
+			tpl_set_var('moved', $moved);			
 			$rsc = sql("SELECT `cache_moved`.`latitude` `latitude`,
 			                   `cache_moved`.`longitude` `longitude`
 					FROM `cache_moved` 
