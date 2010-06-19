@@ -74,7 +74,7 @@
 					$encrypt = (isset($_POST['encrypt']) ? 1 : 0);  				
 					
 					// add xy cooridnates for caches type 8 "moving" to log entry
-				if ( $cache_type == 8  ) {
+				if ( $cache_type == 8 && $log_type==4 ) {
 					tpl_set_var('coordinates_start',"");
 					tpl_set_var('coordinates_end',"");
 					if (isset($_POST['latNS']))
@@ -388,8 +388,8 @@
 							$all_ok = false;
 						}
 					}
-				if (isset($_POST['submitform']))
-				{				
+				if (isset($_POST['submitform']) && $cache_type == 8 && $log_type==4 )
+				{					
 					
 						//get coords from post-form
 						$coords_latNS = $_POST['latNS'];
@@ -452,13 +452,16 @@
 				
 				$coord_empty=false;
 				if ($log_type==4 && $coords_lat_h=="0" && $coords_lat_min=="0.000" && $coords_lon_h=="0" && $coords_lon_min=="0.000"  ) {$coord_empty=true; $all_ok=false;}
-				$log_empty=false;
-				//check for exmpty text
-				if ($log_text==""){$all_ok=false; $log_empty=true;}
 				}
+
+				
 					//store?
 					if (isset($_POST['submitform']) && $date_not_ok == false && $log_empty=false && $logtype_not_ok == false && $pw_not_ok == false && !($lat_not_ok || $lon_not_ok || $coord_empty ))
 					{
+				$log_empty=false;
+				//check for exmpty text
+				if ($log_text==""){$all_ok=false; $log_empty=true;}
+				
 					$coord_existDB = isset($_POST['existDB'])? $_POST['existDB'] :$coord_existDB; 
 //					$add_coord = (isset($_POST['add_coord']) ? 1 : 0); 
 					
