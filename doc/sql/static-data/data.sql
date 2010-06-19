@@ -395,10 +395,9 @@ INSERT INTO `log_types` (`id`, `cache_status`, `permission`, `pl`, `en`, `icon_s
 (5, 0, 'C', 'Potrzebny serwis', 'Needs maintenance', 'log/16x16-need-maintenance.png'),
 (4, 0, 'C', 'Przeniesiona', 'Moved', 'log/16x16-moved.png'),
 (10, 0, 'C', 'Gotowa do szukania', 'Ready to search', 'log/16x16-published.png'),
-(11, 0, 'C', 'Niedostępna czasowo', 'Temporarily unavailable', 'log/16x16-stop.png'),
+(11, 0, 'C', 'Niedostępna czasowo', 'Temporarily unavailable', 'log/16x16-temporary.png'),
 (12, 0, 'C', 'Komentarz COG', 'OC Team comment', 'log/16x16-octeam.png'),
-(9, 0, 'C', 'Zarchiwizowana', 'Archived', 'log/16x16-trash.png'),
-(6, 0, 'C', 'Potrzebna archiwizacja', 'Needs archive', 'log/16x16-need-archive.png');
+(9, 0, 'C', 'Zarchiwizowana', 'Archived', 'log/16x16-trash.png');
 
 
 
@@ -426,7 +425,7 @@ INSERT INTO `log_types_text` (`id`, `log_types_id`, `lang`, `text_combo`, `text_
 (12, 12, 'PL', 'Komentarz COG', 'Komentarz Centrum Obsługi Geocachera'),
 (18, 4, 'EN', 'Moved', 'Cache moved'),
 (19, 5, 'EN', 'Needs maintenance', 'Cache needs maintenance'),
-(20, 9, 'EN', 'Needs archiving', 'Cache needs archiving'),
+(20, 9, 'EN', 'Archived', 'Cache archived'),
 (21, 10, 'EN', 'Published', 'Cache reday to search'),
 (22, 11, 'EN', 'Temporarily unavailable', 'Temporarily unavailable'),
 (23, 12, 'EN', 'OC Team comment', 'OC Team comment');
