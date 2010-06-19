@@ -103,13 +103,9 @@
 						$coords_lat = $recordl['latitude'];
 						$coord_existDB=1;
 						tpl_set_var('existDB',"1");
-						tpl_set_var('is_checked_coord',"checked");
-						tpl_set_var('display',"block");
 						} else { 
 						$coord_existDB=0;
 						tpl_set_var('existDB',"0");						
-						tpl_set_var('is_checked_coord',"");
-						tpl_set_var('display',"none");
 						}
 						
 						if ($coords_lon < 0)
@@ -392,47 +388,115 @@
 							$all_ok = false;
 						}
 					}
+				if (isset($_POST['submitform']))
+				{				
+					
+						//get coords from post-form
+						$coords_latNS = $_POST['latNS'];
+						$coords_lonEW = $_POST['lonEW'];
+						$coords_lat_h = $_POST['lat_h'];
+						$coords_lon_h = $_POST['lon_h'];
+						$coords_lat_min = $_POST['lat_min'];
+						$coords_lon_min = $_POST['lon_min'];
+					
+					//here we validate the data
+
+					//coords
+					$lon_not_ok = false;
+
+					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lon_h))
+					{
+						$lon_not_ok = true;
+						$all_ok = false;
+					}
+					else
+					{
+						$lon_not_ok = (($coords_lon_h >= 0) && ($coords_lon_h < 180)) ? false : true;
+					}
+
+					if (is_numeric($coords_lon_min))
+					{
+						// important: use here |=
+						$lon_not_ok |= (($coords_lon_min >= 0) && ($coords_lon_min < 60)) ? false : true;
+					}
+					else
+					{
+						$lon_not_ok = true;
+						$all_ok = false;
+					}
+
+					//same with lat
+					$lat_not_ok = false;
+
+					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lat_h))
+					{
+						$lat_not_ok = true;
+						$all_ok = false;
+					}
+					else
+					{
+						$lat_not_ok = (($coords_lat_h >= 0) && ($coords_lat_h < 180)) ? false : true;
+					}
+
+					if (is_numeric($coords_lat_min))
+					{
+						// important: use here |=
+						$lat_not_ok |= (($coords_lat_min >= 0) && ($coords_lat_min < 60)) ? false : true;
+					}
+					else
+					{
+						$lat_not_ok = true;
+						$all_ok = false;
+					}
+					
+				
+				$coord_empty=false;
+				if ($log_type==4 && $coords_lat_h=="0" && $coords_lat_min=="0.000" && $coords_lon_h=="0" && $coords_lon_min=="0.000"  ) {$coord_empty=true; $all_ok=false;}
+				$log_empty=false;
+				//check for exmpty text
+				if ($log_text==""){$all_ok=false; $log_empty=true;}
+				}
 					//store?
-					if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false && !($lat_not_ok || $lon_not_ok))
+					if (isset($_POST['submitform']) && $date_not_ok == false && $log_empty=false && $logtype_not_ok == false && $pw_not_ok == false && !($lat_not_ok || $lon_not_ok || $coord_empty ))
 					{
 					$coord_existDB = isset($_POST['existDB'])? $_POST['existDB'] :$coord_existDB; 
-					$add_coord = (isset($_POST['add_coord']) ? 1 : 0); 
+//					$add_coord = (isset($_POST['add_coord']) ? 1 : 0); 
 					
 					// DELETE XY coord
-					if ($add_coord==0 && $coord_existDB==1) 
-					{
+//					if ($log_type==4  && $coord_existDB==1) 
+//					{
 					// get previous coordinates
-					$rsc = sql("SELECT `id` , `longitude` , `latitude`
-						FROM `cache_moved`
-						WHERE `cache_id` ='&1'
-						ORDER BY `date` DESC
-						LIMIT 1 ,1", $log_record['cache_id']);
-					if (mysql_num_rows($rsc) !=0)
-					{
-					$recordll = sql_fetch_array($rsc);				
+//					$rsc = sql("SELECT `id` , `longitude` , `latitude`
+//						FROM `cache_moved`
+//						WHERE `cache_id` ='&1'
+//						ORDER BY `date` DESC
+//						LIMIT 1 ,1", $log_record['cache_id']);
+//					if (mysql_num_rows($rsc) !=0)
+//					{
+//					$recordll = sql_fetch_array($rsc);				
 					// update caches coordinates
-//					sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'", $recordll['longitude'],$recordll['latitude'], $cache_id);							
-					sql("DELETE FROM `cache_moved` WHERE `cache_moved`.`log_id`='&1' LIMIT 1", $log_id);							
-					}}
+//					sql("UPDATEa `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'", $recordll['longitude'],$recordll['latitude'], $cache_id);							
+//					sql("DELETE FROM `cache_moved` WHERE `cache_moved`.`log_id`='&1' LIMIT 1", $log_id);							
+//					}}
 					// Update XY coord
-					if ($add_coord==1 && $coord_existDB==1) 
+					if ($log_type==4  && $coord_existDB==1) 
 					{	$lat = $coords_lat_h + $coords_lat_min / 60;
 						if ($coords_latNS == 'S') $lat = -$lat;
 						$lon = $coords_lon_h + $coords_lon_min / 60;
 						if ($coords_lonEW == 'W') $lon = -$lon;
 						// update caches coordinates
-//						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);							
+						sql("UPDATEb `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);							
 						sql("UPDATE `cache_moved` SET `longitude`='&1', `latitude`='&2' WHERE `log_id`='&3'",  $lon, $lat, $log_id);							
 						} 
 
 					// ADD XY coord
-					if ($add_coord==1 && $coord_existDB==0) 
+					if ($log_type==4  && $coord_existDB==0) 
 					{	$lat = $coords_lat_h + $coords_lat_min / 60;
 						if ($coords_latNS == 'S') $lat = -$lat;
 						$lon = $coords_lon_h + $coords_lon_min / 60;
 						if ($coords_lonEW == 'W') $lon = -$lon;
 						// update caches coordinates
-//						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);							
+						sql("UPDATEc `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);							
 						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`, `log_id`,`date`,`longitude`,`latitude`)
 										 VALUES ('', '&1', '&2', '&3',NOW(),'&4','&5')",
 										 $log_record['cache_id'], $log_record['user_id'],$log_id,$lon,$lat);

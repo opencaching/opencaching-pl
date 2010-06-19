@@ -75,7 +75,7 @@ function toogleLayer( whichLayer, val )
 	else
 		vis.display = val;
 	
-	
+	chkMoved();
 	
 	//if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
 	//	vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
@@ -85,6 +85,16 @@ function showHide(id){
    el = document.getElementById(id);
    el.style.display = (el.style.display != 'block')? 'block' : 'none';
 } 
+function chkMoved()
+    {
+         	var el;
+	el='coord_table';
+	if (document.logform.logtype.value == "4") 		
+	{document.getElementById(el).style.display='block';
+    } else {document.getElementById(el).style.display='none';
+    }
+
+	}
 //-->
 </script>
 <form action="editlog-test.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" dir="ltr">
@@ -124,19 +134,10 @@ function showHide(id){
 </table>
 
 {coordinates_start}
-<table class="content" style="font-size: 12px; line-height: 1.6em;">
-	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
-	<tr>   
-    <td width="800px" colspan="2" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong><input id="add_coord" type="checkbox" name="add_coord" value="1" {is_checked_coord} onclick="showHide('coord');" /><label for="add_coord">Dodaj współrzędne do logu</label></strong>
-     </td>
-	</tr>
-	<tr><td colspan="2"><div class="notice" id="viewcache-attributesend" style="width:600px;">Możesz dodać lub usunąć współrzędne, które będą widzane w logu.</div>
-	</td></tr>
-</table>
-<table width="95%" id="coord" class="content" style="font-size: 12px; line-height: 1.6em;display: {display};">
+<table width="95%" id="coord_table" class="content" style="font-size: 12px; line-height: 1.6em;display: none;">
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td width="180px" valign="top"><b>{{coordinates}}:</b></td>
+		<td width="180px" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{{coordinates}}:</b></td>
 		<td width="600px">
 		<fieldset style="border: 1px solid black; width: 30%; height: 32%; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
@@ -154,9 +155,11 @@ function showHide(id){
 			</select>
 			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
 			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
-			</fieldset>{lat_message} {lon_message}
+			</fieldset>{lat_message} {lon_message} {coord_empty_message}
 		</td>
 	</tr>
+		<tr><td colspan="2"><div class="notice" id="viewcache-attributesend" style="width:600px;">Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu.</div>
+	</td></tr>
 </table>
 {coordinates_end}
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
@@ -167,7 +170,7 @@ function showHide(id){
     <div class="notice" id="viewcache-attributesend" style="width:600px;"> Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennik zawiera spoilery lub takie informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst poza nawiasami kwadratowymi [treść] nie będzie szyfrowany.</div></td>
 	</tr>
 	<tr>
-		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong></td>
+		<td colspan="2">{log_empty_message}<br/><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong></td>
 	</tr>
 	<tr>
 		<td colspan="2">
