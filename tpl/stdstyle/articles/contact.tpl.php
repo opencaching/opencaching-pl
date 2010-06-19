@@ -10,7 +10,7 @@
 <h1>Zadawanie pytań o Geocaching</h1>
 <p>Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
 <br />
-Chciałbyś wymienić swoje uwagi zadać pytania innym, masz pomysł albo sugestie poprawy działania projektu <i>Opencaching</i>,
+Chciałbyś wymienić swoje uwagi zadać pytania innym, masz pomysł albo sugestie poprawy działania projektu <i>Opencaching</i>,<br/>
 chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.pl">Forum</a>
 <br />
 <br />
