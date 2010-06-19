@@ -77,6 +77,7 @@
 				if ( $cache_type == 8 && $log_type==4 ) {
 					tpl_set_var('coordinates_start',"");
 					tpl_set_var('coordinates_end',"");
+					tpl_set_var('display_coord',"block");
 					if (isset($_POST['latNS']))
 					{
 						//get coords from post-form
@@ -183,7 +184,8 @@
 				
 				} else {
 					tpl_set_var('coordinates_start',"<!--");
-					tpl_set_var('coordinates_end',"-->");}
+					tpl_set_var('coordinates_end',"-->");
+					tpl_set_var('display_coord',"none");}
 
 					$log_pw = '';
 					$use_log_pw = (($log_record['logpw'] == NULL) || ($log_record['logpw'] == '')) ? false : true;
@@ -453,14 +455,14 @@
 				$coord_empty=false;
 				if ($log_type==4 && $coords_lat_h=="0" && $coords_lat_min=="0.000" && $coords_lon_h=="0" && $coords_lon_min=="0.000"  ) {$coord_empty=true; $all_ok=false;}
 				}
-
-				
-					//store?
-					if (isset($_POST['submitform']) && $date_not_ok == false && $log_empty=false && $logtype_not_ok == false && $pw_not_ok == false && !($lat_not_ok || $lon_not_ok || $coord_empty ))
-					{
 				$log_empty=false;
 				//check for exmpty text
 				if ($log_text==""){$all_ok=false; $log_empty=true;}
+				
+					//store?
+					if (isset($_POST['submitform']) && $date_not_ok == false && $log_empty=false && $logtype_not_ok == false && $pw_not_ok == false )
+					{
+
 				
 					$coord_existDB = isset($_POST['existDB'])? $_POST['existDB'] :$coord_existDB; 
 //					$add_coord = (isset($_POST['add_coord']) ? 1 : 0); 
@@ -487,7 +489,7 @@
 						if ($coords_latNS == 'S') $lat = -$lat;
 						$lon = $coords_lon_h + $coords_lon_min / 60;
 						if ($coords_lonEW == 'W') $lon = -$lon;
-						// update caches coordinates
+						// update caches coordinates !!!!! IF coord_cache==$coord_moved_old !!!!!!
 						sql("UPDATEb `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);							
 						sql("UPDATE `cache_moved` SET `longitude`='&1', `latitude`='&2' WHERE `log_id`='&3'",  $lon, $lat, $log_id);							
 						} 

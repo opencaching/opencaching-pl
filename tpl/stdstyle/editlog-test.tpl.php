@@ -134,7 +134,7 @@ function chkMoved()
 </table>
 
 {coordinates_start}
-<table width="95%" id="coord_table" class="content" style="font-size: 12px; line-height: 1.6em;display: none;">
+<table width="95%" id="coord_table" class="content" style="font-size: 12px; line-height: 1.6em;display: {display_coord};">
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td width="180px" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{{coordinates}}:</b></td>
