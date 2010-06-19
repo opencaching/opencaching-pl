@@ -44,9 +44,10 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 - Whatever (111) <br />
 - Maciej eŚ (96) <br />
 - Saracen (84) <br />
-- Bazyl69 (77) <br />
 - Maliniak (77) <br />
 - Wallson (75) <br />
+- etna&mars (73) <br />
+<span style="color:#808080">- Bazyl69 (77)-  zrezygnował)</span> <br />
 <br /><br/>
 <span style="color:#808080"><b>Rada Rejsu</b>Kadencja 1.06.2009 - 31.05.2010:<br />
 - filips (119) <br />
