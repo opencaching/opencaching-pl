@@ -20,7 +20,7 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 <br />
 <h1>OpenCaching PL Team </h1><p>
 <b>Rada Programowa</b>:<br />
-<b>E-mial: <font color="black">rp</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
+<b>E-mail: <font color="black">rp</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
 - Zyr<br />
 - trojmiasto<br />
 - rushcore<br />
@@ -28,7 +28,7 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 
 <br/>
 <b>Rada Techniczna </b>:<br />
-<b>E-mial: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
+<b>E-mail: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
 - filips (Filip) - geokrety.org / OC PL dla urządzeń mobilnych<br />
 - shchenka - OpenGeoWiki<br />
 - tATO - sprawy finasowe <br />
@@ -39,7 +39,7 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 - sp2ong <br />
 <br />
 <b>Centrum Obsługi Geocachera </b>  - Kadencja 1.06.2010 - 31.05.2011 (w nawiasie liczba otrzymanych głosów):<br />
-<b>E-mial: <font color="black">cog</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
+<b>E-mail: <font color="black">cog</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
 - Voit (113) <br />
 - Whatever (111) <br />
 - Maciej eŚ (96) <br />
