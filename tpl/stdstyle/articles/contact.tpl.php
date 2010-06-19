@@ -10,13 +10,9 @@
 <h1>Zadawanie pytań o Geocaching</h1>
 <p>Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
 <br />
-Chciałbyś wymienić swoje uwagi zadać pytania innym, możesz to zrobić na <a href="http://forum.opencaching.pl">Forum GC PL</a>
-<br /><br />
-<b>Rozwój projektu OpenCaching</b>
-<p>Masz pomysł albo sugestie poprawy działania projektu <i>Opencaching</i>?<br />
-Chcesz pomóc w rozwoju projektu ?<br />
-Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.eu">Forum</a> projektu OpenCaching.
-</p>
+Chciałbyś wymienić swoje uwagi zadać pytania innym, masz pomysł albo sugestie poprawy działania projektu <i>Opencaching</i>,
+chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.pl">Forum</a>
+<br />
 <br />
 <h1>OpenCaching PL Team </h1><p>
 <b>Rada Programowa</b>:<br />
@@ -25,7 +21,6 @@ Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.e
 - trojmiasto<br />
 - rushcore<br />
 - filips<br />
-
 <br/>
 <b>Rada Techniczna </b>:<br />
 <b>E-mail: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
