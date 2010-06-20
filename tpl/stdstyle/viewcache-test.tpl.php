@@ -69,7 +69,7 @@
 						<img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{coords_other}<br />
 						<img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek1} {woj} {dziubek2} {miasto}</span></b><br /> 
 						<img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{cache_type}}: <b>{cachetype}</b><br />
-						{hidedistance_start}<img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="" title="" align="middle" />&nbsp;Przebyty dystans: {distance}<br/>{hidedistance_end}	
+						{hidemobile_start}<img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="" title="" align="middle" />&nbsp;Przebyty dystans: {distance}<br/>{hidemobile_end}	
 						<img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{size}}: <b>{cachesize}</b><br />
 						<img src="tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{status_label}}: {status}<br />
 						{hidetime_start}<img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}}: {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{length}}: {way_length}<br />{hidetime_end}		
@@ -108,9 +108,9 @@ else
 						<div class="content2-container-2col-left" id="viewcache-numstats">
 						<p style="line-height: 1.4em;"><br />
 							{found_icon} {founds} {found_text}<br />
+		{hidemobile_start}{moved_icon} {moved} x {{moved_text}}<br/>{hidemobile_end}
 							{notfound_icon} {notfounds} {notfound_text}<br />
-							{note_icon} {notes} {{comments}}<br />
-		{hidedistance_start}{moved_icon} {moved} x {{moved_text}}<br/>{hidedistance_end}	
+							{note_icon} {notes} {{comments}}<br />	
 							{notes_icon} {cache_notes} {cachenotes_link}<br />
 							{gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?lang=pl_PL.UTF-8&wpt={oc_waypoint}" target="_blank">{{history_gk}}</a><br />
 							{watch_icon} {watcher} {{watchers}}<br />

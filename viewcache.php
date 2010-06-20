@@ -382,6 +382,19 @@
 			
 			tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
+			
+			// cache type Mobile add calculate distance
+			if ($cache_record['type']==8){
+			tpl_set_var('moved_icon', $moved_icon);
+			$moved =  sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND cache_id='" . sql_escape($_REQUEST['cacheid']) . "'", 0);			
+			tpl_set_var('moved', $moved);
+				tpl_set_var('hidemobile_start', '');
+				tpl_set_var('hidemobile_end', '');			
+			} else {
+				tpl_set_var('hidemobile_start', '<!--');
+				tpl_set_var('hidemobile_end', '-->');}
+			
+			
 			tpl_set_var('coords', $coords);
 			if( $usr || !$hide_coords )
 			{

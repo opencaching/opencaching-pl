@@ -419,12 +419,12 @@
 			}
 				$distance=sprintf("%u",$distance);
 				tpl_set_var('distance', $distance.' km &nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="cachemap-moved.php?cacheid='.$cache_id.'">pokaż na mapie</a>]');
-				tpl_set_var('hidedistance_start', '');
-				tpl_set_var('hidedistance_end', '');
+				tpl_set_var('hidemobile_start', '');
+				tpl_set_var('hidemobile_end', '');
 				}else {
 				tpl_set_var('distance', '');
-				tpl_set_var('hidedistance_start', '<!--');
-				tpl_set_var('hidedistance_end', '-->');
+				tpl_set_var('hidemobile_start', '<!--');
+				tpl_set_var('hidemobile_end', '-->');
 				}
 
 			tpl_set_var('coords', $coords);

@@ -105,8 +105,9 @@ else
 							{
 					?>
 						<div class="content2-container-2col-left" id="viewcache-numstats">
-						<p style="line-height: 1.4em;"><br /><br />
+						<p style="line-height: 1.4em;"><br />
 							{found_icon} {founds} {found_text}<br />
+							{hidemobile_start}{moved_icon} {moved} x {{moved_text}}<br/>{hidemobile_end}	
 							{notfound_icon} {notfounds} {notfound_text}<br />
 							{note_icon} {notes} {{comments}}<br />
 							{notes_icon} {cache_notes} {cachenotes_link}<br />
