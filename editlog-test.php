@@ -134,52 +134,6 @@
 
 						$coords_lat_min = sprintf("%02.3f", round(($coords_lat - $coords_lat_h) * 60, 3));
 						$coords_lon_min = sprintf("%02.3f", round(($coords_lon - $coords_lon_h) * 60, 3));
-					}
-
-					//here we validate the data
-
-					//coords
-					$lon_not_ok = false;
-
-					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lon_h))
-					{
-						$lon_not_ok = true;
-					}
-					else
-					{
-						$lon_not_ok = (($coords_lon_h >= 0) && ($coords_lon_h < 180)) ? false : true;
-					}
-
-					if (is_numeric($coords_lon_min))
-					{
-						// important: use here |=
-						$lon_not_ok |= (($coords_lon_min >= 0) && ($coords_lon_min < 60)) ? false : true;
-					}
-					else
-					{
-						$lon_not_ok = true;
-					}
-
-					//same with lat
-					$lat_not_ok = false;
-
-					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lat_h))
-					{
-						$lat_not_ok = true;
-					}
-					else
-					{
-						$lat_not_ok = (($coords_lat_h >= 0) && ($coords_lat_h < 180)) ? false : true;
-					}
-
-					if (is_numeric($coords_lat_min))
-					{
-						// important: use here |=
-						$lat_not_ok |= (($coords_lat_min >= 0) && ($coords_lat_min < 60)) ? false : true;
-					}
-					else
-					{
-						$lat_not_ok = true;
 					}		
 				
 				} else {
