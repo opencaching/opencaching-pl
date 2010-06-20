@@ -34,13 +34,14 @@ map0.addControl(new GSmallMapControl());
 map0.addControl(new GMapTypeControl());
 
 map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), 6);
-bounds = new GLatLngBounds(); 
+
+ var sw = new GLatLng({latlonmin});  
+ var ne = new GLatLng({latlonmax});  
+ var bounds = new GLatLngBounds(sw, ne);  
+ map0.setCenter(bounds.getCenter(), map0.getBoundsZoomLevel(bounds));  
+
 {route}
 {points}
-   var newZoom = map0.getBoundsZoomLevel(bounds);  
-   var newPoint = bounds.getCenter();  
-   map0.setCenter(newPoint,newZoom-1);  
-
       }
     }
 </script>

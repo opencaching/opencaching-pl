@@ -104,7 +104,8 @@ $get_cacheid = $_REQUEST['cacheid'];
 	$largestLon = sqlValue("SELECT `cache_moved`.`longitude` `longitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`longitude` DESC LIMIT 1", 0);
 	$mapcenterLat = ($smallestLat + $largestLat)/2;
 	$mapcenterLon = ($smallestLon + $largestLon)/2; 
-
+	tpl_set_var('latlonmin', $smallestLat.','.$smallestLon);
+	tpl_set_var('latlonmax', $largestLat.','.$largestLon );
 	tpl_set_var('mapcenterLat', $mapcenterLat);
 	tpl_set_var('mapcenterLon', $mapcenterLon);
 
