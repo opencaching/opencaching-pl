@@ -37,7 +37,7 @@
 		else
 		{
 			//does log with this logid exist?
-			$log_rs = sql("SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`encrypt` AS `encrypt`,`cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`, `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`, `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw` FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`) WHERE `id`='&1' AND `deleted` = &2", $log_id, 0);
+			$log_rs = sql("SELECT `cachec`.`latitude` AS `cache_latitude`, `cachec`.`longitude` AS `cache_longitude`,`cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`encrypt` AS `encrypt`,`cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`, `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`, `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw` FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`) WHERE `id`='&1' AND `deleted` = &2", $log_id, 0);
 
 			if (mysql_num_rows($log_rs) > 0)
 			{
@@ -411,40 +411,24 @@
 				}
 				$log_empty=false;
 				//check for exmpty text
-				if ($log_text==""){$all_ok=false; $log_empty=true;}
+				if ($log_text==""){$log_empty=true;}
 				
 					//store?
-					if (isset($_POST['submitform']) && $date_not_ok == false && $log_empty=false && $logtype_not_ok == false && $pw_not_ok == false )
+					if (isset($_POST['submitform']) && $date_not_ok == false  && $logtype_not_ok == false && $pw_not_ok == false )
 					{
 
 				
 					$coord_existDB = isset($_POST['existDB'])? $_POST['existDB'] :$coord_existDB; 
-//					$add_coord = (isset($_POST['add_coord']) ? 1 : 0); 
-					
-					// DELETE XY coord
-//					if ($log_type==4  && $coord_existDB==1) 
-//					{
-					// get previous coordinates
-//					$rsc = sql("SELECT `id` , `longitude` , `latitude`
-//						FROM `cache_moved`
-//						WHERE `cache_id` ='&1'
-//						ORDER BY `date` DESC
-//						LIMIT 1 ,1", $log_record['cache_id']);
-//					if (mysql_num_rows($rsc) !=0)
-//					{
-//					$recordll = sql_fetch_array($rsc);				
-					// update caches coordinates
-//					sql("UPDATEa `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'", $recordll['longitude'],$recordll['latitude'], $cache_id);							
-//					sql("DELETE FROM `cache_moved` WHERE `cache_moved`.`log_id`='&1' LIMIT 1", $log_id);							
-//					}}
+
 					// Update XY coord
 					if ($log_type==4  && $coord_existDB==1) 
 					{	$lat = $coords_lat_h + $coords_lat_min / 60;
 						if ($coords_latNS == 'S') $lat = -$lat;
 						$lon = $coords_lon_h + $coords_lon_min / 60;
 						if ($coords_lonEW == 'W') $lon = -$lon;
-						// update caches coordinates !!!!! IF coord_cache==$coord_moved_old !!!!!!
-						sql("UPDATEb `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);							
+						// update caches coordinates i
+						if ( $log_record['cache_latitude'] ==$recordl['latitude'] && $log_record['cache_longitude']==$recordl['longitude'] ){
+						sql("UPDATEb `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);}							
 						sql("UPDATE `cache_moved` SET `longitude`='&1', `latitude`='&2' WHERE `log_id`='&3'",  $lon, $lat, $log_id);							
 						} 
 
