@@ -109,7 +109,7 @@ $get_cacheid = $_REQUEST['cacheid'];
 	tpl_set_var('mapcenterLon', $mapcenterLon);
 
 
-			tpl_set_var('zoom', 11);
+//			tpl_set_var('zoom', 11);
 
 	
 //	tpl_set_var('doopen', $_REQUEST['cacheid']?"true":"false");
@@ -124,7 +124,7 @@ $get_cacheid = $_REQUEST['cacheid'];
 
 
 	/*SET YOUR MAP CODE HERE*/
-	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.99&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
+	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
 	tpl_BuildTemplate(); 
 
 ?>

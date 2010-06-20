@@ -34,23 +34,15 @@ map0.addControl(new GSmallMapControl());
 map0.addControl(new GMapTypeControl());
 
 map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), 6);
-
-{latlongl}
-// map0.setCenter(new GLatLng(0,0),0);
-// var bounds = new GLatLngBounds();
-//bounds.extend(latlngl);
-//map0.setZoom(map0.getBoundsZoomLevel(bounds));
-// map0.setCenter(bounds.getCenter());
-
-
-
+bounds = new GLatLngBounds(); 
 {route}
 {points}
+   var newZoom = map0.getBoundsZoomLevel(bounds);  
+   var newPoint = bounds.getCenter();  
+   map0.setCenter(newPoint,newZoom-1);  
 
       }
     }
-
-
 </script>
 </head>
 <div class="content2-pagetitle">&nbsp;<img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="" title=""/>&nbsp;&nbsp;{{route_cache}} <font color="black">{cachename}</font></div>
