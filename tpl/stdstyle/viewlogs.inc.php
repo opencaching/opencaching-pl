@@ -22,6 +22,8 @@
 	$functions_end = '';
 
 	$decrypt_log = '<img src="tpl/stdstyle/images/free_icons/lock_open.png" class="icon16" alt="" title=""/>&nbsp;<a class="links" href="viewcache-test.php?cacheid={cacheid}&amp;nocryptlog=1#{decrypt_log_id}" onclick="var hint=document.getElementById(\'{decrypt_log_id}\');hint.innerHTML=convertROTStringWithBrackets(hint.innerHTML);void(0); return false;">'.tr('decrypt').'</a>';	
+	$nodecrypt_log = '&nbsp;<img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title=""/>&nbsp;<span style="font-weight;color: #FFFFFF;">Log szyfrowany</span>';	
+
 	$edit_log = '<img src="tpl/stdstyle/images/free_icons/pencil.png" class="icon16" alt="" title=""/>&nbsp;<a class="links" href="editlog.php?logid={logid}">Edycja</a>&nbsp;';
 	$remove_log = '<img src="tpl/stdstyle/images/free_icons/cross.png" class="icon16" alt="" title=""/>&nbsp;<a class="links" href="removelog.php?logid={logid}">Usuń</a>&nbsp;';
 	$upload_picture = '<img src="tpl/stdstyle/images/action/16x16-addimage.png" class="icon16" alt="" title=""/>&nbsp;<a class="links" href="newpic.php?objectid={logid}&amp;type=1">Dodaj obrazek</a>&nbsp;';
