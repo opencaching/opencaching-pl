@@ -1105,8 +1105,6 @@
 					$decrypt_log_begin='<div id="log_id_'.$record['logid'].'">';
 					$decrypt_log_end='</div>';
 					} else {
-					if ($record['encrypt']==1 && $no_crypt_log == 0)
-					{$tmpFunctions .= $nodecrypt_log;}
 					$decrypt_log_id="decrypt_log_id_".$record['logid']."";
 					$decrypt_log_begin='<div id="log_id_'.$record['logid'].'">';
 					$decrypt_log_end='</div>';}
@@ -1121,7 +1119,10 @@
 					$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
 				}
 				else
-					$tmplog = mb_ereg_replace('{logfunctions}', '', $tmplog);
+					if ($record['encrypt']==1 && $no_crypt_log == 0)
+					{$tmpFunctions= $functions_start . $nodecrypt_log . $functions_end;} else {
+					$tmpFunctions="";}
+					$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
 
 //			if ($cache_record['type']==8){ ....?
 
