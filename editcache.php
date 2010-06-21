@@ -439,7 +439,7 @@
 								event_notify_new_cache($cache_id);
 
 							}
-/*
+
 							//generate automatic logs
 							if (($status_old ==1 ||$status_old==3 ||$status_old==6)  && $status == 2)
 							{
@@ -479,7 +479,7 @@
 										 $cache_id, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
 							}
 
-*/							//display cache-page
+							//display cache-page
 							tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id));
 							exit;
 						}
