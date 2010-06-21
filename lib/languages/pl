@@ -651,7 +651,7 @@ delete_wp Usuń waypointa
 comment_octeam_visible Adnotacje COG są widzane tylko przez COG i własciciela skrzynki.
 ready_to_search Skrzynka gotowa do szukania. Powodzenia!
 archived_cache Skrzynka została zarchiwizowana.
-temporarily_unavailable Skrzykna będzie czasowo niedostępna.
+temporarily_unavailable Skrzynka będzie czasowo niedostępna.
 blocked_by_octeam Skrzynka zablokowana przez Centrum Obsługi Geocachera.
 empty_coordinatest Podaj nowe współrzędne dla skrzynki mobilnej przeniesionej. 
 empty_log_text Log nie powinien być pusty. Napisz parę słów, które mogą być cenna informacją dla właściciela skrzynki.
