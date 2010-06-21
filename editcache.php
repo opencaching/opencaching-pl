@@ -439,7 +439,9 @@
 								event_notify_new_cache($cache_id);
 
 							}
-					if (($status_old ==1 ||$status_old==3 ||$status_old==6)  && $status == 2)
+/*
+							//generate automatic logs
+							if (($status_old ==1 ||$status_old==3 ||$status_old==6)  && $status == 2)
 							{
 					// generate automatic log about status cache
 					$log_text=tr('temporarily_unavailable');
@@ -477,7 +479,7 @@
 										 $cache_id, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
 							}
 
-							//display cache-page
+*/							//display cache-page
 							tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id));
 							exit;
 						}
