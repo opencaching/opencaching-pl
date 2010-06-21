@@ -232,6 +232,7 @@
 						$headers = tpl_get_var('htmlheaders') . "\n";
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
+
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
 						tpl_set_var('htmlheaders', $headers);
 
@@ -332,9 +333,9 @@
 				else
 				{
 					// Standard
-					tpl_set_var('publish_now_checked', 'checked="checked"');
+					tpl_set_var('publish_now_checked', '');
 					tpl_set_var('publish_later_checked', '');
-					tpl_set_var('publish_notnow_checked', '');
+					tpl_set_var('publish_notnow_checked', 'checked="checked"');
 				}
 
 				// fill activate hours
