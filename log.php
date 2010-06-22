@@ -520,7 +520,7 @@
 							$logtypeoptions .= '<option value="3">Komentarz</option>' . "\n";
 							if  ($res2['type'] == 8){
 							$logtypeoptions .= '<option value="4">Przeniesiona</option>' . "\n";}
-							$logtypeoptions .= '<option value="5">Potrzebny serwis</option>' . "\n";
+							if ($usr['userid']!=$cache_user_id){$logtypeoptions .= '<option value="5">Potrzebny serwis</option>' . "\n";}
 							if ($usr['admin']==true){$logtypeoptions .= '<option value="12">Komentarz COG</option>' . "\n";}
 							break;
 						}
