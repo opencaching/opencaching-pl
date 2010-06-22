@@ -608,7 +608,7 @@
 					
 					if( $res['founds'] > 0 )
 					{
-						$sql2 = "SELECT count(*) as founds FROM `cache_logs` WHERE id='".sql_escape(intval($log_id))."' AND type='1' AND deleted=0";
+						$sql2 = "SELECT count(*) as founds FROM `cache_logs` WHERE id='".sql_escape(intval($log_id))."' AND (type='1' OR type='7') AND deleted=0";
 						$res2 = mysql_fetch_array(mysql_query($sql2));
 						if( $res2['founds'] == 0 )
 							$already_found_in_other_comment = 1;
@@ -660,9 +660,9 @@
 							{ continue;}
 						} else {
 						
-						if ($log_record['user_id'] == $cache_user_id && ($type['id'] == 1|| $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 12 )){continue;}
+						if ($log_record['user_id'] == $cache_user_id && ($type['id'] == 1|| $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 12 )){continue;}
 
-						if($log_record['user_id'] != $cache_user_id  && $usr['admin']==false && ($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 ||$type['id'] == 12))
+						if($log_record['user_id'] != $cache_user_id  && $usr['admin']==false && ( $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 ||$type['id'] == 12))
 							{ continue;}
 																		
 
