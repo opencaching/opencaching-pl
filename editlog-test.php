@@ -624,12 +624,13 @@
 						
 						if( $log_record['logtype'] != $type['id'] && $log_record['cachestatus'] != 1 )
 							continue;
-							
+						if( $log_record['logtype'] != $type['id'] && $log_record['cachestatus'] == 1 && $log_record['user_id'] == $cache_user_id)
+							continue;						
 						if($already_found_in_other_comment)
 						{
 						if ($usr['admin']){
 							// skip found/notfound if the cache is an event or user has already found this cache or it is not ready to search
-							if($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 )
+							if($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8 )
 							{continue;}} else {
 							if($type['id'] == 1 || $type['id'] == 2 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
 							{continue;}}							
@@ -637,32 +638,37 @@
 						if($cache_type == 6)
 						{
 							if ($usr['admin']){
-							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11)
+							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5)
 							{continue;}} else{
 							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12)
 							{continue;}}							
 						}
-						else
-						{
-							if($cache_type == 8)
+
+						if($cache_type == 8)
 							 {
 							 if ($usr['admin']){
 							// skip will attend/attended if the cache no event
-							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 )
+							if($type['id'] == 7 || $type['id'] == 8)
 							{continue;}} else {
 							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
 							{continue;}}							
-							}else{							
+							}						
+
 							// skip will attend/attended/Moved  if the cache no event and Mobile
-							if ($usr['admin']) {
-							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 )
-							{ continue;}} else {
-							if ($log_record['user_id'] == $cache_user_id && $type['id'] == 1 ){continue;}
-							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
-							{ continue;}}												
-							}
+						if ($usr['admin']) {
+							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8)
+							{ continue;}
+						} else {
+						
+						if ($log_record['user_id'] == $cache_user_id && ($type['id'] == 1|| $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 12 )){continue;}
+
+						if($log_record['user_id'] != $cache_user_id  && $usr['admin']==false && ($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 ||$type['id'] == 12))
+							{ continue;}
+																		
 
 						}
+
+						
 							if(checkField('log_types',$lang) )
 								$lang_db = $lang;
 							else
