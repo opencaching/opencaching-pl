@@ -618,7 +618,7 @@
 					$logtypeoptions = '';
 					foreach ($log_types AS $type)
 					{
-						// skip if permission=O and not owner
+						// skip if permission=O ???? and not owner
 						if($type['permission'] == 'B' && $log_record['user_id'] != $cache_user_id)
 							continue;
 						
@@ -648,14 +648,14 @@
 						if($cache_type == 8)
 							 {
 							 if ($usr['admin']){
-							// skip will attend/attended if the cache no event
+							t
 							if($type['id'] == 7 || $type['id'] == 8)
 							{continue;}} else {
 							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
 							{continue;}}							
 							}						
 						} else {
-							// skip will attend/attended/Moved  if the cache no event and Mobile
+							
 						if ($usr['admin']) {
 							if($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8)
 							{ continue;}
