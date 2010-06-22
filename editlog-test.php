@@ -648,7 +648,7 @@
 						if($cache_type == 8)
 							 {
 							 if ($usr['admin']){
-							t
+							
 							if($type['id'] == 7 || $type['id'] == 8)
 							{continue;}} else {
 							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
