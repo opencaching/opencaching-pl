@@ -87,7 +87,7 @@ function showHide(id){
 } 
 function chkMoved()
     {
-			var mode = document.logform.logtype.value;
+			var mode = document.editlog.logtype.value;
 			var iconarray = new Array();
 				iconarray['1'] = '16x16-found.png';
 				iconarray['2'] = '16x16-dnf.png';
@@ -102,10 +102,10 @@ function chkMoved()
 				iconarray['11'] = '16x16-temporary.png';
 				iconarray['12'] = '16x16-octeam.png';
 			var image_log = "/tpl/stdstyle/images/log/" + iconarray[mode];
-			document.logform.actionicon.src = image_log;
+			document.editlog.actionicon.src = image_log;
          var el;
 	el='coord_table';
-	if (document.logform.logtype.value == "4") 		
+	if (document.editlog.logtype.value == "4") 		
 	{document.getElementById(el).style.display='block';
     } else {document.getElementById(el).style.display='none';
     }
