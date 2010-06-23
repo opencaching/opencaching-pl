@@ -426,7 +426,7 @@
 						if ($coords_latNS == 'S') $lat = -$lat;
 						$lon = $coords_lon_h + $coords_lon_min / 60;
 						if ($coords_lonEW == 'W') $lon = -$lon;
-						// update caches coordinates i
+						// update caches coordinates 
 						if ( $log_record['cache_latitude'] ==$recordl['latitude'] && $log_record['cache_longitude']==$recordl['longitude'] ){
 						sql("UPDATEb `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);}							
 						sql("UPDATE `cache_moved` SET `longitude`='&1', `latitude`='&2' WHERE `log_id`='&3'",  $lon, $lat, $log_id);							
@@ -439,7 +439,23 @@
 						$lon = $coords_lon_h + $coords_lon_min / 60;
 						if ($coords_lonEW == 'W') $lon = -$lon;
 						// update caches coordinates
-						sql("UPDATEc `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);							
+						// check exist XY in cache_moved table
+			$rcmxy = sql("SELECT `cache_moved`.`latitude` `latitude`,
+			                   `cache_moved`.`longitude` `longitude`,`cache_moved`.`date` `date`
+								FROM `cache_moved` WHERE `cache_moved`.`cache_id`='&1'
+								AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL 	
+			         ORDER BY `cache_moved`.`date` DESC LIMIT 1", $log_record['cache_id']);
+			if (mysql_num_rows($rscmxy) !=0)
+			{$rcmxy = sql_fetch_array($rscmxy);
+			$log_date=date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year));
+				if ($rcmxy['date']<$log_date)
+					{
+					//update cache XY
+					sql("UPDATEc `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);
+					}
+				}
+
+							
 						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`, `log_id`,`date`,`longitude`,`latitude`)
 										 VALUES ('', '&1', '&2', '&3',NOW(),'&4','&5')",
 										 $log_record['cache_id'], $log_record['user_id'],$log_id,$lon,$lat);
@@ -454,7 +470,7 @@
 						                             `text_html`='&4',
 						                             `text_htmledit`='&5',
 						                             `last_modified`=NOW(),
-													`encrypt`='&6'
+									      `encrypt`='&6'
 						                       WHERE `id`='&7'",
 						                             $log_type,
 						                             date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
