@@ -55,6 +55,7 @@ function _chkFound () {
 
 function toogleLayer( whichLayer, val )
 {
+	chkMoved();
 	var elem, vis;
 	_chkFound();
 	if( document. getElementById )
@@ -75,7 +76,7 @@ function toogleLayer( whichLayer, val )
 	else
 		vis.display = val;
 	
-	chkMoved();
+
 	
 	//if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
 	//	vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
@@ -99,11 +100,11 @@ function chkMoved()
 				iconarray['12'] = '16x16-octeam.png';
 			var image_log = "/tpl/stdstyle/images/log/" + iconarray[mode];
 			document.editlog.actionicon.src = image_log;
-         var el;
-	el='coord_table';
-	if (document.editlog.logtype.value == "4") 		
-	{document.getElementById(el).style.display='block';
-    } else {document.getElementById(el).style.display='none';}
+//         var el;
+//	el='coord_table';
+//	if (document.editlog.logtype.value == "4") 		
+//	{document.getElementById(el).style.display='block';
+//    } else {document.getElementById(el).style.display='none';}
 }
 
 //-->
