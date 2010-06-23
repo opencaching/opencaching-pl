@@ -71,6 +71,7 @@ var maAttributes = new Array({jsattributes_array});
 
 function _chkVirtual () 
 {
+chkiconcache();
 	// disable password for traditional cache
 	if(document.newcacheform.type.value == "2")
 	{
@@ -123,6 +124,22 @@ function rebuildCacheAttr()
 	}
 }
 
+function chkiconcache()
+    {
+			var mode = document.newcacheform.type.value;
+			var iconarray = new Array();
+				iconarray['1'] = 'unknown.png';
+				iconarray['2'] = 'traditional.png';
+				iconarray['3'] = 'multi.png';
+				iconarray['4'] = 'virtual.png';
+				iconarray['5'] = 'webcam.png';
+				iconarray['6'] = 'event.png';
+				iconarray['7'] = 'quiz.png';
+				iconarray['8'] = 'moving.png';
+				iconarray['9'] = 'podcache.png';
+			var image_cache = "/tpl/stdstyle/images/cache/" + iconarray[mode];
+			document.newcacheform.actionicon.src = image_cache;
+}
 function toggleAttr(id)
 {
 	var i = 0;
@@ -213,7 +230,7 @@ function nearbycachemapOC()
 		<td>
 			<select name="type" class="input200" onchange="return _chkVirtual()">
 				{typeoptions}
-			</select>{type_message}
+			</select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">{type_message}
 		</td>
 	</tr>
 		<tr><td>&nbsp;</td>
