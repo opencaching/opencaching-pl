@@ -105,21 +105,6 @@ function toogleLayer( whichLayer, val )
 chkMoved();
 
 
-			var iconarray = new Array();
-				iconarray['1'] = '16x16-found.png';
-				iconarray['2'] = '16x16-dnf.png';
-				iconarray['3'] = '16x16-note';
-				iconarray['4'] = '16x16-moved';
-				iconarray['5'] = '16x16-need-maintenance.png';
-				iconarray['6'] = '16x16-need-maintenance.png';
-				iconarray['7'] = '16x16-go.png';
-				iconarray['8'] = '16x16-wattend.png';
-				iconarray['9'] = '16x16-trash.png';
-				iconarray['10'] = '16x16-published.png';
-				iconarray['11'] = '16x16-temporary.png';
-				iconarray['12'] = '16x16-octeam.png';
-			var simage = "/tpl/stdstyle/images/log/" + iconarray[mode];
-			document.actionicon.src = simage;
 
 	//if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
 	//	vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
@@ -128,14 +113,34 @@ chkMoved();
 
 function chkMoved()
     {
-         	var el;
+
+			var mode = document.logform.logtype.value;
+			var iconarray = new Array();
+				iconarray['1'] = '16x16-found.png';
+				iconarray['2'] = '16x16-dnf.png';
+				iconarray['3'] = '16x16-note.png';
+				iconarray['4'] = '16x16-moved.png';
+				iconarray['5'] = '16x16-need-maintenance.png';
+				iconarray['6'] = '16x16-need-maintenance.png';
+				iconarray['7'] = '16x16-go.png';
+				iconarray['8'] = '16x16-wattend.png';
+				iconarray['9'] = '16x16-trash.png';
+				iconarray['10'] = '16x16-published.png';
+				iconarray['11'] = '16x16-temporary.png';
+				iconarray['12'] = '16x16-octeam.png';
+			var image_log = "/tpl/stdstyle/images/log/" + iconarray[mode];
+			//document.write(image_log);
+			document.logform.actionicon.src = image_log;
+
+
+
+        var el;
 	el='coord_table';
 	if (document.logform.logtype.value == "4") 		
 	{document.getElementById(el).style.display='block';
-    } else {document.getElementById(el).style.display='none';
-    }
+    } else {document.getElementById(el).style.display='none';}
 
-	}
+}
 function showHide(id){
    el = document.getElementById(id);
    el.style.display = (el.style.display != 'block')? 'block' : 'none';
@@ -164,9 +169,9 @@ function showHide(id){
 	<tr>
 		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
 		<td>
-			<select name="logtype" onLoad="javascript:toogleLayer('ocena');" onChange="javascript:toogleLayer('ocena');">
+			<select id="logtypeid" name="logtype" onLoad="javascript:toogleLayer('ocena');" onChange="javascript:toogleLayer('ocena');">
 				{logtypeoptions}
-			</select><img name='actionicon' src='' alt="">
+			</select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
