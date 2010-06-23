@@ -584,6 +584,7 @@
 					tpl_set_var('submit', $submit);
 					tpl_set_var('date_message', '');
 					tpl_set_var('top_cache', $top_cache);
+					tpl_set_var('bodyMod', ' onload="chkMoved()" onunload="GUnload()"');
 
 
 					// Text / normal HTML / HTML editor
