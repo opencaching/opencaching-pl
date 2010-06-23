@@ -90,7 +90,7 @@ function toogleLayer( whichLayer, val )
 	else
 		vis.display = val;
 
-	chkMoved;
+	chkMoved();
 	
 	
 	//if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
