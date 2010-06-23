@@ -75,12 +75,37 @@ function toogleLayer( whichLayer, val )
 	else
 		vis.display = val;
 	
-	
+	chkMoved();
 	
 	//if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
 	//	vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
 	//vis.display = (vis.display==''||vis.display=='block')?'none':'block';
 }
+function chkMoved()
+    {
+			var mode = document.logform.logtype.value;
+			var iconarray = new Array();
+				iconarray['1'] = '16x16-found.png';
+				iconarray['2'] = '16x16-dnf.png';
+				iconarray['3'] = '16x16-note.png';
+				iconarray['4'] = '16x16-moved.png';
+				iconarray['5'] = '16x16-need-maintenance.png';
+				iconarray['6'] = '16x16-need-maintenance.png';
+				iconarray['7'] = '16x16-go.png';
+				iconarray['8'] = '16x16-wattend.png';
+				iconarray['9'] = '16x16-trash.png';
+				iconarray['10'] = '16x16-published.png';
+				iconarray['11'] = '16x16-temporary.png';
+				iconarray['12'] = '16x16-octeam.png';
+			var image_log = "/tpl/stdstyle/images/log/" + iconarray[mode];
+			document.logform.actionicon.src = image_log;
+         var el;
+	el='coord_table';
+	if (document.logform.logtype.value == "4") 		
+	{document.getElementById(el).style.display='block';
+    } else {document.getElementById(el).style.display='none';}
+}
+
 //-->
 </script>
 <form action="editlog.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" dir="ltr">
@@ -98,7 +123,7 @@ function toogleLayer( whichLayer, val )
 			<!--<select name="logtype" onChange="return _chkFound()">-->
 			<select onload="javascript:toogleLayer('ocena');" name="logtype" onchange="javascript:toogleLayer('ocena');">
 				{logtypeoptions}
-			</select>
+			</select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
@@ -229,6 +254,7 @@ function toogleLayer( whichLayer, val )
 
 		if(oldMode != 3)
 			desc = htmlspecialchars(desc, ['ENT_NOQUOTES']);
+
 
 		document.getElementById("logtext").value = desc;
 	}
