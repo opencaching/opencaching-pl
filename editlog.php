@@ -526,6 +526,7 @@
 					tpl_set_var('cacheid', $log_record['cache_id']);
 					tpl_set_var('logid', $log_id);
 					tpl_set_var('date_message', ($date_not_ok == true) ? $date_message : '');
+					tpl_set_var('bodyMod', ' onload="chkMoved()" onunload="GUnload()"');
 
 					$log_text = tidy_html_description($log_text);
 
