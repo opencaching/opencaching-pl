@@ -117,13 +117,13 @@ $moved_icon = '<img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16"
 $notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />';
 $note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{comment}}" />';
 $notes_icon = '<img src="tpl/stdstyle/images/free_icons/note_edit.png" class="icon16" alt="" />';
-$vote_icon = '<img src="tpl/stdstyle/images/free_icons/medal_bronze_1.png" class="icon16" alt="" />';
+$vote_icon = '<img src="tpl/stdstyle/images/free_icons/thumb_up.png" class="icon16" alt="" />';
 $gk_icon = '<img src="images/gk.png" class="icon16" alt="" title="GeoKrety visited" />';
 $score_icon = '<img src="images/cache-rate.png" class="icon16" alt="" />';
 $watch_icon = '<img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon16" alt="" />';
 $search_icon = '<img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />';
 $save_icon = '<img src="tpl/stdstyle/images/action/16x16-save.png" class="icon16" alt="" />';
-$visit_icon = '<img src="tpl/stdstyle/images/description/16x16-visitors.png" class="icon16" alt="" />';
+$visit_icon = '<img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="" />';
 $exist_icon = '<img src="tpl/stdstyle/images/log/16x16-go.png" class="icon16" alt="" />';
 $trash_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" />';
 $wattend_icon = '<img src="tpl/stdstyle/images/log/16x16-wattend.png" class="icon16" alt="" />';
