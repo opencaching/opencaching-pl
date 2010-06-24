@@ -64,6 +64,7 @@
 
  ****************************************************************************/
 ?>
+{body_scripts}
 <script type="text/javascript">
 <!--
 var maAttributes = new Array({jsattributes_array});
@@ -230,7 +231,7 @@ function nearbycachemapOC()
 		<td>
 			<select name="type" class="input200" onchange="return _chkVirtual()">
 				{typeoptions}
-			</select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">{type_message}
+			</select>&nbsp;&nbsp;<img id='actionicons' name='actionicon' src='' align="top" alt="">{type_message}
 		</td>
 	</tr>
 		<tr><td>&nbsp;</td>
