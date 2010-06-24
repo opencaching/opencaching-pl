@@ -124,9 +124,9 @@ $watch_icon = '<img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon
 $search_icon = '<img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />';
 $save_icon = '<img src="tpl/stdstyle/images/action/16x16-save.png" class="icon16" alt="" />';
 $visit_icon = '<img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="" />';
-$exist_icon = '<img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" />';
+$exist_icon = '<img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title="uczestniczył"/>';
 $trash_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" />';
-$wattend_icon = '<img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" />';
+$wattend_icon = '<img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" titel="będzie uczestniczył/>';
 
 // MP3 Files table
 function viewcache_getmp3table($cacheid, $mp3count)
