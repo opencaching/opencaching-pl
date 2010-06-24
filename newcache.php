@@ -448,7 +448,7 @@
 				$types = '';
 				foreach ($cache_types as $type)
 				{
-				if ($lang!="pl"){$title="";} else {
+				if ($lang!="pl"){$title="Please select type of cache";} else {
 				if ($type['id']==1) {$title="<b>Inny typ</b> - posiadają skrzynki, które nie pasują do żadnej z pozostałych definicji typów skrzynek ale posiadają fizyczny pojemnik oraz dziennik papierowy. Wskazówki dotarcia do tego logbooka mogą być różnorakie. ";}
 				if ($type['id']==2) {$title="<b>Tradycyjna</b> - w przypadku skrzynki tradycyjnej, wymagane jest, by współrzędne wskazywały precyzyjnie miejsce ukrycia skrzynki, gdyż na ich podstawie musi być możliwe jej odnalezienie. Nie trzeba spełniać żadnych dodatkowych wymogów w terenie aby dokonać wpisu w logu internetowym. Skrzynka zawiera dziennik papierowy. ";}
 				if ($type['id']==3) {$title="<b>Multi-cache</b> - skrzynka składająca się z minimum dwóch etapów pośrednich, z czego pierwszy wskazywany przez współrzędne. Do znalezienia skrzynki finałowej, zawierającej logbook, konieczne jest odwiedzenie kilku lokalizacji, zawierających niezbędne informacje o miejscu jej ukrycia. Informacje na etapach pośrednich mogą być także umieszczone w ukrytych pojemnikach podobnych to tych stosowanych przy skrzynkach tradycyjnych, jednak nie zawierających dziennika. Kiedy indziej niezbędne informacje trzeba odczytać ze znajdujących się w danej lokalizacji obiektów. Wszystkie informacje niezbędne do odnalezienia skrzynki są podane w sposób jawny (niezaszyfrowany i nie mający charakteru zagadki), i znajdują się w opisie lub w terenie (na obiektach lub w pojemnikach pośrednich)";}
