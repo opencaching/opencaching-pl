@@ -708,7 +708,7 @@
 						}
 						else
 						{
-							$logtypeoptions .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
+							$logtypeoptions .= '<option title="typ logu" value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
 						}
 					}
 
