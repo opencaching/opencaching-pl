@@ -233,6 +233,7 @@
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
 
+
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
 						tpl_set_var('htmlheaders', $headers);
 
@@ -446,15 +447,23 @@
 				$types = '';
 				foreach ($cache_types as $type)
 				{
+				$title="";
+				if ($type['id']==1) {$title="Inny typ - skrzynka nie pasująca do żadnej z powyższych kategorii ale zawierająca pojemnik i logbook. Wskazówki dotarcia do tego logbooka mogą być różnorakie.";}
+				if ($type['id']==2) {$title="Tradycyjna - W przypadku skrzynki tradycyjnej, wymagane jest, by współrzędne wskazywały precyzyjnie miejsce ukrycia skrzynki, gdyż na ich podstawie musi być możliwe jej odnalezienie. Nie trzeba spełniać żadnych dodatkowych wymogów w ternie aby dokonać wpisu w logu internetowym.";}
+				if ($type['id']==3) {$title="Multi-cache - skrzynka składająca się z minimum dwóch etapów pośrednich, z czego pierwszy wskazywany przez współrzędne. Do znalezienia skrzynki finałowej, zawierającej logbook, konieczne jest odwiedzenie kilku lokalizacji, zawierających niezbędne informacje o miejscu jej ukrycia. Informacje na etapach pośrednich mogą być także umieszczone w ukrytych pojemnikach podobnych to tych stosowanych przy skrzynkach tradycyjnych, jednak nie zawierających dziennika. Kiedy indziej niezbędne informacje trzeba odczytać ze znajdujących się w danej lokalizacji obiektów. Wszystkie informacje niezbędne do odnalezienia skrzynki są podane w sposób jawny (niezaszyfrowany i nie mający charakteru zagadki), i znajdują się w opisie lub w terenie (na obiektach lub w pojemnikach pośrednich).";}
+				if ($type['id']==6) {$title="Wydarzenie - jest to rodzaj skrzynki używany do oznaczenia spotkania geocacherów w zaplanowanym terminie na miejscu o podanych współrzędnych. Szczególnym przypadkiem takiej skrzynki jest CITO. Data ukrycia skrzynki oznacza planowany termin spotkania. Wpisy w internetowym logu różnią się od pozostałych skrzynek. Dostępne są - będzie uczestniczył, uczestniczył i komentarz.";}
+				if ($type['id']==7) {$title="Skrzynka typu Quiz wymaga rozwiązania zagadki: wykonania obliczeń, ułożenia puzzli z obrazka, rozwiązania łamigłówki, której wynikiem są dokładne współrzędne (lub ścisłe informacje na temat położenia) ukrytej skrzynki. Skrzynka tego typu może zawierać hasło do logu internetowego.";}
+				if ($type['id']==8) {$title="Mobilna - Skrzynka, którą po odnalezieniu przenosimy w inne miejsce. Nowe współrzędne podajemy w logu internetowym. Można takie skrzynki umieszczać także wewnątrz innych skrzynek.";}
+				if ($type['id']==9) {$title="Podcast cache - Współrzędne podane nie wskazują miejsca ukrycia skrzynki tylko punkt startowy. Zakładający skrzynke nagrywa w postaci pliku MP3 opis drogi jak dotrzeć z miejsca startowego do celu gdzie jest ukryta fizyczna skrzynka. Szukający pobiera z strony serwisu z opisu skrzynki plik MP3 i sluchając go z miejsca startowego stara się odszukać skrzynke..";}
 					if( $type['id'] == 4 || $type['id'] == 5 )
 						continue;
 					if ($type['id'] == $sel_type)
 					{
-						$types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+						$types .= '<option title="'.$title.'" value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 					}
 					else
 					{
-						$types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+						$types .= '<option title="'.$title.'" value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 					}
 				}
 				tpl_set_var('typeoptions', $types);
