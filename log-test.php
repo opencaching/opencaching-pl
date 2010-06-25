@@ -547,7 +547,7 @@
 							{
 							//check exist start point mobile cache in DB cache_moved, if not exist add from caches
 							$rsck =  sql("SELECT `longitude`, `latitude` FROM `cache_moved` WHERE `log_id` IS NULL AND `cache_id`='&1'",$cache_id);
-							if ($mysql_num_rows($rsck) ==0)
+							if (mysql_num_rows($rsck) ==0)
 							{
 								sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`,`date`,`longitude`,`latitude`)
 										 VALUES ('', '&1', '&2', '&3','&4','&5')",
