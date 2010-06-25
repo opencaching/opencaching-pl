@@ -428,7 +428,7 @@
 						if ($coords_lonEW == 'W') $lon = -$lon;
 						// update caches coordinates 
 						if ( $log_record['cache_latitude'] ==$recordl['latitude'] && $log_record['cache_longitude']==$recordl['longitude'] ){
-						sql("UPDATEb `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);}							
+						//sql("UPDATEb `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);}							
 						sql("UPDATE `cache_moved` SET `longitude`='&1', `latitude`='&2' WHERE `log_id`='&3'",  $lon, $lat, $log_id);							
 						} 
 
@@ -452,7 +452,7 @@
 				if ($cm_date<$log_date)
 					{
 					//update cache XY
-					sql("UPDATEc `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);
+					//sql("UPDATEc `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);
 					}
 				}
 
