@@ -459,8 +459,8 @@
 */
 							
 						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`, `log_id`,`date`,`longitude`,`latitude`)
-										 VALUES ('', '&1', '&2', '&3',NOW(),'&4','&5')",
-										 $log_record['cache_id'], $log_record['user_id'],$log_id,$lon,$lat);
+										 VALUES ('', '&1', '&2', '&3','&4','&5','&6')",
+										 $log_record['cache_id'], $log_record['user_id'],$log_id,$log_record['date'],$lon,$lat);
 
 						} 
 

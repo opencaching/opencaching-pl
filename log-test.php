@@ -559,8 +559,8 @@
 							if ($coords_lonEW == 'W') $longitude = -$longitude;
 						$log_id =  sqlValue("SELECT id FROM `cache_logs` WHERE `uuid`='" . sql_escape($log_uuid) . "'", 0);
 						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`, `log_id`,`date`,`longitude`,`latitude`)
-										 VALUES ('', '&1', '&2', '&3', NOW(),'&4','&5')",
-										 $cache_id, $usr['userid'],$log_id,$longitude,$latitude);
+										 VALUES ('', '&1', '&2', '&3','&4','&5','&6')",
+										 $cache_id, $usr['userid'],$log_id,$log_date,$longitude,$latitude);
 							// update caches coordinates
 //							sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $longitude, $latitude, $cache_id);
 							}
