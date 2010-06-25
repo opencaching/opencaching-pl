@@ -73,7 +73,7 @@
 			if ($cache_id != 0)
 			{
 				//get cachename
-				$rs = sql("SELECT `name`, `cache_id`,`user_id`, `logpw`, `wp_oc`,`wp_gc`, `wp_nc`, `type`, `status`,`longitude`, `latitude` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+				$rs = sql("SELECT `name`, `longitude` ,`latitude`,`date_hidden`, `cache_id`,`user_id`, `logpw`, `wp_oc`,`wp_gc`, `wp_nc`, `type`, `status`,`longitude`, `latitude` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
 
 				if (mysql_num_rows($rs) == 0)
 				{
@@ -102,6 +102,10 @@
 
 			if ($cache_id != 0)
 			{
+				$cache_longitude=$record['longitude'];
+				$cache_latitude=$record['latitude'];
+				$cache_owner=$record['user_id'];
+				$cache_hidden=$record['date_hidden'];
 				$all_ok = false;
 				$encrypt =0;
 				$encrypt = (isset($_POST['encrypt']) ? 1 : 0);   
@@ -541,6 +545,14 @@
 
 						if (!($lat_not_ok || $lon_not_ok) && $log_type==4)
 							{
+							//check exist start point mobile cache in DB cache_moved, if not exist add from caches
+							$rsck =  sql("SELECT `longitude`, `latitude` FROM `cache_moved` WHERE `log_id` IS NULL AND `cache_id`='&1'",$cache_id);
+							if ($mysql_num_rows($rsck) ==0)
+							{
+								sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`,`date`,`longitude`,`latitude`)
+										 VALUES ('', '&1', '&2', '&3','&4','&5')",
+										 $cache_id, $cache_owner,$cache_hidden,$cache_longitude,$cache_latitude);
+							} 	
 							$latitude = $coords_lat_h + $coords_lat_min / 60;
 							if ($coords_latNS == 'S') $latitude = -$latitude;
 							$longitude = $coords_lon_h + $coords_lon_min / 60;
