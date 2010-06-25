@@ -441,7 +441,7 @@
 						// update caches coordinates
 						// check exist XY in cache_moved table
 /*
-			$rcmxy = sql("SELECT `cache_moved`.`latitude` `latitude`,
+			$rscmxy = sql("SELECT `cache_moved`.`latitude` `latitude`,
 			                   `cache_moved`.`longitude` `longitude`,`cache_moved`.`date` `date`
 								FROM `cache_moved` WHERE `cache_moved`.`cache_id`='&1'
 								AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL 	
