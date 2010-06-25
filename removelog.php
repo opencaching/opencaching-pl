@@ -118,6 +118,14 @@ function removelog($log_id, $language, $lang)
 						//sql("DELETE FROM `cache_logs` WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
 						// do not acually delete logs - just mark them as deleted.
 						sql("UPDATE `cache_logs` SET deleted = 1 WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
+						// remove from cache_moved for log "MOVED"
+						if ($log_record['log_type'] == 4)
+						{
+						$check_cm = sqlValue("SELECT `id` FROM `cache_moved` WHERE `log_id`='" .  sql_escape($log_id) . "'", 0);
+						if ($check_cm!=0) {
+						sql("DELETE FROM `cache_moved` WHERE `log_id`.`id`='&1' LIMIT 1", $log_id);
+							}
+						}
 						//user stats aktualisieren
 						// moegliche racecondition, wenn jemand gleichzeitig loggt koennen die Zaehler auseinanderlaufen! -orotl-
 						$user_rs = sql("SELECT `founds_count`, `notfounds_count`, `log_notes_count` FROM `user` WHERE `user_id`='&1'", $log_record['log_user_id']);
@@ -126,7 +134,7 @@ function removelog($log_id, $language, $lang)
 						
 						
 						if ($log_record['log_type'] == 1 || $log_record['log_type'] == 7)
-						{
+						{ 
 							// remove cache from users top caches, because the found log was deleted for some reason
 							sql("DELETE FROM `cache_rating` WHERE `user_id` = '&1' AND `cache_id` = '&2'", $log_record['log_user_id'], $log_record['cache_id']);
 							$user_record['founds_count']--;
