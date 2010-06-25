@@ -123,7 +123,7 @@ function removelog($log_id, $language, $lang)
 						{
 						$check_cm = sqlValue("SELECT `id` FROM `cache_moved` WHERE `log_id`='" .  sql_escape($log_id) . "'", 0);
 						if ($check_cm!=0) {
-						sql("DELETE FROM `cache_moved` WHERE `log_id`.`id`='&1' LIMIT 1", $log_id);
+						sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);
 							}
 						}
 						//user stats aktualisieren
