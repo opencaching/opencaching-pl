@@ -613,9 +613,11 @@
 				$watcher_record = sql_fetch_array($rs);
 				tpl_set_var('visits', $watcher_record['count']);
 			}
+			
+			$number_logs=sqlValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=0 and `cache_id`='" . sql_escape($cache_record['cache_id']) . "'", 0);
 
-
-			if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) > $logs_to_display)
+//			if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) > $logs_to_display)
+			if ($number_logs > $logs_to_display)
 			{
 				tpl_set_var('viewlogs_last', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs_last));
 				tpl_set_var('viewlogs', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs));
