@@ -568,10 +568,10 @@
 			$logdate=strtotime(date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)));
 			$cm_date=strtotime($rcmxy['date']);
 				if ($logdate>$cm_date) {
-						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $longitude, $latitude, $cache_id);
+						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'",  $longitude, $latitude, $cache_id);
 							}
 					} else {
-						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $longitude, $latitude, $cache_id);
+						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'",  $longitude, $latitude, $cache_id);
 							}
 						$log_id =  sqlValue("SELECT id FROM `cache_logs` WHERE `uuid`='" . sql_escape($log_uuid) . "'", 0);
 						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`, `log_id`,`date`,`longitude`,`latitude`)

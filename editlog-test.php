@@ -453,7 +453,7 @@
 				if ($cm_date<$logdate)
 					{
 					//update cache XY
-					//sql("UPDATEc `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);
+					//sql("UPDATEc `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);
 					}
 				}
 */

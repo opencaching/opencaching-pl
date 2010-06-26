@@ -121,18 +121,18 @@ function removelog($log_id, $language, $lang)
 						// remove from cache_moved for log "MOVED"
 						if ($log_record['log_type'] == 4)
 						{
-//						$check_cm = sqlValue("SELECT `id` FROM `cache_moved` WHERE `log_id`='" .  sql_escape($log_id) . "'", 0);
 						$check_cml = sql("SELECT `latitude`,`longitude`,`id` FROM `cache_moved` WHERE `log_id`='&1'",$log_id);
 						if (mysql_num_rows($check_cml)!=0) {
 						$xy_log = sql_fetch_array($check_cml);				
-						$check_cmc = sql("SELECT `latitude`,`longitude`,`id` FROM `cache_moved` WHERE `log_id` IS NULL AND `cache_id`='&1'",$log_record['cache_id']);
+						$check_cmc = sql("SELECT `latitude`,`longitude` FROM `caches` WHERE `cache_id`='&1'",$log_record['cache_id']);
 						if (mysql_num_rows($check_cmc) !=0) {
-						$xy_cache = sql_fetch_array($check_cmc);	
+						$xy_cache = sql_fetch_array($check_cmc);			
 						if ($xy_cache['latitude']==$xy_log['latitude'] && $xy_cache['longitude']==$xy_log['longitude']){
 						sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);
-						$get_xy = sql("SELECT `latitude`,`longitude`FROM `cache_moved` WHERE `cache_id`='&1' ORDER BY `date` DESC LIMIT 1",$log_record['cache_id']);
-						$xy_old = sql_fetch_array($get_xy);	
-						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $get_xy['longitude'], $get_xy['latitude'], $log_record['cache_id']);
+						$get_xy = sql("SELECT `latitude`,`longitude` FROM `cache_moved` WHERE `cache_id`='&1' ORDER BY `date` DESC LIMIT 1",$log_record['cache_id']);
+						$old_xy = sql_fetch_array($get_xy);	
+						echo $old_xy['latitude'];echo $old_xy['longitude'];
+						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'", $old_xy['longitude'], $old_xy['latitude'], $log_record['cache_id']);
 								} else { sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);}
 							  } else { sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);}
 							}
