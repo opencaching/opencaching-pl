@@ -557,12 +557,27 @@
 							if ($coords_latNS == 'S') $latitude = -$latitude;
 							$longitude = $coords_lon_h + $coords_lon_min / 60;
 							if ($coords_lonEW == 'W') $longitude = -$longitude;
+							// update caches coordinates
+			$rscmxy = sql("SELECT `cache_moved`.`latitude` `latitude`,
+			                   `cache_moved`.`longitude` `longitude`,`cache_moved`.`date` `date`
+								FROM `cache_moved` WHERE `cache_moved`.`cache_id`='&1'
+								AND `cache_moved`.`log_id` IS NOT NULL 	
+			         ORDER BY `cache_moved`.`date` DESC LIMIT 1", $record['cache_id']);
+			if (mysql_num_rows($rscmxy) !=0)
+			{$rcmxy = sql_fetch_array($rscmxy);
+			$logdate=strtotime(date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)));
+			$cm_date=strtotime($rcmxy['date']);
+				if ($logdate>$cm_date) {
+						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $longitude, $latitude, $cache_id);
+							}
+					} else {
+						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $longitude, $latitude, $cache_id);
+							}
 						$log_id =  sqlValue("SELECT id FROM `cache_logs` WHERE `uuid`='" . sql_escape($log_uuid) . "'", 0);
 						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`, `log_id`,`date`,`longitude`,`latitude`)
 										 VALUES ('', '&1', '&2', '&3','&4','&5','&6')",
 										 $cache_id, $usr['userid'],$log_id,$log_date,$longitude,$latitude);
-							// update caches coordinates
-//							sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $longitude, $latitude, $cache_id);
+
 							}
 							
 									

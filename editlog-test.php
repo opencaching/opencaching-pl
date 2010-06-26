@@ -448,9 +448,9 @@
 			         ORDER BY `cache_moved`.`date` DESC LIMIT 1", $log_record['cache_id']);
 			if (mysql_num_rows($rscmxy) !=0)
 			{$rcmxy = sql_fetch_array($rscmxy);
-			$log_date=strtotime(date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)));
+			$logdate=strtotime(date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)));
 			$cm_date=strtotime($rcmxy['date']);
-				if ($cm_date<$log_date)
+				if ($cm_date<$logdate)
 					{
 					//update cache XY
 					//sql("UPDATEc `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);
