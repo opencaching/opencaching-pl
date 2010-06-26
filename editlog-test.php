@@ -61,6 +61,8 @@
 					//load settings
 					$cache_name = $log_record['cachename'];
 					$cache_type = $log_record['cachetype'];
+					$cache_latitude = $log_record['cache_latitude'];
+					$cache_longitude = $log_record['cache_longitude'];
 					$cache_user_id = $log_record['cache_user_id'];
 					$log_type = isset($_POST['logtype']) ? $_POST['logtype'] : $log_record['logtype'];
 					$log_date_min = isset($_POST['logmin']) ? $_POST['logmin'] : date('i', strtotime($log_record['date']));
@@ -427,8 +429,18 @@
 						$lon = $coords_lon_h + $coords_lon_min / 60;
 						if ($coords_lonEW == 'W') $lon = -$lon;
 						// update caches coordinates 
-//						if ( $log_record['cache_latitude'] ==$recordl['latitude'] && $log_record['cache_longitude']==$recordl['longitude'] ){
-						//sql("UPDATEb `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2', WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);}							
+						$rscs = sql("SELECT `cache_moved`.`latitude` `latitude`,
+			                   `cache_moved`.`longitude` `longitude`
+								FROM `cache_moved` WHERE `cache_moved`.`cache_id`='&1'
+								AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL AND user_id='&2' AND log_id='&3'	
+			         ORDER BY `cache_moved`.`date` DESC LIMIT 1", $log_record['cache_id'], $log_record['user_id'],$log_id);
+
+				$recordxy = sql_fetch_array($rscs);
+				
+						if ($cache_latitude == $recordxy['latitude'] && $cache_longitude==$recordxy['longitude']  )
+						{
+						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);
+						}							
 						sql("UPDATE `cache_moved` SET `longitude`='&1', `latitude`='&2' WHERE `log_id`='&3'",  $lon, $lat, $log_id);							
 						} 
 
@@ -440,7 +452,7 @@
 						if ($coords_lonEW == 'W') $lon = -$lon;
 						// update caches coordinates
 						// check exist XY in cache_moved table
-/*
+
 			$rscmxy = sql("SELECT `cache_moved`.`latitude` `latitude`,
 			                   `cache_moved`.`longitude` `longitude`,`cache_moved`.`date` `date`
 								FROM `cache_moved` WHERE `cache_moved`.`cache_id`='&1'
@@ -453,18 +465,16 @@
 				if ($cm_date<$logdate)
 					{
 					//update cache XY
-					//sql("UPDATEc `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);
+					sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);
 					}
-				}
-*/
-							
+				}					
 						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`, `log_id`,`date`,`longitude`,`latitude`)
 										 VALUES ('', '&1', '&2', '&3','&4','&5','&6')",
-										 $log_record['cache_id'], $log_record['user_id'],$log_id,$log_record['date'],$lon,$lat);
-
+										 $log_record['cache_id'], $log_record['user_id'],$log_id,
+										 date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
+										 $lon,$lat);
 						} 
-
-					
+				
 						//store changed data
 						sql("UPDATE `cache_logs` SET `type`='&1',
 						                             `date`='&2',
