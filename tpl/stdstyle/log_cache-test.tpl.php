@@ -233,7 +233,7 @@ function showHide(id){
 	<tr>   
     <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="bottom" />&nbsp;<strong><input id="encrypt" type="checkbox" name="encrypt" value="1" {is_checked} /><label for="encrypt">Zaszyfruj wpis do logu</label></strong>
      
-    <div class="notice" id="viewcache-attributesend" style="width:600px;"> Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennik zawiera spoilery lub takie informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst poza nawiasami kwadratowymi [treść] nie będzie szyfrowany.</div></td>
+    <div class="notice" id="viewcache-attributesend" style="width:650px;"> Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennik zawiera spoilery lub takie informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst poza nawiasami kwadratowymi [treść] nie będzie szyfrowany.</div></td>
 	</tr>
 	<tr>
 		<td colspan="2">{log_empty_message}<br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
