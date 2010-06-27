@@ -293,7 +293,7 @@ show pokaż
 lock Zablokuj
 unlock Odblokuj
 user_stats statystyki użytkownika
-first_cache Jeśli rejestrujesz skrzynkę na {site_name} po raz pierwszy, proszę zapoznać się z <a href="{cache_params_url}">podstawowymi informacjami</a>
+first_cache Możesz zapoznać się jak wybrać typ skrzynki, wielkość, atrybuty itp czytając artykuł z <a href="{cache_params_url}">podstawowymi informacjami</a>.
 first_cache_approvement Ponieważ jest to jedna z trzech pierwszych Twoich skrzynek, będzie ona widoczna dla innych, gdy zostanie zaakceptowana przez Zespół {site_name}.
 name_label Nazwa
 cache_type Rodzaj skrzynki
