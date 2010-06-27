@@ -424,9 +424,9 @@
 
 					// Update XY coord
 					if ($log_type==4  && $coord_existDB==1) 
-					{	$lat = $coords_lat_h + $coords_lat_min / 60;
+					{	$lat = $coords_lat_h + round($coords_lat_min,3) / 60;
 						if ($coords_latNS == 'S') $lat = -$lat;
-						$lon = $coords_lon_h + $coords_lon_min / 60;
+						$lon = $coords_lon_h + round($coords_lon_min,3) / 60;
 						if ($coords_lonEW == 'W') $lon = -$lon;
 						// update caches coordinates 
 						$rscs = sql("SELECT `cache_moved`.`latitude` `latitude`,
@@ -446,9 +446,9 @@
 
 					// ADD XY coord
 					if ($log_type==4  && $coord_existDB==0) 
-					{	$lat = $coords_lat_h + $coords_lat_min / 60;
+					{	$lat = $coords_lat_h + round($coords_lat_min,3) / 60;
 						if ($coords_latNS == 'S') $lat = -$lat;
-						$lon = $coords_lon_h + $coords_lon_min / 60;
+						$lon = $coords_lon_h + round($coords_lon_min,3) / 60;
 						if ($coords_lonEW == 'W') $lon = -$lon;
 						// update caches coordinates
 						// check exist XY in cache_moved table

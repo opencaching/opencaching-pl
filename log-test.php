@@ -553,9 +553,9 @@
 										 VALUES ('', '&1', '&2', '&3','&4','&5')",
 										 $cache_id, $cache_owner,$cache_hidden,$cache_longitude,$cache_latitude);
 							} 	
-							$latitude = $coords_lat_h + $coords_lat_min / 60;
+							$latitude = $coords_lat_h + round($coords_lat_min,3) / 60;
 							if ($coords_latNS == 'S') $latitude = -$latitude;
-							$longitude = $coords_lon_h + $coords_lon_min / 60;
+							$longitude = $coords_lon_h + round($coords_lon_min,3) / 60;
 							if ($coords_lonEW == 'W') $longitude = -$longitude;
 							// update caches coordinates
 			$rscmxy = sql("SELECT `cache_moved`.`latitude` `latitude`,
