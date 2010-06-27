@@ -491,7 +491,8 @@
 						                             (($descMode == 3) ? 1 : 0),
 													$encrypt,
 						                             $log_id);
-													
+						mysql_free_result($rscmxy);		
+						mysql_free_result($rscs);					
 						//update user-stat if type changed
 						if ($log_record['logtype'] != $log_type)
 						{

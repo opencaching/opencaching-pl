@@ -72,9 +72,12 @@ $get_cacheid = $_REQUEST['cacheid'];
 		tpl_set_var('route', $trasa);		
 
 			$rscp = sql("SELECT `cache_moved`.`latitude` `latitude`,
-			                   `cache_moved`.`longitude` `longitude`
-					FROM `cache_moved` 
-					WHERE `cache_moved`.`cache_id`='&1'
+			                   `cache_moved`.`longitude` `longitude`,
+							   `cache_moved`.`date` `date`,
+							   `user`.`username` `username`
+					FROM `cache_moved`,`user`
+					WHERE `user`.`user_id`=`cache_moved`.`user_id` AND
+					`cache_moved`.`cache_id`='&1'
 					AND `cache_moved`.`longitude` IS NOT NULL AND `cache_moved`.`latitude` IS NOT NULL	
 			         ORDER BY `cache_moved`.`date` ASC
 			            ", $cache_id);
@@ -83,6 +86,8 @@ $get_cacheid = $_REQUEST['cacheid'];
 			for ($i = 0; $i < mysql_num_rows($rscp); $i++)
 			{
 				$record = sql_fetch_array($rscp);
+				$username=$record['username'];
+				$date=$record['date'];
 				$y=$record['longitude'];
 				$x=$record['latitude'];
 
@@ -92,10 +97,14 @@ $get_cacheid = $_REQUEST['cacheid'];
 			if ($i==$nrows-1) {$icon="icon3";}
 			$number=$i+1;
 			$point .="var marker".$number." = new GMarker(point,".$icon."); map0.addOverlay(marker".$number.");\n\n";
+			if ($number==1){
+			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<br/><b>Ukryta ".$date."<br/> przez: ".$username."</b>');});\n bounds.extend(point);\n";
+			} else {
+			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<br/><b>Przeniesiona ".$date."<br/> przez: ".$username."</b>');});\n bounds.extend(point);\n";
+				}
 			}
 
 		tpl_set_var('points', $point);	
-
 
 
 	$smallestLat = sqlValue("SELECT `cache_moved`.`latitude` `latitude` FROM `cache_moved` WHERE `cache_id`='" . sql_escape($cache_id) . "' ORDER BY `cache_moved`.`latitude` ASC LIMIT 1", 0);
@@ -122,7 +131,8 @@ $get_cacheid = $_REQUEST['cacheid'];
 	
 	tpl_set_var('cachemap_mapper', $cachemap_mapper);
 
-
+		mysql_free_result($rsc);
+		mysql_free_result($rscp);
 
 	/*SET YOUR MAP CODE HERE*/
 	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
