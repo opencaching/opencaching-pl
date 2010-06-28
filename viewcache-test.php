@@ -1246,7 +1246,7 @@
 							'title' => tr('new_log_entry'),
 							'menustring' => tr('new_log_entry'),
 							'visible' => true,
-							'filename' => 'log.php?cacheid='.$cache_id,
+							'filename' => 'log-test.php?cacheid='.$cache_id,
 							'newwindow' => false,
 							'siteid' => 'new_log',
 							'icon' => 'images/actions/new-entry'
