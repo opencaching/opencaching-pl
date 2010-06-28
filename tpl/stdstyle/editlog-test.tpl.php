@@ -55,6 +55,7 @@ function _chkFound () {
 
 function toogleLayer( whichLayer, val )
 {
+	chkMoved();
 	var elem, vis;
 	_chkFound();
 	if( document. getElementById )
@@ -74,8 +75,6 @@ function toogleLayer( whichLayer, val )
 	}
 	else
 		vis.display = val;
-	
-	chkMoved();
 	
 	//if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
 	//	vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
@@ -127,7 +126,7 @@ function chkMoved()
 		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
 		<td align="left">
 			<!--<select name="logtype" onChange="return _chkFound()">-->
-			<select onload="javascript:toogleLayer('ocena');" name="logtype" onchange="javascript:toogleLayer('ocena');">
+			<select onload="javascript:toogleLayer('coord_table');" name="logtype" onchange="javascript:toogleLayer('coord_table');">
 				{logtypeoptions}
 			</select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">
 		</td>
@@ -150,7 +149,7 @@ function chkMoved()
 </table>
 
 {coordinates_start}
-<table width="95%" id="coord_table" class="content" style="font-size: 12px; line-height: 1.6em;display: {display_coord};">
+<table width="95%" id="coord_table" class="content" style="font-size: 12px; line-height: 1.6em;display: none;">
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td width="180px" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{{coordinates}}:</b></td>
