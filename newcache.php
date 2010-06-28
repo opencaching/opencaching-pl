@@ -234,6 +234,7 @@
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
 
 
+
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
 						tpl_set_var('htmlheaders', $headers);
 
@@ -674,7 +675,7 @@
 							$lat_min_not_ok = true;
 						}
 
-						$latitude = $lat_h + $lat_min / 60;
+						$latitude = $lat_h + round($lat_min,3) / 60;
 						if ($latNS == 'S') $latitude = -$latitude;
 
 						if ($latitude == 0)
@@ -733,7 +734,7 @@
 							$lon_min_not_ok = true;
 						}
 
-						$longitude = $lon_h + $lon_min / 60;
+						$longitude = $lon_h + round($lon_min,3) / 60;
 						if ($lonEW == 'W') $longitude = -$longitude;
 
 						if ($longitude == 0)
