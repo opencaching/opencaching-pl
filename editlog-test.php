@@ -77,7 +77,7 @@
 					$encrypt = (isset($_POST['encrypt']) ? 1 : 0);  				
 					
 					// add xy cooridnates for caches type 8 "moving" to log entry
-				if ( $cache_type == 8 && $log_type==4 ) {
+				if ( $cache_type == 8 ) {
 					tpl_set_var('coordinates_start',"");
 					tpl_set_var('coordinates_end',"");
 					tpl_set_var('display_coord',"block");
