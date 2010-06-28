@@ -37,7 +37,7 @@
 		else
 		{
 			//does log with this logid exist?
-			$log_rs = sql("SELECT `caches`.`latitude` AS `cache_latitude`, `caches`.`longitude` AS `cache_longitude`,`cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`encrypt` AS `encrypt`,`cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`, `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`, `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw` FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`) WHERE `id`='&1' AND `deleted` = &2", $log_id, 0);
+			$log_rs = sql("SELECT `caches`.`date_hidden` AS `cache_hidden`,`caches`.`latitude` AS `cache_latitude`, `caches`.`longitude` AS `cache_longitude`,`cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`encrypt` AS `encrypt`,`cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`, `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`, `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw` FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`) WHERE `id`='&1' AND `deleted` = &2", $log_id, 0);
 
 			if (mysql_num_rows($log_rs) > 0)
 			{
@@ -64,6 +64,7 @@
 					$cache_latitude = $log_record['cache_latitude'];
 					$cache_longitude = $log_record['cache_longitude'];
 					$cache_user_id = $log_record['cache_user_id'];
+					$cache_hidden =$log_record['cache_hidden'];
 					$log_type = isset($_POST['logtype']) ? $_POST['logtype'] : $log_record['logtype'];
 					$log_date_min = isset($_POST['logmin']) ? $_POST['logmin'] : date('i', strtotime($log_record['date']));
 					$log_date_hour = isset($_POST['loghour']) ? $_POST['loghour'] : date('H', strtotime($log_record['date']));
@@ -450,6 +451,16 @@
 						if ($coords_latNS == 'S') $lat = -$lat;
 						$lon = $coords_lon_h + round($coords_lon_min,3) / 60;
 						if ($coords_lonEW == 'W') $lon = -$lon;
+						
+						//check exist start point mobile cache in DB cache_moved, if not exist add from caches
+						$rsck =  sql("SELECT `longitude`, `latitude` FROM `cache_moved` WHERE `log_id` IS NULL AND `cache_id`='&1'",$log_record['cache_id']);
+						if (mysql_num_rows($rsck) ==0)
+						{
+						sql("INSERT INTO `cache_moved` (`id`, `cache_id`, `user_id`,`date`,`longitude`,`latitude`)
+										 VALUES ('', '&1', '&2', '&3','&4','&5')",
+										 $log_record['cache_id'], $cache_user_id,$cache_hidden,$cache_longitude,$cache_latitude);
+							} 	
+
 						// update caches coordinates
 						// check exist XY in cache_moved table
 
@@ -489,7 +500,7 @@
 						                             tidy_html_description((($descMode != 1) ? $log_text : nl2br($log_text))),
 						                             (($descMode != 1) ? 1 : 0),
 						                             (($descMode == 3) ? 1 : 0),
-													$encrypt,
+										$encrypt,
 						                             $log_id);
 						mysql_free_result($rscmxy);		
 						mysql_free_result($rscs);					
