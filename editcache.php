@@ -384,10 +384,10 @@
 						//all validations ok?
 						if (!($hidden_date_not_ok || $lat_not_ok || $lon_not_ok || $name_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $activate_date_not_ok || $status_not_ok))
 						{
-							$cache_lat = $coords_lat_h + $coords_lat_min / 60;
+							$cache_lat = $coords_lat_h + round($coords_lat_min,3) / 60;
 							if ($coords_latNS == 'S') $cache_lat = -$cache_lat;
 
-							$cache_lon = $coords_lon_h + $coords_lon_min / 60;
+							$cache_lon = $coords_lon_h + round($coords_lon_min,3) / 60;
 							if ($coords_lonEW == 'W') $cache_lon = -$cache_lon;
 
 							if($publish == 'now')
