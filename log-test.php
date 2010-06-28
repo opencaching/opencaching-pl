@@ -856,7 +856,7 @@
 			else
 			{
 				// cache_id = 0
-				header('Location: viewcache.php?cacheid='.$_GET['cacheid']);
+				header('Location: viewcache-test.php?cacheid='.$_GET['cacheid']);
 			}
 		}
 	}
