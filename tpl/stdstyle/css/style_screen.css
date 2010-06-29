@@ -11,6 +11,7 @@
 /*************************************************************/
 
 
+/* .header {background-image: url(../../../images/header970.jpg); height:81px;} */
 
 img { behavior: url(iepngfix/iepngfix.htc); vertical-align:middle; border-width:0px;border-style:none; }
 div#map_canvas img { behavior: none; }
@@ -35,7 +36,7 @@ body {font-size: 62.5%; margin: 0px auto; padding: 0px; background-color: #ccccc
 /*-----------------------------------*/
 /* 2.1 - Sitename, slogan and banner */
 /*-----------------------------------*/
-.header {background-image: url(../../../images/header970.jpg); height:81px;}
+.header {background-image: url(../../../images/head/rotator.php); height:81px;}
 .mapa {background-image: url(../../../images/celownik.png); height:180px; width:180px;}
 
 .site-name {width: 300px; height: 45px; top: 12px; position: absolute; z-index: 4; overflow: hidden; margin: 0px; padding-left: 80px;}
