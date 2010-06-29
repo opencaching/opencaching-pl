@@ -442,7 +442,7 @@
 						{
 						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'",  $lon, $lat, $log_record['cache_id']);
 						}							
-						sql("UPDATE `cache_moved` SET `longitude`='&1', `latitude`='&2' WHERE `log_id`='&3'",  $lon, $lat, $log_id);							
+						sql("UPDATE `cache_moved` SET `longitude`='&1', `latitude`='&2', `date`='&3' WHERE `log_id`='&4'",  $lon, $lat,date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)), $log_id);							
 						} 
 
 					// ADD XY coord
