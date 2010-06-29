@@ -119,6 +119,9 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
     <urlname><![CDATA[{waypoint} {wp_stage}]]></urlname>
     <sym>{wp_type}</sym>
     <type>Waypoint|{wp_type}</type>
+    <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/4">
+	<gsak:Parent>{waypoint}</gsak:Parent>
+	</gsak:wptExtension>
   </wpt>
 ';
 
