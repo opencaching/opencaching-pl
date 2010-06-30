@@ -45,8 +45,48 @@ if ($error == false)
 
 	//get the news
 	$tplname = 'my_logs';
-		tpl_set_var('latest_logs_cache','Najnowsze logi wprowadzone');	
+	tpl_set_var('latest_logs_cache','Najnowsze logi wprowadzone');	
 	require($stylepath . '/newlogs.inc.php');
+	        function cleanup_text($str)
+        {
+          $str = strip_tags($str, "<li>");
+	      $from[] = '&nbsp;'; $to[] = ' ';
+          $from[] = '<p>'; $to[] = '';
+         $from[] = '\n'; $to[] = '';
+         $from[] = '\r'; $to[] = '';
+          $from[] = '</p>'; $to[] = "";
+          $from[] = '<br>'; $to[] = "";
+          $from[] = '<br />'; $to[] = "";
+    	 $from[] = '<br/>'; $to[] = "";
+            
+          $from[] = '<li>'; $to[] = " - ";
+          $from[] = '</li>'; $to[] = "";
+          
+          $from[] = '&oacute;'; $to[] = 'o';
+          $from[] = '&quot;'; $to[] = '"';
+          $from[] = '&[^;]*;'; $to[] = '';
+          
+          $from[] = '&'; $to[] = '';
+          $from[] = '\''; $to[] = '';
+          $from[] = '"'; $to[] = '';
+          $from[] = '<'; $to[] = '';
+          $from[] = '>'; $to[] = '';
+          $from[] = '('; $to[] = ' -';
+          $from[] = ')'; $to[] = '- ';
+          $from[] = ']]>'; $to[] = ']] >';
+	 $from[] = ''; $to[] = '';
+              
+          for ($i = 0; $i < count($from); $i++)
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
+          return filterevilchars($str);
+        }
+        
+	
+        function filterevilchars($str)
+	{
+		return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
+	}
 	$rsGeneralStat =sql("SELECT  username FROM user WHERE user_id=&1",$user_id);
 
 			$user_record = sql_fetch_array($rsGeneralStat);
@@ -120,6 +160,7 @@ if ($error == false)
 	$rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
+							  cache_logs.text AS log_text,
 	                          caches.name AS cache_name,
 	                          countries.pl AS country_name,
 	                          user.username AS user_name,
@@ -165,7 +206,11 @@ if ($error == false)
 					}	
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
-				$file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+				$file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\''; 
+				$file_content .= '<b>'.$log_record['user_name'].'</b>:<br/>';
+				$data = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
+				$file_content .= str_replace("\n", " ",$data);
+				$file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td>&nbsp;</td>';
 				$file_content .= "</tr>";
 					}

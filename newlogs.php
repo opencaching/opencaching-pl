@@ -211,13 +211,6 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	//user definied sort function
 	
 }
-function nl2br_limit($string, $num){
-   
-$dirty = preg_replace('/\r/', '', $string);
-$clean = preg_replace('/\n{4,}/', str_repeat('<br/>', $num), preg_replace('/\r/', '', $dirty));
-   
-return nl2br($clean);
-}
         function cleanup_text($str)
         {
 //          $str = PLConvert('UTF-8','POLSKAWY',$str);
