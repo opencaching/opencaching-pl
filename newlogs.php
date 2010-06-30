@@ -106,6 +106,8 @@ if ($error == false)
 $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
+				   cache_logs.text AS log_text,
+				  cache_logs.text_html AS text_html,
 	                          caches.name AS cache_name,
 	                          user.username AS user_name,
 							  user.user_id AS user_id,
@@ -205,6 +207,46 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	//user definied sort function
 	
 }
+        function cleanup_text($str)
+        {
+//          $str = PLConvert('UTF-8','POLSKAWY',$str);
+          $str = strip_tags($str, "<p><br /><li>");
+          // <p> -> nic
+          // </p>, <br /> -> nowa linia
+          $from[] = '<p>'; $to[] = '';
+          $from[] = '</p>'; $to[] = "";
+          $from[] = '<br>'; $to[] = "";
+          $from[] = '<br />'; $to[] = "";
+	 $from[] = '<br/>'; $to[] = "";
+            
+          $from[] = '<li>'; $to[] = " - ";
+          $from[] = '</li>'; $to[] = "";
+          
+          $from[] = '&oacute;'; $to[] = 'o';
+          $from[] = '&quot;'; $to[] = '"';
+          $from[] = '&[^;]*;'; $to[] = '';
+          
+          $from[] = '&'; $to[] = '';
+          $from[] = '\''; $to[] = '';
+          $from[] = '"'; $to[] = '';
+          $from[] = '<'; $to[] = '';
+          $from[] = '>'; $to[] = '';
+          $from[] = '('; $to[] = ' -';
+          $from[] = ')'; $to[] = '- ';
+          $from[] = ']]>'; $to[] = ']] >';
+					$from[] = ''; $to[] = '';
+              
+          for ($i = 0; $i < count($from); $i++)
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
+          return filterevilchars($str);
+        }
+        
+	
+        function filterevilchars($str)
+	{
+		return str_replace('[\\x00-\\x09|\\x0B-\\x0C|\\x0E-\\x1F]', '', $str);
+	}
 function cmp($a, $b)
 	{
 		if ($a == $b)
