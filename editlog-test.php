@@ -394,7 +394,7 @@
 					}
 					else
 					{
-						$lat_not_ok = (($coords_lat_h >= 0) && ($coords_lat_h < 180)) ? false : true;
+						$lat_not_ok = (($coords_lat_h >= 0) && ($coords_lat_h < 90)) ? false : true;
 					}
 
 					if (is_numeric($coords_lat_min))
@@ -417,7 +417,7 @@
 				if ($log_text==""){$log_empty=true;}
 				
 					//store?
-					if (isset($_POST['submitform']) && $date_not_ok == false  && $logtype_not_ok == false && $pw_not_ok == false )
+					if (isset($_POST['submitform']) && $date_not_ok == false  && $logtype_not_ok == false && $pw_not_ok == false && !($lat_not_ok || $lon_not_ok))
 					{
 
 				
