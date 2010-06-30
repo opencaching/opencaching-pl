@@ -184,8 +184,9 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
-				$data = str_replace("\r\n", " ", $log_record['log_text']);
-				$file_content .= cleanup_text($data);
+				$file_content .= '<b>'.$log_record['user_name'].'</b>:<br/>';
+				$data = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
+				$file_content .= str_replace("\n", " ",$data);
 				$file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 				$file_content .= "</tr>";
