@@ -509,7 +509,7 @@
 				if ($log_text==""){$all_ok=false; $log_empty=true;}
 				}	
 
-				if( isset($_POST['submitform']) && ($all_ok == true) )
+				if( isset($_POST['submitform']) && ($all_ok == true) && !($lat_not_ok || $lon_not_ok) )
 				{
 				
 					if( $_POST['r'] >= -3 && $_POST['r'] <= 3 )
