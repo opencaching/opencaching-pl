@@ -41,6 +41,12 @@
 		{
 			$cache_id = $_REQUEST['cacheid'];
 		}
+		if (isset($_REQUEST['logid']))
+		{
+			$logid = $_REQUEST['logid'];
+		$show_one_log = " AND `cache_logs`.`id` ='".$logid."'  ";
+		}
+
 		$no_crypt_log = 0;		
 		if (isset($_REQUEST['nocryptlog']))
 		{
@@ -138,6 +144,7 @@
 				LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 				WHERE `cache_logs`.`cache_id`='&2'
 				".$show_deleted_logs2."
+				".$show_one_log."
 				ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT &3, &4", $lang, $cache_id, $start+0, $count+0);
 
 			$logs = '';
