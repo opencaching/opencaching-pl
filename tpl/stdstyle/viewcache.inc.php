@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-												  ./tpl/stdstyle/viewcache.inc.php
-															-------------------
-		begin                : Mon July 2 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -45,7 +37,7 @@
 
  }
  else
-	$logs_to_display = 4;
+	$logs_to_display = 5;
 
  // $short_desc_title = 'Charakterisierung: ';
 
