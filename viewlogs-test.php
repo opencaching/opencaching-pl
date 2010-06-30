@@ -84,7 +84,26 @@
 				}
 			}
 			mysql_free_result($rs);
-		}
+		} else {
+			//get cache record
+			$rs = sql("SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`='&1' AND `caches`.`cache_id`=`cache_logs`.`cache_id` ", $logid);
+
+			if (mysql_num_rows($rs) == 0)
+			{
+				$cache_id = 0;
+			}
+			else
+			{
+				$cache_record = sql_fetch_array($rs);
+				// check if the cache is published, if not only the owner is allowed to view the log
+				if(($cache_record['status'] == 4 || $cache_record['status'] == 5 || $cache_record['status'] == 6 ) && ($cache_record['user_id'] != $usr['userid'] && !$usr['admin']))
+				{
+					$cache_id = 0;
+				} else { $cache_id =$cache_record['cache_id'] ;}
+			}
+			mysql_free_result($rs);
+		}			
+		
 
 		if ($cache_id != 0)
 		{

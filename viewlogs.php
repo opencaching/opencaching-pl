@@ -41,6 +41,12 @@
 		{
 			$cache_id = $_REQUEST['cacheid'];
 		}
+		if (isset($_REQUEST['logid']))
+		{
+			$logid = $_REQUEST['logid'];
+		$show_one_log = " AND `cache_logs`.`id` ='".$logid."'  ";
+		}
+
 		$start = 0;
 		if (isset($_REQUEST['start']))
 		{
@@ -73,7 +79,27 @@
 				}
 			}
 			mysql_free_result($rs);
-		}
+		} else {
+		
+					//get cache record
+			$rs = sql("SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`='&1' AND `caches`.`cache_id`=`cache_logs`.`cache_id` ", $logid);
+
+			if (mysql_num_rows($rs) == 0)
+			{
+				$cache_id = 0;
+			}
+			else
+			{
+				$cache_record = sql_fetch_array($rs);
+				// check if the cache is published, if not only the owner is allowed to view the log
+				if(($cache_record['status'] == 4 || $cache_record['status'] == 5 || $cache_record['status'] == 6 ) && ($cache_record['user_id'] != $usr['userid'] && !$usr['admin']))
+				{
+					$cache_id = 0;
+				} else { $cache_id =$cache_record['cache_id'] ;}
+			}
+			mysql_free_result($rs);
+		}			
+
 
 		if ($cache_id != 0)
 		{
@@ -134,6 +160,7 @@
 				LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 				WHERE `cache_logs`.`cache_id`='&2'
 				".$show_deleted_logs2."
+				".$show_one_log."
 				ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT &3, &4", $lang, $cache_id, $start+0, $count+0);
 
 			$logs = '';
