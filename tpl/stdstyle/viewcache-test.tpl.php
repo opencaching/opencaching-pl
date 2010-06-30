@@ -9,7 +9,6 @@
 	*
 	***************************************************************************/
 ?>
-
 <!-- Text container -->
 {body_scripts}
 		<div class="content2-container line-box">
