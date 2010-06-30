@@ -488,7 +488,7 @@
 					}
 					else
 					{
-						$lat_not_ok = (($coords_lat_h >= 0) && ($coords_lat_h < 180)) ? false : true;
+						$lat_not_ok = (($coords_lat_h >= 0) && ($coords_lat_h < 90)) ? false : true;
 					}
 
 					if (is_numeric($coords_lat_min))
