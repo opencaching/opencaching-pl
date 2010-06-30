@@ -296,7 +296,7 @@ user_stats statystyki użytkownika
 first_cache Możesz zapoznać się jak wybrać typ skrzynki, wielkość, atrybuty itp czytając artykuł z <a href="{cache_params_url}" target="_blank">podstawowymi informacjami</a>.
 first_cache_approvement Ponieważ jest to jedna z trzech pierwszych Twoich skrzynek, będzie ona widoczna dla innych, gdy zostanie zaakceptowana przez Zespół {site_name}.
 name_label Nazwa
-cache_type Rodzaj skrzynki
+cache_type Typ skrzynki
 cache_size Rozmiar skrzynki
 in_wgs84_system w systemie WGS-84
 difficulty_level Poziom trudności
