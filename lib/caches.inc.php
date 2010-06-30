@@ -62,7 +62,7 @@
 	global $dblink;
 	$cache_types = array();
 	
-	$resp = sql("SELECT * FROM cache_type ORDER BY id ASC");
+	$resp = sql("SELECT * FROM cache_type ORDER BY sort ASC");
 	while($row = sql_fetch_assoc($resp))
 	{
 		$cache_types[] = $row;
