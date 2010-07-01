@@ -74,6 +74,7 @@ $get_cacheid = $_REQUEST['cacheid'];
 			$rscp = sql("SELECT `cache_moved`.`latitude` `latitude`,
 			                   `cache_moved`.`longitude` `longitude`,
 							   `cache_moved`.`date` `date`,
+						cache_moved`.`log_id` `logid`,
 							   `user`.`username` `username`
 					FROM `cache_moved`,`user`
 					WHERE `user`.`user_id`=`cache_moved`.`user_id` AND
@@ -100,7 +101,7 @@ $get_cacheid = $_REQUEST['cacheid'];
 			if ($number==1){
 			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<br/><b>Ukryta ".$date."<br/> przez: ".$username."</b>');});\n bounds.extend(point);\n";
 			} else {
-			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<br/><b>Przeniesiona ".$date."<br/> przez: ".$username."</b>');});\n bounds.extend(point);\n";
+			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<br/><b>Przeniesiona ".$date."<br/> przez: <a href=\"viewlogs.php?logid=".$record['logid']."\">".$username."</a></b>');});\n bounds.extend(point);\n";
 				}
 			}
 
