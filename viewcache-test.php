@@ -1126,7 +1126,7 @@
 					$tmpFunctions="";}
 					$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
 
-//			if ($cache_record['type']==8){ ....?
+			if ($cache_record['type']==8 && $record['type']==4){
 
 			$rsc = sql("SELECT `cache_moved`.`latitude` `latitude`,
 			                   `cache_moved`.`longitude` `longitude`
@@ -1142,6 +1142,7 @@
 				$log_coord='<fieldset style="border: 1px solid black; width: 320px; height: 50px; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>Nowe współrzędne skrzynki</strong> &nbsp;</legend><p class="content-title-noshade-size3">&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
 						&nbsp;<b>'.$log_coords.'</b></p></fieldset><br/>';
+				}
 				}else{$log_coord="";}
 
 				$tmplog = mb_ereg_replace('{log_coordinates}', $log_coord, $tmplog);
