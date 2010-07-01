@@ -10,6 +10,7 @@
 	***************************************************************************/
 global $user_id;
 	?>
+<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <!-- 	CONTENT -->
 <div class="content2-container">
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{user_profile}}: {username} </div>
