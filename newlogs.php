@@ -175,7 +175,7 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 				        //$rating_picture
 				if ($log_record['recommended'] == 1 && $log_record['log_type']==1) 
 					{
-					$file_content .= '<td width="22"><img src="images/rating-star.png" border="0" alt=""/></td>';
+					$file_content .= '<td width="22"><img src="images/rating-star.png" border="0" alt="" title="Rekomendacja/></td>';
 					}
 					else
 					{
