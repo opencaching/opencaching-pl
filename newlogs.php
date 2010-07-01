@@ -238,8 +238,8 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
           $from[] = '"'; $to[] = '';
           $from[] = '<'; $to[] = '';
           $from[] = '>'; $to[] = '';
-          $from[] = '('; $to[] = ' -';
-          $from[] = ')'; $to[] = '- ';
+//          $from[] = '('; $to[] = ' -';
+//          $from[] = ')'; $to[] = '- ';
           $from[] = ']]>'; $to[] = ']] >';
 	 $from[] = ''; $to[] = '';
               
