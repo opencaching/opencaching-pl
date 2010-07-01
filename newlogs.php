@@ -213,11 +213,9 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 }
         function cleanup_text($str)
         {
-//          $str = PLConvert('UTF-8','POLSKAWY',$str);
+
           $str = strip_tags($str, "<li>");
-          // <p> -> nic
-          // </p>, <br /> -> nowa linia
-	          $from[] = '&nbsp;'; $to[] = ' ';
+	  $from[] = '&nbsp;'; $to[] = ' ';
           $from[] = '<p>'; $to[] = '';
          $from[] = '\n'; $to[] = '';
          $from[] = '\r'; $to[] = '';
@@ -238,8 +236,6 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
           $from[] = '"'; $to[] = '';
           $from[] = '<'; $to[] = '';
           $from[] = '>'; $to[] = '';
-//          $from[] = '('; $to[] = ' -';
-//          $from[] = ')'; $to[] = '- ';
           $from[] = ']]>'; $to[] = ']] >';
 	 $from[] = ''; $to[] = '';
               
