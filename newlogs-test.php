@@ -185,7 +185,8 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
 				$file_content .= '<td><b><a class="links" href="viewlogs-test.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
 				$file_content .= '<b>'.$log_record['user_name'].'</b>:<br/>';
-				$data = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
+				$data = str_replace($smileytext, $smileyimage, $log_record['log_text']);
+				$data = cleanup_text(str_replace("\r\n", " ", $data));
 				$file_content .= str_replace("\n", " ",$data);
 				$file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
@@ -241,12 +242,12 @@ return nl2br($clean);
           $from[] = '&[^;]*;'; $to[] = '';
           
           $from[] = '&'; $to[] = '';
-          $from[] = '\''; $to[] = '';
+          $from[] = "'"; $to[] = "";
           $from[] = '"'; $to[] = '';
-          $from[] = '<'; $to[] = '';
-          $from[] = '>'; $to[] = '';
-          $from[] = '('; $to[] = ' -';
-          $from[] = ')'; $to[] = '- ';
+//          $from[] = '<'; $to[] = '';
+//          $from[] = '>'; $to[] = '';
+//          $from[] = '('; $to[] = ' -';
+//          $from[] = ')'; $to[] = '\)';
           $from[] = ']]>'; $to[] = ']] >';
 	 $from[] = ''; $to[] = '';
               
