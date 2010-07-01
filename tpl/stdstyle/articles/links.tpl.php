@@ -100,6 +100,14 @@
 			<a href="http://www.geopeitus.ee/english.html">http://www.geopeitus.ee</a>
 		</td>
 	</tr>
+	<tr>
+		<td>
+			Bułgaria
+		</td>
+		<td>
+			<a href="http://www.geocaching.bg">http://www.geocaching.bg</a>
+		</td>
+	</tr>
 
 	<tr>
 		<td>
