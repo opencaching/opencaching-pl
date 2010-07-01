@@ -64,7 +64,45 @@
 				);
 
 	$content="";
+        function cleanup_text($str)
+        {
 
+          $str = strip_tags($str, "<li>");
+	  $from[] = '&nbsp;'; $to[] = ' ';
+          $from[] = '<p>'; $to[] = '';
+         $from[] = '\n'; $to[] = '';
+         $from[] = '\r'; $to[] = '';
+          $from[] = '</p>'; $to[] = "";
+          $from[] = '<br>'; $to[] = "";
+          $from[] = '<br />'; $to[] = "";
+	 $from[] = '<br/>'; $to[] = "";
+            
+          $from[] = '<li>'; $to[] = " - ";
+          $from[] = '</li>'; $to[] = "";
+          
+          $from[] = '&oacute;'; $to[] = 'o';
+          $from[] = '&quot;'; $to[] = '"';
+          $from[] = '&[^;]*;'; $to[] = '';
+          
+          $from[] = '&'; $to[] = '';
+          $from[] = '\''; $to[] = '';
+          $from[] = '"'; $to[] = '';
+          $from[] = '<'; $to[] = '';
+          $from[] = '>'; $to[] = '';
+          $from[] = ']]>'; $to[] = ']] >';
+	 $from[] = ''; $to[] = '';
+              
+          for ($i = 0; $i < count($from); $i++)
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
+          return filterevilchars($str);
+        }
+        
+	
+        function filterevilchars($str)
+	{
+		return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
+	}
 	  $rdd=sql("select TO_DAYS(NOW()) - TO_DAYS(`date_created`) `diff` from `user` WHERE user_id=&1 ",$user_id);
 	  $ddays = mysql_fetch_array($rdd);
 	  mysql_free_result($rdd);
@@ -217,6 +255,7 @@
 			
 	$rs_logs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
+				cache_logs.text AS log_text,
 	                          DATE_FORMAT(cache_logs.date,'%d-%m-%Y')  AS log_date,
 	                          caches.name AS cache_name,
 							  caches.wp_oc AS wp_name,
@@ -270,6 +309,13 @@
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{wpname}', htmlspecialchars($record_logs['wp_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{logid}', htmlspecialchars(urlencode($record_logs['id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
+
+				$data_u = '<b>'.$record_logs['user_name'].'</b>:<br/>';
+				$data = cleanup_text(str_replace("\r\n", " ", $record_logs['log_text']));
+				$data = str_replace("\n", " ",$data);
+				$logtext=$data_u . $data;
+					$tmp_log = mb_ereg_replace('{logtext}',$logtext, $tmp_log);
 
 					$content .= "\n" . $tmp_log;
 					}
@@ -396,6 +442,7 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 
 	$rs_logs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
+				cache_logs.text AS log_text,
 	                          DATE_FORMAT(cache_logs.date,'%d-%m-%Y') AS log_date,
 	                          caches.name AS cache_name,
 							  caches.wp_oc AS wp_name,
@@ -456,6 +503,13 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{userid}', htmlspecialchars($record_logs['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['user_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					$tmp_log = mb_ereg_replace('{logid}', htmlspecialchars(urlencode($record_logs['id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
+
+				$data_u = '<b>'.$record_logs['user_name'].'</b>:<br/>';
+				$data = cleanup_text(str_replace("\r\n", " ", $record_logs['log_text']));
+				$data = str_replace("\n", " ",$data);
+				$logtext=$data_u . $data;
+					$tmp_log = mb_ereg_replace('{logtext}',$logtext, $tmp_log);
 
 					$content .= "\n" . $tmp_log;
 				}
