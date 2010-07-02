@@ -22,7 +22,7 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><strong>Cache</strong></td>
+<td><strong>Geocache</strong></td>
 <td><strong>User</strong></td>
 </tr>
 <tr>

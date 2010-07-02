@@ -26,7 +26,7 @@
 <tr>
 <td colspan="2"><strong>{{date_hidden_label}}</strong></td>
 <td></td>
-<td><strong>Cache</strong></td>
+<td><strong>Geocache</strong></td>
 </tr>
 <tr>
 <td colspan="5"><hr></hr></td>
