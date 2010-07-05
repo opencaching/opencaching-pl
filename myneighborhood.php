@@ -49,6 +49,17 @@ if ($error == false)
 		
 	//get the news
 	$tplname = 'myneighborhood';
+
+function notify_exist_cache($latitude,$longitude,$radius)
+{
+    $sql=sql("
+        SELECT `caches`.`cache_id`, `caches`.`name`, `caches`.`wp_oc`
+        FROM `caches`
+        WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
+              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
+              3.14159 / 180)) * 6370) <= &3", $latitude, $longitude,$radius);
+            mysql_query($sql);
+}
 	require($stylepath . '/newlogs.inc.php');
 	
 			if(checkField('cache_status',$lang) )
