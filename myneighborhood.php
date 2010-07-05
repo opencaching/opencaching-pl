@@ -49,6 +49,84 @@ if ($error == false)
 		
 	//get the news
 	$tplname = 'myneighborhood';
+function get_marker_positions()
+{
+	$markerpos = array();
+	$markers = array();
+
+	$rs = sql("
+		SELECT	`cache_id`, `longitude`, `latitude`, `type`
+		FROM	`caches`
+		WHERE	`type` != 6 AND
+			`status` = 1 AND
+			`date_hidden` <= NOW() AND
+			`date_created` <= NOW()
+		ORDER BY IF((`date_hidden`>`date_created`), `date_hidden`, `date_created`) DESC, `cache_id` DESC
+		LIMIT 0, 10");
+
+	for ($i = 0; $i < mysql_num_rows($rs); $i++)
+	{
+		$record = sql_fetch_array($rs);
+		$lat = $record['latitude'];
+		$lon = $record['longitude'];
+		$type = $record['type'];
+		$markers[] = array('lat' => $lat, 'lon' => $lon, 'type' => $type);
+	}
+
+	$markerpos['plain_cache_num'] = count($markers);
+
+	$rs = sql("
+		SELECT	`cache_id`, `longitude`, `latitude`, `type`
+		FROM	`caches`
+		WHERE	`date_hidden` >= curdate() AND
+			`type` = 6 AND
+			`status` = 1
+		ORDER BY `date_hidden` ASC
+		LIMIT 0, 10");
+
+	for ($i = 0; $i < mysql_num_rows($rs); $i++)
+	{
+		$record = sql_fetch_array($rs);
+		$lat = $record['latitude'];
+		$lon = $record['longitude'];
+		$type = $record['type'];
+		$markers[] = array('lat' => $lat, 'lon' => $lon, 'type' => $type);
+	}
+
+	$markerpos['markers'] = $markers;
+
+	return $markerpos;
+}
+
+function create_map_url($markerpos, $index)
+{
+	global $googlemap_key;
+
+	$markers = $markerpos['markers'];
+	$markers_str = "markers=color:blue|size:small|";
+	$markers_ev_str = "&markers=color:orange|size:small|";
+	$sel_marker_str = "";
+	foreach ($markers as $i => $marker)
+	{
+		$lat = sprintf("%.3f", $marker['lat']);
+		$lon = sprintf("%.3f", $marker['lon']);
+		$type = strtoupper(typeToLetter($marker['type']));
+		if (strcmp($type, 'E') == 0)
+			if ($i != $index)
+				$markers_ev_str .= "$lat,$lon|";
+			else
+				$sel_marker_str = "&markers=color:orange|label:$type|$lat,$lon|";
+		else
+			if ($i != $index)
+				$markers_str .= "$lat,$lon|";
+			else
+				$sel_marker_str = "&markers=color:blue|label:$type|$lat,$lon|";
+	}
+
+	$google_map = "http://maps.google.com/maps/api/staticmap?center=52.13,19.20&zoom=5&size=250x260&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
+
+	return $google_map;
+}
 
 function notify_exist_cache($latitude,$longitude,$radius)
 {
@@ -215,84 +293,6 @@ if ($radius==0) $radius=100;
 
 
 
-function get_marker_positions()
-{
-	$markerpos = array();
-	$markers = array();
-
-	$rs = sql("
-		SELECT	`cache_id`, `longitude`, `latitude`, `type`
-		FROM	`caches`
-		WHERE	`type` != 6 AND
-			`status` = 1 AND
-			`date_hidden` <= NOW() AND
-			`date_created` <= NOW()
-		ORDER BY IF((`date_hidden`>`date_created`), `date_hidden`, `date_created`) DESC, `cache_id` DESC
-		LIMIT 0, 10");
-
-	for ($i = 0; $i < mysql_num_rows($rs); $i++)
-	{
-		$record = sql_fetch_array($rs);
-		$lat = $record['latitude'];
-		$lon = $record['longitude'];
-		$type = $record['type'];
-		$markers[] = array('lat' => $lat, 'lon' => $lon, 'type' => $type);
-	}
-
-	$markerpos['plain_cache_num'] = count($markers);
-
-	$rs = sql("
-		SELECT	`cache_id`, `longitude`, `latitude`, `type`
-		FROM	`caches`
-		WHERE	`date_hidden` >= curdate() AND
-			`type` = 6 AND
-			`status` = 1
-		ORDER BY `date_hidden` ASC
-		LIMIT 0, 10");
-
-	for ($i = 0; $i < mysql_num_rows($rs); $i++)
-	{
-		$record = sql_fetch_array($rs);
-		$lat = $record['latitude'];
-		$lon = $record['longitude'];
-		$type = $record['type'];
-		$markers[] = array('lat' => $lat, 'lon' => $lon, 'type' => $type);
-	}
-
-	$markerpos['markers'] = $markers;
-
-	return $markerpos;
-}
-
-function create_map_url($markerpos, $index)
-{
-	global $googlemap_key;
-
-	$markers = $markerpos['markers'];
-	$markers_str = "markers=color:blue|size:small|";
-	$markers_ev_str = "&markers=color:orange|size:small|";
-	$sel_marker_str = "";
-	foreach ($markers as $i => $marker)
-	{
-		$lat = sprintf("%.3f", $marker['lat']);
-		$lon = sprintf("%.3f", $marker['lon']);
-		$type = strtoupper(typeToLetter($marker['type']));
-		if (strcmp($type, 'E') == 0)
-			if ($i != $index)
-				$markers_ev_str .= "$lat,$lon|";
-			else
-				$sel_marker_str = "&markers=color:orange|label:$type|$lat,$lon|";
-		else
-			if ($i != $index)
-				$markers_str .= "$lat,$lon|";
-			else
-				$sel_marker_str = "&markers=color:blue|label:$type|$lat,$lon|";
-	}
-
-	$google_map = "http://maps.google.com/maps/api/staticmap?center=52.13,19.20&zoom=5&size=250x260&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
-
-	return $google_map;
-}
 
 
 	}	
