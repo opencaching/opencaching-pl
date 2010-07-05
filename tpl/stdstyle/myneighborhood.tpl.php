@@ -69,10 +69,7 @@ function Unlite() {
 				</div>
 				<div class="content2-container-2col-right" id="main-cachemap-block">
 					<div class="img-shadow">
-						<?php
-							global $dynstylepath;
-							include ($dynstylepath . "main_cachemap.inc.php");
-						?>
+					{new_events}
 					</div>
 				</div>
 				<div class="content2-container-2col-left" id="new-events-area">
