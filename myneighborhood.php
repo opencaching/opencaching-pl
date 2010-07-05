@@ -239,7 +239,7 @@ if ($radius==0) $radius=100;
 	mysql_free_result($rs);
 
 	//nextevents.include
-	$rs =sql("SELECT `user`.`user_id` `user_id`,
+	$rss =sql("SELECT `user`.`user_id` `user_id`,
 				`user`.`username` `username`,
 				`caches`.`cache_id` `cache_id`,
 				`caches`.`name` `name`,
@@ -247,7 +247,6 @@ if ($radius==0) $radius=100;
 				`caches`.`latitude` `latitude`,
 				`caches`.`date_hidden` `date_hidden`,
 				`caches`.`date_created` `date_created`,
-				IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
 				`caches`.`country` `country`,
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
@@ -265,7 +264,7 @@ if ($radius==0) $radius=100;
 
 
 	$file_content = '';
-	if (mysql_num_rows($rs) == 0)
+	if (mysql_num_rows($rss) == 0)
 	{
 		$file_content = tr("list_of_events_is_empty");
 	}
@@ -273,9 +272,9 @@ if ($radius==0) $radius=100;
 	{
 		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
 		$file_content = '<ul style="font-size: 11px;">';
-		for ($i = 0; $i < mysql_num_rows($rs); $i++)
+		for ($i = 0; $i < mysql_num_rows($rss); $i++)
 		{
-			$record = sql_fetch_array($rs);
+			$record = sql_fetch_array($rss);
 			$loc = coordToLocation($record['latitude'], $record['longitude']);
 		
 			$thisline = $cacheline;
@@ -300,7 +299,7 @@ if ($radius==0) $radius=100;
 	}
 
 	tpl_set_var('new_events',$file_content);
-	mysql_free_result($rs);
+	mysql_free_result($rss);
 
 
 
