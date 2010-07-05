@@ -238,24 +238,30 @@ if ($radius==0) $radius=100;
 	tpl_set_var('new_caches',$file_content);		
 
 	//nextevents.include
-	$rs = sql('	SELECT	`user`.`user_id` `user_id`,
+	$rs =sql("SELECT `user`.`user_id` `user_id`,
 				`user`.`username` `username`,
 				`caches`.`cache_id` `cache_id`,
 				`caches`.`name` `name`,
 				`caches`.`longitude` `longitude`,
 				`caches`.`latitude` `latitude`,
+				`caches`.`date_hidden` `date_hidden`,
 				`caches`.`date_created` `date_created`,
+				IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
 				`caches`.`country` `country`,
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
-				`caches`.`date_hidden`
-			FROM `caches`, `user`
-			WHERE `user`.`user_id`=`caches`.`user_id`
+				`cache_type`.`icon_large` `icon_large`
+        FROM `caches`, `user`, `cache_type`
+        WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
+              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
+              3.14159 / 180)) * 6370) <= &3 AND
+		`user`.`user_id`=`caches`.`user_id`
 			  AND `caches`.`date_hidden` >= curdate()
 			  AND `caches`.`type` = 6
 			  AND `caches`.`status` = 1
 			ORDER BY `date_hidden` ASC
-			LIMIT 0 , 10', $dblink);
+			LIMIT 0 , 10",$latitude, $longitude,$radius);
+
 
 	$file_content = '';
 	if (mysql_num_rows($rs) == 0)
@@ -289,6 +295,7 @@ if ($radius==0) $radius=100;
 			$file_content .= $thisline . "\n";
 		}
 		$file_content .= '</ul>';
+	tpl_set_var('new_events',$file_content);
 	}
 
 
