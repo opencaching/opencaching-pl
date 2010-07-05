@@ -71,7 +71,7 @@ function Unlite() {
 					<div class="img-shadow">
 						<?php
 							global $dynstylepath;
-							include ($dynstylepath . "main_cachemap.inc.php");
+							include ($dynstylepath . "local_cachemap.inc.php");
 						?>
 					</div>
 				</div>
@@ -79,6 +79,14 @@ function Unlite() {
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{incomming_events}}</p>
 				{new_events}
 			</div>
+							<div class="content2-container-2col-right" id="main-cachemap-block">
+					<div class="img-shadow">
+						<?php
+							global $dynstylepath;
+							include ($dynstylepath . "local_logsmap.inc.php");
+						?>
+					</div>
+				</div>
 				<div class="content2-container-2col-left" id="new-events-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{latest_logs}}</p>
 				{new_logs}

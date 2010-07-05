@@ -49,7 +49,8 @@ if ($error == false)
 		
 	//get the news
 	$tplname = 'myneighborhood';
-function get_marker_positions()
+	
+function get_marker_positions($latitude, $longitude,$radius)
 {
 	$markerpos = array();
 	$markers = array();
@@ -57,12 +58,15 @@ function get_marker_positions()
 	$rs = sql("
 		SELECT	`cache_id`, `longitude`, `latitude`, `type`
 		FROM	`caches`
-		WHERE	`type` != 6 AND
+		WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
+              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
+              3.14159 / 180)) * 6370) <= &3	AND	
+			`type` != 6 AND
 			`status` = 1 AND
 			`date_hidden` <= NOW() AND
 			`date_created` <= NOW()
 		ORDER BY IF((`date_hidden`>`date_created`), `date_hidden`, `date_created`) DESC, `cache_id` DESC
-		LIMIT 0, 10");
+		LIMIT 0, 10",$latitude, $longitude,$radius);
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
@@ -78,11 +82,14 @@ function get_marker_positions()
 	$rs = sql("
 		SELECT	`cache_id`, `longitude`, `latitude`, `type`
 		FROM	`caches`
-		WHERE	`date_hidden` >= curdate() AND
+		WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
+              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
+              3.14159 / 180)) * 6370) <= &3	AND
+		`date_hidden` >= curdate() AND
 			`type` = 6 AND
 			`status` = 1
 		ORDER BY `date_hidden` ASC
-		LIMIT 0, 10");
+		LIMIT 0, 10",$latitude, $longitude,$radius);
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
@@ -98,7 +105,7 @@ function get_marker_positions()
 	return $markerpos;
 }
 
-function create_map_url($markerpos, $index)
+function create_map_url($markerpos, $index,$latitude,$longitude)
 {
 	global $googlemap_key;
 
@@ -123,22 +130,25 @@ function create_map_url($markerpos, $index)
 				$sel_marker_str = "&markers=color:blue|label:$type|$lat,$lon|";
 	}
 
-	$google_map = "http://maps.google.com/maps/api/staticmap?center=52.13,19.20&zoom=5&size=250x260&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
+	$google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude."&zoom=10&size=250x260&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
 
 	return $google_map;
 }
 
-	// Read coordinates of the newest caches
-	$markerpositions = get_marker_positions();
 
-	// Generate include file for map with new caches
-	$file_content = '<img src="' . create_map_url($markerpositions, -1) . '" basesrc="' . create_map_url($markerpositions, -1) . '" id="main-cachemap" name="main-cachemap" alt="{{map}}" />';
-
+	
 $latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $radius =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 if ($radius==0) $radius=100;
 
+	// Read coordinates of the newest caches
+	$markerpositions = get_marker_positions($latitude, $longitude,$radius);
+	// Generate include file for map with new caches
+	$file_content = '<img src="' . create_map_url($markerpositions, -1,$latitude,$longitude) . '" basesrc="' . create_map_url($markerpositions, -1,$latitude,$longitude) . '" id="main-cachemap" name="main-cachemap" alt="{{map}}" />';
+	$n_file = fopen($dynstylepath . "local_cachemap.inc.php", 'w');
+	fwrite($n_file, $file_content);
+	fclose($n_file);
 	//start_newcaches.include
 	$rs =sql("SELECT `user`.`user_id` `user_id`,
 				`user`.`username` `username`,
@@ -158,7 +168,7 @@ if ($radius==0) $radius=100;
               sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
               3.14159 / 180)) * 6370) <= &3 AND
 		`caches`.`user_id`=`user`.`user_id`
-			  AND `caches`.`type`=6
+			  AND `caches`.`type`!=6
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
 				AND `caches`.`date_hidden` <= NOW() 
@@ -196,7 +206,7 @@ if ($radius==0) $radius=100;
 		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
 		$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
-		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i), $thisline);
+		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$latitude,$longitude), $thisline);
 
 		$file_content .= $thisline . "\n";
 	}
@@ -207,7 +217,8 @@ if ($radius==0) $radius=100;
 	mysql_free_result($rs);
 
 	//nextevents.include
-	$rss =sql("SELECT `user`.`user_id` `user_id`,
+	
+		$rss =sql("SELECT `user`.`user_id` `user_id`,
 				`user`.`username` `username`,
 				`caches`.`cache_id` `cache_id`,
 				`caches`.`name` `name`,
@@ -223,12 +234,14 @@ if ($radius==0) $radius=100;
         WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
               sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
               3.14159 / 180)) * 6370) <= &3 AND
-		`user`.`user_id`=`caches`.`user_id`
-			  AND `caches`.`date_hidden` >= curdate()
-			  AND `caches`.`type` = 6
-			  AND `caches`.`status` = 1
+		`caches`.`user_id`=`user`.`user_id`
+			  AND `caches`.`type`=6
+			  AND `caches`.`status`=1
+			  AND `caches`.`type`=`cache_type`.`id`
+				AND `caches`.`date_hidden` >= curdate()
 			ORDER BY `date_hidden` ASC
 			LIMIT 0 , 10",$latitude, $longitude,$radius);
+
 
 
 	$file_content = '';
@@ -258,7 +271,7 @@ if ($radius==0) $radius=100;
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
 			$thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/22x22-event.png', $thisline);
-			$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i + $markerpositions['plain_cache_num']), $thisline);
+			$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i + $markerpositions['plain_cache_num'],$latitude,$longitude), $thisline);
 
 			$file_content .= $thisline . "\n";
 		}
