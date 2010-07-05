@@ -130,7 +130,7 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 				$sel_marker_str = "&markers=color:blue|label:$type|$lat,$lon|";
 	}
 
-	$google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude."&zoom=11&size=250x300&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
+	$google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude."&zoom=9&size=250x300&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
 
 	return $google_map;
 }
@@ -140,7 +140,7 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 $latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $radius =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-if ($radius==0) $radius=100;
+if ($radius==0) $radius=50;
 
 	// Read coordinates of the newest caches
 	$markerpositions = get_marker_positions($latitude, $longitude,$radius);
@@ -281,7 +281,83 @@ if ($radius==0) $radius=100;
 
 	tpl_set_var('new_events',$file_content);
 	mysql_free_result($rss);
-	$file_content="";	
+	
+	
+	//nextevents.include
+	
+$rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+	                          cache_logs.type AS log_type,
+	                          cache_logs.date AS log_date,
+				   cache_logs.text AS log_text,
+				  cache_logs.text_html AS text_html,
+	                          caches.name AS cache_name,
+	                          user.username AS user_name,
+							  user.user_id AS user_id,
+							  caches.wp_oc AS wp_name,
+							  caches.type AS cache_type,
+							  cache_type.icon_small AS cache_icon_small,
+							  log_types.icon_small AS icon_small,
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
+							COUNT(gk_item.id) AS geokret_in
+							FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
+							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5	
+							WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
+              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
+              3.14159 / 180)) * 6370) <= &3 AND
+							cache_logs.deleted=0
+							GROUP BY cache_logs.id
+							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10",$latitude, $longitude,$radius);
+
+	$file_content = '';
+	echo mysql_num_rows($rsl);
+	if (mysql_num_rows($rsl) == 0)
+	{
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{gkicon}" class="icon16" alt="log" title="log" /><img src="{rateicon}" class="icon16" alt="log" title="log" /><img src="{logcon}" class="icon16" alt="log" title="log" /><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/></li>';
+		$file_content = '<ul style="font-size: 11px;">';
+		for ($i = 0; $i < mysql_num_rows($rsl); $i++)
+		{
+			$log_record = sql_fetch_array($rsl);	
+//			$loc = coordToLocation($record['latitude'], $record['longitude']);			
+			$thisline = $cacheline;
+//			$thisline = mb_ereg_replace('{nn}', $i + $markerpositions['plain_cache_num'], $thisline);
+//			$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
+//			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
+//			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
+//			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
+
+			if ( $log_record['geokret_in'] !='0')
+					{
+								$thisline = mb_ereg_replace('{gkicon}',"images/gk.png", $thisline);
+					}
+					else
+					{
+					$thisline = mb_ereg_replace('{gkicon}',"images/rating-star-empty.png", $thisline);
+					}					
+				
+				        //$rating_picture
+				if ($log_record['recommended'] == 1 && $log_record['log_type']==1) 
+					{
+					$thisline = mb_ereg_replace('{rateicon}',"images/rating-star.png", $thisline);					}
+					else
+					{
+					$thisline = mb_ereg_replace('{rateicon}',"images/rating-star-empty.png", $thisline);}	
+
+			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'), $thisline);
+			$thisline = mb_ereg_replace('{cacheid}', urlencode($log_record['cache_id']), $thisline);
+			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8'), $thisline);
+			$thisline = mb_ereg_replace('{userid}', urlencode($log_record['user_id']), $thisline);
+			$thisline = mb_ereg_replace('{username}', htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'), $thisline);
+//			$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
+			$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
+			$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i + $markerpositions['plain_cache_num'],$latitude,$longitude), $thisline);
+
+			$file_content .= $thisline . "\n";
+		}
+		$file_content .= '</ul>';
+
+	}	
 	
 	tpl_set_var('new_logs',$file_content);	
 
