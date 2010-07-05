@@ -74,7 +74,7 @@ $get_cacheid = $_REQUEST['cacheid'];
 			$rscp = sql("SELECT `cache_moved`.`latitude` `latitude`,
 			                   `cache_moved`.`longitude` `longitude`,
 							   `cache_moved`.`date` `date`,
-						cache_moved`.`log_id` `logid`,
+						`cache_moved`.`log_id` `logid`,
 							   `user`.`username` `username`
 					FROM `cache_moved`,`user`
 					WHERE `user`.`user_id`=`cache_moved`.`user_id` AND
