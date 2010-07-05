@@ -236,6 +236,7 @@ if ($radius==0) $radius=100;
 	$file_content .= '</ul>';
 
 	tpl_set_var('new_caches',$file_content);		
+	mysql_free_result($rs);
 
 	//nextevents.include
 	$rs =sql("SELECT `user`.`user_id` `user_id`,
@@ -296,6 +297,7 @@ if ($radius==0) $radius=100;
 		}
 		$file_content .= '</ul>';
 	tpl_set_var('new_events',$file_content);
+	mysql_free_result($rs);
 	}
 
 
