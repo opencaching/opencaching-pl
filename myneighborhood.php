@@ -128,38 +128,6 @@ function create_map_url($markerpos, $index)
 	return $google_map;
 }
 
-function notify_exist_cache($latitude,$longitude,$radius)
-{
-    $sql=sql("SELECT `user`.`user_id` `user_id`,
-				`user`.`username` `username`,
-				`caches`.`cache_id` `cache_id`,
-				`caches`.`name` `name`,
-				`caches`.`longitude` `longitude`,
-				`caches`.`latitude` `latitude`,
-				`caches`.`date_hidden` `date_hidden`,
-				`caches`.`date_created` `date_created`,
-				IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
-				`caches`.`country` `country`,
-				`caches`.`difficulty` `difficulty`,
-				`caches`.`terrain` `terrain`,
-				`cache_type`.`icon_large` `icon_large`
-        FROM `caches`, `user`, `cache_type`
-        WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
-              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
-              3.14159 / 180)) * 6370) <= &3 AND
-		`caches`.`user_id`=`user`.`user_id`
-			  AND `caches`.`type`!=6
-			  AND `caches`.`status`=1
-			  AND `caches`.`type`=`cache_type`.`id`
-				AND `caches`.`date_hidden` <= NOW() 
-				AND `caches`.`date_created` <= NOW() 
-			ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
-			LIMIT 0 , 10",$latitude, $longitude,$radius);
-
-            mysql_query($sql);
-}
-
-
 	// Read coordinates of the newest caches
 	$markerpositions = get_marker_positions();
 
@@ -190,7 +158,7 @@ if ($radius==0) $radius=100;
               sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
               3.14159 / 180)) * 6370) <= &3 AND
 		`caches`.`user_id`=`user`.`user_id`
-			  AND `caches`.`type`!=6
+			  AND `caches`.`type`=6
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
 				AND `caches`.`date_hidden` <= NOW() 
@@ -300,7 +268,9 @@ if ($radius==0) $radius=100;
 
 	tpl_set_var('new_events',$file_content);
 	mysql_free_result($rss);
-
+	$file_content="";	
+	
+	tpl_set_var('new_logs',$file_content);	
 
 
 	}	
