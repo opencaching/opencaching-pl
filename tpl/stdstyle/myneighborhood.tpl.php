@@ -9,6 +9,7 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
+<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <script language="javascript" type="text/javascript">
 <!-- hide script from old browsers
 
@@ -61,7 +62,7 @@ function Unlite() {
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="" title="" align="middle"/>&nbsp;{{my_neighborhood}} </div>
 <!-- Text container -->
 			<div class="content2-container line-box">
-				<div class="content2-container-2col-left" id="new-caches-area">
+				<div class="content2-container-2col-left" id="local-caches-area">
 					<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Cache" align="middle" />&nbsp;{{newest_caches}}</p>
 					<div class="content-txtbox-noshade">
 					{new_caches}
@@ -75,19 +76,11 @@ function Unlite() {
 						?>
 					</div>
 				</div>
-				<div class="content2-container-2col-left" id="new-events-area">
+				<div class="content2-container-2col-left" id="local-events-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{incomming_events}}</p>
 				{new_events}
 			</div>
-							<div class="content2-container-2col-right" id="local-cachemap-block">
-					<div class="img-shadow">
-						<?php
-							global $dynstylepath;
-							include ($dynstylepath . "local_logsmap.inc.php");
-						?>
-					</div>
-				</div>
-				<div class="content2-container-2col-left" id="new-events-area">
+				<div class="content2-container-2col-left" id="local-logs-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{latest_logs}}</p>
 				{new_logs}
 			</div>
