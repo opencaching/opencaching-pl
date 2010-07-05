@@ -67,7 +67,7 @@ function Unlite() {
 					{new_caches}
 					</div>
 				</div>
-				<div class="content2-container-2col-right" id="main-cachemap-block">
+				<div class="content2-container-2col-right" id="local-cachemap-block">
 					<div class="img-shadow">
 						<?php
 							global $dynstylepath;
@@ -79,7 +79,7 @@ function Unlite() {
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{incomming_events}}</p>
 				{new_events}
 			</div>
-							<div class="content2-container-2col-right" id="main-cachemap-block">
+							<div class="content2-container-2col-right" id="local-cachemap-block">
 					<div class="img-shadow">
 						<?php
 							global $dynstylepath;

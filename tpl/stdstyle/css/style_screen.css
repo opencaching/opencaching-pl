@@ -582,6 +582,7 @@ div.viewcache-pictureblock { float: left; }
 div.viewcache-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 125%;}
 
 div#main-cachemap-block { width: 265px; margin-top: 80px; }
+div#local-cachemap-block { width: 265px; margin-top: 80px; }
 
 #viewprofile-table td { width: 260px; }
 
