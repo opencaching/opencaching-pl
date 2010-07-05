@@ -235,7 +235,7 @@ if ($radius==0) $radius=100;
 
 	$file_content .= '</ul>';
 
-
+	tpl_set_var('new_caches',$file_content);		
 
 	//nextevents.include
 	$rs = sql('	SELECT	`user`.`user_id` `user_id`,
