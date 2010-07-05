@@ -9,34 +9,80 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="" align="middle"/>&nbsp;{{caches_neighborhood}}</div>
-<table border="1"  bgcolor="#DBE6F1" style="border-collapse: collapse;font-weight:bold; margin-left: 10px; line-height: 1.4em; font-size: 12px;" width="95%">
-<tr>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=1">{{active}}</a></td>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=2">{{temp_unavailable}}</a></td>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=3">{{archived}}</a></td>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=5">{{not_published}}</a></td>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=4">{{for_approval}}</a></td>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=6">{{blocked}}</a></td>
-</tr>
-</table>
-<p>&nbsp;</p>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
 
-<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
-<tr>
-<td colspan="2"><strong>{{date_hidden_label}}</strong></td>
-<td></td>
-<td><strong>Geocache</strong></td>
-</tr>
-<tr>
-<td colspan="5"><hr></hr></td>
-</tr>
-		{file_content}
-<tr>
-<td colspan="5"><hr></hr></td>
-</tr>
-</table>
-	<p>
-		{pages}
-	</p>
+var map_image_cache;
 
+//detect browser:
+if ((navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 3) || parseInt(navigator.appVersion) >= 4) {
+        rollOvers = 1;
+}       else {
+        if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion) >= 4) {
+                rollOvers = 1;
+        } else {
+                rollOvers = 0;
+        }
+}
+
+window.onload = function() {
+	//preload images
+	if (rollOvers) {
+		map_image_cache = [];
+		map_image_cache[-1] = new Image();
+		map_image_cache[-1].src = document.getElementById('main-cachemap').getAttribute('basesrc');
+		for (i = 0; i < 20; i++)
+		{
+			var nc_elem = document.getElementById('newcache' + i);
+			if (nc_elem != null)
+			{
+				map_image_cache[i] = new Image();
+				map_image_cache[i].src = nc_elem.getAttribute('maphref');
+			}
+		}
+	}
+}
+
+//image swapping function:
+function Lite(nn) {
+	if (rollOvers) {
+		document.getElementById('main-cachemap').src = map_image_cache[nn].src;
+	}
+}
+
+function Unlite() {
+	if (rollOvers) {
+		document.getElementById('main-cachemap').src = map_image_cache[-1].src;
+	}
+}
+
+//end hiding -->
+</script> 
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="" align="middle"/>&nbsp;{{caches_in_neighborhood}} </div>
+<!-- Text container -->
+			<div class="content2-container line-box">
+				<div class="content2-container-2col-left" id="new-caches-area">
+					<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Cache" align="middle" />&nbsp;{{newest_caches}}</p>
+					<div class="content-txtbox-noshade">
+						<?php
+							global $dynstylepath;
+							include ($dynstylepath . "start_newcaches.inc.php");
+						?>
+					</div>
+				</div>
+				<div class="content2-container-2col-right" id="main-cachemap-block">
+					<div class="img-shadow">
+						<?php
+							global $dynstylepath;
+							include ($dynstylepath . "main_cachemap.inc.php");
+						?>
+					</div>
+				</div>
+				<div class="content2-container-2col-left" id="new-events-area">
+				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{incomming_events}}</p>
+		<?php
+			global $dynstylepath;
+			include ($dynstylepath . "nextevents.inc.php");
+		?>
+			</div>
+		</div>
