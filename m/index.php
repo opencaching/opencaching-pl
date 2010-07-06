@@ -6,10 +6,10 @@
 </head>
 <body>
 <center><font size="+2">Centrum Mobilnosci</font></center><br /><hr />
+<a href="http://opencaching.pl/m/login.php">&raquo;Opencaching PL</a><br />
+<hr />
 
 <a href="http://oc.achjoj.info/baza/op/index.html">&raquo; Baza skrzynek</a><br />
-<hr />
-<a href="http://opencaching.pl/m/login.php">Opencaching PL</a><br />
 
 
 <hr /><center>
