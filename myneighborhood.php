@@ -184,7 +184,7 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 				$sel_marker_str = "&markers=color:blue|label:$type|$lat,$lon|";
 	}
 
-	$google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude."&size=350x400&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
+	$google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude."&size=350x350&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
 
 	return $google_map;
 }
