@@ -219,12 +219,12 @@ if ($radius==0) $radius=25;
 				$lon_rad = $record_coords['longitude'] * 3.14159 / 180;   
         			$lat_rad = $record_coords['latitude'] * 3.14159 / 180; 
 
-				$sqlfilter = getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], $radius, 1);
+				$sqlfilter = getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], 0, 1) . ' `distance`, ';
 			
 			mysql_free_result($rs_coords);
 
 	//start_newcaches.include
-	$rs =sql("SELECT $sqlfilter `user`.`user_id` `user_id`,
+	$rs =sql("SELECT $sqlfilter  `user`.`user_id` `user_id`,
 				`user`.`username` `username`,
 				`caches`.`cache_id` `cache_id`,
 				`caches`.`name` `name`,
@@ -257,7 +257,7 @@ if ($radius==0) $radius=25;
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
-
+if ($record['distance'] >=25) {
 		$loc = coordToLocation($record['latitude'], $record['longitude']);
 		
 		$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
@@ -279,6 +279,7 @@ if ($radius==0) $radius=25;
 		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$latitude,$longitude), $thisline);
 
 		$file_content .= $thisline . "\n";
+		}
 	}
 
 	$file_content .= '</ul>';
