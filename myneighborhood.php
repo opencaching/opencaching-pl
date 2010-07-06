@@ -88,7 +88,22 @@ if ($error == false)
         function filterevilchars($str)
 	{
 		return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
-	}	
+	}
+function get_zoom()
+{
+/* In the following code, px and py are the width of the map in the
+webpage, latCenter represents the latitude of the center, and
+latMax etc are the obvious parameters.  Then one reasonable choice
+of the zoom (in javascript notation) is 
+*/
+$s = 1.35;
+$xZoom = -(Math.log(($lonMax -
+        $lonMin)/($px*$s))/Math.log(2));
+$yZoom = -(Math.log((($latMax - $latMin)*Math.sec(
+        $latcCnter*Math.PI/180))/($py*$s))/Math.log(2));
+$zoom = Math.min(Math.floor($xZoom),
+        Math.floor($yZoom)); 
+}	
 function get_marker_positions($latitude, $longitude,$radius)
 {
 	$markerpos = array();
@@ -169,7 +184,7 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 				$sel_marker_str = "&markers=color:blue|label:$type|$lat,$lon|";
 	}
 
-	$google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude."&zoom=10&size=350x400&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
+	$google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude."&size=350x400&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
 
 	return $google_map;
 }
@@ -352,7 +367,7 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 
 	if (mysql_num_rows($rsl) != 0)
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{gkicon}" class="icon16" alt="" title="gk" />&nbsp;&nbsp;<img src="{rateicon}" class="icon16" alt="" title="rate" />&nbsp;&nbsp;<img src="{logicon}" class="icon16" alt="" title="log" />&nbsp;&nbsp;<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Tip(\'{log_text}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/></li>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{gkicon}" class="icon16" alt="" title="gk" />&nbsp;&nbsp;<img src="{rateicon}" class="icon16" alt="" title="rate" />&nbsp;&nbsp;<img src="{logicon}" class="icon16" alt="" title="log" />&nbsp;&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></a>&nbsp;{date}&nbsp;<a id="newlog{nn}" class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{log_text}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/></li>';
 		$file_content = '<ul style="font-size: 11px;">';
 		for ($i = 0; $i < mysql_num_rows($rsl); $i++)
 		{
@@ -385,6 +400,7 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 			$thisline = mb_ereg_replace('{cacheid}', urlencode($log_record['cache_id']), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{userid}', urlencode($log_record['user_id']), $thisline);
+			$thisline = mb_ereg_replace('{logid}', htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'), $thisline);
 //			$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
 				$data = '<b>'.$log_record['user_name'].'</b>:<br/>';
