@@ -192,17 +192,18 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 
 
 	
-$lat =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-$lon =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+$latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+$longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 
-if ($lon==NULL && $lat==NULL) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 25 km ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.</b></div><br>');} else { tpl_set_var('info','');}
+if ($longitude==NULL && $latitude==NULL) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 25 km ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.</b></div><br>');} else { tpl_set_var('info','');}
 
-if ($lat==NULL) $lat=52.24522;
-if ($lon==NULL) $lon=21.00442;
+if ($latitude==NULL) $lat=52.24522;
+if ($longitude==NULL) $lon=21.00442;
 
 $distance =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 if ($distance==0) $distance=25;
-$distance_unit = 'km';	
+$distance_unit = 'km';
+$radius=$distance;	
 
 	// Read coordinates of the newest caches
 	$markerpositions = get_marker_positions($latitude, $longitude,$radius);
@@ -216,8 +217,8 @@ $distance_unit = 'km';
 //			$rs_coords = sql("SELECT `latitude` `lat`, `longitude` `lon` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
 //			$record_coords = sql_fetch_array($rs_coords);
 	
-//				$lat = $record_coords['lat'] + 0;
-//				$lon = $record_coords['lon'] + 0;
+				$lat = $latitude;
+				$lon = $longitude;
 				$lon_rad = $lon * 3.14159 / 180;   
         			$lat_rad = $lat * 3.14159 / 180; 
 							
