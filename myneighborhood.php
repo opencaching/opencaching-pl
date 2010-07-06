@@ -194,13 +194,13 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 $latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 
-if ($longitude==NULL && $latitude==NULL) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 25 km ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.</b></div><br>');} else { tpl_set_var('info','');}
+if ($longitude==NULL && $latitude==NULL) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 50 km ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.</b></div><br>');} else { tpl_set_var('info','');}
 
-if ($latitude==NULL) $latitude=52.13;
-if ($longitude==NULL) $longitude=19.20;
+if ($latitude==NULL) $latitude=52.24522;
+if ($longitude==NULL) $longitude=21.00442;
 
 $radius =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-if ($radius==0) $radius=25;
+if ($radius==0) $radius=50;
 
 	// Read coordinates of the newest caches
 	$markerpositions = get_marker_positions($latitude, $longitude,$radius);
