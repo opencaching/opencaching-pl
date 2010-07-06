@@ -148,7 +148,7 @@
 	$extList['png'] = 'image/png';
 
 	// interval in seconds when to switch to the next image
-	$interval = 1800;
+	$interval = 900;
 
 // You don't need to edit anything after this point.
 

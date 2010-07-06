@@ -49,7 +49,7 @@ if ($error == false)
 		$logs =1;}
 		
 	//get the news
-	$tplname = 'myneighborhood3';
+	$tplname = 'myneighborhood2';
 
        function cleanup_text($str)
         {
@@ -111,16 +111,14 @@ function get_marker_positions($latitude, $longitude,$radius)
 	$markers = array();
 
 	$rs = sql("
-		SELECT	`cache_id`, `longitude`, `latitude`, `type`
-		FROM	`caches`
-		WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
-              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
-              3.14159 / 180)) * 6370) <= &3	AND	
-			`type` != 6 AND
-			`status` = 1 AND
-			`date_hidden` <= NOW() AND
-			`date_created` <= NOW()
-		ORDER BY IF((`date_hidden`>`date_created`), `date_hidden`, `date_created`) DESC, `cache_id` DESC
+		SELECT	`caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
+		FROM	`caches`,`local_caches`
+		WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
+			`caches`.`type` != 6 AND
+			`caches`.`status` = 1 AND
+			`caches`.`date_hidden` <= NOW() AND
+			`caches`.`date_created` <= NOW()
+		ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
 		LIMIT 0, 10",$latitude, $longitude,$radius);
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -135,15 +133,13 @@ function get_marker_positions($latitude, $longitude,$radius)
 	$markerpos['plain_cache_num'] = count($markers);
 
 	$rs = sql("
-		SELECT	`cache_id`, `longitude`, `latitude`, `type`
-		FROM	`caches`
-		WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
-              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
-              3.14159 / 180)) * 6370) <= &3	AND
-		`date_hidden` >= curdate() AND
-			`type` = 6 AND
-			`status` = 1
-		ORDER BY `date_hidden` ASC
+		SELECT	`caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
+		FROM	`caches`, `local_caches`
+		WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
+		`caches`.`date_hidden` >= curdate() AND
+			`caches`.`type` = 6 AND
+			`caches`.`status` = 1
+		ORDER BY `caches`.`date_hidden` ASC
 		LIMIT 0, 10",$latitude, $longitude,$radius);
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -205,14 +201,6 @@ if ($distance==0) $distance=25;
 $distance_unit = 'km';
 $radius=$distance;	
 
-	// Read coordinates of the newest caches
-	$markerpositions = get_marker_positions($latitude, $longitude,$radius);
-	// Generate include file for map with new caches
-	$file_content = '<img src="' . create_map_url($markerpositions, -1,$latitude,$longitude) . '" basesrc="' . create_map_url($markerpositions, -1,$latitude,$longitude) . '" id="main-cachemap" name="main-cachemap" alt="{{map}}" />';
-	$n_file = fopen($dynstylepath . "local_cachemap.inc.php", 'w');
-	fwrite($n_file, $file_content);
-	fclose($n_file);
-
 			//get the users home coords
 //			$rs_coords = sql("SELECT `latitude` `lat`, `longitude` `lon` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
 //			$record_coords = sql_fetch_array($rs_coords);
@@ -244,6 +232,13 @@ $radius=$distance;
 
 			
 //			mysql_free_result($rs_coords);
+	// Read coordinates of the newest caches
+	$markerpositions = get_marker_positions($latitude, $longitude,$radius);
+	// Generate include file for map with new caches
+	$file_content = '<img src="' . create_map_url($markerpositions, -1,$latitude,$longitude) . '" basesrc="' . create_map_url($markerpositions, -1,$latitude,$longitude) . '" id="main-cachemap" name="main-cachemap" alt="{{map}}" />';
+	$n_file = fopen($dynstylepath . "local_cachemap.inc.php", 'w');
+	fwrite($n_file, $file_content);
+	fclose($n_file);
 
 	//start_newcaches.include
 	$rs =sql("SELECT `user`.`user_id` `user_id`,
@@ -269,27 +264,33 @@ $radius=$distance;
 				AND `caches`.`date_created` <= NOW() 
 			ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
 			LIMIT 0 , 10");
-			
+
+	if (mysql_num_rows($rs) == 0)
+	{
+		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Nie ma najnowiszych skrzynek w tej okolicy</b></p><br>";
+	}
+	else
+	{			
 	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
-			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/>';
+			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
 
-//		$loc = coordToLocation($record['latitude'], $record['longitude']);
+		$loc = coordToLocation($record['latitude'], $record['longitude']);
 		
 		$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
 	
 		$thisline = $cacheline;
 		$thisline = mb_ereg_replace('{nn}', $i, $thisline);
-//		$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
-//		$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
-//		$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
-//		$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
+		$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
+		$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
+		$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
+		$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
 		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 		$thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
@@ -303,7 +304,7 @@ $radius=$distance;
 		$file_content .= $thisline . "\n";
 		
 	}
-
+}
 	$file_content .= '</ul>';
 
 	tpl_set_var('new_caches',$file_content);		
@@ -342,19 +343,19 @@ $radius=$distance;
 	}
 	else
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/></li>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
 		$file_content = '<ul style="font-size: 11px;">';
 		for ($i = 0; $i < mysql_num_rows($rss); $i++)
 		{
 			$record = sql_fetch_array($rss);
-//			$loc = coordToLocation($record['latitude'], $record['longitude']);
+			$loc = coordToLocation($record['latitude'], $record['longitude']);
 		
 			$thisline = $cacheline;
 			$thisline = mb_ereg_replace('{nn}', $i + $markerpositions['plain_cache_num'], $thisline);
-//			$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
-//			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
-//			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
-//			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
+			$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
+			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
+			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
+			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
 			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
@@ -402,8 +403,11 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	$file_content = '';
 
 
-
-	if (mysql_num_rows($rsl) != 0)
+	if (mysql_num_rows($rsl) == 0)
+	{
+		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Nie ma najnowszych wpisów w logach</b></p><br>";
+	}
+	else
 	{
 		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{gkicon}" class="icon16" alt="" title="gk" />&nbsp;&nbsp;<img src="{rateicon}" class="icon16" alt="" title="rate" />&nbsp;&nbsp;<img src="{logicon}" class="icon16" alt="" title="log" />&nbsp;&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></a>&nbsp;{date}&nbsp;<a id="newlog{nn}" class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{log_text}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/></li>';
 		$file_content = '<ul style="font-size: 11px;">';
@@ -452,12 +456,9 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 			$file_content .= $thisline . "\n";
 		}
 		$file_content .= '</ul>';
-
-	}	
-	
-	tpl_set_var('new_logs',$file_content);	
-
-
+		}
+		tpl_set_var('new_logs',$file_content);
+				
 	}	
 }
 //make the template and send it out

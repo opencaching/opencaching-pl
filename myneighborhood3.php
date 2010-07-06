@@ -270,7 +270,12 @@ $radius=$distance;
 			ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
 			LIMIT 0 , 10");
 			
-	
+	if (mysql_num_rows($rs) == 0)
+	{
+		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Nie ma najnowiszych skrzynek w tej okolicy</b></p><br>";
+	}
+	else
+	{	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
 			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><p>&nbsp;</p>';
@@ -302,10 +307,10 @@ $radius=$distance;
 
 		$file_content .= $thisline . "\n";
 		
-	}
+		}
 
 	$file_content .= '</ul>';
-
+	}
 	tpl_set_var('new_caches',$file_content);		
 	mysql_free_result($rs);
 
@@ -401,9 +406,11 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 
 	$file_content = '';
 
-
-
-	if (mysql_num_rows($rsl) != 0)
+	if (mysql_num_rows($rsl) == 0)
+	{
+		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Nie ma najnowszych wpisów w logach</b></p><br>";
+	}
+	else
 	{
 		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{gkicon}" class="icon16" alt="" title="gk" />&nbsp;&nbsp;<img src="{rateicon}" class="icon16" alt="" title="rate" />&nbsp;&nbsp;<img src="{logicon}" class="icon16" alt="" title="log" />&nbsp;&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></a>&nbsp;{date}&nbsp;<a id="newlog{nn}" class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{log_text}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/></li>';
 		$file_content = '<ul style="font-size: 11px;">';
@@ -452,12 +459,9 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 			$file_content .= $thisline . "\n";
 		}
 		$file_content .= '</ul>';
-
-	}	
-	
-	tpl_set_var('new_logs',$file_content);	
-
-
+		}
+		tpl_set_var('new_logs',$file_content);
+		}		
 	}	
 }
 //make the template and send it out
