@@ -192,7 +192,9 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 
 	
 $latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+if ($latitude==NULL) $latitude=52.13;
 $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+if ($longitude==NULL) $longitude=19.20;
 $radius =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 if ($radius==0) $radius=25;
 
