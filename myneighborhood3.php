@@ -273,7 +273,7 @@ $radius=$distance;
 	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
-			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/>';
+			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><p>&nbsp;</p>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -342,7 +342,7 @@ $radius=$distance;
 	}
 	else
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/></li>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><p>&nbsp;</p></li>';
 		$file_content = '<ul style="font-size: 11px;">';
 		for ($i = 0; $i < mysql_num_rows($rss); $i++)
 		{
