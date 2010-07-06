@@ -194,7 +194,7 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 $latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 
-if ($longitude==NULL && $latitude==NULL) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 25 km ustaw go w swoim profilu opcja: "Powiadamianie"</b></div><br>');} else { tpl_set_var('info','');}
+if ($longitude==NULL && $latitude==NULL) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 25 km ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.</b></div><br>');} else { tpl_set_var('info','');}
 
 if ($latitude==NULL) $latitude=52.13;
 if ($longitude==NULL) $longitude=19.20;
@@ -306,7 +306,7 @@ if ($radius==0) $radius=25;
 	$file_content = '';
 	if (mysql_num_rows($rss) == 0)
 	{
-		$file_content = tr("list_of_events_is_empty");
+		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_events_is_empty')."</b></p><br>";
 	}
 	else
 	{
