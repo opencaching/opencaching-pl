@@ -8,8 +8,6 @@
 <center><font size="+2">Centrum Mobilnosci</font></center><br /><hr />
 
 <a href="http://oc.achjoj.info/baza/op/index.html">&raquo; Baza skrzynek</a><br />
-<a href="http://forum.opencaching.pl/mobile/">&raquo; Forum Opencaching</a><br />
-<a href="http://geoblog.com.pl/index.php">&raquo; Geoblog</a><br />
 <hr />
 <a href="http://opencaching.pl/m/login.php">Opencaching PL</a><br />
 
