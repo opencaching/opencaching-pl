@@ -197,6 +197,7 @@ $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape
 if ($longitude==NULL) $longitude=19.20;
 $radius =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 if ($radius==0) $radius=25;
+if ($longitude==NULL && $latitude==NULL) {tpl_set_var('info','<div class="notice">Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 25 km ustaw go w swoim profilu, opcja: "Powiadamianie"</div>');} else { tpl_set_var('info','');}
 
 	// Read coordinates of the newest caches
 	$markerpositions = get_marker_positions($latitude, $longitude,$radius);
