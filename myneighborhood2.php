@@ -411,8 +411,8 @@ $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache
 							  gk_item.stateid<>1 AND 
 								gk_item.stateid<>4 AND 
 								gk_item.typeid<>2 AND 
-								gk_item.stateid <>5 )
-							WHERE	cache_logs.deleted=0
+								gk_item.stateid <>5 AND
+							  cache_logs.deleted=0
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10");
 
