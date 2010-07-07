@@ -227,13 +227,14 @@ $radius=$distance;
 														`caches`.`wp_oc` AS `wp_oc`,
 														`caches`.`type` AS `type`,
 														`caches`.`name` AS `name`
-													FROM `caches` FORCE INDEX (`latitude`)
+													FROM `caches` FORCE INDEX (`latitude`, `longitude`)
 													WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
 														AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
 														AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
 														AND `latitude` < ' . ($lat + $max_lat_diff) . '
 													HAVING `distance` < ' . $distance);
-							sql('ALTER TABLE local_caches ADD PRIMARY KEY ( `cache_id` )');
+							sql('ALTER TABLE local_caches ADD PRIMARY KEY ( `cache_id` ),
+							ADD INDEX (`wp_oc`), ADD INDEX(`type`)');
 
 			
 
