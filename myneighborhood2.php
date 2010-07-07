@@ -121,7 +121,7 @@ function get_marker_positions($latitude, $longitude,$radius)
 			`caches`.`date_hidden` <= NOW() AND
 			`caches`.`date_created` <= NOW()
 		ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
-		LIMIT 0, 10",$latitude, $longitude,$radius);
+		LIMIT 0, 10");
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
@@ -142,7 +142,7 @@ function get_marker_positions($latitude, $longitude,$radius)
 			`caches`.`type` = 6 AND
 			`caches`.`status` = 1
 		ORDER BY `caches`.`date_hidden` ASC
-		LIMIT 0, 10",$latitude, $longitude,$radius);
+		LIMIT 0, 10");
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
@@ -210,31 +210,31 @@ $radius=$distance;
 				$lat = $latitude;
 				$lon = $longitude;
 				$lon_rad = $lon * 3.14159 / 180;   
-        			$lat_rad = $lat * 3.14159 / 180; 
-							
-							
-							//all target caches are between lat - max_lat_diff and lat + max_lat_diff
-							$max_lat_diff = $distance / 111.12;
-							
-							//all target caches are between lon - max_lon_diff and lon + max_lon_diff
-							//TODO: check!!!
-							$max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378  * 3.14159);
-							sql('DROP TEMPORARY TABLE IF EXISTS `local_caches`');							
-							sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY 
-													SELECT 
-														(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
-														`caches`.`cache_id` AS `cache_id`,
-														`caches`.`wp_oc` AS `wp_oc`,
-														`caches`.`type` AS `type`,
-														`caches`.`name` AS `name`
-													FROM `caches` FORCE INDEX (`latitude`, `longitude`)
-													WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
-														AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
-														AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
-														AND `latitude` < ' . ($lat + $max_lat_diff) . '
-													HAVING `distance` < ' . $distance);
-							sql('ALTER TABLE local_caches ADD PRIMARY KEY ( `cache_id` ),
-							ADD INDEX (`wp_oc`), ADD INDEX(`type`)');
+				$lat_rad = $lat * 3.14159 / 180; 
+				
+				
+				//all target caches are between lat - max_lat_diff and lat + max_lat_diff
+				$max_lat_diff = $distance / 111.12;
+				
+				//all target caches are between lon - max_lon_diff and lon + max_lon_diff
+				//TODO: check!!!
+				$max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378  * 3.14159);
+				sql('DROP TEMPORARY TABLE IF EXISTS `local_caches`');							
+				sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY 
+										SELECT 
+											(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
+											`caches`.`cache_id` AS `cache_id`,
+											`caches`.`wp_oc` AS `wp_oc`,
+											`caches`.`type` AS `type`,
+											`caches`.`name` AS `name`
+										FROM `caches`
+										WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
+											AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
+											AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
+											AND `latitude` < ' . ($lat + $max_lat_diff) . '
+										HAVING `distance` < ' . $distance);
+				sql('ALTER TABLE local_caches ADD PRIMARY KEY ( `cache_id` ),
+				ADD INDEX (`wp_oc`), ADD INDEX(`type`)');
 
 			
 
@@ -400,7 +400,6 @@ $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache
 							COUNT(gk_item.id) AS geokret_in
 							FROM 
 								(cache_logs INNER JOIN local_caches ON (local_caches.cache_id = cache_logs.cache_id)) 
-								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
 								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
 								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
 								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
