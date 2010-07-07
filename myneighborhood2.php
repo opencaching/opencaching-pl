@@ -398,21 +398,16 @@ $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache
 							  log_types.icon_small AS icon_small,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
 							COUNT(gk_item.id) AS geokret_in
-							FROM cache_logs, local_caches, user, log_types, cache_type, cache_rating, gk_item_waypoint, gk_item 
-							WHERE
-								local_caches.cache_id = cache_logs.cache_id AND 
-								cache_logs.user_id = user.user_id AND 
-								cache_logs.type = log_types.id AND 
-								local_caches.type = cache_type.id AND 
-								`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND 				
-								`cache_logs`.`user_id`=`cache_rating`.`user_id` AND
-								gk_item_waypoint.wp = local_caches.wp_oc AND
-								gk_item.id = gk_item_waypoint.id AND
-							  gk_item.stateid<>1 AND 
-								gk_item.stateid<>4 AND 
-								gk_item.typeid<>2 AND 
-								gk_item.stateid <>5 AND
-							  cache_logs.deleted=0
+							FROM 
+								(cache_logs INNER JOIN local_caches ON (local_caches.cache_id = cache_logs.cache_id)) 
+								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
+								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
+								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
+								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
+								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
+								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
+							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5)
+							WHERE	cache_logs.deleted=0
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10");
 
