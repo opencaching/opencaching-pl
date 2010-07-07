@@ -225,7 +225,7 @@ $radius=$distance;
 														(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
 														`caches`.`cache_id` AS `cache_id`,
 														`caches`.`wp_oc` AS `wp_oc`,
-														`caches`.`type` AS `cache_type`,
+														`caches`.`type` AS `type`,
 														`caches`.`name` AS `name`
 													FROM `caches` FORCE INDEX (`latitude`)
 													WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
