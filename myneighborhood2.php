@@ -113,7 +113,7 @@ function get_marker_positions($latitude, $longitude,$radius)
 	$markers = array();
 
 	$rs = sql("
-		SELECT	`caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
+		SELECT SQL_BUFFER_RESULT `caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
 		FROM	`caches`,`local_caches`
 		WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
 			`caches`.`type` != 6 AND
@@ -135,7 +135,7 @@ function get_marker_positions($latitude, $longitude,$radius)
 	$markerpos['plain_cache_num'] = count($markers);
 
 	$rs = sql("
-		SELECT	`caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
+		SELECT SQL_BUFFER_RESULT `caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
 		FROM	`caches`, `local_caches`
 		WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
 		`caches`.`date_hidden` >= curdate() AND
@@ -244,7 +244,7 @@ $radius=$distance;
 	fclose($n_file);
 
 	//start_newcaches.include
-	$rs =sql("SELECT `user`.`user_id` `user_id`,
+	$rs =sql("SELECT SQL_BUFFER_RESULT `user`.`user_id` `user_id`,
 				`user`.`username` `username`,
 				`caches`.`cache_id` `cache_id`,
 				`caches`.`name` `name`,
@@ -315,7 +315,7 @@ $radius=$distance;
 
 	//nextevents.include
 	
-		$rss =sql("SELECT `user`.`user_id` `user_id`,
+		$rss =sql("SELECT SQL_BUFFER_RESULT `user`.`user_id` `user_id`,
 				`user`.`username` `username`,
 				`caches`.`cache_id` `cache_id`,
 				`caches`.`name` `name`,
@@ -380,7 +380,7 @@ $radius=$distance;
 	
 	//nextevents.include
 	
-$rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+$rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
 				   cache_logs.text AS log_text,
