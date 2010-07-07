@@ -222,10 +222,10 @@ $radius=$distance;
 							sql('DROP TEMPORARY TABLE IF EXISTS `local_caches`');							
 							sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY 
 													SELECT 
-														(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
-														`caches`.`cache_id` `cache_id`,
-														`caches`.`wp_oc` `wp_oc`,
-														`caches`.`type` `cache_type`,
+														(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
+														`caches`.`cache_id` AS `cache_id`,
+														`caches`.`wp_oc` AS `wp_oc`,
+														`caches`.`type` AS `cache_type`
 													FROM `caches` FORCE INDEX (`latitude`, `longitude`, `cache_id`, `type`)
 													WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
 														AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
