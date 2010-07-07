@@ -22,7 +22,6 @@
 
 	//include template handling
 	require_once($rootpath . 'lib/common.inc.php');
-	require_once($rootpath . 'lib/calculation.inc.php');
 	require_once($rootpath . 'lib/cache_icon.inc.php');
 	require_once($stylepath . '/lib/icons.inc.php');
 
@@ -111,14 +110,16 @@ function get_marker_positions($latitude, $longitude,$radius)
 	$markers = array();
 
 	$rs = sql("
-		SELECT	`caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
-		FROM	`caches`,`local_caches`
-		WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
-			`caches`.`type` != 6 AND
-			`caches`.`status` = 1 AND
-			`caches`.`date_hidden` <= NOW() AND
-			`caches`.`date_created` <= NOW()
-		ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
+		SELECT	`cache_id`, `longitude`, `latitude`, `type`
+		FROM	`caches`
+		WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
+              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
+              3.14159 / 180)) * 6370) <= &3	AND	
+			`type` != 6 AND
+			`status` = 1 AND
+			`date_hidden` <= NOW() AND
+			`date_created` <= NOW()
+		ORDER BY IF((`date_hidden`>`date_created`), `date_hidden`, `date_created`) DESC, `cache_id` DESC
 		LIMIT 0, 10",$latitude, $longitude,$radius);
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -133,13 +134,15 @@ function get_marker_positions($latitude, $longitude,$radius)
 	$markerpos['plain_cache_num'] = count($markers);
 
 	$rs = sql("
-		SELECT	`caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
-		FROM	`caches`, `local_caches`
-		WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
-		`caches`.`date_hidden` >= curdate() AND
-			`caches`.`type` = 6 AND
-			`caches`.`status` = 1
-		ORDER BY `caches`.`date_hidden` ASC
+		SELECT	`cache_id`, `longitude`, `latitude`, `type`
+		FROM	`caches`
+		WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
+              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
+              3.14159 / 180)) * 6370) <= &3	AND
+		`date_hidden` >= curdate() AND
+			`type` = 6 AND
+			`status` = 1
+		ORDER BY `date_hidden` ASC
 		LIMIT 0, 10",$latitude, $longitude,$radius);
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -193,45 +196,12 @@ $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape
 
 if ($longitude==NULL && $latitude==NULL) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 25 km ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.</b></div><br>');} else { tpl_set_var('info','');}
 
-if ($latitude==NULL) $lat=52.24522;
-if ($longitude==NULL) $lon=21.00442;
+if ($latitude==NULL) $latitude=52.24522;
+if ($longitude==NULL) $longitude=21.00442;
 
-$distance =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-if ($distance==0) $distance=25;
-$distance_unit = 'km';
-$radius=$distance;	
+$radius =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+if ($radius==0) $radius=25;
 
-			//get the users home coords
-//			$rs_coords = sql("SELECT `latitude` `lat`, `longitude` `lon` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-//			$record_coords = sql_fetch_array($rs_coords);
-	
-				$lat = $latitude;
-				$lon = $longitude;
-				$lon_rad = $lon * 3.14159 / 180;   
-        			$lat_rad = $lat * 3.14159 / 180; 
-							
-							
-							//all target caches are between lat - max_lat_diff and lat + max_lat_diff
-							$max_lat_diff = $distance / 111.12;
-							
-							//all target caches are between lon - max_lon_diff and lon + max_lon_diff
-							//TODO: check!!!
-							$max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378  * 3.14159);
-							sql('DROP TEMPORARY TABLE IF EXISTS `local_caches`');							
-							sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY 
-													SELECT 
-														(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
-														`caches`.`cache_id` `cache_id`
-													FROM `caches` FORCE INDEX (`latitude`)
-													WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
-														AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
-														AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
-														AND `latitude` < ' . ($lat + $max_lat_diff) . '
-													HAVING `distance` < ' . $distance);
-							sql('ALTER TABLE local_caches ADD PRIMARY KEY ( `cache_id` )');
-
-			
-//			mysql_free_result($rs_coords);
 	// Read coordinates of the newest caches
 	$markerpositions = get_marker_positions($latitude, $longitude,$radius);
 	// Generate include file for map with new caches
@@ -239,7 +209,6 @@ $radius=$distance;
 	$n_file = fopen($dynstylepath . "local_cachemap.inc.php", 'w');
 	fwrite($n_file, $file_content);
 	fclose($n_file);
-
 	//start_newcaches.include
 	$rs =sql("SELECT `user`.`user_id` `user_id`,
 				`user`.`username` `username`,
@@ -254,27 +223,24 @@ $radius=$distance;
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
-        FROM `caches`, `user`, `cache_type`,`local_caches`
-        WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
-			`caches`.`user_id`=`user`.`user_id`
+        FROM `caches`, `user`, `cache_type`
+        WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
+              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
+              3.14159 / 180)) * 6370) <= &3 AND
+		`caches`.`user_id`=`user`.`user_id`
 			  AND `caches`.`type`!=6
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
 				AND `caches`.`date_hidden` <= NOW() 
 				AND `caches`.`date_created` <= NOW() 
 			ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
-			LIMIT 0 , 10");
-
-	if (mysql_num_rows($rs) == 0)
-	{
-		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Nie ma najnowiszych skrzynek w tej okolicy</b></p><br>";
-	}
-	else
-	{			
+			LIMIT 0 , 10",$latitude, $longitude,$radius);
+			
 	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
-			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b>';
+			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/>' .
+			'<b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -302,9 +268,8 @@ $radius=$distance;
 		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$latitude,$longitude), $thisline);
 
 		$file_content .= $thisline . "\n";
-		
 	}
-}
+
 	$file_content .= '</ul>';
 
 	tpl_set_var('new_caches',$file_content);		
@@ -324,15 +289,17 @@ $radius=$distance;
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
-        FROM `caches`, `user`, `cache_type`,`local_caches`
-        WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
+        FROM `caches`, `user`, `cache_type`
+        WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
+              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
+              3.14159 / 180)) * 6370) <= &3 AND
 		`caches`.`user_id`=`user`.`user_id`
 			  AND `caches`.`type`=6
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
 				AND `caches`.`date_hidden` >= curdate()
 			ORDER BY `date_hidden` ASC
-			LIMIT 0 , 10");
+			LIMIT 0 , 10",$latitude, $longitude,$radius);
 
 
 
@@ -394,8 +361,10 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 							FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
 							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
-							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5, local_caches	
-							WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
+							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5	
+							WHERE (acos(cos((90-&1) * 3.14159 / 180) * cos((90-`caches`.`latitude`) * 3.14159 / 180) +
+              sin((90-&1) * 3.14159 / 180) * sin((90-`caches`.`latitude`) * 3.14159 / 180) * cos((&2-`caches`.`longitude`) *
+              3.14159 / 180)) * 6370) <= &3 AND
 							cache_logs.deleted=0
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10",$latitude, $longitude,$radius);
@@ -403,11 +372,7 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	$file_content = '';
 
 
-	if (mysql_num_rows($rsl) == 0)
-	{
-		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Nie ma najnowszych wpisów w logach</b></p><br>";
-	}
-	else
+	if (mysql_num_rows($rsl) != 0)
 	{
 		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{gkicon}" class="icon16" alt="" title="gk" />&nbsp;&nbsp;<img src="{rateicon}" class="icon16" alt="" title="rate" />&nbsp;&nbsp;<img src="{logicon}" class="icon16" alt="" title="log" />&nbsp;&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></a>&nbsp;{date}&nbsp;<a id="newlog{nn}" class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{log_text}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/></li>';
 		$file_content = '<ul style="font-size: 11px;">';
@@ -456,9 +421,12 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 			$file_content .= $thisline . "\n";
 		}
 		$file_content .= '</ul>';
-		}
-		tpl_set_var('new_logs',$file_content);
-				
+
+	}	
+	
+	tpl_set_var('new_logs',$file_content);	
+
+
 	}	
 }
 //make the template and send it out
