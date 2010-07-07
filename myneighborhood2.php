@@ -223,8 +223,10 @@ $radius=$distance;
 							sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY 
 													SELECT 
 														(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
-														`caches`.`cache_id` `cache_id`
-													FROM `caches` FORCE INDEX (`latitude`)
+														`caches`.`cache_id` `cache_id`,
+														`caches`.`wp_oc` `wp_oc`,
+														`caches`.`type` `cache_type`,
+													FROM `caches` FORCE INDEX (`latitude`, `longitude`, `cache_id`, `type`)
 													WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
 														AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
 														AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
@@ -380,29 +382,33 @@ $radius=$distance;
 	
 	//nextevents.include
 	
-/*$rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache_id,
+$rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
 				   cache_logs.text AS log_text,
 				  cache_logs.text_html AS text_html,
-	                          caches.name AS cache_name,
+	                          local_caches.name AS cache_name,
 	                          user.username AS user_name,
 							  user.user_id AS user_id,
-							  caches.wp_oc AS wp_name,
-							  caches.type AS cache_type,
+							  local_caches.wp_oc AS wp_name,
+							  local_caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
 							  log_types.icon_small AS icon_small,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
 							COUNT(gk_item.id) AS geokret_in
-							FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
-							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5, local_caches	
-							WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
-							cache_logs.deleted=0
+							FROM 
+								(cache_logs INNER JOIN local_caches ON (local_caches.cache_id = cache_logs.cache_id)) 
+								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
+								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
+								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
+								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
+								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
+								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
+							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5), local_caches	
+							WHERE	cache_logs.deleted=0
 							GROUP BY cache_logs.id
-							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10",$latitude, $longitude,$radius);
-*/
+							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10");
+
 	$file_content = '';
 
 
