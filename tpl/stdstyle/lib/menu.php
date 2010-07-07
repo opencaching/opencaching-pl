@@ -432,7 +432,7 @@ $menu = array(
 			)
 		)
 	),
-	// My profile (my home)
+	// My profile (my home) my_neighborhood
 	array(
 		'title' => tr('user_menu'),
 		'menustring' => tr('user_menu'),
@@ -454,6 +454,13 @@ $menu = array(
 				'visible' => true,
 				'filename' => 'mycaches.php',
 				'siteid' => 'mycaches'
+			),
+			array(
+				'title' => tr('my_neighborhood'),
+				'menustring' => tr('my_neighborhood'),
+				'visible' => true,
+				'filename' => 'myneighborhood.php',
+				'siteid' => 'myneighborhood'
 			),
 			array(
 				'title' => tr('mycache_note'),
