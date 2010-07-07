@@ -562,6 +562,7 @@
 			}
 			else
 
+
 			{
 				tpl_set_var('found_icon', $found_icon);
 				tpl_set_var('notfound_icon', $notfound_icon);
@@ -1359,7 +1360,7 @@ $viewcache_header = '
 			var i=0;
 			
 			// tekst do przetlumaczenia
-			var container = document.getElementById("hint");
+			var container = document.getElementById("decrypt-hints");
 			if( container == null )
 				return "";
 			';
