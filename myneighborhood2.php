@@ -226,7 +226,7 @@ $radius=$distance;
 														`caches`.`cache_id` AS `cache_id`,
 														`caches`.`wp_oc` AS `wp_oc`,
 														`caches`.`type` AS `cache_type`
-													FROM `caches` FORCE INDEX (`latitude`, `longitude`, `cache_id`, `type`)
+													FROM `caches` FORCE INDEX (`latitude`, `longitude`, `type`)
 													WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
 														AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
 														AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
