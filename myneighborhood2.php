@@ -158,7 +158,7 @@ function get_marker_positions($latitude, $longitude,$radius)
 	return $markerpos;
 }
 
-function create_map_url($markerpos, $index,$zoom,$latitude,$longitude)
+function create_map_url($markerpos, $index,$latitude,$longitude)
 {
 	global $googlemap_key;
 
@@ -183,7 +183,7 @@ function create_map_url($markerpos, $index,$zoom,$latitude,$longitude)
 				$sel_marker_str = "&markers=color:blue|label:$type|$lat,$lon|";
 	}
 
-	$google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude."&zoom=".$zoom."&size=350x350&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
+	$google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude."&size=350x350&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
 
 	return $google_map;
 }
@@ -233,16 +233,12 @@ $radius=$distance;
 							sql('ALTER TABLE local_caches ADD PRIMARY KEY ( `cache_id` )');
 
 			
-	$latMin = sqlValue("SELECT `caches`.`latitude` `latitude` FROM `local_caches`,`caches` WHERE `caches`.`cache_id`=`local_caches`.`cache_id` ORDER BY `latitude` ASC LIMIT 1", 0);
-	$latMax = sqlValue("SELECT `caches`.`latitude` `latitude` FROM `local_caches`,`caches` WHERE `caches`.`cache_id`=`local_caches`.`cache_id` ORDER BY `latitude` DESC LIMIT 1 ", 0);
-	$lonMin = sqlValue("SELECT `caches`.`longitude` `longitude` FROM `local_caches`,`caches` WHERE `caches`.`cache_id`=`local_caches`.`cache_id` ORDER BY `longitude` ASC LIMIT 1", 0);
-	$lonMax = sqlValue("SELECT `caches`.`longitude` `longitude` FROM `local_caches`,`caches` WHERE `caches`.`cache_id`=`local_caches`.`cache_id` ORDER BY `longitude` DESC LIMIT 1", 0);
 
-	$zoom=get_zoom($latitude,$lonMin,$lonMax,$latMin,$latMax)+1;
+
 	// Read coordinates of the newest caches
 	$markerpositions = get_marker_positions($latitude, $longitude,$radius);
 	// Generate include file for map with new caches
-	$file_content = '<img src="' . create_map_url($markerpositions, -1,$zoom,$latitude,$longitude) . '" basesrc="' . create_map_url($markerpositions, -1,$zoom,$latitude,$longitude) . '" id="main-cachemap" name="main-cachemap" alt="{{map}}" />';
+	$file_content = '<img src="' . create_map_url($markerpositions, -1,$latitude,$longitude) . '" basesrc="' . create_map_url($markerpositions, -1,$latitude,$longitude) . '" id="main-cachemap" name="main-cachemap" alt="{{map}}" />';
 	$n_file = fopen($dynstylepath . "local_cachemap.inc.php", 'w');
 	fwrite($n_file, $file_content);
 	fclose($n_file);
@@ -306,7 +302,7 @@ $radius=$distance;
 		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
 		$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
-		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$zoom,$latitude,$longitude), $thisline);
+		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$latitude,$longitude), $thisline);
 
 		$file_content .= $thisline . "\n";
 		
@@ -370,7 +366,7 @@ $radius=$distance;
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
 			$thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/22x22-event.png', $thisline);
-			$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i + $markerpositions['plain_cache_num'],$zoom,$latitude,$longitude), $thisline);
+			$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i + $markerpositions['plain_cache_num'],$latitude,$longitude), $thisline);
 
 			$file_content .= $thisline . "\n";
 		}
@@ -458,7 +454,7 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 			$thisline = mb_ereg_replace('{log_text}', $log_text, $thisline);
 			$thisline = mb_ereg_replace('{logicon}', "tpl/stdstyle/images/". $log_record['icon_small'], $thisline);
 			$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
-			$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i + $markerpositions['plain_cache_num'],$zoom,$latitude,$longitude), $thisline);
+			$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i + $markerpositions['plain_cache_num'],$latitude,$longitude), $thisline);
 
 			$file_content .= $thisline . "\n";
 		}
