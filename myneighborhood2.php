@@ -234,7 +234,7 @@ $radius=$distance;
 											AND `latitude` < ' . ($lat + $max_lat_diff) . '
 										HAVING `distance` < ' . $distance);
 				sql('ALTER TABLE local_caches ADD PRIMARY KEY ( `cache_id` ),
-				ADD INDEX (`wp_oc`), ADD INDEX(`type`)');
+				ADD INDEX (`wp_oc`), ADD INDEX(`type`), ADD INDEX(`name`)');
 
 			
 
