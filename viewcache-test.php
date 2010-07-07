@@ -1462,7 +1462,7 @@ $viewcache_header = '
 			var i=0;
 			
 			// tekst do przetlumaczenia
-			var container = document.getElementById("hint");
+			var container = document.getElementById("decrypt-hints");
 			if( container == null )
 				return "";
 			';
