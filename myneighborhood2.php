@@ -220,7 +220,7 @@ $radius=$distance;
 				//TODO: check!!!
 				$max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378  * 3.14159);
 				sql('DROP TEMPORARY TABLE IF EXISTS `local_caches`');							
-				sql('CREATE TEMPORARY TABLE INNODB local_caches ENGINE=MEMORY 
+				sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY 
 										SELECT 
 											(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
 											`caches`.`cache_id` AS `cache_id`,
