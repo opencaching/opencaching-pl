@@ -380,7 +380,7 @@ $radius=$distance;
 	
 	//nextevents.include
 	
-$rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache_id,
+/*$rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
 				   cache_logs.text AS log_text,
@@ -402,7 +402,7 @@ $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache
 							cache_logs.deleted=0
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10",$latitude, $longitude,$radius);
-
+*/
 	$file_content = '';
 
 
