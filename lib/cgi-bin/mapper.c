@@ -26,7 +26,7 @@
 
 #define LABEL_FONT_SIZE 10
 #define LABEL_FONT_SIZE_2 9
-#define LABEL_FONT_SIZE_3 7
+#define LABEL_FONT_SIZE_3 8
 
 
 typedef struct geotile  {
@@ -245,6 +245,7 @@ int main(void)
 	TTF_Font* font3 = NULL;
 
 	TTF_Init();
+//	snprintf(buf, sizeof(buf), "%s/Aller_Rg.ttf", DATA_PATH);	
 	snprintf(buf, sizeof(buf), "%s/DejaVuSans.ttf", DATA_PATH);	
 	font1 = TTF_OpenFont(buf, LABEL_FONT_SIZE);
 	font2 = TTF_OpenFont(buf, LABEL_FONT_SIZE_2);
@@ -690,8 +691,7 @@ int main(void)
 			}
 
 		}
-//		fprintf(stderr, "cache _count %i\n", cache_count);
-//		cache_count = 1000;
+
 		if(zoom > 6 && font1 && font2 && font3)
 			for(int i = 0;i < cache_count;++i) {
 				const char *name = caches[i].name;
