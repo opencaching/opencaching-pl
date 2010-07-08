@@ -621,7 +621,7 @@ back_to_cache Back to cache
 moved_text moved
 encrypt_log Log entry encrypted
 my_neighborhood My neighborhood
-myn_info You do not have a set of coordinates your area. You can do this in your <a href="myprofile.php?action=change"> profile </ a>. If you want to have different than the default radius of 25 km setup this in your profile option "Notification." Here is an example set of system coordinates.
+myn_info You do not have a set of coordinates your area. You can do this in your <a href="myprofile.php?action=change"> profile </a>. If you want to have different than the default radius of 25 km setup this in your profile option "Notification." Here is an example set of system coordinates.
 
 
 
