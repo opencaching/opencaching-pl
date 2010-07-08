@@ -385,7 +385,6 @@ $radius=$distance;
 	//nextevents.include
 	
 $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache_id,
-	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
 				   cache_logs.text AS log_text,
 				  cache_logs.text_html AS text_html,
@@ -394,15 +393,11 @@ $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache
 							  user.user_id AS user_id,
 							  local_caches.wp_oc AS wp_name,
 							  local_caches.type AS cache_type,
-							  cache_type.icon_small AS cache_icon_small,
-							  log_types.icon_small AS icon_small,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
 							COUNT(gk_item.id) AS geokret_in
 							FROM 
 								(local_caches INNER JOIN cache_logs ON (local_caches.cache_id = cache_logs.cache_id)) 
 								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
-								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
-								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
 								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
 								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
 								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
