@@ -193,8 +193,8 @@ $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape
 
 if ($longitude==NULL && $latitude==NULL) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>'.tr("myn_info").'</b></div><br>');} else { tpl_set_var('info','');}
 
-if ($latitude==NULL) $lat=52.24522;
-if ($longitude==NULL) $lon=21.00442;
+if ($latitude==NULL) $latitude=52.24522;
+if ($longitude==NULL) $longitude=21.00442;
 
 $distance =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 if ($distance==0) $distance=25;
