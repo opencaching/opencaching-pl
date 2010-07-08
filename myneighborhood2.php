@@ -394,12 +394,10 @@ $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache
 							  local_caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
 							  log_types.icon_small AS icon_small,
-							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
 							FROM 
 								(cache_logs INNER JOIN local_caches ON (local_caches.cache_id = cache_logs.cache_id)) 
 								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
 								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
-								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
 								WHERE	cache_logs.deleted=0
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10");
