@@ -396,8 +396,7 @@ $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache
 							  local_caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
 							  log_types.icon_small AS icon_small,
-							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
-							COUNT(gk_item.id) AS geokret_in
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
 							FROM 
 								(cache_logs INNER JOIN local_caches ON (local_caches.cache_id = cache_logs.cache_id)) 
 								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
