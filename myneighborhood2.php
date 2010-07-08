@@ -393,7 +393,7 @@ $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache
 	              local_caches.wp_oc AS wp_name,
 							  local_caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
-							  log_types.icon_small AS icon_small,
+							  log_types.icon_small AS icon_small
 							FROM 
 								(cache_logs INNER JOIN local_caches ON (local_caches.cache_id = cache_logs.cache_id)) 
 								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
