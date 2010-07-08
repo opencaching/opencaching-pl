@@ -396,8 +396,6 @@ $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache
 							  log_types.icon_small AS icon_small
 							FROM 
 								(cache_logs INNER JOIN local_caches ON (local_caches.cache_id = cache_logs.cache_id)) 
-								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
-								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
 								WHERE	cache_logs.deleted=0
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10");
