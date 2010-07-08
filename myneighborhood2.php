@@ -390,16 +390,13 @@ $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache
 				   cache_logs.text AS log_text,
 				  cache_logs.text_html AS text_html,
 	                          local_caches.name AS cache_name,
-	                          user.username AS user_name,
-							  user.user_id AS user_id,
-							  local_caches.wp_oc AS wp_name,
+	              local_caches.wp_oc AS wp_name,
 							  local_caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
 							  log_types.icon_small AS icon_small,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
 							FROM 
 								(cache_logs INNER JOIN local_caches ON (local_caches.cache_id = cache_logs.cache_id)) 
-								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
 								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
 								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
 								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
