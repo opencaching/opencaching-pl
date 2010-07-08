@@ -247,12 +247,7 @@ $radius=$distance;
 				`caches`.`name` `name`,
 				`caches`.`longitude` `longitude`,
 				`caches`.`latitude` `latitude`,
-				`caches`.`date_hidden` `date_hidden`,
-				`caches`.`date_created` `date_created`,
 				IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
-				`caches`.`country` `country`,
-				`caches`.`difficulty` `difficulty`,
-				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
         FROM `caches`, `user`, `cache_type`,`local_caches`
         WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
@@ -319,10 +314,6 @@ $radius=$distance;
 				`caches`.`longitude` `longitude`,
 				`caches`.`latitude` `latitude`,
 				`caches`.`date_hidden` `date_hidden`,
-				`caches`.`date_created` `date_created`,
-				`caches`.`country` `country`,
-				`caches`.`difficulty` `difficulty`,
-				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
         FROM `caches`, `user`, `cache_type`,`local_caches`
         WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
