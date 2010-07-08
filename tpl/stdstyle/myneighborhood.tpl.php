@@ -86,3 +86,6 @@ function Unlite() {
 				{new_logs}
 			</div>
 		</div>
+<font color="white">
+Page performance: {scripttime} sec<br>
+Page creation: <?php $bTemplateBuild->Stop(); echo sprintf('%1.3f',$bTemplateBuild->Diff()); ?> sec<br></font>
