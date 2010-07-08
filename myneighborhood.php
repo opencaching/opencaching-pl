@@ -197,7 +197,7 @@ if ($latitude==NULL) $latitude=52.24522;
 if ($longitude==NULL) $longitude=21.00442;
 
 $distance =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-if ($distance==0) $distance=25;
+if ($distance==0) $distance=35;
 $distance_unit = 'km';
 $radius=$distance;	
 
