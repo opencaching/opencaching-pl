@@ -222,7 +222,7 @@ $radius=$distance;
 				sql('DROP TEMPORARY TABLE IF EXISTS `local_caches`');							
 				sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY 
 										SELECT 
-											
+											(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
 											`caches`.`cache_id` AS `cache_id`,
 											`caches`.`wp_oc` AS `wp_oc`,
 											`caches`.`type` AS `type`,
@@ -231,7 +231,8 @@ $radius=$distance;
 										WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
 											AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
 											AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
-											AND `latitude` < ' . ($lat + $max_lat_diff));
+											AND `latitude` < ' . ($lat + $max_lat_diff) . '
+										HAVING `distance` < ' . $distance);
 				sql('ALTER TABLE local_caches ADD PRIMARY KEY ( `cache_id` ),
 				ADD INDEX (`wp_oc`), ADD INDEX(`type`), ADD INDEX(`name`)');
 
@@ -403,10 +404,7 @@ $rsl = sql("SELECT SQL_BUFFER_RESULT cache_logs.id, cache_logs.cache_id AS cache
 								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
 								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
 								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
-								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
-								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
-							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5)
-							WHERE	cache_logs.deleted=0
+								WHERE	cache_logs.deleted=0
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10");
 
