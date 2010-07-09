@@ -49,7 +49,7 @@ if ($error == false)
 		$logs =1;}
 		
 	//get the news
-	$tplname = 'myneighborhood';
+	$tplname = 'myneighborhood2';
 
        function cleanup_text($str)
         {
@@ -90,7 +90,7 @@ if ($error == false)
 	{
 		return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
 	}
-function get_zoom()
+function get_zoom($latitude,$lonMin,$lonMax,$latMin,$latMax)
 {
 /* In the following code, px and py are the width of the map in the
 webpage, latCenter represents the latitude of the center, and
@@ -98,22 +98,51 @@ latMax etc are the obvious parameters.  Then one reasonable choice
 of the zoom (in javascript notation) is 
 */
 $s = 1.35;
-$xZoom = -(Math.log(($lonMax -
-        $lonMin)/($px*$s))/Math.log(2));
-$yZoom = -(Math.log((($latMax - $latMin)*Math.sec(
-        $latcCnter*Math.PI/180))/($py*$s))/Math.log(2));
-$zoom = Math.min(Math.floor($xZoom),
-        Math.floor($yZoom)); 
-}	
+$px=350;
+$py=350;
+$latcCnter=$latitude;
+$xZoom = -(log(($lonMax - $lonMin)/($px*$s))/log(2));
+$yZoom = -(log((($latMax - $latMin)*(1/cos(($latcCnter*PI/180))))/($py*$s))/log(2));
+$zoom = min(floor($xZoom),floor($yZoom)); 
+return $zoom;
+}
+
+
+        function cacheToLocation($cache_id)                                                                                                                                                                                                  
+        {                                                                                                                                                                                                                                    
+	    global $lang;
+            $res = sql("SELECT cache_loc.country, adm1, adm2 FROM cache_loc INNER                                                                                                                                                                      
+                        JOIN caches ON (cache_loc.cache_id = caches.cache_id)                                                                                                                                                                
+                        WHERE cache_loc.cache_id = &1 
+                        AND caches.latitude = cache_loc.latitude AND caches.longitude = cache_loc.longitude                                                                                                                                  
+                        AND lang = '&2'", $cache_id, $lang);
+                                                                                                                                                                                                                                             
+	    $rec = sql_fetch_array($res);
+	    if(!$rec) {
+		$res = sql("SELECT latitude, longitude FROM caches WHERE caches.cache_id = &1", $cache_id);
+		$rec = sql_fetch_array($res);
+		if(!$rec)
+		    return;
+		$loc = coordToLocationOk($rec['latitude'], $rec['longitude']);
+		sql("INSERT INTO cache_loc VALUES(&1, &2, &3, '&4', '&5', '&6', '&7')", $cache_id, $rec['latitude'], $rec['longitude'], $lang, $loc[0], $loc[1], $loc[2]);
+		
+		return $loc;
+	    }
+	    else
+		return array($rec['country'], $rec['adm1'], $rec['adm2']);
+        }
+
+
+	
 function get_marker_positions($latitude, $longitude,$radius)
 {
 	$markerpos = array();
 	$markers = array();
 
 	$rs = sql("
-		SELECT	`caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
-		FROM	`caches`,`local_caches`
-		WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
+		SELECT SQL_BUFFER_RESULT `caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
+		FROM	`local_caches` `caches`
+		WHERE
 			`caches`.`type` != 6 AND
 			`caches`.`status` = 1 AND
 			`caches`.`date_hidden` <= NOW() AND
@@ -133,9 +162,9 @@ function get_marker_positions($latitude, $longitude,$radius)
 	$markerpos['plain_cache_num'] = count($markers);
 
 	$rs = sql("
-		SELECT	`caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
-		FROM	`caches`, `local_caches`
-		WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
+		SELECT SQL_BUFFER_RESULT `caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
+		FROM	`local_caches` `caches`
+		WHERE 
 		`caches`.`date_hidden` >= curdate() AND
 			`caches`.`type` = 6 AND
 			`caches`.`status` = 1
@@ -191,13 +220,13 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 $latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 
-if ($longitude==NULL && $latitude==NULL) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>'.tr("myn_info").'</b></div><br>');} else { tpl_set_var('info','');}
+if ($longitude==NULL && $latitude==NULL) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 25 km ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.</b></div><br>');} else { tpl_set_var('info','');}
 
-if ($latitude==NULL) $latitude=52.24522;
-if ($longitude==NULL) $longitude=21.00442;
+if ($latitude==NULL) $lat=52.24522;
+if ($longitude==NULL) $lon=21.00442;
 
 $distance =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-if ($distance==0) $distance=35;
+if ($distance==0) $distance=25;
 $distance_unit = 'km';
 $radius=$distance;	
 
@@ -208,30 +237,44 @@ $radius=$distance;
 				$lat = $latitude;
 				$lon = $longitude;
 				$lon_rad = $lon * 3.14159 / 180;   
-        			$lat_rad = $lat * 3.14159 / 180; 
-							
-							
-							//all target caches are between lat - max_lat_diff and lat + max_lat_diff
-							$max_lat_diff = $distance / 111.12;
-							
-							//all target caches are between lon - max_lon_diff and lon + max_lon_diff
-							//TODO: check!!!
-							$max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378  * 3.14159);
-							sql('DROP TEMPORARY TABLE IF EXISTS `local_caches`');							
-							sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY 
-													SELECT 
-														(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
-														`caches`.`cache_id` `cache_id`
-													FROM `caches` FORCE INDEX (`latitude`)
-													WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
-														AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
-														AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
-														AND `latitude` < ' . ($lat + $max_lat_diff) . '
-													HAVING `distance` < ' . $distance);
-							sql('ALTER TABLE local_caches ADD PRIMARY KEY ( `cache_id` )');
+				$lat_rad = $lat * 3.14159 / 180; 
+				
+				
+				//all target caches are between lat - max_lat_diff and lat + max_lat_diff
+				$max_lat_diff = $distance / 111.12;
+				
+				//all target caches are between lon - max_lon_diff and lon + max_lon_diff
+				//TODO: check!!!
+				$max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378  * 3.14159);
+				sql('DROP TEMPORARY TABLE IF EXISTS `local_caches`');							
+				sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY 
+										SELECT 
+											(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
+											`caches`.`cache_id` AS `cache_id`,
+											`caches`.`wp_oc` AS `wp_oc`,
+											`caches`.`type` AS `type`,
+											`caches`.`name` AS `name`,
+											`caches`.`longitude` `longitude`,
+											`caches`.`latitude` `latitude`,
+											`caches`.`date_hidden` `date_hidden`,
+											`caches`.`date_created` `date_created`,
+											`caches`.`country` `country`,
+											`caches`.`difficulty` `difficulty`,
+											`caches`.`terrain` `terrain`,
+											`caches`.`status` `status`,
+											`caches`.`user_id` `user_id` 
+										FROM `caches` 
+										WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
+											AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
+											AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
+											AND `latitude` < ' . ($lat + $max_lat_diff) . '
+										HAVING `distance` < ' . $distance);
+				sql('ALTER TABLE local_caches ADD PRIMARY KEY ( `cache_id` ),
+				ADD INDEX(`cache_id`), ADD INDEX (`wp_oc`), ADD INDEX(`type`), ADD INDEX(`name`), ADD INDEX(`user_id`), ADD INDEX(`date_hidden`), ADD INDEX(`date_created`)');
 
 			
-//			mysql_free_result($rs_coords);
+
+
 	// Read coordinates of the newest caches
 	$markerpositions = get_marker_positions($latitude, $longitude,$radius);
 	// Generate include file for map with new caches
@@ -247,18 +290,24 @@ $radius=$distance;
 				`caches`.`name` `name`,
 				`caches`.`longitude` `longitude`,
 				`caches`.`latitude` `latitude`,
+				`caches`.`date_hidden` `date_hidden`,
+				`caches`.`date_created` `date_created`,
 				IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
+				`caches`.`country` `country`,
+				`caches`.`difficulty` `difficulty`,
+				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
-        FROM `caches`, `user`, `cache_type`,`local_caches`
-        WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
-			`caches`.`user_id`=`user`.`user_id`
-			  AND `caches`.`type`!=6
+        FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
+        WHERE 
+			
+			  `caches`.`type`!=6
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
-				AND `caches`.`date_hidden` <= NOW() 
 				AND `caches`.`date_created` <= NOW() 
-			ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
+				AND `caches`.`date_hidden` <= NOW() 
+			ORDER BY `date` DESC, `caches`.`cache_id` DESC
 			LIMIT 0 , 10");
+
 
 	if (mysql_num_rows($rs) == 0)
 	{
@@ -269,30 +318,26 @@ $radius=$distance;
 	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
-			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b>';
+			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{location}</p></b>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
 
-		$loc = coordToLocation($record['latitude'], $record['longitude']);
+    		$loc = cacheToLocation($record['cache_id']);
 		
 		$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
 	
 		$thisline = $cacheline;
 		$thisline = mb_ereg_replace('{nn}', $i, $thisline);
-		$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
-		$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
-		$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
-		$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
+		$thisline = mb_ereg_replace('{location}',join(" > ", array_slice($loc, 0, 2)), $thisline);
 		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 		$thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
 		$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
 		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
-		$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
 		$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
 		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$latitude,$longitude), $thisline);
 
@@ -314,6 +359,10 @@ $radius=$distance;
 				`caches`.`longitude` `longitude`,
 				`caches`.`latitude` `latitude`,
 				`caches`.`date_hidden` `date_hidden`,
+				`caches`.`date_created` `date_created`,
+				`caches`.`country` `country`,
+				`caches`.`difficulty` `difficulty`,
+				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
         FROM `caches`, `user`, `cache_type`,`local_caches`
         WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
@@ -339,14 +388,14 @@ $radius=$distance;
 		for ($i = 0; $i < mysql_num_rows($rss); $i++)
 		{
 			$record = sql_fetch_array($rss);
-			$loc = coordToLocation($record['latitude'], $record['longitude']);
+//			$loc = coordToLocation($record['latitude'], $record['longitude']);
 		
 			$thisline = $cacheline;
 			$thisline = mb_ereg_replace('{nn}', $i + $markerpositions['plain_cache_num'], $thisline);
-			$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
-			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
-			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
-			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
+//			$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
+//			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
+//			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
+//			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
 			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
@@ -368,36 +417,74 @@ $radius=$distance;
 	
 	//nextevents.include
 	
+/*$rsl = sql("EXPLAIN SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+	                          cache_logs.type AS log_type,
+	                          cache_logs.date AS log_date,
+				   cache_logs.text AS log_text,
+				  cache_logs.text_html AS text_html,
+	                          local_caches.name AS cache_name,
+	                          user.username AS user_name,
+							  user.user_id AS user_id,
+							  local_caches.wp_oc AS wp_name,
+							  local_caches.type AS cache_type,
+							  cache_type.icon_small AS cache_icon_small,
+							  log_types.icon_small AS icon_small,
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
+							COUNT(gk_item.id) AS geokret_in
+							FROM 
+								(local_caches INNER JOIN cache_logs ON (local_caches.cache_id = cache_logs.cache_id)) 
+								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
+								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
+								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
+								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
+								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
+								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
+							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5)
+							WHERE	cache_logs.deleted=0
+							GROUP BY cache_logs.id
+							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10");
+
+
+while (($row=mysql_fetch_assoc($rsl))!==false) {
+        print_r($row);
+    }*/
+
 $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
 				   cache_logs.text AS log_text,
 				  cache_logs.text_html AS text_html,
-	                          caches.name AS cache_name,
+	                          local_caches.name AS cache_name,
 	                          user.username AS user_name,
-				 user.user_id AS user_id,
-				caches.wp_oc AS wp_name,
-				caches.type AS cache_type,
-				`cache_type`.`icon_large` `icon_large`,
-				cache_type.icon_small AS cache_icon_small,
-				log_types.icon_small AS icon_small,
-				IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
-				COUNT(gk_item.id) AS geokret_in
-				FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
-							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5, local_caches	
-							WHERE `caches`.`cache_id`=`local_caches`.`cache_id` AND
-							cache_logs.deleted=0
+							  user.user_id AS user_id,
+							  local_caches.wp_oc AS wp_name,
+							  local_caches.type AS cache_type,
+							  cache_type.icon_small AS cache_icon_small,
+							  log_types.icon_small AS icon_small,
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
+							COUNT(gk_item.id) AS geokret_in
+							FROM 
+								(local_caches INNER JOIN cache_logs ON (local_caches.cache_id = cache_logs.cache_id)) 
+								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
+								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
+								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
+								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
+								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
+								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
+							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5)
+							WHERE	cache_logs.deleted=0 AND datediff(now(), cache_logs.date_created) <= 31
 							GROUP BY cache_logs.id
-							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10",$latitude, $longitude,$radius);
+							ORDER BY cache_logs.date_created DESC LIMIT 0, 10");
+
+
+
+
 
 	$file_content = '';
 
-
 	if (mysql_num_rows($rsl) == 0)
 	{
-		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Nie ma najnowszych wpisów w logach</b></p><br>";
+		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_latest_caches_is_empty')."</b></p><br>";
 	}
 	else
 	{
@@ -413,7 +500,7 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 //			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
 //			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
 //			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
-
+		 	$cacheicon = 'tpl/stdstyle/images/'.$log_record['cache_icon_small'];
 			if ( $log_record['geokret_in'] !='0')
 					{
 								$thisline = mb_ereg_replace('{gkicon}',"images/gk.png", $thisline);
@@ -429,8 +516,7 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 					$thisline = mb_ereg_replace('{rateicon}',"images/rating-star.png", $thisline);					}
 					else
 					{
-					$thisline = mb_ereg_replace('{rateicon}',"images/rating-star-empty.png", $thisline);}
-			$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($log_record['icon_large']);	
+					$thisline = mb_ereg_replace('{rateicon}',"images/rating-star-empty.png", $thisline);}	
 			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{cacheid}', urlencode($log_record['cache_id']), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8'), $thisline);
