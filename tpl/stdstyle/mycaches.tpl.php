@@ -9,6 +9,7 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
+<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="" align="middle"/>&nbsp;{{my_caches_status}}: <font color="black">{cache_stat}</font></div>
 <table border="1"  bgcolor="#DBE6F1" style="border-collapse: collapse;font-weight:bold; margin-left: 10px; line-height: 1.4em; font-size: 12px;" width="95%">
 <tr>
