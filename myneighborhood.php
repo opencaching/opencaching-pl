@@ -124,7 +124,7 @@ return $zoom;
 		if(!$rec)
 		    return;
 		$loc = coordToLocationOk($rec['latitude'], $rec['longitude']);
-		sql("INSERT INTO cache_loc VALUES(&1, &2, &3, '&4', '&5', '&6', '&7')", $cache_id, $rec['latitude'], $rec['longitude'], $lang, $loc[0], $loc[1], $loc[2]);
+		sql("INSERT INTO cache_loc VALUES(&1, &2, &3, '&4', '&5', '&6', '&7') ON DUPLICATE KEY UPDATE latitude = &2, longitude = &3", $cache_id, $rec['latitude'], $rec['longitude'], $lang, $loc[0], $loc[1], $loc[2]);
 		
 		return $loc;
 	    }
