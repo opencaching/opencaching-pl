@@ -218,7 +218,7 @@ if ($error == false)
 				$file_content .= '<b>'.$logs['user_name'].'</b>:<br/>';
 				$data = cleanup_text(str_replace("\r\n", " ", $logs['log_text']));
 				$file_content .= str_replace("\n", " ",$data);
-				$file_content .= '\',OFFSETY, 25, OFFSETX, 35, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $logs['icon_small'] . '" border="0" alt=""/></a></b></td>';
+				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $logs['icon_small'] . '" border="0" alt=""/></a></b></td>';
 				$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($logs['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($logs['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
 				}
