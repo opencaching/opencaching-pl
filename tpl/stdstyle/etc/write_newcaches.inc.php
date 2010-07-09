@@ -95,7 +95,7 @@
 		$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
 		$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
 		$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
-		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
+		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 		$thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
 		$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
@@ -154,7 +154,7 @@
 			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
 			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
 			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
-			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
+			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
@@ -179,8 +179,10 @@ function get_marker_positions()
 	$markers = array();
 
 	$rs = sql("
-		SELECT	`cache_id`, `longitude`, `latitude`, `type`		FROM	`caches`
-		WHERE	`type` != 6 AND			`status` = 1 AND
+		SELECT	`cache_id`, `longitude`, `latitude`, `type`
+		FROM	`caches`
+		WHERE	`type` != 6 AND
+			`status` = 1 AND
 			`date_hidden` <= NOW() AND
 			`date_created` <= NOW()
 		ORDER BY IF((`date_hidden`>`date_created`), `date_hidden`, `date_created`) DESC, `cache_id` DESC
@@ -199,8 +201,12 @@ function get_marker_positions()
 
 	$rs = sql("
 		SELECT	`cache_id`, `longitude`, `latitude`, `type`
-		FROM	`caches`		WHERE	`date_hidden` >= curdate() AND			`type` = 6 AND			`status` = 1
-		ORDER BY `date_hidden` ASC		LIMIT 0, 10");
+		FROM	`caches`
+		WHERE	`date_hidden` >= curdate() AND
+			`type` = 6 AND
+			`status` = 1
+		ORDER BY `date_hidden` ASC
+		LIMIT 0, 10");
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
