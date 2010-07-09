@@ -147,7 +147,7 @@ if ($error == false)
 				$log_record = sql_fetch_array($rs);
 				
 				$file_content .= '<tr>';
-				$file_content .= '<td style="width: 90px;">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['date_hidden'])), ENT_COMPAT, 'UTF-8') . '</td>';			
+				$file_content .= '<td style="width: 90px;">'. htmlspecialchars(date("Y-m-d", strtotime($log_record['date_hidden'])), ENT_COMPAT, 'UTF-8') . '</td>';			
 				$file_content .= '<td width="32"><a href="editcache.php?cacheid='. htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="" title="Edit geocache"/></a></td>';	
 //				$file_content .= '<td width="22">&nbsp;' . icon_cache_status($log_record['status'], $log_record['cache_status_text']) . '</td>';
 				$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
@@ -156,7 +156,7 @@ if ($error == false)
 	$rs_logs = sql("SELECT cache_logs.id, 
 	                          cache_logs.type AS log_type,
 				cache_logs.text AS log_text,
-	                          DATE_FORMAT(cache_logs.date,'%d-%m-%Y') AS log_date,
+	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
 	                          user.username AS user_name,
 				user.user_id AS user_id,
 				log_types.icon_small AS icon_small,
@@ -173,7 +173,7 @@ if ($error == false)
 		if (mysql_num_rows($rs_logs) != 0)
 		{
 				$logs = sql_fetch_array($rs_logs);
-				$file_content .= '<td style="width: 90px;">'. htmlspecialchars(date("d-m-Y", strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
+				$file_content .= '<td style="width: 90px;">'. htmlspecialchars(date("Y-m-d", strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
 				$file_content .= '<td width="22">&nbsp;<a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/' . $logs['icon_small'] . '" border="0" alt=""/></a></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($logs['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($logs['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
