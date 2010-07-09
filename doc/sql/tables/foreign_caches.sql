@@ -47,6 +47,6 @@ CREATE TABLE IF NOT EXISTS `foreign_caches` (
   KEY `status` (`status`,`date_activate`),
   KEY `last_modified` (`last_modified`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `sys_logins` (
   PRIMARY KEY  (`id`),
   KEY `timestamp` (`timestamp`),
   KEY `remote_addr` (`remote_addr`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 

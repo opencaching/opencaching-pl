@@ -9,4 +9,4 @@ CREATE TABLE `nuts_layer` (
   UNIQUE KEY `code` (`code`),
   KEY `level` (`level`),
   SPATIAL KEY `shape` (`shape`)
-) ENGINE=MyISAM AUTO_INCREMENT=2970 DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2970 DEFAULT CHARSET=utf8 ;

@@ -17,5 +17,5 @@ CREATE TABLE IF NOT EXISTS `cache_desc` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `cache_id` (`cache_id`,`language`),
   KEY `last_modified` (`last_modified`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

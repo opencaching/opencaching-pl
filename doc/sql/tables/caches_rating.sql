@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS `cache_rating` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY  (`cache_id`,`user_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

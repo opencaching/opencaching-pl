@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `watches_waiting` (
   KEY `user_id` (`user_id`),
   KEY `object_id` (`object_id`),
   KEY `date_added` (`date_added`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 

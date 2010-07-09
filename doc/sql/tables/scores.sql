@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `scores` (
   KEY `cache_id` (`cache_id`),
   KEY `user_id` (`user_id`),
   KEY `score` (`score`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 

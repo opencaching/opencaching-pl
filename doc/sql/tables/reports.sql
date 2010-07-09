@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `changed_date` timestamp NULL default NULL,
   `responsible_id` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 

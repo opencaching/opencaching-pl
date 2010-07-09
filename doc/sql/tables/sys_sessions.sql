@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `sys_sessions` (
   `last_login` datetime NOT NULL,
   PRIMARY KEY  (`uuid`),
   KEY `last_login` (`last_login`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

@@ -33,6 +33,6 @@ CREATE TABLE IF NOT EXISTS `gns_locations` (
   PRIMARY KEY  (`uni`),
   KEY `rc` (`rc`,`fc`,`dsg`,`cc1`),
   KEY `ufi` (`ufi`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

@@ -4,4 +4,4 @@ CREATE TABLE `nuts_codes` (
   `code` varchar(10) NOT NULL,
   `name` varchar(120) NOT NULL,
   PRIMARY KEY  (`code`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;

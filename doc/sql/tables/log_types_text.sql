@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS `log_types_text` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `lang` (`lang`,`log_types_id`),
   KEY `log_types_id` (`log_types_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 

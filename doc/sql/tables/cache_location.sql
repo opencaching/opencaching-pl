@@ -14,4 +14,4 @@ CREATE TABLE `cache_location` (
   PRIMARY KEY  (`cache_id`),
   KEY `code1` (`code1`,`code2`,`code3`,`code4`),
   KEY `adm1` (`adm1`,`adm2`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='via cronjob' ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='via cronjob' ;

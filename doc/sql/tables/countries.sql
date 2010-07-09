@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS `countries` (
   `sort_en` varchar(128) NOT NULL,
   PRIMARY KEY  (`country_id`),
   UNIQUE KEY `short` (`short`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

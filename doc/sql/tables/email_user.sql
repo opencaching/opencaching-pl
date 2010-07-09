@@ -15,6 +15,6 @@ CREATE TABLE IF NOT EXISTS `email_user` (
   PRIMARY KEY  (`id`),
   KEY `date_sent` (`date_sent`),
   KEY `from_user_id` (`from_user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 

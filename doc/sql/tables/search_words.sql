@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `search_words` (
   `hash` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `hash` (`hash`,`word`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 

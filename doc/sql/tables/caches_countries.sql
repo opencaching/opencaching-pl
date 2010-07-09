@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS `cache_countries` (
   PRIMARY KEY  (`id`),
   KEY `cache_id` (`cache_id`,`date_modified`),
   KEY `country` (`country`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

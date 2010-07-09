@@ -11,6 +11,6 @@ CREATE TABLE IF NOT EXISTS `logentries` (
   `details` blob NOT NULL,
   `logtime` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ; 
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ; 
 
 

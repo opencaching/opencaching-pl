@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS `cache_arch` (
   `cache_id` int(11) NOT NULL,
   `step` int(11) NOT NULL,
   PRIMARY KEY  (`cache_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -10,6 +10,6 @@ CREATE TABLE IF NOT EXISTS `cache_type` (
   `icon_small` varchar(60) NOT NULL,
   `color` varchar(7) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 

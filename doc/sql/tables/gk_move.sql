@@ -13,6 +13,6 @@ CREATE TABLE IF NOT EXISTS `gk_move` (
   PRIMARY KEY  (`id`),
   KEY `itemid` (`itemid`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

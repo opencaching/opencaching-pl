@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `sys_menu` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `id_string` (`id_string`),
   KEY `parent` (`parent`,`position`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 

@@ -8,4 +8,4 @@ CREATE TABLE `npa_areas` (
   `shape` linestring NOT NULL,
   PRIMARY KEY  (`id`),
   SPATIAL KEY `shape` (`shape`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ;

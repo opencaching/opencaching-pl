@@ -27,5 +27,5 @@ CREATE TABLE IF NOT EXISTS `cache_logs` (
   KEY `type` (`type`),
   KEY `date_created` (`date_created`),
   KEY `deleted` (`deleted`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

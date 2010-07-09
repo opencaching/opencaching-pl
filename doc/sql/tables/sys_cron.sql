@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `sys_cron` (
   `last_run` datetime NOT NULL,
   PRIMARY KEY  (`name`),
   KEY `last_run` (`last_run`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

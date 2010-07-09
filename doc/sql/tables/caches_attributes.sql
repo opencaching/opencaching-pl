@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS `caches_attributes` (
   `attrib_id` int(11) NOT NULL,
   PRIMARY KEY  (`cache_id`,`attrib_id`),
   KEY `attrib_id` (`attrib_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

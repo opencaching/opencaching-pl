@@ -13,4 +13,4 @@ CREATE TABLE IF NOT EXISTS `cache_attrib` (
   PRIMARY KEY  (`language`,`id`),
   KEY `category` (`category`,`id`),
   KEY `default` (`default`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

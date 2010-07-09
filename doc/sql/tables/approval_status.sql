@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS `approval_status` (
   `status` int(11) NOT NULL,
   `date_approval` datetime default NULL,
   PRIMARY KEY  (`cache_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;

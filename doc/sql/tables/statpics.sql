@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `statpics` (
   `description` varchar(80) NOT NULL,
   `maxtextwidth` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 

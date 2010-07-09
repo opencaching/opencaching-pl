@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS `log_types` (
   `en` varchar(60) NOT NULL,
   `icon_small` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 

@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `founds_count` (`founds_count`),
   KEY `notfounds_count` (`notfounds_count`),
   KEY `uuid` (`uuid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
 

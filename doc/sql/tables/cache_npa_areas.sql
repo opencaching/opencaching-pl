@@ -5,4 +5,4 @@ CREATE TABLE `cache_npa_areas` (
   `npa_id` int(10) unsigned NOT NULL,
   `calculated` tinyint(1) NOT NULL,
   PRIMARY KEY  (`cache_id`,`npa_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;

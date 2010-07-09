@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `mp3` (
   KEY `title` (`title`),
   KEY `object_id` (`object_id`),
   KEY `uuid` (`uuid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 

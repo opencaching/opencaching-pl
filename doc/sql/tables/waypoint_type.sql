@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS `waypoint_type` (
   `en` varchar(60) NOT NULL,
   `icon` varchar(60) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 

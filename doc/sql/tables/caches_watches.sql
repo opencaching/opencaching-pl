@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS `cache_watches` (
   PRIMARY KEY  (`id`),
   KEY `cache_id` (`cache_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

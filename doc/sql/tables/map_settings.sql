@@ -36,6 +36,6 @@ CREATE TABLE IF NOT EXISTS `map_settings` (
   PRIMARY KEY  (`user_id`),
   KEY `min_score` (`min_score`),
   KEY `max_score` (`max_score`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

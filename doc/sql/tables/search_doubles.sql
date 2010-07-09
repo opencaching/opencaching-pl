@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `search_doubles` (
   `word` varchar(30) NOT NULL,
   `simple` varchar(30) NOT NULL,
   PRIMARY KEY  (`hash`,`word`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

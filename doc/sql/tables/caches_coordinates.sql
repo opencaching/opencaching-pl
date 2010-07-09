@@ -10,5 +10,5 @@ CREATE TABLE IF NOT EXISTS `cache_coordinates` (
   KEY `cache_id` (`cache_id`,`date_modified`),
   KEY `longitude` (`longitude`),
   KEY `latitude` (`latitude`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

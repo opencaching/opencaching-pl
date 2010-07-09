@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS `bulletins` (
   `user_id` int(11) NOT NULL,
   `sent` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 

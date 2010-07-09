@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS `cache_visits` (
   `count` int(11) NOT NULL default '0',
   `last_visited` datetime default NULL,
   PRIMARY KEY  (`cache_id`,`user_id_ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `map_settings_v2` (
   `de` int(1) default '1',
   `pl` int(1) default '1',
   PRIMARY KEY  (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

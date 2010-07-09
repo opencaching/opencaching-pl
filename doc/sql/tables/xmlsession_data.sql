@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `xmlsession_data` (
   `object_type` int(11) NOT NULL default '0',
   `object_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`session_id`,`object_type`,`object_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

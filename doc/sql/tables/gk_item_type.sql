@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS `gk_item_type` (
   `name` varchar(60) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `search_index_times` (
   `last_refresh` datetime NOT NULL,
   PRIMARY KEY  (`object_type`,`object_id`),
   KEY `last_refresh` (`last_refresh`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

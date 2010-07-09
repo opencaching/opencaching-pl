@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `topic` int(11) NOT NULL default '0',
   `display` int(1) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 

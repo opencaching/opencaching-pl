@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `sys_temptables` (
   `threadid` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY  (`threadid`,`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS `gns_search` (
   `simplehash` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `simplehash` (`simplehash`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 

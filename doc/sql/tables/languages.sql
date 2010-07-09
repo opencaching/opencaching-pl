@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS `languages` (
   `list_default_en` int(1) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `short` (`short`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1; 
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1; 
 
 
