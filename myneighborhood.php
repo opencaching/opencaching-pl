@@ -49,7 +49,7 @@ if ($error == false)
 		$logs =1;}
 		
 	//get the news
-	$tplname = 'myneighborhood2';
+	$tplname = 'myneighborhood';
 
        function cleanup_text($str)
         {
