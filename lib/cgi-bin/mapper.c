@@ -388,6 +388,8 @@ int main(void)
 					printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
 					fprintf(stdout, "Can't reconnect to MySQL: %s\n", mysql_error(conn));
 				}
+				else
+				    mysql_query(conn,"SET NAMES utf8;");
 			}
 			else {
 					printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
@@ -406,6 +408,8 @@ int main(void)
 					printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
 					fprintf(stdout, "Can't reconnect to MySQL: %s\n", mysql_error(conn));
 				}
+				else
+				    mysql_query(conn,"SET NAMES utf8;");
 			}
 			else if(err == 2) {
 				printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
@@ -500,6 +504,8 @@ int main(void)
 					printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
 					fprintf(stdout, "Can't reconnect to MySQL: %s\n", mysql_error(conn));
 				}
+				else
+				    mysql_query(conn,"SET NAMES utf8;");
 			}
 			else {
 					printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
