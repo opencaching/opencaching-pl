@@ -1,4 +1,6 @@
 <?php
+  $rootpath = '../';
+  require('../lib/common.inc.php');
 
 //  setlocale(LC_TIME, 'pl_PL.UTF-8');
 setlocale(LC_TIME, 'pl_PL.utf-8');
@@ -12,9 +14,6 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
 
   // for development
   //$graph = new Graph(500, 500);
-
-  require('../lib/web.inc.php');
-  sql('USE `ocpl`');
 
   // Start von Opencaching
   $startDate = mktime(0, 0, 0, 5, 1, 2006);

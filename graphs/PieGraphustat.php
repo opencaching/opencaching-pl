@@ -1,4 +1,6 @@
 <?php
+  $rootpath = '../';
+  require('../lib/common.inc.php');
 
   //prepare the templates and include all neccessary
 //	require_once('./lib/common.inc.php');
@@ -10,8 +12,6 @@ require("../lib/jpgraph/src/jpgraph.php");
 require("../lib/jpgraph/src/jpgraph_pie.php");
 require("../lib/jpgraph/src/jpgraph_pie3d.php");
 
-  require('../lib/web.inc.php');
-  sql('USE `ocpl`');
 		$year='';
 		// check for old-style parameters
 		if (isset($_REQUEST['userid']) && isset($_REQUEST['t']))

@@ -8,9 +8,8 @@
 	*   
 	*
 	***************************************************************************/
-
-//prepare the templates and include all neccessary
-//	require_once('./lib/common.inc.php');
+  $rootpath = '../';
+  require('../lib/common.inc.php');
 
 	setlocale(LC_TIME, 'pl_PL.utf-8');
 
@@ -22,9 +21,6 @@ require("../lib/jpgraph/src/jpgraph.php");
 require('../lib/jpgraph/src/jpgraph_bar.php');
 require('../lib/jpgraph/src/jpgraph_date.php');
 require('../lib/jpgraph/src/jpgraph_mgraph.php');
-
-  require('../lib/web.inc.php');
-  sql('USE `ocpl`');
 
 # Setup begining of stat for OC Team. Start timie 01 June every year
 $year = date('Y');
@@ -270,6 +266,5 @@ $mgraph->Add($graph4,0,660);
 $mgraph->Stroke();
    
   }
- 
-  
+
   ?>

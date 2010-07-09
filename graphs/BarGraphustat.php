@@ -1,4 +1,7 @@
 <?php
+  $rootpath = '../';
+  require('../lib/common.inc.php');
+
 setlocale(LC_TIME, 'pl_PL.utf-8');
   
 	
@@ -9,9 +12,6 @@ require("../lib/jpgraph/src/jpgraph.php");
 require('../lib/jpgraph/src/jpgraph_bar.php');
 require('../lib/jpgraph/src/jpgraph_date.php');
 
-
-  require('../lib/web.inc.php');
-  sql('USE `ocpl`');
 		$year='';
 		// check for old-style parameters
 		if (isset($_REQUEST['userid']) && isset($_REQUEST['t']))

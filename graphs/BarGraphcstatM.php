@@ -1,6 +1,6 @@
 <?php
-
-  
+  $rootpath = '../';
+  require('../lib/common.inc.php'); 
 	
 	//Preprocessing
 	if ($error == false)
@@ -10,8 +10,6 @@ require('../lib/jpgraph/src/jpgraph_bar.php');
 require('../lib/jpgraph/src/jpgraph_date.php');
 
 
-  require('../lib/web.inc.php');
-  sql('USE `ocpl`');
 		$year='';
 		if (isset($_REQUEST['cacheid']) && isset($_REQUEST['t']))
 		{
