@@ -27,13 +27,14 @@
 <td colspan="2"><strong>{{date_hidden_label}}</strong></td>
 <td></td>
 <td><strong>Geocache</strong></td>
+<td colspan="3"><strong>{{latest_logs}}</strong></td>
 </tr>
 <tr>
-<td colspan="5"><hr></hr></td>
+<td colspan="8"><hr></hr></td>
 </tr>
 		{file_content}
 <tr>
-<td colspan="5"><hr></hr></td>
+<td colspan="8"><hr></hr></td>
 </tr>
 </table>
 	<p>
