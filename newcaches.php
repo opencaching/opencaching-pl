@@ -102,7 +102,7 @@
 			$thisline = mb_ereg_replace('{userid}', $r['userid'], $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'), $thisline);
-			$thisline = mb_ereg_replace('{date}', date('d-m-Y', strtotime($r['date'])), $thisline);
+			$thisline = mb_ereg_replace('{date}', date('Y-m-d', strtotime($r['date'])), $thisline);
 			$thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($r['icon_large']), $thisline);
 			$thisline = mb_ereg_replace('{country_name}', htmlspecialchars($rr['country_name'], ENT_COMPAT, 'UTF-8'), $thisline);		
