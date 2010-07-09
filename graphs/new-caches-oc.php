@@ -144,13 +144,13 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
 
   $lineHeight = $txtStat1->GetFontHeight($graph->img);
 
-  $hiddenCaches = sqlValue(sql("SELECT COUNT(*) FROM `caches` WHERE (`status`=1 OR `status`=2 OR `status`=3)"), 0);
+  $hiddenCaches = sqlValue("SELECT COUNT(*) FROM `caches` WHERE (`status`=1 OR `status`=2 OR `status`=3)", 0);
   $txtStat2 = new Text('Ukryte skrzynki: ' . str_replace(',', '.', number_format($hiddenCaches)));
   $txtStat2->SetPos(55, 55 + $lineHeight * 1.5);
   $txtStat2->SetFont(FF_ARIAL, FS_NORMAL, 8);
   $txtStat2->SetColor('blue');
 
-  $activeCaches = sqlValue(sql("SELECT COUNT(*) FROM `caches` WHERE `status`=1"), 0);
+  $activeCaches = sqlValue("SELECT COUNT(*) FROM `caches` WHERE `status`=1", 0);
   $txtStat3 = new Text('W tym aktywnych: ' . str_replace(',', '.', number_format($activeCaches)));
   $txtStat3->SetPos(55, 55 + $lineHeight * 2.5);
   $txtStat3->SetFont(FF_ARIAL, FS_NORMAL, 8);
@@ -162,7 +162,7 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
 //  $txtStat4->SetFont(FF_GEORGIA, FS_NORMAL, 8);
 //  $txtStat4->SetColor('darkgreen');
 
-  $foundEntries = sqlValue(sql("SELECT COUNT(*) FROM `cache_logs` WHERE `type`=1 AND `deleted`=0"), 0);
+  $foundEntries = sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE `type`=1 AND `deleted`=0", 0);
   $txtStat5 = new Text('Ile razy odkryto skrzynki: ' . str_replace(',', '.', number_format($foundEntries)));
   $txtStat5->SetPos(55, 55 + $lineHeight * 5.0);
   $txtStat5->SetFont(FF_ARIAL, FS_NORMAL, 8);
