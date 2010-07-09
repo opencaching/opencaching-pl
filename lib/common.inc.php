@@ -1274,8 +1274,9 @@ session_start();
 
 	function coordToLocation($lat, $lon)
 	{
+		global $lang;
 		$xml = "";
-		$file = fopen('http://maps.google.com/maps/geo?q='.$lat.','.$lon.'&output=xml&oe=utf8&sensor=false&key=your_api_key&hl=pl', 'r');
+		$file = fopen('http://maps.google.com/maps/geo?q='.$lat.','.$lon.'&output=xml&oe=utf8&sensor=false&key=your_api_key&hl='.$lang, 'r');
 		while (!feof($file)) 
 		{
 			$xml .= fread($file, 1024);
@@ -1297,6 +1298,37 @@ session_start();
 		else
 			$dziubek = ">";
 		return array( "kraj"=>$kraj, "woj"=>$wojewodztwo, "miasto"=>$miasto, "dziubek"=>$dziubek);
+	}
+	function coordToLocationOk($lat, $lon)
+	{
+		$xml = "";
+		$file = fopen('http://maps.google.com/maps/geo?q='.$lat.','.$lon.'&output=xml&oe=utf8&sensor=false&key=your_api_key&hl=pl', 'r');
+		while (!feof($file)) {
+			$xml .= fread($file, 1024);
+		}
+		fclose($file);
+		
+		$array = xml2ary($xml);
+		for( $i=0;$i<20;$i++) {
+			$country = $array["kml"]["_c"]["Response"]["_c"]["Placemark"][$i]["_c"]["AddressDetails"]["_c"]["Country"]["_c"]["CountryName"]["_v"];
+			$adm1 = $array["kml"]["_c"]["Response"]["_c"]["Placemark"][$i]["_c"]["AddressDetails"]["_c"]["Country"]["_c"]["AdministrativeArea"]["_c"]["AdministrativeAreaName"]["_v"];
+			$adm2 = $array["kml"]["_c"]["Response"]["_c"]["Placemark"][$i]["_c"]["AddressDetails"]["_c"]["Country"]["_c"]["AdministrativeArea"]["_c"]["SubAdministrativeArea"]["_c"]["SubAdministrativeAreaName"]["_v"];
+			
+			if( $country != "" && $adm1 != "")
+				break;
+		}
+		return array( $country, $adm1, $adm2 );
+	}
+	function cacheToLocationold($cache_id)
+	{
+	    $res = sql("SELECT country, adm1, adm2 FROM cache_loc INNER
+			JOIN caches ON (cache_loc.cache_id = caches.cache_id)
+			WHERE cache_loc.cache_id = ? 
+			AND caches.latitude = cache_loc.latitude AND caches.longitude = cache_loc.longitude 
+			AND lang = ?", $cache_id, $lang);
+	    
+
+
 	}
 
 function typeToLetter($type)
