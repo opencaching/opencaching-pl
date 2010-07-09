@@ -298,9 +298,7 @@ $radius=$distance;
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
         FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
-        WHERE 
-			
-			  `caches`.`type`!=6
+        WHERE 		  `caches`.`type`!=6
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
 				AND `caches`.`date_created` <= NOW() 
