@@ -441,7 +441,9 @@ int main(void)
 				 "FROM foreign_caches AS caches "
 				 "%s "
 				 "WHERE ( caches.latitude BETWEEN %lf AND %lf ) AND ( caches.longitude BETWEEN %lf AND %lf ) %s",
-				 h_sel_ignored, own_not_attempt, h_ignored,
+				 "0,",// h_sel_ignored,
+				 "0",//own_not_attempt,
+				 "",//h_ignored,
 				 (rect.lat-rect.latHeight*bound),
 				 (rect.lat + rect.latHeight + rect.latHeight*bound),
 				 (rect.lon - rect.lonWidth*bound),
@@ -815,7 +817,7 @@ int main(void)
 
 end_of_request:;
 
-	mysql_query(conn, "DROP TABLE cache_ids");
+	mysql_query(conn, "DROP TEMPORARY TABLE IF EXISTS cache_ids");
 
 #ifndef WITH_FASTCGI
 	for(int i = 0;i< CACHE_TYPES_NUM;++i)
