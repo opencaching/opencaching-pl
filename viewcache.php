@@ -212,9 +212,7 @@
 				$cache_wp = $cache_record['wp_nc'];
 			
 			// check if there is geokret in this cache
-			//mysql_query("SET NAMES 'utf8'");
-			$geokret_sql = "SELECT id, name, distancetravelled as distance FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".sql_escape($cache_wp)."') AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2";
-			$geokret_query = sql($geokret_sql);
+			$geokret_query = sql("SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = '&1' AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2", $cache_wp);
 			if (mysql_num_rows($geokret_query) == 0)
 			{
 				// no geokrets in this cache
