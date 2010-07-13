@@ -167,6 +167,18 @@ int validate_base16(const char* hash)
 	return 1;
 }
 
+SDL_Surface* render_text_outline(TTF_Font* fnt, const char* text, SDL_Color fg, SDL_Color bg, int outline)
+{
+	TTF_SetFontOutline(fnt, outline);
+	SDL_Surface* bg_surface = TTF_RenderUTF8_Blended(fnt, text, bg);
+	TTF_SetFontOutline(fnt, 0);
+	SDL_Surface* fg_surface = TTF_RenderUTF8_Blended(fnt, text, fg);
+	SDL_Rect rect = {outline, outline, fg_surface->w, fg_surface->h};
+	SDL_gfxBlitRGBA(fg_surface, NULL, bg_surface, &rect);
+	SDL_FreeSurface(fg_surface);
+	return bg_surface;
+}
+
 int main(void)
 {
 	MYSQL *conn = NULL;
@@ -246,7 +258,8 @@ int main(void)
 
 	TTF_Init();
 //	snprintf(buf, sizeof(buf), "%s/Aller_Rg.ttf", DATA_PATH);	
-	snprintf(buf, sizeof(buf), "%s/DejaVuSans.ttf", DATA_PATH);	
+//	snprintf(buf, sizeof(buf), "%s/DejaVuSans.ttf", DATA_PATH);	
+	snprintf(buf, sizeof(buf), "%s/LiberationSans-Regular.ttf", DATA_PATH);	
 	font1 = TTF_OpenFont(buf, LABEL_FONT_SIZE);
 	font2 = TTF_OpenFont(buf, LABEL_FONT_SIZE_2);
 	font3 = TTF_OpenFont(buf, LABEL_FONT_SIZE_3);
@@ -700,6 +713,10 @@ int main(void)
 
 		}
 
+		TTF_SetFontOutline(font1, 2);
+		TTF_SetFontOutline(font2, 2);
+		TTF_SetFontOutline(font3, 2);
+
 		if(zoom > 6 && font1 && font2 && font3)
 			for(int i = 0;i < cache_count;++i) {
 				const char *name = caches[i].name;
@@ -749,35 +766,19 @@ int main(void)
 				}
 				
 				if(show_signs && draw_label) {
-					SDL_Color fgcolor = {30, 30, 30};
-					SDL_Color bgcolor = {255, 255, 255};
+					SDL_Color fgcolor = {30, 30, 30, 255};
+					SDL_Color bgcolor = {255, 255, 255, 255};
+					int text_outline = 1;
 					if(mapid == 1 || mapid == 2) {
-						fgcolor = (SDL_Color){255, 255, 255};
-						bgcolor = (SDL_Color){30, 30, 30};
+						fgcolor = (SDL_Color){220, 220, 220, 255};
+						bgcolor = (SDL_Color){30, 30, 30, 255};
+						text_outline = 2;
 					}
-					
-					SDL_Surface* fglabel = TTF_RenderUTF8_Blended(font, name, fgcolor);
-					SDL_Surface* bglabel = TTF_RenderUTF8_Blended(font, name, bgcolor);
-					SDL_Rect r = (SDL_Rect){orig_x - fglabel->w/2, orig_y + fglabel->h/2};
-					
-					
-					SDL_Rect r2;
-					r2 = r;
-					r2.x = r.x - 1;
-					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
-					r2 = r;
-					r2.x = r.x + 1;
-					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
-					r2 = r;
-					r2.y = r.y + 1;
-					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
-					r2 = r;
-					r2.y = r.y - 1;
-					SDL_gfxBlitRGBA(bglabel, NULL, im, &r2);
-					
+					SDL_Surface* fglabel = render_text_outline(font, name, fgcolor, bgcolor, text_outline);
+					SDL_Rect r = (SDL_Rect){orig_x - fglabel->w/2, orig_y + fglabel->h/4};
+							
 					SDL_gfxBlitRGBA(fglabel, NULL, im, &r);
 					SDL_FreeSurface(fglabel);
-					SDL_FreeSurface(bglabel);
 				}
 				if(show_wp && draw_wp) {
 					SDL_Color fgcolor = {30, 30, 30};
