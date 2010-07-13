@@ -1271,7 +1271,7 @@ session_start();
 		else
 			return true;
 	} // end isPasswordRequired
-
+//'
 	function coordToLocation($lat, $lon)
 	{
 		global $lang;
