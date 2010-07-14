@@ -1152,7 +1152,7 @@
 				$tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);
 				$tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
 				$tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
-				$tmplog = mb_ereg_replace('{logtext}',$decrypt_log_begin.$tmplog_text.$decrypt_log_end, $tmplog);
+				$tmplog = mb_ereg_replace('{logtext}',$decrypt_log_begin."<span id=\"log-text\">".$tmplog_text."</span>".$decrypt_log_end, $tmplog);
 				$tmplog = mb_ereg_replace('{logimage}', icon_log_type($record['icon_small'], $tmplog['type']), $tmplog);
 
 				if ($record['recommended'] == 1 && $record['type']==1)
