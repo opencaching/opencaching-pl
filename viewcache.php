@@ -666,7 +666,7 @@
 							// check status all waypoints 
 							for ($i = 0; $i < mysql_num_rows($wp_rsc); $i++)
 							{ $wp_check = sql_fetch_array($wp_rsc);
-							 if ($wp_check['status'] ==1) { $waypoints_visible=1;}
+							 if ($wp_check['status'] ==1|| $wp_check['status'] ==2) { $waypoints_visible=1;}
 							 }
 				if ($waypoints_visible !=0) {			 
 				$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
