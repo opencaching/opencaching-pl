@@ -461,6 +461,7 @@ comments_log Comments
 submit_log_entry Submit log entry
 listed_other This cache please log on the following pages
 all_countries show all countries
+list_of_events_is_empty List of events is empty
 not_spcified not spcified
 register_email_subject Registration confirmation Opencaching PL
 error_username_not_ok Username is incorrect
