@@ -47,4 +47,4 @@ if ((F == " ") || (F == "&dhbg;")) {} else {if (E) {F = convertROT13Char(F)}}}}D
 <div class="content2-container" id="viewcache-logs">
 		{logs}
 </div>
-<div id="viewlogs-end">[<a class="links" href="viewcache.php?cacheid={cacheid}">[{{back_to_the_geocache_listing}}]</a>]</div>
+<div id="viewlogs-end">[<a class="links" href="viewcache.php?cacheid={cacheid}">{{back_to_the_geocache_listing}}</a>]</div>
