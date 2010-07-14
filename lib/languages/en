@@ -562,6 +562,7 @@ download Download
 npa_info This geocache is probably placed within a nature protection area
 check_nearby_caches Check caches nearby on OC PL
 check_nearby_caches_info Before putting caches at the planned place check is no longer <br /> exist caches in radius 150 m
+
 check_nearby_caches_map Check caches nearby on Map&nbsp;&nbsp;&nbsp;
 my_caches_status My caches with status
 active Active
@@ -606,6 +607,7 @@ status_wp Status of wyapoint
 write_wp Write waypoint
 edit_wp Edit waypoint
 delete_wp Delete waypoint
+show_info_about_wp See the description and the type of additional waypoints
 comment_octeam_visible Comment by OC Team visible only for OC Team and owner cache.
 ready_to_search Geocache ready to search.
 archived_cache Geocache was archived.
