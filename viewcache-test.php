@@ -1568,10 +1568,62 @@ $viewcache_header = '
 			}
 
     }
-		
+    function translateLogtext() 
+		{
+			var maxlen = 1100;
+			var i=0;
+			
+			// tekst do przetlumaczenia
+			var text = document.getElementById("log-text").innerHTML;
+			
+			// tablica wyrazow
+			var splitted = text.split(" ");
+			
+			// liczba wyrazow
+			var totallen = splitted.length;
+			
+			var toTranslate="";
+			var container = document.getElementById("log-text");
+			container.innerHTML = "";
+
+			
+
+			while( i < totallen )
+			{
+				var loo = splitted[i].length;
+				while(( toTranslate.length + loo) < maxlen )
+				{
+					toTranslate += " " + splitted[i];
+					i++;
+					if( i >= totallen )
+						break;
+				}
+				
+				google.language.translate(toTranslate, "pl", "'.$lang.'", function(result) 
+				{
+				//	var container = document.getElementById("description");
+					
+					// poprawki
+					var toHTML = (result.translation).replace(/[eE]nglish/g, "Polish");
+					toHTML = toHTML.replace(/[iI]nbox/g, "Geocache");
+					toHTML = toHTML.replace(/[iI]nboxes/g, "Geocaches");					
+					toHTML = toHTML.replace(/[mM]ailbox/g, "Geocache");
+					toHTML = toHTML.replace(/[mM]ailboxes/g, "Geocaches");
+					toHTML = toHTML.replace(/[dD]eutsch/g, "Polnisch");
+
+					toHTML = toHTML.replace(/[sS]houlder/g, "shovel");
+
+					
+					container.innerHTML += toHTML;
+				});
+				toTranslate = "";
+			}
+
+    }		
 			google.setOnLoadCallback(translateDesc);
 			google.setOnLoadCallback(translateHint);
 			google.setOnLoadCallback(translateWPdesc);
+			google.setOnLoadCallback(translateLogtext);
     </script>
 ';
 	
