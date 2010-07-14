@@ -435,6 +435,8 @@ find_geocaches_on Pokaż najbliższe skrzynki na
 searchable bez moich własnych i znalezionych
 all_geocaches wszystkie
 log_entries Wpisy do logu
+show_all_log_entries  Wszystkie wpisy do logu 
+back_to_the_geocache_listing Przejdź do skrzynki
 register_new Rejestracja nowego użytkownika
 password_confirm Potwierdź hasło
 register_msg1 W celu rejestracji na Opencaching PL musisz posiadać rzeczywisty adres E-mail na który zostanie wysłany kod aktywacyjny. Możesz tylko jednego użytkownika zarejestrować na jeden adres E-mail. 

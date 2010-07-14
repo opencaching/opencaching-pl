@@ -427,7 +427,9 @@ additional_hints Additional hints
 images Pictures
 mp3_files_info PodCasts MP3 files
 utilities Utilities
-log_entries Logentries
+log_entries Log entries for
+show_all_log_entries Show all log entries 
+back_to_the_geocache_listing Back to the geocache listing
 search_geocaches_nearby Find geocaches nearby on OC PL (radius 100 km)
 download_as_file Download as file
 accept_terms_of_use When downloading this file, you accept our <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">terms of use</a>.
