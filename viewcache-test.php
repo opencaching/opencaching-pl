@@ -731,7 +731,7 @@
 						$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 						$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 						$tmpline1 = mb_ereg_replace('{lat_lon}', $coords_lat_lon, $tmpline1);
-						$tmpline1 = mb_ereg_replace('{desc}', "&nbsp;". nl2br($wp_record['desc']) ."&nbsp;", $tmpline1);
+						$tmpline1 = mb_ereg_replace('{desc}', "&nbsp;<span id=\"wp-desc\"". nl2br($wp_record['desc']) ."</span>&nbsp;", $tmpline1);
 						$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
 						
 						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7){
@@ -1517,8 +1517,61 @@ $viewcache_header = '
 			}
     }
 		
+    function translateWPdesc() 
+		{
+			var maxlen = 1100;
+			var i=0;
+			
+			// tekst do przetlumaczenia
+			var text = document.getElementById("wp-desc").innerHTML;
+			
+			// tablica wyrazow
+			var splitted = text.split(" ");
+			
+			// liczba wyrazow
+			var totallen = splitted.length;
+			
+			var toTranslate="";
+			var container = document.getElementById("wp-desc");
+			container.innerHTML = "";
+			
+
+			while( i < totallen )
+			{
+				var loo = splitted[i].length;
+				while(( toTranslate.length + loo) < maxlen )
+				{
+					toTranslate += " " + splitted[i];
+					i++;
+					if( i >= totallen )
+						break;
+				}
+				
+				google.language.translate(toTranslate, "pl", "'.$lang.'", function(result) 
+				{
+				//	var container = document.getElementById("description");
+					
+					// poprawki
+					var toHTML = (result.translation).replace(/[eE]nglish/g, "Polish");
+					toHTML = toHTML.replace(/[iI]nbox/g, "Geocache");
+					toHTML = toHTML.replace(/[iI]nboxes/g, "Geocaches");					
+					toHTML = toHTML.replace(/[mM]ailbox/g, "Geocache");
+					toHTML = toHTML.replace(/[mM]ailboxes/g, "Geocaches");
+					toHTML = toHTML.replace(/[dD]eutsch/g, "Polnisch");
+
+					toHTML = toHTML.replace(/[sS]houlder/g, "shovel");
+
+					
+					container.innerHTML += toHTML;
+				});
+				toTranslate = "";
+			}
+
+    }
+		
 			google.setOnLoadCallback(translateDesc);
 			google.setOnLoadCallback(translateHint);
+			google.setOnLoadCallback(translateWPdesc);
     </script>
 ';
 	
