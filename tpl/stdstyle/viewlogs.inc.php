@@ -25,10 +25,10 @@
 	$nodecrypt_log = '&nbsp;<img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title=""/>&nbsp;<span style="font-weight;">'.tr("encrypt_log").'</span>';	
 
 	$edit_log = '<img src="tpl/stdstyle/images/free_icons/pencil.png" class="icon16" alt="" title=""/>&nbsp;<a class="links" href="editlog.php?logid={logid}">'.tr("edit").'</a>&nbsp;';
-	$remove_log = '<img src="tpl/stdstyle/images/free_icons/cross.png" class="icon16" alt="" title=""/>&nbsp;<a class="links" href="removelog.php?logid={logid}">Usuń</a>&nbsp;';
-	$upload_picture = '<img src="tpl/stdstyle/images/action/16x16-addimage.png" class="icon16" alt="" title=""/>&nbsp;<a class="links" href="newpic.php?objectid={logid}&amp;type=1">Dodaj obrazek</a>&nbsp;';
+	$remove_log = '<img src="tpl/stdstyle/images/free_icons/cross.png" class="icon16" alt="" title=""/>&nbsp;<a class="links" href="removelog.php?logid={logid}">'.tr("delete").'</a>&nbsp;';
+	$upload_picture = '<img src="tpl/stdstyle/images/action/16x16-addimage.png" class="icon16" alt="" title=""/>&nbsp;<a class="links" href="newpic.php?objectid={logid}&amp;type=1">'.tr("add_picture").'</a>&nbsp;';
 	
-	$remove_picture = ' <span class="removepic"><img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" title=""/><a class="links" href="removepic.php?uuid={uuid}">Usuń</a></span>';
+	$remove_picture = ' <span class="removepic"><img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" title=""/><a class="links" href="removepic.php?uuid={uuid}">'.tr("delete").'</a></span>';
 
 	$rating_picture = '<img src="images/rating-star.png" alt="Rekomendacja" /> '
 ?>
