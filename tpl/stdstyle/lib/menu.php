@@ -410,8 +410,8 @@ $menu = array(
 			'filename' => 'admin_cachenotfound.php'
 			),
 			array(
-			'title' => 'Szukaj użytkownika',
-			'menustring' => 'Szukaj użytkownika',
+			'title' => tr('search_user'),
+			'menustring' => tr('search_user'),
 			'siteid' => 'admin_searchuser',
 			'visible' => true,
 			'filename' => 'admin_searchuser.php'
@@ -564,8 +564,8 @@ $menu = array(
 				'siteid' => 'adoption'
 			),
 			array(
-				'title' => 'Szukaj użytkownika',
-				'menustring' => 'Szukaj użytkownika',
+				'title' => tr('search_user'),
+				'menustring' => tr('search_user'),
 				'siteid' => 'searchuser',
 				'visible' => true,
 				'filename' => 'searchuser.php'
@@ -900,6 +900,7 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 					//{
 //						echo '<li class="' . $cssclass . '"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
 //					}
+
 //					else
 //					{
 //						echo '<li class="' . $cssclass . '"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
