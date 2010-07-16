@@ -1095,7 +1095,7 @@
 					{
 						$tmpFunctions .= $edit_log . $functions_middle;
 					}
-					if ($record['type']!=12 && ($usr['userid']==$cache_record['cache_id'] || $usr['admin']==false)){
+					if ($record['type']!=12 && ($usr['userid']==$cache_record['user_id'] || $usr['admin']==false)){
 					$tmpFunctions .= $remove_log. $functions_middle;} 
 
 					if ($usr['admin']){
