@@ -986,9 +986,9 @@
 			}
         function cleanup_text($str)
         {
-          $str = strip_tags($str, "<p>");
-          $from[] = '<p>'; $to[] = '';
-          $from[] = '</p>'; $to[] = "<br/>";
+ //         $str = strip_tags($str, "<p>");
+          $from[] = '<p>&nbsp;</p>'; $to[] = '';
+ //         $from[] = '</p>'; $to[] = "<br/>";
     
           for ($i = 0; $i < count($from); $i++)
             $str = str_replace($from[$i], $to[$i], $str);
@@ -1038,7 +1038,7 @@
 
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
 				$tmplog_date = fixPlMonth(htmlspecialchars(strftime("%d %B %Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
-				$tmplog_text = $record['text'];
+				$tmplog_text = cleanup_text($record['text']);
 
 				// replace smilies in log-text with images and add hyperlinks
 				$tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
@@ -1050,7 +1050,7 @@
 
 				if ( $record['encrypt']==1 && $no_crypt_log == 0)
 				//crypt the log ROT13, but keep HTML-Tags and Entities
-				$tmplog_text = str_rot13_html($tmplog_text);
+				$tmplog_text = str_rot13_html(cleanup_text($tmplog_text));
 
 				if ($record['picturescount'] > 0)
 				{
