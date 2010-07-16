@@ -21,7 +21,7 @@
 	require_once('lib/cache_icon.inc.php');
 	global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email;
 	global $dynbasepath;
-	
+
 	function onTheList($theArray, $item)
 	{
 		for( $i=0;$i<count($theArray);$i++)
