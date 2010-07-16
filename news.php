@@ -1,14 +1,5 @@
 <?php
 /***************************************************************************
-																./news.php
-															-------------------
-		begin                : Mon June 14 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
 	*                                         				                                
 	*   This program is free software; you can redistribute it and/or modify  	
 	*   it under the terms of the GNU General Public License as published by  
@@ -35,7 +26,7 @@
 		$tplname = 'news';
 		$newscontent = '
 				<div class="content2-pagetitle">
-				<img src="tpl/stdstyle/images/description/22x22-description.png" border="0" width="22" height="22" alt="News" title="news" align="middle" />'.tr('news').'</div>
+				<img src="tpl/stdstyle/images/description/22x22-description.png" border="0" width="22" height="22" alt="News" title="news" align="middle" />&nbsp;&nbsp;'.tr('news').'</div>
 				
 				';
 		require($stylepath . '/news.inc.php');
