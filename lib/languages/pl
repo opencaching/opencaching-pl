@@ -513,6 +513,7 @@ manage_ocpl Zarządzanie OC PL
 browse_problem_reports Przeglądaj zgłoszenia problemów
 no_hidden_caches Brak ukrytych skrzynek
 no_not_published_caches Nie ma nieopublikowanych skrzynek
+
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
@@ -667,6 +668,7 @@ moved_text przeniesiona
 encrypt_log Log szyfrowany
 my_neighborhood Moja okolica
 myn_info Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 35 km ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.
+search_user Szukaj użytkownika
 
 
 
