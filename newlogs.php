@@ -106,6 +106,7 @@ if ($error == false)
 $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
+ 				`cache_logs`.`encrypt` `encrypt`,
 				   cache_logs.text AS log_text,
 				  cache_logs.text_html AS text_html,
 	                          caches.name AS cache_name,
@@ -186,6 +187,9 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 				$file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
 				$file_content .= '<b>'.$log_record['user_name'].'</b>:<br/>';
 				$data = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
+				if ( $log_record['encrypt']==1)
+				//crypt the log ROT13, but keep HTML-Tags and Entities
+				$data = str_rot13_html($data);
 				$file_content .= str_replace("\n", " ",$data);
 				$file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
@@ -215,6 +219,7 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
         {
 
           $str = strip_tags($str, "<li>");
+	  $from[] = '<p>&nbsp;</p>'; $to[] = '';
 	  $from[] = '&nbsp;'; $to[] = ' ';
           $from[] = '<p>'; $to[] = '';
          $from[] = '\n'; $to[] = '';
