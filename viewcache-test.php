@@ -1050,7 +1050,7 @@
 
 				if ( $record['encrypt']==1 && $no_crypt_log == 0)
 				//crypt the log ROT13, but keep HTML-Tags and Entities
-				$tmplog_text = str_rot13_html(cleanup_text($tmplog_text));
+				$tmplog_text = str_rot13_html($tmplog_text);
 
 				if ($record['picturescount'] > 0)
 				{
