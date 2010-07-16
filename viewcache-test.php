@@ -16,7 +16,9 @@
 	 view a cache
 
  ****************************************************************************/
-  //prepare the templates and include all neccessary
+ 
+
+ //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	require_once('lib/cache_icon.inc.php');
 	global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email;
@@ -149,6 +151,7 @@
 					              `cache_type`.`id`=`caches`.`type` AND
 					              `caches`.`cache_id`='&2'", $lang_db, $cache_id);
 
+
 			if (mysql_num_rows($rs) == 0)
 			{
 				$cache_id = 0;
@@ -244,7 +247,7 @@
 			}
 			mysql_free_result($geokret_query);
 						
-			
+		
 			if( $cache_record['votes'] < 3 )
 			{
 				// DO NOT show cache's score
@@ -345,7 +348,7 @@
 			if ($cache_record['adm3'] !="") {tpl_set_var('woj',$cache_record['adm3']); tpl_set_var('dziubek1',">");}
 //			if ($cache_record['adm4'] !="") {tpl_set_var('miasto',$cache_record['adm4']); tpl_set_var('dziubek2',">");} 
 		
-
+	
 	/* nature protection areas
 	 */
 	$rsArea = sql("SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype` 
