@@ -1573,7 +1573,7 @@ $viewcache_header = '
 
     }
     function translateLogtext() 
-		{
+		{		
 			var maxlen = 1100;
 			var i=0;
 			
@@ -1623,7 +1623,7 @@ $viewcache_header = '
 				toTranslate = "";
 			}
 
-    }		
+   }		
 			google.setOnLoadCallback(translateDesc);
 			google.setOnLoadCallback(translateHint);
 			google.setOnLoadCallback(translateWPdesc);
