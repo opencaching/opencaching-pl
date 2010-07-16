@@ -188,16 +188,17 @@
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
 				$tmplog_date = fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
 				// replace smilies in log-text with images
-				$tmplog_text = str_replace($smileytext, $smileyimage, $record['text']);
+				$tmplog_text = cleanup_text($record['text']);
+				$tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
 				
 				if ($record['text_html'] == 0)
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
 
 				$tmplog_text = tidy_html_description($tmplog_text);
-				
+
 				if ( $record['encrypt']==1 && $no_crypt_log == 0)
 				//crypt the log ROT13, but keep HTML-Tags and Entities
-				$tmplog_text = str_rot13_html(cleanup_text($tmplog_text));
+				$tmplog_text = str_rot13_html($tmplog_text);
 	
 			if ($cache_record['type']==8 && $record['type']==4){ 
 
