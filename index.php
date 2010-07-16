@@ -30,7 +30,8 @@
 
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-	
+
+
 	//Preprocessing
 	if ($error == false)
 	{
@@ -55,7 +56,7 @@
 			$current_date= date(Ymd);
 			$posted_date=strftime("%Y%m%d", $post_date);
 			$diff=($current_date - $posted_date);
-			if ($diif < "100" && $defaultlang=="pl") {tpl_set_var('news_one', $newscontent);	} 
+			if ($diif < "100" && $lang=="pl") {tpl_set_var('news_one', $newscontent);	} 
 			else {	tpl_set_var('news_one', '<br />');} 
 		}
 		mysql_free_result($rs);
