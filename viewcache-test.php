@@ -140,16 +140,16 @@
 								`caches`.`votes` `votes_count`,
 								`cache_type`.`icon_large` `icon_large`,
 			                  `user`.`username` `username`,
-							  `countries`.`&1` AS `country_name`,
+					`countries`.`&1` AS `country_name`,
 				IFNULL(`cache_location`.`code1`, '') AS `code1`,
 				IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
 				IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
 				IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
 				IFNULL(`cache_location`.`adm4`, '') AS `adm4`
-			             FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `cache_type`, `user`
-				          WHERE `caches`.`user_id` = `user`.`user_id` AND
+			             FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `cache_type`, `user` WHERE `caches`.`user_id` = `user`.`user_id` AND
 					              `cache_type`.`id`=`caches`.`type` AND
 					              `caches`.`cache_id`='&2'", $lang_db, $cache_id);
+
 
 
 			if (mysql_num_rows($rs) == 0)
@@ -662,7 +662,7 @@
 				$desclang = $desclangs[0];
 			}
 
-			if( strtolower($desclang) != $lang && $lang != 'pl' )
+			if( strtolower($desclang) != $lang && $lang != 'PL' )
 				$enable_google_translation = true;
 			else
 				$enable_google_translation = false;
@@ -864,6 +864,7 @@
 			
 			// show descriptions
 			//
+
 			$rs = sql("SELECT `short_desc`, `desc`, `desc_html`, `hint`, `rr_comment` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", sql_escape($cache_id), sql_escape($desclang));
 			$desc_record = sql_fetch_array($rs);
 			mysql_free_result($rs);
