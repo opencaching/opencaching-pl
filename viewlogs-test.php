@@ -141,7 +141,15 @@
 				$show_deleted_logs2 = "";
 			}
 
-			
+       function cleanup_text($str)
+        {
+          $from[] = '<p>&nbsp;</p>'; $to[] = '';
+    
+          for ($i = 0; $i < count($from); $i++)
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
+          return ($str);
+        }				
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					".$show_deleted_logs."
 					`cache_logs`.`id` AS `log_id`,
@@ -189,7 +197,7 @@
 				
 				if ( $record['encrypt']==1 && $no_crypt_log == 0)
 				//crypt the log ROT13, but keep HTML-Tags and Entities
-				$tmplog_text = str_rot13_html($tmplog_text);
+				$tmplog_text = str_rot13_html(cleanup_text($tmplog_text));
 	
 			if ($cache_record['type']==8 && $record['type']==4){ 
 
