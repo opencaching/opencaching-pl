@@ -16,7 +16,7 @@
 		new logs
 
 	****************************************************************************/
-	global $lang, $rootpath;
+	global $lang, $usr, $rootpath;
 
 	if (!isset($rootpath)) $rootpath = '';
 
@@ -45,6 +45,7 @@ if ($error == false)
         function cleanup_text($str)
         {
           $str = strip_tags($str, "<li>");
+		 $from[] = '<p>&nbsp;</p>'; $to[] = '';
 	      $from[] = '&nbsp;'; $to[] = ' ';
           $from[] = '<p>'; $to[] = '';
          $from[] = '\n'; $to[] = '';
@@ -163,6 +164,8 @@ if ($error == false)
 	                          cache_logs.date AS log_date,
 	                          caches.name AS cache_name,
 	                          countries.pl AS country_name,
+							  caches.user_id AS cache_owner,
+							 cache_logs.encrypt encrypt,
 	                          user.username AS user_name,
 							  user.user_id AS user_id,
 							  caches.wp_oc AS wp_name,
@@ -207,9 +210,15 @@ if ($error == false)
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
 				$file_content .= '<td width="22"><a class="links" href="viewcache.php?cacheid=' . $log_record['cache_id'].'"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></a></td>';
 				$file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') .'" onmouseover="Tip(\''; 
-				$file_content .= '<b>'.$log_record['user_name'].'</b>:<br/>';
+				$file_content .= '<b>'.$log_record['user_name'].'</b>:&nbsp;';
+				if ( $log_record['encrypt']==1 && ($usr['userid'] == $log_record['cache_owner'] || $usr['userid'] != $log_record['user_id']))				
+				$file_content .='<img src=tpl/stdstyle/images/free_icons/lock_open.png />';
 				$data = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
-				$file_content .= str_replace("\n", " ",$data);
+				$data= str_replace("\n", " ",$data);
+				if ( $log_record['encrypt']==1 && ($usr['userid'] == $log_record['cache_owner'] || $usr['userid'] != $log_record['user_id']))
+				//crypt the log ROT13, but keep HTML-Tags and Entities
+				$data = str_rot13_html($data);
+				$file_content .= "<br/>".$data;
 				$file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 				$file_content .= "</tr>";
