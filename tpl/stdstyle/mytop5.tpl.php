@@ -10,7 +10,7 @@
 
 	***************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="Moje rekomendacje" title="Moje rekomendacje" align="middle"/>&nbsp;Moje rekomendowane skrzynki</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="Moje rekomendacje" title="Moje rekomendacje" align="middle"/>&nbsp;{{my_recommendations}}</div>
 {msg_delete}
 <table class="table">
 	<colgroup>
@@ -18,7 +18,7 @@
 		<col width="140px"/>
 	</colgroup>
 	<tr>
-			<td class="content-title-noshade">Nazwa skrzynki</td>
+			<td class="content-title-noshade">Geocache</td>
 			<td align="right" class="content-title-noshade">&nbsp;</td>
 	</tr>
 	{top5}

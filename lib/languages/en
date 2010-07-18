@@ -672,7 +672,11 @@ confirm_remove_log Are you sure you want to delete the entry from the log
 add_comment_to_remove Would you like to send additional comment to
 removed_log_title Your entry to the log was removed by owner geocache
 removed_message_title The owner of geocache wrote to you the following comment
-
+dont_have_recommended_caches You don't have recommended geocaches
+your_recommendations Your recommendations for geocache
+was_removed it was removed
+recommended_geocaches Recommende geocaches
+number_recommendations Number of recommendations
 
 
 
