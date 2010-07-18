@@ -649,6 +649,7 @@ does_not_have_stat does not have statistics
 number_month Number of month
 stat_problems Statistics OC Team - solved problems
 edit_logentry Edit log entry
+not_recommend_own You can not recommend own geocache
 moved_cache_info If you moved to a new location geocache please enter the new coordinates that will see the log
 encrypt_log_info You can have the encrypt  your log entry. This is helpful if your log contains spoilers, such as information that can give away the location of the geocache. Text within brackets [like this] will not be encrypted
 encrypt_log Encrypt this log entry
@@ -657,6 +658,8 @@ send_reoprt Send report
 password_to_log Password to log
 incorrect_password_to_log Incorrect password to log
 only_for_found_it only for found it geocaches
+store Write
+
 
 
 

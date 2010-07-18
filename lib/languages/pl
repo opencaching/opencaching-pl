@@ -692,13 +692,13 @@ edit_logentry Edycja logu dla skrzynki
 moved_cache_info Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu
 encrypt_log_info Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennik zawiera spoilery lub takie informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst poza nawiasami kwadratowymi [treść] nie będzie szyfrowany
 encrypt_log Szyfowanie wpisu do logu
-Nie można zarekomendować własnej skrzynki
+not_recommend_own Nie można zarekomendować własnej skrzynki
 send_report_info Możesz zgłosić problem związany z skrzynką np <b>Uwagę do lokalizacji</b> do Zespołu OC PL lub właściciela skrzynki wykorzystując ten formularz
 send_reoprt Zgłoś problem
 password_to_log Hasło do logu
 incorrect_password_to_log Nieprawidłowe hasło
 only_for_found_it tylko dla znalezionych skrzynek
-
+store Zapisz
 
 
 

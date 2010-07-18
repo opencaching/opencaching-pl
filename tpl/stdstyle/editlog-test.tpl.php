@@ -182,7 +182,7 @@ function chkMoved()
 	<tr>   
     <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="bottom" />&nbsp;<strong><input id="encrypt" type="checkbox" name="encrypt" value="1" {is_checked} /><label for="encrypt">{{encrypt_log}}</label></strong>
      
-    <div class="notice" id="viewcache-attributesend" style="width:650px;"> {{encypt_log_info}}.</div></td>
+    <div class="notice" id="viewcache-attributesend" style="width:650px;"> {{encrypt_log_info}}.</div></td>
 	</tr>
 	<tr>
 		<td colspan="2">{log_empty_message}<br/><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong></td>
@@ -221,7 +221,7 @@ function chkMoved()
 	<tr>
 		<td class="header-small" colspan="2">
 			<button type="reset" name="reset" value="Reset" style="font-size:12px;width:140px;"/><b>Reset</b></button>&nbsp;&nbsp;
-			<button type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="font-size:12px;width:140px;"/><b>Zapisz</b></button>
+			<button type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
 		</td>
 	</tr>
 </table>
