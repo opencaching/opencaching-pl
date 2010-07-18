@@ -669,7 +669,15 @@ encrypt_log Log szyfrowany
 my_neighborhood Moja okolica
 myn_info Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 35 km ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.
 search_user Szukaj użytkownika
-
+monthly_stat_founds Miesięczna statystyka znalezień skrzynki
+monthly_stat Miesięczna statystyka skrzynki
+annual_stat_founds Roczna statystyka znalezień skrzynki
+annual_stat Roczna statystyka skrzynki
+number_founds Liczba znalezień
+number_logentry Liczba wpisów w logu
+by_logtype Wg typów logów
+stat_geocache Statystyka skrzynki
+does_not_have_stat nie ma jeszcze statystyki
 
 
 

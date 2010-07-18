@@ -1,7 +1,8 @@
 <?php
   $rootpath = '../';
   require('../lib/common.inc.php'); 
-	
+	  global $lang;
+
 	//Preprocessing
 	if ($error == false)
 	{
@@ -45,7 +46,7 @@ $rsCachesFindYear2 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cach
 
 //$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year`, type type FROM `cache_logs` WHERE (type=1 OR type=2) AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`), type ORDER BY YEAR(`date`) ASC",$cache_id);
   				if ($rsCachesFindYear2 !== false) {
-				$descibe="Roczna statystyka skrzynki";
+				$descibe=tr("annual_stat");
 				$xtitle="";
 				while ($rfy2 = mysql_fetch_array($rsCachesFindYear2)){
 					$y2[] = $rfy2['count'];
@@ -56,7 +57,7 @@ $rsCachesFindYear2 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cach
 				}
 
 if ($tit == "csm") {
-				$descibe="Miesiêczna statystyka skrzynki";
+				$descibe=tr("monthly_stat");
 				$describe .= $year;
 				$xtitle=$year;
 	for ($i = 1; $i < 13; $i++) {
@@ -114,8 +115,11 @@ $b1plot->SetFillColor("chartreuse3");
 $b2plot = new BarPlot($y2);
 $b2plot->SetFillColor("chocolate2");
  // Set the legends for the plots
-$b1plot->SetLegend('znaleziona');
-$b2plot->SetLegend('nieznaleziona');
+ 
+ $fn=tr('found');
+ $dnf=('not_found');
+$b1plot->SetLegend($fn);
+$b2plot->SetLegend($dnf);
 // Adjust the legend position
 //$graph->legend->Pos(0.5,0.8,'right','center');
 //$graph->legend->SetPos(0.2,0.2,'center','bottom');
@@ -129,10 +133,10 @@ $gbplot = new GroupBarPlot(array($b1plot,$b2plot));
 
 // ...and add it to the graPH
 $graph->Add($gbplot);
- 
+$le=tr("number_logentry");
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
-$graph->yaxis->title->Set("Liczba wpisów w logu");
+$graph->yaxis->title->Set($le);
 
 //$year = $gDateLocale->GetShortMonth();
 //$graph->xaxis->SetTickLabels($year);

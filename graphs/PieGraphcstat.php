@@ -1,7 +1,7 @@
 <?php
   $rootpath = '../';
   require('../lib/common.inc.php');
-
+  global $lang;
   //prepare the templates and include all neccessary
 //	require_once('./lib/common.inc.php');
 	
@@ -32,7 +32,7 @@ $rsCSF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` 
 					$y[] = $ry['count'];
 					$x[] = $ry['type'];
 					} else {
-					$x[] = "Znaleziona";
+					$x[] = tr("found");
 							}
 
 $rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=2 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
@@ -43,7 +43,7 @@ $rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type`
 					$y[] = $ry['count'];
 					$x[] = $ry['type'];
 					} else {
-					$x[] = "Nieznaleziona";
+					$x[] = tr("not_found");
 					$y[] = '0';
 							}	
 				
@@ -56,7 +56,7 @@ $rsCSC= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` 
 					$y[] = $ry['count'];
 					$x[] = $ry['type'];
 					} else {
-					$x[] = "Komentarz";
+					$x[] = tr("comment");
 					}
 					
 				mysql_free_result($rsCSF);
@@ -67,9 +67,9 @@ $rsCSC= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` 
 /// A new pie graph
 $graph = new PieGraph(400,200,"auto");
 $graph->SetScale('textint');
-
+$logtype=tr("by_logtype");
 // Title setup
-$graph->title->Set("Wg typów logów");
+$graph->title->Set($logtype);
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 //$graph ->legend->Pos( 0.25,0.8,"right" ,"bottom"); 
 
@@ -84,9 +84,11 @@ $p1->SetSliceColors(array('chartreuse3','chocolate2','wheat1'));
 // Adjust size and position of plot
 $p1->SetSize(0.35);
 $p1->SetCenter(0.25,0.52);
- 
+ $f=tr("found");
+ $dnf=tr("not_found");
+ $com=tr("comment");
 // Setup slice labels and move them into the plot
-$xx= array("Znaleziona","Nieznaleziona","Komenatrz");
+$xx= array($f,$dnf,$com);
 $p1->value->SetFont(FF_FONT1,FS_BOLD);
 $p1->value->SetColor("black");
 $p1->SetLabelPos(0.65);

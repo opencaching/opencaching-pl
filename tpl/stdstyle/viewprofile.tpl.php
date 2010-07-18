@@ -7,6 +7,9 @@
 	*   (at your option) any later version.
 	*   
 	*  UTF-8 ąść
+	
+	<?php 	if ( $user_id == $usr['userid']){ echo '<br /><br/><p style="font-size: 12px;">[<a class="links" href="myhome.php">Stara strona użytkownika</a>]</p><br/><br/>';} ?>
+
 	***************************************************************************/
 global $user_id;
 	?>
@@ -53,4 +56,3 @@ global $user_id;
 
 {content}
 </div>
-<?php 	if ( $user_id == $usr['userid']){ echo '<br /><br/><p style="font-size: 12px;">[<a class="links" href="myhome.php">Stara strona użytkownika</a>]</p><br/><br/>';} ?>

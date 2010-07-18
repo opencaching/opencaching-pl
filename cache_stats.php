@@ -43,12 +43,12 @@
 
 			$cache_record = sql_fetch_array($rsGeneralStat);	
 		if ($cache_record['count'] == 0) {
-			$content .= '<p>&nbsp;</p><p style="background-color: #FFFFFF; margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 14px;"> <b>Ta skrzynka:<br /> <br />' .$cachename . '<br /> <br />nie ma jeszcze statystyki</b></p>';
+			$content .= '<p>&nbsp;</p><p style="background-color: #FFFFFF; margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 14px;">' .$cachename . '<br /> <br />nie ma jeszcze statystyki</b></p>';
 						  }
 						  else 
 						  {
 
-		$content .='<center><p style="background-color: #FFFFFF; margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 14px;">Statystyka dla skrzynki: ' . $cachename . '<br /></p>';	
+		$content .='<center><p style="background-color: #FFFFFF; margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 14px;">'.tr("stat_geocache").': ' . $cachename . '<br /></p>';	
 		$content .= '<p style="background-color: #FFFFFF; "><img src="graphs/PieGraphcstat.php?cacheid=' . $cache_id . '"  border="0" alt="Statystyka skrzynki" width="400" height="200" /><br /><br />';	
 
 		$year=date("Y");

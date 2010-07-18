@@ -69,7 +69,7 @@ found found
 founds found
 only_founds found only
 only_new new only
-not_found not found
+not_found did not find
 add_to add to
 add_to_list Add to list
 remove_from_list Remove from list
@@ -628,6 +628,16 @@ encrypt_log Log entry encrypted
 my_neighborhood My neighborhood
 myn_info You do not have a set of coordinates your area. You can do this in your <a href="myprofile.php?action=change"> profile </a>. If you want to have different than the default radius of 35 km setup this in your profile option "Notification." Here is an example set of system coordinates.
 search_user Search user
+monthly_stat_founds Monthly statistics founds geocache
+annual_stat_founds Annual statistics founds geocache
+monthly_stat Monthly statistics geocache
+annual_stat Annual statistics geocache
+number_founds Number of founds
+number_logentry Number of log entry
+by_logtype By log type
+stat_geocache Statistics geocache
+does_not_have_stat does not have statistics
+
 
 
 

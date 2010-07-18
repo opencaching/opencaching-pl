@@ -3,6 +3,7 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
   
   $rootpath = '../';
   require('../lib/common.inc.php');
+  global $lang;
 
 	//Preprocessing
 	if ($error == false)
@@ -34,7 +35,7 @@ if ($tit == "csy") {
 $rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`) ORDER BY YEAR(`date`) ASC",$cache_id);
 
   				if ($rsCachesFindYear !== false) {
-				$descibe="Roczna statystyka znalezieñ skrzynki";
+				$descibe=tr("annual_stat_founds");
 				$xtitle="";
 				while ($rfy = mysql_fetch_array($rsCachesFindYear)){
 					$y[] = $rfy['count'];
@@ -47,7 +48,7 @@ if ($tit == "csm") {
 $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND cache_id=&1 AND YEAR(`date`)=&2 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$cache_id,$year);
 
  				if ($rsCachesFindMonth !== false){
-				$descibe="Miesiêczna statystyka znalezieñ skrzynki";
+				$descibe=tr("monthly_stat_founds");
 				$describe .= $year;
 				$xtitle=$year;
 
@@ -95,8 +96,8 @@ $graph->xaxis->SetTickLabels($x);
 
 // Some extra margin looks nicer
 //$graph->xaxis->SetLabelMargin(10);
-
-$graph->yaxis->title->Set('Liczba znalezieñ');
+$nf=tr('number_founds');
+$graph->yaxis->title->Set($nf);
  
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
