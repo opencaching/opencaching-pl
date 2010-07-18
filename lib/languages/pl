@@ -707,7 +707,11 @@ comment_octeam_log Komenatrz COG
 moved_log Przeniesiona
 new_coordinates Nowe współrzędne skrzynki
 moved_distance Przebyty dystans
-
+delete_logentry Usuwanie wpisu do logu
+confirm_remove_log Czy na pewno chcesz usunąć wpis z logu
+add_comment_to_remove Chciałbyś wysłać dodatkowo uwagę do
+removed_log_title Twój wpis do logu został usunięty przez właściciela skrzynki
+removed_message_titel Właściciel skrzynki napisał do Ciebie następujący komentarz
 
 
 

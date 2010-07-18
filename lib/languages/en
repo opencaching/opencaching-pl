@@ -667,7 +667,11 @@ comment_octeam_log Comment OC Team
 moved_log Moved
 new_coordinates New coordinates
 moved_distance Moved distance
-
+delete_logentry Delete log entry 
+confirm_remove_log Are you sure you want to delete the entry from the log
+add_comment_to_remove Would you like to send additional comment to
+removed_log_title Your entry to the log was removed by owner geocache
+removed_message_title The owner of geocache wrote to you the following comment
 
 
 

@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-															./removelogs.php
-															-------------------
-		begin                : July 7 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -30,7 +22,7 @@ require_once('./lib/common.inc.php');
 
 function removelog($log_id, $language, $lang)
 {
-	global $tplname, $usr, $lang, $stylepath, $oc_nodeid, $error_wrong_node, $removed_message_titel, $removed_message_end, $emailheaders, $rootpath, $cacheid, $log_record, $cache_types, $cache_size, $cache_status, $dblink;
+	global $tplname, $usr, $lang, $stylepath, $oc_nodeid, $error_wrong_node, $removed_message_title, $removed_message_end, $emailheaders, $rootpath, $cacheid, $log_record, $cache_types, $cache_size, $cache_status, $dblink;
 	$log_rs = sql("SELECT	`cache_logs`.`node` AS `node`, `cache_logs`.`uuid` AS `uuid`, `cache_logs`.`cache_id` AS `cache_id`, `caches`.`user_id` AS `cache_owner_id`,
 						`caches`.`name` AS `cache_name`, `cache_logs`.`text` AS `log_text`, `cache_logs`.`type` AS `log_type`,
 						`cache_logs`.`user_id` AS `log_user_id`, `cache_logs`.`date` AS `log_date`,
@@ -86,7 +78,7 @@ function removelog($log_id, $language, $lang)
 							if ($message != '')
 							{
 								//message to logowner
-								$message = $removed_message_titel . "\n" . $message . "\n" . $removed_message_end;
+								$message = $removed_message_title . "\n" . $message . "\n" . $removed_message_end;
 							}
 
 							//get cache owner name
