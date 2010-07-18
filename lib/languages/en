@@ -665,6 +665,8 @@ comment_log Comment
 need_maintenance_log Need maintenance
 comment_octeam_log Comment OC Team
 moved_log Moved
+new_coordinates New coordinates
+moved_distance Moved distance
 
 
 

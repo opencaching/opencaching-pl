@@ -573,7 +573,7 @@ show_statictics_cache Zobacz statystykę skrzynki
 not_stat_cache Skrzynka nie ma jeszcze statystyki
 recommended_by Skrzynka rekomendowana przez
 listing_from_this_page Wykaz z tej strony
-show_on_map Pokaż na mapie
+show_on_map pokaż na mapie
 list_of_events_is_empty W najbliższym czasie nie ma żadnych wydarzeń.
 stat_number_found Statystyka liczbowa skrzynek poszukiwanych
 not_found_caches Nie ma jeszcze żadnej skrzynki szukanej
@@ -705,6 +705,8 @@ comment_log Komenatarz
 need_maintenance_log Potrzebny serwis
 comment_octeam_log Komenatrz COG
 moved_log Przeniesiona
+new_coordinates Nowe współrzędne skrzynki
+moved_distance Przebyty dystans
 
 
 

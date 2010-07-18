@@ -421,7 +421,7 @@
 			// calculate distans
 			}
 				$distance=sprintf("%u",$distance);
-				tpl_set_var('distance', $distance.' km &nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="cachemap-moved.php?cacheid='.$cache_id.'">pokaż na mapie</a>]');
+				tpl_set_var('distance', $distance.' km &nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="cachemap-moved.php?cacheid='.$cache_id.'">'.tr('show_on_map').'</a>]');
 				tpl_set_var('hidemobile_start', '');
 				tpl_set_var('hidemobile_end', '');
 				}else {
@@ -1144,7 +1144,7 @@
 				$log_coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($recordl['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($recordl['longitude']), ENT_COMPAT, 'UTF-8'));
 
 				$log_coord='<fieldset style="border: 1px solid black; width: 320px; height: 50px; background-color: #FAFBDF;">
-			<legend>&nbsp; <strong>Nowe współrzędne skrzynki</strong> &nbsp;</legend><p class="content-title-noshade-size3">&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
+			<legend>&nbsp; <strong>'.tr('new_coordinates').'</strong> &nbsp;</legend><p class="content-title-noshade-size3">&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
 						&nbsp;<b>'.$log_coords.'</b></p></fieldset><br/>';
 				}
 				}else{$log_coord="";}
