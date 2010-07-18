@@ -11,7 +11,7 @@
 
 	$viewtop5_line = '<tr>
 				<td bgcolor="{bgcolor}"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td>
-				<td bgcolor="{bgcolor}">[<a href="mytop5.php?action=delete&amp;cacheid={cacheid}">{{delete}}</a>]</td>
+				<td bgcolor="{bgcolor}">[<a href="mytop5.php?action=delete&amp;cacheid={cacheid}">'.tr('delete').'</a>]</td>
 			</tr>
 			';
 
