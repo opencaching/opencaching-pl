@@ -28,10 +28,10 @@ $year_old= $year-1;
 $year_new=$year+1;
 $count_days= date('z');
 if ($count_days < 151) {$start_time = $year_old .'-06-1 00:00:00';
-	$title3=tr('Numer miesi±ca '). $year_old .'/'. $year;
+	$title3=tr('number_month').' '. $year_old .'/'. $year;
 	} else {
 		$start_time= $year .'-06-1 00:00:00';
-		$title3=tr('Numer miesi±ca '). $year .'/'. $year_new;
+		$title3=tr('number_month').' '. $year .'/'. $year_new;
 		}
 
 
@@ -104,7 +104,7 @@ $graph->Add($bplot);
  
  
 // Setup the titles
-$descibe="Statystyka COG - prowadzone zg³oszenia";
+$descibe=tr("Statystyka COG - prowadzone zg³oszenia");
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
