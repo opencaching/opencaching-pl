@@ -284,7 +284,7 @@ function showHide(id){
 	<tr>
 		<td class="header-small" colspan="2">
 			<button type="reset" name="reset" value="Reset" style="font-size:12px;width:140px;"/><b>Reset</b></button>&nbsp;&nbsp;
-			<button type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="font-size:12px;width:140px;"/><b>Zapisz</b></button>
+			<button type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
 		</td>
 	</tr>
 </table>
