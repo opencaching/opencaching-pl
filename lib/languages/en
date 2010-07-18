@@ -661,7 +661,10 @@ only_for_found_it only for found it geocaches
 store Write
 here Here 
 alternative_recommend Alternative you can remove recommendations
-
+comment_log Comment
+need_maintenance_log Need maintenance
+comment_octeam_log Comment OC Team
+moved_log Moved
 
 
 
