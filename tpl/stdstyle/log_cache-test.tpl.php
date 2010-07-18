@@ -231,7 +231,7 @@ function showHide(id){
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
 	<tr>   
-    <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="bottom" />&nbsp;<strong><input id="encrypt" type="checkbox" name="encrypt" value="1" {is_checked} /><label for="encrypt">{{encrypt_log}}</label></strong>
+    <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="bottom" />&nbsp;<strong><input id="encrypt" type="checkbox" name="encrypt" value="1" {is_checked} /><label for="encrypt">{{encrypt_log_entry}}</label></strong>
      
     <div class="notice" id="viewcache-attributesend" style="width:650px;">{{encrypt_log_info}}.</div></td>
 	</tr>
