@@ -1,7 +1,7 @@
 <?php
   $rootpath = '../';
   require('../lib/common.inc.php');
-
+  global $lang;
 setlocale(LC_TIME, 'pl_PL.utf-8');
   
 	
@@ -34,7 +34,7 @@ if ($tit == "ccy") {
 $rsCreateCachesYear= sql("SELECT COUNT(*) `count`,YEAR(`date_created`) `year` FROM `caches` WHERE status <> 4 AND status <> 5 AND status <> 6 AND user_id=&1 GROUP BY YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC",$user_id);
 
 				if ($rsCreateCachesYear !== false){
-				$descibe="Roczna statystyka za³o¿onych skrzynek";
+				$descibe=tr("annual_stat_created");
 				$xtitle="";
 					while ($ry = mysql_fetch_array($rsCreateCachesYear)){
 					$y[] = $ry['count'];
@@ -51,7 +51,7 @@ if ($tit == "ccm") {
 $rsCreateCachesMonth = sql("SELECT COUNT(*) `count`, MONTH(`date_created`) `month`, YEAR(`date_created`) `year` FROM `caches` WHERE status <>4 AND status <> 5 AND status <> 6 AND user_id=&1 AND YEAR(`date_created`)=&2 AND MONTH(`date_created`)=&3 GROUP BY MONTH(`date_created`), YEAR(`date_created`) ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC",$user_id,$year,$month);
 
  				if ($rsCreateCachesMonth !== false) {
-				$descibe = "Miesieczna statystyka za³o¿onych skrzynek";
+				$descibe = tr("monthly_stat_created_user");
 				$xtitle=$year;
 				$rm = mysql_fetch_array($rsCreateCachesMonth);
 					$y[] = $rm['count'];
@@ -71,7 +71,7 @@ if ($tit == "cfy") {
 $rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`) ORDER BY YEAR(`date`) ASC",$user_id);
 
   				if ($rsCachesFindYear !== false) {
-				$descibe="Roczna statystyka znalezionych skrzynek";
+				$descibe=tr("annual_stat_founds_user");
 				$xtitle="";
 				while ($rfy = mysql_fetch_array($rsCachesFindYear)){
 					$y[] = $rfy['count'];
@@ -87,7 +87,7 @@ if ($tit == "cfm") {
 $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 AND YEAR(`date`)=&2 AND MONTH(`date`)=&3 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$user_id,$year,$month);
 
  				if ($rsCachesFindMonth !== false){
-				$descibe="Miesieczna statystyka znalezionych skrzynek";
+				$descibe=tr("monthly_stat_founds_user");
 				$xtitle=$year;
 
 				$rfm = mysql_fetch_array($rsCachesFindMonth);
@@ -140,8 +140,8 @@ $graph->xaxis->SetTickLabels($x);
 
 // Some extra margin looks nicer
 //$graph->xaxis->SetLabelMargin(10);
-
-$graph->yaxis->title->Set('Liczba skrzynek');
+$nc=tr("number_caches");
+$graph->yaxis->title->Set($nc);
  
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);

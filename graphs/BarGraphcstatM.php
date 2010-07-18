@@ -34,7 +34,7 @@ $rsCachesFindYear1 = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` FROM `cach
 
 //$rsCachesFindYear = sql("SELECT COUNT(*) `count`,YEAR(`date`) `year`, type type FROM `cache_logs` WHERE (type=1 OR type=2) AND cache_logs.deleted='0' AND cache_id=&1 GROUP BY YEAR(`date`), type ORDER BY YEAR(`date`) ASC",$cache_id);
   				if ($rsCachesFindYear1 !== false) {
-				$descibe="Roczna statystyka skrzynki";
+				$descibe=tr("annual_stat");
 				$xtitle="";
 				while ($rfy1 = mysql_fetch_array($rsCachesFindYear1)){
 					$y1[] = $rfy1['count'];
@@ -117,7 +117,7 @@ $b2plot->SetFillColor("chocolate2");
  // Set the legends for the plots
  
  $fn=tr('found');
- $dnf=('not_found');
+ $dnf=tr('not_found');
 $b1plot->SetLegend($fn);
 $b2plot->SetLegend($dnf);
 // Adjust the legend position

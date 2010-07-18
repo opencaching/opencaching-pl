@@ -631,12 +631,18 @@ encrypt_log Log entry encrypted
 my_neighborhood My neighborhood
 myn_info You do not have a set of coordinates your area. You can do this in your <a href="myprofile.php?action=change"> profile </a>. If you want to have different than the default radius of 35 km setup this in your profile option "Notification." Here is an example set of system coordinates.
 search_user Search user
-monthly_stat_founds Monthly statistics founds geocache
-annual_stat_founds Annual statistics founds geocache
+monthly_stat_founds Monthly statistics founds 
+monthly_stat_founds_user Monthly statistics founds geocaches
+monthly_stat_created_user Monthly statistics created geocaches
+annual_stat_founds Annual statistics founds 
 monthly_stat Monthly statistics geocache
 annual_stat Annual statistics geocache
+annual_stat_founds_user Annual statistics found it geocaches
+annual_stat_created Annual statistics created geocaches
 number_founds Number of founds
+number_caches Number of caches
 number_logentry Number of log entry
+by_cachetype By cache types
 by_logtype By log type
 stat_geocache Statistics geocache
 does_not_have_stat does not have statistics

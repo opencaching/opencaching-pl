@@ -1,7 +1,7 @@
 <?php
   $rootpath = '../';
   require('../lib/common.inc.php');
-
+	global $lang;
   //prepare the templates and include all neccessary
 //	require_once('./lib/common.inc.php');
 	
@@ -23,11 +23,14 @@ require("../lib/jpgraph/src/jpgraph_pie3d.php");
   $y=array();
   $x=array();
   
-  
+		if(checkField('cache_type',$lang) )
+				$lang_db = $lang;
+			else
+				$lang_db = "en";
 
 if ($tit == "cc") {
 // Ustawic sprawdzanie jezyka  w cache_type.pl !!!!
-$rsCreateCachesYear= sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl` `type` FROM `caches` INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE `user_id`=&1 AND status <> 4 AND status <>5 GROUP BY `caches`.`type` ORDER BY `count` DESC",$user_id);
+$rsCreateCachesYear= sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`&1` `type` FROM `caches` INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE `user_id`=&2 AND status <> 4 AND status <>5 GROUP BY `caches`.`type` ORDER BY `count` DESC",$lang_db,$user_id);
 
 				if ($rsCreateCachesYear !== false){
 				$xtitle="";
@@ -39,7 +42,7 @@ $rsCreateCachesYear= sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`p
 		}
 
 if ($tit == "cf") {
-$rsCachesFindYear = sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl` `type` FROM `cache_logs`, caches INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE cache_logs.`deleted`=0 AND cache_logs.user_id=&1 AND cache_logs.`type`='1' AND cache_logs.`cache_id` = caches.cache_id  GROUP BY `caches`.`type` ORDER BY `count` DESC",$user_id);
+$rsCachesFindYear = sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`&2` AS `type` FROM `cache_logs`, caches INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE cache_logs.`deleted`=0 AND cache_logs.user_id=&1 AND cache_logs.`type`='1' AND cache_logs.`cache_id` = caches.cache_id  GROUP BY `caches`.`type` ORDER BY `count` DESC",$user_id,$lang_db);
 
   				if ($rsCachesFindYear !== false) {
 				$xtitle="";
@@ -55,9 +58,9 @@ $rsCachesFindYear = sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl
 /// A new pie graph
 $graph = new PieGraph(500,300,"auto");
 $graph->SetScale('textint');
-
+$type=tr("by_cachetype");
 // Title setup
-$graph->title->Set("Wg typów skrzynek");
+$graph->title->Set($type);
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 //$graph ->legend->Pos( 0.25,0.8,"right" ,"bottom"); 
  

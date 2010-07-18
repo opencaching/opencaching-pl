@@ -23,8 +23,13 @@ require("../lib/jpgraph/src/jpgraph_pie3d.php");
   $y=array();
   $x=array();
   
+  		if(checkField('log_types',$lang) )
+				$lang_db = $lang;
+			else
+				$lang_db = "en";
+				
 // Ustawic sprawdzanie jezyka  w cache_type.pl !!!!
-$rsCSF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=1 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
+$rsCSF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`&2` AS `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=1 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id,$lang_db);
 
 		if ($rsCSF !== false){
 				$xtitle="";
@@ -35,7 +40,7 @@ $rsCSF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` 
 					$x[] = tr("found");
 							}
 
-$rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=2 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
+$rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`&2` AS `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=2 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id,$lang_db);
 
 		if ($rsCSNF !== false){
 				$xtitle="";
@@ -48,7 +53,7 @@ $rsCSNF= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type`
 							}	
 				
 
-$rsCSC= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`pl` `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=3 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id);
+$rsCSC= sql("SELECT COUNT(`cache_logs`.`type`) `count`, `log_types`.`&2` AS `type` FROM `cache_logs` INNER JOIN `log_types` ON (`cache_logs`.`type`=`log_types`.`id`) WHERE type=3 AND cache_logs.deleted=0 AND cache_logs.cache_id=&1 GROUP BY `cache_logs`.`type` ORDER BY `log_types`.`pl` ASC",$cache_id,$lang_db);
 
 		if ($rsCSC !== false){
 				$xtitle="";
