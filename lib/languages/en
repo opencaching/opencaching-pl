@@ -654,11 +654,13 @@ moved_cache_info If you moved to a new location geocache please enter the new co
 encrypt_log_info You can have the encrypt  your log entry. This is helpful if your log contains spoilers, such as information that can give away the location of the geocache. Text within brackets [like this] will not be encrypted
 encrypt_log Encrypt this log entry
 send_report_info You can report a problem with the geocache, for example <b> attention to the location </ b> to Team OC PL or owner geocache using this form
-send_reoprt Send report
+send_report Send report
 password_to_log Password to log
 incorrect_password_to_log Incorrect password to log
 only_for_found_it only for found it geocaches
 store Write
+here Here 
+alternative_recommend Alternative you can remove recommendations
 
 
 
