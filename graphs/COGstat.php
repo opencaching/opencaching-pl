@@ -10,7 +10,7 @@
 	***************************************************************************/
   $rootpath = '../';
   require('../lib/common.inc.php');
-
+  global $lang;
 	setlocale(LC_TIME, 'pl_PL.utf-8');
 
 	//Preprocessing
@@ -28,10 +28,10 @@ $year_old= $year-1;
 $year_new=$year+1;
 $count_days= date('z');
 if ($count_days < 151) {$start_time = $year_old .'-06-1 00:00:00';
-	$title3='Numer miesi±ca '. $year_old .'/'. $year;
+	$title3=tr('Numer miesi±ca '). $year_old .'/'. $year;
 	} else {
 		$start_time= $year .'-06-1 00:00:00';
-		$title3='Numer miesi±ca '. $year .'/'. $year_new;
+		$title3=tr('Numer miesi±ca '). $year .'/'. $year_new;
 		}
 
 

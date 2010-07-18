@@ -1,4 +1,4 @@
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{stats}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{statistics}}</div>
 <div style="line-height: 1.8em; font-size: 13px;">
 
 <?php 

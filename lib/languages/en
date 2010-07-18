@@ -646,6 +646,8 @@ by_cachetype By cache types
 by_logtype By log type
 stat_geocache Statistics geocache
 does_not_have_stat does not have statistics
+stats Statictics
+number_month Number of month
 
 
 
