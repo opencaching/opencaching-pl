@@ -552,6 +552,8 @@ statistics_users Statystyka użytkownika
 general_stat Ogólna statystyka
 graph_created Wykresy skrzynek założonych
 graph_find Wykresy skrzynek znalezionych
+there_is_no_caches_registered Nie ma jeszcze żadnej założonej skrzynki
+there_is_no_caches_found Nie ma jeszcze żadnej znalezionej skrzynki
 with_password Skrzynka z hasłem
 user_account konto użytkownika
 management_users Zarządzanie użytkownikiem 
