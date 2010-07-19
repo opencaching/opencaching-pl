@@ -459,7 +459,7 @@ function switchCat2()
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
 		<tr>
-			<td valign="top" class="content-title-noshade">Województwo (tylko dla Polski):</td>
+			<td valign="top" class="content-title-noshade">{{regions_only_for}}:</td>
 			<td class="content-title-noshade">
 				<select name="region" class="input200" onchange="javascript:sync_options(this)">
 					{regionoptions}
