@@ -1,4 +1,10 @@
 <?php
+  require('../lib/common.inc.php');
+	global $lang;
+  		if(checkField('cache_type',$lang) )
+				$lang_db = $lang;
+			else
+				$lang_db = "en";
   function normTo100($value, $sum)
   {
   	return $value * 100 / $sum;
@@ -9,7 +15,7 @@
 		$startDate = mktime(0, 0, 0, 1, 1, 2006);
 		
 		// Get data 
-		$rsTypes = sql('SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`pl` `type`, `cache_type`.`color` FROM `caches` INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE `status`=1 GROUP BY `caches`.`type` ORDER BY `count` DESC');
+		$rsTypes = sql('SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`&1` `type`, `cache_type`.`color` FROM `caches` INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE `status`=1 GROUP BY `caches`.`type` ORDER BY `count` DESC',$lang_db);
 		
 		$yData = array();
 		$xData = array();
