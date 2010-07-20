@@ -1,14 +1,5 @@
 <?php
-/***************************************************************************
-											./tpl/stdstyle/query.inc.php
-															-------------------
-		begin                : November 4 2005
-		copyright            : (C) 2005 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
 
-   Unicode Reminder ??
-
-	***************************************************************************/
 	
 	$error_queryname_exists = '<tr><td colspan="2" class="errormsg">Podana nazwa istnieje już</td></tr>';
 	$error_empty_name = '<tr><td colspan="2" class="errormsg">Musisz podać nazwe pod jaką ma być zapisane opcje szukania</td></tr>';
@@ -28,7 +19,7 @@
 											<td bgcolor="{bgcolor}" width="10%" style="text-align: right; vertical-align: middle;">[<a href="search.php?queryid={queryid}&showresult=0">Szukaj</a>]</td>
 										</tr>
 										<tr>
-											<td colspan="3" bgcolor="{bgcolor}" style="text-align: right; vertical-align: middle;">[<a href="query.php?queryid={queryid}&action=delete">Usuń</a>]</td>
+											<td colspan="3" bgcolor="{bgcolor}" style="text-align: right; vertical-align: middle;">[<a href="query.php?queryid={queryid}&action=delete">{{delete}}</a>]</td>
 										</tr>
 										';
 	$noqueries = '<tr><td colspan="2">Nie ma żadnych zgromadzonych poszukiwań</td></tr>';
