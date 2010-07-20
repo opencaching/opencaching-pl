@@ -742,6 +742,9 @@ old_options Stare wyniki szukania nadpisz
 select_queries Wybierz zapisane poszukiwania w celu nadpisania
 no_watched_caches Nie ma oberwowanych skrzynek
 last_found Ostatnio znaleziona
+delete_recommend Usuń rekomendacje
+off_ignore Wyłącz ignorowanie
+no_ignores Nie ma żadnych skrzynek ignorowanych
 
 
 
