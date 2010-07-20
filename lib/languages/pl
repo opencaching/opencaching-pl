@@ -516,6 +516,7 @@ no_not_published_caches Nie ma nieopublikowanych skrzynek
 
 
 
+
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
@@ -734,6 +735,7 @@ weekday Dzien tygodnia
 hour Godzina
 send Wysyłaj
 commit_watch Ustawienia zostały z powodzeniem zapisane
+not_queries Nie ma żadnych zgromadzonych poszukiwań
 
 
 

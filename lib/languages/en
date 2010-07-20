@@ -692,7 +692,7 @@ weekday Weekday
 hour Hour
 send Send
 commit_watch Settings have been successfully saved
-
+no_queries There is not saved search result
 
  
  
