@@ -702,6 +702,7 @@ no_watched_caches No watched geocaches
 delete_recommend Delete recommendations
 off_ignore Switch off ignore
 no_ignores No ignored caches
+oc_stat Statistics geocaches OC PL
 
 
  

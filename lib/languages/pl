@@ -517,6 +517,7 @@ no_not_published_caches Nie ma nieopublikowanych skrzynek
 
 
 
+
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
@@ -745,6 +746,7 @@ last_found Ostatnio znaleziona
 delete_recommend Usuń rekomendacje
 off_ignore Wyłącz ignorowanie
 no_ignores Nie ma żadnych skrzynek ignorowanych
+oc_stat Statystyka skrzynek OC PL
 
 
 
