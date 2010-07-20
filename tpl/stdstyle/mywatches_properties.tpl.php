@@ -82,7 +82,7 @@ function intervalChanged()
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">{{wekday}}</td>
+		<td class="content-title-noshade">{{weekday}}</td>
 		<td>
 			<select id="weekday" name="weekday" class="input100">
 				{weekdays}
