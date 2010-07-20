@@ -16,7 +16,7 @@
 												<a href="search.php?queryid={queryid}&output=wpt&count=max&zip=1" title="Oziexplorer .wpt">WPT</a> 
 												<a href="search.php?queryid={queryid}&output=uam&count=max&zip=1" title="AutoMapa .uam">UAM</a>
 											</td>
-											<td bgcolor="{bgcolor}" width="10%" style="text-align: right; vertical-align: middle;">[<a href="search.php?queryid={queryid}&showresult=0">Szukaj</a>]</td>
+											<td bgcolor="{bgcolor}" width="10%" style="text-align: right; vertical-align: middle;">[<a href="search.php?queryid={queryid}&showresult=0">'.tr('search').'</a>]</td>
 										</tr>
 										<tr>
 											<td colspan="3" bgcolor="{bgcolor}" style="text-align: right; vertical-align: middle;">[<a href="query.php?queryid={queryid}&action=delete">'.tr('delete').'</a>]</td>
