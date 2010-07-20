@@ -1,12 +1,5 @@
 <?php
-/***************************************************************************
-												  ./tpl/stdstyle/mywatches.inc.php
-															-------------------
-		begin                : July 17 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
 
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -27,16 +20,16 @@
 
 	$viewtop5_line = '<tr>
 				<td bgcolor="{bgcolor}"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td>
-				<td bgcolor="{bgcolor}">[<a href="mytop5.php?action=delete&amp;cacheid={cacheid}">Usuń rekomendacje</a>]</td>
+				<td bgcolor="{bgcolor}">[<a href="mytop5.php?action=delete&amp;cacheid={cacheid}">'.tr('delete_recommend').'</a>]</td>
 			</tr>
 			';
 	$bgcolor1 = '#eeeeee';
 	$bgcolor2 = '#e0e0e0';
 	
-	$ignoree = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap="nowrap">[<a href="removeignore.php?cacheid={cacheid}&target=myignores.php">Wyłącz ignorowanie</a>]</td></tr>';
+	$ignoree = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap="nowrap">[<a href="removeignore.php?cacheid={cacheid}&target=myignores.php">'.tr('off_ignore').'</a>]</td></tr>';
 	$ignoreo = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap="nowrap">[<a href="removeignore.php?cacheid={cacheid}&target=myignores.php">Wyłącz ignorowanie</a>]</td></tr>';
-	$no_ignores = '<div class="notice">Nie masz żadnych skrzynek ignorowanych</div>';
-	$title_text = 'Ignorowane skrzynki';
+	$no_ignores = '<div class="notice">'.tr('no_ignores').'</div>';
+	$title_text = tr('ignored_caches');
 	
 
 ?>
