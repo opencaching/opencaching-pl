@@ -693,6 +693,9 @@ hour Hour
 send Send
 commit_watch Settings have been successfully saved
 no_queries There is not saved search result
+name_queries Name for result of search
+save_queries Save quieries
+old_options Old result of search overwrite
 
  
  
