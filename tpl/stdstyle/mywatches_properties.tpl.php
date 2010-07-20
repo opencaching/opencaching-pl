@@ -94,7 +94,7 @@ function intervalChanged()
 <div class="buffer"></div>
 	
 <button type="submit" name="submit" id="submit" value="{{submit}}" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
-<input type="submit" name="submit" value="Zatwierdz" class="formbuttons" />
+
 </form>
 
 <script type="text/javascript">
