@@ -25,19 +25,19 @@
 	
  ****************************************************************************/
  
-	$commit = '<div class="notice">Ustawienia zostały z powodzeniem zapisane.</div>';
+	$commit = '<div class="notice">'.tr('commit_watch').'</div>';
 	$commiterr = '<div class="warning">Błąd podczas zapisu!</div>';
 	
-	$weekday[1] = 'Poniedziałek';
-	$weekday[2] = 'Wtorek';
-	$weekday[3] = 'Środa';
-	$weekday[4] = 'Czwartek';
-	$weekday[5] = 'Piątek';
-	$weekday[6] = 'Sobota';
-	$weekday[7] = 'Niedziela';
+	$weekday[1] = tr('monday');
+	$weekday[2] = tr('tuesday');
+	$weekday[3] = tr('wednesday');
+	$weekday[4] = tr('thursday');
+	$weekday[5] = tr('friday');
+	$weekday[6] = tr('satuday');
+	$weekday[7] = tr('sunday');
 	
-	$intervalls[0] = 'Natychmiast';      // table indices are misplaced accordingly to
-	$intervalls[1] = 'Raz dziennie';     // ones used in runwatch.php script that performs the real check
-	$intervalls[2] = 'Raz na tygdzień';  // there: immediately=1, daily=0, and weekly=2
+	$intervalls[0] = tr('immediately');      // table indices are misplaced accordingly to
+	$intervalls[1] = tr('once_day');     // ones used in runwatch.php script that performs the real check
+	$intervalls[2] = tr('once_week');  // there: immediately=1, daily=0, and weekly=2
                                              // thus mywatches.php required a change
 ?>

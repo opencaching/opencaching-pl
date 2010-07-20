@@ -64,7 +64,7 @@ function intervalChanged()
 	</colgroup>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">Wysyłaj:</td>
+		<td class="content-title-noshade">{{send}}:</td>
 		<td>
 			<select id="interval" name="interval" onChange="intervalChanged();" class="input100">
 				{intervalls}
@@ -73,7 +73,7 @@ function intervalChanged()
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">O godzinie</td>
+		<td class="content-title-noshade">{{hour}}</td>
 		<td>
 			<select id="hour" name="hour">
 				{houroptions}
@@ -82,7 +82,7 @@ function intervalChanged()
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="content-title-noshade">Dzień tygodnia</td>
+		<td class="content-title-noshade">{{wekday}}</td>
 		<td>
 			<select id="weekday" name="weekday" class="input100">
 				{weekdays}
@@ -90,10 +90,10 @@ function intervalChanged()
 		</td>
 	</tr>
 </table>
-<div class="notice">Godziny i dni tygodnia są dostępne w interwałach dziennych i tygodniowych</div>
+
 <div class="buffer"></div>
 	
-<input type="reset" name="reset" value="Powrót" class="formbuttons" />&nbsp;&nbsp;
+<button type="submit" name="submit" id="submit" value="{{submit}}" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
 <input type="submit" name="submit" value="Zatwierdz" class="formbuttons" />
 </form>
 
