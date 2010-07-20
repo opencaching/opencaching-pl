@@ -19,14 +19,12 @@
 		<col width="150">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/save.png" class="icon32" alt="Zapamiętaj szukanie" title="Zapamiętaj szukanie" align="middle" /> <b>Zapamiętaj szukanie</b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/save.png" class="icon32" alt="Zapamiętaj szukanie" title="Zapamiętaj szukanie" align="middle" /> <b>{{save_queries}}</b></td></tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr>
-		<td class="header-small" colspan="2">Opcje szukania jako nowe szukanie</td>
-	</tr>
+
 	{nameerror}
 	<tr>
-		<td>Nazwa dla wyników szukania</td>
+		<td>{{name_queries}}</td>
 		<td>
 			<input type="text" name="queryname" class="input200" maxlength="60" value="{queryname}" /> 
 		</td>
@@ -34,7 +32,8 @@
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input type="submit" value="Zapamietaj" class="formbuttons" />
+<button type="submit" name="submit" id="submit" value="{{submit}}" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
+		
 		</td>
 	</tr>
 </table>
@@ -49,10 +48,10 @@
 		<col>
 	</colgroup>
 	<tr>
-		<td class="header-small" colspan="2">Stare opcje szukania nadpisz</td>
+		<td class="header-small" colspan="2">{{old_options}}</td>
 	</tr>
 	<tr>
-		<td>Nazwa dla wyników szukania</td>
+		<td>{{name_queries}}</td>
 		<td>
 			<select name="oldqueryid" class="input300">
 				<option value="0">-- {selecttext} --</option>
@@ -63,7 +62,8 @@
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input type="submit" value="Zapamietaj" class="formbuttons" />
+<button type="submit" name="submit" id="submit" value="{{submit}}" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
+		
 		</td>
 	</tr>
 </table>
