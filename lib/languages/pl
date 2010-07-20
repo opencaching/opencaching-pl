@@ -739,6 +739,7 @@ no_queries Nie ma żadnych zgromadzonych poszukiwań
 name_queries Nazwa dla wyników szukania
 save_queries Zapamiętaj wynik szukania
 old_options Stare wyniki szukania nadpisz
+select_queries Wybierz zapisane poszukiwania w celu nadpisania
 
 
 

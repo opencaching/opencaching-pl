@@ -696,6 +696,7 @@ no_queries There is not saved search result
 name_queries Name for result of search
 save_queries Save quieries
 old_options Old result of search overwrite
+select_queries Select stored query to overwrite
 
  
  
