@@ -19,7 +19,7 @@
 											<td bgcolor="{bgcolor}" width="10%" style="text-align: right; vertical-align: middle;">[<a href="search.php?queryid={queryid}&showresult=0">Szukaj</a>]</td>
 										</tr>
 										<tr>
-											<td colspan="3" bgcolor="{bgcolor}" style="text-align: right; vertical-align: middle;">[<a href="query.php?queryid={queryid}&action=delete">{{delete}}</a>]</td>
+											<td colspan="3" bgcolor="{bgcolor}" style="text-align: right; vertical-align: middle;">[<a href="query.php?queryid={queryid}&action=delete">'.tr('delete').'</a>]</td>
 										</tr>
 										';
 	$noqueries = '<tr><td colspan="2">Nie ma żadnych zgromadzonych poszukiwań</td></tr>';
