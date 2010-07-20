@@ -10,7 +10,7 @@
 
 	***************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/colected.png" class="icon32" alt="" />&nbsp;{{collected_queries)</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/colected.png" class="icon32" alt="" />&nbsp;{{collected_queries}}</div>
 <table class="table" width="700">
 	<colgroup>
 		<col width="100"/>
