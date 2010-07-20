@@ -22,7 +22,7 @@
 											<td colspan="3" bgcolor="{bgcolor}" style="text-align: right; vertical-align: middle;">[<a href="query.php?queryid={queryid}&action=delete">'.tr('delete').'</a>]</td>
 										</tr>
 										';
-	$noqueries = '<tr><td colspan="2">Nie ma żadnych zgromadzonych poszukiwań</td></tr>';
+	$noqueries = '<tr><td colspan="2">'.tr('no_queries').'</td></tr>';
 	
 	$saveastext = 'Wybierz zapisane poszukiwania w celu nadpisania';
 	$nosaveastext = 'nie ma zapisanych opcji poszukiwań';
