@@ -24,8 +24,8 @@
 										';
 	$noqueries = '<tr><td colspan="2">'.tr('no_queries').'</td></tr>';
 	
-	$saveastext = 'Wybierz zapisane poszukiwania w celu nadpisania';
-	$nosaveastext = 'nie ma zapisanych opcji poszukiwań';
+	$saveastext = tr('select_queries');
+	$nosaveastext = tr('no_queries');
 	
 	$bgcolor1 = '#eeeeee';
 	$bgcolor2 = '#e0e0e0';
