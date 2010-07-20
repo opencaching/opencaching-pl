@@ -82,7 +82,7 @@ $stat=tr('oc_stat');
   $graph->title->Set($stat);
   $graph->title->SetMargin(12);
 
-  $graph->footer->center->Set("Statystyka dla www.opencaching.pl :: Data " . date('d:m:Y H:i:s'));
+  $graph->footer->center->Set("Statystyka dla www.opencaching.pl :: Data " . date('Y:m:d H:i:s'));
   $graph->footer->center->SetFont(FF_ARIAL, FS_NORMAL, 7);
   $graph->footer->center->SetColor('darkgray');
 
@@ -140,7 +140,7 @@ $stat=tr('oc_stat');
   //
   // Infotexte einfuegen
   //
-  $txtStat1 = new Text('Dane na dzieñ ' . strftime('%d. %B %Y', time()));
+  $txtStat1 = new Text('Dane na dzieñ ' . strftime('%Y-%m-%d', time()));
   $txtStat1->SetPos(55, 55);
   $txtStat1->SetFont(FF_ARIAL, FS_NORMAL, 10);
 
