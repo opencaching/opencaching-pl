@@ -1,6 +1,7 @@
 <?php
   $rootpath = '../';
   require('../lib/common.inc.php');
+	global $lang;
 
 //  setlocale(LC_TIME, 'pl_PL.UTF-8');
 setlocale(LC_TIME, 'pl_PL.utf-8');
@@ -76,8 +77,9 @@ setlocale(LC_TIME, 'pl_PL.utf-8');
   //
   // Titel, Footer, Legende und Hintergrund
   //
+$stat=tr('oc_stat');
   $graph->title->SetFont(FF_GEORGIA, FS_NORMAL, 14);
-  $graph->title->Set("Statystyka skrzynek OC PL");
+  $graph->title->Set($stat);
   $graph->title->SetMargin(12);
 
   $graph->footer->center->Set("Statystyka dla www.opencaching.pl :: Data " . date('d:m:Y H:i:s'));
