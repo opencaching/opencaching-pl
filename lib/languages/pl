@@ -735,7 +735,7 @@ weekday Dzien tygodnia
 hour Godzina
 send Wysyłaj
 commit_watch Ustawienia zostały z powodzeniem zapisane
-not_queries Nie ma żadnych zgromadzonych poszukiwań
+no_queries Nie ma żadnych zgromadzonych poszukiwań
 
 
 
