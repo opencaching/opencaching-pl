@@ -25,11 +25,11 @@
 
  ****************************************************************************/
 
-	$watche = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid={cacheid}&target=mywatches.php">Usuń</a>]</td></tr>';
-	$watcho = '<tr bgcolor=\'#eeeeee\'><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid={cacheid}&target=mywatches.php">Usuń</a>]</td></tr>';
+	$watche = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid={cacheid}&target=mywatches.php">'.tr('delete').'</a>]</td></tr>';
+	$watcho = '<tr bgcolor=\'#eeeeee\'><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid={cacheid}&target=mywatches.php">'.tr('delete').'</a>]</td></tr>';
 	$no_watches = '<tr><td colspan="4">Nie znaleziono żadnych obserwowanych skrzynek</td></tr>';
 	$no_found_date = '---';
-	$standard_title = 'Obserwowane skrzynki';
+	$standard_title = tr('watched_caches');
 	$print_delete_all_watches = '<tr><td colspan="2">&nbsp;</td><td nowrap style="text-align:center;">[<a href="printcache.php?source=mywatches">Wydrukuj wszystkie</a>]</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid=all&target=mywatches.php">Usuń wszystkie</a>]</td></tr>';
 	$export_all_watches = '
 				<tr>
