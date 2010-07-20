@@ -27,7 +27,7 @@
 	$bgcolor2 = '#e0e0e0';
 	
 	$ignoree = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap="nowrap">[<a href="removeignore.php?cacheid={cacheid}&target=myignores.php">'.tr('off_ignore').'</a>]</td></tr>';
-	$ignoreo = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap="nowrap">[<a href="removeignore.php?cacheid={cacheid}&target=myignores.php">Wyłącz ignorowanie</a>]</td></tr>';
+	$ignoreo = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap="nowrap">[<a href="removeignore.php?cacheid={cacheid}&target=myignores.php">'.tr('off_ignore').'</a>]</td></tr>';
 	$no_ignores = '<div class="notice">'.tr('no_ignores').'</div>';
 	$title_text = tr('ignored_caches');
 	
