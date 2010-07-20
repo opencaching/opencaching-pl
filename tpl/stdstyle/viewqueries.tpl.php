@@ -17,7 +17,7 @@
 		<col/>
 	</colgroup>
 	<tr>
-		<td class="content-title-noshade-size2">{{name}}</td>
+		<td class="content-title-noshade-size2">{{name_label}}</td>
 		<td class="content-title-noshade-size2" width="150">{{download}}</td>
 		<td class="content-title-noshade-size2" width="100">&nbsp;</td>
 	</tr>
