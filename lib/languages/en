@@ -698,7 +698,7 @@ save_queries Save quieries
 old_options Old result of search overwrite
 select_queries Select stored query to overwrite
 last_found Last found it
-no_watched_caches No watched hgeocaches
+no_watched_caches No watched geocaches
 
  
  
