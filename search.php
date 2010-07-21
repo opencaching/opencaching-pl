@@ -1,12 +1,5 @@
 <?php
-/***************************************************************************
-																./search.php
-															-------------------
-		begin                : July 25 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
 
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -1422,7 +1415,7 @@ function outputSearchForm($options)
 	tpl_set_var('countryoptions', $countriesoptions);
 
 	//regionoptions
-	$regionsoptions = '<option value="" selected="selected">Wszystkie województwa</option>';
+	$regionsoptions = '<option value="" selected="selected">'.tr('all_regions').'</option>';
 	
 	$rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
 
