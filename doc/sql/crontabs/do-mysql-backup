@@ -20,8 +20,5 @@ do_backup_db() {
 	fi
 }
 
-do_backup_db bugs  FlajSprej
-do_backup_db wiki  0peng3o
-do_backup_db forum dy5kusj@
-do_backup_db ocpl  n1uch@cz
+do_backup_db ocpl  pass
 
