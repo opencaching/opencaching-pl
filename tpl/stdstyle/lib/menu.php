@@ -242,14 +242,6 @@ $menu = array(
 		'newwindow' => 'true'
 	),
 
-	array(
-		'title' => tr('geoblog'),
-		'menustring' => tr('geoblog'),
-		'siteid' => 'GeoBlog',
-		'visible' => false,
-		'filename' => 'http://www.geoblog.com.pl',
-		'newwindow' => 'true'
-	),
 		array(
 		'title' => tr('links'),
 		'visible' => true,
@@ -366,8 +358,8 @@ $menu = array(
 	),
 	// OC management 
 	array(
-		'title' => 'Zarządzanie OC PL',
-		'menustring' => 'Zarządzanie OC PL',
+		'title' => tr('administration'),
+		'menustring' => tr('administration'),
 		'siteid' => 'viewreports',
 		'visible' => false,
 		'filename' => 'viewreports.php',
@@ -387,15 +379,15 @@ $menu = array(
 			'filename' => 'viewpendings.php'
 			),
 			array(
-			'title' => 'Statystyka COG',
-			'menustring' => 'Statystyka COG',
+			'title' => tr('stat_octeam'),
+			'menustring' => tr('stat_octeam'),
 			'siteid' => 'articles/bog',
 			'visible' => true,
 			'filename' => 'articles.php?page=cog'
 			),
 			array(
-			'title' => 'Skrzynki nieznalezione',
-			'menustring' => 'Skrzynki nieznalezione',
+			'title' => tr('cache_notfound'),
+			'menustring' => tr('cache_notfound'),
 			'siteid' => 'admin_cachenotfound',
 			'visible' => true,
 			'filename' => 'admin_cachenotfound.php'
@@ -408,15 +400,15 @@ $menu = array(
 			'filename' => 'admin_searchuser.php'
 			),
 			array(
-			'title' => 'Dodaj newsa',
-			'menustring' => 'Dodaj newsa',
+			'title' => tr('add_news'),
+			'menustring' => tr('add_news'),
 			'siteid' => 'admin_addnews',
 			'visible' => true,
 			'filename' => 'admin_addnews.php'
 			),
 			array(
-			'title' => 'Wyślij biuletyn',
-			'menustring' => 'Wyślij biuletyn',
+			'title' => tr('send_bulletin'),
+			'menustring' => tr('send_bulletin'),
 			'siteid' => 'admin_bulletin',
 			'visible' => true,
 			'filename' => 'admin_bulletin.php'
@@ -608,6 +600,7 @@ $menu = array(
 								'siteid' => 'removelog_logowner'
 							),
 							array(
+
 								'title' => tr('remove_log'),
 								'menustring' => tr('remove_log'),
 								'visible' => false,
