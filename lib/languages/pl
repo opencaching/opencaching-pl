@@ -753,7 +753,10 @@ stat_octeam Statystyka COG
 cache_notfound Skrzynki nieznalezione
 send_bulletin Wyślij biuletin
 add_news Dodaj newsa
-
+email_subject_news Nowa informacja na OpenCaching PL
+subject Temat
+contents Treść
+content_include_html Treść zawiera kod HTML
 
 
 
