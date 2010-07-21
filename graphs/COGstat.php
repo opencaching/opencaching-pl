@@ -152,7 +152,7 @@ $graph2->title->Set($descibe2);
 $graph2->xaxis->title->Set($xtitle);
 $graph2->xaxis->SetTickLabels($x2);
 
-$ncache=tr('number_caches');
+$ncaches=tr('number_caches');
 $graph2->yaxis->title->Set($ncaches);
  
 $graph2->title->SetFont(FF_FONT1,FS_BOLD);
