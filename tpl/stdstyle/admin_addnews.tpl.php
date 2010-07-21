@@ -32,19 +32,19 @@
 <tr><td class="spacer" colspan="2"></td></tr>
 <tr>
 	<td>
-		{{subjest}}: 
+		<b>{{subject}}</b>: 
 		<select name="topic">
 			{topics}
 		</select>
 	</td>
 </tr>
-<tr><td>{{contain}}:</td></tr>
+<tr><td><b>{{contents}}</b>:</td></tr>
 <tr>
 	<td>
 		<textarea name="newstext" cols="80" rows="10">{newstext}</textarea>
 	</td>
 </tr>
-<tr><td><input type="checkbox" name="newshtml" id="newshtml" value="1" style="border:0;" {newshtml} /> <label for="newshtml">Tresc zawiera kod HTML</label></td></tr>
+<tr><td><input type="checkbox" name="newshtml" id="newshtml" value="1" style="border:0;" {newshtml} /> <label for="newshtml">{{content_include_html}}</label></td></tr>
 <tr>
 	<td>
 		<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Hinweis" title="Hinweis" align="middle" />
@@ -53,7 +53,7 @@
 	</td>
 </tr>
 <tr><td class="spacer" colspan="2"></td></tr>
-<tr><td>Adres email wysylajacego: <input type="text" name="email" size="40" value="{email}" />{email_error}</td></tr>
+<tr><td><b>{{email_address}}</b>: <input type="text" name="email" size="40" value="{email}" />{email_error}</td></tr>
 <tr><td class="spacer" colspan="2"></td></tr>
 <tr>
 	<td>
