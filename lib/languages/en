@@ -713,6 +713,10 @@ contents Contents news
 content_include_html Contents include HTML
 logged_by Logged by
 all_regions All regions
+assigned_to Assigned to
+date_created Date created
+owner Owner
+actions Actions
 
  
  
