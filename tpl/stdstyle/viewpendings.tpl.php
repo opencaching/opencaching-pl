@@ -7,7 +7,7 @@
 			<th >Geocache</th>
 			<th >{{date_created}}</th>
 			<th >{{owner}}</th>
-			<th >{{action}}</th>
+			<th >{{actions}}</th>
 			<th >{{assigned_to}}</th>
 		</tr>
 		{content}
