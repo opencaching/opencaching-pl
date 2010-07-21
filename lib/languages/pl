@@ -515,6 +515,8 @@ no_hidden_caches Brak ukrytych skrzynek
 no_not_published_caches Nie ma nieopublikowanych skrzynek
 
 
+
+
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
@@ -762,5 +764,10 @@ actions Akcja
 block Zablokuj
 assign_yourself Przypisz siebie do zgłoszenia
 accept Zaakceptuj
+octem_stat_problems Statystyka COG - prowadzone zgłoszenia
+octeam_stat_m_problems Statystyka COG Miesięczna - zgłoszenia
+octeam_stat_caches Statystyka COG - skrzynki weryfikowane
+octeam_stat_m_caches Statystyka COG Miesięczna - skrzynki weryfikowane
+number_problems Liczba zgłoszeń
 
 
