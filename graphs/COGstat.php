@@ -104,12 +104,13 @@ $graph->Add($bplot);
  
  
 // Setup the titles
-$descibe=tr("Statystyka COG - prowadzone zg³oszenia");
+
+$descibe=tr("octeam_stat_problems");
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
-
-$graph->yaxis->title->Set('Liczba zg³oszeñ');
+$noproblems=tr('number_problems');
+$graph->yaxis->title->Set($noproblems);
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
@@ -146,13 +147,13 @@ $graph2->Add($bplot2);
  
  
 // Setup the titles
-$descibe2="Statystyka COG - skrzynki weryfikowane";
+$descibe2=tr("octeam_stat_caches");
 $graph2->title->Set($descibe2);
 $graph2->xaxis->title->Set($xtitle);
 $graph2->xaxis->SetTickLabels($x2);
 
-
-$graph2->yaxis->title->Set('Liczba skrzynek');
+$ncache=tr('number_caches');
+$graph2->yaxis->title->Set($ncaches);
  
 $graph2->title->SetFont(FF_FONT1,FS_BOLD);
 $graph2->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
@@ -189,14 +190,14 @@ $graph3->Add($bplot3);
  
  
 // Setup the titles
-$descibe3="Statystyka COG Miesiêczna - zg³oszenia";
+$descibe3=tr("octeam_stat_m_problems");
 $graph3->title->Set($descibe3);
 //$graph3->xaxis->title->Set('Numer miesi±ca 2009/2010');
 $graph3->xaxis->title->Set($title3);
 $graph3->xaxis->SetTickLabels($x3);
 
 
-$graph3->yaxis->title->Set('Liczba zg³oszeñ');
+$graph3->yaxis->title->Set($noproblems);
  
 $graph3->title->SetFont(FF_FONT1,FS_BOLD);
 $graph3->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
@@ -231,14 +232,14 @@ $graph4->Add($bplot4);
  
  
 // Setup the titles
-$descibe4="Statystyka COG Miesiêczna - skrzynki weryfikowane";
+$descibe4=tr("octeam_stat_m_caches");
 $graph4->title->Set($descibe4);
 //$graph3->xaxis->title->Set('Numer miesi±ca 2009/2010');
 $graph4->xaxis->title->Set($title3);
 $graph4->xaxis->SetTickLabels($x4);
 
 
-$graph4->yaxis->title->Set('Liczba skrzynek');
+$graph4->yaxis->title->Set($ncaches);
  
 $graph4->title->SetFont(FF_FONT1,FS_BOLD);
 $graph4->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
