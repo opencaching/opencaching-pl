@@ -703,6 +703,12 @@ delete_recommend Delete recommendations
 off_ignore Switch off ignore
 no_ignores No ignored caches
 oc_stat Statistics of geocaches OC PL
+administration Administration OC
+stat_octeam Statistics OCTeam
+cache_notfound Geocache not found
+add_news Add news
+send_bulletin Send bulletin
+
 
 
  
