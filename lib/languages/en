@@ -708,8 +708,10 @@ stat_octeam Statistics OCTeam
 cache_notfound Geocache not found
 add_news Add news
 send_bulletin Send bulletin
-
-
+email_subject_news New news OpenCaching 
+subject Subject
+contents Contents news
+content_include_html Contents include HTML
 
  
  
