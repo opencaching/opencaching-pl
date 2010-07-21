@@ -12,7 +12,7 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td><strong>Geocache</strong></td>
-<td><strong>User</strong></td>
+<td><strong>{logged_by}}</strong></td>
 </tr>
 <tr>
 <td colspan="7"><hr></hr></td>
