@@ -717,7 +717,9 @@ assigned_to Assigned to
 date_created Date created
 owner Owner
 actions Actions
-
+block Block
+assign_yourself Assign yourself
+accept Accept
  
  
 

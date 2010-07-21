@@ -759,4 +759,8 @@ assigned_to Przypisane do
 date_created Data utworzenia
 owner Właściciel
 actions Akcja
+block Zablokuj
+assign_yourself Przypisz siebie do zgłoszenia
+accept Zaakceptuj
+
 
