@@ -16,16 +16,11 @@
 <table class="content">
 <tr>
 	<td class="content2-pagetitle">
-		<img src="tpl/stdstyle/images/blue/write.png" class="icon32" alt=""  /><font size="4">  <b>Dodaj newsa</b></font>
+		<img src="tpl/stdstyle/images/blue/write.png" class="icon32" alt=""  /><font size="4">  <b>{{add_news}}</b></font>
 	</td>
 </tr>
 <tr><td class="spacer" colspan="2"></td></tr>
-<tr>
-	<td>
-		Wyslany news bedzie na stronie glownej po zatwierdzeniu<br />
-		Newsy moga byc tylko zwiazane z OpenCaching, Geocaching, inne nie beda publikowane.
-	</td>
-</tr>
+
 <tr><td class="spacer" colspan="2"></td></tr>
 <tr>
 	<td>
@@ -37,13 +32,13 @@
 <tr><td class="spacer" colspan="2"></td></tr>
 <tr>
 	<td>
-		Temat: 
+		{{subjest}}: 
 		<select name="topic">
 			{topics}
 		</select>
 	</td>
 </tr>
-<tr><td>Tresc newsa:</td></tr>
+<tr><td>{{contain}}:</td></tr>
 <tr>
 	<td>
 		<textarea name="newstext" cols="80" rows="10">{newstext}</textarea>
@@ -62,7 +57,7 @@
 <tr><td class="spacer" colspan="2"></td></tr>
 <tr>
 	<td>
-		<input type="submit" value="OK" />
+<button type="submit" name="submit" id="submit" value="{{submit}}" style="font-size:12px;width:140px;"/><b>{{send}}</b></button>
 	</td>
 </tr>
 </table>
