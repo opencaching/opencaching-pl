@@ -1,7 +1,7 @@
 <table class="content">
 <tr>
 	<td class="content2-pagetitle">
-		<img src="tpl/stdstyle/images/blue/write.png" class="icon32" alt=""  /><font size="4">  <b>Wyślij biuletyn</b></font>
+		<img src="tpl/stdstyle/images/blue/write.png" class="icon32" alt=""  /><font size="4">  <b>{{send_bulletin}}</b></font>
 	</td>
 </tr>
 <tr><td class="spacer" colspan="2"></td></tr>
@@ -10,7 +10,8 @@
 		<form action='admin_bulletin.php' method='POST'>
 		<textarea name='bulletin' cols='80' rows='15'></textarea>
 		<br />
-		<input type='submit' value='Wyślij biuletyn'>
+<button type="submit" name="submit" id="submit" value="{{submit}}" style="font-size:12px;width:140px;"/><b>{{send}}</b></button>
+
 		</form>
 	</td>
 </tr>
