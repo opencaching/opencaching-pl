@@ -764,7 +764,7 @@ actions Akcja
 block Zablokuj
 assign_yourself Przypisz siebie do zgłoszenia
 accept Zaakceptuj
-octem_stat_problems Statystyka COG - prowadzone zgłoszenia
+octeam_stat_problems Statystyka COG - prowadzone zgłoszenia
 octeam_stat_m_problems Statystyka COG Miesięczna - zgłoszenia
 octeam_stat_caches Statystyka COG - skrzynki weryfikowane
 octeam_stat_m_caches Statystyka COG Miesięczna - skrzynki weryfikowane
