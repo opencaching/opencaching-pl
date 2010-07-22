@@ -720,8 +720,8 @@ actions Actions
 block Block
 assign_yourself Assign yourself to notification
 accept Accept
-octeam_stat_problems Statistics OCTeam - problems
-octeam_stat_m_problems Statistics OCTeam Monthly - problems
+octeam_stat_problems Statistics OCTeam - closed problems
+octeam_stat_m_problems Statistics OCTeam Monthly - closed problems
 octeam_stat_caches Statistics OCTeam - caches acctepted
 octeam_stat_m_caches Statistics OCTeam monthly - caches accepted
 number_problems Number of problems
