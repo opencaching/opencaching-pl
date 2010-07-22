@@ -40,7 +40,7 @@
 		$tplname = 'start';
 		// news
 		require($stylepath . '/news.inc.php');
-
+		tpl_set_var('news_one', '<br />');
 
 		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 1');
 		while ($r = sql_fetch_array($rs))
@@ -56,8 +56,8 @@
 			$current_date= date(Ymd);
 			$posted_date=strftime("%Y%m%d", $post_date);
 			$diff=(int)($current_date - $posted_date);
-			if ($diff < 100 && $lang=="pl") {tpl_set_var('news_one', $newscontent);	} 
-			else {	tpl_set_var('news_one', '<br />');} 
+			if ($diff < 100 && $lang=="pl") {tpl_set_var('news_one', $newscontent);} 
+			else {tpl_set_var('news_one', '<br />');} 
 		}
 		mysql_free_result($rs);
 		$newscontent = '';
