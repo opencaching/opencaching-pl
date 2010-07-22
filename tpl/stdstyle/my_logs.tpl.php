@@ -10,7 +10,7 @@
 	***************************************************************************/
 ?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="New Log entry" align="middle"/>&nbsp;{latest_logs_cache} przez użytkownika: <font color="black">{username}</font></div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="New Log entry" align="middle"/>&nbsp;{latest_logs_cache}: <font color="black">{username}</font></div>
 <!-- Text container -->
 	<p>
 		{pages}
