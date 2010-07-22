@@ -359,7 +359,7 @@ INSERT INTO `languages` (`id`, `short`, `pl`, `en`, `list_default_pl`, `list_def
 (20, 'IS', 'Isländisch', 'Isländisch', 0, 0),
 (21, 'IT', 'Italienisch', 'Italienisch', 0, 0),
 (22, 'LT', 'Litauisch', 'Litauisch', 0, 0),
-(23, 'LV', 'Lettisch', 'Lettisch', 0, 0),
+(23, 'LV', 'Latvia', 'Latvia', 0, 0),
 (24, 'NO', 'Norweski', 'Norwegian', 0, 0),
 (25, 'PL', 'Polski', 'Polish', 1, 1),
 (26, 'PT', 'Portugiesisch', 'Portugiesisch', 0, 0),
