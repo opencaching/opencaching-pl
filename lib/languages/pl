@@ -517,6 +517,7 @@ no_not_published_caches Nie ma nieopublikowanych skrzynek
 
 
 
+
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
@@ -769,5 +770,7 @@ octeam_stat_m_problems Statystyka COG Miesięczna - zgłoszenia
 octeam_stat_caches Statystyka COG - skrzynki weryfikowane
 octeam_stat_m_caches Statystyka COG Miesięczna - skrzynki weryfikowane
 number_problems Liczba zgłoszeń
-
+add_by dodane przez
+octeam_comment_subject [OC] Adnotacja COG do skrzynki
+octeam_comment_copy Kopia listu z adnotacja do skrzynki dodaną przez
 

@@ -725,6 +725,9 @@ octeam_stat_m_problems Statistics OCTeam Monthly - closed problems
 octeam_stat_caches Statistics OCTeam - caches acctepted
 octeam_stat_m_caches Statistics OCTeam monthly - caches accepted
 number_problems Number of problems
+add_by add by
+octeam_comment_subject [OC] Comment OC Team
+octeam_comment_copy Copy email with OC Team comment add by
 
  
  
