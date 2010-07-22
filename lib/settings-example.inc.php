@@ -30,7 +30,7 @@
 	if (!isset($style)) $style = 'stdstyle';
 
 	//pagetitle
-	if (!isset($pagetitle)) $pagetitle = 'Opencaching - Geocaching in ......';
+	if (!isset($pagetitle)) $pagetitle = 'Opencaching - Geocaching in your country';
 
 
 	/* Well known node id's - required for synchronization
@@ -42,11 +42,12 @@
 	 * 6 OC UK
 	 * 7 OC SE
 	 * 8 OC NO
+	 * 9 OC LV
 	 */
-	$oc_nodeid = 2;
+	$oc_nodeid = 4;
 	
-	//OC Waypoint  name unique for every OC site.: OC for DE, OP for PL, OZ for CZ, OS for OC SE, OK for OC UK,
-	$ocWP = OP;
+	//OC Waypoint  name unique for every OC site.: OC for DE, OP for PL, OZ for CZ, OS for OC SE, OK for OC UK, ON for OC NO, OV for OC LV
+	$ocWP = OX;
 	
         //name of the cookie
         $opt['cookie']['name'] = 'oc';
