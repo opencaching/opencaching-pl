@@ -794,7 +794,7 @@
 				$sender_name = $usr['username'];
 				$comment = nl2br($_POST['rr_comment']);
 				$date=date("Y-m-d H:i:s");
-				$octeam_comment = '<b><span class="content-title-noshade txt-blue08">Data: '.$date.', dodane przez '.$sender_name.'</span></b><br/>'.$comment;
+				$octeam_comment = '<b><span class="content-title-noshade txt-blue08">Data: '.$date.', '.tr('add_by').' '.$sender_name.'</span></b><br/>'.$comment;
 				$sql = "UPDATE cache_desc 
 					SET rr_comment=CONCAT('".sql_escape($octeam_comment)."<br/><br/>', rr_comment), 
 							last_modified = NOW() 
@@ -814,9 +814,11 @@
 		$email_headers .= "From: OpenCaching <".$octeam_email.">\r\n";
 		$email_headers .= "Reply-To: ".$octeam_email. "\r\n";
 		//send email to owner
-		mb_send_mail($owner_email['email'], "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], $email_content, $email_headers);
+		$subject=tr('octeam_comment_subject');
+		mb_send_mail($owner_email['email'], $subject.": ".$cache_record['name'], $email_content, $email_headers);
 		//send copy email to OC Team
-		mb_send_mail($sender_email, "[OC] Adnotacja COG do skrzynki: ".$cache_record['name'], "Kopia listu z adnotacja do skrzynki dodaną przez ".$sender_name.":\n\n".$email_content, $email_headers);
+		$subject_copy=tr('octeam_comment_subject_copy');
+		mb_send_mail($sender_email, $subject." ".$cache_record['name'], $subject_copy." ".$sender_name.":\n\n".$email_content, $email_headers);
 			}
 			
 			// remove OC Team comment
