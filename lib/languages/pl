@@ -494,6 +494,7 @@ show_noscore Pokaż skrzynki bez oceny
 available_maps Dostępne mapy
 cache_attributes Atrybuty skrzynki
 latest_logs Najnowsze wpisy do logów
+latest_logs_in_caches Najnowsze wpisy do lgów w skrzynkach
 abroad_caches Poza Polską
 hidden_by założona przez
 newcaches_label Najnowsze skrzynki
@@ -513,11 +514,6 @@ manage_ocpl Zarządzanie OC PL
 browse_problem_reports Przeglądaj zgłoszenia problemów
 no_hidden_caches Brak ukrytych skrzynek
 no_not_published_caches Nie ma nieopublikowanych skrzynek
-
-
-
-
-
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
