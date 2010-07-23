@@ -32,7 +32,7 @@
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-<button type="submit" name="submit"  value="{queryname}" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
+<button type="submit" value="Zapamietaj" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
 		
 		</td>
 	</tr>
@@ -62,7 +62,7 @@
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-<button type="submit" name="submit" value="{{submit}}" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
+<button type="submit" value="Zapamietaj" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
 		
 		</td>
 	</tr>
