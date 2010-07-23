@@ -728,6 +728,8 @@ number_problems Number of problems
 add_by add by
 octeam_comment_subject [OC] Comment OC Team
 octeam_comment_copy Copy email with OC Team comment add by
+list_of_latest_logs_is_empty List of latest logs entry is empty
+list_of_caches_is_empty List of latest caches is empty
 
  
  

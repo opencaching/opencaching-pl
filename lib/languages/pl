@@ -513,6 +513,7 @@ manage_ocpl Zarządzanie OC PL
 browse_problem_reports Przeglądaj zgłoszenia problemów
 no_hidden_caches Brak ukrytych skrzynek
 no_not_published_caches Nie ma nieopublikowanych skrzynek
+
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
@@ -768,4 +769,6 @@ number_problems Liczba zgłoszeń
 add_by dodane przez
 octeam_comment_subject [OC] Adnotacja COG do skrzynki
 octeam_comment_copy Kopia listu z adnotacja do skrzynki dodaną przez
+list_of_latest_logs_is_empty Nie ma najnowszych wpisów do logów
+list_of_caches_is_empty Nie ma najnowiszych skrzynek w tej okolicy
 
