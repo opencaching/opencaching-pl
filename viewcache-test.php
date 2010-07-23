@@ -527,12 +527,13 @@
 
 			if($cache_record['wp_nc'] != '')
 				$listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp='.$cache_record['wp_nc'].'" target="_blank">GPSgames.org</a>';
+/*
 			if($cache_record['wp_nc'] != '')
 			{
 				$wpnc = hexdec(mb_substr($cache_record['wp_nc'], 1));
 				$listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID='.$wpnc.'" target="_blank">navicache.com</a>';
 			}
-
+*/
 			tpl_set_var('listed_on', sizeof($listed_on) == 0 ? $listed_only_oc : implode(", ", $listed_on));
 			if (sizeof($listed_on) == 0)
 			{
