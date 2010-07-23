@@ -57,7 +57,7 @@
 <tr><td class="spacer" colspan="2"></td></tr>
 <tr>
 	<td>
-<button type="submit" name="submit" id="submit" value="{{submit}}" style="font-size:12px;width:140px;"/><b>{{send}}</b></button>
+<button type="submit"  value="OK" style="font-size:12px;width:140px;"/><b>{{send}}</b></button>
 	</td>
 </tr>
 </table>
