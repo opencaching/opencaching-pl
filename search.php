@@ -1397,17 +1397,21 @@ function outputSearchForm($options)
 
 	//countryoptions
 	$countriesoptions = $search_all_countries;
+		if(checkField('countries','list_default_'.$lang) )
+					$lang_db = $lang;
+				else
+					$lang_db = "en";
 
-	$rs = sql('SELECT `&1`, `short` FROM `countries` WHERE `short` IN (SELECT DISTINCT `country` FROM `caches`) ORDER BY `sort_' . sql_escape($lang) . '` ASC', $lang);
+	$rs = sql('SELECT `&1`, `short` FROM `countries` WHERE `short` IN (SELECT DISTINCT `country` FROM `caches`) ORDER BY `sort_' . sql_escape($lang_db) . '` ASC', $lang_db);
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
 
 		if ($record['short'] == $options['country'])
-			$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+			$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 		else
-			$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+			$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 
 		$countriesoptions .= "\n";
 	}
@@ -1436,8 +1440,12 @@ function outputSearchForm($options)
 	// Typ skrzynki
 	
 	$cachetype_options = '';
+				if(checkField('cache_type',$lang) )
+					$lang_db = $lang;
+				else
+					$lang_db = "en";
 
-	$rs = sql('SELECT `id`, `&1`, `icon_large` FROM `cache_type` ORDER BY `sort`', $lang);
+	$rs = sql('SELECT `id`, `&1`, `icon_large` FROM `cache_type` ORDER BY `sort`', $lang_db);
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
@@ -1480,8 +1488,8 @@ function outputSearchForm($options)
 
 
 		$hidden_css = "position: absolute; visibility: hidden;";
-		$cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '"    src="' . htmlspecialchars($stylepath . "/images/" . $cachetype_icon   , ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_hidden.'" />';
-		$cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '_bw" src="' . htmlspecialchars($stylepath . "/images/" . $cachetype_icon_bw, ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_bw_hidden.'" />';
+		$cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '"    src="' . htmlspecialchars($stylepath . "/images/" . $cachetype_icon   , ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_hidden.'" />';
+		$cachetype_options .= '<img id="cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '_bw" src="' . htmlspecialchars($stylepath . "/images/" . $cachetype_icon_bw, ENT_COMPAT, 'UTF-8') . '" title="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" alt="' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '" onmousedown="javascript:switchCacheType(\'cachetype_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '\')" style="cursor: pointer;'.$icon_bw_hidden.'" />';
 		if ($i == 2) { $cachetype_options .= '&nbsp;&nbsp;&nbsp;'; }
 		$cachetype_options .= "\n";
 	}
@@ -1491,13 +1499,17 @@ function outputSearchForm($options)
 	//Rozmiar skrzynki
 
 	$cachesize_options = '';
+				if(checkField('cache_size',$lang) )
+					$lang_db = $lang;
+				else
+					$lang_db = "en";
 
-	$rs = sql('SELECT `id`, `&1` FROM `cache_size` ORDER BY `id`', $lang);
+	$rs = sql('SELECT `id`, `&1` FROM `cache_size` ORDER BY `id`', $lang_db);
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
 
-		$cachesize_options .= '<input type="checkbox" name="cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" value="1" id="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '</label>';
+		$cachesize_options .= '<input type="checkbox" name="cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" value="1" id="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_' . htmlspecialchars($record['id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</label>';
 
 		$cachesize_options .= "\n";
 	}	
