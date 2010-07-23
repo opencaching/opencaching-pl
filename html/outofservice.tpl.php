@@ -12,11 +12,11 @@
 	<center>
 					<img src="/images/logo.jpg" alt="oc-Logo" style="border:0px;"/>
   <div id="content">
-		<h1>Przerwa w pracy Opencaching LV.
+		<h1>Przerwa w pracy Opencaching PL.
 		<p>Aktualizacja serwisu.</p>
 		<p>Przepraszamy za utrudnienia.</p>
-		<p><br/>Opencaching LV Team</p>
-		<p><br/>Zapraszamy na <a href="http://geoforums.lv">forum</a></p>
+		<p><br/>Opencaching PL Team</p>
+		<p><br/>Zapraszamy na <a href="http://forum.opencaching.pl">forum</a></p>
   </div>
 	<hr noshade="noshade" />
 		<div id="footBox">
