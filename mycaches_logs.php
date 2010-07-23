@@ -144,6 +144,9 @@ if ($error == false)
 			ORDER BY  `cache_logs`.`date_created` DESC
 			LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE));
 	$log_ids = '';
+
+	if (mysql_num_rows($rs)==0) $log_ids = '0';
+
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
