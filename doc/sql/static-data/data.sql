@@ -464,7 +464,7 @@ INSERT INTO `sysconfig` (`name`, `value`) VALUES
 ('geokrety_lastupdate', '2010-02-10 06:40:00'),
 ('importcaches_de_lastupdate', '2010-02-10 06:37:02'),
 ('importcaches_cz_lastupdate', '2003-10-01 00:00:01'),
-('hidden_for_approval', '1');
+('hidden_for_approval', '0');
 
 --
 -- Zrzut danych tabeli `sys_menu`
