@@ -220,10 +220,10 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 $latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 
-if ($longitude==NULL && $latitude==NULL) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>'.tr("myn_info").'</b></div><br>');} else { tpl_set_var('info','');}
+if (($longitude==NULL && $latitude==NULL) ||($longitude==0 && $latitude==0) ) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>'.tr("myn_info").'</b></div><br>');} else { tpl_set_var('info','');}
 
-if ($latitude==NULL) $latitude=52.24522;
-if ($longitude==NULL) $longitude=21.00442;
+if ($latitude==NULL || $latitude==0) $latitude=52.24522;
+if ($longitude==NULL || $longitude==0) $longitude=21.00442;
 
 $distance =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 if ($distance==0) $distance=35;
@@ -309,7 +309,7 @@ $radius=$distance;
 
 	if (mysql_num_rows($rs) == 0)
 	{
-		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Nie ma najnowiszych skrzynek w tej okolicy</b></p><br>";
+		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br>";
 	}
 	else
 	{			
@@ -482,7 +482,7 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 
 	if (mysql_num_rows($rsl) == 0)
 	{
-		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_latest_caches_is_empty')."</b></p><br>";
+		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_latest_logs_is_empty')."</b></p><br>";
 	}
 	else
 	{
