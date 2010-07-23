@@ -29,6 +29,6 @@
 <p>{{confirm_remove_log}}?</p>
 <p>{log}</p>
 <p>			
-<button type="submit" name="submit" id="submit" value="{{delete}}" style="font-size:12px;width:140px;"/><b>{{delete}}</b></button>
+<button type="submit" name="submit" value="{{delete}}" style="font-size:12px;width:140px;"/><b>{{delete}}</b></button>
 </p>
 </form>
