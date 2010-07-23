@@ -190,6 +190,7 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 	global $googlemap_key;
 
 	$markers = $markerpos['markers'];
+	if (empty($markerpos['markers'])) {$dzoom="&zoom=8";} else {$dzoom="";}
 	$markers_str = "markers=color:blue|size:small|";
 	$markers_ev_str = "&markers=color:orange|size:small|";
 	$sel_marker_str = "";
@@ -210,7 +211,7 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 				$sel_marker_str = "&markers=color:blue|label:$type|$lat,$lon|";
 	}
 
-	$google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude."&size=350x350&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
+	$google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude.$dzoom."&size=350x350&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
 
 	return $google_map;
 }
