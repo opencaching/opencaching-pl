@@ -646,6 +646,7 @@
 							$lon = $r['lon'] + 0;
 
 
+
 							$lon_rad = $lon * 3.14159 / 180;
 							$lat_rad = $lat * 3.14159 / 180;
 
@@ -1073,7 +1074,7 @@ function outputSearchForm($options)
   
   //echo $lang. " " .$default_lang;
   
-//  if ($lang != 'pl') { $lang = 'en'; }
+  if ($lang != 'pl') { $lang_attribute = 'en'; }
 
 	//simple mode (only one easy filter)
 	$filters = read_file($stylepath . '/search.simple.tpl.php');
@@ -1569,7 +1570,7 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 	$attributes_jsarray = '';
 	$attributes_img = '';
 	$attributesCat2_img = '';
-	$rs = sql("SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language`='&1' ORDER BY `id`", $lang);
+	$rs = sql("SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language`='&1' ORDER BY `id`", $lang_attribute);
 	while ($record = sql_fetch_array($rs))
 	{
 	
