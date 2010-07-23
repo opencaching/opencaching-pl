@@ -645,6 +645,7 @@
 							$lat = $r['lat'] + 0;
 							$lon = $r['lon'] + 0;
 
+
 							$lon_rad = $lon * 3.14159 / 180;
 							$lat_rad = $lat * 3.14159 / 180;
 
@@ -1072,7 +1073,7 @@ function outputSearchForm($options)
   
   //echo $lang. " " .$default_lang;
   
-  if ($lang != 'pl') { $lang = 'en'; }
+//  if ($lang != 'pl') { $lang = 'en'; }
 
 	//simple mode (only one easy filter)
 	$filters = read_file($stylepath . '/search.simple.tpl.php');
