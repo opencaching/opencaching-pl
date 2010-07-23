@@ -29,7 +29,8 @@
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	require_once('./lib/search.inc.php');
-	
+	global $lang;
+
 	// SQL-Debug?
 	$sqldebug = false;
 	global $sql_debug;
@@ -1731,6 +1732,7 @@ function outputUniidSelectionForm($uniSql, $urlparams)
 		$pages .= '{next_img_inactive} {last_img_inactive} ';
 
 		$pages = mb_ereg_replace('{prev_img}', $prev_img, $pages);
+
 		$pages = mb_ereg_replace('{next_img}', $next_img, $pages);
 		$pages = mb_ereg_replace('{last_img}', $last_img, $pages);
 		$pages = mb_ereg_replace('{first_img}', $first_img, $pages);
