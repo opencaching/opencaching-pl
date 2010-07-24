@@ -1073,8 +1073,8 @@ function outputSearchForm($options)
   // TODO
   
   //echo $lang. " " .$default_lang;
-  
-  if ($lang != 'pl') { $lang_attribute = 'en'; }
+  $lang_attribute = $lang;
+  if ($lang != 'pl') { $lang_attribute = 'en'; } 
 
 	//simple mode (only one easy filter)
 	$filters = read_file($stylepath . '/search.simple.tpl.php');
