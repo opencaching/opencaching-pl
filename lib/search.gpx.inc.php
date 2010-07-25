@@ -52,7 +52,7 @@
 	$gpxHead = 
 '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://geocaching.com.au/geocache/1 http://geocaching.com.au/geocache/1/geocache.xsd"
+     xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://geocaching.com.au/geocache/1 http://geocaching.com.au/geocache/1/geocache.xsd http://www.gsak.net/xmlv1/4 http://www.gsak.net/xmlv1/4/gsak.xsd"
      xmlns="http://www.topografix.com/GPX/1/0"
      version="1.0"
      creator="www.opencaching.pl">
