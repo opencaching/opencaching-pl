@@ -80,7 +80,7 @@
 	if (!isset($emailaddr)) $emailaddr = 'noreply@<domain>';
 	
 	// location for dynamically generated files
-	$dynbasepath = '/var/www/ocpl-data/';
+	$dynbasepath = '/var/www/';
 	$dynstylepath = $dynbasepath . 'tpl/stdstyle/html/';
 
 	// location of cache images
@@ -143,7 +143,7 @@
 	$sql_replacements['tmpdb'] = 'temp';
 
 	// safemode_zip-binary
-	$safemode_zip = '/var/www/ocpl/bin/phpzip.php';
+	$safemode_zip = '/var/www/bin/phpzip.php';
 	$zip_basedir = $dynbasepath . 'download/zip/';
 	$zip_wwwdir = '/download/zip/';
 
@@ -166,12 +166,12 @@
   //$cachemap_url = 'images/cachemaps/';
   //$cachemap_dir = $rootpath . $cachemap_url;
 
-  $site_name = 'Opencaching.pl';
+  $site_name = '<domain>';
   $wiki_url  = 'http://wiki.opencaching.pl';
   $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
   $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
   $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
-  $contact_mail = 'ocpl (at) opencaching.pl'
+  $contact_mail = 'ocpteam(at) <domain>'
   global $octeam_email;
   // E-mail address group of people from OC Team who solve problems, verify cache
   $octeam_email = 'octeam@<domain>';
