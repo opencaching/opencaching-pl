@@ -1,15 +1,3 @@
-<?php
-/***************************************************************************
-											./tpl/stdstyle/activation.tpl.php
-															-------------------
-		begin                : October 14 2005
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-   Unicode Reminder ??
-
-	***************************************************************************/
-?>
 <form action="activation.php" method="post" enctype="application/x-www-form-urlencoded" style="display: inline;">
 <input type="hidden" name="submit" value="1" />
 <table class="content">

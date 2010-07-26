@@ -851,7 +851,8 @@
 		$email_content = read_file($stylepath . '/email/octeam_comment.email');
 		$email_content = mb_ereg_replace('%cachename%', $cache_record['name'], $email_content);
 		$email_content = mb_ereg_replace('%cacheid%', $cache_record['cache_id'], $email_content);
-		$email_content = mb_ereg_replace('%octeam_comment%', $_POST['rr_comment'], $email_content);		
+		$email_content = mb_ereg_replace('%octeam_comment%', $_POST['rr_comment'], $email_content);	
+		$email_content = mb_ereg_replace('%sender%', $sender_name, $email_content);			
 		$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
 		$email_headers .= "From: OpenCaching <".$octeam_email.">\r\n";
 		$email_headers .= "Reply-To: ".$octeam_email. "\r\n";
