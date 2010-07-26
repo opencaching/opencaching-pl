@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-											./tpl/stdstyle/viewcache.tpl.php
-															-------------------
-		begin                : June 24 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -88,7 +80,6 @@ global $usr, $lang, $hide_coords;
 				<p>
 					{waypoints_content}
 				</p><br />
-			<div class="notice" id="viewcache-attributesend"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div>
 {waypoints_end}
 <!-- Text container -->
 
@@ -114,7 +105,22 @@ global $usr, $lang, $hide_coords;
 
 {hidehint_end}
 <!-- End Text Container -->
-
+{hidenpa_start}
+			<div class="content2-container bg-blue02">
+				<p class="content-title-noshade-size1">
+					
+					<img src="tpl/stdstyle/images/blue/npav1.png" class="icon32" alt="" />
+					NATURA 2000 obszar
+				</p>
+				</div>
+				<div class="content2-container"><center>
+<table width="90%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em">
+<tr>
+<td align="center" valign="middle">&nbsp;</td><td align="center" valign="middle">{npa_content}</td><td align="center" valign="middle"><a class="links" href="http://www.natura2000.pl/" target="_blank"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
+</tr>
+</table></center>
+			</div>
+{hidenpa_end}
 <!-- Text container -->
 {hidepictures_start}
 			<div class="content2-container bg-blue02">
