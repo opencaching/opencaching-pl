@@ -231,7 +231,7 @@ function chname( newName )
 							global $dynstylepath;
 							include ($dynstylepath . "nonlusers.txt");
 						?>
-                       </span><span class="txt-black">) - {{online_users_info}}:&nbsp;</b></span>  
+                       </span><span class="txt-black">) - {{online_users_info}}:</b></span><br/>  
                          <span class="txt-yellow10">
 					   	<?php
 							global $dynstylepath;
