@@ -731,7 +731,7 @@
 					
 					if (is_numeric($lon_h) && is_numeric($lon_min))
 					{
-						if (($lon_h >= 0) && ($lon_h < 90) && ($lon_min >= 0) && ($lon_min < 90))
+						if (($lon_h >= 0) && ($lon_h < 180) && ($lon_min >= 0) && ($lon_min < 60))
 						{
 							$lon = $lon_h + $lon_min / 60;
 							if ($lonEW == 'W') $lon = -$lon;
@@ -740,7 +740,7 @@
 
 					if (is_numeric($lat_h) && is_numeric($lat_min))
 					{
-						if (($lat_h >= 0) && ($lat_h < 90) && ($lat_min >= 0) && ($lat_min < 90))
+						if (($lat_h >= 0) && ($lat_h < 90) && ($lat_min >= 0) && ($lat_min < 60))
 						{
 							$lat = $lat_h + $lat_min / 60;
 							if ($latNS == 'S') $lat = -$lat;

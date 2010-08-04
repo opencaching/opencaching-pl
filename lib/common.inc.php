@@ -1440,4 +1440,18 @@ function validate_msg($cookietext)
 	return $num;
 }
 
+function online_user()
+{
+$rs=sql("SELECT  `user`.`username` FROM `sys_sessions`, `user` WHERE `sys_sessions`.`user_id`=`user`.`user_id` AND `sys_sessions`.last_login >(NOW()-INTERVAL 10 MINUTE) ORDER BY username");
+
+$online_users=array();
+
+while ($r=mysql_fetch_array($rs))
+{
+$online_users[]=$r['username'];
+}
+return $online_users;
+
+}
+
 ?>

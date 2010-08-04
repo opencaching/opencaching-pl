@@ -228,9 +228,9 @@ ul.linklist-indent {margin: -0.3em 0px 0.5em 0px; padding: 0px 0px 0px 10px; lis
 .sidebar-txtbox-shade p {margin: 0px 0px 5px 0px; padding: 0px; line-height: 1.25em; font-size: 110%;}
 
 /*--------------------*/
-/* 6.3 - Footer Area  */
+/* 6.3 - Footer Area  height: 3.0em;*/
 /*--------------------*/
-.footer {overflow: hidden; clear: both; width: 970px; height: 3.0em; margin: 0px; padding: 0.5em 0px 0.5em 0px; border-top: solid 1px rgb(125,125,125); background-color: rgb(128,161,202); color: rgb(255,255,255); font-size: 1.0em;}
+.footer {overflow: hidden; clear: both; width: 970px;  margin: 0px; padding: 0.5em 0px 0.5em 0px; border-top: solid 1px rgb(125,125,125); background-color: rgb(128,161,202); color: rgb(255,255,255); font-size: 1.0em;}
 .footer p {margin: 0px; padding: 0px; text-align: center; line-height: 1.3em; font-size: 110%;}
 
 /*-------------------*/
@@ -671,6 +671,29 @@ a.links:active {
 a.links:hover {
 	font-weight:bold;
 	color:blue;
+/*	background-color:rgb(219,230,241); */
+	text-decoration: underline;
+}
+a.links-onlusers:link {
+	font-weight:bold;
+	color: yellow;
+	text-decoration:none;
+}
+
+a.links-onlusers:visited {
+	font-weight:bold;
+	color: white;
+	text-decoration:none;
+}
+
+a.links-onlusers:active {
+	background-color: yellow;
+	text-decoration:none;
+}
+
+a.links-onlusers:hover {
+	font-weight:bold;
+	color:purple;
 /*	background-color:rgb(219,230,241); */
 	text-decoration: underline;
 }

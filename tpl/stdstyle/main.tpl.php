@@ -1,13 +1,4 @@
-
 <?php
-/***************************************************************************
-											./tpl/stdstyle/main.tpl.php
-															-------------------
-		begin                : Mon June 14 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -233,6 +224,22 @@ function chname( newName )
 
 		<!-- FOOTER -->
 			<div class="footer">
+			<span class="txt-black">&nbsp;&nbsp;<b>{{online_users}} (
+                       </span> <span class="txt-yellow10">
+                      <?php $onlusers=online_user();
+                            $nuser=count($onlusers);
+                        echo $nuser;
+                            ?>
+                        </span><span class="txt-black">) - {{online_users_info}}:&nbsp;</b></span>  
+                         <span class="txt-yellow10">
+                        <?php    foreach($onlusers as $onluser){
+                        $userid=sqlValue("SELECT user_id FROM `user` WHERE username='$onluser'", 0);
+                        echo "<a class=\"links_onlusers\" href=\"viewprofile.php?userid=".$userid."\">".$onluser."</a>,&nbsp;";
+                                }
+
+                            ?>
+                           </span><p>&nbsp;</p>
+
 				 <p>
 					<a href="articles.php?page=impressum">{{impressum}}</a> | 
 					<a href="articles.php?page=contact">{{contact}}</a> |

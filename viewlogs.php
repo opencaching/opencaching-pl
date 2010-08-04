@@ -53,11 +53,11 @@
 			$start = $_REQUEST['start'];
 			if (!is_numeric($start)) $start = 0;
 		}
-		$count = 200;
+		$count = 99999;
 		if (isset($_REQUEST['count']))
 		{
 			$count = $_REQUEST['count'];
-			if (!is_numeric($count)) $count = 200;
+			if (!is_numeric($count)) $count = 99999;
 		}
 
 		if ($cache_id != 0)
