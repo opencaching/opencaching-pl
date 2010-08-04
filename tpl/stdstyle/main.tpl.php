@@ -226,21 +226,19 @@ function chname( newName )
 			<div class="footer">
 			<span class="txt-black">&nbsp;&nbsp;<b>{{online_users}} (
                        </span> <span class="txt-yellow10">
-                      <?php $onlusers=online_user();
-                            $nuser=count($onlusers);
-                        echo $nuser;
-                            ?>
+						<?php $onlusers=online_user();
+						$nuser=count($onlusers);
+						echo $nuser;
+                         ?>
                         </span><span class="txt-black">) - {{online_users_info}}:&nbsp;</b></span>  
                          <span class="txt-yellow10">
-                        <?php    foreach($onlusers as $onluser){
+						<?php    foreach($onlusers as $onluser){
                         $userid=sqlValue("SELECT user_id FROM `user` WHERE username='$onluser'", 0);
-                        echo "<a class=\"links_onlusers\" href=\"viewprofile.php?userid=".$userid."\">".$onluser."</a>,&nbsp;";
-                                }
-
-                            ?>
-                           </span><p>&nbsp;</p>
-
-				 <p>
+                       echo '<a class="links-onlusers" href="viewprofile.php?userid='.$userid.'">'.$onluser.'</a>,&nbsp;';
+                             }
+                        ?>
+						 </span><p>&nbsp;
+					   <p>
 					<a href="articles.php?page=impressum">{{impressum}}</a> | 
 					<a href="articles.php?page=contact">{{contact}}</a> |
 					<a href="/index.php?page=sitemap">{{main_page}}</a><br/>
