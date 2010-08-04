@@ -43,11 +43,12 @@
 	 * 7 OC SE
 	 * 8 OC NO
 	 * 9 OC LV
+	 * 10 OC US
 	 */
 	$oc_nodeid = 4;
 	
-	//OC Waypoint  name unique for every OC site.: OC for DE, OP for PL, OZ for CZ, OS for OC SE, OK for OC UK, ON for OC NO, OV for OC LV
-	$ocWP = OX;
+	//OC Waypoint  name unique for every OC site.: OC for DE, OP for PL, OZ for CZ, OS for OC SE, OK for OC UK, ON for OC NO, OV for OC LV, OU for OC US
+	$ocWP = 'OX';
 	
         //name of the cookie
         $opt['cookie']['name'] = 'oc';
@@ -59,12 +60,19 @@
         if (!isset($cookiepath)) $cookiepath = '/';
         if (!isset($cookiedomain)) $cookiedomain = '';
 
-
+         // display 1 or not 0 info for beginner when register new cache
+        $beginner_info=1;
+		
+        // Number of forst caches will be send to approve , disable 0, all caches max 99999999
+        $NEED_APPROVE_LIMIT=3;
+		
 	// Hide coordinates for users not login
 	$hide_coords = false;
+	
 	// scores range
 	$MIN_SCORE = 0;
 	$MAX_SCORE = 4;
+	
 	//Debug?
 	if (!isset($debug_page)) $debug_page = false;
 	$develwarning = '';
@@ -172,7 +180,7 @@
   $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
   $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
   $contact_mail = 'ocpteam(at) <domain>'
-  global $octeam_email;
+
   // E-mail address group of people from OC Team who solve problems, verify cache
   $octeam_email = 'octeam@<domain>';
   

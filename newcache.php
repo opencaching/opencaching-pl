@@ -29,7 +29,8 @@
 
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-
+	global $beginner_info;
+	
 	$no_tpl_build = false;
 
 	//Preprocessing
@@ -65,7 +66,7 @@
 				//require_once($stylepath . '/' . $tplname . '.inc.php');				
 			} 
 
-			elseif ( $num_caches < $NEED_APPROVE_LIMIT &&  $beginner=='1' )
+			elseif ( $num_caches < $NEED_APPROVE_LIMIT &&  $beginner=='1'  && $beginner_info=='1')
 			{
 
 				// user is banned for creating new caches for some reason
