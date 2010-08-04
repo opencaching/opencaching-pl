@@ -231,13 +231,13 @@ function chname( newName )
 							global $dynstylepath;
 							include ($dynstylepath . "nonlusers.txt");
 						?>
-                       </span><span class="txt-black">) - {{online_users_info}}:</b></span><br/>  
+                       </span><span class="txt-black">) - {{online_users_info}}:</b></span>&nbsp;&nbsp;
                          <span class="txt-yellow10">
 					   	<?php
 							global $dynstylepath;
 							include ($dynstylepath . "onlineusers.html");
 						?>
-						</span></p>	<p>&nbsp;</p>					
+						</span></p>	<p>&nbsp;</p><br/>					
 					   <p>
 					<a href="articles.php?page=impressum">{{impressum}}</a> | 
 					<a href="articles.php?page=contact">{{contact}}</a> |
