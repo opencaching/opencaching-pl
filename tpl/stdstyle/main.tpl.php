@@ -237,7 +237,7 @@ function chname( newName )
 							global $dynstylepath;
 							include ($dynstylepath . "onlineusers.html");
 						?>
-						</span></p>	<p>&nbsp;</p>					
+						</span></p>	<br/>					
 					   <p>
 					<a href="articles.php?page=impressum">{{impressum}}</a> | 
 					<a href="articles.php?page=contact">{{contact}}</a> |
