@@ -8,8 +8,8 @@ See the code license inside source files.
 >> Dependencies:
 - libmysql
 - SDL
-- SDL_gfx > 2.0
-- SDL_ttf
+- SDL_gfx >= 2.0.13
+- SDL_ttf >= 2.0.10
 - libpng
 - SDL_image
 - fcgi (for Makefile.fcgi)

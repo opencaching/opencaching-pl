@@ -88,7 +88,7 @@ $get_userid = $_REQUEST['userid'];
 	}*/
 
 	/*SET YOUR MAP CODE HERE*/
-	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.99&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
+	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.99&amp;key='.$googlemap_key.'&amp;hl='.$lang.'" type="text/javascript"></script>');
 	tpl_BuildTemplate(true, true); 
 
 ?>
