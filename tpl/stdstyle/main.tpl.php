@@ -224,7 +224,7 @@ function chname( newName )
 
 		<!-- FOOTER -->
 			<div class="footer">
-		<p style="float: left; margin: 5px 0px 0px 0px; padding: 0px;">
+		<p>
 						<span class="txt-black">&nbsp;&nbsp;<b>{{online_users}} (
                        </span> <span class="txt-yellow10">
 					   	<?php
