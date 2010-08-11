@@ -64,16 +64,16 @@ function _chkType ()
 		<fieldset style="border: 1px solid black; width: 250px; height: 32%; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
 			<select name="latNS" class="input40">
-				<option value="N"{selLatN}>N</option>
-				<option value="S"{selLatS}>S</option>
+				<option value="N"{latNsel}>N</option>
+				<option value="S"{latSsel}>S</option>
 			</select>
 			&nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />
 			&deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" />&nbsp;'&nbsp;
 			{lat_message}<br />
 			&nbsp;&nbsp;&nbsp;
 			<select name="lonEW" class="input40">
-				<option value="E"{selLonE}>E</option>
-				<option value="W"{selLonW}>W</option>
+				<option value="E"{lonEsel}>E</option>
+				<option value="W"{lonWsel}>W</option>
 			</select>
 			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
 			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
