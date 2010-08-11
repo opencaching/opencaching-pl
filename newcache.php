@@ -1092,7 +1092,7 @@
 						}
 
 						// redirection
-						tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id));
+						tpl_redirect('mycaches.php?status=' . urlencode($sel_status));
 					}
 					else
 					{
