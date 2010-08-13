@@ -140,9 +140,12 @@ function chkMoved()
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr>
-		<td colspan="2"><div class="notice" style="width:500px;height:44px">Możesz zgłosić problem związany z skrzynką do właściciela skrzynki np <b>Uwagę do lokalizacji</b> (lub do Zespołu OC PL) wykorzystując ten formularz <img src="/tpl/stdstyle/images/blue/arrow.png" alt="" title=""/>&nbsp; <a class="links" href="reportcache.php?cacheid={cacheid}">Zgłoś problem</a> </div></td>
+		<td colspan="2"><div class="notice" style="width: 500px;">Możesz zgłosić problem związany z skrzynką do właściciela skrzynki np <b>Uwagę do lokalizacji</b> (lub do Zespołu OC PL) wykorzystując ten formularz <img src="/tpl/stdstyle/images/blue/arrow.png" alt="" title=""/>&nbsp; <a class="links" href="reportcache.php?cacheid={cacheid}">Zgłoś problem</a> </div></td>
 	</tr>
-
+        <tr>                                                                                                                                                                                                                                 
+	                <td colspan="2"><div class="notice" style="width:500px;height:44px">Staraj się nie robić pustych wpisów. Przygotowanie skrzynki zajmuje często bardzo dużo pracy i słowa wdzięczności bądź krytyki są zwykle mile widziane! N
+			awet zwykłe „dziękuję” wystarczy.</div></td>                                                                                                                                                                                                 
+			        </tr> 
 	<tr>
 		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
 		<td>
