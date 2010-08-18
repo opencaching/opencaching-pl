@@ -32,6 +32,15 @@
 					<a href="http://www.opencaching.de">http://www.opencaching.de</a>	
 		</td>
 	</tr>
+		<tr>
+		<td>
+			USA
+		</td>
+		<td>
+					<a href="http://www.opencaching.us">http://www.opencaching.us</a>	
+		</td>
+	</tr>
+
 	<tr>
 		<td>
 			Wielka Brytania
@@ -40,6 +49,15 @@
 					<a href="http://www.opencaching.org.uk">http://www.opencaching.org.uk</a>	
 		</td>
 	</tr>
+		<tr>
+		<td>
+			Norwegia
+		</td>
+		<td>
+					<a href="http://www.opencaching.no">http://www.opencaching.no/a>	
+		</td>
+	</tr>
+
 	<tr>
 		<td>
 			Szwecja
@@ -56,6 +74,15 @@
 					<a href="http://www.opencaching.cz">http://www.opencaching.cz</a>	
 		</td>
 	</tr>
+		<tr>
+		<td>
+			Łotwa
+		</td>
+		<td>
+					<a href="http://www.opencaching.lv">http://www.opencaching.lv</a>	
+		</td>
+	</tr>
+
 	<tr>
 		<td style="width: 25%;">
 			&nbsp;
