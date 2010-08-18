@@ -54,7 +54,7 @@
 			Norwegia
 		</td>
 		<td>
-					<a href="http://www.opencaching.no">http://www.opencaching.no/a>	
+					<a href="http://www.opencaching.no">http://www.opencaching.no</a>	
 		</td>
 	</tr>
 
