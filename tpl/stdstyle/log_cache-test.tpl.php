@@ -253,12 +253,12 @@ function showHide(id){
     <div class="notice" id="viewcache-attributesend" style="width:650px;">{{encrypt_log_info}}.</div></td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
-<tr>                                                                                                                                                                                                                               <td colspan="2">
-	<div class="notice" style="width:500px;height:44px">{{empty_entry_notice}}</div>				<td>                                                                                                                                                                                                 
-	</tr> 
 	<tr>
-		<td colspan="2"><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
+  
+	<tr><td colspan="2"><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
 	</tr>
+<td colspan="2">
+	<div class="notice" style="width:500px;height:44px">{{empty_entry_notice}}</div></td></tr>
 	<tr>
 		<td colspan="2">
 			<div class="menuBar">
