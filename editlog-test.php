@@ -412,9 +412,7 @@
 				$coord_empty=false;
 				if ($log_type==4 && $coords_lat_h=="0" && $coords_lat_min=="0.000" && $coords_lon_h=="0" && $coords_lon_min=="0.000"  ) {$coord_empty=true; $all_ok=false;}
 				}
-				$log_empty=false;
-				//check for exmpty text
-				if ($log_text==""){$log_empty=true;}
+				
 				
 					//store?
 					if (isset($_POST['submitform']) && $date_not_ok == false  && $logtype_not_ok == false && $pw_not_ok == false && !($lat_not_ok || $lon_not_ok))
