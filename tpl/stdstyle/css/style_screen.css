@@ -565,10 +565,10 @@ div.logs {
     border: 1px solid #ccc;
     margin: 0 0 10px 0;
     padding: 3px 5px 5px 5px;
-    background: #fff url(/images/bgl.png) repeat-x top left;
+    background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
     _background: #f5f5f5;
-    _-webkit-border-radius: 10px;
-    _-moz-border-radius: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 
 div#viewcache-utility { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.6em; font-family: arial, sans serif; font-size: 120%; }
