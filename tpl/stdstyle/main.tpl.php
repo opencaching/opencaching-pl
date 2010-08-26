@@ -224,20 +224,16 @@ function chname( newName )
 
 		<!-- FOOTER -->
 			<div class="footer">
-		<p>
-						<span class="txt-black">&nbsp;&nbsp;<b>{{online_users}} (
-                       </span> <span class="txt-yellow10">
-					   	<?php
-							global $dynstylepath;
-							include ($dynstylepath . "nonlusers.txt");
-						?>
-                       </span><span class="txt-black">) - {{online_users_info}}:</b></span>&nbsp;<br/>
-                         <span class="txt-yellow10">
-					   	<?php
-							global $dynstylepath;
-							include ($dynstylepath . "onlineusers.html");
-						?>
-						</span></p>	<br/>					
+                <?php  global $usr; if ($usr==true) {
+                echo '<p><span class="txt-black">&nbsp;&nbsp;<b>{{online_users}} (
+                       </span> <span class="txt-yellow10">';
+                                                        global $dynstylepath;
+                                                        include ($dynstylepath . "nonlusers.txt");
+                       echo '</span><span class="txt-black">) - {{online_users_info}}:</b></span>&nbsp;<br/>
+                         <span class="txt-yellow10">';
+                                                        global $dynstylepath;
+                                                        include ($dynstylepath . "onlineusers.html");
+                                                echo '</span></p><br/>'; } ?>				
 					   <p>
 					<a href="articles.php?page=impressum">{{impressum}}</a> | 
 					<a href="articles.php?page=contact">{{contact}}</a> |
