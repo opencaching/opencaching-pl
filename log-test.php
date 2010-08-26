@@ -504,9 +504,7 @@
 				//check put coordinates to Moved log type	
 				$coord_empty=false;
 				if ($log_type==4 && $coords_lat_h=="0" && $coords_lat_min=="0.000" && $coords_lon_h=="0" && $coords_lon_min=="0.000"  ) {$coord_empty=true; $all_ok=false;}
-				$log_empty=false;
-				//check for exmpty text
-				if ($log_text==""){$all_ok=false; $log_empty=true;}
+							
 				}	
 
 				if( isset($_POST['submitform']) && ($all_ok == true) && !($lat_not_ok || $lon_not_ok) )
@@ -535,8 +533,8 @@
 					$log_uuid = create_uuid();
 
 					//add logentry to db
-					// if log entry is empty, then do not insert data into db
-					if( !($log_text == ""))
+					// if comment is empty, then do not insert data into db
+					if( !($log_type == 3 && $log_text == ""))
 					{
 
 						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
