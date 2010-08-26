@@ -1,14 +1,5 @@
 <?php
 /***************************************************************************
-																./newcaches.php
-															-------------------
-		begin                : Mon June 28 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
 	*   it under the terms of the GNU General Public License as published by
@@ -53,8 +44,9 @@
 							`caches`.`date_created` `date_created`, 
 							`caches`.`date_hidden` `date_hidden`, 
 							IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
-							`cache_type`.`icon_large` `icon_large` 
-						FROM `caches`, `user`, `cache_type` 
+							`cache_type`.`icon_large` `icon_large`,
+								IFNULL(`cache_location`.`adm3`,\'\') `region` 
+						FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id`), `user`, `cache_type` 
 						WHERE `caches`.`date_hidden` <= NOW() 
 						AND `caches`.`date_created` <= NOW()
 						AND `caches`.`user_id`=`user`.`user_id` 
@@ -102,6 +94,9 @@
 			$thisline = mb_ereg_replace('{userid}', $r['userid'], $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'), $thisline);
+			if ($r['country']=='PL') {
+			$thisline = mb_ereg_replace('{region}', htmlspecialchars($r['region'], ENT_COMPAT, 'UTF-8'), $thisline);}
+			else { $thisline = mb_ereg_replace('{region}', '', $thisline);}
 			$thisline = mb_ereg_replace('{date}', date('Y-m-d', strtotime($r['date'])), $thisline);
 			$thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($r['icon_large']), $thisline);
