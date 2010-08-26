@@ -26,14 +26,31 @@ require_once('./lib/common.inc.php');
 ?>
 <script type="text/javascript">
 <!--
-function disable()
+function onSubmitHandler()
 {
+
+	
+	if(document.getElementById('logtext').value.length == 0) {
+		
+	}	
+	var length;
+	if(tinyMCE && tinyMCE.get('logtext')) {
+		length = tinyMCE.get('logtext').getContent().length;
+	}
+	else  {
+		length = document.getElementById('logtext').value.length;
+	}
+	if(length == 0) {
+		if(!confirm("{{empty_entry_confirm}}"))
+			return false;
+	}
+
 	//document.getElementById(obj).disabled = true;
 	//document.logform.submitform.disabled = true;	
 	setTimeout('document.logform.submitform.disabled=true',1);
+	
 	return true;
 }
-
 function insertSmiley(parSmiley) {
   var myText = document.logform.logtext;
   myText.focus();
@@ -148,7 +165,7 @@ function showHide(id){
 //-->
 </script>
 
-<form action="log-test.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" dir="ltr" onsubmit="disable()">
+<form action="log-test.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" dir="ltr" onsubmit="onSubmitHandler()">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
@@ -235,9 +252,10 @@ function showHide(id){
      
     <div class="notice" id="viewcache-attributesend" style="width:650px;">{{encrypt_log_info}}.</div></td>
 	</tr>
-	<tr>
-		<td colspan="2">{log_empty_message}<br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
-	</tr>
+
+<tr>                                                                                                                                                                                                                               <td colspan="2">
+	<div class="notice" style="width:500px;height:44px">{{empty_entry_notice}}</div>				<td>                                                                                                                                                                                                 
+	</tr> 
 	<tr>
 		<td colspan="2">
 			<div class="menuBar">
