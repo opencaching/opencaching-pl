@@ -679,7 +679,7 @@
 							if ($usr['admin']){
 							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5)
 							{continue;}} else{
-							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12)
+							if($usr['admin']==false && ($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12))
 							{continue;}}							
 						}
 
@@ -699,7 +699,7 @@
 							{ continue;}
 						} else {
 						
-						if ($log_record['user_id'] == $cache_user_id && ($type['id'] == 1|| $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 12 )){continue;}
+						if ($log_record['user_id'] == $cache_user_id && $usr['admin']==false && ($type['id'] == 1|| $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5|| $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 12 )){continue;}
 
 			
 						if($log_record['user_id'] != $cache_user_id  && $usr['admin']==false && ($type['id'] == 4 || $type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 ||$type['id'] == 12))
