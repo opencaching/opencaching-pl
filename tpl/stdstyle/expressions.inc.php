@@ -32,8 +32,8 @@
 	setlocale(LC_TIME, 'pl_PL.UTF-8');
 
 	//common vars
-	$datetimeformat = '%d-%m-%Y %H:%M:%S';
-	$dateformat = '%d-%m-%Y';
+	$datetimeformat = '%Y-%m-%d %H:%M:%S';
+	$dateformat = '%Y-%m-%d';
 	$reset = 'Wyczyść';
 	$yes = 'Tak';
 	$no = 'Nie';
