@@ -178,10 +178,10 @@ $email_form = "";
 			$cache_user_id = $cache_info['user_id'];
 			$report_user_id = $report['user_id'];
 			$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-			$email_headers .= "From: Opencaching.pl <rr@opencaching.pl>\r\n";
-			$email_headers .= "Reply-To: rr@opencaching.pl\r\n";
+			$email_headers .= "From: Opencaching.pl <cog@opencaching.pl>\r\n";
+			$email_headers .= "Reply-To: cog@opencaching.pl\r\n";
 //			$email_headers .= "Reply-To: ".$usr['email']."\r\n";
-//			$email_headers .= "CC: rr@opencaching.pl\r\n";
+//			$email_headers .= "CC: cog@opencaching.pl\r\n";
 
 			switch( $_REQUEST['mailto'] )
 			{
@@ -256,11 +256,11 @@ $email_form = "";
 				$email_content = $usr['username']." prosi, żebyś zajrzał do zgłoszenia problemu http://www.opencaching.pl/viewreport.php?reportid=".intval($_REQUEST['reportid'])." - ".$report['name']." (".writeReason($report['type']).").";
 			
 			$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-			$email_headers .= "From: Opencaching.pl <rr@opencaching.pl>\r\n";
-			$email_headers .= "Reply-To: rr@opencaching.pl\r\n";
+			$email_headers .= "From: Opencaching.pl <cog@opencaching.pl>\r\n";
+			$email_headers .= "Reply-To: cog@opencaching.pl\r\n";
 
 			//send email to rr
-			mb_send_mail("rr@opencaching.pl", "[OC PL] Dot. skrzynki: ".$report['name'], $email_content, $email_headers);
+			mb_send_mail("cog@opencaching.pl", "[OC PL] Dot. skrzynki: ".$report['name'], $email_content, $email_headers);
 			}
 		}
 		if( isset($_POST['note']) && isset($_REQUEST['reportid']) )
