@@ -79,8 +79,8 @@ if($usr==true)
 						$emailheaders .= "From: Opencaching.pl <".$cache_reporter['email'].">\r\n";
 						$emailheaders .= "Reply-To: Opencaching.pl <".$cache_reporter['email'].">";
 						
-						mb_send_mail("rr@opencaching.pl", "Nowe zgłoszenie problemu na OC PL (".$cache['wp_oc'].")", $email_content, $emailheaders);
-						//echo("rr@opencaching.pl". "Nowe zgłoszenie problemu na OC PL". $email_content. $emailheaders);
+						mb_send_mail("cog@opencaching.pl", "Nowe zgłoszenie problemu na OC PL (".$cache['wp_oc'].")", $email_content, $emailheaders);
+						//echo("cog@opencaching.pl". "Nowe zgłoszenie problemu na OC PL". $email_content. $emailheaders);
 					}
 					else
 						$tplname = 'reportcache_sent_owner';
