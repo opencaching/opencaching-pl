@@ -44,10 +44,12 @@
 	 * 8 OC NO
 	 * 9 OC LV
 	 * 10 OC US
+	 * 11 OC JP
 	 */
 	$oc_nodeid = 4;
 	
-	//OC Waypoint  name unique for every OC site.: OC for DE, OP for PL, OZ for CZ, OS for OC SE, OK for OC UK, ON for OC NO, OV for OC LV, OU for OC US
+	//OC Waypoint  name unique for every OC site.: OC for DE, OP for PL, OZ for CZ, OS for OC SE, 
+	// OK for OC UK, ON for OC NO, OV for OC LV, OU for OC US, OJ fo OC JP
 	$ocWP = 'OX';
 	
         //name of the cookie
@@ -61,8 +63,11 @@
         if (!isset($cookiedomain)) $cookiedomain = '';
 
          // display 1 or not 0 info for beginner when register new cache
-        $beginner_info=1;
-		
+        $beginner_info=0;
+	
+	// display online users in footer pages
+	$onlineusers=0;
+	
         // Number of forst caches will be send to approve , disable 0, all caches max 99999999
         $NEED_APPROVE_LIMIT=3;
 		

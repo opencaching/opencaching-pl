@@ -224,7 +224,7 @@ function chname( newName )
 
 		<!-- FOOTER -->
 			<div class="footer">
-                <?php  global $usr; if ($usr==true) {
+                <?php  global $usr, $onlineusers; if ($usr==true && $onlineusers==1) {
                 echo '<p><span class="txt-black">&nbsp;&nbsp;<b>{{online_users}} (
                        </span> <span class="txt-yellow10">';
                                                         global $dynstylepath;
