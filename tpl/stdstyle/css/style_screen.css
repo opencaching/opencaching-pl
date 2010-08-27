@@ -675,24 +675,21 @@ a.links:hover {
 	text-decoration: underline;
 }
 a.links-onlusers:link {
-	font-weight:bold;
-	color: yellow;
+	color: white;
 	text-decoration:none;
 }
 
 a.links-onlusers:visited {
-	font-weight:bold;
 	color: white;
 	text-decoration:none;
 }
 
 a.links-onlusers:active {
-	background-color: yellow;
+	background-color: white;
 	text-decoration:none;
 }
 
 a.links-onlusers:hover {
-	font-weight:bold;
 	color:purple;
 /*	background-color:rgb(219,230,241); */
 	text-decoration: underline;
