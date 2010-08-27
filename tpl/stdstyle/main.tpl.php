@@ -225,11 +225,11 @@ function chname( newName )
 		<!-- FOOTER -->
 			<div class="footer">
                 <?php  global $usr, $onlineusers; if ($usr==true && $onlineusers==1) {
-                echo '<p><span class="txt-black">&nbsp;&nbsp;<b>{{online_users}} (
+                echo '<p><span class="txt-black">&nbsp;&nbsp;{online_users}} (
                        </span> <span class="txt-yellow10">';
                                                         global $dynstylepath;
                                                         include ($dynstylepath . "nonlusers.txt");
-                       echo '</span><span class="txt-black">) - {{online_users_info}}:</b></span>&nbsp;<br/>
+                       echo '</span><span class="txt-black">) - {{online_users_info}}:/span>&nbsp;<br/>
                          <span class="txt-yellow10">';
                                                         global $dynstylepath;
                                                         include ($dynstylepath . "onlineusers.html");
