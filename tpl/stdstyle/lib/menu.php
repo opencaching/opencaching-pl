@@ -154,6 +154,7 @@ $menu = array(
 				'visible' => true,
 				'filename' => tr('filename_rules'),
 				'menustring' => tr('rules'),
+				'newwindow' => true,
 				'siteid' => 'articles/regulamin'
 			),
 			array(
@@ -859,7 +860,7 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 
 	for ($i = 0; $i < count($menustructure); $i++)
 	{
-		if( $menu[$i]['newwindow'] == true ) 
+		if( $menustructure[$i]['newwindow'] == true ) 
 			$target_blank = "target='_blank'";
 			else
 				$target_blank = "";
