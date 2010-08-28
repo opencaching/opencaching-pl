@@ -859,6 +859,10 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 
 	for ($i = 0; $i < count($menustructure); $i++)
 	{
+		if( $menu[$i]['newwindow'] == true ) 
+			$target_blank = "target='_blank'";
+			else
+				$target_blank = "";
 		if ($menustructure[$i]['visible'] == true)
 		{
 			if($menustructure[$i]['icon']) {
@@ -874,7 +878,7 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 			if ($menustructure[$i]['siteid'] == $pageid)
 			{
 //				echo '<li class="'.$cssclass.' '.$cssclass.'_active"><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
-				echo '<li class="'.$cssclass.' '.$cssclass.'_active "><a href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+				echo '<li class="'.$cssclass.' '.$cssclass.'_active "><a '.$target_blank.' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
 				}
 			else
 			{
@@ -892,7 +896,7 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 //				}
 //				else
 //				{
-					echo '<li class="' . $cssclass . '"><a '.$icon.' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
+					echo '<li class="' . $cssclass . '"><a '.$icon.' '.$target_blank.' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
 //				}
 			}
 
