@@ -57,35 +57,43 @@ function toogleLayer( whichLayer, val )
 {
 	chkMoved();
 	var elem, vis;
+	chkIcon();
 	_chkFound();
-	if( document. getElementById )
-		elem = document.getElementById(whichLayer);
-	else if( document.all )
-		elem = document.all[whichLayer];
-	else if( document.layers )
-		elem = document.layers[whichLayer];
-	vis = elem.style;
+//	if( document. getElementById )
+//		elem = document.getElementById(whichLayer);
+//	else if( document.all )
+//		elem = document.all[whichLayer];
+//	else if( document.layers )
+//		elem = document.layers[whichLayer];
+//	vis = elem.style;
+//	
+//	if(val != '')
+//	{
+//	if (document.editlog.logtype.value == "4" ) 
+//		vis.display = 'block';
+//	else
+//		vis.display = 'none';
+//	}
+//	else
+//		vis.display = val;
 	
-	if(val != '')
-	{
-	if (document.editlog.logtype.value == "1" || document.editlog.logtype.value == "7") 
-		vis.display = 'block';
-	else
-		vis.display = 'none';
-	}
-	else
-		vis.display = val;
-	
-	//if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
-	//	vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
-	//vis.display = (vis.display==''||vis.display=='block')?'none':'block';
+}
+function chkMoved()
+{
+         var el;
+	el='coord_table';
+	if (document.editlog.logtype.value == "4") 		
+	{document.getElementById(el).style.display='block';
+    	} else {document.getElementById(el).style.display='none';
+   	 }
 }
 function showHide(id){
    el = document.getElementById(id);
    el.style.display = (el.style.display != 'block')? 'block' : 'none';
 } 
-function chkMoved()
+function chkIcon()
     {
+			chkMoved();
 			var mode = document.editlog.logtype.value;
 			var iconarray = new Array();
 				iconarray['1'] = '16x16-found.png';
@@ -102,12 +110,12 @@ function chkMoved()
 				iconarray['12'] = '16x16-octeam.png';
 			var image_log = "/tpl/stdstyle/images/log/" + iconarray[mode];
 			document.editlog.actionicon.src = image_log;
-         var el;
-	el='coord_table';
-	if (document.editlog.logtype.value == "4") 		
-	{document.getElementById(el).style.display='block';
-    } else {document.getElementById(el).style.display='none';
-    }
+  //       var el;
+//	el='coord_table';
+//	if (document.editlog.logtype.value == "4") 		
+//	{document.getElementById(el).style.display='block';
+//    } else {document.getElementById(el).style.display='none';
+ //   }
 
 	}
 //-->
