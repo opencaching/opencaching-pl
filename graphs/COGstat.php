@@ -234,7 +234,7 @@ $graph4->Add($bplot4);
 // Setup the titles
 $descibe4="Statystyak COG Miesiêczna - skrzynki weryfikowane";
 $graph4->title->Set($descibe4);
-$graph3->xaxis->title->Set('Numer miesi±ca 2009/2010');
+$graph4->xaxis->title->Set('Numer miesi±ca 2009/2010');
 //$graph4->xaxis->title->Set($title3);
 $graph4->xaxis->SetTickLabels($x4);
 
