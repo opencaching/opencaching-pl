@@ -11,7 +11,7 @@
   $rootpath = '../';
   require('../lib/common.inc.php');
   global $lang;
-	setlocale(LC_TIME, 'pl_PL.utf-8');
+setlocale(LC_TIME, 'pl_PL.utf-8');
 
 	//Preprocessing
 	if ($error == false)
@@ -105,11 +105,11 @@ $graph->Add($bplot);
  
 // Setup the titles
 
-$descibe=tr("octeam_stat_problems");
+$descibe="Statystyka COG - prowadzne zg³oszenia";
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
-$noproblems=tr('number_problems');
+$noproblems='Liczba zg³oszeñ';
 $graph->yaxis->title->Set($noproblems);
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
@@ -147,7 +147,7 @@ $graph2->Add($bplot2);
  
  
 // Setup the titles
-$descibe2=tr("octeam_stat_caches");
+$descibe2="Statystyka COG - skrzynki weryfikowane";
 $graph2->title->Set($descibe2);
 $graph2->xaxis->title->Set($xtitle);
 $graph2->xaxis->SetTickLabels($x2);
@@ -190,10 +190,10 @@ $graph3->Add($bplot3);
  
  
 // Setup the titles
-$descibe3=tr("octeam_stat_m_problems");
+$descibe3="Statystyka COG Miesiêczna - zg³oszenia";
 $graph3->title->Set($descibe3);
-//$graph3->xaxis->title->Set('Numer miesi±ca 2009/2010');
-$graph3->xaxis->title->Set($title3);
+$graph3->xaxis->title->Set('Numer miesi±ca 2009/2010');
+//$graph3->xaxis->title->Set($title3);
 $graph3->xaxis->SetTickLabels($x3);
 
 
@@ -232,10 +232,10 @@ $graph4->Add($bplot4);
  
  
 // Setup the titles
-$descibe4=tr("octeam_stat_m_caches");
+$descibe4="Statystyak COG Miesiêczna - skrzynki weryfikowane";
 $graph4->title->Set($descibe4);
-//$graph3->xaxis->title->Set('Numer miesi±ca 2009/2010');
-$graph4->xaxis->title->Set($title3);
+$graph3->xaxis->title->Set('Numer miesi±ca 2009/2010');
+//$graph4->xaxis->title->Set($title3);
 $graph4->xaxis->SetTickLabels($x4);
 
 
