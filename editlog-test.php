@@ -420,7 +420,24 @@
 
 				
 					$coord_existDB = isset($_POST['existDB'])? $_POST['existDB'] :$coord_existDB; 
-
+					// Remove XY coord
+					if ($log_type!=4  && $coord_existDB==1) 
+					{
+						$check_cml = sql("SELECT `latitude`,`longitude`,`id` FROM `cache_moved` WHERE `log_id`='&1'",$log_id);
+						if (mysql_num_rows($check_cml)!=0) {
+						$xy_log = sql_fetch_array($check_cml);				
+						$check_cmc = sql("SELECT `latitude`,`longitude` FROM `caches` WHERE `cache_id`='&1'",$log_record['cache_id']);
+						if (mysql_num_rows($check_cmc) !=0) {
+						$xy_cache = sql_fetch_array($check_cmc);			
+						if ($xy_cache['latitude']==$xy_log['latitude'] && $xy_cache['longitude']==$xy_log['longitude']){
+						sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);
+						$get_xy = sql("SELECT `latitude`,`longitude` FROM `cache_moved` WHERE `cache_id`='&1' ORDER BY `date` DESC LIMIT 1",$log_record['cache_id']);
+						$old_xy = sql_fetch_array($get_xy);	
+						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'", $old_xy['longitude'], $old_xy['latitude'], $log_record['cache_id']);
+								} else { sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);}
+							  } else { sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);}
+							}
+					}
 					// Update XY coord
 					if ($log_type==4  && $coord_existDB==1) 
 					{	$lat = $coords_lat_h + round($coords_lat_min,3) / 60;
@@ -740,7 +757,7 @@
 					tpl_set_var('lat_message', ($lat_not_ok == true) ? $error_coords_not_ok : '');
 					tpl_set_var('coord_empty_message', ($coord_empty == true) ? $coord_empty_message : '');
 					tpl_set_var('log_empty_message', ($log_empty == true) ? $logtext_empty_message : '');
-					tpl_set_var('bodyMod', ' onload="chkMoved()" onunload="GUnload()"');
+					tpl_set_var('bodyMod', ' onload="chkIcon()"');
 					
 					if($lon_not_ok || $lat_not_ok || $descwp_not_ok)
 						tpl_set_var('general_message', $error_general);
