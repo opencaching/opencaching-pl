@@ -259,29 +259,6 @@ session_start();
 	$bScriptExecution = new Cbench;
 	$bScriptExecution->start();
 
-	
-	// news
-	require($stylepath . '/news.inc.php');
-
-	$newscontent = '';
-	$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content`, `news_topics`.`name` `topic` FROM `news` INNER JOIN `news_topics` ON (`news`.`topic` = `news_topics`.`id`) WHERE `news`.`display`=1 ORDER BY `news`.`date_posted` DESC LIMIT 0, 2');
-	while ($r = sql_fetch_array($rs))
-	{
-		$newsentry = $tpl_newstopic;
-		
-		$newsentry = mb_ereg_replace('{date}', htmlspecialchars(date("d.m.Y H:i", strtotime($r['date'])), ENT_COMPAT, 'UTF-8'), $newsentry);
-		$newsentry = mb_ereg_replace('{topic}', htmlspecialchars($r['topic'], ENT_COMPAT, 'UTF-8'), $newsentry);
-		$newsentry = mb_ereg_replace('{message}', $r['content'], $newsentry);
-		
-		$newscontent .= $newsentry . "\n";
-	}
-	mysql_free_result($rs);
-	$newscontent .= '';
-	tpl_set_var('news', $newscontent);
-	$newscontent = '';
-
-	// end news
-	
 	// rating conversion array
 	$ratingDesc = array(
 									tr('rating_poor'),
