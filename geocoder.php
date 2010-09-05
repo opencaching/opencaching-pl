@@ -3,14 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>Where Am I?</title>
-
-<?php
-	require_once('./lib/common.inc.php');
+    <title>Where Am I?</title>	
 	
-?>	
-	
-    <script src="http://maps.google.com/maps?file=api&v=3&key=<?php echo $googlemap_key; ?>"
+    <script src="http://maps.google.com/maps?file=api&v=3&key=ABQIAAAA4DS0L5IhPNkkzhAejJ1YghQmw8g3SyoYQoey3nQkQjZ-xBIKWxQBStwSQ5otzHFYPFzfrBNiNotrGQ"
       type="text/javascript"></script>
 
     <script type="text/javascript">
@@ -102,7 +97,7 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
         <br/>
         The latitude/longitude will appear after each geocode/drag.
      <br />      
-        <input type="text" style="width:350px" name="address" value="Tokyo, Japan" />
+        <input type="text" style="width:350px" name="address" value="Warszawa, Polska" />
 
         <input type="submit" value="Go!" />
        <br>
