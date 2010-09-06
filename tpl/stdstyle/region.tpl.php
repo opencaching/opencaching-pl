@@ -30,12 +30,14 @@
 		{country}<br/>
 	</div>
 	<div style="margin-top:4px;">
-		<font size="2" color="#000080"><b>Województwo z bazy OC PL</b></font><br/>
+		<font size="2" color="#000080"><b>Województwo na podstawie bazy OC PL</b></font><br/>
 		{region} <br/>
 	</div>
 	<div style="margin-top:4px;">
-		<font size="2" color="#000080"><b>Województwo z Google Map</b></font><br/>
+		<font size="2" color="#000080"><b>Województwo na podstawie Google Map</b></font><br/>
 		{region_gm} <br/>
 	</div>
 
 </p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
