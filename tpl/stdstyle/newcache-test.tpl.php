@@ -13,46 +13,6 @@
 
    Unicode Reminder ?? ąść
 
-	 submit a new cache
-
-	 replacements:
-
-	     name
-	     typeoptions
-	     sizeoptions
-	     show_all_countries_submit
-	     show_all_langs_submit
-	     latNsel
-	     latSsel
-	     lat_h
-	     lat_min
-	     lonEsel
-	     lonWsel
-	     lon_h
-	     lon_min
-	     countryoptions
-	     langoptions
-	     short_desc
-	     desc
-	     desc_html
-	     desc_message
-	     hints
-	     hidden_since
-	     toschecked
-	     reset
-	     submit_value
-	     hidden_since_message
-	     tos_message
-	     show_all_countries
-	     show_all_langs
-	     difficulty_options
-	     terrain_options
-             effort_message
-             search_time
-             way_length
-             type_message
-             size_message
-             diff_message
 
  ****************************************************************************/
 ?>
@@ -189,10 +149,33 @@ function nearbycache()
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
 		alert("Please input coordinates location of cache"); 
 			} else {
-	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=0&distance=0.3&unit=sm&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
+	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=0&distance=0.3&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
 	}
 	return false;
-}//--></script>
+}
+function extractegion()
+{
+		var latNS = document.forms['newcacheform'].latNS.value;
+		var lat_h = document.forms['newcacheform'].lat_h.value;
+		var lat_min = document.forms['newcacheform'].lat_min.value;
+		var lat ;
+		lat=(lat_h*1)+(lat_min/60);
+		if (latNS=="S") lat=-lat;
+		var lonEW = document.forms['newcacheform'].lonEW.value;
+		var lon_h = document.forms['newcacheform'].lon_h.value;
+		var lon_min = document.forms['newcacheform'].lon_min.value;
+		var lon ;
+		lon=(lon_h*1)+(lon_min/60);
+	        if (lonEW=="W") lon=-lon;
+				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
+		alert("Please input coordinates location of cache"); 
+			} else {
+	window.open('http://www.opencaching.pl/region.php?lat=' + lat + '&lon=' + lon,'Region','width=40,height=200');
+	}
+	return false;
+}
+
+//--></script>
 <script type="text/javascript"><!--
 function nearbycachemapOC()
 {
