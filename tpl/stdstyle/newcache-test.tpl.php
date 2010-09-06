@@ -170,7 +170,7 @@ function extractregion()
 		if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
 		alert("Please input coordinates location of cache"); 
 			} else {
-	window.open('http://www.opencaching.pl/region.php?lat=' + lat + '&lon=' + lon,'Region','width=400,height=200');
+	window.open('http://www.opencaching.pl/region.php?lat=' + lat + '&lon=' + lon+ '&popup=y','Region','width=250,height=200');
 	}
 	return false;
 }
