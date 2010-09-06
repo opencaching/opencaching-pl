@@ -93,11 +93,11 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
   <body onload="initialize()" onunload="GUnload()">
     <form action="#" onsubmit="showAddress(this.address.value); return false">
       <br>
-        Enter your address then drag the marker to tweak the location.
+        Podaj adres lub nazwę miejscowaści, kraj aby otrzymać wspólrzędne.
         <br/>
-        The latitude/longitude will appear after each geocode/drag.
+        Nowe współrzędne będą pokazywać się po każdym przesunięciu myszką markera na mapie.
      <br />      
-        <input type="text" style="width:350px" name="address" value="Warszawa, Polska" />
+        <input type="text" style="width:350px" name="address" value="Toruń Polska" />
 
         <input type="submit" value="Go!" />
        <br>
