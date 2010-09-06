@@ -21,7 +21,7 @@
 <p>
 
 	<div style="margin-top:4px;">
-		<font size="2" color="#000080"><b>Województwo z współrzędnych</b></font>
+		<font size="2" color="#000080"><b>Województwo dla współrzędnych: {lat} {lon}</b></font>
 	</div>
 
 	<div style="margin-top:16px;">
