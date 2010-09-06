@@ -65,7 +65,27 @@ function _chkVirtual ()
   }
   return false;
 }
-
+function extractregion()
+{
+		var latNS = document.forms['editcache_form'].latNS.value;
+		var lat_h = document.forms['editcache_form'].lat_h.value;
+		var lat_min = document.forms['editcache_form'].lat_min.value;
+		var lat ;
+		lat=(lat_h*1)+(lat_min/60);
+		if (latNS=="S") lat=-lat;
+		var lonEW = document.forms['editcache_form'].lonEW.value;
+		var lon_h = document.forms['editcache_form'].lon_h.value;
+		var lon_min = document.forms['editcache_form'].lon_min.value;
+		var lon ;
+		lon=(lon_h*1)+(lon_min/60);
+	        if (lonEW=="W") lon=-lon;
+		if (document.editcache_form.lat_h.value == "0" && document.editcache_form.lon_h.value == "0" ) {
+		alert("Please input coordinates location of cache"); 
+			} else {
+	window.open('http://www.opencaching.pl/region.php?lat=' + lat + '&lon=' + lon+ '&popup=y','Region','width=300,height=250');
+	}
+	return false;
+}
 function rebuildCacheAttr()
 {
 	var i = 0;
@@ -196,11 +216,11 @@ function toggleAttr(id)
 
 		  <tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td><p class="content-title-noshade">Region (PL only):</p></td>
+		<td><p class="content-title-noshade">Województow (tylko dla Polski):</p></td>
 		<td>
 			<select name="region" class="input200">
 				{regionoptions}
-			</select>
+			</select>&nbsp;&nbsp;<button onclick="return extractregion()">Województwo z współrzędnych</button>
 			
 		</td>
 	</tr>
