@@ -115,6 +115,8 @@
 			                  `caches`.`date_hidden` `date_hidden`,
 			                  `caches`.`wp_oc` `wp_oc`,
 			                  `caches`.`wp_gc` `wp_gc`,
+			                  `caches`.`wp_ge` `wp_ge`,
+			                  `caches`.`wp_tc` `wp_tc`,
 			                  `caches`.`wp_nc` `wp_nc`,
 			                  `caches`.`date_created` `date_created`,
 			                  `caches`.`difficulty` `difficulty`,
@@ -210,7 +212,11 @@
 				$cache_wp = $cache_record['wp_gc'];
 			else if( $cache_record['wp_nc'] != '' ) 
 				$cache_wp = $cache_record['wp_nc'];
-			
+			else if( $cache_record['wp_tc'] != '' ) 
+				$cache_wp = $cache_record['wp_tc'];
+			else if( $cache_record['wp_ge'] != '' ) 
+				$cache_wp = $cache_record['wp_ge'];			
+
 			// check if there is geokret in this cache
 			$geokret_query = sql("SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = '&1' AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2", $cache_wp);
 			if (mysql_num_rows($geokret_query) == 0)
@@ -484,18 +490,20 @@
 			tpl_set_var('hidden_date', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $hidden_date), ENT_COMPAT, 'UTF-8')));
 
 			$listed_on = array();
-			if($cache_record['wp_gc'] != '')
-				$listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp='.$cache_record['wp_gc'].'" target="_blank">geocaching.com</a>';
+			if($cache_record['wp_ge'] != '')
+				$listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp='.$cache_record['wp_ge'].'" target="_blank">GPSgames.org</a>';
 
-			if($cache_record['wp_nc'] != '')
-				$listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp='.$cache_record['wp_nc'].'" target="_blank">GPSgames.org</a>';
-/*
+			if($cache_record['wp_tc'] != '')
+				$listed_on[] = '<a href="http://www.terracaching.com/viewcache.cgi?C=/'.$cache_record['wp_tc'].'" target="_blank">TerraCaching.com</a>';
+
 			if($cache_record['wp_nc'] != '')
 			{
 				$wpnc = hexdec(mb_substr($cache_record['wp_nc'], 1));
-				$listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID='.$wpnc.'" target="_blank">navicache.com</a>';
+				$listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID='.$wpnc.'" target="_blank">Navicache.com</a>';
 			}
-*/
+			if($cache_record['wp_gc'] != '')
+				$listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp='.$cache_record['wp_gc'].'" target="_blank">Geocaching.com</a>';
+
 			tpl_set_var('listed_on', sizeof($listed_on) == 0 ? $listed_only_oc : implode(", ", $listed_on));
 			if (sizeof($listed_on) == 0)
 			{
@@ -1153,6 +1161,7 @@
 					$print_list_label = $removeFromPrintList;
 					$print_list_icon = 'images/actions/list-remove';
 				}
+
 				
 				$cache_menu = array(
 					'title' => tr('cache_menu'),
