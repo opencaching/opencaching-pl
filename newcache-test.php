@@ -148,8 +148,8 @@
 				$lonEW = isset($_POST['lonEW']) ? $_POST['lonEW'] : $default_EW;
 				if ($lonEW == 'E')
 				{
-					tpl_set_var('lonEsel', '');
-					tpl_set_var('lonWsel', ' selected="selected"');
+					tpl_set_var('lonWsel', '');
+					tpl_set_var('lonEsel', ' selected="selected"');
 				}
 				else
 				{
