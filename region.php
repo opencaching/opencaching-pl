@@ -70,7 +70,6 @@
 			}
 			mysql_free_result($rsLayers);
 		
-		echo $Code;
 			
 			if ($sCode != '')
 			{
