@@ -19,17 +19,21 @@
 	//prepare the templates and include all neccessary
 
 	$tplname = 'region';
-	require_once('./lib/common.inc.php');
-	require_once('./lib2/logic/gis.class.php');
 
+	require_once('./lib2/logic/gis.class.php');
+	require_once('./lib/clicompatbase.inc.php');
+	require_once('./lib/common.inc.php');
 
 	$lat_float = 0;
-	if (isset($_REQUEST['lat']))
+	if (isset($_REQUEST['lat'])) {
 		$lat_float = (float) $_REQUEST['lat'];
+		$lat = $_REQUEST['lat'];}
 
 	$lon_float = 0;
-	if (isset($_REQUEST['lon']))
+	if (isset($_REQUEST['lon'])) {
 		$lon_float = (float) $_REQUEST['lon'];
+		$lon = (float) $_REQUEST['lon'];}
+
 
 		/* begin db connect */
 		db_connect();
@@ -41,16 +45,18 @@
 
 			$sCode = '';
 
-			$rsLayers = sql("SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('&1'), `shape`) ORDER BY `level` DESC", 'POINT(' . $lon_float . ' ' . $lat_float . ')');
+			$rsLayers = sql("SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('&1'), `shape`) ORDER BY `level` DESC", 'POINT(' . $lon . ' ' . $lat . ')');
 			while ($rLayers = mysql_fetch_assoc($rsLayers))
 			{
-				if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')'))
+				if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')'))
 				{
 					$sCode = $rLayers['code'];
 					break;
 				}
 			}
 			mysql_free_result($rsLayers);
+		
+		echo $Code;
 			
 			if ($sCode != '')
 			{
@@ -101,22 +107,11 @@
 				}
 			tpl_set_var('country', $adm1);
 			tpl_set_var('region', $adm3);
-			}
-
-		db_disconnect();
-
-
+			} else {
+			tpl_set_var('country', "");
+			tpl_set_var('region', "");}
 
 
-
-
-
-	tpl_set_var('lon_float', sprintf('%0.5f', $lon_float));
-	tpl_set_var('lon_dir', $lon_dir);
-	tpl_set_var('lon_deg_int', $lon_deg_int);
-	tpl_set_var('lon_min_int', $lon_min_int);
-	tpl_set_var('lon_sec_float', $lon_sec_float);
-	tpl_set_var('lon_min_float', $lon_min_float);
 
 
 
