@@ -153,7 +153,7 @@ function nearbycache()
 	}
 	return false;
 }
-function extractegion()
+function extractregion()
 {
 		var latNS = document.forms['newcacheform'].latNS.value;
 		var lat_h = document.forms['newcacheform'].lat_h.value;
