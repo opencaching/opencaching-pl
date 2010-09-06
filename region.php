@@ -125,10 +125,8 @@
 			tpl_set_var('region', "");}
 			
 			//From Google 
-			$loc = coordToLocation($lat, $lon]);
-
-			
-			tpl_set_var('region_gm', $loc['woj']);}
+			$loc = coordToLocation($lat, $lon]);		
+			tpl_set_var('region_gm', $loc['woj']);
 
 
 
