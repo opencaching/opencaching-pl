@@ -1,4 +1,12 @@
 <?php
+/***************************************************************************
+											./tpl/stdstyle/newcache.tpl.php
+															-------------------
+		begin                : June 24 2004
+		copyright            : (C) 2004 The OpenCaching Group
+		forum contact at     : http://www.opencaching.com/phpBB2
+
+	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -13,6 +21,46 @@
 
    Unicode Reminder ?? ąść
 
+	 submit a new cache
+
+	 replacements:
+
+	     name
+	     typeoptions
+	     sizeoptions
+	     show_all_countries_submit
+	     show_all_langs_submit
+	     latNsel
+	     latSsel
+	     lat_h
+	     lat_min
+	     lonEsel
+	     lonWsel
+	     lon_h
+	     lon_min
+	     countryoptions
+	     langoptions
+	     short_desc
+	     desc
+	     desc_html
+	     desc_message
+	     hints
+	     hidden_since
+	     toschecked
+	     reset
+	     submit_value
+	     hidden_since_message
+	     tos_message
+	     show_all_countries
+	     show_all_langs
+	     difficulty_options
+	     terrain_options
+             effort_message
+             search_time
+             way_length
+             type_message
+             size_message
+             diff_message
 
  ****************************************************************************/
 ?>
@@ -20,14 +68,6 @@
 <script type="text/javascript">
 <!--
 var maAttributes = new Array({jsattributes_array});
-
-function chkregion() {
-	if (document.newcacheform.region.value == "0" && document.newcacheform.country.value == "Pl") {
-		alert("Please select a state!");
-		return false;
-	}
-	return true;
-}
 
 
 function _chkVirtual () 
@@ -47,7 +87,7 @@ chkiconcache();
 	{
 		if( document.newcacheform.size.options[document.newcacheform.size.options.length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
 		{
-			document.newcacheform.size.options[document.newcacheform.size.options.length] = new Option('No container', '7');
+			document.newcacheform.size.options[document.newcacheform.size.options.length] = new Option('Bez pojemnika', '7');
 		}
 		document.newcacheform.size.value = "7";
 		document.newcacheform.size.disabled = true;
@@ -83,22 +123,6 @@ function rebuildCacheAttr()
 		document.getElementById('cache_attribs').value = sAttr;
 		
 	}
-}
-
-function chkcountry()
-{
-
-if (document.newcacheform.country.value !='PL')
-{
-document.forms['newcacheform'].country.value = document.newcacheform.country.value;
-document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- {{not_applicable}} ---', '-1')
-document.forms['newcacheform'].region.value = '-1';
-document.newcacheform.region.disable = true;
- } else {
-document.forms['newcacheform'].country.value = 'PL';
-//document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- Select name of region ---', '0')
-document.newcacheform.region.disable = false;
-document.forms['newcacheform'].region.value = document.newcacheform.region.value;}
 }
 
 function chkiconcache()
@@ -147,59 +171,32 @@ function nearbycache()
 		var lon_h = document.forms['newcacheform'].lon_h.value;
 		var lon_min = document.forms['newcacheform'].lon_min.value;
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
-		alert("{{input_coord}"); 
+		alert("Proszę wprowadzić poprawne współrzędne punktu"); 
 			} else {
-	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=0&distance=0.3&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
+	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=0&distance=0.15&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
 	}
 	return false;
-}
-function extractregion()
-{
-		var latNS = document.forms['newcacheform'].latNS.value;
-		var lat_h = document.forms['newcacheform'].lat_h.value;
-		var lat_min = document.forms['newcacheform'].lat_min.value;
-		var lat ;
-		lat=(lat_h*1)+(lat_min/60);
-		if (latNS=="S") lat=-lat;
-		var lonEW = document.forms['newcacheform'].lonEW.value;
-		var lon_h = document.forms['newcacheform'].lon_h.value;
-		var lon_min = document.forms['newcacheform'].lon_min.value;
-		var lon ;
-		lon=(lon_h*1)+(lon_min/60);
-	        if (lonEW=="W") lon=-lon;
-		if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
-		alert("{{input_coord}}"); 
-			} else {
-	window.open('http://www.opencaching.pl/region.php?lat=' + lat + '&lon=' + lon+ '&popup=y','Region','width=300,height=250');
-	}
-	return false;
-}
-
-//--></script>
+}//--></script>
 <script type="text/javascript"><!--
 function nearbycachemapOC()
 {
 
 		var lat_h = document.forms['newcacheform'].lat_h.value;
-		var latNS = document.forms['newcacheform'].latNS.value;
 		var lat_min = document.forms['newcacheform'].lat_min.value;
 		var lat ;
 		lat=(lat_h*1)+(lat_min/60);
-		if (latNS=="S") lat=-lat;
 		var lon_h = document.forms['newcacheform'].lon_h.value;
-		var lonEW = document.forms['newcacheform'].lonEW.value;
 		var lon_min = document.forms['newcacheform'].lon_min.value;
 		var lon ;
 		lon=(lon_h*1)+(lon_min/60);
-	        if (lonEW=="W") lon=-lon;
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
-		alert("{{Please input coordinates location of cache}}"); 
+		alert("Proszę wprowadzić poprawne współrzędne punktu"); 
 			} else {
 		window.open('http://www.opencaching.pl/cachemap3.php?inputZoom=17&lat=' + lat + '&lon=' + lon);}
 	return false;
 }//--></script>
 
-<form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr" onsubmit="javascript: return chkregion()">
+<form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr">
 <input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
 <input type="hidden" name="show_all_langs" value="{show_all_langs}"/>
 <input type="hidden" name="version2" value="1"/>
@@ -238,9 +235,11 @@ function nearbycachemapOC()
 		</td>
 	</tr>
 		<tr><td>&nbsp;</td>
-		<td><div class="notice" style="width:500px;height:44px;">{{read_info_about_cache_types}}</div>
+		<td><div class="notice" style="width:500px;height:44px;">Zapoznaj się z opisem jak wybrać <a class="links" href="http://wiki.opencaching.pl/index.php/Typ_skrzynki" target="_blank">Typ skrzynki</a></div>
 		</td></tr>
 	<tr>
+
+
 		<td><p class="content-title-noshade">{{cache_size}}:</p></td>
 		<td>
 			<select name="size" class="input200" onchange="return _chkVirtual()" {is_disabled_size}>
@@ -264,8 +263,8 @@ function nearbycachemapOC()
 			{lat_message}<br />
 			&nbsp;&nbsp;&nbsp;
 			<select name="lonEW" class="input40">
-			    <option value="W"{lonWsel}>W</option>
 				<option value="E"{lonEsel}>E</option>
+				<option value="W"{lonWsel}>W</option>
 			</select>
 			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
 			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
@@ -279,19 +278,10 @@ function nearbycachemapOC()
 	<tr>
 		<td><p class="content-title-noshade">{{country_label}}:</p></td>
 		<td>
-			<select name="country" class="input200" onchange="javascript:chkcountry()">
+			<select name="country" class="input200">
 				{countryoptions}
 			</select>
 			{show_all_countries_submit}
-		</td>
-	</tr>
-	<tr><td colspan="2"><div class="buffer"></div></td></tr>
-	<tr>
-		<td><p class="content-title-noshade">{{regiononly}}:</p></td>
-		<td>
-			<select name="region" class="input200" onchange="javascript:chkcountry()" >
-				{regionoptions}
-			</select>&nbsp;&nbsp;<button onclick="return extractregion()">{{region_from_coord}}</button>
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
@@ -318,7 +308,7 @@ function nearbycachemapOC()
 				<input type="text" name="search_time" maxlength="10" value="{search_time}" class="input30" /> h
 				&nbsp;&nbsp;
 				{{length}}:
-				<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> mi &nbsp; {effort_message}
+				<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> km &nbsp; {effort_message}
 			</td>
 	</tr>
 	<tr>
@@ -327,12 +317,8 @@ function nearbycachemapOC()
 	</tr>
 	<tr>
 		<td><p class="content-title-noshade">{{waypoint}} ({{optional}}):</p></td>
-		<td>
-			Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" class="input50"/>
-			Navicache.com: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="input50"/><br/>
-			Terracaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="6" class="input50"/>
-			GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" class="input50"/>
-
+		<td>geocaching.com: <input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" class="input50"/>
+			gpsgames.org: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="input50"/>
 		</td>
 	</tr>
 	<tr>
@@ -431,9 +417,9 @@ function nearbycachemapOC()
 		<td colspan="2">	
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
 			<legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
-			<input class="input40" type="text" name="hidden_year" maxlength="4" value="{hidden_year}"/>-
-			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{hidden_month}"/>-
-			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{hidden_day}"/>
+			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{hidden_day}"/>.
+			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{hidden_month}"/>.
+			<input class="input40" type="text" name="hidden_year" maxlength="4" value="{hidden_year}"/>
 			{hidden_since_message}
 		</fieldset>		
 		</td>
@@ -443,12 +429,13 @@ function nearbycachemapOC()
 	<tr>
 		<td colspan="2">		
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
-			<legend>&nbsp; <strong>{{submit_new_cache}}</strong> &nbsp;</legend>
+			<legend>&nbsp; <strong>{{submit_new_cache}} skrzynki</strong> &nbsp;</legend>
 			<input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}/>&nbsp;<label for="publish_now">{{publish_now}}</label><br />
 			<input type="radio" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}/>&nbsp;<label for="publish_later">{{publish_date}}:</label>
-			<input class="input40" type="text" name="activate_year" maxlength="4" value="{activate_year}"/>-
-			<input class="input20" type="text" name="activate_month" maxlength="2" value="{activate_month}"/>-
-			<input class="input20" type="text" name="activate_day" maxlength="2" value="{activate_day}"/>&nbsp;
+
+			<input class="input20" type="text" name="activate_day" maxlength="2" value="{activate_day}"/>.
+			<input class="input20" type="text" name="activate_month" maxlength="2" value="{activate_month}"/>.
+			<input class="input40" type="text" name="activate_year" maxlength="4" value="{activate_year}"/>&nbsp;
 			<select name="activate_hour" class="input40">{activation_hours}
 			</select>&nbsp;{{hour}}&nbsp;{activate_on_message}<br />
 			<input type="radio" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}/>&nbsp;<label for="publish_notnow">{{dont_publish_yet}}</label>
@@ -469,7 +456,7 @@ function nearbycachemapOC()
 	<tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /><br /></div></td></tr>
 	<tr>
 		<td colspan="2">
-		<button type="submit" name="submitform" value="{submit}" style="font-size:14px;width:160px"><b>{submit}</b></button>
+		<button type="submit" name="submitform" value="{submit}" style="font-size:14px;width:130px"><b>{submit}</b></button>
 
 		<br /><br /></td>
 	</tr>

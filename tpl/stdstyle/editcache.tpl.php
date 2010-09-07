@@ -18,35 +18,13 @@
 <!--
 var maAttributes = new Array({jsattributes_array});
 
-function toogleLayer( whichLayer, val )
-{
-	var elem, vis;
-	if( document. getElementById )
-		elem = document.getElementById(whichLayer);
-	else if( document.all )
-		elem = document.all[whichLayer];
-	else if( document.layers )
-		elem = document.layers[whichLayer];
-	vis = elem.style;
-	
-	if(val != '')
-	{
-	if (document.editcache_form.country.value == "PL") 
-		{vis.display = 'block';}
-	else {
-		vis.display = 'none';}
-	}
-	else
-		vis.display = val;
-}
-
 function _chkVirtual () 
 {
   if (document.editcache_form.type.value == "4" || document.editcache_form.type.value == "5" || document.editcache_form.type.value == "6" || ({other_nobox} && document.editcache_form.type.value == "1") ) 
 	{
 		if( document.editcache_form.size.options[document.editcache_form.size.options.length - 1].value != "7" )
 		{
-			document.editcache_form.size.options[document.editcache_form.size.options.length] = new Option('No Container', '7');
+			document.editcache_form.size.options[document.editcache_form.size.options.length] = new Option('Bez pojemnika', '7');
 		}
 		
 		if( !({other_nobox} && document.editcache_form.type.value == "1"))
@@ -65,27 +43,7 @@ function _chkVirtual ()
   }
   return false;
 }
-function extractregion()
-{
-		var latNS = document.forms['editcache_form'].latNS.value;
-		var lat_h = document.forms['editcache_form'].lat_h.value;
-		var lat_min = document.forms['editcache_form'].lat_min.value;
-		var lat ;
-		lat=(lat_h*1)+(lat_min/60);
-		if (latNS=="S") lat=-lat;
-		var lonEW = document.forms['editcache_form'].lonEW.value;
-		var lon_h = document.forms['editcache_form'].lon_h.value;
-		var lon_min = document.forms['editcache_form'].lon_min.value;
-		var lon ;
-		lon=(lon_h*1)+(lon_min/60);
-	        if (lonEW=="W") lon=-lon;
-		if (document.editcache_form.lat_h.value == "0" && document.editcache_form.lon_h.value == "0" ) {
-		alert("Please input coordinates location of cache"); 
-			} else {
-	window.open('http://www.opencaching.pl/region.php?lat=' + lat + '&lon=' + lon+ '&popup=y','Region','width=300,height=250');
-	}
-	return false;
-}
+
 function rebuildCacheAttr()
 {
 	var i = 0;
@@ -200,37 +158,12 @@ function toggleAttr(id)
 	<tr>
 		<td><p class="content-title-noshade">{{country_label}}:</p></td>
 		<td>
-			<select name="country" class="input200" onLoad="javascript:toogleLayer('regions');" onChange="javascript:toogleLayer('regions');">
+			<select name="country" class="input200">
 				{countryoptions}
 			</select>
 			{show_all_countries_submit}
-		</td>                                        
-		
-	</tr></table>
-		
-	<table id="regions" style="display:block;">
-		  	<colgroup>
-		<col width="180"/>
-		<col/>
-	</colgroup>
-
-		  <tr><td colspan="2"><div class="buffer"></div></td></tr>
-	<tr>
-		<td><p class="content-title-noshade">{{regiononly}}:</p></td>
-		<td>
-			<select name="region" class="input200">
-				{regionoptions}
-			</select>&nbsp;&nbsp;<button onclick="return extractregion()">{{region_from_coord}}</button>
-			
 		</td>
 	</tr>
-	</table>
-        <table class="table">
-        	<colgroup>
-		<col width="180"/>
-		<col/>
-	</colgroup>
-
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr><td><p class="content-title-noshade">{{difficulty_level}}:</p></td>
 		<td>
@@ -255,7 +188,7 @@ function toggleAttr(id)
 				<input type="text" name="search_time" maxlength="10" value="{search_time}" class="input30" /> h
 				&nbsp;&nbsp;
 				{{length}}:
-				<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> mi &nbsp; {effort_message}
+				<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> km &nbsp; {effort_message}
 			</td>
 	</tr>
 	<tr>
@@ -264,12 +197,8 @@ function toggleAttr(id)
 	</tr>
 	<tr>
 		<td><p class="content-title-noshade">{{waypoint}} ({{optional}}):</p></td>
-		<td>
-			Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" size="7" />
-			Navicache.com: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" size="6"/><br/>
-			TerraCaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="6" size="6"/>
-			&nbsp;GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" size="6"/>
-
+		<td>geocaching.com: <input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" class="input50"/>
+			gpsgames.org: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="input50"/>
 		</td>
 	</tr>
 	<tr>
@@ -315,7 +244,7 @@ function toggleAttr(id)
 		<td colspan="2">{cache_wp_list}</td>
 	</tr>
 	<tr>
-		<td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.us/wiki/index.php/Waypoints" target="_blank">See the description and the kinds of additional waypoints.</a></div></td>
+		<td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div></td>
 	</tr>
 	{waypoints_end}
 
@@ -353,9 +282,9 @@ function toggleAttr(id)
 	<tr>
 		<td class="content-title-noshade">{{date_hidden_label}}:</td>
 		<td>
-			<input class="input40" type="text" name="hidden_year" maxlength="4" value="{date_year}"/>-
-			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{date_month}"/>-
-			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}"/>&nbsp;(MM/DD/YYYY)&nbsp;
+			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}"/>.
+			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{date_month}"/>.
+			<input class="input40" type="text" name="hidden_year" maxlength="4" value="{date_year}"/>&nbsp;
 			{date_message}
 		</td>
 	</tr>
