@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-																./newcache.php
-															-------------------
-		begin                : June 24 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -29,8 +21,8 @@
 
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-	global $beginner_info;
-	
+
+       global $beginner_info;
 	$no_tpl_build = false;
 
 	//Preprocessing
@@ -44,7 +36,7 @@
 		}
 		else
 		{			
-
+                                         
 			if (isset($_REQUEST['beginner']))
 				{$beginner=$_GET['beginner'];
 			} else { $beginner=1;}
@@ -102,7 +94,7 @@
 				//set here the template to process
 				$tplname = 'newcache';
 				require_once($rootpath . '/lib/caches.inc.php');
-				require_once($stylepath . '/' . $tplname . '.inc.php');
+				require_once($stylepath . '/newcache.inc.php');
 				
 
 				//set template replacements
@@ -126,9 +118,9 @@
 				$sel_type = isset($_POST['type']) ? $_POST['type'] : -1;
 				if (!isset($_POST['size']))
 				{
-					if( $sel_type == 6 )
+					if( $sel_type == 6 || $sel_type == 4 || $sel_type == 5)
 						$sel_size = 7;
-					else if ($sel_type == 4 || $sel_type == 5 )
+					else if ($sel_type == 99 || $sel_type == 98 )
 					{
 						$sel_type = 1;
 						$sel_size = 1;
@@ -148,6 +140,7 @@
 				}
 				$sel_lang = isset($_POST['desc_lang']) ? $_POST['desc_lang'] : $default_lang;
 				$sel_country = isset($_POST['country']) ? $_POST['country'] : $default_country;
+				$sel_region = isset($_POST['region']) ? $_POST['region'] : $default_region;
 				$show_all_countries = isset($_POST['show_all_countries']) ? $_POST['show_all_countries'] : 0;
 				$show_all_langs = isset($_POST['show_all_langs']) ? $_POST['show_all_langs'] : 0;
 
@@ -155,12 +148,12 @@
 				$lonEW = isset($_POST['lonEW']) ? $_POST['lonEW'] : $default_EW;
 				if ($lonEW == 'E')
 				{
-					tpl_set_var('lonEsel', ' selected="selected"');
 					tpl_set_var('lonWsel', '');
+					tpl_set_var('lonEsel', ' selected="selected"');
 				}
 				else
 				{
-					tpl_set_var('lonEsel', '');
+					tpl_set_var('lonE_sel', '');
 					tpl_set_var('lonWsel', ' selected="selected"');
 				}
 				$lon_h = isset($_POST['lon_h']) ? $_POST['lon_h'] : '0';
@@ -336,9 +329,9 @@
 				else
 				{
 					// Standard
-					tpl_set_var('publish_now_checked', '');
+					tpl_set_var('publish_now_checked', 'checked="checked"');
 					tpl_set_var('publish_later_checked', '');
-					tpl_set_var('publish_notnow_checked', 'checked="checked"');
+					tpl_set_var('publish_notnow_checked', '');
 				}
 
 				// fill activate hours
@@ -365,6 +358,12 @@
 				// gc- and nc-waypoints
 				$wp_gc = isset($_POST['wp_gc']) ? $_POST['wp_gc'] : '';
 				tpl_set_var('wp_gc', htmlspecialchars($wp_gc, ENT_COMPAT, 'UTF-8'));
+
+				$wp_ge = isset($_POST['wp_ge']) ? $_POST['wp_ge'] : '';
+				tpl_set_var('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT, 'UTF-8'));
+
+				$wp_tc = isset($_POST['wp_tc']) ? $_POST['wp_tc'] : '';
+				tpl_set_var('wp_tc', htmlspecialchars($wp_gc, ENT_COMPAT, 'UTF-8'));
 
 				$wp_nc = isset($_POST['wp_nc']) ? $_POST['wp_nc'] : '';
 				tpl_set_var('wp_nc', htmlspecialchars($wp_nc, ENT_COMPAT, 'UTF-8'));
@@ -463,8 +462,9 @@
 				$tip .= $title;
 				$tip .= "<br/>', BALLOON, true, FIX,['actionicons', 10, 15], ABOVE, true, OFFSETY, 20, OFFSETX, 35, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"";
 
-				if( $type['id'] == 4 || $type['id'] == 5 )
-						continue;
+                       // block register virtual or webcam
+			//	if( $type['id'] == 4 || $type['id'] == 5 )
+			//			continue;
 					if ($type['id'] == $sel_type)
 					{
 						$types .= '<option '.$tip.' value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
@@ -583,6 +583,26 @@
 				}
 
 				tpl_set_var('countryoptions', $countriesoptions);
+
+	//stateoptions
+	$regionoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';
+	$rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
+
+	for ($i = 0; $i < mysql_num_rows($rs); $i++)
+	{
+		$record = sql_fetch_array($rs);
+
+		if ($record['code'] == $sel_state)
+			$regionoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+		else
+			$regionoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+
+		$regionoptions .= "\n";
+	}
+
+	tpl_set_var('regionoptions', $regionoptions);
+
+
 
 				// cache-attributes
 				$cache_attribs = isset($_POST['cache_attribs']) ? mb_split(';', $_POST['cache_attribs']) : array();
@@ -872,7 +892,8 @@
 
 					//cache-type
 					$type_not_ok = false;
-					if ($sel_type == -1 || $sel_type == 4 || $sel_type == 5)
+					//block register virtual and webcam
+					if ($sel_type == -1 )
 					{
 						tpl_set_var('type_message', $type_not_ok_message);
 						$error = true;
@@ -948,6 +969,7 @@
 						}
 						
 						$cache_uuid = create_uuid();
+
 						//add record to caches table
 						sql("INSERT INTO `caches` (
 													`cache_id`,
@@ -975,10 +997,12 @@
 													`way_length`,
 													`wp_gc`,
 													`wp_nc`,
+													`wp_ge`,
+													`wp_tc`,
 													`node`
 												) VALUES (
 													'', '&1', '&2', '&3', '&4', NOW(), NOW(), '&5', '&6', '&7', '&8', $activation_date, '0', '0', '0', NULL ,
-													'&9', '&10', '&11', '&12', '&13', '&14', '&15', '&16', '&17', '&18')",
+													'&9', '&10', '&11', '&12', '&13', '&14', '&15', '&16', '&17', '&18','&19','&20')",
 												$usr['userid'],
 												$name,
 												$longitude,
@@ -996,12 +1020,27 @@
 												$way_length,
 												$wp_gc,
 												$wp_nc,
+												$wp_ge,
+												$wp_tc,
 												$oc_nodeid);
 						$cache_id = mysql_insert_id($dblink);
+					    // insert cache_location
+						$code1=$sel_country;
+                                                $adm1 = sqlvalue("SELECT `countries`.`en`
+				                         FROM `countries` 
+				                        WHERE `countries`.`short`='$code1'",0);
 
+                                                if ($sel_region!="0") 
+                                               { 
+                                                $code3=$sel_region;
+                                                $adm3=sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='" . sql_escape($sel_region) . "'", 0);
+						} else { $code3=null; $adm3=null;}
+                                                sql("INSERT INTO `cache_location` (cache_id,adm1,adm3,code1,code3) VALUES ('&1','&2','&3','&4','&5')",$cache_id,$adm1,$adm3,$code1,$code3);
+						
+						
 						// waypoint erstellen
 						setCacheWaypoint($cache_id);
-
+						
 						$desc_uuid = create_uuid();
 						//add record to cache_desc table
 						if ($descMode != 1)
@@ -1081,12 +1120,12 @@
 							$email_content = mb_ereg_replace('%cachename%', $name, $email_content);
 							$email_content = mb_ereg_replace('%cacheid%', $cache_id, $email_content);	
 							$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-							$email_headers .= "From: Opencaching.pl <notify@opencaching.pl>\r\n";
+							$email_headers .= "From: OC PL <notify@opencaching.pl>\r\n";
 							$email_headers .= "Reply-To: cog@opencaching.pl\r\n";
-							$rr_email = "cog@opencaching.pl";
+							$octeam_email = "cog@opencaching.pl";
 
-							//send email to rr
-							mb_send_mail($rr_email, "[OC PL] Akceptacja skrzynki: ".$name, $email_content, $email_headers);
+							//send email to octeam
+							mb_send_mail($octeam_email, "[OC PL] Nowa skrzynka do weryfikacji: ".$name, $email_content, $email_headers);
 							
 							sql("UPDATE sysconfig SET value = value + 1 WHERE name = 'hidden_for_approval'");
 						}
