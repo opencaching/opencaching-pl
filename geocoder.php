@@ -93,7 +93,7 @@ eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,lo
   <body onload="initialize()" onunload="GUnload()">
     <form action="#" onsubmit="showAddress(this.address.value); return false">
       <br>
-        Podaj adres lub nazwę miejscowaści, kraj aby otrzymać wspólrzędne.
+        Podaj adres lub nazwę miejscowości, kraj aby otrzymać współrzędne.
         <br/>
         Nowe współrzędne będą pokazywać się po każdym przesunięciu myszką markera na mapie.
      <br />      
