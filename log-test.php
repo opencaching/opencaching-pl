@@ -22,7 +22,10 @@
 			$cache_wp = $cache_record['wp_gc'];
 		else if( $cache_record['wp_nc'] != '' ) 
 			$cache_wp = $cache_record['wp_nc'];
-		
+		else if( $cache_record['wp_ge'] != '' ) 
+			$cache_wp = $cache_record['wp_ge'];
+		else if( $cache_record['wp_tc'] != '' ) 
+			$cache_wp = $cache_record['wp_tc'];		
 
 		$geokret_sql = "SELECT id FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".sql_escape($cache_wp)."') AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2";
 		$geokret_query = sql($geokret_sql);
@@ -73,7 +76,7 @@
 			if ($cache_id != 0)
 			{
 				//get cachename
-				$rs = sql("SELECT `name`, `longitude` ,`latitude`,`date_hidden`, `cache_id`,`user_id`, `logpw`, `wp_oc`,`wp_gc`, `wp_nc`, `type`, `status`,`longitude`, `latitude` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+				$rs = sql("SELECT `name`, `longitude` ,`latitude`,`date_hidden`, `cache_id`,`user_id`, `logpw`, `wp_oc`,`wp_gc`, `wp_nc`,`wp_ge`,`wp_tc`, `type`, `status`,`longitude`, `latitude` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
 
 				if (mysql_num_rows($rs) == 0)
 				{
@@ -790,10 +793,20 @@
 						tpl_set_var('logtext', strip_tags($log_text));
 					
 					$listed_on = array();
-					if($wp_gc > "")
-						$listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp='.$wp_gc.'"  target="_blank">geocaching.com</a> <a href="http://www.geocaching.com/seek/log.aspx?wp='.$wp_gc.'" target="_blank">(logbook)</a>';
-					if($wp_nc > "")
-						$listed_on[] = 'gpsgames.org';
+			if($cache_record['wp_ge'] != '')
+				$listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp='.$cache_record['wp_ge'].'" target="_blank">GPSgames.org</a>';
+
+			if($cache_record['wp_tc'] != '')
+				$listed_on[] = '<a href="http://www.terracaching.com/viewcache.cgi?C=/'.$cache_record['wp_tc'].'" target="_blank">TerraCaching.com</a>';
+
+			if($cache_record['wp_nc'] != '')
+			{
+				$wpnc = hexdec(mb_substr($cache_record['wp_nc'], 1));
+				$listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID='.$wpnc.'" target="_blank">Navicache.com</a>';
+			}
+			if($cache_record['wp_gc'] != '')
+				$listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp='.$cache_record['wp_gc'].'" target="_blank">Geocaching.com</a>';
+
 
 					if(sizeof($listed_on))
 					{
