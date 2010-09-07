@@ -216,11 +216,11 @@ function toggleAttr(id)
 
 		  <tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td><p class="content-title-noshade">Województow (tylko dla Polski):</p></td>
+		<td><p class="content-title-noshade">{{regiononly}}:</p></td>
 		<td>
 			<select name="region" class="input200">
 				{regionoptions}
-			</select>&nbsp;&nbsp;<button onclick="return extractregion()">Województwo z współrzędnych</button>
+			</select>&nbsp;&nbsp;<button onclick="return extractregion()">{{region_from_coord}}</button>
 			
 		</td>
 	</tr>
