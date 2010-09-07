@@ -287,7 +287,7 @@ function nearbycachemapOC()
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td><p class="content-title-noshade">{{regionsonly}}:</p></td>
+		<td><p class="content-title-noshade">{{regiononly}}:</p></td>
 		<td>
 			<select name="region" class="input200" onchange="javascript:chkcountry()" >
 				{regionoptions}
