@@ -126,18 +126,18 @@
 			
 			//From Google 
 
-$url='http://maps.google.com/maps/api/geocode/json?latlng='.$lat.','.$lon.'&sensor=false&language=pl';
-$data = @file_get_contents($url);
-$jsondata = json_decode($data,true);
+//$url='http://maps.google.com/maps/api/geocode/json?latlng='.$lat.','.$lon.'&sensor=false&language=pl';
+//$data = @file_get_contents($url);
+//$jsondata = json_decode($data,true);
 
-if(isset($jsondata['status']) && strtoupper($jsondata['status']) == 'OK'){
-$woj=$jsondata['results']['0']['address_components']['5']['long_name'];
-tpl_set_var('region_gm',$woj); 
+//if(isset($jsondata['status']) && strtoupper($jsondata['status']) == 'OK'){
+//$woj=$jsondata['results']['0']['address_components']['1']['long_name'];
+//tpl_set_var('region_gm',$woj); 
 
-}
+//}
 
-//			$loc = coordToLocation($lat, $lon);		
-//			tpl_set_var('region_gm', $loc['woj']);
+			$loc = coordToLocation($lat, $lon);		
+			tpl_set_var('region_gm', $loc['woj']);
 
 
 
