@@ -50,7 +50,7 @@ class cache_location
 
 //		global $opt;
 	
-		$rsCache = sql("SELECT `caches`.`cache_id`, `caches`.`latitude`, `caches`.`longitude` FROM `caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id` WHERE ISNULL(`cache_location`.`cache_id`) UNION SELECT `caches`.`cache_id`, `caches`.`latitude`, `caches`.`longitude` FROM `caches` INNER JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id` WHERE `caches`.`last_modified`>`cache_location`.`last_modified`");
+		$rsCache = sql("SELECT `caches`.`cache_id`, `caches`.`latitude`, `caches`.`longitude` FROM `caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id` WHERE ISNULL(`cache_location`.`cache_id`) UNION SELECT `caches`.`cache_id`, `caches`.`latitude`, `caches`.`longitude` FROM `caches` INNER JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id` WHERE `caches`.`country`!='PL' AND `caches`.`last_modified`>`cache_location`.`last_modified`");
 		while ($rCache = mysql_fetch_assoc($rsCache))
 		{
 			$sCode = '';
