@@ -780,3 +780,5 @@ where_i_am Gdzie jestem?
 read_info_about_cache_types Zapoznaj się z opisem jak wybrać <a href="http://wiki.opencaching.pl/index.php/Typ_skrzynki">Typ skrzynki</a>
 regionsolny Województwo (tylko Polska)
 region_from_coord Województwo z współrzędnych
+select_regions Wybierz województwo
+not_applicable Nie stosowane
