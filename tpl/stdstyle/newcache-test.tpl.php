@@ -88,15 +88,15 @@ function rebuildCacheAttr()
 function chkcountry()
 {
 
-if (document.newcacheform.country.value !='Pl')
+if (document.newcacheform.country.value !='PL')
 {
 document.forms['newcacheform'].country.value = document.newcacheform.country.value;
-document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- Not applicable ---', '-1')
+document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- {{Not applicable}} ---', '-1')
 document.forms['newcacheform'].region.value = '-1';
 document.newcacheform.region.disable = true;
  } else {
 document.forms['newcacheform'].country.value = 'PL';
-//document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- Select name of state ---', '0')
+//document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- Select name of region ---', '0')
 document.newcacheform.region.disable = false;
 document.forms['newcacheform'].region.value = document.newcacheform.region.value;}
 }
@@ -147,7 +147,7 @@ function nearbycache()
 		var lon_h = document.forms['newcacheform'].lon_h.value;
 		var lon_min = document.forms['newcacheform'].lon_min.value;
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
-		alert("Please input coordinates location of cache"); 
+		alert("{{Please input coordinates location of cache}}"); 
 			} else {
 	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=0&distance=0.3&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
 	}
@@ -168,7 +168,7 @@ function extractregion()
 		lon=(lon_h*1)+(lon_min/60);
 	        if (lonEW=="W") lon=-lon;
 		if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
-		alert("Please input coordinates location of cache"); 
+		alert("{{Please input coordinates location of cache}}"); 
 			} else {
 	window.open('http://www.opencaching.pl/region.php?lat=' + lat + '&lon=' + lon+ '&popup=y','Region','width=300,height=250');
 	}
@@ -193,7 +193,7 @@ function nearbycachemapOC()
 		lon=(lon_h*1)+(lon_min/60);
 	        if (lonEW=="W") lon=-lon;
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
-		alert("Please input coordinates location of cache"); 
+		alert("{{Please input coordinates location of cache}}"); 
 			} else {
 		window.open('http://www.opencaching.pl/cachemap3.php?inputZoom=17&lat=' + lat + '&lon=' + lon);}
 	return false;
@@ -238,7 +238,7 @@ function nearbycachemapOC()
 		</td>
 	</tr>
 		<tr><td>&nbsp;</td>
-		<td><div class="notice" style="width:500px;height:44px;">Please read information about <a class="links" href="http://wiki.opencaching.jp/index.php/Cache_parameters" target="_blank">Cache Types</a></div>
+		<td><div class="notice" style="width:500px;height:44px;">{read_info_about_cache_types}</div>
 		</td></tr>
 	<tr>
 		<td><p class="content-title-noshade">{{cache_size}}:</p></td>
@@ -287,11 +287,11 @@ function nearbycachemapOC()
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td><p class="content-title-noshade">Region (PL only):</p></td>
+		<td><p class="content-title-noshade">{regionolny}:</p></td>
 		<td>
 			<select name="region" class="input200" onchange="javascript:chkcountry()" >
 				{regionoptions}
-			</select>&nbsp;&nbsp;<button onclick="return extractregion()">Województwo z współrzędnych</button>
+			</select>&nbsp;&nbsp;<button onclick="return extractregion()">{region_from_coord}</button>
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
