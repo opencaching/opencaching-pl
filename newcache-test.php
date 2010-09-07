@@ -153,7 +153,7 @@
 				}
 				else
 				{
-					tpl_set_var('lonEsel', '');
+					tpl_set_var('lonE_sel', '');
 					tpl_set_var('lonWsel', ' selected="selected"');
 				}
 				$lon_h = isset($_POST['lon_h']) ? $_POST['lon_h'] : '0';
@@ -1120,12 +1120,12 @@
 							$email_content = mb_ereg_replace('%cachename%', $name, $email_content);
 							$email_content = mb_ereg_replace('%cacheid%', $cache_id, $email_content);	
 							$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-							$email_headers .= "From: Opencaching.us <notify@opencaching.us>\r\n";
-							$email_headers .= "Reply-To: octeam@opencaching.us\r\n";
-							$octeam_email = "octeam@opencaching.us";
+							$email_headers .= "From: OC PL <notify@opencaching.pl>\r\n";
+							$email_headers .= "Reply-To: cog@opencaching.pl\r\n";
+							$octeam_email = "cog@opencaching.pl";
 
 							//send email to octeam
-							mb_send_mail($octeam_email, "[OC US] Hidden cache for approval: ".$name, $email_content, $email_headers);
+							mb_send_mail($octeam_email, "[OC PL] Nowa skrzynka do weryfikacji: ".$name, $email_content, $email_headers);
 							
 							sql("UPDATE sysconfig SET value = value + 1 WHERE name = 'hidden_for_approval'");
 						}
