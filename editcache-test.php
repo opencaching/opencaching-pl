@@ -61,8 +61,8 @@
 					//here we read all used information from the form if submitted, otherwise from DB
 					
 					// wihout virtuals and webcams
-					//if( ($_POST['type'] == 4 && $cache_record['type'] != 4 ) || ($_POST['type'] == 5 && $cache_record['type'] != 5 ) )
-					//	$_POST['type'] = $cache_record['type'];
+					if( ($_POST['type'] == 4 && $cache_record['type'] != 4 ) || ($_POST['type'] == 5 && $cache_record['type'] != 5 ) )
+						$_POST['type'] = $cache_record['type'];
 						
 					$cache_name = isset($_POST['name']) ? $_POST['name'] : $cache_record['name'];
 					$cache_type = isset($_POST['type']) ? $_POST['type'] : $cache_record['type'];
@@ -646,12 +646,12 @@
 					foreach ($cache_types as $type)
 					{
 						// block virtual and webcam
-						//if( ($cache_type != 4 && $type['id'] == 4 ) || ($cache_type != 5 && $type['id'] == 5 ) )
-						//{
+						if( ($cache_type != 4 && $type['id'] == 4 ) || ($cache_type != 5 && $type['id'] == 5 ) )
+						{
 							// jeśli nie (wirtual lub webcam)
 							// to nie wyświetlaj tych pozycji
-						//	continue;
-						//}
+							continue;
+						}
 						if ($type['id'] == $cache_type)
 						{
 							$types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang], ENT_COMPAT, 'UTF-8') . '</option>';

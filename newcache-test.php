@@ -118,9 +118,9 @@
 				$sel_type = isset($_POST['type']) ? $_POST['type'] : -1;
 				if (!isset($_POST['size']))
 				{
-					if( $sel_type == 6 || $sel_type == 4 || $sel_type == 5)
+					if( $sel_type == 6 )
 						$sel_size = 7;
-					else if ($sel_type == 99 || $sel_type == 98 )
+					else if ($sel_type == 4 || $sel_type == 5 )
 					{
 						$sel_type = 1;
 						$sel_size = 1;
@@ -463,8 +463,8 @@
 				$tip .= "<br/>', BALLOON, true, FIX,['actionicons', 10, 15], ABOVE, true, OFFSETY, 20, OFFSETX, 35, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"";
 
                        // block register virtual or webcam
-			//	if( $type['id'] == 4 || $type['id'] == 5 )
-			//			continue;
+				if( $type['id'] == 4 || $type['id'] == 5 )
+						continue;
 					if ($type['id'] == $sel_type)
 					{
 						$types .= '<option '.$tip.' value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
@@ -893,7 +893,7 @@
 					//cache-type
 					$type_not_ok = false;
 					//block register virtual and webcam
-					if ($sel_type == -1 )
+					if ($sel_type == -1 || $sel_type == 4 || $sel_type == 5)
 					{
 						tpl_set_var('type_message', $type_not_ok_message);
 						$error = true;
