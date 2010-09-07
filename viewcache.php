@@ -402,6 +402,11 @@
 			tpl_set_var('coords', $coords);
 			if( $usr || !$hide_coords )
 			{
+				if ($cache_record['longitude']<0)
+				{ $longNC=$cache_record['longitude']*(-1);
+				tpl_set_var('longitudeNC', $longNC);
+				}else {tpl_set_var('longitudeNC', $cache_record['longitude']);}
+
 				tpl_set_var('longitude', $cache_record['longitude']);
 				tpl_set_var('latitude',  $cache_record['latitude']);
 				tpl_set_var('lon_h', $lon_h);
