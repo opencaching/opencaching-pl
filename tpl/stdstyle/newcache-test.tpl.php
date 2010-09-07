@@ -22,8 +22,8 @@
 var maAttributes = new Array({jsattributes_array});
 
 function chkregion() {
-	if (document.newcacheform.region.value == "0" && document.newcacheform.country.value == "Pl") {
-		alert("Please select a state!");
+	if (document.newcacheform.region.value == "0" && document.newcacheform.country.value == "PL") {
+		alert("Proszę wybrać województwo");
 		return false;
 	}
 	return true;
@@ -47,7 +47,7 @@ chkiconcache();
 	{
 		if( document.newcacheform.size.options[document.newcacheform.size.options.length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
 		{
-			document.newcacheform.size.options[document.newcacheform.size.options.length] = new Option('No container', '7');
+			document.newcacheform.size.options[document.newcacheform.size.options.length] = new Option('Bez pojemnika', '7');
 		}
 		document.newcacheform.size.value = "7";
 		document.newcacheform.size.disabled = true;
@@ -147,7 +147,7 @@ function nearbycache()
 		var lon_h = document.forms['newcacheform'].lon_h.value;
 		var lon_min = document.forms['newcacheform'].lon_min.value;
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
-		alert("{{input_coord}"); 
+		alert("{{input_coord}}"); 
 			} else {
 	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=0&distance=0.3&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
 	}
@@ -193,7 +193,7 @@ function nearbycachemapOC()
 		lon=(lon_h*1)+(lon_min/60);
 	        if (lonEW=="W") lon=-lon;
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
-		alert("{{Please input coordinates location of cache}}"); 
+		alert("{{input_coord}}"); 
 			} else {
 		window.open('http://www.opencaching.pl/cachemap3.php?inputZoom=17&lat=' + lat + '&lon=' + lon);}
 	return false;
