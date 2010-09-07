@@ -1026,7 +1026,7 @@
 						$cache_id = mysql_insert_id($dblink);
 					    // insert cache_location
 						$code1=$sel_country;
-                                                $adm1 = sqlvalue("SELECT `countries`.`en`
+                                                $adm1 = sqlvalue("SELECT `countries`.`pl`
 				                         FROM `countries` 
 				                        WHERE `countries`.`short`='$code1'",0);
 
