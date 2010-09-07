@@ -732,6 +732,10 @@ list_of_latest_logs_is_empty List of latest logs entry is empty
 list_of_caches_is_empty List of latest caches is empty
 online_users Online registered users
 online_users_info based on users active over the past 10 minutes
+where_i_am Where I am?
+read_info_about_cache_types Please read information about <a href="http://wiki.opencaching.pl/index.php/Cache_parameters">Cache types</a>
+regionsonly Region/Województwo (Poland only)
+region_from_coord Region from coordinates
 
  
  
