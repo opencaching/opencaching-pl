@@ -515,6 +515,7 @@ no_hidden_caches Brak ukrytych skrzynek
 no_not_published_caches Nie ma nieopublikowanych skrzynek
 
 
+
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
@@ -778,7 +779,8 @@ empty_entry_notice Staraj się nie robić pustych wpisów. Przygotowanie skrzynk
 empty_entry_confirm Czy na pewno chcesz dokonać pustego wpisu? Zwykle dużo lepszy jest krótki komentarz niż milczenie.
 where_i_am Gdzie jestem?
 read_info_about_cache_types Zapoznaj się z opisem jak wybrać <a href="http://wiki.opencaching.pl/index.php/Typ_skrzynki">Typ skrzynki</a>
-regionsolny Województwo (tylko Polska)
+regiononly Województwo (tylko Polska)
 region_from_coord Województwo z współrzędnych
 select_regions Wybierz województwo
 not_applicable Nie stosowane
+input_coord Proszę podać współrzędne lokalizacji skrzynki
