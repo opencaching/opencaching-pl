@@ -20,4 +20,18 @@
 <td>&nbsp;</td>
 <td><strong>Geocache</strong></td>
 <td><strong>{{region}}</strong></td>
-<td><strong>{{wner}}</strong></td>
+<td><strong>{{owner}}</strong></td>
+</tr>
+<tr>
+<td colspan="8"><hr></hr></td>
+</tr>
+		{newcaches}
+<tr>
+<td colspan="8"><hr></hr></td>
+</tr>
+</table>
+	<p>
+		{pages}
+	</p>
+<!-- End Text Container -->
+
