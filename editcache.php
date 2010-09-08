@@ -41,10 +41,13 @@
 		}
 		else
 		{
-			$cache_rs = sql("SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `date_created`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`, `desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc`,`node` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+			$cache_rs = sql("SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `date_created`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`,
+			`desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc`,`wp_ge`,`wp_tc`,`node`, IFNULL(`cache_location`.`code3`,'') region
+			FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`= `cache_location`.`cache_id`)  WHERE `caches`.`cache_id`='&1'", $cache_id);
 			if (mysql_num_rows($cache_rs) == 1)
 			{
 				$cache_record = sql_fetch_array($cache_rs);
+				
 
 				if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 				{
@@ -105,6 +108,7 @@
 					$cache_difficulty = isset($_POST['difficulty']) ? $_POST['difficulty'] : $cache_record['difficulty'];
 					$cache_terrain = isset($_POST['terrain']) ? $_POST['terrain'] : $cache_record['terrain'];
 					$cache_country = isset($_POST['country']) ? $_POST['country'] : $cache_record['country'];
+					$cache_region = isset($_POST['region']) ? $_POST['region'] : $cache_record['region'];
 					$show_all_countries = isset($_POST['show_all_countries']) ? $_POST['show_all_countries'] : 0;
 					$status = isset($_POST['status']) ? $_POST['status'] : $cache_record['status'];
 					$status_old = $cache_record['status'];
@@ -174,7 +178,8 @@
 					}
 					$wp_gc = isset($_POST['wp_gc']) ? $_POST['wp_gc'] : $cache_record['wp_gc'];
 					$wp_nc = isset($_POST['wp_nc']) ? $_POST['wp_nc'] : $cache_record['wp_nc'];
-
+					$wp_tc = isset($_POST['wp_tc']) ? $_POST['wp_tc'] : $cache_record['wp_tc'];
+					$wp_ge = isset($_POST['wp_ge']) ? $_POST['wp_ge'] : $cache_record['wp_ge'];
 					// name
 					$name_not_ok = false;
 					if(isset($_POST['name']))
@@ -411,9 +416,27 @@
 							}
 
 							//save to DB
-							sql("UPDATE `caches` SET `last_modified`=NOW(), `name`='&1', `longitude`='&2', `latitude`='&3', `type`='&4', `date_hidden`='&5', `country`='&6', `size`='&7', `difficulty`='&8', `terrain`='&9', `status`='&10', `search_time`='&11', `way_length`='&12', `logpw`='&13', `wp_gc`='&14', `wp_nc`='&15', `date_activate` = $activation_date WHERE `cache_id`='&16'", $cache_name, $cache_lon, $cache_lat, $cache_type, date('Y-m-d', mktime(0, 0, 0, $cache_hidden_month, $cache_hidden_day, $cache_hidden_year)), $cache_country, $sel_size, $cache_difficulty, $cache_terrain, $status, $search_time, $way_length, $log_pw, $wp_gc, $wp_nc, $cache_id);
+							sql("UPDATE `caches` SET `last_modified`=NOW(), `name`='&1', `longitude`='&2', `latitude`='&3', `type`='&4', `date_hidden`='&5', `country`='&6', `size`='&7', `difficulty`='&8', `terrain`='&9', `status`='&10', `search_time`='&11', `way_length`='&12', `logpw`='&13', `wp_gc`='&14', `wp_nc`='&15', `wp_ge`='&16', `wp_tc`='&17',`date_activate` = $activation_date WHERE `cache_id`='&18'", $cache_name, $cache_lon, $cache_lat, $cache_type, date('Y-m-d', mktime(0, 0, 0, $cache_hidden_month, $cache_hidden_day, $cache_hidden_year)), $cache_country, $sel_size, $cache_difficulty, $cache_terrain, $status, $search_time, $way_length, $log_pw, $wp_gc, $wp_nc,$wp_ge,$wp_tc,$cache_id);
 
+						
+							
+                                                $code1=$cache_country;
+                                                $adm1 = sqlvalue("SELECT `countries`.`pl`
+				                         FROM `countries` 
+				                        WHERE `countries`.`short`='$code1'",0);
+						
+						if ($cache_country!="PL") $cache_region="0";
+						
+                                                if ($cache_region!="0") 
+                                               { 
+                                                $code3=$cache_region;
+                                                $adm3=sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='" . sql_escape($cache_region) . "'", 0);
+                                                
+						} else { $code3=null; $adm3=null;}
 
+							 sql("INSERT INTO cache_location (cache_id,adm1,adm3,code1,code3) VALUES ('&1','&2','&3','&4','&5') ON DUPLICATE KEY UPDATE adm1='&2',adm3='&3',code1='&4',code3='&5'",$cache_id,$adm1,$adm3,$code1,$code3);
+							
+							
 
 							// delete old cache-attributes
 							sql("DELETE FROM `caches_attributes` WHERE `cache_id`='&1'", $cache_id);
@@ -522,6 +545,28 @@
 					}
 					tpl_set_var('countryoptions', $countriesoptions);
 
+
+	//regionoptions
+//	$statesoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';
+	$regionsoptions = '';
+	
+	$rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
+
+	for ($i = 0; $i < mysql_num_rows($rs); $i++)
+	{
+		$record = sql_fetch_array($rs);
+
+		if ($record['code'] == $cache_region)
+			$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+		else
+			$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+
+		$regionsoptions .= "\n";
+	}
+
+	tpl_set_var('regionoptions', $regionsoptions);
+
+
 					// cache-attributes
 					$cache_attrib_list = '';
 					$cache_attrib_array = '';
@@ -600,6 +645,7 @@
 					$types = '';
 					foreach ($cache_types as $type)
 					{
+						// block virtual and webcam
 						if( ($cache_type != 4 && $type['id'] == 4 ) || ($cache_type != 5 && $type['id'] == 5 ) )
 						{
 							// jeśli nie (wirtual lub webcam)
@@ -908,6 +954,9 @@
 					tpl_set_var('log_pw', htmlspecialchars($log_pw, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('wp_gc', htmlspecialchars($wp_gc, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('wp_nc', htmlspecialchars($wp_nc, ENT_COMPAT, 'UTF-8'));
+					tpl_set_var('wp_tc', htmlspecialchars($wp_tc, ENT_COMPAT, 'UTF-8'));
+					tpl_set_var('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT, 'UTF-8'));
+					tpl_set_var('bodyMod', ' onload="toogleLayer(\'regions\')" onunload="GUnload()"');
 
 					tpl_set_var('reset', $reset);
 					tpl_set_var('submit', $submit);
