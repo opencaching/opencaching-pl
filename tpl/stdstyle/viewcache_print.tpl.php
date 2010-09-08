@@ -101,6 +101,18 @@ global $usr, $lang, $hide_coords;
 </table></center>
 			</div>
 {hidenpa_end}
+{geokrety_begin}
+			<div class="content2-container bg-blue02">
+				<p class="content-title-noshade-size1">
+					<img src="tpl/stdstyle/images/blue/travelbug.png" class="icon32" alt="" />
+					Geokrety
+				</p></div>
+				<div class="content2-container">
+				<p>
+					{geokrety_content}
+				</p>
+			</div>
+{geokrety_end}
 {hidepictures_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
