@@ -547,8 +547,9 @@
 
 
 	//regionoptions
-//	$statesoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';
+
 	$regionsoptions = '';
+	if ($cache_region=="") {$regionsoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';}
 	
 	$rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
 
