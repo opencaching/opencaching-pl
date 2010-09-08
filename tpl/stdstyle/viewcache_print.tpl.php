@@ -10,11 +10,11 @@
 	***************************************************************************/
 ?>
 
-<!-- Text container -->
 
-		<div class="content2-container line-box">
 
-			<div class="">
+		<div class="line-box">
+
+			<div>
 
 				<div class="content-title-noshade-size1">
 					<img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/>{cachename} 
@@ -30,32 +30,12 @@
 			</div>
 					
 		</div>
-<!-- End Text Container -->
 
-					<?php
+
+<?php
 global $usr, $lang, $hide_coords;			
-
 ?>
 
-
-<!-- Text container -->
-			{start_rr_comment}
-			<div class="content2-container bg-blue02">
-				<p class="content-title-noshade-size1">
-					
-					<img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" />
-					{{rr_comment_label}}
-				</p>
-				</div>
-				<div class="content2-container">
-				<p><br/>
-				{rr_comment}
-				</p>
-			</div>
-			{end_rr_comment}
-<!-- End Text Container -->
-
-<!-- Text container -->
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />
@@ -69,19 +49,9 @@ global $usr, $lang, $hide_coords;
 					</div>
 				</div>
 			</div>
-<!-- End Text Container -->
 
-{waypoints_start}
-			<div class="content2-container bg-blue02">
-				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt="" />
-					{{additional_waypoints}}
-				</p></div>
-				<p>
-					{waypoints_content}
-				</p><br />
-{waypoints_end}
-<!-- Text container -->
+
+
 
 {hidehint_start}
 			<div class="content2-container bg-blue02">
@@ -97,14 +67,24 @@ global $usr, $lang, $hide_coords;
 
 					<div style="width:200px;align:right;float:right">
 						{decrypt_table_start}
-						<font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">A|B|C|D|E|F|G|H|I|J|K|L|M</font><br>
+						<font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">A|B|C|D|E|F|G|H|I|J|K|L|M</font><br/>
 						<font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font>
 						{decrypt_table_end}
 					</div>
 				</div>
 
 {hidehint_end}
-<!-- End Text Container -->
+
+{waypoints_start}
+			<div class="content2-container bg-blue02">
+				<p class="content-title-noshade-size1">
+					<img src="tpl/stdstyle/images/blue/compas.png" alt="" />
+					{{additional_waypoints}}
+				</p></div>
+				<p>
+					{waypoints_content}
+				</p><br/>
+{waypoints_end}
 {hidenpa_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
@@ -121,7 +101,6 @@ global $usr, $lang, $hide_coords;
 </table></center>
 			</div>
 {hidenpa_end}
-<!-- Text container -->
 {hidepictures_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
@@ -134,7 +113,7 @@ global $usr, $lang, $hide_coords;
 				</div>
 			</div>
 {hidepictures_end}
-<!-- End Text Container -->
+
 
 <!-- Text container -->
 			<div class="content2-container bg-blue02">
