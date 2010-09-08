@@ -516,6 +516,7 @@ no_not_published_caches Nie ma nieopublikowanych skrzynek
 
 
 
+
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
@@ -784,3 +785,4 @@ region_from_coord Województwo z współrzędnych
 select_regions Wybierz województwo
 not_applicable Nie stosowane
 input_coord Proszę podać współrzędne lokalizacji skrzynki
+waypoints_about_info <a class="links" http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a>

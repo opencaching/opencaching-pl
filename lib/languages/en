@@ -739,7 +739,7 @@ region_from_coord Region from coordinates
 select_regions Select region
 not_applicable Not applicable
 input_coord Please input coordinates location of cache
-
+waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">See the description and the kinds of additional waypoints.</a>
 
  
  
