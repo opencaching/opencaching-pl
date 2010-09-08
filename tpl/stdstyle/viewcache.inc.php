@@ -204,7 +204,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 			else
 			{
 				$retval .= '<div class="img-shadow"><a href="'.$r['url'].'" title="'.htmlspecialchars($r['title']).'" >';
-				$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" />';
+				$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" /></a>';
 			}
 			$retval .= '</div>';
 			if($viewtext)
