@@ -45,7 +45,7 @@
 							`caches`.`date_hidden` `date_hidden`, 
 							IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
 							`cache_type`.`icon_large` `icon_large`,
-								IFNULL(`cache_location`.`adm3`,\'\') `region` 
+							IFNULL(`cache_location`.`adm3`,\'\') `region` 
 						FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id`), `user`, `cache_type` 
 						WHERE `caches`.`date_hidden` <= NOW() 
 						AND `caches`.`date_created` <= NOW()
@@ -57,7 +57,7 @@
 						LIMIT ' . ($startat+0) . ', ' . ($perpage+0));
 		while ($r = sql_fetch_array($rs))
 		{
-			$rss = sql("SELECT `en` `country_name` FROM `countries` WHERE `short` = '&1'",$r['country']);
+			$rss = sql("SELECT `pl` `country_name` FROM `countries` WHERE `short` = '&1'",$r['country']);
 			$rr = sql_fetch_array($rss);
 			$thisline = $tpl_line;
 
