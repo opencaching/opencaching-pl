@@ -125,7 +125,7 @@ function toggleAttr(id)
 }
 //-->
 </script>
-<form action="editcache-test.php" method="post" enctype="application/x-www-form-urlencoded" name="editcache_form" dir="ltr">
+<form action="editcache.php" method="post" enctype="application/x-www-form-urlencoded" name="editcache_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
 <input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
@@ -315,7 +315,7 @@ function toggleAttr(id)
 		<td colspan="2">{cache_wp_list}</td>
 	</tr>
 	<tr>
-		<td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.us/wiki/index.php/Waypoints" target="_blank">See the description and the kinds of additional waypoints.</a></div></td>
+		<td colspan="2"><br /><div class="notice" style="width:500px;min-height:24px;height:auto;">{{waypoints_about_info}}</div></td>
 	</tr>
 	{waypoints_end}
 
