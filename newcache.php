@@ -584,8 +584,8 @@
 
 				tpl_set_var('countryoptions', $countriesoptions);
 
-	//stateoptions
-  if ($sel_region=="") {$regionsoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';}
+	//regionoptions
+	if ($sel_region=="0") $regionoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';
 	$rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
