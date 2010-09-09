@@ -1036,8 +1036,9 @@
                                                 $adm3=sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='" . sql_escape($sel_region) . "'", 0);
 						} else { $code3=null; $adm3=null;}
                                                 sql("INSERT INTO `cache_location` (cache_id,adm1,adm3,code1,code3) VALUES ('&1','&2','&3','&4','&5')",$cache_id,$adm1,$adm3,$code1,$code3);
-						
-						
+						// update cache last modified, it is for work of cache_locations update information
+						sql("UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`='&1'",$cache_id);
+				
 						// waypoint erstellen
 						setCacheWaypoint($cache_id);
 						
