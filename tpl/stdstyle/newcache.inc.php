@@ -18,7 +18,7 @@
 
  $submit = tr('new_cache');
  $default_country = 'PL';
-  $default_region = '';
+ $default_region = '';
  $default_lang = 'PL';
  $show_all = tr('show_all');
  $default_NS = 'N';
