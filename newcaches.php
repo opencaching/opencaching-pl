@@ -19,6 +19,8 @@
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	require_once('./lib/cache_icon.inc.php');
+	require_once($rootpath . 'lib/caches.inc.php');
+	require_once($stylepath . '/lib/icons.inc.php');
 	
 	//Preprocessing
 	if ($error == false)
@@ -93,7 +95,7 @@
 
 			$thisline = mb_ereg_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = mb_ereg_replace('{userid}', $r['userid'], $thisline);
-			$thisline = mb_ereg_replace('{cachetype}', cache_type_from_id($r['type']), $thisline);
+			$thisline = mb_ereg_replace('{cachetype}', htmlspecialchars(cache_type_from_id($r['type'], $lang), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 			if ($r['country']=='PL') {
