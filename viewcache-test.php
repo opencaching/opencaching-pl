@@ -352,6 +352,8 @@
 
 			if ($cache_record['adm1'] !="") {tpl_set_var('kraj',$cache_record['adm1']);} else {tpl_set_var('kraj',$cache_record['country_name']);}
 			if ($cache_record['adm3'] !="") {tpl_set_var('woj',$cache_record['adm3']); tpl_set_var('dziubek1',">");}
+			if ($cache_record['adm3'] =="") {$woj=$cache_record['adm2']; tpl_set_var('woj',$woj);} 
+			if ($woj =="") { tpl_set_var('woj',$cache_record['adm4'];}
 //			if ($cache_record['adm4'] !="") {tpl_set_var('miasto',$cache_record['adm4']); tpl_set_var('dziubek2',">");} 
 		
 	
