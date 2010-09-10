@@ -30,7 +30,7 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 - trojmiasto<br />
 - rushcore<br />
 - mardoq<br />
-- <font color="#F8F8F8 ">sp2ong</font> <br />
+- <font color="#F0F0F0">sp2ong</font> <br />
 <br />
 <b>Centrum Obsługi Geocachera </b>  - Kadencja 1.06.2010 - 31.05.2011 (w nawiasie liczba otrzymanych głosów):<br />
 <b>E-mail: <font color="black">cog</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
