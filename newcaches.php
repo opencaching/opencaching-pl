@@ -38,6 +38,7 @@
 		$rs = sql('SELECT `caches`.`cache_id` `cacheid`, 
 							`user`.`user_id` `userid`, 
 							`caches`.`country` `country`, 
+							`caches`.`type` `cachetype`,
 							`caches`.`name` `cachename`, 
 							`caches`.`wp_oc` `wp_name`, 
 							`user`.`username` `username`, 
@@ -50,7 +51,7 @@
 						WHERE `caches`.`date_hidden` <= NOW() 
 						AND `caches`.`date_created` <= NOW()
 						AND `caches`.`user_id`=`user`.`user_id` 
-						AND `caches`.`type`=`cache_type`.`id` 
+						AND `cache_type`.`id`=`caches`.`type`
 						AND `caches`.`status` = 1 
 						ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, 
 						`caches`.`cache_id` DESC 
@@ -92,6 +93,7 @@
 
 			$thisline = mb_ereg_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = mb_ereg_replace('{userid}', $r['userid'], $thisline);
+			$thisline = mb_ereg_replace('{cachetype}', $r['cachetype'], $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 			if ($r['country']=='PL') {
