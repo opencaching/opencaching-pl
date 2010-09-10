@@ -291,7 +291,7 @@ function nearbycachemapOC()
 		<td>
 			<select name="region" class="input200" onchange="javascript:chkcountry()" >
 				{regionoptions}
-			</select>&nbsp;&nbsp;<button onclick="return extractregion()">{{region_from_coord}}</button>
+			</select>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button onclick="return extractregion()">{{region_from_coord}}</button>
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
