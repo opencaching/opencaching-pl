@@ -93,7 +93,7 @@
 
 			$thisline = mb_ereg_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = mb_ereg_replace('{userid}', $r['userid'], $thisline);
-			$thisline = mb_ereg_replace('{cachetype}', typeToLetter($r['type']), $thisline);
+			$thisline = mb_ereg_replace('{cachetype}', cache_type_from_id($r['type']), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 			if ($r['country']=='PL') {
