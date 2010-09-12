@@ -351,20 +351,25 @@ function toggleAttr(id)
 			</div>
 
 	<tr>
-		<td class="content-title-noshade">{{date_hidden_label}}:</td>
-		<td>
+		<td colspan="2">
+		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
+		<legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
 			<input class="input40" type="text" name="hidden_year" maxlength="4" value="{date_year}"/>-
 			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{date_month}"/>-
-			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}"/>&nbsp;(MM/DD/YYYY)&nbsp;
+			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}"/>&nbsp;
 			{date_message}
+			</fieldset>	
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{event_hidden_hint}}</div></td></tr>
 	{activation_form}
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td><p class="content-title-noshade">{{log_password}}:</p></td>
-		<td><input class="input100" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})</td>
+		<td colspan="2"><br />	
+		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
+		<legend>&nbsp; <strong>{{log_password}}</strong> &nbsp;</legend><input class="input100" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})
+		</fieldset>
+		</td>
 	</tr>
 	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{please_read}}</div></td></tr>
 	<tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /></div></td></tr>
