@@ -16,7 +16,7 @@
 
  ****************************************************************************/
 ?>
-{body_scripts}
+
 <script type="text/javascript">
 <!--
 var maAttributes = new Array({jsattributes_array});
