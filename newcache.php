@@ -438,8 +438,6 @@
 					}
 				}
 				tpl_set_var('sizeoptions', $sizes);
-// ToolTips Ballon			
-			tpl_set_var('body_scripts', '<script type="text/javascript" src="lib/js/wz_tooltip.js"></script><script type="text/javascript" src="lib/js/tip_balloon.js"></script><script type="text/javascript" src="lib/js/tip_centerwindow.js"></script>');
 				//typeoptions			
 				if(checkField('cache_type',$lang) )
 					$lang_db = $lang;
@@ -449,29 +447,16 @@
 				$types = '';
 				foreach ($cache_types as $type)
 				{
-				if ($lang!="pl"){$title="Please select type of cache";} else {
-				if ($type['id']==1) {$title="<b>Inny typ</b> - posiadają skrzynki, które nie pasują do żadnej z pozostałych definicji typów skrzynek ale posiadają fizyczny pojemnik oraz dziennik papierowy. Wskazówki dotarcia do tego logbooka mogą być różnorakie. ";}
-				if ($type['id']==2) {$title="<b>Tradycyjna</b> - w przypadku skrzynki tradycyjnej, wymagane jest, by współrzędne wskazywały precyzyjnie miejsce ukrycia skrzynki, gdyż na ich podstawie musi być możliwe jej odnalezienie. Nie trzeba spełniać żadnych dodatkowych wymogów w terenie aby dokonać wpisu w logu internetowym. Skrzynka zawiera dziennik papierowy. ";}
-				if ($type['id']==3) {$title="<b>Multi-cache</b> - skrzynka składająca się z minimum dwóch etapów pośrednich, z czego pierwszy wskazywany przez współrzędne. Do znalezienia skrzynki finałowej, zawierającej logbook, konieczne jest odwiedzenie kilku lokalizacji, zawierających niezbędne informacje o miejscu jej ukrycia. Informacje na etapach pośrednich mogą być także umieszczone w ukrytych pojemnikach podobnych to tych stosowanych przy skrzynkach tradycyjnych, jednak nie zawierających dziennika. Kiedy indziej niezbędne informacje trzeba odczytać ze znajdujących się w danej lokalizacji obiektów. Wszystkie informacje niezbędne do odnalezienia skrzynki są podane w sposób jawny (niezaszyfrowany i nie mający charakteru zagadki), i znajdują się w opisie lub w terenie (na obiektach lub w pojemnikach pośrednich)";}
-				if ($type['id']==6) {$title="<b>Wydarzenie</b> - Jest to rodzaj skrzynki używany do oznaczenia spotkania geocacherów w zaplanowanym terminie na miejscu o podanych współrzędnych. Szczególnym przypadkiem takiej skrzynki jest CITO. Data ukrycia skrzynki oznacza planowany termin spotkania. Wpisy w internetowym logu różnią się od pozostałych skrzynek. Dostępne są - będzie uczestniczył, uczestniczył i komentarz.";}
-				if ($type['id']==7) {$title="<b>Quiz</b> - wymaga rozwiązania zagadki: wykonania obliczeń, ułożenia puzzli z obrazka, rozwiązania łamigłówki, której wynikiem są dokładne współrzędne (lub ścisłe informacje na temat położenia) ukrytej skrzynki. Skrzynka tego typu może zawierać hasło do logu internetowego.";}
-				if ($type['id']==8) {$title="<b>Mobilna</b> - to skrzynka ukryta metodą tradycyjną, czyli możliwa do odnalezienia pod podanymi przez ostatniego znalazcę współrzędnymi. Różni się od skrzynki tradycyjnej tym, że każdy jej znalazca jest zobowiązany zabrać skrzynkę ze sobą aby przenieść ją w nowe miejsce. Jeśli znalazca nie jest w stanie jej ukryć natychmiast w nowej lokalizacji, w logu internetowym zaznacza jedynie jej znalezienie, co jest sygnałem dla innych poszukiwaczy że skrzynka została zabrana. Niezwłocznie po ukryciu skrzynki w nowej lokalizacji znalazca wprowadza do logu internetowego drugi wpis: Przeniesiona, podając jej nowe współrzędne i ewentualne uzupełniający opis.";}
-				if ($type['id']==9) {$title="<b>Podcast cache</b> - Współrzędne podane nie wskazują miejsca ukrycia skrzynki tylko punkt startowy. Zakładający skrzynke nagrywa w postaci pliku MP3 opis drogi jak dotrzeć z miejsca startowego do celu gdzie jest ukryta fizyczna skrzynka. Szukający pobiera z strony serwisu z opisu skrzynki plik MP3 i sluchając go z miejsca startowego stara się odszukać skrzynke..";}
-				}
-				$tip="onmouseover=\"Tip('";
-				$tip .= $title;
-				$tip .= "<br/>', BALLOON, true, FIX,['actionicons', 10, 15], ABOVE, true, OFFSETY, 20, OFFSETX, 35, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"";
-
                        // block register virtual or webcam
 				if( $type['id'] == 4 || $type['id'] == 5 )
 						continue;
 					if ($type['id'] == $sel_type)
 					{
-						$types .= '<option '.$tip.' value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+						$types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 					}
 					else
 					{
-						$types .= '<option '.$tip.' value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+						$types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 					}
 				}
 				tpl_set_var('typeoptions', $types);
