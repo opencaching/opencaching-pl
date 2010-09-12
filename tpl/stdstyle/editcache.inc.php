@@ -62,20 +62,20 @@ $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
 	$default_lang = $lang;
 
 	 $activation_form = '
-		<tr><td class="buffer" colspan="2"></td></tr>
-		<tr>
-			<td>Publikacja skrzynki:</td>
-			<td>
+		<td colspan="2">		
+		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
+			<legend>&nbsp; <strong>{{submit_new_cache}}</strong> &nbsp;</legend>
 				<input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}>&nbsp;<label for="publish_now">Publikuj teraz</label><br />
 				<input type="radio" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}>&nbsp;<label for="publish_later">Opublikuj dnia:</label>
-				<input class="input20" type="text" name="activate_day" maxlength="2" value="{activate_day}"/>.
-				<input class="input20" type="text" name="activate_month" maxlength="2" value="{activate_month}"/>.
-				<input class="input40" type="text" name="activate_year" maxlength="4" value="{activate_year}"/>&nbsp;
+				<input class="input40" type="text" name="activate_year" maxlength="4" value="{activate_year}"/> - 
+				<input class="input20" type="text" name="activate_month" maxlength="2" value="{activate_month}"/> - 
+				<input class="input20" type="text" name="activate_day" maxlength="2" value="{activate_day}"/>&nbsp;
 				<select name="activate_hour" class="input40">
 					{activation_hours}
 				</select>&nbsp;godzina&nbsp;{activate_on_message}<br />
 				<input type="radio" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}>&nbsp;<label for="publish_notnow">Jeszcze nie publikuj</label>
-			</td>
+				</fieldset>
+				</td>
 		</tr>
 		';
 ?>
