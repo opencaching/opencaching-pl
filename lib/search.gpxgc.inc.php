@@ -1,12 +1,4 @@
 <?php
-	/***************************************************************************
-															./lib/search.gpx.inc.php
-																-------------------
-			begin                : November 1 2005 
-			copyright            : (C) 2005 The OpenCaching Group
-			forum contact at     : http://www.opencaching.com/phpBB2
-
-		***************************************************************************/
 
 	/***************************************************************************
 		*                                         				                                
@@ -110,17 +102,18 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
 		
 $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 	<time>{{time}}</time>
-	<name><![CDATA[{waypoint} {wp_stage}]]></name>
-    <cmt><{desc}</cmt>
+	<name>{waypoint} {wp_stage}></name>
+    <cmt>{desc}</cmt>
     <desc>{wp_type_name}</desc>
     <url>http://opencaching.pl/viewcache.php?cacheid={cacheid}</url>
-    <urlname><![CDATA[{waypoint} {wp_stage}]]></urlname>
+    <urlname>{waypoint} {wp_stage}></urlname>
     <sym>{wp_type}</sym>
     <type>Waypoint|{wp_type}</type>
     <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/5">
 	<gsak:Parent>{waypoint}</gsak:Parent>
-	<gsak:Code><![CDATA[{waypoint} {wp_stage}]]></gsak:Code>
-	<gsak:SmartName></gsak:SmartName>
+	<gsak:Code>{waypoint} {wp_stage}</gsak:Code>
+	<gsak:Child_Flag>true</gsak:Child_Flag>
+	<gsak:Child_ByGSAK>true</gsak:Child_ByGSAK>
 	</gsak:wptExtension>
   </wpt>
 ';
