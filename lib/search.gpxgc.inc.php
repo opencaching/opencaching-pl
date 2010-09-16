@@ -102,11 +102,11 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
 		
 $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 	<time>{{time}}</time>
-	<name>{waypoint} {wp_stage}></name>
+	<name>{waypoint} {wp_stage}</name>
     <cmt>{desc}</cmt>
     <desc>{wp_type_name}</desc>
     <url>http://opencaching.pl/viewcache.php?cacheid={cacheid}</url>
-    <urlname>{waypoint} {wp_stage}></urlname>
+    <urlname>{waypoint} {wp_stage}</urlname>
     <sym>{wp_type}</sym>
     <type>Waypoint|{wp_type}</type>
     <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/5">
@@ -323,13 +323,15 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 				header("Content-Disposition: attachment; filename=" . $sFilebasename . ".gpx");
 			}
 		}
-		
+		$children='';
 		$gpxHead = str_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
-	//	$rwp = sql("SELECT  `status` FROM `waypoints` WHERE  `waypoints`.`cache_id`=&1 AND `waypoints`.`status`='1' ORDER BY `waypoints`.`stage`", $r['cacheid']); 
-	//	if (mysql_num_rows($rwp) != 0) {$gpxHead = str_replace('{wpchildren}', "(HasChildren)", $gpxHead); } 
-	//	 else {
-		 $gpxHead = str_replace('{wpchildren}', "", $gpxHead); 
-		 //}
+		$rss = sql('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
+		while($rs = sql_fetch_array($rss))
+		{
+		$rwp = sql("SELECT  `status` FROM `waypoints` WHERE  `waypoints`.`cache_id`=&1 AND `waypoints`.`status`='1'", $rs['cacheid']); 
+		if (mysql_num_rows($rwp) != 0) {$children="(HasChildren)";} 
+		}
+		$gpxHead = str_replace('{wpchildren}', $children, $gpxHead); 
 		append_output($gpxHead);
 
 		// ok, ausgabe ...
