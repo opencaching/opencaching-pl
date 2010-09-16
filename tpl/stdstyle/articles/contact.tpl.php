@@ -24,7 +24,6 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 <br/>
 <b>Rada Techniczna </b>:<br />
 <b>E-mail: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
-- filips (Filip) - geokrety.org / OC PL dla urządzeń mobilnych<br />
 - tATO - sprawy finasowe <br />
 - starypatyk<br />
 - trojmiasto<br />
