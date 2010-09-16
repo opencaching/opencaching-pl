@@ -38,7 +38,7 @@
 <div class="buffer"></div>
 <table class="table">
 <form name="change" action="change_statpic.php" method="post" enctype="application/x-www-form-urlencoded"  style="display: inline;">
-<input type="hidden" name="show_all_countries" value="{show_all_countries}">
+
 	<colgroup>
 		<col width="200">
 		<col>
