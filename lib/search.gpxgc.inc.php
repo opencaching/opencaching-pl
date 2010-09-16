@@ -14,7 +14,7 @@
 		Unicode Reminder ??
                                      				                                
 		GPX search output
-		
+		(HasChildren)
 	****************************************************************************/
 
 	global $content, $bUseZip, $sqldebug, $usr, $hide_coords;
@@ -43,7 +43,7 @@
 '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" creator="GSAK" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd" xmlns="http://www.topografix.com/GPX/1/0"> 
 	<name>Cache Listing Generated from Opencaching.pl</name>
-	<desc>Cache Listing Generated from Opencaching.pl</desc>
+	<desc>Cache Listing Generated from Opencaching.pl {HasChildren}</desc>
 	<author>Opencaching.pl</author>
 	<email>ocpl@opencaching.pl</email>
 	<url>http://www.opencaching.pl</url>
@@ -398,7 +398,6 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
 			$thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
 
-
 			$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
 			// logs ermitteln
@@ -502,11 +501,13 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			}
 			$thisline = str_replace('{geokrety}', $geokrety, $thisline);
 // Waypoints
+			$HasChildren="";
 			$waypoints = '';
 			$rswp = sql("SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`.`pl` `wp_type_name` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE  `waypoints`.`cache_id`=&1 ORDER BY `waypoints`.`stage`", $r['cacheid']); 
 			while ($rwp = sql_fetch_array($rswp))
 			{
 			if ($rwp['status']==1) {
+				$HasChildren="(HasChildren)";
 				$thiswp = $gpxWaypoints;
 				$lat = sprintf('%01.5f', $rwp['latitude']);
 				$thiswp = str_replace('{wp_lat}', $lat, $thiswp);		
@@ -530,6 +531,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 				}
 			}
 			$thisline = str_replace('{cache_waypoints}', $waypoints, $thisline);
+			$thisline = str_replace('{HasChildren}', $HasChildren, $thisline);		
 
 
 
