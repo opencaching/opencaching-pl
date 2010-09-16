@@ -42,7 +42,7 @@
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
-	{{available_logos}}
+	{available_logos}
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
