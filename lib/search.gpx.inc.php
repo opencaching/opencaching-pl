@@ -119,7 +119,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
     <urlname><![CDATA[{waypoint} {wp_stage}]]></urlname>
     <sym>{wp_type}</sym>
     <type>Waypoint|{wp_type}</type>
-    <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/4">
+    <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/5">
 	<gsak:Parent>{waypoint}</gsak:Parent>
 	</gsak:wptExtension>
   </wpt>
@@ -127,7 +127,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
 	$gpxFoot = '</gpx>';
 
-	$gpxTimeFormat = 'Y-m-d\TH:i:s';
+	$gpxTimeFormat = 'Y-m-d\TH:i:s\Z';
 
 	$gpxStatus[0] = 'Unavailable'; // andere
 	$gpxStatus[1] = 'Available';

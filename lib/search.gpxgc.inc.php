@@ -49,7 +49,7 @@
 
 	$gpxHead = 
 '<?xml version="1.0" encoding="utf-8"?>
-<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0" creator="Groundspeak, Inc. All Rights Reserved. http://www.groundspeak.com" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/4 http://www.gsak.net/xmlv1/4/gsak.xsd" xmlns="http://www.topografix.com/GPX/1/0">
+<gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" creator="GSAK" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd" xmlns="http://www.topografix.com/GPX/1/0"> 
 	<name>Cache Listing Generated from Opencaching.pl</name>
 	<desc>Cache Listing Generated from Opencaching.pl</desc>
 	<author>Opencaching.pl</author>
@@ -117,7 +117,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
     <urlname><![CDATA[{waypoint} {wp_stage}]]></urlname>
     <sym>{wp_type}</sym>
     <type>Waypoint|{wp_type}</type>
-    <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/4">
+    <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/5">
 	<gsak:Parent>{waypoint}</gsak:Parent>
 	</gsak:wptExtension>
   </wpt>
@@ -125,7 +125,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
 	$gpxFoot = '</gpx>';
 
-	$gpxTimeFormat = 'Y-m-d\TH:i:s';
+	$gpxTimeFormat = 'Y-m-d\TH:i:s\Z';
 
 	$gpxAvailable[0] = 'False';	//OC: Unavailable
 	$gpxAvailable[1] = 'True';	//OC: Available
