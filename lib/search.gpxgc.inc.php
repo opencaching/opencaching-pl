@@ -70,7 +70,7 @@ $gpxLine = '
 			<groundspeak:difficulty>{difficulty}</groundspeak:difficulty>
 			<groundspeak:terrain>{terrain}</groundspeak:terrain>
 			<groundspeak:country>Polska</groundspeak:country>
-			<groundspeak:state></groundspeak:state>
+			<groundspeak:state>{region}</groundspeak:state>
 			<groundspeak:short_description html="False">{shortdesc}</groundspeak:short_description>
 			<groundspeak:long_description html="True">{desc}{rr_comment}&lt;br&gt;{{images}}</groundspeak:long_description>
 			<groundspeak:encoded_hints>{hints}</groundspeak:encoded_hints>
@@ -169,8 +169,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 	$gpxGeocacheTypeText[6] = 'Event Cache';
 	$gpxGeocacheTypeText[7] = 'Quiz';
 	$gpxGeocacheTypeText[8] = 'Moving Cache';
-	$gpxGeocacheTypeText[10] = 'Unknown Cache';
-	$gpxGeocacheTypeText[11] = 'PodCast Cache';
+	$gpxGeocacheTypeText[9] = 'Podcast cache';
+
 	
 	$gpxLogType[0] = 'Write note';			//OC: Other
 	$gpxLogType[1] = 'Found it'; 			//OC: Found
@@ -351,7 +351,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
 //			$thisline = str_replace('{country}', $r['country'], $thisline);
-			$thisline = str_replace('{state}', '', $thisline);
+			$region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);		
+			$thisline = str_replace('{region}', $region, $thisline);
 			
 			if ($r['hint'] == '')
 				$thisline = str_replace('{hints}', '', $thisline);
@@ -427,7 +428,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			// Attributes
 
 				$thislogs ='<groundspeak:log id="1">';
-				$thislogs .='<groundspeak:date>' .date("Y-m-d\TH:i:s").'</groundspeak:date>';
+				$thislogs .='<groundspeak:date>' .date("Y-m-d\TH:i:s\Z").'</groundspeak:date>';
 				$thislogs .='<groundspeak:finder id="0">SYSTEM</groundspeak:finder>';
 				$thislogs .='<groundspeak:text encoded="False">';				
 				if (mysql_num_rows($rsAttributes) > 0) {

@@ -1,12 +1,4 @@
 <?php
-	/***************************************************************************
-															./lib/search.gpx.inc.php
-																-------------------
-			begin                : November 1 2005 
-			copyright            : (C) 2005 The OpenCaching Group
-			forum contact at     : http://www.opencaching.com/phpBB2
-
-		***************************************************************************/
 
 	/***************************************************************************
 		*                                         				                                
@@ -52,11 +44,9 @@
 	$gpxHead = 
 '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://geocaching.com.au/geocache/1 http://geocaching.com.au/geocache/1/geocache.xsd http://www.gsak.net/xmlv1/4 http://www.gsak.net/xmlv1/4/gsak.xsd"
-     xmlns="http://www.topografix.com/GPX/1/0"
-     version="1.0"
-     creator="www.opencaching.pl">
-  <desc>Geocache</desc>
+     xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://geocaching.com.au/geocache/1 http://geocaching.com.au/geocache/1/geocache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd"
+     xmlns="http://www.topografix.com/GPX/1/0" version="1.0" creator="www.opencaching.pl">
+  <desc>Cache Listing Generated from Opencaching.pl {wpchildren}</desc>
   <author>Geocaching Poland</author>
   <url>http://www.opencaching.pl</url>
   <urlname>www.opencaching.pl</urlname>
@@ -77,7 +67,7 @@
 			<name>{cachename}</name>
 			<owner>{owner}</owner>
 			<locale></locale>
-			<state>{state}</state>
+			<state>{region}</state>
 			<country>POLSKA</country>
 			<type>{type}</type>
 			<container>{container}</container>
@@ -111,16 +101,19 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 </log>
 ';
 $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
-	<time>{time}</time>
-	<name><![CDATA[{waypoint} {wp_stage}]]></name>
-    <cmt>{wp_type_name}</cmt>
-    <desc>{desc}</desc>
+	<time>{{time}}</time>
+	<name>{waypoint} {wp_stage}</name>
+    <cmt>{desc}</cmt>
+    <desc>{wp_type_name}</desc>
     <url>http://opencaching.pl/viewcache.php?cacheid={cacheid}</url>
-    <urlname><![CDATA[{waypoint} {wp_stage}]]></urlname>
+    <urlname>{waypoint} {wp_stage}</urlname>
     <sym>{wp_type}</sym>
     <type>Waypoint|{wp_type}</type>
     <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/5">
 	<gsak:Parent>{waypoint}</gsak:Parent>
+	<gsak:Code>{waypoint} {wp_stage}</gsak:Code>
+	<gsak:Child_Flag>false</gsak:Child_Flag>
+	<gsak:Child_ByGSAK>false</gsak:Child_ByGSAK>
 	</gsak:wptExtension>
   </wpt>
 ';
@@ -161,10 +154,10 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 	$gpxGeocacheType[3] = 'Multi-Cache';
 	$gpxGeocacheType[4] = 'Virtual Cache';
 	$gpxGeocacheType[5] = 'Webcam Cache';
-	$gpxGeocacheType[6] = 'Unknown Cache';
+	$gpxGeocacheType[6] = 'Event Cache';
 	$gpxGeocacheType[7] = 'Multi-cache';
 	$gpxGeocacheType[8] = 'Multi-cache';
-	$gpxGeocacheType[9] = 'Traditional Cache';
+	$gpxGeocacheType[9] = 'Unknown Cache';
 
 	// nazwy skrzynek do description
 	$gpxGeocacheTypeText[1] = 'Unknown Cache';
@@ -175,7 +168,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 	$gpxGeocacheTypeText[6] = 'Event Cache';
 	$gpxGeocacheTypeText[7] = 'Quiz';
 	$gpxGeocacheTypeText[8] = 'Moving Cache';
-	$gpxGeocacheTypeText[9] = 'Unknown Cache';
+	$gpxGeocacheTypeText[9] = 'Podcast cache';
 	
 	$gpxLogType[0] = 'Write note';			//OC: Other
 	$gpxLogType[1] = 'Found it'; 			//OC: Found
@@ -329,7 +322,15 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			}
 		}
 		
-		$gpxHead = str_replace('{time}', date($gpxTimeFormat, time()), $gpxHead);
+		$children='';
+		$gpxHead = str_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
+		$rss = sql('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
+		while($rs = sql_fetch_array($rss))
+		{
+		$rwp = sql("SELECT  `status` FROM `waypoints` WHERE  `waypoints`.`cache_id`=&1 AND `waypoints`.`status`='1'", $rs['cacheid']); 
+		if (mysql_num_rows($rwp) != 0) {$children="(HasChildren)";} 
+		}
+		$gpxHead = str_replace('{wpchildren}', $children, $gpxHead); 
 		append_output($gpxHead);
 
 		// ok, ausgabe ...
@@ -349,7 +350,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
 			$thisline = str_replace('{country}', $r['country'], $thisline);
-			$thisline = str_replace('{state}', '', $thisline);
+			$region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);		
+			$thisline = str_replace('{region}', $region, $thisline);
 			
 			if ($r['hint'] == '')
 				$thisline = str_replace('{hints}', '', $thisline);
@@ -424,7 +426,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			// Attributes
 
 				$thislogs ='<log id="1">';
-				$thislogs .='<time>' .date("Y-m-d\TH:i:s").'</time>';
+				$thislogs .='<time>' .date("Y-m-d\TH:i:s\Z").'</time>';
 				$thislogs .='<geocacher>SYSTEM</geocacher>';
 				$thislogs .='<text>';				
 				if (mysql_num_rows($rsAttributes) > 0) {
