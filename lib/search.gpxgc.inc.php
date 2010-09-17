@@ -112,7 +112,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
     <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/5">
 	<gsak:Parent>{waypoint}</gsak:Parent>
 	<gsak:Code>{waypoint} {wp_stage}</gsak:Code>
-	<gsak:Child_Flag>true</gsak:Child_Flag>
+	<gsak:Child_Flag>false</gsak:Child_Flag>
 	<gsak:Child_ByGSAK>false</gsak:Child_ByGSAK>
 	</gsak:wptExtension>
   </wpt>
