@@ -10,8 +10,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 INSERT INTO `cache_attrib` (`id`, `language`, `text_short`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category`, `default`) VALUES
 (60, 'PL', 'Natura', 'Umiejscowiona na łonie natury, lasy, góry itp', 'images/attributes/nature.png', 'images/attributes/nature-no.png', 'images/attributes/nature-undef.png', 1, 0),
-(40, 'PL', 'Szybka skrzynka', 'Szybka skrzynka', 'images/attributes/fast.png', 'images/attributes/fast-no.png', 'images/attributes/fast-undef.png', 1, 0),
-(40, 'EN', 'One-minute cache', 'One-minute cache', 'images/attributes/fast.png', 'images/attributes/fast-no.png', 'images/attributes/fast-undef.png', 1, 0),
+(40, 'PL', 'Szybka skrzynka', 'Szybka skrzynka', 'images/attributes/quick.png', 'images/attributes/quick-no.png', 'images/attributes/quick-undef.png', 1, 0),
+(40, 'EN', 'One-minute cache', 'One-minute cache', 'images/attributes/quick.png', 'images/attributes/quick-no.png', 'images/attributes/quick-undef.png', 1, 0),
 (41, 'EN', 'Children', 'Go geocaching with children', 'images/attributes/children.png', 'images/attributes/children-no.png', 'images/attributes/children-undef.png', 1, 0),
 (51, 'PL', 'Offset cache', 'Offset cache', 'images/attributes/offset.png', 'images/attributes/offset-no.png', 'images/attributes/offset-undef.png', 1, 0),
 (51, 'EN', 'Offset cache', 'Offset cache', 'images/attributes/offset.png', 'images/attributes/offset-no.png', 'images/attributes/offset-undef.png', 1, 0),
