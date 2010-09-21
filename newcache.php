@@ -329,9 +329,9 @@
 				else
 				{
 					// Standard
-					tpl_set_var('publish_now_checked', 'checked="checked"');
+					tpl_set_var('publish_now_checked', '');
 					tpl_set_var('publish_later_checked', '');
-					tpl_set_var('publish_notnow_checked', '');
+					tpl_set_var('publish_notnow_checked', 'checked="checked"');
 				}
 
 				// fill activate hours
