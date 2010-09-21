@@ -95,10 +95,10 @@ function chname( newName )
 			<div class="site-slogan">
 				<div style="width:100%; text-align:left;">
 				<p class="search">
-				  <input type="radio" onclick="chname('cachename');" name="searchto" id="st_1" value="searchbyname" class="radio" checked="checked"/> <label for="st_1">{{cache_label}}</label>&nbsp;&nbsp;
+				  <input type="radio" onclick="chname('cachename');" name="searchto" id="st_1" value="searchbyname" class="radio" /> <label for="st_1">{{cache_label}}</label>&nbsp;&nbsp;
 					<input type="radio" onclick="chname('owner');" name="searchto" id="st_2" value="searchbyowner" class="radio" /> <label for="st_2">{{owner_label}}</label>&nbsp;&nbsp;
 					<input type="radio" onclick="chname('finder');" name="searchto" id="st_3" value="searchbyfinder" class="radio" /> <label for="st_3">{{finder_label}}</label>&nbsp;&nbsp;
-					<input type="radio" onclick="chname('waypoint');" name="searchto" id="st_4" value="searchbywaypoint" class="radio"/> <label for="st_4">waypoint</label>&nbsp;&nbsp;
+					<input type="radio" onclick="chname('waypoint');" name="searchto" id="st_4" value="searchbywaypoint" class="radio" checked="checked"/> <label for="st_4">waypoint</label>&nbsp;&nbsp;
 					<input type="hidden" name="showresult" value="1"/>
 					<input type="hidden" name="expert" value="0"/>
 					<input type="hidden" name="output" value="HTML"/>
