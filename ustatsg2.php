@@ -85,8 +85,53 @@
 
 			tpl_set_var('username',$user_record['username']);
 }
+
+$rsCachesFindYear = sql("SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`&2` AS `type`, `cache_type`.`color` AS `color` FROM `cache_logs`, caches INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE cache_logs.`deleted`=0 AND cache_logs.user_id=&1 AND cache_logs.`type`='1' AND cache_logs.`cache_id` = caches.cache_id  GROUP BY `caches`.`type` ORDER BY `count` DESC",$user_id,$lang_db);
+
+  if ($rsCachesFindYear !== false) 
+	{
+		// Get data 
+		$rsTypes = sql('SELECT COUNT(`caches`.`type`) `count`, `cache_type`.`&1` AS `type`, `cache_type`.`color` FROM `caches` INNER JOIN `cache_type` ON (`caches`.`type`=`cache_type`.`id`) WHERE `status`=1 GROUP BY `caches`.`type` ORDER BY `count` DESC',$lang_db);
+		
+		$yData = array();
+		$xData = array();
+		$colors = array();
+		$url = "http://chart.apis.google.com/chart?chs=550x200&chd=t:";
+		$sum = 0;
+		while ($rTypes = mysql_fetch_array($rsCachesFindYear))
+		{
+			$yData[] = ' (' . $rTypes['count'] . ') ' . $rTypes['type'];
+			$xData[] = $rTypes['count'];
+			$colors[] = substr($rTypes['color'], 1);
+			$sum += $rTypes['count'];
+		}
+		mysql_free_result($rsTypes);
+		foreach( $xData as $count )
+		{
+			$url .= $count.",";
+		}
+		
+		$url = substr($url, 0, -1);
+		$url .= "&cht=p3&chl=";
+		
+		foreach( $yData as $label )
+		{
+			$url .= urlencode($label)."|";
+		}
+		$url = substr($url, 0, -1);
+		
+		$url .= "&chco=";
+		foreach( $colors as $color )
+		{
+			$url .= urlencode($color).",";
+		}
+		$url = substr($url, 0, -1);
+		
+	}
+	mysql_free_result($rsCachesFindYear);
+	
 				$content .='<p>&nbsp;</p><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;'.tr("graph_find").'</p></div><br />';	
-				$content .= '<p><img src="graphs/PieGraphustat.php?userid=' . $user_id . '&amp;t=cf"  border="0" alt="" width="500" height="300" /></p>';	
+				$content .= '<p><img src="'.$url.'"  border="0" alt="" width="500" height="300" /></p>';	
 
 $year=date("Y");
 $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`date`) `month` FROM `cache_logs` WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 AND YEAR(`date`)=&2 GROUP BY MONTH(`date`) , YEAR(`date`) ORDER BY YEAR(`date`) ASC, MONTH(`date`) ASC",$user_id,$year);
