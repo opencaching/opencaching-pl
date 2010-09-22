@@ -12,6 +12,7 @@
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 		global $stat_menu;	
+		global $lang;
 	//Preprocessing
 	if ($error == false)
 	{
@@ -61,7 +62,11 @@
 				);
 
 	$content="";
-	
+	if(checkField('cache_type',$lang) )
+				$lang_db = $lang;
+			else
+				$lang_db = "en";
+				
 	$rsGeneralStat =sql("SELECT  hidden_count, founds_count, log_notes_count, notfounds_count, username FROM `user` WHERE user_id=&1 ",$user_id);
 
 			$user_record = sql_fetch_array($rsGeneralStat);
