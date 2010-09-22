@@ -61,10 +61,10 @@
 					//here we read all used information from the form if submitted, otherwise from DB
 					
 					// wihout virtuals and webcams
-					if( ($_POST['type'] == 4 && $cache_record['type'] != 4 ) || 
+					if( ( ($_POST['type'] == 4 && $cache_record['type'] != 4 ) || 
 					    ($_POST['type'] == 5 && $cache_record['type'] != 5 ) || 
-							($_POST['type'] == 10 && $cache_record['type'] != 10 ) || 
-							$usr['admin'] )
+							($_POST['type'] == 10 && $cache_record['type'] != 10 ) ) && 
+							!$usr['admin'] )
 					{
 						$_POST['type'] = $cache_record['type'];
 					}
@@ -652,10 +652,10 @@
 					foreach ($cache_types as $type)
 					{
 						// block virtual and webcam
-						if( ($cache_type != 4 && $type['id'] == 4 ) || 
+						if( ( ($cache_type != 4 && $type['id'] == 4 ) || 
 						    ($cache_type != 5 && $type['id'] == 5 ) || 
-								($cache_type != 10 && $type['id'] == 10 ) ||
-								$usr['admin'] )
+								($cache_type != 10 && $type['id'] == 10 ) ) &&
+								!$usr['admin'] )
 						{
 							// if not (wirtual lub webcam)
 							// then do not display in the list
