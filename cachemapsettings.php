@@ -69,7 +69,7 @@ if($usr==true)
 	}
 	else
 		if( isset($_GET['maptype']) && $_GET['maptype'] != '')
-			setDBFilter($usr['userid'],$_GET['maptype'],null, $_GET['h_u']=="true"?0:1, $_GET['h_t']=="true"?0:1, $_GET['h_m']=="true"?0:1, $_GET['h_v']=="true"?0:1, $_GET['h_w']=="true"?0:1, $_GET['h_e']=="true"?0:1, $_GET['h_q']=="true"?0:1, $_GET['h_o']=="true"?0:1, , $_GET['h_owncache']=="true"?0:1, $_GET['h_ignored']=="true"?0:1, $_GET['h_own']=="true"?0:1, $_GET['h_found']=="true"?0:1, $_GET['h_noattempt']=="true"?0:1, $_GET['h_nogeokret']=="true"?0:1, $_GET['signes']=="true"?1:0, $_GET['waypoints']=="true"?1:0, $_GET['h_avail']=="true"?1:0, $_GET['h_temp_unavail']=="true"?1:0, $_GET['h_arch']=="true"?0:1, $_GET['be_ftf']=="true"?1:0, $_GET['h_se']=="true"?1:0, $_GET['h_no']=="true"?1:0, $_GET['h_de']=="true"?1:0, $_GET['h_pl']=="true"?1:0, intval($_GET['min_score']),intval($_GET['max_score']), $_GET['h_noscore']=="true"?1:0 );
+			setDBFilter($usr['userid'],$_GET['maptype'],null, $_GET['h_u']=="true"?0:1, $_GET['h_t']=="true"?0:1, $_GET['h_m']=="true"?0:1, $_GET['h_v']=="true"?0:1, $_GET['h_w']=="true"?0:1, $_GET['h_e']=="true"?0:1, $_GET['h_q']=="true"?0:1, $_GET['h_o']=="true"?0:1, $_GET['h_owncache']=="true"?0:1, $_GET['h_ignored']=="true"?0:1, $_GET['h_own']=="true"?0:1, $_GET['h_found']=="true"?0:1, $_GET['h_noattempt']=="true"?0:1, $_GET['h_nogeokret']=="true"?0:1, $_GET['signes']=="true"?1:0, $_GET['waypoints']=="true"?1:0, $_GET['h_avail']=="true"?1:0, $_GET['h_temp_unavail']=="true"?1:0, $_GET['h_arch']=="true"?0:1, $_GET['be_ftf']=="true"?1:0, $_GET['h_se']=="true"?1:0, $_GET['h_no']=="true"?1:0, $_GET['h_de']=="true"?1:0, $_GET['h_pl']=="true"?1:0, intval($_GET['min_score']),intval($_GET['max_score']), $_GET['h_noscore']=="true"?1:0 );
 			
 			
 			
