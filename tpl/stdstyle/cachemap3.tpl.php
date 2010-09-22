@@ -26,6 +26,7 @@
 				<li class="group"><input class="chbox" id="h_e" name="h_e" value="1" type="checkbox" {h_e_checked} onclick="reload()"/><label for="h_e">{{event}}</label></li>
 				<li class="group"><input class="chbox" id="h_q" name="h_q" value="1" type="checkbox" {h_q_checked} onclick="reload()"/><label for="h_q">Quiz</label></li>
 				<li class="group"><input class="chbox" id="h_o" name="h_o" value="1" type="checkbox" {h_o_checked} onclick="reload()"/><label for="h_o">{{moving}}</label></li>
+				<li class="group"><input class="chbox" id="h_podcast" name="h_podcast" value="1" type="checkbox" {h_podcast_checked} onclick="reload()"/><label for="h_podcast">{{podcast}}</label></li>
 				<li class="group"><input class="chbox" id="h_owncache" name="h_owncache" value="1" type="checkbox" {h_owncache_checked} onclick="reload()"/><label for="h_owncache">{{owncache}}</label></li>
 			</ul>
 		</div>

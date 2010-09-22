@@ -36,6 +36,7 @@ function getDBFilter($user_id)
 									"h_e"=>1,
 									"h_q"=>1,
 									"h_o"=>1,
+									"h_podcast"=>1,
 									"h_owncache"=>1,
 									"h_ignored"=>0,
 									"h_own"=>1,
@@ -68,6 +69,7 @@ function getDBFilter($user_id)
 		$filter["h_e"] = $row['event'];
 		$filter["h_q"] = $row['quiz'];
 		$filter["h_o"] = $row['mobile'];
+		$filter["h_podcast"] = $row['podcast'];
 		$filter["h_owncache"] = $row['owncache'];
 		$filter["h_ignored"] = $row['ignored'];
 		$filter["h_own"] = $row['own'];
@@ -288,7 +290,7 @@ else
 			}
 
 			var mapid = get_current_mapid();;
-			var queryString = "?maptype=" + mapid+"&h_u="+document.getElementById(\'h_u\').checked+"&h_t="+document.getElementById(\'h_t\').checked+"&h_m="+document.getElementById(\'h_m\').checked+"&h_v="+document.getElementById(\'h_v\').checked+"&h_w="+document.getElementById(\'h_w\').checked+"&h_e="+document.getElementById(\'h_e\').checked+"&h_q="+document.getElementById(\'h_q\').checked+"&h_o="+document.getElementById(\'h_o\').checked+"&h_owncache="+document.getElementById(\'h_owncache\').checked+"&h_ignored="+document.getElementById(\'h_ignored\').checked+"&h_own="+document.getElementById(\'h_own\').checked+"&h_found="+document.getElementById(\'h_found\').checked+"&h_noattempt="+document.getElementById(\'h_noattempt\').checked+"&h_nogeokret="+document.getElementById(\'h_nogeokret\').checked+"&h_avail="+document.getElementById(\'h_avail\').checked+"&h_temp_unavail="+document.getElementById(\'h_temp_unavail\').checked+"&h_arch="+document.getElementById(\'h_arch\').checked+"&signes="+document.getElementById(\'signes\').checked+"&waypoints="+document.getElementById(\'waypoints\').checked+"&be_ftf="+document.getElementById(\'be_ftf\').checked+"&h_pl="+document.getElementById(\'h_pl\').checked+"&h_de="+document.getElementById(\'h_de\').checked+"&h_no="+document.getElementById(\'h_no\').checked+"&h_se="+document.getElementById(\'h_se\').checked+"&min_score="+document.getElementById(\'min_score\').value+"&max_score="+document.getElementById(\'max_score\').value+"&h_noscore="+document.getElementById(\'h_noscore\').checked;
+			var queryString = "?maptype=" + mapid+"&h_u="+document.getElementById(\'h_u\').checked+"&h_t="+document.getElementById(\'h_t\').checked+"&h_m="+document.getElementById(\'h_m\').checked+"&h_v="+document.getElementById(\'h_v\').checked+"&h_w="+document.getElementById(\'h_w\').checked+"&h_e="+document.getElementById(\'h_e\').checked+"&h_q="+document.getElementById(\'h_q\').checked+"&h_o="+document.getElementById(\'h_o\').checked+"&h_podcast="+document.getElementById(\'h_podcast\').checked+"&h_owncache="+document.getElementById(\'h_owncache\').checked+"&h_ignored="+document.getElementById(\'h_ignored\').checked+"&h_own="+document.getElementById(\'h_own\').checked+"&h_found="+document.getElementById(\'h_found\').checked+"&h_noattempt="+document.getElementById(\'h_noattempt\').checked+"&h_nogeokret="+document.getElementById(\'h_nogeokret\').checked+"&h_avail="+document.getElementById(\'h_avail\').checked+"&h_temp_unavail="+document.getElementById(\'h_temp_unavail\').checked+"&h_arch="+document.getElementById(\'h_arch\').checked+"&signes="+document.getElementById(\'signes\').checked+"&waypoints="+document.getElementById(\'waypoints\').checked+"&be_ftf="+document.getElementById(\'be_ftf\').checked+"&h_pl="+document.getElementById(\'h_pl\').checked+"&h_de="+document.getElementById(\'h_de\').checked+"&h_no="+document.getElementById(\'h_no\').checked+"&h_se="+document.getElementById(\'h_se\').checked+"&min_score="+document.getElementById(\'min_score\').value+"&max_score="+document.getElementById(\'max_score\').value+"&h_noscore="+document.getElementById(\'h_noscore\').checked;
 			
 			ajaxRequest.open("GET", "cachemapsettings.php" + queryString, true);
 			ajaxRequest.send(null); 
