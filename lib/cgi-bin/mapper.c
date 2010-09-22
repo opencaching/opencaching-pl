@@ -36,7 +36,7 @@ typedef struct geotile  {
 	double latHeight;
 } geotile;
 
-#define CACHE_TYPES_NUM 15 // number of different types, it equals maxid+1
+#define CACHE_TYPES_NUM 12 // number of different types, it equals maxid+1
 
 int rects_collide(SDL_Rect a , SDL_Rect b)
 {
@@ -64,10 +64,9 @@ const char* type2name(int type)
     case 6: return "event"; break;
     case 7: return "quiz"; break;
     case 8: return "moving"; break;
-    case 9: return "quiz"; break;
-    case 10: return "traditional"; break;
-	case 11: return "podcache"; break;
-	case 12: return "challenge"; break;
+    case 9: return "podcache"; break;
+    case 10: return "owncache"; break;
+		case 11: return "challenge"; break;
     }
 }
 
@@ -598,7 +597,7 @@ int main(void)
 			double latitude = atof(row[6]);
 			double longitude = atof(row[7]);
 			int type = atoi(row[8]);
-			if(type < 0 || type > 10)
+			if(type < 0 || type > CACHE_TYPES_NUM)
 				type = 0;
 			int status = atoi(row[9]);
 			unsigned int old = atoi(row[10]);
