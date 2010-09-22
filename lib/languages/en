@@ -105,6 +105,7 @@ webcam Webcam
 event Event
 quiz Quiz
 moving Moving
+owncache Owncache
 hide_caches Hide caches
 ignored ignored
 not_yet_found not yet found

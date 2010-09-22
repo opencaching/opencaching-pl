@@ -105,6 +105,7 @@ webcam Webcam
 event Wydarzenie
 quiz Quiz
 moving Mobilna
+owncache Owncache
 hide_caches Ukryj skrzynki
 ignored ignorowane
 not_yet_found jeszcze nieznalezione
