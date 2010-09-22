@@ -36,7 +36,7 @@
 		}
 		else
 		{			
-                                         
+                         // beginner display info about recommended wiki info to read and info about approval first caches         
 			if (isset($_REQUEST['beginner']))
 				{$beginner=$_GET['beginner'];
 			} else { $beginner=1;}
@@ -57,7 +57,7 @@
 				require_once($rootpath . '/lib/caches.inc.php');
 				//require_once($stylepath . '/' . $tplname . '.inc.php');				
 			} 
-
+	// $beginner and $beginner_info (it is from settings.inc.php set to on or off display beginner info) to display info about recommended wiki to read and about approval caches 
 			elseif ( $num_caches < $NEED_APPROVE_LIMIT &&  $beginner=='1'  && $beginner_info=='1')
 			{
 
