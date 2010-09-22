@@ -238,6 +238,8 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 				return "quiz"+statusToImageName(status)+".png";
 			case "8":
 				return "moving"+statusToImageName(status)+".png";
+			case "10":
+				return "owncache"+statusToImageName(status)+".png";
 		}
 	}
 	
