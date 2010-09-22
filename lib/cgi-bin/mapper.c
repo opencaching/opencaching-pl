@@ -485,7 +485,6 @@ int main(void)
 	int hide_event = !(strcmp(microcgi_getstr(CGI_GET, "h_e"), "true"));
 	int hide_quiz = !(strcmp(microcgi_getstr(CGI_GET, "h_q"), "true"));
 	int hide_mobile = !(strcmp(microcgi_getstr(CGI_GET, "h_o"), "true"));
-	int hide_podcast = !(strcmp(microcgi_getstr(CGI_GET, "h_podcast"), "true"));
 	int hide_owncache = !(strcmp(microcgi_getstr(CGI_GET, "h_owncache"), "true"));
 	int hide_ignored = !(strcmp(microcgi_getstr(CGI_GET, "h_ignored"), "true"));
 	int hide_own = !(strcmp(microcgi_getstr(CGI_GET, "h_own"), "true"));
@@ -615,7 +614,6 @@ int main(void)
 					(hide_event && type == 6) || // hide events
 					(hide_quiz && type == 7) || // hide quiz caches
 					(hide_mobile && type == 8) || // hide mobile caches
-					(hide_podcast && type == 9) || // hide mobile caches
 					(hide_owncache && type == 10) || // hide owncaches caches
 					(hide_ignored && ignored) || // hide ignored caches
 					(hide_own && cache_userid == userid) || // hide own caches
