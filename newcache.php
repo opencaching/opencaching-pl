@@ -448,7 +448,7 @@
 				foreach ($cache_types as $type)
 				{
                        // block register virtual or webcam
-				if( $type['id'] == 4 || $type['id'] == 5 )
+				if( $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 10 )
 						continue;
 					if ($type['id'] == $sel_type)
 					{
@@ -878,7 +878,7 @@
 					//cache-type
 					$type_not_ok = false;
 					//block register virtual and webcam
-					if ($sel_type == -1 || $sel_type == 4 || $sel_type == 5)
+					if ($sel_type == -1 || $sel_type == 4 || $sel_type == 5 || $sel_type == 10 )
 					{
 						tpl_set_var('type_message', $type_not_ok_message);
 						$error = true;
