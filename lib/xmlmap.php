@@ -130,6 +130,8 @@
 		$hide_by_type .= " AND caches.type<>7 ";
 	if( $_GET['h_o'] == "true" )
 		$hide_by_type .= " AND caches.type<>8 ";
+	if( $_GET['h_owncache'] == "true" )
+		$hide_by_type .= " AND caches.type<>10 ";
 	if( $_GET['h_own'] == "true" )
 		$hide_by_type .= " AND caches.user_id<>".$user_id." ";
 	if( $_GET['h_found'] == "true" )
@@ -177,7 +179,8 @@
 	$h_ignored
 	WHERE caches.user_id = user.user_id AND caches.status < 4 
 	".$hide_by_type.$filter_by_type_string.$score_filter."
-	HAVING distance < ".distance4zoom($zoom)." ORDER BY distance ASC LIMIT 1";	
+	HAVING distance < ".distance4zoom($zoom)." ORDER BY distance ASC LIMIT 1";
+	
 	
 	
 	// for foreign caches -------------------------------------------------------------------------------------
@@ -200,6 +203,8 @@
 		$hide_by_type .= " AND foreign_caches.type<>7 ";
 	if( $_GET['h_o'] == "true" )
 		$hide_by_type .= " AND foreign_caches.type<>8 ";
+	if( $_GET['h_owncache'] == "true" )
+		$hide_by_type .= " AND foreign_caches.type<>10 ";
 	//if( $_GET['h_own'] == "true" )
 	//	$hide_by_type .= " AND foreign_caches.username<>'".$username."'";
 	//if( $_GET['h_found'] == "true" )
@@ -221,7 +226,8 @@
 		$h_sel_ignored = "cache_ignore.id as ignored,";
 		$h_ignored = " LEFT JOIN cache_ignore ON (cache_ignore.user_id='$user_id' AND cache_ignore.cache_id=foreign_caches.cache_id) ";
 	}
-	else*/
+	else
+*/
 	{
 		$h_sel_ignored = "";
 		$h_ignored = "";
