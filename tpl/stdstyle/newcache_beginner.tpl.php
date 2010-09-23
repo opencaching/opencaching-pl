@@ -33,6 +33,8 @@
 <li>Mobilna, </li>
 <li>Inny typ.</li>
 </ul></font>
+Obecnie masz znalezionych {number_finds_caches} skrzynek spośród typów wymienionych w powyższych wymaganiach.
+
 Po spełnieniu powyższego warunku Twoje pierwsze <font color="red"><?php echo $NEED_APPROVE_LIMIT; ?></font> skrzynki bedą weryfikowane przez Zespół OC PL. Po zatwierdzeniu skrzynki otrzymasz informacje via e-mail o tym fakcie i będziesz mógł ją opublikować poprzez edycje skrzynki i zmiane jej statusu. W przypadku uwag do skrzynki Zespół OC PL będzie się z Tobą kontaktował w sprawie uzpełnienia informacji lub zmian w skrzynce.</b>
 </p>
 <br />

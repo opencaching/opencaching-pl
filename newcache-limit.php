@@ -40,6 +40,7 @@
 			$rsnfc = sql("SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches FROM cache_logs,caches WHERE cache_logs.cache_id=caches.cache_id AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7' OR caches.type='8') AND cache_logs.type='1' AND cache_logs.deleted='0' AND `cache_logs`.`user_id` = ".sql_escape($usr['userid'])."");
 			$rec = sql_fetch_array($rsnfc);
 			$num_find_caches = $rec['num_fcaches'];
+			tpl_set_var('number_finds_caches', $num_find_caches);
 			$rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
 										AND status <> 4 AND status <> 5 AND status <> 6");
 			$record = sql_fetch_array($rsnc);
