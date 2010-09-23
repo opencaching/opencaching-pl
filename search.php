@@ -321,11 +321,7 @@
 				{ 
 					$options['waypointtype'] = 'nc'; 
 				} 
-				if ((($options['waypointtype'] == 'oc') || 
-					 ($options['waypointtype'] == 'op') ||
-					 ($options['waypointtype'] == 'nc') || 
-					 ($options['waypointtype'] == 'gc')) && 
-					 mb_ereg_match('((oc|op|gc)([a-z0-9]){4,4}|n([a-f0-9]){5,5})|([a-f0-9]){4,4}$', mb_strtolower($options['waypoint']))) 
+				if( mb_ereg_match('((oc|op|gc)([a-z0-9]){4,4}|n([a-f0-9]){5,5}|([a-f0-9]){4,4})$', mb_strtolower($options['waypoint'])) ) 
 				{ 
 					if ($options['waypointtype'] == 'op') 
 					{
@@ -338,6 +334,7 @@
 					else 
 					{
 						$options['waypointtype'] = 'oc';
+						$options['waypoint'] = 'op'.$options['waypoint'];
 					}
 				} 
 				else 
