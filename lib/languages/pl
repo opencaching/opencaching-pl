@@ -687,7 +687,7 @@ annual_stat Roczna statystyka skrzynki
 number_founds Liczba znalezień
 number_caches Liczba skrzynek
 number_logentry Liczba wpisów w logu
-by_cachetype Wg typow skrzynek
+by_cachetype Wg typów skrzynek
 by_logtype Wg typów logów
 stat_geocache Statystyka skrzynki
 does_not_have_stat nie ma jeszcze statystyki
