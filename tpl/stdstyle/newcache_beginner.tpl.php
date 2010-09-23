@@ -24,7 +24,15 @@
 </table>
 <br /><br />
 <div style="width: 750px;">
-<p style="font-size: 14px; line-height:1.6em; text-align: justify;"><b>Aby zarejstrować nowe skrzynki musisz najpierw mieć odnalezionych <font color="red"><?php echo $NEED_FIND_LIMIT; ?></font> skrzynek sposród następujących typów: Tradycyjna, Multicache, Quiz, Mobilna, Inny typ.
+<p style="font-size: 14px; line-height:1.6em; text-align: justify;"><b>Aby zarejstrować nowe skrzynki musisz najpierw mieć odnalezionych <font color="red"><?php echo $NEED_FIND_LIMIT; ?></font> skrzynek sposród następujących typów: 
+<font color="blue">
+<ul>
+<li>Tradycyjna, </li>
+<li>Multicache,</li> 
+<li>Quiz, </li>
+<li>Mobilna, </li>
+<li>Inny typ.</li>
+</ul></font>
 <br /><br />
 Po spełnieniu powyższego warunku Twoje pierwsze <font color="red"><?php echo $NEED_APPROVE_LIMIT; ?></font> skrzynki bedą weryfikowane przez Zespół OC PL. Po zatwierdzeniu skrzynki otrzymasz informacje via e-mail o tym fakcie i będziesz mógł ją opublikować poprzez edycje skrzynki i zmiane jej statusu. W przypadku uwag do skrzynki Zespół OC PL będzie się z Tobą kontaktował w sprawie uzpełnienia informacji lub zmian w skrzynce.</b>
 
