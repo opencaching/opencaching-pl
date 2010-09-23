@@ -152,7 +152,7 @@ $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $bplot->value->Show();
  
 // Must use TTF fonts if we want text at an arbitrary angle
-$bplot->value->SetFont(FF_FONT11,FS_BOLD);
+$bplot->value->SetFont(FF_FONT1,FS_BOLD);
 $bplot->value->SetAngle(0);
 $bplot->value->SetFormat('%d');
 
