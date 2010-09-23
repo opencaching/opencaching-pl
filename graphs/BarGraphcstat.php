@@ -96,8 +96,8 @@ $graph->xaxis->SetTickLabels($x);
 
 // Some extra margin looks nicer
 //$graph->xaxis->SetLabelMargin(10);
-$nf=tr('number_founds');
-//$graph->yaxis->title->Set($nf);
+$nf="";
+$graph->yaxis->title->Set($nf);
  
 $graph->title->SetFont(FF_ARIAL,FS_NORMAL);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
