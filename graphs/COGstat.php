@@ -111,7 +111,7 @@ $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
 $noproblems='Liczba zg³oszeñ';
 $graph->yaxis->title->Set($noproblems);
-$graph->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->xaxis->SetFont(FF_ARIAL,FS_NORMAL,8);
@@ -155,10 +155,10 @@ $graph2->xaxis->SetTickLabels($x2);
 $ncaches=tr('number_caches');
 $graph2->yaxis->title->Set($ncaches);
  
-$graph2->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph2->title->SetFont(FF_FONT1,FS_BOLD);
 $graph2->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph2->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph2->xaxis->SetFont(FF_FONT1,FS_BOLD,8);
+$graph2->xaxis->SetFont(FF_ARIAL,FS_NORMAL,8);
 
  
   
@@ -199,7 +199,7 @@ $graph3->xaxis->SetTickLabels($x3);
 
 $graph3->yaxis->title->Set($noproblems);
  
-$graph3->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph3->title->SetFont(FF_FONT1,FS_BOLD);
 $graph3->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph3->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
  
@@ -241,7 +241,7 @@ $graph4->xaxis->SetTickLabels($x4);
 
 $graph4->yaxis->title->Set($ncaches);
  
-$graph4->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph4->title->SetFont(FF_FONT1,FS_BOLD);
 $graph4->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph4->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
  
