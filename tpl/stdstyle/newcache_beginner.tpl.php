@@ -24,7 +24,7 @@
 </table>
 <br /><br />
 <div style="width: 750px;">
-<p style="font-size: 14px; line-height:1.6em; text-align: justify;"><b>Aby zarejstrować nowe skrzynki musisz najpierw mieć odnalezionych <font color="red"><?php echo $NEED_FIND_LIMIT; ?></font> skrzynek sposród następujących typów: 
+<p style="font-size: 14px; line-height:1.6em; text-align: justify;"><b>Aby zarejstrować nowe skrzynki musisz najpierw znaleźć <font color="red"><?php echo $NEED_FIND_LIMIT; ?></font> skrzynek sposród następujących typów: 
 <font color="blue">
 <ul>
 <li>Tradycyjna, </li>
