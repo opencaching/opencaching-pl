@@ -323,7 +323,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 		}
 		
 		$children='';
-		$gpxHead = str_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
+		$gpxHead = str_replace('{time}', date($gpxTimeFormat, time()), $gpxHead);
 		$rss = sql('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
 		while($rs = sql_fetch_array($rss))
 		{
