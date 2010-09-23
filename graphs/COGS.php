@@ -111,9 +111,9 @@ $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
 $noproblems='Liczba zg³oszeñ';
 $graph->yaxis->title->Set($noproblems);
-$graph->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph->yaxis->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph->xaxis->title->SetFont(FF_ARIAL,FS_NORMAL);
 $graph->xaxis->SetFont(FF_ARIAL,FS_NORMAL,8);
 
  
@@ -122,7 +122,7 @@ $graph->xaxis->SetFont(FF_ARIAL,FS_NORMAL,8);
 $bplot->value->Show();
  
 // Must use TTF fonts if we want text at an arbitrary angle
-$bplot->value->SetFont(FF_FONT1,FS_BOLD);
+$bplot->value->SetFont(FF_ARIAL,FS_NORMAL);
 $bplot->value->SetAngle(0);
 $bplot->value->SetFormat('%d');
 
@@ -155,9 +155,9 @@ $graph2->xaxis->SetTickLabels($x2);
 $ncaches=tr('number_caches');
 $graph2->yaxis->title->Set($ncaches);
  
-$graph2->title->SetFont(FF_FONT1,FS_BOLD);
-$graph2->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph2->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph2->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph2->yaxis->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph2->xaxis->title->SetFont(FF_ARIAL,FS_NORMAL);
 $graph2->xaxis->SetFont(FF_ARIAL,FS_NORMAL,8);
 
  
@@ -166,7 +166,7 @@ $graph2->xaxis->SetFont(FF_ARIAL,FS_NORMAL,8);
 $bplot2->value->Show();
  
 // Must use TTF fonts if we want text at an arbitrary angle
-$bplot2->value->SetFont(FF_FONT1,FS_BOLD);
+$bplot2->value->SetFont(FF_ARIAL,FS_NORMAL);
 $bplot2->value->SetAngle(0);
 $bplot2->value->SetFormat('%d');
 
@@ -199,16 +199,16 @@ $graph3->xaxis->SetTickLabels($x3);
 
 $graph3->yaxis->title->Set($noproblems);
  
-$graph3->title->SetFont(FF_FONT1,FS_BOLD);
-$graph3->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph3->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph3->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph3->yaxis->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph3->xaxis->title->SetFont(FF_ARIAL,FS_NORMAL);
  
   
 // Setup the values that are displayed on top of each bar
 $bplot3->value->Show();
  
 // Must use TTF fonts if we want text at an arbitrary angle
-$bplot3->value->SetFont(FF_FONT1,FS_BOLD);
+$bplot3->value->SetFont(FF_ARIAL,FS_NORMAL);
 $bplot3->value->SetAngle(0);
 $bplot3->value->SetFormat('%d');
 
@@ -241,16 +241,16 @@ $graph4->xaxis->SetTickLabels($x4);
 
 $graph4->yaxis->title->Set($ncaches);
  
-$graph4->title->SetFont(FF_FONT1,FS_BOLD);
-$graph4->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph4->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph4->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph4->yaxis->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph4->xaxis->title->SetFont(FF_ARIAL,FS_NORMAL);
  
   
 // Setup the values that are displayed on top of each bar
 $bplot4->value->Show();
  
 // Must use TTF fonts if we want text at an arbitrary angle
-$bplot4->value->SetFont(FF_FONT1,FS_BOLD);
+$bplot4->value->SetFont(FF_ARIAL,FS_NORMAL);
 $bplot4->value->SetAngle(0);
 $bplot4->value->SetFormat('%d');
 

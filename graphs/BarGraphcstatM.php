@@ -141,9 +141,9 @@ $graph->yaxis->title->Set($le);
 //$year = $gDateLocale->GetShortMonth();
 //$graph->xaxis->SetTickLabels($year);
 
-$graph->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph->yaxis->title->SetFont(FF_ARIAL,FS_NORMAL);
+$graph->xaxis->title->SetFont(FF_ARIAL,FS_NORMAL);
  
 // Display the graph
 $graph->Stroke();

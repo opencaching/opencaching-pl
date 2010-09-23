@@ -61,7 +61,7 @@ $graph->SetScale('textint');
 $type=tr("by_cachetype");
 // Title setup
 $graph->title->Set($type);
-$graph->title->SetFont(FF_FONT1,FS_BOLD);
+$graph->title->SetFont(FF_ARIAL,FS_NORMAL);
 //$graph ->legend->Pos( 0.25,0.8,"right" ,"bottom"); 
  
 // Setup the pie plot
@@ -76,7 +76,7 @@ $p1->SetCenter(0.25,0.52);
  
 // Setup slice labels and move them into the plot
 
-$p1->value->SetFont(FF_FONT1,FS_BOLD);
+$p1->value->SetFont(FF_ARIAL,FS_NORMAL);
 $p1->value->SetColor("darkred");
 $p1->SetLabelPos(0.65);
 $p1->SetLegends($x);
