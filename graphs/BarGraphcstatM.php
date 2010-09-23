@@ -133,7 +133,8 @@ $gbplot = new GroupBarPlot(array($b1plot,$b2plot));
 
 // ...and add it to the graPH
 $graph->Add($gbplot);
-$le=tr("number_logentry");
+//$le=tr("number_logentry");
+$le="";
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->yaxis->title->Set($le);
