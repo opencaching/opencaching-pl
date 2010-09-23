@@ -15,6 +15,7 @@
 
 
  ****************************************************************************/
+ global $NEED_FIND_LIMIT,$NEED_APPROVE_LIMIT;
 ?>
 
 <table class="content" border="0">
@@ -23,18 +24,11 @@
 </table>
 <br /><br />
 <div style="width: 750px;">
-<p style="font-size: 14px; line-height:1.6em; text-align: justify;">Aby zarejstrować nowe skrzynki musisz najpierw mieć odnalezionych 10 skrzynek sposród następujących typów: Tradycyjna, Multicache, Quiz, Mobilna, Inny typ.
+<p style="font-size: 14px; line-height:1.6em; text-align: justify;"><b>Aby zarejstrować nowe skrzynki musisz najpierw mieć odnalezionych <font color="red"><?php echo $NEED_FIND_LIMIT; ?></font> skrzynek sposród następujących typów: Tradycyjna, Multicache, Quiz, Mobilna, Inny typ.
 <br /><br />
-<b>Twoje pierwsze 3 skrzynki bedą weryfikowane przez Zespół OC PL. Po zatwierdzeniu skrzynki otrzymasz informacje via e-mail o tym fakcie i będziesz mógł ją opublikować poprzez edycje skrzynki i zmiane jej statusu. W przypadku uwag do skrzynki Zespół OC PL będzie się z Tobą kontaktował w sprawie uzpełnienia informacji lub zmian w skrzynce.</b>
+Po spełnieniu powyższego warunku Twoje pierwsze <font color="red"><?php echo $NEED_APPROVE_LIMIT; ?></font> skrzynki bedą weryfikowane przez Zespół OC PL. Po zatwierdzeniu skrzynki otrzymasz informacje via e-mail o tym fakcie i będziesz mógł ją opublikować poprzez edycje skrzynki i zmiane jej statusu. W przypadku uwag do skrzynki Zespół OC PL będzie się z Tobą kontaktował w sprawie uzpełnienia informacji lub zmian w skrzynce.</b>
 
 </p>
 <br />
-<center>
-
-<table border="0" width="200"><tr><td>
-<form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr"><input type=
-"hidden" name="beginner" value="0"/><button style="width:200;height:120; font-size:15px;"><b>Kontynuacja...</b></button></td></tr>
-</table>
-</center>
 </div>
 
