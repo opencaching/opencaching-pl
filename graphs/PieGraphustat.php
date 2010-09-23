@@ -76,7 +76,7 @@ $p1->SetCenter(0.25,0.52);
  
 // Setup slice labels and move them into the plot
 
-$p1->value->SetFont(FF_ARIAL,FS_NORMAL);
+$p1->value->SetFont(FF_FONT1,FS_BOLD);
 $p1->value->SetColor("darkred");
 $p1->SetLabelPos(0.65);
 $p1->SetLegends($x);
