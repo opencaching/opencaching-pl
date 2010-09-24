@@ -35,7 +35,12 @@
 		    tpl_redirect('login.php?target='.$target);
 		}
 		else
-		{			
+		{		
+				//set here the template to process
+				$tplname = 'newcache';
+				require_once($rootpath . '/lib/caches.inc.php');
+				require_once($stylepath . '/newcache.inc.php');
+				
 			$rs = sql("SELECT `hide_flag` as hide_flag FROM `user` WHERE `user_id` =  ".sql_escape($usr['userid']));
 			$record = sql_fetch_array($rs);
 			$hide_flag = $record['hide_flag'];
@@ -83,13 +88,7 @@
 					tpl_set_var('hide_publish_end', '');
 					tpl_set_var('approvement_note', '');
 				}
-
-				//set here the template to process
-				$tplname = 'newcache';
-				require_once($rootpath . '/lib/caches.inc.php');
-				require_once($stylepath . '/newcache.inc.php');
-				
-
+			
 				//set template replacements
 				tpl_set_var('reset', $reset);
 				tpl_set_var('submit', $submit);

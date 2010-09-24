@@ -252,7 +252,7 @@ function nearbycachemapOC()
 	<tr>
 		<td valign="top"><p class="content-title-noshade">{{coordinates}}:</p></td>
 		<td class="content-title-noshade">
-		<fieldset style="border: 1px solid black; width: 75%; height: 32%; background-color: #FAFBDF;">
+		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
 			<select name="latNS" class="input40">
 				<option value="N"{latNsel}>N</option>
