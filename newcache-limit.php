@@ -36,16 +36,6 @@
 		}
 		else
 		{			
-             // display info for begginner about number of find caches to possible register first cache     
-			$rsnfc = sql("SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches FROM cache_logs,caches WHERE cache_logs.cache_id=caches.cache_id AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7' OR caches.type='8') AND cache_logs.type='1' AND cache_logs.deleted='0' AND `cache_logs`.`user_id` = ".sql_escape($usr['userid'])."");
-			$rec = sql_fetch_array($rsnfc);
-			$num_find_caches = $rec['num_fcaches'];
-			tpl_set_var('number_finds_caches', $num_find_caches);
-			$rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
-										AND status <> 4 AND status <> 5 AND status <> 6");
-			$record = sql_fetch_array($rsnc);
-			$num_caches = $record['num_caches'];
-
 			$rs = sql("SELECT `hide_flag` as hide_flag FROM `user` WHERE `user_id` =  ".sql_escape($usr['userid']));
 			$record = sql_fetch_array($rs);
 			$hide_flag = $record['hide_flag'];
@@ -58,6 +48,12 @@
 				//require_once($stylepath . '/' . $tplname . '.inc.php');				
 			} 
 			
+             // display info for begginner about number of find caches to possible register first cache     
+			$rsnfc = sql("SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches FROM cache_logs,caches WHERE cache_logs.cache_id=caches.cache_id AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7' OR caches.type='8') AND cache_logs.type='1' AND cache_logs.deleted='0' AND `cache_logs`.`user_id` = ".sql_escape($usr['userid'])."");
+			$rec = sql_fetch_array($rsnfc);
+			$num_find_caches = $rec['num_fcaches'];
+			tpl_set_var('number_finds_caches', $num_find_caches);
+			
 			if($num_find_caches < $NEED_FIND_LIMIT) 
 			{
 				$tplname = 'newcache_beginner';
@@ -65,16 +61,6 @@
 			
 			}
 
-			elseif ( $num_caches < $NEED_APPROVE_LIMIT)
-			{
-
-				// user is banned for creating new caches for some reason
-				$tplname = 'newcache_beginner';
-				require_once($rootpath . '/lib/caches.inc.php');
-				//require_once($stylepath . '/' . $tplname . '.inc.php');
-			}
-			else 
-			{
 				$errors = false; // set if there was any errors
 
 				$rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
@@ -1131,7 +1117,6 @@
 						tpl_set_var('general_message', $error_general);
 					}
 				}
-			}
 		}
 	}
 	tpl_set_var('is_disabled_size', '');
