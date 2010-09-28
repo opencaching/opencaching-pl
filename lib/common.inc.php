@@ -38,6 +38,34 @@ session_start();
 	$dateformat = '%d %B %Y';
 	$simpledateformat = '%d.%m.%Y';
 	
+	$CACHETYPE =  array( "OTHER" => 1, 
+						 "TRADITIONAL" => 2,
+						 "MULTI" => 3,
+						 "VIRTUAL" => 4,
+						 "WEBCAM" => 5,
+						 "EVENT" => 6,
+						 "QUIZ" => 7,
+						 "MOVING" => 8,
+						 "PODCAST" => 9,
+						 "OWNCACHE" => 10
+						);
+
+	$STATUS = 	  array( "READY" => 1, 
+						 "TEMP_UNAVAILABLE" => 2,
+						 "ARCHIVED" => 3,
+						 "HIDDEN_FOR_APPROVAL" => 4,
+						 "NOT_YET_AVAILABLE" => 5,
+						 "BLOCKED" => 6
+						);
+						
+	$CACHESIZE =  array( "MICRO" => 2,
+						 "SMALL" => 3,
+						 "NORMAL" => 4,
+						 "LARGE" => 5,
+						 "VERY_LARGE" => 6,
+						 "NO_CONTAINER" => 7
+					   );
+	
 	// set default CSS
 	tpl_set_var('css', 'main.css');
 	
