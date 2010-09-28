@@ -48,7 +48,6 @@
 			{
 				$cache_record = sql_fetch_array($cache_rs);
 				
-
 				if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 				{
 					$tplname = 'editcache';
@@ -56,15 +55,13 @@
 					require_once($rootpath . 'lib/caches.inc.php');
 					require($stylepath . '/editcache.inc.php');
 					
-
-					
 					//here we read all used information from the form if submitted, otherwise from DB
 					
 					// wihout virtuals and webcams
-					if( ( ($_POST['type'] == 4 && $cache_record['type'] != 4 ) || 
-					    ($_POST['type'] == 5 && $cache_record['type'] != 5 ) || 
-							($_POST['type'] == 10 && $cache_record['type'] != 10 ) ) && 
-							!$usr['admin'] )
+					if( ( ($_POST['type'] == $CACHETYPE['VIRTUAL'] && $cache_record['type'] != $CACHETYPE['VIRTUAL'] ) || 
+						  ($_POST['type'] == $CACHETYPE['WEBCAM'] && $cache_record['type'] != $CACHETYPE['WEBCAM'] ) || 
+						  ($_POST['type'] == $CACHETYPE['OWNCACHE'] && $cache_record['type'] != $CACHETYPE['OWNCACHE'] ) ) && 
+						  !$usr['admin'] )
 					{
 						$_POST['type'] = $cache_record['type'];
 					}
@@ -73,7 +70,9 @@
 					$cache_type = isset($_POST['type']) ? $_POST['type'] : $cache_record['type'];
 					if (!isset($_POST['size']))
 					{
-						if ($cache_type == 4 || $cache_type == 5 || $cache_type == 6)
+						if( $cache_type == $CACHETYPE['VIRTUAL'] || 
+							$cache_type == $CACHETYPE['WEBCAM'] || 
+							$cache_type == $CACHETYPE['EVENT'] )
 						{
 							$sel_size = 7;
 						}
@@ -85,7 +84,9 @@
 					else
 					{
 						$sel_size = isset($_POST['size']) ? $_POST['size'] : $cache_record['size'];
-						if ($cache_type == 4 || $cache_type == 5 || $cache_type == 6)
+						if( $cache_type == $CACHETYPE['VIRTUAL'] || 
+							$cache_type == $CACHETYPE['WEBCAM'] || 
+							$cache_type == $CACHETYPE['EVENT'] )
 						{
 							$sel_size = 7;
 						}
@@ -121,7 +122,8 @@
 					$way_length = isset($_POST['way_length']) ? $_POST['way_length'] : $cache_record['way_length'];
 					$oc_nodeid = $cache_record['node'];
 					
-					if($status_old == 5 && $status == 5)
+					if( $status_old == $STATUS['NOT_YET_AVAILABLE'] && 
+						$status == $STATUS['NOT_YET_AVAILABLE'] )
 					{
 						if(isset($_POST['publish']))
 						{
@@ -328,7 +330,8 @@
 					}
 
 					//check status and publish options
-					if(($status == 5 && $publish == 'now') || ($status != 5 && ($publish == 'later' || $publish == 'notnow')))
+					if( ($status == $STATUS['NOT_YET_AVAILABLE'] && $publish == 'now') || 
+						($status != $STATUS['NOT_YET_AVAILABLE'] && ($publish == 'later' || $publish == 'notnow')))
 					{
 						tpl_set_var('status_message', $status_message);
 						$status_not_ok = true;
@@ -341,25 +344,28 @@
 
 					//check cache size
 					$size_not_ok = false;
-					if($sel_size != 7 && ($cache_type == 4 || $cache_type == 5 || $cache_type == 6))
+					if( $sel_size != $CACHESIZE['NO_CONTAINER'] && 
+					  ( $cache_type == $CACHETYPE['VIRTUAL'] || 
+					    $cache_type == $CACHETYPE['WEBCAM'] || 
+						$cache_type == $CACHETYPE['EVENT'] ) )
 					{
 						$error = true;
 						$size_not_ok = true;
 					}
 					
-					// check if the user haven't changed type to 'without container
-					if( (($_POST['type'] == 1 && $cache_record['type'] != 1) 
-						|| ($_POST['type'] == 2 )
-						|| ($_POST['type'] == 3 )
-						|| ($_POST['type'] == 7 )
-						|| ($_POST['type'] == 8 ) ) && $sel_size == 7 )
+					// check if the user haven't changed type to 'without container'
+					if( (($_POST['type'] == $CACHETYPE['OTHER'] && $cache_record['type'] != $CACHETYPE['OTHER'] ) 
+						|| ($_POST['type'] == $CACHETYPE['TRADITIONAL'] )
+						|| ($_POST['type'] == $CACHETYPE['MULTI'] )
+						|| ($_POST['type'] == $CACHETYPE['QUIZ'] )
+						|| ($_POST['type'] == $CACHETYPE['MOVING'] ) ) && $sel_size == $CACHESIZE['NO_CONTAINER'] )
 					{
 						$error = true;
 						$size_not_ok = true;
 					}
 					
 					// if there is already a cache without container, let it stay this way
-					if( $cache_record['type'] == 1 && $cache_record['size'] == 7)
+					if( $cache_record['type'] == $CACHETYPE['OTHER'] && $cache_record['size'] == $CACHESIZE['NO_CONTAINER'] )
 						tpl_set_var('other_nobox', 'true');
 					else
 						tpl_set_var('other_nobox', 'false');
@@ -460,51 +466,59 @@
 							event_edit_cache($cache_id, $usr['userid']+0);
 
 							// if old status is not yet published and new status is published => notify-event
-							if ($status_old == 5 && $status != 5)
+							if( $status_old == $STATUS['NOT_YET_AVAILABLE'] && $status != $STATUS['NOT_YET_AVAILABLE'] )
 							{
 								touchCache($cache_id);
 								// send new cache event
 								event_notify_new_cache($cache_id);
-
 							}
 
 							//generate automatic logs
-							if (($status_old ==1 ||$status_old==3 ||$status_old==6)  && $status == 2)
+							if( ( $status_old == $STATUS['READY'] || 
+								  $status_old == $STATUS['ARCHIVED'] ||
+								  $status_old == $STATUS['BLOCKED'] ) && $status == $STATUS['TEMP_UNAVAILABLE'] )
 							{
-					// generate automatic log about status cache
-					$log_text=tr('temporarily_unavailable');
-					$log_uuid = create_uuid();
-						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-										 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
-										 $cache_id, $usr['userid'], 11, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
-							}
-					if (($status_old ==1 ||$status_old==2 ||$status_old==6) && $status == 3)
-							{
-					// generate automatic log about status cache
-					$log_text=tr('archived_cache');
-					$log_uuid = create_uuid();
-						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+								// generate automatic log about status cache
+								$log_text=tr('temporarily_unavailable');
+								$log_uuid = create_uuid();
+								sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
 									 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
-										 $cache_id, $usr['userid'], 9, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+									 $cache_id, $usr['userid'], 11, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+							}
+							if( ( $status_old == $STATUS['READY'] || 
+								  $status_old == $STATUS['TEMP_UNAVAILABLE'] ||
+								  $status_old == $STATUS['BLOCKED'] ) && $status == $STATUS['ARCHIVED'])
+							{
+								// generate automatic log about status cache
+								$log_text=tr('archived_cache');
+								$log_uuid = create_uuid();
+								sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+									 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
+									 $cache_id, $usr['userid'], 9, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
 							}
 
-					if (($status_old ==2 ||$status_old==3 ||$status_old==6) && $status ==1)
+							if( ( $status_old == $STATUS['TEMP_UNAVAILABLE'] ||
+								  $status_old == $STATUS['ARCHIVED'] ||
+								  $status_old == $STATUS['BLOCKED'] ) && $status == $STATUS['READY'] )
 							{
-					// generate automatic log about status cache
-					$log_text=tr('ready_to_search');
-					$log_uuid = create_uuid();
-						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-										 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
-										 $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+								// generate automatic log about status cache
+								$log_text=tr('ready_to_search');
+								$log_uuid = create_uuid();
+								sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+									 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
+									 $cache_id, $usr['userid'], 10, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
 							}
-					if (($status_old ==1||$status_old==2 ||$status_old==3) && $status ==6)
+							
+							if( ( $status_old == $STATUS['READY'] ||
+								  $status_old == $STATUS['TEMP_UNAVAILABLE'] ||
+								  $status_old == $STATUS['ARCHIVED'] ) && $status == $STATUS['BLOCKED'] )
 							{
-					// generate automatic log about status cache
-					$log_text=tr('blocked_by_octeam');
-					$log_uuid = create_uuid();
-						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-										 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
-										 $cache_id, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
+								// generate automatic log about status cache
+								$log_text=tr('blocked_by_octeam');
+								$log_uuid = create_uuid();
+								sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+									 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
+									 $cache_id, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, $oc_nodeid, 0);
 							}
 
 							//display cache-page
@@ -551,27 +565,26 @@
 					tpl_set_var('countryoptions', $countriesoptions);
 
 
-	//regionoptions
+					//regionoptions
 
-	$regionsoptions = '';
-	if ($cache_region=="") {$regionsoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';}
-	
-	$rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
+					$regionsoptions = '';
+					if ($cache_region=="") {$regionsoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';}
+					
+					$rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
 
-	for ($i = 0; $i < mysql_num_rows($rs); $i++)
-	{
-		$record = sql_fetch_array($rs);
+					for ($i = 0; $i < mysql_num_rows($rs); $i++)
+					{
+						$record = sql_fetch_array($rs);
 
-		if ($record['code'] == $cache_region)
-			$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
-		else
-			$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+						if ($record['code'] == $cache_region)
+							$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+						else
+							$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
 
-		$regionsoptions .= "\n";
-	}
+						$regionsoptions .= "\n";
+					}
 
-	tpl_set_var('regionoptions', $regionsoptions);
-
+					tpl_set_var('regionoptions', $regionsoptions);
 
 					// cache-attributes
 					$cache_attrib_list = '';
@@ -651,13 +664,13 @@
 					$types = '';
 					foreach ($cache_types as $type)
 					{
-						// block virtual and webcam
-						if( ( ($cache_type != 4 && $type['id'] == 4 ) || 
-						    ($cache_type != 5 && $type['id'] == 5 ) || 
-								($cache_type != 10 && $type['id'] == 10 ) ) &&
-								!$usr['admin'] )
+						// block virtual, webcam and owncache
+						if( ( ( $cache_type != $CACHETYPE['VIRTUAL'] && $type['id'] == $CACHETYPE['VIRTUAL'] ) || 
+							  ( $cache_type != $CACHETYPE['WEBCAM'] && $type['id'] == $CACHETYPE['WEBCAM'] ) || 
+							  ( $cache_type != $CACHETYPE['OWNCACHE'] && $type['id'] == $CACHETYPE['OWNCACHE'] ) ) &&
+							  !$usr['admin'] )
 						{
-							// if not (wirtual lub webcam)
+							// if was not (wirtual or webcam or owncache)
 							// then do not display in the list
 							continue;
 						}
@@ -676,7 +689,7 @@
 					$sizes = '';
 					foreach ($cache_size as $size)
 					{
-						if( $size['id'] == 7 && $sel_size != 7)
+						if( $size['id'] == $CACHESIZE['NO_CONTAINER'] && $sel_size != $CACHESIZE['NO_CONTAINER'] )
 						{	
 							continue;
 						}
@@ -732,18 +745,24 @@
 
 					//Status
 					$statusoptions = '';
-					if( ( ($status_old == 3 || $status_old == 6 ) && !$usr['admin']) || $status_old == 4)
+					if( ( ( $status_old == $STATUS['ARCHIVED'] || 
+						    $status_old == $STATUS['BLOCKED'] ) && !$usr['admin'] ) || 
+						$status_old == $STATUS['HIDDEN_FOR_APPROVAL'] )
 					{
 						$disablestatusoption = ' disabled';
 					}
 					else
+					{
 						$disablestatusoption = '';
+					}
 					tpl_set_var('disablestatusoption', $disablestatusoption);
 					
-					foreach ($cache_status AS $tmpstatus)
+					foreach( $cache_status AS $tmpstatus )
 					{
 						//hide id 4 => hidden by approvers, hide id 5 if it is not the current status
-						if (($tmpstatus['id'] != 4 || $status_old == 4 ) && ($tmpstatus['id'] != 5 || $status_old == 5) && ($tmpstatus['id'] != 6 || $usr['admin'])  )
+						if( ( $tmpstatus['id'] != $STATUS['HIDDEN_FOR_APPROVAL'] || $status_old == $STATUS['HIDDEN_FOR_APPROVAL'] ) && 
+							( $tmpstatus['id'] != $STATUS['NOT_YET_AVAILABLE'] || $status_old == $STATUS['NOT_YET_AVAILABLE'] ) && 
+							( $tmpstatus['id'] != $STATUS['BLOCKED'] || $usr['admin'] ) )
 						{
 							if ($tmpstatus['id'] == $status)
 							{
@@ -756,8 +775,9 @@
 						}
 					}
 					tpl_set_var('statusoptions', $statusoptions);
+					
 					// show activation form?
-					if($status_old == 5) // status = not yet published
+					if( $status_old == $STATUS['NOT_YET_AVAILABLE'] ) // status = not yet published
 					{
 						$tmp = $activation_form;
 
@@ -821,107 +841,134 @@
 						tpl_set_var('pictures', $pictures);
 					}
 					else
-						tpl_set_var('pictures', $nopictures);
-					
-					//MP3 files only for type of cache: 
-					if ($cache_record['type'] == 1|| $cache_record['type'] == 3 || $cache_record['type'] == 7 || $cache_record['type'] == 9 )
 					{
-						if ($cache_record['mp3count'] > 0)
+						tpl_set_var('pictures', $nopictures);
+					}
+					//MP3 files only for type of cache: 
+					if( $cache_record['type'] == $CACHETYPE['OTHER'] || 
+						$cache_record['type'] == $CACHETYPE['MULTI'] || 
+						$cache_record['type'] == $CACHETYPE['QUIZ'] || 
+						$cache_record['type'] == $CACHETYPE['PODCAST'] )
+					{
+						if( $cache_record['mp3count'] > 0 )
 						{
-						$mp3files = '';
-						$rsmp3 = sql("SELECT `url`, `title`, `uuid` FROM `mp3` WHERE `object_id`='&1' AND `object_type`=2", $cache_id);
+							$mp3files = '';
+							$rsmp3 = sql("SELECT `url`, `title`, `uuid` FROM `mp3` WHERE `object_id`='&1' AND `object_type`=2", $cache_id);
 
-						for ($i = 0; $i < mysql_num_rows($rsmp3); $i++)
+							for ($i = 0; $i < mysql_num_rows($rsmp3); $i++)
 							{
-							$tmpline1 = $mp3line;
-							$mp3_record = sql_fetch_array($rsmp3);
+								$tmpline1 = $mp3line;
+								$mp3_record = sql_fetch_array($rsmp3);
 
-							$tmpline1 = mb_ereg_replace('{link}', htmlspecialchars($mp3_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{title}', htmlspecialchars($mp3_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{uuid}', htmlspecialchars($mp3_record['uuid'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+								$tmpline1 = mb_ereg_replace('{link}', htmlspecialchars($mp3_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+								$tmpline1 = mb_ereg_replace('{title}', htmlspecialchars($mp3_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+								$tmpline1 = mb_ereg_replace('{uuid}', htmlspecialchars($mp3_record['uuid'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 
-							$mp3files .= $tmpline1;
+								$mp3files .= $tmpline1;
 							}
 
-						$mp3files = mb_ereg_replace('{lines}', $mp3files, $mp3lines);
-						mysql_free_result($rsmp3);
-						tpl_set_var('mp3files', $mp3files);
-						tpl_set_var('hidemp3_start', '');
-						tpl_set_var('hidemp3_end', '');
+							$mp3files = mb_ereg_replace('{lines}', $mp3files, $mp3lines);
+							mysql_free_result($rsmp3);
+							tpl_set_var('mp3files', $mp3files);
+							tpl_set_var('hidemp3_start', '');
+							tpl_set_var('hidemp3_end', '');
 						}
-					else
-						tpl_set_var('mp3files', $nomp3);
-						tpl_set_var('hidemp3_start', '');
-						tpl_set_var('hidemp3_end', '');
+						else
+						{
+							tpl_set_var('mp3files', $nomp3);
+							tpl_set_var('hidemp3_start', '');
+							tpl_set_var('hidemp3_end', '');
+						}
 					}
 					else
 					{
-					tpl_set_var('mp3files', '<br />');
-					tpl_set_var('hidemp3_start', '<!--');
-					tpl_set_var('hidemp3_end', '-->');
+						tpl_set_var('mp3files', '<br />');
+						tpl_set_var('hidemp3_start', '<!--');
+						tpl_set_var('hidemp3_end', '-->');
 					}
-		
-			//Add Waypoint
-				if(checkField('waypoint_type',$lang) )
-					$lang_db = $lang;
-				else
-					$lang_db = "en";
-					
-					$cache_type=$cache_record['type'];
-					if ($cache_type != 8 )
-					{ 
-					tpl_set_var('waypoints_start', '');
-					tpl_set_var('waypoints_end', '');
-				$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`", $lang_db,$cache_id);
-				if (mysql_num_rows($wp_rs) != 0)
-				{	
-						$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
-						$waypoints .= '<tr>';
-						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7) $waypoints .= '<th align="center" valign="middle" width="30"><b>'.tr('stage_wp').'</b></th>';
+				
+					//Add Waypoint
+					if(checkField('waypoint_type',$lang) )
+						$lang_db = $lang;
+					else
+						$lang_db = "en";
 						
-						$waypoints .= '<th width="32"><b>Symbol</b></th><th width="32"><b>'.tr('type_wp').'</b></th><th width="32"><b>'.tr('coordinates_wp').'</b></th><th><b>'.tr('describe_wp').'</b></th><th width="22"><b>Status</b></th><th width="22"><b>'.tr('edit').'</b></th><th width="22"><b>'.tr('delete').'</b></th></tr>';
-						for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
+					$cache_type=$cache_record['type'];
+					if( $cache_type != $CACHETYPE['MOVING'] )
+					{ 
+						tpl_set_var('waypoints_start', '');
+						tpl_set_var('waypoints_end', '');
+						$wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`", $lang_db,$cache_id);
+						if (mysql_num_rows($wp_rs) != 0)
+						{	
+							$waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
+							$waypoints .= '<tr>';
+							if( $cache_type == $CACHETYPE['OTHER'] || 
+								$cache_type == $CACHETYPE['MULTI'] || 
+								$cache_type == $CACHETYPE['QUIZ'] ) 
 							{
-							$tmpline1 = $wpline;
-							$wp_record = sql_fetch_array($wp_rs);
-				$coords_lat = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
-				$coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
+								$waypoints .= '<th align="center" valign="middle" width="30"><b>'.tr('stage_wp').'</b></th>';
+							}
+					
+							$waypoints .= '<th width="32"><b>Symbol</b></th><th width="32"><b>'.tr('type_wp').'</b></th><th width="32"><b>'.tr('coordinates_wp').'</b></th><th><b>'.tr('describe_wp').'</b></th><th width="22"><b>Status</b></th><th width="22"><b>'.tr('edit').'</b></th><th width="22"><b>'.tr('delete').'</b></th></tr>';
+							for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
+							{
+								$tmpline1 = $wpline;
+								$wp_record = sql_fetch_array($wp_rs);
+								$coords_lat = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8'));
+								$coords_lon = mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'));
 
-							$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{lon}', $coords_lon, $tmpline1);
-							$tmpline1 = mb_ereg_replace('{lat}', $coords_lat, $tmpline1);
-							$tmpline1 = mb_ereg_replace('{desc}', nl2br($wp_record['desc']), $tmpline1);
-							$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
-						if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7){
-						$tmpline1=mb_ereg_replace('{stagehide_end}', '', $tmpline1);	$tmpline1=mb_ereg_replace('{stagehide_start}', '', $tmpline1);
+								$tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+								$tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+								$tmpline1 = mb_ereg_replace('{lon}', $coords_lon, $tmpline1);
+								$tmpline1 = mb_ereg_replace('{lat}', $coords_lat, $tmpline1);
+								$tmpline1 = mb_ereg_replace('{desc}', nl2br($wp_record['desc']), $tmpline1);
+								$tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
+								if( $cache_type == $CACHETYPE['OTHER'] || 
+									$cache_type == $CACHETYPE['MULTI'] || 
+									$cache_type == $CACHETYPE['QUIZ'] )
+								{
+									$tmpline1=mb_ereg_replace('{stagehide_end}', '', $tmpline1);	
+									$tmpline1=mb_ereg_replace('{stagehide_start}', '', $tmpline1);
 
-							if ($wp_record['stage']==0) {$tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
-							}else{
-							$tmpline1 = mb_ereg_replace('{number}',$wp_record['stage'], $tmpline1);}
-							} else { $tmpline1=mb_ereg_replace('{stagehide_end}', '-->', $tmpline1);	$tmpline1=mb_ereg_replace('{stagehide_start}', '<!--', $tmpline1);}
+									if( $wp_record['stage']==0 ) 
+									{
+										$tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
+									}
+									else
+									{
+										$tmpline1 = mb_ereg_replace('{number}',$wp_record['stage'], $tmpline1);
+									}
+								} 
+								else 
+								{ 
+									$tmpline1=mb_ereg_replace('{stagehide_end}', '-->', $tmpline1);	
+									$tmpline1=mb_ereg_replace('{stagehide_start}', '<!--', $tmpline1);
+								}
 
-							if ($wp_record['status']==1) {$status_icon="tpl/stdstyle/images/free_icons/accept.png";}
-							if ($wp_record['status']==2) {$status_icon="tpl/stdstyle/images/free_icons/error.png";}
-							if ($wp_record['status']==3) {$status_icon="tpl/stdstyle/images/free_icons/stop.png";}
-							$tmpline1 = mb_ereg_replace('{status}', $status_icon, $tmpline1);							
-							$waypoints .= $tmpline1;
+								if ($wp_record['status'] == $STATUS['READY'] ) {$status_icon="tpl/stdstyle/images/free_icons/accept.png";}
+								if ($wp_record['status'] == $STATUS['TEMP_UNAVAILABLE'] ) {$status_icon="tpl/stdstyle/images/free_icons/error.png";}
+								if ($wp_record['status'] == $STATUS['ARCHIVED'] ) {$status_icon="tpl/stdstyle/images/free_icons/stop.png";}
+								$tmpline1 = mb_ereg_replace('{status}', $status_icon, $tmpline1);							
+								$waypoints .= $tmpline1;
 							}
 							$waypoints .= '</table>';
 							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/accept.png" class="icon32" alt=""  />&nbsp;<span>'.tr('wp_status1').'</span>';
 							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/error.png" class="icon32" alt=""  />&nbsp;<span>'.tr('wp_status2').'</span>';
 							$waypoints .= '<br/><img src="tpl/stdstyle/images/free_icons/stop.png" class="icon32" alt=""  />&nbsp;<span>'.tr('wp_status3').'</span>';
-						tpl_set_var('cache_wp_list', $waypoints);
-					}
-					else
+							tpl_set_var('cache_wp_list', $waypoints);
+						}
+						else
+						{
+							tpl_set_var('cache_wp_list', $nowp);
+						}
+						mysql_free_result($wp_rs);
+					} 
+					else 
 					{
-					tpl_set_var('cache_wp_list', $nowp);
+						tpl_set_var('waypoints_start', '<!--');
+						tpl_set_var('waypoints_end', '-->');
 					}
-					mysql_free_result($wp_rs);
-					} else {
-					tpl_set_var('waypoints_start', '<!--');
-					tpl_set_var('waypoints_end', '-->');}
-					
 
 					tpl_set_var('cacheid', htmlspecialchars($cache_id, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('name', htmlspecialchars($cache_name, ENT_COMPAT, 'UTF-8'));
