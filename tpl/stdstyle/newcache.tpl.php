@@ -91,8 +91,8 @@ function chkcountry()
 if (document.newcacheform.country.value !='PL')
 {
 document.forms['newcacheform'].country.value = document.newcacheform.country.value;
-document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- {{not_applicable}} ---', '-1')
-document.forms['newcacheform'].region.value = '-1';
+document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- {{not_applicable}} ---', '0')
+document.forms['newcacheform'].region.value = '0';
 document.newcacheform.region.disable = true;
  } else {
 document.forms['newcacheform'].country.value = 'PL';
