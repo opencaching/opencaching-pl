@@ -100,6 +100,35 @@ if ($error == false)
 	
 	tpl_set_var('cache_stat',$rs_stat);	
 
+	$ran = sqlValue("SELECT count(cache_id) FROM caches 
+			WHERE `caches`.`status` = '1'
+				AND `caches`.`user_id`=$user_id",0);
+	tpl_set_var('activeN',$ran);
+
+	$run = sqlValue("SELECT count(cache_id) FROM caches 
+			WHERE `caches`.`status` = '2'
+				AND `caches`.`user_id`=$user_id",0);
+	tpl_set_var('unavailableN',$run);
+
+	$rarn = sqlValue("SELECT count(cache_id) FROM caches 
+			WHERE `caches`.`status` = '3'
+				AND `caches`.`user_id`=$user_id",0);
+	tpl_set_var('archivedN',$rarn);
+
+	$rnpn = sqlValue("SELECT count(cache_id) FROM caches 
+			WHERE `caches`.`status` = '5'
+				AND `caches`.`user_id`=$user_id",0);
+	tpl_set_var('notpublishedN',$rnpn);
+
+	$rapn = sqlValue("SELECT count(cache_id) FROM caches 
+			WHERE `caches`.`status` = '4'
+				AND `caches`.`user_id`=$user_id",0);
+	tpl_set_var('approvalN',$rapn);
+	$rbln = sqlValue("SELECT count(cache_id) FROM caches 
+			WHERE `caches`.`status` = '6'
+				AND `caches`.`user_id`=$user_id",0);
+	tpl_set_var('blockedN',$rbln);
+
 
 	$LOGS_PER_PAGE = 50;
 	$PAGES_LISTED = 10;
