@@ -76,33 +76,33 @@ else
 	    		$rec = explode(",", trim($line));
 	    		if(count($rec) >= 4) {
 	    			// wyglada na skrzynke
-	    			$dane_i++;
-	    			// kod
-	    			$dane[$dane_i]['kod_str'] = $rec[0];
-	    			if(substr($dane[$dane_i]['kod_str'], 0, 2) == "OP") {
+	    			if(substr($rec[0], 0, 2) == "OP") {
+		    			$dane_i++;
+		    			$dane[$dane_i]['kod_str'] = $rec[0];
 	    				$dane[$dane_i]['typ_kodu'] = "OP";
 	    				if(strlen($listaKodowOP) > 0) {
 	    					$listaKodowOP .= ",";
 	    				}
 	    				$listaKodowOP .= "'".$dane[$dane_i]['kod_str']."'";
+		    			// kod
+		    			// czas
+		    			$regex = "/(.+)-(.+)-(.+)T(.+):(.+)Z/";
+		    			$ileMatches = preg_match($regex, trim($rec[1]), $matches);
+		    			if(count($matches) >=6) {
+		    				$dane[$dane_i]['rok'] = $matches[1];
+		    				$dane[$dane_i]['msc'] = $matches[2];
+		    				$dane[$dane_i]['dzien'] = $matches[3];
+		    				$dane[$dane_i]['godz'] = $matches[4];
+		    				$dane[$dane_i]['min'] = $matches[5];
+		    				$dane[$dane_i]['timestamp'] = mktime($matches[4], $matches[5], 0, $matches[2], $matches[3], $matches[1]);
+		    				$dane[$dane_i]['data'] = date("Y-m-d H:i", $dane[$dane_i]['timestamp']);
+		    				unset($matches);
+		    			}
+		    			//status
+		    			$dane[$dane_i]['status'] = isset($statusy[trim($rec[2])]) ? $statusy[trim($rec[2])] : 0;
+		    			// komentarz
+		    			$dane[$dane_i]['koment'] = str_replace("\"", "", trim($rec[3]));
 	    			}
-	    			// czas
-	    			$regex = "/(.+)-(.+)-(.+)T(.+):(.+)Z/";
-	    			$ileMatches = preg_match($regex, trim($rec[1]), $matches);
-	    			if(count($matches) >=6) {
-	    				$dane[$dane_i]['rok'] = $matches[1];
-	    				$dane[$dane_i]['msc'] = $matches[2];
-	    				$dane[$dane_i]['dzien'] = $matches[3];
-	    				$dane[$dane_i]['godz'] = $matches[4];
-	    				$dane[$dane_i]['min'] = $matches[5];
-	    				$dane[$dane_i]['timestamp'] = mktime($matches[4], $matches[5], 0, $matches[2], $matches[3], $matches[1]);
-	    				$dane[$dane_i]['data'] = date("Y-m-d H:i", $dane[$dane_i]['timestamp']);
-	    				unset($matches);
-	    			}
-	    			//status
-	    			$dane[$dane_i]['status'] = isset($statusy[trim($rec[2])]) ? $statusy[trim($rec[2])] : 0;
-	    			// komentarz
-	    			$dane[$dane_i]['koment'] = str_replace("\"", "", trim($rec[3]));
 	    		}
 	    	}
 	    	// plik sparsowany...
@@ -224,11 +224,13 @@ else
 			if(isset($_POST['SubmitShiftTimeMinusOne']))
 			{
 				$v['timestamp'] = $v['timestamp'] - (60*60);
+    				$v['data'] = date("Y-m-d H:i", $v['timestamp']);
 			}
 			
 			if(isset($_POST['SubmitShiftTimePlusOne']))
 			{
 				$v['timestamp'] = $v['timestamp'] + (60*60);
+    				$v['data'] = date("Y-m-d H:i", $v['timestamp']);
 			}
 
 			if($v['timestamp'] <= $filter_to && $v['timestamp'] >= $filter_from)

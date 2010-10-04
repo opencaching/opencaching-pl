@@ -93,7 +93,7 @@ global $lang;
 foreach($dane as $k=>$v) {
 
 ?>
-<form method="POST" name="logCacheForm" action="log.php?cacheid=<?php echo $v['cache_id']; ?>" target="OpenCachingOknoLogowania">
+<form method="POST" name="logCacheForm" action="log.php?cacheid=<?php echo $v['cache_id']; ?>" target="_blank">
 <textarea style="visibility:hidden;position:absolute;" name="logtext"><?php echo $v['koment']; ?></textarea>
 <input type="hidden" name="logtype" value="<?php echo $v['status']; ?>" />
 <input type="hidden" name="logyear" value="<?php echo $v['rok']; ?>" />
@@ -114,7 +114,7 @@ foreach($dane as $k=>$v) {
 	}
 ?>
   <tr class="<?php echo $styl; ?>">
-    <td width=560><?php echo isset($v['cache_name']) ? "<A href=\"viewcache.php?cacheid=".$v['cache_id']."\" target=".$v['cache_id']."<img src=\"tpl/stdstyle/images/".get_icon_for_cache_type($v['cache_type'])."\" /> ".$v['kod_str']." ".$v['cache_name']."</a>" : " "; ?></td>
+    <td width=560><?php echo isset($v['cache_name']) ? "<A href=\"viewcache.php?cacheid=".$v['cache_id']."\" target=\"_blank\">"."<img src=\"tpl/stdstyle/images/".get_icon_for_cache_type($v['cache_type'])."\" /> ".$v['kod_str']." ".$v['cache_name']."</a>" : " "; ?></td>
     <td width=70 style="text-align: right"><?php
     	echo isset($v['data']) ? str_replace(" ","<br />", $v['data']) : " "; echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; echo isset($v['status']) ? "<img src=\"tpl/stdstyle/images/".get_icon_for_status($v['status'])."\" />" : " ";
     ?></td>
