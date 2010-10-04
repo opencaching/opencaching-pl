@@ -13,12 +13,12 @@
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="" align="middle"/>&nbsp;{{my_caches_status}}: <font color="black">{cache_stat}</font></div>
 <table border="1"  bgcolor="#DBE6F1" style="border-collapse: collapse;font-weight:bold; margin-left: 10px; line-height: 1.4em; font-size: 12px;" width="95%">
 <tr>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=1">{{active}}</a></td>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=2">{{temp_unavailable}}</a></td>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=3">{{archived}}</a></td>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=5">{{not_published}}</a></td>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=4">{{for_approval}}</a></td>
-<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=6">{{blocked}}</a></td>
+<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=1">{{active}} ({{activeN}})</a></td>
+<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=2">{{temp_unavailable}} ({{unavailableN}})</a></td>
+<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=3">{{archived}} ({{archivedN}})</a></td>
+<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=5">{{not_published}} ({{notpublishedN}})</a></td>
+<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=4">{{for_approval}} ({{approvalN}})</a></td>
+<td width="15%" align="center" onmouseover="this.style.backgroundColor='#9CBAD6'" onmouseout="this.style.background='#DBE6F1'"><a class="links" href="mycaches.php?status=6">{{blocked}} ({{blockedN}})</a></td>
 </tr>
 </table>
 <p>&nbsp;</p>
