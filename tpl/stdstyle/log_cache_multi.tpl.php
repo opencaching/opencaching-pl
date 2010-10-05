@@ -134,7 +134,7 @@ foreach($dane as $k=>$v) {
 
 </td></tr>
 </table>
-<br /><br />
+<br /><hr /><br />
 
 <!-- Mass komentarze... -->
 <p>
@@ -144,3 +144,13 @@ Wpisz tutaj treść komentarza którą chcesz ustawić dla wszystkich widocznych
 <textarea name="logtext" id="logtext" cols="100" rows="7"></textarea>
 <input type="submit" name="submitCommentsForm" id="submitCommentsForm" value="Uaktualnij komentarze" style="width:120px"/>
 </form>
+<br />
+<hr />
+<br />
+<div style="text-align: center">
+<form name="GpsDownload" method="POST">
+<input type="submit" name="submitDownloadGpx" id="submitDownloadGpxId" value="Pobierz jako .GPX" style="width:120px"/>
+</form>
+</div>
+<br />
+<br />

@@ -1,4 +1,52 @@
 <?php
+if(isset($_POST['submitDownloadGpx']))
+{
+	$fd = "";
+	$fd .= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
+	$fd .= "<gpx xmlns=\"http://www.topografix.com/GPX/1/0\" \r\n"; 
+	$fd .= "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \r\n";
+	$fd .= "xsi:schemaLocation=\"http://www.topografix.com/GPX/1/0 \r\n";
+	$fd .= "http://www.topografix.com/GPX/1/0/gpx.xsd\" version=\"1.0\" \r\n";
+	$fd .= "creator=\"Opencaching.pl\">\r\n";
+	$fd .= "<name>Opencaching.pl Oregon multiload</name>\r\n";
+	session_start();
+	if(isset($_SESSION['log_cache_multi_filteredData']))
+	{
+		$tempList = array();
+		foreach($_SESSION['log_cache_multi_filteredData'] as $k=>$v)
+		{
+			$fd .= "<wpt lat=\"".$v['latitude']."\" lon=\"".$v['longitude']."\"><name>".$v['kod_str']."</name><sym>Flag, ".($v['status'] == "1" ? "Blue" : "Red")."</sym></wpt>\r\n";
+			$tempList[] = "<trkpt lat=\"".$v['latitude']."\" lon=\"".$v['longitude']."\"><time>".$v['rok']."-".$v['msc']."-".$v['dzien']."T".$v['godz'].":".$v['min'].":00Z</time></trkpt>\r\n";
+		}
+		$fd .= "<trk>\r\n";
+		$tx = "";
+		if(isset($_SESSION['filter_from']) && isset($_SESSION['filter_to']))
+		{
+			$tx = date("Ymd", $_SESSION['filter_from'])." - ".date("Ymd", $_SESSION['filter_to']);
+			$filname = date("Ymd", $_SESSION['filter_from']).".gpx";
+		}
+		$fd .= "<name>Keszowanie ".$tx."</name>\r\n";
+		$fd .= "<trkseg>\r\n";
+		foreach($tempList as $k=>$v)
+		{
+			$fd .= $v;
+		}
+		$fd .= "</trkseg>\r\n";
+		$fd .= "</trk>\r\n";
+		$fd .= "</gpx>";
+		
+		header("Content-type: application/octet-stream");
+		header("Content-Disposition: attachment; filename=\"".$filname."\"");
+		echo $fd;
+		die();		
+	}
+	else
+	{
+		die("No data");
+	}
+}
+
+// //
 require_once('./lib/common.inc.php');
 
 $no_tpl_build = false;
@@ -24,6 +72,7 @@ else
 	{
 		// usuwam zapamietane a nieaktualne juz dane...
 		unset($_SESSION['log_cache_multi_data']);
+		unset($_SESSION['log_cache_multi_filteredData']);
 		unset($_SESSION['filter_to']);
 		unset($_SESSION['filter_from']);
 
@@ -110,6 +159,7 @@ else
 		$_SESSION['log_cache_multi_data'] = $dane;
 	}// EOF jesli jest plik wyslany to parsowanie...
 
+
 	if(isset($_SESSION['log_cache_multi_data']))
 	{
 		$dane = $_SESSION['log_cache_multi_data'];
@@ -138,9 +188,11 @@ else
 	      		if (mysql_num_rows($rs) != 0)
 	      		{
 	      			$i=0;
+//	      			echo "<pre>";
 	      			while($i < mysql_num_rows($rs))
 	      			{
-	      				$record = sql_fetch_array($rs);
+	      				$record = sql_fetch_assoc($rs);
+//	      				print_r($record);
 	      				// dodanie dodatkowych info do odpowiedniej skrzynki:
 	      				foreach($dane as $k=>$v)
 	      				{
@@ -150,6 +202,8 @@ else
 	      						$v['cache_id'] = $record['cache_id'];
 	      						$v['cache_type'] = $record['type'];
 	      						$v['cache_name'] = $record['name'];
+	      						$v['longitude'] = $record['longitude'];
+	      						$v['latitude'] = $record['latitude'];
 	      						$dane[$k] = $v;
 			    				if(strlen($cacheIdList) > 0) {
 			    					$cacheIdList .= ",";
@@ -159,6 +213,7 @@ else
 	      				}
 	      				$i++;
 	      			}
+//	      			die();
 	      		}
 	      	}
 	
@@ -250,6 +305,7 @@ else
 		
 		// odswiezone dane do sesji:
 		$_SESSION['log_cache_multi_data'] = $dane;
+		$_SESSION['log_cache_multi_filteredData'] = $daneFiltrowane;
 		// oryginalna tablice mam zapisana w sesji, wiec tu spokojnie moge nadpisac do prezentacji.
 		$dane = $daneFiltrowane;
 	}
