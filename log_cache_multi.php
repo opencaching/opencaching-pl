@@ -3,11 +3,13 @@ if(isset($_POST['submitDownloadGpx']))
 {
 	$fd = "";
 	$fd .= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n";
-	$fd .= "<gpx xmlns=\"http://www.topografix.com/GPX/1/0\" \r\n"; 
-	$fd .= "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \r\n";
-	$fd .= "xsi:schemaLocation=\"http://www.topografix.com/GPX/1/0 \r\n";
-	$fd .= "http://www.topografix.com/GPX/1/0/gpx.xsd\" version=\"1.0\" \r\n";
-	$fd .= "creator=\"Opencaching.pl\">\r\n";
+	$fd .= "<gpx xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" \r\n"; 
+	$fd .= "  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"1.0\" \r\n";
+	$fd .= "  creator=\"tATO ;)\" \r\n";
+	$fd .= "  xsi:schemaLocation=\"http://www.topografix.com/GPX/1/0 \r\n";
+	$fd .= "  http://www.topografix.com/GPX/1/0/gpx.xsd \r\n";
+	$fd .= "  http://genpol.com/temp/geocache/ http://genpol.com/temp/geocache/geocache.xsd\" \r\n";
+	$fd .= "  xmlns=\"http://www.topografix.com/GPX/1/0\">\r\n\r\n";
 	$fd .= "<name>Opencaching.pl Oregon multiload</name>\r\n";
 	session_start();
 	if(isset($_SESSION['log_cache_multi_filteredData']))
@@ -15,28 +17,75 @@ if(isset($_POST['submitDownloadGpx']))
 		$tempList = array();
 		foreach($_SESSION['log_cache_multi_filteredData'] as $k=>$v)
 		{
-			$fd .= "<wpt lat=\"".$v['latitude']."\" lon=\"".$v['longitude']."\"><name>".$v['kod_str']."</name><sym>Flag, ".($v['status'] == "1" ? "Blue" : "Red")."</sym></wpt>\r\n";
-			$tempList[] = "<trkpt lat=\"".$v['latitude']."\" lon=\"".$v['longitude']."\"><time>".$v['rok']."-".$v['msc']."-".$v['dzien']."T".$v['godz'].":".$v['min'].":00Z</time></trkpt>\r\n";
+			$v['cache_creator'] = str_replace("&", " ", $v['cache_creator']);
+		
+			$fd .= "<wpt lat=\"".$v['latitude']."\" lon=\"".$v['longitude']."\">\r\n";
+			$fd .= "	<time>".$v['rok']."-".$v['msc']."-".$v['dzien']."T".$v['godz'].":".$v['min'].":00Z</time>\r\n";
+			$fd .= "	<name>".$v['kod_str']." ".mb_substr($v['cache_name'], 0, 20, 'UTF-8')."</name>\r\n";
+			$fd .= "	<desc>".$v['cache_name']." by ".$v['cache_creator']."</desc>\r\n";
+			$fd .= "	<url>http://opencaching.pl/viewcache.php?cacheid=".$v['cache_id']."</url>\r\n";
+			$fd .= "	<urlname>".$v['kod_str']." ".mb_substr($v['cache_name'], 0, 20, 'UTF-8')."</urlname>\r\n";
+			if($v['status'] == 1 || $v['status'] == 5) { // found, need maintenance
+				$fd .= "	<sym>Geocache found</sym>\r\n";
+			} else {
+				$fd .= "	<sym>Geocache</sym>\r\n";
+			}
+//			$fd .= "	<sym>Flag, ".($v['status'] == "1" ? "Blue" : "Red")."</sym>\r\n";
+			$fd .= "	<geocache xmlns=\"http://genpol.com/temp/geocache/\">\r\n";
+			$fd .= "		<name>".$v['kod_str']." ".mb_substr($v['cache_name'], 0, 20, 'UTF-8')."</name>\r\n";
+			$fd .= "		<owner>".$v['cache_creator']."</owner>\r\n";
+			switch($v['cache_type']) {
+				case 2:	$fd .= "		<type>Traditional</type>\r\n";
+					break;
+				case 3:	$fd .= "		<type>Multi</type>\t\n";
+					break;
+				case 4:	$fd .= "		<type>Virtual</type>\r\n";
+					break;
+				case 5:	$fd .= "		<type>Webcam</type>\r\n";
+					break;
+				case 6: $fd .= "		<type>Event</type>\r\n";
+					break;
+				default: $fd .= "		<type>Other</type>\r\n";
+			}
+			$fd .= "		<container>0</container>\r\n";
+			$fd .= "		<difficulty>".$v['cache_difficulty']."</difficulty>\r\n";
+			$fd .= "		<terrain>".$v['cache_terrain']."</terrain>\r\n";
+			$fd .= "	</geocache>\r\n";
+			$fd .= "</wpt>\r\n";
+			
+			// pre-define TRK
+			$tmpDate = $v['timestamp'] - 4 * 60 * 60; // -4 godziny do daty.
+			$td = date("Ymd", $tmpDate);
+			if(!isset($tempList[$td])) { // zaloz dla daty:
+				$tempList[$td]['name'] = "OC-PL ".date("Y-m-d", $tmpDate);
+				$tempList[$td]['pts'] = array();
+			}
+			$tempList[$td]['pts'][] = "		<trkpt lat=\"".$v['latitude']."\" lon=\"".$v['longitude']."\"><time>".$v['rok']."-".$v['msc']."-".$v['dzien']."T".$v['godz'].":".$v['min'].":00Z</time></trkpt>\r\n";
 		}
-		$fd .= "<trk>\r\n";
-		$tx = "";
-		if(isset($_SESSION['filter_from']) && isset($_SESSION['filter_to']))
-		{
-			$tx = date("Ymd", $_SESSION['filter_from'])." - ".date("Ymd", $_SESSION['filter_to']);
-			$filname = date("Ymd", $_SESSION['filter_from']).".gpx";
-		}
-		$fd .= "<name>Keszowanie ".$tx."</name>\r\n";
-		$fd .= "<trkseg>\r\n";
+		// EOF waypointy - zdefiniowane.
+		
 		foreach($tempList as $k=>$v)
 		{
-			$fd .= $v;
+			$fd .= "\r\n<trk>\r\n";
+			$fd .= "	<name>".$v['name']."</name>\r\n";
+			$fd .= "	<trkseg>\r\n";
+			foreach($v['pts'] as $k1 => $v1) {
+				$fd .= $v1;
+			}
+			$fd .= "	</trkseg>\r\n";
+			$fd .= "</trk>\r\n";
 		}
-		$fd .= "</trkseg>\r\n";
-		$fd .= "</trk>\r\n";
+	
 		$fd .= "</gpx>";
 		
-		header("Content-type: application/octet-stream");
+		$filname = date("Ymd-Hi").".gpx";
+		header("Content-type: application/x-download"); 
+		header("Content-type: text/plain; charset=utf-8"); 
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+
+//		header("Content-type: application/octet-stream");
 		header("Content-Disposition: attachment; filename=\"".$filname."\"");
+		echo pack("ccc", 0xef, 0xbb, 0xbf);
 		echo $fd;
 		die();		
 	}
@@ -184,15 +233,15 @@ else
 	      	// dociagam informacje o nazwie i id skrzynki...			
 	      	if(strlen($listaKodowOP) > 0)
 	      	{
-	      		$rs = sql("SELECT * FROM `caches` WHERE `wp_oc` IN (".$listaKodowOP.")");
+	      		$rs = sql("SELECT c.*,u.`username` FROM `caches` as c LEFT JOIN `user` as u on u.`user_id` = c.`user_id` WHERE c.`wp_oc` IN (".$listaKodowOP.")");
 	      		if (mysql_num_rows($rs) != 0)
 	      		{
 	      			$i=0;
-//	      			echo "<pre>";
+	      			//echo "<pre>";
 	      			while($i < mysql_num_rows($rs))
 	      			{
 	      				$record = sql_fetch_assoc($rs);
-//	      				print_r($record);
+	      				//print_r($record);
 	      				// dodanie dodatkowych info do odpowiedniej skrzynki:
 	      				foreach($dane as $k=>$v)
 	      				{
@@ -204,6 +253,9 @@ else
 	      						$v['cache_name'] = $record['name'];
 	      						$v['longitude'] = $record['longitude'];
 	      						$v['latitude'] = $record['latitude'];
+	      						$v['cache_creator'] = $record['username'];
+	      						$v['cache_difficulty'] = $record['difficulty'];
+	      						$v['cache_terrain'] = $record['terrain'];
 	      						$dane[$k] = $v;
 			    				if(strlen($cacheIdList) > 0) {
 			    					$cacheIdList .= ",";
@@ -213,7 +265,7 @@ else
 	      				}
 	      				$i++;
 	      			}
-//	      			die();
+	      			//die();
 	      		}
 	      	}
 	
