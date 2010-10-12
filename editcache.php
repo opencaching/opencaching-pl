@@ -59,8 +59,7 @@
 					
 					// wihout virtuals and webcams
 					if( ( ($_POST['type'] == $CACHETYPE['VIRTUAL'] && $cache_record['type'] != $CACHETYPE['VIRTUAL'] ) || 
-						  ($_POST['type'] == $CACHETYPE['WEBCAM'] && $cache_record['type'] != $CACHETYPE['WEBCAM'] ) || 
-						  ($_POST['type'] == $CACHETYPE['OWNCACHE'] && $cache_record['type'] != $CACHETYPE['OWNCACHE'] ) ) && 
+						  ($_POST['type'] == $CACHETYPE['WEBCAM'] && $cache_record['type'] != $CACHETYPE['WEBCAM'] ) ) && 
 						  !$usr['admin'] )
 					{
 						$_POST['type'] = $cache_record['type'];
@@ -666,11 +665,10 @@
 					{
 						// block virtual, webcam and owncache
 						if( ( ( $cache_type != $CACHETYPE['VIRTUAL'] && $type['id'] == $CACHETYPE['VIRTUAL'] ) || 
-							  ( $cache_type != $CACHETYPE['WEBCAM'] && $type['id'] == $CACHETYPE['WEBCAM'] ) || 
-							  ( $cache_type != $CACHETYPE['OWNCACHE'] && $type['id'] == $CACHETYPE['OWNCACHE'] ) ) &&
+							  ( $cache_type != $CACHETYPE['WEBCAM'] && $type['id'] == $CACHETYPE['WEBCAM'] ) ) &&
 							  !$usr['admin'] )
 						{
-							// if was not (wirtual or webcam or owncache)
+							// if was not (wirtual or webcam)
 							// then do not display in the list
 							continue;
 						}
