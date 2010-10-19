@@ -111,6 +111,22 @@ if($usr==true)
 					$emailheaders .= "Reply-To: ".$usr['username']." <".$usr['email'].">";
 					
 					mb_send_mail($cache_owner['email'], "[OC PL] Zgłoszono problem dotyczący Twojej skrzynki ".$cache['wp_oc'], $email_content, $emailheaders);
+					
+					// send email to cache reporter
+					$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
+					$emailheaders .= "From: Opencaching.pl <cog@opencaching.pl>\r\n";
+						
+					$email_content = read_file($stylepath . '/email/newreport_reporter.email');
+					
+					$email_content = mb_ereg_replace('%date%', date("Y.m.d H:i:s"), $email_content);
+					$email_content = mb_ereg_replace('%cachename%', $cache['name'], $email_content);
+					$email_content = mb_ereg_replace('%cache_wp%', $cache['wp_oc'], $email_content);
+					$email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);		
+					$email_content = mb_ereg_replace('%reason%', reason($_POST['reason']), $email_content);		
+					$email_content = mb_ereg_replace('%text%', strip_tags(addslashes($_POST['text'])), $email_content);
+					
+					mb_send_mail($cache_reporter['email'], "[OC PL] Zgłosiłeś problem dotyczący skrzynki ".$cache['wp_oc'], $email_content, $emailheaders);
+					
 					//echo($cache_owner['email']. "[OC PL] Zgłoszono problem dotyczący Twojej skrzynki". $email_content. $emailheaders);
 				}
 			}
