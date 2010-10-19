@@ -103,7 +103,7 @@ if($usr==true)
 					$email_content = mb_ereg_replace('%cache_wp%', $cache['wp_oc'], $email_content);
 					$email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);		
 					$email_content = mb_ereg_replace('%reason%', reason($_POST['reason']), $email_content);		
-					$email_content = mb_ereg_replace('%text%', strip_tags(addslashes($_POST['text'])), $email_content);
+					$email_content = mb_ereg_replace('%text%', strip_tags($_POST['text']), $email_content);
 					
 					//send email to cache owner
 					$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
@@ -123,7 +123,7 @@ if($usr==true)
 					$email_content = mb_ereg_replace('%cache_wp%', $cache['wp_oc'], $email_content);
 					$email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);		
 					$email_content = mb_ereg_replace('%reason%', reason($_POST['reason']), $email_content);		
-					$email_content = mb_ereg_replace('%text%', strip_tags(addslashes($_POST['text'])), $email_content);
+					$email_content = mb_ereg_replace('%text%', strip_tags($_POST['text']), $email_content);
 					
 					mb_send_mail($cache_reporter['email'], "[OC PL] Zgłosiłeś problem dotyczący skrzynki ".$cache['wp_oc'], $email_content, $emailheaders);
 					
