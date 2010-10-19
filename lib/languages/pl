@@ -97,7 +97,7 @@ sort_by Sortuj wg
 by_name nazwy
 by_date daty
 hide_caches_type Ukryj skrzynki typu
-unknown_type Inny typ
+unknown_type Nietypowa
 traditional Tradycyjna
 multicache Multicache
 virtual Wirtualna

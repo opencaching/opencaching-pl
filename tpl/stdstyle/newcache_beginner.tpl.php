@@ -31,7 +31,7 @@
 <li>Multicache,</li> 
 <li>Quiz, </li>
 <li>Mobilna, </li>
-<li>Inny typ.</li>
+<li>Nietypowa.</li>
 </ul></font>
 Obecnie masz znalezionych <font color="green">{number_finds_caches}</font> skrzynek spośród typów wymienionych w powyższych wymaganiach.<br/><br/>
 
