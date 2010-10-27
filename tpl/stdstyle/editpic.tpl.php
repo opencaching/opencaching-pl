@@ -36,29 +36,28 @@ function checkForm()
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" title="edit picture" align="middle" /> <b>{pictypedesc} </b><a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" title="edit picture" align="middle" /> <b>{pictypedesc} </b>&nbsp;<a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>
 	<tr><td class="spacer" colspan="2"><br /></td></tr>
 
 	<tr>
-		<td valign="top">Tytuł:</td>
+		<td valign="top">{{title_picture}}:</td>
 		<td><input class="input200" name="title" type="text" value="{title}" size="43" /> {errnotitledesc}</td>
 	</tr>
 
 	<tr>
-		<td valign="top">Nazwa pliku:</td>
+		<td valign="top">{{file_name}}:</td>
 		<td><input class="input200" name="file" type="file" maxlength="{maxpicsize}" /></td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>
 		<td align="right"><input class="checkbox" type="checkbox" name="spoiler" value="1" {spoilerchecked}></td>
-		<td>Nie pokazuj miniatury (SPOILER) - użyj tej opcji jeśli wgrywasz zdjęcie na którym pokazane jest miejsce ukrycia skrzynki. 
-		Dopiero jak ktoś kliknie na SPOILER pokaże mu się wgrany obrazek.</td>
+		<td>{{spoiler_info}}</td>
 	</tr>
 	{begin_cacheonly}
 	<tr>
 		<td align="right"><input class="checkbox" type="checkbox" name="notdisplay" value="1" {notdisplaychecked}></td>
-		<td>Tego obrazka nie pokazuj</td>
+		<td>{{dont_show}}</td>
 	</tr>
 	{end_cacheonly}
 
@@ -66,8 +65,7 @@ function checkForm()
 
 	<tr>
 		<td class="header-small" colspan="2">
-			<input type="reset" name="reset" value="{{reset}}" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submit" value="{{submit}}" style="width:120px"/>
+			<button type="submit" name="submit" value="submit" style="font-size:12px;width:120px"><b>{{submit}}</b></button>
 		</td>
 	</tr>
   </table>
