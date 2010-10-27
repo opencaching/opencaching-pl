@@ -742,9 +742,23 @@ select_regions Select region
 not_applicable Not applicable
 input_coord Please input coordinates location of cache
 waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">See the description and the kinds of additional waypoints.</a>
+cache_pictures Geocache picture
+log_pictures Log Picture
+no_title No title
+to_big_data Image file too big
+max_size Max Image size 100 KB. Please reduce the size or resolution.
+bad_format Incompatable File Format
+bad_format_info Acceptable formats BMP, GIF, PNG, JPG . Suggested size 480 x 360 pixels.
+no_picture Picture not found
+title_picture Title
+file_name File name
+cache_picture_intro Upload only pictures relevant to the cache.
+spoiler_info Do not display thumbnail (SPOILER) - Use this option if the picture shows the location of the cache.<br> The picture will only be shown when SPOILER is clicked.
+dont_show These pictures do not show. 
+pictures_intro Permitted image formats: BMP, GIF, PNG & JPG. JPG is best for photos.<br />Maximum size 100 KB. Recommended resolution: 480 x 360 pixels.
+add_new_picture Adding a new picture to the cache.
+submit Submit
 
- 
- 
 
 
 

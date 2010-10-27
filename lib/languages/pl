@@ -767,7 +767,7 @@ block Zablokuj
 assign_yourself Przypisz siebie do zgłoszenia
 accept Zaakceptuj
 octeam_stat_problems Statystyka COG - prowadzone zgłoszenia
-octeam_stat_m_problems Statystyka COG Miesięczna - zgłoszenia
+ocTego zdjęcia nie pokazujteam_stat_m_problems Statystyka COG Miesięczna - zgłoszenia
 octeam_stat_caches Statystyka COG - skrzynki weryfikowane
 octeam_stat_m_caches Statystyka COG Miesięczna - skrzynki weryfikowane
 number_problems Liczba zgłoszeń
@@ -788,3 +788,20 @@ select_regions Wybierz województwo
 not_applicable Nie stosowane
 input_coord Proszę podać współrzędne lokalizacji skrzynki
 waypoints_about_info <a class="links" http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a>
+cache_pictures Obrazk związany z skrzynką
+log_pictures Obrazek dla wpisu w LOGu
+no_title Brak tytułu
+to_big_data Obrazek jest zbyt duży
+max_size Dopuszczalna wielkość obrazka to 100 KB. Zmień rozdzielczść lub zmniejsz jakość obrazka.
+bad_format Niepoprawny typ obrazka
+bad_format_info Wysłany plik ma niedozwolony format. Dozwolone formaty to BMP, GIF, PNG i JPG - dla zdjęć zalecany JPG. Dopuszczalna wielkość pliku to 100 KB. Zalecana rozdzielczość to 480 x 360 pikseli.
+no_picture Obrazka nie ma w bazie danych
+title_picture Tytuł
+file_name Nazwa pliku
+cache_picture_intro Umieszczaj tylko istotne obrazki związane z skrzynką. Nie rób fotoalbumu okolicy.
+spoiler_info Nie pokazuj miniatury (SPOILER) - użyj tej opcji jeśli wgrywasz zdjęcie na którym pokazane jest miejsce ukrycia skrzynki. <br>Dopiero jak ktoś kliknie na SPOILER pokaże mu się wgrany obrazek.
+dont_show Nie pokazuj tego obrazka.
+pictures_intro Nastpujące formaty są akceptowane: BMP, GIF, PNG i JPG - dla zdjęć rekomendowany format JPG .<br />Maksymalna wielkość pliku dozwolona 100 KB. Zalecane wymiary obrazków: 480 Pixel szerokość i 360 Pixel wysokość. <br />Po potwierdzeniu następna strona, która się pojawi może potrwać chwilę.
+add_new_picture Dodanie nowego obrazka dla skrzynki 
+
+
