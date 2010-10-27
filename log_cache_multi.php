@@ -187,13 +187,8 @@ else
 		    			$regex = "/(.+)-(.+)-(.+)T(.+):(.+)Z/";
 		    			$ileMatches = preg_match($regex, trim($rec[1]), $matches);
 		    			if(count($matches) >=6) {
-		    				$dane[$dane_i]['rok'] = $matches[1];
-		    				$dane[$dane_i]['msc'] = $matches[2];
-		    				$dane[$dane_i]['dzien'] = $matches[3];
-		    				$dane[$dane_i]['godz'] = $matches[4];
-		    				$dane[$dane_i]['min'] = $matches[5];
 		    				$dane[$dane_i]['timestamp'] = mktime($matches[4], $matches[5], 0, $matches[2], $matches[3], $matches[1]);
-		    				$dane[$dane_i]['data'] = date("Y-m-d H:i", $dane[$dane_i]['timestamp']);
+		    				$dane[$dane_i] = UstawDatyZTimeStampa($dane[$dane_i]);
 		    				unset($matches);
 		    			}
 		    			//status
@@ -294,17 +289,26 @@ else
 			}
 		}
 
+
 		// filtrowanie...		
 		// wczytanie wartosci filtrow, a jesli nie ma to odpowiednio min i max wartosc z pliku tak by wszystkie byly.
 		if(isset($_POST['filter_from']) && false !== strtotime($_POST['filter_from']))
 		{
 			$filter_from = strtotime($_POST['filter_from']);
+			
 		} else if(isset($_SESSION['filter_from'])) {
 			$filter_from = $_SESSION['filter_from'];		
 		} else {
 			$filter_from = $minTimeStamp;
 		}
+		//jesli odjecie godziny to odejmij z filter_from tez:
+		if(isset($_POST['SubmitShiftTimeMinusOne']))
+		{
+			$filter_from = $filter_from - (60*60);
+		}
 		$_SESSION['filter_from'] = $filter_from;
+
+
 		if(isset($_POST['filter_to']) && false !== strtotime($_POST['filter_to']))
 		{
 			$filter_to = strtotime($_POST['filter_to']);
@@ -312,6 +316,11 @@ else
 			$filter_to = $_SESSION['filter_to'];
 		} else {
 			$filter_to = $maxTimeStamp;
+		}
+		// jesli dodanie godziny to dodaje do filter_to tez.
+		if(isset($_POST['SubmitShiftTimePlusOne']))
+		{
+			$filter_to = $filter_to + (60*60);
 		}
 		$_SESSION['filter_to'] = $filter_to;
 
@@ -322,22 +331,17 @@ else
 		$daneFiltrowane = array();			
 		foreach($dane as $k=>$v)
 		{
-			// dodaje mass komentarze dla filtrowanych skrzynek:
-			if(isset($_POST['submitCommentsForm']) && isset($_POST['logtext']))
-			{
-				$v['koment'] .= " ".$_POST['logtext'];
-			}		
 			
 			if(isset($_POST['SubmitShiftTimeMinusOne']))
 			{
 				$v['timestamp'] = $v['timestamp'] - (60*60);
-    				$v['data'] = date("Y-m-d H:i", $v['timestamp']);
+				$v = UstawDatyZTimeStampa($v);
 			}
 			
 			if(isset($_POST['SubmitShiftTimePlusOne']))
 			{
 				$v['timestamp'] = $v['timestamp'] + (60*60);
-    				$v['data'] = date("Y-m-d H:i", $v['timestamp']);
+				$v = UstawDatyZTimeStampa($v);
 			}
 
 			if($v['timestamp'] <= $filter_to && $v['timestamp'] >= $filter_from)
@@ -347,6 +351,13 @@ else
 				$doFiltra = false;
 			}
 			
+			if($doFiltra) {
+				// dodaje mass komentarze dla filtrowanych skrzynek:
+				if(isset($_POST['submitCommentsForm']) && isset($_POST['logtext']))
+				{
+					$v['koment'] .= " ".$_POST['logtext'];
+				}
+			}
 			$dane[$k] = $v;
 			if($doFiltra) {
 				$daneFiltrowane[$k] = $v; // uzywam $k by miec te same klucze co oryginalna tablica, przyda sie pozniej.
@@ -372,6 +383,18 @@ if ($no_tpl_build == false)
 {
 	//make the template and send it out
 	tpl_BuildTemplate(false);
+}
+
+
+function UstawDatyZTimeStampa($rekord)
+{
+	$rekord['rok'] = date("Y", $rekord['timestamp']);
+	$rekord['msc'] = date("m", $rekord['timestamp']);
+	$rekord['dzien'] = date("d", $rekord['timestamp']);
+	$rekord['godz'] = date("H", $rekord['timestamp']);
+	$rekord['min'] = date("i", $rekord['timestamp']);
+	$rekord['data'] = date("Y-m-d H:i", $rekord['timestamp']);
+	return $rekord;
 }
 
 
