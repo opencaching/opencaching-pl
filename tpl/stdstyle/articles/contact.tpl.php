@@ -28,7 +28,7 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 - starypatyk<br />
 - trojmiasto<br />
 - rushcore<br />
-- mardoq<br />
+- limak<br />
 - <font color="#C8C8C8">sp2ong</font> <br />
 <br />
 <b>Centrum Obsługi Geocachera </b>  - Kadencja 1.06.2010 - 31.05.2011 (w nawiasie liczba otrzymanych głosów):<br />
