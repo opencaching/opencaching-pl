@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /***************************************************************************
 	*
@@ -71,6 +71,7 @@ Prezentacja poszukiwanych przez Ciebie skrzynek.
   <div style="position: relative; top: 4px; float: left; font-family: Arial, Tahoma, Verdana; font-size: 8pt;">Przesuń czas znalezienia skrzynek o: </div>
   <div style="float: left;"><form method="POST" name="ShiftTimePlusOne"><input name="SubmitShiftTimePlusOne" type="submit" value="+1 godz."></form></div>
   <div style="float: left;"><form method="POST" name="ShiftTimeMinusOne"><input name="SubmitShiftTimeMinusOne" type="submit" value="-1 godz."></form></div>
+  <div style="position:relative; left:60px; float: left;"><form method="LINK" action="log_cache_multi_panelframes.htm" name="otworzPanel"><input type="submit" value="Otwórz panel logowania."></form></div>
 </div>
 
 <table width="770" class="table" style="line-height: 1.6em; font-size: 10px; border: 1px solid black; empty-cells: show;">
@@ -123,7 +124,14 @@ foreach($dane as $k=>$v) {
     ?></td>
   </tr><tr class="<?php echo $styl; ?>">
     <td width="630" colspan=2><?php echo isset($v['koment']) ? $v['koment'] : " "; ?>&nbsp;</td>
-    <td style="text-align: center"><?php if(isset($v['cache_id']) && (!$zgodne)) {echo "<input type=\"submit\" value=\"Zaloguj\" style=\"width: 70px\"/>"; }; ?> </td>
+    <td style="text-align: center"><?php if(isset($v['cache_id']) && (!$zgodne)) {echo "
+    <input type=\"submit\" value=\"Log\" style=\"width: 40px\"/>
+<!--    <input onclick=\"this.form.submit(); setTimeout(function() { window.open('viewcache.php?cacheid=".$v['cache_id']."'); }, 250); return false;\" type=\"submit\" value=\"T 1\" style=\"width: 20px\"/> -->
+    <input onclick=\"this.form.submit(); window.open('viewcache.php?cacheid=".$v['cache_id']."'); return false;\" type=\"submit\" value=\"2\" style=\"width: 20px\"/>
+<!--    <input onclick=\"window.open('viewcache.php?cacheid=".$v['cache_id']."'); this.form.submit(); return false;\" type=\"submit\" value=\"T 3\" style=\"width: 20px\"/> -->
+    "; }; ?>
+<!--    <a href="http://www.example.org" onclick="window.open('http://www.google.com','newwin');">click me</a> -->
+     </td>
   </tr>
 </table>
 </form>
