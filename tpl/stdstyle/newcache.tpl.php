@@ -113,7 +113,7 @@ function chkiconcache()
 				iconarray['6'] = 'event.png';
 				iconarray['7'] = 'quiz.png';
 				iconarray['8'] = 'moving.png';
-				iconarray['9'] = 'podcache.png';
+				iconarray['9'] = 'owncache.png';
 			var image_cache = "/tpl/stdstyle/images/cache/" + iconarray[mode];
 			document.newcacheform.actionicon.src = image_cache;
 }
