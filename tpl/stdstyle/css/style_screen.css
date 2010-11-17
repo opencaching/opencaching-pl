@@ -806,7 +806,11 @@ table.border {	background: url(/images/bg_blue.png) repeat-x;
 	border-left: 1px solid #CCCCCC;
 	border-right: 1px solid #CCCCCC;
 }
-
+.obrazek {border:solid 1px silver; padding:5px;
+    margin-left:10px;width:80px;
+    height:120px;float:right;
+    margin-bottom:3px;}
+.obrazek img {max-width: 64px; max-height: 64px; vertical-align: top;}
 
 
 
