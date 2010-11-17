@@ -153,6 +153,37 @@
 
 				// pictures
 
+					$cachepicturelines = '';
+					$append_atag='';
+					$rscpictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=&1 AND `pictures`.`object_type`=2", $cache_id);
+
+					for ($j = 0; $j < mysql_num_rows($rscpictures); $j++)
+					{
+						$pic_crecord = sql_fetch_array($rscpictures);
+						$thisline = $cachepicture;
+
+
+                        $thisline = mb_ereg_replace('{link}', $pic_crecord['url'], $thisline);
+                        $thisline = mb_ereg_replace('{longdesc}', str_replace("uploads","uploads",$pic_crecord['url']), $thisline);
+	                $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?'.$showspoiler.'uuid=' . urlencode($pic_crecord['uuid']), $thisline);
+                        $thisline = mb_ereg_replace('{log}', $tmplog_username .": ". htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
+                        if ($pic_crecord['title']=="") {$title="link";} else { $title=htmlspecialchars($pic_crecord['title'],ENT_COMPAT,'UTF-8');}
+                        $thisline = mb_ereg_replace('{title}', "<a class=links href=viewlogs.php?logid=".$pic_crecord['object_id'].">".$title."</a>", $thisline);
+
+
+				
+						$cachepicturelines .= $thisline;
+					}
+					mysql_free_result($rscpictures);
+
+//					$logpicturelines = mb_ereg_replace('{lines}', $logpicturelines, $logpictures2);
+					$tmplog = $cachepicturelines;
+
+
+				$clogs .= "$tmplog\n";
+			
+			tpl_set_var('cachepictures', $clogs);
+
 					$logpicturelines = '';
 					$append_atag='';
 					$rspictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`=&1", $cache_id);
