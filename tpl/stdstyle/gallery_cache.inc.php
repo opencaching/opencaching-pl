@@ -20,7 +20,7 @@
  $pictureline = '<a href="{link}">{title}</a><br />';
  $pictures = '<p>{picturelines}</p>';
 
- $logpicture = '<span class="img_log"><span class="img-shadow"><a href="{link}" title="{log}" onclick="return false;"><center><img src="{imgsrc}" alt="{log}" onclick="enlarge(this)" class="viewlogs-thumbimg" longdesc="{longdesc}"/></center></a></span><br/>&nbsp;&nbsp;{title}</span>';
+ $logpicture = '<span class="img_cache"><span class="img-shadow"><a href="{link}" title="{log}" onclick="return false;"><center><img src="{imgsrc}" alt="{log}" onclick="enlarge(this)" class="viewlogs-thumbimg" longdesc="{longdesc}"/></center></a></span><br/>&nbsp;&nbsp;{title}</span>';
  $logpictures2 = '{lines}';
  $cachepicture = '<span class="img_cache"><span class="img-shadow"><a href="{link}" title="{log}" onclick="return false;"><center><img src="{imgsrc}" alt="{log}" onclick="enlarge(this)" class="viewlogs-thumbimg" longdesc="{longdesc}"/></center></a></span><br/>&nbsp;&nbsp;{title}</span>';
  $cachepictures = '{lines}';
