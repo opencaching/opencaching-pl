@@ -26,13 +26,13 @@
 <div class="content2-container" id="viewcache-logs">
 <div class="logs">
 <table><tr><td>
-<br><br>
+<br>Obrazki  do skrzynki<br>
 		{cachepictures}
 	</td></tr></table>
 </div>
 <div class="logs">
 <table><tr><td>
-<br><br>
+<br>Obrazki z logów<br>
 		{logpictures}
 	</td></tr></table>
 </div>
