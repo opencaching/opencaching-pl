@@ -807,8 +807,8 @@ table.border {	background: url(/images/bg_blue.png) repeat-x;
 	border-right: 1px solid #CCCCCC;
 }
 .img_cache {border:solid 1px silver; padding:5px;
-    margin-left:10px;width:200px;
-    height:220px;float:right;
+    margin-left:10px;width:195px;
+    height:180px;float:right;
     margin-bottom:3px;}
 .img_cache img {max-width: 175px; max-height: 175px; vertical-align: top;}
 .img_log {border:solid 1px silver; padding:5px;
