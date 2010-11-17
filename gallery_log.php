@@ -110,23 +110,7 @@
 			tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('cacheid', $cache_id);
 
-			if ($cache_record['type'] == 6)
-			{
-				tpl_set_var('found_icon', $exist_icon);
-				tpl_set_var('notfound_icon', $wattend_icon);
-			}
-			else
-			{
-				tpl_set_var('found_icon', $found_icon);
-				tpl_set_var('notfound_icon', $notfound_icon);
-			}
-		    tpl_set_var('note_icon', $note_icon);
 
-			tpl_set_var('founds', htmlspecialchars($cache_record['founds'], ENT_COMPAT, 'UTF-8'));
-			tpl_set_var('notfounds', htmlspecialchars($cache_record['notfounds'], ENT_COMPAT, 'UTF-8'));
-			tpl_set_var('notes', htmlspecialchars($cache_record['notes'], ENT_COMPAT, 'UTF-8'));
-			tpl_set_var('total_number_of_logs', htmlspecialchars($cache_record['notes'] + $cache_record['notfounds'] + $cache_record['founds'], ENT_COMPAT, 'UTF-8'));
-			
 			// prepare the logs - show logs marked as deleted if admin
 			//
 			$show_deleted_logs = "";
@@ -164,26 +148,14 @@
 				ORDER BY `cache_logs`.`date` ASC, `cache_logs`.`Id` DESC LIMIT &3, &4", $lang, $cache_id, $start+0, $count+0);
 
 			$pictureslog = '';
-			for ($i = 0; $i < mysql_num_rows($rs); $i++)
-			{
-				$record = sql_fetch_array($rs);
-				$show_deleted = "";
-				if( isset( $record['deleted'] ) && $record['deleted'] )
-				{
-					$show_deleted = "show_deleted";
-				}
-				$tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
 
-				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
-				$tmplog_date = htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8');
 				// replace smilies in log-text with images
 
 				// pictures
-				if ($record['picturescount'] > 0)
-				{
+
 					$logpicturelines = '';
 					$append_atag='';
-					$rspictures = sql("SELECT `url`, `title`, `uuid`, `user_id` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=1", $record['log_id']);
+					$rspictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`=&1", $cache_id);
 
 					for ($j = 0; $j < mysql_num_rows($rspictures); $j++)
 					{
@@ -196,7 +168,7 @@
 	                $thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
                         $thisline = mb_ereg_replace('{log}', $tmplog_username .": ". htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
                         if ($pic_record['title']=="") {$title="link";} else { $title=htmlspecialchars($pic_record['title'],ENT_COMPAT,'UTF-8');}
-                        $thisline = mb_ereg_replace('{title}', "<a class=links href=viewlogs.php?logid=".$record['log_id'].">".$title."</a>", $thisline);
+                        $thisline = mb_ereg_replace('{title}', "<a class=links href=viewlogs.php?logid=".$pic_record['object_id'].">".$title."</a>", $thisline);
 
 
 				
@@ -206,13 +178,10 @@
 
 //					$logpicturelines = mb_ereg_replace('{lines}', $logpicturelines, $logpictures2);
 					$tmplog = $logpicturelines;
-				}
-				
-				else
-					$tmplog = mb_ereg_replace('{logpictures}', '', $tmplog);
+
 
 				$logs .= "$tmplog\n";
-			}
+			
 			tpl_set_var('logpictures', $logs);
 		}
 		else
