@@ -28,6 +28,11 @@
 <table><tr><td>
 <br><br>
 		{cachepictures}
+	</td></tr></table>
+</div>
+<div class="logs">
+<table><tr><td>
+<br><br>
 		{logpictures}
 	</td></tr></table>
 </div>
