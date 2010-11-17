@@ -19,7 +19,7 @@
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 				<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
-			&nbsp;{{gallery_of_cache_logs}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;
+			&nbsp;{{gallery_of_cache}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;
 			&nbsp;&nbsp;
 				</p>
 			</div>
@@ -27,6 +27,7 @@
 <div class="logs">
 <table><tr><td>
 <br><br>
+		{cachepictures}
 		{logpictures}
 	</td></tr></table>
 </div>
