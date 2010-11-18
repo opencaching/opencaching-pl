@@ -22,17 +22,22 @@
 			&nbsp;&nbsp;
 				</p>
 			</div>
-
-<b>Obrazki skrzynki</b><br><br>
-<table width="700"><tr><td>
+<div class="content2-container">
+<div class="logs">
+<span style="font-size:12px;font-weight:bold;float:left;">{{images_cache}}</span><br/><br/>
+<center><table>
+<tr><td>
 		{cachepictures}
-</td></tr></table>	
 
-<div class="logs"><b>Obrazki z logów</b><br><br>
-<table width="700"><tr><td>
+</td></tr></table></center>	
+</div>
+<div class="logs">
+<span style="font-size:12px;font-weight:bold;">{{images_logs}}</span><br/><br/>
+<table>
+<tr><td>
 
 		{logpictures}
 	</td></tr></table>
 </div>
-
+</div>
 <div id="viewlogs-end">[<a class="links" href="viewcache.php?cacheid={cacheid}">{{back_to_the_geocache_listing}}</a>]</div>
