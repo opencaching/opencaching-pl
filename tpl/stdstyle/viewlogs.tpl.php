@@ -42,6 +42,7 @@ if ((F == " ") || (F == "&dhbg;")) {} else {if (E) {F = convertROT13Char(F)}}}}D
 			{found_icon} {founds}x 
 			{notfound_icon} {notfounds}x 
 			{note_icon} {notes}x
+			{gallery}
 				</p>
 			</div>
 <div class="content2-container" id="viewcache-logs">
