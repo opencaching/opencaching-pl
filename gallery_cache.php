@@ -41,24 +41,7 @@
 		{
 			$cache_id = $_REQUEST['cacheid'];
 		}
-		if (isset($_REQUEST['logid']))
-		{
-			$logid = $_REQUEST['logid'];
-		$show_one_log = " AND `cache_logs`.`id` ='".$logid."'  ";
-		}
 
-		$start = 0;
-		if (isset($_REQUEST['start']))
-		{
-			$start = $_REQUEST['start'];
-			if (!is_numeric($start)) $start = 0;
-		}
-		$count = 99999;
-		if (isset($_REQUEST['count']))
-		{
-			$count = $_REQUEST['count'];
-			if (!is_numeric($count)) $count = 999999;
-		}
 
 		if ($cache_id != 0)
 		{
@@ -111,41 +94,6 @@
 			tpl_set_var('cacheid', $cache_id);
 
 
-			// prepare the logs - show logs marked as deleted if admin
-			//
-			$show_deleted_logs = "";
-			$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
-//			if( $usr['admin'] )
-//			{
-//				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
-//				$show_deleted_logs2 = "";
-//			}
- 
-			
-			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
-					".$show_deleted_logs."
-					`cache_logs`.`id` AS `log_id`,
-			         `cache_logs`.`encrypt` `encrypt`,
-					`cache_logs`.`picturescount` AS `picturescount`,
-					`cache_logs`.`user_id` AS `user_id`,
-					`cache_logs`.`date` AS `date`,
-					`cache_logs`.`type` AS `type`,
-					`cache_logs`.`text` AS `text`,
-					`cache_logs`.`text_html` AS `text_html`,
-					`user`.`username` AS `username`,
-                    `user`.`admin` AS `admin`,
-					`log_types`.`icon_small` AS `icon_small`,
-					`log_types_text`.`text_listing` AS `text_listing`,
-			    IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
-				FROM `cache_logs`
-				INNER JOIN `log_types` ON `log_types`.`id`=`cache_logs`.`type`
-				INNER JOIN `log_types_text` ON `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`='&1'
-				INNER JOIN `user` ON `user`.`user_id` = `cache_logs`.`user_id`
-				LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-				WHERE `cache_logs`.`cache_id`='&2'
-				".$show_deleted_logs2."
-				".$show_one_log."
-				ORDER BY `cache_logs`.`date` ASC, `cache_logs`.`Id` DESC LIMIT &3, &4", $lang, $cache_id, $start+0, $count+0);
 
 			$pictureslog = '';
 
