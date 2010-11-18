@@ -24,7 +24,7 @@
 			</div>
 <div class="content2-container" id="viewcache-logs">
 <div class="logs">
-<table width="700"><tr><td algin="right">
+<table width="700"><tr><td>
 <b>Obrazki skrzynki</b><br><br>
 		{cachepictures}
 	</td></tr></table>
