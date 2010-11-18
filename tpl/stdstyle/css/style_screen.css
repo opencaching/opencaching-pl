@@ -566,8 +566,7 @@ div.logs {
     margin: 0 0 10px 0;
     padding: 3px 5px 5px 5px;
     background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
-    _background: #f5f5f5;
-    -webkit-border-radius: 5px;
+    border-radius: 5px;
     -moz-border-radius: 5px;
 }
 
