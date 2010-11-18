@@ -12,11 +12,6 @@
 
    Unicode Reminder ăĄă˘
 
-	 view all logs of a cache
-
-	 used template(s): viewlogs
-
-	 GET Parameter: cacheid, start, count
 
  ****************************************************************************/
 
@@ -116,7 +111,7 @@
 	                $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?'.$showspoiler.'uuid=' . urlencode($pic_crecord['uuid']), $thisline);
                         $thisline = mb_ereg_replace('{log}', $tmplog_username .": ". htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
                         if ($pic_crecord['title']=="") {$title="link";} else { $title=htmlspecialchars($pic_crecord['title'],ENT_COMPAT,'UTF-8');}
-                        $thisline = mb_ereg_replace('{title}', "<a class=links href=viewlogs.php?logid=".$pic_crecord['object_id'].">".$title."</a>", $thisline);
+                        $thisline = mb_ereg_replace('{title}', $title, $thisline);
 
 
 				
