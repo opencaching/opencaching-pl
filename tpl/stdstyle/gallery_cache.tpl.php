@@ -12,7 +12,6 @@
 	  
    Unicode Reminder ??
                                        				                                
-	 view all logs of a cache
 
  ****************************************************************************/
 ?>
@@ -25,7 +24,7 @@
 			</div>
 <div class="content2-container" id="viewcache-logs">
 <div class="logs">
-<table width="650"><tr><td algin="right">
+<table width="700"><tr><td algin="right">
 <b>Obrazki skrzynki</b><br><br>
 		{cachepictures}
 	</td></tr></table>
