@@ -98,7 +98,7 @@
 
 					$cachepicturelines = '';
 					$append_atag='';
-					$rscpictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures` WHERE `pictures`.`object_id`=&1 AND `pictures`.`object_type`=2 ORDER BY `pictures`.`date_created` DESC", $cache_id);
+					$rscpictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures` WHERE `pictures`.`object_id`=&1 AND `pictures`.`object_type`=2 ORDER BY `pictures`.`date_created` ASC", $cache_id);
 
 					for ($j = 0; $j < mysql_num_rows($rscpictures); $j++)
 					{
@@ -128,7 +128,7 @@
 
 					$logpicturelines = '';
 					$append_atag='';
-					$rspictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`=&1 ORDER BY `pictures`.`date_created` DESC", $cache_id);
+					$rspictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`=&1 ORDER BY `pictures`.`date_created` ASC", $cache_id);
 
 					for ($j = 0; $j < mysql_num_rows($rspictures); $j++)
 					{
