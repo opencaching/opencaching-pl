@@ -131,6 +131,15 @@
 			tpl_set_var('notes', htmlspecialchars($cache_record['notes'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('total_number_of_logs', htmlspecialchars($cache_record['notes'] + $cache_record['notfounds'] + $cache_record['founds'], ENT_COMPAT, 'UTF-8'));
 			
+			//check number of pictures in logs
+			$rspiclogs =sqlValue("SELECT COUNT(*) FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`= $cache_id",0);
+
+				if ($rspiclogs !=0){
+				tpl_set_var('gallery', '<img src="tpl/stdstyle/images/free_icons/photo.png" class="icon16" alt="" />&nbsp;'.$rspiclogs.' x <a href=gallery_cache.php?cacheid='.$cache_id.'>'.tr(gallery).'</a>');
+				} else {
+				tpl_set_var('gallery', '');
+				;}
+
 			// prepare the logs - show logs marked as deleted if admin
 			//
 			$show_deleted_logs = "";
