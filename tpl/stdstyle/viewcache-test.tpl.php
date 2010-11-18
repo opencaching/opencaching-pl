@@ -341,6 +341,7 @@ else
 					{found_icon} {founds}x
 					{notfound_icon} {notfounds}x
 					{note_icon} {notes}x
+					{gallery}
 					&nbsp;&nbsp;
 					{viewlogs}
 					&nbsp;
