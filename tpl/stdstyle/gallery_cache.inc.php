@@ -13,7 +13,6 @@
 	        
    Unicode Reminder ??
                                  				                                
-	 set template specific language variables
 	
  ****************************************************************************/
 
@@ -22,7 +21,7 @@
 
  $logpicture = '<span class="img_cache"><span class="img-shadow"><a href="{link}" title="{log}" onclick="return false;"><center><img src="{imgsrc}" alt="{log}" onclick="enlarge(this)" class="viewlogs-thumbimg" longdesc="{longdesc}"/></center></a></span><br/>&nbsp;&nbsp;{title}</span>';
  $logpictures2 = '{lines}';
- $cachepicture = '<span class="img_cache"><span class="img-shadow"><a href="{link}" title="{log}" onclick="return false;"><center><img src="{imgsrc}" alt="{log}" onclick="enlarge(this)" class="viewlogs-thumbimg" longdesc="{longdesc}"/></center></a></span><br/>&nbsp;&nbsp;{title}</span>';
+ $cachepicture = '<span class="img_cache"><span class="img-shadow"><center><img src="{imgsrc}" alt="{log}" onclick="enlarge(this)" class="viewlogs-thumbimg" longdesc="{longdesc}"/></center></span><br/>&nbsp;&nbsp;<b>{title}</b></span>';
  $cachepictures = '{lines}';
 	$functions_start = '<br/><img src="images/trans.gif" alt="" title="" class="icon16" />&nbsp;';
 	$functions_middle = '&nbsp;';
