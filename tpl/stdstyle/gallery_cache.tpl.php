@@ -17,7 +17,7 @@
 ?>
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
-				<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
+				<img src="tpl/stdstyle/images/blue/images.png" class="icon32" alt=""/>
 			&nbsp;{{gallery_of_cache}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;
 			&nbsp;&nbsp;
 				</p>
