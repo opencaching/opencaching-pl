@@ -30,7 +30,7 @@
 	</td></tr></table>
 </div>
 <div class="logs">
-<table><tr><td>
+<table width="700"><tr><td>
 <b>Obrazki z logów</b><br><br>
 		{logpictures}
 	</td></tr></table>
