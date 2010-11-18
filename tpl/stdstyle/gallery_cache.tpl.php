@@ -22,18 +22,17 @@
 			&nbsp;&nbsp;
 				</p>
 			</div>
-<div class="content2-container" id="viewcache-logs">
-<div class="logs">
-<table width="700"><tr><td>
+
 <b>Obrazki skrzynki</b><br><br>
-		{cachepictures}
-	</td></tr></table>
-</div>
-<div class="logs">
 <table width="700"><tr><td>
-<b>Obrazki z logów</b><br><br>
+		{cachepictures}
+</td></tr></table>	
+
+<div class="logs"><b>Obrazki z logów</b><br><br>
+<table width="700"><tr><td>
+
 		{logpictures}
 	</td></tr></table>
 </div>
-</div>
+
 <div id="viewlogs-end">[<a class="links" href="viewcache.php?cacheid={cacheid}">{{back_to_the_geocache_listing}}</a>]</div>
