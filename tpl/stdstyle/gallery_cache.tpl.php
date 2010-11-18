@@ -27,9 +27,7 @@
 <div class="logs">
 <span style="font-size:12px;font-weight:bold;float:left;">{{images_cache}}</span><br/><br/>
 <center><table>
-<tr><td>
-		{cachepictures}
-
+<tr><td>{cachepictures}
 </td></tr></table></center>	
 </div>
 {cache_images_end}
@@ -37,10 +35,8 @@
 <div class="logs">
 <span style="font-size:12px;font-weight:bold;">{{images_logs}}</span><br/><br/>
 <center><table>
-<tr><td>
-
-		{logpictures}
-	</td></tr></table></center>
+<tr><td>{logpictures}
+</td></tr></table></center>
 </div>
 {logs_images_end}
 </div>
