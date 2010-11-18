@@ -567,6 +567,7 @@ listing_from_this_page listing from this page
 listing_from_to listing from to
 download_for_various_apps download for various applications
 download Download
+
 npa_info This geocache is probably placed within a nature protection area
 check_nearby_caches Check caches nearby on OC PL
 check_nearby_caches_info Before putting caches at the planned place check is no longer <br /> exist caches in radius 150 m
@@ -758,7 +759,9 @@ dont_show These pictures do not show.
 pictures_intro Permitted image formats: BMP, GIF, PNG & JPG. JPG is best for photos.<br />Maximum size 100 KB. Recommended resolution: 480 x 360 pixels.
 add_new_picture Adding a new picture to the cache.
 submit Submit
-
+gallery_of_cache Gallery of geocache
+images_cache Images of geocache
+images_log Images of logs
 
 
 
