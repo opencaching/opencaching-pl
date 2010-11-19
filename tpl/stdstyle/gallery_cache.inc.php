@@ -21,7 +21,7 @@
 
  $logpicture = '<div class="gallery-pictureblock"><span class="img-shadow"><a href="{link}" title="{log}" onclick="return false;"><img src="{imgsrc}" alt="{log}" onclick="enlarge(this)" class="viewlogs-thumbimg" longdesc="{longdesc}"/></a></span><span class="title">{title}</span></div>';
  $logpictures2 = '{lines}';
- $cachepicture = '<div class="gallery-pictureblock"><span class="img-shadow"><img src="{imgsrc}" alt="{log}" onclick="enlarge(this)" class="viewlogs-thumbimg" longdesc="{longdesc}"/></span><span class="title">{title}</span></div>';
+ $cachepicture = '<div class="gallery-pictureblock"><span class="img-shadow"><img src="{imgsrc}" alt="{log}" onclick="enlarge(this)" class="viewlogs-thumbimg" longdesc="{longdesc}"/></span><span class="title"><b>{title}</b></span></div>';
  $cachepictures = '{lines}';
 	$functions_start = '<br/><img src="images/trans.gif" alt="" title="" class="icon16" />&nbsp;';
 	$functions_middle = '&nbsp;';
