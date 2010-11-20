@@ -817,6 +817,6 @@ table.border {	background: url(/images/bg_blue.png) repeat-x;
 .img_log img {max-width: 64px; max-height: 64px; vertical-align: top;}
 div.gallery-pictureblock { float: left; max-width: 180px; height:220px;padding-left: 10px; padding-right: 10px;vertical-align: middle;}
 
-div.gallery-pictureblock span.title { display: block; max-width: 190px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 10px;}
+div.gallery-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 10px;}
 
 
