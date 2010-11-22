@@ -26,7 +26,6 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 <b>E-mail: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
 - tATO - sprawy finasowe <br />
 - starypatyk<br />
-- trojmiasto<br />
 - rushcore<br />
 - limak<br />
 
