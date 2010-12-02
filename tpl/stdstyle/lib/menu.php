@@ -553,6 +553,13 @@ $menu = array(
 				'siteid' => 'searchuser',
 				'visible' => true,
 				'filename' => 'searchuser.php'
+			),
+			array(
+				'title' =>'Autologowanie',
+				'menustring' => 'Autologowanie',
+				'siteid' => 'autolog',
+				'visible' => true,
+				'filename' => 'log_cache_multi_send.php'
 			)
 		)
 	),
