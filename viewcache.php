@@ -503,7 +503,7 @@
 				$listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp='.$cache_record['wp_ge'].'" target="_blank">GPSgames.org</a>';
 
 			if($cache_record['wp_tc'] != '')
-				$listed_on[] = '<a href="http://www.terracaching.com/viewcache.cgi?C=/'.$cache_record['wp_tc'].'" target="_blank">TerraCaching.com</a>';
+				$listed_on[] = '<a href="http://www.terracaching.com/viewcache.cgi?C='.$cache_record['wp_tc'].'" target="_blank">TerraCaching.com</a>';
 
 			if($cache_record['wp_nc'] != '')
 			{
