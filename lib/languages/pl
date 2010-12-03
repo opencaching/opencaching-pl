@@ -515,10 +515,6 @@ manage_ocpl Zarządzanie OC PL
 browse_problem_reports Przeglądaj zgłoszenia problemów
 no_hidden_caches Brak ukrytych skrzynek
 no_not_published_caches Nie ma nieopublikowanych skrzynek
-
-
-
-
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
@@ -807,5 +803,7 @@ gallery Zobacz galerie
 gallery_of_cache Galeria obrazków dla skrzynki
 images_cache Obrazki skrzynki
 images_logs Obrazki z logów
+show_more Pokaż więcej
+new_caches_myn Nowe skrzynki w mojej okolicy
 
 

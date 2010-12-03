@@ -67,6 +67,7 @@ function Unlite() {
 					<p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Cache" align="middle" />&nbsp;{{newest_caches}}</p>
 					<div class="content-txtbox-noshade">
 					{new_caches}
+					{more_caches}<br/><br/>
 					</div>
 				</div>
 				<div class="content2-container-2col-right" id="local-cachemap-block">

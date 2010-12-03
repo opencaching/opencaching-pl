@@ -569,6 +569,7 @@ download_for_various_apps download for various applications
 download Download
 
 
+
 npa_info This geocache is probably placed within a nature protection area
 check_nearby_caches Check caches nearby on OC PL
 check_nearby_caches_info Before putting caches at the planned place check is no longer <br /> exist caches in radius 150 m
@@ -764,6 +765,8 @@ gallery Show gallery
 gallery_of_cache Gallery of geocache
 images_cache Images of geocache
 images_logs Images of logs
+show_more Show more
+new_caches_myn New geocaches in myneighborhood
 
 
 
