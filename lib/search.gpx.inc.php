@@ -101,7 +101,7 @@ $gpxGeoKrety = '<geokret id="{geokret_id}" ref="{geokret_ref}">
 </log>
 ';
 $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
-	<time>{{time}}</time>
+	<time>{time}</time>
 	<name>{waypoint} {wp_stage}</name>
     <cmt>{desc}</cmt>
     <desc>{wp_type_name}</desc>
