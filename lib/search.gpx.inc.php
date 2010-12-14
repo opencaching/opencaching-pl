@@ -47,7 +47,7 @@
      xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://geocaching.com.au/geocache/1 http://geocaching.com.au/geocache/1/geocache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd"
      xmlns="http://www.topografix.com/GPX/1/0" version="1.0" creator="www.opencaching.pl">
   <desc>Cache Listing Generated from Opencaching.pl {wpchildren}</desc>
-  <author>Geocaching Poland</author>
+  <author>OpenCaching.PL</author>
   <url>http://www.opencaching.pl</url>
   <urlname>www.opencaching.pl</urlname>
   <time>{time}</time>
