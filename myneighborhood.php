@@ -317,7 +317,7 @@ $radius=$distance;
 	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
-			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{location}</p></b>';
+			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a></b>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -330,7 +330,7 @@ $radius=$distance;
 	
 		$thisline = $cacheline;
 		$thisline = mb_ereg_replace('{nn}', $i, $thisline);
-		$thisline = mb_ereg_replace('{location}',join(" > ", array_slice($loc, 0, 2)), $thisline);
+//		$thisline = mb_ereg_replace('{location}',join(" > ", array_slice($loc, 0, 2)), $thisline);
 		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 		$thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
@@ -382,7 +382,7 @@ $radius=$distance;
 	}
 	else
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a></li>';
 		$file_content = '<ul style="font-size: 11px;">';
 		for ($i = 0; $i < mysql_num_rows($rss); $i++)
 		{
