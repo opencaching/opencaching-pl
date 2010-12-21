@@ -312,6 +312,7 @@ function switchCat2()
 </script>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/><img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt="Szukanie skrzynek" title="Szukanie skrzynek" align="middle"/>&nbsp;{{search_cache}}</div>
+<div class="searchdiv">
 <form name="optionsform" style="display:inline;" action="search.php" method="post">
 	<table class="table">
 		<colgroup>
@@ -470,7 +471,7 @@ function switchCat2()
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
 </form>
-<div class="line-box" style="width:98%"></div>
+
 <script language="javascript" type="text/javascript">
 <!--
 	document.getElementById("scriptwarning").firstChild.nodeValue = "";
@@ -491,7 +492,58 @@ function switchCat2()
 		hideAttributesCat2();
 //-->
 </script>
+<form action="search.php" onsubmit="javascript:return(_sbn_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyname" dir="ltr" style="display:inline;">
+	<input type="hidden" name="searchto" value="searchbyname" />
+	<input type="hidden" name="showresult" value="1" />
+	<input type="hidden" name="expert" value="0" />
+	<input type="hidden" name="output" value="HTML" />
 
+	<input type="hidden" name="sort" value="{hidopt_sort}" />
+	<input type="hidden" name="f_inactive" value="{hidopt_inactive}" />
+	<input type="hidden" name="f_ignored" value="{hidopt_ignored}" />
+	<input type="hidden" name="f_userfound" value="{hidopt_userfound}" />
+	<input type="hidden" name="f_userowner" value="{hidopt_userowner}" />
+	<input type="hidden" name="f_watched" value="{hidopt_watched}" />
+	<input type="hidden" name="f_geokret" value="{hidopt_geokret}" />
+	<input type="hidden" name="country" value="{country}" />
+	<input type="hidden" name="region" value="{region}" />
+	<input type="hidden" name="cachetype" value="{cachetype}" />
+	<input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
+	<input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
+
+	<input type="hidden" name="cachesize_1" value="{cachesize_1}" />
+	<input type="hidden" name="cachesize_2" value="{cachesize_2}" />
+	<input type="hidden" name="cachesize_3" value="{cachesize_3}" />
+	<input type="hidden" name="cachesize_4" value="{cachesize_4}" />
+	<input type="hidden" name="cachesize_5" value="{cachesize_5}" />
+	<input type="hidden" name="cachesize_6" value="{cachesize_6}" />
+	<input type="hidden" name="cachesize_7" value="{cachesize_7}" />
+	<input type="hidden" name="cachevote_1" value="{cachevote_1}" />
+	<input type="hidden" name="cachevote_2" value="{cachevote_2}" />
+	<input type="hidden" name="cachenovote" value="{cachenovote}" />
+	<input type="hidden" name="cachedifficulty_1" value="{cachedifficulty_1}" />
+	<input type="hidden" name="cachedifficulty_2" value="{cachedifficulty_2}" />
+	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
+	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
+	<input type="hidden" name="cacherating" value="{cacherating}" />
+	<input type="hidden" name="cachename" value="%"  />
+
+	<table class="table">
+		<colgroup>
+			<col width="200"/>
+			<col width="220"/>
+			<col/>
+		</colgroup>
+		<tr><td class="buffer"></td></tr>
+		<tr>
+			<td><button type="submit" value="{{search}}" style="font-size:12px;width:140px"><b>{{search}}</b></button></td>
+			<td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1" /><label for="showonmap1">{{show_on_map}}</label></td>
+		</tr>
+		<tr><td class="buffer" colspan="2"></td></tr>
+	</table>
+</form>
+</div>
+<div class="searchdiv">
 <form action="search.php" onsubmit="javascript:return(_sbn_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyname" dir="ltr" style="display:inline;">
 	<input type="hidden" name="searchto" value="searchbyname" />
 	<input type="hidden" name="showresult" value="1" />
@@ -546,7 +598,7 @@ function switchCat2()
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
 </form>
-<div class="line-box" style="width:98%"></div>
+</div> <div class="searchdiv">
 <form action="search.php" onsubmit="javascript:return(_sbd_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbydistance" dir="ltr" style="display:inline;">
 	<input type="hidden" name="searchto" value="searchbydistance" />
 	<input type="hidden" name="showresult" value="1" />
@@ -627,7 +679,7 @@ function switchCat2()
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
 </form>
-<div class="line-box" style="width:98%"></div>
+</div> <div class="searchdiv">
 <form action="search.php" onsubmit="javascript:return(_sbort_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyort" dir="ltr" style="display:inline;">
 	<input type="hidden" name="searchto" value="searchbyort" />
 	<input type="hidden" name="showresult" value="1" />
@@ -702,7 +754,7 @@ function switchCat2()
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
 </form>
-<div class="line-box" style="width:98%"></div>
+</div> <div class="searchdiv">
 <form action="search.php" onsubmit="javascript:return(_sbft_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyfulltext" dir="ltr" style="display:inline;">
 	<input type="hidden" name="searchto" value="searchbyfulltext" />
 	<input type="hidden" name="showresult" value="1" />
@@ -768,7 +820,7 @@ function switchCat2()
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
 </form>
-<div class="line-box" style="width:98%"></div>
+</div> <div class="searchdiv">
 <form action="search.php" onsubmit="javascript:return(_sbo_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyowner" dir="ltr" style="display:inline;">
 	<input type="hidden" name="searchto" value="searchbyowner" />
 	<input type="hidden" name="showresult" value="1" />
@@ -823,7 +875,7 @@ function switchCat2()
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
 </form>
-<div class="line-box" style="width:98%"></div>
+</div><div class="searchdiv">
 <form action="search.php" onsubmit="javascript:return(_sbf_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyfinder" dir="ltr" style="display:inline;">
 	<input type="hidden" name="searchto" value="searchbyfinder" />
 	<input type="hidden" name="showresult" value="1" />
@@ -878,3 +930,4 @@ function switchCat2()
 		<tr><td class="buffer" colspan="3"></td></tr>
 	</table>
 </form>
+</div>
