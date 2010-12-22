@@ -78,12 +78,13 @@ if ($auth->hasIdentity()) {
 }
 
 //echo "<html><body><script>";
-echo "$status";
+echo "<br/>$status<br/><br/>";
 echo '<form method="post"><fieldset style="width: 450px;">
-<legend>OpenID Login</legend>
+<legend>OpenCaching OpenID Login</legend>
 <img src="/images/openid.png" align="middle" alt="" />&nbsp;&nbsp;<input type="text" name="openid_identifier" value="">
 <input type="submit" name="openid_action" value="Login">
 <input type="submit" name="openid_action" value="Logout">
 <input type="submit" name="openid_action" value="Test">
-</fieldset></form>';
+</fieldset></form>
+<br/> <a class="links" href=http://openid.opencaching.pl">http://openid.opencaching.pl</a>';
 ?>
