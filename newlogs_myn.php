@@ -156,7 +156,7 @@ $radius=$distance;
 				sql('ALTER TABLE local_caches'.$user_id.' ADD PRIMARY KEY ( `cache_id` ),
 				ADD INDEX(`cache_id`), ADD INDEX (`wp_oc`), ADD INDEX(`type`), ADD INDEX(`name`), ADD INDEX(`user_id`), ADD INDEX(`date_hidden`), ADD INDEX(`date_created`)');
 
-		$file_content ='';
+
 
 $rs = sql('SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
@@ -174,7 +174,7 @@ $rs = sql('SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 							  log_types.icon_small AS icon_small,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
 							COUNT(gk_item.id) AS geokret_in
-							FROM (cache_logs INNER JOIN local_caches'.$user_id.' caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+							FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 							LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
 							LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id AND
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5	
