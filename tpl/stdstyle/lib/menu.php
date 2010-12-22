@@ -466,7 +466,7 @@ $menu = array(
 				'siteid' => 'autolog',
 				'visible' => true,
 				'filename' => 'log_cache_multi_send.php'
-			)
+			),
 			array(
 				'title' => tr('my_logs'),
 				'menustring' => tr('my_logs'),
