@@ -8,8 +8,9 @@ require_once "Zend/Auth.php";
 require_once "Zend/Auth/Adapter/OpenId.php";
 
 
-$rootpath = '../';
-require('../lib/common.inc.php');
+//$rootpath = '../';
+//require('../lib/common.inc.php');
+
 
 
 /*
