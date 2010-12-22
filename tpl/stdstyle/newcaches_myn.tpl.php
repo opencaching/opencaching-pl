@@ -17,7 +17,7 @@
 <tr>
 <td colspan="2"><strong>{{date_hidden_label}}</strong></td>
 <td><strong>Geocache</strong></td>
-<td><strong>Właściciel</strong>&nbsp;&nbsp;&nbsp;</td>
+<td><strong>{{owner}}</strong>&nbsp;&nbsp;&nbsp;</td>
 <td colspan="3"><strong>{{latest_logs}}</strong></td>
 </tr>
 <tr>
