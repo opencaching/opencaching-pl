@@ -221,7 +221,7 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 $latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 
-if (($longitude==NULL && $latitude==NULL) ||($longitude==0 && $latitude==0) ) {tpl_set_var('more_caches','');tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>'.tr("myn_info").'</b></div><br>');} else { tpl_set_var('info',''); tpl_set_var('more_caches','<a class="links" href="newcaches_myn.php">['.tr("show_more").'...]</a>');}
+if (($longitude==NULL && $latitude==NULL) ||($longitude==0 && $latitude==0) ) {tpl_set_var('more_caches','');tpl_set_var('more_logs','');tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>'.tr("myn_info").'</b></div><br>');} else { tpl_set_var('info',''); tpl_set_var('more_caches','<a class="links" href="newcaches_myn.php">['.tr("show_more").'...]</a>');tpl_set_var('more_logs','<a class="links" href="newlogs_myn.php">['.tr("show_more").'...]</a>');}
 
 if ($latitude==NULL || $latitude==0) $latitude=52.24522;
 if ($longitude==NULL || $longitude==0) $longitude=21.00442;
