@@ -2,8 +2,12 @@
 /*
  * Include the needed pieces.
  */
+ // $rootpath = '../';
+//  require('../lib/common.inc.php');
+
 require_once "Zend/Auth.php";
 require_once "Zend/Auth/Adapter/OpenId.php";
+
 
 
 /*
