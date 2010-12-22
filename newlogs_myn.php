@@ -130,8 +130,33 @@ $radius=$distance;
 				//all target caches are between lon - max_lon_diff and lon + max_lon_diff
 				//TODO: check!!!
 				$max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378  * 3.14159);
+				sql('DROP TEMPORARY TABLE IF EXISTS local_caches'.$user_id.'');							
+				sql('CREATE TEMPORARY TABLE local_caches'.$user_id.' ENGINE=MEMORY 
+										SELECT 
+											(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
+											`caches`.`cache_id` AS `cache_id`,
+											`caches`.`wp_oc` AS `wp_oc`,
+											`caches`.`type` AS `type`,
+											`caches`.`name` AS `name`,
+											`caches`.`longitude` `longitude`,
+											`caches`.`latitude` `latitude`,
+											`caches`.`date_hidden` `date_hidden`,
+											`caches`.`date_created` `date_created`,
+											`caches`.`country` `country`,
+											`caches`.`difficulty` `difficulty`,
+											`caches`.`terrain` `terrain`,
+											`caches`.`status` `status`,
+											`caches`.`user_id` `user_id` 
+										FROM `caches` 
+										WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
+											AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
+											AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
+											AND `latitude` < ' . ($lat + $max_lat_diff) . '
+										HAVING `distance` < ' . $distance);
+				sql('ALTER TABLE local_caches'.$user_id.' ADD PRIMARY KEY ( `cache_id` ),
+				ADD INDEX(`cache_id`), ADD INDEX (`wp_oc`), ADD INDEX(`type`), ADD INDEX(`name`), ADD INDEX(`user_id`), ADD INDEX(`date_hidden`), ADD INDEX(`date_created`)');
 
-
+		$file_content ='';
 
 $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
@@ -149,11 +174,11 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 							  log_types.icon_small AS icon_small,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
 							COUNT(gk_item.id) AS geokret_in
-							FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+							FROM (cache_logs INNER JOIN local_caches'.$user_id.' caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 							LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
 							LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id AND
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5	
-							WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ")
+							WHERE cache_logs.deleted=0 
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC");
 
