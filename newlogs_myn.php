@@ -71,32 +71,7 @@ if ($error == false)
 	}
 	else
 		$pages .= ' {next_img_inactive} {last_img_inactive}';
-	$rs = sql("SELECT `cache_logs`.`id`
-			FROM `cache_logs`, `caches`
-			WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
-				AND `cache_logs`.`deleted`=0 
-			  AND `caches`.`status` != 4
-				AND `caches`.`status` != 5 
-				AND `caches`.`status` != 6
-			ORDER BY  `cache_logs`.`date_created` DESC
-			LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE));
-	$log_ids = '';
 
-	if (mysql_num_rows($rs)==0) $log_ids = '0';
-
-	for ($i = 0; $i < mysql_num_rows($rs); $i++)
-	{
-		$record = sql_fetch_array($rs);
-		if ($i > 0)
-		{
-			$log_ids .= ', ' . $record['id'];
-		}
-		else
-		{
-			$log_ids = $record['id'];
-		}
-	}
-	mysql_free_result($rs);
 
 			//get user record
 			$user_id = $usr['userid'];
@@ -156,7 +131,32 @@ $radius=$distance;
 				sql('ALTER TABLE local_caches'.$user_id.' ADD PRIMARY KEY ( `cache_id` ),
 				ADD INDEX(`cache_id`), ADD INDEX (`wp_oc`), ADD INDEX(`type`), ADD INDEX(`name`), ADD INDEX(`user_id`), ADD INDEX(`date_hidden`), ADD INDEX(`date_created`)');
 
+	$rs = sql('SELECT `cache_logs`.`id`
+			FROM `cache_logs`, local_caches'.$user_id.'
+			WHERE `cache_logs`.`cache_id`=local_caches'.$user_id.'.cache_id
+				AND `cache_logs`.`deleted`=0 
+			  AND local_caches'.$user_id.'.`status` != 4
+				AND local_caches'.$user_id.'.`status` != 5 
+				AND local_caches'.$user_id.'.`status` != 6
+			ORDER BY  `cache_logs`.`date_created` DESC
+			LIMIT '.intval($start).', '.intval($LOGS_PER_PAGE));
+	$log_ids = '';
 
+	if (mysql_num_rows($rs)==0) $log_ids = '0';
+
+	for ($i = 0; $i < mysql_num_rows($rs); $i++)
+	{
+		$record = sql_fetch_array($rs);
+		if ($i > 0)
+		{
+			$log_ids .= ', ' . $record['id'];
+		}
+		else
+		{
+			$log_ids = $record['id'];
+		}
+	}
+	mysql_free_result($rs);
 
 $rs = sql('SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
@@ -177,8 +177,8 @@ $rs = sql('SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 							FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 							LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
 							LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id AND
-							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5	
-							WHERE cache_logs.deleted=0 
+							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
+							WHERE cache_logs.deleted=0 AND cache_logs.id IN (' . $log_ids . ')
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC');
 
