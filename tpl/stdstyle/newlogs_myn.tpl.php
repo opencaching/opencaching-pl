@@ -1,5 +1,5 @@
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="New Log entry" align="middle"/>&nbsp;{{latest_logs_myn}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="New Log entry" align="middle"/>&nbsp;{{latest_logs}}</div>
 <!-- Text container -->
 	<p>
 		{pages}
