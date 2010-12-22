@@ -461,6 +461,13 @@ $menu = array(
 				'siteid' => 'myhome'
 			),
 			array(
+				'title' =>'Field Notes',
+				'menustring' => 'Field Notes',
+				'siteid' => 'autolog',
+				'visible' => true,
+				'filename' => 'log_cache_multi_send.php'
+			)
+			array(
 				'title' => tr('my_logs'),
 				'menustring' => tr('my_logs'),
 				'visible' => false,
@@ -553,14 +560,8 @@ $menu = array(
 				'siteid' => 'searchuser',
 				'visible' => true,
 				'filename' => 'searchuser.php'
-			),
-			array(
-				'title' =>'Autologowanie',
-				'menustring' => 'Autologowanie',
-				'siteid' => 'autolog',
-				'visible' => true,
-				'filename' => 'log_cache_multi_send.php'
 			)
+
 		)
 	),
 	// Caches
