@@ -158,7 +158,7 @@ $radius=$distance;
 
 		$file_content ='';
 
-$rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+$rs = sql('SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
  				`cache_logs`.`encrypt` `encrypt`,
@@ -180,7 +180,7 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5	
 							WHERE cache_logs.deleted=0 
 							GROUP BY cache_logs.id
-							ORDER BY cache_logs.date_created DESC");
+							ORDER BY cache_logs.date_created DESC');
 
 	$file_content = '';
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
