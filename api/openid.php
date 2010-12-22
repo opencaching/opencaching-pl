@@ -76,17 +76,14 @@ if ($auth->hasIdentity()) {
 } else {
     $status = "You are not logged in.<br />\n";
 }
-?>
-<html><body>
-<script>
-<?php echo "$status";?>
-<form method="post"><fieldset>
+
+//echo "<html><body><script>";
+echo "$status";
+echo '<form method="post"><fieldset style="width: 400px;">
 <legend>OpenID Login</legend>
 <input type="text" name="openid_identifier" value="">
 <input type="submit" name="openid_action" value="Login">
 <input type="submit" name="openid_action" value="Logout">
 <input type="submit" name="openid_action" value="Test">
-</fieldset></form>
-
-</body></html>
-
+</fieldset></form>';
+?>
