@@ -81,7 +81,7 @@ if ($auth->hasIdentity()) {
 echo "$status";
 echo '<form method="post"><fieldset style="width: 400px;">
 <legend>OpenID Login</legend>
-<input type="text" name="openid_identifier" value="">
+<img src="images/openid.gif">&nbsp;<input type="text" name="openid_identifier" value="">
 <input type="submit" name="openid_action" value="Login">
 <input type="submit" name="openid_action" value="Logout">
 <input type="submit" name="openid_action" value="Test">
