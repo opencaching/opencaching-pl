@@ -64,10 +64,12 @@
 												
 $upload_filename=$_FILES['file']['tmp_name'];	
 
+// get route_id
 $route_id=sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
+
 // Read file KML with route		
 if ( !$error ) {
-exec("/usr/local/bin/gpsbabel -i kml -f ".$upload_filename." -x interpolate,distance=".$radius."k -o kml -F ".$upload_filename."");
+exec("/usr/local/bin/gpsbabel -i kml -f ".$upload_filename." -x interpolate,distance=0.25k -o kml -F ".$upload_filename."");
 $xml = simplexml_load_file($upload_filename);
 	foreach ( $xml->Document->Folder as $xmlelement ) {
 	foreach ( $xmlelement->Folder as $folder ) {
