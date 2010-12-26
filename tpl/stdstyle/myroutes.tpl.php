@@ -9,41 +9,13 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
-<script type="text/javascript">
-<!--
-	function checkForm()
-	{
 
-		if(document.newpic_form.file.value == "")
-		{
-			alert("Proszę podać nazwę pliku");
-			return false;
-		}
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{myroutes}}</div>
+<br/><p>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/add.png" title=""/>&nbsp;<a class="links" href="myroutes_add.php">{{add_new_route}}</a></p>
+<br/>
+	{content}
+<br/>
+<div class="notice">Zobacz opis "Moje trasy" <a href="http://wiki.opencaching.pl/index.php/Moje_trasy" target="_blank">TUTAJ</a></div>
 
-		return true;
-	}
-	//-->
-</script>
-<form action="myroutes.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
-<input type="hidden" name="MAX_FILE_SIZE" value="51200" />
-<table class="content">
-	<colgroup>
-		<col width="100">
-		<col>
-	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" title="Myroute" align="middle" /> <b>{pictypedesc} &nbsp;<a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
-	<tr><td class="spacer" colspan="2"><br /><font color="red"><b>{{myroute_intro}}</b></font></td></tr>
 
-	<tr>
-		<td valign="top">{{file_name}}:</td>
-		<td><input class="input200" name="file" type="file" /> </td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
 
-	<tr>
-		<td class="header-small" colspan="2">
-		<button type="submit" name="submit" value="submit" style="font-size:12px;width:120px"><b>{submit}</b></button>
-		</td>
-	</tr>
-  </table>
-</form>

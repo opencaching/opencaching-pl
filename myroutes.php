@@ -30,48 +30,43 @@
 		}
 		else
 		{
-			include($stylepath . '/mylist.inc.php');
 			$tplname = 'myroutes';
 			$user_id = $usr['userid'];
-		$upload_filename=$_FILES['file']['tmp_name'];	
 
-// Read file KML with route		
-if ( !$error ) {
-exec("/usr/local/bin/gpsbabel -i kml -f ".$upload_filename." -x interpolate,distance=0.25k -o kml -F ".$upload_filename."");
-$xml = simplexml_load_file($upload_filename);
-	foreach ( $xml->Document->Folder as $xmlelement ) {
-	foreach ( $xmlelement->Folder as $folder ) {
-	foreach ( $folder->Placemark->LineString->coordinates as $coordinates ) {
-		if ( $coordinates ) {
-		$coords_raw = explode(" ",trim($coordinates));
-		foreach ( $coords_raw as $coords_raw_part ) {
-		if ( $coords_raw_part ) {
-		$coords_raw_parts = explode(",",$coords_raw_part);
-		$coords[] = $coords_raw_parts[0];
-		$coords[] = $coords_raw_parts[1];
-		}}}}}}}
-		// end of read
-//we get the point data in to an array called $points:
+			$route_rs = sql("SELECT `route_id` ,`description` `desc`, `name`  FROM `routes`  WHERE `user_id`=&1  ORDER BY `route_id` DESC",$user_id);
+				if (mysql_num_rows($route_rs) != 0)
+				{	
 
-if (!$error){
-		for( $i=0; $i<count($coords)-1; $i=$i+2 ) {
-		$points[] = array("lon"=>$coords[$i],"lat"=>$coords[$i+1]);
-		if ( ($coords[$i]+0==0) OR ($coords[$i+1]+0==0) ) {
-		$error .= "Invalid Co-ords found in import file.<br>\n";
-		break;
-			}
-		}
-	}
-// add it to the route_points database:
-//get new route_id
-$new_id=1;
-$point_num = 0;
-foreach ($points as $point) {
-$point_num++;
-$query = "INSERT into route_points(route_id,point_nr,lat,lon)"."VALUES ($new_id,$point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
-$result=sql($query);
-}
-	
+				
+						$routes = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
+						$routes .= '<tr><th width="60"><b>'.tr('routes_name').'</th><th><b>'.tr('route_desc').'</b></th><th width="22"><b>'.tr('caches').'</b></th><th width="22"><b>'.tr('delete').'</b></th></tr>';
+						for ($i = 0; $i < mysql_num_rows($route_rs); $i++)
+							{
+							
+							$routes_record = sql_fetch_array($route_rs);
+
+				$desc = $routes_record['desc'];
+				if ($desc != ''){
+				require_once($rootpath . 'lib/class.inputfilter.php');
+				$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+				$desc = $myFilter->process($desc);
+					
+				}
+
+							$routes .= '<tr><td align="center" valign="middle"><center></center>'.$routes_record['name']. '</td><td>'.nl2br($desc).'</td><td align="center" valign="middle"><center><a class="links" href="myroutes_search.php?routeid='.$routes_record['route_id'].'"><img src="tpl/stdstyle/images/action/16x16-search.png" alt="" title="Search caches along route" /></a></center></td><td align="center" valign="middle"><center><a class="links" href="myroutes.php?routeid='.$routes_record['route_id'].'&delete" onclick="return confirm(\'Czy chcesz usunąć tę trase?\');"><img src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title="Usuń" /></a></center></td></tr>';
+							}
+							$routes .= '</table><br /><br />';
+
+
+						tpl_set_var('content', $routes);
+						mysql_free_result($route_rs);
+						
+				} else { tpl_set_var('content', "<div class=\"searchdiv\"><br/><span style=\"font-size:130%;font-weight:bold \">&nbsp;&nbsp;".tr('no_routes')."</span><br/><br/></div>");}	
+			
+			
+			
+			
+			
 		
 		}
 	}
