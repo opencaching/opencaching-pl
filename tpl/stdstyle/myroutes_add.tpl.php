@@ -24,15 +24,14 @@
 	}
 	//-->
 </script>
+
+
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{add_new_route}}</div>
+	
 <form action="myroutes_add.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="MAX_FILE_SIZE" value="51200" />
+<div class="searchdiv">
 <table class="content">
-	<colgroup>
-		<col width="100">
-		<col>
-	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" title="Myroute" align="middle" /> <b>{myroutes_add}</b></td></tr>
-
 	<tr>
 <td valign='top' width='25%'>Route Name:</td>
 <td width='75%'><input type='text' name='name' size='50' value=''></td>
@@ -50,12 +49,14 @@
 		<td valign="top">{{file_name}} KML:</td>
 		<td><input class="input200" name="file" type="file" /> </td>
 	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-
+<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
-		<td class="header-small" colspan="2">
-		<button type="submit" name="submit" value="submit" style="font-size:12px;width:120px"><b>{submit}</b></button>
-		</td>
+		<td valign="top" align="left" colspan="2">
+			<button type="submit" name="back" value="back" style="font-size:12px;width:160px"><b>{{cancel}}</b></button>&nbsp;&nbsp;
+			<button type="submit" name="submitform" value="submit" style="font-size:12px;width:160px"><b>{{add_new_route}}</b></button>
+		<br /><br /></td>
 	</tr>
+
   </table>
 </form>
+</div>
