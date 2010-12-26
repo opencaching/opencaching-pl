@@ -33,7 +33,7 @@
 			include($stylepath . '/mylist.inc.php');
 			$tplname = 'myroutes';
 			
-			
+		$upload_filename=isset($_FILES['kmlfile'];	
 // Read file KML with route		
 if ( !$error ) {
 exec("/usr/bin/gpsbabel -i kml -f $upload_filename -x interpolate,distance=0.25k -o kml -F $upload_filename");
