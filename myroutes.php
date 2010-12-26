@@ -39,7 +39,7 @@
 
 				
 						$routes = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em; color: #000000; ">';
-						$routes .= '<tr><th width="60"><b>'.tr('routes_name').'</th><th><b>'.tr('route_desc').'</b></th><th width="22"><b>'.tr('radius').'</b></th><th width="22"><b>'.tr('caches').'</b></th><th width="22"><b>'.tr('edit').'</b></th><th width="22"><b>'.tr('delete').'</b></th></tr>';
+						$routes .= '<tr><th width="60"><b>'.tr('route_name').'</th><th><b>'.tr('route_desc').'</b></th><th width="22"><b>'.tr('radius').'</b></th><th width="22"><b>'.tr('caches').'</b></th><th width="22"><b>'.tr('edit').'</b></th><th width="22"><b>'.tr('delete').'</b></th></tr>';
 						for ($i = 0; $i < mysql_num_rows($route_rs); $i++)
 							{
 							
