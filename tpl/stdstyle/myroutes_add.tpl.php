@@ -24,18 +24,30 @@
 	}
 	//-->
 </script>
-<form action="myroutes.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
+<form action="myroutes_add.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="MAX_FILE_SIZE" value="51200" />
 <table class="content">
 	<colgroup>
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt="" title="Myroute" align="middle" /> <b>{pictypedesc} &nbsp;<a href="/viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
-	<tr><td class="spacer" colspan="2"><br /><font color="red"><b>{{myroute_intro}}</b></font></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" title="Myroute" align="middle" /> <b>{myroutes_add}</b></td></tr>
 
 	<tr>
-		<td valign="top">{{file_name}}:</td>
+<td valign='top' width='25%'>Route Name:</td>
+<td width='75%'><input type='text' name='name' size='50' value=''></td>
+</tr>
+<tr>
+<td valign='top' width='25%'>Route Description:</td>
+<td width='75%'><textarea name='desc' cols='80' rows='3'></textarea></td>
+</tr>
+<tr>
+<td valign='top' width='25%'>Search Radius (km):</td>
+<td width='75%'><input type='text' name='radius' size='5' value=''></td>
+</tr>
+
+	<tr>
+		<td valign="top">{{file_name}} KML:</td>
 		<td><input class="input200" name="file" type="file" /> </td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
