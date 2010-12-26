@@ -33,13 +33,13 @@
 			$tplname = 'myroutes';
 			$user_id = $usr['userid'];
 
-			$route_rs = sql("SELECT `route_id` ,`description` `desc`, `name`  FROM `routes`  WHERE `user_id`=&1  ORDER BY `route_id` DESC",$user_id);
+			$route_rs = sql("SELECT `route_id` ,`description` `desc`, `name`,`radius`  FROM `routes`  WHERE `user_id`=&1  ORDER BY `route_id` DESC",$user_id);
 				if (mysql_num_rows($route_rs) != 0)
 				{	
 
 				
-						$routes = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 11px; line-height: 1.6em; color: #000000; ">';
-						$routes .= '<tr><th width="60"><b>'.tr('routes_name').'</th><th><b>'.tr('route_desc').'</b></th><th width="22"><b>'.tr('caches').'</b></th><th width="22"><b>'.tr('edit').'</b></th><th width="22"><b>'.tr('delete').'</b></th></tr>';
+						$routes = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em; color: #000000; ">';
+						$routes .= '<tr><th width="60"><b>'.tr('routes_name').'</th><th><b>'.tr('route_desc').'</b></th><th width="22"><b>'.tr('radius').'</b></th><th width="22"><b>'.tr('caches').'</b></th><th width="22"><b>'.tr('edit').'</b></th><th width="22"><b>'.tr('delete').'</b></th></tr>';
 						for ($i = 0; $i < mysql_num_rows($route_rs); $i++)
 							{
 							
@@ -53,7 +53,7 @@
 					
 				}
 
-							$routes .= '<tr><td align="center" valign="middle"><center></center>'.$routes_record['name']. '</td><td>'.nl2br($desc).'</td><td align="center" valign="middle"><center><a class="links" href="myroutes_search.php?routeid='.$routes_record['route_id'].'"><img src="tpl/stdstyle/images/action/16x16-search.png" alt="" title="Search caches along route" /></a></center></td><td align="center" valign="middle"><center><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'"><img src="images/actions/edit-16.png" alt="" title="Edit route" /></a></center></td><td align="center" valign="middle"><center><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'&delete" onclick="return confirm(\'Czy chcesz usunąć tę trase?\');"><img src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title="Usuń" /></a></center></td></tr>';
+							$routes .= '<tr><td align="center" valign="middle"><center>'.$routes_record['name']. '</center></td><td>'.nl2br($desc).'</td><td align="center" valign="middle"><center>'.$routes_record['radius']. ' km</center></td><td align="center" valign="middle"><center><a class="links" href="myroutes_search.php?routeid='.$routes_record['route_id'].'"><img src="tpl/stdstyle/images/action/16x16-search.png" alt="" title="Search caches along route" /></a></center></td><td align="center" valign="middle"><center><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'"><img src="images/actions/edit-16.png" alt="" title="Edit route" /></a></center></td><td align="center" valign="middle"><center><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'&delete" onclick="return confirm(\'Czy chcesz usunąć tę trase?\');"><img src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title="Usuń" /></a></center></td></tr>';
 							}
 							$routes .= '</table><br /><br />';
 
@@ -61,7 +61,7 @@
 						tpl_set_var('content', $routes);
 						mysql_free_result($route_rs);
 						
-				} else { tpl_set_var('content', "<div class=\"searchdiv\"><br/><span style=\"font-size:130%;font-weight:bold \">&nbsp;&nbsp;".tr('no_routes')."</span><br/><br/></div>");}	
+				} else { tpl_set_var('content', "<div class=\"listitems\"><br/><center><span style=\"font-size:140%;font-weight:bold \">&nbsp;&nbsp;".tr('no_routes')."</span><br/><br/></center></div>");}	
 			
 			
 			

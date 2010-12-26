@@ -768,6 +768,12 @@ show_more Show more
 new_caches_myn New geocaches in my neighborhood
 new_logs_myn Latest logs in my neighborhood
 search_options Search options
+myroutes My routes
+add_new_route Add new route
+route_desc Descriptions route
+route_name Name route
+no_routes List of routes is empty
+radius Radius
 
 
 

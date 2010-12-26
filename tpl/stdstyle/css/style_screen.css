@@ -792,9 +792,10 @@ a.links4:hover {
 #gradient th {
     background-color: #a4d9ff;
     color: #000000;
-    background-image: url(/images/gradient.png);
+	background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
+/*    background-image: url(/images/gradient.png); 
     background-repeat: repeat-x;
-    background-position: top left;
+    background-position: top left;*/
 }
 table.border {	background: url(/images/bg_blue.png) repeat-x;
 	color: #333;
@@ -822,6 +823,14 @@ div.searchdiv {
 	width: 94%;
 	margin: 5px;
 	padding: 5px; 	border: solid 1px rgb(219,230,241);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+div.listitems {
+	width: 94%;
+	margin: 5px;
+	padding: 5px; 	border: solid 1px rgb(219,230,241);
+     background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 }

@@ -43,7 +43,12 @@
 				
 				$radius = isset($_POST['radius']) ? $_POST['radius'] : '0';
 				tpl_set_var('radius', $radius);			
-				
+
+				if (isset($_POST['back']))
+				{	
+							tpl_redirect('myroutes.php');
+							exit;
+				}				
 				// start submit
 				if (isset($_POST['submitform']))
 				{
