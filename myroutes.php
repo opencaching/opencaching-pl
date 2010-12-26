@@ -32,11 +32,12 @@
 		{
 			include($stylepath . '/mylist.inc.php');
 			$tplname = 'myroutes';
-			
-		$upload_filename=isset($_FILES['kmlfile'];	
+			$user_id = $usr['userid'];
+		$upload_filename=$_FILES['file']['tmp_name'];	
+
 // Read file KML with route		
 if ( !$error ) {
-exec("/usr/bin/gpsbabel -i kml -f $upload_filename -x interpolate,distance=0.25k -o kml -F $upload_filename");
+exec("/usr/local/bin/gpsbabel -i kml -f ".$upload_filename." -x interpolate,distance=0.25k -o kml -F ".$upload_filename."");
 $xml = simplexml_load_file($upload_filename);
 	foreach ( $xml->Document->Folder as $xmlelement ) {
 	foreach ( $xmlelement->Folder as $folder ) {
@@ -51,6 +52,7 @@ $xml = simplexml_load_file($upload_filename);
 		}}}}}}}
 		// end of read
 //we get the point data in to an array called $points:
+
 if (!$error){
 		for( $i=0; $i<count($coords)-1; $i=$i+2 ) {
 		$points[] = array("lon"=>$coords[$i],"lat"=>$coords[$i+1]);
@@ -61,12 +63,12 @@ if (!$error){
 		}
 	}
 // add it to the route_points database:
+//get new route_id
+$new_id=1;
 $point_num = 0;
 foreach ($points as $point) {
 $point_num++;
-$query = "INSERT into route_points
-(route_id,point_nr,lat,lon) ".
-"VALUES ($point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
+$query = "INSERT into route_points(route_id,point_nr,lat,lon)"."VALUES ($new_id,$point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
 $result=sql($query);
 }
 	
