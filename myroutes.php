@@ -65,8 +65,8 @@ $point_num = 0;
 foreach ($points as $point) {
 $point_num++;
 $query = "INSERT into route_points
-(route_id,point_number,point_lat,point_lon) ".
-"VALUES ($new_id,$point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
+(route_id,point_nr,lat,lon) ".
+"VALUES ($point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
 $result=sql($query);
 }
 	
