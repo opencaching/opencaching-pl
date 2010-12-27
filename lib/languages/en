@@ -780,6 +780,7 @@ see_desc_myroute See description "My routes"
 route_name Route Name
 route_desc Route Description
 route_radius Search Radius
+search_caches_along_route Search caches along route
 
 
 

@@ -12,8 +12,6 @@
 
    Unicode Reminder メモ
 
-	 display all watches of this user
-
  ****************************************************************************/
 
 	//prepare the templates and include all neccessary
@@ -32,6 +30,16 @@
 		{
 			$tplname = 'myroutes_search';
 			$user_id = $usr['userid'];
+			
+			if (isset($_REQUEST['routeid']))
+			{
+			$route_id = $_REQUEST['routeid'];			
+			}
+			
+			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`='&1'", $route_id);
+			$record = sql_fetch_array($route_rs);	
+			$distance=$record['radius'];
+			tpl_set_var('route_name',$record['name']);
 
 //*************************************************************************
 // Find all the caches that appear with $distance from each point in the defined $route_id.
@@ -49,18 +57,18 @@ $bounds_min_lat = $bounds['lat_min'] - $distance/110;
 $bounds_max_lat = $bounds['lat_max'] + $distance/110;
 $bounds_min_lon = $bounds['lon_min'] - $distance/110;
 $bounds_max_lon = $bounds['lon_max'] + $distance/110;
-$query = "SELECT wp_oc waypoint, latitude lat, longitude lon "."FROM caches "."WHERE latitude>'$bounds_min_lat' ".
+$query = "SELECT wp_oc waypoint, latitude lat, longitude lon "." FROM caches "."WHERE latitude>'$bounds_min_lat' ".
 "AND latitude<'$bounds_max_lat' "."AND longitude>'$bounds_min_lon' "."AND longitude<'$bounds_max_lon' "."AND status = '1';";
 $result=sql($query);
-if ($result AND $count=gca_numrows($result)) {
+if ($result AND $count=mysql_num_rows($result)) {
 for ( $i=0; $i<$count; $i++ ) {
-$row = gca_fetch($result,$i);
+$row = sql_fetch_array($result,$i);
 $initial_cache_list[] =array("waypoint"=>$row['waypoint'],"lat"=>$row['lat'],"lon"=>$row['lon']);
 }
 $points = array();
 $query = "SELECT * FROM route_points WHERE route_id ='$route_id' ORDER BY point_nr;";
 $result = sql($query);
-	if ( $result AND $count=gca_numrows($result) ) {
+	if ( $result AND $count=mysql_num_rows($result) ) {
 	for ( $i=0; $i<$count; $i++ ) {
 	$row = fetch($result,$i);
 	$points[] = array("lat"=>$row["lat"],"lon"=>$row["lon"]);}
@@ -80,9 +88,9 @@ break;
 }
 return $final_cache_list;
 }
-// end			
+// end of function		
 			
-			
+//caches_along_route($route_id, $distance);			
 			
 		
 		}
