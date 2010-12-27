@@ -265,7 +265,7 @@ tpl_set_var('distance',$distance);
 											`caches`.`terrain` `terrain`,
 											`caches`.`founds` `founds`,
 											`caches`.`status` `status`,
-											`caches`.`user_id` `user_id` 
+											`caches`.`user_id` `user_id`
 										FROM `caches` 
 										WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
 											AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
@@ -427,10 +427,9 @@ tpl_set_var('distance',$distance);
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`,
-				count(`cache_rating`.`cache_id`) as `toprate`
-        FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type`, `cache_rating` 
+				count(`cache_rating`.`cache_id`) `toprate`
+        FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`) INNER JOIN `cache_rating` ON (`cache_rating`.`cache_id`=`caches`.`cache_id`), `cache_type`
         WHERE `caches`.`type`!=6
-			AND `cache_rating`.`cache_id`=`caches`.`cache_id`
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
 			ORDER BY `toprate` DESC, `caches`.`name` ASC
@@ -462,7 +461,7 @@ tpl_set_var('distance',$distance);
 //		$thisline = mb_ereg_replace('{location}',join(" > ", array_slice($loc, 0, 2)), $thisline);
 		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
-		$thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
+//		$thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
 		$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
 		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
