@@ -37,9 +37,12 @@
 				if (mysql_num_rows($route_rs) != 0)
 				{	
 
-				
-						$routes = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em; color: #000000; ">';
-						$routes .= '<tr><th width="60"><b>'.tr('route_name').'</th><th><b>'.tr('route_desc').'</b></th><th width="22"><b>'.tr('radius').'</b></th><th width="22"><b>'.tr('caches').'</b></th><th width="22"><b>'.tr('edit').'</b></th><th width="22"><b>'.tr('delete').'</b></th></tr>';
+//				$routes = '<div class="listitems"><div style="width:60px;"><span style="font-size:12px;font-weight:bold">&nbsp;&nbsp;'.tr('route_name').'</span></div>';
+//				$routes .= '<div style="width:250px;"><span style="font-size:12px;font-weight:bold">&nbsp;&nbsp;'.tr('route_desc').'</span></div>';
+//				$routes .= '<div style="width:22px;"><span style="font-size:12px;font-weight:bold">&nbsp;&nbsp;'.tr('radius').'</span></div></div>';
+
+				$routes = '<div class="listitems"><table width=100% cellpadding="6" border="0" style="font-size: 12px; line-height: 1.6em; color: #000000; ">';
+						$routes .= '<tr><th width="80"><b>'.tr('route_name').'</b></th><th width="450"><b>'.tr('route_desc').'</b></th><th width="22"><b>'.tr('radius').'</b></th><th width="22"><b>'.tr('caches').'</b></th><th width="22"><b>'.tr('edit').'</b></th><th width="22"><b>'.tr('delete').'</b></th></tr></table></div>';
 						for ($i = 0; $i < mysql_num_rows($route_rs); $i++)
 							{
 							
@@ -52,10 +55,13 @@
 				$desc = $myFilter->process($desc);
 					
 				}
+//							$routes .= '<div class="listitems"><table width=100% cellpadding="6" border="0" style="font-size: 12px;font-weight: normal; line-height: 1.6em; color: #000000;">';
+//							$routes .= '<tr><th width="80" align="left" valign="middle">'.$routes_record['name']. '</th><th width="235" align="left" valign="middle">'.nl2br($desc).'</th><th width="22" align="center" valign="middle"><center>'.$routes_record['radius']. ' km</center></th><th width="22" align="center" valign="middle"><center><a class="links" href="myroutes_search.php?routeid='.$routes_record['route_id'].'"><img src="tpl/stdstyle/images/action/16x16-search.png" alt="" title="Search caches along route" /></a></center></th><th width="22" align="center" valign="middle"><center><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'"><img src="images/actions/edit-16.png" alt="" title="Edit route" /></a></center></th><th width="22" align="center" valign="middle"><center><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'&delete" onclick="return confirm(\'Czy chcesz usunąć tę trase?\');"><img src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title="Usuń" /></a></center></th></tr></table></div>';
+							$routes .= '<div class="listitems">';
+							$routes .= '<div style="width:80px;float:left;font-size:12px;font-weight:bold;line-height:1.6em;">'.$routes_record['name']. '</div><div style="float:left;position:float;border-left: 2px solid lightblue;">&nbsp;</div><div style="width:450px;float:left;font-size:12px;font-weight:bold;line-height:1.6em;">'.nl2br($desc).'</div><div style="width:80px;float:left;font-size:12px;font-weight:bold;line-height:1.6em;">'.$routes_record['radius']. ' km</div><div style="width:22px;float:left;font-size:12px;font-weight:bold;line-height:1.6em;"><a class="links" href="myroutes_search.php?routeid='.$routes_record['route_id'].'"><img src="tpl/stdstyle/images/action/16x16-search.png" alt="" title="Search caches along route" /></a></div><div style="width:22px;float:left;font-size:12px;font-weight:bold;line-height:1.6em;"><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'"><img src="images/actions/edit-16.png" alt="" title="Edit route" /></a></center></div><div style="width:22px;float:left;font-size:12px;font-weight:bold;line-height:1.6em;"><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'&delete" onclick="return confirm(\'Czy chcesz usunąć tę trase?\');"><img src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title="Usuń" /></a></div></div>';
 
-							$routes .= '<tr><td align="center" valign="middle"><center>'.$routes_record['name']. '</center></td><td>'.nl2br($desc).'</td><td align="center" valign="middle"><center>'.$routes_record['radius']. ' km</center></td><td align="center" valign="middle"><center><a class="links" href="myroutes_search.php?routeid='.$routes_record['route_id'].'"><img src="tpl/stdstyle/images/action/16x16-search.png" alt="" title="Search caches along route" /></a></center></td><td align="center" valign="middle"><center><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'"><img src="images/actions/edit-16.png" alt="" title="Edit route" /></a></center></td><td align="center" valign="middle"><center><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'&delete" onclick="return confirm(\'Czy chcesz usunąć tę trase?\');"><img src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title="Usuń" /></a></center></td></tr>';
 							}
-							$routes .= '</table><br /><br />';
+							$routes .= '<br/>';
 
 
 						tpl_set_var('content', $routes);

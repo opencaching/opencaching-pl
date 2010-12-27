@@ -829,8 +829,9 @@ div.searchdiv {
 div.listitems {
 	width: 94%;
 	margin: 5px;
+	float:right;
 	padding: 5px; 	border: solid 1px rgb(219,230,241);
-     background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
+    background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 }
