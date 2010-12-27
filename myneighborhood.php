@@ -428,14 +428,13 @@ tpl_set_var('distance',$distance);
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`,
 				count(`cache_rating`.`cache_id`) `toprate`
-        FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`) INNER JOIN `cache_rating` ON (`cache_rating`.`cache_id`=`caches`.`cache_id`), `cache_type`
+        FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`) LEFT JOIN `cache_rating` ON (`caches`.`cache_id`=`cache_rating`.`cache_id`), `cache_type`
         WHERE `caches`.`type`!=6
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
-			ORDER BY `toprate` DESC, `caches`.`name` ASC
-			LIMIT 0 , 10");
-
-
+			  GROUP BY `caches`.`cache_id`
+			ORDER BY `toprate` DESC, `caches`.`name` ASC LIMIT 0 , 10");
+	 
 	if (mysql_num_rows($rstr) == 0)
 	{
 		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br>";
@@ -445,7 +444,7 @@ tpl_set_var('distance',$distance);
 	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
-			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a></b>';
+			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;<span style="font-weight:bold;color: green;">[{toprate}]</span>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a></b>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
 	for ($i = 0; $i < mysql_num_rows($rstr); $i++)
@@ -466,6 +465,7 @@ tpl_set_var('distance',$distance);
 		$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
 		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
+		$thisline = mb_ereg_replace('{toprate}', $record['toprate'], $thisline);
 //		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$latitude,$longitude), $thisline);
 
 		$file_content .= $thisline . "\n";
