@@ -59,7 +59,7 @@ function Unlite() {
 
 //end hiding -->
 </script> 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="" title="" align="middle"/>&nbsp;{{my_neighborhood}} </div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="" title="" align="middle"/>&nbsp;{{my_neighborhood_radius}} {distance} km</div>
 <!-- Text container -->
 			{info}
 			<div class="content2-container line-box">
@@ -86,7 +86,10 @@ function Unlite() {
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{ftf_awaiting}}</p>
 				{ftf_caches}
 			</div>
-
+			<div class="content2-container-2col-left" id="local-caches-area">
+				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{top_recommended}}</p>
+				{top_caches}
+			</div>
 				<div class="content2-container-2col-left" id="local-logs-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{latest_logs}}</p>
 				{new_logs}

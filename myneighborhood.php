@@ -227,9 +227,10 @@ if ($latitude==NULL || $latitude==0) $latitude=52.24522;
 if ($longitude==NULL || $longitude==0) $longitude=21.00442;
 
 $distance =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-if ($distance==0) $distance=35;
+if ($distance==0) $distance=50;
 $distance_unit = 'km';
 $radius=$distance;	
+tpl_set_var('distance',$distance);
 
 			//get the users home coords
 //			$rs_coords = sql("SELECT `latitude` `lat`, `longitude` `lon` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
@@ -357,18 +358,17 @@ $radius=$distance;
 				`caches`.`name` `name`,
 				`caches`.`longitude` `longitude`,
 				`caches`.`latitude` `latitude`,
-				`caches`.`date_hidden` `date_hidden`,
+				`caches`.`date_hidden` `date`,
 				`caches`.`date_created` `date_created`,
-				IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
 				`caches`.`country` `country`,
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
         FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
-        WHERE 		  `caches`.`type`!=6
+        WHERE `caches`.`type`!=6
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
-				AND `caches`.`founds`=0 
+			  AND `caches`.`founds`=0 
 			ORDER BY `date` DESC, `caches`.`cache_id` DESC
 			LIMIT 0 , 10");
 
@@ -413,6 +413,71 @@ $radius=$distance;
 
 	tpl_set_var('ftf_caches',$file_content);		
 	mysql_free_result($rs);
+	
+		//start_topcaches.include
+	$rstr =sql("SELECT `user`.`user_id` `user_id`,
+				`user`.`username` `username`,
+				`caches`.`cache_id` `cache_id`,
+				`caches`.`name` `name`,
+				`caches`.`longitude` `longitude`,
+				`caches`.`latitude` `latitude`,
+				`caches`.`date_hidden` `date`,
+				`caches`.`date_created` `date_created`,
+				`caches`.`country` `country`,
+				`caches`.`difficulty` `difficulty`,
+				`caches`.`terrain` `terrain`,
+				`cache_type`.`icon_large` `icon_large`,
+				count(`cache_rating`.`cache_id`) as `toprate`
+        FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type`, `cache_rating` 
+        WHERE `caches`.`type`!=6
+			AND `cache_rating`.`cache_id`=`caches`.`cache_id`
+			  AND `caches`.`status`=1
+			  AND `caches`.`type`=`cache_type`.`id`
+			ORDER BY `toprate` DESC, `caches`.`name` ASC
+			LIMIT 0 , 10");
+
+
+	if (mysql_num_rows($rstr) == 0)
+	{
+		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br>";
+	}
+	else
+	{			
+	
+	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
+			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
+			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a></b>';
+	
+	$file_content = '<ul style="font-size: 11px;">';
+	for ($i = 0; $i < mysql_num_rows($rstr); $i++)
+	{
+		$record = sql_fetch_array($rstr);
+
+//    		$loc = cacheToLocation($record['cache_id']);
+		
+		$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
+	
+		$thisline = $cacheline;
+//		$thisline = mb_ereg_replace('{nn}', $i, $thisline);
+//		$thisline = mb_ereg_replace('{location}',join(" > ", array_slice($loc, 0, 2)), $thisline);
+		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
+		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
+		$thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
+		$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
+		$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
+		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
+		$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
+//		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$latitude,$longitude), $thisline);
+
+		$file_content .= $thisline . "\n";
+		
+	}
+}
+	$file_content .= '</ul>';
+
+	tpl_set_var('top_caches',$file_content);		
+	mysql_free_result($rstr);
+	
 	//nextevents.include
 	
 		$rss =sql("SELECT `user`.`user_id` `user_id`,
