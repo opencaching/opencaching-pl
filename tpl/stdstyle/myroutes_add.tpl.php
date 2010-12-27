@@ -33,20 +33,20 @@
 <div class="searchdiv">
 <table class="content">
 	<tr>
-<td valign='top' width='25%'>Route Name:</td>
+<td valign='top' width='25%'><span style="font-weight:bold;">{{route_name}}:</span></td>
 <td width='75%'><input type='text' name='name' size='50' value=''></td>
 </tr>
 <tr>
-<td valign='top' width='25%'>Route Description:</td>
+<td valign='top' width='25%'><span style="font-weight:bold;">{{route_desc}}:</span></td>
 <td width='75%'><textarea name='desc' cols='80' rows='3'></textarea></td>
 </tr>
 <tr>
-<td valign='top' width='25%'>Search Radius (km):</td>
+<td valign='top' width='25%'><span style="font-weight:bold;">{{route_radius}} (km):</span></td>
 <td width='75%'><input type='text' name='radius' size='5' value=''></td>
 </tr>
 
 	<tr>
-		<td valign="top">{{file_name}} KML:</td>
+		<td valign="top"><span style="font-weight:bold;">{{file_name}} KML:</span></td>
 		<td><input class="input200" name="file" type="file" /> </td>
 	</tr>
 <tr><td class="buffer" colspan="2"></td></tr>

@@ -826,6 +826,17 @@ div.searchdiv {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 }
+div.headitems {
+	width: 94%;
+	margin: 5px;
+	float:right;
+	padding: 5px; 	border: solid 1px rgb(219,230,241);
+    background-color: #7fa2ca ;
+	color: #FFFFFF;
+	/* url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;*/
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
 div.listitems {
 	width: 94%;
 	margin: 5px;
@@ -835,4 +846,20 @@ div.listitems {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 }
-
+div.ver {
+margin-top:3px;
+margin-bottom:3px;
+margin-right:5px;
+margin-left:5px;
+float:left;
+border-left: 2px solid white;
+}
+div.ver35 {
+height: 35px;
+margin-top:3px;
+margin-bottom:3px;
+margin-right:5px;
+margin-left:5px;
+float:left;
+border-left: 2px solid #7fa2ca;
+}
