@@ -394,7 +394,7 @@ $radius=$distance;
 		$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
 	
 		$thisline = $cacheline;
-		$thisline = mb_ereg_replace('{nn}', $i, $thisline);
+//		$thisline = mb_ereg_replace('{nn}', $i, $thisline);
 //		$thisline = mb_ereg_replace('{location}',join(" > ", array_slice($loc, 0, 2)), $thisline);
 		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
@@ -403,7 +403,7 @@ $radius=$distance;
 		$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
 		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
-		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$latitude,$longitude), $thisline);
+//		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$latitude,$longitude), $thisline);
 
 		$file_content .= $thisline . "\n";
 		
