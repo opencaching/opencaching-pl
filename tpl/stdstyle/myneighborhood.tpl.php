@@ -82,6 +82,11 @@ function Unlite() {
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{incomming_events}}</p>
 				{new_events}
 			</div>
+			<div class="content2-container-2col-left" id="local-caches-area">
+				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{ftf_awaiting}}</p>
+				{ftf_caches}
+			</div>
+
 				<div class="content2-container-2col-left" id="local-logs-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{latest_logs}}</p>
 				{new_logs}
