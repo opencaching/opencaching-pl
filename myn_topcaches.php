@@ -26,7 +26,7 @@
 	if ($error == false)
 	{
 		//get the news
-		$tplname = 'newcaches_myn';
+		$tplname = 'myn_topcaches';
 //		require('tpl/stdstyle/newcaches.inc.php');
 		require($stylepath . '/newcaches.inc.php');
 
@@ -128,7 +128,8 @@ $radius=$distance;
 											`caches`.`status` `status`,
 											`caches`.`user_id` `user_id` 
 										FROM `caches` 
-										WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
+										WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\''.$user_id .'\') 
+											AND `longitude` > ' . ($lon - $max_lon_diff) . ' 
 											AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
 											AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
 											AND `latitude` < ' . ($lat + $max_lat_diff) . '
@@ -138,35 +139,33 @@ $radius=$distance;
 
 
 				$file_content ='';
-		$rs = sql('SELECT `caches`.`cache_id` `cacheid`, 
-							`user`.`user_id` `userid`, 
-							`caches`.`country` `country`, 
-							`caches`.`type` `type`,
-							`caches`.`name` `cachename`, 
-							`caches`.`wp_oc` `wp_name`, 
-							`user`.`username` `username`, 
-							`caches`.`date_created` `date_created`, 
-							`caches`.`date_hidden` `date_hidden`, 
-							IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
-							`cache_type`.`icon_large` `icon_large`,
-							IFNULL(`cache_location`.`adm3`,\'\') `region` 
-						FROM (local_caches'.$user_id.' caches LEFT JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id`), `user`, `cache_type` 
-						WHERE `caches`.`date_hidden` <= NOW() 
-						AND `caches`.`date_created` <= NOW()
-						AND `caches`.`user_id`=`user`.`user_id` 
-						AND `cache_type`.`id`=`caches`.`type`
-						AND `caches`.`status` = 1 
-						ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, 
-						`caches`.`cache_id` DESC 
-						LIMIT ' . ($startat+0) . ', ' . ($perpage+0));
+	$rs =sql('SELECT `user`.`user_id` `userid`,
+				`user`.`username` `username`,
+				`caches`.`cache_id` `cacheid`,
+				`caches`.`name` `cachename`,
+				`caches`.`longitude` `longitude`,
+				`caches`.`latitude` `latitude`,
+				`caches`.`date_hidden` `date`,
+				`caches`.`date_created` `date_created`,
+				`caches`.`country` `country`,
+				`caches`.`difficulty` `difficulty`,
+				`caches`.`terrain` `terrain`,
+				`cache_type`.`icon_large` `icon_large`,
+				count(`cache_rating`.`cache_id`) `toprate`
+        FROM local_caches'.$user_id.' `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`) LEFT JOIN `cache_rating` ON (`caches`.`cache_id`=`cache_rating`.`cache_id`), `cache_type`
+        WHERE `caches`.`type`!=6
+			 AND `cache_rating`.`cache_id`=`caches`.`cache_id`
+			  AND `caches`.`status`=1
+			  AND `caches`.`type`=`cache_type`.`id`
+			  GROUP BY `caches`.`cache_id`
+			ORDER BY `toprate` DESC, `caches`.`name` ASC LIMIT  ' . ($startat+0) . ', ' . ($perpage+0));
 
 
 		while ($r = sql_fetch_array($rs))
 		{
-
-
 				$file_content .= '<tr>';
-				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';			
+				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';	
+				$file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: green;">'. $r['toprate'] . '</span></td>';							
 				$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '">' .htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
@@ -221,7 +220,7 @@ $radius=$distance;
 
 		$pages = '';
 		if ($startat > 0)
-			$pages .= '<a href="newcaches_myn.php?startat=0">{first_img}</a> <a href="newcaches_myn.php?startat=' . ($startat - 100) . '">{prev_img}</a> ';
+			$pages .= '<a href="myn_topcaches.php?startat=0">{first_img}</a> <a href="myn_topcaches.php?startat=' . ($startat - 100) . '">{prev_img}</a> ';
 		else
 			$pages .= '{first_img_inactive} {prev_img_inactive} ';
 
@@ -230,10 +229,10 @@ $radius=$distance;
 			if ($i == $thissite)
 				$pages .= $i . ' ';
 			else
-				$pages .= '<a href="newcaches_myn.php?startat=' . ($i - 1) * $perpage . '">' . $i . '</a> ';
+				$pages .= '<a href="myn_topcaches.php?startat=' . ($i - 1) * $perpage . '">' . $i . '</a> ';
 		}
 		if ($thissite < $topage)
-			$pages .= '<a href="newcaches_myn.php?startat=' . ($startat + $perpage) . '">{next_img}</a> <a href="newcaches_myn.php?startat=' . (ceil($count / 100) * 100 - 100) . '">{last_img}</a>';
+			$pages .= '<a href="myn_topcaches.php?startat=' . ($startat + $perpage) . '">{next_img}</a> <a href="myn_topcaches.php?startat=' . (ceil($count / 100) * 100 - 100) . '">{last_img}</a>';
 		else
 			$pages .= '{next_img_inactive} {last_img_inactive}';
 

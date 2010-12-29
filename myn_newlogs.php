@@ -29,7 +29,7 @@
 if ($error == false)
 {
 	//get the news
-	$tplname = 'newlogs_myn';
+	$tplname = 'myn_newlogs';
 	require($stylepath . '/newlogs.inc.php');
 	
 	$LOGS_PER_PAGE = 50;
@@ -51,8 +51,8 @@ if ($error == false)
 	
 	if( $start > 0 )
 	{
-		$pages .= '<a href="newlogs_myn.php?start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'">{first_img}</a> ';
-		$pages .= '<a href="newlogs_myn.php?start='.max(0,$start-$LOGS_PER_PAGE).'">{prev_img}</a> ';
+		$pages .= '<a href="myn_newlogs.php?start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'">{first_img}</a> ';
+		$pages .= '<a href="myn_newlogs.php?start='.max(0,$start-$LOGS_PER_PAGE).'">{prev_img}</a> ';
 	}
 	else
 		$pages .= "{first_img_inactive} {prev_img_inactive} ";
@@ -62,12 +62,12 @@ if ($error == false)
 		if( $page_number == $start )
 			$pages .= "<b>$i</b> ";
 		else
-			$pages .= "<a href='newlogs_myn.php?start=$page_number'>$i</a> ";
+			$pages .= "<a href='myn_newlogs.php?start=$page_number'>$i</a> ";
 	}
 	if( $total_pages > $PAGES_LISTED )
 	{
-		$pages .= '<a href="newlogs_myn.php?start='.($start+$LOGS_PER_PAGE).'">{next_img}</a> ';
-		$pages .= '<a href="newlogs_myn.php?start='.(($i-1)*$LOGS_PER_PAGE).'">{last_img}</a> ';
+		$pages .= '<a href="myn_newlogs.php?start='.($start+$LOGS_PER_PAGE).'">{next_img}</a> ';
+		$pages .= '<a href="myn_newlogs.php?start='.(($i-1)*$LOGS_PER_PAGE).'">{last_img}</a> ';
 	}
 	else
 		$pages .= ' {next_img_inactive} {last_img_inactive}';
@@ -123,7 +123,8 @@ $radius=$distance;
 											`caches`.`status` `status`,
 											`caches`.`user_id` `user_id` 
 										FROM `caches` 
-										WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
+										WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\''.$user_id .'\')
+											AND `longitude` > ' . ($lon - $max_lon_diff) . ' 
 											AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
 											AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
 											AND `latitude` < ' . ($lat + $max_lat_diff) . '

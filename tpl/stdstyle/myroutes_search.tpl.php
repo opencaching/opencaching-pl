@@ -9,11 +9,76 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
+<script language="javascript" type="text/javascript">
+
+function sync_options(element)
+{
+
+	var recommendations = 0;
+	if (document.optionsform.cache_rec[0].checked == true) {
+		document.optionsform.cache_min_rec.disabled = 'disabled';
+		recommendations = 0;
+	}
+	else if (document.optionsform.cache_rec[1].checked == true) {
+		document.optionsform.cache_min_rec.disabled = false;
+		recommendations = document.optionsform.cache_min_rec.value;
+	}
+	
+		document.optionsform.cachesize_2.value = document.optionsform.cachesize_2.checked ? 1 : 0;
+		document.optionsform.cachesize_3.value = document.optionsform.cachesize_3.checked ? 1 : 0;
+		document.optionsform.cachesize_4.value = document.optionsform.cachesize_4.checked ? 1 : 0;
+		document.optionsform.cachesize_5.value = document.optionsform.cachesize_5.checked ? 1 : 0;
+		document.optionsform.cachesize_6.value = document.optionsform.cachesize_6.checked ? 1 : 0;
+		document.optionsform.cachesize_7.value = document.optionsform.cachesize_7.checked ? 1 : 0;
+		document.optionsform.cachevote_1.value = document.optionsform.cachevote_1.value;
+		document.optionsform.cachevote_2.value = document.optionsform.cachevote_2.value;
+		document.optionsform.cachenovote.value = document.optionsform.cachenovote.checked ? 1 : 0;
+		document.optionsform.cachedifficulty_1.value = document.optionsform.cachedifficulty_1.value;
+		document.optionsform.cachedifficulty_2.value = document.optionsform.cachedifficulty_2.value;
+		document.optionsform.cacheterrain_1.value = document.optionsform.cacheterrain_1.value;
+		document.optionsform.cacheterrain_2.value = document.optionsform.cacheterrain_2.value;
+	document.optionsform.cacherating.value = recommendations;
+	document.optionsform.cachenovote.value = document.optionsform.cachenovote.checked ? 1 : 0;
+}
+//-->
+</script>
+
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{search_caches_along_route}}: {route_name}</div>
-<form action="myroutes_search.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr">
+<form action="myroutes_search.php" method="post" enctype="multipart/form-data" name="optionsform" dir="ltr">
 <input type="hidden" name="routeid" value="{routeid}"/>
 <input type="hidden" name="distance" value="{distance}"/>
+
+	<input type="hidden" name="f_inactive" value="1" />
+	<input type="hidden" name="f_ignored" value="1" />
+	<input type="hidden" name="f_userfound" value="1" />
+	<input type="hidden" name="f_userowner" value="1" />
+
+	<input type="hidden" name="cachetype" value="111111110" />
+	<input type="hidden" name="cache_attribs" value="" />
+	<input type="hidden" name="cache_attribs_not" value="" />
+
+	<input type="hidden" name="cachesize_1" value="1" />
+	<input type="hidden" name="cachesize_2" value="1" />
+	<input type="hidden" name="cachesize_3" value="1" />
+	<input type="hidden" name="cachesize_4" value="1" />
+	<input type="hidden" name="cachesize_5" value="1" />
+	<input type="hidden" name="cachesize_6" value="1" />
+	<input type="hidden" name="cachesize_7" value="1" />
+	
+	<input type="hidden" name="cachevote_1" value="" />
+	<input type="hidden" name="cachevote_2" value="" />
+	<input type="hidden" name="cachenovote" value="1" />
+	
+	<input type="hidden" name="cachedifficulty_1" value="" />
+	<input type="hidden" name="cachedifficulty_2" value="" />
+	<input type="hidden" name="cacheterrain_1" value="" />
+	<input type="hidden" name="cacheterrain_2" value="" />
+	<input type="hidden" name="cacherating" value="0" />
+	<input type="hidden" name="cachename" value="%"  />
+
+
+
 <div class="searchdiv">
 
 <p class="content-title-noshade-size3">Opcje wyszukiwania</p>
@@ -72,16 +137,14 @@
 			<td>
 				<table class="table">
 					<tr>
-						<td><input type="checkbox" id="cachesize2" name="cachesize2" value="2" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachesize2">micro</label></td>
-						<td><input type="checkbox" id="cachesize3" name="cachesize3" value="3" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachesize3">small</label></td>
-						<td><input type="checkbox" id="cachesize4" name="cachesize4" value="4" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachesize4">normal</label></td>
+						<td>				<input type="checkbox" name="cachesize_2" value="1" id="l_cachesize_2" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_2">Mikro</label>
 
-						<td><input type="checkbox" id="cachesize5" name="cachesize5" value="5" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachesize5">large</label></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="cachesize6" name="cachesize6" value="6" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachesize6">very large</label></td>
-						<td><input type="checkbox" id="cachesize7" name="cachesize7" value="7" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachesize7">no container</label></td>
-						<td><input type="checkbox" id="cachesize1" name="cachesize1" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachesize1">other size</label></td>
+<input type="checkbox" name="cachesize_3" value="1" id="l_cachesize_3" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_3">Mała</label>
+<input type="checkbox" name="cachesize_4" value="1" id="l_cachesize_4" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_4">Normalna</label>
+<input type="checkbox" name="cachesize_5" value="1" id="l_cachesize_5" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_5">Duża</label>
+<input type="checkbox" name="cachesize_6" value="1" id="l_cachesize_6" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_6">Bardzo duża</label>
+<input type="checkbox" name="cachesize_7" value="1" id="l_cachesize_7" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_7">Bez pojemnika</label>
+</td>
 
 						<td>&nbsp;</td>
 					</tr>

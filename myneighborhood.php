@@ -216,12 +216,15 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 	return $google_map;
 }
 
-
+tpl_set_var('more_caches','');
+tpl_set_var('more_caches','');
+tpl_set_var('more_ftf','');
+tpl_set_var('more_topcache','');
 	
 $latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 
-if (($longitude==NULL && $latitude==NULL) ||($longitude==0 && $latitude==0) ) {tpl_set_var('more_caches','');tpl_set_var('more_logs','');tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>'.tr("myn_info").'</b></div><br>');} else { tpl_set_var('info',''); tpl_set_var('more_caches','<a class="links" href="newcaches_myn.php">['.tr("show_more").'...]</a>');tpl_set_var('more_logs','<a class="links" href="newlogs_myn.php">['.tr("show_more").'...]</a>');}
+if (($longitude==NULL && $latitude==NULL) ||($longitude==0 && $latitude==0) ) {tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>'.tr("myn_info").'</b></div><br>');} else { tpl_set_var('info',''); }
 
 if ($latitude==NULL || $latitude==0) $latitude=52.24522;
 if ($longitude==NULL || $longitude==0) $longitude=21.00442;
@@ -267,7 +270,8 @@ tpl_set_var('distance',$distance);
 											`caches`.`status` `status`,
 											`caches`.`user_id` `user_id`
 										FROM `caches` 
-										WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
+										WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\''.$user_id .'\')
+											AND `longitude` > ' . ($lon - $max_lon_diff) . ' 
 											AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
 											AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
 											AND `latitude` < ' . ($lat + $max_lat_diff) . '
@@ -309,7 +313,29 @@ tpl_set_var('distance',$distance);
 			ORDER BY `date` DESC, `caches`.`cache_id` DESC
 			LIMIT 0 , 10");
 
-
+	$rsc =sql("SELECT `user`.`user_id` `user_id`,
+				`user`.`username` `username`,
+				`caches`.`cache_id` `cache_id`,
+				`caches`.`name` `name`,
+				`caches`.`longitude` `longitude`,
+				`caches`.`latitude` `latitude`,
+				`caches`.`date_hidden` `date_hidden`,
+				`caches`.`date_created` `date_created`,
+				IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
+				`caches`.`country` `country`,
+				`caches`.`difficulty` `difficulty`,
+				`caches`.`terrain` `terrain`,
+				`cache_type`.`icon_large` `icon_large`
+			FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
+			WHERE `caches`.`type`!=6
+				AND `caches`.`status`=1
+				AND `caches`.`type`=`cache_type`.`id`
+				AND `caches`.`date_created` <= NOW() 
+				AND `caches`.`date_hidden` <= NOW() 
+			ORDER BY `date` DESC, `caches`.`cache_id` DESC");
+	if (mysql_num_rows($rsc) > 10) {tpl_set_var('more_caches','<a class="links" href="myn_newcaches.php">['.tr("show_more").'...]</a>');}
+	mysql_free_result($rsc);
+	
 	if (mysql_num_rows($rs) == 0)
 	{
 		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br>";
@@ -371,8 +397,28 @@ tpl_set_var('distance',$distance);
 			  AND `caches`.`founds`=0 
 			ORDER BY `date` DESC, `caches`.`cache_id` DESC
 			LIMIT 0 , 10");
+	$rsftf =sql("SELECT `user`.`user_id` `user_id`,
+				`user`.`username` `username`,
+				`caches`.`cache_id` `cache_id`,
+				`caches`.`name` `name`,
+				`caches`.`longitude` `longitude`,
+				`caches`.`latitude` `latitude`,
+				`caches`.`date_hidden` `date`,
+				`caches`.`date_created` `date_created`,
+				`caches`.`country` `country`,
+				`caches`.`difficulty` `difficulty`,
+				`caches`.`terrain` `terrain`,
+				`cache_type`.`icon_large` `icon_large`
+        FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
+        WHERE `caches`.`type`!=6
+			  AND `caches`.`status`=1
+			  AND `caches`.`type`=`cache_type`.`id`
+			  AND `caches`.`founds`=0 
+			ORDER BY `date` DESC, `caches`.`cache_id` DESC");
+	if (mysql_num_rows($rsftf) > 10) {tpl_set_var('more_ftf','<a class="links" href="myn_ftf.php">['.tr("show_more").'...]</a>');}
+	mysql_free_result($rsftf);
 
-
+		
 	if (mysql_num_rows($rs) == 0)
 	{
 		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br>";
@@ -430,11 +476,35 @@ tpl_set_var('distance',$distance);
 				count(`cache_rating`.`cache_id`) `toprate`
         FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`) LEFT JOIN `cache_rating` ON (`caches`.`cache_id`=`cache_rating`.`cache_id`), `cache_type`
         WHERE `caches`.`type`!=6
+			AND `cache_rating`.`cache_id`=`caches`.`cache_id`
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
 			  GROUP BY `caches`.`cache_id`
 			ORDER BY `toprate` DESC, `caches`.`name` ASC LIMIT 0 , 10");
-	 
+			
+	$rstr1 =sql("SELECT `user`.`user_id` `user_id`,
+				`user`.`username` `username`,
+				`caches`.`cache_id` `cache_id`,
+				`caches`.`name` `name`,
+				`caches`.`longitude` `longitude`,
+				`caches`.`latitude` `latitude`,
+				`caches`.`date_hidden` `date`,
+				`caches`.`date_created` `date_created`,
+				`caches`.`country` `country`,
+				`caches`.`difficulty` `difficulty`,
+				`caches`.`terrain` `terrain`,
+				`cache_type`.`icon_large` `icon_large`,
+				count(`cache_rating`.`cache_id`) `toprate`
+        FROM `local_caches` `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`) LEFT JOIN `cache_rating` ON (`caches`.`cache_id`=`cache_rating`.`cache_id`), `cache_type`
+        WHERE `caches`.`type`!=6
+			AND `cache_rating`.`cache_id`=`caches`.`cache_id`
+			  AND `caches`.`status`=1
+			  AND `caches`.`type`=`cache_type`.`id`
+			  GROUP BY `caches`.`cache_id`
+			ORDER BY `toprate` DESC, `caches`.`name` ASC");	 
+	if (mysql_num_rows($rstr1) > 10) {tpl_set_var('more_topcaches','<a class="links" href="myn_topcaches.php">['.tr("show_more").'...]</a>');}
+	mysql_free_result($rstr1);
+	
 	if (mysql_num_rows($rstr) == 0)
 	{
 		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br>";
@@ -542,40 +612,6 @@ tpl_set_var('distance',$distance);
 	mysql_free_result($rss);
 	
 	
-	//nextevents.include
-	
-/*$rsl = sql("EXPLAIN SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
-	                          cache_logs.type AS log_type,
-	                          cache_logs.date AS log_date,
-				   cache_logs.text AS log_text,
-				  cache_logs.text_html AS text_html,
-	                          local_caches.name AS cache_name,
-	                          user.username AS user_name,
-							  user.user_id AS user_id,
-							  local_caches.wp_oc AS wp_name,
-							  local_caches.type AS cache_type,
-							  cache_type.icon_small AS cache_icon_small,
-							  log_types.icon_small AS icon_small,
-							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
-							COUNT(gk_item.id) AS geokret_in
-							FROM 
-								(local_caches INNER JOIN cache_logs ON (local_caches.cache_id = cache_logs.cache_id)) 
-								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
-								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
-								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
-								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
-								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
-								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
-							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5)
-							WHERE	cache_logs.deleted=0
-							GROUP BY cache_logs.id
-							ORDER BY cache_logs.date_created DESC LIMIT 0 , 10");
-
-
-while (($row=mysql_fetch_assoc($rsl))!==false) {
-        print_r($row);
-    }*/
-
 $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
@@ -602,10 +638,34 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 							WHERE	cache_logs.deleted=0 AND datediff(now(), cache_logs.date_created) <= 31
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC LIMIT 0, 10");
-
-
-
-
+$rsll = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+	                          cache_logs.type AS log_type,
+	                          cache_logs.date AS log_date,
+				   cache_logs.text AS log_text,
+				  cache_logs.text_html AS text_html,
+	                          local_caches.name AS cache_name,
+	                          user.username AS user_name,
+							  user.user_id AS user_id,
+							  local_caches.wp_oc AS wp_name,
+							  local_caches.type AS cache_type,
+							  cache_type.icon_small AS cache_icon_small,
+							  log_types.icon_small AS icon_small,
+							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
+							COUNT(gk_item.id) AS geokret_in
+							FROM 
+								(local_caches INNER JOIN cache_logs ON (local_caches.cache_id = cache_logs.cache_id)) 
+								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
+								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
+								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
+								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
+								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
+								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
+							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5)
+							WHERE	cache_logs.deleted=0 AND datediff(now(), cache_logs.date_created) <= 31
+							GROUP BY cache_logs.id
+							ORDER BY cache_logs.date_created DESC ");
+	if (mysql_num_rows($rsll) > 10) {tpl_set_var('more_logs','<a class="links" href="myn_newlogs.php">['.tr("show_more").'...]</a>');}
+	mysql_free_result($rsll);
 
 	$file_content = '';
 
@@ -620,13 +680,9 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 		for ($i = 0; $i < mysql_num_rows($rsl); $i++)
 		{
 			$log_record = sql_fetch_array($rsl);	
-//			$loc = coordToLocation($record['latitude'], $record['longitude']);			
+		
 			$thisline = $cacheline;
-//			$thisline = mb_ereg_replace('{nn}', $i + $markerpositions['plain_cache_num'], $thisline);
-//			$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
-//			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
-//			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
-//			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
+
 		 	$cacheicon = 'tpl/stdstyle/images/'.$log_record['cache_icon_small'];
 			if ( $log_record['geokret_in'] !='0')
 					{
@@ -665,6 +721,7 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 		$file_content .= '</ul>';
 		}
 		tpl_set_var('new_logs',$file_content);
+			mysql_free_result($rsl);
 				
 	}	
 }

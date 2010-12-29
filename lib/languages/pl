@@ -673,6 +673,9 @@ moved_text przeniesiona
 encrypt_log Log szyfrowany
 my_neighborhood Moja okolica
 my_neighborhood_radius Moja okolica w promieniu
+new_caches_myn Nowe skrzynki
+ftf_awaiting Skrzynki czekające na "FTF"
+new_logs_myn Najnowsze logi 
 top_recommended TOP lista rekomendowanych skrzynek
 myn_info Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 35 km ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.
 search_user Szukaj użytkownika
@@ -808,9 +811,6 @@ gallery_of_cache Galeria obrazków dla skrzynki
 images_cache Obrazki skrzynki
 images_logs Obrazki z logów
 show_more Pokaż więcej
-new_caches_myn Nowe skrzynki w mojej okolicy
-ftf_awaiting Skrzynki czekające na "FTF"
-new_logs_myn Najnowsze logi w mojej okolicy
 search_options Opcje wyszukiwania
 myroutes Moje trasy
 add_new_route Dodaj nową trase

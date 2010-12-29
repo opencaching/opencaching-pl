@@ -24,11 +24,7 @@
 	{
 		//get the news
 		$tplname = 'news';
-		$newscontent = '
-				<div class="content2-pagetitle">
-				<img src="tpl/stdstyle/images/blue/newspaper.png" border="0" width="22" height="22" alt="News" title="news" align="middle" />&nbsp;&nbsp;'.tr('news').'</div>
-				
-				';
+		$newscontent = '';
 		require($stylepath . '/news.inc.php');
 		
 		$rsNewsTopics = sql('SELECT `name`, `id` FROM `news_topics` ORDER BY `id` ASC');
@@ -49,7 +45,7 @@
 		mysql_free_result($rsNewsTopics);
 		
 		//$newscontent .= "</table>";
-		tpl_set_var('news', $newscontent);
+		tpl_set_var('list_of_news', $newscontent);
 	}
 	
 	//make the template and send it out

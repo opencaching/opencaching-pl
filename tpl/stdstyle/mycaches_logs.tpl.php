@@ -15,6 +15,7 @@
 	<p>
 		{pages}
 	</p>
+<div class="searchdiv">	
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="97%">
 <tr>
 <td><strong>Data</strong></td>
@@ -33,6 +34,7 @@
 <td colspan="7"><hr></hr></td>
 </tr>
 </table>
+</div>
 	<p>
 		{pages}
 	</p>

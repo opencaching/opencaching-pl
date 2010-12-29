@@ -50,27 +50,69 @@
 			tpl_set_var('distance',$record['radius']);
 			tpl_set_var('routeid',$route_id);
 			
-			$options['cachetype'] = isset($_POST['cachetype']) ? $_POST['cachetype'] : '111111111';
+	if (isset($options['cachesize_1']))
+	{
+		tpl_set_var('cachesize_1', htmlspecialchars($options['cachesize_1'], ENT_COMPAT, 'UTF-8'));
+	}
+	else
+	{
+		tpl_set_var('cachesize_1', '');
+	}
 
-			$options['cachesize_1'] = isset($_POST['cachesize_1']) ? $_POST['cachesize_1'] : 1;
-			$options['cachesize_2'] = isset($_POST['cachesize_2']) ? $_POST['cachesize_2'] : 1;
-			$options['cachesize_3'] = isset($_POST['cachesize_3']) ? $_POST['cachesize_3'] : 1;
-			$options['cachesize_4'] = isset($_POST['cachesize_4']) ? $_POST['cachesize_4'] : 1;
-			$options['cachesize_5'] = isset($_POST['cachesize_5']) ? $_POST['cachesize_5'] : 1;
-			$options['cachesize_6'] = isset($_POST['cachesize_6']) ? $_POST['cachesize_6'] : 1;
-			$options['cachesize_7'] = isset($_POST['cachesize_7']) ? $_POST['cachesize_7'] : 1;
+	if (isset($options['cachesize_2']))
+	{
+		tpl_set_var('cachesize_2', htmlspecialchars($options['cachesize_2'], ENT_COMPAT, 'UTF-8'));
+	}
+	else
+	{
+		tpl_set_var('cachesize_2', '');
+	}
 
-			$options['cachevote_1'] = isset($_POST['cachevote_1']) ? $_POST['cachevote_1'] : '';
-			$options['cachevote_2'] = isset($_POST['cachevote_2']) ? $_POST['cachevote_2'] : '';
-			$options['cachenovote'] = isset($_POST['cachenovote']) ? $_POST['cachenovote'] : 1;
-			
-			$options['cachedifficulty_1'] = isset($_POST['cachedifficulty_1']) ? $_POST['cachedifficulty_1'] : '';
-			$options['cachedifficulty_2'] = isset($_POST['cachedifficulty_2']) ? $_POST['cachedifficulty_2'] : '';
+	if (isset($options['cachesize_3']))
+	{
+		tpl_set_var('cachesize_3', htmlspecialchars($options['cachesize_3'], ENT_COMPAT, 'UTF-8'));
+	}
+	else
+	{
+		tpl_set_var('cachesize_3', '');
+	}
 
-			$options['cacheterrain_1'] = isset($_POST['cacheterrain_1']) ? $_POST['cacheterrain_1'] : '';
-			$options['cacheterrain_2'] = isset($_POST['cacheterrain_2']) ? $_POST['cacheterrain_2'] : '';
-			
-			$options['cacherating'] = isset($_POST['cacherating']) ? $_POST['cacherating'] : 0;
+	if (isset($options['cachesize_4']))
+	{
+		tpl_set_var('cachesize_4', htmlspecialchars($options['cachesize_4'], ENT_COMPAT, 'UTF-8'));
+	}
+	else
+	{
+		tpl_set_var('cachesize_4', '');
+	}
+
+	if (isset($options['cachesize_5']))
+	{
+		tpl_set_var('cachesize_5', htmlspecialchars($options['cachesize_5'], ENT_COMPAT, 'UTF-8'));
+	}
+	else
+	{
+		tpl_set_var('cachesize_5', '');
+	}
+
+	if (isset($options['cachesize_6']))
+	{
+		tpl_set_var('cachesize_6', htmlspecialchars($options['cachesize_6'], ENT_COMPAT, 'UTF-8'));
+	}
+	else
+	{
+		tpl_set_var('cachesize_6', '');
+	}
+
+	if (isset($options['cachesize_7']))
+	{
+		tpl_set_var('cachesize_7', htmlspecialchars($options['cachesize_7'], ENT_COMPAT, 'UTF-8'));
+	}
+	else
+	{
+		tpl_set_var('cachesize_7', '');
+	}
+
 			
 				// additional options
 				if(!isset($options['f_userowner'])) $options['f_userowner']='0';
@@ -112,31 +154,7 @@
 						$sql_where[] = '`caches`.`type` IN (' . sql_escape(implode(",", $c_type)) . ')';
 					}
 				}
-				if(isset($options['cache_attribs']) && count($options['cache_attribs']) > 0)
-				{
-					for($i=0; $i < count($options['cache_attribs']); $i++)
-					{
-						if($options['cache_attribs'][$i] == 99) // special password attribute case
-							$sql_where[] = '`caches`.`logpw` != ""';
-						else {
-							$sql_from[] = '`caches_attributes` `a' . ($options['cache_attribs'][$i]+0) . '`';
-							$sql_where[] = '`a' . ($options['cache_attribs'][$i]+0) . '`.`cache_id`=`caches`.`cache_id`';
-							$sql_where[] = '`a' . ($options['cache_attribs'][$i]+0) . '`.`attrib_id`=' . ($options['cache_attribs'][$i]+0);
-						}
-					}
-				}
-
-				if(isset($options['cache_attribs_not']) && count($options['cache_attribs_not']) > 0)
-				{
-					for($i=0; $i < count($options['cache_attribs_not']); $i++)
-					{
-						if($options['cache_attribs_not'][$i] == 99) // special password attribute case
-							$sql_where[] = '`caches`.`logpw` = ""';
-						else
-							$sql_where[] = 'NOT EXISTS (SELECT `caches_attributes`.`cache_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=`caches`.`cache_id` AND `caches_attributes`.`attrib_id`=\'' . sql_escape($options['cache_attribs_not'][$i]) . '\')';
-					}
-				}
-				
+	
 				$cachesize = array();
 				
 				if (isset($options['cachesize_1']) && ($options['cachesize_1'] == '1')) { $cachesize[] = '1'; }
@@ -146,7 +164,7 @@
 				if (isset($options['cachesize_5']) && ($options['cachesize_5'] == '1')) { $cachesize[] = '5'; }
 				if (isset($options['cachesize_6']) && ($options['cachesize_6'] == '1')) { $cachesize[] = '6'; }
 				if (isset($options['cachesize_7']) && ($options['cachesize_7'] == '1')) { $cachesize[] = '7'; }
-				
+				print_r ($cachesize);
 				if ((sizeof($cachesize) > 0) && (sizeof($cachesize) < 7)) {
 					$sql_where[] = '`caches`.`size` IN (' . implode(' , ', $cachesize) . ')';					
 				}
@@ -185,25 +203,18 @@
 					$sql_where[] = '`caches`.`topratings` >= \'' . $options['cacherating'] .'\'';					
 				}
 				
-				//do the search
-				$join = sizeof($sql_join) ? ' LEFT JOIN ' . implode(' AND ', $sql_join) : '';
-				$group = sizeof($sql_group) ? ' GROUP BY ' . implode(', ', $sql_group) : '';
-				$having = sizeof($sql_having) ? ' HAVING ' . implode(' AND ', $sql_having) : '';
-
-				$sqlFilter = 'SELECT ' . implode(',', $sql_select) .
+					// show only published caches
+					$sql_where[] = '`caches`.`status` != 4';
+					$sql_where[] = '`caches`.`status` != 5';
+					// search byname
+					$sql_select[] = '`caches`.`cache_id` `cache_id`';
+					$sql_from[] = '`caches`';
+					$sql_where[] = '`caches`.`name` LIKE \'%' . sql_escape($options['cachename']) . '%\'';				
+					//do the search
+					$sqlFilter = 'SELECT ' . implode(',', $sql_select) .
 						' FROM ' . implode(',', $sql_from) .
-						$join .
-						' WHERE ' . implode(' AND ', $sql_where) .
-						$group .
-						$having;
-
-			
-
-			
-			
-			
-			
-			
+						' WHERE ' . implode(' AND ', $sql_where);
+	
 			
 	        function cleanup_text($str)
         {
@@ -327,6 +338,7 @@ break;}}}}}
 return $final_cache_list;
 }
 // end of function		
+echo $sqlFilter;
 
 				if (isset($_POST['back_list']))
 				{	
@@ -355,9 +367,12 @@ $caches_list=caches_along_route($route_id, $distance);
 					WHERE `caches`.`user_id`=`user`.`user_id` 
 						AND `cache_type`.`id`=`caches`.`type`
 						AND `caches`.`status` = 1 
-						AND `caches`.`wp_oc` IN('".implode("', '", $caches_list)."')");	
+						AND `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') AND `caches`.`cache_id` IN (" . $sqlFilter . ")");	
 	
-		while ($r = sql_fetch_array($rs))
+	$ncaches=mysql_num_rows($rs);
+	tpl_set_var('number_caches',$ncaches);
+	
+	while ($r = sql_fetch_array($rs))
 		{
 
 
@@ -378,7 +393,7 @@ $caches_list=caches_along_route($route_id, $distance);
 							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
 							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5				
-			WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1
+			WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1 
 			 GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1",$r['cacheid']);
 
 			if (mysql_num_rows($rs_log) != 0)

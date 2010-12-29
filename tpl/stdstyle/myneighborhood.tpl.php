@@ -89,10 +89,12 @@ function Unlite() {
 			<div class="content2-container-2col-left" id="local-caches-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{ftf_awaiting}}</p>
 				{ftf_caches}
+				{more_ftf}<br/><br/>
 			</div>
 				<div class="content2-container-2col-left" id="local-logs-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{top_recommended}}</p>
 				{top_caches}
+				{more_topcaches}<br/><br/>
 			</div>
 				<div class="content2-container-2col-left" id="local-logs-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{latest_logs}}</p>
@@ -100,6 +102,4 @@ function Unlite() {
 				{more_logs}<br/><br/>
 			</div>
 		</div>
-<font color="white">
-Page performance: {scripttime} sec<br>
-Page creation: <?php $bTemplateBuild->Stop(); echo sprintf('%1.3f',$bTemplateBuild->Diff()); ?> sec<br></font>
+
