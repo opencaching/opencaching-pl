@@ -3,6 +3,7 @@ user_menu User's Menu
 cache_menu Cache Menu
 new NEW
 save Save
+back Back
 activation_code_failed Activation code or e-mail address is incorrect.<br/>Your account has not been activated successfully. Please check if you have not made a mistake. If problem still occurs, please contact us at: ocpl (at) opencaching.pl.
 email_incorrect E-mail address is incorrect.
 account_activation Account activation
@@ -784,6 +785,9 @@ route_name Route Name
 route_desc Route Description
 route_radius Search Radius
 search_caches_along_route Search caches along route
+caches_along_route Geocaches along route
+save_gpx Save to GPX
+show_gmap Show on GMAP
 
 
 

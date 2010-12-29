@@ -14,6 +14,8 @@
 <br/>
 {content}
 <br/><div>&nbsp;</div>
+
+
 <div class="notice">{{see_desc_myroute}} <a href="http://wiki.opencaching.pl/index.php/Moje_trasy" target="_blank">{{here}}</a></div>
 
 
