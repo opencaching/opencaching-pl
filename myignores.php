@@ -1,14 +1,5 @@
 <?php
 /***************************************************************************
-																./mywatches.php
-															-------------------
-		begin                : July 17 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
-
-/***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
 	*   it under the terms of the GNU General Public License as published by
@@ -47,7 +38,7 @@
 			if (mysql_num_rows($rs) == 0)
 			{
 				tpl_set_var('no_ignores', $no_ignores);
-				tpl_set_var('ignores', '');
+				tpl_set_var('ignores_caches', '');
 				tpl_set_var('title_text_tab', '');
 			}
 			else
@@ -75,7 +66,7 @@
 
 					$ignores .= $tmp_ignore . "\n";
 				}
-				tpl_set_var('ignores', $ignores);
+				tpl_set_var('ignores_caches', $ignores);
 			}
 		}
 	}

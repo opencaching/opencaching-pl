@@ -18,6 +18,7 @@
  ****************************************************************************/
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/colected.png" class="icon32" alt="{title_text}" title="{title_text}" align="middle" />&nbsp;{title_text}</div>
+<div class="searchdiv">
 {no_ignores}
 <table class="table">
 	<colgroup>
@@ -28,5 +29,7 @@
 			<td class="content-title-noshade">{title_text_tab}</td>
 			<td align="right" class="content-title-noshade">&nbsp;</td>
 	</tr>
-	{ignores}
+	{ignores_caches}
 </table>
+</div>
+<br/><br/>
