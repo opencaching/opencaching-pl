@@ -24,21 +24,37 @@ function sync_options(element)
 		recommendations = document.optionsform.cache_min_rec.value;
 	}
 	
-		document.optionsform.cachesize_2.value = document.optionsform.cachesize_2.checked ? 1 : 0;
-		document.optionsform.cachesize_3.value = document.optionsform.cachesize_3.checked ? 1 : 0;
-		document.optionsform.cachesize_4.value = document.optionsform.cachesize_4.checked ? 1 : 0;
-		document.optionsform.cachesize_5.value = document.optionsform.cachesize_5.checked ? 1 : 0;
-		document.optionsform.cachesize_6.value = document.optionsform.cachesize_6.checked ? 1 : 0;
-		document.optionsform.cachesize_7.value = document.optionsform.cachesize_7.checked ? 1 : 0;
-		document.optionsform.cachevote_1.value = document.optionsform.cachevote_1.value;
-		document.optionsform.cachevote_2.value = document.optionsform.cachevote_2.value;
-		document.optionsform.cachenovote.value = document.optionsform.cachenovote.checked ? 1 : 0;
-		document.optionsform.cachedifficulty_1.value = document.optionsform.cachedifficulty_1.value;
-		document.optionsform.cachedifficulty_2.value = document.optionsform.cachedifficulty_2.value;
-		document.optionsform.cacheterrain_1.value = document.optionsform.cacheterrain_1.value;
-		document.optionsform.cacheterrain_2.value = document.optionsform.cacheterrain_2.value;
-	document.optionsform.cacherating.value = recommendations;
-	document.optionsform.cachenovote.value = document.optionsform.cachenovote.checked ? 1 : 0;
+		document.forms['optionsform'].f_inactive.value = document.optionsform.f_inactive.checked ? 1 : 0;
+		document.forms['optionsform'].f_ignored.value = document.optionsform.f_ignored.checked ? 1 : 0;
+		document.forms['optionsform'].f_userfound.value = document.optionsform.f_userfound.checked ? 1 : 0;
+		document.forms['optionsform'].f_userowner.value = document.optionsform.f_userowner.checked ? 1 : 0;
+		
+		document.forms['optionsform'].cachetype1.value = document.optionsform.cachetype1.checked ? 1 : 0;
+		document.forms['optionsform'].cachetype2.value = document.optionsform.cachetype2.checked ? 1 : 0;
+		document.forms['optionsform'].cachetype3.value = document.optionsform.cachetype3.checked ? 1 : 0;
+		document.forms['optionsform'].cachetype4.value = document.optionsform.cachetype4.checked ? 1 : 0;
+		document.forms['optionsform'].cachetype5.value = document.optionsform.cachetype5.checked ? 1 : 0;
+		document.forms['optionsform'].cachetype6.value = document.optionsform.cachetype6.checked ? 1 : 0;
+		document.forms['optionsform'].cachetype7.value = document.optionsform.cachetype7.checked ? 1 : 0;
+		document.forms['optionsform'].cachetype8.value = document.optionsform.cachetype8.checked ? 1 : 0;
+		document.forms['optionsform'].cachetype9.value = document.optionsform.cachetype9.checked ? 1 : 0;
+		document.forms['optionsform'].cachetype10.value = document.optionsform.cachetype10.checked ? 1 : 0;
+		
+		document.forms['optionsform'].cachesize_2.value = document.optionsform.cachesize_2.checked ? 1 : 0;
+		document.forms['optionsform'].cachesize_3.value = document.optionsform.cachesize_3.checked ? 1 : 0;
+		document.forms['optionsform'].cachesize_4.value = document.optionsform.cachesize_4.checked ? 1 : 0;
+		document.forms['optionsform'].cachesize_5.value = document.optionsform.cachesize_5.checked ? 1 : 0;
+		document.forms['optionsform'].cachesize_6.value = document.optionsform.cachesize_6.checked ? 1 : 0;
+		document.forms['optionsform'].cachesize_7.value = document.optionsform.cachesize_7.checked ? 1 : 0;
+		document.forms['optionsform'].cachevote_1.value = document.optionsform.cachevote_1.value;
+		document.forms['optionsform'].cachevote_2.value = document.optionsform.cachevote_2.value;
+		document.forms['optionsform'].cachenovote.value = document.optionsform.cachenovote.checked ? 1 : 0;
+		document.forms['optionsform'].cachedifficulty_1.value = document.optionsform.cachedifficulty_1.value;
+		document.forms['optionsform'].cachedifficulty_2.value = document.optionsform.cachedifficulty_2.value;
+		document.forms['optionsform'].cacheterrain_1.value = document.optionsform.cacheterrain_1.value;
+		document.forms['optionsform'].cacheterrain_2.value = document.optionsform.cacheterrain_2.value;
+		document.forms['optionsform'].cacherating.value = recommendations;
+
 }
 //-->
 </script>
@@ -48,50 +64,18 @@ function sync_options(element)
 <form action="myroutes_search.php" method="post" enctype="multipart/form-data" name="optionsform" dir="ltr">
 <input type="hidden" name="routeid" value="{routeid}"/>
 <input type="hidden" name="distance" value="{distance}"/>
-
-	<input type="hidden" name="f_inactive" value="1" />
-	<input type="hidden" name="f_ignored" value="1" />
-	<input type="hidden" name="f_userfound" value="1" />
-	<input type="hidden" name="f_userowner" value="1" />
-
-	<input type="hidden" name="cachetype" value="111111110" />
-	<input type="hidden" name="cache_attribs" value="" />
-	<input type="hidden" name="cache_attribs_not" value="" />
-
-	<input type="hidden" name="cachesize_1" value="1" />
-	<input type="hidden" name="cachesize_2" value="1" />
-	<input type="hidden" name="cachesize_3" value="1" />
-	<input type="hidden" name="cachesize_4" value="1" />
-	<input type="hidden" name="cachesize_5" value="1" />
-	<input type="hidden" name="cachesize_6" value="1" />
-	<input type="hidden" name="cachesize_7" value="1" />
-	
-	<input type="hidden" name="cachevote_1" value="" />
-	<input type="hidden" name="cachevote_2" value="" />
-	<input type="hidden" name="cachenovote" value="1" />
-	
-	<input type="hidden" name="cachedifficulty_1" value="" />
-	<input type="hidden" name="cachedifficulty_2" value="" />
-	<input type="hidden" name="cacheterrain_1" value="" />
-	<input type="hidden" name="cacheterrain_2" value="" />
-	<input type="hidden" name="cacherating" value="0" />
-	<input type="hidden" name="cachename" value="%"  />
-
-
-
 <div class="searchdiv">
 
-<p class="content-title-noshade-size3">Opcje wyszukiwania</p>
+<p class="content-title-noshade-size3">{{search_options}}</p>
 <div class="searchdiv">
 	<table class="table">
 		<tr>
-
-			<td>Hide following caches:</td>
-			<td colspan="2">
-				<input type="checkbox" name="f_userowner" value="1" id="l_userowner" class="checkbox" onclick="javascript:sync_options(this)"  /> <label for="l_userowner">My owned</label>&nbsp;&nbsp;
-				<input type="checkbox" name="f_userfound" value="1" id="l_userfound" class="checkbox" onclick="javascript:sync_options(this)"  /> <label for="l_userfound">My finds</label>&nbsp;&nbsp;
-				<input type="checkbox" name="f_ignored" value="1" id="l_ignored" class="checkbox" onclick="javascript:sync_options(this)"  checked="checked" > <label for="l_ignored">My ignored</label>&nbsp;&nbsp;
-				<input type="checkbox" name="f_inactive" value="1" id="l_inactive" class="checkbox" onclick="javascript:sync_options(this)"  checked="checked" > <label for="l_inactive">Inactive</label>
+			<td class="content-title-noshade">{{omit_caches}}:</td>
+			<td class="content-title-noshade" colspan="2">
+				<input type="checkbox" name="f_inactive" value="1" id="l_inactive" class="checkbox" onclick="javascript:sync_options(this)" {f_inactive_checked} /> <label for="l_inactive">{{not_active}}</label>
+				<input type="checkbox" name="f_ignored" value="1" id="l_ignored" class="checkbox" onclick="javascript:sync_options(this)" {f_ignored_disabled} /> <label for="l_ignored">{{ignored}}</label>
+				<input type="checkbox" name="f_userfound" value="1" id="l_userfound" class="checkbox" onclick="javascript:sync_options(this)" {f_userfound_disabled} /> <label for="l_userfound">{{founds}}</label>&nbsp;&nbsp;
+				<input type="checkbox" name="f_userowner" value="1" id="l_userowner" class="checkbox" onclick="javascript:sync_options(this)" {f_userowner_disabled} /> <label for="l_userowner">{{of_owner}}</label>&nbsp;&nbsp;
 			</td>
 		</tr>
 	</table>
@@ -99,27 +83,27 @@ function sync_options(element)
 <div class="searchdiv">
 	<table class="table">
 		<tr>
-			<td valign="top">Cachetype:</td>
+			<td valign="top">{{cache_type}}:</td>
 			<td>
 
 				<table class="table">
 					<tr>
-						<td><input type="checkbox" id="cachetype2" name="cachetype2" value="2" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype2">Traditional Cache</label></td>
-						<td><input type="checkbox" id="cachetype3" name="cachetype3" value="3" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype3">Multi cache</label></td>
-						<td><input type="checkbox" id="cachetype5" name="cachetype5" value="5" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype5">Webcam Cache</label></td>
-						<td><input type="checkbox" id="cachetype6" name="cachetype6" value="6" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype6">Event Cache</label></td>
+						<td><input type="checkbox" id="cachetype2" name="cachetype2" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype2">Traditional Cache</label></td>
+						<td><input type="checkbox" id="cachetype3" name="cachetype3" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype3">Multi cache</label></td>
+						<td><input type="checkbox" id="cachetype5" name="cachetype5" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype5">Webcam Cache</label></td>
+						<td><input type="checkbox" id="cachetype6" name="cachetype6" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype6">Wydarzenie</label></td>
 
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="cachetype7" name="cachetype7" value="7" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype7">Quiz cache</label></td>
-						<td><input type="checkbox" id="cachetype8" name="cachetype8" value="8" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype8">Math/Physics Cache</label></td>
-						<td><input type="checkbox" id="cachetype9" name="cachetype9" value="9" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype9">Moving Cache</label></td>
-						<td><input type="checkbox" id="cachetype10" name="cachetype10" value="10" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype10">Drive-in Cache</label></td>
+						<td><input type="checkbox" id="cachetype7" name="cachetype7" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype7">Quiz</label></td>
+						<td><input type="checkbox" id="cachetype8" name="cachetype8" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype8">Mobilna</label></td>
+						<td><input type="checkbox" id="cachetype9" name="cachetype9" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype9">PodCast</label></td>
+						<td><input type="checkbox" id="cachetype10" name="cachetype10" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype10">Own Cache</label></td>
 
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="cachetype4" name="cachetype4" value="4" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype4">Virtual Cache</label></td>
-						<td><input type="checkbox" id="cachetype1" name="cachetype1" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype1">unknown cache type</label></td>
+						<td><input type="checkbox" id="cachetype4" name="cachetype4" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype4">Wirtualna</label></td>
+						<td><input type="checkbox" id="cachetype1" name="cachetype1" value="1" onclick="javascript:sync_options(this)" class="checkbox"  checked="checked" /> <label for="cachetype1">Nietypowa</label></td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 					</tr>
@@ -132,18 +116,18 @@ function sync_options(element)
 <div class="searchdiv">
 	<table class="table">
 		<tr>
-			<td valign="top">Cachesize</td>
+			<td valign="top">{{cache_size}}:</td>
 
 			<td>
 				<table class="table">
 					<tr>
-						<td>				<input type="checkbox" name="cachesize_2" value="1" id="l_cachesize_2" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_2">Mikro</label>
-
-<input type="checkbox" name="cachesize_3" value="1" id="l_cachesize_3" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_3">Mała</label>
-<input type="checkbox" name="cachesize_4" value="1" id="l_cachesize_4" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_4">Normalna</label>
-<input type="checkbox" name="cachesize_5" value="1" id="l_cachesize_5" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_5">Duża</label>
-<input type="checkbox" name="cachesize_6" value="1" id="l_cachesize_6" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_6">Bardzo duża</label>
-<input type="checkbox" name="cachesize_7" value="1" id="l_cachesize_7" class="checkbox" onclick="javascript:sync_options(this)" checked="checked" /><label for="l_cachesize_7">Bez pojemnika</label>
+						<td>				
+<input type="checkbox" name="cachesize_2" value="1" id="l_cachesize_2" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_2} /><label for="l_cachesize_2">Mikro</label>
+<input type="checkbox" name="cachesize_3" value="1" id="l_cachesize_3" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_3} /><label for="l_cachesize_3">Mała</label>
+<input type="checkbox" name="cachesize_4" value="1" id="l_cachesize_4" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_4} /><label for="l_cachesize_4">Normalna</label>
+<input type="checkbox" name="cachesize_5" value="1" id="l_cachesize_5" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_5} /><label for="l_cachesize_5">Duża</label>
+<input type="checkbox" name="cachesize_6" value="1" id="l_cachesize_6" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_6} /><label for="l_cachesize_6">Bardzo duża</label>
+<input type="checkbox" name="cachesize_7" value="1" id="l_cachesize_7" class="checkbox" onclick="javascript:sync_options(this)" {cachesize_7} /><label for="l_cachesize_7">Bez pojemnika</label>
 </td>
 
 						<td>&nbsp;</td>
@@ -156,106 +140,93 @@ function sync_options(element)
 <div class="searchdiv">
 	<table class="table">
 		<tr>
-
-			<td valign="top" class="content-title-noshade">Trudność zadań:</td>
+			<td valign="top" class="content-title-noshade">{{task_difficulty}}:</td>
 			<td class="content-title-noshade">
-				od <select name="cachedifficulty_1" class="input40" onchange="javascript:sync_options(this)">
+				{{from}} <select name="cachedifficulty_1" class="input40" onchange="javascript:sync_options(this)">
 					<option value="1" selected="selected">1</option>
 					<option value="1.5">1.5</option>
 					<option value="2">2</option>
-
 					<option value="2.5">2.5</option>
 					<option value="3">3</option>
 					<option value="3.5">3.5</option>
 					<option value="4">4</option>
 					<option value="4.5">4.5</option>
 					<option value="5">5</option>
-
 				</select>
-				do <select name="cachedifficulty_2" class="input40" onchange="javascript:sync_options(this)">
+				{{to}} <select name="cachedifficulty_2" class="input40" onchange="javascript:sync_options(this)">
 					<option value="1">1</option>
 					<option value="1.5">1.5</option>
 					<option value="2">2</option>
 					<option value="2.5">2.5</option>
-
 					<option value="3">3</option>
 					<option value="3.5">3.5</option>
 					<option value="4">4</option>
 					<option value="4.5">4.5</option>
 					<option value="5" selected="selected">5</option>
 				</select>
-
 			</td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td valign="top" class="content-title-noshade">Trudność terenu:</td>
+			<td valign="top" class="content-title-noshade">{{terrain_difficulty}}:</td>
 			<td class="content-title-noshade">
-				od <select name="cacheterrain_1" class="input40" onchange="javascript:sync_options(this)">
+				{{from}} <select name="cacheterrain_1" class="input40" onchange="javascript:sync_options(this)">
 					<option value="1" selected="selected">1</option>
-
 					<option value="1.5">1.5</option>
 					<option value="2">2</option>
 					<option value="2.5">2.5</option>
 					<option value="3">3</option>
 					<option value="3.5">3.5</option>
 					<option value="4">4</option>
-
 					<option value="4.5">4.5</option>
 					<option value="5">5</option>
 				</select>
-				do <select name="cacheterrain_2" class="input40" onchange="javascript:sync_options(this)">
+				{{to}} <select name="cacheterrain_2" class="input40" onchange="javascript:sync_options(this)">
 					<option value="1">1</option>
 					<option value="1.5">1.5</option>
-
 					<option value="2">2</option>
 					<option value="2.5">2.5</option>
 					<option value="3">3</option>
 					<option value="3.5">3.5</option>
 					<option value="4">4</option>
 					<option value="4.5">4.5</option>
-
 					<option value="5" selected="selected">5</option>
 				</select>
 			</td>
-		</tr>
-
+		</tr>	
 	</table>
 </div>
 
 <div class="searchdiv">
 	<table class="table">
-
-			<td valign="top" class="content-title-noshade">Ocena:</td>
+			<tr>
+			<td valign="top" class="content-title-noshade">{{score}}:</td>
 			<td class="content-title-noshade">
-
-				od <select name="cachevote_1" onchange="javascript:sync_options(this)">
-	                <option value="-3">słaba</option>
-	                <option value="0.5">poniżej przeciętnej</option>
-	                <option value="1.2">normalna</option>
-	                <option value="2">dobra</option>
-	                <option value="2.5">znakomita</option>
-
+				{{from}} <select name="cachevote_1" onchange="javascript:sync_options(this)">
+	                <option value="-3">{{rating_poor}}</option>
+	                <option value="0.5">{{rating_mediocre}}</option>
+	                <option value="1.2">{{rating_avarage}}</option>
+	                <option value="2">{{rating_good}}</option>
+	                <option value="2.5">{{rating_excellent}}</option>
 				</select>
-				do <select name="cachevote_2" onchange="javascript:sync_options(this)">
-	                <option value="0.499">słaba</option>
-	                <option value="1.199">poniżej przeciętnej</option>
-	                <option value="1.999">normalna</option>
-	                <option value="2.499">dobra</option>
-
-	                <option value="3.000" selected="selected">znakomita</option>
+				{{to}} <select name="cachevote_2" onchange="javascript:sync_options(this)">
+	                <option value="0.499">{{rating_poor}}</option>
+	                <option value="1.199">{{rating_mediocre}}</option>
+	                <option value="1.999">{{rating_avarage}}</option>
+	                <option value="2.499">{{rating_good}}</option>
+	                <option value="3.000" selected="selected">{{rating_excellent}}</option>
 				</select>
-				<input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/><label for="l_cachenovote">Uwzględnij skrzynki bez oceny</label>
+				<input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/><label for="l_cachenovote">{{with_hidden_score}}</label>
 			</td>
 		</tr>
 				<tr><td class="buffer" colspan="3"></td></tr>
 		<tr>
-			<td class="content-title-noshade">Rekomendacje:</td>
+			<td class="content-title-noshade">{{search_recommendations}}:</td>
 
 			<td class="content-title-noshade" colspan="2">
-				<input type="radio" name="cache_rec" value="0" tabindex="0" id="l_all_caches" class="radio" onclick="javascript:sync_options(this)"  checked="checked" /> <label for="l_all_caches">wszystkie skrzynki</label>&nbsp;
-				<input type="radio" name="cache_rec" value="1" tabindex="1" id="l_recommended_caches" class="radio" onclick="javascript:sync_options(this)"  /> <label for="l_recommended_caches">minimalna ilość rekomendacji: </label>&nbsp;
-				<input type="text" name="cache_min_rec" value="0" maxlength="3" class="input50" onchange="javascript:sync_options(this)"  disabled="disabled" />
+				<input type="radio" name="cache_rec" value="0" tabindex="0" id="l_all_caches" class="radio" onclick="javascript:sync_options(this)" {all_caches_checked} /> <label for="l_all_caches">{{search_all_caches}}</label>&nbsp;
+				<input type="radio" name="cache_rec" value="1" tabindex="1" id="l_recommended_caches" class="radio" onclick="javascript:sync_options(this)" {recommended_caches_checked} /> <label for="l_recommended_caches">{{search_recommended_caches}}</label>&nbsp;
+				<input type="text" name="cache_min_rec" value="{cache_min_rec}" maxlength="3" class="input50" onchange="javascript:sync_options(this)" {min_rec_caches_disabled} />
 			</td>
 		</tr>
 
