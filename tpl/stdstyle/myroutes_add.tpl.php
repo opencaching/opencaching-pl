@@ -14,13 +14,23 @@
 	function checkForm()
 	{
 
-		if(document.newpic_form.file.value == "")
+			if(document.myroute_form.name.value == "")
 		{
-			alert("Proszę podać nazwę pliku");
+			alert("{{route_name_info}}");
+			return false;
+		}
+				if(document.myroute_form.radius.value < 0.5 ||document.myroute_form.radius.value > 5 )
+		{
+			alert("{{radius_info}}");
+			return false;
+		}
+		if(document.myroute_form.file.value == "")
+		{
+			alert("{{file_name_info}}");
 			return false;
 		}
 
-		return true;
+		return true; 
 	}
 	//-->
 </script>
@@ -28,7 +38,7 @@
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{add_new_route}}</div>
 	
-<form action="myroutes_add.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
+<form action="myroutes_add.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" >
 <input type="hidden" name="MAX_FILE_SIZE" value="51200" />
 <div class="searchdiv">
 <table class="content">
@@ -42,18 +52,18 @@
 </tr>
 <tr>
 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_radius}} (km):</span></td>
-<td width='75%'><input type='text' name='radius' size='5' value=''></td>
+<td width='75%'><input type='text' name='radius' size='5' value=''>&nbsp;&nbsp;<span class="notice">{{radius_info}}</span></td>
 </tr>
 
 	<tr>
 		<td valign="top"><span style="font-weight:bold;">{{file_name}} KML:</span></td>
-		<td><input class="input200" name="file" type="file" /> </td>
+		<td><input class="input200" name="file" type="file" />&nbsp;&nbsp;<span class="notice">max 50 kB</span> </td>
 	</tr>
 <tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td valign="top" align="left" colspan="2">
 			<button type="submit" name="back" value="back" style="font-size:12px;width:160px"><b>{{cancel}}</b></button>&nbsp;&nbsp;
-			<button type="submit" name="submitform" value="submit" style="font-size:12px;width:160px"><b>{{add_new_route}}</b></button>
+			<button type="submit" name="submitform" value="submit" onclick="return checkForm();" style="font-size:12px;width:160px"><b>{{add_new_route}}</b></button>
 		<br /><br /></td>
 	</tr>
 

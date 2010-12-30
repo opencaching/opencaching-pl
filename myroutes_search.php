@@ -123,11 +123,11 @@
 			$options['cachevote_2'] = isset($_POST['cachevote_2']) ? $_POST['cachevote_2'] : '';
 			$options['cachenovote'] = isset($_POST['cachenovote']) ? $_POST['cachenovote'] : '1';
 			
-			$options['cachedifficulty_1'] = isset($_POST['cachedifficulty_1']) ? $_POST['cachedifficulty_1'] : '';
-			$options['cachedifficulty_2'] = isset($_POST['cachedifficulty_2']) ? $_POST['cachedifficulty_2'] : '';
+			$options['cachedifficulty_1'] = isset($_POST['cachedifficulty_1']) ? $_POST['cachedifficulty_1'] : '1';
+			$options['cachedifficulty_2'] = isset($_POST['cachedifficulty_2']) ? $_POST['cachedifficulty_2'] : '5';
 
-			$options['cacheterrain_1'] = isset($_POST['cacheterrain_1']) ? $_POST['cacheterrain_1'] : '';
-			$options['cacheterrain_2'] = isset($_POST['cacheterrain_2']) ? $_POST['cacheterrain_2'] : '';
+			$options['cacheterrain_1'] = isset($_POST['cacheterrain_1']) ? $_POST['cacheterrain_1'] : '1';
+			$options['cacheterrain_2'] = isset($_POST['cacheterrain_2']) ? $_POST['cacheterrain_2'] : '5';
 			
 			$options['cacherating'] = isset($_POST['cacherating']) ? $_POST['cacherating'] : '0';	
 				
@@ -160,6 +160,36 @@
 		tpl_set_var('cache_min_rec', ($options['cacherating'] > 0) ? $options['cacherating'] : 0);
 		tpl_set_var('min_rec_caches_disabled', ($options['cacherating'] == 0) ? ' disabled="disabled"' : '');
 	}
+	
+	if (isset($options['cachedifficulty_1']))
+	{	$cdf=$options['cachedifficulty_1']*2;
+	tpl_set_var('cdf'.$cdf.'',' selected="selected"');}
+	
+	if (isset($options['cachedifficulty_2']))
+	{	$cd=$options['cachedifficulty_2']*2;
+	tpl_set_var('cdt'.$cd.'',' selected="selected"');}
+
+	if (isset($options['cacheterrain_1']))
+	{	$cd=$options['cacheterrain_1']*2;
+	tpl_set_var('ctf'.$cd.'',' selected="selected"');}
+	
+	if (isset($options['cacheterrain_2']))
+	{	$cd=$options['cacheterrain_2']*2;
+	tpl_set_var('ctt'.$cd.'',' selected="selected"');}
+	
+	if (isset($options['cachevote_1']))
+	{	$cd=abs(round($options['cachevote_1']*2));
+	tpl_set_var('cvf'.$cd.'',' selected="selected"');}
+	
+	if (isset($options['cachevote_2']))
+	{	$cd=round($options['cachevote_2']*2);
+	tpl_set_var('cvt'.$cd.'',' selected="selected"');}
+	
+	if ($options['cachenovote']==1)
+	{
+	tpl_set_var('cachev', ' checked="checked"');} else {
+    tpl_set_var('cachev', '');}
+	
 	if (isset($options['cachetype1']))
 	{tpl_set_var('cachetype1',  ($options['cachetype1'] == 1) ? ' checked="checked"' : '');}
 	if (isset($options['cachetype2']))
@@ -196,7 +226,6 @@
 		if (isset($options['cachesize_7']))
 	{tpl_set_var('cachesize_7',  ($options['cachesize_7'] == 1) ? ' checked="checked"' : '');}
 
-	
 
 			
 				// SQL additional options

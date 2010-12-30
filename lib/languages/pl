@@ -814,9 +814,12 @@ show_more Pokaż więcej
 search_options Opcje wyszukiwania
 myroutes Moje trasy
 add_new_route Dodaj nową trase
+radius_info Promień powinien być w zakresie od 0.5 km do 5 km
 edit_route Edycja trasy
 route_desc Opis trasy
 route_name Nazwa trasy
+route_name_info Proszę podać nazwę trasy
+file_name_info Proszę podać nazwę pliku KML
 no_routes Lista tras jest pusta
 radius Promień
 see_desc_myroute Zobacz opis "Moje trasy"

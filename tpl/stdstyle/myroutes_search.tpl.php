@@ -154,27 +154,27 @@ function sync_options(element)
 		<tr>
 			<td valign="top" class="content-title-noshade">{{task_difficulty}}:</td>
 			<td class="content-title-noshade">
-				{{from}} <select name="cachedifficulty_1" class="input40" onchange="javascript:sync_options(this)">
-					<option value="1" selected="selected">1</option>
-					<option value="1.5">1.5</option>
-					<option value="2">2</option>
-					<option value="2.5">2.5</option>
-					<option value="3">3</option>
-					<option value="3.5">3.5</option>
-					<option value="4">4</option>
-					<option value="4.5">4.5</option>
-					<option value="5">5</option>
+				{{from}} <select name="cachedifficulty_1" onchange="javascript:sync_options(this)">
+					<option value="1" {cdf2}>1</option>
+					<option value="1.5" {cdf3}>1.5</option>
+					<option value="2" {cdf4}>2</option>
+					<option value="2.5" {cdf5}>2.5</option>
+					<option value="3" {cdf6}>3</option>
+					<option value="3.5" {cdf7}>3.5</option>
+					<option value="4" {cadf8}>4</option>
+					<option value="4.5" {cdf9}>4.5</option>
+					<option value="5" {cdf10}>5</option>
 				</select>
-				{{to}} <select name="cachedifficulty_2" class="input40" onchange="javascript:sync_options(this)">
-					<option value="1">1</option>
-					<option value="1.5">1.5</option>
-					<option value="2">2</option>
-					<option value="2.5">2.5</option>
-					<option value="3">3</option>
-					<option value="3.5">3.5</option>
-					<option value="4">4</option>
-					<option value="4.5">4.5</option>
-					<option value="5" selected="selected">5</option>
+				{{to}} <select name="cachedifficulty_2"  onchange="javascript:sync_options(this)">
+					<option value="1" {cdt2}>1</option>
+					<option value="1.5" {cdt3}>1.5</option>
+					<option value="2" {cdt4}>2</option>
+					<option value="2.5" {cdt5}>2.5</option>
+					<option value="3" {cdt6}>3</option>
+					<option value="3.5" {cdt7}>3.5</option>
+					<option value="4" {cdt8}>4</option>
+					<option value="4.5"{cdt9}>4.5</option>
+					<option value="5" {cdt10}>5</option>
 				</select>
 			</td>
 		</tr>
@@ -182,27 +182,27 @@ function sync_options(element)
 		<tr>
 			<td valign="top" class="content-title-noshade">{{terrain_difficulty}}:</td>
 			<td class="content-title-noshade">
-				{{from}} <select name="cacheterrain_1" class="input40" onchange="javascript:sync_options(this)">
-					<option value="1" selected="selected">1</option>
-					<option value="1.5">1.5</option>
-					<option value="2">2</option>
-					<option value="2.5">2.5</option>
-					<option value="3">3</option>
-					<option value="3.5">3.5</option>
-					<option value="4">4</option>
-					<option value="4.5">4.5</option>
-					<option value="5">5</option>
+				{{from}} <select name="cacheterrain_1"  onchange="javascript:sync_options(this)">
+					<option value="1" {ctf2}>1</option>
+					<option value="1.5" {ctf3}>1.5</option>
+					<option value="2" {ctf4}>2</option>
+					<option value="2.5" {ctf5}>2.5</option>
+					<option value="3" {ctf6}>3</option>
+					<option value="3.5" {ctf7}>3.5</option>
+					<option value="4" {ctf8}>4</option>
+					<option value="4.5" {ctf9}>4.5</option>
+					<option value="5" {ctf10}>5</option>
 				</select>
-				{{to}} <select name="cacheterrain_2" class="input40" onchange="javascript:sync_options(this)">
-					<option value="1">1</option>
-					<option value="1.5">1.5</option>
-					<option value="2">2</option>
-					<option value="2.5">2.5</option>
-					<option value="3">3</option>
-					<option value="3.5">3.5</option>
-					<option value="4">4</option>
-					<option value="4.5">4.5</option>
-					<option value="5" selected="selected">5</option>
+				{{to}} <select name="cacheterrain_2" onchange="javascript:sync_options(this)">
+					<option value="1" {ctt2}>1</option>
+					<option value="1.5" {ctt3}>1.5</option>
+					<option value="2" {ctt4}>2</option>
+					<option value="2.5" {ctt5}>2.5</option>
+					<option value="3" {ctt6}>3</option>
+					<option value="3.5" {ctt7}>3.5</option>
+					<option value="4" {ctt8}>4</option>
+					<option value="4.5" {ctt9}>4.5</option>
+					<option value="5" {ctt10}>5</option>
 				</select>
 			</td>
 		</tr>	
@@ -215,20 +215,20 @@ function sync_options(element)
 			<td valign="top" class="content-title-noshade">{{score}}:</td>
 			<td class="content-title-noshade">
 				{{from}} <select name="cachevote_1" onchange="javascript:sync_options(this)">
-	                <option value="-3">{{rating_poor}}</option>
-	                <option value="0.5">{{rating_mediocre}}</option>
-	                <option value="1.2">{{rating_avarage}}</option>
-	                <option value="2">{{rating_good}}</option>
-	                <option value="2.5">{{rating_excellent}}</option>
+	                <option value="-3" {cvf6}>{{rating_poor}}</option>
+	                <option value="0.5" {cvf1}>{{rating_mediocre}}</option>
+	                <option value="1.2" {cvf2}>{{rating_avarage}}</option>
+	                <option value="2" {cvf4}>{{rating_good}}</option>
+	                <option value="2.5" {cvf5}>{{rating_excellent}}</option>
 				</select>
 				{{to}} <select name="cachevote_2" onchange="javascript:sync_options(this)">
-	                <option value="0.499">{{rating_poor}}</option>
-	                <option value="1.199">{{rating_mediocre}}</option>
-	                <option value="1.999">{{rating_avarage}}</option>
-	                <option value="2.499">{{rating_good}}</option>
-	                <option value="3.000" selected="selected">{{rating_excellent}}</option>
+	                <option value="0.499" {cvt1}>{{rating_poor}}</option>
+	                <option value="1.199" {cvt2}>{{rating_mediocre}}</option>
+	                <option value="1.999" {cvt4}>{{rating_avarage}}</option>
+	                <option value="2.499" {cvt5}>{{rating_good}}</option>
+	                <option value="3.000" {cvt6}>{{rating_excellent}}</option>
 				</select>
-				<input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" checked="checked"/><label for="l_cachenovote">{{with_hidden_score}}</label>
+				<input type="checkbox" name="cachenovote" value="1" id="l_cachenovote" class="checkbox" onclick="javascript:sync_options(this)" {cachev}/><label for="l_cachenovote">{{with_hidden_score}}</label>
 			</td>
 		</tr>
 				<tr><td class="buffer" colspan="3"></td></tr>

@@ -14,12 +14,16 @@
 	function checkForm()
 	{
 
-		if(document.newpic_form.file.value == "")
+		if(document.myroute_form.name.value == "")
 		{
-			alert("Proszę podać nazwę pliku");
+			alert("{{route_name_info}}");
 			return false;
 		}
-
+		if(document.myroute_form.radius.value < 0.5 ||document.myroute_form.radius.value > 5 )
+		{
+			alert("{{radius_info}}");
+			return false;
+		}
 		return true;
 	}
 	//-->
@@ -42,7 +46,7 @@
 </tr>
 <tr>
 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_radius}} (km):</span></td>
-<td width='75%'><input type='text' name='radius' size='5' value='{radius}'></td>
+<td width='75%'><input type='text' name='radius' size='5' value='{radius}'>&nbsp;&nbsp;<span class="notice">{{radius_info}}</span></td>
 </tr>
 
 <tr><td class="buffer" colspan="2"></td></tr>
