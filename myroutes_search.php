@@ -44,13 +44,15 @@
 			$distance = $_POST['distance'];}
 			
 			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes` WHERE `route_id`='&1'", $route_id);
-			$record = sql_fetch_array($route_rs);
-		//	$options = unserialize($record['options']);			
+			$record = sql_fetch_array($route_rs);	
 			$distance=$record['radius'];
 			tpl_set_var('route_name',$record['name']);
 			tpl_set_var('distance',$record['radius']);
 			tpl_set_var('routeid',$route_id);
-			
+			$rsc = sql("SELECT  length(`options`) `optsize`, `options` FROM `routes` WHERE `route_id`='&1'", $route_id);		    
+			$rec = sql_fetch_array($rsc);
+			$optsize= $rec['optsize'];	
+		
 		
 		if (isset($_POST['submit']))
 		{			
@@ -90,13 +92,9 @@
 			
 			$options['cacherating'] = isset($_POST['cacherating']) ? $_POST['cacherating'] : '';
 	
-		} else {
-			$rsc = sql("SELECT  length(`options`) `optsize`, `options` FROM `routes` WHERE `route_id`='&1'", $route_id);		    
-			$rec = sql_fetch_array($rsc);
-			$optsize= $rec['optsize'];					
-			if ($optsize=!0) {
+		} elseif ($optsize!="0") {
 				$options= unserialize($rec['options']);	
-			} else {
+		} else {
 			$options['f_userowner'] = isset($_POST['f_userowner']) ? $_POST['f_userowner'] : '1';
 			$options['f_userfound'] = isset($_POST['f_userfound']) ? $_POST['f_userfound'] : '1';
 			$options['f_inactive'] = isset($_POST['f_inactive']) ? $_POST['f_inactive'] : '1';
@@ -132,11 +130,8 @@
 			$options['cacheterrain_2'] = isset($_POST['cacheterrain_2']) ? $_POST['cacheterrain_2'] : '';
 			
 			$options['cacherating'] = isset($_POST['cacherating']) ? $_POST['cacherating'] : '0';	
-				}
+				
 			}
-
-			// store options in DB
-			sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($options), $route_id);
 
 
 	
@@ -157,17 +152,35 @@
 	if ($usr['userid'] != 0)
 		tpl_set_var('f_userowner_disabled', ($options['f_userowner'] == 1) ? ' checked="checked"' : '');
 	tpl_set_var('hidopt_userowner', ($options['f_userowner'] == 1) ? '1' : '0');
-
-	tpl_set_var('f_watched_disabled', ($usr['userid'] == 0) ? ' disabled="disabled"' : '');
-	if ($usr['userid'] != 0)
-		tpl_set_var('f_watched_disabled', ($options['f_watched'] == 1) ? ' checked="checked"' : '');
-	tpl_set_var('hidopt_watched', ($options['f_watched'] == 1) ? '1' : '0');			
+	
+	
 	if (isset($options['cacherating'])) {
 		tpl_set_var('all_caches_checked', ($options['cacherating'] == 0) ? ' checked="checked"' : '');
 		tpl_set_var('recommended_caches_checked', ($options['cacherating'] > 0) ? ' checked="checked"' : '');
 		tpl_set_var('cache_min_rec', ($options['cacherating'] > 0) ? $options['cacherating'] : 0);
 		tpl_set_var('min_rec_caches_disabled', ($options['cacherating'] == 0) ? ' disabled="disabled"' : '');
 	}
+	if (isset($options['cachetype1']))
+	{tpl_set_var('cachetype1',  ($options['cachetype1'] == 1) ? ' checked="checked"' : '');}
+	if (isset($options['cachetype2']))
+	{tpl_set_var('cachetype2',  ($options['cachetype2'] == 1) ? ' checked="checked"' : '');}
+		if (isset($options['cachetype3']))
+	{tpl_set_var('cachetype3',  ($options['cachetype3'] == 1) ? ' checked="checked"' : '');}
+		if (isset($options['cachetype4']))
+	{tpl_set_var('cachetype4',  ($options['cachetype4'] == 1) ? ' checked="checked"' : '');}
+		if (isset($options['cachetype5']))
+	{tpl_set_var('cachetype5',  ($options['cachetype5'] == 1) ? ' checked="checked"' : '');}
+		if (isset($options['cachetype6']))
+	{tpl_set_var('cachetype6',  ($options['cachetype6'] == 1) ? ' checked="checked"' : '');}
+		if (isset($options['cachetype7']))
+	{tpl_set_var('cachetype7',  ($options['cachetype7'] == 1) ? ' checked="checked"' : '');}
+		if (isset($options['cachetype8']))
+	{tpl_set_var('cachetype8',  ($options['cachetype8'] == 1) ? ' checked="checked"' : '');}
+			if (isset($options['cachetype9']))
+	{tpl_set_var('cachetype9',  ($options['cachetype9'] == 1) ? ' checked="checked"' : '');}
+			if (isset($options['cachetype10']))
+	{tpl_set_var('cachetype10',  ($options['cachetype10'] == 1) ? ' checked="checked"' : '');}
+	
 	if (isset($options['cachesize_1']))
 	{tpl_set_var('cachesize_1',  ($options['cachesize_1'] == 1) ? ' checked="checked"' : '');}
 	if (isset($options['cachesize_2']))
@@ -274,13 +287,16 @@
 				}
 				
 					// show only published caches
+					//	HIDDEN_FOR_APPROVAL
 					$sql_where[] = '`caches`.`status` != 4';
-					$sql_where[] = '`caches`.`status` != 5';
+					//  NOT_YET_AVAILABLE
+					$sql_where[] = '`caches`.`status` != 5';					
+					//	 BLOCKED
 					$sql_where[] = '`caches`.`status` != 6';
 					// search byname
 					$sql_select[] = '`caches`.`cache_id` `cache_id`';
-				$sql_from[] = '`caches`';
-//					$sql_where[] = '`caches`.`name` LIKE \'%' . sql_escape($options['cachename']) . '%\'';				
+					
+					$sql_from[] = '`caches`';	
 					//do the search
 					$sqlFilter = 'SELECT ' . implode(',', $sql_select) .
 						' FROM ' . implode(',', $sql_from) .
@@ -331,35 +347,34 @@
 //*************************************************************************
 // Returns information about a route based on $route_id.
 //*************************************************************************
-function route_info($route_id) {
-$query = "SELECT * FROM routes WHERE id=".stripslashes($route_id).";";
-$result = sql($query);
-if ($result) {
-$row = mysql_fetch_array($result,NULL);
-$info = $row;
-} else {
-return FALSE;
-}
-return $info;
-}
+	function route_info($route_id) {
+	$query = "SELECT * FROM routes WHERE id=".stripslashes($route_id).";";
+	$result = sql($query);
+	if ($result) {
+	$row = mysql_fetch_array($result,NULL);
+	$info = $row;
+	} else {
+		return FALSE;
+		}
+		return $info;
+		}
 
 /**
     * function cache_distances ($lat1, $lon1, $lat2, $lon2)
-    */
-function cache_distances($lat1, $lon1, $lat2, $lon2) {
-if ( ( $lon1 == $lon2 ) AND ( $lat1 == $lat2 ) ) {
-return(0);
-} else {
-$earth_radius = 6378;
-foreach(array("lat1","lon1","lat2","lon2") as $ordinate)
-$$ordinate = $$ordinate*(pi()/180);
-$dist = acos(cos($lat1)*cos($lon1)*cos($lat2)*cos($lon2) +
-cos($lat1)*sin($lon1)*cos($lat2)*sin($lon2) +
-sin($lat1)*sin($lat2)
-) * $earth_radius;
-return($dist);
-}
-}
+  */
+	function cache_distances($lat1, $lon1, $lat2, $lon2) {
+		if ( ( $lon1 == $lon2 ) AND ( $lat1 == $lat2 ) ) {
+		return(0);
+		} else {
+		$earth_radius = 6378;
+		foreach(array("lat1","lon1","lat2","lon2") as $ordinate)
+		$$ordinate = $$ordinate*(pi()/180);
+		$dist = acos(cos($lat1)*cos($lon1)*cos($lat2)*cos($lon2) +
+		cos($lat1)*sin($lon1)*cos($lat2)*sin($lon2) +
+		sin($lat1)*sin($lat2)) * $earth_radius;
+			return($dist);
+			}
+		}
 
 //*************************************************************************
 // Find all the caches that appear with $distance from each point in the defined $route_id.
@@ -369,47 +384,48 @@ $initial_cache_list = array();
 $inter_cache_list = array();
 $final_cache_list = array();
 
-// Get caches where within the minimum bounding box of the route
-// Actually, add the distance to the minimum bounding box
-// In Oz, 1 degree is around 110km (close enough)
-//$bounds = route_info($route_id);
-$smallestLat = sqlValue("SELECT `route_points`.`lat`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lat` ASC LIMIT 1", 0);
-$largestLat = sqlValue("SELECT `route_points`.`lat`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lat` DESC LIMIT 1 ", 0);
-$smallestLon = sqlValue("SELECT `route_points`.`lon`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lon` ASC LIMIT 1", 0);
-$largestLon = sqlValue("SELECT `route_points`.`lon`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lon` DESC LIMIT 1", 0);
+	// Get caches where within the minimum bounding box of the route
+	// Actually, add the distance to the minimum bounding box
+	//  1 degree is around 110km (close enough)
+	//$bounds = route_info($route_id);
+	$smallestLat = sqlValue("SELECT `route_points`.`lat`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lat` ASC LIMIT 1", 0);
+	$largestLat = sqlValue("SELECT `route_points`.`lat`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lat` DESC LIMIT 1 ", 0);
+	$smallestLon = sqlValue("SELECT `route_points`.`lon`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lon` ASC LIMIT 1", 0);
+	$largestLon = sqlValue("SELECT `route_points`.`lon`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lon` DESC LIMIT 1", 0);
 
-$bounds_min_lat = $smallestLat - $distance/110;
-$bounds_max_lat = $largestLat + $distance/110;
-$bounds_min_lon = $smallestLon - $distance/110;
-$bounds_max_lon = $largestLon + $distance/110;
-$query = "SELECT wp_oc waypoint, latitude lat, longitude lon "." FROM caches "."WHERE latitude>'$bounds_min_lat' ".
-"AND latitude<'$bounds_max_lat' "."AND longitude>'$bounds_min_lon' "."AND longitude<'$bounds_max_lon' "."AND status = '1';";
-$result=sql($query);
-if ($result AND $count=mysql_num_rows($result)) {
-for ( $i=0; $i<$count; $i++ ) {
-$row = mysql_fetch_array($result);
-$initial_cache_list[] =array("waypoint"=>$row['waypoint'],"lat"=>$row['lat'],"lon"=>$row['lon']);
-}
-$points = array();
-$query = "SELECT * FROM route_points WHERE route_id ='$route_id' ORDER BY point_nr;";
-$result = sql($query);
+	// 110 km is width of 1 deg
+	$bounds_min_lat = $smallestLat - $distance/110;
+	$bounds_max_lat = $largestLat + $distance/110;
+	$bounds_min_lon = $smallestLon - $distance/110;
+	$bounds_max_lon = $largestLon + $distance/110;
+	$query = "SELECT wp_oc waypoint, latitude lat, longitude lon "." FROM caches "."WHERE latitude>'$bounds_min_lat' ".
+	"AND latitude<'$bounds_max_lat' "."AND longitude>'$bounds_min_lon' "."AND longitude<'$bounds_max_lon' "."AND status = '1';";
+	$result=sql($query);
+	if ($result AND $count=mysql_num_rows($result)) {
+		for ( $i=0; $i<$count; $i++ ) {
+		$row = mysql_fetch_array($result);
+		$initial_cache_list[] =array("waypoint"=>$row['waypoint'],"lat"=>$row['lat'],"lon"=>$row['lon']);
+		}
+	$points = array();
+	$query = "SELECT * FROM route_points WHERE route_id ='$route_id' ORDER BY point_nr;";
+	$result = sql($query);
 	if ( $result AND $count=mysql_num_rows($result) ) {
 	for ( $i=0; $i<$count; $i++ ) {
 	$row = mysql_fetch_array($result);
 	$points[] = array("lat"=>$row["lat"],"lon"=>$row["lon"]);}
 	}
-foreach ($initial_cache_list as $list) {
-foreach ($points as $point) {
-$route_distance =cache_distances($list["lat"],$list["lon"],$point["lat"],$point["lon"]);
-if ( $route_distance <= $distance ) {
-if ( !$inter_cache_list[$list['waypoint']] ) {
-$final_cache_list[] = $list['waypoint'];
-$inter_cache_list[$list['waypoint']] = $list['waypoint'];
-break;}}}}}	
-return $final_cache_list;
-}
+	foreach ($initial_cache_list as $list) {
+		foreach ($points as $point) {
+		$route_distance =cache_distances($list["lat"],$list["lon"],$point["lat"],$point["lon"]);
+		if ( $route_distance <= $distance ) {
+		if ( !$inter_cache_list[$list['waypoint']] ) {
+		$final_cache_list[] = $list['waypoint'];
+		$inter_cache_list[$list['waypoint']] = $list['waypoint'];
+		break;}}}}}	
+		return $final_cache_list;
+	}
 // end of function		
-echo $sqlFilter;
+
 
 				if (isset($_POST['back_list']))
 				{	
@@ -424,6 +440,8 @@ echo $sqlFilter;
 			tpl_set_var('route_name',$record['name']);
 		
 $caches_list=caches_along_route($route_id, $distance);
+			// store options in DB
+sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($options), $route_id);
 
  $rs=sql("SELECT `caches`.`cache_id` `cacheid`, 
 							`user`.`user_id` `userid`, 
