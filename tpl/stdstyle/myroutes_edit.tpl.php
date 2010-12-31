@@ -34,6 +34,7 @@
 	
 <form action="myroutes_edit.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="routeid" value="{routeid}"/>
+<input type="hidden" name="MAX_FILE_SIZE" value="51200" />
 <div class="searchdiv">
 <table class="content">
 	<tr>
@@ -48,7 +49,10 @@
 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_radius}} (km):</span></td>
 <td width='75%'><input type='text' name='radius' size='5' value='{radius}'>&nbsp;&nbsp;<span class="notice">{{radius_info}}</span></td>
 </tr>
-
+	<tr>
+		<td valign="top"><span style="font-weight:bold;">{{file_name}} KML:</span></td>
+		<td><input class="input200" name="file" type="file" />&nbsp;&nbsp;<span class="notice">max 50 kB</span> </td>
+	</tr>
 <tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td valign="top" align="left" colspan="2">
