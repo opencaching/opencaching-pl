@@ -252,6 +252,34 @@
 					}
 				}
 
+	
+				if(isset($options['cache_attribs']) && count($options['cache_attribs']) > 0)
+				{
+					for($i=0; $i < count($options['cache_attribs']); $i++)
+					{
+						if($options['cache_attribs'][$i] == 99) // special password attribute case
+							$sql_where[] = '`caches`.`logpw` != ""';
+						else {
+							$sql_from[] = '`caches_attributes` `a' . ($options['cache_attribs'][$i]+0) . '`';
+							$sql_where[] = '`a' . ($options['cache_attribs'][$i]+0) . '`.`cache_id`=`caches`.`cache_id`';
+							$sql_where[] = '`a' . ($options['cache_attribs'][$i]+0) . '`.`attrib_id`=' . ($options['cache_attribs'][$i]+0);
+						}
+					}
+				}
+
+				if(isset($options['cache_attribs_not']) && count($options['cache_attribs_not']) > 0)
+				{
+					for($i=0; $i < count($options['cache_attribs_not']); $i++)
+					{
+						if($options['cache_attribs_not'][$i] == 99) // special password attribute case
+							$sql_where[] = '`caches`.`logpw` = ""';
+						else
+							$sql_where[] = 'NOT EXISTS (SELECT `caches_attributes`.`cache_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=`caches`.`cache_id` AND `caches_attributes`.`attrib_id`=\'' . sql_escape($options['cache_attribs_not'][$i]) . '\')';
+					}
+				}
+
+				
+				
 				$cachetype = array();
 				
 				if (isset($options['cachetype1']) && ($options['cachetype1'] == '1')) { $cachetype[] = '1'; }

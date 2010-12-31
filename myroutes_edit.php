@@ -146,7 +146,7 @@ if (!$error){
 				$firsty=$secy;
 				$firtsx=$secx;
 			}
-			$distance=round($distance,1);
+			$distance=round($distance*0.5,1);
 			sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$distance,$route_id);
 			}	
 				} //end update points
