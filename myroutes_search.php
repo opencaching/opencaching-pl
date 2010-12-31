@@ -19,6 +19,8 @@
 	require_once('./lib/cache_icon.inc.php');
 	require_once($rootpath . 'lib/caches.inc.php');
 	require_once($stylepath . '/lib/icons.inc.php');
+	global $content, $bUseZip, $sqldebug, $usr, $hide_coords;
+	set_time_limit(1800);
 	//Preprocessing
 	if ($error == false)
 	{
@@ -330,9 +332,73 @@
 					$sqlFilter = 'SELECT ' . implode(',', $sql_select) .
 						' FROM ' . implode(',', $sql_from) .
 						' WHERE ' . implode(' AND ', $sql_where);
+
+
+	function getPictures($cacheid, $picturescount)
+	{
+		global $dblink;
+		global $thumb_max_width;
+		global $thumb_max_height;
+
+		$sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY date_created';
+		
+
+		$rs = sql($sql);
+		while ($r = sql_fetch_array($rs))
+		{
+			$retval .= '&lt;img src="'.$r['url'].'"&gt;&lt;br&gt;'.cleanup_text($r['title']).'&lt;br&gt;';
+		}
+
+		mysql_free_result($rs);
+		return $retval;
+	}
 	
-			
-	        function cleanup_text($str)
+
+	function xmlentities($str)
+	{
+		$from[0] = '&'; $to[0] = '&amp;';
+		$from[1] = '<'; $to[1] = '&lt;';
+		$from[2] = '>'; $to[2] = '&gt;';
+		$from[3] = '"'; $to[3] = '&quot;';
+		$from[4] = '\''; $to[4] = '&apos;';
+		$from[5] = ']]>'; $to[5] = ']] >';
+
+		for ($i = 0; $i <= 4; $i++)
+			$str = str_replace($from[$i], $to[$i], $str);
+
+		return filterevilchars($str);
+	}	
+	function append_output($str)
+	{
+		global $content, $bUseZip, $sqldebug;
+		if ($sqldebug == true) return;
+		
+		if ($bUseZip == true)
+			$content .= $str;
+		else
+			echo $str;
+			}
+function PlConvert($source,$dest,$tekst)
+{
+    $source=strtoupper($source);
+    $dest=strtoupper($dest);
+    if($source==$dest) return $tekst;
+
+    $chars['POLSKAWY']    =array('a','c','e','l','n','o','s','z','z','A','C','E','L','N','O','S','Z','Z');
+    $chars['ISO-8859-2']  =array("\xB1","\xE6","\xEA","\xB3","\xF1","\xF3","\xB6","\xBC","\xBF","\xA1","\xC6","\xCA","\xA3","\xD1","\xD3","\xA6","\xAC","\xAF");
+    $chars['WINDOWS-1250']=array("\xB9","\xE6","\xEA","\xB3","\xF1","\xF3","\x9C","\x9F","\xBF","\xA5","\xC6","\xCA","\xA3","\xD1","\xD3","\x8C","\x8F","\xAF");
+    $chars['UTF-8']       =array('ą','ć','ę','ł','ń','ó','ś','ź','ż','Ą','Ć','Ę','Ł','Ń','Ó','Ś','Ź','Ż');
+    $chars['ENTITIES']    =array('ą','ć','ę','ł','ń','ó','ś','ź','ż','Ą','Ć','Ę','Ł','Ń','Ó','Ś','Ź','Ż');
+
+    if(!isset($chars[$source])) return false;
+    if(!isset($chars[$dest])) return false;
+    
+	$tekst = str_replace('a', 'a', $tekst);
+	$tekst = str_replace('é', 'e', $tekst);
+
+    return str_replace($chars[$source],$chars[$dest],$tekst);
+}	
+	function cleanup_text($str)
         {
           $str = strip_tags($str, "<li>");
 	      $from[] = '&nbsp;'; $to[] = ' ';
@@ -480,11 +546,11 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 							`user`.`username` `username`, 
 							`caches`.`date_created` `date_created`, 
 							`caches`.`date_hidden` `date`, 
-							`cache_type`.`icon_large` `icon_large`
+							`cache_type`.`icon_large` `icon_large`,
+							`caches`.`topratings` `topratings`
 					FROM `caches`,`user`, `cache_type` 
 					WHERE `caches`.`user_id`=`user`.`user_id` 
 						AND `cache_type`.`id`=`caches`.`type`
-						AND `caches`.`status` = 1 
 						AND `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') AND `caches`.`cache_id` IN (" . $sqlFilter . ")");	
 	
 	$ncaches=mysql_num_rows($rs);
@@ -495,10 +561,14 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 
 
 				$file_content .= '<tr>';
-				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';			
+				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';	
+				if ($r['topratings']!=0) {
+				$file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: green;">'.$r['topratings']. '</span></td>';
+				}else{
+				$file_content .= '<td style="width: 22px;">&nbsp;&nbsp;</td>';}				
 				$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
-				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-				$file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '">' .htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
+				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . ' target="_blank" ">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+				$file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . ' target="_blank"">' .htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 
 	$rs_log = sql("SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
@@ -524,8 +594,8 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 				$file_content .= '<b>'.$r_log['user_name'].'</b>:<br/>';
 				$data = cleanup_text(str_replace("\r\n", " ", $r_log['log_text']));
 				$file_content .= str_replace("\n", " ",$data);
-				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
-				$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip() target="_blank""><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
+				$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . 'target="_blank" ">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
 					}				
 			mysql_free_result($rs_log);
@@ -535,9 +605,454 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 	        tpl_set_var('file_content',$file_content);
 			$tplname = 'myroutes_result';		
 	} //end submit
+
+
+		if (isset($_POST['submit_gpx']))
+		{
+			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`='&1'", $route_id);
+			$record = sql_fetch_array($route_rs);	
+			$distance=$record['radius'];
+			tpl_set_var('route_name',$record['name']);
+	$gpxHead = 
+'<?xml version="1.0" encoding="utf-8"?>
+<gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" creator="www.opencaching.pl" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd" xmlns="http://www.topografix.com/GPX/1/0"> 
+	<name>Cache Listing Generated from Opencaching.pl</name>
+	<desc>Cache Listing Generated from Opencaching.pl {wpchildren}</desc>
+	<author>OpenCaching.PL</author>
+	<email>ocpl@opencaching.pl</email>
+	<url>http://www.opencaching.pl</url>
+	<urlname>Opencaching.pl - Geocaching w Polsce</urlname>
+	<time>{{time}}</time>
+	<keywords>cache, geocache</keywords>
+';
+	
+$gpxLine = '
+	<wpt lat="{lat}" lon="{lon}">
+		<time>{{time}}</time>
+		<name>{{waypoint}}</name>
+		<desc>{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
+		<url>http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</url>
+		<urlname>{cachename} by {owner}, {type_text}</urlname>
+		<sym>Geocache</sym>
+		<type>Geocache|{type}</type>
+		<groundspeak:cache id="{cacheid}" available="{available}" archived="{{archived}}" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0/1">
+			<groundspeak:name>{cachename}</groundspeak:name>
+			<groundspeak:placed_by>{owner}</groundspeak:placed_by>
+			<groundspeak:owner id="{owner_id}">{owner}</groundspeak:owner>
+			<groundspeak:type>{type}</groundspeak:type>
+			<groundspeak:container>{container}</groundspeak:container>
+			<groundspeak:difficulty>{difficulty}</groundspeak:difficulty>
+			<groundspeak:terrain>{terrain}</groundspeak:terrain>
+			<groundspeak:country>Polska</groundspeak:country>
+			<groundspeak:state>{region}</groundspeak:state>
+			<groundspeak:short_description html="False">{shortdesc}</groundspeak:short_description>
+			<groundspeak:long_description html="True">{desc}{rr_comment}&lt;br&gt;{{images}}</groundspeak:long_description>
+			<groundspeak:encoded_hints>{hints}</groundspeak:encoded_hints>
+			<groundspeak:logs>
+			{logs}
+			</groundspeak:logs>
+			<groundspeak:travelbugs>
+			{geokrety}
+			</groundspeak:travelbugs>
+		</groundspeak:cache>
+	</wpt>
+	{cache_waypoints}
+';
+
+
+$gpxLog = '
+				<groundspeak:log id="{id}">
+        			<groundspeak:date>{date}</groundspeak:date>
+					<groundspeak:type>{type}</groundspeak:type>
+					<groundspeak:finder id="{finder_id}">{username}</groundspeak:finder>
+					<groundspeak:text encoded="False">{{text}}</groundspeak:text>
+				</groundspeak:log>
+';
+
+$gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
+		<groundspeak:name>{geokret_name}</groundspeak:name> 
+		</groundspeak:travelbug> 
+		';
+		
+$gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
+	<time>{{time}}</time>
+	<name>{waypoint} {wp_stage}</name>
+    <cmt>{desc}</cmt>
+    <desc>{wp_type_name}</desc>
+    <url>http://opencaching.pl/viewcache.php?cacheid={cacheid}</url>
+    <urlname>{waypoint} {wp_stage}</urlname>
+    <sym>{wp_type}</sym>
+    <type>Waypoint|{wp_type}</type>
+    <gsak:wptExtension xmlns:gsak="http://www.gsak.net/xmlv1/5">
+	<gsak:Parent>{waypoint}</gsak:Parent>
+	<gsak:Code>{waypoint} {wp_stage}</gsak:Code>
+	<gsak:Child_Flag>false</gsak:Child_Flag>
+	<gsak:Child_ByGSAK>false</gsak:Child_ByGSAK>
+	</gsak:wptExtension>
+  </wpt>
+';
+
+	$gpxFoot = '</gpx>';
+
+	$gpxTimeFormat = 'Y-m-d\TH:i:s\Z';
+
+	$gpxAvailable[0] = 'False';	//OC: Unavailable
+	$gpxAvailable[1] = 'True';	//OC: Available
+	$gpxAvailable[2] = 'False';	//OC: Unavailable
+	$gpxAvailable[3] = 'False';	//OC: Archived
+	
+	$gpxArchived[0] = 'False';	//OC: Unavailable
+	$gpxArchived[1] = 'False';	//OC: Available
+	$gpxArchived[2] = 'False';	//OC: Unavailable
+	$gpxArchived[3] = 'True';	//OC: Archived
+
+	$gpxContainer[0] = 'Unknown';	//OC: Other
+	$gpxContainer[2] = 'Micro';		//OC: Micro
+	$gpxContainer[3] = 'Small';		//OC: Small
+	$gpxContainer[4] = 'Regular';	//OC: Regular
+	$gpxContainer[5] = 'Large';		//OC: Large
+	$gpxContainer[6] = 'Large';		//OC: Large
+	$gpxContainer[7] = 'Virtual';	//OC: Virtual
+
+	// known by gpx
+	$gpxType[1] = 'Unknown Cache'; 		//OC: Other;
+	$gpxType[2] = 'Traditional Cache'; 	//OC: Traditional
+	$gpxType[3] = 'Multi-cache'; 		//OC: Multi
+	$gpxType[4] = 'Virtual Cache';		//OC: Virtual
+	$gpxType[5] = 'Webcam Cache';		//OC: Webcam
+	$gpxType[6] = 'Event Cache';		//OC: Event
+	
+	$gpxType[7] = 'Unknown Cache';		//OC: Quiz
+	$gpxType[8] = 'Unknown Cache';		//OC: Moving
+	$gpxType[9] = 'Unknown Cache';		//OC: PodCache
+	$gpxType[10] = 'Unknown Cache';		//OC: Educache
+	$gpxType[11] = 'Unknown Cache';		//OC: Challenge cache
+	// other
+	//$gpxType[] = 'Unknown Cache';
+	//$gpxType[] = 'Earthcache';
+	//$gpxType[] = 'Cache In Trash Out Event';
+	//$gpxType[] = 'Letterbox Hybrid';
+	//$gpxType[] = 'Locationless (Reverse) Cache';
+
+	// nazwy skrzynek do description
+	$gpxGeocacheTypeText[1] = 'Unknown Cache';
+	$gpxGeocacheTypeText[2] = 'Traditional Cache';
+	$gpxGeocacheTypeText[3] = 'Multi-Cache';
+	$gpxGeocacheTypeText[4] = 'Virtual Cache';
+	$gpxGeocacheTypeText[5] = 'Webcam Cache';
+	$gpxGeocacheTypeText[6] = 'Event Cache';
+	$gpxGeocacheTypeText[7] = 'Quiz';
+	$gpxGeocacheTypeText[8] = 'Moving Cache';
+	$gpxGeocacheTypeText[9] = 'Podcast cache';
+
+	
+	$gpxLogType[0] = 'Write note';			//OC: Other
+	$gpxLogType[1] = 'Found it'; 			//OC: Found
+	$gpxLogType[2] = 'Didn\'t find it';		//OC: Not Found
+	$gpxLogType[3] = 'Write note'; 			//OC: Note
+	$gpxLogType[4] = 'Write note'; 			//OC: Note
+	$gpxLogType[5] = 'Needs Maintenance'; 			//OC: Note
+	$gpxLogType[6] = 'Needs Archived';			//OC: Other
+	$gpxLogType[7] = 'Attended'; 			//OC: Found
+	$gpxLogType[8] = 'Will Attend';		//OC: Not Found
+	$gpxLogType[9] = 'Archive'; 			//OC: Note
+	$gpxLogType[10] = 'Enable Listing'; 			//OC: Note
+	$gpxLogType[11] = 'Temporarily Disable Listing'; 			//OC: Note
+	$gpxLogType[12] = 'Post Reviewer Note'; 			//OC: Note
+
+// create cache list	
+$caches_list=caches_along_route($route_id, $distance);
+
+ $sql=("SELECT 
+	`caches`.`cache_id` `cache_id`, 
+	`caches`.`wp_oc` `cache_wp`, 
+	`caches`.`status` `status`, 
+	`caches`.`type` `type`, 
+	`caches`.`size` `size`, 
+	`caches`.`longitude` `longitude`, 
+	`caches`.`latitude` `latitude`, 
+	`caches`.`user_id` `user_id` ,
+	`caches`.`votes` `votes`,
+	`caches`.`score` `score`, 
+	`caches`.`topratings` `topratings`
+			FROM `caches`
+			WHERE `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') AND `caches`.`cache_id` IN (" . $sqlFilter . ")");	
+	
+		// cleanup (old gpxcontent lingers if gpx-download is cancelled by user)		
+		sql('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
+
+		// temporäre tabelle erstellen
+		sql('CREATE TEMPORARY TABLE `gpxcontent` ' . $sql);
+
+		$rsCount = sql('SELECT COUNT(*) `count` FROM `gpxcontent`');
+		$rCount = sql_fetch_array($rsCount);
+		mysql_free_result($rsCount);
+			
+			$sFilebasename = "myroute";
+	
+			
+		$bUseZip = ($rCount['count'] > 50);
+		$bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
+		$bUseZip = false;
+		if ($bUseZip == true)
+		{
+			$content = '';
+			require_once($rootpath . 'lib/phpzip/ss_zip.class.php');
+			$phpzip = new ss_zip('',6);
+		}
+
+		// ok, ausgabe starten
+		
+		if ($sqldebug == false)
+		{
+			if ($bUseZip == true)
+			{
+				header("content-type: application/zip");
+				header('Content-Disposition: attachment; filename=' . $sFilebasename . '.zip');
+			}
+			else
+			{
+				header("Content-type: application/gpx");
+				header("Content-Disposition: attachment; filename=" . $sFilebasename . ".gpx");
+			}
+		}
+		$children='';
+		$gpxHead = str_replace('{{time}}', date($gpxTimeFormat, time()), $gpxHead);
+		$rss = sql('SELECT `gpxcontent`.`cache_id` `cacheid` FROM `gpxcontent`');
+		while($rs = sql_fetch_array($rss))
+		{
+		$rwp = sql("SELECT  `status` FROM `waypoints` WHERE  `waypoints`.`cache_id`=&1 AND `waypoints`.`status`='1'", $rs['cacheid']); 
+		if (mysql_num_rows($rwp) != 0) {$children="(HasChildren)";} 
+		}
+		$gpxHead = str_replace('{wpchildren}', $children, $gpxHead); 
+		append_output($gpxHead);
+
+		// ok, ausgabe ...
+		$rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
+		while($r = sql_fetch_array($rs))
+		{
+			$thisline = $gpxLine;
+			$lat = sprintf('%01.5f', $r['latitude']);
+			$thisline = str_replace('{lat}', $lat, $thisline);
+			
+			$lon = sprintf('%01.5f', $r['longitude']);
+			$thisline = str_replace('{lon}', $lon, $thisline);
+
+			$time = date($gpxTimeFormat, strtotime($r['date_hidden']));
+			$thisline = str_replace('{{time}}', $time, $thisline);
+			$thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
+			$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
+			$thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
+//			$thisline = str_replace('{country}', $r['country'], $thisline);
+			$region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);		
+			$thisline = str_replace('{region}', $region, $thisline);
+			
+			if ($r['hint'] == '')
+				$thisline = str_replace('{hints}', '', $thisline);
+			else
+				$thisline = str_replace('{hints}', cleanup_text($r['hint']), $thisline);
+			
+			$logpw = ($r['logpw']==""?"":"UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!<br />");
+			
+			$thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
+			$thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
+			if( $r['rr_comment'] == '' )
+				$thisline = str_replace('{rr_comment}', '', $thisline);
+			else
+				$thisline = str_replace('{rr_comment}', cleanup_text("<br /><br />--------<br />".$r['rr_comment']."<br />"), $thisline);
+			
+			$thisline = str_replace('{{images}}', getPictures($r['cacheid'], false, $r['picturescount']), $thisline);
+
+			if (isset($gpxType[$r['type']]))
+				$thisline = str_replace('{type}', $gpxType[$r['type']], $thisline);
+			else
+				$thisline = str_replace('{type}', $gpxType[1], $thisline);
+
+			if (isset($gpxGeocacheTypeText[$r['type']]))
+				$thisline = str_replace('{type_text}', $gpxGeocacheTypeText[$r['type']], $thisline);
+			else
+				$thisline = str_replace('{type_text}', $gpxGeocacheTypeText[1], $thisline);
+
+			if (isset($gpxContainer[$r['size']]))
+				$thisline = str_replace('{container}', $gpxContainer[$r['size']], $thisline);
+			else
+				$thisline = str_replace('{container}', $gpxContainer[0], $thisline);
+			
+			if (isset($gpxAvailable[$r['status']]))
+				$thisline = str_replace('{available}', $gpxAvailable[$r['status']], $thisline);
+			else
+				$thisline = str_replace('{available}', $gpxAvailable[1], $thisline);
+			
+			if (isset($gpxArchived[$r['status']]))
+				$thisline = str_replace('{{archived}}', $gpxArchived[$r['status']], $thisline);
+			else
+				$thisline = str_replace('{{archived}}', $gpxArchived[1], $thisline);
+
+			$difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
+			$difficulty = str_replace('.0', '', $difficulty); // garmin devices cannot handle .0 on integer values
+			$thisline = str_replace('{difficulty}', $difficulty, $thisline);
+
+			$terrain = sprintf('%01.1f', $r['terrain'] / 2);
+			$terrain = str_replace('.0', '', $terrain);
+			$thisline = str_replace('{terrain}', $terrain, $thisline);
+
+			$thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
+			$thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
+
+			$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
+
+			// logs ermitteln
+			$logentries = '';
+			
+	if (( $r['votes'] > 3 ) || 	( $r['topratings'] > 0 ) || (mysql_num_rows($rsAttributes) > 0 )) {
+//				$thislog = $gpxLog;
+//				<groundspeak:log id="1">
+//        			<groundspeak:date>{date}</groundspeak:date>
+//					<groundspeak:type>{type}</groundspeak:type>
+//					<groundspeak:finder id="{finder_id}">{username}</groundspeak:finder>
+//					<groundspeak:text encoded="False">{{text}}</groundspeak:text>
+//				</groundspeak:log>
+				
+//				$thislog = str_replace('{id}', "0", $thislog);
+//				$thislog = str_replace('{date}', date("Y-m-d") ."T00:00:00", $thislog);
+//				$thislog = str_replace('{username}', "SYSTEM", $thislog);
+//				$thislog = str_replace('{finder_id}', "0", $thislog);						
+//				$thislog = str_replace('{type}', "Write note", $thislog);
+			// Attributes
+
+				$thislogs ='<groundspeak:log id="1">';
+				$thislogs .='<groundspeak:date>' .date("Y-m-d\TH:i:s\Z").'</groundspeak:date>';
+				$thislogs .='<groundspeak:finder id="0">SYSTEM</groundspeak:finder>';
+				$thislogs .='<groundspeak:text encoded="False">';				
+				if (mysql_num_rows($rsAttributes) > 0) {
+				$attributes = 'Atrybuty: ';
+			while ($rAttribute = sql_fetch_array($rsAttributes))
+			{
+					$attributes .= cleanup_text(xmlentities($rAttribute['text_long']));									
+					$attributes .=  " | ";		
+			}
+			$thislogs .= $attributes;		
+	         }
+	
+			if( $r['votes'] > 3 ){
+
+				$score = cleanup_text(score2rating($r['score']));
+				$thislogs .= "\nOcena skrzynki: " .$score. "\n";
+			}
+			if( $r['topratings'] > 0 ){
+			$thislogs .= "Rekomendacje: " .$r['topratings']. "\n";}
+				$rsArea = sql("SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype` 
+	             FROM `cache_npa_areas` 
+	       INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id` 
+	            WHERE `cache_npa_areas`.`cache_id`='&1'",$r['cacheid']);
+				if (mysql_num_rows($rsArea) != 0)
+				{ $thislogs .= "NATURA 2000: ";
+				while( $npa = mysql_fetch_array($rsArea) )
+					{
+			 $thislogs .= $npa['npaSitename']." - ".$npa['npaSitecode']. ",";}
+			 }			
+	
+			
+				$thislogs .= '</groundspeak:text></groundspeak:log>';
+				
+				$logentries .= $thislogs . "\n";
+		}	
+
+			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC", $r['cacheid']); // adam: removed LIMIT 20
+			while ($rLog = sql_fetch_array($rsLogs))
+			{
+				$thislog = $gpxLog;
+				
+				$thislog = str_replace('{id}', $rLog['id'], $thislog);
+				$thislog = str_replace('{date}', date($gpxTimeFormat, strtotime($rLog['date'])), $thislog);
+				$thislog = str_replace('{username}', xmlentities($rLog['username']), $thislog);
+				$thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);				
+				if (isset($gpxLogType[$rLog['type']]))
+					$logtype = $gpxLogType[$rLog['type']];
+				else
+					$logtype = $gpxLogType[0];
+					
+				$thislog = str_replace('{type}', $logtype, $thislog);
+				$thislog = str_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
+				$logentries .= $thislog . "\n";
+				
+			}
+			$thisline = str_replace('{logs}', $logentries, $thisline);
+
+
+			// Travel Bug GeoKrety
+			$waypoint = $r['waypoint'];
+			$geokrety = '';
+			$geokret_sql = "SELECT id, name FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".sql_escape($waypoint)."') AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2";
+			$geokret_query = sql($geokret_sql);
+
+				while( $geokret = sql_fetch_array($geokret_query) )
+				{
+
+				$thisGeoKret = $gpxGeoKrety;
+				$gk_wp = strtoupper(dechex($geokret['id']));
+				while (mb_strlen($gk_wp) < 4) $gk_wp = '0' . $gk_wp;
+				$gkWP = 'GK' . mb_strtoupper($gk_wp);
+					$thisGeoKret = str_replace('{geokret_id}',xmlentities($geokret['id']) , $thisGeoKret);
+					$thisGeoKret = str_replace('{geokret_ref}',$gkWP, $thisGeoKret);
+					$thisGeoKret = str_replace('{geokret_name}', cleanup_text(xmlentities($geokret['name'])), $thisGeoKret);
+									
+					$geokrety .= $thisGeoKret;// . "\n";
+				
+			}
+			$thisline = str_replace('{geokrety}', $geokrety, $thisline);
+// Waypoints
+			$waypoints = '';
+			$rswp = sql("SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`.`pl` `wp_type_name` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE  `waypoints`.`cache_id`=&1 ORDER BY `waypoints`.`stage`", $r['cacheid']); 
+			while ($rwp = sql_fetch_array($rswp))
+			{
+			if ($rwp['status']==1) {
+				$thiswp = $gpxWaypoints;
+				$lat = sprintf('%01.5f', $rwp['latitude']);
+				$thiswp = str_replace('{wp_lat}', $lat, $thiswp);		
+				$lon = sprintf('%01.5f', $rwp['longitude']);
+				$thiswp = str_replace('{wp_lon}', $lon, $thiswp);
+				$thiswp = str_replace('{waypoint}', $waypoint,$thiswp);
+				$thiswp = str_replace('{cacheid}', $rwp['cache_id'],$thiswp);
+				$thiswp = str_replace('{{time}}', $time, $thiswp);
+				$thiswp = str_replace('{wp_type_name}', $rwp['wp_type_name'], $thiswp);
+				if ($rwp['stage'] !=0) {
+				$thiswp = str_replace('{wp_stage}', " Etap" .$rwp['stage'], $thiswp);
+				} else {
+				$thiswp = str_replace('{wp_stage}',$rwp['wp_type_name'] , $thiswp);}				
+				$thiswp = str_replace('{desc}', cleanup_text($rwp['desc']), $thiswp);					
+				if ($rwp['type']==5){$thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);}
+				if ($rwp['type']==1){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
+				if ($rwp['type']==2){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
+				if ($rwp['type']==3){$thiswp = str_replace('{wp_type}', "Flag, Red", $thiswp);}
+				if ($rwp['type']==4){$thiswp = str_replace('{wp_type}', "Circle with X", $thiswp);}
+				$waypoints .= $thiswp;
+				}
+			}
+			$thisline = str_replace('{cache_waypoints}', $waypoints, $thisline);	
+
+
+
+
+			append_output($thisline);
+			ob_flush();
+		}
+		mysql_free_result($rs);
+
+		append_output($gpxFoot);
+
+		if ($sqldebug == true) sqldbg_end();
+		
+		// phpzip versenden
+		if ($bUseZip == true)
+		{
+			$phpzip->add_data($sFilebasename . '.gpx', $content);
+			echo $phpzip->save($sFilebasename . '.zip', 'b');
+		}
 	
 	
-	
+	exit;
+		} //end GPX output
 		}
 	}
 
