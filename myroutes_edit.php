@@ -86,7 +86,7 @@
 				sql("UPDATE `routes` SET `name`='&1',`description`='&2',`radius`='&3' WHERE `route_id`='&4'",$rname,$rdesc,$rradius,$route_id);
 					
 				if (isset($_FILES['file']['tmp_name'])) {
-				
+
 				sql("DELETE FROM `route_points` WHERE `route_id`='&1'", $route_id);				
 
 				$upload_filename=$_FILES['file']['tmp_name'];	
@@ -122,10 +122,11 @@ if (!$error){
 		$point_num = 0;
 		foreach ($points as $point) {
 		$point_num++;
-		$query = "INSERT into route_points(route_id,point_nr,lat,lon)"."VALUES ($route_id,$point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
+		$query = "INSERT into route_points (route_id,point_nr,lat,lon)"."VALUES ($route_id,$point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
 		$result=sql($query);
 		}
-					// calculate length route
+		
+		// calculate length route
 		$distance=0;
 			$rsc = sql("SELECT `lat`,`lon`
 					FROM `route_points` 
