@@ -847,6 +847,7 @@ div.listitems {
 	-moz-border-radius: 5px;
 }
 div.ver {
+height: 30px;
 margin-top:3px;
 margin-bottom:3px;
 margin-right:5px;
