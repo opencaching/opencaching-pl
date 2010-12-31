@@ -1,57 +1,30 @@
-<style>
-	a.info{
-	    position:relative; /*this is the key*/
-	    z-index:24; background-color:#ccc;
-	    color:#000;
-	    text-decoration:none}
-
-	a.info span{display: none}
-
-    #trigger {
-    	width:100px;
-    	height:200px;
-    	border: 1px solid #0cf;
-}
-   	#tooltipAnchor {
-   		position: absolute;
-   		top: 4em; //was 2em
-   		//left: 2em;
-   		width: 15em;
-   		border: 1px solid #000000;
-   		background-color: #cfffff;
-   		text-align: center;
-   	}
-
-   	#tooltipLink {
-   		z-index: 25;
-   	}
-
-</style>
-
-<script>
-	function showTip() {
-		t = document.getElementById('tooltipAnchor');
-  		t.style['display'] = 'block';
-  		setTimeout("expireTooltip()", 3500);
-	}
-
-	function expireTooltip() {
-	  t = document.getElementById('tooltipAnchor');
-	  t.style['display'] = 'none';
-	}
-</script>
-
-
-<a class="info" href="#" id="tooltipLink">This is a tooltip <span id="tooltipAnchor">an
-aiding text that appears just when you roll on with the mouse</span></a>
-
-<br><br>
-
-<select id="theSelect" onchange="showTip();">
-<option value="1">One</option>
-<option value="2">Two</option>
-</select>
 <?php
+	require_once('./lib/common.inc.php');
+	$route_id="15";
+			$rsc = sql("SELECT `lat`,`lon`
+					FROM `route_points` 
+					WHERE `route_id`='&1'
+			        ORDER BY point_nr", $route_id);
+			if (mysql_num_rows($rsc) !=0)
+			{	$record = sql_fetch_array($rsc);
+				$firsty=$record['lon'];
+				$firtsx=$record['lat'];
+			for ($i = 1; $i < mysql_num_rows($rsc); $i++)
+			{
+				$record = sql_fetch_array($rsc);
+				$secy=$record['lon'];
+				$secx=$record['lat'];
+				$distance1=calcDistance($firtsx,$firsty,$secx,$secy,1);
+				$distance=$distance+$distance1;
+				$firsty=$secy;
+				$firtsx=$secx;	
+			echo $distance;	echo "-";			
+			}
+
+
+			sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$distance,$route_id);
+			}
+
 /*
 function calcLatLong($long, $lat, $distance, $bearing) {
  $EARTH_RADIUS_EQUATOR = 6378140.0;

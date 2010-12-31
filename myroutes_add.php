@@ -107,6 +107,7 @@ if (!$error){
 		$query = "INSERT into route_points(route_id,point_nr,lat,lon)"."VALUES ($route_id,$point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
 		$result=sql($query);
 		}
+		
 		tpl_redirect('myroutes.php');	
 	} // end submit
 
