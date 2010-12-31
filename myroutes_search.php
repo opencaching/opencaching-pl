@@ -552,7 +552,7 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 					FROM `caches`,`user`, `cache_type` 
 					WHERE `caches`.`user_id`=`user`.`user_id` 
 						AND `cache_type`.`id`=`caches`.`type`
-						AND `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') AND `caches`.`cache_id` IN (" . $sqlFilter . ")");	
+						AND `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') AND `caches`.`cache_id` IN (" . $sqlFilter . ") ORDER BY FIELD(`caches`.`wp_oc`,'".implode("', '", $caches_list)."')");	
 	
 	$ncaches=mysql_num_rows($rs);
 	tpl_set_var('number_caches',$ncaches);
@@ -573,8 +573,8 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 				}else{
 				$file_content .= '<td style="width: 22px;">&nbsp;&nbsp;</td>';}				
 				$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
-				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . ' target="_blank" ">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-				$file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . ' target="_blank"">' .htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
+				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '" target="_blank" >' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+				$file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '"  target="_blank">' .htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 
 	$rs_log = sql("SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
@@ -600,8 +600,8 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 				$file_content .= '<b>'.$r_log['user_name'].'</b>:<br/>';
 				$data = cleanup_text(str_replace("\r\n", " ", $r_log['log_text']));
 				$file_content .= str_replace("\n", " ",$data);
-				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip() target="_blank""><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
-				$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . 'target="_blank" ">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()" target="_blank"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
+				$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '" target="_blank">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
 					}				
 			mysql_free_result($rs_log);
