@@ -107,7 +107,29 @@ if (!$error){
 		$query = "INSERT into route_points(route_id,point_nr,lat,lon)"."VALUES ($route_id,$point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
 		$result=sql($query);
 		}
-		
+		// calculate length route
+		$distance=0;
+			$rsc = sql("SELECT `lat`,`lon`
+					FROM `route_points` 
+					WHERE `route_id`='&1'
+			        ORDER BY point_nr", $route_id);
+			if (mysql_num_rows($rsc) !=0)
+			{	$record = sql_fetch_array($rsc);
+				$firsty=$record['lon'];
+				$firtsx=$record['lat'];
+			for ($i = 1; $i < mysql_num_rows($rsc); $i++)
+			{
+				$record = sql_fetch_array($rsc);
+				$secy=$record['lon'];
+				$secx=$record['lat'];
+				$distance1=calcDistance($firtsx,$firsty,$secx,$secy,1);
+				$distance=$distance+$distance1;
+				$firsty=$secy;
+				$firtsx=$secx;
+			}
+			$distance=round($distance,1);
+			sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$distance,$route_id);
+			}
 		tpl_redirect('myroutes.php');	
 	} // end submit
 

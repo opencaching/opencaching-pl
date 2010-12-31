@@ -147,8 +147,10 @@ function Bearing2Text($parBearing, $parShortText = 0)
 
 function calcDistance($latFrom, $lonFrom, $latTo, $lonTo, $distanceMultiplier=1)
 {
-	return acos(cos((90-$latFrom) * 3.14159 / 180) * cos((90-$latTo) * 3.14159 / 180) + sin((90-$latFrom) * 3.14159 / 180) * sin((90-$latTo) * 3.14159 / 180) * cos(($lonFrom-$lonTo) * 3.14159 / 180)) * 6370 * $distanceMultiplier;
-}
+	 $distance=acos(cos((90-$latFrom) * 3.14159 / 180) * cos((90-$latTo) * 3.14159 / 180) + sin((90-$latFrom) * 3.14159 / 180) * sin((90-$latTo) * 3.14159 / 180) * cos(($lonFrom-$lonTo) * 3.14159 / 180)) * 6370 * $distanceMultiplier;
+	 if ($distance<0) $distance=0;
+	 return	$distance;
+	 }
 
 function getSqlDistanceFormula($lonFrom, $latFrom, $maxDistance, $distanceMultiplier=1, $lonField='longitude', $latField='latitude', $tableName = 'caches')
 {

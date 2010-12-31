@@ -1,5 +1,26 @@
 <?php
 	require_once('./lib/common.inc.php');
+	
+function distance($lat1, $lon1, $lat2, $lon2, $unit) { 
+
+  $theta = $lon1 - $lon2; 
+  $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta)); 
+  $dist = acos($dist); 
+  $dist = rad2deg($dist); 
+  $miles = $dist * 60 * 1.1515;
+  if ($miles<0) $miles=0;
+  $unit = strtoupper($unit);
+
+  if ($unit == "K") {
+    return ($miles * 1.609344); 
+  } else if ($unit == "N") {
+      return ($miles * 0.8684);
+    } else {
+        return $miles;
+      }
+}
+
+$distance=0;
 	$route_id="15";
 			$rsc = sql("SELECT `lat`,`lon`
 					FROM `route_points` 
@@ -17,11 +38,9 @@
 				$distance1=calcDistance($firtsx,$firsty,$secx,$secy,1);
 				$distance=$distance+$distance1;
 				$firsty=$secy;
-				$firtsx=$secx;	
-			echo $distance;	echo "-";			
+				$firtsx=$secx;
 			}
-
-
+echo round($distance,1);
 			sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$distance,$route_id);
 			}
 
