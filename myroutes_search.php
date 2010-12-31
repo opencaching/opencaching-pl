@@ -48,7 +48,7 @@
 			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes` WHERE `route_id`='&1'", $route_id);
 			$record = sql_fetch_array($route_rs);	
 			$distance=$record['radius'];
-			tpl_set_var('route_name',$record['name']);
+			tpl_set_var('routes_name',$record['name']);
 			tpl_set_var('distance',$record['radius']);
 			tpl_set_var('routeid',$route_id);
 			$rsc = sql("SELECT  length(`options`) `optsize`, `options` FROM `routes` WHERE `route_id`='&1'", $route_id);		    

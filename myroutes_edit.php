@@ -59,7 +59,7 @@
 
 			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`='&1'", $route_id);
 			$record = sql_fetch_array($route_rs);	
-			tpl_set_var('route_name',$record['name']);
+			tpl_set_var('routes_name',$record['name']);
 			
 				$rname = isset($_POST['name']) ? $_POST['name'] : '';					
 				$rdesc = isset($_POST['desc']) ? $_POST['desc'] : '';			

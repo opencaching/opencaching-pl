@@ -30,7 +30,7 @@
 </script>
 
 
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{edit_route}}: <span style="color: black;font-size:13px;">{route_name}</span></div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{edit_route}}: <span style="color: black;font-size:13px;">{routes_name}</span></div>
 	
 <form action="myroutes_edit.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="routeid" value="{routeid}"/>
