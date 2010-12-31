@@ -56,7 +56,7 @@
 			$optsize= $rec['optsize'];	
 		
 		
-		if (isset($_POST['submit']))
+		if (isset($_POST['submit']) )
 		{			
 			$options['f_userowner'] = isset($_POST['f_userowner']) ? $_POST['f_userowner'] : '';
 			$options['f_userfound'] = isset($_POST['f_userfound']) ? $_POST['f_userfound'] : '';
@@ -94,7 +94,7 @@
 			
 			$options['cacherating'] = isset($_POST['cacherating']) ? $_POST['cacherating'] : '';
 	
-		} elseif ($optsize!="0") {
+		} elseif ($optsize!="0" || isset($_POST['back'])) {
 				$options= unserialize($rec['options']);	
 		} else {
 			$options['f_userowner'] = isset($_POST['f_userowner']) ? $_POST['f_userowner'] : '1';
@@ -121,8 +121,8 @@
 			$options['cachesize_6'] = isset($_POST['cachesize_6']) ? $_POST['cachesize_6'] : '1';
 			$options['cachesize_7'] = isset($_POST['cachesize_7']) ? $_POST['cachesize_7'] : '1';
 
-			$options['cachevote_1'] = isset($_POST['cachevote_1']) ? $_POST['cachevote_1'] : '';
-			$options['cachevote_2'] = isset($_POST['cachevote_2']) ? $_POST['cachevote_2'] : '';
+			$options['cachevote_1'] = isset($_POST['cachevote_1']) ? $_POST['cachevote_1'] : '-3';
+			$options['cachevote_2'] = isset($_POST['cachevote_2']) ? $_POST['cachevote_2'] : '3';
 			$options['cachenovote'] = isset($_POST['cachenovote']) ? $_POST['cachenovote'] : '1';
 			
 			$options['cachedifficulty_1'] = isset($_POST['cachedifficulty_1']) ? $_POST['cachedifficulty_1'] : '1';
@@ -521,9 +521,10 @@ $final_cache_list = array();
 	}
 // end of function		
 
-
 				if (isset($_POST['back_list']))
 				{	
+				// store options in DB
+				sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($options), $route_id);
 							tpl_redirect('myroutes.php');
 							exit;
 				}		
@@ -535,7 +536,7 @@ $final_cache_list = array();
 			tpl_set_var('route_name',$record['name']);
 		
 $caches_list=caches_along_route($route_id, $distance);
-			// store options in DB
+// store options in DB
 sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($options), $route_id);
 
  $rs=sql("SELECT `caches`.`cache_id` `cacheid`, 
@@ -555,7 +556,12 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 	
 	$ncaches=mysql_num_rows($rs);
 	tpl_set_var('number_caches',$ncaches);
-	
+	if ($ncaches==0){
+		tpl_set_var('list_empty_start','<!--');
+		tpl_set_var('list_empty_end','-->');
+		}else{
+		tpl_set_var('list_empty_start','');
+		tpl_set_var('list_empty_end','');}
 	while ($r = sql_fetch_array($rs))
 		{
 
