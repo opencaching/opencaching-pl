@@ -864,3 +864,8 @@ margin-left:5px;
 float:left;
 border-left: 2px solid #7fa2ca;
 }
+div.myr{
+float:left;
+font-size:12px;
+font-weight:bold;
+line-height:1.6em;}
