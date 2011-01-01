@@ -72,7 +72,7 @@ $upload_filename=$_FILES['file']['tmp_name'];
 // get route_id
 $route_id=sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
 
-// Read file KML with route		
+// Read file KML with route, load in the KML file through the my_routes page, and run that KML file through GPSBABEL which has a tool what reduces the number of data points in the route.	
 if ( !$error ) {
 exec("/usr/local/bin/gpsbabel -i kml,units=m -f ".$upload_filename." -x interpolate,distance=0.25k -o kml -F ".$upload_filename."");
 $xml = simplexml_load_file($upload_filename);
