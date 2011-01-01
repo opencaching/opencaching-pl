@@ -83,7 +83,8 @@ function sync_options(element)
 		document.forms['optionsform'].cachedifficulty_2.value = document.optionsform.cachedifficulty_2.value;
 		document.forms['optionsform'].cacheterrain_1.value = document.optionsform.cacheterrain_1.value;
 		document.forms['optionsform'].cacheterrain_2.value = document.optionsform.cacheterrain_2.value;
-
+		document.forms['optionsform'].cache_attribs.value = tmpattrib;
+		document.forms['optionsform'].cache_attribs_not.value = tmpattrib_not;
 
 }
 
@@ -144,6 +145,8 @@ function switchCat2()
 <input type="hidden" name="routeid" value="{routeid}"/>
 <input type="hidden" name="distance" value="{distance}"/>
 <input type="hidden" name="cacherating" value="{cacherating}" />
+<input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
+<input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
 <div class="searchdiv">
 
 <p class="content-title-noshade-size3">{{search_options}}</p>
@@ -222,7 +225,7 @@ function switchCat2()
 		<tr>
 			<td valign="middle" class="content-title-noshade">{{cache_attributes}}:</td>
 			<td class="content-title-noshade">
-				<div style="width:360px;">{cache_attrib_list}</div>
+				<div style="width:400px;">{cache_attrib_list}</div>
 				<div id="attributesCat2">{cache_attribCat2_list}</div>
 			</td>
 		</tr>

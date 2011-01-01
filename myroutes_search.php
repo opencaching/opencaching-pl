@@ -20,6 +20,8 @@
 	require_once($rootpath . 'lib/caches.inc.php');
 	require_once($stylepath . '/lib/icons.inc.php');
 	global $content, $bUseZip, $sqldebug, $usr, $hide_coords;
+	global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
+	global $lang, $language;
 	set_time_limit(1800);
 	//Preprocessing
 	if ($error == false)
@@ -44,6 +46,14 @@
 			
 			if (isset($_POST['distance'])){
 			$distance = $_POST['distance'];}
+
+
+
+
+
+
+
+
 			
 			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes` WHERE `route_id`='&1'", $route_id);
 			$record = sql_fetch_array($route_rs);	
@@ -54,12 +64,11 @@
 			$rsc = sql("SELECT  length(`options`) `optsize`, `options` FROM `routes` WHERE `route_id`='&1'", $route_id);		    
 			$rec = sql_fetch_array($rsc);
 			$optsize= $rec['optsize'];	
-		
-		
-		if (isset($_POST['submit']) )
-		{			
-		
-					if (isset($_POST['cache_attribs']))
+			
+				// das Suchformular wird initialisiert (keine Vorbelegungen vorhanden)
+
+	
+			if (isset($_POST['cache_attribs']))
 			{
 				if ($_POST['cache_attribs'] != '')
 					$options['cache_attribs'] = mb_split(';', $_POST['cache_attribs']);
@@ -78,6 +87,10 @@
 			}
 			else
 				$options['cache_attribs_not'] = array();
+				
+						
+		if (isset($_POST['submit']) )
+		{			
 
 			$options['f_userowner'] = isset($_POST['f_userowner']) ? $_POST['f_userowner'] : '';
 			$options['f_userfound'] = isset($_POST['f_userfound']) ? $_POST['f_userfound'] : '';
@@ -155,9 +168,13 @@
 			$options['cacherating'] = isset($_POST['cacherating']) ? $_POST['cacherating'] : '0';	
 				
 			}
-/*
+	$cache_attrib_jsarray_line = "new Array('{id}', {state}, '{text_long}', '{icon}', '{icon_no}', '{icon_undef}', '{category}')";
+	$cache_attrib_img_line = '<img id="attrimg{id}" src="{icon}" title="{text_long}" alt="{text_long}" onmousedown="switchAttribute({id})" style="cursor: pointer;" />&nbsp;';
+
   $lang_attribute = $lang;
   if ($lang != 'pl') { $lang_attribute = 'en'; } 
+  
+
   
 function attr_jsline($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconundef, $category)
 {
@@ -203,6 +220,7 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 	return $line;
 }
 
+
 	// cache-attributes
 	$attributes_jsarray = '';
 	$attributes_img = '';
@@ -237,7 +255,7 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 	tpl_set_var('hidopt_attribs', implode(';', $options['cache_attribs']));
 	tpl_set_var('hidopt_attribs_not', implode(';', $options['cache_attribs_not']));
 
-  */
+
 	tpl_set_var('f_inactive_checked', ($options['f_inactive'] == 1) ? ' checked="checked"' : '');
 	tpl_set_var('hidopt_inactive', ($options['f_inactive'] == 1) ? '1' : '0');
 
@@ -1188,6 +1206,11 @@ $caches_list=caches_along_route($route_id, $distance);
 	
 	exit;
 		} //end GPX output
+		
+
+		
+		
+		
 		}
 	}
 
