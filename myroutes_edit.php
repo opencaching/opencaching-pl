@@ -80,7 +80,7 @@
 				}
 	
 				// start submit
-				if (isset($_POST['submit']))
+				if (isset($_POST['submit']) && $remove == 0)
 				{
 				
 				sql("UPDATE `routes` SET `name`='&1',`description`='&2',`radius`='&3' WHERE `route_id`='&4'",$rname,$rdesc,$rradius,$route_id);
@@ -90,11 +90,10 @@
 				sql("DELETE FROM `route_points` WHERE `route_id`='&1'", $route_id);				
 
 				$upload_filename=$_FILES['file']['tmp_name'];	
-// Read file KML with route		
+// Read file KML with route			
 if ( !$error ) {
-exec("/usr/local/bin/gpsbabel -i kml -f ".$upload_filename." -x interpolate,distance=0.25k -o kml,units=m -F ".$upload_filename."");
+exec("/usr/local/bin/gpsbabel -i kml,units=m -f ".$upload_filename." -x interpolate,distance=0.25k -o kml -F ".$upload_filename."");
 $xml = simplexml_load_file($upload_filename);
-	$xml->Document->Folder
 	foreach ( $xml->Document->Folder as $xmlelement ) {
 	foreach ( $xmlelement->Folder as $folder ) {
 	foreach ( $folder->Placemark->LineString->coordinates as $coordinates ) {

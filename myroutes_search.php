@@ -65,7 +65,16 @@
 			$rec = sql_fetch_array($rsc);
 			$optsize= $rec['optsize'];	
 			
-				// das Suchformular wird initialisiert (keine Vorbelegungen vorhanden)
+
+			if (isset($_POST['cache_attribs_not']))
+			{
+				if ($_POST['cache_attribs_not'] != '')
+					$options['cache_attribs_not'] = mb_split(';', $_POST['cache_attribs_not']);
+				else
+					$options['cache_attribs_not'] = array();
+			}
+			else
+				$options['cache_attribs_not'] = array();
 
 	
 			if (isset($_POST['cache_attribs']))
@@ -78,15 +87,7 @@
 			else
 				$options['cache_attribs'] = array();
 
-			if (isset($_POST['cache_attribs_not']))
-			{
-				if ($_POST['cache_attribs_not'] != '')
-					$options['cache_attribs_not'] = mb_split(';', $_POST['cache_attribs_not']);
-				else
-					$options['cache_attribs_not'] = array();
-			}
-			else
-				$options['cache_attribs_not'] = array();
+
 				
 						
 		if (isset($_POST['submit']) )
@@ -127,7 +128,9 @@
 			$options['cacheterrain_2'] = isset($_POST['cacheterrain_2']) ? $_POST['cacheterrain_2'] : '';
 			
 			$options['cacherating'] = isset($_POST['cacherating']) ? $_POST['cacherating'] : '';
-	
+//			$options['cache_attribs'] = isset($_POST['cache_attribs']) ? $_POST['cache_attribs'] : '';
+//			$options['cache_attribs_not'] = isset($_POST['cache_attribs_not']) ? $_POST['cache_attribs_not'] : '';
+			
 		} elseif ($optsize!="0" || isset($_POST['back'])) {
 				$options= unserialize($rec['options']);	
 		} else {
@@ -165,7 +168,9 @@
 			$options['cacheterrain_1'] = isset($_POST['cacheterrain_1']) ? $_POST['cacheterrain_1'] : '1';
 			$options['cacheterrain_2'] = isset($_POST['cacheterrain_2']) ? $_POST['cacheterrain_2'] : '5';
 			
-			$options['cacherating'] = isset($_POST['cacherating']) ? $_POST['cacherating'] : '0';	
+			$options['cacherating'] = isset($_POST['cacherating']) ? $_POST['cacherating'] : '0';
+//			$options['cache_attribs'] = isset($_POST['cache_attribs']) ? $_POST['cache_attribs'] : '';
+//			$options['cache_attribs_not'] = isset($_POST['cache_attribs_not']) ? $_POST['cache_attribs_not'] : '';			
 				
 			}
 	$cache_attrib_jsarray_line = "new Array('{id}', {state}, '{text_long}', '{icon}', '{icon_no}', '{icon_undef}', '{category}')";
