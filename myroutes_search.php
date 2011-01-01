@@ -58,6 +58,27 @@
 		
 		if (isset($_POST['submit']) )
 		{			
+		
+					if (isset($_POST['cache_attribs']))
+			{
+				if ($_POST['cache_attribs'] != '')
+					$options['cache_attribs'] = mb_split(';', $_POST['cache_attribs']);
+				else
+					$options['cache_attribs'] = array();
+			}
+			else
+				$options['cache_attribs'] = array();
+
+			if (isset($_POST['cache_attribs_not']))
+			{
+				if ($_POST['cache_attribs_not'] != '')
+					$options['cache_attribs_not'] = mb_split(';', $_POST['cache_attribs_not']);
+				else
+					$options['cache_attribs_not'] = array();
+			}
+			else
+				$options['cache_attribs_not'] = array();
+
 			$options['f_userowner'] = isset($_POST['f_userowner']) ? $_POST['f_userowner'] : '';
 			$options['f_userfound'] = isset($_POST['f_userfound']) ? $_POST['f_userfound'] : '';
 			$options['f_inactive'] = isset($_POST['f_inactive']) ? $_POST['f_inactive'] : '';
@@ -134,9 +155,89 @@
 			$options['cacherating'] = isset($_POST['cacherating']) ? $_POST['cacherating'] : '0';	
 				
 			}
-
-
+/*
+  $lang_attribute = $lang;
+  if ($lang != 'pl') { $lang_attribute = 'en'; } 
+  
+function attr_jsline($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconundef, $category)
+{
+	$line = $tpl;
 	
+		$line = mb_ereg_replace('{id}', $id, $line);
+
+		if (array_search($id, $options['cache_attribs']) === false)
+		{
+			if (array_search($id, $options['cache_attribs_not']) === false)
+				$line = mb_ereg_replace('{state}', 0, $line);
+			else
+				$line = mb_ereg_replace('{state}', 2, $line);
+		}
+		else
+			$line = mb_ereg_replace('{state}', 1, $line);
+
+		$line = mb_ereg_replace('{text_long}', addslashes($textlong), $line);
+		$line = mb_ereg_replace('{icon}', $iconlarge, $line);
+		$line = mb_ereg_replace('{icon_no}', $iconno, $line);
+		$line = mb_ereg_replace('{icon_undef}', $iconundef, $line);
+		$line = mb_ereg_replace('{category}', $category, $line);
+
+		return $line;
+}
+
+function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconundef, $category)
+{
+	$line = $tpl;
+
+	$line = mb_ereg_replace('{id}', $id, $line);
+	$line = mb_ereg_replace('{text_long}', $textlong, $line);
+
+	if (array_search($id, $options['cache_attribs']) === false)
+	{
+		if (array_search($id, $options['cache_attribs_not']) === false)
+			$line = mb_ereg_replace('{icon}', $iconundef, $line);
+		else
+			$line = mb_ereg_replace('{icon}', $iconno, $line);
+	}
+	else
+		$line = mb_ereg_replace('{icon}', $iconlarge, $line);
+	return $line;
+}
+
+	// cache-attributes
+	$attributes_jsarray = '';
+	$attributes_img = '';
+	$attributesCat2_img = '';
+	$rs = sql("SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language`='&1' ORDER BY `id`", $lang_attribute);
+	while ($record = sql_fetch_array($rs))
+	{
+	
+		// icon specified
+		$line = attr_jsline($cache_attrib_jsarray_line, $options, $record['id'], $record['text_long'], $record['icon_large'], $record['icon_no'], $record['icon_undef'], $record['category']);
+
+		if ($attributes_jsarray != '') $attributes_jsarray .= ",\n";
+		$attributes_jsarray .= $line;
+
+		$line = attr_image($cache_attrib_img_line, $options, $record['id'], $record['text_long'], $record['icon_large'], $record['icon_no'], $record['icon_undef'], $record['category']);
+
+
+		if ($record['category'] != 1)
+			$attributesCat2_img .= $line;
+		else
+			$attributes_img .= $line;
+	}
+	$line = attr_jsline($cache_attrib_jsarray_line, $options, "99", tr("with_password"), "images/attributes/password.png", "images/attributes/password-no.png", "images/attributes/password-undef.png", 0);
+	$attributes_jsarray .= ",\n".$line;
+
+	$line = attr_image($cache_attrib_img_line, $options, "99", tr("with_password"), "images/attributes/password.png", "images/attributes/password-no.png", "images/attributes/password-undef.png", 0);
+	$attributes_img .= $line;
+
+	tpl_set_var('cache_attrib_list', $attributes_img);
+	tpl_set_var('cache_attribCat2_list', $attributesCat2_img);
+	tpl_set_var('attributes_jsarray', $attributes_jsarray);
+	tpl_set_var('hidopt_attribs', implode(';', $options['cache_attribs']));
+	tpl_set_var('hidopt_attribs_not', implode(';', $options['cache_attribs_not']));
+
+  */
 	tpl_set_var('f_inactive_checked', ($options['f_inactive'] == 1) ? ' checked="checked"' : '');
 	tpl_set_var('hidopt_inactive', ($options['f_inactive'] == 1) ? '1' : '0');
 
@@ -360,7 +461,7 @@
 					$sqlFilter = 'SELECT ' . implode(',', $sql_select) .
 						' FROM ' . implode(',', $sql_from) .
 						' WHERE ' . implode(' AND ', $sql_where);
-
+//echo $sqlFilter;
 
 	function getPictures($cacheid, $picturescount)
 	{

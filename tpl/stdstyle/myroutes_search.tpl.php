@@ -10,6 +10,10 @@
 	***************************************************************************/
 ?>
 <script language="javascript" type="text/javascript">
+<!--
+var mnAttributesShowCat2 = 1;
+var maAttributes = new Array({attributes_jsarray});
+
 function check_recommendations(){
 	if (document.optionsform.cache_rec[1].checked == true) {
 		if (isNaN(document.optionsform.cache_min_rec.value)) {
@@ -25,6 +29,21 @@ function check_recommendations(){
 	
 function sync_options(element)
 {
+
+	var tmpattrib = "";
+	for (i = 0; i < maAttributes.length; i++)
+		if (maAttributes[i][1] == 1)
+			tmpattrib = '' + tmpattrib + maAttributes[i][0] + ';';
+	if(tmpattrib.length > 0)
+		tmpattrib = tmpattrib.substr(0, tmpattrib.length-1);
+
+	var tmpattrib_not = "";
+	for (i = 0; i < maAttributes.length; i++)
+		if (maAttributes[i][1] == 2)
+			tmpattrib_not =  '' + tmpattrib_not + maAttributes[i][0] + ';';
+	if(tmpattrib_not.length > 0)
+		tmpattrib_not = tmpattrib_not.substr(0, tmpattrib_not.length-1);
+
 	var recommendations = 0;
 	if (document.forms['optionsform'].cache_rec[0].checked == true) {
 		document.forms['optionsform'].cache_min_rec.disabled = 'disabled';
@@ -66,6 +85,55 @@ function sync_options(element)
 		document.forms['optionsform'].cacheterrain_2.value = document.optionsform.cacheterrain_2.value;
 
 
+}
+
+function switchAttribute(id)
+{
+	var attrImg = document.getElementById("attrimg" + id);
+	var nArrayIndex = 0;
+
+	for (nArrayIndex = 0; nArrayIndex < maAttributes.length; nArrayIndex++)
+	{
+		if (maAttributes[nArrayIndex][0] == id)
+			break;
+	}
+
+	if (maAttributes[nArrayIndex][1] == 0)
+	{
+		attrImg.src = maAttributes[nArrayIndex][3];
+		maAttributes[nArrayIndex][1] = 1;
+	}
+	else if (maAttributes[nArrayIndex][1] == 1)
+	{
+		attrImg.src = maAttributes[nArrayIndex][4];
+		maAttributes[nArrayIndex][1] = 2;
+	}
+	else if (maAttributes[nArrayIndex][1] == 2)
+	{
+		attrImg.src = maAttributes[nArrayIndex][5];
+		maAttributes[nArrayIndex][1] = 0;
+	}
+
+	sync_options(null);
+}
+function hideAttributesCat2()
+{
+	mnAttributesShowCat2 = 0;
+	document.getElementById('attributesCat2').style.display = "none";
+}
+
+function showAttributesCat2()
+{
+	mnAttributesShowCat2 = 1;
+	document.getElementById('attributesCat2').style.display = "block";
+}
+
+function switchCat2()
+{
+	if (mnAttributesShowCat2 != 0)
+		hideAttributesCat2();
+	else
+		showAttributesCat2();
 }
 //-->
 </script>
@@ -149,6 +217,17 @@ function sync_options(element)
 		</tr>
 	</table>
 </div>
+<div class="searchdiv">
+	<table class="table">
+		<tr>
+			<td valign="middle" class="content-title-noshade">{{cache_attributes}}:</td>
+			<td class="content-title-noshade">
+				<div style="width:360px;">{cache_attrib_list}</div>
+				<div id="attributesCat2">{cache_attribCat2_list}</div>
+			</td>
+		</tr>
+	</table>
+</div>		
 <div class="searchdiv">
 	<table class="table">
 		<tr>
