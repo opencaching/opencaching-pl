@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-											./tpl/stdstyle/start.tpl.php
-															-------------------
-		begin                : Mon June 14 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*                                         				                                
@@ -72,7 +64,6 @@ function Unlite() {
 		  <div class="content2-pagetitle">{{what_do_you_find}}</div>
 			<div class="content-txtbox-noshade line-box">
 				<p style="line-height: 1.6em;">{{what_do_you_find_intro}}</p>
-				{news_one}
 				<p class="main-totalstats">{{total_of_caches}} <span class="content-title-noshade">{total_hiddens}</span> {{active_caches}} <span class="content-title-noshade">{hiddens}</span> | {{number_of_founds}}: <span class="content-title-noshade">{founds}</span> | {{number_of_active_users}}: <span class="content-title-noshade">{users} </span></p>
 			</div>
 <!-- Text container -->
@@ -96,7 +87,8 @@ function Unlite() {
 				</div>
 				<div class="content2-container-2col-left" id="new-events-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{incomming_events}}</p>
-		<?php
+				{news_one}
+				  <?php
 			global $dynstylepath;
 			include ($dynstylepath . "nextevents.inc.php");
 		?>

@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-																./index.php
-															-------------------
-		begin                : Mon June 14 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*                                         				                                
@@ -42,7 +34,7 @@
 		require($stylepath . '/news.inc.php');
 		tpl_set_var('news_one', '<br />');
 
-		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 1');
+		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
 		while ($r = sql_fetch_array($rs))
 		{
 			$post_date = strtotime($r['date']);
