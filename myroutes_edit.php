@@ -57,7 +57,7 @@
 							exit;
 				}		
 
-			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`='&1'", $route_id);
+			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`='&1' AND `user_id`='&2'", $route_id,$user_id);
 			$record = sql_fetch_array($route_rs);	
 			tpl_set_var('routes_name',$record['name']);
 			
@@ -72,7 +72,7 @@
 						if ($remove == 1)
 						{							
 							//remove 
-							sql("DELETE FROM `routes` WHERE `route_id`='&1'", $route_id);
+							sql("DELETE FROM `routes` WHERE `route_id`='&1' AND `user_id`='&2'", $route_id,$user_id);
 							sql("DELETE FROM `route_points` WHERE `route_id`='&1'", $route_id);
 							tpl_redirect('myroutes.php');
 							exit;
