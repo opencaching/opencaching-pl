@@ -649,7 +649,7 @@ $final_cache_list = array();
 	$bounds_min_lon = $smallestLon - $distance/110;
 	$bounds_max_lon = $largestLon + $distance/110;
 	$query = "SELECT wp_oc waypoint, latitude lat, longitude lon "." FROM caches "."WHERE latitude>'$bounds_min_lat' ".
-	"AND latitude<'$bounds_max_lat' "."AND longitude>'$bounds_min_lon' "."AND longitude<'$bounds_max_lon' "."AND status = '1';";
+	"AND latitude<'$bounds_max_lat' "."AND longitude>'$bounds_min_lon' "."AND longitude<'$bounds_max_lon' "."AND status != '3' AND status != '4' AND status != '5' AND status != '6';";
 	$result=sql($query);
 	if ($result AND $count=mysql_num_rows($result)) {
 		for ( $i=0; $i<$count; $i++ ) {
@@ -694,7 +694,8 @@ $caches_list=caches_along_route($route_id, $distance);
 
 // store options in DB
 sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($options), $route_id);
-$order=" ORDER BY FIELD(`caches`.`wp_oc`,'".implode("', '", $caches_list)."')";
+
+// get first point of route to calculate distance to cache and sort list by distance
  $lat=sqlValue("SELECT `route_points`.`lat`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`point_nr` LIMIT 1", 0);
  $lon=sqlValue("SELECT `route_points`.`lon`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`point_nr` LIMIT 1", 0);
 
