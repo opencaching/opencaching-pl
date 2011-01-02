@@ -831,6 +831,7 @@ caches_along_route Skrzynki wzdłuż trasy
 save_gpx Zapisz do GPX
 show_gmap Pokaż na GMAP'ie
 min_logs_cache_gpx Minimalna liczba logów w GPX dla skrzynki
+min_logs_cache Minimalna liczba logów 
 
 
 

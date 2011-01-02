@@ -792,6 +792,7 @@ caches_along_route Geocaches along route
 save_gpx Save to GPX
 show_gmap Show on GMAP
 min_logs_cache_gpx Min. numbers of logs for each cache in GPX
+min_logs_cache Min. numbers of logs 
 
 
 
