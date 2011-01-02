@@ -74,8 +74,18 @@ $route_id=sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND descrip
 
 // Read file KML with route, load in the KML file through the my_routes page, and run that KML file through GPSBABEL which has a tool what reduces the number of data points in the route.	
 if ( !$error ) {
-exec("/usr/local/bin/gpsbabel -i kml,units=m -f ".$upload_filename." -x interpolate,distance=0.25k -o kml -F ".$upload_filename."");
+exec("/usr/local/bin/gpsbabel -i kml,units=m -f ".$upload_filename." -x interpolate,distance=0.25k -o kml,units=m -F ".$upload_filename."");
 $xml = simplexml_load_file($upload_filename);
+
+// get length route
+foreach ($xml->Document->Folder as $f){
+foreach ($f->Folder as $folder){
+$dis=$folder->description;
+$dis1=explode(" ",trim($dis));
+$len=(float)$dis1[27];
+	sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$len,$route_id);
+	}}
+
 	foreach ( $xml->Document->Folder as $xmlelement ) {
 	foreach ( $xmlelement->Folder as $folder ) {
 	foreach ( $folder->Placemark->LineString->coordinates as $coordinates ) {
@@ -107,29 +117,7 @@ if (!$error){
 		$query = "INSERT into route_points(route_id,point_nr,lat,lon)"."VALUES ($route_id,$point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
 		$result=sql($query);
 		}
-		// calculate length route
-		$distance=0;
-			$rsc = sql("SELECT `lat`,`lon`
-					FROM `route_points` 
-					WHERE `route_id`='&1'
-			        ORDER BY point_nr", $route_id);
-			if (mysql_num_rows($rsc) !=0)
-			{	$record = sql_fetch_array($rsc);
-				$firsty=$record['lon'];
-				$firtsx=$record['lat'];
-			for ($i = 1; $i < mysql_num_rows($rsc); $i++)
-			{
-				$record = sql_fetch_array($rsc);
-				$secy=$record['lon'];
-				$secx=$record['lat'];
-				$distance1=calcDistance($firtsx,$firsty,$secx,$secy,1);
-				$distance=$distance+$distance1;
-				$firsty=$secy;
-				$firtsx=$secx;
-			}
-			$distance=round($distance*0.3,1);
-			sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$distance,$route_id);
-			}	
+	
 		tpl_redirect('myroutes.php');	
 	} // end submit
 

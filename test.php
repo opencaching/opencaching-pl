@@ -35,7 +35,7 @@ gdir = new GDirections(map, document.getElementById("directions"));
 GEvent.addListener(gdir, "load", onGDirectionsLoad);
 GEvent.addListener(gdir, "error", handleErrors);
 
-setDirections("San Francisco", "Mountain View", "en_US");
+setDirections("Warszawa", "Torun", "pl_PL");
 }
 }
 
@@ -79,7 +79,7 @@ function onGDirectionsLoad(){
 </head>
 <body onload="initialize()" onunload="GUnload()">
 
-<h2>Maps API Directions Illustrated</h2>
+<h2>Maps Directions </h2>
 <form action="#" onsubmit="setDirections(this.from.value, this.to.value, this.locale.value); return false">
 
 <table>
@@ -87,21 +87,18 @@ function onGDirectionsLoad(){
 <tr><th align="right">From:&nbsp;</th>
 
 <td><input type="text" size="25" id="fromAddress" name="from"
-value="San Francisco"/></td>
+value="Warszawa"/></td>
 <th align="right">&nbsp;&nbsp;To:&nbsp;</th>
 <td align="right"><input type="text" size="25" id="toAddress" name="to"
-value="Mountain View" /></td></tr>
+value="Torun" /></td></tr>
 
 <tr><th>Language:&nbsp;</th>
 <td colspan="3"><select id="locale" name="locale">
 
-<option value="en" selected>English</option>
-
-<option value="fr">French</option>
-
+<option value="en" >English</option>
 <option value="de">German</option>
-<option value="pl">Polski</option>
-<option value="es">Spanish</option>
+<option value="pl" selected>Polski</option>
+
 </select>
 
 <input name="submit" type="submit" value="Get Directions!" />

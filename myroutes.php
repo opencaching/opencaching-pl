@@ -58,7 +58,7 @@
 							$routes .= '<table border="0" class="myr"><tr><td style="margin-left:3px;width:75px;" class="myr">'.$routes_record['name']. '</td><td width="2" style="border-right:solid thin #7fa2ca"></td>
 							<td style="width:297px;" class="myr">'.nl2br($desc).'</td><td width="2" style="border-right:solid thin #7fa2ca"></td>
 							<td style="width:65px;" class="myr">'.$routes_record['radius']. ' km</td><td width="2" style="border-right:solid thin #7fa2ca"></td>
-							<td style="width:62px;" class="myr">'.round($routes_record['length'],0). ' km</td><td width="2" style="border-right:solid thin #7fa2ca"></td>
+							<td style="width:62px;" class="myr">'.$routes_record['length']. ' km</td><td width="2" style="border-right:solid thin #7fa2ca"></td>
 							<td style="width:73px;" class="myr"><a class="links" href="myroutes_search.php?routeid='.$routes_record['route_id'].'"><img src="tpl/stdstyle/images/action/16x16-search.png" alt="" title="Search caches along route" /></a></td><td width="2" style="border-right:solid thin #7fa2ca"></td>
 							<td style="width:53px;" class="myr"><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'"><img src="images/actions/edit-16.png" alt="" title="Edit route" /></a></td><td width="2" style="border-right:solid thin #7fa2ca"></td>
 							<td style="width:23px;" class="myr"><a class="links" href="myroutes_edit.php?routeid='.$routes_record['route_id'].'&delete" onclick="return confirm(\'Czy chcesz usunąć tę trase?\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title="Usuń" /></a></td></tr></table></div>';
