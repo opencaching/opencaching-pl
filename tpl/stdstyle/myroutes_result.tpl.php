@@ -69,7 +69,7 @@ function sync_options(element)
 <div class="searchdiv">
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
 	<tr>
-			<td class="content-title-noshade" style="font-size:14px;">{{min_logs_cache_gpx}}:</td></tr>
+			<td class="content-title-noshade" style="font-size:14px;">{{logs_cache_gpx}}:</td></tr>
 <tr>
 			<td class="content-title-noshade" style="font-size:12px;" colspan="2">
 				<input type="radio" name="cache_log" value="0" tabindex="0" id="l_all_logs_caches" class="radio" onclick="javascript:sync_options(this)" {all_logs_caches} /> <label for="l_all_logs_caches">{{show_all_log_entries}}</label>&nbsp;
