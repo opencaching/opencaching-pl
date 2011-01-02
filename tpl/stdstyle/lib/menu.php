@@ -446,6 +446,13 @@ $menu = array(
 				'filename' => 'myneighborhood.php',
 				'siteid' => 'myneighborhood'
 			),
+						array(
+				'title' => tr('myroutes'),
+				'menustring' => tr('myroutes'),
+				'visible' => true,
+				'filename' => 'myroutes.php',
+				'siteid' => 'myroutes'
+			),
 			array(
 				'title' => tr('mycache_note'),
 				'menustring' => tr('mycache_note'),
