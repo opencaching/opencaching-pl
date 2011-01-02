@@ -260,7 +260,9 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 	tpl_set_var('hidopt_attribs', implode(';', $options['cache_attribs']));
 	tpl_set_var('hidopt_attribs_not', implode(';', $options['cache_attribs_not']));
 
-
+	// min logs for caches in GPX output
+	tpl_set_var('nrlogs', '0');
+	
 	tpl_set_var('f_inactive_checked', ($options['f_inactive'] == 1) ? ' checked="checked"' : '');
 	tpl_set_var('hidopt_inactive', ($options['f_inactive'] == 1) ? '1' : '0');
 
@@ -663,7 +665,7 @@ $final_cache_list = array();
 	}
 	foreach ($initial_cache_list as $list) {
 		foreach ($points as $point) {
-		$route_distance =cache_distances($list["lat"],$list["lon"],$point["lat"],$point["lon"]);
+		$route_distance =cache_distances($point["lat"],$point["lon"],$list["lat"],$list["lon"]);
 		if ( $route_distance <= $distance ) {
 		if ( !$inter_cache_list[$list['waypoint']] ) {
 		$final_cache_list[] = $list['waypoint'];
@@ -690,21 +692,23 @@ $final_cache_list = array();
 $caches_list=caches_along_route($route_id, $distance);
 // store options in DB
 sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($options), $route_id);
+$order=" ORDER BY FIELD(`caches`.`wp_oc`,'".implode("', '", $caches_list)."')";
 
  $rs=sql("SELECT `caches`.`cache_id` `cacheid`, 
 							`user`.`user_id` `userid`, 
 							`caches`.`type` `type`,
 							`caches`.`name` `cachename`, 
-							`caches`.`wp_oc` `wp_name`, 
+							`caches`.`wp_oc` `wp_oc`, 
 							`user`.`username` `username`, 
 							`caches`.`date_created` `date_created`, 
 							`caches`.`date_hidden` `date`, 
 							`cache_type`.`icon_large` `icon_large`,
 							`caches`.`topratings` `topratings`
 					FROM `caches`,`user`, `cache_type` 
-					WHERE `caches`.`user_id`=`user`.`user_id` 
+					WHERE `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') 
+					AND `caches`.`user_id`=`user`.`user_id` 
 						AND `cache_type`.`id`=`caches`.`type`
-						AND `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') AND `caches`.`cache_id` IN (" . $sqlFilter . ") ORDER BY FIELD(`caches`.`wp_oc`,'".implode("', '", $caches_list)."')");	
+					   AND `caches`.`cache_id` IN (" . $sqlFilter . ")");	
 	
 	$ncaches=mysql_num_rows($rs);
 	tpl_set_var('number_caches',$ncaches);
@@ -951,7 +955,7 @@ $caches_list=caches_along_route($route_id, $distance);
 			
 		$bUseZip = ($rCount['count'] > 50);
 		$bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
-		$bUseZip = false;
+	//	$bUseZip = true;
 		if ($bUseZip == true)
 		{
 			$content = '';
@@ -1115,8 +1119,13 @@ $caches_list=caches_along_route($route_id, $distance);
 				
 				$logentries .= $thislogs . "\n";
 		}	
-
-			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC", $r['cacheid']); // adam: removed LIMIT 20
+		    // set number of logs output
+			
+			$nrlogs = isset($_POST['nrlogs']) ? $_POST['nrlogs'] : '0';
+	
+			if ($nrlogs!=0) {$limit=" LIMIT ".$nrlogs;
+			
+			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC $limit", $r['cacheid']);
 			while ($rLog = sql_fetch_array($rsLogs))
 			{
 				$thislog = $gpxLog;
@@ -1134,6 +1143,7 @@ $caches_list=caches_along_route($route_id, $distance);
 				$thislog = str_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
 				$logentries .= $thislog . "\n";
 				
+			}
 			}
 			$thisline = str_replace('{logs}', $logentries, $thisline);
 

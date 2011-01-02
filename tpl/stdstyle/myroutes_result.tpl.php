@@ -15,6 +15,7 @@
 <form action="myroutes_search.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr">
 <input type="hidden" name="routeid" value="{routeid}"/>
 <input type="hidden" name="distance" value="{distance}"/>
+<input type="hidden" name="nrlogs" value="{nrlogs}"/>
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
 <tr>
 <td ><strong>{{date_hidden_label}}</strong></td>
@@ -33,6 +34,9 @@
 </tr>
 </table>
 </div>
+<br/>
+<div class="content-title-noshade-size3">{{min_logs_caches_gpx}}: <input type="text" name="nrlogs" value="{nrlogs}" maxlength="3" class="input50" /></div>
+
 <br/>
 			<button type="submit" name="back" value="back" style="font-size:12px;width:160px"><b>{{back}}</b></button>&nbsp;&nbsp;
 {list_empty_start}
