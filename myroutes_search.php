@@ -690,6 +690,7 @@ $final_cache_list = array();
 			tpl_set_var('route_name',$record['name']);
 		
 $caches_list=caches_along_route($route_id, $distance);
+
 // store options in DB
 sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($options), $route_id);
 $order=" ORDER BY FIELD(`caches`.`wp_oc`,'".implode("', '", $caches_list)."')";
@@ -708,9 +709,10 @@ $order=" ORDER BY FIELD(`caches`.`wp_oc`,'".implode("', '", $caches_list)."')";
 					WHERE `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') 
 					AND `caches`.`user_id`=`user`.`user_id` 
 						AND `cache_type`.`id`=`caches`.`type`
-					   AND `caches`.`cache_id` IN (" . $sqlFilter . ")");	
+					   AND `caches`.`cache_id` IN (" . $sqlFilter . ") ORDER BY FIELD(`caches`.`wp_oc`,'".implode("', '", $caches_list)."')");
 	
 	$ncaches=mysql_num_rows($rs);
+	
 	tpl_set_var('number_caches',$ncaches);
 	if ($ncaches==0){
 		tpl_set_var('list_empty_start','<!--');

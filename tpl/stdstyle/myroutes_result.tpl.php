@@ -35,7 +35,7 @@
 </table>
 </div>
 <br/>
-<div class="content-title-noshade-size3">{{min_logs_caches_gpx}}: <input type="text" name="nrlogs" value="{nrlogs}" maxlength="3" class="input50" /></div>
+<div class="content-title-noshade-size3">{{min_logs_cache_gpx}}: <input type="text" name="nrlogs" value="{nrlogs}" maxlength="3" class="input50" /></div>
 
 <br/>
 			<button type="submit" name="back" value="back" style="font-size:12px;width:160px"><b>{{back}}</b></button>&nbsp;&nbsp;
