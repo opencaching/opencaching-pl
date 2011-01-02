@@ -16,10 +16,11 @@
 
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
+		require_once($rootpath . 'lib/calculation.inc.php');
 	require_once('./lib/cache_icon.inc.php');
 	require_once($rootpath . 'lib/caches.inc.php');
 	require_once($stylepath . '/lib/icons.inc.php');
-	global $content, $bUseZip, $sqldebug, $usr, $hide_coords;
+	global $content, $bUseZip, $sqldebug, $usr;
 	global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
 	global $lang, $language;
 	set_time_limit(1800);
@@ -694,8 +695,11 @@ $caches_list=caches_along_route($route_id, $distance);
 // store options in DB
 sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($options), $route_id);
 $order=" ORDER BY FIELD(`caches`.`wp_oc`,'".implode("', '", $caches_list)."')";
+ $lat=sqlValue("SELECT `route_points`.`lat`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`point_nr` LIMIT 1", 0);
+ $lon=sqlValue("SELECT `route_points`.`lon`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`point_nr` LIMIT 1", 0);
 
- $rs=sql("SELECT `caches`.`cache_id` `cacheid`, 
+ $rs=sql("SELECT (". getSqlDistanceFormula($lon, $lat, 0, 1) .") `distance`,
+ `caches`.`cache_id` `cacheid`, 
 							`user`.`user_id` `userid`, 
 							`caches`.`type` `type`,
 							`caches`.`name` `cachename`, 
@@ -709,7 +713,7 @@ $order=" ORDER BY FIELD(`caches`.`wp_oc`,'".implode("', '", $caches_list)."')";
 					WHERE `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') 
 					AND `caches`.`user_id`=`user`.`user_id` 
 						AND `cache_type`.`id`=`caches`.`type`
-					   AND `caches`.`cache_id` IN (" . $sqlFilter . ") ORDER BY FIELD(`caches`.`wp_oc`,'".implode("', '", $caches_list)."')");
+					   AND `caches`.`cache_id` IN (" . $sqlFilter . ") ORDER BY distance");
 	
 	$ncaches=mysql_num_rows($rs);
 	
@@ -726,6 +730,7 @@ $order=" ORDER BY FIELD(`caches`.`wp_oc`,'".implode("', '", $caches_list)."')";
 
 				$file_content .= '<tr>';
 				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';	
+		//		$file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: blue;">'.sprintf("%01.1f",$r['distance']). '</span></td>';
 				if ($r['topratings']!=0) {
 				$file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: green;">'.$r['topratings']. '</span></td>';
 				}else{
