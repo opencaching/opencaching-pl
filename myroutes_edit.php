@@ -139,7 +139,7 @@ if (!$error){
 					
 						tpl_redirect('myroutes.php');
 							exit;				
-				}
+				} //end submit
 				tpl_set_var('name', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'));	
 				tpl_set_var('desc', htmlspecialchars($record['description'], ENT_COMPAT, 'UTF-8'));					
 				tpl_set_var('radius', $record['radius']);	

@@ -77,7 +77,7 @@ if ( !$error ) {
 exec("/usr/local/bin/gpsbabel -i kml,units=m -f ".$upload_filename." -x interpolate,distance=0.25k -o kml,units=m -F ".$upload_filename."");
 $xml = simplexml_load_file($upload_filename);
 
-// get length route
+	// get length route
 foreach ($xml->Document->Folder as $f){
 foreach ($f->Folder as $folder){
 $dis=$folder->description;
@@ -86,6 +86,7 @@ $len=(float)$dis1[27];
 	sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$len,$route_id);
 	}}
 
+	
 	foreach ( $xml->Document->Folder as $xmlelement ) {
 	foreach ( $xmlelement->Folder as $folder ) {
 	foreach ( $folder->Placemark->LineString->coordinates as $coordinates ) {
@@ -110,19 +111,19 @@ if (!$error){
 		}
 	}
 // add it to the route_points database:
-//get new route_id
 		$point_num = 0;
 		foreach ($points as $point) {
 		$point_num++;
-		$query = "INSERT into route_points(route_id,point_nr,lat,lon)"."VALUES ($route_id,$point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
+		$query = "INSERT into route_points (route_id,point_nr,lat,lon)"."VALUES ($route_id,$point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
 		$result=sql($query);
 		}
-	
-		tpl_redirect('myroutes.php');	
-	} // end submit
+		
+						tpl_redirect('myroutes.php');
+							exit;		
 
-	
-		}
+				} //end submit
+
+			}
 	}
 
 	//make the template and send it out
