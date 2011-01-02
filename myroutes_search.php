@@ -1235,7 +1235,7 @@ $caches_list=caches_along_route($route_id, $distance);
 			echo $phpzip->save($sFilebasename . '.zip', 'b');
 		}
 	
-	
+	tpl_redirect('myroutes.php');	
 	exit;
 		} //end GPX output
 		
