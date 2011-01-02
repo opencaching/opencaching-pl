@@ -144,7 +144,7 @@ function switchCat2()
 <form action="myroutes_search.php" method="post" enctype="multipart/form-data" name="optionsform" dir="ltr">
 <input type="hidden" name="routeid" value="{routeid}"/>
 <input type="hidden" name="distance" value="{distance}"/>
-<input type="hidden" name="cacherating" value="{cacherating}" />
+<input type="hidden" name="cacherating" value="" />
 <input type="hidden" name="cache_attribs" value="{hidopt_attribs}" />
 <input type="hidden" name="cache_attribs_not" value="{hidopt_attribs_not}" />
 <div class="searchdiv">

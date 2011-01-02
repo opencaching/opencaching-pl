@@ -174,6 +174,17 @@
 //			$options['cache_attribs_not'] = isset($_POST['cache_attribs_not']) ? $_POST['cache_attribs_not'] : '';			
 				
 			}
+			
+		// for myroute_result
+		$logs =isset($_POST['nrlogs']) ? $_POST['nrlogs'] : '';
+		$cache_logs = isset($_POST['cache_log']) ? $_POST['cache_log'] : '0';
+		tpl_set_var('all_logs_caches', ($logs == 0) ? ' checked="checked"' : '');
+		tpl_set_var('min_logs_caches', ($logs > 0) ? ' checked="checked"' : '');
+		tpl_set_var('nrlogs', ($logs > 0) ? $logs : 0);
+		tpl_set_var('min_logs_caches_disabled', ($logs == 0) ? ' disabled="disabled"' : '');
+
+
+		
 	$cache_attrib_jsarray_line = "new Array('{id}', {state}, '{text_long}', '{icon}', '{icon_no}', '{icon_undef}', '{category}')";
 	$cache_attrib_img_line = '<img id="attrimg{id}" src="{icon}" title="{text_long}" alt="{text_long}" onmousedown="switchAttribute({id})" style="cursor: pointer;" />&nbsp;';
 
@@ -260,9 +271,6 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 	tpl_set_var('attributes_jsarray', $attributes_jsarray);
 	tpl_set_var('hidopt_attribs', implode(';', $options['cache_attribs']));
 	tpl_set_var('hidopt_attribs_not', implode(';', $options['cache_attribs_not']));
-
-	// min logs for caches in GPX output
-	tpl_set_var('nrlogs', '0');
 	
 	tpl_set_var('f_inactive_checked', ($options['f_inactive'] == 1) ? ' checked="checked"' : '');
 	tpl_set_var('hidopt_inactive', ($options['f_inactive'] == 1) ? '1' : '0');
@@ -290,6 +298,7 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 		tpl_set_var('min_rec_caches_disabled', ($options['cacherating'] == 0) ? ' disabled="disabled"' : '');
 	}
 	
+		
 	if (isset($options['cachedifficulty_1']))
 	{	$cdf=$options['cachedifficulty_1']*2;
 	tpl_set_var('cdf'.$cdf.'',' selected="selected"');}
@@ -1129,10 +1138,10 @@ $caches_list=caches_along_route($route_id, $distance);
 		}	
 		    // set number of logs output
 			
-			$nrlogs = isset($_POST['nrlogs']) ? $_POST['nrlogs'] : '0';
-	
-			if ($nrlogs!=0) {$limit=" LIMIT ".$nrlogs;
-			
+
+			if ($cache_logs!=0 && $logs!=0){$limit=" LIMIT ".$logs;}
+			if ($cache_logs==0) {$limit="";}
+			if ($logs!=0 || $cache_logs==0) {			
 			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC $limit", $r['cacheid']);
 			while ($rLog = sql_fetch_array($rsLogs))
 			{
@@ -1149,8 +1158,7 @@ $caches_list=caches_along_route($route_id, $distance);
 					
 				$thislog = str_replace('{type}', $logtype, $thislog);
 				$thislog = str_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
-				$logentries .= $thislog . "\n";
-				
+				$logentries .= $thislog . "\n";	
 			}
 			}
 			$thisline = str_replace('{logs}', $logentries, $thisline);
