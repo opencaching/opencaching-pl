@@ -27,6 +27,7 @@ var map;
 var gdir;
 var geocoder = null;
 var addressMarker;
+var locale = "pl_PL";
 
 function initialize() {
 if (GBrowserIsCompatible()) {
@@ -91,15 +92,6 @@ value="Warszawa"/></td>
 <th align="right">&nbsp;&nbsp;To:&nbsp;</th>
 <td align="right"><input type="text" size="25" id="toAddress" name="to"
 value="Torun" /></td></tr>
-
-<tr><th>Language:&nbsp;</th>
-<td colspan="3"><select id="locale" name="locale">
-
-<option value="en" >English</option>
-<option value="de">German</option>
-<option value="pl" selected>Polski</option>
-
-</select>
 
 <input name="submit" type="submit" value="Get Directions!" />
 
