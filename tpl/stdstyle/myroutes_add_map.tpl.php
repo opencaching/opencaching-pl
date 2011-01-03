@@ -96,7 +96,6 @@ function onGDirectionsLoad(){
 }
 </script>
 <style type="text/css">
-
 table.directions th {
 background-color:#EEEEEE;
 }
@@ -107,21 +106,45 @@ color: #000000;
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{add_new_route}}</div>
 <div class="searchdiv">
+
+<form action="myroutes_add.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" >
+<table class="content">
+	<tr>
+<td valign='top' width='25%'><span style="font-weight:bold;">{{route_name}}:</span></td>
+<td width='75%'><input type='text' name='name' size='50' value=''></td>
+<td class="buffer" colspan="4"></td>
+</tr>
+<tr>
+<td valign='top' width='25%'><span style="font-weight:bold;">{{route_desc}}:</span></td>
+<td width='75%'><textarea name='desc' cols='80' rows='3'></textarea></td>
+<td class="buffer" colspan="4"></td>
+</tr>
+<tr>
+<td valign='top' width='25%'><span style="font-weight:bold;">{{route_radius}} (km):</span></td>
+<td width='75%'><input type='text' name='radius' size='5' value=''>&nbsp;&nbsp;<span class="notice">{{radius_info}}</span></td>
+<td class="buffer" colspan="4"></td>
+</tr>
+<tr>
+<td valign="top" align="left" colspan="2">
+	<button type="submit" name="submitsave" value="submit"  style="font-size:12px;width:160px"><b>{{save_route}}</b></button>
+		<br /><br /></td>
+	</tr>
+</table><br/>
+</form>
 <form action="#" onsubmit="setDirections(this.from.value, this.to.value, this.locale.value); return false">
-
-<table>
-
-<tr><th align="right">From:&nbsp;</th>
+<table class="content">
+<tr><td align="right"><span style="font-weight:bold;">From:&nbsp;</span></td>
 
 <td><input type="text" size="25" id="fromAddress" name="from"
 value="Warszawa"/></td>
-<th align="right">&nbsp;&nbsp;To:&nbsp;</th>
+<td align="right"><span style="font-weight:bold;">&nbsp;&nbsp;To:&nbsp;</span></td>
 <td align="right"><input type="text" size="25" id="toAddress" name="to"
 value="Torun" /></td>
 
-<td align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Get Directions!" />Wyznacz trasę</button></td><td align="right">&nbsp;&nbsp;<button name="submitsave" type="submit" value="save" />Zapisz trasę</button></td></tr>
+<td align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Get Directions!">Wyznacz trasę</button></td></td></tr>
 
 </td></tr>
+
 </table>
 
 </form>
