@@ -775,6 +775,7 @@ new_logs_myn Latest logs
 search_options Search options
 myroutes My routes
 add_new_route Add new route
+save_route Save route
 edit_route Edit route
 route_desc Descriptions route
 route_name Name route
