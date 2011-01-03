@@ -32,24 +32,26 @@
 		$tplname = 'start';
 		// news
 		require($stylepath . '/news.inc.php');
-		tpl_set_var('news_one', '<br />');
-
+//		tpl_set_var('display_news_one', '<br />');
+		$newscontent ="<br />";
 		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
 		while ($r = sql_fetch_array($rs))
 		{
 			$post_date = strtotime($r['date']);
-			$newsentry = $tpl_newstopic_header;
+			$newsentry .= $tpl_newstopic_header;
 			$newsentry .= $tpl_newstopic_without_topics;
 			
 			$newsentry = mb_ereg_replace('{date}', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $newsentry);
 			$newsentry = mb_ereg_replace('{topic}', htmlspecialchars($r['topic'], ENT_COMPAT, 'UTF-8'), $newsentry);
 			$newsentry = mb_ereg_replace('{message}', $r['content'], $newsentry);			
-			$newscontent = $newsentry . "\n";
-			$current_date= date(Ymd);
-			$posted_date=strftime("%Y%m%d", $post_date);
-			$diff=(int)($current_date - $posted_date);
-			if ($diff < 100 && $lang=="pl") {tpl_set_var('news_one', $newscontent);} 
-			else {tpl_set_var('news_one', '<br />');} 
+			$newscontent .= $newsentry . "\n";
+
+
+			$current_date=strftime(date(Ymd));
+			$posted_date=strftime("%Y%m%d",$post_date);
+			$diff=abs($current_date - $posted_date);
+			if ($diff < 100 && $lang=="pl") {tpl_set_var('display_news_one', $newscontent);} 
+	//		else {tpl_set_var('display_news_one', '<br />');} 
 		}
 		mysql_free_result($rs);
 		$newscontent = '';
