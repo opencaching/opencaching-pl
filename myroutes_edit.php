@@ -85,7 +85,7 @@
 				
 				sql("UPDATE `routes` SET `name`='&1',`description`='&2',`radius`='&3' WHERE `route_id`='&4'",$rname,$rdesc,$rradius,$route_id);
 					
-				if (isset($_FILES['file']['tmp_name'])) {
+				if ($_FILES['file']['tmp_name']!="") {
 
 				sql("DELETE FROM `route_points` WHERE `route_id`='&1'", $route_id);				
 
