@@ -112,17 +112,14 @@ color: #000000;
 	<tr>
 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_name}}:</span></td>
 <td width='75%'><input type='text' name='name' size='50' value=''></td>
-<td class="buffer" colspan="4"></td>
 </tr>
 <tr>
 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_desc}}:</span></td>
 <td width='75%'><textarea name='desc' cols='80' rows='3'></textarea></td>
-<td class="buffer" colspan="4"></td>
 </tr>
 <tr>
 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_radius}} (km):</span></td>
 <td width='75%'><input type='text' name='radius' size='5' value=''>&nbsp;&nbsp;<span class="notice">{{radius_info}}</span></td>
-<td class="buffer" colspan="4"></td>
 </tr>
 <tr>
 <td valign="top" align="left" colspan="2">
@@ -133,18 +130,13 @@ color: #000000;
 </form>
 <form action="#" onsubmit="setDirections(this.from.value, this.to.value, this.locale.value); return false">
 <table class="content">
-<tr><td align="right"><span style="font-weight:bold;">From:&nbsp;</span></td>
-
-<td><input type="text" size="25" id="fromAddress" name="from"
-value="Warszawa"/></td>
+<tr>
+<td align="right"><span style="font-weight:bold;">From:&nbsp;</span></td>
+<td><input type="text" size="25" id="fromAddress" name="from" value="Warszawa"/></td>
 <td align="right"><span style="font-weight:bold;">&nbsp;&nbsp;To:&nbsp;</span></td>
-<td align="right"><input type="text" size="25" id="toAddress" name="to"
-value="Torun" /></td>
-
-<td align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Get Directions!">Wyznacz trasę</button></td></td></tr>
-
-</td></tr>
-
+<td align="right"><input type="text" size="25" id="toAddress" name="to" value="Torun" /></td>
+<td align="right">&nbsp;&nbsp;<input name="submit" type="submit" value="Get Directions!" /></td>
+</tr>
 </table>
 
 </form>
