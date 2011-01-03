@@ -128,14 +128,14 @@ color: #000000;
 	</tr>
 </table><br/>
 </form>
-<form action="#" onsubmit="setDirections(this.from.value, this.to.value, this.locale.value); return false">
+<form action="#" onsubmit="setDirections(this.from.value, this.to.value); return false">
 <table class="content">
 <tr>
 <td align="right"><span style="font-weight:bold;">From:&nbsp;</span></td>
 <td><input type="text" size="25" id="fromAddress" name="from" value="Warszawa"/></td>
 <td align="right"><span style="font-weight:bold;">&nbsp;&nbsp;To:&nbsp;</span></td>
 <td align="right"><input type="text" size="25" id="toAddress" name="to" value="Torun" /></td>
-<td align="right">&nbsp;&nbsp;<input name="submit" type="submit" value="Get Directions!" /></td>
+<td align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Get Directions">Wyznacz trasę></button></td>
 </tr>
 </table>
 
@@ -147,7 +147,7 @@ color: #000000;
 
 <tr>
 <td valign="top"><div id="directions" style="width: 275px"></div></td>
-<td valign="top"><br/><div id="map_canvas" style="width: 310px; height: 400px"></div></td>
+<td valign="top"><br/><div id="map_canvas" style="width: 400px; height: 400px"></div></td>
 
 </tr>
 </table>
