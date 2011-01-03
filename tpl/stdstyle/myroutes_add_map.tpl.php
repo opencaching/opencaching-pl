@@ -98,7 +98,7 @@ function onGDirectionsLoad(){
 
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{add_new_route}}</div>
-
+<div class="searchdiv">
 <form action="#" onsubmit="setDirections(this.from.value, this.to.value, this.locale.value); return false">
 
 <table>
@@ -115,7 +115,6 @@ value="Torun" /></td></tr>
 
 </td></tr>
 </table>
-
 
 </form>
 
