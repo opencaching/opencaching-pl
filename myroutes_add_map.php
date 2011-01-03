@@ -75,6 +75,8 @@
 				$from = isset($_POST['fromaddr']) ? $_POST['fromaddr'] : 'Warszawa';			
 			
 				$to = isset($_POST['toaddr']) ? $_POST['toaddr'] : 'Torun';
+				$from=str_replace(" ","+",$from);
+				$to=str_replace(" ","+",$to);
 
 $myurl = "http://maps.google.com/maps?q=from+{$from}+to+{$to}&output=kml";
 //Open the url
