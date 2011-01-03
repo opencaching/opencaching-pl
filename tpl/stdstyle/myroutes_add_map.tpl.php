@@ -117,9 +117,9 @@ color: #000000;
 value="Warszawa"/></td>
 <th align="right">&nbsp;&nbsp;To:&nbsp;</th>
 <td align="right"><input type="text" size="25" id="toAddress" name="to"
-value="Torun" /></td></tr>
+value="Torun" /></td>
 
-<input name="submit" type="submit" value="Get Directions!" />
+<td align="right"><button name="submit" type="submit" value="Get Directions!" />Wyznacz trasę</button></td></tr>
 
 </td></tr>
 </table>
@@ -132,7 +132,7 @@ value="Torun" /></td></tr>
 
 <tr>
 <td valign="top"><div id="directions" style="width: 275px"></div></td>
-<td valign="top"><div id="map_canvas" style="width: 310px; height: 400px"></div></td>
+<td valign="top"><br/><div id="map_canvas" style="width: 310px; height: 400px"></div></td>
 
 </tr>
 </table>
