@@ -814,6 +814,8 @@ show_more Pokaż więcej
 search_options Opcje wyszukiwania
 myroutes Moje trasy
 add_new_route Dodaj nową trasę
+setup_new_route Wyznacz nową trasę
+add_new_route_kml Wgraj nową trasę z pliku KML
 save_route Zapisz trasę
 radius_info Promień powinien być w zakresie od 0.5 km do 10 km
 edit_route Edycja trasy
