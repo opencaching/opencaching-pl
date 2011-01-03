@@ -143,7 +143,7 @@ color: #000000;
 
 <br/>
 <table class="directions">
-<tr><th>Formatted Directions</th><th>Map</th></tr>
+<tr><th>Elementy trasy</th><th>Mapa</th></tr>
 
 <tr>
 <td valign="top"><div id="directions" style="width: 275px"></div></td>
