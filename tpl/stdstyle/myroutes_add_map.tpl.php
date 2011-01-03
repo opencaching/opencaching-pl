@@ -95,7 +95,15 @@ function onGDirectionsLoad(){
 // and yada yada yada...
 }
 </script>
+<style type="text/css">
 
+table.directions th {
+background-color:#EEEEEE;
+}
+img {
+color: #000000;
+}
+</style>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{add_new_route}}</div>
 <div class="searchdiv">
