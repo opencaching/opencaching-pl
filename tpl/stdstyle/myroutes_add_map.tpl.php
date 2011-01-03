@@ -119,7 +119,7 @@ value="Warszawa"/></td>
 <td align="right"><input type="text" size="25" id="toAddress" name="to"
 value="Torun" /></td>
 
-<td align="right"><button name="submit" type="submit" value="Get Directions!" />Wyznacz trasę</button></td></tr>
+<td align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Get Directions!" />Wyznacz trasę</button></td><td align="right">&nbsp;&nbsp;<button name="submitsave" type="submit" value="save" />Zapisz trasę</button></td></tr>
 
 </td></tr>
 </table>
