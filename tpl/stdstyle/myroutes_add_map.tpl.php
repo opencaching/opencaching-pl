@@ -13,8 +13,18 @@
 <!--
 	function checkForm()
 	{
-
-		document.forms['myroute_form'].fromaddr.value==document.myram.from.value;
+			if(document.myroute_form.name.value == "")
+		{
+			alert("{{route_name_info}}");
+			return false;
+		}
+				if(document.myroute_form.radius.value < 0.5 ||document.myroute_form.radius.value > 10 )
+		{
+			alert("{{radius_info}}");
+			return false;
+		}
+		document.forms['myroute_form'].fromaddr.value=document.myram.from.value;
+		document.forms['myroute_form'].toaddr.value=document.myram.to.value;
 
 		return true; 
 	}
@@ -94,7 +104,7 @@ color: #000000;
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{add_new_route}}</div>
 <div class="searchdiv">
 
-<form action="myroutes_add_map.php" method="request" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
+<form action="myroutes_add_map.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="fromaddr" value=""/>
 <input type="hidden" name="toaddr" value="" />
 <table class="content">
