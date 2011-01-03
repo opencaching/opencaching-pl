@@ -775,6 +775,8 @@ new_logs_myn Latest logs
 search_options Search options
 myroutes My routes
 add_new_route Add new route
+setup_new_route Setup new route
+add_new_route_kml Load new route from KML
 save_route Save route
 edit_route Edit route
 route_desc Descriptions route
