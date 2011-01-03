@@ -86,7 +86,8 @@ function Unlite() {
 					</div>
 				</div>
 				<div class="content2-container-2col-left" id="new-events-area">
-				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{incomming_events}}</p>{display_news_one}
+				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{incomming_events}}</p>
+
 				
 				  <?php
 			global $dynstylepath;
@@ -94,5 +95,7 @@ function Unlite() {
 		?>
 			</div>
 		</div>
+<br/>
+{display_news_one}
 <!-- End Text Container -->
 	
