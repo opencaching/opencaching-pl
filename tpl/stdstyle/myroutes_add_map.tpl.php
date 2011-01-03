@@ -135,7 +135,7 @@ color: #000000;
 <td><input type="text" size="25" id="fromAddress" name="from" value="Warszawa"/></td>
 <td align="right"><span style="font-weight:bold;">&nbsp;&nbsp;To:&nbsp;</span></td>
 <td align="right"><input type="text" size="25" id="toAddress" name="to" value="Torun" /></td>
-<td align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Get Directions">Wyznacz trasę></button></td>
+<td align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Get Directions">Wyznacz trasę</button></td>
 </tr>
 </table>
 
