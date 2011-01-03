@@ -51,7 +51,7 @@
 </tr>
 	<tr>
 		<td valign="top"><span style="font-weight:bold;">{{file_name}} KML:</span></td>
-		<td><input class="input200" name="file" type="file" />&nbsp;&nbsp;<span class="notice">max 50 kB</span> </td>
+		<td><input class="input200" name="file" type="file" /></td>
 	</tr>
 <tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
