@@ -10,7 +10,7 @@
 	***************************************************************************/
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{myroutes}}</div>
-<br/><p>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/add.png" alt="" title="Add"/>&nbsp;<a class="links" href="myroutes_add_map.php">{{setup_new_route}}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/add.png" alt="" title="Add"/>&nbsp;<a class="links" href="myroutes_add.php">{{add_new_route_kml}}</a></p>
+<br/><p>&nbsp;&nbsp;&nbsp;<a class="links" href="myroutes_add_map.php"><button type="button" style="font-weight:bold;font-size:12px;">{{setup_new_route}}</button></a>&nbsp;&nbsp;&nbsp;<a class="links" href="myroutes_add.php"><button type="button" style="font-weight:bold;font-size:12px;">{{add_new_route_kml}}</button></a></p>
 <br/>
 {content}
 <div class="notice">{{see_desc_myroute}} <a href="http://wiki.opencaching.pl/index.php/Moje_trasy" target="_blank">{{here}}</a></div>
