@@ -19,7 +19,7 @@
 			alert("{{route_name_info}}");
 			return false;
 		}
-				if(document.myroute_form.radius.value < 0.5 ||document.myroute_form.radius.value > 5 )
+				if(document.myroute_form.radius.value < 0.5 ||document.myroute_form.radius.value > 10 )
 		{
 			alert("{{radius_info}}");
 			return false;
