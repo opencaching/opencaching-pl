@@ -130,9 +130,9 @@ color: #000000;
 <form action="#" name="myram" onsubmit="setDirections(this.from.value, this.to.value); return false">
 <table class="content">
 <tr>
-<td align="right"><span style="font-weight:bold;">From:&nbsp;</span></td>
+<td align="right"><span style="font-weight:bold;">Punkt startowy:&nbsp;</span></td>
 <td><input type="text" size="25" id="fromAddress" name="from" value="Warszawa"/></td>
-<td align="right"><span style="font-weight:bold;">&nbsp;&nbsp;To:&nbsp;</span></td>
+<td align="right"><span style="font-weight:bold;">&nbsp;&nbsp;Punkt końcowy:&nbsp;</span></td>
 <td align="right"><input type="text" size="25" id="toAddress" name="to" value="Torun" /></td>
 <td align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Get Directions">Wyznacz trasę</button></td>
 </tr>
