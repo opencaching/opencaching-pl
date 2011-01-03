@@ -1,115 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+  <head> 
+    <title>Directions to Josh Gamble's</title> 
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;hl=nl&amp;key=" type="text/javascript"></script>
+    
+  </head> 
+  <body> 
+    <div id="map" style="width: 400px; height: 400px"></div> 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-<title>Google Maps JavaScript API Example: Advanced Directions</title>
-<script src=" http://maps.google.com/?file=api&v=2.x&key=ABQIAAAAKzfMHoyn1s1VSuNTwlFfzhTqTxhHAgqKNaAck663VX5jr8OSJBQrTiL58t4Rt3olsGRlxSuqVkU5Xg"
-type="text/javascript"></script>
-<style type="text/css">
-body {
-font-family: Verdana, Arial, sans serif;
-font-size: 11px;
-margin: 2px;
-}
-table.directions th {
-background-color:#EEEEEE;
-}
+    <script type="text/javascript"> 
+      var gmarkers = []; 
+      var htmls = []; 
+      var to_htmls = []; 
+      var from_htmls = []; 
+      var i=0; 
 
-img {
-color: #000000;
-}
-</style>
-<script type="text/javascript">
+      function tohere(i) { 
+        gmarkers[i].openInfoWindowHtml(to_htmls[i]); 
+      } 
 
-var map;
-var gdir;
-var geocoder = null;
-var addressMarker;
-var locale = "pl_PL";
+      function fromhere(i) { 
+        gmarkers[i].openInfoWindowHtml(from_htmls[i]); 
+      } 
 
-function initialize() {
-if (GBrowserIsCompatible()) {
-map = new GMap2(document.getElementById("map_canvas"));
-gdir = new GDirections(map, document.getElementById("directions"));
-GEvent.addListener(gdir, "load", onGDirectionsLoad);
-GEvent.addListener(gdir, "error", handleErrors);
+    // Check to see if this browser can run the Google API 
+    if (GBrowserIsCompatible()) { 
 
-setDirections("Warszawa", "Torun", "pl_PL");
-}
-}
+      // A function to create the marker and set up the event window 
+      function createMarker(point,name,html) { 
+        var marker = new GMarker(point); 
 
-function setDirections(fromAddress, toAddress, locale) {
-gdir.load("from: " + fromAddress + " to: " + toAddress,
-{ "locale": locale });
-}
+        // The info window version with the "to here" form open 
+        to_htmls[i] = html + '<br>Directions: <b>To here</b> - <a href="javascript<b></b>:fromhere(' + i + ')">From here</a>' + 
+           '<br>Start address:<form action="http://maps.google.com/maps" method="get" target="_blank">' + 
+           '<input type="text" SIZE=40 MAXLENGTH=40 name="saddr" id="saddr" value="" /><br>' + 
+           '<INPUT value="Get Directions" TYPE="SUBMIT">' + 
+           '<input type="hidden" name="daddr" value="' + 
+           point.latDegrees + ',' + point.lngDegrees + "(" + name + ")" + '"/>'; 
 
-function handleErrors(){
-if (gdir.getStatus().code == G_GEO_UNKNOWN_ADDRESS)
-alert("No corresponding geographic location could be found for one of the specified addresses. This may be due to the fact that the address is relatively new, or it may be incorrect.\nError code: " + gdir.getStatus().code);
-else if (gdir.getStatus().code == G_GEO_SERVER_ERROR)
-alert("A geocoding or directions request could not be successfully processed, yet the exact reason for the failure is not known.\n Error code: " + gdir.getStatus().code);
+        // The info window version with the "to here" form open 
+        from_htmls[i] = html + '<br>Directions: <a href="javascript<b></b>:tohere(' + i + ')">To here</a> - <b>From here</b>' + 
+           '<br>End address:<form action="http://maps.google.com/maps" method="get"" target="_blank">' + 
+           '<input type="text" SIZE=40 MAXLENGTH=40 name="daddr" id="daddr" value="" /><br>' + 
+           '<INPUT value="Get Directions" TYPE="SUBMIT">' + 
+           '<input type="hidden" name="saddr" value="' + point.latDegrees + ',' + point.lngDegrees + "(" + name + ")" + '"/>'; 
 
-else if (gdir.getStatus().code == G_GEO_MISSING_QUERY)
-alert("The HTTP q parameter was either missing or had no value. For geocoder requests, this means that an empty address was specified as input. For directions requests, this means that no query was specified in the input.\n Error code: " + gdir.getStatus().code);
+        // The inactive version of the direction info 
+        html = html + '<br>Directions: <a href="javascript<b></b>:tohere('+i+')">To here</a> - <a href="javascript<b></b>:fromhere('+i+')">From here</a>'; 
 
-// else if (gdir.getStatus().code == G_UNAVAILABLE_ADDRESS) <--- Doc bug... this is either not defined, or Doc is wrong
-// alert("The geocode for the given address or the route for the given directions query cannot be returned due to legal or contractual reasons.\n Error code: " + gdir.getStatus().code);
+        GEvent.addListener(marker, "click", function() { 
+          marker.openInfoWindowHtml(html); 
+        }); 
+        gmarkers[i] = marker; 
+        htmls[i] = html; 
+        i++; 
+        return marker; 
+      } 
 
-else if (gdir.getStatus().code == G_GEO_BAD_KEY)
-alert("The given key is either invalid or does not match the domain for which it was given. \n Error code: " + gdir.getStatus().code);
+      // Display the map, with some controls and set the initial location 
+      var map = new GMap(document.getElementById("map")); 
+      map.addControl(new GLargeMapControl()); 
+      map.addControl(new GMapTypeControl()); 
+      map.setCenter(new GLatLng(39.214034,-74.694285), 15); 
 
-else if (gdir.getStatus().code == G_GEO_BAD_REQUEST)
-alert("A directions request could not be successfully parsed.\n Error code: " + gdir.getStatus().code);
-
-else alert("An unknown error occurred.");
-
-}
-
-function onGDirectionsLoad(){
-// Use this function to access information about the latest load()
-// results.
-
-// e.g.
-// document.getElementById("getStatus").innerHTML = gdir.getStatus().code;
-// and yada yada yada...
-}
-</script>
-
-</head>
-<body onload="initialize()" onunload="GUnload()">
-
-<h2>Maps Directions </h2>
-<form action="#" onsubmit="setDirections(this.from.value, this.to.value, this.locale.value); return false">
-
-<table>
-
-<tr><th align="right">From:&nbsp;</th>
-
-<td><input type="text" size="25" id="fromAddress" name="from"
-value="Warszawa"/></td>
-<th align="right">&nbsp;&nbsp;To:&nbsp;</th>
-<td align="right"><input type="text" size="25" id="toAddress" name="to"
-value="Torun" /></td></tr>
-
-<input name="submit" type="submit" value="Get Directions!" />
-
-</td></tr>
-</table>
-
-
-</form>
-
-<br/>
-<table class="directions">
-<tr><th>Formatted Directions</th><th>Map</th></tr>
-
-<tr>
-<td valign="top"><div id="directions" style="width: 275px"></div></td>
-<td valign="top"><div id="map_canvas" style="width: 310px; height: 400px"></div></td>
-
-</tr>
-</table>
-</body>
-</html>
+      // Set up a marker with an info window 
+      var point = new GLatLng(39.214034,-74.694285); 
+      var marker = createMarker(point,'2023 Cedar Ln.','Some stuff to display in the<br>First Info Window') 
+      map.addOverlay(marker); 
+    } 
+    </script> 
+  </body> 
+  </html>
