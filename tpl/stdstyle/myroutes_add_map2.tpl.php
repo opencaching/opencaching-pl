@@ -13,22 +13,197 @@
 
 
 <style type="text/css">
+input, select {
+	border: 1px solid navy;
+}
+
+.topRowCell {
+	border: 1px solid navy;
+}
+.topRowDiv {
+	background: #dddddd;
+	height:100px;
+	margin:5px;
+	padding: 3px;
+	font: normal 12px courier new;
+	text-align:left;
+	color: navy;
+}
+
+#top1 {
+	font: bold 14px courier new;
+	text-align:center;
+
+}
+.Row2Cell {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 
 #outerMapDiv {
 	border: 2px solid navy;
 	padding:3px;
+
 }
-
 #mapDiv {
-
-	width:300px;
-	height:400px;
+	width:500px;
+	height:500px;
 
 }
 #mapCell {
-	border: 2px solid navy; 
+/*	border: 2px solid navy; */
 	padding:5px;
 
+}
+
+.statusDiv, #link, #mtContainer, #scale, #directions_info, #customMaps_info {
+	padding: 3px;
+	font: normal 12px courier new;
+	text-align:left;
+	color: navy;
+}
+
+.statusBar, #link, #mtContainer, #scale, #directions_info, #customMaps_info, #opacityContainer, #buttonContainer, #directionsFormTable  {
+	border: 1px solid navy;
+	margin-left:5px;
+	margin-right:5px;
+	margin-top:5px;
+	background: #dddddd;
+	width: 200px;
+}
+
+#directions_info, #customMaps_info {
+
+/*	overflow:auto; */
+}
+
+
+#link, #scale {
+	text-align:center;
+}
+
+
+/* -------------- Tabs --------------------*/
+#tabsContainer {
+	text-align: center;
+	padding: 2px;
+	margin-top: 2px;
+
+}
+#tabsTable td{
+	text-align: center;
+}
+
+#customMapsTabContainer, #directionsTabContainer {
+	padding-top: 2px;
+}
+#directionsTabContainer {
+
+}
+
+
+.functionsTab, .functionsTabSelected {
+	font: bold 10px verdana;
+	padding: 2px;
+	cursor: pointer;
+	border: 1px solid gray;
+}
+.functionsTab:hover {
+	background: #EBB94D;
+	color: red;
+	border: 1px solid red;
+}
+.functionsTabSelected {
+	background: #9743FF;
+	color: #ffffff;
+
+}
+
+/* -------------- end Tabs ----------------*/
+
+
+
+#directionsFormTable td{
+	font: bold 10px verdana;
+	padding: 2px;
+
+}
+
+.ddOption, .ddSelectedOption {
+	background: #A6A8CC;
+	color: navy;
+	border: 2px solid navy;
+	text-align:center;
+	vertical-align:middle;
+	font: bold 10px verdana;
+	padding: 2px;
+	cursor: pointer;
+	margin: 3px;
+	z-index:100;
+}
+.ddSelectedOption {
+	border: 2px solid #008000;
+	background: #80FF80;
+}
+.ddOption:hover {
+	background: #EBB94D;
+	border: 2px solid red;
+}
+
+
+#loadingMessage {
+    position: absolute;
+    width:  200px;
+    text-align: center;
+    padding: 10px;
+    border: 5px solid #290B8B;
+    background: #3F06FA;
+	color: #eeeeee;
+	font: bold 20px verdana;
+    z-index: 1;
+	left:0px;
+	top:0px;
+	opacity: 0.7;
+
+}
+
+
+.countyInfo, .countyInfoSel {
+	font: normal 11px verdana;
+	cursor:pointer;
+	background: #A6A8CC;
+	border: 2px solid navy;
+	margin-bottom:5px;
+	padding:3px;
+}
+
+.countyInfoSel {
+	background:#F4E48C;
+	border:2px solid #EF3E31;
+}
+
+#opacityContainer {
+}
+#opacityLabel {
+	font: normal 12px verdana;
+	text-align: center;
+	margin: 2px;
+}
+
+#opacitySlider {
+	border: none;
+	background: url(sliderBG_800.jpg) repeat-X;
+	cursor: pointer;
+	height: 20px;
+	text-align: left;
+}
+
+#sliderHandle {
+	border: 2px solid black;
+	width: 5px;
+	height: 18px;
+	position: relative;
 }
 
 
@@ -66,6 +241,54 @@
 
 /* ------------------------------------------------- */
 
+/* ------------ Driving directions ----------------- */
+.stepRow td {
+	border-top: 1px solid #bbbbbb;
+	vertical-align: top;
+	padding:2px;
+	cursor: pointer;
+}
+
+.globalSummaryDiv {
+	border: 1px solid navy;
+	background: #888888;
+	color: #ffffff;
+}
+
+.routeSummaryDiv {
+	border: 1px solid navy;
+	cursor: pointer;
+	background: #cccccc;
+}
+
+#detailmap {
+	width: 250px;
+	height: 150px;
+	border:1px solid gray;
+}
+.bubble {
+	font: normal 12px verdana;
+	width: 250px;
+	height: 150px;
+}
+
+
+
+
+
+
+
+
+#POI_controls {
+	font: normal 12px verdana;
+	padding:2px;
+	text-align: left;
+}
+
+#driveVia {
+	border: 1px solid gray;
+	font: normal 10px verdana;
+
 
 }
 
@@ -96,40 +319,16 @@
 	</tr>
 </table><br/>
 </form>
-<form action="#" name="myram">
 
-<table width="750" cellspacing="0" cellpadding="0">
-
-	<tr>
-	
-	
-			<td valign="top" rowspan="2">
-<!-- Begin Info container -->
-			<div id="infoContainer">
-			<div id="directions_info"></div>
-			</div>
-<!-- End Info container -->
-		</td>
-
-		<td width="200" valign="top" id="mapCell">
-			<div id="outerMapDiv">
-				<div id="mapDiv"></div>
-			</div>
-		</td>
-		<td width="200" valign="top" rowspan="2" align="center">
-			<div id="buttonContainer">
-				<div class="buttonB" onclick="rmOverlays()">Clear Overlays</div>
-				<div class="buttonB" onclick="doUnload(1)">Map reset</div>
-			</div>
-<!-- Begin controls container -->
-
-					<table cellspacing="0" cellpadding="0" >
+			<div  id="controlsContainer">
+				<div id="directions_controls">
+					<table cellspacing="0" cellpadding="0" id="directionsFormTable">
 						<tr>
 							<td>
 								From:
 							</td>
 							<td>
-								<input  value="Toruń"><br>
+								<input id="driveFrom" value="Torun"><br>
 							</td>
 						</tr>
 						<tr>
@@ -137,7 +336,7 @@
 								To: 
 							</td>
 							<td>
-								<input value="Bydgoszcz"><br>
+								<input id="driveTo" value="Bydgoszcz"><br>
 							</td>
 						</tr>
 						<tr>
@@ -145,7 +344,7 @@
 								Via: 
 							</td>
 							<td>
-								<textarea  rows="2" cols="22"></textarea><br>
+								<textarea id="driveVia" rows="2" cols="22"></textarea><br>
 							</td>
 						</tr>
 						<tr>
@@ -164,10 +363,38 @@
 							<td colspan="2" align="center">
 								<input type="button" value="GO" onclick="getDirections()">
 							</td>
+		<td valign="top" rowspan="2" align="center">
+			<div id="buttonContainer">
+				<div class="buttonB" onclick="rmOverlays()">Clear Overlays</div>
+				<div class="buttonB" onclick="doUnload(1)">Map reset</div>
+			</div>
+
+		</td>
+
 						</tr>
 					</table>
+				</div>
+			</div>
 
-<!-- End controls container -->
+<form action="#" name="myram">
+<br/>
+<table cellspacing="0" cellpadding="0" id="outerTable">
+
+	<tr>
+	
+	
+			<td width="200" valign="top">
+<!-- Begin Info container -->
+			
+			<div id="directions_info"></div>
+			
+<!-- End Info container -->
+		</td>
+
+		<td valign="top">
+			<div id="outerMapDiv">
+			<div id="mapDiv"></div>
+			
 		</td>
 		
 	</tr>
