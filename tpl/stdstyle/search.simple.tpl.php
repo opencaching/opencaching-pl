@@ -163,18 +163,19 @@ function sync_options(element)
 	if(tmpattrib_not.length > 0)
 		tmpattrib_not = tmpattrib_not.substr(0, tmpattrib_not.length-1);
 
-	var formnames = new Array();
+//	var formnames = new Array();
 	var formnames = new Array("searchbyname","searchbyname","searchbydistance","searchbyort","searchbyfulltext","searchbyowner", "searchbyfinder");
 
 
 //	var formnames = new Array();
 //	formnames[0] = "searchbyname";
-//	formnames[1] = "searchbydistance";
-//	formnames[2] = "searchbyowner";
-//	formnames[3] = "searchbyfinder";
-//	formnames[4] = "searchbyplz";
-//	formnames[5] = "searchbyort";
-//	formnames[6] = "searchbyfulltext";
+//	formnames[1] = "searchbyname";
+//	formnames[2] = "searchbydistance";
+//	formnames[3] = "searchbyort";
+//	formnames[4] = "searchbyfulltext";
+//	formnames[5] = "searchbyowner";
+//	formnames[6] = "searchbyfinder";
+
 
 
 
