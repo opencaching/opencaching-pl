@@ -539,6 +539,7 @@ function switchCat2()
 	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
+	<input type="hidden" name="cachename" value="%"  />
 
 	<table class="table">
 		<colgroup>
