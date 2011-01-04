@@ -9,6 +9,7 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
+<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <script language="javascript" type="text/javascript">
 <!--
 
