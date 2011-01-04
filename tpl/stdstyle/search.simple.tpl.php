@@ -172,6 +172,18 @@ function sync_options(element)
 //	formnames[5] = "searchbyfinder";
 	//formnames[6] = "searchbyplz";
 
+
+	var sortby = "";
+	if (document.optionsform.sort[0].checked == true)
+		sortby = "byname";
+	else if (document.optionsform.sort[1].checked == true)
+		sortby = "bydistance";
+	else if (document.optionsform.sort[2].checked == true)
+		sortby = "bycreated";
+	else if (document.optionsform.sort[3].checked == true)
+		sortby = "bylastlog";
+
+
 //	for (var a in formnames) {
 	for (var a=0; a < formnames.length; a++) {
 	
