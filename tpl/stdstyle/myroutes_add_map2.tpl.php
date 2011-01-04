@@ -14,21 +14,7 @@
 
 <style type="text/css">
 
-a, span, div, body {
-	text-decoration: none;
-}
-ul {
-	margin:0px;
-}
-img {
-	border:none;
-}
-body,html {
-	margin:0px;
-	width: 100%;
-	height: 100%;
-	font-family: verdana;
-}
+
 input, select {
 	border: 1px solid navy;
 }
@@ -286,12 +272,6 @@ input, select {
 	width: 250px;
 	height: 150px;
 }
-
-
-
-
-
-
 
 
 #POI_controls {
