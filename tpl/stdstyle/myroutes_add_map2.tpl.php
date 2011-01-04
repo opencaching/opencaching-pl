@@ -10,6 +10,18 @@
 	***************************************************************************/
 ?>
 <script src="lib/js/gmap.js" type="text/javascript"></script>
+<script type="text/javascript">
+<!--
+	function checkForm()
+	{
+
+		document.forms['myroute_form'].fromaddr.value=document.myram.from.value;
+		document.forms['myroute_form'].toaddr.value=document.myram.to.value;
+		document.forms['myroute_form'].viaaddr.value=document.myram.via.value;
+		return true; 
+	}
+	//-->
+</script>
 
 
 <style type="text/css">
@@ -299,6 +311,7 @@ input, select {
 <form action="myroutes_add_map2.php" method="request" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="fromaddr" value=""/>
 <input type="hidden" name="toaddr" value="" />
+<input type="hidden" name="viaaddr" value="" />
 <table class="content">
 	<tr>
 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_name}}:</span></td>
@@ -319,6 +332,7 @@ input, select {
 	</tr>
 </table><br/>
 </form>
+<form action="#" name="myram">
 
 			<div  id="controlsContainer">
 				<div id="directions_controls">
@@ -328,7 +342,7 @@ input, select {
 								From:
 							</td>
 							<td>
-								<input id="driveFrom" value="Torun"><br>
+								<input name="from" id="driveFrom" value="Torun"><br>
 							</td>
 						</tr>
 						<tr>
@@ -336,7 +350,7 @@ input, select {
 								To: 
 							</td>
 							<td>
-								<input id="driveTo" value="Bydgoszcz"><br>
+								<input name="to" id="driveTo" value="Bydgoszcz"><br>
 							</td>
 						</tr>
 						<tr>
@@ -344,7 +358,7 @@ input, select {
 								Via: 
 							</td>
 							<td>
-								<textarea id="driveVia" rows="2" cols="22"></textarea><br>
+								<textarea name="via" id="driveVia" rows="2" cols="22"></textarea><br>
 							</td>
 						</tr>
 						<tr>
@@ -376,7 +390,7 @@ input, select {
 				</div>
 			</div>
 
-<form action="#" name="myram">
+
 <br/>
 <table cellspacing="0" cellpadding="0" id="outerTable">
 
