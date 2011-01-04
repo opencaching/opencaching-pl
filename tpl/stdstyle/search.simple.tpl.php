@@ -163,14 +163,18 @@ function sync_options(element)
 	if(tmpattrib_not.length > 0)
 		tmpattrib_not = tmpattrib_not.substr(0, tmpattrib_not.length-1);
 
+	var formnames = new Array();
 	var formnames = new Array("searchbyname","searchbydistance","searchbyort","searchbyfulltext","searchbyowner", "searchbyfinder");
+
+
+//	var formnames = new Array();
 //	formnames[0] = "searchbyname";
 //	formnames[1] = "searchbydistance";
-//	formnames[2] = "searchbyort";
-//	formnames[3] = "searchbyfulltext";
-//	formnames[4] = "searchbyowner";
-//	formnames[5] = "searchbyfinder";
-	//formnames[6] = "searchbyplz";
+//	formnames[2] = "searchbyowner";
+//	formnames[3] = "searchbyfinder";
+//	formnames[4] = "searchbyplz";
+//	formnames[5] = "searchbyort";
+//	formnames[6] = "searchbyfulltext";
 
 
 	var sortby = "";
@@ -180,8 +184,8 @@ function sync_options(element)
 		sortby = "bydistance";
 	else if (document.optionsform.sort[2].checked == true)
 		sortby = "bycreated";
-	else if (document.optionsform.sort[3].checked == true)
-		sortby = "bylastlog";
+//	else if (document.optionsform.sort[3].checked == true)
+//		sortby = "bylastlog";
 
 
 //	for (var a in formnames) {
