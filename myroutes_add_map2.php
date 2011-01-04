@@ -32,7 +32,7 @@
 		{
 		
 			$tplname = 'myroutes_add_map2';
-			tpl_set_var('bodyMod', ' onload="initialize()" onunload="GUnload()"');
+//			tpl_set_var('bodyMod', ' onload="initialize()" onunload="GUnload()"');
 
 			$user_id = $usr['userid'];
 			
