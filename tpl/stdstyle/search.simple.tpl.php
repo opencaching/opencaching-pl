@@ -181,7 +181,7 @@ function sync_options(element)
 
 //	for (var a in formnames) {
 	for (var a=0; a < formnames.length; a++) {
-	
+
 		document.forms[formnames[a]].sort.value = sortby;
 		document.forms[formnames[a]].f_inactive.value = document.optionsform.f_inactive.checked ? 1 : 0;
 		document.forms[formnames[a]].f_ignored.value = document.optionsform.f_ignored.checked ? 1 : 0;
