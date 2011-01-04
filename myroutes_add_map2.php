@@ -74,8 +74,8 @@
 
 
 				$from = isset($_POST['fromaddr']) ? $_POST['fromaddr'] : 'Warszawa';			
-			
 				$to = isset($_POST['toaddr']) ? $_POST['toaddr'] : 'Torun';
+				$via = isset($_POST['viaaddr']) ? $_POST['viaaddr'] : '';
 				$from=str_replace(" ","+",$from);
 				$to=str_replace(" ","+",$to);
 
@@ -90,7 +90,7 @@ fclose($ff);
 $upload_filename="/tmp/tmp.kml";	
 
 // get route_id
-$route_id=sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
+$route_id=sqlValue("SELECT route_id FROM `routess` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
 
 // Read file KML with route, load in the KML file through the my_routes page, and run that KML file through GPSBABEL which has a tool interpolate data points in the route.	
 if ( !$error ) {
