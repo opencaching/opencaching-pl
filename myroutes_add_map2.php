@@ -32,6 +32,7 @@
 		{
 		
 			$tplname = 'myroutes_add_map2';
+	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
 //			tpl_set_var('bodyMod', ' onload="initialize()" onunload="GUnload()"');
 
 			$user_id = $usr['userid'];
