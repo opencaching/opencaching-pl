@@ -15,7 +15,7 @@
 	function checkForm()
 	{
 
-		document.forms['myroute_form'].fromaddr.value=document.myram.from.value;
+		document.forms['myroute_form'].fromaddr.value=document.driveFrom.from.value;
 		document.forms['myroute_form'].toaddr.value=document.myram.to.value;
 		document.forms['myroute_form'].viaaddr.value=document.myram.via.value;
 		return true; 
@@ -88,7 +88,7 @@ input, select {
 #directions_info, #customMaps_info {
 
 	overflow:auto; 
-	height:150px;
+	height:130px;
 	width:195px;
 }
 
@@ -333,16 +333,17 @@ input, select {
 		<br /><br /></td>
 	</tr>
 </table><br/>
+
 </form>
-<form action="#" name="myram">
 <div class="searchdiv">
+
 <table class="content">
 <tr>
 <td align="right"><span style="font-weight:bold;">Punkt startowy:&nbsp;</span></td>
 <td><input type="text" size="25" id="driveFrom" name="from" value="Warszawa"/></td>
 <td rowspan="2"><span style="font-weight:bold;">Via: </span></td>
 <td rowspan="2"><textarea name="via" id="driveVia" rows="2" cols="22"></textarea></td>
-<td rowspan="2" align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Get Directions" onclick="getDirections()">Wyznacz trasę</button></td>
+<td rowspan="2" align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Go" onclick="getDirections()">Wyznacz trasę</button></td>
 </tr>
 <tr>
 <td align="right"><span style="font-weight:bold;">Punkt końcowy:&nbsp;</span></td>
