@@ -88,7 +88,7 @@ input, select {
 #directions_info, #customMaps_info {
 
 	overflow:auto; 
-	height:130px;
+	height:436px;
 	width:195px;
 }
 
