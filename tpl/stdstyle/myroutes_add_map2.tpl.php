@@ -310,7 +310,7 @@ input, select {
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{add_new_route}}</div>
 <div class="searchdiv">
 
-<form action="myroutes_add_map2.php" method="request" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
+<form action="myroutes_add_map2.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="fromaddr" value=""/>
 <input type="hidden" name="toaddr" value="" />
 <input type="hidden" name="viaaddr" value="" />
