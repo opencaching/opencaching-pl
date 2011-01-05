@@ -88,7 +88,7 @@ input, select {
 #directions_info, #customMaps_info {
 
 	overflow:auto; 
-	height:100px;
+	height:150px;
 	width:195px;
 }
 
@@ -335,47 +335,21 @@ input, select {
 </table><br/>
 </form>
 <form action="#" name="myram">
-			<div  id="controlsContainer">
-				<div id="directions_controls">
-					<table border=1 width=300 cellspacing="0" cellpadding="0" id="directionsFormTable">
-						
-						<tr>
-							<td>
-								From:
-							</td>
-							<td>
-								<input name="from" id="driveFrom" value="Torun"><br>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								To: 
-							</td>
-							<td>
-								<input name="to" id="driveTo" value="Bydgoszcz"><br>
-							</td>
-						</tr>
-						
-						<td colspan=2>
-						
-							<td rowspan="2">
-								Via: 
-							</td>
-							<td rowspan="2">
-								<textarea name="via" id="driveVia" rows="2" cols="22"></textarea><br>
-							</td>
-						</td>
-						<td rowspan="2" align="center">
-							<input type="button" value="GO" onclick="getDirections()">
-						</td>
-
-
-
-						</td>
-					</table>
-				</div>
-			</div>
-
+<div class="searchdiv">
+<table class="content">
+<tr>
+<td align="right"><span style="font-weight:bold;">Punkt startowy:&nbsp;</span></td>
+<td><input type="text" size="25" id="driveFrom" name="from" value="Warszawa"/></td>
+<td rowspan="2"><span style="font-weight:bold;">Via: </span></td>
+<td rowspan="2"><textarea name="via" id="driveVia" rows="2" cols="22"></textarea></td>
+<td rowspan="2" align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Get Directions" onclick="getDirections()">Wyznacz trasę</button></td>
+</tr>
+<tr>
+<td align="right"><span style="font-weight:bold;">Punkt końcowy:&nbsp;</span></td>
+<td align="right"><input type="text" size="25" id="driveTo" name="to" value="Torun" /></td>
+</tr>
+</table>
+</div>
 
 <br/>
 <table cellspacing="0" cellpadding="0" id="outerTable">
@@ -404,16 +378,6 @@ input, select {
 
 </script>
 <div id="loadingMessage" style="display:none;">Loading ...</div>
-
-
-
-
-
-
-
-
-
-
 
 
 </div>
