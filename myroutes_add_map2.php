@@ -75,11 +75,34 @@
 
 				$from = isset($_POST['fromaddr']) ? $_POST['fromaddr'] : 'Warszawa';			
 				$to = isset($_POST['toaddr']) ? $_POST['toaddr'] : 'Torun';
-				$via = isset($_POST['viaaddr']) ? $_POST['viaaddr'] : '';
+				$viapoints = isset($_POST['viaaddr']) ? $_POST['viaaddr'] : '';
 				$from=str_replace(" ","+",$from);
 				$to=str_replace(" ","+",$to);
+				$viapoints=str_replace(";",",",$viapoints);
+			echo $viapoints;
+		$vcoords = explode(",",trim($viapoints));
+		print_r ($vcoords);
+//		foreach ( $vcoords_raw as $vcoords_raw_part ) {
+//		if ( $vcoords_raw_part ) {
+//		$vcoords_raw_parts = explode(",",$vcoords_raw_part);
+//		$vcoords[] = $vcoords_raw_parts[0];
+//		$vcoords[] = $vcoords_raw_parts[1];
+//		}}
 
-$myurl = "http://maps.google.com/maps?q=from+{$from}+to+{$to}&output=kml";
+		$vpoints="";
+		for( $i=0; $i<count($vcoords)-1; $i=$i+2 ) {
+		$vpoints .="+to:".$vcoords[$i].",".$vcoords[$i+1];
+		if ( ($vcoords[$i]+0==0) OR ($vcoords[$i+1]+0==0) ) {
+		$error .= "Invalid Co-ords found in import file.<br>\n";
+		break;
+			}}
+				$via=$vpoints;
+				echo $via;
+
+// http://maps.google.pl/maps?f=d&source=s_d&saddr=Toru%C5%84&daddr=53.098337,18.4732281+to:53.12935,18.36368+to:Bydgoszcz&hl=pl&via=1,2&sll=53.080695,18.30347&sspn=0.353066,0.710678&ie=UTF8&z=11
+
+$myurl = "http://maps.google.com/maps?q=from:{$from}{$via}+to:{$to}&output=kml";
+echo $myurl;
 //Open the url
 $f = fopen ($myurl, "r");
 $str = stream_get_contents($f);
@@ -87,7 +110,7 @@ $str = stream_get_contents($f);
 $ff= fopen("/tmp/tmp.kml","w");
 fwrite($ff,$str);
 fclose($ff);
-$upload_filename="/tmp/tmp.kml";	
+//$upload_filename="/tmp/tmp.kml";	
 
 // get route_id
 $route_id=sqlValue("SELECT route_id FROM `routess` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
