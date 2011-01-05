@@ -503,8 +503,7 @@ function switchCat2()
 //-->
 </script>
 
-</div>
-<div class="searchdiv">
+
 <form action="search.php" onsubmit="javascript:return(_sbn_click());" method="{formmethod}" enctype="application/x-www-form-urlencoded" name="searchbyname" dir="ltr" style="display:inline;">
 	<input type="hidden" name="searchto" value="searchbyname" />
 	<input type="hidden" name="showresult" value="1" />
@@ -541,6 +540,22 @@ function switchCat2()
 	<input type="hidden" name="cacherating" value="{cacherating}" />
 	<input type="hidden" name="cachename" value="%"  />
 
+
+	<table class="table">
+		<colgroup>
+			<col width="200"/>
+			<col width="220"/>
+			<col/>
+		</colgroup>
+		<tr><td class="buffer"></td></tr>
+		<tr>
+			<td><button type="submit" value="{{search}}" style="font-size:12px;width:140px"><b>{{search}}</b></button></td>
+			<td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1" /><label for="showonmap1">{{show_on_map}}</label></td>
+		</tr>
+		<tr><td class="buffer" colspan="2"></td></tr>
+	</table>
+</div>
+<div class="searchdiv">
 	<table class="table">
 		<colgroup>
 			<col width="200"/>
