@@ -82,7 +82,7 @@ input, select {
 	margin-right:5px;
 	margin-top:5px;
 	background: #dddddd;
-	width: 200px;
+/*	width: 200px;*/
 }
 
 #directions_info, #customMaps_info {
@@ -335,10 +335,10 @@ input, select {
 </table><br/>
 </form>
 <form action="#" name="myram">
-
 			<div  id="controlsContainer">
 				<div id="directions_controls">
-					<table cellspacing="0" cellpadding="0" id="directionsFormTable">
+					<table border=1 width=300 cellspacing="0" cellpadding="0" id="directionsFormTable">
+						
 						<tr>
 							<td>
 								From:
@@ -355,33 +355,23 @@ input, select {
 								<input name="to" id="driveTo" value="Bydgoszcz"><br>
 							</td>
 						</tr>
-						<tr>
-							<td>
+						
+						<td colspan=2>
+						
+							<td rowspan="2">
 								Via: 
 							</td>
-							<td>
+							<td rowspan="2">
 								<textarea name="via" id="driveVia" rows="2" cols="22"></textarea><br>
 							</td>
-						</tr>
-						<tr>
-							<td>
-								Lang: 
-							</td>
-							<td>
-								<select id="locale" name="locale">
-									<option value="pl" selected>Polski</option>
-									<option value="en">English</option>
-
-								</select><br>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" align="center">
-								<input type="button" value="GO" onclick="getDirections()">
-							</td>
+						</td>
+						<td rowspan="2" align="center">
+							<input type="button" value="GO" onclick="getDirections()">
+						</td>
 
 
-						</tr>
+
+						</td>
 					</table>
 				</div>
 			</div>
