@@ -87,7 +87,9 @@ input, select {
 
 #directions_info, #customMaps_info {
 
-/*	overflow:auto; */
+	overflow:auto; 
+	height:100px;
+	width:195px;
 }
 
 
@@ -377,13 +379,7 @@ input, select {
 							<td colspan="2" align="center">
 								<input type="button" value="GO" onclick="getDirections()">
 							</td>
-		<td valign="top" rowspan="2" align="center">
-			<div id="buttonContainer">
-				<div class="buttonB" onclick="rmOverlays()">Clear Overlays</div>
-				<div class="buttonB" onclick="doUnload(1)">Map reset</div>
-			</div>
 
-		</td>
 
 						</tr>
 					</table>
@@ -395,14 +391,12 @@ input, select {
 <table cellspacing="0" cellpadding="0" id="outerTable">
 
 	<tr>
-	
-	
 			<td width="200" valign="top">
-<!-- Begin Info container -->
-			
+			<div id="buttonContainer">
+			<div class="buttonB" onclick="rmOverlays()">Clear Overlays</div>
+			<div class="buttonB" onclick="doUnload(1)">Map reset</div>
+			</div>
 			<div id="directions_info"></div>
-			
-<!-- End Info container -->
 		</td>
 
 		<td valign="top">
