@@ -15,9 +15,9 @@
 	function checkForm()
 	{
 
-		document.forms['myroute_form'].fromaddr.value=document.driveFrom.from.value;
-		document.forms['myroute_form'].toaddr.value=document.myram.to.value;
-		document.forms['myroute_form'].viaaddr.value=document.myram.via.value;
+		document.forms['myroute_form'].fromaddr.value=document.getElementById('driveFrom').value;
+		document.forms['myroute_form'].toaddr.value=document.getElementById('driveTo').value;
+		document.forms['myroute_form'].viaaddr.value=document.getElementById('driveVia').value;
 		return true; 
 	}
 	//-->
