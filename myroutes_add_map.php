@@ -78,7 +78,7 @@
 				$from=str_replace(" ","+",$from);
 				$to=str_replace(" ","+",$to);
 
-$myurl = "http://maps.google.com/maps?q=from+{$from}+to+{$to}&output=kml";
+$myurl = "http://maps.google.com/maps?q=from:{$from}+to:{$to}&output=kml";
 //Open the url
 $f = fopen ($myurl, "r");
 $str = stream_get_contents($f);
