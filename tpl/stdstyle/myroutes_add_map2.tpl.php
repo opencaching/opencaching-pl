@@ -14,7 +14,21 @@
 <!--
 	function checkForm()
 	{
-
+			if(document.myroute_form.name.value == "")
+		{
+			alert("{{route_name_info}}");
+			return false;
+		}
+				if(document.myroute_form.radius.value < 0.5 ||document.myroute_form.radius.value > 10 )
+		{
+			alert("{{radius_info}}");
+			return false;
+		}
+		if(document.myroute_form.distance.value =="" )
+		{
+			alert("{{Trasa nie została wyznaczona}}");
+			return false;
+		}
 		document.forms['myroute_form'].fromaddr.value=document.getElementById('driveFrom').value;
 		document.forms['myroute_form'].toaddr.value=document.getElementById('driveTo').value;
 		document.forms['myroute_form'].viaaddr.value=document.getElementById('driveVia').value;
@@ -307,13 +321,56 @@ input, select {
 }
 
 </style>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{add_new_route}}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{setup_new_route}}</div>
+<div class="searchdiv">
+
+<div class="searchdiv">
+<table class="content">
+<tr>
+<td align="right"><span style="font-weight:bold;">Punkt startowy:&nbsp;</span></td>
+<td><input type="text" size="25" id="driveFrom" name="from" value="Warszawa"/></td>
+<td rowspan="2"><span style="font-weight:bold;">Via: </span></td>
+<td rowspan="2"><textarea name="via" id="driveVia" rows="2" cols="22"></textarea></td>
+<td rowspan="2" align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Go" onclick="getDirections()">{{setup_new_route}}</button></td>
+</tr>
+<tr>
+<td align="right"><span style="font-weight:bold;">Punkt końcowy:&nbsp;</span></td>
+<td align="right"><input type="text" size="25" id="driveTo" name="to" value="Torun" /></td>
+</tr>
+</table>
+</div>
+
+<br/>
+<table cellspacing="0" cellpadding="0" id="outerTable">
+	<tr>
+			<td width="200" valign="top">
+			<div id="buttonContainer">
+			<div class="buttonB" onclick="rmOverlays()">Clear Overlays</div>
+			<div class="buttonB" onclick="doUnload(1)">Map reset</div>
+			</div>
+			<div id="directions_info"></div>
+		</td>
+		<td valign="top">
+			<div id="outerMapDiv">
+			<div id="mapDiv"></div>		
+		</td>		
+	</tr>
+</table>
+<script>
+	window.onload = load;
+	window.onunload = unload;
+	window.onresize = resizePage;
+</script>
+<div id="loadingMessage" style="display:none;">Loading ...</div>
+<br/>
+
 <div class="searchdiv">
 
 <form action="myroutes_add_map2.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="fromaddr" value=""/>
 <input type="hidden" name="toaddr" value="" />
 <input type="hidden" name="viaaddr" value="" />
+<input type="hidden" name="distance" value="" />
 <table class="content">
 	<tr>
 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_name}}:</span></td>
@@ -328,57 +385,11 @@ input, select {
 <td width='75%'><input type='text' name='radius' size='5' value=''>&nbsp;&nbsp;<span class="notice">{{radius_info}}</span></td>
 </tr>
 <tr>
-<td valign="top" align="left" colspan="2">
+<td valign="top" align="left" colspan="2"><br /><br />
 	<button type="submit" name="submitform" value="submit"  style="font-size:12px;width:160px"><b>{{save_route}}</b></button>
-		<br /><br /></td>
+<br /></td>
 	</tr>
 </table><br/>
-
 </form>
-<div class="searchdiv">
-
-<table class="content">
-<tr>
-<td align="right"><span style="font-weight:bold;">Punkt startowy:&nbsp;</span></td>
-<td><input type="text" size="25" id="driveFrom" name="from" value="Warszawa"/></td>
-<td rowspan="2"><span style="font-weight:bold;">Via: </span></td>
-<td rowspan="2"><textarea name="via" id="driveVia" rows="2" cols="22"></textarea></td>
-<td rowspan="2" align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Go" onclick="getDirections()">Wyznacz trasę</button></td>
-</tr>
-<tr>
-<td align="right"><span style="font-weight:bold;">Punkt końcowy:&nbsp;</span></td>
-<td align="right"><input type="text" size="25" id="driveTo" name="to" value="Torun" /></td>
-</tr>
-</table>
 </div>
-
-<br/>
-<table cellspacing="0" cellpadding="0" id="outerTable">
-
-	<tr>
-			<td width="200" valign="top">
-			<div id="buttonContainer">
-			<div class="buttonB" onclick="rmOverlays()">Clear Overlays</div>
-			<div class="buttonB" onclick="doUnload(1)">Map reset</div>
-			</div>
-			<div id="directions_info"></div>
-		</td>
-
-		<td valign="top">
-			<div id="outerMapDiv">
-			<div id="mapDiv"></div>
-			
-		</td>
-		
-	</tr>
-</table>
-<script>
-	window.onload = load;
-	window.onunload = unload;
-	window.onresize = resizePage;
-
-</script>
-<div id="loadingMessage" style="display:none;">Loading ...</div>
-
-
 </div>

@@ -57,7 +57,7 @@
 				if (isset($_POST['submitform']))
 				{
 				// insert route name		
-					
+			
 						sql("INSERT INTO `routes` (
 													`route_id`,
 													`user_id`,
@@ -72,23 +72,19 @@
 												$radius);
 
 
-
+				$lgth = isset($_POST['distance']) ? $_POST['distance'] : '0';
+				$dis=explode(" ",trim($lgth));
+				$dist=explode("km",trim($dis[0]));
+				$dista=trim($dist[0]);
+				$l=(float)($dista*1.0);				
 				$from = isset($_POST['fromaddr']) ? $_POST['fromaddr'] : 'Warszawa';			
 				$to = isset($_POST['toaddr']) ? $_POST['toaddr'] : 'Torun';
 				$viapoints = isset($_POST['viaaddr']) ? $_POST['viaaddr'] : '';
 				$from=str_replace(" ","+",$from);
 				$to=str_replace(" ","+",$to);
 				$viapoints=str_replace(";",",",$viapoints);
-//			echo $viapoints;
-		$vcoords = explode(",",trim($viapoints));
-//		print_r ($vcoords);
-//		foreach ( $vcoords_raw as $vcoords_raw_part ) {
-//		if ( $vcoords_raw_part ) {
-//		$vcoords_raw_parts = explode(",",$vcoords_raw_part);
-//		$vcoords[] = $vcoords_raw_parts[0];
-//		$vcoords[] = $vcoords_raw_parts[1];
-//		}}
 
+		$vcoords = explode(",",trim($viapoints));
 		$vpoints="";
 		for( $i=0; $i<count($vcoords)-1; $i=$i+2 ) {
 		$vpoints .="+to:".$vcoords[$i].",".$vcoords[$i+1];
@@ -99,10 +95,7 @@
 				$via=$vpoints;
 
 
-// http://maps.google.pl/maps?f=d&source=s_d&saddr=Toru%C5%84&daddr=53.098337,18.4732281+to:53.12935,18.36368+to:Bydgoszcz&hl=pl&via=1,2&sll=53.080695,18.30347&sspn=0.353066,0.710678&ie=UTF8&z=11
-
-$myurl = "http://maps.google.com/maps?q=from:{$from}{$via}+to:{$to}&output=kml";
-
+$myurl = "http://maps.google.pl/maps?q=from:{$from}{$via}+to:{$to}&hl=pl&output=kml";
 //Open the url
 $f = fopen ($myurl, "r");
 $str = stream_get_contents($f);
@@ -114,13 +107,16 @@ $upload_filename="/tmp/tmp.kml";
 
 // get route_id
 $route_id=sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
+// update length of route
+sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$l,$route_id);
 
 // Read file KML with route, load in the KML file through the my_routes page, and run that KML file through GPSBABEL which has a tool interpolate data points in the route.	
 if ( !$error ) {
 exec("/usr/local/bin/gpsbabel -i kml,units=m -f ".$upload_filename." -x interpolate,distance=0.25k -o kml,units=m -F ".$upload_filename."");
 $xml = simplexml_load_file($upload_filename);
 
-	// get length route
+	// get length route 
+	/*
 foreach ($xml->Document->Folder as $f){
 foreach ($f->Folder as $folder){
 $dis=$folder->description;
@@ -128,7 +124,7 @@ $dis1=explode(" ",trim($dis));
 $len=(float)$dis1[27];
 	sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$len,$route_id);
 	}}
-
+*/
 	
 	foreach ( $xml->Document->Folder as $xmlelement ) {
 	foreach ( $xmlelement->Folder as $folder ) {
