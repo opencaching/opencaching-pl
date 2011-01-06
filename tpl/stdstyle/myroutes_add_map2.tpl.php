@@ -9,7 +9,7 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
-<script src="lib/js/gmap.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 <!--
 	function checkForm()
@@ -39,32 +39,6 @@
 
 
 <style type="text/css">
-input, select {
-	border: 1px solid navy;
-}
-
-.topRowCell {
-	border: 1px solid navy;
-}
-.topRowDiv {
-	background: #dddddd;
-	height:100px;
-	margin:5px;
-	padding: 3px;
-	font: normal 12px courier new;
-	text-align:left;
-	color: navy;
-}
-
-#top1 {
-	font: bold 14px courier new;
-	text-align:center;
-
-}
-.Row2Cell {
-	padding-left: 5px;
-	padding-right: 5px;
-}
 
 
 #outerMapDiv {
@@ -95,7 +69,7 @@ input, select {
 	margin-left:5px;
 	margin-right:5px;
 	margin-top:5px;
-	background: #dddddd;
+	background: #eff4f8;
 /*	width: 200px;*/
 }
 
@@ -103,7 +77,8 @@ input, select {
 
 	overflow:auto; 
 	height:436px;
-	width:195px;
+	width:195px;	
+
 }
 
 
@@ -257,14 +232,20 @@ input, select {
 	color: #008000;
 }
 .buttonB {
-	border: 2px solid #ECB052;
-	background: #F6D84C;
-
+	border: 2px solid rgb(219,230,241);
+    background-color: #7fa2ca ;
+	font-weight: bold;
+	color: #FFFFFF;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
 }
 .button:hover, .buttonB:hover, .button3:hover {
-	background: #EBB94D;
-	color: red;
-	border: 2px solid red;
+	color: #000000;
+	font-weight: bold;
+	border: 2px solid #7fa2ca;
+	background: #dde7f1;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
 }
 
 /* ------------------------------------------------- */
@@ -278,15 +259,17 @@ input, select {
 }
 
 .globalSummaryDiv {
+	font-weight:bold;
 	border: 1px solid navy;
-	background: #888888;
+	background: #9cbad6; 
 	color: #ffffff;
 }
 
 .routeSummaryDiv {
 	border: 1px solid navy;
 	cursor: pointer;
-	background: #cccccc;
+	background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
+	/* background: #cccccc; */
 }
 
 #detailmap {
@@ -299,13 +282,6 @@ input, select {
 	width: 250px;
 	height: 150px;
 }
-
-
-
-
-
-
-
 
 #POI_controls {
 	font: normal 12px verdana;
@@ -345,8 +321,8 @@ input, select {
 	<tr>
 			<td width="200" valign="top">
 			<div id="buttonContainer">
-			<div class="buttonB" onclick="rmOverlays()">Clear Overlays</div>
-			<div class="buttonB" onclick="doUnload(1)">Map reset</div>
+			<div class="buttonB" onclick="rmOverlays()">Wyczyść trasę</div>
+			<div class="buttonB" onclick="doUnload(1)">Reset mapy</div>
 			</div>
 			<div id="directions_info"></div>
 		</td>
@@ -361,12 +337,12 @@ input, select {
 	window.onunload = unload;
 	window.onresize = resizePage;
 </script>
-<div id="loadingMessage" style="display:none;">Loading ...</div>
+<div id="loadingMessage" style="display:none;">Wczytuję trasę ...</div>
 <br/>
 
 <div class="searchdiv">
 
-<form action="myroutes_add_map2.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
+<form action="myroutes_add_map2.php" method="request" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="fromaddr" value=""/>
 <input type="hidden" name="toaddr" value="" />
 <input type="hidden" name="viaaddr" value="" />

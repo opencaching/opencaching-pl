@@ -32,7 +32,7 @@
 		{
 		
 			$tplname = 'myroutes_add_map2';
-	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
+	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;hl=pl&amp;v=2&amp;key='.$googlemap_key.'" type="text/javascript"></script><script src="lib/js/gmap.js" type="text/javascript"></script>');
 //			tpl_set_var('bodyMod', ' onload="initialize()" onunload="GUnload()"');
 
 			$user_id = $usr['userid'];
@@ -57,7 +57,7 @@
 				if (isset($_POST['submitform']))
 				{
 				// insert route name		
-			
+	/*		
 						sql("INSERT INTO `routes` (
 													`route_id`,
 													`user_id`,
@@ -71,11 +71,12 @@
 												$desc,
 												$radius);
 
-
+*/
 				$lgth = isset($_POST['distance']) ? $_POST['distance'] : '0';
 				$dis=explode(" ",trim($lgth));
+				print_r($dis);
 				$dist=explode("km",trim($dis[0]));
-				$dista=trim($dist[0]);
+				$dista=str_replace(",",".",trim($dist[0]));
 				$l=(float)($dista*1.0);				
 				$from = isset($_POST['fromaddr']) ? $_POST['fromaddr'] : 'Warszawa';			
 				$to = isset($_POST['toaddr']) ? $_POST['toaddr'] : 'Torun';
@@ -94,6 +95,10 @@
 			}}
 				$via=$vpoints;
 
+// get route_id
+$route_id=sqlValue("SELECT route_id FROM `routess` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
+// update length of route
+sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$l,$route_id);
 
 $myurl = "http://maps.google.pl/maps?q=from:{$from}{$via}+to:{$to}&hl=pl&output=kml";
 //Open the url
@@ -104,11 +109,6 @@ $ff= fopen("/tmp/tmp.kml","w");
 fwrite($ff,$str);
 fclose($ff);
 $upload_filename="/tmp/tmp.kml";	
-
-// get route_id
-$route_id=sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
-// update length of route
-sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$l,$route_id);
 
 // Read file KML with route, load in the KML file through the my_routes page, and run that KML file through GPSBABEL which has a tool interpolate data points in the route.	
 if ( !$error ) {
