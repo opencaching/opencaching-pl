@@ -38,7 +38,7 @@
 		var lv=len.split("&nbsp;");
 		var l=lv[0].split(",");
 		var v = parseFloat(l[0]);
-		if (v >150) {alert("Wybrana trasa jest za długa ("+v+" km). Maksymalna długość wyznaczonej trasy powinna być do 150 km."); return false;}
+		if (v >200) {alert("Wybrana trasa jest za długa ("+v+" km). Maksymalna długość wyznaczonej trasy powinna być do 200 km."); return false;}
 		}	
 
 		return true; 
