@@ -14,7 +14,12 @@
 <!--
 	function checkForm()
 	{
-			if(document.myroute_form.name.value == "")
+	
+		document.forms['myroute_form'].fromaddr.value=document.getElementById('driveFrom').value;
+		document.forms['myroute_form'].toaddr.value=document.getElementById('driveTo').value;
+		document.forms['myroute_form'].viaaddr.value=document.getElementById('driveVia').value;
+	
+	if(document.myroute_form.name.value == "")
 		{
 			alert("{{route_name_info}}");
 			return false;
@@ -28,10 +33,14 @@
 		{
 			alert("{{Trasa nie została wyznaczona}}");
 			return false;
-		}
-		document.forms['myroute_form'].fromaddr.value=document.getElementById('driveFrom').value;
-		document.forms['myroute_form'].toaddr.value=document.getElementById('driveTo').value;
-		document.forms['myroute_form'].viaaddr.value=document.getElementById('driveVia').value;
+		} else {
+		var len=document.myroute_form.distance.value;
+		var lv=len.split("&nbsp;");
+		var l=lv[0].split(",");
+		var v = parseFloat(l[0]);
+		if (v >150) {alert("Wybrana trasa jest za długa ("+v+" km). Maksymalna długość wyznaczonej trasy powinna być do 150 km."); return false;}
+		}	
+
 		return true; 
 	}
 	//-->
@@ -342,7 +351,7 @@
 
 <div class="searchdiv">
 
-<form action="myroutes_add_map2.php" method="request" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
+<form action="myroutes_add_map2.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="fromaddr" value=""/>
 <input type="hidden" name="toaddr" value="" />
 <input type="hidden" name="viaaddr" value="" />

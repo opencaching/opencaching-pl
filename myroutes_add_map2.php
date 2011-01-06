@@ -56,8 +56,7 @@
 
 				if (isset($_POST['submitform']))
 				{
-				// insert route name		
-	/*		
+				// insert route name			
 						sql("INSERT INTO `routes` (
 													`route_id`,
 													`user_id`,
@@ -71,10 +70,9 @@
 												$desc,
 												$radius);
 
-*/
+
 				$lgth = isset($_POST['distance']) ? $_POST['distance'] : '0';
 				$dis=explode(" ",trim($lgth));
-				print_r($dis);
 				$dist=explode("km",trim($dis[0]));
 				$dista=str_replace(",",".",trim($dist[0]));
 				$l=(float)($dista*1.0);				
@@ -96,7 +94,7 @@
 				$via=$vpoints;
 
 // get route_id
-$route_id=sqlValue("SELECT route_id FROM `routess` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
+$route_id=sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
 // update length of route
 sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$l,$route_id);
 
