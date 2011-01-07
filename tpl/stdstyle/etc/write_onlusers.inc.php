@@ -25,7 +25,8 @@
 
 function online_user()
 {
-$rs=sql("SELECT  `user_id` FROM `sys_sessions` WHERE `sys_sessions`.last_login >(NOW()-INTERVAL 10 MINUTE) GROUP BY `user_id`");
+// add check users id who want to by username hidden 
+$rs=sql("SELECT  `user_id` FROM `sys_sessions` WHERE user_id!=1 AND `sys_sessions`.last_login >(NOW()-INTERVAL 10 MINUTE) GROUP BY `user_id`");
 $online_users=array();
 while ($r=mysql_fetch_array($rs))
 {$online_users[]=$r['user_id'];}
