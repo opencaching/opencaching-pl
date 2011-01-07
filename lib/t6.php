@@ -13,7 +13,7 @@
     $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
  
- $rsfCR = sql("SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region FROM `cache_location` INNER JOIN caches ON cache_location.cache_id=caches.cache_id WHERE `cache_location`.`code1`='PL' AND `caches`.`status`=1 AND `caches`.`type`<>6 GROUP BY `cache_location`.`code3` ORDER BY count DESC");
+ $rsfCR = sql("SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region FROM `cache_location` INNER JOIN caches ON cache_location.cache_id=caches.cache_id WHERE `cache_location`.`code1`='PL' AND `caches`.`status`=1 AND `caches`.`type`<>6 AND `cache_location`.`adm3`!='' GROUP BY `cache_location`.`code3` ORDER BY count DESC");
 
 	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('number_of_caches_by_region').'</b> <br />'.tr('only_active_caches').'<br /> '.tr('users_who_created_caches').': ';
 	echo $rsUs[count]; 
