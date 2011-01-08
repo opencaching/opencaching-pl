@@ -654,6 +654,14 @@ $final_cache_list = array();
 	$bounds_max_lat = $largestLat + $distance/110;
 	$bounds_min_lon = $smallestLon - $distance/110;
 	$bounds_max_lon = $largestLon + $distance/110;
+	
+	$mapcenterLat = ($bounds_min_lat + $bounds_max_lat)/2;
+	$mapcenterLon = ($bounds_min_lon + $bounds_max_lon)/2; 
+	tpl_set_var('latlonmin', $bounds_min_lat.','.$bounds_min_lon);
+	tpl_set_var('latlonmax', $bounds_max_lat.','.$bounds_max_lon);
+	tpl_set_var('mapcenterLat', $mapcenterLat);
+	tpl_set_var('mapcenterLon', $mapcenterLon);
+	
 	$query = "SELECT wp_oc waypoint, latitude lat, longitude lon "." FROM caches "."WHERE latitude>'$bounds_min_lat' ".
 	"AND latitude<'$bounds_max_lat' "."AND longitude>'$bounds_min_lon' "."AND longitude<'$bounds_max_lon' "."AND status != '3' AND status != '4' AND status != '5' AND status != '6';";
 	$result=sql($query);

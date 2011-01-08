@@ -57,6 +57,10 @@ $polyline = $encoder->encode($points);
     map0.setCenter(bounds.getCenter(), map0.getBoundsZoomLevel(bounds)); 
    //display route
      map0.addOverlay(encodedPolyline);
+ var sw = new GLatLng({latlonmin});  
+ var ne = new GLatLng({latlonmax});  
+ var bounds = new GLatLngBounds(sw, ne);  
+ map0.setCenter(bounds.getCenter(), map0.getBoundsZoomLevel(bounds));  
    // display caches
 	   {points}
 	   
@@ -90,14 +94,14 @@ function sync_options(element)
 }	
 //-->
 </script>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{caches_along_route}} ({number_caches}): <span style="color: black;font-size:13px;">{routes_name} ({{radius}} {distance} km)</span></div>
+
 <div class="searchdiv">
 <center>
     <div id="map0" style="width:700px;height:500px"></div>
 </center>
-
 </div>
 <br/>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{caches_along_route}} ({number_caches}): <span style="color: black;font-size:13px;">{routes_name} ({{radius}} {distance} km)</span></div>
 <div class="searchdiv">
 <form action="myroutes_search.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr">
 <input type="hidden" name="routeid" value="{routeid}"/>
