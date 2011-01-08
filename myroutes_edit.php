@@ -13,6 +13,7 @@
    Unicode Reminder メモ
 
 	 display all watches of this user
+http://maps.google.com/maps/api/staticmap?size=480x480&path=color:0x0000ff|weight:5|40.737102,-73.990318|40.749825,-73.987963|40.752946,-73.987384|40.755823,-73.986397&sensor=true_or_false
 
  ****************************************************************************/
 
