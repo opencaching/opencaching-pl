@@ -9,8 +9,57 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
+
+<?php
+require_once('./lib/common.inc.php');
+require_once('./lib/class.polylineEncoder.php');
+$route_id=$_REQUEST['routeid'];
+
+			$rscp = sql("SELECT `lat` ,`lon`
+					FROM `route_points`
+					WHERE `route_id`='$route_id'");
+$p=array();
+$points=array();
+for ($i = 0; $i < mysql_num_rows($rscp); $i++)
+{	
+				$record = sql_fetch_array($rscp);
+				$y=$record['lon'];
+				$x=$record['lat'];		
+
+  $p[0]=$x;
+  $p[1]=$y;
+  $points[$i]=$p;
+
+}
+
+$encoder = new PolylineEncoder();
+$polyline = $encoder->encode($points);
+?>
 <script type="text/javascript">
 <!--
+
+   function load() {
+      if (GBrowserIsCompatible()) {
+        var map = new GMap2(document.getElementById("map"));
+        map.addControl(new GLargeMapControl());
+        map.addControl(new GMapTypeControl());
+        map.addControl(new GScaleControl());
+
+        var encodedPolyline = new GPolyline.fromEncoded({
+
+          weight: 5,
+          points: "<?= $polyline->points ?>",
+          levels: "<?= $polyline->levels ?>",
+          zoomFactor: <?= $polyline->zoomFactor ?>,
+          numLevels: <?= $polyline->numLevels ?>
+        });
+		
+
+    var bounds = encodedPolyline.getBounds();
+    map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds)); 
+        map.addOverlay(encodedPolyline);
+      }
+    }
 	function checkForm()
 	{
 
@@ -63,4 +112,10 @@
 
   </table>
 </form>
+</div>
+<br/>
+<div class="searchdiv">
+<center>
+    <div id="map" style="width:500px;height:500px"></div>
+</center>
 </div>

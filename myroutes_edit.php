@@ -12,9 +12,6 @@
 
    Unicode Reminder メモ
 
-	 display all watches of this user
-http://maps.google.com/maps/api/staticmap?size=480x480&path=color:0x0000ff|weight:5|40.737102,-73.990318|40.749825,-73.987963|40.752946,-73.987384|40.755823,-73.986397&sensor=true_or_false
-
  ****************************************************************************/
 
 	//prepare the templates and include all neccessary
@@ -66,7 +63,9 @@ http://maps.google.com/maps/api/staticmap?size=480x480&path=color:0x0000ff|weigh
 				$rdesc = isset($_POST['desc']) ? $_POST['desc'] : '';			
 				$rradius = isset($_POST['radius']) ? $_POST['radius'] :'';
 
-				
+		tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;hl=pl&amp;v=2&amp;key='.$googlemap_key.'" type="text/javascript"></script><script src="lib/js/gmap.js" type="text/javascript"></script>');
+			tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
+			
 			if ($record['user_id'] == $usr['userid'])
 				{
 
