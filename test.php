@@ -1,73 +1,67 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-  <head> 
-    <title>Directions to Josh Gamble's</title> 
-	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;hl=pl&amp;key=ABQIAAAAKzfMHoyn1s1VSuNTwlFfzhTqTxhHAgqKNaAck663VX5jr8OSJBQrTiL58t4Rt3olsGRlxSuqVkU5Xg" type="text/javascript"></script>
-    
-  </head> 
-  <body> 
-    <div id="map" style="width: 400px; height: 400px"></div> 
+<?php
+require_once('./lib/common.inc.php');
+require_once('./lib/class.polylineEncoder.php');
 
-    <script type="text/javascript"> 
-      var gmarkers = []; 
-      var htmls = []; 
-      var to_htmls = []; 
-      var from_htmls = []; 
-      var i=0; 
+			$rscp = sql("SELECT `lat` ,`lon`
+					FROM `route_points`
+					WHERE `route_id`='17'");
+$p=array();
+$points=array();
+for ($i = 0; $i < mysql_num_rows($rscp); $i++)
+{	
+				$record = sql_fetch_array($rscp);
+				$y=$record['lon'];
+				$x=$record['lat'];		
 
-      function tohere(i) { 
-        gmarkers[i].openInfoWindowHtml(to_htmls[i]); 
-      } 
+  $p[0]=$x;
+  $p[1]=$y;
+  $points[$i]=$p;
 
-      function fromhere(i) { 
-        gmarkers[i].openInfoWindowHtml(from_htmls[i]); 
-      } 
+}
 
-    // Check to see if this browser can run the Google API 
-    if (GBrowserIsCompatible()) { 
+$encoder = new PolylineEncoder();
+$polyline = $encoder->encode($points);
 
-      // A function to create the marker and set up the event window 
-      function createMarker(point,name,html) { 
-        var marker = new GMarker(point); 
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Google Maps JavaScript API</title>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAKzfMHoyn1s1VSuNTwlFfzhTqTxhHAgqKNaAck663VX5jr8OSJBQrTiL58t4Rt3olsGRlxSuqVkU5Xg"
+      type="text/javascript"></script>
+    <script type="text/javascript">
 
-        // The info window version with the "to here" form open 
-        to_htmls[i] = html + '<br>Directions: <b>To here</b> - <a href="javascript<b></b>:fromhere(' + i + ')">From here</a>' + 
-           '<br>Start address:<form action="http://maps.google.com/maps" method="get" target="_blank">' + 
-           '<input type="text" SIZE=40 MAXLENGTH=40 name="saddr" id="saddr" value="" /><br>' + 
-           '<INPUT value="Get Directions" TYPE="SUBMIT">' + 
-           '<input type="hidden" name="daddr" value="' + 
-           point.latDegrees + ',' + point.lngDegrees + "(" + name + ")" + '"/>'; 
+    //<![CDATA[
 
-        // The info window version with the "to here" form open 
-        from_htmls[i] = html + '<br>Directions: <a href="javascript<b></b>:tohere(' + i + ')">To here</a> - <b>From here</b>' + 
-           '<br>End address:<form action="http://maps.google.com/maps" method="get"" target="_blank">' + 
-           '<input type="text" SIZE=40 MAXLENGTH=40 name="daddr" id="daddr" value="" /><br>' + 
-           '<INPUT value="Get Directions" TYPE="SUBMIT">' + 
-           '<input type="hidden" name="saddr" value="' + point.latDegrees + ',' + point.lngDegrees + "(" + name + ")" + '"/>'; 
+    function load() {
+      if (GBrowserIsCompatible()) {
+        var map = new GMap2(document.getElementById("map"));
+        map.addControl(new GLargeMapControl());
+        map.addControl(new GMapTypeControl());
+        map.addControl(new GScaleControl());
 
-        // The inactive version of the direction info 
-        html = html + '<br>Directions: <a href="javascript<b></b>:tohere('+i+')">To here</a> - <a href="javascript<b></b>:fromhere('+i+')">From here</a>'; 
+        var encodedPolyline = new GPolyline.fromEncoded({
 
-        GEvent.addListener(marker, "click", function() { 
-          marker.openInfoWindowHtml(html); 
-        }); 
-        gmarkers[i] = marker; 
-        htmls[i] = html; 
-        i++; 
-        return marker; 
-      } 
+          weight: 5,
+          points: "<?= $polyline->points ?>",
+          levels: "<?= $polyline->levels ?>",
+          zoomFactor: <?= $polyline->zoomFactor ?>,
+          numLevels: <?= $polyline->numLevels ?>
+        });
+		
 
-      // Display the map, with some controls and set the initial location 
-      var map = new GMap(document.getElementById("map")); 
-      map.addControl(new GLargeMapControl()); 
-      map.addControl(new GMapTypeControl()); 
-      map.setCenter(new GLatLng(39.214034,-74.694285), 15); 
+    var bounds = encodedPolyline.getBounds();
+    map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds)); 
+        map.addOverlay(encodedPolyline);
+      }
+    }
 
-      // Set up a marker with an info window 
-      var point = new GLatLng(39.214034,-74.694285); 
-      var marker = createMarker(point,'2023 Cedar Ln.','Some stuff to display in the<br>First Info Window') 
-      map.addOverlay(marker); 
-    } 
-    </script> 
-  </body> 
-  </html>
+    //]]>
+    </script>
+  </head>
+  <body onload="load()" onunload="GUnload()">
+    <div id="map" style="width:500px;height:500px"></div>
+  </body>
+</html>
