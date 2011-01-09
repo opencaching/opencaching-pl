@@ -39,7 +39,15 @@ $polyline = $encoder->encode($points);
 
    function load() {
       if (GBrowserIsCompatible()) {
-	  
+
+	  var icon3 = new GIcon();
+ icon3.image = "tpl/stdstyle/images/google_maps/gmgreen.gif";
+ icon3.shadow = null;
+ icon3.iconSize = new GSize(12, 20);
+ icon3.shadowSize = new GSize(22, 20);
+ icon3.iconAnchor = new GPoint(6, 20);
+ icon3.infoWindowAnchor = new GPoint(5, 1);
+ 
         var map0 = new GMap2(document.getElementById("map0"));
         map0.addControl(new GLargeMapControl());
         map0.addControl(new GMapTypeControl());

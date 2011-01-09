@@ -761,8 +761,7 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 				$x=$r['latitude'];
 			$number=$number+1;
 			$point .=" var point = new GLatLng(" . $x . "," . $y . ");\n";
-			$icon="icon1";
-			$point .="var marker".$number." = new GMarker(point); map0.addOverlay(marker".$number.");\n\n";
+			$point .="var marker".$number." = new GMarker(point,icon3); map0.addOverlay(marker".$number.");\n\n";
 			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('";
 			$point .="<table border=\"0\">";
 			$point .= "<tr><td>";
