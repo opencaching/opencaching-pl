@@ -748,6 +748,13 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 
 			if (isset($_POST['submit_map']))
 			{		
+			if( $r[topratings] == 0 )
+			$topratings = "";
+		else 
+		{
+			$topratings = "<br /><b>".tr(recommendations).": </b>";
+			$topratings.= "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\" />";}
+
 				$username=$r['username'];
 				$date=$r['date'];
 				$y=$r['longitude'];
@@ -756,7 +763,16 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 			$point .=" var point = new GLatLng(" . $x . "," . $y . ");\n";
 			$icon="icon1";
 			$point .="var marker".$number." = new GMarker(point); map0.addOverlay(marker".$number.");\n\n";
-			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<br/><b>Ukryta ".$date."<br/> przez: ".$username."</b>');});\n";
+			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('";
+			$point .="<table border=\"0\">";
+			$point .= "<tr><td>";
+			$point .= "<img src=\"tpl/stdstyle/images/" .getSmallCacheIcon($r['icon_large']) . "\" border=\"0\" alt=\"\"/>&nbsp;<a href=\"viewcache.php?cacheid=".$r[cacheid] ."\" target=\"_blank\">".$r[cachename]."</a></font>";
+			$point .= " - <b>".$r[wp_oc]."</b></td></tr>";
+			$point .= "<tr><td width=\"70%\" valign=\"top\">";
+			$point .= "<b>".tr(created_by).":</b> ".$r[username].$topratings;
+			$point .= "</td></tr></td></tr></table>";		
+		
+			$point .="');});\n";
 		
 			tpl_set_var('points', $point);	
 

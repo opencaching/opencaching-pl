@@ -47,8 +47,11 @@
 			
 			if (isset($_POST['distance'])){
 			$distance = $_POST['distance'];}
-
-
+			
+			
+			tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
+			tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
+			
 			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes` WHERE `route_id`='&1' AND `user_id`='&2'", $route_id,$user_id);
 			$record = sql_fetch_array($route_rs);	
 			$distance=$record['radius'];
@@ -84,7 +87,7 @@
 
 				
 						
-		if (isset($_POST['submit']) )
+		if (isset($_POST['submit']) || isset($_POST['submit_map']) )
 		{			
 
 			$options['f_userowner'] = isset($_POST['f_userowner']) ? $_POST['f_userowner'] : '';
@@ -651,6 +654,14 @@ $final_cache_list = array();
 	$bounds_max_lat = $largestLat + $distance/110;
 	$bounds_min_lon = $smallestLon - $distance/110;
 	$bounds_max_lon = $largestLon + $distance/110;
+	
+	$mapcenterLat = ($bounds_min_lat + $bounds_max_lat)/2;
+	$mapcenterLon = ($bounds_min_lon + $bounds_max_lon)/2; 
+	tpl_set_var('latlonmin', $bounds_min_lat.','.$bounds_min_lon);
+	tpl_set_var('latlonmax', $bounds_max_lat.','.$bounds_max_lon);
+	tpl_set_var('mapcenterLat', $mapcenterLat);
+	tpl_set_var('mapcenterLon', $mapcenterLon);
+	
 	$query = "SELECT wp_oc waypoint, latitude lat, longitude lon "." FROM caches "."WHERE latitude>'$bounds_min_lat' ".
 	"AND latitude<'$bounds_max_lat' "."AND longitude>'$bounds_min_lon' "."AND longitude<'$bounds_max_lon' "."AND status != '3' AND status != '4' AND status != '5' AND status != '6';";
 	$result=sql($query);
@@ -686,7 +697,7 @@ $final_cache_list = array();
 							tpl_redirect('myroutes.php');
 							exit;
 				}		
-		if (isset($_POST['submit']))
+		if (isset($_POST['submit']) || isset($_POST['submit_map']))
 		{
 			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`='&1'", $route_id);
 			$record = sql_fetch_array($route_rs);	
@@ -703,10 +714,12 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
  $lon=sqlValue("SELECT `route_points`.`lon`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`point_nr` LIMIT 1", 0);
 
  $rs=sql("SELECT (". getSqlDistanceFormula($lon, $lat, 0, 1) .") `distance`,
- `caches`.`cache_id` `cacheid`, 
+							`caches`.`cache_id` `cacheid`, 
 							`user`.`user_id` `userid`, 
 							`caches`.`type` `type`,
 							`caches`.`name` `cachename`, 
+							`caches`.`latitude` `latitude`,
+							`caches`.`longitude` `longitude`,
 							`caches`.`wp_oc` `wp_oc`, 
 							`user`.`username` `username`, 
 							`caches`.`date_created` `date_created`, 
@@ -728,10 +741,42 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 		}else{
 		tpl_set_var('list_empty_start','');
 		tpl_set_var('list_empty_end','');}
+		$point="";
+		$number = 0;
 	while ($r = sql_fetch_array($rs))
 		{
 
+			if (isset($_POST['submit_map']))
+			{		
+			if( $r[topratings] == 0 )
+			$topratings = "";
+		else 
+		{
+			$topratings = "<br /><b>".tr(recommendations).": </b>";
+			$topratings.= "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\" />";}
 
+				$username=$r['username'];
+				$date=$r['date'];
+				$y=$r['longitude'];
+				$x=$r['latitude'];
+			$number=$number+1;
+			$point .=" var point = new GLatLng(" . $x . "," . $y . ");\n";
+			$icon="icon1";
+			$point .="var marker".$number." = new GMarker(point); map0.addOverlay(marker".$number.");\n\n";
+			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('";
+			$point .="<table border=\"0\">";
+			$point .= "<tr><td>";
+			$point .= "<img src=\"tpl/stdstyle/images/" .getSmallCacheIcon($r['icon_large']) . "\" border=\"0\" alt=\"\"/>&nbsp;<a href=\"viewcache.php?cacheid=".$r[cacheid] ."\" target=\"_blank\">".$r[cachename]."</a></font>";
+			$point .= " - <b>".$r[wp_oc]."</b></td></tr>";
+			$point .= "<tr><td width=\"70%\" valign=\"top\">";
+			$point .= "<b>".tr(created_by).":</b> ".$r[username].$topratings;
+			$point .= "</td></tr></td></tr></table>";		
+		
+			$point .="');});\n";
+		
+			tpl_set_var('points', $point);	
+
+			} else {
 				$file_content .= '<tr>';
 				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';	
 		//		$file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: blue;">'.sprintf("%01.1f",$r['distance']). '</span></td>';
@@ -759,8 +804,7 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 
 			if (mysql_num_rows($rs_log) != 0)
 			{
-			$r_log = sql_fetch_array($rs_log);
-
+			$r_log = sql_fetch_array($rs_log);			
 				$file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("Y-m-d", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
 
 				$file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\''; 
@@ -774,9 +818,13 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 			mysql_free_result($rs_log);
 			$file_content .= "</tr>";
 		}
-		mysql_free_result($rs);
+
 	        tpl_set_var('file_content',$file_content);
-			$tplname = 'myroutes_result';		
+			}
+			mysql_free_result($rs);
+			if (isset($_POST['submit_map']))
+			{	$tplname = 'myroutes_result_map';} else {			
+			$tplname = 'myroutes_result';		}
 	} //end submit
 
 
