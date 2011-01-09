@@ -92,7 +92,7 @@
 				$upload_filename=$_FILES['file']['tmp_name'];	
 // Read file KML with route			
 if ( !$error ) {
-exec("/usr/local/bin/gpsbabel -i kml,units=m -f ".$upload_filename." -x interpolate,distance=0.25k -o kml,units=m -F ".$upload_filename."");
+exec("/usr/local/bin/gpsbabel -i kml -f ".$upload_filename." -x interpolate,distance=0.25k -o kml -F ".$upload_filename."");
 $xml = simplexml_load_file($upload_filename);
 
 	// get length route
