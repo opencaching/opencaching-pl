@@ -336,8 +336,9 @@
 			<div id="directions_info"></div>
 		</td>
 		<td valign="top">
-			<div id="outerMapDiv">
-			<div id="mapDiv"></div>		
+			<div style="border: 2px solid navy; padding:3px;">
+			<div id="mapDiv"></div>	
+			</div>
 		</td>		
 	</tr>
 </table>

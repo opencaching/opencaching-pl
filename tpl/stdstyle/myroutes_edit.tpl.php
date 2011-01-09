@@ -116,6 +116,8 @@ $polyline = $encoder->encode($points);
 <br/>
 <div class="searchdiv">
 <center>
+<div style="border: 2px solid navy; padding:3px;">
     <div id="map" style="width:500px;height:500px"></div>
+	</div>
 </center>
 </div>
