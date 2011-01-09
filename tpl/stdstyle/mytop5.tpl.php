@@ -12,6 +12,7 @@
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="Moje rekomendacje" title="Moje rekomendacje" align="middle"/>&nbsp;{{my_recommendations}}</div>
 {msg_delete}
+<div class="searchdiv">
 <table class="table">
 	<colgroup>
 		<col width="500px"/>
@@ -23,3 +24,4 @@
 	</tr>
 	{top5}
 </table>
+</div>

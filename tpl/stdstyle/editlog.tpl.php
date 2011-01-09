@@ -116,6 +116,7 @@ function chkMoved()
 <table class="content">
 	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="edit log Cache" align="middle" /> <b>Edycja logu dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 </table>
+<div class="searchdiv">
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
@@ -185,6 +186,7 @@ function chkMoved()
 		</td>
 	</tr>
 </table>
+</div>
 </form>
 <script language="javascript" type="text/javascript">
 <!--

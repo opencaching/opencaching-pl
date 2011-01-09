@@ -146,6 +146,7 @@ function chkMoved()
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
+<div class="searchdiv">
 <table class="content">
 	<tr>
 		<td class="content2-pagetitle" colspan="2">
@@ -250,6 +251,7 @@ function chkMoved()
 		</td>
 	</tr>
 </table>
+</div>
 </form>
 <script language="javascript" type="text/javascript">
 <!--
