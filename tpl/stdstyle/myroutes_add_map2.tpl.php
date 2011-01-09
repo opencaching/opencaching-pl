@@ -85,7 +85,7 @@
 #directions_info, #customMaps_info {
 
 	overflow:auto; 
-	height:436px;
+	height:440px;
 	width:195px;	
 
 }

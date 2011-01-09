@@ -98,7 +98,7 @@ function sync_options(element)
 
 <div class="searchdiv">
 <center>
-<div style="border: 2px solid navy; padding:3px;">
+<div style="width:703px;border: 2px solid navy; padding:3px;">
     <div id="map0" style="width:700px;height:500px"></div>
 	</div>
 </center>
