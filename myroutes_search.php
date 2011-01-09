@@ -752,8 +752,8 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 			$topratings = "";
 		else 
 		{
-			$topratings = "<br /><b>".tr(recommendations).": </b>";
-			$topratings.= "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\" /> <span style=\"font-wight:bold;color: green;\">".$r[topratings]."</span>";}
+			$topratings = "<br/><img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\" />&nbsp;<b>".tr(recommendations).": </b>";
+			$topratings.= "<span style=\"font-wight:bold;color: green;\">".$r[topratings]."</span>";}
 
 				$username=$r['username'];
 				$date=$r['date'];
