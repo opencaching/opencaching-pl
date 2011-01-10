@@ -53,7 +53,28 @@ $polyline = $encoder->encode($points);
           zoomFactor: <?= $polyline->zoomFactor ?>,
           numLevels: <?= $polyline->numLevels ?>
         });
-		
+			var searchArea= null;
+			var searchRadius = 1;
+			var p1=map.fromContainerPixelToLatLng(new GPoint(300,300));
+			var p2=map.fromContainerPixelToLatLng(new GPoint(300,301));
+			var lngdist = p1.distanceFrom(p2);
+			var p3=map.fromContainerPixelToLatLng(new GPoint(301,300));
+			var latdist = p1.distanceFrom(p3);
+			var pixelWidth = Math.ceil((searchRadius*10000/latdist)*2);
+
+	searchArea =  new GPolyline.fromEncoded({
+	 color:'#c0c0c0',
+          weight: pixelWidth,
+	  opacity: 0.60,
+          points: "<?= $polyline->points ?>",
+          levels: "<?= $polyline->levels ?>",
+          zoomFactor: <?= $polyline->zoomFactor ?>,
+          numLevels: <?= $polyline->numLevels ?>
+        });
+
+
+			map.addOverlay(searchArea);
+	
 
     var bounds = encodedPolyline.getBounds();
     map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds)); 
