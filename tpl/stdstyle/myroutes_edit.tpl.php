@@ -41,7 +41,7 @@ $polyline = $encoder->encode($points);
 <!--
 var searchArea= null;
 var old_zoom=6;
-var map;
+var map=null;
 function searchArea(){
 
 	}
@@ -50,7 +50,7 @@ function searchArea(){
 			var a=parseFloat(new_zoom);
 			var b=parseFloat(old_zoom);
 			if (a!=b) {
-				showSearchArea();
+				alert(test);
 			}
 			old_zoom=new_zoom;
 		}
@@ -63,6 +63,7 @@ function searchArea(){
         map.addControl(new GLargeMapControl());
         map.addControl(new GMapTypeControl());
         map.addControl(new GScaleControl());
+
 
         var encodedPolyline = new GPolyline.fromEncoded({
 
@@ -77,8 +78,8 @@ function searchArea(){
     map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds)); 
 
         map.addOverlay(encodedPolyline);
-//GEvent.addListener(map,'moveend',function CheckZoom();  );
-	
+
+//	GEvent.addListener(map,'moveend',function() { alert(test); } );	
 
 			var searchRadius = document.myroute_form.radius.value;
 			var p1=map.fromContainerPixelToLatLng(new GPoint(300,300));
@@ -87,6 +88,9 @@ function searchArea(){
 			var p3=map.fromContainerPixelToLatLng(new GPoint(301,300));
 			var latdist = p1.distanceFrom(p3);
 			var pixelWidth = Math.ceil((searchRadius*1000/latdist)*2);
+
+
+
 
 	searchArea =  new GPolyline.fromEncoded({
 	 color:'#c0c0c0',
@@ -99,6 +103,7 @@ function searchArea(){
         });
 
 	map.addOverlay(searchArea);
+
 
       }
     }
