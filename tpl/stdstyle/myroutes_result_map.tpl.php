@@ -63,8 +63,32 @@ $polyline = $encoder->encode($points);
 
     var bounds = encodedPolyline.getBounds();
     map0.setCenter(bounds.getCenter(), map0.getBoundsZoomLevel(bounds)); 
+
    //display route
      map0.addOverlay(encodedPolyline);
+
+//display search Area
+			var searchArea= null;
+			var searchRadius = document.myroute_form.distance.value;
+			var p1=map0.fromContainerPixelToLatLng(new GPoint(300,300));
+			var p2=map0.fromContainerPixelToLatLng(new GPoint(300,301));
+			var lngdist = p1.distanceFrom(p2);
+			var p3=map0.fromContainerPixelToLatLng(new GPoint(301,300));
+			var latdist = p1.distanceFrom(p3);
+			var pixelWidth = Math.ceil((searchRadius*1000/latdist)*2);
+
+	searchArea =  new GPolyline.fromEncoded({
+	 color:'#c0c0c0',
+          weight: pixelWidth,
+	  opacity: 0.40,
+          points: "<?= $polyline->points ?>",
+          levels: "<?= $polyline->levels ?>",
+          zoomFactor: <?= $polyline->zoomFactor ?>,
+          numLevels: <?= $polyline->numLevels ?>
+        });
+
+	map0.addOverlay(searchArea);
+
  var sw = new GLatLng({latlonmin});  
  var ne = new GLatLng({latlonmax});  
  var bounds = new GLatLngBounds(sw, ne);  
