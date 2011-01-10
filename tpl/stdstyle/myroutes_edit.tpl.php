@@ -53,6 +53,12 @@ $polyline = $encoder->encode($points);
           zoomFactor: <?= $polyline->zoomFactor ?>,
           numLevels: <?= $polyline->numLevels ?>
         });
+
+    var bounds = encodedPolyline.getBounds();
+    map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds)); 
+
+        map.addOverlay(encodedPolyline);
+
 			var searchArea= null;
 			var searchRadius = document.myroute_form.radius.value;
 			var p1=map.fromContainerPixelToLatLng(new GPoint(300,300));
@@ -72,13 +78,10 @@ $polyline = $encoder->encode($points);
           numLevels: <?= $polyline->numLevels ?>
         });
 
-
 			map.addOverlay(searchArea);
 	
 
-    var bounds = encodedPolyline.getBounds();
-    map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds)); 
-        map.addOverlay(encodedPolyline);
+
       }
     }
 	function checkForm()
