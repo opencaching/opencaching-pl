@@ -7,6 +7,8 @@
 	*   (at your option) any later version.
 	*   
 	*  UTF-8 ąść
+GEvent.addListener(map,'moveend',load() { CheckZoom(); } );
+
 	***************************************************************************/
 ?>
 
@@ -37,10 +39,27 @@ $polyline = $encoder->encode($points);
 ?>
 <script type="text/javascript">
 <!--
+var searchArea= null;
+var old_zoom=6;
+var map;
+function searchArea(){
+
+	}
+	function CheckZoom() {
+			var new_zoom=map.getZoom();
+			var a=parseFloat(new_zoom);
+			var b=parseFloat(old_zoom);
+			if (a!=b) {
+				showSearchArea();
+			}
+			old_zoom=new_zoom;
+		}
+
 
    function load() {
       if (GBrowserIsCompatible()) {
         var map = new GMap2(document.getElementById("map"));
+	map.addMapType(G_PHYSICAL_MAP);
         map.addControl(new GLargeMapControl());
         map.addControl(new GMapTypeControl());
         map.addControl(new GScaleControl());
@@ -58,8 +77,9 @@ $polyline = $encoder->encode($points);
     map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds)); 
 
         map.addOverlay(encodedPolyline);
+//GEvent.addListener(map,'moveend',function CheckZoom();  );
+	
 
-			var searchArea= null;
 			var searchRadius = document.myroute_form.radius.value;
 			var p1=map.fromContainerPixelToLatLng(new GPoint(300,300));
 			var p2=map.fromContainerPixelToLatLng(new GPoint(300,301));
@@ -78,9 +98,7 @@ $polyline = $encoder->encode($points);
           numLevels: <?= $polyline->numLevels ?>
         });
 
-			map.addOverlay(searchArea);
-	
-
+	map.addOverlay(searchArea);
 
       }
     }
