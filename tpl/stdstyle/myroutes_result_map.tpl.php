@@ -37,10 +37,13 @@ $polyline = $encoder->encode($points);
 <script type="text/javascript">
 <!--
 
+
+
    function load() {
       if (GBrowserIsCompatible()) {
 
-	  var icon3 = new GIcon();
+
+ var icon3 = new GIcon();
  icon3.image = "tpl/stdstyle/images/google_maps/gmgreen.gif";
  icon3.shadow = null;
  icon3.iconSize = new GSize(12, 20);
@@ -95,8 +98,9 @@ $polyline = $encoder->encode($points);
  map0.setCenter(bounds.getCenter(), map0.getBoundsZoomLevel(bounds));  
    // display caches
 	   {points}
+
 	   
-		}
+	}
     }
 
 function check_logs(){
