@@ -835,7 +835,7 @@ save_gpx Zapisz do GPX
 show_gmap Pokaż na GMAP'ie
 logs_cache_gpx Liczba logów dla skrzynki w GPX 
 min_logs_cache Minimalna liczba logów 
-marked_grey_searchare Kolorem szarym zaznaczony obszar poszukiwań dla zdefionowanego promienia.
+marked_grey_search_area Kolorem szarym zaznaczony obszar poszukiwań dla zdefionowanego promienia.
 
 
 
