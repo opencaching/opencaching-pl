@@ -337,7 +337,7 @@ function switchCat2()
 </div>
 <br/>
 			<button type="submit" name="back_list" value="back_list" style="font-size:12px;width:160px"><b>{{back}}</b></button>&nbsp;&nbsp;
-			<button type="submit" name="submit" value="submit" style="font-size:12px;width:160px"><b>{{search}}</b></button>
+			<button type="submit" name="submit" value="submit" style="font-size:12px;width:160px"><b>{{show_list}}</b></button>
 			<button type="submit" name="submit_map" value="submit_map" style="font-size:12px;width:160px"><b>{{show_gmap}}</b></button>
 
 </form>
