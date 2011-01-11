@@ -42,18 +42,6 @@ $polyline = $encoder->encode($points);
 var searchArea= null;
 var old_zoom=6;
 var map=null;
-function searchArea(){
-
-	}
-	function CheckZoom() {
-			var new_zoom=map.getZoom();
-			var a=parseFloat(new_zoom);
-			var b=parseFloat(old_zoom);
-			if (a!=b) {
-				alert(test);
-			}
-			old_zoom=new_zoom;
-		}
 
 
    function load() {
@@ -76,10 +64,43 @@ function searchArea(){
 
     var bounds = encodedPolyline.getBounds();
     map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds)); 
-
+  
         map.addOverlay(encodedPolyline);
 
-//	GEvent.addListener(map,'moveend',function() { alert(test); } );	
+
+ GEvent.addListener(map,'moveend',function(){
+
+			var new_zoom=map.getZoom(); 
+			var a=parseFloat(new_zoom);
+			var b=parseFloat(old_zoom);
+			if (a!=b) {
+
+			if (searchArea) {
+				map.removeOverlay(searchArea);
+				searchArea = null;
+			}
+			var searchRadius = document.myroute_form.radius.value;
+			var p1=map.fromContainerPixelToLatLng(new GPoint(300,300));
+			var p2=map.fromContainerPixelToLatLng(new GPoint(300,301));
+			var lngdist = p1.distanceFrom(p2);
+			var p3=map.fromContainerPixelToLatLng(new GPoint(301,300));
+			var latdist = p1.distanceFrom(p3);
+			var pixelWidth = Math.ceil((searchRadius*1000/latdist)*2);
+	searchArea =  new GPolyline.fromEncoded({
+	 color:'#c0c0c0',
+          weight: pixelWidth,
+	  opacity: 0.40,
+          points: "<?= $polyline->points ?>",
+          levels: "<?= $polyline->levels ?>",
+          zoomFactor: <?= $polyline->zoomFactor ?>,
+          numLevels: <?= $polyline->numLevels ?>
+        });
+	map.addOverlay(searchArea);
+
+			}
+			old_zoom=new_zoom;
+		});
+
 
 			var searchRadius = document.myroute_form.radius.value;
 			var p1=map.fromContainerPixelToLatLng(new GPoint(300,300));
@@ -88,10 +109,6 @@ function searchArea(){
 			var p3=map.fromContainerPixelToLatLng(new GPoint(301,300));
 			var latdist = p1.distanceFrom(p3);
 			var pixelWidth = Math.ceil((searchRadius*1000/latdist)*2);
-
-
-
-
 	searchArea =  new GPolyline.fromEncoded({
 	 color:'#c0c0c0',
           weight: pixelWidth,
@@ -103,7 +120,6 @@ function searchArea(){
         });
 
 	map.addOverlay(searchArea);
-
 
       }
     }
