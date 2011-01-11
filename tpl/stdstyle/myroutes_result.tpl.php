@@ -67,6 +67,7 @@ function sync_options(element)
 </table>
 </div>
 <br/>
+{list_empty_start}
 <div class="searchdiv">
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
 	<tr>
@@ -80,6 +81,7 @@ function sync_options(element)
 		</tr>
 	</table>
 </div>
+{list_empty_end}
 <br/>
 			<button type="submit" name="back" value="back" style="font-size:12px;width:160px"><b>{{back}}</b></button>&nbsp;&nbsp;
 {list_empty_start}
