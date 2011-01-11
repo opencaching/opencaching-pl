@@ -796,6 +796,7 @@ save_gpx Save to GPX
 show_gmap Show on GMAP
 logs_cache_gpx Numbers of logs for each cache in GPX
 min_logs_cache Min. numbers of logs 
+marked_grey_search_area Marked grey search area for defined radius
 
 
 
