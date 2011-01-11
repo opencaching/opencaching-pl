@@ -738,6 +738,7 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 	if ($ncaches==0){
 		tpl_set_var('list_empty_start','<!--');
 		tpl_set_var('list_empty_end','-->');
+		tpl_set_var('file_content','');
 		}else{
 		tpl_set_var('list_empty_start','');
 		tpl_set_var('list_empty_end','');}
