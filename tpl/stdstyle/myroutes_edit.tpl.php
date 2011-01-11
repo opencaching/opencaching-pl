@@ -182,5 +182,6 @@ var map=null;
 <div style="width:503px;border: 2px solid navy; padding:3px;">
     <div id="map" style="width:500px;height:500px"></div>
 	</div>
+	<br/><span style="font-weight:bold;">{{marked_grey_search_area}}</span>
 </center>
 </div>

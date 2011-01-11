@@ -172,7 +172,8 @@ function sync_options(element)
 <center>
 <div style="width:703px;border: 2px solid navy; padding:3px;">
     <div id="map0" style="width:700px;height:500px"></div>
-	</div>
+	</div>	
+<br/><span style="font-weight:bold;">{{marked_grey_search_area}}</span>
 </center>
 </div>
 <br/>
