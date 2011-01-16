@@ -18,7 +18,6 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 <b>Rada Programowa</b>:<br />
 <b>E-mail: <font color="black">rp</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
 - Zyr<br />
-- trojmiasto<br />
 - rushcore<br />
 - filips<br />
 <br/>
