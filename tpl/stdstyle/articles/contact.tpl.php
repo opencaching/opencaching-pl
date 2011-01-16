@@ -7,6 +7,7 @@
 
 </table>
 <br />
+<div class="searchdiv">
 <h1>Zadawanie pytań o Geocaching</h1>
 <p>Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
 <br />
@@ -66,4 +67,5 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 
 <h1>Polska wersja OpenCaching</h1>
 <p>Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldemar Ogonowski (sp2ong) + duża pomoc kolegów którzy brali udział w testowaniu<br /></p>
-
+</div>
+<br/>
