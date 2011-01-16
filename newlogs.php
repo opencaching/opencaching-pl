@@ -1,14 +1,5 @@
 <?php
 	/***************************************************************************
-												./nlogs.php
-																-------------------
-			begin                : July 9 2004
-			copyright            : (C) 2004 The OpenCaching Group
-			forum contact at     : http://www.opencaching.com/phpBB2
-
-		***************************************************************************/
-
-	/***************************************************************************
 		*
 		*   This program is free software; you can redistribute it and/or modify
 		*   it under the terms of the GNU General Public License as published by
@@ -40,6 +31,47 @@ if ($error == false)
 	$tplname = 'newlogs';
 	require($stylepath . '/newlogs.inc.php');
 	
+	
+	        function cleanup_text($str)
+        {
+
+          $str = strip_tags($str, "<li>");
+	  $from[] = '<p>&nbsp;</p>'; $to[] = '';
+	  $from[] = '&nbsp;'; $to[] = ' ';
+          $from[] = '<p>'; $to[] = '';
+         $from[] = '\n'; $to[] = '';
+         $from[] = '\r'; $to[] = '';
+          $from[] = '</p>'; $to[] = "";
+          $from[] = '<br>'; $to[] = "";
+          $from[] = '<br />'; $to[] = "";
+	 $from[] = '<br/>'; $to[] = "";
+            
+          $from[] = '<li>'; $to[] = " - ";
+          $from[] = '</li>'; $to[] = "";
+          
+          $from[] = '&oacute;'; $to[] = 'o';
+          $from[] = '&quot;'; $to[] = '"';
+          $from[] = '&[^;]*;'; $to[] = '';
+          
+          $from[] = '&'; $to[] = '';
+          $from[] = '\''; $to[] = '';
+          $from[] = '"'; $to[] = '';
+          $from[] = '<'; $to[] = '';
+          $from[] = '>'; $to[] = '';
+          $from[] = ']]>'; $to[] = ']] >';
+	 $from[] = ''; $to[] = '';
+              
+          for ($i = 0; $i < count($from); $i++)
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
+          return filterevilchars($str);
+        }
+        
+	
+        function filterevilchars($str)
+	{
+		return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
+	}
 	$LOGS_PER_PAGE = 50;
 	$PAGES_LISTED = 10;
 		
@@ -162,14 +194,16 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 				$file_content .= '<td width="22"><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt="" title="Kliknij aby zobaczyć skrzynke" /></a></td>';
 				$file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
 				$file_content .= '<b>'.$log_record['user_name'].'</b>: &nbsp;';
-				if ( $log_record['encrypt']==1 && ($usr['userid'] == $log_record['cache_owner'] || $usr['userid'] != $log_record['user_id']))				
-				$file_content .='<img src=tpl/stdstyle/images/free_icons/lock_open.png />';
+				if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['user_id']!=$usr['userid']){
+				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
+				if ( $log_record['encrypt']==1 && ($log_record['cache_owner']==$usr['userid']|| $log_record['user_id']==$usr['userid'])){
+				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
 				$data = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
-				$data= str_replace("\n", " ",$data);
-				if ( $log_record['encrypt']==1 && ($usr['userid'] == $log_record['cache_owner'] || $usr['userid'] != $log_record['user_id']))
-				//crypt the log ROT13, but keep HTML-Tags and Entities
-				$data = str_rot13_html($data);
-				$file_content .= "<br/>".$data;
+				$data = str_replace("\n", " ",$data);
+				if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['user_id']!=$usr['userid'])
+				{//crypt the log ROT13, but keep HTML-Tags and Entities
+				$data = str_rot13_html($data);} else {$file_content .= "<br/>";}
+				$file_content .=$data;
 				$file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 				$file_content .= "</tr>";
@@ -193,46 +227,7 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	//user definied sort function
 	
 }
-        function cleanup_text($str)
-        {
 
-          $str = strip_tags($str, "<li>");
-	  $from[] = '<p>&nbsp;</p>'; $to[] = '';
-	  $from[] = '&nbsp;'; $to[] = ' ';
-          $from[] = '<p>'; $to[] = '';
-         $from[] = '\n'; $to[] = '';
-         $from[] = '\r'; $to[] = '';
-          $from[] = '</p>'; $to[] = "";
-          $from[] = '<br>'; $to[] = "";
-          $from[] = '<br />'; $to[] = "";
-	 $from[] = '<br/>'; $to[] = "";
-            
-          $from[] = '<li>'; $to[] = " - ";
-          $from[] = '</li>'; $to[] = "";
-          
-          $from[] = '&oacute;'; $to[] = 'o';
-          $from[] = '&quot;'; $to[] = '"';
-          $from[] = '&[^;]*;'; $to[] = '';
-          
-          $from[] = '&'; $to[] = '';
-          $from[] = '\''; $to[] = '';
-          $from[] = '"'; $to[] = '';
-          $from[] = '<'; $to[] = '';
-          $from[] = '>'; $to[] = '';
-          $from[] = ']]>'; $to[] = ']] >';
-	 $from[] = ''; $to[] = '';
-              
-          for ($i = 0; $i < count($from); $i++)
-            $str = str_replace($from[$i], $to[$i], $str);
-                                 
-          return filterevilchars($str);
-        }
-        
-	
-        function filterevilchars($str)
-	{
-		return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
-	}
 function cmp($a, $b)
 	{
 		if ($a == $b)
