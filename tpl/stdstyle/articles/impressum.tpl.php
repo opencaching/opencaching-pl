@@ -7,7 +7,7 @@
 		<tr><td class="spacer"></td></tr>
 
 </table>
-
+<div class="searchdiv">
 <h1>Cel projektu</h1>
 <p>Pomysł i idea polskiego serwisu, który zaproponował sp2ong (Waldek Ogonowski), powstał w 2006. Bazując na kodzie opensource
 OpenCaching sp2ong uruchomił 26 maja 2006 polską baze skrzynek OpenCaching PL.
@@ -34,4 +34,5 @@ z pewnymi wyjątkami, gdzie przytoczony jest autor. Za te imienne wkłady odpowi
 <h1>Polska wersja OpenCaching</h1>
 <p>Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldemar Ogonowski (sp2ong) + duża pomoc kolegów którzy brali udział w testowaniu<br /></p>
 <br /><br />
+</div>
 <p>&nbsp;</p>
