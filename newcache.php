@@ -944,7 +944,7 @@
 						}
 						
 						$cache_uuid = create_uuid();
-
+						mysql_query("SET NAMES 'utf8'");
 						//add record to caches table
 						sql("INSERT INTO `caches` (
 													`cache_id`,
@@ -1021,6 +1021,7 @@
 						//add record to cache_desc table
 						if ($descMode != 1)
 						{
+							mysql_query("SET NAMES 'utf8'");
 							sql("INSERT INTO `cache_desc` (
 														`id`,
 														`cache_id`,
@@ -1045,6 +1046,7 @@
 						}
 						else
 						{
+							mysql_query("SET NAMES 'utf8'");
 							sql("INSERT INTO `cache_desc` (
 														`id`,
 														`cache_id`,

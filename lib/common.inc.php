@@ -279,6 +279,8 @@ session_start();
 						unset($_SESSION['called_from_confirm']);
 				}
 			}
+			
+			
 			$sTmpString = mb_ereg_replace('{username}', $usr['username'], $sLoggedIn);
 			tpl_set_var('loginbox', $sTmpString);
 			unset($sTmpString);

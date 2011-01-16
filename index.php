@@ -32,12 +32,15 @@
 		$tplname = 'start';
 		// news
 		require($stylepath . '/news.inc.php');
-//		tpl_set_var('display_news_one', '<br />');
 		$newscontent ="<br />";
 		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
 		while ($r = sql_fetch_array($rs))
 		{
 			$post_date = strtotime($r['date']);
+			$current_date=strftime(date(Ymd));
+			$posted_date=strftime("%Y%m%d",$post_date);
+			$diff=abs($current_date - $posted_date);
+			if ($diff < 100 && $lang=="pl") {			
 			$newsentry .= $tpl_newstopic_header;
 			$newsentry .= $tpl_newstopic_without_topics;
 			
@@ -45,14 +48,9 @@
 			$newsentry = mb_ereg_replace('{topic}', htmlspecialchars($r['topic'], ENT_COMPAT, 'UTF-8'), $newsentry);
 			$newsentry = mb_ereg_replace('{message}', $r['content'], $newsentry);			
 			$newscontent .= $newsentry . "\n";
-
-
-			$current_date=strftime(date(Ymd));
-			$posted_date=strftime("%Y%m%d",$post_date);
-			$diff=abs($current_date - $posted_date);
-			if ($diff < 100 && $lang=="pl") {tpl_set_var('display_news_one', $newscontent);} 
-	//		else {tpl_set_var('display_news_one', '<br />');} 
+			} 
 		}
+		tpl_set_var('display_news_one', $newscontent);
 		mysql_free_result($rs);
 		$newscontent = '';
 		
@@ -79,13 +77,13 @@
 		// will replace {foo} in the templates
 	}
 
-	
+	/*
 		//user logged in?
 		if ($usr == true)
 		{
 			//get user record
 			$user_id = $usr['userid'];
-
+// if user set Home cooridnates redirect to myneighborhood
 $latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 
@@ -94,7 +92,7 @@ if (($longitude!=NULL && $latitude!=NULL) ||($longitude!=0 && $latitude!=0) ) {
 							exit;	}
 
 }
-
+*/
 	//make the template and send it out
 	tpl_BuildTemplate(false);
 

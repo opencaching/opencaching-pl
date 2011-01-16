@@ -48,7 +48,7 @@
 			// wenn im REQUEST nix war, guck mal im POST
 			if (isset($_POST['target'])) $target = $_POST['target'];
 		}
-		if ($target == '') $target = 'myhome.php';
+		if ($target == '') $target = 'myneighborhood.php';
 
 		if (isset($_REQUEST['action']))
 		{

@@ -69,7 +69,7 @@
 		}
 		else
 		{
-
+			mysql_query("SET NAMES 'utf8'");
 			$desc_rs = sql("SELECT `cache_desc`.`cache_id` `cache_id`, `cache_desc`.`language` `language`, `caches`.`name` `name`, `caches`.`user_id` `user_id`, `cache_desc`.`desc` `desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`desc_html` `desc_html`, `cache_desc`.`desc_htmledit` `desc_htmledit` FROM `caches`, `cache_desc` WHERE (`caches`.`cache_id` = `cache_desc`.`cache_id`) AND `cache_desc`.`id`='&1'", $descid);
 			if (mysql_num_rows($desc_rs) == 1)
 			{
@@ -141,7 +141,7 @@
 								$desc = nl2br($desc);
 
 							$desc = tidy_html_description($desc);
-
+							mysql_query("SET NAMES 'utf8'");
 							sql("UPDATE `cache_desc` SET 
 							            `last_modified`=NOW(), 
     					            `desc_html`='&1',
