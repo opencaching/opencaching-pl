@@ -66,7 +66,7 @@
 	$content="";
         function cleanup_text($str)
         {
-
+	  $from[] = '<p>&nbsp;</p>'; $to[] = '';
           $str = strip_tags($str, "<li>");
 	  $from[] = '&nbsp;'; $to[] = ' ';
           $from[] = '<p>'; $to[] = '';
@@ -260,7 +260,9 @@
 	                          caches.name AS cache_name,
 							  caches.wp_oc AS wp_name,
 	                          user.username AS user_name,
+							  `cache_logs`.`encrypt` `encrypt`,
 							  user.user_id AS user_id,
+							  caches.user_id AS cache_owner,
 							  caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
 							  log_types.icon_small AS icon_small,
@@ -446,6 +448,8 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
 	                          caches.name AS cache_name,
 							  caches.wp_oc AS wp_name,
+							  cache_logs.crypt AS crypt,
+							  caches.user_id AS cache_owner,
 	                          user.username AS user_name,
 							  user.user_id AS user_id,
 							  caches.type AS cache_type,
