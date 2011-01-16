@@ -164,9 +164,10 @@ if ($error == false)
 	                          cache_logs.date AS log_date,
 							cache_logs.text AS log_text,
 							`cache_logs`.`encrypt` AS `encrypt`,
+							caches.user_id AS cache_owner,
 	                          caches.name AS cache_name,
 	                          user.username AS user_name,
-							  user.user_id AS user_id,
+							  cache_logs.user_id AS luser_id,
 							  caches.wp_oc AS wp_name,
 							  caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
@@ -210,15 +211,15 @@ if ($error == false)
 				$file_content .= '<td width="22"><a class="links" href="viewcache.php?cacheid=' . $log_record['cache_id'].'"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></a></td>';
 				$file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\''; 
 				$file_content .= '<b>'.$log_record['user_name'].'</b>:&nbsp;';
-				if ( $log_record['encrypt']==1 ){
-				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
-				}else{
-				$file_content .= '<br/>';}
+				if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['luser_id']!=$usr['userid']){
+				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
+				if ( $log_record['encrypt']==1 && ($log_record['cache_owner']==$usr['userid']|| $log_record['luser_id']==$usr['userid'])){
+				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
 				$data = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
 				$data = str_replace("\n", " ",$data);
-				if ( $log_record['encrypt']==1 )
-				//crypt the log ROT13, but keep HTML-Tags and Entities
-				$data = str_rot13_html($data);
+				if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['luser_id']!=$usr['userid'])
+				{//crypt the log ROT13, but keep HTML-Tags and Entities
+				$data = str_rot13_html($data);} else {$file_content .= "<br/>";}
 				$file_content .=$data;
 				$file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td>&nbsp;</td>';
