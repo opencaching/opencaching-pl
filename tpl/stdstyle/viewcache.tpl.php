@@ -111,12 +111,13 @@ else
 							{notfound_icon} {notfounds} {notfound_text}<br />
 							{note_icon} {notes} {{comments}}<br />
 							{notes_icon} {cache_notes} {cachenotes_link}<br />
-							{gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?lang=pl_PL.UTF-8&wpt={oc_waypoint}" target="_blank">{{history_gk}}</a><br />
 							{watch_icon} {watcher} {{watchers}}<br />
 							{visit_icon} {visits} {{visitors}}<br />
 							{vote_icon} {votes_count} x {{scored}}<br />
 							{score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
 							{list_of_rating_begin}{rating_stat}{list_of_rating_end}
+							{gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?lang=pl_PL.UTF-8&wpt={oc_waypoint}" target="_blank">{{history_gk}}</a><br />
+
 							</p>
 						</div>
 						<div id="viewcache-map" class="content2-container-2col-right"><div class="img-shadow">
