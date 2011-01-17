@@ -42,7 +42,13 @@ INSERT INTO `cache_attrib` (`id`, `language`, `text_short`, `text_long`, `icon_l
 (91, 'PL', 'Zalecane szukanie no', 'Zalecane szukanie nocą', 'images/attributes/night.png', 'images/attributes/night-no.png', 'images/attributes/night-undef.png', 1, 0),
 (91, 'EN', 'Recommended at night', 'Recommended at night', 'images/attributes/night.png', 'images/attributes/night-no.png', 'images/attributes/night-undef.png', 1, 0),
 (50, 'PL', 'Informacje MP3', 'Informacje zapisane w MP3', 'images/attributes/mp3.png', 'images/attributes/mp3-no.png', 'images/attributes/mp3-undef.png', 1, 0),
-(50, 'EN', 'Information in MP3 ', 'Information in  MP3 file', 'images/attributes/mp3.png', 'images/attributes/mp3-no.png', 'images/attributes/mp3-undef.png', 1, 0);
+(50, 'EN', 'Information in MP3 ', 'Information in  MP3 file', 'images/attributes/mp3.png', 'images/attributes/mp3-no.png', 'images/attributes/mp3-undef.png', 1, 0),
+(52, 'PL', 'Beacon', 'Beacon - Garmin chirp', 'images/attributes/beacon.png', 'images/attributes/beacon-no.png', 'images/attributes/beacon-undef.png', 1, 0),
+(52, 'EN', 'Beacon', 'Beacon - Garmin chirp', 'images/attributes/beacon.png', 'images/attributes/beacon-no.png', 'images/attributes/beacon-undef.png', 1, 0),
+(53, 'PL', 'Dead Drop USB', 'Dead Drop USB skrzynka', 'images/attributes/deaddrop.png', 'images/attributes/deaddrop-no.png', 'images/attributes/deaddrop-undef.png', 1, 0),
+(53, 'EN', 'Dead Drop USB', 'Dead Drop USB cache', 'images/attributes/deaddrop.png', 'images/attributes/deaddrop-no.png', 'images/attributes/deaddrop-undef.png', 1, 0),
+(54, 'EN', 'Benchmark ', 'Benchmark - geodetict point', 'images/attributes/benchmark.png', 'images/attributes/benchmark-no.png', 'images/attributes/benchmark-undef.png', 1, 0),
+(54, 'PL', 'Benchmark - punkt ge', 'Benchmark - punkt geodezyjny', 'images/attributes/benchmark.png', 'images/attributes/benchmark-no.png', 'images/attributes/benchmark-undef.png', 1, 0);
 
 --
 -- Zrzut danych tabeli `cache_size`
@@ -73,15 +79,17 @@ INSERT INTO `cache_status` (`id`, `pl`, `en`) VALUES
 --
 
 INSERT INTO `cache_type` (`id`, `sort`, `short`, `pl`, `en`, `icon_large`, `icon_small`, `color`) VALUES
-(1, 5, 'Other', 'Inny typ skrzynki', 'Unknown type', 'cache/unknown.png', 'cache/16x16-unknown.png', '#FFFF00'),
+(1, 5, 'Other', 'Skrzynka nietypowa', 'Unknown type', 'cache/unknown.png', 'cache/16x16-unknown.png', '#FFFF00'),
 (2, 1, 'Trad.', 'Tradycyjna', 'Traditional', 'cache/traditional.png', 'cache/16x16-traditional.png', '#0000FF'),
 (3, 2, 'Multi', 'Multicache', 'Multicache', 'cache/multi.png', 'cache/16x16-multi.png', '#00D400'),
-(4, 8, 'Virt.', 'Wirtualna', 'Virtual', 'cache/virtual.png', 'cache/16x16-virtual.png', '#00D5FF'),
-(5, 7, 'ICam.', 'Webcam', 'Webcam', 'cache/webcam.png', 'cache/16x16-webcam.png', '#00FFFF'),
-(6, 6, 'Event', 'Wydarzenie', 'Event', 'cache/event.png', 'cache/16x16-event.png', '#FF80FF'),
+(4, 8, 'Virt.', 'Wirtualna', 'Virtual ', 'cache/virtual.png', 'cache/16x16-virtual.png', '#00D5FF'),
+(5, 7, 'ICam.', 'Webcam', 'Webcam ', 'cache/webcam.png', 'cache/16x16-webcam.png', '#00FFFF'),
+(6, 6, 'Event', 'Wydarzenie', 'Event ', 'cache/event.png', 'cache/16x16-event.png', '#FF80FF'),
 (7, 3, 'Quiz', 'Quiz', 'Quiz', 'cache/quiz.png', 'cache/16x16-quiz.png', '#FF8000'),
 (8, 4, 'Moving', 'Mobilna', 'Moving', 'cache/moving.png', 'cache/16x16-moving.png', '#FF00FF'),
-(9, 9, 'Podcast', 'Podcast', 'Podcast cache', 'cache/podcache.png', 'cache/16x16-podcache.png', '#FF00FF');
+(9, 9, 'Podcast', 'Podcast cache', 'Podcast cache', 'cache/podcache.png', 'cache/16x16-podcache.png', '#FF00FF'),
+(10, 10, 'own-cache', 'Own cache', 'Own cache', 'cache/owncache.png', 'cache/16x16-owncache.png', '#FF00FF');
+
 
 --
 -- Zrzut danych tabeli `countries`
