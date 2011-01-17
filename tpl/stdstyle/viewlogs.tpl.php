@@ -10,7 +10,7 @@
 
 /****************************************************************************
 	  
-   Unicode Reminder ??
+   Unicode Reminder ąś
                                        				                                
 	 view all logs of a cache
 
@@ -49,3 +49,4 @@ if ((F == " ") || (F == "&dhbg;")) {} else {if (E) {F = convertROT13Char(F)}}}}D
 		{logs}
 </div>
 <div id="viewlogs-end">[<a class="links" href="viewcache.php?cacheid={cacheid}">{{back_to_the_geocache_listing}}</a>]</div>
+
