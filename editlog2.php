@@ -457,7 +457,7 @@
 						if($type['permission'] == 'B' && $log_record['user_id'] != $cache_user_id && $usr['admin']==false)
 							continue;
 						
-						if( $log_record['logtype'] != $type['id'] && $log_record['cachestatus'] != 1 )
+						if( $log_record['logtype'] != $type['id'] && $log_record['cachestatus'] != 1 && $usr['admin']==false )
 							continue;
 						if( $log_record['logtype'] != $type['id'] && $log_record['cachestatus'] == 1 && $log_record['user_id'] == $cache_user_id )
 							continue;						
