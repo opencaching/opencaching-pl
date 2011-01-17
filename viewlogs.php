@@ -159,17 +159,6 @@
 				} else {
 				tpl_set_var('gallery', '');
 				;}
-
-  // replace <p> </p> ro <br/>from tinyMCE  
-       function cleanup_text($str)
-        {
-          $from[] = '<p>&nbsp;</p>'; $to[] = '<br/>';
-    
-          for ($i = 0; $i < count($from); $i++)
-            $str = str_replace($from[$i], $to[$i], $str);
-                                 
-          return ($str);
-        }
 			
 			// prepare the logs - show logs marked as deleted if admin
 			//
@@ -180,14 +169,22 @@
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
 			}
- 			mysql_query("SET NAMES 'utf8'");
-			
+			 // replace <p> </p> ro <br/>from tinyMCE  
+       function cleanup_text($str)
+        {
+          $from[] = '<p>&nbsp;</p>'; $to[] = '<br/>';
+    
+          for ($i = 0; $i < count($from); $i++)
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
+          return ($str);
+        }
+ 			mysql_query("SET NAMES 'utf8'");			
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					".$show_deleted_logs."
 					`cache_logs`.`id` AS `log_id`,
-			  	       `cache_logs`.`encrypt` `encrypt`,
+			  	    `cache_logs`.`encrypt` `encrypt`,
 					`cache_logs`.`picturescount` AS `picturescount`,
-					`cache_logs`.`user_id` AS `user_id`,
 					`cache_logs`.`date` AS `date`,
 					`cache_logs`.`type` AS `type`,
 					`cache_logs`.`text` AS `text`,
@@ -222,7 +219,7 @@
 				$tmplog_date = fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
 				// replace smilies in log-text with images
 				$tmplog_text = cleanup_text($record['text']);
-				$tmplog_text = str_replace($smileytext, $smileyimage, $record['text']);
+				$tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
 				
 				if ($record['text_html'] == 0)
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);

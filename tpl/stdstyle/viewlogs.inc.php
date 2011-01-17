@@ -11,7 +11,7 @@
 
 /****************************************************************************
 	        
-   Unicode Reminder ??
+   Unicode Reminder ąść
                                  				                                
 	 set template specific language variables
 	

@@ -47,6 +47,11 @@
 		$show_one_log = " AND `cache_logs`.`id` ='".$logid."'  ";
 		}
 
+		$no_crypt_log = 0;		
+		if (isset($_REQUEST['nocryptlog']))
+		{
+			$no_crypt_log = $_REQUEST['nocryptlog'];
+		}
 		$start = 0;
 		if (isset($_REQUEST['start']))
 		{
@@ -62,7 +67,6 @@
 
 		if ($cache_id != 0)
 		{
-		mysql_query("SET NAMES 'utf8'");
 			//get cache record
 			$rs = sql("SELECT `user_id`, `name`, `founds`, `notfounds`, `notes`, `status`, `type` FROM `caches` WHERE `caches`.`cache_id`='&1'", $cache_id);
 
@@ -81,8 +85,7 @@
 			}
 			mysql_free_result($rs);
 		} else {
-		mysql_query("SET NAMES 'utf8'");
-					//get cache record
+			//get cache record
 			$rs = sql("SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`='&1' AND `caches`.`cache_id`=`cache_logs`.`cache_id` ", $logid);
 
 			if (mysql_num_rows($rs) == 0)
@@ -100,7 +103,7 @@
 			}
 			mysql_free_result($rs);
 		}			
-
+		
 
 		if ($cache_id != 0)
 		{
@@ -127,6 +130,7 @@
 			tpl_set_var('notfounds', htmlspecialchars($cache_record['notfounds'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('notes', htmlspecialchars($cache_record['notes'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('total_number_of_logs', htmlspecialchars($cache_record['notes'] + $cache_record['notfounds'] + $cache_record['founds'], ENT_COMPAT, 'UTF-8'));
+			
 			//check number of pictures in logs
 			$rspiclogs =sqlValue("SELECT COUNT(*) FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`= $cache_id",0);
 
@@ -136,8 +140,6 @@
 				tpl_set_var('gallery', '');
 				;}
 
-
-			
 			// prepare the logs - show logs marked as deleted if admin
 			//
 			$show_deleted_logs = "";
@@ -147,14 +149,21 @@
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
 			}
- 
-			
+
+       function cleanup_text($str)
+        {
+          $from[] = '<p>&nbsp;</p>'; $to[] = '<br/>';
+    
+          for ($i = 0; $i < count($from); $i++)
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
+          return ($str);
+        }				
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					".$show_deleted_logs."
 					`cache_logs`.`id` AS `log_id`,
 			         `cache_logs`.`encrypt` `encrypt`,
 					`cache_logs`.`picturescount` AS `picturescount`,
-					`cache_logs`.`user_id` AS `user_id`,
 					`cache_logs`.`date` AS `date`,
 					`cache_logs`.`type` AS `type`,
 					`cache_logs`.`text` AS `text`,
@@ -188,19 +197,33 @@
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
 				$tmplog_date = fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
 				// replace smilies in log-text with images
-				$tmplog_text = str_replace($smileytext, $smileyimage, $record['text']);
+				$tmplog_text = cleanup_text($record['text']);
+				$tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
 				
 				if ($record['text_html'] == 0)
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
 
 				$tmplog_text = tidy_html_description($tmplog_text);
 
+				if ( $record['encrypt']==1 && $no_crypt_log == 0)
+				//crypt the log ROT13, but keep HTML-Tags and Entities
+				$tmplog_text = str_rot13_html($tmplog_text);			
+				if ( $record['encrypt']==1 && $no_crypt_log == 0)
+					{
+					$decryptlogid='log_id_'.$record['log_id'];
+					$decrypt_log_begin='<div id="log_id_'.$record['log_id'].'">';
+					$decrypt_log_end='</div>';
+					$tmpdecryptlog = mb_ereg_replace('{decrypt_log_id}', $decryptlogid, $decrypt_log);
+					$tmpdecryptlog = mb_ereg_replace('{cacheid}', $cache_id, $tmpdecryptlog);
+					} else {
+					$decrypt_log_begin='<div id="log_id_'.$record['log_id'].'">';
+					$decrypt_log_end='</div>';}
 				$tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
 				$tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
 				$tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);
 				$tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
 				$tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
-				$tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
+				$tmplog = mb_ereg_replace('{logtext}', $decrypt_log_begin.$tmplog_text.$decrypt_log_end, $tmplog);
 				$tmplog = mb_ereg_replace('{logimage}', icon_log_type($record['icon_small'], $tmplog['type']), $tmplog);
 //$rating_picture
 				if ($record['recommended'] == 1 && $record['type']==1)
@@ -213,28 +236,32 @@
 				$tmpedit = mb_ereg_replace('{logid}', $record['log_id'], $edit_log);
 				$tmpremove = mb_ereg_replace('{logid}', $record['log_id'], $remove_log);
 				$tmpnewpic = mb_ereg_replace('{logid}', $record['log_id'], $upload_picture);
+				
+				
 				if( $record['deleted']!=1 )
 				{
 					if ($record['user_id'] == $usr['userid'])
 					{
-						$logfunctions = $functions_start . $tmpedit . $functions_middle; 
-					if ($record['type']!=12 && ($usr['userid']==$cache_record['cache_id'] || $usr['admin']==false)){					
-						$logfunctions .=$tmpremove . $functions_middle;}
-					if ($usr['admin']){					
-						$logfunctions .=$tmpremove . $functions_middle;}
-					 	$logfunctions .= $tmpnewpic . $functions_end;
+						$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $tmpnewpic;
+
+						if ( $record['encrypt']==1 && $no_crypt_log == 0 )						
+						{$logfunctions .= $functions_middle . $tmpdecryptlog . $functions_middle . $functions_end;}else {$logfunctions .= $functions_middle . $functions_end;}
 					}
 					else if( $usr['admin']) 
 					{
-						$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $functions_end;
-					} 
+						$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove;
+						if ( $record['encrypt']==1 && $no_crypt_log == 0 )						
+						{$logfunctions .= $functions_middle . $tmpdecryptlog . $functions_middle . $functions_end;}else {$logfunctions .= $functions_middle . $functions_end;}
+
+						} 
 					elseif ($owner_id == $usr['userid'])
 					{
-
 						$logfunctions = $functions_start;
 						if ($record['type']!=12){
- 						$logfunctions .= $tmpremove;}
-						$logfunctions .= $functions_end;
+						$logfunctions .= $tmpremove;} 
+
+						if ( $record['encrypt']==1 && $no_crypt_log == 0 )						
+						{$logfunctions .= $functions_middle . $tmpdecryptlog . $functions_middle . $functions_end;}else {$logfunctions .= $functions_middle . $functions_end;}
 					}
 				}
 				$tmplog = mb_ereg_replace('{logfunctions}', $logfunctions, $tmplog);
