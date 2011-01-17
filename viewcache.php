@@ -1103,7 +1103,7 @@
 
 					if ( $record['deleted']!=1 && $usr['userid'] == $record['userid'])
 						$tmpFunctions = $tmpFunctions . $functions_middle . $upload_picture;
-					if ( $record['encrypt']==1 && $no_crypt_log == 0 && ($usr['userid'] == $record['userid'] ||$usr['userid']==$cache_record['cache_id'] ||$usr['admin'] ) )
+					if ( $record['encrypt']==1 && $no_crypt_log == 0 && ($record['userid'] ==$usr['userid'] ||$cache_record['user_id'] ==$usr['userid']||$usr['admin'] ) )
 					{
 					$tmpFunctions = $tmpFunctions . $decrypt_log;
 					$decrypt_log_id="log_id_".$record['logid']."";
