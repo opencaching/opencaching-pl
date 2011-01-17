@@ -87,9 +87,14 @@
 		}
 
 		$no_crypt = 0;
+		$no_crypt_log = 0;		
 		if (isset($_REQUEST['nocrypt']))
 		{
 			$no_crypt = $_REQUEST['nocrypt'];
+		}
+		if (isset($_REQUEST['nocryptlog']))
+		{
+			$no_crypt_log = $_REQUEST['nocryptlog'];
 		}
 
 		if ($cache_id != 0)
