@@ -10,7 +10,7 @@
 
 /****************************************************************************
 
-   Unicode Reminder ăĄă˘
+   Unicode Reminder ąś
 
 	 view all logs of a cache
 			if( $record['deleted']!=1 )
@@ -86,7 +86,7 @@
 		}
 
 		if ($cache_id != 0)
-		{
+		{ 			mysql_query("SET NAMES 'utf8'");
 			//get cache record
 			$rs = sql("SELECT `user_id`, `name`, `founds`, `notfounds`, `notes`, `status`, `type` FROM `caches` WHERE `caches`.`cache_id`='&1'", $cache_id);
 
@@ -105,7 +105,7 @@
 			}
 			mysql_free_result($rs);
 		} else {
-		
+		 			mysql_query("SET NAMES 'utf8'");
 					//get cache record
 			$rs = sql("SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`='&1' AND `caches`.`cache_id`=`cache_logs`.`cache_id` ", $logid);
 
