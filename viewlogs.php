@@ -161,16 +161,15 @@
 				;}
 
   // replace <p> </p> ro <br/>from tinyMCE  
-  function cleanup_text($str)
-        {	  $from[] = '<p>&nbsp;</p>'; $to[] = '<br/>';
+       function cleanup_text($str)
+        {
+          $from[] = '<p>&nbsp;</p>'; $to[] = '';
+    
           for ($i = 0; $i < count($from); $i++)
-            $str = str_replace($from[$i], $to[$i], $str);              
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
           return ($str);
-        }	
-        function filterevilchars($str)
-	{
-		return str_replace('[\\x00-\\x09|\\x0B-\\x0C|\\x0E-\\x1F]', '', $str);
-	}
+        }
 			
 			// prepare the logs - show logs marked as deleted if admin
 			//
