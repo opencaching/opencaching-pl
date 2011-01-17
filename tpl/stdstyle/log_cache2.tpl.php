@@ -206,7 +206,7 @@ function chkMoved()
 	</tr>
 	<tr>
 	<td colspan="2"><div class="notice" style="width:500px;height:44px">{{empty_entry_notice}}</div></td></tr>
-	<tr>
+	
 	<tr>
 		<td colspan="2">
 			<div class="menuBar">
