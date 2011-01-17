@@ -163,7 +163,7 @@
   // replace <p> </p> ro <br/>from tinyMCE  
        function cleanup_text($str)
         {
-          $from[] = '<p>&nbsp;</p>'; $to[] = '';
+          $from[] = '<p>&nbsp;</p>'; $to[] = '<br/>';
     
           for ($i = 0; $i < count($from); $i++)
             $str = str_replace($from[$i], $to[$i], $str);
