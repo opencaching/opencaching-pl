@@ -698,7 +698,7 @@ number_month Numer miesiąca
 stat_problems Statystyka COG - prowadzone zgłoszenia
 edit_logentry Edycja logu dla skrzynki
 moved_cache_info Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu
-encrypt_log_info Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennik zawiera spoilery lub takie informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst umieszczony w nawiasach kwadratowych <b>[treść która nie będzie szyfrowana]</b> nie będzie szyfrowany
+encrypt_log_info Możesz zaszyfrować wpis do logu (ROT13 encrypt). Jest to przydatne, gdy dziennik zawiera spoilery lub takie informacje, które mogą zdradzić miejsca, w którym jest ukryta skrzynka. Tekst umieszczony w nawiasach kwadratowych <b>[treść]</b> nie będzie szyfrowany
 encrypt_log_entry Szyfowanie wpisu do logu
 not_recommend_own Nie można zarekomendować własnej skrzynki
 send_report_info Możesz zgłosić problem związany z skrzynką np <b>Uwagę do lokalizacji</b> do Zespołu OC PL lub właściciela skrzynki wykorzystując ten formularz
