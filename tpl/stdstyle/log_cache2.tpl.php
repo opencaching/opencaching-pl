@@ -198,7 +198,7 @@ function chkMoved()
 	<tr>   
     <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="bottom" />&nbsp;<strong><input id="encrypt" type="checkbox" name="encrypt" value="1" {is_checked} /><label for="encrypt">{{encrypt_log_entry}}</label></strong>
      
-    <div class="notice" id="viewcache-attributesend" style="width:650px;">{{encrypt_log_info}}.</div></td>
+    <div class="notice"  style="width:720px;">{{encrypt_log_info}}.</div></td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
 	<tr>
