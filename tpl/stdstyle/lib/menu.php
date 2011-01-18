@@ -526,6 +526,13 @@ $menu = array(
 				
 			),
 			array(
+		'title' => tr('clipboard'),
+		'menustring' => tr('clipboard'),
+		'siteid' => 'dowydruku',
+		'visible' => false,
+		'filename' => 'mylist.php'
+			),
+			array(
 				'title' => tr('collected_queries'),
 				'menustring' => tr('collected_queries'),
 				'visible' => true,
