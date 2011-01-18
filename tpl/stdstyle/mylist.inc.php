@@ -34,7 +34,7 @@
 	$print_delete_list = '<tr><td colspan="2">&nbsp;</td><td nowrap style="text-align:center;">[<a href="printcache.php?source=mylist">Wydrukuj wszystkie</a>]</td><td nowrap style="text-align:center;">[<a href="removelist.php?cacheid=all&target=mylist.php">Usuń wszystkie</a>]</td></tr>';
 	$export_list = '
 				<tr>
-					<td colspan="4">Pobież dane skrzynek ze schowka:
+					<td colspan="4">Pobierz dane skrzynek ze schowka:
 						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=gpx" title="GPS Exchange Format .gpx">GPX</a>
 						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=gpxgc" title="GPS Exchange Format (Groundspeak) .gpx">GPX GC</a>
 						<a href="search.php?searchto=searchbylist&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=loc" title="Waypoint .loc">LOC</a>

@@ -35,6 +35,7 @@
 
 	<tr>
 		<td colspan="2">
+<div class="searchdiv">
 			<table class="null" border="0" cellspacing="0">
 				<colgroup>
 					<col>
@@ -52,6 +53,7 @@
 				{print_delete_list}
 				{export_list}
 			</table>
+<div>
 		</td>
 	</tr>
 
