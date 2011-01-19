@@ -202,7 +202,7 @@ $radius=$distance;
 				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
 				$data = cleanup_text(str_replace("\r\n", " ", $r_log['log_text']));
 				$data = str_replace("\n", " ",$data);
-				if ( $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid'] && $log_record['luser_id']!=$usr['userid'])
+				if ( $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid'] && $r_log['luser_id']!=$usr['userid'])
 				{//crypt the log ROT13, but keep HTML-Tags and Entities
 				$data = str_rot13_html($data);} else {$file_content .= "<br/>";}
 				$file_content .=$data;
