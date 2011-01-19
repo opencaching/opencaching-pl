@@ -36,20 +36,20 @@
 		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE datediff(now(), news.date_posted) <= 31 AND `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
 	
 	if (mysql_num_rows($rs)!=0) {
-			$newscontent .= $tpl_newstopic_header.'<div class="searchdiv">';
+			$newscontent .= $tpl_newstopic_header;
 		}	
 
 
 		while ($r = sql_fetch_array($rs))
 		{
-		$news= $tpl_newstopic_without_topic;
+		$news= '<div class="logs" style="width: 750px;">'.$tpl_newstopic_without_topic;
 			$post_date = strtotime($r['date']);	
 			$news = mb_ereg_replace('{date}', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $news);
 			$news = mb_ereg_replace('{message}', $r['content'], $news);			
-			$newscontent .= $news . "\n";
+			$newscontent .= $news . "</div>\n";
 		}
 	if (mysql_num_rows($rs)!=0) {
-			tpl_set_var('display_news', $newscontent.'</div>');
+			tpl_set_var('display_news', $newscontent);
 		} else {
 	
 		tpl_set_var('display_news','');}
