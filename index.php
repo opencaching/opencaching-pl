@@ -33,24 +33,22 @@
 		// news
 		require($stylepath . '/news.inc.php');
 		$newscontent ="<br />";
-		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
+		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE datediff(now(), news.date_posted) <= 31 AND `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
+	
+	if (mysql_num_rows($rs)!=0) {
+			$newscontent .= $tpl_newstopic_header;
+			
+}
+
 		while ($r = sql_fetch_array($rs))
 		{
-			$post_date = strtotime($r['date']);
-			$current_date=strftime(date(Ymd));
-			$posted_date=strftime("%Y%m%d",$post_date);
-			$diff=abs($current_date - $posted_date);
-			if ($diff < 100 && $lang=="pl") {			
-			$newsentry .= $tpl_newstopic_header;
-			$newsentry .= $tpl_newstopic_without_topics;
-			
-			$newsentry = mb_ereg_replace('{date}', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $newsentry);
-			$newsentry = mb_ereg_replace('{topic}', htmlspecialchars($r['topic'], ENT_COMPAT, 'UTF-8'), $newsentry);
-			$newsentry = mb_ereg_replace('{message}', $r['content'], $newsentry);			
-			$newscontent .= $newsentry . "\n";
-			} 
+		$news= $tpl_newstopic_without_topic;
+			$post_date = strtotime($r['date']);	
+			$news = mb_ereg_replace('{date}', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $news);
+			$news = mb_ereg_replace('{message}', $r['content'], $news);			
+			$newscontent .= $news . "\n";
 		}
-		tpl_set_var('display_news_one', $newscontent);
+		tpl_set_var('display_news', $newscontent);
 		mysql_free_result($rs);
 		$newscontent = '';
 		
