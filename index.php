@@ -48,9 +48,12 @@
 			$news = mb_ereg_replace('{message}', $r['content'], $news);			
 			$newscontent .= $news . "\n";
 		}
-
+	if (mysql_num_rows($rs)!=0) {
+			tpl_set_var('display_news', $newscontent.'</div>');
+		} else {
 	
-		tpl_set_var('display_news', $newscontent.'</div>');
+		tpl_set_var('display_news','');}
+
 		mysql_free_result($rs);
 		$newscontent = '';
 		
