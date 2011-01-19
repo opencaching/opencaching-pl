@@ -177,7 +177,7 @@ $radius=$distance;
 	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
 				cache_logs.text AS log_text,
 	                          user.username AS user_name,
-				local_caches.user_id AS cache_owner,
+				caches.user_id AS cache_owner,
 				cache_logs.encrypt encrypt,
 				cache_logs.user_id AS luser_id,
 				user.user_id AS user_id,
