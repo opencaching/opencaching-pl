@@ -736,17 +736,18 @@ $rsll = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 			$thisline = mb_ereg_replace('{logid}', htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'), $thisline);
 //			$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
-				$file_content .= '<b>'.$log_record['user_name'].'</b>:&nbsp;';
+
+				$logtext= '<b>'.$log_record['user_name'].'</b>: &nbsp;';
 				if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['luser_id']!=$usr['userid']){
-				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
+				$logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
 				if ( $log_record['encrypt']==1 && ($log_record['cache_owner']==$usr['userid']|| $log_record['luser_id']==$usr['userid'])){
-				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
-				$data = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
-				$data = str_replace("\n", " ",$data);
+				$logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
+				$data_text = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
+				$data_text = str_replace("\n", " ",$data_text);
 				if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['luser_id']!=$usr['userid'])
 				{//crypt the log ROT13, but keep HTML-Tags and Entities
-				$data = str_rot13_html($data);} else {$file_content .= "<br/>";}
-				$file_content .=$data;
+				$data_text = str_rot13_html($data_text);} else {$logtext .= "<br/>";}
+				$logtext .=$data_text;
 			$thisline = mb_ereg_replace('{log_text}', $log_text, $thisline);
 			$thisline = mb_ereg_replace('{logicon}', "tpl/stdstyle/images/". $log_record['icon_small'], $thisline);
 
