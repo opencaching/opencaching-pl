@@ -313,10 +313,17 @@
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{logid}', htmlspecialchars(urlencode($record_logs['id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
 
-				$data_u = '<b>'.$record_logs['user_name'].'</b>:<br/>';
-				$data = cleanup_text(str_replace("\r\n", " ", $record_logs['log_text']));
-				$data = str_replace("\n", " ",$data);
-				$logtext=$data_u . $data;
+				$logtext= '<b>'.$record_logs['user_name'].'</b>: &nbsp;';
+				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['user_id']!=$usr['userid']){
+				$logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
+				if ( $record_logs['encrypt']==1 && ($record_logs['cache_owner']==$usr['userid']|| $record_logs['user_id']==$usr['userid'])){
+				$logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
+				$data_text = cleanup_text(str_replace("\r\n", " ", $record_logs['log_text']));
+				$data_text = str_replace("\n", " ",$data_text);
+				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['user_id']!=$usr['userid'])
+				{//crypt the log ROT13, but keep HTML-Tags and Entities
+				$data_text = str_rot13_html($data_text);} else {$logtext .= "<br/>";}
+				$logtext .=$data_text;
 					$tmp_log = mb_ereg_replace('{logtext}',$logtext, $tmp_log);
 
 					$content .= "\n" . $tmp_log;
@@ -509,10 +516,18 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 					$tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['user_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{logid}', htmlspecialchars(urlencode($record_logs['id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
 
-				$data_u = '<b>'.$record_logs['user_name'].'</b>:<br/>';
-				$data = cleanup_text(str_replace("\r\n", " ", $record_logs['log_text']));
-				$data = str_replace("\n", " ",$data);
-				$logtext=$data_u . $data;
+				$logtext= '<b>'.$record_logs['user_name'].'</b>: &nbsp;';
+				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['user_id']!=$usr['userid']){
+				$logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
+				if ( $record_logs['encrypt']==1 && ($record_logs['cache_owner']==$usr['userid']|| $record_logs['user_id']==$usr['userid'])){
+				$logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
+				$data_text = cleanup_text(str_replace("\r\n", " ", $record_logs['log_text']));
+				$data_text = str_replace("\n", " ",$data_text);
+				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['user_id']!=$usr['userid'])
+				{//crypt the log ROT13, but keep HTML-Tags and Entities
+				$data_text = str_rot13_html($data_text);} else {$logtext .= "<br/>";}
+				$logtext .=$data_text;
+
 					$tmp_log = mb_ereg_replace('{logtext}',$logtext, $tmp_log);
 
 					$content .= "\n" . $tmp_log;
