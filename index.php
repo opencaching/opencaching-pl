@@ -36,9 +36,9 @@
 		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE datediff(now(), news.date_posted) <= 31 AND `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
 	
 	if (mysql_num_rows($rs)!=0) {
-			$newscontent .= $tpl_newstopic_header;
+			$newscontent .= $tpl_newstopic_header.'<div class="searchdiv">';
 			
-}
+
 
 		while ($r = sql_fetch_array($rs))
 		{
@@ -48,6 +48,9 @@
 			$news = mb_ereg_replace('{message}', $r['content'], $news);			
 			$newscontent .= $news . "\n";
 		}
+		$newscontent .=$newscontent.'</div>';
+
+	}
 		tpl_set_var('display_news', $newscontent);
 		mysql_free_result($rs);
 		$newscontent = '';
