@@ -53,7 +53,7 @@ if ($error == false)
 
        function cleanup_text($str)
         {
-
+	$from[] = '<p>&nbsp;</p>'; $to[] = '';
           $str = strip_tags($str, "<li>");
 	  $from[] = '&nbsp;'; $to[] = ' ';
           $from[] = '<p>'; $to[] = '';
@@ -668,6 +668,9 @@ $rsll = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
 				   cache_logs.text AS log_text,
+				local_caches.user_id AS cache_owner,
+				cache_logs.encrypt encrypt,
+				cache_logs.user_id AS luser_id,
 				  cache_logs.text_html AS text_html,
 	                          local_caches.name AS cache_name,
 	                          user.username AS user_name,
@@ -733,9 +736,17 @@ $rsll = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 			$thisline = mb_ereg_replace('{logid}', htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'), $thisline);
 //			$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
-				$data = '<b>'.$log_record['user_name'].'</b>:<br/>';
-				$data .= cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
-				$log_text= str_replace("\n", " ",$data);
+				$file_content .= '<b>'.$log_record['user_name'].'</b>:&nbsp;';
+				if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['luser_id']!=$usr['userid']){
+				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
+				if ( $log_record['encrypt']==1 && ($log_record['cache_owner']==$usr['userid']|| $log_record['luser_id']==$usr['userid'])){
+				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
+				$data = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
+				$data = str_replace("\n", " ",$data);
+				if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['luser_id']!=$usr['userid'])
+				{//crypt the log ROT13, but keep HTML-Tags and Entities
+				$data = str_rot13_html($data);} else {$file_content .= "<br/>";}
+				$file_content .=$data;
 			$thisline = mb_ereg_replace('{log_text}', $log_text, $thisline);
 			$thisline = mb_ereg_replace('{logicon}', "tpl/stdstyle/images/". $log_record['icon_small'], $thisline);
 
