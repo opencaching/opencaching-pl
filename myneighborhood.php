@@ -748,7 +748,7 @@ $rsll = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 				{//crypt the log ROT13, but keep HTML-Tags and Entities
 				$data_text = str_rot13_html($data_text);} else {$logtext .= "<br/>";}
 				$logtext .=$data_text;
-			$thisline = mb_ereg_replace('{log_text}', $log_text, $thisline);
+			$thisline = mb_ereg_replace('{log_text}', $logtext, $thisline);
 			$thisline = mb_ereg_replace('{logicon}', "tpl/stdstyle/images/". $log_record['icon_small'], $thisline);
 
 			$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
