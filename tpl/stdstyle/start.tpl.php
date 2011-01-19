@@ -96,6 +96,6 @@ function Unlite() {
 			</div>
 		</div>
 <br/>
-{display_news_one}
+{display_news}
 <!-- End Text Container -->
 	
