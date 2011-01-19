@@ -658,7 +658,7 @@ stat_problems Statistics OC Team - solved problems
 edit_logentry Edit log entry
 not_recommend_own You can not recommend own geocache
 moved_cache_info If you moved to a new location geocache please enter the new coordinates that will see the log
-encrypt_log_info You can have the encrypt  your log entry. This is helpful if your log contains spoilers, such as information that can give away the location of the geocache. Text within brackets <b>[like this]</b> will not be encrypted
+encrypt_log_info You can have the encrypt your log entry. This is helpful if your log contains such as information that can give away the location of the geocache. Text within brackets <b>[like this]</b> will not be encrypted
 encrypt_log_entry Encrypt this log entry
 send_report_info You can report a problem with the geocache, for example <b> attention to the location </ b> to Team OC PL or owner geocache using this form
 send_report Send report
@@ -761,6 +761,7 @@ file_name File name
 cache_picture_intro Upload only pictures relevant to the cache.
 spoiler_info Do not display thumbnail (SPOILER) - Use this option if the picture shows the location of the cache.<br> The picture will only be shown when SPOILER is clicked.
 dont_show These pictures do not show. 
+
 pictures_intro Permitted image formats: BMP, GIF, PNG & JPG. JPG is best for photos.<br />Maximum size 100 KB. Recommended resolution: 480 x 360 pixels.
 add_new_picture Adding a new picture to the cache.
 submit Submit
