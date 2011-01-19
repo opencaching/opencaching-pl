@@ -258,9 +258,10 @@
 				cache_logs.text AS log_text,
 	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d')  AS log_date,
 	                          caches.name AS cache_name,
-							  caches.wp_oc AS wp_name,
+				caches.wp_oc AS wp_name,
 	                          user.username AS user_name,
 							  `cache_logs`.`encrypt` `encrypt`,
+							cache_logs.user_id AS luser_id,
 							  user.user_id AS user_id,
 							  caches.user_id AS cache_owner,
 							  caches.type AS cache_type,
@@ -314,13 +315,13 @@
 					$tmp_log = mb_ereg_replace('{logid}', htmlspecialchars(urlencode($record_logs['id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
 
 				$logtext= '<b>'.$record_logs['user_name'].'</b>: &nbsp;';
-				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['user_id']!=$usr['userid']){
+				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['luser_id']!=$usr['userid']){
 				$logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
-				if ( $record_logs['encrypt']==1 && ($record_logs['cache_owner']==$usr['userid']|| $record_logs['user_id']==$usr['userid'])){
+				if ( $record_logs['encrypt']==1 && ($record_logs['cache_owner']==$usr['userid']|| $record_logs['luser_id']==$usr['userid'])){
 				$logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
 				$data_text = cleanup_text(str_replace("\r\n", " ", $record_logs['log_text']));
 				$data_text = str_replace("\n", " ",$data_text);
-				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['user_id']!=$usr['userid'])
+				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['luser_id']!=$usr['userid'])
 				{//crypt the log ROT13, but keep HTML-Tags and Entities
 				$data_text = str_rot13_html($data_text);} else {$logtext .= "<br/>";}
 				$logtext .=$data_text;
@@ -457,7 +458,8 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 							  caches.wp_oc AS wp_name,
 							  cache_logs.encrypt AS encrypt,
 							  caches.user_id AS cache_owner,
-	                          user.username AS user_name,
+							cache_logs.user_id AS luser_id,
+	                        			  user.username AS user_name,
 							  user.user_id AS user_id,
 							  caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
@@ -517,13 +519,13 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 					$tmp_log = mb_ereg_replace('{logid}', htmlspecialchars(urlencode($record_logs['id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
 
 				$logtext= '<b>'.$record_logs['user_name'].'</b>: &nbsp;';
-				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['user_id']!=$usr['userid']){
+				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['luser_id']!=$usr['userid']){
 				$logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
-				if ( $record_logs['encrypt']==1 && ($record_logs['cache_owner']==$usr['userid']|| $record_logs['user_id']==$usr['userid'])){
+				if ( $record_logs['encrypt']==1 && ($record_logs['cache_owner']==$usr['userid']|| $record_logs['luser_id']==$usr['userid'])){
 				$logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
 				$data_text = cleanup_text(str_replace("\r\n", " ", $record_logs['log_text']));
 				$data_text = str_replace("\n", " ",$data_text);
-				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['user_id']!=$usr['userid'])
+				if ( $record_logs['encrypt']==1 && $record_logs['cache_owner']!=$usr['userid'] && $record_logs['luser_id']!=$usr['userid'])
 				{//crypt the log ROT13, but keep HTML-Tags and Entities
 				$data_text = str_rot13_html($data_text);} else {$logtext .= "<br/>";}
 				$logtext .=$data_text;

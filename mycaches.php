@@ -52,6 +52,7 @@ if ($error == false)
 	require($stylepath . '/newlogs.inc.php');
 	        function cleanup_text($str)
         {
+	$from[] = '<p>&nbsp;</p>'; $to[] = '';
           $str = strip_tags($str, "<li>");
 	      $from[] = '&nbsp;'; $to[] = ' ';
           $from[] = '<p>'; $to[] = '';
@@ -226,6 +227,9 @@ if ($error == false)
 	                          cache_logs.type AS log_type,
 				cache_logs.text AS log_text,
 	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
+				caches.user_id AS cache_owner,
+				cache_logs.encrypt encrypt,
+				cache_logs.user_id AS luser_id,
 	                          user.username AS user_name,
 				user.user_id AS user_id,
 				log_types.icon_small AS icon_small,
@@ -245,9 +249,17 @@ if ($error == false)
 				$file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("Y-m-d", strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
 //				$file_content .= '<td width="22">&nbsp;<a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/' . $logs['icon_small'] . '" border="0" alt=""/></a></td>';
 				$file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\''; 
-				$file_content .= '<b>'.$logs['user_name'].'</b>:<br/>';
+				$file_content .= '<b>'.$logs['user_name'].'</b>:&nbsp;';
+				if ( $logs['encrypt']==1 && $logs['cache_owner']!=$usr['userid'] && $logs['luser_id']!=$usr['userid']){
+				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
+				if ( $logs['encrypt']==1 && ($logs['cache_owner']==$usr['userid']|| $logs['luser_id']==$usr['userid'])){
+				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
 				$data = cleanup_text(str_replace("\r\n", " ", $logs['log_text']));
-				$file_content .= str_replace("\n", " ",$data);
+				$data = str_replace("\n", " ",$data);
+				if ( $logs['encrypt']==1 && $logs['cache_owner']!=$usr['userid'] && $logs['luser_id']!=$usr['userid'])
+				{//crypt the log ROT13, but keep HTML-Tags and Entities
+				$data = str_rot13_html($data);} else {$file_content .= "<br/>";}
+				$file_content .=$data;
 				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $logs['icon_small'] . '" border="0" alt=""/></a></b></td>';
 				$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($logs['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($logs['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
