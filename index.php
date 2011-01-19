@@ -75,22 +75,7 @@
 		// will replace {foo} in the templates
 	}
 
-	/*
-		//user logged in?
-		if ($usr == true)
-		{
-			//get user record
-			$user_id = $usr['userid'];
-// if user set Home cooridnates redirect to myneighborhood
-$latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-$longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 
-if (($longitude!=NULL && $latitude!=NULL) ||($longitude!=0 && $latitude!=0) ) {
-						tpl_redirect('myneighborhood.php');
-							exit;	}
-
-}
-*/
 	//make the template and send it out
 	tpl_BuildTemplate(false);
 
