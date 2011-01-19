@@ -37,7 +37,7 @@
 	
 	if (mysql_num_rows($rs)!=0) {
 			$newscontent .= $tpl_newstopic_header.'<div class="searchdiv">';
-			
+		}	
 
 
 		while ($r = sql_fetch_array($rs))
@@ -48,10 +48,9 @@
 			$news = mb_ereg_replace('{message}', $r['content'], $news);			
 			$newscontent .= $news . "\n";
 		}
-		$newscontent .=$newscontent.'</div>';
 
-	}
-		tpl_set_var('display_news', $newscontent);
+	
+		tpl_set_var('display_news', $newscontent.'</div>');
 		mysql_free_result($rs);
 		$newscontent = '';
 		
