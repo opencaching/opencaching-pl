@@ -217,9 +217,9 @@ function create_map_url($markerpos, $index,$latitude,$longitude)
 }
 
 tpl_set_var('more_caches','');
-tpl_set_var('more_caches','');
 tpl_set_var('more_ftf','');
 tpl_set_var('more_topcache','');
+tpl_set_var('more_logs','');
 	
 $latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
 $longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
@@ -693,7 +693,8 @@ $rsll = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 							WHERE	cache_logs.deleted=0 AND datediff(now(), cache_logs.date_created) <= 31
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC ");
-	if (mysql_num_rows($rsll) > 10) {tpl_set_var('more_logs','<a class="links" href="myn_newlogs.php">['.tr("show_more").'...]</a>');}
+
+	if (mysql_num_rows($rsll) > 10) {tpl_set_var('more_logs','<a class="links" href="myn_newlogs.php">['.tr("show_more").'...]</a>');} else {tpl_set_var('more_logs',"");}
 	mysql_free_result($rsll);
 
 	$file_content = '';
