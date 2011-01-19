@@ -690,7 +690,7 @@ $rsll = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
 								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5)
-							WHERE	cache_logs.deleted=0 AND datediff(now(), cache_logs.date_created) <= 31
+							WHERE	cache_logs.deleted=0 
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC ");
 
