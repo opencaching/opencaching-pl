@@ -157,13 +157,10 @@ function chkMoved()
 </table>
 <div class="searchdiv">
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
-	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr>
-		<td colspan="2"><div class="notice" style="width: 500px;">Możesz zgłosić problem związany z skrzynką do właściciela skrzynki np <b>Uwagę do lokalizacji</b> (lub do Zespołu OC PL) wykorzystując ten formularz <img src="/tpl/stdstyle/images/blue/arrow.png" alt="" title=""/>&nbsp; <a class="links" href="reportcache.php?cacheid={cacheid}">Zgłoś problem</a> </div></td>
+		<td colspan="2"><div class="notice" style="width: 500px;">{{send_report_info}}&nbsp;<img src="/tpl/stdstyle/images/blue/arrow.png" alt="" title=""/>&nbsp; <a class="links" href="reportcache.php?cacheid={cacheid}">{{send_report}}</a> </div></td>
 	</tr>
-        <tr>                                                                                                                                                                                                                                 
-	                <td colspan="2"><div class="notice" style="width:500px;height:44px">{{empty_entry_notice}}</div></td>                                                                                                                                                                                                 
-			        </tr> 
+	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr>
 		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
 		<td>
@@ -197,14 +194,19 @@ function chkMoved()
 </table>
 </div>
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
+	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
+	<tr>   
+    <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="bottom" />&nbsp;<strong><input id="encrypt" type="checkbox" name="encrypt" value="1" {is_checked} /><label for="encrypt">{{encrypt_log_entry}}</label></strong>
+     
+    <div class="notice"  style="width:720px;">{{encrypt_log_info}}.</div></td>
+	</tr>
+	<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
 	<tr>
-		<td colspan="2">
-			{log_geokret}
-		</td>
+	<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
 	</tr>
 	<tr>
-		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
-	</tr>
+	<td colspan="2"><div class="notice" style="width:500px;height:44px">{{empty_entry_notice}}</div></td></tr>
+	
 	<tr>
 		<td colspan="2">
 			<div class="menuBar">
@@ -226,17 +228,16 @@ function chkMoved()
 			<textarea name="logtext" id="logtext" cols="68" rows="25" >{logtext}</textarea>
     </td>
 	</tr>
+	
 	<tr>
 		<td colspan="2">
 			{smilies}
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
-
-		{log_pw_field}
-
-	<tr><td class="spacer" colspan="2"></td></tr>
+	{log_pw_field}
 	{listed_start}
+	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2" width="600px"><strong><img src="tpl/stdstyle/images/free_icons/world_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_other}}:&nbsp;{listed_on}</strong>
 		</td>
@@ -244,15 +245,23 @@ function chkMoved()
 
 	<tr><td class="spacer" colspan="2"></td></tr>
 	{listed_end}
+			<tr>
+		<td colspan="2">
+			{log_geokret}
+		</td>
+	</tr>
+		<tr><td class="spacer" colspan="2">&nbsp;</td></tr>
 	<tr>
 		<td class="header-small" colspan="2">
-			<input type="reset" name="reset" value="Reset" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="width:120px"/>
+			<button type="reset" name="reset" value="Reset" style="font-size:12px;width:140px;"/><b>Reset</b></button>&nbsp;&nbsp;
+			<button type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
 		</td>
 	</tr>
 </table>
-</div>
 </form>
+<br/>
+</div>
+
 <script language="javascript" type="text/javascript">
 <!--
 	/*
