@@ -205,7 +205,7 @@ function chkMoved()
 	<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
 	</tr>
 	<tr>
-	<td colspan="2"><div class="notice" style="width:500px;height:44px">{{empty_entry_notice}}</div></td></tr>
+	<td colspan="2"><div class="notice" style="width:700px;height:44px">{{empty_entry_notice}}</div></td></tr>
 	
 	<tr>
 		<td colspan="2">
