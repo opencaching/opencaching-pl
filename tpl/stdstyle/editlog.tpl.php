@@ -145,15 +145,8 @@ function chkMoved()
 	{rating_message}
 </table>
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
-	<tr>   
-    <td width="800px" colspan="2"><img src="tpl/stdstyle/images/free_icons/lock.png" class="icon16" alt="" title="" align="bottom" />&nbsp;<strong><input id="encrypt" type="checkbox" name="encrypt" value="1" {is_checked} /><label for="encrypt">{{encrypt_log_entry}}</label></strong>
-     
-    <div class="notice" style="width:720px;"> {{encrypt_log_info}}.</div></td>
-	</tr>
-		<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
-		<tr><td class="spacer" colspan="2"></td>&nbsp;</tr>
 	<tr>
-		<td colspan="2"><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong></td>
+		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</td>
 	</tr>
 	<tr>
 		<td colspan="2">
@@ -188,15 +181,13 @@ function chkMoved()
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td class="header-small" colspan="2">
-			<button type="reset" name="reset" value="Reset" style="font-size:12px;width:140px;"/><b>Reset</b></button>&nbsp;&nbsp;
-			<button type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="font-size:12px;width:140px;"/><b>{{store}}</b></button>
+			<input type="reset" name="reset" value="{{reset}}" style="width:120px"/>&nbsp;&nbsp;
+			<input type="submit" name="submitform" value="{{submit}}" style="width:120px"/>
 		</td>
 	</tr>
 </table>
-</form>
-<br/>
 </div>
-
+</form>
 <script language="javascript" type="text/javascript">
 <!--
 	/*
