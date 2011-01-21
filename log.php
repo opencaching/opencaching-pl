@@ -105,8 +105,7 @@
 			if ($cache_id != 0)
 			{
 				$all_ok = false;
-				$encrypt =0;
-				$encrypt = (isset($_POST['encrypt']) ? 1 : 0); 
+				
 				$log_text  = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
 				$log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
 				$log_date_min = isset($_POST['logmin']) ? ($_POST['logmin']+0) : date('i');
@@ -414,10 +413,10 @@
 					
 					// if comment is empty, then do not insert data into db
 					if( !($log_type == 3 && $log_text == ""))
-					{	mysql_query("SET NAMES 'utf8'");
-						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
-										 VALUES ('', '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW(), NOW(), '&8', '&9', '&10')",
-										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid,$encrypt);
+					{
+						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
+										 VALUES ('', '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW(), NOW(), '&8', '&9')",
+										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid);
 
 
 

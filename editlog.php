@@ -40,7 +40,7 @@
 		else
 		{
 			//does log with this logid exist?
-			$log_rs = sql("SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`, `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`, `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw`, `cache_logs`.`encrypt` AS `encrypt` FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`) WHERE `id`='&1' AND `deleted` = &2", $log_id, 0);
+			$log_rs = sql("SELECT `cache_logs`.`cache_id` AS `cache_id`, `cache_logs`.`node` AS `node`, `cache_logs`.`text` AS `text`, `cache_logs`.`date` AS `date`, `cache_logs`.`user_id` AS `user_id`, `cache_logs`.`type` AS `logtype`, `cache_logs`.`text_html` AS `text_html`, `cache_logs`.`text_htmledit` AS `text_htmledit`, `caches`.`name` AS `cachename`, `caches`.`status` AS `cachestatus`, `caches`.`type` AS `cachetype`, `caches`.`user_id` AS `cache_user_id`, `caches`.`logpw` as `logpw` FROM `cache_logs` INNER JOIN `caches` ON (`caches`.`cache_id`=`cache_logs`.`cache_id`) WHERE `id`='&1' AND `deleted` = &2", $log_id, 0);
 
 			if (mysql_num_rows($log_rs) > 0)
 			{
@@ -71,9 +71,6 @@
 					$log_date_month = isset($_POST['logmonth']) ? $_POST['logmonth'] : date('m', strtotime($log_record['date']));
 					$log_date_year = isset($_POST['logyear']) ? $_POST['logyear'] : date('Y', strtotime($log_record['date']));
 					$top_cache = isset($_POST['rating']) ? $_POST['rating']+0 : 0;
-
-					if ($log_record['encrypt']==1){tpl_set_var('is_checked', "checked");} else {tpl_set_var('is_checked', "");}
-					$encrypt = (isset($_POST['encrypt']) ? 1 : 0);  				
 
 					$log_pw = '';
 					$use_log_pw = (($log_record['logpw'] == NULL) || ($log_record['logpw'] == '')) ? false : true;
@@ -182,9 +179,9 @@
 						}
 
 						// check input
-						//require_once($rootpath . 'lib/class.inputfilter.php');
-						//$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-						//$log_text = $myFilter->process($log_text);
+						require_once($rootpath . 'lib/class.inputfilter.php');
+						$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+						$log_text = $myFilter->process($log_text);
 					}
 					else
 					{
@@ -282,22 +279,19 @@
 					//store?
 					if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false)
 					{
-				mysql_query("SET NAMES 'utf8'");
 						//store changed data
 						sql("UPDATE `cache_logs` SET `type`='&1',
 						                             `date`='&2',
 						                             `text`='&3',
 						                             `text_html`='&4',
 						                             `text_htmledit`='&5',
-						                             `last_modified`=NOW(),
-													 `encrypt`='&6'
-						                       WHERE `id`='&7'",
+						                             `last_modified`=NOW()
+						                       WHERE `id`='&6'",
 						                             $log_type,
 						                             date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
-						                             (($descMode != 1) ? $log_text : nl2br($log_text)),
+						                             tidy_html_description((($descMode != 1) ? $log_text : nl2br($log_text))),
 						                             (($descMode != 1) ? 1 : 0),
 						                             (($descMode == 3) ? 1 : 0),
-													 $encrypt,
 						                             $log_id);
 
 						//update user-stat if type changed
@@ -457,7 +451,7 @@
 						if($type['permission'] == 'B' && $log_record['user_id'] != $cache_user_id && $usr['admin']==false)
 							continue;
 						
-						if( $log_record['logtype'] != $type['id'] && $log_record['cachestatus'] != 1 && $usr['admin']==false )
+						if( $log_record['logtype'] != $type['id'] && $log_record['cachestatus'] != 1 )
 							continue;
 						if( $log_record['logtype'] != $type['id'] && $log_record['cachestatus'] == 1 && $log_record['user_id'] == $cache_user_id )
 							continue;						
