@@ -45,7 +45,7 @@
 		{
 			$logid = $_REQUEST['logid'];
 		$show_one_log = " AND `cache_logs`.`id` ='".$logid."'  ";
-		}
+		} else {$show_one_log ='';}
 
 		$no_crypt_log = 0;		
 		if (isset($_REQUEST['nocryptlog']))

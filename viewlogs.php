@@ -66,7 +66,7 @@
 		{
 			$logid = $_REQUEST['logid'];
 		$show_one_log = " AND `cache_logs`.`id` ='".$logid."'  ";
-		}
+		}else {$show_one_log ='';}
 		$no_crypt_log = 0;		
 		if (isset($_REQUEST['nocryptlog']))
 		{
@@ -259,8 +259,7 @@
 				$tmpnewpic = mb_ereg_replace('{logid}', $record['log_id'], $upload_picture);
 
 				
-			if( $record['deleted']!=1 )
-				{
+					if ($record['deleted']!=1 &&((!isset($_REQUEST['print']) || $_REQUEST['print'] != 'y') && (($usr['userid'] == $record['userid']) || ($usr['userid'] == $cache_record['user_id']) || $usr['admin'])))			{
 					if ($record['user_id'] == $usr['userid'])
 					{
 						$logfunctions = $functions_start . $tmpedit . $functions_middle; 
