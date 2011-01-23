@@ -259,7 +259,7 @@
 				$tmpnewpic = mb_ereg_replace('{logid}', $record['log_id'], $upload_picture);
 
 				
-					if ($record['deleted']!=1 && (($usr['userid'] == $record['userid']) || ($usr['userid'] == $cache_record['user_id']) || $usr['admin'])))		
+					if ($record['deleted']!=1 && (($usr['userid'] == $record['userid']) || ($usr['userid'] == $cache_record['user_id']) || $usr['admin']))		
 					{
 					if ($record['user_id'] == $usr['userid'])
 					{
