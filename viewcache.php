@@ -87,14 +87,9 @@
 		}
 
 		$no_crypt = 0;
-		$no_crypt_log = 0;		
 		if (isset($_REQUEST['nocrypt']))
 		{
 			$no_crypt = $_REQUEST['nocrypt'];
-		}
-		if (isset($_REQUEST['nocryptlog']))
-		{
-			$no_crypt_log = $_REQUEST['nocryptlog'];
 		}
 
 		if ($cache_id != 0)
@@ -104,7 +99,7 @@
 					$lang_db = $lang;
 				else
 					$lang_db = "en";
-			mysql_query("SET NAMES 'utf8'");
+
 			$rs = sql("SELECT `caches`.`cache_id` `cache_id`,
 			                  `caches`.`user_id` `user_id`,
 			                  `caches`.`status` `status`,
@@ -977,17 +972,7 @@
 				} else {
 				tpl_set_var('gallery', '');
 				;}
-   // replace <p> </p> ro <br/>from tinyMCE  
-  function cleanup_txt($str)
-        {	  $from[] = '<p>&nbsp;</p>'; $to[] = '<br/>';
-          for ($i = 0; $i < count($from); $i++)
-            $str = str_replace($from[$i], $to[$i], $str);              
-          return ($str);
-        }	
-        function filterevilchars($str)
-	{
-		return str_replace('[\\x00-\\x09|\\x0B-\\x0C|\\x0E-\\x1F]', '', $str);
-	}
+
 
 			// prepare the last n logs - show logs marked as deleted if admin
 			//
@@ -998,10 +983,9 @@
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
 			}
-			mysql_query("SET NAMES 'utf8'");
+
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
-								".$show_deleted_logs."
-							   `cache_logs`.`encrypt` `encrypt`,
+												".$show_deleted_logs."
 			                  `cache_logs`.`id` `logid`,
 			                  `cache_logs`.`date` `date`,
 			                  `cache_logs`.`type` `type`,
@@ -1037,7 +1021,7 @@
 
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
 				$tmplog_date = fixPlMonth(htmlspecialchars(strftime("%d %B %Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
-				$tmplog_text =cleanup_txt($record['text']);
+				$tmplog_text = $record['text'];
 
 				// replace smilies in log-text with images and add hyperlinks
 				$tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
@@ -1046,11 +1030,7 @@
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
 
 				$tmplog_text = tidy_html_description($tmplog_text);
-				
-				if ( $record['encrypt']==1 && $no_crypt_log == 0)
-				//crypt the log ROT13, but keep HTML-Tags and Entities
-				$tmplog_text = str_rot13_html($tmplog_text);
-				
+
 				if ($record['picturescount'] > 0)
 				{
 					$logpicturelines = '';
@@ -1103,38 +1083,22 @@
 
 					if ( $record['deleted']!=1 && $usr['userid'] == $record['userid'])
 						$tmpFunctions = $tmpFunctions . $functions_middle . $upload_picture;
-					if ( $record['encrypt']==1 && $no_crypt_log == 0 && ($record['userid'] ==$usr['userid'] ||$cache_record['user_id'] ==$usr['userid']||$usr['admin'] ) )
-					{
-					$tmpFunctions = $tmpFunctions . $decrypt_log;
-					$decrypt_log_id="log_id_".$record['logid']."";
-					$decrypt_log_begin='<div id="log_id_'.$record['logid'].'">';
-					$decrypt_log_end='</div>';
-					} else {
-					$decrypt_log_id="decrypt_log_id_".$record['logid']."";
-					$decrypt_log_begin='<div id="log_id_'.$record['logid'].'">';
-					$decrypt_log_end='</div>';}
 
 					$tmpFunctions .= $functions_end;
-					if ( $record['encrypt']==1 && $no_crypt_log == 0){
-					$tmpFunctions = mb_ereg_replace('{decrypt_log_id}', $decrypt_log_id, $tmpFunctions);
-					$tmpFunctions = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $tmpFunctions);}
-					$tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
 
+					$tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
 
 					$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
 				}
 				else
-					if ($record['encrypt']==1 && $no_crypt_log == 0)
-					{$tmpFunctions= $functions_start . $nodecrypt_log . $functions_end;} else {
-					$tmpFunctions="";}
-					
-				$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
+					$tmplog = mb_ereg_replace('{logfunctions}', '', $tmplog);
+
 				$tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
 				$tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
 				$tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);
 				$tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
 				$tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
-				$tmplog = mb_ereg_replace('{logtext}',$decrypt_log_begin."<span id=\"log-text\">".$tmplog_text."</span>".$decrypt_log_end, $tmplog);
+				$tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
 				$tmplog = mb_ereg_replace('{logimage}', icon_log_type($record['icon_small'], $tmplog['type']), $tmplog);
 
 				if ($record['recommended'] == 1 && $record['type']==1)
@@ -1362,23 +1326,9 @@
 $decrypt_script = '
 <script type="text/javascript">
 <!--
-var last="";var rot13map;function decryptinit(){var a=new Array();var s="abcdefghijklmnopqrstuvwxyz";for(i=0;i<s.length;i++)a[s.charAt(i)]=s.charAt((i+13)%26);for(i=0;i<s.length;i++)a[s.charAt(i).toUpperCase()]=s.charAt((i+13)%26).toUpperCase();return a}
+	var last="";var rot13map;function decryptinit(){var a=new Array();var s="abcdefghijklmnopqrstuvwxyz";for(i=0;i<s.length;i++)a[s.charAt(i)]=s.charAt((i+13)%26);for(i=0;i<s.length;i++)a[s.charAt(i).toUpperCase()]=s.charAt((i+13)%26).toUpperCase();return a}
 function decrypt(elem){if(elem.nodeType != 3) return; var a = elem.data;if(!rot13map)rot13map=decryptinit();s="";for(i=0;i<a.length;i++){var b=a.charAt(i);s+=(b>=\'A\'&&b<=\'Z\'||b>=\'a\'&&b<=\'z\'?rot13map[b]:b)}elem.data = s}
 -->
-var rot13tables;
-function createROT13tables() {
-var A = 0, C = [], D = "abcdefghijklmnopqrstuvwxyz", B = D.length;
-for (A = 0; A < B; A++) {C[D.charAt(A)] = D.charAt((A + 13) % 26)}
-for (A = 0; A < B; A++) {C[D.charAt(A).toUpperCase()] = D.charAt((A + 13) % 26).toUpperCase()}return C}
-function convertROT13String(C) {
-var A = 0, B = C.length, D = "";if (!rot13tables) {rot13tables = createROT13tables()}for (A = 0; A < B; A++) {
-D += convertROT13Char(C.charAt(A))}return D}
-function convertROT13Char(A) {return (A >= "A" && A <= "Z" || A >= "a" && A <= "z" ? rot13tables[A] : A)}
-function convertROTStringWithBrackets(C) {var F = "", D = "", E = true, A = 0, B = C.length;if (!rot13tables) {
-rot13tables = createROT13tables()}
-for (A = 0; A < B; A++) {F = C.charAt(A);if (A < (B - 4)) {if (C.toLowerCase().substr(A, 4) == "<br/>") {D += "<br>";
-A += 3;continue}}if (F == "[" || F == "<") {E = false} else {if (F == "]" || F == ">") {E = true} else {
-if ((F == " ") || (F == "&dhbg;")) {} else {if (E) {F = convertROT13Char(F)}}}}D += F}return D};
 </script>';
 
 $viewcache_header = '
