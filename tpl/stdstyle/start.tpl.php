@@ -93,9 +93,10 @@ function Unlite() {
 			global $dynstylepath;
 			include ($dynstylepath . "nextevents.inc.php");
 		?>
-			</div><br/>
+			</div>
 		</div>
 <br/>
 {display_news}
+<br/>
 <!-- End Text Container -->
 	
