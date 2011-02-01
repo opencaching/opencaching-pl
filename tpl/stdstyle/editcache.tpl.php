@@ -365,16 +365,17 @@ function toggleAttr(id)
 	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{event_hidden_hint}}</div></td></tr>
 	{activation_form}
 	<tr><td class="spacer" colspan="2"></td></tr>
+	{logpw_start}
 	<tr>
 		<td colspan="2"><br />	
-		{logpw_start}
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
 		<legend>&nbsp; <strong>{{log_password}}</strong> &nbsp;</legend><input class="input100" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})
 		</fieldset>
-		{logpw_end}
+
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="notice buffer" style="width:500px;height:24px;">{{please_read}}</div></td></tr>
+	{logpw_end}
 	<tr><td colspan="2"><div class="errormsg"><br />{{creating_cache}}<br /></div></td></tr>
 
 	<tr><td class="buffer" colspan="2"></td></tr>

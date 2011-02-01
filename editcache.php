@@ -178,7 +178,7 @@
 					{
 						$log_pw = isset($_POST['log_pw']) ? mb_substr($_POST['log_pw'], 0, 20) : $cache_record['logpw'];
 						// don't display log password for admins
-						if(($cache_record['user_id'] == $usr['userid'])
+						if($cache_record['user_id'] == $usr['userid'])
 							{
 							tpl_set_var('logpw_start', '');
 							tpl_set_var('logpw_end', '');}
