@@ -129,9 +129,20 @@
 	// maximal size of mp3 for PodCache 5 Mb ?
 	if (!isset($maxmp3size)) $maxmp3size = 5000000;
 	
-	// allowed extensions of images
+	// allowed extensions of MP3
 	if (!isset($mp3extensions)) $mp3extensions = ';mp3;';	
 	
+	// location of cache GWC files
+	if (!isset($gwcdir)) $gwcdir = $dynbasepath . 'gwc';
+	if (!isset($gwcurl)) $gwcurl = 'http://<domain>/gwc';
+
+	// maximal size of gwc for WheriGo/OpenGo 5 Mb ?
+	if (!isset($maxgwcsize)) $maxgwcsize = 5000000;
+	
+	// allowed extensions of GWC
+	if (!isset($gwcextensions)) $gwcextensions = ';gwc;';	
+
+
 	// news settings
 	$use_news_approving = true;
 	$news_approver_email = 'octeam@<domain>';
