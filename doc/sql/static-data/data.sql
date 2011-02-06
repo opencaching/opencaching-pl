@@ -48,7 +48,15 @@ INSERT INTO `cache_attrib` (`id`, `language`, `text_short`, `text_long`, `icon_l
 (53, 'PL', 'Dead Drop USB', 'Dead Drop USB skrzynka', 'images/attributes/deaddrop.png', 'images/attributes/deaddrop-no.png', 'images/attributes/deaddrop-undef.png', 1, 0),
 (53, 'EN', 'Dead Drop USB', 'Dead Drop USB cache', 'images/attributes/deaddrop.png', 'images/attributes/deaddrop-no.png', 'images/attributes/deaddrop-undef.png', 1, 0),
 (54, 'EN', 'Benchmark ', 'Benchmark - geodetict point', 'images/attributes/benchmark.png', 'images/attributes/benchmark-no.png', 'images/attributes/benchmark-undef.png', 1, 0),
-(54, 'PL', 'Benchmark - punkt ge', 'Benchmark - punkt geodezyjny', 'images/attributes/benchmark.png', 'images/attributes/benchmark-no.png', 'images/attributes/benchmark-undef.png', 1, 0);
+(54, 'PL', 'Punkt geodezyjny', 'Benchmark - punkt geodezyjny', 'images/attributes/benchmark.png', 'images/attributes/benchmark-no.png', 'images/attributes/benchmark-undef.png', 1, 0),
+(55, 'PL', 'Scenariusz WIGO', 'Scenariusz WIGO', 'images/attributes/wigo.png', 'images/attributes/wigo-no.png', 'images/attributes/wigo-undef.png', 1, 0),
+(55, 'EN', 'Cartridge', 'Cartridge ', 'images/attributes/wigo.png', 'images/attributes/wigo-no.png', 'images/attributes/wigo-undef.png', 1, 0),
+(84, 'PL', 'Dostępna pieszo', 'Dostępna tylko pieszo', 'images/attributes/walk.png', 'images/attributes/walk-no.png', 'images/attributes/walk-undef.png', 1, 0),
+(84, 'EN', 'Access via walk', 'Access only by walk', 'images/attributes/walk.png', 'images/attributes/walk-no.png', 'images/attributes/walk-undef.png', 1, 0),
+(85, 'PL', 'Dostępna rowerem', 'Dostępna rowerem', 'images/attributes/bike.png', 'images/attributes/bike-no.png', 'images/attributes/bike-undef.png', 1, 0),
+(85, 'EN', 'Bike', 'Bike', 'images/attributes/bike.png', 'images/attributes/bike-no.png', 'images/attributes/bike-undef.png', 1, 0),
+(86, 'PL', 'Wymagana łódź', 'Dostępna tylko łodzią', 'images/attributes/boat.png', 'images/attributes/boat-no.png', 'images/attributes/boat-undef.png', 1, 0),
+(86, 'EN', 'Boat', 'Boat', 'images/attributes/boat.png', 'images/attributes/boat-no.png', 'images/attributes/boat-undef.png', 1, 0);
 
 --
 -- Zrzut danych tabeli `cache_size`
