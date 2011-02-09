@@ -143,4 +143,11 @@ CREATE TRIGGER `cachesAfterDelete` AFTER DELETE ON `caches`
       UPDATE `user`, (SELECT COUNT(*) AS `hidden_count` FROM `caches` WHERE `user_id`=OLD.`user_id` AND `status` IN (1, 2, 3)) AS `c` SET `user`.`hidden_count`=`c`.`hidden_count` WHERE `user`.`user_id`=OLD.`user_id`;
     END;;
 
+DROP TRIGGER IF EXISTS sysSessionsAfterInsert;;
+CREATE TRIGGER `sysSessionsAfterInsert` AFTER INSERT ON `sys_sessions` 
+	FOR EACH ROW 
+		BEGIN 
+		UPDATE `user` SET `user`.`last_login`=NEW.`last_login` WHERE `user`.`user_id`=NEW.`user_id`;
+	END;;
+
 DELIMITER ;
