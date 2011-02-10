@@ -137,22 +137,22 @@
 	 *   6 = user account is not active
 	 */
 	if ($user_record['password'] == null || $user_record['email'] == null || $user_record['is_active_flag'] != 1)
-		tpl_set_var('lastlogin', 'user account is not active');
+		tpl_set_var('lastlogin', tr('user_not_active'));
 	else if ($user_record['last_login'] == null)
-		tpl_set_var('lastlogin', 'unknown');
+		tpl_set_var('lastlogin', tr('unknown'));
 	else
 	{
 		$user_record['last_login'] = strtotime($user_record['last_login']);
 		$user_record['last_login'] = mktime(date('G', $user_record['last_login']), date('i', $user_record['last_login']), date('s', $user_record['last_login']), 
 						date('n', $user_record['last_login']), date(1, $user_record['last_login']), date('Y', $user_record['last_login']));
 		if ($user_record['last_login'] >= mktime(0, 0, 0, date("m")-1, 1, date("Y")))
-			tpl_set_var('lastlogin', 'this month or last month');
+			tpl_set_var('lastlogin', tr('this month'));
 		else if ($user_record['last_login'] >= mktime(0, 0, 0, date("m")-6, 1, date("Y")))
-			tpl_set_var('lastlogin', 'between one and 6 months');
+			tpl_set_var('lastlogin', tr('more_one_month_'));
 		else if ($user_record['last_login'] >= mktime(0, 0, 0, date("m")-12, 1, date("Y")))
-			tpl_set_var('lastlogin', 'between 6 and 12 months');
+			tpl_set_var('lastlogin', tr('more_six_month'));
 		else
-			tpl_set_var('lastlogin', 'more than 12 months');
+			tpl_set_var('lastlogin', tr('more_12_month'));
 	}
 
 // -----------  begin Find section -------------------------------------
