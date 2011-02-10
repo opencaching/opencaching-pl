@@ -146,7 +146,7 @@
 		$user_record['last_login'] = mktime(date('G', $user_record['last_login']), date('i', $user_record['last_login']), date('s', $user_record['last_login']), 
 						date('n', $user_record['last_login']), date(1, $user_record['last_login']), date('Y', $user_record['last_login']));
 		if ($user_record['last_login'] >= mktime(0, 0, 0, date("m")-1, 1, date("Y")))
-			tpl_set_var('lastlogin', tr('this month'));
+			tpl_set_var('lastlogin', tr('this_month'));
 		else if ($user_record['last_login'] >= mktime(0, 0, 0, date("m")-6, 1, date("Y")))
 			tpl_set_var('lastlogin', tr('more_one_month_'));
 		else if ($user_record['last_login'] >= mktime(0, 0, 0, date("m")-12, 1, date("Y")))
