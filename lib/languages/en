@@ -799,6 +799,13 @@ show_list Show list of geocaches
 logs_cache_gpx Numbers of logs for each cache in GPX
 min_logs_cache Min. numbers of logs 
 marked_grey_search_area Marked grey search area for defined radius
+lastlogins Last login
+this_month this month or last month
+more_one_month between one and 6 months
+more_six_month between 6 and 12 months
+more_12_month more than 12 months
+unknown unknown
+user_not_active user account is not active
 
 
 

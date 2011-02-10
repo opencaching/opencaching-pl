@@ -837,6 +837,13 @@ show_list Pokaż listę skrzynek
 logs_cache_gpx Liczba logów dla skrzynki w GPX 
 min_logs_cache Minimalna liczba logów 
 marked_grey_search_area Kolorem szarym zaznaczony obszar poszukiwań dla zdefionowanego promienia.
+lastlogins Ostatnio zalogowany
+this_month w tym miesiącu lub w ostatnim miesiącu
+more_one_month pomiędzy 1 a 6 miesiącami
+more_six_month pomiędzy 6 a 12 miesiącami 
+more_12_month więcej niż 12 miesięcy temu
+unknown unknown nieznane
+user_not_active konto użytkownika nieaktywne
 
 
 
