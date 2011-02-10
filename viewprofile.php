@@ -107,7 +107,7 @@
 	  $ddays = mysql_fetch_array($rdd);
 	  mysql_free_result($rdd);
 
-	$rsGeneralStat =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, username, countries.pl country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1",$user_id);
+	$rsGeneralStat =sql("SELECT hidden_count, founds_count, is_active_flag,email, password,log_notes_count, notfounds_count, username, last_login, countries.pl country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1",$user_id);
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);
@@ -126,7 +126,34 @@
 				tpl_set_var('description_end', '-->');
 			}
 			
-
+	/* set last_login to one of 5 categories
+	 *   1 = this month or last month
+	 *   2 = between one and 6 months
+	 *   3 = between 6 and 12 months
+	 *   4 = more than 12 months
+	 *   5 = unknown, we need this, because we dont
+	 *       know the last_login of all accounts.
+	 *       Can be removed after one year.
+	 *   6 = user account is not active
+	 */
+	if ($user_record['password'] == null || $user_record['email'] == null || $user_record['is_active_flag'] != 1)
+		tpl_set_var('lastlogin', 'user account is not active');
+	else if ($user_record['last_login'] == null)
+		tpl_set_var('lastlogin', 'unknown');
+	else
+	{
+		$user_record['last_login'] = strtotime($user_record['last_login']);
+		$user_record['last_login'] = mktime(date('G', $user_record['last_login']), date('i', $user_record['last_login']), date('s', $user_record['last_login']), 
+						date('n', $user_record['last_login']), date(1, $user_record['last_login']), date('Y', $user_record['last_login']));
+		if ($user_record['last_login'] >= mktime(0, 0, 0, date("m")-1, 1, date("Y")))
+			tpl_set_var('lastlogin', 'this month or last month');
+		else if ($user_record['last_login'] >= mktime(0, 0, 0, date("m")-6, 1, date("Y")))
+			tpl_set_var('lastlogin', 'between one and 6 months');
+		else if ($user_record['last_login'] >= mktime(0, 0, 0, date("m")-12, 1, date("Y")))
+			tpl_set_var('lastlogin', 'between 6 and 12 months');
+		else
+			tpl_set_var('lastlogin', 'more than 12 months');
+	}
 
 // -----------  begin Find section -------------------------------------
 			$rs_seek= sql ("SELECT COUNT(*) FROM cache_logs WHERE (type=1 OR type=2) AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)",$user_id);
