@@ -128,7 +128,7 @@ $radius=$distance;
 											`caches`.`status` `status`,
 											`caches`.`user_id` `user_id` 
 										FROM `caches` 
-										WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\''.$user_id .'\') 
+										WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\''.$user_id .'\')  AND caches.status<>4 AND caches.status<>5 AND caches.status <>6 
 											AND `longitude` > ' . ($lon - $max_lon_diff) . ' 
 											AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
 											AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
