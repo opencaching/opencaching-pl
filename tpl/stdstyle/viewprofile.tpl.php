@@ -31,6 +31,9 @@ global $user_id;
 <td><span class="txt-blue08" >{{descriptions}}:</span><br /><span class="txt-black" style="line-height: 0.5cm;"> {description_start}{description}{description_end}</span></td>
 </tr>
 <tr>
+<td><span class="txt-blue08" >{{lastlogins}}:</span><br /><span class="txt-black" style="line-height: 0.5cm;"> {lastlogin}</span></td>
+</tr>
+<tr>
 <td colspan="3"><hr></hr></td>
 </tr></table><br />
 </div>
