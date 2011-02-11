@@ -212,7 +212,7 @@
 			
 			if (($ulon!=NULL && $ulat!=NULL) ||($ulon!=0 && $ulat!=0) ) {
 			
-			$distancecache=sprintf("%u",calcDistance($ulat,$ulon,$cache_record['latitude'],$cache_record['longitude']));
+			$distancecache=sprintf("%.2f",calcDistance($ulat,$ulon,$cache_record['latitude'],$cache_record['longitude']));
 				tpl_set_var('distance_cache', '<img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance" title="" align="middle" />&nbsp;'.tr(distance_to_cache).': <b>'.$distancecache.' km</b><br />');
 				} else {tpl_set_var('distance_cache', '');}
 			} else {tpl_set_var('distance_cache', '');}
