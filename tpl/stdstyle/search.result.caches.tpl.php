@@ -64,7 +64,7 @@ $googlemaps = "";
 if ($usr || !$hide_coords){ echo "
 <table class=\"content\" style=\"font-size: 12px; line-height: 1.6em;\">
 	<tr>
-		<td width=\"210\"><b>".tr('download')."</b></td>
+		<td width=\"205\"><b>".tr('download')."</b></td>
 		<td align=\"right\" style=\"padding-right:20px;\">
 			".tr('listing_from_this_page').":
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx |\">GPX</a> | 
@@ -82,7 +82,7 @@ if ($usr || !$hide_coords){ echo "
 			</td>
 	</tr>
 	<tr>
-		<td width=\"210\" class=\"help\">
+		<td width=\"205\" class=\"help\">
 			".tr('download_for_various_apps')."
 		</td>
 		<td align=\"right\" style=\"padding-right:20px;\">";?> {{listing_from_to}}<?php echo " :
