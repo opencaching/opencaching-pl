@@ -230,7 +230,7 @@ function chname( newName )
                                                         global $dynstylepath;
                                                         include ($dynstylepath . "nonlusers.txt");
                        echo '</span><span class="txt-black">) - {{online_users_info}}:</span>&nbsp;<br/>
-                         <span class="txt-white">';
+                         <span class="txt-white; width: 1000px;">';
                                                         global $dynstylepath;
                                                         include ($dynstylepath . "onlineusers.html");
                                                 echo '</span></p><br/>'; } ?>				
