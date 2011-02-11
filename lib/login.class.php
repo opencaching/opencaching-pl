@@ -170,6 +170,7 @@ class login
 				// begin session
 				$uuid = sqlValue('SELECT UUID()', '');
 				sql("INSERT INTO `sys_sessions` (`uuid`, `user_id`, `permanent`, `last_login`) VALUES ('&1', '&2', '&3', NOW())", $uuid, $rUser['user_id'], ($permanent!=false ? 1 : 0));
+				sql("UPDATE `user` SET `last_login`=NOW() WHERE `user_id`='&1'",$rUser['user_id']);
 				$this->userid = $rUser['user_id'];
 				$this->username = $rUser['username'];
 				$this->permanent = $permanent;
