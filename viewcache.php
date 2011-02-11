@@ -204,6 +204,17 @@
 			//ok, cache is here, let's process
 			$owner_id = $cache_record['user_id'];
 
+			// check XY home if OK redirect to myn
+				if( $usr == true)
+				{
+			$latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+			$longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+			
+			if (($longitude!=NULL && $latitude!=NULL) ||($longitude!=0 && $latitude!=0) ) {
+			$distancecache=100;
+				tpl_set_var('distance_cache', '<img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance" title="" align="middle" />&nbsp;'.tr(distance_to_cache).':<b>'.$distancecache.' km</b><br />');
+				} else {tpl_set_var('distance_cache', '');}
+			} else {tpl_set_var('distance_cache', '');}
 			// get cache waypoint
 			$cache_wp = '';
 			if( $cache_record['wp_oc'] != '' )
