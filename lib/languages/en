@@ -806,6 +806,7 @@ more_six_month between 6 and 12 months
 more_12_month more than 12 months
 unknown unknown
 user_not_active user account is not active
+distance_to_cache Distance to cache
 
 
 
