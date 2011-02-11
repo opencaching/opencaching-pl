@@ -125,6 +125,7 @@ class login
 			{
 				sql("UPDATE `sys_sessions` SET `sys_sessions`.`last_login`=NOW() WHERE `sys_sessions`.`uuid`='&1' AND `sys_sessions`.`user_id`='&2'", $this->sessionid, $this->userid);
 				$rUser['last_login'] = date('Y-m-d H:i:s');
+				sql("UPDATE `user` SET `last_login`=NOW() WHERE `user_id`='&1'",$this->userid);
 			}
 
 			$this->lastlogin = $rUser['last_login'];
