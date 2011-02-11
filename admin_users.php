@@ -55,7 +55,7 @@
 			else
 				$lang_db = "en";
 				
-			$rsuser =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count, 
+			$rsuser =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count,last_login, 
 								username, date_created,description, email,is_active_flag,
 								stat_ban,activation_code,hide_flag,countries.$lang_db country
 								FROM `user` LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1 ",$user_id);
@@ -66,6 +66,7 @@
 					} else {
 					tpl_set_var('activation_codes',$record['activation_code']);
 							}
+			tpl_set_var('last_login',$record['last_login']);
 			tpl_set_var('username',$record['username']);
 			tpl_set_var('country', htmlspecialchars($record['country'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('registered', strftime($dateformat, strtotime($record['date_created'])));
