@@ -66,7 +66,7 @@
 					} else {
 					tpl_set_var('activation_codes',$record['activation_code']);
 							}
-			tpl_set_var('last_login',$record['last_login']);
+			tpl_set_var('lastlogin',$record['last_login']);
 			tpl_set_var('username',$record['username']);
 			tpl_set_var('country', htmlspecialchars($record['country'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('registered', strftime($dateformat, strtotime($record['date_created'])));
