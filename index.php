@@ -30,6 +30,16 @@
 		//if( $_)
 		//set here the template to process
 		$tplname = 'start';
+		
+			// check XY home if OK redirect to myn
+			if( $usr == true)
+				{
+			$latitude =sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+			$longitude =sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
+			
+			if (($longitude!=NULL && $latitude!=NULL) ||($longitude!=0 && $latitude!=0) ) {
+			header('Location: myneighborhood.php');}
+			}
 		// news
 		require($stylepath . '/news.inc.php');
 		$newscontent ="<br />";

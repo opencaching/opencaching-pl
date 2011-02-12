@@ -102,4 +102,6 @@ function Unlite() {
 				{more_logs}<br/><br/>
 			</div>
 		</div>
-
+<br/>
+{display_news}
+<br/>
