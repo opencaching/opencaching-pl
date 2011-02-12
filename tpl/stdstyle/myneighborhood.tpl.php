@@ -7,10 +7,6 @@
 	*   (at your option) any later version.
 	*   
 	*  UTF-8 ąść
-				<div class="content2-container-2col-left" id="local-caches-area">
-				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{top_recommended}}</p>
-				{top_caches}
-			</div>
 	***************************************************************************/
 ?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
@@ -76,10 +72,7 @@ function Unlite() {
 				</div>
 				<div class="content2-container-2col-right" id="local-cachemap-block">
 					<div class="img-shadow">
-						<?php
-							global $dynstylepath;
-							include ($dynstylepath . "local_cachemap.inc.php");
-						?>
+					{local_cache_map}
 					</div>
 				</div>
 				<div class="content2-container-2col-left" id="local-events-area">
