@@ -765,7 +765,7 @@ $rsll = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 					// news
 		require($stylepath . '/news.inc.php');
 		$newscontent ="<br />";
-		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE datediff(now(), news.date_posted) <= 31 AND `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
+		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE datediff(now(), news.date_posted) <= 62 AND `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
 	
 	if (mysql_num_rows($rs)!=0) {
 			$newscontent .= $tpl_newstopic_header;
