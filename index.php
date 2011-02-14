@@ -40,8 +40,9 @@
 //			
 //			if (($longitude!=NULL && $latitude!=NULL) ||($longitude!=0 && $latitude!=0) ) {
 //			header('Location: myneighborhood.php');}
+//
+//			}
 
-			}
 		// news
 		require($stylepath . '/news.inc.php');
 		$newscontent ="<br />";
