@@ -19,7 +19,7 @@
 ?>
 
 <table class="content" border="0">
-	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}" align="middle" /><font size="4" <b>Rejstracja nowej skrzynki - informacja</b></font></td></tr>
+	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}" align="middle" /><font size="4" <b>Rejestracja nowej skrzynki - informacja</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 </table>
 <br />
