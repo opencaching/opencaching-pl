@@ -49,7 +49,7 @@ $menu = array(
 		'menustring' => tr('main_page'),
 		'siteid' => 'start',
 		'visible' => true,
-		'filename' => 'index_main.php',
+		'filename' => 'index.php',
 		'submenu' => array(
 			array(
 				'title' => tr('registration'),
