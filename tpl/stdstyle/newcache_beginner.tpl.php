@@ -22,8 +22,8 @@
 	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}" align="middle" /><font size="4" <b>Nowa skrzynka</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 </table>
-<br /><br />
-<div style="width: 750px;">
+<br />
+<div class="searchdiv">
 <p style="font-size: 14px; line-height:1.6em; text-align: justify;"><b>Aby zarejestrować nowe skrzynki musisz najpierw znaleźć <font color="red"><?php echo $NEED_FIND_LIMIT; ?></font> skrzynek spośród następujących typów: 
 <font color="blue">
 <ul>
@@ -31,6 +31,7 @@
 <li>Multicache,</li> 
 <li>Quiz, </li>
 <li>Mobilna, </li>
+<li>Podcast, </li>
 <li>Nietypowa.</li>
 </ul></font>
 Obecnie masz znalezionych <font color="green">{number_finds_caches}</font> skrzynek spośród typów wymienionych w powyższych wymaganiach.<br/><br/>
