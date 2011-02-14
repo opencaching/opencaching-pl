@@ -97,5 +97,3 @@ function Unlite() {
 			</div>
 		</div>
 <br/>
-{display_news}
-<br/>
