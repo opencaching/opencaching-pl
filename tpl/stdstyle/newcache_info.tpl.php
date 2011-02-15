@@ -38,5 +38,5 @@ Prosimy zapoznaj się z <a class="links" href="http://wiki.opencaching.pl/index.
 <br />
 </div>
 <br/><br/>
-		<center><button type="button" style="font-size:14px;" onclick="window.location.href ='newcache.php'"><b>Wyszstkie powyższe elementy rozważyłem i chcę kontynuować rejestracje skrzynki</b></button>
+		<center><button type="button" style="font-size:14px;" onclick="window.location.href ='newcache.php'"><b>Wszystkie powyższe elementy rozważyłem i chcę kontynuować rejestracje skrzynki</b></button>
 </center>
