@@ -204,6 +204,7 @@ function nearbycachemapOC()
 <input type="hidden" name="show_all_langs" value="{show_all_langs}"/>
 <input type="hidden" name="version2" value="1"/>
 <input type="hidden" name="beginner" value="0"/>
+<input type="hidden" name="newcache_info" value="0"/>
 <input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
 <input id="descMode" type="hidden" name="descMode" value="1" />
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}" align="middle"/>&nbsp;{{new_cache}}</div>
