@@ -447,7 +447,7 @@
 				foreach ($cache_types as $type)
 				{
                        // block register virtual or webcam
-				if( $type['id'] == 4 || $type['id'] == 5 )
+				if( $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 9)
 						continue;
 					if ($type['id'] == $sel_type)
 					{
