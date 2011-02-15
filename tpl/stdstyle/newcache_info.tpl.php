@@ -23,19 +23,17 @@
 </table>
 <br />
 <div class="searchdiv" style="background-color: #FFF9E3;">
-<p style="margin: 10px;font-size: 14px; line-height:1.6em; text-align: justify;">Dziękujemy za to że chcesz zarejstrować swoja skrzynkę na OC PL. Jeśli potrzebujesz pomocy w ukryciu lub rejestracji skrzynki sprawdź <a class="links" href="http://wiki.opencaching.pl">OpenGeoWiki</a><br/>
-Aby twoja skrzynka była jak najlepszej jakości powinieneś rozważyć poniższe elemnety: 
-<font color="blue">
-<ul>
-<li>Czy skrzynka jest ulokowana w legalnym miejscu bez kolizji z lokalnym prawem (terent prywatny),</li>
-<li>Czy skrzynka nie jest ulokowana na ternie parku Narodowego lub innego obszaru chronionego prawem,</li> 
-<li>Czy instnieją już w pobliżu inne skrzynki, </li>
-<li>Czy jesteś w stanie zapewnić suport dla skrzynki przez dłuższy czas, </li>
-<li>Czy wybrany przez Ciebie pojemnik jest właściwy do lokalizacji skrzynki, </li>
-<li>Czy skrzynka jest zgodna z <a class="links" href=http://wiki.opencaching.pl/index.php/Regulamin_OC_PL>Regulaminem serwisu OC PL</a>?.</li>
+<p style="margin: 10px;font-size: 14px; line-height:1.6em; text-align: justify;">Dziękujemy za to że chcesz zarejstrować swoja skrzynkę na OC PL. Jeśli potrzebujesz pomocy w ukryciu lub rejestracji skrzynki sprawdź <a class="links" href="http://wiki.opencaching.pl">OpenGeoWiki</a> lub skontaktuj się z Centrum Obsługi Geocacher cog at opencaching.pl<br/>
+Aby Twoja skrzynka była jak najlepszej jakości powinieneś rozważyć poniższe elemnety: <font color="blue"><ul>
+<li>Czy skrzynka jest ulokowana w legalnym miejscu bez kolizji z lokalnym prawem (terent prywatny) ?,</li>
+<li>Czy skrzynka nie jest ulokowana na ternie parku, zabytku lub innego obszaru chronionego prawem ?,</li> 
+<li>Czy instnieją już w pobliżu inne skrzynki ?, </li>
+<li>Czy jesteś w stanie zapewnić serwis dla skrzynki przez dłuższy czas ?, </li>
+<li>Czy wybrany przez Ciebie pojemnik jest właściwy do lokalizacji skrzynki ?, </li>
+<li>Czy skrzynka jest zgodna z <a class="links" href=http://wiki.opencaching.pl/index.php/Regulamin_OC_PL>Regulaminem serwisu OC PL</a> ?.</li>
 </ul></font>
 
-Prosimy zapoznaj się z <a class="links" href="http://wiki.opencaching.pl/index.php/Zak%C5%82adanie_skrzynki">Dobrymi Praktykami Geocaching'owymi</a> oraz <a class="links" href="http://wiki.opencaching.pl/index.php/Kodeks_geocachera"Kodeksem Geocacher</a> na naszym OpenGeoWiki.
+Prosimy zapoznaj się z <a class="links" href="http://wiki.opencaching.pl/index.php/Zak%C5%82adanie_skrzynki">Dobrymi Praktykami Geocaching'owymi</a> oraz <a class="links" href="http://wiki.opencaching.pl/index.php/Kodeks_geocachera">Kodeksem Geocacher</a> na naszym OpenGeoWiki.
 </p>
 <br />
 </div>
