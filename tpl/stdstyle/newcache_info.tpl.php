@@ -29,7 +29,7 @@ Aby Twoja skrzynka była jak najlepszej jakości powinieneś rozważyć poniższ
 <li>Czy skrzynka nie jest ulokowana na ternie parku, zabytku lub innego obszaru chronionego prawem ?,</li> 
 <li>Czy instnieją już w pobliżu inne skrzynki ?, </li>
 <li>Czy jesteś w stanie zapewnić serwis dla skrzynki przez dłuższy czas ?, </li>
-<li>Czy wybrany przez Ciebie pojemnik jest właściwy do lokalizacji skrzynki ?, </li>
+<li>Czy wybrany przez Ciebie sposób ukrycia skrzynki jest właściwy dla wybranej lokalizacji skrzynki ?, </li>
 <li>Czy skrzynka jest zgodna z <a class="links" href=http://wiki.opencaching.pl/index.php/Regulamin_OC_PL>Regulaminem serwisu OC PL</a> ?.</li>
 </ul></font>
 
