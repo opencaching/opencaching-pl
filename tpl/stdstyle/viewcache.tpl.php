@@ -158,7 +158,7 @@ else
 					{cache_attributes}{password_req}
 				</p>
 			</div>
-<div class="notice" id="viewcache-attributesend">{{attributes_desc_hint}}</div>
+<div class="notice" id="viewcache-attributesend">{{attributes_desc_hint}}  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></div>
 					{cache_attributes_end}
 <!-- End Text Container -->
 <!-- Text container -->
@@ -203,7 +203,7 @@ else
 				<p>
 					{waypoints_content}
 				</p><br />
-			<div class="notice" id="viewcache-attributesend"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div>
+			<div class="notice" id="viewcache-attributesend"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a></div>
 {waypoints_end}
 <!-- End Text Container -->
 <!-- Text container -->
@@ -249,7 +249,7 @@ else
 				<div class="content2-container"><center>
 <table width="90%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em">
 <tr>
-<td align="center" valign="middle">&nbsp;</td><td align="center" valign="middle">{npa_content}</td><td align="center" valign="middle"><a class="links" href="http://www.natura2000.pl/" target="_blank"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" /></a></td>
+<td align="center" valign="middle">&nbsp;</td><td align="center" valign="middle">{npa_content}</td><td align="center" valign="middle"><a class="links" href="http://www.natura2000.pl/" target="_blank"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" />  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a></td>
 </tr>
 </table></center>
 			</div>
