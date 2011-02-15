@@ -674,8 +674,7 @@
 					foreach ($cache_types as $type)
 					{
 						// block virtual, webcam and owncache
-						if( ( ( $cache_type != $CACHETYPE['VIRTUAL'] && $type['id'] == $CACHETYPE['VIRTUAL'] ) || 
-							  ( $cache_type != $CACHETYPE['WEBCAM'] && $type['id'] == $CACHETYPE['WEBCAM'] ) ) &&
+						if( ( ( $cache_type != $CACHETYPE['VIRTUAL'] && $type['id'] == $CACHETYPE['VIRTUAL'] ) || ( $cache_type != $CACHETYPE['PODCAST'] && $type['id'] == $CACHETYPE['PODCAST'] ) || ( $cache_type != $CACHETYPE['WEBCAM'] && $type['id'] == $CACHETYPE['WEBCAM'] ) ) &&
 							  !$usr['admin'] )
 						{
 							// if was not (wirtual or webcam)
