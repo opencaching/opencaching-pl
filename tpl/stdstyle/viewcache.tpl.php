@@ -117,7 +117,7 @@ else
 							{vote_icon} {votes_count} x {{scored}}<br />
 							{score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
 							{list_of_rating_begin}{rating_stat}{list_of_rating_end}
-							{gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?lang=pl_PL.UTF-8&wpt={oc_waypoint}" target="_blank">{{history_gk}}</a><br />
+							{gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?lang=pl_PL.UTF-8&wpt={oc_waypoint}" target="_blank">{{history_gk}}  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a><br />
 
 							</p>
 						</div>
