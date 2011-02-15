@@ -20,7 +20,6 @@
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 
-       global $beginner_info;
 	$no_tpl_build = false;
 
 	//Preprocessing
@@ -37,7 +36,7 @@
 
 
 			if (isset($_REQUEST['newcache_info']))
-				{$beginner=$_GET['newcache_info'];
+				{$newcache_info=$_GET['newcache_info'];
 			} else { $newcache_info=1;}
 
 				if ($newcache_info==1) {
