@@ -33,9 +33,19 @@
 		    tpl_redirect('login.php?target='.$target);
 		}
 		else
-		{		
+		{	
+
+
+			if (isset($_REQUEST['newcache_info']))
+				{$beginner=$_GET['newcache_info'];
+			} else { $newcache_info=1;}
+
+				if ($newcache_info==1) {
+				// display info about register new cache
+				$tplname = 'newcache_info'; }	
+				else {
 				//set here the template to process
-				$tplname = 'newcache';
+				$tplname = 'newcache'; }
 				require_once($rootpath . '/lib/caches.inc.php');
 				require_once($stylepath . '/newcache.inc.php');
 				
