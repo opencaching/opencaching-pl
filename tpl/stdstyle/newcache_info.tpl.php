@@ -30,23 +30,22 @@ Jeśli potrzebujesz pomocy w ukryciu lub rejestracji skrzynki, proszę zapoznaj 
 <br/>
 Pamiętaj, że Twoja skrzynka świadczy o Tobie. Na pewno zależy Ci na tym, by była jak najlepszej jakości, a w związku z tym prosimy o to, abyś odpowiedział sobie samodzielnie na poniższe pytania :
 <font color="blue"><ul>
-<li>Czy skrzynka jest ulokowana w miejscu zgodnym z prawem, nie jest umieszczona na terenie prywatnym bez zgody jego właściciela ?,
-<li>Czy skrzynka nie jest ulokowana na terenie Parku Narodowego, Rezerwatu, zabytku, cmentarza lub innego obszaru chronionego prawem ?,
-<li>Czy w najbliższej okolicy znajdują się już inne skrzynki, czy zachowana jest minimalna odległość 150m) ?,
-<li>Czy jesteś w stanie zapewnić serwis dla skrzynki przez cały czas jej istnienia w serwisie?,
-<li>Czy wybrany przez Ciebie sposób ukrycia skrzynki jest właściwy dla wybranej lokalizacji skrzynki (odporność pojemnika na niską temperaturę, wilgoć) ?,
-<li>Czy skrzynka jest zgodna z <a class="links" href=http://wiki.opencaching.pl/index.php/Regulamin_OC_PL>Regulaminem serwisu OC PL</a> ?.
-</ul>
-Prosimy zapoznaj się z Poradnikiem <a class="links" href="http://wiki.opencaching.pl/index.php/Zak%C5%82adanie_skrzynki">„Jak założyć skrzynkę”</a> oraz <a class="links" href="http://wiki.opencaching.pl/index.php/Kodeks_geocachera">Kodeksem Geocacher</a> na naszym OpenGeoWiki.
+<li>Czy skrzynka jest ulokowana w miejscu zgodnym z prawem, nie jest umieszczona na terenie prywatnym bez zgody jego właściciela ?,</li>
+<li>Czy skrzynka nie jest ulokowana na terenie Parku Narodowego, Rezerwatu, zabytku, cmentarza lub innego obszaru chronionego prawem ?,</li>
+<li>Czy w najbliższej okolicy znajdują się już inne skrzynki, czy zachowana jest minimalna odległość 150m) ?,</li>
+<li>Czy jesteś w stanie zapewnić serwis dla skrzynki przez cały czas jej istnienia w serwisie?,</li>
+<li>Czy wybrany przez Ciebie sposób ukrycia skrzynki jest właściwy dla wybranej lokalizacji skrzynki (odporność pojemnika na niską temperaturę, wilgoć) ?,</li>
+<li>Czy skrzynka jest zgodna z <a class="links" href=http://wiki.opencaching.pl/index.php/Regulamin_OC_PL>Regulaminem serwisu OC PL</a> ?.</li>
+</ul></font>
+Prosimy zapoznaj się z Poradnikiem <a class="links" href="http://wiki.opencaching.pl/index.php/Zak%C5%82adanie_skrzynki">„Jak założyć skrzynkę”</a> oraz <a class="links" href="http://wiki.opencaching.pl/index.php/Kodeks_geocachera">Kodeksem Geocacher'a</a> na naszym OpenGeoWiki.
 <br/>
 Pozdrawiamy
 <br/>
 OC Team
 </p>
-<br />
 </div>
 <br/><br/>
 <form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr"><input type="hidden" name="newcache_info" value="0"/>
-		<center><button type="button" style="font-size:14px;"><b>Wszystkie powyższe elementy rozważyłem i chcę kontynuować rejestracje skrzynki</b></button>
+		<center><button style="font-size:15px;"><b>Wszystkie powyższe elementy rozważyłem i chcę kontynuować rejestracje skrzynki</b></button>
 </center>
 </form>
