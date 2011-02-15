@@ -66,7 +66,7 @@
 						<b>{coords}</b> <span class="content-title-noshade-size0">(WGS84)</span><br />
 					</p>
 					<p style="line-height: 1.6em;">
-						<img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{coords_other}<br />
+						<img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{coords_other} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"><br />
 						<img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{location}}:<b><span style="color: rgb(88,144,168)"> {kraj} {dziubek1} {woj} {dziubek2} {miasto}</span></b><br /> 
 						{distance_cache}
 						<img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{cache_type}}: <b>{cachetype}</b><br />
@@ -111,7 +111,7 @@ else
 							{hidemobile_start}{moved_icon} {moved} x {{moved_text}}<br/>{hidemobile_end}	
 							{notfound_icon} {notfounds} {notfound_text}<br />
 							{note_icon} {notes} {{comments}}<br />
-							{notes_icon} {cache_notes} {cachenotes_link}<br />
+							{notes_icon} {cache_notes} {cachenotes_link} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"><br />
 							{watch_icon} {watcher} {{watchers}}<br />
 							{visit_icon} {visits} {{visitors}}<br />
 							{vote_icon} {votes_count} x {{scored}}<br />
