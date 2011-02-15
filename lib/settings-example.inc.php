@@ -62,17 +62,15 @@
         if (!isset($cookiepath)) $cookiepath = '/';
         if (!isset($cookiedomain)) $cookiedomain = '';
 
-         // display 1 or not 0 info for beginner when register new cache
-        $beginner_info=0;
 	
 	// display online users in footer pages  0=off, 1 = on
-	$onlineusers=0;
+	$onlineusers=1;
 	
 	//block register new cache before first find xx nuber of caches, value -1 off this feature
 	$NEED_FIND_LIMIT=-1;
 	
-    // Number of forst caches will be send to approve , disable 0, all caches max 999999999
-    $NEED_APPROVE_LIMIT=0;
+   	 // Number of forst caches will be send to approve , disable 0, all caches max 999999999
+   	 $NEED_APPROVE_LIMIT=0;
 		
 	// Hide coordinates for users not login
 	$hide_coords = false;
