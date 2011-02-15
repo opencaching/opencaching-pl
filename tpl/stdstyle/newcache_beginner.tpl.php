@@ -31,7 +31,6 @@
 <li><img src="tpl/stdstyle/images/cache/multi-i.png" alt="cache"> Multicache,</li> 
 <li><img src="tpl/stdstyle/images/cache/quiz-i.png" alt="cache"> Quiz, </li>
 <li><img src="tpl/stdstyle/images/cache/moving-i.png" alt="cache"> Mobilna, </li>
-<li><img src="tpl/stdstyle/images/cache/podcache-i.png" alt="cache"> Podcast, </li>
 <li><img src="tpl/stdstyle/images/cache/unknown-i.png" alt="cache"> Nietypowa.</li>
 </ul></font>
 Obecnie masz <font color="green">{number_finds_caches}</font> skrzynki znalezione spośród wymienionych typów w powyższych wymaganiach.<br/><br/>
