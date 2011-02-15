@@ -23,7 +23,7 @@
 	<tr><td class="spacer"></td></tr>
 </table>
 <br />
-<div class="searchdiv">
+<div class="searchdiv" style="background-color: #FFF9E3;">
 <p style="margin: 10px;font-size: 14px; line-height:1.6em; text-align: justify;"><b>Aby zarejestrować nowe skrzynki musisz najpierw znaleźć <font color="red"><?php echo $NEED_FIND_LIMIT; ?></font> skrzynek spośród następujących typów: 
 <font color="blue">
 <ul>
