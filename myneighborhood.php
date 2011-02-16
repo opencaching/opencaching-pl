@@ -140,7 +140,7 @@ function get_marker_positions($latitude, $longitude,$radius,$user_id)
 	$markers = array();
 	$rs = sql("
 		SELECT SQL_BUFFER_RESULT `caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
-		FROM local_caches".$user_id." `caches`
+		FROM local_caches `caches`
 		WHERE
 			`caches`.`type` != 6 AND
 			`caches`.`status` = 1 AND
@@ -162,7 +162,7 @@ function get_marker_positions($latitude, $longitude,$radius,$user_id)
 
 	$rs = sql("
 		SELECT SQL_BUFFER_RESULT `caches`.`cache_id`, `caches`.`longitude`, `caches`.`latitude`, `caches`.`type`
-		FROM	local_caches".$user_id." `caches`
+		FROM	local_caches `caches`
 		WHERE 
 		`caches`.`date_hidden` >= curdate() AND
 			`caches`.`type` = 6 AND
@@ -254,8 +254,8 @@ tpl_set_var('distance',$distance);
 				//all target caches are between lon - max_lon_diff and lon + max_lon_diff
 				//TODO: check!!!
 				$max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378  * 3.14159);
-				sql('DROP TEMPORARY TABLE IF EXISTS local_caches'.$user_id.'');							
-				sql('CREATE TEMPORARY TABLE local_caches'.$user_id.' ENGINE=MEMORY 
+				sql('DROP TEMPORARY TABLE IF EXISTS local_caches');							
+				sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY 
 										SELECT 
 											(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
 											`caches`.`cache_id` AS `cache_id`,
@@ -279,7 +279,7 @@ tpl_set_var('distance',$distance);
 											AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
 											AND `latitude` < ' . ($lat + $max_lat_diff) . '
 										HAVING `distance` < ' . $distance);
-				sql('ALTER TABLE local_caches'.$user_id.' ADD PRIMARY KEY ( `cache_id` ),
+				sql('ALTER TABLE local_caches ADD PRIMARY KEY ( `cache_id` ),
 				ADD INDEX(`cache_id`), ADD INDEX (`wp_oc`), ADD INDEX(`type`), ADD INDEX(`name`), ADD INDEX(`user_id`), ADD INDEX(`date_hidden`), ADD INDEX(`date_created`)');
 
 			
@@ -309,7 +309,7 @@ tpl_set_var('distance',$distance);
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
-        FROM local_caches".$user_id." `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
+        FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
         WHERE 		  `caches`.`type`!=6
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
@@ -331,7 +331,7 @@ tpl_set_var('distance',$distance);
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
-			FROM local_caches".$user_id." `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
+			FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
 			WHERE `caches`.`type`!=6
 				AND `caches`.`status`=1
 				AND `caches`.`type`=`cache_type`.`id`
@@ -395,7 +395,7 @@ tpl_set_var('distance',$distance);
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
-        FROM local_caches".$user_id." `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
+        FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
         WHERE `caches`.`type`!=6
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
@@ -414,7 +414,7 @@ tpl_set_var('distance',$distance);
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
-        FROM local_caches".$user_id." `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
+        FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
         WHERE `caches`.`type`!=6
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
@@ -479,7 +479,7 @@ tpl_set_var('distance',$distance);
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`,
 				count(`cache_rating`.`cache_id`) `toprate`
-        FROM local_caches".$user_id." `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`) LEFT JOIN `cache_rating` ON (`caches`.`cache_id`=`cache_rating`.`cache_id`), `cache_type`
+        FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`) LEFT JOIN `cache_rating` ON (`caches`.`cache_id`=`cache_rating`.`cache_id`), `cache_type`
         WHERE `caches`.`type`!=6
 			AND `cache_rating`.`cache_id`=`caches`.`cache_id`
 			  AND `caches`.`status`=1
@@ -500,7 +500,7 @@ tpl_set_var('distance',$distance);
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`,
 				count(`cache_rating`.`cache_id`) `toprate`
-        FROM local_caches".$user_id." `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`) LEFT JOIN `cache_rating` ON (`caches`.`cache_id`=`cache_rating`.`cache_id`), `cache_type`
+        FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`) LEFT JOIN `cache_rating` ON (`caches`.`cache_id`=`cache_rating`.`cache_id`), `cache_type`
         WHERE `caches`.`type`!=6
 			AND `cache_rating`.`cache_id`=`caches`.`cache_id`
 			  AND `caches`.`status`=1
@@ -566,8 +566,8 @@ tpl_set_var('distance',$distance);
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
-        FROM `caches`, `user`, `cache_type`,local_caches".$user_id."
-        WHERE `caches`.`cache_id`=local_caches".$user_id.".`cache_id` AND
+        FROM `caches`, `user`, `cache_type`,local_caches
+        WHERE `caches`.`cache_id`=local_caches.`cache_id` AND
 		`caches`.`user_id`=`user`.`user_id`
 			  AND `caches`.`type`=6
 			  AND `caches`.`status`=1
@@ -622,22 +622,22 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.date AS log_date,
 				   cache_logs.text AS log_text,
 				  cache_logs.text_html AS text_html,
-	                          local_caches".$user_id.".name AS cache_name,
+	                          local_caches.name AS cache_name,
 	                          user.username AS user_name,
 							  user.user_id AS user_id,
-							  local_caches".$user_id.".wp_oc AS wp_name,
-							  local_caches".$user_id.".type AS cache_type,
+							  local_caches.wp_oc AS wp_name,
+							  local_caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
 							  log_types.icon_small AS icon_small,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
 							COUNT(gk_item.id) AS geokret_in
 							FROM 
-								(local_caches".$user_id." INNER JOIN cache_logs ON (local_caches".$user_id.".cache_id = cache_logs.cache_id)) 
+								(local_caches INNER JOIN cache_logs ON (local_caches.cache_id = cache_logs.cache_id)) 
 								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
 								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
-								INNER JOIN cache_type ON (local_caches".$user_id.".type = cache_type.id) 
+								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
 								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
-								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches".$user_id.".wp_oc)
+								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
 								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5)
 							WHERE	cache_logs.deleted=0 AND datediff(now(), cache_logs.date_created) <= 31
@@ -647,26 +647,26 @@ $rsll = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
 				   cache_logs.text AS log_text,
-				local_caches".$user_id.".user_id AS cache_owner,
+				local_caches.user_id AS cache_owner,
 				cache_logs.encrypt encrypt,
 				cache_logs.user_id AS luser_id,
 				  cache_logs.text_html AS text_html,
-	                          local_caches".$user_id.".name AS cache_name,
+	                          local_caches.name AS cache_name,
 	                          user.username AS user_name,
 							  user.user_id AS user_id,
-							  local_caches".$user_id.".wp_oc AS wp_name,
-							  local_caches".$user_id.".type AS cache_type,
+							  local_caches.wp_oc AS wp_name,
+							  local_caches.type AS cache_type,
 							  cache_type.icon_small AS cache_icon_small,
 							  log_types.icon_small AS icon_small,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
 							COUNT(gk_item.id) AS geokret_in
 							FROM 
-								(local_caches".$user_id." INNER JOIN cache_logs ON (local_caches".$user_id.".cache_id = cache_logs.cache_id)) 
+								(local_caches INNER JOIN cache_logs ON (local_caches.cache_id = cache_logs.cache_id)) 
 								INNER JOIN user ON (cache_logs.user_id = user.user_id) 
 								INNER JOIN log_types ON (cache_logs.type = log_types.id) 
-								INNER JOIN cache_type ON (local_caches".$user_id.".type = cache_type.id) 
+								INNER JOIN cache_type ON (local_caches.type = cache_type.id) 
 								LEFT JOIN `cache_rating` ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
-								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches".$user_id.".wp_oc)
+								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
 								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5)
 							WHERE	cache_logs.deleted=0 
@@ -740,33 +740,7 @@ $rsll = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 		}
 		tpl_set_var('new_logs',$file_content);
 			mysql_free_result($rsl);
-			
-					// news
-		require($stylepath . '/news.inc.php');
-		$newscontent ="<br />";
-		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE datediff(now(), news.date_posted) <= 62 AND `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
-	
-	if (mysql_num_rows($rs)!=0) {
-			$newscontent .= $tpl_newstopic_header;
-		}	
-
-
-		while ($r = sql_fetch_array($rs))
-		{
-		$news= '<div class="logs" style="width: 750px;">'.$tpl_newstopic_without_topic;
-			$post_date = strtotime($r['date']);	
-			$news = mb_ereg_replace('{date}', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $post_date), ENT_COMPAT, 'UTF-8')), $news);
-			$news = mb_ereg_replace('{message}', $r['content'], $news);			
-			$newscontent .= $news . "</div>\n";
-		}
-	if (mysql_num_rows($rs)!=0) {
-			tpl_set_var('display_news', $newscontent);
-		} else {
-	
-		tpl_set_var('display_news','');}
-
-		mysql_free_result($rs);
-		$newscontent = '';
+				
 				
 	}	
 }
