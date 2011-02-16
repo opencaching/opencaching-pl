@@ -235,6 +235,14 @@ $menu = array(
 		'newwindow' => 'true'
 	),
 	array(
+		'title' => 'GeoCoin',
+		'menustring' => 'OpenGeoCoin',
+		'siteid' => 'GeoCoin',
+		'visible' => true,
+		'filename' => 'http://opengeocoin.org/pl/',
+		'newwindow' => 'true'
+	),
+	array(
 		'title' => Download,
 		'menustring' => Download,
 		'siteid' => 'Download',
