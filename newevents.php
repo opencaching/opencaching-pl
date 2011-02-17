@@ -29,6 +29,14 @@
 		$tplname = 'newevents';
 //		require('tpl/stdstyle/newcaches.inc.php');
 		require($stylepath . '/newcaches.inc.php');
+
+function cmp($a, $b)
+{
+    $a = preg_replace('@^(a|an|the) @', '', $a);
+    $b = preg_replace('@^(a|an|the) @', '', $b);
+    return strcasecmp($a, $b);
+}
+
 	        function cleanup_text($str)
         {
           $str = strip_tags($str, "<li>");
@@ -114,7 +122,7 @@
 			'icon_large' => $record['icon_large']
 		);
 	}
-//	uksort($newcaches, 'cmp');
+	uksort($newcaches, 'cmp');
 
 
 	if (isset($newcaches))
