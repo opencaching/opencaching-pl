@@ -106,6 +106,13 @@ $menu = array(
 			'siteid' => 'newlogs'
 			),
 			array(
+			'title' => tr('incomming_events'),
+			'menustring' => tr('incomming_events'),
+			'visible' => true,
+			'filename' => 'newevents.php',
+			'siteid' => 'newevents'
+			),
+			array(
 				'title' => tr('cache_map'),
 				'menustring' => tr('cache_map'),
 				'siteid' => 'cachemap3',
