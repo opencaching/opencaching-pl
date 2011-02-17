@@ -37,6 +37,33 @@ function cmp($a, $b)
     return strcasecmp($a, $b);
 }
 
+function mycmp ($a, $b)
+
+{
+
+    // Funkcja `strcoll' to ta, która pojawiła się w omawianym
+
+    // sposobie polskiego sortowania (patrz manual).
+
+
+
+    // Porównujemy tylko pierwszą kolumnę.
+
+    return (strcoll($a[0], $b[0]));
+
+
+
+    // Funkcja `strcoll' jest `case sensitive', czyli rozróżnia znaki,
+
+    // więc jeśli nie chcemy `case insensitive', trzeba napisać tak:
+
+    /*
+
+    return (strcoll(strtolower($a[0]), strtolower($b[0])));
+
+    */
+
+}
 	        function cleanup_text($str)
         {
           $str = strip_tags($str, "<li>");
@@ -122,7 +149,7 @@ function cmp($a, $b)
 			'icon_large' => $record['icon_large']
 		);
 	}
-	uksort($newcaches, 'cmp');
+	uksort($newcaches, 'mycmp');
 
 
 	if (isset($newcaches))
