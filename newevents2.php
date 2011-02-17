@@ -29,13 +29,12 @@
 		$tplname = 'newevents2';
 //		require('tpl/stdstyle/newcaches.inc.php');
 		require($stylepath . '/newcaches.inc.php');
-
+  setlocale(LC_COLLATE, 'pl_PL');
 function cmp($a, $b)
-{
-    $a = preg_replace('@^(a|an|the) @', '', $a);
-    $b = preg_replace('@^(a|an|the) @', '', $b);
-    return strcasecmp($a, $b);
-}
+   {
+    return strcoll($a[0], $b[0]);
+   }
+
 
 function mycmp ($a, $b)
 
@@ -131,7 +130,7 @@ function mycmp ($a, $b)
 						AND `caches`.`user_id`=`user`.`user_id` 
 						AND `caches`.`type`=`cache_type`.`id` 
 						AND `caches`.`status` = 1  AND `caches`.`type`=6
-						ORDER BY `caches`.`date_hidden` ASC
+						ORDER BY `caches`.`date_hidden` ASC,cache_location.adm3 COLLATE utf8_polish_ci ASC  
 						LIMIT ' . ($startat+0) . ', ' . ($perpage+0));
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -149,7 +148,9 @@ function mycmp ($a, $b)
 			'icon_large' => $record['icon_large']
 		);
 	}
-	uksort($newcaches, 'mycmp');
+   setlocale(LC_COLLATE, 'pl_PL');
+
+//	uksort($newcaches, 'cmp');
 
 
 	if (isset($newcaches))
