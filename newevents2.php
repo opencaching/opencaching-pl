@@ -126,7 +126,7 @@
 			$content .= $cache_location;
 			foreach ($state_record AS $cache_record)
 			{
-
+				$file_content ='';
 				$file_content .= '<tr>';
 				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($cache_record['date'])) . '</td>';			
 				$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($cache_record['icon_large']) . '" border="0" alt=""/></td>';
@@ -161,10 +161,10 @@
 				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
 				$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
-		} 
-$file_content .= "</tr>";
-
-}		$content .= $file_content . "\n";
+		} else { $file_content .= '<td style="width: 80px;">&nbsp;</td><td width="22">&nbsp;</td><td>&nbsp;</td>';}
+		$file_content .=  "</tr>";
+		$content .=$file_content;
+		}	
 		}}
 
 		mysql_free_result($rs_log);
