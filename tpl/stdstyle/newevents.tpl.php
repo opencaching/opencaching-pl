@@ -5,33 +5,26 @@
 
 	***************************************************************************/
 ?>
+<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Cache" title="Cache" align="middle"/>&nbsp;{{incomming_events}}</div>
 <!-- Text container -->
-	<p>
-		{pages}
-	</p>
+<p>&nbsp;</p>
 <div class="searchdiv">
-<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="97%">
+<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
 <tr>
-<td><strong>Data</strong></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td colspan="2"><strong>{{date_hidden_label}}</strong></td>
 <td><strong>{{event}}</strong></td>
-<td>&nbsp;</td>
-<td><strong>{{owner}}</strong></td>
+<td><strong>{{owner}}</strong>&nbsp;&nbsp;&nbsp;</td>
+<td colspan="3"><strong>{{latest_logs}}</strong></td>
 </tr>
 <tr>
-<td colspan="8"><hr></hr></td>
+<td colspan="7"><hr></hr></td>
 </tr>
-		{newcaches}
+		{file_content}
 <tr>
-<td colspan="8"><hr></hr></td>
+<td colspan="7"><hr></hr></td>
 </tr>
 </table>
 </div>
-	<p>
-		{pages}
-	</p>
+
 <!-- End Text Container -->
