@@ -29,6 +29,14 @@
 		$tplname = 'newevents2';
 //		require('tpl/stdstyle/newcaches.inc.php');
 		require($stylepath . '/newcaches.inc.php');
+
+function cmp($a, $b)
+{
+    $a = preg_replace('@^(a|an|the) @', '', $a);
+    $b = preg_replace('@^(a|an|the) @', '', $b);
+    return strcasecmp($a, $b);
+}
+
 	        function cleanup_text($str)
         {
           $str = strip_tags($str, "<li>");
