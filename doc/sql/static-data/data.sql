@@ -56,7 +56,9 @@ INSERT INTO `cache_attrib` (`id`, `language`, `text_short`, `text_long`, `icon_l
 (85, 'PL', 'Dostępna rowerem', 'Dostępna rowerem', 'images/attributes/bike.png', 'images/attributes/bike-no.png', 'images/attributes/bike-undef.png', 1, 0),
 (85, 'EN', 'Bike', 'Bike', 'images/attributes/bike.png', 'images/attributes/bike-no.png', 'images/attributes/bike-undef.png', 1, 0),
 (86, 'PL', 'Wymagana łódź', 'Dostępna tylko łodzią', 'images/attributes/boat.png', 'images/attributes/boat-no.png', 'images/attributes/boat-undef.png', 1, 0),
-(86, 'EN', 'Boat', 'Boat', 'images/attributes/boat.png', 'images/attributes/boat-no.png', 'images/attributes/boat-undef.png', 1, 0);
+(86, 'EN', 'Boat', 'Boat', 'images/attributes/boat.png', 'images/attributes/boat-no.png', 'images/attributes/boat-undef.png', 1, 0),
+(56, 'PL', 'Letterbox', 'Letterbox', 'images/attributes/letterbox.png', 'images/attributes/letterbox-no.png', 'images/attributes/letterbox-undef.png', 1, 0),
+(56, 'EN', 'Letterbox', 'Letterbox', 'images/attributes/letterbox.png', 'images/attributes/letterbox-no.png', 'images/attributes/letterbox-undef.png', 1, 0);
 
 --
 -- Zrzut danych tabeli `cache_size`
