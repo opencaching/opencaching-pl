@@ -29,6 +29,47 @@
 		$tplname = 'newevents';
 //		require('tpl/stdstyle/newcaches.inc.php');
 		require($stylepath . '/newcaches.inc.php');
+	        function cleanup_text($str)
+        {
+          $str = strip_tags($str, "<li>");
+	      $from[] = '&nbsp;'; $to[] = ' ';
+          $from[] = '<p>'; $to[] = '';
+         $from[] = '\n'; $to[] = '';
+         $from[] = '\r'; $to[] = '';
+          $from[] = '</p>'; $to[] = "";
+          $from[] = '<br>'; $to[] = "";
+          $from[] = '<br />'; $to[] = "";
+    	 $from[] = '<br/>'; $to[] = "";
+            
+          $from[] = '<li>'; $to[] = " - ";
+          $from[] = '</li>'; $to[] = "";
+          
+          $from[] = '&oacute;'; $to[] = 'o';
+          $from[] = '&quot;'; $to[] = '"';
+          $from[] = '&[^;]*;'; $to[] = '';
+          
+          $from[] = '&'; $to[] = '';
+          $from[] = '\''; $to[] = '';
+          $from[] = '"'; $to[] = '';
+          $from[] = '<'; $to[] = '';
+          $from[] = '>'; $to[] = '';
+          $from[] = '('; $to[] = ' -';
+          $from[] = ')'; $to[] = '- ';
+          $from[] = ']]>'; $to[] = ']] >';
+	 $from[] = ''; $to[] = '';
+              
+          for ($i = 0; $i < count($from); $i++)
+            $str = str_replace($from[$i], $to[$i], $str);
+                                 
+          return filterevilchars($str);
+        }
+        
+	
+        function filterevilchars($str)
+	{
+		return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
+	}
+
 
 		$startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
 		$startat = $startat + 0;
@@ -38,6 +79,7 @@
 
 		$content = '';
 		$cache_location='';
+		$file_content ='';
 		$rs = sql('SELECT `caches`.`cache_id` `cacheid`, 
 							`user`.`user_id` `userid`, 
 							`caches`.`country` `country`, 
@@ -84,17 +126,22 @@
 			$content .= $cache_location;
 			foreach ($state_record AS $cache_record)
 			{
-
-			$thisline = $tpl_line;
+				$file_content ='';
+				$file_content .= '<tr>';
+				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($cache_record['date'])) . '</td>';			
+				$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($cache_record['icon_large']) . '" border="0" alt=""/></td>';
+				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($cache_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+				$file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($cache_record['userid'], ENT_COMPAT, 'UTF-8') . '">' .htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 
 	$rs_log = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
+				cache_logs.text AS log_text,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
-				log_types.icon_small AS icon_small, COUNT(gk_item.id) AS geokret_in
-			FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN log_types ON (cache_logs.type = log_types.id)
-							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
-							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5				
+ 				user.username AS user_name,
+				cache_logs.user_id AS luser_id,
+				user.user_id AS user_id,
+				log_types.icon_small AS icon_small
+				FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id)		
 			WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1
 			 GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1",$cache_record['cache_id']);
 
@@ -102,34 +149,27 @@
 			{
 			$r_log = sql_fetch_array($rs_log);
 			
-			
-			$thisline = mb_ereg_replace('{log_image}','<img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt="" />',$thisline);
-			} else {
-			$thisline = mb_ereg_replace('{log_image}','&nbsp;', $thisline); }
+				$file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("Y-m-d", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
 
-			if ( $r_log['geokret_in'] !=0)
-					{ 	
-			$thisline = mb_ereg_replace('{gkimage}','&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" />', $thisline);
-					}
-					else
-					{
-			$thisline = mb_ereg_replace('{gkimage}','&nbsp;', $thisline);
-					}				
+				$file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\''; 
 
-			$thisline = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $thisline);
-			$thisline = mb_ereg_replace('{userid}', $cache_record['userid'], $thisline);
-			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
-			$thisline = mb_ereg_replace('{username}', htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
-			$thisline = mb_ereg_replace('{date}', date('Y-m-d', strtotime($cache_record['date'])), $thisline);
-			$thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
-			$thisline = mb_ereg_replace('{region}', "", $thisline);
-			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($cache_record['icon_large']), $thisline);
-		$thisline = mb_ereg_replace('{country_name}', htmlspecialchars($rr['country_name'], ENT_COMPAT, 'UTF-8'), $thisline);		
-		$content .= $thisline . "\n";
-			mysql_free_result($rs_log);
-		} }}
+				$file_content .= '<b>'.$r_log['user_name'].'</b>:&nbsp;';
+
+				$data = cleanup_text(str_replace("\r\n", " ", $r_log['log_text']));
+				$data = str_replace("\n", " ",$data);
+				$file_content .=$data;
+				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
+				$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+
+		} else { $file_content .= '<td style="width: 80px;">&nbsp;</td><td width="22">&nbsp;</td><td>&nbsp;</td>';}
+		$file_content .=  "</tr>";
+		$content .=$file_content;
+		}	
+		}}
+
+		mysql_free_result($rs_log);
 		mysql_free_result($rs);
-		tpl_set_var('newcaches', $content);
+		tpl_set_var('file_content', $content);
 
 		$rs = sql('SELECT COUNT(*) `count` FROM `caches` WHERE type=6 AND status=1');
 		$r = sql_fetch_array($rs);
