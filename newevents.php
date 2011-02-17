@@ -122,7 +122,7 @@
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{date}', date('m/d/Y', strtotime($cache_record['date'])), $thisline);
 			$thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
-			$thisline = mb_ereg_replace('{state}', "", $thisline);
+			$thisline = mb_ereg_replace('{region}', "", $thisline);
 			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($cache_record['icon_large']), $thisline);
 		$thisline = mb_ereg_replace('{country_name}', htmlspecialchars($rr['country_name'], ENT_COMPAT, 'UTF-8'), $thisline);		
 		$content .= $thisline . "\n";
