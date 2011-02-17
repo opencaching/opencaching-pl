@@ -114,7 +114,7 @@
 			'icon_large' => $record['icon_large']
 		);
 	}
-//	uksort($newcaches, 'cmp');
+	uksort($newcaches, 'cmp');
 
 
 	if (isset($newcaches))
