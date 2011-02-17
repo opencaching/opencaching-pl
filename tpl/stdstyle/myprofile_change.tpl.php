@@ -106,6 +106,7 @@
 			°&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
 			{lon_message}
 		</filedset>
+		<div class="notice" style="width:500px;height:44px;">OC PL wykorzystuje współrzędne aby obliczyć odległość do skrzynek, na mapach, które są dostępne publicznie. Jesli obawiasz sie upubliczniania współrzędnych, podaj współrzędne lokalnego puba lub po prostu wpisz kilka ostatnich cyfr jako zera.</div>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
