@@ -42,7 +42,7 @@ map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), {mapzoom});
 <span style="font-size: 13px;">
 Na mapie możesz poszukać w Twojej okolicy czy jest jakiś geocacher który oferuje swoją pomoc innym jako Przewodnik geocachingu, który był aktywny przez ostatnie 90 dni.
 <br/><br/>
-Przewodnik Geocaching może:
+Przewodnik po geocaching'u może:
 <ul>
     <li> Pomóc dowiedzieć się więcej o geocachingu,</li>
     <li> Pomóc jak rejestrować / szukać skrzynek na serwisie OC PL,</li>
