@@ -37,18 +37,18 @@ map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), 8);
     }
 
 </script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{cacheguru}}</div>
-Geocachers who are new to geocaching, future geocachers who are interested but don't know how to go about getting started or people who are interested in talking about geocaching can be easily confused by the amount of information out there and it's not always easy to get a simple understanding of geocaching.
-
-Here you can search for your closest Geocaching Guide / Guru who has been active within the last 90 days and make contact with them to help you understand more of the fun of geocaching.
-
-A Geocaching Guide / Guru is willing to:
-
-    * Help you find out more about geocaching.
-    * Help you understand how to go about finding and/or hiding caches as well as logging caches at Geocaching.com and Geocaching Australia.
-    * Get out in the field and let you see what's it's all about by letting you 'follow the arrow', 'do the circle dance' and 'get down and dirty'.
-
-Contacting a Geocaching Guide / Guru is a more than just an email or phone conversation. It's also about getting out there and getting all physical. 
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/guru.png" class="icon32" alt="" />&nbsp;{{cacheguru}}</div>
+<div><span style="font-size: 13px;">
+Na mapie możesz poszukać w Twojej okolicy czy jest jakiś geocacher który oferuje swoją pomoc innym jak Przewodnik / Guru.
+<br/><br/>
+Przewodnik / Guru Geocaching może:
+<ul>
+    <li> Pomóc dowiedzieć się więcej geocachingu,</li>
+    <li> Pomóc jak rejestrować / szukać skrzynek na serwisie OC PL,</li>
+    <li> Pomoże w terenie zobaczyć o co w tym wszystkim chodzi, jak szukać, jak dobrze ukryć itd.</li>
+</ul></br>
+Możesz skontaktować sie z Przewdonikiem / Guru via Email i umówić się na spotkanie. <br/><br/>
+<span></div>
 <div class="searchdiv">
 <center>
 <div style="width:703px;border: 2px solid navy; padding:3px;">
