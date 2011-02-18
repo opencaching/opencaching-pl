@@ -56,12 +56,9 @@ global $get_userid;
 }
 	
 			$rscp = sql("SELECT `user`.`latitude` `latitude`,`user`.`longitude` `longitude`,`user`.`username` `username`,
-					`user`.`user_id` `userid` FROM `cache_logs`,`user` WHERE `user`.`guru`!=0 AND (`cache_logs`.`type`=1 AND `cache_logs`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY)) AND `user`.`longitude` IS NOT NULL AND `user`.`latitude` IS NOT NULL GROUP BY user.username");
+					`user`.`user_id` `userid` FROM `cache_logs`,`user` WHERE `user`.`guru`!=0 AND `cache_logs`.`type`=1 AND `cache_logs`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY) AND `user`.`longitude` IS NOT NULL AND `user`.`latitude` IS NOT NULL GROUP BY user.username");
 
-/*
-SELECT `user`.`latitude` `latitude`,`user`.`longitude` `longitude`,`user`.`username` `username`,
-					`user`.`user_id` `userid` FROM `cache_logs`,`user` WHERE `user`.`guru`!=0 AND `cache_logs`.`type`=1 AND `cache_logs`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY) AND `user`.`longitude` IS NOT NULL AND `user`.`latitude` IS NOT NULL GROUP BY .username
-*/
+
 			$point="";
 			$nrows=mysql_num_rows($rscp);
 			for ($i = 0; $i < mysql_num_rows($rscp); $i++)
@@ -72,11 +69,10 @@ SELECT `user`.`latitude` `latitude`,`user`.`longitude` `longitude`,`user`.`usern
 				$x=$record['latitude'];
 
 			$point .=" var point = new GLatLng(" . $x . "," . $y . ");\n";
-			$icon="icon1";
 			$number=$i+1;
-			$point .="var marker".$number." = new GMarker(point,".$icon."); map0.addOverlay(marker".$number.");\n\n";
+			$point .="var marker".$number." = new GMarker(point,icon1); map0.addOverlay(marker".$number.");\n\n";
 
-			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<br/><span style=\"font-size:12px;color:blue;\"><table><tr><td><img src=\"tpl/stdstyle/images/free_icons/book_open.png\" alt=\"img\"> <b>Przewodnik/Guru: <a href=\"viewprofile.php?userid=".$record['userid']."\">".$username."</a></td></tr><tr><td><img src=\"tpl/stdstyle/images/free_icons/email.png\" alt=\"img\"><b> Kontakt: <a href=\"mailto.php?userid=".$record['userid']."\">Napisz E-mail</a></b></td></tr></table></span>');});\n bounds.extend(point);\n";
+			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<br/><span style=\"font-size:12px;color:blue;\"><table><tr><td><img src=\"tpl/stdstyle/images/free_icons/book_open.png\" alt=\"img\"> <b>Przewodnik/Guru: <a href=\"viewprofile.php?userid=".$record['userid']."\">".$username."</a></td></tr><tr><td><img src=\"tpl/stdstyle/images/free_icons/email.png\" alt=\"img\"><b> Kontakt: <a href=\"mailto.php?userid=".$record['userid']."\">Napisz E-mail</a></b></td></tr></table></span>');});\n";
 			}
 
 		tpl_set_var('points', $point);	
