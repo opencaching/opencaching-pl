@@ -1,12 +1,4 @@
 <?php
-/***************************************************************************
-											./tpl/stdstyle/myprofile.tpl.php
-															-------------------
-		begin                : Mon June 14 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
 /***************************************************************************
 	*
@@ -21,30 +13,6 @@
 
    Unicode Reminder ??
 
-	 the users profile page
-
-	 template replacement(s):
-
-	   username
-	   email
-	   countrylist          list of countries
-	   latNsel
-	   latSsel
-	   lonEsel
-	   lonWsel
-	   lat_h
-	   lat_min
-	   lon_h
-	   lon_min
-	   pmr_sel
-	   registered_since
-	   username_message
-	   lat_message
-	   lon_message
-	   reset
-	   change_data
-	   allcountriesbutton
-	   show_all_countries
 
  ****************************************************************************/
 ?>
