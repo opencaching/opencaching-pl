@@ -145,7 +145,7 @@ $menu = array(
 					'menustring' => tr('recommended_caches'),
 					'visible' => true,
 					'onlylogged' => true,
-					'filename' => 'newcacherating.php',
+					'filename' => 'cacheratings.php',
 					'siteid' => 'ratings'
 			),
 			array(
