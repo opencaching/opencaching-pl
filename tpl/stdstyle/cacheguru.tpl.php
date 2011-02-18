@@ -29,7 +29,7 @@ var map0 = new GMap2(document.getElementById("map0"));
 map0.addControl(new GSmallMapControl());
 map0.addControl(new GMapTypeControl());
 
-map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), 8);
+map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), {mapzoom});
  
 
 {points}
