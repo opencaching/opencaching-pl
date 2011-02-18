@@ -250,8 +250,8 @@ $menu = array(
 		'newwindow' => 'true'
 	),
 	array(
-		'title' => Download,
-		'menustring' => Download,
+		'title' => 'Download',
+		'menustring' => 'Download',
 		'siteid' => 'Download',
 		'visible' => true,
 		'filename' => 'http://wiki.opencaching.pl/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL',
@@ -278,6 +278,13 @@ $menu = array(
 		'filename' => 'articles.php?page=contact',
 		'menustring' => tr('contact'),
 		'siteid' => 'articles/contact'
+	),
+	array(
+		'title' => tr('guru'),
+		'menustring' => tr('guru'),
+		'visible' => false,
+		'filename' => 'cacheguru.php',
+		'siteid' => 'guru'
 	),
 	array(
 		'title' => tr('clipboard'),
