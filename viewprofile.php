@@ -126,15 +126,19 @@
 				tpl_set_var('description_end', '-->');
 			}
 			$pimage='profile';
+			$pinfo="OC user";
 			if( $user_record['guru'] ==1)
 			{
 				$pimage='guru-p';
+				$pinfo="Przewodnik/Guru";
 			}
 			if( $user_record['admin'] ==1)
 			{
 			$pimage='guru-g';
+			$pinfo="OC Team user";
 			}
-			tpl_set_var('profile_img', $pimage);			
+			tpl_set_var('profile_img', $pimage);
+			tpl_set_var('profile_info', $pinfo);			
 	/* set last_login to one of 5 categories
 	 *   1 = this month or last month
 	 *   2 = between one and 6 months
