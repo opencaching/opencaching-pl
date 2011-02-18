@@ -44,7 +44,7 @@ Na mapie możesz poszukać w Twojej okolicy czy jest jakiś geocacher który ofe
 <br/><br/>
 Przewodnik / Guru Geocaching może:
 <ul>
-    <li> Pomóc dowiedzieć się więcej geocachingu,</li>
+    <li> Pomóc dowiedzieć się więcej o geocachingu,</li>
     <li> Pomóc jak rejestrować / szukać skrzynek na serwisie OC PL,</li>
     <li> Pomoże w terenie zobaczyć o co w tym wszystkim chodzi, jak szukać, jak dobrze ukryć itd.</li>
 </ul></br>
