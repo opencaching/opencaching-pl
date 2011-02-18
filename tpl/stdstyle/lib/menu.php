@@ -282,7 +282,7 @@ $menu = array(
 	array(
 		'title' => tr('guru'),
 		'menustring' => tr('guru'),
-		'visible' => false,
+		'visible' => true,
 		'filename' => 'cacheguru.php',
 		'siteid' => 'guru'
 	),
