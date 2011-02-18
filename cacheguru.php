@@ -43,15 +43,17 @@ global $get_userid;
 	$uLat = sqlValue("SELECT `user`.`latitude`  FROM `user` WHERE `user_id`='".sql_escape($usr[userid]) ."'", 0);
 	$uLon = sqlValue("SELECT `user`.`longitude`  FROM `user` WHERE `user_id`='". sql_escape($usr[userid]) ."'",0);
 
-	if ($uLat!="" && $uLon!="") {	
-	tpl_set_var('mapzoom', 8);
-	tpl_set_var('mapcenterLat', $uLat);
-	tpl_set_var('mapcenterLon', $uLon);
-	} else {
+	if (($uLat==NULL || $uLat==0) && ($uLon==NULL || $uLon==0)) {
 	
 	tpl_set_var('mapzoom', 6);
 	tpl_set_var('mapcenterLat', 52.057);
-	tpl_set_var('mapcenterLon', 19.07);}
+	tpl_set_var('mapcenterLon', 19.07);	
+
+	} else {
+	tpl_set_var('mapzoom', 8);
+	tpl_set_var('mapcenterLat', $uLat);
+	tpl_set_var('mapcenterLon', $uLon);
+}
 	
 			$rscp = sql("SELECT `user`.`latitude` `latitude`,`user`.`longitude` `longitude`,`user`.`username` `username`,
 					`user`.`user_id` `userid` FROM `cache_logs`,`user` WHERE `user`.`guru`!=0 AND (`cache_logs`.`type`=1 AND `cache_logs`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY)) AND `user`.`longitude` IS NOT NULL AND `user`.`latitude` IS NOT NULL GROUP BY user.username");
