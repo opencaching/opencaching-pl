@@ -72,7 +72,7 @@ global $get_userid;
 			$number=$i+1;
 			$point .="var marker".$number." = new GMarker(point,icon1); map0.addOverlay(marker".$number.");\n\n";
 
-			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<br/><span style=\"font-size:12px;color:blue;\"><table><tr><td><img src=\"tpl/stdstyle/images/free_icons/book_open.png\" alt=\"img\"> <b>Przewodnik/Guru: <a href=\"viewprofile.php?userid=".$record['userid']."\">".$username."</a></td></tr><tr><td><img src=\"tpl/stdstyle/images/free_icons/email.png\" alt=\"img\"><b> Kontakt: <a href=\"mailto.php?userid=".$record['userid']."\">Napisz E-mail</a></b></td></tr></table></span>');});\n";
+			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<br/><span style=\"font-size:12px;color:blue;\"><table><tr><td><img src=\"tpl/stdstyle/images/free_icons/book_open.png\" alt=\"img\"> <b>Przewodnik: <a href=\"viewprofile.php?userid=".$record['userid']."\">".$username."</a></td></tr><tr><td><img src=\"tpl/stdstyle/images/free_icons/email.png\" alt=\"img\"><b> Kontakt: <a href=\"mailto.php?userid=".$record['userid']."\">Napisz E-mail</a></b></td></tr></table></span>');});\n";
 			}
 
 		tpl_set_var('points', $point);	

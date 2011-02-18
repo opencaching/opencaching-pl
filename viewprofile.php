@@ -130,7 +130,7 @@
 			if( $user_record['guru'] ==1)
 			{
 				$pimage='guru-p';
-				$pinfo="Przewodnik/Guru";
+				$pinfo="Przewodnik";
 			}
 			if( $user_record['admin'] ==1)
 			{
