@@ -107,7 +107,7 @@
 	  $ddays = mysql_fetch_array($rdd);
 	  mysql_free_result($rdd);
 
-	$rsGeneralStat =sql("SELECT hidden_count, founds_count, is_active_flag,email, password,log_notes_count, notfounds_count, username, last_login, countries.pl country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1",$user_id);
+	$rsGeneralStat =sql("SELECT admin,guru,hidden_count, founds_count, is_active_flag,email, password,log_notes_count, notfounds_count, username, last_login, countries.pl country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1",$user_id);
 
 			$user_record = sql_fetch_array($rsGeneralStat);
 			tpl_set_var('username',$user_record['username']);
@@ -126,6 +126,15 @@
 				tpl_set_var('description_end', '-->');
 			}
 			
+			if( $user_record['guru'] ==1 || $user_record['admin']==1)
+			{
+				tpl_set_var('profile_img', 'guru-p');
+			}
+			else
+			{
+				tpl_set_var('profile_img', 'profile');
+			}
+				
 	/* set last_login to one of 5 categories
 	 *   1 = this month or last month
 	 *   2 = between one and 6 months
