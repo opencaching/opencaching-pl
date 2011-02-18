@@ -39,7 +39,7 @@ map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), 8);
 </script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/guru.png" class="icon32" alt="" />&nbsp;{{cacheguru}}</div>
 <div><span style="font-size: 13px;">
-Na mapie możesz poszukać w Twojej okolicy czy jest jakiś geocacher który oferuje swoją pomoc innym jak Przewodnik / Guru.
+Na mapie możesz poszukać w Twojej okolicy czy jest jakiś geocacher który oferuje swoją pomoc innym jak Przewodnik / Guru który był aktywny przez ostatnie 90 dni.
 <br/><br/>
 Przewodnik / Guru Geocaching może:
 <ul>
@@ -47,7 +47,7 @@ Przewodnik / Guru Geocaching może:
     <li> Pomóc jak rejestrować / szukać skrzynek na serwisie OC PL,</li>
     <li> Pomoże w terenie zobaczyć o co w tym wszystkim chodzi, jak szukać, jak dobrze ukryć itd.</li>
 </ul></br>
-Możesz skontaktować sie z Przewdonikiem / Guru via Email i umówić się na spotkanie. <br/><br/>
+Możesz skontaktować sie z Przewodnikiem / Guru via Email i umówić się na spotkanie. <br/><br/>
 <span></div>
 <div class="searchdiv">
 <center>
