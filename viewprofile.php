@@ -125,16 +125,16 @@
 				tpl_set_var('description_start', '<!--');
 				tpl_set_var('description_end', '-->');
 			}
-			
-			if( $user_record['guru'] ==1 || $user_record['admin']==1)
+			$pimage='profile';
+			if( $user_record['guru'] ==1)
 			{
-				tpl_set_var('profile_img', 'guru-p');
+				$pimage='guru-p';
 			}
-			else
+			if( $user_record['admin'] ==1)
 			{
-				tpl_set_var('profile_img', 'profile');
+			$pimage='guru-g';
 			}
-				
+			tpl_set_var('profile_img', $pimage);			
 	/* set last_login to one of 5 categories
 	 *   1 = this month or last month
 	 *   2 = between one and 6 months
