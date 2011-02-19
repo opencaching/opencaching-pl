@@ -12,7 +12,7 @@
 /****************************************************************************
 
    Unicode Reminder ??
-
+	
 
  ****************************************************************************/
 ?>
@@ -55,10 +55,10 @@
 {guide_start}
 	<tr><td class="buffer" colspan="2"></td></tr>
 		<tr>
-		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{guru}}:</td>
+		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{guide}}:</td>
 		<td class="txt-grey07" valign="middle">
-			<input type="checkbox" name="guide" id="guide" value="0" {is_checked_guide} class="checkbox" />
-			<label for="bulletin">Tak, chcę zostać woluntariuszem Przewdonikiem geocachingu dla początkujących. Patrz: <a class="links" href="cacheguides.php">Przewodnicy"</a></label>&nbsp;
+			<input type="checkbox" name="guide" id="guide" value="1" {guide_sel} class="checkbox" />
+			<label for="bulletin">Tak, chcę zostać woluntariuszem Przewdonikiem geocachingu dla początkujących. Patrz: <a class="links" href="cacheguides.php">Przewodnicy</a></label>&nbsp;
 			&nbsp;<br />
 		</td>
 	</tr>
@@ -147,9 +147,10 @@
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td colspan="2">
-			<input type="reset" name="reset" value="{{reset}}" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submit" value="{{change}}" style="width:120px"/>
+				<button type="submit" name="submit" value="{{change}}" style="font-size:14px;width:160px"><b>{{change}}</b></button>
+	
 		</td>
 	</tr>
 </form>
 </table>
+<br/><br/>

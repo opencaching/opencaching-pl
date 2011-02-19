@@ -80,7 +80,7 @@
 			$record = sql_fetch_array($rsnc);
 			$num_caches = $record['num_caches'];
 
-			if ($num_caches==5 && $num_find_caches==5){
+			if ($num_caches>=5 && $num_find_caches>=5){
 					tpl_set_var('guide_start', '');
 					tpl_set_var('guide_end', '');		
 					} else {
@@ -123,7 +123,23 @@
 					//display the change form
 					$tplname = 'myprofile_change';
 					require_once($stylepath . '/myprofile_change.inc.php');
+			// check user can set as Geocaching guide
+			$rsnfc = sql("SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches FROM cache_logs,caches WHERE cache_logs.cache_id=caches.cache_id AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7') AND cache_logs.type='1' AND cache_logs.deleted='0' AND `cache_logs`.`user_id` = ".sql_escape($usr['userid'])."");
+			$rec = sql_fetch_array($rsnfc);
+			$num_find_caches = $rec['num_fcaches'];
 
+			$rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
+										AND status = 1 ");
+			$record = sql_fetch_array($rsnc);
+			$num_caches = $record['num_caches'];
+
+			if ($num_caches>=5 && $num_find_caches>=5){
+					tpl_set_var('guide_start', '');
+					tpl_set_var('guide_end', '');		
+					} else {
+					tpl_set_var('guide_start', '<!--');
+					tpl_set_var('guide_end', '-->');
+					}
 					if (isset($_POST['submit']) || isset($_POST['submit_all_countries']))
 					{
 						//load datas from form
@@ -153,7 +169,15 @@
 						{
 							tpl_set_var('pmr_sel', '');
 						}
-
+						$guide = isset($_POST['guide']) ? (int)$_POST['guide'] : 0;
+						if ($guide == 1)
+						{
+							tpl_set_var('guide_sel', ' checked="checked"');
+						}
+						else
+						{
+							tpl_set_var('guide_sel', '');
+						}
 						$no_htmledit = isset($_POST['no_htmledit']) ? (int)$_POST['no_htmledit'] : 0;
 						if ($no_htmledit == 1)
 						{
@@ -361,7 +385,7 @@
 								$radius_not_ok))
 							{
 								//in DB updaten
-								sql("UPDATE `user` SET `username`='&1', `last_modified`=NOW(), `latitude`='&2', `longitude`='&3', `pmr_flag`='&4', `country`='&5', `permanent_login_flag`='&6', `no_htmledit_flag`='&8' , `notify_radius`='&9', `ozi_filips`='&10' WHERE `user_id`='&7'", $username, $latitude, $longitude, $using_pmr, $country, $using_permantent_login, $usr['userid'], $no_htmledit, $radius, $ozi_path);
+								sql("UPDATE `user` SET `username`='&1', `last_modified`=NOW(), `latitude`='&2', `longitude`='&3', `pmr_flag`='&4', `country`='&5', `permanent_login_flag`='&6', `no_htmledit_flag`='&8' , `notify_radius`='&9', `ozi_filips`='&10',`guru`='&11' WHERE `user_id`='&7'", $username, $latitude, $longitude, $using_pmr, $country, $using_permantent_login, $usr['userid'], $no_htmledit, $radius, $ozi_path,$guide);
 
 								//wieder normal anzeigen
 								$tplname = 'myprofile';
@@ -384,8 +408,12 @@
 					else
 					{
 						//load from database
+			$rs = sql("SELECT `guru`,`username`, `email`, `country`, `latitude`, `longitude`, `date_created`, `pmr_flag`, `permanent_login_flag`, `no_htmledit_flag`, `notify_radius`, `ozi_filips` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
+			$record = sql_fetch_array($rs);
+					
 						$show_all_countries = 0;
 						$country = $record['country'];
+						$guide= $record['guru'];
 						$longitude = $record['longitude'];
 						$latitude = $record['latitude'];
 						$using_pmr = $record['pmr_flag'];
@@ -411,6 +439,14 @@
 							tpl_set_var('pmr_sel', '');
 						}
 
+						if ($guide == 1)
+						{
+							tpl_set_var('guide_sel', ' checked="checked"');
+						}
+						else
+						{
+							tpl_set_var('guide_sel', '');
+						}
 						if ($no_htmledit == 1)
 						{
 							tpl_set_var('no_htmledit_sel', ' checked="checked"');
@@ -471,6 +507,8 @@
 						tpl_set_var('lat_message', '');
 						tpl_set_var('lon_message', '');
 						tpl_set_var('notify_message', '');
+						
+
 					}
 
 					tpl_set_var('lat_h', $lat_h);
