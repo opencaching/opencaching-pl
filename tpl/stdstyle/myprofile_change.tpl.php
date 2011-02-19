@@ -58,12 +58,13 @@
 		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{guide}}:</td>
 		<td  valign="middle">
 			<input type="checkbox" name="guide" id="guide" value="1" {guide_sel} class="checkbox" />
-			<label for="bulletin">Tak, chcę zostać woluntariuszem Przewodnikiem geocachingu dla początkujących. Patrz: <a class="links" href="cacheguides.php">Przewodnicy</a></label>&nbsp;
-			&nbsp;<br />
-			<div class="notice">Pamietaj ustawić poniżej współrzędne bez tego nie będziesz widzany na mapie Przewodników</div>
+			<label for="guide">Tak, chcę zostać woluntariuszem Przewodnikiem geocachingu dla początkujących.<br/> Patrz: więcej na stronie <a class="links" href="cacheguides.php">Przewodnicy</a></label>
 		</td>
 	</tr>
-	{guide_end}
+	<tr><td>&nbsp;</td><td>
+	<div class="notice" style="width:500px;height:44px;">Pamietaj ustawić poniżej współrzędne bez tego nie będziesz widzany na mapie Przewodników</div>
+	</td></tr>
+	{guide_end}			
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{coordinates}}:</td>
