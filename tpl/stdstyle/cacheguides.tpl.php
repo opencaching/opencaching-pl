@@ -49,7 +49,7 @@ Przewodnik po geocaching'u może:
     <li> Pomoże w terenie zobaczyć o co w tym wszystkim chodzi, jak szukać, jak dobrze ukryć itd.</li>
 </ul></br>
 Możesz skontaktować sie z Przewodnikiem via Email i umówić się na spotkanie. <br/><br/>
-Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> woluntariuszy aktywnych Przewodników. <br/>
+Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> aktywnych woluntariuszy Przewodników. <br/>
 <span>
 </div>
 <div class="searchdiv">
