@@ -48,9 +48,8 @@ Przewodnik po geocaching'u może:
     <li> Pomóc jak rejestrować / szukać skrzynek na serwisie OC PL,</li>
     <li> Pomoże w terenie zobaczyć o co w tym wszystkim chodzi, jak szukać, jak dobrze ukryć itd.</li>
 </ul></br>
-Możesz skontaktować sie z Przewodnikiem via Email i umówić się na spotkanie. <br/>
-Obecnie w bazie jest: <font color=blue">{nguides}</font> woluntariuszy aktywnych Przewodników. <br/>
-<br/>
+Możesz skontaktować sie z Przewodnikiem via Email i umówić się na spotkanie. <br/><br/>
+Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> woluntariuszy aktywnych Przewodników. <br/>
 <span>
 </div>
 <div class="searchdiv">
