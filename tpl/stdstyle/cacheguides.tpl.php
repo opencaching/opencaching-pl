@@ -59,7 +59,7 @@ Możesz skontaktować sie z Przewodnikiem via Email i umówić się na spotkanie
 </center>
 </div>
 <div class="searchdiv">
-<span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">Aby zostać woluntariuszem Przewodnikiem po geocaching'u musisz mieć:
+<span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">Aby zostać woluntariuszem Przewodnikiem po geocaching'u musisz spełnić warunek:
 <ul><font color="black">
 <li>5 znalezionych oraz </li>
 <li>5 założonych </li>

@@ -60,6 +60,7 @@
 			<input type="checkbox" name="guide" id="guide" value="1" {guide_sel} class="checkbox" />
 			<label for="bulletin">Tak, chcę zostać woluntariuszem Przewdonikiem geocachingu dla początkujących. Patrz: <a class="links" href="cacheguides.php">Przewodnicy</a></label>&nbsp;
 			&nbsp;<br />
+			<div class="notice">Pamietaj ustawić poniżej współrzędne bez tego nie będziesz widzany na mapie Przewodników</div>
 		</td>
 	</tr>
 	{guide_end}
