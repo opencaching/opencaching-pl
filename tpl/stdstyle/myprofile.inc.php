@@ -28,6 +28,6 @@
 	$using_pmr_message = tr('pmr_message');
 	$using_permantent_login_message = tr('no_auto_logout');
 	$no_htmledit_message = tr('hide_html_editor');
-	$notify_radius_message = tr('notify_new_caches_radius');
+	$notify_radius_message = tr('notify_new_caches_radius').' {radius} km';
 	$no_notify_message = tr('no_new_caches_notification');
 ?>
