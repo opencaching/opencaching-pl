@@ -35,9 +35,9 @@ global $user_id;
 </tr>
 <tr>
 <td colspan="3"><hr></hr></td>
-</tr></table><br />
+</tr></table>
 </div>
-
+{guide_info}
 <div class="nav4">
 <?
 
