@@ -65,8 +65,8 @@ Możesz skontaktować sie z Przewodnikiem via Email i umówić się na spotkanie
 <li>5 założonych </li>
 </font></ul>
 &nbsp;&nbsp;&nbsp;skrzynek z następujących typów: <font color="black">tradycyjna, multicache, quiz, nietypowa</font> i ustawić opcje w swoim <a class="links" href="http://www.opencaching.pl/myprofile.php?action=change">profilu</a>.
-<br/>
-Dziękujemy wszystkim którzy chcą pomagać bezinteresonie innym geocachreom.
+<br/><br/>
+&nbsp;&nbsp;&nbsp;Dziękujemy wszystkim którzy chcą pomagać bezinteresonie innym geocachreom.
 </span></div>
 <br/>
 
