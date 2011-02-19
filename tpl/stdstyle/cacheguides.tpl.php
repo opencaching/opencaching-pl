@@ -65,7 +65,7 @@ Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> aktywnych wolun
 <li>5 znalezionych oraz </li>
 <li>5 założonych </li>
 </font></ul>
-&nbsp;&nbsp;&nbsp;skrzynek z następujących typów: <font color="black">tradycyjna, multicache, quiz, nietypowa</font> i będziesz mógł wtedy ustawić opcje w swoim <a class="links" href="http://www.opencaching.pl/myprofile.php?action=change">profilu</a>.
+&nbsp;&nbsp;&nbsp;skrzynek z następujących typów: <font color="black">tradycyjna, multicache, quiz, nietypowa</font><br/>&nbsp;&nbsp;&nbsp;i będziesz mógł wtedy ustawić opcje w swoim <a class="links" href="http://www.opencaching.pl/myprofile.php?action=change">profilu</a>.
 <br/><br/>
 &nbsp;&nbsp;&nbsp;Dziękujemy wszystkim którzy chcą pomagać bezinteresownie innym geocachreom.
 </span></div>
