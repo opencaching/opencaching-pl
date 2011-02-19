@@ -60,7 +60,7 @@
 	<tr><td class="buffer" colspan="2"></td></tr>
 		<tr>
 		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{guide}}:</td>
-		<td class="txt-grey07" valign="middle">
+		<td  valign="middle">
 		Tak, jestem woluntariuszem Przewdonikiem geocachingu dla początkujących. Patrz: <a class="links" href="cacheguides.php">Przewodnicy</a></label>&nbsp;
 		</td>
 	</tr>
