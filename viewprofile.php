@@ -151,7 +151,7 @@
 
 			if ($num_caches>=5 && $num_find_caches>=5 && $user_record['guru'] ==0 && $user_id == $usr['userid'] ){
 					tpl_set_var('guide_info', '<div class="content-title-noshade box-blue">
-					<table><tr><td><img style="margin-right: 15px;margin-left:15px;" src="tpl/stdstyle/images/blue/info-b.png" alt="guide"></td><td>
+					<table><tr><td><img style="margin-right: 10px;margin-left:10px;" src="tpl/stdstyle/images/blue/info-b.png" alt="guide"></td><td>
 					<span style="font-size:12px;">Możesz zostać woluntariszem Przewodnikiem po geocachingu dla poczatkujących geocacherów ustawiając opcje w swoim 
 					<a class="links" href="myprofile.php?action=change">Profilu</a>. 
 					Patrz więcej na stronie <a class="links" href="cacheguides.php">Przewodnicy</a>.
