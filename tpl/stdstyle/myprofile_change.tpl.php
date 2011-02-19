@@ -52,6 +52,17 @@
 			{allcountriesbutton}
 		</td>
 	</tr>
+{guide_start}
+	<tr><td class="buffer" colspan="2"></td></tr>
+		<tr>
+		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{guru}}:</td>
+		<td class="txt-grey07" valign="middle">
+			<input type="checkbox" name="guide" id="guide" value="0" {is_checked_guide} class="checkbox" />
+			<label for="bulletin">Tak, chcę zostać woluntariuszem Przewdonikiem geocachingu dla początkujących. Patrz: <a class="links" href="cacheguides.php">Przewodnicy"</a></label>&nbsp;
+			&nbsp;<br />
+		</td>
+	</tr>
+	{guide_end}
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{coordinates}}:</td>

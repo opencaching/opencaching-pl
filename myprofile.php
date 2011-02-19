@@ -69,8 +69,25 @@
 
 			$tplname = 'myprofile';
 			require($stylepath . '/myprofile.inc.php');
+			
+			// check user can set as Geocaching guide
+			$rsnfc = sql("SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches FROM cache_logs,caches WHERE cache_logs.cache_id=caches.cache_id AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7') AND cache_logs.type='1' AND cache_logs.deleted='0' AND `cache_logs`.`user_id` = ".sql_escape($usr['userid'])."");
+			$rec = sql_fetch_array($rsnfc);
+			$num_find_caches = $rec['num_fcaches'];
 
-			$rs = sql("SELECT `username`, `email`, `country`, `latitude`, `longitude`, `date_created`, `pmr_flag`, `permanent_login_flag`, `no_htmledit_flag`, `notify_radius`, `ozi_filips` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
+			$rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
+										AND status = 1 ");
+			$record = sql_fetch_array($rsnc);
+			$num_caches = $record['num_caches'];
+
+			if ($num_caches==5 && $num_find_caches==5){
+					tpl_set_var('guide_start', '');
+					tpl_set_var('guide_end', '');		
+					} else {
+					tpl_set_var('guide_start', '<!--');
+					tpl_set_var('guide_end', '-->');
+					}
+			$rs = sql("SELECT `guru`,`username`, `email`, `country`, `latitude`, `longitude`, `date_created`, `pmr_flag`, `permanent_login_flag`, `no_htmledit_flag`, `notify_radius`, `ozi_filips` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
 			$record = sql_fetch_array($rs);
 
 			tpl_set_var('userid', $usr['userid']+0);

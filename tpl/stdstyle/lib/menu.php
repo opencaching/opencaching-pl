@@ -280,11 +280,11 @@ $menu = array(
 		'siteid' => 'articles/contact'
 	),
 	array(
-		'title' => tr('guru'),
-		'menustring' => tr('guru'),
+		'title' => tr('guides'),
+		'menustring' => tr('guides'),
 		'visible' => true,
-		'filename' => 'cacheguru.php',
-		'siteid' => 'guru'
+		'filename' => 'cacheguides.php',
+		'siteid' => 'guides'
 	),
 	array(
 		'title' => tr('clipboard'),

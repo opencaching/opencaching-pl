@@ -31,7 +31,7 @@ require_once('./lib/common.inc.php');
 		else
 		{
 
-$tplname = 'cacheguru';
+$tplname = 'cacheguides';
 tpl_set_var('bodyMod', ' onload="initialize()" onunload="GUnload()"');;
 global $usr;
 global $get_userid;
