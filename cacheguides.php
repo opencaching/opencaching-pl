@@ -61,6 +61,7 @@ global $get_userid;
 
 			$point="";
 			$nrows=mysql_num_rows($rscp);
+			tpl_set_var('nguides', $nrows);
 			for ($i = 0; $i < mysql_num_rows($rscp); $i++)
 			{
 				$record = sql_fetch_array($rscp);
