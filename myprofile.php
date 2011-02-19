@@ -417,7 +417,7 @@
 						//load from database
 			$rs = sql("SELECT `guru`,`username`, `email`, `country`, `latitude`, `longitude`, `date_created`, `pmr_flag`, `permanent_login_flag`, `no_htmledit_flag`, `notify_radius`, `ozi_filips` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
 			$record = sql_fetch_array($rs);
-							if ($record['guru']==1){
+							if ($record['guru']==1|| $guide == 1){
 					tpl_set_var('guides_start', '');
 					tpl_set_var('guides_end', '');		
 					} else {
@@ -523,7 +523,7 @@
 						
 
 					}
-							if ($record['guru']==1){
+							if ($record['guru']==1 || $guide == 1){
 					tpl_set_var('guides_start', '');
 					tpl_set_var('guides_end', '');		
 					} else {
