@@ -56,7 +56,7 @@ global $get_userid;
 }
 	
 			$rscp = sql("SELECT `user`.`latitude` `latitude`,`user`.`longitude` `longitude`,`user`.`username` `username`,
-					`user`.`user_id` `userid` FROM `user` WHERE `user`.`guru`!=0 AND (user.user_id IN (SELECT cache_logs.user_id FROM cache_logs WHERE `cache_logs`.`type`=1 AND `cache_logs`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY)) OR user.user_id IN (SELECT caches.user_id FROM caches WHERE `caches`.`status`=1 AND `caches`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY))) AND `user`.`longitude` IS NOT NULL AND `user`.`latitude` IS NOT NULL GROUP BY user.username");
+					`user`.`user_id` `userid` FROM `user` WHERE `user`.`guru`!=0 AND (user.user_id IN (SELECT cache_logs.user_id FROM cache_logs WHERE `cache_logs`.`type`=1 AND `cache_logs`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY)) OR user.user_id IN (SELECT caches.user_id FROM caches WHERE (`caches`.`status`=1 OR `caches`.`status`=2 OR `caches`.`status`=3) AND `caches`.`date_created`>DATE_ADD(NOW(), INTERVAL -90 DAY))) AND `user`.`longitude` IS NOT NULL AND `user`.`latitude` IS NOT NULL GROUP BY user.username");
 
 
 			$point="";

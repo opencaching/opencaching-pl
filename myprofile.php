@@ -76,7 +76,7 @@
 			$num_find_caches = $rec['num_fcaches'];
 
 			$rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
-										AND status = 1 ");
+										AND (status = 1 OR status=2 OR status=3) AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7')");
 			$record = sql_fetch_array($rsnc);
 			$num_caches = $record['num_caches'];
 
@@ -129,7 +129,7 @@
 			$num_find_caches = $rec['num_fcaches'];
 
 			$rsnc = sql("SELECT COUNT(`caches`.`cache_id`) as num_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
-										AND status = 1 ");
+										AND (status = 1 OR status=2 OR status=3) AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7')");
 			$record = sql_fetch_array($rsnc);
 			$num_caches = $record['num_caches'];
 
