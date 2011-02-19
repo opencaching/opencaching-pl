@@ -56,7 +56,17 @@
 		<td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{country_label}}:</td>
 		<td>{country}</td>
 	</tr>
+	{guides_start}
 	<tr><td class="buffer" colspan="2"></td></tr>
+		<tr>
+		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{guide}}:</td>
+		<td class="txt-grey07" valign="middle">
+		Tak, jestem woluntariuszem Przewdonikiem geocachingu dla początkujących. Patrz: <a class="links" href="cacheguides.php">Przewodnicy</a></label>&nbsp;
+		</td>
+	</tr>
+	{guides_end}
+	<tr><td class="buffer" colspan="2"></td></tr>
+	
 	<tr>
 		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{coordinates}}:</td>
 		<td class="txt-grey07">{coords}</td>
