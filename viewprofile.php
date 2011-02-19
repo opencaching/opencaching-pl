@@ -125,7 +125,7 @@
 				tpl_set_var('description_start', '<!--');
 				tpl_set_var('description_end', '-->');
 			}
-			$pimage='profile';
+			$pimage='profile2';
 			$pinfo="OC user";
 			if( $user_record['guru'] ==1)
 			{
