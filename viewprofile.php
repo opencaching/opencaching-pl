@@ -129,12 +129,12 @@
 			$pinfo="OC user";
 			if( $user_record['guru'] ==1)
 			{
-				$pimage='guru-p';
+				$pimage='guide';
 				$pinfo="Przewodnik";
 			}
 			if( $user_record['admin'] ==1)
 			{
-			$pimage='guru-g';
+			$pimage='admins';
 			$pinfo="OC Team user";
 			}
 			tpl_set_var('profile_img', $pimage);
