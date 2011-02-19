@@ -156,7 +156,7 @@
 					<span style="font-size:12px;">Możesz zostać woluntariuszem Przewodnikiem po geocachingu dla początkujących geocacherów ustawiając opcje w swoim 
 					<a class="links" href="myprofile.php?action=change">Profilu</a>. 
 					Patrz więcej na stronie <a class="links" href="cacheguides.php">Przewodnicy</a>.</span>
-					</td></tr></table></div><br/>');
+					</td></tr></table></div><br/>';
 					} 
 				}
 					tpl_set_var('guide_info', $guide_info);					
