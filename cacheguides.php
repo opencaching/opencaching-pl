@@ -50,7 +50,7 @@ global $get_userid;
 	tpl_set_var('mapcenterLon', 19.07);	
 
 	} else {
-	tpl_set_var('mapzoom', 8);
+	tpl_set_var('mapzoom', 11);
 	tpl_set_var('mapcenterLat', $uLat);
 	tpl_set_var('mapcenterLon', $uLon);
 }
