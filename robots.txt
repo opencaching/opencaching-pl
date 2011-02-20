@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /ocpl*
+Disallow: /old/
+Disallow: /search.php*
+Disallow: /login.php*
