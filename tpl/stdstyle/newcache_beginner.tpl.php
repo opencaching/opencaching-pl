@@ -24,7 +24,7 @@
 </table>
 <br />
 <div class="searchdiv" style="background-color: #FFF9E3;">
-<p style="margin: 10px;font-size: 14px; line-height:1.6em; text-align: justify;"><b>Aby zarejestrować nowe skrzynki musisz najpierw znaleźć <font color="red"><?php echo $NEED_FIND_LIMIT; ?></font> skrzynek spośród następujących typów: 
+<p style="margin: 10px;font-size: 12px; line-height:1.6em; text-align: justify;"><b>Aby zarejestrować nowe skrzynki musisz najpierw znaleźć <font color="red"><?php echo $NEED_FIND_LIMIT; ?></font> skrzynek spośród następujących typów: 
 <font color="blue">
 <ul>
 <li><img src="tpl/stdstyle/images/cache/traditional-i.png" alt="cache"> Tradycyjna, </li>
