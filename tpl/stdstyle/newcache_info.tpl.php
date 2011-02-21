@@ -36,6 +36,6 @@ Pamiętaj, że Twoja skrzynka świadczy o Tobie. Na pewno zależy Ci na tym, by 
 </div>
 <br/><br/>
 <form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr"><input type="hidden" name="newcache_info" value="0"/>
-		<center><button type ="submit" style="font-size:13 px;"><b>Wszystkie powyższe elementy rozważyłem i chcę kontynuować rejestracje skrzynki</b></button>
+		<center><button type ="submit" style="font-size:13px;"><b>Wszystkie powyższe elementy rozważyłem i chcę kontynuować rejestracje skrzynki</b></button>
 </center>
 </form>
