@@ -27,7 +27,7 @@ Dziękujemy za to, że chcesz zarejestrować swoja skrzynkę w serwisie opencach
 Pamiętaj, że Twoja skrzynka świadczy o Tobie. Na pewno zależy Ci na tym, by była jak najlepszej jakości, a w związku z tym prosimy o to, abyś odpowiedział sobie samodzielnie na poniższe pytania :<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
 <li>Czy skrzynka jest ulokowana w miejscu zgodnym z prawem, nie jest umieszczona na terenie prywatnym bez zgody jego właściciela ?,</li>
 <li>Czy skrzynka nie jest ulokowana na terenie Parku Narodowego, Rezerwatu, zabytku, cmentarza lub innego obszaru chronionego prawem ?,</li>
-<li>Czy w najbliższej okolicy znajdują się już inne skrzynki, czy zachowana jest minimalna odległość 150m) ?,</li>
+<li>Czy w najbliższej okolicy znajdują się już inne skrzynki, czy zachowana jest minimalna odległość 150m ?,</li>
 <li>Czy jesteś w stanie zapewnić serwis dla skrzynki przez cały czas jej istnienia w serwisie?,</li>
 <li>Czy wybrany przez Ciebie sposób ukrycia skrzynki jest właściwy dla wybranej lokalizacji skrzynki (odporność pojemnika na niską temperaturę, wilgoć) ?,</li>
 <li>Czy skrzynka jest zgodna z <a class="links" href="http://wiki.opencaching.pl/index.php/Regulamin_OC_PL">Regulaminem serwisu OC PL <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> ?.</li>
