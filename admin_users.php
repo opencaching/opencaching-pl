@@ -66,7 +66,13 @@
 					} else {
 					tpl_set_var('activation_codes',$record['activation_code']);
 							}
-			tpl_set_var('lastlogin', strftime("%Y-%m-%d", strtotime($record['last_login'])));
+
+
+			if($record['last_login']=="0000-00-00 00:00:00"){
+			$userlogin="Brak danych";} else {
+			$userlogin = strftime("%Y-%m-%d", strtotime($record['last_login']));}
+			tpl_set_var('lastlogin',$userlogin );
+
 			tpl_set_var('username',$record['username']);
 			tpl_set_var('country', htmlspecialchars($record['country'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('registered', strftime($dateformat, strtotime($record['date_created'])));
