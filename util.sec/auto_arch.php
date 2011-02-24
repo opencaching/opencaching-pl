@@ -115,7 +115,7 @@ class AutoArch
 //				$arch_sql = "UPDATE caches SET status = 3, notes=notes+1 WHERE cache_id=".intval($rs['cache_id']);
 //				@mysql_query($arch_sql);
 				$log_uuid = create_uuid();
-				$log_sql = "INSERT INTO cache_logs (cache_id, user_id, uuid, date, type, last_modified, text, owner_notified, node) VALUES (".sql_escape(intval($rs['cache_id'])).", '".sql_escape($log_uuid)."', -1, NOW(), 9, NOW(), 'Automatyczna archiwizacja - 9 miesięcy w stanie \"Tymczasowo niedostępna\"', 1, 2)";
+				$log_sql = "INSERT INTO cache_logs (cache_id, user_id, uuid, date, type, last_modified,date_created, text, owner_notified, node) VALUES (".sql_escape(intval($rs['cache_id'])).", '".sql_escape($log_uuid)."', -1, NOW(), 9, NOW(),NOW(), 'Automatyczna archiwizacja - 9 miesięcy w stanie \"Tymczasowo niedostępna\"', 1, 2)";
 				@mysql_query($log_sql);
 			}
 			else if( strtotime($rs['last_modified']) < time() - 8*31*24*60*60 && $step < $STEP["AFTER_SECOND_MAIL_SENT"])
