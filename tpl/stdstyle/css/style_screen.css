@@ -826,6 +826,30 @@ div.searchdiv {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 }
+div.isarchived {
+	clear: both;
+	float: left;
+	width: 735px;
+	margin: 0px 0px 10px 0px;
+	padding: 15px;
+ 	border: solid 2px red;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+div#havefound {
+	position: absolute;
+	z-index: 25;
+	top: 250px;
+	right: 20px;
+	width: 35px;
+	padding: 5px 5px 5px 0px;
+	font-weight: bold;
+	height: 35px;
+}
+
+/*     * html div#havefound {top: 230px;}    */
+/*    *+html div#havefound {top: 230px;}    */
+
 div.headitems {
 	width: 95%;
 	margin: 5px;
