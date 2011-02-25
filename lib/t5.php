@@ -10,7 +10,8 @@
 	echo '<table width="97%"><tr><td align="center"><center><b>Ranking użytkowników wg liczby otrzymanych rekomendacji</b><br /><br />gdzie: (z% - <b><font color="green">X</font>/<font color="blue">Y</font></b>) X- liczba skrzynek z rekomendacjami, Y - liczba wszystkich skrzynek, <br /> z - ratio w % czyli (X/Y)*100<br /><br /></center></td></tr> </table>';
         echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
 
-$t1="CREATE TEMPORARY TABLE ocpl.tmp (id INT(11) unsigned NOT NULL auto_increment PRIMARY KEY, count INT(11), username VARCHAR(60)) ENGINE=MEMORY SELECT count(*) count, user.username username, user.user_id user_id FROM caches,cache_rating,user WHERE `cache_rating`.`cache_id`=caches.cache_id AND caches.user_id=user.user_id AND caches.type <> 6 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC"; 
+$t1="CREATE TEMPORARY TABLE ocpl.tmp (id INT(11) unsigned NOT NULL auto_increment PRIMARY KEY, count INT(11), username VARCHAR(60)) ENGINE=MEMORY DEFAULT CHARACTER SET=utf8
+COLLATE=utf8_polish_ci SELECT count(*) count, user.username username, user.user_id user_id FROM caches,cache_rating,user WHERE `cache_rating`.`cache_id`=caches.cache_id AND caches.user_id=user.user_id AND caches.type <> 6 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC"; 
 //mysql_query("SET NAMES 'utf8'"); 
 $r=mysql_query($t1) or die(mysql_error());
 //mysql_query("SET NAMES 'utf8'"); 
