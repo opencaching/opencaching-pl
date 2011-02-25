@@ -32,7 +32,7 @@
 	
 	// cleanup (old gpxcontent lingers if gpx-download is cancelled by user)		
 	mysql_query('DROP TEMPORARY TABLE IF EXISTS `ocpl.tmps11`');
-	$t1="CREATE TEMPORARY TABLE ocpl.tmps11 (id INT(11) unsigned NOT NULL auto_increment PRIMARY KEY, count INT(11),name VARCHAR(60), cache_id INT(11), username VARCHAR(60)) ENGINE=MEMORY SELECT COUNT(*) `count`, `caches`.`name`, `cache_logs`.`cache_id`, `user`.`username` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id`, cache_location  WHERE (`cache_location`.`code3`='$region' AND `cache_location`.`cache_id`=`caches`.`cache_id`) AND `cache_logs`.`deleted`=0 AND `cache_logs`.`type`=1 AND `caches`.`status`=1 GROUP BY `caches`.`cache_id` ORDER BY `count` DESC, `caches`.`name` ASC"; 
+	$t1="CREATE TEMPORARY TABLE ocpl.tmps11 (id INT(11) unsigned NOT NULL auto_increment PRIMARY KEY, count INT(11),name VARCHAR(60), cache_id INT(11), username VARCHAR(60)) ENGINE=MEMORY DEFAULT CHARACTER SET=utf8 COLLATE=utf8_polish_ci SELECT COUNT(*) `count`, `caches`.`name`, `cache_logs`.`cache_id`, `user`.`username` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id`, cache_location  WHERE (`cache_location`.`code3`='$region' AND `cache_location`.`cache_id`=`caches`.`cache_id`) AND `cache_logs`.`deleted`=0 AND `cache_logs`.`type`=1 AND `caches`.`status`=1 GROUP BY `caches`.`cache_id` ORDER BY `count` DESC, `caches`.`name` ASC"; 
 //mysql_query("SET NAMES 'utf8'"); 
 $r=mysql_query($t1) or die(mysql_error());
 //mysql_query("SET NAMES 'utf8'"); 
