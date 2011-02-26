@@ -150,4 +150,5 @@ CREATE TRIGGER `sysSessionsAfterInsert` AFTER INSERT ON `sys_sessions`
 		UPDATE `user` SET `user`.`last_login`=NEW.`last_login` WHERE `user`.`user_id`=NEW.`user_id`;
 	END;;
 
-DELIMITER ;
+DELIMITER;;
+
