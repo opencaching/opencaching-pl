@@ -40,7 +40,7 @@ map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), {mapzoom});
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/guru.png" class="icon32" alt="" />&nbsp;{{cacheguides}}</div>
 <div class="searchdiv">
 <span style="font-size: 13px;">
-Na mapie możesz poszukać w Twojej okolicy czy jest jakiś geocacher który oferuje swoją pomoc innym jako woluntariusz Przewodnik geocachingu, który był aktywny przez ostatnie 90 dni.
+Na mapie możesz poszukać w Twojej okolicy czy jest jakiś geocacher który oferuje swoją pomoc innym jako wolontariusz Przewodnik geocachingu, który był aktywny przez ostatnie 90 dni.
 <br/><br/>
 Przewodnik po geocaching'u może:
 <ul>
@@ -49,7 +49,7 @@ Przewodnik po geocaching'u może:
     <li> Pomoże w terenie zobaczyć o co w tym wszystkim chodzi, jak szukać, jak dobrze ukryć itd.</li>
 </ul></br>
 Możesz skontaktować sie z Przewodnikiem via Email i umówić się na spotkanie. <br/><br/>
-Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> aktywnych woluntariuszy Przewodników. <br/>
+Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> aktywnych wolontariuszy Przewodników. <br/>
 <span>
 </div>
 <div class="searchdiv">
@@ -60,7 +60,7 @@ Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> aktywnych wolun
 </center>
 </div>
 <div class="searchdiv">
-<span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">Aby zostać woluntariuszem Przewodnikiem po geocaching'u musisz spełnić warunek:
+<span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">Aby zostać wolontariuszem Przewodnikiem po geocaching'u musisz spełnić warunek:
 <ul><font color="black">
 <li>5 znalezionych oraz </li>
 <li>5 założonych </li>
