@@ -28,7 +28,8 @@
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{my_account}}" title="{{my_account}}" />&nbsp;{{my_account}}</div>
 <div class="notice">
 {{gray_field_is_hidden}}
-</div>
+</div><div class="notice">
+Użytkownik, który założył lub znalazł skrzynkę nie może być usunięty. Jest możliwa tylko deaktywacja konta. Będą wtedy usunięte wszystkie dane e-mail z profilu ale nazwa użytkownika zostanie zachowana. Jeśli chcesz deaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail, a deaktywujemy Twoje konto. W przypadkach niejasnych prosimy o kontakt ocpl @ opencaching.pl Dziękujemy.</div>
 <div class="buffer"></div>
 <p class="content-title-noshade-size2">{{data_in_profile}}:</p>
 <div class="buffer"></div>
