@@ -439,6 +439,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
             document.getElementById("search_control").getElementsByTagName("input")[0].value = "";
         });
 
+			// draw circle with radius 150 m to check exist geocaches 
 			var circle={circle};
 			if(circle==1)  
 			{
