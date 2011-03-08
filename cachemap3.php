@@ -127,6 +127,11 @@ else
 		
 	tpl_set_var('userid', $user_id);
 
+	if($_REQUEST['circle']== "1" )
+	{
+		tpl_set_var('circle', $_REQUEST['circle']);
+	}
+
 	$rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$user_id'");
 	$record = mysql_fetch_array($rs);
 	if( ($_REQUEST['lat'] != "" && $_REQUEST['lon'] != ""))
