@@ -24,7 +24,7 @@
 </table>
 <br />
 <div class="searchdiv" style="background-color: #FFF9E3;">
-<p style="margin: 10px;font-size: 12.5px; line-height:1.6em; text-align: justify;"><b>Aby zarejestrować nowe skrzynki musisz najpierw znaleźć <font color="red"><?php echo $NEED_FIND_LIMIT; ?></font> skrzynek spośród następujących typów: 
+<p style="margin: 10px;font-size: 12.5px; line-height:1.6em; text-align: justify;"><b>Aby zarejestrować nowe skrzynki musisz najpierw znaleźć <span style="font-size: 14px;color:red;"><?php echo $NEED_FIND_LIMIT; ?></span> skrzynek spośród następujących typów: 
 <font color="blue">
 <ul>
 <li><img src="tpl/stdstyle/images/cache/traditional-i.png" alt="cache"> Tradycyjna, </li>
@@ -33,9 +33,9 @@
 <li><img src="tpl/stdstyle/images/cache/moving-i.png" alt="cache"> Mobilna, </li>
 <li><img src="tpl/stdstyle/images/cache/unknown-i.png" alt="cache"> Nietypowa.</li>
 </ul></font><br/>
-Obecnie liczba Twoich skrzynek znalezionych spośród wymienionych typów to: <font color="green">{number_finds_caches}</font><br/><br/>
+Obecnie liczba Twoich skrzynek znalezionych spośród wymienionych typów to: <span style="font-size: 14px;color:green;">{number_finds_caches}</span><br/><br/>
 
-Po spełnieniu powyższego warunku Twoje pierwsze <font color="red"><?php echo $NEED_APPROVE_LIMIT; ?></font> skrzynki bedą weryfikowane przez Zespół OC PL. Po zatwierdzeniu skrzynki otrzymasz informacje via e-mail o tym fakcie i będziesz mógł ją opublikować poprzez edycje skrzynki i zmiane jej statusu. W przypadku uwag do skrzynki Zespół OC PL będzie się z Tobą kontaktował w sprawie uzpełnienia informacji lub zmian w skrzynce.</b>
+Po spełnieniu powyższego warunku Twoje pierwsze <span style="font-size: 14px;color:red;"><?php echo $NEED_APPROVE_LIMIT; ?></span> skrzynki bedą weryfikowane przez Zespół OC PL. Po zatwierdzeniu skrzynki otrzymasz informacje via e-mail o tym fakcie i będziesz mógł ją opublikować poprzez edycje skrzynki i zmiane jej statusu. W przypadku uwag do skrzynki Zespół OC PL będzie się z Tobą kontaktował w sprawie uzpełnienia informacji lub zmian w skrzynce.</b>
 </p>
 <br />
 </div>
