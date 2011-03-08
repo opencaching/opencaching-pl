@@ -466,7 +466,17 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 			});
 			
 
-
+			var circle={circle};
+			if(circle==1)  
+			{
+			var poli = ();
+			var punktCentralny = new GLatLng({coords});   
+				var poli = okrag(punktCentralny,150,'#99CCCC',2,0.8,'#9999CC',0.2,55);
+				map.addOverlay(poli);
+				var pointc = new GLatLng({coords});
+				var new_cache = new GMarker(pointc);
+				map.addOverlay(new_cache);
+			}
 
 			var onClickFunc = function(overlay,point) 
 			{
