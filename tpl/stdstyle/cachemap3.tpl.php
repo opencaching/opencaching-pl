@@ -89,6 +89,48 @@
 	var old_arch_value=null;
 	var lastCoords = null; // hack for IE8, mouse click events have wrong coordinates but strangely enough mousemove is ok :)
 
+// Draw circle with radius 150 m to show contain existing geocaches 
+function okrag(srodek,promien)
+		{
+			if(!srodek || !promien)
+				return;
+
+			// default
+			var wyp_kolor = '#0000ff';
+			var wyp_alfa = 0.25;
+			var obr_kolor = '#0000ff';
+			var obr_grubosc = 1;
+			var obr_alfa = 0.65;
+			var dokladnosc = 24;
+			
+			switch(arguments.length)
+			{
+				case 8: dokladnosc = arguments[7];
+				case 7: wyp_alfa = arguments[6];
+				case 6: wyp_kolor = arguments[5];
+				case 5: obr_alfa = arguments[4];
+				case 4: obr_grubosc = arguments[3];
+				case 3: obr_kolor = arguments[2];
+			}
+		
+			var punkty=[];
+			for(i=0;i<dokladnosc;i++)
+			{
+				var kat=360*i/dokladnosc;
+				kat = Math.PI*kat/180;
+				var srodekXY = map.fromLatLngToDivPixel(srodek);
+				var nowyPunktXY = new GPoint(srodekXY.x+parseFloat(promien)*Math.cos(kat),srodekXY.y+parseFloat(promien)*Math.sin(kat));
+				punkty.push(map.fromDivPixelToLatLng(nowyPunktXY));
+			}
+			
+			punkty.push(punkty[0]); // powielamy jeszcze raz pierwszy punkt, aby zamknąć okrąg
+			
+			if(arguments.length>5)
+				var poli = new GPolygon(punkty,obr_kolor,obr_grubosc,obr_alfa,wyp_kolor,wyp_alfa);
+			else
+				var poli = new GPolyline(punkty,obr_kolor,obr_grubosc,obr_alfa);
+			return poli;
+		}
 
 function ShowCoordsControl() {
 }
@@ -396,8 +438,19 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
             map.setCenter(p, 13, map.getCurrentMapType());
             document.getElementById("search_control").getElementsByTagName("input")[0].value = "";
         });
-
-
+			// draw circle radius 150 m for check exist geocaches
+			var circle={circle};
+			if(circle==1)  
+			{
+			var polilinie = {};
+			var punktCentralny = new GLatLng({coords});   
+				var poli = okrag(punktCentralny,150,'#99CCCC',2,0.8,'#9999CC',0.2,55);
+				map.addOverlay(poli);
+				var point = new GLatLng({coords});
+				var new_cache = new GMarker(point);
+				map.addOverlay(new_cache);
+			}
+			
 
 			map.setMapType({map_type});
 			map.addOverlay(tlo);
