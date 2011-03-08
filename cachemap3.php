@@ -130,7 +130,7 @@ else
 	if($_REQUEST['circle']== "1" )
 	{
 		tpl_set_var('circle', $_REQUEST['circle']);
-	}
+	} else { tpl_set_var('circle', "0");}
 
 	$rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$user_id'");
 	$record = mysql_fetch_array($rs);
