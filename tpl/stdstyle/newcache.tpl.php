@@ -195,7 +195,7 @@ function nearbycachemapOC()
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
 		alert("{{input_coord}}"); 
 			} else {
-		window.open('http://www.opencaching.pl/cachemap3.php?inputZoom=17&lat=' + lat + '&lon=' + lon);}
+		window.open('http://www.opencaching.pl/cachemap3.php?circel=1&inputZoom=17&lat=' + lat + '&lon=' + lon);}
 	return false;
 }//--></script>
 
