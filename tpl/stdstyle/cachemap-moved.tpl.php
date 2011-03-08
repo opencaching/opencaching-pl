@@ -45,7 +45,6 @@ map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), 6);
       }
     }
 </script>
-</head>
 <div class="content2-pagetitle">&nbsp;<img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="" title=""/>&nbsp;&nbsp;{{route_cache}} <font color="black">{cachename}</font></div>
 <div class="content2-container">
 <br/><p class="content-title-noshade-size1">
