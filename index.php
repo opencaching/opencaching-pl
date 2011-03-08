@@ -69,24 +69,10 @@
 
 		mysql_free_result($rs);
 		$newscontent = '';
-		
-		$hiddenCaches = sqlValue("SELECT COUNT(*) FROM `caches` WHERE (`status`=1 OR `status`=2 OR `status`=3)", 0);		
-		$rs = sql('SELECT COUNT(*) AS `hiddens` FROM `caches` WHERE `status`=1');
-		$r = sql_fetch_array($rs);
-		tpl_set_var('hiddens', $r['hiddens']);
-		tpl_set_var('total_hiddens', $hiddenCaches);
-		mysql_free_result($rs);
-		
-		$rs = sql('SELECT COUNT(*) AS `founds` FROM `cache_logs` WHERE (`type`=1 OR `type`=2) AND `deleted`=0');
-		$r = sql_fetch_array($rs);
-		tpl_set_var('founds', $r['founds']);
-		mysql_free_result($rs);
-		
-		$rs = sql('SELECT COUNT(*) AS `users` FROM (SELECT DISTINCT `user_id` FROM `cache_logs` WHERE (`type`=1 OR `type`=2) AND `deleted`=0 UNION DISTINCT SELECT DISTINCT `user_id` FROM `caches`) AS `t`');
-		$r = sql_fetch_array($rs);
-		tpl_set_var('users', $r['users']);
-		mysql_free_result($rs);
 
+		global $dynstylepath;
+		include ($dynstylepath . "totalstats.inc.php");
+		
 		// here is the right place to set up template replacements
 		// example: 
 		// tpl_set_var('foo', 'myfooreplacement');
