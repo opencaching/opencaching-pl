@@ -438,18 +438,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
             map.setCenter(p, 13, map.getCurrentMapType());
             document.getElementById("search_control").getElementsByTagName("input")[0].value = "";
         });
-			// draw circle radius 150 m for check exist geocaches
-			var circle={circle};
-			if(circle==1)  
-			{
-			var polilinie = {};
-			var punktCentralny = new GLatLng({coords});   
-				var poli = okrag(punktCentralny,150,'#99CCCC',2,0.8,'#9999CC',0.2,55);
-				map.addOverlay(poli);
-				var point = new GLatLng({coords});
-				var new_cache = new GMarker(point);
-				map.addOverlay(new_cache);
-			}
+
 			
 
 			map.setMapType({map_type});
