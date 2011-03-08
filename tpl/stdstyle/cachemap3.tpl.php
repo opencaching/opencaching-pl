@@ -445,7 +445,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 			{
 			var poli = {};
 			var punktCentralny = new GLatLng({coords});   
-				var poli = okrag(punktCentralny,150,'#99CCCC',2,0.8,'#9999CC',0.2,55);
+				var poli = okrag(punktCentralny,150,'#0000FF',2,0.5,'#9999CC',0.2,55);
 				map.addOverlay(poli);
 				var pointc = new GLatLng({coords});
 				var new_cache = new GMarker(pointc);
