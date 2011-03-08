@@ -46,7 +46,7 @@ function getDBFilter($user_id)
 									"waypoints"=>0,
 									"h_avail"=>0,
 									"h_temp_unavail"=>1,
-									"map_type"=>3,
+									"map_type"=>1,
 									"h_arch"=>0,
 									"be_ftf"=>0,
 									"h_pl"=>1,
