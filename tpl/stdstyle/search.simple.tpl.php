@@ -315,6 +315,37 @@ function switchCat2()
 	else
 		showAttributesCat2();
 }
+
+function insertLocation(lat, lon)
+{
+	var latNS = 'N', lonEW = 'E';
+
+	if (lat < 0) {
+		lat = -lat;
+		latNS = 'S';
+	}
+	if (lon < 0) {
+		lon = -lon;
+		lonEW = 'W';
+	}
+
+	var lat_h = lat | 0;
+	var lon_h = lon | 0;
+	var lat_min = ((lat - lat_h)*60);
+	var lon_min = ((lon - lon_h)*60);
+
+	document.searchbydistance.latNS.value = latNS;
+	document.searchbydistance.lat_h.value = lat_h;
+	document.searchbydistance.lat_min.value = lat_min.toFixed(3);
+	document.searchbydistance.lonEW.value = lonEW;
+	document.searchbydistance.lon_h.value = lon_h;
+	document.searchbydistance.lon_min.value = lon_min.toFixed(3); 
+}
+
+function showGeoCoder()
+{
+	var geocoder = window.open('geocoder.php','geocoder','width=650,height=500');
+}
 //-->
 </script>
 
@@ -630,7 +661,7 @@ function switchCat2()
 				</select>&nbsp;
 				<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />&nbsp;°&nbsp;
 				<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input40" />&nbsp;'&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/information.png" alt="" title="info" />&nbsp;&nbsp;<b><a href="javascript:void(0)" onclick="window.open('geocoder.php','Where am I?','width=650,height=500')">Gdzie jestem?</a></b>
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/information.png" alt="" title="info" />&nbsp;&nbsp;<b><a href="javascript:void(0)" onclick="showGeoCoder()">Gdzie jestem?</a></b>
 				<br/>
 				<select name="lonEW" class="input40">
 					<option value="E" {lonE_sel}>E</option>
