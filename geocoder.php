@@ -32,10 +32,14 @@ function initialize() {
 	google.maps.event.addListener(marker, "click", showNewPosition);
 
 	if (navigator.geolocation) {
+		document.getElementById("pos_waiting").innerHTML = "Pobieranie położenia..."
 		navigator.geolocation.getCurrentPosition(function(position) {
+			document.getElementById("pos_waiting").innerHTML = "";
 			initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 			moveToLocation(initialLocation);
-		});
+		}, function() {
+			document.getElementById("pos_waiting").innerHTML = "Nie można określić położenia";
+		}, { timeout:10000 });
 	}
 
 }
@@ -114,7 +118,7 @@ function showAddress(address) {
      <br />      
         <input type="text" style="width:350px" name="address" value="Toruń Polska" />
 
-        <input type="submit" value="Go!" />
+        <input type="submit" value="Go!" /><span id="pos_waiting"></span>
        <br>
       <div id="map_canvas" style="width: 600px; height: 400px"></div>
     </form>
