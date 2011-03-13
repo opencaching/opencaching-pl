@@ -129,7 +129,7 @@ else
 	      	if($_FILES['userfile']['error'] != 0 ) {
 	      		// jesli nie to jaki blad?
 	      		if($_FILES['userfile']['error'] == 2) {
-	      			die("Plik zbyt du¿y");
+	      			die("Plik zbyt duï¿½y");
 	      		}
 	      		exit;
 	      	}
@@ -137,7 +137,7 @@ else
 	      	// czy ktos cos nie kombinuje?
 	      	if (!is_uploaded_file($_FILES['userfile']['tmp_name']))
 	      	{
-	      		die("Coœ nie tak z wysy³aniem pliku, spróbuj ponownie...");
+	      		die("Coï¿½ nie tak z wysyï¿½aniem pliku, sprï¿½buj ponownie...");
 	      	}
 	      	
 	      	// wczytuje plik
@@ -164,7 +164,7 @@ else
 	      		$filecontent = utf16_to_utf8($filecontent);
 	      	}
 	      	
-	      	$filecontent = explode("\r\n", $filecontent);
+	      	$filecontent = explode("\n", $filecontent);
 	
 	      	$dane_i = -1;
 	
@@ -421,7 +421,9 @@ function utf16_to_utf8($str) {
 	for ($i = 0; $i < $len; $i += 2) {
 		$c = ($be) ? ord($str[$i]) << 8 | ord($str[$i + 1]) : ord($str[$i + 1]) << 8 | ord($str[$i]);
 
-		if ($c >= 0x0001 && $c <= 0x007F) {
+		if ($c == 0xFEFF) {
+			// Blad w GeoBeagle - wstawia BOM w srodku pliku - trzeba go ignorowac
+		} else if ($c >= 0x0001 && $c <= 0x007F) {
 			$dec .= chr($c);
 		} else if ($c > 0x07FF) {
 			$dec .= chr(0xE0 | (($c >> 12) & 0x0F));
