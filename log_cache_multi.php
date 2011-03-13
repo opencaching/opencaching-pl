@@ -129,7 +129,7 @@ else
 	      	if($_FILES['userfile']['error'] != 0 ) {
 	      		// jesli nie to jaki blad?
 	      		if($_FILES['userfile']['error'] == 2) {
-	      			die("Plik zbyt du�y");
+	      			die("Plik zbyt duzy");
 	      		}
 	      		exit;
 	      	}
@@ -137,7 +137,7 @@ else
 	      	// czy ktos cos nie kombinuje?
 	      	if (!is_uploaded_file($_FILES['userfile']['tmp_name']))
 	      	{
-	      		die("Co� nie tak z wysy�aniem pliku, spr�buj ponownie...");
+	      		die("Cos nie tak z wysylaniem pliku, sprobuj ponownie...");
 	      	}
 	      	
 	      	// wczytuje plik
