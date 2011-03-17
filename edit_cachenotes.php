@@ -54,7 +54,7 @@
 
 			tpl_set_var("cache_name",  htmlspecialchars($cache_record['name']));	
 
-			if ($note_record['user_id'] == $usr['userid'] || $usr['admin'])
+			if ($note_record['user_id'] == $usr['userid'])
 			{
 				
 				$cache_id = isset($_POST['cacheid']) ? $_POST['cacheid'] : $note_record['cache_id'];
