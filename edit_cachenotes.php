@@ -11,7 +11,6 @@
 	* (($note_record['desc_html'] == 1) ? '1' : '0')
 	**************************************************************************/
 
-
 	require_once('./lib/common.inc.php');
 
 	//Preprocessing
