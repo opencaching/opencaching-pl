@@ -115,9 +115,7 @@ if ($error == false)
 			FROM `cache_logs`, `caches`
 			WHERE `cache_logs`.`cache_id`=`caches`.`cache_id`
 				AND `cache_logs`.`deleted`=0 
-			  AND `caches`.`status` != 4
-				AND `caches`.`status` != 5 
-				AND `caches`.`status` != 6
+				AND `caches`.`status` IN (1, 2, 3) 
 			ORDER BY  `cache_logs`.`date_created` DESC
 			LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE));
 	$log_ids = '';
