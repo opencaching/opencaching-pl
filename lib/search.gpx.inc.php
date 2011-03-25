@@ -486,7 +486,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			// Travel Bug GeoKrety
 			$waypoint = $r['waypoint'];
 			$geokrety = '';
-			$geokret_sql = "SELECT id, name FROM gk_item WHERE id IN (SELECT id FROM gk_item_waypoint WHERE wp = '".sql_escape($waypoint)."') AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2";
+			$geokret_sql = "SELECT gk_item.id AS id, gk_item.name AS name FROM gk_item, gk_item_waypoint WHERE gk_item.id = gk_item_waypoint.id AND gk_item_waypoint.wp = '".sql_escape($waypoint)."' AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.stateid <>5 AND gk_item.typeid<>2";
 			$geokret_query = sql($geokret_sql);
 
 				while( $geokret = sql_fetch_array($geokret_query) )
