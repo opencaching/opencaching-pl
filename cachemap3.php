@@ -120,10 +120,14 @@ else
 	
 	tpl_set_var('sc', intval($_GET['sc']));
 	
-	if( $get_userid == '')
+	if( $get_userid == '') {
 		$user_id = $usr['userid'];
-	else 
+		tpl_set_var('extrauserid', "");
+	}
+	else { 
 		$user_id = $get_userid;
+		tpl_set_var('extrauserid', "&userid=$user_id");
+	}
 		
 	tpl_set_var('userid', $user_id);
 

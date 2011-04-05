@@ -53,7 +53,7 @@ FullscreenOffControl.prototype.initialize = function(map) {
 		if({fromlat} != {tolat}) {
 			bounds = '&fromlat={fromlat}&fromlon={fromlon}&tolat={tolat}&tolon={tolon}';
 		}
-		window.location = "cachemap3.php?lat="+map.getCenter().lat()+"&lon="+map.getCenter().lng()+"&inputZoom="+map.getZoom()+"&{searchdata}"+bounds;
+		window.location = "cachemap3.php?lat="+map.getCenter().lat()+"&lon="+map.getCenter().lng()+"&inputZoom="+map.getZoom()+"&{searchdata}"+bounds+"{extrauserid}";
     });
 
   return container;
