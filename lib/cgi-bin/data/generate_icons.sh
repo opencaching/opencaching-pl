@@ -16,6 +16,7 @@ for file in marker.svg markerown.svg markerfound.svg markernew.svg;do
 	inkscape $file -e ${file%*.svg}17.png -w 30
 	inkscape $file -e ${file%*.svg}18.png -w 33
 	inkscape $file -e ${file%*.svg}19.png -w 35
+	inkscape $file -e ${file%*.svg}20.png -w 35
 done
 
 for file in archivedmap.svg event.svg foundmap.svg moving.svg multi.svg quiz.svg redflagmap.svg traditional.svg unknown.svg virtual.svg challenge.svg podcache.svg webcam.svg;do
@@ -35,4 +36,5 @@ for file in archivedmap.svg event.svg foundmap.svg moving.svg multi.svg quiz.svg
 	inkscape $file -e ${file%*.svg}17.png -w 26
 	inkscape $file -e ${file%*.svg}18.png -w 28
 	inkscape $file -e ${file%*.svg}19.png -w 30
+	inkscape $file -e ${file%*.svg}20.png -w 30
 done

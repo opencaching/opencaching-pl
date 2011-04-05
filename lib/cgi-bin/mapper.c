@@ -37,6 +37,7 @@ typedef struct geotile  {
 } geotile;
 
 #define CACHE_TYPES_NUM 12 // number of different types, it equals maxid+1
+#define MAX_ZOOM 20
 
 int rects_collide(SDL_Rect a , SDL_Rect b)
 {
@@ -218,17 +219,17 @@ int main(void)
 	mysql_query(conn,"SET NAMES utf8;");
 #ifdef WITH_FASTCGI
 
-	SDL_Surface *fcgi_cacheimgs[20][CACHE_TYPES_NUM];
-	SDL_Surface *fcgi_redflagimg[20];
-	SDL_Surface *fcgi_foundimg[20];
-	SDL_Surface *fcgi_archivedimg[20];
-	SDL_Surface *fcgi_markerimg[20];
-	SDL_Surface *fcgi_markerfoundimg[20];
-	SDL_Surface *fcgi_markernewimg[20];
-	SDL_Surface *fcgi_markerownimg[20];
+	SDL_Surface *fcgi_cacheimgs[MAX_ZOOM+1][CACHE_TYPES_NUM];
+	SDL_Surface *fcgi_redflagimg[MAX_ZOOM+1];
+	SDL_Surface *fcgi_foundimg[MAX_ZOOM+1];
+	SDL_Surface *fcgi_archivedimg[MAX_ZOOM+1];
+	SDL_Surface *fcgi_markerimg[MAX_ZOOM+1];
+	SDL_Surface *fcgi_markerfoundimg[MAX_ZOOM+1];
+	SDL_Surface *fcgi_markernewimg[MAX_ZOOM+1];
+	SDL_Surface *fcgi_markerownimg[MAX_ZOOM+1];
 
 
-	for(int z = 0;z < 20;++z) {
+	for(int z = 0;z < MAX_ZOOM+1;++z) {
 		for(int i = 0;i < CACHE_TYPES_NUM;++i) {
 			snprintf(buf, sizeof(buf), "%s/%s%i.png", DATA_PATH, type2name(i), z);
 			fcgi_cacheimgs[z][i] = IMG_Load(buf);
@@ -275,8 +276,8 @@ int main(void)
 		microcgi_cleanup();
 		continue;
 	}
-	if(zoom > 19)
-		zoom = 19;
+	if(zoom > MAX_ZOOM)
+		zoom = MAX_ZOOM;
 	int userid = microcgi_getint(CGI_GET, "userid");
 
 	geotile rect = get_lat_long_xyz(x, y, zoom);
@@ -864,7 +865,7 @@ end_of_request:;
 		TTF_CloseFont(font3);
 
 #ifdef WITH_FASTCGI
-	for(int z = 0;z < 20;++z) {
+	for(int z = 0;z < MAX_ZOOM+1;++z) {
 		for(int i = 0;i < CACHE_TYPES_NUM;++i)
 			SDL_FreeSurface(fcgi_cacheimgs[z][i]);
 		SDL_FreeSurface(fcgi_redflagimg[z]);
