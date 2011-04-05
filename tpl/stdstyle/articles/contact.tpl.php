@@ -15,33 +15,35 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 <br />
 <br />
 <h1>OpenCaching PL Team </h1><p>
-<b>Rada Programowa</b>:<br />
+<b>Rada Programowa</b><br />
 <b>E-mail: <font color="black">rp</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
-- Zyr<br />
-- rushcore<br />
+- etna&amp;mars<br />
 - filips<br />
+- rushcore<br />
 - tATO<br />
-- etna&mars<br />
+- zyr<br />
 <br/>
-<b>Rada Techniczna </b>:<br />
+<b>Rada Techniczna</b><br />
 <b>E-mail: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
-- tATO - sprawy finasowe <br />
+- tATO - sprawy finansowe<br />
 - starypatyk<br />
 - limak<br />
 <br/>
-<span style="color:#808080">(pomoc programistyczna dla RT:rushcore)</span><br/>
+<span style="color:#808080">(pomoc programistyczna dla RT: rushcore)</span><br/>
 <br />
 <b>Centrum Obsługi Geocachera </b>  - Kadencja 1.06.2010 - 31.05.2011 (w nawiasie liczba otrzymanych głosów):<br />
 <b>E-mail: <font color="black">cog</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
-- Voit (113) <br />
 - Whatever (111) <br />
 - Maciej eŚ (96) <br />
 - Saracen (84) <br />
 - Maliniak (77) <br />
 - Wallson (75) <br />
-- etna&mars (73) <br />
-<span style="color:#808080">- Bazyl69 (77)  zrezygnował</span> <br />
-<br /><br/>
+- etna&amp;mars (73) <br />
+- alex22 (65) <br />
+<br />
+<span style="color:#808080">- Bazyl69 (77) - zrezygnował</span><br />
+<span style="color:#808080">- Voit (113) - zrezygnował</span><br />
+<br />
 <span style="color:#808080"><b>Rada Rejsu</b>Kadencja 1.06.2009 - 31.05.2010:<br />
 - filips (119) <br />
 - ZYR (109) <br />
