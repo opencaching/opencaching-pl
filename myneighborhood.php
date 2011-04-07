@@ -615,8 +615,35 @@ tpl_set_var('distance',$distance);
 
 	tpl_set_var('new_events',$file_content);
 	mysql_free_result($rss);
-	
-	
+
+	// Read just log IDs first - this gets easily optimized
+	$log_ids = '';
+	$rsids = sql("SELECT cache_logs.id FROM cache_logs
+		WHERE cache_logs.deleted = 0 AND
+			cache_logs.cache_id IN (SELECT cache_id FROM local_caches) AND
+			cache_logs.date_created >= DATE_SUB(NOW(), INTERVAL 31 DAY)
+		ORDER BY cache_logs.date_created DESC
+		LIMIT 0, 10");
+	for ($i = 0; $i < mysql_num_rows($rsids); $i++)
+	{
+			$idrec = sql_fetch_array($rsids);
+			if (! empty($log_ids))
+			{
+				$log_ids .= ",";
+			}
+			$log_ids .= $idrec['id'];
+	}
+	mysql_free_result($rsids);
+
+	// Ugly hack to avoid modifying code below.
+	// When there are no logs to display -> pass dummy value as log id.
+	// starypatyk, 2011.04.08
+	if (empty($log_ids))
+	{
+		$log_ids = "-1";
+	}
+
+	// Now use a set of log IDs to retrieve all other necessary information
 $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 	                          cache_logs.date AS log_date,
@@ -640,7 +667,7 @@ $rsl = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 								LEFT JOIN	gk_item_waypoint ON (gk_item_waypoint.wp = local_caches.wp_oc)
 								LEFT JOIN	gk_item ON (gk_item.id = gk_item_waypoint.id AND
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5)
-							WHERE	cache_logs.deleted=0 AND datediff(now(), cache_logs.date_created) <= 31
+							WHERE	cache_logs.id IN (" . $log_ids . ")
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC LIMIT 0, 10");
 $rsll = sql("SELECT cache_logs.id FROM cache_logs
