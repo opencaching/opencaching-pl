@@ -37,7 +37,7 @@ typedef struct geotile  {
 } geotile;
 
 #define CACHE_TYPES_NUM 12 // number of different types, it equals maxid+1
-#define MAX_ZOOM 20
+#define MAX_ZOOM 21
 
 int rects_collide(SDL_Rect a , SDL_Rect b)
 {
