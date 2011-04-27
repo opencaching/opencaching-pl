@@ -340,10 +340,11 @@
 </tr>
   <td colspan=2><input type="hidden" name="Rating" value="TRUE">
      <input type="submit" value="Wylicz">
-     <input type="reset" value="Wyszczysc formularz"></td>
+     <input type="reset" value="Wyczyść formularz"></td>
 <tr>
 </table>
 </form>
+System oceny dostępny dzięki stronie http://www.clayjar.com/gcrs/
 </body>
 </html>
 <?php
