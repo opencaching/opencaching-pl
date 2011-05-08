@@ -46,7 +46,8 @@
 	//Preprocessing
 	if ($error == false)
 	{
-			//user logged in?
+/*
+	//user logged in?
 		if ($usr == false)
 		{
 		    $target = urlencode(tpl_get_current_page());
@@ -54,6 +55,7 @@
 		}
 		else
 		{
+*/
 		$tplname = 'search';
 		require($stylepath . '/search.inc.php');
 		require($rootpath . 'lib/caches.inc.php');
@@ -1079,7 +1081,10 @@
 			}
 		}
 	}
+	/*
+	//user logged in?
 	}
+	*/
 	tpl_BuildTemplate();
 	
 function outputSearchForm($options)
