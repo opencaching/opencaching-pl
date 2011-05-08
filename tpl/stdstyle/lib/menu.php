@@ -135,7 +135,7 @@ $menu = array(
 				'title' => tr('search_cache'),
 				'menustring' => tr('search_cache'),
 				'siteid' => 'search',
-				'onlylogged' => true,
+				'onlylogged' => false,
 				'visible' => true,
 				'filename' => 'search.php'
 			),
