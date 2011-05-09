@@ -4,7 +4,7 @@
 			var sym = "Geocache";
          function load() {
         var display = new Garmin.DeviceDisplay("garminDisplay", {
-            pathKeyPairsArray: ["http://www.opencaching.pl","e8c44782359e7af0fff2fd28022d920a"],
+            pathKeyPairsArray: ["http://opencaching.pl","7af7fd68ffbdf2ba661be044dfcd054d"],
                 unlockOnPageLoad: false,
                 hideIfBrowserNotSupported: false,
                 showStatusElement: true,
