@@ -3,7 +3,8 @@
 	require_once('./lib/common.inc.php');
 	
 	$tplname = 'glosowanie_do_rr';
-	
+	$tpl_subtitle = 'Głosowanie do Rady Rejsu 2011';
+
 	//Preprocessing
 	if ($error == false)
 	{
@@ -21,15 +22,21 @@
 
 				// sprawdzanie kiedy użytkownik utworzył konto
 				$query = "SELECT * FROM user WHERE user_id='" . sql_escape($usr['userid']) . "' AND date_created < '" . sql_escape(date('Y-m-d H:i:s', $user_max_date_created)) . "'";
-
 				$rs = sql($query);
 				$user_num_rows = mysql_num_rows($rs);
 				mysql_free_result($rs);
 
-				if ($user_num_rows == 1) { // użytkownik uprawiony do głosowania
+				// sprawdzenie ile użytkownik ma znalezionych skrzynek
+				$query = "SELECT COUNT( * ) founds_count FROM cache_logs WHERE user_id = " . sql_escape($usr['userid']) . " AND TYPE = 1 AND deleted = 0 AND date_created < '" . sql_escape(date('Y-m-d H:i:s', $user_found_caches_date)) . "'";
+				$rs = sql($query);
+				$rec1 = sql_fetch_array($rs);
+				$num_find_caches = $rec1['founds_count'];
+				mysql_free_result($rs);
+
+				if (($user_num_rows == 1) && ($num_find_caches >= $user_min_found_caches)) { // użytkownik uprawiony do głosowania
 
 					// sprawdzanie czy użytkownik już głosował
-					$query = "SELECT * FROM rr_ocpl_vote_2010 WHERE user_id='". sql_escape($usr['userid']) . "'";
+					$query = "SELECT * FROM rr_ocpl_vote_2011 WHERE user_id='". sql_escape($usr['userid']) . "'";
 					$rs = sql($query);
 					$vote_num_rows = mysql_num_rows($rs);
 					mysql_free_result($rs);
@@ -41,7 +48,7 @@
 							
 							$votes = array();
 							
-							$query = "SELECT candidate_id FROM rr_ocpl_candidates_2010 ORDER BY username";
+							$query = "SELECT candidate_id FROM rr_ocpl_candidates_2011 ORDER BY username";
 							$rs = sql($query);
 							for ($i = 0; $i < mysql_num_rows($rs); $i++)
 							{
@@ -54,7 +61,7 @@
 							}
 							mysql_free_result($rs);	
 							
-							if (count($votes) > 0 && count($votes) < 8) { //zapisz głos
+							if (count($votes) > 0 && count($votes) < 6) { //zapisz głos
 								$tplname = 'glosowanie_do_rr_wyniki';
 								tpl_set_var('vote_info', $vote_info);
 								tpl_set_var('information', $just_voted);
@@ -63,7 +70,7 @@
 								tpl_set_var('vote_results_foother', '');
 
 								for ($i = 0; $i < count($votes); $i++) {
-									sql('INSERT INTO `rr_ocpl_vote_2010` (`user_id`, `candidate_id`) VALUES (\'' . sql_escape($usr['userid']) . '\', \'' . sql_escape($votes[$i]) . '\')');
+									sql('INSERT INTO `rr_ocpl_vote_2011` (`user_id`, `candidate_id`) VALUES (\'' . sql_escape($usr['userid']) . '\', \'' . sql_escape($votes[$i]) . '\')');
 								}
 								
 							} else { // błędna ilość głosów
@@ -89,11 +96,19 @@
 						tpl_set_var('vote_results_foother', '');
 					}
 					
-				} else { // uzytkownik nieuprawniony do glosowania (zarejestrowany po ogloszeniu)
+				} else { // uzytkownik nieuprawniony do glosowania (zarejestrowany po ogloszeniu lub za mało znalezionych skrzynek)
 					$tplname = 'glosowanie_do_rr_info';
 					tpl_set_var('vote_info', $vote_info);
 					tpl_set_var('candidate_info_list', show_candidate_info_list($candidate_info_line));
-					tpl_set_var('information', $vote_forbidden);				
+
+					$information = $vote_forbidden;
+					if (!($user_num_rows == 1)) {
+						$information .= sprintf($vote_forbidden_wrong_date, date('d-m-Y', $user_max_date_created));
+					}
+					if (!($num_find_caches >= $user_min_found_caches)) {
+						$information .= sprintf($vote_forbidden_cache_count, date('d-m-Y', $user_found_caches_date), $num_find_caches, $user_min_found_caches);
+					}
+					tpl_set_var('information', $information);				
 				}
 				
 			} else { // głosowanie się jeszcze nie rozpoczęło lub już się zakończyło
@@ -121,7 +136,7 @@
 
 	function show_candidate_vote_list($candidate_vote_line) {
 		$candidate_vote_list = '';
-		$query = "SELECT * FROM rr_ocpl_candidates_2010 ORDER BY username";
+		$query = "SELECT * FROM rr_ocpl_candidates_2011 ORDER BY username";
 		$rs = sql($query);
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
@@ -145,7 +160,7 @@
 
 	function show_candidate_info_list($candidate_info_line) {
 		$candidate_info_list = '';
-		$query = "SELECT * FROM rr_ocpl_candidates_2010 ORDER BY username";
+		$query = "SELECT * FROM rr_ocpl_candidates_2011 ORDER BY username";
 		$rs = sql($query);
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
@@ -163,8 +178,8 @@
 
 	function show_candidate_result_list($candidate_result_line) {
 		$candidate_result_list = '';
-		//$query = "SELECT count(v.candidate_id), v.candidate_id, c.username, c.city, c.user_id FROM rr_ocpl_candidates_2010 c, rr_ocpl_vote_2010 v WHERE v.candidate_id = c.candidate_id GROUP BY v.candidate_id ORDER BY count(v.candidate_id), c.username";
-		$query = "SELECT count(v.candidate_id) as ilosc, c.username, c.city, c.user_id FROM rr_ocpl_candidates_2010 c LEFT JOIN rr_ocpl_vote_2010 v ON c.candidate_id = v.candidate_id GROUP BY c.username ORDER BY count(v.candidate_id) DESC, c.username";
+		//$query = "SELECT count(v.candidate_id), v.candidate_id, c.username, c.city, c.user_id FROM rr_ocpl_candidates_2011 c, rr_ocpl_vote_2011 v WHERE v.candidate_id = c.candidate_id GROUP BY v.candidate_id ORDER BY count(v.candidate_id), c.username";
+		$query = "SELECT count(v.candidate_id) as ilosc, c.username, c.city, c.user_id FROM rr_ocpl_candidates_2011 c LEFT JOIN rr_ocpl_vote_2011 v ON c.candidate_id = v.candidate_id GROUP BY c.username ORDER BY count(v.candidate_id) DESC, c.username";
 		$rs = sql($query);
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
