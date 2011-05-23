@@ -30,6 +30,7 @@ Pamiętaj, że Twoja skrzynka świadczy o Tobie. Na pewno zależy Ci na tym, by 
 <li>Czy w najbliższej okolicy znajdują się już inne skrzynki, czy zachowana jest minimalna odległość 150m ?,</li>
 <li>Czy jesteś w stanie zapewnić serwis dla skrzynki przez cały czas jej istnienia w serwisie?,</li>
 <li>Czy wybrany przez Ciebie sposób ukrycia skrzynki jest właściwy dla wybranej lokalizacji skrzynki (odporność pojemnika na niską temperaturę, wilgoć) ?,</li>
+<li>Możesz poszukać czy w Twojej oklicy jest <a class="links" href="http://opencaching.pl/cacheguides.php">Przewodników po geocachingu <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>, który może pomóc Ci w założeniu Twoich skrzynek,</li>
 <li>Czy skrzynka jest zgodna z <a class="links" href="http://wiki.opencaching.pl/index.php/Regulamin_OC_PL">Regulaminem serwisu OC PL <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> ?.</li>
 </ul><span style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: justify;">Prosimy zapoznaj się z Poradnikiem <a class="links" href="http://wiki.opencaching.pl/index.php/Zak%C5%82adanie_skrzynki">Jak założyć skrzynkę <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> oraz <a class="links" href="http://wiki.opencaching.pl/index.php/Kodeks_geocachera">Kodeksem Geocacher'a <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> na naszym OpenGeoWiki.
 <br/>Pozdrawiamy<br/>OC Team</span>
