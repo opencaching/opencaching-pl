@@ -51,21 +51,13 @@
 	</tr>
 		<tr>
 		<td>
-			Norwegia
+			Szwecja/Norwegia
 		</td>
 		<td>
-					<a href="http://www.opencaching.no">http://www.opencaching.no</a>	
+					<a href="http://www.opencaching.no">http://www.opencaching.se</a>	
 		</td>
 	</tr>
 
-	<tr>
-		<td>
-			Szwecja
-		</td>
-		<td>
-					<a href="http://www.opencaching.se">http://www.opencaching.se</a>	
-		</td>
-	</tr>
 	<tr>
 		<td>
 			Czechy
@@ -79,7 +71,7 @@
 			Łotwa
 		</td>
 		<td>
-					<a href="http://www.opencaching.lv">http://www.opencaching.lv</a>	
+					<a href="http://www.opencaching.jp">http://www.opencaching.jp</a>	
 		</td>
 	</tr>
 
