@@ -1,47 +1,47 @@
 
-             Opencaching Network Implementation 
+				Opencaching Network Implementation 
 					One Login for all Nodes
 					Version 1.0 draft 2011
 						Waldek sp2ong
 
  
- Uwagi ogólne
+ Uwagi ogolne
  ------------
  
- Rozwa¿aj¹c co jest g³ównym problemem u¿ywanie przez u¿ytkowników innych wez³ów OC to
- g³ownie problem jest w zrobienie wpisu do logu do skrzynki, która jest zarejstorwana na innym wêzle OC.
- Zak³adnie skrzynki nie powinno byæ rozwa¿ane i mo¿liwe gdy¿ po to s¹ lokalne OC Node, które dzia³aj¹
- w niedu¿ym obszarze czy jednego kraju czy paru sasiednich skupiaj¹c u¿ytkowników maj¹cych szanse 
- zapewnienia utrzymania skrzynki. Jeœli przyjmiemy takie za³o¿enie wiêc ca³y problem sprwadz siê do tego
-jak zrobiæ wpis na innym OC Node do logu maj¹c tylko jedno konto na swoim OC Node lokalnym.
+ Rozwazajac co jest glownym problemem uzywanie przez uzytkownikow innych wezlow OC to
+ glownie problem jest w zrobienie wpisu do logu do skrzynki, ktora jest zarejstorwana na innym wezle OC.
+ Zakladnie skrzynki nie powinno byc rozwazane i mozliwe gdyz po to sa lokalne OC Node, ktore dzialaja
+ w nieduzym obszarze czy jednego kraju czy paru sasiednich skupiajac uzytkownikow majacych szanse 
+ zapewnienia utrzymania skrzynki. Jeali przyjmiemy takie zalozenie wiec caly problem sprwadz sie do tego
+jak zrobic wpis na innym OC Node do logu majac tylko jedno konto na swoim OC Node lokalnym.
 
 Login
 -----
 
-Aby wprowadziæ wpis do logu skrzynki nale¿y byæ zalogowanym do OC serwisu.
-Jesli u¿ytkownik zalogowa³ sie do serwisu OC Node w postaci:
+Aby wprowadzic wpis do logu skrzynki nalezy byc zalogowanym do OC serwisu.
+Jesli uzytkownik zalogowal sie do serwisu OC Node w postaci:
 
 Loginname: username
 Password: password
 
-oznacza to ze u¿ytkownik jest lokalny tzn zrejstorwany na tym OC Node i sprawa jest prosta bo nie wymaga dzia³ania.
+oznacza to ze uzytkownik jest lokalny tzn zrejstorwany na tym OC Node i sprawa jest prosta bo nie wymaga dzialania.
 
-Jeœli u¿ytkownik klikaj¹c na ikone "Zrob wpis do logu" zostanie poproszony o to aby sie zalogowa³ i zrobi to w ten sposob:
+Jesli uzytkownik klikajac na ikone "Zrob wpis do logu" zostanie poproszony o to aby sie zalogowac i zrobi to w ten sposob:
 
 Loginname: rambo@opencaching.pl
 Passoword: pass
 
-System dostaje info ze user jest z innego Node który jest zdefiniowany po znaku @ i w tablicy db "nodes"
-mo¿e sprawdziæ jaki ma numer ten node. 
-Wa¿ne username na wszytskich serwisach nie mo¿e zawierac w nazwie znaków spacji,oraz @ wiêc podczas rejstracji
-na lokalnym node nale¿y username dla nowych u¿ytkowników pod tym kontem sprawdzaæ i odrzucaæ rejstracje jesli powy¿sze
-znaki s¹ w username (podobnie nale¿y sprawdzaæ kidy user chce zmienic swój username po rejestracji). Sprawdzic w
-obecnej lokalnej bazie "users" czy obecni users nie maja w nazwach spacji lub znaków @ jesli tak poprosic o zmiany 
+System dostaje info ze user jest z innego Node ktory jest zdefiniowany po znaku @ i w tablicy db "nodes"
+moze sprawdzic jaki ma numer ten node. 
+Wazne username na wszystkich serwisach nie moze zawierac w nazwie znakow spacji,oraz @ wiec podczas rejstracji
+na lokalnym node nalezy username dla nowych uzytkownikow pod tym kontem sprawdzac i odrzucac rejstracje jesli powyzsze
+znaki sa w username (podobnie nalezy sprawdzac kiedy user chce zmienic swoj username po rejestracji). Sprawdzic w
+obecnej lokalnej bazie "users" czy obecni users nie maja w nazwach spacji lub znakow @ jesli tak poprosic o zmiany 
 prponujac rozwiazania zamiast spacji np znak _ lub - a zmaist @ moze cos innego ?
 
 Teraz natepuje proces autoryzacji 
 
-.........   i tu jest najwiêkszy problem jak to zrobiæ aby bylo bezpiecznie 
+.........   i tu jest najwiekszy problem jak to zrobic aby bylo bezpiecznie 
 
 Czy OpenID zalatwia sprawe ?? moze ale musimy miec tablice wiarygodnych OpenID Serwerow OC aby ktos kto ma np 
 konto na dowolnym serwerze OpenID nie mogl zrobic logowania. Byc moze nalezaloby by wykorzystac OAuth gdzie
