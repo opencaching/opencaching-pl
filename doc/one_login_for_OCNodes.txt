@@ -8,38 +8,45 @@
  Uwagi ogólne
  ------------
  
- Rozwazjac co jest glownym problemem uzywanie przez uzytkownikow innych wez³ów OC to
- g³ownie problem wprowadzenia wpisu do logu do skrzynki która jest zarejstorwana na innym wêzle OC.
- Zak³adnie skrzynki nie powinno byc rozwa¿ane i mo¿liwe gdy¿ po to sa lokalne OC Node które dzia³aj¹
+ Rozwa¿aj¹c co jest g³ównym problemem u¿ywanie przez u¿ytkowników innych wez³ów OC to
+ g³ownie problem jest w zrobienie wpisu do logu do skrzynki, która jest zarejstorwana na innym wêzle OC.
+ Zak³adnie skrzynki nie powinno byæ rozwa¿ane i mo¿liwe gdy¿ po to s¹ lokalne OC Node, które dzia³aj¹
  w niedu¿ym obszarze czy jednego kraju czy paru sasiednich skupiaj¹c u¿ytkowników maj¹cych szanse 
- zapenienia utrzymania skrzynki. Jesli przyjmiemy takie za³o¿enie wiêc ca³y problem sprwadz siê do tego
-jak zrobic wpis na innym OC Node do logu maj¹c tylko jedno konto na swoim OC Node lokalnym.
+ zapewnienia utrzymania skrzynki. Jeœli przyjmiemy takie za³o¿enie wiêc ca³y problem sprwadz siê do tego
+jak zrobiæ wpis na innym OC Node do logu maj¹c tylko jedno konto na swoim OC Node lokalnym.
 
 Login
 -----
 
 Aby wprowadziæ wpis do logu skrzynki nale¿y byæ zalogowanym do OC serwisu.
-Jesli u¿ytkownik zalogowal sie do serwisu OC Node w postaci:
+Jesli u¿ytkownik zalogowa³ sie do serwisu OC Node w postaci:
 
 Loginname: username
 Password: password
 
-oznacza to ze u¿ytkownik jest lokalny tzn zrejstorwany na tym OC Node i sprawa jest prosta bo nie wymaga dzialania.
+oznacza to ze u¿ytkownik jest lokalny tzn zrejstorwany na tym OC Node i sprawa jest prosta bo nie wymaga dzia³ania.
 
-Jesli u¿ytkownik klikajac na ikone "Zrob wpis do logu" zostanie poproszony o to aby sie zalogowal i zrobi to w ten sposob:
+Jeœli u¿ytkownik klikaj¹c na ikone "Zrob wpis do logu" zostanie poproszony o to aby sie zalogowa³ i zrobi to w ten sposob:
 
 Loginname: rambo@opencaching.pl
 Passoword: pass
 
-System dostaje info ze user jest z innego Node ktory jest zdefiniowany po znaku @ i w tablicy db "nodes"
-mo¿e sprawdziæ jaki ma numer ten node. Teraz natepuje proces autoryzacji 
+System dostaje info ze user jest z innego Node który jest zdefiniowany po znaku @ i w tablicy db "nodes"
+mo¿e sprawdziæ jaki ma numer ten node. 
+Wa¿ne username na wszytskich serwisach nie mo¿e zawierac w nazwie znaków spacji,oraz @ wiêc podczas rejstracji
+na lokalnym node nale¿y username dla nowych u¿ytkowników pod tym kontem sprawdzaæ i odrzucaæ rejstracje jesli powy¿sze
+znaki s¹ w username (podobnie nale¿y sprawdzaæ kidy user chce zmienic swój username po rejestracji). Sprawdzic w
+obecnej lokalnej bazie "users" czy obecni users nie maja w nazwach spacji lub znaków @ jesli tak poprosic o zmiany 
+prponujac rozwiazania zamiast spacji np znak _ lub - a zmaist @ moze cos innego ?
 
-.........   i tu jest najwieszy problem jak to zrobic aby bylo bezpiecznie 
+Teraz natepuje proces autoryzacji 
 
-Czy OpenID zalatwia sprawe ?? moze ale musimy miec tablice wiarygodnych OpenID Serwerow OC aby ktos ktoma np 
-konto na dowolnym serwerzez OpenID nie mogl zrobic logowania. Byc moze nalezaloby by wykorzystac OAuth gdzie
+.........   i tu jest najwiêkszy problem jak to zrobiæ aby bylo bezpiecznie 
+
+Czy OpenID zalatwia sprawe ?? moze ale musimy miec tablice wiarygodnych OpenID Serwerow OC aby ktos kto ma np 
+konto na dowolnym serwerze OpenID nie mogl zrobic logowania. Byc moze nalezaloby by wykorzystac OAuth gdzie
 w tablicy sql "nodes" oprocz nazwy node i jego numeru zawieray API-Key unikalny itd to co wymaga OAuth i dzieki
-temu username i password oraz to ze serwis na ktorym jest zarejestrowny ocby user nalezy do sieci "Geocaching Network"
+temu username i password oraz to ze serwis na ktorym jest zarejestrowny obcy user nalezy do sieci "Geocaching Network"
 w ktorej sa OC Nodes oraz inne portale geocachingowe ktore chce korzystac z podobnego mechanizmu np GC Australia
 OC.com, GPSGames.org itd
 
@@ -47,8 +54,8 @@ Tu potrzebny jest bardzo dobry programista ktory pozwoli nam zrealizowa pomysl a
 
 .........
 
-Ok autoryzacja zostala potwierdzona mozemy dokona wpisu do logu zgodnie z formularzem na danym OC Node a wiec na OC PL np 
-bedzie mozna zrobic oprocz rekomendacji tazke wystawic ocene skrzynki jesli to bedzie robione na OC DE to nie bedzie pytania 
+Ok autoryzacja zostala potwierdzona mozemy dokonac wpisu do logu zgodnie z formularzem na danym OC Node a wiec na OC PL np 
+bedzie mozna zrobic oprocz rekomendacji takze wystawic ocene skrzynki jesli to bedzie robione na OC DE to nie bedzie pytania 
 o ocene skrzynki 
 
 Ok user zrobil wpis do skrzynki na nie swoim OC Node teraz jak to wykazac w listingu wpisow do logu:
@@ -69,6 +76,12 @@ dla OC PL http://opencaching.pl/viewprofile.php?userid=zzz" dla GC AU odpowiedni
 Tak zalogowany user do obcego serwisu geocachingowego moze tylko wykonac wpis w logbook jego edycje lub skasowac. Mozemy sprawdzic 
 czy zalogowany user ma numer Node loklany czy obcy jesli obcy to nie ma prawa zalozyc skrzynki bo i po co.
 
-Czyli w prosty sposob mam to co nam utrudnia z korzystania z innych OC Nodes pozwala zachowac idywidualnosc OC Nodes w postaci 
-typow skrzynek, atrybutow, regulaminow zakldania skrzynek itd. Nie potzrebujemy robic synchoronizacji baz danych
+OK co w bazie ? tak zalogowany user ktory chce zrobic wpis i robi to pierwszy raz pewnie nalezaloby go wpisac w baze  bo w tablicy cache_logs
+mamy user_id usera robiacego wpis wiec nalezy go wpisac w tablicy "user" a wic nada mu user_id w kolumnie "node" stosowny numer wezla a co w 
+kolumnie password ? NULL ... 
 
+Czyli w prosty sposob mam to co nam utrudnia z korzystania z innych OC Nodes pozwala zachowac idywidualnosc OC Nodes w postaci 
+typow skrzynek, atrybutow, regulaminow zakldania skrzynek itd. Nie potrzebujemy robic synchoronizacji baz danych
+
+
+Wady brak statystyk z obcych node w profilu na lokalnym Node z wpisow z obcych OC Nodes.
