@@ -521,7 +521,7 @@ INSERT INTO `watches_waitingtypes` (`id`, `watchtype`) VALUES
 --
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `email`, `latitude`, `longitude`, `last_modified`, `login_faults`, `last_login`, `login_id`, `is_active_flag`, `was_loggedin`, `country`, `pmr_flag`, `new_pw_code`, `new_pw_date`, `date_created`, `new_email_code`, `new_email_date`, `new_email`, `post_news`, `hidden_count`, `log_notes_count`, `founds_count`, `notfounds_count`, `uuid`, `cache_watches`, `permanent_login_flag`, `watchmail_mode`, `watchmail_hour`, `watchmail_nextmail`, `watchmail_day`, `activation_code`, `statpic_logo`, `statpic_text`, `cache_ignores`, `no_htmledit_flag`, `notify_radius`, `admin`, `node`, `stat_ban`, `description`, `rules_confirmed`, `get_bulletin`, `ozi_filips`, `hide_flag`) VALUES
-(-1, 'SYSTEM', '9e45a208cbf188658163e0def33fb769c7d339ce865012e852d8202f1fa737c3cd5479217cee226d544e34ae76f7b19bb44fd63085ef5b07b2b69785b0dfbc26', 'na', NULL, NULL, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', '', 1, 1, 'PL', 0, NULL, 0, '2006-05-25 12:18:04', NULL, NULL, NULL, NULL, 0, 0, 0, 0, 'ZZZZZZZZ-ZZZZ-ZZZZ-ZZZZ-ZZZZZZZZZZZZ', 0, 1, 1, 0, '2010-02-10 06:40:30', 1, '', 0, 'Opencaching', 0, 0, 0, 0, 0, 0, '', 1, 1, '', 0);
+(-1, 'SYSTEM', '9e45a208cbf188658163e0def33fb769c7d339ce865012e852d8202f1fa737c3cd5479217cee226d544e34ae76f7b19bb44fd63085ef5b07b2b69785b0dfbc26', 'na', NULL, NULL, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', '', 1, 1, 'PL', 0, NULL, 0, '2006-05-25 12:18:04', NULL, NULL, NULL, NULL, 0, 0, 0, 0, 'ZZZZZZZZ-ZZZZ-ZZZZ-ZZZZ-ZZZZZZZZZZZZ', 0, 1, 1, 0, '2010-02-10 06:40:30', 1, '', 0, 'Opencaching', 0, 0, 0, 0, 0, 0,,0, '', 1, 1, '', 0);
 
 -- Zrzut danych tabeli `waypoint_type`
 --
