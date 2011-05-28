@@ -1,8 +1,8 @@
 
 				Opencaching Network Implementation 
-					One Login for all Nodes
-					Version 1.0 draft 2011
-						Waldek sp2ong
+				    One Login for all Nodes
+					Version 1.0 draft 2010
+					    Waldek sp2ong
 
  
  Uwagi ogolne
@@ -39,9 +39,13 @@ znaki sa w username (podobnie nalezy sprawdzac kiedy user chce zmienic swoj user
 obecnej lokalnej bazie "users" czy obecni users nie maja w nazwach spacji lub znakow @ jesli tak poprosic o zmiany 
 prponujac rozwiazania zamiast spacji np znak _ lub - a zmaist @ moze cos innego ?
 
+
 Teraz natepuje proces autoryzacji 
 
 .........   i tu jest najwiekszy problem jak to zrobic aby bylo bezpiecznie 
+
+Czyli generalnie potrzeba nam to co zrobi FB ze mozna kontem na FB logowac sie an inne serwisy jesli pozwalaja to
+FB Cnnect. Wydaje sie ze OpenID wlasnie pozwolilby nam na to
 
 Czy OpenID zalatwia sprawe ?? moze ale musimy miec tablice wiarygodnych OpenID Serwerow OC aby ktos kto ma np 
 konto na dowolnym serwerze OpenID nie mogl zrobic logowania. Byc moze nalezaloby by wykorzystac OAuth gdzie
@@ -49,6 +53,9 @@ w tablicy sql "nodes" oprocz nazwy node i jego numeru zawieray API-Key unikalny 
 temu username i password oraz to ze serwis na ktorym jest zarejestrowny obcy user nalezy do sieci "Geocaching Network"
 w ktorej sa OC Nodes oraz inne portale geocachingowe ktore chce korzystac z podobnego mechanizmu np GC Australia
 OC.com, GPSGames.org itd
+
+Przyklad OpenID http://code.google.com/p/lightopenid/ wydaje sie ze mozna to wykorzystac
+jest clinet i server (provider) bo oba elementy sa nam potrzebne na kazdym Node
 
 Tu potrzebny jest bardzo dobry programista ktory pozwoli nam zrealizowa pomysl autoryzacji
 
@@ -85,3 +92,5 @@ typow skrzynek, atrybutow, regulaminow zakldania skrzynek itd. Nie potrzebujemy 
 
 
 Wady brak statystyk z obcych node w profilu na lokalnym Node z wpisow z obcych OC Nodes.
+
+
