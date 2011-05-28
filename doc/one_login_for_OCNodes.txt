@@ -29,7 +29,10 @@ oznacza to ze uzytkownik jest lokalny tzn zrejstorwany na tym OC Node i sprawa j
 Jesli uzytkownik klikajac na ikone "Zrob wpis do logu" zostanie poproszony o to aby sie zalogowac i zrobi to w ten sposob:
 
 Loginname: rambo@opencaching.pl
-Passoword: pass
+Passoword: pass   <-   nie wiem czy musi podac haslo ? lepiej nie bo user moze miec obawy wiec tak jak
+						OpenID zostaje przekierowany na strone wlasnego serwisu logowania OpenID servera
+						tam wpisze haslo i zostanie ponownie przekierowany na strone serwisu gdzie
+						wprowadza wpis do logu z informacja ze user jest autoryzowany
 
 System dostaje info ze user jest z innego Node ktory jest zdefiniowany po znaku @ i w tablicy db "nodes"
 moze sprawdzic jaki ma numer ten node. 
