@@ -27,8 +27,11 @@ Password: password
 oznacza to ze uzytkownik jest lokalny tzn zrejstorwany na tym OC Node i sprawa jest prosta bo nie wymaga dzialania.
 
 Jesli uzytkownik klikajac na ikone "Zrob wpis do logu" zostanie poproszony o to aby sie zalogowac i zrobi to w ten sposob:
+Przyklad atrapy:
 
-Loginname: rambo@opencaching.pl
+http://opencaching.pl/login_one.php
+
+Loginname: rambo  opencaching.pl
 Passoword: pass   <-   nie wiem czy musi podac haslo ? lepiej nie bo user moze miec obawy wiec tak jak
 						OpenID zostaje przekierowany na strone wlasnego serwisu logowania OpenID servera
 						tam wpisze haslo i zostanie ponownie przekierowany na strone serwisu gdzie
