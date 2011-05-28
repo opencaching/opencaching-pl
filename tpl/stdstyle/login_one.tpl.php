@@ -17,6 +17,7 @@
 	
  ****************************************************************************/
 ?>
+
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="" title="Login" align="middle"/>&nbsp;Login</div>
 	{message_start}
 	{message}
@@ -26,21 +27,24 @@
 <input type="hidden" name="target" value="{target}" />
 <input type="hidden" name="action" value="login" />
 <table class="table">
-	<tr><td colspan="2">&nbsp;</td><td><b>Moje konto jest na następującym serwisie:</b></td></tr>
+	<tr><td colspan="2">&nbsp;</td><td><b>My account is on the following website:</b></td></tr>
 	<tr>
 		<td class="content-title-noshade">{{username_label}}:</td>
 		<td><input name="email" maxlength="80" type="text" value="{username}" class="input150" /></td>
 		<td>
 	<select name="gcnode" class="input150">
 					<option value="2" selected="selected">OpenCaching.PL</option>
-					<option value="3">OpenCaching.DE</option>
-					<option value="4">OpenCaching.ES</option>
-					<option value="5">OpenCaching.IT</option>
-					<option value="6">OpenCaching.CZ</option>
-					<option value="7">OpenCaching.SE</option>
-					<option value="8">OpenCaching.UK</option>
+					<option value="1">OpenCaching.DE</option>
+					<option value="1">OpenCaching.ES</option>
+					<option value="1">OpenCaching.IT</option>
+					<option value="3">OpenCaching.CZ</option>
+					<option value="5">OpenCaching.NL</option>
+					<option value="6">OpenCaching.UK</option>
+					<option value="7">OpenCaching.SE/NO</option>
 					<option value="9">OpenCaching.US</option>
-					<option value="10">Geocaching.com.au</option>
+					<option value="11">OpenCaching.JP</option>
+					<option value="12">OpenCaching.org.RU</option>
+					<option value="9901">Geocaching.com.au</option>
 				</select>
 		
 		</td>
