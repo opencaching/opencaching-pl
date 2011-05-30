@@ -83,6 +83,9 @@ czy zalogowany user ma numer Node loklany czy obcy jesli obcy to nie ma prawa za
 OK co w bazie ? tak zalogowany user ktory chce zrobic wpis i robi to pierwszy raz pewnie nalezaloby go wpisac w baze  bo w tablicy cache_logs
 mamy user_id usera robiacego wpis wiec nalezy go wpisac w tablicy "user" a wic nada mu user_id w kolumnie "node" stosowny numer wezla a co w 
 kolumnie password ? NULL ... 
+Ok musimy wiec jesli user loguje sie z obcego GC Node dolozyc go do tablicy 'user' z odpowiednim numer Node ale co zrobic kiedy
+juz taki username jest w naszje bazie ???? czy na dzien dobry dawac mu nazwe username_XX gdzie XX nazwa kraju np rambo_DE ale 
+czy jest to rozwiazanie ?
 
 Czyli w prosty sposob mam to co nam utrudnia z korzystania z innych OC Nodes pozwala zachowac idywidualnosc OC Nodes w postaci 
 typow skrzynek, atrybutow, regulaminow zakldania skrzynek itd. Nie potrzebujemy robic synchoronizacji baz danych
