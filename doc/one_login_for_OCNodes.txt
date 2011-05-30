@@ -98,6 +98,8 @@ Czyli w prosty sposob mam to co nam utrudnia z korzystania z innych OC Nodes poz
 typow skrzynek, atrybutow, regulaminow zakldania skrzynek itd. Nie potrzebujemy robic synchoronizacji baz danych
 
 
-Wady brak statystyk z obcych node w profilu na lokalnym Node z wpisow z obcych OC Nodes.
+Wady brak statystyk z obcych node w profilu na lokalnym Node z wpisow z obcych OC Nodes. Moze wykorzystujac API REST jesli dany serwsi posaidalby uzytkownik moglby w swoim profilu na lokalnym GC Node zaznaczyc opcje pobierania statystyki z wybranych GC Node i wtedy mialby iformacje w swoim profilu o znalezionych/ nie znalezionychy / komentarzach w poszczegolnych GC Nodes
+
+
 
 
