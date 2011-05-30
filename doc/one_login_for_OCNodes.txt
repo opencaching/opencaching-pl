@@ -31,19 +31,10 @@ Przyklad atrapy:
 
 http://opencaching.pl/login_one.php
 
-Loginname: rambo  opencaching.pl
-Passoword: pass   <-   nie wiem czy musi podac haslo ? lepiej nie bo user moze miec obawy wiec tak jak
-						OpenID zostaje przekierowany na strone wlasnego serwisu logowania OpenID servera
-						tam wpisze haslo i zostanie ponownie przekierowany na strone serwisu gdzie
-						wprowadza wpis do logu z informacja ze user jest autoryzowany
+Login_name: rambo   -> wybor GC Node: opencaching.pl, ....
+Passoword: pass   <-  Haslo tylko dostepne kiedy username loguje sie na swoim Node w pozostalych przypadkach pole Password nie jest
+			dostepne gdyz haslo poda poprzekierowaniu na swoj gc servis do zalogowania i potwierdzania autentycznosci
 
-System dostaje info ze user jest z innego Node ktory jest zdefiniowany po znaku @ i w tablicy db "nodes"
-moze sprawdzic jaki ma numer ten node. 
-Wazne username na wszystkich serwisach nie moze zawierac w nazwie znakow spacji,oraz @ wiec podczas rejstracji
-na lokalnym node nalezy username dla nowych uzytkownikow pod tym kontem sprawdzac i odrzucac rejstracje jesli powyzsze
-znaki sa w username (podobnie nalezy sprawdzac kiedy user chce zmienic swoj username po rejestracji). Sprawdzic w
-obecnej lokalnej bazie "users" czy obecni users nie maja w nazwach spacji lub znakow @ jesli tak poprosic o zmiany 
-prponujac rozwiazania zamiast spacji np znak _ lub - a zmaist @ moze cos innego ?
 
 
 Teraz natepuje proces autoryzacji 
