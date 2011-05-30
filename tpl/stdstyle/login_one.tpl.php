@@ -16,6 +16,22 @@
 	
  ****************************************************************************/
 ?>
+<script type="text/javascript">
+<!--
+function _chkgcnode () 
+{
+	// disable password for other nodes than OC PL
+	if(document.login_form.gcnode.value != "2")
+	{
+		document.login_form.password.disabled = true;
+	}
+	else
+	{
+		document.login_form.password.disabled = false;
+	}
+
+}
+//--></script>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="" title="Login" align="middle"/>&nbsp;Login</div>
 	{message_start}
@@ -31,7 +47,7 @@
 		<td class="content-title-noshade">{{username_label}}:</td>
 		<td><input name="email" maxlength="80" type="text" value="{username}" class="input150" /></td>
 		<td>
-	<select name="gcnode" class="input150">
+	<select name="gcnode" class="input150" onchange="return _chkgcnode()">
 					<option value="2" selected="selected">OpenCaching.PL</option>
 					<option value="1">OpenCaching.DE</option>
 					<option value="1">OpenCaching.ES</option>
