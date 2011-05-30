@@ -54,6 +54,13 @@ OC.com, GPSGames.org itd
 Przyklad OpenID http://code.google.com/p/lightopenid/ wydaje sie ze mozna to wykorzystac
 jest clinet i server (provider) bo oba elementy sa nam potrzebne na kazdym Node
 
+Pewnie najlepszy rozwiazaniem byloby:
+
+1. dodoanie mozliwsoci logowania sie do OC przy pomocy OpenID z juz istniejacych serwerow openid.net, openid.pl etc
+2. jak do tego podejsc sugestie sa tu: http://www.plaxo.com/api/openid_recipe
+3. Wdrozyc OpenID server na OC Node aby mozna bylo logowac sie swoim OpenID z wlasnego OpenID OC servera
+
+
 Tu potrzebny jest bardzo dobry programista ktory pozwoli nam zrealizowa pomysl autoryzacji
 
 .........
