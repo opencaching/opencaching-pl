@@ -27,10 +27,10 @@ $year = date('Y');
 $year_old= $year-1;
 $year_new=$year+1;
 $count_days= date('z');
-if ($count_days < 151) {$start_time = $year_old .'-06-1 00:00:00';
+if ($count_days < 181) {$start_time = $year_old .'-06-30 00:00:00';
 	$title3=tr('number_month').' '. $year_old .'/'. $year;
 	} else {
-		$start_time= $year .'-06-1 00:00:00';
+		$start_time= $year .'-06-30 00:00:00';
 		$title3=tr('number_month').' '. $year .'/'. $year_new;
 		}
 
