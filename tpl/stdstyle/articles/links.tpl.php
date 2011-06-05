@@ -68,7 +68,7 @@
 	</tr>
 		<tr>
 		<td>
-			Łotwa
+			Japonia
 		</td>
 		<td>
 					<a href="http://www.opencaching.jp">http://www.opencaching.jp</a>	
