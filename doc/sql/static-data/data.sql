@@ -406,7 +406,7 @@ INSERT INTO `logentries_types` (`id`, `module`, `eventname`) VALUES
 
 INSERT INTO `log_types` (`id`, `cache_status`, `permission`, `pl`, `en`, `icon_small`) VALUES
 (1, 0, 'C', 'Znaleziona', 'Found it', 'log/16x16-found.png'),
-(2, 0, 'C', 'Nie znaleziona', 'Didn''t find it', 'log/16x16-dnf.png'),
+(2, 0, 'C', 'Nieznaleziona', 'Didn''t find it', 'log/16x16-dnf.png'),
 (3, 0, 'A', 'Komentarz', 'Note', 'log/16x16-note.png'),
 (7, 0, 'C', 'Uczestniczył', 'Attended', 'log/16x16-go.png'),
 (8, 0, 'C', 'Zamierza uczestniczyć', 'Will attended', 'log/16x16-wattend.png'),
@@ -425,7 +425,7 @@ INSERT INTO `log_types` (`id`, `cache_status`, `permission`, `pl`, `en`, `icon_s
 
 INSERT INTO `log_types_text` (`id`, `log_types_id`, `lang`, `text_combo`, `text_listing`) VALUES
 (1, 1, 'PL', 'Znaleziona', 'Znaleziona'),
-(2, 2, 'PL', 'Nie znaleziona', 'Nie znaleziona'),
+(2, 2, 'PL', 'Nieznaleziona', 'Nieznaleziona'),
 (3, 3, 'PL', 'Komentarz', 'Komentarz'),
 (4, 4, 'PL', 'Przeniesiona', 'Skrzynka przeniesiona'),
 (5, 5, 'PL', 'Potrzebny serwis', 'Potrzebny serwis skrzynki'),
