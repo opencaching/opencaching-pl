@@ -26,8 +26,8 @@
 
 Gnerując klucz do API REST OC PL Node zgadzasz się z warunkami używania API REST OC PL które są umiszczone: 
 
-Długi teskt o warunkach API ......
-bla,bla,bala 
+<br/>Długi teskt o warunkach API ......
+bla,bla,bla ..... 
 
 <br/>Pozdrawiamy<br/>OC Team</span>
 </div>

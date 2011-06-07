@@ -70,7 +70,7 @@
 		}
 
 
-		if (isset($_POST['confirm']) || isset($_POST['newkey']) )
+		if (isset($_POST['confirm']) || isset($_POST['new_key']) )
 		{	
 
 	function _key_exists($key)
@@ -98,6 +98,12 @@
 		return $new_key;
 	}
 		
+		if (isset($_POST['new_key'])){
+		$idkey=$_POST['idkey'];
+		//remove 
+		sql("DELETE FROM `keys` WHERE `id`='&1'", $idkey);
+
+		}
 
 	/**
 	 * Key Create
