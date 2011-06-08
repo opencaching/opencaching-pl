@@ -115,7 +115,7 @@
 		$tplname = 'api_keys';
 
 		$userid_exists=sqlValue("SELECT COUNT(*) FROM `keys` WHERE `user_id`='".$userid."'",0);
-		if ($userid_exist==NULL) {
+		if ($userid_exists==0) {
 		// Build a new key
 		$key = _generate_key();
 
