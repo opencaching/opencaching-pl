@@ -40,8 +40,7 @@
 
 		// exist user_id in keys table ?
 		$userid_key=sqlValue("SELECT `key` FROM `keys` WHERE `user_id`='".$user_id."'",0);
-
-		if ($userid_key==NULL)
+		if ($userid_key =="0")
 		{
 		// DISPLAY Rules confirm
 		$tplname="api_keys_confirm";
@@ -53,20 +52,20 @@
 
 	    
 
-				if (isset($_POST['back']))
-				{	
+		if (isset($_POST['back']))
+		{	
 
 				tpl_redirect('index.php');
 				exit;
-				}						
+		}						
 
 		if (isset($_POST['delete']) )
 		{	
-		$idkey=$_POST['idkey'];
-		//remove 
-		sql("DELETE FROM `keys` WHERE `id`='&1'", $idkey);
-		tpl_redirect('index.php');
-		exit;
+			$idkey=$_POST['idkey'];
+			//remove 
+			sql("DELETE FROM `keys` WHERE `id`='&1'", $idkey);
+			tpl_redirect('index.php');
+			exit;
 		}
 
 
@@ -97,45 +96,42 @@
 
 		return $new_key;
 	}
+		if (isset($_POST['userid']))
+		{ $userid=$_POST['userid']; }
+		if (isset($_REQUEST['userid']))
+		{ $userid=$_REQUEST['userid']; }
+		if (isset($_POST['idkey']))
+		{ $idkey=$_POST['idkey']; }
+		if (isset($_REQUEST['idkey']))
+		{ $idkey=$_REQUEST['idkey']; }
 		
-		if (isset($_POST['new_key'])){
-		$idkey=$_POST['idkey'];
-		//remove 
-		sql("DELETE FROM `keys` WHERE `id`='&1'", $idkey);
-
-		}
 
 	/**
 	 * Key Create
 	 *
 	 * Insert a key into the database.
 	 */
-
-		$userid=$_POST['userid'];
 		$tplname = 'api_keys';
-
-		$userid_exists=sqlValue("SELECT COUNT(*) FROM `keys` WHERE `user_id`='".$userid."'",0);
-		if ($userid_exists==0) {
 		// Build a new key
 		$key = _generate_key();
 
 		// If no key level provided, give them a rubbish one
 		$level = 1;
 		$ignore_limits = 1;
-
+		if($idkey=="0") {
 		// Insert the new key
-		sql("INSERT INTO `keys` (`id`,`key`,`user_id`,`level`,`ignore_limits`,`date_created`) VALUES ('','&1','&2','&3','&4',NOW())",$key,$user_id,$level,$ignore_limits);
-		$idkey=sqlValue("SELECT `id` FROM `keys` WHERE `user_id`='".$userid."'",0);
+		sql("INSERT INTO `keys` (`key`,`user_id`,`level`,`ignore_limits`,`date`) VALUES ('&1','&2','&3','&4',NOW())",$key,$user_id,$level,$ignore_limits);
+		$idkey=sqlValue("SELECT `id` FROM `keys` WHERE `user_id`='".$user_id."'",0);
+		tpl_set_var('idkey',$idkey);
+		} else {
+		sql("UPDATE `keys` SET `key`='&1',`user_id`='&2',`level`='&3',`ignore_limits`='&4' WHERE `id`='&5'",$key,$user_id,$level,$ignore_limits,$idkey);
+		}
 		tpl_set_var('api_key',$key);
 		tpl_set_var('userid',$userid);
-		tpl_set_var('idkey',$idkey);
 
 
-	}
+//	}
     }
-
-
-
     }		
 }
 			tpl_BuildTemplate();
