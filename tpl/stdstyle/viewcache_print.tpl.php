@@ -11,7 +11,6 @@
 ?>
 
 
-
 		<div class="line-box">
 
 			<div>
@@ -143,4 +142,4 @@ global $usr, $lang, $hide_coords;
 			</div>
 <!-- End Text Container -->
 
-<hr noshade="noshade" />
+
