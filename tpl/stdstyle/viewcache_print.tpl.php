@@ -9,17 +9,31 @@
 	*
 	***************************************************************************/
 ?>
+<script language=javascript type='text/javascript'> 
+function hidediv() { 
+if (document.getElementById) { // DOM3 = IE5, NS6 
+document.getElementById('hideshow').style.visibility = 'hidden'; 
+} 
+} 
+
+function showdiv() { 
+if (document.getElementById) { // DOM3 = IE5, NS6 
+document.getElementById('hideshow').style.visibility = 'visible'; 
+} 
+} 
+</script> 
+
 
 
 		<div class="line-box">
 
-			<div>
+			
 
 				<div class="content-title-noshade-size1">
 					<img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/>{cachename} 
 					<img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{oc_waypoint} 
-					<img src="tpl/stdstyle/images/blue/kompas.png" class="icon16" alt="" title="" />{coords}</b>
-				</div>
+					<img src="tpl/stdstyle/images/blue/kompas.png" class="icon16" alt="" title="" />{coords}</b><br/>
+				
 				{difficulty_icon_diff} {difficulty_icon_terr} {short_desc} {{hidden_by}} <a href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
 
 				<img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{cachesize}</b>
@@ -34,24 +48,25 @@
 <?php
 global $usr, $lang, $hide_coords;			
 ?>
-
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
 					<img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />
-					{{descriptions}}&nbsp;{cache_attributes}{password_req}
+					{{descriptions}}&nbsp;<br/>{cache_attributes}{password_req}
 				</p></div>
-				<div class="content2-container">
+
+		<div class="content2-container">
+		
 				<div id='branding'>{branding}</div>
+				
 				<div id="description">
-					<div id="viewcache-description">
-						{desc}
-					</div>
+						
+				<div id="viewcache-description">
+								    
+					{desc}
+											    
+				</div>
 				</div>
 			</div>
-
-
-
-
 {hidehint_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
@@ -71,7 +86,6 @@ global $usr, $lang, $hide_coords;
 						{decrypt_table_end}
 					</div>
 				</div>
-
 {hidehint_end}
 
 {waypoints_start}
@@ -120,7 +134,9 @@ global $usr, $lang, $hide_coords;
 				</p></div>
 				<div class="content2-container">
 				<div id="viewcache-pictures">
+				<div id="hideshow">
 					{pictures}
+					</div>
 				</div>
 			</div>
 {hidepictures_end}
@@ -141,5 +157,4 @@ global $usr, $lang, $hide_coords;
 					{logs}
 			</div>
 <!-- End Text Container -->
-
 

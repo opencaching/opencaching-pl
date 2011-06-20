@@ -13,10 +13,18 @@ body, html {
     margin-top: -32px;
 }
 .content2-container, .content3-container {clear: both; float: left; width: 769px; margin: 0px 0px 15px 0px; padding: 0px;}
+.line-box {width:769px; border-bottom: solid 1px rgb(200,200,200); padding-bottom: 7px; margin: 0px 0px 15px 0px;}
 
 div.viewcache-pictureblock { float: left; }
 
-div.viewcache-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 125%;}
+div.viewcache-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 12px;}
+div.frame {
+	width: 94%;
+	margin: 5px;
+	padding: 5px; 	border: solid 1px rgb(219,230,241);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
 
 .img-shadow {
   float:left;
