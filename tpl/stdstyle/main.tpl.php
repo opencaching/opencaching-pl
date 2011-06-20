@@ -124,7 +124,7 @@ function chname( newName )
     </div>
     <!-- Header banner	 -->	 						    		 						
 		<div class="header">
-<!--		<div style="width:970px; padding-top:1px;"><img src="./images/head/rotator.php" alt="" style="border:0px;" /></div> --> 
+		<div style="width:970px; padding-top:1px;"><img src="./images/head/rotator.php" alt="" style="border:0px;" /></div> 
 		</div>		
    	
     <!-- Navigation Level 2 -->												
