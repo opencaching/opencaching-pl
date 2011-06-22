@@ -2,6 +2,7 @@ main_menu Menu główne
 user_menu Menu użytkownika
 new NOWA
 save Zapisz
+Edit Edycja
 back Wróć
 cache_menu Menu skrzynki
 activation_code_failed Kod aktywacyjny lub adres e-mail jest niepoprawny.<br/>Aktywacja Twojego konta przebiegła niepoprawnie. Proszę sprawdzić, czy nie popełniłeś błędu. Jeśli problem nadal występuje, proszę zgłosić go na adres <span class="mail>{contact_mail}</span> <b>koniecznie podaj nazwę użytkownika i adres e-mail pod jakim zarejstrowałeś się w OC PL</b>.

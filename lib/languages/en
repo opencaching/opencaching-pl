@@ -3,6 +3,7 @@ user_menu User's Menu
 cache_menu Cache Menu
 new NEW
 save Save
+Edit Edit
 back Back
 activation_code_failed Activation code or e-mail address is incorrect.<br/>Your account has not been activated successfully. Please check if you have not made a mistake. If problem still occurs, please contact us at: ocpl (at) opencaching.pl.
 email_incorrect E-mail address is incorrect.
