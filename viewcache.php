@@ -607,7 +607,8 @@
 				{			
 
 				$cnote = $_POST['note_content'];
-
+				$cn=strlen($cnote);
+				
 				if (mysql_num_rows($notes_rs)!=0 )				
 				    {
 				    $n_record = sql_fetch_array($notes_rs);
@@ -615,11 +616,8 @@
 				    sql("UPDATE `cache_notes` SET `date`=NOW(),`desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$cnote, '1',$note_id);
 					} 
 
-
-				if (mysql_num_rows($notes_rs)==0)
-				
+				if (mysql_num_rows($notes_rs)==0 && $cn!=0)		
 					{	
-
 					sql("INSERT INTO `cache_notes` (
 							    `note_id`,
 							    `cache_id`,
@@ -633,7 +631,6 @@
 							$usr['userid'],
 							'1',
 						    $cnote);
-
 					}
 				
 				//display cache-page
