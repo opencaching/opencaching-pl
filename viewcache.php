@@ -560,16 +560,120 @@
 			tpl_set_var('notes', htmlspecialchars($cache_record['notes'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('total_number_of_logs', htmlspecialchars($cache_record['notes'] + $cache_record['notfounds'] + $cache_record['founds'], ENT_COMPAT, 'UTF-8'));
 
-			// number of cache notes
-			$crs = sql("SELECT COUNT(*) as `count` FROM `cache_notes` WHERE (`cache_id`='&1' AND user_id='&2')", $cache_id, $usr['userid']);
-			if (mysql_num_rows($crs) == 0){
-				tpl_set_var('cache_notes', '0');
-				} else {
-				$cachenotes_record = mysql_fetch_array($crs);
-				tpl_set_var('cache_notes', $cachenotes_record['count']);
-			}
-			tpl_set_var('cachenotes_link', '<a class="links" href="mycache_notes.php?cacheid='.$cache_id.'">'.tr('cachenotes').'</a>');
-			mysql_free_result($crs);
+
+			// Personal cache notes
+			$notes_rs = sql("SELECT `cache_notes`.`note_id` `note_id`,`cache_notes`.`date` `date`, `cache_notes`.`desc` `desc`, `cache_notes`.`desc_html` `desc_html` FROM `cache_notes` WHERE `cache_notes` .`user_id`=&1 AND `cache_notes`.`cache_id`=&2", $usr['userid'],$cache_id);
+
+					tpl_set_var('note_content',"");
+					tpl_set_var('CacheNoteE', '-->');
+					tpl_set_var('CacheNoteS', '<!--');
+					tpl_set_var('EditCacheNoteE', '');
+					tpl_set_var('EditCacheNoteS', '');
+
+
+
+			    if(isset($_POST['edit'])) 
+			    {
+					tpl_set_var('CacheNoteE', '-->');
+					tpl_set_var('CacheNoteS', '<!--');
+					tpl_set_var('EditCacheNoteE', '');
+					tpl_set_var('EditCacheNoteS', '');	
+
+				if (mysql_num_rows($notes_rs) != 0)
+				{
+				$notes_record = sql_fetch_array($notes_rs);
+				$note_id = $notes_record['desc'];
+				$note = $notes_record['desc'];
+				tpl_set_var('noteid',$notes_record['note_id']);				
+				} else {$note="";}
+				tpl_set_var('note_content',$note);
+						
+			    }
+
+				if (isset($_POST['remove']))
+				{
+						
+				    $n_record = sql_fetch_array($notes_rs);
+				    $note_id = $n_record['note_id'];
+					//remove 
+					sql("DELETE FROM `cache_notes` WHERE `note_id`='&1'", $note_id);
+				//display cache-page
+				tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id));
+				exit;
+					
+				}
+			    
+				if (isset($_POST['save']))
+				{			
+
+				$cnote = $_POST['note_content'];
+
+				if (mysql_num_rows($notes_rs)!=0 )				
+				    {
+				    $n_record = sql_fetch_array($notes_rs);
+				    $note_id = $n_record['note_id'];
+				    sql("UPDATE `cache_notes` SET `date`=NOW(),`desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$cnote, '1',$note_id);
+					} 
+
+
+				if (mysql_num_rows($notes_rs)==0)
+				
+					{	
+
+					sql("INSERT INTO `cache_notes` (
+							    `note_id`,
+							    `cache_id`,
+							     `user_id`,
+							     `date`,
+							    `desc_html`,
+							    `desc`
+							    ) VALUES (
+							'', '&1', '&2',NOW(),'&3', '&4')",
+							$cache_id,
+							$usr['userid'],
+							'1',
+						    $cnote);
+
+					}
+				
+				//display cache-page
+				tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id).'#cache_note2');
+				exit;
+				}	
+				
+			    
+			    
+				if (mysql_num_rows($notes_rs) != 0 && (!isset($_POST['edit']) || !isset($_REQUEST['edit'])))
+				{
+					tpl_set_var('CacheNoteE', '');
+					tpl_set_var('CacheNoteS', '');
+					tpl_set_var('EditCacheNoteE', '-->');
+					tpl_set_var('EditCacheNoteS', '<!--');	
+			
+				$notes_record = sql_fetch_array($notes_rs);
+				$note_desc = $notes_record['desc'];
+
+				if ($notes_record['desc_html'] == '0')
+				$note_desc = htmlspecialchars($note_desc, ENT_COMPAT, 'UTF-8');
+				else
+				{
+				require_once($rootpath . 'lib/class.inputfilter.php');
+				$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+				$note_desc = $myFilter->process($note_desc);
+					}
+
+				$note_desc = nl2br($note_desc);
+
+				tpl_set_var('notes_content', $note_desc);
+						
+				}
+				
+	
+				mysql_free_result($notes_rs);
+				// end personal cache note
+
+
+
 			tpl_set_var('watcher', $cache_record['watcher'] + 0);
 			tpl_set_var('ignorer_count', $cache_record['ignorer_count'] + 0);
 			tpl_set_var('votes_count', $cache_record['votes_count'] + 0);
@@ -1210,15 +1314,6 @@
 							'newwindow' => false,
 							'siteid' => 'new_log',
 							'icon' => 'images/actions/new-entry'
-						),
-						array(
-							'title' => tr('cache_note'),
-							'menustring' => tr('cache_note'),
-							'visible' => true,
-							'filename' => 'new_cachenotes.php?cacheid='.$cache_id,
-							'newwindow' => false,
-							'siteid' => 'cache_notes',
-							'icon' => 'images/actions/list-add'
 						),
 						array(
 							'title' => $watch_label,

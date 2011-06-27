@@ -111,7 +111,6 @@ else
 							{hidemobile_start}{moved_icon} {moved} x {{moved_text}}<br/>{hidemobile_end}	
 							{notfound_icon} {notfounds} {notfound_text}<br />
 							{note_icon} {notes} {{comments}}<br />
-							{notes_icon} {cache_notes} {cachenotes_link} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"><br />
 							{watch_icon} {watcher} {{watchers}}<br />
 							{visit_icon} {visits} {{visitors}}<br />
 							{vote_icon} {votes_count} x {{scored}}<br />
@@ -237,6 +236,78 @@ else
 
 {hidehint_end}
 <!-- End Text Container -->
+
+
+{EditCacheNoteS}
+	<div class="content2-container bg-blue02">
+		<p class="content-title-noshade-size2">
+			<img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{Personal cache note}}" /> 
+			{{personal_cache_note}}
+		</p>
+	</div>
+
+	<div class="content2-container">
+<form action="viewcache.php" method="post" name="cache_note">
+<input type="hidden" name="cacheid" value="{cacheid}" />
+
+  <table id="cache_note1" class="table">
+    <tr valign="top">
+    <td></td>
+      <td>
+        <textarea name="note_content" rows="6" cols="98" style="font-size:13px;">{note_content}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td colspan="2">
+        <button type="submit" name="save" value="save" style="width:100px">{{save}}</button>&nbsp;&nbsp;
+        <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />
+        <small>
+          {{cache_note_visible}}</td>
+        </small>
+      </td>
+    </tr>
+  </table>
+		</form>
+	</div>
+{EditCacheNoteE}
+{CacheNoteS}
+	<div class="content2-container bg-blue02">
+		<p class="content-title-noshade-size2">
+			<img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{personal_cache_note}}" /> 
+			{{personal_cache_note}}
+		</p>
+	</div>
+
+	<div class="content2-container">
+<form action="viewcache.php?cacheid={cacheid}#cache_note1" method="post" name="cache_note">
+<input type="hidden" name="cacheid" value="{cacheid}" />
+
+  <table id="cache_note2" class="table">
+    <tr valign="top">
+    <td></td>
+      <td>
+      <div class="searchdiv" style="width: 710px;">
+        <span style="font-size:13px;">{notes_content}</span>
+	</div>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td colspan="2">&nbsp;
+        <button type="submit" name="edit" value="edit" style="width:100px">{{Edit}}</button>&nbsp;&nbsp;
+	<button type="submit" name="remove" value="remove" style="width:100px">{{delete}}</button>&nbsp;&nbsp;
+        <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />
+        <small>
+          {{cache_note_visible}}</td>
+        </small>
+      </td>
+    </tr>
+  </table>
+		</form>
+	</div>
+{CacheNoteE} 
+
 <!-- Text container -->
 {hidenpa_start}
 			<div class="content2-container bg-blue02">
