@@ -51,8 +51,7 @@
 
 				} else 	{ tpl_set_var('notes_content', '<br/><span style="font-size: 14px;"'.$no_notes.'</span>'); }
 				
-				tpl_set_var('notes_links', '&nbsp;');
-				tpl_set_var('cache_name', '');
+
 		}			
 	}
 		
