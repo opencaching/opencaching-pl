@@ -254,7 +254,7 @@ else
     <tr valign="top">
     <td></td>
       <td>
-        <textarea name="note_content" rows="6" cols="98" style="font-size:13px;">{note_content}</textarea>
+        <textarea name="note_content" rows="4" cols="98" style="font-size:13px;">{note_content}</textarea>
       </td>
     </tr>
     <tr>
