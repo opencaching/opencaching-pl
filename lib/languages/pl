@@ -642,8 +642,7 @@ cache_note Notatka
 delete Usuń
 edit Edycja
 cancel Anuluj
-edit_cache_note Edycja notatki dla
-write_note Zapisz notatkę
+no_note Brak notatek
 additional_waypoints Dodatkowe waypointy 
 stage_wp Etap
 type_wp Typ

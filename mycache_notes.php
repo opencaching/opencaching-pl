@@ -26,7 +26,7 @@
 		else
 		{
 			$tplname = 'mycache_notes';
-			require($stylepath . '/editcache.inc.php');
+//			require($stylepath . '/editcache.inc.php');
 			//get user record
 			$userid = $usr['userid'];
 
@@ -49,7 +49,7 @@
 						tpl_set_var('notes_content', $notes);
 						mysql_free_result($notes_rs);
 
-				} else 	{ tpl_set_var('notes_content', '<br/><span style="font-size: 14px;"'.$no_notes.'</span>'); }
+				} else 	{ tpl_set_var('notes_content', '<br/><span style="font-size: 14px;"'.tr("no_note").'</span>'); }
 				
 
 		}			

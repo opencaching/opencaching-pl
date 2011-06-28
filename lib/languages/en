@@ -263,6 +263,7 @@ radius_hint Maximum valid radius is 150km. To turn notifications off, please ent
 no_auto_logout_warning Warning! If you use this option, you must be aware that when you don't logout, someone can be able to access your account.
 hidden_coords Please log in to see the coordinates.
 watchers watchers
+
 visitors visitors
 view_reports View reports
 report_problem Report problem
@@ -604,8 +605,7 @@ cache_note Note
 delete Delete
 edit Edit
 cancel Cancel
-edit_cache_note Edit cache note
-write_note Write note
+no_note I don't have any cache note
 additional_waypoints Additional waypoints
 stage_wp Stage
 type_wp Type
