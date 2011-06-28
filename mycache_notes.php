@@ -49,7 +49,7 @@
 						tpl_set_var('notes_content', $notes);
 						mysql_free_result($notes_rs);
 
-				} else 	{ tpl_set_var('notes_content', '<br/><span style="font-size: 14px;">&nbsp;&nbsp;'.tr(no_note).'</span><br/></br/>'); }
+				} else 	{ tpl_set_var('notes_content', '<br/><span style="font-size: 14px;">&nbsp;&nbsp;<strong>'.tr(no_note).'</strong></span><br/></br/>'); }
 				
 
 		}			
