@@ -74,7 +74,7 @@
 			<difficulty>{difficulty}</difficulty>
 			<terrain>{terrain}</terrain>
 			<summary html="false">{shortdesc}</summary>
-			<description html="true">{desc}{rr_comment}&lt;br&gt;{{images}}</description>
+			<description html="true">{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}</description>
 			{hints}
 			<licence></licence>
 			<logs>
@@ -361,6 +361,17 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$logpw = ($r['logpw']==""?"":"UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!<br />");			
 			$thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
 			$thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
+	
+			if ($usr == true)
+			{
+			$notes_rs = sql("SELECT  `cache_notes`.`desc` `desc` FROM `cache_notes` WHERE `cache_notes` .`user_id`=&1 AND `cache_notes`.`cache_id`=&2", $usr['userid'],$r['cacheid']);
+				if (mysql_num_rows($notes_rs) != 0)
+				{
+				$cn = sql_fetch_array($notes_rs);
+			$thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- Wlasna notatka do skrzynki: --<br/> ".$cn['desc']."<br/>"), $thisline);
+				} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
+			} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
+			
 			if( $r['rr_comment'] == '' )
 				$thisline = str_replace('{rr_comment}', '', $thisline);
 			else

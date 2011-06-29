@@ -369,7 +369,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 				if (mysql_num_rows($notes_rs) != 0)
 				{
 				$cn = sql_fetch_array($notes_rs);
-			$thisline = str_replace('{personal_cache_note}', cleanup_text("<br /><br />-- Wlasna notatka do skrzynki --<br />".$cn['desc']."<br />"), $thisline);
+			$thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- Wlasna notatka do skrzynki: --<br/> ".$cn['desc']."<br/>"), $thisline);
 				} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 			} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 
