@@ -26,7 +26,6 @@
 		else
 		{
 			$tplname = 'mycache_notes';
-//			require($stylepath . '/editcache.inc.php');
 			//get user record
 			$userid = $usr['userid'];
 
