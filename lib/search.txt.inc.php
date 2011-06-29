@@ -45,6 +45,7 @@ Pelny opis{htmlwarn}:
 <===================>
 {desc}
 {rr_comment}
+{personal_cache_note}
 <===================>
 
 Kodowane uwagi:
@@ -238,6 +239,16 @@ LOGi:
 				$thisline = str_replace('{htmlwarn}', ' (Bez HTML)', $thisline);
 				$thisline = str_replace('{desc}', html2txt($logpw.$r['desc']), $thisline);
 			}
+	
+			if ($usr == true)
+			{
+			$notes_rs = sql("SELECT  `cache_notes`.`desc` `desc` FROM `cache_notes` WHERE `cache_notes` .`user_id`=&1 AND `cache_notes`.`cache_id`=&2", $usr['userid'],$r['cacheid']);
+				if (mysql_num_rows($notes_rs) != 0)
+				{
+				$cn = sql_fetch_array($notes_rs);
+			$thisline = str_replace('{personal_cache_note}', html2txt("<br/><br/>-- Wlasna notatka do skrzynki: --<br/> ".$cn['desc']."<br/>"), $thisline);
+				} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
+			} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 			
 			if( $r['rr_comment'] == '' )
 				$thisline = str_replace('{rr_comment}', '', $thisline);
