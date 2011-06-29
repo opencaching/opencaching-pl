@@ -560,8 +560,11 @@
 			tpl_set_var('notes', htmlspecialchars($cache_record['notes'], ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('total_number_of_logs', htmlspecialchars($cache_record['notes'] + $cache_record['notfounds'] + $cache_record['founds'], ENT_COMPAT, 'UTF-8'));
 
-
 			// Personal cache notes
+			//user logged in?
+			if ($usr == true)
+			{
+
 			$notes_rs = sql("SELECT `cache_notes`.`note_id` `note_id`,`cache_notes`.`date` `date`, `cache_notes`.`desc` `desc`, `cache_notes`.`desc_html` `desc_html` FROM `cache_notes` WHERE `cache_notes` .`user_id`=&1 AND `cache_notes`.`cache_id`=&2", $usr['userid'],$cache_id);
 
 					tpl_set_var('note_content',"");
@@ -667,8 +670,15 @@
 				
 	
 				mysql_free_result($notes_rs);
-				// end personal cache note
 
+				} else {
+					tpl_set_var('note_content',"");
+					tpl_set_var('CacheNoteE', '-->');
+					tpl_set_var('CacheNoteS', '<!--');
+					tpl_set_var('EditCacheNoteE', '-->');
+					tpl_set_var('EditCacheNoteS', '<!--');
+				}
+				// end personal cache note
 
 
 			tpl_set_var('watcher', $cache_record['watcher'] + 0);
