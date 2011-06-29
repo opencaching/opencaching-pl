@@ -585,7 +585,6 @@
 				if (mysql_num_rows($notes_rs) != 0)
 				{
 				$notes_record = sql_fetch_array($notes_rs);
-				$note_id = $notes_record['desc'];
 				$note = $notes_record['desc'];
 				tpl_set_var('noteid',$notes_record['note_id']);				
 				} else {$note="";}

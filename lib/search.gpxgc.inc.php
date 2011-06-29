@@ -72,7 +72,7 @@ $gpxLine = '
 			<groundspeak:country>Polska</groundspeak:country>
 			<groundspeak:state>{region}</groundspeak:state>
 			<groundspeak:short_description html="False">{shortdesc}</groundspeak:short_description>
-			<groundspeak:long_description html="True">{desc}{rr_comment}&lt;br&gt;{{images}}</groundspeak:long_description>
+			<groundspeak:long_description html="True">{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}</groundspeak:long_description>
 			<groundspeak:encoded_hints>{hints}</groundspeak:encoded_hints>
 			<groundspeak:logs>
 			{logs}
@@ -363,6 +363,16 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			
 			$thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
 			$thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
+			if ($usr == true)
+			{
+			$notes_rs = sql("SELECT  `cache_notes`.`desc` `desc` FROM `cache_notes` WHERE `cache_notes` .`user_id`=&1 AND `cache_notes`.`cache_id`=&2", $usr['userid'],$r['cacheid']);
+				if (mysql_num_rows($notes_rs) != 0)
+				{
+				$cn = sql_fetch_array($notes_rs);
+			$thisline = str_replace('{personal_cache_note}', cleanup_text("<br /><br />-- Wlasna notatka do skrzynki --<br />".$cn['desc']."<br />"), $thisline);
+				} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
+			} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
+
 			if( $r['rr_comment'] == '' )
 				$thisline = str_replace('{rr_comment}', '', $thisline);
 			else
