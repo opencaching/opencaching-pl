@@ -87,7 +87,28 @@ global $usr, $lang, $hide_coords;
 					</div>
 				</div>
 {hidehint_end}
+{CacheNoteS}
+	<div class="content2-container bg-blue02">
+		<p class="content-title-noshade-size2">
+			<img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{personal_cache_note}}" /> 
+			{{personal_cache_note}}
+		</p>
+	</div>
 
+	<div class="content2-container">
+
+  <table>
+    <tr valign="top">
+    <td></td>
+      <td>
+      <div>
+        <span style="font-size:16px;">{notes_content}</span>
+	</div>
+      </td>
+    </tr>
+  </table>
+	</div>
+{CacheNoteE} 
 {waypoints_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">
