@@ -11,7 +11,7 @@
 
 //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-		global $stat_menu;	
+		global $stat_menu,$dynbasepath;;	
 	//Preprocessing
 	if ($error == false)
 	{
@@ -119,6 +119,121 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
 
 			mysql_free_result($rsCachesFindYear);
 		}
+		
+		
+			// Parameter
+		$jpeg_qualitaet = 80;
+		$fontfile = "./lib/fonts/arial.ttf";
+		$tplpath = 'images/PLmapa.gif';
+		$im = ImageCreateFromGIF($tplpath);
+		$clrWhite = ImageColorAllocate($im, 255, 255, 255);
+		$clrBorder = ImageColorAllocate ($im, 70, 70, 70);
+		$clrBlack = ImageColorAllocate ($im, 0, 0, 0);
+		$clrRed = ImageColorAllocate ($im, 255, 0, 0);
+		$clrBlue = ImageColorAllocate ($im, 0, 0, 255);
+		$fontsize = 18;
+		// Lodzkie
+	$sqlpl11 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL11' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl11;		
+			if($text!="0") ImageTTFText($im, 14, 0,110,138, $clrBlack, $fontfile, $text);
+		//Malopolskie
+	$sqlpl21 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL21' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl21;		
+			if($text!="0") ImageTTFText($im, 14, 0,135,208, $clrBlack, $fontfile, $text);
+		//Slaskie
+	$sqlpl22 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL22' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl22;		
+			if($text!="0") ImageTTFText($im, 14, 0,106,188, $clrBlack, $fontfile, $text);
+		// zachodniopomorskie
+	$sqlpl42 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL42' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl42;		
+			if($text!="0") ImageTTFText($im, 14, 0,26,55, $clrBlack, $fontfile, $text);
+		// Lubelskie
+	$sqlpl31 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL31' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl31;		
+			if($text!="0") ImageTTFText($im, 14, 0,200,150, $clrBlack, $fontfile, $text);
+		// Podkarpackie
+	$sqlpl32 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL32' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl32;		
+			if($text!="0") ImageTTFText($im, 14, 0,180,200, $clrBlack, $fontfile, $text);
+		// Swietokrzyskie
+	$sqlpl33 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL33' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl33;		
+			if($text!="0") ImageTTFText($im, 14, 0,146,170, $clrBlack, $fontfile, $text);
+		// Podlaskie
+	$sqlpl34 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL34' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl34;		
+			if($text!="0") ImageTTFText($im, 14, 0,195,75, $clrBlack, $fontfile, $text);
+		// Wielkopolskie
+	$sqlpl41 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL41' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl41;		
+			if($text!="0") ImageTTFText($im, 14, 0,65,115, $clrBlack, $fontfile, $text);
+		// Lubuskie
+	$sqlpl43 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL43' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl43;		
+			if($text!="0") ImageTTFText($im, 14, 0,19,100, $clrBlack, $fontfile, $text);
+		// Dolnoslaskie
+	$sqlpl51 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL51' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl51;		
+			if($text!="0") ImageTTFText($im, 14, 0,35,149, $clrBlack, $fontfile, $text);
+		// Opolskie
+	$sqlpl52 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL52' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl52;		
+			if($text!="0") ImageTTFText($im, 14, 0,78,169, $clrBlack, $fontfile, $text);
+	// Kujawskie
+	$sqlpl61 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL61' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl61;		
+			if($text!="0") ImageTTFText($im, 14, 0,90,85, $clrBlack, $fontfile, $text);
+	//Warminskie
+	$sqlpl62 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL62' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl62;			
+			if($text!="0") ImageTTFText($im, 14, 0,145,50, $clrBlack, $fontfile, $text);
+	//Pomorskie
+	$sqlpl63 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL63' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl63;		
+			if($text!="0") ImageTTFText($im, 14, 0,85,43, $clrBlack, $fontfile, $text);
+	//Mazowieckie
+	$sqlpl12 = sqlValue("SELECT COUNT(*) founds_count 
+					FROM cache_logs,cache_location 
+					WHERE cache_logs.user_id=$user_id AND cache_logs.type=1 AND cache_location.code3='PL12' AND cache_logs.cache_id=cache_location.cache_id",0);
+			$text = $sqlpl12;		
+			if($text!="0") ImageTTFText($im, 14, 0,155,108, $clrBlack, $fontfile, $text);
+		// write output
+		Imagejpeg($im, $dynbasepath.'images/statpics/mapstat'.$user_id.'.jpg', $jpeg_qualitaet);
+		ImageDestroy($im);
+		
+		$content .= '<p style="margin-left: 125px;"><img src=/images/statpics/mapstat'.$user_id.'.jpg border="0" alt="" width="250" height="235" /></p>';					
+		
 			tpl_set_var('content',$content);
 	}
 }
