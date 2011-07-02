@@ -17,11 +17,11 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 <h1>OpenCaching PL Team </h1><p>
 <b>Rada Rejsu</b><br />
 <b>E-mail: <font color="black">rp</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
-- zyr<br />
-- tATO<br />
-- etna&amp;mars<br />
-- Żywcu<br />
-- Nannette<br />
+- zyr (139)<br />
+- tATO (120)<br />
+- etna&amp;mars (118)<br />
+- Żywcu (107)<br />
+- Nannette (105)<br />
 <br/>
 <b>Rada Techniczna</b><br />
 <b>E-mail: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
