@@ -231,8 +231,9 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
 		// write output
 		Imagejpeg($im, $dynbasepath.'images/statpics/mapstat'.$user_id.'.jpg', $jpeg_qualitaet);
 		ImageDestroy($im);
-		
-		$content .= '<p style="margin-left: 125px;"><img src=/images/statpics/mapstat'.$user_id.'.jpg border="0" alt="" width="250" height="235" /></p>';					
+		// generate number for refresh image
+		$rand=rand();
+		$content .= '<p style="margin-left: 125px;"><img src=/images/statpics/mapstat'.$user_id.'.jpg?rand='.$rand.' border="0" alt="" width="250" height="235" /></p>';					
 		
 			tpl_set_var('content',$content);
 	}
