@@ -25,7 +25,7 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 <br/>
 <b>Rada Techniczna</b><br />
 <b>E-mail: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
-- tATO - sprawy finansowe<br />
+- tATO<br />
 - starypatyk<br />
 <span style="color:#808080">(pomoc programistyczna dla RT: rushcore)</span><br/>
 <br />
