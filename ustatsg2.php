@@ -149,7 +149,7 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
 					FROM cache_logs,cache_location 
 					WHERE cache_logs.user_id=$user_id AND cache_logs.type='1' AND cache_logs.deleted='0'  AND cache_location.code3='PL22' AND cache_logs.cache_id=cache_location.cache_id",0);
 			$text = $sqlpl22;		
-			if($text!="0") ImageTTFText($im, 14, 0,106,188, $clrBlack, $fontfile, $text);
+			if($text!="0") ImageTTFText($im, 14, 0,103,188, $clrBlack, $fontfile, $text);
 		// zachodniopomorskie
 	$sqlpl42 = sqlValue("SELECT COUNT(*) founds_count 
 					FROM cache_logs,cache_location 
