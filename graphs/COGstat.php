@@ -192,7 +192,7 @@ $graph3->Add($bplot3);
 // Setup the titles
 $descibe3="Statystyka COG Miesiêczna - zg³oszenia";
 $graph3->title->Set($descibe3);
-$graph3->xaxis->title->Set('Numer miesi±ca 2010/2011');
+$graph3->xaxis->title->Set('Numer miesi±ca 2011/2012');
 //$graph3->xaxis->title->Set($title3);
 $graph3->xaxis->SetTickLabels($x3);
 
@@ -234,7 +234,7 @@ $graph4->Add($bplot4);
 // Setup the titles
 $descibe4="Statystyak COG Miesiêczna - skrzynki weryfikowane";
 $graph4->title->Set($descibe4);
-$graph4->xaxis->title->Set('Numer miesi±ca 2010/2011');
+$graph4->xaxis->title->Set('Numer miesi±ca 2011/2012');
 //$graph4->xaxis->title->Set($title3);
 $graph4->xaxis->SetTickLabels($x4);
 
