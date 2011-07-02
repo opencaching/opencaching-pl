@@ -27,7 +27,6 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 <b>E-mail: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
 - tATO - sprawy finansowe<br />
 - starypatyk<br />
-<br/>
 <span style="color:#808080">(pomoc programistyczna dla RT: rushcore)</span><br/>
 <br />
 <span style="color:#808080"><b>Centrum Obsługi Geocachera </b>  - Kadencja 1.06.2010 - 30.06.2011 (w nawiasie liczba otrzymanych głosów):<br />
