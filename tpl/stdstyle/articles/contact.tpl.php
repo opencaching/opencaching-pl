@@ -16,7 +16,7 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 <br />
 <h1>OpenCaching PL Team </h1><p>
 <b>Rada Rejsu</b><br />
-<b>E-mail: <font color="black">rp</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
+<b>E-mail: <font color="black">rr</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
 - zyr (139)<br />
 - tATO (120)<br />
 - etna&amp;mars (118)<br />
@@ -27,7 +27,17 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 <b>E-mail: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
 - tATO<br />
 - starypatyk<br />
-<span style="color:#808080">(pomoc programistyczna dla RT: rushcore)</span><br/>
+- limak<br />
+<span style="color:#808080">(pomoc programistyczna dla RT: sp2ong,rushcore)</span><br/>
+<br />
+<b>Centrum Obsługi Geocachera </b> <br />
+<b>E-mail: <font color="black">cog</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
+- alex22 <br />
+- art_noise <br />
+- czarkowaty <br />
+- ronja) <br />
+- schron) <br />
+
 <br />
 <span style="color:#808080"><b>Centrum Obsługi Geocachera </b>  - Kadencja 1.06.2010 - 30.06.2011 (w nawiasie liczba otrzymanych głosów):<br />
 <b>E-mail: <font color="black">cog</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
