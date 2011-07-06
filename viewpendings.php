@@ -163,7 +163,7 @@ global $bgcolor1, $bgcolor2;
 			sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
 									 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
 									 $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, 2, 0);
-							}
+							
 
 
 		}
@@ -184,7 +184,7 @@ global $bgcolor1, $bgcolor2;
 
 
 
-		}
+		
 	}
 	
 	//prepare the templates and include all neccessary
