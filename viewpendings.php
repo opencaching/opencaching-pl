@@ -165,7 +165,6 @@ global $bgcolor1, $bgcolor2;
 									 $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, 2, 0);
 							
 
-
 		}
 		else
 		{
@@ -182,7 +181,7 @@ global $bgcolor1, $bgcolor2;
 									 $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, 2, 0);
 
 
-
+	}
 
 		
 	}
