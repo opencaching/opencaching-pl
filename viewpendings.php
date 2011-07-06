@@ -157,6 +157,15 @@ global $bgcolor1, $bgcolor2;
 			mb_send_mail($owner_email['email'], "[OC PL] Akceptacja skrzynki: ".$cachename, $email_content, $email_headers);
 			//send email to approver
 			mb_send_mail($usr['email'], "[OC PL] Akceptacja skrzynki: ".$cachename, "Kopia potwierdzenia akceptacji skrzynki:\n".$email_content, $email_headers);
+			// generate automatic log about status cache
+			$log_text="Skrzynka została zaakceptowana przez COG";
+			$log_uuid = create_uuid();
+			sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+									 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
+									 $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, 2, 0);
+							}
+
+
 		}
 		else
 		{
@@ -164,6 +173,17 @@ global $bgcolor1, $bgcolor2;
 			mb_send_mail($owner_email['email'], "[OC PL] Odrzucenie skrzynki: ".$cachename, $email_content, $email_headers);
 			//send email to approver
 			mb_send_mail($usr['email'], "[OC PL] Odrzucenie skrzynki: ".$cachename, "Kopia potwierdzenia odrzucenia skrzynki:\n".$email_content, $email_headers);
+
+			// generate automatic log about status cache
+			$log_text="Skrzynka została odrzucona przez COG";
+			$log_uuid = create_uuid();
+			sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
+									 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
+									 $cacheid, $usr['userid'], 12, $log_text, 0, 0, $log_uuid, 2, 0);
+
+
+
+
 		}
 	}
 	
@@ -171,7 +191,7 @@ global $bgcolor1, $bgcolor2;
 	require_once('./lib/common.inc.php');
 	$tplname = 'viewpendings';
 	$content = '';
-	// tylko dla członków Rady
+	// tylko dla członków COG
 	if ($error == false && $usr['admin'])
 	{
 		if( isset($_GET['cacheid']) )
