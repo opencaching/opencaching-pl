@@ -125,7 +125,7 @@
 			<p>List of geocaches with defined attributes ID.</p>
 			<ul>
                         <table>
-			<tr><td>40 - <em>One-minute cache</rm></td><td> 56 - <em>Letterbox</em></td></tr> 
+			<tr><td>40 - <em>One-minute cache</em></td><td> 56 - <em>Letterbox</em></td></tr> 
 			<tr><td>41 - <em>Go geocaching with children</em></td><td> 60 - <em>Nature</em></em></td></tr>
 			<tr><td>43 - <em>GeoHotel</em></td><td> 61 - <em>Monumental place</em></td></tr>
 			<tr><td>44 - <em>Accessible for disabled</em></td><td> 80 - <em>Periodical/Paid</em></td></tr>
@@ -150,8 +150,8 @@
 
 	<div>
 		<h4>desc=true/false</h4>
-			<p><em>desc = true:</em><br>Cache descriptions and hints are returned for all geocaches.</p>
-			<p><em>desc = false:</em><br>Cache descriptions and hints are not returned.</p>
+			<p><em>desc = true:</em> Cache descriptions and hints are returned for all geocaches.</p>
+			<p><em>desc = false:</em> Cache descriptions and hints are not returned.</p>
 			<p>Defaults to false for JSON requests.</p>
 
 			<p>This option is not currently available for GPX requests.</p>
@@ -171,21 +171,21 @@
 
 	<div>
 		<h4>found=true/false</h4>
-			<p><em>found = true:</em><br>Only geocaches the user has already logged as found will be returned.</p>
+			<p><em>found = true:</em> Only geocaches the user has already logged as found will be returned.</p>
 
-			<p><em>found = false:</em><br>Only geocaches the user has not already logged as found will be returned.</p>
-			<p><em>found not specified:</em><br>Both geocaches the user and marked as found and those not marked as found will be return.</p>
+			<p><em>found = false:</em> Only geocaches the user has not already logged as found will be returned.</p>
+			<p><em>found not specified:</em> Both geocaches the user and marked as found and those not marked as found will be return.</p>
 	</div>
 
 	<div>
 		<h4>skipmy=true</h4>
-			<p><em>skipmy = true:</em><br>Skip geocaches which the user is owner.</p>
+			<p><em>skipmy = true:</em> Skip geocaches which the user is owner.</p>
 	</div>
 
 
 	<div>
 		<h4>awp=true/false</h4> - Not implemented yet.
-			<p><em>awp = true:</em><br>Get additional waypoints to geocaches if exist. Default awp=true</p>
+			<p><em>awp = true:</em> Get additional waypoints to geocaches if exist. Default awp=true</p>
 	</div>
 
 	<div >
