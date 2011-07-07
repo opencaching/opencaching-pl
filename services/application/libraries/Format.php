@@ -174,7 +174,7 @@ $gpx .= '<wpt lat="'.$row["latitude"].'" lon="'.$row["longitude"].'">
 			<groundspeak:name>'.cleanup_text($row["cache_name"]).'</groundspeak:name>
 			<groundspeak:placed_by>'.cleanup_text($row["owner"]).'</groundspeak:placed_by>
 			<groundspeak:owner id="'.$row["owner_id"].'">'.$row["owner"].'</groundspeak:owner>
-			<groundspeak:type>'.$row["type_name"].'</groundspeak:type>
+			<groundspeak:type>'.$gpxType[$row["type"]].'</groundspeak:type>
 			<groundspeak:container>'.$gpxContainer[$row["size_name"]].'</groundspeak:container>
 			<groundspeak:difficulty>'.str_replace('.0', '',$row["difficulty"]).'</groundspeak:difficulty>
 			<groundspeak:terrain>'.str_replace('.0', '',$row["terrain"]).'</groundspeak:terrain>
