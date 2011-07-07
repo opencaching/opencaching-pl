@@ -185,7 +185,7 @@
 
 	<div>
 		<h4>awp=true/false</h4> - Not implemented yet.
-			<p><em>awp = true:</em> Get additional waypoints to geocaches if exist. Default awp=true</p>
+			<p><em>awp = true:</em> Get additional waypoints to geocaches if exist. Default awp=false</p>
 	</div>
 
 	<div >
