@@ -190,9 +190,11 @@ $gpx .= '<wpt lat="'.$row["latitude"].'" lon="'.$row["longitude"].'">
 	    ';
 	    foreach ($row["pictures"] as $prow)
 	    {
-			if ($prow["spoiler"]==1)
-			{ $thumb_url="http://opencaching.pl/tpl/stdstyle/images/thumb/thumbspoiler.gif";} 
-			else { $thumb_url=$prow["thumb_url"];}
+//			if ($prow["spoiler"]==1)
+//			{ $thumb_url="http://opencaching.pl/tpl/stdstyle/images/thumb/thumbspoiler.gif";} 
+			else { 
+			$thumb_url=$prow["thumb_url"];
+//				}
 
 		    $gpx .='
 		    &lt;a href="'.$prow['url'].'"&gt;&lt;img src="'.$thumb_url.'"&gt;&lt;/a&gt;&lt;br&gt;'.$prow['title'].'&lt;br&gt;
