@@ -16,7 +16,7 @@
   <div id="bg2">
   &nbsp;
   </div>
-<div style="margin-left: 50px;"><a href="http://opencaching.pl"><img src="/services/oc_logo.png" align="middle" alt="" style="margin-top:15px; margin-left:20px;" /></a>
+<div style="margin-left: 50px;"><a href="http://info.opencaching.pl"><img src="/services/oc_logo.png" align="middle" alt="" style="margin-top:15px; margin-left:20px;" /></a>
 <span class="content-title-noshade-size3" style="margin-left:130px;margin-top:20px;font-weight:bold;font-size: 20px;">Welcome to OpenCaching PL Node API </span>
 <a href="http://wiki.oauth.net/w/page/25236487/OAuth-2"><img src="/services/OAuth2.png" align="middle" alt="" style="margin-top:15px; margin-left:190px;" /></a></div></br>
 <div style="margin-left: 50px;">
