@@ -125,7 +125,7 @@ class Format {
 	$gpxContainer['Regular'] = 'Regular';	//OC: Regular
 	$gpxContainer['Large'] = 'Large';		//OC: Large
 	$gpxContainer['Very large'] = 'Large';		//OC: Large
-	$gpxContainer['No container'] = 'Virtual';	//OC: Virtual
+	$gpxContainer['No container'] = 'Other';	//OC: Virtual
 
 	$gpxAvailable[0] = 'False';	//OC: Unavailable
 	$gpxAvailable[1] = 'True';	//OC: Available
