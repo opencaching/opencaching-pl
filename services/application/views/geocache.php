@@ -113,7 +113,7 @@
 			<p>3- <em>Multi-cache</em></p>
 			<p>4- <em>Virtual cache</em></p> 
 			<p>5- <em>Webcam cache</em></p> 
-			<p>6- <em>Event cache</p> 
+			<p>6- <em>Event cache</em></p> 
 			<p>7- <em>Quiz cache</em></p>
 			<p>8- <em>Moving cache</em></p>
 			<p>9- <em>Own cache</em></p> 
