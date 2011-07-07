@@ -183,6 +183,10 @@
 	</div>
 
 
+	<div>
+		<h4>awp=true/false</h4> - Not implemented yet.
+			<p><em>awp = true:</em><br>Get additional waypoints to geocaches if exist. Default awp=true</p>
+	</div>
 
 	<div >
 		<h4>format=output_format_name exmaple: format=json </h4>
