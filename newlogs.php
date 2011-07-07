@@ -157,7 +157,7 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 							LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
 							LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id AND
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5	
-							WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ")
+							WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ") AND cache_logs.cache_id=caches.cache_id AND caches.status<> 4 AND caches.status<> 5 AND caches.status<> 6
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC");
 
