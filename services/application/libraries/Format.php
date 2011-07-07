@@ -119,6 +119,14 @@ class Format {
 	$gpxType[9] = 'Unknown Cache';		//OC: Own Cache
 	$gpxType[10] = 'Unknown Cache';		//OC: Own cache
 
+	$gpxContainer[0] = 'Unknown';	//OC: Other
+	$gpxContainer['Micro'] = 'Micro';		//OC: Micro
+	$gpxContainer['Small'] = 'Small';		//OC: Small
+	$gpxContainer['Regular'] = 'Regular';	//OC: Regular
+	$gpxContainer['Large'] = 'Large';		//OC: Large
+	$gpxContainer['Very large'] = 'Large';		//OC: Large
+	$gpxContainer['No container'] = 'Virtual';	//OC: Virtual
+
 	$gpxAvailable[0] = 'False';	//OC: Unavailable
 	$gpxAvailable[1] = 'True';	//OC: Available
 	$gpxAvailable[2] = 'False';	//OC: Unavailable
@@ -167,7 +175,7 @@ $gpx .= '<wpt lat="'.$row["latitude"].'" lon="'.$row["longitude"].'">
 			<groundspeak:placed_by>'.cleanup_text($row["owner"]).'</groundspeak:placed_by>
 			<groundspeak:owner id="'.$row["owner_id"].'">'.$row["owner"].'</groundspeak:owner>
 			<groundspeak:type>'.$row["type_name"].'</groundspeak:type>
-			<groundspeak:container>'.$row["size_name"].'</groundspeak:container>
+			<groundspeak:container>'.$gpxContainer[$row["size_name"]].'</groundspeak:container>
 			<groundspeak:difficulty>'.str_replace('.0', '',$row["difficulty"]).'</groundspeak:difficulty>
 			<groundspeak:terrain>'.str_replace('.0', '',$row["terrain"]).'</groundspeak:terrain>
 			<groundspeak:country>'.$row["country"].'</groundspeak:country>
