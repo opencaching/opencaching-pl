@@ -12,7 +12,7 @@
 	<textarea name='rr_comment' cols='80' rows='15'></textarea>
 	<br/><br/>
 	<button type="submit" value="Dodaj komentarz" style="font-size:12px;width:140px"><b>Dodaj komentarz</b></button>&nbsp;&nbsp;
-	<button type="submit" value="Anuluj" style="font-size:12px;width:140px"><a class="links" href='viewcache.php?cacheid={cacheid}'>Anuluj</a></button>
+	<button type="button" style="font-weight:bold;font-size:12px;" onclick="window.location.href ='viewcache.php?cacheid={cacheid}'">Anuluj</button>
 </form>
 	</td>
 </tr>
