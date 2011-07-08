@@ -69,6 +69,14 @@ global $get_userid;
 				$y=$record['longitude'];
 				$x=$record['latitude'];
 
+ /*
+
+				$nrec=sqlValue("SELECT count(*) count FROM caches,cache_rating WHERE `cache_rating`.`cache_id`=`caches`.`cache_id` AND `caches`.`type` <> 6 AND caches.status<>4 AND caches.status<>5 AND caches.status<>6 AND `caches`.`user_id`='" . $record['userid'] . "'", 0);
+				$nf=sqlValue("SELECT COUNT(*) number FROM cache_logs WHERE type=1 AND deleted='0' AND user_id='" . $record['userid'] . "'", 0);
+				$nc=sqlValue("SELECT count(*) FROM `caches` WHERE status<>4 AND status<>5 AND status<>6 AND`user_id`='" . $record['userid'] . "'", 0);
+<tr><td><img src=\"images/rating-star.png\" alt=\"liczba skrzynek załozonych\" title=\"liczba założonych skrzynek\"><b>&nbsp;".$nc."&nbsp;&nbsp;<img src=\"images/rating-star.png\" alt=\"rekomendacje\" title=\"rekomendacje\"><b>&nbsp;".$nrec."</td></tr>
+
+*/
 			$point .=" var point = new GLatLng(" . $x . "," . $y . ");\n";
 			$number=$i+1;
 			$point .="var marker".$number." = new GMarker(point,icon1); map0.addOverlay(marker".$number.");\n\n";
