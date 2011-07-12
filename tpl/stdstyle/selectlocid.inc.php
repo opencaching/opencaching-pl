@@ -25,9 +25,9 @@
 	
  ****************************************************************************/
 
-	$locline = '<tr><td bgcolor="{bgcolor}" width="50px">{nr}.&nbsp;</td><td bgcolor="{bgcolor}"><a href="search.php?{urlparams}">{locationname}</a>{secondlocationname}</td></tr>
-							<tr><td bgcolor="{bgcolor}" width="50px">&nbsp;</td><td bgcolor="{bgcolor}"><font size="1" color="black">{coords}</font></td></tr>
-							<tr><td bgcolor="{bgcolor}" width="50px">&nbsp;</td><td bgcolor="{bgcolor}" style="padding-bottom:3px;"><font size="1" color="#001BBC">{parentlocations}</font></td></tr>';
+	$locline = '<tr><td width="50px">{nr}.&nbsp;</td><td> <a href="search.php?{urlparams}">{locationname}</a>{secondlocationname}</td></tr>
+							<tr><td width="50px">&nbsp;</td><td><font size="1" color="black">{coords}</font></td></tr>
+							<tr><td width="50px">&nbsp;</td><td style="padding-bottom:3px;"><font size="1" color="#001BBC">{parentlocations}</font></td></tr>';
 	
 	$secondlocationname = '&nbsp;<font size="1">({secondlocationname})</font>';
 	
