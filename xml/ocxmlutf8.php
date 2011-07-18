@@ -581,7 +581,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 		if ($bCache == 1)
 		{
 			sql("INSERT INTO xmlsession_data (`session_id`, `object_type`, `object_id`)
-			     SELECT &1, 2, `cache_id` FROM `caches` WHERE `last_modified` >= '&2' AND `status`!=5",
+			     SELECT &1, 2, `cache_id` FROM `caches` WHERE `last_modified` >= '&2' AND `status`!=5 AND `status`!=6 AND `status`!=4",
 			     $sessionid,
 			     $sModifiedSince);
 			$recordcount['caches'] = mysql_affected_rows();
@@ -590,7 +590,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 		if ($bCachedesc == 1)
 		{
 			sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-			     SELECT &1, 3, `cache_desc`.`id` FROM `cache_desc` INNER JOIN `caches` ON `cache_desc`.`cache_id`=`caches`.`cache_id` WHERE `cache_desc`.`last_modified` >= '&2' AND `caches`.`status`!=5",
+			     SELECT &1, 3, `cache_desc`.`id` FROM `cache_desc` INNER JOIN `caches` ON `cache_desc`.`cache_id`=`caches`.`cache_id` WHERE `cache_desc`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4",
 			     $sessionid,
 			     $sModifiedSince);
 			$recordcount['cachedescs'] = mysql_affected_rows();
@@ -599,7 +599,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 		if ($bCachelog == 1)
 		{
 			sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-			     SELECT &1, 1, `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` WHERE `cache_logs`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `cache_logs`.`deleted`=0",
+			     SELECT &1, 1, `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` WHERE `cache_logs`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4 AND `cache_logs`.`deleted`=0",
 			     $sessionid,
 			     $sModifiedSince);
 			$recordcount['cachelogs'] = mysql_affected_rows();
@@ -628,7 +628,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 			                                                        `pictures`.`object_id`=`cache_logs`.`id` INNER JOIN 
 			                                        `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` 
 			                                  WHERE `pictures`.`last_modified` >= '&2' AND 
-			                                        `caches`.`status`!=5 AND `cache_logs`.`deleted`=0",
+			                                        `caches`.`status`!=5 AND `status`!=6 AND `caches`.`status`!=4 AND `cache_logs`.`deleted`=0",
 			     $sessionid,
 			     $sModifiedSince);
 			$recordcount['pictures'] = mysql_affected_rows();
@@ -651,7 +651,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 		if ($selection['type'] == 1)
 		{
 			sql("CREATE TEMPORARY TABLE `tmpxmlSesssionCaches` (`cache_id` int(11), PRIMARY KEY (`cache_id`)) ENGINE=MEMORY 
-			     SELECT DISTINCT `cache_countries`.`cache_id` FROM `caches`, `cache_countries` WHERE `caches`.`cache_id`=`cache_countries`.`cache_id` AND `cache_countries`.`country`='&1' AND `caches`.`status`!=5", $selection['country']);
+			     SELECT DISTINCT `cache_countries`.`cache_id` FROM `caches`, `cache_countries` WHERE `caches`.`cache_id`=`cache_countries`.`cache_id` AND `cache_countries`.`country`='&1' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4", $selection['country']);
 		}
 		else if ($selection['type'] == 2)
 		{
@@ -662,7 +662,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 			$sql .= getSqlDistanceFormula($selection['lon'], $selection['lat'], $selection['distance'], 'cache_coordinates') . ' `distance` ';
 			$sql .= 'FROM `caches`, `cache_coordinates` WHERE ';
 			$sql .= '`cache_coordinates`.`cache_id`=`caches`.`cache_id`';
-			$sql .= ' AND `caches`.`status`!=5';
+			$sql .= ' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4';
 			$sql .= ' AND `cache_coordinates`.`latitude` > ' . getMinLat($selection['lon'], $selection['lat'], $selection['distance']);
 			$sql .= ' AND `cache_coordinates`.`latitude` < ' . getMaxLat($selection['lon'], $selection['lat'], $selection['distance']);
 			$sql .= ' AND `cache_coordinates`.`longitude` >' . getMinLon($selection['lon'], $selection['lat'], $selection['distance']);

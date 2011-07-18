@@ -685,7 +685,7 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
 			                                                        `pictures`.`object_id`=`cache_logs`.`id` INNER JOIN 
 			                                        `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` 
 			                                  WHERE `pictures`.`last_modified` >= '&2' AND 
-			                                        `caches`.`status`!=5 AND `status`!=6 AND `status`!=4 AND `cache_logs`.`deleted`=0",
+			                                        `caches`.`status`!=5 AND `status`!=6 AND `caches`.`status`!=4 AND `cache_logs`.`deleted`=0",
 			     $sessionid,
 			     $sModifiedSince);
 			$recordcount['pictures'] = mysql_affected_rows();
