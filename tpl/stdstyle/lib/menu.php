@@ -596,6 +596,13 @@ $menu = array(
 				'siteid' => 'searchuser',
 				'visible' => true,
 				'filename' => 'searchuser.php'
+			),
+			array(
+				'title' => 'QR Code',
+				'menustring' => 'QR Code',
+				'siteid' => 'qrcode',
+				'visible' => true,
+				'filename' => 'qrcode.php'
 			)
 
 		)
