@@ -75,7 +75,7 @@
 	    $src =  imagecreatefrompng('/var/www/ocpl/tmp/test.png');
 	    
 	    // Copy and merge
-	    imagecopymerge($dest, $src, 28, 90, 0, 0, 120, 120, 100);
+	    imagecopymerge($dest, $src, 20, 90, 0, 0, 130, 130, 100);
 	    // Output and free from memory
 	    imagejpeg($dest,'/var/www/ocpl/tmp/qrcode.jpg', 85);
 	ImageDestroy($dest);
