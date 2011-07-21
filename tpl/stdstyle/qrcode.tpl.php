@@ -24,6 +24,6 @@
 	<br/><br/>
     <form action="qrcode.php" method="post">
         <span style="font-size:14px;width:120px">&nbsp;&nbsp;Dane w QR Code:</span>&nbsp;
-	<input name="data" value="{qrcode}" size="80">&nbsp
-	<button type="submit" name="Generuj" value="Generuj" style="font-size:14px;width:120px"><b>Generuj</b></button>
+	<input name="data" value="{qrcode}" size="80"><br/>
+	<span style="margin-left:125px;">&nbsp;</span><button type="submit" name="Generuj" value="Generuj" style="font-size:14px;width:120px"><b>Generuj</b></button>
 	</form><br/></div>
