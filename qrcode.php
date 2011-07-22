@@ -73,16 +73,18 @@
 	    // Create image instances
 	    $dest =  imagecreatefromjpeg('/var/www/ocpl/lib/phpqrcode/qrcode.jpg');
 	    $src =  imagecreatefrompng('/var/www/ocpl/tmp/test.png');
-	    
+	    $src_w = imagesx($src);
+  	    $xd=86-($src_w/2);
+	    $yd=142-($src_w/2);
 	    // Copy and merge
-	    imagecopymerge($dest, $src, 20, 90, 0, 0, 130, 130, 100);
+	    imagecopymerge($dest, $src, $xd, $yd, 0, 0, $src_w, $src_w, 100);
 	    // Output and free from memory
 	    imagejpeg($dest,'/var/www/ocpl/tmp/qrcode.jpg', 85);
-	ImageDestroy($dest);
-	// generate number for refresh image
-		$rand=rand();
+	    ImageDestroy($dest);
+           // generate number for refresh image
+	   $rand=rand();
 
-     		tpl_set_var('imgqrcode', '<img src="/tmp/qrcode.jpg?rand='.$rand.'" border="0" alt="" width="171" height="284" />');
+     	tpl_set_var('imgqrcode', '<img src="/tmp/qrcode.jpg?rand='.$rand.'" border="0" alt="" width="171" height="284" />');
 
 
 	}
