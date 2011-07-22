@@ -271,9 +271,10 @@ global $bgcolor1, $bgcolor2;
 									 user.username AS username, 
 									 user.user_id AS user_id, 
 									 caches.cache_id AS cache_id,
-									 caches.name AS cachename, 
+									 caches.name AS cachename,
+									IFNULL(`cache_location`.`adm3`, '') AS `adm3`, 
 									 caches.date_created AS date_created
-						FROM cache_status, user, caches 
+						FROM cache_status, user, (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`)
 						WHERE cache_status.id = caches.status 
 									AND caches.user_id = user.user_id
 									AND caches.status = 4";
@@ -288,7 +289,7 @@ global $bgcolor1, $bgcolor2;
 				$bgcolor = "bgcolor2";
 		
 			$content .= "<tr>\n";
-			$content .= "<td class='".$bgcolor."'><a class=\"links\" href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a></td>\n";
+			$content .= "<td class='".$bgcolor."'><a class=\"links\" href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a><br/><span style=\"font-weight:bold;font-size:10px;color:blue;\">".$report['adm3']."</span></td>\n";
 			$content .= "<td class='".$bgcolor."'>".$report['date_created']."</td>\n";
 			$content .= "<td class='".$bgcolor."'><a class=\"links\" href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>\n";
 			$content .= "<td class='".$bgcolor."'><img src=\"tpl/stdstyle/images/blue/arrow.png\" alt=\"\" />&nbsp;<a class=\"links\" href='viewpendings.php?cacheid=".$report['cache_id']."&amp;action=1'>".tr('accept')."</a><br/>
