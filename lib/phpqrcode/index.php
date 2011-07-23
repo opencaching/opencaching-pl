@@ -22,7 +22,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
     
-    echo "<h1>PHP QR Code</h1><hr/>";
+    echo "<b>OpenCaching PL QR Code</b><br/>";
     
     //set it to writable location, a place for temp generated PNG files
     $PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'temp'.DIRECTORY_SEPARATOR;
@@ -63,17 +63,17 @@
     } else {    
     
         //default data
-        echo 'You can provide data in GET parameter: <a href="?data=like_that">like that</a><hr/>';    
-        QRcode::png('PHP QR Code :)', $filename, $errorCorrectionLevel, $matrixPointSize, 2);    
+        //  
+        QRcode::png('OpenCaching PL QR Code :)', $filename, $errorCorrectionLevel, $matrixPointSize, 2);    
         
     }    
         
     //display generated file
-    echo '<img src="'.$PNG_WEB_DIR.basename($filename).'" /><hr/>';  
+    echo '<img src="'.$PNG_WEB_DIR.basename($filename).'" /><br/><br/>';  
     
     //config form
     echo '<form action="index.php" method="post">
-        Data:&nbsp;<input name="data" value="'.(isset($_REQUEST['data'])?htmlspecialchars($_REQUEST['data']):'PHP QR Code :)').'" />&nbsp;
+        Dane w QR Code:&nbsp;<input name="data" value="'.(isset($_REQUEST['data'])?htmlspecialchars($_REQUEST['data']):'OpenCaching PL QR Code :)').'" size="70" /><br/>
         ECC:&nbsp;<select name="level">
             <option value="L"'.(($errorCorrectionLevel=='L')?' selected':'').'>L - smallest</option>
             <option value="M"'.(($errorCorrectionLevel=='M')?' selected':'').'>M</option>
@@ -86,9 +86,9 @@
         echo '<option value="'.$i.'"'.(($matrixPointSize==$i)?' selected':'').'>'.$i.'</option>';
         
     echo '</select>&nbsp;
-        <input type="submit" value="GENERATE"></form><hr/>';
+        <button type="submit" name="Generuj" value="Generuj" style="font-size:14px;width:120px"><b>Generuj</b></button>';
         
     // benchmark
-    QRtools::timeBenchmark();    
+    //QRtools::timeBenchmark();    
 
     

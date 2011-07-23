@@ -16,7 +16,7 @@
  ****************************************************************************/
  ?>
  
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/decrypt.png" class="icon32" alt="" title="" align="middle"/>&nbsp;Etykietka z QR Code</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/misc/qrcode.png" class="icon32" alt="" title="" align="middle"/>&nbsp;Etykietka z QR Code</div>
 <p>&nbsp;</p>
 
    <div class="searchdiv">
