@@ -21,7 +21,14 @@
 	//Preprocessing
 	if ($error == false)
 	{
-
+		//user logged in?
+		if ($usr == false)
+		{
+		    $target = urlencode(tpl_get_current_page());
+		    tpl_redirect('login.php?target='.$target);
+		}
+		else
+		{
 			$tplname = 'qrcode';
     
     //set it to writable location, a place for temp generated PNG files
@@ -86,7 +93,7 @@
 
      	tpl_set_var('imgqrcode', '<img src="/tmp/qrcode.jpg?rand='.$rand.'" border="0" alt="" width="171" height="284" />');
 
-
+		}
 	}
 
 	//make the template and send it out
