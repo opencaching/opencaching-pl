@@ -277,7 +277,7 @@ global $bgcolor1, $bgcolor2;
 						FROM cache_status, user, (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`)
 						WHERE cache_status.id = caches.status 
 									AND caches.user_id = user.user_id
-									AND caches.status = 4";
+									AND caches.status = 4  ORDER BY caches.date_created DESC";
 		$query = mysql_query($sql) or die("DB error");
 		$row_num = 0;
 		while( $report = mysql_fetch_array($query) )
