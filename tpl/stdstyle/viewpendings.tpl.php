@@ -4,11 +4,12 @@
 	<div class="buffer"></div>
 	<table border='1' class="table" width="97%">
 		<tr>
-			<th >Geocache</th>
-			<th >{{date_created}}</th>
+			<th width="240" >Geocache</th>
+			<th width="100">{{date_created}}</th>
 			<th >{{owner}}</th>
 			<th >{{actions}}</th>
 			<th >{{assigned_to}}</th>
 		</tr>
 		{content}
 	</table>
+	<br/><br/>
