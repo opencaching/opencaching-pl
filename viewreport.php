@@ -286,7 +286,7 @@ $email_form = "";
 			}
 		}
 
-		$sql = "SELECT cache_status.id as cs_id, cache_status.pl as cache_status, reports.id as report_id, reports.user_id as user_id, reports.note as note, reports.changed_by as changed_by, reports.changed_date as changed_date, reports.cache_id as cache_id, reports.type as type, reports.text as text, reports.submit_date as submit_date, reports.responsible_id as responsible_id, reports.status as status, user.username as username, user.user_id as user_id, caches.name as cachename, caches.status AS c_status,IFNULL(`cache_location`.`adm3`, '') AS `adm3` FROM cache_status, reports, user, (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) WHERE cache_status.id = caches.status AND reports.id = '".sql_escape(intval($_REQUEST['reportid']))."'AND user.user_id = reports.user_id AND caches.cache_id = reports.cache_id ORDER BY submit_date ASC";
+		$sql = "SELECT cache_status.id as cs_id,caches.user_id AS cache_ownerid, cache_status.pl as cache_status, reports.id as report_id, reports.user_id as user_id, reports.note as note, reports.changed_by as changed_by, reports.changed_date as changed_date, reports.cache_id as cache_id, reports.type as type, reports.text as text, reports.submit_date as submit_date, reports.responsible_id as responsible_id, reports.status as status, user.username as username, user.user_id as user_id, caches.name as cachename, caches.status AS c_status,IFNULL(`cache_location`.`adm3`, '') AS `adm3` FROM cache_status, reports, user, (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) WHERE cache_status.id = caches.status AND reports.id = '".sql_escape(intval($_REQUEST['reportid']))."'AND user.user_id = reports.user_id AND caches.cache_id = reports.cache_id ORDER BY submit_date ASC";
 		$query = mysql_query($sql) or die("DB Error. Bad report id (well... probably).");
 		if( mysql_num_rows($query) > 0 )
 		{
@@ -298,12 +298,16 @@ $email_form = "";
 			
 			$admins_sql = "SELECT user_id, username FROM user WHERE admin=1";
 			$admins_query = mysql_query($admins_sql);
-			
+			$userloginsql = "SELECT last_login FROM user WHERE user_id='".sql_escape($report['cache_ownerid'])."'";
+			$userlogin_query = mysql_query($userloginsql) or die("DB error");
+			if(mysql_result($userlogin_query,0)=="0000-00-00 00:00:00"){
+			$userlogin="brak danych lub więcej niż 12 miesięcy temu";} else {
+			$userlogin = strftime("%Y-%m-%d", strtotime(mysql_result($userlogin_query,0)));}			
 			$content .= "<tr>";
 			
 			$content .= "<td><span class='content-title-noshade-size05'>".$report['report_id']."</span></td>";			
 			$content .= "<td><span class='content-title-noshade-size05'>".$report['submit_date']."</span></td>";
-			$content .= "<td><a class='content-title-noshade-size05' href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a><br/><span style=\"font-weight:bold;font-size:10px;color:blue;\">".$report['adm3']."</span></td>";
+			$content .= "<td><a class='content-title-noshade-size04' href='viewcache.php?cacheid=".$report['cache_id']."'>".nonEmptyCacheName($report['cachename'])."</a><br/> <a title=\"Użytkownik logowal się ostatnio: ".$userlogin."\" class=\"links\" href=\"viewprofile.php?userid=".$report['cache_ownerid']."\">".getUsername($report['cache_ownerid'])."</a><br/><span style=\"font-weight:bold;font-size:10px;color:blue;\">".$report['adm3']."</span></td>";
 			$content .= "<td><span class='content-title-noshade-size05'>".colorCacheStatus($report['cache_status'], $report['c_status'])."</span></td>";
 			$content .= "<td><span class='content-title-noshade-size05'>".writeReason($report['type'])."</span></td>";
 			$content .= "<td><a class='content-title-noshade-size05' href='viewprofile.php?userid=".$report['user_id']."'>".$report['username']."</a></td>";

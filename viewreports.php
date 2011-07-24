@@ -96,7 +96,7 @@ global $bgcolor1, $bgcolor2;
 			$userloginsql = "SELECT last_login FROM user WHERE user_id='".sql_escape($report['cache_ownerid'])."'";
 			$userlogin_query = mysql_query($userloginsql) or die("DB error");
 			if(mysql_result($userlogin_query,0)=="0000-00-00 00:00:00"){
-			$userlogin="brak danych";} else {
+			$userlogin="brak danych lub więcej niż 12 miesięcy temu";} else {
 			$userlogin = strftime("%Y-%m-%d", strtotime(mysql_result($userlogin_query,0)));}
 			if( $usr['userid'] == $report['responsible_id'])
 				$addborder = "style='border-width:2px;'";
