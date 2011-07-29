@@ -32,7 +32,7 @@ z pewnymi wyjątkami, gdzie przytoczony jest autor. Za te imienne wkłady odpowi
 
 <p>&nbsp;</p>
 <h1>Polska wersja OpenCaching</h1>
-<p>Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldemar Ogonowski (sp2ong) + duża pomoc kolegów którzy brali udział w testowaniu<br /></p>
+<p>Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldek sp2ong + duża pomoc kolegów którzy brali udział w testowaniu<br /></p>
 <br /><br />
 </div>
 <p>&nbsp;</p>

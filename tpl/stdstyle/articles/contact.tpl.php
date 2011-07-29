@@ -76,7 +76,7 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 <font color="black">ocpl</font> <font color="black">at</font> <font color="black">opencaching.pl</font> </b>. Otrzymanie odpowiedzi może potrwać, więc bądź cierpliwy<br /></p>
 
 <h1>Polska wersja OpenCaching</h1>
-<p>Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldemar Ogonowski (sp2ong) + duża pomoc kolegów którzy brali udział w testowaniu<br /></p>
+<p>Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldek sp2ong + duża pomoc kolegów którzy brali udział w testowaniu<br /></p>
 <br/>
 </div>
 <br/>
