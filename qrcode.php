@@ -72,7 +72,7 @@
     } else {    
     
         //default data
-        tpl_set_var('qrcode', "OpenCaching PL QR Code");
+        tpl_set_var('qrcode', "http://opencaching.pl/viewcache.php?wp=OP3C90");
         QRcode::png('http://opencaching.pl/viewcache.php?wp=OP3C90', $filename, $errorCorrectionLevel, $matrixPointSize, 2);    
         
     }    
