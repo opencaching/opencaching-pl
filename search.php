@@ -407,7 +407,7 @@
 				}
 				else
 				{
-					sql('INSERT INTO `queries` (`user_id`, `options`, `uuid`, `last_queried`) VALUES (0, \'&1\', UUID(), NOW())', serialize($options));
+					sql('INSERT INTO `queries` (`user_id`, `options`, name, `uuid`, `last_queried`) VALUES (0, \'&1\', \'\', UUID(), NOW())', serialize($options));
 					$options['queryid'] = mysql_insert_id();
 				}
 			}
