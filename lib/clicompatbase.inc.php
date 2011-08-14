@@ -404,6 +404,11 @@
 
 	function sql_error()
 	{
+		if (class_exists('Okapi'))
+		{
+			# OKAPI requires an ability to catch SQL errors.
+			throw new Exception("SQL Error ".mysql_errno().": ".mysql_error());
+		}
 		global $sql_errormail;
 		global $emailheaders;
 		global $absolute_server_URI;
