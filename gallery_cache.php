@@ -60,7 +60,7 @@
 		} else {
 		
 					//get cache record
-			$rs = sql("SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`='&1' AND `caches`.`cache_id`=`cache_logs`.`cache_id` ", $logid);
+			$rs = sql("SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`='&1' AND `cache_logs`.`deleted` = 0 AND `caches`.`cache_id`=`cache_logs`.`cache_id` ", $logid);
 
 			if (mysql_num_rows($rs) == 0)
 			{
@@ -135,7 +135,7 @@
 
 					$logpicturelines = '';
 					$append_atag='';
-					$rspictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`=&1 ORDER BY `pictures`.`date_created` DESC", $cache_id);
+					$rspictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `cache_logs`.`deleted` = 0 AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`=&1 ORDER BY `pictures`.`date_created` DESC", $cache_id);
 
 				if (mysql_num_rows($rspictures)!=0){
 				tpl_set_var('logs_images_start', '');
