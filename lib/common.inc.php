@@ -720,7 +720,7 @@ session_start();
 
 	function tpl_do_translate($str)
 	{
-		return preg_replace_callback('/{{.*?}}/', handle_translation_clause, $str);
+		return preg_replace_callback('/{{.*?}}/', 'handle_translation_clause', $str);
 	}
 
 
