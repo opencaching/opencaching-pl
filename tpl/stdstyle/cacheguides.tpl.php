@@ -65,7 +65,7 @@ Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> aktywnych wolon
 <ul><font color="black">
 <li>20 otrzymanych rekomendacji dla skrzynek założonych</li>
 </font></ul>
-<br/>&nbsp;&nbsp;&nbsp;i będziesz mógł wtedy ustawić opcje w swoim <a class="links" href="http://www.opencaching.pl/myprofile.php?action=change">profilu</a>.
+&nbsp;&nbsp;&nbsp;Będziesz mógł wtedy ustawić opcje w swoim <a class="links" href="http://www.opencaching.pl/myprofile.php?action=change">profilu</a>.
 <br/><br/>
 &nbsp;&nbsp;&nbsp;Dziękujemy wszystkim którzy chcą pomagać bezinteresownie innym geocacherom.
 </span></div>
