@@ -58,7 +58,7 @@ Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> aktywnych wolon
     <div id="map0" style="width:700px;height:500px"></div>
 	</div>	
 </center>
-&nbsp;&nbsp;<img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbspLiczba otrzymanych rekomendacji</b><br/>
+<br/>&nbsp;&nbsp;&nbsp;<img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbspLiczba otrzymanych rekomendacji</b><br/>
 </div>
 <div class="searchdiv">
 <span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">Aby zostać wolontariuszem Przewodnikiem po geocaching'u musisz spełnić warunek:
