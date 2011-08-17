@@ -58,7 +58,7 @@ Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> aktywnych wolon
     <div id="map0" style="width:700px;height:500px"></div>
 	</div>	
 </center>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/cache/16x16-traditional.png" alt="liczba skrzynek załozonych" title="liczba założonych skrzynek"><b>&nbsp;Liczba założonych</b>&nbsp;&nbsp;<img src="tpl/stdstyle/images/log/16x16-found.png" alt="liczba znalezionych" title="liczba znalezionych"><b>&nbsp;Liczba znalezionych</b>&nbsp;&nbsp;<img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbspLiczba otrzymanych rekomendacji</b><br/>
+&nbsp;&nbsp;<img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbspLiczba otrzymanych rekomendacji</b><br/>
 </div>
 <div class="searchdiv">
 <span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">Aby zostać wolontariuszem Przewodnikiem po geocaching'u musisz spełnić warunek:
