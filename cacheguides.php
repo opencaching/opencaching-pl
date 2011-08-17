@@ -72,14 +72,19 @@ global $get_userid;
 
 				$nrec=sql("SELECT COUNT('cache_id') as ncaches, SUM(topratings) as nrecom FROM caches WHERE `caches`.`type` <> 6 AND caches.status<>4 AND caches.status<>5 AND caches.status<>6 AND `caches`.`user_id`=&1",$record['userid']);
 				$nr = sql_fetch_array($nrec);
-				$nf=sqlValue("SELECT COUNT(*) number FROM cache_logs WHERE type=1 AND deleted='0' AND user_id='" . $record['userid'] . "'", 0);
+//				$nf=sqlValue("SELECT COUNT(*) number FROM cache_logs WHERE type=1 AND deleted='0' AND user_id='" . $record['userid'] . "'", 0);
 
 			$point .=" var point = new GLatLng(" . $x . "," . $y . ");\n";
 			$number=$i+1;
 			$point .="var marker".$number." = new GMarker(point,icon1); map0.addOverlay(marker".$number.");\n\n";
-
+/*
 			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<span style=\"color:blue;\"><table><tr><td><img src=\"tpl/stdstyle/images/free_icons/vcard.png\" alt=\"img\"><b>&nbsp;<a class=\"links\" href=\"viewprofile.php?userid=".$record['userid']."\">".$username."</a></td></tr><tr><td><img src=\"tpl/stdstyle/images/cache/16x16-traditional.png\" alt=\"liczba skrzynek załozonych\" title=\"liczba założonych skrzynek\"><b>&nbsp;".$nr['ncaches']."&nbsp;&nbsp;<img src=\"tpl/stdstyle/images/log/16x16-found.png\" alt=\"liczba znalezionych\" title=\"liczba znalezionych\"><b>&nbsp;".$nf."&nbsp;&nbsp;<img src=\"images/rating-star.png\" alt=\"rekomendacje\" title=\"rekomendacje\"><b>&nbsp;".$nr['nrecom']."</td></tr><tr><td><img src=\"tpl/stdstyle/images/free_icons/email.png\" alt=\"img\"><b>&nbsp;<a class=\"links\" href=\"mailto.php?userid=".$record['userid']."\">Napisz E-mail</a></b></td></tr></table></span>');});\n";
 			}
+*/
+			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<span style=\"color:blue;\"><table><tr><td><img src=\"tpl/stdstyle/images/free_icons/vcard.png\" alt=\"img\"><b>&nbsp;<a class=\"links\" href=\"viewprofile.php?userid=".$record['userid']."\">".$username."</a></td></tr><tr><td><b><img src=\"images/rating-star.png\" alt=\"rekomendacje\" title=\"rekomendacje\"><b>&nbsp;".$nr['nrecom']." rekomendacji otrzymanych</td></tr><tr><td><img src=\"tpl/stdstyle/images/free_icons/email.png\" alt=\"img\"><b>&nbsp;<a class=\"links\" href=\"mailto.php?userid=".$record['userid']."\">Napisz E-mail</a></b></td></tr></table></span>');});\n";
+			}
+
+
 
 		tpl_set_var('points', $point);	
 
