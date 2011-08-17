@@ -151,6 +151,7 @@ function removelog($log_id, $language, $lang)
 							// remove picture with log
 							$rspictures = sql("SELECT `pictures`.`id`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.&1  AND `pictures`.`object_type`=1", $log_id);
 
+						// while ? for if more than one picture ?
 						if (mysql_num_rows($rspictures)!=0){
 						$pic_record = sql_fetch_array($rspictures);
 						
