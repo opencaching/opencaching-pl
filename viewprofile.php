@@ -151,6 +151,7 @@ function myUrlEncode($string) {
 			$guide_info='<br/>';
 			if ($user_id == $usr['userid']){
 			// check user can set as Geocaching guide
+/*
 			$rsnfc = sql("SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches FROM cache_logs,caches WHERE cache_logs.cache_id=caches.cache_id AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7') AND cache_logs.type='1' AND cache_logs.deleted='0' AND `cache_logs`.`user_id` = ".sql_escape($usr['userid'])."");
 			$rec1 = sql_fetch_array($rsnfc);
 			$num_find_caches = $rec1['num_fcaches'];
@@ -158,8 +159,18 @@ function myUrlEncode($string) {
 										AND (status = 1 OR status=2 OR status=3) AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7')");
 			$rec2 = sql_fetch_array($rsnc);
 			$num_caches = $rec2['num_caches'];
+*/
+			// Number of recommendations
+			$nrec=sql("SELECT SUM(topratings) as nrecom FROM caches WHERE `caches`.`user_id`=&1",$usr['userid']);
+			$nr = sql_fetch_array($nrec);
+			$nrecom=$nr['nrecom'];
 
-			if ($num_caches>=5 && $num_find_caches>=5 && $user_record['guru'] ==0 && $user_id == $usr['userid'] ){
+			// old 
+//			if ($num_caches>=5 && $num_find_caches>=5 && $user_record['guru'] ==0 && $user_id == $usr['userid'] )
+			// new with recommendations
+			if ($nrecom>=20 && $user_record['guru'] ==0 && $user_id == $usr['userid'] )
+				
+				{
 					$guide_info='<div class="content-title-noshade box-blue"><table><tr><td><img style="margin-right: 10px;margin-left:10px;" src="tpl/stdstyle/images/blue/info-b.png" alt="guide"></td><td>
 					<span style="font-size:12px;">Możesz zostać woluntariuszem Przewodnikiem po geocachingu dla początkujących geocacherów ustawiając opcje w swoim 
 					<a class="links" href="myprofile.php?action=change">Profilu</a>. 
