@@ -63,8 +63,7 @@ Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> aktywnych wolon
 <div class="searchdiv">
 <span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">Aby zostać wolontariuszem Przewodnikiem po geocaching'u musisz spełnić warunek:
 <ul><font color="black">
-<li>5 znalezionych oraz </li>
-<li>5 założonych </li>
+<li>20 otrzymanych rekomendacji dla skrzynek założonych</li>
 </font></ul>
 &nbsp;&nbsp;&nbsp;skrzynek z następujących typów: <font color="black">tradycyjna, multicache, quiz, nietypowa</font><br/>&nbsp;&nbsp;&nbsp;i będziesz mógł wtedy ustawić opcje w swoim <a class="links" href="http://www.opencaching.pl/myprofile.php?action=change">profilu</a>.
 <br/><br/>
