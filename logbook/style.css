@@ -1,0 +1,202 @@
+body {
+	min-height: 100%;
+	background-color: #eeeeee;
+	color: black;
+	font-family: sans serif;
+	margin: 0 0 0 0;
+}
+
+html {
+	min-height: 100%;
+}
+
+form {
+
+}
+
+#validatorarea {
+	width: 600px;
+	height: 200px;
+}
+
+form#logbookopts label { 
+	display: block;  /* block float the labels to left column, set a width */
+	float: left; 
+	width: 8em; 
+	padding: 0; 
+	margin: 5px 0 0; /* set top margin same as form input - textarea etc. elements */
+	text-align: left; 
+}
+
+form#logbookopts .degrees {
+	max-width: 3em;
+}
+
+form#logbookopts .minutes {
+	max-width: 4em;
+}
+
+form input {
+}
+
+div#logoblock {
+	background-color: #ffffff;
+}
+
+img#logo {
+	margin: 0 0 0 0;
+}
+
+span.posmod {
+	font-size: x-small;
+}
+span.posmod input {
+	font-size: x-small;
+	max-width: 4em;
+}
+
+#navibar {
+	background-color: #929AFF;
+	margin-right: 5px;
+	padding: 7px 7px 7px 7px;
+	margin: 0 0 0 0;
+
+	position: relative;
+	font-family: sans-serif;
+	border: 1px solid #333333;
+	font-size: small;
+
+}
+
+div#previewpages {
+	display: inline;
+}
+
+#navibar span {
+
+}
+
+#navibar span:after
+{
+	content: " | ";
+}
+
+#navibar span:last-child:after
+{
+	content: " | ";
+}
+
+#navibar a {
+	color: black;
+	text-decoration: none;
+}
+
+#navibar a:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+form input {
+
+}
+
+form input {
+//	background-color: #040A31;
+//	color: white;
+}
+
+p {
+	padding-left: 2em;
+}
+
+span.note {
+	font-size: x-small;
+}
+span.note:before {
+	content: "*";
+}
+
+div#previewpageselect {
+	visibility: hidden;
+}
+
+div#previewblock {
+	float: right;
+}
+
+div#previewblock span {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+div#previewblock span:after {
+    content: " ";
+}
+
+div#previewblock span:before {
+    content: " ";
+}
+
+div#previewblock span:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+div#previewblock span.selected {
+	font-weight: bold;
+}
+
+div#preview2 {
+	width: 350px;
+	height: 482px;
+	border: 1px solid black;
+	margin-right: 1em;
+}
+
+div#preview1 {
+	width: 350px;
+	height: 254px;
+	border: 1px solid black;
+	margin-right: 1em;
+}
+
+div#preview1 img {
+	width: 350px;
+}
+
+div#preview2 img {
+	width: 350px;
+}
+
+#textpreview {
+	padding-left:1ex;
+	font-family:verdana,arial,helvetica,helv,sans-serif;
+	font-size:small;
+	etter-spacing:0px;
+	line-height:3ex;
+	vertical-align:top;
+}
+
+#textpreview h1
+{
+	font-family:sans-serif;
+	ont-size:small;
+	text-align:justify;
+}
+
+#textpreview h2
+{
+  font-family:sans-serif;
+  font-size:small;
+  text-align:justify;
+}
+
+#textpreview a {
+	color:black;	
+	text-decoration:underline;
+}
+
+#textpreview a:hover {
+	color:blue;
+}

@@ -5,6 +5,11 @@ Przez usunięcie mam w tej chwili na myśli "nie commitowanie". Czyli przy
 checkoutowaniu nowej kopii te pliki nie będą istnieć. To są bardziej notatki
 dla mnie samego, ale commituję i tak na chwilę.
 
+Usunięty logbook czy jakoś tak
+
+Usunięty logbook/work.
+=> powinien tworzyć pliki w katalogu dla plików dynamicznych.
+
 Usunięte symboliczne linki:
 - images/uploads
 - upload
