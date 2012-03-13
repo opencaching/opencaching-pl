@@ -47,7 +47,7 @@ $get_userid = $_REQUEST['userid'];
 
 	$rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$user_id'");
 	$record = mysql_fetch_array($rs);
-	if( ($_REQUEST['lat'] != "" && $_REQUEST['lon'] != ""))
+	if( ($_REQUEST['lat'] != "" && $_REQUEST['lon'] != "") && ($_REQUEST['lat'] != 0 && $_REQUEST['lon'] != 0))
 	{
 		$coordsXY=$_REQUEST['lat'].",".$_REQUEST['lon'];
 		$coordsX=$_REQUEST['lat'];
@@ -88,7 +88,7 @@ $get_userid = $_REQUEST['userid'];
 	}*/
 
 	/*SET YOUR MAP CODE HERE*/
-	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.99&amp;key='.$googlemap_key.'&amp;hl='.$lang.'" type="text/javascript"></script>');
+	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.99&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
 	tpl_BuildTemplate(true, true); 
 
 ?>

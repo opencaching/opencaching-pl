@@ -6,7 +6,7 @@
  ***************************************************************************/
 	$rootpath = '../../';
 	require_once($rootpath.'lib/clicompatbase.inc.php');
-
+  
 
 /* begin with some constants */
 
@@ -29,7 +29,7 @@ class geokrety
 	/* end db connect */
 
 		$xmlfile = $this->loadXML();
-		if ($xmlfile == false)
+		if ($xmlfile == false) 
 		{
 			return;
 		}
@@ -38,7 +38,7 @@ class geokrety
 		db_disconnect();
 	}
 
-	/* get file from XML interface
+	/* get file from XML interface 
 	 * and return path of saved xml
 	 * or false on error
 	 */
@@ -51,16 +51,16 @@ class geokrety
 		$path = $dynbasepath . 'tmp/geokrety/import.xml';
 
 		$this->removeXML($path);
-
+		
 		$sql = "SELECT value FROM sysconfig WHERE name='geokrety_lastupdate'";
 		$last_updated = mysql_result(mysql_query($sql),0);
 		$modifiedsince = strtotime($last_updated);
-
+		
 		set_time_limit(300);
-		if (!@copy('http://geokrety.org/export.php?modifiedsince=' . date('YmdHis', $modifiedsince - 14400), $path))
+		if (!@copy('http://geokrety.org/export_oc.php?modifiedsince=' . date('YmdHis', $modifiedsince - 14400), $path))
 			return false;
-
-		$path = 'http://geokrety.org/export.php?modifiedsince=' . date('YmdHis', $modifiedsince - 1);
+		
+		$path = 'http://geokrety.org/export_oc.php?modifiedsince=' . date('YmdHis', $modifiedsince - 1);
 		return $path;
 	}
 
@@ -149,22 +149,20 @@ class geokrety
 
 		$description = addslashes($this->GetNodeValue($element, 'description'));
 		$datecreated = $this->GetNodeValue($element, 'datecreated');
-
+		
 		$distancetravelled = $this->GetNodeValue($element, 'distancetravelled')+0;
 		$state = $this->GetNodeValue($element, 'state')+0;
-
+		
 		$longitude = $this->GetNodeAttribute($element, 'position', 'longitude')+0;
 		$latitude = $this->GetNodeAttribute($element, 'position', 'latitude')+0;
-
-		$missing= $this->GetNodeValue($element, 'missing')+0;
-
+		
 // if no geokret-human, then touch the db
 		if( $typeid != 2)
 		{
 				$sql = "INSERT INTO gk_item (`id`, `name`, `description`, `userid`, `datecreated`, `distancetravelled`,
-                              `latitude`, `longitude`, `typeid`, `stateid`, `missing`)
-                	      VALUES ('".sql_escape($id)."', '".sql_escape($name)."', '".sql_escape($description)."', '".sql_escape($userid)."', '".sql_escape($datecreated)."', '".sql_escape($distancetravelled)."', '".sql_escape($latitude)."', '".sql_escape($longitude)."', '".sql_escape($typeid)."', '".sql_escape($state)."', '".sql_escape($missing)."')
-			      ON DUPLICATE KEY UPDATE `name`='".sql_escape($name)."', `description`='".sql_escape($description)."', `userid`='".sql_escape($userid)."', `datecreated`='".sql_escape($datecreated)."', `distancetravelled`='".sql_escape($distancetravelled)."', `latitude`='".sql_escape($latitude)."', `longitude`='".sql_escape($longitude)."', `typeid`='".sql_escape($typeid)."', `stateid`='".sql_escape($state)."', `missing`='".sql_escape($missing)."'";
+                              `latitude`, `longitude`, `typeid`, `stateid`)
+                	      VALUES ('".sql_escape($id)."', '".sql_escape($name)."', '".sql_escape($description)."', '".sql_escape($userid)."', '".sql_escape($datecreated)."', '".sql_escape($distancetravelled)."', '".sql_escape($latitude)."', '".sql_escape($longitude)."', '".sql_escape($typeid)."', '".sql_escape($state)."')
+			      ON DUPLICATE KEY UPDATE `name`='".sql_escape($name)."', `description`='".sql_escape($description)."', `userid`='".sql_escape($userid)."', `datecreated`='".sql_escape($datecreated)."', `distancetravelled`='".sql_escape($distancetravelled)."', `latitude`='".sql_escape($latitude)."', `longitude`='".sql_escape($longitude)."', `typeid`='".sql_escape($typeid)."', `stateid`='".sql_escape($state)."'";
 			$query = mysql_query($sql);
 			sql("DELETE FROM gk_item_waypoint WHERE id NOT IN (SELECT id FROM gk_item)");
  			sql("DELETE FROM gk_item_waypoint WHERE id='&1'", sql_escape($id));
@@ -187,7 +185,7 @@ class geokrety
 				}
 //			}
 			}
-
+			
 		}
 	}
 
@@ -197,18 +195,18 @@ class geokrety
 		$geokretid = $this->GetNodeAttribute($element, 'geokret', 'id')+0;
 		$logtype = $this->GetNodeAttribute($element, 'logtype', 'id')+0;
 		$datemodified = $this->GetNodeAttribute($element, 'date', 'moved');
-
+		
 		$sql = "SELECT datemodified FROM gk_item WHERE id='".sql_escape($geokretid)."'";
 		$db_datemodified = @mysql_result(@mysql_query($sql),0);
-
+		
 		if( $datemodified > $db_datemodified )
-		{
+		{				
 			$sql = "UPDATE gk_item SET stateid='".sql_escape($logtype)."', datemodified='".sql_escape($datemodified)."' WHERE id='".sql_escape($geokretid)."'";
 			mysql_query($sql);
-
+			
 			sql("DELETE FROM gk_item_waypoint WHERE id NOT IN (SELECT id FROM gk_item)");
 			sql("DELETE FROM gk_item_waypoint WHERE id='&1'", sql_escape($geokretid));
-
+			
 			$waypoints = $element->getElementsByTagName('waypoints');
 			if ($waypoints->length == 1)
 			{

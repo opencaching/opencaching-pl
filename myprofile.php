@@ -132,6 +132,7 @@
 					$tplname = 'myprofile_change';
 					require_once($stylepath . '/myprofile_change.inc.php');
 			// check user can set as Geocaching guide
+/*
 			$rsnfc = sql("SELECT COUNT(`cache_logs`.`cache_id`) as num_fcaches FROM cache_logs,caches WHERE cache_logs.cache_id=caches.cache_id AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7') AND cache_logs.type='1' AND cache_logs.deleted='0' AND `cache_logs`.`user_id` = ".sql_escape($usr['userid'])."");
 			$rec = sql_fetch_array($rsnfc);
 			$num_find_caches = $rec['num_fcaches'];
@@ -140,8 +141,16 @@
 										AND (status = 1 OR status=2 OR status=3) AND (caches.type='1' OR caches.type='2' OR caches.type='3' OR caches.type='7')");
 			$record = sql_fetch_array($rsnc);
 			$num_caches = $record['num_caches'];
+	*/
+			// Number of recommendations
+			$nrec=sql("SELECT SUM(topratings) as nrecom FROM caches WHERE `caches`.`user_id`=&1",$usr['userid']);
+			$nr = sql_fetch_array($nrec);
+			$nrecom=$nr['nrecom'];
 
-			if ($num_caches>=5 && $num_find_caches>=5){
+			//old
+//			if ($num_caches>=5 && $num_find_caches>=5)
+			if ($nrecom>=20)
+					{
 					tpl_set_var('guide_start', '');
 					tpl_set_var('guide_end', '');		
 					} else {

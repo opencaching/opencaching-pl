@@ -59,7 +59,7 @@
 	<name>{waypoint}</name>
 	<desc>{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
 	<src>www.opencaching.pl</src>
-	<url>http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</url>
+	<url>http://opencaching.pl/viewcache.php?wp={waypoint}</url>
 	<urlname>{cachename}</urlname>
 	<sym>Geocache</sym>
 	<type>Geocache|{geocache_type}</type>
@@ -105,7 +105,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 	<name>{waypoint} {wp_stage}</name>
     <cmt>{desc}</cmt>
     <desc>{wp_type_name}</desc>
-    <url>http://opencaching.pl/viewcache.php?cacheid={cacheid}</url>
+    <url>http://opencaching.pl/viewcache.php?wp={waypoint}</url>
     <urlname>{waypoint} {wp_stage}</urlname>
     <sym>{wp_type}</sym>
     <type>Waypoint|{wp_type}</type>

@@ -46,7 +46,7 @@
 				
 				</div>
 					<div class="content2-container-2col-left" id="cache_name_block">
-					<span class="content-title-noshade-size5">{cachename}</span><br />
+					<span class="content-title-noshade-size5">{cachename} - {oc_waypoint}</span><br />
 					<p class="content-title-noshade-size1">&nbsp;{short_desc}</p>
 					<p>{{hidden_by}}&nbsp; <a class="links" href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a></p>
 					{event_attendance_list}
@@ -314,15 +314,12 @@ else
 				<p class="content-title-noshade-size1">
 					
 					<img src="tpl/stdstyle/images/blue/npav1.png" class="icon32" alt="" />
-					NATURA 2000 obszar
+					Obszary ochrony przyrody
 				</p>
 				</div>
 				<div class="content2-container"><center>
-<table width="90%" border="0" style="border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em">
-<tr>
-<td align="center" valign="middle">&nbsp;</td><td align="center" valign="middle">{npa_content}</td><td align="center" valign="middle"><a class="links" href="http://www.natura2000.pl/" target="_blank"><img src="tpl/stdstyle/images/misc/natura2000.png" alt="" title="" />  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a></td>
-</tr>
-</table></center>
+{npa_content}
+</center>
 			</div>
 {hidenpa_end}
 <!-- End Text Container -->
@@ -398,7 +395,8 @@ else
 			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=txt\" title=\"Tekst .txt\">TXT</a>
 			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=wpt\" title=\"Oziexplorer .wpt\">WPT</a>
 			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=uam\" title=\"AutoMapa .uam\">UAM</a>
-	<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=xml\" title=\"XML\">XML</a>
+			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=xml\" title=\"XML\">XML</a>
+			<a href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=zip\" title=\"Garmin ZIP file (GPX + zdjęcia)  .zip\">GARMIN</a>
 			<br /><br />
 			<div class=\"notice buffer\" id=\"viewcache-termsofuse\">"; ?> {{accept_terms_of_use}}<?php echo "</div></div>
 ";

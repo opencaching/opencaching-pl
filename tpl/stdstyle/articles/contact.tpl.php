@@ -14,62 +14,23 @@ Chciałbyś wymienić swoje uwagi zadać pytania innym, masz pomysł albo sugest
 chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.pl">Forum</a>
 <br />
 <br />
-<h1>OpenCaching PL Team </h1><p>
+<h1><a class="links" href="http://wiki.opencaching.pl/index.php/Zasady_funkcjonowania_Serwisu_OC_PL">OpenCaching PL Team</a> </h1><p>
 <b>Rada Rejsu</b><br />
 <b>E-mail: <font color="black">rr</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
-- zyr (139)<br />
-- tATO (120)<br />
-- etna&amp;mars (118)<br />
-- Żywcu (107)<br />
-- Nannette (105)<br />
-<br/>
+
+- Skład Rady Rejsu patrz >>><a href="http://forum.opencaching.pl/viewtopic.php?f=19&t=6297">TUTAJ</a><<<
+<br/><br />
 <b>Rada Techniczna</b><br />
 <b>E-mail: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
-- tATO<br />
-- starypatyk<br />
-- limak<br />
-<span style="color:#808080">(pomoc programistyczna dla RT: sp2ong,rushcore)</span><br/>
-<br />
+
+- Skład Rady Technicznej patrz >>><a href="http://forum.opencaching.pl/viewtopic.php?f=19&t=6297">TUTAJ</a><<<
+<br /><br />
 <b>Centrum Obsługi Geocachera </b> <br />
 <b>E-mail: <font color="black">cog</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
-- alex22 <br />
-- art_noise <br />
-- czarkowaty <br />
-- ronja <br />
-- schron <br />
+
+- Skład COG patrz >>><a href="http://forum.opencaching.pl/viewtopic.php?f=19&t=6297">TUTAJ</a><<<
 
 <br />
-<span style="color:#808080"><b>Centrum Obsługi Geocachera </b>  - Kadencja 1.06.2010 - 30.06.2011 (w nawiasie liczba otrzymanych głosów):<br />
-- Whatever (111) <br />
-- Maciej eŚ (96) <br />
-- Saracen (84) <br />
-- Maliniak (77) <br />
-- Wallson (75) <br />
-- etna&amp;mars (73) <br />
-- alex22 (65) <br />
-<br />
-<span style="color:#808080">- Bazyl69 (77) - zrezygnował</span><br />
-<span style="color:#808080">- Voit (113) - zrezygnował</span><br />
-<br />
-<b>Rada Rejsu</b>Kadencja 1.06.2009 - 31.05.2010:<br />
-- filips (119) <br />
-- ZYR (109) <br />
-- trojmiasto (94) <br />
-- Voit (57) <br />
-- bogobig (49) <br />
-- wanoga (48) <br />
-- Bazyl69 (47) <br />
-</span>
-<br />
-<span style="color:#808080"><b>Kadencja 1.06.2008 - 31.05.2009:</b><br />
-- Filips (39) <br />
-- ZYR (35) <br />
-- Ted69 (25) <br />
-- Bas (23) <br />
-- Darkmoor (20) <br />
-- Shchenka (19) <br />
-- StaryPatyk (16) <br />
-</span>
 </p>
 <h1>Inne</h1>
 <p>W sprawach bezpośrednio związanych z funkcjonowaniem serwisu OpenCaching PL możesz napisać list na adres <b>

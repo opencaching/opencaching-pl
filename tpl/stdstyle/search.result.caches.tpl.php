@@ -64,8 +64,8 @@ $googlemaps = "";
 if ($usr || !$hide_coords){ echo "
 <table class=\"content\" style=\"font-size: 12px; line-height: 1.6em;\">
 	<tr>
-		<td width=\"205\"><b>".tr('download')."</b></td>
-		<td align=\"right\" style=\"padding-right:20px;\">
+		<td width=\"185\"><b>".tr('download')."</b></td>
+		<td align=\"right\" style=\"padding-right:5px;\">
 			".tr('listing_from_this_page').":
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx |\">GPX</a> | 
 			<a class=\"links\" href=\"ocplgc";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a> | 
@@ -77,15 +77,16 @@ if ($usr || !$hide_coords){ echo "
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".txt?startat=";?>{startat}<?php echo "\" title=\"Text .txt\">TXT</a> | 
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".wpt?startat=";?>{startat}<?php echo "\" title=\"Oziexplorer .wpt\">WPT</a> | 
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".uam?startat=";?>{startat}<?php echo "\" title=\"AutoMapa .uam\">UAM</a> | 
-<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".xml?startat=";?>{startat}<?php echo "\" title=\"xml\">XML</a>
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".xml?startat=";?>{startat}<?php echo "\" title=\"xml\">XML</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "\" title=\"Garmin ZIP file (GPX + zdjęcia)  .zip\">GARMIN</a>
 
 			</td>
 	</tr>
 	<tr>
-		<td width=\"205\" class=\"help\">
+		<td width=\"185\" class=\"help\">
 			".tr('download_for_various_apps')."
 		</td>
-		<td align=\"right\" style=\"padding-right:20px;\">";?> {{listing_from_to}}<?php echo " :
+		<td align=\"right\" style=\"padding-right:5px;\">";?> {{listing_from_to}}<?php echo " :
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a> | 
 			<a class=\"links\" href=\"ocplgc";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format (Groundspeak) .gpx\">GPX GC</a> | 
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a> | 
@@ -96,7 +97,8 @@ if ($usr || !$hide_coords){ echo "
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".txt?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Text .txt\">TXT</a> | 
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".wpt?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Oziexplorer .wpt\"> WPT</a> | 
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".uam?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"AutoMapa .uam\">UAM</a> | 
-			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".xml?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"xml\">XML</a>
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".xml?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"xml\">XML</a> | 
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Garmin ZIP file (GPX + zdjęcia)  .zip\">GARMIN</a>
 			</td>
 	</tr>
 	<tr>

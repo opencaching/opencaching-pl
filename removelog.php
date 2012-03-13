@@ -147,20 +147,7 @@ function removelog($log_id, $language, $lang)
 							$liczba = mysql_result(mysql_query($sql),0);
 							$sql = "SELECT SUM(score) FROM scores WHERE cache_id='".sql_escape($log_record['cache_id'])."'";
 							$suma = @mysql_result(@mysql_query($sql),0)+0;
-/*
-							// remove picture with log
-							$rspictures = sql("SELECT `pictures`.`id`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.&1  AND `pictures`.`object_type`=1", $log_id);
 
-						// while ? for if more than one picture ?
-						if (mysql_num_rows($rspictures)!=0){
-						$pic_record = sql_fetch_array($rspictures);
-						
-						sql("DELETE FROM `pictures` WHERE `uuid`='&1'", $pic_record['uuid']);
-						sql("INSERT INTO `removed_objects` (`localID`, `uuid`, `type`, `removed_date`, `node`) VALUES ('&1', '&2', 6, NOW(), '&3')", $pic_record['id'], $pic_record['uuid'], '2');
-						sql("UPDATE `cache_logs` SET `picturescount`=`picturescount`-1 WHERE `id`='&1'", $pic_record['object_id']);						
-						mysql_free_result($rscpictures);
-						}
-*/						
 							// obliczenie nowej sredniej
 							if( $liczba != 0)
 							{

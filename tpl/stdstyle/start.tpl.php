@@ -13,8 +13,6 @@
 <script language="javascript" type="text/javascript">
 <!-- hide script from old browsers
 
-var map_image_cache;
-
 //detect browser:
 if ((navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 3) || parseInt(navigator.appVersion) >= 4) {
         rollOvers = 1;
@@ -26,34 +24,18 @@ if ((navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 3) || 
         }
 }
 
-window.onload = function() {
-	//preload images
-	if (rollOvers) {
-		map_image_cache = [];
-		map_image_cache[-1] = new Image();
-		map_image_cache[-1].src = document.getElementById('main-cachemap').getAttribute('basesrc');
-		for (i = 0; i < 20; i++)
-		{
-			var nc_elem = document.getElementById('newcache' + i);
-			if (nc_elem != null)
-			{
-				map_image_cache[i] = new Image();
-				map_image_cache[i].src = nc_elem.getAttribute('maphref');
-			}
-		}
-	}
-}
-
 //image swapping function:
 function Lite(nn) {
 	if (rollOvers) {
-		document.getElementById('main-cachemap').src = map_image_cache[nn].src;
+		document.getElementById('smallmark'+nn).style.visibility = 'hidden';
+		document.getElementById('bigmark'+nn).style.visibility = 'visible';
 	}
 }
 
-function Unlite() {
+function Unlite(nn) {
 	if (rollOvers) {
-		document.getElementById('main-cachemap').src = map_image_cache[-1].src;
+		document.getElementById('bigmark'+nn).style.visibility = 'hidden';
+		document.getElementById('smallmark'+nn).style.visibility = 'visible';
 	}
 }
 
@@ -78,7 +60,7 @@ function Unlite() {
 					</div>
 				</div>
 				<div class="content2-container-2col-right" id="main-cachemap-block">
-					<div class="img-shadow">
+					<div class="img-shadow" style="position: relative">
 						<?php
 							global $dynstylepath;
 							include ($dynstylepath . "main_cachemap.inc.php");
@@ -92,6 +74,15 @@ function Unlite() {
 				  <?php
 			global $dynstylepath;
 			include ($dynstylepath . "nextevents.inc.php");
+		?>
+			</div>
+							<div class="content2-container-2col-left" id="new-events-area">
+				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;Najnowsze wpisy w blogach</p>
+
+				
+				  <?php
+			global $dynstylepath;
+			include ($dynstylepath . "start_newblogs.inc.php");
 		?>
 			</div>
 		</div>

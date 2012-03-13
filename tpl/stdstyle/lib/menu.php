@@ -128,7 +128,16 @@ $menu = array(
 				'visible' => true,
 				'onlylogged' => true,
 				'filename' => 'cachemap2.php'
+				),
+				array(
+				'title' => 'Mapa logów',
+				'menustring' => 'Mapa logów',
+				'siteid' => 'logmap',
+				'visible' => true,
+				'onlylogged' => true,
+				'filename' => 'logmap.php'
 				)
+
 			    )
 			),
 			array(
@@ -226,6 +235,14 @@ $menu = array(
 		'newwindow' => true
 	),
 	array(
+		'title' => 'Blog',
+		'menustring' => 'Blog',
+		'siteid' => 'blog',
+		'visible' => true,
+		'filename' => 'http://blog.opencaching.pl',
+		'newwindow' => true
+	),
+	array(
 		'title' => 'IRC',
 		'menustring' => 'IRC',
 		'siteid' => 'irc',
@@ -285,6 +302,13 @@ $menu = array(
 		'visible' => true,
 		'filename' => 'cacheguides.php',
 		'siteid' => 'guides'
+	),
+	array(
+		'title' => 'API',
+		'menustring' => 'API',
+		'visible' => true,
+		'filename' => '/okapi',
+		'siteid' => 'api'
 	),
 	array(
 		'title' => tr('clipboard'),
@@ -597,6 +621,13 @@ $menu = array(
 				'visible' => true,
 				'filename' => 'searchuser.php'
 			),
+			array(
+            'title' => tr('okapi_apps'),
+            'menustring' => tr('okapi_apps'),
+            'siteid' => 'okapi_apps',
+            'visible' => true,
+            'filename' => 'okapi/apps/'
+            ),
 			array(
 				'title' => 'QR Code',
 				'menustring' => 'QR Code',

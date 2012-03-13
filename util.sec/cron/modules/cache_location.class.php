@@ -25,7 +25,8 @@
  *
  ***************************************************************************/
 	$rootpath = '../../../';
-	require_once($rootpath.'lib2/logic/gis.class.php');
+//	require_once($rootpath.'lib2/logic/gis.class.php');
+	require_once($rootpath.'lib/gis/gis.class.php');
 	require_once($rootpath.'lib/clicompatbase.inc.php');
 	require_once($rootpath.'lib/common.inc.php');
 // checkJob(new cache_location());

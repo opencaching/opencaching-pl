@@ -14,76 +14,10 @@
 		<td style="width: 25%;">
 			<b>Opencaching Network:</b> 
 		</td>
+			<td>
+			<a href="http://www.opencaching.eu">http://www.opencaching.eu</a>	
+		</td>
 		</tr>
-	
-	<tr>
-		<td>
-			Polska
-		</td>
-		<td>
-					<a href="http://www.opencaching.pl">http://www.opencaching.pl</a>	
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Niemcy
-		</td>
-		<td>
-					<a href="http://www.opencaching.de">http://www.opencaching.de</a>	
-		</td>
-	</tr>
-		<tr>
-		<td>
-			USA
-		</td>
-		<td>
-					<a href="http://www.opencaching.us">http://www.opencaching.us</a>	
-		</td>
-	</tr>
-
-	<tr>
-		<td>
-			Wielka Brytania
-		</td>
-		<td>
-					<a href="http://www.opencaching.org.uk">http://www.opencaching.org.uk</a>	
-		</td>
-	</tr>
-		<tr>
-		<td>
-			Szwecja/Norwegia
-		</td>
-		<td>
-					<a href="http://www.opencaching.no">http://www.opencaching.se</a>	
-		</td>
-	</tr>
-
-	<tr>
-		<td>
-			Czechy
-		</td>
-		<td>
-					<a href="http://www.opencaching.cz">http://www.opencaching.cz</a>	
-		</td>
-	</tr>
-		<tr>
-		<td>
-			Japonia
-		</td>
-		<td>
-					<a href="http://www.opencaching.jp">http://www.opencaching.jp</a>	
-		</td>
-	</tr>
-
-	<tr>
-		<td style="width: 25%;">
-			&nbsp;
-		</td>
-		<td>
-					
-		</td>
-	</tr>
-
 
 	<tr>
 		<td style="width: 25%;">
@@ -119,15 +53,6 @@
 			<a href="http://www.geopeitus.ee/english.html">http://www.geopeitus.ee</a>
 		</td>
 	</tr>
-	<tr>
-		<td>
-			Bułgaria
-		</td>
-		<td>
-			<a href="http://www.geocaching.bg">http://www.geocaching.bg</a>
-		</td>
-	</tr>
-
 	<tr>
 		<td>
 			Turcja

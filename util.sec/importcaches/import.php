@@ -298,9 +298,9 @@ $importcaches = new importCaches();
 
 //$valid_ocnodes = array(1,/*2,3,6,*/7,8); // do not import caches from local oc server
 
-// Temporarily disable import from SE due to unknown problems on the other side.
-// This leaves import from DE and NO only. 
-$valid_ocnodes = array(1,8); // do not import caches from local oc server
+// Temporarily disable import from NO due to unknown problems on the other side.
+// This leaves import from DE only. 
+$valid_ocnodes = array(1); // do not import caches from local oc server
 
 // iterate through all valid Opencaching nodes
 foreach( $valid_ocnodes as $valid_ocnode )

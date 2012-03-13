@@ -1,0 +1,90 @@
+form#logbookopts label { 
+	display: block;  /* block float the labels to left column, set a width */
+	float: left; 
+	width: 8em; 
+	padding: 0; 
+	margin: 5px 0 0; /* set top margin same as form input - textarea etc. elements */
+	text-align: left; 
+}
+
+form#logbookopts .degrees {
+	max-width: 3em;
+}
+
+form#logbookopts .minutes {
+	max-width: 4em;
+}
+
+span.posmod {
+	font-size: x-small;
+}
+span.posmod input {
+	font-size: x-small;
+	max-width: 4em;
+}
+
+div#previewpages {
+	display: inline;
+}
+
+span.note {
+	font-size: x-small;
+}
+span.note:before {
+	content: "*";
+}
+
+div#previewpageselect {
+	visibility: hidden;
+}
+
+div#previewblock {
+	float: right;
+}
+
+div#previewblock span {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+div#previewblock span:after {
+    content: " ";
+}
+
+div#previewblock span:before {
+    content: " ";
+}
+
+div#previewblock span:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+div#previewblock span.selected {
+	font-weight: bold;
+}
+
+div#preview2 {
+	width: 350px;
+	height: 482px;
+	border: 1px solid black;
+	margin-right: 1em;
+}
+
+div#preview1 {
+	width: 350px;
+	height: 254px;
+	border: 1px solid black;
+	margin-right: 1em;
+}
+
+div#preview1 img {
+	width: 350px;
+	display: none;
+}
+
+div#preview2 img {
+	width: 350px;
+	display: none;
+}

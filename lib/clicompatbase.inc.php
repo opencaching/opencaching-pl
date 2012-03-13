@@ -404,9 +404,8 @@
 
 	function sql_error()
 	{
-		if (class_exists('Okapi'))
+		if (class_exists('\okapi\Okapi'))
 		{
-			# OKAPI requires an ability to catch SQL errors.
 			throw new Exception("SQL Error ".mysql_errno().": ".mysql_error());
 		}
 		global $sql_errormail;

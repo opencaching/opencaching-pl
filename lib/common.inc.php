@@ -1,8 +1,8 @@
 <?php
 
-//if (!session_id()) {
-session_start();
-//}
+if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
+	session_start();
+
 
 
 /***************************************************************************
@@ -26,8 +26,8 @@ session_start();
 
  ****************************************************************************/
 
-
-    ob_start("ob_gzhandler");
+if ((!isset($GLOBALS['no-ob'])) || ($GLOBALS['no-ob'] == false))
+    ob_start();
 	
 	// we are in HTML-mode ... maybe plain (for CLI scripts)
 	global $interface_output;
@@ -77,7 +77,9 @@ session_start();
 	$error = false;
 
 	//no slashes in variables! originally from phpBB2 copied
-	set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
+	// starypatyk 2011.08.20 - zablokowane wywolanie set_magic_quotes_runtime
+	// powoduje ostrzezenia E_DEPRECATED - po co byla ta funkcja???
+	// set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
 
 	if (get_magic_quotes_gpc())
 	{
@@ -379,8 +381,8 @@ session_start();
 		}
 		return "";
 	}
-
-	tpl_set_var("season", isset($_GET['season'])?validate_style($_GET['season']):season());
+	$season = isset($_GET['season'])?validate_style($_GET['season']):season();
+	tpl_set_var("season", $season);
 
 	
 	// Convert from -3..3 to 1..5: update scores set score = (score +3)*5/6+1
@@ -567,7 +569,7 @@ session_start();
 				if(strlen($_SERVER['QUERY_STRING']) > 0) 
 					$language_flags .= '?'.htmlspecialchars($_SERVER['QUERY_STRING']) . '&amp;lang='.$s_lang.'"><img class="img-navflag" border="0" src="images/'.$s_lang.'.jpg" alt="'.$s_lang.' version" title=""/>&nbsp;';
 				else
-					$language_flags .= '?lang='.$s_lang.'"><img class="img-navflag" border="0" src="images/'.$s_lang.'.jpg" alt="'.$s_lang.' version" title=""/>&nbsp;';
+					$language_flags .= '?lang='.$s_lang.'"><img class="img-navflag" border="0" src="images/'.$s_lang.'.png" alt="'.$s_lang.' version" title=""/>&nbsp;';
 				
 				$language_flags .= '</a></li>';
 			}
@@ -720,7 +722,7 @@ session_start();
 
 	function tpl_do_translate($str)
 	{
-		return preg_replace_callback('/{{.*?}}/', 'handle_translation_clause', $str);
+		return preg_replace_callback('/{{.*?}}/', handle_translation_clause, $str);
 	}
 
 
@@ -1457,6 +1459,44 @@ function validate_msg($cookietext)
 	$num=0;
 	sscanf($cookietext, "%d", $num);
 	return $num;
+}
+
+function get_image_for_interval($folder, $interval = 1800)
+{
+    $extList = array();                                                                                                                                                                                                                  
+    $extList['gif'] = 'image/gif';                                                                                                                                                                                                       
+    $extList['jpg'] = 'image/jpeg';                                                                                                                                                                                                      
+    $extList['jpeg'] = 'image/jpeg';                                                                                                                                                                                                     
+    $extList['png'] = 'image/png';
+
+    $img = null;
+
+    if (substr($folder,-1) != '/') {
+	$folder = $folder . '/';
+    }                                                                                                                                                                                                                                            
+
+    $fileList = array();
+    $handle = opendir($folder);
+    while (false !== ($file = readdir($handle)))
+    {
+	$file = $folder . $file;
+	if (is_file($file)) {
+                $file_info = pathinfo($file);
+                if (isset($extList[strtolower($file_info['extension'])]))
+                {
+                        $fileList[] = $file;
+                }
+        }
+    }
+    closedir($handle);
+
+    if (count($fileList) > 0)
+    {
+	$imageNumber = floor(time() / $interval) % count($fileList);
+	$img = $fileList[$imageNumber];
+	return $img;
+    }
+    return "";
 }
 
 ?>

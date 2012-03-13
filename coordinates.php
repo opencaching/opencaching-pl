@@ -50,14 +50,14 @@
 	list($lon_dir, $lon_deg_int, $lon_min_int, $lon_sec_float, $lon_min_float) = help_lonToArray2($lon_float);
 	list($lat_dir, $lat_deg_int, $lat_min_int, $lat_sec_float, $lat_min_float) = help_latToArray2($lat_float);
 
-	tpl_set_var('lon_float', sprintf('%0.5f', $lon_float));
+	tpl_set_var('lon_float', sprintf('%0.5f', abs($lon_float)));
 	tpl_set_var('lon_dir', $lon_dir);
 	tpl_set_var('lon_deg_int', $lon_deg_int);
 	tpl_set_var('lon_min_int', $lon_min_int);
 	tpl_set_var('lon_sec_float', $lon_sec_float);
 	tpl_set_var('lon_min_float', $lon_min_float);
 
-	tpl_set_var('lat_float', sprintf('%0.5f', $lat_float));
+	tpl_set_var('lat_float', sprintf('%0.5f', abs($lat_float)));
 	tpl_set_var('lat_dir', $lat_dir);
 	tpl_set_var('lat_deg_int', $lat_deg_int);
 	tpl_set_var('lat_min_int', $lat_min_int);

@@ -4,12 +4,13 @@ W zadeklarowanym przez Ciebie promieniu
 pojawiła się następująca skrzynka:
 
 ---
-{user} dnia {date} zarejestrował nową skrzynkę "{cachename}".
+{user} dnia {date} zarejestrował nową skrzynkę "{wp_oc}: {cachename}".
 Odległość: {distance} {unit}, kierunek: {bearing}
 Typ: {cachetype}
 Wielkość: {cachesize}
 
-Link: http://www.opencaching.pl/viewcache.php?wp={wp_oc}
+OC Link: http://www.opencaching.pl/viewcache.php?wp={wp_oc}
+OC Mobile Link: http://m.opencaching.pl/viewcache.php?wp={wp_oc}
 ---
 
 Możesz zmienić ustawienia powiadomień 

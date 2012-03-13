@@ -32,6 +32,18 @@
 
 /* end with some constants */
 
+// Check if another instance of the script is running
+	$lock_file = fopen("/tmp/notification-run_notify.lock", "w");
+	if (!flock($lock_file, LOCK_EX | LOCK_NB))
+	{
+		// Another instance of the script is running - exit
+		echo "Another instance of run_notify.php is currently running.\nExiting.\n";
+		fclose($lock_file);
+		exit;
+	}
+
+// No other instance - do normal processing
+
 /* begin db connect */
 	db_connect();
 	if ($dblink === false)
@@ -62,6 +74,9 @@
   mysql_free_result($rsNotify);
 
 /* end send out everything that has to be sent */
+
+// Release lock
+	fclose($lock_file);
 
 function process_new_cache($notify)
 {

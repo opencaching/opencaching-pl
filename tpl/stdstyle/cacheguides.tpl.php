@@ -40,7 +40,7 @@ map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), {mapzoom});
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/guru.png" class="icon32" alt="" />&nbsp;{{cacheguides}}</div>
 <div class="searchdiv">
 <span style="font-size: 13px;">
-Na mapie możesz poszukać w Twojej okolicy czy jest jakiś geocacher który oferuje swoją pomoc innym jako wolontariusz Przewodnik geocachingu, który był aktywny przez ostatnie 90 dni.
+Na mapie możesz poszukać czy w Twojej okolicy jest jakiś geocacher który oferuje swoją pomoc innym jako wolontariusz Przewodnik geocachingu, który był aktywny przez ostatnie 90 dni.
 <br/><br/>
 Przewodnik po geocaching'u może:
 <ul>

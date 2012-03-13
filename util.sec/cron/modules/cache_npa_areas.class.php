@@ -13,7 +13,8 @@
  ***************************************************************************/
 
 	$rootpath = '../../../';
-	require_once($rootpath.'lib2/logic/gis.class.php');
+//	require_once($rootpath.'lib2/logic/gis.class.php');
+	require_once($rootpath.'lib/gis/gis.class.php');
 	require_once($rootpath.'lib/clicompatbase.inc.php');
 	require_once($rootpath.'lib/common.inc.php');
 
@@ -43,13 +44,13 @@ class cache_npa_areas
 					mysql_query($sql);
 
 
-	$rsLayers = sql("SELECT `id`, AsText(`shape`) AS `geometry` FROM `npa_areas` WHERE WITHIN(GeomFromText('&1'), `shape`)", 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')');
+		// Natura 2000
+
+		$rsLayers = sql("SELECT `id`, AsText(`shape`) AS `geometry` FROM `npa_areas` WHERE WITHIN(GeomFromText('&1'), `shape`)", 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')');
 
 						
 			while ($rLayers = mysql_fetch_assoc($rsLayers))
 			{
-			
-//				echo "progress";
 				if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')'))
 				{
 					$sql=sql("INSERT INTO `cache_npa_areas` (`cache_id`, `npa_id`, `calculated`) VALUES ('&1', '&2', 1) ON DUPLICATE KEY UPDATE `calculated`=1", $rCache['cache_id'], $rLayers['id']);
@@ -58,8 +59,26 @@ class cache_npa_areas
 				}
 			}
 			mysql_free_result($rsLayers);
-			
-			$sql=sql("UPDATE `caches` SET `need_npa_recalc`=0 WHERE `cache_id`='&1'", $rCache['cache_id']);
+		
+			// Parki PL
+	$rsLayers = sql("SELECT `id`, AsText(`shape`) AS `geometry` FROM `parkipl` WHERE WITHIN(GeomFromText('&1'), `shape`)", 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')');
+
+						
+			while ($rLayers = mysql_fetch_assoc($rsLayers))
+			{
+
+
+				if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $rCache['longitude'] . ' ' . $rCache['latitude'] . ')'))
+				{
+
+					$sql=sql("INSERT INTO `cache_npa_areas` (`cache_id`, `parki_id`, `calculated`) VALUES ('&1', '&2', 1) ON DUPLICATE KEY UPDATE `calculated`=1", $rCache['cache_id'], $rLayers['id']);
+					mysql_query($sql);
+				}
+			}
+			mysql_free_result($rsLayers);							
+			// End of Parki PL
+	
+	$sql=sql("UPDATE `caches` SET `need_npa_recalc`=0 WHERE `cache_id`='&1'", $rCache['cache_id']);
 					mysql_query($sql);
 		}
 		mysql_free_result($rsCache);

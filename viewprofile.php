@@ -352,7 +352,7 @@ function myUrlEncode($string) {
 							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
 							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5	
-					  WHERE cache_logs.deleted=0 AND `cache_logs`.`user_id`='&1'
+					  WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0 AND `cache_logs`.`user_id`='&1'
 					   GROUP BY cache_logs.id
 	                   ORDER BY cache_logs.date_created DESC
 					LIMIT 5", $user_id);
@@ -549,7 +549,7 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 	LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
 	LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
 	gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-					  WHERE cache_logs.deleted=0 AND `caches`.`user_id`='&1'
+					  WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0 AND `caches`.`user_id`='&1'
 					  		AND `cache_logs`.`cache_id`=`caches`.`cache_id` 
 							AND `user`.`user_id`=`cache_logs`.`user_id`
 							GROUP BY cache_logs.id
@@ -633,8 +633,8 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 			else
 				$lang_db = "en";
 
-			//get not published caches
-			$rs_caches1 = sql("	SELECT  `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, DATE_FORMAT(`caches`.`date_activate`,'%Y-%m-%d'), `caches`.`status`, `cache_status`.`&1` AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
+			//get not published caches DATE_FORMAT(`caches`.`date_activate`,'%Y-%m-%d'),
+			$rs_caches1 = sql("	SELECT  `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, `caches`.`date_activate`, `caches`.`status`, `cache_status`.`&1` AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
 						FROM `caches`, `cache_status`
 						WHERE `user_id`='&2'
 						AND `cache_status`.`id`=`caches`.`status`

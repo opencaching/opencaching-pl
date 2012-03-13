@@ -1,12 +1,4 @@
 <?php
- /***************************************************************************
-													./util/watchlist/runwatch.php
-															-------------------
-		begin                : Sat September 3 2005
-		copyright            : (C) 2005 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
-	***************************************************************************/
 
  /***************************************************************************
 		
@@ -214,7 +206,7 @@ function process_owner_log($user_id, $log_id)
 
 //	echo "process_owner_log($user_id, $log_id)\n";
 	
-	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, caches.name cachename, cache_logs.type type,IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended` FROM `cache_logs` LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id ='&1')", $log_id);
+	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, caches.wp_oc wp,caches.name cachename, cache_logs.type type,IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended` FROM `cache_logs` LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id ='&1')", $log_id);
 	$rLog = sql_fetch_array($rsLog);
 	mysql_free_result($rsLog);
 	
@@ -274,7 +266,8 @@ function process_owner_log($user_id, $log_id)
 	if ($rLog['recommended'] !=0 && $rLog['type']==1) {$recommended=" + rekomendacja";} else {$recommended="";}	
 	
 	$watchtext = mb_ereg_replace('{date}', date('d.m.Y', strtotime($rLog['logdate'])), $watchtext);
-	$watchtext = mb_ereg_replace('{cacheid}', $rLog['cache_id'], $watchtext);
+//	$watchtext = mb_ereg_replace('{cacheid}', $rLog['cache_id'], $watchtext);
+	$watchtext = mb_ereg_replace('{wp}', $rLog['wp'], $watchtext);
 	$watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
 	$watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
 	$watchtext = mb_ereg_replace('{logtype}', $logtype.$recommended, $watchtext);
@@ -293,7 +286,7 @@ function process_log_watch($user_id, $log_id)
 
 //	echo "process_log_watch($user_id, $log_id)\n";
 	
-	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, caches.name cachename, cache_logs.type type, IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended` FROM `cache_logs` LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id = '&1')", $log_id);
+	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, caches.wp_oc wp,caches.name cachename, cache_logs.type type, IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended` FROM `cache_logs` LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id = '&1')", $log_id);
 	$rLog = sql_fetch_array($rsLog);
 	mysql_free_result($rsLog);
 	
@@ -353,7 +346,8 @@ function process_log_watch($user_id, $log_id)
 	}
 	
 	$watchtext = mb_ereg_replace('{date}', date('d.m.Y', strtotime($rLog['logdate'])), $watchtext);
-	$watchtext = mb_ereg_replace('{cacheid}', $rLog['cache_id'], $watchtext);
+//	$watchtext = mb_ereg_replace('{cacheid}', $rLog['cache_id'], $watchtext);
+	$watchtext = mb_ereg_replace('{wp}', $rLog['wp'], $watchtext);
 	$watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
 	$watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
 	$watchtext = mb_ereg_replace('{logtype}', $logtype.$recommended, $watchtext);

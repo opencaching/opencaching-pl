@@ -241,7 +241,7 @@
 			
 			if( isset($_POST['username']) )
 			{
-				if( doesUserExist(strip_tags(addslashes($_POST['username']))) > 0 )
+				if( doesUserExist($_POST['username']) > 0 )
 				{
 					// przekazywanie samemu sobie
 					//if( $usr['username'] == $_POST['username'] )
@@ -249,7 +249,7 @@
 					//else
 					{
 						// uzytkownik istnieje, mozna kontynuowac procedure
-						$sql = "INSERT INTO chowner (cache_id, user_id) VALUES (".sql_escape(intval($_REQUEST['cacheid'])).", ".sql_escape(intval(doesUserExist(strip_tags(sql_escape($_POST['username']))))).")";
+						$sql = "INSERT INTO chowner (cache_id, user_id) VALUES (".sql_escape(intval($_REQUEST['cacheid'])).", ".doesUserExist($_POST['username']).")";
 						mysql_query($sql);
 						if( mysql_affected_rows() > 0 )
 							tpl_set_var('info_msg', "Procedura zmiany właściciela skrzynki została rozpoczęta.<br /><br />");

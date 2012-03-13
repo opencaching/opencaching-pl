@@ -38,12 +38,45 @@
 	require_once($rootpath . 'lib/common.inc.php');
 	require_once($rootpath . 'lib/cache_icon.inc.php');
 
+	// Map parameters
+	$map_center_lat = 52.13;
+	$map_center_lon = 19.20;
+	$map_zoom = 5;
+	$map_width = 250;
+	$map_height = 260;
 
 	// Read coordinates of the newest caches
 	$markerpositions = get_marker_positions();
 
 	// Generate include file for map with new caches
-	$file_content = '<img src="' . create_map_url($markerpositions, -1) . '" basesrc="' . create_map_url($markerpositions, -1) . '" id="main-cachemap" name="main-cachemap" alt="{{map}}" />';
+	$google_map = sprintf("http://maps.google.com/maps/api/staticmap?center=%F,%F&zoom=%d&size=%dx%d&maptype=roadmap&key=%s&sensor=false",
+	                      $map_center_lat, $map_center_lon, $map_zoom, $map_width, $map_height, $googlemap_key);
+	$file_content = '<img src="' . $google_map . '" id="main-cachemap" name="main-cachemap" alt="{{map}}" />';
+
+	// Calculate positions for small and large images highlighting recent caches and events
+	$markers = $markerpositions['markers'];
+	$small_markers = '';
+	$big_markers = '';
+	foreach ($markers as $i => $marker)
+	{
+		$markerposleft = lon_offset($marker['lon'], $map_center_lon, $map_width, $map_zoom);
+		$markerpostop =  lat_offset($marker['lat'], $map_center_lat, $map_height, $map_zoom);
+		$type = strtoupper(typeToLetter($marker['type']));
+		if (strcmp($type, 'E') == 0)
+		{
+			$small_marker = 'mark-small-orange.png';
+			$big_marker = 'marker-orangeE.png';
+		}
+		else
+		{
+			$small_marker = 'mark-small-blue.png';
+			$big_marker = 'marker-blue' . $type . '.png';
+		}
+		$small_markers .= '<img id="smallmark' . $marker['nn'] . '" style="position: absolute; left: ' . ($markerposleft-7) . 'px; top: ' . ($markerpostop-21) . 'px; border: none; background-color: transparent;" src="/images/markers/' . $small_marker . '">';
+		$big_markers .= '<img id="bigmark' . $marker['nn'] . '" style="position: absolute; left: ' . ($markerposleft-11) . 'px; top: ' . ($markerpostop-36) . 'px; border: none; background-color: transparent; visibility: hidden;" src="/images/markers/' . $big_marker . '">';
+	}
+
+	$file_content .= $small_markers . $big_markers;
 	$n_file = fopen($dynstylepath . "main_cachemap.inc.php", 'w');
 	fwrite($n_file, $file_content);
 	fclose($n_file);
@@ -55,6 +88,7 @@
 				`caches`.`name` `name`,
 				`caches`.`longitude` `longitude`,
 				`caches`.`latitude` `latitude`,
+				`caches`.`wp_oc` `wp`,
 				`caches`.`date_hidden` `date_hidden`,
 				`caches`.`date_created` `date_created`,
 				IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
@@ -75,7 +109,7 @@
 	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
-			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;' .
+			'<a id="newcache{nn}" class="links" href="viewcache.php?wp={wp}" onmouseover="Lite({nn})" onmouseout="Unlite({nn})">{cachename}</a>&nbsp;' .
 			tr(hidden_by) . '&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/>' .
 			'<b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
 	
@@ -96,14 +130,14 @@
 		$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
 		$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
 		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
-		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
+//		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
+		$thisline = mb_ereg_replace('{wp}', urlencode($record['wp']), $thisline);
 		$thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
 		$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
 		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
 		$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
-		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i), $thisline);
 
 		$file_content .= $thisline . "\n";
 	}
@@ -118,6 +152,7 @@
 	$rs = sql('	SELECT	`user`.`user_id` `user_id`,
 				`user`.`username` `username`,
 				`caches`.`cache_id` `cache_id`,
+				`caches`.`wp_oc` `wp`,
 				`caches`.`name` `name`,
 				`caches`.`longitude` `longitude`,
 				`caches`.`latitude` `latitude`,
@@ -141,7 +176,7 @@
 	}
 	else
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?wp={wp}" onmouseover="Lite({nn})" onmouseout="Unlite({nn})">{cachename}</a>&nbsp;' .tr(hidden_by). '&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a><br/><b><p class="content-title-noshade">{kraj} {dziubek} {woj}</p></b></li>';
 		$file_content = '<ul style="font-size: 11px;">';
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
@@ -155,13 +190,13 @@
 			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
 			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
 			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
-			$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
+//			$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
+			$thisline = mb_ereg_replace('{wp}', urlencode($record['wp']), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
 			$thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/22x22-event.png', $thisline);
-			$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i + $markerpositions['plain_cache_num']), $thisline);
 
 			$file_content .= $thisline . "\n";
 		}
@@ -172,6 +207,11 @@
 	fwrite($n_file, $file_content);
 	fclose($n_file);
 
+
+function compare_lats($a, $b)
+{
+	return $a['lat'] < $b['lat']; 
+}
 
 function get_marker_positions()
 {
@@ -194,7 +234,7 @@ function get_marker_positions()
 		$lat = $record['latitude'];
 		$lon = $record['longitude'];
 		$type = $record['type'];
-		$markers[] = array('lat' => $lat, 'lon' => $lon, 'type' => $type);
+		$markers[] = array('lat' => $lat, 'lon' => $lon, 'type' => $type, 'nn' => $i);
 	}
 
 	$markerpos['plain_cache_num'] = count($markers);
@@ -214,42 +254,42 @@ function get_marker_positions()
 		$lat = $record['latitude'];
 		$lon = $record['longitude'];
 		$type = $record['type'];
-		$markers[] = array('lat' => $lat, 'lon' => $lon, 'type' => $type);
+		$markers[] = array('lat' => $lat, 'lon' => $lon, 'type' => $type, 'nn' => $i + $markerpos['plain_cache_num']);
 	}
+
+	// Sort all markers by latitude (starting from top) - this makes them overlap nicer
+	usort ($markers, "compare_lats");
 
 	$markerpos['markers'] = $markers;
 
 	return $markerpos;
 }
 
-function create_map_url($markerpos, $index)
+// Convert coordinates to pixels in Google coordinate system (spherical Mercator) at provided zoom level
+function LToX($x, $offset, $radius)
 {
-	global $googlemap_key;
+	return round($offset + $radius * $x * M_PI / 180);
+}
 
-	$markers = $markerpos['markers'];
-	$markers_str = "markers=color:blue|size:small|";
-	$markers_ev_str = "&markers=color:orange|size:small|";
-	$sel_marker_str = "";
-	foreach ($markers as $i => $marker)
-	{
-		$lat = sprintf("%.3f", $marker['lat']);
-		$lon = sprintf("%.3f", $marker['lon']);
-		$type = strtoupper(typeToLetter($marker['type']));
-		if (strcmp($type, 'E') == 0)
-			if ($i != $index)
-				$markers_ev_str .= "$lat,$lon|";
-			else
-				$sel_marker_str = "&markers=color:orange|label:$type|$lat,$lon|";
-		else
-			if ($i != $index)
-				$markers_str .= "$lat,$lon|";
-			else
-				$sel_marker_str = "&markers=color:blue|label:$type|$lat,$lon|";
-	}
+function LToY($y, $offset, $radius)
+{
+	return round($offset - $radius * log((1 + sin($y * M_PI / 180)) / (1 - sin($y * M_PI/180)))/2);
+}
 
-	$google_map = "http://maps.google.com/maps/api/staticmap?center=52.13,19.20&zoom=5&size=250x260&maptype=roadmap&key=".$googlemap_key."&sensor=false&".$markers_str.$markers_ev_str.$sel_marker_str;
+function lon_offset($currlon, $baselon, $imgwidth, $zoom_lev)
+{
+	$offset = 268435456 >> (21 - $zoom_lev); // 268435456 --> half of the earth circumference's in pixels at zoom level 21
+	$radius = $offset / M_PI;
 
-	return $google_map;
+	return LToX($currlon, $offset, $radius) - LToX($baselon, $offset, $radius) + ($imgwidth / 2);
+}
+
+function lat_offset($currlat, $baselat, $imgheight, $zoom_lev)
+{
+	$offset = 268435456 >> (21 - $zoom_lev); // 268435456 --> half of the earth circumference's in pixels at zoom level 21
+	$radius = $offset / M_PI;
+
+	return LToY($currlat, $offset, $radius) - LToY($baselat, $offset, $radius) + ($imgheight / 2);
 }
 
 ?>

@@ -57,10 +57,10 @@ class geokrety
 		$modifiedsince = strtotime($last_updated);
 		
 		set_time_limit(300);
-		if (!@copy('http://geokrety.org/export.php?modifiedsince=' . date('YmdHis', $modifiedsince - 3600*30*24), $path))
+		if (!@copy('http://geokrety.org/export_oc.php?modifiedsince=' . date('YmdHis', $modifiedsince - 3600*30*24), $path))
 			return false;
 		
-		$path = 'http://geokrety.org/export.php?modifiedsince=' . date('YmdHis', $modifiedsince - 1);
+		$path = 'http://geokrety.org/export_oc.php?modifiedsince=' . date('YmdHis', $modifiedsince - 1);
 		return $path;
 	}
 

@@ -361,31 +361,66 @@
 
 
 
-	/* nature protection areas
-	 */
+	// NPA - nature protection areas
+		$npac="0";
+		$npa_content='';
+
+		// Parki Narodowe , Krajobrazowe
+	 	$rsArea = sql("SELECT `parkipl`.`id` AS `npaId`, `parkipl`.`name` AS `npaname`,`parkipl`.`link` AS `npalink`,`parkipl`.`logo` AS `npalogo`
+	             FROM `cache_npa_areas`
+	       INNER JOIN `parkipl` ON `cache_npa_areas`.`parki_id`=`parkipl`.`id`
+	            WHERE `cache_npa_areas`.`cache_id`='&1' AND `cache_npa_areas`.`parki_id`!='0'",$cache_record['cache_id']);
+
+			if (mysql_num_rows($rsArea) != 0)
+			{
+			$npa_content .="<table width=\"90%\" border=\"0\" style=\"border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em\"><tr>
+			<td align=\"center\" valign=\"middle\"><b>".tr('npa_info')." <font color=\"green\"></font></b>:<br /></td><td align=\"center\" valign=\"middle\">&nbsp;</td></tr>";
+				$npac="1";
+				while( $npa = mysql_fetch_array($rsArea) )
+				{
+					$npa_content .= "<tr><td align=\"center\" valign=\"middle\"><font color=\"blue\"><a target=\"_blank\" href=\"http://".$npa['npalink']."\">".$npa['npaname']."</a></font><br />";
+				$npa_content .="</td><td align=\"center\" valign=\"middle\"><img src=\"tpl/stdstyle/images/pnk/".$npa['npalogo']."\"></td></tr>";
+				}
+				$npa_content .="</table>";
+			}
+
+	// Natura 200
 	$rsArea = sql("SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype`
 	             FROM `cache_npa_areas`
 	       INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id`
-	            WHERE `cache_npa_areas`.`cache_id`='&1'",$cache_record['cache_id']);
+	            WHERE `cache_npa_areas`.`cache_id`='&1' AND `cache_npa_areas`.`npa_id`!='0'",$cache_record['cache_id']);
 
-			if (mysql_num_rows($rsArea) == 0)
+			if (mysql_num_rows($rsArea) != 0)
+
+			{
+			$npa_content .="<table width=\"90%\" border=\"0\" style=\"border-collapse: collapse; font-weight: bold;font-size: 14px; line-height: 1.6em\"><tr>
+			<td width=90% align=\"center\" valign=\"middle\"><b>".tr('npa_info')." <font color=\"green\">NATURA 2000</font></b>:<br />";
+				$npac="1";
+
+				while( $npa = mysql_fetch_array($rsArea) )
+				{
+					$npa_content .= "<font color=\"blue\"><a target=\"_blank\" href=\"http://natura2000.gdos.gov.pl/natura2000/pl/info.php?KodOstoi=".$npa['npaSitecode']."&NazwaOstoi=&Siedlisko=1&Ssaki=1&Ptaki=1&PtakiM=1&Gady=1&Ryby=1&Bezkregowce=1&Rosliny=1&Opis=1&Zarzad=1&all=Zaznacz+i+wy%B6wietl+wszystko\">".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</a></font><br />";
+				}
+				$npa_content .="</td><td align=\"center\" valign=\"middle\"><img src=\"tpl/stdstyle/images/misc/natura2000.png\"></td>
+				</tr></table>";
+
+			}
+
+			if ($npac == "0")
 			{
 
 				tpl_set_var('hidenpa_start', '<!--');
 				tpl_set_var('hidenpa_end', '-->');
 				tpl_set_var('npa_content', '');
-			}
-			else
-			{
-				$npa_content = "<b>".tr('npa_info')." <font color=\"green\">NATURA 2000</font></b>:<br />";
-				while( $npa = mysql_fetch_array($rsArea) )
-				{
-					$npa_content .= "<font color=\"blue\"><a target=\"_blank\" href=\"http://natura2000.gdos.gov.pl/natura2000/pl/info.php?KodOstoi=".$npa['npaSitecode']."\">".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</a></font><br />";
-				}
+			} else {
+
 				tpl_set_var('hidenpa_start', '');
 				tpl_set_var('hidenpa_end', '');
 				tpl_set_var('npa_content', $npa_content);
 			}
+
+
+
 
 			//cache data
 			list($iconname) = getCacheIcon($usr['userid'], $cache_record['cache_id'], $cache_record['status'], $cache_record['user_id'], $cache_record['icon_large']);

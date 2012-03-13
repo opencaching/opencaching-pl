@@ -93,7 +93,7 @@
 							`cache_type`.`icon_large` `icon_large`,
 							cache_location.adm3 AS state
 						FROM `caches`, `user`, `cache_type`,cache_location
-						WHERE `caches`.`date_hidden` >= curdate()
+						WHERE date_add(`caches`.`date_hidden`, INTERVAL 2 DAY) >= curdate()
 						AND cache_location.cache_id=caches.cache_id
 						AND `caches`.`user_id`=`user`.`user_id` 
 						AND `caches`.`type`=`cache_type`.`id` 

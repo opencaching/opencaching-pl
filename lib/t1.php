@@ -11,7 +11,7 @@
   $fC = sql('SELECT COUNT(*) `count` FROM `caches` WHERE `status`=1');
     $rsUs = mysql_fetch_array($rsU);
     $fCt = mysql_fetch_array($fC);
-	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('ranking_by_number_of_created_caches').'</b><br><br /> '.tr('users_who_created_caches').': ';
+	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('ranking_by_number_of_created_active_caches').'</b><br><br /> '.tr('users_who_created_caches').' aktywne: ';
 	echo $rsUs[count]; 
 	echo ' .::. '.tr('number_of_active_caches').': ';
 	echo $fCt[count]; 
