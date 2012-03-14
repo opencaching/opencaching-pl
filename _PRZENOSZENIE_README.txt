@@ -2,26 +2,25 @@
 checkoutowaniu nowej kopii te pliki nie będą istnieć. To są bardziej notatki
 dla mnie samego, ale commituję i tak na chwilę.
 
-Usunięty logbook/work.
-=> powinien tworzyć pliki w katalogu dla plików dynamicznych.
+Usunięte wszystko wewnątrz logbook/work.
+=> Sam katalog work zostawiam i ustawiam svn:ignore na wszystko w środku.
+=> Nie jest to najlepsze rozwiązanie, bo ten katalog powinien znajdować się
+=> w ścieżce na pliki dynamiczne, ale zostawiam to autorowi do poprawy.
 
 Usunięte symboliczne linki:
 - images/uploads
 - upload
 - uploads
 Wszystkie kierowały do /var/www/ocpl-data/images/uploads/
-=> zastąpić mod_rewrite!
+=> Zastąpiłem wpisami "Alias" w .htaccess
 
 Usunięty symlink:
 - wigo
 Kierował do /var/www/ocpl-data/wigo
-=> zastąpić mod_rewrite!
+=> Zastąpiłem wpisem "Alias" w .htaccess
 
 Usunięty lib/cgi-bin/data/mapper.ini (dodany do svn:ignore).
 => zrobić tak, żeby korzystał z lib/settings.inc.php (ewentualnie skopiować przed switchowaniem)
-
-Usunięte parę niecommitowanych rzeczy z katalogu doc. Wydawały się być niepotrzebne.
-=> nie wiem, niech ktoś to przejrzy jak chce; czy ten doc/ w ogóle powinien być w repo?
 
 Usunięty lib/settings.inc.php (dodane do svn:ignore).
 => skopiować przed switchowaniem workspace
