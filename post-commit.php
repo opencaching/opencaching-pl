@@ -6,6 +6,7 @@
 ignore_user_abort(true);
 set_time_limit(0);
 
+header("Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0");
 header("Content-Type: text/plain; charset=utf-8");
 
 # File /var/www/ocpl-update.sh contains "svn up /var/www/ocpl" command.
