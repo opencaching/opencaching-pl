@@ -3,7 +3,7 @@ checkoutowaniu nowej kopii te pliki nie będą istnieć. To są bardziej notatki
 dla mnie samego, ale commituję i tak na chwilę.
 
 Usunięte wszystko wewnątrz logbook/work.
-=> Sam katalog work zostawiam i ustawiam svn:ignore na wszystko w środku.
+=> Sam katalog work zostawiam (chmod 777) i ustawiam svn:ignore na wszystko w środku.
 => Nie jest to najlepsze rozwiązanie, bo ten katalog powinien znajdować się
 => w ścieżce na pliki dynamiczne, ale zostawiam to autorowi do poprawy.
 OK
@@ -13,14 +13,14 @@ Usunięte symboliczne linki:
 - upload
 - uploads
 Wszystkie kierowały do /var/www/ocpl-data/images/uploads/
-=> Zastąpiłem wpisami "Alias" w .htaccess
-TESTUJ
+=> Zastąpiłem wpisami "Alias" w konfiguracji serwera
+OK
 
 Usunięty symlink:
 - wigo
 Kierował do /var/www/ocpl-data/wigo
-=> Zastąpiłem wpisem "Alias" w .htaccess
-TESTUJ
+=> Zastąpiłem wpisem "Alias" w konfiguracji serwera
+OK
 
 Usunięty lib/cgi-bin/data/mapper.ini (dodany do svn:ignore).
 => Skopiowany z poprzedniego WS. Przydałoby się zrobić tak, żeby korzystał z lib/settings.inc.php,
@@ -33,7 +33,7 @@ OK
 
 Commitowane OKAPI. Teraz instalowanie nowej wersji OKAPI będzie polegalo na commitowaniu kopii
 do OCPL. Później może zdecyduję się zrobić przez svn:externals.
-TODO
+OK
 
 Pełna lista plików, które były na produkcji, ale zostały usunięte (nie zostały dodane do SVNa,
 więc wkrótce z produkcji znikną). Tam gdzie jest "Entering directory" usunąłem cały katalog:
