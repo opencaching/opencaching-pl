@@ -6,6 +6,7 @@ Usunięte wszystko wewnątrz logbook/work.
 => Sam katalog work zostawiam i ustawiam svn:ignore na wszystko w środku.
 => Nie jest to najlepsze rozwiązanie, bo ten katalog powinien znajdować się
 => w ścieżce na pliki dynamiczne, ale zostawiam to autorowi do poprawy.
+OK
 
 Usunięte symboliczne linki:
 - images/uploads
@@ -13,17 +14,26 @@ Usunięte symboliczne linki:
 - uploads
 Wszystkie kierowały do /var/www/ocpl-data/images/uploads/
 => Zastąpiłem wpisami "Alias" w .htaccess
+TESTUJ
 
 Usunięty symlink:
 - wigo
 Kierował do /var/www/ocpl-data/wigo
 => Zastąpiłem wpisem "Alias" w .htaccess
+TESTUJ
 
 Usunięty lib/cgi-bin/data/mapper.ini (dodany do svn:ignore).
-=> zrobić tak, żeby korzystał z lib/settings.inc.php (ewentualnie skopiować przed switchowaniem)
+=> Skopiowany z poprzedniego WS. Przydałoby się zrobić tak, żeby korzystał z lib/settings.inc.php,
+=> zamiast z oddzielnego pliku.
+OK
 
 Usunięty lib/settings.inc.php (dodane do svn:ignore).
-=> skopiować przed switchowaniem workspace
+=> Skopiowany z poprzedniego WS.
+OK
+
+Commitowane OKAPI. Teraz instalowanie nowej wersji OKAPI będzie polegalo na commitowaniu kopii
+do OCPL. Później może zdecyduję się zrobić przez svn:externals.
+TODO
 
 Pełna lista plików, które były na produkcji, ale zostały usunięte (nie zostały dodane do SVNa,
 więc wkrótce z produkcji znikną). Tam gdzie jest "Entering directory" usunąłem cały katalog:

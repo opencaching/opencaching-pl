@@ -8,10 +8,7 @@ RewriteBase /
 RewriteRule ^search\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip)$ search.php?%{QUERY_STRING} [NC]
 RewriteRule ^ocpl(\d+)\.(gpx|kml|loc|ov2|ovl|txt|wpt|uam|xml|zip)$ search.php?queryid=$1&output=$2&%{QUERY_STRING} [NC]
 RewriteRule ^ocplgc(\d+)\.(gpx)$ search.php?queryid=$1&output=gpxgc&%{QUERY_STRING} [NC]
-
-Alias images/uploads /var/www/ocpl-data/images/uploads/
-Alias uploads /var/www/ocpl-data/images/uploads/
-Alias upload /var/www/ocpl-data/images/uploads/
-Alias wigo /var/www/ocpl-data/wigo
+RewriteRule ^/wiki(.*)$ http://wiki.opencaching.pl$1 [R,L]
+RewriteRule ^/statpics/([0-9]+)\.jpg$ ocstats.php?userid=$1 [R,L]
 
 FileETag None
