@@ -36,7 +36,7 @@ do OCPL. Później może zdecyduję się zrobić przez svn:externals.
 OK
 
 Pełna lista plików, które były na produkcji, ale zostały usunięte (nie zostały dodane do SVNa,
-więc wkrótce z produkcji znikną). Tam gdzie jest "Entering directory" usunąłem cały katalog:
+więc teraz ich już na produkcji nie ma). Tam gdzie jest "Entering directory" usunąłem cały katalog:
 
     25: 818c017561a9b7788484e2f92b8f1029  ocpl - Export\doc\sql\static-data\data.sql
    118: 795b6858a509dca034fcd52323fc01a7  ocpl - Export\doc\bgc.pdf
@@ -67,7 +67,7 @@ więc wkrótce z produkcji znikną). Tam gdzie jest "Entering directory" usuną�
  13690: a8e9749276ab1ee4bde780ec3a0b1df6  ocpl - Export\wigo
 
 Lista plików, których NIE było na produkcji, ale były w SVNie i zdecydowałem się
-je w SVNie zostawić (więc wkrótce pojawią się ponownie na produkcji):
+je w SVNie zostawić (więc teraz pojawiły się również na produkcji):
 
    693: b477fb8630ee92ef287a27a239054240  ocpl - Export\images\head\pano970-0018.jpg
    694: cfef5ac452bb02b679d2c6c16c631f18  ocpl - Export\images\head\pano970-0019.jpg
