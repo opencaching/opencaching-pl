@@ -12,3 +12,5 @@ RewriteRule ^/wiki(.*)$ http://wiki.opencaching.pl$1 [R,L]
 RewriteRule ^/statpics/([0-9]+)\.jpg$ ocstats.php?userid=$1 [R,L]
 
 FileETag None
+
+SetEnvIf Request_URI ^postcommit.php$ no-gzip
