@@ -20,6 +20,8 @@ if (isset($_GET['from']) && ($_GET['from'] == 'google'))
 	print "Received.";
 	flush();
 	ob_flush();
+	while (count(ob_list_handlers()) > 0)
+		ob_end_flush();
 }
 
 # File /var/www/ocpl-update.sh contains "svn up /var/www/ocpl" command
