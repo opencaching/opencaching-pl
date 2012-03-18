@@ -13,4 +13,4 @@ RewriteRule ^/statpics/([0-9]+)\.jpg$ ocstats.php?userid=$1 [R,L]
 
 FileETag None
 
-SetEnvIf Request_URI ^post-commit.php$ no-gzip
+SetEnvIf Request_URI ^/post-commit.php$ no-gzip
