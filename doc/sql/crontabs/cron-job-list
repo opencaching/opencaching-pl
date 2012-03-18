@@ -1,7 +1,7 @@
 # m  h  dom mon dow	command
 */30 *  *   *   *	/home/ocpl/cron-defs/do-wget-url   tpl/stdstyle/etc/write_newcaches.inc.php         write_newcaches.html
-*/55 *  *   *   *	/home/ocpl/cron-defs/do-wget-url   tpl/stdstyle/etc/write_newblogs.inc.php         write_newblogs.html
-*/14 *  *   *   *	/home/ocpl/cron-defs/do-wget-url   tpl/stdstyle/etc/write_onlusers.inc.php         write_onlusers.html
+*/55 *  *   *   *	/home/ocpl/cron-defs/do-wget-url   tpl/stdstyle/etc/write_newblogs.inc.php          write_newblogs.html
+*/14 *  *   *   *	/home/ocpl/cron-defs/do-wget-url   tpl/stdstyle/etc/write_onlusers.inc.php          write_onlusers.html
 */5  *  *   *   *	/home/ocpl/cron-defs/do-wget-url   tpl/stdstyle/etc/write_totalstats.inc.php        write_totalstats.html
 */15 *  *   *   *	/home/ocpl/cron-defs/do-wget-url   util.sec/email_sender/email_sender.php           email_sender.html
 37   *  *   *   *	/home/ocpl/cron-defs/do-wget-url   util.sec/importcaches/import.php                 import.html
@@ -11,17 +11,16 @@
 */20 *  *   *   *	/home/ocpl/cron-defs/do-wget-url   util.sec/watchlist/runwatch.php                  runwatch.html
 30   4  *   *   *	/home/ocpl/cron-defs/do-wget-url   util.sec/auto_arch.php                           auto_arch.html
 # nowa wersja synchronizacji geokretow (dedykowana dla OC) / Limak (29.08.2011)
-30   *  *   *   *       /home/ocpl/cron-defs/do-wget-url   util.sec/geokrety/geokrety.new.php               geokrety.html
-*/30 *  *   *   *	/home/ocpl/cron-defs/do-wget-url   util.sec/cache_locations/cache_location.class.php  cache_location.html
-*/45 *  *   *	*	/home/ocpl/cron-defs/do-wget-url   util.sec/cron/modules/cache_npa_areas.class.php  cache_npa_areas.html
+30   *  *   *   *	/home/ocpl/cron-defs/do-wget-url   util.sec/geokrety/geokrety.new.php               geokrety.html
+*/30 *  *   *   *	/home/ocpl/cron-defs/do-wget-url   util.sec/cache_locations/cache_location.class.php cache_location.html
+*/45 *  *   *   *	/home/ocpl/cron-defs/do-wget-url   util.sec/cron/modules/cache_npa_areas.class.php  cache_npa_areas.html
 # OKAPI
-*/5 * * * * wget -O - -q -t 1 http://opencaching.pl/okapi/cron5
+*/5  *  *   *   *	wget -O - -q -t 1 http://opencaching.pl/okapi/cron5
 #
 # Utrzymanie MySQLa	
 10   6  *   *   *	/home/ocpl/cron-defs/do-mysql-flush
 # Teraz nie problemow z brakiem pamieci, "flush" w czasie sporego wykorzystania serwera nie ma sensu. starypatyk 2011.04.04
-#10   18 *   *   *	/home/ocpl/cron-defs/do-mysql-flush
+#10  18 *   *   *	/home/ocpl/cron-defs/do-mysql-flush
 #
 # Backup baz danych
 17   5  *   *   *	/home/ocpl/cron-defs/do-mysql-backup
-
