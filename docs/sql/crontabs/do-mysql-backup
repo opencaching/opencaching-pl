@@ -1,0 +1,24 @@
+#!/bin/sh
+
+BACKUPDIR=/home/ocpl/sql
+
+# Usage: do_backup_db database-name password
+do_backup_db() {
+
+	dbname="$1"
+	backupdate=`date +%Y%m%d`
+	backuppath="$BACKUPDIR/$dbname.$backupdate.sql"
+
+	/usr/bin/mysqldump -u $dbname --password=$2 $dbname > $backuppath
+	gzip $backuppath
+
+	# Clean old backups
+	olddate=`date -d "4 days ago" +%Y%m%d`
+	oldpath="$BACKUPDIR/$dbname.$olddate.sql.gz"
+	if [ -f $oldpath ]; then
+		rm $oldpath
+	fi
+}
+
+do_backup_db ocpl  pass
+
