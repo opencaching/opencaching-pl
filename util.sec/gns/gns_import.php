@@ -27,7 +27,7 @@ set_time_limit(0);
 	require($rootpath . 'lib/clicompatbase.inc.php');
 
 	/* defaults */
-	$importfiles = array("pl.txt");
+	$importfiles = array("pl.txt"); # first download the file from the URLs above
 
 	/* begin db connect */
 	db_connect();
