@@ -1,9 +1,0 @@
-#!/bin/sh
-
-BASE_URL=http://test.opencaching.pl/
-OUTPUT_DIR=/home/ocpl/cron-defs/results/
-
-/usr/bin/wget -q $BASE_URL$1 -O $OUTPUT_DIR$2
-
-# błędy są wypisywane do pliku - jak się je wypisze na stdout, to cron powiadomi
-cat $OUTPUT_DIR$2
