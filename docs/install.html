@@ -1,6 +1,6 @@
-﻿<html>
+<html>
 <head>
-<title>Installationsanleitung Opencaching Quellcode</title>
+<title>Instalacja wlasnego OC PL serwera</title>
 <style type="text/css">
 <!--
 td
@@ -20,7 +20,7 @@ td
 </head>
 <body>
 	<h1>
-	Installationsanleitung Opencaching Quellcode</h1>
+	Instalacja Opencaching kodu</h1>
 	<h2>
 	Inhalt</h2>
 	<h2>
@@ -28,21 +28,21 @@ td
 	</h2>
 	<ul>
 		<li>
-	Installiertes Linux System (mit root-Berechtigungen)</li>
+	System linux (z root uprawnieniami)</li>
 		<li>
 	Apache Webserver</li>
-		<li>MySQL Datenbank</li>
+		<li>MySQL</li>
 		<li>PHP</li>
 	</ul>
 	<p>
 		Die Komponenten müssen lauffähig sein. Auf deren Konfiguration wird nur eingegangen,
 		wenn diese von der Standardkonfiguration abweicht.</p>
 	<h3>
-	Empfohlene Versionen</h3>
+	Wymagane</h3>
 	<ul>
 		<li>Apache 2.2.x </li>
-		<li>PHP 5.2.2</li>
-		<li>MySQL 5.0.27</li>
+		<li>PHP 5.3.</li>
+		<li>MySQL 5.x</li>
 	</ul>
 	Möglicherweise funktioniert der Quellcode auch mit älteren Releases, dann sind jedoch
 	für den Produktiveinsatz stärkere Tests erforderlich.<br />
@@ -50,7 +50,6 @@ td
 	<h3>
 		PHP Module</h3>
 	<p>
-		Folgende PHP Module werden von den Quellcodes verwendet:</p>
 	<ul>
 		<li>mysql</li>
 		<li>gd</li>
@@ -62,26 +61,24 @@ td
 		<li>gettext</li>
 		<li>iconv</li>
 		<li>mcrypt</li>
-		<li>tokenizer</li>
+		<li>tidy</li>
 	</ul>
 	<p>
-		PHP muss mit CLI (Command Line Interface) installiert werden.<br />
-		Zusätzlich wird noch eine pecl-Extension empfohlen, siehe "Konfiguration Cracklib".</p>
+		PHP CLI (Command Line Interface).<br />
+		</p>
 	<h3>
-		Empfohlene Software</h3>
 	<ul>
-		<li>phpMyAdmin (jeweils aktuelle Version)</li>
-		<li>CVS Client</li>
+		<li>phpMyAdmin </li>
 	</ul>
 	<h2>
-		Installation und Konfiguration Grundlagen</h2>
+		Instlacja i konfiguracja</h2>
 	<h3>
-		Konfiguration Apache, PHP</h3>
+		Konfiguracja  Apache, PHP</h3>
 	<p class="code">
-		User wwwrun<br />
+		User www<br />
 		Group www<br />
 		<br />
-		&lt;Directory /wwwroot&gt;<br />
+		&lt;Directory /var/wwwt&gt;<br />
 		&nbsp; &nbsp;
 		AllowOverride AuthConfig<br />
 		&nbsp; &nbsp;
