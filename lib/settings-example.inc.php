@@ -16,70 +16,53 @@
 
  ****************************************************************************/
  
- /* YOU HAVE TO RENAME THIS FILE TO settings.inc.php */
- 
-   // Please replay <domain> to real your domain name site for example www.opencaching.pl
- 
+	//Replace localhost to you own domain site	
+
  	//relative path to the root directory
 	if (!isset($rootpath)) $rootpath = './';
 
 	//default used language
-	if (!isset($lang)) $lang = 'en';
+	if (!isset($lang)) $lang = 'pl';
 	
 	//default used style
 	if (!isset($style)) $style = 'stdstyle';
 
 	//pagetitle
-	if (!isset($pagetitle)) $pagetitle = 'Opencaching - Geocaching in your country';
+	if (!isset($pagetitle)) $pagetitle = 'Geocaching Opencaching Polska';
 
+          //site name
+	  $site_name = 'localhost';
 
-	/* Well known node id's - required for synchronization
-	 * 1 Opencaching Germany (www.opencaching.de)
-	 * 2 Opencaching Poland (www.opencaching.pl)
-	 * 3 Opencaching Tschechien (www.opencaching.cz)
-	 * 4 Local Development
-	 * 5 Opencaching Entwicklung Deutschland (devel.opencaching.de)
-	 * 6 OC UK
-	 * 7 OC SE
-	 * 8 OC NO
-	 * 9 OC LV
-	 * 10 OC US
-	 * 11 OC JP
-	 */
+	//id of the node 4 for local development
 	$oc_nodeid = 4;
-	
-	//OC Waypoint  name unique for every OC site.: OC for DE, OP for PL, OZ for CZ, OS for OC SE, 
-	// OK for OC UK, ON for OC NO, OV for OC LV, OU for OC US, OJ fo OC JP
-	$ocWP = 'OX';
+	//OC Waypoint for your site
+	$oc_waypoint = 'OP';
 	
         //name of the cookie
         $opt['cookie']['name'] = 'oc';
         $opt['cookie']['path'] = '/';
-        $opt['cookie']['domain'] = '';
+        $opt['cookie']['domain'] = '.localhost';
 
         //name of the cookie
         if (!isset($cookiename)) $cookiename = 'oc';
         if (!isset($cookiepath)) $cookiepath = '/';
-        if (!isset($cookiedomain)) $cookiedomain = '';
+        if (!isset($cookiedomain)) $cookiedomain = '.locahost';
 
-         // display 1 or not 0 info for beginner when register new cache
-        $beginner_info=0;
-	
-	// display online users in footer pages  0=off, 1 = on
-	$onlineusers=0;
-	
-	//block register new cache before first find xx nuber of caches, value -1 off this feature
-	$NEED_FIND_LIMIT=-1;
-	
-    // Number of forst caches will be send to approve , disable 0, all caches max 999999999
-    $NEED_APPROVE_LIMIT=0;
-		
-	// Hide coordinates for users not login
+	// Coordinates hidden for not-logged-ins?
+	global $hide_coords;
 	$hide_coords = false;
 	
 	// scores range
 	$MIN_SCORE = 0;
 	$MAX_SCORE = 4;
+		
+	// display online users on footer pages off=0 on=1
+	$onlineusers=1;
+	
+	//block register new cache before first find xx nuber caches value -1 off this feature
+	$NEED_FIND_LIMIT=10;
+	
+	$NEED_APPROVE_LIMIT = 3;
 	
 	//Debug?
 	if (!isset($debug_page)) $debug_page = false;
@@ -90,41 +73,29 @@
 	
 	//if you are running this site on a other domain than staging.opencaching.de, you can set
 	//this in private_db.inc.php, but don't forget the ending /
-	$absolute_server_URI = 'http://<domain>';
+	$absolute_server_URI = 'http://localhost/';
 	
 	// EMail address of the sender
-	if (!isset($emailaddr)) $emailaddr = 'noreply@<domain>';
+	if (!isset($emailaddr)) $emailaddr = 'noreply@localhost';
 	
 	// location for dynamically generated files
-	$dynbasepath = '/var/www/';
+	$dynbasepath = '/var/www/ocpl-data/';
 	$dynstylepath = $dynbasepath . 'tpl/stdstyle/html/';
 
 	// location of cache images
 	if (!isset($picdir)) $picdir = $dynbasepath . 'images/uploads';
-	if (!isset($picurl)) $picurl = 'http://<domain>/images/uploads';
+	if (!isset($picurl)) $picurl = 'http://localhost/images/uploads';
 
 	// Thumbsize
 	$thumb_max_width = 175;
 	$thumb_max_height = 175;
+	// Small thumbsize
+	$thumb2_max_width = 64;
+	$thumb2_max_height = 64;
 
-     // Small thumbsize
-    $thumb2_max_width = 64;
-     $thumb2_max_height = 64;
-
-	// default coordinates for cachemap, set to your country's center of gravity
-	$country_coordinates = "52.5,19.2";
-	// zoom at which your whole country/region is visible
-	$default_country_zoom = 6;
-
-	// maximal size of images
-	if (!isset($maxpicsize)) $maxpicsize = 152400;
-	
-	// allowed extensions of images
-	if (!isset($picextensions)) $picextensions = ';jpg;jpeg;gif;png;';
-
-	// location of cache mp3 files
+		// location of cache mp3 files
 	if (!isset($mp3dir)) $mp3dir = $dynbasepath . 'mp3';
-	if (!isset($mp3url)) $mp3url = 'http://<domain>/mp3';
+	if (!isset($mp3url)) $mp3url = 'http://localhost/mp3';
 
 	// maximal size of mp3 for PodCache 5 Mb ?
 	if (!isset($maxmp3size)) $maxmp3size = 5000000;
@@ -132,64 +103,75 @@
 	// allowed extensions of images
 	if (!isset($mp3extensions)) $mp3extensions = ';mp3;';	
 	
+	
+	
+        // default coordinates for cachemap, set to your country's center of gravity
+        $country_coordinates = "52.5,19.2";
+        // zoom at which your whole country/region is visible
+        $default_country_zoom = 6;
+
+	// maximal size of images
+	if (!isset($maxpicsize)) $maxpicsize = 152400;
+	
+	// allowed extensions of images
+	if (!isset($picextensions)) $picextensions = ';jpg;jpeg;gif;png;';
+	
 	// news settings
 	$use_news_approving = true;
-	$news_approver_email = 'octeam@<domain>';
+	$news_approver_email = 'rr@localhost';
 	
 	//local database settings
-	$dbusername = '[DB USERNAME]';
+	$dbusername = 'ocdbu';
 	$dbname = 'ocpl';
 	$dbserver = 'localhost';
-	$dbpasswd = '[ENTER YOUR DB PASSWORD HERE]';
+	$dbpasswd = 'PassworD';
 	$dbpconnect = false;
- 
-  $opt['db']['server'] = 'localhost';
-  $opt['db']['name'] = 'ocpl';
-  $opt['db']['username'] = '[DB USERNAME]';
-  $opt['db']['password'] = '[ENTER YOUR DB PASSWORD HERE]';
 
-	$tmpdbname = 'temp';
+	$tmpdbname = 'test';
 
 	// warnlevel for sql-execution
-	$sql_errormail = 'octeam@<domain>';
+	$sql_errormail = 'rt@localhost';
 	$sql_warntime = 1;
 
 	// replacements for sql()
 	$sql_replacements['db'] = $dbname;
-	$sql_replacements['tmpdb'] = 'temp';
+	$sql_replacements['tmpdb'] = 'test';
 
 	// safemode_zip-binary
-	$safemode_zip = '/var/www/bin/phpzip.php';
+	$safemode_zip = '/var/www/ocpl/bin/phpzip.php';
 	$zip_basedir = $dynbasepath . 'download/zip/';
 	$zip_wwwdir = '/download/zip/';
 
-	// Please generate google map key for site name
-	$googlemap_key = "ABQIAAAAKzfMHoyn1s1VSuNTwlFfzhTqTxhHAgqKNaAck663VX5jr8OSJBQrTiL58t4Rt3olsGRlxSuqVkU5Xg"; // key for opencaching.pl
+//	$googlemap_key = "ABQIAAAAKzfMHoyn1s1VSuNTwlFfzhSRMuL-fI-htGim57KraPYYNDyBGhQHUJ6I66y6Gy8yktTPOVkdwx2bHA";
+	$googlemap_key = "ABQIAAAA4DS0L5IhPNkkzhAejJ1YghQmw8g3SyoYQoey3nQkQjZ-xBIKWxQBStwSQ5otzHFYPFzfrBNiNotrGQ";
 	$googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
 	
-	$super_admin_id = 2619; // user_id of admin who can delete all user logs on viewprofile.php page.
-	$dberrormail = 'octeam@<domain>';
+	$dberrormail = 'rt@localhost';
 
 
-    // Changee to mapper.cgi if you don't have FastCGI installed or to some other custom script
-     $cachemap_mapper = "lib/cgi-bin/mapper.fcgi";
- 
- //old code???
-  // $cachemap_size_lat = 0.4;
-  //$cachemap_size_lon = 0.4;
-  //$cachemap_pixel_x = 200;
-  //$cachemap_pixel_y = 200;
-  //$cachemap_url = 'images/cachemaps/';
-  //$cachemap_dir = $rootpath . $cachemap_url;
+    $cachemap_mapper = "lib/cgi-bin/mapper.fcgi";
 
-  $site_name = '<domain>';
+  // cache_maps-settings
+
+  $cachemap_size_lat = 0.4;
+  $cachemap_size_lon = 0.4;
+  $cachemap_pixel_x = 200;
+  $cachemap_pixel_y = 200;
+  $cachemap_url = 'images/cachemaps/';
+  $cachemap_dir = $rootpath . $cachemap_url;
+
   $wiki_url  = 'http://wiki.opencaching.pl';
   $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
   $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
   $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
-  $contact_mail = 'ocpteam(at) <domain>'
 
+  $contact_mail = 'ocpl (at) localhost';
   // E-mail address group of people from OC Team who solve problems, verify cache
-  $octeam_email = 'octeam@<domain>';
+  $octeam_email = 'cog@localhost';
   
+  // OKAPI settings
+  $OKAPI_SETTINGS = array(
+    'SITELANG' => 'pl',
+    'LOCALE' => 'pl_PL.utf8',
+  );
 ?>
