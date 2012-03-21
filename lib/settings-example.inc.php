@@ -147,8 +147,11 @@
 	$googlemap_key = "";
 	$googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
 	
+
 	$dberrormail = 'rt@localhost';
 
+	// user_id of admin who have more options than COG users to remove all logs or other more options in admin_users.php 
+	$super_admin_id = '';
 
     $cachemap_mapper = "lib/cgi-bin/mapper.fcgi";
 
