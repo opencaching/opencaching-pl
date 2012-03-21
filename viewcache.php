@@ -385,7 +385,7 @@
 			}
 
 	// Natura 200
-	$rsArea = sql("SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype`
+	$rsArea = sql("SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`linkid` AS `linkid`,`npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype`
 	             FROM `cache_npa_areas`
 	       INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id`
 	            WHERE `cache_npa_areas`.`cache_id`='&1' AND `cache_npa_areas`.`npa_id`!='0'",$cache_record['cache_id']);
@@ -399,7 +399,7 @@
 
 				while( $npa = mysql_fetch_array($rsArea) )
 				{
-					$npa_content .= "<font color=\"blue\"><a target=\"_blank\" href=\"http://natura2000.gdos.gov.pl/natura2000/pl/info.php?KodOstoi=".$npa['npaSitecode']."&NazwaOstoi=&Siedlisko=1&Ssaki=1&Ptaki=1&PtakiM=1&Gady=1&Ryby=1&Bezkregowce=1&Rosliny=1&Opis=1&Zarzad=1&all=Zaznacz+i+wy%B6wietl+wszystko\">".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</a></font><br />";
+					$npa_content .= "<font color=\"blue\"><a target=\"_blank\" href=\"http://obszary.natura2000.org.pl/index.php?s=obszar&id=".$npa['linkid']."\">".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</a></font><br />";
 				}
 				$npa_content .="</td><td align=\"center\" valign=\"middle\"><img src=\"tpl/stdstyle/images/misc/natura2000.png\"></td>
 				</tr></table>";
