@@ -20,7 +20,7 @@ td
 </head>
 <body>
 	<h1>
-	Instalacja Opencaching kodu</h1>
+	Instalacja kodu Opencaching </h1>
 	<h2>
 	Inhalt</h2>
 	<h2>
@@ -71,38 +71,52 @@ td
 		<li>phpMyAdmin </li>
 	</ul>
 	<h2>
-		Instlacja i konfiguracja</h2>
+		Instalacja i konfiguracja</h2>
 	<h3>
 		Konfiguracja  Apache, PHP</h3>
 	<p class="code">
-		User www<br />
-		Group www<br />
+		User www-data<br />
+		Group www-data<br />
 		<br />
-		&lt;Directory /var/wwwt&gt;<br />
-		&nbsp; &nbsp;
-		AllowOverride AuthConfig<br />
-		&nbsp; &nbsp;
-		Options -FollowSymLinks -SymLinksIfOwnerMatch<br />
-		&nbsp; &nbsp; ...<br />
-		&lt;/Directory&gt;<br />
-		<br />
-		&lt;VirtualHost ...&gt;<br />
-		&nbsp; &nbsp; ...<br />
-		&nbsp; &nbsp; DocumentRoot /wwwroot<br />
-		&nbsp; &nbsp;
-		DirectoryIndex index.php index.htm index.html<br />
-		&nbsp; &nbsp;
-		RewriteEngine On # vgl. "Konfiguration Statistikbilder"<br />
-		&lt;/VirtualHost&gt;
+&lt;VirtualHost *:80&gt;<br/>
+
+    ServerName	localhost<br/>
+    DocumentRoot	/var/www/ocpl<br/>
+
+	&lt;Directory /&gt;<br/>
+		Options FollowSymLinks<br/>
+		AllowOverride All<br/>
+	&lt;/Directory&gt;<br/>
+	&lt;Directory /var/www/ocpl&gt;<br/>
+		Options Indexes FollowSymLinks MultiViews<br/>
+		AllowOverride All<br/>
+		Order allow,deny<br/>
+		allow from all<br/>
+	&lt;/Directory&gt;<br/>
+    Options		-Indexes<br/>	    
+    Alias /images/uploads/ /var/www/ocpl-data/images/uploads/<br/>
+    Alias /uploads/ /var/www/ocpl-data/images/uploads/<br/>
+    Alias /upload/ /var/www/ocpl-data/images/uploads/<br/>
+    Alias /wigo/ /var/www/ocpl-data/wigo/<br/>
+    Alias /download/ /var/www/ocpl-data/download/<br/>
+    Alias /images/statpics/ /var/www/ocpl-data/images/statpics/<br/>
+    Alias /images/mini-mapa/ /var/www/ocpl-data/images/mini-mapa/<br/>
+    Alias /mp3/ /var/www/ocpl-data/mp3/<br/>
+							    
+RewriteEngine	on<br/>
+RewriteRule ^/statpics/([0-9]+)\.jpg$ /ocstats.php?userid=$1 [R,L]</br/> 
+<br/>
+	ErrorLog /var/log/apache2/ocpl-error.log</br>
+	LogLevel warn<br/>
+	                    
+	CustomLog /var/log/apache2/ocpl-access.log combined<br/>
+	ServerSignature On<br/>
+	                                    
+&lt;/VirtualHost&gt;
+	                                    								
+
 	</p>
-	Der Pfad /wwwroot kann beliebig gewählt werden, ebenso User und Group.<h4>
-		Konfigration safe_mode</h4>
-	<p>
-		PHP kann im safe_mode ausgeführt werden, ist für die Entwicklung jedoch oft hinderlich.</p>
-	<p>
-		open_basedir muss dann neben /wwwroot auch den upload_tmp_dir enthalten</p>
-	<p>
-		safe_mode_exec_dir muss definiert werden (vgl. "Installation phpzip")</p>
+
 	<h3>
 		Download der CVS Quellcodes</h3>
 	<p>
@@ -161,7 +175,7 @@ td
 			</tr>
 			<tr>
 				<td>
-					opencaching</td>
+					ocpl</td>
 				<td>
 					SELECT, INSERT, UPDATE, DELETE<br />
 					<br />

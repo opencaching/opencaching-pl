@@ -30,13 +30,14 @@
 	//pagetitle
 	if (!isset($pagetitle)) $pagetitle = 'Geocaching Opencaching Polska';
 
-          //site name
-	  $site_name = 'localhost';
+    //site name
+	 $site_name = 'localhost';
 
 	//id of the node 4 for local development
-	$oc_nodeid = 4;
-	//OC Waypoint for your site
-	$oc_waypoint = 'OP';
+	 $oc_nodeid = 4;
+	
+	 //OC Waypoint for your site for example OX 
+	 $oc_waypoint = 'OP';
 	
         //name of the cookie
         $opt['cookie']['name'] = 'oc';
@@ -105,10 +106,10 @@
 	
 	
 	
-        // default coordinates for cachemap, set to your country's center of gravity
-        $country_coordinates = "52.5,19.2";
-        // zoom at which your whole country/region is visible
-        $default_country_zoom = 6;
+     // default coordinates for cachemap, set to your country's center of gravity
+      $country_coordinates = "52.5,19.2";
+     // zoom at which your whole country/region is visible
+      $default_country_zoom = 6;
 
 	// maximal size of images
 	if (!isset($maxpicsize)) $maxpicsize = 152400;
@@ -142,8 +143,8 @@
 	$zip_basedir = $dynbasepath . 'download/zip/';
 	$zip_wwwdir = '/download/zip/';
 
-//	$googlemap_key = "ABQIAAAAKzfMHoyn1s1VSuNTwlFfzhSRMuL-fI-htGim57KraPYYNDyBGhQHUJ6I66y6Gy8yktTPOVkdwx2bHA";
-	$googlemap_key = "ABQIAAAA4DS0L5IhPNkkzhAejJ1YghQmw8g3SyoYQoey3nQkQjZ-xBIKWxQBStwSQ5otzHFYPFzfrBNiNotrGQ";
+	// Your own Google map API key
+	$googlemap_key = "";
 	$googlemap_type = "G_MAP_TYPE"; // alternativ: _HYBRID_TYPE
 	
 	$dberrormail = 'rt@localhost';
@@ -151,14 +152,7 @@
 
     $cachemap_mapper = "lib/cgi-bin/mapper.fcgi";
 
-  // cache_maps-settings
 
-  $cachemap_size_lat = 0.4;
-  $cachemap_size_lon = 0.4;
-  $cachemap_pixel_x = 200;
-  $cachemap_pixel_y = 200;
-  $cachemap_url = 'images/cachemaps/';
-  $cachemap_dir = $rootpath . $cachemap_url;
 
   $wiki_url  = 'http://wiki.opencaching.pl';
   $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
