@@ -2,7 +2,7 @@ DELIMITER ;;
 
 DROP TRIGGER IF EXISTS cacheDescBeforeInsert;;
 
-CREATE TRIGGER `cacheDescBeforeInsert` BEFORE INSERT ON `cache_desc`
+CREATE DEFINER=CURRENT_USER TRIGGER `cacheDescBeforeInsert` BEFORE INSERT ON `cache_desc`
   FOR EACH ROW
     BEGIN
       SET NEW.`date_created`=NOW();
@@ -10,7 +10,7 @@ CREATE TRIGGER `cacheDescBeforeInsert` BEFORE INSERT ON `cache_desc`
 
 DROP TRIGGER IF EXISTS cacheDescAfterInsert;;
 
-CREATE TRIGGER `cacheDescAfterInsert` AFTER INSERT ON `cache_desc`
+CREATE DEFINER=CURRENT_USER TRIGGER `cacheDescAfterInsert` AFTER INSERT ON `cache_desc`
   FOR EACH ROW
     BEGIN
       UPDATE `caches`, (SELECT `cache_id`, GROUP_CONCAT(DISTINCT `language` ORDER BY `language` SEPARATOR ',') AS `lang` FROM `cache_desc` GROUP BY `cache_id`) AS `tbl2` SET `caches`.`desc_languages`=`tbl2`.`lang` WHERE `caches`.`cache_id`=`tbl2`.`cache_id` AND `tbl2`.`cache_id`=NEW.`cache_id`;
@@ -18,7 +18,7 @@ CREATE TRIGGER `cacheDescAfterInsert` AFTER INSERT ON `cache_desc`
 
 DROP TRIGGER IF EXISTS cacheDescAfterUpdate;;
 
-CREATE TRIGGER `cacheDescAfterUpdate` AFTER UPDATE ON `cache_desc`
+CREATE DEFINER=CURRENT_USER TRIGGER `cacheDescAfterUpdate` AFTER UPDATE ON `cache_desc`
   FOR EACH ROW
     BEGIN
       IF OLD.`cache_id` != NEW.`cache_id` OR OLD.`language` != NEW.`language` THEN
@@ -31,7 +31,7 @@ CREATE TRIGGER `cacheDescAfterUpdate` AFTER UPDATE ON `cache_desc`
 
 DROP TRIGGER IF EXISTS cacheDescAfterDelete;;
 
-CREATE TRIGGER `cacheDescAfterDelete` AFTER DELETE ON `cache_desc`
+CREATE DEFINER=CURRENT_USER TRIGGER `cacheDescAfterDelete` AFTER DELETE ON `cache_desc`
   FOR EACH ROW
     BEGIN
       UPDATE `caches`, (SELECT `cache_id`, GROUP_CONCAT(DISTINCT `language` ORDER BY `language` SEPARATOR ',') AS `lang` FROM `cache_desc` GROUP BY `cache_id`) AS `tbl2` SET `caches`.`desc_languages`=`tbl2`.`lang` WHERE `caches`.`cache_id`=`tbl2`.`cache_id` AND `tbl2`.`cache_id`=OLD.`cache_id`; 
@@ -39,7 +39,7 @@ CREATE TRIGGER `cacheDescAfterDelete` AFTER DELETE ON `cache_desc`
 
 DROP TRIGGER IF EXISTS cacheLocationBeforeInsert;;
 
-CREATE TRIGGER `cacheLocationBeforeInsert` BEFORE INSERT ON `cache_location`
+CREATE DEFINER=CURRENT_USER TRIGGER `cacheLocationBeforeInsert` BEFORE INSERT ON `cache_location`
   FOR EACH ROW
     BEGIN
       SET NEW.`last_modified`=NOW();
@@ -47,7 +47,7 @@ CREATE TRIGGER `cacheLocationBeforeInsert` BEFORE INSERT ON `cache_location`
 
 DROP TRIGGER IF EXISTS cacheLocationBeforeUpdate;;
 
-CREATE TRIGGER `cacheLocationBeforeUpdate` BEFORE UPDATE ON `cache_location`
+CREATE DEFINER=CURRENT_USER TRIGGER `cacheLocationBeforeUpdate` BEFORE UPDATE ON `cache_location`
   FOR EACH ROW
     BEGIN
       SET NEW.`last_modified`=NOW();
@@ -55,7 +55,7 @@ CREATE TRIGGER `cacheLocationBeforeUpdate` BEFORE UPDATE ON `cache_location`
 
 DROP TRIGGER IF EXISTS cacheRatingAfterInsert;;
 
-CREATE TRIGGER `cacheRatingAfterInsert` AFTER INSERT ON `cache_rating`
+CREATE DEFINER=CURRENT_USER TRIGGER `cacheRatingAfterInsert` AFTER INSERT ON `cache_rating`
   FOR EACH ROW
     BEGIN  
       UPDATE `caches` SET `topratings`=(SELECT COUNT(*) FROM `cache_rating` WHERE `cache_rating`.`cache_id`=NEW.`cache_id`) WHERE `cache_id`=NEW.`cache_id`;
@@ -63,7 +63,7 @@ CREATE TRIGGER `cacheRatingAfterInsert` AFTER INSERT ON `cache_rating`
 
 DROP TRIGGER IF EXISTS cacheRatingAfterUpdate;;
 
-CREATE TRIGGER `cacheRatingAfterUpdate` AFTER UPDATE ON `cache_rating`
+CREATE DEFINER=CURRENT_USER TRIGGER `cacheRatingAfterUpdate` AFTER UPDATE ON `cache_rating`
   FOR EACH ROW
     BEGIN  
       IF OLD.`cache_id`!=NEW.`cache_id` THEN
@@ -74,7 +74,7 @@ CREATE TRIGGER `cacheRatingAfterUpdate` AFTER UPDATE ON `cache_rating`
 
 DROP TRIGGER IF EXISTS cacheRatingAfterDelete;;
 
-CREATE TRIGGER `cacheRatingAfterDelete` AFTER DELETE ON `cache_rating`
+CREATE DEFINER=CURRENT_USER TRIGGER `cacheRatingAfterDelete` AFTER DELETE ON `cache_rating`
   FOR EACH ROW
     BEGIN
       UPDATE `caches` SET `topratings`=(SELECT COUNT(*) FROM `cache_rating` WHERE `cache_rating`.`cache_id`=OLD.`cache_id`) WHERE `cache_id`=OLD.`cache_id`;
@@ -82,7 +82,7 @@ CREATE TRIGGER `cacheRatingAfterDelete` AFTER DELETE ON `cache_rating`
 
 DROP TRIGGER IF EXISTS cachesBeforeInsert;;
 
-CREATE TRIGGER `cachesBeforeInsert` BEFORE INSERT ON `caches` 
+CREATE DEFINER=CURRENT_USER TRIGGER `cachesBeforeInsert` BEFORE INSERT ON `caches` 
 				FOR EACH ROW 
 					BEGIN 
 						SET NEW.`need_npa_recalc`=1;
@@ -90,7 +90,7 @@ CREATE TRIGGER `cachesBeforeInsert` BEFORE INSERT ON `caches`
 					
 DROP TRIGGER IF EXISTS cachesBeforeUpdate;;
 
-CREATE TRIGGER `cachesBeforeUpdate` BEFORE UPDATE ON `caches` 
+CREATE DEFINER=CURRENT_USER TRIGGER `cachesBeforeUpdate` BEFORE UPDATE ON `caches` 
 				FOR EACH ROW 
 					BEGIN 
 						IF OLD.`longitude`!=NEW.`longitude` OR 
@@ -101,7 +101,7 @@ CREATE TRIGGER `cachesBeforeUpdate` BEFORE UPDATE ON `caches`
 					
 DROP TRIGGER IF EXISTS cachesAfterInsert;;
 
-CREATE TRIGGER `cachesAfterInsert` AFTER INSERT ON `caches`
+CREATE DEFINER=CURRENT_USER TRIGGER `cachesAfterInsert` AFTER INSERT ON `caches`
   FOR EACH ROW
     BEGIN
       INSERT IGNORE INTO `cache_coordinates` (`cache_id`, `date_modified`, `longitude`, `latitude`) 
@@ -113,7 +113,7 @@ CREATE TRIGGER `cachesAfterInsert` AFTER INSERT ON `caches`
 
 DROP TRIGGER IF EXISTS cachesAfterUpdate;;
 
-CREATE TRIGGER `cachesAfterUpdate` AFTER UPDATE ON `caches`
+CREATE DEFINER=CURRENT_USER TRIGGER `cachesAfterUpdate` AFTER UPDATE ON `caches`
   FOR EACH ROW
     BEGIN
       IF NEW.`longitude` != OLD.`longitude` OR NEW.`latitude` != OLD.`latitude` THEN
@@ -134,7 +134,7 @@ CREATE TRIGGER `cachesAfterUpdate` AFTER UPDATE ON `caches`
 
 DROP TRIGGER IF EXISTS cachesAfterDelete;;
 
-CREATE TRIGGER `cachesAfterDelete` AFTER DELETE ON `caches`
+CREATE DEFINER=CURRENT_USER TRIGGER `cachesAfterDelete` AFTER DELETE ON `caches`
   FOR EACH ROW
     BEGIN
       DELETE FROM `cache_coordinates` WHERE `cache_id`=OLD.`cache_id`;
