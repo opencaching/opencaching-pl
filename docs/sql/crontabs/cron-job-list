@@ -1,9 +1,9 @@
 # m  h  dom mon dow command
 
-*/30 *  *   *   *   /home/ocpl/cron-defs/do-wget-url   tpl/stdstyle/etc/write_newcaches.inc.php         write_newcaches.html
-*/55 *  *   *   *   /home/ocpl/cron-defs/do-wget-url   tpl/stdstyle/etc/write_newblogs.inc.php          write_newblogs.html
-*/14 *  *   *   *   /home/ocpl/cron-defs/do-wget-url   tpl/stdstyle/etc/write_onlusers.inc.php          write_onlusers.html
-*/5  *  *   *   *   /home/ocpl/cron-defs/do-wget-url   tpl/stdstyle/etc/write_totalstats.inc.php        write_totalstats.html
+*/30 *  *   *   *   wget -O - -q http://localhost/tpl/stdstyle/etc/write_newcaches.inc.php
+*/55 *  *   *   *   wget -O - -q http://localhost/tpl/stdstyle/etc/write_newblogs.inc.php
+*/14 *  *   *   *   wget -O - -q http://localhost/tpl/stdstyle/etc/write_onlusers.inc.php
+*/5  *  *   *   *   wget -O - -q http://localhost/tpl/stdstyle/etc/write_totalstats.inc.php
 */15 *  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/email_sender/email_sender.php           email_sender.html
 37   *  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/importcaches/import.php                 import.html
 */15 *  *   *   *   /home/ocpl/cron-defs/do-wget-url   util.sec/notification/run_notify.php             run_notify.html
