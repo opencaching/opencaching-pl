@@ -1,4 +1,4 @@
-# Use this script before publishing new version od OCPL-DEVEL VM.
+﻿# Use this script before publishing new version od OCPL-DEVEL VM.
 
 echo "Removing history and preferences..."
 rm -f ~/.*_history ~/.selected_editor ~/.lesshst
