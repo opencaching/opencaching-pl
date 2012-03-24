@@ -5,6 +5,13 @@ Query code based on php code by Krzysztof "trojmiasto" Mazurkiewicz.
 For opencaching.pl project. Attribution on graphics usage would be nice.
 See the code license inside source files.
 
+Note:
+While I was preparing our VM, I also prepared quite detailed INSTALLATION GUIDE
+for mapper.fcgi. You cas see it here (section "Version 4"):
+http://code.google.com/p/opencaching-pl/wiki/vm_making_of
+- Wojtek R. (rygielski@mimuw.edu.pl)
+
+
 >> Dependencies:
 - libmysql
 - SDL

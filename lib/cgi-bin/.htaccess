@@ -1,2 +1,3 @@
 Options +ExecCGI
 AddHandler cgi-script cgi
+AddHandler fcgid-script .fcgi
