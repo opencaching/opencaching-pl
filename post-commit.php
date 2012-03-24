@@ -11,6 +11,7 @@ header("Content-Type: text/plain; charset=utf-8");
 
 # File /var/www/ocpl-update.sh contains "svn up /var/www/ocpl" command
 # (and a couple of others). It is allowed to be sudo-executed by 'www-data'
-# without password.
+# without password. This is for production only; if this is a developer
+# installation, then you should do updates by yourself (run 'svn up').
 
 print shell_exec("sudo /var/www/ocpl-update.sh up 2>&1");
