@@ -44,6 +44,14 @@ function Unlite(nn) {
   	  
 			<!-- Page title -->		
 		  <div class="content2-pagetitle">{{what_do_you_find}}</div>
+			<? if (isset($_GET['reklama']) /*|| ((date('c') > '2012-03-27') && date('c') < '2012-04-03')*/) { ?>
+				<div style='border: 1px solid #9c9; background: #dfd; margin: 10px 20px 10px 0; padding: 10px 15px; font-family: Tahoma, Verdana, Arial; font-size: 13px; color: #333'>
+					<b>Programiści!</b> Jak wiecie, kod OC.PL jest otwarty. Dodatkowo, właśnie udostępniliśmy
+					publicznie naszą deweloperską <b>maszynę wirtualną</b>. Teraz możesz uruchomić swój własny
+					serwer OC w 10 minut i zobaczyć go "od środka".
+					- <a href='http://code.google.com/p/opencaching-pl/'>więcej informacji</a>
+				</div>
+			<? } ?>
 			<div class="content-txtbox-noshade line-box">
 				<p style="line-height: 1.6em;">{{what_do_you_find_intro}}<br/><br/></p>
 				<p class="main-totalstats">{{total_of_caches}} <span class="content-title-noshade">{total_hiddens}</span> {{active_caches}} <span class="content-title-noshade">{hiddens}</span> | {{number_of_founds}}: <span class="content-title-noshade">{founds}</span> | {{number_of_active_users}}: <span class="content-title-noshade">{users} </span></p>
