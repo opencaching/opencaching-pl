@@ -35,7 +35,7 @@
     $PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR;
     
     //html PNG location prefix
-    $PNG_WEB_DIR = './tmp/';
+    $PNG_WEB_DIR = $dynbasepath.'/tmp/';
 
     include "./lib/phpqrcode/qrlib.php";    
     
