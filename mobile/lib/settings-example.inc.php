@@ -1,5 +1,3 @@
-// remove "example" from file name
-
 <?php
 
 	$dbserver = 'localhost'; // host adres
