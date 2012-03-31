@@ -1,0 +1,162 @@
+lang pl
+login [zaloguj]
+logout [wyloguj]
+login_info zalogowany jako
+about o nas
+contact kontakt
+main_page strona główna
+back ...powrót
+pc_ver Wersja dla PC
+login_title zaloguj
+login_title2 Zaloguj
+wrong_login_pass Zła nazwa użytkownika lub hasło!
+user Użytkownik:
+passw Hasło:
+remember_me Zapamiętaj mnie
+login_button Zaloguj
+mainpage_title strona główna
+seek szukaj skrzynki
+seek_near szukaj skrzynek w okolicy
+entry dodaj wpis do logbooka
+my_menu moje menu...
+more więcej...
+menu_title moje menu
+menu_title2 Moje menu
+more_title więcej
+more_title2 Więcej
+about_title o nas
+about_title2 O nas 
+contact_title kontakt
+contact_title2 Kontakt
+logs_title wpisy
+found znaleziona
+notfound nieznaleziona
+notes komentarz
+service potrzebny serwis
+file_title1 pobierz
+file_title2 Pobierz
+logout_title wyloguj
+logout_title2 Wyloguj
+find_title1 szukaj skrzynki
+find_title2 dodaj wpis
+find_title3 Szukaj skrzynki
+find_title4 Dodaj wpis
+login_order zaloguj się
+result Wyniki poszukiwań:
+hidden_by założona przez:
+name nazwa:
+wpt waypoint:
+owner właściciel:
+seek_button Znajdź
+no_wp brak skrzynki o danym waypoincie lub nieaktywna
+view_title1 opis skrzynki
+type Typ skrzynki:
+size Wielkość:
+status Status:
+hidden_date Data ukrycia:
+view_wpt Waypoint:
+view_owner Założył:
+stats Statystyki:
+download_file pobierz dane w formacie
+show_spoiler pokaż podpowiedź
+photos zdjęcia
+show_entries pokaż wpisy
+add_entry dodaj wpis
+score ocena:
+topratings Rekomendacje:
+show_attrib pokaż atrybuty
+moved przeniesiona
+cog_note komentarz COG
+temp_unavailable tymczasowo niedostępna
+ready gotowa do szukania
+archived zarchiwizowana
+need_archive wymagana archiwizacja
+edit edytuj
+delete usuń
+no_cookie brak obsługi cookie!
+del_question Czy usunąć napewno?
+yes tak
+no nie
+not_your_entry To nie jest twój wpis!
+no_entry brak wpisu o danym id
+show_gk pokaż geokrety
+entry_type rodzaj wpisu:
+entry_date data wpisu:
+entry_time godzina wpisu:
+entry_score ocena:
+entry_pass hasło do skrzynki:
+entry_text treść wpisu:
+toprating rekomendacja:
+add dodaj
+no_score bez oceny
+seek_near2 Szukaj szkrzynek w okolicy
+cords współrzędne:
+radius promień:
+logentry_title dodaj wpis
+wrong_dateformat zły format daty
+future_date data z przyszłosci
+hack hakierstwo
+wrong_pass złe hasło
+my_caches moje skrzynki
+stats2 statystyki
+reg regulamin (zewn. link)
+remove_title usuń wpis
+stats_title1 statystyki
+stats_title2 Statystyki
+caches_count Liczba skrzynek:
+caches_active w tym aktywnych:
+caches_found_text Liczba poszukiwań skrzynek:
+user_count Liczba użytkowników:
+top5_caches_found TOP5 znalezionych skrzynek:
+top5_caches_rating TOP5 skrzynek rekomendowanych:
+top5_user_found TOP5 znalazców:
+top5_user_hidden TOP5 założycieli:
+wrong_cords źle podane współrzędne
+user_find_title1 szukaj użytkownika
+user_find_title2 Szukaj użytkownika
+no_user brak takiego użytkownika
+country_user kraj:
+registered_user zarejestrowany:
+hidden_count_user ukrytych skrzynek:
+founds_count_user znalezień:
+notfounds_count_user nieznalezień:
+notes_count_user komentarzy w logach:
+show_user_caches pokaż skrzynki użytkownika
+user_name Nazwa użytkownika:
+my_stats moje statystyki
+find_user znajdź użytkownika
+rate0 Słaba
+rate1 Poniżej przeciętnej
+rate2 Normalna
+rate3 Dobra
+rate4 Znakomita
+news_title1 aktualności
+news_title2 Aktualności
+next dalej
+prev wcześniej
+older starsze
+newer nowsze
+page strona
+show_map pokaż na mapie
+found_caches znalezione skrzynki
+observed_caches obserwowane skrzynki
+too_short_find krótsze niz 3 litery
+fixed_cords Podane odległości i kierunki od:
+newest_caches najnowsze skrzynki
+localize_me zlokalizuj mnie
+no_city brak adresu w bazie
+city adres:
+center_on_me centruj na mnie
+normal_view normalny widok
+show_track pokaż całą trasę
+show_from_me pokaż ode mnie
+watch obserwuj
+not_watch nie obserwuj
+skip_caches pomiń skrzynki:
+skip_mine własne
+skip_found znalezione
+skip_ignored ignorowane
+skip_inactive nieaktywne
+404_title błąd 404
+404_text brak żądanej strony
+EOF

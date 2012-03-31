@@ -1,0 +1,162 @@
+lang en
+login [login]
+logout [logout]
+login_info logged in as
+about about
+contact contact
+main_page main page
+back ...return
+pc_ver PC version
+login_title login
+login_title2 Login
+wrong_login_pass Wrong username or password!
+user Username:
+passw Password:
+remember_me Remember me
+login_button Login
+mainpage_title main page
+seek seeak a cache
+seek_near seek a caches in region
+entry add entry to logbook
+my_menu my menu...
+more more...
+menu_title my menu
+menu_title2 My menu
+more_title more
+more_title2 More
+about_title about
+about_title2 About
+contact_title contact
+contact_title2 Contact
+logs_title entries
+found found
+notfound not found
+notes note
+service service required
+file_title1 pobierz
+file_title2 Pobierz
+logout_title logout
+logout_title2 Logout
+find_title1 seek a cache
+find_title2 add entry
+find_title3 Seek a cache
+find_title4 Add entry
+login_order please login
+result Results:
+hidden_by hidden by
+name name:
+wpt waypoint:
+owner owner:
+seek_button Seek
+no_wp no cache
+view_title1 description
+type Type:
+size Size:
+status Status:
+hidden_date Hidden date:
+view_wpt Waypoint:
+view_owner Owner:
+stats Statistics:
+download_file download data in following format
+show_spoiler show spoiler
+photos photos
+show_entries show entries
+add_entry add entry
+score score:
+topratings Recommendations:
+show_attrib show attributes
+moved moved
+cog_note COG comment 
+temp_unavailable temporarily unavailable
+ready reday to search
+archived archived
+need_archive archive required
+edit edit
+delete delete
+no_cookie your broswer does not support cookie!
+del_question Are you sure you want to delete?
+yes yes
+no no
+not_your_entry This is not your entry!
+no_entry no entry
+show_gk show geokrety 
+entry_type entry type:
+entry_date entry date:
+entry_time entry time:
+entry_score score:
+entry_pass cache password:
+entry_text entry text:
+toprating recommendation:
+add add
+no_score no score
+seek_near2 Seek a caches in region
+cords coordinates:
+radius radius:
+logentry_title add entry
+wrong_dateformat wrong date format
+future_date date from future
+hack hacking
+wrong_pass wrong password
+my_caches my caches
+stats2 statistics
+reg conditions of use (ext. link)
+remove_title delete entry
+stats_title1 statistics
+stats_title2 Statistics
+caches_count Total of caches:
+caches_active active caches:
+caches_found_text Founds:
+user_count Number of users:
+top5_caches_found TOP5 found caches:
+top5_caches_rating TOP5 recommended caches:
+top5_user_found TOP5 finders:
+top5_user_hidden TOP5 founders:
+wrong_cords wrong cords format
+user_find_title1 find user
+user_find_title2 Find user
+no_user no user found
+country_user country:
+registered_user registered on:
+hidden_count_user hidden caches:
+founds_count_user founds:
+notfounds_count_user notfounds:
+notes_count_user notes:
+show_user_caches show user's caches
+user_name Username:
+my_stats my statistics
+find_user find user
+rate0 Poor
+rate1 Mediocre
+rate2 Avarage
+rate3 Good
+rate4 Excellent
+news_title1 news
+news_title2 News
+next next
+prev previous
+older older
+newer newer
+page page
+show_map show on map
+found_caches found caches
+observed_caches observed caches
+too_short_find word shorter than 3 letters
+fixed_cords Distances and directions from:
+newest_caches newest caches
+localize_me localize me
+no_city no city id database
+city city:
+center_on_me center on me
+normal_view normal view
+show_track show whole track
+show_from_me show from me
+watch watch
+not_watch don't watch
+skip_caches skip caches:
+skip_mine mine
+skip_found founded
+skip_ignored ignored
+skip_inactive inactive
+404_title error 404
+404_text brak pliku
+EOF

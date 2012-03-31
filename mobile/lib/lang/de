@@ -1,0 +1,162 @@
+lang de
+login [Anmelden]
+logout [Abmelden]
+login_info angemeldet als
+about über uns
+contact Kontakt
+main_page Startseite
+back ...zurück
+pc_ver PC version
+login_title login
+login_title2 Login
+wrong_login_pass Falsche Benutzername oder Passwort!
+user Benutzer:
+passw Passwort:
+remember_me Errinere mich
+login_button Anmelden
+mainpage_title Startzeite
+seek suchen Cache
+seek_near suchen Cache in Umkreis
+entry Log einträgen
+my_menu mein Menü...
+more mehr...
+menu_title mein Menü
+menu_title2 Mein Menü
+more_title mehr
+more_title2 Mehr
+about_title über uns
+about_title2 Über uns
+contact_title Kontakt
+contact_title2 Kontakt
+logs_title Einträge
+found gefunden
+notfound nicht gefunden
+notes Kommentarre
+service Dienst benötigt
+file_title1 pobierz
+file_title2 Pobierz
+logout_title Abmelden
+logout_title2 Abmelden
+find_title1 Cache suchen
+find_title2 Log einträgen
+find_title3 Cache suchen
+find_title4 Log einträgen
+login_order Anmelden
+result Such ausgabe:
+hidden_by Versteckt bei:
+name Name:
+wpt Weg-punkt:
+owner Besitzer:
+seek_button Suchen
+no_wp Fehlt cache mit solchen Weg-Punkt 
+view_title1 Cache Beschreibung
+type Cacheart:
+size Cachegröße:
+status Status:
+hidden_date Versteckt Datum:
+view_wpt Weg-punkt:
+view_owner Cachebesitzer:
+stats Statistik:
+download_file Download Einträge als
+show_spoiler Spolier anzeigen
+photos Bilder
+show_entries Einträge anzeigen
+add_entry Log einträgen
+score Note:
+topratings Empfehlungen
+show_attrib Attribute anzeigen
+moved verschoben
+cog_note OC Team bemerkung
+temp_unavailable Vorübergehend Inaktive
+ready Bereit
+archived Archivierte
+need_archive Braucht archivisierung
+edit Edith
+delete usuń
+no_cookie keine Unterstützung für Cookie!
+del_question Sind Sie sicher?
+yes ja
+no nein
+not_your_entry Das ist nicht deine Cache!
+no_entry kein Log einträgen
+show_gk geokrety anzeigen
+entry_type rodzaj wpisu:
+entry_date data wpisu:
+entry_time godzina wpisu:
+entry_score ocena:
+entry_pass hasło do skrzynki:
+entry_text treść wpisu:
+toprating Rekomendacje:
+add dodaj
+no_score bez oceny
+seek_near2 Szukaj szkrzynek w okolicy
+cords współrzędne:
+radius promień:
+logentry_title dodaj wpis
+wrong_dateformat zły format daty
+future_date data z przyszłosci
+hack hakierstwo
+wrong_pass złe hasło
+my_caches moje skrzynki
+stats2 statystyki
+reg regulamin (zewn. link)
+remove_title usuń wpis
+stats_title1 statystyki
+stats_title2 Statystyki
+caches_count Liczba skrzynek:
+caches_active w tym aktywnych:
+caches_found_text Liczba poszukiwań skrzynek:
+user_count Liczba użytkowników:
+top5_caches_found TOP5 znalezionych skrzynek:
+top5_caches_rating TOP5 skrzynek rekomendowanych:
+top5_user_found TOP5 znalazców:
+top5_user_hidden TOP5 założycieli:
+wrong_cords źle podane współrzędne
+user_find_title1 szukaj użytkownika
+user_find_title2 Szukaj użytkownika
+no_user brak takiego użytkownika
+country_user kraj:
+registered_user zarejestrowany:
+hidden_count_user ukrytych skrzynek:
+founds_count_user znalezień:
+notfounds_count_user nieznalezień:
+notes_count_user komentarzy w logach:
+show_user_caches pokaż skrzynki użytkownika
+user_name Nazwa użytkownika:
+my_stats moje statystyki
+find_user znajdź użytkownika
+rate0 Szajsen skrzynken
+rate1 Poniżej przeciętnej
+rate2 Normalna
+rate3 Dobra
+rate4 Znakomita
+news_title1 aktualności
+news_title2 Aktualności
+next dalej
+prev wcześniej
+older starsze
+newer nowsze
+page strona
+show_map pokaż na mapie
+found_caches znalezione skrzynki
+observed_caches obserwowane skrzynki
+too_short_find krótsze niz 3 litery
+fixed_cords Podane odległości i kierunki od:
+newest_caches najnowsze skrzynki
+localize_me zlokalizuj mnie
+no_city brak miejscowości w bazie
+city miejscowość:
+center_on_me centruj na mnie
+normal_view normalny widok
+show_track pokaż całą trasę
+show_from_me pokaż ode mnie
+watch obserwuj
+not_watch nie obserwuj
+skip_caches pomiń skrzynki:
+skip_mine własne
+skip_found znalezione
+skip_ignored ignorowane
+skip_inactive nieaktywne
+404_title błąd 404
+404_text brak pliku
+EOF
