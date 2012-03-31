@@ -9,8 +9,8 @@
 	require_once("./lib/login.class.php");
 
 	$tpl = new Smarty;
-	$tpl -> template_dir = './lib/templates/';
-	$tpl -> compile_dir = './lib/templates_c/';
+	$tpl -> template_dir = $dynbasepath . 'lib/templates/';
+	$tpl -> compile_dir = $dynbasepath .'lib/templates_c/';
 
 	require_once('./lib/lang.inc.php');
 
