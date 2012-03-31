@@ -32,10 +32,11 @@
 			$tplname = 'qrcode';
     
     //set it to writable location, a place for temp generated PNG files
-    $PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR;
-    
+    //$PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR;
+    $PNG_TEMP_DIR = $dynbasepath . 'tmp/';
+
     //html PNG location prefix
-    $PNG_WEB_DIR = $dynbasepath.'/tmp/';
+    $PNG_WEB_DIR = $dynbasepath . 'tmp/';
 
     include "./lib/phpqrcode/qrlib.php";    
     
