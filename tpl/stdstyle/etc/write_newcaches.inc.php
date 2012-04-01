@@ -95,7 +95,7 @@
 				`caches`.`country` `country`,
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
-				`cache_type`.`icon_large` `icon_large`
+				`cache_type`.`icon_large` `icon_large`,
 				IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
 				IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
 				IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
@@ -172,7 +172,7 @@
 				`caches`.`country` `country`,
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
-				`caches`.`date_hidden`
+				`caches`.`date_hidden`,
 				IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
 				IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
 				IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
