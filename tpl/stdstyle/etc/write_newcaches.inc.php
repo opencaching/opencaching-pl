@@ -1,14 +1,5 @@
 <?php
 	/***************************************************************************
-												./lang/<speach>/<style>/etc/write_newcaches.php
-																-------------------
-			begin                : Mon June 28 2004
-			copyright            : (C) 2004 The OpenCaching Group
-			forum contact at     : http://www.opencaching.com/phpBB2
-
-		***************************************************************************/
-
-	/***************************************************************************
 		*
 		*   This program is free software; you can redistribute it and/or modify
 		*   it under the terms of the GNU General Public License as published by
@@ -19,18 +10,16 @@
 
 	/****************************************************************************
 
-   Unicode Reminder ??
+   Unicode Reminder ąś
 
 		writing /html/newcaches.inc.php and /html/start_newcaches.inc.php
 		/html/nextevents.inc.php
 
 	****************************************************************************/
-//ini_set ('display_errors', On);
 
 	setlocale(LC_TIME, 'pl_PL.UTF-8');
 
 	global $lang, $rootpath;
-	// setlocale(LC_ALL, "pl_PL");
 
 	if (!isset($rootpath)) $rootpath = '../../../';
 
@@ -121,16 +110,9 @@
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
-		setlocale(LC_ALL, "pl_PL");
 
-			
-// Nie dziala - pewnie google cos zmienilo ?
-//		$loc = coordToLocation($record['latitude'], $record['longitude']);
-		
-
-// zamiast cordToLocation
-			$dziubek2="";                                                               
-	    //		if ($record['adm1'] !="") {$adm1=$record['adm1'];} else { $adm1=$record['country'];}
+//			$dziubek2="";                                                               
+	    		if ($record['adm1'] !="") {$adm1=$record['adm1'];} else { $adm1=$record['country'];}
 			if ($record['adm3'] !="") {$dziubek=">";} else {$dziubek="";}
 
 		$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
@@ -139,10 +121,8 @@
 		$thisline = mb_ereg_replace('{nn}', $i, $thisline);
 		$thisline = mb_ereg_replace('{kraj}',$record['adm1'], $thisline);
 		$thisline = mb_ereg_replace('{woj}',$record['adm3'], $thisline);
-//		$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
 		$thisline = mb_ereg_replace('{dziubek}',$dziubek, $thisline);
 		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
-//		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 		$thisline = mb_ereg_replace('{wp}', urlencode($record['wp']), $thisline);
 		$thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
 		$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
@@ -198,14 +178,8 @@
 		{
 			$record = sql_fetch_array($rs);
 
-			
-// Nie dziala - pewnie google cos zmienilo ?
-//		$loc = coordToLocation($record['latitude'], $record['longitude']);
-		
-
-// zamiast cordToLocation
 			$dziubek2="";                                                               
-	    //		if ($record['adm1'] !="") {$adm1=$record['adm1'];} else { $adm1=$record['country'];}
+	    		if ($record['adm1'] !="") {$adm1=$record['adm1'];} else { $adm1=$record['country'];}
 			if ($record['adm3'] !="") {$dziubek=">";} else {$dziubek="";}
 
 		
@@ -213,10 +187,8 @@
 			$thisline = mb_ereg_replace('{nn}', $i + $markerpositions['plain_cache_num'], $thisline);
 			$thisline = mb_ereg_replace('{kraj}',$record['adm1'], $thisline);
 			$thisline = mb_ereg_replace('{woj}',$record['adm3'], $thisline);
-//			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
 			$thisline = mb_ereg_replace('{dziubek}',$dziubek, $thisline);
 			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
-//			$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 			$thisline = mb_ereg_replace('{wp}', urlencode($record['wp']), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
