@@ -202,7 +202,7 @@ INSERT INTO `countries` (`country_id`, `pl`, `en`, `short`, `list_default_pl`, `
 (94, 'Indonesien', 'Indonesia', 'ID', 0, 'indonesien', 0, 'indonesia'),
 (95, 'Irlandia', 'Ireland', 'IE', 1, 'irland', 1, 'ireland'),
 (96, 'Israel', 'Israel', 'IL', 0, 'israel', 0, 'israel'),
-(97, 'Indien', 'India', 'IN', 0, 'indien', 0, 'india'),
+(97, 'Indie', 'India', 'IN', 0, 'indien', 0, 'india'),
 (98, 'Britisches Territorium im Indischen Ozean', 'British Indian Ocean Territory', 'IO', 0, 'britisches territorium im indischen ozean', 0, 'british indian ocean territory'),
 (99, 'Irak', 'Iraq', 'IQ', 0, 'irak', 0, 'iraq'),
 (100, 'Iran', 'Iran (Islamic Republic Of)', 'IR', 0, 'iran', 0, 'iran (islamic republic of)'),
