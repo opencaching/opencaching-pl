@@ -137,10 +137,10 @@
 	
 		$thisline = $cacheline;
 		$thisline = mb_ereg_replace('{nn}', $i, $thisline);
-		$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
-		$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
+		$thisline = mb_ereg_replace('{kraj}',$record['adm1'], $thisline);
+		$thisline = mb_ereg_replace('{woj}',$record['adm3'], $thisline);
 //		$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
-		$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
+		$thisline = mb_ereg_replace('{dziubek}',$dziubek, $thisline);
 		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 //		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 		$thisline = mb_ereg_replace('{wp}', urlencode($record['wp']), $thisline);
@@ -211,10 +211,10 @@
 		
 			$thisline = $cacheline;
 			$thisline = mb_ereg_replace('{nn}', $i + $markerpositions['plain_cache_num'], $thisline);
-			$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
-			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
+			$thisline = mb_ereg_replace('{kraj}',$record['adm1'], $thisline);
+			$thisline = mb_ereg_replace('{woj}',$record['adm3'], $thisline);
 //			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
-			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
+			$thisline = mb_ereg_replace('{dziubek}',$dziubek, $thisline);
 			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
 //			$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 			$thisline = mb_ereg_replace('{wp}', urlencode($record['wp']), $thisline);
