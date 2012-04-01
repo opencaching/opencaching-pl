@@ -156,7 +156,7 @@ INSERT INTO `countries` (`country_id`, `pl`, `en`, `short`, `list_default_pl`, `
 (48, 'Kuba', 'Cuba', 'CU', 0, 'kuba', 0, 'cuba'),
 (49, 'Kapverden', 'Cape Verde', 'CV', 0, 'kapverden', 0, 'cape verde'),
 (50, 'Weihnachtsinseln', 'Christmas Island', 'CX', 0, 'weihnachtsinseln', 0, 'christmas island'),
-(51, 'Zypern', 'Cyprus', 'CY', 0, 'zypern', 0, 'cyprus'),
+(51, 'Cypr', 'Cyprus', 'CY', 0, 'cypr', 0, 'cyprus'),
 (52, 'Czeska Republika', 'Czech Republic', 'CZ', 1, 'czeska republika', 1, 'czech republic'),
 (53, 'Niemcy', 'Germany', 'DE', 1, 'Niemcy', 1, 'germany'),
 (54, 'Dschibuti', 'Djibouti', 'DJ', 0, 'dschibuti', 0, 'djibouti'),
