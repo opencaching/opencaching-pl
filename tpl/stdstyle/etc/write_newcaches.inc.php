@@ -161,7 +161,7 @@
 
 
 	//nextevents.include
-	$rs = sql('	SELECT	`user`.`user_id` `user_id`,
+	$rs = sql("SELECT	`user`.`user_id` `user_id`,
 				`user`.`username` `username`,
 				`caches`.`cache_id` `cache_id`,
 				`caches`.`wp_oc` `wp`,
@@ -183,7 +183,7 @@
 			  AND `caches`.`type` = 6
 			  AND `caches`.`status` = 1
 			ORDER BY `date_hidden` ASC
-			LIMIT 0 , 10', $dblink);
+			LIMIT 0 , 10");
 
 	$file_content = '';
 	if (mysql_num_rows($rs) == 0)
