@@ -96,7 +96,11 @@
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
-			FROM `caches`, `user`, `cache_type`
+				IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
+				IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
+				IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
+				IFNULL(`cache_location`.`adm4`, '') AS `adm4`
+			FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `cache_type`, `user`
 			WHERE `caches`.`user_id`=`user`.`user_id`
 			  AND `caches`.`type`!=6
 			  AND `caches`.`status`=1
@@ -119,15 +123,23 @@
 		$record = sql_fetch_array($rs);
 		setlocale(LC_ALL, "pl_PL");
 
-		$loc = coordToLocation($record['latitude'], $record['longitude']);
+			
+// Nie dziala - pewnie google cos zmienilo ?
+//		$loc = coordToLocation($record['latitude'], $record['longitude']);
 		
+
+// zamiast cordToLocation
+			$dziubek2="";                                                               
+	    //		if ($record['adm1'] !="") {$adm1=$record['adm1'];} else { $adm1=$record['country'];}
+			if ($record['adm3'] !="") {$dziubek=">";} else {$dziubek="";}
+
 		$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
 	
 		$thisline = $cacheline;
 		$thisline = mb_ereg_replace('{nn}', $i, $thisline);
 		$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
 		$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
-		$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
+//		$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
 		$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
 		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 //		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
@@ -161,7 +173,11 @@
 				`caches`.`difficulty` `difficulty`,
 				`caches`.`terrain` `terrain`,
 				`caches`.`date_hidden`
-			FROM `caches`, `user`
+				IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
+				IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
+				IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
+				IFNULL(`cache_location`.`adm4`, '') AS `adm4`
+			FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `user`
 			WHERE `user`.`user_id`=`caches`.`user_id`
 			  AND `caches`.`date_hidden` >= curdate()
 			  AND `caches`.`type` = 6
@@ -181,13 +197,23 @@
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
 			$record = sql_fetch_array($rs);
-			$loc = coordToLocation($record['latitude'], $record['longitude']);
+
+			
+// Nie dziala - pewnie google cos zmienilo ?
+//		$loc = coordToLocation($record['latitude'], $record['longitude']);
+		
+
+// zamiast cordToLocation
+			$dziubek2="";                                                               
+	    //		if ($record['adm1'] !="") {$adm1=$record['adm1'];} else { $adm1=$record['country'];}
+			if ($record['adm3'] !="") {$dziubek=">";} else {$dziubek="";}
+
 		
 			$thisline = $cacheline;
 			$thisline = mb_ereg_replace('{nn}', $i + $markerpositions['plain_cache_num'], $thisline);
 			$thisline = mb_ereg_replace('{kraj}',$loc['kraj'], $thisline);
 			$thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
-			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
+//			$thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
 			$thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
 			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
 //			$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
