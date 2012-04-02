@@ -110,7 +110,7 @@ $upload_filename="/tmp/tmp.kml";
 
 // Read file KML with route, load in the KML file through the my_routes page, and run that KML file through GPSBABEL which has a tool interpolate data points in the route.	
 if ( !$error ) {
-exec("/usr/local/bin/gpsbabel -i kml,units=m -f ".$upload_filename." -x interpolate,distance=0.25k -o kml,units=m -F ".$upload_filename."");
+exec("/usr/bin/gpsbabel -i kml,units=m -f ".$upload_filename." -x interpolate,distance=0.25k -o kml,units=m -F ".$upload_filename."");
 $xml = simplexml_load_file($upload_filename);
 
 	// get length route 
