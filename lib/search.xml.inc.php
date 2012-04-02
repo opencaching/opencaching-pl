@@ -158,7 +158,7 @@
 		if ($r['hint'] == '')
 			$thisline = str_replace('{hints}', '', $thisline);
 		else
-			$thisline = str_replace('{hints}', str_rot13_html(filterevilchars(strip_tags($r['hint']))), $thisline);
+			$thisline = str_replace('{hints}', filterevilchars(strip_tags($r['hint'])), $thisline);
 		
 		$thisline = str_replace('{shortdesc}', filterevilchars($r['short_desc']), $thisline);
 		
