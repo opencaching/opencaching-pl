@@ -171,6 +171,14 @@
 		</td>
 		
 		<td>
+			<a href="http://www.geofish.net/">http://www.geofish.net</a>
+		</td>
+	</tr>
+	<tr>
+		<td style="width: 25%;">
+		</td>
+		
+		<td>
 			<a href="http://www.geocachearmy.com/">http://www.geocachearmy.com</a>
 		</td>
 	</tr>
