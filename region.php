@@ -137,8 +137,10 @@ if(isset($jsondata['status']) && strtoupper($jsondata['status']) == 'OK')
 $woj=$jsondata['results']['0']['address_components']['5']['long_name'];
 tpl_set_var('region_gm',$woj); 
 
-}
+} else {
 
+tpl_set_var('region_gm', '');
+}
 
 //			$loc = coordToLocation($lat, $lon);		
 //			tpl_set_var('region_gm', $loc['woj']);
