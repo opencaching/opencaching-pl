@@ -20,7 +20,7 @@
 
 	$tplname = 'region';
 
-	require_once('./lib2/logic/gis.class.php');
+	require_once('./lib/gis/gis.class.php');
 	require_once('./lib/clicompatbase.inc.php');
 	require_once('./lib/common.inc.php');
 
