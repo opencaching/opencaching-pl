@@ -14,6 +14,10 @@
 
    Unicode Reminder メモ
 
+	<div style="margin-top:4px;">
+		<font size="2" color="#000080"><b>Województwo na podstawie bazy OC PL</b></font><br/>
+		{region} <br/>
+	</div>
 
  ****************************************************************************/
 ?>
@@ -28,10 +32,6 @@
 	<div style="margin-top:16px;">
 		<font size="2" color="#000080"><b>Kraj</b></font><br/>
 		{country}<br/>
-	</div>
-	<div style="margin-top:4px;">
-		<font size="2" color="#000080"><b>Województwo na podstawie bazy OC PL</b></font><br/>
-		{region} <br/>
 	</div>
 	<div style="margin-top:4px;">
 		<font size="2" color="#000080"><b>Województwo na podstawie Google Map</b></font><br/>
