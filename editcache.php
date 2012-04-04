@@ -191,6 +191,9 @@
 					else
 					{
 						$log_pw = ""; 
+						tpl_set_var('logpw_start', '<!--');
+						tpl_set_var('logpw_end', '-->');
+						
 					}
 					$wp_gc = isset($_POST['wp_gc']) ? $_POST['wp_gc'] : $cache_record['wp_gc'];
 					$wp_nc = isset($_POST['wp_nc']) ? $_POST['wp_nc'] : $cache_record['wp_nc'];
