@@ -38,7 +38,7 @@ function initialize() {
 			initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 			moveToLocation(initialLocation);
 		}, function() {
-			document.getElementById("pos_waiting").innerHTML = "Nie można określić położenia";
+			document.getElementById("pos_waiting").innerHTML = "<br/>Nie można określić położenia";
 		}, { timeout:10000 });
 	}
 

@@ -3,15 +3,6 @@ INSTALATION
 
 Copy content to your documentroot path. 
 
-Copy lib/settings-example.inc.php to lib/settings.inc.php
-Then modify '/lib/settings.inc.php' file to your MySQL database:
-
-$dynbasepath ='' // path to where is stored dynamic files 
-$dbserver = ''; // host adres
-$dbusername = ''; // user name
-$dbpasswd = ''; // password
-$dbname = ''; // database name
-
 
 
 Add to your existing Opencaching MySQL database new content - execute code from 'tables.sql'.
