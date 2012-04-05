@@ -30,7 +30,7 @@
 	//pagetitle
 	if (!isset($pagetitle)) $pagetitle = 'Geocaching Opencaching Polska';
 
-    //site name
+	//site name
 	 $site_name = 'localhost';
 
 	//id of the node 4 for local development
@@ -39,11 +39,6 @@
 	 //OC Waypoint for your site for example OX 
 	 $oc_waypoint = 'OP';
 	
-        //name of the cookie
-        $opt['cookie']['name'] = 'oc';
-        $opt['cookie']['path'] = '/';
-        $opt['cookie']['domain'] = '.localhost';
-
         //name of the cookie
         if (!isset($cookiename)) $cookiename = 'oc';
         if (!isset($cookiepath)) $cookiepath = '/';
@@ -106,10 +101,10 @@
 	
 	
 	
-     // default coordinates for cachemap, set to your country's center of gravity
-      $country_coordinates = "52.5,19.2";
-     // zoom at which your whole country/region is visible
-      $default_country_zoom = 6;
+	// default coordinates for cachemap, set to your country's center of gravity
+	$country_coordinates = "52.5,19.2";
+	// zoom at which your whole country/region is visible
+        $default_country_zoom = 6;
 
 	// maximal size of images
 	if (!isset($maxpicsize)) $maxpicsize = 152400;
@@ -153,22 +148,23 @@
 	// user_id of admin who have more options than COG users to remove all logs or other more options in admin_users.php 
 	$super_admin_id = '';
 
-    $cachemap_mapper = "lib/cgi-bin/mapper.fcgi";
+      // change settings (user,password) in lib/cgi-bin/data/mapper.ini   
+       $cachemap_mapper = "lib/cgi-bin/mapper.fcgi";
 
 
 
-  $wiki_url  = 'http://wiki.opencaching.pl';
-  $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
-  $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
-  $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
+        $wiki_url  = 'http://wiki.opencaching.pl';
+	$rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
+	$cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
+	$rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
 
-  $contact_mail = 'ocpl (at) localhost';
-  // E-mail address group of people from OC Team who solve problems, verify cache
-  $octeam_email = 'cog@localhost';
+	$contact_mail = 'ocpl (at) localhost';
+	// E-mail address group of people from OC Team who solve problems, verify cache
+	$octeam_email = 'cog@localhost';
   
-  // OKAPI settings
-  $OKAPI_SETTINGS = array(
-    'SITELANG' => 'pl',
-    'LOCALE' => 'pl_PL.utf8',
-  );
+        // OKAPI settings
+	$OKAPI_SETTINGS = array(
+	'SITELANG' => 'pl',
+        'LOCALE' => 'pl_PL.utf8',
+	);
 ?>
