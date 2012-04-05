@@ -1,8 +1,0 @@
-INSTALATION
-===========
-
-Copy content to your documentroot path. 
-
-
-
-Add to your existing Opencaching MySQL database new content - execute code from 'tables.sql'.
