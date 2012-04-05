@@ -59,7 +59,7 @@
 		$tpl -> display('tpl/stats2.tpl');
 	}
 	else{
-		$query = "select count(*) from caches";			
+		$query = "select count(*) from caches where (status=1 OR status=2 OR status=3)";			
 		$wynik = db_query ($query);
 		$odp=mysql_fetch_row($wynik);	
 		$tpl -> assign ('ile',$odp[0]);
@@ -69,12 +69,12 @@
 		$odp=mysql_fetch_row($wynik);	
 		$tpl -> assign ('ile_akt',$odp[0]);
 		
-		$query = "select count(*) from cache_logs where type=1";			
+		$query = "select count(*) from cache_logs where (`type`=1 OR `type`=2) AND `deleted`=0";			
 		$wynik = db_query ($query);
 		$odp=mysql_fetch_row($wynik);	
 		$tpl -> assign ('founds',$odp[0]);
 		
-		$query = "select count(*) from user";			
+		$query = "SELECT COUNT(*) AS `users` FROM (SELECT DISTINCT `user_id` FROM `cache_logs` WHERE (`type`=1 OR `type`=2) AND `deleted`=0 UNION DISTINCT SELECT DISTINCT `user_id` FROM `caches`) AS `t`";			
 		$wynik = db_query ($query);
 		$odp=mysql_fetch_row($wynik);	
 		$tpl -> assign ('user',$odp[0]);
