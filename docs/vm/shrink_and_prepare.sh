@@ -1,5 +1,11 @@
 # Use this script before publishing new version od OCPL-DEVEL VM.
 
+echo "Checking local uncommited changes..."
+if [ `svn st /srv/ocpl | wc -l` -gt 0 ]
+then
+	echo "UNCOMMITED CHANGES DETECTED. CANCELLED."
+	exit 1
+fi
 echo "Removing history and preferences..."
 rm -f ~/.*_history ~/.selected_editor ~/.lesshst
 rm -fR ~/.subversion/auth
