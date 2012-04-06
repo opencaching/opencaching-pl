@@ -132,7 +132,7 @@ $data = @file_get_contents($url);
 
 $jsondata = json_decode($data,true);
 
-print_r($jsondata);
+//print_r($jsondata);
 
 if(isset($jsondata['status']) && strtoupper($jsondata['status']) == 'OK')
 {
