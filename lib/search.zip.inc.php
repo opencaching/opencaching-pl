@@ -201,27 +201,24 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 						// I don't know what this line doing, but other 'search.*.inc.php' files include this.
 						if ($sqldebug == true) sqldbg_end();
 					
-						// OKAPI including
-						require_once($rootpath.'okapi/core.php');
-						require_once($rootpath.'okapi/service_runner.php');
-					
+						// Including OKAPI's Facade. This is the only valid (and fast) interface to access
+						// OKAPI services from within OC code.
+						require_once($rootpath.'okapi/facade.php');
 						
-						try {
-							
-							//$request->consumer, $request->token
-							$OkapiCall =  \okapi\OkapiServiceRunner::call('services/caches/formatters/garmin', 
-									new \okapi\OkapiInternalRequest(new \okapi\OkapiInternalConsumer(), new \okapi\OkapiInternalAccessToken($usr['userid']), 
-										array('cache_codes' => $waypoints,'langpref' => 'pl')));				
+						try
+						{
+							$okapi_response =  \okapi\Facade::service_call('services/caches/formatters/garmin',
+								$usr['userid'], array('cache_codes' => $waypoints, 'langpref' => 'pl'));
 									
-							// own header parametres
-							$OkapiCall->content_type = 'application/zip';
-							$OkapiCall->content_disposition = 'Content-Disposition: attachment; filename=' . $sFilebasename . (($zippart!=0)?'-'.$zippart:'') . '.zip';
+							// Modifying OKAPI's default HTTP Response headers.
+							$okapi_response->content_type = 'application/zip';
+							$okapi_response->content_disposition = 'Content-Disposition: attachment; filename=' . $sFilebasename . (($zippart!=0)?'-'.$zippart:'') . '.zip';
 						
-							// ->display() send header() and prints ZIP file
-							$OkapiCall->display();
-							
+							// This outputs headers and the ZIP file.
+							$okapi_response->display();
 						}
-						catch (Exception $e) {
+						catch (Exception $e)
+						{
 							header('content-type: plain/text');
 							//$tplname = 'error';
 							//tpl_set_var('tplname', 'search.php');

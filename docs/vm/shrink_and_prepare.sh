@@ -10,6 +10,8 @@ echo "Removing unimportant data..."
 echo "delete from okapi_cache where \`key\` != 'cron_schedule'" | mysql -pubuntu ocpl
 echo "truncate sys_logins" | mysql -pubuntu ocpl
 echo "truncate sys_sessions" | mysql -pubuntu ocpl
+echo "truncate okapi_stats_hourly" | mysql -pubuntu ocpl
+echo "truncate okapi_stats_temp" | mysql -pubuntu ocpl
 sudo rm -fR /srv/ocpl-dynamic-files/okapi-dump*
 sudo rm -f /srv/ocpl-dynamic-files/statpics/*
 echo "Removing old packages..."
