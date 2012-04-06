@@ -94,7 +94,7 @@
 $query = "select name,wp_oc,ile 
 	    from caches inner join (select cache_id as yy,
 	    ile from(select cache_id,count(*) as ile from cache_rating group by cache_id)tab order by ile desc limit 5)a on yy=caches.cache_id where type!='4' and type!='5'";			
-/*
+*/
 	$query = "SELECT `caches`.`wp_oc` `wp_oc`,
 				`caches`.`name` `name`,
 				count(`cache_rating`.`cache_id`) as `ile`
