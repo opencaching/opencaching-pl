@@ -106,6 +106,7 @@
 					$code1 = $sCode;
 	
 					if(checkField('countries','list_default_'.$lang) )
+					
 						$lang_db = $lang;
 					else
 						$lang_db = "en";
@@ -130,7 +131,8 @@ $url='http://maps.googleapis.com/maps/api/geocode/json?latlng='.$lat.','.$lon.'&
 $data = @file_get_contents($url);
 
 $jsondata = json_decode($data,true);
-//print_r($jsondata);
+
+print_r($jsondata);
 
 if(isset($jsondata['status']) && strtoupper($jsondata['status']) == 'OK')
 {
