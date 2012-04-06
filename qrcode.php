@@ -79,7 +79,7 @@
     }    
         
 	    // Create image instances
-	    $dest =  imagecreatefromjpeg($absolute_server_URI . 'images/qrcode_bg.jpg');
+	    $dest =  imagecreatefromjpeg('./images/qrcode_bg.jpg');
 	    $src =  imagecreatefrompng($dynbasepath . 'tmp/test.png');
 	    $src_w = imagesx($src);
   	    $xd=86-($src_w/2);
