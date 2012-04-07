@@ -17,6 +17,7 @@
  ****************************************************************************/
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{change_account_data}}" title="{{change_account_data}}" align="middle" />&nbsp;{{change_account_data}}</div>
+<div class="searchdiv">
 <div class="notice">
 {{gray_field_is_hidden}}
 </div>
@@ -156,3 +157,4 @@
 </form>
 </table>
 <br/><br/>
+</div>

@@ -1,14 +1,8 @@
 <?php
- /***************************************************************************
-											./tpl/stdstyle/newstopic.tpl.php
-															-------------------
-		begin                : Wed October 12 2005
-		copyright            : (C) 2005 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
-
+/***************************************************************************
    Unicode Reminder メモ
 
-	***************************************************************************/
+***************************************************************************/
 ?>
 <form action="admin_addnews.php" method="post" enctype="application/x-www-form-urlencoded">
 <input type="hidden" name="submit" value="1" />

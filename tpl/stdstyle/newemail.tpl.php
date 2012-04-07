@@ -31,6 +31,7 @@
  ****************************************************************************/
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" alt="E-Mail-Adres" title="E-Mail-Adres" align="middle" />&nbsp;Zmiana adresu e-mail</div>
+<div class="searchdiv">
 {message}
 <div class="notice">
 Aby zmienić adres e-mail najpierw musisz otrzymać kod, który zostanie wysłany na nowy adres e-mail.
@@ -72,3 +73,4 @@ Aby zmienić adres e-mail najpierw musisz otrzymać kod, który zostanie wysłan
 <input type="reset" name="reset" value="{{reset}}" class="formbuttons" />&nbsp;&nbsp;
 <input type="submit" name="submit_changeemail" value="{change_email}" class="formbuttons" />
 </form>
+</div>

@@ -31,6 +31,7 @@ function checkForm()
 
 <form action="editpic.php" method="post" enctype="multipart/form-data" name="editpic_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="uuid" value="{uuid}" />
+<div class="searchdiv">
 <table class="content">
 	<colgroup>
 		<col width="100">
@@ -70,3 +71,4 @@ function checkForm()
 	</tr>
   </table>
 </form>
+</div>

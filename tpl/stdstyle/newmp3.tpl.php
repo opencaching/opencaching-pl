@@ -32,6 +32,7 @@
 <form action="newmp3.php" method="post" enctype="multipart/form-data" name="newmp3_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="objectid" value="{objectid}" />
 <input type="hidden" name="type" value="{type}" />
+<div class="searchdiv">
 <table class="content">
 	<colgroup>
 		<col width="100">
@@ -71,3 +72,4 @@
 	</tr>
   </table>
 </form>
+</div>

@@ -1,9 +1,5 @@
 <?php
 /***************************************************************************
-															-------------------
-		begin                : July 23 2006
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
 
 	***************************************************************************/
 //ini_set ('display_errors', on);

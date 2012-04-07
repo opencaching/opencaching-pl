@@ -1,10 +1,5 @@
 <?php
 /***************************************************************************
-											./lang/pl/stdstyle/confirm.tpl.php
-															-------------------
-		begin                : October 12 2008
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
 
    Unicode Reminder ăĄă˘
 

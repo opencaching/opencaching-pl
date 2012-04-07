@@ -31,6 +31,7 @@ function checkForm()
 
 <form action="editmp3.php" method="post" enctype="multipart/form-data" name="editmp3_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="uuid" value="{uuid}" />
+<div class="searchdiv">
 <table class="content">
 	<colgroup>
 		<col width="100">
@@ -66,3 +67,4 @@ function checkForm()
 	</tr>
   </table>
 </form>
+</div>

@@ -31,7 +31,7 @@ function _chkType ()
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="wpid" value="{wpid}"/>
 <input type="hidden" name="nextstage" value="{nextstage}"/>
-	
+<div class="searchdiv">	
 <table width="90%" class="table" border="0">
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
@@ -114,3 +114,4 @@ function _chkType ()
 
 </table>
 </form>
+</div>
