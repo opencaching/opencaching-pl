@@ -319,6 +319,8 @@ LOGi:
 		$str = str_replace('<br />', "\n", $str);
 		$str = str_replace('<br />', "\n", $str);
 		$str = strip_tags($str);
+    		$str = preg_replace('/[[:cntrl:]]/', '', $str);
+
 		return $str;
 	}
 	

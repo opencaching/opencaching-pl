@@ -234,6 +234,8 @@
 		
 		for ($i = 0; $i <= 4; $i++)
 			$str = mb_ereg_replace($from[$i], $to[$i], $str);
+	        	
+	        	$str = preg_replace('/[[:cntrl:]]/', '', $str);
 
 		return $str;
 	}

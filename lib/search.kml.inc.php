@@ -322,6 +322,8 @@
 		$from[4] = '\''; $to[4] = '&apos;';
 		
 		$str = str_replace($from, $to, $str);
+        	$str = preg_replace('/[[:cntrl:]]/', '', $str);
+
 		return $str;
 	}
 	
