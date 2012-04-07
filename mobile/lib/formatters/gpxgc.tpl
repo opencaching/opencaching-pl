@@ -39,7 +39,7 @@
 				<groundspeak:log id="1">
 					<groundspeak:date>{$date}T{$time}Z</groundspeak:date>
 					<groundspeak:finder id="0">SYSTEM</groundspeak:finder>
-					<groundspeak:text encoded="False">Atrybuty: {$znalezione[i].attr}<//groundspeak:text>
+					<groundspeak:text encoded="False">Atrybuty: {$znalezione[i].attr}</groundspeak:text>
 				</groundspeak:log>
 
 			{section name=j loop=$znalezione[i].logs}
@@ -47,7 +47,7 @@
 					<groundspeak:date>{$znalezione[i].logs[j].date}T{$znalezione[i].logs[j].time}Z</groundspeak:date>
 					<groundspeak:finder id="{$znalezione[i].logs[j].user_id}">{$znalezione[i].logs[j].username}</groundspeak:finder>
 					<groundspeak:type>{$znalezione[i].logs[j].type}</groundspeak:type>
-					<groundspeak:text encoded="False">{$znalezione[i].logs[j].text}<//groundspeak:text>
+					<groundspeak:text encoded="False">{$znalezione[i].logs[j].text}</groundspeak:text>
 				</groundspeak:log>
 			{/section}
 				

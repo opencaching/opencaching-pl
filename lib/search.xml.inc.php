@@ -245,7 +245,7 @@
 		
 		$str = preg_replace('/&([a-zA-Z]{1})caron;/', '\\1', $str);
 		$str = preg_replace('/&([a-zA-Z]{1})acute;/', '\\1', $str);
-
+		$str = preg_replace('/[[:cntrl:]]/', '', $str);
 		return $str;
 	}
 ?>

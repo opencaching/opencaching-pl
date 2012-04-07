@@ -526,8 +526,8 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 
 		for ($i = 0; $i <= 4; $i++)
 			$str = str_replace($from[$i], $to[$i], $str);
-
-		return filterevilchars($str);
+		$str = preg_replace('/[[:cntrl:]]/', '', $str);
+//		return filterevilchars($str);
 	}	
 	function append_output($str)
 	{

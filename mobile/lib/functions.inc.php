@@ -97,6 +97,7 @@
 		$text=str_replace("&oacute;","&",$text);
 		$text=str_replace("&","&amp;",$text);
 		$text=strip_tags($text);
+		$text=preg_replace('/[[:cntrl:]]/', '', $text);
 		return $text;
 	}
 
