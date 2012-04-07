@@ -620,7 +620,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 	
         function filterevilchars($str)
 	{
-		return str_replace('[\\x00-\\x09|\\x0B-\\x0C|\\x0E-\\x1F]', '', $str);
+		return str_replace('[\\x00-\\x09|\\x0B-\\x0C|\\x0E-\\x1F|\x19]', '', $str);
 	}
 	
 	function append_output($str)
