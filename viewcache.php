@@ -579,7 +579,7 @@
 			}
 			else
 			{
-				tpl_set_var('status', htmlspecialchars(cache_status_from_id($cache_record['status'], $lang), ENT_COMPAT, 'UTF-8'));
+				tpl_set_var('status', '<span style="color:green;font-weight:bold;">'.htmlspecialchars(cache_status_from_id($cache_record['status'], $lang), ENT_COMPAT, 'UTF-8').'</span>');
 			}
 
 			$date_created = strtotime($cache_record['date_created']);
