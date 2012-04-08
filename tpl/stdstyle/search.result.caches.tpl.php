@@ -125,4 +125,4 @@ if ($usr || !$hide_coords){ echo "
                     </td>
        </tr>
 </table></div>		
-<p class=\"help\" colspan=\"2\" align=\"right\">" . '{{accept_terms_of_use}}' ."	</p>"; } ?>
+<p>" . '{{accept_terms_of_use}}' ."	</p><br/>"; } ?>
