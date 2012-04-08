@@ -580,7 +580,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 		$from[5] = ']]>'; $to[5] = ']] >';
 
 		for ($i = 0; $i <= 4; $i++)
-			$str = str_replace($from[$i], $to[$i], $str);
+	$str = str_replace($from[$i], $to[$i], $str);
     	    $str = preg_replace('/[[:cntrl:]]/', '', $str);
 	    return $str;
 	}
@@ -613,8 +613,6 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
               
           for ($i = 0; $i < count($from); $i++)
             $str = str_replace($from[$i], $to[$i], $str);
-//    	    $str=strip_tags($str);                         
-	    $str = preg_replace('/<.*?>/', '', $str);
     	    $str = preg_replace('/[[:cntrl:]]/', '', $str);
     	    return $str;
         }
