@@ -527,7 +527,7 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 		for ($i = 0; $i <= 4; $i++)
 			$str = str_replace($from[$i], $to[$i], $str);
 		$str = preg_replace('/[[:cntrl:]]/', '', $str);
-//		return filterevilchars($str);
+		return $str;
 	}	
 	function append_output($str)
 	{
@@ -590,15 +590,11 @@ function PlConvert($source,$dest,$tekst)
               
           for ($i = 0; $i < count($from); $i++)
             $str = str_replace($from[$i], $to[$i], $str);
+	    $str = preg_replace('/[[:cntrl:]]/', '', $str);
                                  
-          return filterevilchars($str);
+          return $str;
         }
         
-	
-        function filterevilchars($str)
-	{
-		return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
-	}
 			
 //*************************************************************************
 // Returns information about a route based on $route_id.
