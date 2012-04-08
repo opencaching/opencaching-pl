@@ -591,7 +591,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
           $str = strip_tags($str, "<p><br /><li>");
           // <p> -> nic
           // </p>, <br /> -> nowa linia
-          $from[] = '<p *>'; $to[] = '';
+          $from[] = '<p style=*>'; $to[] = '';
           $from[] = '<p>'; $to[] = '';
           $from[] = '</p>'; $to[] = "\n";
           $from[] = '<br>'; $to[] = "\n";
@@ -609,11 +609,12 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
           $from[] = '<'; $to[] = '&lt;';
           $from[] = '>'; $to[] = '&gt;';
           $from[] = ']]>'; $to[] = ']] >';
-					$from[] = ''; $to[] = '';
+	$from[] = ''; $to[] = '';
               
           for ($i = 0; $i < count($from); $i++)
             $str = str_replace($from[$i], $to[$i], $str);
-                                 
+//    	    $str=strip_tags($str);                         
+	    $str = preg_replace("/<.*?>/", "", $str);
     	    $str = preg_replace('/[[:cntrl:]]/', '', $str);
     	    return $str;
         }
