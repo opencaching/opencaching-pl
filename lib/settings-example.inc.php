@@ -39,6 +39,11 @@
 	 //OC Waypoint for your site for example OX 
 	 $oc_waypoint = 'OP';
 	
+        //name of the cookie 
+        $opt['cookie']['name'] = 'oc';
+        $opt['cookie']['path'] = '/';
+        $opt['cookie']['domain'] = '.localhost';
+                                
         //name of the cookie
         if (!isset($cookiename)) $cookiename = 'oc';
         if (!isset($cookiepath)) $cookiepath = '/';
@@ -117,11 +122,16 @@
 	$news_approver_email = 'rr@localhost';
 	
 	//local database settings
-	$dbusername = 'ocdbu';
-	$dbname = 'ocpl';
-	$dbserver = 'localhost';
-	$dbpasswd = 'PassworD';
 	$dbpconnect = false;
+	$dbserver = 'localhost';
+	$dbname = 'ocpl';
+	$dbusername = 'ocdbu';
+	$dbpasswd = 'PassworD';
+	$opt['db']['server'] = 'localhost';
+	$opt['db']['name'] = 'ocpl';
+        $opt['db']['username'] = 'ocdbu';
+        $opt['db']['password'] = 'PassworD';
+        
 
 	$tmpdbname = 'test';
 
