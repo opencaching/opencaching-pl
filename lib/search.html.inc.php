@@ -43,7 +43,6 @@
 	$countselect = mb_eregi_replace('^SELECT `caches`.`cache_id` `cache_id`', 'SELECT COUNT(`caches`.`cache_id`) `count`', $countselect);
 	$countselect = mb_eregi_replace('^SELECT `result_caches`.`cache_id`', 'SELECT COUNT(`result_caches`.`cache_id`) `count`', $countselect);
 	$countselect = mb_eregi_replace('^SELECT `result_caches`.`cache_id` `cache_id`', 'SELECT COUNT(`result_caches`.`cache_id`) `count`', $countselect);
-
 	$rs = sql($countselect, $sqldebug);
 	$r = sql_fetch_array($rs);
 	$resultcount = $r['count'];

@@ -74,7 +74,7 @@
 			<difficulty>{difficulty}</difficulty>
 			<terrain>{terrain}</terrain>
 			<summary html="false">{shortdesc}</summary>
-			<description html="true">{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}</description>
+			<description html="true">{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}&lt;br&gt;{extra_info}</description>
 			{hints}
 			<licence></licence>
 			<logs>
@@ -361,7 +361,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$logpw = ($r['logpw']==""?"":"UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!<br />");			
 			$thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
 			$thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
-	
+
+			// add personal cache info if user login to OC
 			if ($usr == true)
 			{
 			$notes_rs = sql("SELECT  `cache_notes`.`desc` `desc` FROM `cache_notes` WHERE `cache_notes` .`user_id`=&1 AND `cache_notes`.`cache_id`=&2", $usr['userid'],$r['cacheid']);
@@ -371,7 +372,66 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- Wlasna notatka do skrzynki: --<br/> ".$cn['desc']."<br/>"), $thisline);
 				} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 			} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
+
+			// start extra info
+			$thisextra="";
+			$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
+			if (( $r['votes'] > 3 ) || ( $r['topratings'] > 0 ) || (mysql_num_rows($rsAttributes) > 0 )) {
+			$thisextra .= "\n-- Dodatkowe informacje z bazy OC: --\n";		
+		    	if (mysql_num_rows($rsAttributes) > 0) {
+				$attributes = 'Atrybuty: ';
+			while ($rAttribute = sql_fetch_array($rsAttributes))
+			{
+					$attributes .= cleanup_text(xmlentities($rAttribute['text_long']));									
+					$attributes .=  " | ";		
+			}
+			$thisextra .= $attributes;		
+	         }
+	
+			if( $r['votes'] > 3 ){
+
+				$score = cleanup_text(score2rating($r['score']));
+				$thisextra .= "\nOcena skrzynki: " .$score. "\n";
+			}
+			if( $r['topratings'] > 0 ){
+			$thisextra .= "Rekomendacje: " .$r['topratings']. "\n";}
 			
+	// NPA - nature protection areas
+
+		// Parki Narodowe , Krajobrazowe
+	 	$rsArea = sql("SELECT `parkipl`.`id` AS `npaId`, `parkipl`.`name` AS `npaname`,`parkipl`.`link` AS `npalink`,`parkipl`.`logo` AS `npalogo`
+	             FROM `cache_npa_areas`
+	       INNER JOIN `parkipl` ON `cache_npa_areas`.`parki_id`=`parkipl`.`id`
+	            WHERE `cache_npa_areas`.`cache_id`='&1' AND `cache_npa_areas`.`parki_id`!='0'",$r['cacheid']);
+
+			if (mysql_num_rows($rsArea) != 0)
+			{
+			$thisextra .="Parki Narodowe/Krajobrazowe: ";
+				while( $npa = mysql_fetch_array($rsArea) )
+				{
+					$thisextra .= $npa['npaname']."  ";
+				}
+			}
+	// Natura 2000
+	$rsArea = sql("SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`linkid` AS `linkid`,`npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype`
+	             FROM `cache_npa_areas`
+	       INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id`
+	            WHERE `cache_npa_areas`.`cache_id`='&1' AND `cache_npa_areas`.`npa_id`!='0'",$r['cacheid']);
+
+			if (mysql_num_rows($rsArea) != 0)
+
+			{
+			$thisextra .="\nNATURA 2000: ";
+				while( $npa = mysql_fetch_array($rsArea) )
+				{
+				$thisextra .=" - " .$npa['npaSitename']."  ".$npa['npaSitecode']." - ";
+				}
+			}
+				
+		} 
+			$thisline = str_replace('{extra_info}', $thisextra, $thisline);
+			// end of extra info
+
 			if( $r['rr_comment'] == '' )
 				$thisline = str_replace('{rr_comment}', '', $thisline);
 			else
@@ -420,59 +480,6 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			// logs ermitteln
 			$logentries = '';
 			
-	if (( $r['votes'] > 3 ) || 	( $r['topratings'] > 0 ) || (mysql_num_rows($rsAttributes) > 0 )) {
-//				$thislog = $gpxLog;
-//				<groundspeak:log id="1">
-//        			<groundspeak:date>{date}</groundspeak:date>
-//					<groundspeak:type>{type}</groundspeak:type>
-//					<groundspeak:finder id="{finder_id}">{username}</groundspeak:finder>
-//					<groundspeak:text encoded="False">{{text}}</groundspeak:text>
-//				</groundspeak:log>
-				
-//				$thislog = str_replace('{id}', "0", $thislog);
-//				$thislog = str_replace('{date}', date("Y-m-d") ."T00:00:00", $thislog);
-//				$thislog = str_replace('{username}', "SYSTEM", $thislog);
-//				$thislog = str_replace('{finder_id}', "0", $thislog);						
-//				$thislog = str_replace('{type}', "Write note", $thislog);
-			// Attributes
-
-				$thislogs ='<log id="1">';
-				$thislogs .='<time>' .date("Y-m-d\TH:i:s\Z").'</time>';
-				$thislogs .='<geocacher>SYSTEM</geocacher>';
-				$thislogs .='<text>';				
-				if (mysql_num_rows($rsAttributes) > 0) {
-				$attributes = 'Atrybuty: ';
-			while ($rAttribute = sql_fetch_array($rsAttributes))
-			{
-					$attributes .= cleanup_text(xmlentities($rAttribute['text_long']));									
-					$attributes .=  " | ";		
-			}
-			$thislogs .= $attributes;		
-	         }
-	
-			if( $r['votes'] > 3 ){
-
-				$score = cleanup_text(score2rating($r['score']));
-				$thislogs .= "\nOcena skrzynki: " .$score. "\n";
-			}
-			if( $r['topratings'] > 0 ){
-			$thislogs .= "Rekomendacje: " .$r['topratings']. "\n";}
-			
-				$rsArea = sql("SELECT `npa_areas`.`id` AS `npaId`, `npa_areas`.`sitename` AS `npaSitename`, `npa_areas`.`sitecode` AS `npaSitecode`, `npa_areas`.`sitetype` AS `npaSitetype` 
-	             FROM `cache_npa_areas` 
-	       INNER JOIN `npa_areas` ON `cache_npa_areas`.`npa_id`=`npa_areas`.`id` 
-	            WHERE `cache_npa_areas`.`cache_id`='&1'",$r['cacheid']);
-				if (mysql_num_rows($rsArea) != 0)
-				{ $thislogs .= "NATURA 2000: ";
-				while( $npa = mysql_fetch_array($rsArea) )
-					{
-			 $thislogs .= $npa['npaSitename']." - ".$npa['npaSitecode']. ",";}
-			 }			
-				$thislogs .= '</text></log>';
-				
-				$logentries .= $thislogs . "\n";
-		}	
-
 			$rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC", $r['cacheid']); // adam: removed LIMIT 20
 			while ($rLog = sql_fetch_array($rsLogs))
 			{
