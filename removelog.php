@@ -109,7 +109,7 @@ function removelog($log_id, $language, $lang)
 						//log entfernen
 						//sql("DELETE FROM `cache_logs` WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
 						// do not acually delete logs - just mark them as deleted.
-						sql("UPDATE `cache_logs` SET deleted = 1 WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
+						sql("UPDATE `cache_logs` SET deleted = 1 , `last_modified`=NOW() WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
 						// remove from cache_moved for log "MOVED"
 						if ($log_record['log_type'] == 4)
 						{
