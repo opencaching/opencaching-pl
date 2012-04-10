@@ -615,7 +615,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 325; # This gets replaced in automatically deployed packages
+	public static $revision = 326; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -662,13 +662,20 @@ class Okapi
 	/** Send an email message to local OKAPI administrators. */
 	public static function mail_admins($subject, $message)
 	{
+		self::mail_from_okapi(get_admin_emails(), $subject, $message);
+	}
+
+	/** Send an email message from OKAPI to the given recipients. */
+	public static function mail_from_okapi($email_addresses, $subject, $message)
+	{
 		$sender_email = isset($GLOBALS['emailaddr']) ? $GLOBALS['emailaddr'] : 'root@localhost';
-		mail(implode(", ", get_admin_emails()), $subject, $message,
+		mail(implode(", ", $email_addresses), $subject, $message,
 			"Content-Type: text/plain; charset=utf-8\n".
 			"From: OKAPI <$sender_email>\n".
 			"Reply-To: $sender_email\n"
 			);
 	}
+	
 	
 	/** Returns something like "OpenCaching.PL" or "OpenCaching.DE". */
 	public static function get_normalized_site_name($site_url = null)
