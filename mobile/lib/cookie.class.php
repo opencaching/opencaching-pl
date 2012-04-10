@@ -55,6 +55,8 @@ class cookie
 	
 	function is_set_cookie()
 	{
+		global $opt;
+
 		if (isset($_COOKIE[$opt['cookie']['name'] . 'data']))
 			return true;
 		else
