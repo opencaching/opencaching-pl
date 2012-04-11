@@ -615,7 +615,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 328; # This gets replaced in automatically deployed packages
+	public static $revision = 329; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -1317,11 +1317,18 @@ class OkapiInternalRequest extends OkapiRequest
 	 */
 	public $i_want_okapi_response = false;
 	
+	/**
+	 * You may use "null" values in parameters if you want them skipped
+	 * (null-ized keys will be removed from parameters).
+	 */
 	public function __construct($consumer, $token, $parameters)
 	{
 		$this->consumer = $consumer;
 		$this->token = $token;
-		$this->parameters = $parameters;
+		$this->parameters = array();
+		foreach ($parameters as $key => $value)
+			if ($value !== null)
+				$this->parameters[$key] = $value;
 	}
 	
 	public function get_parameter($name)
