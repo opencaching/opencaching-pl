@@ -33,9 +33,20 @@ use okapi\cronjobs\CronJobController;
 /** Return an array of email addresses which always get notified on OKAPI errors. */
 function get_admin_emails()
 {
-	return array(
+	$emails = array(
 		isset($GLOBALS['sql_errormail']) ? $GLOBALS['sql_errormail'] : 'root@localhost',
 	);
+	if (class_exists("okapi\\Settings"))
+	{
+		try
+		{
+			foreach (Settings::get('EXTRA_ADMINS') as $email)
+				if (!in_array($email, $emails))
+					$emails[] = $email;
+		}
+		catch (Exception $e) { /* pass */ }
+	}
+	return $emails;
 }
 
 #
@@ -615,7 +626,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 330; # This gets replaced in automatically deployed packages
+	public static $revision = 331; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
