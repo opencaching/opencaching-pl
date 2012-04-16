@@ -23,7 +23,7 @@ chcesz pomóc w rozwoju projektu ? Z wszystkimi tymi sprawami możesz pisać na 
 <b>Rada Techniczna</b><br />
 <b>E-mail: <font color="black">rt</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
 
-- Skład Rady Technicznej patrz >>><a href="http://forum.opencaching.pl/viewtopic.php?f=19&t=6297">TUTAJ</a><<<
+- Skład Rady Technicznej patrz >>><a href="https://code.google.com/p/opencaching-pl/people/list">TUTAJ</a><<<
 <br /><br />
 <b>Centrum Obsługi Geocachera </b> <br />
 <b>E-mail: <font color="black">cog</font> <font color="black">at</font> <font color="black">opencaching.pl</font></b><br/>
