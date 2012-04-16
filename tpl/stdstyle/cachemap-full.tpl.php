@@ -457,23 +457,29 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 
 			addocoverlay();
 
+			// OpenStreetMap (OSMapa topo)
+			var copyOSMapa = new GCopyrightCollection(
+			       "Map data:<a href=\"http://www.osm.org/\" target=\"_blank\">OpenStreetMap<\/a> <a href=\"http://creativecommons.org/licenses/by-sa/2.0\" target=\"_blank\">CC-BY-SA 2.0</a> | Hosting:<a href=\"http://trail.pl\" target=\"_blank\">trail.pl</a>"
+				 );
+			copyOSMapa.addCopyright(new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, " "));
+			var tilesOSMapa = new GTileLayer(copyOSMapa, 1, 18, {tileUrlTemplate: "http://osm.trail.pl/{Z}/{X}/{Y}.png"});
+			var tilesHill = new GTileLayer(0 , 1, 18, {tileUrlTemplate: "http://toolserver.org/%7Ecmarqu/hill/{Z}/{X}/{Y}.png"});				
+			var mapOSMapa = new GMapType([tilesOSMapa,tilesHill], G_NORMAL_MAP.getProjection(), "OSMapa");
+			map.addMapType(mapOSMapa);
+			
+			// OpenStreetMap (mapnik)
+			var copyOSM = new GCopyrightCollection("<a href=\"http://www.openstreetmap.org/\">Map data: CC-BY-SA OpenStreetMap.org<\/a>");
+			copyOSM.addCopyright(new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, " "));
+			var tilesOSM = new GTileLayer(copyOSM, 1, 18, {tileUrlTemplate: "http://tile.openstreetmap.org/{Z}/{X}/{Y}.png"});
+			var mapOSM = new GMapType([tilesOSM], G_NORMAL_MAP.getProjection(), "OSM");
+			map.addMapType(mapOSM);
+
 			// UMP
 			var copyUMP = new GCopyrightCollection("<a href=\"http://ump.waw.pl/\">UMP-PcPL<\/a>");
 			copyUMP.addCopyright(new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, " "));
 			var tilesUMP = new GTileLayer(copyUMP, 1, 18, {tileUrlTemplate: "http://tiles.ump.waw.pl/ump_tiles/{Z}/{X}/{Y}.png"});
 			var mapUMP = new GMapType([tilesUMP], G_NORMAL_MAP.getProjection(), "UMP");
 			map.addMapType(mapUMP);
-
-			// OpenStreetMap
-			var copyOSM = new GCopyrightCollection("<a href=\"http://www.openstreetmap.org/\">OpenStreetMaps<\/a>");
-			copyOSM.addCopyright(new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, " "));
-			var tilesOSM = new GTileLayer(copyOSM, 1, 18, {tileUrlTemplate: "http://tile.openstreetmap.org/{Z}/{X}/{Y}.png"});
-			var mapOSM = new GMapType([tilesOSM], G_NORMAL_MAP.getProjection(), "OSM");
-			map.addMapType(mapOSM);
-
-			
-
-
 
 
 			
@@ -540,8 +546,6 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 			map.setCenter(p, 13, map.getCurrentMapType());
 			document.getElementById("search_control").getElementsByTagName("input")[0].value = "";
 		});
-
-
 
 
 			map.setMapType({map_type});
