@@ -28,7 +28,8 @@
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	require($stylepath . '/searchplugin.inc.php');
-
+	global $ocWP;
+	$ocWP=strtolower($ocWP);
 	// initialize
 	$keyword_name = 'name';
 	$keyword_finder = 'finder';
@@ -110,14 +111,14 @@
 						$target = 'nc';
 					}
 					if (mb_ereg_match('([a-f0-9]){4,4}$', mb_strtolower($searchfor))) {
-						$target = 'op';
+						$target = $ocWP;
 						$searchfor = $target . '' . $searchfor;
 					}
-					if ((($target == 'oc') || ($target == 'op') ||($target == 'nc') || ($target == 'gc')) && 
-						mb_ereg_match('((oc|op)([a-z0-9]){4,4}|gc([a-z0-9]){4,5}|n([a-f0-9]){5,5})$', mb_strtolower($searchfor)))
+					if ((($target == 'oc') || ($target == $ocWP) ||($target == 'nc') || ($target == 'gc')) && 
+						mb_ereg_match('(('.$ocWP.'|oc)([a-z0-9]){4,4}|gc([a-z0-9]){4,5}|n([a-f0-9]){5,5})$', mb_strtolower($searchfor)))
 					{
 						// get cache_id from DB
-						if ($target == 'op') {$target = 'oc';}
+						if ($target == $ocWP) {$target = 'oc';}
 						$rs = sql("SELECT `cache_id`, `latitude`, `longitude` FROM `caches` WHERE `wp_" . sql_escape($target) . "`='&1'", $searchfor);
 						$count = mysql_num_rows($rs);
 						if ($count == 1)
