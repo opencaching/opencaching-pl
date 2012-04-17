@@ -29,8 +29,6 @@
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	require_once('./lib/search.inc.php');
-	global $lang,$ocWP;
-	$ocWP=strtolower($ocWP);
 	// SQL-Debug?
 	$sqldebug = false;
 	global $sql_debug;
@@ -56,6 +54,8 @@
 		else
 		{
 */
+	global $lang,$ocWP;
+	$ocWP=strtolower($ocWP);
 		$tplname = 'search';
 		require($stylepath . '/search.inc.php');
 		require($rootpath . 'lib/caches.inc.php');
