@@ -27,7 +27,8 @@
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	require_once('./lib/search.inc.php');
-	global $lang; $ocWP;
+	global $lang; 
+	global $ocWP;
 	// SQL-Debug?
 	$sqldebug = false;
 	global $sql_debug;
@@ -329,7 +330,7 @@
 					$options['waypointtype'] = 'nc'; 
 				} 
 				$ocWP=strtolower($ocWP);
-				if( mb_ereg_match('((oc|'.$ocWP.'|gc)([a-z0-9]){4,4}|n([a-f0-9]){5,5}|([a-f0-9]){4,4})$', mb_strtolower($options['waypoint'])) ) 
+				if( mb_ereg_match('((oc|op|gc)([a-z0-9]){4,4}|n([a-f0-9]){5,5}|([a-f0-9]){4,4})$', mb_strtolower($options['waypoint'])) ) 
 				{
 					if ($options['waypointtype'] == $ocWP) 
 					{
