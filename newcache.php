@@ -20,7 +20,7 @@
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	global $ocWP;
-	echo $ocWP;
+	$ocWP='OP';
 	$no_tpl_build = false;
 
 	//Preprocessing
