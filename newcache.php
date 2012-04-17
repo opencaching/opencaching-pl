@@ -19,8 +19,8 @@
 
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-	global $ocWP;
-	$ocWP='OP';
+	global $oc_waypoint;
+echo $oc_waypoint;
 	$no_tpl_build = false;
 
 	//Preprocessing
@@ -1025,7 +1025,7 @@
 						sql("UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`='&1'",$cache_id);
 				
 						// waypoint erstellen
-						setCacheWaypoint($cache_id,$ocWP);
+						setCacheWaypoint($cache_id,$oc_waypoint);
 						
 						$desc_uuid = create_uuid();
 						//add record to cache_desc table
