@@ -31,7 +31,7 @@
 
  ****************************************************************************/
 
-	global $interface_output;
+	global $interface_output;	
 	if (!isset($interface_output)) $interface_output = 'plain';
 	if (!isset($rootpath)) $rootpath = './';
 
@@ -82,7 +82,7 @@
 	}
 
 	// set a unique waypoint to this cache
-	function setCacheWaypoint($cacheid)
+	function setCacheWaypoint($cacheid,$ocWP)
 	{
 		$bLoop = true;
 
@@ -105,8 +105,8 @@
 			
 			while (mb_strlen($nNext) < 4)
 				$nNext = '0' . $nNext;
-
-			$sWP = 'OP' . mb_strtoupper($nNext);
+			$next=mb_strtoupper($nNext);
+			$sWP = $ocWP.$next; 
 
 			$bLoop = false;
 			$nLoop++;
