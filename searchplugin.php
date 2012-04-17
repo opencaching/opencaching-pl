@@ -28,8 +28,7 @@
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	require($stylepath . '/searchplugin.inc.php');
-	global $oc_waypoint;
-	$ocWP=strtolower($ocWP);
+	$ocWP=strtolower($GLOBALS['oc_waypoint']);
 	// initialize
 	$keyword_name = 'name';
 	$keyword_finder = 'finder';

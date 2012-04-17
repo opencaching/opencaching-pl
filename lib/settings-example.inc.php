@@ -37,7 +37,7 @@
 	 $oc_nodeid = 4;
 	
 	 //OC Waypoint for your site for example OX 
-	 $oc_waypoint = 'OP';
+	 $GLOBALS['oc_waypoint'] = 'OP';
 	
         //name of the cookie 
         $opt['cookie']['name'] = 'oc';
