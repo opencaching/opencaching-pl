@@ -330,8 +330,8 @@
 				if (mb_substr($options['waypointtype'], 0, 1) == 'n') 
 				{ 
 					$options['waypointtype'] = 'nc'; 
-				} 
-				if( mb_ereg_match('((oc|op|gc)([a-z0-9]){4,4}|n([a-f0-9]){5,5}|([a-f0-9]){4,4})$', mb_strtolower($options['waypoint'])) ) 
+				} $ocm="oc|".$ocWP."|gc";
+				if( mb_ereg_match('(('.$ocm.')([a-z0-9]){4,4}|n([a-f0-9]){5,5}|([a-f0-9]){4,4})$', mb_strtolower($options['waypoint'])) ) 
 				{ 
 					if ($options['waypointtype'] == $ocWP) 
 					{
