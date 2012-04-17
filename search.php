@@ -27,7 +27,8 @@
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	require_once('./lib/search.inc.php');
-	global $lang,$ocWP;
+	global $lang;
+	global $ocWP;
 	$ocWP=strtolower($ocWP);
 	// SQL-Debug?
 	$sqldebug = false;
