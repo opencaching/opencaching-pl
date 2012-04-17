@@ -20,7 +20,6 @@
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	global $oc_waypoint;
-echo $oc_waypoint;
 	$no_tpl_build = false;
 
 	//Preprocessing
