@@ -1,6 +1,4 @@
 <?php
-
-
 /***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
@@ -29,6 +27,8 @@
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	require_once('./lib/search.inc.php');
+	global $lang,$ocWP;
+	$ocWP=strtolower($ocWP);
 	// SQL-Debug?
 	$sqldebug = false;
 	global $sql_debug;
@@ -54,8 +54,6 @@
 		else
 		{
 */
-	global $lang,$ocWP;
-	$ocWP=strtolower($ocWP);
 		$tplname = 'search';
 		require($stylepath . '/search.inc.php');
 		require($rootpath . 'lib/caches.inc.php');
@@ -330,7 +328,7 @@
 				if (mb_substr($options['waypointtype'], 0, 1) == 'n') 
 				{ 
 					$options['waypointtype'] = 'nc'; 
-				} $ocm="oc|".$ocWP."|gc";echo $ocm;
+				} $ocm="oc|".$ocWP."|gc";echo $ocWP;
 				if( mb_ereg_match('(('.$ocm.')([a-z0-9]){4,4}|n([a-f0-9]){5,5}|([a-f0-9]){4,4})$', mb_strtolower($options['waypoint'])) ) 
 				{ 
 					if ($options['waypointtype'] == $ocWP) 
