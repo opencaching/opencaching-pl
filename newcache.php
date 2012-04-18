@@ -19,7 +19,8 @@
 
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-	global $oc_waypoint;
+	$ocWP=$GLOBALS['oc_waypoint'];
+	echo $ocWP;
 	$no_tpl_build = false;
 
 	//Preprocessing
