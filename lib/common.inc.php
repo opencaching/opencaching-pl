@@ -1370,10 +1370,11 @@ function typeToLetter($type)
 
 function wpToId($wp)
 {
+	$ocWP = $GLOBALS['oc_waypoint'];
 	$wpType = mb_substr($wp, 0, 2);
 	switch( $wpType )
 	{
-		case 'OP':
+		case $ocWP:
 			$tab_name = "wp_oc";
 			break;
 		case 'GC':
