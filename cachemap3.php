@@ -94,6 +94,7 @@ function getDBFilter($user_id)
 }
 
 require_once('./lib/common.inc.php');
+
 $tplname = 'cachemap3';
 tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
 //tpl_set_var('BodyMod', ' onload="load()" onunload="GUnload()"');

@@ -512,6 +512,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 						var lat = caches[0].getAttribute("lat");
 						var lon = caches[0].getAttribute("lon");
 						var type = caches[0].getAttribute("type");
+						var size = caches[0].getAttribute("size");
 						var status = caches[0].getAttribute("status");
 						var user_id = caches[0].getAttribute("user_id");
 						var founds = caches[0].getAttribute("founds");
@@ -521,6 +522,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 						if( cache_id != "" )
 						{							
 							var show_score;
+							var show_size;
 							var print_topratings;
 							if( score != "" && votes > 2)
 							{
@@ -562,15 +564,17 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 									domain = "";
 							}
 								
-							if( type == 6 )
+							if( type == 6 ) // event
 							{
 								found_attended = "{{attendends}}";
 								notfound_will_attend = "{{will_attend}}";
+								show_size = "";
 							}
 							else
 							{
 								found_attended = "{{found}}";
 								notfound_will_attend = "{{not_found}}";
+								show_size = "<br><b>{{size}}:<\/b> " + size;
 							}
 
 							infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\" class=\"table\">";
@@ -581,7 +585,7 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 							infoWindowContent += "<b>"+wp+"<\/b><\/td><\/tr><\/table>";
 							infoWindowContent += "<\/td><\/tr>";
 							infoWindowContent += "<tr><td width=\"70%\" valign=\"top\">";
-							infoWindowContent += "<b>{{created_by}}:<\/b> " + username + show_score + print_topratings;
+							infoWindowContent += "<b>{{created_by}}:<\/b> " + username + show_size + show_score + print_topratings;
 				
 							infoWindowContent += "<\/td>";
 							infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\" class=\"table\"><tr><td width=\"100%\">";
