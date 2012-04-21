@@ -459,11 +459,12 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 
 			// OpenStreetMap (OSMapa topo)
 			var copyOSMapa = new GCopyrightCollection(
-			       "Map data:<a href=\"http://www.osm.org/\" target=\"_blank\">OpenStreetMap<\/a> <a href=\"http://creativecommons.org/licenses/by-sa/2.0\" target=\"_blank\">CC-BY-SA 2.0</a> | Hosting:<a href=\"http://trail.pl\" target=\"_blank\">trail.pl</a>"
+			       "Map data:<a href=\"http://www.osm.org/\" target=\"_blank\">OpenStreetMap<\/a> <a href=\"http://creativecommons.org/licenses/by-sa/2.0\" target=\"_blank\">CC-BY-SA 2.0</a> | Hosting: <a href=\"http://trail.pl/\" target=\"_blank\">trail.pl</a> i <a href=\"http://centuria.pl/\" target=\"_blank\">centuria.pl</a>"
 				 );
 			copyOSMapa.addCopyright(new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, " "));
 			var tilesOSMapa = new GTileLayer(copyOSMapa, 1, 18, {tileUrlTemplate: "http://osm.trail.pl/{Z}/{X}/{Y}.png"});
-			var tilesHill = new GTileLayer(0 , 1, 18, {tileUrlTemplate: "http://toolserver.org/%7Ecmarqu/hill/{Z}/{X}/{Y}.png"});				
+			var tilesHill = new GTileLayer(0 , 1, 18, {tileUrlTemplate: "http://toolserver.org/%7Ecmarqu/hill/{Z}/{X}/{Y}.png"});	
+				
 			var mapOSMapa = new GMapType([tilesOSMapa,tilesHill], G_NORMAL_MAP.getProjection(), "OSMapa");
 			map.addMapType(mapOSMapa);
 			
