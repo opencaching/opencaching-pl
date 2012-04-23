@@ -73,9 +73,9 @@
 		
 			<div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./file2.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle; " src="../images/download.png" alt="{$download_file}"/></a></div>
 			<div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./googlemaps.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle;" src="../images/geo.png" alt="{$show_map}"/></a> </div>	
-        <!--      
+             
 			<div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./osmap.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle;" src="../images/osm.png" alt="{$show_map}"/></a> </div>	
-		-->	
+		
 			{if $cache['watched']==-1}
 			<div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./watchcache.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle;" src="../images/eye.png" alt="{$watch}"/></a> </div>	
 			{/if}
