@@ -79,6 +79,11 @@
 										AND status = 1");
 				$record = sql_fetch_array($rsnc);
 				$num_caches = $record['num_caches'];
+				
+								//count owncaches
+				$own_que = sql("SELECT COUNT(`cache_id`) as num_own_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." AND type = 10");
+				$own_fetch = sql_fetch_array($own_que);
+				$num_own_caches = $own_fetch['num_own_caches'];
 
 				if( $num_caches < $NEED_APPROVE_LIMIT )
 				{
@@ -447,7 +452,7 @@
 				foreach ($cache_types as $type)
 				{
                        // block register virtual or webcam
-				if( $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 9)
+				if( $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 9 || ($num_own_caches>=$OWNCACHE_LIMIT && $type['id'] == 10))
 						continue;
 					if ($type['id'] == $sel_type)
 					{

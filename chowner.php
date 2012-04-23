@@ -33,7 +33,7 @@
 		// lists all approved caches belonging to user
 		$cacheList = array();
 		$i = 0;
-		$sql = "SELECT cache_id, name, date_hidden FROM caches WHERE user_id='".sql_escape(intval($userid))."' AND status <> 4 ORDER BY ".sql_escape(orderBy($_GET['orderId']))." ".sql_escape(orderType($_GET['orderType']));
+		$sql = "SELECT cache_id, name, date_hidden FROM caches WHERE user_id='".sql_escape(intval($userid))."' AND status <> 4 AND type != 10 ORDER BY ".sql_escape(orderBy($_GET['orderId']))." ".sql_escape(orderType($_GET['orderType']));
 		$query = mysql_query($sql);
 		while( $cache = mysql_fetch_array($query) )
 		{

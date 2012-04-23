@@ -59,7 +59,11 @@
 					
 					// wihout virtuals and webcams
 					if( ( ($_POST['type'] == $CACHETYPE['VIRTUAL'] && $cache_record['type'] != $CACHETYPE['VIRTUAL'] ) || 
-						  ($_POST['type'] == $CACHETYPE['WEBCAM'] && $cache_record['type'] != $CACHETYPE['WEBCAM'] ) ) && 
+						  ($_POST['type'] == $CACHETYPE['WEBCAM'] && $cache_record['type'] != $CACHETYPE['WEBCAM'] ) ||
+					// without owncaches 
+						  ($_POST['type'] == $CACHETYPE['OWNCACHE'] && $cache_record['type'] != $CACHETYPE['OWNCACHE'] ) )						  
+						  
+						  && 
 						  !$usr['admin'] )
 					{
 						$_POST['type'] = $cache_record['type'];
@@ -672,6 +676,12 @@
 					}
 					tpl_set_var('terrainoptions', $terrain_options);
 
+					//count owncaches
+				$own_que = sql("SELECT COUNT(`cache_id`) as num_own_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." 
+										AND type = 10");
+				$own_fetch = sql_fetch_array($own_que);
+				$num_own_caches = $own_fetch['num_own_caches'];
+					
 					//build typeoptions
 					$types = '';
 					foreach ($cache_types as $type)
@@ -684,6 +694,15 @@
 							// then do not display in the list
 							continue;
 						}
+						// if above $OWNCACHE_LIMIT - do not show own cache in list
+						if( ( ( $cache_type != $CACHETYPE['OWNCACHE'] && $type['id'] == $CACHETYPE['OWNCACHE'] ) &&
+						$num_own_caches>=$OWNCACHE_LIMIT)  &&
+							  !$usr['admin'] )
+						{							
+						continue;
+						}
+						
+						
 						if ($type['id'] == $cache_type)
 						{
 							$types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
