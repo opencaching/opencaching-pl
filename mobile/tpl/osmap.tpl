@@ -26,6 +26,10 @@
 				}
 		  #map { height: 85%;
 				}		
+		  .leaflet-control-layers-base label { text-align: left ;
+		       }		
+		  .leaflet-control-layers-overlays label { text-align: left ;
+		       }		    
        </style>
 	{/literal}	
 </head>
@@ -44,21 +48,61 @@
   </div>
   
 	<script>
-		var map = new L.Map('map');
+
+		var cacheLocation = new L.LatLng({$lat},{$lon}) ;
+
 {literal} 
+
+		var osmAttribution = 'Map data: (cc-by-sa) OpenStreetMap.org contributors' ;
+		var osmOptions = {maxZoom: 18, attribution: osmAttribution};
+
+		// OSM (OSMapa.pl)
 		var OSMapaUrl = 'http://{s}.osm.trail.pl/{z}/{x}/{y}.png',
-			OSMapaAttribution = 'Map data cc-by-sa OpenStreetMap contributors, Hosting: trail.pl',
-			osmapa = new L.TileLayer(OSMapaUrl, {maxZoom: 18, attribution: OSMapaAttribution});
-{/literal}	
-		map.setView(new L.LatLng({$lat}, {$lon}), 13).addLayer(osmapa);
+			osmapa = new L.TileLayer(OSMapaUrl, osmOptions);
+
+		// OSM (Mapnik)
+		var mapnikUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+			mapnik = new L.TileLayer(mapnikUrl, osmOptions);
+
+		// shadow overlay
+		var shadowUrl = 'http://toolserver.org/%7Ecmarqu/hill/{z}/{x}/{y}.png',
+			shadow = new L.TileLayer(shadowUrl, osmOptions);		
+			
+		// OC.pl overlay
+		var ocplUrl = "http://opencaching.pl/lib/cgi-bin/mapper.fcgi?z={z}&x={x}&y={y}&sc=0&h_u=false&h_t=false&h_m=false&h_v=false&h_w=false&h_e=false&h_q=false&h_o=false&h_owncache=false&h_ignored=false&h_own=false&h_found=false&h_noattempt=false&h_nogeokret=false&h_avail=false&h_temp_unavail=true&h_arch=true&signes=true&waypoints=false&be_ftf=false&h_de=false&h_pl=true&h_se=false&h_no=false&min_score=-3&max_score=3.000&h_noscore=true&mapid=0&",
+			ocpl = new L.TileLayer(ocplUrl, osmOptions);
+			
+		// markers overlay
+		var cacheMarker = new L.Marker(cacheLocation);
+		var markers = new L.LayerGroup();
+		markers.addLayer(cacheMarker) ;
+		
+		var map = new L.Map('map', {
+				center: cacheLocation ,
+				zoom: 14,
+				layers: [osmapa, ocpl, markers]
+		});	
+
+		var baseMaps = {
+			    "OSMapa.pl": osmapa,
+			    "Mapnik": mapnik
+			};
+
+		var overlayMaps = {
+		        "Relief": shadow,
+				"Caches": ocpl,
+			    "Cache location": markers
+			};		
+
+{/literal}			
+		var layersControl = new L.Control.Layers(baseMaps, overlayMaps);
 
 
-		var markerLocation = new L.LatLng({$lat},{$lon}),
-			marker = new L.Marker(markerLocation);
-
-		map.addLayer(marker);
+		map.addControl(layersControl);
 		// marker.bindPopup("<b>{$smarty.get.wp}</b>").openPopup();
 
+	
+		
 
 		var circleLocation = new L.LatLng(51.508, -0.11),
 {literal} 		
