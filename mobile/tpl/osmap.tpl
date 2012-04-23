@@ -80,7 +80,7 @@
 		//map.addLayer(polygon);
 
 
-		map.on('click', onMapClick);
+		// map.on('click', onMapClick);
 
 		var popup = new L.Popup();
 
