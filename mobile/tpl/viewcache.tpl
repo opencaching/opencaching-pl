@@ -68,17 +68,19 @@
 		</table>
 	<br/>
 		{if $attr_text != ""}
-			<div class='button' style="width:22%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='javascript:alert("{$attr_text}");'><img style="vertical-align: middle;" src="../images/attributes.png" alt="{$show_attrib}"/></a></div>
+			<div class='button' style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='javascript:alert("{$attr_text}");'><img style="vertical-align: middle;" src="../images/attributes.png" alt="{$show_attrib}"/></a></div>
 		{/if}
 		
-			<div class="button" style="width:22%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./file2.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle; " src="../images/download.png" alt="{$download_file}"/></a></div>
-			<div class="button" style="width:22%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./googlemaps.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle;" src="../images/geo.png" alt="{$show_map}"/></a> </div>	
-			
+			<div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./file2.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle; " src="../images/download.png" alt="{$download_file}"/></a></div>
+			<div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./googlemaps.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle;" src="../images/geo.png" alt="{$show_map}"/></a> </div>	
+        <!--      
+			<div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./osmap.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle;" src="../images/osm.png" alt="{$show_map}"/></a> </div>	
+		-->	
 			{if $cache['watched']==-1}
-			<div class="button" style="width:22%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./watchcache.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle;" src="../images/eye.png" alt="{$watch}"/></a> </div>	
+			<div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./watchcache.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle;" src="../images/eye.png" alt="{$watch}"/></a> </div>	
 			{/if}
 			{if $cache['watched']>-1}
-			<div class="button" style="width:22%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./removewatch.php?id={$cache['watched']}'><img style="vertical-align: middle;" src="../images/eye2.png" alt="{$not_watch}"/></a> </div>	
+			<div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./removewatch.php?id={$cache['watched']}'><img style="vertical-align: middle;" src="../images/eye2.png" alt="{$not_watch}"/></a> </div>	
 			{/if}
 		<br/><hr/><br/>
 					
