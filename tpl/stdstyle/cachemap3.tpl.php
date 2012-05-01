@@ -493,6 +493,12 @@ ShowCoordsControl.prototype.setStyle_ = function(elem) {
 
 			var onClickFunc = function(overlay,point) 
 			{
+				if (overlay != null)
+					// overlay will be non-null only when click occurs within the infoWindow
+					// (in particular when closing the infoWindow). In such case it does not make
+					// sense to open another infoWindow (click occurs 'blind' at random place).
+					return;
+
 				point = lastCoords; // hack for IE8, get coords from last mousemove event instead of the click
 				if( point==undefined )
 					return;
