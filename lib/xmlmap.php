@@ -93,6 +93,12 @@
 	$zoom = $_GET['zoom'];
 	$lat = ($_GET['lat'])+0+mod4zoom($zoom);
 	$lon = ($_GET['lon'])+0;
+
+	$latmin = $lat + mod4zoom($zoom);
+	$latmax = $lat - mod4zoom($zoom);
+	$lonmin = $lon + mod4zoom($zoom);
+	$lonmax = $lon - mod4zoom($zoom);
+
 	$user_id = intval($_GET['userid']);
 	$username = getUsername($user_id);
 	
@@ -175,13 +181,12 @@
 		$filter_by_type_string .= " AND caches.cache_id IN (SELECT cache_id FROM caches WHERE wp_oc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND stateid<>5 AND typeid<>2)) OR (wp_gc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<> 4 AND typeid<>2)) AND wp_gc <> '') OR (wp_nc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) AND wp_nc <> '')) ";
 	else
 		$filter_by_type_string = "";
-		
-	$sql ="SELECT $h_sel_ignored caches.cache_id, IF($own_not_attempt, 1, 0) as found, caches.name, caches.node, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.size, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, caches.founds, caches.notfounds, ASIN(SQRT(POWER(SIN(($lat - ABS(COALESCE(caches.latitude,0))) * PI() / 180 / 2),2) + COS($lat * PI()/180) * COS(ABS(COALESCE(caches.latitude,0)) * PI() / 180) * POWER(SIN(($lon - COALESCE(caches.longitude,0)) * PI() / 180 / 2),2))) as distance FROM user, caches 
+
+	$sql ="SELECT $h_sel_ignored caches.cache_id, IF($own_not_attempt, 1, 0) as found, caches.name, caches.node, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.size, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, caches.founds, caches.notfounds FROM user, caches 
 	$h_ignored
-	WHERE caches.user_id = user.user_id AND caches.status < 4 
-	".$hide_by_type.$filter_by_type_string.$score_filter."
-	HAVING distance < ".distance4zoom($zoom)." ORDER BY distance ASC LIMIT 1";
-	
+	WHERE caches.user_id = user.user_id AND caches.status < 4 AND
+	(caches.latitude BETWEEN $latmin AND $latmax) AND (caches.longitude BETWEEN $lonmin AND $lonmax)
+	".$hide_by_type.$filter_by_type_string.$score_filter." LIMIT 1";
 	
 	
 	// for foreign caches -------------------------------------------------------------------------------------
@@ -238,34 +243,30 @@
 		$filter_by_type_string = " AND foreign_caches.cache_id IN (SELECT cache_id FROM foreign_caches WHERE wp_oc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) OR (wp_gc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<> 4 AND typeid<>2)) AND wp_gc <> '') OR (wp_nc IN (SELECT wp FROM gk_item_waypoint WHERE id IN (SELECT id FROM gk_item WHERE stateid<>1 AND stateid<>4 AND typeid<>2)) AND wp_nc <> '')) ";
 	else
 		$filter_by_type_string = "";
-	
 
 	
-	$sql_foreign ="SELECT foreign_caches.cache_id, foreign_caches.name, foreign_caches.username, foreign_caches.node, foreign_caches.wp_oc as wp, foreign_caches.topratings, foreign_caches.latitude, foreign_caches.longitude, foreign_caches.type, foreign_caches.size, foreign_caches.status as status, datediff(now(), foreign_caches.date_hidden) as old, foreign_caches.founds, foreign_caches.notfounds, ASIN(SQRT(POWER(SIN(($lat - ABS(COALESCE(foreign_caches.latitude,0))) * PI() / 180 / 2),2) + COS($lat * PI()/180) * COS(ABS(COALESCE(foreign_caches.latitude,0)) * PI() / 180) * POWER(SIN(($lon - COALESCE(foreign_caches.longitude,0)) * PI() / 180 / 2),2))) as distance FROM foreign_caches 
-	WHERE foreign_caches.status < 4 ".$hide_by_type.$filter_by_type_string."
-	HAVING distance < ".distance4zoom($zoom)." ORDER BY distance ASC LIMIT 1";
-	
-	$query = mysql_query($sql);
+	$sql_foreign ="SELECT foreign_caches.cache_id, foreign_caches.name, foreign_caches.username, foreign_caches.node, foreign_caches.wp_oc as wp, foreign_caches.topratings, foreign_caches.latitude, foreign_caches.longitude, foreign_caches.type, foreign_caches.size, foreign_caches.status as status, datediff(now(), foreign_caches.date_hidden) as old, foreign_caches.founds, foreign_caches.notfounds FROM foreign_caches 
+	WHERE foreign_caches.status < 4 AND
+	(foreign_caches.latitude BETWEEN $latmin AND $latmax) AND (foreign_caches.longitude BETWEEN $lonmin AND $lonmax)
+	".$hide_by_type.$filter_by_type_string." LIMIT 1";
 
-	
-	$query_foreign = mysql_query($sql_foreign);
-	//if( mysql_num_rows($query) == 0 )
-		//die();
-	$cache = mysql_fetch_array($query);
-	$cache_foreign = mysql_fetch_array($query_foreign);
-	//echo "lo=".$cache['distance']." for=".$cache_foreign['distance'];
-	
-	if($_GET['h_pl']=="false")
-		$cache = 0;
-	if($_GET['h_de']=="false")
-		$cache_foreign = 0;
-	
-	if( $cache['distance'] == "")
-		$cache = $cache_foreign;
-	else if( $cache_foreign['distance'] == "" )
-	{}
+	if(!($_GET['h_pl']=="false"))
+	{
+		$query = mysql_query($sql);
+		$cache = mysql_fetch_array($query);
+	}
 	else
-	if( $cache['distance'] > $cache_foreign['distance'] )
+		$cache = 0;
+
+	if(!($_GET['h_de']=="false"))
+	{
+		$query_foreign = mysql_query($sql_foreign);
+		$cache_foreign = mysql_fetch_array($query_foreign);
+	}
+	else
+		$cache_foreign = 0;
+
+	if( ($cache == 0) || ($cache['cache_id'] == "") )
 		$cache = $cache_foreign;
 
 	}
@@ -276,9 +277,9 @@
 
 		$own_not_attempt = "caches.cache_id IN (SELECT cache_id FROM cache_logs WHERE deleted=0 AND user_id='".sql_escape($user_id)."' AND (type=1 OR type=8))";
 
-		$sql ="SELECT caches.cache_id, IF($own_not_attempt, 1, 0) as found, caches.name, caches.node, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.size, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, caches.founds, caches.notfounds, ASIN(SQRT(POWER(SIN(($lat - ABS(COALESCE(caches.latitude,0))) * PI() / 180 / 2),2) + COS($lat * PI()/180) * COS(ABS(COALESCE(caches.latitude,0)) * PI() / 180) * POWER(SIN(($lon - COALESCE(caches.longitude,0)) * PI() / 180 / 2),2))) as distance FROM user, caches 
-		WHERE caches.cache_id IN (SELECT * FROM cache_ids) AND caches.user_id = user.user_id AND caches.status < 4 
-		HAVING distance < ".distance4zoom($zoom)." ORDER BY distance ASC LIMIT 1";
+		$sql ="SELECT caches.cache_id, IF($own_not_attempt, 1, 0) as found, caches.name, caches.node, user.username, caches.wp_oc as wp, caches.votes, caches.score, caches.topratings, caches.latitude, caches.longitude, caches.type, caches.size, caches.status as status, datediff(now(), caches.date_hidden) as old, caches.user_id, caches.founds, caches.notfounds FROM user, caches 
+		WHERE caches.cache_id IN (SELECT * FROM cache_ids) AND caches.user_id = user.user_id AND caches.status < 4 AND
+		(caches.latitude BETWEEN $latmin AND $latmax) AND (caches.longitude BETWEEN $lonmin AND $lonmax) LIMIT 1";
 
 //		print $sql;
 		$query = mysql_query($sql);
