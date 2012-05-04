@@ -789,6 +789,7 @@ int main(void)
 						fgcolor = (SDL_Color){255, 255, 255};
 						bgcolor = (SDL_Color){30, 30, 30};
 					}
+					TTF_SetFontOutline(font, 0);
 					TTF_SetFontStyle(font, TTF_STYLE_BOLD);
 					
 					SDL_Surface* fglabel = TTF_RenderUTF8_Blended(font, wp, fgcolor);
