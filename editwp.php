@@ -41,7 +41,7 @@
 			$wp_id = $_POST['wpid'];				
 			$remove = 1;
 			}			
-			$wp_rs = sql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`,`waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `wp_id`='&1'", $wp_id);
+			$wp_rs = sql("SELECT `wp_id`, `cache_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `opensprawdzacz`, `waypoint_type`.`pl` `wp_type`, `waypoint_type`.`icon` `wp_icon` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `wp_id`='&1'", $wp_id);
 			if (mysql_num_rows($wp_rs) == 1)
 			{	
 			$wp_record = sql_fetch_array($wp_rs);
@@ -90,8 +90,24 @@
 						}
 					}
 					tpl_set_var('typeoptions', $types);
-
-
+					
+					// ===== opensprawdzacz =====================================================
+					// hide or show opensprawdzacz section if type of waypoint is "final location"
+					if ($wp_type == 3) tpl_set_var('opensprawdzacz_display', 'block');
+					else tpl_set_var('opensprawdzacz_display', 'none');
+                    // checks checkbox if in database is checked.
+                    if ($wp_record['opensprawdzacz'] == 1)
+				      {
+ 				       tpl_set_var('opensprawdzacz_checked', 'checked=""');
+				      }
+                    else 
+					  {
+					   tpl_set_var('opensprawdzacz_checked', '');
+					  }
+					if (isset($_POST['oprawdzacz'])) $opensprawdzacz_taknie = 1;
+                    else $opensprawdzacz_taknie = 0;
+                    // ==== opensprawdzacz end ====================================================  
+					
 					if (isset($_POST['latNS']))
 					{
 						//get coords from post-form
@@ -224,9 +240,28 @@
 
 //							$wp_desc=nl2br($wp_desc);
 							//save to DB
-							sql("UPDATE `waypoints` SET `longitude`='&1', `latitude`='&2', `type`='&3',`status`='&4', `stage`='&5',`desc`='&6' WHERE `wp_id`='&7'", $wp_lon, $wp_lat, $wp_type, $wp_status,$wp_stage, $wp_desc, $wp_id);
+							sql("UPDATE `waypoints` SET `longitude`='&1', `latitude`='&2', `type`='&3',`status`='&4', `stage`='&5',`desc`='&6', `opensprawdzacz`='&8' WHERE `wp_id`='&7'", $wp_lon, $wp_lat, $wp_type, $wp_status,$wp_stage, $wp_desc, $wp_id, $opensprawdzacz_taknie);
 							sql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`='&1'", $cache_id);
 
+					        // ==== opensprawdzacz ===============================================
+					        // add/update active status to/in opensprawdzacz table
+					
+					        if (($opensprawdzacz_taknie == 1) && ($wp_type == 3))
+					           {
+					        	 $proba = mysql_num_rows(mysql_query("SELECT id FROM `opensprawdzacz` WHERE `cache_id` = '$cache_id'"));
+					        	 if ($proba == 0) {
+								                   sql("INSERT INTO `opensprawdzacz`(
+					                	                            `id`,  
+																	`cache_id`,  
+																	`proby`, 
+																	`sukcesy`) 
+					        						  VALUES ('', '$cache_id',   0,       0)");
+					        						  }
+								 mysql_free_result($proba);
+					           }
+					// ==== opensprawdzacz end ===========================================
+							
+							
 							//display cache-page
 							tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
 							exit;

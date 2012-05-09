@@ -814,11 +814,23 @@ cacheguides Geocaching Guides / Gurus
 guide Guide/Guru
 guides Guides/Gurus
 okapi_apps Your Apps
-
-
-
-
-
-
-
-
+os_kesz Cache
+os_autor by
+os_nie_ma_w_os Cache is not set up to work with Opensprawdzacz.
+os_podaj_waypoint Enter waypoint of cache to check (eg.: OP2E48)
+os_podaj_twoje Enter your coordinates:
+os_sprawdz Check
+os_stopnie Degrees
+os_minuty minutes
+os_tak_chce Checking this element allow users to checking their coordinates with OpenSprawdzacz.
+opensprawdzacz_main Cache owner gave you a chance to check if you get correct puzzle solution. (final cache coordinates). You can do it before you go cache hunting!
+os_pr Shots
+os_sukc Hits
+os_proba You've tried 
+os_razy times. Only 
+os_razy_koniec times is allowed.
+os_sukces YES!! You've correct coord's. Congratulations. 
+os_fail NO! Your answer is incorrect. Check your calculations again.
+os_za_godzine Wait 1 hour and try again.
+os_komunikat1 Check cache by waypoint: 
+os_komunikat2 Select cache from list: 

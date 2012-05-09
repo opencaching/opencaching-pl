@@ -831,6 +831,48 @@
 
 			tpl_set_var('desc_langs', $langlist);
 
+			// ===== opensprawdzacz ========================================================
+			/*
+			$os_exist = sql("SELECT `wp_id` 
+			                 FROM `waypoints` 
+			                 WHERE `cache_id`='&1'
+							 AND `type` = 3
+							 AND `opensprawdzacz` = 1",
+							 $cache_id);
+			*/
+            $os_exist = sql("SELECT `waypoints`.`wp_id` , 
+			                        `opensprawdzacz`.`proby`, 
+									`opensprawdzacz`.`sukcesy` 
+                             FROM   `waypoints`,  `opensprawdzacz`		
+                             WHERE  `waypoints`.`cache_id` = '&1' 
+                             AND    `waypoints`.`type` = 3
+							 AND    `waypoints`.`opensprawdzacz` = 1 
+							 AND    `waypoints`.`cache_id` = `opensprawdzacz`.cache_id 
+							 ",
+							 $cache_id
+							 );
+			if (mysql_num_rows($os_exist) !=0 )	
+			 {
+			  $dane_opensprawdzacza = mysql_fetch_array($os_exist);
+			  
+			  // tpl_set_var('proby',   $cache_id);
+			  // tpl_set_var('sukcesy', mysql_num_rows($os_exist));
+			  tpl_set_var('proby',   $dane_opensprawdzacza['proby']);
+			  tpl_set_var('sukcesy', $dane_opensprawdzacza['sukcesy']);
+			  tpl_set_var('opensprawdzacz', 'opensprawdzacz');
+			  tpl_set_var('opensprawdzacz_end','');
+			  tpl_set_var('opensprawdzacz_start','');
+			 }
+			else 
+			 {
+			  tpl_set_var('opensprawdzacz', 'brak danych do opensprawdzacza');
+			  tpl_set_var('opensprawdzacz_end','-->');
+			  tpl_set_var('opensprawdzacz_start','<!--');
+			  mysql_free_result($os_exist);
+			 }
+			// ===== opensprawdzacz end ====================================================
+			
+			
 			// show additional waypoints
 			//
 				if(checkField('waypoint_type',$lang) )

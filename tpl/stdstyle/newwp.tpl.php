@@ -17,10 +17,29 @@ function _chkType ()
 	{
 			document.waypoints_form.stage.value = "0";
 			document.waypoints_form.stage.disabled = true;
+			
 	}		
 		else {
 			document.waypoints_form.stage.value = nextstage;
-			document.waypoints_form.stage.disabled = false; }
+			document.waypoints_form.stage.disabled = false; 
+            
+			}
+  // ======= opensprawdzacz checkbox start ==============================
+  // this part of script display or hide section witch checkbox 
+  // which allow final waypoint to be used into OpenSprawdzacz  
+  //---------------------------------------------------------------------
+  if (document.waypoints_form.type.value == "3")
+  {
+   document.getElementById('osprc').style.display = 'block';
+  }
+  else 
+  {
+   document.getElementById('osprc').style.display = 'none';
+   document.getElementById('oprawdzacz').checked = false;
+  }
+  // ====== opensprawdzacz checkbox stop ================================
+
+  
   return false;
 }
 //-->
@@ -32,24 +51,28 @@ function _chkType ()
 <input type="hidden" name="cachetype" value="{cachetype}"/>
 <input type="hidden" name="nextstage" value="{nextstage}"/>
 <div class="searchdiv">
+
+
+
 <table width="90%" class="table" border="0">
-	<tr><td class="buffer" colspan="2"></td></tr>
-	<tr>
+	 <tr><td class="buffer" colspan="2"></td></tr>
+
+	 <tr>
 		<td class="content-title-noshade">{{type_wp2}}:</td>
 		<td>
 			<select name="type" class="input200" onChange="return _chkType()">
 				{typeoptions}
 			</select>{type_message}
 		</td>
-	</tr>
-	<tr><td>&nbsp;</td>
+	 </tr>
+	 <tr><td>&nbsp;</td>
 		<td><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a></div></td>
-	</tr>
+	 </tr>
 {start_stage}
 		<tr>
 		<td class="content-title-noshade">{{number_stage_wp}}:</td>
 		<td>
-		<input type="text" name="stage" maxlength="2" value="{stage}" class="input30" />{stage_message}
+		<input type="text"     name="stage" maxlength="2" value="{stage}" class="input30" />{stage_message}
 		</td>
 	</tr>
 	<tr>
@@ -79,14 +102,23 @@ function _chkType ()
 			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
 			{lon_message}
 			</fieldset>
+			
+		 <!-- === opensprawdzacz section checkbox start ================================== -->
+ 		  <div name="osprc" id="osprc" style="display: {opensprawdzacz_display};">
+	 	    <input type="checkbox"  id="oprawdzacz" name="oprawdzacz" {opensprawdzacz_checked}/> Opensprawdzacz<br/>
+			{{os_tak_chce}} 
+          </div>
+	     <!-- === opensprawdzacz section checkbox stop ==================================== -->
+			
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
 		<td valign="top" class="content-title-noshade">{{describe_wp}}:</td>
 		<td class="content-title-noshade">
-		<textarea name="desc" rows="10" cols="60">{desc}</textarea>{desc_message}</td>
-	</td>
+		 <textarea name="desc" rows="10" cols="60">{desc}</textarea>{desc_message}
+		</td>
+	
 	</tr>
 	<tr>
 		<td valign="top" class="content-title-noshade">{{status_wp}}:</td>

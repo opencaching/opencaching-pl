@@ -21,6 +21,22 @@ function _chkType ()
 		else {
 			document.waypoints_form.stage.value = nextstage;
 			document.waypoints_form.stage.disabled = false; }
+			
+  // ======= opensprawdzacz checkbox start ==============================
+  // this part of script display or hide section witch checkbox 
+  // which allow final waypoint to be used into OpenSprawdzacz  
+  //---------------------------------------------------------------------
+  if (document.waypoints_form.type.value == "3")
+  {
+   document.getElementById('osprc').style.display = 'block';
+  }
+  else 
+  {
+   document.getElementById('osprc').style.display = 'none';
+   document.getElementById('oprawdzacz').checked = false;
+  }
+  // ====== opensprawdzacz checkbox stop ================================			
+			
   return false;
 }
 //-->
@@ -79,6 +95,17 @@ function _chkType ()
 			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
 			{lon_message}
 			</fieldset>
+			
+		 <!-- === opensprawdzacz section checkbox start ================================== -->
+ 		  <div name="osprc" id="osprc" style="display: {opensprawdzacz_display};">
+	 	    <input type="checkbox"  id="oprawdzacz" name="oprawdzacz" {opensprawdzacz_checked}/> Opensprawdzacz<br/>
+			{{os_tak_chce}} 
+          </div>
+	     <!-- === opensprawdzacz section checkbox stop ==================================== -->
+						
+			
+			
+			
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>

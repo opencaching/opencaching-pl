@@ -852,3 +852,23 @@ cacheguides Przewodnicy po geocaching'u
 guide Przewodnik
 guides Przewodnicy
 okapi_apps Moje aplikacje
+os_kesz Kesz
+os_autor autorstwa
+os_nie_ma_w_os Autor tego kesza nie dodał możliwości sprawdzania współrzędnych finałowych w opensprawdzaczu
+os_podaj_waypoint Proszę wpisać waypoint kesza (np.: OP2E48) 
+os_podaj_twoje Podaj otrzymane współrzędne pojemnika finałowego:
+os_sprawdz Sprawdź
+os_stopnie Stopnie
+os_minuty minuty 
+os_tak_chce zaznaczenie tego elementu umożliwi użytkownikom sprawdzanie otrzymanych współrzędnych przy pomocy OpenSprawdzacza
+opensprawdzacz_main Autor tego kesza umożliwił sprawdzenie poprawoności rozwiązania zagadki (współrzędnych pojemnika finałowego) przed wyruszeniem w teren!
+os_pr prób
+os_sukc trafień
+os_proba próbowałeś zgadywać
+os_razy razy. Dopuszczalna ilość prób: 
+os_razy_koniec .
+os_sukces TAK! Masz poprawne współrzędne!!! Gratulacje.
+os_fail NIE! Twoje współrzędne są nieprawidłowe. Sprawdź swoje obliczenia!
+os_za_godzine Odczekaj godzinę i spróbuj ponownie.
+os_komunikat1 Sprawdź współrzędne keszynki wpisując jej waypoint
+os_komunikat2 Sprawdź współrzędne keszynki wybierając ją z listy:

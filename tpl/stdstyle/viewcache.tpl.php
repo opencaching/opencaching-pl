@@ -194,6 +194,24 @@ else
 			</div>
 <!-- End Text Container -->
 <!-- Text container -->
+
+
+{opensprawdzacz_start}
+
+<div class="content2-container bg-blue02">
+<p class="content-title-noshade-size1">
+<img src="tpl/stdstyle/images/blue/opensprawdzacz32x32.png" class="icon32" alt="" />
+OpenSprawdzacz 
+</p></div>
+<p>
+{{opensprawdzacz_main}}<br/><br/> 
+<a href="opensprawdzacz.php?op_keszynki={oc_waypoint}">{{os_sprawdz}}</a><br/><br/>
+</p>
+<p>{{statistics}}: 
+{{os_pr}}: {proby} razy, {{os_sukc}}: {sukcesy} razy. 
+{opensprawdzacz_end}
+
+
 {waypoints_start}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">

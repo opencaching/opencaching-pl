@@ -84,16 +84,24 @@
 					$lang_db = "en";
 					$types = '';
 //					if ($cache_record['type'] == '2' || $cache_record['type'] == '6' || $cache_record['type'] == '8' || $cache_record['type'] == '9')
-
+                     
+					 
+					 // check if final waypoint alreday exist for this cache
+					 $wp_check_final_exist = sql("SELECT `stage`,`type` FROM `waypoints`  WHERE `cache_id`='&1' AND type = 3", $cache_id);
+					 if (mysql_num_rows($wp_check_final_exist) == 1) $pomin = 1;
+					 else $pomin = 0;
+					 
 					foreach (get_wp_types_from_database($cache_record['type']) as $type)
 					{
 					if ($type['id'] == $sel_type)
 					{
-						$types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+						if (($type['id'] == 3) && ($pomin == 1) ) {} // if final waypoint alreday exist for this cache do not allow create new waypoint type "final location"
+						else $types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 					}
 						else
 						{
-						$types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+						if (($type['id'] == 3) && ($pomin == 1) ) {} //// if final waypoint alreday exist for this cache do not allow create new waypoint type "final location"
+						else $types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 						}
 					}					
 									
@@ -133,7 +141,22 @@
 
 				$lat_min = isset($_POST['lat_min']) ? $_POST['lat_min'] : '00.000';
 				tpl_set_var('lat_min', htmlspecialchars($lat_min, ENT_COMPAT, 'UTF-8'));
+                 
+				// =============== opensprawdzacz =======================================================
+				// is variable $_POST['oprawdzacz'] exist then $opensprawdzacz_taknie should be set up as 1
+				// otherwise $opensprawdzacz_taknie should be set up as 0
+                 if (isset($_POST['oprawdzacz'])) 
+				  {
+				   $opensprawdzacz_taknie = 1; 
+				   tpl_set_var('opensprawdzacz_checked', 'checked=""');
+				  }
+				 else $opensprawdzacz_taknie = 0;
+				 // hides or shows opensprawdzacz checkbox depend on type of waypoint
+				 if ($sel_type == 3) tpl_set_var('opensprawdzacz_display', 'block');
+				 else tpl_set_var('opensprawdzacz_display', 'none');				 
+				//================ opensprawdzacz end ===================================================
 
+				
 				//stage
 				$wp_stage= isset($_POST['stage']) ? $_POST['stage'] : '0';
 				
@@ -330,18 +353,38 @@
 													`type` ,
 													`status` ,
 													`stage` ,
-													`desc`
+													`desc` ,
+													`opensprawdzacz`
 												) VALUES (
-													'', '&1', '&2', '&3', '&4', '&5', '&6', '&7')",
+													'', '&1', '&2', '&3', '&4', '&5', '&6', '&7', '&8')",
 												$cache_id,
 												$longitude,
 												$latitude,
 												$sel_type,
 												$wp_status,
 												$wp_stage,
-												$wp_desc);
+												$wp_desc,
+												$opensprawdzacz_taknie
+												);
 							sql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`='&1'", $cache_id);												
-							tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
+					
+					// ==== opensprawdzacz ===============================================
+					// add/update active status to/in opensprawdzacz table
+					
+					if (($opensprawdzacz_taknie == 1) && ($sel_type == 3))
+					   {
+					   
+						 $proba = mysql_num_rows(mysql_query("SELECT id FROM `opensprawdzacz` WHERE `cache_id` = '&1'", $cache_id));	
+						 if ($proba == 0) 
+						  {
+						   sql("INSERT INTO `opensprawdzacz`(`id`,  `cache_id`,  `proby`, `sukcesy`) 
+							                         VALUES ('', '$cache_id',   0,       0)");
+						  }
+						  mysql_free_result($proba);
+					   }
+					// ==== opensprawdzacz end ===========================================
+					
+					tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
 					// end of insert to sql
 					}else
 					{

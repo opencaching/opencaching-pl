@@ -310,6 +310,15 @@ $menu = array(
 		'filename' => '/okapi',
 		'siteid' => 'api'
 	),
+		array(
+		'title' => 'OpenSprawdzacz',
+		'menustring' => 'OpenSprawdzacz',
+		'visible' => true,
+		'filename' => 'opensprawdzacz.php',
+		'siteid' => 'opensprawdzacz'
+	),
+	
+	
 	array(
 		'title' => tr('clipboard'),
 		'menustring' => tr('clipboard'),
