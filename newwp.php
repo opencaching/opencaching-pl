@@ -141,7 +141,7 @@
 
 				$lat_min = isset($_POST['lat_min']) ? $_POST['lat_min'] : '00.000';
 				tpl_set_var('lat_min', htmlspecialchars($lat_min, ENT_COMPAT, 'UTF-8'));
-                 
+                 /*
 				// =============== opensprawdzacz =======================================================
 				// is variable $_POST['oprawdzacz'] exist then $opensprawdzacz_taknie should be set up as 1
 				// otherwise $opensprawdzacz_taknie should be set up as 0
@@ -155,7 +155,7 @@
 				 if ($sel_type == 3) tpl_set_var('opensprawdzacz_display', 'block');
 				 else tpl_set_var('opensprawdzacz_display', 'none');				 
 				//================ opensprawdzacz end ===================================================
-
+                */
 				
 				//stage
 				$wp_stage= isset($_POST['stage']) ? $_POST['stage'] : '0';
@@ -345,6 +345,7 @@
 					if (!($descwp_not_ok || $lon_not_ok || $lat_not_ok || $type_not_ok))
 					{
 						//add record 
+						/* opensprawdzacz
 						sql("INSERT INTO `waypoints` (
 													`wp_id`,
 													`cache_id`,
@@ -366,8 +367,32 @@
 												$wp_desc,
 												$opensprawdzacz_taknie
 												);
+						*/
+						
+						
+												sql("INSERT INTO `waypoints` (
+													`wp_id`,
+													`cache_id`,
+													`longitude`,
+													`latitude`,
+													`type` ,
+													`status` ,
+													`stage` ,
+													`desc` 
+												) VALUES (
+													'', '&1', '&2', '&3', '&4', '&5', '&6', '&7')",
+												$cache_id,
+												$longitude,
+												$latitude,
+												$sel_type,
+												$wp_status,
+												$wp_stage,
+												$wp_desc
+												);
+						
+						
 							sql("UPDATE `caches` SET  `last_modified`=NOW() WHERE `cache_id`='&1'", $cache_id);												
-					
+					/*
 					// ==== opensprawdzacz ===============================================
 					// add/update active status to/in opensprawdzacz table
 					
@@ -383,7 +408,7 @@
 						  mysql_free_result($proba);
 					   }
 					// ==== opensprawdzacz end ===========================================
-					
+					*/
 					tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
 					// end of insert to sql
 					}else
