@@ -313,7 +313,7 @@ $menu = array(
 		array(
 		'title' => 'OpenSprawdzacz',
 		'menustring' => 'OpenSprawdzacz',
-		'visible' => true,
+		'visible' => false,
 		'filename' => 'opensprawdzacz.php',
 		'siteid' => 'opensprawdzacz'
 	),
