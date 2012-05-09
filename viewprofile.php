@@ -458,14 +458,14 @@ function myUrlEncode($string) {
 				{$content .= '</p>';}
 				else						
 
-			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=111110111&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
+			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
 
 			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('total_of_active_caches').':  </span><strong>' . $hidden . '</strong>';	
 			if ($hidden == 0) 
 				{$content .= '</p>';}
 				else						
 
-			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=111110111&amp;searchbyowner=&amp;f_inactive=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
+			{$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">'.tr('show').'</a>]</p>';}
 
 			$hidden_temp =  sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=2 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
 			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_temp_caches').':  </span><strong>' . $hidden_temp . '</strong></p>';
@@ -483,7 +483,7 @@ function myUrlEncode($string) {
 if ( $recomendr != 0){
 
 			$ratio= sprintf("%u",($recommend_caches/$hidden_all)*100);
-			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_obtain_recommendations').':</span> <strong>' . $recomendr . '</strong> '.tr('for').' <strong>' .$recommend_caches. '</strong> '.tr('_caches_').' &nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=111110111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">'.tr('show').'</a>]</p>
+			$content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_obtain_recommendations').':</span> <strong>' . $recomendr . '</strong> '.tr('for').' <strong>' .$recommend_caches. '</strong> '.tr('_caches_').' &nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=1111101111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">'.tr('show').'</a>]</p>
 <p><span class="content-title-noshade txt-blue08">'.tr('ratio_recommendations').':</span> <strong>'.$ratio.'%</strong></p>'; 
 }
 
