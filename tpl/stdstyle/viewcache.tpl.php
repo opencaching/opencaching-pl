@@ -195,7 +195,7 @@ else
 <!-- End Text Container -->
 <!-- Text container -->
 
-
+<!--
 {opensprawdzacz_start}
 
 <div class="content2-container bg-blue02">
@@ -210,7 +210,7 @@ OpenSprawdzacz
 <p>{{statistics}}: 
 {{os_pr}}: {proby} razy, {{os_sukc}}: {sukcesy} razy. 
 {opensprawdzacz_end}
-
+-->
 
 {waypoints_start}
 			<div class="content2-container bg-blue02">
