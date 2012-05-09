@@ -22,6 +22,7 @@
 
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
+	$OWNCACHE_LIMIT=$GLOBALS['owncache_limit'];
 
 	//Preprocessing
 	if ($error == false)

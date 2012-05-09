@@ -20,6 +20,7 @@
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	$ocWP=$GLOBALS['oc_waypoint'];
+	$OWNCACHE_LIMIT=$GLOBALS['owncache_limit'];
 	$no_tpl_build = false;
 
 	//Preprocessing
