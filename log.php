@@ -84,8 +84,8 @@
 				else
 				{
 					$record = sql_fetch_array($rs);
-					// only OC Team member and the owner allowed to make logs to not published or archived caches
-					if ($record['user_id'] == $usr['userid'] || ($record['status'] != 5 && $record['status'] != 4 && $record['status'] != 3 && $record['status'] != 6) || $usr['admin'])
+					// only OC Team member and the owner allowed to make logs to not published caches
+					if ($record['user_id'] == $usr['userid'] || ($record['status'] != 5 && $record['status'] != 4 && $record['status'] != 6) || $usr['admin'])
 					{
 						$cachename = $record['name'];
 						$cache_user_id = $record['user_id'];
