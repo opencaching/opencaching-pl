@@ -123,9 +123,9 @@ if (isset($_POST['stopnie_N']))
   $dane = mysql_fetch_array($result);
   $licznik_prob = $dane['proby']+1;
   
-  $wspolrzedneN_wzorcowe = $dane['longitude'];
-  $wspolrzedneE_wzorcowe = $dane['latitude'];
-	
+  $wspolrzedneN_wzorcowe = $dane['latitude'];
+  $wspolrzedneE_wzorcowe = $dane['longitude'];
+
   //comparing data from post with data from database	
   if (
 	    (($wspolrzedneN_wzorcowe - $wspolrzedneN) < 0.00001) && 
