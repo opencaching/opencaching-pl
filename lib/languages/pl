@@ -852,7 +852,7 @@ cacheguides Przewodnicy po geocaching'u
 guide Przewodnik
 guides Przewodnicy
 okapi_apps Moje aplikacje
-os_kesz Kesz
+os_kesz Geocache
 os_autor autorstwa
 os_nie_ma_w_os Autor tego geocache nie dodał możliwości sprawdzania współrzędnych finałowych w opensprawdzaczu
 os_podaj_waypoint Proszę wpisać waypoint geocache (np.: OP2E48) 
@@ -861,7 +861,7 @@ os_sprawdz Sprawdź
 os_stopnie Stopnie
 os_minuty minuty 
 os_tak_chce zaznaczenie tego elementu umożliwi użytkownikom sprawdzanie otrzymanych współrzędnych przy pomocy OpenSprawdzacza
-opensprawdzacz_main Autor tego kesza umożliwił sprawdzenie poprawoności rozwiązania zagadki (współrzędnych pojemnika finałowego) przed wyruszeniem w teren!
+opensprawdzacz_main Autor tego geocache umożliwił sprawdzenie poprawoności rozwiązania zagadki (współrzędnych pojemnika finałowego) przed wyruszeniem w teren!
 os_pr prób
 os_sukc trafień
 os_proba próbowałeś zgadywać
