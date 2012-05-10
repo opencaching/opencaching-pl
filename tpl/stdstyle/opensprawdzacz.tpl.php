@@ -5,14 +5,14 @@ OpenSprawdzacz
 {sekcja_1_start}
 <div class="content2-container bg-blue02">
 <p class="content-title-noshade-size1">
-<img src="tpl/stdstyle/images/blue/empty-32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" /> 
+<img src="tpl/stdstyle/images/blue/empty.png" alt="" align="middle" /> 
 {{os_komunikat1}}
 </p></div>
 
 <p>{formularz}</p>
 <div class="content2-container bg-blue02">
 <p class="content-title-noshade-size1">
-<img src="tpl/stdstyle/images/blue/empty-32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" /> 
+<img src="tpl/stdstyle/images/blue/empty.png" alt="" align="middle" /> 
 {{os_komunikat2}}
 </p></div>
 <br/><br/><br/>
