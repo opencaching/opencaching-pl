@@ -11,7 +11,9 @@ OpenSprawdzacz
 <p>{formularz}</p>
 <div class="content2-container bg-blue02">
 <p class="content-title-noshade-size1">
+<br/>
 {{os_komunikat2}}
+<br/>
 </p></div>
 <br/><br/><br/>
 <div class="searchdiv">
