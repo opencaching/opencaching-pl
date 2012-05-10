@@ -249,7 +249,7 @@
 					
 					        if (($opensprawdzacz_taknie == 1) && ($wp_type == 3))
 					           {
-					        	 $proba = mysql_num_rows(mysql_query("SELECT id FROM `opensprawdzacz` WHERE `cache_id` = '$cache_id'"));
+					        	 $proba = mysql_num_rows(sql("SELECT id FROM `opensprawdzacz` WHERE `cache_id` = '$cache_id'"));
 					        	 if ($proba == 0) {
 								                   sql("INSERT INTO `opensprawdzacz`(
 					                	                            `id`,  

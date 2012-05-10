@@ -1,7 +1,7 @@
 <?php 
 ## do zrobienia:
-## - walidacja czy z posta są przekazywane wartości numeryczne
-## - lista keszy w opensprawdzaczu - przewijanie do dalszych
+## - walidacja czy z posta są przekazywane wartości numeryczne (malo istotne, najwyzej zwroci ze wynik zly)
+## - lista keszy w opensprawdzaczu - przewijanie do dalszych (na razie obsluguje 100 keszynek)
 ## layout jak mycache.php
 
 
@@ -194,7 +194,7 @@ if (isset($_POST['stopnie_N']))
 				 AND   `caches`.`user_id` = `user`.`user_id`
 		         AND   `waypoints`.`cache_id` = `caches`.`cache_id`
 			ORDER BY   `caches`.`name`
-			   LIMIT   1, 100
+			   LIMIT   0, 100
 				 ";
 				 
 $status = array (

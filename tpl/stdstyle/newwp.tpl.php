@@ -105,8 +105,9 @@ function _chkType ()
 			
 		 <!-- === opensprawdzacz section checkbox start ================================== -->
  		  <div name="osprc" id="osprc" style="display: {opensprawdzacz_display};">
+		    <br />
 	 	    <input type="checkbox"  id="oprawdzacz" name="oprawdzacz" {opensprawdzacz_checked}/> Opensprawdzacz<br/>
-			{{os_tak_chce}} 
+			<div class="notice" style="width:350px;height:80px;">{{os_tak_chce}} </div>
           </div>
 	     <!-- === opensprawdzacz section checkbox stop ==================================== -->
 			

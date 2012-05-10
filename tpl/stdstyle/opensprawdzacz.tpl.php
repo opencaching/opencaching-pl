@@ -1,7 +1,12 @@
 <div class="content2-pagetitle"> 
 <img src="tpl/stdstyle/images/blue/opensprawdzacz32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" /> 
-OpenSprawdzacz
+OpenSprawdzacz	
 </div> 
+<div  class="notice" style="height:70px;">Aby dodać swoją skrzynkę do OpenSprawdzacza: W panelu edycji kesza dodaj nowy waypoint "Punkt koncowy" i zaznacz "OpenSprawdzacz"<br>
+Nie zapomnij ustawić status waypointa na "niewidoczny".
+
+</div>
+
 {sekcja_1_start}
 <div class="content2-container bg-blue02">
 <p class="content-title-noshade-size1">

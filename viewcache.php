@@ -856,7 +856,6 @@
 			if (mysql_num_rows($os_exist) !=0 )	
 			 {
 			  $dane_opensprawdzacza = mysql_fetch_array($os_exist);
-			  
 			  // tpl_set_var('proby',   $cache_id);
 			  // tpl_set_var('sukcesy', mysql_num_rows($os_exist));
 			  tpl_set_var('proby',   $dane_opensprawdzacza['proby']);
@@ -870,8 +869,8 @@
 			  tpl_set_var('opensprawdzacz', 'brak danych do opensprawdzacza');
 			  tpl_set_var('opensprawdzacz_end','-->');
 			  tpl_set_var('opensprawdzacz_start','<!--');
-			  mysql_free_result($os_exist);
 			 }
+			 mysql_free_result($os_exist);
 			// ===== opensprawdzacz end ====================================================
 			
 			
