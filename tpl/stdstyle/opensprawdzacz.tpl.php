@@ -15,8 +15,7 @@ OpenSprawdzacz
 <img src="tpl/stdstyle/images/blue/opensprawdzacz32x32.png" class="icon32" alt="" />
 {{os_komunikat2}}
 </p></div>
-
-
+<br/>
 <div class="searchdiv">
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
  <tr>
