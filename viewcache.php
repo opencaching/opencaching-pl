@@ -841,7 +841,7 @@
 							 $cache_id);
 			*/
 			
-			/*
+			
             $os_exist = sql("SELECT `waypoints`.`wp_id` , 
 			                        `opensprawdzacz`.`proby`, 
 									`opensprawdzacz`.`sukcesy` 
@@ -873,7 +873,7 @@
 			  mysql_free_result($os_exist);
 			 }
 			// ===== opensprawdzacz end ====================================================
-			*/
+			
 			
 			// show additional waypoints
 			//

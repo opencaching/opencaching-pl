@@ -194,7 +194,7 @@ if (isset($_POST['stopnie_N']))
 				 AND   `caches`.`user_id` = `user`.`user_id`
 		         AND   `waypoints`.`cache_id` = `caches`.`cache_id`
 			ORDER BY   `caches`.`name`
-			   LIMIT   0, 100
+			   LIMIT   1, 100
 				 ";
 				 
 $status = array (
@@ -239,7 +239,6 @@ $status = array (
   tpl_set_var("formularz",$formularz);
   tpl_set_var("keszynki",$tabelka_keszynek);
   mysql_free_result($keszynki_opensprawdzacza);
-  mysql_free_result($dane_keszynek);
   goto endzik;
  }
 
