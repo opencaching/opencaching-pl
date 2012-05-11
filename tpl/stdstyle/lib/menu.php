@@ -310,13 +310,6 @@ $menu = array(
 		'filename' => '/okapi',
 		'siteid' => 'api'
 	),
-		array(
-		'title' => 'OpenSprawdzacz',
-		'menustring' => 'OpenSprawdzacz',
-		'visible' => true,
-		'filename' => 'opensprawdzacz.php',
-		'siteid' => 'opensprawdzacz'
-	),
 	
 	
 	array(
@@ -630,6 +623,13 @@ $menu = array(
 				'visible' => true,
 				'filename' => 'searchuser.php'
 			),
+		array(
+		'title' => 'OpenSprawdzacz',
+		'menustring' => 'OpenSprawdzacz',
+		'visible' => true,
+		'filename' => 'opensprawdzacz.php',
+		'siteid' => 'opensprawdzacz'
+	),
 			array(
             'title' => tr('okapi_apps'),
             'menustring' => tr('okapi_apps'),
