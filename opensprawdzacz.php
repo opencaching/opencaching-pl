@@ -215,16 +215,15 @@ $status = array (
    {
     $dane_keszynek = mysql_fetch_array($keszynki_opensprawdzacza);
     $tabelka_keszynek .= '<tr>
-	                       <td><a href="viewcache.php?wp='.$dane_keszynek['wp_oc'].'"><img src="tpl/stdstyle/images/'.$dane_keszynek['icon_small'].'" /></a></td>
-						  
-						   <td><a href="opensprawdzacz.php?op_keszynki='.$dane_keszynek['wp_oc'].'"> '. $dane_keszynek['name'] . '</a> ('.$dane_keszynek['wp_oc'] .')</td>
-						   <td>'.$dane_keszynek['username'] . '</td>
-						   <td>'.$status[$dane_keszynek['status']].'</td>
-						   <td>'.$dane_keszynek['proby'] . '</td>
-						   <td>'.$dane_keszynek['sukcesy'] . '</td>
+                           <td><a class="links" href="viewcache.php?wp='.$dane_keszynek['wp_oc'].'">'.$dane_keszynek['wp_oc'].'</a></td>
+                           <td><a class="links" href="opensprawdzacz.php?op_keszynki='.$dane_keszynek['wp_oc'].'"> '. $dane_keszynek['name'] . '</a> </td>
+                           <td><a href="viewcache.php?wp='.$dane_keszynek['wp_oc'].'"><img src="tpl/stdstyle/images/'.$dane_keszynek['icon_small'].'" /></a></td>
+                           <td align="center">'.$status[$dane_keszynek['status']].'</td>
+                           <td><a href="viewprofile.php?userid='.$dane_keszynek['user_id'].'">'.$dane_keszynek['username'] . '</td>
+                           <td align="center">'.$dane_keszynek['proby'] . '</td>
+                           <td align="center">'.$dane_keszynek['sukcesy'] . '</td>
 						 </tr>';
    }
-   
   
   tpl_set_var("sekcja_1_start",'');
   tpl_set_var("sekcja_1_stop", '');
@@ -243,12 +242,18 @@ $status = array (
  }
 
 
+ // sekcja 2 (wyswietla dane kesza i formularz do wpisania współrzędnych)
  // pobieramy dane z bazy
+ 
+ 
  $rs = sql("SELECT `caches`.`name`,
                    `caches`.`cache_id`,
+				   `caches`.`type`,
+				   `cache_type`.`icon_large`,
                    `user`.`username`
-			FROM   `caches`, `user`  
+			FROM   `caches`, `user`, `cache_type` 
             WHERE  `caches`.`user_id` = `user`.`user_id` 
+			AND    `caches`.`type` = `cache_type`.`id`
 			AND    `caches`.`wp_oc` = '&1'",$cache_wp);
 
  $record = mysql_fetch_array($rs);
@@ -265,6 +270,7 @@ $status = array (
  tpl_set_var("sekcja_4_stop", '-->');  
  
  tpl_set_var("wp_oc",$cache_wp);
+ tpl_set_var("ikonka_keszyny", '<img src="tpl/stdstyle/images/'.$record['icon_large'].'" />');
  tpl_set_var("cacheid",$record['cache_id']);
  tpl_set_var("ofner",$record['username']);
  tpl_set_var("cachename",$record['name']);  

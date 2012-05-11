@@ -834,3 +834,5 @@ os_fail NO! Your answer is incorrect. Check your calculations again.
 os_za_godzine Wait 1 hour and try again.
 os_komunikat1 Check cache by waypoint: 
 os_komunikat2 Select cache from list: 
+os_typ type
+os_spr_form Checkig final cache coordinates

@@ -853,7 +853,7 @@ guide Przewodnik
 guides Przewodnicy
 okapi_apps Moje aplikacje
 os_kesz Geocache
-os_autor autorstwa
+os_autor autor:
 os_nie_ma_w_os Autor tego geocache nie dodał możliwości sprawdzania współrzędnych finałowych w opensprawdzaczu
 os_podaj_waypoint Proszę wpisać waypoint geocache (np.: OP2E48) 
 os_podaj_twoje Podaj otrzymane współrzędne pojemnika finałowego:
@@ -872,3 +872,6 @@ os_fail NIE! Twoje współrzędne są nieprawidłowe. Sprawdź swoje obliczenia!
 os_za_godzine Odczekaj godzinę i spróbuj ponownie.
 os_komunikat1 Sprawdź współrzędne geocache wpisując jego waypoint
 os_komunikat2 Sprawdź współrzędne geocache wybierając go z listy:
+os_typ typ
+os_spr_form Sprawdzanie współrzędnych finałowych keszynki:
+ 

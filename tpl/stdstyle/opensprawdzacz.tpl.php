@@ -23,20 +23,25 @@ Nie zapomnij ustawić status waypointa na "niewidoczny".
 <br/><br/><br/>
 <div class="searchdiv">
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
+
+
+<tr>
+<td>waypoint</td>
+<td>{{cache_name}}</td>
+<td>{{os_typ}}</td>
+
+<td>status</td>
+<td>{{owner_label}}</td>
+<td>{{os_pr}}</td>
+<td>{{os_sukc}}</td>
+</tr>
+
  <tr>
-  <td><strong>{{cache_type}}</strong></td>
-  <td><strong>{{cache_name}}</strong></td>
-  <td>{{owner_label}}</td>
-  <td><strong>status</strong></td>
-  <td>{{os_pr}}</td>
-  <td>{{os_sukc}}</td>
- </tr>
- <tr>
-  <td colspan="6"><hr></hr></td>
+  <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td>
  </tr>
 		{keszynki}
  <tr>
-  <td colspan="6"><hr></hr></td>
+  <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="5" width="100%"/></td>
  </tr>
 </table>
 </div>
@@ -48,7 +53,26 @@ Nie zapomnij ustawić status waypointa na "niewidoczny".
 {sekcja_2_start}
 <div class="searchdiv"> 
 <br/> 
-<p>{{os_kesz}}:<b> {cachename}</b>  - {wp_oc}, {{os_autor}} <i>{ofner}</i> </p> 
+
+<div class="content2-container bg-blue02">
+<p class="content-title-noshade-size1">
+<img src="tpl/stdstyle/images/blue/opensprawdzacz32x32.png" class="icon32" alt="" />
+{{os_spr_form}}
+</p></div>
+
+<p>
+<table width="99%"><tr><td width="40">{ikonka_keszyny}</td>
+<td valign="top">
+{wp_oc} <br /><b>  {cachename}</b>    
+</td>
+<td> </td>
+<td align="right">
+ {{os_autor}} <br/><i>{ofner}</i> 
+</td>
+</tr>
+<tr><td colspan="4"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td></tr>
+</table>
+</p> 
 <p>{okienka}</p> 
 {sekcja_formularz_opensprawdzacza_start}
 <form name="sprawdzeniie" action="opensprawdzacz.php" method="post">
