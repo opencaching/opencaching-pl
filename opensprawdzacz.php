@@ -23,19 +23,20 @@ else
  // wskazanie pliku z kodem html ktory jest w tpl/stdstyle/ 
  $tplname = 'opensprawdzacz';
 
+  tpl_set_var("sekcja_5_start",'<!--');
+  tpl_set_var("sekcja_5_stop",'-->');
  
-
 // jeśli istnieje $_POST['stopnie_N'] znaczy że użytkownik wpisał współrzędne
-// sekcja sprawdzająca poprawność wpisanych współrzędnych 
+// sekcja 3 - sprawdzająca poprawność wpisanych współrzędnych 
+
 if (isset($_POST['stopnie_N']))
 {
-  tpl_set_var("sekcja_3_start",'');
-  tpl_set_var("sekcja_3_stop",'');
-  tpl_set_var("sekcja_2_start",'<!--');
-  tpl_set_var("sekcja_2_stop",'-->');
-  tpl_set_var("sekcja_1_start",'<!--');
-  tpl_set_var("sekcja_1_stop",'-->'); 
- 
+ tpl_set_var("sekcja_3_start",'');
+ tpl_set_var("sekcja_3_stop",'');
+ tpl_set_var("sekcja_2_start",'<!--');
+ tpl_set_var("sekcja_2_stop",'-->');
+ tpl_set_var("sekcja_1_start",'<!--');
+ tpl_set_var("sekcja_1_stop",'-->'); 
   
  //check how many times user tried to guess answer 
  // sprawdzamy czy user nie używa brutal force
@@ -55,18 +56,21 @@ if (isset($_POST['stopnie_N']))
 	 if ($czas_jaki_uplynal > 3600)
 	  {
 	   $_SESSION['opensprawdzacz_licznik'] = 1;
-	   $_SESSION['opensprawdzacz_czas'] = date('U');
+	   $_SESSION['opensprawdzacz_czas'] = $czas_teraz;
 	  }
      else
 	  {
-	   $_SESSION['opensprawdzacz_czas'] = date('U');
+	   // $_SESSION['opensprawdzacz_czas'] = date('U');
+	   $czas_jaki_uplynal = round (60 - ($czas_jaki_uplynal / 60));
        tpl_set_var("licznik_zgadywan", $_SESSION["opensprawdzacz_licznik"]);
-	   tpl_set_var("test1", 'Metoda brutalnej siły?!?!?!?');
-	   tpl_set_var("wynik", 'Zgadywałeś(aś) za dużo razy!!');
+	   tpl_set_var("test1", tr(os_zgad));
+	   tpl_set_var("wynik", '');
+	   tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_stop.png" />');
 	   tpl_set_var("sekcja_4_start", '');
 	   tpl_set_var("sekcja_4_stop", '');
+	   tpl_set_var("twoje_ws", 'Masz maksymalnie '.$ile_prob.' prób / godzinę <br> Musisz odczekać jeszcze ' . $czas_jaki_uplynal .' minut'); 
 	   goto endzik;
-	  }
+	  } 
 	}
    else
     {
@@ -117,9 +121,9 @@ if (isset($_POST['stopnie_N']))
 			  AND `waypoints`.`opensprawdzacz` = 1
 			  AND `waypoints`.`type` = 3 
 			  AND `waypoints`.`cache_id`= `opensprawdzacz`.`cache_id`
-			  "
+			  ", 
+			  $cache_id);
 			  
-			  , $cache_id);
   $dane = mysql_fetch_array($result);
   $licznik_prob = $dane['proby']+1;
   
@@ -139,15 +143,25 @@ if (isset($_POST['stopnie_N']))
 		 $licznik_sukcesow = $dane['sukcesy']+1;
 		 sql("UPDATE `opensprawdzacz` SET `proby`=$licznik_prob,`sukcesy`=$licznik_sukcesow  WHERE `cache_id` = $cache_id");
 		 tpl_set_var("test1", tr('os_sukces'));
+		 tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_tak.png" />');
 	  }
     else 
 	  {
 	     //puzzle not solved - restult wrong
 		 sql("UPDATE `opensprawdzacz` SET `proby`='$licznik_prob'  WHERE `cache_id` = $cache_id");
 		 tpl_set_var("test1", tr('os_fail'));
+		 tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_nie.png" />');
 	  }
   //tpl_set_var("wynik", $wspolrzedneN.'/'.$wspolrzedneN_wzorcowe.'<br>'.$wspolrzedneE.'/'. $wspolrzedneE_wzorcowe);
   tpl_set_var("wynik",'');
+  
+  
+  
+ // tpl_set_var("wsp_NS", );
+ // tpl_set_var("wsp_EW", );
+  tpl_set_var("twoje_ws", tr('os_twojews') . '<b> N '. $stopnie_N.'°'.$minuty_N . '</b>/<b> E '. $stopnie_E.'°'.$minuty_E .'</b>');
+  tpl_set_var("cache_id",  $cache_id); 
+  
   
   goto endzik;
 }  
@@ -256,8 +270,7 @@ $status = array (
 			AND    `caches`.`type` = `cache_type`.`id`
 			AND    `caches`.`wp_oc` = '&1'",$cache_wp);
 
- $record = mysql_fetch_array($rs);
- $cache_id = $record['cache_id'];
+
  
  // przekaznie wynikow w postaci zmiennych do pliku z kodem html
  tpl_set_var("sekcja_1_start",'<!--');
@@ -268,6 +281,20 @@ $status = array (
  tpl_set_var("sekcja_3_stop",'-->'); 
  tpl_set_var("sekcja_4_start",'<!--');
  tpl_set_var("sekcja_4_stop", '-->');  
+ 
+ $czyjest = mysql_num_rows($rs);
+ if ($czyjest == 0)
+ {
+  tpl_set_var("ni_ma_takiego_kesza", tr(ni_ma_takiego_kesza));
+  tpl_set_var("sekcja_2_start",'<!--');
+  tpl_set_var("sekcja_2_stop",'-->');
+  tpl_set_var("sekcja_5_start",'');
+  tpl_set_var("sekcja_5_stop",'');
+  goto endzik;
+ }
+ 
+ $record = mysql_fetch_array($rs);
+ $cache_id = $record['cache_id'];
  
  tpl_set_var("wp_oc",$cache_wp);
  tpl_set_var("ikonka_keszyny", '<img src="tpl/stdstyle/images/'.$record['icon_large'].'" />');

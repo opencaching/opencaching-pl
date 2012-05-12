@@ -835,4 +835,29 @@ os_za_godzine Wait 1 hour and try again.
 os_komunikat1 Check cache by waypoint: 
 os_komunikat2 Select cache from list: 
 os_typ type
+os_pomoc Help
+os_powrot back
+os_twojews Your coordinates
+os_zobo Read what OpenSprawdzacz is used for and how to add your cache.
 os_spr_form Checkig final cache coordinates
+os_hlp_01 OpenSprawdzacz allow users to check coordinates of final cache for cache type "Quiz" (Puzzle) and "Other Type"
+os_hlp_02 If you are owner of Quiz/Other type cache, Here you can give a chance for other users check their calculated/obtained coords of final location befeore they go out cache hunting.
+os_hlp_03 How to add your cache to OpenSprawdzacz?
+os_hlp_04 1. Open cache edit panel
+os_hlp_05 2. Click add new waypoint
+os_hlp_06 3. Set waypoint type as "final location"
+os_hlp_07 4. Tick chevron next to "Opensprawdzacz"
+os_hlp_08 5. Set status of waypoint to "Hide this waypoint from view cache"
+os_hlp_09 6. click "Write waypoint"
+os_hlp_10 From now in your cache two changes were done:
+os_hlp_11 a) On page with your cache description new section "OpenSprawdzacz" appear with link to Checking coords.
+os_hlp_12 b) On OpenSprawdzacz page your cache appear on the list.
+os_hlp_13 How to remove cache from OpenSprawdzacz?
+os_hlp_14 To withdraw coordinates checking awailability:
+os_hlp_15 1. Open cache edit panel
+os_hlp_16 2. Click edit on "Final Location" in waypoint list
+os_hlp_17 3. untick "Opensprawdzacz"
+os_hlp_18 From now ypur cache dissapear from OpenSprawdzacz list and in your cache description page dissapear opensprawdzacz section.
+ni_ma_takiego_kesza Wrong cache waypoint!
+os_wynik Result
+os_zgad You were guessing to many times.
