@@ -804,7 +804,7 @@ bad_format_info Wysłany plik ma niedozwolony format. Dozwolone formaty to BMP, 
 no_picture Obrazka nie ma w bazie danych
 title_picture Tytuł
 file_name Nazwa pliku
-cache_picture_intro UWAGA! Użytkownik odpowiedzialny jest bezpośrednio przed posiadaczami praw autorskich za wszelkie związane z publikowanymi przez niego w Serwisie obrazki/zdjecia naruszenia w zakresie tych praw. <br/>Umieszczaj tylko istotne obrazki związane z skrzynką. Nie rób fotoalbumu okolicy.
+cache_picture_intro UWAGA! Użytkownik odpowiedzialny jest bezpośrednio przed posiadaczami praw autorskich za <br/>wszelkie związane z publikowanymi przez niego w Serwisie obrazki/zdjecia naruszenia w zakresie tych praw. <br/><br/>Umieszczaj tylko istotne obrazki związane z skrzynką. Nie rób fotoalbumu okolicy.
 spoiler_info Nie pokazuj miniatury (SPOILER) - użyj tej opcji jeśli wgrywasz zdjęcie na którym pokazane jest miejsce ukrycia skrzynki. <br>Dopiero jak ktoś kliknie na SPOILER pokaże mu się wgrany obrazek.
 dont_show Nie pokazuj tego obrazka.
 pictures_intro Nastpujące formaty są akceptowane: BMP, GIF, PNG i JPG - dla zdjęć rekomendowany format JPG .<br />Maksymalna wielkość pliku dozwolona 100 KB. Zalecane wymiary obrazków: 480 Pixel szerokość i 360 Pixel wysokość. <br />Po potwierdzeniu następna strona, która się pojawi może potrwać chwilę.
