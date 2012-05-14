@@ -184,8 +184,7 @@ if (isset($_POST['stopnie_N']))
   ';
   
   $zapytajka = "SELECT `waypoints`.`cache_id`, 
-                       `waypoints`.`type`, 
-					   `waypoints`.`status`, 
+                       `waypoints`.`type`,
 					   `waypoints`.`stage`, 
 					   `waypoints`.`desc`,
 					   `caches`.`name`,
@@ -225,10 +224,18 @@ $status = array (
   $ile_keszynek = mysql_num_rows($keszynki_opensprawdzacza);
   
   $tabelka_keszynek = '';
+  $proby = 0;
+  $trafienia = 0;
+  
   for ($i=0; $i < $ile_keszynek; $i++)
    {
     $dane_keszynek = mysql_fetch_array($keszynki_opensprawdzacza);
-    $tabelka_keszynek .= '<tr>
+	$proby = $proby + $dane_keszynek['proby'];
+	$trafienia  = $trafienia + $dane_keszynek['sukcesy'];
+
+    if (($dane_keszynek['status'] == 1) || ($dane_keszynek['status'] == 2)) 
+	
+	$tabelka_keszynek .= '<tr>
                            <td><a class="links" href="viewcache.php?wp='.$dane_keszynek['wp_oc'].'">'.$dane_keszynek['wp_oc'].'</a></td>
                            <td><a class="links" href="opensprawdzacz.php?op_keszynki='.$dane_keszynek['wp_oc'].'"> '. $dane_keszynek['name'] . '</a> </td>
                            <td><a href="viewcache.php?wp='.$dane_keszynek['wp_oc'].'"><img src="tpl/stdstyle/images/'.$dane_keszynek['icon_small'].'" /></a></td>
@@ -238,6 +245,22 @@ $status = array (
                            <td align="center">'.$dane_keszynek['sukcesy'] . '</td>
 						 </tr>';
    }
+  
+  $tabelka_keszynek .= '<tr><td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td></tr><tr>
+                         <td><img src="/tpl/stdstyle/images/misc/16x16-info.png" /></td>
+						 <td>Legenda, podsumowanie:</td>
+						 <td></td>
+						 <td align="center">
+						  '.$status[1].'<br />'.$status[2].'
+						 </td>
+						 <td>
+						  (Gotowa do szukania)<br />
+						  (Tymczasowo niedostępna)
+						 </td>
+						 <td align="center">'.$proby.'</td>
+						 <td align="center">'.$trafienia.'</td>
+                        </tr>
+						</table>';
   
   tpl_set_var("sekcja_1_start",'');
   tpl_set_var("sekcja_1_stop", '');
@@ -263,6 +286,7 @@ $status = array (
  $rs = sql("SELECT `caches`.`name`,
                    `caches`.`cache_id`,
 				   `caches`.`type`,
+				   `caches`.`user_id`,
 				   `cache_type`.`icon_large`,
                    `user`.`username`
 			FROM   `caches`, `user`, `cache_type` 
@@ -300,7 +324,8 @@ $status = array (
  tpl_set_var("ikonka_keszyny", '<img src="tpl/stdstyle/images/'.$record['icon_large'].'" />');
  tpl_set_var("cacheid",$record['cache_id']);
  tpl_set_var("ofner",$record['username']);
- tpl_set_var("cachename",$record['name']);  
+ tpl_set_var("cachename",$record['name']);
+ tpl_set_var("id_uzyszkodnika", $record['user_id'] ) ;
 
  mysql_free_result($rs);
  

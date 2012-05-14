@@ -134,11 +134,11 @@ function toggle() {
 		 <tr>
 		  <td width="40">{ikonka_keszyny}</td>
 		  <td valign="top">
-		   {wp_oc} <br /><b>  {cachename}</b>    
+		   {wp_oc} <br /><b><a href="viewcache.php?wp={wp_oc}">  {cachename}</a></b>    
 		  </td>
 		  <td> </td>
 		  <td align="right">
-		   {{os_autor}} <br/><i>{ofner}</i> 
+		   {{os_autor}} <br/><i><a href="viewprofile.php?userid={id_uzyszkodnika}">{ofner}</a></i> 
 		  </td>
 		 </tr>
 		 <tr>
