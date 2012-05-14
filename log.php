@@ -516,9 +516,9 @@
 					$logtypeoptions = '';
 					foreach ($log_types AS $type)
 					{
-						// do not allow 'finding' or 'not finding' own or archived cache (events can be logged)
+						// do not allow 'finding' or 'not finding' own or archived cache (events can be logged) $res2['status'] == 2 || $res2['status'] == 3 
 
-						if( $res2['type'] != 6 && ($usr['userid'] == $cache_user_id || $res['founds'] > 0 || $res2['status'] == 2 || $res2['status'] == 3 || $res2['status'] == 4 || $res2['status'] == 6))
+						if( $res2['type'] != 6 && ($usr['userid'] == $cache_user_id || $res['founds'] > 0 || $res2['status'] == 4 || $res2['status'] == 6))
 						{
 							$logtypeoptions .= '<option value="3">Komentarz</option>' . "\n";
 							if  ($res2['type'] == 8){
