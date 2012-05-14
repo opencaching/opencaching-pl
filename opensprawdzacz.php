@@ -316,7 +316,7 @@ $wp_rs = sql("SELECT `waypoints`.`wp_id`,
 			  WHERE `cache_id`='&1' AND `type` = 3 ",$cache_id);
 
 	$wp_record = sql_fetch_array($wp_rs);
-	if (($wp_record['status'] == 3) && ($wp_record['opensprawdzacz'] == 1))
+	if (($wp_record['type'] == 3) && ($wp_record['opensprawdzacz'] == 1))
 	{
 	 tpl_set_var("sekcja_formularz_opensprawdzacza_start", '');
      tpl_set_var("sekcja_formularz_opensprawdzacza_stop", '');
