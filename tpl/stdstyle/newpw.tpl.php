@@ -104,7 +104,7 @@
 	<tr>
 		<td class="header-small" colspan="2">
 			<div class="buffer"></div>
-			<input type="reset" name="cancel" value="{{reset}}" class="formbuttons" />&nbsp;&nbsp;
+			<input type="reset" name="cancel" value="{reset}" class="formbuttons" />&nbsp;&nbsp;
 			<input type="submit" name="submit_changepw" value="{changepw}" class="formbuttons" />
 		</td>
 	</tr>
