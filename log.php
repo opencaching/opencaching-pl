@@ -107,7 +107,8 @@
 				$all_ok = false;
 				
 				$log_text  = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
-				$log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
+				// $log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
+				$log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : -2;
 				$log_date_min = isset($_POST['logmin']) ? ($_POST['logmin']+0) : date('i');
 				$log_date_hour = isset($_POST['loghour']) ? ($_POST['loghour']+0) : date('H');
 				$log_date_day = isset($_POST['logday']) ? ($_POST['logday']+0) : date('d');
@@ -300,7 +301,7 @@
 					$date_not_ok = true;
 				}
 
-				if ($cache_type == 6)
+				if ($cache_type == 6) // (type 6 - Event cache)
 				{
 					switch($log_type)
 					{
@@ -327,6 +328,8 @@
 					}
 				}
 
+				if ($log_type == -1) $logtype_not_ok = true;
+				
 				// not a found log? then ignore the rating
 				$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE `deleted`=0 AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($cache_id)."' AND type='1'";
 				$res = mysql_fetch_array(mysql_query($sql));
@@ -512,8 +515,15 @@
 					$sql = "SELECT status, type FROM `caches` WHERE cache_id='".sql_escape($cache_id)."'";
 					$res2 = mysql_fetch_array(mysql_query($sql));
 
-										//build logtypeoptions
+					//build logtypeoptions
+					
 					$logtypeoptions = '';
+					
+					// setting selector neutral
+					if ($log_type < 0) {
+					$logtypeoptions .= '<option value="-1" selected="selected">'. tr('wybrac_log') . '</option>' . "\n";
+					tpl_set_var('display', "none"); }
+					
 					foreach ($log_types AS $type)
 					{
 						// do not allow 'finding' or 'not finding' own or archived cache (events can be logged) $res2['status'] == 2 || $res2['status'] == 3 
@@ -563,6 +573,11 @@
 							else
 								$lang_db = "en";
 
+						
+						
+						// $logtypeoptions .= '<option value="' . $type['id'] . '" >' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
+						
+						
 						if ($type['id'] == $log_type)
 						{
 							$logtypeoptions .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
@@ -571,6 +586,7 @@
 						{
 							$logtypeoptions .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
 						}
+						
 					}
 
 
@@ -668,6 +684,8 @@
 					else
 						tpl_set_var('score_message', '');
 
+					if ($log_type == -1) tpl_set_var('log_message', $log_not_ok_message);
+					else tpl_set_var('log_message','');
 					// build smilies
 					$smilies = '';
 					if ($descMode != 3)

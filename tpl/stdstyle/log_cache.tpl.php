@@ -170,6 +170,7 @@ function chkMoved()
 			<select onLoad="javascript:toogleLayer('ocena');" name="logtype" onChange="toogleLayer('ocena');">
 				{logtypeoptions}
 			</select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">
+			<br />{log_message}
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>

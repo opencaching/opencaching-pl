@@ -28,8 +28,8 @@
  ****************************************************************************/
 
 	$submit = 'Wyślij wpis do logu';
- $coord_empty_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">'.tr('empty_coordinatest').'</span>';
- $logtext_empty_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">'.tr('empty_log_text').'</span>';
+    $coord_empty_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">'.tr('empty_coordinatest').'</span>';
+    $logtext_empty_message = '<img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">'.tr('empty_log_text').'</span>';
 	$date_message = '<span class="errormsg">Data ma niepoprawny format. Poprawny format: DD-MM-RRRR</span>';
 	$score_message = '<span class="errormsg">Proszę ocenić skrzynkę lub zaznaczyć, że nie chcesz jej ocenić.</span>';
 
