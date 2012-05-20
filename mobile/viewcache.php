@@ -13,7 +13,8 @@
 		$wynik = db_query ($query);				
 		$caches=mysql_fetch_assoc($wynik);
 		
-		if(empty($caches))
+    // dodałem sprawdzanie statusu
+		if(empty($caches) || $caches['status'] == 4 || $caches['status'] == 5 || $caches['status'] == 6)
 		
 			$tpl->assign("error","1"); 
 		
