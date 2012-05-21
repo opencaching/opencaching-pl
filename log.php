@@ -180,12 +180,12 @@
 				}
 
 // sp2ong 28.I.2010 recommendation all caches except events
-				if ( $cache_type != 6 ) {
+				if ( $cache_type != 6 ) { 
 				tpl_set_var('rating_message', mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl)); 
 				} else {
 				tpl_set_var('rating_message', ""); 			
 				}
-				
+				// print mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl); exit;	
 				// enable backscoring
 				$sql = "SELECT count(*) FROM scores WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(intval($cache_id))."'";
 
@@ -507,7 +507,7 @@
 					$no_tpl_build = true;
 					//include('viewcache.php');
 					tpl_redirect('viewcache.php?cacheid=' . $cache_id);
-				}
+					}
 				else
 				{
 					$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE `deleted`=0 AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($cache_id)."' AND type='1'";
@@ -520,9 +520,10 @@
 					$logtypeoptions = '';
 					
 					// setting selector neutral
-					if ($log_type < 0) {
-					$logtypeoptions .= '<option value="-1" selected="selected">'. tr('wybrac_log') . '</option>' . "\n";
-					tpl_set_var('display', "none"); }
+					 if ($log_type < 0) {
+					 $logtypeoptions .= '<option value="-2" selected="selected">'. tr('wybrac_log') . '</option>' . '\n';
+					 tpl_set_var('display', "none"); 
+					 }
 					
 					foreach ($log_types AS $type)
 					{

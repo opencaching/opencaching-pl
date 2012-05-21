@@ -70,74 +70,78 @@ function insertSmiley(parSmiley) {
 }
 
 function _chkFound () {
+
 <?php 
-	$sql = "SELECT count(cache_id) FROM cache_logs WHERE `deleted`=0 AND cache_id = '".sql_escape($_REQUEST['cacheid'])."' AND user_id = '".sql_escape($usr['userid'])."' AND type='1'";
-	$founds = mysql_result(mysql_query($sql),0);
+        $sql = "SELECT count(cache_id) FROM cache_logs WHERE `deleted`=0 AND cache_id = '".sql_escape($_REQUEST['cacheid'])."' AND user_id = '".sql_escape($usr['userid'])."' AND type='1'";
+        $tmp = sql($sql);
+		$founds = mysql_result($tmp,0);
 ?>
 
+
   if (document.logform.logtype.value == "1" || (<?php echo $founds;?>>0 && document.logform.logtype.value == "3") || document.logform.logtype.value == "7") {
-  
-    document.logform.rating.disabled = false;
+     document.logform.r.disabled = false;
+    //document.logform.rating.disabled = false;
   }
   else
   {
-    document.logform.rating.disabled = true;
+   document.logform.r.disabled = false;
+    //document.logform.rating.disabled = true;
   }
-  return false;
+  // alert('qwqw')
+  // return true;
+   return false;
 }
+
 
 function toogleLayer( whichLayer, val )
 {
-	chkMoved();
-	var elem, vis;
-	_chkFound();
-	if( document. getElementById )
-		elem = document.getElementById(whichLayer);
-	else if( document.all )
-		elem = document.all[whichLayer];
-	else if( document.layers )
-		elem = document.layers[whichLayer];
-	vis = elem.style;
-	
-	if(val != '')
-	{
-	if (document.logform.logtype.value == "1" || document.logform.logtype.value == "7") 
-		vis.display = 'block';
-	else
-		vis.display = 'none';
-	}
-	else
-		vis.display = val;
+        chkMoved();
+        var elem, vis;
+        _chkFound();
+        if( document. getElementById )
+                elem = document.getElementById(whichLayer);
+        else if( document.all )
+                elem = document.all[whichLayer];
+        else if( document.layers )
+                elem = document.layers[whichLayer];
+        vis = elem.style;
+        
+        if(val != '')
+        {
+        if (document.logform.logtype.value == "1" || document.logform.logtype.value == "7") 
+                vis.display = 'block';
+        else
+                vis.display = 'none';
+        }
+        else
+                vis.display = val;
 
-
-	
-	
-	//if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
-	//	vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
-	//vis.display = (vis.display==''||vis.display=='block')?'none':'block';
+        //if( vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
+        //      vis.display=(elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
+        //vis.display = (vis.display==''||vis.display=='block')?'none':'block';
 }
 function chkMoved()
     {
-			var mode = document.logform.logtype.value;
-			var iconarray = new Array();
-				iconarray['1'] = '16x16-found.png';
-				iconarray['2'] = '16x16-dnf.png';
-				iconarray['3'] = '16x16-note.png';
-				iconarray['4'] = '16x16-moved.png';
-				iconarray['5'] = '16x16-need-maintenance.png';
-				iconarray['6'] = '16x16-need-maintenance.png';
-				iconarray['7'] = '16x16-go.png';
-				iconarray['8'] = '16x16-wattend.png';
-				iconarray['9'] = '16x16-trash.png';
-				iconarray['10'] = '16x16-published.png';
-				iconarray['11'] = '16x16-temporary.png';
-				iconarray['12'] = '16x16-octeam.png';
-			var image_log = "/tpl/stdstyle/images/log/" + iconarray[mode];
-			document.logform.actionicon.src = image_log;
+                        var mode = document.logform.logtype.value;
+                        var iconarray = new Array();
+                                iconarray['1'] = '16x16-found.png';
+                                iconarray['2'] = '16x16-dnf.png';
+                                iconarray['3'] = '16x16-note.png';
+                                iconarray['4'] = '16x16-moved.png';
+                                iconarray['5'] = '16x16-need-maintenance.png';
+                                iconarray['6'] = '16x16-need-maintenance.png';
+                                iconarray['7'] = '16x16-go.png';
+                                iconarray['8'] = '16x16-wattend.png';
+                                iconarray['9'] = '16x16-trash.png';
+                                iconarray['10'] = '16x16-published.png';
+                                iconarray['11'] = '16x16-temporary.png';
+                                iconarray['12'] = '16x16-octeam.png';
+                        var image_log = "/tpl/stdstyle/images/log/" + iconarray[mode];
+                        document.logform.actionicon.src = image_log;
 //         var el;
-//	el='coord_table';
-//	if (document.logform.logtype.value == "4") 		
-//	{document.getElementById(el).style.display='block';
+//      el='coord_table';
+//      if (document.logform.logtype.value == "4")              
+//      {document.getElementById(el).style.display='block';
 //    } else {document.getElementById(el).style.display='none';}
 }
 //-->
@@ -174,6 +178,8 @@ function chkMoved()
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
+	
+	
 	<tr>
 		<td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{date_logged}}:</strong></td>
 		<td>
@@ -186,9 +192,10 @@ function chkMoved()
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
-	{rating_message}
+	{rating_message} 
 	<tr><td class="spacer" colspan="2"></td></tr>
 </table>
+
 <div class="content" id="ocena" style="display:{display};">
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr>
@@ -197,6 +204,45 @@ function chkMoved()
 	</tr>
 </table>
 </div>
+
+<!--
+<div class="content" id="ocena" style="display:{display};">
+<table class="content" style="font-size: 12px; line-height: 1.6em;">
+	<tr>
+		<td width="180px"><img src="tpl/stdstyle/images/free_icons/star.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{score_header}</b></td>
+		<td width="*">{score}<br/></td>
+	</tr>
+</table>
+</div>
+-->
+
+<!-- [Łza] logowanie keszynek mobilnych: nowe współrzędne  -->
+<!--
+<div class="content" id="coord_table" style="display:none;">
+<table class="content" style="font-size: 12px; line-height: 1.6em;">
+	<tr>
+		<td width="180px">
+		  <img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="" title="" align="middle" /><b>&nbsp;{{nowe_wsp}}</b>
+
+		</td>
+		<td>
+		 <select name="wybor_NS"><option selected="selected">N</option><option>S</option></select>
+		 <input type="text" name="wsp_NS_st" size="2" maxlenght="2" />
+		 <input type="text" name="wsp_NS_min" size="3" />
+          <br />
+		 <select name="wybor_WE"><option selected="selected">E</option><option>W</option></select>
+		 <input type="text" name="wsp_NS_st" size="2" />
+		 <input type="text" name="wsp_NS_min" size="3" />
+		 
+		</td>
+		<td width="*">auisdhauishduioashdusia<br/></td>
+	</tr>
+</table>
+</div>
+-->
+
+
+
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr>
 		<td colspan="2">
