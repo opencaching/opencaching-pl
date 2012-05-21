@@ -511,7 +511,7 @@ class OkapiOAuthServer extends OAuthServer
 		$consumer = $this->get_consumer($request);
 		try {
 			$token = $this->get_token($request, $consumer, $token_type);
-		} catch (OAuthException $e) {
+		} catch (OAuthServerException $e) {
 			if ($token_required)
 				throw $e;
 			else
@@ -655,7 +655,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 343; # This gets replaced in automatically deployed packages
+	public static $revision = 344; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
