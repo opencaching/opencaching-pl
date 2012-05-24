@@ -1,5 +1,13 @@
 <script language="javascript"> 
 <!--
+function clearForms()
+{
+  var i;
+  for (i = 0; (i < document.forms.length); i++) {
+    document.forms[i].reset();
+  }
+}
+
 function toggle() {
 	var ele = document.getElementById("toggleText");
 	var text = document.getElementById("displayText1");
@@ -32,6 +40,9 @@ function toggle() {
 } 
 // -->
 </script>
+
+<body onLoad="clearForms()" onUnload="clearForms()">
+
 <div class="content2-pagetitle"> 
  <img src="tpl/stdstyle/images/blue/opensprawdzacz32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" /> 
  OpenSprawdzacz	
@@ -97,13 +108,13 @@ function toggle() {
 	<div class="searchdiv">
 		<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
 		<tr>
-		 <td>waypoint</td>
-		 <td>{{cache_name}}</td>
+		 <td><a href="opensprawdzacz.php?sort=wpt">waypoint</a></td>
+		 <td><a href="opensprawdzacz.php?sort=nazwa">{{cache_name}}</a></td>
 		 <td>{{os_typ}}</td>
 		 <td>status</td>
-		 <td>{{owner_label}}</td>
-		 <td>{{os_pr}}</td>
-		 <td>{{os_sukc}}</td>
+		 <td><a href="opensprawdzacz.php?sort=autor">{{owner_label}} </a></td>
+		 <td><a href="opensprawdzacz.php?sort=szczaly">{{os_pr}}</a><td>
+		 <td><a href="opensprawdzacz.php?sort=sukcesy">{{os_sukc}}</a></td>
 		</tr>
 
 	   <tr>
@@ -177,8 +188,8 @@ function toggle() {
 	<br/>
 	
 	<div class="searchdiv">
-	<table><tr><td>{ikonka_yesno}</td>
-	<td>
+	<table class="content"><tr><td>{ikonka_yesno}</td>
+	<td class="content">
 	 {test1}<br><br>
 	 {wynik}
      {twoje_ws}
@@ -187,7 +198,7 @@ function toggle() {
 	    
 		
 		<p><br /><br /><br /><br /></p>
-		<p>{{os_proba}} {licznik_zgadywan} {{os_razy}} {ile_prob} {{os_razy_koniec}}</p>
+		<p>{{os_proba}} {licznik_zgadywan} {{os_razy}} {ile_prob} {{os_razy_srodek}} {ile_czasu} {{os_razy_koniec}}</p>
 	</div>
 		{sekcja_3_stop}
 	

@@ -1,4 +1,5 @@
 <?php 
+
 ## do zrobienia:
 ## - walidacja czy z posta są przekazywane wartości numeryczne (malo istotne, najwyzej zwroci ze wynik zly)
 ## - lista keszy w opensprawdzaczu - przewijanie do dalszych (na razie obsluguje 100 keszynek)
@@ -7,6 +8,7 @@
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
+
 
 //Preprocessing
 if ($error == false)
@@ -20,6 +22,11 @@ if ($error == false)
  }
 else
 {
+/*
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set ('display_errors', On); 
+*/
  // wskazanie pliku z kodem html ktory jest w tpl/stdstyle/ 
  $tplname = 'opensprawdzacz';
 
@@ -38,12 +45,17 @@ if (isset($_POST['stopnie_N']))
  tpl_set_var("sekcja_1_start",'<!--');
  tpl_set_var("sekcja_1_stop",'-->'); 
   
- //check how many times user tried to guess answer 
+ // check how many times user tried to guess answer 
  // sprawdzamy czy user nie używa brutal force
  
+ // initial setup - setting default values
+ $ile_prob = 10;        // declaration how many times user can try his answer per hour/session
+ $limit_czasu = 60;  // [in minutes] - time which must elapse until next guess is possible. 
+ // end of init setup.
  
- $ile_prob = 15; // declaration how many times user can try his answer per hour/session
+ 
  tpl_set_var("ile_prob", $ile_prob);
+ tpl_set_var("ile_czasu", $limit_czasu);
  
   if (isset ($_SESSION['opensprawdzacz_licznik']))
   {
@@ -53,7 +65,7 @@ if (isset($_POST['stopnie_N']))
 	 $czas_teraz = date('U');
 	 $czas_jaki_uplynal = $czas_teraz - $czas_ostatniej_proby;
 	 tpl_set_var("czasss1", $czas_jaki_uplynal);
-	 if ($czas_jaki_uplynal > 3600)
+	 if ($czas_jaki_uplynal > $limit_czasu*60)
 	  {
 	   $_SESSION['opensprawdzacz_licznik'] = 1;
 	   $_SESSION['opensprawdzacz_czas'] = $czas_teraz;
@@ -68,7 +80,7 @@ if (isset($_POST['stopnie_N']))
 	   tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_stop.png" />');
 	   tpl_set_var("sekcja_4_start", '');
 	   tpl_set_var("sekcja_4_stop", '');
-	   tpl_set_var("twoje_ws", 'Masz maksymalnie '.$ile_prob.' prób / godzinę <br> Musisz odczekać jeszcze ' . $czas_jaki_uplynal .' minut'); 
+	   tpl_set_var("twoje_ws", tr('os_ma_max').' '.$ile_prob.' '. tr('os_ma_na') .' '.$limit_czasu.' '.tr('os_godzine') .'<br /> '.tr('os_mus').' '. $czas_jaki_uplynal .' '. tr('os_minut_end')); 	
 	   goto endzik;
 	  } 
 	}
@@ -182,7 +194,32 @@ if (isset($_POST['stopnie_N']))
   <button type="submit" name="przeslanie_waypointa" value="'.tr(submit).'" style="font-size:14px;width:160px"><b>'.tr(submit).'</b></button>
   </form>
   ';
-  
+  if (isset($_GET['sort']))
+   {
+     $sort_tmp = mysql_real_escape_string($_GET['sort']);
+	 switch ($sort_tmp) {
+    case 'autor':
+        $sortowanie = '`user`.`username`';
+        break;
+    case 'nazwa':
+        $sortowanie = '`caches`.`name`';
+        break;
+	case 'wpt':
+        $sortowanie = '`caches`.`wp_oc`';
+        break;
+	case 'szczaly':
+        $sortowanie = '`opensprawdzacz`.`proby`';
+        break;		
+	case 'sukcesy':
+        $sortowanie = '`opensprawdzacz`.`sukcesy`';
+        break;		
+		
+    default:
+        $sortowanie = '`caches`.`name`';
+        break;}
+   }
+   else $sortowanie = '`caches`.`name`';
+   
   $zapytajka = "SELECT `waypoints`.`cache_id`, 
                        `waypoints`.`type`,
 					   `waypoints`.`stage`, 
@@ -206,7 +243,7 @@ if (isset($_POST['stopnie_N']))
 				 AND   `caches`.`type` = `cache_type`.`id`
 				 AND   `caches`.`user_id` = `user`.`user_id`
 		         AND   `waypoints`.`cache_id` = `caches`.`cache_id`
-			ORDER BY   `caches`.`name`
+			ORDER BY   $sortowanie
 			   LIMIT   0, 100
 				 ";
 				 
@@ -249,7 +286,7 @@ $status = array (
   $tabelka_keszynek .= '<tr><td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td></tr><tr>
                          <td><img src="/tpl/stdstyle/images/misc/16x16-info.png" /></td>
 						 <td>Legenda, podsumowanie:</td>
-						 <td></td>
+						 <td>'.$ile_keszynek	.'</td>
 						 <td align="center">
 						  '.$status[1].'<br />'.$status[2].'
 						 </td>

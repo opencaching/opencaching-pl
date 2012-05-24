@@ -826,12 +826,13 @@ os_tak_chce Checking this element allow users to checking their coordinates with
 opensprawdzacz_main Cache owner gave you a chance to check if you get correct puzzle solution. (final cache coordinates). You can do it before you go cache hunting!
 os_pr Shots
 os_sukc Hits
-os_proba You've tried 
-os_razy times. Only 
-os_razy_koniec times is allowed.
+os_proba You've reached limit of  
+os_razy times. You can check coords only  
+os_razy_srodek times per
+os_razy_koniec minutes.
 os_sukces YES!! You've correct coord's. Congratulations. 
 os_fail NO! Your answer is incorrect. Check your calculations again.
-os_za_godzine Wait 1 hour and try again.
+os_za_godzine Check your counts and try again later.
 os_komunikat1 Check cache by waypoint: 
 os_komunikat2 Select cache from list: 
 os_typ type
@@ -862,3 +863,11 @@ ni_ma_takiego_kesza Wrong cache waypoint!
 os_wynik Result
 os_zgad You were guessing to many times.
 wybrac_log Chose log type
+os_ma_max The limit is in place 
+os_ma_pr shots 
+os_ma_na  per 
+os_godzine minutes
+os_mus You have to wait  
+os_minut_end minutes until you can try again.
+
+

@@ -87,8 +87,6 @@ function _chkFound () {
    document.logform.r.disabled = false;
     //document.logform.rating.disabled = true;
   }
-  // alert('qwqw')
-  // return true;
    return false;
 }
 
