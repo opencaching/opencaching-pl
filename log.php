@@ -528,7 +528,7 @@
 					
 					// setting selector neutral
 					 if ($log_type < 0) {
-					 $logtypeoptions .= '<option value="-2" selected="selected">'. tr('wybrac_log') . '</option>' . '\n';
+					 if ($res2['status'] != 4) $logtypeoptions .= '<option value="-2" selected="selected">'. tr('wybrac_log') . '</option>' . '\n';
 					 tpl_set_var('display', "none"); 
 					 }
 					
@@ -538,7 +538,8 @@
 
 						if( $res2['type'] != 6 && ($usr['userid'] == $cache_user_id || $res['founds'] > 0 || $res2['status'] == 4 || $res2['status'] == 6))
 						{
-							$logtypeoptions .= '<option value="3">Komentarz</option>' . "\n";
+							if ($usr['admin']==true && $res2['status'] == 4) $logtypeoptions .= '<option selected="selected" value="3">Komentarz</option>' . "\n";
+							else $logtypeoptions .= '<option value="3">Komentarz</option>' . "\n";
 							if  ($res2['type'] == 8){
 							$logtypeoptions .= '<option value="4">Przeniesiona</option>' . "\n";}
 							if ($usr['userid']!=$cache_user_id){$logtypeoptions .= '<option value="5">Potrzebny serwis</option>' . "\n";}

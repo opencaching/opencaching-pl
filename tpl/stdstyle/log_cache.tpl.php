@@ -203,7 +203,7 @@ function chkMoved()
 </table>
 </div>
 
-<!-- [Łza] logowanie keszynek mobilnych: nowe współrzędne  -->
+	<!-- [Łza] logowanie keszynek mobilnych: nowe współrzędne  -->
 <!--
 <div class="content" id="coord_table" style="display:none;">
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
