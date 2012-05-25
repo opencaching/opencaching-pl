@@ -56,14 +56,14 @@ function toggle() {
          <p>{{os_hlp_01}} <br /><br />
          {{os_hlp_02}} <br /><br />
          <b>{{os_hlp_03}}</b> <br /><br />
-         {{os_hlp_04}}<br /><br />
+         {{os_hlp_04}}<br />
 		 {{os_hlp_05}} <br />
 		 {{os_hlp_06}} <br />
 		 {{os_hlp_07}} <br />
 		 {{os_hlp_08}} <br />
 		 {{os_hlp_09}} <br /><br />
 		 {{os_hlp_10}} <br /><br />
-		 {{os_hlp_11}}<br /><br />
+		 {{os_hlp_11}}<br />
 		 {{os_hlp_12}} <br /><br />
 		 <b>{{os_hlp_13}}</b>
 		 {{os_hlp_14}} <br /><br />
@@ -112,8 +112,8 @@ function toggle() {
 		 <td><a href="opensprawdzacz.php?sort=nazwa">{{cache_name}}</a></td>
 		 <td>{{os_typ}}</td>
 		 <td>status</td>
-		 <td><a href="opensprawdzacz.php?sort=autor">{{owner_label}} </a></td>
-		 <td><a href="opensprawdzacz.php?sort=szczaly">{{os_pr}}</a><td>
+		 <td><a href="opensprawdzacz.php?sort=autor">{{owner_label}}</a></td>
+		 <td><a href="opensprawdzacz.php?sort=szczaly">{{os_pr}}</a></td>
 		 <td><a href="opensprawdzacz.php?sort=sukcesy">{{os_sukc}}</a></td>
 		</tr>
 

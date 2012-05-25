@@ -203,17 +203,6 @@ function chkMoved()
 </table>
 </div>
 
-<!--
-<div class="content" id="ocena" style="display:{display};">
-<table class="content" style="font-size: 12px; line-height: 1.6em;">
-	<tr>
-		<td width="180px"><img src="tpl/stdstyle/images/free_icons/star.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{score_header}</b></td>
-		<td width="*">{score}<br/></td>
-	</tr>
-</table>
-</div>
--->
-
 <!-- [Łza] logowanie keszynek mobilnych: nowe współrzędne  -->
 <!--
 <div class="content" id="coord_table" style="display:none;">

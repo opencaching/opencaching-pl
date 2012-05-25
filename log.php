@@ -328,7 +328,7 @@
 					}
 				}
 
-				if ($log_type == -1) $logtype_not_ok = true;
+				if ($log_type < 0) $logtype_not_ok = true;
 				
 				// not a found log? then ignore the rating
 				$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE `deleted`=0 AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($cache_id)."' AND type='1'";
@@ -412,10 +412,17 @@
 					$log_date = date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year));
 
 					$log_uuid = create_uuid();
-					//add logentry to db
 					
-					// if comment is empty, then do not insert data into db
-					if( !($log_type == 3 && $log_text == ""))
+					//add logentry to db
+  				    
+					if ($log_type < 0)
+					{
+					 // nie wybrano typu logu
+					 // print "nic nie <br><br>" . $log_text; exit;
+					}
+                    // if comment is empty, then do not insert data into db
+					elseif (!($log_type == 3 && $log_text == "")) 
+					// print "wpisuje do bazy" .$log_type .'/'. $log_text ; exit;
 					{
 						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
 										 VALUES ('', '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW(), NOW(), '&8', '&9')",
@@ -685,7 +692,7 @@
 					else
 						tpl_set_var('score_message', '');
 
-					if ($log_type == -1) tpl_set_var('log_message', $log_not_ok_message);
+					if (($log_type < 0) && (isset($_POST['logtype']))) tpl_set_var('log_message', $log_not_ok_message);
 					else tpl_set_var('log_message','');
 					// build smilies
 					$smilies = '';

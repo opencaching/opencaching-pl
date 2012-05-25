@@ -879,8 +879,8 @@ os_pomoc Pomoc
 os_zobo Przeczytaj do czego służy OpenSprawdzacz i jak dodać swoją keszynkę.
 os_spr_form Sprawdzanie współrzędnych finałowych keszynki:
 os_twojews Twoje współrzędne
-os_hlp_01 OpenSprawdzacz umożliwia sprawdzenie współrzędnych pojemników finałowch dla skrzynek typu "Quiz" lub "Inny typ".
-os_hlp_02 Jeśli jesteś właścicielem takiej skrzynki - możesz tu umozliwić innym użytkownikom zweryfikowanie otrzymanych/wyliczonych współrzędnych pojemnika finałowego przed wyruszeniem w teren
+os_hlp_01 OpenSprawdzacz umożliwia sprawdzenie współrzędnych pojemników finałowch dla skrzynek typu "Quiz", "Inny typ" oraz "Multicache".
+os_hlp_02 Jeśli jesteś właścicielem takiej skrzynki - możesz tu umożliwić innym użytkownikom zweryfikowanie otrzymanych/wyliczonych współrzędnych pojemnika finałowego przed wyruszeniem w teren.
 os_hlp_03 Jak dodać Twoją keszynkę do OpenSprawdzacza?
 os_hlp_04 1. Wejdź do panelu edycji kesza
 os_hlp_05 2. Kliknij dodaj nowy waypoint
