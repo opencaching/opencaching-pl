@@ -258,7 +258,7 @@ no_auto_logout Brak automatycznego wylogowania po 15 minutach nieaktywności.
 hide_html_editor Nie używaj edytora HTML.
 notify_new_caches_radius Powiadamianie o nowych skrzynkach w promieniu
 no_new_caches_notification Powiadamianie o nowych skrzynkach jest wyłączone.
-change_account_data Zmiana danych Mojego konta
+change_account_data Zmiana danych mojego konta
 from_home_coords od moich współrzędnych
 radius_hint Maksymalny dozwolony promień, to 150km. W celu wyłączenia powiadomień, wstaw wartość <b>0</b>.
 no_auto_logout_warning Uwaga! Jeżeli użyjesz tej opcji, musisz mieć świadomość, że jeśli się nie wylogujesz, osoba niepowołana może mieć dostęp do Twojego konta.
@@ -807,7 +807,7 @@ file_name Nazwa pliku
 cache_picture_intro UWAGA! Użytkownik musi dbać o to, aby publikowane przez niego w Serwisie treści/zdjęcia nie naruszały obowiązującego prawa oraz przepisów <a href=http://wiki.opencaching.pl/index.php/Regulamin_OC_PL>Regulaminu OC PL</a>. W szczególności publikowane przez Użytkownika treści/zdjęcia nie mogą naruszać praw autorskich osób trzecich. Użytkownik odpowiedzialny jest bezpośrednio przed posiadaczami praw autorskich za wszelkie związane naruszenia w zakresie tych praw publikowanymi przez niego w Serwisie obrazki/zdjecia. <br/><br/>Umieszczaj tylko istotne obrazki związane z skrzynką. Nie rób fotoalbumu okolicy.
 spoiler_info Nie pokazuj miniatury (SPOILER) - użyj tej opcji jeśli wgrywasz zdjęcie na którym pokazane jest miejsce ukrycia skrzynki. <br>Dopiero jak ktoś kliknie na SPOILER pokaże mu się wgrany obrazek.
 dont_show Nie pokazuj tego obrazka.
-pictures_intro Nastpujące formaty są akceptowane: BMP, GIF, PNG i JPG - dla zdjęć rekomendowany format JPG .<br />Maksymalna wielkość pliku dozwolona 100 KB. Zalecane wymiary obrazków: 480 Pixel szerokość i 360 Pixel wysokość. <br />Po potwierdzeniu następna strona, która się pojawi może potrwać chwilę.
+pictures_intro Następujące formaty są akceptowane: BMP, GIF, PNG i JPG - dla zdjęć rekomendowany format JPG .<br />Maksymalna wielkość pliku dozwolona 100 KB. Zalecane wymiary obrazków: 480 Pixel szerokość i 360 Pixel wysokość. <br />Po potwierdzeniu następna strona, która się pojawi może potrwać chwilę.
 add_new_picture Dodanie nowego obrazka dla skrzynki
 gallery Zobacz galerie 
 gallery_of_cache Galeria obrazków dla skrzynki
