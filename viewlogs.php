@@ -158,6 +158,9 @@
 					`cache_logs`.`text` AS `text`,
 					`cache_logs`.`text_html` AS `text_html`,
 					`user`.`username` AS `username`,
+					`user`.`hidden_count` AS    `ukryte`,
+					`user`.`founds_count` AS    `znalezione`, 	
+					`user`.`notfounds_count` AS `nieznalezione`,
                     `user`.`admin` AS `admin`,
 					`log_types`.`icon_small` AS `icon_small`,
 					`log_types_text`.`text_listing` AS `text_listing`,
@@ -188,13 +191,17 @@
 				// replace smilies in log-text with images
 				$tmplog_text = str_replace($smileytext, $smileyimage, $record['text']);
 				
+				// wyswietlenie aktywności usera (dodane przez Łza)	
+				$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').'"/>'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
+				$tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
+				
 				if ($record['text_html'] == 0)
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
 
 				$tmplog_text = tidy_html_description($tmplog_text);
 
 				$tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
-				$tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
+				$tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);	
 				$tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);
 				$tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
 				$tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);

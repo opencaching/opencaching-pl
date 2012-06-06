@@ -908,5 +908,6 @@ os_ma_na sprawdzeń na
 os_godzine minut
 os_mus Musisz odczekać jeszcze
 os_minut_end minut zanim będziesz mógł znów użyć OpenSprawdzacza.
+viewlog_aktywnosc Sumaryczna aktywność użytkownika (suma keszynek znalezionych, nieznalezionych oraz założonych)
 
 	

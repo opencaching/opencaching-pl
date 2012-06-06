@@ -1195,6 +1195,9 @@
 							  `cache_logs`.`mp3count` `mp3count`,
 			                  `user`.`username` `username`,
                               `user`.`admin` `admin`,
+							  `user`.`hidden_count` AS    `ukryte`,
+					          `user`.`founds_count` AS    `znalezione`, 	
+					          `user`.`notfounds_count` AS `nieznalezione`,
 			                  `log_types`.`icon_small` `icon_small`,
 			                  `log_types_text`.`text_listing` `text_listing`,
 			                  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
@@ -1226,6 +1229,11 @@
 				// replace smilies in log-text with images and add hyperlinks
 				$tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
 
+				// wyswietlenie aktywności usera (dodane przez Łza)	
+				$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" title="'.tr('viewlog_aktywnosc').'" width="13" height="13" border="0" />'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
+				$tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
+
+				
 				if ($record['text_html'] == 0)
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
 

@@ -564,14 +564,19 @@ div.viewlogs-logpictures span.desc { vertical-align: center; display: block; flo
 div.viewlogs-logpictures img { max-width: 64px; max-height: 64px; vertical-align: top;}
 div.viewlogs-logpictures span.removepic { display: block; font-size: 12px;}
 div.logs {
-    border: 1px solid #ccc;
+    border: 10px solid #ccc;
     margin: 0 0 10px 0;
     padding: 3px 5px 5px 5px;
     background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
     border-radius: 5px;
     -moz-border-radius: 5px;
 }
-
+span.username_aktywnosc
+{
+color: #000000
+font-family: verdana;
+font-size: 8;
+}
 div#viewcache-utility { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.6em; font-family: arial, sans serif; font-size: 120%; }
 
 div.viewcache_log-content { font-family: arial, sans serif; line-height: 1.6em; font-size: 12px; margin-top: 5px;}
