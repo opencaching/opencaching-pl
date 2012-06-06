@@ -1230,7 +1230,7 @@
 				$tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
 
 				// wyswietlenie aktywności usera (dodane przez Łza)	
-				$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" title="'.tr('viewlog_aktywnosc').'" width="13" height="13" border="0" />'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
+				$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']" width="13" height="13" border="0" />'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
 				$tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
 
 				

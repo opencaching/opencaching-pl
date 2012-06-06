@@ -869,5 +869,5 @@ os_ma_na  per
 os_godzine minutes
 os_mus You have to wait  
 os_minut_end minutes until you can try again.
-viewlog_aktywnosc Total user activity (sum of caches found, notfound and hidden)
+viewlog_aktywnosc Total user activity (sum of caches found, not found and hidden)
 
