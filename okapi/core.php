@@ -23,6 +23,7 @@ use ErrorException;
 use OAuthServerException;
 use OAuthServer400Exception;
 use OAuthServer401Exception;
+use OAuthMissingParameterException;
 use OAuthConsumer;
 use OAuthToken;
 use OAuthServer;
@@ -514,7 +515,7 @@ class OkapiOAuthServer extends OAuthServer
 		} catch (OAuthMissingParameterException $e) {
 			# Note, that exception will be different if token is supplied
 			# and is invalid. We catch only a completely MISSING token parameter.
-			if (($e->getParamName == 'oauth_token') && (!$token_required))
+			if (($e->getParamName() == 'oauth_token') && (!$token_required))
 				$token = null;
 			else
 				throw $e;
@@ -657,7 +658,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 347; # This gets replaced in automatically deployed packages
+	public static $revision = 348; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
