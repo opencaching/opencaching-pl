@@ -511,11 +511,13 @@ class OkapiOAuthServer extends OAuthServer
 		$consumer = $this->get_consumer($request);
 		try {
 			$token = $this->get_token($request, $consumer, $token_type);
-		} catch (OAuthServerException $e) {
-			if ($token_required)
-				throw $e;
-			else
+		} catch (OAuthMissingParameterException $e) {
+			# Note, that exception will be different if token is supplied
+			# and is invalid. We catch only a completely MISSING token parameter.
+			if (($e->getParamName == 'oauth_token') && (!$token_required))
 				$token = null;
+			else
+				throw $e;
 		}
 		$this->check_signature($request, $consumer, $token);
 		return array($consumer, $token);
@@ -655,7 +657,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 346; # This gets replaced in automatically deployed packages
+	public static $revision = 347; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
