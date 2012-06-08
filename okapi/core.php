@@ -640,7 +640,7 @@ class OkapiLock
 	
 	private function __construct($name)
 	{
-		$lockfile = $GLOBALS['dynbasepath']."/okapi-lock-".$name;
+		$lockfile = Okapi::getDynBasePath()."/okapi-lock-".$name;
 		if (!file_exists($lockfile))
 		{
 			$fp = fopen($lockfile, "wb");
@@ -658,7 +658,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 348; # This gets replaced in automatically deployed packages
+	public static $revision = 353; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -719,6 +719,14 @@ class Okapi
 			);
 	}
 	
+	/** Get directory to store dynamic (cache or temporary) files. No trailing slash. */
+	public static function getDynBasePath()
+	{
+		$dir = Settings::get('VAR_DIR');
+		if ($dir != null)
+			return $dir;
+		return isset($GLOBALS['dynbasepath']) ? $GLOBALS['dynbasepath'] : "/tmp";
+	}
 	
 	/** Returns something like "OpenCaching.PL" or "OpenCaching.DE". */
 	public static function get_normalized_site_name($site_url = null)
@@ -879,7 +887,7 @@ class Okapi
 	/**
 	 * Internal. This is called always when OKAPI core is included.
 	 */
-	public static function init_internals()
+	public static function init_internals($allow_cronjobs = true)
 	{
 		static $init_made = false;
 		if ($init_made)
@@ -889,7 +897,8 @@ class Okapi
 			self::$data_store = new OkapiDataStore();
 		if (!self::$server)
 			self::$server = new OkapiOAuthServer(self::$data_store);
-		self::execute_prerequest_cronjobs();
+		if ($allow_cronjobs)
+			self::execute_prerequest_cronjobs();
 		$init_made = true;
 	}
 	
