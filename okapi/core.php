@@ -658,7 +658,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 354; # This gets replaced in automatically deployed packages
+	public static $revision = 355; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -719,12 +719,12 @@ class Okapi
 			);
 	}
 	
-	/** Get directory to store dynamic (cache or temporary) files. No trailing slash. */
+	/** Get directory to store dynamic (cache or temporary) files. No trailing slash included. */
 	public static function getDynBasePath()
 	{
 		$dir = Settings::get('VAR_DIR');
 		if ($dir != null)
-			return $dir;
+			return rtrim($dir, "/");
 		return isset($GLOBALS['dynbasepath']) ? $GLOBALS['dynbasepath'] : "/tmp";
 	}
 	
