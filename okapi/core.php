@@ -658,7 +658,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 375; # This gets replaced in automatically deployed packages
+	public static $revision = 380; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -726,6 +726,45 @@ class Okapi
 		if ($dir != null)
 			return rtrim($dir, "/");
 		return isset($GLOBALS['dynbasepath']) ? $GLOBALS['dynbasepath'] : "/tmp";
+	}
+	
+	/**
+	 * Get an array of all site-specific attributes in the following format:
+	 * $arr[<id_of_the_attribute>][<language_code>] = <attribute_name>.
+	 */
+	public static function get_all_atribute_names()
+	{
+		if (Settings::get('OC_BRANCH') == 'oc.pl')
+		{
+			# OCPL branch uses cache_attrib table to store attribute names. It has
+			# different structure than the OCDE cache_attrib table. OCPL does not
+			# have translation tables.
+			
+			$rs = Db::query("select id, language, text_long from cache_attrib order by id");
+		}
+		else
+		{
+			# OCDE branch uses translation tables. Let's make a select which will
+			# produce results compatible with the one above.
+			
+			$rs = Db::query("
+				select
+					ca.id,
+					stt.lang as language,
+					stt.text as text_long
+				from
+					cache_attrib ca,
+					sys_trans_text stt
+				where ca.trans_id = stt.trans_id
+				order by ca.id
+			");
+		}
+			
+		$dict = array();
+		while ($row = mysql_fetch_assoc($rs))
+			$dict[$row['id']][strtolower($row['language'])] = $row['text_long'];
+		}
+		return $dict;
 	}
 	
 	/** Returns something like "OpenCaching.PL" or "OpenCaching.DE". */
