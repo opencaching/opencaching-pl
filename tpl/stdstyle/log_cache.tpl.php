@@ -284,6 +284,19 @@ function chkMoved()
 			<input type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="width:120px"/>
 		</td>
 	</tr>
+	<? if (strpos($_SERVER['HTTP_USER_AGENT'], "Android") !== false) { ?>
+		<tr>
+			<td colspan="2">
+				<div style='background: url(/images/android_notice.png); background-repeat: no-repeat; padding-left: 70px; padding-top: 10px; max-width: 400px; margin: 7px 0 20px 0'>
+					<p style='font-size: 18px; font-weight: bold'>Ułatwienia dla Androida</p>
+					<p>Na <a href='http://forum.opencaching.pl/viewforum.php?f=6'>naszym forum</a> znajdziesz
+					informacje o wielu aplikacjach ułatwiających keszowanie z Androidem. Niektóre z nich są
+					płatne, ale jest też wiele bardzo przydatnych, darmowych aplikacji. Warto
+					<a href='http://forum.opencaching.pl/viewforum.php?f=6'>sprawdzić</a>!</p>
+				</div>
+			</td>
+		</tr>
+	<? } ?>
 </table>
 </div>
 </form>
