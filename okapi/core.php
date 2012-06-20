@@ -679,7 +679,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 399; # This gets replaced in automatically deployed packages
+	public static $revision = 404; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -1282,20 +1282,22 @@ class Okapi
 	}
 	
 	/**
-	 * E.g. 'Found it' => 1. For logtypes other than 1|2|3 throws Exception.
+	 * E.g. 'Found it' => 1. For unsupported names throws Exception.
 	 */
 	public static function logtypename2id($name)
 	{
 		if ($name == 'Found it') return 1;
 		if ($name == "Didn't find it") return 2;
 		if ($name == 'Comment') return 3;
+		if (($name == 'Needs maintenance') && (Settings::get('SUPPORTS_LOGTYPE_NEEDS_MAINTENANCE')))
+			return 5;
 		throw new Exception("logtype2id called with invalid log type argument: $name");
 	}
 	
 	/** E.g. 1 => 'Found it'. For unknown ids returns 'Comment'. */
 	public static function logtypeid2name($id)
 	{
-		# Various OC nodes use different English names for these two key
+		# Various OC nodes use different English names, even for primary
 		# log types. OKAPI needs to have them the same across *all* OKAPI
 		# installations. That's why these 3 are hardcoded (and should
 		# NEVER be changed).
