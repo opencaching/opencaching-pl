@@ -18,8 +18,6 @@ class CustomAJAXChat extends AJAXChat {
 		
 		// Use the existing MyBB database connection:
 		$this->setConfig('dbConnection', 'link', $dblink);
-		$this->setConfig('defaultChannelID', '1');
-		$this->setConfig('defaultChanneName', 'Dolnośląskie');
 	}
 
 
