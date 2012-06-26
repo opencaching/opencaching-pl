@@ -70,7 +70,7 @@ var ajaxChatConfig = {
 		// Defines if the chat list scrolls automatically to display the latest messages:
 		autoScroll: true,	
 		// The maximum count of messages displayed in the chat list (will be ignored if set to 0):
-		maxMessages: 0,
+		maxMessages: 50,
 		
 		// Defines if long words are wrapped to avoid vertical scrolling:
 		wordWrap: true,
@@ -86,9 +86,9 @@ var ajaxChatConfig = {
 		fontColor: null,
 		
 		// Defines if sounds are played:
-		audio: false,
+		audio: true,
 		// Defines the sound volume (0.0 = mute, 1.0 = max):
-		audioVolume: 0.0,
+		audioVolume: 1.0,
 
 		// Defines the sound that is played when normal messages are reveived:
 		soundReceive: 'sound_1',
