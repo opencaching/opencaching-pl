@@ -6,6 +6,11 @@
  * @copyright (c) Sebastian Tschan
  * @license GNU Affero General Public License
  * @link https://blueimp.net/ajax/
+$lang['helpItemDescRoll'] = 'Rzuć kostką:';
+$lang['helpItemCodeRoll'] = '/roll [ile_razy]d[ilu_ścienną]';
+$lang['helpItemDescNick'] = 'Zmień nick:';
+$lang['helpItemCodeNick'] = '/nick Nick';
+
  */
 
 $lang = array();
@@ -81,10 +86,6 @@ $lang['helpItemDescWho'] = 'Lista użytkowników online:';
 $lang['helpItemCodeWho'] = '/who [NazwaPokoju]';
 $lang['helpItemDescList'] = 'Lista pokoi:';
 $lang['helpItemCodeList'] = '/list';
-$lang['helpItemDescRoll'] = 'Rzuć kostką:';
-$lang['helpItemCodeRoll'] = '/roll [ile_razy]d[ilu_ścienną]';
-$lang['helpItemDescNick'] = 'Zmień nick:';
-$lang['helpItemCodeNick'] = '/nick Nick';
 $lang['settings'] = 'Ustawienia';
 $lang['settingsBBCode'] = 'Pozwól na BBCode:';
 $lang['settingsBBCodeImages'] = 'Enable image BBCode:';
