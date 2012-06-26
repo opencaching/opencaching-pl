@@ -1129,9 +1129,9 @@ var ajaxChat = {
 					+ '<li><a href="javascript:ajaxChat.insertMessageWrapper(\'/roll \');">'
 					+ this.lang['userMenuRoll']
 					+ '</a></li>'
-/*					+ '<li><a href="javascript:ajaxChat.insertMessageWrapper(\'/nick \');">'
+					+ '<li><a href="javascript:ajaxChat.insertMessageWrapper(\'/nick \');">'
 					+ this.lang['userMenuNick']
-					+ '</a></li>'*/;
+					+ '</a></li>';
 			if(this.userRole == 1 || this.userRole == 2 || this.userRole == 3) {
 				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/join\');">'
 						+ this.lang['userMenuEnterPrivateRoom']
