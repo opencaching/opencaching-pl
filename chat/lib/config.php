@@ -46,7 +46,7 @@ $config['langDefault'] = 'pl';
 // Language names:
 $config['langNames'] = array('ar'=>'عربي','bg'=>'Български','bp'=>'Português (Brasil)','ca'=>'Català','cy'=>'Cymraeg','cz'=>'Česky','de'=>'Deutsch','dk'=>'Dansk','el'=>'Ελληνικα','en'=>'English','es'=>'Español',
 	'et'=>'Eesti','fi'=>'Suomi','fr'=>'Français','gl'=>'Galego','he'=>'עברית','hr' => 'Hrvatski','hu' => 'Magyar','in'=>'Bahasa Indonesia','it'=>'Italiano','ja'=>'日本語','ka'=>'ქართული','kr'=>'한 글','nl'=>'Nederlands',
-	'no'=>'Norsk','pl'=> 'Polski','ro'=>'România','ru'=>'Русский','sk'=> 'Slovenčina','sl'=>'Slovensko','sr'=>'Srpski','sv'=> 'Svenska','tr'=>'Türkçe','uk'=>'Українська'');
+	'no'=>'Norsk','pl'=> 'Polski','ro'=>'România','ru'=>'Русский','sk'=> 'Slovenčina','sl'=>'Slovensko','sr'=>'Srpski','sv'=> 'Svenska','tr'=>'Türkçe','uk'=>'Українська');
 	
 // Available styles:
 $config['styleAvailable'] = array('beige','black','grey','Oxygen','Lithium','Sulfur','Cobalt','Mercury','Radium','prosilver','subsilver2','subblack2','subSilver','Core','MyBB','vBulletin');
