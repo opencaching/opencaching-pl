@@ -70,7 +70,7 @@ var ajaxChatConfig = {
 		// Defines if the chat list scrolls automatically to display the latest messages:
 		autoScroll: true,	
 		// The maximum count of messages displayed in the chat list (will be ignored if set to 0):
-		maxMessages: 20,
+		maxMessages: 0,
 		
 		// Defines if long words are wrapped to avoid vertical scrolling:
 		wordWrap: true,
