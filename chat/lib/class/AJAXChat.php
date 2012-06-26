@@ -750,7 +750,7 @@ class AJAXChat {
 				case '/whois':
 					$this->insertParsedMessageWhois($textParts);
 					break;
-				
+/*				
 				// Rolling dice:
 				case '/roll':				
 					$this->insertParsedMessageRoll($textParts);
@@ -761,7 +761,7 @@ class AJAXChat {
 					$this->insertParsedMessageNick($textParts);
 					break;
 			
-				// Custom or unknown command:
+/*/				// Custom or unknown command:
 				default:
 					if(!$this->parseCustomCommands($text, $textParts)) {				
 						$this->insertChatBotMessage(

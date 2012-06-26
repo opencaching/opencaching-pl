@@ -1125,9 +1125,6 @@ var ajaxChat = {
 					+ '</a></li>'
 					+ '<li><a href="javascript:ajaxChat.insertMessageWrapper(\'/action \');">'
 					+ this.lang['userMenuAction']
-					+ '</a></li>'
-					+ '<li><a href="javascript:ajaxChat.insertMessageWrapper(\'/roll \');">'
-					+ this.lang['userMenuRoll']
 					+ '</a></li>';
 			if(this.userRole == 1 || this.userRole == 2 || this.userRole == 3) {
 				menu	+= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/join\');">'
