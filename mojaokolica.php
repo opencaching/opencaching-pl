@@ -746,7 +746,7 @@ $rsll = sql("SELECT cache_logs.id FROM cache_logs
 	}	
 }
 
-//$GLOBALS['onoff']=1;
+$GLOBALS['onoff']=1;
 
 if ($usr==true){
 
