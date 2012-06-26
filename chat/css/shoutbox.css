@@ -9,11 +9,12 @@
 
 
 /*
- * Positioning
+ * Positioning 	overflow:auto;
+
  */
 #ajaxChatContent #ajaxChatChatList {
 	height:300px;
-	overflow:auto;
+	overflow:scroll;
 }
 #ajaxChatContent  #ajaxChatChatList div {
 	padding-left:5px;
