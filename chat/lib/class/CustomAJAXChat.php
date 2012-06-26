@@ -55,7 +55,7 @@ class CustomAJAXChat extends AJAXChat {
 	$point='POINT(' . $lon . ' ' . $lat . ')';
 // get region from Home coordiantes
 			$sCode = '';
-			$rsLayers = sql("SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHEREE WITHIN(GeomFromText('$point'), `shape`) ORDER BY `level` DESC");
+			$rsLayers = sql("SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('$point'), `shape`) ORDER BY `level` DESC");
 			while ($rLayers = mysql_fetch_assoc($rsLayers))
 			{
 				if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')'))
