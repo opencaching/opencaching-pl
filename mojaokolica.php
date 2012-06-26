@@ -766,9 +766,9 @@ if ($usr==true){
     if($chat_s!=3) { $GLOBALS['onoff']=$chat_s;} else { $GLOBALS['onoff']=1;}
 
     if($chat_s<1)
-	{tpl_set_var('chat_flag', '&nbsp;&nbsp;<a href="myneighborhood.php?chat_onoff=1"><img src="'.$stylepath.'/images/misc/on.png" align="top" alt="Włącz shoutbox" title="Włącz shoutbox" /></a>');}
+	{tpl_set_var('chat_flag', '&nbsp;&nbsp;<a href="mojaokolica.php?chat_onoff=1"><img src="'.$stylepath.'/images/misc/on.png" align="top" alt="Włącz shoutbox" title="Włącz shoutbox" /></a>');}
 	else
-	{tpl_set_var('chat_flag', '&nbsp;&nbsp;<a href="myneighborhood.php?chat_onoff=1"><img src="'.$stylepath.'/images/misc/off.png" align="bottom" alt="Wyłącz shoutbox" title="Wyłącz shoutbox" /></a>');}
+	{tpl_set_var('chat_flag', '&nbsp;&nbsp;<a href="mojaokolica.php?chat_onoff=1"><img src="'.$stylepath.'/images/misc/off.png" align="bottom" alt="Wyłącz shoutbox" title="Wyłącz shoutbox" /></a>');}
 
 // AJAX Chat -shoutbox
 function getShoutBoxContent() {
