@@ -85,7 +85,7 @@ class CustomAJAXChat extends AJAXChat {
 			$usern=$usr['username'].'['.$region.']';
 					$userData = array();
 					$userData['userID'] = $usr['userid'];
-					$userData['userName'] = $this->trimUserName($usern);
+					$userData['userName'] = $this->trimUserName($region);
 					if ($asadmin==1)
 					{$userData['userRole'] = AJAX_CHAT_MODERATOR;}
 					else
