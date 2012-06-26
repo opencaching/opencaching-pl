@@ -39,6 +39,7 @@
 	<meta http-equiv="cache-control" content="no-cache" />
   <meta name="author" content="Opencaching.pl " />
 	<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_screen.css" />
+  <link rel="stylesheet" type="text/css" media="screen,projection" href="chat/css/shoutbox.css" />
   <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_{season}.css" />
 	<link rel="SHORTCUT ICON" href="favicon.ico" />
