@@ -14,7 +14,7 @@
  */
 #ajaxChatContent #ajaxChatChatList {
 	height:320px;
-	overflow:scroll;
+	overflow:auto;
 }
 #ajaxChatContent  #ajaxChatChatList div {
 	padding-left:5px;
