@@ -2,6 +2,7 @@
 $rootpat=__DIR__;
 
 require($rootpat.'/../../../lib/settings.inc.php');
+require($rootpat.'/../../../lib/gis/gis.class.php');
 
 	//disconnect the databse
 	function db_disconnect()
