@@ -5,6 +5,8 @@
  * @copyright (c) Sebastian Tschan
  * @license GNU Affero General Public License
  * @link https://blueimp.net/ajax/
+	userMenuRoll: 'Rzuć kostką',
+	userMenuNick: 'Zmień nick',
  */
 
 // Ajax Chat language Object:
@@ -45,8 +47,6 @@ var ajaxChatLang = {
 	userMenuWho: 'Użytkownicy online',
 	userMenuList: 'Dostępne pokoje',
 	userMenuAction: 'Napisz co teraz robisz',
-	userMenuRoll: 'Rzuć kostką',
-	userMenuNick: 'Zmień nick',
 	userMenuEnterPrivateRoom: 'Wejdź do prywatnego pokoju',
 	userMenuSendPrivateMessage: 'Wyślij prywatną wiadomość',
 	userMenuDescribe: 'Napisz prywatnie co teraz robisz',
