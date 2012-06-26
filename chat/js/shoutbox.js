@@ -10,8 +10,8 @@
 
 	ajaxChat.handleLogout = function() {
 	}
-a
-jaxChat.addMessageToChatList = function(dateObject, userID, userName, userRole, messageID, messageText, channelID, ip) {
+
+ajaxChat.addMessageToChatList = function(dateObject, userID, userName, userRole, messageID, messageText, channelID, ip) {
 // Prevent adding the same message twice:
 if(this.getMessageNode(messageID)) {
 return;
@@ -19,13 +19,9 @@ return;
 if(!this.onNewMessage(dateObject, userID, userName, userRole, messageID, messageText, channelID, ip)) {
 return;
 }
-this.updateDOM(
-'chatList',
-this.getChatListMessageString(
-dateObject, userID, userName, userRole, messageID, messageText, channelID, ip
-),
-true // This prepends the message instead of appending it to the list
-)
+this.updateDOM('chatList', this.getChatListMessageString(dateObject, userID, userName, userRole, messageID, messageText, channelID, ip),true)
+// This prepends the message instead of appending it to the list
+
 }
 
 ajaxChat.updateChatlistView = function() {
