@@ -50,10 +50,66 @@ class CustomAJAXChat extends AJAXChat {
 	$user_id=$usr['userid'];
 	$asadmin=0;
 	$asadmin = sqlValue("SELECT admin FROM user WHERE `user_id`=$user_id",0);
-		
+	$usrcountry = sqlValue("SELECT country FROM user WHERE `user_id`=$user_id",0);
+	$lon = sqlValue("SELECT longitude FROM user WHERE `user_id`=$user_id",0);
+	$lat = sqlValue("SELECT latitude FROM user WHERE `user_id`=$user_id",0);
+	$point='POINT(' . $lon . ' ' . $lat . ')';
+	if ($lat==0 && $lon==0) {$region=$usrcountry;} else {
+// get region from Home coordiantes
+			$sCode = '';
+			$rsLayers = sql("SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('$point'), `shape`) ORDER BY `level` DESC");
+			while ($rLayers = mysql_fetch_assoc($rsLayers))
+			{
+			
+				if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')'))
+				{
+					$sCode = $rLayers['code'];
+					break;
+				}
+			}
+			mysql_free_result($rsLayers);
+			if ($sCode != '')
+			{
+				$adm1 = null; $code1 = null;
+				$adm2 = null; $code2 = null;
+				$adm3 = null; $code3 = null;
+				$adm4 = null; $code4 = null;
+
+				if (mb_strlen($sCode) > 5) $sCode = mb_substr($sCode, 0, 5);
+
+				if (mb_strlen($sCode) == 5)
+				{
+					$code4 = $sCode;
+					$adm4 = sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'",0);
+					$sCode = mb_substr($sCode, 0, 4);
+				}
+
+				if (mb_strlen($sCode) == 4)
+				{
+					$code3 = $sCode;
+					$adm3 = sqlvalue("SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'",0);
+					$sCode = mb_substr($sCode, 0, 3);
+				}
+
+				if (mb_strlen($sCode) == 3)
+				{
+					$code2 = $sCode;
+					$adm2 = sqlvalue("SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'", 0);
+					$sCode = mb_substr($sCode, 0, 2);
+				}
+
+				if (mb_strlen($sCode) == 2)
+				{
+				
+					$adm1 = $usrcountry;
+			}
+			$region=$adm3;
+			} 
+			}
+			$usern=$usr['username'].'['.$region.']';
 					$userData = array();
 					$userData['userID'] = $usr['userid'];
-					$userData['userName'] = $this->trimUserName($usr['username']);
+					$userData['userName'] = $this->trimUserName($usern);
 					if ($asadmin==1)
 					{$userData['userRole'] = AJAX_CHAT_MODERATOR;}
 					else
@@ -75,6 +131,8 @@ class CustomAJAXChat extends AJAXChat {
 				$forumName = $this->trimChannelName($value);
 				
 				$this->_allChannels[$forumName] = $key;
+//			    $defaultChannelID=1;
+			    //$this->getConfig('defaultChannelID')
 				if($key == $this->getConfig('defaultChannelID')) {
 					$defaultChannelFound = true;
 				}

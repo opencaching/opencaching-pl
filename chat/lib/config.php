@@ -157,7 +157,7 @@ $config['requestMessagesLimit'] = 10;
 // Max users in chat (does not affect moderators or admins):
 $config['maxUsersLoggedIn'] = 100;
 // Max userName length:
-$config['userNameMaxLength'] = 32;
+$config['userNameMaxLength'] = 64;
 // Max messageText length:
 $config['messageTextMaxLength'] = 1040;
 // Defines the max number of messages a user may send per minute:
