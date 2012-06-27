@@ -48,14 +48,14 @@ class CustomAJAXChat extends AJAXChat {
 	global $usr,$dblink;
 
 	$user_id=$usr['userid'];
-	$asadmin=0;
+	// check user admin status
 	$asadmin = sqlValue("SELECT admin FROM user WHERE `user_id`=$user_id",0);
+	// get region from Home coordiantes
 	$usrcountry = sqlValue("SELECT country FROM user WHERE `user_id`=$user_id",0);
 	$lon = sqlValue("SELECT longitude FROM user WHERE `user_id`=$user_id",0);
 	$lat = sqlValue("SELECT latitude FROM user WHERE `user_id`=$user_id",0);
 	$point='POINT(' . $lon . ' ' . $lat . ')';
 	if ($lat==0 && $lon==0) {$region=$usrcountry;} else {
-// get region from Home coordiantes
 			$sCode = '';
 			$rsLayers = sql("SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('$point'), `shape`) ORDER BY `level` DESC");
 			while ($rLayers = mysql_fetch_assoc($rsLayers))
