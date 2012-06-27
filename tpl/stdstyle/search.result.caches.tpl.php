@@ -105,8 +105,7 @@ if ($usr || !$hide_coords){ echo "
                  </td>
                  <td>
                    <span class=\"content-title-noshade txt-blue08\">GPX format</span>:<br/>        
-			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format(OC) .gpx\">OpenCaching</a> | 
-			<a class=\"links\" href=\"ocplgc";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format (Groundspeak) .gpx\">Geocaching.com</a> | 
+			<a class=\"links\" href=\"ocplgc";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a> | 
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Garmin ZIP file (GPX + zdjęcia)  .zip\">GARMIN</a>
                     </td>
           </tr>
