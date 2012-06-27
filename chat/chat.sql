@@ -45,9 +45,9 @@ PRIMARY KEY (userID, channel),
 INDEX (dateTime)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-DROP TABLE IF EXISTS ajax_chat_onoff;
+DROP TABLE IF EXISTS ajax_chat_users;
 CREATE TABLE IF NOT EXISTS `ajax_chat_onoff` (
   `userID` int(11) NOT NULL,
-   `onoff` tinyint(1) NOT NULL,
+   `level` tinyint(1) NOT NULL,
 PRIMARY KEY (`userID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
