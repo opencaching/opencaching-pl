@@ -131,8 +131,6 @@ class CustomAJAXChat extends AJAXChat {
 				$forumName = $this->trimChannelName($value);
 				
 				$this->_allChannels[$forumName] = $key;
-//			    $defaultChannelID=1;
-			    //$this->getConfig('defaultChannelID')
 				if($key == $this->getConfig('defaultChannelID')) {
 					$defaultChannelFound = true;
 				}
