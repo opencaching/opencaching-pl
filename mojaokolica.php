@@ -746,29 +746,6 @@ $rsll = sql("SELECT cache_logs.id FROM cache_logs
 	}	
 }
 
-$GLOBALS['onoff']=1;
-
-if ($usr==true){
-
-			
-		if($_GET['chat_onoff'] == 1 )
-		{
-	        $chat_stat=sqlValue("SELECT onoff FROM ajax_chat_onoff WHERE userID='" . sql_escape($usr['userid']) . "'", 3);
-		if ($chat_stat==3) {$chat_stat=1;}
-			$chat_switch=(1-$chat_stat);
-			$sql=sql("INSERT INTO `ajax_chat_onoff` (`userID`, `onoff`) VALUES ('&1', '&2') ON DUPLICATE KEY UPDATE `onoff`='&2'", $usr['userid'], $chat_switch);
-
-			mysql_query($sql);
-		}	
-
-    // Check user switch on/off soutbox
-     $chat_s=sqlValue("SELECT onoff FROM ajax_chat_onoff WHERE userID='" . sql_escape($usr['userid']) . "'", 3);
-    if($chat_s!=3) { $GLOBALS['onoff']=$chat_s;} else { $GLOBALS['onoff']=1;}
-
-    if($chat_s<1)
-	{tpl_set_var('chat_flag', '&nbsp;&nbsp;<a href="mojaokolica.php?chat_onoff=1"><img src="'.$stylepath.'/images/misc/on.png" align="top" alt="Włącz shoutbox" title="Włącz shoutbox" /></a>');}
-	else
-	{tpl_set_var('chat_flag', '&nbsp;&nbsp;<a href="mojaokolica.php?chat_onoff=1"><img src="'.$stylepath.'/images/misc/off.png" align="bottom" alt="Wyłącz shoutbox" title="Wyłącz shoutbox" /></a>');}
 
 // AJAX Chat -shoutbox
 function getShoutBoxContent() {
@@ -797,7 +774,7 @@ function getShoutBoxContent() {
                             
     return null;
     } 
- }
+ 
 
 //make the template and send it out
 tpl_BuildTemplate();

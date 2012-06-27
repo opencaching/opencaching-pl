@@ -78,7 +78,7 @@ $config['defaultChannelName'] = 'Ogólnopolski';
 // ChannelID used when no channel is given:
 $config['defaultChannelID'] = 0;
 // Defines an array of channelIDs (e.g. array(0, 1)) to limit the number of available channels, will be ignored if set to null:
-$config['limitChannelList'] = null;
+$config['limitChannelList'] = array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
 
 // UserID plus this value are private channels (this is also the max userID and max channelID):
 $config['privateChannelDiff'] = 500000000;

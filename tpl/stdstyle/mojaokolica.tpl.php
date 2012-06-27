@@ -97,14 +97,9 @@ function Unlite() {
 			</div>
 		</div>
 <br/>
-<?php
-if($usr==true)
-{
-?>
-<h2><a class="links" href=/chat/>Shoutbox</a>{chat_flag}</h2>
-<?php if($GLOBALS['onoff']==1) { 
+<h2><a class="links" href=/chat/>Shoutbox</a></h2>
+<?php 
 echo getShoutBoxContent(); 
-}
 ?>
 <br/>
-<?php }?>
+
