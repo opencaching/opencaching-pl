@@ -12,7 +12,7 @@ $channels = array();
 
 // Sample channel list:
 $channels[0] = 'Ogólnopolski';
-$channels[1] = 'Dolnoślaskie';
+$channels[1] = 'Dolnośląskie';
 $channels[2] = 'Kujawsko-Pomorski';
 $channels[3] = 'Lubelskie';
 $channels[4] = 'Lubuskie';
