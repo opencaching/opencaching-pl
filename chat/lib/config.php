@@ -188,7 +188,7 @@ $config['logsPurgeTimeDiff'] = 365;
 // Defines if registered users (including moderators) have access to the logs (admins are always granted access):
 $config['logsUserAccess'] = true;
 // Defines a list of channels (e.g. array(0, 1)) to limit the logs access for registered users, includes all channels the user has access to if set to null:
-$config['logsUserAccessChannelList'] = null;
+$config['logsUserAccessChannelList'] = array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
 
 // Defines if the socket server is enabled:
 $config['socketServerEnabled'] = false;
