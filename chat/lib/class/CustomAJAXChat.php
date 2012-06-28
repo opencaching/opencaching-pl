@@ -139,11 +139,11 @@ class CustomAJAXChat extends AJAXChat {
 		    if ($user_level>0){
 			$oc_team_channels=array(17,18,19);
 			$validChannels=array_merge($this->getConfig('limitChannelList'),$oc_team_channels);
-			$limitChannels=array_merge($this->getConfig('limitChannelList'),$oc_team_channels);
+			$limitChannelList=array_merge($this->getConfig('limitChannelList'),$oc_team_channels);
 			} else { 
 			$validChannels =$this->getConfig('limitChannelList');
 			$oc_team_channels=array();
-			$limitChannels=$this->getConfig('limitChannelList');
+			$limitChannelList=$this->getConfig('limitChannelList');
 			}
 
 //		    print_r($limitChannels);
