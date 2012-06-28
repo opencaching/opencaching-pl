@@ -50,4 +50,4 @@ CREATE TABLE IF NOT EXISTS `ajax_chat_users` (
   `userID` int(11) NOT NULL,
    `level` tinyint(1) NOT NULL,
 PRIMARY KEY (`userID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT="level 0=user,1=RR,2=RT,3=COG,4=ADMIN";
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT="level 0=user,RR=1,RT=2,COG=3,ADMIN=4";

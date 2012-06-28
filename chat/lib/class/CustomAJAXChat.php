@@ -120,34 +120,49 @@ class CustomAJAXChat extends AJAXChat {
 	
 	// Store the channels the current user has access to
 	// Make sure channel names don't contain any whitespace
-/*	function &getChannels() {
+	function &getChannels() {
+	global $usr;
 		if($this->_channels === null) {
 			$this->_channels = array();
 			
-			$customUsers = $this->getCustomUsers();
-			
+//			$customUsers = $this->getCustomUsers();
+			$user_id=$this->getUserID();
+
 			// Get the channels, the user has access to:
-			if($this->getUserRole() == AJAX_CHAT_GUEST) {
-				$validChannels = $customUsers[0]['channels'];
-			} else {
-				$validChannels = $customUsers[$this->getUserID()]['channels'];
+//			if($this->getUserRole() == AJAX_CHAT_GUEST) {
+//				$validChannels = $customUsers[0]['channels'];
+//			} else {
+//				$validChannels = $customUsers[$this->getUserID()]['channels'];
+//			}
+		    //Check user Level    
+		    $user_level = sqlValue("SELECT level FROM ajax_chat_users WHERE `userID`=$user_id",0);
+		    if ($user_level>0){
+			$oc_team_channels=array(17,18,19);
+			$validChannels=array_merge($this->getConfig('limitChannelList'),$oc_team_channels);
+			$limitChannels=array_merge($this->getConfig('limitChannelList'),$oc_team_channels);
+			} else { 
+			$validChannels =$this->getConfig('limitChannelList');
+			$oc_team_channels=array();
+			$limitChannels=$this->getConfig('limitChannelList');
 			}
-			
+
+//		    print_r($limitChannels);
 			// Add the valid channels to the channel list (the defaultChannelID is always valid):
 			foreach($this->getAllChannels() as $key=>$value) {
 				// Check if we have to limit the available channels:
-				if($this->getConfig('limitChannelList') && !in_array($value, $this->getConfig('limitChannelList'))) {
+				if(in_array($value, $limitChannelList)) {
 					continue;
 				}
 				
 				if(in_array($value, $validChannels) || $value == $this->getConfig('defaultChannelID')) {
+//				if($value == $this->getConfig('defaultChannelID')) {
 					$this->_channels[$key] = $value;
 				}
 			}
 		}
 		return $this->_channels;
 	}
- */
+ 
 
 	// Store all existing channels
 	// Make sure channel names don't contain any whitespace
