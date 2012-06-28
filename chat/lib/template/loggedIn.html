@@ -109,13 +109,15 @@
 			<h1>[LANG]title[/LANG]</h1>
 		</div>
 		<div id="logoutChannelContainer">
-  			<input type="button" id="logoutButton" value="[LANG]logout[/LANG]" onclick="ajaxChat.logout();"/>
+			<input type="button" id="logoutButton" value="[LANG]logout[/LANG]" onclick="ajaxChat.logout();"/>
 			<label for="channelSelection">[LANG]channel[/LANG]:</label>
 			<select id="channelSelection" onchange="ajaxChat.switchChannel(this.options[this.selectedIndex].value);">[CHANNEL_OPTIONS/]</select>
 			<label for="styleSelection">[LANG]style[/LANG]:</label>
 			<select id="styleSelection" onchange="ajaxChat.setActiveStyleSheet(ajaxChat.getSelectedStyle());">[STYLE_OPTIONS/]</select>
 			<label for="languageSelection">[LANG]language[/LANG]:</label>
 			<select id="languageSelection" onchange="ajaxChat.switchLanguage(this.value);">[LANGUAGE_OPTIONS/]</select>
+			<input type="button" id="logs" value="Pokaż historie" onclick="window.open('http://opencaching.pl/chat/index.php?view=logs')"/>
+
   		</div>
 		<div id="statusIconContainer" class="statusContainerOn" onclick="ajaxChat.updateChat(null);"></div>
 		<!--[if lt IE 7]>
