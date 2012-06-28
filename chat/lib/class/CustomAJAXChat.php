@@ -150,7 +150,7 @@ class CustomAJAXChat extends AJAXChat {
 			// Add the valid channels to the channel list (the defaultChannelID is always valid):
 			foreach($this->getAllChannels() as $key=>$value) {
 				// Check if we have to limit the available channels:
-				if(in_array($value, $limitChannelList)) {
+				if(!in_array($value, $limitChannelList)) {
 					continue;
 				}
 				
