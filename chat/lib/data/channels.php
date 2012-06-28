@@ -29,7 +29,7 @@ $channels[14] = 'Warmińsko-Mazurskie';
 $channels[15] = 'Wielkopolskie';
 $channels[16] = 'Zachodniopomorskie';
 $channels[17] = 'Rada-Rejsu';
-$channels[18] = 'Centrum-Obsługi-Geocachera';
-$channels[19] = 'Rada-Techniczna';
+$channels[18] = 'Rada-Techniczna';
+$channels[19] = 'Centrum-Obsługi-Geocachera';
 $channels[999] = 'Prywatny';
 ?>
