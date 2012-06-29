@@ -48,8 +48,9 @@ class CustomAJAXChat extends AJAXChat {
 	global $usr,$dblink;
 
 	$user_id=$usr['userid'];
-	// check user admin status
-	$asadmin = sqlValue("SELECT admin FROM user WHERE `user_id`=$user_id",0);
+
+	//Check user Level    
+	$user_level = sqlValue("SELECT level FROM ajax_chat_users WHERE `userID`=$user_id",0);
 	// get region from Home coordiantes
 	$usrcountry = sqlValue("SELECT country FROM user WHERE `user_id`=$user_id",0);
 	$lon = sqlValue("SELECT longitude FROM user WHERE `user_id`=$user_id",0);
@@ -110,7 +111,7 @@ class CustomAJAXChat extends AJAXChat {
 					$userData = array();
 					$userData['userID'] = $usr['userid'];
 					$userData['userName'] = $this->trimUserName($usern);
-					if ($asadmin==1)
+					if ($user_level>0)
 					{$userData['userRole'] = AJAX_CHAT_MODERATOR;}
 					else
 					{$userData['userRole'] = AJAX_CHAT_USER;}
@@ -125,15 +126,8 @@ class CustomAJAXChat extends AJAXChat {
 		if($this->_channels === null) {
 			$this->_channels = array();
 			
-//			$customUsers = $this->getCustomUsers();
 			$user_id=$this->getUserID();
 
-			// Get the channels, the user has access to:
-//			if($this->getUserRole() == AJAX_CHAT_GUEST) {
-//				$validChannels = $customUsers[0]['channels'];
-//			} else {
-//				$validChannels = $customUsers[$this->getUserID()]['channels'];
-//			}
 		    //Check user Level    
 		    $user_level = sqlValue("SELECT level FROM ajax_chat_users WHERE `userID`=$user_id",0);
 		    if ($user_level>0){
@@ -145,8 +139,6 @@ class CustomAJAXChat extends AJAXChat {
 			$oc_team_channels=array();
 			$limitChannelList=$this->getConfig('limitChannelList');
 			}
-
-//		    print_r($limitChannels);
 			// Add the valid channels to the channel list (the defaultChannelID is always valid):
 			foreach($this->getAllChannels() as $key=>$value) {
 				// Check if we have to limit the available channels:
