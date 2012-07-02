@@ -1231,6 +1231,15 @@
 
 				// wyswietlenie aktywności usera (dodane przez Łza)	
 				$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']" width="13" height="13" border="0" />'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
+
+				// ukrywanie autora komentarza COG przed zwykłym userem
+				if ($record['type'] == 12 && !$usr['admin']) 
+				  {
+				    $record['userid'] = '0';
+					$tmplog_username_aktywnosc = '';
+				    $tmplog_username = 'Centrum Obsługi Geocachera ';
+				  }
+
 				$tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
 
 				
