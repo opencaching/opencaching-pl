@@ -147,7 +147,6 @@ class CustomAJAXChat extends AJAXChat {
 				}
 				
 				if(in_array($value, $validChannels) || $value == $this->getConfig('defaultChannelID')) {
-//				if($value == $this->getConfig('defaultChannelID')) {
 					$this->_channels[$key] = $value;
 				}
 			}
