@@ -244,7 +244,7 @@ var ajaxChatConfig = {
 	privateMessageDiff: 1000000000,
 
 	// Defines if login/logout and channel enter/leave are displayed:
-	showChannelMessages: true,
+	showChannelMessages: false,
 
 	// Max messageText length:
 	messageTextMaxLength: 1040,
