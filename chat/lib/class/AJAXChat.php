@@ -178,7 +178,7 @@ class AJAXChat {
 	}
 
 	function updateLogsViewSocketAuthentication() {
-		if($this->getUserRole() != AJAX_CHAT_MODERATOR) {
+		if($this->getUserRole() != AJAX_CHAT_ADMIN) {
 			$channels = array();
 			foreach($this->getChannels() as $channel) {
 				if($this->getConfig('logsUserAccessChannelList') && !in_array($channel, $this->getConfig('logsUserAccessChannelList'))) {
@@ -353,9 +353,9 @@ class AJAXChat {
 				}
 				return false;
 			case 'logs':
-				if($this->isLoggedIn() && ($this->getUserRole() == AJAX_CHAT_MODERATOR ||
+				if($this->isLoggedIn() && ($this->getUserRole() == AJAX_CHAT_ADMIN ||
 					($this->getConfig('logsUserAccess') &&
-					($this->getUserRole() == AJAX_CHAT_USER))
+					($this->getUserRole() == AJAX_CHAT_MODERATOR || $this->getUserRole() == AJAX_CHAT_USER))
 					)) {
 					return true;
 				}
@@ -750,7 +750,7 @@ class AJAXChat {
 				case '/whois':
 					$this->insertParsedMessageWhois($textParts);
 					break;
-/*				
+				
 				// Rolling dice:
 				case '/roll':				
 					$this->insertParsedMessageRoll($textParts);
@@ -761,7 +761,7 @@ class AJAXChat {
 					$this->insertParsedMessageNick($textParts);
 					break;
 			
-/*/				// Custom or unknown command:
+				// Custom or unknown command:
 				default:
 					if(!$this->parseCustomCommands($text, $textParts)) {				
 						$this->insertChatBotMessage(
@@ -2155,7 +2155,7 @@ class AJAXChat {
 		switch($this->getRequestVar('channelID')) {
 			case '-3':
 				// Just display messages from all accessible channels
-				if($this->getUserRole() != AJAX_CHAT_MODERATOR) {
+				if($this->getUserRole() != AJAX_CHAT_ADMIN) {
 					$condition .= ' AND (channel = '.$this->db->makeSafe($this->getPrivateMessageID());
 					$condition .= ' OR channel = '.$this->db->makeSafe($this->getPrivateChannelID());
 					foreach($this->getChannels() as $channel) {
@@ -2182,7 +2182,7 @@ class AJAXChat {
 				}
 				break;
 			default:
-				if(($this->getUserRole() == AJAX_CHAT_MODERATOR || !$this->getConfig('logsUserAccessChannelList') || in_array($this->getRequestVar('channelID'), $this->getConfig('logsUserAccessChannelList')))
+				if(($this->getUserRole() == AJAX_CHAT_ADMIN || !$this->getConfig('logsUserAccessChannelList') || in_array($this->getRequestVar('channelID'), $this->getConfig('logsUserAccessChannelList')))
 					&& $this->validateChannel($this->getRequestVar('channelID'))) {
 					$condition .= ' AND channel = '.$this->db->makeSafe($this->getRequestVar('channelID'));
 				} else {
