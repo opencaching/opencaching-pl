@@ -216,6 +216,18 @@ $rs = sql('SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 				$file_content .= '<td width="22"><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt="" title="Kliknij aby zobaczyć skrzynke" /></a></td>';
 				$file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
 
+
+			// ukrywanie autora komentarza COG przed zwykłym userem
+			// (Łza)
+			if ($log_record['log_type'] == 12 && !$usr['admin']) 
+			   {
+				 $log_record['user_id'] = '0';
+				 $log_record['user_name'] = 'Centrum Obsługi Geocachera ';
+			   }
+			// koniec ukrywania autora komentarza COG przed zwykłym userem
+
+
+
 				$file_content .= '<b>'.$log_record['user_name'].'</b>:&nbsp;';
 				if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['luser_id']!=$usr['userid']){
 				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
