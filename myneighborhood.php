@@ -710,6 +710,16 @@ $rsll = sql("SELECT cache_logs.id FROM cache_logs
 					else
 					{
 					$thisline = mb_ereg_replace('{rateicon}',"images/rating-star-empty.png", $thisline);}	
+      
+				// ukrywanie autora komentarza COG przed zwykłym userem
+				// (Łza)
+				if ($log_record['log_type'] == 12 && !$usr['admin']) 
+				  {
+				    $log_record['user_id'] = '0';
+					$log_record['user_name'] = 'Centrum Obsługi Geocachera ';
+				  }
+			   // koniec ukrywania autora komentarza COG przed zwykłym userem
+
 			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{cacheid}', urlencode($log_record['cache_id']), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8'), $thisline);
