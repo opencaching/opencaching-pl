@@ -45,6 +45,14 @@ LIMIT 20");
 		for ($i = 0; $i < mysql_num_rows($rs); $i++)
 		{
 			$r = sql_fetch_array($rs);
+
+  // ukrywanie autora komentarza COG przed zwykłym userem
+     // (Łza)
+        if ($r['log_type'] == 12)
+              {
+                   $r['user_name'] = 'Centrum Obsługi Geocachera ';
+                              }
+                // koniec ukrywania autora komentarza COG przed zwykłym userem
 			$thisline = "<item>\n<title>{cachename}</title>\n<description>Użytkownik: {username} - Wpis: {logtype} - Data: {date} </description>\n<link>http://www.opencaching.pl/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";
 			
 			$thisline = str_replace('{cacheid}', $r['cache_id'], $thisline);
