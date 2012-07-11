@@ -1,4 +1,4 @@
-<?php
+	<?php
 /***************************************************************************
 	*                                         				                                
 	*   This program is free software; you can redistribute it and/or modify  	
@@ -531,19 +531,19 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 			mysql_free_result($rscc2);
 
 	$rs_logs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
-	                          cache_logs.type AS log_type,
-				cache_logs.text AS log_text,
-	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
-	                          caches.name AS cache_name,
-							  caches.wp_oc AS wp_name,
-							  cache_logs.encrypt AS encrypt,
-							  caches.user_id AS cache_owner,
-							cache_logs.user_id AS luser_id,
-	                        			  user.username AS user_name,
-							  user.user_id AS user_id,
-							  caches.type AS cache_type,
-							  cache_type.icon_small AS cache_icon_small,
-							  log_types.icon_small AS icon_small,
+	                       cache_logs.type AS log_type,
+				           cache_logs.text AS log_text,
+	                       DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
+	                       caches.name AS cache_name,
+						   caches.wp_oc AS wp_name,
+						   cache_logs.encrypt AS encrypt,
+						   caches.user_id AS cache_owner,
+						   cache_logs.user_id AS luser_id,
+	                       user.username AS user_name,
+						   user.user_id AS user_id,
+						   caches.type AS cache_type,
+						   cache_type.icon_small AS cache_icon_small,
+						   log_types.icon_small AS icon_small,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`, COUNT(gk_item.id) AS geokret_in							  
 	FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 	LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
@@ -594,6 +594,16 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['cache_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{wpname}', htmlspecialchars($record_logs['wp_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+                    
+					// ukrywanie nicka autora komentarza COG przed zwykłym userem
+					// (Łza)
+					if (($record_logs['log_type'] == 12) && (!$usr['admin']))
+					   {
+					     $record_logs['user_name'] = 'Centrum Obsługi Geocachera';
+						 $record_logs['user_id'] = 0;
+					   } 
+					// koniec ukrywania nicka autora komentarza COG  
+					
 					$tmp_log = mb_ereg_replace('{userid}', htmlspecialchars($record_logs['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['user_name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{logid}', htmlspecialchars(urlencode($record_logs['id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
