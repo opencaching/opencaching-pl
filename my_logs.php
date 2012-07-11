@@ -178,6 +178,7 @@ if ($error == false)
 							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5	
 					  WHERE cache_logs.deleted=0 AND cache_logs.id IN (" . $log_ids . ") AND `cache_logs`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'
+
 	                   GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC");
 			if (mysql_num_rows($rs) != 0)
 			{
@@ -186,6 +187,8 @@ if ($error == false)
 				{
 				$log_record = sql_fetch_array($rs);
 				
+				if (!(($log_record['log_type'] == 12) && (!$usr['admin']))) //ten warunek ukryje logi typu "komentarz COG" przed zwykłymi userami, natomiast adminom wyświetli wszystkie logi
+				{
 				$file_content .= '<tr>';
 				$file_content .= '<td style="width: 70px;">'. htmlspecialchars(date("Y-m-d", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
@@ -225,6 +228,7 @@ if ($error == false)
 				$file_content .= '<td>&nbsp;</td>';
 				$file_content .= "</tr>";
 					}
+				  } // koniec ifa ukrywajacego log o id 12 (komentarz COG)
 				}
 
 	$pages = mb_ereg_replace('{last_img}', $last_img, $pages);
