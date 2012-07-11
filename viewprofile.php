@@ -353,6 +353,7 @@ function myUrlEncode($string) {
 							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5	
 					  WHERE (caches.status=1 OR caches.status=2 OR caches.status=3) AND cache_logs.deleted=0 AND `cache_logs`.`user_id`='&1'
+					  AND cache_logs.type <> 12 
 					   GROUP BY cache_logs.id
 	                   ORDER BY cache_logs.date_created DESC
 					LIMIT 5", $user_id);
