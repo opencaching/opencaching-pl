@@ -252,8 +252,19 @@
 					$tmp_log = mb_ereg_replace('{date}', fixPlMonth(strftime($dateformat , strtotime($record_logs['date']))), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
-					$tmp_log = mb_ereg_replace('{userid}', htmlspecialchars($record_logs['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
-					$tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['username'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					// ukrywanie nicka autora komentarza COG
+					// (Łza)
+					if (($record_logs['type'] == 12) && (!$user['admin']))
+					   {
+					     $tmp_log = mb_ereg_replace('{userid}', htmlspecialchars('0', ENT_COMPAT, 'UTF-8'), $tmp_log);
+					     $tmp_log = mb_ereg_replace('{username}', htmlspecialchars('Centrum Obsługi Geocachera', ENT_COMPAT, 'UTF-8'), $tmp_log);
+					   } 
+					else 
+					   {
+					     $tmp_log = mb_ereg_replace('{username}', htmlspecialchars($record_logs['username'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					     $tmp_log = mb_ereg_replace('{userid}', htmlspecialchars($record_logs['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
+					   }
+					// koniec ukrywania nicka autora komentarza COG  
 
 					$logs .= "\n" . $tmp_log;
 				}
