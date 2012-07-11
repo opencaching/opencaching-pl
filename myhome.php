@@ -254,7 +254,7 @@
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					// ukrywanie nicka autora komentarza COG
 					// (Łza)
-					if (($record_logs['type'] == 12) && (!$user['admin']))
+					if (($record_logs['type'] == 12) && (!$usr['admin']))
 					   {
 					     $tmp_log = mb_ereg_replace('{userid}', htmlspecialchars('0', ENT_COMPAT, 'UTF-8'), $tmp_log);
 					     $tmp_log = mb_ereg_replace('{username}', htmlspecialchars('Centrum Obsługi Geocachera', ENT_COMPAT, 'UTF-8'), $tmp_log);
