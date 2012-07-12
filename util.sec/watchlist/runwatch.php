@@ -328,6 +328,7 @@ function process_log_watch($user_id, $log_id)
 		break;
 		case '12':
 			$logtype = "komentarz Centrum Obsługi Geocachera";
+      $rLog['username'] = "Centrum Obsługi Geocachera";
 		break;
 		default:
 			$logtype = "";
