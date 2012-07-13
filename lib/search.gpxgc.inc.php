@@ -374,13 +374,14 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 			// start extra info
 			$thisextra="";
-			$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
+			$rsAttributes = sql("SELECT `cache_attrib`.`id`, `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 			if (( $r['votes'] > 3 ) || ( $r['topratings'] > 0 ) || (mysql_num_rows($rsAttributes) > 0 )) {
 			$thisextra .= "\n-- Dodatkowe informacje z bazy OC: --\n";		
 		    	if (mysql_num_rows($rsAttributes) > 0) {
 				$attributes = 'Atrybuty: ';
 			while ($rAttribute = sql_fetch_array($rsAttributes))
 			{
+					// if ($rAttribute['id'] == 55) $wigo = true; todo ustawic typ kesza na wigo
 					$attributes .= cleanup_text(xmlentities($rAttribute['text_long']));									
 					$attributes .=  " | ";		
 			}
@@ -487,13 +488,17 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 				
 				$thislog = str_replace('{id}', $rLog['id'], $thislog);
 				$thislog = str_replace('{date}', date($gpxTimeFormat, strtotime($rLog['date'])), $thislog);
-				$thislog = str_replace('{username}', xmlentities($rLog['username']), $thislog);
-				$thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);				
 				if (isset($gpxLogType[$rLog['type']]))
 					$logtype = $gpxLogType[$rLog['type']];
 				else
 					$logtype = $gpxLogType[0];
-					
+				if ($logtype == 'Post Reviewer Note')
+				 {
+				  $rLog['username'] = 'Centr.Obsl.Geocachera';
+				  $rLog['userid'] = '0';
+				 }
+				$thislog = str_replace('{username}', xmlentities($rLog['username']), $thislog);
+				$thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);				
 				$thislog = str_replace('{type}', $logtype, $thislog);
 				$thislog = str_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
 				$logentries .= $thislog . "\n";
