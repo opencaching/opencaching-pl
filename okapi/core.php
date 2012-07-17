@@ -679,7 +679,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 405; # This gets replaced in automatically deployed packages
+	public static $revision = 406; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
