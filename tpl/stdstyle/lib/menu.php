@@ -243,10 +243,18 @@ $menu = array(
 		'newwindow' => true
 	),
 	array(
+		'title' => 'ChatBox',
+		'menustring' => 'ChatBox',
+		'siteid' => 'chatbox',
+		'visible' => false,
+		'filename' => 'http://opencaching.pl/chat',
+		'newwindow' => true
+	),
+	array(
 		'title' => 'IRC',
 		'menustring' => 'IRC',
 		'siteid' => 'irc',
-		'visible' => true,
+		'visible' => false,
 		'filename' => 'http://webchat.freenode.net/?nick='.$usr['username'].'&amp;channels=opencaching.pl&amp;prompt=1',
 		'newwindow' => true
 	),
