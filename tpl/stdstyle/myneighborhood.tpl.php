@@ -97,3 +97,9 @@ function Unlite() {
 			</div>
 		</div>
 <br/>
+<h2><a class="links" href=/chat/>Shoutbox</a></h2>
+<?php 
+echo getShoutBoxContent(); 
+?>
+<br/>
+

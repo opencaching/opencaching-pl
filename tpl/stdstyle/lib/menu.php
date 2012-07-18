@@ -246,7 +246,7 @@ $menu = array(
 		'title' => 'ChatBox',
 		'menustring' => 'ChatBox',
 		'siteid' => 'chatbox',
-		'visible' => false,
+		'visible' => true,
 		'filename' => 'http://opencaching.pl/chat',
 		'newwindow' => true
 	),
