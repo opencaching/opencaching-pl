@@ -20,6 +20,6 @@ ajaxChat.replaceCustomCommands = function(text, textParts) {
 
  */
  ajaxChat.customInitialize = function() {
-    ajaxChat.addChatBotMessageToChatList('Witamy na OpenCaching PL ChatBox. Użyj komendy /list aby otrzymać wykaz kanłów, użyj /who aby wylistować kto jest online');
+    ajaxChat.addChatBotMessageToChatList('Witamy na OpenCaching PL ChatBox. Użyj /who aby wylistować kto jest online, użyj komendy /list aby otrzymać wykaz kanłów i kliknij myszką na nazwę kanału aby wybrać go');
     }
 
