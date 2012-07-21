@@ -49,9 +49,10 @@
 				require_once($rootpath . '/lib/caches.inc.php');
 				require_once($stylepath . '/newcache.inc.php');
 				
-			$rs = sql("SELECT `hide_flag` as hide_flag FROM `user` WHERE `user_id` =  ".sql_escape($usr['userid']));
+			$rs = sql("SELECT `hide_flag` as hide_flag, `verify_all` as verify_all FROM `user` WHERE `user_id` =  ".sql_escape($usr['userid']));
 			$record = sql_fetch_array($rs);
 			$hide_flag = $record['hide_flag'];
+			$verify_all = $record['verify_all'];
 			
 			if($hide_flag == 10) 
 			{
@@ -71,8 +72,8 @@
 			{
 				$tplname = 'newcache_beginner';
 				require_once($rootpath . '/lib/caches.inc.php');
-			
 			}
+
 
 				$errors = false; // set if there was any errors
 
@@ -94,6 +95,14 @@
 					tpl_set_var('hide_publish_end', '-->');
 					tpl_set_var('approvement_note', '<div class="notice"><font color="red"><b>'.tr('first_cache_approvement').'</b></font></div>');
 				}
+else if ($verify_all==1) {
+					$needs_approvement = true;
+					tpl_set_var('hide_publish_start', '<!--');
+					tpl_set_var('hide_publish_end', '-->');
+					tpl_set_var('approvement_note', '<div class="notice"><font color="red"><b>'.tr('all_cache_approvement').'</b></font></div>');
+					
+					}
+
 				else
 				{
 					$needs_approvement = false;
