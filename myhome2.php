@@ -62,7 +62,7 @@
 				$hidden_count = 0;
 			
 			$sql = "SELECT COUNT(*) founds_count 
-							FROM cache_logs 
+							FROM cache_logs USE INDEX (user_id)
 							WHERE user_id=$userid AND type=1 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
@@ -71,7 +71,7 @@
 				$founds_count = 0;
 			
 			$sql = "SELECT COUNT(*) events_count 
-							FROM cache_logs 
+							FROM cache_logs USE INDEX (user_id)
 							WHERE user_id=$userid AND type=7 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
@@ -80,7 +80,7 @@
 				$events_count = 0;
 			
 			$sql = "SELECT COUNT(*) notfounds_count 
-							FROM cache_logs 
+							FROM cache_logs USE INDEX (user_id)
 							WHERE user_id=$userid AND type=2 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
@@ -89,7 +89,7 @@
 				$notfounds_count = 0;
 			
 			$sql = "SELECT COUNT(*) log_notes_count 
-							FROM cache_logs 
+							FROM cache_logs USE INDEX (user_id)
 							WHERE user_id=$userid AND type=3 AND deleted=0";
 			
 			if( $odp = mysql_query($sql) )
