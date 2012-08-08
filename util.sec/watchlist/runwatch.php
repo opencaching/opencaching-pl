@@ -43,6 +43,10 @@
 	}
 /* end db connect */
   
+	$diag_log_file = fopen("/var/log/ocpl/runwatch.log", "a");
+	$diag_start_time = microtime(true);
+	fprintf($diag_log_file, "start;%s\n", date("Y-m-d H:i:s"));
+
 /* begin owner notifies */
   $rsNewLogs = sql("SELECT cache_logs.id log_id, caches.user_id user_id FROM cache_logs, caches WHERE cache_logs.deleted=0 AND cache_logs.cache_id=caches.cache_id AND cache_logs.owner_notified=0");
   for ($i = 0; $i < mysql_num_rows($rsNewLogs); $i++)
@@ -64,6 +68,9 @@
   mysql_free_result($rsNewLogs);
 /* end owner notifies */
 
+	fprintf($diag_log_file, "after-owner-notifies;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
+	$diag_start_time = microtime(true);
+	
 /* begin cache_watches */
   $rscw = sql("SELECT * FROM cache_watches");
   for ($i = 0; $i < mysql_num_rows($rscw); $i++)
@@ -93,6 +100,9 @@
   mysql_free_result($rscw);
 /* end cache_watches */
 
+	fprintf($diag_log_file, "after-cache-watches;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
+	$diag_start_time = microtime(true);
+	
 /* begin send out everything that has to be sent */
 	
 	$email_headers = 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
@@ -196,6 +206,10 @@
 	mysql_free_result($rsUsers);
 
 /* end send out everything that has to be sent */
+
+	fprintf($diag_log_file, "after-send-out;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
+	$diag_start_time = microtime(true);
+	fclose($diag_log_file);
 
 // Release lock
 	fclose($lock_file);
