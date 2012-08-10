@@ -55,7 +55,7 @@
 			 $czy_user_obserwuje_kesz = mysql_num_rows(mysql_query("SELECT `id` FROM `cache_watches` WHERE `cache_id` = $id_keszynki AND `user_id` = $id_usera"));
 			 // jeśli tak, usuwamy wpisy z bazy
 			 // (if so proceed to remove from database)
-			 if ($czy_user_obserwuje_kesz == 1) remove_watch($cache_id, $usr);	
+			 if ($czy_user_obserwuje_kesz >= 1) remove_watch($cache_id, $usr);	
 			}
 		}
 		tpl_redirect($target);
