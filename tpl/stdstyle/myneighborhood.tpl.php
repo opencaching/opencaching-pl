@@ -96,10 +96,11 @@ function Unlite() {
 				{more_topcaches}<br/><br/>
 			</div>
 		</div>
+<!-- Chat disabled because of server performance issues 
 <br/>
 <h2><a class="links" href=/chat/>Shoutbox</a></h2>
 <?php 
-echo getShoutBoxContent(); 
+// echo getShoutBoxContent(); 
 ?>
 <br/>
-
+ -->

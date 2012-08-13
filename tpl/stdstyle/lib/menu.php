@@ -246,7 +246,7 @@ $menu = array(
 		'title' => 'ChatBox',
 		'menustring' => 'ChatBox',
 		'siteid' => 'chatbox',
-		'visible' => true,
+		'visible' => false, // Chat disabled because of server performance issues 
 		'filename' => 'http://opencaching.pl/chat',
 		'newwindow' => true
 	),
