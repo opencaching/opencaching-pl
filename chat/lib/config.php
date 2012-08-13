@@ -102,7 +102,7 @@ $config['forceAutoLogin'] = false;
 $config['showChannelMessages'] = false;
 
 // If enabled, the chat will only be accessible for the admin:
-$config['chatClosed'] = false;
+$config['chatClosed'] = true;
 // Defines the timezone offset in seconds (-12*60*60 to 12*60*60) - if null, the server timezone is used:
 $config['timeZoneOffset'] = null;
 // Defines the hour of the day the chat is opened (0 - closingHour):
