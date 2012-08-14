@@ -98,7 +98,7 @@ $route_id=sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND descrip
 // update length of route
 sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$l,$route_id);
 
-$myurl = "http://maps.google.pl/maps?q=from:{$from}{$via}+to:{$to}&hl=pl&output=kml";
+$myurl = "http://maps.google.pl/maps?q=from:{$from}{$via}+to:{$to}&hl=pl&output=js";
 //Open the url
 $f = fopen ($myurl, "r");
 $str = stream_get_contents($f);
@@ -110,7 +110,7 @@ $upload_filename="/tmp/tmp.kml";
 
 // Read file KML with route, load in the KML file through the my_routes page, and run that KML file through GPSBABEL which has a tool interpolate data points in the route.	
 if ( !$error ) {
-exec("/usr/bin/gpsbabel -i kml,units=m -f ".$upload_filename." -x interpolate,distance=5k -o kml,units=m -F ".$upload_filename."");
+exec("/usr/bin/gpsbabel -i google,units=m -f ".$upload_filename." -x interpolate,distance=5k -o kml,units=m -F ".$upload_filename."");
 $xml = simplexml_load_file($upload_filename);
 
 	// get length route 
