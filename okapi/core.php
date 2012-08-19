@@ -661,7 +661,7 @@ class OkapiLock
 	
 	private function __construct($name)
 	{
-		$lockfile = Okapi::getDynBasePath()."/okapi-lock-".$name;
+		$lockfile = Okapi::get_var_dir()."/okapi-lock-".$name;
 		if (!file_exists($lockfile))
 		{
 			$fp = fopen($lockfile, "wb");
@@ -671,7 +671,7 @@ class OkapiLock
 	}
 	
 	public function acquire() { sem_acquire($this->lock); }
-	public function release() { sem_release($this->lock); }
+	public function release() { sem_release($this->lock); } 
 }
 
 /** Container for various OKAPI functions. */
@@ -679,7 +679,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 410; # This gets replaced in automatically deployed packages
+	public static $revision = 411; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -743,7 +743,7 @@ class Okapi
 	}
 	
 	/** Get directory to store dynamic (cache or temporary) files. No trailing slash included. */
-	public static function getDynBasePath()
+	public static function get_var_dir()
 	{
 		$dir = Settings::get('VAR_DIR');
 		if ($dir != null)
