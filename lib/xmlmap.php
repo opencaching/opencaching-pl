@@ -271,7 +271,7 @@
 
 	}
 	else { // searchdata
-		mysql_query("CREATE TEMPORARY TABLE cache_ids (id INTEGER PRIMARY KEY);");
+		mysql_query("CREATE TEMPORARY TABLE cache_ids (id INTEGER PRIMARY KEY) ENGINE=MEMORY;");
 		mysql_query("LOAD DATA LOCAL INFILE '".$dynbasepath."/searchdata/".$searchdata."' INTO TABLE cache_ids FIELDS TERMINATED BY ' '  LINES TERMINATED BY '\\n' (id);");
 
 
