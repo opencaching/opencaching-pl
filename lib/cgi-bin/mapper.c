@@ -388,7 +388,7 @@ int main(void)
 	if(searchdata) {
 
 
-		snprintf(query[0], sizeof(query[0]), "CREATE TEMPORARY TABLE cache_ids (id INTEGER PRIMARY KEY);");
+		snprintf(query[0], sizeof(query[0]), "CREATE TEMPORARY TABLE cache_ids (id INTEGER PRIMARY KEY) ENGINE=MEMORY;");
 
 //	printf("Content-type: text/plain; charset=utf-8\r\n\r\n");
 //	fprintf(stdout, "%s %s\n", searchdata, config_get(conf, "Paths", "SearchDataDir", ""));
