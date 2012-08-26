@@ -877,12 +877,12 @@ os_komunikat2 Sprawdź współrzędne geocache wybierając go z listy:
 os_typ typ
 os_powrot powrót
 os_pomoc Pomoc
-os_zobo Przeczytaj do czego służy OpenSprawdzacz i jak dodać swoją keszynkę.
-os_spr_form Sprawdzanie współrzędnych finałowych keszynki:
+os_zobo Przeczytaj do czego służy OpenSprawdzacz i jak dodać swoją skrzynke.
+os_spr_form Sprawdzanie współrzędnych finałowych skrzynek:
 os_twojews Twoje współrzędne
 os_hlp_01 OpenSprawdzacz umożliwia sprawdzenie współrzędnych pojemników finałowch dla skrzynek typu "Quiz", "Inny typ" oraz "Multicache".
 os_hlp_02 Jeśli jesteś właścicielem takiej skrzynki - możesz tu umożliwić innym użytkownikom zweryfikowanie otrzymanych/wyliczonych współrzędnych pojemnika finałowego przed wyruszeniem w teren.
-os_hlp_03 Jak dodać Twoją keszynkę do OpenSprawdzacza?
+os_hlp_03 Jak dodać Twoją skrzynke do OpenSprawdzacza?
 os_hlp_04 1. Wejdź do panelu edycji kesza
 os_hlp_05 2. Kliknij dodaj nowy waypoint
 os_hlp_06 3. Ustaw typ waypointa na "punkt końcowy"
@@ -891,14 +891,14 @@ os_hlp_08 5. Ustaw status waypointa na "Ukryj ten waypoint w wykazie waypointów
 os_hlp_09 6. kliknij "Zapisz waypoint"
 os_hlp_10 Od tej chwili w Twojej skrzynce będą widoczne dwie zmiany:
 os_hlp_11 a) Na stronie z opisem Twojej skrzynki pojawi się sekcja opensprawdzacza z linkiem do sprawdzenia współrzędnych;
-os_hlp_12 b) Na stronie OpenSprawdzacza Twoja skrzynka zostanie dodana do listy keszy.
-os_hlp_13 Jak usunąć keszynkę z OpenSprawdzacza?
+os_hlp_12 b) Na stronie OpenSprawdzacza Twoja skrzynka zostanie dodana do listy skrzynek.
+os_hlp_13 Jak usunąć skrzynke z OpenSprawdzacza?
 os_hlp_14 Aby zablokować możliwość sprawdzania współrzędnych:
 os_hlp_15 1. Wejdź do panelu edycji kesza
 os_hlp_16 2. w wykazie waypointów kliknij na edycję waypointu "punkt finałowy"
 os_hlp_17 3. odznacz "ptaszka" przy Opensprawdzaczu.
-os_hlp_18 Od tej chwili Twoja keszynka zniknie z listy OpenSprawdzacza a także ze strony z opisem Twojej skrzynki zniknie sekcja opensprawdzacza.
-ni_ma_takiego_kesza Takiej keszynki nie ma w bazie danych!
+os_hlp_18 Od tej chwili Twoja skrzynka zniknie z listy OpenSprawdzacza a także ze strony z opisem Twojej skrzynki zniknie sekcja opensprawdzacza.
+ni_ma_takiego_kesza Takiej skrzynki nie ma w bazie danych!
 os_wynik Wynik
 os_zgad Zgadywałeś(aś) za dużo razy!!
 wybrac_log Proszę wybrać typ logu
@@ -909,6 +909,6 @@ os_ma_na sprawdzeń na
 os_godzine minut
 os_mus Musisz odczekać jeszcze
 os_minut_end minut zanim będziesz mógł znów użyć OpenSprawdzacza.
-viewlog_aktywnosc Aktywność użytkownika (suma keszynek znalezionych,nieznalezionych i założonych)
+viewlog_aktywnosc Aktywność użytkownika (suma skrzynek znalezionych,nieznalezionych i założonych)
 
 	

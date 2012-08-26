@@ -208,11 +208,21 @@ function myUrlEncode($string) {
 			tpl_set_var('lastlogin', tr('more_12_month'));
 	}
 
+			$ars = sql("SELECT
+					`user`.`hidden_count` AS    `ukryte`,
+					`user`.`founds_count` AS    `znalezione`, 	
+					`user`.`notfounds_count` AS `nieznalezione`
+				FROM `user` WHERE `user_id`='&1'", $user_id);
+				$record = sql_fetch_array($ars);
+				$act = $record['ukryte'] + $record['znalezione'] + $record['nieznalezione'];
+
+		$content .= '<br /><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;Aktywność użytkownika</p></div><br /><p><span class="content-title-noshade txt-blue08">Suma skrzynek znalezionych, nie znalezionych i założonych</span>:&nbsp;<strong>'.$act.'</strong></p>';
+
 // -----------  begin Find section -------------------------------------
 			$rs_seek= sql ("SELECT COUNT(*) FROM cache_logs WHERE (type=1 OR type=2) AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)",$user_id);
 			$seek = mysql_num_rows($rs_seek);
 
-		$content .= '<br /><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache-open.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;'.tr(stat_number_found).'</p></div><br />';
+		$content .= '<p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/cache-open.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;'.tr(stat_number_found).'</p></div><br />';
 		if ($seek == 0) {
 			$content .= '<br /><p> <b>'.tr('not_found_caches').'</b></p>';
 						  }
