@@ -47,59 +47,54 @@
 	$diag_start_time = microtime(true);
 	fprintf($diag_log_file, "start;%s\n", date("Y-m-d H:i:s"));
 
-/* begin owner notifies */
-  $rsNewLogs = sql("SELECT cache_logs.id log_id, caches.user_id user_id FROM cache_logs, caches WHERE cache_logs.deleted=0 AND cache_logs.cache_id=caches.cache_id AND cache_logs.owner_notified=0");
+/* begin owner notifies and cache watches */
+  $rsNewLogs = sql("SELECT cache_logs.id log_id, caches.user_id user_id, cache_logs.cache_id cache_id FROM cache_logs, caches WHERE cache_logs.deleted=0 AND cache_logs.cache_id=caches.cache_id AND cache_logs.owner_notified=0");
   for ($i = 0; $i < mysql_num_rows($rsNewLogs); $i++)
   {
 		$rNewLog = sql_fetch_array($rsNewLogs);
+		$rNewLog_log_id = $rNewLog['log_id'];
+		$rNewLog_user_id = $rNewLog['user_id'];
+		$rNewLog_cache_id = $rNewLog['cache_id'];
 		
-		$rsNotified = sql("SELECT `id` FROM watches_notified WHERE user_id='&1' AND object_id='&2' AND object_type=1", $rNewLog['user_id'], $rNewLog['log_id']);
+		// Notify owner
+		$rsNotified = sql("SELECT `id` FROM watches_notified WHERE user_id='&1' AND object_id='&2' AND object_type=1", $rNewLog_user_id, $rNewLog_log_id);
 		if (mysql_num_rows($rsNotified) == 0)
 		{
 			// Benachrichtigung speichern
-			sql("INSERT IGNORE INTO `watches_notified` (`user_id`, `object_id`, `object_type`, `date_processed`) VALUES ('&1', '&2', 1, NOW())", $rNewLog['user_id'], $rNewLog['log_id']);
+			sql("INSERT IGNORE INTO `watches_notified` (`user_id`, `object_id`, `object_type`, `date_processed`) VALUES ('&1', '&2', 1, NOW())", $rNewLog_user_id, $rNewLog_log_id);
 		
-			process_owner_log($rNewLog['user_id'], $rNewLog['log_id']);
+			process_owner_log($rNewLog_user_id, $rNewLog_log_id);
 		}
 		mysql_free_result($rsNotified);
-		
-		sql("UPDATE cache_logs SET owner_notified=1 WHERE id='&1'", $rNewLog['log_id']);
+
+		// Notify watchers
+		$rscw = sql("SELECT user_id FROM cache_watches WHERE cache_id = &1", $rNewLog_cache_id);
+		for ($j = 0; $j < mysql_num_rows($rscw); $j++)
+		{
+			$rcw = sql_fetch_array($rscw);
+			$rcw_user_id = $rcw['user_id'];
+
+			// kucken, ob fuer dieses Log schon benachrichtigt wurde
+			$rsNotified = sql("SELECT `id` FROM watches_notified WHERE user_id='&1' AND object_id='&2' AND object_type=1", $rcw_user_id, $rNewLog_log_id);
+			if (mysql_num_rows($rsNotified) == 0)
+			{
+				// Benachrichtigung speichern
+				sql("INSERT IGNORE INTO `watches_notified` (`user_id`, `object_id`, `object_type`, `date_processed`) VALUES ('&1', '&2', 1, NOW())", $rcw_user_id, $rNewLog_log_id);
+				
+				process_log_watch($rcw_user_id, $rNewLog_log_id);
+			}
+			mysql_free_result($rsNotified);
+		}
+		mysql_free_result($rscw);
+
+		sql("UPDATE cache_logs SET owner_notified=1 WHERE id='&1'", $rNewLog_log_id);
   }
   mysql_free_result($rsNewLogs);
-/* end owner notifies */
+/* end owner notifies and cache watches */
 
 	fprintf($diag_log_file, "after-owner-notifies;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
 	$diag_start_time = microtime(true);
 	
-/* begin cache_watches */
-  $rscw = sql("SELECT * FROM cache_watches");
-  for ($i = 0; $i < mysql_num_rows($rscw); $i++)
-  {
-		$rcw = sql_fetch_array($rscw);
-	
-		$rsLogs = sql("SELECT * FROM cache_logs WHERE deleted=0 AND cache_id='&1' AND date_created > '&2'", $rcw['cache_id'], date($sDateformat, strtotime($rcw['last_executed'])));
-		for ($j = 0; $j < mysql_num_rows($rsLogs); $j++)
-		{
-			$rLog = sql_fetch_array($rsLogs);
-			
-			// kucken, ob fĂźr dieses Log schon benachrichtigt wurde
-			$rsNotified = sql("SELECT `id` FROM watches_notified WHERE user_id='&1' AND object_id='&1' AND object_type=1", $rcw['user_id'], $rLog['id']);
-			if (mysql_num_rows($rsNotified) == 0)
-			{
-				// Benachrichtigung speichern
-				sql("INSERT IGNORE INTO `watches_notified` (`user_id`, `object_id`, `object_type`, `date_processed`) VALUES ('&1', '&2', 1, NOW())", $rcw['user_id'], $rLog['id']);
-				
-				process_log_watch($rcw['user_id'], $rLog['id']);
-			}
-			mysql_free_result($rsNotified);
-		}
-		mysql_free_result($rsLogs);
-
-		sql("UPDATE cache_watches SET last_executed=NOW() WHERE cache_id='&1' AND user_id='&2'", $rcw['cache_id'], $rcw['user_id']);
-  }
-  mysql_free_result($rscw);
-/* end cache_watches */
-
 	fprintf($diag_log_file, "after-cache-watches;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
 	$diag_start_time = microtime(true);
 	
