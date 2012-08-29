@@ -705,7 +705,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 428; # This gets replaced in automatically deployed packages
+	public static $revision = 429; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -1347,14 +1347,14 @@ class Okapi
 			'Traditional' => 2, 'Multi' => 3, 'Quiz' => 7, 'Virtual' => 4,
 			# Additional types (may get changed)
 			'Other' => 1, 'Webcam' => 5, 'Event' => 6,
-			'Moving' => 8, 'Own' => 9,
+			'Moving' => 8, 'Podcast' => 9, 'Own' => 10,
 		),
 		'oc.de' => array(
 			# Primary types (documented, cannot change)
 			'Traditional' => 2, 'Multi' => 3, 'Quiz' => 7, 'Virtual' => 4,
 			# Additional types (might get changed)
 			'Other' => 1, 'Webcam' => 5, 'Event' => 6,
-			'Math/Physics-Cache' => 8, 'Moving' => 9, 'Drive-In' => 10,
+			'Math/Physics' => 8, 'Moving' => 9, 'Drive-In' => 10,
 		)
 	);
 	
