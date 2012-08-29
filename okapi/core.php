@@ -96,7 +96,7 @@ class OkapiExceptionHandler
 			else
 				header("HTTP/1.0 401 Unauthorized");
 			header("Access-Control-Allow-Origin: *");
-			header("Content-Type: text/plain; charset=utf-8");
+			header("Content-Type: application/json; charset=utf-8");
 			
 			print $e->getOkapiJSON();
 		}
@@ -108,7 +108,7 @@ class OkapiExceptionHandler
 			
 			header("HTTP/1.0 400 Bad Request");
 			header("Access-Control-Allow-Origin: *");
-			header("Content-Type: text/plain; charset=utf-8");
+			header("Content-Type: application/json; charset=utf-8");
 			
 			print $e->getOkapiJSON();
 		}
@@ -705,7 +705,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 425; # This gets replaced in automatically deployed packages
+	public static $revision = 426; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
