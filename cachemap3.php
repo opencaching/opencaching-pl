@@ -249,7 +249,8 @@ else
 		tpl_set_var('boundsurl', '');
 	}
 
-
+	if ($_GET['okapi_beta'] == 'true')
+		$cachemap_mapper = "lib/mapper_okapi.php";
 	tpl_set_var("cachemap_mapper", $cachemap_mapper);
 
 	

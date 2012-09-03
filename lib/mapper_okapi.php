@@ -9,7 +9,6 @@
 
 $rootpath = "../";
 
-# require_once($rootpath.'lib/common.inc.php');
 require_once($rootpath.'okapi/facade.php');
 
 # mapper.php/mapper.fcgi used to take the following parameters:
