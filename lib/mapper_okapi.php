@@ -53,11 +53,11 @@ $params['status'] = implode("|", $tmp);
 if (count($tmp) == 0)
 	$force_result_empty = true;
 	
-# be_ftf (hunt for FTFs) - convert to OKAPI's "max_founds" filter.
+# be_ftf (hunt for FTFs) - convert to OKAPI's "not_yet_found_only" filter.
 
 if ($_GET['be_ftf'] == "true")
 {
-	$params['max_founds'] = "0";
+	$params['not_yet_found_only'] = "true";
 	
 	# Also, override previously set "status" filter. This behavior is
 	# compatible with what previous mapper scripts did.
