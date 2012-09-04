@@ -678,6 +678,13 @@ class OkapiLock
 {
 	private $lock;
 	
+	/** Note: This does NOT tell you if someone currently locked it! */
+	public static function exists($name)
+	{
+		$lockfile = Okapi::get_var_dir()."/okapi-lock-".$name;
+		return file_exists($lockfile);
+	}
+	
 	public static function get($name)
 	{
 		return new OkapiLock($name);
@@ -714,6 +721,12 @@ class OkapiLock
 		if ($this->lock !== null)
 			sem_release($this->lock);
 	}
+	
+	public function remove()
+	{
+		if ($this->lock !== null)
+			sem_remove($this->lock);
+	}
 }
 
 /** Container for various OKAPI functions. */
@@ -721,7 +734,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 451; # This gets replaced in automatically deployed packages
+	public static $revision = 452; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
