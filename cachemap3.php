@@ -95,7 +95,15 @@ function getDBFilter($user_id)
 
 require_once('./lib/common.inc.php');
 
-$tplname = 'cachemap3';
+# WRTODO: temporary
+if (in_array($usr['username'], array('wrygiel', 'Grazka', 'rene_zeñ')) || ($usr['userid'] % 100 < 5)) {
+	# OKAPI maps beta
+	$tplname = 'cachemap3beta';
+	$cachemap_mapper = "lib/mapper_okapi.php";
+} else {
+	$tplname = 'cachemap3';
+}
+
 tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
 //tpl_set_var('BodyMod', ' onload="load()" onunload="GUnload()"');
 global $usr;
@@ -249,8 +257,6 @@ else
 		tpl_set_var('boundsurl', '');
 	}
 
-	if ($_GET['okapi_beta'] == 'true')
-		$cachemap_mapper = "lib/mapper_okapi.php";
 	tpl_set_var("cachemap_mapper", $cachemap_mapper);
 
 	
