@@ -96,7 +96,7 @@ function getDBFilter($user_id)
 require_once('./lib/common.inc.php');
 
 # WRTODO: temporary
-if (in_array($usr['username'], array('wrygiel', 'Grazka', 'rene_zeñ')) || ($usr['userid'] % 100 < 5)) {
+if (in_array($usr['username'], array('wrygiel', 'Grazka', 'rene_zeñ')) || ($usr['userid'] % 100 < 20)) {
 	# OKAPI maps beta
 	$tplname = 'cachemap3beta';
 	$cachemap_mapper = "lib/mapper_okapi.php";
