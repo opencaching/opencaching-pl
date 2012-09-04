@@ -135,8 +135,11 @@ if ($_GET['h_noscore'] == "true")
 if ($force_result_empty)
 	die();
 
-# Get OKAPI's response and display it.
+# Get OKAPI's response and display it. Add proper Cache-Control headers.
 
 $okapi_response = \okapi\Facade::service_call('services/caches/map/tile', $user_id, $params);
-$okapi_response->display();
+header("Content-Type: ".$okapi_response->content_type);
+header("Cache-Control: private, max-age=600, pre-check=600");
+header("Pragma: private");
+print $okapi_response->get_body();
 
