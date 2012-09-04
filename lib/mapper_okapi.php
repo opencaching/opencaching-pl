@@ -75,9 +75,10 @@ $max_rating = ($t < 0.7) ? "1" : (($t < 1.3) ? "2" : (($t < 2.2) ? "3" : (($t < 
 $params['rating'] = $min_rating."-".$max_rating;
 unset($t, $min_rating, $max_rating);
 
-# h_nogeokret - Support was temporarily withdrawn (issue 147 - WONTFIX).
+# h_nogeokret - Convert to OKAPI's "with_trackables_only" parameter.
 
-// WONTFIX
+if ($_GET['h_nogeokret'] == 'true')
+	$params['with_trackables_only'] = "true";
 
 # h_?, where ? is a single letter - hide a specific cache type.
 # Convert to OKAPI's "type" parameter.
@@ -120,7 +121,7 @@ elseif ((!$h_found) && (!$h_noattempt))
 else
 	$force_result_empty = true;
 
-# h_noscore - WRTODO (issue 148).
+# h_noscore - convert to OKAPI's "rating" parameter.
 
 if ($_GET['h_noscore'] == "true")
 	$params['rating'] = $params['rating']."|X";
