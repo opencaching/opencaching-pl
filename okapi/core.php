@@ -676,6 +676,7 @@ class OkapiRedirectResponse extends OkapiHttpResponse
 
 class OkapiLock
 {
+	private $lockfile;
 	private $lock;
 	
 	/** Note: This does NOT tell you if someone currently locked it! */
@@ -700,13 +701,13 @@ class OkapiLock
 		}
 		else
 		{
-			$lockfile = Okapi::get_var_dir()."/okapi-lock-".$name;
-			if (!file_exists($lockfile))
+			$this->lockfile = Okapi::get_var_dir()."/okapi-lock-".$name;
+			if (!file_exists($this->lockfile))
 			{
-				$fp = fopen($lockfile, "wb");
+				$fp = fopen($this->lockfile, "wb");
 				fclose($fp);
 			}
-			$this->lock = sem_get(fileinode($lockfile));
+			$this->lock = sem_get(fileinode($this->lockfile));
 		}
 	}
 	
@@ -725,7 +726,10 @@ class OkapiLock
 	public function remove()
 	{
 		if ($this->lock !== null)
+		{
 			sem_remove($this->lock);
+			unlink($this->lockfile);
+		}
 	}
 }
 
@@ -734,7 +738,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 452; # This gets replaced in automatically deployed packages
+	public static $revision = 453; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
