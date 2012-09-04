@@ -112,9 +112,9 @@ if ($_GET['h_own'] == "true")
 $h_found = ($_GET['h_found'] == "true");
 $h_noattempt = ($_GET['h_noattempt'] == "true");
 if ($h_found && (!$h_noattempt))
-	$params['found_status'] = "found_only";
-elseif ((!$h_found) && $h_noattempt)
 	$params['found_status'] = "notfound_only";
+elseif ((!$h_found) && $h_noattempt)
+	$params['found_status'] = "found_only";
 elseif ((!$h_found) && (!$h_noattempt))
 	$params['found_status'] = "either";
 else
