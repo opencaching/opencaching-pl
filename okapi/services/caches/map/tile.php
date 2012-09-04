@@ -21,6 +21,7 @@ use okapi\OkapiLock;
 class WebService
 {
 	private static $FLAG_STAR = 0x01;
+	private static $FLAG_HAS_TRACKABLES = 0x02;
 	
 	public static function options()
 	{
@@ -131,7 +132,10 @@ class WebService
 			$rs = Db::query("
 				select distinct cache_id
 				from cache_logs
-				where user_id = '".mysql_real_escape_string($request->token->user_id)."'
+				where
+					user_id = '".mysql_real_escape_string($request->token->user_id)."'
+					and type = 1
+					and ".((Settings::get('OC_BRANCH') == 'oc.pl') ? "deleted = 0" : "true")."
 			");
 			$user['found'] = array();
 			while (list($cache_id) = mysql_fetch_row($rs))
@@ -175,6 +179,33 @@ class WebService
 				foreach ($user['owned'] as $cache_id => $v)
 					$excluded_dict[$cache_id] = true;
 			}
+		}
+		
+		# found_status
+		
+		if ($tmp = $request->get_parameter('found_status'))
+		{
+			if (!in_array($tmp, array('found_only', 'notfound_only', 'either')))
+				throw new InvalidParam('found_status', "'$tmp'");
+			if ($tmp == 'either') {
+				# Do nothing.
+			} elseif ($tmp == 'notfound_only') {
+				# Easy.
+				foreach ($user['found'] as $cache_id => $v)
+					$excluded_dict[$cache_id] = true;
+			} else {
+				# Found only. This will slow down queries somewhat. But it is rare.
+				$filter_conds[] = "cache_id in ('".implode("','", array_map('mysql_real_escape_string', array_keys($user['found'])))."')";
+			}
+		}
+		
+		# with_trackables_only
+		
+		if ($tmp = $request->get_parameter('with_trackables_only'))
+		{
+			if (!in_array($tmp, array('true', 'false'), 1))
+				throw new InvalidParam('with_trackables_only', "'$tmp'");
+			$filter_conds[] = "flags & ".self::$FLAG_HAS_TRACKABLES;
 		}
 		
 		# Get caches within the tile (+ those around the borders). All filtering
@@ -310,7 +341,7 @@ class WebService
 			
 			$internal_request = new OkapiInternalRequest(new OkapiInternalConsumer(), null, array(
 				'cache_codes' => implode('|', $cache_codes),
-				'fields' => 'internal_id|code|name|location|type|status|rating|recommendations|founds'
+				'fields' => 'internal_id|code|name|location|type|status|rating|recommendations|founds|trackables_count'
 			));
 			$internal_request->skip_limits = true;
 			$caches = OkapiServiceRunner::call("services/caches/geocaches", $internal_request);
@@ -322,6 +353,8 @@ class WebService
 				$flags = 0;
 				if (($cache['founds'] > 6) && (($cache['recommendations'] / $cache['founds']) > 0.3))
 					$flags |= self::$FLAG_STAR;
+				if ($cache['trackables_count'] > 0)
+					$flags |= self::$FLAG_HAS_TRACKABLES;
 				Db::execute("
 					replace into okapi_tile_caches (
 						z, x, y, cache_id, z21x, z21y, status, type, rating, flags
