@@ -53,6 +53,21 @@ $params['status'] = implode("|", $tmp);
 if (count($tmp) == 0)
 	$force_result_empty = true;
 	
+# min_score, max_score - convert to OKAPI's "rating" filter. This code
+# is weird, because values passed to min_score/max_score are weird...
+
+$t = floatval($_GET['min_score']);
+$min_rating = ($t < 0) ? "1" : (($t < 1) ? "2" : (($t < 1.5) ? "3" : (($t < 2.2) ? "4" : "5")));
+$t = floatval($_GET['max_score']);
+$max_rating = ($t < 0.7) ? "1" : (($t < 1.3) ? "2" : (($t < 2.2) ? "3" : (($t < 2.7) ? "4" : "5")));
+$params['rating'] = $min_rating."-".$max_rating;
+unset($t, $min_rating, $max_rating);
+
+# h_noscore - convert to OKAPI's "rating" parameter.
+
+if ($_GET['h_noscore'] == "true")
+	$params['rating'] = $params['rating']."|X";
+
 # be_ftf (hunt for FTFs) - convert to OKAPI's "not_yet_found_only" filter.
 
 if ($_GET['be_ftf'] == "true")
@@ -63,17 +78,10 @@ if ($_GET['be_ftf'] == "true")
 	# compatible with what previous mapper scripts did.
 	
 	$params['status'] = "Available";
+	
+	# BTW, if we override "status" parameter, then we should also override "rating".
+	# I don't do that though, to stay compatible with previous impl.
 }
-
-# min_score, max_score - convert to OKAPI's "rating" filter. This code
-# is weird, because values passed to min_score/max_score are weird...
-
-$t = floatval($_GET['min_score']);
-$min_rating = ($t < 0) ? "1" : (($t < 1) ? "2" : (($t < 1.5) ? "3" : (($t < 2.2) ? "4" : "5")));
-$t = floatval($_GET['max_score']);
-$max_rating = ($t < 0.7) ? "1" : (($t < 1.3) ? "2" : (($t < 2.2) ? "3" : (($t < 2.7) ? "4" : "5")));
-$params['rating'] = $min_rating."-".$max_rating;
-unset($t, $min_rating, $max_rating);
 
 # h_nogeokret - Convert to OKAPI's "with_trackables_only" parameter.
 
@@ -120,11 +128,6 @@ elseif ((!$h_found) && (!$h_noattempt))
 	$params['found_status'] = "either";
 else
 	$force_result_empty = true;
-
-# h_noscore - convert to OKAPI's "rating" parameter.
-
-if ($_GET['h_noscore'] == "true")
-	$params['rating'] = $params['rating']."|X";
 
 #
 # We have all the parameters. Note, that some mapper-compatible parameter sets
