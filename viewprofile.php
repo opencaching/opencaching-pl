@@ -246,7 +246,7 @@ function myUrlEncode($string) {
 			$rsncd= sql ("SELECT COUNT(*) FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)",$user_id);
 			$num_rows = mysql_num_rows($rsncd);
 			$sql = "SELECT COUNT(*) founds_count 
-					FROM cache_logs USE INDEX (user_id)
+					FROM cache_logs
 					WHERE user_id=$user_id AND type=1 AND deleted=0";
 			if( $odp = mysql_query($sql) )
 			$found = mysql_result($odp,0);

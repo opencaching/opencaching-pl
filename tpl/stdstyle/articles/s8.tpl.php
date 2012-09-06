@@ -5,7 +5,7 @@
 
 <table class="table" width="760" style="line-height: 1.6em; font-size: 10px;">
 <tr>
-<td><?php include ("t7.php");?>
+<td><?php /* include ("t7.php"); This page took a couple of minutes to render! */ ?>
 </td></tr>
 </table>
 
