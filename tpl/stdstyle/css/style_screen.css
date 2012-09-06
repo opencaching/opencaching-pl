@@ -638,13 +638,26 @@ div.gsc-resultsRoot, div.gsc-branding-text, img.gsc-branding-img {
 	display: none;
 }
 
+
 #ext_search input.gsc-input {
-	font-size: 14px;
-	width: 150px;
+	font-size: 15px;
+	width: 200px;
+	border: 1px solid #aaa;
+	padding: 4px 5px;
+	margin-right: 5px;
 }
 
 #ext_search input.gsc-search-button {
-	font-size: 12px;
+	background: #696;
+	padding: 3px 10px 4px 10px;
+	font-weight: bold;
+	font-size: 14px;
+	border-top: 2px solid #9c9;
+	border-left: 2px solid #9c9;
+	border-bottom: 2px solid #464;
+	border-right: 2px solid #464;
+	color: #fff;
+	cursor: pointer;
 }
 
 

@@ -1,104 +1,216 @@
-<div class="content2-pagetitle">&nbsp;<img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="" title=""/>&nbsp;&nbsp;{{user_map}} {username}</div>
-
-<div class="content2-container">
-
-	<!-- WRTODO: temporary -->
-	<p style='font-size: 21px; font-family: Tahoma; color: #a00; padding: 20px; '>
-		Z powodu problemów z wydajnością mapy v3 (powolne działanie serwera wieczorami),
-		staramy się ją przepisać od nowa. Oglądasz wersję "beta" nowej mapy. W razie problemów,
-		podziel się uwagami na forum.
-	</p>
-
-	<p class="content-title-noshade-size1">{{current_zoom}}: <input type="text" id="zoom" size="2" value="{zoom}" disabled="disabled"/></p> 
-
-	<p class="content-title-noshade">{{colors}}: <b><font color="#dddd00">{{yellow}}</font></b> - {{last_10_days}}, <b><font color="#00dd00">{{green}}</font></b> - {{own}}, <b><font color="#aaaaaa">{{gray}}</font></b> - {{found}}, <b><font color="#ff0000">{{red}}</font></b> - {{rest}}</p>
-
+<div class="content2-pagetitle">
+	<img src="tpl/stdstyle/images/blue/world.png" class="icon32" style='margin: 0 4px 3px 6px'/>
+	{{user_map}} <b style='color: #000'>{username}</b>
 </div>
 
-<div class="nav4">
-	<div style='float: right; margin: 10px'>
-		<a onclick="generate_new_rand(); reload();" style='cursor: pointer'>
-			<img src="images/refresh.png" alt="Odśwież"/>
-		</a>
+<style>
+	#shortcut_icons { position: relative }
+	#shortcut_icons img { position: absolute; top: -23px; cursor: pointer; }
+	.opt_table input { border: 0; }
+	.opt_table { background: #eee; border: 1px solid #ccc; }
+	.opt_table th { background: #888; padding: 3px 8px 5px 8px; font-family: Tahoma; font-size: 13px; font-weight: bold; color: #fff; }
+	.opt_table td { padding: 6px; font-family: Tahoma; font-size: 13px; vertical-align: top; }
+	.opt_table select { padding: 1px; font-family: Tahoma; font-size: 13px; border: 1px solid #888; }
+	.opt_table td.i { position: relative; width: 35px; display: block; }
+	.opt_table td.i img { position: absolute; top: 0; }
+	.opt_table .dim { color: #888; }
+	.opt_table .dim img { opacity: .3; }
+	img.dim { opacity: .3; }
+</style>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script>
+	$(function() {
+		/*var left = 0;
+		var $shortcuts = $('#shortcut_icons');
+		$('#cache_types input').each(function() {
+			var $img = $("<img/>");
+			$img.attr('src', $(this).closest('tr').find('img').attr('src'));
+			$img.css('left', left + "px");
+			$img.addClass($(this).attr('name'));
+			$img.data('type', $(this).attr('name'));
+			$shortcuts.append($img);
+			left += 28;
+		});*/
+		var checkbox_changed = function() {
+			var $related = $("." + $(this).attr('name'));
+			if ($(this).is(':checked'))
+				$related.addClass('dim');
+			else
+				$related.removeClass('dim');
+		}
+		$('.opt_table input')
+			.each(checkbox_changed)
+			.change(checkbox_changed);
+		/*$shortcuts.find('img').click(function() {
+			var $check = $('#' + $(this).data('type'));
+			$check.prop('checked', !$check.prop('checked'));
+			$check.each(checkbox_changed);
+			reload();
+		});*/
+	});
+</script>
+
+
+<!-- WRTODO: temporary -->
+<p style='font-size: 13px; font-family: Tahoma; color: #a00; padding: 0 20px 6px 0; font-weight: bold'>
+	Z powodu problemów z wydajnością mapy v3 (powolne działanie serwera wieczorami),
+	staramy się ją przepisać od nowa. Oglądasz wersję "beta" nowej mapy. Zachęcamy do
+	dzielenia się wrażeniami na forum.
+</p>
+
+<div style='margin-right: 6px;' style='position: relative'>
+	<div id='shortcut_icons'></div>
+	<table style='border: 1px solid #ccc; background: #eee; padding: 3px 6px 3px 8px; width: 100%; margin-bottom: 10px;'>
+		<tr>
+			<td>
+				<div id="ext_search">
+					<div id="search_control" style="float: left;">&nbsp;</div>
+				</div>
+			</td>
+			<td>
+				<table style='float: right;'><tr>
+					<td style='font-size: 13px;'>
+						{{current_zoom}}:
+						<input type="text" id="zoom" size="2" value="{zoom}" disabled="disabled" style='border: 0; font-weight: bold; font-size: 13px; background: transparent'/>
+					</td>
+					<td><a onclick="fullscreen();" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
+					<td><a onclick="generate_new_rand(); reload();" style='cursor: pointer'><img src="images/refresh.png"/></a></td>
+				</tr></table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="map_canvas" style="width: {map_width}; height: {map_height}; border: 1px solid #888;"></div>
+
+<div style='margin: 10px auto'>
+	<table id='cache_types' class='opt_table' cellspacing="0" style='float: left'>
+		<tr>
+			<th colspan='2'>{{hide_caches_type}}:</th>
+		</tr>
+		<tr>
+			<td>
+				<table>
+					<tr class='h_t'>
+						<td><input class="chbox" id="h_t" name="h_t" value="1" type="checkbox" {h_t_checked} onclick="reload()"/>&nbsp;<label for="h_t">{{traditional}}</label></td>
+						<td class='i'><img src='okapi/static/tilemap/large_traditional.png'/></td>
+					</tr>
+					<tr class='h_m'>
+						<td><input class="chbox" id="h_m" name="h_m" value="1" type="checkbox" {h_m_checked} onclick="reload()"/><label for="h_m">&nbsp;{{multicache}}</label></td>
+						<td class='i'><img src='okapi/static/tilemap/large_multi.png'/></td>
+					</tr>
+					<tr class='h_q'>
+						<td><input class="chbox" id="h_q" name="h_q" value="1" type="checkbox" {h_q_checked} onclick="reload()"/><label for="h_q">&nbsp;Quiz</label></td>
+						<td class='i'><img src='okapi/static/tilemap/large_quiz.png'/></td>
+					</tr>
+					<tr class='h_v'>
+						<td><input class="chbox" id="h_v" name="h_v" value="1" type="checkbox" {h_v_checked} onclick="reload()"/><label for="h_v">&nbsp;{{virtual}}</label></td>
+						<td class='i'><img src='okapi/static/tilemap/large_virtual.png'/></td>
+					</tr>
+					<tr class='h_e'>
+						<td><input class="chbox" id="h_e" name="h_e" value="1" type="checkbox" {h_e_checked} onclick="reload()"/><label for="h_e">&nbsp;{{event}}</label></td>
+						<td class='i'><img src='okapi/static/tilemap/large_event.png'/></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table>
+					<tr class='h_u'>
+						<td><input class="chbox" id="h_u" name="h_u" value="1" type="checkbox" {h_u_checked} onclick="reload()"/><label for="h_u">&nbsp;{{unknown_type}}</label></td>
+						<td class='i'><img src='okapi/static/tilemap/large_other.png'/></td>
+					</tr>
+					<tr class='h_w'>
+						<td><input class="chbox" id="h_w" name="h_w" value="1" type="checkbox" {h_w_checked} onclick="reload()"/><label for="h_w">&nbsp;Webcam</label></td>
+						<td class='i'><img src='okapi/static/tilemap/large_other.png'/></td>
+					</tr>
+					<tr class='h_o'>
+						<td><input class="chbox" id="h_o" name="h_o" value="1" type="checkbox" {h_o_checked} onclick="reload()"/><label for="h_o">&nbsp;{{moving}}</label></td>
+						<td class='i'><img src='okapi/static/tilemap/large_other.png'/></td>
+					</tr>
+					<tr class='h_owncache'>
+						<td><input class="chbox" id="h_owncache" name="h_owncache" value="1" type="checkbox" {h_owncache_checked} onclick="reload()"/><label for="h_owncache">&nbsp;{{owncache}}</label></td>
+						<td class='i'><img src='okapi/static/tilemap/large_other.png'/></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+	<div style='display:none'>
+		<!-- These filters are permanently hidden. However, some scripts use them, that's why they're not deleted. -->
+		<input class="chbox" id="h_avail" name="h_avail" value="1" type="checkbox" onclick="reload()"/><label for="h_avail">{{ready_to_find}}</label>
+		<input class="chbox" id="signes" name="signes" value="1" type="checkbox" {signes_checked} onclick="reload()" disabled="disabled"/><label for="signes">{{show_signes}}</label>
+		<input class="chbox" id="waypoints" name="waypoints" value="1" type="checkbox" {waypoints_checked} onclick="reload()" disabled="disabled"/><label for="waypoints">{{show_waypoints}}</label>
+		<input class="chbox" id="h_pl" name="h_pl" value="1" type="checkbox" {h_pl_checked} onclick="reload()"/><label for="h_pl">{{h_pl_label}}</label>
+		<input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{{h_de_label}}</label>
+		<input class="chbox" id="h_se" name="h_se" value="1" type="checkbox" {h_se_checked} onclick="reload()"/><label for="h_se">{{h_se_label}}</label>
+		<input class="chbox" id="h_no" name="h_no" value="1" type="checkbox" {h_no_checked} onclick="reload()"/><label for="h_no">{{h_no_label}}</label>
+		<select id="max_score" name="max_score" onchange="reload()" style='display:none'>
+			<!--<option value="0.499" {max_sel1}>{{rating_poor}}</option>
+			<option value="1.199" {max_sel2}>{{rating_mediocre}}</option>
+			<option value="1.999" {max_sel3}>{{rating_avarage}}</option>
+			<option value="2.499" {max_sel4}>{{rating_good}}</option>-->
+			<option value="3.000" selected>{{rating_excellent}}</option>
+		</select>
 	</div>
-	<ul id="topmapmenu">
-		<li class="group"><a style="background-image: url(images/actions/fullscreen-18.png);background-repeat:no-repeat;" href="cachemap-full.php?{searchdata}{boundsurl}{extrauserid}" onclick='window.location = "cachemap-full.php?lat="+map.getCenter().lat()+"&amp;lon="+map.getCenter().lng()+"&amp;inputZoom="+map.getZoom()+"&amp;{searchdata}{boundsurl}{extrauserid}"; return false;'>{{fullscreen}}</a></li>
-	</ul>
-</div>
-
-<div id="ext_search">
-	<div id="search_control" style="float: left;">&nbsp;</div>
-</div>
-
-<div id="map_canvas" style="width: {map_width}; height: {map_height}; float:left; border: 1px solid #000;">
-</div>
-
-<div class="content2-container">
-	<table width="100%"><tr>
-		<td width="33%" style="{filters_hidden}">
-			<div class="nav3">
-				<ul>
-					<li class="title">{{hide_caches_type}}:</li>
-					<li class="group"><input class="chbox" id="h_u" name="h_u" value="1" type="checkbox" {h_u_checked} onclick="reload()"/><label for="h_u">{{unknown_type}}</label></li>
-					<li class="group"><input class="chbox" id="h_t" name="h_t" value="1" type="checkbox" {h_t_checked} onclick="reload()"/><label for="h_t">{{traditional}}</label></li>
-					<li class="group"><input class="chbox" id="h_m" name="h_m" value="1" type="checkbox" {h_m_checked} onclick="reload()"/><label for="h_m">{{multicache}}</label></li>
-					<li class="group"><input class="chbox" id="h_v" name="h_v" value="1" type="checkbox" {h_v_checked} onclick="reload()"/><label for="h_v">{{virtual}}</label></li>
-					<li class="group"><input class="chbox" id="h_w" name="h_w" value="1" type="checkbox" {h_w_checked} onclick="reload()"/><label for="h_w">Webcam</label></li>
-					<li class="group"><input class="chbox" id="h_e" name="h_e" value="1" type="checkbox" {h_e_checked} onclick="reload()"/><label for="h_e">{{event}}</label></li>
-					<li class="group"><input class="chbox" id="h_q" name="h_q" value="1" type="checkbox" {h_q_checked} onclick="reload()"/><label for="h_q">Quiz</label></li>
-					<li class="group"><input class="chbox" id="h_o" name="h_o" value="1" type="checkbox" {h_o_checked} onclick="reload()"/><label for="h_o">{{moving}}</label></li>
-					<li class="group"><input class="chbox" id="h_owncache" name="h_owncache" value="1" type="checkbox" {h_owncache_checked} onclick="reload()"/><label for="h_owncache">{{owncache}}</label></li>
-				</ul>
-			</div>
-		</td>
-		<td>
-			<div class="nav3" style="{filters_hidden}">
-				<ul>
-					<li class="title">{{hide_caches}}:</li>
-					<li class="group"><input class="chbox" id="h_ignored" name="h_ignored" value="1" type="checkbox" {h_ignored_checked} onclick="reload()"/><label for="h_ignored">{{ignored}}</label></li>
-					<li class="group"><input class="chbox" id="h_own" name="h_own" value="1" type="checkbox" {h_own_checked} onclick="reload()"/><label for="h_own">{{own}}</label></li>
-					<li class="group"><input class="chbox" id="h_found" name="h_found" value="1" type="checkbox" {h_found_checked} onclick="reload()"/><label for="h_found">{{founds}}</label></li>
-					<li class="group"><input class="chbox" id="h_noattempt" name="h_noattempt" value="1" type="checkbox" {h_noattempt_checked} onclick="reload()"/><label for="h_noattempt">{{not_yet_found}}</label></li>
-					<li class="group"><input class="chbox" id="h_nogeokret" name="h_nogeokret" value="1" type="checkbox" {h_nogeokret_checked} onclick="reload()"/><label for="h_nogeokret">{{without_geokret}}</label></li>
-					<li class="group"><input class="chbox" id="h_avail" name="h_avail" value="1" type="checkbox" {h_avail_checked} onclick="reload()"/><label for="h_avail">{{ready_to_find}}</label></li>
-					<li class="group"><input class="chbox" id="h_temp_unavail" name="h_temp_unavail" value="1" type="checkbox" {h_temp_unavail_checked} onclick="reload()"/><label for="h_temp_unavail">{{temp_unavailables}}</label></li>
-					<li class="group"><input class="chbox" id="h_arch" name="h_arch" value="1" type="checkbox" {h_arch_checked} onclick="reload()"/><label for="h_arch">{{archived_plural}}</label></li>	
-				</ul>
-			</div>
-		</td>
-		<td width="33%">
-			<div class="nav3">
-				<ul>
-					<li class="title">{{other_options}}:</li>
-					<li class="group"><input class="chbox" id="signes" name="signes" value="1" type="checkbox" {signes_checked} onclick="reload()" disabled="disabled"/><label for="signes">{{show_signes}}</label></li>
-					<li class="group"><input class="chbox" id="waypoints" name="waypoints" value="1" type="checkbox" {waypoints_checked} onclick="reload()" disabled="disabled"/><label for="waypoints">{{show_waypoints}}</label></li>
-					<li class="group" style="{filters_hidden}"><input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload();check_field()"/><label for="be_ftf">{{be_ftf_label}}</label></li>
-					<li class="group" style="{filters_hidden}"><input class="chbox" id="h_pl" name="h_pl" value="1" type="checkbox" {h_pl_checked} onclick="reload()"/><label for="h_pl">{{h_pl_label}}</label></li>
-					<li class="group" style="{filters_hidden}"><input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{{h_de_label}}</label></li>
-					<li class="group" style="{filters_hidden}"><input class="chbox" id="h_se" name="h_se" value="1" type="checkbox" {h_se_checked} onclick="reload()"/><label for="h_se">{{h_se_label}}</label></li>
-					<li class="group" style="{filters_hidden}"><input class="chbox" id="h_no" name="h_no" value="1" type="checkbox" {h_no_checked} onclick="reload()"/><label for="h_no">{{h_no_label}}</label></li>
-				<li class="group" style="{filters_hidden}">{{from}}:	
-				<select id="min_score" name="min_score" onchange="reload()">
-					<option value="-3" {min_sel1}>{{rating_poor}}</option>
-					<option value="0.5" {min_sel2}>{{rating_mediocre}}</option>
-					<option value="1.2" {min_sel3}>{{rating_avarage}}</option>
-					<option value="2" {min_sel4}>{{rating_good}}</option>
-					<option value="2.5" {min_sel5}>{{rating_excellent}}</option>
-				</select><br/>
-				 {{to}}: 
-				<select id="max_score" name="max_score" onchange="reload()">
-					<option value="0.499" {max_sel1}>{{rating_poor}}</option>
-					<option value="1.199" {max_sel2}>{{rating_mediocre}}</option>
-					<option value="1.999" {max_sel3}>{{rating_avarage}}</option>
-					<option value="2.499" {max_sel4}>{{rating_good}}</option>
-					<option value="3.000" {max_sel5}>{{rating_excellent}}</option>
-				</select>
-				</li>
-				<li class="group" style="{filters_hidden}"><input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">{{show_noscore}}</label></li>
-				</ul>
-			</div>
-		</td>
-	</tr></table>
+	
+	<table id='other_options' class='opt_table' cellspacing="0" style='float: left; margin-left: 10px'>
+		<tr>
+			<th colspan='2'>{{hide_caches}}:</th>
+		</tr>
+		<tr>
+			<td>
+				<div class='h_ignored'>
+					<input class="chbox" id="h_ignored" name="h_ignored" value="1" type="checkbox" {h_ignored_checked} onclick="reload()"/><label for="h_ignored">&nbsp;{{ignored}}</label>
+				</div>
+				<div class='h_own'>
+					<input class="chbox" id="h_own" name="h_own" value="1" type="checkbox" {h_own_checked} onclick="reload()"/><label for="h_own">&nbsp;{{own}}</label>
+				</div>
+				<div class='h_found'>
+					<input class="chbox" id="h_found" name="h_found" value="1" type="checkbox" {h_found_checked} onclick="reload()"/><label for="h_found">&nbsp;{{founds}}</label>
+				</div>
+				<div class='h_noattempt'>
+					<input class="chbox" id="h_noattempt" name="h_noattempt" value="1" type="checkbox" {h_noattempt_checked} onclick="reload()"/><label for="h_noattempt">&nbsp;{{not_yet_found}}</label>
+				</div>
+				<div class='h_nogeokret'>
+					<input class="chbox" id="h_nogeokret" name="h_nogeokret" value="1" type="checkbox" {h_nogeokret_checked} onclick="reload()"/><label for="h_nogeokret">&nbsp;{{without_geokret}}</label>
+				</div>
+			</td>
+			<td>
+				<div class='h_temp_unavail'>
+					<input class="chbox" id="h_temp_unavail" name="h_temp_unavail" value="1" type="checkbox" {h_temp_unavail_checked} onclick="reload()"/><label for="h_temp_unavail">&nbsp;{{temp_unavailables}}</label>
+				</div>
+				<div class='h_arch'>
+					<input class="chbox" id="h_arch" name="h_arch" value="1" type="checkbox" {h_arch_checked} onclick="reload()"/><label for="h_arch">&nbsp;{{archived_plural}}</label>
+				</div>
+				<hr>
+				<div>
+					<input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload();check_field()"/><label for="be_ftf">&nbsp;pokaż tylko FTFy!</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>
+				<div>
+					<center>
+						Minimalna ocena:
+						<select id="min_score" name="min_score" onchange="reload()">
+							<option value="-3" {min_sel1}>dowolna ocena</option>
+							<!--<option value="0.5" {min_sel2}>pomiń najsłabsze skrzynki</option>-->
+							<option value="1.2" {min_sel3}>przynajmniej "{{rating_avarage}}"</option>
+							<option value="2" {min_sel4}>przynajmniej "{{rating_good}}" :)</option>
+							<option value="2.5" {min_sel5}>tylko {{rating_excellent}} :D</option>
+						</select>
+					</center>
+				</div>
+				<div style='margin-top: 5px'><center>
+					<input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">&nbsp;pokaż również skrzynki bez oceny</label>
+				</center></div>
+			</td>
+		</tr>
+	</table>
+	<div style='clear: both'></div>
 </div>
 	
 <script type="text/javascript" language="javascript"><!--
@@ -189,8 +301,6 @@
 		showCoords.appendChild(textNode);
 		showCoords.owner = this;
 
-
-
 		map.getContainer().appendChild(container);
 
 		GEvent.addDomListener(showCoords, "click", function() {
@@ -277,7 +387,7 @@
 			case "6":
 				return "-d";
 			default:
-				return "-s";			
+				return "-s";
 		}
 	}
 
@@ -393,13 +503,13 @@
 				"&h_avail="+document.getElementById('h_avail').checked+
 				"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+
 				"&h_arch="+document.getElementById('h_arch').checked+
-				"&signes="+document.getElementById('signes').checked+
-				"&waypoints="+document.getElementById('waypoints').checked+
+				//"&signes="+document.getElementById('signes').checked+
+				//"&waypoints="+document.getElementById('waypoints').checked+
 				"&be_ftf="+document.getElementById('be_ftf').checked+
-				"&h_de="+document.getElementById('h_de').checked+
-				"&h_pl="+document.getElementById('h_pl').checked+
-				"&h_se="+document.getElementById('h_se').checked+
-				"&h_no="+document.getElementById('h_no').checked+
+				//"&h_de="+document.getElementById('h_de').checked+
+				//"&h_pl="+document.getElementById('h_pl').checked+
+				//"&h_se="+document.getElementById('h_se').checked+
+				//"&h_no="+document.getElementById('h_no').checked+
 				"&min_score="+document.getElementById('min_score').value+
 				"&max_score="+document.getElementById('max_score').value+
 				"&h_noscore="+document.getElementById('h_noscore').checked+
@@ -530,6 +640,7 @@
 			
 			GEvent.addListener(map, "zoomend", function() {
 				var zoom = map.getZoom();
+				/*
 				if( zoom > 7) {
 					document.getElementById('signes').disabled = false;
 					document.getElementById('waypoints').disabled = false;
@@ -538,10 +649,10 @@
 					document.getElementById('signes').disabled = true;
 					document.getElementById('waypoints').disabled = true;
 				}
+				*/
 				
 				// reset double click timer
 				document.getElementById("zoom").value = map.getZoom();
-				
 			});
 			
 
@@ -580,12 +691,12 @@
 					"&h_avail="+document.getElementById('h_avail').checked+
 					"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+
 					"&h_arch="+document.getElementById('h_arch').checked+
-					"&signes="+document.getElementById('signes').checked+
+					//"&signes="+document.getElementById('signes').checked+
 					"&be_ftf="+document.getElementById('be_ftf').checked+
-					"&h_pl="+document.getElementById('h_pl').checked+
-					"&h_de="+document.getElementById('h_de').checked+
-					"&h_no="+document.getElementById('h_no').checked+
-					"&h_se="+document.getElementById('h_se').checked+
+					//"&h_pl="+document.getElementById('h_pl').checked+
+					//"&h_de="+document.getElementById('h_de').checked+
+					//"&h_no="+document.getElementById('h_no').checked+
+					//"&h_se="+document.getElementById('h_se').checked+
 					"&min_score="+document.getElementById('min_score').value+
 					"&max_score="+document.getElementById('max_score').value+
 					"&h_noscore="+document.getElementById('h_noscore').checked+
@@ -732,12 +843,12 @@
 					"&h_avail="+document.getElementById('h_avail').checked+
 					"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+
 					"&h_arch="+document.getElementById('h_arch').checked+
-					"&signes="+document.getElementById('signes').checked+
+					//"&signes="+document.getElementById('signes').checked+
 					"&be_ftf="+document.getElementById('be_ftf').checked+
-					"&h_pl="+document.getElementById('h_pl').checked+
-					"&h_de="+document.getElementById('h_de').checked+
-					"&h_no="+document.getElementById('h_no').checked+
-					"&h_se="+document.getElementById('h_se').checked+
+					//"&h_pl="+document.getElementById('h_pl').checked+
+					//"&h_de="+document.getElementById('h_de').checked+
+					//"&h_no="+document.getElementById('h_no').checked+
+					//"&h_se="+document.getElementById('h_se').checked+
 					"&min_score="+document.getElementById('min_score').value+
 					"&max_score="+document.getElementById('max_score').value+
 					"&h_noscore="+document.getElementById('h_noscore').checked+
@@ -757,6 +868,7 @@
 
 		if({doopen})
 			onClickFunc(tlo, new GLatLng({coords}));
+		/*
 		if( map.getZoom() > 13 ) {
 			document.getElementById('signes').disabled = false;
 			document.getElementById('waypoints').disabled = false;
@@ -764,6 +876,7 @@
 			document.getElementById('waypoints').disabled = true;
 			document.getElementById('signes').disabled = true;
 		}
+		*/
 
 		if({fromlat} != {tolat}) {
 			var area = new GLatLngBounds();
@@ -784,6 +897,14 @@
 				mapSelector.onclick = saveMapType;
 			}
 		});
+	}
+	
+	function fullscreen() {
+		window.location = "cachemap-full.php"+
+			"?lat="+map.getCenter().lat()+
+			"&lon="+map.getCenter().lng()+
+			"&inputZoom="+map.getZoom()+
+			"&{searchdata}{boundsurl}{extrauserid}";
 	}
 // -->
 </script>
