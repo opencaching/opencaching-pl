@@ -97,7 +97,7 @@ require_once('./lib/common.inc.php');
 
 # WRTODO: temporary
 $testers = array('wrygiel', 'Grazka', 'rene_zeñ', 'rene_zen', 'rushcore', 'rushbase', 'leone', 'art_bi');
-if (in_array($usr['username'], $testers) || ($usr['userid'] % 100 < 40)) {
+if (in_array($usr['username'], $testers) || ($usr['userid'] % 100 < 50)) {
 	# OKAPI maps beta
 	$tplname = 'cachemap3beta';
 	$cachemap_mapper = "lib/mapper_okapi.php";
