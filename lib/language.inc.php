@@ -4,19 +4,33 @@ $language = array();
 function load_language_file($lang)
 {
 	global $language;
-	$fhandle = fopen(dirname(__FILE__) . "/languages/".$lang, "r");
-	if($fhandle) {
-		while($line = fgets($fhandle, 4096)) {
-			$pos = strpos($line, ' ');
-			$short = substr($line, 0, $pos);
-			$translation =substr($line, $pos+1, -1);
-			$translation = rtrim($translation, "\r\n");
-			$language[$lang][$short]=$translation;
+	
+	$cache_key = "oclang/$lang";
+	$result = apc_fetch($cache_key);
+	if ($result === false)
+	{
+		$result = array();
+		$fhandle = fopen(dirname(__FILE__) . "/languages/".$lang, "r");
+		if($fhandle) {
+			while($line = fgets($fhandle, 4096)) {
+				$pos = strpos($line, ' ');
+				$short = substr($line, 0, $pos);
+				$translation =substr($line, $pos+1, -1);
+				$translation = rtrim($translation, "\r\n");
+				$result[$short]=$translation;
+			}
+			fclose($fhandle);
+		} else {
+			$result = null;
 		}
-		fclose($fhandle);
-		return true;
+		apc_store($cache_key, $result, 60);  # cache it for 60 seconds
 	}
-	return false;
+	if ($result) {
+		$language[$lang] = &$result;
+		return true;
+	} else {
+		return false;
+	}
 }
 
 function available_languages()
