@@ -51,10 +51,20 @@ $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id FROM caches, cache
      "WHERE `cache_logs`.`deleted`=0 AND cache_logs.user_id=user.user_id AND cache_logs.type=1 AND cache_logs.cache_id = caches.cache_id ".$typ." ".
      "GROUP BY user.user_id ".
      "ORDER BY 1 DESC, user.username ASC";
+$cache_key = md5($a);
+$lines = apc_fetch($cache_key);
+if ($lines === false)
+{
+	$r=mysql_query($a) or die(mysql_error());
+	while ($line=mysql_fetch_array($r))
+		$lines[] = $line;
+	unset($r);
+	apc_store($cache_key, $lines, 3600);
+}
 
 echo "<br />";
 
-$r=mysql_query($a) or die(mysql_error());
+
 echo    '<tr class="bgcolor2">'.
         '<td align="center">&nbsp;&nbsp;<b>Ranking</b>&nbsp;&nbsp;</td>'.
         '<td align="center"><b>Miejsce ex-aequo</b></td>'.
@@ -65,7 +75,7 @@ $l2=""; // number of users within the same rank
 $rank=0; // rank number; increamented by one for each group of users having the same caches discovered
 $position=1; // position ex aequo; incremented by number of users in each rank
 
-while ($line=mysql_fetch_array($r))
+foreach ($lines as $line)
 {
 	$color = "black";
 	$banned = "";
