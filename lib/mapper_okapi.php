@@ -139,6 +139,7 @@ if ($force_result_empty)
 	die();
 
 # Get OKAPI's response and display it. Add proper Cache-Control headers.
+# (WRTODO: Move Cache-Control to OKAPI?)
 
 $okapi_response = \okapi\Facade::service_call('services/caches/map/tile', $user_id, $params);
 header("Content-Type: ".$okapi_response->content_type);

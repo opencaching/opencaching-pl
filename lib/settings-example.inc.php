@@ -175,9 +175,4 @@
 	// E-mail address group of people from OC Team who solve problems, verify cache
 	$octeam_email = 'cog@localhost';
   
-        // OKAPI settings
-	$OKAPI_SETTINGS = array(
-	'SITELANG' => 'pl',
-        'LOCALE' => 'pl_PL.utf8',
-	);
 ?>
