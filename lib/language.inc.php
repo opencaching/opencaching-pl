@@ -51,7 +51,13 @@ function tr($str)
 {
 	global $language, $lang;
 	if($language[$lang][$str])
-		return tpl_do_replace($language[$lang][$str], true);
+	{
+		$ref = &$language[$lang][$str];
+		if (strpos($ref, "{") !== false)
+			return tpl_do_replace($ref, true);
+		else
+			return $ref;
+	}
 	else
 		return $str . "-todo";
 }
