@@ -33,7 +33,7 @@
 	$weekday[3] = tr('wednesday');
 	$weekday[4] = tr('thursday');
 	$weekday[5] = tr('friday');
-	$weekday[6] = tr('satuday');
+	$weekday[6] = tr('saturday');
 	$weekday[7] = tr('sunday');
 	
 	$intervalls[0] = tr('immediately');      // table indices are misplaced accordingly to
