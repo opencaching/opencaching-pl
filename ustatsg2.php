@@ -132,6 +132,32 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
 		$clrRed = ImageColorAllocate ($im, 255, 0, 0);
 		$clrBlue = ImageColorAllocate ($im, 0, 0, 255);
 		$fontsize = 18;
+      
+    $wojewodztwa = array(
+                'PL11' => array (110,138),  // Lodzkie
+                'PL12' => array (155,108),  // Mazowieckie
+                'PL21' => array (135,208),  // Malopolskie
+                'PL22' => array (103,188),  // Slaskie
+                'PL31' => array (200,150),  // Lubelskie
+                'PL32' => array (180,200),  // Podkarpackie
+                'PL33' => array (146,170),  // Swietokrzyskie
+                'PL34' => array (195,75),   // Podlaskie
+                'PL41' => array (65,115),   // Wielkopolskie
+                'PL42' => array (26,55),    // Zachodniopmorskie
+                'PL43' => array (19,100),   // Lubuskie
+                'PL51' => array (35,149),   // Dolnoslaskie
+                'PL52' => array (78,169),   // Opolskie
+                'PL61' => array (90,85),    // Kujawskie
+                'PL62' => array (145,50),   // Warminskie
+                'PL63' => array (85,43)     // Pomorskie
+                );
+    $wyniki = sql("SELECT cache_location.code3 wojewodztwo,COUNT(*) ilosc FROM cache_logs,cache_location WHERE cache_logs.user_id=$user_id AND cache_logs.type='1' AND cache_logs.deleted='0' AND cache_location.code3 IN ('PL11','PL12','PL21','PL22','PL31','PL32','PL33','PL34','PL41','PL42','PL43','PL51','PL52','PL61','PL62','PL63') AND cache_logs.cache_id=cache_location.cache_id GROUP BY cache_location.code3",0);
+    while ($wynik = sql_fetch_assoc($wyniki)) {
+        $text = $wynik[ilosc];
+        if($text!="0") ImageTTFText($im, 14, 0, $wojewodztwa[$wynik[wojewodztwo]][0], $wojewodztwa[$wynik[wojewodztwo]][1], $clrBlack, $fontfile, $text);
+    };
+
+        /*      
 		// Lodzkie
 	$sqlpl11 = sqlValue("SELECT COUNT(*) founds_count 
 					FROM cache_logs,cache_location 
@@ -228,7 +254,8 @@ $rsCachesFindMonth= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`da
 					WHERE cache_logs.user_id=$user_id AND cache_logs.type='1' AND cache_logs.deleted='0' AND cache_location.code3='PL12' AND cache_logs.cache_id=cache_location.cache_id",0);
 			$text = $sqlpl12;		
 			if($text!="0") ImageTTFText($im, 14, 0,155,108, $clrBlack, $fontfile, $text);
-		// write output
+        */
+    // write output
 		Imagejpeg($im, $dynbasepath.'images/statpics/mapstat'.$user_id.'.jpg', $jpeg_qualitaet);
 		ImageDestroy($im);
 		// generate number for refresh image
