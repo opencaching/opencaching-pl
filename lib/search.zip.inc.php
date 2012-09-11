@@ -200,7 +200,10 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 					
 						// I don't know what this line doing, but other 'search.*.inc.php' files include this.
 						if ($sqldebug == true) sqldbg_end();
-					
+
+						if (!isset($_SESSION))
+							session_start();  # prevent downloading multiple parts at once
+						
 						// Including OKAPI's Facade. This is the only valid (and fast) interface to access
 						// OKAPI services from within OC code.
 						require_once($rootpath.'okapi/facade.php');
@@ -212,14 +215,14 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 									
 							// Modifying OKAPI's default HTTP Response headers.
 							$okapi_response->content_type = 'application/zip';
-							$okapi_response->content_disposition = 'Content-Disposition: attachment; filename=' . $sFilebasename . (($zippart!=0)?'-'.$zippart:'') . '.zip';
+							$okapi_response->content_disposition = 'attachment; filename=' . $sFilebasename . (($zippart!=0)?'-'.$zippart:'') . '.zip';
 						
 							// This outputs headers and the ZIP file.
 							$okapi_response->display();
 						}
 						catch (Exception $e)
 						{
-							header('content-type: plain/text');
+							header('Content-Type: text/plain');
 							//$tplname = 'error';
 							//tpl_set_var('tplname', 'search.php');
 							//tpl_set_var('error_msg', $e);
