@@ -201,7 +201,8 @@ if ($error == false)
 	mysql_free_result($rs);
 
 			$rs = sql("SELECT `cache_id`, `name`, `date_hidden`, `status`,cache_type.icon_small AS cache_icon_small,
-							`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`
+							`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`,
+							`caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`
 						FROM `caches`  INNER JOIN cache_type ON (caches.type = cache_type.id),`cache_status`
 						WHERE `user_id`='&2'
 						  AND `cache_status`.`id`=`caches`.`status`
@@ -222,6 +223,8 @@ if ($error == false)
 //				$file_content .= '<td width="22">&nbsp;' . icon_cache_status($log_record['status'], $log_record['cache_status_text']) . '</td>';
 				$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+				$file_content .= '<td>'.$log_record['founds'].'</td>';
+				$file_content .= '<td>'.$log_record['topratings'].'</td>';
 
 	$rs_logs = sql("SELECT cache_logs.id, 
 	                          cache_logs.type AS log_type,
