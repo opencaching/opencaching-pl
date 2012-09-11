@@ -16,23 +16,8 @@
 	echo ' .::. '.tr('number_of_active_caches').': ';
 	echo $fCt[count]; 
 	echo '</center><br /></td></tr></table><table border="1" bgcolor="white" width="97%">' . "\n";
-
-//  mysql_query("SET NAMES 'utf8'"); 
-// $rsUser = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `caches`.`status`=1 AND `caches`.`type`!=4 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20'); 
-// $rsUser = sql('SELECT COUNT(*) `count`, `user`.`username` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `caches`.`status`=1 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC LIMIT 20');
-
-
-  
-mysql_query("SET NAMES 'utf8'"); 
-$t1="CREATE TEMPORARY TABLE ocpl.tmp (id INT(11) unsigned NOT NULL auto_increment PRIMARY KEY, count INT(11), username VARCHAR(60), user_id INT(11)) ENGINE=MEMORY DEFAULT CHARACTER SET=utf8
-COLLATE=utf8_polish_ci SELECT COUNT(*) `count`, `user`.`username`, `user`.`user_id` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `caches`.`status`=1 AND `caches`.`type`<>6 AND user.stat_ban = 0 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC"; 
-mysql_query("SET NAMES 'utf8'"); 
-$r=mysql_query($t1) or die(mysql_error());
-mysql_query("SET NAMES 'utf8'"); 
-$a="SELECT count, username, user_id FROM tmp GROUP BY `username` ORDER BY `count` DESC, `username`";
-//echo "<br />";
-mysql_query("SET NAMES 'utf8'"); 
-$r=mysql_query($a) or die(mysql_error());
+ 
+	$r=sql("SELECT COUNT(*) `count`, `user`.`username` `username`, `user`.`user_id` `user_id` FROM `caches` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id` WHERE `caches`.`status`=1 AND `caches`.`type`<>6 AND user.stat_ban = 0 GROUP BY `user`.`user_id` ORDER BY `count` DESC, `user`.`username` ASC"); 
 echo '
 <tr class="bgcolor2">
 	<td align="right">
@@ -49,7 +34,7 @@ echo '
 $l2="";
 $licznik=0;
 
-while ($line=mysql_fetch_array($r))
+while ($line=sql_fetch_array($r))
 {
 $l1=$line[count];
 
@@ -80,11 +65,6 @@ else {
     }
 	$row_num++;
 }
-//echo "
-//	</td>
-//</tr>";
-
-
 	echo '</td></tr></table>' . "\n";
 
 ?>
