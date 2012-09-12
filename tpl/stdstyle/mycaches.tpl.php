@@ -30,14 +30,14 @@
 <td><strong>Geocache</strong></td>
 <td><img src="tpl/stdstyle/images/log/16x16-found.png"></td>
 <td><img src="images/rating-star.png"></td>
-<td colspan="3"><strong>{{latest_logs}}</strong></td>
+<td><strong>{{latest_logs}}</strong></td>
 </tr>
 <tr>
-<td colspan="9"><hr></hr></td>
+<td colspan="7"><hr></hr></td>
 </tr>
 		{file_content}
 <tr>
-<td colspan="9"><hr></hr></td>
+<td colspan="7"><hr></hr></td>
 </tr>
 </table>
 </div>

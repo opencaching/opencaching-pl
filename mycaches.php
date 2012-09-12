@@ -223,53 +223,43 @@ if ($error == false)
 //				$file_content .= '<td width="22">&nbsp;' . icon_cache_status($log_record['status'], $log_record['cache_status_text']) . '</td>';
 				$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-				$file_content .= '<td>'.$log_record['founds'].'</td>';
-				$file_content .= '<td>'.$log_record['topratings'].'</td>';
+				$file_content .= '<td>&nbsp;'.$log_record['founds'].'&nbsp;</td>';
+				$file_content .= '<td>&nbsp;'.$log_record['topratings'].'&nbsp;</td>';
 
-	$rs_logs = sql("SELECT cache_logs.id, 
-	                          cache_logs.type AS log_type,
-				cache_logs.text AS log_text,
-	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
-				caches.user_id AS cache_owner,
-				cache_logs.encrypt encrypt,
-				cache_logs.user_id AS luser_id,
-	                          user.username AS user_name,
-				user.user_id AS user_id,
-				log_types.icon_small AS icon_small,
-				IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`, COUNT(gk_item.id) AS geokret_in							  
-	FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-	LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-	LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
-	gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-					  WHERE cache_logs.deleted=0 AND `cache_logs`.`cache_id`='&1'
-					  		AND `cache_logs`.`cache_id`=`caches`.`cache_id` 
-							GROUP BY cache_logs.id
-	                   ORDER BY `cache_logs`.`date_created` DESC
-					LIMIT 1", $log_record['cache_id']);
-		if (mysql_num_rows($rs_logs) != 0)
-		{
-				$logs = sql_fetch_array($rs_logs);
-				$file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("Y-m-d", strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
-//				$file_content .= '<td width="22">&nbsp;<a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/' . $logs['icon_small'] . '" border="0" alt=""/></a></td>';
-				$file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\''; 
-				$file_content .= '<b>'.$logs['user_name'].'</b>:&nbsp;';
-				if ( $logs['encrypt']==1 && $logs['cache_owner']!=$usr['userid'] && $logs['luser_id']!=$usr['userid']){
-				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
-				if ( $logs['encrypt']==1 && ($logs['cache_owner']==$usr['userid']|| $logs['luser_id']==$usr['userid'])){
-				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
+	$rs_logs = sql("SELECT cache_logs.id,  cache_logs.type AS log_type, cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
+				caches.user_id AS cache_owner, cache_logs.encrypt encrypt, cache_logs.user_id AS luser_id, user.username AS user_name,
+				user.user_id AS user_id, log_types.icon_small AS icon_small
+				FROM cache_logs JOIN caches USING (cache_id) JOIN user ON (cache_logs.user_id=user.user_id) JOIN log_types ON (cache_logs.type = log_types.id)
+				WHERE cache_logs.deleted=0 AND `cache_logs`.`cache_id`='&1' ORDER BY `cache_logs`.`id` DESC LIMIT 5", $log_record['cache_id']);
+		$file_content .= '<td align=left>';
+		while ($logs=sql_fetch_assoc($rs_logs))
+		{		
+
+				$file_content .= '<a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
+				$file_content .= '<b>'.$logs['user_name'].'</b>&nbsp;('.htmlspecialchars(date("Y-m-d", strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8').'):';
+
+				if ( $logs['encrypt']==1 && $logs['cache_owner']!=$usr['userid'] && $logs['luser_id']!=$usr['userid'])
+				{
+					$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";
+				}
+				if ( $logs['encrypt']==1 && ($logs['cache_owner']==$usr['userid']|| $logs['luser_id']==$usr['userid']))
+				{
+					$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
+				}
 				$data = cleanup_text(str_replace("\r\n", " ", $logs['log_text']));
 				$data = str_replace("\n", " ",$data);
 				if ( $logs['encrypt']==1 && $logs['cache_owner']!=$usr['userid'] && $logs['luser_id']!=$usr['userid'])
-				{//crypt the log ROT13, but keep HTML-Tags and Entities
-				$data = str_rot13_html($data);} else {$file_content .= "<br/>";}
+				{
+					//crypt the log ROT13, but keep HTML-Tags and Entities
+					$data = str_rot13_html($data);} else {$file_content .= "<br/>";
+				}
 				$file_content .=$data;
-				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $logs['icon_small'] . '" border="0" alt=""/></a></b></td>';
-				$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($logs['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($logs['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-
-				}
-				$file_content .= "</tr>";
-				}
+				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $logs['icon_small'] . '" border="0" alt=""/></a></b>';
 		}
+
+				$file_content .= "</td></tr>";
+				}
+	}
 
 	$pages = mb_ereg_replace('{last_img}', $last_img, $pages);
 	$pages = mb_ereg_replace('{first_img}', $first_img, $pages);
