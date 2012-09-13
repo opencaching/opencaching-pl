@@ -25,20 +25,16 @@
 <div class="searchdiv">
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
 <tr>
-<td colspan="2"><strong>{{date_hidden_label}}</strong></td>
+<td colspan="2"><a class="links" href="mycaches.php?col=1{my_cache_sort}"><strong>{{date_hidden_label}}</strong></a></td>
 <td></td>
-<td><strong>Geocache</strong></td>
-<td><img src="tpl/stdstyle/images/log/16x16-found.png"></td>
-<td><img src="images/rating-star.png"></td>
+<td><a class="links" href="mycaches.php?col=2{my_cache_sort}"><strong>Geocache</strong></a></td>
+<td><a class="links" href="mycaches.php?col=3{my_cache_sort}"><img src="tpl/stdstyle/images/log/16x16-found.png"></a></td>
+<td><a class="links" href="mycaches.php?col=4{my_cache_sort}"><img src="images/rating-star.png"></a></td>
 <td><strong>{{latest_logs}}</strong></td>
 </tr>
-<tr>
-<td colspan="7"><hr></hr></td>
-</tr>
-		{file_content}
-<tr>
-<td colspan="7"><hr></hr></td>
-</tr>
+<tr><td colspan="7"><hr></hr></td></tr>
+{file_content}
+<tr><td colspan="7"><hr></hr></td></tr>
 </table>
 </div>
 	<p>
