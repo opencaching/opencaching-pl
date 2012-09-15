@@ -39,10 +39,10 @@
 // force all caches to be verified - sql
 		if($_GET['verify_all'] == 1 && $usr['admin'] )
 		{
-			$sql = "UPDATE user SET verify_all = 1  WHERE user_id = ".intval($user_id);
-			mysql_query($sql);
+			$sql = "UPDATE user SET verify_all = '1'  WHERE user_id = '".intval($user_id)."'";
+			mysql_query($sql) or die (mysql_error());
 		}	
-		if($_GET['verify_all'] == 0 && $usr['admin'] )
+		if((isset ($_GET['verify_all'])) && $_GET['verify_all'] == 0 && $usr['admin'] )
 		{
 			$sql = "UPDATE user SET verify_all = 0  WHERE user_id = ".intval($user_id);
 			mysql_query($sql);
@@ -71,7 +71,7 @@
 				
 			$rsuser =sql("SELECT hidden_count, founds_count, log_notes_count, notfounds_count,last_login, 
 								username, date_created,description, email,is_active_flag,
-								stat_ban,activation_code,hide_flag,countries.$lang_db country,verify_all
+								stat_ban,activation_code,hide_flag,countries.$lang_db country, verify_all
 								FROM `user` LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1 ",$user_id);
 
 			$record = sql_fetch_array($rsuser);
@@ -128,6 +128,7 @@
 	;
 // force all caches to be verified - form
 $verify_all = $record['verify_all'];
+
 if ($verify_all == 0) {
 tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid='.$user_id.'&amp;verify_all=1"><font color="#ff0000">Przekazuj wszystkie nowe skrzynki do weryfikacji</font></a>&nbsp;<img src="'.$stylepath.'/images/blue/atten-red.png" align="top" alt="" /></p>');
 } else {
