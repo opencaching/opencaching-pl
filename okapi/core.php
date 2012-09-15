@@ -89,12 +89,6 @@ class OkapiExceptionHandler
 			
 			print $e->getOkapiJSON();
 		}
-		elseif ($e instanceof Http304)
-		{
-			# This is thrown for example when ETags are matched.
-			
-			header('HTTP/1.0 304 Not Modified');
-		}
 		elseif ($e instanceof BadRequest)
 		{
 			# Intentionally thrown from within the OKAPI method code.
@@ -277,7 +271,6 @@ register_shutdown_function(array('\okapi\OkapiErrorHandler', 'handle_shutdown'))
 #
 
 class Http404 extends BadRequest {}
-class Http304 extends Exception {}
 
 /** Common type of BadRequest: Required parameter is missing. */
 class ParamMissing extends BadRequest
@@ -766,7 +759,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 470; # This gets replaced in automatically deployed packages
+	public static $revision = 471; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
