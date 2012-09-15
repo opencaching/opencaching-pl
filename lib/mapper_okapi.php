@@ -132,7 +132,7 @@ else
 #
 # We have all the parameters. Note, that some mapper-compatible parameter sets
 # always render empty results. We will just exit, without producing any image
-# what so ever (WRTODO: output a predefined empty gif?)
+# whatsoever.
 #
 
 if ($force_result_empty)
@@ -141,9 +141,4 @@ if ($force_result_empty)
 # Get OKAPI's response and display it. Add proper Cache-Control headers.
 # (WRTODO: Move Cache-Control to OKAPI?)
 
-$okapi_response = \okapi\Facade::service_call('services/caches/map/tile', $user_id, $params);
-header("Content-Type: ".$okapi_response->content_type);
-header("Cache-Control: private, max-age=600, pre-check=600");
-header("Pragma: private");
-print $okapi_response->get_body();
-
+\okapi\Facade::service_display('services/caches/map/tile', $user_id, $params);

@@ -94,23 +94,23 @@
 				<table>
 					<tr class='h_t'>
 						<td><input class="chbox" id="h_t" name="h_t" value="1" type="checkbox" {h_t_checked} onclick="reload()"/>&nbsp;<label for="h_t">{{traditional}}</label></td>
-						<td class='i'><img src='okapi/static/tilemap/large_traditional.png'/></td>
+						<td class='i'><img src='okapi/static/tilemap/legend_traditional.png'/></td>
 					</tr>
 					<tr class='h_m'>
 						<td><input class="chbox" id="h_m" name="h_m" value="1" type="checkbox" {h_m_checked} onclick="reload()"/><label for="h_m">&nbsp;{{multicache}}</label></td>
-						<td class='i'><img src='okapi/static/tilemap/large_multi.png'/></td>
+						<td class='i'><img src='okapi/static/tilemap/legend_multi.png'/></td>
 					</tr>
 					<tr class='h_q'>
 						<td><input class="chbox" id="h_q" name="h_q" value="1" type="checkbox" {h_q_checked} onclick="reload()"/><label for="h_q">&nbsp;Quiz</label></td>
-						<td class='i'><img src='okapi/static/tilemap/large_quiz.png'/></td>
+						<td class='i'><img src='okapi/static/tilemap/legend_quiz.png'/></td>
 					</tr>
 					<tr class='h_v'>
 						<td><input class="chbox" id="h_v" name="h_v" value="1" type="checkbox" {h_v_checked} onclick="reload()"/><label for="h_v">&nbsp;{{virtual}}</label></td>
-						<td class='i'><img src='okapi/static/tilemap/large_virtual.png'/></td>
+						<td class='i'><img src='okapi/static/tilemap/legend_virtual.png'/></td>
 					</tr>
 					<tr class='h_e'>
 						<td><input class="chbox" id="h_e" name="h_e" value="1" type="checkbox" {h_e_checked} onclick="reload()"/><label for="h_e">&nbsp;{{event}}</label></td>
-						<td class='i'><img src='okapi/static/tilemap/large_event.png'/></td>
+						<td class='i'><img src='okapi/static/tilemap/legend_event.png'/></td>
 					</tr>
 				</table>
 			</td>
@@ -118,19 +118,19 @@
 				<table>
 					<tr class='h_u'>
 						<td><input class="chbox" id="h_u" name="h_u" value="1" type="checkbox" {h_u_checked} onclick="reload()"/><label for="h_u">&nbsp;{{unknown_type}}</label></td>
-						<td class='i'><img src='okapi/static/tilemap/large_other.png'/></td>
+						<td class='i'><img src='okapi/static/tilemap/legend_unknown.png'/></td>
 					</tr>
 					<tr class='h_w'>
 						<td><input class="chbox" id="h_w" name="h_w" value="1" type="checkbox" {h_w_checked} onclick="reload()"/><label for="h_w">&nbsp;Webcam</label></td>
-						<td class='i'><img src='okapi/static/tilemap/large_other.png'/></td>
+						<td class='i'><img src='okapi/static/tilemap/legend_webcam.png'/></td>
 					</tr>
 					<tr class='h_o'>
 						<td><input class="chbox" id="h_o" name="h_o" value="1" type="checkbox" {h_o_checked} onclick="reload()"/><label for="h_o">&nbsp;{{moving}}</label></td>
-						<td class='i'><img src='okapi/static/tilemap/large_other.png'/></td>
+						<td class='i'><img src='okapi/static/tilemap/legend_moving.png'/></td>
 					</tr>
 					<tr class='h_owncache'>
 						<td><input class="chbox" id="h_owncache" name="h_owncache" value="1" type="checkbox" {h_owncache_checked} onclick="reload()"/><label for="h_owncache">&nbsp;{{owncache}}</label></td>
-						<td class='i'><img src='okapi/static/tilemap/large_other.png'/></td>
+						<td class='i'><img src='okapi/static/tilemap/legend_own.png'/></td>
 					</tr>
 				</table>
 			</td>
@@ -485,7 +485,7 @@
 				"&z="+zoom+
 				"&x="+tile.x+
 				"&y="+tile.y+
-				"&sc={sc}"+
+				//"&sc={sc}"+
 				"&h_u="+document.getElementById('h_u').checked+
 				"&h_t="+document.getElementById('h_t').checked+
 				"&h_m="+document.getElementById('h_m').checked+
@@ -513,9 +513,10 @@
 				"&min_score="+document.getElementById('min_score').value+
 				"&max_score="+document.getElementById('max_score').value+
 				"&h_noscore="+document.getElementById('h_noscore').checked+
-				"&mapid="+get_current_mapid()+
+				//"&mapid="+get_current_mapid()+
 				"&rand="+get_current_rand()+
-				"&{searchdata}";
+				//"&{searchdata}"+
+				"";
 		};
 		tlo = new GTileLayerOverlay(tilelayer);
 	}
@@ -700,7 +701,8 @@
 					"&min_score="+document.getElementById('min_score').value+
 					"&max_score="+document.getElementById('max_score').value+
 					"&h_noscore="+document.getElementById('h_noscore').checked+
-					"&{searchdata}",
+					//"&{searchdata}"+
+					"",
 					function(data, responseCode) 
 					{
 						var xml = GXml.parse(data);
@@ -852,7 +854,8 @@
 					"&min_score="+document.getElementById('min_score').value+
 					"&max_score="+document.getElementById('max_score').value+
 					"&h_noscore="+document.getElementById('h_noscore').checked+
-					"&{searchdata}",
+					//"&{searchdata}"+
+					"",
 					function(data, responseCode) 
 					{
 						var xml = GXml.parse(data);

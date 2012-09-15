@@ -70,7 +70,7 @@
 			shadow = new L.TileLayer(shadowUrl, osmOptions);		
 			
 		// OC.pl overlay
-		var ocplUrl = "http://opencaching.pl/lib/cgi-bin/mapper.fcgi?z={z}&x={x}&y={y}&sc=0&h_u=false&h_t=false&h_m=false&h_v=false&h_w=false&h_e=false&h_q=false&h_o=false&h_owncache=false&h_ignored=false&h_own=false&h_found=false&h_noattempt=false&h_nogeokret=false&h_avail=false&h_temp_unavail=true&h_arch=true&signes=true&waypoints=false&be_ftf=false&h_de=false&h_pl=true&h_se=false&h_no=false&min_score=-3&max_score=3.000&h_noscore=true&mapid=0&",
+		var ocplUrl = "http://opencaching.pl/lib/mapper_okapi.php?z={z}&x={x}&y={y}&sc=0&h_u=false&h_t=false&h_m=false&h_v=false&h_w=false&h_e=false&h_q=false&h_o=false&h_owncache=false&h_ignored=false&h_own=false&h_found=false&h_noattempt=false&h_nogeokret=false&h_avail=false&h_temp_unavail=true&h_arch=true&signes=true&waypoints=false&be_ftf=false&h_de=false&h_pl=true&h_se=false&h_no=false&min_score=-3&max_score=3.000&h_noscore=true&",
 			ocpl = new L.TileLayer(ocplUrl, osmOptions);
 			
 		// markers overlay
