@@ -213,7 +213,14 @@ if ($error == false)
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
 				$file_content .= '<td width="22"><a class="links" href="viewcache.php?cacheid=' . $log_record['cache_id'].'"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></a></td>';
 				$file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') .'" onmouseover="Tip(\''; 
-				$file_content .= '<b>'.$log_record['user_name'].'</b>:&nbsp;';
+				// ukrywanie nicka autora komentarza COG
+				// Łza 
+				if ($log_record['log_type'] == 12 && !$usr['admin'] ) 
+				    {
+				     $log_record['user_name'] = 'Centrum Obsługi Geocachera';
+					 $log_record['user_id'] = 0;
+					}
+				// koniec ukrywania nicka autora komentarza COG			
 				$file_content .= '<b>'.$log_record['user_name'].'</b>: &nbsp;';
 				if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['luser_id']!=$usr['userid']){
 				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
