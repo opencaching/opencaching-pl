@@ -6,25 +6,20 @@
 	//include template handling
 	require_once($rootpath . 'lib/common.inc.php');
 
-  setlocale(LC_TIME, 'pl_PL.UTF-8');
-$rsU = sql('SELECT COUNT(*) `count` FROM (SELECT COUNT(cache_logs.user_id) FROM `cache_logs` WHERE type=1 AND `deleted`=0 GROUP BY `user_id`) `users_with_founds`');
-$fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE type=1 AND `deleted`=0');
-  $rsUs = mysql_fetch_array($rsU);
-    $fCt = mysql_fetch_array($fC);
+	$userscount = sqlValue('SELECT COUNT( DISTINCT user_id) FROM cache_logs WHERE type=1 AND `deleted`=0',0);
+	$cachelogscount = sqlValue('SELECT COUNT(*) FROM `cache_logs` WHERE type=1 AND `deleted`=0',0);
 
 	echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>Ranking użytkowników wg liczby odkryć</b><br />Użytkowników którzy znalezli:';
-	echo $rsUs[count]; 
+	echo $userscount; 
 	echo ' .::. Ile razy odkryto skrzynki:';
-	echo $fCt[count]; 
+	echo $cachelogscount; 
 	echo '</center></td></tr>';
 	echo '<tr><td class="bgcolor2"><b>Nie licz statystyk dla skrzynek typu:</b><br /><form action="articles.php" method="GET">';
 	
-	
-	$sql = "SELECT * FROM cache_type WHERE id != 6";
-	$res_q = mysql_query($sql);
+	$res_q = sql('SELECT id, pl FROM cache_type WHERE id != 6');
 	$no_types = 0;
 	$typ = "";
-	while( $res = mysql_fetch_array($res_q) )
+	while( $res = sql_fetch_array($res_q) )
 	{
 		$no_types++;
 		if( $_GET[$res['id']] == 1)
@@ -36,10 +31,8 @@ $fC = sql('SELECT COUNT(*) `count` FROM `cache_logs` WHERE type=1 AND `deleted`=
 			$checked = '';
 			
 		echo '<input type="checkbox" value="1" name="'.intval($res['id']).'" id="'.intval($res['id']).'" '.$checked.' /><label for="'.intval($res['id']).'">'.strip_tags($res['pl']).'</label>';
-		if( $no_types % 5 != 0 )
-			echo ' | ';
-		if( $no_types == 5 )
-			echo '<br />';
+		if( $no_types % 5 != 0 ) echo ' | ';
+		if( $no_types == 5 ) echo '<br />';
 	}
 	echo '<input type="hidden" name="page" value="s2">';
 	echo '<br/><input type="submit" value="Filtruj">';
@@ -51,12 +44,13 @@ $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id FROM caches, cache
      "WHERE `cache_logs`.`deleted`=0 AND cache_logs.user_id=user.user_id AND cache_logs.type=1 AND cache_logs.cache_id = caches.cache_id ".$typ." ".
      "GROUP BY user.user_id ".
      "ORDER BY 1 DESC, user.username ASC";
+
 $cache_key = md5($a);
 $lines = apc_fetch($cache_key);
 if ($lines === false)
 {
-	$r=mysql_query($a) or die(mysql_error());
-	while ($line=mysql_fetch_array($r))
+	$r=sql($a);
+	while ($line=sql_fetch_array($r))
 		$lines[] = $line;
 	unset($r);
 	apc_store($cache_key, $lines, 3600);
