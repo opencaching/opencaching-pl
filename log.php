@@ -1,4 +1,6 @@
 <?php
+// error_reporting(0);
+
 /***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
@@ -9,9 +11,13 @@
 	*    Unicode Reminder ąśłó
 	***************************************************************************/
 
-
+	/* todo:
+	      create and set up 4 template selector with wybor_WE wybor_NS. 
+		  
+    */
 	function isGeokretInCache($cacheid)
 	{
+	
 		$sql = "SELECT wp_oc, wp_gc, wp_nc,wp_ge,wp_tc FROM caches WHERE cache_id = '".sql_escape(intval($cacheid))."'";
 		$cache_record = mysql_fetch_array(mysql_query($sql));
 		// get cache waypoint
@@ -39,12 +45,15 @@
 		
 	}
 	
- // ini_set ('display_errors', On); 
+
+    // ini_set('display_errors', 1);
+    // error_reporting(E_ALL);
+	
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
 	require($stylepath.'/smilies.inc.php');
 
-	
+
 	$no_tpl_build = false;
 	//Preprocessing
 	if ($error == false)
@@ -115,7 +124,15 @@
 				$log_date_month = isset($_POST['logmonth']) ? ($_POST['logmonth']+0) : date('m');
 				$log_date_year = isset($_POST['logyear']) ? ($_POST['logyear']+0) : date('Y');
 				$top_cache = isset($_POST['rating']) ? $_POST['rating']+0 : 0;
-
+				
+				// mobilne by Łza
+				$wybor_NS   = isset($_POST['wybor_NS']) ? $_POST['wybor_NS'] : 0;
+				$wsp_NS_st  = isset($_POST['wsp_NS_st']) ? $_POST['wsp_NS_st'] : null;
+				$wsp_NS_min = isset($_POST['wsp_NS_min']) ? $_POST['wsp_NS_min'] : null;
+				$wybor_WE   = isset($_POST['wybor_WE']) ? $_POST['wybor_WE'] : 0;
+				$wsp_WE_st  = isset($_POST['wsp_WE_st']) ? $_POST['wsp_WE_st'] : null;
+				$wsp_WE_min = isset($_POST['wsp_WE_min']) ? $_POST['wsp_WE_min'] : null;
+								
 				$is_top = sqlValue("SELECT COUNT(`cache_id`) FROM `cache_rating` WHERE `user_id`='" . sql_escape($usr['userid']) . "' AND `cache_id`='" . sql_escape($cache_id) . "'", 0);
 				// check if user has exceeded his top5% limit
 				$user_founds = sqlValue("SELECT `founds_count` FROM `user` WHERE `user_id`='" .  sql_escape($usr['userid']) . "'", 0);
@@ -276,7 +293,11 @@
 						//$log_text = strip_tags(htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'));
 					
 				}
-
+                
+				//setting tpl messages if they should be not visible.	
+				tpl_set_var('lat_message', '');
+                tpl_set_var('lon_message', '');
+				
 				//validate data
 				if (is_numeric($log_date_month) && is_numeric($log_date_day) && is_numeric($log_date_year) && is_numeric($log_date_hour)&& is_numeric($log_date_min))
 				{
@@ -330,6 +351,12 @@
 
 				if ($log_type < 0) $logtype_not_ok = true;
 				
+				if ($log_type == 4) 
+				{
+				 $coords_not_ok = validate_coords($wsp_NS_st, $wsp_NS_min, $wsp_WE_st, $wsp_WE_min, $wybor_WE, $wybor_NS, $error_coords_not_ok);
+				}
+
+				
 				// not a found log? then ignore the rating
 				$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE `deleted`=0 AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($cache_id)."' AND type='1'";
 				$res = mysql_fetch_array(mysql_query($sql));
@@ -342,7 +369,7 @@
 				$pw_not_ok = false;
 				if (isset($_POST['submitform']))
 				{
-					$all_ok = ($date_not_ok == false) && ($logtype_not_ok == false);
+					$all_ok = ($date_not_ok == false) && ($logtype_not_ok == false) && ($coords_not_ok == false);
 
 					if (($all_ok) && ($use_log_pw) && $log_type == 1)
 					{
@@ -418,20 +445,230 @@
 					if ($log_type < 0)
 					{
 					 // nie wybrano typu logu
-					 // print "nic nie <br><br>" . $log_text; exit;
+
 					}
                     // if comment is empty, then do not insert data into db
 					elseif (!($log_type == 3 && $log_text == "")) 
-					// print "wpisuje do bazy" .$log_type .'/'. $log_text ; exit;
 					{
 						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
 										 VALUES ('', '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW(), NOW(), '&8', '&9')",
 										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid);
+                        
+                        
+						// mobline by Łza (mobile caches)
+						
+						// insert to database.
+						// typ kesza mobilna 8, typ logu == 4
+						if ($log_type == 4) // typ logu 4 - przeniesiona
+						   {
+						     ini_set('display_errors', 1);   
+						     error_reporting(E_ALL);
+							 
+							 // id of last sql entery
+							 $last_id_4_mobile_moved = mysql_insert_id();
+						   
+							 // converting from HH MM.MMM to DD.DDDDDD
+						     $wspolrzedneNS = $wsp_NS_st + round($wsp_NS_min,3) / 60;
+						     if ($wybor_NS == 'S') $wspolrzedneNS = -$wspolrzedneNS;						 
+							 $wspolrzedneWE = $wsp_WE_st + round($wsp_WE_min,3) / 60;
+						     if ($wybor_WE  == 'W') $wspolrzedneWE = -$wspolrzedneWE; 
+							
+							 // if it is first log "cache mooved" then move start coordinates from table caches
+							 // to table cache_moved and create log type cache_moved, witch description 
+							 // "depart point" or something like this. 
+							 
+							 //$count = mysql_result($result, 0);
 
+							 $is_any_cache_movedlog = mysql_result(sql("SELECT COUNT(*) FROM `cache_moved` WHERE `cache_id` ='&1'", sql_escape($cache_id)),0);
+							 
+							 if ($is_any_cache_movedlog == 0)
+							    {
+								 
+								 $tmp_move_query = sql("SELECT `user_id`, `longitude`, `latitude`, `date_hidden` FROM `caches` WHERE `cache_id` ='&1'", sql_escape($cache_id));
+								 $tmp_move_data = mysql_fetch_array($tmp_move_query);
+								 
+								 // create initial log in cache_logs and copy coords to table caches
+								 $init_log_desc = tr('log_mobile_init');
+								 $init_log_latitude = $tmp_move_data['latitude'];
+								 $init_log_longitude = $tmp_move_data['longitude'];
+								 $init_log_userID = $tmp_move_data['user_id'];
+								 $init_log_date = $tmp_move_data['date_hidden'];
+								   $tmp_uuid = mysql_fetch_array(sql("SELECT `uuid` FROM `user` WHERE `user_id` = $init_log_userID"));
+								   $init_log_uuid = $tmp_uuid['uuid'];
+								   unset($tmp_uuid);
+								 	
+								 sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
+									  VALUES                   ('',   '&1',       '&2',      '&3',   '&4',   '&5',   '&6',        '&7',             NOW(),           NOW(),          '&8',   '&9')",
+										 $cache_id, 
+										 $init_log_userID, 
+										 4, 
+										 $init_log_date, 
+										 $init_log_desc, 
+										 0, 
+										 0, 
+										 $init_log_uuid, 
+										 $oc_nodeid
+										 );
+									$last_id_4_init_log = mysql_insert_id();
+									
+									sql("INSERT INTO `cache_moved`(`id`, 
+						                             `cache_id`, 
+													 `user_id`, 
+													 `log_id`, 
+													 `date`, 
+													 `longitude`, 
+													 `latitude`,
+													 `km`) 
+										     VALUES ('', 
+											         '&1', 
+													 '&2', 
+													 '&3', 
+													 '&4', 
+													 '&5', 
+													 '&6',
+													 '0'
+											        )",	
+											         sql_escape($cache_id),
+													 $init_log_userID,
+													 $last_id_4_init_log,
+													 $init_log_date,
+													 $init_log_longitude,
+													 $init_log_latitude 
+												    );
+								 $dystans=sprintf("%.2f",calcDistance($init_log_latitude,$init_log_longitude,$wspolrzedneNS,$wspolrzedneWE)); 
+							    }
+							 else
+							    {
+								 // $log_date - data+czas logu
+							     // calculate distance from piervous
+								 $ostatnie_dane_mobilniaka = mysql_fetch_array(mysql_query("
+								      SELECT 
+								              `id`, 
+											  `user_id`, 
+											  `log_id`, 
+											  `date`, 
+											  `longitude`, 
+											  `latitude`, 
+											  `km` 
+										FROM  `cache_moved` 
+										WHERE `cache_id` = '$cache_id'
+										
+										ORDER BY id DESC
+										LIMIT 1
+										"										
+										));
+								 // jeśli beżący (właśnie wpisywany) log jest ostatnim, 
+                                 // dystans zostanie wpisany do bazy. w przeciwnym wypadku
+                                 // zmienna zostanie zastąpiona w if-ie 								 
+								 $dystans=sprintf("%.2f",calcDistance($ostatnie_dane_mobilniaka['latitude'],$ostatnie_dane_mobilniaka['longitude'],$wspolrzedneNS,$wspolrzedneWE));	
+										// check if log date is beetwen, or last
+										if ($log_date <= $ostatnie_dane_mobilniaka['date'])
+										    {
+										     // find nearest log before 
+										
+										    $najblizszy_log_wczesniej_array = mysql_query("
+								             SELECT 
+								              `id`, 
+											  `user_id`, 
+											  `log_id`, 
+											  `date`,
+											  `longitude`, 
+											  `latitude`, 
+											  `km` 
+										     FROM  `cache_moved` 
+										     WHERE `cache_id` = '$cache_id'
+										     AND   `date` < '$log_date'
+										     ORDER BY `date` DESC
+										     LIMIT 1
+										     "										
+										     ) or die(mysql_error());
+										
+										     $najblizszy_log_wczesniej = mysql_fetch_array($najblizszy_log_wczesniej_array);
 
+										     // find nearest log after
+										      $najblizszy_log_pozniej = mysql_fetch_array(mysql_query("
+								             SELECT 
+								              `id`, 
+											  `date`,
+											  `user_id`, 
+											  `log_id`, 
+											  `longitude`, 
+											  `latitude`, 
+											  `km` 
+										     FROM  `cache_moved` 
+										     WHERE `cache_id` = '$cache_id'
+										     AND   `date` > '$log_date'
+										     ORDER BY `date` ASC
+										     LIMIT 1
+										     "										
+										     ));
+											 	
+										 print 'mieszanie z datami<br>';
+										 print  'data logu: '.$log_date
+										       .'<br><br>ostatnia (najpozniejsza) data logu ($ostatnie_dane_mobilniaka): '.$ostatnie_dane_mobilniaka['date']
+											   . '<br>data wcześniejszego logu ($najblizszy_log_wczesniej): '. $najblizszy_log_wczesniej['date']
+											   . '<br>data późniejszego logu ($najblizszy_log_pozniej):' .     $najblizszy_log_pozniej['date']
+											   ;
+										
+										 // Report all PHP errors
 
+										 
+										 // wyliczenie zapisac w bazie dystans z obu wierszy modyfikowanych logow
+										      $najblizszy_log_wczesniej['id'];
+										      
+											  // dla logu przed obecnym
+											  $najblizszy_log_jeszcze_wczesniej = mysql_fetch_array($najblizszy_log_wczesniej_array);
+											  $km_logu[$najblizszy_log_wczesniej['id']]=sprintf("%.2f",calcDistance($najblizszy_log_jeszcze_wczesniej['latitude'],$najblizszy_log_jeszcze_wczesniej['longitude'],$najblizszy_log_wczesniej['latitude'],$najblizszy_log_wczesniej['longitude']));
+											  
+											  // dla logu po obecnym
+											  $km_logu[$najblizszy_log_pozniej['id']]=sprintf("%.2f",calcDistance($wspolrzedneNS,$wspolrzedneWE,$najblizszy_log_pozniej['latitude'],$najblizszy_log_pozniej['longitude']));
+											  
+											  sql ("UPDATE `cache_moved` SET `km`='&1' WHERE id = '&2'", $km_logu[$najblizszy_log_pozniej['id']], $najblizszy_log_pozniej['id']);
+										      sql ("UPDATE `cache_moved` SET `km`='&1' WHERE id = '&2'", $km_logu[$najblizszy_log_wczesniej['id']], $najblizszy_log_wczesniej['id']);
+											  
+										     // wyliczenie dystansu dla obecnego logu.
+										     $dystans=sprintf("%.2f",calcDistance($najblizszy_log_wczesniej['latitude'],$najblizszy_log_wczesniej['longitude'],$wspolrzedneNS,$wspolrzedneWE));
+				                             //print $dystans; 
+										}
+									
+								 
+							     
+							    }
+							 //  
+							 // insert into table cache_moved
+						     sql("INSERT INTO `cache_moved`(`id`, 
+						                             `cache_id`, 
+													 `user_id`, 
+													 `log_id`, 
+													 `date`, 
+													 `longitude`, 
+													 `latitude`,
+													 `km`) 
+										     VALUES ('', 
+											         '&1', 
+													 '&2', 
+													 '&3', 
+													 '&4', 
+													 '&5', 
+													 '&6',
+													 '&7'
+											        )",	
+											         sql_escape($cache_id),
+													 $usr['userid'],
+													 $last_id_4_mobile_moved,
+													 $log_date,
+													 $wspolrzedneWE,
+													 $wspolrzedneNS,
+													 $dystans
+												    );			
+						     // update main cache coordinates
+						     sql("UPDATE `caches` SET `longitude` = '&2', `latitude` = '&3'  WHERE `cache_id`='&1'", sql_escape($cache_id), $wspolrzedneWE, $wspolrzedneNS);
+						 
+						   }
+						// mobilne by Łza - koniec
+						
 						//inc cache stat and "last found"
-						$rs = sql("SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+						$rs = sql("SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches` WHERE `cache_id`='&1'", sql_escape($cache_id));
 						$record = sql_fetch_array($rs);
 
 						$last_found = '';
@@ -544,8 +781,27 @@
 							$logtypeoptions .= '<option value="4">Przeniesiona</option>' . "\n";}
 							if ($usr['userid']!=$cache_user_id){$logtypeoptions .= '<option value="5">Potrzebny serwis</option>' . "\n";}
 							if ($usr['admin']==true){$logtypeoptions .= '<option value="12">Komentarz COG</option>' . "\n";}
+							
+							// service log by Łza
+					        // if curently logged user is a cache owner and cache status is "avilable"
+					        // then add log type option "temp. unavailable";
+							adad;
+					        if ($usr['userid'] == $cache_user_id && $res2['status'] == 1)
+					           {
+							     $logtypeoptions .= '<option value="11">'.tr("log_type_temp_unavailable").'</option>'. "\n";
+					           }
+							// if curently logged user is a cache owner and cache status is "temp. unavailable" 
+					        // then add log type option "avilable" 
+							if (($usr['userid'] == $cache_user_id) && ($res2['status'] == 2	))
+							   {
+								 $logtypeoptions .= '<option value="10">'.tr("log_type_available").'</option>'. "\n";
+					           }
 							break;
+							
 						}
+						
+
+						
 						// skip if permission=O and not owner
 						if($type['permission'] == 'O' && $usr['userid'] != $cache_user_id && $type['permission'])
 							continue;
@@ -577,6 +833,10 @@
 							}
 
 						}
+						
+
+					   
+						
 							if(checkField('log_types',$lang) )
 								$lang_db = $lang;
 							else
@@ -595,7 +855,9 @@
 						{
 							$logtypeoptions .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
 						}
-						
+					
+
+					
 					}
 
 
@@ -614,6 +876,12 @@
 					tpl_set_var('top_cache', $top_cache);
 					tpl_set_var('bodyMod', ' onload="chkMoved()" onunload="GUnload()"');
 
+					tpl_set_var('wsp_NS_st',  $wsp_NS_st);
+				    tpl_set_var('wsp_NS_min', $wsp_NS_min);
+				    tpl_set_var('wsp_WE_st',  $wsp_WE_st);
+				    tpl_set_var('wsp_WE_min', $wsp_WE_min);
+				    tpl_set_var('$wybor_WE',  $wybor_WE);
+				    tpl_set_var('$wybor_NS',  $wybor_NS);
 
 					// Text / normal HTML / HTML editor
 					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
@@ -725,4 +993,143 @@
 		//make the template and send it out
 		tpl_BuildTemplate(false);
 	}
+
+function validate_coords($lat_h, $lat_min, $lon_h, $lon_min, $lonEW, $latNS, $error_coords_not_ok)
+{
+	//check coordinates
+	$error = false;
+	if ($lat_h!='' || $lat_min!='')
+	{
+		if (!mb_ereg_match('^[0-9]{1,2}$', $lat_h))
+		{
+			tpl_set_var('lat_message', $error_coords_not_ok);
+			$error = true;
+			$lat_h_not_ok = true;
+		}
+		else
+		{
+			if (($lat_h >= 0) && ($lat_h < 90))
+			{
+				$lat_h_not_ok = false;
+			}
+			else
+			{
+				tpl_set_var('lat_message', $error_coords_not_ok);
+				$error = true;
+				$lat_h_not_ok = true;
+			}
+		}
+
+		if (is_numeric($lat_min))
+		{
+			if (($lat_min >= 0) && ($lat_min < 60))
+			{
+				$lat_min_not_ok = false;
+			}
+			else
+			{
+				tpl_set_var('lat_message', $error_coords_not_ok);
+				$error = true;
+				$lat_min_not_ok = true;
+			}
+		}
+		else
+		{
+			tpl_set_var('lat_message', $error_coords_not_ok);
+			$error = true;
+			$lat_min_not_ok = true;
+		}
+
+		$latitude = $lat_h + round($lat_min,3) / 60;
+		if ($latNS == 'S') $latitude = -$latitude;
+
+		if ($latitude == 0)
+		{
+			tpl_set_var('lon_message', $error_coords_not_ok);
+			$error = true;
+			$lat_min_not_ok = true;
+		}
+	}
+	
+	else
+	{
+		$latitude = NULL;
+		$lat_h_not_ok = true;
+		$lat_min_not_ok = true;
+	}
+
+	if ($lon_h!='' || $lon_min!='')
+	{
+		if (!mb_ereg_match('^[0-9]{1,3}$', $lon_h))
+		{
+			tpl_set_var('lon_message', $error_coords_not_ok);
+			$error = true;
+			$lon_h_not_ok = true;
+		}
+		else
+		{
+			if (($lon_h >= 0) && ($lon_h < 180))
+			{
+				$lon_h_not_ok = false;
+			}
+			else
+			{
+				tpl_set_var('lon_message', $error_coords_not_ok);
+				$error = true;
+				$lon_h_not_ok = true;
+			}
+		}
+
+		if (is_numeric($lon_min))
+		{
+			if (($lon_min >= 0) && ($lon_min < 60))
+			{
+				$lon_min_not_ok = false;
+			}
+			else
+			{
+				tpl_set_var('lon_message', $error_coords_not_ok);
+				$error = true;
+				$lon_min_not_ok = true;
+			}
+		}
+		else
+		{
+			tpl_set_var('lon_message', $error_coords_not_ok);
+			$error = true;
+			$lon_min_not_ok = true;
+		}
+
+		$longitude = $lon_h + round($lon_min,3) / 60;
+		if ($lonEW == 'W') $longitude = -$longitude;
+
+		if ($longitude == 0)
+		{
+			tpl_set_var('lon_message', $error_coords_not_ok);
+			$error = true;
+			$lon_min_not_ok = true;
+		}
+	}
+	else
+	{
+		$longitude = NULL;
+		$lon_h_not_ok = true;
+		$lon_min_not_ok = true;
+	}
+
+	$lon_not_ok = $lon_min_not_ok || $lon_h_not_ok;
+	$lat_not_ok = $lat_min_not_ok || $lat_h_not_ok;
+
+
+
+/*	
+if ($lon_not_ok == false) print "lon_ok<br>"; 
+if ($lat_not_ok == false) print "lat_ok<br>"; 
+
+exit;
+*/
+
+return ($error);
+}
+	
 ?>

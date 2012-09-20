@@ -136,11 +136,36 @@ function chkMoved()
                                 iconarray['12'] = '16x16-octeam.png';
                         var image_log = "/tpl/stdstyle/images/log/" + iconarray[mode];
                         document.logform.actionicon.src = image_log;
-//         var el;
-//      el='coord_table';
-//      if (document.logform.logtype.value == "4")              
-//      {document.getElementById(el).style.display='block';
-//    } else {document.getElementById(el).style.display='none';}
+
+         var el;
+      el='coord_table';
+	  mvd1="wybor_NS";  
+	  mvd2="wsp_NS_st"; 
+	  mvd3="wsp_NS_min";
+	  mvd4="wybor_WE";   
+	  mvd5="wsp_WE_st";  
+	  mvd6="wsp_WE_min"; 
+	  
+      if (document.logform.logtype.value == "4")              
+       {
+	    document.getElementById(el).style.display='block';
+		document.getElementById(mvd1).disabled=false;
+        document.getElementById(mvd2).disabled=false;
+		document.getElementById(mvd3).disabled=false;
+		document.getElementById(mvd4).disabled=false;
+		document.getElementById(mvd5).disabled=false;
+		document.getElementById(mvd6).disabled=false;
+       } 
+	  else 
+	  {
+	   document.getElementById(el).style.display='none';
+	   document.getElementById(mvd1).disabled=true;
+	   document.getElementById(mvd2).disabled=true; 
+	   document.getElementById(mvd3).disabled=true; 
+	   document.getElementById(mvd4).disabled=true; 
+	   document.getElementById(mvd5).disabled=true; 
+	   document.getElementById(mvd6).disabled=true;   
+	  }
 }
 //-->
 </script>
@@ -204,29 +229,30 @@ function chkMoved()
 </div>
 
 	<!-- [Łza] logowanie keszynek mobilnych: nowe współrzędne  -->
-<!--
+
 <div class="content" id="coord_table" style="display:none;">
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr>
 		<td width="180px">
 		  <img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="" title="" align="middle" /><b>&nbsp;{{nowe_wsp}}</b>
-
+		  
 		</td>
 		<td>
-		 <select name="wybor_NS"><option selected="selected">N</option><option>S</option></select>
-		 <input type="text" name="wsp_NS_st" size="2" maxlenght="2" />
-		 <input type="text" name="wsp_NS_min" size="3" />
-          <br />
-		 <select name="wybor_WE"><option selected="selected">E</option><option>W</option></select>
-		 <input type="text" name="wsp_NS_st" size="2" />
-		 <input type="text" name="wsp_NS_min" size="3" />
-		 
+		 <select name="wybor_NS"   id="wybor_NS"   disabled="disabled"><option selected="selected">N</option><option>S</option></select>
+		 <input type="text"        id="wsp_NS_st"  name="wsp_NS_st"  size="2" maxlength="2" disabled="disabled" value="{wsp_NS_st}"/>
+		 <input type="text"        id="wsp_NS_min" name="wsp_NS_min" size="6" maxlength="6" disabled="disabled" value="{wsp_NS_min}" onkeyup="this.value=this.value.replace( /,/g,'.' );"/>
+         {lat_message}
+		 <br />
+		 <select name="wybor_WE"  id="wybor_WE"   disabled="disabled"><option selected="selected">E</option><option>W</option></select>
+		 <input type="text"       id="wsp_WE_st"  name="wsp_WE_st"  size="2" value="{wsp_WE_st}"  maxlength="2" disabled="disabled" />
+		 <input type="text"       id="wsp_WE_min" name="wsp_WE_min" size="6" value="{wsp_WE_min}" maxlength="6" disabled="disabled" onkeyup="this.value=this.value.replace( /,/g,'.' );" />
+		 {lon_message}
 		</td>
-		<td width="*">auisdhauishduioashdusia<br/></td>
+		<td width="*">		<br/></td>
 	</tr>
 </table>
 </div>
--->
+
 
 
 

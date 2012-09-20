@@ -910,5 +910,8 @@ os_godzine minut
 os_mus Musisz odczekać jeszcze
 os_minut_end minut zanim będziesz mógł znów użyć OpenSprawdzacza.
 viewlog_aktywnosc Aktywność użytkownika (suma skrzynek znalezionych,nieznalezionych i założonych)
+viewlog_kordy Współrzędne ukrycia keszynki po przeniesieniu
+log_type_temp_unavailable tymczasowo niedostępna
+log_type_available Gotowa do szukania
+log_mobile_init Punkt startowy kesza
 
-	

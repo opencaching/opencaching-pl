@@ -573,9 +573,9 @@ div.logs {
 }
 span.username_aktywnosc
 {
-color: #000000
+color: #000000;
 font-family: verdana;
-font-size: 8;
+font-size: 6;
 }
 div#viewcache-utility { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.6em; font-family: arial, sans serif; font-size: 120%; }
 

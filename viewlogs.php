@@ -146,7 +146,6 @@
 				$show_deleted_logs2 = "";
 			}
  
-			
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					".$show_deleted_logs."
 					`cache_logs`.`id` AS `log_id`,
@@ -163,12 +162,16 @@
 					`user`.`notfounds_count` AS `nieznalezione`,
                     `user`.`admin` AS `admin`,
 					`log_types`.`icon_small` AS `icon_small`,
+					`cache_moved`.`longitude` AS `mobile_longitude`, 
+					`cache_moved`.`latitude` AS `mobile_latitude`, 
+					`cache_moved`.`km` AS `km`,
 					`log_types_text`.`text_listing` AS `text_listing`,
 			    IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
 				FROM `cache_logs`
 				INNER JOIN `log_types` ON `log_types`.`id`=`cache_logs`.`type`
 				INNER JOIN `log_types_text` ON `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`='&1'
 				INNER JOIN `user` ON `user`.`user_id` = `cache_logs`.`user_id`
+				LEFT JOIN `cache_moved` ON `cache_moved`.`log_id` = `cache_logs`.`id`
 				LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 				WHERE `cache_logs`.`cache_id`='&2'
 				".$show_deleted_logs2."
@@ -203,6 +206,14 @@
 				  }
             
 				$tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
+				
+				// keszyny mobilne by Łza
+				if (($record['type'] == 4) && ($record['mobile_latitude'] != 0))
+				 {
+				   $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($record['mobile_latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($record['mobile_longitude']), ENT_COMPAT, 'UTF-8'));
+				   $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $record['km'] . ' km [<img src="tpl/stdstyle/images/blue/szczalka_mobile.png" title="'.tr('viewlog_kordy').'" />'.$tmplog_kordy_mobilnej .']', $tmplog);
+				 }
+				else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
 				
 				if ($record['text_html'] == 0)
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);

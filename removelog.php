@@ -110,22 +110,31 @@ function removelog($log_id, $language, $lang)
 						//sql("DELETE FROM `cache_logs` WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
 						// do not acually delete logs - just mark them as deleted.
 						sql("UPDATE `cache_logs` SET deleted = 1 , `last_modified`=NOW() WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
-						// remove from cache_moved for log "MOVED"
+						
+						// remove from cache_moved for log "MOVED" (mobilniaki by Łza)
+						// (kod istniejący wcześniej, zaadaptowany)
 						if ($log_record['log_type'] == 4)
 						{
-						$check_cml = sql("SELECT `latitude`,`longitude`,`id` FROM `cache_moved` WHERE `log_id`='&1'",$log_id);
-						if (mysql_num_rows($check_cml)!=0) {
-						$xy_log = sql_fetch_array($check_cml);				
-						$check_cmc = sql("SELECT `latitude`,`longitude` FROM `caches` WHERE `cache_id`='&1'",$log_record['cache_id']);
-						if (mysql_num_rows($check_cmc) !=0) {
-						$xy_cache = sql_fetch_array($check_cmc);			
-						if ($xy_cache['latitude']==$xy_log['latitude'] && $xy_cache['longitude']==$xy_log['longitude']){
-						sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);
-						$get_xy = sql("SELECT `latitude`,`longitude` FROM `cache_moved` WHERE `cache_id`='&1' ORDER BY `date` DESC LIMIT 1",$log_record['cache_id']);
-						$old_xy = sql_fetch_array($get_xy);	
-						sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'", $old_xy['longitude'], $old_xy['latitude'], $log_record['cache_id']);
-								} else { sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);}
-							  } else { sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);}
+						 // jesli log jest ostatni - przywrocenie kordow z przedostatniego "przeniesiona"
+						 $check_cml = sql("SELECT `latitude`,`longitude`,`id` FROM `cache_moved` WHERE `log_id`='&1'",$log_id);
+						 if (mysql_num_rows($check_cml)!=0) 
+						    {
+						     $xy_log = sql_fetch_array($check_cml);				
+						     $check_cmc = sql("SELECT `latitude`,`longitude` FROM `caches` WHERE `cache_id`='&1'",$log_record['cache_id']);
+						     if (mysql_num_rows($check_cmc) !=0) 
+							    {
+						         $xy_cache = sql_fetch_array($check_cmc);			
+						         if ($xy_cache['latitude']==$xy_log['latitude'] && $xy_cache['longitude']==$xy_log['longitude'])
+								    {
+						             sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);
+						             $get_xy = sql("SELECT `latitude`,`longitude` FROM `cache_moved` WHERE `cache_id`='&1' ORDER BY `date` DESC LIMIT 1",$log_record['cache_id']);
+						             $old_xy = sql_fetch_array($get_xy);	
+						             sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'", $old_xy['longitude'], $old_xy['latitude'], $log_record['cache_id']);
+								    } 
+								 else 
+								     sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);
+							    } 
+							 else sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);
 							}
 						}
 						//user stats aktualisieren
@@ -245,14 +254,16 @@ function removelog($log_id, $language, $lang)
 						$log = mb_ereg_replace('{username}', htmlspecialchars($log_record['log_username'], ENT_COMPAT, 'UTF-8'), $log);
 						$log = mb_ereg_replace('{userid}', htmlspecialchars($log_record['log_user_id'] + 0, ENT_COMPAT, 'UTF-8'), $log);
 						tpl_set_var('log_user_name', htmlspecialchars($log_record['log_username'], ENT_COMPAT, 'UTF-8'));
-
+                         
+						 
 						$log = mb_ereg_replace('{type}', htmlspecialchars($log_record['text_listing'], ENT_COMPAT, 'UTF-8'), $log);
 
 						$log = mb_ereg_replace('{logimage}', icon_log_type($log_record['icon_small'], ""), $log);
 						$log = mb_ereg_replace('{logfunctions}', '', $log);
 						$log = mb_ereg_replace('{logpictures}', '', $log);
 						$log = mb_ereg_replace('{logtext}', $log_record['log_text'], $log);
-
+                        $log = mb_ereg_replace('{username_aktywnosc}','',$log);
+						$log = mb_ereg_replace('{kordy_mobilniaka}','',$log);
 						tpl_set_var('log', $log);
 						//make the template and send it out
 						tpl_BuildTemplate();

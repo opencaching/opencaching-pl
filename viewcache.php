@@ -1,5 +1,5 @@
 <?php
-
+// error_reporting(0);
 /***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
@@ -439,34 +439,53 @@
 			tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
 
 			// cache type Mobile add calculate distance
-			if ($cache_record['type']==8){
-			tpl_set_var('moved_icon', $moved_icon);
-			$moved =  sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND cache_id='" . sql_escape($_REQUEST['cacheid']) . "'", 0);
-			tpl_set_var('moved', $moved);
-				tpl_set_var('hidemobile_start', '');
-				tpl_set_var('hidemobile_end', '');
-			} else {
-				tpl_set_var('hidemobile_start', '<!--');
-				tpl_set_var('hidemobile_end', '-->');}
+				// todo: poszerzyć tabelkę 'caches' (lub stworzyć nową z relacją) 
+				//       pole dystans, żeby nie trzeba było za każdym razem zliczać 
+				//       dystansu.
+			if ($cache_record['type']==8)
+			    {
+			     tpl_set_var('moved_icon', $moved_icon);
+			     $moved =  sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND cache_id='" . sql_escape($_REQUEST['cacheid']) . "'", 0);
+			
+                 // calculate mobile cache distance 
+                 $dst = mysql_fetch_assoc(mysql_query("SELECT sum(km) AS dystans FROM cache_moved WHERE cache_id=" . sql_escape($_REQUEST['cacheid']) ));
+			     $dystans = round($dst['dystans'], 2);
+
+				 
+
+				 tpl_set_var('dystans', $dystans);
+			     tpl_set_var('moved', $moved);
+				 tpl_set_var('hidemobile_start', '');
+				 tpl_set_var('hidemobile_end', '');
+			    } 
+			else 
+			    {
+				 tpl_set_var('hidemobile_start', '<!--');
+				 tpl_set_var('hidemobile_end', '-->');}
 
 
-			tpl_set_var('coords', $coords);
-			if( $usr || !$hide_coords )
-			{
-				if ($cache_record['longitude']<0)
-				{ $longNC=$cache_record['longitude']*(-1);
-				tpl_set_var('longitudeNC', $longNC);
-				}else {tpl_set_var('longitudeNC', $cache_record['longitude']);}
+			     tpl_set_var('coords', $coords);
+			     if( $usr || !$hide_coords )
+			       {
+				     if ($cache_record['longitude']<0)
+				        { 
+					     $longNC=$cache_record['longitude']*(-1);
+				         tpl_set_var('longitudeNC', $longNC);
+				        }
+				      else 
+					    {
+				         tpl_set_var('longitudeNC', $cache_record['longitude']);
+						}
 
-				tpl_set_var('longitude', $cache_record['longitude']);
-				tpl_set_var('latitude',  $cache_record['latitude']);
-				tpl_set_var('lon_h', $lon_h);
-				tpl_set_var('lon_min', $lon_min);
-				tpl_set_var('lonEW', $lon_dir);
-				tpl_set_var('lat_h', $lat_h);
-				tpl_set_var('lat_min', $lat_min);
-				tpl_set_var('latNS', $lat_dir);
-			}
+				     tpl_set_var('longitude', $cache_record['longitude']);
+				     tpl_set_var('latitude',  $cache_record['latitude']);
+				     tpl_set_var('lon_h', $lon_h);
+				     tpl_set_var('lon_min', $lon_min);
+				     tpl_set_var('lonEW', $lon_dir);
+				     tpl_set_var('lat_h', $lat_h);
+				     tpl_set_var('lat_min', $lat_min);
+				     tpl_set_var('latNS', $lat_dir);
+			        }
 			tpl_set_var('cacheid', $cache_id);
 			tpl_set_var('cachetype', htmlspecialchars(cache_type_from_id($cache_record['type'], $lang), ENT_COMPAT, 'UTF-8'));
 //			tpl_set_var('icon_cache', htmlspecialchars("$stylepath/images/".$cache_record['icon_large'], ENT_COMPAT, 'UTF-8'));
@@ -1211,6 +1230,8 @@
 			            LIMIT &3", $cache_id, $lang, $logs_to_display+0);
 
 			$logs = '';
+			
+			
 			for ($i = 0; $i < mysql_num_rows($rs); $i++)
 			{
 				$record = sql_fetch_array($rs);
@@ -1229,7 +1250,7 @@
 				// replace smilies in log-text with images and add hyperlinks
 				$tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
 
-				// wyswietlenie aktywności usera (dodane przez Łza)	
+				// wyswietlenie aktywności usera (dodane przez Łza	)	
 				$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']" width="13" height="13" border="0" />'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
 
 				// ukrywanie autora komentarza COG przed zwykłym userem
@@ -1241,6 +1262,34 @@
 				  }
 
 				$tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
+                
+				
+				
+				// keszyny mobilne by Łza
+				if (($cache_record['type'] == 8) && ($record['type'] == 4))
+				 {
+				   $dane_mobilniaka = sql_fetch_array(sql("SELECT `user_id`, `longitude`, `latitude`, `km` FROM `cache_moved` WHERE `log_id` = '&1'", $record['logid']));
+
+				   if ($dane_mobilniaka['latitude'] != 0)
+				    {
+				     $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($dane_mobilniaka['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($dane_mobilniaka['longitude']), ENT_COMPAT, 'UTF-8'));
+				     $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $dane_mobilniaka['km'] . ' km [<img src="tpl/stdstyle/images/blue/szczalka_mobile.png" title="'.tr('viewlog_kordy').'" />'.$tmplog_kordy_mobilnej .']', $tmplog);
+				    }
+					else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
+				 }
+				else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
+				
+				/*
+				if (($cache_record['type'] == 8) && ($record['type'] == 4))
+				
+				    {
+				      $dane_mobilniaka = sql_fetch_array(sql("SELECT `user_id`, `longitude`, `latitude`, km FROM `cache_moved` WHERE `log_id` = '&1'", $record['logid']));
+
+				      $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($dane_mobilniaka['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($dane_mobilniaka['longitude']), ENT_COMPAT, 'UTF-8'));
+				      $tmplog                = mb_ereg_replace('{kordy_mobilniaka}', '[<img src="tpl/stdstyle/images/blue/szczalka_mobile.png" title="'.tr('viewlog_kordy').'" />'.$tmplog_kordy_mobilnej .'] +'. $dane_mobilniaka['km'] . ' km' , $tmplog);
+				    }
+				else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
+				 */
 
 				
 				if ($record['text_html'] == 0)

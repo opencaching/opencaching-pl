@@ -129,6 +129,15 @@
 					{
 						if ($cache_user_id != $usr['userid']) {
 							$rating_msg = mb_ereg_replace('{chk_sel}', ' checked', $rating_allowed.'<br />'.$rating_stat);
+						    
+						    // COG nie może dawać reko edytując czyjś log
+							// (Łza)
+							if (($usr['admin']) && ($log_record['user_id'] != $usr['userid']))
+							{
+							 $rating_msg = mb_ereg_replace('{chk_dis}', ' disabled', $rating_own.'(COG nie może rekomendować edytując log)<br />'.$rating_stat);
+							}
+							// koniec COG nie może dawać reko edytując czyjś log
+							
 						} else {
 							$rating_msg = mb_ereg_replace('{chk_dis}', ' disabled', $rating_own.'<br />'.$rating_stat);
 						}
@@ -275,7 +284,27 @@
 							$all_ok = false;
 						}
 					}
-
+                     
+					 // mobline by Łza (mobile caches)
+					 if (isset($_POST['submitform']) && $log_type == 4) 
+					  {
+					  
+					             /*
+					   			 `longitude`=[value-6],
+								 `latitude`=[value-7],
+								 `km`=[value-8] 
+					             */
+					   sql("UPDATE `cache_moved` SET 
+								 `date`='&1'
+								 WHERE log_id = &2", 
+								 date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
+								 $log_id);
+					   
+					   //print $log_id .'<br>';
+					   //print date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)); exit;
+					   
+					  }
+					 
 					//store?
 					if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false)
 					{

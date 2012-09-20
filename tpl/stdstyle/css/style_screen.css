@@ -571,6 +571,16 @@ div.logs {
     border-radius: 5px;
     -moz-border-radius: 5px;
 }
+
+
+/* content2 span.user_aktywnosc odpowiada za sposób wyœwietlania aktywnoœci usera w logach kesza
+u¿yty jest w silnikach: 
+viewlogs.php 
+viewcache.php, 
+wywo³uj¹cych szkielet: wievcache.log.tpl.php
+
+(dodane przez £za)
+*/
 .content2 span.user_aktywnosc
 {
  color: #000000;
@@ -578,6 +588,8 @@ div.logs {
  font-family: verdana;
  font-size: 80%;
 }
+
+
 div#viewcache-utility { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.6em; font-family: arial, sans serif; font-size: 120%; }
 
 div.viewcache_log-content { font-family: arial, sans serif; line-height: 1.6em; font-size: 12px; margin-top: 5px;}

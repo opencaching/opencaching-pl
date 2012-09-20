@@ -108,7 +108,7 @@ else
 						<div class="content2-container-2col-left" id="viewcache-numstats">
 						<p style="line-height: 1.4em;"><br />
 							{found_icon} {founds} {found_text}<br />
-							{hidemobile_start}{moved_icon} {moved} x {{moved_text}}<br/>{hidemobile_end}	
+							{hidemobile_start}{moved_icon} {moved} x {{moved_text}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{dystans}&nbsp;km.<br/>{hidemobile_end}	
 							{notfound_icon} {notfounds} {notfound_text}<br />
 							{note_icon} {notes} {{comments}}<br />
 							{watch_icon} {watcher} {{watchers}}<br />
