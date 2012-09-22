@@ -135,10 +135,10 @@ class OkapiExceptionHandler
 			}
 			else
 			{
-				$subject = "OKAPI Method Error - ".(
-					class_exists("okapi\\Settings")
-					? Settings::get('SITE_URL') : "unknown location"
-				);
+				$subject = "OKAPI Method Error - ".substr(
+					$_SERVER['REQUEST_URI'], 0, strpos(
+					$_SERVER['REQUEST_URI'].'?', '?'));
+				
 				$message = (
 					"OKAPI caught the following exception while executing API method request.\n".
 					"This is an error in OUR code and should be fixed. Please contact the\n".
@@ -759,7 +759,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 479; # This gets replaced in automatically deployed packages
+	public static $revision = 480; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
