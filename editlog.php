@@ -299,10 +299,6 @@
 								 WHERE log_id = &2", 
 								 date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
 								 $log_id);
-					   
-					   //print $log_id .'<br>';
-					   //print date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)); exit;
-					   
 					  }
 					 
 					//store?
@@ -505,12 +501,17 @@
 
 						if($cache_type == 8)
 							 {
-							 if ($usr['admin']){
+							 if ($usr['admin'])
+							    {
 							
-							if($type['id'] == 7 || $type['id'] == 8)
-							{continue;}} else {
-							if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11 || $type['id'] == 12)
-							{continue;}}							
+							     if($type['id'] == 7 || $type['id'] == 8)
+							         {continue;}
+							    } 
+						 	 else 
+							    {
+							     if($type['id'] == 7 || $type['id'] == 8|| $type['id'] == 9 || $type['id'] == 12)
+							      {continue;}
+								}							
 							}						
 						} else {
 							
