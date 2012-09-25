@@ -493,9 +493,8 @@
 								 $init_log_longitude = $tmp_move_data['longitude'];
 								 $init_log_userID = $tmp_move_data['user_id'];
 								 $init_log_date = $tmp_move_data['date_hidden'];
-								   $tmp_uuid = mysql_fetch_array(sql("SELECT `uuid` FROM `user` WHERE `user_id` = $init_log_userID"));
-								   $init_log_uuid = $tmp_uuid['uuid'];
-								   unset($tmp_uuid);
+								   
+								 $init_log_uuid = create_uuid();
 								 	
 								 sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
 									  VALUES                   ('',   '&1',       '&2',      '&3',   '&4',   '&5',   '&6',        '&7',             NOW(),           NOW(),          '&8',   '&9')",
