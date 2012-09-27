@@ -75,8 +75,7 @@ if ($error == false)
 			$from[] = ')'; $to[] = '- ';
 			$from[] = ']]>'; $to[] = ']] >';
 			$from[] = ''; $to[] = '';
-			for ($i = 0; $i < count($from); $i++)
-			$str = str_replace($from[$i], $to[$i], $str);
+			for ($i = 0; $i < count($from); $i++) $str = str_replace($from[$i], $to[$i], $str);
 			return filterevilchars($str);
 		}
 
@@ -108,7 +107,6 @@ if ($error == false)
 		$total_logs = sqlValue("SELECT count(cache_id) FROM caches WHERE `caches`.`status` = '$stat_cache' AND `caches`.`user_id`=$user_id",0);
 		$pages = "";
 		$total_pages = ceil($total_logs/$LOGS_PER_PAGE);
-
 		if ( !isset($_GET['start']) || intval($_GET['start'])<0 || intval($_GET['start']) > $total_logs) $start = 0;
 		else $start = intval($_GET['start']);
 		// obsluga sortowania kolumn
@@ -140,7 +138,7 @@ if ($error == false)
 				$sort_warunek='TOPRATINGS';
 				break;
 			case 5:
-				$sort_warunek='SCORE';
+				$sort_warunek='LAST_FOUND';
 				break;
 			default:
 				$sort_warunek='date_hidden';
@@ -152,41 +150,15 @@ if ($error == false)
 		for( $i=max(1,$startat);$i<$startat+$PAGES_LISTED;$i++ )
 		{
 			$page_number = ($i-1)*$LOGS_PER_PAGE;
-			if ( $page_number == $start ) $pages .= '<b>';
+			if ( $page_number == $start ) $pages .= '<b> [ ';
 			$pages .= '<a href="mycaches.php?status='.$stat_cache.'&amp;start='.$page_number.'&col='.$sort_col.'&sort='.$sort_sort.'">'.$i.'</a> '; 
-			if ( $page_number == $start ) $pages .= '</b>';
+			if ( $page_number == $start ) $pages .= ' ] </b>';
 		}
 		if( $total_pages > $PAGES_LISTED ) $pages .= '<a href="mycaches.php?status='.$stat_cache.'&amp;start='.(($i-1)*$LOGS_PER_PAGE).'&col='.$sort_col.'&sort='.$sort_sort.'">{last_img}</a> '; 
 		else $pages .= '{last_img_inactive}';
 
-/*
-		//get last hidden caches
-		$rs = sql("SELECT `cache_id`, `cache_status`.`&1` AS `cache_status_text`
-				FROM `caches`, `cache_status`
-				WHERE `user_id`='&2'  AND `cache_status`.`id`=`caches`.`status`  AND `caches`.`status` = '$stat_cache'
-				ORDER BY `date_hidden` DESC, `caches`.`date_created` DESC
-				LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE), $lang_db, $user_id);
-
-		$log_ids = '';
-		if (mysql_num_rows($rs)==0) $log_ids = '0';
-		for ($i = 0; $i < mysql_num_rows($rs); $i++)
-		{
-			$record = sql_fetch_array($rs);
-			if ($i > 0)
-			{
-				$log_ids .= ', ' . $record['cache_id'];
-			}
-			else
-			{
-				$log_ids = $record['cache_id'];
-			}
-		}
-		tpl_set_var('cache_status',$record['cache_status_text']);
-		mysql_free_result($rs);
-*/
-		$rs = sql("SELECT `cache_id`, `name`, `date_hidden`, `status`,cache_type.icon_small AS cache_icon_small,
-					`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`,
-					`caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`, `caches`.`score` AS `score`
+		$rs = sql("SELECT `cache_id`, `name`, `date_hidden`, `status`,cache_type.icon_small AS cache_icon_small,	`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`,
+					`caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`, datediff(now(),`caches`.`last_found` ) as `ilosc_dni`
 					FROM `caches`  INNER JOIN cache_type ON (caches.type = cache_type.id),`cache_status`
 					WHERE `user_id`='&2' AND `cache_status`.`id`=`caches`.`status` AND `caches`.`status` = '$stat_cache'
 					ORDER BY `$sort_warunek` $sort_txt
@@ -197,11 +169,17 @@ if ($error == false)
 			$tabelka = '';
 			$tabelka .= '<td style="width: 90px;">'. htmlspecialchars(date("Y-m-d", strtotime($log_record['date_hidden'])), ENT_COMPAT, 'UTF-8') . '</td>';			
 			$tabelka .= '<td ><a href="editcache.php?cacheid='. htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="" title="Edit geocache"/></a></td>';	
-//			$tabelka .= '<td >&nbsp;' . icon_cache_status($log_record['status'], $log_record['cache_status_text']) . '</td>';
 			$tabelka .= '<td >&nbsp;<img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
 			$tabelka .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-			$tabelka .= '<td>&nbsp;'.$log_record['founds'].'&nbsp;</td>';
-			$tabelka .= '<td>&nbsp;'.$log_record['topratings'].'&nbsp;</td>';
+			$tabelka .= '<td>&nbsp;'.intval($log_record['founds']).'&nbsp;</td>';
+			$tabelka .= '<td>&nbsp;'.intval($log_record['topratings']).'&nbsp;</td>';
+			$tabelka .= '<td>&nbsp;';
+			if ($log_record['ilosc_dni']==NULL) $tabelka .= 'nieznaleziona';
+				elseif ($log_record['ilosc_dni']==0) $tabelka .= 'dzisiaj';
+				elseif ($log_record['ilosc_dni']==1) $tabelka .= 'wczoraj';
+ 				elseif ($log_record['ilosc_dni']>180) $tabelka .= '<b>'.intval($log_record['ilosc_dni']).' dni temu!</b>';
+				elseif ($log_record['ilosc_dni']>1) $tabelka .= intval($log_record['ilosc_dni']).' dni temu';
+			$tabelka .= '&nbsp;</td>';
 
 			$rs_logs = sql("SELECT cache_logs.id,  cache_logs.type AS log_type, cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
 						caches.user_id AS cache_owner, cache_logs.encrypt encrypt, cache_logs.user_id AS luser_id, user.username AS user_name,
@@ -232,27 +210,30 @@ if ($error == false)
 					//crypt the log ROT13, but keep HTML-Tags and Entities
 					$data = str_rot13_html($data);} else {$tabelka .= "<br/>";
 				}
-				$tabelka .=$data;
+				$tabelka .= $data;
 				// sprawdz ile dni minelo od wpisania logu
-				if ($logs['ilosc_dni']<3) $oznacz='style="border: 1px green solid;"'; else $oznacz=0;
+				if ($logs['ilosc_dni']<3) $oznacz='style="border: 1px green solid;"'; else $oznacz='';
 				$tabelka .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $logs['icon_small'] . '" border="0" '.$oznacz.' alt=""/></a></b>';
-				//obsluga DNF i serwisu
-				if ($sprawdzaj<2) // sprawdzaj logi
+				if ($stat_cache==1) //obsluga DNF i serwisu tylko dla skrzynek aktywnych
 				{
-					if ($sprawdzaj<1)
+					if ($sprawdzaj<2) // sprawdzaj logi
 					{
-						if ($logs['log_type']==2) $dnf++;		// jesli DNF zwieksz licznik
-						if ($logs['log_type']==10) $sprawdzaj=2;	// skrzynka gotowa do szukania wiec nie trzeba juz nic sprawdzac
-						if ($logs['log_type']==5) $warning=1;		// zgloszono potrzebe serwisu
-						if ($logs['log_type']==1) $sprawdzaj=1;		// skrzynka znaleziona wiec nie trzeba szukac DNF
-					} else {
-						if ($logs['log_type']==5) $warning=1;		// zgloszono potrzebe serwisu
+						if ($logs['log_type']==10) $sprawdzaj=2;			// skrzynka gotowa do szukania wiec nie trzeba juz nic sprawdzac
+						if ($sprawdzaj<1)
+						{
+							if ($logs['log_type']==2) $dnf++;			// jesli DNF zwieksz licznik
+							if ($logs['log_type']==5) $warning=1;		// zgloszono potrzebe serwisu
+							if ($logs['log_type']==1) $sprawdzaj=1;		// skrzynka znaleziona wiec nie trzeba szukac DNF
+						} else {
+							if ($logs['log_type']==5) $warning=1;		// zgloszono potrzebe serwisu
+						};
 					};
 				};
 			}
 			$pokaz_problem='';
 			if ($dnf>1) $pokaz_problem='bgcolor=red';
-			if (($dnf==1) || ($warning>0)) $pokaz_problem='bgcolor=yellow';
+			elseif ($dnf==1) $pokaz_problem='bgcolor=yellow';
+			elseif ($warning>0) $pokaz_problem='bgcolor=#EEEEEE';
 			$file_content .= "<tr ".$pokaz_problem.">".$tabelka."</td></tr>\n";
 		}
 
