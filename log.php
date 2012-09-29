@@ -727,7 +727,7 @@
 							$cache_status = $record['cache_status'];
 							if($cache_status != 0)
 							{
-								$rs = sql("UPDATE `caches` SET `status`='&1' WHERE `cache_id`='&2'", sql_escape($cache_status), sql_escape($cache_id));
+								$rs = sql("UPDATE `caches` SET `last_modified`=NOW(), `status`='&1' WHERE `cache_id`='&2'", sql_escape($cache_status), sql_escape($cache_id));
 							}
 						}
 						else

@@ -495,6 +495,7 @@
 								  $status_old == $STATUS['ARCHIVED'] ||
 								  $status_old == $STATUS['BLOCKED'] ) && $status == $STATUS['TEMP_UNAVAILABLE'] )
 							{
+							print "dsadasdasdas"; exit;
 								// generate automatic log about status cache
 								$log_text=tr('temporarily_unavailable');
 								$log_uuid = create_uuid();
