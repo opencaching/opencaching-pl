@@ -106,10 +106,10 @@ class AutoArch
 			}
 			else $step = $STEP["START"];
 			
-			if( strtotime($rs['last_modified']) < time() - 9*31*24*60*60 && $step < $STEP["ARCH_COMPLETE"])
+			if( strtotime($rs['last_modified']) < time() - 6*31*24*60*60 && $step < $STEP["ARCH_COMPLETE"])
 			{
 				$this->sendEmail($STEP["AFTER_SECOND_MAIL_SENT"], $rs['cache_id']);
-				// wlasnie mija 9 miesiecy od ostatniej modyfikacji - czas zarchiwizować skrzynkę
+				// wlasnie mija 6 miesiecy od ostatniej modyfikacji - czas zarchiwizować skrzynkę
 				$status_sql = "REPLACE INTO cache_arch (cache_id, step) VALUES (".intval($rs['cache_id']).", ".($STEP["ARCH_COMPLETE"]).")";
 				@mysql_query($status_sql);
 				$arch_sql = "UPDATE caches SET status = 3 WHERE cache_id=".intval($rs['cache_id']);
@@ -118,17 +118,17 @@ class AutoArch
 				$log_sql = "INSERT INTO cache_logs (cache_id, uuid, user_id, type, date, last_modified, date_created, text, owner_notified, node) VALUES (".sql_escape(intval($rs['cache_id'])).", '".sql_escape($log_uuid)."', '-1', 9,NOW(),NOW(), NOW(), 'Automatyczna archiwizacja - 9 miesięcy w stanie \"Tymczasowo niedostępna\"', 1, 2)";
 				@mysql_query($log_sql);
 			}
-			else if( strtotime($rs['last_modified']) < time() - 8*31*24*60*60 && $step < $STEP["AFTER_SECOND_MAIL_SENT"])
+			else if( strtotime($rs['last_modified']) < time() - 5*31*24*60*60 && $step < $STEP["AFTER_SECOND_MAIL_SENT"])
 			{
 				$this->sendEmail($STEP["AFTER_FIRST_MAIL_SENT"], $rs['cache_id']);
-				// wlasnie mija 8 miesiecy od ostatniej modyfikacji - czas wyslac drugie powiadomienie
+				// wlasnie mija 5 miesiecy od ostatniej modyfikacji - czas wyslac drugie powiadomienie
 				$status_sql = "REPLACE INTO cache_arch (cache_id, step) VALUES (".sql_escape(intval($rs['cache_id'])).", ".sql_escape(($STEP["AFTER_SECOND_MAIL_SENT"])).")";
 				@mysql_query($status_sql);
 			}
-			else if( strtotime($rs['last_modified']) < time() - 6*31*24*60*60 && $step < $STEP["AFTER_FIRST_MAIL_SENT"])
+			else if( strtotime($rs['last_modified']) < time() - 4*31*24*60*60 && $step < $STEP["AFTER_FIRST_MAIL_SENT"])
 			{
 				$this->sendEmail($STEP["START"], $rs['cache_id']);
-				// wlasnie mija 6 miesiecy od ostatniej modyfikacji - czas wyslac pierwsze powiadomienie
+				// wlasnie mija 4 miesiecy od ostatniej modyfikacji - czas wyslac pierwsze powiadomienie
 				$status_sql = "REPLACE INTO cache_arch (cache_id, step) VALUES (".sql_escape(intval($rs['cache_id'])).", ".sql_escape(($STEP["AFTER_FIRST_MAIL_SENT"])).")";
 				@mysql_query($status_sql); 
 			}
