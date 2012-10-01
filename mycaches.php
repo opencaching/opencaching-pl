@@ -156,9 +156,10 @@ if ($error == false)
 		}
 		if( $total_pages > $PAGES_LISTED ) $pages .= '<a href="mycaches.php?status='.$stat_cache.'&amp;start='.(($i-1)*$LOGS_PER_PAGE).'&col='.$sort_col.'&sort='.$sort_sort.'">{last_img}</a> '; 
 		else $pages .= '{last_img_inactive}';
-
+		if ($stat_cache==2) $dodatkowe = ', datediff(now(),`caches`.`last_modified` ) as `dni_od_zmiany`';
+			else $dodatkowe = '';
 		$rs = sql("SELECT `cache_id`, `name`, `date_hidden`, `status`,cache_type.icon_small AS cache_icon_small,	`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`,
-					`caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`, datediff(now(),`caches`.`last_found` ) as `ilosc_dni`
+					`caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`, datediff(now(),`caches`.`last_found` ) as `ilosc_dni` $dodatkowe
 					FROM `caches`  INNER JOIN cache_type ON (caches.type = cache_type.id),`cache_status`
 					WHERE `user_id`='&2' AND `cache_status`.`id`=`caches`.`status` AND `caches`.`status` = '$stat_cache'
 					ORDER BY `$sort_warunek` $sort_txt
@@ -174,11 +175,13 @@ if ($error == false)
 			$tabelka .= '<td>&nbsp;'.intval($log_record['founds']).'&nbsp;</td>';
 			$tabelka .= '<td>&nbsp;'.intval($log_record['topratings']).'&nbsp;</td>';
 			$tabelka .= '<td>&nbsp;';
-			if ($log_record['ilosc_dni']==NULL) $tabelka .= 'nieznaleziona';
-				elseif ($log_record['ilosc_dni']==0) $tabelka .= 'dzisiaj';
-				elseif ($log_record['ilosc_dni']==1) $tabelka .= 'wczoraj';
- 				elseif ($log_record['ilosc_dni']>180) $tabelka .= '<b>'.intval($log_record['ilosc_dni']).' dni temu!</b>';
-				elseif ($log_record['ilosc_dni']>1) $tabelka .= intval($log_record['ilosc_dni']).' dni temu';
+			if ($stat_cache==2) $dni=$log_record['dni_od_zmiany'];
+				else $dni=$log_record['ilosc_dni'];
+			if ($dni==NULL) $tabelka .= 'nieznaleziona';
+				elseif ($dni==0) $tabelka .= 'dzisiaj';
+				elseif ($dni==1) $tabelka .= 'wczoraj';
+ 				elseif ($dni>180) $tabelka .= '<b>'.intval($dni).' dni temu!</b>';
+				elseif ($dni>1) $tabelka .= intval($dni).' dni temu';
 			$tabelka .= '&nbsp;</td>';
 
 			$rs_logs = sql("SELECT cache_logs.id,  cache_logs.type AS log_type, cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
@@ -231,9 +234,16 @@ if ($error == false)
 				};
 			}
 			$pokaz_problem='';
-			if ($dnf>1) $pokaz_problem='bgcolor=red';
-			elseif ($dnf==1) $pokaz_problem='bgcolor=yellow';
-			elseif ($warning>0) $pokaz_problem='bgcolor=#EEEEEE';
+			if ($stat_cache==1) 
+			{
+				if ($dnf>1) $pokaz_problem='bgcolor=red';
+				elseif ($dnf==1) $pokaz_problem='bgcolor=yellow';
+				elseif ($warning>0) $pokaz_problem='bgcolor=#EEEEEE';
+			} elseif ($stat_cache==2)
+			{
+				if ($log_record['dni_od_zmiany']>155) $pokaz_problem='bgcolor=red';
+				elseif ($log_record['dni_od_zmiany']>124) $pokaz_problem='bgcolor=yellow';
+			};
 			$file_content .= "<tr ".$pokaz_problem.">".$tabelka."</td></tr>\n";
 		}
 
