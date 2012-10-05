@@ -189,9 +189,9 @@ if (isset($_POST['stopnie_N']))
  {
   $formularz = '
   <form action="opensprawdzacz.php" method="get">
-  '.tr(os_podaj_waypoint).': 
+  '.tr('os_podaj_waypoint').': 
   <input type="text" name="op_keszynki" maxlength="6"/>
-  <button type="submit" name="przeslanie_waypointa" value="'.tr(submit).'" style="font-size:14px;width:160px"><b>'.tr(submit).'</b></button>
+  <button type="submit" name="przeslanie_waypointa" value="'.tr('submit').'" style="font-size:14px;width:160px"><b>'.tr('submit').'</b></button>
   </form>
   ';
   if (isset($_GET['sort']))
