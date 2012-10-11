@@ -51,14 +51,6 @@
 	});
 </script>
 
-
-<!-- WRTODO: temporary -->
-<p style='font-size: 13px; font-family: Tahoma; color: #a00; padding: 0 20px 6px 0; font-weight: bold'>
-	Z powodu problemów z wydajnością mapy v3 (powolne działanie serwera wieczorami),
-	staramy się ją przepisać od nowa. Oglądasz wersję "beta" nowej mapy. Zachęcamy do
-	dzielenia się wrażeniami na forum.
-</p>
-
 <div style='margin-right: 6px;' style='position: relative'>
 	<div id='shortcut_icons'></div>
 	<table style='border: 1px solid #ccc; background: #eee; padding: 3px 6px 3px 8px; width: 100%; margin-bottom: 10px;'>
