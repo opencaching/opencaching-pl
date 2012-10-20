@@ -83,7 +83,7 @@
 				$num_caches = $record['num_caches'];
 				
 								//count owncaches
-				$own_que = sql("SELECT COUNT(`cache_id`) as num_own_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." AND type = 10");
+				$own_que = sql("SELECT COUNT(`cache_id`) as num_own_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." AND type = 10 AND status = 1");
 				$own_fetch = sql_fetch_array($own_que);
 				$num_own_caches = $own_fetch['num_own_caches'];
 
