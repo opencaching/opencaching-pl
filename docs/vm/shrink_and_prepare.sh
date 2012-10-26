@@ -6,6 +6,8 @@ then
 	echo "UNCOMMITED CHANGES DETECTED. CANCELLED."
 	exit 1
 fi
+echo "Disabling cron (until next restart)..."
+sudo service cron stop
 echo "Removing history and preferences..."
 rm -f ~/.*_history ~/.selected_editor ~/.lesshst
 rm -fR ~/.subversion/auth
