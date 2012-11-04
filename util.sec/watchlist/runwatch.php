@@ -92,17 +92,53 @@
   mysql_free_result($rsNewLogs);
 /* end owner notifies and cache watches */
 
-	fprintf($diag_log_file, "after-owner-notifies;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
-	$diag_start_time = microtime(true);
-	
-	fprintf($diag_log_file, "after-cache-watches;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
+	fprintf($diag_log_file, "after-owner-notifies-cache-watches;%s;%lf\n", date("Y-m-d H:i:s"), microtime(true) - $diag_start_time);
 	$diag_start_time = microtime(true);
 	
 /* begin send out everything that has to be sent */
 	
-	$email_headers = 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
+/* First phase - send messages to users who have requested immediate notification */
+
+	$rsWatchesUsers = sql('
+		SELECT watches_waiting.id AS id, watches_waiting.watchtext AS watchtext, watches_waiting.watchtype AS watchtype, `user`.user_id AS user_id, `user`.username AS username, `user`.email AS email
+		FROM `user`, watches_waiting
+		WHERE
+			`user`.user_id = watches_waiting.user_id AND
+			`user`.watchmail_mode = 1
+		ORDER BY watches_waiting.user_id, watches_waiting.id DESC');
+
+	$currUserID = '';
+	$currUserName = '';
+	$currUserOwnerLogs = '';
+	$currUserWatchLogs = '';
+
+	for ($i = 0; $i < mysql_num_rows($rsWatchesUsers); $i++)
+	{
+		$rWatchUser = sql_fetch_array($rsWatchesUsers);
+		if ($currUserID != $rWatchUser['user_id'])
+		{
+			// Time to send all gathered info for the previous user (if any)
+			send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserOwnerLogs, $currUserWatchLogs);
+
+			// After sending e-mail prepare the stage for the next user
+			$currUserID   = $rWatchUser['user_id'];
+			$currUserName = $rWatchUser['username'];
+			$currUserOwnerLogs = '';
+			$currUserWatchLogs = '';
+		}
+
+		if ($rWatchUser['watchtype'] == '1') { $currUserOwnerLogs .= $rWatchUser['watchtext']; }
+		if ($rWatchUser['watchtype'] == '2') { $currUserWatchLogs .= $rWatchUser['watchtext']; }
+	}
+	mysql_free_result($rsWatchesUsers);
 	
-	$rsUsers = sql('SELECT user_id, username, email, watchmail_mode, watchmail_hour, watchmail_day, watchmail_nextmail FROM `user` WHERE watchmail_nextmail<NOW()');
+	// Send all gathered info for the last user (if any)
+	send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserOwnerLogs, $currUserWatchLogs);
+
+
+/* Second phase - check/send messages to users who have requested daily/weekly notification */
+
+	$rsUsers = sql('SELECT user_id, username, email, watchmail_mode, watchmail_hour, watchmail_day, watchmail_nextmail FROM `user` WHERE watchmail_mode IN (0, 2) AND watchmail_nextmail<NOW()');
 	for ($i = 0; $i < mysql_num_rows($rsUsers); $i++)
 	{
 		$rUser = sql_fetch_array($rsUsers);
@@ -115,85 +151,46 @@
 				$r = sql_fetch_array($rsWatches);
 				if ($r['count'] > 0)
 				{
-					// ok, eine mail ist fĂ¤llig
-					$mailbody = read_file('watchlist.email');
-					$mailbody = mb_ereg_replace('{username}', $rUser['username'], $mailbody);
+					$currUserID   = $rUser['user_id'];
+					$currUserName = $rUser['username'];
+					$currUserOwnerLogs = '';
+					$currUserWatchLogs = '';
 
 					$rsWatchesOwner = sql("SELECT id, watchtext FROM watches_waiting WHERE user_id='&1' AND watchtype=1 ORDER BY id DESC", $rUser['user_id']);
-					if (mysql_num_rows($rsWatchesOwner) > 0)
+					for ($j = 0; $j < mysql_num_rows($rsWatchesOwner); $j++)
 					{
-						$logtexts = '';
-						for ($j = 0; $j < mysql_num_rows($rsWatchesOwner); $j++)
-						{
-							$rWatch = sql_fetch_array($rsWatchesOwner);
-							$logtexts .= $rWatch['watchtext'];
-						}
-						
-						while ((mb_substr($logtexts, -1) == "\n") || (mb_substr($logtexts, -1) == "\r"))
-							$logtexts = mb_substr($logtexts, 0, mb_strlen($logtexts) - 1);
-						
-						$mailbody = mb_ereg_replace('{ownerlogs}', $logtexts, $mailbody);
-					}
-					else
-					{
-						$mailbody = mb_ereg_replace('{ownerlogs}', $nologs, $mailbody);
+						$rWatch = sql_fetch_array($rsWatchesOwner);
+						$currUserOwnerLogs .= $rWatch['watchtext'];
 					}
 					mysql_free_result($rsWatchesOwner);
-					
+
 					$rsWatchesLog = sql("SELECT id, watchtext FROM watches_waiting WHERE user_id='&1' AND watchtype=2 ORDER BY id DESC", $rUser['user_id']);
-					if (mysql_num_rows($rsWatchesLog) > 0)
+					for ($j = 0; $j < mysql_num_rows($rsWatchesLog); $j++)
 					{
-						$logtexts = '';
-						for ($j = 0; $j < mysql_num_rows($rsWatchesLog); $j++)
-						{
-							$rWatch = sql_fetch_array($rsWatchesLog);
-							$logtexts .= $rWatch['watchtext'];
-						}
-						
-						while ((mb_substr($logtexts, -1) == "\n") || (mb_substr($logtexts, -1) == "\r"))
-							$logtexts = mb_substr($logtexts, 0, mb_strlen($logtexts) - 1);
-						
-						$mailbody = mb_ereg_replace('{watchlogs}', $logtexts, $mailbody);
+						$rWatch = sql_fetch_array($rsWatchesLog);
+						$currUserWatchLogs .= $rWatch['watchtext'];
 					}
-					else
-					{
-						$mailbody = mb_ereg_replace('{watchlogs}', $nologs, $mailbody);
-					}
-					mysql_free_result($rsWatchesLog);
-					
+
 					// mail versenden
-					if ($debug == true)
-						$mailadr = $debug_mailto;
-					else
-						$mailadr = $rUser['email'];
-
-					mb_send_mail($mailadr, $mailsubject, $mailbody, $email_headers);
-					
-					// logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)																
-					logentry('watchlist', 2, $rUser['user_id'], 0, 0, 'Sending mail to ' . $mailadr, array());
-
-					// entries entfernen
-					sql("DELETE FROM watches_waiting WHERE user_id='&1' AND watchtype IN (1, 2)", $rUser['user_id']);
+					send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserOwnerLogs, $currUserWatchLogs);
 				}
 			}
 		}
-			
-		// Zeitpunkt der nĂ¤chsten Mail berechnen
-		if ($rUser['watchmail_mode'] == 1)
-			$nextmail = date($sDateformat);
-		elseif ($rUser['watchmail_mode'] == 0)
+
+		// Zeitpunkt der naechsten Mail berechnen
+		if ($rUser['watchmail_mode'] == 0)
 			$nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') + 1, date('Y')));
 		elseif ($rUser['watchmail_mode'] == 2)
 		{
 			$weekday = date('w');
 			if ($weekday == 0) $weekday = 7;
 
-			if ($weekday == $rUser['watchmail_day'])
-				$nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') + 7, date('Y')));
-			elseif ($weekday > $rUser['watchmail_day'])
+			if ($weekday >= $rUser['watchmail_day'])
+				// We are on or after specified day in the week - next run should be next week
 				$nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') - $weekday + $rUser['watchmail_day'] + 7, date('Y')));
 			else
-				$nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') + 6 - $rUser['watchmail_day'], date('Y')));
+				// We are still before specified day in the week - next run should be this week
+				$nextmail = date($sDateformat, mktime($rUser['watchmail_hour'], 0, 0, date('n'), date('j') - $weekday + $rUser['watchmail_day'] + 0, date('Y')));
 		}
 
 		sql("UPDATE user SET watchmail_nextmail='&1' WHERE user_id='&2'", $nextmail, $rUser['user_id']);
@@ -367,4 +364,60 @@ function process_log_watch($user_id, $log_id)
 	sql("INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`) VALUES (
 																		'&1', '&2', 1, NOW(), '&3', 2)", $user_id, $log_id, $watchtext);
 }
+
+function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserOwnerLogs, $currUserWatchLogs)
+{
+	global $nologs, $debug, $debug_mailto, $mailfrom, $mailsubject;
+
+	if ($currUserID == '') return;
+
+	$email_headers = 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
+
+	$mailbody = read_file('watchlist.email');
+	$mailbody = mb_ereg_replace('{username}', $currUserName, $mailbody);
+
+	if ($currUserOwnerLogs != '')
+	{
+		$logtexts = $currUserOwnerLogs;
+		
+		while ((mb_substr($logtexts, -1) == "\n") || (mb_substr($logtexts, -1) == "\r"))
+			$logtexts = mb_substr($logtexts, 0, mb_strlen($logtexts) - 1);
+	
+		$mailbody = mb_ereg_replace('{ownerlogs}', $logtexts, $mailbody);
+	}
+	else
+	{
+		$mailbody = mb_ereg_replace('{ownerlogs}', $nologs, $mailbody);
+	}
+
+	if ($currUserWatchLogs != '')
+	{
+		$logtexts = $currUserWatchLogs;
+
+		while ((mb_substr($logtexts, -1) == "\n") || (mb_substr($logtexts, -1) == "\r"))
+			$logtexts = mb_substr($logtexts, 0, mb_strlen($logtexts) - 1);
+
+		$mailbody = mb_ereg_replace('{watchlogs}', $logtexts, $mailbody);
+	}
+	else
+	{
+		$mailbody = mb_ereg_replace('{watchlogs}', $nologs, $mailbody);
+	}
+
+	// mail versenden
+	if ($debug == true)
+		$mailadr = $debug_mailto;
+	else
+		$mailadr = $rUser['email'];
+
+	mb_send_mail($mailadr, $mailsubject, $mailbody, $email_headers);
+
+	// logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
+	logentry('watchlist', 2, $currUserID, 0, 0, 'Sending mail to ' . $mailadr, array());
+
+	// entries entfernen
+	sql("DELETE FROM watches_waiting WHERE user_id='&1' AND watchtype IN (1, 2)", $currUserID);
+
+}
+
 ?>
