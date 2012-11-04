@@ -244,7 +244,7 @@ if (isset($_POST['stopnie_N']))
 				 AND   `caches`.`user_id` = `user`.`user_id`
 		         AND   `waypoints`.`cache_id` = `caches`.`cache_id`
 			ORDER BY   $sortowanie
-			   LIMIT   0, 100
+			   LIMIT   0, 120
 				 ";
 				 
 $status = array (
