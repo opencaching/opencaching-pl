@@ -109,6 +109,7 @@
 
 	$currUserID = '';
 	$currUserName = '';
+	$currUserEMail = '';
 	$currUserOwnerLogs = '';
 	$currUserWatchLogs = '';
 
@@ -118,11 +119,12 @@
 		if ($currUserID != $rWatchUser['user_id'])
 		{
 			// Time to send all gathered info for the previous user (if any)
-			send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserOwnerLogs, $currUserWatchLogs);
+			send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs);
 
 			// After sending e-mail prepare the stage for the next user
-			$currUserID   = $rWatchUser['user_id'];
-			$currUserName = $rWatchUser['username'];
+			$currUserID    = $rWatchUser['user_id'];
+			$currUserName  = $rWatchUser['username'];
+			$currUserEMail = $rWatchUser['email'];
 			$currUserOwnerLogs = '';
 			$currUserWatchLogs = '';
 		}
@@ -133,7 +135,7 @@
 	mysql_free_result($rsWatchesUsers);
 	
 	// Send all gathered info for the last user (if any)
-	send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserOwnerLogs, $currUserWatchLogs);
+	send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs);
 
 
 /* Second phase - check/send messages to users who have requested daily/weekly notification */
@@ -151,8 +153,9 @@
 				$r = sql_fetch_array($rsWatches);
 				if ($r['count'] > 0)
 				{
-					$currUserID   = $rUser['user_id'];
-					$currUserName = $rUser['username'];
+					$currUserID    = $rUser['user_id'];
+					$currUserName  = $rUser['username'];
+					$currUserEMail = $rUser['email'];
 					$currUserOwnerLogs = '';
 					$currUserWatchLogs = '';
 
@@ -172,7 +175,7 @@
 					}
 
 					// mail versenden
-					send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserOwnerLogs, $currUserWatchLogs);
+					send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs);
 				}
 			}
 		}
@@ -365,7 +368,7 @@ function process_log_watch($user_id, $log_id)
 																		'&1', '&2', 1, NOW(), '&3', 2)", $user_id, $log_id, $watchtext);
 }
 
-function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserOwnerLogs, $currUserWatchLogs)
+function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs)
 {
 	global $nologs, $debug, $debug_mailto, $mailfrom, $mailsubject;
 
@@ -408,7 +411,7 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
 	if ($debug == true)
 		$mailadr = $debug_mailto;
 	else
-		$mailadr = $rUser['email'];
+		$mailadr = $currUserEMail;
 
 	mb_send_mail($mailadr, $mailsubject, $mailbody, $email_headers);
 
