@@ -277,7 +277,7 @@ if ($error == false)
 			AND   `caches`.`user_id` = `user`.`user_id`
 			AND   `waypoints`.`cache_id` = `caches`.`cache_id`
 			ORDER BY   $sortowanie
-			LIMIT   0, 100
+			LIMIT   0, 1000
 					
 			";
 			
