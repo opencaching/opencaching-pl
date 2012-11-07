@@ -894,12 +894,15 @@ function mnu_EchoMainMenu($selmenuid)
 		if ($menu[$i]['visible'] == true)
 		{
 			//if ($c > 0) echo '&nbsp;|&nbsp;';
-
-			if( $menu[$i]['newwindow'] == true ) 
+            if (isset ($menu[$i]['newwindow']))
+            {
+			 if( $menu[$i]['newwindow'] == true ) 
 				$target_blank = "target='_blank'";
-			else
+			 else
 				$target_blank = "";
-				
+            }
+		
+            else 	$target_blank = "";
 			if ($menu[$i]['siteid'] == $selmenuid)
 	//		if ($menu[$i]['siteid'] == 'start')
 			{
@@ -959,18 +962,26 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 
 	for ($i = 0; $i < count($menustructure); $i++)
 	{
-		if( $menustructure[$i]['newwindow'] == true ) 
+		if (isset($menustructure[$i]['newwindow']))
+		{
+		 if( $menustructure[$i]['newwindow'] == true ) 
 			$target_blank = "target='_blank'";
 			else
 				$target_blank = "";
+		}
+		else $target_blank = "";
 		if ($menustructure[$i]['visible'] == true)
 		{
+			if (isset($menustructure[$i]['icon']))
+			{
 			if($menustructure[$i]['icon']) {
 				$icon = 'style="background-image: url('.$menustructure[$i]['icon'].'-18.png);background-repeat:no-repeat;"';
 			}
 			else
 				$icon = "";
-
+			}
+			else $icon = "";
+            if (!isset ($menustructure[$i]['onlylogged'])) $menustructure[$i]['onlylogged'] = false;
 			if($menustructure[$i]['onlylogged'] == true && $usr == false) {
 				continue;
 			}

@@ -914,4 +914,4 @@ viewlog_kordy Współrzędne ukrycia keszynki po przeniesieniu
 log_type_temp_unavailable tymczasowo niedostępna
 log_type_available Gotowa do szukania
 log_mobile_init Punkt startowy kesza
-
+error_coords_not_ok Podano nieprawidłowe współrzędne! 

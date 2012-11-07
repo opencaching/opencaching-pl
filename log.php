@@ -126,13 +126,13 @@
 				$top_cache = isset($_POST['rating']) ? $_POST['rating']+0 : 0;
 				
 				// mobilne by Łza
-				$wybor_NS   = isset($_POST['wybor_NS']) ? $_POST['wybor_NS'] : 0;
-				$wsp_NS_st  = isset($_POST['wsp_NS_st']) ? $_POST['wsp_NS_st'] : null;
+				$wybor_NS   = isset($_POST['wybor_NS'])   ? $_POST['wybor_NS'] : 0;
+				$wsp_NS_st  = isset($_POST['wsp_NS_st'])  ? $_POST['wsp_NS_st'] : null;
 				$wsp_NS_min = isset($_POST['wsp_NS_min']) ? $_POST['wsp_NS_min'] : null;
-				$wybor_WE   = isset($_POST['wybor_WE']) ? $_POST['wybor_WE'] : 0;
-				$wsp_WE_st  = isset($_POST['wsp_WE_st']) ? $_POST['wsp_WE_st'] : null;
+				$wybor_WE   = isset($_POST['wybor_WE'])   ? $_POST['wybor_WE'] : 0;
+				$wsp_WE_st  = isset($_POST['wsp_WE_st'])  ? $_POST['wsp_WE_st'] : null;
 				$wsp_WE_min = isset($_POST['wsp_WE_min']) ? $_POST['wsp_WE_min'] : null;
-								
+				
 				$is_top = sqlValue("SELECT COUNT(`cache_id`) FROM `cache_rating` WHERE `user_id`='" . sql_escape($usr['userid']) . "' AND `cache_id`='" . sql_escape($cache_id) . "'", 0);
 				// check if user has exceeded his top5% limit
 				$user_founds = sqlValue("SELECT `founds_count` FROM `user` WHERE `user_id`='" .  sql_escape($usr['userid']) . "'", 0);
@@ -351,9 +351,11 @@
 
 				if ($log_type < 0) $logtype_not_ok = true;
 				
+				$error_coords_not_ok = tr('error_coords_not_ok');
 				if ($log_type == 4) 
 				{
 				 $coords_not_ok = validate_coords($wsp_NS_st, $wsp_NS_min, $wsp_WE_st, $wsp_WE_min, $wybor_WE, $wybor_NS, $error_coords_not_ok);
+				 
 				}
 
 				
@@ -483,7 +485,6 @@
 							 
 							 if ($is_any_cache_movedlog == 0)
 							    {
-								 
 								 $tmp_move_query = sql("SELECT `user_id`, `longitude`, `latitude`, `date_hidden` FROM `caches` WHERE `cache_id` ='&1'", sql_escape($cache_id));
 								 $tmp_move_data = mysql_fetch_array($tmp_move_query);
 								 
@@ -510,7 +511,10 @@
 										 );
 									$last_id_4_init_log = mysql_insert_id();
 									
-									sql("INSERT INTO `cache_moved`(`id`, 
+									
+									// print $init_log_longitude; exit;
+									
+									sql("INSERT INTO `cache_moved`(
 						                             `cache_id`, 
 													 `user_id`, 
 													 `log_id`, 
@@ -518,7 +522,7 @@
 													 `longitude`, 
 													 `latitude`,
 													 `km`) 
-										     VALUES ('', 
+										     VALUES ( 
 											         '&1', 
 													 '&2', 
 													 '&3', 
