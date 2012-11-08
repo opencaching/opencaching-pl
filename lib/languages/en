@@ -874,5 +874,4 @@ viewlog_kordy Cache coordinates after cache has been moved.
 log_type_temp_unavailable temporarily unavailable
 log_type_available Ready to search
 log_mobile_init Starting coordinates
-error_coords_not_ok Wrong coordinates!
 

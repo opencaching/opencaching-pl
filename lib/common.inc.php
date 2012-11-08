@@ -36,11 +36,8 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
 	global $menu;
 	$interface_output = 'html';
 
-    // original, causing notice code: Notice: Undefined variable: rootpath in /srv/ocpl/lib/common.inc.php on line 40
-	// require_once($rootpath . 'lib/language.inc.php');
-	
-	// fix:
-	require_once('lib/language.inc.php');
+
+	require_once($rootpath . 'lib/language.inc.php');
 
 	$lang_array = available_languages();//array("pl", "en", "sv", "de", "cs", "fr", "es");
 	$datetimeformat = '%d %B %Y o godz. %H:%M:%S ';
@@ -727,13 +724,7 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
 
 	function tpl_do_translate($str)
 	{
-		// original code, causing notice: Notice: Use of undefined constant handle_translation_clause - assumed 'handle_translation_clause' in /srv/ocpl/lib/common.inc.php on line 730
-		// return preg_replace_callback('/{{.*?}}/', handle_translation_clause, $str);
-		
-		// fix:
-		return preg_replace_callback('/{{.*?}}/', 'handle_translation_clause', $str);
-		
-		
+		return preg_replace_callback('/{{.*?}}/', handle_translation_clause, $str);
 	}
 
 

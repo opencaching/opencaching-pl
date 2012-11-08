@@ -105,7 +105,7 @@ $mapping = array(
 	# Note: Some are missing!
 );
 foreach ($mapping as $letter => $type)
-	if ($_GET['h_'.$letter] == "true")
+	if (isset($_GET['h_'.$letter]) && ($_GET['h_'.$letter] == "true"))
 		$types_to_hide[] = $type;
 if (count($types_to_hide) > 0)
 	$params['type'] = "-".implode("|", $types_to_hide);

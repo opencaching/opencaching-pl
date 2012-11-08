@@ -32,7 +32,6 @@ ini_set ('display_errors', On);
 
   tpl_set_var("sekcja_5_start",'<!--');
   tpl_set_var("sekcja_5_stop",'-->');
-  tpl_set_var('os_script', 'opensprawdzacz.php');
  
 // jeśli istnieje $_POST['stopnie_N'] znaczy że użytkownik wpisał współrzędne
 // sekcja 3 - sprawdzająca poprawność wpisanych współrzędnych 

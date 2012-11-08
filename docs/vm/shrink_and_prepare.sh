@@ -6,8 +6,9 @@ then
 	echo "UNCOMMITED CHANGES DETECTED. CANCELLED."
 	exit 1
 fi
-echo "Disabling cron (until next restart)..."
+echo "Stopping services (until next restart)..."
 sudo service cron stop
+sudo servuce apache2 stop
 echo "Removing history and preferences..."
 rm -f ~/.*_history ~/.selected_editor ~/.lesshst
 rm -fR ~/.subversion/auth
@@ -22,6 +23,7 @@ echo "truncate okapi_stats_hourly" | mysql -pubuntu ocpl
 echo "truncate okapi_stats_temp" | mysql -pubuntu ocpl
 sudo rm -fR /srv/ocpl-dynamic-files/okapi-dump*
 sudo rm -f /srv/ocpl-dynamic-files/statpics/*
+sudo rm -f /var/log/apache2/*.log
 echo "Removing old packages..."
 sudo apt-get clean
 echo "Compressing MySQL tables..."
@@ -39,4 +41,4 @@ then
 else
 	echo "-> /dev/sda5 is NOT a swap partition on your system, skipping this step."
 fi
-echo "Done."
+echo "Done. (You're ready for `sudo shutdown -P 0`)"

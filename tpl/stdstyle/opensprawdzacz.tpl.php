@@ -1,8 +1,4 @@
-<?php 
-
-?>
-
-<script type="text/javascript"> 
+<script language="javascript"> 
 <!--
 function clearForms()
 {
@@ -80,11 +76,11 @@ function toggle() {
 
 	 <div id="help_link1" class="notice" style="height:35px; display: block;">
 		 {{os_pomoc}}:
-		 <a id="displayText1" href="javascript:toggle();" class=links href="{os_script}">{{os_zobo}}</a>
+		 <a id="displayText1" href="javascript:toggle();" class=links href="opensprawdzacz.php">{{os_zobo}}</a>
 	</div>
 
 	<div id="help_link2" style="height:35px; display: none;"><br /><br />
-		 <a id="displayText2" href="javascript:toggle();" class=links href="{os_script}">{{os_zobo}}</a>
+		 <a id="displayText2" href="javascript:toggle();" class=links href="opensprawdzacz.php">{{os_zobo}}</a>
 	</div>
 {sekcja_1_stop}
 
@@ -112,13 +108,13 @@ function toggle() {
 	<div class="searchdiv">
 		<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
 		<tr>
-		 <td><a href="{os_script}?sort=wpt">waypoint</a></td>
-		 <td><a href="{os_script}?sort=nazwa">{{cache_name}}</a></td>
+		 <td><a href="opensprawdzacz.php?sort=wpt">waypoint</a></td>
+		 <td><a href="opensprawdzacz.php?sort=nazwa">{{cache_name}}</a></td>
 		 <td>{{os_typ}}</td>
 		 <td>status</td>
-		 <td><a href="{os_script}?sort=autor">{{owner_label}}</a></td>
-		 <td><a href="{os_script}?sort=szczaly">{{os_pr}}</a></td>
-		 <td><a href="{os_script}?sort=sukcesy">{{os_sukc}}</a></td>
+		 <td><a href="opensprawdzacz.php?sort=autor">{{owner_label}}</a></td>
+		 <td><a href="opensprawdzacz.php?sort=szczaly">{{os_pr}}</a></td>
+		 <td><a href="opensprawdzacz.php?sort=sukcesy">{{os_sukc}}</a></td>
 		</tr>
 
 	   <tr>
@@ -163,7 +159,7 @@ function toggle() {
 		
 		<p>{okienka}</p> 
 		{sekcja_formularz_opensprawdzacza_start}
-		<form name="sprawdzeniie" action="{os_script}" method="post">
+		<form name="sprawdzeniie" action="opensprawdzacz.php" method="post">
 		<input type="hidden" name="cacheid" value="{cacheid}">
 		<input type="hidden" name="op_keszynki" value="{wp_oc}">
 		{{os_podaj_twoje}}:<br/><br/>
