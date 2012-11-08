@@ -8,7 +8,7 @@ then
 fi
 echo "Stopping services (until next restart)..."
 sudo service cron stop
-sudo servuce apache2 stop
+sudo service apache2 stop
 echo "Removing history and preferences..."
 rm -f ~/.*_history ~/.selected_editor ~/.lesshst
 rm -fR ~/.subversion/auth
