@@ -4,9 +4,10 @@
 ## - walidacja czy z posta są przekazywane wartości numeryczne (malo istotne, najwyzej zwroci ze wynik zly)
 ## - lista keszy w opensprawdzaczu - przewijanie do dalszych (na razie obsluguje 100 keszynek)
 ## layout jak mycache.php
-
+ 
 
 //prepare the templates and include all neccessary
+global $rootpath;
 require_once('./lib/common.inc.php');
 
 
@@ -32,6 +33,7 @@ ini_set ('display_errors', On);
 
   tpl_set_var("sekcja_5_start",'<!--');
   tpl_set_var("sekcja_5_stop",'-->');
+  tpl_set_var('os_script', 'opensprawdzacz.php');
  
 // jeśli istnieje $_POST['stopnie_N'] znaczy że użytkownik wpisał współrzędne
 // sekcja 3 - sprawdzająca poprawność wpisanych współrzędnych 

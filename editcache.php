@@ -1,4 +1,5 @@
 <?php
+
 /***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
@@ -21,6 +22,8 @@
  ****************************************************************************/
 
   //prepare the templates and include all neccessary
+    global $rootpath;
+	
 	require_once('./lib/common.inc.php');
 	$OWNCACHE_LIMIT=$GLOBALS['owncache_limit'];
 
@@ -594,9 +597,9 @@
 						$record = sql_fetch_array($rs);
 
 						if ($record['code'] == $cache_region)
-							$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+							$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
 						else
-							$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+							$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
 
 						$regionsoptions .= "\n";
 					}

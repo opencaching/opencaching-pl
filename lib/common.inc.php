@@ -36,7 +36,6 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
 	global $menu;
 	$interface_output = 'html';
 
-
 	require_once($rootpath . 'lib/language.inc.php');
 
 	$lang_array = available_languages();//array("pl", "en", "sv", "de", "cs", "fr", "es");
@@ -724,7 +723,7 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
 
 	function tpl_do_translate($str)
 	{
-		return preg_replace_callback('/{{.*?}}/', handle_translation_clause, $str);
+		return preg_replace_callback('/{{.*?}}/', 'handle_translation_clause', $str);
 	}
 
 

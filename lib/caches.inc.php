@@ -38,6 +38,8 @@
  $default_logtype_id = 1;
 
 // new: get *_types from database
+ if (!isset($cachetype)) $cachetype = '';
+
  $log_types = get_log_types_from_database();
  $cache_types = get_cache_types_from_database();
  $wp_types = get_wp_types_from_database($cachetype);

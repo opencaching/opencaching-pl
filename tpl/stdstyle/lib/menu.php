@@ -894,7 +894,7 @@ function mnu_EchoMainMenu($selmenuid)
 		if ($menu[$i]['visible'] == true)
 		{
 			//if ($c > 0) echo '&nbsp;|&nbsp;';
-
+			if (!isset($menu[$i]['newwindow'])) $menu[$i]['newwindow'] = false;
 			if( $menu[$i]['newwindow'] == true ) 
 				$target_blank = "target='_blank'";
 			else
@@ -959,18 +959,20 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu)
 
 	for ($i = 0; $i < count($menustructure); $i++)
 	{
+		if (!isset($menustructure[$i]['newwindow'])) $menustructure[$i]['newwindow'] = false;
 		if( $menustructure[$i]['newwindow'] == true ) 
 			$target_blank = "target='_blank'";
 			else
 				$target_blank = "";
 		if ($menustructure[$i]['visible'] == true)
 		{
+			if (!isset($menustructure[$i]['icon'])) $menustructure[$i]['icon'] = false;
 			if($menustructure[$i]['icon']) {
 				$icon = 'style="background-image: url('.$menustructure[$i]['icon'].'-18.png);background-repeat:no-repeat;"';
 			}
 			else
 				$icon = "";
-
+            if (!isset ($menustructure[$i]['onlylogged'])) $menustructure[$i]['onlylogged'] = false;
 			if($menustructure[$i]['onlylogged'] == true && $usr == false) {
 				continue;
 			}

@@ -4,7 +4,7 @@
 	*
 	*   This program is free software; you can redistribute it and/or modify
 	*   it under the terms of the GNU General Public License as published by
-	*   the Free Software Foundation; either version 2 of the License, or
+	*   the Free Software Foundation; either version 2 of the License, or 
 	*   (at your option) any later version.
 	*
 	***************************************************************************/
@@ -128,9 +128,11 @@ function removelog($log_id, $language, $lang)
 								    {
 						             sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);
 						             $get_xy = sql("SELECT `latitude`,`longitude` FROM `cache_moved` WHERE `cache_id`='&1' ORDER BY `date` DESC LIMIT 1",$log_record['cache_id']);
-						             $old_xy = sql_fetch_array($get_xy);	
-						             sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'", $old_xy['longitude'], $old_xy['latitude'], $log_record['cache_id']);
-								    } 
+						             
+						                $old_xy = sql_fetch_array($get_xy);
+						                if (($old_xy['longitude'] != '') && ($old_xy['latitude'] != '')) sql("UPDATE `caches` SET `last_modified`=NOW(), `longitude`='&1', `latitude`='&2' WHERE `cache_id`='&3'", $old_xy['longitude'], $old_xy['latitude'], $log_record['cache_id']);
+
+						             } 
 								 else 
 								     sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);
 							    } 

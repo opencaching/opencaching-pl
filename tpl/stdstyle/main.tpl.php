@@ -133,6 +133,7 @@ function chname( newName )
 			<ul>
 				<?php 
 				$dowydrukuidx = mnu_MainMenuIndexFromPageId($menu, "dowydruku");			
+				if (!isset($_SESSION['print_list'])) $_SESSION['print_list'] = 0;
 				if( count($_SESSION['print_list']) > 0 )
 				{
 					$menu[$dowydrukuidx]['visible'] = true;
