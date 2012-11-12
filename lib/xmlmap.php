@@ -155,14 +155,20 @@
 		$hide_by_type .= " AND IF($own_not_attempt, 1, 0)=1 ";
 	if( $_GET['h_ignored'] == "true" )
 		$hide_by_type .= " AND cache_ignore.id IS NULL ";
-	if( isset($_GET['min_score']) && isset($_GET['max_score']))
-	{
-		$score_filter = " AND ((caches.score BETWEEN ".floatval($_GET['min_score'])." AND ".floatval($_GET['max_score'])." AND caches.votes>=3 ";
-		if( $_GET['h_noscore'] == "true" )
-		{
-			$score_filter .= ") OR (caches.votes<3";
-		}
-		$score_filter .= ")) ";
+	
+	$t = floatval($_GET['min_score']);
+	$min = ($t < 0) ? 1 : (($t < 1) ? 2 : (($t < 1.5) ? 3 : (($t < 2.2) ? 4 : 5)));
+	$t = floatval($_GET['max_score']);
+	$max = ($t < 0.7) ? 1 : (($t < 1.3) ? 2 : (($t < 2.2) ? 3 : (($t < 2.7) ? 4 : 5)));
+	$allow_null = ($_GET['h_noscore'] == "true");
+	if (($min == 1) && ($max == 5) && $allow_null) {
+		$score_filter = "";
+	} else {
+		$divisors = array(-999, -1.0, 0.1, 1.4, 2.2, 999);
+		$min = $divisors[$min - 1];
+		$max = $divisors[$max];
+		$score_filter = " AND ((caches.score >= $min and caches.score < $max and caches.votes >= 3)".
+			($allow_null ? " or (caches.votes < 3)" : "").")";
 	}
 	
 	// enable searching for ignored caches
