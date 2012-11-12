@@ -17,6 +17,7 @@
 
  ****************************************************************************/
   //prepare the templates and include all neccessary
+    if (!isset($rootpath)) global $rootpath;
 	require_once('./lib/common.inc.php');
 	require_once('lib/cache_icon.inc.php');
 	global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email;
@@ -213,7 +214,7 @@
 			if (($ulon!=NULL && $ulat!=NULL) ||($ulon!=0 && $ulat!=0) ) {
 			
 			$distancecache=sprintf("%.2f",calcDistance($ulat,$ulon,$cache_record['latitude'],$cache_record['longitude']));
-				tpl_set_var('distance_cache', '<img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance" title="" align="middle" />&nbsp;'.tr(distance_to_cache).': <b>'.$distancecache.' km</b><br />');
+				tpl_set_var('distance_cache', '<img src="tpl/stdstyle/images/free_icons/car.png" class="icon16" alt="distance" title="" align="middle" />&nbsp;'.tr('distance_to_cache').': <b>'.$distancecache.' km</b><br />');
 				} else {tpl_set_var('distance_cache', '');}
 			} else {tpl_set_var('distance_cache', '');}
 			// get cache waypoint
@@ -337,6 +338,8 @@
 			$cache_stats="<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('not_stat_cache'). "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"\" /></a>";
 					}
 			}
+			if (!isset($map_msg)) $map_msg = '';
+			if (!isset($map_msg)) $map_msg = '';
 			tpl_set_var('cache_stats', $cache_stats);
 			tpl_set_var('googlemap_key', $googlemap_key);
 			tpl_set_var('map_msg', $map_msg);
@@ -505,7 +508,7 @@
 				tpl_set_var('list_of_rating_end', '');
 				tpl_set_var('body_scripts','');
 			$rscr= sql("SELECT user.username username FROM `cache_rating` INNER JOIN user ON (cache_rating.user_id = user.user_id) WHERE cache_id=&1 ORDER BY username",$cache_id);
-			if ( $rscr == flase) {tpl_set_var('list_of_rating_begin', '');
+			if ( $rscr == false) {tpl_set_var('list_of_rating_begin', '');
 				tpl_set_var('list_of_rating_end', '');}
 			else {
 // ToolTips Ballon
@@ -1279,19 +1282,6 @@
 				 }
 				else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
 				
-				/*
-				if (($cache_record['type'] == 8) && ($record['type'] == 4))
-				
-				    {
-				      $dane_mobilniaka = sql_fetch_array(sql("SELECT `user_id`, `longitude`, `latitude`, km FROM `cache_moved` WHERE `log_id` = '&1'", $record['logid']));
-
-				      $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($dane_mobilniaka['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($dane_mobilniaka['longitude']), ENT_COMPAT, 'UTF-8'));
-				      $tmplog                = mb_ereg_replace('{kordy_mobilniaka}', '[<img src="tpl/stdstyle/images/blue/szczalka_mobile.png" title="'.tr('viewlog_kordy').'" />'.$tmplog_kordy_mobilnej .'] +'. $dane_mobilniaka['km'] . ' km' , $tmplog);
-				    }
-				else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
-				 */
-
-				
 				if ($record['text_html'] == 0)
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
 
@@ -1332,6 +1322,7 @@
 					$tmplog = mb_ereg_replace('{logpictures}', '', $tmplog);
 
 				// logfunktionen erstellen
+				if (!isset($record['deleted'])) $record['deleted'] = 0;
 				if ($record['deleted']!=1 &&((!isset($_REQUEST['print']) || $_REQUEST['print'] != 'y') && (($usr['userid'] == $record['userid']) || ($usr['userid'] == $cache_record['user_id']) || $usr['admin'])))
 				{
 					$tmpFunctions = $functions_start;
@@ -1537,12 +1528,13 @@
 			$has_password = isPasswordRequired($cache_id);
 
 			// cache-attributes
-			$rs = sql("SELECT `cache_attrib`.`text_long`, `cache_attrib`.`icon_large`
-						FROM `cache_attrib`, `caches_attributes`
+			$rs = sql("SELECT `cache_attrib`.`text_long`, 
+			                  `cache_attrib`.`icon_large`
+						FROM  `cache_attrib`, `caches_attributes`
 						WHERE `cache_attrib`.`id`=`caches_attributes`.`attrib_id`
 						  AND `cache_attrib`.`language`='&1'
 						  AND `caches_attributes`.`cache_id`='&2'
-						ORDER BY `cache_attrib`.`category`, `cache_attrib`.`id`", $default_lang, $cache_id);
+				     ORDER BY `cache_attrib`.`category`, `cache_attrib`.`id`", $default_lang, $cache_id);
 			$num_of_attributes = mysql_num_rows($rs);
 			if( $num_of_attributes > 0 || $has_password)
 			{

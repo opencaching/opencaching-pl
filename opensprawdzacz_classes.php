@@ -12,6 +12,7 @@ class OpensprawdzaczSetup
 		$this->ile_prob = 10;        // declaration how many times user can try his answer per hour/session
 		$this->limit_czasu = 60;     // [in minutes] - time which must elapse until next guess is possible.
 
+		$this->caches_on_page = 25;   // how many caches is displayed in cache list at one time (pagination)
 	}
 
 }// end of init Opensprawdzacz setup.
@@ -196,7 +197,7 @@ class OpensprawdzaczCore
 
 		// tpl_set_var("wsp_NS", );
 		// tpl_set_var("wsp_EW", );
-		tpl_set_var("twoje_ws", tr('os_twojews') . '<b> N '. $stopnie_N.'°'.$minuty_N . '</b>/<b> E '. $stopnie_E.'°'.$minuty_E .'</b>');
+		tpl_set_var("twoje_ws", tr('os_twojews') . '<b> N '. $stopnie_N.'Â° '.$minuty_N . '</b>/<b> E '. $stopnie_E.'Â° '.$minuty_E .'</b>');
 		tpl_set_var("cache_id",  $cache_id);
 
 		$this->endzik();
@@ -299,10 +300,10 @@ class OpensprawdzaczCore
 	
 		$status = array (
 				'1' => '<img src="tpl/stdstyle/images/log/16x16-found.png" border="0" alt="Gotowa do szukania">',
-					'2' => '<img src="tpl/stdstyle/images/log/16x16-temporary.png" border="0" alt="Tymczasowo niedostêpna">',
+					'2' => '<img src="tpl/stdstyle/images/log/16x16-temporary.png" border="0" alt="Tymczasowo niedostï¿½pna">',
 					'3' => '<img src="tpl/stdstyle/images/log/16x16-dnf.png" border="0" alt="zarchiwizowana">',
 					'4' => '<img src="tpl/stdstyle/images/log/16x16-temporary.png" border="0" alt="Ukryta do czasu weryfikacji">',
-					'5' => '<img src="tpl/stdstyle/images/log/16x16-temporary.png" border="0" alt="jeszcze niedostêpna">',
+					'5' => '<img src="tpl/stdstyle/images/log/16x16-temporary.png" border="0" alt="jeszcze niedostï¿½pna">',
 					'6' => '<img src="tpl/stdstyle/images/log/16x16-dnf.png" border="0" alt="Zablokowana przez COG">'
 			);
 	
@@ -315,7 +316,7 @@ class OpensprawdzaczCore
 				$pag = new Pagination();
 				// $dane = array("hej","dupa","laska", "scierwo");
 	
-				$numbers = $pag->Paginate($keszynki_opensprawdzacza,25);
+				$numbers = $pag->Paginate($keszynki_opensprawdzacza,$OpensprawdzaczSetup->caches_on_page);
 				$result  = $pag->fetchResult();
 				/*
 				foreach ($result as $r)
@@ -367,7 +368,7 @@ class OpensprawdzaczCore
 					</td>
 								<td>
 								(Gotowa do szukania)<br />
-						(Tymczasowo niedostêpna)
+						(Tymczasowo niedostÄ™pna)
 					</td>
 					<td align="center">'.$proby.'</td>
 					<td align="center">'.$trafienia.'</td>

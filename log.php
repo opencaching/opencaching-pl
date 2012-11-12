@@ -452,10 +452,45 @@
                     // if comment is empty, then do not insert data into db
 					elseif (!($log_type == 3 && $log_text == "")) 
 					{
+						
+						if (log_type == 1)
+						{
+						($descMode != 1) ? $dmde_1=1 : $dmde_1=0;
+						($descMode == 3) ? $dmde_2=1 : $dmde_2=0;
+						
+						$dadadad = mysql_query("INSERT INTO `cache_logs` ( 
+						                           `cache_id`, 
+						                           `user_id`, 
+						                           `type`, 
+						                           `date`, 
+						                           `text`, 
+						                           `text_html`, 
+						                           `text_htmledit`, 
+						                           `date_created`, 
+						                           `last_modified`, 
+						                           `uuid`, 
+						                           `node`)
+						       SELECT              '$cache_id', 
+						                           '".$usr['userid']."', 
+						                           '$log_type', 
+						                           '$log_date', 
+						                           '$log_text', 
+						                           '$dmde_1',
+						                           '$dmde_2', 
+						                           NOW(), 
+						                           NOW(), 
+						                           '$log_uuid', 
+						                           '$oc_nodeid'
+						       FROM  `cache_logs`
+						       WHERE NOT EXISTS (SELECT * FROM `cache_logs` WHERE `type`=1 AND `user_id` = '".$usr['userid']."' AND `cache_id` = '$cache_id' AND `deleted` = 0)
+						       LIMIT 1") or die (mysql_error());
+						}
+						else 
+						{	
 						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
-										 VALUES ('', '&1', '&2', '&3', '&4', '&5', '&6', '&7', NOW(), NOW(), '&8', '&9')",
+										 VALUES        ('',   '&1',       '&2',      '&3',   '&4',  '&5',   '&6',         '&7', NOW(), NOW(), '&8', '&9')",
 										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid);
-                        
+						}
                         
 						// mobline by Łza (mobile caches)
 						
@@ -788,7 +823,7 @@
 							// service log by Łza
 					        // if curently logged user is a cache owner and cache status is "avilable"
 					        // then add log type option "temp. unavailable";
-							adad;
+							
 					        if ($usr['userid'] == $cache_user_id && $res2['status'] == 1)
 					           {
 							     $logtypeoptions .= '<option value="11">'.tr("log_type_temp_unavailable").'</option>'. "\n";
