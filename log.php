@@ -452,8 +452,7 @@
                     // if comment is empty, then do not insert data into db
 					elseif (!($log_type == 3 && $log_text == "")) 
 					{
-						
-						if (log_type == 1)
+						if ($log_type == 1)
 						{
 						($descMode != 1) ? $dmde_1=1 : $dmde_1=0;
 						($descMode == 3) ? $dmde_2=1 : $dmde_2=0;
@@ -482,7 +481,11 @@
 						                           '$log_uuid', 
 						                           '$oc_nodeid'
 						       FROM  `cache_logs`
-						       WHERE NOT EXISTS (SELECT * FROM `cache_logs` WHERE `type`=1 AND `user_id` = '".$usr['userid']."' AND `cache_id` = '$cache_id' AND `deleted` = 0)
+						       WHERE NOT EXISTS (SELECT * FROM `cache_logs` 
+							                      WHERE `type`=1 
+												    AND `user_id` = '".$usr['userid']."' 
+													AND `cache_id` = '$cache_id' 
+													AND `deleted` = '0')
 						       LIMIT 1") or die (mysql_error());
 						}
 						else 
