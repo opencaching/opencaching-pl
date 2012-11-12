@@ -11,6 +11,11 @@ $rootpath = "../";
 
 require_once($rootpath.'okapi/facade.php');
 
+# The code below may produce notices, so we will disable OKAPI's default
+# error handler.
+
+\okapi\OkapiErrorHandler::disable();
+
 # mapper.php/mapper.fcgi used to take the following parameters:
 #
 # [Still supported by mapper_okapi.php]
@@ -138,7 +143,10 @@ else
 if ($force_result_empty)
 	die();
 
+# End of "buggy" code. Re-enable OKAPI's error handler.
+
+\okapi\OkapiErrorHandler::reenable();
+	
 # Get OKAPI's response and display it. Add proper Cache-Control headers.
-# (WRTODO: Move Cache-Control to OKAPI?)
 
 \okapi\Facade::service_display('services/caches/map/tile', $user_id, $params);
