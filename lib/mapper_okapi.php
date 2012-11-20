@@ -73,19 +73,20 @@ unset($t, $min_rating, $max_rating);
 if ($_GET['h_noscore'] == "true")
 	$params['rating'] = $params['rating']."|X";
 
-# be_ftf (hunt for FTFs) - convert to OKAPI's "not_yet_found_only" filter.
+# be_ftf (hunt for FTFs) - convert to OKAPI's "ftf_hunter" parameter.
 
 if ($_GET['be_ftf'] == "true")
 {
-	$params['not_yet_found_only'] = "true";
+	$params['ftf_hunter'] = "true";
 	
 	# Also, override previously set "status" filter. This behavior is
 	# compatible with what previous mapper scripts did.
 	
 	$params['status'] = "Available";
 	
-	# BTW, if we override "status" parameter, then we should also override "rating".
-	# I don't do that though, to stay compatible with previous impl.
+	# BTW, if we override "status" parameter, then we should also override
+	# "rating" (all ftfs have "null" for rating). I don't do that though, to
+	# stay 100% compatible with the previous implementation.
 }
 
 # h_nogeokret - Convert to OKAPI's "with_trackables_only" parameter.
