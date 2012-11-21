@@ -90,8 +90,8 @@ class AutoArch
 			//echo "<br />";
 			@mysql_query($del_sql);
 		}
-		
-		$sql = "SELECT cache_id, last_modified FROM caches WHERE status = 2 AND last_modified < now() - interval 6 month";
+		                                                                       
+		$sql = "SELECT cache_id, last_modified FROM caches WHERE status = 2 AND last_modified < now() - interval 4 month";
 		$result = mysql_query($sql);
 		while($rs = mysql_fetch_array($result))
 		{
@@ -105,7 +105,6 @@ class AutoArch
 				//echo "cache ". $rs['cache_id']." jest na stepie ".$step."<br />";
 			}
 			else $step = $STEP["START"];
-			
 			if( strtotime($rs['last_modified']) < time() - 6*31*24*60*60 && $step < $STEP["ARCH_COMPLETE"])
 			{
 				$this->sendEmail($STEP["AFTER_SECOND_MAIL_SENT"], $rs['cache_id']);
@@ -117,7 +116,7 @@ class AutoArch
 				$log_uuid = create_uuid();
 				$log_sql = "INSERT INTO cache_logs (cache_id, uuid, user_id, type, date, last_modified, date_created, text, owner_notified, node) VALUES (".sql_escape(intval($rs['cache_id'])).", '".sql_escape($log_uuid)."', '-1', 9,NOW(),NOW(), NOW(), 'Automatyczna archiwizacja - 6 miesięcy w stanie \"Tymczasowo niedostępna\"', 1, 2)";
 				@mysql_query($log_sql);
-			}
+			}            
 			else if( strtotime($rs['last_modified']) < time() - 5*31*24*60*60 && $step < $STEP["AFTER_SECOND_MAIL_SENT"])
 			{
 				$this->sendEmail($STEP["AFTER_FIRST_MAIL_SENT"], $rs['cache_id']);
