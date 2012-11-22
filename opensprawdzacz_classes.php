@@ -7,7 +7,7 @@ class OpensprawdzaczSetup
 {
 	function __construct()
 	{
-		$this->scriptname = 'opensprawdzacz2.php';
+		$this->scriptname = 'opensprawdzacz.php';
 
 		$this->ile_prob = 10;        // declaration how many times user can try his answer per hour/session
 		$this->limit_czasu = 60;     // [in minutes] - time which must elapse until next guess is possible.
@@ -325,12 +325,17 @@ class OpensprawdzaczCore
 				}
 				*/
 				$paginacja = ' ';
-				foreach ($numbers as $num)
-				{
 				if (isset ($_GET["sort"])) $sort = '&sort='.$_GET["sort"];
 				else $sort = '';
-					$paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.$num.$sort.'">['.$num.']</a> ';
+				
+				if (isset($_GET["page"])) $tPage = sql_escape($_GET["page"]); else $tPage = 1; 
+				if ($tPage > 1) $paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.($num-1).$sort.'">[<.Poprzednia]</a> ';
+				foreach ($numbers as $num)
+				{
+				    if ($num == $tPage)$paginacja .= '<b>['.$num.']</b>';
+				    else $paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.$num.$sort.'">['.$num.']</a> ';
 				}
+				if ($tPage < count($numbers)) $paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.($num).$sort.'">[Następna]</a> ';
 					
 					
 				$tabelka_keszynek = '';
@@ -375,7 +380,7 @@ class OpensprawdzaczCore
 				</tr>
 			</table>';
 					
-				$tabelka_keszynek .= '<br /><br /> ' . $paginacja;
+				$tabelka_keszynek .= '<br /><p align="center">' . $paginacja .'</p>';
 	
 				tpl_set_var("sekcja_1_start",'');
 				tpl_set_var("sekcja_1_stop", '');
