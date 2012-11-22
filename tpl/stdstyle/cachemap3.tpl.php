@@ -507,7 +507,7 @@
 				"&h_noscore="+document.getElementById('h_noscore').checked+
 				//"&mapid="+get_current_mapid()+
 				"&rand="+get_current_rand()+
-				//"&{searchdata}"+
+				"&{searchdata}"+
 				"";
 		};
 		tlo = new GTileLayerOverlay(tilelayer);
@@ -693,7 +693,7 @@
 					"&min_score="+document.getElementById('min_score').value+
 					"&max_score="+document.getElementById('max_score').value+
 					"&h_noscore="+document.getElementById('h_noscore').checked+
-					//"&{searchdata}"+
+					"&{searchdata}"+
 					"",
 					function(data, responseCode) 
 					{
@@ -846,7 +846,7 @@
 					"&min_score="+document.getElementById('min_score').value+
 					"&max_score="+document.getElementById('max_score').value+
 					"&h_noscore="+document.getElementById('h_noscore').checked+
-					//"&{searchdata}"+
+					"&{searchdata}"+
 					"",
 					function(data, responseCode) 
 					{
