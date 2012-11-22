@@ -759,7 +759,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 510; # This gets replaced in automatically deployed packages
+	public static $revision = 511; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 	
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -1079,6 +1079,7 @@ class Okapi
 		if ($init_made)
 			return;
 		ini_set('memory_limit', '128M');
+		Db::connect();
 		if (!self::$data_store)
 			self::$data_store = new OkapiDataStore();
 		if (!self::$server)
