@@ -335,7 +335,7 @@ class OpensprawdzaczCore
 				    if ($num == $tPage)$paginacja .= '<b>['.$num.']</b>';
 				    else $paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.$num.$sort.'">['.$num.']</a> ';
 				}
-				if ($tPage < count($numbers)) $paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.($num).$sort.'">[Następna]</a> ';
+				if ($tPage < count($numbers)) $paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.($tPage+1).$sort.'">[Następna &#62;]</a> ';
 					
 					
 				$tabelka_keszynek = '';
