@@ -116,6 +116,7 @@
 				$all_ok = false;
 				
 				$log_text  = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
+				$log_text = sql_escape($log_text);
 				// $log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
 				$log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : -2;
 				$log_date_min = isset($_POST['logmin']) ? ($_POST['logmin']+0) : date('i');
@@ -450,13 +451,13 @@
 
 					}
                     // if comment is empty, then do not insert data into db
+					
 					elseif (!($log_type == 3 && $log_text == "")) 
 					{
 						if ($log_type == 1)
 						{
 						($descMode != 1) ? $dmde_1=1 : $dmde_1=0;
 						($descMode == 3) ? $dmde_2=1 : $dmde_2=0;
-						
 						$dadadad = mysql_query("INSERT INTO `cache_logs` ( 
 						                           `cache_id`, 
 						                           `user_id`, 
