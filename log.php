@@ -50,6 +50,7 @@
     // error_reporting(E_ALL);
 	
 	//prepare the templates and include all neccessary
+	global $rootpath;
 	require_once('./lib/common.inc.php');
 	require($stylepath.'/smilies.inc.php');
 
@@ -116,7 +117,6 @@
 				$all_ok = false;
 				
 				$log_text  = isset($_POST['logtext']) ? ($_POST['logtext']) : '';
-				$log_text = sql_escape($log_text);
 				// $log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : $default_logtype_id;
 				$log_type = isset($_POST['logtype']) ? ($_POST['logtype']+0) : -2;
 				$log_date_min = isset($_POST['logmin']) ? ($_POST['logmin']+0) : date('i');
@@ -456,6 +456,7 @@
 					{
 						if ($log_type == 1)
 						{
+					    $log_text = sql_escape($log_text);
 						($descMode != 1) ? $dmde_1=1 : $dmde_1=0;
 						($descMode == 3) ? $dmde_2=1 : $dmde_2=0;
 						$dadadad = mysql_query("INSERT INTO `cache_logs` ( 
@@ -949,6 +950,16 @@
 						tpl_set_var('logtext', strip_tags($log_text));
 					
 					$listed_on = array();
+					
+			/* prevent Notices display at developer Virtual Machines */		
+			if (!isset($cache_record))
+			{
+             $cache_record['wp_ge'] = '';
+             $cache_record['wp_tc'] = '';
+             $cache_record['wp_nc'] = '';
+             $cache_record['wp_nc'] = '';
+             $cache_record['wp_gc'] = '';
+			}	
 			if($cache_record['wp_ge'] != '')
 				$listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp='.$cache_record['wp_ge'].'" target="_blank">GPSgames.org</a>';
 
