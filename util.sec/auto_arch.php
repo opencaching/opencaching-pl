@@ -82,7 +82,7 @@ class AutoArch
 //				echo " cache: <a href='http://www.opencaching.pl/viewcache.php?cacheid=".$linia['cache_id']."'>".$linia['name']."</a> użytkownik: ".$linia['username']."<br />";
 			}
 		// anulowanie procedury archiwizacji, jeśli opis skrzynki został zmodyfikowany w ciągu 6 miesięcy
-		$sql = "SELECT caches.cache_id FROM caches, cache_arch WHERE cache_arch.cache_id = caches.cache_id AND last_modified >= now() - interval 6 month";
+		$sql = "SELECT caches.cache_id FROM caches, cache_arch WHERE cache_arch.cache_id = caches.cache_id AND last_modified >= now() - interval 4 month";
 		$result = mysql_query($sql);
 		while($rs = mysql_fetch_array($result))
 		{
