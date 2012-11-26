@@ -654,11 +654,11 @@
 					{
 						if ($cache_difficulty == $i)
 						{
-							$difficulty_options .= '<option value="' . $i . '" selected="selected">' . $i / 2 . '</options>';
+							$difficulty_options .= '<option value="' . $i . '" selected="selected">' . $i / 2 . '</option>';
 						}
 						else
 						{
-							$difficulty_options .= '<option value="' . $i . '">' . $i / 2 . '</options>';
+							$difficulty_options .= '<option value="' . $i . '">' . $i / 2 . '</option>';
 						}
 						$difficulty_options .= "\n";
 					}
@@ -670,11 +670,11 @@
 					{
 						if ($cache_terrain == $i)
 						{
-							$terrain_options .= '<option value="' . $i . '" selected="selected">' . $i / 2 . '</options>';
+							$terrain_options .= '<option value="' . $i . '" selected="selected">' . $i / 2 . '</option>';
 						}
 						else
 						{
-							$terrain_options .= '<option value="' . $i . '">' . $i / 2 . '</options>';
+							$terrain_options .= '<option value="' . $i . '">' . $i / 2 . '</option>';
 						}
 						$terrain_options .= "\n";
 					}
@@ -761,7 +761,7 @@
 
 						$edit_url = 'editdesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
 
-						$cache_descs .= '<tr><td colspan="2"><img src="images/flags/'.strtolower($desclang).'.gif" class="icon16" alt=""  />&nbsp;' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" border="0" alt="" title="Edit" /> [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '">' . $edit . '</a>]' . $removedesc . '</td></tr>';
+						$cache_descs .= '<tr><td colspan="2"><img src="images/flags/'.strtolower($desclang).'.gif" class="icon16" alt=""  />&nbsp;' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" alt="" title="Edit" /> [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '">' . $edit . '</a>]' . $removedesc . '</td></tr>';
 					}
 					tpl_set_var('cache_descs', $cache_descs);
 

@@ -225,13 +225,6 @@ function toggleAttr(id)
 			
 		</td>
 	</tr>
-	</table>
-        <table class="table">
-        	<colgroup>
-		<col width="180"/>
-		<col/>
-	</colgroup>
-
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr><td><p class="content-title-noshade">{{difficulty_level}}:</p></td>
 		<td>
@@ -290,6 +283,7 @@ function toggleAttr(id)
 	<tr>
 	<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;">{{attributes_edit_hint}} {{attributes_desc_hint}}</div>
 	</td></tr>
+	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p></div>
 			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt="" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}">{{add_new_desc}}</a></p>
@@ -321,7 +315,7 @@ function toggleAttr(id)
 	{waypoints_end}
 
 	<tr><td class="buffer" colspan="2"></td></tr>
-
+	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt=""/>&nbsp;&nbsp;{{pictures_label}}</p></div>
 			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2">{{add_new_pict}}</a></p>
@@ -349,8 +343,6 @@ function toggleAttr(id)
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
-			</div>
-
 	<tr>
 		<td colspan="2">
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">

@@ -794,7 +794,7 @@ region_from_coord Województwo z współrzędnych
 select_regions Wybierz województwo
 not_applicable Nie stosowane
 input_coord Proszę podać współrzędne lokalizacji skrzynki
-waypoints_about_info <a class="links" http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a>
+waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a>
 cache_pictures Obrazk związany z skrzynką
 log_pictures Obrazek dla wpisu w LOGu
 no_title Brak tytułu

@@ -43,17 +43,17 @@ $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
 	$mp3line = '<tr><td colspan="2"><img src="tpl/stdstyle/images/free_icons/sound.png" class="icon32" alt=""  />&nbsp;<a href="{link}">{title}</a>&nbsp;&nbsp;<img src="images/actions/edit-16.png"  align="middle"  alt="" title="" /> [<a href="editmp3.php?uuid={uuid}">'.$edit.'</a>] <img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="" />[<a href="removemp3.php?uuid={uuid}">'.$remove.'</a>]</td></tr>';
 	$mp3lines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';
 
-	$nowp = '<tr><td colspan="2"><div class="notice">Nie ma dodatkowych waypointów dla skrzynki</div></td></tr>';
+	$nowp = '<div class="notice">Nie ma dodatkowych waypointów dla skrzynki</div>';
 	$wpline='<tr>{stagehide_start}<td align="center" valign="middle"><center>{number}</center></td>{stagehide_end}<td align="center" valign="middle"><center><img src="{wp_icon}" alt="" title="{type}" /></center></td><td align="center" valign="middle">{type}</td><td align="center" valign="middle"><b><span style="color: rgb(88,144,168)">{lat}<br />{lon}</span></b></td><td align="center" valign="middle">{desc}</td><td align="center" valign="middle"><center><img src="{status}" alt="" title="Status" /></center></td><td align="center" valign="middle"><center><a class="links" href="editwp.php?wpid={wpid}"><img src="images/actions/edit-16.png" alt="" title="Edit WP" /></a></center></td><td align="center" valign="middle"><center><a class="links" href="editwp.php?wpid={wpid}&delete" onclick="return confirm(\'Czy usunąć ten waypoint?\');"><img src="tpl/stdstyle/images/log/16x16-trash.png" align="middle" class="icon16" alt="" title="Usuń WP" /></a></center></td> </tr>';
 
 
 	$cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
-	$cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})" />&nbsp;';
+	$cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})" /> ';
 
 	$default_lang = $lang;
 
 	 $activation_form = '
-		<td colspan="2">		
+		<tr><td colspan="2">		
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
 			<legend>&nbsp; <strong>'.tr("submit_new_cache").'</strong> &nbsp;</legend>
 				<input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}>&nbsp;<label for="publish_now">Publikuj teraz</label><br />
