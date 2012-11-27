@@ -24,17 +24,10 @@
 				if (mysql_num_rows($rs) != 0) 
 				{
 					$ilosc=mysql_num_rows($rs);
-					if ( $ilosc==1 ) 
+					$linia="Znaleziono $ilosc kont(a)</BR><UL>";
+					while ($record = sql_fetch_array($rs))
 					{
-						$linia='';
-						$record = sql_fetch_array($rs);
-						tpl_redirect('viewprofile.php?userid=' . htmlspecialchars($record['user_id'], ENT_COMPAT, 'UTF-8'));
-					} else {
-						$linia="Znaleziono $ilosc kont(a)</BR><UL>";
-						while ($record = sql_fetch_array($rs))
-						{
-							$linia.= "<LI><A HREF='viewprofile.php?userid=" . htmlspecialchars($record['user_id'], ENT_COMPAT, 'UTF-8') . "'>" . htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8') . "</A></LI>";
-						};
+						$linia.= "<LI><A HREF='viewprofile.php?userid=" . htmlspecialchars($record['user_id'], ENT_COMPAT, 'UTF-8') . "'>" . htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8') . "</A></LI>";
 					};
 					tpl_set_var('username', '');
 					tpl_set_var('not_found', $linia);
