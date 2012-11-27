@@ -19,7 +19,7 @@
 			}
 			if ($options['username'] != '') 
 			{
-				$query = "SELECT user_id, username FROM user WHERE username LIKE '%" . sql_escape($options['username']) . "%'";;
+				$query = "SELECT user_id, username FROM user WHERE username LIKE '%" . sql_escape($options['username']) . "%' ORDER BY username ASC";;
 				$rs = sql($query);
 				if (mysql_num_rows($rs) != 0) 
 				{
