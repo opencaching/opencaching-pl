@@ -199,8 +199,9 @@
 				unset($_SESSION['print_list'][onTheList($_SESSION['print_list'], $cache_id)]);
 			$_SESSION['print_list'] = array_values($_SESSION['print_list']);
 		}
-
-		if ($cache_id != 0 && (($cache_record['status'] != 4 && $cache_record['status'] != 5 && ($cache_record['status'] != 6 /*|| $cache_record['type'] == 6*/))|| $usr['userid'] == $cache_record['user_id'] || $usr['admin'] ))
+		$guru=sqlvalue("SELECT `guru` FROM `user` WHERE `user_id` = '" . sql_escape($usr['userid']) . "' LIMIT 1",0);
+	
+		if ($cache_id != 0 && (($cache_record['status'] != 4 && $cache_record['status'] != 5 && ($cache_record['status'] != 6 /*|| $cache_record['type'] == 6*/))|| $usr['userid'] == $cache_record['user_id'] || $usr['admin'] || ( $cache_record['status'] == 4 && $guru )))
 		{
 			//ok, cache is here, let's process
 			$owner_id = $cache_record['user_id'];
