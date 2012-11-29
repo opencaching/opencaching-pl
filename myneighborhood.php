@@ -316,32 +316,14 @@ tpl_set_var('distance',$distance);
 				AND `caches`.`date_created` <= NOW() 
 				AND `caches`.`date_hidden` <= NOW() 
 			ORDER BY `date` DESC, `caches`.`cache_id` DESC
-			LIMIT 0 , 10");
+			LIMIT 0 , 11");
 
-	$rsc =sql("SELECT `user`.`user_id` `user_id`,
-				`user`.`username` `username`,
-				`caches`.`cache_id` `cache_id`,
-				`caches`.`name` `name`,
-				`caches`.`longitude` `longitude`,
-				`caches`.`latitude` `latitude`,
-				`caches`.`date_hidden` `date_hidden`,
-				`caches`.`date_created` `date_created`,
-				IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
-				`caches`.`country` `country`,
-				`caches`.`difficulty` `difficulty`,
-				`caches`.`terrain` `terrain`,
-				`cache_type`.`icon_large` `icon_large`
-			FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
-			WHERE `caches`.`type`!=6
-				AND `caches`.`status`=1
-				AND `caches`.`type`=`cache_type`.`id`
-				AND `caches`.`date_created` <= NOW() 
-				AND `caches`.`date_hidden` <= NOW() 
-			ORDER BY `date` DESC, `caches`.`cache_id` DESC");
-	if (mysql_num_rows($rsc) > 10) {tpl_set_var('more_caches','<a class="links" href="myn_newcaches.php">['.tr("show_more").'...]</a>');}
-	mysql_free_result($rsc);
-	
-	if (mysql_num_rows($rs) == 0)
+	if (mysql_num_rows($rs) > 10) 
+	{
+		tpl_set_var('more_caches','<a class="links" href="myn_newcaches.php">['.tr("show_more").'...]</a>');
+		$limit=10;
+	} else $limit=mysql_num_rows($rs);	
+	if ($limit == 0)
 	{
 		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br>";
 	}
@@ -353,7 +335,7 @@ tpl_set_var('distance',$distance);
 			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a></b>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
-	for ($i = 0; $i < mysql_num_rows($rs); $i++)
+	for ($i = 0; $i < $limit; $i++)
 	{
 		$record = sql_fetch_array($rs);
 
@@ -401,30 +383,15 @@ tpl_set_var('distance',$distance);
 			  AND `caches`.`type`=`cache_type`.`id`
 			  AND `caches`.`founds`=0 
 			ORDER BY `date` DESC, `caches`.`cache_id` DESC
-			LIMIT 0 , 10");
-	$rsftf =sql("SELECT `user`.`user_id` `user_id`,
-				`user`.`username` `username`,
-				`caches`.`cache_id` `cache_id`,
-				`caches`.`name` `name`,
-				`caches`.`longitude` `longitude`,
-				`caches`.`latitude` `latitude`,
-				`caches`.`date_hidden` `date`,
-				`caches`.`date_created` `date_created`,
-				`caches`.`country` `country`,
-				`caches`.`difficulty` `difficulty`,
-				`caches`.`terrain` `terrain`,
-				`cache_type`.`icon_large` `icon_large`
-        FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
-        WHERE `caches`.`type`!=6
-			  AND `caches`.`status`=1
-			  AND `caches`.`type`=`cache_type`.`id`
-			  AND `caches`.`founds`=0 
-			ORDER BY `date` DESC, `caches`.`cache_id` DESC");
-	if (mysql_num_rows($rsftf) > 10) {tpl_set_var('more_ftf','<a class="links" href="myn_ftf.php">['.tr("show_more").'...]</a>');}
-	mysql_free_result($rsftf);
+			LIMIT 0 , 11");
 
+	if (mysql_num_rows($rs) > 10) 
+	{
+		tpl_set_var('more_ftf','<a class="links" href="myn_ftf.php">['.tr("show_more").'...]</a>');
+		$limit=10;
+	} else $limit=mysql_num_rows($rs);
 		
-	if (mysql_num_rows($rs) == 0)
+	if ($limit == 0)
 	{
 		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br>";
 	}
@@ -436,7 +403,7 @@ tpl_set_var('distance',$distance);
 			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a></b>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
-	for ($i = 0; $i < mysql_num_rows($rs); $i++)
+	for ($i = 0; $i < $limit; $i++)
 	{
 		$record = sql_fetch_array($rs);
 
@@ -485,32 +452,15 @@ tpl_set_var('distance',$distance);
 			  AND `caches`.`status`=1
 			  AND `caches`.`type`=`cache_type`.`id`
 			  GROUP BY `caches`.`cache_id`
-			ORDER BY `toprate` DESC, `caches`.`name` ASC LIMIT 0 , 10");
-			
-	$rstr1 =sql("SELECT `user`.`user_id` `user_id`,
-				`user`.`username` `username`,
-				`caches`.`cache_id` `cache_id`,
-				`caches`.`name` `name`,
-				`caches`.`longitude` `longitude`,
-				`caches`.`latitude` `latitude`,
-				`caches`.`date_hidden` `date`,
-				`caches`.`date_created` `date_created`,
-				`caches`.`country` `country`,
-				`caches`.`difficulty` `difficulty`,
-				`caches`.`terrain` `terrain`,
-				`cache_type`.`icon_large` `icon_large`,
-				count(`cache_rating`.`cache_id`) `toprate`
-        FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`) LEFT JOIN `cache_rating` ON (`caches`.`cache_id`=`cache_rating`.`cache_id`), `cache_type`
-        WHERE `caches`.`type`!=6
-			AND `cache_rating`.`cache_id`=`caches`.`cache_id`
-			  AND `caches`.`status`=1
-			  AND `caches`.`type`=`cache_type`.`id`
-			  GROUP BY `caches`.`cache_id`
-			ORDER BY `toprate` DESC, `caches`.`name` ASC");	 
-	if (mysql_num_rows($rstr1) > 10) {tpl_set_var('more_topcaches','<a class="links" href="myn_topcaches.php">['.tr("show_more").'...]</a>');}
-	mysql_free_result($rstr1);
+			ORDER BY `toprate` DESC, `caches`.`name` ASC LIMIT 0 , 11");		
+ 
+	if (mysql_num_rows($rstr) > 10) 
+	{
+		tpl_set_var('more_topcaches','<a class="links" href="myn_topcaches.php">['.tr("show_more").'...]</a>');
+		$limit=10;
+	} else $limit=mysql_num_rows($rstr);
 	
-	if (mysql_num_rows($rstr) == 0)
+	if ($limit == 0)
 	{
 		$file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br>";
 	}
@@ -522,7 +472,7 @@ tpl_set_var('distance',$distance);
 			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;<span style="font-weight:bold;color: green;">[{toprate}]</span>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a></b>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
-	for ($i = 0; $i < mysql_num_rows($rstr); $i++)
+	for ($i = 0; $i < $limit; $i++)
 	{
 		$record = sql_fetch_array($rstr);
 
