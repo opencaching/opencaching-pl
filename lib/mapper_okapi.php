@@ -6,6 +6,9 @@
 #
 # All mapper_* scripts take the same set of parameters (more or less).
 # This way, they can be interchangable.
+#
+# Please note, that this file is NOT part of the official API. It may
+# stop working at any time.
 
 $rootpath = "../";
 
@@ -18,13 +21,16 @@ require_once($rootpath.'okapi/facade.php');
 
 # mapper.php/mapper.fcgi used to take the following parameters:
 #
-# [Still supported by mapper_okapi.php]
+# [mapper.fcgi params supported by mapper_okapi.php]
 # x, y, z, userid, h_ignored, h_temp_unavail, h_arch, h_avail, be_ftf,
 # min_score, max_score, h_nogeokret, cache types 1..8 "h_*": h_u,t,m,v,w,e,q,o,
 # h_own, h_found, h_noattempt (->not_found_by), h_noscore, searchdata.
 #
-# [Currently not supported by mapper_okapi.php]
+# [mapper.fcgi params NOT supported by mapper_okapi.php]
 # sc, signes, h_pl, h_de, mapid, waypoints.
+#
+# [extra params, not supported by mapper.fcgi]
+# All parameters prefixed with "okapi_".
 
 $params = array();
 $force_result_empty = false;
@@ -36,6 +42,7 @@ $params['y'] = $_GET['y'];
 $params['z'] = $_GET['z'];
 
 # userid - we will simulate an OAuth call in the name of this user.
+# WRTODO: There seems to be a privacy issue here.
 
 $user_id = $_GET['userid'];
 
@@ -190,6 +197,14 @@ else  # Mode 1 - without "searchdata".
 		$params['found_status'] = "either";
 	else
 		$force_result_empty = true;
+	
+	# All other parameters prefixed with "okapi_".
+	
+	foreach ($_GET as $key => $value)
+	{
+		if (strpos($key, "okapi_") === 0)
+			$params[substr($key, 6)] = $value;
+	}
 }
 
 #
