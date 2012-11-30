@@ -104,7 +104,7 @@
 	//$search_all_cachetypes = '<option value="" selected="selected">Wszystkie typy skrzynek</option>';
 
 	$cache_attrib_jsarray_line = "new Array('{id}', {state}, '{text_long}', '{icon}', '{icon_no}', '{icon_undef}', '{category}')";
-	$cache_attrib_img_line = '<img id="attrimg{id}" src="{icon}" title="{text_long}" alt="{text_long}" onmousedown="switchAttribute({id})" style="cursor: pointer;" />&nbsp;';
+	$cache_attrib_img_line = '<img id="attrimg{id}" src="{icon}" title="{text_long}" alt="{text_long}" onmousedown="switchAttribute({id})" style="cursor: pointer;" /> ';
 
 function dateDiff($interval, $dateTimeBegin, $dateTimeEnd)
 {
