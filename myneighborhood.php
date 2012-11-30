@@ -257,7 +257,7 @@ tpl_set_var('distance',$distance);
 				sql('DROP TEMPORARY TABLE IF EXISTS local_caches');							
 				sql('CREATE TEMPORARY TABLE local_caches ENGINE=MEMORY 
 										SELECT 
-											(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
+											(' . getSqlDistanceFormula($lon, $lat, $distance, 1) . ') AS `distance`,
 											`caches`.`cache_id` AS `cache_id`,
 											`caches`.`wp_oc` AS `wp_oc`,
 											`caches`.`type` AS `type`,
@@ -307,6 +307,7 @@ tpl_set_var('distance',$distance);
 				IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
 				`caches`.`country` `country`,
 				`caches`.`difficulty` `difficulty`,
+				`caches`.`distance` `distance`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
         FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
@@ -332,7 +333,7 @@ tpl_set_var('distance',$distance);
 	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
-			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a></b>';
+			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="odleglosc" />&nbsp;{distance}&nbsp;km</b>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
 	for ($i = 0; $i < $limit; $i++)
@@ -352,6 +353,7 @@ tpl_set_var('distance',$distance);
 		$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
 		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
+		$thisline = mb_ereg_replace('{distance}', number_format($record['distance'], 1, ',', ''), $thisline);		
 		$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
 		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$latitude,$longitude), $thisline);
 
@@ -375,6 +377,7 @@ tpl_set_var('distance',$distance);
 				`caches`.`date_created` `date_created`,
 				`caches`.`country` `country`,
 				`caches`.`difficulty` `difficulty`,
+				`caches`.`distance` `distance`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
         FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type` 
@@ -400,7 +403,7 @@ tpl_set_var('distance',$distance);
 	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
-			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a></b>';
+			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="odleglosc" />&nbsp;{distance}&nbsp;km</b>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
 	for ($i = 0; $i < $limit; $i++)
@@ -420,6 +423,7 @@ tpl_set_var('distance',$distance);
 		$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
 		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
+		$thisline = mb_ereg_replace('{distance}', number_format($record['distance'], 1, ',', ''), $thisline);		
 		$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
 //		$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i,$latitude,$longitude), $thisline);
 
@@ -514,6 +518,7 @@ tpl_set_var('distance',$distance);
 				`caches`.`date_created` `date_created`,
 				`caches`.`country` `country`,
 				`caches`.`difficulty` `difficulty`,
+				`local_caches`.`distance` `distance`,
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`
         FROM `caches`, `user`, `cache_type`,local_caches
@@ -535,7 +540,7 @@ tpl_set_var('distance',$distance);
 	}
 	else
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a></li>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="odleglosc" />&nbsp;{distance}&nbsp;km</li>';
 		$file_content = '<ul style="font-size: 11px;">';
 		for ($i = 0; $i < mysql_num_rows($rss); $i++)
 		{
@@ -553,6 +558,7 @@ tpl_set_var('distance',$distance);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
 			$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
+			$thisline = mb_ereg_replace('{distance}', number_format($record['distance'], 1, ',', ''), $thisline);		
 			$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
 			$thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/22x22-event.png', $thisline);
 			$thisline = mb_ereg_replace('{smallmapurl}', create_map_url($markerpositions, $i + $markerpositions['plain_cache_num'],$latitude,$longitude), $thisline);
