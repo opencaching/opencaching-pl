@@ -333,7 +333,7 @@ tpl_set_var('distance',$distance);
 	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
-			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="odleglosc" />&nbsp;{distance}&nbsp;km</b>';
+			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a> (&nbsp;{distance}&nbsp;km&nbsp;)</b>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
 	for ($i = 0; $i < $limit; $i++)
@@ -403,7 +403,7 @@ tpl_set_var('distance',$distance);
 	
 	$cacheline =	'<li class="newcache_list_multi" style="margin-bottom:8px;">' .
 			'<img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;' .
-			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="odleglosc" />&nbsp;{distance}&nbsp;km</b>';
+			'<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a> (&nbsp;{distance}&nbsp;km&nbsp;)</b>';
 	
 	$file_content = '<ul style="font-size: 11px;">';
 	for ($i = 0; $i < $limit; $i++)
@@ -540,7 +540,7 @@ tpl_set_var('distance',$distance);
 	}
 	else
 	{
-		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a>&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="odleglosc" />&nbsp;{distance}&nbsp;km</li>';
+		$cacheline = '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;{date}&nbsp;<a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;<a class="links" href="viewprofile.php?userid={userid}">{username}</a> (&nbsp;{distance}&nbsp;km&nbsp;)</li>';
 		$file_content = '<ul style="font-size: 11px;">';
 		for ($i = 0; $i < mysql_num_rows($rss); $i++)
 		{
