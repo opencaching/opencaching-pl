@@ -108,7 +108,7 @@ $radius=$distance;
 				sql('DROP TEMPORARY TABLE IF EXISTS local_caches'.$user_id.'');							
 				sql('CREATE TEMPORARY TABLE local_caches'.$user_id.' ENGINE=MEMORY 
 										SELECT 
-											(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
+											(' . getSqlDistanceFormula($lon, $lat, $distance, 1) . ') AS `distance`,
 											`caches`.`cache_id` AS `cache_id`,
 											`caches`.`wp_oc` AS `wp_oc`,
 											`caches`.`type` AS `type`,
