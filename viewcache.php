@@ -449,10 +449,11 @@
 			if ($cache_record['type']==8)
 			    {
 			     tpl_set_var('moved_icon', $moved_icon);
-			     $moved =  sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND cache_id='" . sql_escape($_REQUEST['cacheid']) . "'", 0);
+				 /*if (!isset($_REQUEST['cacheid'])) $OpencacheID = $cache_id */
+			     $moved =  sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE type=4 AND cache_logs.deleted='0' AND cache_id='" .  $cache_id /*sql_escape($_REQUEST['cacheid']) */. "'", 0);
 			
                  // calculate mobile cache distance 
-                 $dst = mysql_fetch_assoc(mysql_query("SELECT sum(km) AS dystans FROM cache_moved WHERE cache_id=" . sql_escape($_REQUEST['cacheid']) ));
+                 $dst = mysql_fetch_assoc(mysql_query("SELECT sum(km) AS dystans FROM cache_moved WHERE cache_id=" . $cache_id /*sql_escape($_REQUEST['cacheid'])*/ ));
 			     $dystans = round($dst['dystans'], 2);
 
 				 
@@ -1438,8 +1439,7 @@
 					$print_list_label = $removeFromPrintList;
 					$print_list_icon = 'images/actions/list-remove';
 				}
-
-
+				
 				$cache_menu = array(
 					'title' => tr('cache_menu'),
 					'menustring' => tr('cache_menu'),
