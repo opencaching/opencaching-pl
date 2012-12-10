@@ -209,7 +209,7 @@ function toggleAttr(id)
 		
 	</tr></table>
 		
-	<table id="regions" style="display:block;">
+	<table id="regions" class="table">
 		  	<colgroup>
 		<col width="180"/>
 		<col/>
@@ -225,6 +225,12 @@ function toggleAttr(id)
 			
 		</td>
 	</tr>
+	</table>
+	<table class="table">
+		  	<colgroup>
+		<col width="180"/>
+		<col/>
+	</colgroup>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr><td><p class="content-title-noshade">{{difficulty_level}}:</p></td>
 		<td>
