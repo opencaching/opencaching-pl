@@ -215,11 +215,13 @@ else  # Mode 1 - without "searchdata".
 
 if ($force_result_empty)
 	die();
+if (!$user_id)
+	die();
 
 # End of "buggy" code. Re-enable OKAPI's error handler.
 
 \okapi\OkapiErrorHandler::reenable();
-	
+
 # Get OKAPI's response and display it. Add proper Cache-Control headers.
 
 \okapi\Facade::service_display('services/caches/map/tile', $user_id, $params);
