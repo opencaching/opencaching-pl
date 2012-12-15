@@ -111,7 +111,7 @@ class GetRegions
 			{
 				$code4 = $sCode;
 				$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-				$re = one_from_mysql($opt, $q);
+				$re = $this::one_from_mysql($opt, $q);
 				$adm4 = $re["name"];
 				unset ($re, $q);
 
