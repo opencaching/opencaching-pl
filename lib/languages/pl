@@ -918,7 +918,7 @@ GKApi01 Integracja konta OC z Geokretami
 GKApi02 Geokrety Secid:
 GKApi03 Aby zintegrować konto Opencaching.pl ze swoim kontem na Geokrety.org przeklej tu swój <b>Secid</b>. <b>Secid</b> znajdziesz na stronie geokretów w szczegółach swojego konta. 
 GKApi04 (Tutaj)
-GKApi05 Jednoczesne logowanie Geokretów z Twojego inwentarza: 
+GKApi05 Jednoczesne logowanie Geokretów z Twojego inwentarza: (wersja Beta, może jeszcze nie działać..)
 GKApi06 Zaloguj jednocześnie GeoKrety
 GKApi07 Ta funkcja wymaga integracji konta OC z kontem Geokretów. Twoje konto OC nie jest w tej chwili skonfigurowane do współpracy z GeoKretami. 
 GKApi08 Aby zintegrować konto OC z Geokretami: 
