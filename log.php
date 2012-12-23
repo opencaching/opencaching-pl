@@ -258,6 +258,29 @@
 				else
 					tpl_set_var('log_geokret', "");
 				
+				/*GeoKretApi selector for logging Geokrets using GeoKretyApi*/
+				require_once 'GeoKretyAPI.php';
+				
+				$GKAPIKeyQuery = sql("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` ='&1'", $usr['userid']);
+				if (mysql_num_rows($GKAPIKeyQuery) > 0)	
+				{
+					tpl_set_var('GeoKretyApiNotConfigured', 'none');
+				    tpl_set_var('GeoKretyApiConfigured', 'block');
+				    $secid = mysql_result($GKAPIKeyQuery, 0); 
+				     
+				    $GeoKretSelector = new GeoKretyApi($secid);
+				    $GKSelect = $GeoKretSelector->MakeGeokretSelector();
+				    tpl_set_var('GeoKretApiSelector', $GKSelect);
+				}
+				else
+				{
+				   tpl_set_var('GeoKretyApiNotConfigured', 'block');
+				   tpl_set_var('GeoKretyApiConfigured', 'none');
+				   tpl_set_var('GeoKretApiSelector', '');
+				}
+				
+				
+				
 				// descMode auslesen, falls nicht gesetzt aus dem Profil laden
 				if (isset($_POST['descMode']))
 					$descMode = $_POST['descMode']+0;
@@ -456,10 +479,11 @@
 					{
 						if ($log_type == 1)
 						{
-					    $log_text = sql_escape($log_text);
-						($descMode != 1) ? $dmde_1=1 : $dmde_1=0;
-						($descMode == 3) ? $dmde_2=1 : $dmde_2=0;
-						$dadadad = mysql_query("INSERT INTO `cache_logs` ( 
+					     $log_text = sql_escape($log_text);
+						 ($descMode != 1) ? $dmde_1=1 : $dmde_1=0;
+						 ($descMode == 3) ? $dmde_2=1 : $dmde_2=0;
+						
+						 $dadadad = mysql_query("INSERT INTO `cache_logs` ( 
 						                           `cache_id`, 
 						                           `user_id`, 
 						                           `type`, 
@@ -489,6 +513,44 @@
 													AND `cache_id` = '$cache_id' 
 													AND `deleted` = '0')
 						       LIMIT 1") or die (mysql_error());
+						
+						 
+						 /*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
+						 require_once 'GeoKretyAPI.php';
+						 /*
+						  echo '<pre>';
+						 print_r ($_POST);
+						 echo '</pre>';
+						 */
+						 $LogGeokrety = New GeoKretyApi($secid);
+						 $DbConWpt = New DbPdoConnect;
+						 $cwpt = $DbConWpt->DbPdoConnect("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = $cache_id");
+						 $cache_waypt = ($cwpt["wp_oc"]);
+						 
+						 foreach ($_POST['GeoKretIDAction'] as $key => $value )
+						 {
+						 	if ($value['action'] > -1)
+						 	{
+						 		$GeokretyLogArray =
+						 		array(
+						 				'secid'   => 'e6MdMSRIcHkEbf0uSNq7mOdmoTyjfBSOVg23uXrs8mxM183xV2lHaMaWKVDsWAlpdhdPSbU3abjSlDO1KNQs2TCnQ1NuGR0f06PwyU6A83asTcpsLB3SMYUOpmDYVv3q',
+						 				'nr'      => $value['nr'],
+						 				'formname'=> 'ruchy',
+						 				'logtype' => $value['action'], #0 = Dropped to; 1 = Grabbed from; 2 = comment; 3 = Seen in; 4 = Archived; 5 = Visiting;
+						 				'data'    => $log_date_year.'-'.$log_date_month.'-'.$log_date_day,
+						 				'godzina' => $log_date_hour,
+						 				'minuta'  => $log_date_min,
+						 				'comment' => '(synchro z serwisu www.opencaching.pl)',
+						 				'wpt'     => $cache_waypt,
+						 				'app'     => 'Opencaching',
+						 				'app_ver' => 'PL'
+						 		);
+						 		
+						 		$LogGeokrety->LogGeokrety($GeokretyLogArray);
+						 	}
+						 }
+						 /*end calling method logging selected Geokrets with GeoKretyApi*/
+						 
 						}
 						else 
 						{	
@@ -496,7 +558,7 @@
 										 VALUES        ('',   '&1',       '&2',      '&3',   '&4',  '&5',   '&6',         '&7', NOW(), NOW(), '&8', '&9')",
 										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid);
 						}
-                        
+						
 						// mobline by Łza (mobile caches)
 						
 						// insert to database.

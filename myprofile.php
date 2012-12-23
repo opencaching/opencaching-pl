@@ -21,6 +21,7 @@
  ****************************************************************************/
 
 	//prepare the templates and include all neccessary
+	if (!isset($rootpath)) $rootpath = ''; 
 	require_once('./lib/common.inc.php');
 
 	//Preprocessing
@@ -36,7 +37,6 @@
 		else
 		{
 			tpl_set_var('desc_updated', '');
-			
 			if( isset($_POST['description']) )
 			{
 				$sql = "UPDATE user SET description = '".strip_tags(sql_escape($_POST['description']))."' WHERE user_id='".sql_escape($usr['userid'])."'";
@@ -108,6 +108,16 @@
 			tpl_set_var('coords', htmlspecialchars(help_latToDegreeStr($record['latitude']), ENT_COMPAT, 'UTF-8') . '<br />' . htmlspecialchars(help_lonToDegreeStr($record['longitude']), ENT_COMPAT, 'UTF-8'));
 			tpl_set_var('registered_since', fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date_created'])), ENT_COMPAT, 'UTF-8')));
 			tpl_set_var('notify_radius', htmlspecialchars($record['notify_radius'] + 0, ENT_COMPAT, 'UTF-8'));
+			
+			/*GeoKretyApi - display if secid from geokrety is set; (by Łza) */
+			$GKAPIKeyQuery = sql("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` ='&1'", $usr['userid']);
+			$GKAPIKeyrecord = sql_fetch_array($GKAPIKeyQuery);
+			tpl_set_var('GeoKretyApiSecid', $GKAPIKeyrecord['secid']);
+			
+			if (mysql_num_rows($GKAPIKeyQuery) > 0)	tpl_set_var('GeoKretyApiIntegration', 'TAK');
+			else tpl_set_var('GeoKretyApiIntegration', 'NIE');
+			/* end of GeoKretyApi*/
+			
 			if($record['notify_radius'] + 0 > 0)
 			{
 				tpl_set_var('notify', mb_ereg_replace('{radius}', $record['notify_radius'] + 0, $notify_radius_message));
@@ -233,6 +243,8 @@
 						$lon_h = $_POST['lon_h'];
 						$lon_min = $_POST['lon_min'];
 
+						$GeoKretyApiSecid = mysql_real_escape_string($_POST['GeoKretyApiSecid']);
+
 						tpl_set_var('username', $username);
 						
 						tpl_set_var('notify_radius', $radius);
@@ -249,6 +261,23 @@
 						{
 							// username should not be formatted like an email-address
 							$username_not_ok = is_valid_email_address($username) ? true : false;
+						}
+						
+						/*GeoKretyApi validate secid*/
+						if ((strlen($GeoKretyApiSecid) != 128))
+						{
+							tpl_set_var('secid_message', tr('GKApi11'));
+							$secid_not_ok = true;
+						}
+						else 
+						{
+							$secid_not_ok = false;
+						    tpl_set_var('secid_message', '');
+						}
+						if ($GeoKretyApiSecid == '')
+						{
+							$secid_not_ok = false;
+							tpl_set_var('secid_message', '');
 						}
 
 						//check coordinates
@@ -399,8 +428,24 @@
 								$username_exists ||
 								$lon_not_ok ||
 								$lat_not_ok ||
-								$radius_not_ok))
+								$radius_not_ok ||
+								$secid_not_ok))
 							{
+								
+
+								/*GeoKretyApi by Łza*/
+								/*insert or update in database user secid from Geokrety*/
+								if (strlen($GeoKretyApiSecid)== 128) 
+								{
+									mysql_query("insert into `GeoKretyAPI` (`userID`, `secid`) values (".$usr['userid'].",'$GeoKretyApiSecid') on duplicate key update `secid`='$GeoKretyApiSecid'") or die(mysql_error());
+									tpl_set_var('GeoKretyApiIntegration', 'TAK');
+								}
+								if ($GeoKretyApiSecid == '') 
+								{
+									mysql_query("DELETE FROM `GeoKretyAPI` WHERE `userID` = ".$usr['userid'] );
+									tpl_set_var('GeoKretyApiIntegration', 'NIE');
+								}
+									
 								//in DB updaten
 								sql("UPDATE `user` SET `username`='&1', `last_modified`=NOW(), `latitude`='&2', `longitude`='&3', `pmr_flag`='&4', `country`='&5', `permanent_login_flag`='&6', `no_htmledit_flag`='&8' , `notify_radius`='&9', `ozi_filips`='&10',`guru`='&11' WHERE `user_id`='&7'", $username, $latitude, $longitude, $using_pmr, $country, $using_permantent_login, $usr['userid'], $no_htmledit, $radius, $ozi_path,$guide);
 
@@ -411,6 +456,8 @@
 								tpl_set_var('country', htmlspecialchars(db_CountryFromShort($country), ENT_COMPAT, 'UTF-8'));
 								tpl_set_var('coords', htmlspecialchars(help_latToDegreeStr($latitude), ENT_COMPAT, 'UTF-8') . '<br />' . htmlspecialchars(help_lonToDegreeStr($longitude), ENT_COMPAT, 'UTF-8'));
 
+
+								
 								if($radius + 0 > 0)
 								{
 									tpl_set_var('notify', mb_ereg_replace('{radius}', $radius + 0, $notify_radius_message));
@@ -530,6 +577,7 @@
 						tpl_set_var('lat_message', '');
 						tpl_set_var('lon_message', '');
 						tpl_set_var('notify_message', '');
+						tpl_set_var('secid_message', '');
 						
 
 					}

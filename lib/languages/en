@@ -874,4 +874,14 @@ viewlog_kordy Cache coordinates after cache has been moved.
 log_type_temp_unavailable temporarily unavailable
 log_type_available Ready to search
 log_mobile_init Starting coordinates
-
+GKApi01 Integration OC account with GeoKrety.org
+GKApi02 Geokrety Secid:
+GKApi03 To integrate your Opencaching.pl account with Geokrety.org account copy here your <b>Secid</b>. Your <b>Secid</b> you can find on geokrety page in your account details. 
+GKApi04 (Here)
+GKApi05 Log geoKrety from your inventory at once: 
+GKApi06 Log GeoKrety now
+GKApi07 This functionality require integration OC account with Geokrety account. Your OC profile is curently not configured to co-work with GeoKrety. 
+GKApi08 For integration OC account with Geokrety follow steps: 
+GKApi09 Copy your secid from geokrety web page 
+GKApi10 Paste it in your OC account data.
+GKApi11 Wrong secid 

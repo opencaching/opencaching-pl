@@ -43,6 +43,17 @@
 		<td class="content-title-noshade txt-grey07"><img src="tpl/stdstyle/images/free_icons/email.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{email_address}}:</font></td>
 		<td class="txt-grey07">{email}</td>
 	</tr>
+	<tr>
+		<td class"content-title-noshade txt-grey07"><img src="tpl/stdstyle/images/description/22x22-geokret.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{GKApi02}}:</font></td>
+		<td class="txt-grey07"><input type="text" name="GeoKretyApiSecid" maxlength="150" value="{GeoKretyApiSecid}" class="input200"/> <span style="color: red; font-weight:bold; font-size: 12;">{secid_message}</span></td>
+	
+	</tr>
+	<tr>
+	<td>&nbsp;</td>
+	<td>
+	<div class="notice" style="width:500px;height:44px;">{{GKApi03}} <a href="http://geokrety.org/mypage.php" "target=_new">{{GKApi04}}</a></div>
+	</td></tr>
+	
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td class="content-title-noshade"><img src="tpl/stdstyle/images/free_icons/world.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{country_label}}:</td>

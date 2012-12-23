@@ -168,6 +168,23 @@ function chkMoved()
 	  }
 }
 //-->
+
+function toggleGeoKrety() {
+	var GKBox = document.getElementById("toggleGeoKretyDIV");
+
+	if(GKBox.style.display == "block") 
+	 {
+		GKBox.style.display = "none";
+ 	 }
+	else 
+	 {
+		GKBox.style.display = "block";
+	 }
+} 
+
+
+
+
 </script>
 <form action="log.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" dir="ltr" onsubmit="return onSubmitHandler()">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
@@ -226,6 +243,26 @@ function chkMoved()
 		<td width="*">{score}<br/></td>
 	</tr>
 </table>
+<br />
+<!-- GeoKretyApi (by Łza) -->
+<div id="GeoKretyApi">
+ <p style="font-size: 12px;"><img src="tpl/stdstyle/images/description/22x22-geokret.png"> <a href="javascript:toggleGeoKrety();" class=links href="#">{{GKApi06}}</a>
+ <div id="toggleGeoKretyDIV" style="display: none">
+
+   <div style="display: {GeoKretyApiNotConfigured}; width: 500px; color: red; font-size: 12px;">
+     {{GKApi07}}{{GKApi08}}<br /><br />
+     1. {{GKApi09}} <a href="http://geokrety.org/mypage.php">{{GKApi04}}</a><br />
+     2. {{GKApi10}} <a href="myprofile.php?action=change">{{GKApi04}}</a>  <br />
+   </div>
+
+   <div style="display: {GeoKretyApiConfigured}">
+    <p style="color: darkgreen">{{GKApi05}}</p>
+    {GeoKretApiSelector}
+   </div>
+ </div>
+</div> 
+<!-- end of GeoKretyApi (by Łza) -->
+
 </div>
 
 	<!-- [Łza] logowanie keszynek mobilnych: nowe współrzędne  -->
@@ -255,13 +292,15 @@ function chkMoved()
 
 
 
-
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr>
 		<td colspan="2">
 			{log_geokret}
 		</td>
 	</tr>
+	
+
+	
 	<tr>
 		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
 	</tr>

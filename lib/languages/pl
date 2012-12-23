@@ -914,4 +914,17 @@ viewlog_kordy Współrzędne ukrycia keszynki po przeniesieniu
 log_type_temp_unavailable tymczasowo niedostępna
 log_type_available Gotowa do szukania
 log_mobile_init Punkt startowy kesza
-
+GKApi01 Integracja konta OC z Geokretami
+GKApi02 Geokrety Secid:
+GKApi03 Aby zintegrować konto Opencaching.pl ze swoim kontem na Geokrety.org przeklej tu swój <b>Secid</b>. <b>Secid</b> znajdziesz na stronie geokretów w szczegółach swojego konta. 
+GKApi04 (Tutaj)
+GKApi05 Jednoczesne logowanie Geokretów z Twojego inwentarza: 
+GKApi06 Zaloguj jednocześnie GeoKrety
+GKApi07 Ta funkcja wymaga integracji konta OC z kontem Geokretów. Twoje konto OC nie jest w tej chwili skonfigurowane do współpracy z GeoKretami. 
+GKApi08 Aby zintegrować konto OC z Geokretami: 
+GKApi09 Skopiuj swoje secid ze strony geokretów 
+GKApi10 Wklej je w ustwieniach swojego konta OC.
+GKApi11 Błędny secid 
+GKApi12 Wrzucono Geokreta
+GKApi13 Brak Akcji
+GKApi14 Kret Odwiedził
