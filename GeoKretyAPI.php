@@ -56,11 +56,11 @@ class GeoKretyApi
 	
 	public function LogGeokrety($GeokretyArray)
 	{ 
-		/*
-		print '<pre>';
-		print_r ($GeokretyArray);
-		print '</pre>';
-		*/
+
+		/* debug */
+		$debug =  '<pre>';
+		$debug .= print_r ($GeokretyArray);
+		$debug .= '</pre>';
 		
 	    $postdata = http_build_query($GeokretyArray);
 	
@@ -78,22 +78,24 @@ class GeoKretyApi
 		if (!$resultarray) 
 		{
 			$Tablica = print_r($GeokretyArray);
-			$message = "przechwycono Blad z GKApi\r\n \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocily nastepujący wynik: \r\n \r\n$result ";
+			$message = "przechwycono Blad z GKApi\r\n \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocily nastepujący wynik: \r\n \r\n $result ";
 			
-			// In case any of our lines are larger than 70 characters, we should use wordwrap()
-			$message = wordwrap($message, 70, "\r\n");
-
 			mail('rt@opencaching.pl', 'GeoKretyApi Error', $message);
 			// mail('user@localhost', 'GeoKretyApi Error', $message);
 
 		}
-		elseif ($GeokretyArray['wpt'] != $resultarray->geokrety->geokret->attributes()->state) return true;
+		
+		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $debug . $result );
+		
+		elseif ($GeokretyArray['wpt'] == $resultarray->geokrety->geokret->attributes()->waypoint) return true;
 		else return false;
+		
+		
 		
 		/*
 		print $result->geokrety->geokret->attributes()->state .'<br><br>';
 		print '<pre>';
-		print_r ($result);
+		print_r ($resultarray);
 		print '</pre>';
 		
 		exit;

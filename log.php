@@ -526,14 +526,15 @@
 						 $DbConWpt = New DbPdoConnect;
 						 $cwpt = $DbConWpt->DbPdoConnect("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = $cache_id");
 						 $cache_waypt = ($cwpt["wp_oc"]);
-						 
+						 $secidquery = $DbConWpt->DbPdoConnect("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` ='". $usr['userid']."' ");
+
 						 foreach ($_POST['GeoKretIDAction'] as $key => $value )
 						 {
 						 	if ($value['action'] > -1)
 						 	{
 						 		$GeokretyLogArray =
 						 		array(
-						 				'secid'   => 'e6MdMSRIcHkEbf0uSNq7mOdmoTyjfBSOVg23uXrs8mxM183xV2lHaMaWKVDsWAlpdhdPSbU3abjSlDO1KNQs2TCnQ1NuGR0f06PwyU6A83asTcpsLB3SMYUOpmDYVv3q',
+						 				'secid'   => $secidquery['secid'], # 'e6MdMSRIcHkEbf0uSNq7mOdmoTyjfBSOVg23uXrs8mxM183xV2lHaMaWKVDsWAlpdhdPSbU3abjSlDO1KNQs2TCnQ1NuGR0f06PwyU6A83asTcpsLB3SMYUOpmDYVv3q',
 						 				'nr'      => $value['nr'],
 						 				'formname'=> 'ruchy',
 						 				'logtype' => $value['action'], #0 = Dropped to; 1 = Grabbed from; 2 = comment; 3 = Seen in; 4 = Archived; 5 = Visiting;
