@@ -516,10 +516,10 @@
 						
 
 						 /*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
-						 mail('wloczynutka@gmail.com', 'GeoKretyApi debug', 'dane z posta: '.$_POST);
+						 $debug0 = print_r ($_POST, true);
+						 mail('wloczynutka@gmail.com', 'GeoKretyApi debug', 'dane z posta: '.$debug0);
 						 if (isset ($_POST['GeoKretIDAction']))
 						 {
-						  mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $_POST);
 						  require_once 'GeoKretyAPI.php';
 
 						  $LogGeokrety = New GeoKretyApi($secid);
@@ -546,7 +546,7 @@
 						 				'app'     => 'Opencaching',
 						 				'app_ver' => 'PL'
 						 		);
-						 		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $GeokretyLogArray);
+						 		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', print_r($GeokretyLogArray,true));
 						 		$LogGeokrety->LogGeokrety($GeokretyLogArray);
 						 	 }
 						  }
