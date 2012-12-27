@@ -53,19 +53,6 @@ class GeoKretyApi
                               		
                              </td>
 					     </tr>';
-		   	
-		   	
-		   /*
-			$selector .= '<tr>
-					        <td>
-					          <a href="http://geokrety.org/konkret.php?id='.$kret->attributes()->id.'">'.$kret.'</a>
-					        </td>
-					        <td>
-					          <select name="GeoKretIDAction['.$kret->attributes()->id.'][action]" ><option value="-1">'.tr('GKApi13').'</option><option value="0">'.tr('GKApi12').'</option><option value="5">'.tr('GKApi14').'</option></select>
-					          <input type="hidden" name="GeoKretIDAction['.$kret->attributes()->id.'][nr]" value="'.$kret->attributes()->nr.'">
-					        </td>
-					     </tr>';
-					     */
 		   }
 		$selector .= '</table>';
 		$selector .= '<input type="hidden" name=MaxNr value="'.$MaxNr.'">';
@@ -74,16 +61,6 @@ class GeoKretyApi
 	
 	public function LogGeokrety($GeokretyArray)
 	{ 
-
-		/* debug */
-		/*
-		$debug =  '<pre>';
-		$debug .= print_r ($GeokretyArray, true);
-		$debug .= '</pre>';
-		
-		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $debug );
-		// mail('user@localhost', 'GeoKretyApi Error', $debug );
-		*/
 	    $postdata = http_build_query($GeokretyArray);
 	
 		$opts = array('http' =>
@@ -98,9 +75,8 @@ class GeoKretyApi
 		$result = file_get_contents('http://geokrety.org/ruchy.php', false, $context);
 		$resultarray = simplexml_load_string($result);
 
-		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $result );
-		//mail('user@localhost', 'GeoKretyApi Error', $result );
-		
+		mail('wloczynutka@gmail.com', 'GeoKretyApi Succes', $result );
+	
 		if (!$resultarray) 
 		{
 			$Tablica = print_r($GeokretyArray);

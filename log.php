@@ -516,16 +516,6 @@
 						
 
 						 /*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
-						 
-						 
-						  $debug0 = print_r ($_POST, true);
-						  mail('wloczynutka@gmail.com', 'GeoKretyApi debug', 'dane z posta: '.$debug0);
-						  /*
-						  print '<pre>';
-						  print_r($_POST);
-						  print '</pre>';
-					      */
-						  
 						 $MaxNr = $_POST['MaxNr'];
 						 if ($MaxNr > 0)
 						 {
@@ -543,10 +533,10 @@
 						  	{	
 						  	$GeokretyLogArray =
 						 		array(
-						 				'secid'   => $secidquery['secid'], # 'e6MdMSRIcHkEbf0uSNq7mOdmoTyjfBSOVg23uXrs8mxM183xV2lHaMaWKVDsWAlpdhdPSbU3abjSlDO1KNQs2TCnQ1NuGR0f06PwyU6A83asTcpsLB3SMYUOpmDYVv3q',
+						 				'secid'   => $secidquery['secid'], 
 						 				'nr'      => $_POST['GeoKretIDAction'.$i]['nr'],
 						 				'formname'=> 'ruchy',
-						 				'logtype' => $_POST['GeoKretIDAction'.$i]['action'], #0 = Dropped to; 1 = Grabbed from; 2 = comment; 3 = Seen in; 4 = Archived; 5 = Visiting;
+						 				'logtype' => $_POST['GeoKretIDAction'.$i]['action'], 
 						 				'data'    => $log_date_year.'-'.$log_date_month.'-'.$log_date_day,
 						 				'godzina' => $log_date_hour,
 						 				'minuta'  => $log_date_min,
@@ -559,32 +549,7 @@
 						  	$LogGeokrety->LogGeokrety($GeokretyLogArray);
 						  	}
 						  }
-						  
-						  /*
-						  foreach ($_POST['GeoKretIDAction'] as $key => $value )
-						  {
-						 	if ($value['action'] > -1)
-						 	{
-						 		$GeokretyLogArray =
-						 		array(
-						 				'secid'   => $secidquery['secid'], # 'e6MdMSRIcHkEbf0uSNq7mOdmoTyjfBSOVg23uXrs8mxM183xV2lHaMaWKVDsWAlpdhdPSbU3abjSlDO1KNQs2TCnQ1NuGR0f06PwyU6A83asTcpsLB3SMYUOpmDYVv3q',
-						 				'nr'      => $value['nr'],
-						 				'formname'=> 'ruchy',
-						 				'logtype' => $value['action'], #0 = Dropped to; 1 = Grabbed from; 2 = comment; 3 = Seen in; 4 = Archived; 5 = Visiting;
-						 				'data'    => $log_date_year.'-'.$log_date_month.'-'.$log_date_day,
-						 				'godzina' => $log_date_hour,
-						 				'minuta'  => $log_date_min,
-						 				'comment' => '(synchro z serwisu www.opencaching.pl)',
-						 				'wpt'     => $cache_waypt,
-						 				'app'     => 'Opencaching',
-						 				'app_ver' => 'PL'
-						 		);
-						 		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', print_r($GeokretyLogArray,true));
-						 		$LogGeokrety->LogGeokrety($GeokretyLogArray);
-						 	 }
-						  }*/
 						 }
-
 						 /*end calling method logging selected Geokrets with GeoKretyApi*/
 						 
 						}
