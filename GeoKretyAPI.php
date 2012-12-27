@@ -38,8 +38,24 @@ class GeoKretyApi
 		$krety = $this->TakeUserGeokrets();
  
 		$selector = '<table>';
+		$MaxNr = 0;
 		foreach ($krety->geokrety->geokret as $kret)
-		{
+		   {
+		   	$MaxNr++;
+		   	$selector .= '<tr>
+					        <td>
+					          <a href="http://geokrety.org/konkret.php?id='.$kret->attributes()->id.'">'.$kret.'</a>
+					        </td>
+					        <td>
+					          <select name="GeoKretIDAction'.$MaxNr.'[action]" ><option value="-1">'.tr('GKApi13').'</option><option value="0">'.tr('GKApi12').'</option><option value="5">'.tr('GKApi14').'</option></select>
+                              <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[nr]" value="'.$kret->attributes()->nr.'">
+                              <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[id]" value="'.$kret->attributes()->id.'">
+                              		
+                             </td>
+					     </tr>';
+		   	
+		   	
+		   /*
 			$selector .= '<tr>
 					        <td>
 					          <a href="http://geokrety.org/konkret.php?id='.$kret->attributes()->id.'">'.$kret.'</a>
@@ -49,8 +65,10 @@ class GeoKretyApi
 					          <input type="hidden" name="GeoKretIDAction['.$kret->attributes()->id.'][nr]" value="'.$kret->attributes()->nr.'">
 					        </td>
 					     </tr>';
-		}
+					     */
+		   }
 		$selector .= '</table>';
+		$selector .= '<input type="hidden" name=MaxNr value="'.$MaxNr.'">';
 		return $selector;
 	}
 	
@@ -58,13 +76,14 @@ class GeoKretyApi
 	{ 
 
 		/* debug */
+		/*
 		$debug =  '<pre>';
 		$debug .= print_r ($GeokretyArray, true);
 		$debug .= '</pre>';
 		
 		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $debug );
 		// mail('user@localhost', 'GeoKretyApi Error', $debug );
-		
+		*/
 	    $postdata = http_build_query($GeokretyArray);
 	
 		$opts = array('http' =>
