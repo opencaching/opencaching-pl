@@ -516,6 +516,7 @@
 						
 
 						 /*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
+						 mail('wloczynutka@gmail.com', 'GeoKretyApi debug', 'dane z posta: '.$_POST);
 						 if (isset ($_POST['GeoKretIDAction']))
 						 {
 						  mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $_POST);
