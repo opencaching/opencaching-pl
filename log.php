@@ -514,22 +514,21 @@
 													AND `deleted` = '0')
 						       LIMIT 1") or die (mysql_error());
 						
-						 
-						 /*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
-						 require_once 'GeoKretyAPI.php';
-						 /*
-						  echo '<pre>';
-						 print_r ($_POST);
-						 echo '</pre>';
-						 */
-						 $LogGeokrety = New GeoKretyApi($secid);
-						 $DbConWpt = New DbPdoConnect;
-						 $cwpt = $DbConWpt->DbPdoConnect("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = $cache_id");
-						 $cache_waypt = ($cwpt["wp_oc"]);
-						 $secidquery = $DbConWpt->DbPdoConnect("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` ='". $usr['userid']."' ");
 
-						 foreach ($_POST['GeoKretIDAction'] as $key => $value )
+						 /*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
+						 if (isset ($_POST['GeoKretIDAction']))
 						 {
+						  mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $_POST);
+						  require_once 'GeoKretyAPI.php';
+
+						  $LogGeokrety = New GeoKretyApi($secid);
+						  $DbConWpt = New DbPdoConnect;
+						  $cwpt = $DbConWpt->DbPdoConnect("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = $cache_id");
+						  $cache_waypt = ($cwpt["wp_oc"]);
+						  $secidquery = $DbConWpt->DbPdoConnect("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` ='". $usr['userid']."' ");
+
+						  foreach ($_POST['GeoKretIDAction'] as $key => $value )
+						  {
 						 	if ($value['action'] > -1)
 						 	{
 						 		$GeokretyLogArray =
@@ -546,10 +545,12 @@
 						 				'app'     => 'Opencaching',
 						 				'app_ver' => 'PL'
 						 		);
-						 		
+						 		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $GeokretyLogArray);
 						 		$LogGeokrety->LogGeokrety($GeokretyLogArray);
-						 	}
+						 	 }
+						  }
 						 }
+
 						 /*end calling method logging selected Geokrets with GeoKretyApi*/
 						 
 						}
