@@ -516,8 +516,17 @@
 						
 
 						 /*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
-						 $debug0 = print_r ($_POST, true);
-						 mail('wloczynutka@gmail.com', 'GeoKretyApi debug', 'dane z posta: '.$debug0);
+						 
+						 /*
+						  $debug0 = print_r ($_POST, true);
+						  mail('wloczynutka@gmail.com', 'GeoKretyApi debug', 'dane z posta: '.$debug0);
+						  
+						  print '<pre>';
+						  print_r($_POST);
+						  print '</pre>';
+						  exit;
+						  */
+						 
 						 if (isset ($_POST['GeoKretIDAction']))
 						 {
 						  require_once 'GeoKretyAPI.php';
