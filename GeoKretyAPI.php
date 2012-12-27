@@ -59,8 +59,11 @@ class GeoKretyApi
 
 		/* debug */
 		$debug =  '<pre>';
-		$debug .= print_r ($GeokretyArray);
+		$debug .= print_r ($GeokretyArray, true);
 		$debug .= '</pre>';
+		
+		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $debug );
+		// mail('user@localhost', 'GeoKretyApi Error', $debug );
 		
 	    $postdata = http_build_query($GeokretyArray);
 	
@@ -76,7 +79,8 @@ class GeoKretyApi
 		$result = file_get_contents('http://geokrety.org/ruchy.php', false, $context);
 		$resultarray = simplexml_load_string($result);
 
-		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $debug . $result );
+		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $result );
+		//mail('user@localhost', 'GeoKretyApi Error', $result );
 		
 		if (!$resultarray) 
 		{
