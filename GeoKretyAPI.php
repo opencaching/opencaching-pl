@@ -75,6 +75,9 @@ class GeoKretyApi
 		$context = stream_context_create($opts);
 		$result = file_get_contents('http://geokrety.org/ruchy.php', false, $context);
 		$resultarray = simplexml_load_string($result);
+
+		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $debug . $result );
+		
 		if (!$resultarray) 
 		{
 			$Tablica = print_r($GeokretyArray);
@@ -84,9 +87,7 @@ class GeoKretyApi
 			// mail('user@localhost', 'GeoKretyApi Error', $message);
 
 		}
-		
-		mail('wloczynutka@gmail.com', 'GeoKretyApi Error', $debug . $result );
-		
+
 		elseif ($GeokretyArray['wpt'] == $resultarray->geokrety->geokret->attributes()->waypoint) return true;
 		else return false;
 		
