@@ -122,6 +122,7 @@ function chkMoved()
     {
                         var mode = document.logform.logtype.value;
                         var iconarray = new Array();
+                                iconarray['-2'] = 'Arrow-Right.png';
                                 iconarray['1'] = '16x16-found.png';
                                 iconarray['2'] = '16x16-dnf.png';
                                 iconarray['3'] = '16x16-note.png';

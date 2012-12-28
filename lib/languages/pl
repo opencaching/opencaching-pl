@@ -914,6 +914,7 @@ viewlog_kordy Współrzędne ukrycia keszynki po przeniesieniu
 log_type_temp_unavailable tymczasowo niedostępna
 log_type_available Gotowa do szukania
 log_mobile_init Punkt startowy kesza
+error_coords_not_ok Niepoprawne współrzędne!
 GKApi01 Integracja konta OC z Geokretami
 GKApi02 Geokrety Secid:
 GKApi03 Aby zintegrować konto Opencaching.pl ze swoim kontem na Geokrety.org przeklej tu swój <b>Secid</b>. <b>Secid</b> znajdziesz na stronie geokretów w szczegółach swojego konta. 

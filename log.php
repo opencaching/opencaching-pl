@@ -545,7 +545,6 @@
 						 				'app'     => 'Opencaching',
 						 				'app_ver' => 'PL'
 						 		);
-						  	mail('wloczynutka@gmail.com', 'GeoKretyApi Error', print_r($GeokretyLogArray,true));
 						  	$LogGeokrety->LogGeokrety($GeokretyLogArray);
 						  	}
 						  }

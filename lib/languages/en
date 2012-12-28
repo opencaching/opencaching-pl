@@ -874,6 +874,7 @@ viewlog_kordy Cache coordinates after cache has been moved.
 log_type_temp_unavailable temporarily unavailable
 log_type_available Ready to search
 log_mobile_init Starting coordinates
+error_coords_not_ok Wrong coordinates!
 GKApi01 Integration OC account with GeoKrety.org
 GKApi02 Geokrety Secid:
 GKApi03 To integrate your Opencaching.pl account with Geokrety.org account copy here your <b>Secid</b>. Your <b>Secid</b> you can find on geokrety page in your account details. 
@@ -885,3 +886,6 @@ GKApi08 For integration OC account with Geokrety follow steps:
 GKApi09 Copy your secid from geokrety web page 
 GKApi10 Paste it in your OC account data.
 GKApi11 Wrong secid 
+GKApi12 Geokrety was dropped
+GKApi13 No Action
+GKApi14 GeoKrety visited

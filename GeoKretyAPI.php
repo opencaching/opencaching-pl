@@ -9,13 +9,7 @@ class GeoKretyApi
 	private function TakeUserGeokrets()
 	{
 	 $url = "http://geokrety.org/export2.php?secid=$this->secid&inventory=1";
-/*
-	 $as = simplexml_load_file($url);
-	 print '<pre>';
-	 print_r ($as);
-	 print '</pre>';
-	 exit;
-	*/ 
+
 	 return simplexml_load_file($url);
 	}
 	
@@ -75,49 +69,21 @@ class GeoKretyApi
 		$result = file_get_contents('http://geokrety.org/ruchy.php', false, $context);
 		$resultarray = simplexml_load_string($result);
 
-		mail('wloczynutka@gmail.com', 'GeoKretyApi Succes', $result );
-	
 		if (!$resultarray) 
 		{
 			$Tablica = print_r($GeokretyArray);
 			$message = "przechwycono Blad z GKApi\r\n \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocily nastepujący wynik: \r\n \r\n $result ";
 			
 			mail('rt@opencaching.pl', 'GeoKretyApi Error', $message);
-			// mail('user@localhost', 'GeoKretyApi Error', $message);
-
 		}
 
 		elseif ($GeokretyArray['wpt'] == $resultarray->geokrety->geokret->attributes()->waypoint) return true;
 		else return false;
-		
-		
-		
-		/*
-		print $result->geokrety->geokret->attributes()->state .'<br><br>';
-		print '<pre>';
-		print_r ($resultarray);
-		print '</pre>';
-		
-		exit;
-		*/
-		
+	
 	}
 
 }
 
-
-// test
-/*
- * 
- * 	
-		echo ' Selektor do logowania: <br />'.$selector . '<pre>';
-		print_r($krety);
-		echo '</pre>';
-print '<html><meta http-equiv="Content-type" content="text/html; charset=utf-8" /><head></head>';
-$krety = new GeoKretyApi;
-$krety->MakeGeokretList();
-$krety->MakeGeokretSelector();
-*/
 
 class DbPdoConnect
 {
