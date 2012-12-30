@@ -220,13 +220,14 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 							// This outputs headers and the ZIP file.
 							$okapi_response->display();
 						}
-						catch (Exception $e)
+						catch (\okapi\BadRequest $e)
 						{
+							# In case of bad requests, simply output OKAPI's error response.
+							# In case of other, internal errors, don't catch the error. This
+							# will cause OKAPI's default error hangler to kick in (so the admins
+							# will get informed).
+							
 							header('Content-Type: text/plain');
-							//$tplname = 'error';
-							//tpl_set_var('tplname', 'search.php');
-							//tpl_set_var('error_msg', $e);
-							//tpl_BuildTemplate();
 							echo $e;
 							exit;
 						}
