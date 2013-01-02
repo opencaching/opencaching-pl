@@ -53,6 +53,13 @@ class GeoKretyApi
 		return $selector;
 	}
 	
+	
+	/**
+	 * Function logs Geokret on geokrety.org using GeoKretyApi.
+	 * @author Łza
+	 * @param array $GeokretyArray
+	 * @return boolean
+	 */
 	public function LogGeokrety($GeokretyArray)
 	{ 
 	    $postdata = http_build_query($GeokretyArray);
@@ -71,10 +78,15 @@ class GeoKretyApi
 
 		if (!$resultarray) 
 		{
-			$Tablica = print_r($GeokretyArray);
-			$message = "przechwycono Blad z GKApi\r\n \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocily nastepujący wynik: \r\n \r\n $result ";
+			$Tablica = print_r($GeokretyArray, true);
+			$message = "przechwycono Blad z GeoKretyApi\r\n \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocily nastepujący wynik: \r\n \r\n $result ";
 			
-			mail('rt@opencaching.pl', 'GeoKretyApi Error', $message);
+			$headers = 'From: GeoKretyAPI on opencaching.pl' . "\r\n" .
+            'Reply-To: rt@opencaching.pl' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+
+			mail('rt@opencaching.pl', 'GeoKretyApi returned error', $message, $headers);
+			return false;
 		}
 
 		elseif ($GeokretyArray['wpt'] == $resultarray->geokrety->geokret->attributes()->waypoint) return true;
