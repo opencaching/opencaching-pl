@@ -1,4 +1,11 @@
 <?php
+/**
+ * This class contain methods used to communicate with Geokrety, via Geokrety Api
+ * (http://geokrety.org/api.php)
+ * 
+ * @author Andrzej Łza Woźniak 2012, 2013
+ *
+ */
 class GeoKretyApi
 {
     function __construct($secid)
@@ -6,6 +13,10 @@ class GeoKretyApi
     	$this->secid = $secid;
     }
     
+    /**
+     * sends request to geokrety and receive all geokrets in user inventory
+     * @return array contains all geokrets in user inventory
+     */
 	private function TakeUserGeokrets()
 	{
 	 $url = "http://geokrety.org/export2.php?secid=$this->secid&inventory=1";
@@ -13,6 +24,10 @@ class GeoKretyApi
 	 return simplexml_load_file($url);
 	}
 	
+	/**
+	 * Make html table-formatted list of user geokrets. ready to display anywhere.
+	 * @return string (html)
+	 */
 	public function MakeGeokretList()
 	{
      $krety = $this->TakeUserGeokrets();
@@ -27,12 +42,19 @@ class GeoKretyApi
 	echo $lista;
 	}
 
-	public function MakeGeokretSelector()
+	/**
+	 * generate html-formatted list of all geokrets in user inventory.
+	 * This string is used in logging cache (log.php, log_cache.tpl.php)
+	 * 
+	 * @return string (html)
+	 */
+	public function MakeGeokretSelector($cachename)
 	{
 		$krety = $this->TakeUserGeokrets();
  
 		$selector = '<table>';
 		$MaxNr = 0;
+		$jsclear = 'onclick=this.value="" onblur="formDefault(this)"';
 		foreach ($krety->geokrety->geokret as $kret)
 		   {
 		   	$MaxNr++;
@@ -41,8 +63,8 @@ class GeoKretyApi
 					          <a href="http://geokrety.org/konkret.php?id='.$kret->attributes()->id.'">'.$kret.'</a>
 					        </td>
 					        <td>
-					          <select name="GeoKretIDAction'.$MaxNr.'[action]" ><option value="-1">'.tr('GKApi13').'</option><option value="0">'.tr('GKApi12').'</option><option value="5">'.tr('GKApi14').'</option></select>
-                              <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[nr]" value="'.$kret->attributes()->nr.'">
+					          <select id="GeoKretSelector'.$MaxNr.'" name="GeoKretIDAction'.$MaxNr.'[action]" onchange="GkActionMoved('.$MaxNr.')"><option value="-1">'.tr('GKApi13').'</option><option value="0">'.tr('GKApi12').'</option><option value="5">'.tr('GKApi14').'</option></select>
+                              <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[nr]" value="'.$kret->attributes()->nr.'"><span id="GKtxt'.$MaxNr.'" style="display: none">teść logu kreta: <input type="text" name="GeoKretIDAction'.$MaxNr.'[tx]" maxlength="80" size="50" value="w keszyku '.$cachename.'" '.$jsclear.' /></span>
                               <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[id]" value="'.$kret->attributes()->id.'">
                               		
                              </td>
@@ -61,6 +83,7 @@ class GeoKretyApi
 	 * @return boolean
 	 */
 	public function LogGeokrety($GeokretyArray)
+	// TODO: obluga błędów zwracanych w xmlu przez geokrety.
 	{ 
 	    $postdata = http_build_query($GeokretyArray);
 	
@@ -79,7 +102,7 @@ class GeoKretyApi
 		if (!$resultarray) 
 		{
 			$Tablica = print_r($GeokretyArray, true);
-			$message = "przechwycono Blad z GeoKretyApi\r\n \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocily nastepujący wynik: \r\n \r\n $result ";
+			$message = "przechwycono Blad z GeoKretyApi\r\n \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocilo niepoprawny wynik (wynik nie jest w formacie xml, lub brak wyniku). \r\n Odpowiedz geoKretow ponizej: \r\n \r\n $result ";
 			
 			$headers = 'From: GeoKretyAPI on opencaching.pl' . "\r\n" .
             'Reply-To: rt@opencaching.pl' . "\r\n" .

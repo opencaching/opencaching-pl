@@ -170,6 +170,29 @@ function chkMoved()
 }
 //-->
 
+function formDefault(theInput) {
+if (theInput.value =='') {
+theInput.value = theInput.defaultValue;
+}
+}
+
+function GkActionMoved(kret)
+    {
+       var mode = document.logform.GeoKretSelector1.value;
+	   gk = "GKtxt" + kret;  
+	   sel = "GeoKretSelector" + kret;
+		  
+      // if (document.logform.GeoKretSelector1.value != -1) 
+      if (document.getElementById(sel).value == -1)             
+       {
+		document.getElementById(gk).style.display='none';
+       } 
+	  else 
+	  {
+	   document.getElementById(gk).style.display='inline';
+	  }
+}
+
 function toggleGeoKrety() {
 	var GKBox = document.getElementById("toggleGeoKretyDIV");
 
@@ -266,8 +289,7 @@ function toggleGeoKrety() {
 
 </div>
 
-	<!-- [Łza] logowanie keszynek mobilnych: nowe współrzędne  -->
-
+<!-- [Łza] logowanie keszynek mobilnych: nowe współrzędne  -->
 <div class="content" id="coord_table" style="display:none;">
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
 	<tr>

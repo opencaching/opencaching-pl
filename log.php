@@ -269,7 +269,7 @@
 				    $secid = mysql_result($GKAPIKeyQuery, 0); 
 				     
 				    $GeoKretSelector = new GeoKretyApi($secid);
-				    $GKSelect = $GeoKretSelector->MakeGeokretSelector();
+				    $GKSelect = $GeoKretSelector->MakeGeokretSelector($cachename);
 				    tpl_set_var('GeoKretApiSelector', $GKSelect);
 				}
 				else
@@ -540,7 +540,7 @@
 						 				'data'    => $log_date_year.'-'.$log_date_month.'-'.$log_date_day,
 						 				'godzina' => $log_date_hour,
 						 				'minuta'  => $log_date_min,
-						 				'comment' => '(automatyczne synchro z serwisu www.opencaching.pl)',
+						 				'comment' => substr($_POST['GeoKretIDAction'.$i]['tx'], 0, 80) . ' (autom. log oc.pl)',
 						 				'wpt'     => $cache_waypt,
 						 				'app'     => 'Opencaching',
 						 				'app_ver' => 'PL'
