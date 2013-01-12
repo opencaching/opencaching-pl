@@ -268,9 +268,18 @@
 				    tpl_set_var('GeoKretyApiConfigured', 'block');
 				    $secid = mysql_result($GKAPIKeyQuery, 0); 
 				     
-				    $GeoKretSelector = new GeoKretyApi($secid);
+				    $DbConWpt = New DbPdoConnect;
+				    $cwpt = $DbConWpt->DbPdoConnect("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = $cache_id");
+				    $cache_waypt = ($cwpt["wp_oc"]);
+				    
+				    
+				    $GeoKretSelector = new GeoKretyApi($secid, $cache_waypt);
 				    $GKSelect = $GeoKretSelector->MakeGeokretSelector($cachename);
+				    $GKSelect2 = $GeoKretSelector->MakeGeokretInCacheSelector($cachename);
+				    
 				    tpl_set_var('GeoKretApiSelector', $GKSelect);
+				    tpl_set_var('GeoKretApiSelector2', $GKSelect2);
+				    
 				}
 				else
 				{
@@ -520,11 +529,12 @@
 						 if ($MaxNr > 0)
 						 {
 						  require_once 'GeoKretyAPI.php';
-
-						  $LogGeokrety = New GeoKretyApi($secid);
+						  
 						  $DbConWpt = New DbPdoConnect;
 						  $cwpt = $DbConWpt->DbPdoConnect("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = $cache_id");
 						  $cache_waypt = ($cwpt["wp_oc"]);
+						  $LogGeokrety = New GeoKretyApi($secid, $cache_waypt);
+						  
 						  $secidquery = $DbConWpt->DbPdoConnect("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` ='". $usr['userid']."' ");
                           
 						  for ($i=1; $i<$MaxNr+1; $i++)

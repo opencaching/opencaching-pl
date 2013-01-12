@@ -8,13 +8,19 @@
  */
 class GeoKretyApi
 {
-    function __construct($secid)
+	private $secid    = null;
+	private $cacheWpt = null; 
+	private $maxID    = null;
+	
+    function __construct($secid, $cacheWpt)
     {
     	$this->secid = $secid;
+    	$this->cacheWpt = $cacheWpt;
     }
     
     /**
      * sends request to geokrety and receive all geokrets in user inventory
+     * 
      * @return array contains all geokrets in user inventory
      */
 	private function TakeUserGeokrets()
@@ -25,22 +31,37 @@ class GeoKretyApi
 	}
 	
 	/**
+	 * sends request to geokrety and receive all geokrets in specified cache
+	 * 
+	 * @return array contains all geokrets in cache
+	 */	
+	private function TakeGeoKretsInCache()
+	{
+		$url = "http://geokrety.org/export2.php?wpt=$this->cacheWpt";
+		return simplexml_load_file($url);
+	}
+	
+	
+	
+	/**
 	 * Make html table-formatted list of user geokrets. ready to display anywhere.
 	 * @return string (html)
 	 */
 	public function MakeGeokretList()
 	{
-     $krety = $this->TakeUserGeokrets();
-     $lista = 'liczba geokretów u siebie: ' . count($krety->geokrety->geokret).'<br>';
-     
-     $lista .= '<table>';
+		$krety = $this->TakeUserGeokrets();
+		$lista = 'liczba geokretów u siebie: ' . count($krety->geokrety->geokret).'<br>';
+		 
+		$lista .= '<table>';
 	 foreach ($krety->geokrety->geokret as $kret)
-	{
-		$lista .= '<tr><td></td><td><a href="http://geokrety.org/konkret.php?id='.$kret->attributes()->id.'">'. $kret .'</a></td></tr>'; 
+	 {
+	 	$lista .= '<tr><td></td><td><a href="http://geokrety.org/konkret.php?id='.$kret->attributes()->id.'">'. $kret .'</a></td></tr>';
+	 }
+	 $lista .= '</table>';
+	 echo $lista;
 	}
-	$lista .= '</table>';
-	echo $lista;
-	}
+	
+	
 
 	/**
 	 * generate html-formatted list of all geokrets in user inventory.
@@ -71,9 +92,36 @@ class GeoKretyApi
 					     </tr>';
 		   }
 		$selector .= '</table>';
-		$selector .= '<input type="hidden" name=MaxNr value="'.$MaxNr.'">';
+		// $selector .= '<input type="hidden" name=MaxNr value="'.$MaxNr.'">';
+		$this->maxID = $MaxNr; //value set for use in MakeGeokretInCacheSelector method.
 		return $selector;
 	}
+
+	public function MakeGeokretInCacheSelector($cachename)
+	{
+		$krety = $this->TakeGeoKretsInCache();
+	
+		$selector = '<table>';
+		$MaxNr = $this->maxID;
+		$jsclear = 'onclick=this.value="" onblur="formDefault(this)"';
+		foreach ($krety->geokrety->geokret as $kret)
+		{
+			$MaxNr++;
+			$selector .= '<tr>
+					        <td>
+					          <a href="http://geokrety.org/konkret.php?id='.$kret->attributes()->id.'">'.$kret.'</a>
+					        </td>
+					        <td>
+					          <select id="GeoKretSelector'.$MaxNr.'" name="GeoKretIDAction'.$MaxNr.'[action]" onchange="GkActionMoved('.$MaxNr.')"><option value="-1">'.tr('GKApi13').'</option><option value="1">'.tr('GKApi15').'</option><option value="2">'.tr('GKApi16').'</option><option value="3">'.tr('GKApi17').'</option></select>
+                              <span id="GKtxt'.$MaxNr.'" style="display: none"> tracking code: <input type="text" maxlength="6" size="6"  name="GeoKretIDAction'.$MaxNr.'[nr]"> treść logu kreta: <input type="text" name="GeoKretIDAction'.$MaxNr.'[tx]" maxlength="40" size="50" value="Zabrano z keszyka '.$cachename.'" '.$jsclear.' /></span>
+                              <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[id]" value="'.$kret->attributes()->id.'">
+                             </td>
+					     </tr>';
+		}
+		$selector .= '</table>';
+		$selector .= '<input type="hidden" name=MaxNr value="'.$MaxNr.'">';
+		return $selector;
+	}	
 	
 	
 	/**

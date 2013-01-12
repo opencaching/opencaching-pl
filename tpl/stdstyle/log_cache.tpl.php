@@ -282,6 +282,9 @@ function toggleGeoKrety() {
    <div style="display: {GeoKretyApiConfigured}">
     <p style="color: darkgreen">{{GKApi05}}</p>
     {GeoKretApiSelector}
+    <hr align ="left" style="width: 380px; color: darkgreen; align: left;"/>
+    <p style="color: darkgreen">{{GKApi18}}</p>
+    {GeoKretApiSelector2}
    </div>
  </div>
 </div> 

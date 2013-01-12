@@ -889,3 +889,7 @@ GKApi11 Wrong secid
 GKApi12 Geokrety was dropped
 GKApi13 No Action
 GKApi14 GeoKrety visited
+GKApi15 Took GeoKrety 
+GKApi16 Comment
+GKApi17 Seen GeoKrety
+GKApi18 Log geoKrety discovered in this cache:
