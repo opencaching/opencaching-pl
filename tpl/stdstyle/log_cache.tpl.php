@@ -319,12 +319,12 @@ function toggleGeoKrety() {
 
 
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
-	<tr>
+<!--  <tr>
 		<td colspan="2">
 			{log_geokret}
 		</td>
 	</tr>
-	
+-->	
 
 	
 	<tr>
