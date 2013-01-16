@@ -87,7 +87,7 @@ class GeoKretyApi
 					          <select id="GeoKretSelector'.$MaxNr.'" name="GeoKretIDAction'.$MaxNr.'[action]" onchange="GkActionMoved('.$MaxNr.')"><option value="-1">'.tr('GKApi13').'</option><option value="0">'.tr('GKApi12').'</option><option value="5">'.tr('GKApi14').'</option></select>
                               <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[nr]" value="'.$kret->attributes()->nr.'"><span id="GKtxt'.$MaxNr.'" style="display: none">teść logu kreta: <input type="text" name="GeoKretIDAction'.$MaxNr.'[tx]" maxlength="80" size="50" value="w keszyku '.$cachename.'" '.$jsclear.' /></span>
                               <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[id]" value="'.$kret->attributes()->id.'">
-                              		
+                              <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[nm]" value="'.$kret.'" />		
                              </td>
 					     </tr>';
 		   }
@@ -114,8 +114,9 @@ class GeoKretyApi
 					        <td>
 					          <select id="GeoKretSelector'.$MaxNr.'" name="GeoKretIDAction'.$MaxNr.'[action]" onchange="GkActionMoved('.$MaxNr.')"><option value="-1">'.tr('GKApi13').'</option><option value="1">'.tr('GKApi15').'</option><option value="2">'.tr('GKApi16').'</option><option value="3">'.tr('GKApi17').'</option></select>
                               <span id="GKtxt'.$MaxNr.'" style="display: none"> tracking code: <input type="text" maxlength="6" size="6"  name="GeoKretIDAction'.$MaxNr.'[nr]"> treść logu kreta: <input type="text" name="GeoKretIDAction'.$MaxNr.'[tx]" maxlength="40" size="50" value="Zabrano z keszyka '.$cachename.'" '.$jsclear.' /></span>
-                              <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[id]" value="'.$kret->attributes()->id.'">
-                             </td>
+                              <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[id]" value="'.$kret->attributes()->id.'" />
+                              <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[nm]" value="'.$kret.'" />
+                            </td>
 					     </tr>';
 		}
 		$selector .= '</table>';
@@ -133,6 +134,12 @@ class GeoKretyApi
 	public function LogGeokrety($GeokretyArray)
 	// TODO: obluga błędów zwracanych w xmlu przez geokrety.
 	{ 
+		/*
+		print '----------<pre>';
+		print_r ($GeokretyArray);
+		print '</pre>-------------';
+		*/
+		
 	    $postdata = http_build_query($GeokretyArray);
 	
 		$opts = array('http' =>
@@ -145,9 +152,10 @@ class GeoKretyApi
 		
 		$context = stream_context_create($opts);
 		$result = file_get_contents('http://geokrety.org/ruchy.php', false, $context);
-		$resultarray = simplexml_load_string($result);
-
-		if (!$resultarray) 
+		print $result;
+		// print '----------<pre>'; print_r($resultarray); print '</pre>-------------';
+		
+		if (!$result) 
 		{
 			$Tablica = print_r($GeokretyArray, true);
 			$message = "przechwycono Blad z GeoKretyApi\r\n \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocilo niepoprawny wynik (wynik nie jest w formacie xml, lub brak wyniku). \r\n Odpowiedz geoKretow ponizej: \r\n \r\n $result ";
@@ -159,11 +167,58 @@ class GeoKretyApi
 			mail('rt@opencaching.pl', 'GeoKretyApi returned error', $message, $headers);
 			return false;
 		}
+		
+		try
+		{
+		 $resultarray = simplexml_load_string($result);
+		}
+		catch(Exception $e) {
+			$Tablica = print_r($GeokretyArray, true);
+			$message = "przechwycono Blad z GeoKretyApi\r\n " .$e->getMessage() . "\n
+			 \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocilo niepoprawny wynik (wynik nie jest w formacie xml). \r\n 
+			Odpowiedz geoKretow ponizej: \r\n \r\n $result ";
+				
+			$headers = 'From: GeoKretyAPI on opencaching.pl' . "\r\n" .
+					'Reply-To: rt@opencaching.pl' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
+			
+			mail('rt@opencaching.pl', 'GeoKretyApi returned error', $message, $headers);
+			return false;
+		}
+		if (!$resultarray) return false;
+		
+		$r = $this->xml2array($resultarray);
+		$r['geokretId'] = $GeokretyArray['id'];
+		
+		/*
+		 print '----------<pre>';
+		 print_r ($r);
+		 print '</pre>-------------';
+		*/
 
-		elseif ($GeokretyArray['wpt'] == $resultarray->geokrety->geokret->attributes()->waypoint) return true;
-		else return false;
-	
+		// return xml object converted to array.
+		return  $r;
 	}
+
+	private function xml2array($xml)
+	{
+		$arr = array();
+	
+		foreach ($xml->children() as $r)
+		{
+			$t = array();
+			if(count($r->children()) == 0)
+			{
+				$arr[$r->getName()] = strval($r);
+			}
+			else
+			{
+				$arr[$r->getName()][] = $this->xml2array($r);
+			}
+		}
+		return $arr;
+	}
+	
 
 }
 

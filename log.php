@@ -488,7 +488,56 @@
 					{
 						if ($log_type == 1)
 						{
-					     $log_text = sql_escape($log_text);
+					     
+							/*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
+							$MaxNr = $_POST['MaxNr'];
+							if ($MaxNr > 0)
+							{
+								require_once 'GeoKretyAPI.php';
+							
+								$DbConWpt = New DbPdoConnect;
+								$cwpt = $DbConWpt->DbPdoConnect("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = $cache_id");
+								$cache_waypt = ($cwpt["wp_oc"]);
+								$LogGeokrety = New GeoKretyApi($secid, $cache_waypt);
+							
+								$secidquery = $DbConWpt->DbPdoConnect("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` ='". $usr['userid']."' ");
+							
+								$b = 1;
+								for ($i=1; $i<$MaxNr+1; $i++)
+								{
+								if ($_POST['GeoKretIDAction'.$i]['action'] > -1)
+								{
+									$GeokretyLogArray =
+									array(
+										'secid'   => $secidquery['secid'],
+										'nr'      => $_POST['GeoKretIDAction'.$i]['nr'],
+										'id'	  => $_POST['GeoKretIDAction'.$i]['id'],
+												'nm'	  => $_POST['GeoKretIDAction'.$i]['nm'],
+												'formname'=> 'ruchy',
+														'logtype' => $_POST['GeoKretIDAction'.$i]['action'],
+																'data'    => $log_date_year.'-'.$log_date_month.'-'.$log_date_day,
+																'godzina' => $log_date_hour,
+																'minuta'  => $log_date_min,
+																'comment' => substr($_POST['GeoKretIDAction'.$i]['tx'], 0, 80) . ' (autom. log oc.pl)',
+													 				'wpt'     => $cache_waypt,
+													 						'app'     => 'Opencaching',
+													 								'app_ver' => 'PL'
+									);
+									$GeoKretyLogResult[$b] = $LogGeokrety->LogGeokrety($GeokretyLogArray);
+						  	$b++;
+								}
+								}
+								}
+								unset ($b);
+									
+								// print '----------<pre>'; print_r($GeoKretyLogResult); print '</pre>-------------';
+									
+								$_SESSION['GeoKretyApi'] = serialize($GeoKretyLogResult);
+								/*end calling method logging selected Geokrets with GeoKretyApi*/
+									
+							
+							
+						  $log_text = sql_escape($log_text);
 						 ($descMode != 1) ? $dmde_1=1 : $dmde_1=0;
 						 ($descMode == 3) ? $dmde_2=1 : $dmde_2=0;
 						
@@ -524,43 +573,7 @@
 						       LIMIT 1") or die (mysql_error());
 						
 
-						 /*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
-						 $MaxNr = $_POST['MaxNr'];
-						 if ($MaxNr > 0)
-						 {
-						  require_once 'GeoKretyAPI.php';
-						  
-						  $DbConWpt = New DbPdoConnect;
-						  $cwpt = $DbConWpt->DbPdoConnect("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = $cache_id");
-						  $cache_waypt = ($cwpt["wp_oc"]);
-						  $LogGeokrety = New GeoKretyApi($secid, $cache_waypt);
-						  
-						  $secidquery = $DbConWpt->DbPdoConnect("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` ='". $usr['userid']."' ");
-                          
-						  for ($i=1; $i<$MaxNr+1; $i++)
-						  {
-						  	if ($_POST['GeoKretIDAction'.$i]['action'] > -1)
-						  	{	
-						  	$GeokretyLogArray =
-						 		array(
-						 				'secid'   => $secidquery['secid'], 
-						 				'nr'      => $_POST['GeoKretIDAction'.$i]['nr'],
-						 				'formname'=> 'ruchy',
-						 				'logtype' => $_POST['GeoKretIDAction'.$i]['action'], 
-						 				'data'    => $log_date_year.'-'.$log_date_month.'-'.$log_date_day,
-						 				'godzina' => $log_date_hour,
-						 				'minuta'  => $log_date_min,
-						 				'comment' => substr($_POST['GeoKretIDAction'.$i]['tx'], 0, 80) . ' (autom. log oc.pl)',
-						 				'wpt'     => $cache_waypt,
-						 				'app'     => 'Opencaching',
-						 				'app_ver' => 'PL'
-						 		);
-						  	$LogGeokrety->LogGeokrety($GeokretyLogArray);
-						  	}
-						  }
-						 }
-						 /*end calling method logging selected Geokrets with GeoKretyApi*/
-						 
+
 						}
 						else 
 						{	
