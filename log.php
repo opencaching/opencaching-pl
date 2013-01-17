@@ -512,16 +512,16 @@
 										'secid'   => $secidquery['secid'],
 										'nr'      => $_POST['GeoKretIDAction'.$i]['nr'],
 										'id'	  => $_POST['GeoKretIDAction'.$i]['id'],
-												'nm'	  => $_POST['GeoKretIDAction'.$i]['nm'],
-												'formname'=> 'ruchy',
-														'logtype' => $_POST['GeoKretIDAction'.$i]['action'],
-																'data'    => $log_date_year.'-'.$log_date_month.'-'.$log_date_day,
-																'godzina' => $log_date_hour,
-																'minuta'  => $log_date_min,
-																'comment' => substr($_POST['GeoKretIDAction'.$i]['tx'], 0, 80) . ' (autom. log oc.pl)',
-													 				'wpt'     => $cache_waypt,
-													 						'app'     => 'Opencaching',
-													 								'app_ver' => 'PL'
+										'nm'	  => $_POST['GeoKretIDAction'.$i]['nm'],
+										'formname'=> 'ruchy',
+										'logtype' => $_POST['GeoKretIDAction'.$i]['action'],
+										'data'    => $log_date_year.'-'.$log_date_month.'-'.$log_date_day,
+										'godzina' => $log_date_hour,
+										'minuta'  => $log_date_min,
+										'comment' => substr($_POST['GeoKretIDAction'.$i]['tx'], 0, 80) . ' (autom. log oc.pl)',
+										'wpt'     => $cache_waypt,
+										'app'     => 'Opencaching',
+										'app_ver' => 'PL'
 									);
 									$GeoKretyLogResult[$b] = $LogGeokrety->LogGeokrety($GeokretyLogArray);
 						  	$b++;

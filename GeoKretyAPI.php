@@ -172,7 +172,8 @@ class GeoKretyApi
 		{
 		 $resultarray = simplexml_load_string($result);
 		}
-		catch(Exception $e) {
+		catch(Exception $e) 
+		{
 			$Tablica = print_r($GeokretyArray, true);
 			$message = "przechwycono Blad z GeoKretyApi\r\n " .$e->getMessage() . "\n
 			 \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocilo niepoprawny wynik (wynik nie jest w formacie xml). \r\n 
@@ -185,10 +186,11 @@ class GeoKretyApi
 			mail('rt@opencaching.pl', 'GeoKretyApi returned error', $message, $headers);
 			return false;
 		}
-		if (!$resultarray) return false;
+		if ($resultarray) $r = $this->xml2array($resultarray);
+		else $r['errors'][0]['error'] = tr(GKApi22);
 		
-		$r = $this->xml2array($resultarray);
 		$r['geokretId'] = $GeokretyArray['id'];
+		$r['geokretName'] = $GeokretyArray['nm'];
 		
 		/*
 		 print '----------<pre>';
@@ -196,7 +198,6 @@ class GeoKretyApi
 		 print '</pre>-------------';
 		*/
 
-		// return xml object converted to array.
 		return  $r;
 	}
 

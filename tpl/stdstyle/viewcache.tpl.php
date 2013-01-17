@@ -12,6 +12,20 @@
  
 <!-- Text container -->
 {body_scripts}
+
+{jQueryPopUpWindowscripts}
+
+<div id="dialog-message" title="{{GKApi19}}" style="display: {GeoKretyApi_window_display};">
+	<p>
+	  <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+
+		{GeoKretyApi_windowContent}
+	</p><hr>
+	<p style="font-size: 8px">
+		napędzane przez Kreci Interfejs XML'owy!
+	</p>
+</div>
+
 		<div class="content2-container line-box">
 
 			<div class="">
