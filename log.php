@@ -524,15 +524,14 @@
 										'app_ver' => 'PL'
 									);
 									$GeoKretyLogResult[$b] = $LogGeokrety->LogGeokrety($GeokretyLogArray);
-						  	$b++;
+						  			$b++;
 								}
 								}
+								$_SESSION['GeoKretyApi'] = serialize($GeoKretyLogResult);
 								}
 								unset ($b);
 									
 								// print '----------<pre>'; print_r($GeoKretyLogResult); print '</pre>-------------';
-									
-								$_SESSION['GeoKretyApi'] = serialize($GeoKretyLogResult);
 								/*end calling method logging selected Geokrets with GeoKretyApi*/
 									
 							

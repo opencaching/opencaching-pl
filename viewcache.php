@@ -257,33 +257,32 @@
 			}
 			mysql_free_result($geokret_query);
 
-			// GeoKretyApi..
+			/**
+			 * GeoKretyApi. Display window with logging report of Geokrets.
+			 * (only when page was redirected from log.php and Geokrety was logged)
+			 * 
+			 * @author Andrzej Łza Woźniak 2013
+			 */ 
 			if (isset ($_SESSION['GeoKretyApi']))
 			{
 				$GeoKretyLogResult = unserialize($_SESSION['GeoKretyApi']);
 				unset ($_SESSION['GeoKretyApi']);
-				/*
-				 print '<pre>';
-				print_r ($GeoKretyLogResult);
-				print '</pre>';
-				*/
-				$GeokretyWindowContent = '';
-			
-			foreach ($GeoKretyLogResult as $geokret)
-			{
 
-				 $GeokretyWindowContent .= $geokret['geokretName'];
-				 foreach ($geokret['errors'] as $errorGK)
+				$GeokretyWindowContent = '';
+				foreach ($GeoKretyLogResult as $geokret)
 				 {
+				  $GeokretyWindowContent .= $geokret['geokretName'];
+				  foreach ($geokret['errors'] as $errorGK)
+				   {
 				 	if ($errorGK['error'] == '') $GeokretyWindowContent .= ' - ' . tr('GKApi20');
 				 	else $GeokretyWindowContent .= '  - ' . tr('GKApi21') .': '. $errorGK['error'];
-				 }
+				   }
 
-				$GeokretyWindowContent .= '<br />';
-			}
+				  $GeokretyWindowContent .= '<br />';
+			     }
 			
-			tpl_set_var('jQueryPopUpWindowscripts', '
-					<link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
+			    tpl_set_var('jQueryPopUpWindowscripts', '
+			 		<link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
 					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery-1.8.3.js"></script>
 					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.core.js"></script>
 					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.widget.js"></script>
@@ -307,6 +306,7 @@
 				tpl_set_var('jQueryPopUpWindowscripts', ' ');
 				tpl_set_var('GeoKretyApi_window_display', 'none');
 			}
+			# end of GeoKretyApi
 
 			if( $cache_record['votes'] < 3 )
 			{
