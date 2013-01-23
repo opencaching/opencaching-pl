@@ -496,6 +496,13 @@ $menu = array(
                 'siteid'        => 'myneighborhood'
             ),
             array(
+                'title'         => tr('my_neighborhood'),
+                'menustring'    => tr('my_neighborhood_v2'),
+                'visible'       => false,
+                'filename'      => 'myneighborhood_jg.php',
+                'siteid'        => 'myneighborhood_jg'
+            ),
+            array(
                 'title'         => tr('myroutes'),
                 'menustring'    => tr('myroutes'),
                 'visible'       => true,

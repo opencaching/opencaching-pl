@@ -876,3 +876,22 @@ td.myr{
     height: 64px;
     margin-top:5px; margin-left:3px;
 }
+/* ===================================================================================== */
+/*              Tabele w myneighborhood    jg-geo(at)pwr.pl                              */
+/* ===================================================================================== */
+
+table.myneighborhood {
+    margin: 9px;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+td.myneighborhood {
+    padding: 3px;
+    vertical-align: middle;
+}
+table.myneighborhood tbody tr:nth-child(even) {
+    background: #FAFAFA;
+}
+table.myneighborhood tbody tr:nth-child(odd) {
+    background: #ECECEC;
+}
