@@ -30,12 +30,13 @@
 <td><a class="links" href="mycaches.php?col=2{my_cache_sort}">Geocache</a></td>
 <td><a class="links" href="mycaches.php?col=3{my_cache_sort}"><img src="tpl/stdstyle/images/log/16x16-found.png"></a></td>
 <td><a class="links" href="mycaches.php?col=4{my_cache_sort}"><img src="images/rating-star.png"></a></td>
+<td><a class="links" href="mycaches.php?col=6{my_cache_sort}"><img src="images/gk.png"></a></td>
 <td><a class="links" href="mycaches.php?col=5{my_cache_sort}">{{last_found}}</a></td>
 <td><strong>{{latest_logs}}</strong></td>
 </tr>
-<tr><td colspan="8"><hr></hr></td></tr>
+<tr><td colspan="9"><hr></hr></td></tr>
 {file_content}
-<tr><td colspan="8"><hr></hr></td></tr>
+<tr><td colspan="9"><hr></hr></td></tr>
 </table>
 </div>
 	<p>

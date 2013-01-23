@@ -110,7 +110,7 @@ if ($error == false)
 		if ( !isset($_GET['start']) || intval($_GET['start'])<0 || intval($_GET['start']) > $total_logs) $start = 0;
 		else $start = intval($_GET['start']);
 		// obsluga sortowania kolumn
-		if ( !isset($_GET['col']) || intval($_GET['col'])<1 || intval($_GET['col']) > 5) $sort_col = 1;
+		if ( !isset($_GET['col']) || intval($_GET['col'])<1 || intval($_GET['col']) > 6) $sort_col = 1;
 		else $sort_col = intval($_GET['col']);
 		if ( !isset($_GET['sort']) || intval($_GET['sort'])<0 || intval($_GET['sort']) > 1) $sort_sort = 2;
 		else $sort_sort = intval($_GET['sort']);
@@ -140,6 +140,9 @@ if ($error == false)
 			case 5:
 				$sort_warunek='LAST_FOUND';
 				break;
+			case 6:
+				$sort_warunek='gkcount';
+				break;
 			default:
 				$sort_warunek='date_hidden';
 				break;
@@ -158,10 +161,14 @@ if ($error == false)
 		else $pages .= '{last_img_inactive}';
 		if ($stat_cache==2) $dodatkowe = ', datediff(now(),`caches`.`last_modified` ) as `dni_od_zmiany`';
 			else $dodatkowe = '';
-		$rs = sql("SELECT `cache_id`, `name`, `date_hidden`, `status`,cache_type.icon_small AS cache_icon_small,	`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`,
-					`caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`, datediff(now(),`caches`.`last_found` ) as `ilosc_dni` $dodatkowe
-					FROM `caches`  INNER JOIN cache_type ON (caches.type = cache_type.id),`cache_status`
+		$rs = sql("SELECT `cache_id`, `caches`.`name`, `date_hidden`, `status`,cache_type.icon_small AS cache_icon_small,	`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`,
+					`caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`, datediff(now(),`caches`.`last_found` ) as `ilosc_dni` $dodatkowe, COUNT(`gk_item`.`id`) AS `gkcount`
+					FROM `caches`  
+					LEFT JOIN `gk_item_waypoint` ON `gk_item_waypoint`.`wp` = `caches`.`wp_oc`
+					LEFT JOIN `gk_item` ON `gk_item`.`id` = `gk_item_waypoint`.`id` AND `gk_item`.`stateid`<>1 AND `gk_item`.`stateid`<>4 AND `gk_item`.`typeid`<>2 AND `gk_item`.`stateid` <>5
+					INNER JOIN `cache_type` ON (`caches`.`type` = `cache_type`.`id`),`cache_status`
 					WHERE `user_id`='&2' AND `cache_status`.`id`=`caches`.`status` AND `caches`.`status` = '$stat_cache'
+					GROUP BY `caches`.`cache_id`
 					ORDER BY `$sort_warunek` $sort_txt
 					LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE), $lang_db,$user_id);
 		$file_content ='';
@@ -174,6 +181,7 @@ if ($error == false)
 			$tabelka .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 			$tabelka .= '<td>&nbsp;'.intval($log_record['founds']).'&nbsp;</td>';
 			$tabelka .= '<td>&nbsp;'.intval($log_record['topratings']).'&nbsp;</td>';
+			$tabelka .= '<td>&nbsp;'.intval($log_record['gkcount']).'&nbsp;</td>';
 			$tabelka .= '<td>&nbsp;';
 			if ($stat_cache==2) $dni=$log_record['dni_od_zmiany'];
 				else $dni=$log_record['ilosc_dni'];
