@@ -937,3 +937,8 @@ GKApi19 logowanie GeoKretów
 GKApi20 GeoKret zalogowany!
 GKApi21 Błąd!
 GKApi22 Brak odpowiedzi z geokrety.org
+GKApi23 liczba geokretów u siebie
+GKApi24 w keszyku
+GKApi25 treść logu kreta
+GKApi25 Zabrano z keszyka
+

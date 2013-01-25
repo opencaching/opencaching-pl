@@ -50,7 +50,7 @@ class GeoKretyApi
 	public function MakeGeokretList()
 	{
 		$krety = $this->TakeUserGeokrets();
-		$lista = 'liczba geokretów u siebie: ' . count($krety->geokrety->geokret).'<br>';
+		$lista = tr('GKApi23').': ' . count($krety->geokrety->geokret).'<br>';
 		 
 		$lista .= '<table>';
 	 foreach ($krety->geokrety->geokret as $kret)
@@ -85,7 +85,7 @@ class GeoKretyApi
 					        </td>
 					        <td>
 					          <select id="GeoKretSelector'.$MaxNr.'" name="GeoKretIDAction'.$MaxNr.'[action]" onchange="GkActionMoved('.$MaxNr.')"><option value="-1">'.tr('GKApi13').'</option><option value="0">'.tr('GKApi12').'</option><option value="5">'.tr('GKApi14').'</option></select>
-                              <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[nr]" value="'.$kret->attributes()->nr.'"><span id="GKtxt'.$MaxNr.'" style="display: none">teść logu kreta: <input type="text" name="GeoKretIDAction'.$MaxNr.'[tx]" maxlength="80" size="50" value="w keszyku '.$cachename.'" '.$jsclear.' /></span>
+                              <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[nr]" value="'.$kret->attributes()->nr.'"><span id="GKtxt'.$MaxNr.'" style="display: none">teść logu kreta: <input type="text" name="GeoKretIDAction'.$MaxNr.'[tx]" maxlength="80" size="50" value="'.tr('GKApi24').' '.$cachename.'" '.$jsclear.' /></span>
                               <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[id]" value="'.$kret->attributes()->id.'">
                               <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[nm]" value="'.$kret.'" />		
                              </td>
@@ -113,7 +113,7 @@ class GeoKretyApi
 					        </td>
 					        <td>
 					          <select id="GeoKretSelector'.$MaxNr.'" name="GeoKretIDAction'.$MaxNr.'[action]" onchange="GkActionMoved('.$MaxNr.')"><option value="-1">'.tr('GKApi13').'</option><option value="1">'.tr('GKApi15').'</option><option value="2">'.tr('GKApi16').'</option><option value="3">'.tr('GKApi17').'</option></select>
-                              <span id="GKtxt'.$MaxNr.'" style="display: none"> tracking code: <input type="text" maxlength="6" size="6"  name="GeoKretIDAction'.$MaxNr.'[nr]"> treść logu kreta: <input type="text" name="GeoKretIDAction'.$MaxNr.'[tx]" maxlength="40" size="50" value="Zabrano z keszyka '.$cachename.'" '.$jsclear.' /></span>
+                              <span id="GKtxt'.$MaxNr.'" style="display: none"> tracking code: <input type="text" maxlength="6" size="6"  name="GeoKretIDAction'.$MaxNr.'[nr]"> '.tr('GKApi25').': <input type="text" name="GeoKretIDAction'.$MaxNr.'[tx]" maxlength="40" size="50" value="'.tr('GKApi26').' '.$cachename.'" '.$jsclear.' /></span>
                               <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[id]" value="'.$kret->attributes()->id.'" />
                               <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[nm]" value="'.$kret.'" />
                             </td>
@@ -132,7 +132,6 @@ class GeoKretyApi
 	 * @return boolean
 	 */
 	public function LogGeokrety($GeokretyArray)
-	// TODO: obluga błędów zwracanych w xmlu przez geokrety.
 	{ 
 		/*
 		print '----------<pre>';
@@ -146,7 +145,7 @@ class GeoKretyApi
 				array(
 						'method'  => 'POST',
 						'header'  => 'Content-type: application/x-www-form-urlencoded',
-						'content' => $postdata
+						'content' => $postdata,
 				)
 		);
 		

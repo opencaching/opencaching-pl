@@ -893,3 +893,7 @@ GKApi15 Took GeoKrety
 GKApi16 Comment
 GKApi17 Seen GeoKrety
 GKApi18 Log geoKrety discovered in this cache:
+GKApi23 total geokrets in your inventory
+GKApi24 in cache
+GKApi25 GeoKrety Log text
+GKApi26 Grabbed from
