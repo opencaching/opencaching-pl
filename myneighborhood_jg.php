@@ -482,7 +482,7 @@ if ($error == false) {
                 $thisline = mb_ereg_replace('{username}',           htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'),                         $thisline);
                 $thisline = mb_ereg_replace('{cacheicon}',          $cacheicon,                                                                         $thisline);
                 $thisline = mb_ereg_replace('{cacheicon_found}',    $cacheicon_found,                                                                   $thisline);
-                $thisline = mb_ereg_replace('{toprate}',            $record['toprate'],                                                                $thisline);
+                $thisline = mb_ereg_replace('{toprate}',            $record['toprate'],                                                                 $thisline);
 
                 $file_content .= $thisline . "\n";
             }
