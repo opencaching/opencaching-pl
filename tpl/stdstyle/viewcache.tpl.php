@@ -22,7 +22,7 @@
 		{GeoKretyApi_windowContent}
 	</p><hr>
 	<p style="font-size: 8px">
-		napędzane przez Kreci Interfejs XML'owy!
+		{{GKApi27}}
 	</p>
 </div>
 
