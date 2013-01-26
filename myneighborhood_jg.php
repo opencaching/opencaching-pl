@@ -690,20 +690,9 @@ if ($error == false) {
                 $thisline = mb_ereg_replace('{username}',   htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'),                            $thisline);
 
                 $logtext= '<b>'.$log_record['user_name'].'</b>: &nbsp;';
-                if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['luser_id']!=$usr['userid']) {
-                    $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";
-                }
-                if ( $log_record['encrypt']==1 && ($log_record['cache_owner']==$usr['userid']|| $log_record['luser_id']==$usr['userid'])) {
-                    $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
-                }
                 $data_text = cleanup_text(str_replace("\r\n", " ", $log_record['log_text']));
                 $data_text = str_replace("\n", " ",$data_text);
-                if ( $log_record['encrypt']==1 && $log_record['cache_owner']!=$usr['userid'] && $log_record['luser_id']!=$usr['userid']) {
-                    $data_text = str_rot13_html($data_text);
-                }
-                else {
-                    $logtext .= "<br/>";
-                }
+                $logtext .= "<br/>";
 
                 $logtext .=$data_text;
                 $thisline = mb_ereg_replace('{log_text}',       $logtext,                                                                                           $thisline);
