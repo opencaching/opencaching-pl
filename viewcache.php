@@ -263,48 +263,55 @@
 			 * 
 			 * @author Andrzej Łza Woźniak 2013
 			 */ 
-			if (isset ($_SESSION['GeoKretyApi']))
-			{
+			if (isset ($_SESSION['GeoKretyApi'])) {
+				
 				$GeoKretyLogResult = unserialize($_SESSION['GeoKretyApi']);
-				unset ($_SESSION['GeoKretyApi']);
+				
+				if(count($GeoKretyLogResult)>0){
+						
+					unset ($_SESSION['GeoKretyApi']);
 
-				$GeokretyWindowContent = '';
-				foreach ($GeoKretyLogResult as $geokret)
-				 {
-				  $GeokretyWindowContent .= $geokret['geokretName'];
-				  foreach ($geokret['errors'] as $errorGK)
-				   {
-				 	if ($errorGK['error'] == '') $GeokretyWindowContent .= ' - ' . tr('GKApi20');
-				 	else $GeokretyWindowContent .= '  - ' . tr('GKApi21') .': '. $errorGK['error'];
-				   }
+					$GeokretyWindowContent = '';
+					foreach ($GeoKretyLogResult as $geokret){
+				  		$GeokretyWindowContent .= $geokret['geokretName'];
+				  		foreach ($geokret['errors'] as $errorGK) {
+				  			if ($errorGK['error'] == '') $GeokretyWindowContent .= ' - ' . tr('GKApi20');
+				  			else $GeokretyWindowContent .= '  - ' . tr('GKApi21') .': '. $errorGK['error'];
+				  		}
 
-				  $GeokretyWindowContent .= '<br />';
-			     }
-			
-			    tpl_set_var('jQueryPopUpWindowscripts', '
-			 		<link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery-1.8.3.js"></script>
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.core.js"></script>
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.widget.js"></script>
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.mouse.js"></script>
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.button.js"></script>
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.draggable.js"></script>
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.position.js"></script>
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.resizable.js"></script>
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.dialog.js"></script>
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.effect.js"></script>
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.effect-blind.js"></script>
-					<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.effect-explode.js"></script>
-					<link rel="stylesheet" href="/tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery.css">
-					<script src="/tpl/stdstyle/js/jquery_1.9.2_ocTheme/viewcache_GeoKretyAPI_message.js"></script>
-					');
-			    tpl_set_var('GeoKretyApi_window_display', 'inline');
-			    tpl_set_var('GeoKretyApi_windowContent', $GeokretyWindowContent);
-			}
-			else 
+				  		$GeokretyWindowContent .= '<br />';
+				 	}
+				 	
+					tpl_set_var('jQueryPopUpWindowscripts', '
+				 		<link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery-1.8.3.js"></script>
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.core.js"></script>
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.widget.js"></script>
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.mouse.js"></script>
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.button.js"></script>
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.draggable.js"></script>
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.position.js"></script>
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.resizable.js"></script>
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.dialog.js"></script>
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.effect.js"></script>
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.effect-blind.js"></script>
+				 		<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.effect-explode.js"></script>
+				 		<link rel="stylesheet" href="/tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery.css">
+				 		<script src="/tpl/stdstyle/js/jquery_1.9.2_ocTheme/viewcache_GeoKretyAPI_message.js"></script>
+				 		');
+				 	tpl_set_var('GeoKretyApi_window_display', 'inline');
+				 	tpl_set_var('GeoKretyApi_windowContent', $GeokretyWindowContent);
+				} else {
+					tpl_set_var('jQueryPopUpWindowscripts', ' ');
+					tpl_set_var('GeoKretyApi_window_display', 'none');
+					unset ($_SESSION['GeoKretyApi']);
+				  }
+			} else
 			{
 				tpl_set_var('jQueryPopUpWindowscripts', ' ');
 				tpl_set_var('GeoKretyApi_window_display', 'none');
+				unset ($_SESSION['GeoKretyApi']);
+				
 			}
 			# end of GeoKretyApi
 
