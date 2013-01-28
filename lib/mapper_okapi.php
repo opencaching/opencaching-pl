@@ -28,9 +28,6 @@ require_once($rootpath.'okapi/facade.php');
 #
 # [mapper.fcgi params NOT supported by mapper_okapi.php]
 # sc, signes, h_pl, h_de, mapid, waypoints.
-#
-# [extra params, not supported by mapper.fcgi]
-# All parameters prefixed with "okapi_".
 
 $params = array();
 $force_result_empty = false;
@@ -197,14 +194,6 @@ else  # Mode 1 - without "searchdata".
 		$params['found_status'] = "either";
 	else
 		$force_result_empty = true;
-	
-	# All other parameters prefixed with "okapi_".
-	
-	foreach ($_GET as $key => $value)
-	{
-		if (strpos($key, "okapi_") === 0)
-			$params[substr($key, 6)] = $value;
-	}
 }
 
 #
