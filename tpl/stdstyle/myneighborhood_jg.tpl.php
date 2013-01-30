@@ -90,7 +90,7 @@
         {new_events}
     </div>
     <br />
-    <div class="content2-container-2col-left" id="local-caches-area">
+    <div class="content2-container-2col-left local-logs-area">
         <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;
             {{ftf_awaiting}}
         </p>
@@ -108,7 +108,7 @@
         <br/><br/>
     </div>
     <br />
-    <div class="content2-container-2col-left" id="local-logs-area">
+    <div class="content2-container-2col-left local-logs-area">
         <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;
             {{top_recommended}}
         </p>
