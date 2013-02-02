@@ -9,6 +9,9 @@
 		case 'pl':
 			$lang='pl';		
 			break;
+		case 'nl':
+			$lang='nl';		
+			break;
 		case 'de':
 			$lang='de';		
 			break;
