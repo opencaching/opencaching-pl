@@ -167,17 +167,18 @@ else
 	      	$filecontent = explode("\n", $filecontent);
 	
 	      	$dane_i = -1;
-	
+	      	
 	      	// parsuje plik
+	      	$listaKodowOP = '';
 	    	foreach($filecontent as $line)
 	    	{
 	    		$rec = explode(",", trim($line));
 	    		if(count($rec) >= 4) {
 	    			// wyglada na skrzynke
-	    			if(substr($rec[0], 0, 2) == "OP") {
+	    			if(substr($rec[0], 0, 2) == $oc_waypoint) {
 		    			$dane_i++;
 		    			$dane[$dane_i]['kod_str'] = $rec[0];
-	    				$dane[$dane_i]['typ_kodu'] = "OP";
+	    				$dane[$dane_i]['typ_kodu'] = $oc_waypoint;
 	    				if(strlen($listaKodowOP) > 0) {
 	    					$listaKodowOP .= ",";
 	    				}
