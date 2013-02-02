@@ -947,3 +947,18 @@ Open_Sprawdzacz OpenSprawdzacz
 os_f00 Keszynek w Opensprawdzaczu, legenda:
 os_f01 Następna
 os_f02 Poprzednia
+log00 Jeśli masz plik logu z Garmina z zapisem swoich poszukiwań tutaj możesz go załadować na stronę.<br /> Wybierz i prześlij plik, by zobaczyć zestawienie skrzynek i móc szybko zalogować je w serwisie.<br /> Maksymalny rozmiar pliku to 50KB.
+log01 Masowe dodawanie logów
+log02 Prezentacja poszukiwanych przez Ciebie skrzynek
+log03 [Filtrowanie] Data od:
+log04 Data do
+log05 Przesuń czas znalezienia skrzynek o
+log06 Nazwa
+log07 i status
+log08 Ostatnia
+log09 aktywność
+log10 Komentarz
+log11 Akcja
+log12 Wpisz tutaj treść komentarza którą chcesz ustawić dla wszystkich widocznych na ekranie skrzynek i naciśnij przycisk.
+log13 Uaktualnij komentarze
+log14 Pobierz jako GPX

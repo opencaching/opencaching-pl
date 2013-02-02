@@ -14,11 +14,9 @@
 require_once('./lib/common.inc.php');
 
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cache" title="Cache" align="middle"/>&nbsp;Masowe dodawanie logów</div>
-<p>
-Jeśli masz plik logu z Garmina z zapisem swoich poszukiwań tutaj możesz go załadować na stronę.<br />
-Wybierz i prześlij plik, by zobaczyć zestawienie skrzynek i móc szybko zalogować je w serwisie.<br />
-Maksymalny rozmiar pliku to 50KB.<br />
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cache" title="Cache" align="middle"/>{{log01}}</div>
+<p>{{log00}}
+<br />
 </p>
 <br />
 <form enctype="multipart/form-data" method="POST" action="log_cache_multi.php">

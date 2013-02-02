@@ -60,15 +60,15 @@ text-decoration: none;
 .bgcolorM1 {background-color: rgb(170,187,182);}
 
 </style>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cache" title="Cache" align="middle"/>&nbsp;Masowe dodawanie logów</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cache" title="Cache" align="middle"/>{{log01}}</div>
 <p>
-Prezentacja poszukiwanych przez Ciebie skrzynek.
+{{log02}}.
 </p>
 <br />
 
-<form method="POST">[Filtrowanie] Data od: <input type="text" name="filter_from" value="{filter_from}" /> Data do: <input type="text" name="filter_to" value="{filter_to}"/><input type="submit" value="Odśwież" /></form>
+<form method="POST">{{log03}} <input type="text" name="filter_from" value="{filter_from}" /> {{log04}}: <input type="text" name="filter_to" value="{filter_to}"/><input type="submit" value="Odśwież" /></form>
 <div>
-  <div style="position: relative; top: 4px; float: left; font-family: Arial, Tahoma, Verdana; font-size: 8pt;">Przesuń czas znalezienia skrzynek o: </div>
+  <div style="position: relative; top: 4px; float: left; font-family: Arial, Tahoma, Verdana; font-size: 8pt;">{{log05}}: </div>
   <div style="float: left;"><form method="POST" name="ShiftTimePlusOne"><input name="SubmitShiftTimePlusOne" type="submit" value="+1 godz."></form></div>
   <div style="float: left;"><form method="POST" name="ShiftTimeMinusOne"><input name="SubmitShiftTimeMinusOne" type="submit" value="-1 godz."></form></div>
   <div style="position:relative; left:60px; float: left;"><form method="LINK" action="log_cache_multi_panelframes.htm" name="otworzPanel"><input type="submit" value="Otwórz panel logowania."></form></div>
@@ -80,12 +80,12 @@ Prezentacja poszukiwanych przez Ciebie skrzynek.
 
 <table border="0" style="line-height: 1.6em; font-size: 10px; table-layout: fixed; border: 1px dotted black;">
   <tr class="bgcolor2">
-    <th width=560>Nazwa</th>
-    <th width=70>Data logu<br />i status</th>
-    <th width=70>Ostatnia<br/>aktywność</th>
+    <th width=560>{{log06}}</th>
+    <th width=70>{{log06}}<br />{{log07}}</th>
+    <th width=70>{{log08}}<br/>{{log09}}</th>
   </tr><tr class="bgcolor2">
-    <th colspan=2>Komentarz</th>
-    <th>Akcja</th>
+    <th colspan=2>{{log10}}</th>
+    <th>{{log11}}</th>
   </tr>
 </table>
 <?php
@@ -146,18 +146,18 @@ foreach($dane as $k=>$v) {
 
 <!-- Mass komentarze... -->
 <p>
-Wpisz tutaj treść komentarza którą chcesz ustawić dla wszystkich widocznych na ekranie skrzynek i naciśnij przycisk.
+{{log12}}.
 </p>
 <form name="massCommentsForm" method="POST">
 <textarea name="logtext" id="logtext" cols="100" rows="7"></textarea>
-<input type="submit" name="submitCommentsForm" id="submitCommentsForm" value="Uaktualnij komentarze" style="width:120px"/>
+<input type="submit" name="submitCommentsForm" id="submitCommentsForm" value="{{log13}}" style="width:120px"/>
 </form>
 <br />
 <hr />
 <br />
 <div style="text-align: center">
 <form name="GpsDownload" method="POST">
-<input type="submit" name="submitDownloadGpx" id="submitDownloadGpxId" value="Pobierz jako .GPX" style="width:120px"/>
+<input type="submit" name="submitDownloadGpx" id="submitDownloadGpxId" value="{{log14}}" style="width:120px"/>
 </form>
 </div>
 <br />
