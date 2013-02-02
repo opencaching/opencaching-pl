@@ -329,13 +329,13 @@ class OpensprawdzaczCore
 				else $sort = '';
 				
 				if (isset($_GET["page"])) $tPage = sql_escape($_GET["page"]); else $tPage = 1; 
-				if ($tPage > 1) $paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.($num-1).$sort.'">[<.Poprzednia]</a> ';
+				if ($tPage > 1) $paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.($num-1).$sort.'">[<' . tr('os_f02') . ']</a> ';
 				foreach ($numbers as $num)
 				{
 				    if ($num == $tPage)$paginacja .= '<b>['.$num.']</b>';
 				    else $paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.$num.$sort.'">['.$num.']</a> ';
 				}
-				if ($tPage < count($numbers)) $paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.($tPage+1).$sort.'">[Następna &#62;]</a> ';
+				if ($tPage < count($numbers)) $paginacja .= '<a href="'.$OpensprawdzaczSetup->scriptname.'?page='.($tPage+1).$sort.'">['.tr('os_f01').' &#62;]</a> ';
 					
 					
 				$tabelka_keszynek = '';
@@ -366,14 +366,14 @@ class OpensprawdzaczCore
 				$tabelka_keszynek .= '
 				<tr><td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td></tr><tr>
 					<td><img src="/tpl/stdstyle/images/misc/16x16-info.png" /></td>
-					<td>Keszynek w Opensprawdzaczu, legenda: </td>
+					<td>'.tr('os_f00').': </td>
 					<td>'.$ile_keszynek	.'</td>
 					<td align="center">
 						'.$status[1].'<br />'.$status[2].'
 					</td>
 								<td>
-								(Gotowa do szukania)<br />
-						(Tymczasowo niedostępna)
+								('.tr('log_type_available').')<br />
+						('.tr('temp_unavailables').')
 					</td>
 					<td align="center">'.$proby.'</td>
 					<td align="center">'.$trafienia.'</td>

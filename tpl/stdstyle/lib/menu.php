@@ -631,8 +631,8 @@ $menu = array(
                 'filename'      => 'searchuser.php'
             ),
             array(
-                'title'         => 'OpenSprawdzacz',
-                'menustring'    => 'OpenSprawdzacz',
+                'title'         => tr('Open_Sprawdzacz'),
+                'menustring'    => tr('Open_Sprawdzacz'),
                 'visible'       => true,
                 'filename'      => 'opensprawdzacz.php',
                 'siteid'        => 'opensprawdzacz'

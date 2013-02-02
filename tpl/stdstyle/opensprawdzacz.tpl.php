@@ -49,7 +49,7 @@ function toggle() {
 
 <div class="content2-pagetitle"> 
  <img src="tpl/stdstyle/images/blue/opensprawdzacz32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" /> 
- OpenSprawdzacz	
+ {{Open_Sprawdzacz}}	
 </div> 
 
 

@@ -963,3 +963,8 @@ geocaching_com_foto_info Please don't use pictures from geocaching.com
 html_edit_info For formatting text use HTML characters only. List of the allowed characters you can see <a href="articles.php?page=htmltags">here</a>.
 javascript_edit_info Javascript is turned off in your browser. You can lead ordinary text only. For leading HTML and use HTML Editor you have to turn on Javascript.
 team_stat_m_problems OC Team monthly statistic - problems
+Open_Sprawdzacz OpenChecker
+os_f00 Caches in OpenChecker, legend
+os_f01 Next
+os_f02 Previous
+
