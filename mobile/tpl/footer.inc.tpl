@@ -17,9 +17,9 @@
 						
 		<table class="tablefooter">
 			<tr>
-				<td class="button" style="width:35%"><a href="javascript:createcookie('lang','pl'); reloadpage();" >PL</a></td>
-				<td class="button" style="width:35%"><a href="javascript:createcookie('lang','en'); reloadpage();" >EN</a></td>
-				<!--<td class="button" style="width:25%"><a href="javascript:createcookie('lang','de'); reloadpage();" >DE</a></td>			-->
+			        <td class="button" style="width:25%"><a href="javascript:createcookie('lang','pl'); reloadpage();" >PL</a></td>
+			        <td class="button" style="width:25%"><a href="javascript:createcookie('lang','en'); reloadpage();" >EN</a></td>
+			        <td class="button" style="width:25%"><a href="javascript:createcookie('lang','nl'); reloadpage();" >NL</a></td>
 			</tr>
 		</table>
 					

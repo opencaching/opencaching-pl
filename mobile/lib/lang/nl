@@ -1,0 +1,162 @@
+lang nl
+login [inloggen]
+logout [uitloggen]
+login_info ingelogd als
+about over
+contact contact
+main_page startpagina
+back ...terug
+pc_ver PC versie
+login_title login
+login_title2 Inloggen
+wrong_login_pass verkeerde gebruikersnaam of wachtwoord!
+user Gebruikersnaam:
+passw Wachtwoord:
+remember_me Herinner mij
+login_button Inloggen
+mainpage_title Startpagina
+seek zoek een cache
+seek_near zoek caches in de buurt
+entry schrijf een log in logboek
+my_menu mijn menu...
+more meer...
+menu_title my menu
+menu_title2 My menu
+more_title more
+more_title2 Meer
+about_title about
+about_title2 About
+contact_title contact
+contact_title2 Contact
+logs_title entries
+found gevonden
+notfound niet gevonden
+notes notitie
+service onderhoud nodig
+file_title1 downloaden
+file_title2 Downloaden
+logout_title uitloggen
+logout_title2 Uitloggen
+find_title1 zoek een cache
+find_title2 add entry
+find_title3 Zoek een cache
+find_title4 Add entry
+login_order please login
+result Resultaten:
+hidden_by geplaatst door
+name naam:
+wpt waypoint:
+owner eigenaar:
+seek_button Zoek
+no_wp geen cache
+view_title1 beschrijving
+type Soort:
+size Grootte:
+status Status:
+hidden_date Geplaatst op:
+view_wpt Waypoint:
+view_owner Eigenaar:
+stats Statistieken:
+download_file download data in following format
+show_spoiler toon spoiler
+photos afbeeldingen
+show_entries toon logs
+add_entry voeg log toe
+score score:
+topratings Aanbevelingen:
+show_attrib toon attributen
+moved moved
+cog_note COG comment 
+temp_unavailable tijdelijk niet beschikbaar
+ready ready to search
+archived gearchiveerd
+need_archive archiveren nodig
+edit bewerken
+delete verwijderen
+no_cookie your Nroswer ondersteunt geen cookie!
+del_question Moet dit echt verwijdert worden?
+yes ja
+no nee
+not_your_entry This is not your entry!
+no_entry no entry
+show_gk toon geokrety 
+entry_type log soort:
+entry_date log datum:
+entry_time log tijd:
+entry_score score:
+entry_pass cache wachtwoord:
+entry_text log tekst:
+toprating aanbeveling:
+add 
+no_score geen score
+seek_near2 Zoek caches in de buurt
+cords coördinaten :
+radius radius:
+logentry_title add entry
+wrong_dateformat wrong date format
+future_date datum in toekomst
+hack hacking
+wrong_pass verkeerd wachtwoord
+my_caches mijn caches
+stats2 statistieken
+reg conditions of use (ext. link)
+remove_title verwijder log
+stats_title1 Statistieken
+stats_title2 Statistieken
+caches_count Totaal aantal caches:
+caches_active Actieve caches:
+caches_found_text Gevonden:
+user_count Aantal gebruikers:
+top5_caches_found TOP5 gevonden caches:
+top5_caches_rating TOP5 aanbevolen caches:
+top5_user_found TOP5 vinders:
+top5_user_hidden TOP5 makers:
+wrong_cords verkeerde coördinaat formaat
+user_find_title1 zoek gebruiker
+user_find_title2 Zoek gebruiker
+no_user Geen gebruiker gevonden
+country_user land:
+registered_user geregistreerd :
+hidden_count_user geplaatste caches:
+founds_count_user gevonden:
+notfounds_count_user niet gevonden:
+notes_count_user notities:
+show_user_caches toon caches van gebruiker
+user_name Gebruikernaam:
+my_stats mijn statistieken
+find_user zoek gebruiker
+rate0 Slecht
+rate1 Matig
+rate2 Redelijk
+rate3 Goed
+rate4 Uitstekend
+news_title1 nieuws
+news_title2 Nieuws
+next volgende
+prev vorige
+older ouder
+newer nieuwer
+page pagina
+show_map toon op kaart
+found_caches gevonden caches
+observed_caches gevolgde caches
+too_short_find woord korter dan 3 letters
+fixed_cords Afstand en richting vanaf:
+newest_caches nieuwste caches
+localize_me waar ben ik?
+no_city no city id database
+city stad:
+center_on_me centreer op mij
+normal_view normale weergave
+show_track toon hele track
+show_from_me toon vanaf hier
+watch volgen
+not_watch niet volgen
+skip_caches zonder deze caches:
+skip_mine mijn caches
+skip_found gevonden caches
+skip_ignored genegeerde caches
+skip_inactive niet actieve caches
+404_title error 404
+404_text geen bestand
+EOF
