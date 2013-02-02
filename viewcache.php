@@ -96,10 +96,7 @@
 		if ($cache_id != 0)
 		{	//mysql_query("SET NAMES 'utf8'");
 			//get cache record
-					if(checkField('countries','list_default_'.$lang) )
-					$lang_db = $lang;
-				else
-					$lang_db = "en";
+			$lang_db = ($lang == 'pl')?'pl':'en';
 
 			$rs = sql("SELECT `caches`.`cache_id` `cache_id`,
 			                  `caches`.`user_id` `user_id`,

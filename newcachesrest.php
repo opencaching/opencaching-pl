@@ -44,10 +44,7 @@
 		$content = '';
 		$cache_country='';
 		
-				if(checkField('countries','list_default_'.$lang) )
-				$lang_db = $lang;
-			else
-				$lang_db = "en";
+		$lang_db = ($lang == 'pl')?'pl':'en';
 
 	$rs = sql("	SELECT	`caches`.`cache_id` `cache_id`,
 				`caches`.`user_id` `userid`,

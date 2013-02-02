@@ -196,7 +196,7 @@
 					// ok ... die desclang zusammenbauen
 					if ($show_all_langs == false)
 					{
-						$rs = sql('SELECT `list_default_' . sql_escape($lang) . "` `list` FROM `languages` WHERE `short`='&1'", $desc_lang);
+						$rs = sql('SELECT `list_default_' . sql_escape(($lang == 'pl')?'pl':'en') . "` `list` FROM `languages` WHERE `short`='&1'", $desc_lang);
 						$r = sql_fetch_array($rs);
 						if ($r['list'] == 0)
 							$show_all_langs = true;
@@ -205,7 +205,7 @@
 
 					$languages = '';
 					$sql_nosellangs = 'SELECT `language` FROM `cache_desc` WHERE (`cache_id`=\'' . sql_escape($desc_record['cache_id']) . '\') AND (`language` != \'' . sql_escape($desc_lang) . '\')';
-					$rs = sql('SELECT `' . sql_escape($lang) .  '` `name`, `short` `short` FROM `languages` WHERE `short` NOT IN (' . $sql_nosellangs . ') ' . (($show_all_langs == false) ? 'AND `list_default_' . sql_escape($lang) . '`=1 ' : '') . 'ORDER BY `' . sql_escape($lang) .  '` ASC');
+					$rs = sql('SELECT `' . sql_escape(($lang == 'pl')?'pl':'en') .  '` `name`, `short` `short` FROM `languages` WHERE `short` NOT IN (' . $sql_nosellangs . ') ' . (($show_all_langs == false) ? 'AND `list_default_' . sql_escape(($lang == 'pl')?'pl':'en') . '`=1 ' : '') . 'ORDER BY `' . sql_escape(($lang == 'pl')?'pl':'en') .  '` ASC');
 					while ($r = sql_fetch_array($rs))
 						$languages .= '<option value="' . $r['short'] . '"' . (($r['short'] == $desc_lang) ? ' selected="selected"' : '') . '>' . htmlspecialchars($r['name'], ENT_COMPAT, 'UTF-8') . '</option>' . "\n";
 					mysql_free_result($rs);

@@ -100,10 +100,7 @@ class cache_location
 				{
 					$code1 = $sCode;
 	
-					if(checkField('countries','list_default_'.$lang) )
-						$lang_db = $lang;
-					else
-						$lang_db = "en";
+					$lang_db = ($lang == 'pl')?'pl':'en';
 				
 					// try to get localised name first
 					$adm1 = sqlvalue("SELECT `countries`.`pl`
@@ -119,10 +116,7 @@ class cache_location
 			}
 			else
 			{
-						if(checkField('countries','list_default_'.$lang) )
-						$lang_db = $lang;
-					else
-						$lang_db = "en";		
+				$lang_db = ($lang == 'pl')?'pl':'en';
 				$sCountry = sqlvalue("SELECT `countries`.`pl`
 				                         FROM `caches` 
 				                   INNER JOIN `countries` ON `caches`.`country`=`countries`.`short`

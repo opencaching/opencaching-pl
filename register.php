@@ -211,10 +211,7 @@
 		{
 			$stmp = '<option value="XX">' . $no_answer . '</option>';
 		}
-		if(checkField('countries','list_default_'.$lang) )
-					$lang_db = $lang;
-				else
-					$lang_db = "en";
+		$lang_db = ($lang == 'pl')?'pl':'en';
 
 		if ($display_all_countries == 0)
 		{

@@ -559,13 +559,13 @@
 					//check if selected country is in list_default
 					if ($show_all_countries == 0)
 					{
-						$rs = sql("SELECT `short` FROM `countries` WHERE (`list_default_" . sql_escape($lang) . "`=1) AND (lower(`short`) = lower('&1'))", $cache_country);
+						$rs = sql("SELECT `short` FROM `countries` WHERE (`list_default_" . sql_escape(($lang == 'pl')?'pl':'en') . "`=1) AND (lower(`short`) = lower('&1'))", $cache_country);
 						if (mysql_num_rows($rs) == 0) $show_all_countries = 1;
 					}
 
 					//get the record
 					if ($show_all_countries == 0)
-						$rs = sql('SELECT `' . sql_escape($lang) . '`, `short` FROM `countries` WHERE `list_default_' . sql_escape($lang) . '`=1 ORDER BY `sort_' . sql_escape($lang) . '` ASC');
+						$rs = sql('SELECT `' . sql_escape(($lang == 'pl')?'pl':'en') . '`, `short` FROM `countries` WHERE `list_default_' . sql_escape(($lang == 'pl')?'pl':'en') . '`=1 ORDER BY `sort_' . sql_escape($lang) . '` ASC');
 					else
 						$rs = sql('SELECT `' . sql_escape($lang) . '`, `short` FROM `countries` ORDER BY `sort_' . sql_escape($lang) . '` ASC');
 

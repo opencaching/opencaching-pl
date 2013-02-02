@@ -145,11 +145,7 @@ class GetRegions {
 
 				$code1 = $sCode;
 
-				if(checkField('countries','list_default_'.$lang) )
-
-					$lang_db = $lang;
-				else
-					$lang_db = "en";
+				$lang_db = ($lang == 'pl')?'pl':'en';
 
 				// try to get localised name first
 

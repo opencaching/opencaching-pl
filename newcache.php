@@ -490,10 +490,7 @@ else if ($verify_all==1) {
 
 				//check if selected country is in list_default
 				
-				if(checkField('countries','list_default_'.$lang) )
-					$lang_db = $lang;
-				else
-					$lang_db = "en";
+				$lang_db = ($lang == 'pl')?'pl':'en';
 
 				if ($show_all_langs == 0)
 				{
