@@ -168,7 +168,7 @@ if ($error == false) {
 
             $markers = $markerpos['markers'];
             if (empty($markerpos['markers'])) {
-                $dzoom = "&zoom=8";
+                $dzoom = "&amp;zoom=8";
             }
             else {
                 $dzoom = "";
@@ -521,7 +521,7 @@ if ($error == false) {
             $cacheline =    '<li class="newcache_list_multi" style="margin-bottom:8px;">
                                 <img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" />&nbsp;
                                 {date}&nbsp;
-                                <a id="itemcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>  (&nbsp;{distance}&nbsp;km&nbsp;)  
+                                <a id="newcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>  (&nbsp;{distance}&nbsp;km&nbsp;)  
                                 <img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" />&nbsp;&nbsp;
                                 <a class="links" href="viewprofile.php?userid={userid}">{username}</a>
                             </li>';
