@@ -17,10 +17,12 @@
     //detect browser:
     if ((navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 3) || parseInt(navigator.appVersion) >= 4) {
         rollOvers = 1;
-    }       else {
+    }       
+    else {
         if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion) >= 4) {
             rollOvers = 1;
-        } else {
+        } 
+        else {
             rollOvers = 0;
         }
     }
@@ -31,11 +33,9 @@
             map_image_cache = [];
             map_image_cache[-1] = new Image();
             map_image_cache[-1].src = document.getElementById('main-cachemap').getAttribute('basesrc');
-            for (i = 0; i < 20; i++)
-            {
-                var nc_elem = document.getElementById('newcache' + i);
-                if (nc_elem != null)
-                {
+            for (i = 0; i < 30; i++) {
+                var nc_elem = document.getElementById('mapcache' + i);
+                if (nc_elem != null) {
                     map_image_cache[i] = new Image();
                     map_image_cache[i].src = nc_elem.getAttribute('maphref');
                 }
@@ -90,7 +90,7 @@
         {new_events}
     </div>
     <br />
-    <div class="content2-container-2col-left" id="local-caches-area">
+    <div class="content2-container-2col-left local-logs-area">
         <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;
             {{ftf_awaiting}}
         </p>
@@ -108,7 +108,7 @@
         <br/><br/>
     </div>
     <br />
-    <div class="content2-container-2col-left" id="local-logs-area">
+    <div class="content2-container-2col-left local-logs-area">
         <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;
             {{top_recommended}}
         </p>
