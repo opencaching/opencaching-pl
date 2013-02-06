@@ -169,7 +169,7 @@ if ($error == false) {
                         WHERE  `caches`.`type` != 6
                             AND `caches`.`status` = 1
                             AND `caches`.`founds` = 0
-                      ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC, `caches`.`cache_id` DESC
+                        ORDER BY `caches`.`date_hidden` DESC, `caches`.`cache_id` DESC
                         LIMIT 0, 10",$latitude, $longitude,$radius);
             for ($i = 0; $i < mysql_num_rows($rs); $i++) {
                 $record     = sql_fetch_array($rs);
@@ -194,7 +194,7 @@ if ($error == false) {
             else {
                 $dzoom = "";
             }
-            $markers_str        = "markers=color:blue|size:small|";
+            $markers_str        = "&amp;markers=color:blue|size:small|";
             $markers_ev_str     = "&amp;markers=color:orange|size:small|";
             $markers_ftf_str    = "&amp;markers=color:green|size:small|";
             $sel_marker_str     = "";
@@ -219,7 +219,7 @@ if ($error == false) {
                     else 
                         $sel_marker_str = "&amp;markers=color:blue|label:$type|$lat,$lon|";
             }
-            $google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude.$dzoom."&amp;size=350x350&amp;maptype=roadmap&amp;key=".$googlemap_key."&amp;sensor=false&amp;".$markers_str.$markers_ev_str.$markers_ftf_str.$sel_marker_str;
+            $google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude.$dzoom."&amp;size=350x350&amp;maptype=roadmap&amp;key=".$googlemap_key."&amp;sensor=false".$markers_ftf_str.$markers_str.$markers_ev_str.$sel_marker_str;
 
             return $google_map;
         }
