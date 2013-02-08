@@ -967,4 +967,6 @@ Open_Sprawdzacz OpenChecker
 os_f00 Caches in OpenChecker, legend
 os_f01 Next
 os_f02 Previous
+date Date
+ 
 

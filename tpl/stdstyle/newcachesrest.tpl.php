@@ -4,12 +4,12 @@
 <div class="searchdiv">
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.6em; font-size: 13px;" width="80%">
 <tr>
-<td><strong>Data</strong></td>
+<td><strong>{{date}}</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><strong>Cache</strong></td>
-<td><strong>User</strong></td>
+<td><strong>{{cache}}</strong></td>
+<td><strong>{{user}}</strong></td>
 </tr>
 <tr>
 <td colspan="6"><hr></hr></td>

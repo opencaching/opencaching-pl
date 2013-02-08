@@ -962,3 +962,27 @@ log11 Akcja
 log12 Wpisz tutaj treść komentarza którą chcesz ustawić dla wszystkich widocznych na ekranie skrzynek i naciśnij przycisk.
 log13 Uaktualnij komentarze
 log14 Pobierz jako GPX
+date Data
+myprofile01 Użytkownik, który założył lub zrobił wpis do logu nie może być usunięty. Jest możliwa tylko deaktywacja konta. Będą wtedy usunięte wszystkie dane e-mail z profilu ale nazwa użytkownika zostanie zachowana. Jeśli chcesz deaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail, a deaktywujemy Twoje konto. W przypadkach niejasnych prosimy o kontakt ocpl @ opencaching.pl Dziękujemy.
+myprofile02 Tak, jestem wolontariuszem Przewodnikiem geocachingu dla początkujących. Patrz:
+myprofile03 Przewodnicy
+myprofile04 Tak, chcę zostać wolontariuszem Przewodnikiem geocachingu dla początkujących
+myprofile05 Patrz: więcej na stronie
+myprofile06 Pamietaj ustawić poniżej współrzędne bez tego nie będziesz widzany na mapie Przewodników
+myprofile07 OC PL wykorzystuje współrzędne aby obliczyć odległość do skrzynek, na mapach, które są dostępne publicznie. Jeśli obawiasz sie upubliczniania współrzędnych, podaj współrzędne najbliższego parku, baru.. lub po prostu wpisz kilka ostatnich cyfr jako zera
+em01 Aby zmienić adres e-mail najpierw musisz otrzymać kod, który zostanie wysłany na nowy adres e-mail
+em02 Nowy adres e-mail
+em03 Należy wprowadzić kod razem z nowym adresem e-mail. Kod jest ważny 3 dni i po tym okresie należy wygenerować nowy
+em04 Kod, który otrzymałeś via e-mail
+em05 Generuj kod
+em06 Zmień adres e-mail
+em07 Adres e-mail został zmieniony
+em08 Kod został wysłany na nowy adres e-mail
+em09 Kod do zmiany adresu e-mail na OCPL
+em10 Adres e-mail jest nieprawidłowy.</div
+em11 Podany adres e-mail już istnieje w bazie OC PL
+em12 Kod wprowadzony nie jest poprawny
+em13 Kod stracił swoją ważność
+
+
+

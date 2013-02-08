@@ -70,11 +70,11 @@
 		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{guide}}:</td>
 		<td  valign="middle">
 			<input type="checkbox" name="guide" id="guide" value="1" {guide_sel} class="checkbox" />
-			<label for="guide">Tak, chcę zostać wolontariuszem Przewodnikiem geocachingu dla początkujących.<br/> Patrz: więcej na stronie <a class="links" href="cacheguides.php">Przewodnicy</a></label>
+			<label for="guide">{{myprofile04}}.<br/> {{myprofile04}} <a class="links" href="cacheguides.php">{{myprofile03}}</a></label>
 		</td>
 	</tr>
 	<tr><td>&nbsp;</td><td>
-	<div class="notice" style="width:500px;height:44px;">Pamietaj ustawić poniżej współrzędne bez tego nie będziesz widzany na mapie Przewodników</div>
+	<div class="notice" style="width:500px;height:44px;">{{myprofile06}}</div>
 	</td></tr>
 	{guide_end}			
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -99,7 +99,7 @@
 			°&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
 			{lon_message}
 		</fieldset><br/>
-				<div class="notice" style="width:500px;height:44px;">OC PL wykorzystuje współrzędne aby obliczyć odległość do skrzynek, na mapach, które są dostępne publicznie. Jeśli obawiasz sie upubliczniania współrzędnych, podaj współrzędne najbliższego parku, baru.. lub po prostu wpisz kilka ostatnich cyfr jako zera.</div>
+				<div class="notice" style="width:500px;height:44px;">{{myprofile07}}.</div>
 
 		</td>
 	</tr>

@@ -25,16 +25,16 @@
 	
  ****************************************************************************/
  
- $change_email = 'Zmień adres e-mail';
- $get_code = 'Generuj kod';
+ $change_email = tr('em06');
+ $get_code = tr('em05');
 
- $email_changed = '<div class="notice" style="width:500px;height:24px;">Adres e-mail został zmieniony.</div>';
- $email_send = '<div class="notice" style="width:500px;height:24px;">Kod został wysłany na nowy adres e-mail.</div>';
- $email_subject = 'Kod do zmiany adresu e-mail na OCPL';
+ $email_changed = '<div class="notice" style="width:500px;height:24px;">'.tr('em07').'.</div>';
+ $email_send = '<div class="notice" style="width:500px;height:24px;">'.tr('em08').'.</div>';
+ $email_subject = tr('em09');
  
- $error_email_not_ok = '<div class="errormsg">Adres e-mail jest nieprawidłowy.</div>';
- $error_email_exists = '<div class="errormsg">Podany adres e-mail już istnieje w bazie OC PL.</div>';
- $error_no_new_email = '<div class="errormsg">Podany adres e-mail nie istnieje w bazie OC PL.</div>';
- $error_wrong_code = '<div class="errormsg">Kod wprowadzony nie jest poprawny.</div>';
- $error_code_timed_out = '<div class="errormsg">Kod stracił swoją ważność.</div>';
+ $error_email_not_ok = '<div class="errormsg">'.tr('em10').'.</div>';
+ $error_email_exists = '<div class="errormsg">'.tr('em11').'.</div>';
+ $error_no_new_email = '<div class="errormsg">'.tr('em11').'.</div>';
+ $error_wrong_code = '<div class="errormsg">'.tr('em12').'.</div>';
+ $error_code_timed_out = '<div class="errormsg">'.tr('em13').'.</div>';
 ?>

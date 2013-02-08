@@ -34,7 +34,7 @@
 <div class="searchdiv">
 {message}
 <div class="notice">
-Aby zmienić adres e-mail najpierw musisz otrzymać kod, który zostanie wysłany na nowy adres e-mail.
+{{em01}}.
 </div>
 
 <form action="newemail.php" method="post" enctype="application/x-www-form-urlencoded" name="forgot_pw_form" dir="ltr" style="display: inline;">
@@ -44,7 +44,7 @@ Aby zmienić adres e-mail najpierw musisz otrzymać kod, który zostanie wysłan
 		<col>
 	</colgroup>
 	<tr>
-		<td class="content-title-noshade">Nowy adres e-mail:</td>
+		<td class="content-title-noshade">{{em02}}:</td>
 		<td>
 			<input name="newemail" maxlength="60" type="text" value="{new_email}" class="input200" /> {email_message}
 		</td>
@@ -56,14 +56,14 @@ Aby zmienić adres e-mail najpierw musisz otrzymać kod, który zostanie wysłan
 		</td>
 	</tr>
 </table>
-<div class="notice">Należy wprowadzić kod razem z nowym adresem e-mail. Kod jest ważny 3 dni i po tym okresie należy wygenerować nowy.</div>
+<div class="notice">{{em03}}.</div>
 <table class="table">
 	<colgroup>
 		<col width="150px">
 		<col>
 	</colgroup>
 	<tr>
-		<td class="content-title-noshade">Kod, który otrzymałeś via e-mail:</td>
+		<td class="content-title-noshade">{{em04}}:</td>
 		<td>
 			<input name="code" maxlength="60" type="text" value="" class="input100" />{code_message}
 		</td>

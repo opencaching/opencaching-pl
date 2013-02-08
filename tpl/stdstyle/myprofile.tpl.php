@@ -28,7 +28,7 @@
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{my_account}}" title="{{my_account}}" />&nbsp;{{my_account}}</div>
 <div class=searchdiv>
 <div class="notice" style="height:44px;">
-Użytkownik, który założył lub zrobił wpis do logu nie może być usunięty. Jest możliwa tylko deaktywacja konta. Będą wtedy usunięte wszystkie dane e-mail z profilu ale nazwa użytkownika zostanie zachowana. Jeśli chcesz deaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail, a deaktywujemy Twoje konto. W przypadkach niejasnych prosimy o kontakt ocpl @ opencaching.pl Dziękujemy.
+{{myprofile01}} 
 </div>
 <div class="notice">
 {{gray_field_is_hidden}}
@@ -60,7 +60,7 @@ Użytkownik, który założył lub zrobił wpis do logu nie może być usunięty
 		<tr>
 		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{guide}}:</td>
 		<td  valign="middle">
-		Tak, jestem wolontariuszem Przewodnikiem geocachingu dla początkujących. Patrz: <a class="links" href="cacheguides.php">Przewodnicy</a></label>&nbsp;
+		 {{myprofile02}}<a class="links" href="cacheguides.php">{{myprofile03}}</a></label>&nbsp;
 		</td>
 	</tr>
 	{guides_end}
