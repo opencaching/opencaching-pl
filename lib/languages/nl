@@ -1,26 +1,21 @@
 main_menu Hoofd Menu
 user_menu Gebruikers Menu
 new NIEUW
-cache_menu Cache Menu
-activation_code_failed Activatie code of e-mail adres klopt niet.<br/>Je account is niet geactiveerd. Controleer de gegevens. Als het probleem blijft, neem dan contact met ons op via: octeam (at) opencaching.nl.
 save Opslaan
 Edit Bewerken
 back Terug
+cache_menu Cache Menu
+activation_code_failed Activatie code of e-mail adres klopt niet.<br/>Je account is niet geactiveerd. Controleer de gegevens. Als het probleem blijft, neem dan contact met ons op via: octeam (at) opencaching.nl.
 email_incorrect E-mail adres is niet correct.
 account_activation Account activatie
-finish_registration_hint Om het registratie proces te voltooien, moet je je e-mail adres bevestigen en de activatie code invullen
-back Terug
+finish_registration_hint Om het registratie proces te voltooien, moet je je e-mail adres bevestigen en de activatie code invullen.
 email_address E-mail adres
-to_print_list print list
-to_print To print
-clipboard Klembord
 activation_code Activatie code
 confirm Bevestig
 reset herstellen
-activation_success Je account is succesvol geactiveerd. Je kunt nu inloggen.
+activation_success Je account is seccesvol geactiveerd. Je kunt nu inloggen.
 goto_login Ga naar login pagina
 preview_attributes Voorbeeld van extra cache attributen
-shown zichtbaar
 toxic_plants Giftige planten
 thorns Doornen
 cito Cache In - Trash Out
@@ -35,9 +30,6 @@ bikes_allowed Fietsen toegestaan
 bikes_not_allowed Fietsen niet toegestaan
 cars_allowed Auto's toegestaan
 cave Grot
-active_caches_in_area actieve caches in gebied
-next Volgende
-printer_friendly Printvriendelijk
 outside_path_allowed Naast paden wandelen is toegestaan
 outside_path_not_allowed Naast paden wandelen is niet toegestaan
 drive_outside_road_allowed Buiten de wegen rijden toegestaan
@@ -48,15 +40,6 @@ swimming_pool_nearby Zwembad in de buurt
 warning_mud Let op, modder
 fire_danger Kans op brand
 travel_bug_hotel Een Travel Bug of GeoKrety.org hotel
-user_map Gebruikerskaart
-current_zoom Huidige zoom
-colors Kleuren
-yellow Geel
-green Groen
-gray Grijs
-red Rood
-medium_climb Moeilijke klim
-last_10_days van laatste 10 dagen
 handicap_allowed Toegankelijk voor mindervaliden
 handicap_not_allowed Niet toegankelijk voor mindervaliden
 can_drive_in Een drive-in direct bij de cache
@@ -64,23 +47,58 @@ no_shorts Draag geen korte broek
 hunting_area Jachtgebied
 danger_area Gevaarlijk gebied
 toilet_nearby Toilet vlakbij
-no_toilet_nearby Geen toilet vlakbij
-drink_water Drinkwater beschikbaaar
+no_toilet_nearby Geen toilet dichtbij
+drink_water Drinkwater beschikbaar
 hiking Meer dan 500m van een weg
 take_pencil Breng eigen pen mee
 easy_climb Makkelijke klim
-own eigen cache
-rest alle andere
+medium_climb Moeilijke klim
 extreme_climb Extreme klim
 horse_path Ruiterpad
 check_tide Controleer getijden
-take_compass Neem kompas mee
+take_compass Neem  kompas mee
 sights Uitzichten
+skeeter draag insectwerende kleding
+tick Teken
+snake Waarschuwing! Slangen
+generate_code Generate code
+9keycom Additional attributes based on http://www.9key.com/selector.asp
+score Waardering
+scored Gewaardeerd
+recommendations Aanbevelingen
+recommendation Aanbeveling
+created_by Gemaakt door
+found Gevonden
+founds gevonden
+only_founds alleen gevonden
+only_new alleen nieuw
+not_found Niet gevonden
+add_to voeg toe
+add_to_list Naar klembord
+remove_from_list Uit Klembord
+print Afdrukken
+remove_from Verwijder van
+to_print_list print list
+to_print To print
+clipboard Klembord
+active_caches_in_area actieve caches in gebied
+shown zichtbaar
+next Volgende
+printer_friendly Printvriendelijk
+user_map Gebruikerskaart
+current_zoom Huidige zoom
+colors Kleuren
+yellow Geel
+green Groen
+gray Grijs
+red Rood
+last_10_days van laatste 10 dagen
+own eigen cache
+rest alle andere
 max_caches_per_page Max. aantal caches per pagina
-sort_by Sorteer op
+sort_by Sorteer zoekresultaat op
 by_name naam
 by_date datum
-skeeter Wear draag insectwerende kleding
 hide_caches_type Verberg caches op soort
 unknown_type Ander soort
 traditional Traditioneel
@@ -94,32 +112,11 @@ podcast Podcast
 owncache Eigen cache
 hide_caches Verberg caches
 ignored genegeerde
-print Afdrukken
-tick Teken
-snake Waarschuwing! Slangen
-generate_code Generate code
-9keycom Additional attributes based on http://www.9key.com/selector.asp
-score Waardering
-scored Gewaardeerd
-recommendations Aanbevelingen
-recommendation Aanbeveling
-created_by Gemaakt door
-found Gevonden
-founds gevonden
-only_founds alleen gevonden
-only_new alleen nieuwe
-not_found Niet gevonden
-add_to voeg toe
-add_to_list Naar klembord
-remove_from_list Uit klembord
-remove_from verwijder van
 not_yet_found nog niet gevonden
 temp_unavailables tijdelijk niet beschikbaar
 ready_to_find beschikbaar
 other_options Andere opties
-show_signes toon namen
-registration Registreren
-remove_from verwijden van
+show_signes Toon namen
 filter filter
 without_geokret zonder geokret
 show_caches Toon caches
@@ -134,6 +131,7 @@ statpic_text_message (max. 30 tekens)
 illegal_char Verkeerde teken(s)!
 main_page Startpagina
 what_is_geocaching Geocaching. What is it?
+registration Registreren
 news Nieuws
 new_caches Nieuwste caches
 new_cache Maak een cache
@@ -183,6 +181,7 @@ special_caches Special caches
 user_ident Gebruikers profiel
 cache_map Kaart met caches v3
 cache_mapv2 Kaart met caches v2
+old_cache_map Map's older version
 abc Geocaching ABC
 forum Forum
 geokrets Geokrety
@@ -211,16 +210,16 @@ date_hidden_label Datum van plaatsing
 date_created_label Datum van creatie
 last_modified_label Laatste verandering
 waypoint Waypoint
+listed_also_on Also listed on
 comments Opmerkingen
 comment Comment
+write_to_log Log your visit
 edit Bewerken
 watch Volgen
 watch_not Niet volgen
 ignore Negeren
 ignore_not Niet negeren
 decrypt Decoderen
-listed_also_on Also listed on
-write_to_log Log your visit
 pictures_included Pictures for this log entry
 attendends Attended
 will_attend Will attend
@@ -235,24 +234,24 @@ out_of out of
 list_of_participants The list of participants
 show_recommended Show recommended
 show_all toon alles
-username_exists This username is already taken.
-bad_coordinates Entered coördinaten are invalid.
-bad_radius Entered radius is invalid.
-your_data Your data
-username_label Gebruikersnaam
-country_label Land
-coordinates Coördinaten
-notification Notificatie
-my_description Mijn beschrijving
-other Anders
 no_choice Selection not available
 username_incorrect Username is incorrect.
+username_exists This username is already taken.
+bad_coordinates Ingevoerde coördinaten zijn niet juist.
+bad_radius Entered radius is invalid.
+your_data Your data
 data_in_profile De volgende informatie is opgeslagen in jouw gebruikersprofiel
 desc_updated Your description has been updated successfully.
 gray_field_is_hidden Grijze velden zijn niet zichtbaar voor ander gebruikers.
+username_label Gebruikersnaam
+country_label Land
+coordinates Coördinaten
+notification Notificatiie
+my_description Mijn beschrijving
+other Anders
 registered_since_label Geregistreerd sinds
 statpic_label Statpic
-html_statpic_link HTML code voor statpic
+html_statpic_link HTML code voor je statpic
 bbcode_statpic BBCode voor je statpic
 pmr_message Ik gebruik PMR-radio op kanaal 2
 no_auto_logout Niet automatisch uitloggen na 15 minuten inactivieteit.
@@ -262,13 +261,13 @@ no_new_caches_notification Notificatiie van nieuwe caches is uitgeschakeld.
 change_account_data Verander je profiel gegevens
 from_home_coords van je thuis coördinaten
 radius_hint Maximale radius is 150km. Om notificaties uit te schakelen, vul dan <b>0</b> in.
-no_auto_logout_warning Waarschuwing! Indien je deze optie gebruikt, vergeet niet uit te loggen om te voorkomen dat anderen gegevens kunnen veranderen van jouw account. 
+no_auto_logout_warning Waarschuwing! Indien je deze optie gebruikt, vergeet niet uit te loggen om te voorkomen dat anderen gegevens kunnen veranderen van jouw account.
 hidden_coords Log in om de coördinaten te kunnen zien.
 watchers Volgers
 visitors Bezoekers
 view_reports Bekijk meldingen
 report_problem Raporteer probleem
-no_not_published_caches No not published caches
+no_not_published_caches Er zijn geen nog niet gepubliceerde caches
 no_logs Nog geen logs
 no_time_indicated Activation time not indicated
 welcome Welkom
@@ -278,26 +277,29 @@ you_have_found Je hebt
 found_x_caches caches gevonden
 you_have_participated_in You have participated in
 found_x_events events
-your_new_log_entries Jouw laatste logs
+your_new_log_entries Your latest log entries
 user_new_log_entries Latest log entries
 your_caches_new_log_entries Laatste logs van jouw caches
 your_latest_hiddens Jouw recentelijk geplaatste caches
 number_of_your_hiddens Aantal door jou geplaatste caches
-not_yet_published Mijn nog niet gepubliceerde caches
+not_yet_published Nog niet gepubliceerde caches
 emails_sent_label Messages sent
+user_profile Gebruikers profiel
+no_userprofile Gebruikers profiel kan niet getoont worden, deze gebruiker is niet in de database gevonden.
 show_all_logs Show all logs
 email_user Mail deze gebruiker
 show_user_map Toon kaart van deze gebruiker
 profile_data Profile data
 hidden_caches Hidden caches
 found_caches Found caches
-not_found_caches Not founds
+not_found_caches Er zijn nog geen gevonden caches
 show toon
 lock Lock
 unlock Unlock
 user_stats user's stats
 first_cache If it is the first time you are placing a cache, please be aware to read the following <a href="http://wiki.opencaching.pl/index.php/Cache_parameters">description</a>
 first_cache_approvement Because this is one of your first three caches, the listing will be available to others after approving by Opencaching Team.
+all_cache_approvement Cache will by visible for others after approving by OC Team
 name_label Cache naam
 cache_type Cache soort
 cache_size Cache grootte
@@ -319,21 +321,21 @@ descriptions Beschrijving
 language Taal
 other_languages_desc Beschrijvingen in andere talen kunnen na aanmelden van de cache toegevoegd worden.
 short_desc_label Korte omschrijving
-error_new_cache One or more errors occured. Please correct the selected fields!
-time_incorrect Incorrect time
-distance_incorrect Incorrect distance. Legal format: aa.aaa
-date_incorrect Incorrect date. Legal format: DD-MM-YYYY
-no_cache_name The name cash is missing
-new_cache_no_terms The cache has NOT be registered, because you have not checked that you accept the Opencaching.pl Terms of Use
-html_incorrect This HTML code is not allowed.
-type_incorrect Cache type is incorrect! 
-size_incorrect Cache size is incorrect!
-diff_incorrect Difficulty is incorrect!
-virtual_cache_size Cache size for "event" have to be set as "no container" 
-cache_submitted Your cache has been registered on Opencaching PL.
+error_new_cache Een of meer velden fout of niet ingevuld. Corrigeer de aangegeven velden!
+time_incorrect Incorrecte tijd
+distance_incorrect Incorrect distance. Invoer formaat: aa.aaa
+date_incorrect Datum niet coorect. Invoer formaat: DD-MM-JJJJ
+no_cache_name De cache heeft geen naam
+new_cache_no_terms De cache is NIET geregistreerd, omdat de Gebruikers overeenkomst van opencaching.pl niet aangevinkt is
+html_incorrect Deze HTML code is niet toegestaan.
+type_incorrect Cache soort is niet correct! 
+size_incorrect Cache grootte is niet correct!
+diff_incorrect Moeilijkheid is niet correct!
+virtual_cache_size Cache grootte voor "eventenement" moet zijn "geen behuizing"
+cache_submitted De cache is nu geregistreerd bij opencaching.pl.
 full_description Beschrijving
-mandatory_field This field is required
-full_desc_long_text Please write here why did you hide the cache exactly in this place and remember - cache should be able to find with coördinaten and this description only, so enter all neccessary information here.
+mandatory_field Dit veld is verplicht
+full_desc_long_text Please write here why did you hide the cache exactly in this place and remember - cache should be able to find with coordinates and this description only, so enter all neccessary information here.
 description_hint Please enter short and concise description. Do not re-write information available at Internet but provide link to it.
 no_javascript Your browser does not currently support Javascript. You can enter just a plain text. To enable HTML editor, please enable Javascript support.
 html_usage Please use HTML tags only for editing a text.
@@ -350,532 +352,568 @@ dont_publish_yet Nog niet publiceren
 log_password Geef wachtwoord
 no_password_label Laat leeg voor geen wachtwoord
 please_read Please read <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">information about passwords in logs!</a>
-password_info_label information about passwords in logs
 creating_cache Creating a new cache you accept <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">Terms of Use</a> with all consequences.
 with_all_consequences with all consequences.
-sort_by Sorteer zoekresultaat op
 cache_name cache naam
-distance_label distance
-omit_caches Omit caches
+distance_label Afstand
+omit_caches Verberg caches
 of_owner eigen cache
-not_active not active
+not_active niet actief
 observed gevolgde
 from van
 to tot
-user_profile Gebruikers profiel
-no_userprofile Gebruikers profiel kan niet getoont worden, deze gebruiker is niet in de database gevonden.
-_caches_geocaches
-abroad_caches Buiten Nederland
-accept Accepteren
-accept_terms_of_use When downloading this file, you accept our <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">terms of use</a>.
-account_is_actived account was actived
-actions Acties
-active Actief
-active_caches active
-active_caches actieve caches
-activity_by_region Activiteit per regio
-add_by add by
-add_comment_to_remove Would you like to send additional comment to
-add_new_desc Voeg nieuwe beschrijving toe aan cache
-add_new_mp3 Add new MP3 file
-add_new_note Add new note
-add_new_pict Voeg nieuwe afbeelding toe
-add_new_picture Adding a new picture to the cache.
-add_new_route Maak nieuwe route
-add_new_route_kml Nieuwe route laden van KML
-add_new_waypoint Voeg nieuw waypoint toe
-add_news Verzend nieuws
-add_rr_comment Geef OC Team opmerking
-additional_hints Extra hints
-additional_waypoints Extra waypoints
-administration Administratie OC
-adoption_cache Cache adoptie
-all_countries toon alle landen
-all_geocaches alles
-all_regions All regions
-alternative_recommend Alternative you can remove recommendations
-annual_stat Annual statistics geocache
-annual_stat_created Jaarlijkse statistieken gemaakte caches
-annual_stat_founds Annual statistics founds 
-annual_stat_founds_user Jaarlijkse statistieken gemaakte caches
-archived Gearchiveerd
-archived_cache Geocache has been archived.
-assign_yourself Wijs notificatie aan mijzelf
-assigned_to Toegewezen aan
-attende attended
-available_maps Beschikbare kaarten
-average_caches Gemiddelde aantal caches per cachedag
-average_dist_attempted_caches_label Mean distance between attempted caches
-average_dist_hidden_caches_label Mean distance between hidden caches
-back_to_cache Terug naar cache
-???back_to_cache Back to cache
-back_to_the_geocache_listing Terug naar de cachelijst
-bad_format Incompatable Incorrect file format
-bad_format_info Incorrect format. Acceptable formats BMP, GIF, PNG, JPG . Suggested size 480 x 360 pixels
-basic_information Basis informatie.
-be_ftf_label Be First To Find!
-block Blokkeren
-blocked Geblokkeerd
-blocked_by_octeam Geocache blocked by OC Team.
-blocked_create_caches Your possiblity for creating new caches is blocked. Please contact with OC Team rr@opencaching.pl
-bulletin Bulletin
-bulletin_label_no Gebruiker zal geen bulletins ontvangen
-bulletin_label_yes Gebruiker zal bulletins ontvangen
-by_cachetype Per cache soort
-by_logtype By log type
-cache_attributes Cache attributen
-cache_label cache naam
-cache_logged_required You have to be logged to add new log entries and operate on this cache.
-cache_note Note
-cache_note_visible De notitie is niet zichtbaar voor andere gebruiker. De notitie zit wel in het GPX-bestand.
-cache_notes Notes
-cache_notfound Niet gevonden caches
-cache_picture_intro  You sholud have copyrights and upload only pictures relevant to the cache
-cache_pictures Geocache picture
-cacheguides Geocaching Guides / Gurus 
-cachenotes notes
-caches_along_route Caches langs de route
-caches_blocked My caches blocked by OC Team
-caches_waiting_approve My caches waiting to approve by OC Team
-caching_karma_label Caching Karma
-cancel Annuleren
-check_nearby_caches Contoleer caches dichtbij op OC NL
-check_nearby_caches_info Controleer voor het plaatsen van een cache of er geen andere cache ligt in <br /> een straal van 150 m
-check_nearby_caches_map Controleer op caches met kaart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+with_hidden_score Toon caches zonder waardering
+search_by_distance Zoek op afstand
+search_by_name Zoek op cache naam
+max_distance Maximum afstand
+kilometer kilometer
+mile mijlen
+nautical_mile zeemijlen
+search_by_city Zoek op plaats
 city_name Plaats
-comment_log Comment
-comment_octeam_log OC Team comment
-comment_octeam_visible OC Team comments are visible only for OC Team and owner cache.
-comments_log Logtekst
-commit_watch Settings have been successfully saved
-confirm_remove_log Are you sure you want to delete your log
-content Bericht
-content_include_html Bericht met HTML
-contents Bericht
-coordinates_wp Coördinaten
-date_created Datum gemaakt
-date_logged Datum
-days_caching Cache dagen
-days_no_caching_label Days without caching
+search_text Zoek op tekst
+text Tekst
+logs_label logs
+pictures afbeeldingen
+search_by_owner Zoek op cache eigenaar
+owner_label cache eigenaar
+finder_label vinder
+search_by_finder Zoek op vinder
+search_recommendations Aanbevelingen
+search_all_caches alle caches
+search_recommended_caches minimum aantal aanbevelingen: 
+incomming_events Aankomende evenementen
+rr_comment_label Comment from OC Team
+add_rr_comment Geef OC Team opmerking
+remove_rr_comment Remove OC Team comments
+get_bulletin Ik wil bulletins ontvangen
+bulletin_label_yes Gebruiker zal bulletins ontvangen
+bulletin_label_no Gebruiker zal geen bulletins ontvangen
+bulletin Bulletin
+user_desc User description 
 days_since_first_find_label Days since first cache has been founded
 days_went_caching_label Days went caching
-delete Verwijderen
-delete_logentry Delete log entry 
-delete_recommend Delete recommendations
-delete_wp Delete waypoint
-describe_wp Beschrijving
-did_not_find_it did not find by 
-distance_to_cache Afstand naar cache
-do_not_rate Ik wil deze cache niet beoordelen
-does_not_have_stat There's no statistic yet
-dont_have_recommended_caches Je hebt nog geen aanbevolen caches
-dont_show Don't show this picture
-download Download
-download_as_file Download als bestand
-download_for_various_apps download for various applications
-edit Bewerken
-edit_logentry Edit log entry
-edit_route Edit route
-edit_wp Edit waypoint
-email_subject_news New news OpenCaching 
-emial_publish As a result of selecting this option, the recipient will know your e-mail address and will respond to you directly
-empty_coordinatest Please add new coördinaten for moved mobile cache. 
-empty_log_text Log shouldn't be empty. Please write short note.
-encrypt_log Log entry encrypted
-encrypt_log_entry Encrypt this log entry
-encrypt_log_info You can write the encrypt log entry. This is helpful if your log contains such any informations about location of the geocache. Text within brackets <b>[like this]</b> will not be encrypted
-error_coords_not_ok Wrong coordinates!
-error_email_exists Dit e-mail adres bestaat al op Opencaching nl
-error_email_not_ok E-Mail-adres is niet geldig
-error_password_diffs Beide wachtwoorden zijn niet gelijk
-error_password_not_ok Wachtwoord bevat ongeldige tekens of is te kort
-change_password Verander wachtwoord
-error_tos Je dient de gebruiksvoorwaarden te accepteren, om op Opencaching.nl te registreren
-error_username_exists Deze gebruikersnaam bestaat al op Opencaching nl. Kies een andere gebruikersnaam
-error_username_not_ok Gebruikersnaam is niet geldig
-error_usernotactive Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.
-file_name Bestandsnaam
-file_name_info Please input name file KLM
-filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
-filename_rules http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use
-find_geocaches_on Zoek caches op
-finder_label Vinder
-for for
-for_approval Te keuren
-for_cache for 
-forgotten_your_password Forgot your e-mail? <a href="newpw.php">Remind me</a>
-found_it found by
-friday Vrijdag
-from_total_days van totale dagen
-ftf_awaiting Wachtende First to Find caches
-gallery Toon galerij
-gallery_of_cache Galerij van cache
-general_stat General statistics
-geokret_log Did you take Geokret? Rgeister this on 
-get_bulletin Ik wil bulletins ontvangen
-graph_created Grafieken van gemaakte caches
-graph_find Grafieken van gevonden caches
-guide Guide/Guru
-guides Guides/Gurus
-h_de_label Show caches from opencaching.de
-h_no_label Show caches from opencaching.no
-h_pl_label Show caches from opencaching.pl
-h_se_label Show caches from opencaching.se
-here Here 
-hidden_by Geplaatst door
-hide_to_find_label Hide to find ratio
-history_gk GeoKrety historie 
-???hour Hour
-images Afbeeldingen
-images_cache Afbeeldingen van cache
-images_logs Afbeeldingen van logs
-immediately Direct
-incomming_events Aankomende evenementen
-incorrect_password_to_log Incorrecte log wachtwoord
-input_coord Vul de coördinaten van de cache in
-kilometer kilometers
-wybrac_log Kies log soort
-your_recommendations Your recommendations for geocache
-write_wp Write waypoint
-what_do_you_find Welkom op Opencaching.nl
-what_do_you_find_intro Geocaching is een buitensport of aktiviteit waarbij cachers een GPS gebruiken om een "schat" te vinden die verstopt is door andere deelnemers. Caches zijn waterdichte dozen, die ruilspulletjes en een logboek bevatten waar cachers hun bezoek in kunnen schrijven. De coördinaten van de locatie van de caches zijn opgeslagen in een online database, evenals de beschrijving en instructies om deze te vinden.<br/>Op deze site kun je alles vind over cachen in Nederland. Opencaching.nl in Nederland was opgericht in <span class="content-title-noshade">2003</span>. Onze database werkt op <b>opensource project Opencaching</b>. Het idee hierachter is om met meerdere opencaching nodes uit verschillende landen over de hele wereld een gesyngroniseerde database met caches en gebruikers te werken.<br/>Dpencaching sites zoals deze hebben niets gemeen met Opencaching.com.     
-register_msg1 Om een gebruikersaccount aan te maken op opencaching.nl, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.
-remove_rr_comment Remove OC Team comments
-removed_log_title Your entry to the log was removed by geocahe owner 
-register_new  Als nieuwe gebruiker registreren
-latest_news Nieuws
-will_attende I will be attending
-with_hidden_score Toon caches zonder waardering
-wp_status1 Toon alle informatie over dit waypoint, inclusief coördinaten
-wp_status2 Toon details van dit waypoint, behalve de coördinaten
-wp_status3 Verberg dit waypoint op de cachepagina
-lastlogins Laatste login
-last_found Laatst gevonden
-latest_cache Laatste gevonden cache
-latest_created_cache Laatste gemaakte cache
-latest_logs Laatste logs
-latest_logs_by_user Laatste logs van gebruiker
-latest_logs_in_caches Laatste logs van gebruikers caches
-list_of_caches_is_empty Er zijn geen nieuwe caches in de opgegeven omgeving
-list_of_events_is_empty Er zijn geen evenementen georganiseerd in de nabije toekomst
-list_of_latest_logs_is_empty Er zijn nog geen nieuwste logs
-listed_other Log deze cache ook op de volgende sites
-listing_from_this_page Resultaat op deze pagina
-listing_from_to Resultaat {startatp1} t/m {endat}
-location Locatie
-log_entries Logs
-log_mobile_init Starting coördinaten
-log_pictures Log afbeelding
-log_type_available Klaar om te zoeken
-log_type_temp_unavailable Tijdelijk niet beschikbaar
-logged_by Gelogt door
-logoutsuccess Succesvol uitgelogt
-logs_cache_gpx Aantal logs van elke cache in GPX
-logs_label logs
-map Kaart
-map_msg In order to view coördinaten and <br/>the map of cache's location<br/> you must be <a href="login.php?target={target}">logged in</a>
-marked_grey_search_area Zoekgebied met opgegeven radius is grijs aangegeven
-max_distance Maximum afstand
-max_size Maximum image size is 100 KB. Please reduce the dimensions or quality.
-median_dist_attempted_caches_label Median of the distance between caches found by the user
-median_dist_hidden_caches_label Median of the distance between caches hidden by the user
-mile mijlen
-milestones Mijlpalen
-min_logs_cache Minimun aantal logs 
-monday Maandag
-monthly_stat Monthly statistics of the cache
-monthly_stat_created_user Maandelijkse statistiek geplaatste caches
-monthly_stat_founds Monthly statistics of the cache finds
-monthly_stat_founds_user Maandelijkse statistieken gevonden caches
-more_12_month meer dan 12 maanden geleden
-more_news More news
-more_one_month tussen 1 en 6 maanden geleden
-more_six_month tussen 6 en 12 maanden geleden
-most_caches Meest gevonden caches op een dag
-moved_cache_info If you moved the cache to a new location please enter the new coördinaten that will be shown in the log
-moved_distance Distance passed
-moved_log Moved
-moved_text moved
-mp3_files_info PodCasts - listen to the instructions that will lead you to a cache - MP3 files
-mp3_label MP3 podcast for a cache of the type PodCache 
-my_caches Mijn caches
-my_caches_status Mijn caches met status
-my_email_will_send Mijn e-mail adres zal meegestuurd worden in dit bericht
-my_neighborhood Mijn omgeving
-my_neighborhood_radius Mijn omgeving met radius van
-my_recommend Aanbeveling
-my_statistics Mijn statistieken
-mycache_note Mijn cache notities
-myn_info You do not have a set of coördinaten your area. You can do this in your <a href="myprofile.php?action=change"> profile </a>. If you want to have different than the default radius of 35 km setup this in your profile option "Notification." Here is an example set of system coordinates.
-myroutes Mijn routes
-name_queries Name for result of search
-nautical_mile zeemijlen
-need_maintenance_log Need maintenance
-new_caches_myn New geocaches
-new_coordinates New coördinaten
-new_logs_myn Latest logs 
-new_password_msg1 Om je wachtwoord te veranderen moet je een veiligheidscode aanvragen. Deze wordt naar je e-mail adres gestuurd.
-new_password_msg2 Vul je e-mail adres in, je ontvangt veiligheidscode en je nieuwe wachtwoord. <br/>De veiligheidscode is 3 dagen geldig; daarna moet je een nieuwe aanvragen.
-newcaches_label Nieuwe caches
-newest_caches Nieuwste caches
-ni_ma_takiego_kesza Verkeerde cache waypoint!
-no_ignores Geen genegeerde caches
-no_note Ik heb nog geen cache notities
-no_picture Afbeelding niet gevonden
-no_queries Er zijn geen opgeslagen zoek resultaten
-no_routes Lijst met routes is leeg
-no_title No title
-no_watched_caches Geen gevolgde caches
-not_applicable Not applicable
-not_caches_created  Er zijn nog geen gemaakte caches
-not_found_caches Er zijn nog geen gevonden caches
-not_published Niet gepubliceerd
-not_recommend_own You can not recommend own geocache
-not_registered Not registered? <a href="register.php">Register</a>
-not_spcified not spcified
-not_stat_cache This cache do not have statistics yet
-npa_info This geocache is probably placed in a nature protection area
-number_archived_caches Aantal gearchiveerde caches
-number_caches Aantal caches
-number_created_events Aantal georganiseerde evenementen
-number_found_of_caches Number of found it caches
-number_founds Number of founds
-number_gk_in_caches Number of GeoKrety in caches
-number_logentry Number of log entry
-number_month Number of month
-number_my_recommend Aantal gegeven aanbevelingen
-number_obtain_recommendations Number of obtained recommendations
-number_of_active_users Aantal gebruikers
-number_of_caches_by_region Aantal caches per regio
-number_of_founds Gevonden
-number_of_visit_caches Number of search caches
-number_possible_recommend van
-number_problems Number of problems
-number_recommendations Number of recommendations
-number_recommendations_given Aantal gegeven aanbevelingen
-number_stage_wp Stage #
-number_temp_caches Aantal tijdelijk niet beschikbare caches
+days_no_caching_label Days without caching
 obsession_indicator_label Obsession Indicator
-oc_stat Statistics of geocaches OC PL
-octeam_comment_copy Copy email with OC Team comment add by
-octeam_comment_subject [OC] Comment OC Team
-octeam_stat_caches Statistics OCTeam - caches acctepted
-octeam_stat_m_caches Statistics OCTeam monthly - caches accepted
-octeam_stat_m_problems Statistics OCTeam Monthly - closed problems
-octeam_stat_problems Statistics OCTeam - closed problems
-off_ignore Schakel negeren uit
-okapi_apps Jouw Apps
-old_options Old result of search overwrite
-once_day Eens per dag
-once_week Eens per week
-online_users Online registreerde gebruikers
-online_users_info gebaseerd op actieve gebruikers van de laatste 10 minuten
-only_for_found_it alleen voor gevonden logs
-opensprawdzacz_main &nbsp;&nbsp;De cache eigenaar geeft je de kans om de eindcoördinaten te contoleren. Doe dit voordat je gaat cachen!
-os_autor van
-os_fail NEE! Jouw antwoord is niet goed. Controleer je berekening nog eens.
-os_godzine minuten
-os_hlp_01 OpenSprawdzacz allow users to check coördinaten of final cache for cache type "Quiz" (Puzzle), "Multicache" and "Other Type"
-os_hlp_02 If you are owner of Quiz/Other type cache, Here you can give a chance for other users check their calculated/obtained coords of final location befeore they go out cache hunting.
-os_hlp_03 Hoe voeg je een cache toe aan Open Checker?
-os_hlp_04 1. Open cache edit panel
-os_hlp_05 2. Click add new waypoint
-os_hlp_06 3. Set waypoint type as "final location"
-os_hlp_07 4. Tick chevron next to "Opensprawdzacz"
-os_hlp_08 5. Set status of waypoint to "Hide this waypoint from view cache"
-os_hlp_09 6. click "Write waypoint"
-os_hlp_10 From now in your cache two changes were done:
-os_hlp_11 a) On page with your cache description new section "OpenSprawdzacz" appear with link to Checking coords.
-os_hlp_12 b) On OpenSprawdzacz page your cache appear on the list.
-os_hlp_13 Hoe verwijder je een cache van Open Checker?
-os_hlp_14 To withdraw coördinaten checking availability:
-os_hlp_15 1. Open cache edit panel
-os_hlp_16 2. Click edit on "Final Location" in waypoint list
-os_hlp_17 3. untick "OpenSprawdzacz"
-os_hlp_18 From now your cache disappears from OpenSprawdzacz list. Also your cache description page disappeares OpenSprawdzacz section.
-os_kesz Cache
-os_komunikat1 Controleer cache coördinaten met opgegeven waypoint: 
-os_komunikat2 Selecteer een cache uit de lijst om de coördinaten te controleren: 
-os_ma_max Er is een limiet van
-os_ma_na  controles per
-os_ma_pr shots 
-os_minut_end minuten wachten om het weer te proberen.
-os_minuty minuten
-os_mus Je moet nu nog 
-os_nie_ma_w_os The creator of this cache has not added the functionality of checking final coördinaten with OpenSprawdzacz to it
-os_podaj_twoje Vul de eindcoördinaten in:
-os_podaj_waypoint &nbsp;&nbsp;&nbsp;Vul hier het cache waypoint in (bv.: OB1234)
-
-os_pomoc Help
-os_powrot terug
-os_pr Pogingen
-os_proba Je bereikt nu de limiet van 
-os_razy times. De limiet van coördinaten controle is   
-os_razy_koniec minuten.
-os_razy_srodek keer per
-os_spr_form Controleer eindcoördinaten van cache
-os_sprawdz Controleer
-os_stopnie Graden
-os_sukc Hits
-os_sukces YES!! Je hebt de juiste coördinaten. Gefeliciteerd. 
-os_tak_chce Checking this element allow users to checking their coördinaten with OpenSprawdzacz.
-os_twojews Jouw coördinaten
-os_typ soort
-os_wynik Resultaat
-os_za_godzine Controleer de berekeningen en probeer het later nog eens (na 1 uur)
-os_zgad Je hebt het te vaak geprobeerd.
-os_zobo Lees hier hoe Open-Checker wordt gebruikt en hoe een cache toegevoegd kan worden.
-owner Eigenaar
-owner_label cache eigenaar
-ozi_path_info Applicable for Ozi Explorer users with Filips' database. When you provide correct path to 'op' folder, you will be able to download WPT files as a search results with localization of information about cache description. After that, you can tap on the cache on Ozi Explorer's map and choose \"Open attachment\" option. This will open detailed description about the cache. Examples: <b>\\SDMMC\\baza\\</b>, <b>\\Memory card\\BF\\</b>
-ozi_path_label Path to folder 'op' on PDA
-password_confirm Bevestig wachtwoord
-password_to_log Log wachtwoord
-pendings Cache keuring
-personal_cache_note Persoonlijke cache notitie
-pictures afbeeldingen
-pictures_intro Permitted image formats: BMP, GIF, PNG & JPG. JPG is best for photos.<br />Maximum size 100 KB. Recommended resolution: 480 x 360 pixels.
-pictures_label Afbeeldingen of foto's
+hide_to_find_label Hide to find ratio
+caching_karma_label Caching Karma
+verbosity_label Verbosity
+total_dist_attempted_caches_label Overall distance between attempted caches
+median_dist_attempted_caches_label Median of the distance between caches found by the user
+average_dist_attempted_caches_label Mean distance between attempted caches
+total_dist_hidden_caches_label Overall distance between hidden caches
+median_dist_hidden_caches_label Median of the distance between caches hidden by the user
+average_dist_hidden_caches_label Mean distance between hidden caches
+be_ftf_label Vind als eerste!
 please_login Please login.
-possible_recommend Om aanbevelingen te kunnen geven moet je nog een aantal caches vinden
-post_new_log Plaats een nieuwe log voor
-radius Radius
-radius_info Radius moet tussen 0.5 km - 10 km liggen
-ranking_by_number_of_recommnedations Gebruikers ranglijst met aantal ontvangen aanbevelingen
-rate_cache Beoordeel deze cache: <br/><a href="http://wiki.opencaching.pl/index.php/Cache_rating">Uitleg over beoordeling</a>
-rating_avarage redelijk
-rating_excellent uitstekent
-rating_good goed
-rating_mediocre matig
-rating_poor slecht
-ratio_recommendations Ratio recommended caches to all caches
-read_info_about_cache_types Please read information about <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Cache types</a>
-ready_to_search Geocache ready to search. Good Luck!
-recently_seen recently seen 
-recommendation_rating Rangorde van caches berekend met een formule
-recommended_by This cache is recommended by
-recommended_geocaches Recommended geocaches
-region Regio
-region_from_coord Regio via opgegeven coördinaten
-regiononly Regio (alleen Polen)
-regions_only_for Regio's (alleen Polen)
-register_email_subject Registration confirmation Opencaching PL
+to_see_coords Hidden coordinates
+h_pl_label Toon caches van opencaching.pl
+h_de_label Toon caches van opencaching.de
+h_se_label Toon caches van opencaching.se
+h_no_label Toon caches van opencaching.no
+ozi_path_label Path to folder 'op' on PDA
+ozi_path_info Applicable for Ozi Explorer users with Filips' database. When you provide correct path to 'op' folder, you will be able to download WPT files as a search results with localization of information about cache description. After that, you can tap on the cache on Ozi Explorer's map and choose \"Open attachment\" option. This will open detailed description about the cache. Examples: <b>\\SDMMC\\baza\\</b>, <b>\\Memory card\\BF\\</b>
+newest_caches Nieuwste caches
+total_of_active_caches Totaal aantal actieve caches
+total_of_caches Totaal aantal caches
+total_moved Aantal verplaatste caches
+active_caches actieve caches
+number_of_active_users Aantal gebruikers
+number_of_founds Gevonden
+latest_news Nieuws
+what_do_you_find Welkom op Opencaching.nl
+what_do_you_find_intro Geocaching is een buitensport of activiteit waarbij cachers een GPS gebruiken om een "schat" te vinden die verstopt is door andere deelnemers. Caches zijn waterdichte dozen, die ruilspulletjes en een logboek bevatten waar cachers hun bezoek in kunnen schrijven. De coördinaten van de locatie van de caches zijn opgeslagen in een online database, evenals de beschrijving en instructies om deze te vinden.<br/>Op deze site kun je een heleboel vinden over cachen in Nederland. Opencaching.nl in Nederland is opgericht in <span class="content-title-noshade">2003</span>. Onze database werkt op <b>opensource project Opencaching</b>. Het idee hierachter is om met meerdere opencaching nodes uit verschillende landen over de hele wereld een gesyngroniseerde database met caches en gebruikers te werken.<br/>Opencaching sites zoals deze hebben niets gemeen met Opencaching.com.
+more_news More news
+filename_rules http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use
+filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
+map_msg In order to view coordinates and <br/>the map of cache's location<br/> you must be <a href="login.php?target={target}">logged in</a>
+additional_hints Extra hints
+images Afbeeldingen
+mp3_files_info PodCasts - listen to the instructions that will lead you to a cache - MP3 files
+utilities Hulpmiddelen
+search_geocaches_nearby Zoek caches dichtbij (radius 100 km)
+download_as_file Download als bestand
+accept_terms_of_use When downloading this file, you accept our <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">terms of use</a>.
+find_geocaches_on Zoek caches op
+searchable zonder eigen en gevonden caches
+all_geocaches alles
+log_entries Logs
+show_all_log_entries Toon alle logs 
+back_to_the_geocache_listing Terug naar de cachelijst
+register_new  Als nieuwe gebruiker registreren
+password_confirm Bevestig wachtwoord
+register_msg1 Om een gebruikersaccount aan te maken op opencaching.nl, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.                                 
 register_msg2 * zijn verplicht
-register_msg3 Mochten er nog vragen zijn, neem contact met ons op vóór je een account aanmaakt.
+register_msg3 Mochten er nog vragen zijn, neem contact met ons op vóór je een account aanmaakt
 register_msg4 I have read and understand <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">the terms of use</a></b> and accept them. 
 register_msg5 New account has been registered
 register_msg6 The activation code was sent via E-mail to you. Please follow the instruction which was send via E-Mail.
-removed_message_title The owner of geocache wrote to you the following comment
+total_distance Totale afstand
+send_to_gps Verzend naar GPS
+post_new_log Plaats een nieuwe log voor
+type_of_log Soort log
+date_logged Datum
+want_to_recommend JA, ik wil deze cache aanbevelen
+my_recommend Aanbeveling
+number_my_recommend Aantal gegeven aanbevelingen
+number_possible_recommend van
+possible_recommend Om aanbevelingen te kunnen geven moet je nog een aantal caches vinden
+comments_log Logtekst
+submit_log_entry Verstuur de log
+geokret_log Did you take Geokret? Regeister this on 
+rate_cache Beoordeel deze cache: <br/><a href="http://wiki.opencaching.pl/index.php/Cache_rating">Uitleg over beoordeling</a>
+do_not_rate Ik wil deze cache niet beoordelen
+listed_other Log deze cache ook op de volgende sites
+not_spcified not spcified
+all_countries toon alle landen
+register_email_subject Registration confirmation Opencaching PL
+error_username_not_ok Gebruikersnaam is niet geldig
+error_username_exists Deze gebruikersnaam bestaat al op Opencaching pl. Kies een andere gebruikersnaam
+error_email_not_ok E-mail adres is niet geldig
+error_email_exists Dit e-mail adres bestaat al op Opencaching nl.
+error_password_not_ok Wachtwoord bevat ongeldige tekens of is te kort
+error_password_diffs Beide wachtwoorden zijn niet gelijk
+error_tos Je dient de gebruiksvoorwaarden te accepteren, om op Opencaching.nl te registreren
+step1 Stap 1
+step2 Stap 2
+new_password_msg1 Om je wachtwoord te veranderen moet je een veiligheidscode aanvragen. Deze wordt naar je e-mail adres gestuurd.
+new_password_msg2 Vul je e-mail adres in, je ontvangt veiligheidscode en je nieuwe wachtwoord. <br/>De veiligheidscode is 3 dagen geldig; daarna moet je een nieuwe aanvragen.
+security_code Security code
+change_password_msg1 Verander wachtwoord
+logoutsuccess Succesvol uitgelogt
+error_usernotactive Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.
+not_registered Not registered? <a href="register.php">Register</a>
+forgotten_your_password Forgot your e-mail? <a href="newpw.php">Remind me</a>
+cache_logged_required You have to be logged to add new log entries and operate on this cache.
+basic_information Basis informatie.
+rating_poor slecht
+rating_mediocre matig
+rating_avarage redelijk
+rating_good goed
+rating_excellent uitstekent
+score_label Beoordeeld als
+show_noscore Toon caches zonder score
+available_maps Beschikbare kaarten
+cache_attributes Cache attributen
+latest_logs Laatste logs
+abroad_caches Buiten Nederland
+hidden_by Geplaatst door
+newcaches_label Nieuwe caches
+cache_label Cache naam
+found_it found by
+did_not_find_it did not find by 
+write_note write note
+attende attended
+will_attende I will be attending
+add_new_desc Voeg nieuwe beschrijving toe aan cache
+pictures_label Afbeeldingen of foto's
+add_new_pict Voeg nieuwe afbeelding toe
+mp3_label MP3 voor een PodCache
+add_new_mp3 Voeg nieuwe MP3 bestand toe
+map Kaart
+manage_ocpl Managing the OC PL
+browse_problem_reports Show reports of problems
+no_hidden_caches There's no hidden caches yet
+no_log_entries There is no logs yet
+your_newest_log_entries Jouw laatste logs
+location Locatie
+stat_picture Statistics picture
+show_in_google_maps Show on Google Maps
+download_for_various_apps download for various applications
+download Download
+listing_from_to Resultaat {startatp1} t/m {endat}
+toggle_filters Verander filters
+fullscreen Volledig scherm
+disable_fullscreen Terug naar klein scherm
+stats Statistics
+ranking_by_number_of_created_caches Gebruikers ranglijst met aantal gemaakte caches
+ranking_by_number_of_created_active_caches Gebruikers ranglijst met aantal gemaakte en actieve caches
+ranking_by_number_of_finds Gebruikers ranglijst met aantal gevonden caches
+ranking_by_number_of_recommnedations Gebruikers ranglijst met aantal ontvangen aanbevelingen
+cache_ranking_by_number_of_finds Cache ranglijst van meeste keren gevonden
+cache_ranking_by_calculated_indicator Cache ranglijst via berekende formule
+user_ranking_by_number_of_finds_of_their_caches Gebruikers ranglijst met aantal van hun gevonden caches
+oc_statistics oc statistics
+only_active_caches Active caches only
+users_who_created_caches Users, who create the caches
+number_of_active_caches Aantal actieve caches
+username Gebruiker
+number_of_caches Aantal caches
+ranking Rang
+submit Verzenden
+edit_cache_description Edition of cache description
+short_description Korte omschrijving
+extra_attrs_info You can add another attributes using this form: <a href="cache-atr.php" target="_BLANK">Adittional cache attributes</a>.
+javascript_edit_info Javascript is turned off in your browser. You can lead ordinary text only. For leading HTML and use HTML Editor you have to turn on Javascript.
+html_edit_info For formatting text use HTML characters only. List of the allowed characters you can see <a href="articles.php?page=htmltags">here</a>.
+geocaching_com_foto_info Please don't use pictures from geocaching.com
+extra_coded_info Additional (coded) informations
+statistics_users  Statistieken gebruiker
+general_stat Algemene statistieken
+graph_created Grafieken van gemaakte caches
+graph_find Grafieken van gevonden caches
+there_is_no_caches_registered Er zijn nog geen caches gemaakt
+there_is_no_caches_found Er zijn nog geen caches gevonden
+with_password Cache with password
+user_account User's account
+management_users Managing the user
+titles Onderwerp
+content Bericht
+my_email_will_send Mijn e-mail adres zal meegestuurd worden in dit bericht
+email_publish Hiermee weet de ontvanger jouw e-mail adres en kan direct op jouw e-mail antwoorden
+account_is_actived account was actived
+find_user zoek gebruiker
+clear_list Klembord legen
+adoption_cache Cache adoptie
+show_waypoints Toon waypoints
+pendings Caches keuren
+recommendation_rating Rangorde van caches berekend met een formule
+show_statictics_cache Show cache statistics
+not_stat_cache This cache do not have statistics yet
+recommended_by This cache is recommended by
+listing_from_this_page Resultaat op deze pagina
+show_on_map Toon op de kaart
+list_of_events_is_empty Er zijn geen evenementen georganiseerd in de nabije toekomst
+stat_number_found Statistieken van gevonden caches
+total_number_found_caches Totaal aantal gevonden caches
+total_dnf_caches Totaal aantal niet gevonden caches
+total_comments Totaal aantal opmerkingen
+total_attended_events Totaal aantal deelgenomen evenementen
+number_recommendations_given Aantal gegeven aanbevelingen
+days_caching Cache dagen
+from_total_days van totale dagen
+average_caches Gemiddelde aantal caches per cachedag
+most_caches Meest gevonden caches op een dag
+latest_cache Laatste gevonden cache
+milestones Mijlpalen
+latest_logs_by_user Laatste logs van gebruiker
+stat_created_caches Statistieken van gemaakte caches
+not_caches_created  Er zijn nog geen gemaakte caches
+total_created_caches Totaal aantal gemaakte caches
+number_temp_caches Aantal tijdelijk niet beschikbare caches
+number_archived_caches Aantal gearchiveerde caches
+number_created_events Aantal georganiseerde evenementen
+number_obtain_recommendations Number of obtained recommendations
+for for
+_caches caches
+ratio_recommendations Ratio recommended caches to all caches
+number_gk_in_caches Number of GeoKrety in caches
+latest_created_cache Laatste gemaakte cache
+latest_logs_in_caches Laatste logs van gebruikers caches
+caches_waiting_approve My caches waiting to approve by OC Team
+caches_blocked My caches blocked by OC Team
+blocked_create_caches Your possiblity for creating new caches is blocked. Please contact with OC Team rr@opencaching.pl
+npa_info This geocache is probably placed in a nature protection area
+check_nearby_caches_info Controleer voor het plaatsen van een cache of er geen andere cache ligt in <br /> een straal van 150 m
+check_nearby_caches Contoleer caches dichtbij op OC NL
+check_nearby_caches_map Controleer op caches met kaart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+my_caches_status Mijn caches met status
+active Actief
+temp_unavailable tijdelijk niet beschikbaar
+archived Gearchiveerd
+not_published Niet gepubliceerd
+for_approval Te keuren
+blocked Geblokkeerd
+my_caches Mijn caches
+region Regio
+number_of_caches_by_region Aantal caches per regio
+activity_by_region Activiteit per regio
+number_of_visit_caches Number of search caches
+users_active Number of active users
+show_labels Show labels
+history_gk GeoKrety historie 
+cachenotes notes
+my_statistics Mijn statistieken
+mycache_note Mijn cache notities
+personal_cache_note Persoonlijke cache notitie
+cache_note_visible De notitie is niet zichtbaar voor andere gebruiker. De notitie zit wel in het GPX-bestand.
+for_cache aan
+add_new_note Add new note
+back_to_cache Terug naar cache
+cache_notes Notes
+cache_note Note
+delete Verwijderen
+edit Bewerken 
+cancel Annuleren
+no_note Ik heb nog geen cache notities
+additional_waypoints Extra waypoints
+stage_wp Etappe
+type_wp Soort
+type_wp2 Soort waypoint
+coordinates_wp Coordinates
+describe_wp Beschrijving
+add_new_waypoint Voeg waypoint toe
+wp_status1 Toon alle informatie over dit waypoint, inclusief coördinaten
+wp_status2 Toon details van dit waypoint, behalve de coördinaten
+wp_status3 Verberg dit waypoint op de cachepagina
+number_stage_wp Etappe #
+status_wp Waypoint status
+write_wp Write waypoint
+edit_wp Edit waypoint
+delete_wp Delete waypoint
+show_info_about_wp See the description and the type of additional waypoints
+comment_octeam_visible OC Team comments are visible only for OC Team and owner cache.
+ready_to_search Geocache ready to search. Good Luck!
+archived_cache Geocache has been archived.
+temporarily_unavailable Geocache will be temporarily unavailable.
+blocked_by_octeam Geocache blocked by OC Team.
+empty_coordinatest Please add new coordinates for moved mobile cache. 
+empty_log_text Log shouldn't be empty. Please write short note.
 route_cache Route of cache
-???route_desc Descriptions route
+start_point start point
+trp_points trip points
+recently_seen recently seen 
+moved_text moved
+encrypt_log Log entry encrypted
+my_neighborhood Mijn omgeving
+my_neighborhood_v2 Mijn omgeving v2
+my_neighborhood_radius Mijn omgeving met radius van
+new_caches_myn New geocaches
+ftf_awaiting Wachtende First to Find caches
+new_logs_myn Latest logs 
+top_recommended Meest aanbevolen caches
+myn_info You do not have a set of coordinates your area. You can do this in your <a href="myprofile.php?action=change"> profile </a>. If you want to have different than the default radius of 35 km setup this in your profile option "Notification." Here is an example set of system coordinates.
+search_user Zoek gebruiker
+monthly_stat_founds Monthly statistics of the cache finds
+monthly_stat_founds_user Maandelijkse statistieken gevonden caches
+monthly_stat_created_user Maandelijkse statistiek geplaatste caches
+monthly_stat Monthly statistics of the cache
+annual_stat_founds Annual statistics founds 
+annual_stat_founds_user Jaarlijkse statistieken gemaakte caches
+annual_stat_created Jaarlijkse statistieken gemaakte caches
+annual_stat Annual statistics geocache
+number_founds Number of founds
+number_caches Aantal caches
+number_logentry Aantal logs
+by_cachetype Per cache soort
+by_logtype By log type
+stat_geocache Statistics geocache
+does_not_have_stat There's no statistic yet
+number_month Number of month
+stat_problems Statistics OC Team - solved problems
+edit_logentry Edit log entry
+moved_cache_info If you moved the cache to a new location please enter the new coordinates that will be shown in the log
+encrypt_log_info You can write the encrypt log entry. This is helpful if your log contains such any informations about location of the geocache. Text within brackets <b>[like this]</b> will not be encrypted
+encrypt_log_entry Encrypt this log entry
+not_recommend_own You can not recommend own geocache
+send_report_info You can report a problem with the geocache, for example <b> attention to the location </ b> to Team OC PL or owner geocache using this form
+send_report Send report
+password_to_log Log wachtwoord
+incorrect_password_to_log Incorrecte log wachtwoord
+only_for_found_it alleen voor gevonden logs
+store Opslaan
+here Here 
+alternative_recommend Alternative you can remove recommendations
+comment_log Comment
+need_maintenance_log Need maintenance
+comment_octeam_log OC Team comment
+moved_log Moved
+new_coordinates New coordinates
+moved_distance Distance passed
+delete_logentry Delete log entry 
+confirm_remove_log Are you sure you want to delete your log
+add_comment_to_remove Would you like to send additional comment to
+removed_log_title Your entry to the log was removed by geocahe owner 
+removed_message_titel De eigenaar van de cache schreef je het volgende bericht
+dont_have_recommended_caches Je hebt nog geen aanbevolen caches
+your_recommendations Your recommendations for geocache
+was_removed has been removed
+recommended_geocaches Recommended geocaches
+number_recommendations Number of recommendations
+regions_only_for Regio's (alleen Polen)
+monday Maandag
+tuesday Dinsdag
+wednesday Woensdag
+thursday Donderdag
+friday Vrijdag
+saturday Zaterdag
+sunday Zondag
+immediately Direct
+once_day Eens per dag
+once_week Eens per week
+weekday Dag van de week
+send Verzenden
+commit_watch Settings have been successfully saved
+no_queries Er zijn geen opgeslagen zoek resultaten
+name_queries Naam voor zoek opdracht
+save_queries Zoek opdrachten
+old_options Opgeslagen zoek opdrachten
+select_queries Select stored query to overwrite
+no_watched_caches Geen gevolgde caches
+last_found Laatst gevonden
+delete_recommend Delete recommendations
+off_ignore Schakel negeren uit
+no_ignores Geen genegeerde caches
+oc_stat OC NL caches statistiek
+administration Administratie OC
+stat_octeam Statistieken OCTeam
+cache_notfound Niet gevonden cache
+send_bulletin Verzend een bulletin
+add_news Verzend nieuws
+email_subject_news New news OpenCaching 
+subject Onderwerp
+contents Bericht
+content_include_html Bericht met HTML
+logged_by Gelogt door
+all_regions All regions
+assigned_to Toegewezen aan
+date_created Datum gemaakt
+owner Eigenaar
+actions Acties
+block Blokkeren
+assign_yourself Wijs notificatie aan mijzelf
+accept Accepteren
+octeam_stat_problems Statistics OCTeam - closed problems
+octeam_stat_m_problems Maandelijkse statistiek OCTeam - rapport
+octeam_stat_caches Statistics OCTeam - caches acctepted
+octeam_stat_m_caches Statistics OCTeam monthly - caches accepted
+number_problems Number of problems
+add_by add by
+octeam_comment_subject [OC] Comment OC Team
+octeam_comment_copy Copy email with OC Team comment add by
+list_of_latest_logs_is_empty Er zijn nog geen nieuwste logs
+list_of_caches_is_empty Er zijn geen nieuwe caches in de opgegeven omgeving
+online_users Online registreerde gebruikers
+online_users_info gebaseerd op actieve gebruikers van de laatste 10 minuten
+empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. Het maken van een cache kost moeite en het schrijven van waarderingen en kritiek zijn ook welkom! Zelfs een "Bedankt" zou voldoende kunnen zijn.
+empty_entry_confirm Do you really want to leave the empty log entry?
+where_i_am Waar ben ik
+read_info_about_cache_types Please read information about <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Cache types</a>
+regiononly Regio (Polen)
+region_from_coord Regio via opgegeven coördinaten
+select_regions Selecteer regio
+not_applicable Not applicable
+input_coord Vul de coördinaten van de cache in
+waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">See the description and the kinds of additional waypoints.</a>
+cache_pictures Geocache picture
+log_pictures Log afbeelding
+no_title No title
+to_big_data Too big size image
+max_size Maximum image size is 100 KB. Please reduce the dimensions or quality.
+bad_format Incompatable Incorrect file format
+bad_format_info Incorrect format. Acceptable formats BMP, GIF, PNG, JPG . Suggested size 480 x 360 pixels
+no_picture Afbeelding niet gevonden
+title_picture Titel
+file_name Bestandsnaam
+cache_picture_intro  Dit dient een eigen afbeelding te zijn die met de cache te maken heeft
+spoiler_info Do not display thumbnail (SPOILER) - Use this option if the picture shows the location of the cache.<br> The picture will only be shown when SPOILER is clicked.
+dont_show Verberg deze afbeelding
+pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto's.<br />Maximum grootte 100 KB. Aanbevolenresolutie: 640 x 480 pixels.
+add_new_picture Voeg nieuwe afbeelding toe aan cache
+gallery Toon galerij
+gallery_of_cache Galerij van cache
+images_cache Afbeeldingen van cache
+images_logs Afbeeldingen van logs
+show_more Toon meer
+search_options Zoekopties
+myroutes Mijn routes
+add_new_route Maak nieuwe route
+setup_new_route Maak een nieuwe route
+add_new_route_kml Nieuwe route laden van KML
+save_route Bewaar route
+radius_info Radius moet tussen 0.5 km - 10 km liggen
+edit_route Bewerk route
 route_desc Route beschrijving
-???route_name Name route
 route_name Route naam
 route_name_info Geef de route een naam
-route_radius Zoek radius
-rr_comment_label Comment from OC Team
-saturday Zaterdag
-save_gpx Sla op als GPX
-save_queries Save quieries
-save_route Bewaar route
-score_label Beoordeeld als
-search_all_caches alle caches
-search_by_city Zoek op plaats
-search_by_distance Zoek op afstand
-search_by_finder Zoek op vinder
-search_by_name Zoek op cache naam
-search_by_owner Zoek op cache eigenaar
-search_caches_along_route Zoek caches langs een route
-search_geocaches_nearby Zoek caches dichtbij (radius 100 km)
-search_options Zoekopties
-search_recommendations Aanbevelingen
-search_recommended_caches minimum aantal aanbevelingen: 
-search_text Zoek op tekst
-search_user Zoek gebruiker
-searchable zonder eigen en gevonden caches
-security_code Security code
+file_name_info Geef een KML bestand op
+no_routes Lijst met routes is leeg
+radius Radius
 see_desc_myroute Zie beschrijving "mijn routes"
-select_queries Select stored query to overwrite
-select_regions Selecteer regio
-send Verzenden
-send_bulletin Verzend een bulletin
-send_report Send report
-send_report_info You can report a problem with the geocache, for example <b> attention to the location </ b> to Team OC PL or owner geocache using this form
-send_to_gps Verzend naar GPS
-setup_new_route Maak een nieuwe route
-???short_desc_label Korte omschrijving
-show_all_log_entries Toon alle logs 
+route_radius Zoek radius
+search_caches_along_route Zoek caches langs een route
+caches_along_route Caches langs de route
+save_gpx Sla op als GPX
 show_gmap Toon op GMAP
-show_info_about_wp See the description and the type of additional waypoints
-show_list Toon lijs met caches
-show_more Toon meer
-show_noscore Show caches without score
-show_on_map Toon op de kaart
-show_statictics_cache Show cache statistics
-show_waypoints Show waypoints
-spoiler_info Do not display thumbnail (SPOILER) - Use this option if the picture shows the location of the cache.<br> The picture will only be shown when SPOILER is clicked.
-stage_wp Etappe
-start_point start point
-stat_created_caches Statistieken van gemaakte caches
-stat_geocache Statistics geocache
-stat_number_found Statistieken van gevonden caches
-stat_octeam Statistieken OC Team
-stat_problems Statistics OC Team - solved problems
-statistics_users  Statistieken gebruiker
-store Opslaan
-subject Onderwerp
-submit Verzenden
-submit_log_entry Verstuur de log
-title_picture Title
-titles Onderwerp
-to_big_data Too big size image
-to_see_coords Hidden coördinaten
-top_recommended Meest aanbevolen caches
-total_attended_events Totaal aantal deelgenomen evenementen
-total_comments Totaal aantal opmerkingen
-total_created_caches Totaal aantal gemaakte caches
-total_dist_attempted_caches_label Overall distance between attempted caches
-total_dist_hidden_caches_label Overall distance between hidden caches
-total_distance Totale afstand
-total_dnf_caches Totaal aantal niet gevonden caches
-total_number_found_caches Totaal aantal gevonden caches
-total_of_active_caches Totaal aantal actieve caches
-total_of_caches Totaal aantal caches
-verbosity_label Verbosity
+show_list Zoek caches langs een route
+logs_cache_gpx Aantal logs van elke cache in GPX
+min_logs_cache Minimum aantal logs
+marked_grey_search_area Zoekgebied met opgegeven radius is grijs aangegeven
+lastlogins Laatste login
+this_month in de laatste 30 dagen
+more_one_month tussen 1 en 6 maanden geleden
+more_six_month tussen 6 en 12 maanden geleden
+more_12_month meer dan 12 maanden geleden
+unknown unknown
+user_not_active user account is not active
+distance_to_cache Afstand naar cache
+cacheguides Geocaching Guides / Gurus 
+guide Guide/Guru
+guides Guides/Gurus
+okapi_apps jouw Apps
+os_kesz Cache
+os_autor van
+os_nie_ma_w_os The creator of this cache has not added the functionality of checking final coordinates with OpenSprawdzacz to it
+os_podaj_waypoint &nbsp;&nbsp;&nbsp;Vul hier het cache waypoint in (bv.: OB1234)
+os_podaj_twoje Vul de eindcoördinaten in:
+os_sprawdz Controleer de eindcoördinaten
+os_stopnie Graden
+os_minuty minuten
+os_tak_chce Door dit aan te vinken kunnen gebruikers het eindcoördinaten controleren via OpenChecker.
+opensprawdzacz_main &nbsp;&nbsp;De cache eigenaar geeft je de kans om de eindcoördinaten te contoleren. Doe dit voordat je gaat zoeken!
+os_pr Pogingen
+os_sukc Hits
+os_proba Je bereikt nu de limiet van
+os_razy De limiet van coördinaten controle is 
+os_razy_srodek keren per
+os_razy_koniec minuten.
+os_sukces YES!! Je hebt de juiste coördinaten. Gefeliciteerd.
+os_fail NEE! Jouw antwoord is niet goed. Controleer je berekening nog eens.
+os_za_godzine Controleer de berekeningen en probeer het later nog eens  (na 1 uur)
+os_komunikat1 Controleer cache coördinaten met opgegeven waypoint:
+os_komunikat2 Selecteer een cache uit de lijst om de coördinaten te controleren: 
+os_typ soort
+os_powrot terug
+os_pomoc Help
+os_zobo Lees hier hoe Open-Checker wordt gebruikt en hoe een cache toegevoegd kan worden.
+os_spr_form Controleer eindcoördinaten van cache
+os_twojews Jouw coördinaten
+os_hlp_01 Open Checker allow users to check coordinates of final cache for cache type "Quiz" (Puzzle), "Multicache" and "Other Type"
+os_hlp_02 If you are owner of Quiz/Other type cache, Here you can give a chance for other users check their calculated/obtained coords of final location befeore they go out cache hunting.
+os_hlp_03 Hoe voeg je een cache toe aan  Open Checker?
+os_hlp_04 1. Open het cache bewerk scherm
+os_hlp_05 2. Klik op Voeg waypoint toe
+os_hlp_06 3. Selecteer soort waypoint op "Eindlocatie"
+os_hlp_07 4. Vink het vakje naast "Open Checker" aan
+os_hlp_08 5. Selectieer bij Waypoint status "Verberg dit waypoint op de cachepagina"
+os_hlp_09 6. klik op "Voeg waypoint toe"
+os_hlp_10 Er zijn nu 2 dingen aan de cache toegevoegt:
+os_hlp_11 a) On page with your cache description new section "Open Checker" appear with link to Checking coords.
+os_hlp_12 b) On Open Checker page your cache appear on the list.
+os_hlp_13 Hoe verwijder je een cache van Open Checker?
+os_hlp_14 To withdraw coordinates checking availability:
+os_hlp_15 1. Open het cache bewerk scherm
+os_hlp_16 2. Klik op bewerken bij "Eindlocatie" in de waypoint lijst
+os_hlp_17 3. Haal het vinkje weg bij "Open Checker"
+os_hlp_18 From now your cache disappears from Open Checker list. Also your cache description page disappeares Open Checker section.
+ni_ma_takiego_kesza Verkeerde cache waypoint!
+os_wynik Resultaat
+os_zgad Je hebt het te vaak geprobeerd.
+wybrac_log Kies logsoort
+nowe_wsp New coordinates
+os_ma_max Er is een limiet van 
+os_ma_pr shots 
+os_ma_na  controles per
+os_godzine minuten
+os_mus Je moet nu nog 
+os_minut_end minuten wachten om het weer te proberen.
 viewlog_aktywnosc Total user activity (sum of caches found, not found and hidden)
-waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">See the description and the kinds of additional waypoints.</a>
-with_password Cache with password
-your_newest_log_entries Your latest logs
-was_removed has been removed
-want_to_recommend JA, ik wil deze cache aanbevelen
-viewlog_kordy Cache coördinaten after moving
-users_who_created_caches Users, who create the caches
-username Gebruiker
-user_ranking_by_number_of_finds_of_their_caches Gebruikers ranglijst met aantal van hun gevonden caches
-user_account User's account
-trp_points trip points
-total_moved Aantal verplaatste caches
-toggle_filters Change filters
-to_do To do
-stats Statistics
-stat_picture Statistics picture
-show_labels Show labels
-show_in_google_maps Show on Google Maps
-short_description Short description
-???register_msg1 You must have a real e-mail address for registration. We'll send activation code on it. You can only register one user to one e-mail address.
-ranking_by_number_of_finds Gebruikers ranglijst met aantal gevonden caches
-ranking_by_number_of_created_caches Gebruikers ranglijst met aantal gemaakte caches
+viewlog_kordy Cache coordinates after moving
+log_type_temp_unavailable Tijdelijk niet beschikbaar
+log_type_available Beschikbaar
+log_mobile_init Starting coordinates
+error_coords_not_ok Wrong coordinates!
 GKApi01 Integratie OC account met GeoKrety.org
-GKApi02 Geokrety Secid:
-GKApi03 Intregeer je Opencaching.nl account met GeoKrety.org account en kopieer hier jouw <b>Secid</b>. Jouw <b>Secid</b> kun je vinden op GeoKrety pagina in je account details. 
+GKApi02 GeoKrety Secid:
+GKApi03 Intregeer je Opencaching.nl account met GeoKrety.org account en kopieer hier jouw <b>Secid</b>. Jouw <b>Secid</b> kun je vinden op GeoKrety pagina in je account details.
 GKApi04 (Hier)
-GKApi05 Log GeoKrety direkt uit je inventaris: 
+GKApi05 Log GeoKrety direkt uit je inventaris:
 GKApi06 Log GeoKrety nu
-GKApi07 Deze functie vereist intregatie van jouw OC account en jouw GeoKrety account. Jouw OC profiel is nog niet geconfigureerd om samen te werken met GeoKrety. 
+GKApi07 Deze functie vereist intregatie van jouw OC account en jouw GeoKrety account. Jouw OC profiel is nog niet geconfigureerd om samen te werken met GeoKrety.
 GKApi08 Intregeer jouw OC account met GeoKrety met de volgende stappen: 
-GKApi09 Kopieer je secid van de GeoKrety webpagina. 
+GKApi09 Kopieer je secid van de GeoKrety webpagina.
 GKApi10 Plak het in jouw OC profiel gegevens.
-GKApi11 Verkeerde Secid 
+GKApi11 Verkeerde Secid
 GKApi12 GeoKrety achtergelaten
 GKApi13 Geen actie
 GKApi14 GeoKrety bezocht
@@ -887,83 +925,11 @@ GKApi19 Log GeoKrety
 GKApi20 GeoKrety is gelogd.
 GKApi21 Fout
 GKApi22 Geen reactie van GeoKrety.org
-status_wp Waypoint status
-step1 Stap 1
-step2 Stap 2
-write_note write note
-wp_status3 Hide this waypoint from cache view
-weekday Dag van de week
-wednesday Woensdag
-was_removed was removed
-want_to_recommend Ja, Ik wil deze cache aanbevelen
-tuesday Dinsdag
-type_of_log Soort log
-type_wp Soort
-type_wp2 Soort waypoint
-unknown unknown
-user_desc User description 
-user_not_active user account is not active
-users_active Number of active users
-utilities Hulpmiddelen
-viewlog_aktywnosc Total user activity (sum of caches found, not found and hidden)
-???time Benodigde tijd
-thursday Donderdag
-this_month in de laatste 30 dagen
-there_is_no_caches_registered There is no caches registered
-there_is_no_caches_found There is no caches found it
-text Tekst
-temporarily_unavailable Geocache will be temporarily unavailable.
-temp_unavailable Niet beschikbaar
-sunday Zondag
-ranking_by_number_of_created_active_caches Gebruikers ranglijst met aantal gemaakte en actieve caches
-ranking Rang
-only_active_caches Active caches only
-omit_caches Verberg caches
-old_cache_map Map's older version
-of_owner van eigenaar
-oc_stat OC NL caches statistiek
-observed gevolgd
-number_of_caches Aantal caches
-number_of_active_caches Aantal actieve caches
-???number_created_events Number of created events (meetings)
-???number_caches Aantal caches
-???number_archived_caches Number of archived caches
-nowe_wsp Nieuwe coördinaten
-not_active niet aktief
-no_not_published_caches Er zijn geen nog niet gepubliceerde caches
-no_log_entries There is no logs yet
-no_hidden_caches There's no hidden caches yet
-+++new_password New password+++
-management_users Managing the user
-manage_ocpl Managing the OC PL
-kilometer kilometer
 GKApi23 total geokrets in your inventory
 GKApi24 in cache
 GKApi25 GeoKrety Log text
 GKApi26 Grabbed from
-found_it found
-???full_description Full description
-fullscreen Full screen
-general_stat Algemene statistieken
-change_password_msg1 Verander wachtwoord
-clear_list Klembord legen
-disable_fullscreen Terug naar klein scherm
-distance_label Afstand
-???cache_name Cache naam
-cache_ranking_by_calculated_indicator Cache ranglijst via berekende formule
-cache_ranking_by_number_of_finds Cache ranglijst van meeste keren gevonden
-all_cache_approvement Cache will by visible for others after approving by OC Team
-browse_problem_reports Show reports of problems
-edit_cache_description Edition of cache description
-empty_entry_confirm Do you really want to leave the empty log entry?
-empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. Het maken van een cache kost moeite en het schrijven van waardering en kritiek zijn ook welkom! Zelfs een "Bedankt" zou voldoende kunnen zijn.
-extra_attrs_info You can add another attributes using this form: <a href="cache-atr.php" target="_BLANK">Adittional cache attributes</a>.
-extra_coded_info Additional (coded) informations
-geocaching_com_foto_info Please don't use pictures from geocaching.com
-html_edit_info For formatting text use HTML characters only. List of the allowed characters you can see <a href="articles.php?page=htmltags">here</a>.
-javascript_edit_info Javascript is turned off in your browser. You can lead ordinary text only. For leading HTML and use HTML Editor you have to turn on Javascript.
-team_stat_m_problems OC Team monthly statistic - problems
-email_publish Hiermee weet de ontvanger jouw e-mail adres en kan direct op jouw e-mail antwoorden
+GKApi27 napędzane przez Kreci Interfejs XML'owy!
 Open_Sprawdzacz OpenChecker
 os_f00 Caches in OpenChecker, legenda
 os_f01 Volgende
@@ -983,5 +949,27 @@ log11 Akcja
 log12 Wpisz tutaj treść komentarza którą chcesz ustawić dla wszystkich widocznych na ekranie skrzynek i naciśnij przycisk.
 log13 Uaktualnij komentarze
 log14 Pobierz jako GPX
-
-
+date Datum
+myprofile01 Użytkownik, który założył lub zrobił wpis do logu nie może być usunięty. Jest możliwa tylko deaktywacja konta. Będą wtedy usunięte wszystkie dane e-mail z profilu ale nazwa użytkownika zostanie zachowana. Jeśli chcesz deaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail, a deaktywujemy Twoje konto. W przypadkach niejasnych prosimy o kontakt ocpl @ opencaching.pl Dziękujemy.
+myprofile02 Tak, jestem wolontariuszem Przewodnikiem geocachingu dla początkujących. Patrz:
+myprofile03 Przewodnicy
+myprofile04 Tak, chcę zostać wolontariuszem Przewodnikiem geocachingu dla początkujących
+myprofile05 Patrz: więcej na stronie
+myprofile06 Pamietaj ustawić poniżej współrzędne bez tego nie będziesz widzany na mapie Przewodników
+myprofile07 OC PL wykorzystuje współrzędne aby obliczyć odległość do skrzynek, na mapach, które są dostępne publicznie. Jeśli obawiasz sie upubliczniania współrzędnych, podaj współrzędne najbliższego parku, baru.. lub po prostu wpisz kilka ostatnich cyfr jako zera
+em00 E-mail adres veranderen
+em01 Om het e-mail adres te veranderen, moet je eerst een veiligheidscode opvragen die naar je nieuwe e-mail adres verstuurd wordt
+em02 Nieuwe e-mail adres
+em03 Vul nu de veiligheidscode in die je per e-mail ontvangen hebt. De veiligheidscode is 3 dagen geldig, daarna moet je een nieuwe aanvragen. 
+em04 Veiligheidscode
+em05 Genereer code
+em06 E-mail wijzigen
+em07 Aanvraag nieuw e-mail is vertuurd
+em08 De code is verstuurd naar het nieuwe e-mail adres.
+em09 Code om het e-mail adres te wijzigen
+em10 Het e-mail adres is niet geldig
+em11 Opgegeven e-mail adres bestaat al
+em12 Ingevoerde code is niet geldig
+em13 Ingevoerde code is verlopen
+removed_message_title The owner of geocache wrote to you the following comment
+to_do f To do

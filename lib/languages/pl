@@ -273,7 +273,6 @@ no_time_indicated Nie wskazano czasu aktywacji
 welcome Witaj serdecznie
 administrating_oc Zarządzanie OCPL
 view_your_profile przejdź do swojego profilu
-no_logs Brak wpisów do logu
 you_have_found Znalazłeś
 found_x_caches skrzynek
 you_have_participated_in Uczestniczyłeś w
@@ -355,7 +354,6 @@ no_password_label Pozostaw puste jeśli bez hasła
 please_read Zapoznaj się z <a href="{cache_params_url}" target="_blank">informacją o haśle w logu!</a>
 creating_cache Zakładając nową skrzynkę akceptujesz <a href="{rules_url}" target="_blank">Regulamin</a> oraz konsekwencje wynikające z niego.
 with_all_consequences oraz konsekwencje wynikające z niego.
-sort_by Wynik szukania sortuj według
 cache_name nazwa skrzynki
 distance_label odległość
 omit_caches Pominąć skrzynki
@@ -381,7 +379,6 @@ search_by_owner Szukaj według właściciela skrzynki
 owner_label właściciel
 finder_label znalazca
 search_by_finder Szukaj według znalazcy
-short_desc_label Krótki opis
 search_recommendations Rekomendacje
 search_all_caches wszystkie skrzynki
 search_recommended_caches minimalna ilość rekomendacji: 
@@ -483,7 +480,6 @@ new_password_msg1 Aby zmienić hasło, należy otrzymać unikalny kod, który zo
 new_password_msg2 Po otrzymaniu na email kod aktywacyjnego wprowadź informacje w poniższym formularzu. <br/>(Kod jest ważny 3 dni. Po tym okresie musisz wygenerować nowy kod.) 
 security_code Kod aktywacyjny
 change_password_msg1 Zmiana hasła
-new_password Nowe hasło
 logoutsuccess Wylogowanie przebiegło z powodzeniem
 error_usernotactive Twoje konto nie było aktywowane jeszcze lub było ponownie zdeaktywowane.<br />Konto możesz <a href=activation.php>TUTAJ</a>Aktywować.
 not_registered Chcesz się zarejestrować? <a href="register.php">Rejestracja</a>
@@ -518,7 +514,6 @@ map Mapa
 manage_ocpl Zarządzanie OC PL
 browse_problem_reports Przeglądaj zgłoszenia problemów
 no_hidden_caches Brak ukrytych skrzynek
-no_not_published_caches Nie ma nieopublikowanych skrzynek
 no_log_entries Nie ma wpisów do LOGów
 your_newest_log_entries Twoje najnowsze wpisy w LOGach
 location Lokalizacja
@@ -549,7 +544,6 @@ submit wyślij
 edit_cache_description Edycja opisu skrzynki
 short_description Krótki opis
 extra_attrs_info Możesz dołożyć dodatkowe atrybuty do opisy skrzynki korzystając z tego formularza: <a href="cache-atr.php" target="_BLANK">Dodatkowe atrybuty skrzynki</a>.
-full_description Pełny opis
 javascript_edit_info Javascript jest wyłączona w Twojej przeglądarce. Możesz tylko wprowadzić zwykły tekst. Aby wprawdzić kod HTML i użyć edytor musisz włączyć obsługę Javascript.
 html_edit_info Używaj tylko znaczników HTML do formatowania tekstu. Wykaz dozwolonych znaczników znajdziesz <a href="articles.php?page=htmltags">tutaj</a>.
 geocaching_com_foto_info Proszę nie używać obrazków z geocaching.com.
@@ -572,7 +566,6 @@ find_user Szukaj użytkownika
 clear_list Wyczyść listę
 adoption_cache Adopcja skrzynki
 show_waypoints pokaż waypointy
-time Czas
 pendings Skrzynki oczekujące na akceptację
 recommendation_rating Zobacz ranking skrzynek rekomendowanych wg liczonego wskaznika
 show_statictics_cache Zobacz statystykę skrzynki
@@ -582,7 +575,6 @@ listing_from_this_page Wykaz z tej strony
 show_on_map pokaż na mapie
 list_of_events_is_empty W najbliższym czasie nie ma żadnych wydarzeń.
 stat_number_found Statystyka liczbowa skrzynek poszukiwanych
-not_found_caches Nie ma jeszcze żadnej skrzynki szukanej
 total_number_found_caches Liczba znalezionych skrzynek
 total_dnf_caches Liczba nieznalezionych skrzynek
 total_comments Liczba komentarzy w logach
@@ -598,7 +590,6 @@ latest_logs_by_user Najnowsze wpisy do logów wprowadzone przez użytkownika
 stat_created_caches Statystyka liczbowa skrzynek założonych
 not_caches_created Nie ma jeszcze żadnej założonej skrzynki
 total_created_caches Liczba wszystkich założonych skrzynek
-active_caches w tym aktywnych
 number_temp_caches Liczba czasowo niedostępnych skrzynek
 number_archived_caches Liczba zarchiwizowanych skrzynek
 number_created_events Liczba zorganizowanych spotkań (events)
@@ -672,7 +663,6 @@ route_cache Droga przebyta przez skrzynke
 start_point początek podróży
 trp_points punkty trasy
 recently_seen ostatnio widziana
-back_to_cache Powrót do skrzynki
 moved_text przeniesiona
 encrypt_log Log szyfrowany
 my_neighborhood Moja okolica
@@ -742,7 +732,6 @@ immediately Natychmiast
 once_day Raz dziennie
 once_week Raz w tygodniu
 weekday Dzien tygodnia
-hour Godzina
 send Wysyłaj
 commit_watch Ustawienia zostały z powodzeniem zapisane
 no_queries Nie ma żadnych zgromadzonych poszukiwań
@@ -775,7 +764,7 @@ block Zablokuj
 assign_yourself Przypisz siebie do zgłoszenia
 accept Zaakceptuj
 octeam_stat_problems Statystyka COG - prowadzone zgłoszenia
-ocTego zdjęcia nie pokazujteam_stat_m_problems Statystyka COG Miesięczna - zgłoszenia
+octeam_stat_m_problems Statystyka COG Miesięczna - zgłoszenia
 octeam_stat_caches Statystyka COG - skrzynki weryfikowane
 octeam_stat_m_caches Statystyka COG Miesięczna - skrzynki weryfikowane
 number_problems Liczba zgłoszeń
@@ -831,8 +820,6 @@ file_name_info Proszę podać nazwę pliku KML
 no_routes Lista tras jest pusta
 radius Promień
 see_desc_myroute Zobacz opis "Moje trasy"
-route_name Nazwa trasy
-route_desc Opis trasy
 route_radius Promień szukania
 search_caches_along_route Szukaj skrzynek wzdłuż trasy
 caches_along_route Skrzynki wzdłuż trasy
@@ -970,6 +957,7 @@ myprofile04 Tak, chcę zostać wolontariuszem Przewodnikiem geocachingu dla pocz
 myprofile05 Patrz: więcej na stronie
 myprofile06 Pamietaj ustawić poniżej współrzędne bez tego nie będziesz widzany na mapie Przewodników
 myprofile07 OC PL wykorzystuje współrzędne aby obliczyć odległość do skrzynek, na mapach, które są dostępne publicznie. Jeśli obawiasz sie upubliczniania współrzędnych, podaj współrzędne najbliższego parku, baru.. lub po prostu wpisz kilka ostatnich cyfr jako zera
+em00 Zmiana adresu e-mail
 em01 Aby zmienić adres e-mail najpierw musisz otrzymać kod, który zostanie wysłany na nowy adres e-mail
 em02 Nowy adres e-mail
 em03 Należy wprowadzić kod razem z nowym adresem e-mail. Kod jest ważny 3 dni i po tym okresie należy wygenerować nowy
@@ -979,10 +967,22 @@ em06 Zmień adres e-mail
 em07 Adres e-mail został zmieniony
 em08 Kod został wysłany na nowy adres e-mail
 em09 Kod do zmiany adresu e-mail na OCPL
-em10 Adres e-mail jest nieprawidłowy.</div
+em10 Adres e-mail jest nieprawidłowy.
 em11 Podany adres e-mail już istnieje w bazie OC PL
 em12 Kod wprowadzony nie jest poprawny
 em13 Kod stracił swoją ważność
+removed_message_title Właściciel keszynki napisał następujący komentarz 
+to_do Do zrobienia
+
+ 
+
+
+
+
+
+
+
+
 
 
 
