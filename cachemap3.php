@@ -4,15 +4,15 @@ function getMapType($value)
 	switch( $value ) 
 	{
 		case 0:
-			return "G_NORMAL_MAP";
+			return "google.maps.MapTypeId.ROADMAP";
 		case 1:
-			return "G_SATELLITE_MAP";
+			return "google.maps.MapTypeId.SATELLITE";
 		case 2:
-			return "G_HYBRID_MAP";
+			return "google.maps.MapTypeId.HYBRID";
 		case 3:
-			return "G_PHYSICAL_MAP";
+			return "google.maps.MapTypeId.TERRAIN";
 		default:
-			return "G_NORMAL_MAP";
+			return "google.maps.MapTypeId.ROADMAP";
 	}
 }
 
@@ -97,8 +97,7 @@ require_once('./lib/common.inc.php');
 
 $tplname = 'cachemap3';
 
-tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
-//tpl_set_var('BodyMod', ' onload="load()" onunload="GUnload()"');
+tpl_set_var('bodyMod', ' onload="load()" ');
 global $usr;
 global $get_userid;
 global $filter;
@@ -263,7 +262,7 @@ else
 	}*/
 
 	/*SET YOUR MAP CODE HERE*/
-	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.99&amp;key='.$googlemap_key.'&amp;hl='.$lang.'" type="text/javascript"></script>
+	tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language='.$lang.'" type="text/javascript"></script>
     <script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;key='.$googlemap_key.'&amp;hl='.$lang.'"
       type="text/javascript"></script>
     <script src="lib/gmap-wms.js" type="text/javascript"></script>

@@ -102,6 +102,8 @@
 	$user_id = intval($_GET['userid']);
 	$username = getUsername($user_id);
 	
+	header('Content-Type: text/xml');
+
 	$writer = new XMLWriter();
 	
 	$writer->openURI('php://output');

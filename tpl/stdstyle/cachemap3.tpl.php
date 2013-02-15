@@ -209,10 +209,10 @@
 
 	var h_t = 0;
 	var map=null;
+	var infowindow=null;
 	var tlo=null;
 	var old_temp_unavail_value=null;
 	var old_arch_value=null;
-	var lastCoords = null; // hack for IE8, mouse click events have wrong coordinates but strangely enough mousemove is ok :)
 	var refresh_rand="r0";
 
 	// Draw circle with radius 150 m to show contain existing geocaches 
@@ -238,34 +238,18 @@
 			case 4: obr_grubosc = arguments[3];
 			case 3: obr_kolor = arguments[2];
 		}
-	
-		var punkty=[];
-		for(i=0;i<dokladnosc;i++)
-		{
-			var kat=360*i/dokladnosc;
-			kat = Math.PI*kat/180;
-			var srodekXY = map.fromLatLngToDivPixel(srodek);
-			var nowyPunktXY = new GPoint(srodekXY.x+parseFloat(promien)*Math.cos(kat),srodekXY.y+parseFloat(promien)*Math.sin(kat));
-			punkty.push(map.fromDivPixelToLatLng(nowyPunktXY));
-		}
-		
-		punkty.push(punkty[0]); // powielamy jeszcze raz pierwszy punkt, aby zamknąć okrąg
-		
-		if(arguments.length>5)
-			var poli = new GPolygon(punkty,obr_kolor,obr_grubosc,obr_alfa,wyp_kolor,wyp_alfa);
-		else
-			var poli = new GPolyline(punkty,obr_kolor,obr_grubosc,obr_alfa);
-		return poli;
+
+		return new google.maps.Circle({
+			center: srodek, radius: promien,
+			strokeColor: obr_kolor, strokeWeight: obr_grubosc, strokeOpacity: obr_alfa,
+			fillColor: wyp_kolor, fillOpacity: wyp_alfa,
+			clickable: false
+		});
 	}
 
-	function ShowCoordsControl() {
-	}
-	
-	ShowCoordsControl.prototype = new GControl();
-	ShowCoordsControl.prototype.initialize = function(map) {
+	function ShowCoordsControl(map) {
 		var container = document.createElement("div");
 		var showCoords = document.createElement("div");
-		var hideControl = document.createElement("img");
 
 		var icon = document.createElement("img");
 		icon.src = "tpl/stdstyle/images/blue/compas20.png";
@@ -276,16 +260,6 @@
 
 		this.showCoords = showCoords;
 
-		hideControl.style.width = "16px";
-		hideControl.style.height = "16px";
-		hideControl.style.marginLeft = "95%";
-		hideControl.style.position = "absolute";
-		hideControl.style.backgroundColor = "yellow";
-		hideControl.style.border = "1px solid black";
-		hideControl.src =  "tpl/stdstyle/images/show_hide.png";
-		//  hideControl.style.backgroundImage = "tpl/stdstyle/images/show_hide.png";
-		//  container.appendChild(hideControl);
-
 		this.setStyle_(showCoords);
 		container.appendChild(showCoords);
 		showCoords.appendChild(icon);
@@ -293,20 +267,16 @@
 		showCoords.appendChild(textNode);
 		showCoords.owner = this;
 
-		map.getContainer().appendChild(container);
-
-		GEvent.addDomListener(showCoords, "click", function() {
+		map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(container);
+		
+		google.maps.event.addDomListener(showCoords, "click", function() {
 			this.owner.type = ((this.owner.type + 1) % 3);
 			this.owner.setCoords(this.owner.lastLatLng);
 		});
 
 		this.setCoords(map.getCenter());
 
-		return container;
-	}
-	
-	ShowCoordsControl.prototype.getDefaultPosition = function() {
-		return new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(125, 20));
+		return this;
 	}
 	
 	function toWGS84(type, latlng)
@@ -445,20 +415,20 @@
 	
 	function get_current_mapid()
 	{
-		switch (map.getCurrentMapType()) {
-			case G_NORMAL_MAP:
+		switch (map.getMapTypeId()) {
+			case google.maps.MapTypeId.ROADMAP:
 				return 0;
-			case G_SATELLITE_MAP:
+			case google.maps.MapTypeId.SATELLITE:
 				return 1;
-			case G_HYBRID_MAP:
+			case google.maps.MapTypeId.HYBRID:
 				return 2;
-			case G_PHYSICAL_MAP:
+			case google.maps.MapTypeId.TERRAIN:
 				return 3;
 			default:
 				return 0;
 		}
 	}
-	
+
 	function get_current_rand() { return refresh_rand; }
 	
 	function generate_new_rand() {
@@ -468,16 +438,14 @@
 
 	function addocoverlay()
 	{
-		var tilelayer = new GTileLayer(null, null, null, {
-			isPng:true,
-			opacity:1.0
-		});
-		tilelayer.getTileUrl = function(tile, zoom) {
+		var tilelayer = new google.maps.ImageMapType({
+			opacity: 1.0,
+			tileSize: new google.maps.Size(256, 256),
+			getTileUrl: function(tile, zoom) {
 			return "{cachemap_mapper}?userid={userid}"+
 				"&z="+zoom+
 				"&x="+tile.x+
 				"&y="+tile.y+
-				//"&sc={sc}"+
 				"&h_u="+document.getElementById('h_u').checked+
 				"&h_t="+document.getElementById('h_t').checked+
 				"&h_m="+document.getElementById('h_m').checked+
@@ -495,403 +463,339 @@
 				"&h_avail="+document.getElementById('h_avail').checked+
 				"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+
 				"&h_arch="+document.getElementById('h_arch').checked+
-				//"&signes="+document.getElementById('signes').checked+
-				//"&waypoints="+document.getElementById('waypoints').checked+
 				"&be_ftf="+document.getElementById('be_ftf').checked+
-				//"&h_de="+document.getElementById('h_de').checked+
-				//"&h_pl="+document.getElementById('h_pl').checked+
-				//"&h_se="+document.getElementById('h_se').checked+
-				//"&h_no="+document.getElementById('h_no').checked+
 				"&min_score="+document.getElementById('min_score').value+
 				"&max_score="+document.getElementById('max_score').value+
 				"&h_noscore="+document.getElementById('h_noscore').checked+
-				//"&mapid="+get_current_mapid()+
 				"&rand="+get_current_rand()+
 				"&{searchdata}"+
 				"";
-		};
-		tlo = new GTileLayerOverlay(tilelayer);
+			}
+		});
+		map.overlayMapTypes.insertAt(0, tilelayer); 
 	}
 
 	function reload()
 	{
-		saveMapType();
-		map.clearOverlays(tlo);
+		map.overlayMapTypes.removeAt(0);
 		addocoverlay();
-		map.addOverlay(tlo);
 	}
-	
+
+	function prepareLibXmlMapUrl(point)
+	{
+		return "lib/xmlmap.php"+
+			"?lat="+point.lat()+
+			"&lon="+point.lng()+
+			"&zoom="+map.getZoom()+
+			"&userid={userid}"+
+			"&h_u="+document.getElementById('h_u').checked+
+			"&h_t="+document.getElementById('h_t').checked+
+			"&h_m="+document.getElementById('h_m').checked+
+			"&h_v="+document.getElementById('h_v').checked+
+			"&h_w="+document.getElementById('h_w').checked+
+			"&h_e="+document.getElementById('h_e').checked+
+			"&h_q="+document.getElementById('h_q').checked+
+			"&h_o="+document.getElementById('h_o').checked+
+			"&h_owncache="+document.getElementById('h_owncache').checked+
+			"&h_ignored="+document.getElementById('h_ignored').checked+
+			"&h_own="+document.getElementById('h_own').checked+
+			"&h_found="+document.getElementById('h_found').checked+
+			"&h_noattempt="+document.getElementById('h_noattempt').checked+
+			"&h_nogeokret="+document.getElementById('h_nogeokret').checked+
+			"&h_avail="+document.getElementById('h_avail').checked+
+			"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+
+			"&h_arch="+document.getElementById('h_arch').checked+
+			"&be_ftf="+document.getElementById('be_ftf').checked+
+			"&min_score="+document.getElementById('min_score').value+
+			"&max_score="+document.getElementById('max_score').value+
+			"&h_noscore="+document.getElementById('h_noscore').checked+
+			"&{searchdata}";
+	}
+
 	function load() 
 	{
-		if (GBrowserIsCompatible()) 
-		{
-			map = new GMap2(document.getElementById("map_canvas"), {draggableCursor: 'crosshair', draggingCursor: 'pointer'});
+		var ocMapTypeIds = [];
+		for (var type in google.maps.MapTypeId) {
+			ocMapTypeIds.push(google.maps.MapTypeId[type]);
+		}
+		ocMapTypeIds.push("OSM");
+		ocMapTypeIds.push("UMP");
 
-			addocoverlay();
+		map = new google.maps.Map(
+			document.getElementById("map_canvas"),
+			{
+				center: new google.maps.LatLng({coords}),
+				zoom: {zoom},
+				mapTypeId: {map_type},
+				mapTypeControlOptions: {
+					mapTypeIds: ocMapTypeIds
+				},
+				draggableCursor: 'crosshair',
+				draggingCursor: 'pointer'
+			}
+		);
 
-			// OpenStreetMap (OSMapa topo)
-			var copyOSMapa = new GCopyrightCollection(
-				"Map data:<a href=\"http://www.osm.org/\" target=\"_blank\">OpenStreetMap<\/a> <a href=\"http://creativecommons.org/licenses/by-sa/2.0\" target=\"_blank\">CC-BY-SA 2.0</a> | Hosting:<a href=\"http://trail.pl\" target=\"_blank\">trail.pl</a>"
-			);
-			copyOSMapa.addCopyright(new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, " "));
-			var tilesOSMapa = new GTileLayer(copyOSMapa, 1, 18, {tileUrlTemplate: "http://osm.trail.pl/{Z}/{X}/{Y}.png"});
-			var tilesHill = new GTileLayer(0 , 1, 18, {tileUrlTemplate: "http://toolserver.org/%7Ecmarqu/hill/{Z}/{X}/{Y}.png"});				
-			var mapOSMapa = new GMapType([tilesOSMapa,tilesHill], G_NORMAL_MAP.getProjection(), "OSM");
-			map.addMapType(mapOSMapa);
-			
-			// UMP
-			var copyUMP = new GCopyrightCollection("<a href=\"http://ump.waw.pl/\">UMP-PcPL<\/a>");
-			copyUMP.addCopyright(new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, " "));
-			var tilesUMP = new GTileLayer(copyUMP, 1, 18, {tileUrlTemplate: "http://tiles.ump.waw.pl/ump_tiles/{Z}/{X}/{Y}.png"});
-			var mapUMP = new GMapType([tilesUMP], G_NORMAL_MAP.getProjection(), "UMP");
-			map.addMapType(mapUMP);
+		addocoverlay();
 
-			// OpenStreetMap (mapnik)
-			//var copyOSM = new GCopyrightCollection("<a href=\"http://www.openstreetmap.org/\">OpenStreetMaps<\/a>");
-			//copyOSM.addCopyright(new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, " "));
-			//var tilesOSM = new GTileLayer(copyOSM, 1, 18, {tileUrlTemplate: "http://tile.openstreetmap.org/{Z}/{X}/{Y}.png"});
-			//var mapOSM = new GMapType([tilesOSM], G_NORMAL_MAP.getProjection(), "OSM");
-			//map.addMapType(mapOSM);
+	    var osmMapType = new google.maps.ImageMapType({
+			getTileUrl: function (point, zoom) {
+				return "http://tile.openstreetmap.pl/"  + zoom + "/" + point.x + "/" + point.y + ".png";
+				// return "http://tile.openstreetmap.org/" + zoom + "/" + point.x + "/" + point.y + ".png";
+			},
+			tileSize: new google.maps.Size(256, 256),
+			name: "OSM",
+			maxZoom: 18
+		});
+	    map.mapTypes.set("OSM", osmMapType);
+	    
+	    var umpMapType = new google.maps.ImageMapType({
+			getTileUrl: function (point, zoom) {
+				return "http://tiles.ump.waw.pl/ump_tiles/" + zoom + "/" + point.x + "/" + point.y + ".png";
+			},
+			tileSize: new google.maps.Size(256, 256),
+			name: "UMP",
+			maxZoom: 18
+		});
+		map.mapTypes.set("UMP", umpMapType);
 
-			map.setCenter(new GLatLng({coords}),{zoom},G_PHYSICAL_MAP);
+		var attributionDiv = document.createElement('div');
+		attributionDiv.id = "map-copyright";
+		attributionDiv.style.fontSize = "10px";
+		attributionDiv.style.fontFamily = "Arial, sans-serif";
+		attributionDiv.style.padding = "3px 6px";
+		attributionDiv.style.whiteSpace = "nowrap";
+		attributionDiv.style.opacity = "0.7";
+		attributionDiv.style.background = "#fff";
+		map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(attributionDiv);
 
+		google.maps.event.addListener(map, "maptypeid_changed", function() {
+			var newMapTypeId = map.getMapTypeId();
+			if (newMapTypeId === "OSM") {
+				attributionDiv.innerHTML = '&copy; <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a> | Hosting:<a href="http://trail.pl/" target="_blank">trail.pl</a>';
+			}
+			else if (newMapTypeId === "UMP") {
+				attributionDiv.innerHTML = '&copy; Mapa z <a href="http://ump.waw.pl/" target="_blank">UMP-pcPL</a>';
+			}  
+			else {
+				attributionDiv.innerHTML = '';
+			}
+			saveMapType();
+		});
+
+		document.getElementById("zoom").value = map.getZoom();
+
+		google.maps.event.addListener(map, "zoom_changed", function() {
 			document.getElementById("zoom").value = map.getZoom();
-	
-			map.addControl(new GLargeMapControl());
-			map.addControl(new GScaleControl());
-			//map.removeMapType(G_HYBRID_MAP);
-			map.addMapType(G_PHYSICAL_MAP);
-			var mapControl = new GHierarchicalMapTypeControl(true);
-			map.addControl(mapControl);
-			map.addControl(new GOverviewMapControl());			
-			var showCoords = new ShowCoordsControl();
-			map.addControl(showCoords);
-			GEvent.addListener(map, "mousemove", function(latlng) {lastCoords = latlng; showCoords.setCoords(latlng);} );
+		});
 
-			map.enableScrollWheelZoom();
+		var showCoords = new ShowCoordsControl(map);
+		google.maps.event.addListener(map, "mousemove", function(event) {
+			showCoords.setCoords(event.latLng);
+		});
 
-			var tileGeoTopo = createWMSLayer('http://sdi.geoportal.gov.pl/wms_topo/wmservice.aspx', 'TOPO_50_65,TOPO_50_42,TOPO_25_65,TOPO_100_80,TOPO_10_92,TOPO_10_65,TOPO_10_42', '', 'image/jpeg');
-			var tileGeoOrto = createWMSLayer('http://sdi.geoportal.gov.pl/wms_orto/wmservice.aspx', 'ORTOFOTO', '', 'image/jpeg');
-			var layer1 = [tileGeoTopo];
-			var layer2 = [tileGeoOrto];
-			var layer3 = [tileGeoTopo, G_HYBRID_MAP.getTileLayers()[1]];
-			var layer4 = [tileGeoOrto, G_HYBRID_MAP.getTileLayers()[1]];
-			var custommap1 = new GMapType(layer1, G_SATELLITE_MAP.getProjection(), "Topo", G_SATELLITE_MAP);
-			var custommap2 = new GMapType(layer2, G_SATELLITE_MAP.getProjection(), "Orto", G_SATELLITE_MAP);
-			var custommap3 = new GMapType(layer3, G_SATELLITE_MAP.getProjection(), "Topo2", G_SATELLITE_MAP);
-			var custommap4 = new GMapType(layer4, G_SATELLITE_MAP.getProjection(), "Orto2", G_SATELLITE_MAP);
-			mapControl.addRelationship(custommap1, custommap3, "{{show_labels}}", true);
-			mapControl.addRelationship(custommap2, custommap4, "{{show_labels}}", true);
-			//map.addMapType(custommap1);
-			//map.addMapType(custommap2);
-			//map.addMapType(custommap3);
-			//map.addMapType(custommap4);
-
-			// Create a search control
-			var searchControl = new google.search.SearchControl();
-
-			// Add in local search
-			var localSearch = new google.search.LocalSearch();
-			var options = new google.search.SearcherOptions();
-			options.setExpandMode(GSearchControl.EXPAND_MODE_OPEN);
-			searchControl.addSearcher(localSearch, options);
-
-			localSearch.setCenterPoint(map.getCenter());
-
-			// Tell the searcher to draw itself and tell it where to attach
-			searchControl.draw(document.getElementById("search_control"));
-
-			searchControl.setSearchCompleteCallback(this, function(sc, searcher) {
-				if(searcher.results.length < 1)
-					return;
-				var result = searcher.results[0];
-				var p = new GLatLng(parseFloat(result.lat), parseFloat(result.lng));
-				localSearch.setCenterPoint(p);
-				map.setCenter(p, 13, map.getCurrentMapType());
-				document.getElementById("search_control").getElementsByTagName("input")[0].value = "";
-			});
-
-			// draw circle with radius 150 m to check exist geocaches 
-			var circle={circle};
-			if(circle==1)  
-			{
-			var poli = {};
-				var punktCentralny = new GLatLng({coords});   
-				var poli = okrag(punktCentralny,150,'#0000FF',2,0.5,'#9999CC',0.2,55);
-				map.addOverlay(poli);
-				var pointc = new GLatLng({coords});
-				var new_cache = new GMarker(pointc);
-				map.addOverlay(new_cache);
-			}
-
-			map.setMapType({map_type});
-			map.addOverlay(tlo);
-			GEvent.addListener(map, "moveend", function() 
-			{
-				localSearch.setCenterPoint(map.getCenter());
-			});
-			
-			GEvent.addListener(map, "zoomend", function() {
-				var zoom = map.getZoom();
-				/*
-				if( zoom > 7) {
-					document.getElementById('signes').disabled = false;
-					document.getElementById('waypoints').disabled = false;
-				}
-				else {
-					document.getElementById('signes').disabled = true;
-					document.getElementById('waypoints').disabled = true;
-				}
-				*/
-				
-				// reset double click timer
-				document.getElementById("zoom").value = map.getZoom();
-			});
-			
-
-			var onClickFunc = function(overlay,point) {
-				if (overlay != null) {
-					// overlay will be non-null only when click occurs within the infoWindow
-					// (in particular when closing the infoWindow). In such case it does not make
-					// sense to open another infoWindow (click occurs 'blind' at random place).
-					return;
-				}
-
-				point = lastCoords; // hack for IE8, get coords from last mousemove event instead of the click
-				if( point==undefined )
-					return;
-				
-				GDownloadUrl(
-					"lib/xmlmap.php"+
-					"?lat="+point.lat()+
-					"&lon="+point.lng()+
-					"&zoom="+map.getZoom()+
-					"&userid={userid}"+
-					"&h_u="+document.getElementById('h_u').checked+
-					"&h_t="+document.getElementById('h_t').checked+
-					"&h_m="+document.getElementById('h_m').checked+
-					"&h_v="+document.getElementById('h_v').checked+
-					"&h_w="+document.getElementById('h_w').checked+
-					"&h_e="+document.getElementById('h_e').checked+
-					"&h_q="+document.getElementById('h_q').checked+
-					"&h_o="+document.getElementById('h_o').checked+
-					"&h_owncache="+document.getElementById('h_owncache').checked+
-					"&h_ignored="+document.getElementById('h_ignored').checked+
-					"&h_own="+document.getElementById('h_own').checked+
-					"&h_found="+document.getElementById('h_found').checked+
-					"&h_noattempt="+document.getElementById('h_noattempt').checked+
-					"&h_nogeokret="+document.getElementById('h_nogeokret').checked+
-					"&h_avail="+document.getElementById('h_avail').checked+
-					"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+
-					"&h_arch="+document.getElementById('h_arch').checked+
-					//"&signes="+document.getElementById('signes').checked+
-					"&be_ftf="+document.getElementById('be_ftf').checked+
-					//"&h_pl="+document.getElementById('h_pl').checked+
-					//"&h_de="+document.getElementById('h_de').checked+
-					//"&h_no="+document.getElementById('h_no').checked+
-					//"&h_se="+document.getElementById('h_se').checked+
-					"&min_score="+document.getElementById('min_score').value+
-					"&max_score="+document.getElementById('max_score').value+
-					"&h_noscore="+document.getElementById('h_noscore').checked+
-					"&{searchdata}"+
-					"",
-					function(data, responseCode) 
-					{
-						var xml = GXml.parse(data);
-						
-						var caches = xml.documentElement.getElementsByTagName("cache");
-						var cache_id = caches[0].getAttribute("cache_id");
-						var name = stripslashes(caches[0].getAttribute("name"));
-						var username = stripslashes(caches[0].getAttribute("username"));
-						var wp = caches[0].getAttribute("wp");
-						var votes = caches[0].getAttribute("votes");
-						var score = caches[0].getAttribute("score");
-						var topratings = caches[0].getAttribute("topratings");
-						var lat = caches[0].getAttribute("lat");
-						var lon = caches[0].getAttribute("lon");
-						var type = caches[0].getAttribute("type");
-						var size = caches[0].getAttribute("size");
-						var status = caches[0].getAttribute("status");
-						var user_id = caches[0].getAttribute("user_id");
-						var founds = caches[0].getAttribute("founds");
-						var notfounds = caches[0].getAttribute("notfounds");
-						var node = caches[0].getAttribute("node");
-						
-						if( cache_id != "" )
-						{
-							var show_score;
-							var show_size;
-							var print_topratings;
-							if( score != "" && votes > 2)
-							{
-								show_score = "<br><b>{{score_label}}:<\/b> " + score;
-							}
-							else show_score = "";
-							
-							if( topratings == 0 )
-								print_topratings = "";
-							else 
-							{
-								print_topratings = "<br><b>{{recommendations}}: <\/b>";
-								var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\" />";
-								var ii;
-								for( ii=0;ii<topratings;ii++)
-									print_topratings += gwiazdka;
-							}
-
-							var infoWindowContent = "";
-							var domain="";
-							switch( node )
-							{
-								case "1":
-									domain = "http://www.opencaching.de/";
-									break;
-								case "2":
-									domain = "";
-									break;
-								case "3":
-									domain = "http://www.opencaching.cz/";
-									break;
-								case "7":
-									domain = "http://www.opencaching.se/";
-									break;
-								case "8":
-									domain = "http://www.opencaching.no/";
-									break;
-								default:
-									domain = "";
-							}
-							
-							if( type == 6 ) // event
-							{
-								found_attended = "{{attendends}}";
-								notfound_will_attend = "{{will_attend}}";
-								show_size = "";
-							}
-							else
-							{
-								found_attended = "{{found}}";
-								notfound_will_attend = "{{not_found}}";
-								show_size = "<br><b>{{size}}:<\/b> " + size;
-							}
-
-							infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\" class=\"table\">";
-							infoWindowContent += "<tr><td colspan=\"2\" width=\"100%\"><table cellspacing=\"0\" width=\"100%\"><tr><td width=\"90%\">";
-							infoWindowContent += "<center><img align=\"left\" width=\"20\" height=\"20\" src=\"tpl/stdstyle/images/cache/"+typeToImageName(type, status)+"\" /><\/center>";
-							infoWindowContent += "&nbsp;<a href=\""+domain+"viewcache.php?cacheid=" + cache_id + "\" target=\"_blank\">" + name + "<\/a>";
-							infoWindowContent += "<\/td><td width=\"10%\">";
-							infoWindowContent += "<b>"+wp+"<\/b><\/td><\/tr><\/table>";
-							infoWindowContent += "<\/td><\/tr>";
-							infoWindowContent += "<tr><td width=\"70%\" valign=\"top\">";
-							infoWindowContent += "<b>{{created_by}}:<\/b> " + username + show_size + show_score + print_topratings;
-							
-							infoWindowContent += "<\/td>";
-							infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\" class=\"table\"><tr><td width=\"100%\">";
-							infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\" /> "+founds+" x "+found_attended+"<\/nobr><\/td><\/tr>";
-							infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\" /> "+notfounds+" x "+notfound_will_attend+"<\/nobr><\/td><\/tr>";
-							if( node == 2 )
-								infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\" /> "+votes+" x {{scored}}<\/nobr>";
-
-							infoWindowContent += "<\/td><\/tr><\/table><\/td><\/tr>";
-							infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
-							/*if( node == 2 )
-								infoWindowContent += "<font size=\"0\"><a href=\"cachemap3.php?lat="+"\"><?php echo ($yn=='y'?tr('add_to'):tr('remove_from'));?> {{to_print_list}}<\/a><\/font>";*/
-							infoWindowContent += "<\/td><\/tr><\/table><\/td><\/tr>";
-							infoWindowContent += "<\/table>";
-							
-							map.openInfoWindowHtml(new GLatLng(lat,lon), infoWindowContent,{
-								onCloseFn: function() {}
-							});
-						}
-					}
-				);
-			};
-
-			GEvent.addListener(map, "click", onClickFunc);
-
-			var onRightClickFunc = function(overlay,point) 
-			{
-				point = lastCoords; // hack for IE8, get coords from last mousemove event instead of the click
-				if( point==undefined )
-					return;
-
-				GDownloadUrl(
-					"lib/xmlmap.php"+
-					"?lat="+point.lat()+
-					"&lon="+point.lng()+
-					"&zoom="+map.getZoom()+
-					"&userid={userid}"+
-					"&h_u="+document.getElementById('h_u').checked+
-					"&h_t="+document.getElementById('h_t').checked+
-					"&h_m="+document.getElementById('h_m').checked+
-					"&h_v="+document.getElementById('h_v').checked+
-					"&h_w="+document.getElementById('h_w').checked+
-					"&h_e="+document.getElementById('h_e').checked+
-					"&h_q="+document.getElementById('h_q').checked+
-					"&h_o="+document.getElementById('h_o').checked+
-					"&h_ignored="+document.getElementById('h_ignored').checked+
-					"&h_own="+document.getElementById('h_own').checked+
-					"&h_found="+document.getElementById('h_found').checked+
-					"&h_noattempt="+document.getElementById('h_noattempt').checked+
-					"&h_nogeokret="+document.getElementById('h_nogeokret').checked+
-					"&h_avail="+document.getElementById('h_avail').checked+
-					"&h_temp_unavail="+document.getElementById('h_temp_unavail').checked+
-					"&h_arch="+document.getElementById('h_arch').checked+
-					//"&signes="+document.getElementById('signes').checked+
-					"&be_ftf="+document.getElementById('be_ftf').checked+
-					//"&h_pl="+document.getElementById('h_pl').checked+
-					//"&h_de="+document.getElementById('h_de').checked+
-					//"&h_no="+document.getElementById('h_no').checked+
-					//"&h_se="+document.getElementById('h_se').checked+
-					"&min_score="+document.getElementById('min_score').value+
-					"&max_score="+document.getElementById('max_score').value+
-					"&h_noscore="+document.getElementById('h_noscore').checked+
-					"&{searchdata}"+
-					"",
-					function(data, responseCode) 
-					{
-						var xml = GXml.parse(data);
-						var caches = xml.documentElement.getElementsByTagName("cache");
-						var cache_id = caches[0].getAttribute("cache_id");
-						if(cache_id != "")
-							window.open("viewcache.php?cacheid="+cache_id, "_blank");
-					}
-				);
-			}
-			GEvent.addListener(map, "singlerightclick", onRightClickFunc);
-		}
-
-		if({doopen})
-			onClickFunc(tlo, new GLatLng({coords}));
 		/*
-		if( map.getZoom() > 13 ) {
-			document.getElementById('signes').disabled = false;
-			document.getElementById('waypoints').disabled = false;
-		} else {
-			document.getElementById('waypoints').disabled = true;
-			document.getElementById('signes').disabled = true;
-		}
+		var tileGeoTopo = createWMSLayer('http://sdi.geoportal.gov.pl/wms_topo/wmservice.aspx', 'TOPO_50_65,TOPO_50_42,TOPO_25_65,TOPO_100_80,TOPO_10_92,TOPO_10_65,TOPO_10_42', '', 'image/jpeg');
+		var tileGeoOrto = createWMSLayer('http://sdi.geoportal.gov.pl/wms_orto/wmservice.aspx', 'ORTOFOTO', '', 'image/jpeg');
+		var layer1 = [tileGeoTopo];
+		var layer2 = [tileGeoOrto];
+		var layer3 = [tileGeoTopo, G_HYBRID_MAP.getTileLayers()[1]];
+		var layer4 = [tileGeoOrto, G_HYBRID_MAP.getTileLayers()[1]];
+		var custommap1 = new GMapType(layer1, G_SATELLITE_MAP.getProjection(), "Topo", G_SATELLITE_MAP);
+		var custommap2 = new GMapType(layer2, G_SATELLITE_MAP.getProjection(), "Orto", G_SATELLITE_MAP);
+		var custommap3 = new GMapType(layer3, G_SATELLITE_MAP.getProjection(), "Topo2", G_SATELLITE_MAP);
+		var custommap4 = new GMapType(layer4, G_SATELLITE_MAP.getProjection(), "Orto2", G_SATELLITE_MAP);
+		mapControl.addRelationship(custommap1, custommap3, "{{show_labels}}", true);
+		mapControl.addRelationship(custommap2, custommap4, "{{show_labels}}", true);
+		//map.addMapType(custommap1);
+		//map.addMapType(custommap2);
+		//map.addMapType(custommap3);
+		//map.addMapType(custommap4);
 		*/
 
-		if({fromlat} != {tolat}) {
-			var area = new GLatLngBounds();
-			area.extend(new GLatLng({fromlat}, {fromlon}));
-			area.extend(new GLatLng({tolat}, {tolon}));
-			var newZoom = map.getBoundsZoomLevel(area);
-			map.setCenter(area.getCenter(), newZoom);
+		// Create a search control
+		var searchControl = new google.search.SearchControl();
+
+		// Add in local search
+		var localSearch = new google.search.LocalSearch();
+		var options = new google.search.SearcherOptions();
+		options.setExpandMode(GSearchControl.EXPAND_MODE_OPEN);
+		searchControl.addSearcher(localSearch, options);
+
+		localSearch.setCenterPoint(map.getCenter());
+
+		// Tell the searcher to draw itself and tell it where to attach
+		searchControl.draw(document.getElementById("search_control"));
+
+		searchControl.setSearchCompleteCallback(this, function(sc, searcher) {
+			if(searcher.results.length < 1)
+				return;
+			var result = searcher.results[0];
+			var p = new google.maps.LatLng(parseFloat(result.lat), parseFloat(result.lng));
+			localSearch.setCenterPoint(p);
+			map.setCenter(p);
+			map.setZoom(13);
+			document.getElementById("search_control").getElementsByTagName("input")[0].value = "";
+		});
+
+		google.maps.event.addListener(map, "idle", function() {
+			localSearch.setCenterPoint(map.getCenter());
+		});
+
+		var circle={circle};
+		if (circle==1)  
+		{
+			// draw circle with radius 150 m to check existing geocaches 
+			var punktCentralny = new google.maps.LatLng({coords});   
+			var poli = okrag(punktCentralny,150,'#0000FF',2,0.5,'#9999CC',0.2,55);
+			poli.setMap(map);
+			var new_cache = new google.maps.Marker({position: punktCentralny, map: map});
 		}
 
-		/* GEvent.addDomListener(document.getElementById("amtc_option_1"), "click", function() { saveMapType(); })
-		GEvent.addDomListener(document.getElementById("amtc_option_2"), "click", function() { saveMapType(); })
-		GEvent.addDomListener(document.getElementById("amtc_option_3"), "click", function() { saveMapType(); })
-		GEvent.addDomListener(document.getElementById("amtc_option_4"), "click", function() { saveMapType(); }) */
+		var onClickFunc = function(event) {
 
-		GEvent.addListener(map, "tilesloaded", function() {
-			var mapSelector = document.getElementById("hmtctl");
-			if(mapSelector) {
-				mapSelector.onclick = saveMapType;
-			}
-		});
+			point = event.latLng;
+			
+			jQuery.get(prepareLibXmlMapUrl(point), function(data, status, jqxhr) {
+				var xml = jqxhr.responseXML;
+
+				var caches = xml.documentElement.getElementsByTagName("cache");
+				var cache_id = caches[0].getAttribute("cache_id");
+				var name = stripslashes(caches[0].getAttribute("name"));
+				var username = stripslashes(caches[0].getAttribute("username"));
+				var wp = caches[0].getAttribute("wp");
+				var votes = caches[0].getAttribute("votes");
+				var score = caches[0].getAttribute("score");
+				var topratings = caches[0].getAttribute("topratings");
+				var lat = caches[0].getAttribute("lat");
+				var lon = caches[0].getAttribute("lon");
+				var type = caches[0].getAttribute("type");
+				var size = caches[0].getAttribute("size");
+				var status = caches[0].getAttribute("status");
+				var user_id = caches[0].getAttribute("user_id");
+				var founds = caches[0].getAttribute("founds");
+				var notfounds = caches[0].getAttribute("notfounds");
+				var node = caches[0].getAttribute("node");
+				
+				if( cache_id != "" )
+				{
+					var show_score;
+					var show_size;
+					var print_topratings;
+					if( score != "" && votes > 2)
+					{
+						show_score = "<br><b>{{score_label}}:<\/b> " + score;
+					}
+					else show_score = "";
+					
+					if( topratings == 0 )
+						print_topratings = "";
+					else 
+					{
+						print_topratings = "<br><b>{{recommendations}}: <\/b>";
+						var gwiazdka = "<img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\" />";
+						var ii;
+						for( ii=0;ii<topratings;ii++)
+							print_topratings += gwiazdka;
+					}
+
+					var infoWindowContent = "";
+					var domain="";
+					switch( node )
+					{
+						case "1":
+							domain = "http://www.opencaching.de/";
+							break;
+						case "2":
+							domain = "";
+							break;
+						case "3":
+							domain = "http://www.opencaching.cz/";
+							break;
+						case "7":
+							domain = "http://www.opencaching.se/";
+							break;
+						case "8":
+							domain = "http://www.opencaching.no/";
+							break;
+						default:
+							domain = "";
+					}
+					
+					if( type == 6 ) // event
+					{
+						found_attended = "{{attendends}}";
+						notfound_will_attend = "{{will_attend}}";
+						show_size = "";
+					}
+					else
+					{
+						found_attended = "{{found}}";
+						notfound_will_attend = "{{not_found}}";
+						show_size = "<br><b>{{size}}:<\/b> " + size;
+					}
+
+					infoWindowContent += "<table border=\"0\" width=\"350\" height=\"120\" class=\"table\">";
+					infoWindowContent += "<tr><td colspan=\"2\" width=\"100%\"><table cellspacing=\"0\" width=\"100%\"><tr><td width=\"90%\">";
+					infoWindowContent += "<center><img align=\"left\" width=\"20\" height=\"20\" src=\"tpl/stdstyle/images/cache/"+typeToImageName(type, status)+"\" /><\/center>";
+					infoWindowContent += "&nbsp;<a href=\""+domain+"viewcache.php?cacheid=" + cache_id + "\" target=\"_blank\">" + name + "<\/a>";
+					infoWindowContent += "<\/td><td width=\"10%\">";
+					infoWindowContent += "<b>"+wp+"<\/b><\/td><\/tr><\/table>";
+					infoWindowContent += "<\/td><\/tr>";
+					infoWindowContent += "<tr><td width=\"70%\" valign=\"top\">";
+					infoWindowContent += "<b>{{created_by}}:<\/b> " + username + show_size + show_score + print_topratings;
+					
+					infoWindowContent += "<\/td>";
+					infoWindowContent += "<td valign=\"top\" width=\"30%\"><table cellspacing=\"0\" cellpadding=\"0\" class=\"table\"><tr><td width=\"100%\">";
+					infoWindowContent += "<nobr><img src=\"tpl/stdstyle/images/log/16x16-found.png\" border=\"0\" width=\"10\" height=\"10\" /> "+founds+" x "+found_attended+"<\/nobr><\/td><\/tr>";
+					infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/log/16x16-dnf.png\" border=\"0\" width=\"10\" height=\"10\" /> "+notfounds+" x "+notfound_will_attend+"<\/nobr><\/td><\/tr>";
+					if( node == 2 )
+						infoWindowContent += "<tr><td width=\"100%\"><nobr><img src=\"tpl/stdstyle/images/action/16x16-adddesc.png\" border=\"0\" width=\"10\" height=\"10\" /> "+votes+" x {{scored}}<\/nobr>";
+
+					infoWindowContent += "<\/td><\/tr><\/table><\/td><\/tr>";
+					infoWindowContent += "<tr><td align=\"left\" width=\"100%\" colspan=\"2\">";
+					/*if( node == 2 )
+						infoWindowContent += "<font size=\"0\"><a href=\"cachemap3.php?lat="+"\"><?php echo ($yn=='y'?tr('add_to'):tr('remove_from'));?> {{to_print_list}}<\/a><\/font>";*/
+					infoWindowContent += "<\/td><\/tr><\/table><\/td><\/tr>";
+					infoWindowContent += "<\/table>";
+
+					if (infowindow === null) {
+						infowindow = new google.maps.InfoWindow();
+					}
+
+					infowindow.setContent(infoWindowContent);
+					infowindow.setPosition(new google.maps.LatLng(lat,lon));
+
+					infowindow.open(map);
+				}
+			});
+		};
+
+		google.maps.event.addListener(map, 'click', onClickFunc);
+
+		var onRightClickFunc = function(event) 
+		{
+			point = event.latLng;
+
+			jQuery.get(prepareLibXmlMapUrl(point), function(data, status, jqxhr) {
+				var caches = jqxhr.responseXML.documentElement.getElementsByTagName("cache");
+				var cache_id = caches[0].getAttribute("cache_id");
+				if(cache_id != "")
+					window.open("viewcache.php?cacheid="+cache_id, "_blank");
+			});
+		};
+
+		google.maps.event.addListener(map, 'rightclick', onRightClickFunc);
+
+		if({doopen})
+			onClickFunc({ latLng: new google.maps.LatLng({coords}) });
+
+		if({fromlat} != {tolat}) {
+			var area = new google.maps.LatLngBounds();
+			area.extend(new google.maps.LatLng({fromlat}, {fromlon}));
+			area.extend(new google.maps.LatLng({tolat}, {tolon}));
+			map.fitBounds(area);
+		}
+
 	}
 	
 	function fullscreen() {
