@@ -530,6 +530,7 @@
 				mapTypeControlOptions: {
 					mapTypeIds: ocMapTypeIds
 				},
+				scaleControl: true,
 				draggableCursor: 'crosshair',
 				draggingCursor: 'pointer'
 			}
