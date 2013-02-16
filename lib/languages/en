@@ -934,6 +934,21 @@ Open_Sprawdzacz OpenChecker
 os_f00 Caches in OpenChecker, legend
 os_f01 Next
 os_f02 Previous
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 date Date
 myprofile01 User who create new cache or made a log entry cannot be deleted. It's only possible to deactivate your account. All your personal information will be deleted from your profile but your user name will be saved. If you want to deactivate your account, please contact us with your e-mail address and we will deactivate your profile. In unclear cases please contact ocpl @ opencaching.pl. Thant you. 
 myprofile03 Guides
@@ -954,4 +969,55 @@ em12 The code entered is not valid
 em13 Given code have lost it's validaty 
 removed_message_title The owner of geocache wrote to you the following comment
 to_do To do
+latest_blog Recent blog entries
+geocache Geocache
+
+
+
+em00 E-mail Change your e-mail address
+em01 To change the e-mail address firstly you need to obtain a code which will be sent on your new e-mail address
+em02 New e-mail address
+em03 Please enter the validation code with a new e-mail address. The code is valid for 3 days and after that you need to generate a new
+em04 Code which you received via e-mail
+em05 Generate code
+em06 Change your e-mail address
+em07 Your e-mail address have been changed
+em08 Validation code has been sent to the new e-mail address
+em09 Validation code to change the e-mail address to OCPL
+em10 Invalid e-mail address
+em11 Given e-mail address already exists in the OCPL database 
+em12 The code entered is not valid
+em13 Given code have lost it's validaty 
+
+---------------These next lines are in the code---------------
+
+removed_message_title The owner of geocache wrote to you the following comment
+to do To do
+password_info_label information about passwords in logs
+number_logentry Number of log entry
+was_removed was removed
+
+---------------Are thes lines used in the code???---------------
+
+octeam_stat_m_problems Statistics OCTeam Monthly - closed problems
+octeam_stat_m_problems Statistics OCTeam Monthly - closed problems
+octeam_stat_problems Statistics OCTeam - closed problems
+number_found_of_caches Number of found it caches
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

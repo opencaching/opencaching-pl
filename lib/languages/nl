@@ -136,7 +136,7 @@ news Nieuws
 new_caches Nieuwste caches
 new_cache Maak een cache
 abroad_poland Buiten Nederland
-recommended_caches Aanbevelingen
+recommended_caches Aanbevolen
 new_logs Nieuwste logs
 statistics Statistieken
 rules Regulations
@@ -439,7 +439,7 @@ searchable zonder eigen en gevonden caches
 all_geocaches alles
 log_entries Logs
 show_all_log_entries Toon alle logs 
-back_to_the_geocache_listing Terug naar de cachelijst
+back_to_the_geocache_listing Terug naar de cachepagina
 register_new  Als nieuwe gebruiker registreren
 password_confirm Bevestig wachtwoord
 register_msg1 Om een gebruikersaccount aan te maken op opencaching.nl, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.                                 
@@ -777,7 +777,7 @@ online_users Online registreerde gebruikers
 online_users_info gebaseerd op actieve gebruikers van de laatste 10 minuten
 empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. Het maken van een cache kost moeite en het schrijven van waarderingen en kritiek zijn ook welkom! Zelfs een "Bedankt" zou voldoende kunnen zijn.
 empty_entry_confirm Do you really want to leave the empty log entry?
-where_i_am Waar ben ik
+where_i_am Waar ben ik?
 read_info_about_cache_types Please read information about <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Cache types</a>
 regiononly Regio (Polen)
 region_from_coord Regio via opgegeven coördinaten
@@ -972,4 +972,17 @@ em11 Opgegeven e-mail adres bestaat al
 em12 Ingevoerde code is niet geldig
 em13 Ingevoerde code is verlopen
 removed_message_title The owner of geocache wrote to you the following comment
-to_do f To do
+to_do To do
+mc_beginn_00 Registreren van nieuwe caches - Informatie
+mc_beginn_01 Voordat je zelf caches kunt maken dien je eerst
+mc_beginn_02 caches te loggen. Je kunt uit verschillende soorten kiezen:
+mc_beginn_03 Tot nu toe heb je het volgende aantal caches gevonden:
+mc_beginn_04 Wanneer aan bovenstaande voldaan is, zullen er  
+mc_beginn_05 zelf gemaakte caches door het OC team gekeurd moeten worden. Na het goedkeuren zul je daarover een bericht ontvangen via e-mail met de nodige instructies. Je kunt dan zelf de cache bewerken en op "beschikbaar" zetten. Mocht het OC team de cache afkeuren dan zullen wij de reden opgeven en na het corrigeren van de cache zal het OC team de cache herkeuren.
+latest_blog Recente blog inzendingen
+geocache Cache
+
+
+
+
+

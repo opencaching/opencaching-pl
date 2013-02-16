@@ -973,8 +973,20 @@ em12 Kod wprowadzony nie jest poprawny
 em13 Kod stracił swoją ważność
 removed_message_title Właściciel keszynki napisał następujący komentarz 
 to_do Do zrobienia
+mc_beginn_00 Rejestracja nowej skrzynki - informacja
+mc_beginn_01 Aby zarejestrować nowe skrzynki musisz najpierw znaleźć
+mc_beginn_02 skrzynek spośród następujących typów:
+mc_beginn_03 Obecnie liczba Twoich skrzynek znalezionych spośród wymienionych typów to:
+mc_beginn_04 Po spełnieniu powyższego warunku Twoje pierwsze
+mc_beginn_05 skrzynki bedą weryfikowane przez Zespół OC PL. Po zatwierdzeniu skrzynki otrzymasz informacje via e-mail o tym fakcie i będziesz mógł ją opublikować poprzez edycje skrzynki i zmiane jej statusu. W przypadku uwag do skrzynki Zespół OC PL będzie się z Tobą kontaktował w sprawie uzpełnienia informacji lub zmian w skrzynce.
+latest_blog Najnowsze wpisy w blogach
+geocache Geocache 
 
- 
+
+
+
+
+
 
 
 

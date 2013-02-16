@@ -661,7 +661,7 @@ function showGeoCoder()
 				</select>&nbsp;
 				<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />&nbsp;°&nbsp;
 				<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input40" />&nbsp;'&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/information.png" alt="" title="info" />&nbsp;&nbsp;<b><a href="javascript:void(0)" onclick="showGeoCoder()">Gdzie jestem?</a></b>
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/information.png" alt="" title="info" />&nbsp;&nbsp;<b><a href="javascript:void(0)" onclick="showGeoCoder()">{{where_i_am}}</a></b>
 				<br/>
 				<select name="lonEW" class="input40">
 					<option value="E" {lonE_sel}>E</option>
