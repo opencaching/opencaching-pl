@@ -1421,7 +1421,10 @@ function outputSearchForm($options)
 
 	//countryoptions
 	$countriesoptions = $search_all_countries;
-	$lang_db = ($lang == 'pl')?'pl':'en';
+	if(checkField('countries','list_default_'.$lang) )
+					$lang_db = $lang;
+				else
+					$lang_db = "en";
 
 	$rs = sql('SELECT `&1`, `short` FROM `countries` WHERE `short` IN (SELECT DISTINCT `country` FROM `caches`) ORDER BY `sort_' . sql_escape($lang_db) . '` ASC', $lang_db);
 

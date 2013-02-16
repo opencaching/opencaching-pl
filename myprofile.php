@@ -608,7 +608,10 @@
 						$show_all_countries = 1;
 					}
 
-					$lang_db = ($lang == 'pl')?'pl':'en';
+					if(checkField('countries','list_default_'.$lang) )
+                                                $lang_db = $lang ;
+                                        else
+                                                $lang_db = "en";
 					
 					//Country in defaults ?
 					if (($show_all_countries == 0) && ($country != 'XX'))

@@ -170,7 +170,7 @@
 
 					if ($show_all_langs == 0)
 					{
-						$langs_rs = sql('SELECT `&1`, `short` FROM `languages` WHERE `short` NOT IN (' . $sql_nosellangs . ') AND `list_default_' . sql_escape(($lang == 'pl')?'pl':'en') . '` = 1 ORDER BY `&1` ASC', $lang);
+						$langs_rs = sql('SELECT `&1`, `short` FROM `languages` WHERE `short` NOT IN (' . $sql_nosellangs . ') AND `list_default_' . sql_escape($lang) . '` = 1 ORDER BY `&1` ASC', $lang);
 					}
 					else
 					{
