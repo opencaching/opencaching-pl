@@ -64,7 +64,7 @@
 			{{register_msg3}}
 	</div>
 <div class="notice" style="height:44px;">
-Użytkownik, który założy lub zrobi wpis do logu nie może być usunięty. Jest możliwa tylko deaktywacja konta. Będą wtedy usunięte wszystkie dane e-mail z profilu ale nazwa użytkownika zostanie zachowana. Jeśli chcesz deaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail, a deaktywujemy Twoje konto. W przypadkach niejasnych prosimy o kontakt ocpl @ opencaching.pl Dziękujemy.
+{{register_msg7}}
 </div>
 
 	<div>
@@ -73,7 +73,7 @@ Użytkownik, który założy lub zrobi wpis do logu nie może być usunięty. Je
 	</div>
 
 	<div>
-			<input type="reset" name="reset" value="Reset" class="formbuttons"/>&nbsp;&nbsp;
+			<input type="reset" name="reset" value="{{resett}}" class="formbuttons"/>&nbsp;&nbsp;
 			<input type="submit" name="submit" value="{{registration}}" class="formbuttons"/>
 	</div>
 </form>

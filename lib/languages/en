@@ -12,7 +12,7 @@ finish_registration_hint To complete the registration process, you have to confi
 email_address E-mail address
 activation_code Activation code
 confirm Confirm
-reset reset
+reset Reset
 activation_success Your account has been activated successfully. You can now log in.
 goto_login Go to login page
 preview_attributes Preview of additional cache attributes
@@ -448,6 +448,7 @@ register_msg3 If you have any questions, please contact us before you create you
 register_msg4 I have read and understand <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">the terms of use</a></b> and accept them. 
 register_msg5 New account has been registered
 register_msg6 The activation code was sent via E-mail to you. Please follow the instruction which was send via E-Mail.
+register_msg7
 total_distance Total distance
 send_to_gps Send WayPoint to GPS
 post_new_log Post new log in reference to
@@ -483,7 +484,7 @@ change_password_msg1 Change password
 logoutsuccess Successfully logged out
 error_usernotactive Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.
 not_registered Not registered? <a href="register.php">Register</a>
-forgotten_your_password Forgot your e-mail? <a href="newpw.php">Remind me</a>
+forgotten_your_password Forgot your password? <a href="newpw.php">Remind me</a>
 cache_logged_required You have to be logged to add new log entries and operate on this cache.
 basic_information Basic information.
 rating_poor poor

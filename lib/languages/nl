@@ -5,16 +5,16 @@ save Opslaan
 Edit Bewerken
 back Terug
 cache_menu Cache Menu
-activation_code_failed Activatie code of e-mail adres klopt niet.<br/>Je account is niet geactiveerd. Controleer de gegevens. Als het probleem blijft, neem dan contact met ons op via: octeam (at) opencaching.nl.
+activation_code_failed Activatie code of e-mail adres klopt niet.<br/>Je account is niet geactiveerd. Controleer de gegevens. Als het probleem blijft, neem dan contact met ons op via: octeam (at) opencaching.pl.
 email_incorrect E-mail adres is niet correct.
 account_activation Account activatie
 finish_registration_hint Om het registratie proces te voltooien, moet je je e-mail adres bevestigen en de activatie code invullen.
 email_address E-mail adres
 activation_code Activatie code
 confirm Bevestig
-reset herstellen
+reset Herstellen
 activation_success Je account is seccesvol geactiveerd. Je kunt nu inloggen.
-goto_login Ga naar login pagina
+goto_login Ga naar inlog pagina
 preview_attributes Voorbeeld van extra cache attributen
 toxic_plants Giftige planten
 thorns Doornen
@@ -135,7 +135,7 @@ registration Registreren
 news Nieuws
 new_caches Nieuwste caches
 new_cache Maak een cache
-abroad_poland Buiten Nederland
+abroad_poland Buiten Polen
 recommended_caches Aanbevolen
 new_logs Nieuwste logs
 statistics Statistieken
@@ -421,8 +421,8 @@ active_caches actieve caches
 number_of_active_users Aantal gebruikers
 number_of_founds Gevonden
 latest_news Nieuws
-what_do_you_find Welkom op Opencaching.nl
-what_do_you_find_intro Geocaching is een buitensport of activiteit waarbij cachers een GPS gebruiken om een "schat" te vinden die verstopt is door andere deelnemers. Caches zijn waterdichte dozen, die ruilspulletjes en een logboek bevatten waar cachers hun bezoek in kunnen schrijven. De coördinaten van de locatie van de caches zijn opgeslagen in een online database, evenals de beschrijving en instructies om deze te vinden.<br/>Op deze site kun je een heleboel vinden over cachen in Nederland. Opencaching.nl in Nederland is opgericht in <span class="content-title-noshade">2003</span>. Onze database werkt op <b>opensource project Opencaching</b>. Het idee hierachter is om met meerdere opencaching nodes uit verschillende landen over de hele wereld een gesyngroniseerde database met caches en gebruikers te werken.<br/>Opencaching sites zoals deze hebben niets gemeen met Opencaching.com.
+what_do_you_find Welkom op Opencaching.pl
+what_do_you_find_intro Geocaching is een buitensport of activiteit waarbij cachers een GPS gebruiken om een "schat" te vinden die verstopt is door andere deelnemers. Caches zijn waterdichte dozen, die ruilspulletjes en een logboek bevatten waar cachers hun bezoek in kunnen schrijven. De coördinaten van de locatie van de caches zijn opgeslagen in een online database, evenals de beschrijving en instructies om deze te vinden.<br/>Op deze site kun je een heleboel vinden over cachen in Polen. Opencaching.pl in Polen is opgericht in <span class="content-title-noshade">Mei 2006</span>. Onze database werkt op <b>opensource project Opencaching</b>. Het idee hierachter is om met meerdere opencaching nodes uit verschillende landen over de hele wereld een gesyngroniseerde database met caches en gebruikers te werken.<br/>Opencaching sites zoals deze hebben niets gemeen met Opencaching.com.
 more_news More news
 filename_rules http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use
 filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
@@ -442,12 +442,13 @@ show_all_log_entries Toon alle logs
 back_to_the_geocache_listing Terug naar de cachepagina
 register_new  Als nieuwe gebruiker registreren
 password_confirm Bevestig wachtwoord
-register_msg1 Om een gebruikersaccount aan te maken op opencaching.nl, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.                                 
+register_msg1 Om een gebruikersaccount aan te maken op opencaching.pl, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.                                 
 register_msg2 * zijn verplicht
 register_msg3 Mochten er nog vragen zijn, neem contact met ons op vóór je een account aanmaakt
-register_msg4 I have read and understand <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">the terms of use</a></b> and accept them. 
+register_msg4 Ik heb de <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">gebruikers voorwaarden</a></b> gelezen en begrepen en accepteer deze. 
 register_msg5 New account has been registered
 register_msg6 The activation code was sent via E-mail to you. Please follow the instruction which was send via E-Mail.
+register_msg7 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je opencaching.pl account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
 total_distance Totale afstand
 send_to_gps Verzend naar GPS
 post_new_log Plaats een nieuwe log voor
@@ -470,10 +471,10 @@ register_email_subject Registration confirmation Opencaching PL
 error_username_not_ok Gebruikersnaam is niet geldig
 error_username_exists Deze gebruikersnaam bestaat al op Opencaching pl. Kies een andere gebruikersnaam
 error_email_not_ok E-mail adres is niet geldig
-error_email_exists Dit e-mail adres bestaat al op Opencaching nl.
+error_email_exists Dit e-mail adres bestaat al op Opencaching pl.
 error_password_not_ok Wachtwoord bevat ongeldige tekens of is te kort
 error_password_diffs Beide wachtwoorden zijn niet gelijk
-error_tos Je dient de gebruiksvoorwaarden te accepteren, om op Opencaching.nl te registreren
+error_tos Je dient de gebruiksvoorwaarden te accepteren, om op Opencaching.pl te registreren
 step1 Stap 1
 step2 Stap 2
 new_password_msg1 Om je wachtwoord te veranderen moet je een veiligheidscode aanvragen. Deze wordt naar je e-mail adres gestuurd.
@@ -482,8 +483,8 @@ security_code Security code
 change_password_msg1 Verander wachtwoord
 logoutsuccess Succesvol uitgelogt
 error_usernotactive Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.
-not_registered Not registered? <a href="register.php">Register</a>
-forgotten_your_password Forgot your e-mail? <a href="newpw.php">Remind me</a>
+not_registered Niet geregistreerd? <a href="register.php">Registeer</a>
+forgotten_your_password Wachtwoord vergeten? <a href="newpw.php">Vraag nieuw wachtwoord aan</a>
 cache_logged_required You have to be logged to add new log entries and operate on this cache.
 basic_information Basis informatie.
 rating_poor slecht
@@ -496,7 +497,7 @@ show_noscore Toon caches zonder score
 available_maps Beschikbare kaarten
 cache_attributes Cache attributen
 latest_logs Laatste logs
-abroad_caches Buiten Nederland
+abroad_caches Buiten Polen
 hidden_by Geplaatst door
 newcaches_label Nieuwe caches
 cache_label Cache naam
@@ -905,7 +906,7 @@ log_mobile_init Starting coordinates
 error_coords_not_ok Wrong coordinates!
 GKApi01 Integratie OC account met GeoKrety.org
 GKApi02 GeoKrety Secid:
-GKApi03 Intregeer je Opencaching.nl account met GeoKrety.org account en kopieer hier jouw <b>Secid</b>. Jouw <b>Secid</b> kun je vinden op GeoKrety pagina in je account details.
+GKApi03 Intregeer je Opencaching.pl account met GeoKrety.org account en kopieer hier jouw <b>Secid</b>. Jouw <b>Secid</b> kun je vinden op GeoKrety pagina in je account details.
 GKApi04 (Hier)
 GKApi05 Log GeoKrety direkt uit je inventaris:
 GKApi06 Log GeoKrety nu

@@ -31,7 +31,7 @@
 	
  ****************************************************************************/
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="" title="Login" align="middle"/>&nbsp;Login</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="" title="Login" align="middle"/>&nbsp;{{login}}</div>
 	{message_start}
 	{message}
 	{message_end}
@@ -52,8 +52,8 @@
 		<td><input name="password" maxlength="60" type="password" value="" class="input150" /></td>
 	</tr>
 </table>
-<input type="reset" name="reset" value="Reset" class="formbuttons" />&nbsp;&nbsp;
-<input type="submit" name="LogMeIn" value="Login" class="formbuttons" />
+<input type="reset" name="reset" value="{{reset}}" class="formbuttons" />&nbsp;&nbsp;
+<input type="submit" name="LogMeIn" value="{{login}}" class="formbuttons" />
 </form>
 <p class="content-title-noshade">{{not_registered}}<br />
 {{forgotten_your_password}}</p>
