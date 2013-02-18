@@ -232,7 +232,7 @@ initial_params = {
 		not_found: "{{not_found}}",
 		size: "{{size}}",
 		created_by: "{{created_by}}",
-		scored: "{{scored}}",
+		scored: "{{scored}}"
 	}
 };
 window.onload = function() {
