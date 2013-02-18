@@ -220,7 +220,7 @@ watch_not Niet volgen
 ignore Negeren
 ignore_not Niet negeren
 decrypt Decoderen
-pictures_included Pictures for this log entry
+pictures_included Afbeeldingen in deze log
 attendends Attended
 will_attend Will attend
 enter_text Enter text
@@ -446,8 +446,8 @@ register_msg1 Om een gebruikersaccount aan te maken op opencaching.pl, dien je e
 register_msg2 * zijn verplicht
 register_msg3 Mochten er nog vragen zijn, neem contact met ons op vóór je een account aanmaakt
 register_msg4 Ik heb de <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">gebruikers voorwaarden</a></b> gelezen en begrepen en accepteer deze. 
-register_msg5 New account has been registered
-register_msg6 The activation code was sent via E-mail to you. Please follow the instruction which was send via E-Mail.
+register_msg5 Nieuw account is regeregistreerd
+register_msg6 De activatiecode is verzonden per e-mail. Volg de instructies op welke in deze e-mail staan.
 register_msg7 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je opencaching.pl account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
 total_distance Totale afstand
 send_to_gps Verzend naar GPS
@@ -842,6 +842,7 @@ cacheguides Geocaching Guides / Gurus
 guide Guide/Guru
 guides Guides/Gurus
 okapi_apps jouw Apps
+os_times keer
 os_kesz Cache
 os_autor van
 os_nie_ma_w_os The creator of this cache has not added the functionality of checking final coordinates with OpenSprawdzacz to it
@@ -998,7 +999,9 @@ adopt_12 accepteren
 adopt_13 weigeren
 adopt_14 adoptie annuleren
 adopt_15 Gefeliciteerd! Je bent nu eigenaar van cache:
-
+format_GPX GPX formaat
+format_other andere formaten
+format_pict GPX met afbeeldingen
 
 
 

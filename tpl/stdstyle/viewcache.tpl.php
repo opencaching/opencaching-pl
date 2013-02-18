@@ -215,14 +215,14 @@ else
 <div class="content2-container bg-blue02">
 <p class="content-title-noshade-size1">
 <img src="tpl/stdstyle/images/blue/opensprawdzacz32x32.png" class="icon32" alt="" />
-OpenSprawdzacz 
+{{Open_Sprawdzacz}}
 </p></div>
 <p>
 {{opensprawdzacz_main}}<br/><br/> 
 <a href="opensprawdzacz.php?op_keszynki={oc_waypoint}">{{os_sprawdz}}</a><br/><br/>
 </p>
 <p>{{statistics}}: 
-{{os_pr}}: {proby} razy, {{os_sukc}}: {sukcesy} razy. 
+{{os_pr}}: {proby} {{os_times}}, {{os_sukc}}: {sukcesy} {{os_times}}. 
 {opensprawdzacz_end}
 <!-- koniec sekcji opensprawdzacza -->
 
@@ -424,14 +424,14 @@ OpenSprawdzacz
        <tr>  
 		<td  width=\"350\" align=\"left\" style=\"padding-left:5px;\">
 		<div class=\"searchdiv\">
-                    <span class=\"content-title-noshade txt-blue08\">GPX format</span>:<br/>
+                    <span class=\"content-title-noshade txt-blue08\">{{format_GPX}}</span>:<br/>
 			<a class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=gpxgc\" title=\"GPS Exchange Format .gpx\">GPX</a>&nbsp|&nbsp
-			<a class=\"links\"  href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=zip\" title=\"Garmin ZIP file (GPX + zdjęcia)  .zip\">GARMIN (GPX + zdjęcia)</a>
+			<a class=\"links\"  href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=zip\" title=\"Garmin ZIP file (GPX + zdjęcia)  .zip\">GARMIN ({{format_pict}})</a>
 		    </div>
             	    </td>
                 <td width=\"350\" align=\"left\" style=\"padding-left:5px;\">
 		<div class=\"searchdiv\">
-		<span class=\"content-title-noshade txt-blue08\">Inne formaty</span>:<br/>
+		<span class=\"content-title-noshade txt-blue08\">{{format_other}}</span>:<br/>
 			<a  class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=loc\" title=\"Waypoint .loc\">LOC | </a>
 			<a  class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=kml\" title=\"Google Earth .kml\">KML | </a>
 			<a  class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=ov2\" title=\"TomTom POI .ov2\">OV2 | </a>

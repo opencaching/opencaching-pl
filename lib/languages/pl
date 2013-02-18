@@ -842,6 +842,7 @@ cacheguides Przewodnicy po geocaching'u
 guide Przewodnik
 guides Przewodnicy
 okapi_apps Moje aplikacje
+os_times razy
 os_kesz Geocache
 os_autor autor:
 os_nie_ma_w_os Autor tego geocache nie dodał możliwości sprawdzania współrzędnych finałowych w OpenSprawdzaczu
@@ -998,9 +999,9 @@ adopt_12 akceptuj
 adopt_13 odrzuć
 adopt_14 anuluj przekazanie
 adopt_15 Gratulacje! Stałeś się nowym właścicielem skrzynki:
-
-
-
+format_GPX GPX format
+format_other Ihne formaty
+format_pict GPX + zdjęcia
 
 
 
