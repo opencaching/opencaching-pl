@@ -73,7 +73,7 @@
 	</div>
 
 	<div>
-			<input type="reset" name="reset" value="{{resett}}" class="formbuttons"/>&nbsp;&nbsp;
+			<input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;
 			<input type="submit" name="submit" value="{{registration}}" class="formbuttons"/>
 	</div>
 </form>

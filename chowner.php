@@ -180,7 +180,7 @@
 					mysql_query($sql);
 					
 					tpl_set_var("error_msg", "");
-					tpl_set_var("info_msg", "Gratulacje! Stałeś się nowym właścicielem skrzynki ".getCacheName($_GET['cacheid'])."<br /><br />");	
+					tpl_set_var("info_msg", " ".tr('adopt_15')." ".getCacheName($_GET['cacheid'])."<br /><br />");	
 					$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
 					$email_headers .= "From: Opencaching.pl <noreply@opencaching.pl>\r\n";
 					$email_headers .= "Reply-To: ".$usr['email']."\r\n";
@@ -227,8 +227,8 @@
 					<td>";
 					$acceptList .= "<a href='viewcache.php?cacheid=".$cache['cache_id']."'>";
 					$acceptList .= $cache['name']."</a>";
-					$acceptList .= " <a href='chowner.php?cacheid=".$cache['cache_id']."&accept=1'>[<font color='green'>akceptuj</font>]</a>";
-					$acceptList .= " <a href='chowner.php?cacheid=".$cache['cache_id']."&accept=0'>[<font color='#ff0000'>odrzuć</font>]</a>";
+					$acceptList .= " <a href='chowner.php?cacheid=".$cache['cache_id']."&accept=1'>[<font color='green'>".tr('adopt_12')."</font>]</a>";
+					$acceptList .= " <a href='chowner.php?cacheid=".$cache['cache_id']."&accept=0'>[<font color='#ff0000'>".tr('adopt_13')."</font>]</a>";
 					
 					
 					$acceptList .= "</td>
@@ -271,7 +271,7 @@
 				$cacheList .= $cache['name'];
 				if( isRequestPending($cache['cache_id']))
 				{
-					$cacheList .= "</a> <a href='chowner.php?cacheid=".$cache['cache_id']."&abort=1'>[<font color='#ff0000'>anuluj przekazanie</font>]";
+					$cacheList .= "</a> <a href='chowner.php?cacheid=".$cache['cache_id']."&abort=1'>[<font color='#ff0000'>".tr('adopt_14')."</font>]";
 				}
 				$cacheList .= "</a>";
 				

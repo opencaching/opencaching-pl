@@ -982,8 +982,22 @@ mc_beginn_04 Po spełnieniu powyższego warunku Twoje pierwsze
 mc_beginn_05 skrzynki bedą weryfikowane przez Zespół OC PL. Po zatwierdzeniu skrzynki otrzymasz informacje via e-mail o tym fakcie i będziesz mógł ją opublikować poprzez edycje skrzynki i zmiane jej statusu. W przypadku uwag do skrzynki Zespół OC PL będzie się z Tobą kontaktował w sprawie uzpełnienia informacji lub zmian w skrzynce.
 latest_blog Najnowsze wpisy w blogach
 geocache Geocache 
-
-
+adopt_00 Przekaż skrzynkę
+adopt_01 Za pośrednictwem tej strony możesz przekazać swoją skrzynkę innemu użytkownikowi. Wybierz skrzynkę z listy:
+adopt_02 Nazwa skrzynki
+adopt_03 Data ukrycia
+adopt_04 Przekazujesz skrzynkę:
+adopt_05 Proszę wpisać nazwę użytkownika, który ma stać się nowym właścicielem Twojej skrzynki. Gdy tylko potwierdzi on chęć przejęcia skrzynki, procedura zostanie zakończona.<br/>Aby unieważnić prośbę o zmianę właściciela, wróć do <a href='chowner.php'>listy skrzynek</a> i wybierz odnośnik "anuluj przekazanie".
+adopt_06 UWAGA! Opcja ta będzie aktywna tylko dopóki nowy właściciel nie potwierdzi zmiany.
+adopt_07 Podaj nazwę nowego właściciela:
+adopt_08 Zmień właściciela
+adopt_09 anuluj przekazanie
+adopt_10 Przejmij skrzynkę
+adopt_11 Poniżej znajduje się lista skrzynek, które oczekują na Twoją akceptację. Wybierz [akceptuj] albo [odrzuć], aby przejąć skrzynkę lub odrzucić zaproszenie.
+adopt_12 akceptuj
+adopt_13 odrzuć
+adopt_14 anuluj przekazanie
+adopt_15 Gratulacje! Stałeś się nowym właścicielem skrzynki:
 
 
 

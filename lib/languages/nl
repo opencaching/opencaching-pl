@@ -982,7 +982,22 @@ mc_beginn_04 Wanneer aan bovenstaande voldaan is, zullen er
 mc_beginn_05 zelf gemaakte caches door het OC team gekeurd moeten worden. Na het goedkeuren zul je daarover een bericht ontvangen via e-mail met de nodige instructies. Je kunt dan zelf de cache bewerken en op "beschikbaar" zetten. Mocht het OC team de cache afkeuren dan zullen wij de reden opgeven en na het corrigeren van de cache zal het OC team de cache herkeuren.
 latest_blog Recente blog inzendingen
 geocache Cache
-
+adopt_00 Cache aanbieden
+adopt_01 Hier kunnen jouw caches ter adoptie aangeboden worden. Kies er een uit de lijst:
+adopt_02 Cache naam
+adopt_03 Cache datum
+adopt_04 Deze cache wordt ter adoptie aangeboden:
+adopt_05 Voer de gebruikersnaam in die de cache adopteerd. Zodra deze gebruiker bevestigt, is de procedure voltooid.<br/>Om de adoptie te annuleren en terug te keren naar <a href='chowner.php'> "Cache adoptie" </a>.       
+adopt_06 NB! Zolang de nieuwe eigenaar niet reageerd blijft deze adoptie staan.
+adopt_07 Voer de naam in van de nieuwe eigenaar:
+adopt_08 Wijzig eigenaar
+adopt_09 Annuleer overdracht
+adopt_10 Cache aanvaarden
+adopt_11 Hieronder is een lijst van caches die geadopteerd kunnen worden. Kies [accepteren] of [weigeren] om de cache aan te nemen of deze niet aan te nemen.
+adopt_12 accepteren
+adopt_13 weigeren
+adopt_14 adoptie annuleren
+adopt_15 Gefeliciteerd! Je bent nu eigenaar van cache:
 
 
 
