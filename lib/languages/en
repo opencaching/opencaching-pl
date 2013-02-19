@@ -596,6 +596,7 @@ number_archived_caches Number of archived caches
 number_created_events Number of arranged events
 number_obtain_recommendations Number of obtained recommendations
 for for
+_caches_ caches
 ratio_recommendations Ratio recommended caches to all caches
 number_gk_in_caches Number of GeoKrety in caches
 latest_created_cache Latest cache created

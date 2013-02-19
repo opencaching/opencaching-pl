@@ -17,7 +17,7 @@
 <div class="searchdiv">
 	{notes_content}
 </div>
-<div class="notice" id="viewcache-attributesend">Zobacz opis o notatkach skrzynki <a href="http://wiki.opencaching.pl/index.php/Notatki_skrzynki" target="_blank">TUTAJ</a></div>
+<div class="notice" id="viewcache-attributesend">{{mycache_notes}} <a href="http://wiki.opencaching.pl/index.php/Notatki_skrzynki" target="_blank">{{here}}</a></div>
 
 
 

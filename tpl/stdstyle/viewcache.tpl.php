@@ -235,7 +235,7 @@ else
 				<p>
 					{waypoints_content}
 				</p><br />
-			<div class="notice" id="viewcache-attributesend"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a></div>
+			<div class="notice" id="viewcache-attributesend"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce" target="_blank">{{show_info_about_wp}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a></div>
 {waypoints_end}
 <!-- End Text Container -->
 <!-- Text container -->
@@ -274,8 +274,7 @@ else
 {EditCacheNoteS}
 	<div class="content2-container bg-blue02">
 		<p class="content-title-noshade-size2">
-			<img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{Personal cache note}}" /> 
-			{{personal_cache_note}}
+			<img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{Personal cache note}}" /> {{personal_cache_note}}
 		</p>
 	</div>
 
