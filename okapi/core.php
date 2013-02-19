@@ -419,6 +419,23 @@ class Db
 		}
 		return $rs;
 	}
+
+	public static function field_exists($table, $field)
+	{
+		if (!preg_match("/[a-z0-9_]+/", $table.$field))
+			return false;
+		try {
+			$spec = self::select_all("desc ".$table.";");
+		} catch (Exception $e) {
+			/* Table doesn't exist, probably. */
+			return false;
+		}
+		foreach ($spec as &$row_ref) {
+			if (strtoupper($row_ref['Field']) == strtoupper($field))
+				return true;
+		}
+		return false;
+	}
 }
 
 #
@@ -759,7 +776,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 557; # This gets replaced in automatically deployed packages
+	public static $revision = 559; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
