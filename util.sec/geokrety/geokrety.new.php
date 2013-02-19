@@ -18,6 +18,8 @@
 
 	$rootpath = '../../';
 	require_once($rootpath.'lib/clicompatbase.inc.php');
+	require_once($rootpath.'okapi/facade.php');
+	\okapi\Facade::disable_error_handling();
   
 	/* database connection */
 	db_connect();
@@ -59,10 +61,20 @@
 					$sql = "INSERT INTO gk_item_waypoint (id, wp) VALUES ('".$id."', '".$wp."') ON DUPLICATE KEY UPDATE wp='".$wp."'";
 					mysql_query($sql);
 				}				
+				/* Notify OKAPI. http://code.google.com/p/opencaching-api/issues/detail?id=179 */
+				\okapi\Facade::schedule_geocache_check($wp);
 		}
 	}
 	
 	/* cleaning... */
+	
+	/* Notify OKAPI. http://code.google.com/p/opencaching-api/issues/detail?id=179 */
+	$rs = mysql_query("SELECT distinct wp FROM gk_item_waypoint WHERE id NOT IN (SELECT id FROM gk_item)");
+	$cache_codes = array();
+	while ($row = mysql_fetch_array($rs))
+		$cache_codes[] = $row[0];
+	\okapi\Facade::schedule_geocache_check($cache_codes);
+	
 	sql("DELETE FROM gk_item_waypoint WHERE id NOT IN (SELECT id FROM gk_item)");
 	
 	/* last synchro update */
