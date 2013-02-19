@@ -291,9 +291,11 @@ class ParamMissing extends BadRequest
 /** Common type of BadRequest: Parameter has invalid value. */
 class InvalidParam extends BadRequest
 {
-	private $paramName;
+	public $paramName;
+
 	/** What was wrong about the param? */
 	public $whats_wrong_about_it;
+
 	protected function provideExtras(&$extras) {
 		parent::provideExtras($extras);
 		$extras['reason_stack'][] = 'invalid_parameter';
@@ -776,7 +778,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 561; # This gets replaced in automatically deployed packages
+	public static $revision = 562; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
