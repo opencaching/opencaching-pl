@@ -1002,9 +1002,12 @@ adopt_15 Gratulacje! Stałeś się nowym właścicielem skrzynki:
 format_GPX GPX format
 format_other Ihne formaty
 format_pict GPX + zdjęcia
-
-
-
+mycache_notes Zobacz opis o notatkach skrzynki
+user_activity01 Aktywność użytkownika
+user_activity02 Suma skrzynek znalezionych, nieznalezionych i założonych
+type Typ
+logs_info Wpis do LOGu
+recomm_short R
 
 
 

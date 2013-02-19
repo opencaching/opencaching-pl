@@ -14,12 +14,12 @@
 <div class="searchdiv">
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="97%">
 <tr>
-<td><strong>Data</strong></td>
+<td><strong>{{date}}</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><strong>Geocache</strong></td>
+<td><strong>{{geocache}}</strong></td>
 <td><strong>{{region}}</strong></td>
 <td><strong>{{owner}}</strong></td>
 </tr>

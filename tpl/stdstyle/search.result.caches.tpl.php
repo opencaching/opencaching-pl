@@ -26,10 +26,10 @@
 	****************************************************************************/
 	global $usr, $hide_coords;
 ?>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Wyszukiwanie" title="Suchergebnis" align="middle" />&nbsp;Wyniki poszukiwań: {results_count}</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Wyszukiwanie" title="Suchergebnis" align="middle" />&nbsp;{{search_results}} {results_count}</div>
 <div class="content-title-noshade">
 	<p align="left">
-		<img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt="Search results" title="Search results" align="middle"/>&nbsp;<a href="search.php?queryid={queryid}&amp;showresult=0">Szukaj</a>&nbsp;&nbsp;
+		<img src="tpl/stdstyle/images/blue/search3.png" class="icon32" alt="Search results" title="Search results" align="middle"/>&nbsp;<a href="search.php?queryid={queryid}&amp;showresult=0">{{search}}</a>&nbsp;&nbsp;
 		<img src="tpl/stdstyle/images/blue/save.png" class="icon32" alt="Save results" title="Save results" align="middle"/>&nbsp;{safelink}<br/>
 		{pages}<br/>
 	</p>
@@ -42,11 +42,11 @@
 				<td width="18" height="13" bgcolor="#E6E6E6">#</td>
 				<td width="15" height="13" bgcolor="#E6E6E6"><b>{distanceunit}</b></td>
 				<td width="80" height="13" bgcolor="#E6E6E6"><b>WGS84</b></td>			
-				<td width="16" height="13" bgcolor="#E6E6E6"><b>R</b></td>
-				<td width="32" height="13" bgcolor="#E6E6E6"><b>Typ</b></td>
+				<td width="16" height="13" bgcolor="#E6E6E6"><b>{{recomm_short}}</b></td>
+				<td width="32" height="13" bgcolor="#E6E6E6"><b>{{type}}</b></td>
 				<td width="46" height="13" bgcolor="#E6E6E6"><b>Z/T</b></td>
-				<td width="448" height="13" bgcolor="#E6E6E6"><b>Nazwa</b></td>
-				<td width="126" height="13" bgcolor="#E6E6E6"><b>Wpis do LOGu</b></td>
+				<td width="448" height="13" bgcolor="#E6E6E6"><b>{{name_label}}</b></td>
+				<td width="126" height="13" bgcolor="#E6E6E6"><b>{{logs_info}}</b></td>
 				<td width="20" height="13" bgcolor="#E6E6E6"></td>
 				</tr>
 				<!--a-->{results}<!--z-->
