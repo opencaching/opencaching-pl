@@ -168,9 +168,9 @@ new_desc Add description
 edit_desc Edit description
 remove_desc Remove description
 search_loc Look for location
-search_results Search results
+search_results Zoekresultaten
 show_log View log
-store_queries Save searches
+store_queries Zoekopdracht opslaan
 cache_recommendation Recommend a cache
 login Inloggen
 logout Uitloggen
@@ -310,7 +310,7 @@ rating_system cache rating system
 additional_information Aanvullende informatie
 optional optioneel
 time_distance_hint Tijd en afstand zijn soms door externe faktoren moelijk in te schatten. Kun je geen schatting maken van inspanning vul dan in één of beide velden een 0 in. Dit soort gegevens zijn belangrijk voor caches zoals <b>multicaches</b> of <b>evenementen</b>.
-select_one select one!
+select_one selecteer!
 waypoint_other_portal_info Waypoint voor deze cache bevind zich in andere databases. Gegevens worden niet overgenomen.
 cache_attributes_label Cache attributen
 attributes_edit_hint Attributes can also be modified later.
@@ -557,12 +557,12 @@ there_is_no_caches_registered Er zijn nog geen caches gemaakt
 there_is_no_caches_found Er zijn nog geen caches gevonden
 with_password Cache with password
 user_account User's account
-management_users Managing the user
+management_users Beheer de gebruiker
 titles Onderwerp
 content Bericht
 my_email_will_send Mijn e-mail adres zal meegestuurd worden in dit bericht
 email_publish Hiermee weet de ontvanger jouw e-mail adres en kan direct op jouw e-mail antwoorden
-account_is_actived account was actived
+account_is_actived account is geactiveerd
 find_user zoek gebruiker
 clear_list Klembord legen
 adoption_cache Cache adoptie
@@ -594,10 +594,10 @@ total_created_caches Totaal aantal gemaakte caches
 number_temp_caches Aantal tijdelijk niet beschikbare caches
 number_archived_caches Aantal gearchiveerde caches
 number_created_events Aantal georganiseerde evenementen
-number_obtain_recommendations Number of obtained recommendations
-for for
-_caches caches
-ratio_recommendations Ratio recommended caches to all caches
+number_obtain_recommendations Aantal ontvangen aanbevelingen
+for van
+_caches_ caches
+ratio_recommendations Gemiddelde aanbevolen caches van alle caches
 number_gk_in_caches Number of GeoKrety in caches
 latest_created_cache Laatste gemaakte cache
 latest_logs_in_caches Laatste logs van gebruikers caches
@@ -606,7 +606,7 @@ caches_blocked My caches blocked by OC Team
 blocked_create_caches Your possiblity for creating new caches is blocked. Please contact with OC Team rr@opencaching.pl
 npa_info This geocache is probably placed in a nature protection area
 check_nearby_caches_info Controleer voor het plaatsen van een cache of er geen andere cache ligt in <br /> een straal van 150 m
-check_nearby_caches Contoleer caches dichtbij op OC NL
+check_nearby_caches Contoleer caches dichtbij op OC PL
 check_nearby_caches_map Controleer op caches met kaart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 my_caches_status Mijn caches met status
 active Actief
@@ -636,7 +636,7 @@ cache_note Note
 delete Verwijderen
 edit Bewerken 
 cancel Annuleren
-no_note Ik heb nog geen cache notities
+no_note Er zijn nog geen cache notities
 additional_waypoints Extra waypoints
 stage_wp Etappe
 type_wp Soort
@@ -652,7 +652,7 @@ status_wp Waypoint status
 write_wp Write waypoint
 edit_wp Edit waypoint
 delete_wp Delete waypoint
-show_info_about_wp See the description and the type of additional waypoints
+show_info_about_wp Zie beschrijving en soorten van extra waypoints
 comment_octeam_visible OC Team comments are visible only for OC Team and owner cache.
 ready_to_search Geocache ready to search. Good Luck!
 archived_cache Geocache has been archived.
@@ -703,7 +703,7 @@ password_to_log Log wachtwoord
 incorrect_password_to_log Incorrecte log wachtwoord
 only_for_found_it alleen voor gevonden logs
 store Opslaan
-here Here 
+here Hier
 alternative_recommend Alternative you can remove recommendations
 comment_log Comment
 need_maintenance_log Need maintenance
@@ -745,7 +745,7 @@ last_found Laatst gevonden
 delete_recommend Delete recommendations
 off_ignore Schakel negeren uit
 no_ignores Geen genegeerde caches
-oc_stat OC NL caches statistiek
+oc_stat OC PL caches statistiek
 administration Administratie OC
 stat_octeam Statistieken OCTeam
 cache_notfound Niet gevonden cache
@@ -1002,6 +1002,24 @@ adopt_15 Gefeliciteerd! Je bent nu eigenaar van cache:
 format_GPX GPX formaat
 format_other andere formaten
 format_pict GPX met afbeeldingen
+mycache_notes Zie voor informatie over cachenotities
+user_activity01 Gebruikers activiteit
+user_activity02 Totaal van gevonden, niet gevonden en gemaakte caches:
+type Soort
+logs_info Laatste log
+recomm_short A
+select selecteer
+report_01 Meld een probleem met cache:
+report_02 Meld het probleem aan:
+report_03 Cache eigenaar
+report_04 Opencaching.pl-team (er wordt ook een kopie naar de cache eigenaar verzonden)
+report_05 <b>Let op!</b> Probeer eerst het probleem met de cache eigenaar op te lossen.
+report_06 Soort probleem:
+report_07 Cache op privégrond
+report_08 Archievatie
+report_09 Schending auteursrecht
+report_10 Andere reden
+report_11 Commentaar (verplicht)
 
 
 

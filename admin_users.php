@@ -84,12 +84,12 @@
 
 			if($record['last_login']=="0000-00-00 00:00:00"){
 			$userlogin="Brak danych";} else {
-			$userlogin = strftime("%Y-%m-%d", strtotime($record['last_login']));}
+			$userlogin = strftime("%d-%m-%Y", strtotime($record['last_login']));}
 			tpl_set_var('lastlogin',$userlogin );
 
 			tpl_set_var('username',$record['username']);
 			tpl_set_var('country', htmlspecialchars($record['country'], ENT_COMPAT, 'UTF-8'));
-			tpl_set_var('registered', strftime($dateformat, strtotime($record['date_created'])));
+			tpl_set_var('registered', strftime("%d-%m-%Y", strtotime($record['date_created'])));
 			tpl_set_var('email',strip_tags($record['email']));
 			tpl_set_var('description',nl2br($record['description']));		
 

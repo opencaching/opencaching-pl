@@ -1008,7 +1008,18 @@ user_activity02 Suma skrzynek znalezionych, nieznalezionych i założonych
 type Typ
 logs_info Wpis do LOGu
 recomm_short R
-
+select Proszę wybrać
+report_01 Zgłoszenie problemu dotyczącego skrzynki:
+report_02 Wyślij zgłoszenie problemu do:
+report_03 Właściciela skrzynki
+report_04 Zespół Opencaching.pl (właściciel skrzynki otrzyma kopię zgłoszenia)
+report_05 <b>UWAGA!</b> Zanim zdecydujesz się wysłać zgłoszenie do Zespołu Opencaching.pl, skontaktuj się z właścicielem skrzynki w celu podjęcia próby rozwiązania problemu.
+report_06 Rodzaj problemu:
+report_07 Uwaga co do lokalizacji skrzynki
+report_08 Skrzynka wymaga archiwizacji
+report_09 Nieodpowiednia zawartość skrzynki
+report_10 Inny
+report_11 Szczegóły zgłoszenia
 
 
 

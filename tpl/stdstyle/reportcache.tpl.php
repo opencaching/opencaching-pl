@@ -5,34 +5,34 @@
 				<col width="200" />
 				<col/>
 			</colgroup>
-			<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" align="middle" alt="" /> <b>	Zgłoszenie problemu dotyczącego skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
+			<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/rproblems.png" class="icon32" align="middle" alt="" /> <b>	{{report_01}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr><td colspan="2" class="info">				
 			</td></tr>
 			<tr><td colspan="2">
-				<b>Wyślij zgłoszenie problemu do:</b><br />
-				<input type="radio" name="adresat" id="adresat1" value="owner" checked="checked" /><label for="adresat1">Właściciela skrzynki</label><br />
-				<input type="radio" name="adresat" id="adresat2" value="rr" /><label for="adresat2">Zespół Opencaching.pl (właściciel skrzynki otrzyma kopię zgłoszenia)</label>
+				<b>{{report_02}}</b><br />
+				<input type="radio" name="adresat" id="adresat1" value="owner" checked="checked" /><label for="adresat1">{{report_03}}</label><br />
+				<input type="radio" name="adresat" id="adresat2" value="rr" /><label for="adresat2">{{report_04}}</label>
 				<br />
-				<font color="#ff0000"><b>UWAGA!</b> Zanim zdecydujesz się wysłać zgłoszenie do Zespołu Opencaching.pl, skontaktuj się z właścicielem skrzynki w celu podjęcia próby rozwiązania problemu.
+				<font color="#ff0000">{{report_05}}
 				<br /><br />
 				</font>
 				
 			</td></tr>
 			<tr>
-				<td colspan="2">Rodzaj problemu: 
+				<td colspan="2">{{report_06}} 
 				<select name="reason">
-					<option value="0" selected="selected">=== Proszę wybrać ===</option>
-					<option value="1" >Uwaga co do lokalizacji skrzynki</option>
-					<option value="2" >Skrzynka wymaga archiwizacji</option>
-					<option value="3" >Nieodpowiednia zawartość skrzynki</option>
-					<option value="4" >Inny</option>
+					<option value="0" selected="selected">====={{select}}=====</option>
+					<option value="1" >{{report_07}}</option>
+					<option value="2" >{{report_08}}</option>
+					<option value="3" >{{report_09}}</option>
+					<option value="4" >{{report_10}}</option>
 				</select>{noreason_error}
 				</td>
 			</tr>
 			<tr><td class="spacer" colspan="2"></td></tr>
 			<tr>
-				<td colspan="2">Szczegóły zgłoszenia</td>
+				<td colspan="2">{{report_11}}</td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -47,8 +47,8 @@
 			
 			<tr>
 				<td class="header-small" colspan="2">
-					<input type="reset" name="cancel" value="Wyczyść" class="formbuttons"/>&nbsp;&nbsp;
-					<input type="submit" name="ok" value="Wyślij zgłoszenie" class="formbuttons"/>
+					<input type="reset" name="cancel" value={{reset}} class="formbuttons"/>&nbsp;&nbsp;
+					<input type="submit" name="ok" value={{submit}} zgłoszenie" class="formbuttons"/>
 				</td>
 			</tr>
 
