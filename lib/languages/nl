@@ -297,26 +297,26 @@ show toon
 lock Lock
 unlock Unlock
 user_stats user's stats
-first_cache If it is the first time you are placing a cache, please be aware to read the following <a href="http://wiki.opencaching.pl/index.php/Cache_parameters">description</a>
-first_cache_approvement Because this is one of your first three caches, the listing will be available to others after approving by Opencaching Team.
+first_cache Als dit de eerste geplaatste cache wordt, lees dan eerst de volgende <a href="http://wiki.opencaching.pl/index.php/Cache_parameters">omschrijving</a>
+first_cache_approvement Omdat dit een van de eerste 3 caches is, zal het Opencaching Team deze cache beoordelen.
 all_cache_approvement Cache will by visible for others after approving by OC Team
 name_label Cache naam
 cache_type Cache soort
 cache_size Cache grootte
 in_wgs84_system in WGS-84 system
 difficulty_level Moeilijkheid
-difficulty_problem If you are having problem with difficulty levels, we suggest to use
-rating_system cache rating system
+difficulty_problem Als je problemen hebt met de moeilijkheidgraden, gebruik dan het
+rating_system cache beoordeling systeem
 additional_information Aanvullende informatie
 optional optioneel
 time_distance_hint Tijd en afstand zijn soms door externe faktoren moelijk in te schatten. Kun je geen schatting maken van inspanning vul dan in één of beide velden een 0 in. Dit soort gegevens zijn belangrijk voor caches zoals <b>multicaches</b> of <b>evenementen</b>.
 select_one selecteer!
 waypoint_other_portal_info Waypoint voor deze cache bevind zich in andere databases. Gegevens worden niet overgenomen.
 cache_attributes_label Cache attributen
-attributes_edit_hint Attributes can also be modified later.
+attributes_edit_hint Attributen kunnen later ook verandert worden.
 additional_attributes_hint You can add some more attributes to your cache's description with this tool:
 additional_attributes Additional cache attributes
-attributes_desc_hint Please read the <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Opencaching attributes description</a> article.
+attributes_desc_hint Lees ook het <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Opencaching attributen beschrijving</a> artikel.
 descriptions Beschrijving
 language Taal
 other_languages_desc Beschrijvingen in andere talen kunnen na aanmelden van de cache toegevoegd worden.
@@ -696,7 +696,7 @@ edit_logentry Edit log entry
 moved_cache_info If you moved the cache to a new location please enter the new coordinates that will be shown in the log
 encrypt_log_info You can write the encrypt log entry. This is helpful if your log contains such any informations about location of the geocache. Text within brackets <b>[like this]</b> will not be encrypted
 encrypt_log_entry Encrypt this log entry
-not_recommend_own You can not recommend own geocache
+not_recommend_own Je kunt geen eigen caches aanbevelen
 send_report_info You can report a problem with the geocache, for example <b> attention to the location </ b> to Team OC PL or owner geocache using this form
 send_report Send report
 password_to_log Log wachtwoord
@@ -748,7 +748,7 @@ no_ignores Geen genegeerde caches
 oc_stat OC PL caches statistiek
 administration Administratie OC
 stat_octeam Statistieken OCTeam
-cache_notfound Niet gevonden cache
+cache_notfound Niet gevonden caches
 send_bulletin Verzend een bulletin
 add_news Verzend nieuws
 email_subject_news New news OpenCaching 
@@ -779,13 +779,13 @@ online_users_info gebaseerd op actieve gebruikers van de laatste 10 minuten
 empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. Het maken van een cache kost moeite en het schrijven van waarderingen en kritiek zijn ook welkom! Zelfs een "Bedankt" zou voldoende kunnen zijn.
 empty_entry_confirm Do you really want to leave the empty log entry?
 where_i_am Waar ben ik?
-read_info_about_cache_types Please read information about <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Cache types</a>
+read_info_about_cache_types Lees hier meer informatie over <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Cache soorten</a>
 regiononly Regio (Polen)
 region_from_coord Regio via opgegeven coördinaten
 select_regions Selecteer regio
 not_applicable Not applicable
 input_coord Vul de coördinaten van de cache in
-waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">See the description and the kinds of additional waypoints.</a>
+waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zie de omschrijving en soorten van extra waypoints.</a>
 cache_pictures Geocache picture
 log_pictures Log afbeelding
 no_title No title
@@ -899,7 +899,7 @@ os_ma_na  controles per
 os_godzine minuten
 os_mus Je moet nu nog 
 os_minut_end minuten wachten om het weer te proberen.
-viewlog_aktywnosc Total user activity (sum of caches found, not found and hidden)
+viewlog_aktywnosc Totale gebruikers activiteit (som van gevonden, niet gevonden en geplaatse)
 viewlog_kordy Cache coordinates after moving
 log_type_temp_unavailable Tijdelijk niet beschikbaar
 log_type_available Beschikbaar
@@ -1020,6 +1020,7 @@ report_08 Archievatie
 report_09 Schending auteursrecht
 report_10 Andere reden
 report_11 Commentaar (verplicht)
+report_12 Het rapport is verzonden. Het Opencaching.pl team zal het probleem onderzoeken en passende maatregelen nemen.
 
 
 

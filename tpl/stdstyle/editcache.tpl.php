@@ -353,9 +353,9 @@ function toggleAttr(id)
 		<td colspan="2">
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
 		<legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
-			<input class="input40" type="text" name="hidden_year" maxlength="4" value="{date_year}"/>-
+			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}"/>-
 			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{date_month}"/>-
-			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}"/>&nbsp;
+			<input class="input40" type="text" name="hidden_year" maxlength="4" value="{date_year}"/>&nbsp;
 			{date_message}
 			</fieldset>	
 		</td>
@@ -380,7 +380,7 @@ function toggleAttr(id)
 	<tr>
 		<td colspan="2">
 
-			<button type="submit" name="submit" value="{submit}" style="font-size:14px;width:130px"><b>{submit}</b></button>
+			<button type="submit" name="submit" value="{submit}" style="font-size:14px;width:130px"><b>{{store}}</b></button>
 		<br /><br /></td>
 	</tr>
 </table>
