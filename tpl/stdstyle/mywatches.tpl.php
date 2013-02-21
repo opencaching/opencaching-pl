@@ -23,7 +23,7 @@
 <table class="table" border="0" cellspacing="0">
 
 	<tr>
-		<td><p class="content-title-noshade">Geocache</p></td>
+		<td><p class="content-title-noshade">{{geocache}}</p></td>
 		<td>&nbsp;</td>
 		<td nowrap="nowrap"><p class="content-title-noshade">{{last_found}}</p></td>
 		<td nowrap="nowrap">&nbsp;</td>

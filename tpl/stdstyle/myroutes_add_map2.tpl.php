@@ -274,7 +274,7 @@
 	color: #ffffff;
 }
 
-.routeSummaryDiv {
+.routeSummaryDiv {overpelt
 	border: 1px solid navy;
 	cursor: pointer;
 	background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
@@ -312,15 +312,15 @@
 <div class="searchdiv">
 <table class="content">
 <tr>
-<td align="right"><span style="font-weight:bold;">Punkt startowy:&nbsp;</span></td>
-<td><input type="text" size="25" id="driveFrom" name="from" value="Warszawa"/></td>
+<td align="right"><span style="font-weight:bold;">{{route_01}}&nbsp;</span></td>
+<td><input type="text" size="25" id="driveFrom" name="from" value=""/></td>
 <td rowspan="2"><span style="font-weight:bold;">Via: </span></td>
 <td rowspan="2"><textarea name="via" id="driveVia" rows="2" cols="22"></textarea></td>
 <td rowspan="2" align="right">&nbsp;&nbsp;<button name="submit" type="submit" value="Go" onclick="getDirections()">{{setup_new_route}}</button></td>
 </tr>
 <tr>
-<td align="right"><span style="font-weight:bold;">Punkt końcowy:&nbsp;</span></td>
-<td align="right"><input type="text" size="25" id="driveTo" name="to" value="Torun" /></td>
+<td align="right"><span style="font-weight:bold;">{{route_02}}&nbsp;</span></td>
+<td align="right"><input type="text" size="25" id="driveTo" name="to" value="" /></td>
 </tr>
 </table>
 </div>
@@ -330,8 +330,8 @@
 	<tr>
 			<td width="200" valign="top">
 			<div id="buttonContainer">
-			<div class="buttonB" onclick="rmOverlays()">Wyczyść trasę</div>
-			<div class="buttonB" onclick="doUnload(1)">Reset mapy</div>
+			<div class="buttonB" onclick="rmOverlays()">{{route_03}}</div>
+			<div class="buttonB" onclick="doUnload(1)">{{route_04}}</div>
 			</div>
 			<div id="directions_info"></div>
 		</td>
@@ -347,7 +347,7 @@
 	window.onunload = unload;
 	window.onresize = resizePage;
 </script>
-<div id="loadingMessage" style="display:none;">Wczytuję trasę ...</div>
+<div id="loadingMessage" style="display:none;">{{route_05}}</div>
 <br/>
 
 <div class="searchdiv">

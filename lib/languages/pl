@@ -1021,8 +1021,17 @@ report_09 Nieodpowiednia zawartość skrzynki
 report_10 Inny
 report_11 Szczegóły zgłoszenia
 report_12 Zgłoszenie zostało wysłane. Zespół Opencaching.pl przeanalizuje problem i podejmie odpowiednie działania.
-
-
+route_01 Punkt startowy:
+route_02 Punkt końcowy:
+route_03 Wyczyść trasę
+route_04 Reset mapy
+route_05 Wczytuję trasę ...
+size_02 Mikro
+size_03 Mała
+size_04 Normalna
+size_05 Duża
+size_06 Bardzo duża
+size_07 Bez pojemnika
 
 
 

@@ -106,7 +106,7 @@ multicache Multi
 virtual Virtueel
 webcam Webcam
 event Evenement
-quiz Quiz
+quiz Puzzel
 moving Reizend
 podcast Podcast
 owncache Eigen cache
@@ -846,7 +846,7 @@ os_times keer
 os_kesz Cache
 os_autor van
 os_nie_ma_w_os The creator of this cache has not added the functionality of checking final coordinates with OpenSprawdzacz to it
-os_podaj_waypoint &nbsp;&nbsp;&nbsp;Vul hier het cache waypoint in (bv.: OB1234)
+os_podaj_waypoint &nbsp;&nbsp;&nbsp;Vul hier het cache waypoint in (bv.: OP1234)
 os_podaj_twoje Vul de eindcoördinaten in:
 os_sprawdz Controleer de eindcoördinaten
 os_stopnie Graden
@@ -1021,6 +1021,20 @@ report_09 Schending auteursrecht
 report_10 Andere reden
 report_11 Commentaar (verplicht)
 report_12 Het rapport is verzonden. Het Opencaching.pl team zal het probleem onderzoeken en passende maatregelen nemen.
+route_01 Startpunt
+route_02 Eindpunt
+route_03 Wis route
+route_04 Herstel kaart
+route_05 Laden route ....
+size_02 Micro
+size_03 Klein
+size_04 Middel
+size_05 Groot
+size_06 Extra groot
+size_07 Geen behuizing
+
+
+
 
 
 
