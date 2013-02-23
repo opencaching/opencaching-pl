@@ -61,7 +61,7 @@ sights Uitzichten
 skeeter draag insectwerende kleding
 tick Teken
 snake Waarschuwing! Slangen
-generate_code Generate code
+generate_code Genereer code
 9keycom Additional attributes based on http://www.9key.com/selector.asp
 score Waardering
 scored Gewaardeerd
@@ -964,15 +964,14 @@ em01 Om het e-mail adres te veranderen, moet je eerst een veiligheidscode opvrag
 em02 Nieuwe e-mail adres
 em03 Vul nu de veiligheidscode in die je per e-mail ontvangen hebt. De veiligheidscode is 3 dagen geldig, daarna moet je een nieuwe aanvragen. 
 em04 Veiligheidscode
-em05 Genereer code
-em06 E-mail wijzigen
-em07 Aanvraag nieuw e-mail is vertuurd
-em08 De code is verstuurd naar het nieuwe e-mail adres.
-em09 Code om het e-mail adres te wijzigen
-em10 Het e-mail adres is niet geldig
-em11 Opgegeven e-mail adres bestaat al
-em12 Ingevoerde code is niet geldig
-em13 Ingevoerde code is verlopen
+em05 E-mail wijzigen
+em06 Aanvraag nieuw e-mail is vertuurd
+em07 De code is verstuurd naar het nieuwe e-mail adres.
+em08 Code om het e-mail adres te wijzigen
+em09 Het e-mail adres is niet geldig
+em10 Opgegeven e-mail adres bestaat al
+em11 Ingevoerde code is niet geldig
+em12 Ingevoerde code is verlopen
 removed_message_title The owner of geocache wrote to you the following comment
 to_do To do
 mc_beginn_00 Registreren van nieuwe caches - Informatie
@@ -1032,7 +1031,11 @@ size_04 Middel
 size_05 Groot
 size_06 Extra groot
 size_07 Geen behuizing
-
+chpw_01 Wijzig wachtwoord
+chpw_02 De veilgheidscode is naar het opgegeven e-mailadres verstuurd.
+chpw_03 Veiligheidscode om wachtwoord te wijzigen.
+chpw_04 Wachtwoord is gewijzigd. <a href="login.php"> Inloggen</a> met nieuwe wachtwoord.
+chpw_05 De ingevoerde code is ongeldig.
 
 
 

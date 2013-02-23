@@ -964,15 +964,14 @@ em01 Aby zmienić adres e-mail najpierw musisz otrzymać kod, który zostanie wy
 em02 Nowy adres e-mail
 em03 Należy wprowadzić kod razem z nowym adresem e-mail. Kod jest ważny 3 dni i po tym okresie należy wygenerować nowy
 em04 Kod, który otrzymałeś via e-mail
-em05 Generuj kod
-em06 Zmień adres e-mail
-em07 Adres e-mail został zmieniony
-em08 Kod został wysłany na nowy adres e-mail
-em09 Kod do zmiany adresu e-mail na OCPL
-em10 Adres e-mail jest nieprawidłowy.
-em11 Podany adres e-mail już istnieje w bazie OC PL
-em12 Kod wprowadzony nie jest poprawny
-em13 Kod stracił swoją ważność
+em05 Zmień adres e-mail
+em06 Adres e-mail został zmieniony
+em07 Kod został wysłany na nowy adres e-mail
+em08 Kod do zmiany adresu e-mail na OCPL
+em09 Adres e-mail jest nieprawidłowy.
+em10 Podany adres e-mail już istnieje w bazie OC PL
+em11 Kod wprowadzony nie jest poprawny
+em12 Kod stracił swoją ważność
 removed_message_title Właściciel keszynki napisał następujący komentarz 
 to_do Do zrobienia
 mc_beginn_00 Rejestracja nowej skrzynki - informacja
@@ -1032,8 +1031,11 @@ size_04 Normalna
 size_05 Duża
 size_06 Bardzo duża
 size_07 Bez pojemnika
-
-
+chpw_01 Zmień hasło
+chpw_02 Wiadomość z kodem została wysłana na podany adres e-mail.
+chpw_03 Specjalny kod do zmiany hasła
+chpw_04 Hasło zostało zmienione. Proszę <a href="login.php">zalogować się</a> używając nowego hasła.
+chpw_05 Wprowadzony kod jest niepoprawny.
 
 
 

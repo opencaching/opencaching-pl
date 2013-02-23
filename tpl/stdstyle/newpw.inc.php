@@ -25,14 +25,14 @@
 	
  ****************************************************************************/
  
-	$getcode = 'Generuj kod';
-	$changepw = 'Zmień hasło';
-	$emailnotexist = '<div class="errormsg">Podany adres nie jest poprawny dla tego użytkownika.</div>';
-	$newpw_subject = 'Specjalny kod do zmiany hasła';
-	$emailsend = '<div class="notice" style="width:500px;height:44px;">Wiadomość z kodem została wysłana na podany adres e-mail.</div>';
-	$pw_not_ok = '<div class="errormsg">Hasło zawiera niedozwolone znaki.</div>';
-	$pw_no_match = '<div class="errormsg">Powtórzone hasło nie zgadza się z pierwszym.</div>';
-	$pw_changed = '<div class="notice" style="width:500px;height:44px;">Hasło zostało zmienione. Proszę <a href="login.php">zalogować się</a> używając nowego hasła.</div>';
-	$code_timed_out = '<div class="errormsg">Kod starcił swoją ważność.</div>';
-	$code_not_ok = '<div class="errormsg">Wprowadzony kod jest niepoprawny.</div>'; 
+	$getcode = tr('generate_code');
+	$changepw = tr('chpw_01');
+	$emailnotexist = '<div class="errormsg">'.tr('error_email_not_ok').'</div>';
+	$newpw_subject = tr('chpw_01');
+	$emailsend = '<div class="notice" style="width:500px;height:44px;"><b>'.tr('chpw_02').'</b></div>';
+	$pw_not_ok = '<div class="errormsg">'.tr('error_password_not_ok').'</div>';
+	$pw_no_match = '<div class="errormsg">'.tr('error_password_diffs').'</div>';
+	$pw_changed = '<div class="notice" style="width:500px;height:44px;">'.tr('chpw_04').'</div>';
+	$code_timed_out = '<div class="errormsg">'.tr('em12').'</div>';
+	$code_not_ok = '<div class="errormsg">'.tr('chpw_05').'</div>'; 
 ?>
