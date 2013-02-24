@@ -52,7 +52,14 @@
 		$sql = "INSERT INTO gk_item (`id`, `name`, `distancetravelled`, `latitude`, `longitude`, `stateid`) VALUES ('".$id."', '".$name."', '".$dist."', '".$lat."', '".$lon."','".$state."') 
 		ON DUPLICATE KEY UPDATE `name`='".$name."', `distancetravelled`='".$dist."', `latitude`='".$lat."', `longitude`='".$lon."', `stateid`='".$state."'";
 		$query = mysql_query($sql);
- 				
+ 		
+		/* Notify OKAPI. http://code.google.com/p/opencaching-api/issues/detail?id=179 */
+		$rs = mysql_query("SELECT distinct wp FROM gk_item_waypoint WHERE id='".mysql_real_escape_string($id)."'");
+		$cache_codes = array();
+		while ($row = mysql_fetch_array($rs))
+			$cache_codes[] = $row[0];
+		\okapi\Facade::schedule_geocache_check($cache_codes);
+		
 		/* waypoints update */
 		sql("DELETE FROM gk_item_waypoint WHERE id='&1'", $id);
 		foreach($geokret->waypoints as $waypoint) {
@@ -61,8 +68,6 @@
 					$sql = "INSERT INTO gk_item_waypoint (id, wp) VALUES ('".$id."', '".$wp."') ON DUPLICATE KEY UPDATE wp='".$wp."'";
 					mysql_query($sql);
 				}				
-				/* Notify OKAPI. http://code.google.com/p/opencaching-api/issues/detail?id=179 */
-				\okapi\Facade::schedule_geocache_check($wp);
 		}
 	}
 	
