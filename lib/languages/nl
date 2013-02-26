@@ -214,8 +214,8 @@ listed_also_on Also listed on
 comments Opmerkingen
 comment Comment
 write_to_log Log your visit
-edit Bewerken
 watch Volgen
+edit Bewerken
 watch_not Niet volgen
 ignore Negeren
 ignore_not Niet negeren
@@ -633,8 +633,7 @@ add_new_note Add new note
 back_to_cache Terug naar cache
 cache_notes Notes
 cache_note Note
-delete Verwijderen
-edit Bewerken 
+delete Verwijderen 
 cancel Annuleren
 no_note Er zijn nog geen cache notities
 additional_waypoints Extra waypoints
@@ -967,7 +966,7 @@ em04 Veiligheidscode
 em05 E-mail wijzigen
 em06 Aanvraag nieuw e-mail is vertuurd
 em07 De code is verstuurd naar het nieuwe e-mail adres.
-em08 Code om het e-mail adres te wijzigen
+em08 Veiligheidscode voor een nieuw E-mail adres
 em09 Het e-mail adres is niet geldig
 em10 Opgegeven e-mail adres bestaat al
 em11 Ingevoerde code is niet geldig

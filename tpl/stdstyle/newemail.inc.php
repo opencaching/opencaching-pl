@@ -30,7 +30,7 @@
 
  $email_changed = '<div class="notice" style="width:500px;height:24px;">'.tr('em06').'.</div>';
  $email_send = '<div class="notice" style="width:500px;height:24px;">'.tr('em07').'.</div>';
- $email_subject = tr('em09');
+ $email_subject = tr('em08');
  
  $error_email_not_ok = '<div class="errormsg">'.tr('em09').'.</div>';
  $error_email_exists = '<div class="errormsg">'.tr('em10').'.</div>';
