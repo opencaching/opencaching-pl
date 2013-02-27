@@ -178,7 +178,7 @@
 				</div>
 				<hr>
 				<div>
-					<input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload();check_field()"/><label for="be_ftf">&nbsp;pokaż tylko FTFy!</label>
+					<input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload();check_field()"/><label for="be_ftf">&nbsp;{{map_01}}</label>
 				</div>
 			</td>
 		</tr>
@@ -186,9 +186,9 @@
 			<td colspan='2'>
 				<div>
 					<center>
-						Minimalna ocena:
+						{{map_02}}
 						<select id="min_score" name="min_score" onchange="reload()">
-							<option value="-3" {min_sel1}>dowolna ocena</option>
+							<option value="-3" {min_sel1}>{{map_03}}</option>
 							<!--<option value="0.5" {min_sel2}>pomiń najsłabsze skrzynki</option>-->
 							<option value="1.2" {min_sel3}>przynajmniej "{{rating_avarage}}"</option>
 							<option value="2" {min_sel4}>przynajmniej "{{rating_good}}" :)</option>

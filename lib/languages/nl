@@ -1035,7 +1035,9 @@ chpw_02 De veilgheidscode is naar het opgegeven e-mailadres verstuurd.
 chpw_03 Veiligheidscode om wachtwoord te wijzigen.
 chpw_04 Wachtwoord is gewijzigd. <a href="login.php"> Inloggen</a> met nieuwe wachtwoord.
 chpw_05 De ingevoerde code is ongeldig.
-
+map_01 Toon alleen FTF
+map_02 Minimale score:
+map_03 elke score
 
 
 
