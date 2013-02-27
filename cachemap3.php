@@ -25,17 +25,11 @@ function getDBFilter($user_id)
 									"h_found"=>1,
 									"h_noattempt"=>1,
 									"h_nogeokret"=>1,
-									"signes"=>1,
-									"waypoints"=>0,
 									"h_avail"=>0,
 									"h_temp_unavail"=>1,
 									"map_type"=>1,
 									"h_arch"=>0,
 									"be_ftf"=>0,
-									"h_pl"=>1,
-									"h_de"=>1,
-									"h_no"=>1,
-									"h_se"=>1,
 									"min_score"=>$MIN_SCORE,
 									"max_score"=>$MAX_SCORE,
 									"h_noscore"=>1
@@ -57,17 +51,11 @@ function getDBFilter($user_id)
 		$filter["h_found"] = $row['found'];
 		$filter["h_noattempt"] = $row['notyetfound'];
 		$filter["h_nogeokret"] = $row['geokret'];
-		$filter["signes"] = $row['showsign'];
-		$filter["waypoints"] = $row['showwp'];
 		$filter["h_avail"] = $row['active'];
 		$filter["h_temp_unavail"] = $row['notactive'];
 		$filter["map_type"] = $row['maptype'];
 		$filter["h_arch"] = $row['archived'];
 		$filter["be_ftf"] = $row['be_ftf'];
-		$filter["h_no"] = $row['no'];
-		$filter["h_se"] = $row['se'];
-		$filter["h_de"] = $row['de'];
-		$filter["h_pl"] = $row['pl'];
 		$filter["min_score"] = $row['min_score'];
 		$filter["max_score"] = $row['max_score'];
 		$filter["h_noscore"] = $row['noscore'];
@@ -192,7 +180,7 @@ else
 			continue;
 		}
 		
-		if( !($key == "h_avail" || $key == "h_temp_unavail" || $key == "h_pl" || $key == "h_de" || $key == "h_no" || $key == "h_se" || $key == "be_ftf" || $key == "map_type" || $key == "signes" || $key == "waypoints" || $key == "h_noscore"))
+		if( !($key == "h_avail" || $key == "h_temp_unavail" || $key == "be_ftf" || $key == "map_type" || $key == "h_noscore"))
 		{
 			// workaround for reversed values
 			$value = 1-$value;
@@ -233,9 +221,7 @@ else
 	}
 
 	tpl_set_var("cachemap_mapper", $cachemap_mapper);
-
 	
-//	foreach($filter as $key)
 	/*if( isset( $_POST['submit'] ) )
 	{
 			$makeFilterResult = makeDBFilter();

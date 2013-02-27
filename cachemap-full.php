@@ -1,21 +1,4 @@
 <?php
-function getMapType($value)
-{
-	switch( $value ) 
-	{
-		case 0:
-			return "G_NORMAL_MAP";
-		case 1:
-			return "G_SATELLITE_MAP";
-		case 2:
-			return "G_HYBRID_MAP";
-		case 3:
-			return "G_PHYSICAL_MAP";
-		default:
-			return "G_NORMAL_MAP";
-	}
-}
-
 function onTheList($theArray, $item)
 {
 	for( $i=0;$i<count($theArray);$i++)
@@ -42,15 +25,11 @@ function getDBFilter($user_id)
 									"h_found"=>1,
 									"h_noattempt"=>1,
 									"h_nogeokret"=>1,
-									"signes"=>1,
-									"waypoints"=>0,
 									"h_avail"=>0,
 									"h_temp_unavail"=>1,
-									"map_type"=>3,
+									"map_type"=>1,
 									"h_arch"=>0,
 									"be_ftf"=>0,
-									"h_pl"=>1,
-									"h_de"=>1,
 									"min_score"=>$MIN_SCORE,
 									"max_score"=>$MAX_SCORE,
 									"h_noscore"=>1
@@ -72,15 +51,11 @@ function getDBFilter($user_id)
 		$filter["h_found"] = $row['found'];
 		$filter["h_noattempt"] = $row['notyetfound'];
 		$filter["h_nogeokret"] = $row['geokret'];
-		$filter["signes"] = $row['showsign'];
-		$filter["waypoints"] = $row['showwp'];
 		$filter["h_avail"] = $row['active'];
 		$filter["h_temp_unavail"] = $row['notactive'];
 		$filter["map_type"] = $row['maptype'];
 		$filter["h_arch"] = $row['archived'];
 		$filter["be_ftf"] = $row['be_ftf'];
-		$filter["h_de"] = $row['de'];
-		$filter["h_pl"] = $row['pl'];
 		$filter["min_score"] = $row['min_score'];
 		$filter["max_score"] = $row['max_score'];
 		$filter["h_noscore"] = $row['noscore'];
@@ -90,9 +65,9 @@ function getDBFilter($user_id)
 }
 
 require_once('./lib/common.inc.php');
+
 $tplname = 'cachemap-full';
-tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
-//tpl_set_var('BodyMod', ' onload="load()" onunload="GUnload()"');
+
 global $usr;
 global $get_userid;
 global $filter;
@@ -195,12 +170,11 @@ else
 				$minmax = "max";
 			
 			tpl_set_var($minmax."_sel".intval(score2ratingnum($value)+1), 'selected="selected"');
-			
 			tpl_set_var($key, $value);
 			continue;
 		}
 		
-		if( !($key == "h_avail" || $key == "h_temp_unavail" || $key == "h_pl" || $key == "h_de" || $key == "be_ftf" || $key == "map_type" || $key == "signes" || $key == "waypoints" || $key == "h_noscore"))
+		if( !($key == "h_avail" || $key == "h_temp_unavail" || $key == "be_ftf" || $key == "map_type" || $key == "h_noscore"))
 		{
 			// workaround for reversed values
 			$value = 1-$value;
@@ -213,7 +187,7 @@ else
 		//echo "k=".$key.":".$chk."(".($value).")<br />";
 		tpl_set_var($key."_checked", $chk);
 		if( $key == "map_type" )
-			tpl_set_var($key, getMapType($value));
+			tpl_set_var($key, $value);
 		else
 			tpl_set_var($key, $value?"true":"");
 	
@@ -249,56 +223,13 @@ else
 	}*/
 
 	/*SET YOUR MAP CODE HERE*/
-    tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.99&amp;key='.$googlemap_key.'&amp;hl='.$lang.'" type="text/javascript"></script>                                                               
-    <script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;key='.$googlemap_key.'&amp;hl='.$lang.'"
-      type="text/javascript"></script>
-	  <script src="lib/gmap-wms.js" type="text/javascript"></script>
-
-	<script language="JavaScript1.2" type="text/javascript">
-	<!-- 
-		function saveMapType()
-		{
-			var ajaxRequest;  // The variable that makes Ajax possible!
-			try{
-				// Opera 8.0+, Firefox, Safari
-				ajaxRequest = new XMLHttpRequest();
-			} catch (e){
-				// Internet Explorer Browsers
-				try{
-					ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-				} catch (e) {
-					try{
-						ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-					} catch (e){
-						// Something went wrong
-						alert("'.tr("error_loading_map").'");
-						return false;
-					}
-				}
-			}
-			// Create a function that will receive data sent from the server
-			ajaxRequest.onreadystatechange = function(){
-				if(ajaxRequest.readyState == 4){
-					//document.myForm.time.value = ajaxRequest.responseText;
-				}
-			}
-
-			var mapid = get_current_mapid();;
-			var queryString = "?maptype=" + mapid+"&h_u="+document.getElementById(\'h_u\').checked+"&h_t="+document.getElementById(\'h_t\').checked+"&h_m="+document.getElementById(\'h_m\').checked+"&h_v="+document.getElementById(\'h_v\').checked+"&h_w="+document.getElementById(\'h_w\').checked+"&h_e="+document.getElementById(\'h_e\').checked+"&h_q="+document.getElementById(\'h_q\').checked+"&h_o="+document.getElementById(\'h_o\').checked+"&h_owncache="+document.getElementById(\'h_owncache\').checked+"&h_ignored="+document.getElementById(\'h_ignored\').checked+"&h_own="+document.getElementById(\'h_own\').checked+"&h_found="+document.getElementById(\'h_found\').checked+"&h_noattempt="+document.getElementById(\'h_noattempt\').checked+"&h_nogeokret="+document.getElementById(\'h_nogeokret\').checked+"&h_avail="+document.getElementById(\'h_avail\').checked+"&h_temp_unavail="+document.getElementById(\'h_temp_unavail\').checked+"&h_arch="+document.getElementById(\'h_arch\').checked+"&signes="+document.getElementById(\'signes\').checked+"&waypoints="+document.getElementById(\'waypoints\').checked+"&be_ftf="+document.getElementById(\'be_ftf\').checked+"&h_pl="+document.getElementById(\'h_pl\').checked+"&h_de="+document.getElementById(\'h_de\').checked+"&min_score="+document.getElementById(\'min_score\').value+"&max_score="+document.getElementById(\'max_score\').value+"&h_noscore="+document.getElementById(\'h_noscore\').checked;
-			
-			ajaxRequest.open("GET", "cachemapsettings.php" + queryString, true);
-			ajaxRequest.send(null); 
-			
-		}		 
-		
-		 if(document.getElementsByTagName) onload = function(){
-			window.onbeforeunload = saveMapType;
-		}
-
-		
-		//-->
-	</script>
-	');
-	tpl_BuildTemplate(true, true); 
+	tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language='.$lang.'" type="text/javascript"></script>
+    <script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;key='.$googlemap_key.'&amp;hl='.$lang.'" type="text/javascript"></script>');
+	/*
+	 * Generate dynamic URL to cachemap3.js file, this will make sure it will be reloaded by the browser.
+	 * The time-stamp will be stripped by a rewrite rule in lib/.htaccess.
+	 * */
+	tpl_set_var('lib_cachemap3_js', "lib/cachemap3." . date("YmdHis", filemtime($rootpath . 'lib/cachemap3.js')) . ".js");
+	tpl_BuildTemplate(true, true);
 }
 ?>

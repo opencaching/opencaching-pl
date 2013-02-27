@@ -7,6 +7,8 @@ function setDBFilter($userid, $maptype=null, $cachelimit=null, $h_u=null, $h_t=n
 	if( $cachelimit == null && $cachesort == null )
 	{
 		// map v.3 request
+		// The following parameters are currently ignored (DB column names in brackets):
+		// signes (showsign), waypoints (showwp), pl (pl), de (de), no (no), se (se)
 		$sql = "REPLACE map_settings SET 
 				maptype = $maptype,
 				unknown = ".$h_u.",							
@@ -23,16 +25,10 @@ function setDBFilter($userid, $maptype=null, $cachelimit=null, $h_u=null, $h_t=n
 				found = ".$h_found.",						
 				notyetfound = ".$h_noattempt.",	
 				geokret = ".$h_nogeokret.",			
-				showsign = ".$signes.",					
-				showwp = ".$waypoints.",
 				active = ".$h_avail.",					
 				notactive = ".$h_temp_unavail.",
 				archived = ".$h_arch.",					
 				be_ftf = ".$be_ftf.",						
-				se = ".$h_se.",									
-				no = ".$h_no.",
-				de = ".$h_de.",									
-				pl = ".$h_pl.",
 				min_score = ".$min_score.",
 				max_score = ".$max_score.",
 				noscore = ".$h_noscore.",

@@ -132,12 +132,6 @@
 	<div style='display:none'>
 		<!-- These filters are permanently hidden. However, some scripts use them, that's why they're not deleted. -->
 		<input class="chbox" id="h_avail" name="h_avail" value="1" type="checkbox" onclick="reload()"/><label for="h_avail">{{ready_to_find}}</label>
-		<input class="chbox" id="signes" name="signes" value="1" type="checkbox" {signes_checked} onclick="reload()" disabled="disabled"/><label for="signes">{{show_signes}}</label>
-		<input class="chbox" id="waypoints" name="waypoints" value="1" type="checkbox" {waypoints_checked} onclick="reload()" disabled="disabled"/><label for="waypoints">{{show_waypoints}}</label>
-		<input class="chbox" id="h_pl" name="h_pl" value="1" type="checkbox" {h_pl_checked} onclick="reload()"/><label for="h_pl">{{h_pl_label}}</label>
-		<input class="chbox" id="h_de" name="h_de" value="1" type="checkbox" {h_de_checked} onclick="reload()"/><label for="h_de">{{h_de_label}}</label>
-		<input class="chbox" id="h_se" name="h_se" value="1" type="checkbox" {h_se_checked} onclick="reload()"/><label for="h_se">{{h_se_label}}</label>
-		<input class="chbox" id="h_no" name="h_no" value="1" type="checkbox" {h_no_checked} onclick="reload()"/><label for="h_no">{{h_no_label}}</label>
 		<select id="max_score" name="max_score" onchange="reload()" style='display:none'>
 			<!--<option value="0.499" {max_sel1}>{{rating_poor}}</option>
 			<option value="1.199" {max_sel2}>{{rating_mediocre}}</option>
@@ -220,7 +214,9 @@ initial_params = {
 		tolat: {tolat}, tolon: {tolon},
 		searchdata: "{searchdata}",
 		boundsurl: "{boundsurl}",
-		extrauserid: "{extrauserid}"
+		extrauserid: "{extrauserid}",
+		moremaptypes: false,
+		fullscreen: false
 	},
 	translation: {
 		score_label: "{{score_label}}",
@@ -236,6 +232,6 @@ initial_params = {
 	}
 };
 window.onload = function() {
-	load();
+	load([], document.getElementById("search_control"));
 };
 </script>
