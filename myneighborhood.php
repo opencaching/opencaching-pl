@@ -326,7 +326,7 @@ if ($error == false) {
 
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',                 $i,                                                                                 $thisline);
-                $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
+                $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date("d-m-Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',            urlencode($record['cache_id']),                                                     $thisline);
                 $thisline = mb_ereg_replace('{cache_count}',        $i,                                                                                 $thisline);
                 $thisline = mb_ereg_replace('{cachename}',          htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'),                             $thisline);
@@ -396,7 +396,7 @@ if ($error == false) {
                 $thisline      = $cacheline;
 
                 $thisline = mb_ereg_replace('{nn}',             $i,                                                                                 $thisline);
-                $thisline = mb_ereg_replace('{date}',           htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
+                $thisline = mb_ereg_replace('{date}',           htmlspecialchars(date("d-m-Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',        urlencode($record['cache_id']),                                                     $thisline);
                 $thisline = mb_ereg_replace('{cache_count}',    $i,                                                                                 $thisline);
                 $thisline = mb_ereg_replace('{cachename}',      htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'),                             $thisline);
@@ -468,7 +468,7 @@ if ($error == false) {
 
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',                 $i,                                                                                 $thisline);
-                $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
+                $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date("d-m-Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',            urlencode($record['cache_id']),                                                     $thisline);
                 $thisline = mb_ereg_replace('{cachename}',          htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'),                             $thisline);
                 $thisline = mb_ereg_replace('{userid}',             urlencode($record['user_id']),                                                      $thisline);
@@ -532,7 +532,7 @@ if ($error == false) {
                 $record   = sql_fetch_array($rss);
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',             $i + $markerpositions['plain_cache_num'],                                                           $thisline);
-                $thisline = mb_ereg_replace('{date}',           htmlspecialchars(date("Y-m-d", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'),            $thisline);
+                $thisline = mb_ereg_replace('{date}',           htmlspecialchars(date("d-m-Y", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'),            $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',        urlencode($record['cache_id']),                                                                     $thisline);
                 $thisline = mb_ereg_replace('{cachename}',      htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'),                                             $thisline);
                 $thisline = mb_ereg_replace('{userid}',         urlencode($record['user_id']),                                                                      $thisline);
@@ -670,7 +670,7 @@ if ($error == false) {
                 // koniec ukrywania autora komentarza COG przed zwykłym userem
 
                 $thisline = mb_ereg_replace('{nn}',         $i,                                                                                         $thisline);
-                $thisline = mb_ereg_replace('{date}',       htmlspecialchars(date("Y-m-d", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
+                $thisline = mb_ereg_replace('{date}',       htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',    urlencode($log_record['cache_id']),                                                         $thisline);
                 $thisline = mb_ereg_replace('{cachename}',  htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8'),                           $thisline);
                 $thisline = mb_ereg_replace('{userid}',     urlencode($log_record['user_id']),                                                          $thisline);
