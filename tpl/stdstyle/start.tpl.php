@@ -52,7 +52,7 @@ function Unlite(nn) {
 				</style>
 				<div id='wrinfo'>
 				
-					<p><b>No i stało się!</b> Ktoś "zhakował" serwis OC.PL. :( Z tego co wiemy,
+					<p><b>No i stało się!</b> Prawdopodobnie ktoś dokonał włamania na serwis OC PL :( Z tego co wiemy,
 					nie zrobił nic złego. Pozmieniał jednak
 					<a href='http://forum.opencaching.pl/viewtopic.php?f=30&t=7449'>wielu użytkownikom</a>
 					ich hasła. Jeśli masz problemy z logowaniem, możesz spróbować
@@ -72,6 +72,8 @@ function Unlite(nn) {
 					
 					<p>Mamy nadzieję, że problemy nie powtórzą się, jeśli tak, to postaramy się
 					Was informować na forum.</p>
+               
+          <p>Rada Techniczna Opencaching.pl</p>
 				</div>
 			<? } ?>
 			
