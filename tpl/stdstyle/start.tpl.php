@@ -43,15 +43,38 @@ function Unlite(nn) {
 </script> 
   	  
 			<!-- Page title -->		
-		  <div class="content2-pagetitle">{{what_do_you_find}}</div>
-			<? if (isset($_GET['reklama']) /*|| ((date('c') > '2012-03-27') && date('c') < '2012-04-03')*/) { ?>
-				<div style='border: 1px solid #9c9; background: #dfd; margin: 10px 20px 10px 0; padding: 10px 15px; font-family: Tahoma, Verdana, Arial; font-size: 13px; color: #333'>
-					<b>Programiści!</b> Jak wiecie, kod OC.PL jest otwarty. Dodatkowo, właśnie udostępniliśmy
-					publicznie naszą deweloperską <b>maszynę wirtualną</b>. Teraz możesz uruchomić swój własny
-					serwer OC w 10 minut i zobaczyć go "od środka".
-					- <a href='http://code.google.com/p/opencaching-pl/'>więcej informacji</a>
+			<div class="content2-pagetitle">{{what_do_you_find}}</div>
+			
+			<? if (($_SERVER['HTTP_HOST'] == 'opencaching.pl') && (date('c') < '2013-03-15')) { ?>
+				<style>
+					#wrinfo { border: 2px solid #944; background: #faa; margin: 10px 20px 10px 0; padding: 10px 15px; }
+					#wrinfo p { font-family: Tahoma, Verdana, Arial; font-size: 14px; color: #200 }
+				</style>
+				<div id='wrinfo'>
+				
+					<p><b>No i stało się!</b> Ktoś "zhakował" serwis OC.PL. :( Z tego co wiemy,
+					nie zrobił nic złego. Pozmieniał jednak
+					<a href='http://forum.opencaching.pl/viewtopic.php?f=30&t=7449'>wielu użytkownikom</a>
+					ich hasła. Jeśli masz problemy z logowaniem, możesz spróbować
+					<a href='newpw.php'>zresetować hasło</a>.</p>
+					
+					<p>Jak wiecie, kod OpenCaching.PL powstawaje od wielu lat dzięki poświęceniu wielu
+					ludzi, w tym wielu bardzo początkujących programistów. Taki kod ma dużo "dziur".
+					O istnieniu części tych dziur wiemy, lecz znalezienie i poprawienie wszystkich
+					wymaga bardzo dużo czasu, którego najzwyczajniej nie mamy. Dlatego też, dla
+					znającego się na rzeczy, "zhackowanie" serwisu jest jak najbardziej możliwe.</p>
+					
+					<p>Dlatego, prosimy chętnych programistów o pomoc! Jeśli znasz podstawy zabezpieczeń
+					aplikacji webowych (np. jak zabezpieczyć się przed "SQL injection") i chciałbyś
+					powświęcić trochę swojego czasu na
+					<a href='http://code.google.com/p/opencaching-pl/'>znalezienie i załatanie</a>
+					błędów, to na pewno wszyscy będą Ci wdzięczni :)</p>
+					
+					<p>Mamy nadzieję, że problemy nie powtórzą się, jeśli tak, to postaramy się
+					Was informować na forum.</p>
 				</div>
 			<? } ?>
+			
 			<div class="content-txtbox-noshade line-box">
 				<p style="line-height: 1.6em;">{{what_do_you_find_intro}}<br/><br/></p>
 				<p class="main-totalstats">{{total_of_caches}} <span class="content-title-noshade">{total_hiddens}</span> {{active_caches}} <span class="content-title-noshade">{hiddens}</span> | {{number_of_founds}}: <span class="content-title-noshade">{founds}</span> | {{number_of_active_users}}: <span class="content-title-noshade">{users} </span></p>
