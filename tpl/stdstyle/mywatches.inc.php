@@ -23,7 +23,7 @@
 	$no_watches = '<tr><td colspan="4">'.tr('no_watched_caches').'</td></tr>';
 	$no_found_date = '---';
 	$standard_title = tr('watched_caches');
-	$print_delete_all_watches = '<tr><td colspan="2">&nbsp;</td><td nowrap style="text-align:center;">[<a href="printcache.php?source=mywatches">Wydrukuj wszystkie</a>]</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid=all&target=mywatches.php">Usuń wszystkie</a>]</td></tr>';
+	$print_delete_all_watches = '<tr><td colspan="2">&nbsp;</td><td nowrap style="text-align:center;">[<a href="printcache.php?source=mywatches">'.tr('print_all').'</a>]</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid=all&target=mywatches.php">'.tr('remove_all').'</a>]</td></tr>';
 	$export_all_watches = '
 				<tr>
 					<td colspan="4">'.tr('download').':

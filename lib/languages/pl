@@ -1039,7 +1039,7 @@ chpw_05 Wprowadzony kod jest niepoprawny.
 map_01 pokaż tylko FTFy!
 map_02 Minimalna ocena:
 map_03 dowolna ocena
-
-
+print_all Wydrukuj wszystkie
+remove_all Usuń wszystkie
 
 

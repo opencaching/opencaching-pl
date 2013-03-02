@@ -169,7 +169,7 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 
 
 				$file_content .= '<tr>';
-				$file_content .= '<td style="width: 70px;">'. htmlspecialchars(date("Y-m-d", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+				$file_content .= '<td style="width: 70px;">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
 			if ( $log_record['geokret_in'] !='0')
 					{
