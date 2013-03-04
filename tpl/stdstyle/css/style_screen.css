@@ -912,3 +912,14 @@ table.myneighborhood tbody tr:nth-child(odd) {
     background: #F6F6F6;
 }
 
+/* This is a red/green frame, like this one: http://i.imgur.com/xHpnKD7.png */
+
+#wrinfo { margin: 10px 20px 10px 0; padding: 10px 15px; }
+#wrinfo p { font-family: Tahoma, Verdana, Arial; font-size: 14px; margin: 12px 0; }
+#wrinfo p.podpis { text-align: right; }
+#wrinfo.red { border: 2px solid #944; background: #faa; }
+#wrinfo.red p { color: #200; }
+#wrinfo.red p.podpis { color: #a66; }
+#wrinfo.green { border: 2px solid #494; background: #afa; }
+#wrinfo.green p { color: #020; }
+#wrinfo.green p.podpis { color: #6a6; }

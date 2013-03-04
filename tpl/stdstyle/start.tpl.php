@@ -45,16 +45,12 @@ function Unlite(nn) {
 			<!-- Page title -->		
 			<div class="content2-pagetitle">{{what_do_you_find}}</div>
 			
-			<? if (($_SERVER['HTTP_HOST'] == 'opencaching.pl') && (date('c') < '2013-03-15')) { ?>
-				<style>
-					#wrinfo { border: 2px solid #944; background: #faa; margin: 10px 20px 10px 0; padding: 10px 15px; }
-					#wrinfo p { font-family: Tahoma, Verdana, Arial; font-size: 14px; color: #200; margin: 12px 0; }
-					#wrinfo p.podpis { color: #a66; text-align: right; }
-				</style>
-				<div id='wrinfo'>
-				
-					<p>Jeśli masz problemy z logowaniem, możesz spróbować <a href='newpw.php'>zresetować hasło</a>. Więcej informacji <a href='http://forum.opencaching.pl/viewtopic.php?f=30&t=7449'>na forum</a>.</p>
-               
+			<? if (($_SERVER['HTTP_HOST'] == 'opencaching.pl') && (date('c') < '2013-03-08')) { ?>
+				<div id='wrinfo' class='green'>
+					
+					<p>Problem z hasłami najprawdopodobniej został rozwiązany. :)
+					Więcej informacji <a href='http://forum.opencaching.pl/viewtopic.php?f=30&t=7449'>na forum</a>.</p>
+					
 					<p class='podpis'>- Rada Techniczna Opencaching.pl</p>
 					
 				</div>
