@@ -46,6 +46,14 @@ function Unlite(nn) {
 			<div class="content2-pagetitle">{{what_do_you_find}}</div>
 			
 			<? if (($_SERVER['HTTP_HOST'] == 'opencaching.pl') && (date('c') < '2013-03-08')) { ?>
+				<style>
+					#wrinfo { margin: 10px 20px 10px 0; padding: 10px 15px; }
+					#wrinfo p { font-family: Tahoma, Verdana, Arial; font-size: 14px; margin: 12px 0; }
+					#wrinfo p.podpis { text-align: right; }
+					#wrinfo.green { border: 2px solid #494; background: #afa; }
+					#wrinfo.green p { color: #020; }
+					#wrinfo.green p.podpis { color: #6a6; }
+				</style>
 				<div id='wrinfo' class='green'>
 					
 					<p>Problem z hasłami najprawdopodobniej został rozwiązany. :)
