@@ -53,28 +53,10 @@ function Unlite(nn) {
 				</style>
 				<div id='wrinfo'>
 				
-					<p><b>No i stało się!</b> Prawdopodobnie ktoś dokonał włamania na serwis OC PL :( Z tego co wiemy,
-					nie zrobił nic złego. Pozmieniał jednak
-					<a href='http://forum.opencaching.pl/viewtopic.php?f=30&t=7449'>wielu użytkownikom</a>
-					ich hasła. Jeśli masz problemy z logowaniem, możesz spróbować
-					<a href='newpw.php'>zresetować hasło</a>.</p>
-					
-					<p>Jak wiecie, kod OpenCaching.PL powstawaje od wielu lat dzięki poświęceniu wielu
-					ludzi, w tym wielu bardzo początkujących programistów. Taki kod ma dużo "dziur".
-					O istnieniu części tych dziur wiemy, lecz znalezienie i poprawienie wszystkich
-					wymaga bardzo dużo czasu, którego najzwyczajniej nie mamy. Dlatego też, dla
-					znającego się na rzeczy, "zhackowanie" serwisu jest jak najbardziej możliwe.</p>
-					
-					<p>Dlatego, prosimy chętnych programistów o pomoc! Jeśli znasz podstawy zabezpieczeń
-					aplikacji webowych (np. jak zabezpieczyć się przed "SQL injection") i chciałbyś
-					powświęcić trochę swojego czasu na
-					<a href='http://code.google.com/p/opencaching-pl/'>znalezienie i załatanie</a>
-					błędów, to na pewno wszyscy będą Ci wdzięczni :)</p>
-					
-					<p>Mamy nadzieję, że problemy nie powtórzą się, jeśli tak, to postaramy się
-					Was informować <a href='http://forum.opencaching.pl/viewtopic.php?f=30&t=7449'>na forum</a>.</p>
+					<p>Jeśli masz problemy z logowaniem, możesz spróbować <a href='newpw.php'>zresetować hasło</a>. Więcej informacji <a href='http://forum.opencaching.pl/viewtopic.php?f=30&t=7449'>na forum</a>.</p>
                
 					<p class='podpis'>- Rada Techniczna Opencaching.pl</p>
+					
 				</div>
 			<? } ?>
 			
