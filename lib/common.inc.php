@@ -26,6 +26,13 @@ if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
 
  ****************************************************************************/
 
+/**
+ *  load opencaching library for connect with database. 
+ *  library is based on PDO library and should be used with database connection.
+ *  see inside this file for instructions how to use it.
+ */ 
+require_once 'db.php';
+
 if ((!isset($GLOBALS['no-ob'])) || ($GLOBALS['no-ob'] == false))
     ob_start();
 if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP'])) 

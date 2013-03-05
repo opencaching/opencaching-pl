@@ -261,17 +261,19 @@
 				/*GeoKretApi selector for logging Geokrets using GeoKretyApi*/
 				require_once 'GeoKretyAPI.php';
 				
-				$GKAPIKeyQuery = sql("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` ='&1'", $usr['userid']);
-				if (mysql_num_rows($GKAPIKeyQuery) > 0)	
+				$DbConWpt = New dataBase;
+				$secidExist = $DbConWpt->paramQuery("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:user_id LIMIT 1", array ('user_id'=> array('value' => $usr['userid'], 'data_type' => 'integer')) );
+		
+				if ($secidExist['row_count'] > 0)
 				{
+					
 					tpl_set_var('GeoKretyApiNotConfigured', 'none');
 				    tpl_set_var('GeoKretyApiConfigured', 'block');
-				    $secid = mysql_result($GKAPIKeyQuery, 0); 
+				    $secid = $secidExist['result']['secid']; 
 				     
-				    $DbConWpt = New DbPdoConnect;
-				    $cwpt = $DbConWpt->DbPdoConnect("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = $cache_id");
-				    $cache_waypt = ($cwpt["wp_oc"]);
 				    
+				    $cwpt = $DbConWpt->paramQuery("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = :cache_id", array('cache_id' => array ('value' => $cache_id, 'data_type' => 'integer')));
+				    $cache_waypt = $cwpt['result']['wp_oc'];
 				    
 				    $GeoKretSelector = new GeoKretyApi($secid, $cache_waypt);
 				    $GKSelect = $GeoKretSelector->MakeGeokretSelector($cachename);
@@ -495,13 +497,8 @@
 							{
 								require_once 'GeoKretyAPI.php';
 							
-								$DbConWpt = New DbPdoConnect;
-								$cwpt = $DbConWpt->DbPdoConnect("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = $cache_id");
-								$cache_waypt = ($cwpt["wp_oc"]);
 								$LogGeokrety = New GeoKretyApi($secid, $cache_waypt);
-							
-								$secidquery = $DbConWpt->DbPdoConnect("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` ='". $usr['userid']."' ");
-							
+	
 								$b = 1;
 								for ($i=1; $i<$MaxNr+1; $i++)
 								{
@@ -509,7 +506,7 @@
 									{
 										$GeokretyLogArray =
 										array(
-												'secid'   => $secidquery['secid'],
+												'secid'   => $secid,
 												'nr'      => $_POST['GeoKretIDAction'.$i]['nr'],
 												'id'	  => $_POST['GeoKretIDAction'.$i]['id'],
 												'nm'	  => $_POST['GeoKretIDAction'.$i]['nm'],

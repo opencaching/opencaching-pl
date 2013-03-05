@@ -176,6 +176,7 @@ class GeoKretyApi
 			$Tablica = print_r($GeokretyArray, true);
 			$message = "przechwycono Blad z GeoKretyApi\r\n " .$e->getMessage() . "\n
 			 \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocilo niepoprawny wynik (wynik nie jest w formacie xml). \r\n 
+			data i czas: ".date('Y-m-d H:i:s')."
 			Odpowiedz geoKretow ponizej: \r\n \r\n $result ";
 				
 			$headers = 'From: GeoKretyAPI on opencaching.pl' . "\r\n" .
@@ -183,6 +184,7 @@ class GeoKretyApi
 					'X-Mailer: PHP/' . phpversion();
 			
 			mail('rt@opencaching.pl', 'GeoKretyApi returned error', $message, $headers);
+			mail('stefaniak@gmail.com', 'GeoKretyApi returned error', $message, $headers);
 			return false;
 		}
 		if ($resultarray) $r = $this->xml2array($resultarray);
@@ -222,7 +224,7 @@ class GeoKretyApi
 
 }
 
-
+/*
 class DbPdoConnect
 {
 	function __construct()
@@ -246,5 +248,5 @@ class DbPdoConnect
 		return $STH -> fetch();
 	}
 }
-
+*/
 ?>
