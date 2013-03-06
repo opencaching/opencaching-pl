@@ -34,22 +34,22 @@
 		setlocale(LC_TIME, 'pl_PL.UTF-8');  
 		break;
    case 'nl':
-		setlocale(LC_ALL, 'nl_NL');
+		setlocale(LC_ALL, 'nl_NL.UTF-8');
 		break;
    case 'fr':
-		setlocale(LC_ALL, 'fr_FR');
+		setlocale(LC_ALL, 'fr_FR.UTF-8');
 		break;
    case 'de':
-		setlocale(LC_ALL, 'de_DE');
+		setlocale(LC_ALL, 'de_DE.UTF-8');
 		break;	
    case 'sv':
-		setlocale(LC_ALL, 'sv_SV');
+		setlocale(LC_ALL, 'sv_SV.UTF-8');
 		break;		
    case 'es':
-		setlocale(LC_ALL, 'es_ES');
+		setlocale(LC_ALL, 'es_ES.UTF-8');
 		break;	
    case 'cs':
-		setlocale(LC_ALL, 'cs_CS');
+		setlocale(LC_ALL, 'cs_CS.UTF-8');
 		break;			
    default:
    		setlocale(LC_ALL, 'en_EN');
