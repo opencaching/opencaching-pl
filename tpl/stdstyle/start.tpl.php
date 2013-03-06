@@ -45,7 +45,7 @@ function Unlite(nn) {
 			<!-- Page title -->		
 			<div class="content2-pagetitle">{{what_do_you_find}}</div>
 			
-			<? if (($_SERVER['HTTP_HOST'] == 'opencaching.pl') && (date('c') < '2013-03-08')) { ?>
+			<? if (($_SERVER['HTTP_HOST'] == 'opencaching.pl') && (date('c') < '2013-03-07')) { ?>
 				<style>
 					#wrinfo { margin: 10px 20px 10px 0; padding: 10px 15px; }
 					#wrinfo p { font-family: Tahoma, Verdana, Arial; font-size: 14px; margin: 12px 0; }
