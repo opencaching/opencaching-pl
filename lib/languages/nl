@@ -188,7 +188,7 @@ geokrets Geokrety
 geoblog Geoblog
 reports Meldingen
 bugs Bugs
-add_picture Add picture
+add_picture Afbeelding toevoegen
 edit_picture Edit picture
 new_password Nieuw wachtwoord
 new_topic New topic
@@ -210,7 +210,7 @@ date_hidden_label Datum van plaatsing
 date_created_label Datum van creatie
 last_modified_label Laatste verandering
 waypoint Waypoint
-listed_also_on Also listed on
+listed_also_on Ook gepubliceerd op
 comments Opmerkingen
 comment Comment
 write_to_log Log your visit
@@ -221,8 +221,8 @@ ignore Negeren
 ignore_not Niet negeren
 decrypt Decoderen
 pictures_included Afbeeldingen in deze log
-attendends Attended
-will_attend Will attend
+attendends Deelgenomen
+will_attend Wil deelnemen
 enter_text Enter text
 enter_text_error Text has not been entered
 only_these Only these
@@ -231,7 +231,7 @@ last_log_entries The latest log entries
 terrain_difficulty Terrein
 task_difficulty Moeilijkheid
 out_of out of
-list_of_participants The list of participants
+list_of_participants Lijst van deelnemers
 show_recommended Show recommended
 show_all toon alles
 no_choice Selection not available
@@ -323,7 +323,7 @@ other_languages_desc Beschrijvingen in andere talen kunnen na aanmelden van de c
 short_desc_label Korte omschrijving
 error_new_cache Een of meer velden fout of niet ingevuld. Corrigeer de aangegeven velden!
 time_incorrect Incorrecte tijd
-distance_incorrect Incorrect distance. Invoer formaat: aa.aaa
+distance_incorrect Incorrecte afstand. Invoer formaat: aa.aaa
 date_incorrect Datum niet coorect. Invoer formaat: DD-MM-JJJJ
 no_cache_name De cache heeft geen naam
 new_cache_no_terms De cache is NIET geregistreerd, omdat de Gebruikers overeenkomst van opencaching.pl niet aangevinkt is
@@ -383,9 +383,9 @@ search_recommendations Aanbevelingen
 search_all_caches alle caches
 search_recommended_caches minimum aantal aanbevelingen: 
 incomming_events Aankomende evenementen
-rr_comment_label Comment from OC Team
+rr_comment_label Opmerking van OC Team
 add_rr_comment Geef OC Team opmerking
-remove_rr_comment Remove OC Team comments
+remove_rr_comment Verwijder OC Team opmerkingen
 get_bulletin Ik wil bulletins ontvangen
 bulletin_label_yes Gebruiker zal bulletins ontvangen
 bulletin_label_no Gebruiker zal geen bulletins ontvangen
@@ -640,7 +640,7 @@ additional_waypoints Extra waypoints
 stage_wp Etappe
 type_wp Soort
 type_wp2 Soort waypoint
-coordinates_wp Coordinates
+coordinates_wp Coördinaten
 describe_wp Beschrijving
 add_new_waypoint Voeg waypoint toe
 wp_status1 Toon alle informatie over dit waypoint, inclusief coördinaten
@@ -670,7 +670,7 @@ my_neighborhood_v2 Mijn omgeving v2
 my_neighborhood_radius Mijn omgeving met radius van
 new_caches_myn New geocaches
 ftf_awaiting Wachtende First to Find caches
-new_logs_myn Latest logs 
+new_logs_myn Laatste logs
 top_recommended Meest aanbevolen caches
 myn_info You do not have a set of coordinates your area. You can do this in your <a href="myprofile.php?action=change"> profile </a>. If you want to have different than the default radius of 35 km setup this in your profile option "Notification." Here is an example set of system coordinates.
 search_user Zoek gebruiker
