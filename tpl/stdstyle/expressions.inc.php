@@ -28,10 +28,6 @@
 	//only debugging
  	$runtime = 'Runtime: {{time}} Sek';
 
-	// set Date/Time language
-	// setlocale(LC_TIME, 'pl_PL.UTF-8');
-    // setlocale(LC_ALL, 'nl_NL');
-
 	//common vars
 	$datetimeformat = '%Y-%m-%d %H:%M:%S';
 	$dateformat = '%Y-%m-%d';

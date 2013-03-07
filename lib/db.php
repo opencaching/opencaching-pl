@@ -28,12 +28,17 @@ class dataBase
 	private $username = null;
 	private $password = null;
 
-	function __construct() {
+	function __construct($debug = false) {
 	 	include 'lib/settings.inc.php';
 	 	$this->server   = $opt['db']['server'];
 	 	$this->name     = $opt['db']['name'];
 	 	$this->username = $opt['db']['username'];
 	 	$this->password = $opt['db']['password'];
+	 	
+	 	// turn on debug to screen
+	 	if ($debug === true) {
+	 		$this->debug = true;
+	 	}
 	}
 
 	/**
@@ -53,7 +58,14 @@ class dataBase
 		$STH -> setFetchMode(PDO::FETCH_ASSOC);
 		$STH -> execute();
 
-		return $STH -> fetch();
+		$result = $STH -> fetch();
+		
+		if ($this->debug) {
+			print 'db.php, # ' . __line__ .', mysql query on input: ' . $query .'<br />';
+			self::debugOC('db.php, # ' . __line__ .', database output', $result );
+		}
+		
+		return $result;
 	}
 
 	/**

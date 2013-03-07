@@ -223,30 +223,4 @@ class GeoKretyApi
 	
 
 }
-
-/*
-class DbPdoConnect
-{
-	function __construct()
-	{
-	 include 'lib/settings.inc.php';
-	 $this->server   = $opt['db']['server'];
-	 $this->name     = $opt['db']['name'];
-	 $this->username = $opt['db']['username'];
-	 $this->password = $opt['db']['password'];
-	}
-
-	public function DbPdoConnect($query)
-	{
-		$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
-		$dbh -> query ('SET NAMES utf8');
-		$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
-		
-		$STH = $dbh -> prepare($query);
-		$STH -> execute();
-
-		return $STH -> fetch();
-	}
-}
-*/
 ?>
