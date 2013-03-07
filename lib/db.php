@@ -142,11 +142,11 @@ class dataBase
 		$stmt->execute();
 
 		$result['row_count'] = $stmt->rowCount();
-		$result['result'] = $stmt -> fetch();
+		$result['result'] = $stmt -> fetchAll();
 
 
 		if ($this->debug) {
-			print 'db.php, # ' . __line__ .', mysql query on input: ' . $query .'<br />';
+			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
 			self::debugOC('db.php, # ' . __line__ .', input parametres for query', $params );
 			self::debugOC('db.php, # ' . __line__ .', database output', $result );
 		}
@@ -154,6 +154,62 @@ class dataBase
 		return $result;
 	}
 
+	/**
+	 * @param $query - string, with params representation instead variables.
+	 * @param $param1, param2 .. paramN - variables.
+	 *
+	 *
+	 * example:
+	 * ----------------------------------------------------------------------------------
+	 * $query: 'SELECT something FROM tabele WHERE field1=:variable1 AND field2:variable2'
+	 * $param1 = 1;
+	 * $params2 'cat is very lovelly animal';
+	 * ----------------------------------------------------------------------------------
+	 * 
+	 * @return array or false
+	 *  - return array structure:
+	 *  Array
+	 * (
+	 *   [row_count] => 2
+	 *   [result] => Array
+	 *     (
+	 *      [0] => Array (
+     *           	[something] => 12
+     *           )
+     *      [1] => Array (
+     *           	[something] => 20
+     *           )    
+	 *     )
+	 * )
+	 */
+	public function multiVariableQuery($query) {
+		
+		$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
+		$dbh -> query ('SET NAMES utf8');
+		$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
+		
+		$stmt = $dbh->prepare($query);
+		
+		$numargs = func_num_args();
+		$arg_list = func_get_args();
+		for ($i = 1; $i < $numargs; $i++) {
+			if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
+			
+			$stmt->bindparam(':'.$i,$arg_list[$i]);
+		}
+		
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$stmt->execute();
+
+		$result['row_count'] = $stmt->rowCount();
+		$result['result'] = $stmt -> fetchAll();
+		
+		if ($this->debug) {
+			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
+			self::debugOC('db.php, # ' . __line__ .', database output', $result );
+		}
+	}
+	
 	/**
 	 * this methode can be used for display any array from anywhere
 	 *
@@ -170,26 +226,3 @@ class dataBase
 	}
 
 }
-
-
-
-
-/* other exapmples
- $pdo=new PDO('...');
-$stmt=$pdo->prepare('SELECT * FROM tabela WHERE id=:imie');
-$stmt->bindParam(':imie',$_POST['imie'],PDO::PARAM_STR);
-$stmt->execute();
-...
-
-$q = $db->prepare('INSERT INTO tabela (p1,p2) VALUES (:p1, :p2)');
-$q -> execute(array('p1' => 'wartosc', 'p2' => 'inna'));
-
-
-$db=new PDO("mysql:cośtam","user","hasło");
-
-$stmt=$db->prepare("select pole1, pole2 from tabela where pole1=:wartosc1 and pole2=:wartosc2");
-$stmt->bindValue(":wartosc1",$_POST["wartosc1"]);
-$stmt->bindValue(":wartosc2",$_POST["wartos21"]);
-
-$stmt->execute();
-*/
