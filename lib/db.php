@@ -142,7 +142,7 @@ class dataBase
 		$stmt->execute();
 
 		$result['row_count'] = $stmt->rowCount();
-		$result['result'] = $stmt -> fetchAll();
+		$result['result'] = $stmt -> fetch();
 
 
 		if ($this->debug) {
