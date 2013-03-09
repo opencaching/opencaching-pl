@@ -72,7 +72,7 @@ class dataBase
 	}
 	
 	public function dbResultFetchAll() {
-		return $this->dbData->fetch();
+		return $this->dbData->fetchAll();
 	}
 	
 	/**
