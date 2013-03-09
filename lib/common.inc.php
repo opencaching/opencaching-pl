@@ -31,7 +31,7 @@ if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
  *  library is based on PDO library and should be used with database connection.
  *  see inside this file for instructions how to use it.
  */ 
-require_once 'db.php';
+// require_once 'db.php';
 
 if ((!isset($GLOBALS['no-ob'])) || ($GLOBALS['no-ob'] == false))
     ob_start();
