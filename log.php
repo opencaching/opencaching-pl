@@ -260,6 +260,7 @@
 				
 				/*GeoKretApi selector for logging Geokrets using GeoKretyApi*/
 				require_once 'GeoKretyAPI.php';
+				require_once 'db.php';
 				
 				$dbConWpt = New dataBase;
 				$dbConWpt->paramQuery("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:user_id LIMIT 1", array ('user_id'=> array('value' => $usr['userid'], 'data_type' => 'integer')) );
