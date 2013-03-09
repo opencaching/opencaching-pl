@@ -1041,5 +1041,11 @@ map_02 Minimalna ocena:
 map_03 dowolna ocena
 print_all Wydrukuj wszystkie
 remove_all Usuń wszystkie
+no_logtype_choosen Brak typu logu!
+
+
+
+
+
 
 

@@ -1097,8 +1097,8 @@
 			{
 				$sender_name = $usr['username'];
 				$comment = nl2br($_POST['rr_comment']);
-				$date=date("Y-m-d H:i:s");
-				$octeam_comment = '<b><span class="content-title-noshade txt-blue08">Data: '.$date.', '.tr('add_by').' '.$sender_name.'</span></b><br/>'.$comment;
+				$date=date("d-m-Y H:i:s");
+				$octeam_comment = '<b><span class="content-title-noshade txt-blue08">'.tr('date').': '.$date.', '.tr('add_by').' '.$sender_name.'</span></b><br/>'.$comment;
 				$sql = "UPDATE cache_desc
 					SET rr_comment=CONCAT('".sql_escape($octeam_comment)."<br/><br/>', rr_comment),
 							last_modified = NOW()

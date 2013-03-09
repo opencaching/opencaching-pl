@@ -41,7 +41,7 @@
 
 	$smiley_link = '<a href="javascript:insertSmiley(\'{smiley_text}\')">{smiley_image}</a>';
 
- $log_not_ok_message = '&nbsp;<span class="errormsg">Brak typu logu!</span>';
+ $log_not_ok_message = '&nbsp;<span class="errormsg">'.tr('no_logtype_choosen').'</span>';
 
  $sel_message = 'Wybierz';
  $log_types[] = array('id' => '-1', 'pl' => 'Prosze wybrac!', 'en' => 'Please select!');
