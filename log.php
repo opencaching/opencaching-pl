@@ -261,19 +261,23 @@
 				/*GeoKretApi selector for logging Geokrets using GeoKretyApi*/
 				require_once 'GeoKretyAPI.php';
 				
-				$DbConWpt = New dataBase;
-				$secidExist = $DbConWpt->paramQuery("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:user_id LIMIT 1", array ('user_id'=> array('value' => $usr['userid'], 'data_type' => 'integer')) );
+				$dbConWpt = New dataBase;
+				$dbConWpt->paramQuery("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:user_id LIMIT 1", array ('user_id'=> array('value' => $usr['userid'], 'data_type' => 'integer')) );
 		
-				if ($secidExist['row_count'] > 0)
+				if ($dbConWpt->rowCount() > 0)
 				{
 					
 					tpl_set_var('GeoKretyApiNotConfigured', 'none');
 				    tpl_set_var('GeoKretyApiConfigured', 'block');
-				    $secid = $secidExist['result']['secid']; 
-				     
+				    $databaseResponse = $dbConWpt->dbResultFetch();
+				    $secid = $databaseResponse['secid']; 
+				    unset($dbConWpt);
 				    
-				    $cwpt = $DbConWpt->paramQuery("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = :cache_id", array('cache_id' => array ('value' => $cache_id, 'data_type' => 'integer')));
-				    $cache_waypt = $cwpt['result']['wp_oc'];
+				    $dbConWpt = New dataBase;
+				    $dbConWpt->paramQuery("SELECT `wp_oc` FROM `caches` WHERE `cache_id` = :cache_id", array('cache_id' => array ('value' => $cache_id, 'data_type' => 'integer')));
+				    $cwpt = $dbConWpt->dbResultFetch();
+				    $cache_waypt = $cwpt['wp_oc'];
+				    unset($dbConWpt);
 				    
 				    $GeoKretSelector = new GeoKretyApi($secid, $cache_waypt);
 				    $GKSelect = $GeoKretSelector->MakeGeokretSelector($cachename);

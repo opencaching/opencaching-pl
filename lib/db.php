@@ -27,6 +27,13 @@ class dataBase
 	private $name = null;
 	private $username = null;
 	private $password = null;
+	
+	/**
+	 * data obtained from database
+	 * @var object
+	 */
+	private $dbData = null;
+
 
 	function __construct($debug = false) {
 	 	include 'lib/settings.inc.php';
@@ -40,7 +47,34 @@ class dataBase
 	 		$this->debug = true;
 	 	}
 	}
+	
+	function __destruct() {
+		if ($this->debug){
+			print 'destructing object dataBase class <br ><br >';
+		}
+		// free up the memory
+		$debug = null;
+		$server	= null;
+		$name = null;
+		$username = null;
+		$password = null;
+		$dbData = null;
+		$dbNumRows = null;
+	}
 
+	
+	public function dbResultFetch() {
+		return $this->dbData->fetch();
+	}
+	
+	public function rowCount() {
+		return $this->dbData->rowCount();
+	}
+	
+	public function dbResultFetchAll() {
+		return $this->dbData->fetch();
+	}
+	
 	/**
 	 * simple querry
 	 * Use only with static queries, Queries should contain no variables.
@@ -54,18 +88,17 @@ class dataBase
 		$dbh -> query ('SET NAMES utf8');
 		$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
 
-		$STH = $dbh -> prepare($query);
-		$STH -> setFetchMode(PDO::FETCH_ASSOC);
-		$STH -> execute();
+		$this->dbData  = $dbh -> prepare($query);
+		$this->dbData  -> setFetchMode(PDO::FETCH_ASSOC);
+		$this->dbData  -> execute();
 
-		$result = $STH -> fetch();
+		// $result = $STH -> fetch();
 		
 		if ($this->debug) {
 			print 'db.php, # ' . __line__ .', mysql query on input: ' . $query .'<br />';
-			self::debugOC('db.php, # ' . __line__ .', database output', $result );
 		}
 		
-		return $result;
+		return true;
 	}
 
 	/**
@@ -103,55 +136,50 @@ class dataBase
 	 *     )
 	 * )
 	 */
-	public function paramQuery($query, $params) {
+	public function paramQuery($query, $params, $fetchAll = false) {
 		if (!is_array($params)) return false;
 
 		$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
 		$dbh -> query ('SET NAMES utf8');
 		$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
 		
-		
-		$stmt = $dbh->prepare($query);
+		$this->dbData = $dbh->prepare($query);
 
 		foreach ($params as $key => $val) {
 			switch ($val['data_type']) {
 				case 'integer':
-					$stmt->bindParam($key, $val['value'], PDO::PARAM_INT);
+					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_INT);
 					break;
 				case 'boolean':
-					$stmt->bindParam($key, $val['value'], PDO::PARAM_BOOL);
+					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_BOOL);
 					break;
 				case 'string':
-					$stmt->bindParam($key, $val['value'], PDO::PARAM_STR);
+					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_STR);
 					break;
 				case 'null':
-					$stmt->bindParam($key, $val['value'], PDO::PARAM_NULL);
+					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_NULL);
 					break;		
 				case 'large':
-					$stmt->bindParam($key, $val['value'], PDO::PARAM_LOB);
+					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_LOB);
 					break;
 				case 'recordset':
-					$stmt->bindParam($key, $val['value'], PDO::PARAM_STMT);
+					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_STMT);
 					break;
 				default:
 					return false;
 			}
 		}
 		
-		$stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$stmt->execute();
-
-		$result['row_count'] = $stmt->rowCount();
-		$result['result'] = $stmt -> fetch();
-
+		$this->dbData->setFetchMode(PDO::FETCH_ASSOC);
+		$this->dbData->execute();
 
 		if ($this->debug) {
 			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
 			self::debugOC('db.php, # ' . __line__ .', input parametres for query', $params );
-			self::debugOC('db.php, # ' . __line__ .', database output', $result );
+			// self::debugOC('db.php, # ' . __line__ .', database output', $result );
 		}
 
-		return $result;
+		return true;
 	}
 
 	/**
@@ -188,7 +216,7 @@ class dataBase
 		$dbh -> query ('SET NAMES utf8');
 		$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
 		
-		$stmt = $dbh->prepare($query);
+		$this->dbData  = $dbh->prepare($query);
 		
 		$numargs = func_num_args();
 		$arg_list = func_get_args();
@@ -198,15 +226,14 @@ class dataBase
 			$stmt->bindparam(':'.$i,$arg_list[$i]);
 		}
 		
-		$stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$stmt->execute();
+		$this->dbData ->setFetchMode(PDO::FETCH_ASSOC);
+		$this->dbData ->execute();
 
-		$result['row_count'] = $stmt->rowCount();
-		$result['result'] = $stmt -> fetchAll();
+// 		$result['row_count'] = $stmt->rowCount();
+// 		$result['result'] = $stmt -> fetchAll();
 		
 		if ($this->debug) {
 			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
-			self::debugOC('db.php, # ' . __line__ .', database output', $result );
 		}
 	}
 	
