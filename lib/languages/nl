@@ -491,7 +491,7 @@ rating_poor slecht
 rating_mediocre matig
 rating_avarage redelijk
 rating_good goed
-rating_excellent uitstekent
+rating_excellent uitstekend
 score_label Beoordeeld als
 show_noscore Toon caches zonder score
 available_maps Beschikbare kaarten
@@ -1041,5 +1041,25 @@ map_03 elke score
 print_all Alles afdrukken
 remove_all Alles verwijderen
 choose Kiezen
+nc01 Beste gebruiker
+nc02 Bedankt voor het willen registreren van een nieuwe cache op opencaching.pl. Voor meer informatie bij het plaatsen of registreren van een cache kan gekeken worden op <a class="links" href="http://wiki.opencaching.pl">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> of neem bij grotere problemen contact op via e-mail: cog@opencaching.pl, zodat er toch een goede cache geplaatst kan worden. Om een goed kwaliteit cache te maken kun je de volgen vragen bekijken en te zien of je nieuwe cache aan de eisen voldoet:<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc03 Is de cache niet illegaal geplaatst, zoals op privégrond zonder toestemming van de eigenaar?
+nc04 Is de cache niet geplaats in een Nationaal park, in/op een monument, begraafplaats of ander beschermd gebied?
+nc05 Is de cache geplaatst op een plek minimaal 150 meter waar nog een andere cache ligt?
+nc06 Kan er op redelijke wijze cacheonderhoud gepleegt worden zolang deze cache op de site vermeld staat?
+nc07 Is de gekozen verbergplaats geschikt om een cache te plaatsen (denk aan grote temperatuur verschillen en/of vocht)?
+nc08 Is er ook even gekeken op
+nc09 Hulp bij cachen
+nc10 die kunnen helpen met het plaatsen van een cache?
+nc11 Voldoet de cache aan de 
+nc12 gebruikersvoorwaarden van OC PL
+nc13 Neem eens een kijkje op
+nc14 Hoe maak ik een cache
+nc15 en
+nc16 Code voor cachers
+nc17 op onze OpenGeowiki
+nc18 Vriendelijke groeten,
+nc19 Team opencaching.pl
+nc20 Heb bovenstaande gelezen en begrepen en wil een cache plaatsen.
 
 
