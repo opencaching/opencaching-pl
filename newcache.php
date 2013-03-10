@@ -18,6 +18,7 @@
  ****************************************************************************/
 
   //prepare the templates and include all neccessary
+  	if (!isset ($rootpath)) $rootpath='./';
 	require_once('./lib/common.inc.php');
 	$ocWP=$GLOBALS['oc_waypoint'];
 	$OWNCACHE_LIMIT=$GLOBALS['owncache_limit'];
@@ -34,8 +35,6 @@
 		}
 		else
 		{	
-
-
 			if (isset($_REQUEST['newcache_info']))
 				{$newcache_info=$_GET['newcache_info'];
 			} else { $newcache_info=1;}
@@ -241,8 +240,7 @@ else if ($verify_all==1) {
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
 
-
-
+						if (!isset($desc_record['cache_id'])) $desc_record['cache_id'] = null;
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
 						tpl_set_var('htmlheaders', $headers);
 
@@ -594,7 +592,7 @@ else if ($verify_all==1) {
 		if ($record['code'] == $sel_region)
 			$regionoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
 		else
-			$regionoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+			$regionoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
 
 		$regionoptions .= "\n";
 	}

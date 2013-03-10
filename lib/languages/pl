@@ -1043,7 +1043,26 @@ print_all Wydrukuj wszystkie
 remove_all Usuń wszystkie
 no_logtype_choosen Brak typu logu!
 choose Wybierz
-
+nc01 Drogi Użytkowniku
+nc02 Dziękujemy za to, że chcesz zarejestrować swoja skrzynkę w serwisie opencaching.pl. Jeśli potrzebujesz pomocy w ukryciu lub rejestracji skrzynki, proszę zapoznaj się z informacjami zawartymi w <a class="links" href="http://wiki.opencaching.pl">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> lub skontaktuj się z Centrum Obsługi Geocacher’a - adres email: cog@opencaching.pl Pamiętaj, że Twoja skrzynka świadczy o Tobie. Na pewno zależy Ci na tym, by była jak najlepszej jakości, a w związku z tym prosimy o to, abyś odpowiedział sobie samodzielnie na poniższe pytania :<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc03 Czy skrzynka jest ulokowana w miejscu zgodnym z prawem, nie jest umieszczona na terenie prywatnym bez zgody jego właściciela?
+nc04 Czy skrzynka nie jest ulokowana na terenie Parku Narodowego, Rezerwatu, zabytku, cmentarza lub innego obszaru chronionego prawem?
+nc05 Czy w najbliższej okolicy znajdują się już inne skrzynki, czy zachowana jest minimalna odległość 150m?
+nc06 Czy jesteś w stanie zapewnić serwis dla skrzynki przez cały czas jej istnienia w serwisie?
+nc07 Czy wybrany przez Ciebie sposób ukrycia skrzynki jest właściwy dla wybranej lokalizacji skrzynki (odporność pojemnika na niską temperaturę, wilgoć)?
+nc08 Możesz poszukać czy w Twojej oklicy jest 
+nc09 Przewodnik geocachingu 
+nc10 który może pomóc Ci w założeniu Twoich skrzynek
+nc11 Czy skrzynka jest zgodna z 
+nc12 Regulaminem serwisu OC PL
+nc13 Prosimy zapoznaj się z Poradnikiem
+nc14 Jak założyć skrzynkę
+nc15 oraz
+nc16 Kodeksem Geocacher'a 
+nc17 na naszym OpenGeoWiki
+nc18 Pozdrawiamy
+nc19 Społeczność opencaching.pl
+nc20 Wszystkie powyższe elementy rozważyłem i chcę kontynuować rejestracje skrzynki
 
 
 

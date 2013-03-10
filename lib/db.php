@@ -136,9 +136,10 @@ class dataBase
 	 *     )
 	 * )
 	 */
-	public function paramQuery($query, $params, $fetchAll = false) {
+	public function paramQuery($query, $params) {
 		if (!is_array($params)) return false;
 
+		try {
 		$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
 		$dbh -> query ('SET NAMES utf8');
 		$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
@@ -172,7 +173,20 @@ class dataBase
 		
 		$this->dbData->setFetchMode(PDO::FETCH_ASSOC);
 		$this->dbData->execute();
-
+		} catch (PDOException $e) {
+			$message = 'db.php, # ' . __line__ .', PDO error: ' . $e .'<br />
+						Database Query: '.$query.'<br>
+						Parametres array: '.
+						print_r($params, true).
+						'<br><br>';
+			if ($this->debug) {
+				print $message;
+			} else {
+				self::errorMail($message);
+			}
+				
+			return false;
+		}
 		if ($this->debug) {
 			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
 			self::debugOC('db.php, # ' . __line__ .', input parametres for query', $params );
@@ -235,6 +249,15 @@ class dataBase
 		if ($this->debug) {
 			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
 		}
+	}
+	
+	private function errorMail($message) {
+	
+		$headers = 	'From: dataBase class' . "\r\n" .
+					'Reply-To: rt@opencaching.pl' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
+						
+		mail('rt@opencaching.pl', $topic, $message, $headers);
 	}
 	
 	/**
