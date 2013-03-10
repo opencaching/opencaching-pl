@@ -274,7 +274,7 @@ else
 {EditCacheNoteS}
 	<div class="content2-container bg-blue02">
 		<p class="content-title-noshade-size2">
-			<img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{Personal cache note}}" /> {{personal_cache_note}}
+			<img src="tpl/stdstyle/images/blue/logs.png" style="align: left; margin-right: 10px;" alt="{{personal_cache_note}}" /> {{personal_cache_note}}
 		</p>
 	</div>
 
