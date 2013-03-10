@@ -40,16 +40,16 @@ map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), {mapzoom});
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/guru.png" class="icon32" alt="" />&nbsp;{{cacheguides}}</div>
 <div class="searchdiv">
 <span style="font-size: 13px;">
-Na mapie możesz poszukać czy w Twojej okolicy jest jakiś geocacher który oferuje swoją pomoc innym jako wolontariusz Przewodnik geocachingu, który był aktywny przez ostatnie 90 dni.
+{{guru_01}}
 <br/><br/>
-Przewodnik po geocaching'u może:
+{{guru_02}}
 <ul>
-    <li> Pomóc dowiedzieć się więcej o geocachingu,</li>
-    <li> Pomóc jak rejestrować / szukać skrzynek na serwisie OC PL,</li>
-    <li> Pomoże w terenie zobaczyć o co w tym wszystkim chodzi, jak szukać, jak dobrze ukryć itd.</li>
+    <li> {{guru_03}}</li>
+    <li> {{guru_04}}</li>
+    <li> {{guru_05}}</li>
 </ul></br>
-Możesz skontaktować sie z Przewodnikiem via Email i umówić się na spotkanie. <br/><br/>
-Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> aktywnych wolontariuszy Przewodników. <br/>
+{{guru_06}} <br/><br/>
+{{guru_07}} <b><font color="blue">{nguides}</font></b> {{guru_08}} <br/>
 <span>
 </div>
 <div class="searchdiv">
@@ -58,16 +58,16 @@ Obecnie w bazie jest: <b><font color="blue">{nguides}</font></b> aktywnych wolon
     <div id="map0" style="width:700px;height:500px"></div>
 	</div>	
 </center>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbspLiczba otrzymanych rekomendacji</b><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbsp{{guru_09}}</b><br/>
 </div>
 <div class="searchdiv">
-<span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">Aby zostać wolontariuszem Przewodnikiem po geocaching'u musisz spełnić warunek:
+<span class="content-title-noshade" style="width: 600px;margin: 10px;line-height: 1.6em;font-size: 12px;">{{guru_10}}
 <ul><font color="black">
-<li>20 otrzymanych rekomendacji dla skrzynek założonych</li>
+<li>{{guru_11}}</li>
 </font></ul>
-&nbsp;&nbsp;&nbsp;Będziesz mógł wtedy ustawić opcje w swoim <a class="links" href="http://www.opencaching.pl/myprofile.php?action=change">profilu</a>.
+&nbsp;&nbsp;&nbsp;{{guru_12}} <a class="links" href="http://www.opencaching.pl/myprofile.php?action=change">{{guru_13}}</a>.
 <br/><br/>
-&nbsp;&nbsp;&nbsp;Dziękujemy wszystkim którzy chcą pomagać bezinteresownie innym geocacherom.
+&nbsp;&nbsp;&nbsp;{{guru_14}}
 </span></div>
 <br/>
 
