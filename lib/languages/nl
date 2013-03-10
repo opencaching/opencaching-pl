@@ -335,12 +335,12 @@ virtual_cache_size Cache grootte voor "eventenement" moet zijn "geen behuizing"
 cache_submitted De cache is nu geregistreerd bij opencaching.pl.
 full_description Beschrijving
 mandatory_field Dit veld is verplicht
-full_desc_long_text Please write here why did you hide the cache exactly in this place and remember - cache should be able to find with coordinates and this description only, so enter all neccessary information here.
-description_hint Please enter short and concise description. Do not re-write information available at Internet but provide link to it.
+full_desc_long_text Beschrijf hier waarom deze cache geplaatst is en bedenk ook dat dat de cache met de coordinaten en beschrijving te vinden moet zijn. Geef dus alle mogelijke informatie weer.
+description_hint Geef een korte en bondige beschrijving. Plaats geen gekopieerde tekst van het internet, maar plaats eventueel een link naar de nodige webpagina.
 no_javascript Your browser does not currently support Javascript. You can enter just a plain text. To enable HTML editor, please enable Javascript support.
-html_usage Please use HTML tags only for editing a text.
-available_html Available HTML tags list
-additional_enc_info <b><font color="red">Additional</font> encrypted hint.</b> <i>Not a mandatory field</i>. Your can place some additional hints here. Information neccessary to find a cache has to be placed in "Full description" field.
+html_usage Gebruik HTML tags voor het bewerken van tekst.
+available_html Beschikbare HTML tags lijst
+additional_enc_info <b><font color="red">Extra </font> versleutelde hint.</b> <i>Geen verplicht veld</i>. Hier kun een een extra hint toevoegen. Informatie om de cache normaal te kunnen vinen dient in de "Omschrijving" beschreven te staan.
 add_photo_newcache Afbeeldingen,foto's, extra waypoints en MP3 bestanden kunnen na het registren van de cache toegevoegt worden.
 search_wildcard_info Use "%" as a wildcard.
 event_hidden_hint Hint: Bij EVENEMENTEN moet in het "datum van plaatsing" veld de datum staan wanneer het evenement begint.
@@ -351,8 +351,8 @@ hour Tijd
 dont_publish_yet Nog niet publiceren
 log_password Geef wachtwoord
 no_password_label Laat leeg voor geen wachtwoord
-please_read Please read <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">information about passwords in logs!</a>
-creating_cache Creating a new cache you accept <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">Terms of Use</a> with all consequences.
+please_read Lees meer <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">informatie over wachtwoorden in logs!</a>
+creating_cache Met het maken van een nieuwe cache accepteer je de <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">Gebruikers voorwaarden</a> met alle consequencies.
 with_all_consequences with all consequences.
 cache_name cache naam
 distance_label Afstand
@@ -663,7 +663,7 @@ route_cache Route of cache
 start_point start point
 trp_points trip points
 recently_seen recently seen 
-moved_text Verplaatst
+moved_text moved
 encrypt_log Log entry encrypted
 my_neighborhood Mijn omgeving
 my_neighborhood_v2 Mijn omgeving v2
@@ -708,10 +708,10 @@ comment_log Comment
 need_maintenance_log Need maintenance
 comment_octeam_log OC Team comment
 moved_log Moved
-new_coordinates Nieuwe coördinaten
+new_coordinates New coordinates
 moved_distance Distance passed
-delete_logentry Log verwijderen 
-confirm_remove_log Moet deze log werkelijk verwijderd worden?
+delete_logentry Delete log entry 
+confirm_remove_log Are you sure you want to delete your log
 add_comment_to_remove Would you like to send additional comment to
 removed_log_title Your entry to the log was removed by geocahe owner 
 removed_message_titel De eigenaar van de cache schreef je het volgende bericht
@@ -768,7 +768,7 @@ octeam_stat_m_problems Maandelijkse statistiek OCTeam - rapport
 octeam_stat_caches Statistics OCTeam - caches acctepted
 octeam_stat_m_caches Statistics OCTeam monthly - caches accepted
 number_problems Number of problems
-add_by toegevoegd door:
+add_by add by
 octeam_comment_subject [OC] Comment OC Team
 octeam_comment_copy Copy email with OC Team comment add by
 list_of_latest_logs_is_empty Er zijn nog geen nieuwste logs
@@ -776,7 +776,7 @@ list_of_caches_is_empty Er zijn geen nieuwe caches in de opgegeven omgeving
 online_users Online registreerde gebruikers
 online_users_info gebaseerd op actieve gebruikers van de laatste 10 minuten
 empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. Het maken van een cache kost moeite en het schrijven van waarderingen en kritiek zijn ook welkom! Zelfs een "Bedankt" zou voldoende kunnen zijn.
-empty_entry_confirm Moet het logveld werkelijk leeg blijven?
+empty_entry_confirm Do you really want to leave the empty log entry?
 where_i_am Waar ben ik?
 read_info_about_cache_types Lees hier meer informatie over <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Cache soorten</a>
 regiononly Regio (Polen)
@@ -1040,6 +1040,6 @@ map_02 Minimale score:
 map_03 elke score
 print_all Alles afdrukken
 remove_all Alles verwijderen
-no_logtype_choosen Geen logsoort gekozen!
+
 
 
