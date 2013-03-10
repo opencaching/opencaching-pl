@@ -45,7 +45,7 @@
 
  $cache_submitted = tr('cache_submitted');
 
- $sel_message = 'Wybierz';
+ $sel_message = tr('choose');
  if (!isset($language['en']['select_one'])) $language['en']['select_one'] = '';
  $cache_size[] = array('id' => '-1', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one']);
  $cache_types[] = array('id' => '-1', 'short' => 'n/a', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one']);

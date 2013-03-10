@@ -319,7 +319,7 @@ function nearbycachemapOC()
 				<input type="text" name="search_time" maxlength="10" value="{search_time}" class="input30" /> h
 				&nbsp;&nbsp;
 				{{length}}:
-				<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> mi &nbsp; {effort_message}
+				<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> km &nbsp; {effort_message}
 			</td>
 	</tr>
 	<tr>
