@@ -1,27 +1,9 @@
 <?php
-function getMapType($value)
-{
-	switch( $value ) 
-	{
-		case 0:
-			return "G_NORMAL_MAP";
-		case 1:
-			return "G_SATELLITE_MAP";
-		case 2:
-			return "G_HYBRID_MAP";
-		case 3:
-			return "G_PHYSICAL_MAP";
-		default:
-			return "G_NORMAL_MAP";
-	}
-}
-
-
 
 require_once('./lib/common.inc.php');
+
 $tplname = 'cachemap-mini';
-tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
-//tpl_set_var('BodyMod', ' onload="load()" onunload="GUnload()"');
+
 global $usr;
 global $get_userid;
 global $filter;
@@ -75,8 +57,8 @@ $get_userid = $_REQUEST['userid'];
 	tpl_set_var('coords', $coordsXY);
 	tpl_set_var('username', $record[username]);
 	
-	tpl_set_var("map_type", "G_NORMAL_MAP");
-	
+	tpl_set_var("map_type", "0");
+
 	tpl_set_var('cachemap_mapper', $cachemap_mapper);
 
 //	foreach($filter as $key)
@@ -88,7 +70,12 @@ $get_userid = $_REQUEST['userid'];
 	}*/
 
 	/*SET YOUR MAP CODE HERE*/
-	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.99&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
+	tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language='.$lang.'" type="text/javascript"></script>');
+	/*
+	 * Generate dynamic URL to cachemap3.js file, this will make sure it will be reloaded by the browser.
+	 * The time-stamp will be stripped by a rewrite rule in lib/.htaccess.
+	 * */
+	tpl_set_var('lib_cachemap3_js', "lib/cachemap3." . date("YmdHis", filemtime($rootpath . 'lib/cachemap3.js')) . ".js");
 	tpl_BuildTemplate(true, true); 
 
 ?>

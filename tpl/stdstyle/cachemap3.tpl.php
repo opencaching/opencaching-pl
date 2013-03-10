@@ -216,7 +216,9 @@ initial_params = {
 		boundsurl: "{boundsurl}",
 		extrauserid: "{extrauserid}",
 		moremaptypes: false,
-		fullscreen: false
+		fullscreen: false,
+		largemap: true,
+		savesettings: true
 	},
 	translation: {
 		score_label: "{{score_label}}",

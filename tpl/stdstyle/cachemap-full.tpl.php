@@ -1,7 +1,7 @@
 <div id="map_canvas" style="width: 100%; height: 100%; position: absolute; top: 0px; x-bottom: 0px;">
 </div>
 
-<div id="fullscreen_map_filters" style="position: absolute; top: 56px; right: 5px; border: 1px solid black; width: 150px; background-color: white;">
+<div id="fullscreen_map_filters" style="position: absolute; top: 60px; right: 5px; border: 1px solid black; width: 150px; background-color: white; display: none;">
 <div id="cache_type_filters_tab" style="background-image: url(images/horizontal_tab.png); cursor: default;{filters_hidden};">{{hide_caches_type}}:</div>
 <div id="cache_type_filters" style="{filters_hidden}">
 <input class="chbox" id="h_u" name="h_u" value="1" type="checkbox" {h_u_checked} onclick="reload()"/><label for="h_u">{{unknown_type}}</label><br/>
@@ -70,7 +70,9 @@ initial_params = {
 		boundsurl: "{boundsurl}",
 		extrauserid: "{extrauserid}",
 		moremaptypes: true,
-		fullscreen: true
+		fullscreen: true,
+		largemap: true,
+		savesettings: true
 	},
 	translation: {
 		score_label: "{{score_label}}",
@@ -91,7 +93,7 @@ window.onload = function() {
 	var fullScreenOffControl = createFullScreenOffControl();
 	var cacheFilter = createCacheFilterControl();
 	load([
-		{ position: google.maps.ControlPosition.LEFT_BOTTOM, control: searchControl },
+		{ position: google.maps.ControlPosition.BOTTOM_LEFT, control: searchControl },
 		{ position: google.maps.ControlPosition.TOP_LEFT, control: fullScreenOffControl },
 		{ position: google.maps.ControlPosition.RIGHT_TOP, control: cacheFilter }
 	], searchControl);
@@ -194,7 +196,6 @@ function createCacheFilterControl() {
 	});
 
 	toggleFilterTab(document.getElementById('cache_type_filters_tab'));
-	filters.style.display = 'none';
 
 	return container;
 }
