@@ -114,7 +114,7 @@ function chkMoved()
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
 <table class="content">
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="edit log Cache" align="middle" /> <b>Edycja logu dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="edit log Cache" align="middle" /> <b>{{edit_logentry}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 </table>
 <div class="searchdiv">
 <table class="content" style="font-size: 12px; line-height: 1.6em;">

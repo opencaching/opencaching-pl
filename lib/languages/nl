@@ -242,7 +242,7 @@ bad_radius Entered radius is invalid.
 your_data Your data
 data_in_profile De volgende informatie is opgeslagen in jouw gebruikersprofiel
 desc_updated Your description has been updated successfully.
-gray_field_is_hidden Grijze velden zijn niet zichtbaar voor ander gebruikers.
+gray_field_is_hidden Grijze velden zijn niet zichtbaar voor andere gebruikers.
 username_label Gebruikersnaam
 country_label Land
 coordinates Coördinaten
@@ -679,8 +679,8 @@ monthly_stat_founds_user Maandelijkse statistieken gevonden caches
 monthly_stat_created_user Maandelijkse statistiek geplaatste caches
 monthly_stat Monthly statistics of the cache
 annual_stat_founds Annual statistics founds 
-annual_stat_founds_user Jaarlijkse statistieken gemaakte caches
-annual_stat_created Jaarlijkse statistieken gemaakte caches
+annual_stat_founds_user Jaarlijkse statistieken gevonden caches
+annual_stat_created Jaarlijkse statistieken geplaatste caches
 annual_stat Annual statistics geocache
 number_founds Number of founds
 number_caches Aantal caches
@@ -691,7 +691,7 @@ stat_geocache Statistics geocache
 does_not_have_stat There's no statistic yet
 number_month Number of month
 stat_problems Statistics OC Team - solved problems
-edit_logentry Edit log entry
+edit_logentry Bewerk de log
 moved_cache_info If you moved the cache to a new location please enter the new coordinates that will be shown in the log
 encrypt_log_info You can write the encrypt log entry. This is helpful if your log contains such any informations about location of the geocache. Text within brackets <b>[like this]</b> will not be encrypted
 encrypt_log_entry Encrypt this log entry
@@ -710,8 +710,8 @@ comment_octeam_log OC Team comment
 moved_log Moved
 new_coordinates New coordinates
 moved_distance Distance passed
-delete_logentry Delete log entry 
-confirm_remove_log Are you sure you want to delete your log
+delete_logentry Verwijderen van log 
+confirm_remove_log Moet deze log werkelijk verwijderd worden
 add_comment_to_remove Would you like to send additional comment to
 removed_log_title Your entry to the log was removed by geocahe owner 
 removed_message_titel De eigenaar van de cache schreef je het volgende bericht
@@ -796,9 +796,9 @@ no_picture Afbeelding niet gevonden
 title_picture Titel
 file_name Bestandsnaam
 cache_picture_intro  Dit dient een eigen afbeelding te zijn die met de cache te maken heeft
-spoiler_info Do not display thumbnail (SPOILER) - Use this option if the picture shows the location of the cache.<br> The picture will only be shown when SPOILER is clicked.
+spoiler_info Toon geen voorbeeld (SPOILER) - Gebruik deze optie wanneer de afbeelding de locatie van de cache weergeeft.<br> De afbeelding wordt alleen getoont als op SPOILER geklikt wordt.
 dont_show Verberg deze afbeelding
-pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto's.<br />Maximum grootte 100 KB. Aanbevolenresolutie: 640 x 480 pixels.
+pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto's.<br />Maximum grootte 100 KB. Aanbevolen resolutie: 640 x 480 pixels.
 add_new_picture Voeg nieuwe afbeelding toe aan cache
 gallery Toon galerij
 gallery_of_cache Galerij van cache
@@ -837,9 +837,9 @@ more_12_month meer dan 12 maanden geleden
 unknown unknown
 user_not_active user account is not active
 distance_to_cache Afstand naar cache
-cacheguides Caching gidsen / experts 
-guide Gid/Expert
-guides Gidsen/Experts
+cacheguides Caching hulp met vrijwilligers
+guide Cache hulp
+guides Cache hulp
 okapi_apps jouw Apps
 os_times keer
 os_kesz Cache
@@ -1061,5 +1061,19 @@ nc17 op onze OpenGeowiki
 nc18 Vriendelijke groeten,
 nc19 Team opencaching.pl
 nc20 Heb bovenstaande gelezen en begrepen en wil een cache plaatsen.
+guru_01 Op de kaart staan vrijwilligers aangegeven die hun hulp aanbieden met het cachen op allerlei gebied, mits zij in de laatste 90 dagen actief zijn geweest.
+guru_02 Voorbeelden waarvoor hulp gevraagt kan worden:
+guru_03 Meer leren over het onderwerp cachen,
+guru_04 Hulp vragen over zoeken en plaatsen van caches op OC PL,
+guru_05 Hulp bij het zoeken of plaatsen in het veld met voorbeelden over goed verbergen enz enz.
+guru_06 Neem contact op met een vrijwilliger in je buurt en maak een afspraak.
+guru_07 Op dit moment zijn er:
+guru_08 actieve vrijwilligers
+guru_09 Aantal ontvangen aanbevelingen
+guru_10 Om een actieve vrijwilliger te worden, dient aan de volgende voorwaarde vodaan te worden:
+guru_11 Er moeten 20 aanbevelingen ontvangen zijn voor gemaakte caches.
+guru_12 Deze optie kan ingesteld worden in je
+guru_13 profiel
+guru_14 Met dank aan iedereen die anderen willen helpen met het verbeteren van het cachen.
 
 

@@ -544,7 +544,7 @@ $content .= '<p><span class="content-title-noshade txt-blue08">'.tr('number_gk_i
 	$rs_logs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                       cache_logs.type AS log_type,
 				           cache_logs.text AS log_text,
-	                       DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
+	                       DATE_FORMAT(cache_logs.date,'%d-%m-%Y') AS log_date,
 	                       caches.name AS cache_name,
 						   caches.wp_oc AS wp_name,
 						   cache_logs.encrypt AS encrypt,
