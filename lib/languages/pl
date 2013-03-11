@@ -74,8 +74,8 @@ only_founds tylko znalezione
 only_new tylko nowe
 not_found nieznaleziona
 add_to dodaj do
-add_to_list Dodaj do listy
-remove_from_list Usuń z listy
+add_to_list Dodaj do schowka
+remove_from_list Usuń ze schowka
 print Drukuj
 remove_from usuń z
 to_print_list listy wydruku
@@ -1077,6 +1077,3 @@ guru_11 20 otrzymanych rekomendacji dla skrzynek założonych
 guru_12 Będziesz mógł wtedy ustawić opcje w swoim
 guru_13 profilu
 guru_14 Dziękujemy wszystkim którzy chcą pomagać bezinteresownie innym geocacherom.
-
-
-

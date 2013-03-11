@@ -183,7 +183,6 @@
 			mysql_free_result($rs);
 			unset($ls);
 		}
-
 		if( isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y')
 		{
 			// add cache to print (do not duplicate items)
@@ -863,7 +862,7 @@
 			tpl_set_var('cache_watcher', '');
 			if ($cache_record['watcher'] > 0)
 			{
-				tpl_set_var('cache_watcher', mb_ereg_replace('{watcher}', htmlspecialchars($cache_record['watcher'], ENT_COMPAT, 'UTF-8'), isset($cache_watchers)? $cache_watchers : '' ));
+				tpl_set_var('cache_watcher', mb_ereg_replace('{watcher}', htmlspecialchars($cache_record['watcher'], ENT_COMPAT, 'UTF-8'), isset($cache_watchers)? $cache_watchers : 10 ));
 			}
 
 			tpl_set_var('owner_name', htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8'));
@@ -1484,15 +1483,13 @@
 				$addToPrintList = tr('add_to_list');
 				$removeFromPrintList = tr('remove_from_list');
 
-				if (isset($_SESSION['print_list'])) 
-				{
 					if( onTheList($_SESSION['print_list'], $cache_id)==-1 )
 					{
 						$print_list = "viewcache.php?cacheid=$cache_id&amp;print_list=y";
 						$print_list_label = $addToPrintList;
 						$print_list_icon = 'images/actions/list-add';
 					}
-				}
+
 				else
 				{
 					$print_list = "viewcache.php?cacheid=$cache_id&amp;print_list=n";
