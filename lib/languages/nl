@@ -542,13 +542,13 @@ username Gebruiker
 number_of_caches Aantal caches
 ranking Rang
 submit Verzenden
-edit_cache_description Edition of cache description
+edit_cache_description Bewerken van cache beschrijving
 short_description Korte omschrijving
 extra_attrs_info You can add another attributes using this form: <a href="cache-atr.php" target="_BLANK">Adittional cache attributes</a>.
 javascript_edit_info Javascript is turned off in your browser. You can lead ordinary text only. For leading HTML and use HTML Editor you have to turn on Javascript.
-html_edit_info For formatting text use HTML characters only. List of the allowed characters you can see <a href="articles.php?page=htmltags">here</a>.
-geocaching_com_foto_info Please don't use pictures from geocaching.com
-extra_coded_info Additional (coded) informations
+html_edit_info Voor het opmaken van tekst alleen gebruikmaken van HTML-tekens. Voor een lijst met toegestane HTML-tekens kijk <a href="articles.php?page=htmltags">hier</a>.
+geocaching_com_foto_info Liever geen afbeeldingen van geocaching.com
+extra_coded_info Extra (gecodeerde) informatie
 statistics_users  Statistieken gebruiker
 general_stat Algemene statistieken
 graph_created Grafieken van gemaakte caches
@@ -971,6 +971,7 @@ em09 Het e-mail adres is niet geldig
 em10 Opgegeven e-mail adres bestaat al
 em11 Ingevoerde code is niet geldig
 em12 Ingevoerde code is verlopen
+
 removed_message_title The owner of geocache wrote to you the following comment
 to_do To do
 mc_beginn_00 Registreren van nieuwe caches - Informatie
@@ -1075,5 +1076,6 @@ guru_11 Er moeten 20 aanbevelingen ontvangen zijn voor gemaakte caches.
 guru_12 Deze optie kan ingesteld worden in je
 guru_13 profiel
 guru_14 Met dank aan iedereen die anderen willen helpen met het verbeteren van het cachen.
-
-
+yesterday Gisteren
+today Vandaag
+days_ago Dagen geleden

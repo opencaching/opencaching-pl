@@ -262,7 +262,6 @@ change_account_data Change your profile data
 from_home_coords from your home coordinates
 radius_hint Maximum possible radius is 150km. To turn the notifications off, please enter <b>0</b>.
 no_auto_logout_warning Warning! If you use this option, be aware that without logout, someone else may access your account.
-
 hidden_coords Please log in to see the coordinates.
 watchers watchers
 visitors visitors
@@ -635,7 +634,6 @@ back_to_cache Back to cache
 cachenotes notes
 cache_note Note
 delete Delete
-
 cancel Cancel
 no_note I don't have any cache note
 additional_waypoints Additional waypoints
@@ -665,7 +663,6 @@ route_cache Route of cache
 start_point start point
 trp_points trip points
 recently_seen recently seen 
-
 moved_text moved
 encrypt_log Log entry encrypted
 my_neighborhood My neighborhood
@@ -938,46 +935,29 @@ Open_Sprawdzacz OpenChecker
 os_f00 Caches in OpenChecker, legend
 os_f01 Next
 os_f02 Previous
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+log00 If you have a log file from your Garmin device with your found caches' data, you can upload it to the website here.<br /> Select and upload the file to see the list of caches and be able to log them quickly on the website.<br /> Maximum file size allowed is 50KB.
+log01 Mass logging
+log02 Presentation of caches being sought by you
+log03 [Filtering] Date from:
+log04 Date to
+log05 Move the time of finding the caches for
+log06 Name
+log07 and status
+log08 Last
+log09 active
+log10 Comment
+log11 Action
+log12 Write here the content of the comment you want to set for all the caches visible on the screen, and press the button.
+log13 Update comment
+log14 Download as GPX
 date Date
 myprofile01 User who create new cache or made a log entry cannot be deleted. It's only possible to deactivate your account. All your personal information will be deleted from your profile but your user name will be saved. If you want to deactivate your account, please contact us with your e-mail address and we will deactivate your profile. In unclear cases please contact ocpl @ opencaching.pl. Thant you. 
+
 myprofile03 Guides
 myprofile04 Yes, I want to be a volunteer geocaching Guide for beginners
-em00 E-mail Change your e-mail address
-em01 To change the e-mail address firstly youneed to obtain a code which will be sent on your new e-mail address
-em02 New e-mail address
-em03 Please enter the validation code with a new e-mail address. The code is valid for 3 days and after that you need to generate a new
-em04 Code which you received via e-mail
-em05 Generate code
-em06 Change your e-mail address
-em07 Your e-mail address have been changed
-em08 Validation code has been sent to the new e-mail address
-em09 Validation code to change the e-mail address to OCPL
-em10 Invalid e-mail address
-em11 Given e-mail address already exists in the OCPL database 
-em12 The code entered is not valid
-em13 Given code have lost it's validaty 
-removed_message_title The owner of geocache wrote to you the following comment
-to_do To do
-latest_blog Recent blog entries
-geocache Geocache
-
-
-
+myprofile05 See more on the page
+myprofile06 Remember to set your coordinates below as you won't be visible on the Guides' map otherwise
+myprofile07 OC PL uses coordinates to calculate distance to caches on the map that available publicly. If you are worried about publishing the coordinates, use coordinates of the nearest park, bar... or just set a couple of last digits to zeroes.
 em00 E-mail Change your e-mail address
 em01 To change the e-mail address firstly you need to obtain a code which will be sent on your new e-mail address
 em02 New e-mail address
@@ -992,24 +972,33 @@ em10 Invalid e-mail address
 em11 Given e-mail address already exists in the OCPL database 
 em12 The code entered is not valid
 em13 Given code have lost it's validaty 
-
----------------These next lines are in the code---------------
-
 removed_message_title The owner of geocache wrote to you the following comment
-to do To do
-password_info_label information about passwords in logs
-number_logentry Number of log entry
-was_removed was removed
+to_do To do
+mc_beginn_00 Registering a new cache - information
 
----------------Are thes lines used in the code???---------------
-
-octeam_stat_m_problems Statistics OCTeam Monthly - closed problems
-octeam_stat_m_problems Statistics OCTeam Monthly - closed problems
-octeam_stat_problems Statistics OCTeam - closed problems
-number_found_of_caches Number of found it caches
-
-
-
+latest_blog Recent blog entries
+geocache Geocache
+ 
+nc01 Dear User
+nc02 Thank you for registering your cache at opencaching.pl. If you need help with hiding or registering the cache, please read the information at <a class="links" href="http://wiki.opencaching.pl">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> or contact the Centre of the Service of Geocachers - email address: cog@opencaching.pl. Remember that your cache tells also something about you. For sure you are concerned about its best quality and due to that fact we ask you to answer yourself the following questions: <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc03 Is the cache located in place that doesn't violate the law, isn't it hidden at the private area without the permission of its owner?
+nc04 Is the cache located in the area of the National Park, a reservation, monument, cemetery or some other area protected by law?
+nc05 Are there any other caches in the area, is the miminum 150 meter distance preserved?
+nc06 Are you able to provide service of your cache during the whole time of its presence on the webiste?
+nc07 Is the cache hidden the proper way (in a cold and moisture resistant container)?
+nc08 You can check your area if there is a 
+nc09 Geocaching Guide
+nc10 that can help you with creating your own caches
+nc11 Does the cache comply with
+nc12 the terms and rules of the OC PL website
+nc13 Please familiarize yourself with the Guidebook
+nc14 How to create a cache
+nc15 as well as
+nc16 the Geocacher's Code
+nc17 on our OpenGeoWiki
+nc18 Regards
+nc19 opencaching.pl Community
+nc20 I have considered all the matters listed above and I want to proceed with the registration of the cache
 
 
 yesterday yesterday
