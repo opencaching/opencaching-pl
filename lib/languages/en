@@ -949,7 +949,10 @@ log10 Comment
 log11 Action
 log12 Write here the content of the comment you want to set for all the caches visible on the screen, and press the button.
 log13 Update comment
-log14 Download as GPX
+log14 Download as GP
+log15 hour
+log16 Refresh
+log17 Open log-cache panel
 date Date
 myprofile01 User who create new cache or made a log entry cannot be deleted. It's only possible to deactivate your account. All your personal information will be deleted from your profile but your user name will be saved. If you want to deactivate your account, please contact us with your e-mail address and we will deactivate your profile. In unclear cases please contact ocpl @ opencaching.pl. Thant you. 
 

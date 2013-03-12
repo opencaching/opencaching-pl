@@ -66,12 +66,12 @@ text-decoration: none;
 </p>
 <br />
 
-<form method="POST">{{log03}} <input type="text" name="filter_from" value="{filter_from}" /> {{log04}}: <input type="text" name="filter_to" value="{filter_to}"/><input type="submit" value="Odśwież" /></form>
+<form method="POST">{{log03}} <input type="text" name="filter_from" value="{filter_from}" /> {{log04}}: <input type="text" name="filter_to" value="{filter_to}"/><input type="submit" value="{{log16}}" /></form>
 <div>
   <div style="position: relative; top: 4px; float: left; font-family: Arial, Tahoma, Verdana; font-size: 8pt;">{{log05}}: </div>
-  <div style="float: left;"><form method="POST" name="ShiftTimePlusOne"><input name="SubmitShiftTimePlusOne" type="submit" value="+1 godz."></form></div>
-  <div style="float: left;"><form method="POST" name="ShiftTimeMinusOne"><input name="SubmitShiftTimeMinusOne" type="submit" value="-1 godz."></form></div>
-  <div style="position:relative; left:60px; float: left;"><form method="LINK" action="log_cache_multi_panelframes.htm" name="otworzPanel"><input type="submit" value="Otwórz panel logowania."></form></div>
+  <div style="float: left;"><form method="POST" name="ShiftTimePlusOne"><input name="SubmitShiftTimePlusOne" type="submit" value="+1 {{log15}}."></form></div>
+  <div style="float: left;"><form method="POST" name="ShiftTimeMinusOne"><input name="SubmitShiftTimeMinusOne" type="submit" value="-1 {{log15}}."></form></div>
+  <div style="position:relative; left:60px; float: left;"><form method="LINK" action="log_cache_multi_panelframes.htm" name="otworzPanel"><input type="submit" value="{{log17}}"></form></div>
 </div>
 
 <table width="770" class="table" style="line-height: 1.6em; font-size: 10px; border: 1px solid black; empty-cells: show;">

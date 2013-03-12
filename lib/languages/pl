@@ -951,6 +951,9 @@ log11 Akcja
 log12 Wpisz tutaj treść komentarza którą chcesz ustawić dla wszystkich widocznych na ekranie skrzynek i naciśnij przycisk.
 log13 Uaktualnij komentarze
 log14 Pobierz jako GPX
+log15 godz.
+log16 Odśwież
+log17 Otwórz panel logowania skrzynki
 date Data
 myprofile01 Użytkownik, który założył lub zrobił wpis do logu nie może być usunięty. Jest możliwa tylko deaktywacja konta. Będą wtedy usunięte wszystkie dane e-mail z profilu ale nazwa użytkownika zostanie zachowana. Jeśli chcesz deaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail, a deaktywujemy Twoje konto. W przypadkach niejasnych prosimy o kontakt ocpl @ opencaching.pl Dziękujemy.
 myprofile02 Tak, jestem wolontariuszem Przewodnikiem geocachingu dla początkujących. Patrz:
@@ -1080,3 +1083,4 @@ guru_14 Dziękujemy wszystkim którzy chcą pomagać bezinteresownie innym geoca
 today dzisiaj
 yesterday wczoraj
 days_ago dni temu!
+
