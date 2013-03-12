@@ -76,14 +76,14 @@ if ($usr || !$hide_coords){ echo "
 			".tr('listing_from_this_page').":
                 </td>
                 <td>
-                    <span class=\"content-title-noshade txt-blue08\">GPX format</span>:<br/>
+                    <span class=\"content-title-noshade txt-blue08\">{{format_GPX}}</span>:<br/>
 			<a class=\"links\" href=\"ocplgpx";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx\">GPX</a> | 
-			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "\" title=\"Garmin ZIP file (GPX + zdjęcia)  .zip\">GARMIN (GPX + zdjęcia)</a>
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a>
                     </td>
         </tr>
         <tr>    
                 <td>&nbsp;</td>
-                <td><span class=\"content-title-noshade txt-blue08\">Inne formaty</span>:<br/>
+                <td><span class=\"content-title-noshade txt-blue08\">{{format_other}}</span>:<br/>
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=";?>{startat}<?php echo "\" title=\"Waypoint .loc\">LOC</a> | 
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".kml?startat=";?>{startat}<?php echo "\" title=\"Google Earth .kml\">KML</a> | 
 			<a class=\"links\" href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> | ";
@@ -103,14 +103,14 @@ if ($usr || !$hide_coords){ echo "
                 ".tr('listing_from_to').":
                  </td>
                  <td>
-                   <span class=\"content-title-noshade txt-blue08\">GPX format</span>:<br/>        
+                   <span class=\"content-title-noshade txt-blue08\">{{format_GPX}}</span>:<br/>        
 			<a class=\"links\" href=\"ocplgpx";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a> | 
-			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Garmin ZIP file (GPX + zdjęcia)  .zip\">GARMIN (GPX + zdjęcia)</a>
+			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a>
                     </td>
           </tr>
           <tr>          
                  <td>&nbsp;</td>        
-                        <td><span class=\"content-title-noshade txt-blue08\">Inne formaty</span>:<br/>
+                        <td><span class=\"content-title-noshade txt-blue08\">{{format_other}}</span>:<br/>
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a> | 
 			<a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".kml?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Google Earth .kml\">KML</a> | 
 			<a class=\"links\" href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "%26count%3Dmax%26zip%3D1&amp;ie=UTF8&amp;z=7' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> | 

@@ -27,7 +27,7 @@
 <tr>
 <td colspan="2"><a class="links" href="mycaches.php?col=1{my_cache_sort}">{{date_hidden_label}}</a></td>
 <td></td>
-<td><a class="links" href="mycaches.php?col=2{my_cache_sort}">Geocache</a></td>
+<td><a class="links" href="mycaches.php?col=2{my_cache_sort}">{{geocache}}</a></td>
 <td><a class="links" href="mycaches.php?col=3{my_cache_sort}"><img src="tpl/stdstyle/images/log/16x16-found.png"></a></td>
 <td><a class="links" href="mycaches.php?col=4{my_cache_sort}"><img src="images/rating-star.png"></a></td>
 <td><a class="links" href="mycaches.php?col=6{my_cache_sort}"><img src="images/gk.png"></a></td>

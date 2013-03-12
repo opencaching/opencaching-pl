@@ -425,7 +425,7 @@ else
 		<div class=\"searchdiv\">
                     <span class=\"content-title-noshade txt-blue08\">{{format_GPX}}</span>:<br/>
 			<a class=\"links\" href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=gpxgc\" title=\"GPS Exchange Format .gpx\">GPX</a>&nbsp|&nbsp
-			<a class=\"links\"  href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=zip\" title=\"Garmin ZIP file (GPX + zdjęcia)  .zip\">GARMIN ({{format_pict}})</a>
+			<a class=\"links\"  href=\"search.php?searchto=searchbycacheid&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;startat=0&amp;cacheid=";?>{cacheid_urlencode}<?php echo "&amp;output=zip\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a>
 		    </div>
             	    </td>
                 <td width=\"350\" align=\"left\" style=\"padding-left:5px;\">
