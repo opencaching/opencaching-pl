@@ -185,11 +185,11 @@ if ($error == false)
 			$tabelka .= '<td>&nbsp;';
 			if ($stat_cache==2) $dni=$log_record['dni_od_zmiany'];
 				else $dni=$log_record['ilosc_dni'];
-			if ($dni==NULL) $tabelka .= 'nieznaleziona';
-				elseif ($dni==0) $tabelka .= 'dzisiaj';
-				elseif ($dni==1) $tabelka .= 'wczoraj';
- 				elseif ($dni>180) $tabelka .= '<b>'.intval($dni).' dni temu!</b>';
-				elseif ($dni>1) $tabelka .= intval($dni).' dni temu';
+			if ($dni==NULL) $tabelka .= tr('not_found');
+				elseif ($dni==0) $tabelka .= tr('today');
+				elseif ($dni==1) $tabelka .= tr('yesterday');
+ 				elseif ($dni>180) $tabelka .= '<b>'.intval($dni).' '.tr('days_ago').'!</b>';
+				elseif ($dni>1) $tabelka .= intval($dni).' '.tr('days_ago');
 			$tabelka .= '&nbsp;</td>';
 
 			$rs_logs = sql("SELECT cache_logs.id,  cache_logs.type AS log_type, cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
@@ -229,7 +229,8 @@ if ($error == false)
 				{
 					if ($sprawdzaj<2) // sprawdzaj logi
 					{
-						if ($logs['log_type']==10) $sprawdzaj=2;			// skrzynka gotowa do szukania wiec nie trzeba juz nic sprawdzac
+						if ($logs['log_type']==10) $sprawdzaj=2;								// skrzynka gotowa do szukania wiec nie trzeba juz nic sprawdzac
+						if (($logs['log_type']==3) && ($logs['cache_owner']==$logs['luser_id'])) $sprawdzaj=2; 	//if comment by cache owner dont check
 						if ($sprawdzaj<1)
 						{
 							if ($logs['log_type']==2) $dnf++;			// jesli DNF zwieksz licznik

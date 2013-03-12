@@ -262,6 +262,7 @@ change_account_data Change your profile data
 from_home_coords from your home coordinates
 radius_hint Maximum possible radius is 150km. To turn the notifications off, please enter <b>0</b>.
 no_auto_logout_warning Warning! If you use this option, be aware that without logout, someone else may access your account.
+
 hidden_coords Please log in to see the coordinates.
 watchers watchers
 visitors visitors
@@ -1011,7 +1012,9 @@ number_found_of_caches Number of found it caches
 
 
 
-
+yesterday yesterday
+today today
+days_ago days ago
 
 
 
