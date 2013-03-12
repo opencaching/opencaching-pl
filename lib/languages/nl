@@ -935,18 +935,18 @@ Open_Sprawdzacz OpenChecker
 os_f00 Caches in OpenChecker, legenda
 os_f01 Volgende
 os_f02 Vorige
-log00 Jeśli masz plik logu z Garmina z zapisem swoich poszukiwań tutaj możesz go załadować na stronę.<br /> Wybierz i prześlij plik, by zobaczyć zestawienie skrzynek i móc szybko zalogować je w serwisie.<br /> Maksymalny rozmiar pliku to 50KB.
-log01 Masowe dodawanie logów
-log02 Prezentacja poszukiwanych przez Ciebie skrzynek
+log00 Met een Garmin logbestand kun je de verzamelde loggegevens in een paar handelingen naar de site versturen.<br /> Selecteer het bestand en klik op verzenden het om de lijst van caches te zien en te bewerken om daarna snel en makkelijk te kunnen loggen.<br /> Maximale groote van het bestand is 50K.
+log01 Veel caches loggen
+log02 Overzicht van de te bewerken caches
 log03 [Filter] Datum van:
 log04 Datum tot
 log05 Przesuń czas znalezienia skrzynek o
-log06 Cachenaam
+log06 Datum
 log07 en status
-log08 Ostatnia
-log09 aktywność
+log08 Laatst
+log09 actief
 log10 Logtekst
-log11 Akcja
+log11 Aktie
 log12 Wpisz tutaj treść komentarza którą chcesz ustawić dla wszystkich widocznych na ekranie skrzynek i naciśnij przycisk.
 log13 Uaktualnij komentarze
 log14 Pobierz jako GPX

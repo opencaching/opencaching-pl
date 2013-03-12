@@ -374,8 +374,8 @@ else
 		$dane = $daneFiltrowane;
 	}
 	
-	tpl_set_var('filter_from', date("Y-m-d H:i", $filter_from));
-	tpl_set_var('filter_to', date("Y-m-d H:i", $filter_to));
+	tpl_set_var('filter_from', date("d-m-Y H:i", $filter_from));
+	tpl_set_var('filter_to', date("d-m-Y H:i", $filter_to));
 	tpl_set_var('log_cache_multi_html', $myHtml);
 	
 } // EOF user logged i jest plik
@@ -394,7 +394,7 @@ function UstawDatyZTimeStampa($rekord)
 	$rekord['dzien'] = date("d", $rekord['timestamp']);
 	$rekord['godz'] = date("H", $rekord['timestamp']);
 	$rekord['min'] = date("i", $rekord['timestamp']);
-	$rekord['data'] = date("Y-m-d H:i", $rekord['timestamp']);
+	$rekord['data'] = date("d-m-Y H:i", $rekord['timestamp']);
 	return $rekord;
 }
 
