@@ -206,8 +206,8 @@ size Grootte
 time Benodigde tijd
 length Lengte
 status_label Status
-date_hidden_label Datum van plaatsing
-date_created_label Datum van creatie
+date_hidden_label Geplaatst op
+date_created_label Gemaakt op
 last_modified_label Laatste verandering
 waypoint Waypoint
 listed_also_on Ook gepubliceerd op
@@ -740,7 +740,7 @@ save_queries Zoek opdrachten
 old_options Opgeslagen zoek opdrachten
 select_queries Select stored query to overwrite
 no_watched_caches Geen gevolgde caches
-last_found Laatst gevonden
+last_found Laatst gevonden&nbsp&nbsp&nbsp
 delete_recommend Delete recommendations
 off_ignore Schakel negeren uit
 no_ignores Geen genegeerde caches
