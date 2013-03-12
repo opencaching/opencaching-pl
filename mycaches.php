@@ -175,8 +175,8 @@ if ($error == false)
 		while ($log_record=sql_fetch_assoc($rs))
 		{
 			$tabelka = '';
-			$tabelka .= '<td style="width: 90px;">'. htmlspecialchars(date("Y-m-d", strtotime($log_record['date_hidden'])), ENT_COMPAT, 'UTF-8') . '</td>';			
-			$tabelka .= '<td ><a href="editcache.php?cacheid='. htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="" title="Edit geocache"/></a></td>';	
+			$tabelka .= '<td style="width: 90px;">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['date_hidden'])), ENT_COMPAT, 'UTF-8') . '</td>';			
+			$tabelka .= '<td ><a href="editcache.php?cacheid='. htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="" title="edit geocache"/></a></td>';	
 			$tabelka .= '<td >&nbsp;<img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
 			$tabelka .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 			$tabelka .= '<td>&nbsp;'.intval($log_record['founds']).'&nbsp;</td>';
@@ -188,7 +188,7 @@ if ($error == false)
 			if ($dni==NULL) $tabelka .= tr('not_found');
 				elseif ($dni==0) $tabelka .= tr('today');
 				elseif ($dni==1) $tabelka .= tr('yesterday');
- 				elseif ($dni>180) $tabelka .= '<b>'.intval($dni).' '.tr('days_ago').'!</b>';
+ 				elseif ($dni>180) $tabelka .= '<b>'.intval($dni).' '.tr('days_ago').'</b>';
 				elseif ($dni>1) $tabelka .= intval($dni).' '.tr('days_ago');
 			$tabelka .= '&nbsp;</td>';
 
@@ -204,7 +204,7 @@ if ($error == false)
 			while ($logs=sql_fetch_assoc($rs_logs))
 			{
 				$tabelka .= '<a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
-				$tabelka .= '<b>'.$logs['user_name'].'</b>&nbsp;('.htmlspecialchars(date("Y-m-d", strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8').'):';
+				$tabelka .= '<b>'.$logs['user_name'].'</b>&nbsp;('.htmlspecialchars(date("d-m-Y", strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8').'):';
 
 				if ( $logs['encrypt']==1 && $logs['cache_owner']!=$usr['userid'] && $logs['luser_id']!=$usr['userid'])
 				{
