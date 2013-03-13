@@ -942,14 +942,14 @@ log03 [Filtering] Date from:
 log04 Date to
 log05 Move the time of finding the caches for
 log06 Name
-log07 and status
+log07 Date and status
 log08 Last
 log09 active
 log10 Comment
 log11 Action
 log12 Write here the content of the comment you want to set for all the caches visible on the screen, and press the button.
 log13 Update comment
-log14 Download as GP
+log14 Download as GPX
 log15 hour
 log16 Refresh
 log17 Open log-cache panel

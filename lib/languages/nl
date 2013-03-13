@@ -940,16 +940,19 @@ log01 Veel caches loggen
 log02 Overzicht van de te bewerken caches
 log03 [Filter] Datum van:
 log04 Datum tot
-log05 Przesuń czas znalezienia skrzynek o
-log06 Datum
-log07 en status
-log08 Laatst
-log09 actief
+log05 Verander tijd per uur wanneer Garmin andere tijd aangeeft.
+log06 Cachenaam
+log07 Datum en status
+log08 Laatste
+log09 actie
 log10 Logtekst
 log11 Aktie
-log12 Wpisz tutaj treść komentarza którą chcesz ustawić dla wszystkich widocznych na ekranie skrzynek i naciśnij przycisk.
-log13 Uaktualnij komentarze
-log14 Pobierz jako GPX
+log12 Schrijf hier de tekst die je bij elke log wilt plaatsen en klik op "Plaats tekst".
+log13 Plaats tekst
+log14 Download als GPX
+log15 uur
+log16 verversen
+log17 Open het log scherm
 date Datum
 myprofile01 Użytkownik, który założył lub zrobił wpis do logu nie może być usunięty. Jest możliwa tylko deaktywacja konta. Będą wtedy usunięte wszystkie dane e-mail z profilu ale nazwa użytkownika zostanie zachowana. Jeśli chcesz deaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail, a deaktywujemy Twoje konto. W przypadkach niejasnych prosimy o kontakt ocpl @ opencaching.pl Dziękujemy.
 myprofile02 Tak, jestem wolontariuszem Przewodnikiem geocachingu dla początkujących. Patrz:

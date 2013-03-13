@@ -81,7 +81,7 @@ text-decoration: none;
 <table border="0" style="line-height: 1.6em; font-size: 10px; table-layout: fixed; border: 1px dotted black;">
   <tr class="bgcolor2">
     <th width=560>{{log06}}</th>
-    <th width=70>{{log06}}<br />{{log07}}</th>
+    <th width=70>{{log07}}</th>
     <th width=70>{{log08}}<br/>{{log09}}</th>
   </tr><tr class="bgcolor2">
     <th colspan=2>{{log10}}</th>
