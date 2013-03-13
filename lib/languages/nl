@@ -634,6 +634,7 @@ back_to_cache Terug naar cache
 cache_notes Notes
 cache_note Note
 delete Verwijderen 
+edit bewerken
 cancel Annuleren
 no_note Er zijn nog geen cache notities
 additional_waypoints Extra waypoints
@@ -954,13 +955,13 @@ log15 uur
 log16 verversen
 log17 Open het log scherm
 date Datum
-myprofile01 Użytkownik, który założył lub zrobił wpis do logu nie może być usunięty. Jest możliwa tylko deaktywacja konta. Będą wtedy usunięte wszystkie dane e-mail z profilu ale nazwa użytkownika zostanie zachowana. Jeśli chcesz deaktywować swoje konto skontaktuj się z nami za pomocą swojego konta e-mail, a deaktywujemy Twoje konto. W przypadkach niejasnych prosimy o kontakt ocpl @ opencaching.pl Dziękujemy.
-myprofile02 Tak, jestem wolontariuszem Przewodnikiem geocachingu dla początkujących. Patrz:
-myprofile03 Przewodnicy
-myprofile04 Tak, chcę zostać wolontariuszem Przewodnikiem geocachingu dla początkujących
+myprofile01 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je opencaching.pl account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
+myprofile02 Ja, ik wil mij aanmelden als vrijwillige hulp voor beginnende cachers. Zie:&nbsp;
+myprofile03 Cache hulp
+myprofile04 Tak1, chcę zostać wolontariuszem Przewodnikiem geocachingu dla początkujących
 myprofile05 Patrz: więcej na stronie
-myprofile06 Pamietaj ustawić poniżej współrzędne bez tego nie będziesz widzany na mapie Przewodników
-myprofile07 OC PL wykorzystuje współrzędne aby obliczyć odległość do skrzynek, na mapach, które są dostępne publicznie. Jeśli obawiasz sie upubliczniania współrzędnych, podaj współrzędne najbliższego parku, baru.. lub po prostu wpisz kilka ostatnich cyfr jako zera
+myprofile06 Vergeet niet om de coördinaten in te vullen, anders kan men je niet zien op de kaart.
+myprofile07 OC PL gebruikt openlijk coördinaten om afstanden te bepalen en op een kaart te tonen. Als je dit niet wilt kun je de coördinaten van een park of openbare plek in de buurt te nemen, of plaats een aantal nullen aan het einde
 em00 E-mail adres veranderen
 em01 Om het e-mail adres te veranderen, moet je eerst een veiligheidscode opvragen die naar je nieuwe e-mail adres verstuurd wordt
 em02 Nieuwe e-mail adres
@@ -973,8 +974,7 @@ em08 Veiligheidscode voor een nieuw E-mail adres
 em09 Het e-mail adres is niet geldig
 em10 Opgegeven e-mail adres bestaat al
 em11 Ingevoerde code is niet geldig
-em12 Ingevoerde code is verlopen
-
+em12 Ingevoerde code is verlopen 
 removed_message_title The owner of geocache wrote to you the following comment
 to_do To do
 mc_beginn_00 Registreren van nieuwe caches - Informatie
@@ -1044,6 +1044,7 @@ map_02 Minimale score:
 map_03 elke score
 print_all Alles afdrukken
 remove_all Alles verwijderen
+no_logtype_choosen Geen logsoort gekozen
 choose Kiezen
 nc01 Beste gebruiker
 nc02 Bedankt voor het willen registreren van een nieuwe cache op opencaching.pl. Voor meer informatie bij het plaatsen of registreren van een cache kan gekeken worden op <a class="links" href="http://wiki.opencaching.pl">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> of neem bij grotere problemen contact op via e-mail: cog@opencaching.pl, zodat er toch een goede cache geplaatst kan worden. Om een goed kwaliteit cache te maken kun je de volgen vragen bekijken en te zien of je nieuwe cache aan de eisen voldoet:<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">

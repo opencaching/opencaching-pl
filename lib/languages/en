@@ -634,6 +634,7 @@ back_to_cache Back to cache
 cachenotes notes
 cache_note Note
 delete Delete
+edit edit
 cancel Cancel
 no_note I don't have any cache note
 additional_waypoints Additional waypoints
@@ -966,15 +967,14 @@ em01 To change the e-mail address firstly you need to obtain a code which will b
 em02 New e-mail address
 em03 Please enter the validation code with a new e-mail address. The code is valid for 3 days and after that you need to generate a new
 em04 Code which you received via e-mail
-em05 Generate code
-em06 Change your e-mail address
-em07 Your e-mail address have been changed
-em08 Validation code has been sent to the new e-mail address
-em09 Validation code to change the e-mail address to OCPL
-em10 Invalid e-mail address
-em11 Given e-mail address already exists in the OCPL database 
-em12 The code entered is not valid
-em13 Given code have lost it's validaty 
+em05 Change e-mail address
+em06 Your e-mail address have been changed
+em07 Validation code has been sent to the new e-mail address
+em08 Validation code to change the e-mail address to OCPL
+em09 Invalid e-mail address
+em10 Given e-mail address already exists in the OCPL database
+em11 The code entered is not valid
+em12 Given code have lost it's validaty
 removed_message_title The owner of geocache wrote to you the following comment
 to_do To do
 mc_beginn_00 Registering a new cache - information
@@ -982,6 +982,7 @@ mc_beginn_00 Registering a new cache - information
 latest_blog Recent blog entries
 geocache Geocache
  
+no_logtype_choosen No logtype choosen!
 nc01 Dear User
 nc02 Thank you for registering your cache at opencaching.pl. If you need help with hiding or registering the cache, please read the information at <a class="links" href="http://wiki.opencaching.pl">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> or contact the Centre of the Service of Geocachers - email address: cog@opencaching.pl. Remember that your cache tells also something about you. For sure you are concerned about its best quality and due to that fact we ask you to answer yourself the following questions: <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
 nc03 Is the cache located in place that doesn't violate the law, isn't it hidden at the private area without the permission of its owner?
