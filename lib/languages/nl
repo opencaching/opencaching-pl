@@ -511,6 +511,7 @@ pictures_label Afbeeldingen of foto's
 add_new_pict Voeg nieuwe afbeelding toe
 mp3_label MP3 voor een PodCache
 add_new_mp3 Voeg nieuwe MP3 bestand toe
+no_mp3_files Er zijn nog geen MP3 bestanden
 map Kaart
 manage_ocpl Managing the OC PL
 browse_problem_reports Show reports of problems
@@ -789,7 +790,7 @@ select_regions Selecteer regio
 not_applicable Not applicable
 input_coord Vul de coördinaten van de cache in
 waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zie de omschrijving en soorten van extra waypoints.</a>
-cache_pictures Geocache picture
+cache_pictures Cache afbeelding
 log_pictures Log afbeelding
 no_title No title
 to_big_data Too big size image

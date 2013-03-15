@@ -511,6 +511,7 @@ pictures_label Obrazki i zdjęcia
 add_new_pict Dodaj nowy obrazek
 mp3_label Podcast MP3 dla skrzynki PodCache - nagranie jak dotrzeć do skrzynki
 add_new_mp3 Dodaj nowy plik MP3
+no_mp3_files Nie ma załączonych plików MP3
 map Mapa
 manage_ocpl Zarządzanie OC PL
 browse_problem_reports Przeglądaj zgłoszenia problemów

@@ -511,6 +511,7 @@ pictures_label Pictures or photos
 add_new_pict Add new picture
 mp3_label MP3 podcast for a cache of the type PodCache 
 add_new_mp3 Add new MP3 file
+no_mp3_files There are no MP3 files yet
 map Map
 manage_ocpl Managing the OC PL
 browse_problem_reports Show reports of problems

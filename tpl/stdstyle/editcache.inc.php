@@ -18,8 +18,8 @@
  ****************************************************************************/
 
 	$submit = 'Zapisz';
-	$remove = 'Usuń';
-	$edit = 'Edytuj';
+	$remove = tr('delete');
+	$edit = tr('edit');
 $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
  $error_coords_not_ok = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">'.tr('bad_coordinates').'</span>';
  $time_not_ok_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">'.tr('time_incorrect').'</span>';
@@ -39,7 +39,7 @@ $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
 	$pictureline = '<tr><td colspan="2"><img src="tpl/stdstyle/images/free_icons/picture.png" class="icon32" alt=""  />&nbsp;<a href="{link}">{title}</a>&nbsp;&nbsp;<img src="images/actions/edit-16.png" align="middle" alt="" title="" /> [<a href="editpic.php?uuid={uuid}">'.$edit.'</a>] <img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="" />[<a href="removepic.php?uuid={uuid}">'.$remove.'</a>]</td></tr>';
 	$picturelines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';
 	
-	$nomp3 = '<tr><td colspan="2"><div class="notice">Nie ma załączonych plików MP3</div></td></tr>';
+	$nomp3 = '<tr><td colspan="2"><div class="notice">'.tr('no_mp3_files').'</div></td></tr>';
 	$mp3line = '<tr><td colspan="2"><img src="tpl/stdstyle/images/free_icons/sound.png" class="icon32" alt=""  />&nbsp;<a href="{link}">{title}</a>&nbsp;&nbsp;<img src="images/actions/edit-16.png"  align="middle"  alt="" title="" /> [<a href="editmp3.php?uuid={uuid}">'.$edit.'</a>] <img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="" />[<a href="removemp3.php?uuid={uuid}">'.$remove.'</a>]</td></tr>';
 	$mp3lines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';
 
