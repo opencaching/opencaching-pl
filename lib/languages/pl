@@ -655,6 +655,7 @@ write_wp Zapisz waypoint
 edit_wp Edycja waypointa
 delete_wp Usuń waypointa
 show_info_about_wp Zobacz opis i rodzaje dodatkowych waypointów
+show_info_for_value Jeśli ten waypoint nie jest kolejnym etapem wymaganym do odnalezienia skrzynki typu multicache lub quiz wstaw wartość 0.
 comment_octeam_visible Adnotacje COG są widzane tylko przez COG i własciciela skrzynki.
 ready_to_search Skrzynka gotowa do szukania. Powodzenia!
 archived_cache Skrzynka została zarchiwizowana.
