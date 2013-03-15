@@ -320,7 +320,7 @@ attributes_desc_hint Please read the <a href="http://wiki.opencaching.pl/index.p
 descriptions Description
 language Language
 other_languages_desc Description in other languages can be added after registering a cache.
-short_desc_label Short description
+short_desc_label Short description (max 120 digits)
 error_new_cache One or more errors occured. Please correct the selected fields!
 time_incorrect Incorrect time
 distance_incorrect Incorrect distance. Legal format: aa.aaa
@@ -1011,7 +1011,7 @@ nc20 I have considered all the matters listed above and I want to proceed with t
 yesterday yesterday
 today today
 days_ago days ago!
-
+make_new_description Make a new cache description for:
 
 
 

@@ -46,10 +46,10 @@
 		<col width="100">
 		<col>
 	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" title="New Cache" align="middle" /> <b>Nowy opis dla skrzynki <a href="viewcache.php?cacheid={cacheid}">{name}</a></b></td></tr>
+	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" title="New Cache" align="middle" /> <b>{{make_new_description}} <a href="viewcache.php?cacheid={cacheid}">{name}</a></b></td></tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td>Język:</td>
+		<td>{{language}}:</td>
 		<td>
 			<select name="desc_lang">
 				{langoptions}
@@ -60,12 +60,12 @@
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>
-		<td>Krótki opis (max 120 znaków):</td>
+		<td>{{short_desc_label}}:</td>
 		<td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400" /></td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td colspan="2">Opis pełny:</td>
+		<td colspan="2">{{full_description}}:</td>
 	</tr>
 	<tr>
 		<td colspan="2">
@@ -101,7 +101,7 @@
 	<tr><td class="spacer" colspan="2"></td></tr>
 
 	<tr>
-		<td colspan="2">Dodatkowe pomocne uwagi:</td>
+		<td colspan="2">{{extra_coded_info}}:</td>
 	</tr>
 	<tr>
 		<td colspan="2">

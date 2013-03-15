@@ -320,7 +320,7 @@ attributes_desc_hint Lees ook het <a href="http://wiki.opencaching.pl/index.php/
 descriptions Beschrijving
 language Taal
 other_languages_desc Beschrijvingen in andere talen kunnen na aanmelden van de cache toegevoegd worden.
-short_desc_label Korte omschrijving
+short_desc_label Korte omschrijving (max 120 tekens)
 error_new_cache Een of meer velden fout of niet ingevuld. Corrigeer de aangegeven velden!
 time_incorrect Incorrecte tijd
 distance_incorrect Incorrecte afstand. Invoer formaat: aa.aaa
@@ -551,7 +551,7 @@ extra_attrs_info You can add another attributes using this form: <a href="cache-
 javascript_edit_info Javascript is turned off in your browser. You can lead ordinary text only. For leading HTML and use HTML Editor you have to turn on Javascript.
 html_edit_info Voor het opmaken van tekst alleen gebruikmaken van HTML-tekens. Voor een lijst met toegestane HTML-tekens kijk <a href="articles.php?page=htmltags">hier</a>.
 geocaching_com_foto_info Liever geen afbeeldingen van geocaching.com
-extra_coded_info Extra (gecodeerde) informatie
+extra_coded_info Extra (gecodeerde) hint
 statistics_users  Statistieken gebruiker
 general_stat Algemene statistieken
 graph_created Grafieken van gemaakte caches
@@ -637,7 +637,7 @@ back_to_cache Terug naar cache
 cache_notes Notes
 cache_note Note
 delete Verwijderen 
-edit bewerken
+edit Bewerken
 cancel Annuleren
 no_note Er zijn nog geen cache notities
 additional_waypoints Extra waypoints
@@ -1041,7 +1041,7 @@ size_07 Geen behuizing
 chpw_01 Wijzig wachtwoord
 chpw_02 De veilgheidscode is naar het opgegeven e-mailadres verstuurd.
 chpw_03 Veiligheidscode om wachtwoord te wijzigen.
-chpw_04 Wachtwoord is gewijzigd. <a href="login.php"> Inloggen</a> met nieuwe wachtwoord.
+chpw_04 Wachtwoord is
 chpw_05 De ingevoerde code is ongeldig.
 map_01 Toon alleen FTF
 map_02 Minimale score:
@@ -1087,3 +1087,19 @@ guru_14 Met dank aan iedereen die anderen willen helpen met het verbeteren van h
 yesterday Gisteren
 today Vandaag
 days_ago Dagen geleden
+make_new_description Maak een nieuwe cache beschrijving voor:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
