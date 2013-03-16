@@ -320,7 +320,7 @@ attributes_desc_hint Lees ook het <a href="http://wiki.opencaching.pl/index.php/
 descriptions Beschrijving
 language Taal
 other_languages_desc Beschrijvingen in andere talen kunnen na aanmelden van de cache toegevoegd worden.
-short_desc_label Korte omschrijving (max 120 tekens)
+short_desc_label Korte omschrijving
 error_new_cache Een of meer velden fout of niet ingevuld. Corrigeer de aangegeven velden!
 time_incorrect Incorrecte tijd
 distance_incorrect Incorrecte afstand. Invoer formaat: aa.aaa
@@ -337,7 +337,7 @@ full_description Beschrijving
 mandatory_field Dit veld is verplicht
 full_desc_long_text Beschrijf hier waarom deze cache geplaatst is en bedenk ook dat dat de cache met de coordinaten en beschrijving te vinden moet zijn. Geef dus alle mogelijke informatie weer.
 description_hint Geef een korte en bondige beschrijving. Plaats geen gekopieerde tekst van het internet, maar plaats eventueel een link naar de nodige webpagina.
-no_javascript Your browser does not currently support Javascript. You can enter just a plain text. To enable HTML editor, please enable Javascript support.
+no_javascript Je Browser ondersteunt nog geen Javascript. Je kunt alleen gewone tekst gebruiken.Om de HTML editor te gebruiken die je Javascript in te schakelen.
 html_usage Gebruik HTML tags voor het bewerken van tekst.
 available_html Beschikbare HTML tags lijst
 additional_enc_info <b><font color="red">Extra </font> versleutelde hint.</b> <i>Geen verplicht veld</i>. Hier kun een een extra hint toevoegen. Informatie om de cache normaal te kunnen vinen dient in de "Omschrijving" beschreven te staan.

@@ -80,7 +80,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<span id="scriptwarning" class="errormsg">Javascript jest włączona przez twoją przeglądarke.Możesz tylko wprowadzić zwykły tekst. Aby wprawdzić kod HTML i użyć edytor musisz włączyć obsługe Javascript.</span>
+			<span id="scriptwarning" class="errormsg">{{no_javascript}}</span>
 		</td>
 	</tr>
 	<tr>
@@ -91,11 +91,9 @@
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td class="help" colspan="2">
-			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" /> Proszę używać znaczniki HTML tylko do formatowania tesktu.
-			Lista dozwolonych znaczników HTML jestt dostępna
-                        <a href="articles.php?page=htmltags">TUTAJ</a>.<br />
+			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" /> {{html_edit_info}}.<br />
 			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" />
-			Proszę nie używać obrazków z geocaching.com.
+			{{geocaching_com_foto_info}}
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>

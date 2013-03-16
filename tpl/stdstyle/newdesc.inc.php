@@ -25,7 +25,7 @@
 	
  ****************************************************************************/
  
-	$submit = 'Wyslij';
+	$submit = tr('submit');
 	$default_lang = 'PL';
  
 	$lang_message = '<br/><span class="errormsg">Już w tym języku jest opis skrzynki</span>';
