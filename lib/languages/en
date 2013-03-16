@@ -1013,14 +1013,17 @@ today today
 days_ago days ago!
 make_new_description Make a new cache description for:
 
-log01 Wrong date. Please enter correct date: DD-MM-YYYY
-log02 Rate cache or select you do not want rate this cache. 
-log03 Pease select!
-log04 Only here listed
-log05 Send log entery
-log06 Select
-log07 Enter new mobile cache coordinates please!
-
+lxg01 Wrong date. Please enter correct date: DD-MM-YYYY
+lxg02 Rate cache or select you do not want rate this cache. 
+lxg03 Pease select!
+lxg04 Only here listed
+lxg05 Send log entery
+lxg06 Select
+lxg07 Enter new mobile cache coordinates please!
+lxg08 Write a note
+lxg09 Mooved
+lxg10 Needs maintenace
+lxg11 OC Team Comment
 
 
 

@@ -396,7 +396,7 @@ $debug = true;
 				if ($log_type == 4) 
 				{
 				 //warring: if coords are wrong, return true (this is not my idea...)
-				 $coords_not_ok = validate_coords($wsp_NS_st, $wsp_NS_min, $wsp_WE_st, $wsp_WE_min, $wybor_WE, $wybor_NS, tr('log07'));
+				 $coords_not_ok = validate_coords($wsp_NS_st, $wsp_NS_min, $wsp_WE_st, $wsp_WE_min, $wybor_WE, $wybor_NS, tr('lxg07'));
 				 var_dump($coords_not_ok);
 				
 				 
@@ -927,12 +927,12 @@ $debug = true;
 
 						if( $res2['type'] != 6 && ($usr['userid'] == $cache_user_id || $res['founds'] > 0 || $res2['status'] == 4 || $res2['status'] == 6))
 						{
-							if ($usr['admin']==true && $res2['status'] == 4) $logtypeoptions .= '<option selected="selected" value="3">Komentarz</option>' . "\n";
-							else $logtypeoptions .= '<option value="3">Komentarz</option>' . "\n";
+							if ($usr['admin']==true && $res2['status'] == 4) $logtypeoptions .= '<option selected="selected" value="3">'.tr('lxg08').'</option>' . "\n";
+							else $logtypeoptions .= '<option value="3">'.tr('lxg08').'</option>' . "\n";
 							if  ($res2['type'] == 8){
-							$logtypeoptions .= '<option value="4">Przeniesiona</option>' . "\n";}
-							if ($usr['userid']!=$cache_user_id){$logtypeoptions .= '<option value="5">Potrzebny serwis</option>' . "\n";}
-							if ($usr['admin']==true){$logtypeoptions .= '<option value="12">Komentarz COG</option>' . "\n";}
+							$logtypeoptions .= '<option value="4">'.tr('lxg09').'</option>' . "\n";}
+							if ($usr['userid']!=$cache_user_id){$logtypeoptions .= '<option value="5">'.tr('lxg10').'</option>' . "\n";}
+							if ($usr['admin']==true){$logtypeoptions .= '<option value="12">'.tr('lxg11').'</option>' . "\n";}
 							
 							// service log by Łza
 					        // if curently logged user is a cache owner and cache status is "avilable"
@@ -1116,11 +1116,15 @@ $debug = true;
 						tpl_set_var('date_message', $date_message);
 					}
 					
-					if ($coords_not_ok == true) {
-						tpl_set_var('coords_not_ok', $error_coords_not_ok);
-					} else {
-						tpl_set_var('coords_not_ok', ' ');
+					tpl_set_var('coords_not_ok', ' ');
+					if (isset($coords_not_ok )){
+						if ($coords_not_ok == true) {
+							tpl_set_var('coords_not_ok', $error_coords_not_ok);
+						}
 					}
+					
+						
+					
 					
 					if ($score_not_ok == true)
 					{
