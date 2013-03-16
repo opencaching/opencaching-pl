@@ -397,9 +397,6 @@ $debug = true;
 				{
 				 //warring: if coords are wrong, return true (this is not my idea...)
 				 $coords_not_ok = validate_coords($wsp_NS_st, $wsp_NS_min, $wsp_WE_st, $wsp_WE_min, $wybor_WE, $wybor_NS, tr('lxg07'));
-				 var_dump($coords_not_ok);
-				
-				 
 				}
 
 				
