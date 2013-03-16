@@ -1,4 +1,5 @@
 <?php
+$debug = true;
 // error_reporting(0);
 
 /***************************************************************************
@@ -391,10 +392,13 @@
 
 				if ($log_type < 0) $logtype_not_ok = true;
 				
-				$error_coords_not_ok = tr('error_coords_not_ok');
+				
 				if ($log_type == 4) 
 				{
-				 $coords_not_ok = validate_coords($wsp_NS_st, $wsp_NS_min, $wsp_WE_st, $wsp_WE_min, $wybor_WE, $wybor_NS, $error_coords_not_ok);
+				 //warring: if coords are wrong, return true (this is not my idea...)
+				 $coords_not_ok = validate_coords($wsp_NS_st, $wsp_NS_min, $wsp_WE_st, $wsp_WE_min, $wybor_WE, $wybor_NS, tr('log07'));
+				 var_dump($coords_not_ok);
+				
 				 
 				}
 
@@ -497,6 +501,10 @@
 						{
 					     
 							/*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
+							if ($debug) {
+								require_once 'lib/db.php';
+								dataBase::debugOC('#'.__line__.' ', $_POST);
+							}
 							$MaxNr = $_POST['MaxNr'];
 							if ($MaxNr > 0)
 							{
@@ -525,6 +533,11 @@
 												'app'     => 'Opencaching',
 												'app_ver' => 'PL'
 										);
+										if ($debug) {
+											require_once 'lib/db.php';
+											dataBase::debugOC('#'.__line__.' ', $GeokretyLogArray);
+											
+										}
 										$GeoKretyLogResult[$b] = $LogGeokrety->LogGeokrety($GeokretyLogArray);
 										$b++;
 									}
@@ -533,7 +546,11 @@
 							}
 								unset ($b);
 									
-								// print '----------<pre>'; print_r($GeoKretyLogResult); print '</pre>-------------';
+								if ($debug) {
+									require_once 'lib/db.php';
+									dataBase::debugOC('#'.__line__.' ', $GeoKretyLogResult);
+								}
+							
 								/*end calling method logging selected Geokrets with GeoKretyApi*/
 									
 							
@@ -1099,6 +1116,12 @@
 						tpl_set_var('date_message', $date_message);
 					}
 					
+					if ($coords_not_ok == true) {
+						tpl_set_var('coords_not_ok', $error_coords_not_ok);
+					} else {
+						tpl_set_var('coords_not_ok', ' ');
+					}
+					
 					if ($score_not_ok == true)
 					{
 						tpl_set_var('score_message', $score_message);
@@ -1141,6 +1164,26 @@
 
 function validate_coords($lat_h, $lat_min, $lon_h, $lon_min, $lonEW, $latNS, $error_coords_not_ok)
 {
+	
+	
+	if ($lat_h == '') {
+		tpl_set_var('lat_message', $error_coords_not_ok);
+		$error = true;
+	}
+	if ($lat_min == '') {
+		tpl_set_var('lat_message', $error_coords_not_ok);
+		$error = true;
+	}
+	if ($lon_h == '') {
+		tpl_set_var('lon_message', $error_coords_not_ok);
+		$error = true;
+	}
+	if ($lon_min== '') {
+		tpl_set_var('lon_message', $error_coords_not_ok);
+		$error = true;
+	}
+	if (@$error) return $error;
+	
 	//check coordinates
 	$error = false;
 	if ($lat_h!='' || $lat_min!='')
@@ -1201,6 +1244,7 @@ function validate_coords($lat_h, $lat_min, $lon_h, $lon_min, $lonEW, $latNS, $er
 		$latitude = NULL;
 		$lat_h_not_ok = true;
 		$lat_min_not_ok = true;
+		$error = true;
 	}
 
 	if ($lon_h!='' || $lon_min!='')
@@ -1260,6 +1304,7 @@ function validate_coords($lat_h, $lat_min, $lon_h, $lon_min, $lonEW, $latNS, $er
 		$longitude = NULL;
 		$lon_h_not_ok = true;
 		$lon_min_not_ok = true;
+		$error = true;
 	}
 
 	$lon_not_ok = $lon_min_not_ok || $lon_h_not_ok;

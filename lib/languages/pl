@@ -1088,10 +1088,10 @@ today dzisiaj
 yesterday wczoraj
 days_ago dni temu!
 make_new_description Nowy opis dla skrzynki
-
-
-
-
-
-
-
+log01 Data ma niepoprawny format. Poprawny format: DD-MM-RRRR
+log02 Proszę ocenić skrzynkę lub zaznaczyć, że nie chcesz jej ocenić
+log03 Proszę wybrać!
+log04 Tylko tutaj! //Only here listed
+log05 Wyślij wpis do logu
+log06 Wybierz
+log07 Proszę wpisać nowe współrzędne skrzynki mobilnej!
