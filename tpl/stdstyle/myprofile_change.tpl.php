@@ -70,7 +70,7 @@
 		<td class="content-title-noshade" valign="top"><img src="tpl/stdstyle/images/free_icons/book_open.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{guide}}:</td>
 		<td  valign="middle">
 			<input type="checkbox" name="guide" id="guide" value="1" {guide_sel} class="checkbox" />
-			<label for="guide">{{myprofile04}}.<br/> {{myprofile04}} <a class="links" href="cacheguides.php">{{myprofile03}}</a></label>
+			<label for="guide">{{myprofile04}}.<br/> {{myprofile05}} <a class="links" href="cacheguides.php">{{myprofile03}}</a></label>
 		</td>
 	</tr>
 	<tr><td>&nbsp;</td><td>
