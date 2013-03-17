@@ -1063,7 +1063,7 @@
 			// show pictures
 			//
 
-			if ($cache_record['picturescount'] == 0 || ($_REQUEST['print'] && $_REQUEST['pictures'] == 'no'))
+			if ($cache_record['picturescount'] == 0 || (isset($_REQUEST['print']) && $_REQUEST['pictures'] == 'no'))
 			{
 				tpl_set_var('pictures', '<br />');
 				tpl_set_var('hidepictures_start', '<!--');

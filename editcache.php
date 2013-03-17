@@ -62,15 +62,17 @@
 					//here we read all used information from the form if submitted, otherwise from DB
 					
 					// wihout virtuals and webcams
-					if( ( ($_POST['type'] == $CACHETYPE['VIRTUAL'] && $cache_record['type'] != $CACHETYPE['VIRTUAL'] ) || 
+					if (isset($_POST['type'])) {
+						if( ( ($_POST['type'] == $CACHETYPE['VIRTUAL'] && $cache_record['type'] != $CACHETYPE['VIRTUAL'] ) ||
 						  ($_POST['type'] == $CACHETYPE['WEBCAM'] && $cache_record['type'] != $CACHETYPE['WEBCAM'] ) ||
-					// without owncaches 
-						  ($_POST['type'] == $CACHETYPE['OWNCACHE'] && $cache_record['type'] != $CACHETYPE['OWNCACHE'] ) )						  
-						  
-						  && 
+								// without owncaches
+						  ($_POST['type'] == $CACHETYPE['OWNCACHE'] && $cache_record['type'] != $CACHETYPE['OWNCACHE'] ) )
+
+						  &&
 						  !$usr['admin'] )
-					{
-						$_POST['type'] = $cache_record['type'];
+						{
+							$_POST['type'] = $cache_record['type'];
+						}
 					}
 					
 					$cache_name = isset($_POST['name']) ? $_POST['name'] : $cache_record['name'];
@@ -373,15 +375,18 @@
 						$size_not_ok = true;
 					}
 					
+
 					// check if the user haven't changed type to 'without container'
-					if( (($_POST['type'] == $CACHETYPE['OTHER'] && $cache_record['type'] != $CACHETYPE['OTHER'] ) 
-						|| ($_POST['type'] == $CACHETYPE['TRADITIONAL'] )
-						|| ($_POST['type'] == $CACHETYPE['MULTI'] )
-						|| ($_POST['type'] == $CACHETYPE['QUIZ'] )
-						|| ($_POST['type'] == $CACHETYPE['MOVING'] ) ) && $sel_size == $CACHESIZE['NO_CONTAINER'] )
-					{
-						$error = true;
-						$size_not_ok = true;
+					if (isset($_POST['type'])) {
+						if( (($_POST['type'] == $CACHETYPE['OTHER'] && $cache_record['type'] != $CACHETYPE['OTHER'] )
+								|| ($_POST['type'] == $CACHETYPE['TRADITIONAL'] )
+								|| ($_POST['type'] == $CACHETYPE['MULTI'] )
+								|| ($_POST['type'] == $CACHETYPE['QUIZ'] )
+								|| ($_POST['type'] == $CACHETYPE['MOVING'] ) ) && $sel_size == $CACHESIZE['NO_CONTAINER'] )
+						{
+							$error = true;
+							$size_not_ok = true;
+						}
 					}
 					
 					// if there is already a cache without container, let it stay this way
@@ -448,26 +453,20 @@
 
 							//save to DB
 							sql("UPDATE `caches` SET `last_modified`=NOW(), `name`='&1', `longitude`='&2', `latitude`='&3', `type`='&4', `date_hidden`='&5', `country`='&6', `size`='&7', `difficulty`='&8', `terrain`='&9', `status`='&10', `search_time`='&11', `way_length`='&12', `logpw`='&13', `wp_gc`='&14', `wp_nc`='&15', `wp_ge`='&16', `wp_tc`='&17',`date_activate` = $activation_date WHERE `cache_id`='&18'", $cache_name, $cache_lon, $cache_lat, $cache_type, date('Y-m-d', mktime(0, 0, 0, $cache_hidden_month, $cache_hidden_day, $cache_hidden_year)), $cache_country, $sel_size, $cache_difficulty, $cache_terrain, $status, $search_time, $way_length, $log_pw, $wp_gc, $wp_nc,$wp_ge,$wp_tc,$cache_id);
+							$code1=$cache_country;
+                            $adm1 = sqlvalue("SELECT `countries`.`pl`
+				                         	  FROM `countries` 
+				                        	  WHERE `countries`.`short`='$code1'",0);
+						
+                            if ($cache_country!="PL") $cache_region="0";
+                            if ($cache_region!="0") {
+                            	$code3=$cache_region;
+                            	$adm3=sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='" . sql_escape($cache_region) . "'", 0);
+                            } else { 
+                            	$code3=null; $adm3=null;
+                            }
 
-						
-							
-                                                $code1=$cache_country;
-                                                $adm1 = sqlvalue("SELECT `countries`.`pl`
-				                         FROM `countries` 
-				                        WHERE `countries`.`short`='$code1'",0);
-						
-						if ($cache_country!="PL") $cache_region="0";
-						
-                                                if ($cache_region!="0") 
-                                               { 
-                                                $code3=$cache_region;
-                                                $adm3=sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='" . sql_escape($cache_region) . "'", 0);
-                                                
-						} else { $code3=null; $adm3=null;}
-
-							 sql("INSERT INTO cache_location (cache_id,adm1,adm3,code1,code3) VALUES ('&1','&2','&3','&4','&5') ON DUPLICATE KEY UPDATE adm1='&2',adm3='&3',code1='&4',code3='&5'",$cache_id,$adm1,$adm3,$code1,$code3);
-							
-							
+                            sql("INSERT INTO cache_location (cache_id,adm1,adm3,code1,code3) VALUES ('&1','&2','&3','&4','&5') ON DUPLICATE KEY UPDATE adm1='&2',adm3='&3',code1='&4',code3='&5'",$cache_id,$adm1,$adm3,$code1,$code3);
 
 							// delete old cache-attributes
 							sql("DELETE FROM `caches_attributes` WHERE `cache_id`='&1'", $cache_id);
