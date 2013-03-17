@@ -1,22 +1,4 @@
 <?php
-function getMapType($value)
-{
-	switch( $value ) 
-	{
-		case 0:
-			return "G_NORMAL_MAP";
-		case 1:
-			return "G_SATELLITE_MAP";
-		case 2:
-			return "G_HYBRID_MAP";
-		case 3:
-			return "G_PHYSICAL_MAP";
-		default:
-			return "G_NORMAL_MAP";
-	}
-}
-
-
 
 require_once('./lib/common.inc.php');
 	//Preprocessing
@@ -32,7 +14,7 @@ require_once('./lib/common.inc.php');
 		{
 
 $tplname = 'logmap';
-tpl_set_var('bodyMod', ' onload="initialize()" onunload="GUnload()"');;
+
 global $usr;
 global $get_userid;
 
@@ -143,39 +125,25 @@ $rscp = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 							GROUP BY cache_logs.id
 							ORDER BY cache_logs.date_created DESC");
 
+	$point="";
+	for ($i = 0; $i < mysql_num_rows($rscp); $i++)
+	{
+		$record = sql_fetch_array($rscp);
+		$username=$record['username'];
+		$y=$record['longitude'];
+		$x=$record['latitude'];
+		$log_date=htmlspecialchars(date("Y-m-d", strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8');
+		$cache_name=cleanup_text($record['cache_name']);
 
+		$point .= "addMarker(".$x.",".$y.",icon".$record['log_type'].",'".$record['cache_icon_small']."','".$record['wp']."','".$cache_name."','".$record['id']."','".$record['icon_small']."','".$record['luser_id']."','".$username."','".$log_date."');\n";
+	}
 
+	tpl_set_var('points', $point);	
 
-			$point="";
-			for ($i = 0; $i < mysql_num_rows($rscp); $i++)
-			{
-				$record = sql_fetch_array($rscp);
-				$username=$record['username'];
-				$y=$record['longitude'];
-				$x=$record['latitude'];
-				$log_date=htmlspecialchars(date("Y-m-d", strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8');
-				$cache_name=cleanup_text($record['cache_name']);
-
-			$point .=" var point = new GLatLng(" . $x . "," . $y . ");\n";
-			$number=$i+1;
-
-			$point .="var marker".$number." = new GMarker(point,icon".$record['log_type']."); map0.addOverlay(marker".$number.");\n\n";
-
-			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('<table><tr><td><img src=\"tpl/stdstyle/images/".$record['cache_icon_small']."\" border=\"0\" alt=\"\" title=\"geocache\"/><b>&nbsp;<a class=\"links\" href=\"viewcache.php?wp=".$record['wp']."\">".$record['wp'].": ".$cache_name."</a></td></tr><tr><td><a class=\"links\" href=\"viewlogs.php?logid=".$record['id']."\"><img src=\"tpl/stdstyle/images/" . $record['icon_small'] ."\" border=\"0\" alt=\"\" /></a> <b>przez</b> <a class=\"links\" href=\"viewprofile.php?userid=".$record['luser_id']."\">".$username."</a> <b>dnia: ". $log_date . "</b></td></tr></table>');});\n";
-			}
-
-
-
-		tpl_set_var('points', $point);	
-
-	
-	tpl_set_var("map_type", "G_NORMAL_MAP");
-	;
-
-		mysql_free_result($rscp);
+	mysql_free_result($rscp);
 
 	/*SET YOUR MAP CODE HERE*/
-	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
+	tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language='.$lang.'" type="text/javascript"></script>');
 
 }
 }
