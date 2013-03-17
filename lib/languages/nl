@@ -324,7 +324,7 @@ short_desc_label Korte omschrijving
 error_new_cache Een of meer velden fout of niet ingevuld. Corrigeer de aangegeven velden!
 time_incorrect Incorrecte tijd
 distance_incorrect Incorrecte afstand. Invoer formaat: aa.aaa
-date_incorrect Datum niet coorect. Invoer formaat: DD-MM-JJJJ
+date_incorrect Datum niet correct. Invoer formaat: DD-MM-JJJJ
 no_cache_name De cache heeft geen naam
 new_cache_no_terms De cache is NIET geregistreerd, omdat de Gebruikers overeenkomst van opencaching.pl niet aangevinkt is
 html_incorrect Deze HTML code is niet toegestaan.
@@ -960,7 +960,7 @@ log16 verversen
 log17 Open het log scherm
 date Datum
 myprofile01 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je opencaching.pl account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
-myprofile02 Ja, ik heb mij aanmelden als vrijwillige hulp voor beginnende cachers. Zie:&nbsp;
+myprofile02 Ja, ik heb mij aangemeld als vrijwillige hulp voor beginnende cachers. Zie:&nbsp;
 myprofile03 Cache hulp
 myprofile04 Ja, ik wil mij aanmelden als vrijwillige hulp voor beginnende cachers.
 myprofile05 Zie meer op pagina
@@ -1103,6 +1103,10 @@ remove_desc_01 Moet beschrijving
 remove_desc_02 van cache
 remove_desc_03 werkelijk verwijderd worden?
 remove_desc_04 Ja, verwijder deze beschrijving
+error_viewcache_01 Cache kan niet weergegeven worden.<br />Mogelijke oorzaken:
+error_viewcache_02 Cache niet in database gevonden
+error_viewcache_03 Cache is (nog) niet gepubliceerd
+error_viewcache_04 Cache is geblokeerd door OC Team
 
 
 

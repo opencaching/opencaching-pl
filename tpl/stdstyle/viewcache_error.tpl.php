@@ -25,10 +25,9 @@
 	
  ****************************************************************************/
 ?>
-<h1>Opis skrzynki nie może zostać wyświetlony.<br />
-Możliwe przyczyny:</h1>
+<h1>{{error_viewcache_01}}</h1>
 <ul>
-<li>Skrzynka nie została znaleziona w bazie</li>
-<li>Skrzynka jeszcze nie została opublikowana</li>
-<li>Skrzynka została zawieszona przez OC Team</li>
+<li>{{error_viewcache_02}}</li>
+<li>{{error_viewcache_03}}</li>
+<li>{{error_viewcache_04}}</li>
 </ul>

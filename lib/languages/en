@@ -959,7 +959,7 @@ log16 Refresh
 log17 Open log-cache panel
 date Date
 myprofile01 User who create new cache or made a log entry cannot be deleted. It's only possible to deactivate your account. All your personal information will be deleted from your profile but your user name will be saved. If you want to deactivate your account, please contact us with your e-mail address and we will deactivate your profile. In unclear cases please contact ocpl @ opencaching.pl. Thant you. 
-
+myprofile02 Yes, I am a volunteer geocaching Guide for beginners. See&nbsp
 myprofile03 Guides
 myprofile04 Yes, I want to be a volunteer geocaching Guide for beginners
 myprofile05 See more on the page
@@ -1021,14 +1021,17 @@ lxg05 Send log entery
 lxg06 Select
 lxg07 Enter new mobile cache coordinates please!
 lxg08 Write a note
-lxg09 Mooved
+lxg09 Moved
 lxg10 Needs maintenace
 lxg11 OC Team Comment
 remove_desc_01 Should description
 remove_desc_02 from cache
 remove_desc_03 be removed?
 remove_desc_04 Yes, remove this description
-
+error_viewcache_01 Cache can not be displayed.<br />Possible causes:
+error_viewcache_02 Cache not found in database
+error_viewcache_03 Cache is not published
+error_viewcache_04 Cache is suspended by OC Team
 
 
 
