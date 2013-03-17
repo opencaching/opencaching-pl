@@ -166,7 +166,7 @@ remove_log Verwijder je log
 edit_cache Bewerk cache beschrijving
 new_desc Add description
 edit_desc Edit description
-remove_desc Remove description
+remove_desc Verwijder beschrijving
 search_loc Look for location
 search_results Zoekresultaten
 show_log View log
@@ -668,7 +668,7 @@ route_cache Route of cache
 start_point start point
 trp_points trip points
 recently_seen recently seen 
-moved_text moved
+moved_text Verplaatst
 encrypt_log Log entry encrypted
 my_neighborhood Mijn omgeving
 my_neighborhood_v2 Mijn omgeving v2
@@ -713,7 +713,7 @@ comment_log Comment
 need_maintenance_log Need maintenance
 comment_octeam_log OC Team comment
 moved_log Moved
-new_coordinates New coordinates
+new_coordinates Nieuwe coördinaten
 moved_distance Distance passed
 delete_logentry Verwijderen van log 
 confirm_remove_log Moet deze log werkelijk verwijderd worden
@@ -816,7 +816,7 @@ add_new_route Maak nieuwe route
 setup_new_route Maak een nieuwe route
 add_new_route_kml Nieuwe route laden van KML
 save_route Bewaar route
-radius_info Radius moet tussen 0.5 km - 10 km liggen
+radius_info Radius moet tussen 0.5 km - 10 km zijn
 edit_route Bewerk route
 route_desc Route beschrijving
 route_name Route naam
@@ -896,19 +896,19 @@ ni_ma_takiego_kesza Verkeerde cache waypoint!
 os_wynik Resultaat
 os_zgad Je hebt het te vaak geprobeerd.
 wybrac_log Kies logsoort
-nowe_wsp New coordinates
+nowe_wsp Nieuwe coördinaten
 os_ma_max Er is een limiet van 
 os_ma_pr shots 
 os_ma_na  controles per
 os_godzine minuten
 os_mus Je moet nu nog 
 os_minut_end minuten wachten om het weer te proberen.
-viewlog_aktywnosc Totale gebruikers activiteit (som van gevonden, niet gevonden en geplaatse)
-viewlog_kordy Cache coordinates after moving
+viewlog_aktywnosc Totale gebruikers activiteit (som van gevonden, niet gevonden en geplaatst)
+viewlog_kordy Cache coördinaten na verplaatsing
 log_type_temp_unavailable Tijdelijk niet beschikbaar
 log_type_available Beschikbaar
 log_mobile_init Starting coordinates
-error_coords_not_ok Wrong coordinates!
+error_coords_not_ok Verkeerde coördinaten!
 GKApi01 Integratie OC account met GeoKrety.org
 GKApi02 GeoKrety Secid:
 GKApi03 Intregeer je Opencaching.pl account met GeoKrety.org account en kopieer hier jouw <b>Secid</b>. Jouw <b>Secid</b> kun je vinden op GeoKrety pagina in je account details.
@@ -960,10 +960,10 @@ log16 verversen
 log17 Open het log scherm
 date Datum
 myprofile01 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je opencaching.pl account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
-myprofile02 Ja, ik wil mij aanmelden als vrijwillige hulp voor beginnende cachers. Zie:&nbsp;
+myprofile02 Ja, ik heb mij aanmelden als vrijwillige hulp voor beginnende cachers. Zie:&nbsp;
 myprofile03 Cache hulp
-myprofile04 Tak1, chcę zostać wolontariuszem Przewodnikiem geocachingu dla początkujących
-myprofile05 Patrz: więcej na stronie
+myprofile04 Ja, ik wil mij aanmelden als vrijwillige hulp voor beginnende cachers.
+myprofile05 Zie meer op pagina
 myprofile06 Vergeet niet om de coördinaten in te vullen, anders kan men je niet zien op de kaart.
 myprofile07 OC PL gebruikt openlijk coördinaten om afstanden te bepalen en op een kaart te tonen. Als je dit niet wilt kun je de coördinaten van een park of openbare plek in de buurt te nemen, of plaats een aantal nullen aan het einde
 em00 E-mail adres veranderen
@@ -1088,18 +1088,21 @@ yesterday Gisteren
 today Vandaag
 days_ago Dagen geleden
 make_new_description Maak een nieuwe cache beschrijving voor:
-
-
-
-
-
-
-
-
-
-
-
-
+lxg01 Verkeerde datum. Vul de correcte datum in: DD-MM-JJJJ
+lxg02 Selecteer of je deze cache wilt waarderen.
+lxg03 Alstjeblieft selecteren
+lxg04 Alleen bij oc.pl
+lxg05 Verzenden
+lxg06 Selecteer
+lxg07 Vul het nieuwe coördinaat in
+lxg08 Geef opmerking
+lxg09 Verplaats
+lxg10 Onderhoud nodig
+lxg11 OC Team opmerking
+remove_desc_01 Moet beschrijving
+remove_desc_02 van cache
+remove_desc_03 werkelijk verwijderd worden?
+remove_desc_04 Ja, verwijder deze beschrijving
 
 
 

@@ -1015,7 +1015,7 @@ make_new_description Make a new cache description for:
 
 lxg01 Wrong date. Please enter correct date: DD-MM-YYYY
 lxg02 Rate cache or select you do not want rate this cache. 
-lxg03 Pease select!
+lxg03 Please select!
 lxg04 Only here listed
 lxg05 Send log entery
 lxg06 Select
@@ -1024,7 +1024,10 @@ lxg08 Write a note
 lxg09 Mooved
 lxg10 Needs maintenace
 lxg11 OC Team Comment
-
+remove_desc_01 Should description
+remove_desc_02 from cache
+remove_desc_03 be removed?
+remove_desc_04 Yes, remove this description
 
 
 
