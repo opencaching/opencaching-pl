@@ -164,8 +164,8 @@ new_log_entry Log je bezoek
 edit_log Bewerk je log
 remove_log Verwijder je log
 edit_cache Bewerk cache beschrijving
-new_desc Add description
-edit_desc Edit description
+new_desc Maak beschrijving
+edit_desc Bewerk beschrijving
 remove_desc Verwijder beschrijving
 search_loc Look for location
 search_results Zoekresultaten
@@ -266,7 +266,7 @@ hidden_coords Log in om de coördinaten te kunnen zien.
 watchers Volgers
 visitors x Bekeken
 view_reports Bekijk meldingen
-report_problem Raporteer probleem
+report_problem Rapprteer cache
 no_not_published_caches Er zijn geen nog niet gepubliceerde caches
 no_logs Nog geen logs
 no_time_indicated Activation time not indicated
@@ -277,7 +277,7 @@ you_have_found Je hebt
 found_x_caches caches gevonden
 you_have_participated_in You have participated in
 found_x_events events
-your_new_log_entries Your latest log entries
+your_new_log_entries Jouw laatste logs
 user_new_log_entries Latest log entries
 your_caches_new_log_entries Laatste logs van jouw caches
 your_latest_hiddens Jouw recentelijk geplaatste caches
@@ -515,8 +515,8 @@ no_mp3_files Er zijn nog geen MP3 bestanden
 map Kaart
 manage_ocpl Managing the OC PL
 browse_problem_reports Show reports of problems
-no_hidden_caches There's no hidden caches yet
-no_log_entries There is no logs yet
+no_hidden_caches Er zijn nog geen geplaatste caches
+no_log_entries Er zijn nog geen logs
 your_newest_log_entries Jouw laatste logs
 location Locatie
 stat_picture Statistics picture
@@ -1079,7 +1079,7 @@ guru_06 Neem contact op met een vrijwilliger in je buurt en maak een afspraak.
 guru_07 Op dit moment zijn er:
 guru_08 actieve vrijwilligers
 guru_09 Aantal ontvangen aanbevelingen
-guru_10 Om een actieve vrijwilliger te worden, dient aan de volgende voorwaarde vodaan te worden:
+guru_10 Om een actieve vrijwilliger te worden, dient aan de volgende voorwaarde voldaan te worden:
 guru_11 Er moeten 20 aanbevelingen ontvangen zijn voor gemaakte caches.
 guru_12 Deze optie kan ingesteld worden in je
 guru_13 profiel
@@ -1107,6 +1107,12 @@ error_viewcache_01 Cache kan niet weergegeven worden.<br />Mogelijke oorzaken:
 error_viewcache_02 Cache niet in database gevonden
 error_viewcache_03 Cache is (nog) niet gepubliceerd
 error_viewcache_04 Cache is geblokeerd door OC Team
+event_attendance_01 Evenement:
+event_attendance_02 Op:
+event_attendance_03 Georganiseerd door:
+event_attendance_04 Het evenement:
+event_attendance_05 Aantal deelnemers:
+
 
 
 

@@ -1032,6 +1032,11 @@ error_viewcache_01 Cache can not be displayed.<br />Possible causes:
 error_viewcache_02 Cache not found in database
 error_viewcache_03 Cache is not published
 error_viewcache_04 Cache is suspended by OC Team
+event_attendance_01 Event:
+event_attendance_02 On:
+event_attendance_03 Organized by:
+event_attendance_04 The event:
+event_attendance_05 Number:
 
 
 

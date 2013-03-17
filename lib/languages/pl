@@ -1107,7 +1107,11 @@ error_viewcache_01 Opis skrzynki nie może zostać wyświetlony.<br />Możliwe p
 error_viewcache_02 Skrzynka nie została znaleziona w bazie
 error_viewcache_03 Skrzynka jeszcze nie została opublikowana
 error_viewcache_04 Skrzynka została zawieszona przez OC Team
-
+event_attendance_01 Wydarzenie:
+event_attendance_02 Dnia:
+event_attendance_03 Organizowane przez:
+event_attendance_04 Uczestnicy wydarzenia:
+event_attendance_05 Liczba:
 
 
 
