@@ -43,3 +43,10 @@ div.frame {
   margin: -4px 4px 4px -4px;
   padding: 2px;
 }
+
+@media print {
+	/* Arkusz dla wydruku */
+	.text_gray {
+		display: none;
+	}
+}
