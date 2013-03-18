@@ -1482,8 +1482,14 @@
 				$printt=tr('print');
 				$addToPrintList = tr('add_to_list');
 				$removeFromPrintList = tr('remove_from_list');
-
-					if( onTheList($_SESSION['print_list'], $cache_id)==-1 )
+					
+					if (isset($_SESSION['print_list'])){
+						$sesPrintList = $_SESSION['print_list'];
+					} else {
+						$sesPrintList = array();
+					}
+					
+					if( onTheList($sesPrintList, $cache_id)==-1 )
 					{
 						$print_list = "viewcache.php?cacheid=$cache_id&amp;print_list=y";
 						$print_list_label = $addToPrintList;

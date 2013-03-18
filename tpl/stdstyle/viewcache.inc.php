@@ -130,6 +130,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 	$rs = sql($sql);
 	while ($r = sql_fetch_array($rs))
 	{
+		
 		if($viewthumbs)
 		{
 			if ($nCol == 4)
@@ -142,8 +143,16 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 				$showspoiler = "showspoiler=1&amp;";
 			else $showspoiler = "";
 			$retval .= '<div class="viewcache-pictureblock">';
-
-			if(@$_REQUEST['print'] != 'y') {
+			
+			if (isset($_REQUEST['print'])) {
+				$reqPrint = $_REQUEST['print'];
+			} else {
+				$reqPrint = '';
+			}
+			
+			// $xxx = 'y';
+			if( $reqPrint!= 'y') {
+				
 				$retval .= '<div class="img-shadow">';
 				$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" onclick="enlarge(this)" class="viewcache-thumbimg" longdesc="'.str_replace("images/uploads","upload",$r['url']).'" />';
 			}
