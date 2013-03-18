@@ -143,7 +143,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 			else $showspoiler = "";
 			$retval .= '<div class="viewcache-pictureblock">';
 
-			if(isset($_REQUEST['print']) && $_REQUEST['print'] != 'y') {
+			if(@$_REQUEST['print'] != 'y') {
 				$retval .= '<div class="img-shadow">';
 				$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" onclick="enlarge(this)" class="viewcache-thumbimg" longdesc="'.str_replace("images/uploads","upload",$r['url']).'" />';
 			}
