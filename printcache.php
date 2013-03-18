@@ -178,18 +178,18 @@ if ($_GET['cacheid']) {
 ?>
 <span class="text_gray">
 <div>
-		<input type="radio" name="showlogs" id="shownologs" value="" <?php echo $checked_1;?>><label for="shownologs">Nie pokazuj logów</label>
-		<input type="radio" name="showlogs" id="showlogs" value="&showlogs=4" <?php echo $checked_2;?>><label for="showlogs">Pokaż ostatnie logi</label>
-		<input type="radio" name="showlogs" id="showalllogs" value="&showlogsall=y" <?php echo $checked_3;?>><label for="showalllogs">Pokaż wszystkie logi</label>
+		<input type="radio" name="showlogs" id="shownologs" value="" <?php echo $checked_1;?>><label for="shownologs"><?php print tr('printcache_01'); ?></label>
+		<input type="radio" name="showlogs" id="showlogs" value="&showlogs=4" <?php echo $checked_2;?>><label for="showlogs"><?php print tr('printcache_02'); ?></label>
+		<input type="radio" name="showlogs" id="showalllogs" value="&showlogsall=y" <?php echo $checked_3;?>><label for="showalllogs"><?php print tr('printcache_03'); ?></label>
 </div>
-		<input type="radio" name="showpictures" id="shownopictures" value="&pictures=no" <?php echo $checked_4;?>><label for="shownopictures">Nie pokazuj zdjęć</label>
-		<input type="radio" name="showpictures" id="showpictures" value="&pictures=small" <?php echo $checked_5;?>><label for="showpictures">Pokaż miniatury</label>
-		<input type="radio" name="showpictures" id="showallpictures" value="&pictures=big" <?php echo $checked_6;?>><label for="showallpictures">Pokaż duże zdjęcia</label>
+		<input type="radio" name="showpictures" id="shownopictures" value="&pictures=no" <?php echo $checked_4;?>><label for="shownopictures"><?php print tr('printcache_04'); ?></label>
+		<input type="radio" name="showpictures" id="showpictures" value="&pictures=small" <?php echo $checked_5;?>><label for="showpictures"><?php print tr('printcache_05'); ?></label>
+		<input type="radio" name="showpictures" id="showallpictures" value="&pictures=big" <?php echo $checked_6;?>><label for="showallpictures"><?php print tr('printcache_06'); ?></label>
 <div>
-		<input type="checkbox" name="nocrypt" id="nocrypt" value="&nocrypt=1" <?php echo $checked_7;?>><label for="nocrypt">Odszyfruj podpowiedzi</label>&nbsp;&nbsp;&nbsp;
-		<input type="checkbox" name="spoiler_only" id="spoiler_only" value="&spoiler_only=1" <?php echo $checked_8;?>><label for="spoiler_only">Tylko spoilery</label>&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" name="nocrypt" id="nocrypt" value="&nocrypt=1" <?php echo $checked_7;?>><label for="nocrypt"><?php print tr('printcache_07'); ?></label>&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" name="spoiler_only" id="spoiler_only" value="&spoiler_only=0" <?php echo $checked_8;?>><label for="spoiler_only"><?php print tr('printcache_08'); ?></label>&nbsp;&nbsp;&nbsp;
 </div>
-		<input type="submit" name="submit" value="Zmień">
+		<input type="submit" name="submit" value=<?php print tr('printcache_09'); ?>
 
 <?
 if($_GET['cacheid'] == '')

@@ -1112,7 +1112,15 @@ event_attendance_02 Dnia:
 event_attendance_03 Organizowane przez:
 event_attendance_04 Uczestnicy wydarzenia:
 event_attendance_05 Liczba:
-
+printcache_01 Nie pokazuj logów
+printcache_02 Pokaż ostatnie logi
+printcache_03 Pokaż wszystkie logi
+printcache_04 Nie pokazuj zdjęć
+printcache_05 Pokaż miniatury
+printcache_06 Pokaż duże zdjęcia
+printcache_07 Odszyfruj podpowiedzi
+printcache_08 Tylko spoilery
+printcache_09 Zmień
 
 
 

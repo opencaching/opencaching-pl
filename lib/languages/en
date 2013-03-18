@@ -1037,6 +1037,17 @@ event_attendance_02 On:
 event_attendance_03 Organized by:
 event_attendance_04 The event:
 event_attendance_05 Number:
+printcache_01 Do not show logs
+printcache_02 Show last logs
+printcache_03 All logs
+printcache_04 Do not show pictures
+printcache_05 Show thumbnails
+printcache_06 View large images
+printcache_07 Decrypt hints
+printcache_08 Show spoilers
+printcache_09 Change
+
+
 
 
 

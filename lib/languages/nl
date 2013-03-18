@@ -717,8 +717,8 @@ new_coordinates Nieuwe coördinaten
 moved_distance Distance passed
 delete_logentry Verwijderen van log 
 confirm_remove_log Moet deze log werkelijk verwijderd worden
-add_comment_to_remove Would you like to send additional comment to
-removed_log_title Your entry to the log was removed by geocahe owner 
+add_comment_to_remove Wil je ook een berichtje schrijven aan
+removed_log_title Your entry to the log was removed by geocache owner 
 removed_message_titel De eigenaar van de cache schreef je het volgende bericht
 dont_have_recommended_caches Je hebt nog geen aanbevolen caches
 your_recommendations Your recommendations for geocache
@@ -907,7 +907,7 @@ viewlog_aktywnosc Totale gebruikers activiteit (som van gevonden, niet gevonden 
 viewlog_kordy Cache coördinaten na verplaatsing
 log_type_temp_unavailable Tijdelijk niet beschikbaar
 log_type_available Beschikbaar
-log_mobile_init Starting coordinates
+log_mobile_init Start coördinaten
 error_coords_not_ok Verkeerde coördinaten!
 GKApi01 Integratie OC account met GeoKrety.org
 GKApi02 GeoKrety Secid:
@@ -1112,7 +1112,15 @@ event_attendance_02 Op:
 event_attendance_03 Georganiseerd door:
 event_attendance_04 Het evenement:
 event_attendance_05 Aantal deelnemers:
-
-
+printcache_01 Toon zonder logs
+printcache_02 Toon laatste logs
+printcache_03 Alle logs
+printcache_04 Geen afbeeldingen
+printcache_05 Toon miniaturen
+printcache_06 Toon grote foto's
+printcache_07 Decodeer hint
+printcache_08 Toon spoiler
+printcache_09 Veranderen
+ 
 
 
