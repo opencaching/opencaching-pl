@@ -150,7 +150,6 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 				$reqPrint = '';
 			}
 			
-			// $xxx = 'y';
 			if( $reqPrint!= 'y') {
 				
 				$retval .= '<div class="img-shadow">';
