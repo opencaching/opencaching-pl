@@ -311,13 +311,23 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
 	$bScriptExecution->start();
 
 	// rating conversion array
-	$ratingDesc = array(
-									tr('rating_poor'),
-									tr('rating_mediocre'),
-									tr('rating_avarage'),
-									tr('rating_good'),
-									tr('rating_excellent'),
-									);
+		$ratingDesc = array(
+								tr('rating_poor'),
+								tr('rating_mediocre'),
+								tr('rating_avarage'),
+								tr('rating_good'),
+								tr('rating_excellent'),
+							);
+	// prima-aprilis joke ;-)								
+	if ((date('m') == 4) and (date('d') == 1)) {
+		$ratingDesc = array(
+								tr('rating_poor_1A'),
+								tr('rating_mediocre_1A'),
+								tr('rating_avarage_1A'),
+								tr('rating_good_1A'),
+								tr('rating_excellent_1A'),
+							);
+	}
 
     tpl_set_var('site_name', $site_name);
 	tpl_set_var('wiki_url', $wiki_url);

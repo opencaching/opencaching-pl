@@ -63,16 +63,32 @@ class dataBase
 	}
 
 	
+	/**
+	 * @return one row from result
+	 */
 	public function dbResultFetch() {
 		return $this->dbData->fetch();
 	}
 	
+	/**
+	 * @return number of row in results
+	 */
 	public function rowCount() {
 		return $this->dbData->rowCount();
 	}
 	
+	/**
+	 * @return all rows from result as complex array
+	 */
 	public function dbResultFetchAll() {
 		return $this->dbData->fetchAll();
+	}
+	
+	/**
+	 * @return id of last inserted row
+	 */
+	public function lastInsertId() {
+		return $this->lastInsertId();
 	}
 	
 	/**
@@ -84,16 +100,29 @@ class dataBase
 	 * @return array
 	 */
 	public function simpleQuery($query) {
-		$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
-		$dbh -> query ('SET NAMES utf8');
-		$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
+		try {
+			$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
+			$dbh -> query ('SET NAMES utf8');
+			$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
 
-		$this->dbData  = $dbh -> prepare($query);
-		$this->dbData  -> setFetchMode(PDO::FETCH_ASSOC);
-		$this->dbData  -> execute();
+			$this->dbData  = $dbh -> prepare($query);
+			$this->dbData  -> setFetchMode(PDO::FETCH_ASSOC);
+			$this->dbData  -> execute();
+		} catch (PDOException $e) {
+			$message = 'db.php, # ' . __line__ .', PDO error: ' . $e .'<br />
+						Database Query: '.$query.'<br>
+						Parametres array: '.
+						print_r($params, true).
+						'<br><br>';
+			if ($this->debug) {
+				print $message;
+			} else {
+				self::errorMail($message);
+			}
 
-		// $result = $STH -> fetch();
-		
+			return false;
+		}
+
 		if ($this->debug) {
 			print 'db.php, # ' . __line__ .', mysql query on input: ' . $query .'<br />';
 		}
@@ -110,20 +139,20 @@ class dataBase
 	 *
 	 * example:
 	 * ----------------------------------------------------------------------------------
-	 * $query: 'SELECT * FROM tabele WHERE field1=:variable1 AND field2:variable2'
-	 * $params[variable1][value] = 1;
-	 * $params[variable1][data_type] = 'integer';
-	 * $params[variable2][value] = 'cat is very lovelly animal';
-	 * $params[variable2][data_type] = 'string';
+	 * $query: 'SELECT * FROM tabele WHERE field1 = :variable1 AND field2 = :variable2'
+	 * $params['variable1']['value'] = 1;
+	 * $params['variable1']['data_type'] = 'integer';
+	 * $params['variable2']['value'] = 'cat is very lovelly animal';
+	 * $params['variable2']['data_type'] = 'string';
 	 * ----------------------------------------------------------------------------------
 	 * data type can be:
 	 *
-	 * - 'boolean'		Represents a boolean data type.
-	 * - 'null' 		Represents the SQL NULL data type.
-	 * - 'integer' 		Represents the SQL INTEGER data type.
-	 * - 'string' 		Represents the SQL CHAR, VARCHAR, or other string data type.
-	 * - 'large' 		Represents the SQL large object data type.
-	 * - 'recordset' 	Represents a recordset type. Not currently supported by any drivers.
+	 * - 'boolean'					Represents a boolean data type.
+	 * - 'null' 					Represents the SQL NULL data type.
+	 * - 'integer' or 'int' or 'i' 	Represents the SQL INTEGER data type.
+	 * - 'string' or 'str' or 's'	Represents the SQL CHAR, VARCHAR, or other string data type.
+	 * - 'large' 					Represents the SQL large object data type.
+	 * - 'recordset' 				Represents a recordset type. Not currently supported by any drivers.
 	 *
 	 * @return array or false
 	 *  - return array structure:
@@ -140,45 +169,49 @@ class dataBase
 		if (!is_array($params)) return false;
 
 		try {
-		$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
-		$dbh -> query ('SET NAMES utf8');
-		$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
-		
-		$this->dbData = $dbh->prepare($query);
+			$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
+			$dbh -> query ('SET NAMES utf8');
+			$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
 
-		foreach ($params as $key => $val) {
-			switch ($val['data_type']) {
-				case 'integer':
-					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_INT);
-					break;
-				case 'boolean':
-					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_BOOL);
-					break;
-				case 'string':
-					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_STR);
-					break;
-				case 'null':
-					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_NULL);
-					break;		
-				case 'large':
-					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_LOB);
-					break;
-				case 'recordset':
-					$this->dbData->bindParam($key, $val['value'], PDO::PARAM_STMT);
-					break;
-				default:
-					return false;
+			$this->dbData = $dbh->prepare($query);
+
+			foreach ($params as $key => $val) {
+				switch ($val['data_type']) {
+					case 'integer':
+					case 'int':	
+					case 'i':
+						$this->dbData->bindParam($key, $val['value'], PDO::PARAM_INT);
+						break;
+					case 'boolean':
+						$this->dbData->bindParam($key, $val['value'], PDO::PARAM_BOOL);
+						break;
+					case 'string':
+					case 'str':
+					case 's':
+						$this->dbData->bindParam($key, $val['value'], PDO::PARAM_STR);
+						break;
+					case 'null':
+						$this->dbData->bindParam($key, $val['value'], PDO::PARAM_NULL);
+						break;
+					case 'large':
+						$this->dbData->bindParam($key, $val['value'], PDO::PARAM_LOB);
+						break;
+					case 'recordset':
+						$this->dbData->bindParam($key, $val['value'], PDO::PARAM_STMT);
+						break;
+					default:
+						return false;
+				}
 			}
-		}
-		
-		$this->dbData->setFetchMode(PDO::FETCH_ASSOC);
-		$this->dbData->execute();
+
+			$this->dbData->setFetchMode(PDO::FETCH_ASSOC);
+			$this->dbData->execute();
 		} catch (PDOException $e) {
 			$message = 'db.php, # ' . __line__ .', PDO error: ' . $e .'<br />
-						Database Query: '.$query.'<br>
-						Parametres array: '.
-						print_r($params, true).
-						'<br><br>';
+					Database Query: '.$query.'<br>
+							Parametres array: '.
+							print_r($params, true).
+							'<br><br>';
 			if ($this->debug) {
 				print $message;
 			} else {
@@ -225,27 +258,37 @@ class dataBase
 	 * )
 	 */
 	public function multiVariableQuery($query) {
-		
-		$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
-		$dbh -> query ('SET NAMES utf8');
-		$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
-		
-		$this->dbData  = $dbh->prepare($query);
-		
-		$numargs = func_num_args();
-		$arg_list = func_get_args();
-		for ($i = 1; $i < $numargs; $i++) {
-			if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
-			
-			$stmt->bindparam(':'.$i,$arg_list[$i]);
-		}
-		
-		$this->dbData ->setFetchMode(PDO::FETCH_ASSOC);
-		$this->dbData ->execute();
+		try {
+			$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
+			$dbh -> query ('SET NAMES utf8');
+			$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
 
-// 		$result['row_count'] = $stmt->rowCount();
-// 		$result['result'] = $stmt -> fetchAll();
-		
+			$this->dbData  = $dbh->prepare($query);
+
+			$numargs = func_num_args();
+			$arg_list = func_get_args();
+			for ($i = 1; $i < $numargs; $i++) {
+				if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
+					
+				$stmt->bindparam(':'.$i,$arg_list[$i]);
+			}
+
+			$this->dbData ->setFetchMode(PDO::FETCH_ASSOC);
+			$this->dbData ->execute();
+		} catch (PDOException $e) {
+			$message = 'db.php, # ' . __line__ .', PDO error: ' . $e .'<br />
+					Database Query: '.$query.'<br>
+							Parametres array: '.
+							print_r($params, true).
+							'<br><br>';
+			if ($this->debug) {
+				print $message;
+			} else {
+				self::errorMail($message);
+			}
+
+			return false;
+		}
 		if ($this->debug) {
 			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
 		}

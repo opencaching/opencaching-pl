@@ -21,6 +21,19 @@
         $mnu_bgcolor = '#D5D9FF';
     }
     if ($tplname != 'start') $tpl_subtitle .= htmlspecialchars($mnu_selmenuitem['title'] . ' - ', ENT_COMPAT, 'UTF-8');
+
+	$logo1 = tr('oc_on_all_pages_top');	
+	$logo2 = tr('oc_subtitle_on_all_pages');
+	$logo3 = 'oc_logo.png';
+
+if ((date('m') == 4) and (date('d') == 1)) { 
+	$logo1 = tr('oc_on_all_pages_top_1A');	
+	$logo2 = tr('oc_subtitle_on_all_pages_1A');
+	$logo3 = 'oc_logo_1A.png';
+}
+
+if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
@@ -57,11 +70,11 @@
                 <div id="bg2">&nbsp;</div>
                 <!-- HEADER -->
                 <!-- OC-Logo -->
-                <div><img src="./images/oc_logo.png" alt="" style="margin-top:5px; margin-left:3px;" /></div>
+                <div><img src="./images/<?print $logo3;?>" alt="" style="margin-top:5px; margin-left:3px;" /></div>
                 <!-- Sitename -->
                 <div class="site-name">
-                    <p class="title"><a href="index.php">OPENCACHING.pl</a></p>
-                    <p class="subtitle"><a href="index.php">Geocaching w Polsce</a></p>
+                    <p class="title"><a href="index.php"><?print $logo1;?></a></p>
+                    <p class="subtitle"><a href="index.php"><?print $logo2;?></a></p>
                 </div>
                 <!-- Flag navigations -->
                 <div class="navflag-container">

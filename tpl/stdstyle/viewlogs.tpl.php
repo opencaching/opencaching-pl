@@ -34,19 +34,19 @@ A += 3;continue}}if (F == "[" || F == "<") {E = false} else {if (F == "]" || F =
 if ((F == " ") || (F == "&dhbg;")) {} else {if (E) {F = convertROT13Char(F)}}}}D += F}return D};
 -->
 </script>
-			<div class="content2-container bg-blue02">
-				<p class="content-title-noshade-size1">
-				<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
-			&nbsp;{{log_entries}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;
-			&nbsp;&nbsp;
-			{found_icon} {founds}x 
-			{notfound_icon} {notfounds}x 
-			{note_icon} {notes}x
-			{gallery}
-				</p>
-			</div>
+<div class="content2-container bg-blue02">
+	<p class="content-title-noshade-size1">
+		<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
+		&nbsp;{{log_entries}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a>&nbsp;&nbsp;
+		&nbsp;&nbsp;
+		{found_icon} {founds}x 
+		{notfound_icon} {notfounds}x 
+		{note_icon} {notes}x
+		{gallery}
+	</p>
+</div>
 <div class="content2-container" id="viewcache-logs">
-		{logs}
+	{logs}
 </div>
 <div id="viewlogs-end">[<a class="links" href="viewcache.php?cacheid={cacheid}">{{back_to_the_geocache_listing}}</a>]</div>
 

@@ -105,10 +105,15 @@
 				$events = tr('you_have_participated_in')." ".$events_count." ".tr('found_x_events').".";
 			else $events = "";
 			
-			tpl_set_var('founds', tr('you_have_found')." ".$founds_count." ".tr('found_x_caches').".");
-			tpl_set_var('hidden', $hidden_count);
-			tpl_set_var('events', $events);
-
+			if ((date('m') == 4) and (date('d') == 1)){
+				tpl_set_var('founds', tr('you_have_found')." ".rand(0, 13)." ".tr('found_beer_caches').".");
+				tpl_set_var('hidden', $hidden_count);
+				tpl_set_var('events', $events);
+			} else {
+				tpl_set_var('founds', tr('you_have_found')." ".$founds_count." ".tr('found_x_caches').".");
+				tpl_set_var('hidden', $hidden_count);
+				tpl_set_var('events', $events);
+			}
 			//get last logs
 			$rs_logs = sql("
 					SELECT `cache_logs`.`cache_id` `cache_id`, `cache_logs`.`type` `type`, `cache_logs`.`date` `date`, `caches`.`name` `name`,

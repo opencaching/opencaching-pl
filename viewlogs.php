@@ -137,7 +137,6 @@
 				;}			
 
 			// prepare the logs - show logs marked as deleted if admin
-			//
 			$show_deleted_logs = "";
 			$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
 			if( $usr['admin'] )
@@ -194,10 +193,13 @@
 				// replace smilies in log-text with images
 				$tmplog_text = str_replace($smileytext, $smileyimage, $record['text']);
 				
-				// wyswietlenie aktywności usera (dodane przez Łza)	
-				$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']"/>'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
-            
-            // ukrywanie autora komentarza COG przed zwykłym userem
+				// display user activity (by Łza 2012)
+				if ((date('m') == 4) and (date('d') == 1)){
+					$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').'"/>'. rand(1, 9) . ') ';
+				} else {
+					$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']"/>'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
+				}
+            	// hide nick of athor of COG(OC Team) for user
 				if ($record['type'] == 12 && !$usr['admin']) 
 				  {
 				    $record['userid'] = '0';
@@ -207,7 +209,7 @@
             
 				$tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
 				
-				// keszyny mobilne by Łza
+				// mobile caches by Łza
 				if (($record['type'] == 4) && ($record['mobile_latitude'] != 0))
 				 {
 				   $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($record['mobile_latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($record['mobile_longitude']), ENT_COMPAT, 'UTF-8'));
@@ -227,7 +229,8 @@
 				$tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
 				$tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
 				$tmplog = mb_ereg_replace('{logimage}', icon_log_type($record['icon_small'], $tmplog['type']), $tmplog);
-//$rating_picture
+				
+				//$rating_picture
 				if ($record['recommended'] == 1 && $record['type']==1)
 					$tmplog = mb_ereg_replace('{ratingimage}','<img src="images/rating-star.png" alt="'.tr('recommendation').'" />', $tmplog);
 				else
@@ -237,18 +240,22 @@
 				$logfunctions = '';
 				$tmpedit = mb_ereg_replace('{logid}', $record['log_id'], $edit_log);
 				$tmpremove = mb_ereg_replace('{logid}', $record['log_id'], $remove_log);
+				$tmpRevert = mb_ereg_replace('{logid}', $record['log_id'], $revertLog);
 				$tmpnewpic = mb_ereg_replace('{logid}', $record['log_id'], $upload_picture);
 				if( $record['deleted']!=1 )
 				{
 					if ($record['user_id'] == $usr['userid'])
 					{
 						$logfunctions = $functions_start . $tmpedit . $functions_middle; 
-					if ($record['type']!=12 && ($usr['userid']==$cache_record['cache_id'] || $usr['admin']==false)){					
-						$logfunctions .=$tmpremove . $functions_middle;}
-					if ($usr['admin']){					
-						$logfunctions .=$tmpremove . $functions_middle;}
-					 	$logfunctions .= $tmpnewpic . $functions_end;
-					}
+						if ($record['type']!=12 && ($usr['userid']==$cache_record['cache_id'] || $usr['admin']==false)) {					
+							$logfunctions .=$tmpremove . $functions_middle;
+						}
+						if ($usr['admin'])  {					
+							$logfunctions .= $tmpremove . $functions_middle;
+						}
+					 	
+						$logfunctions .= $tmpnewpic . $functions_end;
+					} 
 					else if( $usr['admin']) 
 					{
 						$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpremove . $functions_middle . $functions_end;
@@ -262,6 +269,11 @@
 						$logfunctions .= $functions_end;
 					}
 				}
+				else if( $usr['admin'])
+				{				
+					$logfunctions = $functions_start . $tmpedit . $functions_middle . $tmpRevert . $functions_middle . $functions_end;
+				}
+	
 				$tmplog = mb_ereg_replace('{logfunctions}', $logfunctions, $tmplog);
 
 				// pictures

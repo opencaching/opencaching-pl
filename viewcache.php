@@ -1312,7 +1312,15 @@
 				$tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
 
 				// wyswietlenie aktywności usera (dodane przez Łza	)	
-				$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']" width="13" height="13" border="0" />'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
+				// $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']" width="13" height="13" border="0" />'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
+              	// display user activity (by Łza 2012)
+				if ((date('m') == 4) and (date('d') == 1)){
+					$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').'"/>'. rand(1, 9) . ') ';
+				} else {
+					$tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']"/>'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
+				} 
+
+
 
 				// ukrywanie autora komentarza COG przed zwykłym userem
 				if ($record['type'] == 12 && !$usr['admin']) 
@@ -1323,8 +1331,6 @@
 				  }
 
 				$tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
-                
-				
 				
 				// keszyny mobilne by Łza
 				if (($cache_record['type'] == 8) && ($record['type'] == 4))
@@ -1357,10 +1363,6 @@
 
 						$thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
 						$thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads","upload",$pic_record['url']), $thisline);
-
-//						if( $showspoiler )
-//			                $showspoiler = "showspoiler=1&amp;";
-
 						$thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
 						$thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
@@ -1393,7 +1395,8 @@
 					$tmpFunctions .= $remove_log. $functions_middle;}
 
 					if ($usr['admin']){
-					$tmpFunctions .= $remove_log. $functions_middle;}
+					$tmpFunctions .= $remove_log. $functions_middle;
+					}
 
 
 					if ( $record['deleted']!=1 && $usr['userid'] == $record['userid'])
@@ -1405,9 +1408,13 @@
 
 					$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
 				}
-				else
-					$tmplog = mb_ereg_replace('{logfunctions}', '', $tmplog);
-
+				else if( $usr['admin']) {
+					$tmpFunctions = $functions_start . $edit_log . $functions_middle . $revertLog . $functions_middle . $functions_end;
+					$tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
+					$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
+					// $tmplog = mb_ereg_replace('{logfunctions}', '', $tmplog);
+				}
+				
 				$tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
 				$tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
 				$tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);

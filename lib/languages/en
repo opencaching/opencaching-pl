@@ -1051,6 +1051,10 @@ printcache_08 Show spoilers
 printcache_09 Change
 yes Yes
 no No
+revert Revert 
+oc_on_all_pages_top OPENCACHING.pl
+oc_subtitle_on_all_pages Geocaching in Poland
+Statictics Statystyki
 
 
 
