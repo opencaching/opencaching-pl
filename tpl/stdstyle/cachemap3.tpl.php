@@ -184,9 +184,9 @@
 						<select id="min_score" name="min_score" onchange="reload()">
 							<option value="-3" {min_sel1}>{{map_03}}</option>
 							<!--<option value="0.5" {min_sel2}>pomiń najsłabsze skrzynki</option>-->
-							<option value="1.2" {min_sel3}>{{rating_avarage}}</option>
-							<option value="2" {min_sel4}>{{rating_good}}</option>
-							<option value="2.5" {min_sel5}>{{rating_excellent}}</option>
+							<option value="1.2" {min_sel3}>przynajmniej "{{rating_avarage}}"</option>
+							<option value="2" {min_sel4}>przynajmniej "{{rating_good}}" :)</option>
+							<option value="2.5" {min_sel5}>tylko {{rating_excellent}} :D</option>
 						</select>
 					</center>
 				</div>
