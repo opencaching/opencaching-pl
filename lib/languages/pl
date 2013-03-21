@@ -489,9 +489,9 @@ cache_logged_required Musisz być zalogowany by wpisywać się do logu i dokonyw
 basic_information Podstawowe informacje
 rating_poor słaba
 rating_mediocre poniżej przeciętnej
-rating_avarage normalna
-rating_good dobra
-rating_excellent znakomita
+rating_avarage przynajmniej "normalna"
+rating_good przynajmniej "dobra" :)
+rating_excellent tylko "znakomita" :D
 score_label Oceniona jako
 show_noscore Pokaż skrzynki bez oceny
 available_maps Dostępne mapy
@@ -1046,6 +1046,7 @@ chpw_05 Wprowadzony kod jest niepoprawny.
 map_01 pokaż tylko FTFy!
 map_02 Minimalna ocena:
 map_03 dowolna ocena
+map_04 pokaż również skrzynki bez oceny1
 print_all Wydrukuj wszystkie
 remove_all Usuń wszystkie
 no_logtype_choosen Brak typu logu!

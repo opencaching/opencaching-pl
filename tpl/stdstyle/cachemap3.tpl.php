@@ -93,7 +93,7 @@
 						<td class='i'><img src='okapi/static/tilemap/legend_multi.png'/></td>
 					</tr>
 					<tr class='h_q'>
-						<td><input class="chbox" id="h_q" name="h_q" value="1" type="checkbox" {h_q_checked} onclick="reload()"/><label for="h_q">&nbsp;Quiz</label></td>
+						<td><input class="chbox" id="h_q" name="h_q" value="1" type="checkbox" {h_q_checked} onclick="reload()"/><label for="h_q">&nbsp;{{quiz}}</label></td>
 						<td class='i'><img src='okapi/static/tilemap/legend_quiz.png'/></td>
 					</tr>
 					<tr class='h_v'>
@@ -184,14 +184,14 @@
 						<select id="min_score" name="min_score" onchange="reload()">
 							<option value="-3" {min_sel1}>{{map_03}}</option>
 							<!--<option value="0.5" {min_sel2}>pomiń najsłabsze skrzynki</option>-->
-							<option value="1.2" {min_sel3}>przynajmniej "{{rating_avarage}}"</option>
-							<option value="2" {min_sel4}>przynajmniej "{{rating_good}}" :)</option>
-							<option value="2.5" {min_sel5}>tylko {{rating_excellent}} :D</option>
+							<option value="1.2" {min_sel3}>{{rating_avarage}}</option>
+							<option value="2" {min_sel4}>{{rating_good}}</option>
+							<option value="2.5" {min_sel5}>{{rating_excellent}}</option>
 						</select>
 					</center>
 				</div>
 				<div style='margin-top: 5px'><center>
-					<input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">&nbsp;pokaż również skrzynki bez oceny</label>
+					<input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">&nbsp;{{map_04}}</label>
 				</center></div>
 			</td>
 		</tr>

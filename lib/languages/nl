@@ -93,7 +93,7 @@ green Groen
 gray Grijs
 red Rood
 last_10_days van laatste 10 dagen
-own eigen cache
+own eigen caches
 rest alle andere
 max_caches_per_page Max. aantal caches per pagina
 sort_by Sorteer zoekresultaat op
@@ -1022,7 +1022,7 @@ report_04 Opencaching.pl-team (er wordt ook een kopie naar de cache eigenaar ver
 report_05 <b>Let op!</b> Probeer eerst het probleem met de cache eigenaar op te lossen.
 report_06 Soort probleem:
 report_07 Cache op privégrond
-report_08 Archievatie
+report_08 Archiveren
 report_09 Schending auteursrecht
 report_10 Andere reden
 report_11 Commentaar (verplicht)
@@ -1046,6 +1046,7 @@ chpw_05 De ingevoerde code is ongeldig.
 map_01 Toon alleen FTF
 map_02 Minimale score:
 map_03 elke score
+map_04 Toon ook ongewaardeerde caches
 print_all Alles afdrukken
 remove_all Alles verwijderen
 no_logtype_choosen Geen logsoort gekozen
