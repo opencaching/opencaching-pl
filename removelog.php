@@ -96,18 +96,14 @@ function removelog($log_id, $language, $lang)
 							$email_content = mb_ereg_replace('%comment%', $message, $email_content);
 
 							//send email (only on single removement)
-							if( !($usr['userid']==2619 && isset($_POST['userid'])))
-								mb_send_mail($log_user_record['email'], $removed_log_title, $email_content, $emailheaders);
+							
+							mb_send_mail($log_user_record['email'], $removed_log_title, $email_content, $emailheaders);
 						}
 					}
 
 					if ($commit == 1)
 					{
-						//log in removed_objects
-						//sql("INSERT INTO `removed_objects` (`id`, `localID`, `uuid`, `type`, `removed_date`, `node`) VALUES ('', '&1', '&2', '1', NOW(), '&3')", $log_id, $log_record['uuid'], $oc_nodeid);
 
-						//log entfernen
-						//sql("DELETE FROM `cache_logs` WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
 						// do not acually delete logs - just mark them as deleted.
 						sql("UPDATE `cache_logs` SET deleted = 1 , `last_modified`=NOW() WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
 						
@@ -227,7 +223,7 @@ function removelog($log_id, $language, $lang)
 						sql("UPDATE `caches` SET `last_found`='&1', `founds`='&2', `notfounds`='&3', `notes`='&4' WHERE `cache_id`='&5'", $lastfound, $cache_record['founds'], $cache_record['notfounds'], $cache_record['notes'], $log_record['cache_id']);
 						unset($cache_record);
 
-						if( !($usr['userid']==2619 && isset($_POST['userid'])))
+						if( !(isset($_POST['userid'])))
 						{
 							//cache anzeigen
 							$_GET['cacheid'] = $log_record['cache_id'];
@@ -304,7 +300,10 @@ function removelog($log_id, $language, $lang)
 		}
 		else
 		{
-			if( $usr['userid']==2619 && isset($_REQUEST['userid']) )
+			/* This part of code removes all logs of specified user.
+			 * swithed off for security reasons.
+
+			if( $usr['admin']==2619 && isset($_REQUEST['userid']) )
 			{
 				$sql = "SELECT username FROM user WHERE user_id = '".sql_escape(intval($_REQUEST['userid']))."'" ;
 				$username = mysql_result(mysql_query($sql),0);
@@ -330,7 +329,8 @@ function removelog($log_id, $language, $lang)
 				}
 			}
 			else
-				removelog($log_id, $language, $lang);
+			*/
+			removelog($log_id, $language, $lang);
 		}
 	}
 ?>
