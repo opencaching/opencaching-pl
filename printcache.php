@@ -187,7 +187,7 @@ if ($_GET['cacheid']) {
 		<input type="radio" name="showpictures" id="showallpictures" value="&pictures=big" <?php echo $checked_6;?>><label for="showallpictures"><?php print tr('printcache_06'); ?></label>
 <div>
 		<input type="checkbox" name="nocrypt" id="nocrypt" value="&nocrypt=1" <?php echo $checked_7;?>><label for="nocrypt"><?php print tr('printcache_07'); ?></label>&nbsp;&nbsp;&nbsp;
-		<input type="checkbox" name="spoiler_only" id="spoiler_only" value="&spoiler_only=0" <?php echo $checked_8;?>><label for="spoiler_only"><?php print tr('printcache_08'); ?></label>&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" name="spoiler_only" id="spoiler_only" value="&spoiler_only=1" <?php echo $checked_8;?>><label for="spoiler_only"><?php print tr('printcache_08'); ?></label>&nbsp;&nbsp;&nbsp;
 </div>
 		<input type="submit" name="submit" value=<?php print tr('printcache_09'); ?>
 

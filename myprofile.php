@@ -114,8 +114,8 @@
 			$GKAPIKeyrecord = sql_fetch_array($GKAPIKeyQuery);
 			tpl_set_var('GeoKretyApiSecid', $GKAPIKeyrecord['secid']);
 			
-			if (mysql_num_rows($GKAPIKeyQuery) > 0)	tpl_set_var('GeoKretyApiIntegration', 'TAK');
-			else tpl_set_var('GeoKretyApiIntegration', 'NIE');
+			if (mysql_num_rows($GKAPIKeyQuery) > 0)	tpl_set_var('GeoKretyApiIntegration', tr('yes'));
+			else tpl_set_var('GeoKretyApiIntegration', tr('no'));
 			/* end of GeoKretyApi*/
 			
 			if($record['notify_radius'] + 0 > 0)
