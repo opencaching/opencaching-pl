@@ -492,6 +492,9 @@ rating_mediocre mediocre
 rating_avarage avarage
 rating_good good
 rating_excellent excellent
+rating_ge_average at least "average"
+rating_ge_good at least "good"
+rating_ge_excellent "excellent" only!
 score_label Rated as
 show_noscore Show caches without score
 available_maps Available maps
