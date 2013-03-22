@@ -1408,11 +1408,14 @@
 
 					$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
 				}
-				else if( $usr['admin']) {
-					$tmpFunctions = $functions_start . $edit_log . $functions_middle . $revertLog . $functions_middle . $functions_end;
-					$tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
-					$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
-					// $tmplog = mb_ereg_replace('{logfunctions}', '', $tmplog);
+				else {	
+					if( $usr['admin']) {
+						$tmpFunctions = $functions_start . $edit_log . $functions_middle . $revertLog . $functions_middle . $functions_end;
+						$tmpFunctions = mb_ereg_replace('{logid}', $record['logid'], $tmpFunctions);
+						$tmplog = mb_ereg_replace('{logfunctions}', $tmpFunctions, $tmplog);
+					} else {
+						$tmplog = mb_ereg_replace('{logfunctions}', '', $tmplog);
+					}
 				}
 				
 				$tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
