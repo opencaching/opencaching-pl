@@ -75,7 +75,9 @@ function Unlite(nn) {
 					<div class="content-txtbox-noshade">
 						<?php
 							global $dynstylepath;
-							include ($dynstylepath . "start_newcaches.inc.php");
+							$tmpTxt = file_get_contents($dynstylepath . "start_newcaches.inc.php");
+							$tmpTxt = str_replace('hidden_by', tr('hidden_by'), $tmpTxt);
+							echo $tmpTxt;
 						?>
 					</div>
 				</div>
