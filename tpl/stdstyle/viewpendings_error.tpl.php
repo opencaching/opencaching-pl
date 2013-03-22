@@ -1,1 +1,1 @@
-Nie masz uprawnień do przeglądania tej strony.<br />[<a href='index.php'>Powrót na stronę główną</a>]
+{{noaccess_error_01}}<br />[<a href='index.php'>{{noaccess_error_02}}</a>]
