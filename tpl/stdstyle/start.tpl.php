@@ -78,6 +78,7 @@ function Unlite(nn) {
 							$tmpTxt = file_get_contents($dynstylepath . "start_newcaches.inc.php");
 							$tmpTxt = str_replace('hidden_by', tr('hidden_by'), $tmpTxt);
 							echo $tmpTxt;
+							unset ($tmpTxt);
 						?>
 					</div>
 				</div>
@@ -91,22 +92,22 @@ function Unlite(nn) {
 				</div>
 				<div class="content2-container-2col-left" id="new-events-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{incomming_events}}</p>
-
-				
-				  <?php
-			global $dynstylepath;
-			include ($dynstylepath . "nextevents.inc.php");
-		?>
-			</div>
-							<div class="content2-container-2col-left" id="new-events-area">
+					<?php
+						global $dynstylepath;
+						$tmpTxt = file_get_contents($dynstylepath . "nextevents.inc.php");
+						$tmpTxt = str_replace('hidden_by', tr('org1'), $tmpTxt);
+						echo $tmpTxt;
+						unset ($tmpTxt);
+						// include ($dynstylepath . "nextevents.inc.php");
+					?>
+				</div>
+				<div class="content2-container-2col-left" id="new-events-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{latest_blog}}</p>
-
-				
 				  <?php
-			global $dynstylepath;
-			include ($dynstylepath . "start_newblogs.inc.php");
-		?>
-			</div>
+					global $dynstylepath;
+					include ($dynstylepath . "start_newblogs.inc.php");
+				?>
+				</div>
 		</div>
 <br/>
 {display_news}
