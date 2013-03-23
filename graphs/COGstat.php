@@ -105,11 +105,11 @@ $graph->Add($bplot);
  
 // Setup the titles
 
-$descibe="Statystyka COG - prowadzne zg³oszenia";
+$descibe="Statystyka COG - prowadzne zgłoszenia";
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
-$noproblems='Liczba zg³oszeñ';
+$noproblems='Liczba zgłoszeń';
 $graph->yaxis->title->Set($noproblems);
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
@@ -190,9 +190,9 @@ $graph3->Add($bplot3);
  
  
 // Setup the titles
-$descibe3="Statystyka COG Miesiêczna - zg³oszenia";
+$descibe3="Statystyka COG Miesięczna - zgłoszenia";
 $graph3->title->Set($descibe3);
-$graph3->xaxis->title->Set('Numer miesi±ca 2011/2012');
+$graph3->xaxis->title->Set('Numer miesiąca 2011/2012');
 //$graph3->xaxis->title->Set($title3);
 $graph3->xaxis->SetTickLabels($x3);
 
@@ -232,9 +232,9 @@ $graph4->Add($bplot4);
  
  
 // Setup the titles
-$descibe4="Statystyak COG Miesiêczna - skrzynki weryfikowane";
+$descibe4="Statystyak COG Miesięczna - skrzynki weryfikowane";
 $graph4->title->Set($descibe4);
-$graph4->xaxis->title->Set('Numer miesi±ca 2011/2012');
+$graph4->xaxis->title->Set('Numer miesiąca 2011/2012');
 //$graph4->xaxis->title->Set($title3);
 $graph4->xaxis->SetTickLabels($x4);
 
