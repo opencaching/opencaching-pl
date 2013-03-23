@@ -84,7 +84,7 @@ $rscachesM= sql("SELECT count(*) count, MONTH(`date_approval`) `month` from appr
 
 				
 // Create the graph. These two calls are always required
-$graph = new Graph(500,200,'auto');
+$graph = new Graph(730,200,'auto');
 $graph->SetScale('textint',0,max($y)+(max($y)*0.2),0,0);
 
 // Add a drop shadow
@@ -105,11 +105,11 @@ $graph->Add($bplot);
  
 // Setup the titles
 
-$descibe="Statystyka COG - prowadzne zg³oszenia";
+$descibe="Statystyka COG - prowadzne zgÂ³oszenia";
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
-$noproblems='Liczba zg³oszeñ';
+$noproblems='Liczba zgÂ³oszeÃ±';
 $graph->yaxis->title->Set($noproblems);
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
@@ -128,7 +128,7 @@ $bplot->value->SetFormat('%d');
 
 
 // Create the graph. These two calls are always required
-$graph2 = new Graph(500,200,'auto');
+$graph2 = new Graph(730,200,'auto');
 $graph2->SetScale('textint',0,max($y2)+(max($y2)*0.2),0,0);
 
 // Add a drop shadow
@@ -171,7 +171,7 @@ $bplot2->value->SetAngle(0);
 $bplot2->value->SetFormat('%d');
 
 // Create the graph. These two calls are always required
-$graph3 = new Graph(500,200,'auto');
+$graph3 = new Graph(730,200,'auto');
 $graph3->SetScale('textint',0,max($y3)+(max($y3)*0.2),0,0);
 
 // Add a drop shadow
@@ -190,9 +190,9 @@ $graph3->Add($bplot3);
  
  
 // Setup the titles
-$descibe3="Statystyka COG Miesiêczna - zg³oszenia";
+$descibe3="Statystyka COG MiesiÃªczna - zgÂ³oszenia";
 $graph3->title->Set($descibe3);
-$graph3->xaxis->title->Set('Numer miesi±ca 2011/2012');
+$graph3->xaxis->title->Set('Numer miesiÂ±ca 2011/2012');
 //$graph3->xaxis->title->Set($title3);
 $graph3->xaxis->SetTickLabels($x3);
 
@@ -213,7 +213,7 @@ $bplot3->value->SetAngle(0);
 $bplot3->value->SetFormat('%d');
 
 // Create the graph. These two calls are always required
-$graph4 = new Graph(500,200,'auto');
+$graph4 = new Graph(730,200,'auto');
 $graph4->SetScale('textint',0,max($y4)+(max($y4)*0.2),0,0);
 
 // Add a drop shadow
@@ -232,9 +232,9 @@ $graph4->Add($bplot4);
  
  
 // Setup the titles
-$descibe4="Statystyak COG Miesiêczna - skrzynki weryfikowane";
+$descibe4="Statystyak COG MiesiÃªczna - skrzynki weryfikowane";
 $graph4->title->Set($descibe4);
-$graph4->xaxis->title->Set('Numer miesi±ca 2011/2012');
+$graph4->xaxis->title->Set('Numer miesiÂ±ca 2011/2012');
 //$graph4->xaxis->title->Set($title3);
 $graph4->xaxis->SetTickLabels($x4);
 
