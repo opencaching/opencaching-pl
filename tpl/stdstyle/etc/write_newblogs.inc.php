@@ -37,7 +37,7 @@
 	$n=0;
     foreach($items as $index => $item) {
 	$pubDate = $item['pubDate'];
-	$pubDate = strftime("%Y-%m-%d", strtotime($pubDate));
+	$pubDate = strftime("%d-%m-%Y", strtotime($pubDate));
 
         $html .= '<li class="newcache_list_multi" style="margin-bottom:8px;"><img src="/tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="news" title="news" /> '.$pubDate.' <a class=links href="'.$item['link'].'" title="'.$item['title'].'"><strong>'.$item['title'].'</strong></a></li>';
 	$n=$n+1;

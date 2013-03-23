@@ -122,7 +122,7 @@
 		$thisline = mb_ereg_replace('{kraj}',$record['adm1'], $thisline);
 		$thisline = mb_ereg_replace('{woj}',$record['adm3'], $thisline);
 		$thisline = mb_ereg_replace('{dziubek}',$dziubek, $thisline);
-		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
+		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{wp}', urlencode($record['wp']), $thisline);
 		$thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
 		$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
@@ -188,7 +188,7 @@
 			$thisline = mb_ereg_replace('{kraj}',$record['adm1'], $thisline);
 			$thisline = mb_ereg_replace('{woj}',$record['adm3'], $thisline);
 			$thisline = mb_ereg_replace('{dziubek}',$dziubek, $thisline);
-			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
+			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{wp}', urlencode($record['wp']), $thisline);
 			$thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
