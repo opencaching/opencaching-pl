@@ -1135,7 +1135,10 @@ admin_05 Soort probleem
 admin_06 Aanvrager
 admin_07 Behandelaar
 admin_08 Behandeld
-
+admin_09 Probleem rapport
+admin_10 Probleem rapporten
+admin_11 Rapport archief
+revert Terugzetten
 
 
 
@@ -1149,7 +1152,7 @@ admin_08 Behandeld
 
 oc_on_all_pages_top OPENCACHING.pl
 oc_subtitle_on_all_pages Geocaching in Polen
-
+Statictics
 noaccess_error_01 Je hebt geen machtiging om deze pagine te bekijken.
 noaccess_error_02 Terug naar hoofdpagina
 
