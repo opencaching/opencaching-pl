@@ -10,32 +10,42 @@
 	***************************************************************************/
 ?>
 <script type="text/javascript">
+var map0 = null;
+var currentinfowindow = null;
+var icon1 = { url: "tpl/stdstyle/images/google_maps/guru.png" };
+
+function addMarker(lat, lon, userid, username, nrec) {
+	var marker = new google.maps.Marker({position: new google.maps.LatLng(lat, lon), icon: icon1, map: map0});
+	var infowindow = new google.maps.InfoWindow({
+	    content: '<span style="color:blue;"><table><tr><td><img src="tpl/stdstyle/images/free_icons/vcard.png" alt="img"><b>&nbsp;<a class="links" href="viewprofile.php?userid=' + userid + '">' + username + '</a></td></tr><tr><td><b><img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbsp;' + nrec + ' rekomendacji otrzymanych</td></tr><tr><td><img src="tpl/stdstyle/images/free_icons/email.png" alt="img"><b>&nbsp;<a class="links" href="mailto.php?userid=' + userid + '">Napisz E-mail</a></b></td></tr></table></span>'
+	});
+	google.maps.event.addListener(marker, "click", function() {
+		if (currentinfowindow !== null) {
+			currentinfowindow.close();
+		}
+		infowindow.open (map0, marker);
+		currentinfowindow = infowindow;
+	});
+}
+
 function initialize() {
 
-if (GBrowserIsCompatible()) {
-
-var icon1 = new GIcon();
- icon1.image = "tpl/stdstyle/images/google_maps/guru.png";
- //icon1.shadow = "tpl/stdstyle/images/google_maps/shadow.png";
-	icon1.iconSize = new GSize(20, 34);
-	icon1.iconAnchor = new GPoint(9, 34);
-	icon1.infoWindowAnchor=new GPoint(9, 0);
-
-
-
-
- 
-var map0 = new GMap2(document.getElementById("map0"));
-map0.addControl(new GSmallMapControl());
-map0.addControl(new GMapTypeControl());
-
-map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), {mapzoom});
- 
+	map0 = new google.maps.Map(
+			document.getElementById("map0"),
+			{
+				center: new google.maps.LatLng({mapcenterLat},{mapcenterLon}),
+				zoom: {mapzoom},
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+		);
 
 {points}
-      }
-    }
 
+}
+
+window.onload = function() {
+	initialize();
+};
 </script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/guru.png" class="icon32" alt="" />&nbsp;{{cacheguides}}</div>
 <div class="searchdiv">
@@ -54,9 +64,7 @@ map0.setCenter(new GLatLng({mapcenterLat},{mapcenterLon}), {mapzoom});
 </div>
 <div class="searchdiv">
 <center>
-<div style="width:703px;border: 2px solid navy; padding:3px;">
-    <div id="map0" style="width:700px;height:500px"></div>
-	</div>	
+<div id="map0" style="width:100%; height:500px"></div>
 </center>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/rating-star.png" alt="rekomendacje" title="rekomendacje"><b>&nbsp{{guru_09}}</b><br/>
 </div>
