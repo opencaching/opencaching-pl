@@ -130,7 +130,7 @@
 			{
 				$file_content ='';
 				$file_content .= '<tr>';
-				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($cache_record['date'])) . '</td>';			
+				$file_content .= '<td style="width: 90px;">'. date('d-m-Y', strtotime($cache_record['date'])) . '</td>';			
 				$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($cache_record['icon_large']) . '" border="0" alt=""/></td>';
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($cache_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($cache_record['userid'], ENT_COMPAT, 'UTF-8') . '">' .htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
@@ -151,7 +151,7 @@
 			{
 			$r_log = sql_fetch_array($rs_log);
 			
-				$file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("Y-m-d", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
+				$file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("d-m-Y", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
 
 				$file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\''; 
 
