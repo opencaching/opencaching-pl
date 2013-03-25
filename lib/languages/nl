@@ -783,8 +783,8 @@ list_of_latest_logs_is_empty Er zijn nog geen nieuwste logs
 list_of_caches_is_empty Er zijn geen nieuwe caches in de opgegeven omgeving
 online_users Online registreerde gebruikers
 online_users_info gebaseerd op actieve gebruikers van de laatste 10 minuten
-empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. Het maken van een cache kost moeite en het schrijven van waarderingen en kritiek zijn ook welkom! Zelfs een "Bedankt" zou voldoende kunnen zijn.
-empty_entry_confirm Do you really want to leave the empty log entry?
+empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. Het maken van een cache kost moeite en het schrijven van waarderingen en kritiek zijn ook welkom! Zelfs een "Bedankt voor de cache" zou voldoende kunnen zijn.
+empty_entry_confirm Wil je werkelijk het logveld leeg laten?
 where_i_am Waar ben ik?
 read_info_about_cache_types Lees hier meer informatie over <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Cache soorten</a>
 regiononly Regio (Polen)
@@ -1157,5 +1157,15 @@ org1 Georganiseerd door
 noaccess_error_01 Je hebt geen machtiging om deze pagine te bekijken.
 noaccess_error_02 Terug naar hoofdpagina
 report_problem_notice Wanneer er een probleem met een cache is, zoals <b>verkeerde locatie</b>. Meld dit dan aan de eigenaar (of het OC Team PL) via dze link.
+qrcode_01 QR Code generator
+qrcode_02 Maak een label met een <a class="links" href="http://pl.wikipedia.org/wiki/QR_Code">QR Code</a> (gelamineerd, plastic hoes of eventueel een stikker) met maximaal 77 tekens, om een volgende punt van een multi cache of voor een wachtwoord te gebruiken. Dit kan dan leesbaar zijn met een mobiele telefoon.
+qrcode_03 Gegevens in de code
+qrcode_04 Genereer
+qrcode_05 Hier kan een QR Code lezer gedownload worden.
+
+
+
+
+
 
 
