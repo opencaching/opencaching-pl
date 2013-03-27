@@ -161,8 +161,7 @@
 	// user_id of admin who have more options than COG users to remove all logs or other more options in admin_users.php 
 	$super_admin_id = '';
 
-      // change settings (user,password) in lib/cgi-bin/data/mapper.ini   
-       $cachemap_mapper = "lib/cgi-bin/mapper.fcgi";
+       $cachemap_mapper = "lib/mapper-okapi.php";
 
 
 
