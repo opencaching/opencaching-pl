@@ -14,4 +14,4 @@ header("Content-Type: text/plain; charset=utf-8");
 # without password. This is for production only; if this is a developer
 # installation, then you should do updates by yourself (run 'svn up').
 
-print shell_exec("sudo /var/www/ocpl-update.sh up 2>&1");
+print shell_exec("sudo /var/www/ocpl-update.sh 2>&1");
