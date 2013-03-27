@@ -10,10 +10,11 @@ set_time_limit(0);
 header("Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0");
 header("Content-Type: text/plain; charset=utf-8");
 
-print "OCPL";
-print "====\n";
-readfile("http://opencaching.pl/post-commit.php");
+print "OCPL\n";
+print "====\n\n";
+readfile("http://opencaching.pl/post-commit.php?from=ocpl-propagate");
 
-print "OCNL (test)";
-print "===========";
-readfile("http://test.opencaching.nl/post-commit.php");
+print "\n\n";
+print "OCNL (test)\n";
+print "===========\n";
+readfile("http://test.opencaching.nl/post-commit.php?from=ocpl-propagate");
