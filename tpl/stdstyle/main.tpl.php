@@ -9,8 +9,8 @@
  *
  ***************************************************************************/
 
-    //MenĂź laden
-    global $mnu_bgcolor, $mnu_selmenuitem, $develwarning, $tpl_subtitle;
+    // load menu
+    global $mnu_bgcolor, $mnu_selmenuitem, $develwarning, $tpl_subtitle, $absolute_server_URI;
     require_once $stylepath . '/lib/menu.php';
     $pageidx = mnu_MainMenuIndexFromPageId($menu, $tplname);
 
@@ -22,8 +22,20 @@
     }
     if ($tplname != 'start') $tpl_subtitle .= htmlspecialchars($mnu_selmenuitem['title'] . ' - ', ENT_COMPAT, 'UTF-8');
 
-	$logo1 = tr('oc_on_all_pages_top');	
-	$logo2 = tr('oc_subtitle_on_all_pages');
+
+	// sitename and slogan iternational handling
+	
+			
+		// print $_SERVER['SERVER_NAME'] ;
+        // print '   '; 
+        // $domain = substr($_SERVER['HTTP_HOST'],-2,2);
+		// exit; 
+	
+	$nodeDetect = substr($absolute_server_URI,-3,2);
+
+	
+	$logo1 = tr('oc_on_all_pages_top_'.$nodeDetect);	
+	$logo2 = tr('oc_subtitle_on_all_pages_'.$nodeDetect);
 	$logo3 = 'oc_logo.png';
 
 if ((date('m') == 4) and (date('d') == 1)) { 
