@@ -429,7 +429,7 @@ filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
 map_msg In order to view coordinates and <br/>the map of cache's location<br/> you must be <a href="login.php?target={target}">logged in</a>
 additional_hints Extra hints
 images Afbeeldingen
-mp3_files_info PodCasts - listen to the instructions that will lead you to a cache - MP3 files
+mp3_files_info PodCasts - luister naar de instructies om je naar de cache te leiden - MP3 bestenden
 utilities Hulpmiddelen
 search_geocaches_nearby Zoek caches dichtbij (radius 100 km)
 download_as_file Download als bestand
@@ -1152,6 +1152,8 @@ revert Terugzetten
 
 oc_on_all_pages_top_pl OPENCACHING.pl
 oc_subtitle_on_all_pages_pl Geocaching in Polen
+oc_on_all_pages_top_nl OPENCACHING.nl
+oc_subtitle_on_all_pages_nl Geocaching in Nederland
 Statictics Statistieken
 org1 Georganiseerd door
 noaccess_error_01 Je hebt geen machtiging om deze pagine te bekijken.
