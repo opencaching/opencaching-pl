@@ -19,14 +19,16 @@
 		function handle_geolocation_query(position){				  
 			var n = position.coords.latitude+"";
 			var e = position.coords.longitude+"";		
-			var nmin =n.substring(3, 8);
+                        var ntemp = String(n).split(".");
+                        var etemp = String(e).split(".");
+			var nmin = ntemp[1].substring(0,5);
 			while(nmin.length<5) nmin=nmin+"0";
-			var emin =e.substring(3, 8);
+			var emin = etemp[1].substring(0,5);
 			while(emin.length<5) emin=emin+"0";
 			document.getElementById('Nminuty').value=round(nmin/1666.66,3);
 			document.getElementById('Eminuty').value=round(emin/1666.66,3);			
-			document.getElementById('Nstopien').value=n.substring(0, 2);
-			document.getElementById('Estopien').value=e.substring(0, 2);
+			document.getElementById('Nstopien').value=ntemp[0];
+			document.getElementById('Estopien').value=etemp[0];
 		}
 		function nav(){
 		
