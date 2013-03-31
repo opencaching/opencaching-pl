@@ -38,7 +38,7 @@
 
  ****************************************************************************/
 include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu, $stat_menu;
+global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url;
 
 $menu = array(
     array(
@@ -218,7 +218,7 @@ $menu = array(
         'menustring'    => tr('abc'),
         'siteid'        => 'articles/info',
         'visible'       => true,
-        'filename'      => 'http://wiki.opencaching.pl',
+        'filename'      => $wiki_url,
         'newwindow'     => true
     ),
     array(
@@ -258,7 +258,7 @@ $menu = array(
         'menustring'    => tr('geokrets'),
         'siteid'        => 'GeoKrety',
         'visible'       => true,
-        'filename'      => 'http://geokrety.org/index.php?lang=pl_PL.UTF-8',
+        'filename'      => 'http://geokrety.org/',
         'newwindow'     => 'true'
     ),
     array(
@@ -274,7 +274,7 @@ $menu = array(
         'menustring'    => 'Download',
         'siteid'        => 'Download',
         'visible'       => true,
-        'filename'      => 'http://wiki.opencaching.pl/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL',
+        'filename'      => $wiki_url.'/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL',
         'newwindow'     => 'true'
     ),
 
