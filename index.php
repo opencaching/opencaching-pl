@@ -79,6 +79,9 @@
 		// will replace {foo} in the templates
 	}
 
+        // diffrent oc server handling: display proper info depend on server running the code
+        $nodeDetect = substr($absolute_server_URI,-3,2);
+        tpl_set_var('what_do_you_find_intro',tr('what_do_you_find_intro_'.$nodeDetect));
 
 	//make the template and send it out
 	tpl_BuildTemplate(false);
