@@ -294,9 +294,9 @@ hidden_caches Hidden caches
 found_caches Found caches
 not_found_caches Er zijn nog geen gevonden caches
 show toon
-lock Lock
-unlock Unlock
-user_stats user's stats
+lock Blokkeer
+unlock Deblokkeer
+user_stats gebruikersstatistieken
 first_cache Als dit de eerste geplaatste cache wordt, lees dan eerst de volgende <a href="http://wiki.opencaching.pl/index.php/Cache_parameters">omschrijving</a>
 first_cache_approvement Omdat dit een van de eerste 3 caches is, zal het Opencaching Team deze cache beoordelen.
 all_cache_approvement Cache will by visible for others after approving by OC Team
@@ -421,7 +421,7 @@ active_caches actieve caches
 number_of_active_users Aantal gebruikers
 number_of_founds Gevonden
 latest_news Nieuws
-what_do_you_find Welkom op Opencaching.pl
+what_do_you_find Welkom op {site_name}
 what_do_you_find_intro Geocaching is een buitensport of activiteit waarbij cachers een GPS gebruiken om een "schat" te vinden die verstopt is door andere deelnemers. Caches zijn waterdichte dozen, die ruilspulletjes en een logboek bevatten waar cachers hun bezoek in kunnen schrijven. De coördinaten van de locatie van de caches zijn opgeslagen in een online database, evenals de beschrijving en instructies om deze te vinden.<br/>Op deze site kun je een heleboel vinden over cachen in Polen. Opencaching.pl in Polen is opgericht in <span class="content-title-noshade">Mei 2006</span>. Onze database werkt op <b>opensource project Opencaching</b>. Het idee hierachter is om met meerdere opencaching nodes uit verschillende landen over de hele wereld een gesyngroniseerde database met caches en gebruikers te werken.<br/>Opencaching sites zoals deze hebben niets gemeen met Opencaching.com.
 more_news More news
 filename_rules http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use
@@ -562,7 +562,7 @@ graph_find Grafieken van gevonden caches
 there_is_no_caches_registered Er zijn nog geen caches gemaakt
 there_is_no_caches_found Er zijn nog geen caches gevonden
 with_password Cache with password
-user_account User's account
+user_account gebruikers account
 management_users Beheer de gebruiker
 titles Onderwerp
 content Bericht
@@ -1164,6 +1164,7 @@ qrcode_02 Maak een label met een <a class="links" href="http://pl.wikipedia.org/
 qrcode_03 Gegevens in de code
 qrcode_04 Genereer
 qrcode_05 Hier kan een QR Code lezer gedownload worden.
+
 
 
 
