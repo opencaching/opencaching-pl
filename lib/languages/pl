@@ -184,7 +184,7 @@ cache_mapv2 Mapa skrzynek v2
 old_cache_map Starsza wersja mapy skrzynek
 abc ABC Geocachingu
 forum Forum
-geokrets geoŻyrafy
+geokrets geoKrety
 geoblog Geoblog
 reports Zgłoszenia
 bugs Błędy
@@ -629,7 +629,7 @@ activity_by_region Aktywność w województwach
 number_of_visit_caches Liczba poszukiwań skrzynek
 users_active Liczba aktywnych użytkowników w poszukiwaniach
 show_labels Pokaż etykiety
-history_gk geoŻyrafy wizyty
+history_gk geoKrety wizyty
 cachenotes notatki
 my_statistics Moje statystyki
 mycache_note Moje notatki
@@ -914,11 +914,11 @@ log_type_available Gotowa do szukania
 log_mobile_init Punkt startowy kesza
 error_coords_not_ok Niepoprawne współrzędne!
 GKApi01 Integracja konta OC z Geokretami
-GKApi02 geoŻyrafy Secid:
-GKApi03 Aby zintegrować konto Opencaching.pl ze swoim kontem na geoŻyrafy.org przeklej tu swój <b>Secid</b>. <b>Secid</b> znajdziesz na stronie geokretów w szczegółach swojego konta. 
+GKApi02 geoKrety Secid:
+GKApi03 Aby zintegrować konto Opencaching.pl ze swoim kontem na geoKrety.org przeklej tu swój <b>Secid</b>. <b>Secid</b> znajdziesz na stronie geokretów w szczegółach swojego konta. 
 GKApi04 (Tutaj)
 GKApi05 Jednoczesne logowanie Geokretów z Twojego inwentarza:
-GKApi06 Zaloguj jednocześnie GeoŻyrafy
+GKApi06 Zaloguj jednocześnie geoKrety
 GKApi07 Ta funkcja wymaga integracji konta OC z kontem Geokretów. Twoje konto OC nie jest w tej chwili skonfigurowane do współpracy z GeoKretami. 
 GKApi08 Aby zintegrować konto OC z Geokretami: 
 GKApi09 Skopiuj swoje secid ze strony geokretów 
@@ -934,7 +934,7 @@ GKApi18 Jednoczesne logowanie Geokretów odkrytych w tej keszynce:
 GKApi19 logowanie GeoKretów
 GKApi20 GeoKret zalogowany!
 GKApi21 Błąd!
-GKApi22 Brak odpowiedzi z geoŻyrafy.org
+GKApi22 Brak odpowiedzi z geoKrety.org
 GKApi23 liczba geokretów u siebie
 GKApi24 w keszyku
 GKApi25 treść logu kreta
