@@ -6,7 +6,7 @@
  *   the Free Software Foundation; either version 2 of the License, or
  *   (at your option) any later version.
  *
- *  UTF-8 ąść%Y-%m-%d
+ *  UTF-8 ąść%d-%m-%Y
  ***************************************************************************/
 
 //prepare the templates and include all neccessary
@@ -223,7 +223,7 @@ if ($error == false) {
 				$events_count = 0;
 			
 			$days_since_first_find = @mysql_result(@mysql_query("SELECT datediff(now(), date) as old FROM cache_logs WHERE deleted=0 AND user_id = $user_id AND type=1 ORDER BY date LIMIT 1"), 0);
-			$rsfc2 = sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date DESC LIMIT 1", $user_id);
+			$rsfc2 = sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%d-%m-%Y') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date DESC LIMIT 1", $user_id);
 			$rfc2 = mysql_fetch_array($rsfc2);
 			$rsc = sql("SELECT COUNT(*) number FROM cache_logs WHERE type=1 AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`) ORDER BY number DESC LIMIT 1", $user_id);
 			$rc = sql_fetch_array($rsc);
@@ -288,7 +288,7 @@ if ($error == false) {
 			} else { $content .= '</p>';
 			}
 			$content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
-			$rsms = sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%Y-%m-%d') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date ASC", $user_id);
+			$rsms = sql("SELECT cache_logs.cache_id cache_id,  DATE_FORMAT(cache_logs.date,'%d-%m-%Y') data, caches.wp_oc cache_wp FROM cache_logs, caches WHERE caches.cache_id=cache_logs.cache_id AND cache_logs.type='1' AND cache_logs.user_id=&1 AND cache_logs.deleted='0' ORDER BY cache_logs.date ASC", $user_id);
 			if (mysql_num_rows($rsms) != 0) {
 				if (mysql_num_rows($rsms) < 101) {
 					for ($i = 0; $i <= mysql_num_rows($rsms); $i += 10) {
@@ -329,7 +329,7 @@ if ($error == false) {
 			$rs_logs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 	                          cache_logs.type AS log_type,
 				cache_logs.text AS log_text,
-	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d')  AS log_date,
+	                          DATE_FORMAT(cache_logs.date,'%d-%m-%Y')  AS log_date,
 	                          caches.name AS cache_name,
 				caches.wp_oc AS wp_name,
 	                          user.username AS user_name,
@@ -619,7 +619,7 @@ if ($error == false) {
 			else
 				$lang_db = "en";
 
-			//get not published caches DATE_FORMAT(`caches`.`date_activate`,'%Y-%m-%d'),
+			//get not published caches DATE_FORMAT(`caches`.`date_activate`,'%d-%m-%Y'),
 			$rs_caches1 = sql("	SELECT  `caches`.`cache_id`, `caches`.`name`, `caches`.`date_hidden`, `caches`.`date_activate`, `caches`.`status`, `cache_status`.`&1` AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
 						FROM `caches`, `cache_status`
 						WHERE `user_id`='&2'
@@ -657,7 +657,7 @@ if ($error == false) {
 			else
 				$lang_db = "en";
 
-			$rs_caches2 = sql("	SELECT	`cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%Y-%m-%d') AS `date`, `status`,
+			$rs_caches2 = sql("	SELECT	`cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%d-%m-%Y') AS `date`, `status`,
 							`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
 						FROM `caches`, `cache_status`
 						WHERE `user_id`='&2'
@@ -693,7 +693,7 @@ if ($error == false) {
 			else
 				$lang_db = "en";
 
-			$rs_caches3 = sql("	SELECT	`cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%Y-%m-%d') AS `date`, `status`,
+			$rs_caches3 = sql("	SELECT	`cache_id`, `name`, DATE_FORMAT(`date_hidden`,'%d-%m-%Y') AS `date`, `status`,
 							`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`, `caches`.`wp_oc` AS `wp_name`
 						FROM `caches`, `cache_status`
 						WHERE `user_id`='&2'
