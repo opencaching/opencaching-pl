@@ -1,9 +1,11 @@
 <?php
   //prepare the templates and include all neccessary
+  if (!isset($rootpath)) $rootpath = '';
 	require_once('./lib/common.inc.php');
 	require_once('lib/cache_icon.inc.php');
 	require_once('lib/clicompatbase.inc.php');
 	
+	if (!isset($_POST['flush_print_list'])) $_POST['flush_print_list'] = '';
 	if( $_POST['flush_print_list'] != "")
 		$_SESSION['print_list'] = array();
 	
@@ -77,6 +79,11 @@ function clientSideInclude(id, url) {
 </script>
 
 <?php
+if (!isset($_POST['showpictures'])) $_POST['showpictures'] = '';
+if (!isset($_POST['spoiler_only'])) $_POST['spoiler_only'] = '';
+if (!isset($_POST['showlogs'])) $_POST['showlogs'] = '';
+if (!isset($_POST['nocrypt'])) $_POST['nocrypt'] = '';
+
 if($_GET['cacheid'] != "") {
 	$showlogs = $_POST['showlogs'];
 	$pictures = $_POST['showpictures']!=""?$_POST['showpictures']:"&pictures=no";
@@ -128,7 +135,8 @@ for( $i=1000;$i<2000;$i+=200)
 }
 */
 	
-
+    if (!isset($include_caches)) $include_caches = '';
+	if (!isset($include_caches_list)) $include_caches_list = '';
 	foreach( $caches_list as $id )
 	{
 		$include_caches .= "clientSideInclude('include".$id."', 'viewcache.php?cacheid=".$id."&print=y".$pictures.$showlogs.$nocrypt.$spoiler_only."');";
@@ -137,7 +145,8 @@ for( $i=1000;$i<2000;$i+=200)
 	
 	$checked_1 = ""; $checked_2 = ""; $checked_3 = ""; $checked_4 = ""; $checked_5 = ""; $checked_6 = ""; $checked_7 = ""; $checked_8 = "";
 	
-	if( $_POST['showlogs'] == "" || !isset($_POST['showlogs']))
+	if (!isset($_POST['showlogs'])) $_POST['showlogs'] = '';
+	if($_POST['showlogs'] == "")
 		$checked_1 = "checked";
 	if( $_POST['showlogs'] == "&showlogs=4" )
 		$checked_2 = "checked";
@@ -189,7 +198,7 @@ if ($_GET['cacheid']) {
 		<input type="checkbox" name="nocrypt" id="nocrypt" value="&nocrypt=1" <?php echo $checked_7;?>><label for="nocrypt"><?php print tr('printcache_07'); ?></label>&nbsp;&nbsp;&nbsp;
 		<input type="checkbox" name="spoiler_only" id="spoiler_only" value="&spoiler_only=1" <?php echo $checked_8;?>><label for="spoiler_only"><?php print tr('printcache_08'); ?></label>&nbsp;&nbsp;&nbsp;
 </div>
-		<input type="submit" name="submit" value=<?php print tr('printcache_09'); ?>
+		<input type="submit" name="submit" value="<?php print tr('printcache_09'); ?>">
 
 <?
 if($_GET['cacheid'] == '')
@@ -209,7 +218,9 @@ echo $include_caches_list;
 ?>
 
 <div id="printedcaches">
-				<?php echo $content;?>
+<?php 
+if(isset($content)) echo $content;
+?>
 </div>
 	</body>
 </html>
