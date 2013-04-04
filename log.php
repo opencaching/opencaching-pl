@@ -908,8 +908,34 @@ $debug = true;
 					$sql = "SELECT status, type FROM `caches` WHERE cache_id='".sql_escape($cache_id)."'";
 					$res2 = mysql_fetch_array(mysql_query($sql));
 
-					//build logtypeoptions
-					
+					// debug('$res', $res);
+					// debug('$res2', $res2);
+					// debug('$log_types', $log_types);
+
+					/****************
+					 * build logtypeoptions
+					 *
+					 * cache types:
+					 * 1 	Other 	
+					 * 2 	Trad. 	
+					 * 3 	Multi 	
+					 * 4 	Virt. 	
+					 * 5 	ICam. 	
+					 * 6 	Event 	
+					 * 7 	Quiz 	
+					 * 8 	Moving 	
+					 * 9 	Podcast 
+					 * 10 	own-cache
+					 * 
+					 * cache statuses:
+					 *  1 	Ready for search 
+					 * 	2 	Temporarily unavailable 
+					 * 	3 	Archived 
+					 * 	4 	Hidden by approvers to check
+					 * 	5 	Not yet available
+					 * 	6 	Blocked by COG
+					 * 
+					 */
 					$logtypeoptions = '';
 					
 					// setting selector neutral
@@ -917,6 +943,8 @@ $debug = true;
 					 if ($res2['status'] != 4) $logtypeoptions .= '<option value="-2" selected="selected">'. tr('wybrac_log') . '</option>' . '\n';
 					 tpl_set_var('display', "none"); 
 					 }
+					
+					
 					
 					foreach ($log_types AS $type)
 					{
@@ -954,13 +982,25 @@ $debug = true;
 						// skip if permission=O and not owner
 						if($type['permission'] == 'O' && $usr['userid'] != $cache_user_id && $type['permission'])
 							continue;
+						
+						// if virtual display only log typ comment available
+						if (($cache_type == 4 || $cache_type == 5)  && $res2['status'] == 3) {
+								if($type['id'] != 3) { 
+									continue;
+								}	
+						}
+						
 						if($cache_type == 6)
 						{
-							if ($usr['admin']){
-							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11)
-							{continue;}} else{
-							if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12)
-							{continue;}}							
+							if ($usr['admin']) {
+								if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11) {
+										continue;
+								}
+							} else {
+								if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11|| $type['id'] == 12) {
+									continue;
+								}
+							}							
 						}
 						else
 						{
@@ -1322,5 +1362,11 @@ exit;
 
 return ($error);
 }
-	
+
+function debug($label, $array)
+{
+	print "<pre>$label ===============================";
+	print_r($array);
+	print "===========================================</pre>";
+}
 ?>
