@@ -299,7 +299,7 @@ unlock Deblokkeer
 user_stats gebruikersstatistieken
 first_cache Als dit de eerste geplaatste cache wordt, lees dan eerst de volgende <a href="http://wiki.opencaching.pl/index.php/Cache_parameters">omschrijving</a>
 first_cache_approvement Omdat dit een van de eerste 3 caches is, zal het Opencaching Team deze cache beoordelen.
-all_cache_approvement Cache will by visible for others after approving by OC Team
+all_cache_approvement Cache zal zichtbaar zijn na goedkeuring van het OC Team.
 name_label Cache naam
 cache_type Cache soort
 cache_size Cache grootte
@@ -718,7 +718,7 @@ need_maintenance_log Need maintenance
 comment_octeam_log OC Team comment
 moved_log Moved
 new_coordinates Nieuwe coördinaten
-moved_distance Distance passed
+moved_distance Afgelegde afstand
 delete_logentry Verwijderen van log 
 confirm_remove_log Moet deze log werkelijk verwijderd worden
 add_comment_to_remove Wil je ook een berichtje schrijven aan
@@ -764,7 +764,7 @@ subject Onderwerp
 contents Bericht
 content_include_html Bericht met HTML
 logged_by Gelogt door
-all_regions All regions
+all_regions Alle regio"s
 assigned_to Toegewezen aan
 date_created Datum gemaakt
 owner Eigenaar

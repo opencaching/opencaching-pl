@@ -274,7 +274,7 @@
 	color: #ffffff;
 }
 
-.routeSummaryDiv {overpelt
+.routeSummaryDiv {
 	border: 1px solid navy;
 	cursor: pointer;
 	background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;

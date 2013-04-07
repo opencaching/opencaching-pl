@@ -47,7 +47,7 @@ chkiconcache();
 	{
 		if( document.newcacheform.size.options[document.newcacheform.size.options.length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
 		{
-			document.newcacheform.size.options[document.newcacheform.size.options.length] = new Option('Bez pojemnika', '7');
+			document.newcacheform.size.options[document.newcacheform.size.options.length] = new Option('{{size_07}}', '7');
 		}
 		document.newcacheform.size.value = "7";
 		document.newcacheform.size.disabled = true;
