@@ -414,7 +414,7 @@ $debug = true;
 				{
 					$all_ok = ($date_not_ok == false) && ($logtype_not_ok == false) && ($coords_not_ok == false);
 
-					if (($all_ok) && ($use_log_pw) && $log_type == 1)
+					if (($all_ok) && ($use_log_pw) && ($log_type == 1 || $log_type == 7))
 					{
 						if (isset($_POST['log_pw']))
 						{
