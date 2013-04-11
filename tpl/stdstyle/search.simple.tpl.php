@@ -81,10 +81,10 @@ function _sbort_click() {
 
 function _sbft_click() {
 	if (document.searchbyfulltext.fulltext.value == "") {
-		alert("Proszę w polu tekst wprowadzić wartość!");
+		alert("{{error_search_by_text_01}}");
 		return false;
 	} else if (document.searchbyfulltext.fulltext.value.length < 3) {
-		alert("Minimalna ilość zanków w polu tekst to 3!");
+		alert("{{error_search_by_text_02}}");
 		return false;
 	} else if ((document.searchbyfulltext.ft_name.checked == false) &&  (document.searchbyfulltext.ft_desc.checked == false) &&  
 		(document.searchbyfulltext.ft_logs.checked == false) && (document.searchbyfulltext.ft_pictures.checked == false)) {
@@ -98,7 +98,7 @@ function _sbft_click() {
 
 function _sbo_click() {
 	if (document.searchbyowner.owner.value == "") {
-		alert("Proszę w polu właściciel wprowadzić wartość!");
+		alert("{{error_search_by_owner}}");
 		return false;
 	} else if (check_recommendations() == false) {
 		return false;
@@ -108,7 +108,7 @@ function _sbo_click() {
 
 function _sbf_click() {
 	if (document.searchbyfinder.finder.value == "") {
-		alert("Proszę w polu Szkający wprowadzić wartość!");
+		alert("{{error_search_by_finder}}");
 		return false;
 	} else if (check_recommendations() == false) {
 		return false;

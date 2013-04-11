@@ -1165,9 +1165,11 @@ qrcode_02 Etykietkę z <a class="links" href="http://pl.wikipedia.org/wiki/QR_Co
 qrcode_03 Dane w QR Code
 qrcode_04 Generuj
 qrcode_05 Tu znajdziesz czytnik QR Code dla różnych telefonów
-
-
-
+error_ort Nie znaleziono wskazanego miejsca
+error_search_by_text_01 Proszę w polu tekst wprowadzić wartość!
+error_search_by_text_02 Minimalna ilość zanków w polu tekst to 3!
+error_search_by_owner Proszę w polu właściciel wprowadzić wartość!
+Error_search_by_finder Proszę w polu Szkający wprowadzić wartość!
 
 
 

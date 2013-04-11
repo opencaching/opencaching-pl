@@ -1165,9 +1165,11 @@ qrcode_02 Maak een label met een <a class="links" href="http://pl.wikipedia.org/
 qrcode_03 Gegevens in de code
 qrcode_04 Genereer
 qrcode_05 Hier kan een QR Code lezer gedownload worden.
-
-
-
+error_ort Opgegeven locatie niet gevonden
+error_search_by_text_01 Voer te zoeken tekst in
+error_search_by_text_02 Voer minimaal 3 tekens in
+error_search_by_owner Voer naam van eigenaar in
+error_search_by_finder Voer naam van vinder in
 
 
 
