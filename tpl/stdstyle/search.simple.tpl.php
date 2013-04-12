@@ -30,7 +30,7 @@ var maAttributes = new Array({attributes_jsarray});
 
 function _sbn_click() {
 	if (document.searchbyname.cachename.value == "") {
-		alert("Proszę w polu nazwa wprowadzić wartość!");
+		alert("{{alert_search_by_cachename}}");
 		return false;
 //	} else if (document.searchbyname.cachename.value.length < 3) {
 //		alert("Minimalna ilość zanków w polu nazwa to 3!");
@@ -43,16 +43,16 @@ function _sbn_click() {
 
 function _sbd_click() {
 	if (isNaN(document.searchbydistance.lon_h.value) || isNaN(document.searchbydistance.lon_min.value)) {
-		alert("Stopnie długości geograficznej muszą być cyfra!\nFormat: hh° mm.mmm");
+		alert("{{alert_search_by_dist_01}}");
 		return false;
 	} else if (isNaN(document.searchbydistance.lat_h.value) || isNaN(document.searchbydistance.lat_min.value)) {
-		alert("Stopnie szerkości geograficznej muszą być cyfrą!\nFormat: hh° mm.mmm");
+		alert("{{alert_search_by_dist_02}}");
 		return false;
 	} else if (isNaN(document.searchbydistance.distance.value)) {
-		alert("max. odległość musi być cyfrą!");
+		alert("{{alert_search_by_dist_03}}");
 		return false;
 	} else if (document.searchbydistance.distance.value <= 0 || document.searchbydistance.distance.value > 9999) {
-		alert("Dozwolona max wartość odległości musi być z zakresu: 0 - 9999");
+		alert("{{alert_search_by_dist_04}}");
 		return false;
 	} else if (check_recommendations() == false) {
 		return false;
@@ -62,16 +62,16 @@ function _sbd_click() {
 
 function _sbort_click() {
 	if (document.searchbyort.ort.value == "") {
-		alert("Proszę w polu nazwa miejsca wprowadzić wartość!");
+		alert("{{alert_search_by_ort_01}}");
 		return false;
 	} else if (document.searchbyort.ort.value.length < 3) {
-		alert("Minimalna ilość zanków w polu nazwa miejsca to 3!");
+		alert("{{alert_search_by_ort_02}}");
 		return false;
 	} else if (isNaN(document.searchbyort.distance.value)) {
-		alert("Maksymalna odległość musi być cyfrą!");
+		alert("{{alert_search_by_ort_03}}");
 		return false;
 	} else if (document.searchbyort.distance.value <= 0 || document.searchbyort.distance.value > 9999) {
-		alert("Dozwolona maksymalna wartość odległości musi być z zakresu: 0 - 9999");
+		alert("{{alert_search_by_ort_04}}");
 		return false;
 	} else if (check_recommendations() == false) {
 		return false;
@@ -81,14 +81,14 @@ function _sbort_click() {
 
 function _sbft_click() {
 	if (document.searchbyfulltext.fulltext.value == "") {
-		alert("{{error_search_by_text_01}}");
+		alert("{{alert_search_by_text_01}}");
 		return false;
 	} else if (document.searchbyfulltext.fulltext.value.length < 3) {
-		alert("{{error_search_by_text_02}}");
+		alert("{{alert_search_by_text_02}}");
 		return false;
 	} else if ((document.searchbyfulltext.ft_name.checked == false) &&  (document.searchbyfulltext.ft_desc.checked == false) &&  
 		(document.searchbyfulltext.ft_logs.checked == false) && (document.searchbyfulltext.ft_pictures.checked == false)) {
-		alert("Musisz zaznaczyć choć jedno pole do poszukiwań !");
+		alert("{{alert_search_by_text_03}}");
 		return false;
 	} else if (check_recommendations() == false) {
 		return false;
@@ -98,7 +98,7 @@ function _sbft_click() {
 
 function _sbo_click() {
 	if (document.searchbyowner.owner.value == "") {
-		alert("{{error_search_by_owner}}");
+		alert("{{alert_search_by_owner}}");
 		return false;
 	} else if (check_recommendations() == false) {
 		return false;
@@ -108,7 +108,7 @@ function _sbo_click() {
 
 function _sbf_click() {
 	if (document.searchbyfinder.finder.value == "") {
-		alert("{{error_search_by_finder}}");
+		alert("{{alert_search_by_finder}}");
 		return false;
 	} else if (check_recommendations() == false) {
 		return false;

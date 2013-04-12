@@ -764,7 +764,7 @@ subject Onderwerp
 contents Bericht
 content_include_html Bericht met HTML
 logged_by Gelogt door
-all_regions Alle regio"s
+all_regions Alle regio's
 assigned_to Toegewezen aan
 date_created Datum gemaakt
 owner Eigenaar
@@ -1166,11 +1166,20 @@ qrcode_03 Gegevens in de code
 qrcode_04 Genereer
 qrcode_05 Hier kan een QR Code lezer gedownload worden.
 error_ort Opgegeven locatie niet gevonden
-error_search_by_text_01 Voer te zoeken tekst in
-error_search_by_text_02 Voer minimaal 3 tekens in
-error_search_by_owner Voer naam van eigenaar in
-error_search_by_finder Voer naam van vinder in
-
+alert_search_by_cachename Vul naam van de cache in
+alert_search_by_dist_01 Lengtegraad moeten cijfers zijn\nformaat: hh° mm.mmm
+alert_search_by_dist_02 Breettegraad moeten cijfers zijn\nformaat: hh° mm.mmm
+alert_search_by_dist_03 Maximale afstand dienen cijfers te zijn
+alert_search_by_dist_04 Maximale afstand moet waarde hebben tussen 0 -9999
+alert_search_by_text_01 Vul te zoeken tekst in
+alert_search_by_text_02 Vul minimaal 3 tekens in
+alert_search_by_text_03 Vink een keuzevakje aan
+alert_search_by_owner Vul naam van eigenaar in
+alert_search_by_finder Vul naam van vinder in
+alert_search_by_ort_01 Vul een plaatsnaam in
+alert_search_by_ort_02 Vul minimaal 3 tekens in
+alert_search_by_ort_03 Maximale afstand dienen cijfers te zijn
+alert_search_by_ort_04 Maximale afstand moet waarde hebben tussen 0 -9999
 
 
 

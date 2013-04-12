@@ -1166,10 +1166,20 @@ qrcode_03 Dane w QR Code
 qrcode_04 Generuj
 qrcode_05 Tu znajdziesz czytnik QR Code dla różnych telefonów
 error_ort Nie znaleziono wskazanego miejsca
-error_search_by_text_01 Proszę w polu tekst wprowadzić wartość!
-error_search_by_text_02 Minimalna ilość zanków w polu tekst to 3!
-error_search_by_owner Proszę w polu właściciel wprowadzić wartość!
-Error_search_by_finder Proszę w polu Szkający wprowadzić wartość!
+alert_search_by_cachename Proszę w polu nazwa wprowadzić wartość!
+alert_search_by_dist_01 Stopnie długości geograficznej muszą być cyfra!\nFormat: hh° mm.mmm
+alert_search_by_dist_02 Stopnie szerkości geograficznej muszą być cyfrą!\nFormat: hh° mm.mmm
+alert_search_by_dist_03 max. odległość musi być cyfrą!
+alert_search_by_dist_04 Dozwolona max wartość odległości musi być z zakresu: 0 - 9999
+alert_search_by_text_01 Proszę w polu tekst wprowadzić wartość!
+alert_search_by_text_02 Minimalna ilość zanków w polu tekst to 3!
+alert_search_by_text_03 Musisz zaznaczyć choć jedno pole do poszukiwań!
+alert_search_by_owner Proszę w polu właściciel wprowadzić wartość!
+alert_search_by_finder Proszę w polu Szkający wprowadzić wartość!
+alert_search_by_ort_01 Proszę w polu nazwa miejsca wprowadzić wartość!
+alert_search_by_ort_02 Minimalna ilość zanków w polu nazwa miejsca to 3!
+alert_search_by_ort_03 Maksymalna odległość musi być cyfrą!
+alert_search_by_ort_04 Dozwolona maksymalna wartość odległości musi być z zakresu: 0 - 9999
 
 
 
