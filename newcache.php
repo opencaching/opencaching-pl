@@ -36,7 +36,7 @@
 		else
 		{	
 			if (isset($_REQUEST['newcache_info']))
-				{$newcache_info=$_GET['newcache_info'];
+				{$newcache_info=$_REQUEST['newcache_info'];
 			} else { $newcache_info=1;}
 
 				if ($newcache_info==1) {
@@ -501,7 +501,6 @@ else if ($verify_all==1) {
 						$show_all_langs = 1;
 					}
 				}
-
 				if ($show_all_langs == 0)
 				{
 					tpl_set_var('show_all_langs', '0');
@@ -520,8 +519,7 @@ else if ($verify_all==1) {
 				for ($i = 0; $i < mysql_num_rows($rs); $i++)
 				{
 					$record = sql_fetch_array($rs);
-
-					if ($record['short'] == $sel_lang)
+					if ($record['short'] == strtoupper($sel_lang))
 					{
 						$langsoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
 					}
