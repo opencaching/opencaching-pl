@@ -1180,6 +1180,8 @@ alert_search_by_ort_01 Vul een plaatsnaam in
 alert_search_by_ort_02 Vul minimaal 3 tekens in
 alert_search_by_ort_03 Maximale afstand dienen cijfers te zijn
 alert_search_by_ort_04 Maximale afstand moet waarde hebben tussen 0 -9999
+no_pictures_yet Er zijn nog geen afbeeldingen
+show_all_countries Toon alles
 
 
 

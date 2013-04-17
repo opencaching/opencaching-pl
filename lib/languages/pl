@@ -1180,8 +1180,8 @@ alert_search_by_ort_01 Proszę w polu nazwa miejsca wprowadzić wartość!
 alert_search_by_ort_02 Minimalna ilość zanków w polu nazwa miejsca to 3!
 alert_search_by_ort_03 Maksymalna odległość musi być cyfrą!
 alert_search_by_ort_04 Dozwolona maksymalna wartość odległości musi być z zakresu: 0 - 9999
-
-
+no_pictures_yet Nie ma załączonych obrazków.
+show_all_countries Wszystkie kraje
 
 
 
