@@ -10,12 +10,12 @@
 	$userscount = sqlValue('SELECT COUNT( DISTINCT user_id) FROM cache_logs WHERE type=1 AND `deleted`=0',0);
 	$cachelogscount = sqlValue('SELECT COUNT(*) FROM `cache_logs` WHERE type=1 AND `deleted`=0',0);
 
-	echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>Ranking użytkowników wg liczby odkryć</b><br />Użytkowników którzy znalezli:';
+	echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>'.tr('ranking_by_number_of_finds').'</b><br />'.tr('total_amount_loggers');
 	echo $userscount; 
-	echo ' .::. Ile razy odkryto skrzynki:';
+	echo ' .::. '.tr('total_amount_logs');
 	echo $cachelogscount; 
 	echo '</center></td></tr>';
-	echo '<tr><td class="bgcolor2"><b>Nie licz statystyk dla skrzynek typu:</b><br /><form action="articles.php" method="GET">';
+	echo '<tr><td class="bgcolor2"><b>'.tr('filter_out_caches').'</b><br /><form action="articles.php" method="GET">';
 	
 	$res_q = sql('SELECT id, pl FROM cache_type WHERE id != 6');
 	$no_types = 0;
@@ -36,7 +36,7 @@
 		if( $no_types == 5 ) echo '<br />';
 	}
 	echo '<input type="hidden" name="page" value="s2">';
-	echo '<br/><input type="submit" value="Filtruj">';
+	echo '<br/><input type="submit" value='.tr('filter').'>';
 	
 	echo '</form></td></tr></table>';
 	echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
@@ -61,10 +61,10 @@ echo "<br />";
 
 
 echo    '<tr class="bgcolor2">'.
-        '<td align="center">&nbsp;&nbsp;<b>Ranking</b>&nbsp;&nbsp;</td>'.
-        '<td align="center"><b>Miejsce ex-aequo</b></td>'.
-	'<td align="center"><b>Liczba znalezionych</b></td>'.
-	'<td align="center">&nbsp;&nbsp;<b>User</b>&nbsp;&nbsp;</td></tr><tr><td>';
+        '<td align="center">&nbsp;&nbsp;<b>'.tr('ranking').'</b>&nbsp;&nbsp;</td>'.
+        '<td align="center"><b>'.tr('shared_place').'</b></td>'.
+	'<td align="center"><b>'.tr('number_found_caches').'</b></td>'.
+	'<td align="center">&nbsp;&nbsp;<b>'.tr('username').'</b>&nbsp;&nbsp;</td></tr><tr><td>';
 
 $l2=""; // number of users within the same rank
 $rank=0; // rank number; increamented by one for each group of users having the same caches discovered

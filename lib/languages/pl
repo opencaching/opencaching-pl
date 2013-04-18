@@ -588,6 +588,11 @@ total_dnf_caches Liczba nieznalezionych skrzynek
 total_comments Liczba komentarzy w logach
 total_attended_events Liczba uczestnictw w spotkaniach
 number_recommendations_given Liczba przyznanych rekomendacji
+number_found_caches Liczba znalezionych
+shared_place Miejsce ex-aequo
+total_amount_loggers Użytkowników którzy znalezli:
+total_amount_logs Ile razy odkryto skrzynki:
+filter_out_caches Nie licz statystyk dla skrzynek typu:
 days_caching Liczba dni "keszowania"
 from_total_days z całkowitej ilości dni
 average_caches Średnio skrzynek na dzień "keszowania"
