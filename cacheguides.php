@@ -1,5 +1,5 @@
-<?php
-
+<?php      
+if(!isset($rootpath)) $rootpath='';
 require_once('./lib/common.inc.php');
 	//Preprocessing
 	if ($error == false)
@@ -18,12 +18,8 @@ $tplname = 'cacheguides';
 global $usr;
 global $get_userid;
 
-//user logged in?
-	session_start();
-
-
-	$uLat = sqlValue("SELECT `user`.`latitude`  FROM `user` WHERE `user_id`='".sql_escape($usr[userid]) ."'", 0);
-	$uLon = sqlValue("SELECT `user`.`longitude`  FROM `user` WHERE `user_id`='". sql_escape($usr[userid]) ."'",0);
+	$uLat = sqlValue("SELECT `user`.`latitude`  FROM `user` WHERE `user_id`='".sql_escape($usr['userid']) ."'", 0);
+	$uLon = sqlValue("SELECT `user`.`longitude`  FROM `user` WHERE `user_id`='". sql_escape($usr['userid']) ."'",0);
 
 	if (($uLat==NULL || $uLat==0) && ($uLon==NULL || $uLon==0)) {
 		tpl_set_var('mapzoom', 6);
@@ -64,6 +60,8 @@ global $get_userid;
 	tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language='.$lang.'" type="text/javascript"></script>');
 }
 }
+
+	tpl_set_var('serverURL', $absolute_server_URI);
 	tpl_BuildTemplate(); 
 
 ?>

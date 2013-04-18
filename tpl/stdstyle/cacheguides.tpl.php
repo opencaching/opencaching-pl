@@ -73,7 +73,7 @@ window.onload = function() {
 <ul><font color="black">
 <li>{{guru_11}}</li>
 </font></ul>
-&nbsp;&nbsp;&nbsp;{{guru_12}} <a class="links" href="http://www.opencaching.pl/myprofile.php?action=change">{{guru_13}}</a>.
+&nbsp;&nbsp;&nbsp;{{guru_12}} <a class="links" href="{serverURL}myprofile.php?action=change">{{guru_13}}</a>.
 <br/><br/>
 &nbsp;&nbsp;&nbsp;{{guru_14}}
 </span></div>
