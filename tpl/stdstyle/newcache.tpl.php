@@ -198,6 +198,11 @@ function nearbycachemapOC()
 		window.open('http://www.opencaching.pl/cachemap3.php?circle=1&inputZoom=17&lat=' + lat + '&lon=' + lon);}
 	return false;
 }//--></script>
+<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/newcache_wptGpxHandler.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ajaxfileupload.js"></script>
+
 
 <form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr" onsubmit="javascript: return chkregion()">
 <input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
@@ -212,7 +217,7 @@ function nearbycachemapOC()
 	<div class="buffer"></div>
 	<div class="content2-container bg-blue02" >
 			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/basic2.png" class="icon32" alt=""/>&nbsp;{{basic_information}}</p>
-		</div>
+	</div>
 
 	<div class="buffer"></div>
 	<div class="notice">
@@ -225,9 +230,23 @@ function nearbycachemapOC()
 		<col width="180"/>
 		<col/>
 	</colgroup>
+	
+	<tr>
+		<td valign="top"><p class="content-title-noshade" title="{{newcache_import_wpt_help}}">{{newcache_import_wpt}}</p></td>
+		<td valign="top">
+			<img id="loading" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ajax-loader.gif" style="display:none;"><form name="form" action="" method="POST" enctype="multipart/form-data">
+			<input id="fileToUpload" type="file" size="20" name="fileToUpload" value="sdsd"><button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">{{newcache_upload}}</button>
+		</form>  
+		<br/><br/>
+		</td>
+	</tr>
+	<tr><td>&nbsp;</td>
+		<td><div class="notice" style="width:500px;height:60px;">{{newcache_import_wpt_help}}</div>
+		</td>
+	</tr>
 	<tr>
 		<td><p class="content-title-noshade">{{name_label}}:</p></td>
-		<td><input type="text" name="name" value="{name}" maxlength="60" class="input400"/>{name_message}</td>
+		<td><input type="text" name="name" id="name" value="{name}" maxlength="60" class="input400"/>{name_message}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
@@ -255,21 +274,21 @@ function nearbycachemapOC()
 		<td class="content-title-noshade">
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
-			<select name="latNS" class="input40">
+			<select name="latNS" id="latNS" class="input40">
 				<option value="N"{latNsel}>N</option>
 				<option value="S"{latSsel}>S</option>
 			</select>
-			&nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />
-			&deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" />&nbsp;'&nbsp;
+			&nbsp;<input type="text" id="lat_h"  name="lat_h" maxlength="2" value="{lat_h}" class="input30" />
+			&deg;&nbsp;<input type="text" id="lat_min" name="lat_min" maxlength="6" value="{lat_min}" class="input50" />&nbsp;'&nbsp;
 			<button onclick="return nearbycachemapOC()">{{check_nearby_caches_map}}</button>
 			{lat_message}<br />
 			&nbsp;&nbsp;&nbsp;
-			<select name="lonEW" class="input40">
+			<select name="lonEW" id="lonEW" class="input40">
 			    <option value="W"{lonWsel}>W</option>
 				<option value="E"{lonEsel}>E</option>
 			</select>
-			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
-			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
+			&nbsp;<input type="text" id="lon_h" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
+			&deg;&nbsp;<input type="text" id="lon_min" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
 			<button onclick="return nearbycache()">{{check_nearby_caches}}</button><br />
 			 {lon_message}</fieldset>
 		</td>

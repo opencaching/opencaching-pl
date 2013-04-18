@@ -1060,7 +1060,9 @@ Statictics Statistics
 org1 organized by
 noaccess_error_01 You do not have permission to view this page.
 noaccess_error_02 Back to main page
-
+newcache_upload Load
+newcache_import_wpt Load data from gpx file
+newcache_import_wpt_help This feature allow you to get waypoin data (coords, name) from gpx file. (f.ex.&nbsp;from garmin). If file contain more that one waypoint, only first will be processed.
 
 
 

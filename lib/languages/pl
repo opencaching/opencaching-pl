@@ -1187,6 +1187,10 @@ alert_search_by_ort_03 Maksymalna odległość musi być cyfrą!
 alert_search_by_ort_04 Dozwolona maksymalna wartość odległości musi być z zakresu: 0 - 9999
 no_pictures_yet Nie ma załączonych obrazków.
 show_all_countries Wszystkie kraje
+newcache_upload wczytaj
+newcache_import_wpt Wczytaj dane z pliku gpx
+newcache_import_wpt_help Ta funkcja umożliwia wczytanie podstawowych danych (współrzędne, nazwa) waypointa z pliku gpx. (np.&nbsp;z garmina) jeśli w pliku jest więcej niż jeden waypoint zostaną wczytane dane tylko pierwszego waypointa.
+
 
 
 
