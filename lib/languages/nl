@@ -1187,7 +1187,10 @@ alert_search_by_ort_03 Maximale afstand dienen cijfers te zijn
 alert_search_by_ort_04 Maximale afstand moet waarde hebben tussen 0 -9999
 no_pictures_yet Er zijn nog geen afbeeldingen
 show_all_countries Toon alles
-
+newcache_upload Verzenden
+newcache_import_wpt Nieuwe cache importeren
+newcache_import_wpt_help Met deze functie kan waypoint gegevens uit GPX bestand van bijvoorbeeld Garmin (coordinaat, naam) als basis voor nieuwe cache verstuurd worden. Bij meer dan 1 waypoint zal eerste gebruikt worden.
+ 
 
 
 
