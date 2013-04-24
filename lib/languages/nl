@@ -269,7 +269,7 @@ view_reports Bekijk meldingen
 report_problem Rapprteer cache
 no_not_published_caches Er zijn geen nog niet gepubliceerde caches
 no_logs Nog geen logs
-no_time_indicated Activation time not indicated
+no_time_indicated Aktivatie nog niet bekend
 welcome Welkom
 administrating_oc Administratie OC
 view_your_profile Bekijk je profiel
@@ -764,7 +764,7 @@ stat_octeam Statistieken OCTeam
 cache_notfound Niet gevonden caches
 send_bulletin Verzend een bulletin
 add_news Verzend nieuws
-email_subject_news New news OpenCaching 
+email_subject_news Nieuw nieuws OpenCaching 
 subject Onderwerp
 contents Bericht
 content_include_html Bericht met HTML
