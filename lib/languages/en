@@ -1063,7 +1063,8 @@ noaccess_error_02 Back to main page
 newcache_upload Load
 newcache_import_wpt Load data from gpx file
 newcache_import_wpt_help This feature allow you to get waypoint data (coords, name) from gpx file. (f.ex.&nbsp;from garmin). If file contain more than one waypoint, only first will be processed.
-
+email_reset Reset
+email_submit Submit
 
 
 

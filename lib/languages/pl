@@ -1190,6 +1190,9 @@ show_all_countries Wszystkie kraje
 newcache_upload wczytaj
 newcache_import_wpt Wczytaj dane z pliku gpx
 newcache_import_wpt_help Ta funkcja umożliwia wczytanie podstawowych danych (współrzędne, nazwa) waypointa z pliku gpx. (np.&nbsp;z garmina) jeśli w pliku jest więcej niż jeden waypoint zostaną wczytane dane tylko pierwszego waypointa.
+email_reset Powrót
+email_submit Wyslij
+
 
 
 

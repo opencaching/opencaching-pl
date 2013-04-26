@@ -486,7 +486,7 @@ logoutsuccess Succesvol uitgelogt
 error_usernotactive Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.
 not_registered Niet geregistreerd? <a href="register.php">Registeer</a>
 forgotten_your_password Wachtwoord vergeten? <a href="newpw.php">Vraag nieuw wachtwoord aan</a>
-cache_logged_required You have to be logged to add new log entries and operate on this cache.
+cache_logged_required Je moet ingelogd zijn om deze cache te loggen of te bewerken.
 basic_information Basis informatie.
 rating_poor slecht
 rating_mediocre matig
@@ -1190,7 +1190,10 @@ show_all_countries Toon alles
 newcache_upload Verzenden
 newcache_import_wpt Nieuwe cache importeren
 newcache_import_wpt_help Met deze functie kan waypoint gegevens uit GPX bestand van bijvoorbeeld Garmin (coordinaat, naam) als basis voor nieuwe cache verstuurd worden. Bij meer dan 1 waypoint zal eerste gebruikt worden.
- 
+email_reset Herstellen
+email_submit Verzenden
+
+
 
 
 
