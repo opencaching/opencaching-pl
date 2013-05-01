@@ -912,15 +912,6 @@
 			tpl_set_var('desc_langs', $langlist);
 
 			// ===== opensprawdzacz ========================================================
-			/*
-			$os_exist = sql("SELECT `wp_id` 
-			                 FROM `waypoints` 
-			                 WHERE `cache_id`='&1'
-							 AND `type` = 3
-							 AND `opensprawdzacz` = 1",
-							 $cache_id);
-			*/
-			
 			
             $os_exist = sql("SELECT `waypoints`.`wp_id` , 
 			                        `opensprawdzacz`.`proby`, 
@@ -936,8 +927,6 @@
 			if (mysql_num_rows($os_exist) !=0 )	
 			 {
 			  $dane_opensprawdzacza = mysql_fetch_array($os_exist);
-			  // tpl_set_var('proby',   $cache_id);
-			  // tpl_set_var('sukcesy', mysql_num_rows($os_exist));
 			  tpl_set_var('proby',   $dane_opensprawdzacza['proby']);
 			  tpl_set_var('sukcesy', $dane_opensprawdzacza['sukcesy']);
 			  tpl_set_var('opensprawdzacz', 'opensprawdzacz');
@@ -955,7 +944,6 @@
 			
 			
 			// show additional waypoints
-			//
 				if(checkField('waypoint_type',$lang) )
 					$lang_db = $lang;
 				else
@@ -1592,24 +1580,32 @@
 
 			tpl_set_var('log', $log_action);
 			tpl_set_var('watch', $watch_action);
-			tpl_set_var('report', $report_action);
+			tpl_set_var('report', isset($report_action)?$report_action:'');
 			tpl_set_var('ignore', $ignore_action);
 			tpl_set_var('edit', $edit_action);
 			tpl_set_var('print', $print_action);
-			tpl_set_var('print_list', $print_list);
+			tpl_set_var('print_list', isset($print_list)?$print_list:'');
 
 
 			// check if password is required
 			$has_password = isPasswordRequired($cache_id);
 
 			// cache-attributes
+			
+			// TODO: initial check if table cache_attrib is able to handle current language
+			/*
+			require_once 'lib/db.php';
+			$db = new dataBase(TRUE);					                                    
+			$initialCheck = $db->multiVariableQuery('SELECT COUNT( * ) FROM cache_attrib WHERE language=:1 ', PL);
+			var_dump($initialCheck); exit;
+			*/
 			$rs = sql("SELECT `cache_attrib`.`text_long`, 
 			                  `cache_attrib`.`icon_large`
 						FROM  `cache_attrib`, `caches_attributes`
 						WHERE `cache_attrib`.`id`=`caches_attributes`.`attrib_id`
 						  AND `cache_attrib`.`language`='&1'
 						  AND `caches_attributes`.`cache_id`='&2'
-				     ORDER BY `cache_attrib`.`category`, `cache_attrib`.`id`", $default_lang, $cache_id);
+				     ORDER BY `cache_attrib`.`category`, `cache_attrib`.`id`", strtoupper($lang), $cache_id);
 			$num_of_attributes = mysql_num_rows($rs);
 			if( $num_of_attributes > 0 || $has_password)
 			{

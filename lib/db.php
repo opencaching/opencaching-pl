@@ -269,8 +269,8 @@ class dataBase
 			$arg_list = func_get_args();
 			for ($i = 1; $i < $numargs; $i++) {
 				if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
-					
-				$stmt->bindparam(':'.$i,$arg_list[$i]);
+				$this->dbData->	bindParam(':'.$i,$arg_list[$i]);
+				//$dbh->bindParam(':'.$i,$arg_list[$i]);
 			}
 
 			$this->dbData ->setFetchMode(PDO::FETCH_ASSOC);
