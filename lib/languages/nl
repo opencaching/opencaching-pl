@@ -666,16 +666,16 @@ edit_wp Bewerk waypoint
 delete_wp Verwijder waypoint
 show_info_about_wp Zie beschrijving en soorten van extra waypoints
 show_info_for_value Wanneer dit waypoint de volgende stap is voor multicache zet waarde op 0.
-comment_octeam_visible OC Team comments are visible only for OC Team and owner cache.
-ready_to_search Geocache ready to search. Good Luck!
-archived_cache Geocache has been archived.
-temporarily_unavailable Geocache will be temporarily unavailable.
-blocked_by_octeam Geocache blocked by OC Team.
-empty_coordinatest Please add new coordinates for moved mobile cache. 
-empty_log_text Log shouldn't be empty. Please write short note.
-route_cache Route of cache
-start_point start point
-trp_points trip points
+comment_octeam_visible OC Team notities zijn alleen zichtbaar voor OC Team en de cache eigenaar.
+ready_to_search Cache is gepubliceerd. 
+archived_cache Cache is gearchiveerd.
+temporarily_unavailable De cache is tijdelijk niet beschikbaar.
+blocked_by_octeam De cache is geblokkerd door het OC Team.
+empty_coordinatest Vul de nieuwe coördinaten in van deze bewegende cache. 
+empty_log_text Log mag niet leeg zijn. Schrijf een korte notitie.
+route_cache Route van cache
+start_point start punt
+trp_points trip punten
 recently_seen recently seen 
 moved_text Verplaatst
 encrypt_log Log entry encrypted
