@@ -16,13 +16,20 @@
 
  ****************************************************************************/
 ?>
+<input type="hidden" value="arrrgh" id="qwertyuiop">
+
+<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/newcache_wptGpxHandler.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery.js"></script>
+<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ajaxfileupload.js"></script>
+
 
 <script type="text/javascript">
 <!--
 var maAttributes = new Array({jsattributes_array});
 
 function chkregion() {
-	if (document.newcacheform.region.value == "0" && document.newcacheform.country.value == "PL") {
+	if ($('#region').val() == "0" &&  $('#country').val() == "PL") {
 		alert("Proszę wybrać województwo");
 		return false;
 	}
@@ -34,31 +41,33 @@ function _chkVirtual ()
 {
 chkiconcache();
 	// disable password for traditional cache
-	if(document.newcacheform.type.value == "2")
+	if($('#cacheType').val() == "2")
 	{
-		document.newcacheform.log_pw.disabled = true;
+		$('#log_pw').attr('disabled', true);
 	}
 	else
 	{
-		document.newcacheform.log_pw.disabled = false;
+		$('#log_pw').removeAttr('disabled');
+
 	}
 	
-  if (document.newcacheform.type.value == "4" || document.newcacheform.type.value == "5" || document.newcacheform.type.value == "6" ) 
+  if ($('#cacheType').val() == "4" || $('#cacheType').val() == "5" || $('#cacheType').val() == "6" ) 
 	{
-		if( document.newcacheform.size.options[document.newcacheform.size.options.length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
+		   
+		// if( document.newcacheform.size.options[ $('#size option').length - 1].value != "7" && document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value != "7")
+		if (!($("#size option[value='7']").length > 0))
 		{
-			document.newcacheform.size.options[document.newcacheform.size.options.length] = new Option('{{size_07}}', '7');
+			var o = new Option("{{size_07}}", "7");
+			$(o).html("{{size_07}}");
+			$("#size").append(o);
 		}
-		document.newcacheform.size.value = "7";
-		document.newcacheform.size.disabled = true;
+		$('#size').val(7);
+		$('#size').attr('disabled', true);
   }
   else
   {
-		if( document.newcacheform.size.options[document.newcacheform.size.options.length - 1].value == "7" )
-			document.newcacheform.size.options[document.newcacheform.size.options.length - 1 ] = null;
-		if( document.newcacheform.size.options[document.newcacheform.size.options.length - 2].value == "7" )
-			document.newcacheform.size.options[document.newcacheform.size.options.length - 2 ] = null;
-		document.newcacheform.size.disabled = false;
+	$('#size').attr('disabled', false);
+	$("#size option[value='7']").remove();
   }
   return false;
 }
@@ -91,10 +100,22 @@ function chkcountry()
 if (document.newcacheform.country.value !='PL')
 {
 document.forms['newcacheform'].country.value = document.newcacheform.country.value;
-document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- {{not_applicable}} ---', '0')
+
+// var as = $('#qwertyuiop').val();
+// alert(as);
+$('#region0').hide();
+$('#region1').hide();
+$('#region2').hide();
+$('#region3').hide();
+$('#region1').val(0);
+
 document.forms['newcacheform'].region.value = '0';
 document.newcacheform.region.disable = true;
  } else {
+$('#region0').show();
+$('#region1').show();
+$('#region2').show();
+$('#region3').show(); 	
 document.forms['newcacheform'].country.value = 'PL';
 //document.newcacheform.region.options[document.newcacheform.region.options.length] = new Option('--- Select name of region ---', '0')
 document.newcacheform.region.disable = false;
@@ -103,19 +124,20 @@ document.forms['newcacheform'].region.value = document.newcacheform.region.value
 
 function chkiconcache()
     {
-			var mode = document.newcacheform.type.value;
-			var iconarray = new Array();
-				iconarray['1'] = 'unknown.png';
-				iconarray['2'] = 'traditional.png';
-				iconarray['3'] = 'multi.png';
-				iconarray['4'] = 'virtual.png';
-				iconarray['5'] = 'webcam.png';
-				iconarray['6'] = 'event.png';
-				iconarray['7'] = 'quiz.png';
-				iconarray['8'] = 'moving.png';
-				iconarray['9'] = 'owncache.png';
-			var image_cache = "/tpl/stdstyle/images/cache/" + iconarray[mode];
-			document.newcacheform.actionicon.src = image_cache;
+	var mode = $('#cacheType').val(); // document.newcacheform.type.value;
+	var iconarray = new Array();
+		iconarray['-1'] = 'arrow_left.png';
+		iconarray['1'] = 'unknown.png';
+		iconarray['2'] = 'traditional.png';
+		iconarray['3'] = 'multi.png';
+		iconarray['4'] = 'virtual.png';
+		iconarray['5'] = 'webcam.png';
+		iconarray['6'] = 'event.png';
+		iconarray['7'] = 'quiz.png';
+		iconarray['8'] = 'moving.png';
+		iconarray['10'] = 'owncache.png';
+	var image_cache = "/tpl/stdstyle/images/cache/" + iconarray[mode];
+	$('#actionicons').attr('src', image_cache);
 }
 function toggleAttr(id)
 {
@@ -179,7 +201,6 @@ function extractregion()
 <script type="text/javascript"><!--
 function nearbycachemapOC()
 {
-
 		var lat_h = document.forms['newcacheform'].lat_h.value;
 		var latNS = document.forms['newcacheform'].latNS.value;
 		var lat_min = document.forms['newcacheform'].lat_min.value;
@@ -198,20 +219,12 @@ function nearbycachemapOC()
 		window.open('http://www.opencaching.pl/cachemap3.php?circle=1&inputZoom=17&lat=' + lat + '&lon=' + lon);}
 	return false;
 }//--></script>
-<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/newcache_wptGpxHandler.js"></script>
-<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery.js"></script>
-<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ajaxfileupload.js"></script>
 
 
-<form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr" onsubmit="javascript: return chkregion()">
-<input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
-<input type="hidden" name="show_all_langs" value="{show_all_langs}"/>
-<input type="hidden" name="version2" value="1"/>
-<input type="hidden" name="beginner" value="0"/>
-<input type="hidden" name="newcache_info" value="0"/>
-<input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
-<input id="descMode" type="hidden" name="descMode" value="1" />
+
+
+
+
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}" align="middle"/>&nbsp;{{new_cache}}</div>
 	{general_message}
 	<div class="buffer"></div>
@@ -234,9 +247,10 @@ function nearbycachemapOC()
 	<tr>
 		<td valign="top"><p class="content-title-noshade" title="{{newcache_import_wpt_help}}">{{newcache_import_wpt}}</p></td>
 		<td valign="top">
-			<img id="loading" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ajax-loader.gif" style="display:none;"><form name="form" action="" method="POST" enctype="multipart/form-data">
-			<input id="fileToUpload" type="file" size="20" name="fileToUpload" value="sdsd"><button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">{{newcache_upload}}</button>
-		</form>  
+			<img id="loading" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ajax-loader.gif" style="display:none;">
+			<form name="form" action="" method="POST" enctype="multipart/form-data">
+			 <input id="fileToUpload" type="file" size="20" name="fileToUpload" value="sdsd"><button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">{{newcache_upload}}</button>
+			</form>  
 		<br/><br/>
 		</td>
 	</tr>
@@ -244,6 +258,18 @@ function nearbycachemapOC()
 		<td><div class="notice" style="width:500px;height:60px;">{{newcache_import_wpt_help}}</div>
 		</td>
 	</tr>
+	
+	
+	
+<form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr" onsubmit="javascript: return chkregion()">
+<input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
+<input type="hidden" name="show_all_langs" value="{show_all_langs}"/>
+<input type="hidden" name="version2" value="1"/>
+<input type="hidden" name="beginner" value="0"/>
+<input type="hidden" name="newcache_info" value="0"/>
+<input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
+<input id="descMode" type="hidden" name="descMode" value="1" />
+
 	<tr>
 		<td><p class="content-title-noshade">{{name_label}}:</p></td>
 		<td><input type="text" name="name" id="name" value="{name}" maxlength="60" class="input400"/>{name_message}</td>
@@ -252,9 +278,9 @@ function nearbycachemapOC()
 	<tr>
 		<td><p class="content-title-noshade">{{cache_type}}:</p></td>
 		<td>
-			<select name="type" class="input200" onchange="return _chkVirtual()">
+			<select name="type" id="cacheType" class="input200" onchange="return _chkVirtual()">
 				{typeoptions}
-			</select>&nbsp;&nbsp;<img id='actionicons' name='actionicon' src='' align="top" alt="">{type_message}
+			</select>&nbsp;&nbsp;<img id="actionicons" name="actionicon" src="" align="top" alt="">{type_message}
 		</td>
 	</tr>
 		<tr><td>&nbsp;</td>
@@ -263,7 +289,7 @@ function nearbycachemapOC()
 	<tr>
 		<td><p class="content-title-noshade">{{cache_size}}:</p></td>
 		<td>
-			<select name="size" class="input200" onchange="return _chkVirtual()" {is_disabled_size}>
+			<select name="size" id="size" class="input200" onchange="return _chkVirtual()" {is_disabled_size}>
 				{sizeoptions}
 			</select>{size_message}
 		</td>
@@ -299,7 +325,7 @@ function nearbycachemapOC()
 	<tr>
 		<td><p class="content-title-noshade">{{country_label}}:</p></td>
 		<td>
-			<select name="country" class="input200" onchange="javascript:chkcountry()">
+			<select name="country"  id="country" class="input200" onchange="javascript:chkcountry()">
 				{countryoptions}
 			</select>
 			{show_all_countries_submit}
@@ -307,11 +333,11 @@ function nearbycachemapOC()
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td><p class="content-title-noshade">{{regiononly}}:</p></td>
+		<td><p id="region0" class="content-title-noshade">{{regiononly}}:</p></td>
 		<td>
-			<select name="region" class="input200" onchange="javascript:chkcountry()" >
+			<select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" >
 				{regionoptions}
-			</select>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button onclick="return extractregion()">{{region_from_coord}}</button>
+			</select>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" id="region2" alt=""/>&nbsp;<button id="region3" onclick="return extractregion()">{{region_from_coord}}</button>
 		</td>
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
