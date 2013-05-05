@@ -1073,6 +1073,7 @@ garmin_not_found No GPS device found
 garmin_search Search for GPS device
 garmin_to_gps Klick to send {wp_oc} to GPS te device
 garmin_plugin The plug-in is not installed
+garmin_written The data was stored in the GPS
 garmin_found Found
 garmin_download Download and install
 garmin_write Sending geocache to GPS device

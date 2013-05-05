@@ -578,7 +578,7 @@ pendings Caches keuren
 recommendation_rating Rangorde van caches berekend met een formule
 show_statictics_cache Show cache statistics
 not_stat_cache This cache do not have statistics yet
-recommended_by This cache is recommended by
+recommended_by Deze cache is aanbevolen door
 listing_from_this_page Resultaat op deze pagina
 show_on_map Toon op de kaart
 list_of_events_is_empty Er zijn geen evenementen georganiseerd in de nabije toekomst
@@ -1196,6 +1196,7 @@ garmin_not_found Geen GPS apparaat gevonden
 garmin_search Zoeken naar GPS apparaat
 garmin_to_gps Klik om {wp_oc} naar GPS te zenden
 garmin_plugin De plug-in is niet geinstaleerd
+garmin_writen De gegevens werden opgeslagen in de GPS
 garmin_found Gevonden
 garmin_download Download en installeer
 garmin_write Cache wordt naar GPS geschreven

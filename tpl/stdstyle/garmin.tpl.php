@@ -14,7 +14,7 @@
                 autoFindDevices: false,
                 findDevicesButtonText: "{{garmin_to_gps}}",
 		pluginNotUnlocked: "{{garmin_plugin}}",
-		writtenToDevice: "Dane zostały zapisane w GPS",
+		writtenToDevice: "{{garmin_written}}",
 		foundDevice: "{{garmin_found}} #{deviceName}",
 		downloadAndInstall: "{{garmin_download}}",
                 showCancelFindDevicesButton: false,

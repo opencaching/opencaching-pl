@@ -1196,6 +1196,7 @@ garmin_not_found Nie znalazłem GPSa
 garmin_search Szukam podłączonego GPS
 garmin_to_gps Kliknij aby wysłać {wp_oc} WP do GPS
 garmin_plugin Plug-in nie został uaktywniony
+garmin_written Dane zostały zapisane w GPS
 garmin_found Znalazłem
 garmin_download Pobierz i zainstaluj
 garmin_write WP zapisany w GPS
