@@ -1192,6 +1192,20 @@ newcache_import_wpt Wczytaj dane z pliku gpx
 newcache_import_wpt_help Ta funkcja umożliwia wczytanie podstawowych danych (współrzędne, nazwa) waypointa z pliku gpx. (np.&nbsp;z garmina) jeśli w pliku jest więcej niż jeden waypoint zostaną wczytane dane tylko pierwszego waypointa.
 email_reset Powrót
 email_submit Wyslij
+garmin_not_found Nie znalazłem GPSa
+garmin_search Szukam podłączonego GPS
+garmin_to_gps Kliknij aby wysłać {wp_oc} WP do GPS
+garmin_plugin Plug-in nie został uaktywniony
+garmin_found Znalazłem
+garmin_download Pobierz i zainstaluj
+garmin_write WP zapisany w GPS
+garmin_send Geocache zapisany
+garmin_send_yes powodzeniem
+garmin_send_no bez powodzenia
+
+
+
+
 
 
 

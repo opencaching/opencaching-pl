@@ -9,21 +9,21 @@
                 hideIfBrowserNotSupported: false,
                 showStatusElement: true,
 		poweredByGarmin: "Powered by <a href='http://www.opencaching.pl' target='_new'>OpenCaching PL</a>  &  <a href='http://www.garmin.com/products/communicator/' target='_blank'>Garmin Communicator</a>",
-		noDeviceDetectedStatusText: "Nie znalazłem GPSa",
-		lookingForDevices: "Szukam podłączonego GPS",
+		noDeviceDetectedStatusText: "{{garmin_not_found}}",
+		lookingForDevices: "{{garmin_search}}",
                 autoFindDevices: false,
-                findDevicesButtonText: "Kliknij aby wysłać {wp_oc} WP do GPS",
-		pluginNotUnlocked: "Plug-in nie został uaktywniony",
+                findDevicesButtonText: "{{garmin_to_gps}}",
+		pluginNotUnlocked: "{{garmin_plugin}}",
 		writtenToDevice: "Dane zostały zapisane w GPS",
-		foundDevice: "Znalazłem #{deviceName}",
-		downloadAndInstall: "Pobierz i zainstaluj",
+		foundDevice: "{{garmin_found}} #{deviceName}",
+		downloadAndInstall: "{{garmin_download}}",
                 showCancelFindDevicesButton: false,
                 showDeviceSelectOnLoad: false,
                 showDeviceSelectNoDevice: false,
                 autoReadData: false,
                 autoWriteData: true,
                 showReadDataElement: false,
-		writeDataButtonText: "WP zapisany w GPS",
+		writeDataButtonText: "{{garmin_write}}",
                 showProgressBar: true,              
 		getWriteData: function() {   
             var waypoint = new Garmin.WayPoint("{lat}", "{long}", "0", "{wp_oc}",null,"OC PL: {cachename}","Geocache", "Traditional",null);
@@ -32,7 +32,7 @@
             return gpx;
         },
         afterFinishWriteToDevice: function(success, display) {
-            alert("Geocache zapisany "+(success ? "z powodzeniem" : "bez powodzenia"));
+            alert("{{garmin_send}} "+(success ? "{{garmin_send_yes}}" : "{{garmin_send_no}}"));
         }
         });
         }

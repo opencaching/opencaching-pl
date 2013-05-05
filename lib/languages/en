@@ -987,6 +987,10 @@ mc_beginn_00 Registering a new cache - information
 
 latest_blog Recent blog entries
 geocache Geocache
+
+format_GPX GPX type
+format_pict GPX + photos
+format_other others types
  
 no_logtype_choosen No logtype choosen!
 nc01 Dear User
@@ -1065,6 +1069,26 @@ newcache_import_wpt Load data from gpx file
 newcache_import_wpt_help This feature allow you to get waypoint data (coords, name) from gpx file. (f.ex.&nbsp;from garmin). If file contain more than one waypoint, only first will be processed.
 email_reset Reset
 email_submit Submit
-format_GPX GPX type
-format_pict GPX + photos
-format_other others types
+garmin_not_found No GPS device found
+garmin_search Search for GPS device
+garmin_to_gps Klick to send {wp_oc} to GPS te device
+garmin_plugin The plug-in is not installed
+garmin_found Found
+garmin_download Download and install
+garmin_write Sending geocache to GPS device
+garmin_send Geocache is
+garmin_send_yes saved
+garmin_send_no not saved
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1192,6 +1192,22 @@ newcache_import_wpt Nieuwe cache importeren
 newcache_import_wpt_help Met deze functie kan waypoint gegevens uit GPX bestand van bijvoorbeeld Garmin (coordinaat, naam) als basis voor nieuwe cache verstuurd worden. Bij meer dan 1 waypoint zal eerste gebruikt worden.
 email_reset Herstellen
 email_submit Verzenden
+garmin_not_found Geen GPS apparaat gevonden
+garmin_search Zoeken naar GPS apparaat
+garmin_to_gps Klik om {wp_oc} naar GPS te zenden
+garmin_plugin De plug-in is niet geinstaleerd
+garmin_found Gevonden
+garmin_download Download en installeer
+garmin_write Cache wordt naar GPS geschreven
+garmin_send Cache is
+garmin_send_yes opgeslagen in GPS
+garmin_send_no niet opgeslagen GPS
+
+
+
+
+
+
 
 
 
