@@ -23,8 +23,8 @@
 	
  ****************************************************************************/
 	
-$message_user_not_found = "Nie ma takiego użytkownika!";
-$message_sent = "E-Mail zostal wyslany!";
+$message_user_not_found = tr('message_user_not_found');
+$message_sent = tr('message_sent');
 
 $errnosubject = '<span class="errormsg">Brak tematu!</span>';
 $errnotext = '<span class="errormsg">Brak tesktu wprowadzonego!</span>';

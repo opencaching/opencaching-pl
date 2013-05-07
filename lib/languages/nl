@@ -1204,6 +1204,8 @@ garmin_send Cache is
 garmin_send_yes opgeslagen in GPS
 garmin_send_no niet opgeslagen GPS
 links_pagetitle Links naar diverse sites met betrekking tot Geocaching
+message_user_not_found Gebruiker niet gevonden!
+message_sent E-mail is verzonden
 
 
 

@@ -1203,8 +1203,9 @@ garmin_write WP zapisany w GPS
 garmin_send Geocache zapisany
 garmin_send_yes powodzeniem
 garmin_send_no bez powodzenia
-
-
+links_pagetitle Linki do różnych stron związanych z Geocaching
+message_user_not_found Nie ma takiego użytkownika!
+message_sent E-Mail zostal wyslany!
 
 
 

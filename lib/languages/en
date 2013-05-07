@@ -1080,8 +1080,9 @@ garmin_write Sending geocache to GPS device
 garmin_send Geocache is
 garmin_send_yes saved
 garmin_send_no not saved
-
-
+links_pagetitle Links to various sites related to Geocaching
+message_user_not_found There is no such user!
+message_sent E-Mail is send to user
 
 
 
