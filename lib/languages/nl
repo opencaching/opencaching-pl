@@ -1196,7 +1196,7 @@ garmin_not_found Geen GPS apparaat gevonden
 garmin_search Zoeken naar GPS apparaat
 garmin_to_gps Klik om {wp_oc} naar GPS te zenden
 garmin_plugin De plug-in is niet geinstaleerd
-garmin_writen De gegevens werden opgeslagen in de GPS
+garmin_written De gegevens werden opgeslagen in de GPS
 garmin_found Gevonden
 garmin_download Download en installeer
 garmin_write Cache wordt naar GPS geschreven
