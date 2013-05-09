@@ -1,5 +1,22 @@
 <?
 
+error_reporting(E_ALL);
+echo "test pobierania xml<br><br>";
+$url1 = 'http://geokrety.org/export2.php?wpt=OP1234';
+$url2 = 'http://www.w3schools.com/xml/note.xml';
+
+$result1 = simplexml_load_file($url1);
+$result2 = simplexml_load_file($url2);
+
+echo 'xml z http://geokrety.org/export2.php?wpt=OP1234';
+var_dump($result1);
+echo '<br><br>xml z http://www.w3schools.com/xml/note.xml';
+var_dump($result2);
+
+
+
+
+exit;
 
 $wpts = loadWaypointFromGpx(simplexml_load_file("serduszko.gpx"));
 echo "<pre>";
