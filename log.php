@@ -1,5 +1,5 @@
 <?php
-$debug = true;
+$debug = false;
 // error_reporting(0);
 
 /***************************************************************************
@@ -604,7 +604,7 @@ $debug = true;
 						if ($log_type == 4) // typ logu 4 - przeniesiona
 						   {
 						     ini_set('display_errors', 1);   
-						     error_reporting(E_ALL);
+						     // error_reporting(E_ALL);
 							 
 							 // id of last sql entery
 							 $last_id_4_mobile_moved = mysql_insert_id();

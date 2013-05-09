@@ -174,4 +174,6 @@
 	// E-mail address group of people from OC Team who solve problems, verify cache
 	$octeam_email = 'cog@localhost';
   
+    // email of GeoKrety developer (used in GeoKretyApi.php for error notifications)
+    $geoKretyDeveloperEmailAddress = 'stefaniak@gmail.com';
 ?>

@@ -11,11 +11,21 @@ class GeoKretyApi
 	private $secid    = null;
 	private $cacheWpt = null; 
 	private $maxID    = null;
+	private $server   = null;
+	private $rtEmailAddress = null;
+	private $GeoKretyDeveloperEmailAddress = null;
 	
     function __construct($secid, $cacheWpt)
     {
+    	include 'lib/settings.inc.php';
+		$this->server = $absolute_server_URI;
     	$this->secid = $secid;
     	$this->cacheWpt = $cacheWpt;
+		$this->rtEmailAddress = $dberrormail;
+		$this->geoKretyDeveloperEmailAddress = $geoKretyDeveloperEmailAddress;
+		
+		// $this->emailOnError('$e->getMessage()', $url, $result, 'function: '.__FUNCTION__ .'line # '.__LINE__.' in '.__FILE__);	
+		
     }
     
     /**
@@ -25,9 +35,25 @@ class GeoKretyApi
      */
 	private function TakeUserGeokrets()
 	{
-	 $url = "http://geokrety.org/export2.php?secid=$this->secid&inventory=1";
-
-	 return simplexml_load_file($url);
+		libxml_use_internal_errors(true);	
+		$url = "http://geokrety.org/export2.php?secid=$this->secid&inventory=1";
+		try 
+		{
+	 		$result = simplexml_load_file($url);
+		} 
+		catch (Exception $e) 
+		{
+			$this->emailOnError($e->getMessage(), $url, $result, 'function: '.__FUNCTION__ .'line # '.__LINE__.' in '.__FILE__);
+			return false;
+		}
+		if ($result === false) {
+			$errorGK = '';
+			foreach(libxml_get_errors() as $error) {
+        			$errorGK .= $error->message.', ';
+    			}
+			$this->emailOnError($errorGK, $url, $result, 'function: '.__FUNCTION__ .'line # '.__LINE__.' in '.__FILE__);
+		}
+		return $result;
 	}
 	
 	/**
@@ -37,8 +63,25 @@ class GeoKretyApi
 	 */	
 	private function TakeGeoKretsInCache()
 	{
+		libxml_use_internal_errors(true);	
 		$url = "http://geokrety.org/export2.php?wpt=$this->cacheWpt";
-		return simplexml_load_file($url);
+		try		
+		{
+	 		$result = simplexml_load_file($url);
+		} 
+		catch (Exception $e) 
+		{
+			$this->emailOnError($e->getMessage(), $url, $result, 'function: '.__FUNCTION__ .' line # '.__LINE__.' in '.__FILE__);
+			return false;
+		}
+		if ($result === false) {
+			$errorGK = '';
+			foreach(libxml_get_errors() as $error) {
+        			$errorGK .= ('Error loading XML file ' . $error->message);
+    			}
+			$this->emailOnError($errorGK, $url, $result, 'function: '.__FUNCTION__ .'line # '.__LINE__.' in '.__FILE__);
+		}
+		return $result;
 	}
 	
 	
@@ -72,7 +115,9 @@ class GeoKretyApi
 	public function MakeGeokretSelector($cachename)
 	{
 		$krety = $this->TakeUserGeokrets();
- 
+ 		
+ 		if ($krety === false) return '';
+		
 		$selector = '<table>';
 		$MaxNr = 0;
 		$jsclear = 'onclick=this.value="" onblur="formDefault(this)"';
@@ -100,7 +145,7 @@ class GeoKretyApi
 	public function MakeGeokretInCacheSelector($cachename)
 	{
 		$krety = $this->TakeGeoKretsInCache();
-	
+		if ($krety == false) return '';
 		$selector = '<table>';
 		$MaxNr = $this->maxID;
 		$jsclear = 'onclick=this.value="" onblur="formDefault(this)"';
@@ -156,14 +201,7 @@ class GeoKretyApi
 		
 		if (!$result) 
 		{
-			$Tablica = print_r($GeokretyArray, true);
-			$message = "przechwycono Blad z GeoKretyApi\r\n \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocilo niepoprawny wynik (wynik nie jest w formacie xml, lub brak wyniku). \r\n Odpowiedz geoKretow ponizej: \r\n \r\n $result ";
-			
-			$headers = 'From: GeoKretyAPI on opencaching.pl' . "\r\n" .
-            'Reply-To: rt@opencaching.pl' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
-
-			mail('rt@opencaching.pl', 'GeoKretyApi returned error', $message, $headers);
+			$this->emailOnError($error, print_r($GeokretyArray, true), $result, 'function: '.__FUNCTION__ .'line # '.__LINE__.' in '.__FILE__);
 			return false;
 		}
 		
@@ -173,18 +211,7 @@ class GeoKretyApi
 		}
 		catch(Exception $e) 
 		{
-			$Tablica = print_r($GeokretyArray, true);
-			$message = "przechwycono Blad z GeoKretyApi\r\n " .$e->getMessage() . "\n
-			 \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocilo niepoprawny wynik (wynik nie jest w formacie xml). \r\n 
-			data i czas: ".date('Y-m-d H:i:s')."
-			Odpowiedz geoKretow ponizej: \r\n \r\n $result ";
-				
-			$headers = 'From: GeoKretyAPI on opencaching.pl' . "\r\n" .
-					'Reply-To: rt@opencaching.pl' . "\r\n" .
-					'X-Mailer: PHP/' . phpversion();
-			
-			mail('rt@opencaching.pl', 'GeoKretyApi returned error', $message, $headers);
-			mail('stefaniak@gmail.com', 'GeoKretyApi returned error', $message, $headers);
+			$this->emailOnError($e->getMessage(), print_r($GeokretyArray, true), $result, 'line # '.__LINE__.' in '.__FILE__);
 			return false;
 		}
 		if ($resultarray) $r = $this->xml2array($resultarray);
@@ -202,6 +229,32 @@ class GeoKretyApi
 		return  $r;
 	}
 
+	private function emailOnError($error = '', $Tablica = '', $result, $errorLocation = 'Unknown error location')
+	{
+		$message = "GeoKretyApi error report: \r\n " .$error . "\n
+			 \r\n location of error: $errorLocation \n
+			 \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocilo niepoprawny wynik (wynik nie jest w formacie xml). \r\n 
+			data i czas: ".date('Y-m-d H:i:s')."
+			Odpowiedz geoKretow ponizej: \r\n \r\n $result ";
+				
+		$headers = 'From: GeoKretyAPI on opencaching.pl' . "\r\n" .
+					'Reply-To: rt@opencaching.pl' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
+		
+		// check if working developer server or production.
+		if ($this->server == 'http://local.opencaching.pl/') {
+			$rtAddress = array('user@ocpl-devel');
+		}
+		else {
+			$rtAddress = array($this->rtEmailAddress, $this->geoKretyDeveloperEmailAddress);
+		}
+			
+		foreach ($rtAddress as $email) {
+			mail($email, 'GeoKretyApi returned error', $message, $headers);
+		}
+
+	}
+	
 	private function xml2array($xml)
 	{
 		$arr = array();
