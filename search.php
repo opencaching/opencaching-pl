@@ -1602,7 +1602,7 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 	
 	
 	// select attributes depend on specified language.
-	$database = new dataBase(true);
+	$database = new dataBase(false);
 	$query = "SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language` LIKE :1 ORDER BY `id`";
 	$database->multiVariableQuery($query, strtoupper($lang));
 	// if specified language is in database
