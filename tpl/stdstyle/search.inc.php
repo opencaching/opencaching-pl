@@ -99,7 +99,7 @@
 	$gns_countries['UP'] = 'Ukraina';
 	
 	$default_lang = 'PL';
-	$search_all_countries = '<option value="" selected="selected">Wszystkie kraje</option>';
+	$search_all_countries = '<option value="" selected="selected">'.tr('search00').'</option>';
 	$search_all_regions = '<option value="" selected="selected">Wszystkie województwa</option>';
 	//$search_all_cachetypes = '<option value="" selected="selected">Wszystkie typy skrzynek</option>';
 
