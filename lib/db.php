@@ -236,9 +236,12 @@ class dataBase
 	 *
 	 * example:
 	 * ----------------------------------------------------------------------------------
-	 * $query: 'SELECT something FROM tabele WHERE field1=:variable1 AND field2:variable2'
 	 * $param1 = 1;
-	 * $params2 'cat is very lovelly animal';
+	 * $param2 = 'cat is very lovelly animal';
+	 * // note that variable in query MUST be in format :1, :2, :3 (and so on).
+	 * $query = 'SELECT something FROM tabele WHERE field1=:1 AND field2:2';
+	 * 
+	 * multiVariableQuery($query, $param1, $param2 )
 	 * ----------------------------------------------------------------------------------
 	 * 
 	 * @return array or false
@@ -269,6 +272,7 @@ class dataBase
 			$arg_list = func_get_args();
 			for ($i = 1; $i < $numargs; $i++) {
 				if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
+				
 				$this->dbData->	bindParam(':'.$i,$arg_list[$i]);
 				//$dbh->bindParam(':'.$i,$arg_list[$i]);
 			}

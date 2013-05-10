@@ -9,6 +9,7 @@
  *  UTF-8 ąść%d-%m-%Y
  ***************************************************************************/
 
+require_once 'lib/db.php';
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
 	$rootpath = '';
@@ -104,9 +105,36 @@ if ($error == false) {
 		$ddays = mysql_fetch_array($rdd);
 		mysql_free_result($rdd);
 
-		$rsGeneralStat = sql("SELECT admin,guru,hidden_count, founds_count, is_active_flag,email, password,log_notes_count, notfounds_count, username, last_login, countries.pl country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1", $user_id);
 
-		$user_record = sql_fetch_array($rsGeneralStat);
+		// select proper language depend on $lang
+		if (isset($lang)) {
+			$countryCode = strtolower($lang);
+		} else {
+			$countryCode = 'en';
+		}
+
+		$database = new dataBase(false);
+		$query = "SELECT admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, countries.$countryCode country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=:1 LIMIT 1";
+		$database->multiVariableQuery($query, $user_id);
+		// if specified language is in database
+		if($database->rowCount() > 0) {
+			$user_record = $database->dbResultFetch();
+		} else { // if we have not specified language in db, just use english.
+			$countryCode = 'en';
+			$query = "SELECT admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, countries.$countryCode country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=:1 LIMIT 1";
+			$database->multiVariableQuery($query, $user_id);
+			$user_record = $database->dbResultFetch();
+		}
+		unset($database);
+	
+		//	echo "<pre>";
+		//	print_r($user_record);
+		
+		// $rsGeneralStat = sql("SELECT admin,guru,hidden_count, founds_count, is_active_flag,email, password,log_notes_count, notfounds_count, username, last_login, countries.pl country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1", $user_id);
+		// $user_record = sql_fetch_array($rsGeneralStat);
+		// print_r($user_record);
+		// exit;
+		
 		tpl_set_var('username', $user_record['username']);
 		if ((date('m') == 4) and (date('d') == 1)) {
 			tpl_set_var('username', tr('primaAprilis1'));
@@ -731,7 +759,6 @@ if ($error == false) {
 		// ------------------ end owner section ---------------------------------
 		//------------ end created caches section ------------------------------
 
-		mysql_free_result($rsGeneralStat);
 		tpl_set_var('content', $content);
 	}
 }
