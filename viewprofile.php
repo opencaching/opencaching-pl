@@ -121,7 +121,6 @@ if ($error == false) {
 			$user_record = $database->dbResultFetch();
 		} else { // if we have not specified language in db, just use english.
 			$countryCode = 'en';
-			$query = "SELECT admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, countries.$countryCode country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=:1 LIMIT 1";
 			$database->multiVariableQuery($query, $user_id);
 			$user_record = $database->dbResultFetch();
 		}

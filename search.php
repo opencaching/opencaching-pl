@@ -25,6 +25,7 @@
  ****************************************************************************/
 
 	//prepare the templates and include all neccessary
+	require_once 'lib/db.php';
 	require_once('./lib/common.inc.php');
 	require_once('./lib/search.inc.php');
 	global $lang; 
@@ -1091,11 +1092,18 @@ function outputSearchForm($options)
 	global $default_lang, $search_all_countries, $cache_attrib_jsarray_line, $cache_attrib_img_line;
 	global $lang, $language;
 
-  // TODO
+  // $lang_attribute = $lang;
+  // if ($lang != 'pl') { $lang_attribute = 'en'; } 
   
-  //echo $lang. " " .$default_lang;
-  $lang_attribute = $lang;
-  if ($lang != 'pl') { $lang_attribute = 'en'; } 
+  
+  
+//   
+  // if(checkField('cache_type',$lang)) {
+	// $lang_db = $lang;
+  // }	else {
+	// $lang_db = "en";
+  // }  
+  
 
 	//simple mode (only one easy filter)
 	$filters = read_file($stylepath . '/search.simple.tpl.php');
@@ -1452,9 +1460,9 @@ function outputSearchForm($options)
 		$record = sql_fetch_array($rs);
 
 		if ($record['code'] == $options['region'])
-			$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+			$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
 		else
-			$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+			$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
 
 		$regionsoptions .= "\n";
 	}
@@ -1591,10 +1599,22 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 	$attributes_jsarray = '';
 	$attributes_img = '';
 	$attributesCat2_img = '';
-	$rs = sql("SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language`='&1' ORDER BY `id`", $lang_attribute);
-	while ($record = sql_fetch_array($rs))
-	{
 	
+	
+	// select attributes depend on specified language.
+	$database = new dataBase(true);
+	$query = "SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language` LIKE :1 ORDER BY `id`";
+	$database->multiVariableQuery($query, strtoupper($lang));
+	// if specified language is in database
+	if($database->rowCount() <= 0) {
+		 // if we have not specified language in db, just use english.
+		$database->multiVariableQuery($query, 'EN');
+	}
+	$rs = $database->dbResultFetchAll();
+	unset($database);
+	
+	foreach ($rs as $record)
+	{
 		// icon specified
 		$line = attr_jsline($cache_attrib_jsarray_line, $options, $record['id'], $record['text_long'], $record['icon_large'], $record['icon_no'], $record['icon_undef'], $record['category']);
 
