@@ -145,8 +145,8 @@ global $bgcolor1, $bgcolor2;
 		$email_content = mb_ereg_replace('%cachename%', $cachename, $email_content);
 		$email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);	
 		$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-		$email_headers .= "From: Opencaching.pl <cog@opencaching.pl>\r\n";
-		$email_headers .= "Reply-To: cog@opencaching.pl\r\n";
+		$email_headers .= "From: Opencaching.pl <$octeam_email>\r\n";
+		$email_headers .= "Reply-To: $octeam_email\r\n";
 		
 		$query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $user_id);
 		$owner_email = sql_fetch_array($query);

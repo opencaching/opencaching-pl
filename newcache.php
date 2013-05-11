@@ -1,5 +1,4 @@
 <?php
-
 /***************************************************************************
 	*
 	*   This program is free software; you can redistribute it and/or modify
@@ -1119,8 +1118,8 @@ else if ($verify_all==1) {
 							$email_content = mb_ereg_replace('%cacheid%', $cache_id, $email_content);	
 							$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
 							$email_headers .= "From: OC PL <notify@opencaching.pl>\r\n";
-							$email_headers .= "Reply-To: cog@opencaching.pl\r\n";
-							$octeam_email = "cog@opencaching.pl";
+							$email_headers .= "Reply-To: $octeam_email\r\n";
+							$octeam_email = $octeam_email;
 
 							//send email to octeam
 							mb_send_mail($octeam_email, "[OC PL] Nowa skrzynka do weryfikacji: ".$name, $email_content, $email_headers);

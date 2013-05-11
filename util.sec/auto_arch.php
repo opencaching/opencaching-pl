@@ -43,8 +43,8 @@ class AutoArch
 		$email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);		
 		
 		$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
-		$emailheaders .= "From: Opencaching.pl <cog@opencaching.pl>\r\n";
-		$emailheaders .= "Reply-To: Opencaching.pl <cog@opencaching.pl>";
+		$emailheaders .= "From: Opencaching.pl <$octeam_email>\r\n";
+		$emailheaders .= "Reply-To: Opencaching.pl <$octeam_email>";
 
 		//echo "email:".$cache['email']."-->".$emailheaders."<br />".$email_content."<br />";		
 		mb_send_mail($cache['email'], "[OCPL] Automatyczna archiwizacja Twojej skrzynki", $email_content, $emailheaders);
