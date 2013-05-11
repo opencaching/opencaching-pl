@@ -1,18 +1,18 @@
-Dnia %date% użytkownik %submitter% wysłał nowe zgłoszenie problemu.
+%reportcache17%  %date% %reportcache18% %submitter% %reportcache19%.
 
-Dotyczy ono skrzynki %cache_wp% - %cachename%
+%reportcache14% %cache_wp% - %cachename%
 (http://www.opencaching.pl/viewcache.php?cacheid=%cacheid%).
 
-Powód zgłoszenia: %reason%
+%reportcache15%: %reason%
 
-Treść zgłoszenia: 
------------------- początek ------------------
+%reportcache10%: 
+------------------ %reportcache11% ------------------
 %text%
-------------------- koniec -------------------
+------------------- %reportcache12% -------------------
 
-Zgłoszenia można przeglądać pod adresem: http://www.opencaching.pl/viewreports.php.
+%reportcache13%: %server%viewreports.php.
 
 
 -- 
-Wasz zawsze oddany serwer pocztowy.
+%reportcache16%.
 :)

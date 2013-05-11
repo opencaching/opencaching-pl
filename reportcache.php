@@ -5,18 +5,19 @@ function reason($reason)
 	switch( $reason )
 	{
 		case 1:
-			return "Uwaga co do lokalizacji skrzynki";
+			return tr('reportcache01');
 		case 2:
-			return "Skrzynka wymaga archiwizacji";
+			return tr('reportcache02');
 		case 3:
-			return "Nieodpowiednia zawartość skrzynki";
+			return tr('reportcache03');
 		case 4:
-			return "Inny";
+			return tr('reportcache04');
 	}				
 }
 
-	//prepare the templates and include all neccessary
-	require_once('./lib/common.inc.php');
+//prepare the templates and include all neccessary
+if (!isset($rootpath)) $rootpath = '';	
+require_once('./lib/common.inc.php');
 if($usr==true)
 {
 	//Preprocessing
@@ -43,11 +44,11 @@ if($usr==true)
 			{
 				if( $_POST['text'] == "" )
 				{
-					tpl_set_var('notext_error','&nbsp;<b><font size="1" color="#ff0000">Brak opisu problemu.</font></b>');
+					tpl_set_var('notext_error','&nbsp;<b><font size="1" color="#ff0000">'. tr('reportcache05'). '.</font></b>');
 					$tplname = 'reportcache_notext';
 				}
 				else if( $_POST['reason'] == 0)
-					tpl_set_var('noreason_error', '&nbsp;<b><font size="1" color="#ff0000">Nie wybrano powodu.</font></b>');
+					tpl_set_var('noreason_error', '&nbsp;<b><font size="1" color="#ff0000">'. tr('reportcache06'). '.</font></b>');
 				else
 				{
 					// formularz został wysłany
@@ -65,7 +66,18 @@ if($usr==true)
 						
 						// wysłanie powiadomień
 						$email_content = read_file($stylepath . '/email/newreport_octeam.email');
-
+						
+						$email_content = mb_ereg_replace('%server%', $absolute_server_URI, $email_content);
+						$email_content = mb_ereg_replace('%reportcache10%', tr('reportcache10'), $email_content);
+						$email_content = mb_ereg_replace('%reportcache11%', tr('reportcache11'), $email_content);
+						$email_content = mb_ereg_replace('%reportcache12%', tr('reportcache12'), $email_content);
+						$email_content = mb_ereg_replace('%reportcache13%', tr('reportcache13'), $email_content);
+						$email_content = mb_ereg_replace('%reportcache14%', tr('reportcache14'), $email_content);
+						$email_content = mb_ereg_replace('%reportcache15%', tr('reportcache15'), $email_content);
+						$email_content = mb_ereg_replace('%reportcache16%', tr('reportcache16'), $email_content);
+						$email_content = mb_ereg_replace('%reportcache17%', tr('reportcache17'), $email_content);
+						$email_content = mb_ereg_replace('%reportcache18%', tr('reportcache18'), $email_content);
+						$email_content = mb_ereg_replace('%reportcache19%', tr('reportcache19'), $email_content);
 						$email_content = mb_ereg_replace('%date%', date("Y.m.d H:i:s"), $email_content);
 						$email_content = mb_ereg_replace('%submitter%', $usr['username'], $email_content);		
 						$email_content = mb_ereg_replace('%cachename%', $cache['name'], $email_content);
@@ -79,8 +91,8 @@ if($usr==true)
 						$emailheaders .= "From: Opencaching.pl <".$cache_reporter['email'].">\r\n";
 						$emailheaders .= "Reply-To: Opencaching.pl <".$cache_reporter['email'].">";
 						
-						mb_send_mail("cog@opencaching.pl", "Nowe zgłoszenie problemu na OC PL (".$cache['wp_oc'].")", $email_content, $emailheaders);
-						//echo("cog@opencaching.pl". "Nowe zgłoszenie problemu na OC PL". $email_content. $emailheaders);
+						mb_send_mail($octeam_email, tr('reportcache07')." (".$cache['wp_oc'].")", $email_content, $emailheaders);
+						// echo($octeam_email. tr('reportcache07'). $email_content. $emailheaders);
 					}
 					else
 						$tplname = 'reportcache_sent_owner';
@@ -110,11 +122,11 @@ if($usr==true)
 					$emailheaders .= "From: ".$usr['username']." <".$usr['email'].">\r\n";
 					$emailheaders .= "Reply-To: ".$usr['username']." <".$usr['email'].">";
 					
-					mb_send_mail($cache_owner['email'], "[OC PL] Zgłoszono problem dotyczący Twojej skrzynki ".$cache['wp_oc'], $email_content, $emailheaders);
+					mb_send_mail($cache_owner['email'], tr('reportcache08')." ".$cache['wp_oc'], $email_content, $emailheaders);
 					
 					// send email to cache reporter
 					$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
-					$emailheaders .= "From: Opencaching.pl <cog@opencaching.pl>\r\n";
+					$emailheaders .= "From: Opencaching.pl <$octeam_email>\r\n";
 						
 					$email_content = read_file($stylepath . '/email/newreport_reporter.email');
 					
@@ -125,7 +137,7 @@ if($usr==true)
 					$email_content = mb_ereg_replace('%reason%', reason($_POST['reason']), $email_content);		
 					$email_content = mb_ereg_replace('%text%', strip_tags($_POST['text']), $email_content);
 					
-					mb_send_mail($cache_reporter['email'], "[OC PL] Zgłosiłeś problem dotyczący skrzynki ".$cache['wp_oc'], $email_content, $emailheaders);
+					mb_send_mail($cache_reporter['email'], tr('reportcache09')." ".$cache['wp_oc'], $email_content, $emailheaders);
 					
 					//echo($cache_owner['email']. "[OC PL] Zgłoszono problem dotyczący Twojej skrzynki". $email_content. $emailheaders);
 				}

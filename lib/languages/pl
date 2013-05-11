@@ -1216,7 +1216,22 @@ rss_01 Kanały RSS OC PL
 rss_02 Najnowsze skrzynki
 rss_03 Najnowsze logi
 rss_04 Najnowsze wiadomości
-
-
-
-
+reportcache01 Uwaga co do lokalizacji skrzynkix
+reportcache02 Skrzynka wymaga archiwizacji
+reportcache03 Nieodpowiednia zawartość skrzynki
+reportcache04 Inny                         
+reportcache05 Brak opisu problemu
+reportcache06 Nie wybrano powodu
+reportcache07 Nowe zgłoszenie problemu na OC PL
+reportcache08 [OC PL] Zgłoszono problem dotyczący Twojej skrzynki
+reportcache09 [OC PL] Zgłosiłeś problem dotyczący skrzynki
+reportcache10 Treść zgłoszenia
+reportcache11 początek 
+reportcache12 koniec
+reportcache13 Zgłoszenia można przeglądać pod adresem
+reportcache14 Dotyczy ono skrzynki
+reportcache15 Powód zgłoszenia
+reportcache16 Wasz zawsze oddany serwer pocztowy
+reportcache17 Dnia
+reportcache18 użytkownik
+reportcache19 wysłał nowe zgłoszenie problemu
