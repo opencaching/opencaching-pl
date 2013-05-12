@@ -234,13 +234,16 @@ function process_owner_log($user_id, $log_id)
 	switch( $rLog['type'] )
 	{
 		case '1':
-			$logtype = tr('logType1');
+			$logtype =  'znaleziona';
+			// $logtype = tr('logType1');
 		break;
 		case '2':
-			$logtype = tr('logType2');
+			$logtype = 'nieznaleziona';
+			// $logtype = tr('logType2');
 		break;
 		case '3':
-			$logtype = tr('logType3');
+			$logtype = 'komentarz';
+			//$logtype = tr('logType3');
 		break;
 		case '4':
 			$logtype = "skrzynka przeniesiona";
