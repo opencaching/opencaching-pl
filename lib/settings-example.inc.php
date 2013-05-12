@@ -161,11 +161,11 @@
 	// user_id of admin who have more options than COG users to remove all logs or other more options in admin_users.php 
 	$super_admin_id = '';
 
-       $cachemap_mapper = "lib/mapper-okapi.php";
+	$cachemap_mapper = "lib/mapper-okapi.php";
 
 
 
-        $wiki_url  = 'http://wiki.opencaching.pl';
+	$wiki_url  = 'http://wiki.opencaching.pl';
 	$rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
 	$cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
 	$rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
@@ -173,6 +173,9 @@
 	$contact_mail = 'ocpl (at) localhost';
 	// E-mail address group of people from OC Team who solve problems, verify cache
 	$octeam_email = 'cog@localhost';
+	
+	// signature of e-mails send by system
+  	$octeamEmailsSignature = "Pozdrawiamy, Zespół www.opencaching.pl";
   
     // email of GeoKrety developer (used in GeoKretyApi.php for error notifications)
     $geoKretyDeveloperEmailAddress = 'stefaniak@gmail.com';
