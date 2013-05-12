@@ -1095,7 +1095,8 @@ rss_03 Latest logs
 rss_04 Latest news
 register00 User name 
 register01 your@email.address
-
+register02 password
+register03 repeat password
 
 
 
