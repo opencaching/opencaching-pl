@@ -1241,6 +1241,24 @@ register01 twoj@adres.email
 register02 hasło
 register03 powtórz hasło
 register04 Wyczyść formularz
+logType1 znaleziona
+logType2 nieznaleziona
+logType3 komentarz
+logType4 skrzynka przeniesiona
+logType5 potrzebny serwis skrzynki
+logType6 wskazana archiwizacja skrzynki
+logType7 uczestniczył w spotkaniu
+logType8 będzie uczestniczył w spotkaniu
+logType9 skrzynka została zarchiwizowana
+logType10 skrzynka gotowa do szukania
+logType11 skrzynka będzie niedostepna czasowo
+logType12 komentarz Centrum Obsługi Geocachera
+runwatch01 zrobił wpiss
+
+
+
+
+
 
 
 
