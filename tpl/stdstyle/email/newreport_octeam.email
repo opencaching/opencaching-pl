@@ -1,12 +1,12 @@
 %reportcache17%  %date% %reportcache18% %submitter% %reportcache19%.
 
 %reportcache14% %cache_wp% - %cachename%
-(http://www.opencaching.pl/viewcache.php?cacheid=%cacheid%).
+(%server%viewcache.php?cacheid=%cacheid%).
 
 %reportcache15%: %reason%
 
 %reportcache10%: 
------------------- %reportcache11% ------------------
+------------------- %reportcache11% ------------------
 %text%
 ------------------- %reportcache12% -------------------
 
