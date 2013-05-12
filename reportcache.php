@@ -130,6 +130,17 @@ if($usr==true)
 					$emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
 					$emailheaders .= "From: ".$usr['username']." <".$usr['email'].">\r\n";
 					$emailheaders .= "Reply-To: ".$usr['username']." <".$usr['email'].">";
+                                        $email_content = mb_ereg_replace('%server%', $absolute_server_URI, $email_content);
+                                        $email_content = mb_ereg_replace('%reportcache10%', tr('reportcache10'), $email_content);
+					$email_content = mb_ereg_replace('%reportcache11%', tr('reportcache11'), $email_content);
+					$email_content = mb_ereg_replace('%reportcache12%', tr('reportcache12'), $email_content);
+                                        $email_content = mb_ereg_replace('%reportcache14%', tr('reportcache14'), $email_content);
+				        $email_content = mb_ereg_replace('%reportcache15%', tr('reportcache15'), $email_content);
+                                        $email_content = mb_ereg_replace('%reportcache17%', tr('reportcache17'), $email_content);
+					$email_content = mb_ereg_replace('%reportcache18%', tr('reportcache18'), $email_content);
+                                        $email_content = mb_ereg_replace('%reportcache18%', tr('reportcache19'), $email_content);
+					$email_content = mb_ereg_replace('%reportcache19%', tr('reportcache21'), $email_content);
+                                        $email_content = mb_ereg_replace('%octeamEmailsSignature%', $octeamEmailsSignature, $email_content);
 					
 					mb_send_mail($cache_owner['email'], tr('reportcache08')." ".$cache['wp_oc'], $email_content, $emailheaders);
 					

@@ -1027,7 +1027,7 @@ select selecteer
 report_01 Meld een probleem met cache:
 report_02 Meld het probleem aan:
 report_03 Cache eigenaar
-report_04 Opencaching.pl-team (er wordt ook een kopie naar de cache eigenaar verzonden)
+report_04 Opencaching.nl-team (er wordt ook een kopie naar de cache eigenaar verzonden)
 report_05 <b>Let op!</b> Probeer eerst het probleem met de cache eigenaar op te lossen.
 report_06 Soort probleem:
 report_07 Cache op privégrond
@@ -1035,7 +1035,7 @@ report_08 Archiveren
 report_09 Schending auteursrecht
 report_10 Andere reden
 report_11 Commentaar (verplicht)
-report_12 Het rapport is verzonden. Het Opencaching.pl team zal het probleem onderzoeken en passende maatregelen nemen.
+report_12 Het rapport is verzonden. Het Opencaching.nl team zal het probleem onderzoeken en passende maatregelen nemen.
 route_01 Startpunt
 route_02 Eindpunt
 route_03 Wis route
@@ -1234,9 +1234,9 @@ reportcache15 Reden van probleem
 reportcache16 Met vriendelijke groet van mijzelf
 reportcache17 Op
 reportcache18 heeft gebruiker
-reportcache19 een nieuw cacheprobleem gemeld
+reportcache19 een nieuw cache probleem gemeld
 reportcache20 is het cache probleem gemeld
-
+reportcache21 Het Opencaching-Team zal zo snel mogelijk actie ondernemen. <br />Als je contact met Opencaching-Team op wil opnemen over <br /> dit onderwerp, reageer dan op deze e-mail.
 
 
 
