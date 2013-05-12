@@ -130,7 +130,10 @@ if($usr==true)
 						
 					$email_content = read_file($stylepath . '/email/newreport_reporter.email');
 					
-					$email_content = mb_ereg_replace('%date%', date("Y.m.d H:i:s"), $email_content);
+					$email_content = mb_ereg_replace('%reportcache20%', tr('reportcache20'), $email_content);
+                                        $email_content = mb_ereg_replace('%server%', $absolute_server_URI, $email_content);
+                                        $email_content = mb_ereg_replace('%octeamEmailsSignature%', $octeamEmailsSignature, $email_content);
+                                        $email_content = mb_ereg_replace('%date%', date("Y.m.d H:i:s"), $email_content);
 					$email_content = mb_ereg_replace('%cachename%', $cache['name'], $email_content);
 					$email_content = mb_ereg_replace('%cache_wp%', $cache['wp_oc'], $email_content);
 					$email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);		

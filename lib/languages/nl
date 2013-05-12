@@ -1220,8 +1220,8 @@ reportcache01 Cache op privégrond
 reportcache02 Archiveren
 reportcache03 Schending auteursrecht
 reportcache04 Andere reden                         
-reportcache05 Selecteer probleemsoort
-reportcache06 Geen commentaar ingevult
+reportcache05 Geen commentaar ingevult
+reportcache06 Selecteer probleemsoort
 reportcache07 Nieuwe melding van probleem op OC NL
 reportcache08 [OC NL] Melding probleem van jouw cache
 reportcache09 [OC NL] Melding probleem van cache
@@ -1231,10 +1231,11 @@ reportcache12 einde
 reportcache13 Deze berichten kunnen bekeken worden op
 reportcache14 Het gaat om cache
 reportcache15 Reden van probleem
-reportcache16 ??Wasz zawsze oddany serwer pocztowy??
+reportcache16 Met vriendelijke groet van mijzelf
 reportcache17 Op
 reportcache18 heeft gebruiker
-reportcache19 een cacheprobleem gemeld
+reportcache19 een nieuw cacheprobleem gemeld
+reportcache20 is het cache probleem gemeld
 
 
 

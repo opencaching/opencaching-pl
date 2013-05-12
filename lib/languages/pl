@@ -1220,8 +1220,8 @@ reportcache01 Uwaga co do lokalizacji skrzynkix
 reportcache02 Skrzynka wymaga archiwizacji
 reportcache03 Nieodpowiednia zawartość skrzynki
 reportcache04 Inny                         
-reportcache05 Brak opisu problemu
-reportcache06 Nie wybrano powodu
+reportcache05 Nie wybrano powodu
+reportcache06 Brak opisu problemu
 reportcache07 Nowe zgłoszenie problemu na OC PL
 reportcache08 [OC PL] Zgłoszono problem dotyczący Twojej skrzynki
 reportcache09 [OC PL] Zgłosiłeś problem dotyczący skrzynki
@@ -1235,7 +1235,10 @@ reportcache16 Wasz zawsze oddany serwer pocztowy
 reportcache17 Dnia
 reportcache18 użytkownik
 reportcache19 wysłał nowe zgłoszenie problemu
+reportcache20 wysłał zgłoszenie problemu
 register00 Nazwa użytkownika
 register01 twoj@adres.email
 register02 hasło
 register03 powtórz hasło
+
+
