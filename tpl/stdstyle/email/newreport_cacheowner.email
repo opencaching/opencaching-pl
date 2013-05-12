@@ -3,7 +3,7 @@
 %reportcache14% %cache_wp% - %cachename%
 (%server%viewcache.php?cacheid=%cacheid%).
 
-%cachereport21%
+%reportcache21%
 
 %reportcache15%: %reason%
 
