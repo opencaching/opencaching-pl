@@ -448,7 +448,7 @@ register_msg3 If you have any questions, please contact us before you create you
 register_msg4 I have read and understand <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">the terms of use</a></b> and accept them. 
 register_msg5 New account has been registered
 register_msg6 The activation code was sent via E-mail to you. Please follow the instruction which was send via E-Mail.
-register_msg7
+register_msg7 User, which own a cache or had wrotten log in any cache cannot be deleted. Only dectivation of account is available. All personal data will be removed (including emails) but username will be kept.If you want your account to be deactivated contact us with e-mail. ocpl @ opencaching.pl.
 total_distance Total distance
 send_to_gps Send WayPoint to GPS
 post_new_log Post new log in reference to
@@ -1097,6 +1097,7 @@ register00 User name
 register01 your@email.address
 register02 password
 register03 repeat password
+register04 Clear form
 
 
 
