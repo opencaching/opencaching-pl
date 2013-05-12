@@ -27,7 +27,8 @@
 
  ****************************************************************************/
 
-  //prepare the templates and include all neccessary
+  	//prepare the templates and include all neccessary
+  	if (!isset($rootpath)) $rootpath = '';
 	require_once('./lib/common.inc.php');
 
 	//Preprocessing
