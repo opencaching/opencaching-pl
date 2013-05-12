@@ -109,7 +109,16 @@ if($usr==true)
 					$query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache['user_id']);
 					$cache_owner = sql_fetch_array($query);
 
-					$email_content = mb_ereg_replace('%date%', date("Y.m.d H:i:s"), $email_content);
+					$email_content = mb_ereg_replace('%server%', $absolute_server_URI, $email_content);
+                                        $email_content = mb_ereg_replace('%reportcache10%', tr('reportcache10'), $email_content);
+					$email_content = mb_ereg_replace('%reportcache11%', tr('reportcache11'), $email_content);
+					$email_content = mb_ereg_replace('%reportcache12%', tr('reportcache12'), $email_content);
+                                        $email_content = mb_ereg_replace('%reportcache15%', tr('reportcache15'), $email_content);
+                                        $email_content = mb_ereg_replace('%reportcache17%', tr('reportcache17'), $email_content);
+					$email_content = mb_ereg_replace('%reportcache18%', tr('reportcache18'), $email_content);
+					$email_content = mb_ereg_replace('%reportcache19%', tr('reportcache19'), $email_content);
+                                        $email_content = mb_ereg_replace('%octeamEmailsSignature%', $octeamEmailsSignature, $email_content);
+                                        $email_content = mb_ereg_replace('%date%', date("d.m.Y H:i:s"), $email_content);
 					$email_content = mb_ereg_replace('%submitter%', $usr['username'], $email_content);		
 					$email_content = mb_ereg_replace('%cachename%', $cache['name'], $email_content);
 					$email_content = mb_ereg_replace('%cache_wp%', $cache['wp_oc'], $email_content);
@@ -130,16 +139,16 @@ if($usr==true)
 						
 					$email_content = read_file($stylepath . '/email/newreport_reporter.email');
 					
-					$email_content = mb_ereg_replace('%reportcache10%', tr('reportcache10'), $email_content);
+					$email_content = mb_ereg_replace('%server%', $absolute_server_URI, $email_content);
+                                        $email_content = mb_ereg_replace('%reportcache10%', tr('reportcache10'), $email_content);
 					$email_content = mb_ereg_replace('%reportcache11%', tr('reportcache11'), $email_content);
 					$email_content = mb_ereg_replace('%reportcache12%', tr('reportcache12'), $email_content);
                                         $email_content = mb_ereg_replace('%reportcache14%', tr('reportcache14'), $email_content);
 				        $email_content = mb_ereg_replace('%reportcache15%', tr('reportcache15'), $email_content);
                                         $email_content = mb_ereg_replace('%reportcache17%', tr('reportcache17'), $email_content);
                                         $email_content = mb_ereg_replace('%reportcache20%', tr('reportcache20'), $email_content);
-                                        $email_content = mb_ereg_replace('%server%', $absolute_server_URI, $email_content);
                                         $email_content = mb_ereg_replace('%octeamEmailsSignature%', $octeamEmailsSignature, $email_content);
-                                        $email_content = mb_ereg_replace('%date%', date("Y.m.d H:i:s"), $email_content);
+                                        $email_content = mb_ereg_replace('%date%', date("d.m.Y H:i:s"), $email_content);
 					$email_content = mb_ereg_replace('%cachename%', $cache['name'], $email_content);
 					$email_content = mb_ereg_replace('%cache_wp%', $cache['wp_oc'], $email_content);
 					$email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);		
