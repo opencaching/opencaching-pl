@@ -30,144 +30,50 @@
 		}
 		else
 		{
-		
 			$tplname = 'myroutes_add_map2';
-	tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;hl=pl&amp;v=2&amp;key='.$googlemap_key.'" type="text/javascript"></script><script src="lib/js/gmap.js" type="text/javascript"></script>');
-//			tpl_set_var('bodyMod', ' onload="initialize()" onunload="GUnload()"');
-
+			tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?libraries=geometry&amp;sensor=false&amp;language='.$lang.'" type="text/javascript"></script>');
+	
 			$user_id = $usr['userid'];
 			
+			$name = isset($_POST['name']) ? $_POST['name'] : '';
+			tpl_set_var('name', htmlspecialchars($name, ENT_COMPAT, 'UTF-8'));			
+		
+			$desc = isset($_POST['desc']) ? $_POST['desc'] : '';
+			tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
 			
-				$name = isset($_POST['name']) ? $_POST['name'] : '';
-				tpl_set_var('name', htmlspecialchars($name, ENT_COMPAT, 'UTF-8'));			
-			
-				$desc = isset($_POST['desc']) ? $_POST['desc'] : '';
-				tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
-				
-				$radius = isset($_POST['radius']) ? $_POST['radius'] : '0';
-				tpl_set_var('radius', $radius);			
+			$radius = isset($_POST['radius']) ? $_POST['radius'] : '0';
+			tpl_set_var('radius', $radius);			
 
-				if (isset($_POST['back']))
-				{	
+			if (isset($_POST['back']))
+			{	
 				tpl_redirect('myroutes.php');
 				exit;
+			}
+
+			if (isset($_POST['submitform']))
+			{
+				$length = isset($_POST['distance']) ? $_POST['distance'] : '0';
+				$route_points = isset($_POST['route_points']) ? explode(" ", $_POST['route_points']) : array();
+				
+				// insert route name			
+				sql("INSERT INTO `routes` (`route_id`, `user_id`, `name`, `description`, `radius`, `length`) VALUES ('', '&1', '&2', '&3', '&4', '&5')",
+					$user_id, $name, $desc,	$radius, $length);
+
+				// get route_id
+				$route_id = sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
+
+				$point_num = 0;
+				foreach ($route_points as $route_point) {
+					$point_num++;
+					$latlng = explode(",", $route_point);
+					sql("INSERT into route_points (route_id,point_nr,lat,lon) VALUES (&1, &2, &3, &4)",
+						$route_id, $point_num, $latlng[0], $latlng[1]);
 				}
 
+				tpl_redirect('myroutes.php');
+				exit;
 
-				if (isset($_POST['submitform']))
-				{
-				// insert route name			
-						sql("INSERT INTO `routes` (
-													`route_id`,
-													`user_id`,
-													`name`,
-													`description`,
-													`radius` 
-												) VALUES (
-													'', '&1', '&2', '&3', '&4')",
-												$user_id,
-												$name,
-												$desc,
-												$radius);
-
-
-				$lgth = isset($_POST['distance']) ? $_POST['distance'] : '0';
-				$dis=explode(" ",trim($lgth));
-				$dist=explode("km",trim($dis[0]));
-				$dista=str_replace(",",".",trim($dist[0]));
-				$l=(float)($dista*1.0);				
-				$from = isset($_POST['fromaddr']) ? $_POST['fromaddr'] : 'Warszawa';			
-				$to = isset($_POST['toaddr']) ? $_POST['toaddr'] : 'Torun';
-				$viapoints = isset($_POST['viaaddr']) ? $_POST['viaaddr'] : '';
-				$from=str_replace(" ","+",$from);
-				$to=str_replace(" ","+",$to);
-				$viapoints=str_replace(";",",",$viapoints);
-
-		$vcoords = explode(",",trim($viapoints));
-		$vpoints="";
-		for( $i=0; $i<count($vcoords)-1; $i=$i+2 ) {
-		$vpoints .="+to:".$vcoords[$i].",".$vcoords[$i+1];
-		if ( ($vcoords[$i]+0==0) OR ($vcoords[$i+1]+0==0) ) {
-		$error .= "Invalid Co-ords found in import file.<br>\n";
-		break;
-			}}
-				$via=$vpoints;
-
-// get route_id
-$route_id=sqlValue("SELECT route_id FROM `routes` WHERE name='$name' AND description='$desc' AND user_id=$user_id",0);
-// update length of route
-sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$l,$route_id);
-
-$myurl = "http://maps.google.pl/maps?q=from:{$from}{$via}+to:{$to}&hl=pl&output=js";
-//Open the url
-$f = fopen ($myurl, "r");
-$str = stream_get_contents($f);
-//write tmp KML
-$ff= fopen("/tmp/tmp.kml","w");
-fwrite($ff,$str);
-fclose($ff);
-$upload_filename="/tmp/tmp.kml";	
-
-// Read file KML with route, load in the KML file through the my_routes page, and run that KML file through GPSBABEL which has a tool interpolate data points in the route.	
-if ( !$error ) {
-exec("/usr/bin/gpsbabel -i google,units=m -f ".$upload_filename." -x interpolate,distance=5k -o kml,units=m -F ".$upload_filename."");
-$xml = simplexml_load_file($upload_filename);
-
-	// get length route 
-	/*
-foreach ($xml->Document->Folder as $f){
-foreach ($f->Folder as $folder){
-$dis=$folder->description;
-$dis1=explode(" ",trim($dis));
-$len=(float)$dis1[27];
-	sql("UPDATE `routes` SET `length`='&1' WHERE `route_id`='&2'",$len,$route_id);
-	}}
-*/
-	
-	foreach ( $xml->Document->Folder as $xmlelement ) {
-	foreach ( $xmlelement->Folder as $folder ) {
-	foreach ( $folder->Placemark->LineString->coordinates as $coordinates ) {
-		if ( $coordinates ) {
-		$coords_raw = explode(" ",trim($coordinates));
-		foreach ( $coords_raw as $coords_raw_part ) {
-		if ( $coords_raw_part ) {
-		$coords_raw_parts = explode(",",$coords_raw_part);
-		$coords[] = $coords_raw_parts[0];
-		$coords[] = $coords_raw_parts[1];
-		}}}}}}}
-		// end of read
-//we get the point data in to an array called $points:
-
-if (!$error){
-		for( $i=0; $i<count($coords)-1; $i=$i+2 ) {
-		$points[] = array("lon"=>$coords[$i],"lat"=>$coords[$i+1]);
-		if ( ($coords[$i]+0==0) OR ($coords[$i+1]+0==0) ) {
-		$error .= "Invalid Co-ords found in import file.<br>\n";
-		break;
-			}
-		}
-	}
-// add it to the route_points database:
-		$point_num = 0;
-		foreach ($points as $point) {
-		$point_num++;
-		$query = "INSERT into route_points (route_id,point_nr,lat,lon)"."VALUES ($route_id,$point_num,".addslashes($point["lat"]).",".addslashes($point["lon"]).");";
-		$result=sql($query);
-		}											
-				
-
-
-							tpl_redirect('myroutes.php');
-							exit;		
-
-				} //end submit
-
-
-
-
-
-
-
+			} //end submit
 		}
 	}
 

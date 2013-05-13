@@ -1,0 +1,6 @@
+# References to myroutes_map.js and gmap.js scripts are generated dynamically in PHP and contain numeric time-stamps.
+# This is stripped here to return the actual file.
+
+RewriteEngine On
+RewriteRule ^myroutes_map\.\d+\.js$ myroutes_map.js
+RewriteRule ^gmap\.\d+\.js$ gmap.js

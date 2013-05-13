@@ -63,9 +63,8 @@
 				$rdesc = isset($_POST['desc']) ? $_POST['desc'] : '';			
 				$rradius = isset($_POST['radius']) ? $_POST['radius'] :'';
 
-		tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;hl=pl&amp;v=2&amp;key='.$googlemap_key.'" type="text/javascript"></script><script src="lib/js/gmap.js" type="text/javascript"></script>');
-			tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
-			
+			tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?libraries=geometry&amp;sensor=false&amp;language='.$lang.'" type="text/javascript"></script>');
+
 			if ($record['user_id'] == $usr['userid'])
 				{
 

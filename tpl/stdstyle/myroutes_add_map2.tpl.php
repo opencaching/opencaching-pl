@@ -10,245 +10,102 @@
 	***************************************************************************/
 ?>
 
+<script src="lib/js/gmap.<?= date("YmdHis", filemtime($rootpath . 'lib/js/gmap.js')) ?>.js" type="text/javascript"></script>
 <script type="text/javascript">
-<!--
-	function checkForm()
-	{
-	
-		document.forms['myroute_form'].fromaddr.value=document.getElementById('driveFrom').value;
-		document.forms['myroute_form'].toaddr.value=document.getElementById('driveTo').value;
-		document.forms['myroute_form'].viaaddr.value=document.getElementById('driveVia').value;
-	
+//<![CDATA[
+function checkForm()
+{
 	if(document.myroute_form.name.value == "")
-		{
-			alert("{{route_name_info}}");
-			return false;
-		}
-				if(document.myroute_form.radius.value < 0.5 ||document.myroute_form.radius.value > 10 )
-		{
-			alert("{{radius_info}}");
-			return false;
-		}
-		if(document.myroute_form.distance.value =="" )
-		{
-			alert("{{Trasa nie została wyznaczona}}");
-			return false;
-		} else {
-		var len=document.myroute_form.distance.value;
-		var lv=len.split("&nbsp;");
-		var l=lv[0].split(",");
-		var v = parseFloat(l[0]);
-		if (v >200) {alert("Wybrana trasa jest za długa ("+v+" km). Maksymalna długość wyznaczonej trasy powinna być do 200 km."); return false;}
-		}	
-
-		return true; 
+	{
+		alert("{{route_name_info}}");
+		return false;
 	}
-	//-->
+
+	if(document.myroute_form.radius.value < 0.5 ||document.myroute_form.radius.value > 10 )
+	{
+		alert("{{radius_info}}");
+		return false;
+	}
+	if(document.myroute_form.distance.value =="" )
+	{
+		alert("{{Trasa nie została wyznaczona}}");
+		return false;
+	} else {
+	var len=document.myroute_form.distance.value;
+	var lv=len.split("&nbsp;");
+	var l=lv[0].split(",");
+	var v = parseFloat(l[0]);
+	if (v >200) {alert("Wybrana trasa jest za długa ("+v+" km). Maksymalna długość wyznaczonej trasy powinna być do 200 km."); return false;}
+	}	
+
+	return true; 
+}
+//]]>
 </script>
 
 
 <style type="text/css">
 
-
-#outerMapDiv {
-	border: 2px solid navy;
-	padding:3px;
-
-}
 #mapDiv {
-	width:500px;
-	height:500px;
-
-}
-#mapCell {
-/*	border: 2px solid navy; */
-	padding:5px;
-
+	width: 500px;
+	height: 500px;
+	margin: 5px;
 }
 
-.statusDiv, #link, #mtContainer, #scale, #directions_info, #customMaps_info {
+#directions_info {
 	padding: 3px;
 	font: normal 12px courier new;
-	text-align:left;
+	text-align: left;
 	color: navy;
+	overflow: auto;
+	height: 435px;
+	width: 210px;
 }
 
-.statusBar, #link, #mtContainer, #scale, #directions_info, #customMaps_info, #opacityContainer, #buttonContainer, #directionsFormTable  {
-	border: 1px solid navy;
-	margin-left:5px;
-	margin-right:5px;
-	margin-top:5px;
+#directions_info,#buttonContainer {
+	border: 1px solid #c8c8c8;
+	margin: 5px;
 	background: #eff4f8;
-/*	width: 200px;*/
 }
-
-#directions_info, #customMaps_info {
-
-	overflow:auto; 
-	height:440px;
-	width:195px;	
-
-}
-
-
-#link, #scale {
-	text-align:center;
-}
-
-
-/* -------------- Tabs --------------------*/
-#tabsContainer {
-	text-align: center;
-	padding: 2px;
-	margin-top: 2px;
-
-}
-#tabsTable td{
-	text-align: center;
-}
-
-#customMapsTabContainer, #directionsTabContainer {
-	padding-top: 2px;
-}
-#directionsTabContainer {
-
-}
-
-
-.functionsTab, .functionsTabSelected {
-	font: bold 10px verdana;
-	padding: 2px;
-	cursor: pointer;
-	border: 1px solid gray;
-}
-.functionsTab:hover {
-	background: #EBB94D;
-	color: red;
-	border: 1px solid red;
-}
-.functionsTabSelected {
-	background: #9743FF;
-	color: #ffffff;
-
-}
-
-/* -------------- end Tabs ----------------*/
-
-
-
-#directionsFormTable td{
-	font: bold 10px verdana;
-	padding: 2px;
-
-}
-
-.ddOption, .ddSelectedOption {
-	background: #A6A8CC;
-	color: navy;
-	border: 2px solid navy;
-	text-align:center;
-	vertical-align:middle;
-	font: bold 10px verdana;
-	padding: 2px;
-	cursor: pointer;
-	margin: 3px;
-	z-index:100;
-}
-.ddSelectedOption {
-	border: 2px solid #008000;
-	background: #80FF80;
-}
-.ddOption:hover {
-	background: #EBB94D;
-	border: 2px solid red;
-}
-
 
 #loadingMessage {
-    position: absolute;
-    width:  200px;
-    text-align: center;
-    padding: 10px;
-    border: 5px solid #290B8B;
-    background: #3F06FA;
+	position: absolute;
+	width: 200px;
+	text-align: center;
+	padding: 10px;
+	border: 5px solid #290B8B;
+	background: #3F06FA;
 	color: #eeeeee;
 	font: bold 20px verdana;
-    z-index: 1;
-	left:0px;
-	top:0px;
+	z-index: 1;
+	left: 0px;
+	top: 0px;
 	opacity: 0.7;
-
 }
-
-
-.countyInfo, .countyInfoSel {
-	font: normal 11px verdana;
-	cursor:pointer;
-	background: #A6A8CC;
-	border: 2px solid navy;
-	margin-bottom:5px;
-	padding:3px;
-}
-
-.countyInfoSel {
-	background:#F4E48C;
-	border:2px solid #EF3E31;
-}
-
-#opacityContainer {
-}
-#opacityLabel {
-	font: normal 12px verdana;
-	text-align: center;
-	margin: 2px;
-}
-
-#opacitySlider {
-	border: none;
-	background: url(sliderBG_800.jpg) repeat-X;
-	cursor: pointer;
-	height: 20px;
-	text-align: left;
-}
-
-#sliderHandle {
-	border: 2px solid black;
-	width: 5px;
-	height: 18px;
-	position: relative;
-}
-
 
 /* -------------- Simplify ----------------- */
-.button, .selectedButton, .buttonB, .button3 {
+.button,.buttonB {
 	background: #A6A8CC;
 	color: navy;
 	border: 2px solid navy;
-	text-align:center;
-	vertical-align:middle;
+	text-align: center;
+	vertical-align: middle;
 	font: normal 10px verdana;
 	padding: 2px;
 	cursor: pointer;
 	margin: 3px;
 }
-.button3 {
-	margin: 0px;
-}
 
-.selectedButton {
-	border: 2px solid #008000;
-	background: #80FF80;
-	color: #008000;
-}
 .buttonB {
-	border: 2px solid rgb(219,230,241);
-    background-color: #7fa2ca ;
+	border: 2px solid rgb(219, 230, 241);
+	background-color: #7fa2ca;
 	font-weight: bold;
 	color: #FFFFFF;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 }
-.button:hover, .buttonB:hover, .button3:hover {
+
+.button:hover,.buttonB:hover {
 	color: #000000;
 	font-weight: bold;
 	border: 2px solid #7fa2ca;
@@ -257,52 +114,9 @@
 	-moz-border-radius: 5px;
 }
 
-/* ------------------------------------------------- */
-
-/* ------------ Driving directions ----------------- */
-.stepRow td {
-	border-top: 1px solid #bbbbbb;
-	vertical-align: top;
-	padding:2px;
-	cursor: pointer;
-}
-
-.globalSummaryDiv {
-	font-weight:bold;
-	border: 1px solid navy;
-	background: #9cbad6; 
-	color: #ffffff;
-}
-
-.routeSummaryDiv {
-	border: 1px solid navy;
-	cursor: pointer;
-	background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
-	/* background: #cccccc; */
-}
-
-#detailmap {
-	width: 250px;
-	height: 150px;
-	border:1px solid gray;
-}
-.bubble {
-	font: normal 12px verdana;
-	width: 250px;
-	height: 150px;
-}
-
-#POI_controls {
-	font: normal 12px verdana;
-	padding:2px;
-	text-align: left;
-}
-
 #driveVia {
 	border: 1px solid gray;
 	font: normal 10px verdana;
-
-
 }
 
 </style>
@@ -328,24 +142,20 @@
 <br/>
 <table cellspacing="0" cellpadding="0" id="outerTable">
 	<tr>
-			<td width="200" valign="top">
+		<td width="200" valign="top">
 			<div id="buttonContainer">
-			<div class="buttonB" onclick="rmOverlays()">{{route_03}}</div>
-			<div class="buttonB" onclick="doUnload(1)">{{route_04}}</div>
+				<div class="buttonB" onclick="removeResults()">{{route_03}}</div>
+				<div class="buttonB" onclick="resetMap()">{{route_04}}</div>
 			</div>
 			<div id="directions_info"></div>
 		</td>
 		<td valign="top">
-			<div style="border: 2px solid navy; padding:3px;">
-			<div id="mapDiv"></div>	
-			</div>
-		</td>		
+			<div id="mapDiv"></div>
+		</td>	
 	</tr>
 </table>
 <script>
 	window.onload = load;
-	window.onunload = unload;
-	window.onresize = resizePage;
 </script>
 <div id="loadingMessage" style="display:none;">{{route_05}}</div>
 <br/>
@@ -353,10 +163,8 @@
 <div class="searchdiv">
 
 <form action="myroutes_add_map2.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr" onsubmit="return checkForm();">
-<input type="hidden" name="fromaddr" value=""/>
-<input type="hidden" name="toaddr" value="" />
-<input type="hidden" name="viaaddr" value="" />
 <input type="hidden" name="distance" value="" />
+<input type="hidden" name="route_points" value="" />
 <table class="content">
 	<tr>
 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_name}}:</span></td>

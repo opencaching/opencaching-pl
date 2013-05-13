@@ -34,110 +34,41 @@ for ($i = 0; $i < mysql_num_rows($rscp); $i++)
 $encoder = new PolylineEncoder();
 $polyline = $encoder->encode($points);
 ?>
+<script type="text/javascript" src="/lib/jsts/attache.array.min.js"></script>
+<script type="text/javascript" src="/lib/jsts/javascript.util.js"></script>
+<script type="text/javascript" src="/lib/jsts/jsts.0.13.2.js"></script>
+<script type="text/javascript" src="/lib/js/myroutes_map.<?= date("YmdHis", filemtime($rootpath . 'lib/js/myroutes_map.js')) ?>.js"></script>
 <script type="text/javascript">
-<!--
+//<![CDATA[
 
-var searchArea= null;
-var old_zoom=6;
-var map0=null;
+var currentinfowindow = null;
 
+var icon3 = { url: "tpl/stdstyle/images/google_maps/gmgreen.gif" };
 
-   function load() {
-      if (GBrowserIsCompatible()) {
-
-
- var icon3 = new GIcon();
- icon3.image = "tpl/stdstyle/images/google_maps/gmgreen.gif";
- icon3.shadow = null;
- icon3.iconSize = new GSize(12, 20);
- icon3.shadowSize = new GSize(22, 20);
- icon3.iconAnchor = new GPoint(6, 20);
- icon3.infoWindowAnchor = new GPoint(5, 1);
- 
-        var map0 = new GMap2(document.getElementById("map0"));
-        map0.addControl(new GLargeMapControl());
-        map0.addControl(new GMapTypeControl());
-        map0.addControl(new GScaleControl());
-
-        var encodedPolyline = new GPolyline.fromEncoded({
-          weight: 5,
-          points: "<?= $polyline->points ?>",
-          levels: "<?= $polyline->levels ?>",
-          zoomFactor: <?= $polyline->zoomFactor ?>,
-          numLevels: <?= $polyline->numLevels ?>
-        });
-
-    var bounds = encodedPolyline.getBounds();
-    map0.setCenter(bounds.getCenter(), map0.getBoundsZoomLevel(bounds)); 
-
-   //display route
-     map0.addOverlay(encodedPolyline);
-
-//display search Area
-			var searchArea= null;
-			var searchRadius = document.myroute_form.distance.value;
-			var p1=map0.fromContainerPixelToLatLng(new GPoint(300,300));
-			var p2=map0.fromContainerPixelToLatLng(new GPoint(300,301));
-			var lngdist = p1.distanceFrom(p2);
-			var p3=map0.fromContainerPixelToLatLng(new GPoint(301,300));
-			var latdist = p1.distanceFrom(p3);
-			var pixelWidth = Math.ceil((searchRadius*1000/latdist)*2);
-
-	searchArea =  new GPolyline.fromEncoded({
-	 color:'#c0c0c0',
-          weight: pixelWidth,
-	  opacity: 0.40,
-          points: "<?= $polyline->points ?>",
-          levels: "<?= $polyline->levels ?>",
-          zoomFactor: <?= $polyline->zoomFactor ?>,
-          numLevels: <?= $polyline->numLevels ?>
-        });
-
-	map0.addOverlay(searchArea);
-
- var sw = new GLatLng({latlonmin});  
- var ne = new GLatLng({latlonmax});  
- var bounds = new GLatLngBounds(sw, ne);  
- map0.setCenter(bounds.getCenter(), map0.getBoundsZoomLevel(bounds));  
-   // display caches
-	   {points}
-
-
- GEvent.addListener(map0,'moveend',function(){
-
-			var new_zoom=map0.getZoom(); 
-			var a=parseFloat(new_zoom);
-			var b=parseFloat(old_zoom);
-			if (a!=b) {
-
-			if (searchArea) {
-				map0.removeOverlay(searchArea);
-				searchArea = null;
-			}
-			var searchRadius = document.myroute_form.distance.value;
-			var p1=map0.fromContainerPixelToLatLng(new GPoint(300,300));
-			var p2=map0.fromContainerPixelToLatLng(new GPoint(300,301));
-			var lngdist = p1.distanceFrom(p2);
-			var p3=map0.fromContainerPixelToLatLng(new GPoint(301,300));
-			var latdist = p1.distanceFrom(p3);
-			var pixelWidth = Math.ceil((searchRadius*1000/latdist)*2);
-	searchArea =  new GPolyline.fromEncoded({
-	 color:'#c0c0c0',
-          weight: pixelWidth,
-	  opacity: 0.40,
-          points: "<?= $polyline->points ?>",
-          levels: "<?= $polyline->levels ?>",
-          zoomFactor: <?= $polyline->zoomFactor ?>,
-          numLevels: <?= $polyline->numLevels ?>
-        });
-	map0.addOverlay(searchArea);
-
-			}
-			old_zoom=new_zoom;
-		});
-	   
+function addMarker(lat, lon, icon, cacheid, cachename, wp, username, ratings) {
+	var marker = new google.maps.Marker({position: new google.maps.LatLng(lat, lon), icon: icon3, map: map});
+	var topratings = "";
+	
+	if (ratings > 0) {
+		topratings  = '<br/><img width="10" height="10" src="images/rating-star.png" alt="{{recommendation}}" />&nbsp;<b>{{recommendations}}: </b>';
+		topratings += '<span style="font-weight: bold; color: green;">' + ratings + '</span>';
 	}
-    }
+
+	var infowindow = new google.maps.InfoWindow({
+	    content:
+		    '<table border="0"><tr><td>' +
+			'<img src="tpl/stdstyle/images/' + icon + '" border="0" alt=""/>&nbsp;<a href="viewcache.php?cacheid=' + cacheid + '" target="_blank">' + cachename + '</a>' +
+			' - <b>' + wp + '</b></td></tr><tr><td width="70%" valign="top">' + '<b>{{created_by}}:</b> ' + username + topratings + '</td></tr></td></tr></table>'
+	});
+
+	google.maps.event.addListener(marker, "click", function() {
+		if (currentinfowindow !== null) {
+			currentinfowindow.close();
+		}
+		infowindow.open (map, marker);
+		currentinfowindow = infowindow;
+	});
+}
 
 function check_logs(){
 	if (document.myroute_form.cache_log[1].checked == true) {
@@ -164,21 +95,27 @@ function sync_options(element)
 	}
 		document.forms['myroute_form'].logs.value = nlogs;
 }	
-//-->
+
+window.onload = function() {
+	load(document.myroute_form.distance.value, "<?= $polyline->points ?>");
+// display caches
+{points}
+};
+
+//]]>
 </script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/route.png" class="icon32" alt="" />&nbsp;{{caches_along_route}} ({number_caches}): <span style="color: black;font-size:13px;">{routes_name} ({{radius}} {distance} km)</span></div>
 
 <div class="searchdiv">
 <center>
-<div style="width:703px;border: 2px solid navy; padding:3px;">
-    <div id="map0" style="width:700px;height:500px"></div>
-	</div>	
+<div id="map" style="width:100%; height:500px"></div>
 <br/><span style="font-weight:bold;">{{marked_grey_search_area}}</span>
 </center>
 </div>
 <br/>
-<div class="searchdiv">
+
 <form action="myroutes_search.php" method="post" enctype="multipart/form-data" name="myroute_form" dir="ltr">
+<div class="searchdiv">
 <input type="hidden" name="routeid" value="{routeid}"/>
 <input type="hidden" name="distance" value="{distance}"/>
 <input type="hidden" name="logs" value=""/>

@@ -49,9 +49,8 @@
 			$distance = $_POST['distance'];}
 			
 			
-			tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key='.$googlemap_key.'" type="text/javascript"></script>');
-			tpl_set_var('bodyMod', ' onload="load()" onunload="GUnload()"');
-			
+			tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?libraries=geometry&amp;sensor=false&amp;language='.$lang.'" type="text/javascript"></script>');
+
 			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes` WHERE `route_id`='&1' AND `user_id`='&2'", $route_id,$user_id);
 			$record = sql_fetch_array($route_rs);	
 			$distance=$record['radius'];
@@ -739,39 +738,17 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 		tpl_set_var('list_empty_start','');
 		tpl_set_var('list_empty_end','');}
 		$point="";
-		$number = 0;
+
 	while ($r = sql_fetch_array($rs))
 		{
 
 			if (isset($_POST['submit_map']))
-			{		
-			if( $r[topratings] == 0 )
-			$topratings = "";
-		else 
-		{
-			$topratings = "<br/><img width=\"10\" height=\"10\" src=\"images/rating-star.png\" alt=\"{{recommendation}}\" />&nbsp;<b>".tr(recommendations).": </b>";
-			$topratings.= "<span style=\"font-wight:bold;color: green;\">".$r[topratings]."</span>";}
-
-				$username=$r['username'];
-				$date=$r['date'];
+			{
 				$y=$r['longitude'];
 				$x=$r['latitude'];
-			$number=$number+1;
-			$point .=" var point = new GLatLng(" . $x . "," . $y . ");\n";
-			$point .="var marker".$number." = new GMarker(point,icon3); map0.addOverlay(marker".$number.");\n\n";
-			$point .="GEvent.addListener(marker".$number.", \"click\", function() {marker".$number.".openInfoWindowHtml('";
-			$point .="<table border=\"0\">";
-			$point .= "<tr><td>";
-			$point .= "<img src=\"tpl/stdstyle/images/" .getSmallCacheIcon($r['icon_large']) . "\" border=\"0\" alt=\"\"/>&nbsp;<a href=\"viewcache.php?cacheid=".$r[cacheid] ."\" target=\"_blank\">".$r[cachename]."</a></font>";
-			$point .= " - <b>".$r[wp_oc]."</b></td></tr>";
-			$point .= "<tr><td width=\"70%\" valign=\"top\">";
-			$point .= "<b>".tr(created_by).":</b> ".$r[username].$topratings;
-			$point .= "</td></tr></td></tr></table>";		
-		
-			$point .="');});\n";
-		
-			tpl_set_var('points', $point);	
-
+				$point.=sprintf("addMarker(%s,%s,'%s',%s,'%s','%s','%s',%s);\n",
+						$x, $y, getSmallCacheIcon($r['icon_large']), $r[cacheid], addslashes($r[cachename]), $r[wp_oc], addslashes($r[username]), $r[topratings]);
+				tpl_set_var('points', $point);	
 			} else {
 				$file_content .= '<tr>';
 				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';	
