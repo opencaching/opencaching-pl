@@ -799,7 +799,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 798; # This gets replaced in automatically deployed packages
+	public static $revision = 799; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -1644,6 +1644,7 @@ class Okapi
 		if ($id == 10) return "Ready to search";
 		if ($id == 11) return "Temporarily unavailable";
 		if ($id == 12) return "OC Team comment";
+		if ($id == 13 || $id == 14) return "Locked";
 
 		# Important: This set is not closed. Other types may be introduced
 		# in the future. This has to be documented in the public method
