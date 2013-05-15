@@ -1132,6 +1132,22 @@ register01 your@email.address
 register02 password
 register03 repeat password
 register04 Clear form
+registermail01 Hello
+registermail02 Welcome at
+registermail03 To have a good start, you can read most information on our OpenGeoWiki.You can find OpenGeoWiki at:
+registermail04 http://www.opencaching.pl/wiki
+registermail05 If you're looking for help through an interactive map where you can find volunteers who offer their help to beginning cachers.
+registermail06 Look at page:
+registermail07 Before you register your first cache on OC PL you must find 10 caches of follwing types:traditional, quiz, multicache and unknown type.
+registermail08 Your first 3 caches will be moderated by OC Team.
+registermail09 Mobile version OC PL services you can find on http://m.opencaching.pl
+registermail10 We have saved the next data from you for registration:
+registermail11 E-Mail adress:
+registermail12 Username:
+registermail13 Country:
+registermail14 Use the next code to complete your registration:
+registermail15 Enter your activation code on the next page:
+registermail16 If you don't login in the next 14 days, your account will be deleted.
 
 
 
