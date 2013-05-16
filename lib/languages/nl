@@ -468,7 +468,7 @@ do_not_rate Ik wil deze cache niet beoordelen
 listed_other Log deze cache ook op de volgende sites
 not_spcified not spcified
 all_countries toon alle landen
-register_email_subject Registration confirmation Opencaching PL
+register_email_subject Registratie bevestiging %server%
 error_username_not_ok Gebruikersnaam is niet geldig
 error_username_exists Deze gebruikersnaam bestaat al op Opencaching pl. Kies een andere gebruikersnaam
 error_email_not_ok E-mail adres is niet geldig
