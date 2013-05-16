@@ -45,7 +45,7 @@
 
 		// news
 		require($stylepath . '/news.inc.php');
-		$newscontent ="<br />";
+		$newscontent = '<div class="line-box">';
 		$rs = sql('SELECT `news`.`date_posted` `date`, `news`.`content` `content` FROM `news` WHERE datediff(now(), news.date_posted) <= 31 AND `news`.`display`=1 AND `news`.`topic`=2 ORDER BY `news`.`date_posted` DESC LIMIT 4');
 	
 	if (mysql_num_rows($rs)!=0) {
@@ -61,6 +61,7 @@
 			$news = mb_ereg_replace('{message}', $r['content'], $news);			
 			$newscontent .= $news . "</div>\n";
 		}
+		$newscontent .= "</div>\n";
 	if (mysql_num_rows($rs)!=0) {
 			tpl_set_var('display_news', $newscontent);
 		} else {
