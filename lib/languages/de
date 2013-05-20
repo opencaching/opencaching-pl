@@ -154,7 +154,7 @@ caches Caches
 cache Geocache
 search Suchen
 view_cache Cache-Verzeichnis
-new_log_entry Neue Log-Eintrag
+new_log_entry Log eintragen
 edit_log Log-Eintrag bearbeiten
 remove_log Log-Eintrag entfernen
 edit_cache Bearbeiten Cache-Verzeichnis
@@ -208,10 +208,10 @@ comments Kommentare
 comment Kommentar
 write_to_log Melden Sie Ihren Besuch 
 edit Bearbeiten
-watch Watch
-watch_not Don ' t watch 
+watch Beobachten
+watch_not Nicht beobachten
 ignore Ignorieren
-ignore_not Don ' t ignorieren 
+ignore_not Nicht ignorieren 
 decrypt Entschlüsseln
 pictures_included Bilder im Zusammenhang mit dieser Log-Eintrag
 attendends Besuch
@@ -259,7 +259,7 @@ hidden_coords Bitte melden Sie sich an, um zu sehen, die Koordinaten.
 watchers Beobachter
 visitors Besucher
 view_reports Berichte anzeigen
-report_problem Problem melden
+report_problem Cache melden
 no_not_published_caches Nein nicht veröffentlicht Caches
 no_logs Keine Log-Einträge 
 no_time_indicated Noch keine Zeit angegeben
