@@ -16,6 +16,19 @@
 	require_once('settings.inc.php');
 	require_once($rootpath . 'lib/consts.inc.php');
 
+
+		// watch email translating. Now temporary changes for diagnose/test/debug only.
+			if (file_exists(dirname(__FILE__)."/../../lib/settings.inc.php")) {
+				require_once (dirname(__FILE__)."/../../lib/settings.inc.php");
+				$mailbody = 'tlumaczenie logType1: '.tr('logType1');
+			} else {
+				$mailbody = 'nie zadzialalo';
+			}
+			$email_headers = 'From: "runwatch.php" <' . $mailfrom . '>';
+			mb_send_mail('wloczynutka@gmail.com', 'runwatch.php', $mailbody, $email_headers);
+		// end test watch email translating 
+
+
 /* begin with some constants */
 
 	$sDateformat = 'Y-m-d H:i:s';
