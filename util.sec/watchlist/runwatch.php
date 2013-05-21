@@ -18,8 +18,9 @@
 
 
 		// watch email translating. Now temporary changes for diagnose/test/debug only.
-			if (file_exists(dirname(__FILE__)."/../../lib/settings.inc.php")) {
-				require_once (dirname(__FILE__)."/../../lib/settings.inc.php");
+			if (file_exists(dirname(__FILE__)."/../../lib/common.inc.php")) {
+        // require_once (dirname(__FILE__)."/../../lib/settings.inc.php");
+        require_once (dirname(__FILE__)."/../../lib/common.inc.php");
 				$mailbody = 'tlumaczenie logType1: '.tr('logType1');
 			} else {
 				$mailbody = 'nie zadzialalo';
