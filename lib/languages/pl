@@ -1271,6 +1271,11 @@ registermail13 Kraj:
 registermail14 Poniżej znajduje się kod aktywacyjny, który pozwoli Ci zakończyć etap rejestracji:
 registermail15 Kod aktywacyjny należy wprowadzić na stronie:
 registermail16 Jeśli w ciągu 14 dni od rejestracji nie zalogujesz się, konto zostanie automatycznie usunięte.
+activatemail01 Twoja skrzynka
+activatemail02 została zaakceptowana przez Zespół Opencaching.pl.
+activatemail03 Możesz teraz zmienić jej status na "gotowa do szukania" oraz opcje publikacji
+activatemail04 W razie jakichkolwiek pytań, prosimy o kontakt na adres:
+activatemail05 cog@opencaching.pl
 
 
 

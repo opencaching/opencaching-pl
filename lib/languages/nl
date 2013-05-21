@@ -447,7 +447,7 @@ register_msg1 Om een gebruikersaccount aan te maken op opencaching.pl, dien je e
 register_msg2 * zijn verplicht
 register_msg3 Mochten er nog vragen zijn, neem contact met ons op vóór je een account aanmaakt
 register_msg4 Ik heb de <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">gebruikers voorwaarden</a></b> gelezen en begrepen en accepteer deze. 
-register_msg5 Nieuw account is regeregistreerd
+register_msg5 Nieuw account is geregistreerd
 register_msg6 De activatiecode is verzonden per e-mail. Volg de instructies op welke in deze e-mail staan.
 register_msg7 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je opencaching.pl account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
 total_distance Totale afstand
@@ -468,7 +468,7 @@ do_not_rate Ik wil deze cache niet beoordelen
 listed_other Log deze cache ook op de volgende sites
 not_spcified not spcified
 all_countries toon alle landen
-register_email_subject Registratie bevestiging %server%
+register_email_subject Registratie bevestiging Opencaching
 error_username_not_ok Gebruikersnaam is niet geldig
 error_username_exists Deze gebruikersnaam bestaat al op Opencaching pl. Kies een andere gebruikersnaam
 error_email_not_ok E-mail adres is niet geldig
@@ -1236,7 +1236,7 @@ reportcache17 Op
 reportcache18 heeft gebruiker
 reportcache19 een nieuw cache probleem gemeld
 reportcache20 is het cache probleem gemeld
-reportcache21 Het Opencaching-Team zal zo snel mogelijk actie ondernemen. Als je \n\r contact met Opencaching-Team op wil opnemen over  \n\r dit onderwerp, reageer dan op deze e-mail.
+reportcache21 Het Opencaching-Team zal zo snel mogelijk actie ondernemen. Als je contact met Opencaching-Team op wil opnemen over dit onderwerp, reageer dan op deze e-mail.
 register00 Gebruikersnaam
 register01 E-mail adres
 register02 Wachtwoord
@@ -1271,8 +1271,10 @@ registermail13 Land:
 registermail14 Hieronder vind je de activeringscode om de registratie te voltooien:
 registermail15 De activeringscode moet worden ingevoerd op onderstaande link:
 registermail16 Indien binnen 14 dagen na de registratie niet aanmeldt wordt, zal dit gemaakte account automatisch worden verwijderd.
-
-
-
+activatemail01 De cache:
+activatemail02 is door het Opencaching team goed gekeurd.
+activatemail03 Je kunt de status veranderen in "beschikbaar" op:
+activatemail04 Indien je vragen hebt hierover kun je contact op nemen via:
+activatemail05 octeam@opencaching.nl
 
 

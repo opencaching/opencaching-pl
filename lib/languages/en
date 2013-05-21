@@ -1148,7 +1148,11 @@ registermail13 Country:
 registermail14 Use the next code to complete your registration:
 registermail15 Enter your activation code on the next page:
 registermail16 If you don't login in the next 14 days, your account will be deleted.
-
+activatemail01 The cache
+activatemail02 has bin aproved by the Opencaching Team.
+activatenail03 You can change the status in "Ready for search" on:
+activatemail04 If you have any questions about this, contact:
+activatemail05 octeam@opencaching.pl
 
 
 
