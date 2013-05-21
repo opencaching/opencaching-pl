@@ -18,14 +18,13 @@
 
 
 		// watch email translating. Now temporary changes for diagnose/test/debug only.
-			if (file_exists(dirname(__FILE__)."/../../lib/common.inc.php")) {
-        // require_once (dirname(__FILE__)."/../../lib/settings.inc.php");
-        require_once (dirname(__FILE__)."/../../lib/common.inc.php");
-				$mailbody = 'tlumaczenie logType1: '.tr('logType1');
-			} else {
-				$mailbody = 'nie zadzialalo';
-			}
-			$email_headers = 'From: "runwatch.php" <' . $mailfrom . '>';
+      require_once (dirname(__FILE__)."/../../lib/common.inc.php");
+      $mailbody = '<html><body><p style="color:red;">tra la la..</p><a href="http://www.opencaching.pl/OP0001">tlumaczenie</a> <b>logType1</b>: '.tr('logType1') . '</body></html>';
+
+      $email_headers  = 'MIME-Version: 1.0' . "\r\n";
+      $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";   
+			$email_headers .= 'From: "runwatch.php" <' . $mailfrom . '>';
+
 			mb_send_mail('wloczynutka@gmail.com', 'runwatch.php', $mailbody, $email_headers);
 		// end test watch email translating 
 
@@ -248,16 +247,16 @@ function process_owner_log($user_id, $log_id)
 	switch( $rLog['type'] )
 	{
 		case '1':
-			$logtype =  'znaleziona';
-			// $logtype = tr('logType1');
+       //$logtype =  'znaleziona';
+			$logtype = tr('logType1');
 		break;
 		case '2':
-			$logtype = 'nieznaleziona';
-			// $logtype = tr('logType2');
+       // $logtype = 'nieznaleziona';
+			 $logtype = tr('logType2');
 		break;
 		case '3':
-			$logtype = 'komentarz';
-			//$logtype = tr('logType3');
+       // $logtype = 'komentarz';
+			$logtype = tr('logType3');
 		break;
 		case '4':
 			$logtype = "skrzynka przeniesiona";
