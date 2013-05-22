@@ -250,7 +250,7 @@ class GeoKretyApi
 		}
 			
 		foreach ($rtAddress as $email) {
-			mail($email, 'GeoKretyApi returned error', $message, $headers);
+			// mail($email, 'GeoKretyApi returned error', $message, $headers);
 		}
 
 	}
