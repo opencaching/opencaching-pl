@@ -1244,17 +1244,17 @@ register03 Bevestig wachtwoord
 register04 Herstellen
 logType1 gevonden
 logType2 niet gevonden
-logType3 
-logType4 
-logType5 
-logType6 
-logType7 
-logType8 
-logType9 
-logType10 
-logType11 
-logType12 
-runwatch01 
+logType3 notitie
+logType4 cache verplaatst
+logType5 heeft onderhoud nodig
+logType6 moet gearchiveerd worden
+logType7 deelgenomen
+logType8 wil deelnemen
+logType9 cache gearchiveerd
+logType10 kan gezocht worden
+logType11 tijdelijk niet beschikbaar
+logType12 notitie van oc team
+runwatch01 gelogt
 registermail01 Hallo
 registermail02 Welkom op 
 registermail03 Om te beginnen kun je informatie terug vinden op OpenGeoWiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. OpenGeoWiki is beschikbaar op:
