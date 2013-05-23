@@ -30,6 +30,7 @@
 /* begin with some constants */
 
 	$sDateformat = 'Y-m-d H:i:s';
+	$mailsubject = tr(runwatch03). ' ' . $site_name.': ' . date('Y-m-d');
 
 /* end with some constants */
 

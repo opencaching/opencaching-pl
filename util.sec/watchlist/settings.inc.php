@@ -1,10 +1,8 @@
 <?php
 	// Unicode Reminder ăĄă˘
- 	global $watchlistMailfrom, $watchlistmailsubject;
+ 	global $watchlistMailfrom;
  
 	$mailfrom = $watchlistMailfrom;
-	$mailsubject = $watchlistmailsubject. ': ' . date('Y-m-d');
-
 
 	$debug = false;
 	$debug_mailto = 'rt@opencaching.pl';
