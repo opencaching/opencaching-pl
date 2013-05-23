@@ -177,6 +177,10 @@
 	// signature of e-mails send by system
   	$octeamEmailsSignature = "Pozdrawiamy, Zespół www.opencaching.pl";
   
+    // watchlist config:
+  	$watchlistMailfrom = 'watch@opencaching.pl';
+  	$watchlistmailsubject = '[OC PL] Raport logowań skrzynek';
+  
     // email of GeoKrety developer (used in GeoKretyApi.php for error notifications)
     $geoKretyDeveloperEmailAddress = 'stefaniak@gmail.com';
 ?>
