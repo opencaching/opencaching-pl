@@ -332,9 +332,10 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
 	global $nologs, $debug, $debug_mailto, $mailfrom, $mailsubject, $absolute_server_URI, $octeamEmailsSignature;
 
 	if ($currUserID == '') return;
+	
     $email_headers  = 'MIME-Version: 1.0' . "\r\n";
     $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n"; 
-	$email_headers = 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
+	$email_headers .= 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
     
 	$mailbody = read_file(dirname(__FILE__).'/watchlist.email');
 	$mailbody = mb_ereg_replace('{username}', $currUserName, $mailbody);
