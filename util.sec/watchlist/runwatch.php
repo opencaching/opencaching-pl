@@ -12,26 +12,25 @@
 	***************************************************************************/
 
 	$rootpath = '../../';
-	require_once($rootpath . 'lib/clicompatbase.inc.php');
+	require_once(dirname(__FILE__).'/../../lib/clicompatbase.inc.php');
 	require_once('settings.inc.php');
-	require_once($rootpath . 'lib/consts.inc.php');
+	require_once(dirname(__FILE__).'/../../lib/consts.inc.php');
+    require_once(dirname(__FILE__).'/../../lib/common.inc.php');
 
 
-		// watch email translating. Now temporary changes for diagnose/test/debug only.
-      require_once (dirname(__FILE__)."/../../lib/common.inc.php");
-      $mailbody = '<html><body><p style="color:red;">tra la la..</p><a href="http://www.opencaching.pl/OP0001">tlumaczenie</a> <b>logType1</b>: '.tr('logType1') . '</body></html>';
-
-      $email_headers  = 'MIME-Version: 1.0' . "\r\n";
-      $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";   
-			$email_headers .= 'From: "runwatch.php" <' . $mailfrom . '>';
-
-			mb_send_mail('wloczynutka@gmail.com', 'runwatch.php', $mailbody, $email_headers);
-		// end test watch email translating 
+	// watch email translating. Now temporary changes for diagnose/test/debug only.
+      // $mailbody = '<html><body><p style="color:red;">tra la la..</p><a href="http://www.opencaching.pl/OP0001">tlumaczenie</a> <b>logType1</b>: '.tr('logType1') . '</body></html>';
+      // $email_headers  = 'MIME-Version: 1.0' . "\r\n";
+      // $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";   
+	  // $email_headers .= 'From: "runwatch.php" <' . $mailfrom . '>';
+      // mb_send_mail('wloczynutka@gmail.com', 'runwatch.php', $mailbody, $email_headers);
+	// end test watch email translating 
 
 
 /* begin with some constants */
 
 	$sDateformat = 'Y-m-d H:i:s';
+	$mailsubject = tr(runwatch03). ' ' . $site_name.': ' . date('Y-m-d');
 
 /* end with some constants */
 
@@ -224,16 +223,18 @@
 
 function process_owner_log($user_id, $log_id)
 {
-	global $dblink, $logowner_text;
+	global $dblink, $logowner_text, $absolute_server_URI, $octeamEmailsSignature;
 
 //	echo "process_owner_log($user_id, $log_id)\n";
 	
-	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, caches.wp_oc wp,caches.name cachename, cache_logs.type type,IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended` FROM `cache_logs` LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id ='&1')", $log_id);
+	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf, user.notfounds_count cn, caches.wp_oc wp,caches.name cachename, cache_logs.type type,IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended` FROM `cache_logs` LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id ='&1')", $log_id);
 	$rLog = sql_fetch_array($rsLog);
 	mysql_free_result($rsLog);
 	
+	$userActivity = $rLog['ch']+$rLog['cf']+$rLog['cn'];
 	$watchtext = $logowner_text;
 	$logtext = $rLog['text'];
+	/*
 	if ($rLog['text_html'] != 0){
 		$logtext = html_entity_decode($logtext, ENT_COMPAT, 'UTF-8');
 		$logtext = mb_ereg_replace("\r", '', $logtext);
@@ -243,61 +244,31 @@ function process_owner_log($user_id, $log_id)
 		$logtext = mb_ereg_replace('<br />', "<br />\n", $logtext);
 		$logtext = strip_tags($logtext);
 	}
-	
-	switch( $rLog['type'] )
-	{
-		case '1':
-       //$logtype =  'znaleziona';
-			$logtype = tr('logType1');
-		break;
-		case '2':
-       // $logtype = 'nieznaleziona';
-			 $logtype = tr('logType2');
-		break;
-		case '3':
-       // $logtype = 'komentarz';
-			$logtype = tr('logType3');
-		break;
-		case '4':
-			$logtype = "skrzynka przeniesiona";
-		break;
-		case '5':
-			$logtype = "potrzebny serwis skrzynki";
-		break;
-		case '6':
-			$logtype = "wskazana archiwizacja skrzynki";
-		break;
-		case '7':
-			$logtype = "uczestniczył w spotkaniu";
-		break;
-		case '8':
-			$logtype = "będzie uczestniczył w spotkaniu";
-		break;
-		case '9':
-			$logtype = "skrzynka została zarchiwizowana";
-		break;
-		case '10':
-			$logtype = "skrzynka gotowa do szukania";
-		break;
-		case '11':
-			$logtype = "skrzynka będzie niedostepna czasowo";
-		break;
-		case '12':
-			$logtype = "komentarz Centrum Obsługi Geocachera";
-      $rLog['username'] = 'Centrum Obsługi Geocachera';   
-		break;
-		default:
-			$logtype = "";
+	*/
+
+	$logtypeParams = getLogtypeParams($rLog['type']);
+	if (isset($logtypeParams['username'])) {
+		$rLog['username'] = $logtypeParams['username'];
 	}
-	if ($rLog['recommended'] !=0 && $rLog['type']==1) {$recommended=" + rekomendacja";} else {$recommended="";}	
+
+	if ($rLog['recommended'] !=0 && $rLog['type']==1) {
+		$recommended = ' + ' . tr('recommendation') ;
+	} else {
+		$recommended = '';
+	}	
 	
-	$watchtext = mb_ereg_replace('{date}', date('d.m.Y', strtotime($rLog['logdate'])), $watchtext);
-//	$watchtext = mb_ereg_replace('{cacheid}', $rLog['cache_id'], $watchtext);
+	$watchtext = mb_ereg_replace('{date}', date('Y-m-d H:i:s', strtotime($rLog['logdate'])), $watchtext);
 	$watchtext = mb_ereg_replace('{wp}', $rLog['wp'], $watchtext);
 	$watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
 	$watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
-	$watchtext = mb_ereg_replace('{logtype}', $logtype.$recommended, $watchtext);
+	$watchtext = mb_ereg_replace('{logtype}', $logtypeParams['logtype'].$recommended, $watchtext);
 	$watchtext = mb_ereg_replace('{cachename}', $rLog['cachename'], $watchtext);
+	$watchtext = mb_ereg_replace('{logtypeColor}', $logtypeParams['logtypeColor'], $watchtext);
+	$watchtext = mb_ereg_replace('{runwatch01}', tr('runwatch01'), $watchtext);
+	$watchtext = mb_ereg_replace('{runwatch02}', tr('runwatch02'), $watchtext);
+	$watchtext = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $watchtext);
+	$watchtext = mb_ereg_replace('{emailSign}', $octeamEmailsSignature, $watchtext);
+	$watchtext = mb_ereg_replace('{userActivity}',  $userActivity, $watchtext);
 	
 	sql("INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`) VALUES (
 																		'&1', '&2', 1, NOW(), '&3', 1)", $user_id, $log_id, $watchtext);
@@ -312,56 +283,24 @@ function process_log_watch($user_id, $log_id)
 
 //	echo "process_log_watch($user_id, $log_id)\n";
 	
-	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, caches.wp_oc wp,caches.name cachename, cache_logs.type type, IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended` FROM `cache_logs` LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id = '&1')", $log_id);
+	$rsLog = sql("SELECT cache_logs.cache_id cache_id, cache_logs.text text, cache_logs.text_html text_html, cache_logs.date logdate, user.username username, user.hidden_count ch, user.founds_count cf, user.notfounds_count cn, caches.wp_oc wp,caches.name cachename, cache_logs.type type, IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended` FROM `cache_logs` LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`, `user`, `caches` WHERE `cache_logs`.`deleted`=0 AND (cache_logs.user_id = user.user_id) AND (cache_logs.cache_id = caches.cache_id) AND (cache_logs.id = '&1')", $log_id);
 	$rLog = sql_fetch_array($rsLog);
 	mysql_free_result($rsLog);
 	
-	switch( $rLog['type'] )
-	{
-		case '1':
-			$logtype = "znaleziona";
-		break;
-		case '2':
-			$logtype = "nieznaleziona";
-		break;
-		case '3':
-			$logtype = "komentarz";
-		break;
-		case '4':
-			$logtype = "skrzynka przeniesiona";
-		break;
-		case '5':
-			$logtype = "potrzebny serwis skrzynki";
-		break;
-		case '6':
-			$logtype = "wskazana archiwizacja skrzynki";
-		break;
-		case '7':
-			$logtype = "uczestniczył w spotkaniu";
-		break;
-		case '8':
-			$logtype = "będzie uczestniczył w spotkaniu";
-		break;
-		case '9':
-			$logtype = "skrzynka została zarchiwizowana";
-		break;
-		case '10':
-			$logtype = "skrzynka gotowa do szukania";
-		break;
-		case '11':
-			$logtype = "skrzynka będzie niedostepna czasowo";
-		break;
-		case '12':
-			$logtype = "komentarz Centrum Obsługi Geocachera";
-      $rLog['username'] = "Centrum Obsługi Geocachera";
-		break;
-		default:
-			$logtype = "";
+	$logtypeParams = getLogtypeParams($rLog['type']);
+	if (isset($logtypeParams['username'])) {
+		$rLog['username'] = $logtypeParams['username'];
 	}
-	if ($rLog['recommended'] !=0 && $rLog['type']==1)  {$recommended=" + rekomendacja";} else {$recommended="";}
+
+	if ($rLog['recommended'] !=0 && $rLog['type']==1) {
+		$recommended = ' + ' . tr('recommendation') ;
+	} else {
+		$recommended = '';
+	}
 	
 	$watchtext = $logwatch_text;
 	$logtext = $rLog['text'];
+	/*
 	if ($rLog['text_html'] != 0){
 		$logtext = html_entity_decode($logtext, ENT_COMPAT, 'UTF-8');
 		$logtext = mb_ereg_replace("\r", '', $logtext);
@@ -371,29 +310,36 @@ function process_log_watch($user_id, $log_id)
 		$logtext = mb_ereg_replace('<br />', "<br />\n", $logtext);
 		$logtext = strip_tags($logtext);
 	}
-	
+	*/
 	$watchtext = mb_ereg_replace('{date}', date('d.m.Y', strtotime($rLog['logdate'])), $watchtext);
-//	$watchtext = mb_ereg_replace('{cacheid}', $rLog['cache_id'], $watchtext);
 	$watchtext = mb_ereg_replace('{wp}', $rLog['wp'], $watchtext);
 	$watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
 	$watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
-	$watchtext = mb_ereg_replace('{logtype}', $logtype.$recommended, $watchtext);
+	$watchtext = mb_ereg_replace('{logtype}', $logtypeParams['logtype'].$recommended, $watchtext);
 	$watchtext = mb_ereg_replace('{cachename}', $rLog['cachename'], $watchtext);
-	
+	$watchtext = mb_ereg_replace('{logtypeColor}', $logtypeParams['logtypeColor'], $watchtext);
+	$watchtext = mb_ereg_replace('{runwatch02}', tr('runwatch02'), $watchtext);
+	$watchtext = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $watchtext);
+
+	$watchtext = mb_ereg_replace('{userActivity}',  $userActivity, $watchtext);
+		
 	sql("INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`) VALUES (
 																		'&1', '&2', 1, NOW(), '&3', 2)", $user_id, $log_id, $watchtext);
 }
 
 function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUserEMail, $currUserOwnerLogs, $currUserWatchLogs)
 {
-	global $nologs, $debug, $debug_mailto, $mailfrom, $mailsubject;
+	global $nologs, $debug, $debug_mailto, $mailfrom, $mailsubject, $absolute_server_URI, $octeamEmailsSignature;
 
 	if ($currUserID == '') return;
-
-	$email_headers = 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
-
-	$mailbody = read_file('watchlist.email');
+	
+    $email_headers  = 'MIME-Version: 1.0' . "\r\n";
+    $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n"; 
+	$email_headers .= 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
+    
+	$mailbody = read_file(dirname(__FILE__).'/watchlist.email');
 	$mailbody = mb_ereg_replace('{username}', $currUserName, $mailbody);
+	$mailbody = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $mailbody);
 
 	if ($currUserOwnerLogs != '')
 	{
@@ -422,13 +368,16 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
 	{
 		$mailbody = mb_ereg_replace('{watchlogs}', $nologs, $mailbody);
 	}
+	
+	$mailbody = mb_ereg_replace('{runwatch01}', tr('runwatch01'), $mailbody);
+	$mailbody = mb_ereg_replace('{emailSign}', $octeamEmailsSignature, $mailbody);
 
-	// mail versenden
 	if ($debug == true)
 		$mailadr = $debug_mailto;
 	else
 		$mailadr = $currUserEMail;
 
+	// $mailbody;	
 	mb_send_mail($mailadr, $mailsubject, $mailbody, $email_headers);
 
 	// logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
@@ -437,6 +386,67 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
 	// entries entfernen
 	sql("DELETE FROM watches_waiting WHERE user_id='&1' AND watchtype IN (1, 2)", $currUserID);
 
+}
+
+function getLogtypeParams($logType) {
+	global $COGname;
+		
+	switch($logType)
+	{
+		case '1':
+			$logtypeParams['logtype'] = tr('logType1');
+			$logtypeParams['logtypeColor'] = 'green';
+		break;
+		case '2':
+			 $logtypeParams['logtype'] = tr('logType2');
+			 $logtypeParams['logtypeColor'] = 'red';
+		break;
+		case '3':
+			$logtypeParams['logtype'] = tr('logType3');
+			$logtypeParams['logtypeColor'] = 'black';
+		break;
+		case '4':
+			$logtypeParams['logtype'] = tr('logType4');;
+			$logtypeParams['logtypeColor'] = 'green';
+		break;
+		case '5':
+			$logtypeParams['logtype'] = tr('logType5');;
+			$logtypeParams['logtypeColor'] = 'orange';
+		break;
+		case '6':
+			$logtypeParams['logtype'] = tr('logType6');;
+			$logtypeParams['logtypeColor'] = 'red';
+		break;
+		case '7':
+			$logtypeParams['logtype'] = tr('logType7');;
+			$logtypeParams['logtypeColor'] = 'green';
+		break;
+		case '8':
+			$logtypeParams['logtype'] = tr('logType8');;
+			$logtypeParams['logtypeColor'] = 'green';
+		break;
+		case '9':
+			$logtypeParams['logtype'] = tr('logType9');;
+			$logtypeParams['logtypeColor'] = 'red';
+		break;
+		case '10':
+			$logtypeParams['logtype'] = tr('logType10');;
+			$logtypeParams['logtypeColor'] = 'green';
+		break;
+		case '11':
+			$logtypeParams['logtype'] = tr('logType11');;
+			$logtypeParams['logtypeColor'] = 'red';
+		break;
+		case '12':
+			$logtypeParams['logtype'] = tr('logType12');;
+      		$logtypeParams['username'] = $COGname; 
+			$logtypeParams['logtypeColor'] = 'black';  
+		break;
+		default:
+			$logtypeParams['logtype'] = "";
+			$logtypeParams['logtypeColor'] = 'black';
+	}
+	return $logtypeParams;
 }
 
 ?>
