@@ -1,41 +1,20 @@
-<p style="color: gray;"><i>This is test watch report email. Sorry for any errors. Soon we will translate it to your language and fix all mistakes.</i><p>
-<p style="color: gray;"><i>To jest testowa wersja emaila dla Twoich skrzynek i skrzynek obserwowanych. Przepraszamy jeśli dane są niepełne lub coś się źle wyświetla. W najbliżyszm czasie postaramy się usunąć wszelkie usterki</i><p>
-<p>
-<table width="80%">
-	<tr>
-		<td align="center" width="80">
-			<img src="{absolute_server_URI}images/oc_logo.png" alt="If you cannot see this picture, add sender to your addressbook"><br />
-			OpenCaching
-		</td>
-		<td align="left">
-			Witaj <span style="color: green; font-size: 12px"><b>{username}</b></span></p>
-		</td>
-	</tr>
-</table>
+Witaj {username},
 
-<p>Miło nam poinformować, iż pojawiły się nowe wpisy do logów w Twoich skrzynkach:</p>
+Nowy wpis do logu dla Twoich skrzynek:
+---
+{ownerlogs}
+---
 
-<table>
-	  <tr>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> Data i Czas </td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> Geokeszer </td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> {runwatch01} </td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> Cache </td>
-	  	<td valign="top" style="border-spacing: 4px;"></td>
-	  </tr>
-	{ownerlogs}
-</table>
+Nowy wpis do logu w obserwowanych skrzynkach:
+---
+{watchlogs}
+---
 
+Wykaz obserwowanych skrzynek mozesz zobaczyć tu:
+http://www.opencaching.pl/mywatches.php.
 
-<p>Nowe wpisy do logu w obserwowanych przez Ciebie skrzynkach:</p>
-<table style="border-collapse: collapse;">
-	{watchlogs}
-</table>
+Opencaching PL - Team
 
-
-Wykaz obserwowanych skrzynek mozesz zobaczyć <a href="{absolute_server_URI}mywatches.php">klikając tu</a>:
-
-<div style="color: green"><b> {emailSign} <b></div>
-<hr />
-<p>Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać.</p>
-
+---
+Ten list jest generowany automatycznie i prosimy na niego nie
+odpowiadać.

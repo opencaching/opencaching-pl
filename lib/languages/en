@@ -1,11 +1,11 @@
 main_menu Main Menu
-user_menu User's Menu
+user_menu User Menu
 new NEW
 save Save
 Edit Edit
 back Back
 cache_menu Cache Menu
-activation_code_failed Activation code or e-mail address is incorrect.<br/>Your account has not been activated successfully. Please check if you have not made a mistake. If problem still occurs, please contact us at: ocpl (at) opencaching.pl.
+activation_code_failed Invalid activation code and/or e-mail address!<br/>We could not activate your account based on the data submitted. Please check for errors in your form. If problem persists, please contact us at: ocpl@opencaching.pl.
 email_incorrect E-mail address is incorrect.
 account_activation Account activation
 finish_registration_hint To complete the registration process, you have to confirm your e-mail address and enter the activation code
