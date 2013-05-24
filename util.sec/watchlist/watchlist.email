@@ -4,38 +4,48 @@
 <table width="80%">
 	<tr>
 		<td align="center" width="80">
-			<img src="{absolute_server_URI}images/oc_logo.png" alt="If you cannot see this picture, add sender to your addressbook"><br />
-			OpenCaching
+			<a href="{absolute_server_URI}"><img src="{absolute_server_URI}images/oc_logo.png" alt="{runwatch04}"></a><br />
+			<a href="{absolute_server_URI}">OpenCaching</a>
 		</td>
 		<td align="left">
-			Witaj <span style="color: green; font-size: 12px"><b>{username}</b></span></p>
+			<span style="color: green; font-size: 14px">{runwatch09} <b>{username}</b></span></p>
 		</td>
 	</tr>
 </table>
 
-<p>Miło nam poinformować, iż pojawiły się nowe wpisy do logów w Twoich skrzynkach:</p>
+<p>{runwatch05}:</p>
 
 <table>
 	  <tr>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> Data i Czas </td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> Geokeszer </td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> {runwatch01} </td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> Cache </td>
-	  	<td valign="top" style="border-spacing: 4px;"></td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch06} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch07} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch01} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch08} </td>
+	  	<td valign="top" style="border-spacing: 4px;" align="center">{runwatch10}</td>
 	  </tr>
-	{ownerlogs}
+	 
+	 {ownerlogs}
+
 </table>
 
+<hr />
+<p>{runwatch11}:</p>
 
-<p>Nowe wpisy do logu w obserwowanych przez Ciebie skrzynkach:</p>
 <table style="border-collapse: collapse;">
+	  <tr>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch06} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch07} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch01} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch08} </td>
+	  	<td valign="top" style="border-spacing: 4px;" align="center">{runwatch10}</td>
+	  </tr>
 	{watchlogs}
 </table>
 
 
-Wykaz obserwowanych skrzynek mozesz zobaczyć <a href="{absolute_server_URI}mywatches.php">klikając tu</a>:
+<p> {runwatch12}<a href="{absolute_server_URI}mywatches.php">{runwatch13}</a></p>
 
-<div style="color: green"><b> {emailSign} <b></div>
+<div style="color: green"><p><b> {emailSign} <b></P></div>
 <hr />
-<p>Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać.</p>
+<p>{runwatch14}.</p>
 

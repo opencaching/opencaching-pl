@@ -245,6 +245,7 @@ function process_owner_log($user_id, $log_id)
 		$logtext = strip_tags($logtext);
 	}
 	*/
+	$logtext = preg_replace("/<img[^>]+\>/i", "(image) ", $logtext);
 
 	$logtypeParams = getLogtypeParams($rLog['type']);
 	if (isset($logtypeParams['username'])) {
@@ -279,7 +280,7 @@ function process_owner_log($user_id, $log_id)
 
 function process_log_watch($user_id, $log_id)
 {
-	global $dblink, $logwatch_text;
+	global $dblink, $logwatch_text, $absolute_server_URI;
 
 //	echo "process_log_watch($user_id, $log_id)\n";
 	
@@ -311,6 +312,8 @@ function process_log_watch($user_id, $log_id)
 		$logtext = strip_tags($logtext);
 	}
 	*/
+    $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext); 
+	
 	$watchtext = mb_ereg_replace('{date}', date('d.m.Y', strtotime($rLog['logdate'])), $watchtext);
 	$watchtext = mb_ereg_replace('{wp}', $rLog['wp'], $watchtext);
 	$watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
@@ -320,7 +323,6 @@ function process_log_watch($user_id, $log_id)
 	$watchtext = mb_ereg_replace('{logtypeColor}', $logtypeParams['logtypeColor'], $watchtext);
 	$watchtext = mb_ereg_replace('{runwatch02}', tr('runwatch02'), $watchtext);
 	$watchtext = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $watchtext);
-
 	$watchtext = mb_ereg_replace('{userActivity}',  $userActivity, $watchtext);
 		
 	sql("INSERT IGNORE INTO watches_waiting (`user_id`, `object_id`, `object_type`, `date_added`, `watchtext`, `watchtype`) VALUES (
@@ -370,7 +372,39 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
 	}
 	
 	$mailbody = mb_ereg_replace('{runwatch01}', tr('runwatch01'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch02}', tr('runwatch02'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch03}', tr('runwatch03'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch04}', tr('runwatch04'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch05}', tr('runwatch05'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch06}', tr('runwatch06'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch07}', tr('runwatch07'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch08}', tr('runwatch08'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch09}', tr('runwatch09'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch10}', tr('runwatch10'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch11}', tr('runwatch11'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch12}', tr('runwatch12'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch13}', tr('runwatch13'), $mailbody);
+	$mailbody = mb_ereg_replace('{runwatch14}', tr('runwatch14'), $mailbody);
 	$mailbody = mb_ereg_replace('{emailSign}', $octeamEmailsSignature, $mailbody);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	if ($debug == true)
 		$mailadr = $debug_mailto;

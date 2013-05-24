@@ -11,15 +11,17 @@
 	
 	$logwatch_text = $logowner_text = '
 	  <tr>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center">{date}</td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"><b>{user}</b></td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"><span style="color: {logtypeColor}"><b>{logtype}</b></span></td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"><a href="{absolute_server_URI}{wp}">{wp}<br/> {cachename}</a><br/><!--(<a href="http://m.opencaching.pl/viewcache.php?wp={wp}">OC Mobile</a>)--> </td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px; font-size: 9px;" align="center">{date}</td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px; font-size: 9px;"><b>{user}</b></td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px; font-size: 9px;"><span style="color: {logtypeColor}"><b>{logtype}</b></span></td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px; font-size: 9px;"><a href="{absolute_server_URI}{wp}">{wp}<br/> {cachename}</a><br/><!--(<a href="http://m.opencaching.pl/viewcache.php?wp={wp}">OC Mobile</a>)--> </td>
 	  	<td valign="top" style="border-spacing: 4px;">
 	  	    {text}
 	  	</td>
 	  </tr>
 	  <tr>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> </td>
+	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> </td>
 	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> </td>
 	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;"> </td>
 	  	<td valign="top" >
