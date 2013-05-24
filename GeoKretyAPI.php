@@ -67,13 +67,14 @@ class GeoKretyApi
 		$url = "http://geokrety.org/export2.php?wpt=$this->cacheWpt";
 		try		
 		{
-	 		$result = simplexml_load_file($url);
+	 		$result = false; // simplexml_load_file($url);
 		} 
 		catch (Exception $e) 
 		{
 			$this->emailOnError($e->getMessage(), $url, $result, 'function: '.__FUNCTION__ .' line # '.__LINE__.' in '.__FILE__);
 			return false;
 		}
+		/*
 		if ($result === false) {
 			$errorGK = '';
 			foreach(libxml_get_errors() as $error) {
@@ -81,6 +82,7 @@ class GeoKretyApi
     			}
 			$this->emailOnError($errorGK, $url, $result, 'function: '.__FUNCTION__ .'line # '.__LINE__.' in '.__FILE__);
 		}
+		*/
 		return $result;
 	}
 	
