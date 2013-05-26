@@ -1259,7 +1259,7 @@ runwatch02 do logu skrzynki
 runwatch03 Raport nowych logów w skrzynkach
 runwatch04 If you cannot see this picture, add sender to your addressbook
 runwatch05 Miło nam poinformować, iż pojawiły się nowe wpisy do logów w Twoich skrzynkach lub skrzynkach obserwowanych. <br/><br/> Nowe wpisy w Twoich skrzynkach
-runwatch06 Data i Czas 
+runwatch06 Data/Czas 
 runwatch07 Geokeszer   
 runwatch08 Cache       
 runwatch09 Witaj

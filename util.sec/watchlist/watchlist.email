@@ -4,7 +4,7 @@
 <table width="80%">
 	<tr>
 		<td align="center" width="80">
-			<a href="{absolute_server_URI}"><img src="{absolute_server_URI}images/oc_logo.png" alt="{runwatch04}"></a><br />
+			<a href="{absolute_server_URI}"><img border="0" src="{absolute_server_URI}images/oc_logo.png" alt="{runwatch04}"></a><br />
 			<a href="{absolute_server_URI}">OpenCaching</a>
 		</td>
 		<td align="left">
@@ -15,13 +15,18 @@
 
 <p>{runwatch05}:</p>
 
+
+
 <table>
 	  <tr>
-	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px;" align="center"> {runwatch06} </td>
-	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px;" align="center"> {runwatch07} </td>
-	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px;" align="center"> {runwatch01} </td>
-	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px;" align="center"> {runwatch08} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {runwatch06} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {runwatch07} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {runwatch01} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {runwatch08} </td>
 	  	<td valign="top" style="padding-right:4px; padding-left:4px;" align="center">{runwatch10}</td>
+	  </tr>
+	  <tr>
+	  	<td colspan="5" style="background-color: #1E90FF; height: 3px;"></td>
 	  </tr>
 	 
 	 {ownerlogs}
@@ -33,19 +38,22 @@
 
 <table style="border-collapse: collapse;">
 	  <tr>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch06} </td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch07} </td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch01} </td>
-	  	<td valign="top" style="border-right: 1px solid gray; border-spacing: 4px;" align="center"> {runwatch08} </td>
-	  	<td valign="top" style="border-spacing: 4px;" align="center">{runwatch10}</td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {runwatch06} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {runwatch07} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {runwatch01} </td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {runwatch08} </td>
+	  	<td valign="top" style="padding-right:4px; padding-left:4px;" align="center">{runwatch10}</td>
 	  </tr>
-	{watchlogs}
+	  <tr>
+	  	<td colspan="5" style="background-color: #1E90FF; height: 3px;"></td>
+	  </tr>
+		{watchlogs}
 </table>
 
 
-<p> {runwatch12}<a href="{absolute_server_URI}mywatches.php">{runwatch13}</a></p>
+<p> {runwatch12} <a href="{absolute_server_URI}mywatches.php">{runwatch13}</a></p>
 
 <div style="color: green"><p><b> {emailSign} <b></P></div>
 <hr />
-<p>{runwatch14}.</p>
+<p>{runwatch14}!</p>
 

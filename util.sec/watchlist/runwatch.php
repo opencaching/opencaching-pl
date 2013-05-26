@@ -245,7 +245,7 @@ function process_owner_log($user_id, $log_id)
 		$logtext = strip_tags($logtext);
 	}
 	*/
-	$logtext = preg_replace("/<img[^>]+\>/i", "(image) ", $logtext);
+	$logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
 
 	$logtypeParams = getLogtypeParams($rLog['type']);
 	if (isset($logtypeParams['username'])) {
@@ -257,8 +257,7 @@ function process_owner_log($user_id, $log_id)
 	} else {
 		$recommended = '';
 	}	
-	
-	$watchtext = mb_ereg_replace('{date}', date('Y-m-d H:i:s', strtotime($rLog['logdate'])), $watchtext);
+	$watchtext = mb_ereg_replace('{date}', date('Y-m-d', strtotime($rLog['logdate'])) . '<br />'. date('H:i', strtotime($rLog['logdate'])), $watchtext);
 	$watchtext = mb_ereg_replace('{wp}', $rLog['wp'], $watchtext);
 	$watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
 	$watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
@@ -314,7 +313,7 @@ function process_log_watch($user_id, $log_id)
 	*/
     $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext); 
 	
-	$watchtext = mb_ereg_replace('{date}', date('d.m.Y', strtotime($rLog['logdate'])), $watchtext);
+	$watchtext = mb_ereg_replace('{date}', date('Y-m-d', strtotime($rLog['logdate'])) . '<br />'. date('H:i', strtotime($rLog['logdate'])), $watchtext);
 	$watchtext = mb_ereg_replace('{wp}', $rLog['wp'], $watchtext);
 	$watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
 	$watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
@@ -386,25 +385,6 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
 	$mailbody = mb_ereg_replace('{runwatch13}', tr('runwatch13'), $mailbody);
 	$mailbody = mb_ereg_replace('{runwatch14}', tr('runwatch14'), $mailbody);
 	$mailbody = mb_ereg_replace('{emailSign}', $octeamEmailsSignature, $mailbody);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	if ($debug == true)
 		$mailadr = $debug_mailto;
