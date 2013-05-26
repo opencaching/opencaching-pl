@@ -69,14 +69,14 @@ class GeoKretyApi
 		$url = "http://geokrety.org/export2.php?wpt=$this->cacheWpt";
 		try		
 		{
-	 		$result = false; // simplexml_load_file($url);
+	 		$result = simplexml_load_file($url);
 		} 
 		catch (Exception $e) 
 		{
 			$this->emailOnError($e->getMessage(), $url, $result, 'function: '.__FUNCTION__ .' line # '.__LINE__.' in '.__FILE__);
 			return false;
 		}
-		/*
+		
 		if ($result === false) {
 			$errorGK = '';
 			foreach(libxml_get_errors() as $error) {
@@ -84,7 +84,7 @@ class GeoKretyApi
     			}
 			$this->emailOnError($errorGK, $url, $result, 'function: '.__FUNCTION__ .'line # '.__LINE__.' in '.__FILE__);
 		}
-		*/
+		
 		return $result;
 	}
 	
@@ -237,9 +237,9 @@ class GeoKretyApi
 	{
 		$message = "GeoKretyApi error report: \r\n " .$error . "\n
 			 \r\n location of error: $errorLocation \n
-			 \r\n Tablica Logowania Geokreta:\r\n\r\n $Tablica \r\n\r\n  geokrety.org zwrocilo niepoprawny wynik (wynik nie jest w formacie xml). \r\n 
-			data i czas: ".date('Y-m-d H:i:s')."
-			Odpowiedz geoKretow ponizej: \r\n \r\n $result ";
+			 \r\n Array sent to geokrety:\r\n\r\n $Tablica \r\n\r\n  geokrety.org returned wrong result (ansfer is not in xml, or there is no ansfer). \r\n 
+			date/time: ".date('Y-m-d H:i:s')."
+			GeoKrety.org ansfer (there was no ansfer if empty): \r\n \r\n $result ";
 				
 		$headers = 'From: GeoKretyAPI on opencaching.pl' . "\r\n" .
 					'Reply-To: rt@opencaching.pl' . "\r\n" .
@@ -254,7 +254,7 @@ class GeoKretyApi
 		}
 			
 		foreach ($rtAddress as $email) {
-			// mail($email, 'GeoKretyApi returned error', $message, $headers);
+			mail($email, 'GeoKretyApi returned error', $message, $headers);
 		}
 
 	}
