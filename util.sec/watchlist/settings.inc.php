@@ -11,20 +11,16 @@
 	
 	$logwatch_text = $logowner_text = '
 	  <tr>
-	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 9px;" align="center">{date}</td>
-	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 9px;"><b>{user}</b></td>
-	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 9px;"><span style="color: {logtypeColor}"><b>{logtype}</b></span></td>
-	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 9px;"><a href="{absolute_server_URI}{wp}">{wp}<br/> {cachename}</a><br/><!--(<a href="http://m.opencaching.pl/viewcache.php?wp={wp}">OC Mobile</a>)--> </td>
-	  	<td valign="top" style="padding-right:4px; padding-left:4px;">
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; " align="center">{date}</td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; " align="center"><b>{user}</b></td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; " align="center"><span style="color: {logtypeColor}"><b>{logtype}</b></span></td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; width: 20%;" align="center"><a href="{absolute_server_URI}{wp}">{wp}<br/> {cachename}</a><br/></td>
+	  	<td valign="top" style="padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana;">
 	  	    {text}
 	  	</td>
 	  </tr>
 	  <tr>
-	  	<td valign="top" style="border-right: 1px solid gray;"> </td>
-	  	<td valign="top" style="border-right: 1px solid gray;"> </td>
-	  	<td valign="top" style="border-right: 1px solid gray;"> </td>
-	  	<td valign="top" style="border-right: 1px solid gray;"> </td>
-	  	<td valign="top" >
+	  	<td colspan="5" valign="top" style="border-top: 1px solid gray; height: 3px"></td>
 	  </tr>
 	';
 	

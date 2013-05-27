@@ -350,10 +350,12 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
 			$logtexts = mb_substr($logtexts, 0, mb_strlen($logtexts) - 1);
 	
 		$mailbody = mb_ereg_replace('{ownerlogs}', $logtexts, $mailbody);
+		$mailbody = mb_ereg_replace('{cachesOwnedDisplay}', 'block', $mailbody);
 	}
 	else
 	{
 		$mailbody = mb_ereg_replace('{ownerlogs}', $nologs, $mailbody);
+		$mailbody = mb_ereg_replace('{cachesOwnedDisplay}', 'none', $mailbody);
 	}
 
 	if ($currUserWatchLogs != '')
@@ -364,10 +366,12 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
 			$logtexts = mb_substr($logtexts, 0, mb_strlen($logtexts) - 1);
 
 		$mailbody = mb_ereg_replace('{watchlogs}', $logtexts, $mailbody);
+		$mailbody = mb_ereg_replace('{cachesWatchedDisplay}', 'block', $mailbody);
 	}
 	else
 	{
 		$mailbody = mb_ereg_replace('{watchlogs}', $nologs, $mailbody);
+		$mailbody = mb_ereg_replace('{cachesWatchedDisplay}', 'none', $mailbody);
 	}
 	
 	$mailbody = mb_ereg_replace('{runwatch01}', tr('runwatch01'), $mailbody);

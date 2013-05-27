@@ -1,6 +1,7 @@
 <p style="color: gray;"><i>This is test watch report email. Sorry for any errors. Soon we will translate it to your language and fix all mistakes.</i><p>
 <p style="color: gray;"><i>To jest testowa wersja emaila dla Twoich skrzynek i skrzynek obserwowanych. Przepraszamy jeśli dane są niepełne lub coś się źle wyświetla. W najbliżyszm czasie postaramy się usunąć wszelkie usterki</i><p>
 <p>
+
 <table width="80%">
 	<tr>
 		<td align="center" width="80">
@@ -13,10 +14,9 @@
 	</tr>
 </table>
 
+
+<div style="display: {cachesOwnedDisplay}">
 <p>{runwatch05}:</p>
-
-
-
 <table>
 	  <tr>
 	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {runwatch06} </td>
@@ -32,10 +32,11 @@
 	 {ownerlogs}
 
 </table>
+</div>
 
+<div style="display: {cachesWatchedDisplay}">
 <hr />
 <p>{runwatch11}:</p>
-
 <table style="border-collapse: collapse;">
 	  <tr>
 	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; font-weight: bold;" align="center"> {runwatch06} </td>
@@ -49,7 +50,7 @@
 	  </tr>
 		{watchlogs}
 </table>
-
+</div>
 
 <p> {runwatch12} <a href="{absolute_server_URI}mywatches.php">{runwatch13}</a></p>
 
