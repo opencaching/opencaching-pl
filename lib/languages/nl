@@ -1242,19 +1242,32 @@ register01 E-mail adres
 register02 Wachtwoord
 register03 Bevestig wachtwoord
 register04 Herstellen
-logType1 gevonden
-logType2 niet gevonden
-logType3 notitie
-logType4 cache verplaatst
-logType5 heeft onderhoud nodig
-logType6 moet gearchiveerd worden
-logType7 deelgenomen
-logType8 wil deelnemen
-logType9 cache gearchiveerd
-logType10 kan gezocht worden
-logType11 tijdelijk niet beschikbaar
-logType12 notitie van oc team
-runwatch01 gelogt
+logType1 Gevonden
+logType2 Niet gevonden
+logType3 otitie
+logType4 Cache verplaatst
+logType5 Heeft onderhoud nodig
+logType6 Moet gearchiveerd worden
+logType7 Deelgenomen
+logType8 Wil deelnemen
+logType9 Cache gearchiveerd
+logType10 Kan gezocht worden
+logType11 Tijdelijk niet beschikbaar
+logType12 Notitie van oc team
+runwatch01 Log soort
+runwatch02 
+runwatch03 Overzicht van nieuwe logs
+runwatch04 If you cannot see this picture, add sender to your addressbook
+runwatch05 Dit is een overzicht van gebeurtenissen uit de ingestelde gevolgde caches en eigen caches. <br/><br/> Nieuwe logs van eigen caches
+runwatch06 Datum/tijd 
+runwatch07 Cacher   
+runwatch08 Cache       
+runwatch09 Hallo
+runwatch10 Logtekst
+runwatch11 Nieuwe logs van gevolgde caches
+runwatch12 Om de lijst van gevolgde caches te zien of te bewerken
+runwatch13 klik dan hier
+runwatch14 Dit bericht is automatisch gegenereerd, gelieve niet te reageren.
 registermail01 Hallo
 registermail02 Welkom op 
 registermail03 Om te beginnen kun je informatie terug vinden op OpenGeoWiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. OpenGeoWiki is beschikbaar op:
