@@ -1,3 +1,4 @@
+<html><body>
 <p style="color: gray;"><i>This is test watch report email. Sorry for any errors. Soon we will translate it to your language and fix all mistakes.</i><p>
 <p style="color: gray;"><i>To jest testowa wersja emaila dla Twoich skrzynek i skrzynek obserwowanych. Przepraszamy jeśli dane są niepełne lub coś się źle wyświetla. W najbliżyszm czasie postaramy się usunąć wszelkie usterki</i><p>
 <p>
@@ -57,4 +58,4 @@
 <div style="color: green"><p><b> {emailSign} <b></P></div>
 <hr />
 <p>{runwatch14}!</p>
-
+</body></html>
