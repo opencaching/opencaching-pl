@@ -18,19 +18,11 @@
     require_once(dirname(__FILE__).'/../../lib/common.inc.php');
 
 
-	// watch email translating. Now temporary changes for diagnose/test/debug only.
-      // $mailbody = '<html><body><p style="color:red;">tra la la..</p><a href="http://www.opencaching.pl/OP0001">tlumaczenie</a> <b>logType1</b>: '.tr('logType1') . '</body></html>';
-      // $email_headers  = 'MIME-Version: 1.0' . "\r\n";
-      // $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";   
-	  // $email_headers .= 'From: "runwatch.php" <' . $mailfrom . '>';
-      // mb_send_mail('wloczynutka@gmail.com', 'runwatch.php', $mailbody, $email_headers);
-	// end test watch email translating 
-
-
 /* begin with some constants */
 
 	$sDateformat = 'Y-m-d H:i:s';
-	$mailsubject = tr(runwatch03). ' ' . $site_name.': ' . date('Y-m-d');
+	$mailsubject = tr('runwatch03'). ' ' . $site_name.': ' . date('Y-m-d H:i:s');
+	$nologs = tr('runwatch15');
 
 /* end with some constants */
 
@@ -338,7 +330,7 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
     $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n"; 
 	$email_headers .= 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
     
-	$mailbody = read_file(dirname(__FILE__).'/watchlist.email');
+	$mailbody = read_file(dirname(__FILE__).'/watchlist.email.html');
 	$mailbody = mb_ereg_replace('{username}', $currUserName, $mailbody);
 	$mailbody = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $mailbody);
 
