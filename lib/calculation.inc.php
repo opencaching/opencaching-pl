@@ -70,37 +70,37 @@ function Bearing2Text($parBearing, $parShortText = 0)
 			return 'N/A';
 		}
 		elseif (($parBearing < 11.25) || ($parBearing > 348.75))
-			return 'Polnoc';
+			return tr('bearinglong_n');
 		elseif ($parBearing < 33.75)
-			return 'Polnoc/Polnocny Wschod';
+			return tr('bearinglong_nne');
 		elseif ($parBearing < 56.25)
-			return 'Polnocny wschod';
+			return tr('bearinglong_ne');
 		elseif ($parBearing < 78.75)
-			return 'Wschod/Polnocny Wschod';
+			return tr('bearinglong_ene');
 		elseif ($parBearing < 101.25)
-			return 'Wschod';
+			return tr('bearinglong_e');
 		elseif ($parBearing < 123.75)
-			return 'Wschod/Poludniowy wschod';
+			return tr('bearinglong_ese');
 		elseif ($parBearing < 146.25)
-			return 'Poludniowy wschod';
+			return tr('bearinglong_se');
 		elseif ($parBearing < 168.75)
-			return 'Poludnie/Poludniowy wschod';
+			return tr('bearinglong_sse');
 		elseif ($parBearing < 191.25)
-			return 'Poludnie';
+			return tr('bearinglong_s');
 		elseif ($parBearing < 213.75)
-			return 'Poludnie/Poludniowy zachod';
+			return tr('bearinglong_ssw');
 		elseif ($parBearing < 236.25)
-			return 'Poludniowy zachod';
+			return tr('bearinglong_sw');
 		elseif ($parBearing < 258.75)
-			return 'Zachod/Poludniowy zachod';
+			return tr('bearinglong_wsw');
 		elseif ($parBearing < 281.25)
-			return 'Zachod';
+			return tr('bearinglong_w');
 		elseif ($parBearing < 303.75)
-			return 'Zachod/Polnocny zachod';
+			return tr('bearinglong_wnw');
 		elseif ($parBearing < 326.25)
-			return 'Polnocny zachod';
+			return tr('bearinglong_nw');
 		elseif ($parBearing <= 348.75)
-			return 'Polnoc/Polnocny zachod';
+			return tr('bearinglong_nnw');
 		else return 'N/A';
 	}
 	else
@@ -110,37 +110,37 @@ function Bearing2Text($parBearing, $parShortText = 0)
 			return 'N/A';
 		}
 		elseif (($parBearing < 11.25) || ($parBearing > 348.75))
-			return 'N';
+			return tr('bearingshort_n');
 		elseif ($parBearing < 33.75)
-			return 'NNE';
+			return tr('bearingshort_nne');
 		elseif ($parBearing < 56.25)
-			return 'NE';
+			return tr('bearingshort_ne');
 		elseif ($parBearing < 78.75)
-			return 'ENE';
+			return tr('bearingshort_ene');
 		elseif ($parBearing < 101.25)
-			return 'E';
+			return tr('bearingshort_e');
 		elseif ($parBearing < 123.75)
-			return 'ESE';
+			return tr('bearingshort_ese');
 		elseif ($parBearing < 146.25)
-			return 'SE';
+			return tr('bearingshort_se');
 		elseif ($parBearing < 168.75)
-			return 'SSE';
+			return tr('bearingshort_sse');
 		elseif ($parBearing < 191.25)
-			return 'S';
+			return tr('bearingshort_s');
 		elseif ($parBearing < 213.75)
-			return 'SSW';
+			return tr('bearingshort_ssw');
 		elseif ($parBearing < 236.25)
-			return 'SW';
+			return tr('bearingshort_sw');
 		elseif ($parBearing < 258.75)
-			return 'WSW';
+			return tr('bearingshort_wsw');
 		elseif ($parBearing < 281.25)
-			return 'W';
+			return tr('bearingshort_w');
 		elseif ($parBearing < 303.75)
-			return 'WNW';
+			return tr('bearingshort_wnw');
 		elseif ($parBearing < 326.25)
-			return 'NW';
+			return tr('bearingshort_nw');
 		elseif ($parBearing <= 348.75)
-			return 'NNW';
+			return tr('bearingshort_nnw');
 		else return 'N/A';
 	}
 }

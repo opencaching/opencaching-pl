@@ -1158,7 +1158,38 @@ map_02 Minimum rating:
 map_03 any rating will do
 map_04 include unrated caches
 runwatch04 If you cannot see this picture, add sender to your addressbook
-
+bearinglong_n North
+bearinglong_nne North / North-east
+bearinglong_ne North-east
+bearinglong_ene East / North-east
+bearinglong_e East
+bearinglong_ese East / South-east
+bearinglong_se South-east
+bearinglong_sse South / South-east
+bearinglong_s South
+bearinglong_ssw South / South-west
+bearinglong_sw South-west
+bearinglong_wsw West / South-west
+bearinglong_w West
+bearinglong_wnw West / North-west
+bearinglong_nw North-west
+bearinglong_nnw North / North-west
+bearingshort_n N
+bearingshort_nne NNE
+bearingshort_ne NE
+bearingshort_ene ENE
+bearingshort_e E
+bearingshort_ese ESE
+bearingshort_se SE
+bearingshort_sse SSE
+bearingshort_s S
+bearingshort_ssw SSW
+bearingshort_sw SW
+bearingshort_wsw WSW
+bearingshort_w W
+bearingshort_wnw WNW
+bearingshort_nw NW
+bearingshort_nnw NNW
 
 
 
