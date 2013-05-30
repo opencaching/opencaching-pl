@@ -23,7 +23,7 @@
 
 	$rootpath = '../../';
 	//require_once($rootpath . 'lib/clicompatbase.inc.php');
-	require_once($rootpath . 'lib/lib/common.inc.php');
+	require_once($rootpath . 'lib/common.inc.php');
 	require_once($rootpath . 'util.sec/notification/settings.inc.php');
 	require_once($rootpath . 'lib/consts.inc.php');
 
