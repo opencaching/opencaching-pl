@@ -1,9 +1,7 @@
 <?php
-	// Unicode Reminder ăĄă˘
  	global $watchlistMailfrom;
  
 	$mailfrom = $watchlistMailfrom;
-
 	$debug = false;
 	$debug_mailto = 'rt@opencaching.pl';
 	
@@ -21,7 +19,4 @@
 	  	<td colspan="5" valign="top" style="border-top: 1px solid gray; height: 3px"></td>
 	  </tr>
 	';
-	
-	//$logowner_text = '{date} {user} zrobił wpis ({logtype}) do logu skrzynki "{wp}: {cachename}" .' . "\n" . 'OC link: http://www.opencaching.pl/viewcache.php?wp={wp}'. "\n" . 'OC Mobile link: http://m.opencaching.pl/viewcache.php?wp={wp}'. "\n\n" . '{text}' . "\n\n\n\n";
-	//$logwatch_text = '{date} {user} zrobił wpis ({logtype}) do logu skrzynki "{wp}: {cachename}" .' . "\n" . 'OC link: http://www.opencaching.pl/viewcache.php?wp={wp}'. "\n" . 'OC Mobile link: http://m.opencaching.pl/viewcache.php?wp={wp}' . "\n\n" . '{text}' . "\n\n\n\n";
 ?>
