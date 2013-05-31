@@ -7,7 +7,7 @@
 	
 	$logwatch_text = $logowner_text = '
 	  <tr>
-	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; width: 8%;" align="center">{date}</td>
+	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; width: 10%;" align="center">{date}</td>
 	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; " align="center"><b>{user}</b></td>
 	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; " align="center"><span style="color: {logtypeColor}"><b>{logtype}</b></span></td>
 	  	<td valign="top" style="border-right: 1px solid gray; padding-right:4px; padding-left:4px; font-size: 10px; font-family: Verdana; width: 20%;" align="center"><a href="{absolute_server_URI}{wp}">{wp}<br/> {cachename}</a><br/></td>
