@@ -57,7 +57,7 @@
 		if (mb_send_mail($to_email, $row['mail_subject'], $row['mail_text'], $headers))
 		{
 			// Kopie an Sender
-			mb_send_mail($row['from_email'], $row['mail_subject'], tr('email_sender')."\n".$row['mail_text'], $headers);
+			mb_send_mail($row['from_email'], $row['mail_subject'], "Kopia Twojej wiadomości:\n".$row['mail_text'], $headers);
 			
 			$upd_result = sql("UPDATE `email_user` SET `mail_text`='[Delivered]', `date_sent`=NOW() WHERE `id`='&1'", $row['id']);
 		}
