@@ -1244,7 +1244,7 @@ register03 Bevestig wachtwoord
 register04 Herstellen
 logType1 Gevonden
 logType2 Niet gevonden
-logType3 otitie
+logType3 Notitie
 logType4 Cache verplaatst
 logType5 Heeft onderhoud nodig
 logType6 Moet gearchiveerd worden
@@ -1321,5 +1321,14 @@ bearingshort_w W
 bearingshort_wnw WNW
 bearingshort_nw NW
 bearingshort_nnw NNW
+mailto_01 Geen onderwerp
+mailto_02 Geen tekst ingevoerd
+mailto_03 E-mail van
+mailto_04 Hallo
+mailto_05 met e-mailadres
+mailto_06 stuurt e-mail via 
+mailto_07 Gebruikersprofiel:
+mailto_08 Om dit bericht te beantworden kan de antwoordfunctie van het e-mailprogramma gebruikt worden.
+mailto_09 Om dit bericht te beantwoorden kan gebruik gemaakt worden van de functie "Mail deze gebruiker" in het gebruikersprofiel.
 
 

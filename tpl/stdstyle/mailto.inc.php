@@ -26,22 +26,22 @@
 $message_user_not_found = tr('message_user_not_found');
 $message_sent = tr('message_sent');
 
-$errnosubject = '<span class="errormsg">Brak tematu!</span>';
-$errnotext = '<span class="errormsg">Brak tesktu wprowadzonego!</span>';
+$errnosubject = '<span class="errormsg">'.tr('mailto_01').'</span>';
+$errnotext = '<span class="errormsg">'.tr('mailto_02').'</span>';
 
-$mailsubject = "[opencaching.pl] Email od '{from_username}': {subject}";
+$mailsubject = "[opencaching] ".tr('mailto_03')." '{from_username}': {subject}";
 
-$mailtext_email = "Witaj {to_username},\n\n";
-$mailtext_email .= "'{from_username}' o adresie Email {from_email} kontaktuje sie z toba poprzez www.opencaching.pl\n";
-$mailtext_email .= "Profil uzytkownika: http://www.opencaching.pl/viewprofile.php?userid={from_userid}\n";
-$mailtext_email .= "Aby odpowiedziec na ten E-mail uzyj funkcji odpowiedzi w swoim programie pocztowym.\n";
+$mailtext_email = tr('mailto_04')." {to_username},\n\n";
+$mailtext_email .= "'{from_username} ".tr('mailto_05')." {from_email} ".tr('mailto_06')." $absolute_server_URI\n";
+$mailtext_email .= tr('mailto_07')." $absolute_server_URI viewprofile.php?userid={from_userid}\n";
+$mailtext_email .= tr('mailto_08')."\n";
 $mailtext_email .= "----------------------\n\n";
 $mailtext_email .= "{{text}}\n";
 
-$mailtext_anonymous = "Witaj {to_username},\n\n";
-$mailtext_anonymous .= "'{from_username}' kontaktuje sie z toba poprzez www.opencaching.pl\n";
-$mailtext_anonymous .= "Profil uzytkownika: http://www.opencaching.pl/viewprofile.php?userid={from_userid}\n";
-$mailtext_anonymous .= "Aby odpowiedziec na ten email uzyj funkcji EMAIL-DO-UZYTKOWNIKA w profilu tego uzytkownika.\n";
+$mailtext_anonymous = tr('mailto_04')." {to_username},\n\n";
+$mailtext_anonymous .= "'{from_username}' ".tr('mailto_06')." www.opencaching.pl\n";
+$mailtext_anonymous .= tr('mailto_07')." $absolute_server_URI viewprofile.php?userid={from_userid}\n";
+$mailtext_anonymous .= tr('mailto_09')."\n";
 $mailtext_anonymous .= "----------------------\n";
 $mailtext_anonymous .= "{{text}}\n";
 
