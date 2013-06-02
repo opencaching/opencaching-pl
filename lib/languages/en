@@ -423,6 +423,7 @@ number_of_founds Founds
 latest_news News
 what_do_you_find Welcome to Opencaching.pl
 what_do_you_find_intro_pl Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in Poland. Opencaching.pl in Poland was started in <span class="content-title-noshade">May 2006</span>. This is the main Poland geocaching site. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches. Runs on <a href="http://code.google.com/p/opencaching-pl/">Opencaching.PL opensource project</a>.
+what_do_you_find_intro_nl Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in The Netherlands, Luxembourgh and Belgium. Opencaching.nl in The Netherlands was started in <span class="content-title-noshade">October 2002</span>. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches.<br/> Opencaching site like this has nothing to do with Opencaching.com
 more_news More news
 filename_rules http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use
 filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
@@ -587,6 +588,11 @@ total_dnf_caches Number of caches not found ("Didn't find it" log entry)
 total_comments Number of notes/comments
 total_attended_events Number of attended events
 number_recommendations_given Number of recommendations given
+number_found_caches Number of found caches
+shared_place Shared place
+total_amount_loggers Total amount of loggers:
+total_amount_logs Total amount of logs:
+filter_out_caches Filter for statistics:
 days_caching Caching days
 from_total_days out of
 average_caches Average caches found per one caching day
@@ -1199,6 +1205,6 @@ mailto_06 contacts you by
 mailto_07 User's profile:
 mailto_08 To reply to this e-mail please use the answer function in your email program.
 mailto_09 To reply to this e-mail please use the function "Mail to user" in the profile of the user.
-email_sender A copy of your message
+copy_sender A copy of your message:
 
 
