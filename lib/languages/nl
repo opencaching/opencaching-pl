@@ -1096,8 +1096,8 @@ guru_13 profiel
 guru_14 Met dank aan iedereen die anderen willen helpen met het verbeteren van het cachen.
 guru_15 Ontvangen aanbevelingen
 guru_16 Schrijf e-mail
-yesterday Gisteren
 today Vandaag
+yesterday Gisteren
 days_ago Dagen geleden
 make_new_description Maak een nieuwe cache beschrijving voor:
 lxg01 Verkeerde datum. Vul de correcte datum in: DD-MM-JJJJ
@@ -1268,6 +1268,7 @@ runwatch11 Nieuwe logs van gevolgde caches
 runwatch12 Om de lijst van gevolgde caches te zien of te bewerken
 runwatch13 klik dan hier
 runwatch14 Dit bericht is automatisch gegenereerd, gelieve niet te reageren.
+runwatch15 Er zijn nog geen logs
 registermail01 Hallo
 registermail02 Welkom op 
 registermail03 Om te beginnen kun je informatie terug vinden op OpenGeoWiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. OpenGeoWiki is beschikbaar op:
