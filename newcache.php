@@ -126,7 +126,9 @@ else if ($verify_all==1) {
 				tpl_set_var('diff_message', '');
 				
 				
-				
+				if (!isset($cache_type)) {
+					$cache_type = -1;
+				}
 				$sel_type = isset($_POST['type']) ? $_POST['type'] : -1;
 				if (!isset($_POST['size']))
 				{
@@ -283,13 +285,6 @@ else if ($verify_all==1) {
 				{
 						$hints = iconv("utf-8", "UTF-8", $hints);
 				}
-
-				//tos
-	//			$tos = isset($_POST['TOS']) ? 1 : 0;
-	//			if ($tos == 1)
-	//				tpl_set_var('toschecked', ' checked="checked"');
-	//			else
-	//				tpl_set_var('toschecked', '');
 
 				//hidden_since
 				$hidden_day = isset($_POST['hidden_day']) ? $_POST['hidden_day'] : date('d');
@@ -579,7 +574,11 @@ else if ($verify_all==1) {
 				tpl_set_var('countryoptions', $countriesoptions);
 
 	//regionoptions
-	if ($sel_region=="0") $regionoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';
+	if ($sel_region=="0") {
+		$regionoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';
+	} else {
+		$regionoptions = '';
+	}
 	$rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
 
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
@@ -587,7 +586,7 @@ else if ($verify_all==1) {
 		$record = sql_fetch_array($rs);
 
 		if ($record['code'] == $sel_region)
-			$regionoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[name], ENT_COMPAT, 'UTF-8') . '</option>';
+			$regionoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
 		else
 			$regionoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
 
@@ -844,18 +843,17 @@ else if ($verify_all==1) {
 						$name_not_ok = false;
 					}
 
-					//tos
-	//				if ($tos != 1)
-	//				{
-	//					tpl_set_var('tos_message', $tos_not_ok_message);
-	//					$error = true;
-	//					$tos_not_ok = true;
-	//				}
-	//				else
-	//				{
-	//					$tos_not_ok = false;
-	//				}
-	//
+					// validate region
+					// Andrzej "Łza" 2013-06-02
+					if ($sel_country == 'PL' && $sel_region == '0') {
+						tpl_set_var('region_message',  $regionNotOkMessage);
+						$error = true;
+						$region_not_ok = true;
+					} else {
+						$region_not_ok = false;
+						tpl_set_var('region_message',  '');
+					}
+	
 					//html-desc?
 					$desc_html_not_ok = false;
 					if ($descMode != 1)
@@ -917,7 +915,7 @@ else if ($verify_all==1) {
 					}
 
 					//no errors?
-					if (!($name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok))
+					if (!($name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok || $region_not_ok))
 					{
 						//sel_status
 						$now = getdate();
