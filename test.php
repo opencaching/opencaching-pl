@@ -1,81 +1,36 @@
-<?
+<?php
+require_once 'lib/db.php';
+require_once 'region_class.php';
+require_once 'lib/settings.inc.php';
 
-error_reporting(E_ALL);
-echo "test pobierania xml<br><br>";
-$url1 = 'http://geokrety.org/export2.php?wpt=OP1234';
-$url2 = 'http://www.w3schools.com/xml/note.xml';
+$db = new dataBase;
+$query = 
+'SELECT c.wp_oc, c.cache_id, c.`status`, cl.adm3, c.latitude, c.longitude
+FROM caches c
+JOIN cache_location cl ON c.cache_id = cl.cache_id
+JOIN user u ON u.user_id = c.user_id
+WHERE cl.adm3 IS NULL
+AND adm1 = "Polska"
+AND c.status NOT
+IN ( 3, 5 )';
 
-$result1 = simplexml_load_file($url1);
-$result2 = simplexml_load_file($url2);
+$db->simpleQuery($query);
+$cfix = $db->dbResultFetchAll();
+$region = new GetRegions();
 
-echo 'xml z http://geokrety.org/export2.php?wpt=OP1234';
-var_dump($result1);
-echo '<br><br>xml z http://www.w3schools.com/xml/note.xml';
-var_dump($result2);
+foreach ($cfix as $key => $cf) {
+	$regiony = $region->GetRegion($opt, $lang, $cf['latitude'], $cf['longitude']);
+	var_dump($opt, $lang, $regiony);
+	exit;
+	$q = "UPDATE `cache_location` SET adm1 = :2, adm3 = :3, code1=:4, code3=:5 WHERE cache_id = :1";
+	$db->multiVariableQuery($q,$cf['cache_id'],$regiony['adm1'],$regiony['adm3'],$regiony['code1'],$regiony['code3']);
+	print "$q ".$cf['cache_id']." <br>";	
+	echo '<pre><br>';
+	print_r($regiony);
 
-
-
-
-exit;
-
-$wpts = loadWaypointFromGpx(simplexml_load_file("serduszko.gpx"));
-echo "<pre>";
-print_r($wpts);
-
-
-function loadWaypointFromGpx($wpts)
-{
-
-
-	$coords_lon = (float) $wpts->wpt->attributes()->lon;
-	$coords_lat = (float) $wpts->wpt->attributes()->lat;
-
-	if ($coords_lon < 0)
-	{
-		$coords_lonEW = 'W';
-		$coords_lon = -$coords_lon;
-	}
-	else
-	{
-		$coords_lonEW = 'E';
-	}
-
-	if ($coords_lat < 0)
-	{
-		$coords_latNS = 'S';
-		$coords_lat = -$coords_lat;
-	}
-	else
-	{
-		$coords_latNS = 'N';
-	}
-
-	$coords_lat_h = floor($coords_lat);
-	$coords_lon_h = floor($coords_lon);
-
-	$coords_lat_min = sprintf("%02.3f", round(($coords_lat - $coords_lat_h) * 60, 3));
-	$coords_lon_min = sprintf("%02.3f", round(($coords_lon - $coords_lon_h) * 60, 3));
-
-
-$result = array (
-					'name' => (string)$wpts->wpt->name,
-					'coords_latNS' => $coords_latNS,
-					'coords_lonEW' => $coords_lonEW, 
-					'coords_lat_h' => $coords_lat_h,
-					'coords_lon_h' => $coords_lon_h, 
-					'coords_lat_min' => $coords_lat_min, 
-					'coords_lon_min' => $coords_lon_min, 
-					'desc' => '',
-);
-
-//insert waypoint description in result array
-if (isset($wpts->wpt->cmt) && $wpts->wpt->cmt != '') {
-	$result['desc'] .= $wpts->wpt->desc;
-}
-if (isset($wpts->wpt->cmt) && $wpts->wpt->cmt != '') {
-	$result['desc'] .= $wpts->wpt->cmt;
+	unset($regiony, $q);
+	exit;
 }
 
-//$result = print_r($result, true);
-return $result;
-}
+echo '<pre>';
+print_r($cfix); 
