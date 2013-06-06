@@ -18,9 +18,12 @@ $db->simpleQuery($query);
 $cfix = $db->dbResultFetchAll();
 $region = new GetRegions();
 
+echo '<pre>';
+print_r($cfix); 
+
 foreach ($cfix as $key => $cf) {
 	$regiony = $region->GetRegion($opt, $lang, $cf['latitude'], $cf['longitude']);
-	var_dump($opt, $lang, $regiony);
+	var_dump($regiony);
 	exit;
 	$q = "UPDATE `cache_location` SET adm1 = :2, adm3 = :3, code1=:4, code3=:5 WHERE cache_id = :1";
 	$db->multiVariableQuery($q,$cf['cache_id'],$regiony['adm1'],$regiony['adm3'],$regiony['code1'],$regiony['code3']);
@@ -32,5 +35,3 @@ foreach ($cfix as $key => $cf) {
 	exit;
 }
 
-echo '<pre>';
-print_r($cfix); 
