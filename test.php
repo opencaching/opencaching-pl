@@ -1,7 +1,30 @@
 <?php
+
+include 'util.sec/geokrety/processGeokretyErrors.php';
+
+
+exit;
 require_once 'lib/db.php';
-require_once 'region_class.php';
-require_once 'lib/settings.inc.php';
+//require_once 'region_class.php';
+//require_once 'lib/settings.inc.php';
+
+$url = "http://geokrety.org/export2.php?wpt=OP1234";
+$opts = array('http' =>
+	array(
+		'header'  => 'Content-type: application/x-www-form-urlencoded',
+		'timeout' => 5,
+	)
+);
+$context = stream_context_create($opts);
+@$result1 = file_get_contents($url, false, $context);
+if($result1){
+	$result = simplexml_load_string($result1);
+	echo '<pre>';
+print_r($result);
+} else print 'dup[a]';
+
+
+exit;
 
 $db = new dataBase;
 $query = 
