@@ -20,7 +20,7 @@ class GeoKretyApi
 		'TakeUserGeokrets' => 1,
 		'TakeGeoKretsInCache' => 2,
 	);
-	private $connectionTimeout = 7;
+	private $connectionTimeout = 17;
 	
     function __construct($secid = null, $cacheWpt=null)
     {
