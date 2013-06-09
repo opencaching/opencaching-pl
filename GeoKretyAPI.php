@@ -132,7 +132,7 @@ class GeoKretyApi
 					     </tr>';
 		   }
 		$selector .= '</table>';
-		// $selector .= '<input type="hidden" name=MaxNr value="'.$MaxNr.'">';
+		$selector .= '<input type="hidden" name=MaxNr value="'.$MaxNr.'">';
 		$this->maxID = $MaxNr; //value set for use in MakeGeokretInCacheSelector method.
 		return $selector;
 	}
