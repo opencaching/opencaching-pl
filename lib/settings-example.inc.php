@@ -177,9 +177,13 @@
 	// signature of e-mails send by system
   	$octeamEmailsSignature = "Pozdrawiamy, Zespół www.opencaching.pl";
   
-    // watchlist config:
+    	// watchlist config:
   	$watchlistMailfrom = 'watch@opencaching.pl';
   
-    // email of GeoKrety developer (used in GeoKretyApi.php for error notifications)
-    $geoKretyDeveloperEmailAddress = 'stefaniak@gmail.com';
+    	// email of GeoKrety developer (used in GeoKretyApi.php for error notifications)
+    	$geoKretyDeveloperEmailAddress = 'stefaniak@gmail.com';
+
+	// New caches outside country where server is: 
+	$SiteOutsideCountryString = 'poland_outside';
+	$countryParamNewcacherestPhp = " 'PL' ";
 ?>
