@@ -67,7 +67,7 @@
 			  AND `countries`.`short`=`caches`.`country`
 			  AND `type` != 6
 			  AND `caches`.`status` = 1
-			  AND `caches`.`country` != 'PL'
+			  AND `caches`.`country` NOT IN($countryParamNewcacherestPhp)
 			  AND `caches`.`type`=`cache_type`.`id`
 				AND `caches`.`date_hidden` <= NOW() 
 				AND `caches`.`date_created` <= NOW()

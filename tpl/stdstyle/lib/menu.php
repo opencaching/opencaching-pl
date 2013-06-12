@@ -38,7 +38,7 @@
 
  ****************************************************************************/
 include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url;
+global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString;
 
 $menu = array(
     array(
@@ -86,8 +86,8 @@ $menu = array(
                 'siteid'        => 'newcaches',
                 'submenu'       => array(
                     array(
-                        'title'         => tr('abroad_poland'),
-                        'menustring'    => tr('abroad_poland'),
+                        'title'         => tr($SiteOutsideCountryString),
+                        'menustring'    => tr($SiteOutsideCountryString),
                         'visible'       => true,
                         'onlylogged'    => true,
                         'filename'      => 'newcachesrest.php',
