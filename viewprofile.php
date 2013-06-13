@@ -463,7 +463,11 @@ if ($error == false) {
 			$rsnca = sql("SELECT COUNT(*) FROM caches WHERE status <> 2 AND status <> 3 AND status <> 5 AND status <> 4 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`)", $user_id);
 			$num_rows = mysql_num_rows($rsnca);
 			$num_rows = mysql_num_rows($rsncd);
-			$aver1 = round(($user_record['hidden_count'] / $ddays['diff']), 2);
+			if($ddays['diff'] != 0) {
+				$aver1 = round(($user_record['hidden_count'] / $ddays['diff']), 2);
+			} else {
+				$aver1 = 0;
+			}
 			$aver2 = round(($user_record['hidden_count'] / $num_rows), 2);
 			$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_created_caches') . ':  </span><strong>' . $hidden_all . '</strong>';
 			if ($user_record['hidden_count'] == 0) {$content .= '</p>';
@@ -517,7 +521,7 @@ if ($error == false) {
 					if ($i == 0) {$ii = 1;
 						$is = 0;
 					}
-					mysql_data_seek($rsms, $is);
+					if($is !=0) mysql_data_seek($rsms, $is);
 					$rms = mysql_fetch_array($rsms);
 					$content .= '<tr> <td>' . $ii . '</td><td>' . $rms['data'] . '</td><td><a class="links" href="viewcache.php?cacheid=' . $rms['cache_id'] . '">' . $rms['wp_oc'] . '</a></td></tr>';
 				}
