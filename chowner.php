@@ -1,8 +1,8 @@
 <?php
-
+require_once('./lib/common.inc.php');
 	function orderBy($orderId)
 	{
-		switch( $orderID )
+		switch( $orderId )
 		{
 			case "0":
 				return "name";
@@ -33,6 +33,8 @@
 		// lists all approved caches belonging to user
 		$cacheList = array();
 		$i = 0;
+		if(!isset($_GET['orderId'])) $_GET['orderId'] = ' ';
+		if(!isset($_GET['orderType'])) $_GET['orderType'] = ' ';
 		$sql = "SELECT cache_id, name, date_hidden FROM caches WHERE user_id='".sql_escape(intval($userid))."' AND status <> 4 AND type != 10 ORDER BY ".sql_escape(orderBy($_GET['orderId']))." ".sql_escape(orderType($_GET['orderType']));
 		$query = mysql_query($sql);
 		while( $cache = mysql_fetch_array($query) )
@@ -133,7 +135,7 @@
 	}
 	
 	//prepare the templates and include all neccessary
-	require_once('./lib/common.inc.php');
+
 	$tplname = 'chowner';
 	
 	// tylko dla zalogowanych
@@ -155,14 +157,15 @@
 		}
 		else
 		{
-			if( $_GET['accept'] == 1 )
+			if( isset($_GET['accept']) && $_GET['accept'] == 1 )
 			{
 				$sql = "SELECT count(*) FROM chowner WHERE cache_id = '".sql_escape(intval($_GET['cacheid']))."' AND user_id = '".sql_escape(intval($usr['userid']))."'";
 				$potwierdzenie = mysql_result(mysql_query($sql),0);
 				if( $potwierdzenie > 0 )
 				// zmiana wlasciciela
 				{
-					$oldOwnerId = getCacheOwner($_GET['cacheid']);
+					$oldOwnerId = sql_escape(getCacheOwner($_GET['cacheid']));
+					
 					
 					tpl_set_var("error_msg", "Wystąpił błąd podczas zmiany właściciela skrzynki.<br /><br />");
 					tpl_set_var("info_msg", "");
@@ -173,11 +176,18 @@
 					$sql = "UPDATE pictures SET user_id = '".sql_escape(intval($usr['userid']))."' WHERE object_id = '".sql_escape(intval($_GET['cacheid']))."'";
 					mysql_query($sql);
 					
-					$sql = "UPDATE user SET hidden_count = hidden_count - 1 WHERE user_id = '".sql_escape(getCacheOwner($_GET['cacheid']))."'";
+					$sql = "UPDATE user SET hidden_count = hidden_count - 1 WHERE user_id = '".$oldOwnerId."'";
 					mysql_query($sql);
 					
 					$sql = "UPDATE user SET hidden_count = hidden_count + 1 WHERE user_id = '".sql_escape(intval($usr['userid']))."'";
 					mysql_query($sql);
+					
+					// put log into cache logs.
+					$log_text = '<font color="blue"><b>'.tr('adopt00').' <a href="'.$absolute_server_URI.'viewprofile.php?userid='.$oldOwnerId.'">'.getUsername($oldOwnerId).'</a> ';
+					$log_text .= tr('adopt01').' <a href="'.$absolute_server_URI.'viewprofile.php?userid='.$usr['userid'].'">'.getUsername($usr['userid']).'</a></font></b>. ';
+					sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
+								    VALUES        ('',   '&1',       '&2',      '&3',   NOW(),  '&4',   '&5',         '&6', NOW(), NOW(), '&7', '&8')",
+									sql_escape(intval($_GET['cacheid'])), -1, 3, $log_text, 1, 1, create_uuid(), $oc_nodeid);
 					
 					tpl_set_var("error_msg", "");
 					tpl_set_var("info_msg", " ".tr('adopt_15')." ".getCacheName($_GET['cacheid'])."<br /><br />");	
@@ -261,11 +271,15 @@
 					tpl_set_var('error_msg', "Użytkownik ".$_POST['username']." nie istnieje.<br /><br />");
 			}
 			// strona glowna - wybor skrzynki
+			$cacheList = '';
+			$bgColor='#ffffff';
 			foreach( listUserCaches($usr['userid']) as $cache)
 			{
-				$cacheList .= "<tr>
+				if ($bgColor=='#ffffff') $bgColor='#eeffee';
+				else $bgColor='#ffffff'; 
+				$cacheList .= '<tr bgcolor="'.$bgColor.'">
 				<td>
-				";
+				';
 				if( !isRequestPending($cache['cache_id']))
 					$cacheList .= "<a href='chowner.php?cacheid=".$cache['cache_id']."'>";
 				$cacheList .= $cache['name'];
