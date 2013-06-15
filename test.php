@@ -1,5 +1,33 @@
 <?php
 
+require_once 'lib/db.php';
+$db = new dataBase;
+
+$query = "SELECT  `date_hidden` 
+FROM  `caches` , cache_location
+WHERE  `caches`.`status` =1
+AND cache_location.adm3 =  'Małopolskie'
+AND cache_location.cache_id = caches.cache_id
+ORDER BY `date_hidden`
+";
+
+$db->simpleQuery($query);
+$arr = $db->dbResultFetchAll();
+
+print '<pre>';
+// print_r($arr);
+
+foreach ($arr as $value) {
+	$data = explode('-', $value['date_hidden']);
+	if (!isset($count[$data[0]])) $count[$data[0]]=0;
+	$count[$data[0]]++;
+}
+print 'Malopolska <br>';
+print '[rok] => ilosc utworzonych keszy w danym roku<br><br>';
+print_r($count);
+
+exit;
+
 include 'util.sec/geokrety/processGeokretyErrors.php';
 
 
