@@ -6,7 +6,7 @@
 	setlocale(LC_TIME, 'pl_PL.UTF-8');
 	$userscount = sqlValue('SELECT COUNT(DISTINCT user_id) FROM caches WHERE status=1',0);
 	$cachescount = sqlValue('SELECT COUNT(*) FROM `caches` WHERE `status`=1',0);
-	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('ranking_by_number_of_created_active_caches').'</b><br><br /> '.tr('users_who_created_caches').' aktywne: ';
+	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('ranking_by_number_of_created_active_caches').'</b><br><br /> '.tr('users_who_created_caches_active').':';
 	echo $userscount; 
 	echo ' .::. '.tr('number_of_active_caches').': ';
 	echo $cachescount; 
