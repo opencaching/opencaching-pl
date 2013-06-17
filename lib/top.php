@@ -20,10 +20,10 @@
 
 	$tops = array();
 	echo '<center><table style="padding-left:32px; padding-bottom:32px; line-heigh: 1.6em; font-size: 12px;">';
-	echo '<tr><td align="center" style="font-size: 16px;"><b>Ranking skrzynek wg liczonego indeksu</b><br /></td></tr>';
-	echo '<tr><td>The following list is automatically generated from user recommendations. The numbers in the list below mean:<br /> <br /><img src="images/rating-star.png" border="0" alt="Recommendations" /> Number of users that recommend this cache<br /><br /><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="Found" /> Number of times the cache has been found<br /><br /> The Index tries to calculate a quality ranking of geocaches from the recommendation and the number of find logs.</td></tr>';
+	echo '<tr><td align="center" style="font-size: 16px;"><b>'.tr('index_01').'</b><br /></td></tr>';
+	echo '<tr><td>'.tr('index_02').'<br /> <br /><img src="images/rating-star.png" border="0" alt="Recommendations" /> '.tr('index_03').'<br /><br /><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="Found" /> '.tr('index_04').'<br /><br /> '.tr('index_05').'</td></tr>';
 	echo '<tr><td align="center"><img src="images/tops-formula.png" border="0" alt="Formula" /></td></tr></table></center>';
-	echo '<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;line-high: 1.6em; font-size: 12px;" width="97%"><tr><td>&nbsp;</td><td><strong>Indeks</strong></td><td><img src="images/rating-star.png" border="0" alt="" /></td><td><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="" /></td><td><strong>Cache</strong></td><td><strong>User</strong></td></tr><tr><td colspan="6"><hr></hr></td></tr>';
+	echo '<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px;line-high: 1.6em; font-size: 12px;" width="97%"><tr><td>&nbsp;</td><td><strong>'.tr(index_06).'</strong></td><td><img src="images/rating-star.png" border="0" alt="" /></td><td><img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="" /></td><td><strong>Cache</strong></td><td><strong>'.tr('user').'</strong></td></tr><tr><td colspan="6"><hr></hr></td></tr>';
 
 //  mysql_query("SET NAMES 'utf8'"); 
 	// Alle Caches für diese Gruppe finden
