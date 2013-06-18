@@ -19,20 +19,17 @@ class GeoKretyApi
 	private $operationTypes = array (
 		'TakeUserGeokrets' => 1,
 		'TakeGeoKretsInCache' => 2,
+		'LogGeokrety' => 3,
 	);
-	private $connectionTimeout = 17;
+	private $connectionTimeout = 16;
 	
-    function __construct($secid = null, $cacheWpt=null)
-    {
+    function __construct($secid = null, $cacheWpt=null) {
     	include 'lib/settings.inc.php';
 		$this->server = $absolute_server_URI;
     	$this->secid = $secid;
     	$this->cacheWpt = $cacheWpt;
 		$this->rtEmailAddress = $dberrormail;
 		$this->geoKretyDeveloperEmailAddress = $geoKretyDeveloperEmailAddress;
-		
-		// $this->emailOnError('$e->getMessage()', $url, $result, 'function: '.__FUNCTION__ .'line # '.__LINE__.' in '.__FILE__);	
-		
     }
     
     /**
@@ -40,8 +37,7 @@ class GeoKretyApi
      * 
      * @return array contains all geokrets in user inventory
      */
-	private function TakeUserGeokrets()
-	{
+	private function TakeUserGeokrets() {
 		$url = "http://geokrety.org/export2.php?secid=$this->secid&inventory=1";
 		$xml = $this->connect($url, $this->operationTypes[__FUNCTION__]);
 		libxml_use_internal_errors(true);	
@@ -49,7 +45,8 @@ class GeoKretyApi
 			try {
 	 			$result = simplexml_load_string($xml);
 			} catch (Exception $e) {
-				$this->emailOnError($e->getMessage(), $url, $result, 'function: '.__FUNCTION__ .'line # '.__LINE__.' in '.__FILE__);
+				$this->storeErrorsInDb($this->operationTypes[__FUNCTION__], $url);
+				// $this->emailOnError($e->getMessage(), $url, $result, 'function: '.__FUNCTION__ .'line # '.__LINE__.' in '.__FILE__);
 				return false;
 			}
 		} else {
@@ -73,7 +70,8 @@ class GeoKretyApi
 			try	{
 	 			$result = simplexml_load_string($xml);
 			} catch (Exception $e) {
-				$this->emailOnError($e->getMessage(), $url, $result, 'function: '.__FUNCTION__ .' line # '.__LINE__.' in '.__FILE__);
+				$this->storeErrorsInDb($this->operationTypes[__FUNCTION__], $url);	
+				//$this->emailOnError($e->getMessage(), $url, $result, 'function: '.__FUNCTION__ .' line # '.__LINE__.' in '.__FILE__);
 				return false;
 			} 
 		} else {
@@ -108,16 +106,14 @@ class GeoKretyApi
 	 * 
 	 * @return string (html)
 	 */
-	public function MakeGeokretSelector($cachename)
-	{
+	public function MakeGeokretSelector($cachename) {
 		$krety = $this->TakeUserGeokrets();
  		if ($krety === false) return tr('GKApi28');
 		
 		$selector = '<table>';
 		$MaxNr = 0;
 		$jsclear = 'onclick=this.value="" onblur="formDefault(this)"';
-		foreach ($krety->geokrety->geokret as $kret)
-		   {
+		foreach ($krety->geokrety->geokret as $kret) {
 		   	$MaxNr++;
 		   	$selector .= '<tr>
 					        <td>
@@ -130,7 +126,7 @@ class GeoKretyApi
                               <input type="hidden" name="GeoKretIDAction'.$MaxNr.'[nm]" value="'.$kret.'" />		
                              </td>
 					     </tr>';
-		   }
+		}
 		$selector .= '</table>';
 		$selector .= '<input type="hidden" name=MaxNr value="'.$MaxNr.'">';
 		$this->maxID = $MaxNr; //value set for use in MakeGeokretInCacheSelector method.
@@ -170,53 +166,40 @@ class GeoKretyApi
 	 * @param array $GeokretyArray
 	 * @return boolean
 	 */
-	public function LogGeokrety($GeokretyArray)
-	{ 
-		/*
-		print '----------<pre>';
-		print_r ($GeokretyArray);
-		print '</pre>-------------';
-		*/
-		
+	public function LogGeokrety($GeokretyArray, $retry=false) {
+			 
+		// dataBase::debugOC('#'.__line__.' ', $GeokretyArray);
+
 	    $postdata = http_build_query($GeokretyArray);
 		$opts = array('http' =>
 				array(
 						'method'  => 'POST',
 						'header'  => 'Content-type: application/x-www-form-urlencoded',
 						'content' => $postdata,
-				)
+						'timeout' => $this->connectionTimeout,
+				),
 		);
 		
 		$context = stream_context_create($opts);
-		$result = file_get_contents('http://geokrety.org/ruchy.php', false, $context);
-		print $result;
+		@$result = file_get_contents('http://geokrety.org/ruchy.php', false, $context);
+		// print $result;
 		// print '----------<pre>'; print_r($resultarray); print '</pre>-------------';
 		
-		if (!$result) 
-		{
-			$this->emailOnError($error, print_r($GeokretyArray, true), $result, 'function: '.__FUNCTION__ .'line # '.__LINE__.' in '.__FILE__);
-			return false;
+		if (!$result) {
+			if (!$retry) $this->storeErrorsInDb($this->operationTypes[__FUNCTION__], $GeokretyArray);
 		}
 		
 		try {
 		 $resultarray = simplexml_load_string($result);
 		} catch(Exception $e) {
-			$this->emailOnError($e->getMessage(), print_r($GeokretyArray, true), $result, 'line # '.__LINE__.' in '.__FILE__);
-			return false;
+			if (!$retry) $this->storeErrorsInDb($operationType, $GeokretyArray);
 		}
-		if ($resultarray) $r = $this->xml2array($resultarray);
-		else $r['errors'][0]['error'] = tr(GKApi22);
-		
+		if ($resultarray) $r=$this->xml2array($resultarray);
+		else $r['errors'][]['error'] = 'GKApi22';
 		$r['geokretId'] = $GeokretyArray['id'];
 		$r['geokretName'] = $GeokretyArray['nm'];
-		
-		/*
-		 print '----------<pre>';
-		 print_r ($r);
-		 print '</pre>-------------';
-		*/
 
-		return  $r;
+		return $r;
 	}
 
 	private function emailOnError($error = '', $Tablica = '', $result, $errorLocation = 'Unknown error location')
@@ -286,7 +269,7 @@ class GeoKretyApi
 		$db = new dataBase;
 		$query = "INSERT INTO `GeoKretyAPIerrors`(`dateTime`, `operationType`, `dataSent`, `response`) 
 				  VALUES (NOW(),:1,:2,:3)";
-		$db->multiVariableQuery($query, $operationType, serialize(addslashes($dataSent)), serialize(addslashes($response)));
+		$db->multiVariableQuery($query, $operationType, addslashes(serialize($dataSent)), addslashes(serialize($response)));
 	}
 
 	public static function getErrorsFromDb(){
@@ -315,6 +298,10 @@ class GeoKretyApi
 			if (!$send) return false;
 		}
 		return true;
+	}
+	
+	public function getOperationTypes() {
+		return $this->operationTypes;
 	}
 }
 ?>

@@ -948,6 +948,7 @@ GKApi26 Zabrano z keszyka
 GKApi27 napędzane przez Kreci Interfejs XML'owy!
 GKApi28 przepraszamy, chwilowy brak połączenia z Geokrety.org
 GKApi29 W tej skrzynce nie ma zalogowanych geokretów.
+GKApi30 Ponieważ wykryto błąd, system opencaching spróbuje automatycznie w godzinach nocnych ponowić zalogowanie GeoKretów w tej skrzynce.
 Open_Sprawdzacz OpenSprawdzacz
 os_f00 Keszynek w Opensprawdzaczu, legenda:
 os_f01 Następna

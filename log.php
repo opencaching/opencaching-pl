@@ -458,7 +458,6 @@ $debug = false;
 				{
 					$score_not_ok = false;
 				}
-				
 				if( isset($_POST['submitform']) && ($all_ok == true) )
 				{
 					if( $_POST['r'] >= -3 && $_POST['r'] <= 3 )
@@ -473,42 +472,30 @@ $debug = false;
 							$sql = "INSERT INTO scores (user_id, cache_id, score) VALUES('".sql_escape($usr['userid'])."', '".sql_escape(floatval($cache_id))."', '".sql_escape(floatval($_POST['r']))."')";
 							mysql_query($sql);						
 						}
-					}
-					else
-					{
+					} else {
 						// nie wybrano opcji oceny
-						
 					}
 					$log_date = date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year));
-
 					$log_uuid = create_uuid();
 					
-					//add logentry to db
-  				    
-					if ($log_type < 0)
-					{
-					 // nie wybrano typu logu
 
+					//add logentry to db
+					if ($log_type < 0){
+					 // nie wybrano typu logu
 					}
                     // if comment is empty, then do not insert data into db
-					
 					elseif (!($log_type == 3 && $log_text == "")) 
 					{
-						if ($log_type == 1)
-						{
-					     
+						if ($log_type == 1) {
 							/*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
 							if ($debug) {
 								require_once 'lib/db.php';
 								dataBase::debugOC('#'.__line__.' ', $_POST);
 							}
 							$MaxNr = $_POST['MaxNr'];
-							if ($MaxNr > 0)
-							{
+							if ($MaxNr > 0) {
 								require_once 'GeoKretyAPI.php';
-							
 								$LogGeokrety = New GeoKretyApi($secid, $cache_waypt);
-	
 								$b = 1;
 								for ($i=1; $i<$MaxNr+1; $i++)
 								{

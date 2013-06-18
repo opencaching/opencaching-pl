@@ -267,19 +267,19 @@
 				$GeoKretyLogResult = unserialize($_SESSION['GeoKretyApi']);
 				
 				if(count($GeoKretyLogResult)>0){
-						
 					unset ($_SESSION['GeoKretyApi']);
-
+					$geoKretErrorInfoDisplay = false;
 					$GeokretyWindowContent = '';
 					foreach ($GeoKretyLogResult as $geokret){
 				  		$GeokretyWindowContent .= $geokret['geokretName'];
 				  		foreach ($geokret['errors'] as $errorGK) {
 				  			if ($errorGK['error'] == '') $GeokretyWindowContent .= ' - ' . tr('GKApi20');
-				  			else $GeokretyWindowContent .= '  - ' . tr('GKApi21') .': '. $errorGK['error'];
+				  			else $GeokretyWindowContent .= '  - ' . tr('GKApi21') .': '. tr($errorGK['error']);
+				  			$geoKretErrorInfoDisplay = true;
 				  		}
-
 				  		$GeokretyWindowContent .= '<br />';
 				 	}
+					if($geoKretErrorInfoDisplay) $GeokretyWindowContent .= '<br/><br/>'.tr('GKApi30').'<br/>';
 				 	
 					tpl_set_var('jQueryPopUpWindowscripts', '
 				 		<link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
