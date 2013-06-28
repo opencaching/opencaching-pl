@@ -59,7 +59,7 @@ class processGeokretyErrors {
 				$queryParam .= $recordId['id'].',';
 			}
 		$queryParam = substr($queryParam, 0, -1);
-		// GeoKretyApi::removeDbRows($queryParam);
+		GeoKretyApi::removeDbRows($queryParam);
 		if($this->debug) print "wyslano maila, usunieto wpisy z bazy<br/>";
 		}
 	}
@@ -77,11 +77,4 @@ class processGeokretyErrors {
      	$result['geokretName'] = $GeoKretyLogResult['geokretName'];
 		return $result;
 	}
-
-
-
-
 }
-
-
-	
