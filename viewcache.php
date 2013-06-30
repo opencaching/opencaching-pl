@@ -1791,6 +1791,9 @@ else
 
 tpl_set_var('bodyMod', '');
 
+// pass to tmplate if user is logged (hide other geocaching portals links)
+if ($usr == false  || $usr['userFounds'] < 99) $userLogged = 'none'; else $userLogged = 'block';
+tpl_set_var('userLogged', $userLogged);
 
-	tpl_BuildTemplate();
+tpl_BuildTemplate();
 ?>

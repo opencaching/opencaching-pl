@@ -68,6 +68,7 @@
 			$usr['userid'] = $login->userid;
 			$usr['email'] = sqlValue("SELECT `email` FROM `user` WHERE `user_id`='" . sql_escape($login->userid) .  "'", '');
 			$usr['username'] = $login->username;
+			$usr['userFounds'] = getuserFounds($login->userid);
 		}
 		else
 			$usr = false;
@@ -121,6 +122,17 @@
 		else
 		{
 			$usr = false;
+			return false;
+		}
+	}
+	
+	function getuserFounds($userId) {
+		$rs = sql("SELECT `founds_count` FROM `user` WHERE `user_id`='&1'", $userId);
+		if (mysql_num_rows($rs) > 0) {
+			$record = sql_fetch_array($rs);
+			return $record['founds_count'];
+		}
+		else {
 			return false;
 		}
 	}
