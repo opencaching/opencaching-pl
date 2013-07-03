@@ -793,7 +793,7 @@ online_users_info gebaseerd op actieve gebruikers van de laatste 10 minuten
 empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. Het maken van een cache kost moeite en het schrijven van waarderingen en kritiek zijn ook welkom! Zelfs een "Bedankt voor de cache" zou voldoende kunnen zijn.
 empty_entry_confirm Wil je werkelijk het logveld leeg laten?
 where_i_am Waar ben ik?
-read_info_about_cache_types Lees hier meer informatie over <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Cache soorten</a>
+read_info_about_cache_types Lees hier meer informatie over <a href="http://wiki.opencaching.nl/index.php/Cache_eigenschappen" target="_blank">Cache eigenschappen</a>
 regiononly Regio (Polen)
 region_from_coord Regio via opgegeven coördinaten
 select_regions Selecteer regio
@@ -1342,5 +1342,56 @@ index_03 Aantal gebruikers die de cache hebben aanbevolen
 index_04 Aantal keren dat de cache is gevonden
 index_05 Hieronder de formule waarmee de cache kwaliteit berekend wordt.
 index_06 Index
+rating-c_01 Cache moeilijkheid berekening systeem
+rating-c_02 Resultaat na berekening:
+rating-c_03 Opmerking: Waanneer de moeilijkheid tussen 1 en 2 ligt kan met fijnafstemming 0.5 verhoogt worden tot 1.5.
+rating-c_04 Zoek moeilijkheid:
+rating-c_05 Makkelijk. De meeste cachers kunnen deze makkelijk vinden, zelfs beginners.
+rating-c_06 Gemiddeld. De meeste cachers vinden het in minder dan 30 minuten zoeken.
+rating-c_07 Uitdagend. Ervaren cachers zullen meer tijd nodig hebben om deze te vinden.
+rating-c_08 Moeilijk. Grote uitdaging voor zelfs de ervaren cachers. Benodigt enige vaardigheden, kennis of grondige voorbereidingem. Kan ook meerdere dagen duren voordat de cache gevonden wordt.
+rating-c_09 Extreem. Alleen voor zeer ervaren cachers. De plaatser wil waarschijnlijk niet dat deze gevonden wordt.
+rating-c_10 Terrein moeilijkheid:
+rating-c_11 Vlak terrein dat ook geschikt is voor rolstoelen. Parkeerplaats zal minder dan 500 meter van de cache verwijderd zijn.
+rating-c_12 Geschikt voor kleine kinderen. Over het algemeen loopt de route langs gemarkeerde paden. Er kan enige hoogteverschil zijn. De wandeling zou niet meer dan 3 kilometer zijn.
+rating-c_13 Niet geschikt voor kleine kinderen. Te doen voor volwassenen en grotere kinderen met een redelijke conditie. De route kan buiten de paden liggen en er kan een redelijke hoogteverschil zijn en de wandeling kan langer dan 3 kilometer zijn.
+rating-c_14 Alleen voor ervaren wandelaars. De wandeling voert alleen buiten de paden. De volgende eigenschappen kunnen voorkomen: Erg steile hoogte verscillen (klimmen noodzakelijk) en een wandeling van 16 kilometer of meer.
+rating-c_15 Dit vereist speciale apperatuur, kennis of ervaring (boten, 4x4 auto, klimmen op de rotsen, duiken, enz.). met andere woorden, extreem moeilijk.
+rating-c_16 Nog een berekening maken?
+rating-c_17 Moelijkheden met het berekenen van het moeilijkheids systeem? Beantwoord de volgende vragen:
+rating-c_18 Is er speciale apperatuur nodig?
+rating-c_19 Nee
+rating-c_20 Ja
+rating-c_21 Is er een boot, 4X4 of klimapperatuur nodig..?
+rating-c_22 Is er meer dan een dag nodig?
+rating-c_23
+rating-c_24
+rating-c_25
+rating-c_26
+rating-c_27
+rating-c_28
+rating-c_29
+rating-c_30
+rating-c_31
+rating-c_32
+rating-c_33
+rating-c_34
+rating-c_35
+rating-c_36
+rating-c_37
+rating-c_38
+rating-c_39
+rating-c_40
+rating-c_41
+rating-c_42
+rating-c_43
+rating-c_44
+rating-c_45
+rating-c_46
+rating-c_47
+rating-c_48
+rating-c_49
+rating-c_50
+
 
 

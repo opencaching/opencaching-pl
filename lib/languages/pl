@@ -1348,3 +1348,62 @@ index_06 Indeks
 
 adopt00 Przeprowadzono procedurę adopcji skrzynki. Dotychczasowym właścieielem był
 adopt01 Nowym właścicielem został użytkownik
+rating-c_01 System oceny poziomu trudności zadań i terenu dla skrzynki
+rating-c_02 Twoja skrzynka została oceniona na:
+rating-c_03 Uwaga:  Jeśli stopień trudności jest pomiędzy np 1 a 2 to w ustawieniach skrzynki możesz podawać poziomy trudności z dokładnością 0.5 np 1.5
+rating-c_04 Poziom trudności zadania:
+rating-c_05 Łatwy. Łatwo widoczna i może być znaleziona w przeciągu paru minut poszukiwań.
+rating-c_06 Średni. Przeciętny poszukiwacz skrzynek znajdzie ją w czasie mniejszym niż 30 min poszukiwań.
+rating-c_07 Wyzwanie. Doświadczonemu poszukiwaczowi skrzynek może zająć dużą część dnia na odszukanie skrzynki.
+rating-c_08 Trudny. Prawdziwe wyzwanie dla doświadczonego poszukiwacza skrzynek. Może wymagać specjalnych umiejętności lub wiedzy lub gruntownego przygotowania do poszukiwań. Może wymagać wielu dni/wycieczek aby znaleźć skrzynkę.
+rating-c_09 Ekstremalne. Poważne psychczne lub fizyczne wyzwanie. Wymagające wyspecjalizowanej wiedzy i umiejętności lub sprzętu aby odnaleźć skrzynkę.
+rating-c_10 Poziom trudności terenu:
+rating-c_11 Dostępny dla niepełnosprawnych. Teren wybetonowany, utwardzony i stosunkowo płaski. Mniej niż 0.5 km wymagana jest wycieczka.
+rating-c_12 Dostępny dla małych dzieci. Teren jest ogólnie wzdłuż oznakowanych szlaków. Nie ma stromych zmian elewacji terenu. Mniej niż 3 km wymagana wędrówka.
+rating-c_13 Niedostępne dla małych dzieci. Przeciętny dorosły lub starsze dziecko powinno byc OK w zależności od kondycji. Teren możliwe jest że leży poza szlakami, drogami, mogą być strome zmiany elewacji terenu i więcej niż 3 km wędrówka wymagana.
+rating-c_14 Tylko dla zaawasnowanych entuzajstów wycieczek. Teren jest pradopodobnie poza szlakami i drogami. Będzie posiadał jedną lub więcej nastepujących cech: bardzo nachylone elelwacje terenu (wymagające użycia rąk) i więcej niż 16 km wędrówka wymagana.
+rating-c_15 Wymaga wyspecjalizowanego sprzętu i wiedzy lub doświadczenia (łódki, samochodu 4x4, wspinaczka na skałach, nurkowanie, itp) lub ogólnie jest ekstremalnie cięzki.
+rating-c_16 Jeszcze raz chcesz ocenić?
+rating-c_17 Nie wiesz jaki jest poziom trudnosci Twojej skrzynki? Odpowiedz na poniższe pytania:
+rating-c_18 Czy wymagany jest specjalistyczny sprzęt?
+rating-c_19 Nie
+rating-c_20 Tak
+rating-c_21 Potrzebna łódka, samochód terenowy, sprzęt do wspinaczki, nurkowania...?
+rating-c_22 Czy dotarcie do skrzynki i powrót zajmie więcej niż jeden dzień ?
+rating-c_23
+rating-c_24
+rating-c_25
+rating-c_26
+rating-c_27
+rating-c_28
+rating-c_29
+rating-c_30
+rating-c_31
+rating-c_32
+rating-c_33
+rating-c_34
+rating-c_35
+rating-c_36
+rating-c_37
+rating-c_38
+rating-c_39
+rating-c_40
+rating-c_41
+rating-c_42
+rating-c_43
+rating-c_44
+rating-c_45
+rating-c_46
+rating-c_47
+rating-c_48
+rating-c_49
+rating-c_50
+
+
+
+
+
+
+
+
+

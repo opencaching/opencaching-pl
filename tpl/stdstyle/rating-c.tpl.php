@@ -34,83 +34,83 @@
 	<colgroup>
 		<col width="100">
 	</colgroup>
-	<tr><td width=600 class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="ABC" title="ABC" align="middle" /><font size="4">  <b>System oceny poziomu trudności zadań i terenu dla skrzynki</b></font></td></tr>
+	<tr><td width=600 class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="ABC" title="ABC" align="middle" /><font size="4">  <b>{{rating-c_01}}</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 </table>
 
 <table>
 <tr>
-  <td class="top" colspan=2><br /><font color=blue>Twoja skrzynka została oceniona na: <strong><?php echo ($Difficulty + 1) . '/' . ($terrain + 1); ?></font></strong>
-  <br /><br />Uwaga:  Jeśli stopień trudności jest pomiędzy np 1 a 2 to w ustawieniach skrzynki możesz podawać poziomy trudności z dokładnością 0.5 np 1.5
+  <td class="top" colspan=2><br /><font color=blue>{{rating-c_02}} <strong><?php echo ($Difficulty + 1) . '/' . ($terrain + 1); ?></font></strong>
+  <br /><br />{{rating-c_03}}
   </td>
 </tr>
 <tr>
   <td colspan=2>&nbsp;</td>
 </tr>
 <tr>
-  <th class="head" colspan=2 align="left">Poziom trudności zadania: <em><?php echo ($Difficulty + 1); ?></em></th>
+  <th class="head" colspan=2 align="left">{{rating-c_04}} <em><?php echo ($Difficulty + 1); ?></em></th>
 </tr>
 <tr>
   <td class="odd" align="right" nowrap="nowrap">*</td>
-  <td class="odd"><?php if ($Difficulty == 0) echo '<strong><em>'; ?>Łatwy. Łatwo widoczna i może być znaleziona w przeciągu paru minut poszukiwań.
+  <td class="odd"><?php if ($Difficulty == 0) echo '<strong><em>'; ?>{{rating-c_05}}
       <?php if ($Difficulty == 0) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
   <td class="even" align="right" nowrap="nowrap">**</td>
-  <td class="even"><?php if ($Difficulty == 1) echo '<strong><em>'; ?>Średni. Przeciętny poszukiwacz skrzynek znajdzie ją w czasie mniejszym niż 30 min poszukiwań.
+  <td class="even"><?php if ($Difficulty == 1) echo '<strong><em>'; ?>{{rating-c_06}}
       <?php if ($Difficulty == 1) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
   <td class="odd" align="right" nowrap="nowrap">***</td>
-  <td class="odd"><?php if ($Difficulty == 2) echo '<strong><em>'; ?>Wyzwanie. Doświadczonemu poszukiwaczowi skrzynek może zająć dużą część dnia na odszukanie skrzynki.
+  <td class="odd"><?php if ($Difficulty == 2) echo '<strong><em>'; ?>{{rating-c_07}}
       <?php if ($Difficulty == 2) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
   <td class="even" align="right" nowrap="nowrap">****</td>
-  <td class="even"><?php if ($Difficulty == 3) echo '<strong><em>'; ?>Trudny. Prawdziwe wyzwanie dla doświadczonego poszukiwacza skrzynek. Może wymagać specjalnych umiejętności lub wiedzy lub gruntownego przygotowania do poszukiwań. Może wymagać wielu dni/wycieczek aby znaleźć skrzynkę.
+  <td class="even"><?php if ($Difficulty == 3) echo '<strong><em>'; ?>{{rating-c_08}}
       <?php if ($Difficulty == 3) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
   <td class="odd" align="right" nowrap="nowrap">*****</td>
-  <td class="odd"><?php if ($Difficulty == 4) echo '<strong><em>'; ?>Ekstremalne. Poważne psychczne lub fizyczne wyzwanie. Wymagające wyspecjalizowanej wiedzy i umiejętności lub sprzętu aby odnaleźć skrzynkę.
+  <td class="odd"><?php if ($Difficulty == 4) echo '<strong><em>'; ?>{{rating-c_09}}
       <?php if ($Difficulty == 4) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
   <td colspan=2>&nbsp;</td>
 </tr>
 <tr>
-  <th class="head" colspan=2 align="left">Poziom trudności terenu: <em><?php echo ($terrain + 1); ?></em></th>
+  <th class="head" colspan=2 align="left">{{rating-c_10}} <em><?php echo ($terrain + 1); ?></em></th>
 </tr>
 <tr>
   <td class="odd" align="right" nowrap="nowrap">*</td>
-  <td class="odd"><?php if ($intTerr == 0) echo '<strong><em>'; ?>Dostępny dla niepełnosprawnych. Teren wybetonowany, utwardzony i stosunkowo płaski. Mniej niż 0.5 km wymagana jest wycieczka.
+  <td class="odd"><?php if ($intTerr == 0) echo '<strong><em>'; ?>{{rating-c_11}}
       <?php if ($intTerr == 0) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
   <td class="even" align="right" nowrap="nowrap">**</td>
-  <td class="even"><?php if ($intTerr == 1) echo '<strong><em>'; ?>Dostępny dla małych dzieci. Teren jest ogólnie wzdłuż oznakowanych szlaków. Nie ma stromych zmian elewacji terenu. Mniej niż 3 km wymagana wędrówka
+  <td class="even"><?php if ($intTerr == 1) echo '<strong><em>'; ?>{{rating-c_12}}
       <?php if ($intTerr == 1) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
   <td class="odd" align="right" nowrap="nowrap">***</td>
-  <td class="odd"><?php if ($intTerr == 2) echo '<strong><em>'; ?>Niedostępne dla małych dzieci. Przeciętny dorosły lub starsze dziecko powinno byc OK w zależności od kondycji. Teren możliwe jest że leży poza szlakami, drogami, mogą być strome zmiany elewacji terenu i więcej niż 3 km wędrówka wymagana.
+  <td class="odd"><?php if ($intTerr == 2) echo '<strong><em>'; ?>{{rating-c_13}}
       <?php if ($intTerr == 2) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
   <td class="even" align="right" nowrap="nowrap">****</td>
-  <td class="even"><?php if ($intTerr == 3) echo '<strong><em>'; ?>Tylko dla zaawasnowanych entuzajstów wycieczek. Teren jest pradopodobnie poza szlakami i drogami. Będzie posiadał jedną lub więcej nastepujących cech: bardzo nachylone elelwacje terenu (wymagające użycia rąk) i więcej niż 16 km wędrówka wymagana.       
+  <td class="even"><?php if ($intTerr == 3) echo '<strong><em>'; ?>{{rating-c_14}}       
   <?php if ($intTerr == 3) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
   <td class="odd" align="right" nowrap="nowrap">*****</td>
-  <td class="odd"><?php if ($intTerr == 4) echo '<strong><em>'; ?>Wymaga wyspecjalizowanego sprzętu i wiedzy lub doświadczenia (łódki, samochodu 4x4, wspinaczka na skałach, nurkowanie, itp) lub ogólnie jest ekstremalnie cięzki.
+  <td class="odd"><?php if ($intTerr == 4) echo '<strong><em>'; ?>{{rating-c_15}}
       <?php if ($intTerr == 4) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
   <td colspan=2>&nbsp;</td>
 </tr>
 <tr>
-  <td class="top" colspan=2><a href='?'>Jeszcze raz chcesz ocenić?</a></td>
+  <td class="top" colspan=2><a href='?'>{{rating-c_16}}</a></td>
 </tr>
 </table>
 </body>
@@ -133,43 +133,43 @@
 	<colgroup>
 		<col width="100">
 	</colgroup>
-	<tr><td width=600 class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="ABC" title="ABC" align="middle" /><font size="4">  <b>System oceny poziomu trudności zadań i terenu dla skrzynki</b></font></td></tr>
+	<tr><td width=600 class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="ABC" title="ABC" align="middle" /><font size="4">  <b>{{rating-c_01}}</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 </table>
 
 
-<p>Nie wiesz jaki jest poziom trudnosci Twojej skrzynki? Odpowiedz na poniższe pytania:</p>
+<p>{{rating-c_17}}</p>
 
 <form action='?' method="post">
 <table>
 </tr>
-  <th class="head" colspan=2 align="left">Czy wymagany jest specjalistyczny sprzęt?</th>
+  <th class="head" colspan=2 align="left">{{rating-c_18}}</th>
 <tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Equipment" value="0" checked></td>
-  <td class="odd">Nie</td>
+  <td class="odd">{{rating-c_19}}</td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Equipment" value="4"></td>
-  <td class="even">Tak</td>
+  <td class="even">{{rating-c_20}}</td>
 </tr>
 <tr>
-  <td class="foot" colspan=2>Potrzebna łódka, samochód terenowy, sprzęt do wspinaczki, nurkowania...?</td>
+  <td class="foot" colspan=2>{{rating-c_21}}</td>
 </tr>
 <tr>
   <td colspan=2>&nbsp;</td>
 </tr>
 
 </tr>
-  <th class="head" colspan=2 align="left">Czy dotarcie do skrzynki i powrót zajmie więcej niż jeden dzień ?</th>
+  <th class="head" colspan=2 align="left">{{rating-c_22}}</th>
 <tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Night" value="0" checked></td>
-  <td class="odd">Nie</td>
+  <td class="odd">{{rating-c_19}}</td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Night" value="3"></td>
-  <td class="even">Tak</td>
+  <td class="even">{{rating-c_20}}</td>
 </tr>
 <tr>
   <td class="foot" colspan=2></td>
