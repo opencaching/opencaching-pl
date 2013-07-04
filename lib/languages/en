@@ -651,6 +651,7 @@ edit edit
 cancel Cancel
 no_note I don't have any cache note
 additional_waypoints Additional waypoints
+nowp_notice There are no additional waypoints
 stage_wp Stage
 type_wp Type
 type_wp2 Type of waypoint
@@ -1238,13 +1239,13 @@ rating-c_19 No
 rating-c_20 Yes
 rating-c_21 Need a boat, ATV, climbing equipment, etc.?
 rating-c_22 Need an overnight stay?
-rating-c_23
-rating-c_24
-rating-c_25
-rating-c_26
-rating-c_27
+rating-c_23 What distance must be covered on foot?
+rating-c_24 Less than 1km
+rating-c_25 Between 1 to 3 km
+rating-c_26 Between 3 to 16 km
+rating-c_27 More than 16 km
 rating-c_28
-rating-c_29
+rating-c_29 Trail characteristics?
 rating-c_30
 rating-c_31
 rating-c_32

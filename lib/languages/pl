@@ -650,7 +650,8 @@ delete Usuń
 edit Edycja
 cancel Anuluj
 no_note Brak notatek
-additional_waypoints Dodatkowe waypointy 
+additional_waypoints Dodatkowe waypointy
+nowp_notice Nie ma dodatkowych waypointów dla skrzynki
 stage_wp Etap
 type_wp Typ
 type_wp2 Typ waypointa
@@ -1370,13 +1371,13 @@ rating-c_19 Nie
 rating-c_20 Tak
 rating-c_21 Potrzebna łódka, samochód terenowy, sprzęt do wspinaczki, nurkowania...?
 rating-c_22 Czy dotarcie do skrzynki i powrót zajmie więcej niż jeden dzień ?
-rating-c_23
-rating-c_24
-rating-c_25
-rating-c_26
-rating-c_27
+rating-c_23 Jaka odległosć trzeba pokonać pieszo?
+rating-c_24 mniej niż 1 km
+rating-c_25 między 1 a 3 km
+rating-c_26 między 3 a 16 km
+rating-c_27 powyżej 16 km
 rating-c_28
-rating-c_29
+rating-c_29 Jak wyglada szlak?
 rating-c_30
 rating-c_31
 rating-c_32

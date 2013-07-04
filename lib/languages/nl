@@ -651,6 +651,7 @@ edit Bewerken
 cancel Annuleren
 no_note Er zijn nog geen cache notities
 additional_waypoints Extra waypoints
+nowp_notice Er zijn nog geen extra waypoints
 stage_wp Etappe
 type_wp Soort
 type_wp2 Soort waypoint
