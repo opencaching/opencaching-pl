@@ -950,7 +950,7 @@ Open_Sprawdzacz OpenChecker
 os_f00 Caches in OpenChecker, legenda
 os_f01 Volgende
 os_f02 Vorige
-log00 Met een Garmin logbestand kun je de verzamelde loggegevens in een paar handelingen naar de site versturen.<br /> Selecteer het bestand en klik op verzenden het om de lijst van caches te zien en te bewerken om daarna snel en makkelijk te kunnen loggen.<br /> Maximale groote van het bestand is 50K.
+log00 Met een Garmin logbestand kun je de verzamelde loggegevens in een paar handelingen naar de site versturen.<br /> Sluit de Garmin aan op de compter enelecteer het bestand. Klik op verzenden om de lijst van caches te zien en te bewerken om daarna snel en makkelijk te kunnen loggen.<br /> Maximale groote van het bestand is 50K.
 log01 Veel caches loggen
 log02 Overzicht van de te bewerken caches
 log03 [Filter] Datum van:
@@ -1364,13 +1364,13 @@ rating-c_19 Nee
 rating-c_20 Ja
 rating-c_21 Is er een boot, 4X4 of klimapperatuur nodig..?
 rating-c_22 Is er meer dan een dag nodig?
-rating-c_23
-rating-c_24
-rating-c_25
-rating-c_26
-rating-c_27
+rating-c_23 Wat is de te lopen afstand?
+rating-c_24 Minder dan 1 km
+rating-c_25 Tussen 1 en 3 km
+rating-c_26 Tussen 3 en 16 km
+rating-c_27 Meer dan 16 km
 rating-c_28
-rating-c_29
+rating-c_29 Hoe zijn de wegen?
 rating-c_30
 rating-c_31
 rating-c_32
