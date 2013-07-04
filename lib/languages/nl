@@ -776,14 +776,14 @@ date_created Datum gemaakt
 owner Eigenaar
 actions Acties
 block Blokkeren
-assign_yourself Wijs notificatie aan mijzelf
+assign_yourself Neem notificatie zelf
 accept Accepteren
 octeam_stat_problems Statistics OCTeam - closed problems
 octeam_stat_m_problems Maandelijkse statistiek OCTeam - rapport
 octeam_stat_caches Statistics OCTeam - caches acctepted
 octeam_stat_m_caches Statistics OCTeam monthly - caches accepted
 number_problems Number of problems
-add_by add by
+add_by Toegevoegd door:
 octeam_comment_subject [OC] Comment OC Team
 octeam_comment_copy Copy email with OC Team comment add by
 list_of_latest_logs_is_empty Er zijn nog geen nieuwste logs
@@ -950,7 +950,7 @@ Open_Sprawdzacz OpenChecker
 os_f00 Caches in OpenChecker, legenda
 os_f01 Volgende
 os_f02 Vorige
-log00 Met een Garmin logbestand kun je de verzamelde loggegevens in een paar handelingen naar de site versturen.<br /> Sluit de Garmin aan op de compter enelecteer het bestand. Klik op verzenden om de lijst van caches te zien en te bewerken om daarna snel en makkelijk te kunnen loggen.<br /> Maximale groote van het bestand is 50K.
+log00 Met een Garmin logbestand kun je de verzamelde loggegevens in een paar handelingen naar de site versturen.<br /> Sluit de Garmin aan op de computer en slecteer het logbestand. Klik op verzenden om de lijst van caches te zien en te bewerken om daarna snel en makkelijk te kunnen loggen.<br /> Maximale groote van het bestand is 50K.
 log01 Veel caches loggen
 log02 Overzicht van de te bewerken caches
 log03 [Filter] Datum van:
