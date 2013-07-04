@@ -1376,30 +1376,32 @@ rating-c_24 mniej niż 1 km
 rating-c_25 między 1 a 3 km
 rating-c_26 między 3 a 16 km
 rating-c_27 powyżej 16 km
-rating-c_28
+rating-c_28 Wędróka pisze liczona od parkingu najblizszego do skrzynki.
 rating-c_29 Jak wyglada szlak?
-rating-c_30
-rating-c_31
-rating-c_32
-rating-c_33
-rating-c_34
-rating-c_35
-rating-c_36
-rating-c_37
-rating-c_38
-rating-c_39
-rating-c_40
-rating-c_41
-rating-c_42
-rating-c_43
-rating-c_44
-rating-c_45
-rating-c_46
-rating-c_47
-rating-c_48
-rating-c_49
-rating-c_50
-
+rating-c_30 Droga utwardzona<br /><em>asfalt, beton lub kostka brukowa.
+rating-c_31 Droga gruntowa<br /><em>Droga gruntowa można wjechać zwykłym rowerem, pchać wózek.
+rating-c_32 Inny rodzaj drogi<br /><em>szuter, piasek, błoto..., jesli rower to tylko górski.
+rating-c_33 Szlak? Jaki szlak?<br /><em>Nie ma żadnej scieżki, dojazd nie wchodzi w grę.
+rating-c_34 Czy szlak prowadzi przez zarosla?
+rating-c_35 Nie
+rating-c_36 Niewielkie zarosla
+rating-c_37 Tak, wysokie zarosla, kolce
+rating-c_38 Totalne haszcze<br /><em>Nie widać drugiej strony, potrzebna maczeta lub inny przyrzad. Najczęsciej kolce lub trujace rosliny.
+rating-c_39 Jakie jest ukształtowanie terenu?
+rating-c_40 Przeważnie płaskie<br /><em>Niewielkie różnice wysokosci. Można pokonać rowerem, wózkiem dziecięcym, inwalidzkim....
+rating-c_41 Niewielkie wzniesienia<br /><em>Można pokonać rowerem.
+rating-c_42 Teren stromy<br /><em>Duża stromizna, rower trzeba pchać pod górę
+rating-c_43 Urwisko<br /><em>Urwisko Do wejscia potrzebne cztery kończyny.
+rating-c_44 Czy łatwo znależć skrzynkę?
+rating-c_45 Miejsce ukrycia jest oczywiste..
+rating-c_46 Może być w kilku miejscach, znalezienie zajmie chwilę..
+rating-c_47 Dobrze schowany, może to być multicache lub do znalezienia potrzebne sa wskazówki..
+rating-c_48 Znalezienie wymaga specjalnych umiejętnosci, wiedzy lub przygotowania. Może zajać kilka dni
+rating-c_49 Znalezienie wymaga umiejętnosci i specjalistycznego sprzętu. Poważne wyzwanie..
+rating-c_50 Proszę wziąc pod uwagę widzialność, dostepność lub inne przeszkody odpowiadając na pytania.
+rating-c_51 Wylicz
+rating-c_52 Wyczyść formularz
+rating-c_53 System oceny dostępny dzięki stronie http://www.clayjar.com/gcrs/
 
 
 

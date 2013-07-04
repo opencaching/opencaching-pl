@@ -179,57 +179,52 @@
 <tr>
 
 </tr>
-  <th class="head" colspan=2 align="left">Jaka odległosć trzeba pokonać pieszo?</th>
+  <th class="head" colspan=2 align="left">{{rating-c_23}}</th>
 <tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Length" value="0" checked></td>
-  <td class="odd">mniej niż 1 km<br /></td>
+  <td class="odd">{{rating-c_24}}<br /></td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Length" value="1"></td>
-  <td class="even">między 1 a 3 km</td>
+  <td class="even">{{rating-c_25}}</td>
 </tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Length" value="2"></td>
-  <td class="odd">między 3 a 16 km</td>
+  <td class="odd">{{rating-c_26}}</td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Length" value="3"></td>
-  <td class="even">powyżej 16 km</td>
+  <td class="even">{{rating-c_27}}</td>
 </tr>
 <tr>
-  <td class="foot" colspan=2>Wędróka pisze liczona od parkingu najblizszego do skrzynki.</td>
+  <td class="foot" colspan=2>{{rating-c_28}}</td>
 </tr>
 </tr>
   <td colspan=2>&nbsp;</td>
 <tr>
 
 </tr>
-  <th class="head" colspan=2 align="left">Jak wyglada szlak?</th>
+  <th class="head" colspan=2 align="left">{{rating-c_29}}</th>
 <tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Trail" value="0" checked></td>
-  <td class="odd">Droga utwardzona 
-      <br /><em>asfalt, beton lub kostka brukowa.</em>
+  <td class="odd">{{rating-c_30}}</em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Trail" value="1"></td>
-  <td class="even">Droga gruntowa
-      <br /><em> 	Droga gruntowa
-      można wjechać zwykłym rowerem, pchać wózek.</em>
+  <td class="even">{{rating-c_31}}</em>
   </td>
 </tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Trail" value="2"></td>
-  <td class="odd">Inny rodzaj drogi 
-      <br /><em>szuter, piasek, błoto..., jesli rower to tylko górski.</em>
+  <td class="odd">{{rating-c_32}}</em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Trail" value="3"></td>
-  <td class="even">Szlak? Jaki szlak? 
-      <br /><em>Nie ma żadnej scieżki, dojazd nie wchodzi w grę.</em>
+  <td class="even">{{rating-c_33}}</em>
   </td>
 </tr>
 <tr>
@@ -240,30 +235,29 @@
 <tr>
 
 </tr>
-  <th class="head" colspan=2 align="left">Czy szlak prowadzi przez zarosla?</th>
+  <th class="head" colspan=2 align="left">{{rating-c_34}}</th>
 <tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Overgrowth" value="0" checked></td>
-  <td class="odd">Nie 
+  <td class="odd">{{rating-c_35}} 
       <br /><em></em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Overgrowth" value="1"></td>
-  <td class="even">Niewielkie zarosla 
+  <td class="even">{{rating-c_36}} 
       <br /><em></em>
   </td>
 </tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Overgrowth" value="2"></td>
-  <td class="odd">Tak, wysokie zarosla, kolce 
+  <td class="odd">{{rating-c_37}} 
       <br /><em></em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Overgrowth" value="3"></td>
-  <td class="even">Totalne haszcze 
-      <br /><em>Nie widać drugiej strony, potrzebna maczeta lub inny przyrzad. Najczęsciej kolce lub trujace rosliny.</em>
+  <td class="even">{{rating-c_38}}</em>
   </td>
 </tr>
 </tr>
@@ -274,31 +268,26 @@
 <tr>
 
 </tr>
-  <th class="head" colspan=2 align="left">Jakie jest ukształtowanie terenu?</th>
+  <th class="head" colspan=2 align="left">{{rating-c_39}}</th>
 <tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Elevation" value="0" checked></td>
-  <td class="odd">Przeważnie płaskie 
-      <br /><em>Niewielkie różnice wysokosci. Można pokonać rowerem, wózkiem dziecięcym, inwalidzkim....</em>
+  <td class="odd">{{rating-c_40}}</em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Elevation" value="1"></td>
-  <td class="even">Niewielkie wzniesienia 
-      <br /><em>Można pokonać rowerem.</em>
+  <td class="even">{{rating-c_41}}</em>
   </td>
 </tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Elevation" value="2"></td>
-  <td class="odd">Teren stromy 
-      <br /><em>Duża stromizna, rower trzeba pchać pod górę</em>
+  <td class="odd">{{rating-c_42}}</em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Elevation" value="3"></td>
-  <td class="even">Urwisko 
-      <br /><em> 	Urwisko
-      Do wejscia potrzebne cztery kończyny.</em>
+  <td class="even">{{rating-c_43}}</em>
   </td>
 </tr>
 </tr>
@@ -309,42 +298,42 @@
 <tr>
 
 </tr>
-  <th class="head" colspan=2 align="left">Czy łatwo znależć skrzynkę?</th>
+  <th class="head" colspan=2 align="left">{{rating-c_44}}</th>
 <tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Difficulty" value="0" checked></td>
-  <td class="odd">Miejsce ukrycia jest oczywiste..</td>
+  <td class="odd">{{rating-c_45}}</td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Difficulty" value="1"></td>
-  <td class="even">Może być w kilku miejscach, znalezienie zajmie chwilę..</td>
+  <td class="even">{{rating-c_46}}</td>
 </tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Difficulty" value="2"></td>
-  <td class="odd">Dobrze schowany, może to być multicache lub do znalezienia potrzebne sa wskazówki..</td>
+  <td class="odd">{{rating-c_47}}</td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Difficulty" value="3"></td>
-  <td class="even">Znalezienie wymaga specjalnych umiejętnosci, wiedzy lub przygotowania. Może zajać kilka dni</td>
+  <td class="even">{{rating-c_48}}</td>
 </tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Difficulty" value="4"></td>
-  <td class="odd">Znalezienie wymaga umiejętnosci i specjalistycznego sprzętu. Poważne wyzwanie..</td>
+  <td class="odd">{{rating-c_49}}</td>
 </tr>
 </tr>
-  <td class="foot" colspan=2>Proszę wziąc pod uwagę widzialność, dostepność lub inne przeszkody odpowiadając na pytania.</td>
+  <td class="foot" colspan=2>{{rating-c_50}}</td>
 <tr>
 </tr>
   <td colspan=2><hr></td>
 <tr>
 </tr>
   <td colspan=2><input type="hidden" name="Rating" value="TRUE">
-     <input type="submit" value="Wylicz">
-     <input type="reset" value="Wyczyść formularz"></td>
+     <input type="submit" value="{{rating-c_51}}">
+     <input type="reset" value="{{rating-c_52}}"></td>
 <tr>
 </table>
 </form>
-System oceny dostępny dzięki stronie http://www.clayjar.com/gcrs/
+{{rating-c_53}}
 </body>
 </html>
 <?php

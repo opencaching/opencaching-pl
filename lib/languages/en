@@ -1244,29 +1244,31 @@ rating-c_24 Less than 1km
 rating-c_25 Between 1 to 3 km
 rating-c_26 Between 3 to 16 km
 rating-c_27 More than 16 km
-rating-c_28
+rating-c_28 Calculated from the nearest parking to the cache.
 rating-c_29 Trail characteristics?
-rating-c_30
-rating-c_31
-rating-c_32
-rating-c_33
-rating-c_34
-rating-c_35
-rating-c_36
-rating-c_37
-rating-c_38
-rating-c_39
-rating-c_40
-rating-c_41
-rating-c_42
-rating-c_43
-rating-c_44
-rating-c_45
-rating-c_46
-rating-c_47
-rating-c_48
-rating-c_49
-rating-c_50
-
+rating-c_30 Paved Foot Path <br /><em>Asphalt, or well beaten trail.
+rating-c_31 Good Foot Path <br /><em>Bicycles could cope with the terrain.
+rating-c_32 Rough Terrain <br /><em>Some mud. If a bicycle, better make it a mountain bike.
+rating-c_33 Trail. What trail? <br /><em>There is no path.
+rating-c_34 Is the area overgrown?
+rating-c_35 No bushes.
+rating-c_36 Small Shrubberies.
+rating-c_37 Tall Weeds.
+rating-c_38 Totally Overgrown <br /><em>Bring a machete. It's a jungle out there!
+rating-c_39 What about the terrain?
+rating-c_40 Mostly Flat <br /><em>Minor differences in height.
+rating-c_41 Small Hills <br /><em>Could be cycled over without difficulty.
+rating-c_42 Very Hilly <br /><em>You'll be pushing that bike over these hills.
+rating-c_43 Mountains <br /><em>Very steep hills. Scrambling needed at least.
+rating-c_44 How easy to find the cache?
+rating-c_45 Hiding place is obvious.
+rating-c_46 Could be in several places, some searching required.
+rating-c_47 Well hidden, may take a little while to find.
+rating-c_48 Finding requires special skills, knowledge or preparation. It may take a few visits.
+rating-c_49 Only a die hard, pain loving, glutton for punishment will ever find this.
+rating-c_50 Please take into account visibility, availability or obstacles when answering these questions.
+rating-c_51 Submit
+rating-c_52 Reset Form
+rating-c_53 The Cache Difficulty Rating System is available at the http://www.clayjar.com/gcrs/
 
 

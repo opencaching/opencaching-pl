@@ -1370,29 +1370,32 @@ rating-c_24 Minder dan 1 km
 rating-c_25 Tussen 1 en 3 km
 rating-c_26 Tussen 3 en 16 km
 rating-c_27 Meer dan 16 km
-rating-c_28
+rating-c_28 Berekend van dichstbijzijnde parkeerplaats tot cache.
 rating-c_29 Hoe zijn de wegen?
-rating-c_30
-rating-c_31
-rating-c_32
-rating-c_33
-rating-c_34
-rating-c_35
-rating-c_36
-rating-c_37
-rating-c_38
-rating-c_39
-rating-c_40
-rating-c_41
-rating-c_42
-rating-c_43
-rating-c_44
-rating-c_45
-rating-c_46
-rating-c_47
-rating-c_48
-rating-c_49
-rating-c_50
+rating-c_30 Verharde voetpaden <br /><em>Asfalt, of goed belopen paden.
+rating-c_31 Goed begaanbaar pad <br /><em>Gewone fietsen en kinderwagens kunnen hier komen.
+rating-c_32 Moeilijk terrein <br /><em>Er kan modder zijn. Een mountenbike is aan te raden i.p.v. een gewone fiets.
+rating-c_33 Route?. Welke route? <br /><em>Er is hier geen pad te vinden.
+rating-c_34 Is het terrein begroeid?
+rating-c_35 Nee, geen begroeing.
+rating-c_36 Paar struikjes.
+rating-c_37 Flinke struiken.
+rating-c_38 Totaal overwoekerd <br /><em>Neem een hakmes mee. Het lijkt hier wel een oerwoud.
+rating-c_39 Hoe is het terrein?
+rating-c_40 Behoorlijk vlak <br /><em>Zeer kleine hoogteverschillen. Is te doen met fiets, kinderwagen of rolstoel.
+rating-c_41 Kleine heuvels <br /><em>Met een geschikte fiets redelijk te doen.
+rating-c_42 Behoorlijke heuvels <br /><em>De fiets kan hier wel met de hand omhoog geduwd worden.
+rating-c_43 Bergen <br /><em>Erg steile bergen. Hier mag geklommen worden.
+rating-c_44 Hoe makkelijk is de cache te vinden?
+rating-c_45 Deze cache is makkelijk te vinden.
+rating-c_46 Verschillende verstopplekken, er moet wel gezocht worden.
+rating-c_47 Erg goed verborgen. Moet wel flink zoeken.
+rating-c_48 Het zoeken vereist behoorlijk wat ervaring, kenis en voorbereiding. Misschien is nog een bezoek nodig.
+rating-c_49 Het is zeer moeilijk om deze te vind. Er is zelfs apparatuur nodig om de cache te vinden.
+rating-c_50 Houd rekeing met zichtbaarheid, of obstakels en degelijke met het beantwoorden van deze vragen.
+rating-c_51 Verzenden
+rating-c_52 Herstellen
+rating-c_53 Het Cache moeilijkheid berekening systeem is beschikbaar op http://www.clayjar.com/gcrs/
 
 
 
