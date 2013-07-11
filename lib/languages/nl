@@ -212,7 +212,7 @@ last_modified_label Laatste verandering
 waypoint Waypoint
 listed_also_on Ook gepubliceerd op
 comments Opmerkingen
-comment Comment
+comment Opmerking
 write_to_log Log your visit
 watch Volgen
 edit Bewerken
@@ -577,7 +577,7 @@ adoption_cache Cache adoptie
 show_waypoints Toon waypoints
 pendings Caches keuren
 recommendation_rating Rangorde van caches berekend met een formule
-show_statictics_cache Show cache statistics
+show_statictics_cache Toon cache stistieken
 not_stat_cache This cache do not have statistics yet
 recommended_by Deze cache is aanbevolen door
 listing_from_this_page Resultaat op deze pagina
@@ -693,8 +693,8 @@ search_user Zoek gebruiker
 monthly_stat_founds Monthly statistics of the cache finds
 monthly_stat_founds_user Maandelijkse statistieken gevonden caches
 monthly_stat_created_user Maandelijkse statistiek geplaatste caches
-monthly_stat Monthly statistics of the cache
-annual_stat_founds Annual statistics founds 
+monthly_stat Maandelijkse statistieken van de cache
+annual_stat_founds Jaarlijkse gevonden statistieken
 annual_stat_founds_user Jaarlijkse statistieken gevonden caches
 annual_stat_created Jaarlijkse statistieken geplaatste caches
 annual_stat Annual statistics geocache
@@ -702,9 +702,9 @@ number_founds Number of founds
 number_caches Aantal caches
 number_logentry Aantal logs
 by_cachetype Per cache soort
-by_logtype By log type
-stat_geocache Statistics geocache
-does_not_have_stat There's no statistic yet
+by_logtype Per log soort
+stat_geocache Statistieken cache
+does_not_have_stat Er zijn nog geen staistieken
 number_month Number of month
 stat_problems Statistics OC Team - solved problems
 edit_logentry Bewerk de log
@@ -720,7 +720,7 @@ only_for_found_it alleen voor gevonden logs
 store Opslaan
 here Hier
 alternative_recommend Alternative you can remove recommendations
-comment_log Comment
+comment_log Opmerking
 need_maintenance_log Need maintenance
 comment_octeam_log OC Team comment
 moved_log Moved
