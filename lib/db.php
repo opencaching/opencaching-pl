@@ -36,7 +36,7 @@ class dataBase
 
 
 	function __construct($debug = false) {
-	 	include 'lib/settings.inc.php';
+	 	include __DIR__.'/settings.inc.php';
 	 	$this->server   = $opt['db']['server'];
 	 	$this->name     = $opt['db']['name'];
 	 	$this->username = $opt['db']['username'];
