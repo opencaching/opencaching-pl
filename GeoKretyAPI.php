@@ -168,7 +168,7 @@ class GeoKretyApi
 	 */
 	public function LogGeokrety($GeokretyArray, $retry=false) {
 			 
-		// dataBase::debugOC('#'.__line__.' ', $GeokretyArray);
+		// dataBase::debugOC('#'.__line__.' ', $this->connectionTimeout);
 
 	    $postdata = http_build_query($GeokretyArray);
 		$opts = array('http' =>
@@ -272,6 +272,10 @@ class GeoKretyApi
 		$db->multiVariableQuery($query, $operationType, addslashes(serialize($dataSent)), addslashes(serialize($response)));
 	}
 
+	public function setGeokretyTimeout($newTimeout) {
+		$this->connectionTimeout = $newTimeout;
+	}
+	
 	public static function getErrorsFromDb(){
 		$db = new dataBase;
 		$query = "SELECT * FROM `GeoKretyAPIerrors` WHERE 1";

@@ -29,6 +29,7 @@ class processGeokretyErrors {
 	private function processGetGeokretyErrors(){
 		$i = 1;
 		$this->logGeokrety = new GeoKretyApi;
+		$this->logGeokrety->setGeokretyTimeout(30);
 		foreach ($this->errors as $nr => $error) {
 			if ($error['operationType'] == 1 || $error['operationType'] == 2) {
 				// errors get geokrety in cache, get geokrety in user inventory 	
