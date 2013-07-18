@@ -263,7 +263,6 @@
 			 * @author Andrzej Łza Woźniak 2013
 			 */ 
 			if (isset ($_SESSION['GeoKretyApi'])) {
-				
 				$GeoKretyLogResult = unserialize($_SESSION['GeoKretyApi']);
 				
 				if(count($GeoKretyLogResult)>0){
@@ -274,8 +273,10 @@
 				  		$GeokretyWindowContent .= $geokret['geokretName'];
 				  		foreach ($geokret['errors'] as $errorGK) {
 				  			if ($errorGK['error'] == '') $GeokretyWindowContent .= ' - ' . tr('GKApi20');
-				  			else $GeokretyWindowContent .= '  - ' . tr('GKApi21') .': '. tr($errorGK['error']);
-				  			$geoKretErrorInfoDisplay = true;
+				  			else {
+				  				$GeokretyWindowContent .= '  - ' . tr('GKApi21') .': '. tr($errorGK['error']);
+				  				$geoKretErrorInfoDisplay = true;
+							}
 				  		}
 				  		$GeokretyWindowContent .= '<br />';
 				 	}
