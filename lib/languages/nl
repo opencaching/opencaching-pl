@@ -352,7 +352,7 @@ dont_publish_yet Nog niet publiceren
 log_password Geef wachtwoord
 no_password_label Laat leeg voor geen wachtwoord
 please_read Lees meer <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">informatie over wachtwoorden in logs!</a>
-creating_cache Met het maken van een nieuwe cache accepteer je de <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">Gebruikers voorwaarden</a> met alle consequencies.
+creating_cache Met het maken van een nieuwe cache accepteer je de <a href="{rules_url}" target="_blank">Gebruikers voorwaarden</a> met alle consequencies.
 with_all_consequences with all consequences.
 cache_name cache naam
 distance_label Afstand
@@ -926,7 +926,7 @@ GKApi03 Intregeer je Opencaching.pl account met GeoKrety.org account en kopieer 
 GKApi04 (Hier)
 GKApi05 Log GeoKrety direkt uit je inventaris:
 GKApi06 Log GeoKrety nu
-GKApi07 Deze functie vereist intregatie van jouw OC account en jouw GeoKrety account. Jouw OC profiel is nog niet geconfigureerd om samen te werken met GeoKrety.
+GKApi07 Deze functie vereist intregratie van jouw OC account en jouw GeoKrety account. Jouw OC profiel is nog niet geconfigureerd om samen te werken met GeoKrety.
 GKApi08 Intregeer jouw OC account met GeoKrety met de volgende stappen: 
 GKApi09 Kopieer je secid van de GeoKrety webpagina.
 GKApi10 Plak het in jouw OC profiel gegevens.
@@ -942,11 +942,14 @@ GKApi19 Log GeoKrety
 GKApi20 GeoKrety is gelogd.
 GKApi21 Fout
 GKApi22 Geen reactie van GeoKrety.org
-GKApi23 total geokrets in your inventory
-GKApi24 in cache
-GKApi25 GeoKrety Log text
-GKApi26 Grabbed from
-GKApi27 napędzane przez Kreci Interfejs XML'owy!
+GKApi23 Totale geokrets in je inventaris
+GKApi24 In cache
+GKApi25 GeoKrety logtekst
+GKApi26 Gepakt uit
+GKApi27 powered by Crete XML'owy interface!
+GKApi28 Wij verontschuldigen ons, tijdelijk geen verbinding met Geokrety.org
+GKApi29 Geen Geokrets in deze cache.
+GKApi30 Er is een fout opgetreden, het opencaching systeem zal later de GeoKrety in deze cache loggen.
 Open_Sprawdzacz OpenChecker
 os_f00 Caches in OpenChecker, legenda
 os_f01 Volgende
@@ -1343,6 +1346,9 @@ index_03 Aantal gebruikers die de cache hebben aanbevolen
 index_04 Aantal keren dat de cache is gevonden
 index_05 Hieronder de formule waarmee de cache kwaliteit berekend wordt.
 index_06 Index
+
+adopt00 De proceduris voltooid. De vorige eigenaar was
+adopt01 De nieuwe eigenaar is gebruiker
 rating-c_01 Cache moeilijkheid berekening systeem
 rating-c_02 Resultaat na berekening:
 rating-c_03 Opmerking: Waanneer de moeilijkheid tussen 1 en 2 ligt kan met fijnafstemming 0.5 verhoogt worden tot 1.5.
