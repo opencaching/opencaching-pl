@@ -434,7 +434,7 @@ mp3_files_info PodCasts - luister naar de instructies om je naar de cache te lei
 utilities Hulpmiddelen
 search_geocaches_nearby Zoek caches dichtbij (radius 100 km)
 download_as_file Download als bestand
-accept_terms_of_use Met het downloaden van dit bestand, accepteer je onze <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">gebruikersvoorwaarden</a>.
+accept_terms_of_use Met het downloaden van dit bestand, accepteer je onze <a href="{rules_url}">gebruikersvoorwaarden</a>.
 find_geocaches_on Zoek caches op
 searchable zonder eigen en gevonden caches
 all_geocaches alles
