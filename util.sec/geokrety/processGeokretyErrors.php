@@ -9,7 +9,7 @@ class processGeokretyErrors {
 	
 	private $errors;
 	private $errorNumber;
-	private $debug = true;
+	private $debug = false;
 	private $toMail = false;
 	private $logGeokrety; 
 	
