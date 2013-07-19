@@ -297,7 +297,7 @@ show toon
 lock Blokkeer
 unlock Deblokkeer
 user_stats gebruikersstatistieken
-first_cache Als dit de eerste geplaatste cache wordt, lees dan eerst de volgende <a href="http://wiki.opencaching.pl/index.php/Cache_parameters">omschrijving</a>
+first_cache Als dit de eerste geplaatste cache wordt, lees dan eerst de volgende <a href="{cache_params_url}" target="_blank">omschrijving</a>
 first_cache_approvement Omdat dit een van de eerste 3 caches is, zal het Opencaching Team deze cache beoordelen.
 all_cache_approvement Cache zal zichtbaar zijn na goedkeuring van het OC Team.
 name_label Cache naam
@@ -316,7 +316,7 @@ cache_attributes_label Cache attributen
 attributes_edit_hint Attributen kunnen later ook verandert worden.
 additional_attributes_hint You can add some more attributes to your cache's description with this tool:
 additional_attributes Additional cache attributes
-attributes_desc_hint Lees ook het <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Opencaching attributen beschrijving</a> artikel.
+attributes_desc_hint Lees ook het <a href="{cache_params_url}" target="_blank">Opencaching attributen beschrijving</a> artikel.
 descriptions Beschrijving
 language Taal
 other_languages_desc Beschrijvingen in andere talen kunnen na aanmelden van de cache toegevoegd worden.
@@ -351,7 +351,7 @@ hour Tijd
 dont_publish_yet Nog niet publiceren
 log_password Geef wachtwoord
 no_password_label Laat leeg voor geen wachtwoord
-please_read Lees meer <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">informatie over wachtwoorden in logs!</a>
+please_read Lees meer <a href="{cache_params_url}" target="_blank">informatie over wachtwoorden in logs!</a>
 creating_cache Met het maken van een nieuwe cache accepteer je de <a href="{rules_url}" target="_blank">Gebruikers voorwaarden</a> met alle consequencies.
 with_all_consequences with all consequences.
 cache_name cache naam
