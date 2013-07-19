@@ -298,7 +298,7 @@ class GeoKretyApi
 		$rtAddress = array($this->rtEmailAddress, $this->geoKretyDeveloperEmailAddress);
 			
 		foreach ($rtAddress as $email) {
-			$send = mail($email, 'GeoKretyApi errors report'.date('Y-m-d H:i:s'), $message, $headers);
+			$send = mail($email, 'GeoKretyApi errors report '.date('Y-m-d H:i:s'), $message, $headers);
 			if (!$send) return false;
 		}
 		return true;
