@@ -179,6 +179,8 @@ function getForeignAddress(wp)
 	{
 		case "OP":
 			return "";
+		case "OB":
+			return "";
 		case "OC":
 			return "http://www.opencaching.de/";
 		case "OZ":
