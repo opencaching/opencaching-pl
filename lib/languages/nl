@@ -882,27 +882,27 @@ os_komunikat2 Selecteer een cache uit de lijst om de coördinaten te controleren
 os_typ soort
 os_powrot terug
 os_pomoc Help
-os_zobo Lees hier hoe Open-Checker wordt gebruikt en hoe een cache toegevoegd kan worden.
+os_zobo Lees hier hoe OpenChecker wordt gebruikt en hoe een cache toegevoegd kan worden.
 os_spr_form Controleer eindcoördinaten van cache
 os_twojews Jouw coördinaten
-os_hlp_01 Open Checker allow users to check coordinates of final cache for cache type "Quiz" (Puzzle), "Multicache" and "Other Type"
-os_hlp_02 If you are owner of Quiz/Other type cache, Here you can give a chance for other users check their calculated/obtained coords of final location befeore they go out cache hunting.
-os_hlp_03 Hoe voeg je een cache toe aan  Open Checker?
+os_hlp_01 Met OpenChecker is het mogelijk om het eindcoördinaat te contoleren van een "Quiz" (Puzzel), "Multi cache" en "Onbekende cache"
+os_hlp_02 Als je eigenaar bent van een Quiz/Onbekende cache kan hier de cacher de kans gegeven worden om de gevonden eindcoördinaten te controleren voor men op pad gaat om de cache te zoeken.
+os_hlp_03 Hoe voeg je een cache toe aan  OpenChecker?
 os_hlp_04 1. Open het cache bewerk scherm
-os_hlp_05 2. Klik op Voeg waypoint toe
+os_hlp_05 2. Klik op "Voeg waypoint" toe
 os_hlp_06 3. Selecteer soort waypoint op "Eindlocatie"
-os_hlp_07 4. Vink het vakje naast "Open Checker" aan
-os_hlp_08 5. Selectieer bij Waypoint status "Verberg dit waypoint op de cachepagina"
+os_hlp_07 4. Vink het vakje naast "OpenChecker" aan
+os_hlp_08 5. Selecteer bij Waypoint status "Verberg dit waypoint op de cachepagina"
 os_hlp_09 6. klik op "Voeg waypoint toe"
 os_hlp_10 Er zijn nu 2 dingen aan de cache toegevoegt:
-os_hlp_11 a) On page with your cache description new section "Open Checker" appear with link to Checking coords.
-os_hlp_12 b) On Open Checker page your cache appear on the list.
-os_hlp_13 Hoe verwijder je een cache van Open Checker?
-os_hlp_14 To withdraw coordinates checking availability:
+os_hlp_11 a) Op de cachepagina is nu een sectie zichtbaar met "OpenChecker" en daar staat de link naar de OpenChecker pagina.
+os_hlp_12 b) Op de OpenChecker pagina staat nu de cache in de lijst.
+os_hlp_13 Hoe verwijder je een cache van OpenChecker?
+os_hlp_14 Verwijderen van de controleer mogelijkeid:
 os_hlp_15 1. Open het cache bewerk scherm
 os_hlp_16 2. Klik op bewerken bij "Eindlocatie" in de waypoint lijst
-os_hlp_17 3. Haal het vinkje weg bij "Open Checker"
-os_hlp_18 From now your cache disappears from Open Checker list. Also your cache description page disappeares Open Checker section.
+os_hlp_17 3. Haal het vinkje weg bij "OpenChecker"
+os_hlp_18 Nu is de cache uit de OpenChecker lijst verwijderd. Ook is de OpenChecker sectie van de cachepagina verwijderd.
 ni_ma_takiego_kesza Verkeerde cache waypoint!
 os_wynik Resultaat
 os_zgad Je hebt het te vaak geprobeerd.
