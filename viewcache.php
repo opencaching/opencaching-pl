@@ -141,6 +141,7 @@
 				IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
 				IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
 				IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
+				IFNULL(`cache_location`.`code3`, '') AS `code3`,
 				IFNULL(`cache_location`.`adm4`, '') AS `adm4`
 			             FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `cache_type`, `user`
 				          WHERE `caches`.`user_id` = `user`.`user_id` AND
@@ -413,8 +414,12 @@
 			tpl_set_var('miasto',"");
 			tpl_set_var('dziubek2',"");
 
-			if ($cache_record['adm1'] !="") {tpl_set_var('kraj',$cache_record['adm1']);} else {tpl_set_var('kraj',$cache_record['country_name']);}
-			if ($cache_record['adm3'] !="") {$woj=$cache_record['adm3']; tpl_set_var('woj',$cache_record['adm3']); } else {$woj=$cache_record['adm2']; tpl_set_var('woj',$woj);}
+			if (substr(@tr($cache_record['code3']), -5) == '-todo') $regionTranslation = $cache_record['adm3']; else $regionTranslation = tr($cache_record['code3']);
+			if (substr(@tr($cache_record['code1']), -5) == '-todo') $countryTranslation = $cache_record['adm1']; else $countryTranslation = tr($cache_record['code1']);
+			
+			
+			if ($cache_record['code1'] !="") {tpl_set_var('kraj',$countryTranslation);} else {tpl_set_var('kraj',$cache_record['country_name']);}
+			if ($cache_record['code3'] !="") {$woj=$cache_record['adm3']; tpl_set_var('woj',$regionTranslation); } else {$woj=$cache_record['adm2']; tpl_set_var('woj',$woj);}
 			if ($woj =="") { tpl_set_var('woj',$cache_record['adm4']);}
 			if ($woj !="" || $cache_record['adm3'] !="") tpl_set_var('dziubek1',">");
 
