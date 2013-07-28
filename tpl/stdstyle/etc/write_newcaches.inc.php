@@ -86,8 +86,10 @@
 				`caches`.`terrain` `terrain`,
 				`cache_type`.`icon_large` `icon_large`,
 				IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
+				IFNULL(`cache_location`.`code1`, '') AS `code1`,
 				IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
 				IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
+				IFNULL(`cache_location`.`code3`, '') AS `code3`,
 				IFNULL(`cache_location`.`adm4`, '') AS `adm4`
 			FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `cache_type`, `user`
 			WHERE `caches`.`user_id`=`user`.`user_id`
@@ -111,16 +113,20 @@
 	{
 		$record = sql_fetch_array($rs);
 
-//			$dziubek2="";                                                               
-	    		if ($record['adm1'] !="") {$adm1=$record['adm1'];} else { $adm1=$record['country'];}
-			if ($record['adm3'] !="") {$dziubek=">";} else {$dziubek="";}
-
+		if (substr(@tr($record['code3']), -5) == '-todo') $regionTranslation = $record['adm3']; else $regionTranslation = tr($record['code3']);
+		if (substr(@tr($record['code1']), -5) == '-todo') $countryTranslation = $record['adm1']; else $countryTranslation = tr($record['code1']);
+		
+		// if ($record['adm1'] !="") $countryTranslation=$record['adm1']; else $countryTranslation=$record['country'];
+		if ($record['adm3'] !="") $dziubek=">"; else $dziubek="";
+		
 		$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
-	
+
+			
+			
 		$thisline = $cacheline;
 		$thisline = mb_ereg_replace('{nn}', $i, $thisline);
-		$thisline = mb_ereg_replace('{kraj}',$record['adm1'], $thisline);
-		$thisline = mb_ereg_replace('{woj}',$record['adm3'], $thisline);
+		$thisline = mb_ereg_replace('{kraj}',$countryTranslation, $thisline);
+		$thisline = mb_ereg_replace('{woj}',$regionTranslation, $thisline);
 		$thisline = mb_ereg_replace('{dziubek}',$dziubek, $thisline);
 		$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{wp}', urlencode($record['wp']), $thisline);
@@ -154,8 +160,10 @@
 				`caches`.`terrain` `terrain`,
 				`caches`.`date_hidden`,
 				IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
+				IFNULL(`cache_location`.`code1`, '') AS `code1`,
 				IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
 				IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
+				IFNULL(`cache_location`.`code3`, '') AS `code3`,
 				IFNULL(`cache_location`.`adm4`, '') AS `adm4`
 			FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `user`
 			WHERE `user`.`user_id`=`caches`.`user_id`
@@ -178,15 +186,18 @@
 		{
 			$record = sql_fetch_array($rs);
 
-			$dziubek2="";                                                               
-	    		if ($record['adm1'] !="") {$adm1=$record['adm1'];} else { $adm1=$record['country'];}
+			$dziubek2="";
+			if (substr(@tr($record['code3']), -5) == '-todo') $regionTranslation = $record['adm3']; else $regionTranslation = tr($record['code3']);
+			if (substr(@tr($record['code1']), -5) == '-todo') $countryTranslation = $record['adm1']; else $countryTranslation = tr($record['code1']);
+			                                                               
+	    	// if ($record['adm1'] !="") {$adm1=$record['adm1'];} else { $adm1=$record['country'];}
 			if ($record['adm3'] !="") {$dziubek=">";} else {$dziubek="";}
 
 		
 			$thisline = $cacheline;
 			$thisline = mb_ereg_replace('{nn}', $i + $markerpositions['plain_cache_num'], $thisline);
-			$thisline = mb_ereg_replace('{kraj}',$record['adm1'], $thisline);
-			$thisline = mb_ereg_replace('{woj}',$record['adm3'], $thisline);
+			$thisline = mb_ereg_replace('{kraj}',$countryTranslation, $thisline);
+			$thisline = mb_ereg_replace('{woj}',$regionTranslation, $thisline);
 			$thisline = mb_ereg_replace('{dziubek}',$dziubek, $thisline);
 			$thisline = mb_ereg_replace('{date}', htmlspecialchars(date("d-m-Y", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
 			$thisline = mb_ereg_replace('{wp}', urlencode($record['wp']), $thisline);
