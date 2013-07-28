@@ -290,9 +290,9 @@ class GeoKretyApi
 	}
 	
 	public function mailToRT($errorArray) {
-		$message = "GeoKrety Api timeout errors: date/time: ".date('Y-m-d H:i:s') .' \r\n  \r\n \r\n  \r\n ';
+		$message = "GeoKrety Api timeout errors: date/time: ".date('Y-m-d H:i:s'). "\r\n \r\n";
 		$message .= print_r($errorArray, true);
-		$headers = 	'From: GeoKretyAPI on opencaching.pl' . "\r\n" .
+		$headers = 	'From: GeoKretyAPI on opencaching.pl <noreply@opencaching.pl>' . "\r\n" .
 					'Reply-To: rt@opencaching.pl' . "\r\n" .
 					'X-Mailer: PHP/' . phpversion();
 		$rtAddress = array($this->rtEmailAddress, $this->geoKretyDeveloperEmailAddress);
