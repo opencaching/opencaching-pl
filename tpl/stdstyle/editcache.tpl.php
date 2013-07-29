@@ -267,7 +267,7 @@ function toggleAttr(id)
 		<td>
 			Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" size="7" />
 			Navicache.com: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" size="6"/><br/>
-			TerraCaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="6" size="6"/>
+			OpenCaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7"/>
 			&nbsp;GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" size="6"/>
 
 		</td>
