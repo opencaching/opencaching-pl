@@ -5,7 +5,7 @@ save Opslaan
 Edit Bewerken
 back Terug
 cache_menu Cache Menu
-activation_code_failed Activatie code of e-mail adres klopt niet.<br/>Je account is niet geactiveerd. Controleer de gegevens. Als het probleem blijft, neem dan contact met ons op via: octeam (at) opencaching.pl.
+activation_code_failed Activatie code of e-mail adres klopt niet.<br/>Je account is niet geactiveerd. Controleer de gegevens. Als het probleem blijft, neem dan contact met ons op via: octeam (at) {site_name}.
 email_incorrect E-mail adres is niet correct.
 account_activation Account activatie
 finish_registration_hint Om het registratie proces te voltooien, moet je je e-mail adres bevestigen en de activatie code invullen.
@@ -326,13 +326,13 @@ time_incorrect Incorrecte tijd
 distance_incorrect Incorrecte afstand. Invoer formaat: aa.aaa
 date_incorrect Datum niet correct. Invoer formaat: DD-MM-JJJJ
 no_cache_name De cache heeft geen naam
-new_cache_no_terms De cache is NIET geregistreerd, omdat de Gebruikers overeenkomst van opencaching.pl niet aangevinkt is
+new_cache_no_terms De cache is NIET geregistreerd, omdat de Gebruikers overeenkomst van {site_name} niet aangevinkt is
 html_incorrect Deze HTML code is niet toegestaan.
 type_incorrect Cache soort is niet correct! 
 size_incorrect Cache grootte is niet correct!
 diff_incorrect Moeilijkheid is niet correct!
 virtual_cache_size Cache grootte voor "eventenement" moet zijn "geen behuizing"
-cache_submitted De cache is nu geregistreerd bij opencaching.pl.
+cache_submitted De cache is nu geregistreerd bij {site_name}.
 full_description Beschrijving
 mandatory_field Dit veld is verplicht
 full_desc_long_text Beschrijf hier waarom deze cache geplaatst is en bedenk ook dat dat de cache met de coordinaten en beschrijving te vinden moet zijn. Geef dus alle mogelijke informatie weer.
@@ -443,13 +443,13 @@ show_all_log_entries Toon alle logs
 back_to_the_geocache_listing Terug naar de cachepagina
 register_new  Als nieuwe gebruiker registreren
 password_confirm Bevestig wachtwoord
-register_msg1 Om een gebruikersaccount aan te maken op opencaching.pl, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.                                 
+register_msg1 Om een gebruikersaccount aan te maken op {site_name}, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.                                 
 register_msg2 * zijn verplicht
 register_msg3 Mochten er nog vragen zijn, neem contact met ons op vóór je een account aanmaakt
 register_msg4 Ik heb de <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">gebruikers voorwaarden</a></b> gelezen en begrepen en accepteer deze. 
 register_msg5 Nieuw account is geregistreerd
 register_msg6 De activatiecode is verzonden per e-mail. Volg de instructies op welke in deze e-mail staan.
-register_msg7 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je opencaching.pl account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
+register_msg7 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je {site_name} account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
 total_distance Totale afstand
 send_to_gps Verzend naar GPS
 post_new_log Plaats een nieuwe log voor
@@ -475,7 +475,7 @@ error_email_not_ok E-mail adres is niet geldig
 error_email_exists Dit e-mail adres bestaat al op Opencaching pl.
 error_password_not_ok Wachtwoord bevat ongeldige tekens of is te kort
 error_password_diffs Beide wachtwoorden zijn niet gelijk
-error_tos Je dient de gebruiksvoorwaarden te accepteren, om op Opencaching.pl te registreren
+error_tos Je dient de gebruiksvoorwaarden te accepteren, om op {site_name} te registreren
 step1 Stap 1
 step2 Stap 2
 new_password_msg1 Om je wachtwoord te veranderen moet je een veiligheidscode aanvragen. Deze wordt naar je e-mail adres gestuurd.
@@ -922,7 +922,7 @@ log_mobile_init Start coördinaten
 error_coords_not_ok Verkeerde coördinaten!
 GKApi01 Integratie OC account met GeoKrety.org
 GKApi02 GeoKrety Secid:
-GKApi03 Intregeer je Opencaching.pl account met GeoKrety.org account en kopieer hier jouw <b>Secid</b>. Jouw <b>Secid</b> kun je vinden op GeoKrety pagina in je account details.
+GKApi03 Intregeer je {site_name} account met GeoKrety.org account en kopieer hier jouw <b>Secid</b>. Jouw <b>Secid</b> kun je vinden op GeoKrety pagina in je account details.
 GKApi04 (Hier)
 GKApi05 Log GeoKrety direkt uit je inventaris:
 GKApi06 Log GeoKrety nu
@@ -973,7 +973,7 @@ log15 uur
 log16 verversen
 log17 Open het log scherm
 date Datum
-myprofile01 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je opencaching.pl account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
+myprofile01 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je {site_name} account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
 myprofile02 Ja, ik heb mij aangemeld als vrijwillige hulp voor beginnende cachers. Zie:&nbsp;
 myprofile03 Cache hulp
 myprofile04 Ja, ik wil mij aanmelden als vrijwillige hulp voor beginnende cachers.
