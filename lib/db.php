@@ -33,7 +33,7 @@ class dataBase
 	 * @var object
 	 */
 	private $dbData = null;
-
+	private $lastInsertId;
 
 	function __construct($debug = false) {
 	 	include __DIR__.'/settings.inc.php';
@@ -88,7 +88,8 @@ class dataBase
 	 * @return id of last inserted row
 	 */
 	public function lastInsertId() {
-		return $this->lastInsertId();
+		// return $this->dbData->lastInsertId();
+		return $this->lastInsertId;
 	}
 	
 	/**
@@ -279,6 +280,7 @@ class dataBase
 
 			$this->dbData ->setFetchMode(PDO::FETCH_ASSOC);
 			$this->dbData ->execute();
+			$this->lastInsertId = $dbh->lastInsertId();
 		} catch (PDOException $e) {
 			$message = 'db.php, # ' . __line__ .', PDO error: ' . $e .'<br />
 					Database Query: '.$query.'<br>
@@ -296,6 +298,7 @@ class dataBase
 		if ($this->debug) {
 			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
 		}
+		return true;
 	}
 	
 	private function errorMail($message) {
