@@ -24,16 +24,6 @@ if (!isset($powerTrailModuleSwitchOn) || $powerTrailModuleSwitchOn !== 1) header
 //Preprocessing
 if ($error == false)
 {
-	// czy user zalogowany ?
-	if ($usr == false)
-	{
-		// nie zalogowany wiec przekierowanie na strone z logowaniem
-		$target = urlencode(tpl_get_current_page());
-		tpl_redirect('login.php?target='.$target);
-	}
-	else
-	{
-		// wskazanie pliku z kodem html ktory jest w tpl/stdstyle/
 		$tplname = 'powerTrail';
 		
 		include_once('powerTrail/powerTrailController.php');
@@ -49,7 +39,7 @@ if ($error == false)
 		tpl_set_var('powerTrailLogo', '');
 		tpl_set_var('mainPtInfo', '');
 
-		$ptMenu = new powerTrailMenu;
+		$ptMenu = new powerTrailMenu($usr);
 		tpl_set_var("powerTrailMenu", buildPowerTrailMenu($ptMenu->getPowerTrailsMenu()));
 
 		$pt = new powerTrailController($usr);
@@ -72,16 +62,30 @@ if ($error == false)
 			case 'showSerie':
 				$ptDbRow = $pt->getPowerTrailDbRow();
 				$ptOwners = $pt->getPtOwners();
-				if ($ptDbRow['status'] != 0 || array_key_exists($usr['userid'], $ptOwners)) {
+				tpl_set_var('powerTrailId', $ptDbRow['id']);
+				$userIsOwner = array_key_exists($usr['userid'], $ptOwners);
+				if ($ptDbRow['status'] != 0 || $userIsOwner) {
 					tpl_set_var('displaySelectedPowerTrail', 'block');
-					tpl_set_var('powerTrailName', ' - '.$ptDbRow['name']);
+					tpl_set_var('powerTrailName', $ptDbRow['name']);
+					tpl_set_var('powerTrailDescription', $ptDbRow['description']);
+					tpl_set_var('powerTrailDateCreated', $ptDbRow['dateCreated']);
+					tpl_set_var('powerTrailCacheCount', $ptDbRow['cacheCount']);
+					tpl_set_var('powerTrailOwnerList', displayPtOwnerList($ptOwners));
+					if ($userIsOwner){
+						tpl_set_var('cacheCountUserActions', '<a href="#" onclick="ajaxCountPtCaches('.$ptDbRow['id'].')">'.tr('pt033').'</a>');
+						tpl_set_var('ownerListUserActions', '<a id="dddx" href="#" onclick="clickShow(\'addUser\', \'dddx\'); ">'.tr('pt030').'</a> <span style="display: none" id="addUser">'.tr('pt028').'<input type="text" id="addNewUser2pt" /><br /><input onclick="ajaxAddNewUser2pt('.$ptDbRow['id'].')" type="submit" value="'.tr('pt032').'"><input onclick="cancellAddNewUser2pt()" type="submit" value="'.tr('pt031').'"></span>');
+					} else {
+						tpl_set_var('cacheCountUserActions', '');
+						tpl_set_var('ownerListUserActions', '');
+					}
+					
 					if ($ptDbRow['image'] == '') $image = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
 					else $image = $ptDbRow['image'];
 					tpl_set_var('powerTrailLogo', $image);
 					tpl_set_var('PowerTrailCaches', displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache()));
 					tpl_set_var('powerTrailserStats', displayPowerTrailserStats($pt->getCountCachesAndUserFoundInPT()));
-					tpl_set_var('powerTrailLogo', '');
 					powerTrailController::debug($pt->getPowerTrailDbRow(), __LINE__);
+					powerTrailController::debug($ptOwners, __LINE__);
 				} else {
 					tpl_set_var('mainPtInfo', tr('pt018'));
 				}
@@ -96,7 +100,7 @@ if ($error == false)
 
 
 		tpl_BuildTemplate();
-	}
+	
 }
 
 // budujemy kod html ktory zostaje wsylany do przegladraki
@@ -201,5 +205,20 @@ function displayPowerTrailserStats($stats)
 	$stats2display = $stats['cachesFoundByUser'] * 100 / $stats['totalCachesCountInPowerTrail'] .'% ('  .tr('pt017') .' ' . $stats['cachesFoundByUser'].' '.tr('pt016').' '.$stats['totalCachesCountInPowerTrail'].' '.tr('pt014');
 	// powerTrailController::debug($stats);
 	return $stats2display;
+}
+
+function displayPtOwnerList($ptOwners)
+{
+	$ownerList = '';
+	foreach ($ptOwners as $userId => $user) {
+		$ownerList .= '<a href="viewprofile.php?userid='.$userId.'">'.$user['username'].'</a>';
+		if($userId != $_SESSION['user_id']) {
+			$ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt('.$userId.');" src="tpl/stdstyle/images/free_icons/cross.png" width=10 title="'.tr('pt029').'" /></span>, ';
+		} else {
+			$ownerList .= ', ';
+		}
+	}
+	$ownerList = substr($ownerList, 0, -2);
+	return $ownerList;
 }
 ?>

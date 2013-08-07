@@ -1,5 +1,5 @@
 <?php
-require_once 'lib/db.php';
+require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/powerTrailAPI.php';
 
 /**
@@ -77,8 +77,10 @@ class powerTrailController {
 		$this->allCachesOfSelectedPt = $db->dbResultFetchAll();
 		
 		$qr = 'SELECT `cache_id`, `date`, `text_html`, `text`  FROM `cache_logs` WHERE `cache_id` IN ( SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` = :1) AND `user_id` = :2 AND `deleted` = 0 AND `type` = 1';
-		$db->multiVariableQuery($qr, $powerTrailId, $_SESSION['user_id']);
+		isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId = 0;
+		$db->multiVariableQuery($qr, $powerTrailId, $userId);
 		$powerTrailCacheLogsArr = $db->dbResultFetchAll();
+		$powerTrailCachesUserLogsByCache = array();
 		foreach ($powerTrailCacheLogsArr as $log) {
 			$powerTrailCachesUserLogsByCache[$log['cache_id']] = array (
 				'date' => $log['date'],
@@ -177,13 +179,16 @@ class powerTrailController {
 		$this->userPTs = $userPTs;
 	}
 	
-	private function findPtOwners($powerTrailId){
-		$query = 'SELECT `userId`, `privileages` FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1';
+	public function findPtOwners($powerTrailId){
+		$query = 'SELECT `userId`, `privileages`, username FROM `PowerTrail_owners`, user WHERE `PowerTrailId` = :1 AND PowerTrail_owners.userId = user.user_id';
 		$db = new dataBase();
 		$db->multiVariableQuery($query, $powerTrailId);
 		$owner = $db->dbResultFetchAll();
 		foreach ($owner as $user) {
-			$owners[$user['userId']] = $user['privileages'];
+			$owners[$user['userId']] = array (
+				'privileages' => $user['privileages'],
+				'username' => $user['username'],
+			);
 		}
 		$this->ptOwners = $owners;
 	}

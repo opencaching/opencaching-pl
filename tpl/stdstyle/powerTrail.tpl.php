@@ -4,6 +4,150 @@
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript"> 
 <!--
+
+function cancellAddNewUser2pt(){
+	event.preventDefault();
+	$('#addUser').hide();
+	$('#dddx').show();
+	$('.removeUserIcon').hide();
+}
+function ajaxRemoveUserFromPt(userId){
+	
+	$('#ajaxLoaderOwnerList').show();
+	$('#ownerListUserActions').hide();
+	
+	request = $.ajax({
+    	url: "powerTrail/ajaxremoveUserFromPt.php",
+    	type: "post",
+    	data:{projectId: $('#xmd34nfywr54').val(), userId: userId },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+       	$('#powerTrailOwnerList').html(response); 
+        console.log("Hooray, it worked!"+response);
+        
+    });
+
+    // callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+    	$('#ajaxLoaderOwnerList').hide();
+    	$('#addUser').hide();
+    	$('#ownerListUserActions').show();
+    	$('.removeUserIcon').hide();
+    	cancellAddNewUser2pt();
+    });
+
+    // prevent default posting of form
+    event.preventDefault();
+
+	return false;
+	
+		
+}
+
+function ajaxAddNewUser2pt(ptId) {
+	$('#ajaxLoaderOwnerList').show();
+	$('#ownerListUserActions').hide();
+	
+	request = $.ajax({
+    	url: "powerTrail/ajaxAddNewUser2pt.php",
+    	type: "post",
+    	data:{projectId: ptId, userId: $('#addNewUser2pt').val()},
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+       	$('#powerTrailOwnerList').html(response); 
+        console.log("Hooray, it worked!"+response);
+        
+    });
+
+    // callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+    	$('#ajaxLoaderOwnerList').hide();
+    	$('#addUser').hide();
+    	$('#ownerListUserActions').show();
+    	$('.removeUserIcon').hide();
+    	cancellAddNewUser2pt();
+    });
+
+    // prevent default posting of form
+    event.preventDefault();
+
+	return false;
+}
+
+function clickShow(section, section2){
+	event.preventDefault();
+	$('#'+section2).hide();
+	$('#'+section).show();
+	$('.removeUserIcon').show();
+}
+
+var request;
+function ajaxCountPtCaches(ptId) {
+	$('#ajaxLoaderCacheCount').show();
+	$('#cacheCountUserActions').hide();
+	request = $.ajax({
+    	url: "powerTrail/ajaxCachePtCount.php",
+    	type: "post",
+    	data:{projectId: ptId},
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+       	$('#powerTrailCacheCount').html(response); 
+        console.log("Hooray, it worked!"+response);
+        
+    });
+
+    // callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+    	$('#ajaxLoaderCacheCount').hide();
+    	$('#cacheCountUserActions').show();
+    });
+
+    // prevent default posting of form
+    event.preventDefault();
+
+	return false;
+	}
+	
+	
+	
+
+
 function ajaxAddCacheToPT(cacheId)
 {
 	var projectId = $('#ptSelectorForCache'+cacheId).val();
@@ -55,9 +199,36 @@ function toggle() {
 // -->
 </script>
 
+<style>
+#linearBg1 {
+	height: 25px;
+	color: #E7E5DC;
+	font-family: verdana;
+	font-size: 12px;
+	font-weight: bold;
+	padding-left:8px;
+	background-color: #1a82f7; background-repeat: repeat-y; 
+	background: -webkit-gradient(linear, left top, right top, from(#1a82f7), to(#2F2727)); 
+	background: -webkit-linear-gradient(left, #2F2727, #1a82f7); 
+	background: -moz-linear-gradient(left, #2F2727, #1a82f7); 
+	background: -ms-linear-gradient(left, #2F2727, #1a82f7); 
+	background: -o-linear-gradient(left, #2F2727, #1a82f7);
+	-moz-border-top-right-radius: 8px;
+	-webkit-border-top-right-radius: 8px;
+	border-top-right-radius: 8px;
+}
+.userActions {
+	font-family: verdana;
+	font-size: 9px;
+}
+.inlineTd{
+	padding:15px;
+}
+</style>
+
 <body>
 	
-	
+<input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
 
 	
 <div class="content2-pagetitle"> 
@@ -138,15 +309,53 @@ function toggle() {
 
 <div style="display: {displaySelectedPowerTrail}">
 	
-	<table>
+	<table border=0 width=100%>
 		<tr>
-			<td><img src={powerTrailLogo} /></td>
-			<td>{powerTrailLogo} {powerTrailName}</td>
+			<td width=251><img src="{powerTrailLogo}" /></td>
+			<td align="center">
+				{powerTrailName} [ ? TU WSTAWIĆ MAPĘ ? ]
+				
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" id="linearBg1">{{pt019}}</td>
+		</tr>
+		<tr>
+			<td>{{pt022}}</td><td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span></td><td><span class="userActions" id="cacheCountUserActions">{cacheCountUserActions}</span><span style="display: none" id="ajaxLoaderCacheCount"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></div></td>
+		</tr>
+		<tr>
+			<td>{{pt023}}</td><td>sportowy</td>
+		</tr>
+		<tr>
+			<td>{{pt024}}</td><td>{powerTrailDateCreated}</td>
+		</tr>
+		<tr>
+			<td>{{pt025}}</td><td><span id="powerTrailOwnerList">{powerTrailOwnerList}</span></td>
+			<td><span class="userActions" id="ownerListUserActions">{ownerListUserActions}</span><span style="display: none" id="ajaxLoaderOwnerList"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></div></td>
+		</tr>
+		
+		<tr>
+			<td colspan="3" id="linearBg1">{{pt034}}</td>
+		</tr>
+		<tr>
+			<td class="inlineTd" colspan="2"><div id="powerTrailDescription">{powerTrailDescription}</div></td>
 		</tr>
 	</table>
 	
-	<table>
+	<table border=0 width=100%>
+	<tr>
+		<td colspan="2" id="linearBg1">{{pt020}} {powerTrailName}</td>
+	</tr>
 	{PowerTrailCaches}
 	</table>
-	<p>{{pt015}}: {powerTrailserStats}</p>
+	
+	<table border=0 width=100%>
+		<tr>
+			<td id="linearBg1">{{pt021}} {powerTrailName}</td>
+		</tr>
+		<tr>
+			<td>{{pt015}}: {powerTrailserStats}</td>
+		</tr>
+	</table>
+	
 </div>
