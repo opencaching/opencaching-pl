@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/../lib/db.php';
-require_once __DIR__.'/powerTrailAPI.php';
+require_once __DIR__.'/powerTrailBase.php';
 
 /**
  * 
@@ -29,7 +29,7 @@ class powerTrailController {
 		// self::debug($_POST, 'POST', __LINE__);
 		if(isset($_POST['createNewPowerTrail'])) $this->action = 'createNewPowerTrail';
 		
-		$this->ptAPI = new powerTrailApi;
+		$this->ptAPI = new powerTrailBase;
 		
 		$this->user = $user;
 	}
@@ -58,7 +58,7 @@ class powerTrailController {
 
 	private function getAllPowerTrails()
 	{
-		$q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount > '.powerTrailApi::minimumCacheCount;
+		$q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount > '.powerTrailBase::minimumCacheCount .' ORDER BY cacheCount DESC';
 		$db = new dataBase();
 		$db->multiVariableQuery($q);
 		$this->allSeries = $db->dbResultFetchAll();
@@ -67,7 +67,7 @@ class powerTrailController {
 	private function getPowerTrailCaches()
 	{
 		$powerTrailId = isset($_REQUEST['ptrail'])?$_REQUEST['ptrail']:0;
-		$db = new dataBase(true);
+		$db = new dataBase();
 		$ptq = 'SELECT * FROM `PowerTrail` WHERE `id` = :1 LIMIT 1';
 		$db->multiVariableQuery($ptq, $powerTrailId);
 		$this->powerTrailDbRow = $db->dbResultFetch();
@@ -139,7 +139,7 @@ class powerTrailController {
 	private function createNewPowerTrail()
 	{
 		$this->action = 'createNewSerie';	
-		self::debug($_POST, 'POST', __LINE__);
+		// self::debug($_POST, 'POST', __LINE__);
 		if( $_POST['powerTrailName'] != '' && $_POST['type'] != 0 && $_POST['status'] != 0 && $_POST['description'] != '')
 		{
 			$query = "INSERT INTO `PowerTrail`(`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`) VALUES (:1,:2,:3,NOW(),0,:4)";
@@ -171,12 +171,13 @@ class powerTrailController {
 	
 	private function getUserPTs()
 	{
-		$query = "SELECT * FROM `PowerTrail`, PowerTrail_owners  WHERE  PowerTrail_owners.userId = :1 AND .PowerTrailId = PowerTrail.id";
+		$query = "SELECT * FROM `PowerTrail`, PowerTrail_owners  WHERE  PowerTrail_owners.userId = :1 AND PowerTrail_owners.PowerTrailId = PowerTrail.id";
 		$db = new dataBase();
 		$db->multiVariableQuery($query, $this->user['userid']);
 		$userPTs = $db->dbResultFetchAll();
-		//self::debug($userPTs, 'user Power Trails', __LINE__);
 		$this->userPTs = $userPTs;
+		// self::debug($userPTs, 'user Power Trails', __LINE__);
+		// self::debug($this->user['userid'], 'user Power Trails', __LINE__);
 	}
 	
 	public function findPtOwners($powerTrailId){

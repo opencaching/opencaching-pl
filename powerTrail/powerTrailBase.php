@@ -1,8 +1,9 @@
 <?php
+require_once __DIR__.'/../lib/db.php';
 /**
  * 
  */
-class powerTrailApi{
+class powerTrailBase{
 		
 	const minimumCacheCount = 0;
 	
@@ -44,4 +45,34 @@ class powerTrailApi{
 		);	
 		*/
 	}
+	
+	/**
+	 * check if user $userId is owner of $powerTrailId.
+	 * @return 0 or 1
+	 */
+	public static function checkIfUserIsPowerTrailOwner($userId, $powerTrailId){
+		$db = new dataBase;
+		$query = 'SELECT count(*) AS `checkResult` FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 AND `userId` = :2' ;
+		$db->multiVariableQuery($query, $powerTrailId, $userId);
+		$result = $db->dbResultFetchAll();
+		return $result[0]['checkResult'];
+	}
+
+	/**
+	 * here power Trail types
+	 */
+	public static function getPowerTrailTypes(){
+		return array (
+			1 => array ( //sport
+				'translate' => 'pt004',
+			),
+			2 => array ( // touring
+				'translate' => 'pt005',
+			),
+			
+		);
+					
+	}
+
+
 }

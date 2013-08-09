@@ -11,8 +11,8 @@ if(!isset($_SESSION['user_id'])){
 	exit;
 }
 require_once __DIR__.'/../lib/db.php';
-require_once __DIR__.'/powerTrailAPI.php';
-$ptAPI = new powerTrailApi;
+require_once __DIR__.'/powerTrailBase.php';
+$ptAPI = new powerTrailBase;
 $projectId = $_REQUEST['projectId'];
 $cacheId = $_REQUEST['cacheId'];
 $db = new dataBase();

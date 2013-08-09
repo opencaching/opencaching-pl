@@ -12,13 +12,13 @@ class powerTrailMenu
 		if ($user) {		
 			$this->menu = array (
 				1 => array (
-					'name' => tr('pt003'),
-					'action'=> 'createNewSerie',
+					'name' => tr('pt012'),
+					'action'=> 'showAllSeries',
 					'script' => 'powerTrail.php',
 				),
 				2 => array (
-					'name' => tr('pt012'),
-					'action'=> 'showAllSeries',
+					'name' => tr('pt003'),
+					'action'=> 'createNewSerie',
 					'script' => 'powerTrail.php',
 				),
 				3 => array (

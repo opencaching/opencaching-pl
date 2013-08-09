@@ -6,7 +6,7 @@ if(!isset($_SESSION['user_id'])){
 }
 require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/powerTrailController.php';
-$ptAPI = new powerTrailApi;
+$ptAPI = new powerTrailBase;
 $db = new dataBase(false);
 
 $projectId = $_REQUEST['projectId'];
