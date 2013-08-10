@@ -31,7 +31,7 @@ if ($error == false)
 		
 		include_once('powerTrail/powerTrailController.php');
 		include_once('powerTrail/powerTrailMenu.php');
-
+		if (isset($_SESSION['user_id'])) tpl_set_var('displayAddCommentSection', 'block'); else  tpl_set_var('displayAddCommentSection', 'none');
 		tpl_set_var('displayCreateNewPowerTrailForm', 'none');
 		tpl_set_var('displayUserCaches', 'none');
 		tpl_set_var('displayPowerTrails', 'none');
@@ -42,6 +42,7 @@ if ($error == false)
 		tpl_set_var('powerTrailLogo', '');
 		tpl_set_var('mainPtInfo', '');
 		tpl_set_var('ptTypeSelector', displayPtTypesSelector('type'));
+		
 
 		$ptMenu = new powerTrailMenu($usr);
 		tpl_set_var("powerTrailMenu", buildPowerTrailMenu($ptMenu->getPowerTrailsMenu()));
@@ -78,11 +79,18 @@ if ($error == false)
 					tpl_set_var('powerTrailDateCreated', substr($ptDbRow['dateCreated'], 0, -9));
 					tpl_set_var('powerTrailCacheCount', $ptDbRow['cacheCount']);
 					tpl_set_var('powerTrailOwnerList', displayPtOwnerList($ptOwners));
+					tpl_set_var('date', date('Y-m-d'));
 					if ($userIsOwner){
-						tpl_set_var('cacheCountUserActions', '<a href="#" class="editPtDataButton" onclick="ajaxCountPtCaches('.$ptDbRow['id'].')">'.tr('pt033').'</a>');
-						tpl_set_var('ownerListUserActions', '<a id="dddx" href="#" class="editPtDataButton" onclick="clickShow(\'addUser\', \'dddx\'); ">'.tr('pt030').'</a> <span style="display: none" id="addUser">'.tr('pt028').'<input type="text" id="addNewUser2pt" /><br /><a href="#" class="editPtDataButton" onclick="cancellAddNewUser2pt()" >'.tr('pt031').'</a><a href="#" class="editPtDataButton" onclick="ajaxAddNewUser2pt('.$ptDbRow['id'].')" >'.tr('pt032').'</a></span>');
+						tpl_set_var('displayAddCachesButtons', 'block');
+						tpl_set_var('ptTypeUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="togglePtTypeEdit();">'.tr('pt046').'</a>');
+						tpl_set_var('ptDateUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="togglePtDateEdit();">'.tr('pt045').'</a>');
+						tpl_set_var('cacheCountUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="ajaxCountPtCaches('.$ptDbRow['id'].')">'.tr('pt033').'</a>');
+						tpl_set_var('ownerListUserActions', '<a id="dddx" href="javascript:void(0)" class="editPtDataButton" onclick="clickShow(\'addUser\', \'dddx\'); ">'.tr('pt030').'</a> <span style="display: none" id="addUser">'.tr('pt028').'<input type="text" id="addNewUser2pt" /><br /><a href="javascript:void(0)" class="editPtDataButton" onclick="cancellAddNewUser2pt()" >'.tr('pt031').'</a><a href="javascript:void(0)" class="editPtDataButton" onclick="ajaxAddNewUser2pt('.$ptDbRow['id'].')" >'.tr('pt032').'</a></span>');
 						tpl_set_var('ptTypesSelector', displayPtTypesSelector('ptType1', $ptDbRow['type']));
 					} else {
+						tpl_set_var('displayAddCachesButtons', 'none');
+						tpl_set_var('ptTypeUserActions', '');
+						tpl_set_var('ptDateUserActions', '');
 						tpl_set_var('cacheCountUserActions', '');
 						tpl_set_var('ownerListUserActions', '');
 					}
@@ -117,13 +125,13 @@ if ($error == false)
 function buildPowerTrailMenu($menuArray)
 {
 	
-	// <li class="topmenu"><a href="#" style="height:16px;line-height:16px;"><span>Item 1</span></a>
+	// <li class="topmenu"><a href="javascript:void(0)" style="height:16px;line-height:16px;"><span>Item 1</span></a>
 	// <ul>
-		// <li class="subfirst"><a href="#">Item 1 0</a></li>
-		// <li class="sublast"><a href="#">Item 1 1</a></li>
+		// <li class="subfirst"><a href="javascript:void(0)">Item 1 0</a></li>
+		// <li class="sublast"><a href="javascript:void(0)">Item 1 1</a></li>
 	// </ul></li>
-	// <li class="topmenu"><a href="#" style="height:16px;line-height:16px;">Item 3</a></li>
-	// <li class="topmenu"><a href="#" style="height:16px;line-height:16px;">Item 2</a></li>
+	// <li class="topmenu"><a href="javascript:void(0)" style="height:16px;line-height:16px;">Item 3</a></li>
+	// <li class="topmenu"><a href="javascript:void(0)" style="height:16px;line-height:16px;">Item 2</a></li>
 	
 	$menu = '';
 	foreach ($menuArray as $key => $menuItem) {
@@ -219,7 +227,7 @@ function getFoundCacheTypesIcons($cacheTypesIcons)
 
 function displayPowerTrailserStats($stats)
 {
-	$stats2display = $stats['cachesFoundByUser'] * 100 / $stats['totalCachesCountInPowerTrail'] .'% ('  .tr('pt017') .' ' . $stats['cachesFoundByUser'].' '.tr('pt016').' '.$stats['totalCachesCountInPowerTrail'].' '.tr('pt014');
+	$stats2display = round($stats['cachesFoundByUser'] * 100 / $stats['totalCachesCountInPowerTrail'], 2) .'% ('  .tr('pt017') .' ' . $stats['cachesFoundByUser'].' '.tr('pt016').' '.$stats['totalCachesCountInPowerTrail'].' '.tr('pt014');
 	// powerTrailController::debug($stats);
 	return $stats2display;
 }
@@ -244,7 +252,7 @@ function displayPtDescriptionUserAction($powerTrailId) {
 	$result = '';	
 	if (isset($_SESSION['user_id'])){
 		if (powerTrailBase::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 1){
-			$result = '<a href="#" id="toggleEditDescButton" class="editPtDataButton" onclick="toggleEditDesc();">'.tr('pt043').'</a>';
+			$result = '<a href="javascript:void(0)" id="toggleEditDescButton" class="editPtDataButton" onclick="toggleEditDesc();">'.tr('pt043').'</a>';
 		}
 	}
 	return $result;

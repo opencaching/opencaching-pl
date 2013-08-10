@@ -1,12 +1,21 @@
 <?php 
 // 050242-blue-jelly-icon-natural-wonders-flower13-sc36.png
+// <script src="tpl/stdstyle/js/jquery-2.0.3.js"></script>
 ?>
-<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
+<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
+
+<link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
+
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.core.js"></script>
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.datepicker.js"></script>
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
+
 <script type="text/javascript">
 tinymce.init({
     selector: "textarea",
     width: 600,
+    height: 350,
     menubar: false,
 	toolbar_items_size: 'small',
     language : "{language4js}",
@@ -17,35 +26,352 @@ tinymce.init({
      plugins: [
         "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-        "table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
+        "table contextmenu directionality emoticons template textcolor paste textcolor"
      ],
  });
+ 
 </script>
 <script type="text/javascript"> 
 <!--
+$(function() {
+	$.datepicker.setDefaults($.datepicker.regional['pl']);
+    $('#powerTrailDateCreatedInput').datepicker({
+		dateFormat: 'yy-mm-dd',
+		regional: '{language4js}'
+	}).val();
+    $('#commentDateTime').datepicker({
+		dateFormat: 'yy-mm-dd',
+		regional: '{language4js}'
+	}).val();
+	ajaxGetComments(0, 8);
+}); 
+
+function ajaxAddComment(){
+	
+	// // event.preventDefault();
+	var newComment = tinyMCE.activeEditor.getContent();
+	
+	request = $.ajax({
+    	url: "powerTrail/ajaxAddComment.php",
+    	type: "post",
+    	data:{projectId: $('#xmd34nfywr54').val(), text: newComment, type: $('#commentType').val(), datetime: $('#commentDateTime').val() },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	// $('#ptComments').html(response);
+        console.log("Hooray, it worked!"+response);
+    });
+    toggleAddComment();
+    ajaxGetComments(0, 8);
+}
+
+function toggleAddComment(){
+	// event.preventDefault();
+	if ($('#toggleAddComment').is(":visible")){
+		$('#toggleAddComment').fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+		    	$('#addComment').fadeIn(800);
+		    }, 801);
+		$('html, body').animate({
+        	scrollTop: $("#animateHere").offset().top
+    	}, 2000);    
+		});
+	} else {
+		$('#addComment').fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+		    	$('#toggleAddComment').fadeIn(800);
+		    }, 801);
+		});	
+	}
+}
+
+function ajaxGetComments(start, limit){
+	request = $.ajax({
+    	url: "powerTrail/ajaxGetComments.php",
+    	type: "post",
+    	data:{projectId: $('#xmd34nfywr54').val(), start: start, limit: limit },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	$('#ptComments').html(response);
+        console.log("Hooray, it worked!"+response);
+    });
+}
+
+function toggleSearchCacheSection(){
+	// event.preventDefault();
+	if ($('#toggleSearchCacheSection2').is(":visible")){
+		$('#toggleSearchCacheSection2').fadeOut(800);
+		$('#toggleSearchCacheSection0').fadeOut(800);
+		
+		$(function() {
+			setTimeout(function() {
+	       		$('#searchCacheSection').fadeIn(800);
+	       		$('#toggleSearchCacheSection1').fadeIn(800);
+	    	}, 801);
+		});
+	} else {
+   		$('#searchCacheSection').fadeOut(800);
+   		$('#toggleSearchCacheSection1').fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+				$('#toggleSearchCacheSection2').fadeIn(800);
+				$('#toggleSearchCacheSection0').fadeIn(800);
+				$('#newCacheName').html('');
+				$('#newCacheNameId').val('');
+				$('#CacheWaypoint').val('OP');
+	    	}, 801);
+		});
+	}
+	
+}
+function ajaxAddOtherUserCache(){
+	$('#AloaderNewCacheAdding').show();
+	$('#searchCacheSection').fadeOut(500);
+	var newCacheId = $('#newCacheNameId').val();
+	//ajax add cache
+	
+	
+	request = $.ajax({
+    	url: "powerTrail/ajaxAddCacheToPt.php",
+    	type: "post",
+    	data:{projectId: $('#xmd34nfywr54').val(), cacheId: newCacheId },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	$("#AloaderNewCacheAddingOKimg").fadeIn(800);
+    	$(function() {
+	    	setTimeout(function() {
+       			$("#AloaderNewCacheAddingOKimg").fadeOut(1000)
+    		}, 3000);
+		});
+        console.log("Hooray, it worked!"+response);
+    });
+
+    // callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+    	toggleSearchCacheSection();
+    	$('#AloaderNewCacheAdding').hide();
+    	
+    });
+
+    // prevent default posting of form
+    // event.preventDefault();
+
+	return false;
+	
+	
+}
+
+function checkCacheByWpt(){
+	$('#newCache2ptAddButton').hide();
+	$('#newCacheName').html('');
+	var waypoint = $('#CacheWaypoint').val();
+	if(waypoint.length >= 6) {
+			// alert(waypoint);
+			var cacheName = ajaxRetreiveCacheName(waypoint);
+			// alert(cacheName); 
+	}
+}
+
+function ajaxRetreiveCacheName(waypoint) {
+
+	$('#AloaderNewCacheSearch').show();
+
+	request = $.ajax({
+    	url: "powerTrail/ajaxRetreiveCacheName.php",
+    	type: "post",
+    	data:{waypoint: waypoint },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	var cacheInfoArr = response.split('!1@$%3%7%4@#23557&^%%4#@2$LZA**&6545$###');
+		$('#AloaderNewCacheSearch').hide();
+		$('#newCacheName').html(cacheInfoArr[0]);
+		$('#newCacheNameId').val(cacheInfoArr[1]);
+		if (cacheInfoArr[1] != ''){
+			$('#newCache2ptAddButton').fadeIn(500);
+		}       
+        console.log("Hooray, it worked! "+response);
+    });
+
+    // callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        $('#AloaderNewCacheSearch').hide();
+        console.error("The following error occured: "+textStatus, errorThrown);
+    });
+	
+return false;
+}
+
+function ajaxUpdatType(){
+	// event.preventDefault();
+	$("#ptTypeNameEdit").hide();
+	$('#ajaxLoaderType').show();
+	
+	var newType = $("#ptType1").val();
+	
+	request = $.ajax({
+    	url: "powerTrail/ajaxUpdateType.php",
+    	type: "post",
+    	data:{projectId: $('#xmd34nfywr54').val(), newType: newType },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	$("#ptTypeOKimg").show();
+    	var newTypeName = $("#ptType1 option[value='"+newType+"']").text();
+    	$('#ptTypeName').html(newTypeName);
+    	$(function() {
+	    	setTimeout(function() {
+       			$("#ptTypeOKimg").fadeOut(1000)
+    		}, 3000);
+		  });
+       	$('#powerTrailDateCreated').html($("#powerTrailDateCreatedInput").val()); 
+        console.log("Hooray, it worked!"+response);
+    });
+
+    // callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+   		$('#ptTypeName').fadeIn(800);
+		$("#ptTypeUserActionsDiv").fadeIn(800);
+		
+		$('#ajaxLoaderType').hide();
+    });
+
+    // prevent default posting of form
+    // event.preventDefault();
+
+	return false;
+	
+	
+}
+
+function ajaxUpdateDate(){
+	$("#powerTrailDateCreatedEdit").hide();
+	$("#ajaxLoaderPtDate").show();
+	
+
+	request = $.ajax({
+    	url: "powerTrail/ajaxUpdateDate.php",
+    	type: "post",
+    	data:{projectId: $('#xmd34nfywr54').val(), newDate: $("#powerTrailDateCreatedInput").val() },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	$("#ptDateOKimg").fadeIn(800);
+    	$(function() {
+	    	setTimeout(function() {
+       			$("#ptDateOKimg").fadeOut(1000)
+    		}, 3000);
+		  });
+       	$('#powerTrailDateCreated').html($("#powerTrailDateCreatedInput").val()); 
+        console.log("Hooray, it worked!"+response);
+    });
+
+    // callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+   		$("#powerTrailDateCreated").fadeIn(800);
+		$("#ptDateUserActionsDiv").fadeIn(800);
+		$("#ajaxLoaderPtDate").hide();
+    });
+
+    // prevent default posting of form
+    // event.preventDefault();
+
+	return false;
+	
+}
+
+function togglePtTypeEdit(){
+	// event.preventDefault();
+	$("#ptTypeName").fadeOut(800);
+	$("#ptTypeUserActionsDiv").fadeOut(800);
+	setTimeout(function() {
+		$("#ptTypeNameEdit").fadeIn(800);
+	}, 800);
+}
+
+function togglePtDateEdit(){
+	// event.preventDefault();
+	$("#powerTrailDateCreated").fadeOut(800);
+	$("#ptDateUserActionsDiv").fadeOut(800);
+	setTimeout(function() {
+       	$("#powerTrailDateCreatedEdit").fadeIn(800);
+    }, 800);
+}
+
 function cancelDescEdit() {
-	event.preventDefault();
-	$("#powerTrailDescription").show();
-	$("#toggleEditDescButton").show();
-	$("#powerTrailDescriptionEdit").hide();
-	$("#editDescSaveButton").hide();
-	$("#editDescCancelButton").hide();
+	// event.preventDefault();
+	$("#powerTrailDescriptionEdit").fadeOut(800);
+	$("#editDescSaveButton").fadeOut(800);
+	$("#editDescCancelButton").fadeOut(800);
+	setTimeout(function() {
+		$("#powerTrailDescription").fadeIn(800);
+		$("#toggleEditDescButton").fadeIn(800);
+	}, 801);
 }
 function toggleEditDesc() {
-	event.preventDefault();
-	$("#powerTrailDescription").hide();
-	$("#toggleEditDescButton").hide();
-	$("#powerTrailDescriptionEdit").show();
-	$("#editDescSaveButton").show();
-	$("#editDescCancelButton").show();
+	// event.preventDefault();
+	
+	$('html, body').animate({
+        scrollTop: $("#ptdesc").offset().top
+    }, 2000);
+	
+	$("#powerTrailDescription").fadeOut(800);
+	$("#toggleEditDescButton").fadeOut(700);
+	setTimeout(function() {
+		$("#powerTrailDescriptionEdit").fadeIn(800);
+		$("#editDescSaveButton").fadeIn(900);
+		$("#editDescCancelButton").fadeIn(1000);
+	}, 801);
 }
 function ajaxUpdatePtDescription(){
 	var ptDescription = tinymce.get('descriptionEdit').getContent();
+	// tinyMCE.activeEditor.getContent()
 	// alert(ptDescription);
 	
 	$('#ajaxLoaderDescription').show();
-	$("#editDescSaveButton").hide();
-	$("#editDescCancelButton").hide();
+	$("#editDescSaveButton").fadeOut(800);
+	$("#editDescCancelButton").fadeOut(800);
 	
 	request = $.ajax({
     	url: "powerTrail/ajaxUpdatePtDescription.php",
@@ -78,26 +404,25 @@ function ajaxUpdatePtDescription(){
     // if the request failed or succeeded
     request.always(function () {
     	
-    	
-    	$('#powerTrailDescriptionEdit').hide();
+    $('html, body').animate({
+        scrollTop: $("#ptdesc").offset().top
+    }, 1600);
+    	$('#powerTrailDescriptionEdit').fadeOut(800);
     	$('#ajaxLoaderDescription').hide();
-    	$('#powerTrailDescription').show();
-    	$('#toggleEditDescButton').show();
-
+    	setTimeout(function() {
+	    	$('#powerTrailDescription').fadeIn(800);
+	    	$('#toggleEditDescButton').fadeIn(800);
+		}, 801);
     });
 
     // prevent default posting of form
-    event.preventDefault();
+    // event.preventDefault();
 
 	return false;
-	
-	
-	
-	
 }
 
 function cancellAddNewUser2pt(){
-	event.preventDefault();
+	// event.preventDefault();
 	$('#addUser').hide();
 	$('#dddx').show();
 	$('.removeUserIcon').hide();
@@ -116,6 +441,12 @@ function ajaxRemoveUserFromPt(userId){
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
        	$('#powerTrailOwnerList').html(response); 
+       	$('#ownerListOKimg').fadeIn(500);
+       	$(function() {
+	    	setTimeout(function() {
+       			$("#ownerListOKimg").fadeOut(1000)
+    		}, 3000);
+		}); 
         console.log("Hooray, it worked!"+response);
         
     });
@@ -134,13 +465,13 @@ function ajaxRemoveUserFromPt(userId){
     request.always(function () {
     	$('#ajaxLoaderOwnerList').hide();
     	$('#addUser').hide();
-    	$('#ownerListUserActions').show();
+    	$('#ownerListUserActions').fadeIn(800);
     	$('.removeUserIcon').hide();
     	cancellAddNewUser2pt();
     });
 
     // prevent default posting of form
-    event.preventDefault();
+    // event.preventDefault();
 
 	return false;
 	
@@ -159,7 +490,7 @@ function ajaxAddNewUser2pt(ptId) {
 
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
-       	$('#ownerListOKimg').show();
+       	$('#ownerListOKimg').fadeIn(500);
        	$('#powerTrailOwnerList').html(response);
      	$(function() {
 	    	setTimeout(function() {
@@ -183,20 +514,20 @@ function ajaxAddNewUser2pt(ptId) {
     // if the request failed or succeeded
     request.always(function () {
     	$('#ajaxLoaderOwnerList').hide();
-    	$('#addUser').hide();
-    	$('#ownerListUserActions').show();
+    	$('#addUser').fadeOut(800);
+    	$('#ownerListUserActions').fadeIn(500);
     	$('.removeUserIcon').hide();
     	cancellAddNewUser2pt();
     });
 
     // prevent default posting of form
-    event.preventDefault();
+    // event.preventDefault();
 
 	return false;
 }
 
 function clickShow(section, section2){
-	event.preventDefault();
+	// event.preventDefault();
 	$('#'+section2).hide();
 	$('#'+section).show();
 	$('.removeUserIcon').show();
@@ -214,9 +545,14 @@ function ajaxCountPtCaches(ptId) {
 
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
-       	$('#powerTrailCacheCount').html(response); 
+       	$('#powerTrailCacheCount').html(response);
+       	$('#cCountOKimg').fadeIn(500);
+      	$(function() {
+	    	setTimeout(function() {
+       			$("#cCountOKimg").fadeOut(1000)
+    		}, 3000);
+		});       	 
         console.log("Hooray, it worked!"+response);
-        
     });
 
     // callback handler that will be called on failure
@@ -236,14 +572,10 @@ function ajaxCountPtCaches(ptId) {
     });
 
     // prevent default posting of form
-    event.preventDefault();
+    // event.preventDefault();
 
 	return false;
 	}
-	
-	
-	
-
 
 function ajaxAddCacheToPT(cacheId)
 {
@@ -484,20 +816,52 @@ function toggle() {
 			<td colspan="3" id="linearBg1">{{pt019}}</td>
 		</tr>
 		<tr>
-			<td>{{pt022}}</td><td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span></td><td align="right"><span class="userActions" id="cacheCountUserActions">{cacheCountUserActions}</span><span style="display: none" id="ajaxLoaderCacheCount"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></div></td>
+			<td>{{pt022}}</td>
+			<td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span><img id="cCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" /></td>
+			<td align="right">
+				<span class="userActions" id="cacheCountUserActions">{cacheCountUserActions}</span>
+				<span style="display: none" id="ajaxLoaderCacheCount"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+			</td>
 		</tr>
 		<tr>
-			<td>{{pt023}}</td><td>{ptTypeName}</td>
+			<td>{{pt023}}</td>
+			<td>
+				<span id="ptTypeName">{ptTypeName}</span>
+				<img id="ptTypeOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+				<div id="ptTypeNameEdit" style="display: none">
+					{ptTypesSelector}
+					<a href="javascript:void(0)" onclick="ajaxUpdatType()" class="editPtDataButton">{{pt044}}</a>	
+				</div>
+			</td>
+			<td align="right">
+				<span class="userActions" id="ptTypeUserActionsDiv">{ptTypeUserActions}</span>
+				<img style="display: none" id="ajaxLoaderType" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+			</td>
 		</tr>
 		<tr>
-			<td>{{pt024}}</td><td>{powerTrailDateCreated}</td>
+			<td>{{pt024}}</td>
+			<td>
+				<span id="powerTrailDateCreated">{powerTrailDateCreated}</span>
+				<img id="ptDateOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+				<span id="powerTrailDateCreatedEdit" style="display: none">
+					<input id="powerTrailDateCreatedInput" type="text" value="{powerTrailDateCreated}" maxlength="10" />
+					<a href="javascript:void(0)" id="editDateSaveButton" onclick="ajaxUpdateDate()" class="editPtDataButton">{{pt044}}</a>
+				</span>
+			</td>
+			<td align="right">
+				<span class="userActions" id="ptDateUserActionsDiv">{ptDateUserActions}</span>
+				<img style="display: none" id="ajaxLoaderPtDate" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+			</td>
 		</tr>
 		<tr>
-			<td>{{pt025}}</td><td><span id="powerTrailOwnerList">{powerTrailOwnerList}</span></td>
+			<td>{{pt025}}</td>
+			<td>
+				<span id="powerTrailOwnerList">{powerTrailOwnerList}</span>
+				<img id="ownerListOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+			</td>
 			<td align="right">
 				<span class="userActions" id="ownerListUserActions">{ownerListUserActions}</span>
 				<span style="display: none" id="ajaxLoaderOwnerList"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
-				<img id="ownerListOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
 			</td>
 		</tr>
 		
@@ -505,20 +869,18 @@ function toggle() {
 			<td colspan="3" id="linearBg1">{{pt034}}</td>
 		</tr>
 		<tr>
-			<td class="inlineTd" colspan="2">
-				
+			<td class="inlineTd" colspan="2"><span id="ptdesc"></div>
 				<div id="powerTrailDescription">{powerTrailDescription}</div>
 				<div id="powerTrailDescriptionEdit" style="display: none">
 					<textarea id="descriptionEdit" name="descriptionEdit">{powerTrailDescription}</textarea>
-				
 				</div>
 			</td>
 			<td align="right" valign="bottom">
 				{displayPtDescriptionUserAction}
 				<span style="display: none" id="ajaxLoaderDescription"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
-				<a href="#" id="editDescCancelButton" style="display: none" onclick="cancelDescEdit()" class="editPtDataButton">{{pt031}}</a> 
+				<a href="javascript:void(0)" id="editDescCancelButton" style="display: none" onclick="cancelDescEdit()" class="editPtDataButton">{{pt031}}</a> 
 				<br /> <br />
-				<a href="#" id="editDescSaveButton" style="display: none" onclick="ajaxUpdatePtDescription()" class="editPtDataButton">{{pt044}}</a>
+				<a href="javascript:void(0)" id="editDescSaveButton" style="display: none" onclick="ajaxUpdatePtDescription()" class="editPtDataButton">{{pt044}}</a>
 				<img id="descOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
 			</td>
 		</tr>
@@ -526,9 +888,29 @@ function toggle() {
 	
 	<table border=0 width=100%>
 	<tr>
-		<td colspan="2" id="linearBg1">{{pt020}} {powerTrailName}</td>
+		<td colspan="3" id="linearBg1">{{pt020}} {powerTrailName}</td>
 	</tr>
 	{PowerTrailCaches}
+	<tr>
+		<td colspan="2">
+			<span id="searchCacheSection" style="display: none">
+				<input onkeyup="checkCacheByWpt()" size="6" id="CacheWaypoint" type="text" maxlength="6" value="OP" />
+				<img style="display: none" id="AloaderNewCacheSearch" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+				<span id="newCacheName"></span>
+				<input type="hidden" id="newCacheNameId" value="-1">
+				<a href="javascript:void(0)" id="newCache2ptAddButton" style="display: none" onclick="ajaxAddOtherUserCache()" class="editPtDataButton">{{pt047}}</a>
+			</span>
+			<img style="display: none" id="AloaderNewCacheAdding" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+			<img id="AloaderNewCacheAddingOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+		</td>
+		<td align="right">
+			<div style="display: {displayAddCachesButtons}">
+				<a href="powerTrail.php?ptAction=selectCaches" id="toggleSearchCacheSection0" class="editPtDataButton">{{pt049}}</a><br /><br />
+				<a href="javascript:void(0)" id="toggleSearchCacheSection1" style="display: none" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt031}}</a>
+				<a href="javascript:void(0)" id="toggleSearchCacheSection2" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt048}}</a>
+			</div>
+		</td>
+	</tr>
 	</table>
 	
 	<table border=0 width=100%>
@@ -540,6 +922,30 @@ function toggle() {
 		</tr>
 	</table>
 	
+	<!-- power Trail comments -->
+	<table border=0 width=100%>
+		<tr>
+			<td id="linearBg1">{{pt050}}</td>
+		</tr>
+	</table>
+
+
+	<span id="ptComments">
+	<img id="commentsLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+	</span>
+	<div id="animateHere"></div>
+	<p style="display: {displayAddCommentSection}" align="right"><a href="javascript:void(0)" id="toggleAddComment" onclick="toggleAddComment()" class="editPtDataButton">{{pt051}}</a>&nbsp; </p>
+	<div id="addComment" style="display: none">
+		<textarea id="addCommentTxtArea"></textarea>
+		<select id="commentType">
+			<option value="1">komentarz</option>
+		</select><br />
+		<input type="text" id="commentDateTime" value="{date}">
+		<br /><br />
+		<a href="javascript:void(0)" onclick="toggleAddComment()" class="editPtDataButton">{{pt031}}</a>
+		<a href="javascript:void(0)" onclick="ajaxAddComment();" class="editPtDataButton">{{pt044}}</a>
+		<br /><br />
+	</div>
+
 </div>
 
-<div id="ajax"></div>
