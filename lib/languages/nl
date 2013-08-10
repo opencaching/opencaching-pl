@@ -909,7 +909,7 @@ os_zgad Je hebt het te vaak geprobeerd.
 wybrac_log Kies logsoort
 nowe_wsp Nieuwe coördinaten
 os_ma_max Er is een limiet van 
-os_ma_pr shots 
+os_ma_pr pogingen 
 os_ma_na  controles per
 os_godzine minuten
 os_mus Je moet nu nog 
@@ -1217,7 +1217,7 @@ report_resultpage Verslag probleem met cache:
 report_sent_owner De e-mail is verzonden naar de cache eigenaar.
 search00 Alle landen
 geokret Geokrety
-rss_01 RSS Feeds OC NL
+rss_01 RSS Feeds {site_name}
 rss_02 Nieuwste caches
 rss_03 Nieuwste logs
 rss_04 Laatste nieuws
@@ -1280,7 +1280,7 @@ registermail03 Om te beginnen kun je informatie terug vinden op OpenGeoWiki, Dez
 registermail04 http://wiki.opencaching.nl/
 registermail05 Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.
 registermail06 Kijk eens op:
-registermail07 Wanneer er voldoende caches zijn zal men eerst 10 caches gevonden moeten hebber eer men zelf caches kan registreren.
+registermail07 Wanneer er voldoende caches zijn zal men eerst 10 caches gevonden moeten hebben eer men zelf caches kan registreren.
 registermail08 Je eerste 3 nieuwe caches zullen door het Opencaching team gekeurt worden.
 registermail09 De mobile versie van opencaching.nl is te vinden op: http://m.opencaching.nl
 registermail10 Wij hebben de volgende informatie opgeslagen voor registratie:
@@ -1407,20 +1407,20 @@ AE Verenigde Arabische Emiraten
 AF Afghanistan
 AG Antigua en Barbuda
 AI Anguilla
-AL Albanie
-AM Armenie
+AL Albanië
+AM Armenië
 AN Nederlandse Antillen
 AO Angola
-AR Argentinie
+AR Argentinië
 AS Amerikaans-Samoa
 AT Oostenrijk
-AU Australie
+AU Australië
 AW Aruba
 AZ Azerbeidzjan
 BA Bosnie en Herzegovina
 BB Barbados
 BD Bangladesh
-BE Belgie
+BE België
 BF Burkina Faso
 BG Bulgarije
 BH Bahrein
@@ -1429,7 +1429,7 @@ BJ Benin
 BM Bermuda
 BN Brunei
 BO Bolivia
-BR Brazilie
+BR Brazilië
 BS Bahamas
 BT Bhutan
 BV Bouvet
@@ -1450,10 +1450,10 @@ CO Colombia
 CR Costa Rica
 CS Servie
 CU Cuba
-CV Kaapverdie
+CV Kaapverdië
 CX Christmaseiland
 CY Cyprus
-CZ Tsjechie
+CZ Tsjechië
 DE Duitsland
 DJ Djibouti
 DK Denemarken
@@ -1465,7 +1465,7 @@ EG Egypte
 EH Westelijke Sahara
 ER Eritrea
 ES Spanje
-ET Ethiopie
+ET Ethiopieë
 FI Finland
 FJ Fiji
 FK Falklandeilanden
@@ -1475,7 +1475,7 @@ FR Frankrijk
 GA Gabon
 GB Verenigd Koninkrijk
 GD Grenada
-GE Georgie
+GE Georgieë
 GF Frans-Guyana
 GH Ghana
 GI Gibraltar
@@ -1492,10 +1492,10 @@ GY Guyana
 HK Hong Kong
 HM Heard en MacDonaldeilanden
 HN Honduras
-HR Kroatie
+HR Kroatië
 HT Haïti
 HU Hongarije
-ID Indonesie
+ID Indonesië
 IE Ierland
 IL Israel
 IN India
@@ -1503,9 +1503,9 @@ IO Brits Indische Oceaanterritorium
 IQ Irak
 IR Iran
 IS IJsland
-IT Italie
+IT Italië
 JM Jamaica
-JO Jordanie
+JO Jordanieë
 JP Japan
 KE Kenia
 KG Kirgizie
@@ -1528,16 +1528,16 @@ LS Lesotho
 LT Litouwen
 LU Luxemburg
 LV Letland
-LY Libie
+LY Libië
 MA Marokko
 MC Monaco
-MD Moldavie
+MD Moldavië
 MG Madagaska
 MH Marshalleilanden
 MK Macedonie
 ML Mali
 MM Myanmar
-MN Mongolie
+MN Mongolië
 MO Macau
 MP Noordelijke Mariane
 MQ Martinique
@@ -1548,10 +1548,10 @@ MU Mauritius
 MV Maldiven
 MW Malawi
 MX Mexico
-MY Maleisie
+MY Maleisië
 MZ Mozambique
-NA Namibie
-NC Nieuw-Caledonie
+NA Namibië
+NC Nieuw-Caledonië
 NE Niger
 NF Norfolk eilanden
 NG Nigeria
@@ -1565,7 +1565,7 @@ NZ Nieuw-Zeeland
 OM Oman
 PA Panama
 PE Peru
-PF Frans-Polynesie
+PF Frans-Polynesië
 PG Papoea-Nieuw-Guinea
 PH Filipijnen
 PK Pakistan
@@ -1578,7 +1578,7 @@ PW Palau
 PY Paraguay
 QA Qatar
 RE Réunion
-RO Roemenie
+RO Roemenië
 RU Russiche federatie
 RW Rwanda
 SA Saoedi-Arabie
@@ -1588,17 +1588,17 @@ SD Soedan
 SE Zweden
 SG Singapore
 SH Sint-Helena
-SI Slovenie
+SI Slovenië
 SJ Spitsbergen en Jan Mayen
-SK Slowakije
+SK Slowakijeë
 SL Sierra Leone
 SM San Marino
 SN Senegal
-SO Somalie
+SO Somalië
 SR Suriname
 ST Sao Tomé en Principe
 SX El Salvador
-SY Syrie
+SY Syrië
 SZ Swaziland
 TC Turks- en Caicoseilanden
 TD Tsjaad
@@ -1610,7 +1610,7 @@ TK Tokelau
 TM Turkmenistan
 TN Tunesie
 TO Tonga
-TR Turkije
+TR Turkijë
 TT Trinidad en Tobago
 TV Tuvalu
 TW Taiwan
