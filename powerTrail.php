@@ -80,14 +80,19 @@ if ($error == false)
 					tpl_set_var('powerTrailCacheCount', $ptDbRow['cacheCount']);
 					tpl_set_var('powerTrailOwnerList', displayPtOwnerList($ptOwners));
 					tpl_set_var('date', date('Y-m-d'));
+					tpl_set_var('powerTrailDemandPercent', $ptDbRow['perccentRequired']);
+					tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $ptDbRow['perccentRequired'], $pt->getCountCachesAndUserFoundInPT(), $ptDbRow['id'] ));
+					
 					if ($userIsOwner){
 						tpl_set_var('displayAddCachesButtons', 'block');
+						tpl_set_var('percentDemandUserActions', 'block');
 						tpl_set_var('ptTypeUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="togglePtTypeEdit();">'.tr('pt046').'</a>');
 						tpl_set_var('ptDateUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="togglePtDateEdit();">'.tr('pt045').'</a>');
 						tpl_set_var('cacheCountUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="ajaxCountPtCaches('.$ptDbRow['id'].')">'.tr('pt033').'</a>');
 						tpl_set_var('ownerListUserActions', '<a id="dddx" href="javascript:void(0)" class="editPtDataButton" onclick="clickShow(\'addUser\', \'dddx\'); ">'.tr('pt030').'</a> <span style="display: none" id="addUser">'.tr('pt028').'<input type="text" id="addNewUser2pt" /><br /><a href="javascript:void(0)" class="editPtDataButton" onclick="cancellAddNewUser2pt()" >'.tr('pt031').'</a><a href="javascript:void(0)" class="editPtDataButton" onclick="ajaxAddNewUser2pt('.$ptDbRow['id'].')" >'.tr('pt032').'</a></span>');
 						tpl_set_var('ptTypesSelector', displayPtTypesSelector('ptType1', $ptDbRow['type']));
 					} else {
+						tpl_set_var('percentDemandUserActions', 'none');
 						tpl_set_var('displayAddCachesButtons', 'none');
 						tpl_set_var('ptTypeUserActions', '');
 						tpl_set_var('ptDateUserActions', '');
@@ -95,9 +100,8 @@ if ($error == false)
 						tpl_set_var('ownerListUserActions', '');
 					}
 					
-					if ($ptDbRow['image'] == '') $image = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
-					else $image = $ptDbRow['image'];
-					tpl_set_var('powerTrailLogo', $image);
+
+					tpl_set_var('powerTrailLogo', displayPowerTrailLogo($ptDbRow['id'], $ptDbRow['image']));
 					tpl_set_var('PowerTrailCaches', displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache()));
 					tpl_set_var('powerTrailserStats', displayPowerTrailserStats($pt->getCountCachesAndUserFoundInPT()));
 					// powerTrailController::debug($pt->getPowerTrailDbRow(), __LINE__);
@@ -267,5 +271,29 @@ function displayPtTypesSelector($htmlid, $selectedId = 0){
 	}
 	$selector .= '</select>';
 	return $selector;
+}
+
+function displayPtCommentsSelector($htmlid, $percetDemand, $userStats, $ptId, $selectedId = 0){
+		
+	$percentUserFound = round($userStats['cachesFoundByUser'] * 100 / $userStats['totalCachesCountInPowerTrail'], 2);
+	$commentsArr = powerTrailBase::getPowerTrailComments();
+	
+	$selector = '<select id="'.$htmlid.'" name="'.$htmlid.'">';
+	foreach ($commentsArr as $id => $type) {
+		if ($id == 2) {
+			if ($percentUserFound<$percetDemand || powerTrailBase::checkUserConquestedPt($_SESSION['user_id'], $ptId) >0) break;
+		}
+		if ($selectedId == $id) $selected = 'selected'; else $selected = '';
+		$selector .= '<option '.$selected.' value="'.$id.'">'.tr($type['translate']).'</option>';
+	}
+	$selector .= '</select>';
+	return $selector;
+}
+
+function displayPowerTrailLogo($ptId, $img){
+	// global $picurl;	
+	if ($img == '') $image = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+	else $image = $img;
+	return $image;	
 }
 ?>

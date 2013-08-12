@@ -6,6 +6,7 @@ require_once __DIR__.'/../lib/db.php';
 class powerTrailBase{
 		
 	const minimumCacheCount = 0;
+	const powerTrailLogoFileName = 'powerTrailLogoId';
 	
 	public $logActionTypes = array (
 		1 => array (
@@ -28,22 +29,6 @@ class powerTrailBase{
 	private $powerTrailTypes;
 	
 	function __construct() {
-		$this->generatePowerTrailTypes();
-	}
-	
-	private function generatePowerTrailTypes()
-	{
-		/*	
-		$this->powerTrailTypes = array(
-			1 => array ( // sport power Trail
-				'type' =>  tr('pt026'),
-			),
-			2 => array ( // tourism power Trail
-				'type' =>  tr('pt027'),
-			),
-			
-		);	
-		*/
 	}
 	
 	/**
@@ -74,5 +59,30 @@ class powerTrailBase{
 					
 	}
 
+	/**
+	 * here comment types
+	 */
+	public static function getPowerTrailComments(){
+		return array (
+			1 => array ( //comment
+				'translate' => 'pt056',
+				'color' => '#000000',
+			),
+			2 => array ( // conquested
+				'translate' => 'pt057',
+				'color' => '#00CC00',
+			),
+			
+		);
+					
+	}
+	
+	public static function checkUserConquestedPt($userId, $ptId){
+		$db = new dataBase;
+		$q = 'SELECT count(*) AS `c` FROM PowerTrail_comments WHERE userId = :1 AND	PowerTrailId = :2 ';
+		$db->multiVariableQuery($q, $userId, $ptId);
+		$response = $db->dbResultFetch();
+		return $response['c'];
+	}
 
 }

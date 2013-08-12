@@ -2,6 +2,7 @@
 // 050242-blue-jelly-icon-natural-wonders-flower13-sc36.png
 // <script src="tpl/stdstyle/js/jquery-2.0.3.js"></script>
 ?>
+<link href='http://fonts.googleapis.com/css?family=Shojumaru&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 
@@ -10,7 +11,6 @@
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.core.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.datepicker.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
-
 <script type="text/javascript">
 tinymce.init({
     selector: "textarea",
@@ -46,6 +46,100 @@ $(function() {
 	ajaxGetComments(0, 8);
 }); 
 
+function isNumberKey(evt) {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+
+function startUpload(){
+	$('#f1_upload_form').hide();
+	$('#ajaxLoaderLogo').show();
+    return true;
+}
+
+function stopUpload(success){
+	console.log(success);
+    $('#ajaxLoaderLogo').hide();
+    $('#powerTrailLogo').fadeOut(800);
+    $(function() {
+		setTimeout(function() {
+   			$('#powerTrailLogo').html(success); 
+			$("#powerTrailLogo").fadeIn(800);
+			
+			}, 801);
+		});
+	toggleImageEdit()
+	return true;   
+}
+
+function toggleImageEdit(){
+	if ($('#toggleImageEditButton').is(":visible")){
+		$("#toggleImageEditButton").fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+			   	$("#newImage").fadeIn(800);
+			}, 801);
+		});
+	} else {
+		$("#newImage").fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+			   	$("#toggleImageEditButton").fadeIn(800);
+			   	$('#f1_upload_form').show();
+			}, 801);
+		});
+	}
+}
+
+
+function ajaxUpdateDemandPercent() {
+	$('#ajaxLoaderPercentDemand').show();
+	$("#powerTrailpercentEdit").fadeOut(800);
+	
+	request = $.ajax({
+    	url: "powerTrail/ajaxUpdateDemandPercent.php",
+    	type: "post",
+    	data:{projectId: $('#xmd34nfywr54').val(),  newPercent: $('#demandPercent').val() },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	if(response != 'error'){
+    		$('#powerTrailpercent').html($('#demandPercent').val());
+		}
+    });
+    
+    request.always(function () {
+    	$("#powerTrailpercent").fadeIn(800);
+		$('#percentDemandUserActions').fadeIn(800);
+    	$('#ajaxLoaderPercentDemand').hide();
+    });
+}
+
+function togglePercentSection() {
+	if ($('#powerTrailpercent').is(":visible")){
+		$("#powerTrailpercent").fadeOut(800);
+		$('#percentDemandUserActions').fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+		    	$("#powerTrailpercentEdit").fadeIn(800);
+		    }, 801);
+		});
+	} else {
+		$("#powerTrailpercentEdit").fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+		    	$("#powerTrailpercent").fadeIn(800);
+		    	$('#percentDemandUserActions').fadeIn(800);
+		    }, 801);
+		});
+	}
+	
+}
+
 function ajaxAddComment(){
 	
 	// // event.preventDefault();
@@ -60,7 +154,7 @@ function ajaxAddComment(){
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
     	// $('#ptComments').html(response);
-        console.log("Hooray, it worked!"+response);
+        console.log("comment saved to db! "+response);
     });
     toggleAddComment();
     ajaxGetComments(0, 8);
@@ -89,6 +183,7 @@ function toggleAddComment(){
 }
 
 function ajaxGetComments(start, limit){
+	// alert(start+' '+limit);
 	request = $.ajax({
     	url: "powerTrail/ajaxGetComments.php",
     	type: "post",
@@ -98,7 +193,7 @@ function ajaxGetComments(start, limit){
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
     	$('#ptComments').html(response);
-        console.log("Hooray, it worked!"+response);
+        // console.log("Hooray, it worked!"+response);
     });
 }
 
@@ -638,7 +733,44 @@ function toggle() {
 </script>
 
 <style>
-#linearBg1 {
+
+table, th, td
+{
+	font-size: 12px;
+}
+
+#powerTrailName{
+	font-size: 36px;
+	color:#000088;
+	font-family: Shojumaru;
+}
+
+.CommentDate {
+	font-size: 11px;
+	padding-left: 2px;
+	padding-right: 15px;
+}
+
+.commentContent{
+	padding: 20px
+}
+
+.commentHead{
+	font-family: verdana;
+	font-size: 13px;
+	padding-left: 10px;
+	background-color: #FFFFFF; background-repeat: repeat-y; 
+	background: -webkit-gradient(linear, left top, right top, from(#ADD8E6), to(#FFFFFF)); 
+	background: -webkit-linear-gradient(left, #ADD8E6  #FFFFFF); 
+	background: -moz-linear-gradient(left, #ADD8E6, #FFFFFF); 
+	background: -ms-linear-gradient(left, #ADD8E6, #FFFFFF); 
+	background: -o-linear-gradient(left, #ADD8E6, #FFFFFF);
+	-moz-border-top-left-radius: 8px;
+	-webkit-border-top-left-radius: 8px;
+	border-top-left-radius: 8px;
+}
+
+.linearBg1 {
 	height: 25px;
 	color: #E7E5DC;
 	font-family: verdana;
@@ -714,7 +846,7 @@ function toggle() {
 	
 <div class="content2-pagetitle"> 
  <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" /> 
- {{pt001}} {powerTrailName}	
+ {{pt001}}	
 </div> 
 
 <p>
@@ -782,7 +914,7 @@ function toggle() {
 <div style="display: {displayPowerTrails}">
 	<table border=0 width=100%>
 		<tr>
-			<td colspan=7 id="linearBg1">{{pt035}}</td>
+			<td colspan=7 class="linearBg1">{{pt035}}</td>
 		</tr>
 		<tr>
 			<th class="ptTd">{{pt036}}</th>
@@ -806,14 +938,29 @@ function toggle() {
 	
 	<table border=0 width=100%>
 		<tr>
-			<td width=251><img src="{powerTrailLogo}" /></td>
+			<td width=251>
+				<div style="height: 250px;" id="powerTrailLogo"><img src="{powerTrailLogo}" /></div>
+				<img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+				<p align="right" id="toggleImageEditButton" style="display: {displayAddCachesButtons}">
+					<a href="javascript:void(0)" onclick="toggleImageEdit()" class="editPtDataButton">{{pt060}}</a>
+				</p>
+				<span id="newImage" style="display: none"> 
+					<form action="powerTrail/ajaxImage.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
+         				<p id="f1_upload_form" align="center"><br/>
+             			File: <input name="myfile" type="file" size="30" />
+             			<input type="hidden" name="powerTrailId" value="{powerTrailId}">
+         				<a href="javascript:void(0)" onclick="$(this).closest('form').submit()" class="editPtDataButton">{{pt061}}</a> 
+         				</p>
+         				<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+				</span>
+			</td>
 			<td align="center">
-				{powerTrailName} [ ? TU WSTAWIĆ MAPĘ ? ]
+				<span id="powerTrailName">{powerTrailName}</span> <!-- [ ? TU WSTAWIĆ MAPĘ ? ] -->
 				
 			</td>
 		</tr>
 		<tr>
-			<td colspan="3" id="linearBg1">{{pt019}}</td>
+			<td colspan="3" class="linearBg1">{{pt019}}</td>
 		</tr>
 		<tr>
 			<td>{{pt022}}</td>
@@ -821,6 +968,23 @@ function toggle() {
 			<td align="right">
 				<span class="userActions" id="cacheCountUserActions">{cacheCountUserActions}</span>
 				<span style="display: none" id="ajaxLoaderCacheCount"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+			</td>
+		</tr>
+		<tr>
+			<td>{{pt054}}</td>
+			<td>
+				<span id="powerTrailpercent">{powerTrailDemandPercent}</span><img id="percentCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+				<span id="powerTrailpercentEdit" style="display: none">
+					<input id="demandPercent" onkeypress="return isNumberKey(event)" type="number" min="10" max="100" value="{powerTrailDemandPercent}" maxlength="3"/>
+					<a href="javascript:void(0)" onclick="togglePercentSection()" class="editPtDataButton">{{pt031}}</a>	
+					<a href="javascript:void(0)" onclick="ajaxUpdateDemandPercent()" class="editPtDataButton">{{pt044}}</a>	
+				</span>
+			</td>
+			<td align="right">
+				<span class="userActions" id="percentDemandUserActions" style="display: {percentDemandUserActions}">
+					<a href="javascript:void(0)" onclick="togglePercentSection()" class="editPtDataButton">{{pt055}}</a>	
+				</span>
+				<span style="display: none" id="ajaxLoaderPercentDemand"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
 			</td>
 		</tr>
 		<tr>
@@ -859,14 +1023,14 @@ function toggle() {
 				<span id="powerTrailOwnerList">{powerTrailOwnerList}</span>
 				<img id="ownerListOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
 			</td>
-			<td align="right">
+			<td align="right" width="100">
 				<span class="userActions" id="ownerListUserActions">{ownerListUserActions}</span>
 				<span style="display: none" id="ajaxLoaderOwnerList"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
 			</td>
 		</tr>
 		
 		<tr>
-			<td colspan="3" id="linearBg1">{{pt034}}</td>
+			<td colspan="3" class="linearBg1">{{pt034}}</td>
 		</tr>
 		<tr>
 			<td class="inlineTd" colspan="2"><span id="ptdesc"></div>
@@ -888,7 +1052,7 @@ function toggle() {
 	
 	<table border=0 width=100%>
 	<tr>
-		<td colspan="3" id="linearBg1">{{pt020}} {powerTrailName}</td>
+		<td colspan="3" class="linearBg1">{{pt020}} {powerTrailName}</td>
 	</tr>
 	{PowerTrailCaches}
 	<tr>
@@ -915,7 +1079,7 @@ function toggle() {
 	
 	<table border=0 width=100%>
 		<tr>
-			<td id="linearBg1">{{pt021}} {powerTrailName}</td>
+			<td class="linearBg1">{{pt021}} {powerTrailName}</td>
 		</tr>
 		<tr>
 			<td>{{pt015}}: {powerTrailserStats}</td>
@@ -925,7 +1089,7 @@ function toggle() {
 	<!-- power Trail comments -->
 	<table border=0 width=100%>
 		<tr>
-			<td id="linearBg1">{{pt050}}</td>
+			<td class="linearBg1">{{pt050}}</td>
 		</tr>
 	</table>
 
@@ -937,9 +1101,8 @@ function toggle() {
 	<p style="display: {displayAddCommentSection}" align="right"><a href="javascript:void(0)" id="toggleAddComment" onclick="toggleAddComment()" class="editPtDataButton">{{pt051}}</a>&nbsp; </p>
 	<div id="addComment" style="display: none">
 		<textarea id="addCommentTxtArea"></textarea>
-		<select id="commentType">
-			<option value="1">komentarz</option>
-		</select><br />
+		{ptCommentsSelector}
+		<br />
 		<input type="text" id="commentDateTime" value="{date}">
 		<br /><br />
 		<a href="javascript:void(0)" onclick="toggleAddComment()" class="editPtDataButton">{{pt031}}</a>

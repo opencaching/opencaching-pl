@@ -150,6 +150,8 @@ class powerTrailController {
 			$db->multiVariableQuery($query, $newProjectId, $this->user['userid'], 1);
 			$logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`) VALUES (:1,:2,NOW(),2,:3)';
 			$db->multiVariableQuery($logQuery, $newProjectId,$this->user['userid'] ,$this->ptAPI->logActionTypes[1]['type']);
+			$this->getAllPowerTrails();
+			$this->action = 'showAllSeries';
 			return true;
 		} 
 		else 
