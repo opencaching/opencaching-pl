@@ -27,16 +27,18 @@ class powerTrailController {
 		}
 		
 		// self::debug($_POST, 'POST', __LINE__);
-		if(isset($_POST['createNewPowerTrail'])) $this->action = 'createNewPowerTrail';
+		// if(isset($_POST['createNewPowerTrail'])) $this->action = 'createNewPowerTrail';
 		
 		$this->ptAPI = new powerTrailBase;
-		
 		$this->user = $user;
 	}
 	
 	public function run()
 	{
 		switch ($this->action) {
+			case 'mySeries':
+				$this->mySeries();
+				break;
 			case 'selectCaches':
 				$this->getUserPTs();
 				return $this->getUserCachesToChose();
@@ -56,6 +58,15 @@ class powerTrailController {
 		}
 	}
 
+	private function mySeries(){
+		// print $_SESSION['user_id'];
+		$q = 'SELECT * FROM `PowerTrail` WHERE id IN (SELECT `PowerTrailId` FROM `PowerTrail_owners` WHERE `userId` = :1 ) ORDER BY cacheCount DESC';
+		$db = new dataBase();
+		$db->multiVariableQuery($q, $_SESSION['user_id']);
+		$this->allSeries = $db->dbResultFetchAll();
+		$this->action = 'showAllSeries';
+	}
+
 	private function getAllPowerTrails()
 	{
 		$q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount > '.powerTrailBase::minimumCacheCount .' ORDER BY cacheCount DESC';
@@ -72,7 +83,7 @@ class powerTrailController {
 		$db->multiVariableQuery($ptq, $powerTrailId);
 		$this->powerTrailDbRow = $db->dbResultFetch();
 		
-		$q = 'SELECT * FROM `caches` WHERE cache_id IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` = :1)';
+		$q = 'SELECT caches.*, user.username FROM `caches`,user WHERE cache_id IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` = :1) AND user.user_id = caches.user_id';
 		$db->multiVariableQuery($q, $powerTrailId);
 		$this->allCachesOfSelectedPt = $db->dbResultFetchAll();
 		
@@ -142,16 +153,17 @@ class powerTrailController {
 		// self::debug($_POST, 'POST', __LINE__);
 		if( $_POST['powerTrailName'] != '' && $_POST['type'] != 0 && $_POST['status'] != 0 && $_POST['description'] != '')
 		{
-			$query = "INSERT INTO `PowerTrail`(`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`) VALUES (:1,:2,:3,NOW(),0,:4)";
-			$db = new dataBase($this->debug);
-			$db->multiVariableQuery($query, $_POST['powerTrailName'],$_POST['type'], $_POST['status'], $_POST['description']);
-			$newProjectId = $db->lastInsertId();
+			$query = "INSERT INTO `PowerTrail`(`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`, `perccentRequired`) VALUES (:1,:2,:3,NOW(),0,:4,:5)";
+			$db = new dataBase(false);
+			$db->multiVariableQuery($query, $_POST['powerTrailName'],$_POST['type'], $_POST['status'], $_POST['description'], $_POST['dPercent']);
+			print $newProjectId = $db->lastInsertId();
+			exit;
 			$query = "INSERT INTO `PowerTrail_owners`(`PowerTrailId`, `userId`, `privileages`) VALUES (:1,:2,:3)";
 			$db->multiVariableQuery($query, $newProjectId, $this->user['userid'], 1);
 			$logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`) VALUES (:1,:2,NOW(),2,:3)';
 			$db->multiVariableQuery($logQuery, $newProjectId,$this->user['userid'] ,$this->ptAPI->logActionTypes[1]['type']);
-			$this->getAllPowerTrails();
-			$this->action = 'showAllSeries';
+			$this->mySeries();
+			// $this->action = 'mySeries';
 			return true;
 		} 
 		else 

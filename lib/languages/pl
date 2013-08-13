@@ -1608,10 +1608,10 @@ SU Rosja
 pt001 Power Traile
 pt002 nalaży do serii 
 pt003 Stwórz nową serię
-pt004 Sportowy
+pt004 Kształt na mapie
 pt005 Krajoznawczy
 pt006 Publiczny  
-pt007 Niewidoczny  
+pt007 Narazie niewidoczny  
 pt008 Nazwa serii  
 pt009 Typ serii
 pt010 Widoczność
@@ -1666,5 +1666,25 @@ pt058 Następne wpisy
 pt059 Poprzednie wpisy
 pt060 Podmień logotyp
 pt061 Zastąp obecne logo tym plikiem
+pt062 Twoje Serie
+pt063 Widoczność
+pt064 Zmień status
+pt065 Zdobyty
+pt066 razy
+pt067 Przyrodniczy
+pt068 Musisz najpierw znaleźć 
+pt069 skrzynek by założyć nową serię
+pt070 znakomita
+pt071 dobra
+pt072 normalna
+pt073 poniżej przeciętnej
+pt074 słaba
+pt075 typ
+pt076 nazwa (założyciel)
+pt077 status
+pt078 ocena
+pt079 tematyczny
+pt080 Naciskając ten przycisk założysz nowy Power Trail
+pt081 Seria musi mieć nazwę
 
 

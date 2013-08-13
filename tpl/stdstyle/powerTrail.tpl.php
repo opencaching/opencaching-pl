@@ -43,8 +43,72 @@ $(function() {
 		dateFormat: 'yy-mm-dd',
 		regional: '{language4js}'
 	}).val();
+	ajaxGetPtCaches();
 	ajaxGetComments(0, 8);
 }); 
+
+function  ajaxGetPtCaches(){
+	$('#cachesLoader').show();
+	
+	request = $.ajax({
+    	url: "powerTrail/ajaxGetPowerTrailCaches.php?ptAction=showSerie&ptrail="+$('#xmd34nfywr54').val(),
+    	type: "post",
+    	data:{projectId: $('#xmd34nfywr54').val()},
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	$('#PowerTrailCaches').html(response);
+    });
+    
+    request.always(function () {
+    	$('#cachesLoader').hide();
+    });
+}
+
+function toggleStatusEdit() {
+	if ($('#ptStatus').is(":visible")){
+		$("#ptStatus").fadeOut(800);
+		$("#ptStatusButton").fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+			   	$("#ptStatusEdit").fadeIn(800);
+			}, 801);
+		});
+	} else {
+		$("#ptStatusEdit").fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+			   	$("#ptStatus").fadeIn(800);
+			   	$("#ptStatusButton").fadeIn(800);
+			}, 801);
+		});
+	}
+}
+
+function ajaxUpdateStatus(){
+	
+	$('#ptStatusEdit').hide();
+	$('#ajaxLoaderStatus').show();
+	
+	request = $.ajax({
+    	url: "powerTrail/ajaxUpdateStatus.php",
+    	type: "post",
+    	data:{projectId: $('#xmd34nfywr54').val(),  newStatus: $('#ptStatusSelector').val() },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	if(response != 'error'){
+    		$('#ptStatus').html(response);
+		}
+    });
+    
+    request.always(function () {
+    	$('#ajaxLoaderStatus').hide();
+    	toggleStatusEdit();
+    });
+}
 
 function isNumberKey(evt) {
          var charCode = (evt.which) ? evt.which : event.keyCode
@@ -156,6 +220,11 @@ function ajaxAddComment(){
     	// $('#ptComments').html(response);
         console.log("comment saved to db! "+response);
     });
+    if ($('#commentType').val() == 2) { // refresh conquest count
+    	var newcount =  parseInt($('#conquestCount').html()) + 1;
+    	
+    	$('#conquestCount').html(newcount);
+    }
     toggleAddComment();
     ajaxGetComments(0, 8);
 }
@@ -228,27 +297,25 @@ function ajaxAddOtherUserCache(){
 	$('#AloaderNewCacheAdding').show();
 	$('#searchCacheSection').fadeOut(500);
 	var newCacheId = $('#newCacheNameId').val();
-	//ajax add cache
-	
-	
+
 	request = $.ajax({
     	url: "powerTrail/ajaxAddCacheToPt.php",
     	type: "post",
     	data:{projectId: $('#xmd34nfywr54').val(), cacheId: newCacheId },
 	});
 
-    // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
+    	ajaxGetPtCaches();
     	$("#AloaderNewCacheAddingOKimg").fadeIn(800);
     	$(function() {
 	    	setTimeout(function() {
-       			$("#AloaderNewCacheAddingOKimg").fadeOut(1000)
+       			$("#AloaderNewCacheAddingOKimg").fadeOut(1000);
+       			 
     		}, 3000);
 		});
-        console.log("Hooray, it worked!"+response);
+        // console.log("Hooray, it worked!"+response);
     });
 
-    // callback handler that will be called on failure
     request.fail(function (jqXHR, textStatus, errorThrown){
         // log the error to the console
         console.error(
@@ -257,20 +324,13 @@ function ajaxAddOtherUserCache(){
         );
     });
 
-    // callback handler that will be called regardless
-    // if the request failed or succeeded
     request.always(function () {
     	toggleSearchCacheSection();
     	$('#AloaderNewCacheAdding').hide();
     	
     });
 
-    // prevent default posting of form
-    // event.preventDefault();
-
 	return false;
-	
-	
 }
 
 function checkCacheByWpt(){
@@ -752,22 +812,36 @@ table, th, td
 }
 
 .commentContent{
-	padding: 20px
+	border-left: 1px solid #2F2727;
+	padding-left: 15px;
+	padding-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 .commentHead{
+	padding-top: 5px;
 	font-family: verdana;
 	font-size: 13px;
 	padding-left: 10px;
 	background-color: #FFFFFF; background-repeat: repeat-y; 
-	background: -webkit-gradient(linear, left top, right top, from(#ADD8E6), to(#FFFFFF)); 
-	background: -webkit-linear-gradient(left, #ADD8E6  #FFFFFF); 
-	background: -moz-linear-gradient(left, #ADD8E6, #FFFFFF); 
-	background: -ms-linear-gradient(left, #ADD8E6, #FFFFFF); 
-	background: -o-linear-gradient(left, #ADD8E6, #FFFFFF);
-	-moz-border-top-left-radius: 8px;
-	-webkit-border-top-left-radius: 8px;
-	border-top-left-radius: 8px;
+	
+	border-left: 1px solid #2F2727;
+    border-top: 1px solid #2F2727;
+	
+	background: -webkit-gradient(linear, left top, right top, from(#DDDDDD), to(#FFFFFF)); 
+	background: -webkit-linear-gradient(left, #DDDDDD  #FFFFFF); 
+	background: -moz-linear-gradient(left, #DDDDDD, #FFFFFF); 
+	background: -ms-linear-gradient(left, #DDDDDD, #FFFFFF); 
+	background: -o-linear-gradient(left, #DDDDDD, #FFFFFF);
+	
+	-moz-border-top-left-radius: 10px;
+	-webkit-border-top-left-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
+#commentsTable{
+	width: 95%;
 }
 
 .linearBg1 {
@@ -832,37 +906,31 @@ table, th, td
 }
 /* This imageless css button was generated by CSSButtonGenerator.com */
 
-
 </style>
-
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
 
 <body>
-	
 <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
-
-
-
 	
 <div class="content2-pagetitle"> 
  <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" /> 
  {{pt001}}	
 </div> 
 
-<p>
+<div style="display: {ptMenu}">
 <ul id="css3menu1" class="topmenu">
 {powerTrailMenu}
 </ul>
-</p>
+</div>
 
 
 
 <div style="display: {displayCreateNewPowerTrailForm}">
-	<form name="createNewPowerTrail" action="powerTrail.php" method="post">
+	<form name="createNewPowerTrail" id="createNewPowerTrail" action="powerTrail.php?ptAction=createNewPowerTrail" method="post">
 		<table>
 			<tr>
 				<td>{{pt008}} </td>
-				<td><input type="text" name="powerTrailName" /></td>
+				<td><input type="text" name="powerTrailName" id="fPowerTrailName" /></td>
 			</tr>
 			<tr>
 				<td>{{pt009}}</td>
@@ -880,17 +948,29 @@ table, th, td
 				</td>
 			</tr>
 			<tr>
+				<td>{{pt054}}</td>
+				<td>		
+					<input name="dPercent" onkeypress="return isNumberKey(event)" type="number" min="10" max="100" value="50" maxlength="3"/> 
+				</td>
+			</tr>
+			<tr>
 				<td>{{pt011}}</td>
 				<td>		
 					<textarea name="description"></textarea>
 				</td>
 			</tr>
 		<tr>
-			<td><input type="submit" value="{{submit}}" name="createNewPowerTrail" /></td>
+			<td></td>
+			<td>
+				<input type="hidden" value="{{submit}}" name="createNewPowerTrail" /><br />
+				<a href="javascript:void(0);" onclick="$(this).closest('form').submit();" class="editPtDataButton">{{pt080}}</a>
+			</td>
 		</tr>
 		</table>
 	</form>
 </div>
+
+<div style="display: {displayToLowUserFound}">{{pt068}} {CFrequirment} {{pt069}}</div>
 
 <div style="display: {displayUserCaches};">
 	<div class="searchdiv">
@@ -956,11 +1036,34 @@ table, th, td
 			</td>
 			<td align="center">
 				<span id="powerTrailName">{powerTrailName}</span> <!-- [ ? TU WSTAWIĆ MAPĘ ? ] -->
-				
 			</td>
 		</tr>
 		<tr>
 			<td colspan="3" class="linearBg1">{{pt019}}</td>
+		</tr>
+		<tr>
+			<td><div style="display: {displayAddCachesButtons}">{{pt063}}</div></td>
+			<td>
+				<span id="ptStatus" style="display: {displayAddCachesButtons}">
+					{ptStatus}
+				</span>
+				<img id="StatusOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+				<span id="ptStatusEdit" style="display: none">
+					<select id="ptStatusSelector">
+						<option value="1">{{pt006}}</option>
+						<option value="2">{{pt007}}</option>
+					</select>
+					<a href="javascript:void(0)" onclick="ajaxUpdateStatus()" class="editPtDataButton">{{pt044}}</a>	
+				</span>	
+			</td>
+			<td  align="right" width="120">
+				<a href="javascript:void(0)" id="ptStatusButton" onclick="toggleStatusEdit()" class="editPtDataButton">{{pt064}}</a>	
+				<span style="display: none" id="ajaxLoaderStatus"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
+			</td>
+		</tr>
+		<tr>
+			<td>{{pt065}}</td>
+			<td><span id="conquestCount">{conquestCount}</span> {{pt066}}</td>
 		</tr>
 		<tr>
 			<td>{{pt022}}</td>
@@ -1023,7 +1126,7 @@ table, th, td
 				<span id="powerTrailOwnerList">{powerTrailOwnerList}</span>
 				<img id="ownerListOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
 			</td>
-			<td align="right" width="100">
+			<td align="right">
 				<span class="userActions" id="ownerListUserActions">{ownerListUserActions}</span>
 				<span style="display: none" id="ajaxLoaderOwnerList"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
 			</td>
@@ -1054,7 +1157,11 @@ table, th, td
 	<tr>
 		<td colspan="3" class="linearBg1">{{pt020}} {powerTrailName}</td>
 	</tr>
-	{PowerTrailCaches}
+	</table>
+	<span id="PowerTrailCaches"></span>
+	<img id="cachesLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+
+	<table border=0 width=100%>
 	<tr>
 		<td colspan="2">
 			<span id="searchCacheSection" style="display: none">

@@ -42,8 +42,9 @@ if ($error == false)
 		tpl_set_var('powerTrailLogo', '');
 		tpl_set_var('mainPtInfo', '');
 		tpl_set_var('ptTypeSelector', displayPtTypesSelector('type'));
-		
-
+		tpl_set_var('displayToLowUserFound', 'none');
+		tpl_set_var('ptMenu', 'block');
+		if(!$usr) tpl_set_var('ptMenu', 'none');
 		$ptMenu = new powerTrailMenu($usr);
 		tpl_set_var("powerTrailMenu", buildPowerTrailMenu($ptMenu->getPowerTrailsMenu()));
 
@@ -53,7 +54,12 @@ if ($error == false)
 
 		switch ($actionPerformed) {
 			case 'createNewSerie':
-				tpl_set_var('displayCreateNewPowerTrailForm', 'block');
+				if($usr['userFounds'] >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail){
+					tpl_set_var('displayCreateNewPowerTrailForm', 'block');
+				} else {
+					tpl_set_var('displayToLowUserFound', 'block');
+					tpl_set_var('CFrequirment', powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail);
+				}
 				break;
 			case 'selectCaches':
 				//$userPowerTrails = $pt->getUserPowerTrails();
@@ -71,6 +77,7 @@ if ($error == false)
 				$userIsOwner = array_key_exists($usr['userid'], $ptOwners);
 				if ($ptDbRow['status'] != 0 || $userIsOwner) {
 					$ptTypesArr = powerTrailBase::getPowerTrailTypes();
+					$ptStatusArr = powerTrailBase::getPowerTrailStatus();
 					tpl_set_var('ptTypeName', tr($ptTypesArr[$ptDbRow['type']]['translate']));
 					tpl_set_var('displaySelectedPowerTrail', 'block');
 					tpl_set_var('powerTrailName', $ptDbRow['name']);
@@ -82,8 +89,9 @@ if ($error == false)
 					tpl_set_var('date', date('Y-m-d'));
 					tpl_set_var('powerTrailDemandPercent', $ptDbRow['perccentRequired']);
 					tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $ptDbRow['perccentRequired'], $pt->getCountCachesAndUserFoundInPT(), $ptDbRow['id'] ));
-					
+					tpl_set_var('conquestCount', $ptDbRow['conquestedCount']);
 					if ($userIsOwner){
+						tpl_set_var('ptStatus', tr($ptStatusArr[$ptDbRow['status']]['translate']));
 						tpl_set_var('displayAddCachesButtons', 'block');
 						tpl_set_var('percentDemandUserActions', 'block');
 						tpl_set_var('ptTypeUserActions', '<a href="javascript:void(0)" class="editPtDataButton" onclick="togglePtTypeEdit();">'.tr('pt046').'</a>');
@@ -92,6 +100,7 @@ if ($error == false)
 						tpl_set_var('ownerListUserActions', '<a id="dddx" href="javascript:void(0)" class="editPtDataButton" onclick="clickShow(\'addUser\', \'dddx\'); ">'.tr('pt030').'</a> <span style="display: none" id="addUser">'.tr('pt028').'<input type="text" id="addNewUser2pt" /><br /><a href="javascript:void(0)" class="editPtDataButton" onclick="cancellAddNewUser2pt()" >'.tr('pt031').'</a><a href="javascript:void(0)" class="editPtDataButton" onclick="ajaxAddNewUser2pt('.$ptDbRow['id'].')" >'.tr('pt032').'</a></span>');
 						tpl_set_var('ptTypesSelector', displayPtTypesSelector('ptType1', $ptDbRow['type']));
 					} else {
+						tpl_set_var('ptStatus', '');
 						tpl_set_var('percentDemandUserActions', 'none');
 						tpl_set_var('displayAddCachesButtons', 'none');
 						tpl_set_var('ptTypeUserActions', '');
@@ -102,7 +111,7 @@ if ($error == false)
 					
 
 					tpl_set_var('powerTrailLogo', displayPowerTrailLogo($ptDbRow['id'], $ptDbRow['image']));
-					tpl_set_var('PowerTrailCaches', displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache()));
+					// tpl_set_var('PowerTrailCaches', displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache()));
 					tpl_set_var('powerTrailserStats', displayPowerTrailserStats($pt->getCountCachesAndUserFoundInPT()));
 					// powerTrailController::debug($pt->getPowerTrailDbRow(), __LINE__);
 					// powerTrailController::debug($ptOwners, __LINE__);
@@ -167,11 +176,12 @@ function displayPTrails($pTrails)
 {
 	$result = '';	
 	foreach ($pTrails as $pTkey => $pTrail) {
+		$ptTypes = powerTrailBase::getPowerTrailTypes();
 		$result .= '<tr>'.
 		'<td class="ptTd"><b><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pTrail["id"].'">'.$pTrail["name"]           .'</a></b></td>'.
 		'<td class="ptTd">'.$pTrail["centerLatitude"]    .'</td>'.
 		'<td class="ptTd">'.$pTrail["centerLongitude"]   .'</td>'.
-		'<td class="ptTd">'.$pTrail["type"]              .'</td>'.
+		'<td class="ptTd">'.tr($ptTypes[$pTrail["type"]]['translate'])              .'</td>'.
 		'<td class="ptTd">'.$pTrail["status"]            .'</td>'.
 		'<td class="ptTd">'.substr($pTrail["dateCreated"] , 0, -9)      .'</td>'.
 		'<td class="ptTd">'.$pTrail["cacheCount"]        .'</td>'.
@@ -188,10 +198,13 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 	$foundCacheTypesIcons = getFoundCacheTypesIcons($cacheTypesIcons);
 	$cacheRows = '';
 	foreach ($pTrailCaches as $rowNr => $cache) {
+		// powerTrailController::debug($cache);
 		$cacheRows .= '<tr>';
+		//display icon found/not found depend on current user
 		if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $cacheRows .= '<td><img src="tpl/stdstyle/images/'.$foundCacheTypesIcons[$cache['type']].'" title="'.$powerTrailCachesUserLogsByCache[$cache['cache_id']]['text'].'"/></td>';
 		else $cacheRows .= '<td><img src="tpl/stdstyle/images/'.$cacheTypesIcons[$cache['type']].'" /></td>';
-		$cacheRows .= '<td><a href="'.$cache['wp_oc'].'">'.$cache['name'].'</a></td>'.
+		
+		$cacheRows .= '<td><a href="'.$cache['wp_oc'].'">'.$cache['name'].'</a>()</td>'.
 		'</tr>';
 	}	
 	
@@ -200,34 +213,7 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 	return $cacheRows;
 }
 
-/**
- * prepare array contain small icons for diffrent cachetypes
- */
-function getCacheTypesIcons() 
-{
-	$q = 'SELECT `id`, `icon_small` FROM `cache_type` WHERE 1';
-	$db = new dataBase;
-	$db->simpleQuery($q);
-	$cacheTypesArr = $db->dbResultFetchAll();
-	foreach ($cacheTypesArr as $cacheType) {
-		$cacheTypesIcons[$cacheType['id']] = $cacheType['icon_small'];
-	}
-	// powerTrailController::debug($cacheTypesArr);
-	// powerTrailController::debug($cacheTypesIcons);
-	
-	return $cacheTypesIcons;
-}
 
-function getFoundCacheTypesIcons($cacheTypesIcons)
-{
-	foreach ($cacheTypesIcons as $id => $cacheIcon) {
-		$tmp = explode('.', $cacheIcon);
-		$tmp[0] = $tmp[0].'-found';
-		$foundCacheTypesIcons[$id] = implode('.', $tmp);
-	}
-	// powerTrailController::debug($foundCacheTypesIcons);
-	return $foundCacheTypesIcons;
-}
 
 function displayPowerTrailserStats($stats)
 {

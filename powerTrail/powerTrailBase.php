@@ -6,6 +6,7 @@ require_once __DIR__.'/../lib/db.php';
 class powerTrailBase{
 		
 	const minimumCacheCount = 0;
+	const userMinimumCacheFoundToSetNewPowerTrail = 500;
 	const powerTrailLogoFileName = 'powerTrailLogoId';
 	
 	public $logActionTypes = array (
@@ -54,6 +55,28 @@ class powerTrailBase{
 			2 => array ( // touring
 				'translate' => 'pt005',
 			),
+			3 => array (
+				'translate' => 'pt067',
+			),
+			4 => array (
+				'translate' => 'pt079',
+			),
+			
+		);
+					
+	}
+
+	/**
+	 * here power Trail status
+	 */
+	public static function getPowerTrailStatus(){
+		return array (
+			1 => array ( //sport
+				'translate' => 'pt006',
+			),
+			2 => array ( // touring
+				'translate' => 'pt007',
+			),
 			
 		);
 					
@@ -84,5 +107,5 @@ class powerTrailBase{
 		$response = $db->dbResultFetch();
 		return $response['c'];
 	}
-
+	
 }

@@ -1,5 +1,4 @@
 <?php
-// session_start();
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/../lib/common.inc.php';
@@ -26,7 +25,7 @@ $result = $db->dbResultFetchAll();
 // print_r($result);
 
 // build to display
-$toDisplay = '<table>';
+$toDisplay = '<table id="commentsTable" cellspacing="0">';
 foreach ($result as $key => $dbEntery) {
 	$userActivity = $dbEntery['hidden_count'] +	$dbEntery['log_notes_count'] + $dbEntery['founds_count'] + $dbEntery['notfounds_count'];
 	$toDisplay .= '
@@ -37,11 +36,9 @@ foreach ($result as $key => $dbEntery) {
 		</td>
 	</tr>
 	<tr>
-
-
-	<td class="commentContent" valign="top">'.htmlspecialchars_decode($dbEntery['commentText']).'</td>'.
+		<td class="commentContent" valign="top">'.htmlspecialchars_decode($dbEntery['commentText']).'</td>
+	</tr><tr><td>&nbsp</td></tr>'
 	
-	'</tr>'
 	;
 }
 $toDisplay .= '</table>';

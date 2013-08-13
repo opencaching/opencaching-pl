@@ -26,6 +26,11 @@ class powerTrailMenu
 					'action'=> 'selectCaches',
 					'script' => 'powerTrail.php',
 				),
+				4 => array (
+					'name' => tr('pt062'),
+					'action'=> 'mySeries',
+					'script' => 'powerTrail.php',
+				),
 				
 			);
 		} else $this->menu = array ();
