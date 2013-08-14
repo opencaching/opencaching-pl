@@ -17,10 +17,13 @@ print displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCa
 
 function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsByCache) 
 {
+	if(count($pTrailCaches) == 0) return '<br /><br />'.tr('pt082');	
+		
 	$statusIcons = array (
 		1 => '/tpl/stdstyle/images/log/16x16-published.png',
 		2 => '/tpl/stdstyle/images/log/16x16-temporary.png',
 		3 => '/tpl/stdstyle/images/log/16x16-trash.png',
+		5 => '/tpl/stdstyle/images/log/16x16-need-maintenance.png',
 	);	
 
 	$cacheTypesIcons = getCacheTypesIcons();
@@ -35,7 +38,7 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		<th><img src="images/rating-star.png" /></th>
 	</tr>';
 	foreach ($pTrailCaches as $rowNr => $cache) {
-		// powerTrailController::debug($cache);
+		 // powerTrailController::debug($cache); exit;
 		$cacheRows .= '<tr>';
 		//display icon found/not found depend on current user
 		if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $cacheRows .= '<td><img src="tpl/stdstyle/images/'.$foundCacheTypesIcons[$cache['type']].'" title="'.$powerTrailCachesUserLogsByCache[$cache['cache_id']]['text'].'"/></td>';
@@ -47,7 +50,7 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		//FoundCount
 		$cacheRows .= '<td>'.$cache['founds'].'</td>';
 		//score, toprating
-		$cacheRows .= '<td>'.ratings($cache['score']).'</td>';
+		$cacheRows .= '<td>'.ratings($cache['score'], $cache['votes']).'</td>';
 		$cacheRows .= '<td>'.$cache['topratings'].'</td>';
 		
 		'</tr>';
@@ -58,12 +61,13 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 	return $cacheRows;
 }
 
-function ratings($score){
-	if ($score > 2)                return '<span style="color: green">'.tr('pt070');
+function ratings($score, $votes){
+	if ($votes < 3) return '<span style="color: gray">'.tr('pt083').'</span>';
+	if ($score > 2)                return '<span style="color: green">'.tr('pt070').'</span>';
 	if ($score > 1 && $score<=2)   return '<span style="color: green">'.tr('pt071').'</span>';
-	if ($score > 0 && $score<=1)   return '<span style="color: green">'.tr('pt072');
-	if ($score > -1 && $score<=0)  return '<span style="color: red">'.tr('pt073');
-	if ($score < -1)               return '<span style="color: red">'.tr('pt074');
+	if ($score > 0 && $score<=1)   return '<span style="color: green">'.tr('pt072').'</span>';
+	if ($score > -1 && $score<=0)  return '<span style="color: red">'.tr('pt073').'</span>';
+	if ($score < -1)               return '<span style="color: red">'.tr('pt074').'</span>';
 }
 
 /**

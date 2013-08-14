@@ -1401,90 +1401,90 @@ rating-c_50 Proszę wziąc pod uwagę widzialność, dostepność lub inne przes
 rating-c_51 Wylicz
 rating-c_52 Wyczyść formularz
 rating-c_53 System oceny dostępny dzięki stronie http://www.clayjar.com/gcrs/
-BV die Bouvetinseln
-BW Botsuana
+BV Wyspa Bouveta
+BW Botswana
 BY Białoruś
 BZ Belize
 CA Kanada
 CC Kokosinseln
-CF Zentralafrikanische Republik
+CF Republika Środkowoafrykańska
 CG Kongo
 CH Szwajcaria
-CI Elfenbeinküste
-CK Cookinseln
+CI Wybrzeże Kości Słoniowej
+CK Wyspy Cooka
 CL Chile
 CM Kamerun
-CN Volksrepublik China
-CO Kolumbien
+CN Chiny
+CO Kolumbia
 CR Costa Rica
-CS Serbien und Montenegro
+CS Serbia i Czarnogóra
 CU Kuba
-CV Kapverden
-CX Weihnachtsinseln
-CY Zypern
+CV Republika Zielonego Przylądka
+CX Wyspa Bożego Narodzenia
+CY Cypr
 CZ Czeska Republika
 DE Niemcy
-DJ Dschibuti
+DJ Dżibuti
 DK Dania
-DO Dominikanische Republik
-DZ Algerien
-EC Ecuador
+DO Dominikana
+DZ Algeria
+EC Ekwador
 EE Estonia
 EG Egipt
-EH Westsahara
-ER Eritrea
+EH Sahara Zachodnia
+ER Erytrea
 ES Hiszpania
-ET Äthiopien
+ET Etiopia
 FI Finlandia
 FJ Fidschi
 FK Falklandinseln
 FM Mikronesien
-FO Färöer (zu Dänemark)
+FO Wyspy Owcze
 FR Francja
 GA Gabun
 GB Wielka Brytania
 GD Granada
-GE Georgien
-GF Guayana
+GE Gruzja
+GF Gujana
 GH Ghana
 GI Gibraltar
-GL Grönland
+GL Grenlandia
 GM Gambia
 GN Guinea
 GP Guadelope
 GR Grecja
-GS Südgeorgien und die Südlichen Sandwichinseln
+GS Georgia Południowa i Sandwich Południowy
 GT Guatemala
 GU Guam
 GW Guinea-Bissau
 GY Guyana
 HK Honkong
-HM Heard und McDonaldinseln
+HM Wyspy Heard i McDonalda
 HN Honduras
 HR Chorwacja
 HT Haiti
 HU Węgry
-ID Indonesien
+ID Indonezja
 IE Irlandia
-IL Israel
-IN Indien
-IO Britisches Territorium im Indischen Ozean
+IL Izrael
+IN Indie
+IO Brytyjskie Terytorium Oceanu Indyjskiego
 IQ Irak
 IR Iran
-IS Island
+IS Islandia
 IT Włochy
-JM Jamaika
-JO Jordanien
+JM Jamajka
+JO Jordania
 JP Japonia
 KE Kenia
 KG Kirgistan
-KH Kambodscha
+KH Kambodża
 KI Kiribati
 KM Komoren
 KN St. Kitts und Nevis
-KP Demokratische Volksrepublik Korea
-KR Republik Korea
-KW Kuwait
+KP Korea Płn
+KR Korea Płd
+KW Kuweit
 KY Kaimaninseln
 KZ Kasachstan
 LA Laos
@@ -1534,7 +1534,7 @@ NZ Neuseeland
 OM Oman
 PA Panama
 PE Peru
-PF Französisch-Polynesien
+PF Polinezja Francuska
 PG Papua-Neuguinea
 PH Philippinen
 PK Pakistan
@@ -1588,22 +1588,22 @@ UA Ukraina
 UG Uganda
 UM Amerikanisch-Ozeanien
 US USA
-UY Uruguay
+UY Urugwaj
 UZ Usbekistan
-VA der Heilige Stuhl (Vatikan)
-VC St. Vincent und die Grenadinen
+VA Watykan
+VC Saint Vincent i Grenadyny
 VE Venezuela
-VG die Britischen Jungferninseln
-VI die Amerikanischen Jungferninseln
-VN Vietnam
+VG Brytyjskie Wyspy Dziewicze
+VI Amerykańskie Wyspy Dziewicze
+VN Wietnam
 VU Vanuatu
-WF Wallis und Futuna
+WF Wallis i Futuna
 WS Samoa
 YE Jemen
 YT Mayotte
-ZA Südafrika
-ZM Sambia
-ZW Simbabwe
+ZA Republika Południowej Afryki
+ZM Zambia
+ZW Zimbabwe
 SU Rosja
 pt001 Power Traile
 pt002 nalaży do serii 
@@ -1625,7 +1625,7 @@ pt017 znalazłeś
 pt018 Ten Power Trail jest niewidoczny (jeszcze nieopublikowany, zablokowany, itp.)
 pt019 Szczegóły Power Traila
 pt020 skrzynki w ramach Power Traila    
-pt021 Twoje ststystyki dla 
+pt021 Twoje statystyki dla 
 pt022 ilość skrzynek    
 pt023 typ power traila
 pt024 data publikacji
@@ -1639,7 +1639,7 @@ pt031 Anuluj
 pt032 Dodaj
 pt033 Odśwież
 pt034 Opis Power Traila
-pt035 Wszystkie Serie w systemie opencaching
+pt035 Serie
 pt036 nazwa
 pt037 N
 pt038 E
@@ -1686,5 +1686,7 @@ pt078 ocena
 pt079 tematyczny
 pt080 Naciskając ten przycisk założysz nowy Power Trail
 pt081 Seria musi mieć nazwę
+pt082 Nie przypisano jeszcze keszy tej serii
+pt083 brak
 
 

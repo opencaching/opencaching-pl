@@ -5,7 +5,7 @@ require_once __DIR__.'/../lib/db.php';
  */
 class powerTrailBase{
 		
-	const minimumCacheCount = 0;
+	const minimumCacheCount = 5;
 	const userMinimumCacheFoundToSetNewPowerTrail = 500;
 	const powerTrailLogoFileName = 'powerTrailLogoId';
 	

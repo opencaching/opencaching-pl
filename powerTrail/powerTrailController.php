@@ -151,13 +151,14 @@ class powerTrailController {
 	{
 		$this->action = 'createNewSerie';	
 		// self::debug($_POST, 'POST', __LINE__);
-		if( $_POST['powerTrailName'] != '' && $_POST['type'] != 0 && $_POST['status'] != 0 && $_POST['description'] != '')
+		if(isset($_POST['powerTrailName']) && $_POST['powerTrailName'] != '' && $_POST['type'] != 0 && $_POST['status'] != 0)
 		{
+			print 'wchodzi<br/>';	
 			$query = "INSERT INTO `PowerTrail`(`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`, `perccentRequired`) VALUES (:1,:2,:3,NOW(),0,:4,:5)";
 			$db = new dataBase(false);
 			$db->multiVariableQuery($query, $_POST['powerTrailName'],$_POST['type'], $_POST['status'], $_POST['description'], $_POST['dPercent']);
-			print $newProjectId = $db->lastInsertId();
-			exit;
+			$newProjectId = $db->lastInsertId();
+			// exit;
 			$query = "INSERT INTO `PowerTrail_owners`(`PowerTrailId`, `userId`, `privileages`) VALUES (:1,:2,:3)";
 			$db->multiVariableQuery($query, $newProjectId, $this->user['userid'], 1);
 			$logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`) VALUES (:1,:2,NOW(),2,:3)';

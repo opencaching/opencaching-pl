@@ -18,11 +18,10 @@ global $lang, $rootpath, $usr;
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
 
-// check if module is swithed on in settings.inc.php
-// $sonsOfTheGod = array(9067, 9078, 7699, 7969, 4029, 10737, 1038, 33407, );
-// if (!in_array($usr['userid'], $sonsOfTheGod)){
-	if (!isset($powerTrailModuleSwitchOn) || $powerTrailModuleSwitchOn !== 1) header("location: $absolute_server_URI");
-// }
+$sonsOfTheGod = array(9067, 9078, 7699, 7969, 4029, 10737, 1038, 33407, );
+if (!in_array($usr['userid'], $sonsOfTheGod)){
+	header("location: $absolute_server_URI");
+}
 
 //Preprocessing
 if ($error == false)
@@ -177,15 +176,17 @@ function displayPTrails($pTrails)
 	$result = '';	
 	foreach ($pTrails as $pTkey => $pTrail) {
 		$ptTypes = powerTrailBase::getPowerTrailTypes();
+		$ptStatus = powerTrailBase::getPowerTrailStatus();
 		$result .= '<tr>'.
 		'<td class="ptTd"><b><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pTrail["id"].'">'.$pTrail["name"]           .'</a></b></td>'.
 		'<td class="ptTd">'.$pTrail["centerLatitude"]    .'</td>'.
 		'<td class="ptTd">'.$pTrail["centerLongitude"]   .'</td>'.
-		'<td class="ptTd">'.tr($ptTypes[$pTrail["type"]]['translate'])              .'</td>'.
-		'<td class="ptTd">'.$pTrail["status"]            .'</td>'.
-		'<td class="ptTd">'.substr($pTrail["dateCreated"] , 0, -9)      .'</td>'.
-		'<td class="ptTd">'.$pTrail["cacheCount"]        .'</td>'.
-		'</tr>';
+		'<td class="ptTd">'.tr($ptTypes[$pTrail["type"]]['translate'])   .'</td>'.
+		'<td class="ptTd">'.tr($ptStatus[$pTrail["status"]]['translate']) .'</td>'.
+		'<td class="ptTd">'.substr($pTrail["dateCreated"] , 0, -9).'</td>'.
+		'<td class="ptTd">'.$pTrail["cacheCount"].'</td>'.
+		'<td class="ptTd">'.$pTrail["conquestedCount"].'</td>
+		</tr>';
 		// var_dump($pTrail);
 	}
 	return $result;
@@ -217,8 +218,13 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 
 function displayPowerTrailserStats($stats)
 {
-	$stats2display = round($stats['cachesFoundByUser'] * 100 / $stats['totalCachesCountInPowerTrail'], 2) .'% ('  .tr('pt017') .' ' . $stats['cachesFoundByUser'].' '.tr('pt016').' '.$stats['totalCachesCountInPowerTrail'].' '.tr('pt014');
+	if ($stats['totalCachesCountInPowerTrail'] != 0) {	
+		$stats2display = round($stats['cachesFoundByUser'] * 100 / $stats['totalCachesCountInPowerTrail'], 2);
+	} else {
+		$stats2display = 0;
+	}
 	// powerTrailController::debug($stats);
+	$stats2display .= '% ('  .tr('pt017') .' ' . $stats['cachesFoundByUser'].' '.tr('pt016').' '.$stats['totalCachesCountInPowerTrail'].' '.tr('pt014');
 	return $stats2display;
 }
 
@@ -260,8 +266,12 @@ function displayPtTypesSelector($htmlid, $selectedId = 0){
 }
 
 function displayPtCommentsSelector($htmlid, $percetDemand, $userStats, $ptId, $selectedId = 0){
-		
-	$percentUserFound = round($userStats['cachesFoundByUser'] * 100 / $userStats['totalCachesCountInPowerTrail'], 2);
+	
+	if($userStats['totalCachesCountInPowerTrail'] != 0){	
+		$percentUserFound = round($userStats['cachesFoundByUser'] * 100 / $userStats['totalCachesCountInPowerTrail'], 2);
+	} else {
+		$percentUserFound = 0;
+	}
 	$commentsArr = powerTrailBase::getPowerTrailComments();
 	
 	$selector = '<select id="'.$htmlid.'" name="'.$htmlid.'">';

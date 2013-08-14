@@ -100,13 +100,24 @@ function ajaxUpdateStatus(){
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
     	if(response != 'error'){
+    		toggleStatusEdit();
+    		$('#StatusOKimg').show();
+    		$(function() {
+				setTimeout(function() {
+   					$('#StatusOKimg').fadeOut(800); 
+				}, 801);
+			});
     		$('#ptStatus').html(response);
 		}
     });
     
+   request.fail(function (jqXHR, textStatus, errorThrown){
+		toggleStatusEdit();
+    });
+    
     request.always(function () {
     	$('#ajaxLoaderStatus').hide();
-    	toggleStatusEdit();
+    	
     });
 }
 
@@ -173,6 +184,12 @@ function ajaxUpdateDemandPercent() {
     request.done(function (response, textStatus, jqXHR){
     	if(response != 'error'){
     		$('#powerTrailpercent').html($('#demandPercent').val());
+    		$('#ptPercentOKimg').show;
+    		$(function() {
+				setTimeout(function() {
+			   	$("#ptPercentOKimg").fadeOut(800);
+			}, 801);
+		});
 		}
     });
     
@@ -994,7 +1011,7 @@ table, th, td
 <div style="display: {displayPowerTrails}">
 	<table border=0 width=100%>
 		<tr>
-			<td colspan=7 class="linearBg1">{{pt035}}</td>
+			<td colspan=8 class="linearBg1">{{pt035}}</td>
 		</tr>
 		<tr>
 			<th class="ptTd">{{pt036}}</th>
@@ -1004,6 +1021,7 @@ table, th, td
 			<th class="ptTd">{{pt040}}</th>
 			<th class="ptTd">{{pt041}}</th>
 			<th class="ptTd">{{pt042}}</th>
+			<th class="ptTd">{{pt057}}</th>
 		</tr>
 		{PowerTrails}
 	</table>
@@ -1082,6 +1100,7 @@ table, th, td
 					<a href="javascript:void(0)" onclick="togglePercentSection()" class="editPtDataButton">{{pt031}}</a>	
 					<a href="javascript:void(0)" onclick="ajaxUpdateDemandPercent()" class="editPtDataButton">{{pt044}}</a>	
 				</span>
+				<img id="ptPercentOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
 			</td>
 			<td align="right">
 				<span class="userActions" id="percentDemandUserActions" style="display: {percentDemandUserActions}">
