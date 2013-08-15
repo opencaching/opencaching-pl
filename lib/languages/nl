@@ -1692,7 +1692,7 @@ pt053 Datum log
 pt054 % nodig om deze serie te voltooien
 pt055 Wijzigen
 pt056 Opmerking
-pt057 Gevonden
+pt057 Voltooid
 pt058 Volgende reacties
 pt059 Vorige reacties
 pt060 Verander afbeelding
@@ -1700,7 +1700,7 @@ pt061 Voeg afbeelding uit bestand toe
 pt062 Eigen series
 pt063 Status
 pt064 Wijzig status
-pt065 Gevonden
+pt065 Voltooid
 pt066 keer
 pt067 Natuur
 pt068 Je moet minimaal
@@ -1719,5 +1719,6 @@ pt080 Sla nieuwe PowerTrail op
 pt081 Serie moet een naam hebben
 pt082 Er zijn nog geen caches in deze serie
 pt083 Ongewaardeerd
+pt084 Geen caches aanwezig
 
 
