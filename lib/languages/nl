@@ -1653,7 +1653,7 @@ pt014 uit deze cache serie gevonden
 pt015 Voortgang van deze serie
 pt016 van
 pt017 je hebt
-pt018
+pt018 De PowerTrail in niet zichtbaar (nog niet gepubliceerd, onderhoud, enz)
 pt019 Eigenschappen PowerTrail
 pt020 Caches in PowerTrail
 pt021 Mijn statistieken van
@@ -1661,8 +1661,8 @@ pt022 Aantal caches
 pt023 Soort PowerTrail
 pt024 Publicatie datum
 pt025 Eigenaar
-pt026
-pt027
+pt026 Sportief
+pt027 Verkennen
 pt028 Gebruikersnaam of gebruikers-id
 pt029 Deze persoon verwijderen uit PowerTrail
 pt030 Toevoegen/verwijderen
@@ -1681,22 +1681,20 @@ pt042 Aantal caches
 pt043 Wijzig beschrijving
 pt044 Opslaan
 pt045 Wijzig datum
-pt045
 pt046 Wijzig soort
-pt046
 pt047 Toevoegen
 pt048 Kies op waypointnummer
 pt049 Kies toe te voegen caches
 pt050 Adviezen en opmerkingen
 pt051 Schrijf een notitie
-pt052
-pt053
+pt052 Soort log
+pt053 Datum log
 pt054 % nodig om deze serie te voltooien
 pt055 Wijzigen
 pt056 Opmerking
 pt057 Gevonden
-pt058
-pt059
+pt058 Volgende reacties
+pt059 Vorige reacties
 pt060 Verander afbeelding
 pt061 Voeg afbeelding uit bestand toe
 pt062 Eigen series
@@ -1720,6 +1718,6 @@ pt079 Thema
 pt080 Sla nieuwe PowerTrail op
 pt081 Serie moet een naam hebben
 pt082 Er zijn nog geen caches in deze serie
-pt083
+pt083 Ongewaardeerd
 
 
