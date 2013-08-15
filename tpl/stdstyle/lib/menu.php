@@ -38,7 +38,7 @@
 
  ****************************************************************************/
 include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString;
+global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString, $powerTrailModuleSwitchOn;
 
 $menu = array(
     array(
@@ -210,6 +210,13 @@ $menu = array(
                 'siteid'        => 'articles/s5',
                 'visible'       => false,
                 'filename'      => 'articles.php?page=s5'
+            ),
+			array(
+                'title'         => tr('pt001'),
+                'menustring'    => tr('pt001'),
+                'siteid'        => 'powerTrail',
+                'visible'       => $powerTrailModuleSwitchOn,
+                'filename'      => 'powerTrail.php'
             )
         )
     ),

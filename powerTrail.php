@@ -18,11 +18,19 @@ global $lang, $rootpath, $usr;
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
 
+
+
 $sonsOfTheGod = array(9067, 9078, 7699, 7969, 4029, 10737, 1038, 33407, 3, );
 if (!in_array($usr['userid'], $sonsOfTheGod)){
 	header("location: $absolute_server_URI");
+} else {
+	$powerTrailModuleSwitchOn = true;
+}
+if(!$powerTrailModuleSwitchOn) {
+	header("location: $absolute_server_URI");
 }
 
+$firePtMenu = true;
 //Preprocessing
 if ($error == false)
 {
@@ -62,8 +70,8 @@ if ($error == false)
 				break;
 			case 'selectCaches':
 				//$userPowerTrails = $pt->getUserPowerTrails();
-				tpl_set_var("keszynki",displayCaches($result, $pt->getUserPowerTrails()));
 				tpl_set_var('displayUserCaches', 'block');
+				tpl_set_var("keszynki",displayCaches($result, $pt->getUserPowerTrails()));
 				break;
 			case 'showAllSeries':
 				tpl_set_var('PowerTrails', displayPTrails($pt->getpowerTrails()));
@@ -157,6 +165,11 @@ function displayCaches($caches, $pTrails)
 {
 	// powerTrailController::debug($caches);
 	// powerTrailController::debug($pTrails);
+	if(count($caches == 0)) {
+		tpl_set_var('displayUserCaches', 'none');
+		tpl_set_var('nocachess', 'block');
+		return '';
+	}
 	$rows = '';
 	foreach ($caches as $key => $cache) {
 		$ptSelector = '<select onchange="ajaxAddCacheToPT('.$cache['cache_id'].');" id="ptSelectorForCache'.$cache['cache_id'].'"><option value="-1">---</option>';

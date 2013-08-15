@@ -993,9 +993,9 @@ table, th, td
 	<div class="searchdiv">
 		<table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
 		<tr>
-		 <td><a href="{os_script}?sort=wpt">waypoint</a></td>
-		 <td><a href="{os_script}?sort=nazwa">{{cache_name}}</a></td>
-		 <td><a href="{os_script}?sort=autor">{{pt002}}</a></td>
+		 <td>waypoint</td>
+		 <td>{{cache_name}}</td>
+		 <td>{{pt002}}</td>
 		</tr>
 	   <tr>
         <td colspan="7"><img src="tpl/stdstyle/images/blue/dot_blue.png" height="1" width="100%"/></td>
@@ -1007,6 +1007,7 @@ table, th, td
       </table>
     </div>
 </div>
+<div style="display: {nocachess}">({{pt084}})</div>
 
 <div style="display: {displayPowerTrails}">
 	<table border=0 width=100%>
