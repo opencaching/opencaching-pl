@@ -1637,7 +1637,7 @@ ZM Zambia
 ZW Zimbabwe
 SU Rusland
 pt001 PowerTrail
-pt002 
+pt002 Voeg toe aan serie
 pt003 Maak een nieuwe serie
 pt004 Een vorm op kaart
 pt005 Verkennen
@@ -1645,25 +1645,25 @@ pt006 Zichtbaar
 pt007 Niet zichtbaar
 pt008 Serie naam
 pt009 Serie soort
-pt010
+pt010 Zichtbaarheid
 pt011 Beschrijving van serie
 pt012 Alle series
 pt013 Voeg cache toe aan serie
-pt014
-pt015
+pt014 uit deze cache serie gevonden
+pt015 Voortgang van deze serie
 pt016 van
-pt017
+pt017 je hebt
 pt018
 pt019 Eigenschappen PowerTrail
-pt020
-pt021
+pt020 Caches in PowerTrail
+pt021 Mijn statistieken van
 pt022 Aantal caches
 pt023 Soort PowerTrail
 pt024 Publicatie datum
 pt025 Eigenaar
 pt026
 pt027
-pt028 Nicknaam of gebruikers-id
+pt028 Gebruikersnaam of gebruikers-id
 pt029 Deze persoon verwijderen uit PowerTrail
 pt030 Toevoegen/verwijderen
 pt031 Annuleren
@@ -1678,48 +1678,48 @@ pt039 Soort
 pt040 Status
 pt041 Publicatie datum
 pt042 Aantal caches
-pt043
+pt043 Wijzig beschrijving
 pt044 Opslaan
 pt045 Wijzig datum
 pt045
 pt046 Wijzig soort
 pt046
-pt047
-pt048
-pt049
-pt050
-pt051
+pt047 Toevoegen
+pt048 Kies op waypointnummer
+pt049 Kies toe te voegen caches
+pt050 Adviezen en opmerkingen
+pt051 Schrijf een notitie
 pt052
 pt053
 pt054 % nodig om deze serie te voltooien
 pt055 Wijzigen
-pt056
-pt057
+pt056 Opmerking
+pt057 Gevonden
 pt058
 pt059
 pt060 Verander afbeelding
-pt061 Voeg logo uit bestand toe
+pt061 Voeg afbeelding uit bestand toe
 pt062 Eigen series
 pt063 Status
 pt064 Wijzig status
-pt065
-pt066
+pt065 Gevonden
+pt066 keer
 pt067 Natuur
-pt068
-pt069
-pt070
-pt071
-pt072
-pt073
-pt074
-pt075
-pt076
-pt077
-pt078
+pt068 Je moet minimaal
+pt069 cache gevonden hebben om een PowerTrail te maken
+pt070 Uitstekend
+pt071 Goed
+pt072 Normaal
+pt073 Redelijk
+pt074 Slecht
+pt075 Soort
+pt076 Naam (plaatser)
+pt077 Status
+pt078 Waardering
 pt079 Thema
 pt080 Sla nieuwe PowerTrail op
-pt081
-pt082
+pt081 Serie moet een naam hebben
+pt082 Er zijn nog geen caches in deze serie
 pt083
 
 
