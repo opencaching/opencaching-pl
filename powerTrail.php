@@ -89,7 +89,7 @@ if ($error == false)
 					tpl_set_var('ptTypeName', tr($ptTypesArr[$ptDbRow['type']]['translate']));
 					tpl_set_var('displaySelectedPowerTrail', 'block');
 					tpl_set_var('powerTrailName', $ptDbRow['name']);
-					tpl_set_var('powerTrailDescription', htmlspecialchars_decode($ptDbRow['description']));
+					tpl_set_var('powerTrailDescription', stripslashes(htmlspecialchars_decode($ptDbRow['description'])));
 					tpl_set_var('displayPtDescriptionUserAction', displayPtDescriptionUserAction($ptDbRow['id']));
 					tpl_set_var('powerTrailDateCreated', substr($ptDbRow['dateCreated'], 0, -9));
 					tpl_set_var('powerTrailCacheCount', $ptDbRow['cacheCount']);

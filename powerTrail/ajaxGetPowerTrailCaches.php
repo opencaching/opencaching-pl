@@ -37,7 +37,11 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		<th>'.tr('pt078').'</th>
 		<th><img src="images/rating-star.png" /></th>
 	</tr>';
+	$totalFounds = 0;
+	$totalTopRatings = 0;
 	foreach ($pTrailCaches as $rowNr => $cache) {
+		$totalFounds += $cache['founds'];
+		$totalTopRatings += $cache['topratings'];
 		 // powerTrailController::debug($cache); exit;
 		$cacheRows .= '<tr>';
 		//display icon found/not found depend on current user
@@ -46,16 +50,25 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		//cachename, username
 		$cacheRows .= '<td><b><a href="'.$cache['wp_oc'].'">'.$cache['name'].'</b></a> ('.$cache['username'].')</td>';
 		//status
-		$cacheRows .= '<td><img src="'.$statusIcons[$cache['status']].'" /></td>';
+		$cacheRows .= '<td align="center"><img src="'.$statusIcons[$cache['status']].'" /></td>';
 		//FoundCount
-		$cacheRows .= '<td>'.$cache['founds'].'</td>';
+		$cacheRows .= '<td align="center">'.$cache['founds'].'</td>';
 		//score, toprating
-		$cacheRows .= '<td>'.ratings($cache['score'], $cache['votes']).'</td>';
-		$cacheRows .= '<td>'.$cache['topratings'].'</td>';
+		$cacheRows .= '<td align="center">'.ratings($cache['score'], $cache['votes']).'</td>';
+		$cacheRows .= '<td align="center">'.$cache['topratings'].'</td>';
 		
 		'</tr>';
 	}	
-	$cacheRows .= '</table>';
+	$cacheRows .= '
+	<tr bgcolor="#efefff">
+		<td></td>
+		<td style="font-size: 9px;">'.tr('pt085').'</td>
+		<td></td>
+		<td style="font-size: 9px;">'.$totalFounds.'</td>
+		<td></td>
+		<td style="font-size: 9px;">'.$totalTopRatings.'</td>
+	</tr>
+	</table>';
 	// powerTrailController::debug($pTrailCaches);
 	// exit;
 	return $cacheRows;
