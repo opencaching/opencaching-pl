@@ -235,6 +235,7 @@ function ajaxAddComment(){
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
     	// $('#ptComments').html(response);
+    	$("#commentType option[value='2']").remove();
         console.log("comment saved to db! "+response);
     });
     if ($('#commentType').val() == 2) { // refresh conquest count
@@ -1038,7 +1039,7 @@ table, th, td
 	<table border=0 width=100%>
 		<tr>
 			<td width=251>
-				<div style="height: 250px;" id="powerTrailLogo"><img src="{powerTrailLogo}" /></div>
+				<table style="height: 250px; width: 250px;"><tr><td valign="center" align="center"><img id="powerTrailLogo" src="{powerTrailLogo}" /></td></tr></table>
 				<img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
 				<p align="right" id="toggleImageEditButton" style="display: {displayAddCachesButtons}">
 					<a href="javascript:void(0)" onclick="toggleImageEdit()" class="editPtDataButton">{{pt060}}</a>

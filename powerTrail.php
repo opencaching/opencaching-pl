@@ -20,7 +20,7 @@ require_once('lib/common.inc.php');
 
 
 
-$sonsOfTheGod = array(9067, 9078, 7699, 7969, 4029, 10737, 1038, 33407, 3, );
+$sonsOfTheGod = array(9067, 9078, 7699, 7969, 4029, 10737, 1038, 33407, 3,);
 if (!in_array($usr['userid'], $sonsOfTheGod)){
 	header("location: $absolute_server_URI");
 } else {
@@ -39,6 +39,7 @@ if ($error == false)
 		include_once('powerTrail/powerTrailController.php');
 		include_once('powerTrail/powerTrailMenu.php');
 		if (isset($_SESSION['user_id'])) tpl_set_var('displayAddCommentSection', 'block'); else  tpl_set_var('displayAddCommentSection', 'none');
+		tpl_set_var('nocachess', 'none');
 		tpl_set_var('displayCreateNewPowerTrailForm', 'none');
 		tpl_set_var('displayUserCaches', 'none');
 		tpl_set_var('displayPowerTrails', 'none');
@@ -165,7 +166,7 @@ function displayCaches($caches, $pTrails)
 {
 	// powerTrailController::debug($caches);
 	// powerTrailController::debug($pTrails);
-	if(count($caches == 0)) {
+	if(count($caches) == 0) {
 		tpl_set_var('displayUserCaches', 'none');
 		tpl_set_var('nocachess', 'block');
 		return '';
