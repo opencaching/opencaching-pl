@@ -426,7 +426,7 @@ what_do_you_find_intro_pl Geocaching is een buitensport of activiteit waarbij ca
 what_do_you_find_intro_nl Geocaching is een buitensport of activiteit waarbij cachers een GPS gebruiken om een "schat" te vinden die verstopt is door andere deelnemers. Caches zijn waterdichte dozen, die ruilspulletjes en een logboek bevatten waar cachers hun bezoek in kunnen schrijven. De coördinaten van de locatie van de caches zijn opgeslagen in een online database, evenals de beschrijving en instructies om deze te vinden.<br/>Op deze site kun je een heleboel vinden over cachen in Nederland, luxemburg en België. Opencaching.nl in Nederland is opgericht in <span class="content-title-noshade">October 2002</span>. Onze database werkt op <b>opensource project Opencaching</b>. Het idee hierachter is om met meerdere opencaching nodes uit verschillende landen over de hele wereld een gesyngroniseerde database met caches en gebruikers te werken.<br/>Opencaching sites zoals deze hebben niets gemeen met Opencaching.com.
 more_news More news
 filename_rules {rules_url}
-filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
+filename_describe_cache {cache_params_url}
 map_msg In order to view coordinates and <br/>the map of cache's location<br/> you must be <a href="login.php?target={target}">logged in</a>
 additional_hints Extra hints
 images Afbeeldingen
@@ -446,7 +446,7 @@ password_confirm Bevestig wachtwoord
 register_msg1 Om een gebruikersaccount aan te maken op {site_name}, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.                                 
 register_msg2 * zijn verplicht
 register_msg3 Mochten er nog vragen zijn, neem contact met ons op vóór je een account aanmaakt
-register_msg4 Ik heb de <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">gebruikers voorwaarden</a></b> gelezen en begrepen en accepteer deze. 
+register_msg4 Ik heb de <b><a href="{rules_url}">gebruikers voorwaarden</a></b> gelezen en begrepen en accepteer deze. 
 register_msg5 Nieuw account is geregistreerd
 register_msg6 De activatiecode is verzonden per e-mail. Volg de instructies op welke in deze e-mail staan.
 register_msg7 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je {site_name} account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
@@ -463,19 +463,19 @@ possible_recommend Om aanbevelingen te kunnen geven moet je nog een aantal cache
 comments_log Logtekst
 submit_log_entry Verstuur de log
 geokret_log Did you take Geokret? Regeister this on 
-rate_cache Beoordeel deze cache: <br/><a href="http://wiki.opencaching.pl/index.php/Cache_rating">Uitleg over beoordeling</a>
+rate_cache Beoordeel deze cache: <br/><a href="{rating_desc_url}">Uitleg over beoordeling</a>
 do_not_rate Ik wil deze cache niet beoordelen
 listed_other Log deze cache ook op de volgende sites
 not_spcified not spcified
 all_countries toon alle landen
 register_email_subject Registratie bevestiging Opencaching
 error_username_not_ok Gebruikersnaam is niet geldig
-error_username_exists Deze gebruikersnaam bestaat al op Opencaching pl. Kies een andere gebruikersnaam
+error_username_exists Deze gebruikersnaam bestaat al. Kies een andere gebruikersnaam
 error_email_not_ok E-mail adres is niet geldig
-error_email_exists Dit e-mail adres bestaat al op Opencaching pl.
+error_email_exists Dit e-mail adres bestaat al.
 error_password_not_ok Wachtwoord bevat ongeldige tekens of is te kort
 error_password_diffs Beide wachtwoorden zijn niet gelijk
-error_tos Je dient de gebruiksvoorwaarden te accepteren, om op {site_name} te registreren
+error_tos Je dient de gebruiksvoorwaarden te accepteren, om te registreren
 step1 Stap 1
 step2 Stap 2
 new_password_msg1 Om je wachtwoord te veranderen moet je een veiligheidscode aanvragen. Deze wordt naar je e-mail adres gestuurd.
@@ -501,7 +501,7 @@ show_noscore Toon caches zonder score
 available_maps Beschikbare kaarten
 cache_attributes Cache attributen
 latest_logs Laatste logs
-abroad_caches Buiten Polen
+abroad_caches Buiten de BeNeLux
 hidden_by Geplaatst door
 newcaches_label Nieuwe caches
 cache_label Cache naam
@@ -1720,5 +1720,6 @@ pt081 Serie moet een naam hebben
 pt082 Er zijn nog geen caches in deze serie
 pt083 Ongewaardeerd
 pt084 Geen caches aanwezig
+pt085 Totalen
 
 
