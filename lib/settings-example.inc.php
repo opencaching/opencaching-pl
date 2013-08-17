@@ -112,7 +112,14 @@
 	// default coordinates for cachemap, set to your country's center of gravity
 	$country_coordinates = "52.5,19.2";
 	// zoom at which your whole country/region is visible
-        $default_country_zoom = 6;
+	$default_country_zoom = 6;
+
+	// Main page map parameters (customize as needed)
+	$main_page_map_center_lat = 52.13;
+	$main_page_map_center_lon = 19.20;
+	$main_page_map_zoom = 5;
+	$main_page_map_width = 250;
+	$main_page_map_height = 260;
 
 	// maximal size of images
 	if (!isset($maxpicsize)) $maxpicsize = 152400;
