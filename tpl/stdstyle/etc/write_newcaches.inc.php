@@ -28,11 +28,11 @@
 	require_once($rootpath . 'lib/cache_icon.inc.php');
 
 	// Map parameters
-	$map_center_lat = 52.13;
-	$map_center_lon = 19.20;
-	$map_zoom = 5;
-	$map_width = 250;
-	$map_height = 260;
+	$map_center_lat = $main_page_map_center_lat;
+	$map_center_lon = $main_page_map_center_lon;
+	$map_zoom = $main_page_map_zoom;
+	$map_width = $main_page_map_width;
+	$map_height = $main_page_map_height;
 
 	// Read coordinates of the newest caches
 	$markerpositions = get_marker_positions();
