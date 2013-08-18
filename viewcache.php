@@ -1243,7 +1243,7 @@
 			$rspiclogs =sqlValue("SELECT COUNT(*) FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`= $cache_id",0);
 
 				if ($rspiclogs !=0){
-				tpl_set_var('gallery', '<img src="tpl/stdstyle/images/free_icons/photo.png" class="icon16" alt="" />&nbsp;'.$rspiclogs.'x <a href=gallery_cache.php?cacheid='.$cache_id.'>'.tr(gallery).'</a>');
+				tpl_set_var('gallery', '<img src="tpl/stdstyle/images/free_icons/photo.png" class="icon16" alt="" />&nbsp;'.$rspiclogs.'x <a href=gallery_cache.php?cacheid='.$cache_id.'>'.tr('gallery').'</a>');
 				} else {
 				tpl_set_var('gallery', '');
 				;}
@@ -1354,14 +1354,14 @@
 					for ($j = 0; $j < mysql_num_rows($rspictures); $j++)
 					{
 						$pic_record = sql_fetch_array($rspictures);
+						if(!isset($showspoiler)) $showspoiler = '';
 						$thisline = $logpictureline;
 
 						$thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
 						$thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads","upload",$pic_record['url']), $thisline);
 						$thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
 						$thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
-
-						if ($pic_record['user_id'] == $usr['userid'] || $user['admin'])
+						if ($pic_record['user_id'] == $usr['userid'] || (isset($user['admin']) && $user['admin']))
 							$thisline = mb_ereg_replace('{functions}', mb_ereg_replace('{uuid}', $pic_record['uuid'], $remove_picture), $thisline);
 						else
 							$thisline = mb_ereg_replace('{functions}', '', $thisline);
@@ -1801,6 +1801,23 @@ tpl_set_var('bodyMod', '');
 // pass to tmplate if user is logged (hide other geocaching portals links)
 if ($usr == false  || $usr['userFounds'] < 99) $userLogged = 'none'; else $userLogged = 'block';
 tpl_set_var('userLogged', $userLogged);
+
+// power trails
+if($powerTrailModuleSwitchOn) {
+	require_once 'powerTrail/powerTrailBase.php';
+	$ptArr = powerTrailBase::checkForPowerTrailByCache($cache_id);
+	if(count($ptArr)>0){	
+		$ptHtml = tr('pt094').': <br />';
+		foreach ($ptArr as $pt) {
+			$ptHtml .= '<img border="0" width="50" src="'.$pt['image'].'" /> <span style="font-size: 13px;"><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['name'].'</a> <br />';
+		} 
+	} else {
+	$ptHtml = '';
+	}
+} else {
+	$ptHtml = '';
+}
+	tpl_set_var('ptName', $ptHtml);
 
 tpl_BuildTemplate();
 ?>

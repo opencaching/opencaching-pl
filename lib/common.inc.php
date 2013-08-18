@@ -338,7 +338,7 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
 	
 /* temporary check for PowerTrails*/
 /* to be deleted after powerTrail module completed publishing to all users */
-$powerTrailBetaTesters = array(9067, 9078, 7699, 7969, 4029, 10737, 1038, 33407, 1769, 1, 3, 24777);
+$powerTrailBetaTesters = array(9067, 9078, 7699, 7969, 4029, 10737, 1038, 33407, 1769, 1, 3, 24777, 26496, 19613);
 if (in_array($usr['userid'], $powerTrailBetaTesters)){
 	$powerTrailModuleSwitchOn = true;
 } else {

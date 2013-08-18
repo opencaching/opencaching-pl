@@ -74,7 +74,8 @@ if ($error == false)
 				$ptDbRow = $pt->getPowerTrailDbRow();
 				$ptOwners = $pt->getPtOwners();
 				tpl_set_var('powerTrailId', $ptDbRow['id']);
-				$userIsOwner = array_key_exists($usr['userid'], $ptOwners);
+				if ($ptOwners) $userIsOwner = array_key_exists($usr['userid'], $ptOwners);
+				else $userIsOwner = false;
 				if ($ptDbRow['status'] != 0 || $userIsOwner) {
 					$ptTypesArr = powerTrailBase::getPowerTrailTypes();
 					$ptStatusArr = powerTrailBase::getPowerTrailStatus();

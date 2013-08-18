@@ -110,4 +110,18 @@ class powerTrailBase{
 		return $response['c'];
 	}
 	
+	public function getPoweTrailCompletedCountByUser($user_id) {
+		$queryPt = "SELECT count(`PowerTrailId`) AS `ptCount` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1";
+		$db = new dataBase;
+		$db->multiVariableQuery($queryPt, $user_id);
+		$ptCount = $db->dbResultFetch();
+		return (int) $ptCount['ptCount'];
+	}
+	
+	public function checkForPowerTrailByCache($cacheId){
+		$queryPt = 'SELECT `id`, `name`, `image` FROM `PowerTrail` WHERE `id` IN ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 ) AND `status` = 1 ';
+		$db = new dataBase;
+		$db->multiVariableQuery($queryPt, $cacheId);
+		return $db->dbResultFetchAll();
+	}
 }
