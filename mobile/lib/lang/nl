@@ -73,7 +73,7 @@ archived gearchiveerd
 need_archive archiveren nodig
 edit bewerken
 delete verwijderen
-no_cookie your Nroswer ondersteunt geen cookie!
+no_cookie Deze broswer ondersteunt geen cookies!
 del_question Moet dit echt verwijdert worden?
 yes ja
 no nee
@@ -99,7 +99,7 @@ hack hacking
 wrong_pass verkeerd wachtwoord
 my_caches mijn caches
 stats2 statistieken
-reg conditions of use (ext. link)
+reg gebruikersvoorwaarden (ext. link)
 remove_title verwijder log
 stats_title1 Statistieken
 stats_title2 Statistieken
@@ -160,3 +160,4 @@ skip_inactive niet actieve caches
 404_title error 404
 404_text geen bestand
 EOF
+
