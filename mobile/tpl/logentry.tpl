@@ -65,7 +65,7 @@
 					<option onclick="hideextra();" value="2" {if $rodz_select == '2'}selected="selected"{/if}>{$notfound}</option>
 				{/if}				
 				<option onclick="hideextra();" value="3" {if $rodz_select == '3'}selected="selected"{/if}>{$notes}</option>
-				<option onclick="hideextra();" value="4" {if $rodz_select == '4'}selected="selected"{/if}>{$service}</option>
+				<option onclick="hideextra();" value="5" {if $rodz_select == '5'}selected="selected"{/if}>{$service}</option>
 			</select>
 			
 			<br/><br/>
