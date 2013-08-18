@@ -156,14 +156,15 @@ class powerTrailController {
 			print 'wchodzi<br/>';	
 			$query = "INSERT INTO `PowerTrail`(`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`, `perccentRequired`) VALUES (:1,:2,:3,NOW(),0,:4,:5)";
 			$db = new dataBase(false);
-			$db->multiVariableQuery($query, $_POST['powerTrailName'],$_POST['type'], $_POST['status'], $_POST['description'], $_POST['dPercent']);
+			$db->multiVariableQuery($query, strip_tags($_POST['powerTrailName']),(int) $_POST['type'], (int) $_POST['status'], htmlspecialchars($_POST['description']), (int) $_POST['dPercent']);
 			$newProjectId = $db->lastInsertId();
 			// exit;
 			$query = "INSERT INTO `PowerTrail_owners`(`PowerTrailId`, `userId`, `privileages`) VALUES (:1,:2,:3)";
 			$db->multiVariableQuery($query, $newProjectId, $this->user['userid'], 1);
 			$logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`) VALUES (:1,:2,NOW(),2,:3)';
 			$db->multiVariableQuery($logQuery, $newProjectId,$this->user['userid'] ,$this->ptAPI->logActionTypes[1]['type']);
-			$this->mySeries();
+			header("location: powerTrail.php?ptAction=showSerie&ptrail=$newProjectId");
+			// $this->mySeries();
 			// $this->action = 'mySeries';
 			return true;
 		} 

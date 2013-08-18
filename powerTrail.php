@@ -18,14 +18,6 @@ global $lang, $rootpath, $usr;
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
 
-
-
-$sonsOfTheGod = array(9067, 9078, 7699, 7969, 4029, 10737, 1038, 33407, 3,);
-if (!in_array($usr['userid'], $sonsOfTheGod)){
-	header("location: $absolute_server_URI");
-} else {
-	$powerTrailModuleSwitchOn = true;
-}
 if(!$powerTrailModuleSwitchOn) {
 	header("location: $absolute_server_URI");
 }
