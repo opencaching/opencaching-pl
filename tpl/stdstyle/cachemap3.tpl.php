@@ -129,18 +129,6 @@
 		</tr>
 	</table>
 
-	<div style='display:none'>
-		<!-- These filters are permanently hidden. However, some scripts use them, that's why they're not deleted. -->
-		<input class="chbox" id="h_avail" name="h_avail" value="1" type="checkbox" onclick="reload()"/><label for="h_avail">{{ready_to_find}}</label>
-		<select id="max_score" name="max_score" onchange="reload()" style='display:none'>
-			<!--<option value="0.499" {max_sel1}>{{rating_poor}}</option>
-			<option value="1.199" {max_sel2}>{{rating_mediocre}}</option>
-			<option value="1.999" {max_sel3}>{{rating_avarage}}</option>
-			<option value="2.499" {max_sel4}>{{rating_good}}</option>-->
-			<option value="3.000" selected>{{rating_excellent}}</option>
-		</select>
-	</div>
-	
 	<table id='other_options' class='opt_table' cellspacing="0" style='float: left; margin-left: 10px'>
 		<tr>
 			<th colspan='2'>{{hide_caches}}:</th>

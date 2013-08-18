@@ -557,10 +557,6 @@ div#local-cachemap-block                { width: 365px; margin-top: 29px; }
 #viewprofile-table td                   { width: 260px; }
 p.main-totalstats                       { font-weight: bold; }
 
-div#fullscreen_map_filters * {
-    font-size: 11px;
-}
-
 .img-shadow {
     float:left;
     background: url(shadowAlpha.png) no-repeat bottom right !important;
