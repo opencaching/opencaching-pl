@@ -1639,7 +1639,7 @@ SU Rusland
 pt001 PowerTrail
 pt002 Voeg toe aan serie
 pt003 Maak een nieuwe serie
-pt004 Een vorm op kaart
+pt004 Vorm op kaart
 pt005 Verkennen
 pt006 Zichtbaar
 pt007 Niet zichtbaar
@@ -1685,8 +1685,8 @@ pt046 Wijzig soort
 pt047 Toevoegen
 pt048 Kies op waypointnummer
 pt049 Kies toe te voegen caches
-pt050 Adviezen en opmerkingen
-pt051 Schrijf een notitie
+pt050 Opmerkingen en/of loggen
+pt051 Schrijf opmerking of log
 pt052 Soort log
 pt053 Datum log
 pt054 % nodig om deze serie te voltooien
@@ -1704,7 +1704,7 @@ pt065 Voltooid
 pt066 keer
 pt067 Natuur
 pt068 Je moet minimaal
-pt069 cache gevonden hebben om een PowerTrail te maken
+pt069 caches gevonden hebben om een PowerTrail te kunnen maken
 pt070 Uitstekend
 pt071 Goed
 pt072 Normaal
@@ -1721,5 +1721,14 @@ pt082 Er zijn nog geen caches in deze serie
 pt083 Ongewaardeerd
 pt084 Geen caches aanwezig
 pt085 Totalen
+pt086 Na het vinden van een bepaalde percentage zal de het mogelijk zijn om deze serie als voltooid te kunnen loggen. 
+pt087 Wat is dit
+pt088 Uitleg
+pt089 <b>Zichtbaar</b> - Voor iedereen zichtbaar <br/> <b>Niet zichtbaar</b> - Alleen zichtbaar voor de maker
+pt090 De soort van de serie. <b>Vorm op kaart:</b> Bijvoorbeeld interesante plaatsen die een bepaalde vorm op een kaart hebben. <b>Verkennen</b>Bijvoorbeeld om bepaalde plaatsen in je woonplaats te laten zien. <b>Natuur:</b> Mooie plaatsen die met natuur te maken hebben.
+pt091 Verander de naam
+pt092
+pt093
+pt094 Deze cache maakt deel uit van de serie
 
 
