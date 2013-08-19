@@ -611,7 +611,7 @@ number_obtain_recommendations Aantal ontvangen aanbevelingen
 for van
 _caches_ caches
 ratio_recommendations Gemiddelde aanbevolen caches van alle caches
-number_gk_in_caches Number of GeoKrety in caches
+number_gk_in_caches Aantal GeoKrety's in caches
 latest_created_cache Laatste gemaakte cache
 latest_logs_in_caches Laatste logs van gebruikers caches
 caches_waiting_approve My caches waiting to approve by OC Team
@@ -1732,9 +1732,11 @@ pt093 Voltooide series
 pt094 Deze cache maakt deel uit van de serie
 pt095 Naam cacher
 pt096 Gevonden uit serie
-pt097 Gevonden van serie
+pt097 Percentage gevonden
 pt098 Toon meer statistieken
 pt099 Toon statistieken
 pt100 Verberg statistieken
+pt101 Cache dagen
+pt102 Caches per dag
 
 
