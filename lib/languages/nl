@@ -1725,10 +1725,16 @@ pt086 Na het vinden van een bepaalde percentage zal de het mogelijk zijn om deze
 pt087 Wat is dit
 pt088 Uitleg
 pt089 <b>Zichtbaar</b> - Voor iedereen zichtbaar <br/> <b>Niet zichtbaar</b> - Alleen zichtbaar voor de maker
-pt090 De soort van de serie. <b>Vorm op kaart:</b> Bijvoorbeeld interesante plaatsen die een bepaalde vorm op een kaart hebben. <b>Verkennen</b>Bijvoorbeeld om bepaalde plaatsen in je woonplaats te laten zien. <b>Natuur:</b> Mooie plaatsen die met natuur te maken hebben.
+pt090 De soort van de serie. <b>Vorm op kaart:</b> Bijvoorbeeld interesante plaatsen die een bepaalde vorm op een kaart hebben. <b>Verkennen:</b> Bijvoorbeeld om bepaalde plaatsen in je woonplaats te laten zien. <b>Natuur:</b> Mooie plaatsen die met natuur te maken hebben. <b>Thema:</b> Bijvoorbeeld een thema over een bepaald onderwerp. 
 pt091 Verander de naam
-pt092
-pt093
+pt092 Voor testdoeleinden alleen beschikbaar voor geselecteerde gebruikers. Verbeteringen doorgeven via rt of Skype
+pt093 Voltooide series
 pt094 Deze cache maakt deel uit van de serie
+pt095 Naam cacher
+pt096 Gevonden uit serie
+pt097 Gevonden van serie
+pt098 Toon meer statistieken
+pt099 Toon statistieken
+pt100 Verberg statistieken
 
 
