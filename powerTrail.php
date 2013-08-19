@@ -231,7 +231,7 @@ function displayPowerTrailserStats($stats)
 		$stats2display = 0;
 	}
 	// powerTrailController::debug($stats);
-	$stats2display .= '% ('  .tr('pt017') .' ' . $stats['cachesFoundByUser'].' '.tr('pt016').' '.$stats['totalCachesCountInPowerTrail'].' '.tr('pt014');
+	$stats2display .= '% ('  .tr('pt017') .' ' . $stats['cachesFoundByUser'].' '.tr('pt016').' '.$stats['totalCachesCountInPowerTrail'].' '.tr('pt014').')';
 	return $stats2display;
 }
 

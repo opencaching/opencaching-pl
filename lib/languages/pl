@@ -1625,7 +1625,7 @@ pt017 znalazłeś
 pt018 Ten Power Trail jest niewidoczny (jeszcze nieopublikowany, zablokowany, itp.)
 pt019 Szczegóły Power Traila
 pt020 skrzynki w ramach Power Traila    
-pt021 Twoje statystyki dla 
+pt021 Twoje statystyki 
 pt022 ilość skrzynek    
 pt023 typ power traila
 pt024 data publikacji
@@ -1699,5 +1699,10 @@ pt091 Zmień nazwę
 pt092 Na czas testów dostępne tylko dla wybranych użytkowników. Błędy proszę zgłaszać na adres rt lub skype 
 pt093 Zdobytych Serii
 pt094 Ta skrzynka należy do serii
-
+pt095 Geokeszer(ka)
+pt096 Znalezień w ramach Serii
+pt097 procent znalezień
+pt098 Pokaż więcej statystyk 
+pt099 Statystyki dla
+pt100 Ukryj statystyki
 

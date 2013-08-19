@@ -47,6 +47,48 @@ $(function() {
 	ajaxGetComments(0, 8);
 }); 
 
+function ajaxGetPtStats(){
+	$("#ptStatsLoader").show();
+	$('#ptStatsContainer').hide();
+	$("#showPtStatsButton").fadeOut(500);
+	
+	
+	request = $.ajax({
+    	url: "powerTrail/ajaxPtStats.php",
+    	type: "post",
+    	data:{ptId: $('#xmd34nfywr54').val() },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	$('#ptStatsContainer').html(response);
+    	$('#ptStatsContainer').fadeIn(800);
+    	$("#ptStatsOKimg").show();
+    	$("#hidePtStatsButton").fadeIn(800);
+    	$(function() {
+			setTimeout(function() {
+			   	$("#ptStatsOKimg").fadeOut(1200);
+			}, 5000);
+		});
+    	// console.log(response);
+    });
+    
+    request.always(function () {
+    	$('#ptStatsLoader').hide();
+
+    });
+}
+
+function ptStatsHide(){
+	$('#ptStatsContainer').fadeOut(800);
+	$("#hidePtStatsButton").fadeOut(800);
+	$(function() {
+		setTimeout(function() {
+		   	$("#showPtStatsButton").fadeIn(800);
+		}, 800);
+	});
+}
+
 function ajaxUpdateName() {
 	
 	$('#nameAjaxLoader').show();
@@ -1338,10 +1380,20 @@ table, th, td
 	
 	<table border=0 width=100%>
 		<tr>
-			<td class="linearBg1">{{pt021}} {powerTrailName}</td>
+			<td class="linearBg1">{{pt099}} {powerTrailName}</td>
 		</tr>
 		<tr>
 			<td>{{pt015}}: {powerTrailserStats}</td>
+		</tr>
+		<tr>
+			<td>
+				<div id="ptStatsContainer"></div>
+				<a href="javascript:void(0)" id="showPtStatsButton" onclick="ajaxGetPtStats()" class="editPtDataButton">{{pt098}}</a>
+				<img id="ptStatsLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+				<img id="ptStatsOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+				<br /><br />
+				<a href="javascript:void(0)" id="hidePtStatsButton" onclick="ptStatsHide()" class="editPtDataButton" style="display: none">{{pt100}}</a>
+			</td>
 		</tr>
 	</table>
 	

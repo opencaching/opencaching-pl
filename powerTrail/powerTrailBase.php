@@ -124,4 +124,19 @@ class powerTrailBase{
 		$db->multiVariableQuery($queryPt, $cacheId);
 		return $db->dbResultFetchAll();
 	}
+	
+	public function getPtOwners($ptId) {
+		$query = 'SELECT username, email FROM `user` WHERE user_id IN (SELECT `userId` FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 ) ';
+		$db = new dataBase;
+		$db->multiVariableQuery($queryPt, $ptId);
+		return $db->dbResultFetchAll();
+	}
+	
+	public function getPtCacheCount($ptId) {
+		$q = 'SELECT count( * ) AS `count` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1';
+		$db = new dataBase;
+		$db->multiVariableQuery($q, $ptId);
+		$answer = $db->dbResultFetch();
+		return $answer['count'];
+	}
 }
