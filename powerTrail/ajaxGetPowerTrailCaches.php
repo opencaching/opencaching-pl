@@ -29,7 +29,7 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 	$cacheTypesIcons = getCacheTypesIcons();
 	// var_dump($cacheTypesIcons);
 	$foundCacheTypesIcons = getFoundCacheTypesIcons($cacheTypesIcons);
-	$cacheRows = '<table border=0><tr>
+	$cacheRows = '<table class="ptCacheTable" align="center" width="90%"><tr>
 		<th>'.tr('pt075').'</th>
 		<th>'.tr('pt076').'</th>
 		<th>'.tr('pt077').'</th>
@@ -39,11 +39,13 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 	</tr>';
 	$totalFounds = 0;
 	$totalTopRatings = 0;
+	$bgcolor = '#ffffff';
 	foreach ($pTrailCaches as $rowNr => $cache) {
 		$totalFounds += $cache['founds'];
 		$totalTopRatings += $cache['topratings'];
 		 // powerTrailController::debug($cache); exit;
-		$cacheRows .= '<tr>';
+		if($bgcolor == '#eeeeff') $bgcolor = '#ffffff'; else $bgcolor = '#eeeeff'; 
+		$cacheRows .= '<tr  bgcolor="'.$bgcolor.'">';
 		//display icon found/not found depend on current user
 		if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $cacheRows .= '<td><img src="tpl/stdstyle/images/'.$foundCacheTypesIcons[$cache['type']].'" /></td>';
 		else $cacheRows .= '<td><img src="tpl/stdstyle/images/'.$cacheTypesIcons[$cache['type']].'" /></td>';
@@ -64,9 +66,9 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		<td></td>
 		<td style="font-size: 9px;">'.tr('pt085').'</td>
 		<td></td>
-		<td style="font-size: 9px;">'.$totalFounds.'</td>
+		<td align="center" style="font-size: 9px;">'.$totalFounds.'</td>
 		<td></td>
-		<td style="font-size: 9px;">'.$totalTopRatings.'</td>
+		<td align="center" style="font-size: 9px;">'.$totalTopRatings.'</td>
 	</tr>
 	</table>';
 	// powerTrailController::debug($pTrailCaches);

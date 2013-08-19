@@ -920,6 +920,43 @@ table, th, td
 	font-size: 12px;
 }
 
+table.statsTable td{
+	padding-left: 5px;
+	padding-right: 5px;	
+}
+table.statsTable th{
+	padding-left: 5px;
+	padding-right: 5px;	
+	border-bottom: solid 2px;
+	border-color: #000044;
+	background-color:#0088CC;
+	color: #FFFFCC;
+
+}
+table.statsTable th:not(:last-child), table.statsTable td:not(:last-child){
+	border-right: solid 1px;
+}
+
+table.ptCacheTable th{
+	padding-left: 5px;
+	padding-right: 5px;	
+	border-bottom: solid 2px;
+	background-color:#0088CC;
+	color: #FFFFCC;
+}
+
+
+table.ptCacheTable th:first-child, table.statsTable th:first-child{
+	-moz-border-top-left-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+table.ptCacheTable th:last-child, table.statsTable th:last-child{
+	-moz-border-top-right-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
 #powerTrailName{
 	font-size: 36px;
 	color:#000088;
