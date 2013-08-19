@@ -7,7 +7,7 @@ require_once __DIR__.'/powerTrailBase.php';
 $ptId = (int) $_REQUEST['ptId'];
 
 $o1 = ' AND `user`.`is_active_flag` = 1 ';
-$o2 = ' AND `user`.`last_login` > date_sub(now(), interval 12 month )';
+$o2 = ' AND `user`.`last_login` > date_sub(now(), interval 50 month )';
 $q = "
 
 SELECT `user`.`username` , `cache_logs`.`user_id`, count( * ) AS `FoundCount`, `cache_logs`.`date`
@@ -56,6 +56,23 @@ foreach ($statsArr as $user) {
 foreach ($tmp as $userId => $value) {
 	$sorted[$userId]['daysSpent'] = count($value['dates']);
 }
+
+/*
+$found = array();
+foreach ($sorted as $key => $row)
+{
+    $found[$key] = $row['FoundCount'];
+}
+array_multisort($found, SORT_DESC, $sorted);
+
+*/
+
+$sort = array();
+foreach($sorted as $k=>$v) {
+    $sort['username'][$k] = $v['username'];
+    $sort['FoundCount'][$k] = $v['FoundCount'];
+}
+array_multisort($sort['FoundCount'], SORT_DESC, $sort['username'], SORT_LOCALE_STRING, $sorted);
 
 // print_r($sorted);
 // print_r($tmp);
