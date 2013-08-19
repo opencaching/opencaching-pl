@@ -29,8 +29,8 @@
 <li>{{nc05}},</li>
 <li>{{nc06}},</li>
 <li>{{nc07}},</li>
-<li>{{nc08}} <a class="links" href="http://opencaching.pl/cacheguides.php">{{nc09}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>, {{nc10}},</li>
-<li>{{nc11}}<a class="links" href="http://wiki.opencaching.pl/index.php/Regulamin_OC_PL">{{nc12}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>?.</li>
+<li>{{nc08}} <a class="links" href="/cacheguides.php">{{nc09}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>, {{nc10}},</li>
+<li>{{nc11}}<a class="links" href="{rules_url}">{{nc12}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>?.</li>
 </ul><span style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: justify;">{{nc13}} <a class="links" href="http://wiki.opencaching.pl/index.php/Zak%C5%82adanie_skrzynki">{{nc14}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> {{nc15}} <a class="links" href="http://wiki.opencaching.pl/index.php/Kodeks_geocachera">{{nc16}}<img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> {{nc17}}.
 <br/>{{nc18}}<br/>{{nc19}}</span>
 </div>

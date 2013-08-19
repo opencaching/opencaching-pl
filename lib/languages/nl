@@ -182,7 +182,7 @@ user_ident Gebruikers profiel
 cache_map Kaart met caches v3
 cache_mapv2 Kaart met caches v2
 old_cache_map Map's older version
-abc Geocaching ABC
+abc Opencaching wiki
 forum Forum
 geokrets Geokrety
 geoblog Geoblog
@@ -794,13 +794,13 @@ online_users_info gebaseerd op actieve gebruikers van de laatste 10 minuten
 empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. Het maken van een cache kost moeite en het schrijven van waarderingen en kritiek zijn ook welkom! Zelfs een "Bedankt voor de cache" zou voldoende kunnen zijn.
 empty_entry_confirm Wil je werkelijk het logveld leeg laten?
 where_i_am Waar ben ik?
-read_info_about_cache_types Lees hier meer informatie over <a href="http://wiki.opencaching.nl/index.php/Cache_eigenschappen" target="_blank">Cache eigenschappen</a>
+read_info_about_cache_types Lees hier meer informatie over <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
 regiononly Regio (Polen)
 region_from_coord Regio via opgegeven coördinaten
 select_regions Selecteer regio
 not_applicable Not applicable
 input_coord Vul de coördinaten van de cache in
-waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zie de omschrijving en soorten van extra waypoints.</a>
+waypoints_about_info <a class="links" href="{cache_params_url}" target="_blank">Zie de omschrijving en soorten van extra waypoints.</a>
 cache_pictures Cache afbeelding
 log_pictures Log afbeelding
 no_title No title
@@ -1066,7 +1066,7 @@ remove_all Alles verwijderen
 no_logtype_choosen Geen logsoort gekozen
 choose Kiezen
 nc01 Beste gebruiker
-nc02 Bedankt voor het willen registreren van een nieuwe cache op {site_name}. Voor meer informatie bij het plaatsen of registreren van een cache kan gekeken worden op <a class="links" href="{wiki_url}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> of neem bij grotere problemen contact op via e-mail: cog@opencaching.pl, zodat er toch een goede cache geplaatst kan worden. Om een goed kwaliteit cache te maken kun je de volgende vragen bekijken en te zien of je nieuwe cache aan de eisen voldoet:<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc02 Bedankt voor het willen registreren van een nieuwe cache op {site_name}. Voor meer informatie bij het plaatsen of registreren van een cache kan gekeken worden op <a class="links" href="{wiki_url}">Opencaching wiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> of neem bij grotere problemen contact op via e-mail: cog@opencaching.pl, zodat er toch een goede cache geplaatst kan worden. Om een goed kwaliteit cache te maken kun je de volgende vragen bekijken en te zien of je nieuwe cache aan de eisen voldoet:<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
 nc03 Is de cache niet illegaal geplaatst, zoals op privégrond zonder toestemming van de eigenaar?
 nc04 Is de cache niet geplaats in een Nationaal park, in/op een monument, begraafplaats of ander beschermd gebied?
 nc05 Is de cache geplaatst op een plek minimaal 150 meter waar nog een andere cache ligt?
@@ -1081,14 +1081,14 @@ nc13 Neem eens een kijkje op
 nc14 Hoe maak ik een cache
 nc15 en
 nc16 Code voor cachers
-nc17 op onze OpenGeowiki
+nc17 op onze Opencaching wiki
 nc18 Vriendelijke groeten,
 nc19 Team {site_name}
 nc20 Heb bovenstaande gelezen en begrepen en wil een cache plaatsen.
 guru_01 Op de kaart staan vrijwilligers aangegeven die hun hulp aanbieden met het cachen op allerlei gebied, mits zij in de laatste 90 dagen actief zijn geweest.
 guru_02 Voorbeelden waarvoor hulp gevraagt kan worden:
 guru_03 Meer leren over het onderwerp cachen,
-guru_04 Hulp vragen over zoeken en plaatsen van caches op OC NL,
+guru_04 Hulp vragen over zoeken en plaatsen van caches op {site_name},
 guru_05 Hulp bij het zoeken of plaatsen in het veld met voorbeelden over goed verbergen enz enz.
 guru_06 Neem contact op met een vrijwilliger in je buurt en maak een afspraak.
 guru_07 Op dit moment zijn er:
@@ -1276,7 +1276,7 @@ runwatch14 Dit bericht is automatisch gegenereerd, gelieve niet te reageren.
 runwatch15 Er zijn nog geen logs
 registermail01 Hallo
 registermail02 Welkom op 
-registermail03 Om te beginnen kun je informatie terug vinden op OpenGeoWiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. OpenGeoWiki is beschikbaar op:
+registermail03 Om te beginnen kun je informatie terug vinden op Opencaching wiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. Opencaching wiki is beschikbaar op:
 registermail04 http://wiki.opencaching.nl/
 registermail05 Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.
 registermail06 Kijk eens op:
@@ -1728,7 +1728,7 @@ pt089 <b>Zichtbaar</b> - Voor iedereen zichtbaar <br/> <b>Niet zichtbaar</b> - A
 pt090 De soort van de serie. <b>Vorm op kaart:</b> Bijvoorbeeld interesante plaatsen die een bepaalde vorm op een kaart hebben. <b>Verkennen:</b> Bijvoorbeeld om bepaalde plaatsen in je woonplaats te laten zien. <b>Natuur:</b> Mooie plaatsen die met natuur te maken hebben. <b>Thema:</b> Bijvoorbeeld een thema over een bepaald onderwerp. 
 pt091 Verander de naam
 pt092 Voor testdoeleinden alleen beschikbaar voor geselecteerde gebruikers. Verbeteringen doorgeven via rt of Skype
-pt093 Voltooide series
+pt093 Voltooide PowerTrails
 pt094 Deze cache maakt deel uit van de serie
 pt095 Naam cacher
 pt096 Gevonden uit serie
