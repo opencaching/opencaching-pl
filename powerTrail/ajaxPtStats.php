@@ -72,7 +72,7 @@ foreach($sorted as $k=>$v) {
     $sort['username'][$k] = $v['username'];
     $sort['FoundCount'][$k] = $v['FoundCount'];
 }
-array_multisort($sort['FoundCount'], SORT_DESC, $sort['username'], SORT_LOCALE_STRING, $sorted);
+array_multisort($sort['FoundCount'], SORT_DESC, $sort['username'], SORT_ASC, $sorted);
 
 // print_r($sorted);
 // print_r($tmp);
