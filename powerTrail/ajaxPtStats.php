@@ -90,8 +90,14 @@ if ($ptTotalCacheesCount != 0) {
 		$ptPercent = round($user['FoundCount'] * 100 / $ptTotalCacheesCount, 2);
 		if ($ptPercent >= $ptDbRow['perccentRequired']) {
 			$fullPtFoundCount++;
-			if(isset($averageDaysSpent)) $averageDaysSpent = ($averageDaysSpent + $user['daysSpent'])/2;
-			else $averageDaysSpent = $user['daysSpent'];
+			if(isset($averageDaysSpent)) {
+				$averageDaysSpent = (($averageDaysSpent * $totalNumber) + $user['daysSpent']) / ($totalNumber + 1);
+				$totalNumber++;
+			}
+			else {
+				$averageDaysSpent = $user['daysSpent'];
+				$totalNumber = 1;
+			}
 		}
 		if($bgcolor == '#eeeeff') $bgcolor = '#ffffff'; else $bgcolor = '#eeeeff';
 		$stats2display .= '<tr bgcolor="'.$bgcolor.'">
@@ -107,7 +113,7 @@ if ($ptTotalCacheesCount != 0) {
 }
 $stats2display .= '</table>';
 
-isset($averageDaysSpent) ? $ads = $averageDaysSpent : $ads = '&#8734;';
+isset($averageDaysSpent) ? $ads = round($averageDaysSpent,1) : $ads = '&#8734;';
 $stats2display .= 
 
 '<hr>
