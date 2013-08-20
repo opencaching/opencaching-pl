@@ -29,6 +29,7 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 	$cacheTypesIcons = getCacheTypesIcons();
 	// var_dump($cacheTypesIcons);
 	$foundCacheTypesIcons = getFoundCacheTypesIcons($cacheTypesIcons);
+	
 	$cacheRows = '<table class="ptCacheTable" align="center" width="90%"><tr>
 		<th>'.tr('pt075').'</th>
 		<th>'.tr('pt076').'</th>
@@ -40,9 +41,13 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 	$totalFounds = 0;
 	$totalTopRatings = 0;
 	$bgcolor = '#ffffff';
+	$cachetypes = array (1 => 0,2 => 0,3 => 0,4 => 0,5 => 0,6 => 0,7 => 0,8 => 0,9 => 0,10 => 0,);
+	$cacheSize = array (2 => 0,3 => 0,4 => 0,5 => 0,6 => 0,7 => 0,);
 	foreach ($pTrailCaches as $rowNr => $cache) {
 		$totalFounds += $cache['founds'];
 		$totalTopRatings += $cache['topratings'];
+		$cachetypes[$cache['type']]++;
+		$cacheSize[$cache['size']]++;
 		 // powerTrailController::debug($cache); exit;
 		if($bgcolor == '#eeeeff') $bgcolor = '#ffffff'; else $bgcolor = '#eeeeff'; 
 		$cacheRows .= '<tr  bgcolor="'.$bgcolor.'">';
@@ -71,9 +76,20 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		<td align="center" style="font-size: 9px;">'.$totalTopRatings.'</td>
 	</tr>
 	</table>';
+	$restCaches = $cachetypes[4] + $cachetypes[5] + $cachetypes[6] + $cachetypes[8] + $cachetypes[9] + $cachetypes[10];
+	$countCaches = count($pTrailCaches);
+	$restCachesPercent = round(($restCaches * 100)/$countCaches);
+	foreach ($cachetypes as $key => $value) {
+		$cachePercent[$key] = round(($value * 100)/$countCaches);
+	}
+	foreach ($cacheSize as $key => $value) {
+		$cacheSizePercent[$key] = round(($value * 100)/$countCaches);
+	}
+	$img = '<hr><table align="center"><tr><td align=center width="50%">'.tr('pt107').'<br /><img src="http://chart.apis.google.com/chart?chs=350x100&chd=t:'.$cachetypes[2].','.$cachetypes[3].','.$cachetypes[7].','.$cachetypes[1].','.$restCaches.'&cht=p3&chl='.$cachetypes[2].'|'.$cachetypes[3].'|'.$cachetypes[7].'|'.$cachetypes[1].'|'.$restCaches.'&chco=00aa00|FFEB0D|0000cc|cccccc|eeeeee&&chdl=%20'.tr('pt108').'%20('.$cachePercent[2].'%)|'.tr('pt109').'%20('.$cachePercent[3].'%)|'.tr('pt110').'%20('.$cachePercent[7].'%)|'.urlencode(tr('pt111')).'%20('.$cachePercent[1].'%)|'.urlencode(tr('pt112')).'%20('.$restCachesPercent.'%)" /></td>';
+	$img .= '<td align=center width="50%">'.tr('pt106').'<br /><img src="http://chart.apis.google.com/chart?chs=350x100&chd=t:'.$cacheSize[2].','.$cacheSize[3].','.$cacheSize[4].','.$cacheSize[5].','.$cacheSize[6].'&cht=p3&chl=%20'.$cacheSize[2].'|'.$cacheSize[3].'|'.$cacheSize[4].'|'.$cacheSize[5].'|'.$cacheSize[6].'&chco=0000aa|00aa00|aa0000|aaaa00|00aaaa&&chdl='.urlencode(tr('pt113')).'%20('.$cacheSizePercent[2].'%)|'.urlencode(tr('pt114')).'%20('.$cacheSizePercent[3].'%)|'.urlencode(tr('pt115')).'%20('.$cacheSizePercent[4].'%)|'.urlencode(tr('pt116')).'%20('.$cacheSizePercent[5].'%)|'.urlencode(tr('pt117')).'%20('.$cacheSizePercent[6].'%)" /></td></tr></table><br /><br />';
 	// powerTrailController::debug($pTrailCaches);
 	// exit;
-	return $cacheRows;
+	return $img.$cacheRows;
 }
 
 function ratings($score, $votes){

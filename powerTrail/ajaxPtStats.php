@@ -5,9 +5,14 @@ require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/powerTrailBase.php';
 
 $ptId = (int) $_REQUEST['ptId'];
+$ptTotalCacheesCount = powerTrailBase::getPtCacheCount($ptId);
+if($ptTotalCacheesCount == 0){ // power Trail has no caches!
+	print tr('pt105');
+	exit;
+}
 
 $o1 = ' AND `user`.`is_active_flag` = 1 ';
-$o2 = ' AND `user`.`last_login` > date_sub(now(), interval 50 month )';
+$o2 = ' AND `user`.`last_login` > date_sub(now(), interval 12 month )';
 $q = "
 
 SELECT `user`.`username` , `cache_logs`.`user_id`, count( * ) AS `FoundCount`, `cache_logs`.`date`
@@ -33,8 +38,12 @@ $db = new dataBase;
 $db->multiVariableQuery($q, $ptId);
 $statsArr = $db->dbResultFetchAll();
 
-$ptTotalCacheesCount = powerTrailBase::getPtCacheCount($ptId);
 // echo '<pre>'; var_dump($ptTotalCacheesCount, $statsArr);
+if(count($statsArr) == 0){ // no result!
+	print tr('pt105');
+	exit;
+}
+
 
 foreach ($statsArr as $user) {
 	$tmpDate = substr($user['date'], 0, -9);
@@ -57,16 +66,6 @@ foreach ($tmp as $userId => $value) {
 	$sorted[$userId]['daysSpent'] = count($value['dates']);
 }
 
-/*
-$found = array();
-foreach ($sorted as $key => $row)
-{
-    $found[$key] = $row['FoundCount'];
-}
-array_multisort($found, SORT_DESC, $sorted);
-
-*/
-
 $sort = array();
 foreach($sorted as $k=>$v) {
     $sort['username'][$k] = $v['username'];
@@ -76,7 +75,6 @@ array_multisort($sort['FoundCount'], SORT_DESC, $sort['username'], SORT_ASC, $so
 
 // print_r($sorted);
 // print_r($tmp);
-
 $stats2display = '<table class="statsTable" style="border-collapse:collapse;" align="center"><tr>
 <th>'.tr('pt095').'</th>
 <th>'.tr('pt096').'</th>

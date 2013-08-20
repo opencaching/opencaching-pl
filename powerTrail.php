@@ -79,6 +79,7 @@ if ($error == false)
 				if ($ptDbRow['status'] != 0 || $userIsOwner) {
 					$ptTypesArr = powerTrailBase::getPowerTrailTypes();
 					$ptStatusArr = powerTrailBase::getPowerTrailStatus();
+					$stats = $pt->getCountCachesAndUserFoundInPT();
 					tpl_set_var('ptTypeName', tr($ptTypesArr[$ptDbRow['type']]['translate']));
 					tpl_set_var('displaySelectedPowerTrail', 'block');
 					tpl_set_var('powerTrailName', $ptDbRow['name']);
@@ -91,6 +92,9 @@ if ($error == false)
 					tpl_set_var('powerTrailDemandPercent', $ptDbRow['perccentRequired']);
 					tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $ptDbRow['perccentRequired'], $pt->getCountCachesAndUserFoundInPT(), $ptDbRow['id'] ));
 					tpl_set_var('conquestCount', $ptDbRow['conquestedCount']);
+					tpl_set_var('cacheFound', $stats['cachesFoundByUser']);
+					tpl_set_var('powerTrailLogo', displayPowerTrailLogo($ptDbRow['id'], $ptDbRow['image']));
+					tpl_set_var('powerTrailserStats', displayPowerTrailserStats($stats));
 					if ($userIsOwner){
 						tpl_set_var('ptStatus', tr($ptStatusArr[$ptDbRow['status']]['translate']));
 						tpl_set_var('displayAddCachesButtons', 'block');
@@ -111,9 +115,7 @@ if ($error == false)
 					}
 					
 
-					tpl_set_var('powerTrailLogo', displayPowerTrailLogo($ptDbRow['id'], $ptDbRow['image']));
 					// tpl_set_var('PowerTrailCaches', displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache()));
-					tpl_set_var('powerTrailserStats', displayPowerTrailserStats($pt->getCountCachesAndUserFoundInPT()));
 					// powerTrailController::debug($pt->getPowerTrailDbRow(), __LINE__);
 					// powerTrailController::debug($ptOwners, __LINE__);
 				} else {
@@ -231,7 +233,7 @@ function displayPowerTrailserStats($stats)
 		$stats2display = 0;
 	}
 	// powerTrailController::debug($stats);
-	$stats2display .= '% ('  .tr('pt017') .' ' . $stats['cachesFoundByUser'].' '.tr('pt016').' '.$stats['totalCachesCountInPowerTrail'].' '.tr('pt014').')';
+	$stats2display .= '% ('  .tr('pt017') .' <span style="color: #00aa00"><b>' . $stats['cachesFoundByUser'].'</b></span> '.tr('pt016').' <span style="color: #0000aa"><b>'.$stats['totalCachesCountInPowerTrail'].'</b></span> '.tr('pt014').')';
 	return $stats2display;
 }
 
