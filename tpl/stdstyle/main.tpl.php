@@ -63,6 +63,7 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
         <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
         <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_{season}.css" />
         <link rel="SHORTCUT ICON" href="favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />
         <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
         <title><?php echo $tpl_subtitle; ?>{title}</title>
         {htmlheaders}

@@ -34,6 +34,7 @@
 	<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_screen.css" />
   <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
 	<link rel="SHORTCUT ICON" href="favicon.ico" />
+	<link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />
 <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
   <title>{title}</title>
 	{htmlheaders}
