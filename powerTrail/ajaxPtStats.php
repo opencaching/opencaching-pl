@@ -72,6 +72,7 @@ foreach($sorted as $k=>$v) {
     $sort['FoundCount'][$k] = $v['FoundCount'];
 }
 array_multisort($sort['FoundCount'], SORT_DESC, $sort['username'], SORT_ASC, $sorted);
+$ptDbRow = powerTrailBase::getPtDbRow($ptId); 
 
 // print_r($sorted);
 // print_r($tmp);
@@ -83,13 +84,20 @@ $stats2display = '<table class="statsTable" style="border-collapse:collapse;" al
 <th>'.tr('pt102').'</th>
 </tr>';
 if ($ptTotalCacheesCount != 0) {
-	$bgcolor = '#ffffff';	
+	$bgcolor = '#ffffff';
+	$fullPtFoundCount = 0;	
 	foreach ($sorted as $user) {
+		$ptPercent = round($user['FoundCount'] * 100 / $ptTotalCacheesCount, 2);
+		if ($ptPercent >= $ptDbRow['perccentRequired']) {
+			$fullPtFoundCount++;
+			if(isset($averageDaysSpent)) $averageDaysSpent = ($averageDaysSpent + $user['daysSpent'])/2;
+			else $averageDaysSpent = $user['daysSpent'];
+		}
 		if($bgcolor == '#eeeeff') $bgcolor = '#ffffff'; else $bgcolor = '#eeeeff';
 		$stats2display .= '<tr bgcolor="'.$bgcolor.'">
 			<td ><a href="viewprofile.php?userid='.$user['user_id'].'">'.$user['username'].'</a></td>
 			<td align="center">'.$user['FoundCount'].'</td>
-			<td align="center">'.round($user['FoundCount'] * 100 / $ptTotalCacheesCount, 2) .'% </td>
+			<td align="center">'.$ptPercent.'% </td>
 			<td align="center">'.$user['daysSpent'].'</td>
 			<td align="center">'.round($user['FoundCount']/$user['daysSpent'], 2).'</td>
 		</tr>';
@@ -98,5 +106,29 @@ if ($ptTotalCacheesCount != 0) {
 	$stats2display .= '';
 }
 $stats2display .= '</table>';
+
+isset($averageDaysSpent) ? $ads = $averageDaysSpent : $ads = '&#8734;';
+$stats2display .= 
+
+'<hr>
+<table class="statsTable" style="border-collapse:collapse;" align="center">
+	<tr>
+		<th>'.tr('pt122').'</th>
+		<th>'.tr('pt123').'</th>
+	</tr>
+	<tr>
+		<td>'.tr('pt119').'</td>
+		<td>'.count($sorted).'</td>
+	</tr>
+	<tr>
+		<td>'.tr('pt120').'<a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Info.png" alt="Help" height="48" width="48" /><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
+		<td>'.$fullPtFoundCount.'</td>
+	</tr>
+	<tr>
+		<td>'.tr('pt121').'<a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Info.png" alt="Help" height="48" width="48" /><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>
+		<td>'.$ads.'</td>
+	</tr>
+</table>
+';
 // powerTrailController::debug($stats);
 echo $stats2display;

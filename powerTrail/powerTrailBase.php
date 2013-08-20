@@ -128,8 +128,15 @@ class powerTrailBase{
 	public function getPtOwners($ptId) {
 		$query = 'SELECT username, email FROM `user` WHERE user_id IN (SELECT `userId` FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 ) ';
 		$db = new dataBase;
-		$db->multiVariableQuery($queryPt, $ptId);
+		$db->multiVariableQuery($query, $ptId);
 		return $db->dbResultFetchAll();
+	}
+	
+	public function getPtDbRow($ptId) {
+		$query = 'SELECT * FROM `PowerTrail` WHERE `id` = :1 LIMIT 1';
+		$db = new dataBase;
+		$db->multiVariableQuery($query, $ptId);
+		return $db->dbResultFetch();
 	}
 	
 	public function getPtCacheCount($ptId) {

@@ -1104,6 +1104,12 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 .help { background: #9FDAEE; border: 1px solid #2BB0D7;	}
 .info { background: #9FDAEE; border: 1px solid #2BB0D7;	}
 .warning { background: #FFFFAA; border: 1px solid #FFAD33; }
+/*sexy toltips end*/
+
+#powerTrailDescription img {
+	max-width:550px;
+	height:auto;
+}
 
 </style>
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>

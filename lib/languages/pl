@@ -1694,7 +1694,7 @@ pt086 dopiero po zalogowaniu procentowo takiej ilości skrzynek, użytkownik uzy
 pt087 Co to jest
 pt088 Pomoc
 pt089 Publiczny - widoczny dla wszystkich <br /> Narazie niewidoczny - widoczny tylko dla założycieli
-pt090 Określa charakter serii. Jeśli większość skrzynek projektu pokazuje jakieś interesujące miejsce (wzgórze, pomnik przyrody, pomnik, zabytek itp.) ustaw krajooznawczy. Jeśli większość skrzynek układa się w jakiś określony kształt na mapie - ustaw kształt na mapie. Analogicznie jesli większość skrzynek tyczy się tematyce historycznej lub przyrodniczej ustaw adekwatny typ. Jeśli uważasz, że Twoja seria powinna być w innej kategorii, której tu nie ma, napisz na adres RR (Menu -> kontakt)
+pt090 Określa charakter serii. Jeśli większość skrzynek projektu pokazuje jakieś interesujące miejsce (szczyt, punkt widokowy, pomnik przyrody, pomnik, zabytek itp.) ustaw <b>krajoznawczy</b>. Jeśli większość skrzynek układa się w linię lub rysunek na mapie - ustaw <b>kształt na mapie</b>. Analogicznie jesli większość skrzynek tyczy się tematyce historycznej lub przyrodniczej ustaw adekwatny typ. Jeśli uważasz, że Twoja seria powinna być w innej kategorii, której tu nie ma, napisz na adres RR (Menu -> kontakt)
 pt091 Zmień nazwę
 pt092 Na czas testów dostępne tylko dla wybranych użytkowników. Błędy proszę zgłaszać na adres rt lub skype 
 pt093 Zdobytych Serii
@@ -1722,5 +1722,15 @@ pt114 Mała
 pt115 Normalna
 pt116 Duża
 pt117 B. Duża
+pt118 Nie ma jeszcze żadnych wpisów :-(
+pt119 Liczba wszystkich zdobywających
+pt120 Liczba geokeszerów, którzy zdobyli 
+pt121 Średnia ilość dni potrzbnych do zdobycia 
+pt122 inne ciekawostki
+pt123 wartość
+pt124 <b>wis</b> - wymagana ilość skrzynek, zadeklarowana przez założycieli liczba określająca minimalną ilość skrzynek, która jest wymagana do zdobycia power traila.
+pt125 
+pt126 Informacja
+
 
 
