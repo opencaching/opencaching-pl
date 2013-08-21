@@ -29,11 +29,11 @@ function emailOwners($ptId, $commentType, $commentDateTime, $commentText){
 	$mailbody = mb_ereg_replace('{userName}', $usr['username'], $mailbody);
 	$mailbody = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $mailbody);
 	$mailbody = mb_ereg_replace('{commentType}', tr($commentTypes[$commentType]['translate']), $mailbody);
-	$mailbody = mb_ereg_replace('{commentText}', $commentText, $mailbody);
 	$mailbody = mb_ereg_replace('{ptName}', $ptDbRow['name'], $mailbody);
 	$mailbody = mb_ereg_replace('{ptId}', $ptId, $mailbody);
 	$mailbody = mb_ereg_replace('{pt127}', tr('pt127'), $mailbody);
 	$mailbody = mb_ereg_replace('{pt128}', tr('pt128'), $mailbody);
+	$mailbody = mb_ereg_replace('{commentText}', stripslashes($commentText), $mailbody);
 	
 	foreach ($owners as $owner) {
 		$to = $owner['email'];
