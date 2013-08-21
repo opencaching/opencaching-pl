@@ -1,9 +1,8 @@
 <?php
-$rootpath = __DIR__.'/../';
-require_once __DIR__.'/../lib/common.inc.php';
-// session_start();
+require_once __DIR__.'/powerTrailBase.php';
+require_once __DIR__.'/sendEmail.php';
 if(!isset($_SESSION['user_id'])){
-	print 'no hacking please!';
+	print 'no hacking please! Fuck You!';
 	exit;
 }
 require_once __DIR__.'/../lib/db.php';
@@ -26,31 +25,5 @@ if($_REQUEST['type'] == 2){
 
 emailOwners($projectId, $_REQUEST['type'], $_REQUEST['datetime'], $text);
 
-function emailOwners($ptId, $commentType, $commentDateTime, $commentText){
-	global $octeam_email, $usr, $absolute_server_URI;
-	require_once __DIR__.'/powerTrailBase.php';
-	$owners = powerTrailBase::getPtOwners($ptId);
-	$commentTypes = powerTrailBase::getPowerTrailComments();
-	// var_dump($usr);
-	
-	// To send HTML mail, the Content-type header must be set
-	$headers  = 'MIME-Version: 1.0' . "\r\n";
-	$headers .= 'Content-type: text/html; charset=utf8' . "\r\n";
-	$headers .= "From: OpenCaching <".$octeam_email.">\r\n";
-	$headers .= "Reply-To: ".$octeam_email. "\r\n";
-	
-	$subject = "nowy wpis dla power traila $ptId";
-	
-	$commentText = $commentText;
-	$message = '<a href="'.$absolute_server_URI.'viewprofile.php?userid='.$usr['userid'].'>'.$usr['username'].'</a> '.tr('pt127');
-	$message .= ' '.tr($commentTypes[$commentType]['translate'])." - $commentDateTime <br /><br /> $commentText";
-	
-	foreach ($owners as $owner) {
-		$to = $owner['email'];
-		$to = 'user@ocpl-devel';
-		mb_send_mail($to, $subject, $message, $headers);
-	}
-	//debug only
-	mb_send_mail('lza@tlen.pl', $subject, $message, $headers);
-}
+
 ?>
