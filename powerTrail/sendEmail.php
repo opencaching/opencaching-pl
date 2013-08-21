@@ -33,8 +33,8 @@ function emailOwners($ptId, $commentType, $commentDateTime, $commentText){
 	$mailbody = mb_ereg_replace('{ptId}', $ptId, $mailbody);
 	$mailbody = mb_ereg_replace('{pt127}', tr('pt127'), $mailbody);
 	$mailbody = mb_ereg_replace('{pt128}', tr('pt128'), $mailbody);
-	$mailbody = mb_ereg_replace('{commentText}', stripslashes($commentText), $mailbody);
-	
+	$mailbody = mb_ereg_replace('{commentText}', htmlspecialchars_decode(stripslashes($commentText)), $mailbody);
+	                                             
 	foreach ($owners as $owner) {
 		$to = $owner['email'];
 		mb_send_mail($to, $subject, $mailbody, $headers);
