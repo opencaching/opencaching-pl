@@ -321,7 +321,6 @@ function togglePercentSection() {
 
 function ajaxAddComment(){
 	
-	// // event.preventDefault();
 	var newComment = tinyMCE.activeEditor.getContent();
 	
 	request = $.ajax({
@@ -334,11 +333,13 @@ function ajaxAddComment(){
     request.done(function (response, textStatus, jqXHR){
     	// $('#ptComments').html(response);
     	$("#commentType option[value='2']").remove();
-        console.log("comment saved to db! "+response);
     });
+    request.always(function (response, textStatus, jqXHR) {
+    	console.log(response);
+    });
+    
     if ($('#commentType').val() == 2) { // refresh conquest count
     	var newcount =  parseInt($('#conquestCount').html()) + 1;
-    	
     	$('#conquestCount').html(newcount);
     }
     toggleAddComment();
@@ -346,7 +347,6 @@ function ajaxAddComment(){
 }
 
 function toggleAddComment(){
-	// event.preventDefault();
 	if ($('#toggleAddComment').is(":visible")){
 		$('#toggleAddComment').fadeOut(800);
 		$(function() {

@@ -110,7 +110,7 @@ class powerTrailBase{
 		return $response['c'];
 	}
 	
-	public function getPoweTrailCompletedCountByUser($user_id) {
+	public static function getPoweTrailCompletedCountByUser($user_id) {
 		$queryPt = "SELECT count(`PowerTrailId`) AS `ptCount` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1";
 		$db = new dataBase;
 		$db->multiVariableQuery($queryPt, $user_id);
@@ -118,28 +118,28 @@ class powerTrailBase{
 		return (int) $ptCount['ptCount'];
 	}
 	
-	public function checkForPowerTrailByCache($cacheId){
+	public static function checkForPowerTrailByCache($cacheId){
 		$queryPt = 'SELECT `id`, `name`, `image` FROM `PowerTrail` WHERE `id` IN ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 ) AND `status` = 1 ';
 		$db = new dataBase;
 		$db->multiVariableQuery($queryPt, $cacheId);
 		return $db->dbResultFetchAll();
 	}
 	
-	public function getPtOwners($ptId) {
+	public static function getPtOwners($ptId) {
 		$query = 'SELECT username, email FROM `user` WHERE user_id IN (SELECT `userId` FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 ) ';
 		$db = new dataBase;
 		$db->multiVariableQuery($query, $ptId);
 		return $db->dbResultFetchAll();
 	}
 	
-	public function getPtDbRow($ptId) {
+	public static function getPtDbRow($ptId) {
 		$query = 'SELECT * FROM `PowerTrail` WHERE `id` = :1 LIMIT 1';
 		$db = new dataBase;
 		$db->multiVariableQuery($query, $ptId);
 		return $db->dbResultFetch();
 	}
 	
-	public function getPtCacheCount($ptId) {
+	public static function getPtCacheCount($ptId) {
 		$q = 'SELECT count( * ) AS `count` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1';
 		$db = new dataBase;
 		$db->multiVariableQuery($q, $ptId);
