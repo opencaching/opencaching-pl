@@ -41,7 +41,7 @@ function emailOwners($ptId, $commentType, $commentDateTime, $commentText){
 	
 	$subject = "nowy wpis dla power traila $ptId";
 	
-	$commentText = htmlspecialchars_decode($commentText);
+	$commentText = $commentText;
 	$message = '<a href="'.$absolute_server_URI.'viewprofile.php?userid='.$usr['userid'].'>'.$usr['username'].'</a> '.tr('pt127');
 	$message .= ' '.tr($commentTypes[$commentType]['translate'])." - $commentDateTime <br /><br /> $commentText";
 	

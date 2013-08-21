@@ -39,9 +39,8 @@ foreach ($result as $key => $dbEntery) {
 		</td>
 	</tr>
 	<tr>
-		<td class="commentContent" valign="top">'.htmlspecialchars_decode($dbEntery['commentText']).'</td>
+		<td class="commentContent" valign="top">'.htmlspecialchars_decode(stripslashes($dbEntery['commentText'])).'</td>
 	</tr><tr><td>&nbsp</td></tr>'
-	
 	;
 }
 $toDisplay .= '</table>';

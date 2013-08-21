@@ -975,6 +975,8 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	padding-right: 20px;
 	padding-top: 5px;
 	padding-bottom: 5px;
+	max-width:550px;
+	height:auto;
 }
 
 .commentHead{
@@ -1110,6 +1112,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	max-width:550px;
 	height:auto;
 }
+
 
 </style>
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
