@@ -1346,7 +1346,6 @@ index_03 Aantal gebruikers die de cache hebben aanbevolen
 index_04 Aantal keren dat de cache is gevonden
 index_05 Hieronder de formule waarmee de cache kwaliteit berekend wordt.
 index_06 Index
-
 adopt00 De procedure is voltooid. De vorige eigenaar was
 adopt01 De nieuwe eigenaar is gebruiker
 rating-c_01 Cache moeilijkheid berekening systeem
@@ -1764,5 +1763,6 @@ pt125 Uitleg
 pt126 Informatie
 pt127 plaatste een
 pt128 Er is een nieuwe melding voor
+pt129 U gebruikt een oudere browser (IE6, IE7, IE8), die niet wordt ondersteund door de module PowerTrail. Deze site zal niet goed functioneren, of zijn functies zal aanzienlijk worden verminderd. (U krijgt geen toegang tot het grootste deel van de functionaliteit). Wij adviseren om de nieuwste browsers te gebruiken. (FireFox, Chrome, Opera)
 
 
