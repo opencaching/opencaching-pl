@@ -54,7 +54,7 @@ if ($error == false)
 
 		switch ($actionPerformed) {
 			case 'createNewSerie':
-				if($usr['userFounds'] >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail){
+				if($usr['userFounds'] >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail()){
 					tpl_set_var('displayCreateNewPowerTrailForm', 'block');
 				} else {
 					tpl_set_var('displayToLowUserFound', 'block');

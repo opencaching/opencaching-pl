@@ -6,9 +6,18 @@ require_once __DIR__.'/../lib/db.php';
  */
 class powerTrailBase{
 		
-	const minimumCacheCount = 5;
-	const userMinimumCacheFoundToSetNewPowerTrail = 500; 
 	const powerTrailLogoFileName = 'powerTrailLogoId';
+
+	public static function minimumCacheCount(){
+		include __DIR__.'/../lib/settings.inc.php';
+		// var_dump($powerTrailMinimumCacheCount);
+		return $powerTrailMinimumCacheCount;
+	} 
+	public static function userMinimumCacheFoundToSetNewPowerTrail(){
+		include __DIR__.'/../lib/settings.inc.php';
+		// var_dump($powerTrailMinimumCacheCount);
+		return $powerTrailUserMinimumCacheFoundToSetNewPowerTrail;
+	} 
 	
 	public $logActionTypes = array (
 		1 => array (
@@ -146,5 +155,12 @@ class powerTrailBase{
 		$db->multiVariableQuery($q, $ptId);
 		$answer = $db->dbResultFetch();
 		return $answer['count'];
+	}
+	
+	public static function getSingleComment($commentId) {
+		$query = 'SELECT * FROM `PowerTrail_comments` WHERE `id` = :1 LIMIT 1';
+		$db = new dataBase;
+		$db->multiVariableQuery($query, $commentId);
+		return $db->dbResultFetch();
 	}
 }

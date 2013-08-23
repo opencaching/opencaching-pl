@@ -5,13 +5,13 @@
 <link href='http://fonts.googleapis.com/css?family=Shojumaru&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
-
 <link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
-
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.core.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.datepicker.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
 <script type="text/javascript">
+
+
 tinymce.init({
     selector: "textarea",
     width: 600,
@@ -33,6 +33,7 @@ tinymce.init({
 </script>
 <script type="text/javascript"> 
 <!--
+
 $(function() {
 	$.datepicker.setDefaults($.datepicker.regional['pl']);
     $('#powerTrailDateCreatedInput').datepicker({
@@ -46,6 +47,29 @@ $(function() {
 	ajaxGetPtCaches();
 	ajaxGetComments(0, 8);
 }); 
+
+function deleteComment(commentId, callingUser){
+	alert(commentId+'/'+callingUser);
+	
+	
+		request = $.ajax({
+    	url: "powerTrail/ajaxRemoveComment.php",
+    	type: "post",
+    	data:{ptId: $('#xmd34nfywr54').val(), commentId: commentId, callingUser: callingUser },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	console.log(response);
+    });
+    
+    request.always(function () {
+
+    });
+	
+	 ajaxGetComments(0, 8);
+	
+}
 
 function ajaxGetPtStats(){
 	$("#ptStatsLoader").show();
@@ -1113,19 +1137,35 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	height:auto;
 }
 
+#oldIE{
+	color: red;
+	border: solid 1px;
+	border-color: red;
+	padding: 10px;
+	width:90%;
+}
+
+.editDeleteComment {
+	float:right
+}
 
 </style>
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
 
 <body>
 
-	
 <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
+
+<div id="oldIE" style="display: none">{{pt129}}</div>
 	
 <div class="content2-pagetitle"> 
  <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" /> 
  {{pt001}} - &beta; <span style="font-size: 9px;">{{pt092}} <a href="skype:wloczynutka?chat" multilinks-noscroll="true"><img src="http://mystatus.skype.com/smallicon/wloczynutka"></img></a></span>
 </div> 
+
+<!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
+<!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
+<!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
 
 <div style="display: {ptMenu}">
 <ul id="css3menu1" class="topmenu">
@@ -1181,8 +1221,8 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 		<tr>
 			<td></td>
 			<td>
-				<input type="hidden" value="{{submit}}" name="createNewPowerTrail" /><br />
-				<a href="javascript:void(0);" onclick="$(this).closest('form').submit();" class="editPtDataButton">{{pt080}}</a>
+				<input type="hidden" value="{{submit}}" name="createNewPowerTrailBtn" /><br />
+				<a href="javascript:void(0);" onclick="alert(123); $('#createNewPowerTrail').submit()"; class="editPtDataButton">{{pt080}}</a>
 			</td>
 		</tr>
 		</table>

@@ -35,7 +35,13 @@ foreach ($result as $key => $dbEntery) {
 	<tr>
 		<td colspan="3" class="commentHead">
 			<span class="CommentDate">'. substr($dbEntery['logDateTime'],0,-8).'</span><b>'.$dbEntery['username'].'</b> (<img height="13" src="tpl/stdstyle/images/blue/thunder_ico.png" /><font size="-1">'.$userActivity.'</font>)
-			- <span style="color: '.$commentsArr[$dbEntery['commentType']]['color'].';">'. tr($commentsArr[$dbEntery['commentType']]['translate']).'</span>
+			- <span style="color: '.$commentsArr[$dbEntery['commentType']]['color'].';">'. tr($commentsArr[$dbEntery['commentType']]['translate']).'</span>';
+	if($_SESSION['user_id'] == $dbEntery['userId']) {
+		$toDisplay .= '<span class="editDeleteComment"><img src="tpl/stdstyle/images/free_icons/cross.png" /><a href="javascript:void(0);" onclick="deleteComment('.$dbEntery['id'].','.$_SESSION['user_id'].')">'.tr('pt130').'</a>
+						<img src="tpl/stdstyle/images/free_icons/pencil.png" /></span>
+		';
+	}
+	$toDisplay .= '	
 		</td>
 	</tr>
 	<tr>

@@ -193,4 +193,19 @@
 	// New caches outside country where server is: 
 	$SiteOutsideCountryString = 'poland_outside';
 	$countryParamNewcacherestPhp = " 'PL' ";
+	
+	/* power Trail module switch and settings */
+  
+	  // true - swithed on; false - swithed off
+	  $powerTrailModuleSwitchOn = false;
+	  
+	  // minimum cache count for power trail to be public displayed 
+	  // (PT having less than $powerTrailMinimumCacheCount ) are visible only to owners.
+	  $powerTrailMinimumCacheCount = 5;
+	  
+	  // minimum cahes Found count of user, to alow user set new Power Trail
+	  // user who found less than $powerTrailUserMinimumCacheFoundToSetNewPowerTrail can't create new PT
+	  $powerTrailUserMinimumCacheFoundToSetNewPowerTrail = 500;
+	  
+  /* end of power Trail module switch and settings */
 ?>

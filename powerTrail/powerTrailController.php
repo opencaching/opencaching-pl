@@ -69,7 +69,7 @@ class powerTrailController {
 
 	private function getAllPowerTrails()
 	{
-		$q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount > '.powerTrailBase::minimumCacheCount .' ORDER BY cacheCount DESC';
+		$q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount > '.powerTrailBase::minimumCacheCount() .' ORDER BY cacheCount DESC';
 		$db = new dataBase();
 		$db->multiVariableQuery($q);
 		$this->allSeries = $db->dbResultFetchAll();

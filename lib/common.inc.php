@@ -341,9 +341,12 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
 $powerTrailBetaTesters = array(9067, 9078, 7699, 7969, 4029, 10737, 1038, 33407, 1769, 1, 3, 24777, 26496, 19613, 34803, 9778);
 if (in_array($usr['userid'], $powerTrailBetaTesters)){
 	$powerTrailModuleSwitchOn = true;
+	if (!isset($powerTrailMinimumCacheCount)) {
+		$powerTrailMinimumCacheCount = 5;
+		$powerTrailUserMinimumCacheFoundToSetNewPowerTrail = 500;
+	} 
 } else {
 	$powerTrailModuleSwitchOn = false;
-	
 }
 unset($powerTrailBetaTesters);
 /* end temporary check for PowerTrails */	

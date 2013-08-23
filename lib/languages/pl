@@ -1401,8 +1401,8 @@ rating-c_50 Proszę wziąc pod uwagę widzialność, dostepność lub inne przes
 rating-c_51 Wylicz
 rating-c_52 Wyczyść formularz
 rating-c_53 System oceny dostępny dzięki stronie http://www.clayjar.com/gcrs/
-AD Andorra
-AE Verenigde Arabische Emiraten
+AD Andora
+AE Emiraty Arabskie
 AF Afganistan
 AG Antigua i Barbuda
 AI Anguilla
@@ -1411,7 +1411,7 @@ AM Armenia
 AN Antyle Holenderskie
 AO Angola
 AR Argentyna
-AS Samoa Amerykańskie
+AS Samoa Amerykańska
 AT Austria
 AU Australia
 AW Aruba
@@ -1764,7 +1764,9 @@ pt126 Informacja
 pt127 dodał wpis typu
 pt128 Nowy wpis dla Power Traila
 pt129 Używasz starej przeglądarki (IE6, IE7, IE8), która nie jest obsługiwana przez moduł Power Traili. Strona nie będzie działać prawidłowo, lub jej funkcje zostaną znacząco ograniczone. (nie będziesz mieć dostępu do większośći funkcjonalności). Zalecamy skorzystanie z najnowszych przeglądarek. (FireFox, Chrome, Opera)
-
-
+pt130 Usuń
+pt131 Usunięto wpis z Power Traila
+pt132 usunął wpis typu
+pt133 treść komentarza
 
 

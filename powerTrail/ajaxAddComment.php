@@ -23,7 +23,7 @@ if($_REQUEST['type'] == 2){
 	$db->multiVariableQuery($q, $projectId);
 }
 
-emailOwners($projectId, $_REQUEST['type'], $_REQUEST['datetime'], $text);
+emailOwners($projectId, $_REQUEST['type'], $_REQUEST['datetime'], $text, 'newComment');
 
 
 ?>

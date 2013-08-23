@@ -2,28 +2,36 @@
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/common.inc.php';	
 
-function emailOwners($ptId, $commentType, $commentDateTime, $commentText){
-	global $octeam_email, $usr, $absolute_server_URI;
+function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $action){
+	global $octeam_email, $usr, $absolute_server_URI, $site_name;
 	require_once __DIR__.'/powerTrailBase.php';
 	$owners = powerTrailBase::getPtOwners($ptId);
 	$commentTypes = powerTrailBase::getPowerTrailComments();
 	$ptDbRow = powerTrailBase::getPtDbRow($ptId);
 	
-	
-	/*
-	$email_headers  = 'MIME-Version: 1.0' . "\r\n";
-    $email_headers .= 'Content-type: text/html; charset=utf-8' . "\r\n"; 
-	$email_headers .= 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
-	*/
+	//remove images
+	$commentText = preg_replace("/<img[^>]+\>/i", "", $commentText);
 	
 	$headers  = 'MIME-Version: 1.0' . "\r\n";
 	$headers .= 'Content-type: text/html; charset=UTF-8 ' . "\r\n";
-	$headers .= "From: OpenCaching <".$octeam_email.">\r\n";
+	$headers .= "From: $site_name <".$octeam_email.">\r\n";
 	$headers .= "Reply-To: ".$octeam_email. "\r\n";
 	
-	$subject = tr('pt128').' '.$ptDbRow['name'];
-	
 	$mailbody = read_file(dirname(__FILE__).'/commentEmail.html');
+
+	switch ($action) {
+		case 'delComment':
+			$subject = tr('pt131').' '.$ptDbRow['name'];
+			$mailbody = mb_ereg_replace('{commentAction}', tr('pt132'), $mailbody);
+			break;
+		
+		case 'newComment':
+			$subject = tr('pt128').' '.$ptDbRow['name'];
+			$mailbody = mb_ereg_replace('{commentAction}', tr('pt127'), $mailbody);
+			break;
+
+	}
+	
 	$mailbody = mb_ereg_replace('{commentDateTime}', $commentDateTime, $mailbody);
 	$mailbody = mb_ereg_replace('{userId}', $usr['userid'], $mailbody);
 	$mailbody = mb_ereg_replace('{userName}', $usr['username'], $mailbody);
@@ -31,8 +39,8 @@ function emailOwners($ptId, $commentType, $commentDateTime, $commentText){
 	$mailbody = mb_ereg_replace('{commentType}', tr($commentTypes[$commentType]['translate']), $mailbody);
 	$mailbody = mb_ereg_replace('{ptName}', $ptDbRow['name'], $mailbody);
 	$mailbody = mb_ereg_replace('{ptId}', $ptId, $mailbody);
-	$mailbody = mb_ereg_replace('{pt127}', tr('pt127'), $mailbody);
 	$mailbody = mb_ereg_replace('{pt128}', tr('pt128'), $mailbody);
+	$mailbody = mb_ereg_replace('{pt133}', tr('pt133'), $mailbody);
 	$mailbody = mb_ereg_replace('{commentText}', htmlspecialchars_decode(stripslashes($commentText)), $mailbody);
 	                                             
 	foreach ($owners as $owner) {
