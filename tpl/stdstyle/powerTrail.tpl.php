@@ -49,10 +49,7 @@ $(function() {
 }); 
 
 function deleteComment(commentId, callingUser){
-	alert(commentId+'/'+callingUser);
-	
-	
-		request = $.ajax({
+	request = $.ajax({
     	url: "powerTrail/ajaxRemoveComment.php",
     	type: "post",
     	data:{ptId: $('#xmd34nfywr54').val(), commentId: commentId, callingUser: callingUser },
@@ -68,7 +65,6 @@ function deleteComment(commentId, callingUser){
     });
 	
 	 ajaxGetComments(0, 8);
-	
 }
 
 function ajaxGetPtStats(){
