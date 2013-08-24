@@ -18,24 +18,51 @@
 ?>
 <input type="hidden" value="arrrgh" id="qwertyuiop">
 
+<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ajaxfileupload.js"></script>
 <script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/newcache_wptGpxHandler.js"></script>
 <script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery.js"></script>
-<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ajaxfileupload.js"></script>
+<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 
 
 <script type="text/javascript">
 <!--
+
+$(function() {
+	chkcountry2();
+}); 
+
 var maAttributes = new Array({jsattributes_array});
 
 function chkregion() {
-	if ($('#region').val() == "0" &&  $('#country').val() == "PL") {
-		alert("Proszę wybrać województwo");
+	if ($('#region').val() == "0") {
+		alert("Proszę wybrać region");
 		return false;
 	}
 	return true;
 }
 
+
+function chkcountry2(){
+	$('#region1').hide();
+	$('#regionAjaxLoader').show();
+	request = $.ajax({
+    	url: "ajaxGetRegionsByCountryCode.php",
+    	type: "post",
+    	data:{countryCode: $('#country').val(), selectedRegion: '{sel_region}' },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	$('#region1').html(response);
+    	console.log(response);
+    });
+    
+    request.always(function () {
+		$('#regionAjaxLoader').hide();
+		$('#region1').fadeIn(1000);
+    });
+}
 
 function _chkVirtual () 
 {
@@ -221,8 +248,18 @@ function nearbycachemapOC()
 }//--></script>
 
 
-
-
+<style>
+	#oldIE {
+	color: red;
+	border: solid 1px;
+	border-color: red;
+	padding: 10px;
+	width:90%;
+	}
+</style>
+<!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
+<!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
+<!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
 
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" title="{{new_cache}}" align="middle"/>&nbsp;{{new_cache}}</div>
@@ -243,21 +280,35 @@ function nearbycachemapOC()
 		<col width="180"/>
 		<col/>
 	</colgroup>
-	
+	<!-- coord from gpx. Swithed off because of jquery version conflicts (TODO)
 	<tr>
 		<td valign="top"><p class="content-title-noshade" title="{{newcache_import_wpt_help}}">{{newcache_import_wpt}}</p></td>
 		<td valign="top">
 			<img id="loading" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ajax-loader.gif" style="display:none;">
 			<form name="form" action="" method="POST" enctype="multipart/form-data">
-			 <input id="fileToUpload" type="file" size="20" name="fileToUpload" value="sdsd"><button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">{{newcache_upload}}</button>
+			 <input id="fileToUpload" type="file" size="20" name="fileToUpload" value="sdsd">
+			 <button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">{{newcache_upload}}</button>
 			</form>  
 		<br/><br/>
+		
+		
+					<form action="powerTrail/ajaxImage.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
+         				<p id="f1_upload_form" align="center"><br/>
+             			File: <input name="myfile" type="file" size="30" />
+             			
+						<a href="javascript:void(0)" onclick="$(this).closest('form').submit()" class="editPtDataButton">{{pt044}}</a> 
+         				</p>
+         				<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+					</form>
+		
+		
 		</td>
 	</tr>
 	<tr><td>&nbsp;</td>
 		<td><div class="notice" style="width:500px;height:60px;">{{newcache_import_wpt_help}}</div>
 		</td>
 	</tr>
+	-->
 	
 	
 	
@@ -325,7 +376,7 @@ function nearbycachemapOC()
 	<tr>
 		<td><p class="content-title-noshade">{{country_label}}:</p></td>
 		<td>
-			<select name="country"  id="country" class="input200" onchange="javascript:chkcountry()">
+			<select name="country"  id="country" class="input200" onchange="javascript:chkcountry2()">
 				{countryoptions}
 			</select>
 			{show_all_countries_submit}
@@ -335,9 +386,11 @@ function nearbycachemapOC()
 	<tr>
 		<td><p id="region0" class="content-title-noshade">{{regiononly}}:</p></td>
 		<td>
-			<select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" >
-				{regionoptions}
+			<!-- <select name="region" id="region1" class="input200" onchange="javascript:chkcountry()" > --></select>
+			<select name="region" id="region1" class="input200" >
+				
 			</select>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" id="region2" alt=""/>&nbsp;<button id="region3" onclick="return extractregion()">{{region_from_coord}}</button>
+			<img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
 			{region_message}
 		</td>
 	</tr>

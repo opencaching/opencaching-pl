@@ -14,9 +14,35 @@
 
  ****************************************************************************/
 ?>
+<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
 <!--
+$(function() {
+	chkcountry2();
+}); 
+
 var maAttributes = new Array({jsattributes_array});
+
+function chkcountry2(){
+	$('#region1').hide();
+	$('#regionAjaxLoader').show();
+	request = $.ajax({
+    	url: "ajaxGetRegionsByCountryCode.php",
+    	type: "post",
+    	data:{countryCode: $('#country').val(), selectedRegion: '{cache_region}' },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	$('#region1').html(response);
+    	console.log(response);
+    });
+    
+    request.always(function () {
+		$('#regionAjaxLoader').hide();
+		$('#region1').fadeIn(1000);
+    });
+}
 
 function toogleLayer( whichLayer, val )
 {
@@ -125,6 +151,11 @@ function toggleAttr(id)
 }
 //-->
 </script>
+
+<!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
+<!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
+<!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
+
 <form action="editcache.php" method="post" enctype="application/x-www-form-urlencoded" name="editcache_form" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
@@ -201,7 +232,7 @@ function toggleAttr(id)
 	<tr>
 		<td><p class="content-title-noshade">{{country_label}}:</p></td>
 		<td>
-			<select name="country" class="input200" onLoad="javascript:toogleLayer('regions');" onChange="javascript:toogleLayer('regions');">
+			<select name="country" id="country" class="input200" onChange="javascript:chkcountry2();">
 				{countryoptions}
 			</select>
 			{show_all_countries_submit}
@@ -210,7 +241,7 @@ function toggleAttr(id)
 	</tr></table>
 		
 	<table id="regions" class="table">
-		  	<colgroup>
+	<colgroup>
 		<col width="180"/>
 		<col/>
 	</colgroup>
@@ -219,8 +250,8 @@ function toggleAttr(id)
 	<tr>
 		<td><p class="content-title-noshade">{{regiononly}}:</p></td>
 		<td>
-			<select name="region" class="input200">
-				{regionoptions}
+			<select name="region" id="region1" class="input200">
+				
 			</select>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button onclick="return extractregion()">{{region_from_coord}}</button>
 			
 		</td>

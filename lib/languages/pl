@@ -795,7 +795,7 @@ empty_entry_notice <b>Etykieta wpisów</b>: Staraj się nie robić pustych wpis�
 empty_entry_confirm Czy na pewno chcesz dokonać pustego wpisu?\nZwykle dużo lepszy jest krótki komentarz niż milczenie.
 where_i_am Gdzie jestem?
 read_info_about_cache_types Zapoznaj się z opisem jak wybrać <a href="http://wiki.opencaching.pl/index.php/Typ_skrzynki" target="_blank">Typ skrzynki</a>
-regiononly Województwo (tylko Polska)
+regiononly Województwo (region)
 region_from_coord Województwo z współrzędnych
 select_regions Wybierz województwo
 not_applicable Nie stosowane
@@ -1763,7 +1763,7 @@ pt125 wis
 pt126 Informacja
 pt127 dodał wpis typu
 pt128 Nowy wpis dla Power Traila
-pt129 Używasz starej przeglądarki (IE6, IE7, IE8), która nie jest obsługiwana przez moduł Power Traili. Strona nie będzie działać prawidłowo, lub jej funkcje zostaną znacząco ograniczone. (nie będziesz mieć dostępu do większośći funkcjonalności). Zalecamy skorzystanie z najnowszych przeglądarek. (FireFox, Chrome, Opera)
+pt129 Używasz starej przeglądarki (IE6, IE7, IE8), która nie jest już obsługiwana. Strona nie będzie działać prawidłowo, lub jej funkcje zostaną znacząco ograniczone. (nie będziesz mieć dostępu do większośći funkcjonalności). Zalecamy skorzystanie z najnowszych przeglądarek. (<a href="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>)
 pt130 Usuń
 pt131 Usunięto wpis z Power Traila
 pt132 usunął wpis typu

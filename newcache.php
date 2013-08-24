@@ -124,7 +124,7 @@ else if ($verify_all==1) {
 				tpl_set_var('size_message', '');
 				tpl_set_var('type_message', '');
 				tpl_set_var('diff_message', '');
-				
+				tpl_set_var('region_message', '');
 				
 				if (!isset($cache_type)) {
 					$cache_type = -1;
@@ -561,11 +561,13 @@ else if ($verify_all==1) {
 
 					if ($record['short'] == $sel_country)
 					{
-						$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+						// $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+						$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . tr($record['short']) . '</option>';
 					}
 					else
 					{
-						$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+						// $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+						$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . tr($record['short']) . '</option>';
 					}
 
 					$countriesoptions .= "\n";
@@ -574,6 +576,7 @@ else if ($verify_all==1) {
 				tpl_set_var('countryoptions', $countriesoptions);
 
 	//regionoptions
+	/*
 	if ($sel_region=="0") {
 		$regionoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';
 	} else {
@@ -594,7 +597,7 @@ else if ($verify_all==1) {
 	}
 
 	tpl_set_var('regionoptions', $regionoptions);
-
+*/
 
 
 				// cache-attributes
@@ -845,7 +848,7 @@ else if ($verify_all==1) {
 
 					// validate region
 					// Andrzej "Łza" 2013-06-02
-					if ($sel_country == 'PL' && $sel_region == '0') {
+					if ($sel_region == '0') {
 						tpl_set_var('region_message',  $regionNotOkMessage);
 						$error = true;
 						$region_not_ok = true;
@@ -853,6 +856,7 @@ else if ($verify_all==1) {
 						$region_not_ok = false;
 						tpl_set_var('region_message',  '');
 					}
+					tpl_set_var('sel_region',  $sel_region);
 	
 					//html-desc?
 					$desc_html_not_ok = false;
@@ -1018,16 +1022,19 @@ else if ($verify_all==1) {
 						$cache_id = mysql_insert_id($dblink);
 					    // insert cache_location
 						$code1=$sel_country;
-                                                $adm1 = sqlvalue("SELECT `countries`.`pl`
+                        $adm1 = sqlvalue("SELECT `countries`.`pl`
 				                         FROM `countries` 
 				                        WHERE `countries`.`short`='$code1'",0);
-
-                                                if ($sel_region!="0") 
-                                               { 
-                                                $code3=$sel_region;
-                                                $adm3=sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='" . sql_escape($sel_region) . "'", 0);
-						} else { $code3=null; $adm3=null;}
-                                                sql("INSERT INTO `cache_location` (cache_id,adm1,adm3,code1,code3) VALUES ('&1','&2','&3','&4','&5')",$cache_id,$adm1,$adm3,$code1,$code3);
+						// check if selected country has no districts, then use $default_region
+						if ($sel_region == -1 ) $sel_region = $default_region;
+             			if ($sel_region!="0") { 
+							$code3 = $sel_region;
+							$adm3 = sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='" . sql_escape($sel_region) . "'", 0);
+						} else {
+							$code3=null; 
+							$adm3=null;
+						}
+						sql("INSERT INTO `cache_location` (cache_id,adm1,adm3,code1,code3) VALUES ('&1','&2','&3','&4','&5')",$cache_id,$adm1,$adm3,$code1,$code3);
 						// update cache last modified, it is for work of cache_locations update information
 						sql("UPDATE `caches` SET `last_modified`=NOW() WHERE `cache_id`='&1'",$cache_id);
 				

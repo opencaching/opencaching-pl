@@ -458,12 +458,15 @@
 				                         	  FROM `countries` 
 				                        	  WHERE `countries`.`short`='$code1'",0);
 						
-                            if ($cache_country!="PL") $cache_region="0";
-                            if ($cache_region!="0") {
+                            // if ($cache_country!="PL") $cache_region="0";
+                            // check if selected country has no districts, then use $default_region
+                            if ($cache_region == -1 ) $cache_region = '0';
+                            if ($cache_region != "0") {
                             	$code3=$cache_region;
                             	$adm3=sqlValue("SELECT `name` FROM `nuts_codes` WHERE `code`='" . sql_escape($cache_region) . "'", 0);
                             } else { 
-                            	$code3=null; $adm3=null;
+                            	$code3=null; 
+                            	$adm3=null;
                             }
 
                             sql("INSERT INTO cache_location (cache_id,adm1,adm3,code1,code3) VALUES ('&1','&2','&3','&4','&5') ON DUPLICATE KEY UPDATE adm1='&2',adm3='&3',code1='&4',code3='&5'",$cache_id,$adm1,$adm3,$code1,$code3);
@@ -573,11 +576,11 @@
 						$record = sql_fetch_array($rs);
 						if ($record['short'] == $cache_country)
 						{
-							$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+							$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . tr(htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8')) . '</option>';
 						}
 						else
 						{
-							$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang], ENT_COMPAT, 'UTF-8') . '</option>';
+							$countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . tr(htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8')) . '</option>';
 						}
 						$countriesoptions .= "\n";
 					}
@@ -604,6 +607,7 @@
 					}
 
 					tpl_set_var('regionoptions', $regionsoptions);
+					tpl_set_var('cache_region', $cache_region);
 
 					// cache-attributes
 					$cache_attrib_list = '';

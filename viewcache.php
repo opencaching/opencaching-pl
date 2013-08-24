@@ -414,9 +414,9 @@
 			tpl_set_var('miasto',"");
 			tpl_set_var('dziubek2',"");
 
-			if (substr(@tr($cache_record['code3']), -5) == '-todo') $regionTranslation = $cache_record['adm3']; else $regionTranslation = tr($cache_record['code3']);
 			if (substr(@tr($cache_record['code1']), -5) == '-todo') $countryTranslation = $cache_record['adm1']; else $countryTranslation = tr($cache_record['code1']);
-			
+			// if (substr(@tr($cache_record['code3']), -5) == '-todo') $regionTranslation = $cache_record['adm3']; else $regionTranslation = tr($cache_record['code3']);
+			$regionTranslation = $cache_record['adm3'];			
 			
 			if ($cache_record['code1'] !="") {tpl_set_var('kraj',$countryTranslation);} else {tpl_set_var('kraj',$cache_record['country_name']);}
 			if ($cache_record['code3'] !="") {$woj=$cache_record['adm3']; tpl_set_var('woj',$regionTranslation); } else {$woj=$cache_record['adm2']; tpl_set_var('woj',$woj);}

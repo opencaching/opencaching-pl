@@ -113,10 +113,9 @@
 	{
 		$record = sql_fetch_array($rs);
 
-		if (substr(@tr($record['code3']), -5) == '-todo') $regionTranslation = $record['adm3']; else $regionTranslation = tr($record['code3']);
 		if (substr(@tr($record['code1']), -5) == '-todo') $countryTranslation = $record['adm1']; else $countryTranslation = tr($record['code1']);
+		$regionTranslation = $record['adm3'];
 		
-		// if ($record['adm1'] !="") $countryTranslation=$record['adm1']; else $countryTranslation=$record['country'];
 		if ($record['adm3'] !="") $dziubek=">"; else $dziubek="";
 		
 		$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
