@@ -316,7 +316,7 @@ cache_attributes_label Cache attributes
 attributes_edit_hint Attributes can also be modified later.
 additional_attributes_hint You can add some more attributes to your cache's description with this tool:
 additional_attributes Additional cache attributes
-attributes_desc_hint Please read the <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Opencaching attributes description</a> article.
+attributes_desc_hint Please read the <a href="{cache_params_url}" target="_blank">Opencaching attributes description</a> article.
 descriptions Description
 language Language
 other_languages_desc You can add descriptions in other languages later (after the cache is successfully registered).
@@ -326,13 +326,13 @@ time_incorrect Incorrect time
 distance_incorrect Incorrect distance. Legal format: aa.aaa
 date_incorrect Incorrect date. Legal format: DD-MM-YYYY
 no_cache_name Missing geocache name
-new_cache_no_terms You must confirm that you agree to Opencaching.PL's Terms of Use
+new_cache_no_terms You must confirm that you agree to {site_name}'s Terms of Use
 html_incorrect This HTML code is not allowed.
 type_incorrect Cache type is incorrect! 
 size_incorrect Cache size is incorrect!
 diff_incorrect Difficulty is incorrect!
 virtual_cache_size Cache size for "event" have to be set as "no container" 
-cache_submitted Your cache has been successfully registered at Opencaching.PL.
+cache_submitted Your cache has been successfully registered at {site_name}.
 full_description Full description
 mandatory_field This field is required
 full_desc_long_text Describe your cache here. Why did you pick the place? What the user should now before he/she starts searching? Make sure you provide all the necessarry information, so that the cache can indeed be found.
@@ -351,8 +351,8 @@ hour hour
 dont_publish_yet Don't publish yet
 log_password Enter password
 no_password_label Leave empty if you don't want to use password
-please_read Please read <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">information about passwords in logs!</a>
-creating_cache By creating a new cache you accept Opencaching.PL's <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">Terms of Use</a>.
+please_read Please read <a href="{cache_params_url}" target="_blank">information about passwords in logs!</a>
+creating_cache By creating a new cache you accept {site_name}'s <a href="{rules_url}" target="_blank">Terms of Use</a>.
 with_all_consequences with all consequences.
 cache_name cache name
 distance_label distance
@@ -421,12 +421,12 @@ active_caches active caches
 number_of_active_users Number of users
 number_of_founds Founds
 latest_news News
-what_do_you_find Welcome to Opencaching.pl
+what_do_you_find Welcome to {site_name}
 what_do_you_find_intro_pl Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in Poland. Opencaching.pl in Poland was started in <span class="content-title-noshade">May 2006</span>. This is the main Poland geocaching site. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches. Runs on <a href="http://code.google.com/p/opencaching-pl/">Opencaching.PL opensource project</a>.
 what_do_you_find_intro_nl Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in The Netherlands, Luxembourgh and Belgium. Opencaching.nl in The Netherlands was started in <span class="content-title-noshade">October 2002</span>. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches.<br/> Opencaching site like this has nothing to do with Opencaching.com
 more_news More news
-filename_rules http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use
-filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
+filename_rules {rules_url}
+filename_describe_cache {cache_params_url}
 map_msg In order to view coordinates and <br/>the map of cache's location<br/> you must be <a href="login.php?target={target}">logged in</a>
 additional_hints Additional hints
 images Pictures
@@ -434,7 +434,7 @@ mp3_files_info PodCasts - listen to the instructions that will lead you to a cac
 utilities Utilities
 search_geocaches_nearby Find geocaches nearby (radius 100 km)
 download_as_file Download as file
-accept_terms_of_use When downloading this file, you accept our <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">terms of use</a>.
+accept_terms_of_use When downloading this file, you accept our <a href="{rules_url}">terms of use</a>.
 find_geocaches_on Find geocaches on
 searchable without own and founded caches
 all_geocaches all
@@ -443,10 +443,10 @@ show_all_log_entries Show all log entries
 back_to_the_geocache_listing Back to the geocache listing
 register_new  New user registration
 password_confirm Confirm password
-register_msg1 To create an account on opencaching.pl, you have to enter a vaild E-Mail address and an username. <br/>An E-Mail will be sent to the address you supplied with an activation code. Only one account can be created per one E-Mail address.
+register_msg1 To create an account on {site_name}, you have to enter a vaild E-Mail address and an username. <br/>An E-Mail will be sent to the address you supplied with an activation code. Only one account can be created per one E-Mail address.
 register_msg2 Fields marked with * are required
 register_msg3 If you have any questions, please contact us before you create your account.
-register_msg4 I have read, understood and accept <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">Opencaching.PL's Terms of Use</a></b>. 
+register_msg4 I have read, understood and accept <b><a href="{rules_url}"> Terms of Use</a></b>. 
 register_msg5 A new account has been registered
 register_msg6 The activation code was sent via E-mail to you. Please follow the instructions within it.
 register_msg7 Users which have hidden a cache or logged at least one visit - cannot be deleted. However, it is possible to deactivate such accounts. All your personal data will be removed (including your email address), but your username will be kept. If you want your account to be deactivated contact us at ocpl@opencaching.pl.
@@ -463,7 +463,7 @@ possible_recommend You don't have any recommendations left. You must find more c
 comments_log Comments
 submit_log_entry Submit log entry
 geokret_log Did you take Geokret? Register this on
-rate_cache Rate this cache: <br/><a href="http://wiki.opencaching.pl/index.php/Cache_rating">Description of the rating scale</a>
+rate_cache Rate this cache: <br/><a href="{rating_desc_url}">Description of the rating scale</a>
 do_not_rate I do not want to rate this cache
 listed_other You can also submit the log for this cache on other sites
 not_spcified not specified
