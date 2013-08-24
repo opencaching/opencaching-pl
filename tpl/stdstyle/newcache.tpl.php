@@ -17,12 +17,7 @@
  ****************************************************************************/
 ?>
 <input type="hidden" value="arrrgh" id="qwertyuiop">
-
-<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ajaxfileupload.js"></script>
-<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/newcache_wptGpxHandler.js"></script>
-<script type="text/javascript" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/jquery.js"></script>
-<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
+<script src="tpl/stdstyle/js/jquery-2.0.3.js"></script>
 
 
 <script type="text/javascript">
@@ -33,6 +28,34 @@ $(function() {
 }); 
 
 var maAttributes = new Array({jsattributes_array});
+
+function startUpload(){
+	$('#f1_upload_form').hide();
+	$('#ajaxLoaderLogo').show();
+    return true;
+}
+
+function stopUpload(success){
+	// console.log(success);
+	$('#ajaxLoaderLogo').hide();
+	$('#f1_upload_form').show();
+	$('#wptInfo').show();
+	$(function() {
+		setTimeout(function() {
+			$('#wptInfo').fadeOut(1000);
+		}, 5000);
+	});
+
+	var gpx = jQuery.parseJSON(success);
+	$("#lat_h").val(gpx.coords_lat_h);
+	$("#lon_h").val(gpx.coords_lon_h);
+	$("#lat_min").val(gpx.coords_lat_min);
+	$("#lon_min").val(gpx.coords_lon_min);
+	$("#name").val(gpx.name);
+	$("#desc").val(gpx.desc);
+   	
+	return true;
+}
 
 function chkregion() {
 	if ($('#region').val() == "0") {
@@ -280,37 +303,26 @@ function nearbycachemapOC()
 		<col width="180"/>
 		<col/>
 	</colgroup>
-	<!-- coord from gpx. Swithed off because of jquery version conflicts (TODO)
 	<tr>
-		<td valign="top"><p class="content-title-noshade" title="{{newcache_import_wpt_help}}">{{newcache_import_wpt}}</p></td>
-		<td valign="top">
-			<img id="loading" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ajax-loader.gif" style="display:none;">
-			<form name="form" action="" method="POST" enctype="multipart/form-data">
-			 <input id="fileToUpload" type="file" size="20" name="fileToUpload" value="sdsd">
-			 <button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">{{newcache_upload}}</button>
-			</form>  
-		<br/><br/>
-		
-		
-					<form action="powerTrail/ajaxImage.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
-         				<p id="f1_upload_form" align="center"><br/>
-             			File: <input name="myfile" type="file" size="30" />
-             			
-						<a href="javascript:void(0)" onclick="$(this).closest('form').submit()" class="editPtDataButton">{{pt044}}</a> 
-         				</p>
-         				<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
-					</form>
-		
-		
+		<td>
+			<p class="content-title-noshade">{{newcache_import_wpt}}</p>
+		</td>
+		<td>
+		<div id="wptInfo" style="display: none; color: #006600; font-weight: bold;">{{newcache_import_wpt_ok}}</div>
+		<form action="newcacheAjaxWaypointUploader.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
+			<p id="f1_upload_form"><br/>
+ 			 <input name="myfile" type="file" size="30" />
+ 			<input type="submit" />
+			</p>
+			<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+		</form>
+		<img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
 		</td>
 	</tr>
 	<tr><td>&nbsp;</td>
 		<td><div class="notice" style="width:500px;height:60px;">{{newcache_import_wpt_help}}</div>
 		</td>
 	</tr>
-	-->
-	
-	
 	
 <form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr" onsubmit="javascript: return chkregion()">
 <input type="hidden" name="show_all_countries" value="{show_all_countries}"/>

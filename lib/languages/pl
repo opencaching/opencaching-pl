@@ -1197,6 +1197,7 @@ show_all_countries Wszystkie kraje
 newcache_upload wczytaj
 newcache_import_wpt Wczytaj dane z pliku gpx
 newcache_import_wpt_help Ta funkcja umożliwia wczytanie podstawowych danych (współrzędne, nazwa) waypointa z pliku gpx. (np.&nbsp;z garmina) jeśli w pliku jest więcej niż jeden waypoint zostaną wczytane dane tylko pierwszego waypointa.
+newcache_import_wpt_ok Dane zostały wczytane 
 email_reset Powrót
 email_submit Wyslij
 garmin_not_found Nie znalazłem GPSa
@@ -1635,6 +1636,7 @@ ZA Republika Południowej Afryki
 ZM Zambia
 ZW Zimbabwe
 SU Rosja
+
 pt001 Power Traile
 pt002 nalaży do serii 
 pt003 Stwórz nową serię

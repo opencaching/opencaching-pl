@@ -263,7 +263,7 @@ function stopUpload(success){
 			$("#powerTrailLogo").fadeIn(800);
 			
 			}, 801);
-		});
+	});
 	toggleImageEdit()
 	return true;   
 }

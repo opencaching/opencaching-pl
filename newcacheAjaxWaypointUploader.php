@@ -1,53 +1,30 @@
 <?php
-$error = "";
-$msg = "";
-$fileElementName = 'fileToUpload';
-if ($_FILES[$fileElementName]['size'] > 20480) {
-	$_FILES[$fileElementName]['error'] = 2;
-}
-if (!empty($_FILES[$fileElementName]['error'])) {
-	switch($_FILES[$fileElementName]['error']) {
-		case '1' :
-			$error = 'The uploaded file exceeds the upload_max_filesize directive in php.ini';
-			break;
-		case '2' :
-			$error = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form';
-			break;
-		case '3' :
-			$error = 'The uploaded file was only partially uploaded';
-			break;
-		case '4' :
-			$error = 'No file was uploaded.';
-			break;
+// Edit upload location here
+$destination_path = $picdir.DIRECTORY_SEPARATOR;
 
-		case '6' :
-			$error = 'Missing a temporary folder';
-			break;
-		case '7' :
-			$error = 'Failed to write file to disk';
-			break;
-		case '8' :
-			$error = 'File upload stopped by extension';
-			break;
-		case '999' :
-		default :
-			$error = 'No error code avaiable';
+	$valid_formats = array("gpx");
+	
+	$name = $_FILES['myfile']['name'];
+	$size = $_FILES['myfile']['size'];
+	if (strlen($name)) {
+		list($txt, $ext) = explode(".", $name);
+		$ext = strtolower($ext);
+		if (in_array($ext, $valid_formats)) {
+			if ($size < (1024 * 1024 * 2)) { // Image size max 2 MB
+				$actual_image_name = 'tempgpx.' . $ext;
+
+				$result = 0;
+				$target_path = $destination_path . $actual_image_name;
+
+				$wpts = simplexml_load_file($_FILES['myfile']['tmp_name']);
+				@unlink($_FILES['myfile']);
+
+				$result = json_encode(loadWaypointFromGpx($wpts));	
+			}
+		}
 	}
-} elseif (empty($_FILES['fileToUpload']['tmp_name']) || $_FILES['fileToUpload']['tmp_name'] == 'none') {
-	$error = 'No file was uploaded..';
-} else {
-	$wpts = simplexml_load_file($_FILES['fileToUpload']['tmp_name']);
-	// force to remove uploaded file
-	@unlink($_FILES['fileToUpload']);
-	$msg2 = json_encode(loadWaypointFromGpx($wpts));
-}
-echo "{";
-echo "error: '" . $error . "',\n";
-echo "msg: '" . $msg2 . "'\n";
-echo "}";
 
 function loadWaypointFromGpx($wpts) {
-	// $wpts = simplexml_load_file("Waypointy2.gpx");
 
 	$coords_lon = (float)$wpts -> wpt -> attributes() -> lon;
 	$coords_lat = (float)$wpts -> wpt -> attributes() -> lat;
@@ -85,4 +62,8 @@ function loadWaypointFromGpx($wpts) {
 	//$result = print_r($result, true);
 	return $result;
 }
+
+
 ?>
+
+<script language="javascript" type="text/javascript">window.top.window.stopUpload(<?php echo "'".$result."'"; ?>);</script>   
