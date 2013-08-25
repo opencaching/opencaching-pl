@@ -468,7 +468,7 @@ do_not_rate Ik wil deze cache niet beoordelen
 listed_other Log deze cache ook op de volgende sites
 not_spcified not spcified
 all_countries toon alle landen
-register_email_subject Registratie bevestiging {site_name}
+register_email_subject Registratie bevestiging opencaching
 error_username_not_ok Gebruikersnaam is niet geldig
 error_username_exists Deze gebruikersnaam bestaat al. Kies een andere gebruikersnaam
 error_email_not_ok E-mail adres is niet geldig
@@ -619,7 +619,7 @@ caches_blocked My caches blocked by OC Team
 blocked_create_caches Your possiblity for creating new caches is blocked. Please contact with OC Team rr@opencaching.pl
 npa_info This geocache is probably placed in a nature protection area
 check_nearby_caches_info Controleer voor het plaatsen van een cache of er geen andere cache ligt in <br /> een straal van 150 m
-check_nearby_caches Contoleer caches dichtbij op OC PL
+check_nearby_caches Contoleer caches dichtbij op {site_name}
 check_nearby_caches_map Controleer op caches met kaart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 my_caches_status Mijn caches met status
 active Actief
@@ -736,7 +736,7 @@ your_recommendations Your recommendations for geocache
 was_removed has been removed
 recommended_geocaches Recommended geocaches
 number_recommendations Number of recommendations
-regions_only_for Regio's (alleen Polen)
+regions_only_for Regio's
 monday Maandag
 tuesday Dinsdag
 wednesday Woensdag
@@ -795,7 +795,7 @@ empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. H
 empty_entry_confirm Wil je werkelijk het logveld leeg laten?
 where_i_am Waar ben ik?
 read_info_about_cache_types Lees hier meer informatie over <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
-regiononly Regio (Polen)
+regiononly Regio
 region_from_coord Regio via opgegeven coördinaten
 select_regions Selecteer regio
 not_applicable Not applicable
@@ -1277,7 +1277,7 @@ runwatch15 Er zijn nog geen logs
 registermail01 Hallo
 registermail02 Welkom op 
 registermail03 Om te beginnen kun je informatie terug vinden op Opencaching wiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. Opencaching wiki is beschikbaar op:
-registermail04 http://wiki.opencaching.nl/
+registermail04 {wiki_url}
 registermail05 Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.
 registermail06 Kijk eens op:
 registermail07 Wanneer er voldoende caches zijn zal men eerst 10 caches gevonden moeten hebben eer men zelf caches kan registreren.
