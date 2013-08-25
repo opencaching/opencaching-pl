@@ -44,28 +44,6 @@ function chkcountry2(){
     });
 }
 
-function toogleLayer( whichLayer, val )
-{
-	var elem, vis;
-	if( document. getElementById )
-		elem = document.getElementById(whichLayer);
-	else if( document.all )
-		elem = document.all[whichLayer];
-	else if( document.layers )
-		elem = document.layers[whichLayer];
-	vis = elem.style;
-	
-	if(val != '')
-	{
-	if (document.editcache_form.country.value == "PL") 
-		{vis.display = 'block';}
-	else {
-		vis.display = 'none';}
-	}
-	else
-		vis.display = val;
-}
-
 function _chkVirtual () 
 {
   if (document.editcache_form.type.value == "4" || document.editcache_form.type.value == "5" || document.editcache_form.type.value == "6" || ({other_nobox} && document.editcache_form.type.value == "1") ) 
@@ -252,7 +230,8 @@ function toggleAttr(id)
 		<td>
 			<select name="region" id="region1" class="input200">
 				
-			</select>&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button onclick="return extractregion()">{{region_from_coord}}</button>
+			</select>
+			&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button onclick="return extractregion()">{{region_from_coord}}</button>
 			
 		</td>
 	</tr>

@@ -585,28 +585,6 @@
 						$countriesoptions .= "\n";
 					}
 					tpl_set_var('countryoptions', $countriesoptions);
-
-
-					//regionoptions
-
-					$regionsoptions = '';
-					if ($cache_region=="") {$regionsoptions = '<option value="0" selected="selected">'.tr('select_regions').'</option>';}
-					
-					$rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
-
-					for ($i = 0; $i < mysql_num_rows($rs); $i++)
-					{
-						$record = sql_fetch_array($rs);
-
-						if ($record['code'] == $cache_region)
-							$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
-						else
-							$regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
-
-						$regionsoptions .= "\n";
-					}
-
-					tpl_set_var('regionoptions', $regionsoptions);
 					tpl_set_var('cache_region', $cache_region);
 
 					// cache-attributes
@@ -1048,7 +1026,7 @@
 					tpl_set_var('wp_nc', htmlspecialchars($wp_nc, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('wp_tc', htmlspecialchars($wp_tc, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('wp_ge', htmlspecialchars($wp_ge, ENT_COMPAT, 'UTF-8'));
-					tpl_set_var('bodyMod', ' onload="toogleLayer(\'regions\')" onunload="GUnload()"');
+					tpl_set_var('bodyMod', ' onunload="GUnload()"');
 
 					tpl_set_var('reset', $reset);
 					tpl_set_var('submit', $submit);
