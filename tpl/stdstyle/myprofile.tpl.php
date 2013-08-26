@@ -112,7 +112,7 @@
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td class="content-title-noshade" style="vertical-align:top;"><img src="tpl/stdstyle/images/free_icons/html.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{html_statpic_link}}:</td>
-		<td class="txt-grey07">&lt;img src="{statlink}" alt="Opencaching PL - Statystyka dla {username_html}" title="Opencaching PL - Statystyka dla {username_html}" /></td>
+		<td class="txt-grey07">&lt;img src="{statlink}" alt="{site_name} {{statpic_html_link}} {username_html}" title="{site_name} {{statpic_html_link}} {username_html}" /></td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
