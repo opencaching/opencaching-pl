@@ -1218,7 +1218,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 			<td></td>
 			<td>
 				<input type="hidden" value="{{submit}}" name="createNewPowerTrailBtn" /><br />
-				<a href="javascript:void(0);" onclick="alert(123); $('#createNewPowerTrail').submit()"; class="editPtDataButton">{{pt080}}</a>
+				<a href="javascript:void(0);" onclick="$('#createNewPowerTrail').submit()"; class="editPtDataButton">{{pt080}}</a>
 			</td>
 		</tr>
 		</table>

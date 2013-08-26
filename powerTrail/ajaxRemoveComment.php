@@ -27,12 +27,15 @@ if(powerTrailBase::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrai
 	print "usuwam $commentId z $powerTrailId";
 	$query = 'UPDATE `PowerTrail_comments` SET `deleted` = 1 WHERE `id` = :1';
 	// AND `PowerTrailId` = :2
-	$db = new dataBase(true);
+	$db = new dataBase(false);
 	$db->multiVariableQuery($query, $commentId);
-//TODO update ilości znalezień
+	if($commentDbRow['commentType'] == 2){
+		$q = 'UPDATE `PowerTrail` SET `PowerTrail`.`conquestedCount`= (SELECT COUNT(*) FROM `PowerTrail_comments` WHERE `PowerTrail_comments`.`PowerTrailId` = :1 AND `PowerTrail_comments`.`commentType` = 2 AND `PowerTrail_comments`.`deleted` = 0 ) WHERE `PowerTrail`.`id` = :1 ';
+		$db->multiVariableQuery($q, $powerTrailId);
+	}
+	emailOwners($powerTrailId, $commentDbRow['commentType'], $commentDbRow['logDateTime'], $commentDbRow['commentText'], 'delComment');
 }
 
 
-emailOwners($powerTrailId, $commentDbRow['commentType'], $commentDbRow['logDateTime'], $commentDbRow['commentText'], 'delComment');
 
 ?>

@@ -85,8 +85,11 @@ $stats2display = '<table class="statsTable" style="border-collapse:collapse;" al
 </tr>';
 if ($ptTotalCacheesCount != 0) {
 	$bgcolor = '#ffffff';
-	$fullPtFoundCount = 0;	
+	
+	$fullPtFoundCount = 0;
+	$totCacheDays = 0;
 	foreach ($sorted as $user) {
+		$totCacheDays += $user['daysSpent'];
 		$ptPercent = round($user['FoundCount'] * 100 / $ptTotalCacheesCount, 2);
 		if ($ptPercent >= $ptDbRow['perccentRequired']) {
 			$fullPtFoundCount++;
@@ -125,6 +128,10 @@ $stats2display .=
 	<tr>
 		<td>'.tr('pt119').'</td>
 		<td>'.count($sorted).'</td>
+	</tr>
+	<tr>
+		<td>'.tr('pt135').'</td>
+		<td>'.$totCacheDays.'</td>
 	</tr>
 	<tr>
 		<td>'.tr('pt120').'<a class="tooltip" href="javascript:void(0);">'.tr('pt125').'<span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Info.png" alt="Help" height="48" width="48" /><em>'.tr('pt126').'</em>'.tr('pt124').'</span></a></td>

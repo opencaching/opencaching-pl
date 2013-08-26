@@ -15,7 +15,7 @@
 					</td>
 					<td align="left">
 						<span style="color: green; font-size: 14px  font-family: Verdana;">
-							{pt128} <a href="{absolute_server_URI}powerTrail.php?ptAction=showSerie&ptrail={ptId}">{ptName}</a> 
+							{actionDesc} <a href="{absolute_server_URI}powerTrail.php?ptAction=showSerie&ptrail={ptId}">{ptName}</a> 
 						</span>
 					</td>
 				</tr>
@@ -23,7 +23,8 @@
 		</p>
 
 		<p>
-			{commentDateTime} <a href="{absolute_server_URI}viewprofile.php?userid={userId}">{userName}</a> {commentAction} {commentType} <br /><br />
+			{addingCommentDateTime} <a href="{absolute_server_URI}viewprofile.php?userid={userId}">{userName}</a> {commentAction} {commentType} <br /><br />
+			{pt134}: {commentDateTime}<br />
 			{pt133}:<br /><br />
 		</p>
 		<p>
