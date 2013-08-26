@@ -1197,6 +1197,7 @@ show_all_countries Toon alles
 newcache_upload Verzenden
 newcache_import_wpt Nieuwe cache importeren
 newcache_import_wpt_help Met deze functie kan waypoint gegevens uit GPX bestand van bijvoorbeeld Garmin (coordinaat, naam) als basis voor nieuwe cache verstuurd worden. Bij meer dan 1 waypoint zal eerste gebruikt worden.
+newcache_import_wpt_ok De gegevens zijn geïmporteerd
 email_reset Herstellen
 email_submit Verzenden
 garmin_not_found Geen GPS apparaat gevonden
@@ -1635,6 +1636,7 @@ ZA Zuid-Afrika
 ZM Zambia
 ZW Zimbabwe
 SU Rusland
+
 pt001 PowerTrail
 pt002 Voeg toe aan serie
 pt003 Maak een nieuwe serie
@@ -1763,7 +1765,7 @@ pt125 Uitleg
 pt126 Informatie
 pt127 plaatste een
 pt128 Er is een nieuwe melding voor
-pt129 U gebruikt een oudere browser (IE6, IE7, IE8), die niet wordt ondersteund door de module PowerTrail. Deze site zal niet goed functioneren, of zijn functies zal aanzienlijk worden verminderd. (U krijgt geen toegang tot het grootste deel van de functionaliteit). Wij adviseren om de nieuwste browsers te gebruiken. (FireFox, Chrome, Opera)
+pt129 U gebruikt een oudere browser (IE6, IE7, IE8), die niet wordt ondersteund door de module PowerTrail. Deze pagina zal niet goed functioneren, of zijn functies zal aanzienlijk worden verminderd. (U krijgt geen toegang tot het grootste deel van de functionaliteit). Wij adviseren om de nieuwste browsers te gebruiken.  (<a href="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>)
 pt130 Verwijderen
 pt131 Verwijdering log Powertrail
 pt132 Verwijderde een log
