@@ -21,6 +21,10 @@
 	require($stylepath.'/smilies.inc.php');
 	global $usr;
 
+	// Load the TinyMCE compressor class and configuration
+	require_once("./lib/tinymce/tiny_mce_gzip.php");
+	require_once("./lib/tinymce/config/compressor.php");
+	
 	//Preprocessing
 	if ($error == false)
 	{
@@ -557,7 +561,7 @@
 					tpl_set_var('cacheid', $log_record['cache_id']);
 					tpl_set_var('logid', $log_id);
 					tpl_set_var('date_message', ($date_not_ok == true) ? $date_message : '');
-					tpl_set_var('bodyMod', ' onload="chkMoved()" onunload="GUnload()"');
+					tpl_set_var('bodyMod', ' onload="chkMoved()"');
 
 					$log_text = tidy_html_description($log_text);
 
@@ -579,7 +583,7 @@
 					// TinyMCE
 					$headers = tpl_get_var('htmlheaders') . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
-					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
+					$headers .= tiny_mce_compressor_config() . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
 					tpl_set_var('htmlheaders', $headers);
 

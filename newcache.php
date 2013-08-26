@@ -19,6 +19,11 @@
   //prepare the templates and include all neccessary
   	if (!isset ($rootpath)) $rootpath='./';
 	require_once('./lib/common.inc.php');
+
+	// Load the TinyMCE compressor class and configuration
+	require_once("./lib/tinymce/tiny_mce_gzip.php");
+	require_once("./lib/tinymce/config/compressor.php");
+
 	$ocWP=$GLOBALS['oc_waypoint'];
 	$OWNCACHE_LIMIT=$GLOBALS['owncache_limit'];
 	$no_tpl_build = false;
@@ -239,7 +244,7 @@ else if ($verify_all==1) {
 					{
 						$headers = tpl_get_var('htmlheaders') . "\n";
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
-						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
+						$headers .= tiny_mce_compressor_config() . "\n";
 
 						if (!isset($desc_record['cache_id'])) $desc_record['cache_id'] = null;
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";

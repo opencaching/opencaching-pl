@@ -55,6 +55,9 @@ $debug = false;
 	require_once('./lib/common.inc.php');
 	require($stylepath.'/smilies.inc.php');
 
+	// Load the TinyMCE compressor class and configuration
+	require_once("./lib/tinymce/tiny_mce_gzip.php");
+	require_once("./lib/tinymce/config/compressor.php");
 
 	$no_tpl_build = false;
 	//Preprocessing
@@ -1050,7 +1053,7 @@ $debug = false;
 					tpl_set_var('submit', $submit);
 					tpl_set_var('date_message', '');
 					tpl_set_var('top_cache', $top_cache);
-					tpl_set_var('bodyMod', ' onload="chkMoved()" onunload="GUnload()"');
+					tpl_set_var('bodyMod', ' onload="chkMoved()"');
 
 					tpl_set_var('wsp_NS_st',  $wsp_NS_st);
 				    tpl_set_var('wsp_NS_min', $wsp_NS_min);
@@ -1071,7 +1074,7 @@ $debug = false;
 					// TinyMCE
 					$headers = tpl_get_var('htmlheaders') . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
-					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
+					$headers .= tiny_mce_compressor_config() . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
 					tpl_set_var('htmlheaders', $headers);
 						tpl_set_var('descMode', 3);

@@ -31,7 +31,11 @@
  
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-	
+
+	// Load the TinyMCE compressor class and configuration
+	require_once("./lib/tinymce/tiny_mce_gzip.php");
+	require_once("./lib/tinymce/config/compressor.php");
+
 	//Preprocessing
 	if ($error == false)
 	{
@@ -239,7 +243,7 @@
 					// TinyMCE
 					$headers = tpl_get_var('htmlheaders') . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
-					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce.js"></script>' . "\n";
+					$headers .= tiny_mce_compressor_config() . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
 					tpl_set_var('htmlheaders', $headers);
 				}
