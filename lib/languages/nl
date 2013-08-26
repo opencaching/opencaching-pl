@@ -1773,5 +1773,13 @@ pt133 Tekst van deze log was
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
+notify_newcachemail01 hallo
+notify_newcachemail02 Er is net een nieuwe cache gemeld in jouw ingestelde zoekradius
+notify_newcachemail03 heeft op
+notify_newcachemail04 een nieuwe cache geplaatst
+notify_newcachemail05 Afstand:
+notify_newcachemail06 Richting:
+notify_newcachemail07 Soort:
+notify_newcachemail08 Grootte:
 
 
