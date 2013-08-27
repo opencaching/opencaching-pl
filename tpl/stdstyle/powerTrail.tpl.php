@@ -9,6 +9,8 @@
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.core.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.datepicker.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
 <script type="text/javascript">
 
 
@@ -925,6 +927,63 @@ function toggle() {
 	  cialo.style.display = "none";
 	 }
 } 
+
+/* maps */
+
+function initialize() {
+
+console.log('initialize ');
+
+var ptMapCenterLat = {mapCenterLat};
+var ptMapCenterLon = {mapCenterLon};
+var mapZoom = {mapZoom};
+
+var caches = [ {ptList4map} ];
+
+  var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
+  var mapOptions = {
+    zoom: mapZoom,
+    center: myLatlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+ var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  
+
+/* var powerTrailMarker = new google.maps.MarkerImage(
+    'tpl/stdstyle/images/blue/powerTrailMarker.png',
+    new google.maps.Size(32,32),    // size of the image
+    new google.maps.Point(0,0), // origin, in this case top-left corner
+    new google.maps.Point(16, 16)    // anchor, i.e. the point half-way along the bottom of the image
+);
+*/
+// var latlngbounds = new google.maps.LatLngBounds();
+caches.forEach(function(cache) {
+	  var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(cache[0],cache[1]),
+      map: map,
+	  icon: cache[3],
+      title: cache[2]
+  });
+  
+  
+  
+  /*
+   
+// map: an instance of google.maps.Map object
+// latlng: an array of google.maps.LatLng objects
+var latlngbounds = new google.maps.LatLngBounds();
+for (var i = 0; i < latlng.length; i++) {
+  latlngbounds.extend(latlng[i]);
+}
+map.fitBounds(latlngbounds);
+   * */
+	
+});
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+/* maps end */
+
 // -->
 </script>
 
@@ -1145,6 +1204,25 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	float:right
 }
 
+#map-canvas, #map_canvas {
+	margin-top: 20px;
+	height: 460px;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+	border: 1px solid #0051B9
+}
+#mapOuterdiv{
+	margin-left: auto;
+	margin-right: auto;
+}
+#ptMenus{
+	width: 99%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 </style>
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
 
@@ -1163,13 +1241,15 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 <!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
 <!--[if IE 8 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
 
-<div style="display: {ptMenu}">
+<div id="ptMenus" style="display: {ptMenu}">
 <ul id="css3menu1" class="topmenu">
 {powerTrailMenu}
 </ul>
 </div>
-
-
+<!-- map -->
+<div id="mapOuterdiv" style="display: {mapOuterdiv}">
+<div id="map-canvas"></div>
+</div>
 
 <div style="display: {displayCreateNewPowerTrailForm}">
 	<form name="createNewPowerTrail" id="createNewPowerTrail" action="powerTrail.php?ptAction=createNewPowerTrail" method="post">
