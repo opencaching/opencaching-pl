@@ -70,7 +70,7 @@ if ($error == false)
 				$ptListData = displayPTrails($pt->getpowerTrails());
 				tpl_set_var('mapCenterLat', $main_page_map_center_lat);
 				tpl_set_var('mapCenterLon', $main_page_map_center_lon);
-				tpl_set_var('mapZoom', $powerTrailMapZoom);
+				tpl_set_var('mapZoom', 6);
 				tpl_set_var('PowerTrails',$ptListData[0]);
 				tpl_set_var('ptList4map',$ptListData[1]);
 				tpl_set_var('displayPowerTrails', 'block');
@@ -106,7 +106,7 @@ if ($error == false)
 					//map
 					tpl_set_var('mapCenterLat', $ptDbRow['centerLatitude']);
 					tpl_set_var('mapCenterLon', $ptDbRow['centerLongitude']);
-					tpl_set_var('mapZoom', 9);
+					tpl_set_var('mapZoom', 11);
 					tpl_set_var('ptList4map',"[".$ptDbRow["centerLatitude"].",".$ptDbRow["centerLongitude"].",'".tr('pt136')."'],");
 					
 					if ($userIsOwner){
