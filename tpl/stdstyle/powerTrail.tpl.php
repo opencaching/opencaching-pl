@@ -932,6 +932,10 @@ function toggle() {
 
 function initialize() {
 
+if ({mapInit} == '0') {
+	console.log('map is swithed off');
+	return false;
+}
 console.log('initialize ');
 
 var ptMapCenterLat = {mapCenterLat};

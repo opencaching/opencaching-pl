@@ -45,6 +45,12 @@ if ($error == false)
 		tpl_set_var('displayToLowUserFound', 'none');
 		tpl_set_var('ptMenu', 'block');
 		tpl_set_var('mapOuterdiv', 'none');
+		tpl_set_var('mapInit', 0);
+		tpl_set_var('mapCenterLat', 0);
+		tpl_set_var('mapCenterLon', 0);
+		tpl_set_var('mapZoom', 15);
+		tpl_set_var('ptList4map', '[]');
+		
 		if(!$usr) tpl_set_var('ptMenu', 'none');
 		$ptMenu = new powerTrailMenu($usr);
 		tpl_set_var("powerTrailMenu", buildPowerTrailMenu($ptMenu->getPowerTrailsMenu()));
@@ -75,6 +81,7 @@ if ($error == false)
 				tpl_set_var('ptList4map',$ptListData[1]);
 				tpl_set_var('displayPowerTrails', 'block');
 				tpl_set_var('mapOuterdiv', 'block');
+				tpl_set_var('mapInit', 1);
 				break;
 			case 'showSerie':
 				$ptDbRow = $pt->getPowerTrailDbRow();
@@ -104,6 +111,7 @@ if ($error == false)
 					tpl_set_var('powerTrailserStats', displayPowerTrailserStats($stats));
 					
 					//map
+					tpl_set_var('mapInit', 1);
 					tpl_set_var('mapCenterLat', $ptDbRow['centerLatitude']);
 					tpl_set_var('mapCenterLon', $ptDbRow['centerLongitude']);
 					tpl_set_var('mapZoom', 11);
@@ -196,10 +204,17 @@ function displayCaches($caches, $pTrails)
 
 function displayPTrails($pTrails)
 {
+	$poweTrailMarkers = array (
+		1 => 'footprintRed.png',
+		2 => 'footprintBlue.png',
+		3 => 'footprintGreen.png',
+		4 => 'footprintYellow.png',
+	);
+	
 	$result = '';
 	$dataForMap = '';
 	foreach ($pTrails as $pTkey => $pTrail) {
-		$dataForMap .= "[".$pTrail["centerLatitude"].",".$pTrail["centerLongitude"].",'".$pTrail["name"]."','tpl/stdstyle/images/blue/powerTrailMarker.png'],";
+		$dataForMap .= "[".$pTrail["centerLatitude"].",".$pTrail["centerLongitude"].",'".$pTrail["name"]."','tpl/stdstyle/images/blue/".$poweTrailMarkers[$pTrail["type"]]."'],";
 		$ptTypes = powerTrailBase::getPowerTrailTypes();
 		$ptStatus = powerTrailBase::getPowerTrailStatus();
 		$result .= '<tr>'.

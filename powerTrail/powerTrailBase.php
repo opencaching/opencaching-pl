@@ -61,16 +61,16 @@ class powerTrailBase{
 	 */
 	public static function getPowerTrailTypes(){
 		return array (
-			1 => array ( //sport
+			1 => array ( //sport (map shape)
 				'translate' => 'pt004',
 			),
 			2 => array ( // touring
 				'translate' => 'pt005',
 			),
-			3 => array (
+			3 => array ( // nature (?)
 				'translate' => 'pt067',
 			),
-			4 => array (
+			4 => array ( // tematic (?)
 				'translate' => 'pt079',
 			),
 			
