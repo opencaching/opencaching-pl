@@ -112,7 +112,7 @@ function chkMoved()
 <form action="editlog.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" dir="ltr">
 <input type="hidden" name="logid" value="{logid}"/>
 <input type="hidden" name="version2" value="1"/>
-<input id="descMode" type="hidden" name="descMode" value="1" />
+<input id="descMode" type="hidden" name="descMode" value="{descMode}" />
 <table class="content">
 	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="edit log Cache" align="middle" /> <b>{{edit_logentry}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b></td></tr>
 </table>
@@ -170,7 +170,7 @@ function chkMoved()
     </td>
 	</tr>
 	<tr>
-		<td colspan="2">
+		<td id="smilies" colspan="2" style="display: {smiliesdisplay}">
 			{smilies}
 		</td>
 	</tr>
@@ -195,37 +195,27 @@ function chkMoved()
 		2 = HTML
 		3 = HTML-Editor
 	*/
-	var use_tinymce = 0;
+	var use_tinymce = {use_tinymce};
 	var descMode = {descMode};
 	document.getElementById("scriptwarning").firstChild.nodeValue = "";
 
-	// descMode auf 1 oder 2 stellen ... wenn Editor erfolgreich geladen wieder auf 3 Stellen
-	if (descMode == 3)
-	{
-		if (document.getElementById("logtext").value == '')
-			descMode = 1;
-		else
-			descMode = 2;
-	}
-
-	document.getElementById("descMode").value = descMode;
-	mnuSetElementsNormal();
-
-	//_chkFound();
-
 	function postInit()
 	{
-		descMode = 3;
-		use_tinymce = 1;
-		document.getElementById("descMode").value = descMode;
 		mnuSetElementsNormal();
+
+		// TinyMCE is on by default - toggle it off if not requested
+		if (use_tinymce == 0)
+			toggleEditor("logtext");
 	}
 
 	function toggleEditor(id) {
-		if (!tinyMCE.getInstanceById(id))
+		if (!tinyMCE.getInstanceById(id)) {
 			tinyMCE.execCommand('mceAddControl', false, id);
-		else
+			document.getElementById("smilies").style.display = "none";
+		} else {
 			tinyMCE.execCommand('mceRemoveControl', false, id);
+			document.getElementById("smilies").style.display = "";
+		}
 	}
 
 

@@ -24,7 +24,7 @@
 	// Load the TinyMCE compressor class and configuration
 	require_once("./lib/tinymce/tiny_mce_gzip.php");
 	require_once("./lib/tinymce/config/compressor.php");
-	
+
 	//Preprocessing
 	if ($error == false)
 	{
@@ -570,16 +570,9 @@
 					else
 						tpl_set_var('logtext', $log_text);
 
-
 					// Text / normal HTML / HTML editor
 					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
 
-					if ($descMode == 1)
-						tpl_set_var('descMode', 1);
-					else if ($descMode == 2)
-						tpl_set_var('descMode', 2);
-					else
-					{
 					// TinyMCE
 					$headers = tpl_get_var('htmlheaders') . "\n";
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
@@ -587,8 +580,8 @@
 					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
 					tpl_set_var('htmlheaders', $headers);
 
-						tpl_set_var('descMode', 3);
-					}
+					tpl_set_var('descMode', $descMode);
+
 					if ($use_log_pw == true && $log_pw != '')
 					{
 						if ($pw_not_ok == true && isset($_POST['submitform']))
@@ -607,19 +600,25 @@
 
 					// build smilies
 					$smilies = '';
-					if ($descMode != 3)
+					for($i=0; $i<count($smileyshow); $i++)
 					{
-						for($i=0; $i<count($smileyshow); $i++)
+						if($smileyshow[$i] == '1')
 						{
-							if($smileyshow[$i] == '1')
-							{
-								$tmp_smiley = $smiley_link;
-								$tmp_smiley = mb_ereg_replace('{smiley_image}', $smileyimage[$i], $tmp_smiley);
-								$smilies = $smilies.mb_ereg_replace('{smiley_text}', ' '.$smileytext[$i].' ', $tmp_smiley).'&nbsp;';
-							}
+							$tmp_smiley = $smiley_link;
+							$tmp_smiley = mb_ereg_replace('{smiley_image}', $smileyimage[$i], $tmp_smiley);
+							$smilies = $smilies.mb_ereg_replace('{smiley_text}', ' '.$smileytext[$i].' ', $tmp_smiley).'&nbsp;';
 						}
 					}
 					tpl_set_var('smilies', $smilies);
+					
+					if ($descMode != 3)
+					{
+						tpl_set_var('smiliesdisplay', '');
+					}
+					else
+					{
+						tpl_set_var('smiliesdisplay', 'none');
+					}
 				}
 				else
 				{
