@@ -37,7 +37,7 @@ $powerTrailId = $_REQUEST['powerTrailId'];
 				$db = new dataBase(false);
 				$db->multiVariableQuery($query, $picurl.'/'.$actual_image_name, $powerTrailId);
 
-				$result = '<img src="'.$picurl.'/'.$actual_image_name.'" />';	
+				$result = '<img src="'.$picurl.'/'.$actual_image_name.'?'.rand(1000, 9999).'" />';	
 			}
 		}
 	}

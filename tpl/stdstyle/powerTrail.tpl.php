@@ -9,11 +9,8 @@
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.core.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.datepicker.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-
+<script src="https://maps.googleapis.com/maps/api/js?key={googleMapApiKey}&sensor=false"></script>
 <script type="text/javascript">
-
-
 tinymce.init({
     selector: "textarea",
     width: 600,
@@ -31,11 +28,9 @@ tinymce.init({
         "table contextmenu directionality emoticons template textcolor paste textcolor"
      ],
  });
- 
 </script>
 <script type="text/javascript"> 
 <!--
-
 $(function() {
 	$.datepicker.setDefaults($.datepicker.regional['pl']);
     $('#powerTrailDateCreatedInput').datepicker({
@@ -256,15 +251,15 @@ function startUpload(){
 }
 
 function stopUpload(success){
-	console.log(success);
+	// console.log(success);
     $('#ajaxLoaderLogo').hide();
     $('#powerTrailLogo').fadeOut(800);
     $(function() {
 		setTimeout(function() {
+			console.log('nowy obrzek to: '+success);
    			$('#powerTrailLogo').html(success); 
 			$("#powerTrailLogo").fadeIn(800);
-			
-			}, 801);
+		}, 801);
 	});
 	toggleImageEdit()
 	return true;   
@@ -873,27 +868,27 @@ function ajaxCountPtCaches(ptId) {
 function ajaxAddCacheToPT(cacheId)
 {
 	var projectId = $('#ptSelectorForCache'+cacheId).val();
+    $('#addCacheLoader'+cacheId).show();
     $.ajax({
       url: "powerTrail/ajaxAddCacheToPt.php",
       type: "post",
       data: {projectId: projectId, cacheId: cacheId},
       success: function(data){
-      	  // alert(data);
           $("#cacheInfo"+cacheId).show();
-          
-          
           $(function() {
 	    	setTimeout(function() {
        			$("#cacheInfo"+cacheId).fadeOut(1000)
     		}, 3000);
 		  });
-
-          
+		  $('#addCacheLoader'+cacheId).hide();
+		  console.log(data);
       },
       error:function(){
           alert("failure");
+          $('#addCacheLoader'+cacheId).hide();
       }   
     }); 
+    
 }
 
 
@@ -941,26 +936,17 @@ console.log('initialize ');
 var ptMapCenterLat = {mapCenterLat};
 var ptMapCenterLon = {mapCenterLon};
 var mapZoom = {mapZoom};
-
+var fullCountryMap = {fullCountryMap};
 var caches = [ {ptList4map} ];
-
-  var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
-  var mapOptions = {
+var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
+var mapOptions = {
     zoom: mapZoom,
     center: myLatlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
- var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-  
+}
+var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+var bounds = new google.maps.LatLngBounds(); 
 
-/* var powerTrailMarker = new google.maps.MarkerImage(
-    'tpl/stdstyle/images/blue/powerTrailMarker.png',
-    new google.maps.Size(18,21),    // size of the image
-    new google.maps.Point(0,0), // origin, in this case top-left corner
-    new google.maps.Point(9, 21)    // anchor, i.e. the point half-way along the bottom of the image
-);
-*/
-// var latlngbounds = new google.maps.LatLngBounds();
 caches.forEach(function(cache) {
 	  var marker = new google.maps.Marker({
       position: new google.maps.LatLng(cache[0],cache[1]),
@@ -968,21 +954,9 @@ caches.forEach(function(cache) {
 	  icon: new google.maps.MarkerImage( cache[3], new google.maps.Size(18,21), new google.maps.Point(0,0),  new google.maps.Point(9, 21)),
       title: cache[2]
   });
-  
-  
-  
-  /*
-   
-// map: an instance of google.maps.Map object
-// latlng: an array of google.maps.LatLng objects
-var latlngbounds = new google.maps.LatLngBounds();
-for (var i = 0; i < latlng.length; i++) {
-  latlngbounds.extend(latlng[i]);
-}
-map.fitBounds(latlngbounds);
-   * */
-	
+  bounds.extend(marker.getPosition());
 });
+if(fullCountryMap == '0') map.fitBounds(bounds);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -1226,7 +1200,10 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	margin-left: auto;
 	margin-right: auto;
 }
-
+.descTd{
+	padding-left: 10px;
+	padding-top: 3px;
+}
 </style>
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
 
@@ -1358,7 +1335,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	<table border=0 width=100%>
 		<tr>
 			<td width=251>
-				<table style="height: 250px; width: 250px;"><tr><td valign="center" align="center"><img id="powerTrailLogo" src="{powerTrailLogo}" /></td></tr></table>
+				<table style="height: 250px; width: 250px;"><tr><td valign="center" align="center"><span id="powerTrailLogo"><img src="{powerTrailLogo}" /></span></td></tr></table>
 				<img style="display: none" id="ajaxLoaderLogo" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
 			</td>
 			<td align="center">
@@ -1399,7 +1376,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 			<td colspan="3" class="linearBg1">{{pt019}}</td>
 		</tr>
 		<tr>
-			<td><div style="display: {displayAddCachesButtons}">{{pt063}}</div></td>
+			<td class="descTd"><div style="display: {displayAddCachesButtons}">{{pt063}}</div></td>
 			<td>
 				<span id="ptStatus" style="display: {displayAddCachesButtons}">
 					{ptStatus}
@@ -1413,17 +1390,21 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 					<a href="javascript:void(0)" onclick="ajaxUpdateStatus()" class="editPtDataButton">{{pt044}}</a>	
 				</span>	
 			</td>
-			<td  align="right" width="120">
+			<td align="right" width="120">
 				<a href="javascript:void(0)" style="display: {displayAddCachesButtons}" id="ptStatusButton" onclick="toggleStatusEdit()" class="editPtDataButton">{{pt064}}</a>	
 				<span style="display: none" id="ajaxLoaderStatus"><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></span>
 			</td>
 		</tr>
 		<tr>
-			<td>{{pt065}}</td>
+			<td class="descTd">{{pt065}}</td>
 			<td><span id="conquestCount">{conquestCount}</span> {{pt066}}</td>
 		</tr>
 		<tr>
-			<td>{{pt022}}</td>
+			<td class="descTd">{{pt037}}</td>
+			<td><span id="conquestCount">{ptPoints}</span> {{pt038}}</td>
+		</tr>
+		<tr>
+			<td class="descTd">{{pt022}}</td>
 			<td><span id="powerTrailCacheCount">{powerTrailCacheCount}</span><img id="cCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" /></td>
 			<td align="right">
 				<span class="userActions" id="cacheCountUserActions">{cacheCountUserActions}</span>
@@ -1431,7 +1412,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 			</td>
 		</tr>
 		<tr>
-			<td>{{pt054}}</td>
+			<td class="descTd">{{pt054}}</td>
 			<td>
 				<span id="powerTrailpercent">{powerTrailDemandPercent}</span><img id="percentCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
 				<span id="powerTrailpercentEdit" style="display: none">
@@ -1449,7 +1430,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 			</td>
 		</tr>
 		<tr>
-			<td>{{pt023}}</td>
+			<td class="descTd">{{pt023}}</td>
 			<td>
 				<span id="ptTypeName">{ptTypeName}</span>
 				<img id="ptTypeOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
@@ -1464,7 +1445,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 			</td>
 		</tr>
 		<tr>
-			<td>{{pt024}}</td>
+			<td class="descTd">{{pt024}}</td>
 			<td>
 				<span id="powerTrailDateCreated">{powerTrailDateCreated}</span>
 				<img id="ptDateOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
@@ -1479,7 +1460,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 			</td>
 		</tr>
 		<tr>
-			<td>{{pt025}}</td>
+			<td class="descTd">{{pt025}}</td>
 			<td>
 				<span id="powerTrailOwnerList">{powerTrailOwnerList}</span>
 				<img id="ownerListOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />

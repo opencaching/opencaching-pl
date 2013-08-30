@@ -50,6 +50,8 @@ if ($error == false)
 		tpl_set_var('mapCenterLon', 0);
 		tpl_set_var('mapZoom', 15);
 		tpl_set_var('ptList4map', '[]');
+		tpl_set_var('fullCountryMap', '1');
+		tpl_set_var('googleMapApiKey', $googlemap_key);
 		
 		if(!$usr) tpl_set_var('ptMenu', 'none');
 		$ptMenu = new powerTrailMenu($usr);
@@ -84,6 +86,7 @@ if ($error == false)
 				else tpl_set_var('statusOrPoints', tr('pt040')); 
 				tpl_set_var('mapOuterdiv', 'block');
 				tpl_set_var('mapInit', 1);
+				tpl_set_var('fullCountryMap', '1');
 				break;
 			case 'showSerie':
 				$ptDbRow = $pt->getPowerTrailDbRow();
@@ -96,6 +99,7 @@ if ($error == false)
 					$ptTypesArr = powerTrailBase::getPowerTrailTypes();
 					$ptStatusArr = powerTrailBase::getPowerTrailStatus();
 					$stats = $pt->getCountCachesAndUserFoundInPT();
+					tpl_set_var('fullCountryMap', '0');
 					tpl_set_var('ptTypeName', tr($ptTypesArr[$ptDbRow['type']]['translate']));
 					tpl_set_var('displaySelectedPowerTrail', 'block');
 					tpl_set_var('powerTrailName', $ptDbRow['name']);
@@ -108,6 +112,7 @@ if ($error == false)
 					tpl_set_var('powerTrailDemandPercent', $ptDbRow['perccentRequired']);
 					tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $ptDbRow['perccentRequired'], $pt->getCountCachesAndUserFoundInPT(), $ptDbRow['id'] ));
 					tpl_set_var('conquestCount', $ptDbRow['conquestedCount']);
+					tpl_set_var('ptPoints', $ptDbRow['points']);
 					tpl_set_var('cacheFound', $stats['cachesFoundByUser']);
 					tpl_set_var('powerTrailLogo', displayPowerTrailLogo($ptDbRow['id'], $ptDbRow['image']));
 					tpl_set_var('powerTrailserStats', displayPowerTrailserStats($stats));
@@ -199,7 +204,7 @@ function displayCaches($caches, $pTrails)
 		}
 		$ptSelector .= '</select>';
 		$rows .= '<tr><td><a href="'.$cache['wp_oc'].'">'.$cache['wp_oc'].'</a></td><td>'. $cache['name'].'</td><td>'.$ptSelector.'</td>
-		<td width="50"><span id="cacheInfo'.$cache['cache_id'].'" style="display: none "><img src="tpl/stdstyle/images/free_icons/accept.png" /></span></td></tr>';
+		<td width="50"><img style="display: none" id="addCacheLoader'.$cache['cache_id'].'" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /><span id="cacheInfo'.$cache['cache_id'].'" style="display: none "><img src="tpl/stdstyle/images/free_icons/accept.png" /></span></td></tr>';
 	}
 	return $rows;
 }

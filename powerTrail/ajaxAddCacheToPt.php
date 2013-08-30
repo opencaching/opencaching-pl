@@ -22,9 +22,6 @@ $query = 'SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` = :1';
 $db->multiVariableQuery($query, $cacheId);
 $resultPowerTrailId=$db->dbResultFetch();
 
-// $dump = print_r($resultPowerTrailId, true);
-// file_put_contents('ptId', $dump);
-
 if(isset($resultPowerTrailId['PowerTrailId']) && $resultPowerTrailId['PowerTrailId'] != 0){
 	$caheIsAttaschedToPt = true;
 } else {
@@ -36,10 +33,12 @@ if ($projectId > 0 && $caheIsAttaschedToPt===false) {
 }
 if ($projectId <= 0){
 	removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
+	recalculate($resultPowerTrailId['PowerTrailId']);
 }
 if ($projectId > 0 && $caheIsAttaschedToPt===true) {
 	removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
 	addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI);
+	recalculate($resultPowerTrailId['PowerTrailId']);
 }
 
 echo 'OK';
@@ -101,4 +100,14 @@ function getCachePoints($cacheId){
 	$terrainPoints = round($cacheData['terrain']/3,2);
 	// print "alt: $altPoints / type: $typePoints / size: $sizePoints / dif: $difficPoint / ter: $difficPoint"; 
 	return ($altPoints + $typePoints + $sizePoints + $difficPoint + $difficPoint);
+}
+
+function recalculate($projectId) {
+	$allCachesQuery = 'SELECT * FROM `caches` where `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1 )';
+	$db = new dataBase();
+	$db->multiVariableQuery($allCachesQuery, $projectId);
+	$allCaches = $db->dbResultFetchAll();
+	$newData = powerTrailBase::recalculateCenterAndPoints($allCaches);
+	$updateQuery = 'UPDATE `PowerTrail` SET `cacheCount`= :1, `centerLatitude` = :3, `centerLongitude` = :4, `points` = :5 WHERE `id` = :2';
+	$db->multiVariableQuery($updateQuery, $newData['cacheCount'], $projectId, $newData['avgLat'], $newData['avgLon'], $newData['points']);
 }

@@ -205,5 +205,31 @@ class powerTrailBase{
 		// print "alt: $altPoints / type: $typePoints / size: $sizePoints / dif: $difficPoint / ter: $difficPoint"; 
 		return ($altPoints + $typePoints + $sizePoints + $difficPoint + $difficPoint);
 	}
+
+
+public static function recalculateCenterAndPoints($caches){
+	
+	$points = 0;
+	$lat = 0;
+	$lon = 0;
+	$counter = 0;
+	foreach ($caches as $cache){
+		$points += self::getCachePoints($cache);
+        $lat += $cache['latitude'];
+		$lon += $cache['longitude'];
+		$counter++;
+	}
+
+	if($counter>0){
+		$result['avgLat'] = $lat/$counter;
+		$result['avgLon'] = $lon/$counter;
+	} else {
+		$result['avgLat'] = 0;
+		$result['avgLon'] = 0;
+	}
+	$result['points'] = $points;
+	$result['cacheCount'] = $counter;
+	return $result;
+}
 	
 }
