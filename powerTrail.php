@@ -73,13 +73,15 @@ if ($error == false)
 				tpl_set_var("keszynki",displayCaches($result, $pt->getUserPowerTrails()));
 				break;
 			case 'showAllSeries':
-				$ptListData = displayPTrails($pt->getpowerTrails());
+				$ptListData = displayPTrails($pt->getpowerTrails(), $pt->getPowerTrailOwn());
 				tpl_set_var('mapCenterLat', $main_page_map_center_lat);
 				tpl_set_var('mapCenterLon', $main_page_map_center_lon);
 				tpl_set_var('mapZoom', 6);
 				tpl_set_var('PowerTrails',$ptListData[0]);
 				tpl_set_var('ptList4map',$ptListData[1]);
 				tpl_set_var('displayPowerTrails', 'block');
+				if($pt->getPowerTrailOwn() === false) tpl_set_var('statusOrPoints', tr('pt037'));
+				else tpl_set_var('statusOrPoints', tr('pt040')); 
 				tpl_set_var('mapOuterdiv', 'block');
 				tpl_set_var('mapInit', 1);
 				break;
@@ -145,7 +147,7 @@ if ($error == false)
 				}
 				break;
 			default:
-				tpl_set_var('PowerTrails', displayPTrails($pt->getpowerTrails()));
+				tpl_set_var('PowerTrails', displayPTrails($pt->getpowerTrails()), false);
 				tpl_set_var('displayPowerTrails', 'block');
 				break;
 		}
@@ -202,7 +204,7 @@ function displayCaches($caches, $pTrails)
 	return $rows;
 }
 
-function displayPTrails($pTrails)
+function displayPTrails($pTrails, $areOwnSeries)
 {
 	$poweTrailMarkers = array (
 		1 => 'footprintRed.png',
@@ -217,12 +219,12 @@ function displayPTrails($pTrails)
 		$dataForMap .= "[".$pTrail["centerLatitude"].",".$pTrail["centerLongitude"].",'".$pTrail["name"]."','tpl/stdstyle/images/blue/".$poweTrailMarkers[$pTrail["type"]]."'],";
 		$ptTypes = powerTrailBase::getPowerTrailTypes();
 		$ptStatus = powerTrailBase::getPowerTrailStatus();
+		if(!$areOwnSeries) $ownOrAll = $pTrail["points"];
+		else $ownOrAll = tr($ptStatus[$pTrail["status"]]['translate']);
 		$result .= '<tr>'.
-		'<td class="ptTd"><b><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pTrail["id"].'">'.$pTrail["name"]           .'</a></b></td>'.
-		'<td class="ptTd">'.$pTrail["centerLatitude"]    .'</td>'.
-		'<td class="ptTd">'.$pTrail["centerLongitude"]   .'</td>'.
-		'<td class="ptTd">'.tr($ptTypes[$pTrail["type"]]['translate'])   .'</td>'.
-		'<td class="ptTd">'.tr($ptStatus[$pTrail["status"]]['translate']) .'</td>'.
+		'<td align="right" style="padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pTrail["id"].'">'.$pTrail["name"]           .'</a></b></td>'.
+		'<td ><img src="tpl/stdstyle/images/blue/'.$poweTrailMarkers[$pTrail["type"]].'" /> '.tr($ptTypes[$pTrail["type"]]['translate']).'</td>'.
+		'<td class="ptTd">'. $ownOrAll .'</td>'.
 		'<td class="ptTd">'.substr($pTrail["dateCreated"] , 0, -9).'</td>'.
 		'<td class="ptTd">'.$pTrail["cacheCount"].'</td>'.
 		'<td class="ptTd">'.$pTrail["conquestedCount"].'</td>

@@ -112,6 +112,32 @@ class powerTrailBase{
 					
 	}
 	
+	public static function cacheSizePoints() {
+		return array (
+		2 => 2.5,	# Micro
+		3 => 2,	# Small 
+		4 => 1.5,	# Normal [from 1 to 3 litres]	
+		5 => 1,	# Large [from 3 to 10 litres]	
+		6 => 0.5,	# Very large [more than 10 litres]	
+		7 => 0,	# Bez pojemnika
+	);
+	}	
+	
+	public static function cacheTypePoints() {
+		return array (
+			1 => 2, #Other
+			2 => 2, #Trad.
+			3 => 3, #Multi
+			4 => 1, #Virt.
+			5 => 0.2, #ICam.
+			6 => 2.3, #Event
+			7 => 4, #Quiz
+			8 => 2, #Moving
+			9 => 1, #podcast
+			10 => 1, #own
+		);
+	}
+	
 	public static function checkUserConquestedPt($userId, $ptId){
 		$db = new dataBase;
 		$q = 'SELECT count(*) AS `c` FROM PowerTrail_comments WHERE userId = :1 AND	PowerTrailId = :2 ';
@@ -163,4 +189,21 @@ class powerTrailBase{
 		$db->multiVariableQuery($query, $commentId);
 		return $db->dbResultFetch();
 	}
+	
+	public static function getCachePoints($cacheData){
+		$typePoints = self::cacheTypePoints();
+		$sizePoints = self::cacheSizePoints();
+		$typePoints = $typePoints[$cacheData['type']];
+		$sizePoints = $sizePoints[$cacheData['size']];
+		$url = 'http://maps.googleapis.com/maps/api/elevation/xml?locations='.$cacheData['latitude'].','.$cacheData['longitude'].'&sensor=false';
+		$altitude = simplexml_load_file($url);
+		$altitude = round($altitude->result->elevation);
+		if ($altitude <= 400) $altPoints = 1;
+		else $altPoints = 1+($altitude-400)/200 ;
+		$difficPoint = round($cacheData['difficulty']/3,2);
+		$terrainPoints = round($cacheData['terrain']/3,2);
+		// print "alt: $altPoints / type: $typePoints / size: $sizePoints / dif: $difficPoint / ter: $difficPoint"; 
+		return ($altPoints + $typePoints + $sizePoints + $difficPoint + $difficPoint);
+	}
+	
 }

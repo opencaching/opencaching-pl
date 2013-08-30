@@ -955,9 +955,9 @@ var caches = [ {ptList4map} ];
 
 /* var powerTrailMarker = new google.maps.MarkerImage(
     'tpl/stdstyle/images/blue/powerTrailMarker.png',
-    new google.maps.Size(32,32),    // size of the image
+    new google.maps.Size(18,21),    // size of the image
     new google.maps.Point(0,0), // origin, in this case top-left corner
-    new google.maps.Point(16, 16)    // anchor, i.e. the point half-way along the bottom of the image
+    new google.maps.Point(9, 21)    // anchor, i.e. the point half-way along the bottom of the image
 );
 */
 // var latlngbounds = new google.maps.LatLngBounds();
@@ -965,7 +965,7 @@ caches.forEach(function(cache) {
 	  var marker = new google.maps.Marker({
       position: new google.maps.LatLng(cache[0],cache[1]),
       map: map,
-	  icon: cache[3],
+	  icon: new google.maps.MarkerImage( cache[3], new google.maps.Size(18,21), new google.maps.Point(0,0),  new google.maps.Point(9, 21)),
       title: cache[2]
   });
   
@@ -1338,10 +1338,8 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 		</tr>
 		<tr>
 			<th class="ptTd">{{pt036}}</th>
-			<th class="ptTd">{{pt037}}</th>
-			<th class="ptTd">{{pt038}}</th>
 			<th class="ptTd">{{pt039}}</th>
-			<th class="ptTd">{{pt040}}</th>
+			<th class="ptTd">{statusOrPoints}</th>
 			<th class="ptTd">{{pt041}}</th>
 			<th class="ptTd">{{pt042}}</th>
 			<th class="ptTd">{{pt057}}</th>

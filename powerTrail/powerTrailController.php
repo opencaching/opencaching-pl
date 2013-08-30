@@ -17,6 +17,7 @@ class powerTrailController {
 	private $powerTrailCachesUserLogsByCache;
 	private $powerTrailDbRow;
 	private $ptOwners;
+	private $areOwnSeries = false;
 	
 	function __construct($user) 
 	{
@@ -65,6 +66,8 @@ class powerTrailController {
 		$db->multiVariableQuery($q, $_SESSION['user_id']);
 		$this->allSeries = $db->dbResultFetchAll();
 		$this->action = 'showAllSeries';
+		$this->areOwnSeries = true;
+		
 	}
 
 	private function getAllPowerTrails()
@@ -118,6 +121,10 @@ class powerTrailController {
 	public function getPowerTrailCachesUserLogsByCache()
 	{
 		return $this->powerTrailCachesUserLogsByCache;
+	}
+	
+	public function getPowerTrailOwn() {
+		return $this->areOwnSeries;
 	}
 	
 	public function getAllCachesOfPt()
