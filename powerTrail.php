@@ -66,7 +66,7 @@ if ($error == false)
 					tpl_set_var('displayCreateNewPowerTrailForm', 'block');
 				} else {
 					tpl_set_var('displayToLowUserFound', 'block');
-					tpl_set_var('CFrequirment', powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail);
+					tpl_set_var('CFrequirment', powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail());
 				}
 				break;
 			case 'selectCaches':
