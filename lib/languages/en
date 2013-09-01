@@ -764,6 +764,9 @@ administration OC Administration
 stat_octeam OCTeam Statistics
 cache_notfound Not found geocache
 send_bulletin Send bulletin
+send_bulletin_01 Send bulletin
+send_bulletin_02 Example bulletin
+send_bulletin_03 Bulletin has been send
 add_news Add news
 email_subject_news New news OpenCaching 
 subject Subject

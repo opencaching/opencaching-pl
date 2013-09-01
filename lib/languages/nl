@@ -765,6 +765,9 @@ administration Administratie OC
 stat_octeam Statistieken OCTeam
 cache_notfound Niet gevonden caches
 send_bulletin Verzend een bulletin
+send_bulletin_01 Bulletin verzenden
+send_bulletin_02 Voorbeeld bulletin
+send_bulletin_03 Bulletin is verzonden
 add_news Verzend nieuws
 email_subject_news Nieuw nieuws OpenCaching 
 subject Onderwerp

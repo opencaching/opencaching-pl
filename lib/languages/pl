@@ -765,6 +765,9 @@ administration Zarządzanie OC
 stat_octeam Statystyka COG
 cache_notfound Skrzynki nieznalezione
 send_bulletin Wyślij biuletin
+send_bulletin_01 Wyślij biuletyn
+send_bulletin_02 Podgląd biuletynu
+send_bulletin_03 Biuletyn został wysłany
 add_news Dodaj newsa
 email_subject_news Nowa informacja na OpenCaching PL
 subject Temat

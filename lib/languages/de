@@ -498,6 +498,10 @@ add_new_pict Neue Bild eingeben
 mp3_label Podcast MP3 für Podcast Cache
 add_new_mp3 Neue MP3 Datei eingeben
 location Stelle
+send_bulletin Ein bulletin vesenden
+send_bulletin_01 Bulletin versenden
+send_bulletin_02 Forschau von bulletin
+send_bulletin_03 Bulletin ist gesendet
 okapi_apps Ihre Applikationen
 statpic_found Gefunden:
 statpic_hidden Versteckt:
