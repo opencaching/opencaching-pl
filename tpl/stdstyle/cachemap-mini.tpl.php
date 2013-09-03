@@ -51,7 +51,7 @@ initial_params = {
 	},
 	translation: {
 		score_label: "{{score_label}}",
-		recommendations: "{{recommendations}}",
+		recommendations: "{{search_recommendations}}",
 		recommendation: "{{recommendation}}",
 		attendends: "{{attendends}}",
 		will_attend: "{{will_attend}}",

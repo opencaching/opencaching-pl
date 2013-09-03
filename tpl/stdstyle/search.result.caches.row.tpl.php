@@ -5,7 +5,7 @@
   <td valign="middle" width="28" class="{bgcolor}" rowspan="2">{ratpic}&nbsp;&nbsp;</td>
   <td width="32" class="{bgcolor}" rowspan="2"><img src='tpl/stdstyle/images/{icon_large}' alt='{cachetype}' title='{cachetype}' /></td>
   <td width="46" rowspan="2" class="{bgcolor}" nowrap="nowrap">&nbsp;{diffpic}{terrpic}&nbsp;</td>
-  <td width="448" class="{bgcolor}">{new}<a href="viewcache.php?cacheid={urlencode_cacheid}">{gray_s}{cachename}{gray_e}</a> {gray_s} {{created_by}} {gray_e} <a href="viewprofile.php?userid={urlencode_userid}">{gray_s}{username}{gray_e}</a> ({wp_oc})</td>
+  <td width="448" class="{bgcolor}">{new}<a href="viewcache.php?cacheid={urlencode_cacheid}">{gray_s}{cachename}{gray_e}</a> {gray_s} {{hidden_by}} {gray_e} <a href="viewprofile.php?userid={urlencode_userid}">{gray_s}{username}{gray_e}</a> ({wp_oc})</td>
   <td width="126" valign="top" class="{bgcolor}">{logimage1} &nbsp;&nbsp;{logdate1}</td>
   <td width="32" class="{bgcolor}" rowspan="2">{sendtogps}</td>
 

@@ -50,7 +50,7 @@ function addMarker(lat, lon, icon, cacheid, cachename, wp, username, ratings) {
 	var topratings = "";
 	
 	if (ratings > 0) {
-		topratings  = '<br/><img width="10" height="10" src="images/rating-star.png" alt="{{recommendation}}" />&nbsp;<b>{{recommendations}}: </b>';
+		topratings  = '<br/><img width="10" height="10" src="images/rating-star.png" alt="{{recommendation}}" />&nbsp;<b>{{search_recommendations}}: </b>';
 		topratings += '<span style="font-weight: bold; color: green;">' + ratings + '</span>';
 	}
 
