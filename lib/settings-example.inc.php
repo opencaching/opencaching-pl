@@ -208,4 +208,14 @@
 	  $powerTrailUserMinimumCacheFoundToSetNewPowerTrail = 500;
 	  
   /* end of power Trail module switch and settings */
+
+	// OC specific email addresses for international use.
+	$mail_cog = 'cog@opencaching.pl';
+	$mail_rt = 'rt@opencaching.pl';
+	$mail_rr = 'rr@opencaching.pl';
+	$mail_oc = 'ocpl@opencaching.pl';
+
+
+	//Short sitename for international use.
+	$short_sitename = 'OC PL';
 ?>
