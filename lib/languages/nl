@@ -1676,8 +1676,8 @@ pt033 Verversen
 pt034 Beschrijving PowerTrail
 pt035 Serie
 pt036 Naam
-pt037 N
-pt038 E
+pt037 Score
+pt038 Punten
 pt039 Soort
 pt040 Status
 pt041 Publicatie datum
@@ -1773,6 +1773,9 @@ pt130 Verwijderen
 pt131 Verwijdering log Powertrail
 pt132 Verwijderde een log
 pt133 Tekst van deze log was
+pt134 Datum van log (ingevoerd door gebruiker)
+pt135 Totale cachedagen
+pt136 Geografisch middelpunt van deze serie
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
@@ -1786,4 +1789,6 @@ notify_newcachemail07 Soort:
 notify_newcachemail08 Grootte:
 notify_newcachemail09 De instellingen voor jouw zoekradius kun je bekijken en bewerken op:
 notify_newcachemail10 Dit bericht is automatisch gegenereerd, gelieve niet te reageren.
+notify_newcachemail11 Nieuwe cache:
+notify_newcachemail12 Er zijn nog geen nieuwe logs.
 
