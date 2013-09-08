@@ -195,7 +195,7 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 			 if ($log_record['log_type'] == 12 && !$usr['admin']) 
 			   {
 			     $log_record['user_id'] = '0';
-			     $log_record['user_name'] = 'Centrum Obsługi Geocachera ';
+			     $log_record['user_name'] = tr('cog_user_name');
 			   }
 			 // koniec ukrywania autora komentarza COG przed zwykłym userem
                
