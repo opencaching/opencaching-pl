@@ -158,7 +158,7 @@ global $bgcolor1, $bgcolor2;
 			//send email to approver
 			mb_send_mail($usr['email'], "[OC PL] Akceptacja skrzynki: ".$cachename, "Kopia potwierdzenia akceptacji skrzynki:\n".$email_content, $email_headers);
 			// generate automatic log about status cache
-			$log_text="Skrzynka została zaakceptowana przez COG";
+			$log_text=tr("approved_by_octeam");
 			$log_uuid = create_uuid();
 			sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
 									 VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",

@@ -673,6 +673,7 @@ ready_to_search Cache is gepubliceerd.
 archived_cache Cache is gearchiveerd.
 temporarily_unavailable De cache is tijdelijk niet beschikbaar.
 blocked_by_octeam De cache is geblokkerd door het OC Team.
+approved_by_octeam De cache is goedgekeurd door het OC-Team
 empty_coordinatest Vul de nieuwe coördinaten in van deze bewegende cache. 
 empty_log_text Log mag niet leeg zijn. Schrijf een korte notitie.
 route_cache Route van cache

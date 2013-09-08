@@ -673,6 +673,7 @@ ready_to_search Skrzynka gotowa do szukania. Powodzenia!
 archived_cache Skrzynka została zarchiwizowana.
 temporarily_unavailable Skrzynka będzie czasowo niedostępna.
 blocked_by_octeam Skrzynka zablokowana przez Centrum Obsługi Geocachera.
+approved_by_octeam Skrzynka została zaakceptowana przez OC-Team
 empty_coordinatest Podaj nowe współrzędne dla skrzynki mobilnej przeniesionej. 
 empty_log_text Log nie powinien być pusty. Napisz parę słów, które mogą być cenna informacją dla właściciela skrzynki.
 route_cache Droga przebyta przez skrzynke

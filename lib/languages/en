@@ -671,7 +671,8 @@ comment_octeam_visible OC Team comments are visible for OC Team and the owner of
 ready_to_search The cache is ready to search. Good Luck!
 archived_cache The cache has been archived.
 temporarily_unavailable The cache will be temporarily unavailable.
-blocked_by_octeam The cache was blocked by OC Team.
+blocked_by_octeam The cache was blocked by OC-Team.
+approved_by_octeam The cache is approved by the OC-Team
 empty_coordinatest Please add the new coordinates of the moved mobile cache. 
 empty_log_text Log shouldn't be empty. Please write a short note.
 route_cache Route of cache
