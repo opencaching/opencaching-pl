@@ -62,6 +62,21 @@ function tr($str)
 		return $str . "-todo";
 }
 
+function tr2($str, $lang) {
+	global $language;
+	load_language_file($lang);
+	
+	if(@$language[$lang][$str]) {
+		$ref = &$language[$lang][$str];
+		if (strpos($ref, "{") !== false)
+			return tpl_do_replace($ref, true);
+		else
+			return $ref;
+	} else {
+		return $str . "-todo";
+	}
+}
+
 /*
 ////////////////////////////////////////// POLISH ////////////////////////////////////////////
 $language['pl']['main_menu'] = 'Menu główne';

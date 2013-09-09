@@ -231,5 +231,18 @@ public static function recalculateCenterAndPoints($caches){
 	$result['cacheCount'] = $counter;
 	return $result;
 }
-	
+
+public static function writePromoPt4mainPage($oldPtId){
+	$q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1';
+	$db = new dataBase;
+	$db->multiVariableQuery($q, $oldPtId);
+	$r = $db->dbResultFetchAll();
+	foreach ($r as $pt) {
+		if ($pt['id'] > $oldPtId){
+			return $pt;
+		}
+	}
+	return $r[0];
+}
+
 }

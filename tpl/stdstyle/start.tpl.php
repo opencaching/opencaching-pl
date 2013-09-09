@@ -84,6 +84,14 @@ function Unlite(nn) {
 						// include ($dynstylepath . "nextevents.inc.php");
 					?>
 				</div>
+				<div class="content2-container-2col-left" id="ptPromo" style="display: {ptDisplay}; width: 100%">
+					 <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{pt137}}</p>
+					<? 
+						if(file_exists($dynstylepath.'ptPromo.inc-'.$lang.'.php')) include ($dynstylepath.'ptPromo.inc-'.$lang.'.php');
+						else include ($dynstylepath.'ptPromo.inc-en.php'); 
+					?>
+				</div>
+				
 				<div class="content2-container-2col-left" id="new-events-area">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{latest_blog}}</p>
 				  <?php

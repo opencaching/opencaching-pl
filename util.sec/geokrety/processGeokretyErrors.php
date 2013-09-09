@@ -1,9 +1,13 @@
 <?php
-//require_once($rootpath.'lib/clicompatbase.inc.php');
+// /ocpl/util.sec/geokrety/processGeokretyErrors.php 
 require_once(__DIR__.'/../../GeoKretyAPI.php');
+require_once(__DIR__.'/../../powerTrail/powerTrailBase.php');
+
+//$rootpath = __DIR__.'/../../';
+//include __DIR__.'/../../lib/common.inc.php';
+
 $run = new processGeokretyErrors;
 $run->run();
-
 
 class processGeokretyErrors {
 	
@@ -14,6 +18,12 @@ class processGeokretyErrors {
 	private $logGeokrety; 
 	
 	public function run(){
+		
+		// ptPromo
+		//if (date('N') == 1)	{ // make ptPromo File
+             $this->makePt();
+		//}
+		
 		$this->getErrors();
 		if($this->errorNumber == 0) exit;
 		$this->processGetGeokretyErrors();
@@ -77,5 +87,41 @@ class processGeokretyErrors {
 		$result['geokretId'] = $GeoKretyLogResult['geokretId'];
      	$result['geokretName'] = $GeoKretyLogResult['geokretName'];
 		return $result;
+	}
+	
+	private function makePt() {
+		include_once __DIR__.'/../../lib/settings.inc.php';
+		include_once __DIR__.'/../../lib/language.inc.php';
+		$langArray = available_languages();
+		
+		// echo (time() - $filemTime)/(60*60*24);
+		$oldFileArr = explode('xxkgfj8ipzxx', file_get_contents($dynstylepath.'ptPromo.inc-'.$lang.'.php'));
+		require_once 'region_class.php';
+		$region = new GetRegions();
+		$newPt =  powerTrailBase::writePromoPt4mainPage($oldFileArr[1]);
+		$regions = $region->GetRegion($opt, $lang, $newPt['centerLatitude'], $newPt['centerLongitude']);
+		foreach ($langArray as $language) {
+			$this->makePtContent($newPt, $language, $dynstylepath, $regions);
+		}
+		// print'<pre>';
+		// print_r($regions);
+		// var_dump($regions);
+	}
+	
+	private function makePtContent($newPt, $langTr, $dynstylepath, $regions) {
+		$fileContent = '<span style="display:none" id="ptPromoId">xxkgfj8ipzxx'.$newPt['id'].'xxkgfj8ipzxx</span>';
+		$fileContent .= '<table width="100%"><tr><td style="padding-left: 10px;padding-right: 10px;">';
+		if ($newPt['image'] != '') {
+			$fileContent .= '<img height="50" src="'.$newPt['image'].'" />';
+		} else {
+			$fileContent .= '<img height="50" src="tpl/stdstyle/images/blue/powerTrailGenericLogo.png" />';
+		}
+		$fileContent .= '</td><td width=50% style="font-size: 15px; padding-left: 10px; padding-right: 10px;" valign="center"><a href="powerTrail.php?ptAction=showSerie&ptrail='.$newPt['id'].'">'.$newPt['name'].'</a>';
+		$fileContent .= '<td style="font-size: 15px;" valign="center"><b>'.$newPt['cacheCount'].'</b>&nbsp;'.tr2('pt138',$langTr).', <b>'.round($newPt['points'], 2).'</b>&nbsp;'.tr2('pt038', $langTr).'</td>';
+		if ($regions) $fileContent .= '</td><td style="font-size: 15px;" valign="center">'.tr2($regions['code1'], $langTr).'>'.$regions['adm3'];
+		$fileContent .= '</td></tr></table>';
+		file_put_contents($dynstylepath.'ptPromo.inc-'.$langTr.'.php' , $fileContent);
+		
+		// print "$langTr <br/> $fileContent";
 	}
 }

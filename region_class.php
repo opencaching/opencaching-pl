@@ -144,15 +144,7 @@ class GetRegions {
 			if (mb_strlen($sCode) == 2) {
 
 				$code1 = $sCode;
-
-				if(checkField('countries','list_default_'.$lang) )
-
-					$lang_db = $lang;
-				else
-					$lang_db = "en";
-
 				// try to get localised name first
-
 				$q = "SELECT `countries`.`pl` FROM `countries` WHERE `countries`.`short`='$sCode'";
 				$re = $this::one_from_mysql($opt, $q);
 				$adm1 = $re["pl"];
