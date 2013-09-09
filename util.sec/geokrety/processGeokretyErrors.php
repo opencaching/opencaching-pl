@@ -90,8 +90,8 @@ class processGeokretyErrors {
 	}
 	
 	private function makePt() {
-		include_once __DIR__.'/../../lib/settings.inc.php';
-		include_once __DIR__.'/../../lib/language.inc.php';
+		include __DIR__.'/../../lib/settings.inc.php';
+		include __DIR__.'/../../lib/language.inc.php';
 		$langArray = available_languages();
 		
 		// echo (time() - $filemTime)/(60*60*24);
