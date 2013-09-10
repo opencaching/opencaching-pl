@@ -331,6 +331,7 @@ html_incorrect Ten kod HTML jest niedozwolony.
 type_incorrect Brak typu skrzynki!
 size_incorrect Brak wielkości skrzynki!
 diff_incorrect Poziom trudności jest niepoprawny!
+status_incorrect Status skrzynki nie pasuje do opcji publikacji.
 virtual_cache_size Wielkość skrzynki dla wydarzenia musi być ustawiona na "bez pojemnika"!
 cache_submitted Twoja skrzynka zosała zarejstrowana na Opencaching PL.
 full_description Pełen opis

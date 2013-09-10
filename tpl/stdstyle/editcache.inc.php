@@ -34,7 +34,7 @@ $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
  $sizemismatch_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">'.tr('virtual_cache_size').'</span>';
 	$all_countries_submit = '<input type="submit" name="show_all_countries_submit" value="Wszystkie kraje"/>';
 
-	$status_message = '&nbsp;<span class="errormsg">Status skrzynki nie pasuje do opcji publikacji.</span>';
+	$status_message = '&nbsp;<span class="errormsg">'.tr('status_incorrect').'</span>';
 	$nopictures = '<tr><td colspan="2"><div class="notice">'.tr('no_pictures_yet').'</div></td></tr>';
 	$pictureline = '<tr><td colspan="2"><img src="tpl/stdstyle/images/free_icons/picture.png" class="icon32" alt=""  />&nbsp;<a href="{link}">{title}</a>&nbsp;&nbsp;<img src="images/actions/edit-16.png" align="middle" alt="" title="" /> [<a href="editpic.php?uuid={uuid}">'.$edit.'</a>] <img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="" />[<a href="removepic.php?uuid={uuid}">'.$remove.'</a>]</td></tr>';
 	$picturelines = '{lines}<tr><td colspan="2">&nbsp;</td></tr>';

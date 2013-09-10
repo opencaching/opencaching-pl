@@ -331,6 +331,7 @@ html_incorrect Deze HTML code is niet toegestaan.
 type_incorrect Cache soort is niet correct! 
 size_incorrect Cache grootte is niet correct!
 diff_incorrect Moeilijkheid is niet correct!
+status_incorrect Status komt niet overeen met publicatiegegevens.
 virtual_cache_size Cache grootte voor "eventenement" moet zijn "geen behuizing"
 cache_submitted De cache is nu geregistreerd bij {site_name}.
 full_description Beschrijving
@@ -1197,7 +1198,7 @@ alert_search_by_ort_02 Vul minimaal 3 tekens in
 alert_search_by_ort_03 Maximale afstand dienen cijfers te zijn
 alert_search_by_ort_04 Maximale afstand moet waarde hebben tussen 0 -9999
 no_pictures_yet Er zijn nog geen afbeeldingen
-show_all_countries Toon alles
+show_all_countries Toon alle landen
 newcache_upload Verzenden
 newcache_import_wpt Nieuwe cache importeren
 newcache_import_wpt_help Met deze functie kan waypoint gegevens uit GPX bestand van bijvoorbeeld Garmin (coordinaat, naam) als basis voor nieuwe cache verstuurd worden. Bij meer dan 1 waypoint zal eerste gebruikt worden.
