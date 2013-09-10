@@ -25,6 +25,7 @@
 			<td>
 				<table style='float: right;'><tr>
 					<td><a id="fullscreen_off" style='cursor: pointer'><img src="images/fullscreen-off.png" title="{{disable_fullscreen}}"/></a></td>
+					<td><a id="current_position" style='cursor: pointer; display: none'><img id="current_position_icon" src="images/map_geolocation_0.png" title="{{where_i_am}}"/></a></td>
 					<td><a id="toggle_filters" style='cursor: pointer'><img src="okapi/static/tilemap/legend_other.png" title="{{toggle_filters}}"/></a></td>
 				</tr></table>
 			</td>
@@ -199,6 +200,7 @@ window.onload = function() {
 
 	attachFullScreenOffControl();
 	attachCacheFilterControl();
+	attachCurrentPositionControl();
 
 	load([
 		{ position: google.maps.ControlPosition.TOP_LEFT, control: document.getElementById("control_combo") }
@@ -234,6 +236,17 @@ function attachCacheFilterControl() {
 		}
 		else
 			filters.style.display = 'none';
+	});
+}
+
+function attachCurrentPositionControl() {
+	if (!("geolocation" in navigator))
+		return;
+
+	var curr_pos_el = document.getElementById("current_position"); 
+	curr_pos_el.style.display = "";
+	google.maps.event.addDomListener(curr_pos_el, "click", function() {
+		getCurrentPosition();
 	});
 }
 </script>
