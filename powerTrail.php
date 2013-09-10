@@ -221,13 +221,14 @@ function displayPTrails($pTrails, $areOwnSeries)
 	$result = '';
 	$dataForMap = '';
 	foreach ($pTrails as $pTkey => $pTrail) {
-		$dataForMap .= "[".$pTrail["centerLatitude"].",".$pTrail["centerLongitude"].",'".$pTrail["name"]."','tpl/stdstyle/images/blue/".$poweTrailMarkers[$pTrail["type"]]."'],";
+		$dataForMap .= "[".	$pTrail["centerLatitude"].",".
+							$pTrail["centerLongitude"].",'<a href=powerTrail.php?ptAction=showSerie&ptrail=".$pTrail["id"].">".$pTrail["name"]."</a>','tpl/stdstyle/images/blue/".$poweTrailMarkers[$pTrail["type"]]."','".$pTrail["name"]."'],";
 		$ptTypes = powerTrailBase::getPowerTrailTypes();
 		$ptStatus = powerTrailBase::getPowerTrailStatus();
 		if(!$areOwnSeries) $ownOrAll = $pTrail["points"];
 		else $ownOrAll = tr($ptStatus[$pTrail["status"]]['translate']);
 		$result .= '<tr>'.
-		'<td align="right" style="padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pTrail["id"].'">'.$pTrail["name"]           .'</a></b></td>'.
+		'<td align="right" style="padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pTrail["id"].'">'.$pTrail["name"].'</a></b></td>'.
 		'<td ><img src="tpl/stdstyle/images/blue/'.$poweTrailMarkers[$pTrail["type"]].'" /> '.tr($ptTypes[$pTrail["type"]]['translate']).'</td>'.
 		'<td class="ptTd">'. $ownOrAll .'</td>'.
 		'<td class="ptTd">'.substr($pTrail["dateCreated"] , 0, -9).'</td>'.

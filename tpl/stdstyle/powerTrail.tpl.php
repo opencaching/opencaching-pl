@@ -947,14 +947,35 @@ var mapOptions = {
 var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 var bounds = new google.maps.LatLngBounds(); 
 
+
+
+    var infoWindow = new google.maps.InfoWindow;
+
+    var onMarkerClick = function() {
+      var markerx = this;
+      //var latLng = markerx.getTitle();
+      infoWindow.setContent('<img src="'+this.ic+'"> ' + this.txt);
+      infoWindow.open(map, markerx);
+    };
+    google.maps.event.addListener(map, 'click', function() {
+      infoWindow.close();
+    });
+
+
+
 caches.forEach(function(cache) {
 	  var marker = new google.maps.Marker({
       position: new google.maps.LatLng(cache[0],cache[1]),
       map: map,
 	  icon: new google.maps.MarkerImage( cache[3], new google.maps.Size(18,21), new google.maps.Point(0,0),  new google.maps.Point(9, 21)),
-      title: cache[2]
+      title: cache[4],
+      txt: cache[2],
+      ic: cache[3],
   });
   bounds.extend(marker.getPosition());
+  
+  google.maps.event.addListener(marker, 'click', onMarkerClick);
+  
 });
 if(fullCountryMap == '0') map.fitBounds(bounds);
 }
