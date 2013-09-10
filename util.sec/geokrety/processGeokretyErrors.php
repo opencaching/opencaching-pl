@@ -94,18 +94,14 @@ class processGeokretyErrors {
 		include __DIR__.'/../../lib/language.inc.php';
 		$langArray = available_languages();
 		
-		// echo (time() - $filemTime)/(60*60*24);
 		$oldFileArr = explode('xxkgfj8ipzxx', file_get_contents($dynstylepath.'ptPromo.inc-'.$lang.'.php'));
-		require_once 'region_class.php';
+		require_once __DIR__.'/../../region_class.php';
 		$region = new GetRegions();
 		$newPt =  powerTrailBase::writePromoPt4mainPage($oldFileArr[1]);
 		$regions = $region->GetRegion($opt, $lang, $newPt['centerLatitude'], $newPt['centerLongitude']);
 		foreach ($langArray as $language) {
 			$this->makePtContent($newPt, $language, $dynstylepath, $regions);
 		}
-		// print'<pre>';
-		// print_r($regions);
-		// var_dump($regions);
 	}
 	
 	private function makePtContent($newPt, $langTr, $dynstylepath, $regions) {
