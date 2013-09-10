@@ -221,8 +221,7 @@ function displayPTrails($pTrails, $areOwnSeries)
 	$result = '';
 	$dataForMap = '';
 	foreach ($pTrails as $pTkey => $pTrail) {
-		$dataForMap .= "[".	$pTrail["centerLatitude"].",".
-							$pTrail["centerLongitude"].",'<a href=powerTrail.php?ptAction=showSerie&ptrail=".$pTrail["id"].">".$pTrail["name"]."</a>','tpl/stdstyle/images/blue/".$poweTrailMarkers[$pTrail["type"]]."','".$pTrail["name"]."'],";
+		$dataForMap .= "[".	$pTrail["centerLatitude"].",".$pTrail["centerLongitude"].",'<a href=powerTrail.php?ptAction=showSerie&ptrail=".$pTrail["id"].">".$pTrail["name"]."</a>','tpl/stdstyle/images/blue/".$poweTrailMarkers[$pTrail["type"]]."','".$pTrail["name"]."'],";
 		$ptTypes = powerTrailBase::getPowerTrailTypes();
 		$ptStatus = powerTrailBase::getPowerTrailStatus();
 		if(!$areOwnSeries) $ownOrAll = $pTrail["points"];
@@ -252,7 +251,7 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 	foreach ($pTrailCaches as $rowNr => $cache) {
 		if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $image = 'tpl/stdstyle/images/'.$foundCacheTypesIcons[$cache['type']];
 		else $image = 'tpl/stdstyle/images/'.$cacheTypesIcons[$cache['type']];
-		$cacheRows .= '['.$cache['latitude'].",".$cache['longitude'].",'".$cache['name']."',". "'$image'],";
+		$cacheRows .= '['.$cache['latitude'].",".$cache['longitude'].",'<a href=".$cache["wp_oc"].">".$cache['name']."</a>',". "'$image','".$cache['name']."',],";
 	}	
 	$cacheRows = rtrim($cacheRows, ",");
 	// powerTrailController::debug($pTrailCaches);
