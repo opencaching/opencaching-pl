@@ -1,4 +1,4 @@
-<?
+<?php
 /** class GetRegions
  *
  * this class find Counrty and region (administation district, for exapmle Poland, woj. Małopolskie)
@@ -89,7 +89,7 @@ class GetRegions {
 	 * @return array with code and names of regions selected from input geografical coordinates.void
 	 */
 	public function GetRegion($opt, $lang, $lat, $lon) {
-		require_once('./lib/gis/gis.class.php');
+		require_once(__DIR__.'/lib/gis/gis.class.php');
 
 		$lat_float = (float) $lat;
 		$lon_float = (float) $lon;
