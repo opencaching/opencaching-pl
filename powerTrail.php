@@ -107,6 +107,7 @@ if ($error == false)
 					tpl_set_var('displayPtDescriptionUserAction', displayPtDescriptionUserAction($ptDbRow['id']));
 					tpl_set_var('powerTrailDateCreated', substr($ptDbRow['dateCreated'], 0, -9));
 					tpl_set_var('powerTrailCacheCount', $ptDbRow['cacheCount']);
+					tpl_set_var('powerTrailCacheLeft', ($ptDbRow['cacheCount']-$stats['cachesFoundByUser']));
 					tpl_set_var('powerTrailOwnerList', displayPtOwnerList($ptOwners));
 					tpl_set_var('date', date('Y-m-d'));
 					tpl_set_var('powerTrailDemandPercent', $ptDbRow['perccentRequired']);
