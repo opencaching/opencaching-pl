@@ -154,6 +154,28 @@ class powerTrailBase{
 		return (int) $ptCount['ptCount'];
 	}
 	
+	public static function getUserPoints($user_id) {
+		$queryPt = "SELECT sum( `points` ) AS sum
+					FROM powerTrail_caches
+					WHERE `PowerTrailId` IN (
+						SELECT `PowerTrailId` AS `ptCount`
+						FROM `PowerTrail_comments`
+						WHERE `commentType` =2
+						AND `deleted` =0
+						AND `userId` =:1
+					)
+					AND `cacheId` IN (
+						SELECT `cache_id`
+						FROM `cache_logs`
+						WHERE `type` =1
+						AND `user_id` =:1
+					)";
+		$db = new dataBase;
+		$db->multiVariableQuery($queryPt, $user_id);
+		$points = $db->dbResultFetch();
+		return round($points['sum'],2);
+	}
+	
 	public static function checkForPowerTrailByCache($cacheId){
 		$queryPt = 'SELECT `id`, `name`, `image` FROM `PowerTrail` WHERE `id` IN ( SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` =:1 ) AND `status` = 1 ';
 		$db = new dataBase;

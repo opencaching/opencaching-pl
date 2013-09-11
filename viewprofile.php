@@ -236,7 +236,7 @@ if ($error == false) {
 		// PowerTrails stats
 		if ($powerTrailModuleSwitchOn) {
 			require_once 'powerTrail/powerTrailBase.php';
-			$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt093') . '</span>:&nbsp;<strong>'.powerTrailBase::getPoweTrailCompletedCountByUser($user_id).'</strong></p>';
+			$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>'.powerTrailBase::getUserPoints($user_id).'</strong> (' . tr('pt093') . ' '.powerTrailBase::getPoweTrailCompletedCountByUser($user_id).')</p>';
 		}	
 
 		// -----------  begin Find section -------------------------------------

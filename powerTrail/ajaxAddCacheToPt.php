@@ -14,8 +14,15 @@ if(!isset($_SESSION['user_id'])){
 require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/powerTrailBase.php';
 $ptAPI = new powerTrailBase;
+
+if(isset($_REQUEST['rcalcAll'])){
+	recalculateOnce();
+	exit;	
+} 
+
 isset($_REQUEST['projectId']) ? $projectId = $_REQUEST['projectId'] : exit;
 isset($_REQUEST['cacheId']) ? $cacheId = $_REQUEST['cacheId'] : exit;
+
 $db = new dataBase();
 // check if cache is already cannected with any power trail
 $query = 'SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` = :1';
@@ -45,8 +52,8 @@ echo 'OK';
 
 
 function addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI) {
-	$query = 'INSERT INTO `powerTrail_caches`(`cacheId`, `PowerTrailId`) VALUES (:1,:2) ON DUPLICATE KEY UPDATE PowerTrailId=VALUES(PowerTrailId)';
-	$db->multiVariableQuery($query, $cacheId, $projectId);
+	$query = 'INSERT INTO `powerTrail_caches`(`cacheId`, `PowerTrailId`, `points`) VALUES (:1,:2,:3) ON DUPLICATE KEY UPDATE PowerTrailId=VALUES(PowerTrailId)';
+	$db->multiVariableQuery($query, $cacheId, $projectId, getCachePoints($cacheId));
 	$queryInsertedCacheData = 'SELECT longitude, latitude FROM caches WHERE cache_id = :1 LIMIT 1';
 	$db->multiVariableQuery($queryInsertedCacheData, $cacheId);
 	$insertedCacheData = $db->dbResultFetch();
@@ -110,4 +117,25 @@ function recalculate($projectId) {
 	$newData = powerTrailBase::recalculateCenterAndPoints($allCaches);
 	$updateQuery = 'UPDATE `PowerTrail` SET `cacheCount`= :1, `centerLatitude` = :3, `centerLongitude` = :4, `points` = :5 WHERE `id` = :2';
 	$db->multiVariableQuery($updateQuery, $newData['cacheCount'], $projectId, $newData['avgLat'], $newData['avgLon'], $newData['points']);
+}
+
+/**
+ * just for recalculate all points in powerTrail_caches if any problem occur
+ * or points algo were changed. 
+ */
+function recalculateOnce() {
+	$allCachesQuery = 'SELECT * FROM `caches` where `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE 1)';
+	$db = new dataBase();
+	$db->multiVariableQuery($allCachesQuery);
+	$allCaches = $db->dbResultFetchAll();
+	
+	foreach ($allCaches as $cache) {
+		$cachePoints = powerTrailBase::getCachePoints($cache);
+		$updateQuery = 'UPDATE `powerTrail_caches` SET `points`=:1 WHERE `cacheId`=:2';
+		$db->multiVariableQuery($updateQuery, $cachePoints, $cache['cache_id']);
+		//$db->
+		print $cache['wp_oc'].' updated '.$cachePoints.'<br/>';
+	}
+	// print '<pre>';
+	// print_r($allCaches);
 }
