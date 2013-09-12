@@ -8,18 +8,19 @@ if(!isset($_SESSION['user_id'])){
 require_once __DIR__.'/../lib/db.php';
 
 
-$projectId = $_REQUEST['projectId'];
-$text = htmlspecialchars($_REQUEST['text']);
 $db = new dataBase(false);
 if($_REQUEST['type'] == 2){ // check if PT is already conquested by user
 	$mySqlRequest = 'SELECT count( * ) AS `ptConquestCount` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 ';
 	$db->multiVariableQuery($mySqlRequest, $_SESSION['user_id']);
 	$mySqlResult = $db->dbResultFetch();
+	var_dump($mySqlResult);
 	if ($mySqlResult['ptConquestCount'] > 0) {
 		echo 'pt conquested before';
 		exit;
 	}
 }
+$projectId = $_REQUEST['projectId'];
+$text = htmlspecialchars($_REQUEST['text']);
 $query = 
 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) 
                            VALUES (:1,        :2,             :3            ,:4 ,           :5,           NOW(), 			   0 )';

@@ -52,16 +52,15 @@ function deleteComment(commentId, callingUser){
     	data:{ptId: $('#xmd34nfywr54').val(), commentId: commentId, callingUser: callingUser },
 	});
 
-    // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
     	console.log(response);
+    	$("#commentType").append('<option value=2>{{pt065}}</option>');
     });
     
     request.always(function () {
-
     });
 	
-	 ajaxGetComments(0, 8);
+	ajaxGetComments(0, 8);
 }
 
 function ajaxGetPtStats(){
@@ -349,7 +348,9 @@ function ajaxAddComment(){
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
     	// $('#ptComments').html(response);
-    	$("#commentType option[value='2']").remove();
+    	if($('#commentType').val() == 2){
+			$("#commentType option[value='2']").remove();
+    	}
     });
     request.always(function (response, textStatus, jqXHR) {
     	console.log(response);

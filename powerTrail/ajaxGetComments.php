@@ -39,10 +39,12 @@ foreach ($result as $key => $dbEntery) {
 		<td colspan="3" class="commentHead">
 			<span class="CommentDate">'. substr($dbEntery['logDateTime'],0,-8).'</span><a href="viewprofile.php?userid='.$dbEntery['userId'].'"><b>'.$dbEntery['username'].'</b></a> (<img height="13" src="tpl/stdstyle/images/blue/thunder_ico.png" /><font size="-1">'.$userActivity.'</font>)
 			- <span style="color: '.$commentsArr[$dbEntery['commentType']]['color'].';">'. tr($commentsArr[$dbEntery['commentType']]['translate']).'</span>';
-	if($_SESSION['user_id'] == $dbEntery['userId'] || in_array($_SESSION['user_id'], $ownersIdArray)) {
-		$toDisplay .= '<span class="editDeleteComment"><img src="tpl/stdstyle/images/free_icons/cross.png" /><a href="javascript:void(0);" onclick="deleteComment('.$dbEntery['id'].','.$_SESSION['user_id'].')">'.tr('pt130').'</a>';
-		if($_SESSION['user_id'] == $dbEntery['userId']) $toDisplay .= ' <img src="tpl/stdstyle/images/free_icons/pencil.png" />';
-		$toDisplay .= '</span>';
+	if(isset($_SESSION['user_id'])){
+		if($_SESSION['user_id'] == $dbEntery['userId'] || in_array($_SESSION['user_id'], $ownersIdArray)) {
+			$toDisplay .= '<span class="editDeleteComment"><img src="tpl/stdstyle/images/free_icons/cross.png" /><a href="javascript:void(0);" onclick="deleteComment('.$dbEntery['id'].','.$_SESSION['user_id'].')">'.tr('pt130').'</a>';
+			if($_SESSION['user_id'] == $dbEntery['userId']) $toDisplay .= ' <img src="tpl/stdstyle/images/free_icons/pencil.png" />';
+			$toDisplay .= '</span>';
+		}
 	}
 	$toDisplay .= '	
 		</td>
