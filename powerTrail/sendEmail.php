@@ -46,7 +46,7 @@ function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $actio
 	$mailbody = mb_ereg_replace('{userName}', $usr['username'], $mailbody);
 	$mailbody = mb_ereg_replace('{absolute_server_URI}', $absolute_server_URI, $mailbody);
 	if(isset($commentTypes[$commentType]['translate'])) $mailbody = mb_ereg_replace('{commentType}', tr($commentTypes[$commentType]['translate']), $mailbody);
-	else mb_ereg_replace('{commentType}', '&nbsp', $mailbody);
+	else $mailbody = mb_ereg_replace('{commentType}', '&nbsp', $mailbody);
 	$mailbody = mb_ereg_replace('{ptName}', $ptDbRow['name'], $mailbody);
 	$mailbody = mb_ereg_replace('{ptId}', $ptId, $mailbody);
 	$mailbody = mb_ereg_replace('{pt133}', tr('pt133'), $mailbody);
