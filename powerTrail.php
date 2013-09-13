@@ -323,7 +323,9 @@ function displayPtCommentsSelector($htmlid, $percetDemand, $userStats, $ptId, $s
 	$selector = '<select id="'.$htmlid.'" name="'.$htmlid.'">';
 	foreach ($commentsArr as $id => $type) {
 		if ($id == 2) {
-			if ($percentUserFound<$percetDemand || powerTrailBase::checkUserConquestedPt($_SESSION['user_id'], $ptId) >0) break;
+			if ($percentUserFound<$percetDemand || powerTrailBase::checkUserConquestedPt($_SESSION['user_id'], $ptId) >0){
+				 break;
+			}
 		}
 		if ($selectedId == $id) $selected = 'selected'; else $selected = '';
 		$selector .= '<option '.$selected.' value="'.$id.'">'.tr($type['translate']).'</option>';

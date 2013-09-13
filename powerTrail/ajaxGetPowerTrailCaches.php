@@ -10,12 +10,12 @@ $pt->run();
 // $ptDbRow = $pt->getPowerTrailDbRow();
 // $ptOwners = $pt->getPtOwners();		
 
+if(isset($_REQUEST['choseFinalCaches'])) $choseFinalCaches = true; else $choseFinalCaches = false;
+print displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache(), $choseFinalCaches);
 
-print displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache());
 
 
-
-function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsByCache) 
+function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsByCache, $choseFinalCaches) 
 {
 	if(count($pTrailCaches) == 0) return '<br /><br />'.tr('pt082');	
 		
@@ -26,14 +26,22 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		5 => '/tpl/stdstyle/images/log/16x16-need-maintenance.png',
 	);	
 
+	$statusDesc = array(
+		1 => tr('pt141'),
+		2 => tr('pt142'),
+		3 => tr('pt143'),
+		5 => tr('pt144'),
+	);
+
 	$cacheTypesIcons = getCacheTypesIcons();
-	// var_dump($cacheTypesIcons);
 	$foundCacheTypesIcons = getFoundCacheTypesIcons($cacheTypesIcons);
 	
 	$cacheRows = '<table class="ptCacheTable" align="center" width="90%"><tr>
 		<th>'.tr('pt075').'</th>
-		<th>'.tr('pt076').'</th>
-		<th>'.tr('pt077').'</th>
+		<th>'.tr('pt076').'</th>';
+	if($choseFinalCaches) $cacheRows .= '<th></th>';
+	$cacheRows .= 
+	'	<th>'.tr('pt077').'</th>
 		<th><img src="tpl/stdstyle/images/log/16x16-found.png" /></th>
 		<th>'.tr('pt078').'</th>
 		<th><img src="images/rating-star.png" /></th>
@@ -56,8 +64,12 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		else $cacheRows .= '<td><img src="tpl/stdstyle/images/'.$cacheTypesIcons[$cache['type']].'" /></td>';
 		//cachename, username
 		$cacheRows .= '<td><b><a href="'.$cache['wp_oc'].'">'.$cache['name'].'</b></a> ('.$cache['username'].')</td>';
+		//chose final caches
+		if($choseFinalCaches){
+			$cacheRows .= '<td><span class="ownerFinalChoice"></span></td>';
+		}
 		//status
-		$cacheRows .= '<td align="center"><img src="'.$statusIcons[$cache['status']].'" /></td>';
+		$cacheRows .= '<td align="center"><img src="'.$statusIcons[$cache['status']].'" title="'.$statusDesc[$cache['status']].'"/></td>';
 		//FoundCount
 		$cacheRows .= '<td align="center">'.$cache['founds'].'</td>';
 		//score, toprating

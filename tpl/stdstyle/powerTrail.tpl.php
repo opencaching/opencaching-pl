@@ -54,7 +54,7 @@ function deleteComment(commentId, callingUser){
 
     request.done(function (response, textStatus, jqXHR){
     	console.log(response);
-    	$("#commentType").append('<option value=2>{{pt065}}</option>');
+    	if(response == 2) $("#commentType").append('<option value=2>{{pt065}}</option>');
     });
     
     request.always(function () {
@@ -362,6 +362,9 @@ function ajaxAddComment(){
     }
     toggleAddComment();
     ajaxGetComments(0, 8);
+    $('html, body').animate({
+        scrollTop: $("#ptComments").offset().top
+    }, 2000); 
 }
 
 function toggleAddComment(){

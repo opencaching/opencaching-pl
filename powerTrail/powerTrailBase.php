@@ -140,7 +140,7 @@ class powerTrailBase{
 	
 	public static function checkUserConquestedPt($userId, $ptId){
 		$db = new dataBase;
-		$q = 'SELECT count(*) AS `c` FROM PowerTrail_comments WHERE userId = :1 AND	PowerTrailId = :2 AND deleted !=1 ';
+		$q = 'SELECT count(*) AS `c` FROM PowerTrail_comments WHERE userId = :1 AND	PowerTrailId = :2 AND `commentType` =2 AND deleted !=1 ';
 		$db->multiVariableQuery($q, $userId, $ptId);
 		$response = $db->dbResultFetch();
 		return $response['c'];
