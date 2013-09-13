@@ -45,6 +45,60 @@ $(function() {
 	ajaxGetComments(0, 8);
 }); 
 
+function editComment(commentId,ClickinguserId){
+	commentHtml = $('#commentId-'+commentId).html();
+	$('#editedCommentId').val(commentId);
+	$('#ClickinguserId').val(ClickinguserId);
+	// alert(commentHtml);
+	$('#addC1').hide();
+	$('#addC2').hide();
+	$('#addCe1').show();
+	$('#addCe2').show();
+	
+	$('#commentType').hide();
+	$('#addComment').fadeIn(1200);
+	tinyMCE.activeEditor.setContent(commentHtml);
+	$('html, body').animate({
+        scrollTop: $("#addComment").offset().top
+    }, 2000); 
+	//$('#editComment').fadeIn(1200);
+}
+
+function toggleEditComment(){
+	tinyMCE.activeEditor.setContent('');
+	$('#addComment').fadeOut(800);
+	$('#editedCommentId').val(0);
+	$('#ClickinguserId').val(0);
+	$('#addCe1').hide();
+	$('#addCe2').hide();
+	$('#addC1').show();
+	$('#addC2').show();
+	$('#commentType').show();
+}
+
+function ajaxUpdateComment(){
+	var newComment = tinyMCE.activeEditor.getContent();
+	//alert('do zrobirnia!' + newComment);
+	
+	request = $.ajax({
+    	url: "powerTrail/ajaxUpdateComment.php",
+    	type: "post",
+    	data:{text: newComment, dateTime: $('#commentDateTime').val(), ptId: $('#xmd34nfywr54').val(), commentId: $('#editedCommentId').val(), callingUser: $('#ClickinguserId').val()},
+	});
+
+    request.done(function (response, textStatus, jqXHR){
+    	console.log(response);
+    	ajaxGetComments(0, 8);
+    	$('html, body').animate({
+        	scrollTop: $("#ptComments").offset().top
+    	}, 2000); 
+    });
+	
+	request.always(function () {
+		toggleEditComment();
+    });
+}
+
 function deleteComment(commentId, callingUser){
 	request = $.ajax({
     	url: "powerTrail/ajaxRemoveComment.php",
@@ -1585,15 +1639,18 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	<div id="animateHere"></div>
 	<p style="display: {displayAddCommentSection}" align="right"><a href="javascript:void(0)" id="toggleAddComment" onclick="toggleAddComment()" class="editPtDataButton">{{pt051}}</a>&nbsp; </p>
 	<div id="addComment" style="display: none">
+		<input type="hidden" id="editedCommentId" value="0" />
+		<input type="hidden" id="ClickinguserId" value="0" />
 		<textarea id="addCommentTxtArea"></textarea>
 		{ptCommentsSelector}
 		<br />
 		<input type="text" id="commentDateTime" value="{date}">
 		<br /><br />
-		<a href="javascript:void(0)" onclick="toggleAddComment()" class="editPtDataButton">{{pt031}}</a>
-		<a href="javascript:void(0)" onclick="ajaxAddComment();" class="editPtDataButton">{{pt044}}</a>
+		<a id="addC1" href="javascript:void(0)" onclick="toggleAddComment();" class="editPtDataButton">{{pt031}}</a>
+		<a id="addC2" href="javascript:void(0)" onclick="ajaxAddComment();" class="editPtDataButton">{{pt044}}</a>
+		<a id="addCe1" href="javascript:void(0)" onclick="toggleEditComment();" class="editPtDataButton" style="display: none" >{{pt031}}</a>
+		<a id="addCe2" href="javascript:void(0)" onclick="ajaxUpdateComment();" class="editPtDataButton" style="display: none">{{pt044}}</a>
 		<br /><br />
 	</div>
-
+	
 </div>
-

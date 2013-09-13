@@ -20,9 +20,9 @@ class processGeokretyErrors {
 	public function run(){
 		
 		// ptPromo
-		//if (date('N') == 1)	{ // make ptPromo File
+		if (date('N') == 1)	{ // make ptPromo File
              $this->makePt();
-		//}
+		}
 		
 		$this->getErrors();
 		if($this->errorNumber == 0) exit;

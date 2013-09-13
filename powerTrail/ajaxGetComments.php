@@ -42,7 +42,11 @@ foreach ($result as $key => $dbEntery) {
 	if(isset($_SESSION['user_id'])){
 		if($_SESSION['user_id'] == $dbEntery['userId'] || in_array($_SESSION['user_id'], $ownersIdArray)) {
 			$toDisplay .= '<span class="editDeleteComment"><img src="tpl/stdstyle/images/free_icons/cross.png" /><a href="javascript:void(0);" onclick="deleteComment('.$dbEntery['id'].','.$_SESSION['user_id'].')">'.tr('pt130').'</a>';
-			if($_SESSION['user_id'] == $dbEntery['userId']) $toDisplay .= ' <img src="tpl/stdstyle/images/free_icons/pencil.png" />';
+			if($_SESSION['user_id'] == $dbEntery['userId']) {
+				$toDisplay .= ' 
+					<img src="tpl/stdstyle/images/free_icons/pencil.png" />
+					<a href="javascript:void(0);" onclick="editComment('.$dbEntery['id'].','.$_SESSION['user_id'].')">'.tr('pt145').'</a>';
+			}
 			$toDisplay .= '</span>';
 		}
 	}
@@ -50,7 +54,7 @@ foreach ($result as $key => $dbEntery) {
 		</td>
 	</tr>
 	<tr>
-		<td class="commentContent" valign="top">'.htmlspecialchars_decode(stripslashes($dbEntery['commentText'])).'</td>
+		<td class="commentContent" valign="top"><span id="commentId-'.$dbEntery['id'].'" >'.htmlspecialchars_decode(stripslashes($dbEntery['commentText'])).'</span></td>
 	</tr><tr><td>&nbsp</td></tr>'
 	;
 }
