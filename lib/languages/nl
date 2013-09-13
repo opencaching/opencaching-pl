@@ -1679,7 +1679,7 @@ pt034 Beschrijving PowerTrail
 pt035 Serie
 pt036 Naam
 pt037 Score
-pt038 Punten
+pt038 punten
 pt039 Soort
 pt040 Status
 pt041 Publicatie datum
@@ -1752,8 +1752,8 @@ pt107 Cache soort
 pt108 traditioneel
 pt109 multi
 pt110 puzzel
-pt111 virtueel
-pt112 anders
+pt111 overige
+pt112 onbekend
 pt113 micro
 pt114 klein
 pt115 normaal
@@ -1778,6 +1778,17 @@ pt133 Tekst van deze log was
 pt134 Datum van log (ingevoerd door gebruiker)
 pt135 Totale cachedagen
 pt136 Geografisch middelpunt van deze serie
+pt137 PowerTrail van de week
+pt138 caches
+pt139 PowerTrail
+pt140 Aantal punten in PowerTrail
+pt141 Caches die gevonden kunnen worden
+pt142 Tijdelijk niet beschikbaar
+pt143 Helaas gearchiveerd
+pt144 Nog niet gepubliceerd
+pt145 Bewerken
+pt146 Bewerkte log
+pt147 Heeft een log bewerkt
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
