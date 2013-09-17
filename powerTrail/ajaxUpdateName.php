@@ -21,6 +21,6 @@ if($ptAPI::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 
 	$query = 'UPDATE `PowerTrail` SET `name` = :1 WHERE `id` = :2';
 	$db = new dataBase();
 	$db->multiVariableQuery($query, $newName, $powerTrailId);
-	echo 'tutaj ' . $newName;
+	echo $newName;
 }
 ?>

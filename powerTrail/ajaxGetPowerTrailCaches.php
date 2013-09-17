@@ -66,7 +66,7 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		}
 		$cacheRows .= '<tr bgcolor="'.$bgcolor.'">';
 		//display icon found/not found depend on current user
-		if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $cacheRows .= '<td><img src="tpl/stdstyle/images/'.$foundCacheTypesIcons[$cache['type']].'" /></td>';
+		if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $cacheRows .= '<td align="center"><img src="tpl/stdstyle/images/'.$foundCacheTypesIcons[$cache['type']].'" /></td>';
 		else $cacheRows .= '<td align="center"><img src="tpl/stdstyle/images/'.$cacheTypesIcons[$cache['type']].'" /></td>';
 		//cachename, username
 		$cacheRows .= '<td><b><a href="'.$cache['wp_oc'].'">'.$fontColor.$cache['name'].'</b></a> ('.$cache['username'].') ';
