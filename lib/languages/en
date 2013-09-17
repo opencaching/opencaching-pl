@@ -1119,10 +1119,14 @@ report_resultpage Report problem of cache
 report_sent_owner Report has been sent to cacheowner.
 search00 All countries
 geokret Geokrety
-rss_01 RSS Feeds OC PL
+rss_01 RSS Feeds {site_name}
 rss_02 Latest caches
 rss_03 Latest logs
 rss_04 Latest news
+rss_05 Latest logs at
+rss_06 User
+rss_07 Log
+rss_08 Date
 reportcache01 Cache might be on private property
 reportcache02 Cache requires archiving
 reportcache03 Copyright violation

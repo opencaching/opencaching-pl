@@ -762,9 +762,9 @@ last_found Laatst gevonden&nbsp&nbsp&nbsp
 delete_recommend Delete recommendations
 off_ignore Schakel negeren uit
 no_ignores Geen genegeerde caches
-oc_stat OC PL caches statistiek
+oc_stat OC NL cache statistieken
 administration Administratie OC
-stat_octeam Statistieken OCTeam
+stat_octeam Statistieken OCTeam.
 cache_notfound Niet gevonden caches
 send_bulletin Verzend een bulletin
 send_bulletin_01 Bulletin verzenden
@@ -1227,6 +1227,10 @@ rss_01 RSS Feeds {site_name}
 rss_02 Nieuwste caches
 rss_03 Nieuwste logs
 rss_04 Laatste nieuws
+rss_05 Nieuwste logs op
+rss_06 Gebruiker
+rss_07 Logsoort
+rss_08 Datum
 reportcache01 Cache op privégrond
 reportcache02 Archiveren
 reportcache03 Schending auteursrecht

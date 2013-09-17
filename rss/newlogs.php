@@ -20,10 +20,10 @@
 		$perpage = 20;
 
 header('Content-type: application/xml; charset="utf-8"');		
-		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze logi</title>\n<ttl>60</ttl><description>Najnowsze logi na OpenCaching.PL </description>\n<link>http://www.opencaching.pl/newlogs.php</link><image>
-		<title>OC PL - Najnowsze logi</title>
-		<url>http://www.opencaching.pl/images/oc.png</url>
-		<link>http://www.opencaching.pl/newlogs.php</link><width>100</width><height>28</height></image>\n\n";
+		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>$short_sitename - ".tr('rss_03')."</title>\n<ttl>60</ttl><description>".tr('rss_05')." $site_name </description>\n<link>$absolute_server_URI/newlogs.php</link><image>
+		<title>$short_sitename - ".tr('rss_03')."</title>
+		<url>$absolute_server_URI/images/oc.png</url>
+		<link>$absolute_server_URI/newlogs.php</link><width>100</width><height>28</height></image>\n\n";
 		
 		$rs = sql("SELECT  cache_logs.id,
        cache_logs.cache_id AS cache_id,
@@ -50,10 +50,10 @@ LIMIT 20");
      // (Łza)
         if ($r['log_type'] == 12)
               {
-                   $r['user_name'] = 'Centrum Obsługi Geocachera ';
+                   $r['user_name'] = tr('cog_user_name');
                               }
                 // koniec ukrywania autora komentarza COG przed zwykłym userem
-			$thisline = "<item>\n<title>{cachename}</title>\n<description>Użytkownik: {username} - Wpis: {logtype} - Data: {date} </description>\n<link>http://www.opencaching.pl/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";
+			$thisline = "<item>\n<title>{cachename}</title>\n<description> ".tr('rss_06').": {username} - ".tr('rss_07').": {logtype} - ".tr('rss_08').": {date} </description>\n<link>$absolute_server_URI/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";
 			
 			$thisline = str_replace('{cacheid}', $r['cache_id'], $thisline);
 //			$thisline = str_replace('{userid}', $r['userid'], $thisline);

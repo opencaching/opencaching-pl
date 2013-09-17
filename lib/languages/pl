@@ -1223,10 +1223,14 @@ report_resultpage Zgłoszenie problemu dotyczącego skrzynki
 report_sent_owner Zgłoszenie zostało wysłane do właściciela skrzynki.
 search00 Wszystkie kraje
 geokret Geokret
-rss_01 Kanały RSS OC PL
+rss_01 Kanały RSS {site_name}
 rss_02 Najnowsze skrzynki
 rss_03 Najnowsze logi
 rss_04 Najnowsze wiadomości
+rss_05 Najnowsze logi na
+rss_06 Użytkownik
+rss_07 Wpis
+rss_08 Data
 reportcache01 Uwaga co do lokalizacji skrzynkix
 reportcache02 Skrzynka wymaga archiwizacji
 reportcache03 Nieodpowiednia zawartość skrzynki
@@ -1265,7 +1269,7 @@ logType9 skrzynka została zarchiwizowana
 logType10 skrzynka gotowa do szukania
 logType11 skrzynka będzie niedostepna czasowo
 logType12 komentarz Centrum Obsługi Geocachera
-runwatch01 zrobił wpis
+runwatch01 zrobił
 runwatch02 do logu skrzynki
 runwatch03 Raport nowych logów w skrzynkach
 runwatch04 If you cannot see this picture, add sender to your addressbook
