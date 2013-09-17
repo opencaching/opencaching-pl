@@ -20,7 +20,7 @@
 		$perpage = 20;
 
 header('Content-type: application/xml; charset="utf-8"');		
-		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>$short_sitename - ".tr('rss_09')."</title>\n<ttl>60</ttl><description>".tr('rss_09')." $site_name </description>\n<link>$absolute_server_URI</link><image>
+		$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>$short_sitename - ".tr('rss_02')."</title>\n<ttl>60</ttl><description>".tr('rss_09')." $site_name </description>\n<link>$absolute_server_URI</link><image>
 		<title>$short_sitename - ".tr('rss_09')."</title>\n
 		<url>$absolute_server_URI/images/oc.png</url>
 		<link>$absolute_server_URI</link><width>100</width><height>28</height></image>\n\n";
