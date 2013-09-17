@@ -35,7 +35,7 @@ header('Content-type: application/xml; charset="utf-8"');
        WHERE user_id = cache_logs.user_id) AS user_name,
        (SELECT text_combo FROM log_types_text
        WHERE log_types_id = cache_logs.type AND
-               lang = 'PL') AS log_name
+               lang = '$lang') AS log_name
 FROM    cache_logs
 WHERE   cache_logs.deleted = 0
 ORDER BY cache_logs.date_created DESC
