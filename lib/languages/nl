@@ -1231,6 +1231,9 @@ rss_05 Nieuwste logs op
 rss_06 Gebruiker
 rss_07 Logsoort
 rss_08 Datum
+rss_09 Nieuwste caches op
+rss_10 Cachenaam
+rss_11 Land
 reportcache01 Cache op privégrond
 reportcache02 Archiveren
 reportcache03 Schending auteursrecht

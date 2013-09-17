@@ -1231,6 +1231,9 @@ rss_05 Najnowsze logi na
 rss_06 Użytkownik
 rss_07 Wpis
 rss_08 Data
+rss_09 Nowe skrzynki na
+rss_10 Nazwa skrzynki
+rss_11 Kraj
 reportcache01 Uwaga co do lokalizacji skrzynkix
 reportcache02 Skrzynka wymaga archiwizacji
 reportcache03 Nieodpowiednia zawartość skrzynki
