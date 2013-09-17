@@ -45,6 +45,45 @@ $(function() {
 	ajaxGetComments(0, 8);
 }); 
 
+function reloadWithFinalsChoice(){
+	if($('#finalCachesbtn').html() == '{{pt150}}'){
+		ajaxGetPtCaches();
+		$('#finalCachesbtn').html( '{{pt149}}' );
+	} else {
+		$('#PowerTrailCaches').html('');
+		ajaxGetPtCaches(1);
+		$('#finalCachesbtn').html( '{{pt150}}' );
+	}	
+}
+
+function setFinalCache(cacheId){
+	if($('#fcCheckbox'+cacheId).is(':checked')) {
+		addRmFinals(1, cacheId, $('#xmd34nfywr54').val());
+	} else {
+   		addRmFinals(0, cacheId, $('#xmd34nfywr54').val());
+	}
+	
+}
+
+function addRmFinals(isFinal, cacheId, ptId){
+	// ajaxAddRmFinal.php
+	request = $.ajax({
+    	url: "powerTrail/ajaxAddRmFinal.php",
+    	type: "post",
+    	data:{isFinal: isFinal, projectId: $('#xmd34nfywr54').val(), cacheId: cacheId},
+	});
+
+    request.done(function (response, textStatus, jqXHR){
+    	console.log(response);
+    });
+	
+	request.always(function () {
+		$('#PowerTrailCaches').html('');
+		ajaxGetPtCaches(1);
+    });
+	
+}
+
 function editComment(commentId,ClickinguserId){
 	commentHtml = $('#commentId-'+commentId).html();
 	$('#editedCommentId').val(commentId);
@@ -215,16 +254,21 @@ function cancellImage() {
 }				
 				
 
-function  ajaxGetPtCaches(){
+function  ajaxGetPtCaches(getFinal){
 	$('#cachesLoader').show();
 	
+	if(getFinal == 1){
+		getFinal = '&choseFinalCaches=1'
+	} else {
+		getFinal = '';
+	}
+	
 	request = $.ajax({
-    	url: "powerTrail/ajaxGetPowerTrailCaches.php?ptAction=showSerie&ptrail="+$('#xmd34nfywr54').val(),
+    	url: "powerTrail/ajaxGetPowerTrailCaches.php?ptAction=showSerie&ptrail="+$('#xmd34nfywr54').val()+getFinal,
     	type: "post",
     	data:{projectId: $('#xmd34nfywr54').val()},
 	});
 
-    // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
     	$('#PowerTrailCaches').html(response);
     });
@@ -1283,6 +1327,13 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	padding-left: 10px;
 	padding-top: 3px;
 }
+
+.finalCache{
+	color:#66CC00;
+	font-size: 11px;
+	float: right;
+	font-weight: bold;
+}
 </style>
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
 
@@ -1594,7 +1645,8 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 		</td>
 		<td align="right">
 			<div style="display: {displayAddCachesButtons}">
-				<a href="powerTrail.php?ptAction=selectCaches" id="toggleSearchCacheSection0" class="editPtDataButton">{{pt049}}</a><br /><br />
+				<a href="powerTrail.php?ptAction=selectCaches" id="toggleSearchCacheSection0" class="editPtDataButton">{{pt049}}</a><br />
+				<a href="javascript:void(0)" id="finalCachesbtn" onclick="reloadWithFinalsChoice();" class="editPtDataButton">{{pt149}}</a><br />
 				<a href="javascript:void(0)" id="toggleSearchCacheSection1" style="display: none" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt031}}</a>
 				<a href="javascript:void(0)" id="toggleSearchCacheSection2" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt048}}</a>
 			</div>

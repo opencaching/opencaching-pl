@@ -58,23 +58,34 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		$cacheSize[$cache['size']]++;
 		 // powerTrailController::debug($cache); exit;
 		if($bgcolor == '#eeeeff') $bgcolor = '#ffffff'; else $bgcolor = '#eeeeff'; 
-		$cacheRows .= '<tr  bgcolor="'.$bgcolor.'">';
+		if($cache['isFinal']) {
+			$bgcolor = '#000000';
+			$fontColor = '<font color ="#ffffff">';
+		} else {
+			$fontColor = '';
+		}
+		$cacheRows .= '<tr bgcolor="'.$bgcolor.'">';
 		//display icon found/not found depend on current user
 		if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $cacheRows .= '<td><img src="tpl/stdstyle/images/'.$foundCacheTypesIcons[$cache['type']].'" /></td>';
-		else $cacheRows .= '<td><img src="tpl/stdstyle/images/'.$cacheTypesIcons[$cache['type']].'" /></td>';
+		else $cacheRows .= '<td align="center"><img src="tpl/stdstyle/images/'.$cacheTypesIcons[$cache['type']].'" /></td>';
 		//cachename, username
-		$cacheRows .= '<td><b><a href="'.$cache['wp_oc'].'">'.$cache['name'].'</b></a> ('.$cache['username'].')</td>';
+		$cacheRows .= '<td><b><a href="'.$cache['wp_oc'].'">'.$fontColor.$cache['name'].'</b></a> ('.$cache['username'].') ';
+		if($cache['isFinal']) $cacheRows .= '<span class="finalCache">'.tr('pt148').'</span>';
+		
+		$cacheRows .= '</td>';
 		//chose final caches
 		if($choseFinalCaches){
-			$cacheRows .= '<td><span class="ownerFinalChoice"></span></td>';
+			if($cache['isFinal']) $checked = 'checked = "checked"';
+			else $checked = '';
+			$cacheRows .= '<td><span class="ownerFinalChoice"><input type="checkbox" id="fcCheckbox'.$cache['cache_id'].'" onclick="setFinalCache('.$cache['cache_id'].')" '.$checked.' /></span></td>';
 		}
 		//status
 		$cacheRows .= '<td align="center"><img src="'.$statusIcons[$cache['status']].'" title="'.$statusDesc[$cache['status']].'"/></td>';
 		//FoundCount
-		$cacheRows .= '<td align="center">'.$cache['founds'].'</td>';
+		$cacheRows .= '<td align="center">'.$fontColor.$cache['founds'].'</td>';
 		//score, toprating
 		$cacheRows .= '<td align="center">'.ratings($cache['score'], $cache['votes']).'</td>';
-		$cacheRows .= '<td align="center">'.$cache['topratings'].'</td>';
+		$cacheRows .= '<td align="center">'.$fontColor.$cache['topratings'].'</td>';
 		
 		'</tr>';
 	}	

@@ -86,7 +86,7 @@ class powerTrailController {
 		$db->multiVariableQuery($ptq, $powerTrailId);
 		$this->powerTrailDbRow = $db->dbResultFetch();
 		
-		$q = 'SELECT caches.*, user.username FROM `caches`,user WHERE cache_id IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` = :1) AND user.user_id = caches.user_id ORDER BY caches.name';
+		$q = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches` WHERE  `PowerTrailId` =:1) AND user.user_id = caches.user_id AND powerTrail_caches.cacheId = caches.cache_id ORDER BY caches.name';
 		$db->multiVariableQuery($q, $powerTrailId);
 		$this->allCachesOfSelectedPt = $db->dbResultFetchAll();
 		
