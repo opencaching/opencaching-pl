@@ -1813,3 +1813,8 @@ notify_newcachemail10 Dit bericht is automatisch gegenereerd, gelieve niet te re
 notify_newcachemail11 Nieuwe cache:
 notify_newcachemail12 Er zijn nog geen nieuwe logs.
 cog_user_name Dienst Cache Beheer
+region_01 Regio via opgegeven coördinaten:
+region_02 Land
+region_03 Provincie gevonden via OC.NL
+region_04 Provincie gevonden via Google Map
+

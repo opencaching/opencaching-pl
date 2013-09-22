@@ -221,7 +221,7 @@ function nearbycache()
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
 		alert("{{input_coord}}"); 
 			} else {
-	window.open('http://www.opencaching.pl/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=0&distance=0.3&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
+	window.open('/search.php?searchto=searchbydistance&showresult=1&expert=0&output=HTML&sort=bydistance&f_userowner=0&f_userfound=0&f_inactive=0&distance=0.3&unit=km&latNS=' + latNS + '&lat_h=' + lat_h + '&lat_min=' + lat_min + '&lonEW=' + lonEW + '&lon_h=' + lon_h + '&lon_min=' + lon_min);
 	}
 	return false;
 }
@@ -242,7 +242,7 @@ function extractregion()
 		if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
 		alert("{{input_coord}}"); 
 			} else {
-	window.open('http://www.opencaching.pl/region.php?lat=' + lat + '&lon=' + lon+ '&popup=y','Region','width=300,height=250');
+	window.open('/region.php?lat=' + lat + '&lon=' + lon+ '&popup=y','Region','width=300,height=250');
 	}
 	return false;
 }
@@ -266,7 +266,7 @@ function nearbycachemapOC()
 				if (document.newcacheform.lat_h.value == "0" && document.newcacheform.lon_h.value == "0" ) {
 		alert("{{input_coord}}"); 
 			} else {
-		window.open('http://www.opencaching.pl/cachemap3.php?circle=1&inputZoom=17&lat=' + lat + '&lon=' + lon);}
+		window.open('/cachemap3.php?circle=1&inputZoom=17&lat=' + lat + '&lon=' + lon);}
 	return false;
 }//--></script>
 

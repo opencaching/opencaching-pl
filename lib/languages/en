@@ -1524,5 +1524,9 @@ statpic_found Found:
 statpic_hidden Hidden:
 statpic_html_link - Statistics for
 cog_user_name Geocacher service center
+region_01 Region from coordinates:
+region_02 Country
+region_03 Region found by OC.PL
+region_04 Region found by Google Maps
 
 

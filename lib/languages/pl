@@ -1804,4 +1804,8 @@ statpic_found Znalazł:
 statpic_hidden Ukrył:
 statpic_html_link - Statystyka dla
 cog_user_name Centrum Obsługi Geocachera
+region_01 Województwo dla współrzędnych
+region_02 Kraj
+region_03 Województwo na podstawie bazy OC PL
+region_04 Województwo na podstawie Google Map
 

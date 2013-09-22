@@ -86,7 +86,7 @@ function extractregion()
 		if (document.editcache_form.lat_h.value == "0" && document.editcache_form.lon_h.value == "0" ) {
 		alert("Please input coordinates location of cache"); 
 			} else {
-	window.open('http://www.opencaching.pl/region.php?lat=' + lat + '&lon=' + lon+ '&popup=y','Region','width=300,height=250');
+	window.open('/region.php?lat=' + lat + '&lon=' + lon+ '&popup=y','Region','width=300,height=250');
 	}
 	return false;
 }
