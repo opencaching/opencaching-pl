@@ -1808,4 +1808,21 @@ region_01 Województwo dla współrzędnych
 region_02 Kraj
 region_03 Województwo na podstawie bazy OC PL
 region_04 Województwo na podstawie Google Map
+cacheType_01 Tradycyjna
+cacheType_02 Multicache
+cacheType_03 Quiz
+cachetype_04 Mobilna
+cacheType_05 Skrzynka nietypowa
+cacheType_06 Wydarzenie
+cacheType_07 Webcam
+cacheType_08 Wirtualna
+cacheType_09 Podcast cache
+cacheType_10 Own cache
+cacheSyze_02 Mikro
+cacheSyze_03 Mała
+cacheSyze_04 Normalna
+cacheSyze_05 Duża
+cacheSyze_06 Bardzo duża
+cacheSyze_07 Bez pojemnika
+
 
