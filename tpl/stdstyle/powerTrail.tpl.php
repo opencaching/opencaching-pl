@@ -6,8 +6,7 @@
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
-<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.core.js"></script>
-<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.ui.datepicker.js"></script>
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script type="text/javascript">
@@ -41,6 +40,8 @@ $(function() {
 		dateFormat: 'yy-mm-dd',
 		regional: '{language4js}'
 	}).val();
+	
+
 	ajaxGetPtCaches();
 	ajaxGetComments(0, 8);
 }); 
@@ -139,21 +140,47 @@ function ajaxUpdateComment(){
 }
 
 function deleteComment(commentId, callingUser){
-	request = $.ajax({
-    	url: "powerTrail/ajaxRemoveComment.php",
-    	type: "post",
-    	data:{ptId: $('#xmd34nfywr54').val(), commentId: commentId, callingUser: callingUser },
-	});
-
-    request.done(function (response, textStatus, jqXHR){
-    	console.log(response);
-    	if(response == 2) $("#commentType").append('<option value=2>{{pt065}}</option>');
-    });
-    
-    request.always(function () {
-    });
 	
-	ajaxGetComments(0, 8);
+	$("#dialog-form").dialog({
+	autoOpen: false,
+	height: 150,
+	width: 350,
+	modal: true,
+	buttons: {
+		"{{pt130}}": function() {
+			if ($('#delReason').val() != ''){
+				request = $.ajax({
+				
+		    	url: "powerTrail/ajaxRemoveComment.php",
+		    	type: "post",
+		    	data:{ptId: $('#xmd34nfywr54').val(), commentId: commentId, callingUser: callingUser, delReason: $('#delReason').val() },
+				});
+			
+			    request.done(function (response, textStatus, jqXHR){
+			    	console.log(response);
+			    	if(response == 2) $("#commentType").append('<option value=2>{{pt065}}</option>');
+			    });
+			    
+			    request.always(function () {
+			    });
+				
+				ajaxGetComments(0, 8);
+				$(this).dialog( "close" );
+			}	
+		},
+		
+		"{{pt031}}": function() {
+			$(this).dialog( "close" );
+		}
+		},
+	close: function() {
+	}
+
+	});
+	
+	$( "#dialog-form" ).dialog( "open" );
+	$(".ui-dialog-titlebar-close").hide();	
+	
 }
 
 function ajaxGetPtStats(){
@@ -461,6 +488,7 @@ function ajaxAddComment(){
     toggleAddComment();
    
 	$(function() {
+		$('#ptComments').html('<img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />');
 		setTimeout(function() {
 	    	ajaxGetComments(0, 8);
 	    	$('html, body').animate({
@@ -494,6 +522,7 @@ function toggleAddComment(){
 
 function ajaxGetComments(start, limit){
 	// alert(start+' '+limit);
+	$('#ptComments').html('<br /><br /><center><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /><br /><br /></center>');
 	request = $.ajax({
     	url: "powerTrail/ajaxGetComments.php",
     	type: "post",
@@ -502,7 +531,12 @@ function ajaxGetComments(start, limit){
 
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
+    	$('#ptComments').hide();
     	$('#ptComments').html(response);
+    	$(function() {
+		    $('#ptComments').fadeIn(800);
+		});	
+    	
         // console.log("Hooray, it worked!"+response);
     });
 }
@@ -1346,6 +1380,17 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 <body>
 
 <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
+
+
+<div id="dialog-form" title="{{pt151}}" style="display: none">
+	<form>
+	<label for="delReason">{{pt152}} (max. 500 {{pt154}})</label><br /><br />
+	<input type="text" name="delReason" id="delReason" class="text ui-widget-content ui-corner-all" style="width: 280px;" maxlength="500" />
+	</form>
+</div>
+
+
+
 
 <div id="oldIE" style="display: none">{{pt129}}</div>
 	

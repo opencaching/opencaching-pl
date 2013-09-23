@@ -1650,41 +1650,41 @@ ZM Zambia
 ZW Zimbabwe
 SU Rosja
 
-pt001 Power Traile
-pt002 nalaży do serii 
-pt003 Stwórz nową serię
+pt001 GeoŚcieżki
+pt002 nalaży do geoŚcieżki 
+pt003 Nowa geoŚcieżka
 pt004 Kształt na mapie
 pt005 Krajoznawczy
 pt006 Publiczny  
 pt007 Narazie niewidoczny  
-pt008 Nazwa serii  
-pt009 Typ serii
+pt008 Nazwa geoŚcieżki  
+pt009 Typ geoŚcieżki 
 pt010 Widoczność
-pt011 Opis Serii  
-pt012 Pokaż Wszystkie Serie   
-pt013 Przypisz kesze do Serii   
-pt014 keszy Serii   
-pt015 Twój stopień zaawansowania dla Serii
+pt011 Opis geoŚcieżki   
+pt012 Wszystkie geoŚcieżki   
+pt013 kesze <=> geoŚcieżki    
+pt014 keszy geoŚcieżki    
+pt015 Twój stopień zaawansowania dla geoŚcieżki
 pt016 z
 pt017 znalazłeś
-pt018 Ten Power Trail jest niewidoczny (jeszcze nieopublikowany, zablokowany, itp.)
-pt019 Szczegóły Power Traila
-pt020 skrzynki w ramach Power Traila    
+pt018 Ta geoŚcieżka jest niewidoczna (jeszcze nieopublikowany, zablokowany, itp.)
+pt019 Szczegóły geoŚcieżki
+pt020 skrzynki w ramach geoŚcieżki    
 pt021 Twoje statystyki 
 pt022 ilość skrzynek    
-pt023 typ power traila
+pt023 typ geoŚcieżki
 pt024 data publikacji
 pt025 założyciele
-pt026 Sportowy
-pt027 Krajoznawczy
+pt026 Sportowa
+pt027 Krajoznawcza
 pt028 Nick lub id użytkownika: 
-pt029 Usuń tego użytkownika z Power Traila
+pt029 Usuń tego użytkownika z geoŚcieżki
 pt030 Dodaj/usuń
 pt031 Anuluj
 pt032 Dodaj
 pt033 Odśwież
-pt034 Opis Power Traila
-pt035 Serie
+pt034 Opis geoŚcieżki
+pt035 GeoŚcieżki
 pt036 nazwa
 pt037 punktacja
 pt038 punktów
@@ -1703,22 +1703,22 @@ pt050 Opinie i Komentarze
 pt051 Dodaj wpis
 pt052 typ wpisu
 pt053 data wpisu
-pt054 % skrzynek wymagany do zaliczenia serii 
+pt054 % skrzynek wymagany do zaliczenia geoŚcieżki 
 pt055 Ustaw
 pt056 komentarz
-pt057 zdobyty
+pt057 zdobyta
 pt058 Następne wpisy
 pt059 Poprzednie wpisy
 pt060 Podmień logotyp
 pt061 Zastąp obecne logo tym plikiem
-pt062 Twoje Serie
+pt062 Twoje geoŚcieżki
 pt063 Widoczność
 pt064 Zmień status
 pt065 Zdobyty
 pt066 razy
-pt067 Przyrodniczy
+pt067 Przyrodnicza
 pt068 Musisz najpierw znaleźć 
-pt069 skrzynek by założyć nową serię
+pt069 skrzynek by założyć nową geoŚcieżki
 pt070 znakomita
 pt071 dobra
 pt072 normalna
@@ -1729,32 +1729,32 @@ pt076 nazwa (założyciel)
 pt077 status
 pt078 ocena
 pt079 tematyczny
-pt080 Naciskając ten przycisk założysz nowy Power Trail
-pt081 Seria musi mieć nazwę
-pt082 Nie przypisano jeszcze keszy tej serii
+pt080 Naciskając ten przycisk założysz nową geoŚcieżkę
+pt081 geoŚcieżka musi mieć nazwę
+pt082 Nie przypisano jeszcze keszy tej geoŚcieżki
 pt083 brak
 pt084 brak skrzynek do wyświetlenia
 pt085 suma
-pt086 dopiero po zalogowaniu procentowo takiej ilości skrzynek, użytkownik uzyska możliwość zaliczenia serii, czyli wpisu 'zdobyty' w komentarzach power Traila
+pt086 dopiero po zalogowaniu procentowo takiej ilości skrzynek, użytkownik uzyska możliwość zaliczenia geoŚcieżki, czyli wpisu 'zdobyty' w komentarzach geoŚcieżki
 pt087 Co to jest
 pt088 Pomoc
 pt089 Publiczny - widoczny dla wszystkich <br /> Narazie niewidoczny - widoczny tylko dla założycieli
-pt090 Określa charakter serii. Jeśli większość skrzynek projektu pokazuje jakieś interesujące miejsce (szczyt, punkt widokowy, pomnik przyrody, pomnik, zabytek itp.) ustaw <b>krajoznawczy</b>. Jeśli większość skrzynek układa się w linię lub rysunek na mapie - ustaw <b>kształt na mapie</b>. Analogicznie jesli większość skrzynek tyczy się tematyce historycznej lub przyrodniczej ustaw adekwatny typ. Jeśli uważasz, że Twoja seria powinna być w innej kategorii, której tu nie ma, napisz na adres RR (Menu -> kontakt)
+pt090 Określa charakter geoŚcieżki. Jeśli większość skrzynek projektu pokazuje jakieś interesujące miejsce (szczyt, punkt widokowy, pomnik przyrody, pomnik, zabytek itp.) ustaw <b>krajoznawczy</b>. Jeśli większość skrzynek układa się w linię lub rysunek na mapie - ustaw <b>kształt na mapie</b>. Analogicznie jesli większość skrzynek tyczy się tematyce historycznej lub przyrodniczej ustaw adekwatny typ. Jeśli uważasz, że Twoja geoŚcieżka powinna być w innej kategorii, której tu nie ma, napisz na adres RR (Menu -> kontakt)
 pt091 Zmień nazwę
 pt092 Na czas testów dostępne tylko dla wybranych użytkowników. Błędy proszę zgłaszać na adres rt lub skype 
-pt093 Zdobytych Serii
-pt094 Ta skrzynka należy do serii
+pt093 Zdobytych geoŚcieżek
+pt094 Ta skrzynka należy do geoŚcieżki
 pt095 Geokeszer(ka)
-pt096 Znalezień w ramach Serii
+pt096 Znalezień w ramach geoŚcieżki
 pt097 procent znalezień
 pt098 Pokaż więcej statystyk 
-pt099 Statystyki dla
+pt099 Statystyki dla geoŚcieżki 
 pt100 Ukryj statystyki
 pt101 dni keszowania
 pt102 znaleznień/dzień
 pt103 znalezione
 pt104 pozostało
-pt105 Brak statystyk dla tej serii
+pt105 Brak statystyk dla tej geoŚcieżki
 pt106 Rozmiary skrzynek
 pt107 Typy skrzynek
 pt108 Tradycyjna
@@ -1767,39 +1767,43 @@ pt114 Mała
 pt115 Normalna
 pt116 Duża
 pt117 B. Duża
-pt118 Nie ma jeszcze żadnych wpisów :-(
+pt118 ta geoŚcieżka nie ma jeszcze żadnych wpisów :-(
 pt119 Liczba wszystkich zdobywających
 pt120 Liczba geokeszerów, którzy zdobyli 
 pt121 Średnia ilość dni potrzbnych do zdobycia 
 pt122 inne ciekawostki
 pt123 wartość
-pt124 <b>wis</b> - wymagana ilość skrzynek, zadeklarowana przez założycieli liczba określająca minimalną ilość skrzynek, która jest wymagana do zdobycia power traila.
+pt124 <b>wis</b> - wymagana ilość skrzynek, zadeklarowana przez założycieli liczba określająca minimalną ilość skrzynek, która jest wymagana do zdobycia geoŚcieżki.
 pt125 wis
 pt126 Informacja
 pt127 dodał wpis typu
-pt128 Nowy wpis dla Power Traila
+pt128 Nowy wpis dla geoŚcieżki
 pt129 Używasz starej przeglądarki (IE6, IE7, IE8), która nie jest już obsługiwana. Strona nie będzie działać prawidłowo, lub jej funkcje zostaną znacząco ograniczone. (nie będziesz mieć dostępu do większośći funkcjonalności). Zalecamy skorzystanie z najnowszych przeglądarek. (<a href="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>)
 pt130 Usuń
-pt131 Usunięto wpis z Power Traila
+pt131 Usunięto wpis z geoŚcieżki
 pt132 usunął wpis typu
 pt133 treść komentarza
 pt134 data komentarza (wpisana przez użytkownika)
 pt135 keszerzy 'zmaronowali' łącznie keszo-dni
-pt136 geograficzny środek serii 
-pt137 Power Trail Tygodnia
+pt136 geograficzny środek geoŚcieżki 
+pt137 GeoŚcieżka Tygodnia
 pt138 skrzynek
-pt139 Power Trail
-pt140 Ilość zdobytych punktów w kategorii Power Traili
+pt139 geoŚcieżka
+pt140 Ilość zdobytych punktów w kategorii geoŚcieżki
 pt141 Kesz w terenie, można szukać
 pt142 Tymczasowo niedostępny
 pt143 Niestety zarchiwizowany
 pt144 Jeszcze nieopublikowany
 pt145 Edycja
-pt146 Edytowano treść komentarza dla Power Traila
+pt146 Edytowano treść komentarza dla geoŚcieżki
 pt147 edytował wpis 
 pt148 Kesz Finałowy
 pt149 Wskaż Finały
 pt150 Wróć do widoku normalnego
+pt151 Powtwierdź usunięcie wpisu
+pt152 Podaj przyczynę usunięcia wpisu:
+pt153 przyczyna usunięcia wpisu: 
+pt154 znaków
 statpic_found Znalazł:
 statpic_hidden Ukrył:
 statpic_html_link - Statystyka dla

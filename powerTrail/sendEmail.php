@@ -4,7 +4,7 @@ require_once __DIR__.'/../lib/common.inc.php';
 $siteDateFormat = 'Y-m-d';
 $siteDateTimeFormat = 'Y-m-d H:i';
 
-function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $action, $commentOwnerId = false){
+function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $action, $commentOwnerId = false, $delReason = ''){
 	global $octeam_email, $usr, $absolute_server_URI, $site_name, $siteDateFormat, $siteDateTimeFormat;
 	require_once __DIR__.'/powerTrailBase.php';
 	$owners = powerTrailBase::getPtOwners($ptId);
@@ -27,17 +27,21 @@ function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $actio
 			$subject = tr('pt131').' '.$ptDbRow['name'];
 			$mailbody = mb_ereg_replace('{commentAction}', tr('pt132'), $mailbody);
 			$mailbody = mb_ereg_replace('{actionDesc}', tr('pt131'), $mailbody);
+			$mailbody = mb_ereg_replace('{delReason}', $delReason, $mailbody);
+			$mailbody = mb_ereg_replace('{pt153}', tr('pt153'), $mailbody);
 			break;
 		
 		case 'newComment':
 			$subject = tr('pt128').' '.$ptDbRow['name'];
 			$mailbody = mb_ereg_replace('{commentAction}', tr('pt127'), $mailbody);
 			$mailbody = mb_ereg_replace('{actionDesc}', tr('pt128'), $mailbody);
+			$mailbody = mb_ereg_replace('{pt153}', '', $mailbody);
 			break;
 		case 'editComment':
 			$subject = tr('pt146').' '.$ptDbRow['name'];
 			$mailbody = mb_ereg_replace('{commentAction}', tr('pt147'), $mailbody);
 			$mailbody = mb_ereg_replace('{actionDesc}', tr('pt146'), $mailbody);
+			$mailbody = mb_ereg_replace('{pt153}', '', $mailbody);
 			break;
 	}
 	

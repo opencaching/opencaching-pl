@@ -63,7 +63,5 @@ $toDisplay .= '</table>';
 if ($_REQUEST['start']-20 < 0 ) $startNew = 0; else $startNew = $_REQUEST['start']-20;
 if ($_REQUEST['start'] > 0) $toDisplay .= '<a href="javascript:void(0)" onclick="ajaxGetComments('.$startNew.', 20);" class="editPtDataButton">'.tr('pt059').'</a>';
 if ($count > $nextSearchStart) $toDisplay .= '<a href="javascript:void(0)" onclick="ajaxGetComments('.$nextSearchStart.', 20);" class="editPtDataButton">'.tr('pt058').'</a>';
-
 echo $toDisplay;
-
 ?>
