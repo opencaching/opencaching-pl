@@ -459,10 +459,16 @@ function ajaxAddComment(){
     	$('#conquestCount').html(newcount);
     }
     toggleAddComment();
-    ajaxGetComments(0, 8);
-    $('html, body').animate({
-        scrollTop: $("#ptComments").offset().top
-    }, 2000); 
+   
+	$(function() {
+		setTimeout(function() {
+	    	ajaxGetComments(0, 8);
+	    	$('html, body').animate({
+	        	scrollTop: $("#ptComments").offset().top
+	    	}, 2000);   
+	    }, 2000);
+
+	});   
 }
 
 function toggleAddComment(){

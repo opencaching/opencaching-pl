@@ -4,7 +4,7 @@ require_once __DIR__.'/../lib/common.inc.php';
 $siteDateFormat = 'Y-m-d';
 $siteDateTimeFormat = 'Y-m-d H:i';
 
-function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $action){
+function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $action, $commentOwnerId = false){
 	global $octeam_email, $usr, $absolute_server_URI, $site_name, $siteDateFormat, $siteDateTimeFormat;
 	require_once __DIR__.'/powerTrailBase.php';
 	$owners = powerTrailBase::getPtOwners($ptId);
@@ -53,10 +53,18 @@ function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $actio
 	$mailbody = mb_ereg_replace('{pt134}', tr('pt134'), $mailbody);
 	$mailbody = mb_ereg_replace('{commentText}', htmlspecialchars_decode(stripslashes($commentText)), $mailbody);
 	$mailbody = mb_ereg_replace('{addingCommentDateTime}', date($siteDateTimeFormat), $mailbody);
-	                                             
+	   
+	$doNotSendEmailToCommentAuthor = false;                                             
 	foreach ($owners as $owner) {
 		$to = $owner['email'];
 		mb_send_mail($to, $subject, $mailbody, $headers);
+		if($commentOwnerId && $commentOwnerId == $owner["user_id"]){
+			$doNotSendEmailToCommentAuthor = true;
+		}
+	}
+	if($commentOwnerId && !$doNotSendEmailToCommentAuthor){
+		$userDetails = powerTrailBase::getUserDetails($commentOwnerId);
+		mb_send_mail($userDetails['email'], $subject, $mailbody, $headers);
 	}
 	//for debug only
 	mb_send_mail('lza@tlen.pl', $subject, $mailbody, $headers);

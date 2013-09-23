@@ -32,7 +32,7 @@ if(powerTrailBase::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrai
 		$q = 'UPDATE `PowerTrail` SET `PowerTrail`.`conquestedCount`= (SELECT COUNT(*) FROM `PowerTrail_comments` WHERE `PowerTrail_comments`.`PowerTrailId` = :1 AND `PowerTrail_comments`.`commentType` = 2 AND `PowerTrail_comments`.`deleted` = 0 ) WHERE `PowerTrail`.`id` = :1 ';
 		$db->multiVariableQuery($q, $powerTrailId);
 	}
-	emailOwners($powerTrailId, $commentDbRow['commentType'], $commentDbRow['logDateTime'], $commentDbRow['commentText'], 'delComment');
+	emailOwners($powerTrailId, $commentDbRow['commentType'], $commentDbRow['logDateTime'], $commentDbRow['commentText'], 'delComment', $commentDbRow['userId']);
 }
 
 

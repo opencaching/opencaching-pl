@@ -205,6 +205,14 @@ class powerTrailBase{
 		return $answer['count'];
 	}
 	
+	public static function getUserDetails($userId) {
+		$q = 'SELECT * FROM `user` WHERE `user_id` =:1 LIMIT 1';
+		$db = new dataBase;
+		$db->multiVariableQuery($q, $userId);
+		$answer = $db->dbResultFetch();
+		return $answer;
+	}
+	
 	public static function getSingleComment($commentId) {
 		$query = 'SELECT * FROM `PowerTrail_comments` WHERE `id` = :1 LIMIT 1';
 		$db = new dataBase;
@@ -229,42 +237,42 @@ class powerTrailBase{
 	}
 
 
-public static function recalculateCenterAndPoints($caches){
-	
-	$points = 0;
-	$lat = 0;
-	$lon = 0;
-	$counter = 0;
-	foreach ($caches as $cache){
-		$points += self::getCachePoints($cache);
-        $lat += $cache['latitude'];
-		$lon += $cache['longitude'];
-		$counter++;
-	}
-
-	if($counter>0){
-		$result['avgLat'] = $lat/$counter;
-		$result['avgLon'] = $lon/$counter;
-	} else {
-		$result['avgLat'] = 0;
-		$result['avgLon'] = 0;
-	}
-	$result['points'] = $points;
-	$result['cacheCount'] = $counter;
-	return $result;
-}
-
-public static function writePromoPt4mainPage($oldPtId){
-	$q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1';
-	$db = new dataBase;
-	$db->multiVariableQuery($q, $oldPtId);
-	$r = $db->dbResultFetchAll();
-	foreach ($r as $pt) {
-		if ($pt['id'] > $oldPtId){
-			return $pt;
+	public static function recalculateCenterAndPoints($caches){
+		
+		$points = 0;
+		$lat = 0;
+		$lon = 0;
+		$counter = 0;
+		foreach ($caches as $cache){
+			$points += self::getCachePoints($cache);
+	        $lat += $cache['latitude'];
+			$lon += $cache['longitude'];
+			$counter++;
 		}
+	
+		if($counter>0){
+			$result['avgLat'] = $lat/$counter;
+			$result['avgLon'] = $lon/$counter;
+		} else {
+			$result['avgLat'] = 0;
+			$result['avgLon'] = 0;
+		}
+		$result['points'] = $points;
+		$result['cacheCount'] = $counter;
+		return $result;
 	}
-	return $r[0];
-}
+	
+	public static function writePromoPt4mainPage($oldPtId){
+		$q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1';
+		$db = new dataBase;
+		$db->multiVariableQuery($q, $oldPtId);
+		$r = $db->dbResultFetchAll();
+		foreach ($r as $pt) {
+			if ($pt['id'] > $oldPtId){
+				return $pt;
+			}
+		}
+		return $r[0];
+	}
 
 }
