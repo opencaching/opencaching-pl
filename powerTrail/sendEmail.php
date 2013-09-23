@@ -35,12 +35,14 @@ function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $actio
 			$subject = tr('pt128').' '.$ptDbRow['name'];
 			$mailbody = mb_ereg_replace('{commentAction}', tr('pt127'), $mailbody);
 			$mailbody = mb_ereg_replace('{actionDesc}', tr('pt128'), $mailbody);
+			$mailbody = mb_ereg_replace('{delReason}', '', $mailbody);
 			$mailbody = mb_ereg_replace('{pt153}', '', $mailbody);
 			break;
 		case 'editComment':
 			$subject = tr('pt146').' '.$ptDbRow['name'];
 			$mailbody = mb_ereg_replace('{commentAction}', tr('pt147'), $mailbody);
 			$mailbody = mb_ereg_replace('{actionDesc}', tr('pt146'), $mailbody);
+			$mailbody = mb_ereg_replace('{delReason}', '', $mailbody);
 			$mailbody = mb_ereg_replace('{pt153}', '', $mailbody);
 			break;
 	}
