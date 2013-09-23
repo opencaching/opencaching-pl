@@ -1817,21 +1817,21 @@ region_01 Regio via opgegeven coördinaten:
 region_02 Land
 region_03 Provincie gevonden via OC.NL
 region_04 Provincie gevonden via Google Map
-cacheType_01 Traditionele Cache
-cacheType_02 Multi Cache
-cacheType_03 Puzzel Cache
-cachetype_04 Reizende Cache
-cacheType_05 Onbekende Cache
-cacheType_06 Evenement
-cacheType_07 Webcam Cache
-cacheType_08 Virtuele Cache
-cacheType_09 Podcast Cache
+cacheType_1 Traditionele Cache
+cacheType_2 Multi Cache
+cacheType_3 Puzzel Cache
+cachetype_4 Reizende Cache
+cacheType_5 Onbekende Cache
+cacheType_6 Evenement
+cacheType_7 Webcam Cache
+cacheType_8 Virtuele Cache
+cacheType_9 Podcast Cache
 cacheType_10 Eigen Cache
-cacheSyze_02 Micro
-cacheSyze_03 Klein
-cacheSyze_04 Normaal
-cacheSyze_05 Groot
-cacheSyze_06 Extra groot
-cacheSyze_07 Geen behuizing
+cacheSyze_2 Micro
+cacheSyze_3 Klein
+cacheSyze_4 Normaal
+cacheSyze_5 Groot
+cacheSyze_6 Extra groot
+cacheSyze_7 Geen behuizing
 
 

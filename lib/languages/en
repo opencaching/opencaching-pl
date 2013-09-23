@@ -1528,21 +1528,21 @@ region_01 Region from coordinates:
 region_02 Country
 region_03 Region found by OC.PL
 region_04 Region found by Google Maps
-cacheType_01 Traditional
-cacheType_02 Multicache
-cacheType_03 Quiz
-cachetype_04 Moving
-cacheType_05 Unknown type
-cacheType_06 Event
-cacheType_07 Webcam
-cacheType_08 Virtual
-cacheType_09 Podcast cache
+cacheType_1 Traditional
+cacheType_2 Multicache
+cacheType_3 Quiz
+cachetype_4 Moving
+cacheType_5 Unknown type
+cacheType_6 Event
+cacheType_7 Webcam
+cacheType_8 Virtual
+cacheType_9 Podcast cache
 cacheType_10 Own cache
-cacheSyze_02 Micro
-cacheSyze_03 Small
-cacheSyze_04 Normal
-cacheSyze_05 Large
-cacheSyze_06 Very large
-cacheSyze_07 No container
+cacheSyze_2 Micro
+cacheSyze_3 Small
+cacheSyze_4 Normal
+cacheSyze_5 Large
+cacheSyze_6 Very large
+cacheSyze_7 No container
 
 
