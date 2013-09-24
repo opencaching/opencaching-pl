@@ -17,6 +17,7 @@ $ptAPI = new powerTrailBase;
 
 if(isset($_REQUEST['rcalcAll'])){
 	recalculateOnce();
+	print '<br><br><b>cachePoints were updated</b>';
 	exit;	
 } 
 
@@ -105,8 +106,7 @@ function getCachePoints($cacheId){
 	else $altPoints = 1+($altitude-400)/200 ;
 	$difficPoint = round($cacheData['difficulty']/3,2);
 	$terrainPoints = round($cacheData['terrain']/3,2);
-	// print "alt: $altPoints / type: $typePoints / size: $sizePoints / dif: $difficPoint / ter: $difficPoint"; 
-	return ($altPoints + $typePoints + $sizePoints + $difficPoint + $difficPoint);
+	return ($altPoints + $typePoints + $sizePoints + $difficPoint + $terrainPoints);
 }
 
 function recalculate($projectId) {
@@ -133,7 +133,6 @@ function recalculateOnce() {
 		$cachePoints = powerTrailBase::getCachePoints($cache);
 		$updateQuery = 'UPDATE `powerTrail_caches` SET `points`=:1 WHERE `cacheId`=:2';
 		$db->multiVariableQuery($updateQuery, $cachePoints, $cache['cache_id']);
-		//$db->
 		print $cache['wp_oc'].' updated '.$cachePoints.'<br/>';
 	}
 	// print '<pre>';

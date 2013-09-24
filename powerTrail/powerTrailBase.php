@@ -232,8 +232,7 @@ class powerTrailBase{
 		else $altPoints = 1+($altitude-400)/200 ;
 		$difficPoint = round($cacheData['difficulty']/3,2);
 		$terrainPoints = round($cacheData['terrain']/3,2);
-		// print "alt: $altPoints / type: $typePoints / size: $sizePoints / dif: $difficPoint / ter: $difficPoint"; 
-		return ($altPoints + $typePoints + $sizePoints + $difficPoint + $difficPoint);
+		return ($altPoints + $typePoints + $sizePoints + $difficPoint + $terrainPoints);
 	}
 
 

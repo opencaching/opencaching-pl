@@ -341,9 +341,8 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
 $powerTrailBetaTesters = array(9067, 9078, 7699, 7969, 4029, 10737, 1038, 33407, 1769, 1, 3, 24777, 26496, 19613, 34803, 9778, 29133, 24076, 19738, 38859, 22940, 5923, 20932, 24515, 16517, 15695, 33346, 21165);
 if (in_array($usr['userid'], $powerTrailBetaTesters)){
 	$powerTrailModuleSwitchOn = true;
-} else {
-	$powerTrailModuleSwitchOn = false;
-}
+} 
+
 unset($powerTrailBetaTesters);
 /* end temporary check for PowerTrails */	
 	
