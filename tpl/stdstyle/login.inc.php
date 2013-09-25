@@ -28,17 +28,17 @@
 	$message_start = '<div class="warning" style="height:40px;">';
 	$message_end = '</div>';
  	$logoutsuccess = ''.$language[$lang][logoutsuccess].'';
-	$message_logout_before_login_title = 'Już powiadomiony';
-	$message_logout_before_login = 'Już jesteś zalogowany. Jeśli chcesz zalogować jako inny użytkownik, musisz się najpierw <a href="logout.php">wylogować</a>.</p>';
-	$message_login_redirect = 'Zalogowałeś się poprawnie. Teraz będziesz przekierowany na stronę docelową.';
+	$message_logout_before_login_title = tr('login_message_01');
+	$message_logout_before_login = tr('login_message_02');
+	$message_login_redirect = tr('login_message_03');
 
-	$error_loginnotok = 'Logowanie nie powiodło się.<br />Jeśli problem powtarza się prosimy o kontakt na adres ocpl @ opencaching.pl</a>.';
-	$error_toomuchlogins = 'Logowanie nie powiodło się.<br />Zbyt dużo prób logowania. Próbowałeś przez ostatnią godzinę 25 razy zalogować się do opencaching.pl podając błędne dane.';
-	$error_invalidemail = 'Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkownika lub email są nieprawidłowe.';
-	$error_wrongauthinfo = 'Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkownika lub hasło są nieprawidłowe.';
+	$error_loginnotok = tr('login_message_04');
+	$error_toomuchlogins = tr('login_message_05');
+	$error_invalidemail = tr('login_message_06');
+	$error_wrongauthinfo = tr('login_message_07');
 	$error_usernotactive = ''.$language[$lang][error_usernotactive].'';
 
-	$cookies_error = 'Twoja przeglądarka nie zapisała ciasteczek dla opencaching.pl.';
+	$cookies_error = tr('login_message_08');
 
-	$emptyform = 'Strona, którą zamierzasz otworzyć, wymaga zalogowania.';
+	$emptyform = tr('login_message_09');
 ?>

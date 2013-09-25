@@ -1797,6 +1797,13 @@ pt144 Nog niet gepubliceerd
 pt145 Bewerken
 pt146 Bewerkte log
 pt147 Heeft een log bewerkt
+pt148 Laatste cache
+pt149 Selecteer laatste cache
+pt150 Terug naar normale weergave
+pt151 Bevestig verwijdering van log
+pt152 Reden om de log te verwijderen:
+pt153 Tekst bij verwijdering:
+pt154 tekens
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
@@ -1833,5 +1840,14 @@ cacheSyze_4 Normaal
 cacheSyze_5 Groot
 cacheSyze_6 Extra groot
 cacheSyze_7 Geen behuizing
+login_message_01 Je bent al ingelogt.
+login_message_02 Je bent al ingelogt. Wanneer je als andere gebruiker in wilt loggen, moet je eerst <a href="logout.php">uitloggen</a>.</p>
+login_message_03 Je bent correct ingelogt. Je wordt nu doorgestuurd naar de startpagina.
+login_message_04 Inloggen mislukt.<br />Indien het probleem blijft bestaan gelieve contact op te nemen met {mail_oc}
+login_message_05 Inloggen mislukt.<br />Er zijn in het afgelopen uur 25 keer onjuiste inlog pogingen gedaan op {site_name}.
+login_message_06 Inloggen mislukt.<br />Ingevoerde naam of e-mail is onjuist.
+login_message_07 Inloggen mislukt.<br />Ingevoerde naam of wachtwoord is onjuist.
+login_message_08 Deze browser ondersteunt geen cookies van {site_name}
+login_message_09 Om deze pagina te openen dient er ingelogt te zijn.
 
 
