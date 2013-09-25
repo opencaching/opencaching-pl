@@ -1096,7 +1096,7 @@ var bounds = new google.maps.LatLngBounds();
     var onMarkerClick = function() {
       var markerx = this;
       //var latLng = markerx.getTitle();
-      infoWindow.setContent('<img src="'+this.ic+'"> ' + this.txt);
+      infoWindow.setContent('<div class="mapCloud"><img src="'+this.ic+'"> ' + this.txt + '<div>');
       infoWindow.open(map, markerx);
     };
     google.maps.event.addListener(map, 'click', function() {
@@ -1373,6 +1373,13 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	font-size: 11px;
 	float: right;
 	font-weight: bold;
+}
+
+.mapCloud {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 </style>
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>

@@ -251,7 +251,8 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 	foreach ($pTrailCaches as $rowNr => $cache) {
 		if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $image = 'tpl/stdstyle/images/'.$foundCacheTypesIcons[$cache['type']];
 		else $image = 'tpl/stdstyle/images/'.$cacheTypesIcons[$cache['type']];
-		$cacheRows .= '['.$cache['latitude'].",".$cache['longitude'].",'<a href=".$cache["wp_oc"].">".$cache['name']."</a>',". "'$image','".$cache['name']."',],";
+		$cacheRows .= '['.$cache['latitude'].",".$cache['longitude'].",'<a href=".$cache["wp_oc"]." target=_new>".$cache['name']."</a>',". "'$image','".$cache['name']."',],";
+		
 	}	
 	$cacheRows = rtrim($cacheRows, ",");
 	// powerTrailController::debug($pTrailCaches);
