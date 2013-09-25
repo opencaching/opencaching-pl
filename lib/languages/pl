@@ -1810,7 +1810,7 @@ statpic_html_link - Statystyka dla
 cog_user_name Centrum Obsługi Geocachera
 region_01 Województwo dla współrzędnych
 region_02 Kraj
-region_03 Województwo na podstawie bazy OC PL
+region_03 Województwo na podstawie bazy {site_name}
 region_04 Województwo na podstawie Google Map
 cacheType_1 Tradycyjna
 cacheType_2 Multicache
@@ -1831,7 +1831,7 @@ cacheSyze_7 Bez pojemnika
 login_message_01 Już powiadomiony
 login_message_02 Już jesteś zalogowany. Jeśli chcesz zalogować jako inny użytkownik, musisz się najpierw <a href="logout.php">wylogować</a>.</p>
 login_message_03 Zalogowałeś się poprawnie. Teraz będziesz przekierowany na stronę docelową.
-login_message_04 Logowanie nie powiodło się.<br />Jeśli problem powtarza się prosimy o kontakt na adres {mail_oc}
+login_message_04 Logowanie nie powiodło się.<br />Jeśli problem powtarza się prosimy o kontakt oc-team
 login_message_05 Logowanie nie powiodło się.<br />Zbyt dużo prób logowania. Próbowałeś przez ostatnią godzinę 25 razy zalogować się do {site_name} podając błędne dane.
 login_message_06 Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkownika lub email są nieprawidłowe.
 login_message_07 Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkownika lub hasło są nieprawidłowe.

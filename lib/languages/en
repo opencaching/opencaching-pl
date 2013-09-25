@@ -1526,7 +1526,7 @@ statpic_html_link - Statistics for
 cog_user_name Geocacher service center
 region_01 Region from coordinates:
 region_02 Country
-region_03 Region found by OC.PL
+region_03 Region found by {site_name}
 region_04 Region found by Google Maps
 cacheType_1 Traditional
 cacheType_2 Multicache
@@ -1544,5 +1544,14 @@ cacheSyze_4 Normal
 cacheSyze_5 Large
 cacheSyze_6 Very large
 cacheSyze_7 No container
+login_message_01 You are logged in.
+login_message_02 You are logged in. If you want to login as another user, please <a href="logout.php">logout</a>.</p>
+login_message_03 You are succesfull logged in. You will be directed to the startpage.
+login_message_04 Login failed.<br />If the proble exists please contact the oc-team
+login_message_05 Login failed.<br />There where 25 false login attempts in past our on {site_name}
+login_message_06 Login failed.<br />Username or e-mail not recognized.
+login_message_07 Login failed.<br />Username or password not recognized.
+login_message_08 Your browser does not accept cookies from {site_name}
+login_message_09 To view this page, you need to log in.
 
 

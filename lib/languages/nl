@@ -1822,7 +1822,7 @@ notify_newcachemail12 Er zijn nog geen nieuwe logs.
 cog_user_name Dienst Cache Beheer
 region_01 Regio via opgegeven coördinaten:
 region_02 Land
-region_03 Provincie gevonden via OC.NL
+region_03 Provincie gevonden via {site_name}
 region_04 Provincie gevonden via Google Map
 cacheType_1 Traditionele Cache
 cacheType_2 Multi Cache
@@ -1843,7 +1843,7 @@ cacheSyze_7 Geen behuizing
 login_message_01 Je bent al ingelogt.
 login_message_02 Je bent al ingelogt. Wanneer je als andere gebruiker in wilt loggen, moet je eerst <a href="logout.php">uitloggen</a>.</p>
 login_message_03 Je bent correct ingelogt. Je wordt nu doorgestuurd naar de startpagina.
-login_message_04 Inloggen mislukt.<br />Indien het probleem blijft bestaan gelieve contact op te nemen met {mail_oc}
+login_message_04 Inloggen mislukt.<br />Indien het probleem blijft bestaan gelieve contact op te nemen met het oc-team
 login_message_05 Inloggen mislukt.<br />Er zijn in het afgelopen uur 25 keer onjuiste inlog pogingen gedaan op {site_name}.
 login_message_06 Inloggen mislukt.<br />Ingevoerde naam of e-mail is onjuist.
 login_message_07 Inloggen mislukt.<br />Ingevoerde naam of wachtwoord is onjuist.
