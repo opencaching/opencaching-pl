@@ -1804,6 +1804,14 @@ pt151 Powtwierdź usunięcie wpisu
 pt152 Podaj przyczynę usunięcia wpisu:
 pt153 przyczyna usunięcia wpisu: 
 pt154 znaków
+pt155 GeoŚcieżki - pomoc
+pt156 Usuń dowolną skrzynkę
+pt157 Podaj waypoint skrzynki, którą chcesz dodać do geoŚcieżki
+pt158 Podaj waypoint skrzynki, którą chcesz usunąć z geoŚcieżki
+pt159 Usuń tą skrzynkę
+pt160 Skrzynka nie należy do tej geoŚcieżki
+pt161 Skrzynkę usunięto z geoŚcieżki
+pt162 Keszynka dodana do geoŚcieżki
 statpic_found Znalazł:
 statpic_hidden Ukrył:
 statpic_html_link - Statystyka dla

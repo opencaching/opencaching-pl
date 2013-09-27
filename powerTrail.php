@@ -51,6 +51,8 @@ if ($error == false)
 		tpl_set_var('ptList4map', '[]');
 		tpl_set_var('fullCountryMap', '1');
 		tpl_set_var('googleMapApiKey', $googlemap_key);
+		tpl_set_var('ocWaypoint', $oc_waypoint);
+		
 		
 		if(!$usr) tpl_set_var('ptMenu', 'none');
 		$ptMenu = new powerTrailMenu($usr);

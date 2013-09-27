@@ -23,6 +23,7 @@ if(isset($_REQUEST['rcalcAll'])){
 
 isset($_REQUEST['projectId']) ? $projectId = $_REQUEST['projectId'] : exit;
 isset($_REQUEST['cacheId']) ? $cacheId = $_REQUEST['cacheId'] : exit;
+isset($_REQUEST['rmOtherUserCacheFromPt']) ? $rmOtherUserCacheFromPt = true : $rmOtherUserCacheFromPt = false;
 
 $db = new dataBase();
 // check if cache is already cannected with any power trail
@@ -36,8 +37,20 @@ if(isset($resultPowerTrailId['PowerTrailId']) && $resultPowerTrailId['PowerTrail
 	$caheIsAttaschedToPt = false;
 }
 
+if($rmOtherUserCacheFromPt === true){
+	if ($caheIsAttaschedToPt === true){
+		removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
+		recalculate($resultPowerTrailId['PowerTrailId']);	
+		print 'Removed';
+	} else {
+		print 'cache not assigned to Power Trail';
+	}
+	exit;
+}
+
 if ($projectId > 0 && $caheIsAttaschedToPt===false) {
 	addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI);
+	print 'cacheAdded';
 }
 if ($projectId <= 0){
 	removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
@@ -47,9 +60,10 @@ if ($projectId > 0 && $caheIsAttaschedToPt===true) {
 	removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
 	addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI);
 	recalculate($resultPowerTrailId['PowerTrailId']);
+	print 'cacheAdded';
 }
 
-echo 'OK';
+// echo 'OK';
 
 
 function addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI) {

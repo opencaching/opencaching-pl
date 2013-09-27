@@ -38,7 +38,7 @@
 
  ****************************************************************************/
 include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString, $powerTrailModuleSwitchOn;
+global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString, $powerTrailModuleSwitchOn, $powerTrailFaqLink;
 
 $menu = array(
     array(
@@ -218,7 +218,15 @@ $menu = array(
                 'menustring'    => tr('pt001'),
                 'siteid'        => 'powerTrail',
                 'visible'       => $powerTrailModuleSwitchOn,
-                'filename'      => 'powerTrail.php'
+                'filename'      => 'powerTrail.php',
+                'submenu'       => array(
+                    array(
+                        'title'         => tr('pt155'),
+                        'menustring'    => tr('pt155'),
+                        'siteid'        => 'geoSciezkiFAQ',
+                        'visible'       => $powerTrailModuleSwitchOn,
+                        'filename'      => $powerTrailFaqLink,
+                    ),),
             )
         )
     ),

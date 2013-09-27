@@ -46,6 +46,93 @@ $(function() {
 	ajaxGetComments(0, 8);
 }); 
 
+
+function toggleSearchCacheSection2(){
+	if ($('#toggleSearchCacheSection2').is(":visible")){
+		$('#toggleSearchCacheSection2').fadeOut(800);
+		$('#toggleSearchCacheSection0').fadeOut(800);
+		$('#toggleSearchCacheSection3').fadeOut(800);
+		$('#finalCachesbtn').fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+	       		$('#searchCacheSectionRm').fadeIn(800);
+	       		$('#toggleSearchCacheSectionRm').fadeIn(800);
+	    	}, 801);
+		});
+	} else {
+   		$('#searchCacheSectionRm').fadeOut(800);
+   		$('#toggleSearchCacheSectionRm').fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+				$('#toggleSearchCacheSection2').fadeIn(800);
+				$('#toggleSearchCacheSection0').fadeIn(800);
+				$('#toggleSearchCacheSection3').fadeIn(800);
+				$('#finalCachesbtn').fadeIn(800);
+				$('#newCacheName').html('');
+				$('#newCacheNameId').val('');
+				$('#CacheWaypoint').val('OP');
+	    	}, 801);
+		});
+	}
+	
+}
+
+
+function ajaxRmOtherUserCache(){
+	$('#AloaderNewCacheAdding').show();
+	$('#searchCacheSection2').fadeOut(500);
+	var newCacheId2 = $('#newCacheNameId2').val();
+
+	request = $.ajax({
+    	url: "powerTrail/ajaxAddCacheToPt.php",
+    	type: "post",
+    	data:{projectId: $('#xmd34nfywr54').val(), cacheId: newCacheId2, rmOtherUserCacheFromPt: 1 },
+	});
+
+    request.done(function (response, textStatus, jqXHR){
+    	ajaxGetPtCaches();
+    	if(response == 'Removed'){
+    		$("#AloaderNewCacheAddingOKimg").fadeIn(800);
+    		$("#message").html('{{pt161}}');
+    		$("#message").fadeIn(800);
+	    	$(function() {
+		    	setTimeout(function() {
+	       			$("#AloaderNewCacheAddingOKimg").fadeOut(1000);
+	       			$("#message").fadeOut(1000);
+	    		}, 3000);
+			});
+		} else {
+			$("#AloaderNewCacheAddingNOKimg").fadeIn(800);
+			$("#message").html('{{pt160}}');
+			$("#message").fadeIn(800);
+	    	$(function() {
+		    	setTimeout(function() {
+	       			$("#AloaderNewCacheAddingNOKimg").fadeOut(1000);
+	       			$("#message").fadeOut(1000);
+	    		}, 3000);
+			});
+		}
+        console.log("ajaxRmOtherUserCache finished successfully: "+response);
+    });
+
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // log the error to the console
+        console.error(
+            "The following error occured: "+
+            textStatus, errorThrown
+        );
+    });
+
+    request.always(function () {
+    	toggleSearchCacheSection2();
+    	$('#AloaderNewCacheAdding').hide();
+    	
+    });
+
+	return false;
+}
+
+
 function reloadWithFinalsChoice(){
 	if($('#finalCachesbtn').html() == '{{pt150}}'){
 		ajaxGetPtCaches();
@@ -542,11 +629,11 @@ function ajaxGetComments(start, limit){
 }
 
 function toggleSearchCacheSection(){
-	// event.preventDefault();
 	if ($('#toggleSearchCacheSection2').is(":visible")){
 		$('#toggleSearchCacheSection2').fadeOut(800);
 		$('#toggleSearchCacheSection0').fadeOut(800);
-		
+		$('#toggleSearchCacheSection3').fadeOut(800);
+		$('#finalCachesbtn').fadeOut(800);
 		$(function() {
 			setTimeout(function() {
 	       		$('#searchCacheSection').fadeIn(800);
@@ -556,10 +643,13 @@ function toggleSearchCacheSection(){
 	} else {
    		$('#searchCacheSection').fadeOut(800);
    		$('#toggleSearchCacheSection1').fadeOut(800);
+   		$('#toggleSearchCacheSectionRm').fadeOut(800);
 		$(function() {
 			setTimeout(function() {
 				$('#toggleSearchCacheSection2').fadeIn(800);
 				$('#toggleSearchCacheSection0').fadeIn(800);
+				$('#toggleSearchCacheSection3').fadeIn(800);
+				$('#finalCachesbtn').fadeIn(800);
 				$('#newCacheName').html('');
 				$('#newCacheNameId').val('');
 				$('#CacheWaypoint').val('OP');
@@ -568,6 +658,7 @@ function toggleSearchCacheSection(){
 	}
 	
 }
+
 function ajaxAddOtherUserCache(){
 	$('#AloaderNewCacheAdding').show();
 	$('#searchCacheSection').fadeOut(500);
@@ -582,13 +673,17 @@ function ajaxAddOtherUserCache(){
     request.done(function (response, textStatus, jqXHR){
     	ajaxGetPtCaches();
     	$("#AloaderNewCacheAddingOKimg").fadeIn(800);
-    	$(function() {
-	    	setTimeout(function() {
-       			$("#AloaderNewCacheAddingOKimg").fadeOut(1000);
-       			 
-    		}, 3000);
-		});
-        // console.log("Hooray, it worked!"+response);
+    	if(response == 'cacheAdded') {
+    		$('#message').html('{{pt162}}');
+    		$("#message").fadeIn(800);
+	    	$(function() {
+		    	setTimeout(function() {
+	       			$("#AloaderNewCacheAddingOKimg").fadeOut(1000);
+	       			$("#message").fadeOut(1000);
+	    		}, 3000);
+			});
+		}
+        console.log("ajaxAddOtherUserCache succesfully: "+response);
     });
 
     request.fail(function (jqXHR, textStatus, errorThrown){
@@ -608,20 +703,18 @@ function ajaxAddOtherUserCache(){
 	return false;
 }
 
-function checkCacheByWpt(){
-	$('#newCache2ptAddButton').hide();
-	$('#newCacheName').html('');
-	var waypoint = $('#CacheWaypoint').val();
+function checkCacheByWpt(id){
+	$('#newCache2ptAddButton'+id).hide();
+	$('#newCacheName'+id).html('');
+	var waypoint = $('#CacheWaypoint'+id).val();
 	if(waypoint.length >= 6) {
-			// alert(waypoint);
-			var cacheName = ajaxRetreiveCacheName(waypoint);
-			// alert(cacheName); 
+			var cacheName = ajaxRetreiveCacheName(waypoint, id);
 	}
 }
 
-function ajaxRetreiveCacheName(waypoint) {
+function ajaxRetreiveCacheName(waypoint, id) {
 
-	$('#AloaderNewCacheSearch').show();
+	$('#AloaderNewCacheSearch'+id).show();
 
 	request = $.ajax({
     	url: "powerTrail/ajaxRetreiveCacheName.php",
@@ -632,11 +725,11 @@ function ajaxRetreiveCacheName(waypoint) {
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
     	var cacheInfoArr = response.split('!1@$%3%7%4@#23557&^%%4#@2$LZA**&6545$###');
-		$('#AloaderNewCacheSearch').hide();
-		$('#newCacheName').html(cacheInfoArr[0]);
-		$('#newCacheNameId').val(cacheInfoArr[1]);
+		$('#AloaderNewCacheSearch'+id).hide();
+		$('#newCacheName'+id).html(cacheInfoArr[0]);
+		$('#newCacheNameId'+id).val(cacheInfoArr[1]);
 		if (cacheInfoArr[1] != ''){
-			$('#newCache2ptAddButton').fadeIn(500);
+			$('#newCache2ptAddButton'+id).fadeIn(500);
 		}       
         console.log("Hooray, it worked! "+response);
     });
@@ -1381,6 +1474,16 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+
+.searchCacheSection{
+	border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+	border:1px solid #337fed;
+	height: 80px;
+	padding: 5px;
+}
+.padding1{
+	padding: 1px;
+}
 </style>
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
 
@@ -1688,25 +1791,39 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	<span id="PowerTrailCaches"></span>
 	<img id="cachesLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
 
-	<table border=0 width=100%>
+	<table border="0" width="90%" align="center">
 	<tr>
 		<td colspan="2">
-			<span id="searchCacheSection" style="display: none">
-				<input onkeyup="checkCacheByWpt()" size="6" id="CacheWaypoint" type="text" maxlength="6" value="OP" />
+			<div id="searchCacheSection" class="searchCacheSection" style="display: none">
+				{{pt157}}:<br /><br />
+				<input onkeyup="checkCacheByWpt('')" size="6" id="CacheWaypoint" type="text" maxlength="6" value="{ocWaypoint}" />
 				<img style="display: none" id="AloaderNewCacheSearch" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
 				<span id="newCacheName"></span>
 				<input type="hidden" id="newCacheNameId" value="-1">
-				<a href="javascript:void(0)" id="newCache2ptAddButton" style="display: none" onclick="ajaxAddOtherUserCache()" class="editPtDataButton">{{pt047}}</a>
-			</span>
+				<br/><br/><a href="javascript:void(0)" id="newCache2ptAddButton" style="display: none" onclick="ajaxAddOtherUserCache()" class="editPtDataButton">{{pt047}}</a>
+				<a href="javascript:void(0)" id="toggleSearchCacheSection1" style="display: none" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt031}}</a>
+			</div>
+			
+			<div id="searchCacheSectionRm" class="searchCacheSection" style="display: none">
+				{{pt158}}:<br /><br />
+				<input onkeyup="checkCacheByWpt(2)" size="6" id="CacheWaypoint2" type="text" maxlength="6" value="{ocWaypoint}" />
+				<img style="display: none" id="AloaderNewCacheSearch2" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+				<span id="newCacheName2"></span>
+				<input type="hidden" id="newCacheNameId2" value="-1">
+				<br/><br/><a href="javascript:void(0)" id="newCache2ptAddButton2" style="display: none" onclick="ajaxRmOtherUserCache()" class="editPtDataButton">{{pt159}}</a>
+				<a href="javascript:void(0)" id="toggleSearchCacheSectionRm" style="display: none" onclick="toggleSearchCacheSection2()" class="editPtDataButton">{{pt031}}</a>
+			</div>
+			
 			<img style="display: none" id="AloaderNewCacheAdding" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
 			<img id="AloaderNewCacheAddingOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+			<img id="AloaderNewCacheAddingNOKimg" style="display: none" src="tpl/stdstyle/images/log/16x16-dnf.png" />
+			<span id="message"></span>
 		</td>
 		<td align="right">
 			<div style="display: {displayAddCachesButtons}">
-				<a href="powerTrail.php?ptAction=selectCaches" id="toggleSearchCacheSection0" class="editPtDataButton">{{pt049}}</a><br />
-				<a href="javascript:void(0)" id="finalCachesbtn" onclick="reloadWithFinalsChoice();" class="editPtDataButton">{{pt149}}</a><br />
-				<a href="javascript:void(0)" id="toggleSearchCacheSection1" style="display: none" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt031}}</a>
-				<a href="javascript:void(0)" id="toggleSearchCacheSection2" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt048}}</a>
+				<div class="padding1"><a href="powerTrail.php?ptAction=selectCaches" id="toggleSearchCacheSection0" class="editPtDataButton">{{pt049}}</a></div>
+				<div class="padding1"><a href="javascript:void(0)" id="finalCachesbtn" onclick="reloadWithFinalsChoice();" class="editPtDataButton">{{pt149}}</a></div>
+				<div class="padding1"><a href="javascript:void(0)" id="toggleSearchCacheSection2" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt048}}</a>&nbsp;<a href="javascript:void(0)" id="toggleSearchCacheSection3" onclick="toggleSearchCacheSection2()" class="editPtDataButton">{{pt156}}</a></div>
 			</div>
 		</td>
 	</tr>
