@@ -1849,12 +1849,12 @@ login_message_06 Inloggen mislukt.<br />Ingevoerde naam of e-mail is onjuist.
 login_message_07 Inloggen mislukt.<br />Ingevoerde naam of wachtwoord is onjuist.
 login_message_08 Deze browser ondersteunt geen cookies van {site_name}
 login_message_09 Om deze pagina te openen dient er ingelogt te zijn.
-graph_statistics_01 Statistieken van www.{site_name} :: Datum &nbsp
+graph_statistics_01 Statistieken van www.{site_name} :: Datum 
 graph_statistics_02 Actieve caches
 graph_statistics_03 Gevonden caches
-graph_statistics_04 Gegevens per &nbsp
-graph_statistics_05 Geplaatste caches: &nbsp
-graph_statistics_06 Actieve caches: &nbsp
-graph_statistics_07 Totaal gevonden caches: &nbsp
+graph_statistics_04 Gegevens per 
+graph_statistics_05 Geplaatste caches: 
+graph_statistics_06 Actieve caches: 
+graph_statistics_07 Totaal gevonden caches: 
 
 
