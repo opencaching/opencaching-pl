@@ -1837,13 +1837,13 @@ login_message_06 Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkowni
 login_message_07 Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkownika lub hasło są nieprawidłowe.
 login_message_08 Twoja przeglądarka nie zapisała ciasteczek dla {site_name}.
 login_message_09 Strona, którą zamierzasz otworzyć, wymaga zalogowania.
-graph_statistics_01 Statystyka dla www.{site_name} :: Data&nbsp;
+graph_statistics_01 Statystyka dla www.{site_name} :: Data &nbsp
 graph_statistics_02 Aktywne skrzynki
 graph_statistics_03 Ile razy odkryto skrzynki
 graph_statistics_04 Dane na dzieñ&nbsp;
-graph_statistics_05 Ukryte skrzynki:&nbsp;
-graph_statistics_06 W tym aktywnych:&nbsp;
-graph_statistics_07 Ile razy odkryto skrzynki:&nbsp;
+graph_statistics_05 Ukryte skrzynki: &nbsp;
+graph_statistics_06 W tym aktywnych: &nbsp
+graph_statistics_07 Ile razy odkryto skrzynki:&nbsp
 
 
 
