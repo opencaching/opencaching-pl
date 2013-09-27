@@ -82,7 +82,7 @@ $stat=tr('oc_stat');
   $graph->title->Set($stat);
   $graph->title->SetMargin(12);
 
-  $graph->footer->center->Set("Statystyka dla www.opencaching.pl :: Data " . date('d:m:Y H:i:s'));
+  $graph->footer->center->Set(tr('graph_statistics_01') . date('d:m:Y H:i:s'));
   $graph->footer->center->SetFont(FF_ARIAL, FS_NORMAL, 7);
   $graph->footer->center->SetColor('darkgray');
 
@@ -120,7 +120,7 @@ $stat=tr('oc_stat');
 
   $lineCaches = new LinePlot($yDataCaches, $xDate);
 //  $lineCaches->SetFillColor("orange");
-  $lineCaches->SetLegend("Aktywne skrzynki");
+  $lineCaches->SetLegend(tr("graph_statistics_02"));
   $lineCaches->SetColor("blue");
   $lineCaches->SetStyle("solid");
   $lineCaches->SetWeight(3);
@@ -129,7 +129,7 @@ $stat=tr('oc_stat');
 
 //  $foundEntries = sqlValue(sql("SELECT COUNT(*) FROM `cache_logs` WHERE `type`=1 AND `deleted`=0"), 0);
   $lineFound = new LinePlot($yDataLogs, $xDate);
-  $lineFound->SetLegend("Ile razy odkryto skrzynki");
+  $lineFound->SetLegend(tr("graph_statistics_03"));
   $lineFound->SetColor("darkgreen");
   $lineFound->SetStyle("solid");
   $lineFound->SetWeight(2);
@@ -140,20 +140,20 @@ $stat=tr('oc_stat');
   //
   // Infotexte einfuegen
   //
-  $txtStat1 = new Text('Dane na dzieñ ' . strftime('%d-%m-%Y', time()));
+  $txtStat1 = new Text(tr('graph_statistics_04') . strftime('%d-%m-%Y', time()));
   $txtStat1->SetPos(55, 55);
   $txtStat1->SetFont(FF_ARIAL, FS_NORMAL, 10);
 
   $lineHeight = $txtStat1->GetFontHeight($graph->img);
 
   $hiddenCaches = sqlValue("SELECT COUNT(*) FROM `caches` WHERE (`status`=1 OR `status`=2 OR `status`=3)", 0);
-  $txtStat2 = new Text('Ukryte skrzynki: ' . str_replace(',', '.', number_format($hiddenCaches)));
+  $txtStat2 = new Text(tr('graph_statistics_05') . str_replace(',', '.', number_format($hiddenCaches)));
   $txtStat2->SetPos(55, 55 + $lineHeight * 1.5);
   $txtStat2->SetFont(FF_ARIAL, FS_NORMAL, 8);
   $txtStat2->SetColor('blue');
 
   $activeCaches = sqlValue("SELECT COUNT(*) FROM `caches` WHERE `status`=1", 0);
-  $txtStat3 = new Text('W tym aktywnych: ' . str_replace(',', '.', number_format($activeCaches)));
+  $txtStat3 = new Text(tr('graph_statistics_06') . str_replace(',', '.', number_format($activeCaches)));
   $txtStat3->SetPos(55, 55 + $lineHeight * 2.5);
   $txtStat3->SetFont(FF_ARIAL, FS_NORMAL, 8);
   $txtStat3->SetColor('blue');
@@ -165,7 +165,7 @@ $stat=tr('oc_stat');
 //  $txtStat4->SetColor('darkgreen');
 
   $foundEntries = sqlValue("SELECT COUNT(*) FROM `cache_logs` WHERE `type`=1 AND `deleted`=0", 0);
-  $txtStat5 = new Text('Ile razy odkryto skrzynki: ' . str_replace(',', '.', number_format($foundEntries)));
+  $txtStat5 = new Text(tr('graph_statistics_07') . str_replace(',', '.', number_format($foundEntries)));
   $txtStat5->SetPos(55, 55 + $lineHeight * 5.0);
   $txtStat5->SetFont(FF_ARIAL, FS_NORMAL, 8);
   $txtStat5->SetColor('darkgreen');

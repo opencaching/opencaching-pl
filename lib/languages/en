@@ -1553,5 +1553,11 @@ login_message_06 Login failed.<br />Username or e-mail not recognized.
 login_message_07 Login failed.<br />Username or password not recognized.
 login_message_08 Your browser does not accept cookies from {site_name}
 login_message_09 To view this page, you need to log in.
-
+graph_statistics_01 Statistics van www.{site_name} :: Datum&nbsp;
+graph_statistics_02 Active caches
+graph_statistics_03 Found caches
+graph_statistics_04 Date&nbsp;
+graph_statistics_05 Hidden caches:&nbsp;
+graph_statistics_06 Active caches:&nbsp;
+graph_statistics_07 Total found caches:&nbsp;
 
