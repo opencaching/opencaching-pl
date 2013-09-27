@@ -1804,6 +1804,14 @@ pt151 Bevestig verwijdering van log
 pt152 Reden om de log te verwijderen:
 pt153 Tekst bij verwijdering:
 pt154 tekens
+pt155 Powertrail help
+pt156 Verwijder een cache
+pt157 Vul het toe te voegen cachewaypoint in en druk op enter
+pt158 Vul het te verwijderen cachewaypoint in en druk op enter
+pt159 Verwijder cache
+pt160 Cache bestaat niet in deze PowerTrail
+pt161 Cache is verwijdert uit deze PowerTrail
+pt162 Cache is toegevoegt aan deze PowerTrail
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
