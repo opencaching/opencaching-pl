@@ -1145,17 +1145,26 @@ printcache_08 Toon spoiler
 printcache_09 Veranderen
 yes Ja
 no Nee
-admin_01 Probleem rapporten
-admin_02 terug naar
-admin_03 Datum
-admin_04 Status cache
-admin_05 Soort probleem
-admin_06 Aanvrager
-admin_07 Behandelaar
-admin_08 Behandeld
-admin_09 Probleem rapport
-admin_10 Probleem rapporten
-admin_11 Rapport archief
+cache_reports_01 Probleem rapporten
+cache_reports_02 terug naar
+cache_reports_03 Datum
+cache_reports_04 Status cache
+cache_reports_05 Soort probleem
+cache_reports_06 Aanvrager
+cache_reports_07 Behandelaar
+cache_reports_08 Behandeld
+cache_reports_09 Probleem rapport
+cache_reports_10 Probleem rapporten
+cache_reports_11 Rapport archief
+cache_reports_12 Cache op privégrond
+cache_reports_13 Moet gearchiveerd worden
+cache_reports_14 Schending autersrecht
+cache_reports_15 Anders
+cache_reports_16 nieuw
+cache_reports_17 in behandeling
+cache_reports_18 afgesloten
+cache_reports_19 aannemen
+cache_reports_20 Aanpassen
 revert Terugzetten
 
 

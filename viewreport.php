@@ -8,13 +8,13 @@ $email_form = "";
 		switch( $type )
 		{
 			case '1':
-				return "Uwaga co do lokalizacji skrzynki";
+				return tr('cache_reports_12');
 			case '2':
-				return "Skrzynka wymaga archiwizacji";
+				return tr('cache_reports_13');
 			case '3':
-				return "Nieodpowiednia zawartość skrzynki";
+				return tr('cache_reports_14');
 			case '4':
-				return "Inny";
+				return tr('cache_reports_15');
 		}
 	}
 	
@@ -23,13 +23,13 @@ $email_form = "";
 		switch( $status )
 		{
 			case '0':
-				return "<span class='txt-red10'>nowe</span>";
+				return "<span class='txt-red10'>".tr('cache_reports_16')."</span>";
 			case '1':
-				return "<span class='txt-red05'>w toku</span>";
+				return "<span class='txt-red05'>".tr('cache_reports_17')."</span>";
 			case '2':
-				return "<span class='txt-green10'>zamknięte</span>";
+				return "<span class='txt-green10'>".tr('cache_reports_18')."</span>";
 			case '3':
-				return "<span class='txt-blue10'>zajrzyj tu!</span>";
+				return "<span class='txt-blue10'>".tr('cache_reports_19')."</span>";
 		}
 	}
 
@@ -327,7 +327,7 @@ $email_form = "";
 					$selected = "";
 				$content .= "<option value='".$admins['user_id']."' $selected>".$admins['username']."</option>";
 			}
-			$content .= "</select><br /><input type='submit' name='new_resp' value='Zmień'/>";
+			$content .= "</select><br /><input type='submit' name='new_resp' value=".tr('cache_reports_20').">";
 			$content .= "</td>";
 			
 			$content .= "<td>";
@@ -346,7 +346,7 @@ $email_form = "";
 			
 			}
 			
-			$content .= "</select><br /><input type='hidden' name='reportid' value='".$report['report_id']."'><input type='submit' name='new_status' value='Zmień'/>";
+			$content .= "</select><br /><input type='hidden' name='reportid' value='".$report['report_id']."'><input type='submit' name='new_status' value=".tr('cache_reports_20').">";
 			
 			$content .= "</td>";
 			$content .= "<td><span class='content-title-noshade-size05'>".($report['changed_by']=='0'?'':(getUsername($report['changed_by']).'<br/>('.($report['changed_date']).')'))."</span></td>\n";

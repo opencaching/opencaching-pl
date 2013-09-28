@@ -6,24 +6,24 @@ function addtext(obj)
 }
 </script>
 
-		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/rproblems.png" alt="" class="icon32" align="middle"/>&nbsp;{{admin_09}}</div>
+		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/rproblems.png" alt="" class="icon32" align="middle"/>&nbsp;{{cache_reports_09}}</div>
 	<div class="buffer"></div>
 	<p>{confirm_resp_change}{confirm_status_change}</p>
 	{email_sent}
-	<p>{{admin_02}}: [<a href='viewreports.php'>{{admin_10}}</a>] [<a href='viewreports.php?archiwum=1'>{{admin_11}}</a>]</p>
+	<p>{{cache_reports_02}}: [<a href='viewreports.php'>{{cache_reports_10}}</a>] [<a href='viewreports.php?archiwum=1'>{{cache_reports_11}}</a>]</p>
 		<input type="hidden" name="cacheid" value="{cacheid}"/>
 		<form action='viewreport.php' method='post' name='myform'>
 		<table border='1' class="table" width="90%">
 			<tr>
 				<th >ID</th>
-				<th >{{admin_03}}</th>
+				<th >{{cache_reports_03}}</th>
 				<th >Cache</th>
-				<th >{{admin_04}}</th>
-				<th >{{admin_05}}</th>
-				<th >{{admin_06}}</th>
-				<th >{{admin_07}}</th>
+				<th >{{cache_reports_04}}</th>
+				<th >{{cache_reports_05}}</th>
+				<th >{{cache_reports_06}}</th>
+				<th >{{cache_reports_07}}</th>
 				<th >Status</th>
-				<th >{{admin_08}}</th>
+				<th >{{cache_reports_08}}</th>
 			</tr>
 			{content}
 		</table>
@@ -50,5 +50,5 @@ function addtext(obj)
 			</ul>
 			<br/>
 		</div>
-			<p>{{admin_02}}: [<a href='viewreports.php'>{{admin_10}}</a>] [<a href='viewreports.php?archiwum=1'>{{admin_11}}</a>]</p>
+			<p>{{cache_reports_02}}: [<a href='viewreports.php'>{{cache_reports_10}}</a>] [<a href='viewreports.php?archiwum=1'>{{cache_reports_11}}</a>]</p>
 		</form>

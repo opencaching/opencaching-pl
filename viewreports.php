@@ -5,13 +5,13 @@ global $bgcolor1, $bgcolor2;
 		switch( $type )
 		{
 			case '1':
-				return "Uwaga co do lokalizacji skrzynki";
+				return tr('cache_reports_12');
 			case '2':
-				return "Skrzynka wymaga archiwizacji";
+				return tr('cache_reports_13');
 			case '3':
-				return "Nieodpowiednia zawartość skrzynki";
+				return tr('cache_reports_14');
 			case '4':
-				return "Inny";
+				return tr('cache_reports_15');
 		}
 	}
 	
@@ -20,13 +20,13 @@ global $bgcolor1, $bgcolor2;
 		switch( $status )
 		{
 			case '0':
-				return "<font color='red'>nowe</font>";
+				return "<font color='red'>".tr('cache_reports_16')."</font>";
 			case '1':
-				return "<font color='orange'>w toku</font>";
+				return "<font color='orange'>".tr('cache_reports_17')."</font>";
 			case '2':
-				return "<font color='green'>zamknięte</font>";
+				return "<font color='green'>".tr('cache_reports_18')."</font>";
 			case '3':
-				return "<font color='blue'>zajrzyj tu!</font>";
+				return "<font color='blue'>".tr('cache_reports_19')."</font>";
 		}
 	}
 

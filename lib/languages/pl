@@ -1145,17 +1145,26 @@ printcache_08 Tylko spoilery
 printcache_09 Zmień
 yes TAK
 no NIE
-admin_01 Zgłoszenia problemów
-admin_02 Przejdź do
-admin_03 Data zgłoszenia
-admin_04 Status skrzynki
-admin_05 Rodzaj problemu
-admin_06 Zgłaszający
-admin_07 Prowadzący
-admin_08 Zmieniony przez
-admin_09 Przeglądaj zgłoszenie
-admin_10 Listy bieżących zgłoszeń
-admin_11 Archiwum zgłoszeń
+cache_reports_01 Zgłoszenia problemów
+cache_reports_02 Przejdź do
+cache_reports_03 Data zgłoszenia
+cache_reports_04 Status skrzynki
+cache_reports_05 Rodzaj problemu
+cache_reports_06 Zgłaszający
+cache_reports_07 Prowadzący
+cache_reports_08 Zmieniony przez
+cache_reports_09 Przeglądaj zgłoszenie
+cache_reports_10 Listy bieżących zgłoszeń
+cache_reports_11 Archiwum zgłoszeń
+cache_reports_12 Uwaga co do lokalizacji skrzynki
+cache_reports_13 Skrzynka wymaga archiwizacji
+cache_reports_14 Nieodpowiednia zawartość skrzynki
+cache_reports_15 Inny
+cache_reports_16 nowe
+cache_reports_17 w toku
+cache_reports_18 zamknięte
+cache_reports_19 zajrzyj tu!
+cache_reports_20 Zmień
 revert Przywróć
 found_beer_caches skrzynek po piwie
 rating_poor_1A Fekalno-urynalna
