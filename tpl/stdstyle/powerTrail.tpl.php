@@ -1515,7 +1515,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	
 <div class="content2-pagetitle"> 
  <img src="tpl/stdstyle/images/blue/050242-blue-jelly-icon-natural-wonders-flower13-sc36_32x32.png" class="icon32" alt="geocache" title="geocache" align="middle" /> 
- {{pt001}} - &beta; <span style="font-size: 9px;">{{pt092}} <a href="skype:wloczynutka?chat" multilinks-noscroll="true"><img src="http://mystatus.skype.com/smallicon/wloczynutka"></img></a></span>
+ {{pt001}} <!-- - &beta; <span style="font-size: 9px;">{{pt092}} <a href="skype:wloczynutka?chat" multilinks-noscroll="true"><img src="http://mystatus.skype.com/smallicon/wloczynutka"></img></a></span> -->
 </div> 
 
 <!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
