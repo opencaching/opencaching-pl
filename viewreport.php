@@ -60,11 +60,11 @@ $email_form = "";
 		switch( $status )
 		{
 			case '0':
-				return "zgłaszającego";
+				return tr("cache_reports_26");
 			case '1':
-				return "właściciela skrzynki";
+				return tr("cache_reports_27");
 			case '2':
-				return "zgłaszającego i właściciela skrzynki";
+				return tr("cache_reports_28");
 		}
 	}
 	
@@ -114,7 +114,7 @@ $email_form = "";
 				break;
 		}
 				
-		$text_result = "<p class='content-title-noshade-size1'>Skorzystaj z szablonu</p><br/>
+		$text_result = "<p class='content-title-noshade-size1'>".tr('cache_reports_31')."</p><br/>
 		<table border='0'>
 		";
 		
@@ -159,8 +159,8 @@ $email_form = "";
 	<input type='hidden' name='mailto' value='".intval($_REQUEST['mailto'])."'>
 	<textarea name='email_content' cols='120' rows='8'>".$_POST['init_text']."</textarea>
 	<br />
-	<input type='submit' value='Wyślij e-mail'>
-	<a href='viewreport.php?reportid=".$_REQUEST['reportid']."'>Anuluj</a>
+	<input type='submit' value=".tr('cache_reports_29').">
+	<a href='viewreport.php?reportid=".$_REQUEST['reportid']."'>".tr('cache_reports_30')."</a>
 	<br/>
 ";
 			$email_form .= getSchemas($_REQUEST['mailto']);
@@ -353,19 +353,19 @@ $email_form = "";
 			$content .= "</tr>\n";
 			
 			tpl_set_var('content', $content);
-			tpl_set_var('report_text_lbl', 'Treść zgłoszenia');
+			tpl_set_var('report_text_lbl', tr('cache_reports_21'));
 			tpl_set_var('report_text', strip_tags($report['text']));
-			tpl_set_var('perform_action_lbl', 'Podejmij działania');
+			tpl_set_var('perform_action_lbl', tr('cache_reports_22'));
 			
 			if( !isset($_GET['mailto']))
 			{
-				$active_form = "<input type='hidden' name='reportid' value='".intval($_REQUEST['reportid'])."'/><textarea name='note' cols='80' rows='5'></textarea><br /><input type='submit' value='Zapisz'/>&nbsp;".$saved;
-				tpl_set_var('note_lbl', "Notatka");
+				$active_form = "<input type='hidden' name='reportid' value='".intval($_REQUEST['reportid'])."'/><textarea name='note' cols='80' rows='5'></textarea><br /><input type='submit' value=".tr('cache_reports_23').">&nbsp;".$saved;
+				tpl_set_var('note_lbl', tr("cache_reports_24"));
 			}
 			else
 			{
 				// display email form
-				tpl_set_var('note_lbl', "Wyślij e-mail do ".writeRe($_REQUEST['mailto']));
+				tpl_set_var('note_lbl', tr("cache_reports_25").writeRe($_REQUEST['mailto']));
 				$active_form = $email_form;
 			}
 			tpl_set_var('note_area', nl2br($report['note']));
@@ -374,7 +374,7 @@ $email_form = "";
 			$actions = '';
 			//$actions .= "<li><a href='voting.php?reportid=".$report['report_id']."'>Zarządź głosowanie</a></li>";
 			for( $i=0;$i<3;$i++)
-				$mail_actions .= "<li><a href='viewreport.php?reportid=".$report['report_id']."&amp;mailto=$i'>Wyślij e-mail do ".writeRe($i)."</a></li>";
+				$mail_actions .= "<li><a href='viewreport.php?reportid=".$report['report_id']."&amp;mailto=$i'>".tr('cache_reports_25')."  ".writeRe($i)."</a></li>";
 			
 			//$actions .= "<br /><li><a href='viewreport.php?reportid=".$report['report_id']."&amp;delete=1'>usuń zgłoszenie</a></li>";
 			
