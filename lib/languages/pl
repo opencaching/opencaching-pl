@@ -1674,9 +1674,9 @@ pt001 GeoŚcieżki
 pt002 nalaży do geoŚcieżki 
 pt003 Nowa geoŚcieżka
 pt004 Kształt na mapie
-pt005 Krajoznawczy
-pt006 Publiczny  
-pt007 Narazie niewidoczny  
+pt005 Krajoznawcza
+pt006 Publiczna  
+pt007 Narazie niewidoczna  
 pt008 Nazwa geoŚcieżki  
 pt009 Typ geoŚcieżki 
 pt010 Widoczność
@@ -1687,7 +1687,7 @@ pt014 keszy geoŚcieżki
 pt015 Twój stopień zaawansowania dla geoŚcieżki
 pt016 z
 pt017 znalazłeś
-pt018 Ta geoŚcieżka jest niewidoczna (jeszcze nieopublikowany, zablokowany, itp.)
+pt018 Ta geoŚcieżka jest niewidoczna (jeszcze nieopublikowana, zablokowana, itp.)
 pt019 Szczegóły geoŚcieżki
 pt020 skrzynki w ramach geoŚcieżki    
 pt021 Twoje statystyki 
@@ -1748,7 +1748,7 @@ pt075 typ
 pt076 nazwa (założyciel)
 pt077 status
 pt078 ocena
-pt079 tematyczny
+pt079 tematyczna
 pt080 Naciskając ten przycisk założysz nową geoŚcieżkę
 pt081 geoŚcieżka musi mieć nazwę
 pt082 Nie przypisano jeszcze keszy tej geoŚcieżki
@@ -1759,7 +1759,7 @@ pt086 dopiero po zalogowaniu procentowo takiej ilości skrzynek, użytkownik uzy
 pt087 Co to jest
 pt088 Pomoc
 pt089 Publiczny - widoczny dla wszystkich <br /> Narazie niewidoczny - widoczny tylko dla założycieli
-pt090 Określa charakter geoŚcieżki. Jeśli większość skrzynek projektu pokazuje jakieś interesujące miejsce (szczyt, punkt widokowy, pomnik przyrody, pomnik, zabytek itp.) ustaw <b>krajoznawczy</b>. Jeśli większość skrzynek układa się w linię lub rysunek na mapie - ustaw <b>kształt na mapie</b>. Analogicznie jesli większość skrzynek tyczy się tematyce historycznej lub przyrodniczej ustaw adekwatny typ. Jeśli uważasz, że Twoja geoŚcieżka powinna być w innej kategorii, której tu nie ma, napisz na adres RR (Menu -> kontakt)
+pt090 Określa charakter geoŚcieżki. Jeśli większość skrzynek projektu pokazuje jakieś interesujące miejsce (szczyt, punkt widokowy, pomnik przyrody, pomnik, zabytek itp.) ustaw <b>krajoznawcza</b>. Jeśli większość skrzynek układa się w linię lub rysunek na mapie - ustaw <b>kształt na mapie</b>. Analogicznie jesli większość skrzynek tyczy się tematyce historycznej lub przyrodniczej ustaw adekwatny typ. Jeśli uważasz, że Twoja geoŚcieżka powinna być w innej kategorii, której tu nie ma, napisz na adres RR (Menu -> kontakt)
 pt091 Zmień nazwę
 pt092 Na czas testów dostępne tylko dla wybranych użytkowników. Błędy proszę zgłaszać na adres rt lub skype 
 pt093 Zdobytych geoŚcieżek

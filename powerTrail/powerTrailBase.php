@@ -83,10 +83,10 @@ class powerTrailBase{
 	 */
 	public static function getPowerTrailStatus(){
 		return array (
-			1 => array ( //sport
+			1 => array ( // public
 				'translate' => 'pt006',
 			),
-			2 => array ( // touring
+			2 => array ( // not yet available
 				'translate' => 'pt007',
 			),
 			

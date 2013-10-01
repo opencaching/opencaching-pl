@@ -96,7 +96,7 @@ if ($error == false)
 				tpl_set_var('mapOuterdiv', 'block');
 				if ($ptOwners) $userIsOwner = array_key_exists($usr['userid'], $ptOwners);
 				else $userIsOwner = false;
-				if ($ptDbRow['status'] != 0 || $userIsOwner) {
+				if ($ptDbRow['status'] == 1 || $userIsOwner) {
 					$ptTypesArr = powerTrailBase::getPowerTrailTypes();
 					$ptStatusArr = powerTrailBase::getPowerTrailStatus();
 					$stats = $pt->getCountCachesAndUserFoundInPT();
@@ -144,12 +144,12 @@ if ($error == false)
 						tpl_set_var('cacheCountUserActions', '');
 						tpl_set_var('ownerListUserActions', '');
 					}
-					
-
 					tpl_set_var('ptList4map', displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache()));
 					// powerTrailController::debug($pt->getPowerTrailDbRow(), __LINE__);
 					// powerTrailController::debug($ptOwners, __LINE__);
 				} else {
+					
+					tpl_set_var('mapOuterdiv', 'none');
 					tpl_set_var('mainPtInfo', tr('pt018'));
 				}
 				break;
