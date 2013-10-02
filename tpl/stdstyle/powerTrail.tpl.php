@@ -254,7 +254,7 @@ function deleteComment(commentId, callingUser){
 			
 			    request.done(function (response, textStatus, jqXHR){
 			    	console.log(response);
-			    	if(response == 2) $("#commentType").append('<option value=2>{{pt065}}</option>');
+			    	if(response == 2) $("#commentType").append('<option selected="selected" value="2">{{pt065}}</option>');
 			    });
 			    
 			    request.always(function () {
@@ -1500,16 +1500,13 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 
 <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
 
-
+<!-- deleting entery comfirmation dialog  -->
 <div id="dialog-form" title="{{pt151}}" style="display: none">
 	<form>
 	<label for="delReason">{{pt152}} (max. 500 {{pt154}})</label><br /><br />
-	<input type="text" name="delReason" id="delReason" class="text ui-widget-content ui-corner-all" style="width: 280px;" maxlength="500" />
+	<input onkeypress="return event.keyCode != 13;" type="text" name="delReason" id="delReason" class="text ui-widget-content ui-corner-all" style="width: 280px;" maxlength="500" />
 	</form>
 </div>
-
-
-
 
 <div id="oldIE" style="display: none">{{pt129}}</div>
 	

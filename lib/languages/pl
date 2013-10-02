@@ -1747,7 +1747,7 @@ pt075 typ
 pt076 nazwa (założyciel)
 pt077 status
 pt078 ocena
-pt079 tematyczna
+pt079 Tematyczna
 pt080 Naciskając ten przycisk założysz nową geoŚcieżkę
 pt081 geoŚcieżka musi mieć nazwę
 pt082 Nie przypisano jeszcze keszy tej geoŚcieżki
@@ -1801,8 +1801,8 @@ pt129 Używasz starej przeglądarki (IE6, IE7, IE8), która nie jest już obsłu
 pt130 Usuń
 pt131 Usunięto wpis z geoŚcieżki
 pt132 usunął wpis typu
-pt133 treść komentarza
-pt134 data komentarza (wpisana przez użytkownika)
+pt133 treść wpisu
+pt134 data wpisu (podana przez użytkownika)
 pt135 keszerzy 'zmarnowali' łącznie keszo-dni
 pt136 geograficzny środek geoŚcieżki 
 pt137 GeoŚcieżka Tygodnia
@@ -1814,7 +1814,7 @@ pt142 Tymczasowo niedostępny
 pt143 Niestety zarchiwizowany
 pt144 Jeszcze nieopublikowany
 pt145 Edycja
-pt146 Edytowano treść komentarza dla geoŚcieżki
+pt146 Edytowano treść wpisu geoŚcieżki
 pt147 edytował wpis 
 pt148 Kesz Finałowy
 pt149 Wskaż Finały

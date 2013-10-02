@@ -328,9 +328,12 @@ function displayPtCommentsSelector($htmlid, $percetDemand, $userStats, $ptId, $s
 			if ($percentUserFound<$percetDemand || powerTrailBase::checkUserConquestedPt($_SESSION['user_id'], $ptId) >0){
 				 break;
 			}
+			$selected = 'selected="selected"'; 
 		}
-		if ($selectedId == $id) $selected = 'selected'; else $selected = '';
-		$selector .= '<option '.$selected.' value="'.$id.'">'.tr($type['translate']).'</option>';
+		if(!isset($selected)) $selected = '';
+		if ($selectedId == $id) $selected = 'selected'; 
+		$selector .= '<option value="'.$id.'" '.$selected.'>'.tr($type['translate']).'</option>';
+		unset($selected);
 	}
 	$selector .= '</select>';
 	return $selector;
