@@ -484,7 +484,7 @@ new_password_msg2 Vul je e-mail adres in, je ontvangt veiligheidscode en je nieu
 security_code Security code
 change_password_msg1 Verander wachtwoord
 logoutsuccess Succesvol uitgelogt
-error_usernotactive Yor account is not active or deactive.<br />Your account you can activate<a href=activation.php>click here</a>Aktywować.
+error_usernotactive Dit account is niet actief of gedeactiveerd.<br />Het account kan <a href=activation.php> hier </a>geactieveerd worden.
 not_registered Niet geregistreerd? <a href="register.php">Registeer</a>
 forgotten_your_password Wachtwoord vergeten? <a href="newpw.php">Vraag nieuw wachtwoord aan</a>
 cache_logged_required Je moet ingelogd zijn om deze cache te loggen of te bewerken.
