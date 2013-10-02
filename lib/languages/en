@@ -1520,6 +1520,56 @@ ZA South Africa
 ZM Zambia
 ZW Zimbabwe
 SU Soviet Union
+pt001 GeoPaths
+pt002 belongs to GeoPath
+pt003 New GeoPath
+pt004 Form on the map
+pt005 Touring
+pt006 Public
+pt007 At the moment invisible
+pt008 GeoPath's name
+pt009 GeoPath's type
+pt010 Visibility
+pt011 GeoPath's Description
+pt012 All GeoPaths
+pt013 Caches <=> GeoPaths    
+pt014 Caches Geopaths 
+pt015 Your degree of progress for GeoPath
+pt016 from
+pt017 You found
+pt018 This GeoPath is invisible (unpublished yet, blocked, etc.)
+pt019 Geo Path's details
+pt020 Caches in this GeoPath
+pt021 Your statistics
+pt022 Number of caches
+pt023 GeoPath's type
+pt024 Publication date
+pt025 Owners
+pt026 Sport
+pt027 Touring
+pt028 User's nick or ID:
+pt029 Remove this user from GeoPath
+pt030 Add/Remove
+pt031 Cancel
+pt032 Add
+pt033 Refresh
+pt034 GeoPath's description
+pt035 GeoPaths
+pt036 Name
+pt037 Scoring
+pt038 Points
+pt039 Type
+pt040 Status
+pt041 Date of publication
+pt042 Number of caches
+pt043 Change description
+pt044 Save
+pt045 Another date
+pt046 Change type
+pt047 Add this cache
+pt048 Add any cache
+pt049 Chose from your caches
+pt050 Opinions and comments
 statpic_found Found:
 statpic_hidden Hidden:
 statpic_html_link - Statistics for
