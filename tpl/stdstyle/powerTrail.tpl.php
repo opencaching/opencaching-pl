@@ -50,11 +50,37 @@ $(function() {
 		regional: '{language4js}'
 	}).val();
 	
-
+	getActiveSortBy();
 	ajaxGetPtCaches();
 	ajaxGetComments(0, 8);
 }); 
 
+function getActiveSortBy(){
+	value1 = jQuery("#sortBy option:selected").html();
+	value2 = jQuery("#filter option:selected").html();
+	$('#activeSortBy').html(value1);
+	$('#activeFilter').html(value2);
+}
+
+function showDisplayOptions() {
+	if($('#displayOptionsButton').is(":visible")){
+		$('#displayOptionsButton').fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+				$("#displayOptions").fadeIn(800);
+	    	}, 801);
+		});
+	} else {
+		$("#displayOptions").fadeOut(800);
+		$(function() {
+			setTimeout(function() {
+				$('#displayOptionsButton').fadeIn(800);
+	    	}, 801);
+		});		
+	}
+}
+
+// ?sortBy=points&filter=t&fv=2
 
 function toggleSearchCacheSection2(){
 	if ($('#toggleSearchCacheSection2').is(":visible")){
@@ -1493,6 +1519,12 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 .padding1{
 	padding: 1px;
 }
+.displayOptionsClass{
+	border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+	border:1px solid #337fed;
+	width: 80%;
+	padding: 5px;
+}
 </style>
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
 
@@ -1608,7 +1640,31 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 <div style="display: {displayPowerTrails}">
 	<table border=0 width=100%>
 		<tr>
-			<td colspan=8 class="linearBg1">{{pt035}}</td>
+			<td colspan="8" class="linearBg1">{{pt035}}</td>
+		</tr>
+		<tr>
+			<td colspan="8" align="center">
+				<div class="displayOptionsClass" id="displayOptionsButton">
+					{{pt175}}: {displayedPowerTrailsCount}
+					<a href="javascript:void(0)" style="float: right;" onclick="showDisplayOptions()" class="editPtDataButton">{{pt163}}</a>
+				</div>
+				<div id="displayOptions" class="displayOptionsClass" style="display: none">
+					<form id="dOptionForm" name="dOptionForm" action="powerTrail.php" method="get">
+						<table>
+							<tr>
+								<td>{{pt166}}</td>
+								<td>{ptTypeSelector2}</td>
+							</tr>
+							<tr>
+								<td>{{pt167}}</td>
+								<td>{sortSelector}</td>
+							</tr>
+						</table>
+						<a href="javascript:void(0)" id="confirmDisplayOptionsButton" onclick="document.dOptionForm.submit();" class="editPtDataButton">{{pt164}}</a>
+						<a href="javascript:void(0)" id="displayOptionsButton" onclick="showDisplayOptions()" class="editPtDataButton">{{pt031}}</a>
+					</form>
+				</div>
+			</td>
 		</tr>
 		<tr>
 			<th class="ptTd">{{pt036}}</th>

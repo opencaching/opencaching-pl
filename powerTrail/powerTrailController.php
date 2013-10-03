@@ -72,7 +72,54 @@ class powerTrailController {
 
 	private function getAllPowerTrails()
 	{
-		$q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount > '.powerTrailBase::minimumCacheCount() .' ORDER BY cacheCount DESC';
+		// sort by
+		if(isset($_REQUEST['sortBy'])) {	
+			switch ($_REQUEST['sortBy']) {
+				case 'type':
+					$sortBy = 'type';
+					break;
+				case 'name':
+					$sortBy = 'name';
+					break;
+				case 'dateCreated':
+					$sortBy = 'dateCreated';
+					break;
+				case 'cacheCount':
+					$sortBy = 'cacheCount';
+					break;
+				case 'points':
+					$sortBy = 'points';
+					break;
+				case 'conquestedCount':
+					$sortBy = 'conquestedCount';
+					break;
+				default:
+					$sortBy	= 'cacheCount';
+					break;
+			}	
+		} else {
+			$sortBy	= 'cacheCount';
+		}
+		
+		// filters here
+		if(isset($_REQUEST['filter'])) {
+			$filterValue = (int) $_REQUEST['filter'];	
+			switch ($_REQUEST['filter']) {
+				case '0':
+					$filter = ' ';
+					break;
+				default:
+					$filter = " AND type = $filterValue ";
+					break;		
+			}
+		} else {
+			$filter = ' ';
+		}
+		
+		// order (as var for future use)
+		$sortOder = 'DESC';
+		
+		$q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount > '.powerTrailBase::minimumCacheCount() .' '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
 		$db = new dataBase();
 		$db->multiVariableQuery($q);
 		$this->allSeries = $db->dbResultFetchAll();
@@ -152,6 +199,10 @@ class powerTrailController {
 	public function getpowerTrails()
 	{
 		return $this->allSeries;	
+	}
+	
+	public function getDisplayedPowerTrailsCount() {
+		return count($this->allSeries);	
 	}
 	
 	private function createNewPowerTrail()

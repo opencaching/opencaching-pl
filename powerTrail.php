@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  *  powerTrail.php
  *  ------------------------------------------------------------------------------------------------
@@ -77,6 +77,12 @@ if ($error == false)
 				break;
 			case 'showAllSeries':
 				$ptListData = displayPTrails($pt->getpowerTrails(), $pt->getPowerTrailOwn());
+				if(!isset($_REQUEST['sortBy'])) $_REQUEST['sortBy'] = 'cacheCount';
+				if(!isset($_REQUEST['filter'])) $_REQUEST['filter'] = 0;
+				tpl_set_var('ptTypeSelector2', displayPtTypesSelector('filter',$_REQUEST['filter'], true));
+				tpl_set_var('sortSelector', getSortBySelector($_REQUEST['sortBy']));
+				tpl_set_var('displayedPowerTrailsCount', $pt->getDisplayedPowerTrailsCount());
+				
 				tpl_set_var('mapCenterLat', $main_page_map_center_lat);
 				tpl_set_var('mapCenterLon', $main_page_map_center_lon);
 				tpl_set_var('mapZoom', 6);
@@ -302,9 +308,13 @@ function displayPtDescriptionUserAction($powerTrailId) {
 	return $result;
 }
 
-function displayPtTypesSelector($htmlid, $selectedId = 0){
+function displayPtTypesSelector($htmlid, $selectedId = 0, $witchZeroOption = false){
 	$ptTypesArr = powerTrailBase::getPowerTrailTypes();
 	$selector = '<select id="'.$htmlid.'" name="'.$htmlid.'">';
+	if($witchZeroOption) {
+		$selector .= '<option value="0">'.tr('pt165').'</option>';
+		
+	}
 	foreach ($ptTypesArr as $id => $type) {
 		if ($selectedId == $id) $selected = 'selected'; else $selected = '';
 		$selector .= '<option '.$selected.' value="'.$id.'">'.tr($type['translate']).'</option>';
@@ -372,5 +382,22 @@ function getFoundCacheTypesIcons($cacheTypesIcons)
 	return $foundCacheTypesIcons;
 }
 
+function getSortBySelector($sel) {
+	$array = array (
+			1 => array('value'=>"type", 'tr'=>'pt174'),
+			2 => array('value'=>"name", 'tr'=>'pt168'),
+			3 => array('value'=>"dateCreated", 'tr'=>'pt169'),
+			4 => array('value'=>"cacheCount", 'tr'=>'pt170'),
+			5 => array('value'=>"points",'tr'=>'pt171'),
+			6 => array('value'=>"conquestedCount",'tr'=>'pt172'),
+	);
+
+	$selector = '<select id="sortBy" name="sortBy">';
+	foreach ($array as $opt) {
+		if ($opt['value'] == $sel) $selector .= '<option selected="selected" value="'.$opt['value'].'">'.tr($opt['tr']).'</option>';
+		else $selector .= '<option value="'.$opt['value'].'">'.tr($opt['tr']).'</option>';
+	}
+	return $selector;
+}
 
 ?>
