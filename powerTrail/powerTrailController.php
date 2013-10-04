@@ -117,8 +117,21 @@ class powerTrailController {
 		}
 		
 		// order (as var for future use)
-		$sortOder = 'DESC';
-		
+		if(isset($_REQUEST['sortDir'])){
+			switch ($_REQUEST['sortDir']) {
+				case 'asc':
+					$sortOder = 'ASC';
+					break;
+				case 'desc':
+					$sortOder = 'DESC';
+					break;
+				default:
+					$sortOder = 'DESC';
+					break;
+			}
+		} else {
+			$sortOder = 'DESC';
+		}
 		$q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount > '.powerTrailBase::minimumCacheCount() .' '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
 		$db = new dataBase();
 		$db->multiVariableQuery($q);
