@@ -1831,7 +1831,23 @@ pt158 Vul het te verwijderen cachewaypoint in en druk op enter
 pt159 Verwijder cache
 pt160 Cache bestaat niet in deze PowerTrail
 pt161 Cache is verwijdert uit deze PowerTrail
-pt162 Cache is toegevoegt aan deze PowerTrail
+pt162 Cache is toegevoegt aan deze PowerTraipt
+pt163 Meer opties
+pt164 Toepassen
+pt165 Alle soorten
+pt166 Kies PowerTrail soort:
+pt167 Sorteer op:
+pt168 Naam
+pt169 Publicatiedatum
+pt170 Aantal caches
+pt171 Punten
+pt172 Aantal voltooide
+pt173 Aantal caches
+pt174 Soort
+pt175 Aantal weergegeven PowerTrails
+pt176 Oplopend
+pt177 Aflopend
+pt178 Sorteerwijze
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
