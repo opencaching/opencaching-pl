@@ -1,6 +1,9 @@
 main_menu Hauptmenu
 user_menu Benutzermenu
 new Neu
+save Speichern
+Edit Edit
+back zurück
 cache_menu Cache Menu
 activation_code_failed Der Aktivierungscode oder die E-Mail-Adresse ist nicht korrekt.<br />Die Aktivierung deines Account war nicht erfolgreich.<br />Verwende bitte die E-Mail-Adresse aus der Registrierungsbestätigung, die du per E-Mail bekommen hast.<br />Überprüfe bitte, ob du Dich vertippt hast - sollten die Probleme längere Zeit bestehen, melde sich bitte unter ocpl (at) opencaching.pl.
 email_incorrect E-Mail-Adresse ist nicht korrekt.
@@ -64,7 +67,7 @@ score Bewerten
 scored Bewertung
 recommendations Empfehlungen
 recommendation Empfehlung
-created_by Erstellt von
+created_by erstellt von
 found gefunden
 founds gefunden
 only_founds nur
@@ -105,6 +108,8 @@ webcam Webcam
 event Veranstaltung
 quiz Quiz
 moving Verschieben
+podcast Podcast
+owncache Owncache
 hide_caches Caches ausblenden
 ignored ignoriert
 not_yet_found noch nicht gefunden
@@ -147,6 +152,7 @@ change_password Passwort ändern
 collected_queries Gesammelte Anfragen 
 watched_caches Gesehen-Caches
 settings Einstellungen
+settings_notifications Notifizierung einstellungen
 ignored_caches Ignorierte Caches
 my_recommendations Meine Empfehlungen
 search_cache Suchen Sie einen Cache 
@@ -202,7 +208,7 @@ status_label Status
 date_hidden_label Datum versteckte 
 date_created_label Erstellungsdatum
 last_modified_label Letzte Änderung
-waypoint waypoint
+waypoint Waypoint
 listed_also_on Auch auf 
 comments Kommentare
 comment Kommentar
@@ -214,7 +220,7 @@ ignore Ignorieren
 ignore_not Nicht ignorieren 
 decrypt Entschlüsseln
 pictures_included Bilder im Zusammenhang mit dieser Log-Eintrag
-attendends Besuch
+attendends Besucht bei
 will_attend Wird an
 enter_text Geben Sie Text
 enter_text_error Text wurde noch nicht eingetragen 
@@ -290,10 +296,12 @@ not_found_caches Nicht gründet
 show schauen
 lock sperren
 unlock entsperren
-user_stats Benutzer Statistiken
-first_cache Wenn es das erste Mal, Sie eine Cache, Bitte beachten Sie, zu lesen Sie die folgenden <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank"> Beschreibung</a>
+user_stats Benutzer Statistik
+first_cache Du kannst kennenlernen wie wählen Cache Typ, Große, Attribute bei lesen <a href="{cache_params_url}" target="_blank">basis Information</a>.
+first_cache_approvement Weil es ist eine von Deine 3 Caches, wird sichtbar für alle nach Akzeptanz von Team {site_name}.
+all_cache_approvement Cache wird sichtbar für alle nach Akzeptanz von Team {site_name}.
 name_label Name
-cache_type Cache-Typ 
+cache_type Cache-Typ
 cache_size Cache-Größe
 in_wgs84_system in WGS-84-System 
 difficulty_level Schwierigkeiten
@@ -324,7 +332,7 @@ type_incorrect Kein Cache angegeben!
 size_incorrect Cache-Größe ist nicht korrekt!
 diff_incorrect Schwierigkeitsgrad ist falsch!
 virtual_cache_size Cache-Größe muss als "ohne Container", wenn Cache eingestellt ist oder als Event!
-cache_submitted Ihr Cache wurde auf Opencaching PL.
+cache_submitted Ihr Cache wurde auf Opencaching PL veröffentilicht.
 full_description Vollständig
 mandatory_field Dieses Feld ist obligatorisch
 full_desc_long_text Bitte schreiben Sie zum Beispiel, warum haben Sie den Cache verstecken und merken Sie sich hier - ein in der Lage sein muß, um den Cache mit den Koordinaten und diese Beschreibung nur, so geben Sie alle erforderlichen Informationen finden Sie hier.
@@ -344,10 +352,8 @@ dont_publish_yet Nicht veröffentlicht noch
 log_password Log-Passwort 
 no_password_label Leer lassen, wenn kein Passwort 
 please_read Bitte lesen <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Information über Passwort in Logs!</a>
-password_info_label Informationen über Passwörter in logs
 creating_cache Weil erstellung neuen Cache akzeptierst du <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">Nutztbedingungen</a> mit allen Konsequenzen.
 with_all_consequences mit allen Konsequenzen.
-sort_by Sortieren von Suchergebnissen
 cache_name Cache-Name 
 distance_label Distanz
 omit_caches Lassen Caches weg
@@ -356,7 +362,7 @@ not_active nicht aktiv
 observed beobachtet
 from aus
 to bis
-with_hidden_score Show-Caches ohne Satz
+with_hidden_score Show-Caches ohne Bewertung
 search_by_distance Suche nach der Entfernung 
 search_by_name Suche nach Namen-Cache
 max_distance Maximaler Abstand
@@ -402,14 +408,19 @@ average_dist_hidden_caches_label Durchschnittlicher Abstand zwischen versteckten
 be_ftf_label Seien Sie Erster zu finden!
 please_login Bitte melden Sie sich.
 to_see_coords Koordinaten versteckt.
-h_pl_label Show-Caches von opencaching.pl
-h_de_label Show-Caches von opencaching.de
+h_pl_label Caches von opencaching.pl schauen
+h_de_label Caches von opencaching.de schauen
+h_se_label Caches von opencaching.se schauen
+h_no_label Caches von opencaching.no schauen
 ozi_path_label Pfad zum Ordner" OP "auf PDA
 ozi_path_info Geeignet für Ozi Explorer-Nutzer mit Filips-Datenbank. Wenn Sie den korrekten Pfad zum "OP" -Ordner, werden Sie zum Download WPT-Dateien als Suchergebnis mit Lokalisierung von Informationen über die Cache-Beschreibung. Danach können Sie auf den Cache auf Ozi Explorer anzeigen, und wählen Sie Öffnen Anlage-Option. Es öffnet sich detaillierte Beschreibung über den Cache. Beispiele: <b>\SDMMC\Baza\</b>, <b>\ Speicherkarte\bf\</b>
 newest_caches Die neuesten Caches
 total_of_active_caches Total der aktiven Caches
+total_of_caches Total der Caches
+total_moved Total der rüber getragte Caches
+active_caches innerhalb Aktive
 number_of_active_users Anzahl der aktiven Benutzer
-number_of_founds Gründet
+number_of_founds Anzal der Cache Suchen
 latest_news Aktuelles
 what_do_you_find Wilkommen auf Opencaching.pl
 what_do_you_find_intro Hier finden Sie alles über Geocaching in Polen. Opencaching in Polen wurde im <span class="content-title-noshade"> Mai 2006 </span>. <br/> Dies ist die wichtigste Polen Geocaching Website. Unsere Datenbank an <b> OpenSource Projekt Opencaching </b>.<br/>
@@ -421,39 +432,43 @@ additional_hints zusäztlische Hinweise
 images Bilder
 mp3_files_info PodCasts - MP3 Datei
 utilities Dienstprogramme
-log_entries Logeinträge
-search_geocaches_nearby Suchen Caches in Nähe an OC PL (Radius 100 km)
-download_as_file Als Datei 
+search_geocaches_nearby Cache suchen in Umkreis von 100km
+download_as_file Als Datei download
 accept_terms_of_use Weil downloading diese Datei, akzeptierst du unsere <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">Nutztbedigungen</a>.
 find_geocaches_on Geocaches finden an
-searchable durchsuchbar
+searchable ohne meine und bei mir gefundene
 all_geocaches alle
+log_entries Log Einträge
+show_all_log_entries  Alle Log Einträge
+back_to_the_geocache_listing Zur Cache beschreibung
+register_new Neuen Benutzer registrieren
+password_confirm Passwort bestätigen
 register_new Neuen Benutzer registrieren
 password_confirm Passwort bestätigen
 register_msg1 Ein neuen Account an opencaching.pl zu registrieren, musst du eine gültige E-Mail addresse und Benutzername eingeben. Ein E-Mail wurde mit Aktivierungskode geschickt. Nur ein Account kann mit einen E-mail Adresse registriert.
 register_msg2 * sind erfordet
-register_msg3 If you have further questions, please contact us before you create your account.
+register_msg3 Für weitere Fragen, bitte um Kontakt mit uns vor Registrierung.
 register_msg4 Ich habe gelesen und einverstanden <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">Nutztbedigungen</a></b> und ich akzeptiere die. 
 register_msg5 Neue Account war registiert.
 register_msg6 Die Aktivierungskode wan an deine Email geschickt. Bitte den Anweisungen folgen, die sind über E-Mail geschickt.
 total_distance Gesamtstrecke
 send_to_gps WayPoint an GPS schicken
-rate_cache Bewerten diese Cache: <br/><a href="http://wiki.opencaching.pl/index.php/Cache_rating" target="_blank">Berschreibung der Skala</a>
-do_not_rate Ich möchte diese Cache nicht bewerten.
-geokret_log Hast du ein Geokret genommen? Bitte registrieren an
-post_new_log Schlagen ein neue Log in Bezug auf
+post_new_log Neu log zur Cache einträgen
 type_of_log Art des Logs
 date_logged Datum
+want_to_recommend Ja, Ich möchte diese Cache empfehlen
 my_recommend Empfehlung
-want_to_recommend Ich möchte diese Cache empfehlen
 number_my_recommend Anzahl der meine Empfehlungen
-number_possible_recommend von
-possible_recommend Du musst finden folgende Anzahl der Caches mögliche Satz der Empfehlungen zu erhalten
+number_possible_recommend von 
+possible_recommend  Du musst finden folgende Anzahl der Caches mögliche Satz der Empfehlungen zu erhalten
 comments_log Kommentare
 submit_log_entry Log eintragen
+geokret_log Hast Du Geokret genommen? Registrier das an
+rate_cache Cache bewerten: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_right.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="{rating_desc_url}">Bereich Beschreibung</a>
+do_not_rate Ich möchte diese Cache nicht bewerten
 listed_other Dieser Cache bitte loggen auf den folgenden Webseiten
-all_countries alle Länder zeigen
 not_spcified keine Angabe
+all_countries alle Länder zeigen
 register_email_subject RAnmeldebestätigung Opencaching PL
 error_username_not_ok Benutzername ist falsch
 error_username_exists Ausgewählte Benutzername existiert an Opencaching PL. Bitte andere Benutzername wählen
@@ -479,6 +494,9 @@ rating_mediocre niveaulos
 rating_avarage mittlere
 rating_good gut
 rating_excellent ausgezeichnet
+rating_ge_average mindestens "mittlere"
+rating_ge_good mindestens "gut" :)
+rating_ge_excellent nur "ausgezeichnet" :D
 score_label Bewertet als
 show_noscore Ohne bewertung schauen
 available_maps Verfügbare Karte
@@ -497,12 +515,404 @@ pictures_label Bilder und Fotos
 add_new_pict Neue Bild eingeben
 mp3_label Podcast MP3 für Podcast Cache
 add_new_mp3 Neue MP3 Datei eingeben
-location Stelle
-send_bulletin Ein bulletin vesenden
-send_bulletin_01 Bulletin versenden
-send_bulletin_02 Forschau von bulletin
-send_bulletin_03 Bulletin ist gesendet
-okapi_apps Ihre Applikationen
-statpic_found Gefunden:
-statpic_hidden Versteckt:
-statpic_html_link - Statistik von
+no_mp3_files Es gibt keine MP3 Datei in Anlage
+map Karte
+manage_ocpl Administration OC PL
+browse_problem_reports Problemberichte durchsehen
+no_hidden_caches Keine versteckte Caches
+no_log_entries Keine Log-Einträge
+your_newest_log_entries Deine neueste Log-Einträge
+location Lage
+stat_picture Bild 
+show_in_google_maps In Google Maps zeigen
+download_for_various_apps Download für verschiedene Applikationen
+download Download
+listing_from_to Liste von {startatp1} bis {endat}
+toggle_filters Filter schalten
+fullscreen Vollbild
+disable_fullscreen Vollbild ausschalten
+stats Statistik
+ranking_by_number_of_created_caches Rangliste Benutzer durch Anzahl der festgestellte Caches
+ranking_by_number_of_created_active_caches Rangliste Benutzer durch Anzahl der festgestellte aktive Caches
+ranking_by_number_of_finds Rangliste Benutzer durch Anzahl der gefundene Caches
+ranking_by_number_of_recommnedations Rangliste Benutzer durch Anzahl der empfangene Empfehlungen
+cache_ranking_by_number_of_finds Rangliste der Caches nach Anzahl der Befundungs
+cache_ranking_by_calculated_indicator Rangliste der Caches nach kalkulierte Indikator
+user_ranking_by_number_of_finds_of_their_caches Rangliste der Benutzer nach Anzahl von Befundungs der Benutzers Caches
+cache_ranking_by_finds_per_region Ranking skrzynek według liczby odkryć w województwie
+cache_ranking_by_number_of_recommendations Rankliste der Caches nach Anzahl der Empfehlungen
+oc_statistics Statistik OC PL
+only_active_caches nur aktive Caches
+users_who_created_caches Benutzer, die haben Caches versteckt
+users_who_created_caches_active Benutzer, die haben aktive Caches versteckt
+number_of_active_caches Anzahl der Aktive Caches
+username Benutzername
+number_of_caches Anzahl der Caches
+ranking Rangliste
+submit Schicken
+edit_cache_description Ausgabe den Cachebeschreibung
+short_description Kurze Beschreibung
+extra_attrs_info Du kannst zusätzliche Attribute auf die Info-Box mit diesem Formular hinzufügen: <a href="cache-atr.php" TARGET="_blank"> Zusätzliche Attribute box </ a>.
+javascript_edit_info Javascript ist in Ihrem Browser deaktiviert. Du kannst nur Klartext eingeben. Um  HTML und den Editor verwenden, musst Du Javascript aktivieren.
+html_edit_info  Nur HTML-Tags verwenden, um Ihren Text zu formatieren. Die Liste der erlaubten Tags findest Du <a href="articles.php?page=htmltags"> hier </ a>. 
+geocaching_com_foto_info Bitte die Bilder aus geocaching.com nicht verwenden.
+extra_coded_info Zusätzliche Informationen kodiert werden
+statistics_users Benutzer Statistik
+general_stat Allgemeine Statistik
+graph_created Charts der Caches versteckt
+graph_find Charts der Caches gefunden
+there_is_no_caches_registered Hat noch keine versteckte Cache
+there_is_no_caches_found Hat noch keine Cache gefunden
+with_password Cache mit Passwort
+user_account Benutzerkonto
+management_users Benutzer management
+titles Titel
+content Inhalt
+my_email_will_send Meine Email-Adresse wurde auf diesen Brief geschickt.
+email_publish Nach Auswahl dieser Option wird der Empfänger Deine E-Mail-Adresse kennenlernen, und könnte direkt antworten
+account_is_actived Konto war aktiviert
+find_user Suche nach benutzer
+clear_list Liste löschen
+adoption_cache Cache Adoption
+show_waypoints Waypoint schauen
+pendings Caches erwarten für Genehmigung
+recommendation_rating Schauen Rangliste der Caches nach kalkulierte Indikator
+show_statictics_cache Cache Statistik schauen
+not_stat_cache Cache hat noch keine Statistik
+recommended_by Cache empfehlt bei
+listing_from_this_page Liste von diese Seite
+show_on_map An Karte schauen
+list_of_events_is_empty Es gibt keine Veranstaltungen in nähere Zukunft.
+stat_number_found Statistik der Anzahl von gesuchte Caches
+total_number_found_caches Anzahl der gefundene Caches
+total_dnf_caches Anzahl der nicht gefundene Caches
+total_comments Anzahl der Komentarre in Logs
+total_attended_events Anzahl der Teilnahme in Veranstaltungen
+number_recommendations_given Anzahl der gegebene Emfehlungen
+number_found_caches Anzahl der gefundene
+shared_place Platzt ex-aequo
+total_amount_loggers Anzahl von Benutzer, die haben gefunden:
+total_amount_logs Anzahl, wieviel Mal Caches gefunden sind:
+filter_out_caches Nicht zahlen Statistik für Cache-Typ:
+days_caching Anzahl der "Caching-Tage"
+from_total_days von Anzahl der allen Tage
+average_caches Durschnitt von Caches an "Caching-Tag"
+most_caches Am meisten Caches/Tag
+latest_cache Letzte gefundene Cache
+milestones  Milestones - Meilensteine
+latest_logs_by_user Neueste Log-Einträge eingegebene bei Benutzer
+stat_created_caches Statistik der versteckte Caches
+not_caches_created Hat noch keine versteckte Cache
+total_created_caches Anzahl der allen versteckte Caches
+number_temp_caches Anzahl der temporär nicht verfügbare Caches
+number_archived_caches Anzal der archivierte Caches
+number_created_events Anzahl der organisierte Veranstaltungen (events)
+number_obtain_recommendations Anzahl der emfangene Empfehlungen
+for für
+_caches_ Caches
+ratio_recommendations Statistik der empfehlte Caches zur alle
+number_gk_in_caches Anzahl von GeoKret in Caches
+latest_created_cache Neueste versteckte Cache
+latest_logs_in_caches Neueste Log-einträge in Caches von Benutzer
+caches_waiting_approve Caches erwarten für Verifikation bei OC Team
+caches_blocked Meine gesperrte Caches bei OC Team
+blocked_create_caches ACHTUNG! Deine Möglichkeit für Cache Versteckung ist gesperrt. Bitte um Kontakt mit OC Team rr@opencaching.pl
+npa_info Wahrscheinlich Cache ist versteck an Bereich
+check_nearby_caches_info Vor einsetzung der Cache bitte prüfen ob in geplante Platz <br /> keine Cache in Radius 150 m schon versteckt ist, wann ja - bitte um andere Platz suchen.
+check_nearby_caches Prüfen ob die Caches versteckt an OC PL in Nähe sind
+check_nearby_caches_map Prüfen ob die Caches versteckt an OC PL an Karte sind
+my_caches_status Meine Caches mit Status
+active Aktive
+temp_unavailable Nicht verfügbare
+archived Archivierte
+not_published Nicht veräffentliche
+for_approval Verifizierte
+blocked Gesperrte
+my_caches Meine Caches
+region Land
+number_of_caches_by_region Anzahl der Caches in Land
+activity_by_region Aktivität in Lände
+number_of_visit_caches Anzahl von Cache Suchen
+users_active Anzahl der Aktive Benutzer in Cache Suchen
+show_labels Etiketten anzeigen
+history_gk geoKrety besuchen
+cachenotes Notizen
+my_statistics Meine Statistik
+mycache_note Meine notizen
+personal_cache_note Besitzene Notiz zur Cache
+cache_note_visible Notiz ist nicht sichtbar für andere Benutzer. Notiz wird befestig zur GPX Datei.
+for_cache für Cache
+add_new_note Neue Notiz eingeben
+back_to_cache Zurück zur Cache
+cache_notes Notizen
+cache_note Notiz
+delete Löchen
+edit Ausgabe
+cancel Anulieren
+no_note Keine Notizen
+additional_waypoints Zusäztliche Waypoint
+nowp_notice Es gibt keine zusäztliche waypoints
+stage_wp Etappe
+type_wp Typ
+type_wp2 Waypoint Typ 
+coordinates_wp Koordinaten
+describe_wp Beschreibung
+add_new_waypoint Neu waypoint hinzufügen 
+wp_status1 Alle Waypoint-Informationen zeigen, einschlißlich Koordinaten
+wp_status2 Alle Waypoint-Informationen zeigen, statt Koordinaten
+wp_status3 Verschtecken dieser Waypoint in Beschreibung
+number_stage_wp Etappe Nummer
+status_wp Waypoint-Status
+write_wp Waypoint speichern
+edit_wp Waypoint
+delete_wp Waypoint läschen
+show_info_about_wp Siehe Beschreibung und die Art der zusätzlichen Waypoints
+show_info_for_value Wenn der Waypoint ist der nicht eine nächste Schritt in Quiz oder Multicache den Wert 0 setzen
+comment_octeam_visible COG-Anmerkungen sind sichtbar nur für COG und Cache Besitzer.
+ready_to_search Cache bereit zu suchen. Viel Glück!
+archived_cache Cache war archiviert.
+temporarily_unavailable Cache wird temporär nicht verfügbar.
+blocked_by_octeam Cache gesperrt bei Geocacher HelpDesk.
+empty_coordinatest Geben Sie den neuen Koordinaten für den Fall der mobilen übertragen.
+empty_log_text Log-eintrag sollte nicht leer sein. Bitte ein paar Worte schreiben, die wertvolle Informationen für den Cache Besitzer sein kann
+route_cache Weg reiste bei Cache.
+start_point Reise Anfang
+trp_points Reisepunkte
+recently_seen Letztens gesehen
+moved_text bewegt
+encrypt_log Log kodiert
+my_neighborhood Meine Umgebung
+my_neighborhood_v2 Meine Umgebung v2
+my_neighborhood_radius Meine Umgebung in Radius
+new_caches_myn Neue Caches
+ftf_awaiting Caches erwarten für "FTF"
+new_logs_myn Neueste Logs
+top_recommended TOP-Liste der Caches mit Empfehlungen
+myn_info Du hasst nicht die Koordinaten von Umgebung erstellt. Du kannst es einsetzen in <a href="myprofile.php?action=change">Deinem Profil</a>.Wenn Du einen anderen Radius als der Standardwert 35 km einstezten wird, kann in Deinen Profil Option machen. Hier ist ein Beispiel für die Koordinaten gesetzt systemisch.
+search_user benutzer Suchen
+monthly_stat_founds Monatliche Statistik für Cache Befundungs
+monthly_stat_founds_user Monatliche Statistik für Befundungs bei Benutzer
+monthly_stat_created_user Monatliche Statistik für versteckte Caches
+monthly_stat Monatliche Statistik für Cache
+annual_stat_founds Jährliche Statistik für Cache Befundungs
+annual_stat_founds_user Jährliche Statistik für Befundungs bei Benutzer
+annual_stat_created Jährliche Statistik für versteckte Caches
+annual_stat Jährliche Statistik für Cache
+number_founds Befundungs Anzahl
+number_caches Caches Anzahl
+number_logentry Anzahl der Log-einträge
+by_cachetype Nach Cache Typ
+by_logtype Nach Log-Typ
+stat_geocache Cache Statistik
+does_not_have_stat hat noch keine Statistik
+number_month Monat Nummer 
+stat_problems COG Statistik- Anwendungen laufen
+edit_logentry Cache log bearbeitem
+moved_cache_info Wenn Du an eine neue Position bewegt neue Koordinaten eingegebt die wird sichtbar in Cache Logs
+encrypt_log_info Du kannst Log eintrag kodieren Dies ist nützlich, wenn das Log enthält die Informationen, wo eine versteckte Cache sagen kann. Der Text in eckigen Klammern <b> [text] </ b> ist nicht verschlüsselt
+encrypt_log_entry Log-Eintrag Kodierung
+not_recommend_own Du kannst nicht deine Cache empfehlen
+send_report_info Du kannst Problem mit Cache melden z.B. <b>Bemerkung zur Orti</b> für OC PL Team oder Cache Besitzer bei Nutzung dieser Vorlage
+send_report Problem melden
+password_to_log Log Passwort
+incorrect_password_to_log Falsche Passwort
+only_for_found_it nur für gefundene Caches
+store Speichern
+here Hier
+alternative_recommend Alternativ Du kannst Empfehlungen annulieren
+comment_log Komenatar
+need_maintenance_log Service notwendig
+comment_octeam_log COG Komentar
+moved_log bewegt
+new_coordinates Neue Cache Koordinaten
+moved_distance Wegstrecke
+delete_logentry Log-Eintrag löschen
+confirm_remove_log Bisst Du sicher, dass diesen Log-Eintrag zu löschen
+add_comment_to_remove Möchtest Du zusäztliche Bemerkung zu schicken
+removed_log_title Dein Log-Eintrag war bei Cache Besitzer gelöscht
+removed_message_titel Cache Besitzer hat Dich solche Komentar geschickt
+dont_have_recommended_caches Du hast keine Empfehlungen
+your_recommendations Deine Empfehlung zur Cache
+was_removed war gelöscht
+recommended_geocaches Caches mit Empfehlungen
+number_recommendations Anzahl der Empfehlungen
+regions_only_for Land (nur für Polen)
+monday Montag
+tuesday Dienstag
+wednesday Mittwoch
+thursday Donnerstag
+friday Freitag
+saturday Samstag
+sunday Sontag
+immediately Sofort
+once_day Ein mal pro Tag
+once_week Ein mal pro Woche
+weekday Tag der Woche
+send Schicken
+commit_watch Einstellungen wurden erfolgreich gespeichert
+no_queries Es bestehen keine kumulierten Anfragen
+name_queries Bezeichnung zu den Suchergebnissen
+save_queries Suchergebnis Angemeldet
+old_options überschreiben die alten Suchergebnissen
+select_queries Wähls Du die gespeicherte Suche zu überschreiben
+last_found Letzte gefundene
+delete_recommend Emfehlung löschen
+off_ignore Ignorierung ausschalten
+no_ignores Hat keine ignorierte caches
+oc_stat OC PL Caches Statistik
+administration OC Management
+stat_octeam COG Statistik
+cache_notfound Caches nicht Befundene
+send_bulletin Bulletin schicken
+add_news Nachricht eingeben
+email_subject_news Neue Information an OpenCaching PL
+subject Thema
+contents Inhalt
+content_include_html Inhalte enthält HTML
+logged_by Log-Eintrag von
+all_regions Alle Regionen
+assigned_to Zugewiesen
+date_created Erstellungsdatum
+owner Besitzer
+actions Aktion
+block Sperren
+assign_yourself Ordnen sich auf die Benachrichtigung
+accept Akceptieren
+octeam_stat_problems COG Statistik - Anwendung laufen
+octeam_stat_m_problems COG Statistik Monatlich - Bericht Anwendungen
+octeam_stat_caches COG Statistik - Caches in Verifikation
+octeam_stat_m_caches Monatliche COG Statistik - Caches in Verifikation
+number_problems Anzahl der Anwendungen
+add_by hinzugefügt bei 
+octeam_comment_subject [OC] COG Adotation zur Cache
+octeam_comment_copy Kopie der Einverständniserklärung zur Cache hinzugefügt von
+list_of_latest_logs_is_empty Es gibt keine aktuellen Einträge im Log
+list_of_caches_is_empty Es gibt keine neue Caches in Nähe
+Online online_users registrierte Benutzer
+online_users_info auf den aktiven Besuchern der letzten 10 Minuten online
+empty_entry_notice <b> Label Einträge </ b>: Versuchen Sie nicht, leere Einträge machen. Vorbereitung der Cache ist oft eine grosse Arbeit und Worte des Dankes oder Kritik sind in der Regel willkommen! Selbst ein einfaches "Danke" genug ist.
+empty_entry_confirm Sicher, dass Du ein leer Eintrag? \ Es ist immer viel besser als ein kurzes Kommentar schreiben.
+where_i_am Wo bin ich?
+read_info_about_cache_types Siehe Beschreibung <a href="http://wiki.opencaching.pl/index.php/Typ_skrzynki" target="_blank">Cache Typ</a>
+regiononly Land (nur Polen)
+region_from_coord Land von Koordinaten
+select_regions Land wählen
+not_applicable Nicht verwendet
+input_coord Bitte Koordinaten der Cache angeben
+waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Siehe Beschreibung über zusätzliche Waypoints </a>
+cache_pictures Bild mit Cache verbunden
+log_pictures Bild in LOG-Eintrag
+no_title Ohne Titel
+to_big_data Bild ist zu Groß
+max_size Maximale Bildgröße beträgt 100 KB. Ändern Aufösung oder Verringerung der Bildqualität.
+bad_format Falsches Bild Typ
+bad_format_info Datei hat ungültiges Format. Erlaubte Dateiformate BMP, GIF, PNG, JPG und - JPG empfohlen für Fotos. Maximale Dateigröße beträgt 100 KB. Die empfohlene Auflösung beträgt 480 x 360 Pixel.
+no_picture Bild fehlt in Database
+title_picture Titel
+file_name Datei Name
+cache_picture_intro HINWEIS! Du musstsich darum kümmern, um  von ihm in der Website veröffentlichten Inhalte werden / Fotos nicht gegen geltende Gesetze und Vorschriften <a href=http://wiki.opencaching.pl/index.php/Regulamin_OC_PL> Regeln OC UK </ a>. Insbesondere veröffentlicht die User Inhalte / Bilder dürfen nicht gegen das Urheberrecht Dritter. Sie sind verantwortlich direkt gegen die Copyright-Inhaber für daraus resultierende Verletzung solcher Rechte durch ihn auf die Seite Bilder / Fotos veröffentlicht. Setzen <br/> nur relevante Bild mit dem Fall verbunden. Tun Sie das nicht Fotoalbum herum.
+spoiler_info nicht zeigen Thumbnails (SPOILER) - Verwenden diese Option, wenn das Bild hochladen, um das Versteck ist in der Box gezeigt. Fotos bis jemand auf SPOILER zeigt er ein Bild hochgeladen.
+dont_show nicht zeigen dieses Bild.
+pictures_intro Folgende Formate werden akzeptiert: BMP, GIF, PNG, JPG und - empfohlen für Fotos im JPG-Format <br /> Maximale Dateigröße erlaubt 100 KB. Empfohlene Bildgröße: 480 Pixel breit und 360 Pixel Höhe. <br /> Nach der Bestätigung der nächsten Seite, die erscheint, kann eine Weile dauern.
+add_new_picture Hinzufügen ein neues Bild für Cache
+Galerie Galerie anzeigen
+gallery_of_cache Bildergalerie für Cache
+images_cache Pictures Cache
+images_logs Bilder von Protokollen
+show_more Mehr anzeigen
+search_options Suchoptionen
+MyRoutes Meine Routen
+add_new_route Neue Route hinzufügen
+setup_new_route Bestimmen Sie neue Route
+add_new_route_kml hochladen neue Route KML
+save_route Route speichern
+radius_info Radius sollte im Bereich von 0,5 km bis 10 km sein
+edit_route Rundgang bearbeiten
+route_desc Der Route Beschreibung
+route_name Name der Route
+route_name_info Bitte geben die Route Namen
+file_name_info Bitte geben KML
+no_routes Strecke ist leer
+Radius Radius
+see_desc_myroute Siehe Beschreibung von "My Tour"
+route_radius Umkreissuche
+search_caches_along_route Suche Caches entlang der Route
+caches_along_route Caches entlang der Route
+save_gpx zu GPX speichern
+show_gmap Auf GMAP'ie
+show_list Liste der Caches zeigen
+logs_cache_gpx Anzahl der Logs für Cache, in GPX
+min_logs_cache minimale Anzahl von Logs
+marked_grey_search_area Die grau markierten Bereich für definierte Suchradius.
+lastlogins Letztes Login
+dieser Monat in den letzten 30 Tagen
+more_one_month zwischen 1 und 6 Monaten
+more_six_month zwischen 6 und 12 Monaten
+more_12_month mehr als 12 Monaten
+more_six_month zwischen 6 und 12 Monaten 
+more_12_month mehr als 12 Monaten
+unknown unknown nicht bekannt
+user_not_active Benuzer Konto nicht aktiv
+distance_to_cache Abstand zur Cache
+cacheguides Geocaching Guides
+guide Guide
+Guides Guides
+okapi_apps Meine Apps
+os_times mal
+os_kesz Geocache
+os_autor Autor:
+os_nie_ma_w_os Autor dieser Cache hat nicht erlaubt prüfen die Koordinaten in OpenChecker
+os_podaj_waypoint Bitte Waypoint der Cache angeben (np.: OP2E48) 
+os_podaj_twoje Geben die Koordinaten empfangen Endbehälter:
+os_sprawdz prüfen
+os_stopnie Degrees
+os_minuty Minuten
+os_tak_chce Auswahl dieser Option können Benutzer die Koordinaten überprüfen mit OpenChecker erhielt 
+opensprawdzacz_main Autor dieser Geocache möglich Validierung die Rätsel lösen (die endgültigen Behälter-Koordinaten), bevor in das Feld!
+os_pr Studie
+os_sukc Treffern
+os_proba Anlzah der Deine Versuche:
+os_razy razy. Zullasige Anzahl der Versuche:
+os_razy_srodek innerhalb 
+os_razy_koniec Minute.
+os_sukces JA! Du hast die richtigen Koordinaten! Herzlichen Glückwunsch.
+os_fail FALSCH! Die Koordinaten sind ungültig. Überprüfen Deine Berechnungen!
+os_za_godzine Warten  eine Stunde und versuchen  es erneut.
+os_komunikat1 prüfen Geocache-Koordinaten Eingabe ihrer Waypoint
+os_komunikat2 prüfen Geocache-Koordinaten, indem Die sie aus der Liste:
+os_typ Art
+os_powrot Rückkehr
+os_pomoc Hilfe
+os_zobo lesen OpenChecker was sie tut und wie Sie Ihren Posteingang hinzuzufügen.
+os_spr_form überprüfen  die letzte Box-Koordinaten:
+os_twojews Deine Koordinaten
+os_hlp_01 OpenChecker zu überprüfen Container Finale Koordinaten für Cache-Typ "Quiz", "Unbekannter Typ" und "Multicache".
+os_hlp_02 Wenn verstecken Cache - Du kannst damit andere Benutzer die abgeleiteten / berechneten Koordinaten des fertigen Behälters, bevor es in das Feld zu überprüfen.
+os_hlp_03 Wie einen Cache zu OpenChecker hinzufügen?
+os_hlp_04 1 Zu Bearbeiten Panel Cache
+os_hlp_05 2 Klicken auf Hinzufügen neuer Waypoint
+os_hlp_06 3 Legen Sie den Typ der Waypoint auf der "Endpunkt"
+os_hlp_07 4 Kliken der "Vogel" auf OpenChecker
+os_hlp_08 5 Setzen  den Status des Waypoint auf der "Verstecken diesen Wegpunkt an Waypointliste"
+os_hlp_09 6 Klicken auf "Speichern Waypoint"
+os_hlp_10 Von diesem Moment in Deinen Posteingang sehen zwei Änderungen:
+os_hlp_11 a) Auf der Beschreibung Cache erscheint Openchecker Abschnitt mit einem Link, um die Koordinaten zu überprüfen;
+os_hlp_12 b) Auf der OpenChecker Cache wird dem Listenfeld hinzugefügt werden.
+os_hlp_13 Wie löchen Cache von OpenChecker?
+os_hlp_14 Um zu verhindern, überprüfen Koordinaten:
+os_hlp_15 1 Zum Bearbeiten Panel Cache
+os_hlp_16 2 Waypoinr in der Liste, auf der Edit Wegpunkt "Endpunkt" klicken
+os_hlp_17 3 deaktivieren das Kontrollkästchen "Vogel" auf OpenChecker.
+os_hlp_18 Von nun an deiner Cache wird aus der Liste OpenSprawdzacza sowie aus der Beschreibung von Ihrem Posteingang verschwinden Openchecker Abschnitt.
+ni_ma_takiego_kesza Solche Cache fehlt in OpenChecker Database
+os_wynik Ergebniss
+os_zgad Erraten zu viel Mal!!
+wybrac_log Bitte wählen Log-eintritt Typ
+nowe_wsp Neue Koordinaten
+os_ma_max Limit gültig
+os_ma_pr versuchen
+os_ma_na versuchen an
+os_godzine Minute
+os_mus Du muss warten noch
+os_minut_end minut nächste Mal OpenChecker zu benutzen.
+viewlog_aktywnosc Benutzer Aktivität (Summe der Caches - gefunden, nicht gefunden und versteckt)
