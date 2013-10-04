@@ -297,7 +297,7 @@ show show
 lock Lock
 unlock Unlock
 user_stats user's stats
-first_cache If it is the first time you are placing a cache, please be aware to read the following <a href="http://wiki.opencaching.pl/index.php/Cache_parameters">description</a>
+first_cache If it is the first time you are placing a cache, please be aware to read the following <a href="{cache_params_url}" target="_blank">omschrijving</a>
 first_cache_approvement Because this is one of your first three caches, the listing will be available to others after approving by Opencaching Team.
 all_cache_approvement Cache will by visible for others after approving by OC Team
 name_label Name
@@ -797,13 +797,13 @@ online_users_info based on users active over the past 10 minutes
 empty_entry_notice <b>Log Etiquette:</b> Try to not submit empty log entries. Even ordinary "Thanks" will be enough!
 empty_entry_confirm Do you really want to leave an empty log entry?
 where_i_am Where am I
-read_info_about_cache_types Please read information about <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Cache types</a>
+read_info_about_cache_types Please read information about <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
 regiononly Region/Województwo (Poland only)
 region_from_coord Region from coordinates
 select_regions Select region
 not_applicable Not applicable
 input_coord Please input coordinates location of cache
-waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">See the description and the kinds of additional waypoints.</a>
+waypoints_about_info <a class="links" href="{cache_params_url}" target="_blank">See the description and the kinds of additional waypoints.</a>
 cache_pictures Geocache picture
 log_pictures Log picture
 no_title No title
@@ -1023,7 +1023,7 @@ report_12 Report has bin send. the Opencaching-team will investigate the issue a
 
 no_logtype_choosen No logtype choosen!
 nc01 Dear User
-nc02 Thank you for registering your cache at opencaching.pl. If you need help with hiding or registering the cache, please read the information at <a class="links" href="http://wiki.opencaching.pl">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> or contact the Centre of the Service of Geocachers - email address: cog@opencaching.pl. Remember that your cache tells also something about you. For sure you are concerned about its best quality and due to that fact we ask you to answer yourself the following questions: <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc02 Thank you for registering your cache at {site_name}. If you need help with hiding or registering the cache, please read the information at <a class="links" href="{wiki_url}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> or contact the Centre of the Service of Geocachers - email address: cog@opencaching.pl. Remember that your cache tells also something about you. For sure you are concerned about its best quality and due to that fact we ask you to answer yourself the following questions: <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
 nc03 Is the cache located in place that doesn't violate the law, isn't it hidden at the private area without the permission of its owner?
 nc04 Is the cache located in the area of the National Park, a reservation, monument, cemetery or some other area protected by law?
 nc05 Are there any other caches in the area, is the miminum 150 meter distance preserved?
@@ -1040,7 +1040,7 @@ nc15 as well as
 nc16 the Geocacher's Code
 nc17 on our OpenGeoWiki
 nc18 Regards
-nc19 opencaching.pl Community
+nc19 Team {site_name}
 nc20 I have considered all the matters listed above and I want to proceed with the registration of the cache
 guru_15 Recieved recommendations
 guru_16 Write E-mail
@@ -1159,7 +1159,7 @@ register04 Clear form
 registermail01 Hello
 registermail02 Welcome at
 registermail03 To have a good start, you can read most information on our OpenGeoWiki.You can find OpenGeoWiki at:
-registermail04 http://www.opencaching.pl/wiki
+registermail04 {wiki_url}
 registermail05 If you're looking for help through an interactive map where you can find volunteers who offer their help to beginning cachers.
 registermail06 Look at page:
 registermail07 Before you register your first cache on OC PL you must find 10 caches of follwing types:traditional, quiz, multicache and unknown type.
