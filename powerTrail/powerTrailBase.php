@@ -284,5 +284,17 @@ class powerTrailBase{
 		}
 		return $result;
 	}
+	
+	/**
+	 * remove unwanted chars from pt names 
+	 * (for gpx filenames)
+	 */
+	public static function clearPtNames($ptName){
+		$ptName = ucwords(strtolower($ptName)); 
+		$ptName = str_replace('♥', 'Serduszko', $ptName);
+		$ptName = str_replace(' ', '', $ptName);
+		$ptName = trim($ptName);
+		return $ptName;
+	}
 
 }

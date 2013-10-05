@@ -99,7 +99,7 @@ if ($error == false)
 			case 'showSerie':
 				$ptDbRow = $pt->getPowerTrailDbRow();
 				$ptOwners = $pt->getPtOwners();
-				$_SESSION['ptName'] = $ptDbRow['name'];
+				$_SESSION['ptName'] = powerTrailBase::clearPtNames($ptDbRow['name']); 
 				tpl_set_var('powerTrailId', $ptDbRow['id']);
 				tpl_set_var('mapOuterdiv', 'block');
 				if ($ptOwners) $userIsOwner = array_key_exists($usr['userid'], $ptOwners);

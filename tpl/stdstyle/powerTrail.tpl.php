@@ -55,11 +55,6 @@ $(function() {
 	ajaxGetComments(0, 8);
 }); 
 
-function  gpxSectionSwitch(){
-	$("#gpxSection").show();	
-}
-
-
 function getActiveSortBy(){
 	value1 = jQuery("#sortBy option:selected").html();
 	value2 = jQuery("#filter option:selected").html();
@@ -1374,6 +1369,16 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	-webkit-border-top-right-radius: 8px;
 	border-top-right-radius: 8px;
 }
+.linearBg2 {
+	height: 1px;
+	padding-left:8px;
+	background-color: #1a82f7; background-repeat: repeat-y; 
+	background: -webkit-gradient(linear, left top, right top, from(#1a82f7), to(#2F2727)); 
+	background: -webkit-linear-gradient(left, #2F2727, #1a82f7); 
+	background: -moz-linear-gradient(left, #2F2727, #1a82f7); 
+	background: -ms-linear-gradient(left, #2F2727, #1a82f7); 
+	background: -o-linear-gradient(left, #2F2727, #1a82f7);
+}
 .userActions {
 	font-family: verdana;
 	font-size: 9px;
@@ -1856,15 +1861,24 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	</table>
 	
 	<table border=0 width=100%>
-	<tr>
-		<td colspan="3" class="linearBg1">{{pt020}} {powerTrailName} <span style="float: right;" onclick="gpxSectionSwitch()">-</span></td>
-	</tr>
+		<tr>
+			<td class="linearBg1">{{pt020}} {powerTrailName}</td>
+		</tr>
+		<tr>
+			<td>
+				<div id="gpxSection" style="float: right; padding-top: 10px; padding-bottom: 10px; padding-right: 5px;">
+					{{pt179}}: 
+					<a href="search.php?searchto=searchbypt&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&ptId={powerTrailId}&output=gpxgc" class="editPtDataButton">GPX</a>
+					<a href="search.php?searchto=searchbypt&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&ptId={powerTrailId}&output=zip" class="editPtDataButton">GARMIN ({{format_pict}})</a>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="linearBg2"></td>
+		</tr>
 	</table>
-	<div id="gpxSection" style="display: none">
-		<a href="search.php?searchto=searchbypt&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&ptId={powerTrailId}&output=gpx">gpx</a>
-		<a href="search.php?searchto=searchbypt&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&ptId={powerTrailId}&output=gpxgc">gpxGC</a>
-		<a href="search.php?searchto=searchbypt&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&ptId={powerTrailId}&output=zip">zip</a>
-	</div>
+	
+	
 	<span id="PowerTrailCaches"></span>
 	<img id="cachesLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
 

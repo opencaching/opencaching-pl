@@ -836,7 +836,7 @@
 						require_once $rootpath.DIRECTORY_SEPARATOR.'powerTrail/powerTrailBase.php';
 						$cache_bylist = implode(",",powerTrailBase::getPtCachesIds($options['ptId']));
 						$ptDetails = powerTrailBase::getPtDbRow($options['ptId']);
-						$options['gpxPtFileName'] = $ptDetails['name'];
+						$options['gpxPtFileName'] = powerTrailBase::clearPtNames($ptDetails['name']);
 					}
 					$sql_select[] = '`caches`.`cache_id` `cache_id`';
 					$sql_from[] = '`caches`';
