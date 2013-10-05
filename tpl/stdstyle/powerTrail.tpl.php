@@ -53,7 +53,17 @@ $(function() {
 	getActiveSortBy();
 	ajaxGetPtCaches();
 	ajaxGetComments(0, 8);
+	$("#ptPercentCc").html(calculatepercentCc( $("#powerTrailpercent").html(), $("#powerTrailCacheCount").html()));
 }); 
+
+function updateCc(){
+	$("#ptPercentCc").html(calculatepercentCc( $("#demandPercent").val(), $("#powerTrailCacheCount").html()));
+}
+function calculatepercentCc(percent, totCacheCount){
+	var ptPercentCc;
+	ptPercentCc = totCacheCount * percent / 100;
+	return Math.ceil(ptPercentCc);
+}
 
 function getActiveSortBy(){
 	value1 = jQuery("#sortBy option:selected").html();
@@ -1782,12 +1792,13 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 		<tr>
 			<td class="descTd">{{pt054}}</td>
 			<td>
-				<span id="powerTrailpercent">{powerTrailDemandPercent}</span><img id="percentCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
+				<span id="powerTrailpercent">{powerTrailDemandPercent}</span>% <img id="percentCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
 				<span id="powerTrailpercentEdit" style="display: none">
-					<input id="demandPercent" onkeypress="return isNumberKey(event)" type="number" min="10" max="100" value="{powerTrailDemandPercent}" maxlength="3"/>
-					<a href="javascript:void(0)" onclick="togglePercentSection()" class="editPtDataButton">{{pt031}}</a>	
+					<input id="demandPercent" onchange="updateCc()" onkeypress="return isNumberKey(event)" type="number" min="10" max="100" value="{powerTrailDemandPercent}" maxlength="3"/>
+					<a href="javascript:void(0)" onclick="togglePercentSection(); $('#ptPercentCc').html(calculatepercentCc( $('#powerTrailpercent').html(), $('#powerTrailCacheCount').html()));" class="editPtDataButton">{{pt031}}</a>	
 					<a href="javascript:void(0)" onclick="ajaxUpdateDemandPercent()" class="editPtDataButton">{{pt044}}</a>	
 				</span>
+				(<span id="ptPercentCc"></span> {{pt180}})
 				<img id="ptPercentOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
 			</td>
 			<td align="right">
