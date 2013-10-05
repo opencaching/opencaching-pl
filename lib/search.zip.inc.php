@@ -131,6 +131,8 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 				$sFilebasename = 'watched_caches';
 			} elseif ($options['searchtype'] == 'bylist') {
 				$sFilebasename = 'cache_list';
+			} elseif ($options['searchtype'] == 'bypt') {
+				$sFilebasename = $options['gpxPtFileName'];
 			} else {
 				$rsName = sql('SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= &1 LIMIT 1', $options['queryid']);
 				$rName = sql_fetch_array($rsName);

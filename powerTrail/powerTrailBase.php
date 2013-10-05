@@ -237,7 +237,6 @@ class powerTrailBase{
 
 
 	public static function recalculateCenterAndPoints($caches){
-		
 		$points = 0;
 		$lat = 0;
 		$lon = 0;
@@ -272,6 +271,18 @@ class powerTrailBase{
 			}
 		}
 		return $r[0];
+	}
+	
+	public static function getPtCachesIds($PtId){
+		$q = 'SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1';
+		$db = new dataBase;
+		$db->multiVariableQuery($q, $PtId);
+		$r = $db->dbResultFetchAll();
+		//return $r;
+		foreach ($r as $c) {
+			$result[] = $c['cacheId'];
+		}
+		return $result;
 	}
 
 }

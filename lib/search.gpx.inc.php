@@ -32,6 +32,7 @@
 		
 
 		$rs = sql($sql);
+		if(!isset($retval)) $retval = '';
 		while ($r = sql_fetch_array($rs))
 		{
 			$retval .= '&lt;img src="'.$r['url'].'"&gt;&lt;br&gt;'.cleanup_text($r['title']).'&lt;br&gt;';
@@ -272,7 +273,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$rsName = sql('SELECT `caches`.`wp_oc` `wp_oc`, `caches`.`name` `name` FROM `gpxcontent`, `caches` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
 			$rName = sql_fetch_array($rsName);
 			mysql_free_result($rsName);
-			if( $_GET['realname'] == 1 )
+			if(isset($_GET['realname']) && $_GET['realname'] == 1 )
 				$sFilebasename = str_replace(" ", "", PLConvert('UTF-8','POLSKAWY',$rName['name']));
 			else
 				$sFilebasename = $rName['wp_oc'];
@@ -283,6 +284,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 				$sFilebasename = 'watched_caches';
 			} elseif ($options['searchtype'] == 'bylist') {
 				$sFilebasename = 'cache_list';
+			} elseif ($options['searchtype'] == 'bypt') {
+				$sFilebasename = $options['gpxPtFileName'];
 			} else {
 				$rsName = sql('SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= &1 LIMIT 1', $options['queryid']);
 				$rName = sql_fetch_array($rsName);

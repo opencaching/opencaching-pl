@@ -51,7 +51,9 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 	$bgcolor = '#ffffff';
 	$cachetypes = array (1 => 0,2 => 0,3 => 0,4 => 0,5 => 0,6 => 0,7 => 0,8 => 0,9 => 0,10 => 0,);
 	$cacheSize = array (2 => 0,3 => 0,4 => 0,5 => 0,6 => 0,7 => 0,);
+	unset($_SESSION['geoPathCacheList']);
 	foreach ($pTrailCaches as $rowNr => $cache) {
+		$_SESSION['geoPathCacheList'][] = $cache['cache_id'];
 		$totalFounds += $cache['founds'];
 		$totalTopRatings += $cache['topratings'];
 		$cachetypes[$cache['type']]++;

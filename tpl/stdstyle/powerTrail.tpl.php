@@ -55,6 +55,11 @@ $(function() {
 	ajaxGetComments(0, 8);
 }); 
 
+function  gpxSectionSwitch(){
+	$("#gpxSection").show();	
+}
+
+
 function getActiveSortBy(){
 	value1 = jQuery("#sortBy option:selected").html();
 	value2 = jQuery("#filter option:selected").html();
@@ -1532,6 +1537,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 
 <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
 
+<br/><br/>
 <!-- deleting entery comfirmation dialog  -->
 <div id="dialog-form" title="{{pt151}}" style="display: none">
 	<form>
@@ -1851,9 +1857,14 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	
 	<table border=0 width=100%>
 	<tr>
-		<td colspan="3" class="linearBg1">{{pt020}} {powerTrailName}</td>
+		<td colspan="3" class="linearBg1">{{pt020}} {powerTrailName} <span style="float: right;" onclick="gpxSectionSwitch()">-</span></td>
 	</tr>
 	</table>
+	<div id="gpxSection" style="display: none">
+		<a href="search.php?searchto=searchbypt&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&ptId={powerTrailId}&output=gpx">gpx</a>
+		<a href="search.php?searchto=searchbypt&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&ptId={powerTrailId}&output=gpxgc">gpxGC</a>
+		<a href="search.php?searchto=searchbypt&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&ptId={powerTrailId}&output=zip">zip</a>
+	</div>
 	<span id="PowerTrailCaches"></span>
 	<img id="cachesLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
 

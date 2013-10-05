@@ -30,6 +30,7 @@
 		
 
 		$rs = sql($sql);
+		if(!isset($retval)) $retval = '';
 		while ($r = sql_fetch_array($rs))
 		{
 			$retval .= '&lt;img src="'.$r['url'].'"&gt;&lt;br&gt;'.cleanup_text($r['title']).'&lt;br&gt;';
@@ -285,6 +286,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 				$sFilebasename = 'watched_caches';
 			} elseif ($options['searchtype'] == 'bylist') {
 				$sFilebasename = 'cache_list';
+			}  elseif ($options['searchtype'] == 'bypt') {
+				$sFilebasename = $options['gpxPtFileName'];
 			} else {
 				$rsName = sql('SELECT `queries`.`name` `name` FROM `queries` WHERE `queries`.`id`= &1 LIMIT 1', $options['queryid']);
 				$rName = sql_fetch_array($rsName);

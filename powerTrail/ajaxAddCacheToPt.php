@@ -101,7 +101,6 @@ function removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI){
 	$db->multiVariableQuery($query, $resultPowerTrailId['PowerTrailId']);
 	$logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`) VALUES (:1,:2,NOW(),3,:3,:4)';
 	$db->multiVariableQuery($logQuery, $resultPowerTrailId['PowerTrailId'],$_SESSION['user_id'] ,$ptAPI->logActionTypes[3]['type'], $cacheId);
-	
 }
 
 function getCachePoints($cacheId){
