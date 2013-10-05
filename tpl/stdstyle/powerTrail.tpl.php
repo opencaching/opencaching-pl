@@ -1794,7 +1794,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 			<td>
 				<span id="powerTrailpercent">{powerTrailDemandPercent}</span>% <img id="percentCountOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
 				<span id="powerTrailpercentEdit" style="display: none">
-					<input id="demandPercent" onchange="updateCc()" onkeypress="return isNumberKey(event)" type="number" min="10" max="100" value="{powerTrailDemandPercent}" maxlength="3"/>
+					<input id="demandPercent" onkeypress="return isNumberKey(event);" onkeyup="updateCc();" onchange="updateCc();" type="number" min="10" max="100" value="{powerTrailDemandPercent}" maxlength="3"/>
 					<a href="javascript:void(0)" onclick="togglePercentSection(); $('#ptPercentCc').html(calculatepercentCc( $('#powerTrailpercent').html(), $('#powerTrailCacheCount').html()));" class="editPtDataButton">{{pt031}}</a>	
 					<a href="javascript:void(0)" onclick="ajaxUpdateDemandPercent()" class="editPtDataButton">{{pt044}}</a>	
 				</span>
