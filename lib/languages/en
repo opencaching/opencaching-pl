@@ -1570,6 +1570,118 @@ pt047 Add this cache
 pt048 Add any cache
 pt049 Chose from your caches
 pt050 Opinions and comments
+pt051 Log your visit
+pt052 Type of Log
+pt053 Date
+pt054 % caches required to pass geoPath
+pt055 set
+pt056 comment
+pt057 gained
+pt058 Next log
+pt059 previous logs
+pt060 change logotype
+pt061 Replace the current logo witch that file
+pt062 Your geopaths
+pt063 visibility
+pt064 change status
+pt065 gained
+pt066 times
+pt067 Nature
+pt068 First you need to find
+pt069 Caches to create a new geoPath
+pt070 excellent
+pt071 good
+pt072 agverage
+pt073 medicore
+pt074 poor
+pt075 type
+pt076 nick (owner)
+pt077 status
+pt078 Rated as
+pt079 thematic
+pt080 By pressing this button you will start a new geoPath
+pt081 geoPath must be named
+pt082 Not yet assigned caches to this geoPath
+pt083 lack
+pt084 No caches to display
+pt085 sum
+pt086 After logging percentage of the caches, the user will have posibility to pass the geoPath, by log gained in geoPath comments
+pt087 What is this
+pt088 Help
+pt089 Public-visible for all <br /> For the time being invisible - visible only for  founders
+pt090 Specifies the character of geoPath. If the majority of caches in  project  shows an interesting place (peak, lookout point, natural monument, monument,isted building) set <b> Nature </b>. If the majority of caches are arranged in a  line or a design set <b> shape on the map </b>/    Similary, if the majority of caches applies to a historical or natural set appropriate type. If you think tan your geoPath should be in another category, which is not here, write to RR (Menu-> contact).
+pt091 Change the name
+pt092 For the time of testing available only to selected users. Errors can be repoted to RT or skype
+pt093 Completed geoPaths
+pt094 This cache belongs to geoPath
+pt095 Geocacher
+pt096 Findings in geoPath
+pt097 percent of findings
+pt098 Show more statistics
+pt099 Statistics for this geoPaths
+pt100 Hide statistics
+pt101 Caching days
+pt102 Average caches found per one caching day
+pt103 Founds
+pt104 Left
+pt105 There are no statistics for this geoPath
+pt106 Cache size
+pt107 Type of caches
+pt108 Traditional
+pt109 Multicache
+pt110 Quiz
+pt111 Another type
+pt112 Other
+pt113 Mikro
+pt114 Small
+pt115 Normal
+pt116 Big
+pt117 Very Big
+pt118 There are currently any entries for this geoPath.
+pt119 Number of all founders
+pt120 Number of all Geocachers who have founded 
+pt121 Average number of days needed to complete this geoPath
+pt122 other curiosities
+pt123 value
+pt124 <b>r.n.c</b> - the required number of caches, declared by  founders  number indicating the minimum number of caches, which is required to complete geoPath.
+pt125 r.n.c
+pt126 Information
+pt127 Add a new comment
+pt128 Add a new comment for geoPath
+pt129 You are using an old browser (IE6, IE7, IE8), which is no longer supported. This site will not work properly, or its functions will be significantly reduced. (you will not have access to most of the functionality). We recommend to use the latest browsers. (<ahref="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>)
+pt130 Remove
+pt131 Entry from the geoPath has been removed
+pt132 removed the entry type
+pt133 a comment
+pt134 Comment date (entered by the user)
+pt135 Cachers have wasted total cache-days
+pt136 geographical center of geoPath
+pt137 geoPath of the week
+pt138 caches
+pt139 geoPath
+pt140 Number of points in the geoPath category
+pt141 Cache ready to search
+pt142 temporarily unavailable
+pt143 cache was archived
+pt144 Not published
+pt145 Edit
+pt146 Edited a comment for geoPath
+pt147 edited entry
+pt148 Final cache
+pt149 show finals
+pt150 Return to normal view
+pt151 Confirm deletion of entry
+pt152 Specify a reason for deleting this entry
+pt153 Reason of delete an entry
+pt154 marks
+pt155 geoPath - help
+pt156 remove optional cache
+pt157 Enter the cache waypoint which you want add to the geoPath
+pt158 Enter the cache waypoint which you want remove from the geoPath
+pt159 Delete that cache
+pt160 Cache doesn't belong to the geoPath
+pt161 Cache was  removed from geoPath
+pt162 Cache has been added to the geoPath
 statpic_found Found:
 statpic_hidden Hidden:
 statpic_html_link - Statistics for
