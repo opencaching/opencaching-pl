@@ -231,6 +231,7 @@ function displayPTrails($pTrails, $areOwnSeries)
 	$result = '';
 	$dataForMap = '';
 	foreach ($pTrails as $pTkey => $pTrail) {
+		$pTrail["name"] = str_replace("'", '&#39;', $pTrail["name"]);
 		$dataForMap .= "[".	$pTrail["centerLatitude"].",".$pTrail["centerLongitude"].",'<a href=powerTrail.php?ptAction=showSerie&ptrail=".$pTrail["id"].">".$pTrail["name"]."</a>','tpl/stdstyle/images/blue/".$poweTrailMarkers[$pTrail["type"]]."','".$pTrail["name"]."'],";
 		$ptTypes = powerTrailBase::getPowerTrailTypes();
 		$ptStatus = powerTrailBase::getPowerTrailStatus();
@@ -259,9 +260,11 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		
 	$cacheRows = '';
 	foreach ($pTrailCaches as $rowNr => $cache) {
+		// avoid crash js on quotas (');
+		$cacheName = str_replace("'", '&#39;', $cache['name']);
 		if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $image = 'tpl/stdstyle/images/'.$foundCacheTypesIcons[$cache['type']];
 		else $image = 'tpl/stdstyle/images/'.$cacheTypesIcons[$cache['type']];
-		$cacheRows .= '['.$cache['latitude'].",".$cache['longitude'].",'<a href=".$cache["wp_oc"]." target=_new>".$cache['name']."</a>',". "'$image','".$cache['name']."',],";
+		$cacheRows .= '['.$cache['latitude'].",".$cache['longitude'].",'<a href=".$cache["wp_oc"]." target=_new>".$cacheName."</a>',". "'$image','".$cacheName."',],";
 		
 	}	
 	$cacheRows = rtrim($cacheRows, ",");

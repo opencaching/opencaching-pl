@@ -1530,7 +1530,7 @@ pt007 At the moment invisible
 pt008 GeoPath&#39;s name
 pt009 GeoPath&#39;s type
 pt010 Visibility
-pt011 GeoPath &#39;s Description
+pt011 GeoPath&#39;s Description
 pt012 All GeoPaths
 pt013 Caches <=> GeoPaths    
 pt014 Caches Geopaths 
@@ -1538,22 +1538,22 @@ pt015 Your degree of progress for GeoPath
 pt016 from
 pt017 You found
 pt018 This GeoPath is invisible (unpublished yet, blocked, etc.)
-pt019 Geo Path &#39;s details
+pt019 Geo Path&#39;s details
 pt020 Caches in this GeoPath
 pt021 Your statistics
 pt022 Number of caches
-pt023 GeoPath &#39;s type
+pt023 GeoPath&#39;s type
 pt024 Publication date
 pt025 Owners
 pt026 Sport
 pt027 Touring
-pt028 User &#39;s nick or ID:
+pt028 User&#39;s nick or ID:
 pt029 Remove this user from GeoPath
 pt030 Add/Remove
 pt031 Cancel
 pt032 Add
 pt033 Refresh
-pt034 GeoPath &#39;s description
+pt034 GeoPath&#39;s description
 pt035 GeoPaths
 pt036 Name
 pt037 Scoring
@@ -1679,7 +1679,7 @@ pt156 remove optional cache
 pt157 Enter the cache waypoint which you want add to the geoPath
 pt158 Enter the cache waypoint which you want remove from the geoPath
 pt159 Delete that cache
-pt160 Cache doesn &#39;t belong to the geoPath
+pt160 Cache doesn&#39;t belong to the geoPath
 pt161 Cache was  removed from geoPath
 pt162 Cache has been added to the geoPath
 statpic_found Found:
