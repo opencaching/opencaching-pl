@@ -178,7 +178,7 @@ $email_form = "";
 			$cache_user_id = $cache_info['user_id'];
 			$report_user_id = $report['user_id'];
 			$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-			$email_headers .= "From: Opencaching.pl <$octeam_email>\r\n";
+			$email_headers .= "From: $site_name <$octeam_email>\r\n";
 			$email_headers .= "Reply-To: $octeam_email\r\n";
 //			$email_headers .= "Reply-To: ".$usr['email']."\r\n";
 //			$email_headers .= "CC: $octeam_email\r\n$octeam_email";
@@ -286,7 +286,7 @@ $email_form = "";
 			}
 		}
 
-		$sql = "SELECT cache_status.id as cs_id,caches.user_id AS cache_ownerid, cache_status.pl as cache_status, reports.id as report_id, reports.user_id as user_id, reports.note as note, reports.changed_by as changed_by, reports.changed_date as changed_date, reports.cache_id as cache_id, reports.type as type, reports.text as text, reports.submit_date as submit_date, reports.responsible_id as responsible_id, reports.status as status, user.username as username, user.user_id as user_id, caches.name as cachename, caches.status AS c_status,IFNULL(`cache_location`.`adm3`, '') AS `adm3` FROM cache_status, reports, user, (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) WHERE cache_status.id = caches.status AND reports.id = '".sql_escape(intval($_REQUEST['reportid']))."'AND user.user_id = reports.user_id AND caches.cache_id = reports.cache_id ORDER BY submit_date ASC";
+		$sql = "SELECT cache_status.id as cs_id,caches.user_id AS cache_ownerid, cache_status.$lang as cache_status, reports.id as report_id, reports.user_id as user_id, reports.note as note, reports.changed_by as changed_by, reports.changed_date as changed_date, reports.cache_id as cache_id, reports.type as type, reports.text as text, reports.submit_date as submit_date, reports.responsible_id as responsible_id, reports.status as status, user.username as username, user.user_id as user_id, caches.name as cachename, caches.status AS c_status,IFNULL(`cache_location`.`adm3`, '') AS `adm3` FROM cache_status, reports, user, (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) WHERE cache_status.id = caches.status AND reports.id = '".sql_escape(intval($_REQUEST['reportid']))."'AND user.user_id = reports.user_id AND caches.cache_id = reports.cache_id ORDER BY submit_date ASC";
 		$query = mysql_query($sql) or die("DB Error. Bad report id (well... probably).");
 		if( mysql_num_rows($query) > 0 )
 		{
