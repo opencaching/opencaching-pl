@@ -1137,6 +1137,8 @@ rss_15 GeoKrety: Yes
 rss_16 GeoKrety: No
 rss_17 Recommended: Yes
 rss_18 Recommended: No
+rss_19 Latest logs own caches from
+rss_20 Information latest logs own caches from
 reportcache01 Cache might be on private property
 reportcache02 Cache requires archiving
 reportcache03 Copyright violation

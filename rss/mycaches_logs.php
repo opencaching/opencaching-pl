@@ -40,10 +40,10 @@ if ($error == false)
 
 header('Content-type: application/xml; charset="utf-8"');
 			
-					$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>OC PL - Najnowsze logi w skrzynkach użytkownika: {userowner}</title>\n<ttl>60</ttl><description>Najnowsze wpisy do logów w skrzynkach użytkownika {userowner}</description>\n<link>http://www.opencaching.pl</link><image>
-		<title>OC PL - Najnowsze logi w skrzynkach użytkownika: {userowner}</title>
-		<url>http://www.opencaching.pl/images/oc.png</url>
-		<link>http://www.opencaching.pl</link><width>100</width><height>28</height></image>\n\n";
+					$content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>$short_sitename - ".tr('rss_19')." {userowner}</title>\n<ttl>60</ttl><description>".tr('rss_20')." {userowner}</description>\n<link>$absolute_server_URI</link><image>
+		<title>$short_sitename - Najnowsze logi w skrzynkach użytkownika: {userowner}</title>
+		<url>$absolute_server_URI/images/oc.png</url>
+		<link>$absolute_server_URI</link><width>100</width><height>28</height></image>\n\n";
 
 					$content = str_replace('{userowner}',  htmlspecialchars($user_record['username']), $content);
 
@@ -56,7 +56,7 @@ header('Content-type: application/xml; charset="utf-8"');
 							  caches.wp_oc AS wp_name,
   (SELECT text_combo FROM log_types_text
        WHERE log_types_id = cache_logs.type AND
-               lang = 'PL') AS log_name,
+               lang = '$lang') AS log_name,
 							  caches.type AS cache_type,
 							  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,COUNT(gk_item.id) AS geokret_in
 	                  FROM ((cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id))) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` 
@@ -71,27 +71,27 @@ header('Content-type: application/xml; charset="utf-8"');
 				{
 				$r = sql_fetch_array($rs);
 
-			$thisline = "<item>\n<title>{cachename}</title>\n<description>Data: {date} - Użytkownik: {username} - Wpis: {logtype}{rate}{gk} </description>\n<link>http://www.opencaching.pl/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";				
+			$thisline = "<item>\n<title>{cachename}</title>\n<description>".tr('rss_08').": {date} - ".tr('rss_06').": {username} - ".tr('rss_07').": {logtype}{rate}{gk} </description>\n<link>$absolute_server_URI/viewlogs.php?cacheid={cacheid}</link>\n</item>\n";				
 
 
 
 			if ( $r['geokret_in'] !='0')
 					{
-					$thisline = str_replace('{gk}', ' - GeoKrety: Tak', $thisline);
+					$thisline = str_replace('{gk}', ' - '.tr('rss_15'), $thisline);
 					}
 					else
 					{
-					$thisline = str_replace('{gk}', '', $thisline);
+					$thisline = str_replace('{gk}', ' - '.tr('rss_16'), $thisline);
 					}					
 				
 				        //$rating_picture
 				if ($r['recommended'] == 1) 
 					{
-					$thisline = str_replace('{rate}', ' - Rekomendacja: Tak', $thisline);
+					$thisline = str_replace('{rate}', ' - '.tr('rss_17'), $thisline);
 					}
 					else
 					{
-					$thisline = str_replace('{rate}', '', $thisline);
+					$thisline = str_replace('{rate}', ' - '.tr('rss_18'), $thisline);
 					}
 			$thisline = str_replace('{cacheid}', $r['cache_id'], $thisline);;
 			$thisline = str_replace('{cachename}', htmlspecialchars($r['cache_name']), $thisline);
