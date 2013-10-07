@@ -1255,6 +1255,12 @@ rss_09 Nowe skrzynki na
 rss_10 Nazwa skrzynki
 rss_11 Kraj
 rss_12 Najnowsze wiadomości na
+rss_13 Najnowsze logi użytkownika
+rss_14 Najnowsze wpisy do logów wprowadzone przez użytkownika
+rss_15 GeoKrety: Tak
+rss_16 GeoKrety: Nie
+rss_17 Rekomendacja: Tak
+rss_18 Rekomendacja: Nie
 reportcache01 Uwaga co do lokalizacji skrzynkix
 reportcache02 Skrzynka wymaga archiwizacji
 reportcache03 Nieodpowiednia zawartość skrzynki

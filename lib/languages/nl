@@ -633,7 +633,7 @@ my_caches Mijn caches
 region Regio
 number_of_caches_by_region Aantal caches per regio
 activity_by_region Activiteit per regio
-number_of_visit_caches Number of search caches
+number_of_visit_caches Totaal aantal caches
 users_active Number of active users
 show_labels Show labels
 history_gk GeoKrety historie 
@@ -1255,6 +1255,12 @@ rss_09 Nieuwste caches op
 rss_10 Cachenaam
 rss_11 Land
 rss_12 Laatste nieuws op
+rss_13 Laatste logs van gebruiker
+rss_14 Gegevens laatste logs van gebruiker
+rss_15 Geokrety: Ja
+rss_16 Geokrety: Nee
+rss_17 Aanbevolen: Ja
+rss_18 Aanbevolen: Nee
 reportcache01 Cache op privégrond
 reportcache02 Archiveren
 reportcache03 Schending auteursrecht
@@ -1633,7 +1639,7 @@ ST Sao Tomé en Principe
 SX El Salvador
 SY Syrië
 SZ Swaziland
-TC Turks- en Caicoseilanden
+TC Turks- en Caicoseilanden&rdquo;
 TD Tsjaad
 TF Franse Zuidelijke en Antarctische Gebieden
 TG Togo
