@@ -28,7 +28,7 @@ not_accessible_winter Niet toegankelijk in winter
 depends_weather Toegang wordt bepaald door het weer
 bikes_allowed Fietsen toegestaan
 bikes_not_allowed Fietsen niet toegestaan
-cars_allowed Auto's toegestaan
+cars_allowed Auto&#39;s toegestaan
 cave Grot
 outside_path_allowed Naast paden wandelen is toegestaan
 outside_path_not_allowed Naast paden wandelen is niet toegestaan
@@ -144,7 +144,7 @@ links Links
 geochat Geocaching chat
 contact Contact us
 my_account Mijn profiel
-general User's Page
+general User&#39;s Page
 my_logs Mijn logs
 change_data Verander gegevens
 change_email Verander E-mail adres
@@ -181,7 +181,7 @@ special_caches Special caches
 user_ident Gebruikers profiel
 cache_map Kaart met caches v3
 cache_mapv2 Kaart met caches v2
-old_cache_map Map's older version
+old_cache_map Map&#39;s older version
 abc Opencaching wiki
 forum Forum
 geokrets Geokrety
@@ -314,7 +314,7 @@ select_one selecteer!
 waypoint_other_portal_info Waypoint voor deze cache bevind zich in andere databases. Gegevens worden niet overgenomen.
 cache_attributes_label Cache attributen
 attributes_edit_hint Attributen kunnen later ook verandert worden.
-additional_attributes_hint You can add some more attributes to your cache's description with this tool:
+additional_attributes_hint You can add some more attributes to your cache&#39;s description with this tool:
 additional_attributes Additional cache attributes
 attributes_desc_hint Lees ook het <a href="{cache_params_url}" target="_blank">Opencaching attributen beschrijving</a> artikel.
 descriptions Beschrijving
@@ -342,7 +342,7 @@ no_javascript Je Browser ondersteunt nog geen Javascript. Je kunt alleen gewone 
 html_usage Gebruik HTML tags voor het bewerken van tekst.
 available_html Beschikbare HTML tags lijst
 additional_enc_info <b><font color="red">Extra </font> versleutelde hint.</b> <i>Geen verplicht veld</i>. Hier kun een een extra hint toevoegen. Informatie om de cache normaal te kunnen vinen dient in de "Omschrijving" beschreven te staan.
-add_photo_newcache Afbeeldingen,foto's, extra waypoints en MP3 bestanden kunnen na het registren van de cache toegevoegt worden.
+add_photo_newcache Afbeeldingen,foto&#39;s, extra waypoints en MP3 bestanden kunnen na het registren van de cache toegevoegt worden.
 search_wildcard_info Use "%" as a wildcard.
 event_hidden_hint Hint: Bij EVENEMENTEN moet in het "datum van plaatsing" veld de datum staan wanneer het evenement begint.
 submit_new_cache Publiceren
@@ -413,7 +413,7 @@ h_de_label Toon caches van opencaching.de
 h_se_label Toon caches van opencaching.se
 h_no_label Toon caches van opencaching.no
 ozi_path_label Path to folder 'op' on PDA
-ozi_path_info Applicable for Ozi Explorer users with Filips' database. When you provide correct path to 'op' folder, you will be able to download WPT files as a search results with localization of information about cache description. After that, you can tap on the cache on Ozi Explorer's map and choose \"Open attachment\" option. This will open detailed description about the cache. Examples: <b>\\SDMMC\\baza\\</b>, <b>\\Memory card\\BF\\</b>
+ozi_path_info Applicable for Ozi Explorer users with Filips' database. When you provide correct path to 'op' folder, you will be able to download WPT files as a search results with localization of information about cache description. After that, you can tap on the cache on Ozi Explorer&#39;s map and choose \"Open attachment\" option. This will open detailed description about the cache. Examples: <b>\\SDMMC\\baza\\</b>, <b>\\Memory card\\BF\\</b>
 newest_caches Nieuwste caches
 total_of_active_caches Totaal aantal actieve caches
 total_of_caches Totaal aantal caches
@@ -428,7 +428,7 @@ what_do_you_find_intro_nl Geocaching is een buitensport of activiteit waarbij ca
 more_news More news
 filename_rules {rules_url}
 filename_describe_cache {cache_params_url}
-map_msg In order to view coordinates and <br/>the map of cache's location<br/> you must be <a href="login.php?target={target}">logged in</a>
+map_msg In order to view coordinates and <br/>the map of cache&#39;s location<br/> you must be <a href="login.php?target={target}">logged in</a>
 additional_hints Extra hints
 images Afbeeldingen
 mp3_files_info PodCasts - luister naar de instructies om je naar de cache te leiden - MP3 bestenden
@@ -512,7 +512,7 @@ write_note write note
 attende attended
 will_attende I will be attending
 add_new_desc Voeg nieuwe beschrijving toe aan cache
-pictures_label Afbeeldingen of foto's
+pictures_label Afbeeldingen of foto&#39;s
 add_new_pict Voeg nieuwe afbeelding toe
 mp3_label MP3 voor een PodCache
 add_new_mp3 Voeg nieuwe MP3 bestand toe
@@ -612,7 +612,7 @@ number_obtain_recommendations Aantal ontvangen aanbevelingen
 for van
 _caches_ caches
 ratio_recommendations Gemiddelde aanbevolen caches van alle caches
-number_gk_in_caches Aantal GeoKrety's in caches
+number_gk_in_caches Aantal GeoKrety&#39;s in caches
 latest_created_cache Laatste gemaakte cache
 latest_logs_in_caches Laatste logs van gebruikers caches
 caches_waiting_approve My caches waiting to approve by OC Team
@@ -738,7 +738,7 @@ your_recommendations Your recommendations for geocache
 was_removed has been removed
 recommended_geocaches Recommended geocaches
 number_recommendations Number of recommendations
-regions_only_for Regio's
+regions_only_for Regio&#39;s
 monday Maandag
 tuesday Dinsdag
 wednesday Woensdag
@@ -776,7 +776,7 @@ subject Onderwerp
 contents Bericht
 content_include_html Bericht met HTML
 logged_by Gelogt door
-all_regions Alle regio's
+all_regions Alle regio&#39;s
 assigned_to Toegewezen aan
 date_created Datum gemaakt
 owner Eigenaar
@@ -819,7 +819,7 @@ file_name Bestandsnaam
 cache_picture_intro  Dit dient een eigen afbeelding te zijn die met de cache te maken heeft
 spoiler_info Toon geen voorbeeld (SPOILER) - Gebruik deze optie wanneer de afbeelding de locatie van de cache weergeeft.<br> De afbeelding wordt alleen getoont als op SPOILER geklikt wordt.
 dont_show Verberg deze afbeelding
-pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto's.<br />Maximum grootte 100 KB. Aanbevolen resolutie: 640 x 480 pixels.
+pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto&#39;s.<br />Maximum grootte 100 KB. Aanbevolen resolutie: 640 x 480 pixels.
 add_new_picture Voeg nieuwe afbeelding toe aan cache
 gallery Toon galerij
 gallery_of_cache Galerij van cache
@@ -951,7 +951,7 @@ GKApi23 Totale geokrets in je inventaris
 GKApi24 In cache
 GKApi25 GeoKrety logtekst
 GKApi26 Gepakt uit
-GKApi27 powered by Crete XML'owy interface!
+GKApi27 powered by Crete XML&#39;owy interface!
 GKApi28 Wij verontschuldigen ons, tijdelijk geen verbinding met Geokrety.org
 GKApi29 Geen Geokrets in deze cache.
 GKApi30 Er is een fout opgetreden, het opencaching systeem zal later de GeoKrety in deze cache loggen.
@@ -1139,7 +1139,7 @@ printcache_02 Toon laatste logs
 printcache_03 Alle logs
 printcache_04 Geen afbeeldingen
 printcache_05 Toon miniaturen
-printcache_06 Toon grote foto's
+printcache_06 Toon grote foto&#39;s
 printcache_07 Decodeer hint
 printcache_08 Toon spoiler
 printcache_09 Veranderen
