@@ -69,6 +69,7 @@
 					<div align="center" style="
 						border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
 						border:1px solid #337fed; padding: 5px;
+						display: {ptSectionDisplay};
 					"><div width="100%" style="color: #337fed; border-bottom: 1px solid #337fed;">{{pt094}}!</div>
 						{ptName}
 					</div>

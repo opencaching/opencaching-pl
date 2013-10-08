@@ -1812,13 +1812,15 @@ if($powerTrailModuleSwitchOn) {
 			$ptHtml .= '<tr><td width="51"><img border="0" width="50" src="'.$pt['image'].'" /></td><td align="center"><span style="font-size: 13px;"><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['name'].'</a> </td></tr>';
 		}
 		$ptHtml .= '</table>'; 
+		$ptDisplay = 'block';
 	} else {
-	$ptHtml = '';
+		$ptHtml = '';
+		$ptDisplay = 'none';
 	}
 } else {
 	$ptHtml = '';
 }
 	tpl_set_var('ptName', $ptHtml);
-
+	tpl_set_var('ptSectionDisplay', $ptDisplay);
 tpl_BuildTemplate();
 ?>
