@@ -115,7 +115,7 @@ if ($error == false)
 					
 					tpl_set_var('leadingUserId',  $leadingUser['user_id']);
 					tpl_set_var('leadingUserName',$leadingUser['username']);
-
+					tpl_set_var('commentsPaginateCount',powerTrailBase::commentsPaginateCount);
 					tpl_set_var('fullCountryMap', '0');
 					tpl_set_var('ptTypeName', tr($ptTypesArr[$ptDbRow['type']]['translate']));
 					tpl_set_var('displaySelectedPowerTrail', 'block');

@@ -7,7 +7,8 @@ require_once __DIR__.'/../lib/db.php';
 class powerTrailBase{
 		
 	const powerTrailLogoFileName = 'powerTrailLogoId';
-
+	const commentsPaginateCount = 5;
+	
 	public static function minimumCacheCount(){
 		include __DIR__.'/../lib/settings.inc.php';
 		// var_dump($powerTrailMinimumCacheCount);

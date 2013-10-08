@@ -5,6 +5,7 @@ require_once __DIR__.'/../lib/common.inc.php';
 require_once __DIR__.'/powerTrailBase.php';
 $commentsArr = powerTrailBase::getPowerTrailComments();
 $ptOwners = powerTrailBase::getPtOwners($_REQUEST['projectId']);
+$paginateCount = powerTrailBase::commentsPaginateCount;
 foreach ($ptOwners as $owner) {
 	$ownersIdArray[] = $owner['user_id'];
 }
@@ -60,8 +61,33 @@ foreach ($result as $key => $dbEntery) {
 }
 $toDisplay .= '</table>';
 
-if ($_REQUEST['start']-20 < 0 ) $startNew = 0; else $startNew = $_REQUEST['start']-20;
-if ($_REQUEST['start'] > 0) $toDisplay .= '<a href="javascript:void(0)" onclick="ajaxGetComments('.$startNew.', 20);" class="editPtDataButton">'.tr('pt059').'</a>';
-if ($count > $nextSearchStart) $toDisplay .= '<a href="javascript:void(0)" onclick="ajaxGetComments('.$nextSearchStart.', 20);" class="editPtDataButton">'.tr('pt058').'</a>';
+$toDisplay .= '<div align="center">';
+
+if ($count > $nextSearchStart) $toDisplay .= '<div style="padding:3px">'.paginate(ceil($count/$paginateCount), $_REQUEST['start']).'</div>';
+
+if ($_REQUEST['start']-$paginateCount < 0 ) {
+	$startNew = 0; 
+} else {
+	$startNew = $_REQUEST['start']-$paginateCount;
+}
+if ($_REQUEST['start'] > 0) {
+	$toDisplay .= '<a href="javascript:void(0)" onclick="ajaxGetComments('.$startNew.', '.$paginateCount.');" class="editPtDataButton">'.tr('pt059').'</a>';
+}
+if ($count > $nextSearchStart) {
+	$toDisplay .= ' <a href="javascript:void(0)" onclick="ajaxGetComments('.$nextSearchStart.', '.$paginateCount.');" class="editPtDataButton">'.tr('pt058').'</a>';
+}
+
+$toDisplay .= '</div>';
+
 echo $toDisplay;
+
+function paginate($totalPagesCount, $startNow){
+	$displayStr = '<br />';	
+	for ($i=0; $i < $totalPagesCount; $i++) {
+		if(ceil($startNow/powerTrailBase::commentsPaginateCount) == $i) $btnStyle = 'currentPaginateButton';
+		else $btnStyle = 'paginateButton';
+		$displayStr .= '<a href="javascript:void(0)" onclick="ajaxGetComments('.($i*powerTrailBase::commentsPaginateCount).', '.powerTrailBase::commentsPaginateCount.');" class="'.$btnStyle.'">'.($i+1) .'</a>';
+	}
+return $displayStr;
+}
 ?>
