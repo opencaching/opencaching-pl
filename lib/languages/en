@@ -1690,6 +1690,24 @@ pt159 Delete that cache
 pt160 Cache doesn &#39;t belong to the geoPath
 pt161 Cache was  removed from geoPath
 pt162 Cache has been added to the geoPath
+pt163 Display options
+pt164 Apply
+pt165 All types
+pt166 Display type of geoPaths
+pt167 Sort by
+pt168 names
+pt169 Date of publication
+pt170 Number of caches
+pt171 Points
+pt172 number of  &quot;found&quot; logs
+pt173 Number of caches
+pt174 type
+pt175 number of displayed geoPaths
+pt176 ascending
+pt177 descending
+pt178 sort direction
+pt179 download
+pt180 geocache
 statpic_found Found:
 statpic_hidden Hidden:
 statpic_html_link - Statistics for
