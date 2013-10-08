@@ -63,7 +63,7 @@ $toDisplay .= '</table>';
 
 $toDisplay .= '<div align="center">';
 
-if ($count > $nextSearchStart) $toDisplay .= '<div style="padding:3px">'.paginate(ceil($count/$paginateCount), $_REQUEST['start']).'</div>';
+if ($count > $nextSearchStart || $_REQUEST['start'] > 0) $toDisplay .= '<div style="padding:3px">'.paginate(ceil($count/$paginateCount), $_REQUEST['start']).'</div>';
 
 if ($_REQUEST['start']-$paginateCount < 0 ) {
 	$startNew = 0; 
