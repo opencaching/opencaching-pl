@@ -1754,6 +1754,11 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 			<td colspan="3" class="linearBg1">{{pt019}}</td>
 		</tr>
 		<tr>
+			<td class="descTd">{{pt181}} <a class="tooltip" href="javascript:void(0);"><i style="color: blue;">(?)</i><span class="custom help"><img src="tpl/stdstyle/images/toltipsImages/Help.png" alt="Help" height="48" width="48" /><em>{{pt181}}</em>{{pt182}}</span></a></td>
+			<td><a href="viewprofile.php?userid={leadingUserId}">{leadingUserName}</a>
+			</td>
+		</tr>
+		<tr>
 			<td class="descTd"><div style="display: {displayAddCachesButtons}">{{pt063}}</div></td>
 			<td>
 				<span id="ptStatus" style="display: {displayAddCachesButtons}">

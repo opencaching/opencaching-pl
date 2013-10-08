@@ -110,6 +110,12 @@ if ($error == false)
 					$ptTypesArr = powerTrailBase::getPowerTrailTypes();
 					$ptStatusArr = powerTrailBase::getPowerTrailStatus();
 					$stats = $pt->getCountCachesAndUserFoundInPT();
+					$leadingUser = powerTrailBase::getLeadingUser($ptDbRow['id']);
+					//print_r($leadingUser); exit;
+					
+					tpl_set_var('leadingUserId',  $leadingUser['user_id']);
+					tpl_set_var('leadingUserName',$leadingUser['username']);
+
 					tpl_set_var('fullCountryMap', '0');
 					tpl_set_var('ptTypeName', tr($ptTypesArr[$ptDbRow['type']]['translate']));
 					tpl_set_var('displaySelectedPowerTrail', 'block');

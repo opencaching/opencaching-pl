@@ -296,5 +296,12 @@ class powerTrailBase{
 		$ptName = trim($ptName);
 		return $ptName;
 	}
+	
+	public static function getLeadingUser($ptId){
+		$q = "SELECT  `username`, `user_id` FROM  `user` WHERE  `user_id` = ( SELECT  `userId` FROM  `PowerTrail_actionsLog` WHERE  `actionType` =1 AND  `PowerTrailId` =:1 LIMIT 1) LIMIT 1"; 
+		$db = new dataBase;
+		$db->multiVariableQuery($q, $ptId);
+		return $db->dbResultFetch();
+	}
 
 }
