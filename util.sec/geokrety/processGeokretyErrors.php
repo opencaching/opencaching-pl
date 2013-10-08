@@ -20,9 +20,9 @@ class processGeokretyErrors {
 	public function run(){
 		
 		// ptPromo
-		if (date('N') == 1)	{ // make ptPromo File
+		//if (date('N') == 1)	{ // make ptPromo File
              $this->makePt();
-		}
+		//}
 		
 		$this->getErrors();
 		if($this->errorNumber == 0) exit;
@@ -112,9 +112,9 @@ class processGeokretyErrors {
 		} else {
 			$fileContent .= '<img height="50" src="tpl/stdstyle/images/blue/powerTrailGenericLogo.png" />';
 		}
-		$fileContent .= '</td><td width=50% style="font-size: 15px; padding-left: 10px; padding-right: 10px;" valign="center"><a href="powerTrail.php?ptAction=showSerie&ptrail='.$newPt['id'].'">'.$newPt['name'].'</a>';
-		$fileContent .= '<td style="font-size: 15px;" valign="center"><b>'.$newPt['cacheCount'].'</b>&nbsp;'.tr2('pt138',$langTr).', <b>'.round($newPt['points'], 2).'</b>&nbsp;'.tr2('pt038', $langTr).'</td>';
-		if ($regions) $fileContent .= '</td><td style="font-size: 15px;" valign="center">'.tr2($regions['code1'], $langTr).'>'.$regions['adm3'];
+		$fileContent .= '</td><td width=50% style="font-size: 13px; padding-left: 10px; padding-right: 10px;" valign="center"><a href="powerTrail.php?ptAction=showSerie&ptrail='.$newPt['id'].'">'.$newPt['name'].'</a>';
+		$fileContent .= '<td style="font-size: 13px;" valign="center"><b>'.$newPt['cacheCount'].'</b>&nbsp;'.tr2('pt138',$langTr).', <b>'.round($newPt['points'], 2).'</b>&nbsp;'.tr2('pt038', $langTr).'</td>';
+		if ($regions) $fileContent .= '</td><td style="font-size: 12px;" valign="center">'.tr2($regions['code1'], $langTr).'>'.$regions['adm3'];
 		$fileContent .= '</td></tr></table>';
 		file_put_contents($dynstylepath.'ptPromo.inc-'.$langTr.'.php' , $fileContent);
 		
