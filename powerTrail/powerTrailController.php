@@ -222,9 +222,8 @@ class powerTrailController {
 	{
 		$this->action = 'createNewSerie';	
 		// self::debug($_POST, 'POST', __LINE__);
-		if(isset($_POST['powerTrailName']) && $_POST['powerTrailName'] != '' && $_POST['type'] != 0 && $_POST['status'] != 0)
+		if(isset($_POST['powerTrailName']) && $_POST['powerTrailName'] != '' && $_POST['type'] != 0 && $_POST['status'] != 0 && $_SESSION['powerTrail']['userFounds'] >= powerTrailBase::userMinimumCacheFoundToSetNewPowerTrail())
 		{
-			print 'wchodzi<br/>';	
 			$query = "INSERT INTO `PowerTrail`(`name`, `type`, `status`, `dateCreated`, `cacheCount`, `description`, `perccentRequired`) VALUES (:1,:2,:3,NOW(),0,:4,:5)";
 			$db = new dataBase(false);
 			$db->multiVariableQuery($query, strip_tags($_POST['powerTrailName']),(int) $_POST['type'], (int) $_POST['status'], htmlspecialchars($_POST['description']), (int) $_POST['dPercent']);
@@ -232,7 +231,7 @@ class powerTrailController {
 			// exit;
 			$query = "INSERT INTO `PowerTrail_owners`(`PowerTrailId`, `userId`, `privileages`) VALUES (:1,:2,:3)";
 			$db->multiVariableQuery($query, $newProjectId, $this->user['userid'], 1);
-			$logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`) VALUES (:1,:2,NOW(),2,:3)';
+			$logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`) VALUES (:1,:2,NOW(),1,:3)';
 			$db->multiVariableQuery($logQuery, $newProjectId,$this->user['userid'] ,$this->ptAPI->logActionTypes[1]['type']);
 			header("location: powerTrail.php?ptAction=showSerie&ptrail=$newProjectId");
 			// $this->mySeries();

@@ -17,6 +17,8 @@ global $lang, $rootpath, $usr;
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
 
+$_SESSION['powerTrail']['userFounds'] = $usr['userFounds']; 
+
 if(!$powerTrailModuleSwitchOn) {
 	header("location: $absolute_server_URI");
 }
