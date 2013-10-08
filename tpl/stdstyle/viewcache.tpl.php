@@ -66,7 +66,12 @@
 					<p>{{owner}}&nbsp; <a class="links" href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a></p>
 					{event_attendance_list}
 					</td><td>
-					<div>{ptName}</div>
+					<div align="center" style="
+						border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+						border:1px solid #337fed; padding: 5px;
+					"><div width="100%" style="color: #337fed; border-bottom: 1px solid #337fed;">{{pt094}}!</div>
+						{ptName}
+					</div>
 					</td>
 					</tr></table>
 				</div>

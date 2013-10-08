@@ -1807,10 +1807,11 @@ if($powerTrailModuleSwitchOn) {
 	require_once 'powerTrail/powerTrailBase.php';
 	$ptArr = powerTrailBase::checkForPowerTrailByCache($cache_id);
 	if(count($ptArr)>0){	
-		$ptHtml = tr('pt094').': <br />';
+		$ptHtml = '<table width="99%">';
 		foreach ($ptArr as $pt) {
-			$ptHtml .= '<img border="0" width="50" src="'.$pt['image'].'" /> <span style="font-size: 13px;"><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['name'].'</a> <br />';
-		} 
+			$ptHtml .= '<tr><td width="51"><img border="0" width="50" src="'.$pt['image'].'" /></td><td align="center"><span style="font-size: 13px;"><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['name'].'</a> </td></tr>';
+		}
+		$ptHtml .= '</table>'; 
 	} else {
 	$ptHtml = '';
 	}
