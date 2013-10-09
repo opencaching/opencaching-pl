@@ -1,6 +1,6 @@
 <?php
 
-function setDBFilter($userid, $maptype=null, $cachelimit=null, $h_u=null, $h_t=null, $h_m=null, $h_v=null, $h_w=null, $h_e=null, $h_q=null, $h_o=null, $h_owncache=null, $h_ignored=null, $h_own=null, $h_found=null, $h_noattempt=null, $h_nogeokret=null, $signes=null, $waypoints=null, $h_avail=null, $h_temp_unavail=null, $h_arch=null, $be_ftf=null,$h_se=null, $h_no=null, $h_de=null, $h_pl=null, $min_score=null, $max_score=null, $h_noscore=null)
+function setDBFilter($userid, $maptype=null, $cachelimit=null, $h_u=null, $h_t=null, $h_m=null, $h_v=null, $h_w=null, $h_e=null, $h_q=null, $h_o=null, $h_owncache=null, $h_ignored=null, $h_own=null, $h_found=null, $h_noattempt=null, $h_nogeokret=null, $signes=null, $waypoints=null, $h_avail=null, $h_temp_unavail=null, $h_arch=null, $be_ftf=null,$h_se=null, $h_no=null, $h_de=null, $h_pl=null, $h_de=null, $min_score=null, $max_score=null, $h_noscore=null)
 {
 	$maptype = intval($maptype);
 	$userid = intval($userid);
@@ -8,7 +8,7 @@ function setDBFilter($userid, $maptype=null, $cachelimit=null, $h_u=null, $h_t=n
 	{
 		// map v.3 request
 		// The following parameters are currently ignored (DB column names in brackets):
-		// signes (showsign), waypoints (showwp), pl (pl), de (de), no (no), se (se)
+		// signes (showsign), waypoints (showwp), pl (pl), de (de), no (no), se (se), nl (nl)
 		$sql = "REPLACE map_settings SET 
 				maptype = $maptype,
 				unknown = ".$h_u.",							
@@ -65,7 +65,7 @@ if($usr==true)
 	}
 	else
 		if( isset($_GET['maptype']) && $_GET['maptype'] != '')
-			setDBFilter($usr['userid'],$_GET['maptype'],null, $_GET['h_u']=="true"?0:1, $_GET['h_t']=="true"?0:1, $_GET['h_m']=="true"?0:1, $_GET['h_v']=="true"?0:1, $_GET['h_w']=="true"?0:1, $_GET['h_e']=="true"?0:1, $_GET['h_q']=="true"?0:1, $_GET['h_o']=="true"?0:1, $_GET['h_owncache']=="true"?0:1, $_GET['h_ignored']=="true"?0:1, $_GET['h_own']=="true"?0:1, $_GET['h_found']=="true"?0:1, $_GET['h_noattempt']=="true"?0:1, $_GET['h_nogeokret']=="true"?0:1, $_GET['signes']=="true"?1:0, $_GET['waypoints']=="true"?1:0, $_GET['h_avail']=="true"?1:0, $_GET['h_temp_unavail']=="true"?1:0, $_GET['h_arch']=="true"?0:1, $_GET['be_ftf']=="true"?1:0, $_GET['h_se']=="true"?1:0, $_GET['h_no']=="true"?1:0, $_GET['h_de']=="true"?1:0, $_GET['h_pl']=="true"?1:0, intval($_GET['min_score']),intval($_GET['max_score']), $_GET['h_noscore']=="true"?1:0 );
+			setDBFilter($usr['userid'],$_GET['maptype'],null, $_GET['h_u']=="true"?0:1, $_GET['h_t']=="true"?0:1, $_GET['h_m']=="true"?0:1, $_GET['h_v']=="true"?0:1, $_GET['h_w']=="true"?0:1, $_GET['h_e']=="true"?0:1, $_GET['h_q']=="true"?0:1, $_GET['h_o']=="true"?0:1, $_GET['h_owncache']=="true"?0:1, $_GET['h_ignored']=="true"?0:1, $_GET['h_own']=="true"?0:1, $_GET['h_found']=="true"?0:1, $_GET['h_noattempt']=="true"?0:1, $_GET['h_nogeokret']=="true"?0:1, $_GET['signes']=="true"?1:0, $_GET['waypoints']=="true"?1:0, $_GET['h_avail']=="true"?1:0, $_GET['h_temp_unavail']=="true"?1:0, $_GET['h_arch']=="true"?0:1, $_GET['be_ftf']=="true"?1:0, $_GET['h_se']=="true"?1:0, $_GET['h_no']=="true"?1:0, $_GET['h_de']=="true"?1:0, $_GET['h_pl']=="true"?1:0, $_GET['h_nl']=="true"?1:0, intval($_GET['min_score']),intval($_GET['max_score']), $_GET['h_noscore']=="true"?1:0 );
 			
 			
 			
