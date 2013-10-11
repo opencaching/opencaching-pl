@@ -30,7 +30,12 @@ class importCaches
 			 * 6 OC UK
 			 * 7 OC SE
 			 * 8 OC NO
+			 * 14 Opencaching Netherlands (www.opencaching.nl)	
 			 */
+			
+			case 14: 
+				$oc_country = "nl";
+				break;
 			case 8:
 				$oc_country = "no";
 				break;
