@@ -112,7 +112,7 @@ if ($error == false)
 					$stats = $pt->getCountCachesAndUserFoundInPT();
 					$leadingUser = powerTrailBase::getLeadingUser($ptDbRow['id']);
 					if($ptDbRow['conquestedCount'] > 0) $removeCacheButtonDisplay = 'none';
-					else $removeCacheButtonDisplay = 'block';
+					else $removeCacheButtonDisplay = 'inline';
 					tpl_set_var('removeCacheButtonDisplay',  $removeCacheButtonDisplay);
 					tpl_set_var('leadingUserId',  $leadingUser['user_id']);
 					tpl_set_var('leadingUserName',$leadingUser['username']);
