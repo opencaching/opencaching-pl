@@ -1,6 +1,6 @@
 <?php
 
-function setDBFilter($userid, $maptype=null, $cachelimit=null, $h_u=null, $h_t=null, $h_m=null, $h_v=null, $h_w=null, $h_e=null, $h_q=null, $h_o=null, $h_owncache=null, $h_ignored=null, $h_own=null, $h_found=null, $h_noattempt=null, $h_nogeokret=null, $signes=null, $waypoints=null, $h_avail=null, $h_temp_unavail=null, $h_arch=null, $be_ftf=null,$h_se=null, $h_no=null, $h_de=null, $h_pl=null, $h_de=null, $min_score=null, $max_score=null, $h_noscore=null)
+function setDBFilter($userid, $maptype=null, $cachelimit=null, $h_u=null, $h_t=null, $h_m=null, $h_v=null, $h_w=null, $h_e=null, $h_q=null, $h_o=null, $h_owncache=null, $h_ignored=null, $h_own=null, $h_found=null, $h_noattempt=null, $h_nogeokret=null, $signes=null, $waypoints=null, $h_avail=null, $h_temp_unavail=null, $h_arch=null, $be_ftf=null,$h_se=null, $h_no=null, $h_de=null, $h_pl=null, $h_de=null, $h_nl=null, $min_score=null, $max_score=null, $h_noscore=null)
 {
 	$maptype = intval($maptype);
 	$userid = intval($userid);
