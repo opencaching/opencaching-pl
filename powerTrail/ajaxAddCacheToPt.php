@@ -6,7 +6,9 @@
  * 
  * works via Ajax call.
  */
-session_start();
+$rootpath = __DIR__.'/../';
+require_once __DIR__.'/../lib/common.inc.php';
+	
 if(!isset($_SESSION['user_id'])){
 	print 'no hacking please!';
 	exit;
@@ -48,22 +50,43 @@ if($rmOtherUserCacheFromPt === true){
 	exit;
 }
 
-if ($projectId > 0 && $caheIsAttaschedToPt===false) {
-	addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI);
-	print 'cacheAdded';
+// check if adding cache is a logged user cache (boolean)
+$loggeduserCache = isCacheOwnByLoggedUser($cacheId);
+if(!$loggeduserCache) {
+	$isCacheCanditate = isCacheCanditate($projectId, $cacheId);
+	if(!$isCacheCanditate && !$caheIsAttaschedToPt) {
+		addCacheToCacheCandidate($cacheId, $projectId);
+	} else {
+		print 'cache is already candidate or belongs to other pt';
+		exit;
+	}
 }
-if ($projectId <= 0){
-	removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
-	recalculate($resultPowerTrailId['PowerTrailId']);
-}
-if ($projectId > 0 && $caheIsAttaschedToPt===true) {
-	removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
-	addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI);
-	recalculate($resultPowerTrailId['PowerTrailId']);
-	print 'cacheAdded';
+if (isset($_REQUEST['calledFromConfirm']) && $_REQUEST['calledFromConfirm'] === 1 ){
+	addCacheToPowerTrail($cacheId, $projectId, new dataBase(), $ptAPI);
+	$cacheAddedToPt = true;
+	return;
 }
 
-// echo 'OK';
+$ptDbRow = powerTrailBase::getPtDbRow($resultPowerTrailId['PowerTrailId']);
+
+if ($projectId > 0 && $caheIsAttaschedToPt===false) {
+	addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI);
+	print 'cacheAddedToPt';
+}
+if($ptDbRow['conquestedCount'] > 0){ // cache bellongs to PT wchcich was 'completed'
+	print "this cache cannot be removed";
+}
+if ($projectId <= 0 && $ptDbRow['conquestedCount'] == 0){
+	removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
+	recalculate($resultPowerTrailId['PowerTrailId']);
+	print 'removed';
+}
+if ($projectId > 0 && $caheIsAttaschedToPt===true && $ptDbRow['conquestedCount'] == 0) {
+	removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
+	addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI);
+	recalculate($resultPowerTrailId['PowerTrailId']);
+	print 'cacheAddedToPt';
+} 
 
 
 function addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI) {
@@ -150,4 +173,47 @@ function recalculateOnce() {
 	}
 	// print '<pre>';
 	// print_r($allCaches);
+}
+
+
+function isCacheOwnByLoggedUser($caheId){
+	$query = 'SELECT  `user_id` AS `userId`  FROM  `caches` WHERE  `cache_id` = :1 LIMIT 1';
+	$db = new dataBase(false);
+	$db->multiVariableQuery($query, $caheId);
+	$result = $db->dbResultFetch();
+	if($result['userId'] == $_SESSION['user_id']) return true;
+	else return false;
+}
+
+function isCacheCanditate($ptId, $cacheId){
+	$q = "SELECT count(*) AS `c` FROM `PowerTrail_cacheCandidate` WHERE `PowerTrailId` = :1 AND `cacheId` =:2";
+	$db = new dataBase(false);
+	$db->multiVariableQuery($q, $ptId, $cacheId);
+	$result = $db->dbResultFetch();
+	if($result['c']>0) return true;
+	else return false;
+}
+
+function addCacheToCacheCandidate($cacheId, $ptId){
+	$linkCode = randomPassword(50);
+	$q = "INSERT INTO `PowerTrail_cacheCandidate`(`PowerTrailId`, `cacheId`, `link`, `date`) VALUES (:1,:2,:3,NOW())";
+	
+	$db = new dataBase(false);
+	$db->multiVariableQuery($q, $ptId, $cacheId, $linkCode);
+	
+	require_once 'sendEmailCacheCandidate.php';
+	emailCacheOwner($ptId, $cacheId, $linkCode);
+	print 'cache added as cache candidate';
+	exit;
+}
+
+function randomPassword($passLenght) {
+    $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+    $pass = array(); 
+    $alphaLength = strlen($alphabet) - 1;
+    for ($i = 0; $i < $passLenght; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass); //turn the array into a string
 }

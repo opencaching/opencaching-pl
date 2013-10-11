@@ -139,21 +139,21 @@ function ajaxRmOtherUserCache(){
     	if(response == 'Removed'){
     		$("#AloaderNewCacheAddingOKimg").fadeIn(800);
     		$("#message").html('{{pt161}}');
-    		$("#message").fadeIn(800);
+    		$("#messageDiv").fadeIn(800);
 	    	$(function() {
 		    	setTimeout(function() {
 	       			$("#AloaderNewCacheAddingOKimg").fadeOut(1000);
-	       			$("#message").fadeOut(1000);
+	       			$("#messageDiv").fadeOut(1000);
 	    		}, 3000);
 			});
 		} else {
 			$("#AloaderNewCacheAddingNOKimg").fadeIn(800);
 			$("#message").html('{{pt160}}');
-			$("#message").fadeIn(800);
+			$("#messageDiv").fadeIn(800);
 	    	$(function() {
 		    	setTimeout(function() {
 	       			$("#AloaderNewCacheAddingNOKimg").fadeOut(1000);
-	       			$("#message").fadeOut(1000);
+	       			$("#messageDiv").fadeOut(1000);
 	    		}, 3000);
 			});
 		}
@@ -717,17 +717,51 @@ function ajaxAddOtherUserCache(){
 
     request.done(function (response, textStatus, jqXHR){
     	ajaxGetPtCaches();
-    	$("#AloaderNewCacheAddingOKimg").fadeIn(800);
     	if(response == 'cacheAdded') {
+	    	$("#AloaderNewCacheAddingOKimg").fadeIn(800);
     		$('#message').html('{{pt162}}');
-    		$("#message").fadeIn(800);
+    		$("#messageDiv").fadeIn(800);
 	    	$(function() {
 		    	setTimeout(function() {
 	       			$("#AloaderNewCacheAddingOKimg").fadeOut(1000);
-	       			$("#message").fadeOut(1000);
+	       			$("#messageDiv").fadeOut(1000);
 	    		}, 3000);
 			});
 		}
+		if(response == 'cache is already candidate or belongs to other pt') {
+	    	$("#AloaderNewCacheAddingNOKimg").fadeIn(800);
+    		$('#message').html('{{pt197}}');
+    		$("#messageDiv").fadeIn(800);
+	    	$(function() {
+		    	setTimeout(function() {
+	       			$("#AloaderNewCacheAddingNOKimg").fadeOut(1000);
+	       			//$("#messageDiv").fadeOut(1000);
+	    		}, 3000);
+			});
+		}
+		if(response == 'cache added as cache candidate') {
+	    	$("#AloaderNewCacheAddingIimg").fadeIn(800);
+    		$('#message').html('{{pt198}}');
+    		$("#messageDiv").fadeIn(800);
+	    	$(function() {
+		    	setTimeout(function() {
+	       			$("#AloaderNewCacheAddingIimg").fadeOut(1000);
+	       			// $("#messageDiv").fadeOut(1000);
+	    		}, 3000);
+			});
+		}
+		if(response == 'this cache cannot be removed') {
+	    	$("#AloaderNewCacheAddingNOKimg").fadeIn(800);
+    		$('#message').html('{{pt200}}');
+    		$("#messageDiv").fadeIn(800);
+	    	$(function() {
+		    	setTimeout(function() {
+	       			$("#AloaderNewCacheAddingNOKimg").fadeOut(1000);
+	       			// $("#messageDiv").fadeOut(1000);
+	    		}, 3000);
+			});
+		}
+		
         console.log("ajaxAddOtherUserCache succesfully: "+response);
     });
 
@@ -776,7 +810,7 @@ function ajaxRetreiveCacheName(waypoint, id) {
 		if (cacheInfoArr[1] != ''){
 			$('#newCache2ptAddButton'+id).fadeIn(500);
 		}       
-        console.log("Hooray, it worked! "+response);
+        // console.log("Hooray, it worked! "+response);
     });
 
     // callback handler that will be called on failure
@@ -813,7 +847,7 @@ function ajaxUpdatType(){
     		}, 3000);
 		  });
        	$('#powerTrailDateCreated').html($("#powerTrailDateCreatedInput").val()); 
-        console.log("Hooray, it worked!"+response);
+        console.log("ajaxUpdatType: "+response);
     });
 
     // callback handler that will be called on failure
@@ -862,7 +896,7 @@ function ajaxUpdateDate(){
     		}, 3000);
 		  });
        	$('#powerTrailDateCreated').html($("#powerTrailDateCreatedInput").val()); 
-        console.log("Hooray, it worked!"+response);
+        console.log("ajaxUpdateDate: "+response);
     });
 
     // callback handler that will be called on failure
@@ -956,7 +990,7 @@ function ajaxUpdatePtDescription(){
     		}, 3000);
 		  });
        	$('#powerTrailDescription').html(ptDescription); 
-        console.log("Hooray, it worked!"+response);
+        console.log("ajaxUpdatePtDescription: "+response);
     });
 
     // callback handler that will be called on failure
@@ -1006,7 +1040,6 @@ function ajaxRemoveUserFromPt(userId){
     	data:{projectId: $('#xmd34nfywr54').val(), userId: userId },
 	});
 
-    // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
        	$('#powerTrailOwnerList').html(response); 
        	$('#ownerListOKimg').fadeIn(500);
@@ -1015,21 +1048,13 @@ function ajaxRemoveUserFromPt(userId){
        			$("#ownerListOKimg").fadeOut(1000)
     		}, 3000);
 		}); 
-        console.log("Hooray, it worked!"+response);
-        
+        // console.log("ajaxRemoveUserFromPt: "+response);
     });
 
-    // callback handler that will be called on failure
     request.fail(function (jqXHR, textStatus, errorThrown){
-        // log the error to the console
-        console.error(
-            "The following error occured: "+
-            textStatus, errorThrown
-        );
+        console.error("The following error occured: "+ textStatus, errorThrown);
     });
 
-    // callback handler that will be called regardless
-    // if the request failed or succeeded
     request.always(function () {
     	$('#ajaxLoaderOwnerList').hide();
     	$('#addUser').hide();
@@ -1038,12 +1063,7 @@ function ajaxRemoveUserFromPt(userId){
     	cancellAddNewUser2pt();
     });
 
-    // prevent default posting of form
-    // event.preventDefault();
-
 	return false;
-	
-		
 }
 
 function ajaxAddNewUser2pt(ptId) {
@@ -1056,7 +1076,6 @@ function ajaxAddNewUser2pt(ptId) {
     	data:{projectId: ptId, userId: $('#addNewUser2pt').val()},
 	});
 
-    // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
        	$('#ownerListOKimg').fadeIn(500);
        	$('#powerTrailOwnerList').html(response);
@@ -1065,21 +1084,13 @@ function ajaxAddNewUser2pt(ptId) {
        			$("#ownerListOKimg").fadeOut(1000)
     		}, 3000);
 		}); 
-        console.log("Hooray, it worked!"+response);
-        
+        // console.log("ajaxAddNewUser2pt: "+response);
     });
 
-    // callback handler that will be called on failure
     request.fail(function (jqXHR, textStatus, errorThrown){
-        // log the error to the console
-        console.error(
-            "The following error occured: "+
-            textStatus, errorThrown
-        );
+        console.error("The following error occured: "+textStatus, errorThrown);
     });
 
-    // callback handler that will be called regardless
-    // if the request failed or succeeded
     request.always(function () {
     	$('#ajaxLoaderOwnerList').hide();
     	$('#addUser').fadeOut(800);
@@ -1087,9 +1098,6 @@ function ajaxAddNewUser2pt(ptId) {
     	$('.removeUserIcon').hide();
     	cancellAddNewUser2pt();
     });
-
-    // prevent default posting of form
-    // event.preventDefault();
 
 	return false;
 }
@@ -1120,33 +1128,22 @@ function ajaxCountPtCaches(ptId) {
        			$("#cCountOKimg").fadeOut(1000)
     		}, 3000);
 		});       	 
-        console.log("Hooray, it worked!"+response);
+        console.log("clickShow: "+response);
     });
 
-    // callback handler that will be called on failure
     request.fail(function (jqXHR, textStatus, errorThrown){
-        // log the error to the console
-        console.error(
-            "The following error occured: "+
-            textStatus, errorThrown
-        );
+        console.error("The following error occured: "+ textStatus, errorThrown );
     });
 
-    // callback handler that will be called regardless
-    // if the request failed or succeeded
     request.always(function () {
     	$('#ajaxLoaderCacheCount').hide();
     	$('#cacheCountUserActions').show();
     });
 
-    // prevent default posting of form
-    // event.preventDefault();
-
 	return false;
 	}
 
-function ajaxAddCacheToPT(cacheId)
-{
+function ajaxAddCacheToPT(cacheId) {
 	var projectId = $('#ptSelectorForCache'+cacheId).val();
     $('#addCacheLoader'+cacheId).show();
     $.ajax({
@@ -1154,14 +1151,28 @@ function ajaxAddCacheToPT(cacheId)
       type: "post",
       data: {projectId: projectId, cacheId: cacheId},
       success: function(data){
+		if (data == 'cacheAddedToPt' || data == 'removed'){
+          $("#h"+cacheId).val(projectId);
           $("#cacheInfo"+cacheId).show();
           $(function() {
 	    	setTimeout(function() {
-       			$("#cacheInfo"+cacheId).fadeOut(1000)
+       			$("#cacheInfo"+cacheId).fadeOut(1000);
     		}, 3000);
 		  });
-		  $('#addCacheLoader'+cacheId).hide();
-		  console.log(data);
+		}
+		
+		if (data == 'this cache cannot be removed'){
+			$("#cacheInfoNOK"+cacheId).show();
+			var defVal = $("#h"+cacheId).val();
+			$('#ptSelectorForCache'+cacheId).val(defVal);
+			$(function() {
+	    		setTimeout(function() {
+       				$("#cacheInfoNOK"+cacheId).fadeOut(1000);
+    			}, 3000);
+			});
+		}
+		$('#addCacheLoader'+cacheId).hide();
+	    console.log(data);
       },
       error:function(){
           alert("failure");
@@ -1605,6 +1616,13 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	width: 80%;
 	padding: 5px;
 }
+#messageDiv{
+	display: none;
+	border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+	border:1px solid #337fed;
+	width: 80%;
+	padding: 5px;
+}
 </style>
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
 
@@ -1983,14 +2001,34 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 			
 			<img style="display: none" id="AloaderNewCacheAdding" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
 			<img id="AloaderNewCacheAddingOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
-			<img id="AloaderNewCacheAddingNOKimg" style="display: none" src="tpl/stdstyle/images/log/16x16-dnf.png" />
-			<span id="message"></span>
+			
+			
+			<div id="messageDiv">
+				<table border="0">
+					<tr>
+						<td rowspan="2">
+							<img id="AloaderNewCacheAddingNOKimg" style="display: none" src="tpl/stdstyle/images/log/16x16-dnf.png" />
+							<img id="AloaderNewCacheAddingIimg" style="display: none" src="tpl/stdstyle/images/misc/16x16-info.png" />
+						</td>
+						<td>
+							{{pt199}}
+							<img id="closeMessage" onclick="$('#messageDiv').fadeOut(600);" style="float:right;" src="tpl/stdstyle/images/free_icons/cross.png" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span id="message"></span>
+						</td>
+					</tr>
+				</table>
+
+			</div>
 		</td>
 		<td align="right">
 			<div style="display: {displayAddCachesButtons}">
 				<div class="padding1"><a href="powerTrail.php?ptAction=selectCaches" id="toggleSearchCacheSection0" class="editPtDataButton">{{pt049}}</a></div>
 				<div class="padding1"><a href="javascript:void(0)" id="finalCachesbtn" onclick="reloadWithFinalsChoice();" class="editPtDataButton">{{pt149}}</a></div>
-				<div class="padding1"><a href="javascript:void(0)" id="toggleSearchCacheSection2" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt048}}</a>&nbsp;<a href="javascript:void(0)" id="toggleSearchCacheSection3" onclick="toggleSearchCacheSection2()" class="editPtDataButton">{{pt156}}</a></div>
+				<div class="padding1"><a href="javascript:void(0)" id="toggleSearchCacheSection2" onclick="toggleSearchCacheSection()" class="editPtDataButton">{{pt048}}</a><span id="removeCacheButton" style="display: {removeCacheButtonDisplay};">&nbsp;<a href="javascript:void(0)" id="toggleSearchCacheSection3" onclick="toggleSearchCacheSection2()" class="editPtDataButton">{{pt156}}</a></span></div>
 			</div>
 		</td>
 	</tr>

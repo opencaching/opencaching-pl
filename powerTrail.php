@@ -54,7 +54,7 @@ if ($error == false)
 		tpl_set_var('fullCountryMap', '1');
 		tpl_set_var('googleMapApiKey', $googlemap_key);
 		tpl_set_var('ocWaypoint', $oc_waypoint);
-		
+		tpl_set_var('commentsPaginateCount',powerTrailBase::commentsPaginateCount);	
 		
 		if(!$usr) tpl_set_var('ptMenu', 'none');
 		$ptMenu = new powerTrailMenu($usr);
@@ -111,11 +111,11 @@ if ($error == false)
 					$ptStatusArr = powerTrailBase::getPowerTrailStatus();
 					$stats = $pt->getCountCachesAndUserFoundInPT();
 					$leadingUser = powerTrailBase::getLeadingUser($ptDbRow['id']);
-					//print_r($leadingUser); exit;
-					
+					if($ptDbRow['conquestedCount'] > 0) $removeCacheButtonDisplay = 'none';
+					else $removeCacheButtonDisplay = 'block';
+					tpl_set_var('removeCacheButtonDisplay',  $removeCacheButtonDisplay);
 					tpl_set_var('leadingUserId',  $leadingUser['user_id']);
 					tpl_set_var('leadingUserName',$leadingUser['username']);
-					tpl_set_var('commentsPaginateCount',powerTrailBase::commentsPaginateCount);
 					tpl_set_var('fullCountryMap', '0');
 					tpl_set_var('ptTypeName', tr($ptTypesArr[$ptDbRow['type']]['translate']));
 					tpl_set_var('displaySelectedPowerTrail', 'block');
@@ -216,13 +216,23 @@ function displayCaches($caches, $pTrails)
 	$rows = '';
 	foreach ($caches as $key => $cache) {
 		$ptSelector = '<select onchange="ajaxAddCacheToPT('.$cache['cache_id'].');" id="ptSelectorForCache'.$cache['cache_id'].'"><option value="-1">---</option>';
+		$hidden = '<input type="hidden" id="h'.$cache['cache_id'].'" value="-1" >';
 		foreach ($pTrails as $ptKey => $pTrail) {
-			if($cache['PowerTrailId'] == $pTrail['id']) $ptSelector .= '<option selected value='.$pTrail['id'].'>'.$pTrail['name'].'</option>';
-			else $ptSelector .= '<option value='.$pTrail['id'].'>'.$pTrail['name'].'</option>';
+			if($cache['PowerTrailId'] == $pTrail['id']) {
+				$ptSelector .= '<option selected value='.$pTrail['id'].'>'.$pTrail['name'].'</option>';
+				$hidden = '<input type="hidden" id="h'.$cache['cache_id'].'" value='.$pTrail['id'].' >';
+			}
+			else {
+				$ptSelector .= '<option value='.$pTrail['id'].'>'.$pTrail['name'].'</option>';
+			}
 		}
 		$ptSelector .= '</select>';
 		$rows .= '<tr><td><a href="'.$cache['wp_oc'].'">'.$cache['wp_oc'].'</a></td><td>'. $cache['name'].'</td><td>'.$ptSelector.'</td>
-		<td width="50"><img style="display: none" id="addCacheLoader'.$cache['cache_id'].'" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /><span id="cacheInfo'.$cache['cache_id'].'" style="display: none "><img src="tpl/stdstyle/images/free_icons/accept.png" /></span></td></tr>';
+		<td width="50"><img style="display: none" id="addCacheLoader'.$cache['cache_id'].'" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+		<span id="cacheInfo'.$cache['cache_id'].'" style="display: none "><img src="tpl/stdstyle/images/free_icons/accept.png" /></span>
+		<span id="cacheInfoNOK'.$cache['cache_id'].'" style="display: none "><img src="tpl/stdstyle/images/free_icons/exclamation.png" /></span>'.
+		$hidden.		
+		'</td></tr>';
 	}
 	return $rows;
 }

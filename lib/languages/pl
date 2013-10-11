@@ -1858,7 +1858,25 @@ pt178 kierunek sortowania
 pt179 Pobierz
 pt180 geocache
 pt181 Mentor
-pt182 Mentor to osoba, która zarejestrowała geoŚcieżkę w systemie.
+pt182 Mentor to osoba, która zarejestrowała geoŚcieżkę w systemie
+pt183 Pytanie o dodanie Twojej skrzynki do geoŚcieżki
+pt184 Witaj
+pt185 chce dodać Twoją skrzynkę
+pt186 Jeśli się zgadasz kliknij tu
+pt187 Jeśli odmawiasz kliknij tu
+pt188 lub skopiujj ten adres do przeglądarki
+pt189 Jeśli masz wątpliwości skontaktuj się z użytkowniekiem 
+pt190 do geoŚcieżki
+pt191 Dziękujemy, Twoja skrzynka jest teraz w geoŚcieżce
+pt192 Skrzynka nie będzie należała do geoŚcieżki
+pt193 Potwierdzenie dodania skrzynki do GeoŚcieżki
+pt194 Przykro mi, nie jesteś właścicielem tej skrzynki!
+pt195 Została usunięta z listy skrzynek-kandydatek
+pt196 Hmm, wystąpił jakiś błąd. Tej skrzynki nie ma na liście skrzynek-kandydatek. (Prawdopodobnie kliknąłeś już link.)
+pt197 Ta skrzynka jest już na liście keszynek-kandydatek lub należy już do jakjejś geoŚcieżki. Skontaktuj się z jej właścicielem. 
+pt198 Skrzynka została umieszczona na liście keszynek-kandydatek, a do jej właściciela został wysłany email. Gdy właściciel wyrazi zgodę (poprzez kliknięcie linka w otrzymanym mailu) kesz zostanie dodany do geoŚcieżki automatycznie.
+pt199 informacja
+pt200 Ta skrzynka nie może być usunięta z geoŚcieżki (geoŚcieżka do której jest przypisana została już zdobyta - możesz zarchiwizować skrzynkę, ale nie możesz jej już usunąć z geoŚcieżki)
 statpic_found Znalazł:
 statpic_hidden Ukrył:
 statpic_html_link - Statystyka dla
