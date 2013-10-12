@@ -6,8 +6,6 @@
  *
  * @params on input:
  *
- * array: $opt  - (data with connection setup for PDO library)
- * $lang,       - cross portal variable from common.inc.php
  * float: $lat  - latitude
  * float: $lon  - longitude
  *
@@ -30,7 +28,7 @@
  * Example of use:
  * <?
  * $region = new GetRegions();
- * $regiony = $region->GetRegion($opt, $lang, $lat, $lon);
+ * $regiony = $region->GetRegion($lat, $lon);
  * print_r ($regiony);
  * ?>
  *
@@ -43,56 +41,13 @@ class GetRegions {
 
 	/**
 	 * 
-	 * @param array $opt -  database accesing data from opencaching config
-	 * @param string $querry - MySQLquery
-	 * @return data from database
-	 */
-	 
-	private function my_sql($opt, $querry)	{
-		try	{
-			$pdo = new PDO("mysql:host=".$opt['db']['server'].";dbname=".$opt['db']['name'],$opt['db']['username'],$opt['db']['password']);
-			$pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$pdo -> exec("SET CHARACTER SET utf8");
-			$sth = $pdo -> prepare($querry);
-			$sth -> execute();
-			$result = $sth -> fetchAll();
-		} catch(PDOException $e) {
-			echo "Error PDO Library: (region_class.php function my_sql) " . $e -> getMessage();
-			exit;
-		}
-		return $result;
-	}
-
-	/**
-	 * For use with single result (LIMIT 1)
-	 * @param array $opt -  database accesing data from opencaching config
-	 * @param string $querry - MySQLquery
-	 * @return data from database
-	 */
-	private function one_from_mysql($opt, $query) {
-		try {
-			$DBH =  new PDO("mysql:host=".$opt['db']['server'].";dbname=".$opt['db']['name'],$opt['db']['username'],$opt['db']['password']);
-			$DBH -> exec("SET CHARACTER SET utf8");
-			$STH = $DBH -> prepare($query);
-			$STH -> execute();
-			$result = $STH -> fetch();
-		} catch(PDOException $e) {
-			echo "Error PDO Library: (region_class.php function my_sql) " . $e -> getMessage();
-			exit;
-		}
-		return $result;
-	}
-
-	/**
-	 * 
 	 * @@param array $opt -  database accesing data from opencaching config
-	 * @param unknown_type $lang
 	 * @param float $lat geografical latitude (coordinates)
 	 * @param float $lon geografical longitude (coordinates)
 	 * 
 	 * @return array with code and names of regions selected from input geografical coordinates.void
 	 */
-	public function GetRegion($opt, $lang, $lat, $lon) {
+	public function GetRegion($lat, $lon) {
 		require_once(__DIR__.'/lib/gis/gis.class.php');
 
 		$lat_float = (float) $lat;
@@ -105,8 +60,6 @@ class GetRegions {
 		$db->simpleQuery($tmpqery);
 		$rsLayers = $db->dbResultFetchAll();
 		
-		// $rsLayers = $this->my_sql($opt, $tmpqery);
-
 		foreach ($rsLayers as $rLayers)	{
 			if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {
 				$sCode = $rLayers['code'];
@@ -127,7 +80,6 @@ class GetRegions {
 				$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
 				$db->simpleQuery($q);
 				$re = $db->dbResultFetch();
-				// $re = $this::one_from_mysql($opt, $q);
 				$adm4 = $re["name"];
 				unset ($re, $q);
 
@@ -140,7 +92,6 @@ class GetRegions {
 				
 				$db->simpleQuery($q);
 				$re = $db->dbResultFetch();
-				// $re = $this::one_from_mysql($opt, $q);
 				
 				$adm3 = $re["name"];
 				unset ($re, $q);
@@ -152,7 +103,6 @@ class GetRegions {
 				$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
 				$db->simpleQuery($q);
 				$re = $db->dbResultFetch();
-				//$re = $this::one_from_mysql($opt, $q);
 				$adm2 = $re["name"];
 				unset ($re, $q);
 				$sCode = mb_substr($sCode, 0, 2);
@@ -165,7 +115,6 @@ class GetRegions {
 				$q = "SELECT `countries`.`pl` FROM `countries` WHERE `countries`.`short`='$sCode'";
 				$db->simpleQuery($q);
 				$re = $db->dbResultFetch();
-				//$re = $this::one_from_mysql($opt, $q);
 				$adm1 = $re["pl"];
 				unset ($re, $q);
 
@@ -173,7 +122,6 @@ class GetRegions {
 					$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
 					$db->simpleQuery($q);
 					$re = $db->dbResultFetch();	
-					// $re = one_from_mysql($opt, $q);
 					$adm1  = $re["name"];
 					unset ($re, $q);
 				}

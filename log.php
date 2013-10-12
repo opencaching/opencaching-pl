@@ -800,7 +800,7 @@ $debug = false;
 						     // get new region (names and codes) from coordinates and put it into database.
 						     require_once 'region_class.php';
 						     $region = new GetRegions();
-						     $regiony = $region->GetRegion($opt, $lang, $wspolrzedneNS, $wspolrzedneWE);
+						     $regiony = $region->GetRegion($wspolrzedneNS, $wspolrzedneWE);
 						     sql("UPDATE `cache_location` SET adm1 = '&2', adm3 = '&3', code1='&4', code3='&5' WHERE cache_id = '&1'",sql_escape($cache_id),$regiony['adm1'],$regiony['adm3'],$regiony['code1'],$regiony['code3']);
 						 
 						   }

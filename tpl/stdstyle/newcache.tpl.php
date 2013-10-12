@@ -27,6 +27,56 @@ $(function() {
 	chkcountry2();
 }); 
 
+function checkRegion(){
+	// console.log($('#lat_min').val().length);
+	if( $('#lat_h').val().length > 0 && 
+	    $('#lon_h').val().length > 0 && 
+	    $('#lat_min').val().length > 3 && 
+	    $('#lon_min').val().length > 3) {
+		
+		var latmin = parseFloat($('#lat_min').val());
+		var lonmin = parseFloat($('#lon_min').val());
+		
+		var lat = parseFloat($('#lat_h').val()) +  latmin / 60;
+		if($('#latNS').val() == 'S') lat = -lat;
+		
+		var lon = parseFloat($('#lon_h').val()) + lonmin / 60;
+		if ($('#lonEW').val() == 'W') lon = -lon;
+		
+		request = $.ajax({
+    	url: "ajaxRetreiveRegionByCoordinates.php",
+    	type: "post",
+    	data:{lat: lat, lon: lon },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	if(response == 'false') {
+    		return false;
+    	}
+    	obj = JSON.parse(response);
+    	if($('#country').val() == obj['code1']) { 
+    		$('#region1').val(obj['code3']);
+    	} else {
+    		$('#country').val(obj['code1']);
+    		chkcountry2();
+    		$(function() {
+				setTimeout(function() {
+    			$('#region1').val(obj['code3']);
+			}, 2000);
+	});
+    	}
+    	console.log(obj);
+    });
+    
+    request.always(function () {
+    });
+		
+	// alert(lat+' / '+lon);
+	}
+}
+
+
 var maAttributes = new Array({jsattributes_array});
 
 function startUpload(){
@@ -53,7 +103,7 @@ function stopUpload(success){
 	$("#lon_min").val(gpx.coords_lon_min);
 	$("#name").val(gpx.name);
 	$("#desc").val(gpx.desc);
-   	
+   	checkRegion();
 	return true;
 }
 
@@ -78,7 +128,7 @@ function chkcountry2(){
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
     	$('#region1').html(response);
-    	console.log(response);
+    	//console.log(response);
     });
     
     request.always(function () {
@@ -312,7 +362,7 @@ function nearbycachemapOC()
 		<form action="newcacheAjaxWaypointUploader.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
 			<p id="f1_upload_form"><br/>
  			 <input name="myfile" type="file" size="30" />
- 			<input type="submit" />
+ 			<input type="submit" value="{{newcache_upload}}"/>
 			</p>
 			<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
 		</form>
@@ -367,8 +417,8 @@ function nearbycachemapOC()
 				<option value="N"{latNsel}>N</option>
 				<option value="S"{latSsel}>S</option>
 			</select>
-			&nbsp;<input type="text" id="lat_h"  name="lat_h" maxlength="2" value="{lat_h}" class="input30" />
-			&deg;&nbsp;<input type="text" id="lat_min" name="lat_min" maxlength="6" value="{lat_min}" class="input50" />&nbsp;'&nbsp;
+			&nbsp;<input type="text" id="lat_h"  name="lat_h" maxlength="2" value="{lat_h}" class="input30" onchange="checkRegion()"/>
+			&deg;&nbsp;<input type="text" id="lat_min" name="lat_min" maxlength="6" value="{lat_min}" class="input50" onkeyup="this.value=this.value.replace( /,/g,'.' );" onchange="checkRegion()" />&nbsp;'&nbsp;
 			<button onclick="return nearbycachemapOC()">{{check_nearby_caches_map}}</button>
 			{lat_message}<br />
 			&nbsp;&nbsp;&nbsp;
@@ -376,8 +426,8 @@ function nearbycachemapOC()
 			    <option value="W"{lonWsel}>W</option>
 				<option value="E"{lonEsel}>E</option>
 			</select>
-			&nbsp;<input type="text" id="lon_h" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
-			&deg;&nbsp;<input type="text" id="lon_min" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
+			&nbsp;<input type="text" id="lon_h" name="lon_h" maxlength="3" value="{lon_h}" class="input30" onchange="checkRegion()" />
+			&deg;&nbsp;<input type="text" id="lon_min" name="lon_min" maxlength="6" value="{lon_min}" class="input50" onkeyup="this.value=this.value.replace( /,/g,'.' );" onchange="checkRegion()" />&nbsp;'&nbsp;
 			<button onclick="return nearbycache()">{{check_nearby_caches}}</button><br />
 			 {lon_message}</fieldset>
 		</td>
