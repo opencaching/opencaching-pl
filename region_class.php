@@ -36,6 +36,9 @@
  *
  *@author Andrzej Łza Woźniak (some code I copied from former code.)
  */
+
+require_once(__DIR__.'/lib/db.php'); 
+ 
 class GetRegions {
 
 	/**
@@ -44,6 +47,7 @@ class GetRegions {
 	 * @param string $querry - MySQLquery
 	 * @return data from database
 	 */
+	 
 	private function my_sql($opt, $querry)	{
 		try	{
 			$pdo = new PDO("mysql:host=".$opt['db']['server'].";dbname=".$opt['db']['name'],$opt['db']['username'],$opt['db']['password']);
@@ -96,7 +100,12 @@ class GetRegions {
 
 		$sCode = '';
 		$tmpqery = "SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('POINT($lon  $lat)'), `shape`) ORDER BY `level` DESC";
-		$rsLayers = $this->my_sql($opt, $tmpqery);
+		
+		$db = new dataBase;
+		$db->simpleQuery($tmpqery);
+		$rsLayers = $db->dbResultFetchAll();
+		
+		// $rsLayers = $this->my_sql($opt, $tmpqery);
 
 		foreach ($rsLayers as $rLayers)	{
 			if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {
@@ -111,12 +120,17 @@ class GetRegions {
 			$adm3 = null; $code3 = null;
 			$adm4 = null; $code4 = null;
 
+			print 'regionclas dsdsdsd: ';
+			var_dump($sCode);
+
 			if (mb_strlen($sCode) > 5) $sCode = mb_substr($sCode, 0, 5);
 
 			if (mb_strlen($sCode) == 5) {
 				$code4 = $sCode;
 				$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-				$re = $this::one_from_mysql($opt, $q);
+				$db->simpleQuery($q);
+				$re = $db->dbResultFetch();
+				// $re = $this::one_from_mysql($opt, $q);
 				$adm4 = $re["name"];
 				unset ($re, $q);
 
@@ -126,7 +140,11 @@ class GetRegions {
 			if (mb_strlen($sCode) == 4) {
 				$code3 = $sCode;
 				$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-				$re = $this::one_from_mysql($opt, $q);
+				
+				$db->simpleQuery($q);
+				$re = $db->dbResultFetch();
+				// $re = $this::one_from_mysql($opt, $q);
+				
 				$adm3 = $re["name"];
 				unset ($re, $q);
 				$sCode = mb_substr($sCode, 0, 3);
@@ -135,7 +153,9 @@ class GetRegions {
 			if (mb_strlen($sCode) == 3) {
 				$code2 = $sCode;
 				$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-				$re = $this::one_from_mysql($opt, $q);
+				$db->simpleQuery($q);
+				$re = $db->dbResultFetch();
+				//$re = $this::one_from_mysql($opt, $q);
 				$adm2 = $re["name"];
 				unset ($re, $q);
 				$sCode = mb_substr($sCode, 0, 2);
@@ -146,13 +166,17 @@ class GetRegions {
 				$code1 = $sCode;
 				// try to get localised name first
 				$q = "SELECT `countries`.`pl` FROM `countries` WHERE `countries`.`short`='$sCode'";
-				$re = $this::one_from_mysql($opt, $q);
+				$db->simpleQuery($q);
+				$re = $db->dbResultFetch();
+				//$re = $this::one_from_mysql($opt, $q);
 				$adm1 = $re["pl"];
 				unset ($re, $q);
 
 				if ($adm1 == null) {
 					$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-					$re = one_from_mysql($opt, $q);
+					$db->simpleQuery($q);
+					$re = $db->dbResultFetch();	
+					// $re = one_from_mysql($opt, $q);
 					$adm1  = $re["name"];
 					unset ($re, $q);
 				}
