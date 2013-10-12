@@ -2,7 +2,7 @@
 require_once(__DIR__.'/lib/db.php');;
 require_once __DIR__.'/region_class.php';
 
-$cacheId = 2;
+$cacheId = addslashes($_REQUEST['c']);
 
 $db = new dataBase;
 $queryCacheData = 'SELECT * FROM caches WHERE cache_id = :1 LIMIT 1';

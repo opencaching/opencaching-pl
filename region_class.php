@@ -120,9 +120,6 @@ class GetRegions {
 			$adm3 = null; $code3 = null;
 			$adm4 = null; $code4 = null;
 
-			print 'regionclas dsdsdsd: ';
-			var_dump($sCode);
-
 			if (mb_strlen($sCode) > 5) $sCode = mb_substr($sCode, 0, 5);
 
 			if (mb_strlen($sCode) == 5) {
