@@ -1229,28 +1229,57 @@ var ptMapCenterLon = {mapCenterLon};
 var mapZoom = {mapZoom};
 var fullCountryMap = {fullCountryMap};
 var caches = [ {ptList4map} ];
+
+//osm
+var mapTypeIds = [];
+for(var type in google.maps.MapTypeId) {
+    mapTypeIds.push(google.maps.MapTypeId[type]);
+}
+mapTypeIds.push("OSM");
+mapTypeIds.push("UMP");
+
+//end osm
+
 var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
 var mapOptions = {
     zoom: mapZoom,
     center: myLatlng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeControlOptions: {
+        mapTypeIds: mapTypeIds
+    }
 }
 var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 var bounds = new google.maps.LatLngBounds(); 
 
+map.mapTypes.set("OSM", new google.maps.ImageMapType({
+                getTileUrl: function(coord, zoom) {
+                    return "http://tile.openstreetmap.org/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+                },
+                tileSize: new google.maps.Size(256, 256),
+                name: "OSM",
+                maxZoom: 18
+}));
+map.mapTypes.set("UMP", new google.maps.ImageMapType({
+                getTileUrl: function(coord, zoom) {
+                    return "http://1.tiles.ump.waw.pl/ump_tiles/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+                },
+                tileSize: new google.maps.Size(256, 256),
+                name: "UMP",
+                maxZoom: 18
+}));
 
+var infoWindow = new google.maps.InfoWindow;
 
-    var infoWindow = new google.maps.InfoWindow;
-
-    var onMarkerClick = function() {
-      var markerx = this;
-      //var latLng = markerx.getTitle();
-      infoWindow.setContent('<div class="mapCloud"><img src="'+this.ic+'"> ' + this.txt + '<div>');
-      infoWindow.open(map, markerx);
-    };
-    google.maps.event.addListener(map, 'click', function() {
-      infoWindow.close();
-    });
+var onMarkerClick = function() {
+  var markerx = this;
+  //var latLng = markerx.getTitle();
+  infoWindow.setContent('<div class="mapCloud"><img src="'+this.ic+'"> ' + this.txt + '<div>');
+  infoWindow.open(map, markerx);
+};
+google.maps.event.addListener(map, 'click', function() {
+  infoWindow.close();
+});
 
 
 
@@ -1273,7 +1302,6 @@ if(fullCountryMap == '0') map.fitBounds(bounds);
 
 google.maps.event.addDomListener(window, 'load', initialize);
 /* maps end */
-
 // -->
 </script>
 
