@@ -1,4 +1,4 @@
-<?php 
+<?php
 // 050242-blue-jelly-icon-natural-wonders-flower13-sc36.png
 // <script src="tpl/stdstyle/js/jquery-2.0.3.js"></script>
 ?>
@@ -55,6 +55,29 @@ $(function() {
 	ajaxGetComments(0, {commentsPaginateCount});
 	$("#ptPercentCc").html(calculatepercentCc( $("#powerTrailpercent").html(), $("#powerTrailCacheCount").html()));
 }); 
+
+
+function getGpx(output){
+	var showresult		= $("#showresult").val();
+	
+	var f_inactive;
+	var f_ignored;  
+	var f_userowner;
+	var f_watched;  
+	var f_userfound;
+	var count = $("#count").val();
+	var ptId = $("#ptId").val();
+	$('#f_inactive').is(':checked')  ? f_inactive  = 0 : f_inactive  = 1 ;
+	$("#f_ignored").is(':checked')   ? f_ignored   = 0 : f_ignored   = 1 ;
+	$("#f_userowner").is(':checked') ? f_userowner = 0 : f_userowner = 1 ;
+	$("#f_watched").is(':checked')   ? f_watched   = 0 : f_watched   = 1 ;
+	$("#f_userfound").is(':checked') ? f_userfound = 0 : f_userfound = 1 ;
+	
+	
+	var gpxLink = 'search.php?searchto=searchbypt&showresult=1&f_inactive='+f_inactive+'&f_ignored='+f_ignored+'&f_userfound='+f_userfound+'&f_userowner='+f_userowner+'&f_watched='+f_watched+'&count='+count+'&ptId='+ptId+'&output='+output;
+	window.location = gpxLink;
+}
+
 
 function updateCc(){
 	$("#ptPercentCc").html(calculatepercentCc( $("#demandPercent").val(), $("#powerTrailCacheCount").html()));
@@ -1651,6 +1674,20 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	width: 80%;
 	padding: 5px;
 }
+#gpxOptions{
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+	display: none;
+	border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+	border:1px solid #337fed;
+	width: 40%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
 </style>
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
 
@@ -1988,10 +2025,24 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 		</tr>
 		<tr>
 			<td>
-				<div id="gpxSection" style="float: right; padding-top: 10px; padding-bottom: 10px; padding-right: 5px;">
+				<div id="gpxOptions">	
+					<p>{{pt206}}:</p><hr>	
+					<input id="f_inactive"  type="checkbox" name="f_inactive"  checked="checked" /> {{pt201}} <br/>
+					<input id="f_ignored"   type="checkbox" name="f_ignored"   checked="checked" /> {{pt202}} <br/>
+					<input id="f_userowner" type="checkbox" name="f_userowner" checked="checked" /> {{pt203}} <br/>
+					<input id="f_watched"   type="checkbox" name="f_watched"   checked="checked" /> {{pt204}} <br/>
+					<input id="f_userfound" type="checkbox" name="f_userfound" checked="checked" /> {{pt205}} <br/>
+					<input id="showresult"  type="hidden"   name="showresult" value="1">
+					<input id="count"       type="hidden"   name="count"      value="max">
+					<input id="ptId"        type="hidden"   name="ptId"       value="{powerTrailId}">
+					<input id="output" 	  	type="hidden"   name="output" 	  value="gpxgc">
+					<a href="javascript:void(0)" style="float: right;" onclick="$('#gpxOptions').fadeOut(600);$(function(){setTimeout(function(){$('#gpxSection').fadeIn(800);},801);});" class="editPtDataButton"/>OK</a>
+				</div>
+				
+				<div id="gpxSection" align="right" style="padding-top: 10px; padding-bottom: 10px; padding-right: 5px; width=100%;">
+					<a href="javascript:void(0)" style="float: left;" onclick="$('#gpxSection').fadeOut(800);$(function(){setTimeout(function(){$('#gpxOptions').fadeIn(800);},801);});" class="editPtDataButton"/>{{pt207}}</a>
 					{{pt179}}: 
-					<a href="search.php?searchto=searchbypt&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&ptId={powerTrailId}&output=gpxgc" class="editPtDataButton">GPX</a>
-					<a href="search.php?searchto=searchbypt&showresult=1&f_inactive=0&f_ignored=0&f_userfound=0&f_userowner=0&f_watched=0&count=max&ptId={powerTrailId}&output=zip" class="editPtDataButton">GARMIN ({{format_pict}})</a>
+					<a href="javascript:void(0)" onclick="getGpx('gpxgc');" class="editPtDataButton">GPX</a>&nbsp;<a href="javascript:void(0)" onclick="getGpx('zip');" class="editPtDataButton">GARMIN ({{format_pict}})</a>
 				</div>
 			</td>
 		</tr>
@@ -1999,7 +2050,6 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 			<td class="linearBg2"></td>
 		</tr>
 	</table>
-	
 	
 	<span id="PowerTrailCaches"></span>
 	<img id="cachesLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />

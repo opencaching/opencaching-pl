@@ -1741,7 +1741,7 @@ pt061 Zastąp obecne logo tym plikiem
 pt062 Twoje geoŚcieżki
 pt063 Widoczność
 pt064 Zmień status
-pt065 Zdobyty
+pt065 Zdobyta
 pt066 razy
 pt067 Przyrodnicza
 pt068 Musisz najpierw znaleźć 
@@ -1877,6 +1877,13 @@ pt197 Ta skrzynka jest już na liście keszynek-kandydatek lub należy już do j
 pt198 Skrzynka została umieszczona na liście keszynek-kandydatek, a do jej właściciela został wysłany email. Gdy właściciel wyrazi zgodę (poprzez kliknięcie linka w otrzymanym mailu) kesz zostanie dodany do geoŚcieżki automatycznie.
 pt199 informacja
 pt200 Ta skrzynka nie może być usunięta z geoŚcieżki (geoŚcieżka do której jest przypisana została już zdobyta - możesz zarchiwizować skrzynkę, ale nie możesz jej już usunąć z geoŚcieżki)
+pt201 nieaktywne
+pt202 ignorowane
+pt203 założone przez Ciebie
+pt204 obserwowane
+pt205 znalezione
+pt206 W pobranym pliku gpx umieść skrzynki
+pt207 filtry gpx
 statpic_found Znalazł:
 statpic_hidden Ukrył:
 statpic_html_link - Statystyka dla
