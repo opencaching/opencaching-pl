@@ -1448,8 +1448,8 @@ AE Verenigde Arabische Emiraten
 AF Afghanistan
 AG Antigua en Barbuda
 AI Anguilla
-AL Albanië
-AM Armenië
+AL Albani&
+AM Armeni&euml;
 AN Nederlandse Antillen
 AO Angola
 AR Argentinië
@@ -1839,7 +1839,7 @@ pt158 Vul het te verwijderen cachewaypoint in en druk op enter
 pt159 Verwijder cache
 pt160 Cache bestaat niet in deze PowerTrail
 pt161 Cache is verwijdert uit deze PowerTrail
-pt162 Cache is toegevoegt aan deze PowerTraipt
+pt162 Cache is toegevoegt aan deze PowerTrail
 pt163 Meer opties
 pt164 Toepassen
 pt165 Alle soorten
@@ -1856,10 +1856,32 @@ pt175 Aantal weergegeven PowerTrails
 pt176 Oplopend
 pt177 Aflopend
 pt178 Sorteerwijze
+pt179 Download als
+pt180 caches
+pt181 Hoofdeigenaar
+pt182 Hoofdeigenaar is de persoon die de PowerTrail gegeristreerd heeft.
+pt183 Verzoek om cache toe te voegen aan PowerTrail
+pt184 Hallo
+pt185 er is een verzoek om een cache toe te voegen aan een PowerTrail
+pt186 Klik hier om te accepteren
+pt187 Klik hier om te weigeren
+pt188 of kopieer dit adres in een browser
+pt189 Neem bij twijfel contact op met aanvrager
+pt190 Terug naar PowerTrail
+pt191 Bedankt. De cache is nu toegevoegd in de PowerTrail
+pt192 De cache wordt nu in de PowerTrail geplaatst
+pt193 Bevestiging dat cache toegevoegd in de PowerTrail
+pt194 Sorrie, Je bent niet de eigenaar van deze cache!
+pt195
+pt196
+pt197
+pt198 De cache is op een voorlopige lijst geplaatst, de eigenaar zal een email ontvangen met het verzoek. Wanneer de eigenaar akkoord gaat via een aan te klikken link, dan zal deze cache automatisch toegevoegt worden in de PowerTrail.
+pt199 Informatie:
+pt200
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
-notify_newcachemail01 hallo
+notify_newcachemail01 Hallo
 notify_newcachemail02 Er is net een nieuwe cache gemeld in jouw ingestelde zoekradius
 notify_newcachemail03 heeft op
 notify_newcachemail04 een nieuwe cache geplaatst
