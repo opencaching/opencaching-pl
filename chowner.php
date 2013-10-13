@@ -1,4 +1,5 @@
 <?php
+if(!isset($rootpath)) $rootpath = '';
 require_once('./lib/common.inc.php');
 	function orderBy($orderId)
 	{
@@ -134,6 +135,14 @@ require_once('./lib/common.inc.php');
 		return -1;
 	}
 	
+	function emailHeaders() {
+		global $usr;
+		$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
+		$email_headers .= "From: Opencaching.pl <noreply@opencaching.pl>\r\n";
+		$email_headers .= "Reply-To: ".$usr['email']."\r\n";
+		return $email_headers;
+	}
+	
 	//prepare the templates and include all neccessary
 
 	$tplname = 'chowner';
@@ -191,11 +200,8 @@ require_once('./lib/common.inc.php');
 					
 					tpl_set_var("error_msg", "");
 					tpl_set_var("info_msg", " ".tr('adopt_15')." ".getCacheName($_GET['cacheid'])."<br /><br />");	
-					$email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-					$email_headers .= "From: Opencaching.pl <noreply@opencaching.pl>\r\n";
-					$email_headers .= "Reply-To: ".$usr['email']."\r\n";
 	
-					mb_send_mail(getUserEmail($oldOwnerId), "[OC PL] Nowy właściciel Twojej skrzynki", "Witaj!\nNowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid'])." został użytkownik: ".$usr['username'].".", $email_headers);
+					mb_send_mail(getUserEmail($oldOwnerId), "[OC PL] Nowy właściciel Twojej skrzynki", "Witaj!\nNowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid'])." został użytkownik: ".$usr['username'].".", emailHeaders());
 					}
 			}
 			if( isset($_GET['accept']) && $_GET['accept'] == 0 )
@@ -208,7 +214,7 @@ require_once('./lib/common.inc.php');
 				if( mysql_affected_rows() > 0 )
 				{
 					tpl_set_var("info_msg", "Zaproszenie do przejęcia skrzynki zostało przez Ciebie odrzucone.<br /><br />");
-					mb_send_mail(getUserEmail($oldOwnerId), "[OC PL] Użytkownik nie przyjął Twojej skrzynki", "Witaj!\nNiestety użytkownik: ".$usr['username']." nie chce być nowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid']).".", $email_headers);
+					mb_send_mail(getUserEmail($oldOwnerId), "[OC PL] Użytkownik nie przyjął Twojej skrzynki", "Witaj!\nNiestety użytkownik: ".$usr['username']." nie chce być nowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid']).".", emailHeaders());
 				}
 				else
 					tpl_set_var("error_msg", "Wystąpił błąd podczas zmiany właściciela skrzynki.<br /><br />");
@@ -231,10 +237,9 @@ require_once('./lib/common.inc.php');
 				// skrzynka czeka na moja akceptacje
 				tpl_set_var('start_przejmij', "");
 				tpl_set_var('end_przejmij', "");
-				foreach( listPendingCaches($usr['userid']) as $cache)
-				{
-					$acceptList .= "<tr>
-					<td>";
+				$acceptList = '';
+				foreach( listPendingCaches($usr['userid']) as $cache) {
+					$acceptList .= "<tr><td>";
 					$acceptList .= "<a href='viewcache.php?cacheid=".$cache['cache_id']."'>";
 					$acceptList .= $cache['name']."</a>";
 					$acceptList .= " <a href='chowner.php?cacheid=".$cache['cache_id']."&accept=1'>[<font color='green'>".tr('adopt_12')."</font>]</a>";
@@ -259,10 +264,13 @@ require_once('./lib/common.inc.php');
 					//else
 					{
 						// uzytkownik istnieje, mozna kontynuowac procedure
-						$sql = "INSERT INTO chowner (cache_id, user_id) VALUES (".sql_escape(intval($_REQUEST['cacheid'])).", ".doesUserExist($_POST['username']).")";
+						$newUserId = doesUserExist($_POST['username']);
+						$sql = "INSERT INTO chowner (cache_id, user_id) VALUES (".sql_escape(intval($_REQUEST['cacheid'])).", ".$newUserId.")";
 						mysql_query($sql);
-						if( mysql_affected_rows() > 0 )
+						if( mysql_affected_rows() > 0 ){
 							tpl_set_var('info_msg', "Procedura zmiany właściciela skrzynki została rozpoczęta.<br /><br />");
+							mb_send_mail(getUserEmail($newUserId), tr('chowner01'), tr('chowner02').": ".$usr['username']." ".tr('chowner03').": ".getCacheName($_REQUEST['cacheid']).". ".tr('chowner04'), emailHeaders());
+						}
 						else
 							tpl_set_var('error_msg', "Wystąpił błąd podczas rozpoczynania procedury zmiany właściciela skrzynki.<br /><br />");
 					}
