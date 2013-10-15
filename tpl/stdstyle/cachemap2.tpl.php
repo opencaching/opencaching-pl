@@ -512,18 +512,18 @@ else
 	<div id="list" style="border:1px solid black; background-color: #B6C0C0;float:left; margin-left: 5px; margin-top: 5px; padding: 2px;"></div>
 	<div id="settings" style="border:1px solid black; background-color: #B6C0C0;float:left; margin-left: 5px; margin-top: 5px; padding: 2px;">
 		{{max_caches_per_page}}: <select onchange="caches=this.options[this.selectedIndex].value; document.getElementById('cachelimit').value = this.options[this.selectedIndex].value; load_data(0);" style="border: none; background-color: #B6C0B0;">
-			<?
+			<?php
 				for ($a=0; $a<10; $a++) {
 					?>
-					<option value="<? echo (($a + 1) * 50); ?>" <? if ($filter[19] == $a) echo "selected" ?>><? echo (($a + 1) * 50); ?></option>
-					<?
+					<option value="<?php echo (($a + 1) * 50); ?>" <?php if ($filter[19] == $a) echo "selected" ?>><?php echo (($a + 1) * 50); ?></option>
+					<?php
 				}
 			?>
 			</select><br/>
 		{{sort_by}}: <select onchange="order=this.options[this.selectedIndex].value; document.getElementById('cachesort').value = this.options[this.selectedIndex].value; load_data(0);" style="border: none; background-color: #B6C0B0;">
-		<option value="1" <? if ($filter[20] == "1") echo "selected" ?>>cache ID</option>
-		<option value="2" <? if ($filter[20] == "2") echo "selected" ?>>{{by_name}}</option>
-		<option value="3" <? if ($filter[20] == "3") echo "selected" ?>>{{by_date}}</option>
+		<option value="1" <?php if ($filter[20] == "1") echo "selected" ?>>cache ID</option>
+		<option value="2" <?php if ($filter[20] == "2") echo "selected" ?>>{{by_name}}</option>
+		<option value="3" <?php if ($filter[20] == "3") echo "selected" ?>>{{by_date}}</option>
 		</select></div>
 	</td>
 </tr>
@@ -555,9 +555,9 @@ else
 	<br />
 	<input type="submit" name="submit" value="Filtruj">
 	<input type="hidden" name="userid" value="<?php echo $userid;?>">
-	<input type="hidden" name="maptype" id="maptype" value="<? echo $filter[18]; ?>">
-	<input type="hidden" name="cachelimit" id="cachelimit" value="<? echo (($filter[19] + 1) * 50); ?>">
-	<input type="hidden" name="cachesort" id="cachesort" value="<? echo $filter[20]; ?>">
+	<input type="hidden" name="maptype" id="maptype" value="<?php echo $filter[18]; ?>">
+	<input type="hidden" name="cachelimit" id="cachelimit" value="<?php echo (($filter[19] + 1) * 50); ?>">
+	<input type="hidden" name="cachesort" id="cachesort" value="<?php echo $filter[20]; ?>">
 	<?php 
 	if( $_REQUEST['lat'] == "" || $_REQUEST['lon'] == "" )
 	{

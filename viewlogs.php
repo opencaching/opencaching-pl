@@ -21,6 +21,7 @@
  ****************************************************************************/
 
   //prepare the templates and include all neccessary
+	if(!isset($rootpath)) $rootpath = '';   
 	require_once('./lib/common.inc.php');
 	
 	//Preprocessing
@@ -228,7 +229,7 @@
 				$tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
 				$tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
 				$tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
-				$tmplog = mb_ereg_replace('{logimage}', icon_log_type($record['icon_small'], $tmplog['type']), $tmplog);
+				$tmplog = mb_ereg_replace('{logimage}', '<a href="viewlogs.php?logid='.$record['log_id'].'">'. icon_log_type($record['icon_small'], $record['log_id']).'</a>', $tmplog);
 				
 				//$rating_picture
 				if ($record['recommended'] == 1 && $record['type']==1)
@@ -242,6 +243,7 @@
 				$tmpremove = mb_ereg_replace('{logid}', $record['log_id'], $remove_log);
 				$tmpRevert = mb_ereg_replace('{logid}', $record['log_id'], $revertLog);
 				$tmpnewpic = mb_ereg_replace('{logid}', $record['log_id'], $upload_picture);
+				if(!isset($record['deleted'])) $record['deleted'] = false;
 				if( $record['deleted']!=1 )
 				{
 					if ($record['user_id'] == $usr['userid'])

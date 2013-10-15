@@ -1412,14 +1412,14 @@
 						$tmplog = mb_ereg_replace('{logfunctions}', '', $tmplog);
 					}
 				}
-				
+				//var_dump($record);
 				$tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
 				$tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
 				$tmplog = mb_ereg_replace('{userid}', $record['userid'], $tmplog);
 				$tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
 				$tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
 				$tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
-				$tmplog = mb_ereg_replace('{logimage}', icon_log_type($record['icon_small'], $tmplog['type']), $tmplog);
+				$tmplog = mb_ereg_replace('{logimage}', '<a href="viewlogs.php?logid='.$record['logid'].'">'.icon_log_type($record['icon_small'], $record['logid']).'</a>', $tmplog);
 
 				if ($record['recommended'] == 1 && $record['type']==1)
 					$tmplog = mb_ereg_replace('{ratingimage}', $rating_picture, $tmplog);
@@ -1809,7 +1809,9 @@ if($powerTrailModuleSwitchOn) {
 	if(count($ptArr)>0){	
 		$ptHtml = '<table width="99%">';
 		foreach ($ptArr as $pt) {
-			$ptHtml .= '<tr><td width="51"><img border="0" width="50" src="'.$pt['image'].'" /></td><td align="center"><span style="font-size: 13px;"><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['name'].'</a> </td></tr>';
+			if($pt['image'] == '') $ptImg = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+			else $ptImg = $pt['image'];
+			$ptHtml .= '<tr><td width="51"><img border="0" width="50" src="'.$ptImg.'" /></td><td align="center"><span style="font-size: 13px;"><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['name'].'</a> </td></tr>';
 		}
 		$ptHtml .= '</table>'; 
 		$ptDisplay = 'block';

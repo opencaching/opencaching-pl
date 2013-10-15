@@ -174,7 +174,9 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                                 $sql = "SELECT value FROM sysconfig WHERE name = 'hidden_for_approval'";
                                 $new_pendings = mysql_result(mysql_query($sql),0);
                             }
-                            mnu_EchoMainMenu($menu[$pageidx]['siteid']);
+							if(isset($menu[$pageidx])) {
+								mnu_EchoMainMenu($menu[$pageidx]['siteid']);
+							}
                         ?>
                     </ul>
                 </div>

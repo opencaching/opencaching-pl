@@ -379,7 +379,7 @@ function toggleGeoKrety() {
 			<input type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="width:120px"/>
 		</td>
 	</tr>
-	<? if (strpos($_SERVER['HTTP_USER_AGENT'], "Android") !== false) { ?>
+	<?php if (strpos($_SERVER['HTTP_USER_AGENT'], "Android") !== false) { ?>
 		<tr>
 			<td colspan="2">
 				<div style='background: url(/images/android_notice.png); background-repeat: no-repeat; padding-left: 70px; padding-top: 10px; max-width: 400px; margin: 7px 0 20px 0'>
@@ -391,7 +391,7 @@ function toggleGeoKrety() {
 				</div>
 			</td>
 		</tr>
-	<? } ?>
+	<?php } ?>
 </table>
 </div>
 </form>
