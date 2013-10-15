@@ -83,11 +83,11 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                 <div id="bg2">&nbsp;</div>
                 <!-- HEADER -->
                 <!-- OC-Logo -->
-                <div><img src="./images/<?print $logo3;?>" alt="" style="margin-top:5px; margin-left:3px;" /></div>
+                <div><img src="./images/<?php print $logo3;?>" alt="" style="margin-top:5px; margin-left:3px;" /></div>
                 <!-- Sitename -->
                 <div class="site-name">
-                    <p class="title"><a href="index.php"><?print $logo1;?></a></p>
-                    <p class="subtitle"><a href="index.php"><?print $logo2;?></a></p>
+                    <p class="title"><a href="index.php"><?php print $logo1;?></a></p>
+                    <p class="subtitle"><a href="index.php"><?php print $logo2;?></a></p>
                 </div>
                 <!-- Flag navigations -->
                 <div class="navflag-container">

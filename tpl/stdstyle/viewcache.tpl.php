@@ -31,7 +31,7 @@
 			<div class="">
 
 				<div class="nav4">
-<?
+<?php
 
 					if ($usr == false) 
 					{

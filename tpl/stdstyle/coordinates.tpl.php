@@ -63,12 +63,12 @@
 	</div>
 	<div style="margin-top:4px;">
 		<font size="2" color="#000080"><b>UTM</b></font> <font size="1">(WGS84)</font><br/>
-		<? 	/*
+		<?php 	/*
 		{utm_zone}{utm_letter} E {utm_east}&nbsp;&nbsp;N {utm_north} <br/>
 		*/ 	?>
 		{utm2_zone}{utm2_letter} {utm2_NS} {utm2_north}&nbsp;&nbsp;{utm2_EW} {utm2_east} <br/>
 	</div>
-	<? 	/*
+	<?php 	/*
 	<div style="margin-top:4px;">
 		<font size="2" color="#000080"><b>Gau&szlig;-Kr&uuml;ger</b></font> <font size="1">(Potsdam-Datum)</font><br/>
 		R {gk_rechts}&nbsp;&nbsp;H {gk_hoch} <br/>

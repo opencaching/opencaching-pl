@@ -39,7 +39,7 @@ global $user_id;
 </div>
 {guide_info}
 <div class="nav4">
-<?
+<?php
 
 
 					// statlisting

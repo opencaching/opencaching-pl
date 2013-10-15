@@ -42,6 +42,8 @@ class dataBase
 	 	$this->username = $opt['db']['username'];
 	 	$this->password = $opt['db']['password'];
 	 	
+		// print_r($opt); exit;
+		
 	 	// turn on debug to screen
 	 	if ($debug === true) {
 	 		$this->debug = true;
@@ -285,7 +287,7 @@ class dataBase
 			$message = 'db.php, # ' . __line__ .', PDO error: ' . $e .'<br />
 					Database Query: '.$query.'<br>
 							Parametres array: '.
-							print_r($params, true).
+							print_r($arg_list, true).
 							'<br><br>';
 			if ($this->debug) {
 				print $message;
