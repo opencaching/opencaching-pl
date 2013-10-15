@@ -23,6 +23,7 @@ if(isset($_REQUEST['rcalcAll'])){
 	exit;	
 } 
 
+
 isset($_REQUEST['projectId']) ? $projectId = $_REQUEST['projectId'] : exit;
 isset($_REQUEST['cacheId']) ? $cacheId = $_REQUEST['cacheId'] : exit;
 isset($_REQUEST['rmOtherUserCacheFromPt']) ? $rmOtherUserCacheFromPt = true : $rmOtherUserCacheFromPt = false;
@@ -32,6 +33,13 @@ $db = new dataBase();
 $query = 'SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` = :1';
 $db->multiVariableQuery($query, $cacheId);
 $resultPowerTrailId=$db->dbResultFetch();
+
+if(isset($_REQUEST['removeByCOG']) && $_SESSION['ptRmByCog'] === 1){
+	removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI);
+	recalculate($resultPowerTrailId['PowerTrailId']);	
+	print 'removedByCOG';
+	exit;	
+} 
 
 if(isset($resultPowerTrailId['PowerTrailId']) && $resultPowerTrailId['PowerTrailId'] != 0){
 	$caheIsAttaschedToPt = true;
@@ -119,7 +127,6 @@ function addCacheToPowerTrail($cacheId, $projectId, $db, $ptAPI) {
 function removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI){
 	$query = 'DELETE FROM `powerTrail_caches` WHERE `cacheId` = :1 AND `PowerTrailId` = :2';
 	$db->multiVariableQuery($query, $cacheId, $resultPowerTrailId['PowerTrailId']);
-	// TODO handle witch lat and lon when cache is removed from power trail. (undo average)
 	$query = 'UPDATE `PowerTrail` SET `cacheCount`=`cacheCount`-1 WHERE `id` = :1';
 	$db->multiVariableQuery($query, $resultPowerTrailId['PowerTrailId']);
 	$logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`) VALUES (:1,:2,NOW(),3,:3,:4)';

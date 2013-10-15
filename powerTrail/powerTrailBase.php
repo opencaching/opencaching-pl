@@ -274,6 +274,13 @@ class powerTrailBase{
 		return $r[0];
 	}
 	
+	public static function getPtCaches($PtId){
+		$db = new dataBase;
+		$q = 'SELECT powerTrail_caches.isFinal, caches . * , user.username FROM  `caches` , user, powerTrail_caches WHERE cache_id IN ( SELECT  `cacheId` FROM  `powerTrail_caches` WHERE  `PowerTrailId` =:1) AND user.user_id = caches.user_id AND powerTrail_caches.cacheId = caches.cache_id ORDER BY caches.name';
+		$db->multiVariableQuery($q, $PtId);
+		return $db->dbResultFetchAll();
+	}
+	
 	public static function getPtCachesIds($PtId){
 		$q = 'SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1';
 		$db = new dataBase;

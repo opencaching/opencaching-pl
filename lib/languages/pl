@@ -1886,6 +1886,8 @@ pt206 W pobranym pliku gpx umieść skrzynki
 pt207 filtry gpx
 pt208 GeoŚcieżki COG
 pt209 wybierz
+pt210 usunięcie z geoŚcieżki
+pt211 Uwaga! usunięcie skrzynki z geoŚcieżki, która została już zalogowana jako 'zdobyta' niesie ze sobą utratę punktów zdobytych przez użytkowników, którzy zdobyli geoŚcieżkę. Dlatego operacja ta powinna być używana tylko w wyjątkowych i uzasadnionych okolicznościach. Operację tą może przeprowadzić tylko COG (nawet założyciele geoŚcieżki nie mają takiej możliwośći). należy starannie przeanalizować, czy rzeczywiście nie ma innego rozwiązania. (Preferowanym rozwiązaniem jest archiwizacja skrzynki).
 statpic_found Znalazł:
 statpic_hidden Ukrył:
 statpic_html_link - Statystyka dla

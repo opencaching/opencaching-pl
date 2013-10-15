@@ -479,6 +479,13 @@ $menu = array(
                 'siteid'        => 'admin_bulletin',
                 'visible'       => true,
                 'filename'      => 'admin_bulletin.php'
+            ),
+			array(
+                'title'         => tr('pt208'),
+                'menustring'    => tr('pt208'),
+                'siteid'        => 'powerTrailCOG',
+                'visible'       => $powerTrailModuleSwitchOn,
+                'filename'      => 'powerTrailCOG.php'
             )
         )
     ),
