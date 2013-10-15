@@ -21,7 +21,7 @@
 	require_once('./lib/common.inc.php');
 	require_once('lib/cache_icon.inc.php');
 	global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email;
-	global $dynbasepath;
+	global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key;
 
 	function onTheList($theArray, $item)
 	{
@@ -34,6 +34,7 @@
 	}
 
 	//Preprocessing
+	if(!isset($error)) global $error;
 	if ($error == false)
 	{
 
@@ -1821,6 +1822,7 @@ if($powerTrailModuleSwitchOn) {
 	}
 } else {
 	$ptHtml = '';
+	$ptDisplay = 'none';
 }
 	tpl_set_var('ptName', $ptHtml);
 	tpl_set_var('ptSectionDisplay', $ptDisplay);

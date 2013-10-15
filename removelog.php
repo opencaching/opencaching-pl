@@ -18,6 +18,7 @@
 	 GET/POST-Parameter: logid
 
  ****************************************************************************/
+if(!isset($rootpath)) $rootpath = '';
 require_once('./lib/common.inc.php');
 
 function removelog($log_id, $language, $lang)
@@ -243,7 +244,7 @@ function removelog($log_id, $language, $lang)
 						
 						$log = mb_ereg_replace('{date}', htmlspecialchars(strftime("%d %B %Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'), $log);
 
-						if ($log_record['recommended'] == 1)
+						if (isset($log_record['recommended']) && $log_record['recommended'] == 1)
 							$log = mb_ereg_replace('{ratingimage}', $rating_picture, $log);
 						else
 							$log = mb_ereg_replace('{ratingimage}', '', $log);
