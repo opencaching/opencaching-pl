@@ -234,10 +234,15 @@ if ($error == false) {
 		$content .= '<br /><p>&nbsp;</p><div class="content2-container bg-blue02"><p class="content-title-noshade-size1">&nbsp;<img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Caches Find" title="Caches Find" />&nbsp;&nbsp;&nbsp;' . tr('user_activity01') . '</p></div><br /><p><span class="content-title-noshade txt-blue08">' . tr('user_activity02') . '</span>:&nbsp;<strong>' . $act . '</strong></p>';
 
 		// PowerTrails stats
+		
+		$content .= '<div class="content2-container bg-blue02">
+						<p class="content-title-noshade-size1">
+						<img src="tpl/stdstyle/images/blue/powerTrailGenericLogo.png" width="33" class="icon32" alt="geoPaths" title="geoPaths" />&nbsp'.tr('pt001').'</div>';
 		if ($powerTrailModuleSwitchOn) {
 			require_once 'powerTrail/powerTrailBase.php';
 			$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>'.powerTrailBase::getUserPoints($user_id).'</strong> (' . tr('pt093') . ' '.powerTrailBase::getPoweTrailCompletedCountByUser($user_id).')</p>';
-		}	
+		}
+		//$content .= '</div>';
 
 		// -----------  begin Find section -------------------------------------
 		$rs_seek = sql("SELECT COUNT(*) FROM cache_logs WHERE (type=1 OR type=2) AND cache_logs.deleted='0' AND user_id=&1 GROUP BY YEAR(`date`), MONTH(`date`), DAY(`date`)", $user_id);

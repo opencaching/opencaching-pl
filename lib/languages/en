@@ -1735,6 +1735,18 @@ pt204 watched
 pt205 founded
 pt206 include following caches in gpx file 
 pt207 gpx filters
+pt208 GeoPath OC team
+pt209 select
+pt210 remove from geoPath
+pt211 Notice! removing cache from already 'completed' geoPath follows completing user earned points lose. For this reason this option should be use only in special conditions. Operation can be performed only by Oc-team (even geoPath owner cannot do that). Please cocarrefuly consider if there is no option. (Preferable archiwe the cache).
+pt212 Closed
+pt213 geoPath closure
+pt214 geoPath opening
+pt215 geoPath is ready to conquest
+pt216 geoPath in service
+pt217 geoPath is closed for service
+pt218 geoPath was closed permanently
+pt219 In service
 statpic_found Found:
 statpic_hidden Hidden:
 statpic_html_link - Statistics for

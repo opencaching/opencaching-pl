@@ -6,6 +6,7 @@
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
+<!--
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -15,6 +16,7 @@
   ga('create', 'UA-44434184-1', 'opencaching.pl');
   ga('send', 'pageview');
 </script>
+-->
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
@@ -494,6 +496,7 @@ function ajaxUpdateStatus(){
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
     	if(response != 'error'){
+    		ajaxGetComments(0, {commentsPaginateCount});
     		toggleStatusEdit();
     		$('#StatusOKimg').show();
     		$(function() {
@@ -1909,11 +1912,9 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 				</span>
 				<img id="StatusOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
 				<span id="ptStatusEdit" style="display: none">
-					<select id="ptStatusSelector">
-						<option value="1">{{pt006}}</option>
-						<option value="2">{{pt007}}</option>
-					</select>
-					<a href="javascript:void(0)" onclick="ajaxUpdateStatus()" class="editPtDataButton">{{pt044}}</a>	
+					{ptStatusSelector}
+					<a href="javascript:void(0)" onclick="toggleStatusEdit();" class="editPtDataButton">{{pt031}}</a>	
+					<a href="javascript:void(0)" onclick="ajaxUpdateStatus();" class="editPtDataButton">{{pt044}}</a>	
 				</span>	
 			</td>
 			<td align="right" width="120">

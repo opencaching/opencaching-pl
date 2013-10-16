@@ -38,6 +38,36 @@ $(function() {
 	
 }); 
 
+function chgStatus(){
+	alert($('#ptId').val());
+	$('#ptStatSelectSpan').hide();
+	$('#ajaxLoaderStatus').show();
+	request = $.ajax({
+    	url: "powerTrail/ajaxUpdateStatus.php",
+    	type: "post",
+    	data:{projectId: $('#ptId').val(),  newStatus: $('#ptStatusSelector').val(), commentTxt: $('#reason').val() },
+	});
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+    	if(response != 'error'){
+    		$('#StatusOKimg').show();
+    		$('#ptStatus').html(response);
+		}
+    });
+    
+   request.fail(function (jqXHR, textStatus, errorThrown){
+		toggleStatusEdit();
+    });
+    
+    request.always(function () {
+    	
+    	$('#ajaxLoaderStatus').hide();
+		$('#stbtn1').show();
+		$('#ptStatus').show();
+    });
+	
+}
 
 function rmCache(cacheId){
 	$("#rmCacheLoader"+cacheId).show();
@@ -262,14 +292,14 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	width: 80%;
 	padding: 5px;
 }
-#gpxOptions{
+#ptStatSelectSpan{
 	margin-left: auto;
 	margin-right: auto;
 	overflow: hidden;
 	display: none;
 	border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
 	border:1px solid #337fed;
-	width: 40%;
+	width: 400px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-left: 20px;
@@ -321,7 +351,17 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 		</tr>
 		<tr>
 			<td>{{pt040}}</td>
-			<td>{ptStatus}</td>
+			<td><span id="ptStatus">{ptStatus}</span>
+				<div id="ptStatSelectSpan" style="display: none;">
+					{{pt221}}<br><hr> 
+					<input id="reason" size="200" type="text" maxlength="1000" placeholder="{{pt220}}"/><br>
+					{ptStatSelect}
+					<a id="stbtn2" href="javascript:void(0);" onclick="$('#stbtn1').show();$('#ptStatus').show();$('#ptStatSelectSpan').hide();" class="editPtDataButton">{{pt031}}</a>
+					<a id="stbtn3" href="javascript:void(0);" onclick="chgStatus();" class="editPtDataButton">{{pt044}}</a>
+				</div>
+				<a id="stbtn1" href="javascript:void(0);" onclick="$('#stbtn1').hide();$('#ptStatus').hide();$('#ptStatSelectSpan').show();" class="editPtDataButton">{{pt064}}</a>
+				<img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif"  style="display: none" id="ajaxLoaderStatus" />	
+				</td>
 		</tr>
 	</table>
 	

@@ -113,6 +113,7 @@ if ($error == false)
 					$leadingUser = powerTrailBase::getLeadingUser($ptDbRow['id']);
 					if($ptDbRow['conquestedCount'] > 0) $removeCacheButtonDisplay = 'none';
 					else $removeCacheButtonDisplay = 'inline';
+					tpl_set_var('ptStatusSelector',  generateStatusSelector($ptDbRow['status']));
 					tpl_set_var('removeCacheButtonDisplay',  $removeCacheButtonDisplay);
 					tpl_set_var('leadingUserId',  $leadingUser['user_id']);
 					tpl_set_var('leadingUserName',$leadingUser['username']);
@@ -431,6 +432,22 @@ function generateSelector($array, $sel, $name){
 		if ($opt['val'] == $sel) $selector .= '<option selected="selected" value="'.$opt['val'].'">'.tr($opt['tr']).'</option>';
 		else $selector .= '<option value="'.$opt['val'].'">'.tr($opt['tr']).'</option>';
 	}
+	return $selector;
+}
+
+function generateStatusSelector($currStatus){
+	$selector = '<select id="ptStatusSelector">';
+	if($currStatus == 3) { //permanently closed
+		$selector .= '<option value="3">'.tr('pt212').'</option>';
+	} else {
+		foreach (powerTrailBase::getPowerTrailStatus() as $val => $desc) {
+			if ($val == $currStatus) $selected = 'selected="selected"';
+			else $selected = '';
+			if($val==2 && $currStatus!=2) {} else // (this status is only after new geoPath creation.)
+			$selector .= '<option '.$selected.' value="'.$val.'">'.tr($desc['translate']).'</option>';
+		}
+	}
+	$selector .= '</select>';
 	return $selector;
 }
 ?>

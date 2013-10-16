@@ -36,6 +36,9 @@ class powerTrailBase{
 		5 => array (
 			'type' => 'remove owner from PowerTrail',
 		),
+		6 => array (
+			'type' => 'change PowerTrail status',
+		),
 	);
 	
 	private $powerTrailTypes;
@@ -90,6 +93,12 @@ class powerTrailBase{
 			2 => array ( // not yet available
 				'translate' => 'pt007',
 			),
+			4 => array ( // service
+				'translate' => 'pt219',
+			),
+			3 => array ( // archived
+				'translate' => 'pt212',
+			),
 			
 		);
 					
@@ -108,6 +117,20 @@ class powerTrailBase{
 				'translate' => 'pt057',
 				'color' => '#00CC00',
 			),
+			3 => array ( // geoPath Publishing
+				'translate' => 'pt214',
+				'color' => '#0000CC',
+			),
+			4 => array ( // geoPath temp. closed
+				'translate' => 'pt216',
+				'color' => '#CC0000',
+			),
+			5 => array ( // geoPath Closure (permanent)
+				'translate' => 'pt213',
+				'color' => '#CC0000',
+			),
+			
+
 			
 		);
 					
@@ -310,6 +333,16 @@ class powerTrailBase{
 		$db = new dataBase;
 		$db->multiVariableQuery($q, $ptId);
 		return $db->dbResultFetch();
+	}
+
+	public static function getAllPt($filter){
+		$sortOder = 'ASC';
+		$sortBy = 'name';
+		
+		$q = 'SELECT * FROM `PowerTrail` WHERE cacheCount > '.self::minimumCacheCount() .' '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
+		$db = new dataBase();
+		$db->multiVariableQuery($q);
+		return $db->dbResultFetchAll();
 	}
 
 }

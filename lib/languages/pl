@@ -1678,33 +1678,33 @@ ZM Zambia
 ZW Zimbabwe
 SU Rosja
 pt001 GeoŚcieżki
-pt002 nalaży do geoŚcieżki 
+pt002 nalaży do geoŚcieżki
 pt003 Nowa geoŚcieżka
 pt004 Kształt na mapie
 pt005 Krajoznawcza
-pt006 Publiczna  
-pt007 Narazie niewidoczna  
-pt008 Nazwa geoŚcieżki  
-pt009 Typ geoŚcieżki 
+pt006 Publiczna
+pt007 Narazie niewidoczna
+pt008 Nazwa geoŚcieżki
+pt009 Typ geoŚcieżki
 pt010 Widoczność
-pt011 Opis geoŚcieżki   
-pt012 Wszystkie geoŚcieżki   
-pt013 kesze <=> geoŚcieżki    
-pt014 keszy geoŚcieżki    
+pt011 Opis geoŚcieżki
+pt012 Wszystkie geoŚcieżki
+pt013 kesze <=> geoŚcieżki
+pt014 keszy geoŚcieżki
 pt015 Twój stopień zaawansowania dla geoŚcieżki
 pt016 z
 pt017 znalazłeś
 pt018 Ta geoŚcieżka jest niewidoczna (jeszcze nieopublikowana, zablokowana, itp.)
 pt019 Szczegóły geoŚcieżki
-pt020 skrzynki w ramach geoŚcieżki    
-pt021 Twoje statystyki 
-pt022 ilość skrzynek    
+pt020 skrzynki w ramach geoŚcieżki
+pt021 Twoje statystyki
+pt022 ilość skrzynek
 pt023 typ geoŚcieżki
 pt024 data publikacji
 pt025 założyciele
 pt026 Sportowa
 pt027 Krajoznawcza
-pt028 Nick lub id użytkownika: 
+pt028 Nick lub id użytkownika:
 pt029 Usuń tego użytkownika z geoŚcieżki
 pt030 Dodaj/usuń
 pt031 Anuluj
@@ -1888,6 +1888,16 @@ pt208 GeoŚcieżki COG
 pt209 wybierz
 pt210 usunięcie z geoŚcieżki
 pt211 Uwaga! usunięcie skrzynki z geoŚcieżki, która została już zalogowana jako 'zdobyta' niesie ze sobą utratę punktów zdobytych przez użytkowników, którzy zdobyli geoŚcieżkę. Dlatego operacja ta powinna być używana tylko w wyjątkowych i uzasadnionych okolicznościach. Operację tą może przeprowadzić tylko COG (nawet założyciele geoŚcieżki nie mają takiej możliwośći). należy starannie przeanalizować, czy rzeczywiście nie ma innego rozwiązania. (Preferowanym rozwiązaniem jest archiwizacja skrzynki).
+pt212 Zamknięta
+pt213 Zamknięcie geoŚcieżki
+pt214 Otwarcie geoŚcieżki
+pt215 geoŚcieżka gotowa do zdobywania
+pt216 Remont geoŚcieżki
+pt217 geoŚcieżka będzie zamknięta na czas serwisu
+pt218 geoŚcieżka została zlikwidowana
+pt219 W serwisie
+pt220 Uzasadnienie zmiany statusu
+pt221 Zmiana statusu
 statpic_found Znalazł:
 statpic_hidden Ukrył:
 statpic_html_link - Statystyka dla

@@ -18,6 +18,7 @@ if ($error == false) {
 	//exit;
 	tpl_set_var("selPtDiv", 'none');
 	tpl_set_var("PtDetailsDiv", 'none');
+	tpl_set_var('language4js', $lang);
 	
 	if(isset($_REQUEST['ptSelector'])){
 		$_SESSION['ptRmByCog'] = 1;
@@ -26,6 +27,7 @@ if ($error == false) {
 		$ptType = powerTrailBase::getPowerTrailTypes();
 		
 		tpl_set_var("ptCaches", preparePtCaches(powerTrailBase::getPtCaches($_REQUEST['ptSelector'])));
+		tpl_set_var("ptStatSelect", generateStatusSelector($ptData['status']));
 		tpl_set_var("ptId", $ptData['id']);
 		tpl_set_var("ptName", $ptData['name']);
 		tpl_set_var("ptType", tr($ptType[$ptData['type']]['translate']));
@@ -34,7 +36,7 @@ if ($error == false) {
 		tpl_set_var("PtDetailsDiv", 'block');
 		
 	} else {
-	    tpl_set_var("ptSelector", makePtSelector($pt->getpowerTrails(), 'ptSelector'));
+	    tpl_set_var("ptSelector", makePtSelector(powerTrailBase::getAllPt('AND status != 2'), 'ptSelector'));
 	    tpl_set_var("selPtDiv", 'block');
 	}
                
@@ -67,5 +69,17 @@ function preparePtCaches($ptCaches){
 	}
 	$table .= '</table>';
 	return $table;
+}
+
+function generateStatusSelector($currStatus){
+	$selector = '<select id="ptStatusSelector">';
+		foreach (powerTrailBase::getPowerTrailStatus() as $val => $desc) {
+			if ($val == $currStatus) $selected = 'selected="selected"';
+			else $selected = '';
+			if($val==2 && $currStatus!=2) {} else // (this status is only after new geoPath creation.)
+			$selector .= '<option '.$selected.' value="'.$val.'">'.tr($desc['translate']).'</option>';
+		}
+	$selector .= '</select>';
+	return $selector;
 }
 ?>
