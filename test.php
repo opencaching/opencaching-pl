@@ -1,18 +1,17 @@
 <?php
 require_once(__DIR__.'/lib/db.php');;
-require_once __DIR__.'/region_class.php';
+require_once __DIR__.'/powerTrail/powerTrailBase.php';
 
-$cacheId = addslashes($_REQUEST['c']);
+$user_id = addslashes($_REQUEST['u']);
 
 $db = new dataBase;
-$queryCacheData = 'SELECT * FROM caches WHERE cache_id = :1 LIMIT 1';
-$db->multiVariableQuery($queryCacheData, $cacheId);
-$cacheData = $db->dbResultFetch();
+print 'punkty: '. powerTrailBase::getUserPoints($user_id);
+print '<br>Pt: '.powerTrailBase::getPoweTrailCompletedCountByUser($user_id);
+$pointsEarnedForPlacedCaches = powerTrailBase::getOwnerPoints($user_id);
 
-$region = new GetRegions();
-$regiony = $region->GetRegion('', '', $cacheData['latitude'], $cacheData['longitude']);
+
 print '<pre>';
-var_dump($regiony);
+var_dump($pointsEarnedForPlacedCaches);
 
 exit;
 
