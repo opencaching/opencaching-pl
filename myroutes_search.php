@@ -184,7 +184,7 @@
 	$cache_attrib_img_line = '<img id="attrimg{id}" src="{icon}" title="{text_long}" alt="{text_long}" onmousedown="switchAttribute({id})" style="cursor: pointer;" />&nbsp;';
 
   $lang_attribute = $lang;
-  if ($lang != 'pl') { $lang_attribute = 'en'; } 
+  if ($lang != $lang) { $lang_attribute = $lang; } 
   
 
   
