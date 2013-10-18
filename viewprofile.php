@@ -185,9 +185,9 @@ if ($error == false) {
 			// new with recommendations
 			if ($nrecom >= 20 && $user_record['guru'] == 0 && $user_id == $usr['userid']) {
 				$guide_info = '<div class="content-title-noshade box-blue"><table><tr><td><img style="margin-right: 10px;margin-left:10px;" src="tpl/stdstyle/images/blue/info-b.png" alt="guide"></td><td>
-					<span style="font-size:12px;">Możesz zostać woluntariuszem Przewodnikiem po geocachingu dla początkujących geocacherów ustawiając opcje w swoim 
-					<a class="links" href="myprofile.php?action=change">Profilu</a>. 
-					Patrz więcej na stronie <a class="links" href="cacheguides.php">Przewodnicy</a>.</span>
+					<span style="font-size:12px;"> '.tr('guru_17').'
+					<a class="links" href="myprofile.php?action=change"> '.tr('guru_18').'</a>. 
+					'.tr('guru_19').' <a class="links" href="cacheguides.php">'.tr('guru_20').'</a>.</span>
 					</td></tr></table></div><br/>';
 			}
 		}

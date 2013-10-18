@@ -275,8 +275,8 @@ administrating_oc Administratie OC
 view_your_profile Bekijk je profiel
 you_have_found Je hebt
 found_x_caches caches gevonden
-you_have_participated_in You have participated in
-found_x_events events
+you_have_participated_in Je hebt aan
+found_x_events evenementen deelgenomen
 your_new_log_entries Jouw laatste logs
 user_new_log_entries Latest log entries
 your_caches_new_log_entries Laatste logs van jouw caches
@@ -1106,9 +1106,13 @@ guru_13 profiel
 guru_14 Met dank aan iedereen die anderen willen helpen met het verbeteren van het cachen.
 guru_15 Ontvangen aanbevelingen
 guru_16 Schrijf e-mail
+guru_17 Je kunt je aanmelden als vrijwiliger als cache hulp voor beginnende geocachers. Dit is aan te passen in je 
+guru_18 profiel
+guru_19 Zie meer op 
+guru_20 Cache hulp
 today Vandaag
 yesterday Gisteren
-days_ago Dagen geleden
+days_ago dagen geleden
 make_new_description Maak een nieuwe cache beschrijving voor:
 lxg01 Verkeerde datum. Vul de correcte datum in: DD-MM-JJJJ
 lxg02 Selecteer of je deze cache wilt waarderen.
@@ -1878,6 +1882,30 @@ pt197
 pt198 De cache is op een voorlopige lijst geplaatst, de eigenaar zal een email ontvangen met het verzoek. Wanneer de eigenaar akkoord gaat via een aan te klikken link, dan zal deze cache automatisch toegevoegt worden in de PowerTrail.
 pt199 Informatie:
 pt200
+pt201
+pt202
+pt203
+pt204
+pt205
+pt206
+pt207
+pt208
+pt209
+pt210
+pt211
+pt212
+pt213
+pt214
+pt215
+pt216
+pt217
+0t218
+pt219
+pt220
+pt221
+pt222 Gemaakte caches in
+pt223 PowerTrail
+pt224 Verzamelde punten
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
