@@ -214,10 +214,24 @@ class powerTrailBase{
 		}
 	
 	public static function getOwnerPoints($userId){
-		$query = 'SELECT round(sum(`powertrail_caches`.`points`),2) AS pointsSum, count( `powertrail_caches`.`cacheId` ) AS cacheCount, `powertrail_caches`.`PowerTrailId`, powertrail.name FROM `powertrail_caches`, `powertrail` WHERE `powertrail_caches`.`cacheId` IN ( SELECT `cache_id` FROM `caches` WHERE `user_id` =:1) AND 	`powertrail`.`id` = `powertrail_caches`.`PowerTrailId` AND `powertrail`.`status` != 2  GROUP BY `PowerTrailId`';	
+		$query = 'SELECT 
+					round(sum(`powertrail_caches`.`points`),2) AS `pointsSum`, 
+					count( `powertrail_caches`.`cacheId` ) AS `cacheCount`, 
+					`powertrail_caches`.`PowerTrailId`, 
+					`powertrail`.`name` 
+				FROM
+				 	`powertrail_caches`, 
+				 	`powertrail` 
+				WHERE 
+						`powertrail_caches`.`cacheId` 
+				IN ( SELECT `cache_id` FROM `caches` WHERE `user_id` =:1) 
+				AND 	`powertrail`.`id` = `powertrail_caches`.`PowerTrailId` 
+				AND 	`powertrail`.`status` != 2 
+				GROUP BY `PowerTrailId`';	
 		$db = new dataBase;
 		$db->multiVariableQuery($query, $userId);
 		$points = $db->dbResultFetchAll();
+		if (isset($_REQUEST['u'])) var_dump($points);
 		$totalPoint = 0;
 		$geoPathCount = 0;
 		$pointsDetails = array();
