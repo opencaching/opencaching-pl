@@ -8,6 +8,7 @@ class powerTrailBase{
 		
 	const powerTrailLogoFileName = 'powerTrailLogoId';
 	const commentsPaginateCount = 5;
+	const cCountForMaxMagnifier = 50;
 	
 	public static function minimumCacheCount(){
 		include __DIR__.'/../lib/settings.inc.php';
@@ -170,15 +171,15 @@ class powerTrailBase{
 		return $response['c'];
 	}
 	
-	public static function getPoweTrailCompletedCountByUser($user_id) {
+	public static function getPoweTrailCompletedCountByUser($userId) {
 		$queryPt = "SELECT count(`PowerTrailId`) AS `ptCount` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1";
 		$db = new dataBase;
-		$db->multiVariableQuery($queryPt, $user_id);
+		$db->multiVariableQuery($queryPt, $userId);
 		$ptCount = $db->dbResultFetch();
 		return (int) $ptCount['ptCount'];
 	}
 	
-	public static function getUserPoints($user_id) {
+	public static function getUserPoints($userId) {
 		$queryPt = "SELECT sum( `points` ) AS sum
 					FROM powerTrail_caches
 					WHERE `PowerTrailId` IN (
@@ -195,9 +196,43 @@ class powerTrailBase{
 						AND `user_id` =:1
 					)";
 		$db = new dataBase;
-		$db->multiVariableQuery($queryPt, $user_id);
+		$db->multiVariableQuery($queryPt, $userId);
 		$points = $db->dbResultFetch();
 		return round($points['sum'],2);
+	}
+	
+	/**
+	 * calculate magnifier used for counting points for placing caches of geoPath
+	 * 
+	 * math function y=ax+b
+	 * where x1=1 y1=1 and x2=$w, y2=2
+	 */
+	public static function calculateMagnifier($x){
+			$w = self::cCountForMaxMagnifier;
+			$b = (2-$w)/(-$w+1);
+			return (1-$b)*$x+$b;
+		}
+	
+	public static function getOwnerPoints($userId){
+		$query = 'SELECT round(sum(`powertrail_caches`.`points`),2) AS pointsSum, count( `cacheId` ) AS cacheCount, PowerTrailId FROM `powertrail_caches`, powertrail WHERE `cacheId` IN ( SELECT `cache_id` FROM `caches` WHERE `user_id` =:1) AND `powertrail`.`id` = `powertrail_caches`.`PowerTrailId` AND `powertrail`.`status` != 2 GROUP BY `PowerTrailId`';		
+		$db = new dataBase;
+		$db->multiVariableQuery($query, $userId);
+		$points = $db->dbResultFetchAll();
+		$totalPoint = 0;
+		$geoPathCount = 0;
+		foreach ($points as $ptPoints) {
+			$magnifier = self::calculateMagnifier($ptPoints['cacheCount']);
+			$earnedPoints = $ptPoints['pointsSum']*$magnifier;
+			$pointsDetails[$ptPoints['PowerTrailId']] = array(
+				'cacheCount' => $ptPoints['cacheCount'],
+				'pointsSum' => $ptPoints['pointsSum'],
+				'magnifier' => $magnifier,
+				'pointsEarned' => $earnedPoints,
+			);
+			$totalPoint += $earnedPoints;
+			$geoPathCount++;
+		}
+		return array('totalPoints' => round($totalPoint,2), 'geoPathCount' => $geoPathCount, 'pointsDetails' => $pointsDetails);
 	}
 	
 	public static function checkForPowerTrailByCache($cacheId){
