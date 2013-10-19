@@ -437,6 +437,12 @@
 							sql("INSERT IGNORE INTO `cache_rating` (`user_id`, `cache_id`) VALUES('&1', '&2')", $log_record['user_id'], $log_record['cache_id']);
 						else
 							sql("DELETE FROM `cache_rating` WHERE `user_id`='&1' AND `cache_id`='&2'", $log_record['user_id'], $log_record['cache_id']);
+						
+						// Notify OKAPI's replicate module of the change.
+						// Details: https://code.google.com/p/opencaching-api/issues/detail?id=265
+						require_once($rootpath.'okapi/facade.php');
+						\okapi\Facade::schedule_user_entries_check($log_record['cache_id'], $log_record['user_id']);
+						\okapi\Facade::disable_error_handling();
 
 						//Update last found
 						$lastfound_rs = sql("SELECT MAX(`cache_logs`.`date`) AS `date` FROM `cache_logs` WHERE ((`cache_logs`.`type`=1) AND (`cache_logs`.`cache_id`='&1') AND deleted=&2)", $log_record['cache_id'], 0);

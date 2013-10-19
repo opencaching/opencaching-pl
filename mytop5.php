@@ -45,6 +45,13 @@
 				else
 				{
 					sql("DELETE FROM `cache_rating` WHERE `cache_id`='&1' AND `user_id`='&2'", $cache_id, $usr['userid']);
+					
+					// Notify OKAPI's replicate module of the change.
+					// Details: https://code.google.com/p/opencaching-api/issues/detail?id=265
+					require_once($rootpath.'okapi/facade.php');
+					\okapi\Facade::schedule_user_entries_check($cache_id, $usr['userid']);
+					\okapi\Facade::disable_error_handling();
+					
 					$cachename = sqlValue('SELECT `name` FROM `caches` WHERE `cache_id`=\''.sql_escape($cache_id).'\'', '-----');
 					$msg_delete = mb_ereg_replace('{cacheid}', $cache_id, $msg_delete);
 					tpl_set_var('msg_delete', mb_ereg_replace('{cachename}', $cachename, $msg_delete));

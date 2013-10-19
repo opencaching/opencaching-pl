@@ -148,6 +148,12 @@ function removelog($log_id, $language, $lang)
 							// remove cache from users top caches, because the found log was deleted for some reason
 							sql("DELETE FROM `cache_rating` WHERE `user_id` = '&1' AND `cache_id` = '&2'", $log_record['log_user_id'], $log_record['cache_id']);
 							$user_record['founds_count']--;
+							
+							// Notify OKAPI's replicate module of the change.
+							// Details: https://code.google.com/p/opencaching-api/issues/detail?id=265
+							require_once($rootpath.'okapi/facade.php');
+							\okapi\Facade::schedule_user_entries_check($log_record['cache_id'], $log_record['log_user_id']);
+							\okapi\Facade::disable_error_handling();
 
 							// recalc scores for this cache
 							sql("DELETE FROM `scores` WHERE `user_id` = '&1' AND `cache_id` = '&2'", $log_record['log_user_id'], $log_record['cache_id']);
