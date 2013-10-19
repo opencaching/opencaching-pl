@@ -25,37 +25,37 @@
 		
 	****************************************************************************/
 
-	global $content, $bUseZip, $sqldebug, $hide_coords, $usr;
+	global $content, $bUseZip, $sqldebug, $hide_coords, $usr, $lang;
 	set_time_limit(1800);
-	$txtLine = "Nazwa: {cachename} przez {owner}
-Wspolrzedne: {lon} {lat}
-Status: {status}
+	$txtLine = "".tr('search_text_01')." {cachename} ".tr('search_text_02')." {owner}
+".tr('search_text_03')." {lat} {lon}
+".tr('search_text_04')." {status}
 
-Zalozona: {{time}}
-Waypoint: {{waypoint}}
-Kraj: {country}
-Typ: {type}
-Wielkosc: {container}
+".tr('search_text_05')." {{time}}
+".tr('search_text_06')." {{waypoint}}
+".tr('search_text_07')." {country}
+".tr('search_text_08')." {type}
+".tr('search_text_09')." {container}
 Z/T: {difficulty}/{terrain}
-Online: http://www.opencaching.pl/viewcache.php?wp={{waypoint}}
+Online: $absolute_server_URI/viewcache.php?wp={{waypoint}}
 
-Krotki opis: {shortdesc}
+".tr('search_text_10')." {shortdesc}
 
-Pelny opis{htmlwarn}:
+".tr('search_text_11')." {htmlwarn}:
 <===================>
 {desc}
 {rr_comment}
 {personal_cache_note}
 <===================>
 
-Kodowane uwagi:
+".tr('search_text_12')."
 <===================>
 {hints}
 <===================>
 A|B|C|D|E|F|G|H|I|J|K|L|M
 N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 
-LOGi:
+".tr('search_text_13')."
 {logs}
 ";
 
@@ -225,7 +225,7 @@ LOGi:
 			else
 				$thisline = str_replace('{hints}', str_rot13_html(strip_tags($r['hint'])), $thisline);
 			
-			$logpw = ($r['logpw']==""?"":"UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!<br />");			
+			$logpw = ($r['logpw']==""?"":"".tr('search_text_14')." <br/>");			
 			
 			$thisline = str_replace('{shortdesc}', $r['short_desc'], $thisline);
 			
@@ -236,7 +236,7 @@ LOGi:
 			}
 			else
 			{
-				$thisline = str_replace('{htmlwarn}', ' (Bez HTML)', $thisline);
+				$thisline = str_replace('{htmlwarn}', ''.tr('search_text_15').'', $thisline);
 				$thisline = str_replace('{desc}', html2txt($logpw.$r['desc']), $thisline);
 			}
 	
@@ -246,7 +246,7 @@ LOGi:
 				if (mysql_num_rows($notes_rs) != 0)
 				{
 				$cn = sql_fetch_array($notes_rs);
-			$thisline = str_replace('{personal_cache_note}', html2txt("<br/><br/>-- Wlasna notatka do skrzynki: --<br/> ".$cn['desc']."<br/>"), $thisline);
+			$thisline = str_replace('{personal_cache_note}', html2txt("<br/><br/>-- ".tr('search_text_16')." --<br/> ".$cn['desc']."<br/>"), $thisline);
 				} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 			} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 			

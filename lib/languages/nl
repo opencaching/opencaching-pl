@@ -1958,5 +1958,22 @@ graph_statistics_04 Gegevens per
 graph_statistics_05 Geplaatste caches: 
 graph_statistics_06 Actieve caches: 
 graph_statistics_07 Totaal gevonden caches: 
+search_text_01 Cache naam:
+search_text_02 van
+search_text_03 Coördinaten:
+search_text_04 Status:
+search_text_05 Geplaatst op:
+search_text_06 Waypoint:
+search_text_07 Land:
+search_text_08 Soort:
+search_text_09 Grootte:
+search_text_10 Omschrijving:
+search_text_11 Beschrijving:
+search_text_12 Gecodeerde hint:
+search_text_13 Logs:
+search_text_14 Let op! Dit is een cache met logwachtwoord, neem dit mee om te loggen.
+search_text_15 (Zonder HTML)
+search_text_16 Persoonlijke cache notitie:
+
 
 
