@@ -15,6 +15,6 @@ print "====\n\n";
 readfile("http://opencaching.pl/post-commit.php?from=ocpl-propagate");
 
 print "\n\n";
-print "OCNL (test)\n";
-print "===========\n\n";
+print "OCNL\n";
+print "====\n\n";
 readfile("http://www.opencaching.nl/post-commit.php?from=ocpl-propagate");
