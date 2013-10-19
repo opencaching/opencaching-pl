@@ -5,7 +5,7 @@
 # to all destinations.
 
 ignore_user_abort(true);
-set_time_limit(0);
+set_time_limit(300);  # five minutes should be more than enough
 
 header("Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0");
 header("Content-Type: text/plain; charset=utf-8");
@@ -17,4 +17,4 @@ readfile("http://opencaching.pl/post-commit.php?from=ocpl-propagate");
 print "\n\n";
 print "OCNL (test)\n";
 print "===========\n\n";
-readfile("http://test.opencaching.nl/post-commit.php?from=ocpl-propagate");
+readfile("http://www.opencaching.nl/post-commit.php?from=ocpl-propagate");
