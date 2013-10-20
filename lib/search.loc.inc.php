@@ -35,7 +35,7 @@ $locLine = '
 	<name id="{{waypoint}}"><![CDATA[{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})]]></name>
 	<coord lat="{lat}" lon="{lon}"/>
 	<type>Geocache</type>
-	<link text="Cache Details">"'.$absolute_server_URI.'"/viewcache.php?cacheid={cacheid}</link>
+	<link text="Cache Details">'.$absolute_server_URI.'viewcache.php?cacheid={cacheid}</link>
 </waypoint>
 ';
 
