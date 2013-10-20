@@ -17,7 +17,7 @@ class dataBase
 	 * set this value to true to print all variables to screen.
 	 * set to false to hide (switch off) all printed debug.
 	 */
-	private $debug = false;
+	private $debug;  //JG 2013-10-20
 
 	/**
 	 * database link setup
@@ -44,6 +44,9 @@ class dataBase
 	 	
 		// print_r($opt); exit;
 		
+	 	//JG 2013-10-20
+	 	$this->debug = $debug_page;
+	 	
 	 	// turn on debug to screen
 	 	if ($debug === true) {
 	 		$this->debug = true;
@@ -105,9 +108,14 @@ class dataBase
 	public function simpleQuery($query) {
 		try {
 			$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
-			$dbh -> query ('SET NAMES utf8');
-			$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
-
+			if ( $this->debug )
+				$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //JG 2013-10-19
+				
+			// JG 2013-10-20
+			$dbh -> query ("SET NAMES utf8");
+			$dbh -> query ("SET CHARACTER SET utf8");
+				
+			
 			$this->dbData  = $dbh -> prepare($query);
 			$this->dbData  -> setFetchMode(PDO::FETCH_ASSOC);
 			$this->dbData  -> execute();
@@ -173,9 +181,14 @@ class dataBase
 
 		try {
 			$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
-			$dbh -> query ('SET NAMES utf8');
-			$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
-
+			if ( $this->debug )
+				$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //JG 2013-10-19
+			
+			// JG 2013-10-20
+			$dbh -> query ("SET NAMES utf8");
+			$dbh -> query ("SET CHARACTER SET utf8");
+			
+			
 			$this->dbData = $dbh->prepare($query);
 
 			foreach ($params as $key => $val) {
@@ -266,9 +279,13 @@ class dataBase
 	public function multiVariableQuery($query) {
 		try {
 			$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
-			$dbh -> query ('SET NAMES utf8');
-			$dbh -> query ('SET CHARACTER_SET utf8_unicode_ci');
-
+			if ( $this->debug )
+				$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //JG 2013-10-19
+			
+			// JG 2013-10-20
+			$dbh -> query ("SET NAMES utf8");
+			$dbh -> query ("SET CHARACTER SET utf8");
+			
 			$this->dbData  = $dbh->prepare($query);
 
 			$numargs = func_num_args();
@@ -308,7 +325,9 @@ class dataBase
 		$headers = 	'From: dataBase class' . "\r\n" .
 					'Reply-To: rt@opencaching.pl' . "\r\n" .
 					'X-Mailer: PHP/' . phpversion();
-						
+		
+		
+		if(!isset($topic)) $topic = 'ErrorMail'; //JG - niezainicjowna zmienna 2013-10-19
 		mail('rt@opencaching.pl', $topic, $message, $headers);
 	}
 	
