@@ -28,14 +28,14 @@
 	global $content, $bUseZip, $sqldebug, $hide_coords, $usr;
 	set_time_limit(1800);
 $locHead = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<loc version="1.0" src="www.opencaching.pl">' . "\n";
+<loc version="1.0" src="'.$absolute_server_URI.'">' . "\n";
 	
 $locLine = '
 <waypoint>
 	<name id="{{waypoint}}"><![CDATA[{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})]]></name>
 	<coord lat="{lat}" lon="{lon}"/>
 	<type>Geocache</type>
-	<link text="Cache Details">http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</link>
+	<link text="Cache Details">"'.$absolute_server_URI.'"/viewcache.php?cacheid={cacheid}</link>
 </waypoint>
 ';
 
@@ -157,7 +157,7 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
 					$sFilebasename = trim($rName['name']);
 					$sFilebasename = str_replace(" ", "_", $sFilebasename);
 				} else {
-					$sFilebasename = 'ocpl' . $options['queryid'];
+					$sFilebasename = "$short_sitename" . $options['queryid'];
 				}
 			}
 		}
@@ -231,7 +231,7 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
 //				$thisline = mb_ereg_replace('{archivedflag}', '', $thisline);
 			
 			$thisline = mb_ereg_replace('{type_text}', $cacheTypeText[$r['type_id']], $thisline);
-			$thisline = mb_ereg_replace('{{size}}', PLConvert('UTF-8','POLSKAWY',$r['sizedesc']), $thisline);
+			$thisline = mb_ereg_replace('{{size}}', PLConvert('UTF-8','POLSKAWY',tr('cacheType_'.$r['type_id'])), $thisline);
 			
 			$difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
 			$thisline = mb_ereg_replace('{difficulty}', $difficulty, $thisline);
