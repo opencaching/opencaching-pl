@@ -40,6 +40,8 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
 	global $menu;
 	$interface_output = 'html';
 
+	//JG - niezainicjowana zmienna, 2013.10.18
+	if (!isset($rootpath)) $rootpath = './';
 	require_once($rootpath . 'lib/language.inc.php');
 
 	$lang_array = available_languages();//array("pl", "en", "sv", "de", "cs", "fr", "es");
