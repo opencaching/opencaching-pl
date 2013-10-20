@@ -8,3 +8,18 @@ global $usr;
 <br/>
 </form>
 <div class="errormsg">{not_found}</div>
+
+
+<div class="searchdiv">
+<table class="table" border="0" cellspacing="0">
+
+	<tr>
+		<td><p class="content-title-noshade">{{user}}</p></td>
+		<td>&nbsp;</td>
+		<td nowrap="nowrap"><p class="content-title-noshade">{{registered_since_label}}</p></td>
+		<td nowrap="nowrap">&nbsp;</td>
+	</tr>
+	{lines}
+</table>
+</div>
+
