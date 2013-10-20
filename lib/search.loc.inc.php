@@ -32,7 +32,7 @@ $locHead = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 	
 $locLine = '
 <waypoint>
-	<name id="{{waypoint}}"><![CDATA[{cachename} by {owner}, {type_text} ({difficulty}/{terrain})]]></name>
+	<name id="{{waypoint}}"><![CDATA[{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})]]></name>
 	<coord lat="{lat}" lon="{lon}"/>
 	<type>Geocache</type>
 	<link text="Cache Details">http://www.opencaching.pl/viewcache.php?cacheid={cacheid}</link>
@@ -41,15 +41,15 @@ $locLine = '
 
 $locFoot = '</loc>';
 
-$cacheTypeText[1] = 'Unknown Cache';
-$cacheTypeText[2] = 'Traditional Cache';
-$cacheTypeText[3] = 'Multi-Cache';
-$cacheTypeText[4] = 'Virtual Cache';
-$cacheTypeText[5] = 'Webcam Cache';
-$cacheTypeText[6] = 'Event Cache';
-$cacheTypeText[7] = 'Quiz';
-$cacheTypeText[8] = 'Moving Cache';
-$cacheTypeText[10] = 'Unknown Cache';
+$cacheTypeText[1] = "".tr('cacheType_5')."";
+$cacheTypeText[2] = "".tr('cacheType_1')."";
+$cacheTypeText[3] = "".tr('cacheType_2')."";
+$cacheTypeText[4] = "".tr('cacheType_8')."";
+$cacheTypeText[5] = "".tr('cacheType_7')."";
+$cacheTypeText[6] = "".tr('cacheType_6')."";
+$cacheTypeText[7] = "".tr('cacheType_3')."";
+$cacheTypeText[8] = "".tr('cacheType_4')."";
+$cacheTypeText[10] = "".tr('cacheType_10')."";
 
 
 	if( $usr || !$hide_coords )
