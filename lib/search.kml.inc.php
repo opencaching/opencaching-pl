@@ -29,7 +29,7 @@
 	$kmlLine = 
 '
 <Placemark>
-  <description><![CDATA[<a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}">'.tr('search_kml_01').'</a><br />'.tr('search_kml_02').' {username}<br />&nbsp;<br /><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>'.tr('search_kml_03').' {type}<br />'.tr('search_kml_04').' {{size}}</td></tr><tr><td colspan="2">'.tr('search_kml_05').' {difficulty} '.tr('search_kml_06').' 5.0<br />'.tr('search_kml_07').' {terrain} '.tr('search_kml_06').' 5.0</td></tr></table>]]></description>
+  <description><![CDATA[<a href="'.$absolute_server_URI.'viewcache.php?cacheid={cacheid}">'.tr('search_kml_01').'</a><br />'.tr('search_kml_02').' {username}<br />&nbsp;<br /><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>'.tr('search_kml_03').' {type}<br />'.tr('search_kml_04').' {{size}}</td></tr><tr><td colspan="2">'.tr('search_kml_05').' {difficulty} '.tr('search_kml_06').' 5.0<br />'.tr('search_kml_07').' {terrain} '.tr('search_kml_06').' 5.0</td></tr></table>]]></description>
    <name>{name}</name>
   <LookAt>
     <longitude>{lon}</longitude>
@@ -152,7 +152,7 @@
 					$sFilebasename = trim($rName['name']);
 					$sFilebasename = str_replace(" ", "_", $sFilebasename);
 				} else {
-					$sFilebasename = 'ocpl' . $options['queryid'];
+					$sFilebasename = "$short_sitename" . $options['queryid'];
 				}
 			}
 		}
@@ -225,35 +225,35 @@
 			{
 				case 2:
 					$icon = 'tradi';
-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/traditional.png" alt="Tradycyjna" title="'.tr('cacheType_1').'" />';
+					$typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/traditional.png" alt="Tradycyjna" title="'.tr('cacheType_1').'" />';
 					break;
 				case 3:
 					$icon = 'multi';
-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/multi.png" alt="Multicache" title="'.tr('cacheType_2').'" />';
+					$typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/multi.png" alt="Multicache" title="'.tr('cacheType_2').'" />';
 					break;
 				case 4:
 					$icon = 'virtual';
-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/virtual.png" alt="Wirtualna" title="'.tr('cacheType_8').'" />';
+					$typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/virtual.png" alt="Wirtualna" title="'.tr('cacheType_8').'" />';
 					break;
 				case 5:
 					$icon = 'webcam';
-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/webcam.png" alt="Webcam" title="'.tr('cacheType_7').'" />';
+					$typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/webcam.png" alt="Webcam" title="'.tr('cacheType_7').'" />';
 					break;
 				case 6:
 					$icon = 'event';
-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/event.png" alt="Wydarzenie" title="'.tr('cacheType_6').'" />';
+					$typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/event.png" alt="Wydarzenie" title="'.tr('cacheType_6').'" />';
 					break;
 				case 7:
 					$icon = 'myst';
-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/quiz.png" alt="Quiz" title="'.tr('cacheType_3').'" />';
+					$typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/quiz.png" alt="Quiz" title="'.tr('cacheType_3').'" />';
 					break;
 				case 9:
 					$icon = 'moving';
-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/moving.png" alt="Mobilna" title="'.tr('cacheType_4').'" />';
+					$typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/moving.png" alt="Mobilna" title="'.tr('cacheType_4').'" />';
 					break;
 				default:
 					$icon = 'unknown';
-					$typeimgurl = '<img src="http://www.opencaching.pl/tpl/stdstyle/images/cache/unknown.png" alt="Nieznany typ" title="'.tr('cacheType_5').'" />';
+					$typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/unknown.png" alt="Nieznany typ" title="'.tr('cacheType_5').'" />';
 					break;
 			}
 			$thisline = str_replace('{icon}', $icon, $thisline);
