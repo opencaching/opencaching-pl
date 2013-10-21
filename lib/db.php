@@ -187,6 +187,7 @@ class dataBase
 			// JG 2013-10-20
 			$dbh -> query ("SET NAMES utf8");
 			$dbh -> query ("SET CHARACTER SET utf8");
+			$dbh -> query ("SET collation_connection = utf8_unicode_ci" );
 			
 			
 			$this->dbData = $dbh->prepare($query);
