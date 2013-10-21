@@ -169,7 +169,7 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 					$sFilebasename = trim($rName['name']);
 					$sFilebasename = str_replace(" ", "_", $sFilebasename);
 				} else {
-					$sFilebasename = 'ocpl' . $options['queryid'];
+					$sFilebasename = "$short_sitename" . $options['queryid'];
 				}
 			}
 		}
