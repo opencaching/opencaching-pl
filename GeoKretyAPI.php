@@ -295,7 +295,7 @@ class GeoKretyApi
 		$headers = 	'From: GeoKretyAPI on opencaching.pl <noreply@opencaching.pl>' . "\r\n" .
 					'Reply-To: rt@opencaching.pl' . "\r\n" .
 					'X-Mailer: PHP/' . phpversion();
-		$rtAddress = array(/*$this->rtEmailAddress,*/ $this->geoKretyDeveloperEmailAddress);
+		$rtAddress = array($this->rtEmailAddress, $this->geoKretyDeveloperEmailAddress);
 			
 		foreach ($rtAddress as $email) {
 			$send = mail($email, 'GeoKretyApi errors report '.date('Y-m-d H:i:s'), $message, $headers);
