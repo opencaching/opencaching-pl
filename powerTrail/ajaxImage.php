@@ -4,8 +4,7 @@ require_once __DIR__ . '/../lib/db.php';
 require_once __DIR__ . '/../lib/common.inc.php';
 require_once __DIR__.'/powerTrailBase.php';
 
-// Edit upload location here
-$destination_path = $picdir.DIRECTORY_SEPARATOR;
+$destination_path = $picdir.'/';
 $powerTrailId = $_REQUEST['powerTrailId'];
 
 	$valid_formats = array("jpg", "png", "gif", "bmp", "jpeg");
