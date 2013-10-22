@@ -18,12 +18,11 @@ class processGeokretyErrors {
 	private $logGeokrety; 
 	
 	public function run(){
+        	
+		// geoPaths
+        $this->makePt();
 		
-		// ptPromo
-		//if (date('N') == 1)	{ // make ptPromo File
-             $this->makePt();
-		//}
-		
+		// geoKrety
 		$this->getErrors();
 		if($this->errorNumber == 0) exit;
 		$this->processGetGeokretyErrors();
@@ -51,7 +50,6 @@ class processGeokretyErrors {
 			if ($error['operationType'] == 3) {
 				// errors on logging geokrety
 				$retryLoggingGeokrety = $this->retryLoggingGeokrety(unserialize(stripslashes($error['dataSent'])));
-				
 				$this->toMail[$i] = $error;
 				$this->toMail[$i]['dataSent'] = unserialize(stripslashes($error['dataSent']));
 				$this->toMail[$i]['response'] = unserialize(stripslashes($error['response']));
@@ -79,8 +77,9 @@ class processGeokretyErrors {
 		$GeoKretyLogResult = $this->logGeokrety->LogGeokrety($GeokretyLogArray, true);
 		$success = 'yes';
 		foreach ($GeoKretyLogResult['errors'] as $nr => $error) {
-			if($error == '') {
-				 $success = 'no';
+			if($error != '') {
+				$success = 'no';
+				$result['errors'] = $error;
 			}
 		}
 		$result['retryLoggingSucces'] = $success;

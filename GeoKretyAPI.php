@@ -169,8 +169,12 @@ class GeoKretyApi
 	public function LogGeokrety($GeokretyArray, $retry=false) {
 			 
 		// dataBase::debugOC('#'.__line__.' ', $this->connectionTimeout);
-
-	    $postdata = http_build_query($GeokretyArray);
+		if(!$GeokretyArray){ // array from datbase is epmty
+			$r['errors'][]['error'] = 'array from datbase is epmty';
+			$postdata = '';
+		} else {
+	    	$postdata = http_build_query($GeokretyArray);
+		}
 		$opts = array('http' =>
 				array(
 						'method'  => 'POST',
@@ -190,12 +194,16 @@ class GeoKretyApi
 		}
 		
 		try {
-		 $resultarray = simplexml_load_string($result);
+		 @$resultarray = simplexml_load_string($result);
 		} catch(Exception $e) {
 			if (!$retry) $this->storeErrorsInDb($operationType, $GeokretyArray);
 		}
-		if ($resultarray) $r=$this->xml2array($resultarray);
-		else $r['errors'][]['error'] = 'GKApi22';
+		
+		if ($resultarray) {
+			$r=$this->xml2array($resultarray);
+		} else {
+			$r['errors'][]['error'] = array ('GKApi22' => 1, '$GeokretyArray' => $GeokretyArray);
+		}
 		$r['geokretId'] = $GeokretyArray['id'];
 		$r['geokretName'] = $GeokretyArray['nm'];
 
