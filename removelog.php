@@ -20,6 +20,7 @@
  ****************************************************************************/
 if(!isset($rootpath)) $rootpath = '';
 require_once('./lib/common.inc.php');
+require_once __DIR__.'/lib/db.php';
 
 function removelog($log_id, $language, $lang)
 {
@@ -107,6 +108,7 @@ function removelog($log_id, $language, $lang)
 
 						// do not acually delete logs - just mark them as deleted.
 						sql("UPDATE `cache_logs` SET deleted = 1 , `last_modified`=NOW() WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
+						recalculateUserStats($log_record['log_user_id']);
 						
 						// remove from cache_moved for log "MOVED" (mobilniaki by Łza)
 						// (kod istniejący wcześniej, zaadaptowany)
@@ -136,18 +138,13 @@ function removelog($log_id, $language, $lang)
 							 else sql("DELETE FROM `cache_moved` WHERE `log_id`='&1' LIMIT 1", $log_id);
 							}
 						}
-						//user stats aktualisieren
-						// moegliche racecondition, wenn jemand gleichzeitig loggt koennen die Zaehler auseinanderlaufen! -orotl-
-						$user_rs = sql("SELECT `founds_count`, `notfounds_count`, `log_notes_count` FROM `user` WHERE `user_id`='&1'", $log_record['log_user_id']);
-						$user_record = sql_fetch_array($user_rs);
-						mysql_free_result($user_rs);
 						
-						
+								
 						if ($log_record['log_type'] == 1 || $log_record['log_type'] == 7)
-						{ 
+						{
+								 
 							// remove cache from users top caches, because the found log was deleted for some reason
 							sql("DELETE FROM `cache_rating` WHERE `user_id` = '&1' AND `cache_id` = '&2'", $log_record['log_user_id'], $log_record['cache_id']);
-							$user_record['founds_count']--;
 							
 							// Notify OKAPI's replicate module of the change.
 							// Details: https://code.google.com/p/opencaching-api/issues/detail?id=265
@@ -175,21 +172,6 @@ function removelog($log_id, $language, $lang)
 							$sql = "UPDATE caches SET votes='".sql_escape($liczba)."', score='".sql_escape($srednia)."' WHERE cache_id='".sql_escape($log_record['cache_id'])."'";
 							mysql_query($sql);
 						}
-						elseif ($log_record['log_type'] == 2)
-						{
-							$user_record['notfounds_count']--;
-						}
-						elseif ($log_record['log_type'] == 3)
-						{
-							$user_record['log_notes_count']--;
-						}
-
-						$user_record['founds_count'] = $user_record['founds_count'] + 0;
-						$user_record['notfounds_count'] = $user_record['notfounds_count'] + 0;
-						$user_record['log_notes_count'] = $user_record['log_notes_count'] + 0;
-
-						sql("UPDATE `user` SET `founds_count`='&1', `notfounds_count`='&2', `log_notes_count`='&3' WHERE `user_id`='&4'", $user_record['founds_count'], $user_record['notfounds_count'], $user_record['log_notes_count'], $log_record['log_user_id']);
-						unset($user_record);
 
 						//call eventhandler
 						require_once($rootpath . 'lib/eventhandler.inc.php');
@@ -340,4 +322,25 @@ function removelog($log_id, $language, $lang)
 			removelog($log_id, $language, $lang);
 		}
 	}
+
+
+/**
+ * after delete a log it is a good idea to full recalculate stats of user, that can avoid 
+ * possible errors which used to appear when was calculated old method. 
+ * 
+ * by Andrzej Łza Woźniak, 10-2013
+ * 
+ */
+function recalculateUserStats($userId){
+	$query = "	
+		UPDATE `user` 
+		SET `founds_count`   = (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND TYPE =1 AND `deleted` =0 ),
+			`notfounds_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND TYPE =2 AND `deleted` =0 ),
+			`notfounds_count`= (SELECT count(*) FROM `cache_logs` WHERE `user_id` =:1 AND TYPE =3 AND `deleted` =0 )
+		WHERE `user_id` =:1
+	";
+	
+	$db = new dataBase;
+	$db->multiVariableQuery($query, $userId);
+}
 ?>
