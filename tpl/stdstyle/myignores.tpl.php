@@ -22,12 +22,14 @@
 {no_ignores}
 <table class="table">
 	<colgroup>
-		<col width="500px"/>
-		<col width="140px"/>
+		<col width="650px"/>
+		<col width="1x"/>
+		<col width="40px"/>
 	</colgroup>
 	<tr>
-			<td class="content-title-noshade">{title_text_tab}</td>
-			<td align="right" class="content-title-noshade">&nbsp;</td>
+			<td class="content-title-noshade">Geocache</td>
+			<td>&nbsp;</td>
+			<td style="text-align: center" class="content-title-noshade">{{off_ignore}}</td>
 	</tr>
 	{ignores_caches}
 </table>
