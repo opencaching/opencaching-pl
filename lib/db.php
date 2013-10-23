@@ -121,17 +121,14 @@ class dataBase
 			$this->dbData  -> setFetchMode(PDO::FETCH_ASSOC);
 			$this->dbData  -> execute();
 		} catch (PDOException $e) {
-			$message = 'db.php, # ' . __line__ .', PDO error: ' . $e .'<br />
-						Database Query: '.$query.'<br>
-						Parametres array: '.
-						print_r($params, true).
-						'<br><br>';
+			$message = $this->errorMessage( __line__, $e, $query, "");
 			if ($this->debug) {
 				print $message;
 			} else {
 				self::errorMail($message);
 			}
 
+			
 			return false;
 		}
 
@@ -225,11 +222,7 @@ class dataBase
 			$this->dbData->setFetchMode(PDO::FETCH_ASSOC);
 			$this->dbData->execute();
 		} catch (PDOException $e) {
-			$message = 'db.php, # ' . __line__ .', PDO error: ' . $e .'<br />
-					Database Query: '.$query.'<br>
-							Parametres array: '.
-							print_r($params, true).
-							'<br><br>';
+			$message = $this->errorMessage( __line__, $e, $query, $params );
 			if ($this->debug) {
 				print $message;
 			} else {
@@ -294,7 +287,7 @@ class dataBase
 			$numargs = func_num_args();
 			$arg_list = func_get_args();
 			for ($i = 1; $i < $numargs; $i++) {
-				if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
+			//	if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
 				
 				$this->dbData->	bindParam(':'.$i,$arg_list[$i]);
 				//$dbh->bindParam(':'.$i,$arg_list[$i]);
@@ -304,11 +297,8 @@ class dataBase
 			$this->dbData ->execute();
 			$this->lastInsertId = $dbh->lastInsertId();
 		} catch (PDOException $e) {
-			$message = 'db.php, # ' . __line__ .', PDO error: ' . $e .'<br />
-					Database Query: '.$query.'<br>
-							Parametres array: '.
-							print_r($arg_list, true).
-							'<br><br>';
+			$message = $this->errorMessage( __line__, $e, $query, print_r($arg_list, true) );
+			
 			if ($this->debug) {
 				print $message;
 			} else {
@@ -319,6 +309,8 @@ class dataBase
 		}
 		if ($this->debug) {
 			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
+			for ($i = 1; $i < $numargs; $i++)
+				echo "Param :", $i, " = ", $arg_list[$i], "<br>";
 		}
 		return true;
 	}
@@ -332,6 +324,18 @@ class dataBase
 		
 		if(!isset($topic)) $topic = 'ErrorMail'; //JG - niezainicjowna zmienna 2013-10-19
 		mail('rt@opencaching.pl', $topic, $message, $headers);
+	}
+
+	
+	private function errorMessage( $line, $e, $query, $params )
+	{
+	$message = 'db.php, line: ' . $line .', <p class="errormsg"> PDO error: ' . $e .'</p><br />
+					Database Query: '.$query.'<br>
+							Parametres array: '.
+								print_r($params, true).
+								'<br><br>';
+	
+		return $message;
 	}
 	
 	/**
