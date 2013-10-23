@@ -59,7 +59,7 @@ function intervalChanged()
 	<tr>
 		<td class="content-title-noshade">{{send}}:</td>
 		<td>
-			<select id="interval" name="interval" onChange="intervalChanged();" class="input100">
+			<select id="interval" name="interval" onChange="intervalChanged();" class="input120">
 				{intervalls}
 			</select>
 		</td>

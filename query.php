@@ -17,6 +17,7 @@
  ****************************************************************************/
 
 	require('./lib/common.inc.php');
+	require('./lib/db.php');
 	require($stylepath . '/query.inc.php');
 
 	if ($error == false)
@@ -63,13 +64,24 @@ function deletequery($queryid)
 {
 	global $tplname, $usr;
 
-	$rs = sql("SELECT `id` FROM `queries` WHERE `id`='&1' AND `user_id`='&2'", $queryid, $usr['userid']);
-	if (mysql_num_rows($rs) == 1)
+	$dbc = new dataBase(); 
+	
+	//$rs = sql("SELECT `id` FROM `queries` WHERE `id`='&1' AND `user_id`='&2'", $queryid, $usr['userid']);
+	$query  = "SELECT `id` FROM `queries` WHERE `id`=:1 AND `user_id`=:2";
+	$dbc->multiVariableQuery($query, $queryid, $usr['userid'] );	
+	
+	if ( $dbc->rowCount() == 1)
 	{
-		mysql_free_result($rs);
-		sql("DELETE FROM `queries` WHERE `id`='&1' LIMIT 1", $queryid);
+		//mysql_free_result($rs);
+		//sql("DELETE FROM `queries` WHERE `id`='&1' LIMIT 1", $queryid);
+				
+		$query = "DELETE FROM `queries` WHERE `id`=:1 LIMIT 1";
+		$dbc->multiVariableQuery($query, $queryid );
+		
 	}
 
+	unset( $dbc );
+	
 	tpl_redirect('query.php?action=view');
 	exit;
 }
@@ -81,12 +93,18 @@ function viewqueries()
 
 	$tplname = 'viewqueries';
 
+	$dbc = new dataBase();
+	
 	$i = 0;
 	$content = '';
-	$rs = sql("SELECT `id`, `name` FROM `queries` WHERE `user_id`='&1' ORDER BY `name` ASC", $usr['userid']);
-	if (mysql_num_rows($rs) != 0)
+	//$rs = sql("SELECT `id`, `name` FROM `queries` WHERE `user_id`='&1' ORDER BY `name` ASC", $usr['userid']);
+	$query = "SELECT id, name FROM `queries` WHERE `user_id`=:1 ORDER BY `name` ASC";
+	$dbc->multiVariableQuery($query, $usr['userid'] );
+	
+	if ($dbc->rowCount() != 0)
 	{
-		while ($r = sql_fetch_array($rs))
+		//while ($r = sql_fetch_array($rs))
+		while ($r = $dbc->dbResultFetch() )
 		{
 			$thisline = $viewquery_line;
 
@@ -101,13 +119,14 @@ function viewqueries()
 			$content .= $thisline;
 			$i++;
 		}
-		mysql_free_result($rs);
+		//mysql_free_result($rs);
 	}
 	else
 	{
 		$content = $noqueries;
 	}
 
+	unset( $dbc );
 	tpl_set_var('queries', $content);
 	tpl_BuildTemplate();
 	exit;

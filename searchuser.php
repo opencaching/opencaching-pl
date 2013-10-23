@@ -36,8 +36,9 @@
 				$dbc = new dataBase();
 				$dbc->paramQuery($query, $params);
 
-				$line1 = '<tr><td><a href=viewprofile.php?userid={user_id}>{username}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{date_created}</td><td nowrap style="text-align:center;"></td></tr>';
-				$line2 = '<tr bgcolor=\'#eeeeee\'><td><a href=viewprofile.php?userid={user_id}>{username}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{date_created}</td><td nowrap style="text-align:center;"></td></tr>';
+				$bgcolor1 = '#eeeeee';
+				$bgcolor2 = '#ffffff';
+				$line = '<tr bgcolor={bgcolor}><td><a href=viewprofile.php?userid={user_id}>{username}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{date_created}</td><td nowrap style="text-align:center;"></td></tr>';
 				$lines = "";
 				
 				$ilosc = $dbc->rowCount();
@@ -57,7 +58,8 @@
 						$i = 0;
 						while( $record = $dbc->dbResultFetch() )	
 						{		
-							$tmp_line = $i % 2 == 0 ? $line1 : $line2;
+							$tmp_line = $line;
+							$tmp_line = mb_ereg_replace('{bgcolor}',($i % 2 == 0) ? $bgcolor1 : $bgcolor2, $tmp_line);
 							$tmp_line = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $tmp_line);
 							$tmp_line = mb_ereg_replace('{user_id}', htmlspecialchars($record['user_id'], ENT_COMPAT, 'UTF-8'), $tmp_line);
 							$tmp_line = mb_ereg_replace('{date_created}', htmlspecialchars(fixPlMonth(strftime($dateformat, strtotime($record['date_created']))), ENT_COMPAT, 'UTF-8'), $tmp_line);

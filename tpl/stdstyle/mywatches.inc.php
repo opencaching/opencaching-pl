@@ -18,8 +18,18 @@
 
  ****************************************************************************/
 
-	$watche = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid={cacheid}&target=mywatches.php">'.tr('delete').'</a>]</td></tr>';
-	$watcho = '<tr bgcolor=\'#eeeeee\'><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid={cacheid}&target=mywatches.php">'.tr('delete').'</a>]</td></tr>';
+	//$watche = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid={cacheid}&target=mywatches.php">'.tr('delete').'</a>]</td></tr>';
+	$watch = '<tr>'
+				.'<td style="background-color: {bgcolor}"><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td>'
+				.'<td style="background-color: {bgcolor}">&nbsp;</td>'
+				.'<td nowrap style="text-align:center; background-color: {bgcolor}">{lastfound}</td>'
+				.'<td nowrap style="text-align:center; background-color: {bgcolor}"><img src="tpl/stdstyle/images/{icon_name}" border="0" alt="1" onmouseover="Tip(\'{log_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"/></td>'
+				.'<td style="width:23px;background-color: {bgcolor}; text-align: center"><a class="links"  href="removewatch.php?cacheid={cacheid}&target=mywatches.php" onclick="return confirm(\''.tr("mywatches_1").'\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title='.tr('delete').' /></a></td>'
+			.'</tr>';
+
+//<a class="links" onmouseover="Tip({log_text})" onmouseout="UnTip() >
+//.'<td style="text-align:center; background-color: {bgcolor}">[<a href="removewatch.php?cacheid={cacheid}&target=mywatches.php">'.tr('delete').'</a>]</td>'
+
 	$no_watches = '<tr><td colspan="4">'.tr('no_watched_caches').'</td></tr>';
 	$no_found_date = '---';
 	$standard_title = tr('watched_caches');
@@ -40,4 +50,8 @@
 						<span class="help">'.tr('accept_terms_of_use').'</span>
 					</td>
 				</tr>';
+	
+	$bgcolor1 = '#ffffff';
+	$bgcolor2 = '#eeeeee';
+	
 ?>

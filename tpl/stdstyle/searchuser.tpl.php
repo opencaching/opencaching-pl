@@ -12,7 +12,10 @@ global $usr;
 
 <div class="searchdiv">
 <table class="table" border="0" cellspacing="0">
-
+	<colgroup>
+		<col width="650px"/>
+		<col width="1x"/>	
+	</colgroup>
 	<tr>
 		<td><p class="content-title-noshade">{{user}}</p></td>
 		<td>&nbsp;</td>

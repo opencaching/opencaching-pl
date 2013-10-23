@@ -318,7 +318,12 @@ if ($error == false) {
 			$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_recommendations_given') . ':</span> <strong>' . $recomendf . '</strong>';
 
 			if ($recomendf == 0) {$content .= '</p>';
-			} else {$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="usertops.php?userid=' . $user_id . '">' . tr('show') . '</a>]</p>';
+			} else 
+			{
+				if ( $usr['userid'] == $user_id ) $link_togo = "mytop5.php"; 
+				else $link_togo = "usertops.php?userid=$user_id";
+					
+					$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="' . $link_togo . '">' . tr('show') . '</a>]</p>';
 			}
 
 			$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('days_caching') . ':</span> <strong>' . $num_rows . '</strong>&nbsp;' . tr('from_total_days') . ': <strong>' . $ddays['diff'] . '</strong></p>';
