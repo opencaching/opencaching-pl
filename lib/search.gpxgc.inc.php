@@ -39,16 +39,19 @@
 		mysql_free_result($rs);
 		return $retval;
 	}
+		
+		// sitename and slogan iternational handling
+		$nodeDetect = substr($absolute_server_URI,-3,2);
 
 	$gpxHead = 
 '<?xml version="1.0" encoding="utf-8"?>
 <gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" creator="OpenCachingPL" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd" xmlns="http://www.topografix.com/GPX/1/0"> 
-	<name>Cache Listing Generated from Opencaching.pl</name>
-	<desc>Cache Listing Generated from Opencaching.pl {wpchildren}</desc>
-	<author>OpenCaching.PL</author>
-	<email>ocpl@opencaching.pl</email>
-	<url>http://www.opencaching.pl</url>
-	<urlname>Opencaching.pl - Geocaching w Polsce</urlname>
+	<name>Cache Listing Generated from '.$site_name.'</name>
+	<desc>Cache Listing Generated from '.$site_name.' {wpchildren}</desc>
+	<author>'.$site_name.'</author>
+	<email>'.$mail_oc.'</email>
+	<url>'.$absolute_server_URI.'</url>
+	<urlname>'.$site_name.' - '.tr('oc_subtitle_on_all_pages_'.$nodeDetect).'</urlname>
 	<time>{{time}}</time>
 	<keywords>cache, geocache</keywords>
 ';
@@ -58,7 +61,7 @@ $gpxLine = '
 		<time>{{time}}</time>
 		<name>{{waypoint}}</name>
 		<desc>{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
-		<url>http://opencaching.pl/viewcache.php?wp={{waypoint}}</url>
+		<url>'.$absolute_server_URI.'viewcache.php?wp={{waypoint}}</url>
 		<urlname>{cachename} by {owner}, {type_text}</urlname>
 		<sym>Geocache</sym>
 		<type>Geocache|{type}</type>
@@ -106,7 +109,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 	<name>{waypoint} {wp_stage}</name>
     <cmt>{desc}</cmt>
     <desc>{wp_type_name}</desc>
-    <url>http://opencaching.pl/viewcache.php?wp={waypoint}</url>
+    <url>'.$absolute_server_URI.'viewcache.php?wp={waypoint}</url>
     <urlname>{waypoint} {wp_stage}</urlname>
     <sym>{wp_type}</sym>
     <type>Waypoint|{wp_type}</type>
@@ -533,7 +536,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{geokrety}', $geokrety, $thisline);
 // Waypoints
 			$waypoints = '';
-			$rswp = sql("SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`.`pl` `wp_type_name` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE  `waypoints`.`cache_id`=&1 ORDER BY `waypoints`.`stage`", $r['cacheid']); 
+			$rswp = sql("SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`.".$lang." `wp_type_name` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE  `waypoints`.`cache_id`=&1 ORDER BY `waypoints`.`stage`", $r['cacheid']); 
 			while ($rwp = sql_fetch_array($rswp))
 			{
 			if ($rwp['status']==1) {
