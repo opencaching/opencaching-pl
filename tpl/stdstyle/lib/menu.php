@@ -505,6 +505,14 @@ $menu = array(
                 'filename'      => 'newcache.php',
                 'siteid'        => 'newcache'
             ),
+        	array(
+        			'title'         => tr('new_cache'),
+        			'menustring'    => tr('new_cache'),
+        			'visible'       => false,
+        			'filename'      => 'newcache.php',
+        			'siteid'        => 'newcache_info'
+        	),
+        		
             array(
                 'title'         => tr('my_caches'),
                 'menustring'    => tr('my_caches'),
