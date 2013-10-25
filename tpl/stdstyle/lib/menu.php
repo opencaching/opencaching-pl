@@ -550,9 +550,9 @@ $menu = array(
             array(
                 'title'         =>'Field Notes',
                 'menustring'    => 'Field Notes',
-                'siteid'        => 'autolog',
                 'visible'       => true,
-                'filename'      => 'log_cache_multi_send.php'
+                'filename'      => 'log_cache_multi_send.php',
+            	'siteid'        => 'log_cache_multi_send'	//JG 2013-10-25 było 'autolog'
             ),
             array(
                 'title'         => tr('my_logs'),
