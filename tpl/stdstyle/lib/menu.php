@@ -554,6 +554,29 @@ $menu = array(
                 'filename'      => 'log_cache_multi_send.php',
             	'siteid'        => 'log_cache_multi_send'	//JG 2013-10-25 było 'autolog'
             ),
+       		array(
+       			'title'         => tr('new_logs'),
+       			'menustring'    => tr('new_logs'),
+       			'visible'       => false,
+       			'filename'      => 'myn_newlogs.php',
+       			'siteid'        => 'myn_newlogs'
+        		),
+
+        	array(
+        		'title'         => tr('new_logs'),
+        		'menustring'    => tr('new_logs'),
+        		'visible'       => false,
+        		'filename'      => 'myn_newcaches.php',
+        		'siteid'        => 'myn_newcaches'
+        		),
+        		
+        	array(
+        		'title'         => tr('new_logs'),
+        		'menustring'    => tr('new_logs'),
+        		'visible'       => false,
+        		'filename'      => 'myn_newcaches.php',
+        		'siteid'        => 'myn_topcaches'
+        		),
             array(
                 'title'         => tr('my_logs'),
                 'menustring'    => tr('my_logs'),
