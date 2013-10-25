@@ -112,8 +112,8 @@ $radius=$distance;
 				$max_lon_diff = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378  * 3.14159);
 				sql('DROP TEMPORARY TABLE IF EXISTS local_caches'.$user_id.'');							
 				sql('CREATE TEMPORARY TABLE local_caches'.$user_id.' ENGINE=MEMORY 
-										SELECT 
-											(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') AS `distance`,
+										SELECT 												
+											(' . getSqlDistanceFormula($lon, $lat, $distance /*, $multiplier[$distance_unit], JG 2013-10-25, ta zmienna nie była zainicjowana*/) . ') AS `distance`,
 											`caches`.`cache_id` AS `cache_id`,
 											`caches`.`wp_oc` AS `wp_oc`,
 											`caches`.`type` AS `type`,
