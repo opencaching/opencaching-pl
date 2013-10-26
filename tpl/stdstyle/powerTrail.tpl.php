@@ -2018,6 +2018,8 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 					<input id="f_userowner" type="checkbox" name="f_userowner" checked="checked" /> {{pt203}} <br/>
 					<input id="f_watched"   type="checkbox" name="f_watched"   checked="checked" /> {{pt204}} <br/>
 					<input id="f_userfound" type="checkbox" name="f_userfound" checked="checked" /> {{pt205}} <br/>
+					{{pt225}}*: <input id="gpxLogLimit" name="gpxLogLimit"  type="range" step="1" onchange="$('#gpxLogLimitCurrent').html(this.value);" oninput="$('#gpxLogLimitCurrent').html(this.value);" min="1"  value="5" max="50" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">5</span>
+					<br/><br/> <span style="font-size: 7px;">*) - {{pt226}}</span>
 					<input id="showresult"  type="hidden"   name="showresult" value="1">
 					<input id="count"       type="hidden"   name="count"      value="max">
 					<input id="ptId"        type="hidden"   name="ptId"       value="{powerTrailId}">

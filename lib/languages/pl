@@ -1905,6 +1905,8 @@ pt221 Zmiana statusu
 pt222 Założył skrzynki w 
 pt223 geościeżkach
 pt224 punkty za skrzynki założone
+pt225 ilość logów w pliku gpx
+pt226 dla każdej skrzynki. Dostepne tylko dla formatu &quot;gpx&quot;
 statpic_found Znalazł:
 statpic_hidden Ukrył:
 statpic_html_link - Statystyka dla

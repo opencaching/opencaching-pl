@@ -206,6 +206,7 @@
 			$options['expert'] = isset($_REQUEST['expert']) ? $_REQUEST['expert'] : 0;
 			$options['showresult'] = isset($_REQUEST['showresult']) ? $_REQUEST['showresult'] : 0;
 			$options['output'] = isset($_REQUEST['output']) ? $_REQUEST['output'] : 'HTML';
+			$options['gpxLogLimit'] = isset($_REQUEST['gpxLogLimit']) ? (int) $_REQUEST['gpxLogLimit'] : false;
 			if(isset($_GET['showonmap'])) {
 				$_REQUEST['output'] = 'MAP';
 				$options['output'] = 'MAP';
