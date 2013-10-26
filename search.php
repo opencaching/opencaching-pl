@@ -63,10 +63,9 @@
 		$multiplier['km'] = 1;
 		$multiplier['sm'] = 0.62137;
 		$multiplier['nm'] = 0.53996;
-
 		if (isset($_REQUEST['queryid']) || isset($_REQUEST['showresult']))
 		{
-			$bCookieQueryid = false;
+			$bCookieQueryid = false; 
 			$queryid = isset($_REQUEST['queryid']) ? $_REQUEST['queryid'] : 0;
 		}
 		else
@@ -114,7 +113,6 @@
 		{
 			//load options from db
 			$query_rs = sql("SELECT `user_id`, `options` FROM `queries` WHERE id='&1' AND (`user_id`=0 OR `user_id`='&2')", $queryid, $usr['userid']+0);
-			
 			if (mysql_num_rows($query_rs) == 0)
 			{
 				$tplname = 'error';
