@@ -227,7 +227,7 @@ enter_text Enter text
 enter_text_error Text has not been entered
 only_these Only these
 password_required Password required to add a log entry.
-last_log_entries The latest log entries
+last_log_entries De laatste logs
 terrain_difficulty Terrein
 task_difficulty Moeilijkheid
 out_of out of
@@ -525,7 +525,7 @@ no_log_entries Er zijn nog geen logs
 your_newest_log_entries Jouw laatste logs
 location Locatie
 stat_picture Statistics picture
-show_in_google_maps Show on Google Maps
+show_in_google_maps Toon in Google maps
 download_for_various_apps download for various applications
 download Download
 listing_from_to Resultaat {startatp1} t/m {endat}
@@ -1683,20 +1683,20 @@ ZW Zimbabwe
 SU Rusland
 
 pt001 PowerTrail
-pt002 Voeg toe aan serie
-pt003 Maak een nieuwe serie
+pt002 Voeg toe aan PowerTrail
+pt003 Maak een nieuwe PowerTrail
 pt004 Vorm op kaart
 pt005 Verkennen
 pt006 Zichtbaar
 pt007 Niet zichtbaar
-pt008 Serie naam
-pt009 Serie soort
+pt008 Naam PowerTrail
+pt009 Soort PowerTrail
 pt010 Zichtbaarheid
-pt011 Beschrijving van serie
-pt012 Alle series
-pt013 Voeg cache toe aan serie
+pt011 Beschrijving van PowerTrail
+pt012 Alle PowerTrails
+pt013 Voeg cache toe aan PowerTrail
 pt014 uit deze cache serie gevonden
-pt015 Voortgang van deze serie
+pt015 Voortgang van deze PowerTrail
 pt016 van
 pt017 je hebt
 pt018 De PowerTrail in niet zichtbaar (nog niet gepubliceerd, onderhoud, enz)
@@ -1716,7 +1716,7 @@ pt031 Annuleren
 pt032 Toevoegen
 pt033 Verversen
 pt034 Beschrijving PowerTrail
-pt035 Serie
+pt035 PowerTrail
 pt036 Naam
 pt037 Score
 pt038 punten
@@ -1735,7 +1735,7 @@ pt050 Opmerkingen en/of loggen
 pt051 Schrijf opmerking of log
 pt052 Soort log
 pt053 Datum log
-pt054 % nodig om deze serie te voltooien
+pt054 % nodig om deze PowerTrail te voltooien
 pt055 Wijzigen
 pt056 Opmerking
 pt057 Voltooid
@@ -1743,7 +1743,7 @@ pt058 Volgende reacties
 pt059 Vorige reacties
 pt060 Verander afbeelding
 pt061 Voeg afbeelding uit bestand toe
-pt062 Eigen series
+pt062 Eigen PowerTrails
 pt063 Status
 pt064 Wijzig status
 pt065 Voltooid
@@ -1762,22 +1762,22 @@ pt077 Status
 pt078 Waardering
 pt079 Thema
 pt080 Sla nieuwe PowerTrail op
-pt081 Serie moet een naam hebben
+pt081 PowerTrail moet een naam hebben
 pt082 Er zijn nog geen caches in deze serie
 pt083 Ongewaardeerd
 pt084 Geen caches aanwezig
 pt085 Totalen
-pt086 Na het vinden van een bepaalde percentage zal de het mogelijk zijn om deze serie als voltooid te kunnen loggen. 
+pt086 Na het vinden van een bepaalde percentage zal de het mogelijk zijn om deze PowerTrail als voltooid te kunnen loggen. 
 pt087 Wat is dit
 pt088 Uitleg
 pt089 <b>Zichtbaar</b> - Voor iedereen zichtbaar <br/> <b>Niet zichtbaar</b> - Alleen zichtbaar voor de maker
-pt090 De soort van de serie. <b>Vorm op kaart:</b> Bijvoorbeeld interesante plaatsen die een bepaalde vorm op een kaart hebben. <b>Verkennen:</b> Bijvoorbeeld om bepaalde plaatsen in je woonplaats te laten zien. <b>Natuur:</b> Mooie plaatsen die met natuur te maken hebben. <b>Thema:</b> Bijvoorbeeld een thema over een bepaald onderwerp. 
+pt090 De soort van de PowerTrail. <b>Vorm op kaart:</b> Bijvoorbeeld interesante plaatsen die een bepaalde vorm op een kaart hebben. <b>Verkennen:</b> Bijvoorbeeld om bepaalde plaatsen in je woonplaats te laten zien. <b>Natuur:</b> Mooie plaatsen die met natuur te maken hebben. <b>Thema:</b> Bijvoorbeeld een thema over een bepaald onderwerp. 
 pt091 Verander de naam
 pt092 Voor testdoeleinden alleen beschikbaar voor geselecteerde gebruikers. Verbeteringen doorgeven via rt of Skype
 pt093 Voltooide PowerTrails
 pt094 Deze cache maakt deel uit van de serie
 pt095 Naam cacher
-pt096 Gevonden uit serie
+pt096 Gevonden uit PowerTrail
 pt097 Percentage gevonden
 pt098 Toon meer statistieken
 pt099 Toon statistieken
@@ -1889,20 +1889,20 @@ pt204
 pt205
 pt206
 pt207
-pt208
-pt209
-pt210
-pt211
-pt212
+pt208 Beheer PowerTrails
+pt209 Selecteer
+pt210 Verwijderen van cache
+pt211 Let op! Het verwijderen van deze cache uit de PowerTrail zal ook gevolgen hebben voor de punten van deze PowerTrail wanneer deze gevonden is. Kijk eerst of er een andere oplossing te vinden is. (Eventueel is het archiveren een optie).
+pt212 Gesloten
 pt213
 pt214
 pt215
 pt216
 pt217
 0t218
-pt219
-pt220
-pt221
+pt219 Onderhoud
+pt220 Reden van status verandering
+pt221 Status veranderen
 pt222 Gemaakte caches in
 pt223 PowerTrail
 pt224 Verzamelde punten
@@ -1981,6 +1981,11 @@ search_kml_04 Grootte:
 search_kml_05 Moeilijkheid:
 search_kml_06 van
 search_kml_07 Terrein:
+mytop5_1 Moet deze aanbeveling werkelijk verwijderd worden?
+mywatches_1 Moet het volgen werkelijk uitgeschakeld worden
+myignores_1 Moet het negeren werkelijk uitgeschakeld worden?
+myviewqueries_1 Moet deze zoekopdracht werkelijk verwijderd worden?
+search_gpxgc_01 Let op! Dit is een cache met logwachtwoord, neem dit mee om te loggen.
 
 
 
