@@ -54,6 +54,8 @@ function getGpx(output){
 	var f_userfound;
 	var count = $("#count").val();
 	var ptId = $("#ptId").val();
+	var gpxLogLimit = $("#gpxLogLimit").val();
+	
 	$('#f_inactive').is(':checked')  ? f_inactive  = 0 : f_inactive  = 1 ;
 	$("#f_ignored").is(':checked')   ? f_ignored   = 0 : f_ignored   = 1 ;
 	$("#f_userowner").is(':checked') ? f_userowner = 0 : f_userowner = 1 ;
@@ -61,7 +63,7 @@ function getGpx(output){
 	$("#f_userfound").is(':checked') ? f_userfound = 0 : f_userfound = 1 ;
 	
 	
-	var gpxLink = 'search.php?searchto=searchbypt&showresult=1&f_inactive='+f_inactive+'&f_ignored='+f_ignored+'&f_userfound='+f_userfound+'&f_userowner='+f_userowner+'&f_watched='+f_watched+'&count='+count+'&ptId='+ptId+'&output='+output;
+	var gpxLink = 'search.php?searchto=searchbypt&showresult=1&f_inactive='+f_inactive+'&f_ignored='+f_ignored+'&f_userfound='+f_userfound+'&f_userowner='+f_userowner+'&f_watched='+f_watched+'&count='+count+'&ptId='+ptId+'&output='+output+'&gpxLogLimit='+gpxLogLimit;
 	window.location = gpxLink;
 }
 
@@ -2018,7 +2020,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 					<input id="f_userowner" type="checkbox" name="f_userowner" checked="checked" /> {{pt203}} <br/>
 					<input id="f_watched"   type="checkbox" name="f_watched"   checked="checked" /> {{pt204}} <br/>
 					<input id="f_userfound" type="checkbox" name="f_userfound" checked="checked" /> {{pt205}} <br/>
-					{{pt225}}*: <input id="gpxLogLimit" name="gpxLogLimit"  type="range" step="1" onchange="$('#gpxLogLimitCurrent').html(this.value);" oninput="$('#gpxLogLimitCurrent').html(this.value);" min="1"  value="5" max="50" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">5</span>
+					{{pt225}}*: <input id="gpxLogLimit" name="gpxLogLimit"  type="range" step="1" style="border: none;" onchange="$('#gpxLogLimitCurrent').html(this.value);" oninput="$('#gpxLogLimitCurrent').html(this.value);" min="1"  value="5" max="50" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">5</span>
 					<br/><br/> <span style="font-size: 7px;">*) - {{pt226}}</span>
 					<input id="showresult"  type="hidden"   name="showresult" value="1">
 					<input id="count"       type="hidden"   name="count"      value="max">

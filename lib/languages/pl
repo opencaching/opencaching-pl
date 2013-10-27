@@ -1985,5 +1985,31 @@ search_gpxgc_04 Atrybuty
 search_gpxgc_05 Ocena skrzynki
 search_gpxgc_06 Rekomendacje
 search_gpxgc_07 Parki Narodowe/Krajobrazowe
+attribute_40 Szybka skrzynka
+attribute_41 Można zabrać dzieci
+attribute_43 GeoHotel
+attribute_44 Dostępna dla niepełnosprawnych
+attribute_47 Potrzebny kompas
+attribute_48 Weź coś do pisania
+attribute_49 Przyczepiona magnesem
+attribute_50 Informacje zapisane w MP3
+attribute_51 Offset cache
+attribute_52 Beacon - Garmin chirp
+attribute_53 Dead Drop USB skrzynka
+attribute_54 Benchmark - punkt geodezyjny
+attribute_55 Scenariusz WIGO
+attribute_56 Letterbox
+attribute_60 Umiejscowiona na łonie natury, lasy, góry itp
+attribute_61 Miejsce historyczne
+attribute_80 Dostępna w określonych godzinach lub płatna
+attribute_81 Potrzebna łopatka
+attribute_82 Potrzebna latarka
+attribute_83 Wymagany dodatkowy sprzęt
+attribute_84 Dostępna tylko pieszo
+attribute_85 Dostępna rowerem
+attribute_86 Dostępna tylko łodzią
+attribute_90 Skrzynka niebezpieczna
+attribute_91 Zalecane szukanie nocą
+gpxCog COG
 
 

@@ -1798,3 +1798,32 @@ mytop5_1 Do you want to remove your recomandation ?
 mywatches_1 Do you want to stop watching this cache ?
 myignores_1 Do you want to switch off ignore ?
 myviewqueries_1 Do you want to remove this qurey collection ?
+
+attribute_40 One-minute cache
+attribute_41 Go geocaching with children
+attribute_43 GeoHotel
+attribute_44 Accessible for disabled
+attribute_47 Compass
+attribute_48 Take something to write
+attribute_49 Fixed by magnet
+attribute_50 Information in  MP3 file
+attribute_51 Offset cache
+attribute_52 Beacon - Garmin chirp
+attribute_53 Dead Drop USB cache
+attribute_54 Benchmark - geodetict point
+attribute_55 Cartridge 
+attribute_56 Letterbox
+attribute_60 Nature
+attribute_61 Monumental place
+attribute_80 Periodical/Paid
+attribute_81 You will need a shovel
+attribute_82 Torch needed
+attribute_83 Take special equipment
+attribute_84 Access only by walk
+attribute_85 Bike
+attribute_86 Boat
+attribute_90 Dangerous Cache
+attribute_91 Recommended at night
+
+
+gpxCog OC Team

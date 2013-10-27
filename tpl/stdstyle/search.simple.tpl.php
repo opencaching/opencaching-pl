@@ -166,6 +166,7 @@ function sync_options(element)
 //	var formnames = new Array();
 	var formnames = new Array("searchbyname","searchbydistance","searchbyort","searchbyfulltext","searchbyowner", "searchbyfinder");
 
+	var gpxLogLimit = $('#gpxLogLimit').val();
 
 //	var formnames = new Array();
 //	formnames[0] = "searchbyname";
@@ -220,6 +221,7 @@ function sync_options(element)
 		document.forms[formnames[a]].cache_attribs.value = tmpattrib;
 		document.forms[formnames[a]].cache_attribs_not.value = tmpattrib_not;
 		document.forms[formnames[a]].cacherating.value = recommendations;
+		document.forms[formnames[a]].gpxLogLimit.value = gpxLogLimit;
 	}
 }
 
@@ -510,6 +512,18 @@ function showGeoCoder()
 			</td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
+		
+		<tr>
+			<td class="content-title-noshade">
+				{{pt225}}:
+				<br/> <span style="font-size: 7px;">({{pt226}})</span>
+			</td>
+			<td colspan="2" class="content-title-noshade">
+				<input id="gpxLogLimit" name="gpxLogLimit" style="border: none;" type="range" step="1" onchange="$('#gpxLogLimitCurrent').html(this.value); javascript:sync_options(this);" oninput="$('#gpxLogLimitCurrent').html(this.value); javascript:sync_options(this);" min="1"  value="5" max="50" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">5</span>
+			</td>
+		</tr>
+		<tr><td class="buffer" colspan="3"></td></tr>
+		
 	</table>
 </form>
 
@@ -570,6 +584,7 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
 	<input type="hidden" name="cachename" value="%"  />
+	<input type="hidden" name="gpxLogLimit" value="5"  />
 
 
 	<table class="table">

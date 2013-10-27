@@ -1129,9 +1129,7 @@ function outputSearchForm($options)
 	tpl_set_var('filters', $filters, false);
 	tpl_set_var('formmethod', 'get');
 
-	
-	
-	// checkboxen
+	// checkboxes
 	if (isset($options['sort']))
 		$bBynameChecked = ($options['sort'] == 'byname');
 	else
@@ -1529,7 +1527,7 @@ function outputSearchForm($options)
 
 		// this marks saved user preference for searching, if 1, the cache is by default searched
 		// and thus making the colour image visibile
-		if ($options['cachetype'][$c_rec_id] == '1') {
+		if (isset($options['cachetype'][$c_rec_id]) && $options['cachetype'][$c_rec_id] == '1') {
 			$icon_hidden = "";
 			$icon_bw_hidden = $hidden_css;
 		} else {
