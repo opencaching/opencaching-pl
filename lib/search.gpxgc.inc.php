@@ -385,7 +385,6 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$db = new dataBase;
 			$db->multiVariableQuery($q,$r['cacheid']);
 			$rsAttributes = $db->dbResultFetchAll();
-			var_dump($rsAttributes);
 			if ($db->rowCount() > 0) {
 				$attributes = tr('search_gpxgc_04').': ';
 				foreach ($rsAttributes as $rAttribute) {

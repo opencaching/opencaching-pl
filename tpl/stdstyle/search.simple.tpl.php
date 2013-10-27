@@ -656,7 +656,8 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
-
+	<input type="hidden" name="gpxLogLimit" value="5"  />
+	
 	<table class="table">
 		<colgroup>
 			<col width="200"/>
@@ -737,6 +738,7 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
+	<input type="hidden" name="gpxLogLimit" value="5"  />
 
 	<table class="table">
 	<colgroup>
@@ -812,6 +814,7 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
+	<input type="hidden" name="gpxLogLimit" value="5"  />
 
 	<table class="table">
 		<colgroup>
@@ -878,6 +881,7 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
+	<input type="hidden" name="gpxLogLimit" value="5"  />
 
 	<table class="table">
 		<colgroup>
@@ -933,6 +937,7 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
+	<input type="hidden" name="gpxLogLimit" value="5"  />
 
 	<table class="table">
 		<colgroup>
