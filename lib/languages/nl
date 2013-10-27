@@ -1818,7 +1818,7 @@ pt133 Tekst van deze log is
 pt134 Datum van log (ingevoerd door gebruiker)
 pt135 Totale cachedagen
 pt136 Geografisch middelpunt van deze serie
-pt137 PowerTrail van de week
+pt137 PowerTrail van de dag
 pt138 caches
 pt139 PowerTrail
 pt140 Aantal punten in PowerTrail
@@ -1882,30 +1882,32 @@ pt197
 pt198 De cache is op een voorlopige lijst geplaatst, de eigenaar zal een email ontvangen met het verzoek. Wanneer de eigenaar akkoord gaat via een aan te klikken link, dan zal deze cache automatisch toegevoegt worden in de PowerTrail.
 pt199 Informatie:
 pt200
-pt201
-pt202
-pt203
+pt201 niet actief
+pt202 negeren
+pt203 zelf gemaakt
 pt204
 pt205
 pt206
-pt207
+pt207 GPX filter
 pt208 Beheer PowerTrails
 pt209 Selecteer
 pt210 Verwijderen van cache
 pt211 Let op! Het verwijderen van deze cache uit de PowerTrail zal ook gevolgen hebben voor de punten van deze PowerTrail wanneer deze gevonden is. Kijk eerst of er een andere oplossing te vinden is. (Eventueel is het archiveren een optie).
 pt212 Gesloten
-pt213
-pt214
-pt215
-pt216
-pt217
-0t218
+pt213 PowerTrail openen
+pt214 PowerTrail verwijderen
+pt215 PowerTrail is beschikbaar
+pt216 PowerTrail onderhoud
+pt217 PowerTrail is tijdelijk niet actief
+0t218 PowerTrail is verwijderd
 pt219 Onderhoud
 pt220 Reden van status verandering
 pt221 Status veranderen
 pt222 Gemaakte caches in
 pt223 PowerTrail
 pt224 Verzamelde punten
+pt225 aantal logs in het GPX bestand
+pt226 voor elke cache. Alleen beschikbaar voor GPX formaat.
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
@@ -1986,6 +1988,10 @@ mywatches_1 Moet het volgen werkelijk uitgeschakeld worden
 myignores_1 Moet het negeren werkelijk uitgeschakeld worden?
 myviewqueries_1 Moet deze zoekopdracht werkelijk verwijderd worden?
 search_gpxgc_01 Let op! Dit is een cache met logwachtwoord, neem dit mee om te loggen.
-
-
+search_gpxgc_02 Persoonlijke cache notitie
+search_gpxgc_03 Aanvullende informatie over deze cache
+search_gpxgc_04 Attributen
+search_gpxgc_05 Cache score
+search_gpxgc_06 Aanbevelingen
+search_gpxgc_07 Nationale parken / landschappen
 

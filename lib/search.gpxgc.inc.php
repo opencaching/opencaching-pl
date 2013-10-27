@@ -45,7 +45,7 @@
 
 	$gpxHead = 
 '<?xml version="1.0" encoding="utf-8"?>
-<gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" creator="OpenCachingPL" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd" xmlns="http://www.topografix.com/GPX/1/0"> 
+<gpx xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" creator="'.$site_name.'" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd http://www.groundspeak.com/cache/1/0/1 http://www.groundspeak.com/cache/1/0/1/cache.xsd http://www.gsak.net/xmlv1/5 http://www.gsak.net/xmlv1/5/gsak.xsd" xmlns="http://www.topografix.com/GPX/1/0"> 
 	<name>Cache Listing Generated from '.$site_name.'</name>
 	<desc>Cache Listing Generated from '.$site_name.' {wpchildren}</desc>
 	<author>'.$site_name.'</author>
@@ -60,7 +60,7 @@ $gpxLine = '
 	<wpt lat="{lat}" lon="{lon}">
 		<time>{{time}}</time>
 		<name>{{waypoint}}</name>
-		<desc>{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
+		<desc>{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})</desc>
 		<url>'.$absolute_server_URI.'viewcache.php?wp={{waypoint}}</url>
 		<urlname>{cachename} by {owner}, {type_text}</urlname>
 		<sym>Geocache</sym>
@@ -73,7 +73,7 @@ $gpxLine = '
 			<groundspeak:container>{container}</groundspeak:container>
 			<groundspeak:difficulty>{difficulty}</groundspeak:difficulty>
 			<groundspeak:terrain>{terrain}</groundspeak:terrain>
-			<groundspeak:country>Polska</groundspeak:country>
+			<groundspeak:country>{country}</groundspeak:country>
 			<groundspeak:state>{region}</groundspeak:state>
 			<groundspeak:short_description html="False">{shortdesc}</groundspeak:short_description>
 			<groundspeak:long_description html="True">{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}&lt;br&gt;{extra_info}</groundspeak:long_description>
@@ -299,7 +299,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 					$sFilebasename = trim($rName['name']);
 					$sFilebasename = str_replace(" ", "_", $sFilebasename);
 				} else {
-					$sFilebasename = 'ocpl' . $options['queryid'];
+					$sFilebasename = ''.$short_sitename.'' . $options['queryid'];
 				}
 			}
 		}
@@ -356,7 +356,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
 			$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
-//			$thisline = str_replace('{country}', $r['country'], $thisline);
+			$thisline = str_replace('{country}', $r['country'], $thisline);
 			$region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);		
 			$thisline = str_replace('{region}', $region, $thisline);
 			
@@ -365,7 +365,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			else
 				$thisline = str_replace('{hints}', cleanup_text($r['hint']), $thisline);
 			
-			$logpw = ($r['logpw']==""?"":"UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!<br />");
+			$logpw = ($r['logpw']==""?"":"".tr('search_gpxgc_01')." <br />");
 			
 			$thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
 			$thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
@@ -375,16 +375,16 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 				if (mysql_num_rows($notes_rs) != 0)
 				{
 				$cn = sql_fetch_array($notes_rs);
-			$thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- Wlasna notatka do skrzynki: --<br/> ".$cn['desc']."<br/>"), $thisline);
+			$thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- ".tr('search_gpxgc_02').": -- <br/> ".$cn['desc']."<br/>"), $thisline);
 				} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 			} else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 			// start extra info
 			$thisextra="";
-			$rsAttributes = sql("SELECT `cache_attrib`.`id`, `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
+			$rsAttributes = sql("SELECT `cache_attrib`.`id`, `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = '$lang' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 			if (( $r['votes'] > 3 ) || ( $r['topratings'] > 0 ) || (mysql_num_rows($rsAttributes) > 0 )) {
-			$thisextra .= "\n-- Dodatkowe informacje z bazy OC: --\n";		
+			$thisextra .= "\n-- ".tr('search_gpxgc_03').": --\n";		
 		    	if (mysql_num_rows($rsAttributes) > 0) {
-				$attributes = 'Atrybuty: ';
+				$attributes = ''.tr('search_gpxgc_04').': ';
 			while ($rAttribute = sql_fetch_array($rsAttributes))
 			{
 					// if ($rAttribute['id'] == 55) $wigo = true; todo ustawic typ kesza na wigo
@@ -397,10 +397,10 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			if( $r['votes'] > 3 ){
 
 				$score = cleanup_text(score2rating($r['score']));
-				$thisextra .= "\nOcena skrzynki: " .$score. "\n";
+				$thisextra .= "\n".tr('search_gpxgc_05').": " .$score. "\n";
 			}
 			if( $r['topratings'] > 0 ){
-			$thisextra .= "Rekomendacje: " .$r['topratings']. "\n";}
+			$thisextra .= "".tr('search_gpxgc_06').": " .$r['topratings']. "\n";}
 			
 	// NPA - nature protection areas
 
@@ -412,7 +412,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
 			if (mysql_num_rows($rsArea) != 0)
 			{
-			$thisextra .="Parki Narodowe/Krajobrazowe: ";
+			$thisextra .="".tr('search_gpxgc_07').": ";
 				while( $npa = mysql_fetch_array($rsArea) )
 				{
 					$thisextra .= $npa['npaname']."  ";
@@ -481,7 +481,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{owner}', xmlentities($r['username']), $thisline);
 			$thisline = str_replace('{owner_id}', xmlentities($r['owner_id']), $thisline);
 
-			$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = 'PL' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
+			$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = '$lang' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
 
 			// create log list
 			if($options['gpxLogLimit']) {
@@ -504,7 +504,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 					$logtype = $gpxLogType[0];
 				if ($logtype == 'Post Reviewer Note')
 				 {
-				  $rLog['username'] = 'Centr.Obsl.Geocachera';
+				  $rLog['username'] = 'Centr.Obsl.Geocachera' ;
 				  $rLog['userid'] = '0';
 				 }
 				$thislog = str_replace('{username}', xmlentities($rLog['username']), $thislog);
