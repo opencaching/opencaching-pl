@@ -218,7 +218,7 @@ $debug = false;
 				if( mysql_result($is_scored_query,0) == 0 && $usr['userid'] != $record['user_id'])
 				{
 					//$color_table = array("#FF0000","#FF6600","#FF9900","#99FF00","#66FF00","#33FF00","#00FF00");
-					$score = "<select name='r'>
+					$score = "<select name='r' id = 'r'> //triPPer 2013-10-28 dodałem id, na potrzeby onSubmitHandler
 						";
 					if( isset($_POST['r']) && $_POST['r'] == -10)
 						$checked = " selected";

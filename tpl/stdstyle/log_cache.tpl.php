@@ -35,6 +35,13 @@ function onSubmitHandler()
 			return false;
 	}
 
+	if ( document.getElementById( 'r' ).value == -10 )
+	{
+		if(!confirm("{{empty_mark}}"))
+			return false;
+	}
+	
+			
 	//document.getElementById(obj).disabled = true;
 	//document.logform.submitform.disabled = true;	
 	setTimeout('document.logform.submitform.disabled=true',1);

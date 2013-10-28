@@ -796,6 +796,7 @@ online_users Online registered users
 online_users_info based on users active over the past 10 minutes
 empty_entry_notice <b>Log Etiquette:</b> Try to not submit empty log entries. Even ordinary "Thanks" will be enough!
 empty_entry_confirm Do you really want to leave an empty log entry?
+empty_mark Don't you really want to mark this cache ?
 where_i_am Where am I
 read_info_about_cache_types Please read information about <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
 regiononly Region/Województwo (Poland only)
