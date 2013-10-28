@@ -35,7 +35,7 @@ function onSubmitHandler()
 			return false;
 	}
 
-	if ( document.getElementById( 'r' ).value == -10 )
+	if ( (document.getElementById( 'logtype' ).value == 1) && (document.getElementById( 'r' ).value == -10) )
 	{
 		if(!confirm("{{empty_mark}}"))
 			return false;
@@ -242,7 +242,7 @@ function toggleGeoKrety() {
 	<tr>
 		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
 		<td>
-			<select onLoad="javascript:toogleLayer('ocena');" name="logtype" onChange="toogleLayer('ocena');">
+			<select onLoad="javascript:toogleLayer('ocena');" name="logtype" id="logtype" onChange="toogleLayer('ocena');">
 				{logtypeoptions}
 			</select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">
 			<br />{log_message}
