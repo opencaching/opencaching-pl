@@ -1565,7 +1565,9 @@ function outputSearchForm($options)
 
 	tpl_set_var('cachesize_options', $cachesize_options);
 
-
+	// gpxlogLimit
+	if ($options['gpxLogLimit'] == false) tpl_set_var('gpxLogLimitUserChoice', 5);
+	else tpl_set_var('gpxLogLimitUserChoice', $options['gpxLogLimit']);
 
 
 function attr_jsline($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconundef, $category)

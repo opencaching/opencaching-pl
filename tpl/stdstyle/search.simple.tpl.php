@@ -519,7 +519,7 @@ function showGeoCoder()
 				<br/> <span style="font-size: 7px;">({{pt226}})</span>
 			</td>
 			<td colspan="2" class="content-title-noshade">
-				<input id="gpxLogLimit" name="gpxLogLimit" style="border: none;" type="range" step="1" onchange="$('#gpxLogLimitCurrent').html(this.value); javascript:sync_options(this);" oninput="$('#gpxLogLimitCurrent').html(this.value); javascript:sync_options(this);" min="1"  value="5" max="50" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">5</span>
+				<input id="gpxLogLimit" name="gpxLogLimit" style="border: none;" type="range" autocomplete="on" onchange="$('#gpxLogLimitCurrent').html(this.value); javascript:sync_options(this);" oninput="$('#gpxLogLimitCurrent').html(this.value); javascript:sync_options(this);" min="5" value="{gpxLogLimitUserChoice}" max="100" step="5" /> <span id="gpxLogLimitCurrent" style="font-size: 10px; font-weight: bold">{gpxLogLimitUserChoice}</span>
 			</td>
 		</tr>
 		<tr><td class="buffer" colspan="3"></td></tr>
@@ -584,7 +584,7 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
 	<input type="hidden" name="cachename" value="%"  />
-	<input type="hidden" name="gpxLogLimit" value="5"  />
+	<input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
 
 
 	<table class="table">
@@ -656,7 +656,7 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
-	<input type="hidden" name="gpxLogLimit" value="5"  />
+	<input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
 	
 	<table class="table">
 		<colgroup>
@@ -738,7 +738,7 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
-	<input type="hidden" name="gpxLogLimit" value="5"  />
+	<input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
 
 	<table class="table">
 	<colgroup>
@@ -814,7 +814,7 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
-	<input type="hidden" name="gpxLogLimit" value="5"  />
+	<input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
 
 	<table class="table">
 		<colgroup>
@@ -881,7 +881,7 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
-	<input type="hidden" name="gpxLogLimit" value="5"  />
+	<input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
 
 	<table class="table">
 		<colgroup>
@@ -937,7 +937,7 @@ function showGeoCoder()
 	<input type="hidden" name="cacheterrain_1" value="{cacheterrain_1}" />
 	<input type="hidden" name="cacheterrain_2" value="{cacheterrain_2}" />
 	<input type="hidden" name="cacherating" value="{cacherating}" />
-	<input type="hidden" name="gpxLogLimit" value="5"  />
+	<input type="hidden" name="gpxLogLimit" value="{gpxLogLimitUserChoice}" />
 
 	<table class="table">
 		<colgroup>
