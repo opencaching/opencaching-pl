@@ -392,15 +392,15 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 					$attributes .= cleanup_text(xmlentities(tr('attribute_'.$rAttribute['attrib_id'])));									
 					$attributes .=  " | ";		
 				}
-				$thisextra .= $attributes.'<br />';
+				$thisextra .= $attributes.'\n';
 	        }
 	
 			if( $r['votes'] > 3 ){ // cahe rating
 				$score = cleanup_text(score2rating($r['score']));
-				$thisextra .= "\n".tr('search_gpxgc_05').": " .$score.'<br />';
+				$thisextra .= "\n".tr('search_gpxgc_05').": " .$score.'\n';
 			}
 			if( $r['topratings'] > 0 ){
-				$thisextra .= " ".tr('search_gpxgc_06').": " .$r['topratings'].'<br />';
+				$thisextra .= " ".tr('search_gpxgc_06').": " .$r['topratings'].'\n';
 			}
 			
 		// NPA - nature protection areas (Parki Narodowe , Krajobrazowe)
