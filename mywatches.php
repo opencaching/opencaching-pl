@@ -147,7 +147,7 @@
 						WHERE `cache_watches`.`user_id`= :1 and cl.date =
 							( SELECT max( date )
 								FROM cache_logs
-								WHERE cl.cache_id = cache_id )  
+								WHERE cl.cache_id = cache_id limit 1 )  
 						
 						ORDER BY `caches`.`name`";
 				
