@@ -144,12 +144,20 @@
 						INNER JOIN log_types ON (cl.type = log_types.id) 
 						INNER JOIN user ON (cl.user_id = user.user_id)
 						
-						WHERE `cache_watches`.`user_id`= :1 and cl.date =
-							( SELECT max( date )
-								FROM cache_logs
-								WHERE cl.cache_id = cache_id limit 1 )  
+						WHERE `cache_watches`.`user_id`= :1 and cl.id =
+							( SELECT id
+								FROM cache_logs cl_id
+								WHERE cl.cache_id = cl_id.cache_id and cl_id.date =
+						
+									( SELECT max( date )
+										FROM cache_logs
+										WHERE cl_id.cache_id = cache_id 
+									)
+								limit 1
+							)  
 						
 						ORDER BY `caches`.`name`";
+						
 				
 				
 				$dbc->multiVariableQuery($query, $usr['userid'] );
