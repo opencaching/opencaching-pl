@@ -151,7 +151,7 @@
 						
 									( SELECT max( date )
 										FROM cache_logs
-										WHERE cl_id.cache_id = cache_id 
+										WHERE cl.cache_id = cache_id 
 									)
 								limit 1
 							)  
