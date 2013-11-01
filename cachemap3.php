@@ -1,4 +1,8 @@
 <?php
+
+require_once('./lib/common.inc.php');
+
+
 function onTheList($theArray, $item)
 {
 	for( $i=0;$i<count($theArray);$i++)
@@ -11,6 +15,7 @@ function onTheList($theArray, $item)
 
 function getDBFilter($user_id)
 {
+
 	$filter = array("h_u"=>1,
 									"h_t"=>1,
 									"h_m"=>1,
@@ -64,7 +69,7 @@ function getDBFilter($user_id)
 	return $filter;
 }
 
-require_once('./lib/common.inc.php');
+
 
 $tplname = 'cachemap3';
 
@@ -76,8 +81,11 @@ global $language;
 global $lang;
 
 $user_id = '';
+$get_userid;
 
-$get_userid = intval($_REQUEST['userid']);
+if ( isset($_REQUEST['userid'] ) )
+	$get_userid = intval($_REQUEST['userid']);
+
 //user logged in?
 if ($usr == false)
 {
@@ -88,8 +96,8 @@ else
 {
 	session_start();
 
-	
-	tpl_set_var('sc', intval($_GET['sc']));
+	if ( isset( $_GET['sc'] ) )
+		tpl_set_var('sc', intval($_GET['sc']));
 	
 	if( $get_userid == '') {
 		$user_id = $usr['userid'];
@@ -102,14 +110,14 @@ else
 		
 	tpl_set_var('userid', $user_id);
 
-	if($_REQUEST['circle']== "1" )
+	if( isset( $_REQUEST['circle'] ) && $_REQUEST['circle']== "1" )
 	{
 		tpl_set_var('circle', $_REQUEST['circle']);
 	} else { tpl_set_var('circle', "0");}
 
 	$rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$user_id'");
 	$record = mysql_fetch_array($rs);
-	if( ($_REQUEST['lat'] != "" && $_REQUEST['lon'] != ""))
+	if( isset($_REQUEST['lat']) && $_REQUEST['lat'] != "" && isset($_REQUEST['lon']) && $_REQUEST['lon'] != "")
 	{
 		$coordsXY=$_REQUEST['lat'].",".$_REQUEST['lon'];
 		$coordsX=$_REQUEST['lat'];
@@ -147,9 +155,9 @@ else
 		$_SESSION['print_list'] = array_values($_SESSION['print_list']);
 	}
 	
-	tpl_set_var('doopen', $_REQUEST['cacheid']?"true":"false");
+	tpl_set_var('doopen', isset($_REQUEST['cacheid'])?"true":"false");
 	tpl_set_var('coords', $coordsXY);
-	tpl_set_var('username', $record[username]);
+	tpl_set_var('username', $record['username']);
 	tpl_set_var('map_width', isset($_GET['print'])?($x_print."px"):("99%"));
 	tpl_set_var('map_height', isset($_GET['print'])?$y_print:("512")."px"); 
 	
@@ -237,6 +245,7 @@ else
 	 * The time-stamp will be stripped by a rewrite rule in lib/.htaccess.
 	 * */
 	tpl_set_var('lib_cachemap3_js', "lib/cachemap3." . date("YmdHis", filemtime($rootpath . 'lib/cachemap3.js')) . ".js");
+	
 	tpl_BuildTemplate(); 
 }
 ?>
