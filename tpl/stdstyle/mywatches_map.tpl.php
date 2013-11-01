@@ -31,7 +31,7 @@ watch_map of this user
 
 <!--<script src="https://maps.googleapis.com/maps/api/js?key={api_key}&sensor=false"></script>-->
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJQKavbEoNJjq1-xE_3KNAIGGJN2XKzLw&sensor=false"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJQKavbEoNJjq1-xE_3KNAIGGJN2XKzL&sensor=false"></script>
 
 <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
 <script type="text/javascript">
@@ -103,7 +103,7 @@ function initialize() {
   map = new google.maps.Map(mapDiv, mapOptions);
 
   
-  {markers}
+  //{1markers}
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
