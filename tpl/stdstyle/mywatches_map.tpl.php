@@ -21,7 +21,7 @@ watch_map of this user
 
 <div class="searchdiv">
 <center>
-<div id="mapka" style="width:100%; height:700pt"></div>
+<div id="mapka" style="width:100%; height:600pt"></div>
 </center>
 </div>
 
