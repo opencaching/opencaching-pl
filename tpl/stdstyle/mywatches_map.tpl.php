@@ -72,6 +72,16 @@ function AddMarker(wspolrzedne, icon, cache_icon, wp, cache_name, log_id, log_ic
 }
 
 function initialize() {
+
+	mapDiv = document.getElementById('map-canvas');
+	
+	var mapOptions = {
+	    zoom: 10,
+	    center:  new google.maps.LatLng(54.00,18.00 ),
+	    mapTypeId: google.maps.MapTypeId.ROADMAP
+	  };
+
+	    
   /*var mapDiv = document.getElementById('map-canvas');
   var mapOptions = {
     zoom: 10,
@@ -96,13 +106,12 @@ function initialize() {
       mapTypeControl: true,
       mapTypeControlOptions: {
         style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-      },
-    
-    
-  }
-  map = new google.maps.Map(mapDiv, mapOptions);*/
+      },    
+  }*/
+  
+  map = new google.maps.Map(mapDiv, mapOptions);
 
-  document.write( "TEST" );
+  //document.write( "TEST" );
   
   //{1markers}
 }
