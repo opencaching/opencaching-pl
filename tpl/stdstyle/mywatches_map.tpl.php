@@ -25,7 +25,7 @@ watch_map of this user
 ?>
 <div class="searchdiv">
 <center>
-<div id="map-canvas" style="width:100%; height:100%"></div>
+<div id="mapka-canvas" style="width:100%; height:100%"></div>
 </center>
 </div>
 
@@ -73,7 +73,7 @@ function AddMarker(wspolrzedne, icon, cache_icon, wp, cache_name, log_id, log_ic
 
 function initialize() {
 
-	mapDiv = document.getElementById('map-canvas');
+	mapDiv = document.getElementById("mapka-canvas");
 	
 	var mapOptions = {
 	    zoom: 10,
