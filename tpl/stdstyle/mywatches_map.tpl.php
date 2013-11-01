@@ -21,9 +21,6 @@ watch_map of this user
 
 
 
-//<!--<script src="https://maps.googleapis.com/maps/api/js?key={api_key}&sensor=false"></script>-->
-//<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJQKavbEoNJjq1-xE_3KNAIGGJN2XKzLw&sensor=false"></script>-->
-//<!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
 
 ?>
 
