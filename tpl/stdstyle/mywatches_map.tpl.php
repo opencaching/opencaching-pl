@@ -21,7 +21,7 @@ watch_map of this user
 
 <div class="searchdiv">
 <center>
-<div id="mapka" style="width:100%; height:500pt"></div>
+<div id="mapka" style="width:100%; height:700pt"></div>
 </center>
 </div>
 
@@ -38,21 +38,19 @@ function AddMarker(wspolrzedne, icon, cache_icon, wp, cache_name, log_id, log_ic
       icon: icon
      });
 
-	/*var infowindow = new google.maps.InfoWindow({
+	var infowindow = new google.maps.InfoWindow({
 		 
 	    content: '<table><tr><td><img src=\"tpl/stdstyle/images/' + cache_icon + '\" border=\"0\" alt=\"\" title=\"geocache\"/><b>&nbsp;<a class=\"links\" href=\"viewcache.php?wp=' + wp + '\">' + wp + ': ' + cache_name + '</a></td></tr><tr><td><a class=\"links\" href=\"viewlogs.php?logid=' + log_id + '\"><img src=\"tpl/stdstyle/images/' + log_icon + '\" border=\"0\" alt=\"\" /></a> <span style = \"links\"> przez </span> <a class=\"links\" href=\"viewprofile.php?userid=' + user_id + '\">' + user_name + '</a> <span style = \"links\">dnia: ' + log_date + '</span><hr><span style = \"font-size: 8pt\">'+log_text+'</span></td></tr></table>'
 	    	
-	});*/
-
-	//'<img title="Wink" src="lib/tinymce/plugins/emotions/img/smiley-wink.gif" border="0" alt="Wink" />' 
+	});
 	
-	/*google.maps.event.addListener(marker, "click", function() {
+	google.maps.event.addListener(marker, "click", function() {
 		if (currentinfowindow !== null) {
 			currentinfowindow.close();
 		}
-		infowindow.open (map, marker);
+		infowindow.open (hmapa, marker);
 		currentinfowindow = infowindow;
-	});*/
+	});
 	
 }
 
