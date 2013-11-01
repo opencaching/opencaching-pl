@@ -30,7 +30,10 @@ watch_map of this user
 </div>
 
 <!--<script src="https://maps.googleapis.com/maps/api/js?key={api_key}&sensor=false"></script>-->
- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> 
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHFTndbVpDanOEti4JxikeX8vldj97bPk&sensor=false"></script>
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
 <script type="text/javascript">
 var map;
 var currentinfowindow = null;
