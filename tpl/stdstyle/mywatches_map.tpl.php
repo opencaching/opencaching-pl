@@ -23,9 +23,12 @@ watch_map of this user
 
 
 ?>
+
+<div id="mapka-canvas" style="width:100%; height:100%"></div>
+
 <div class="searchdiv">
 <center>
-<div id="mapka-canvas" style="width:100%; height:100%"></div>
+
 </center>
 </div>
 
