@@ -41,11 +41,11 @@ var currentinfowindow = null;
 function AddMarker(wspolrzedne, icon, cache_icon, wp, cache_name, log_id, log_icon, user_id, user_name, log_date, log_text)
 //function AddMarker(wspolrzedne, icon )
 {
-    var marker = new google.maps.Marker({
+    /*var marker = new google.maps.Marker({
         position: wspolrzedne,
         map: map,
         icon: icon
-       });
+       });*/
 
 	/*var infowindow = new google.maps.InfoWindow({
 		 
