@@ -35,7 +35,7 @@ watch_map of this user
 
 <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
 <script type="text/javascript">
-var map;
+var map = null;
 var currentinfowindow = null;
 
 function AddMarker(wspolrzedne, icon, cache_icon, wp, cache_name, log_id, log_icon, user_id, user_name, log_date, log_text)
@@ -72,7 +72,7 @@ function AddMarker(wspolrzedne, icon, cache_icon, wp, cache_name, log_id, log_ic
 }
 
 function initialize() {
-  var mapDiv = document.getElementById('map-canvas');
+  /*var mapDiv = document.getElementById('map-canvas');
   var mapOptions = {
     zoom: 10,
     center:  new google.maps.LatLng({latitude}, {longitude}),
@@ -100,8 +100,9 @@ function initialize() {
     
     
   }
-  map = new google.maps.Map(mapDiv, mapOptions);
+  map = new google.maps.Map(mapDiv, mapOptions);*/
 
+  document.write( "TEST" );
   
   //{1markers}
 }
