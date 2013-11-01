@@ -91,7 +91,7 @@ $gpxLine = '
         {cache_waypoints}
 ';
 
-$gpxAttributes = '		<groundspeak:attribute id="{attrib_id}" inc="1">{attrib_text_long}</groundspeak:attribute>';
+//$gpxAttributes = '		<groundspeak:attribute id="{attrib_id}" inc="1">{attrib_text_long}</groundspeak:attribute>';
 
 $gpxLog = '
                                 <groundspeak:log id="{id}">
@@ -422,21 +422,21 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         } else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 
 		// attributes
-		$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=&1", $r['cacheid']);
-		while ($rAttrib = sql_fetch_array($rsAttributes))
-		{
-			$thisattribute = $gpxAttributes;
+		//$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=&1", $r['cacheid']);
+		//while ($rAttrib = sql_fetch_array($rsAttributes))
+		//{
+			//$thisattribute = $gpxAttributes;
 
-			$thisattribute_id = $gpxAttribID[$rAttrib['attrib_id']];
-			$thisattribute_name = $gpxAttribName[$rAttrib['attrib_id']];
+			//$thisattribute_id = $gpxAttribID[$rAttrib['attrib_id']];
+			//$thisattribute_name = $gpxAttribName[$rAttrib['attrib_id']];
 			
-			$thisattribute = mb_ereg_replace('{attrib_id}', $thisattribute_id, $thisattribute);
-			$thisattribute = mb_ereg_replace('{attrib_text_long}', $thisattribute_name, $thisattribute);
+			//$thisattribute = mb_ereg_replace('{attrib_id}', $thisattribute_id, $thisattribute);
+			//$thisattribute = mb_ereg_replace('{attrib_text_long}', $thisattribute_name, $thisattribute);
 			
-			$attribentries .= $thisattribute . "\n";
-		}
-		mysql_free_result($rsAttributes);
-		$thisline = str_replace('{attributes}', $attribentries, $thisline);
+			//$attribentries .= $thisattribute . "\n";
+		//}
+		//mysql_free_result($rsAttributes);
+		//$thisline = str_replace('{attributes}', $attribentries, $thisline);
 
                         // start extra info
                         $thisextra="";
