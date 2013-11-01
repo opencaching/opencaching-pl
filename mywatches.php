@@ -29,6 +29,20 @@
 	require_once('./lib/common.inc.php');
 	require_once('./lib/db.php');
 	
+function CleanSpecChars( $log, $flg_html )
+{	
+	$log_text = $log;
+	
+	if ( $flg_html == 1)
+	{ $log_text = htmlspecialchars( $log_text, ENT_COMPAT, 'UTF-8');}
+	
+	$log_text = str_replace("\r\n", " ",$log_text);
+	$log_text = str_replace("\n", " ",$log_text);
+	$log_text = str_replace("'", "-",$log_text);
+	$log_text = str_replace("\"", " ",$log_text);
+	
+	return $log_text;
+}	
 	
 	//Preprocessing
 	if ($error == false)
@@ -42,8 +56,11 @@
 		else
 		{
 			$dbc = new dataBase();
+			$RQ = "";
+			if ( isset($_REQUEST['rq']) )
+				$RQ = $_REQUEST['rq'];
 			
-			if(isset($_REQUEST['rq']))
+			if( $RQ == "properties" )
 			{
 				include($stylepath . '/mywatches_properties.inc.php');
 				$tplname = 'mywatches_properties';
@@ -132,17 +149,48 @@
 				$bml_id = 0;
 				tpl_set_var('title_text', $standard_title);
 
+				
+				if( $RQ == "map" )
+				{
+					//JG - domek	
+					$usrlatitude = 54.400;
+					$usrlongitude = 18.650;
+					
+					$dbc->multiVariableQuery("SELECT `latitude` FROM user WHERE user_id=:1", sql_escape($usr['userid']) );
+					$record = $dbc->dbResultFetch();
+					if ( $dbc->rowCount() )
+						$usrlatitude  = $record["latitude"];
+						
+					$dbc->multiVariableQuery("SELECT `longitude` FROM user WHERE user_id=:1", sql_escape($usr['userid']) );
+					$record = $dbc->dbResultFetch();
+					if ( $dbc->rowCount() )
+						$usrlongitude= $record["longitude"];
+				}
+				
+				
 				//get all caches watched
 				//$rs = sql("SELECT `cache_watches`.`cache_id` AS `cache_id`, `caches`.`name` AS `name`, `caches`.`last_found` AS `last_found` FROM `cache_watches` INNER JOIN `caches` ON (`cache_watches`.`cache_id`=`caches`.`cache_id`) WHERE `cache_watches`.`user_id`='&1' ORDER BY `caches`.`name`", $usr['userid']);
 				//$query = "SELECT `cache_watches`.`cache_id` AS `cache_id`, `caches`.`name` AS `name`, `caches`.`last_found` AS `last_found` FROM `cache_watches` INNER JOIN `caches` ON (`cache_watches`.`cache_id`=`caches`.`cache_id`) WHERE `cache_watches`.`user_id`= :1 ORDER BY `caches`.`name`";
-				$query = "SELECT `cache_watches`.`cache_id` AS `cache_id`, `caches`.`name` AS `name`, `caches`.`last_found` AS `last_found`, 
+				$query = "SELECT 
+						`cache_watches`.`cache_id` AS `cache_id`, 						
+						`caches`.`name` AS `name`, `caches`.`last_found` AS `last_found`,
+						`caches`.`latitude` `latitude`,
+						`caches`.`longitude` `longitude`,
+						caches.wp_oc AS wp,						
+						cache_type.icon_small AS cache_icon_small,
+						user.username AS user_name,
 						log_types.icon_small AS icon_small,
-						cl.text AS log_text, user.username AS user_name
+						cl.text AS log_text, 
+						cl.type AS log_type,
+						cl.user_id AS luser_id,
+						cl.date AS log_date,
+						cl.id
 						FROM `cache_watches` 
 						INNER JOIN `caches` ON (`cache_watches`.`cache_id`=`caches`.`cache_id`)
 						INNER JOIN cache_logs as cl ON (caches.cache_id = cl.cache_id)
 						INNER JOIN log_types ON (cl.type = log_types.id) 
 						INNER JOIN user ON (cl.user_id = user.user_id)
+						INNER JOIN cache_type ON (caches.type = cache_type.id)
 						
 						WHERE `cache_watches`.`user_id`= :1 and cl.id =
 							( SELECT id
@@ -173,56 +221,95 @@
 				else
 				{
 					$watches = '';
-
+					$markers = '';
+					
+					if( $RQ == "map" ) 
+					{ 
+							$tplname = 'mywatches_map';
+					}
 					
 					for ($i = 0; $i < $rowCount; $i++)
 					{
 						//$record = sql_fetch_array($rs);
 						$record = $dbc->dbResultFetch();
 						
-						//$tmp_watch = $i % 2 == 0 ? $watche : $watcho;
-						$bgcolor = ( $i% 2 )? $bgcolor1 : $bgcolor2; 						
-						$tmp_watch = $watch;
-						$tmp_watch = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $tmp_watch);
 
-						if ($record['last_found'] == NULL || $record['last_found'] == '0000-00-00 00:00:00')
+						if( $RQ == "map" )
 						{
-							$tmp_watch = mb_ereg_replace('{lastfound}', htmlspecialchars($no_found_date, ENT_COMPAT, 'UTF-8'), $tmp_watch);
+							$rlat = $record[ 'latitude' ];
+							$rlon = $record[ 'longitude' ];
+													
+							$rusername="\"".$record[ 'user_name' ]."\"";
+							
+							$rcache_icon_small = "\"".$record['cache_icon_small']."\"";
+							$rwp = "\"".$record['wp']."\"";
+							$rid = "\"".$record['id']."\"";
+							$ricon_small = "\"".$record['icon_small']."\"";
+							$rluser_id = "\"".$record['luser_id']."\"";
+							$rlog_date="\"".htmlspecialchars(date("Y-m-d", strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8')."\"";							
+							$rcache_name="\"".CleanSpecChars( $record['name'], 0 )."\"";
+							$icon = '"tpl/stdstyle/images/google_maps/gmblue.png"';
+							$rlog_text  = "\"".CleanSpecChars( $record[ 'log_text'], 0 )."\"";
+
+							 $markers .= "AddMarker(new google.maps.LatLng($rlat, $rlon), $icon, $rcache_icon_small, $rwp, $rcache_name, $rid, $ricon_small,$rluser_id, $rusername, $rlog_date, $rlog_text );\r\n";
+							 //"addMarker(".$x.",".$y.",icon".$record['log_type'].",'".$record['cache_icon_small']."','".$record['wp']."','".$cache_name."','".$record['id']."','".$record['icon_small']."','".$record['luser_id']."','".$username."','".$log_date."');\n";
+							 
+							 
+							 
 						}
 						else
 						{
-							$tmp_watch = mb_ereg_replace('{lastfound}', htmlspecialchars(strftime($dateformat, strtotime($record['last_found'])), ENT_COMPAT, 'UTF-8'), $tmp_watch);
+							//$tmp_watch = $i % 2 == 0 ? $watche : $watcho;
+							$bgcolor = ( $i% 2 )? $bgcolor1 : $bgcolor2; 						
+							$tmp_watch = $watch;
+							$tmp_watch = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $tmp_watch);
+	
+							if ($record['last_found'] == NULL || $record['last_found'] == '0000-00-00 00:00:00')
+							{
+								$tmp_watch = mb_ereg_replace('{lastfound}', htmlspecialchars($no_found_date, ENT_COMPAT, 'UTF-8'), $tmp_watch);
+							}
+							else
+							{
+								$tmp_watch = mb_ereg_replace('{lastfound}', htmlspecialchars(strftime($dateformat, strtotime($record['last_found'])), ENT_COMPAT, 'UTF-8'), $tmp_watch);
+							}
+	
+							$tmp_watch = mb_ereg_replace('{urlencode_cacheid}', htmlspecialchars(urlencode($record['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_watch);
+							$tmp_watch = mb_ereg_replace('{cacheid}', htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_watch);
+							$tmp_watch = mb_ereg_replace('{icon_name}', $record['icon_small'], $tmp_watch);
+							$tmp_watch = mb_ereg_replace('{bgcolor}', $bgcolor, $tmp_watch);
+							
+							$log_text  = CleanSpecChars( $record[ 'log_text'], 1 );
+							
+							/*$log_text  = htmlspecialchars( $record[ 'log_text'], ENT_COMPAT, 'UTF-8');
+							$log_text = str_replace("\r\n", " ",$log_text);
+							$log_text = str_replace("\n", " ",$log_text);
+							$log_text = str_replace("'", "-",$log_text);
+							$log_text = str_replace("\"", " ",$log_text);*/
+							
+							//$log_text = str_replace("\r", " ",$log_text);
+							//$log_text = cleanup_text(str_replace("\r\n", " ", $log_text ));
+							//$log_text = str_rot13_html($log_text);
+							$log_text = "<b>".$record['user_name'].":</b><br>".$log_text;
+							//$log_text = "ala ma kota";
+							
+							$tmp_watch = mb_ereg_replace('{log_text}', $log_text, $tmp_watch);
+	
+							$watches .= $tmp_watch . "\n";
 						}
-
-						$tmp_watch = mb_ereg_replace('{urlencode_cacheid}', htmlspecialchars(urlencode($record['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_watch);
-						$tmp_watch = mb_ereg_replace('{cacheid}', htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_watch);
-						$tmp_watch = mb_ereg_replace('{icon_name}', $record['icon_small'], $tmp_watch);
-						$tmp_watch = mb_ereg_replace('{bgcolor}', $bgcolor, $tmp_watch);
-						
-												
-						//$log_text = "<b>Rhotaxx:</b>Po dojechaniu na miejsce wysiedliśmy z Highwaymana i prawie natychmiast zaatakowały nas Radskorpiony i Centaury. Wycinając sobie drogę za pomocą Bozara i M72 Gauss Rifle'a"; 
-								//dotarliśmy przed wejście Krypty."; 
-								//Obowiązkowa dawka Rad-X, odrobinę Jeta i wchodzimy do środka. Idąc zgodnie ze wskaz&amp;oacute;wkami dotarliśmy do celu. Dopiąłem Jumpsuit , wczołgałem się do tunelu i już po chwili miałem w rękach G.E.C.K.a. &lt;img title=&quot;Laughing&quot; src=&quot;lib/tinymce/plugins/emotions/img/smiley-laughing.gif&quot; border=&quot;0&quot; alt=&quot;Laughing&quot; /&gt;&lt;br /&gt;";
-						$log_text  = htmlspecialchars( $record[ 'log_text'], ENT_COMPAT, 'UTF-8');
-						
-						$log_text = str_replace("\r\n", " ",$log_text);
-						$log_text = str_replace("\n", " ",$log_text);
-						$log_text = str_replace("'", "-",$log_text);
-						$log_text = str_replace("\"", " ",$log_text);
-						
-						//$log_text = str_replace("\r", " ",$log_text);
-						//$log_text = cleanup_text(str_replace("\r\n", " ", $log_text ));
-						//$log_text = str_rot13_html($log_text);
-						$log_text = "<b>".$record['user_name'].":</b><br>".$log_text;
-						//$log_text = "ala ma kota";
-						
-						$tmp_watch = mb_ereg_replace('{log_text}', $log_text, $tmp_watch);
-
-						$watches .= $tmp_watch . "\n";
 					}
 					tpl_set_var('watches', $watches);
 					tpl_set_var('print_delete_all_watches', $print_delete_all_watches);
 					tpl_set_var('export_all_watches', $export_all_watches);
+					
+					if( $RQ == "map" )
+					{
+						tpl_set_var('markers', $markers);
+						tpl_set_var('api_key', $googlemap_key);
+						tpl_set_var('latitude', $usrlatitude);
+						tpl_set_var('longitude', $usrlongitude);						
+					}
+					
+					
 				}
 			}
 			

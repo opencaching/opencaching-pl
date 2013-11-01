@@ -655,7 +655,16 @@ $menu = array(
                 'menustring'    => tr('watched_caches'),
                 'visible'       => true,
                 'filename'      => 'mywatches.php',
-                'siteid'        => 'mywatches'
+                'siteid'        => 'mywatches',
+            	'submenu'       => array(
+            		array(
+                        'title'         => tr('map_watched_caches'),
+                        'menustring'    => tr('map_watched_caches'),
+                        'visible'       => true,
+                        'filename'      => 'mywatches.php?rq=map',
+                        'siteid'        => 'mywatches_map',
+                    ),
+            	),		
             ),
             array(
                 'title'         => tr('ignored_caches'),

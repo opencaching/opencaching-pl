@@ -27,7 +27,7 @@
 		<col width="1x"/>
 		<col width="40px"/>
 		<col width="1x"/>
-		<col width="40px"/>
+		<col width="40px" />
 	</colgroup>
 	
 	<tr>

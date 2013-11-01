@@ -151,6 +151,7 @@ change_email Change e-mail address
 change_password Change password
 collected_queries Collected searches
 watched_caches Watched caches
+map_watched_caches Map of watched caches
 settings Settings
 settings_notifications Settings notifications
 ignored_caches Ignored caches

@@ -151,6 +151,7 @@ change_email Zmiana adresu e-mail
 change_password Zmiana hasła
 collected_queries Zgromadzone poszukiwania
 watched_caches Obserwowane skrzynki
+map_watched_caches Mapa obserwowanych skrzynek
 settings Ustawienia
 settings_notifications Ustawienia powiadomień
 ignored_caches Ignorowane skrzynki

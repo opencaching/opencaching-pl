@@ -206,7 +206,7 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                             $myhomeidx = mnu_MainMenuIndexFromPageId($menu, "myhome");
                             $myprofileidx = mnu_MainMenuIndexFromPageId($menu[$myhomeidx]["submenu"], "myprofile");
                             // [fixme] Have to do the menu unrolling... in not such a crappy way
-                            if( $tplname == "myprofile" || $tplname == "myprofile_change" || $tplname == "newemail" || $tplname == "newpw" || $tplname == "change_statpic") {
+                            if( $tplname == "myprofile" || $tplname == "myprofile_change" || $tplname == "newemail" || $tplname == "newpw" || $tplname == "change_statpic" || $tplname == "mywatches") {
                                 for( $i = 0; $i < count($menu[$myhomeidx]["submenu"][$myprofileidx]['submenu']); $i++ ) {
                                     $menu[$myhomeidx]["submenu"][$myprofileidx]['submenu'][$i]['visible'] = true;
                                 }
