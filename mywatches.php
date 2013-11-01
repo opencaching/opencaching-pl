@@ -306,7 +306,8 @@ function CleanSpecChars( $log, $flg_html )
 						tpl_set_var('markers', $markers);
 						tpl_set_var('api_key', $googlemap_key);
 						tpl_set_var('latitude', $usrlatitude);
-						tpl_set_var('longitude', $usrlongitude);						
+						tpl_set_var('longitude', $usrlongitude);
+						tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language=pl" type="text/javascript"></script>');
 					}
 					
 					

@@ -21,22 +21,20 @@ watch_map of this user
 
 
 
+//<!--<script src="https://maps.googleapis.com/maps/api/js?key={api_key}&sensor=false"></script>-->
+//<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJQKavbEoNJjq1-xE_3KNAIGGJN2XKzLw&sensor=false"></script>-->
+//<!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
 
 ?>
 
-<div id="mapka-canvas" style="width:100%; height:100%"></div>
+
 
 <div class="searchdiv">
 <center>
-
+<div id="mapka-canvas" style="width:100%; height:100%"></div>
 </center>
 </div>
 
-<!--<script src="https://maps.googleapis.com/maps/api/js?key={api_key}&sensor=false"></script>-->
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJQKavbEoNJjq1-xE_3KNAIGGJN2XKzLw&sensor=false"></script>
-
-<!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
 <script type="text/javascript">
 var map = null;
 var currentinfowindow = null;
