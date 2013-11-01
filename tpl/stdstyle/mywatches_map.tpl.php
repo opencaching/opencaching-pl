@@ -21,7 +21,7 @@ watch_map of this user
 
 <div class="searchdiv">
 <center>
-<div id="map0" style="width:100%; height:500px"></div>
+<div id="map0" style="width:100%; height:100%"></div>
 </center>
 </div>
 
