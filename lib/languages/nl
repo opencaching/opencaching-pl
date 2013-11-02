@@ -151,6 +151,7 @@ change_email Verander E-mail adres
 change_password Verander wachtwoord
 collected_queries Verzamelde zoek opdrachten
 watched_caches Gevolgde caches
+map_watched_caches Kaart met gevolgde caches
 settings Instellingen
 settings_notifications Instelling meldingen
 ignored_caches Genegeerde caches
@@ -1994,4 +1995,8 @@ search_gpxgc_04 Attributen
 search_gpxgc_05 Cache score
 search_gpxgc_06 Aanbevelingen
 search_gpxgc_07 Nationale parken / landschappen
+mywatches_map_01 door
+mywatches_map_02 op
+
+
 
