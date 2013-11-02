@@ -112,12 +112,11 @@ function initialize()
 	    mapTypeId: google.maps.MapTypeId.ROADMAP,
 
 	    disableDefaultUI: true,
-	    streetViewControl: false,
-	    overviewMapControl: false,
+	    scaleControl: true,	    
+	    streetViewControl: true,
+	    overviewMapControl: true,
 	    panControl: false,
-	    
-	    
-	    
+	    	    
 	    zoomControl: true,        
 	    zoomControlOptions: {
 	        style: google.maps.ZoomControlStyle.SMALL
