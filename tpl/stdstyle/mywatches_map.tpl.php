@@ -23,11 +23,56 @@ watch_map of this user
 <center>
 <div id="mapka" style="width:100%; height:500pt"></div>
 </center>
+
 </div>
 
 <script type="text/javascript">
 var hmapa = null;
 var currentinfowindow = null;
+var weatherLayer = null;
+
+function SwitchWheather()
+{
+	if ( weatherLayer.getMap() == null )
+		{ weatherLayer.setMap( hmapa ); }
+	else
+		{ weatherLayer.setMap( null );}	
+}
+
+
+function HomeControl(controlDiv, map) {
+
+	  // Set CSS styles for the DIV containing the control
+	  // Setting padding to 5 px will offset the control
+	  // from the edge of the map
+	  controlDiv.style.padding = '5px';
+
+	  // Set CSS for the control border
+	  var controlUI = document.createElement('div');
+	  controlUI.style.backgroundColor = 'white';
+	  controlUI.style.borderStyle = 'solid';
+	  controlUI.style.borderWidth = '1px';
+	  controlUI.style.cursor = 'pointer';
+	  controlUI.style.textAlign = 'center';
+	  controlUI.title = '';
+	  controlDiv.appendChild(controlUI);
+
+	  // Set CSS for the control interior
+	  var controlText = document.createElement('div');
+	  controlText.style.fontFamily = 'Arial,sans-serif';
+	  controlText.style.fontSize = '11px';
+	  controlText.style.paddingLeft = '5px';
+	  controlText.style.paddingRight = '5px';
+	  controlText.innerHTML = '<b>{{Wheather}}</b>';
+	  controlUI.appendChild(controlText);
+
+	  // Setup the click event listeners: simply set the map to
+	  // Chicago
+	  google.maps.event.addDomListener(controlUI, 'click', function() {
+		  SwitchWheather();
+	  });
+
+	}
 
 function AddMarker(wspolrzedne, icon, cache_icon, wp, cache_name, log_id, log_icon, user_id, user_name, log_date, log_text)
 //function AddMarker(wspolrzedne, icon )
@@ -36,6 +81,7 @@ function AddMarker(wspolrzedne, icon, cache_icon, wp, cache_name, log_id, log_ic
       position: wspolrzedne,
       map: hmapa,
       icon: icon
+  
      });
 
 	var infowindow = new google.maps.InfoWindow({
@@ -85,6 +131,21 @@ function initialize()
 
 	  hmapa = new google.maps.Map(mapDiv, mapOptions);
 
+
+	  var homeControlDiv = document.createElement('div');
+	  var homeControl = new HomeControl(homeControlDiv, hmapa);
+
+	  homeControlDiv.index = 1;
+	  hmapa.controls[google.maps.ControlPosition.TOP_LEFT].push(homeControlDiv);
+	  
+	  
+
+	  weatherLayer = new google.maps.weather.WeatherLayer({
+		    temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS });
+	  
+		  weatherLayer.setMap(hmapa);
+	  
+	  
 	  {markers}
 }
 

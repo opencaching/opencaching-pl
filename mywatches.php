@@ -248,7 +248,12 @@ function CleanSpecChars( $log, $flg_html )
 							$rluser_id = "\"".$record['luser_id']."\"";
 							$rlog_date="\"".htmlspecialchars(date("Y-m-d", strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8')."\"";							
 							$rcache_name="\"".CleanSpecChars( $record['name'], 0 )."\"";
-							$icon = '"tpl/stdstyle/images/google_maps/gmblue.png"';
+							
+							$icon = '{url:"tpl/stdstyle/images/google_maps/gmblue.png", 
+									  size: new google.maps.Size(10, 17),
+									  origin: new google.maps.Point(0,0),
+									  anchor: new google.maps.Point(10,8)}';
+							
 							$rlog_text  = "\"".CleanSpecChars( $record[ 'log_text'], 0 )."\"";
 
 							 $markers .= "AddMarker(new google.maps.LatLng($rlat, $rlon), $icon, $rcache_icon_small, $rwp, $rcache_name, $rid, $ricon_small,$rluser_id, $rusername, $rlog_date, $rlog_text );\r\n";
@@ -307,7 +312,7 @@ function CleanSpecChars( $log, $flg_html )
 						tpl_set_var('api_key', $googlemap_key);
 						tpl_set_var('latitude', $usrlatitude);
 						tpl_set_var('longitude', $usrlongitude);
-						tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language=pl" type="text/javascript"></script>');
+						tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAJQKavbEoNJjq1-xE_3KNAIGGJN2XKzLw&sensor=false&language=pl&libraries=weather" type="text/javascript"></script>');
 					}
 					
 					
