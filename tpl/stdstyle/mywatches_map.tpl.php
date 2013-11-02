@@ -18,10 +18,10 @@ watch_map of this user
 ?>
 
 
-
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/search1.png" class="icon32" alt="{title_text}" title="{title_text}" align="middle" />&nbsp;{title_text}</div>
 <div class="searchdiv">
 <center>
-<div id="mapka" style="width:100%; height:600pt"></div>
+<div id="mapka" style="width:100%; height:500pt"></div>
 </center>
 </div>
 
