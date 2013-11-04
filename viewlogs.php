@@ -217,13 +217,14 @@
 						{
 							if ($record['del_by_admin']==1) 
 							{
-								if ($usr['userid'] == $record['userid'])
+								if ($record['del_by_username'] == $record['username'])
 									{	
-										$comm_replace.=" przez COG ";
-										$delByCOG=true;
+										$delByCOG=false;
+
 									} else
 									{
-										$delByCOG=false;
+										$comm_replace.=" przez COG ";
+										$delByCOG=true;
 									}
 							}
 							if ($delByCOG==false) 
@@ -253,7 +254,7 @@
 					$edit_footer="<div><small>Ostatnio zmieniony ".fixPlMonth(htmlspecialchars(strftime($thisdatetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'))." przez ";
 					if (!$usr['admin'] && isset($record['edit_by_admin']))
 					{
-						if ($usr['userid'] == $record['userid'])
+						if ($record['edit_by_username'] == $record['username'])
 						{
 							$byCOG=false;
 						} else 
