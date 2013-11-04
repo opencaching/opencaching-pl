@@ -1249,18 +1249,18 @@
 				tpl_set_var('gallery', '');
 				;}
 
-
+//START: edit by FelixP - 2013'10	
 			// prepare the last n logs - show logs marked as deleted if admin
 			//
-			$show_deleted_logs = "";
-			$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
-			if( $usr['admin'] )
-			{
+			//$show_deleted_logs = "";
+			//$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
+			//if( $usr['admin'] )
+			//{
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
-			}
+			//}
 
-			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
+				$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 												".$show_deleted_logs."
 			                  `cache_logs`.`id` `logid`,
 			                  `cache_logs`.`date` `date`,
@@ -1269,11 +1269,19 @@
 			                  `cache_logs`.`text_html` `text_html`,
 			                  `cache_logs`.`picturescount` `picturescount`,
 							  `cache_logs`.`mp3count` `mp3count`,
+							  `cache_logs`.`last_modified` AS `last_modified`,
+							  `cache_logs`.`last_deleted` AS `last_deleted`,
+							  `cache_logs`.`edit_count` AS `edit_count`,
+							  `cache_logs`.`date_created` AS `date_created`, 
 			                  `user`.`username` `username`,
                               `user`.`admin` `admin`,
 							  `user`.`hidden_count` AS    `ukryte`,
 					          `user`.`founds_count` AS    `znalezione`, 	
 					          `user`.`notfounds_count` AS `nieznalezione`,
+							  `u2`.`username` AS `del_by_username`,
+							  `u2`.`admin` AS `del_by_admin`,
+							  `u3`.`username` AS `edit_by_username`,
+							  `u3`.`admin` AS `edit_by_admin`,
 			                  `log_types`.`icon_small` `icon_small`,
 			                  `log_types_text`.`text_listing` `text_listing`,
 			                  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
@@ -1281,28 +1289,114 @@
 			                               INNER JOIN `log_types_text` ON `log_types`.`id`=`log_types_text`.`log_types_id` AND `log_types_text`.`lang`='&2'
 			                               INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id`
 			                               LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+										   LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
+										   LEFT JOIN `user` `u3` ON `cache_logs`.`edit_by_user_id`=`u3`.`user_id`
 			            WHERE `cache_logs`.`cache_id`='&1'
 									".$show_deleted_logs2."
 			         ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC
 			            LIMIT &3", $cache_id, $lang, $logs_to_display+0);
 
 			$logs = '';
-			
-			
+		
+			$thisdateformat = "%d %B %Y";
+			$thisdatetimeformat = "%d %B %Y %H:%m";
+//START: same code ->viewlogs.php / viewcache.php
+			$edit_count_date_from = date_create('2005-01-01 00:00');
 			for ($i = 0; $i < mysql_num_rows($rs); $i++)
 			{
 				$record = sql_fetch_array($rs);
 				$show_deleted = "";
+				$processed_text = "";
 				if( isset( $record['deleted'] ) && $record['deleted'] )
 				{
-					$show_deleted = "show_deleted";
+					if( $usr['admin'] )
+						{	
+							$show_deleted = "show_deleted";
+							$processed_text= $record['text']; 
+							
+						} 
+					else 
+					{
+						$record['icon_small']="log/16x16-trash.png"; //replace record icon with trash icon 
+						$comm_replace =tr('vl_Record_of_type')." [". $record['text_listing']."] ".tr('vl_deleted'); 
+						$record['text_listing']=tr('vl_Record_deleted'); ////replace type of record 
+						if( isset( $record['del_by_username'] ) && $record['del_by_username'] )
+						{
+							if ($record['del_by_admin']==1) 
+							{
+								if ($record['del_by_username'] == $record['username'])
+									{	
+										$delByCOG=false;
+
+									} else
+									{
+										$comm_replace.=" ".tr('vl_by_COG');
+										$delByCOG=true;
+									}
+							}
+							if ($delByCOG==false) 
+							{
+								$comm_replace.=" ".tr('vl_by_user')." ".$record['del_by_username'];
+							}
+						};
+						if(isset($record['last_deleted'])) 
+						{
+							$comm_replace.=" ".tr('vl_on_date')." ".fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));;
+						};
+						$comm_replace.="."; 	 	
+						$processed_text = $comm_replace;
+					}
+				} else 
+				{
+					$processed_text= $record['text'];	
+				} 
+				 
+		
+				// add edit footer if record has been modified 
+				$record_date_create = date_create($record['date_created']);
+								
+				if ($record['edit_count']>0) 
+				//check if editted at all 
+				{
+					$edit_footer="<div><small>".tr('vl_Recently_modified_on')." ".fixPlMonth(htmlspecialchars(strftime($thisdatetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
+					if (!$usr['admin'] && isset($record['edit_by_admin']))
+					{
+						if ($record['edit_by_username'] == $record['username'])
+						{
+							$byCOG=false;
+						} else 
+						{
+							$edit_footer.=" ".tr('vl_by_COG');
+							$byCOG = true;
+						}
+					} 
+					if ($byCOG==false)
+					{
+						$edit_footer.=" ".tr('vl_by_user')." ". $record['edit_by_username'];
+					}	
+					if ($record_date_create > $edit_count_date_from) //check if record created after implementation date (to avoid false readings for record changed before
+					{
+						$edit_footer.=" - ".tr('vl_totally_modified')." ".$record['edit_count']." ";
+						if($record['edit_count']>1)	
+							{$edit_footer.=tr('vl_count_plural');}
+						else
+							{$edit_footer.=tr('vl_count_singular');}
+		
+					}				
+
+					$edit_footer.=".</small</div>";
+						
+				} else {
+					$edit_footer ="";
 				}
-
+				
+				$tmplog_text =  $processed_text.$edit_footer;
 				$tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
-
+//END: same code ->viewlogs.php / viewcache.php				
+//END: edit by FelixP - 2013'10
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
 				$tmplog_date = fixPlMonth(htmlspecialchars(strftime("%d %B %Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
-				$tmplog_text = $record['text'];
+				//$tmplog_text = $record['text'];
 
 				// replace smilies in log-text with images and add hyperlinks
 				$tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
@@ -1826,5 +1920,5 @@ if($powerTrailModuleSwitchOn) {
 }
 	tpl_set_var('ptName', $ptHtml);
 	tpl_set_var('ptSectionDisplay', $ptDisplay);
-tpl_BuildTemplate();
+	tpl_BuildTemplate();
 ?>
