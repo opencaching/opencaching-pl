@@ -1829,4 +1829,14 @@ gpxCog OC Team
 mywatches_map_01 by
 mywatches_map_02 on
 Wheather Wheather
+vl_Recently_modified_on Recently modified on
+vl_by_user by user
+vl_by_COG by Geocacher service center
+vl_totally_modified totally modified
+vl_count_plural times
+vl_count_singular time
+vl_on_date on
+vl_Record_of_type Record of type
+vl_deleted deleted
+vl_Record_deleted Record deleted
 
