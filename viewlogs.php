@@ -377,7 +377,9 @@
 				$tmplog = mb_ereg_replace('{logfunctions}', $logfunctions, $tmplog);
 
 				// pictures
-				if ($record['picturescount'] > 0)
+				//START: edit by FelixP - 2013'10
+				if (($record['picturescount'] > 0) && (($record['deleted']==false) || ($usr['admin']))) // show pictures if (any added) and ((not deleted) or (user is admin))
+				//END: edit by FelixP - 2013'10
 				{
 					$logpicturelines = '';
 					$append_atag='';
