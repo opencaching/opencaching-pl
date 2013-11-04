@@ -309,12 +309,18 @@
 					if (isset($_POST['submitform']) && $date_not_ok == false && $logtype_not_ok == false && $pw_not_ok == false)
 					{
 						//store changed data
+//START: edit by FelixP - 2013'10
+						$curr_edit_count = sqlValue("SELECT `edit_count` FROM `cache_logs` WHERE `id`=".$log_id,0);
+						//requires ALTER TABLE `cache_logs` ADD `edit_by_user_id` INT NULL , ADD `edit_count` INT NOT NULL DEFAULT '0';
+						$curr_edit_count++;	
 						sql("UPDATE `cache_logs` SET `type`='&1',
 						                             `date`='&2',
 						                             `text`='&3',
 						                             `text_html`='&4',
 						                             `text_htmledit`='&5',
-						                             `last_modified`=NOW()
+						                             `last_modified`=NOW(),
+													 `edit_by_user_id` = ".$usr['userid']." ,
+													 `edit_count`=$curr_edit_count
 						                       WHERE `id`='&6'",
 						                             $log_type,
 						                             date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
@@ -322,7 +328,8 @@
 						                             (($descMode != 1) ? 1 : 0),
 						                             (($descMode == 3) ? 1 : 0),
 						                             $log_id);
-
+//requires ALTER TABLE `cache_logs` ADD `edit_by_user_id` INT NULL , ADD `edit_count` INT NOT NULL DEFAULT '0';
+//END: edit by FelixP - 2013'10
 						//update user-stat if type changed
 						if ($log_record['logtype'] != $log_type)
 						{
