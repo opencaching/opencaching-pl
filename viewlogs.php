@@ -262,7 +262,7 @@
 							$byCOG = true;
 						}
 					} 
-					if ($byCOG=false)
+					if ($byCOG==false)
 					{
 						$edit_footer.=" użytkownika ". $record['edit_by_username'];
 					}	
