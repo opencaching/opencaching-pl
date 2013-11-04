@@ -107,7 +107,11 @@ function removelog($log_id, $language, $lang)
 					{
 
 						// do not acually delete logs - just mark them as deleted.
-						sql("UPDATE `cache_logs` SET deleted = 1 , `last_modified`=NOW() WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
+	//START: edit by FelixP - 2013'10
+						sql("UPDATE `cache_logs` SET deleted = 1, `del_by_user_id` =".$usr['userid']." , `last_modified`=NOW(), `last_deleted`=NOW() WHERE `cache_logs`.`id`='&1' LIMIT 1", $log_id);
+						// requires: ALTER TABLE `cache_logs` ADD `del_by_user_id` INT( 11 ) NULL ;
+						//requires: ALTER TABLE `cache_logs` ADD `last_deleted` DATETIME NULL DEFAULT NULL ;
+	//END: edit by FelixP - 2013'10
 						recalculateUserStats($log_record['log_user_id']);
 						
 						// remove from cache_moved for log "MOVED" (mobilniaki by Łza)
