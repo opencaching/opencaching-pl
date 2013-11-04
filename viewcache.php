@@ -1441,7 +1441,10 @@
 
 				$tmplog_text = tidy_html_description($tmplog_text);
 
-				if ($record['picturescount'] > 0)
+				// pictures
+				//START: edit by FelixP - 2013'10
+				if (($record['picturescount'] > 0) && (($record['deleted']==false) || ($usr['admin']))) // show pictures if (any added) and ((not deleted) or (user is admin))
+				//END: edit by FelixP - 2013'10
 				{
 					$logpicturelines = '';
 					$rspictures = sql("SELECT `url`, `title`, `user_id`, `uuid` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=1", $record['logid']);
