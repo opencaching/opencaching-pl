@@ -1995,8 +1995,22 @@ search_gpxgc_04 Attributen
 search_gpxgc_05 Cache score
 search_gpxgc_06 Aanbevelingen
 search_gpxgc_07 Nationale parken / landschappen
+gpxCog OC Team
 mywatches_map_01 door
 mywatches_map_02 op
+Wheather Het weer
+vl_Recently_modified_on Laatst bewerkt op
+vl_by_user door gebruiker
+vl_by_COG door Dienst Cache Beheer
+vl_totally_modified helemaal bewerkt
+vl_count_plural keren
+vl_count_singular keer
+vl_on_date op
+vl_Record_of_type Soort bewerking
+vl_deleted verwijderd
+vl_Record_deleted Bewerking verwijderd
+
+
 
 
 
