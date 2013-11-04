@@ -25,7 +25,6 @@
 	require_once('./lib/common.inc.php');
 	
 	//Preprocessing
-	if ($error == false)
 	{
 		//set here the template to process
 		$tplname = 'viewlogs';
@@ -136,31 +135,41 @@
 				} else {
 				tpl_set_var('gallery', '');
 				;}			
-
+//START: edit by FelixP - 2013'10
 			// prepare the logs - show logs marked as deleted if admin
-			$show_deleted_logs = "";
-			$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
-			if( $usr['admin'] )
-			{
+			//$show_deleted_logs = "";
+			//$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
+			//$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
+			//$show_deleted_logs2 = "";
+			//if( $usr['admin'] )
+			//{
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
-			}
+			//}
  
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					".$show_deleted_logs."
 					`cache_logs`.`id` AS `log_id`,
-			         `cache_logs`.`encrypt` `encrypt`,
+			        `cache_logs`.`encrypt` `encrypt`,
 					`cache_logs`.`picturescount` AS `picturescount`,
 					`cache_logs`.`user_id` AS `user_id`,
 					`cache_logs`.`date` AS `date`,
 					`cache_logs`.`type` AS `type`,
 					`cache_logs`.`text` AS `text`,
 					`cache_logs`.`text_html` AS `text_html`,
+					`cache_logs`.`last_modified` AS `last_modified`,
+					`cache_logs`.`last_deleted` AS `last_deleted`,
+					`cache_logs`.`edit_count` AS `edit_count`,
+					`cache_logs`.`date_created` AS `date_created`,
 					`user`.`username` AS `username`,
 					`user`.`hidden_count` AS    `ukryte`,
 					`user`.`founds_count` AS    `znalezione`, 	
 					`user`.`notfounds_count` AS `nieznalezione`,
                     `user`.`admin` AS `admin`,
+					`u2`.`username` AS `del_by_username`,
+					`u2`.`admin` AS `del_by_admin`,
+					`u3`.`username` AS `edit_by_username`,
+					`u3`.`admin` AS `edit_by_admin`,
 					`log_types`.`icon_small` AS `icon_small`,
 					`cache_moved`.`longitude` AS `mobile_longitude`, 
 					`cache_moved`.`latitude` AS `mobile_latitude`, 
@@ -173,26 +182,94 @@
 				INNER JOIN `user` ON `user`.`user_id` = `cache_logs`.`user_id`
 				LEFT JOIN `cache_moved` ON `cache_moved`.`log_id` = `cache_logs`.`id`
 				LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+				LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
+				LEFT JOIN `user` `u3` ON `cache_logs`.`edit_by_user_id`=`u3`.`user_id`
 				WHERE `cache_logs`.`cache_id`='&2'
 				".$show_deleted_logs2."
 				".$show_one_log."
 				ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT &3, &4", $lang, $cache_id, $start+0, $count+0);
 
 			$logs = '';
+
+			$thisdateformat = $dateformat;
+			$thisdatetimeformat = $datetimeformat;
+//START: same code ->viewlogs.php / viewcache.php
+			$edit_count_date_from = date_create('2005-01-01 00:00');
 			for ($i = 0; $i < mysql_num_rows($rs); $i++)
 			{
 				$record = sql_fetch_array($rs);
 				$show_deleted = "";
+				$processed_text = "";
 				if( isset( $record['deleted'] ) && $record['deleted'] )
 				{
-					$show_deleted = "show_deleted";
-				}
-				$tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
+					if( $usr['admin'] )
+						{	
+							$show_deleted = "show_deleted";
+							$processed_text= $record['text']; 
+							
+						} 
+					else 
+					{
+						$record['icon_small']="log/16x16-trash.png"; //replace record icon with trash icon 
+						$comm_replace ="Wpis typu [". $record['text_listing']."] skasowany"; 
+						$record['text_listing']='Wpis skasowany'; ////replace type of record 
+						if( isset( $record['del_by_username'] ) && $record['del_by_username'] )
+						{
+							if ($record['del_by_admin']==1) 
+							{
+								$comm_replace.=" przez COG ";
+							}
+							else {
+								$comm_replace.=" przez użytkownika ".$record['del_by_username'];
+							}
+						};
+						if(isset($record['last_deleted'])) 
+						{
+							$comm_replace.=" dnia ".fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));;
+						};
+						$comm_replace.="."; 	 	
+						$processed_text = $comm_replace;
+					}
+				} else 
+				{
+					$processed_text= $record['text'];	
+				} 
+				 
+		
+				// add edit footer if record has been modified 
+				$record_date_create = date_create($record['date_created']);
+								
+				if ($record['edit_count']>0) 
+				//check if editted at all 
+				{
+					$edit_footer="<div><small>Ostatnio zmieniony ".fixPlMonth(htmlspecialchars(strftime($thisdatetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'))." przez ";
+					if (!$usr['admin'] && isset($record['edit_by_admin']))
+					{
+						$edit_footer.=" COG";
+					} else 
+					{
+						$edit_footer.=" użytkownika ". $record['edit_by_username'];
+					}	
+					if ($record_date_create > $edit_count_date_from) //check if record created after implementation date (to avoid false readings for record changed before
+					{
+						$edit_footer.= " - w całości zmieniany ".$record['edit_count']." raz";
+						if($record['edit_count']>1){$edit_footer.="y";}
+					}				
 
+					$edit_footer.=".</small</div>";
+						
+				} else {
+					$edit_footer ="";
+				}
+				
+				$tmplog_text =  $processed_text.$edit_footer;
+				$tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
+//END: same code ->viewlogs.php / viewcache.php					
+//END: edit by FelixP - 2013'10
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
 				$tmplog_date = fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
 				// replace smilies in log-text with images
-				$tmplog_text = str_replace($smileytext, $smileyimage, $record['text']);
+				$tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
 				
 				// display user activity (by Łza 2012)
 				if ((date('m') == 4) and (date('d') == 1)){
