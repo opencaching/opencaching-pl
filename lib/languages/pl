@@ -2016,5 +2016,13 @@ gpxCog COG
 mywatches_map_01 przez
 mywatches_map_02 dnia
 Wheather Pogoda
-
-
+vl_Recently_modified_on Ostatnio edytowany
+vl_by_user przez użytkownika
+vl_by_COG przez COG
+vl_totally_modified w całości zmieniany
+vl_count_plural razy
+vl_count_singular raz
+vl_on_date dnia
+vl_Record_of_type Wpis typu
+vl_deleted skasowany
+vl_Record_deleted Wpis skasowany
