@@ -211,8 +211,8 @@
 					else 
 					{
 						$record['icon_small']="log/16x16-trash.png"; //replace record icon with trash icon 
-						$comm_replace ="Wpis typu [". $record['text_listing']."] skasowany"; 
-						$record['text_listing']='Wpis skasowany'; ////replace type of record 
+						$comm_replace =tr('vl_Record_of_type')." [". $record['text_listing']."] ".tr('vl_deleted'); 
+						$record['text_listing']=tr('vl_Record_deleted'); ////replace type of record 
 						if( isset( $record['del_by_username'] ) && $record['del_by_username'] )
 						{
 							if ($record['del_by_admin']==1) 
@@ -223,18 +223,18 @@
 
 									} else
 									{
-										$comm_replace.=" przez COG ";
+										$comm_replace.=" ".tr('vl_by_COG');
 										$delByCOG=true;
 									}
 							}
 							if ($delByCOG==false) 
 							{
-								$comm_replace.=" przez użytkownika ".$record['del_by_username'];
+								$comm_replace.=" ".tr('vl_by_user')." ".$record['del_by_username'];
 							}
 						};
 						if(isset($record['last_deleted'])) 
 						{
-							$comm_replace.=" dnia ".fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));;
+							$comm_replace.=" ".tr('vl_on_date')." ".fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));;
 						};
 						$comm_replace.="."; 	 	
 						$processed_text = $comm_replace;
@@ -251,7 +251,7 @@
 				if ($record['edit_count']>0) 
 				//check if editted at all 
 				{
-					$edit_footer="<div><small>Ostatnio zmieniony ".fixPlMonth(htmlspecialchars(strftime($thisdatetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'))." przez ";
+					$edit_footer="<div><small>".tr('vl_Recently_modified_on')." ".fixPlMonth(htmlspecialchars(strftime($thisdatetimeformat, strtotime($record['last_modified'])), ENT_COMPAT, 'UTF-8'));
 					if (!$usr['admin'] && isset($record['edit_by_admin']))
 					{
 						if ($record['edit_by_username'] == $record['username'])
@@ -259,18 +259,22 @@
 							$byCOG=false;
 						} else 
 						{
-							$edit_footer.=" COG";
+							$edit_footer.=" ".tr('vl_by_COG');
 							$byCOG = true;
 						}
 					} 
 					if ($byCOG==false)
 					{
-						$edit_footer.=" użytkownika ". $record['edit_by_username'];
+						$edit_footer.=" ".tr('vl_by_user')." ". $record['edit_by_username'];
 					}	
 					if ($record_date_create > $edit_count_date_from) //check if record created after implementation date (to avoid false readings for record changed before
 					{
-						$edit_footer.= " - w całości zmieniany ".$record['edit_count']." raz";
-						if($record['edit_count']>1){$edit_footer.="y";}
+						$edit_footer.=" - ".tr('vl_totally_modified')." ".$record['edit_count']." ";
+						if($record['edit_count']>1)	
+							{$edit_footer.=tr('vl_count_plural');}
+						else
+							{$edit_footer.=tr('vl_count_singular');}
+		
 					}				
 
 					$edit_footer.=".</small</div>";
