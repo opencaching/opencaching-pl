@@ -1877,18 +1877,18 @@ pt191 Bedankt. De cache is nu toegevoegd in de PowerTrail
 pt192 De cache wordt nu in de PowerTrail geplaatst
 pt193 Bevestiging dat cache toegevoegd in de PowerTrail
 pt194 Sorrie, Je bent niet de eigenaar van deze cache!
-pt195
-pt196
-pt197
+pt195 is verwijderd van cache voorlopige lijst
+pt196 De cache bevind zich niet in de voorlopige lijst (misschien was er al op de link geklikt).
+pt197 De cache was al op de voorlopige lijst geplaatst of staat al in de PowerTrail. Neem contact op met de cache eigenaar.
 pt198 De cache is op een voorlopige lijst geplaatst, de eigenaar zal een email ontvangen met het verzoek. Wanneer de eigenaar akkoord gaat via een aan te klikken link, dan zal deze cache automatisch toegevoegt worden in de PowerTrail.
 pt199 Informatie:
-pt200
+pt200 De cache kan niet uit de PowerTrail verwijderd worden (de toewijzing van deze cache in PowerTrail is voltooid, de cache kan eventueel gearchiveerd worden maar niet uit de PowerTrail verwiderd worden).
 pt201 niet actief
 pt202 negeren
 pt203 zelf gemaakt
-pt204
-pt205
-pt206
+pt204 gevolgt
+pt205 gemaakt
+pt206 voeg volgende caches toe in GPX
 pt207 GPX filter
 pt208 Beheer PowerTrails
 pt209 Selecteer
