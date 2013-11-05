@@ -312,7 +312,9 @@ function CleanSpecChars( $log, $flg_html )
 						tpl_set_var('api_key', $googlemap_key);
 						tpl_set_var('latitude', $usrlatitude);
 						tpl_set_var('longitude', $usrlongitude);
-						tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAJQKavbEoNJjq1-xE_3KNAIGGJN2XKzLw&sensor=false&language=pl&libraries=weather" type="text/javascript"></script>');
+						tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAJQKavbEoNJjq1-xE_3KNAIGGJN2XKzLw&sensor=false&language='.$lang.'&libraries=weather" type="text/javascript"></script>');
+						
+						
 					}
 					
 					

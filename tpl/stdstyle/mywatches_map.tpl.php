@@ -20,9 +20,9 @@ watch_map of this user
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/search1.png" class="icon32" alt="{title_text}" title="{title_text}" align="middle" />&nbsp;{title_text}</div>
 <div class="searchdiv">
-<center>
-<div id="mapka" style="width:100%; height:500pt"></div>
-</center>
+
+<div id="mapka" style="width:100%; height:500pt; text-align:center;"></div>
+
 
 </div>
 
@@ -31,7 +31,7 @@ var hmapa = null;
 var currentinfowindow = null;
 var weatherLayer = null;
 
-function SwitchWheather()
+function SwitchWeather()
 {
 	if ( weatherLayer.getMap() == null )
 		{ weatherLayer.setMap( hmapa ); }
@@ -63,13 +63,13 @@ function HomeControl(controlDiv, map) {
 	  controlText.style.fontSize = '11px';
 	  controlText.style.paddingLeft = '5px';
 	  controlText.style.paddingRight = '5px';
-	  controlText.innerHTML = '<b>{{Wheather}}</b>';
+	  controlText.innerHTML = '<b>{{weather}}</b>';
 	  controlUI.appendChild(controlText);
 
 	  // Setup the click event listeners: simply set the map to
 	  // Chicago
 	  google.maps.event.addDomListener(controlUI, 'click', function() {
-		  SwitchWheather();
+		  SwitchWeather();
 	  });
 
 	}
@@ -142,7 +142,7 @@ function initialize()
 	  weatherLayer = new google.maps.weather.WeatherLayer({
 		    temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS });
 	  
-		  weatherLayer.setMap(hmapa);
+		  weatherLayer.setMap( null );
 	  
 	  
 	  {markers}
