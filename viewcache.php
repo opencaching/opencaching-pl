@@ -1488,8 +1488,10 @@
 					}
 					if ($record['type']!=12 && ($usr['userid']==$cache_record['user_id'] || $usr['admin']==false)){
 					$tmpFunctions .= $remove_log. $functions_middle;}
-
-					if ($usr['admin']){
+// START: Edit by FelixP 2013.11.05
+					//if ($usr['admin']){
+					elseif ($usr['admin']){
+// END: Edit by FelixP 2013.11.05
 					$tmpFunctions .= $remove_log. $functions_middle;
 					}
 
