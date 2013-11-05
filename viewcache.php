@@ -847,9 +847,11 @@
 				$watcher_record = sql_fetch_array($rs);
 				tpl_set_var('visits', $watcher_record['count']);
 			}
-
-			$number_logs=sqlValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=0 and `cache_id`='" . sql_escape($cache_record['cache_id']) . "'", 0);
-
+//START: edit by FelixP - 2013'10
+			//$number_logs=sqlValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=0 and `cache_id`='" . sql_escape($cache_record['cache_id']) . "'", 0);		
+			//now include also those deleted due to displaying this type of record for all
+			$number_logs=sqlValue("SELECT count(*) number FROM `cache_logs` WHERE  `cache_id`='" . sql_escape($cache_record['cache_id']) . "'", 0);
+////END: edit by FelixP - 2013'10
 //			if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) > $logs_to_display)
 			if ($number_logs > $logs_to_display)
 
@@ -1322,9 +1324,9 @@
 						$record['text_listing']=tr('vl_Record_deleted'); ////replace type of record 
 						if( isset( $record['del_by_username'] ) && $record['del_by_username'] )
 						{
-							if ($record['del_by_admin']==1) 
+							if ($record['del_by_admin']==1) //if deleted by Admin
 							{
-								if ($record['del_by_username'] == $record['username'])
+								if (($record['del_by_username'] == $record['username']) && ($record['type'] != 12)) // show username in case maker and deleter are same and comment is not Commnent by COG
 									{	
 										$delByCOG=false;
 
@@ -1374,7 +1376,7 @@
 					{
 						$edit_footer.=" ".tr('vl_by_user')." ". $record['edit_by_username'];
 					}	
-					if ($record_date_create > $edit_count_date_from) //check if record created after implementation date (to avoid false readings for record changed before
+					if ($record_date_create > $edit_count_date_from) //check if record created after implementation date (to avoid false readings for record changed before) - actually nor in use
 					{
 						$edit_footer.=" - ".tr('vl_totally_modified')." ".$record['edit_count']." ";
 						if($record['edit_count']>1)	

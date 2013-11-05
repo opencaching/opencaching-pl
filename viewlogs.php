@@ -215,9 +215,9 @@
 						$record['text_listing']=tr('vl_Record_deleted'); ////replace type of record 
 						if( isset( $record['del_by_username'] ) && $record['del_by_username'] )
 						{
-							if ($record['del_by_admin']==1) 
+							if ($record['del_by_admin']==1) //if deleted by Admin
 							{
-								if ($record['del_by_username'] == $record['username'])
+								if (($record['del_by_username'] == $record['username']) && ($record['type'] != 12)) // show username in case maker and deleter are same and comment is not Commnent by COG
 									{	
 										$delByCOG=false;
 
@@ -267,7 +267,7 @@
 					{
 						$edit_footer.=" ".tr('vl_by_user')." ". $record['edit_by_username'];
 					}	
-					if ($record_date_create > $edit_count_date_from) //check if record created after implementation date (to avoid false readings for record changed before
+					if ($record_date_create > $edit_count_date_from) //check if record created after implementation date (to avoid false readings for record changed before) - actually nor in use
 					{
 						$edit_footer.=" - ".tr('vl_totally_modified')." ".$record['edit_count']." ";
 						if($record['edit_count']>1)	
@@ -285,8 +285,7 @@
 				
 				$tmplog_text =  $processed_text.$edit_footer;
 				$tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
-//END: same code ->viewlogs.php / viewcache.php					
-//END: edit by FelixP - 2013'10
+//END: same code ->viewlogs.php / viewcache.php	
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
 				$tmplog_date = fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
 				// replace smilies in log-text with images
