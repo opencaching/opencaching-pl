@@ -158,12 +158,12 @@ function CleanSpecChars( $log, $flg_html )
 					
 					$dbc->multiVariableQuery("SELECT `latitude` FROM user WHERE user_id=:1", sql_escape($usr['userid']) );
 					$record = $dbc->dbResultFetch();
-					if ( $dbc->rowCount() )
+					if ( $dbc->rowCount() && $record["latitude"] )
 						$usrlatitude  = $record["latitude"];
 						
 					$dbc->multiVariableQuery("SELECT `longitude` FROM user WHERE user_id=:1", sql_escape($usr['userid']) );
 					$record = $dbc->dbResultFetch();
-					if ( $dbc->rowCount() )
+					if ( $dbc->rowCount() && $record["longitude"] )
 						$usrlongitude= $record["longitude"];
 				}
 				
