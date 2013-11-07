@@ -39,7 +39,6 @@ $(function() {
 }); 
 
 function chgStatus(){
-	alert($('#ptId').val());
 	$('#ptStatSelectSpan').hide();
 	$('#ajaxLoaderStatus').show();
 	request = $.ajax({

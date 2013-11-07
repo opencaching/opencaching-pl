@@ -18,7 +18,7 @@ $newStatus = (int) $_REQUEST['newStatus'];
 if(isset($_REQUEST['commentTxt'])) $commentText = htmlspecialchars($_REQUEST['commentTxt']); else $commentText = false;
 
 // check if user is owner of selected power Trail
-if($ptAPI::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 1) {
+if($ptAPI::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 1 || (isset($usr['admin']) && $usr['admin']== 1)) {
 
 	
 	switch ($newStatus) {
