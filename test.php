@@ -1,4 +1,5 @@
 <?php
+/*
 require_once(__DIR__.'/lib/db.php');
 $ptId = addslashes($_REQUEST['id']);
 

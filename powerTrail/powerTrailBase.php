@@ -335,7 +335,8 @@ class powerTrailBase{
 	}
 	
 	public static function writePromoPt4mainPage($oldPtId){
-		$q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1';
+		include __DIR__.'/../lib/settings.inc.php';
+		$q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1 AND `cacheCount` > '.$powerTrailMinimumCacheCount;
 		$db = new dataBase;
 		$db->multiVariableQuery($q, $oldPtId);
 		$r = $db->dbResultFetchAll();

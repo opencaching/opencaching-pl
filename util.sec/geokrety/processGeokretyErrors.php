@@ -24,7 +24,7 @@ class processGeokretyErrors {
 		
 		// geoKrety
 		$this->getErrors();
-		if($this->errorNumber == 0) exit;
+		if($this->errorNumber == 0) return;
 		$this->processGetGeokretyErrors();
 		if($this->toMail) $this->sendReportEmail();
 	}
