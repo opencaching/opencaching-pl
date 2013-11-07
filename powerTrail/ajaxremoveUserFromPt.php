@@ -13,12 +13,14 @@ $projectId = $_REQUEST['projectId'];
 $userId = $_REQUEST['userId'];
 
 
-$addQuery = 'DELETE FROM `PowerTrail_owners` WHERE `userId` = :1 AND  `PowerTrailId` = :2';
-$db->multiVariableQuery($addQuery, $userId, $projectId);
-
-$logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`) VALUES (:1,:2,NOW(),5,:3,:4)';
-$db->multiVariableQuery($logQuery, $projectId, $_SESSION['user_id'] ,$ptAPI->logActionTypes[5]['type'].' removed owner is: '.$userId, $userId);
-
+//check if user is only one owner
+if(count(powerTrailBase::getPtOwners($projectId)) > 1 && $ptAPI::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $projectId) == 1) {
+	$addQuery = 'DELETE FROM `PowerTrail_owners` WHERE `userId` = :1 AND  `PowerTrailId` = :2';
+	$db->multiVariableQuery($addQuery, $userId, $projectId);
+	
+	$logQuery = 'INSERT INTO `PowerTrail_actionsLog`(`PowerTrailId`, `userId`, `actionDateTime`, `actionType`, `description`, `cacheId`) VALUES (:1,:2,NOW(),5,:3,:4)';
+	$db->multiVariableQuery($logQuery, $projectId, $_SESSION['user_id'] ,$ptAPI->logActionTypes[5]['type'].' removed owner is: '.$userId, $userId);
+}
 $pt = new powerTrailController($_SESSION['user_id']);
 $pt->findPtOwners($projectId);
 $ptOwners = displayPtOwnerList($pt->getPtOwners());
