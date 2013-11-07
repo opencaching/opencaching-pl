@@ -64,21 +64,35 @@ function BlockControl(controlDiv, map, text, fun )
 	  // Setting padding to 5 px will offset the control
 	  // from the edge of the map
 	  controlDiv.style.padding = '5px';
+	  //controlDiv.style.boxShadow="0px 1px 4px -1px #888888";
 
+	/*<div style="direction: ltr; overflow: hidden; text-align: left; 
+	position: relative; color: rgb(0, 0, 0); font-family: Roboto,Arial,sans-serif; 
+	-moz-user-select: none; font-size: 11px; background-color: rgb(255, 255, 255); 
+	padding: 1px 6px; border-radius: 2px; background-clip: padding-box; 
+	border: 1px solid rgba(0, 0, 0, 0.15); box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3);
+	 font-weight: 500;" draggable="false" title="Zmień styl mapy">*/
+	  
 	  // Set CSS for the control border
 	  var controlUI = document.createElement('div');
 	  controlUI.style.backgroundColor = 'white';
 	  controlUI.style.borderStyle = 'solid';
 	  controlUI.style.borderWidth = '1px';
+	  controlUI.style.borderColor = 'gray';
 	  controlUI.style.cursor = 'pointer';
 	  controlUI.style.textAlign = 'center';
+	  controlUI.style.boxShadow="0px 1px 4px -1px #888888";
+
 	  controlUI.title = '';
 	  controlDiv.appendChild(controlUI);
 
 	  // Set CSS for the control interior
 	  var controlText = document.createElement('div');
-	  controlText.style.fontFamily = 'Arial,sans-serif';
+	  //controlText.style.fontFamily = 'Arial,sans-serif';
+	  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
 	  controlText.style.fontSize = '11px';
+	  controlText.style.fontWeight = '500';
+	  //controlText.style.color = 'black';
 	  controlText.style.paddingLeft = '5px';
 	  controlText.style.paddingRight = '5px';
 	  controlText.innerHTML = text;
