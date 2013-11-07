@@ -19,17 +19,18 @@ watch_map of this user
 
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/search1.png" class="icon32" alt="{title_text}" title="{title_text}" align="middle" />&nbsp;{title_text}</div>
-<div class="searchdiv">
 
+<div class='searchdiv' >
 <div id="mapka" style="width:100%; height:500pt; text-align:center;"></div>
-
-
 </div>
+
+
 
 <script type="text/javascript">
 var hmapa = null;
 var currentinfowindow = null;
 var weatherLayer = null;
+
 
 function SwitchWeather()
 {
@@ -39,8 +40,25 @@ function SwitchWeather()
 		{ weatherLayer.setMap( null );}	
 }
 
+function SavePosition()
+{
+	alert( "{{commit_watch}}" );
+	var LatLlng = hmapa.getCenter();
+	var weather = 0; 
+	
+	if ( weatherLayer.getMap() != null )
+		weather = 1;
+	
+	
+	window.location.href = "mywatches.php?rq=map&wcMapZoom=" + hmapa.getZoom() 
+			+ "&wcMapLatitude=" + LatLlng.lat()
+			+ "&wcMapLongitude=" + LatLlng.lng()
+			+ "&wcMapWeather=" + weather;
+}
 
-function HomeControl(controlDiv, map) {
+
+function BlockControl(controlDiv, map, text, fun ) 
+{
 
 	  // Set CSS styles for the DIV containing the control
 	  // Setting padding to 5 px will offset the control
@@ -63,13 +81,13 @@ function HomeControl(controlDiv, map) {
 	  controlText.style.fontSize = '11px';
 	  controlText.style.paddingLeft = '5px';
 	  controlText.style.paddingRight = '5px';
-	  controlText.innerHTML = '<b>{{weather}}</b>';
+	  controlText.innerHTML = text;
+	  
 	  controlUI.appendChild(controlText);
 
-	  // Setup the click event listeners: simply set the map to
-	  // Chicago
+
 	  google.maps.event.addDomListener(controlUI, 'click', function() {
-		  SwitchWeather();
+		  fun();
 	  });
 
 	}
@@ -106,52 +124,62 @@ function initialize()
 	var mapDiv = document.getElementById('mapka');
 	
 	var mapOptions = {
-	    zoom: 10,
-	    center:  new google.maps.LatLng({latitude}, {longitude}),
-	    
-	    mapTypeId: google.maps.MapTypeId.ROADMAP,
+		    zoom: {wcMapZoom},
+		    center:  new google.maps.LatLng({latitude}, {longitude}),
+		    
+		    mapTypeId: google.maps.MapTypeId.ROADMAP,
 
-	    disableDefaultUI: true,
-	    scaleControl: true,	    
-	    streetViewControl: true,
-	    overviewMapControl: true,
-	    panControl: false,
-	    	    
-	    zoomControl: true,        
-	    zoomControlOptions: {
-	        style: google.maps.ZoomControlStyle.SMALL
-	      },
+		    disableDefaultUI: true,
+		    scaleControl: true,	    
+		    streetViewControl: true,
+		    overviewMapControl: true,
+		    panControl: false,
 
-	      mapTypeControl: true,
-	      mapTypeControlOptions: {
-	        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-	      },    
-	  };
+		   
+		    	    
+		    zoomControl: true,        
+		    zoomControlOptions: {
+		        style: google.maps.ZoomControlStyle.SMALL
+		      },
 
+		      mapTypeControl: true,
+		      mapTypeControlOptions: {
+		        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+		      },    
+		  };
+	
 	  hmapa = new google.maps.Map(mapDiv, mapOptions);
 
 
 	  var homeControlDiv = document.createElement('div');
-	  var homeControl = new HomeControl(homeControlDiv, hmapa);
-
+	  var homeControl = new BlockControl( homeControlDiv, hmapa, '<b>{{weather}}</b>', SwitchWeather );
+	  var homeControl1 = new BlockControl( homeControlDiv, hmapa, '<b>{{save}}</b>', SavePosition );
+	  
+	  
+	  
 	  homeControlDiv.index = 1;
 	  hmapa.controls[google.maps.ControlPosition.TOP_LEFT].push(homeControlDiv);
 	  
 	  
-
+	 
 	  weatherLayer = new google.maps.weather.WeatherLayer({
 		    temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS });
-	  
-		  weatherLayer.setMap( null );
+
+	  var wcMapWeather = {wcMapWeather};
+
+	  if ( wcMapWeather == 1) 
+	  	weatherLayer.setMap( hmapa );
+	else
+		weatherLayer.setMap( null );
 	  
 	  
 	  {markers}
 }
 
 
-
 google.maps.event.addDomListener(window, 'load', initialize);
 
 </script>
+
 
 

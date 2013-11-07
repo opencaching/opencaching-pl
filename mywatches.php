@@ -152,9 +152,21 @@ function CleanSpecChars( $log, $flg_html )
 				
 				if( $RQ == "map" )
 				{
-					//JG - domek	
-					$usrlatitude = 54.400;
-					$usrlongitude = 18.650;
+					if ( isset($_REQUEST['wcMapZoom']) ) //from mywatches_map.tpl.php
+						$cookie->set("wcMapZoom", $_REQUEST['wcMapZoom'] );
+					
+					if ( isset($_REQUEST['wcMapLatitude']) ) //from mywatches_map.tpl.php
+						$cookie->set("wcMapLatitude", $_REQUEST['wcMapLatitude'] );
+						
+					if ( isset($_REQUEST['wcMapLongitude']) ) //from mywatches_map.tpl.php
+						$cookie->set("wcMapLongitude", $_REQUEST['wcMapLongitude'] );
+						
+					if ( isset($_REQUEST['wcMapWeather']) ) //from mywatches_map.tpl.php
+						$cookie->set("wcMapWeather", $_REQUEST['wcMapWeather'] );
+						
+					
+					$usrlatitude = 0;
+					$usrlongitude = 0;
 					
 					$dbc->multiVariableQuery("SELECT `latitude` FROM user WHERE user_id=:1", sql_escape($usr['userid']) );
 					$record = $dbc->dbResultFetch();
@@ -217,6 +229,10 @@ function CleanSpecChars( $log, $flg_html )
 					tpl_set_var('watches', $no_watches);
 					tpl_set_var('print_delete_all_watches', '');
 					tpl_set_var('export_all_watches', '');
+					
+					//JG - home, sweet home, Gdansk
+					if (!$usrlatitude ) $usrlatitude = 54.400;
+					if (!$usrlongitude ) $usrlongitude = 18.650;
 				}
 				else
 				{
@@ -238,6 +254,9 @@ function CleanSpecChars( $log, $flg_html )
 						{
 							$rlat = $record[ 'latitude' ];
 							$rlon = $record[ 'longitude' ];
+							
+							if (!$usrlatitude ) $usrlatitude = $rlat;
+							if (!$usrlongitude ) $usrlongitude = $rlon;
 													
 							$rusername="\"".$record[ 'user_name' ]."\"";
 							
@@ -308,13 +327,29 @@ function CleanSpecChars( $log, $flg_html )
 					
 					if( $RQ == "map" )
 					{
+						if ( $cookie->is_set( "wcMapZoom" ) )
+							$wcMapZoom = $cookie->get( "wcMapZoom" );
+						else
+							$wcMapZoom = 10;
+						
+						if ( $cookie->is_set( "wcMapLatitude" ) )
+							$usrlatitude = $cookie->get( "wcMapLatitude" );
+						
+						if ( $cookie->is_set( "wcMapLongitude" ) )
+							$usrlongitude = $cookie->get( "wcMapLongitude" );
+						
+						if ( $cookie->is_set( "wcMapWeather" ) )
+							$wcMapWeather = $cookie->get( "wcMapWeather" );
+						else
+							$wcMapWeather = 0;
+												
 						tpl_set_var('markers', $markers);
 						tpl_set_var('api_key', $googlemap_key);
 						tpl_set_var('latitude', $usrlatitude);
 						tpl_set_var('longitude', $usrlongitude);
 						tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAJQKavbEoNJjq1-xE_3KNAIGGJN2XKzLw&sensor=false&language='.$lang.'&libraries=weather" type="text/javascript"></script>');
-						
-						
+						tpl_set_var('wcMapZoom', $wcMapZoom );
+						tpl_set_var('wcMapWeather', $wcMapWeather );
 					}
 					
 					
