@@ -118,30 +118,30 @@ else
                                                 echo "<a class=\"send-to-gps\" href=\"#\" onclick=\"javascript:window.open('garmin.php?lat="; ?>{latitude}<?php echo "&amp;long="; ?>{longitude}<?php echo "&amp;wp="; ?>{oc_waypoint}<?php echo "&amp;name="; ?>{cachename}<?php echo "&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><input type=\"button\" name=\"SendToGPS\" value=\""; ?>{{send_to_gps}}<?php echo "\" id=\"SendToGPS\"/></a><p>&nbsp;</p>";
 } ?>
 
-				</div>
-				<div class="content2-container-2col-right" id="viewcache-maptypes">
-					<?php
-					if ($usr == false && $hide_coords)
-							{
-					?>
-					{map_msg}
-					<?php 
-							}
-							else
-							{
-					?>
-						<div class="content2-container-2col-left" id="viewcache-numstats">
-						<p style="line-height: 1.4em;"><br />
-							{found_icon} {founds} {found_text}<br />
-							{hidemobile_start}{moved_icon} {moved} x {{moved_text}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{dystans}&nbsp;km<br/>{hidemobile_end}	
-							{notfound_icon} {notfounds} {notfound_text}<br />
-							{note_icon} {notes} {{comments}}<br />
-							{watch_icon} {watcher} {{watchers}}<br />
-							{visit_icon} {visits} {{visitors}}<br />
-							{vote_icon} {votes_count} x {{scored}}<br />
-							{score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
-							{list_of_rating_begin}{rating_stat}{list_of_rating_end}
-							{gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?wpt={oc_waypoint}" target="_blank">{{history_gk}}  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a><br />
+                                </div>
+                                <div class="content2-container-2col-right" id="viewcache-maptypes">
+                                        <?php
+                                        if ($usr == false && $hide_coords)
+                                                        {
+                                        ?>
+                                        {map_msg}
+                                        <?php
+                                                        }
+                                                        else
+                                                        {
+                                        ?>
+                                                <div class="content2-container-2col-left" id="viewcache-numstats">
+                                                <p style="line-height: 1.4em;"><br />
+                                                        {found_icon} {founds} {found_text}<br />
+                                                        {hidemobile_start}{moved_icon} {moved} x {{moved_text}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{dystans}&nbsp;km<br/>{hidemobile_end}      
+                                                        {notfound_icon} {notfounds} {notfound_text}<br />
+                                                        {note_icon} {notes} {{comments}}<br />
+                                                        {watch_icon} {watcher} {{watchers}}<br />
+                                                        {visit_icon} {visits} {{visitors}}<br />
+                                                        {vote_icon} {votes_count} x {{scored}}<br />
+                                                        {score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
+                                                        {list_of_rating_begin}{rating_stat}{list_of_rating_end}
+                                                        {gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?wpt={oc_waypoint}" target="_blank">{{history_gk}}  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a><br />
 
                                                         </p>
                                                 </div>
@@ -471,23 +471,24 @@ else
                                 </div>
                         </div>
 <!-- Text container -->
-			<div class="content2-container bg-blue02">
-				<p class="content-title-noshade-size1">
-					<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
-					{{log_entries}}
-					&nbsp;&nbsp;
-					{found_icon} {founds}x
-					{notfound_icon} {notfounds}x
-					{note_icon} {notes}x
-					{gallery}
-					&nbsp;&nbsp;
-					{viewlogs}
-					&nbsp;
-					<img src="images/actions/new-entry-18.png" alt=""/>
-					<a href="log.php?cacheid={cacheid_urlencode}">{{new_log_entry}}</a>
-				</p>
-			</div>
-			<div class="content2-container" id="viewcache-logs">
-					{logs}
-			</div>
+                        <div class="content2-container bg-blue02">
+                                <p class="content-title-noshade-size1" id="log_start">
+                                        <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
+                                        {{log_entries}}
+                                        &nbsp;&nbsp;
+                                        {found_icon} {founds}x
+                                        {notfound_icon} {notfounds}x
+                                        {note_icon} {notes}x
+                                        {gallery}
+                                        &nbsp;&nbsp;
+                                        {viewlogs}
+                                        &nbsp;
+                                        <img src="images/actions/new-entry-18.png" alt=""/>
+                                        <a href="log.php?cacheid={cacheid_urlencode}">{{new_log_entry}}</a>
+										{showhidedel_link}
+                                </p>
+                        </div>
+                        <div class="content2-container" id="viewcache-logs">
+                                        {logs}
+                        </div>
 <!-- End Text Container -->

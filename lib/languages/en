@@ -1839,4 +1839,5 @@ vl_on_date on
 vl_Record_of_type Record of type
 vl_deleted deleted
 vl_Record_deleted Record deleted
-
+vc_ShowDeletions Show deletions
+vc_HideDeletions Hide deletions
