@@ -2034,8 +2034,8 @@ vl_on_date op
 vl_Record_of_type Soort bewerking
 vl_deleted verwijderd
 vl_Record_deleted Bewerking verwijderd
-
-
+vc_ShowDeletions Toon verwijderde logs
+vc_HideDeletions Verberg verwijderde logs
 
 
 
