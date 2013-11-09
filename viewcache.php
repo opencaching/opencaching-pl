@@ -852,8 +852,13 @@
 //START: edit by FelixP - 2013'10
 			//$number_logs=sqlValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=0 and `cache_id`='" . sql_escape($cache_record['cache_id']) . "'", 0);	
 isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false : $HideDeleted = true;	
-			//now include also those deleted due to displaying this type of record for all
-			$number_logs_sql = "SELECT count(*) number FROM `cache_logs` WHERE ".($HideDeleted ? "`deleted`=0 AND" : "") ." `cache_id`='" . sql_escape($cache_record['cache_id']) . "'";
+			//now include also those deleted due to displaying this type of record for all unless hide_deletions is on
+			if (($usr['admin']==1) || ($HideDeleted == false)) 
+			{		 $sql_hide_del =   "";  //include deleted
+			} else { $sql_hide_del = "`deleted`=0 AND"; //exclude deleted
+			}
+		
+			$number_logs_sql = "SELECT count(*) number FROM `cache_logs` WHERE ".$sql_hide_del." `cache_id`='" . sql_escape($cache_record['cache_id']) . "'";
 			$number_logs=sqlValue($number_logs_sql,0);
 ////END: edit by FelixP - 2013'10
 //			if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) > $logs_to_display)
