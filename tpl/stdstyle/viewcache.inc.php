@@ -76,7 +76,7 @@ $cache_notfound_text = "x ".tr('not_found');
 $recommend_link = '&nbsp;&nbsp;<a href="recommendations.php?cacheid={cacheid}"/>('.tr('show_recommended').')</a>';
 $rating_stat_show_singular = '<img src="images/rating-star.png" alt="{{recomendation}}" /> {ratings} '.tr('recommendation').'<br />';
 $rating_stat_show_plural = '<img src="images/rating-star.png" alt="{{recommendation}}" /> {ratings} '.tr('recommendations').'<br />';
-$found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}" />';
+$found_icon = '<img src="tpl/stdstyle/images/log/16x16-found.png" class="icon16" alt="{{found}}"/>';
 $moved_icon = '<img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="moved" />';
 $notfound_icon = '<img src="tpl/stdstyle/images/log/16x16-dnf.png" class="icon16" alt="{{not_found}}" />';
 $note_icon = '<img src="tpl/stdstyle/images/log/16x16-note.png" class="icon16" alt="{{comment}}" />';
@@ -97,13 +97,18 @@ $wattend_icon = '<img src="tpl/stdstyle/images/log/16x16-will_attend.png" class=
 		//$_SESSION['showdel']='y';
 		$showhidedel_link=""; //no need to hide/show deletion for COG (they always see deletions)
  	} else {
- 		$showdel_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="{{vc_ShowDeletions}}" title="{{vc_ShowDeletions}}" />'; //add trash icon - todo: diff icon for show/hide
+ 		
 		$showhidedel_link ='<BR>&nbsp;<a href="viewcache.php?cacheid={cacheid}&amp;'; //need to add a new line due to breaking when Show all Logs is displayed
+		$showdel_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="';
  	if (isset($_SESSION['showdel']) && $_SESSION['showdel']=='y')
 	{
- 		$showhidedel_link.='showdel=n'.$linkargs.'#log_start">'.$showdel_icon.tr('vc_HideDeletions');
+		$showdel_trans=tr('vc_HideDeletions');
+		$showdel_icon.=$showdel_trans.'" title="'.$showdel_trans.'" />'; //add trash icon - todo: diff icon for show/hide
+ 		$showhidedel_link.='showdel=n'.$linkargs.'#log_start">'.$showdel_icon.$showdel_trans;
  	} else {
- 		$showhidedel_link.='showdel=y'.$linkargs.'#log_start">'.$showdel_icon.tr('vc_ShowDeletions');
+		$showdel_trans= tr('vc_ShowDeletions');
+		$showdel_icon.=$showdel_trans.'" title="'.$showdel_trans.'" />'; //add trash icon - todo: diff icon for show/hide
+ 		$showhidedel_link.='showdel=y'.$linkargs.'#log_start">'.$showdel_icon.$showdel_trans;
  	}
  		$showhidedel_link.='</a>';
 	}
