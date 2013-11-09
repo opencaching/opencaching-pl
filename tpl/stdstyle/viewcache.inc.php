@@ -20,6 +20,13 @@ set template specific variables
 $linkargs = (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y') ? '&amp;print=y' : '';
 $linkargs .= (isset($_REQUEST['nocrypt']) && $_REQUEST['nocrypt'] == '1') ? '&amp;nocrypt=1' : '';
 
+if (isset($_REQUEST['showdel'])) {
+	$_SESSION['showdel'] = $_REQUEST['showdel'];//use session in order to keep option if URL changes
+
+}
+
+var_dump($_SESSION['showdel']);
+
 if(isset($_REQUEST['print']))
 {
 	if(isset($_REQUEST['showlogsall']))
@@ -84,9 +91,28 @@ $watch_icon = '<img src="tpl/stdstyle/images/action/16x16-watch.png" class="icon
 $search_icon = '<img src="tpl/stdstyle/images/action/16x16-search.png" class="icon16" alt="" />';
 $save_icon = '<img src="tpl/stdstyle/images/action/16x16-save.png" class="icon16" alt="" />';
 $visit_icon = '<img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16" alt="" />';
+//$ignore_icon = '<img src="tpl/stdstyle/images/free_icons/cancel.png" class="icon16" alt="" />';
 $exist_icon = '<img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title="uczestniczył"/>';
 $trash_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" />';
 $wattend_icon = '<img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" title="będzie uczestniczył"/>';
+
+
+if (($usr['admin']==1))
+{
+	//$_SESSION['showdel']='y';
+	$showhidedel_link=""; //no need to hide/show deletion for COG (they always see deletions)
+} else {
+	$showdel_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="{{vc_ShowDeletions}}" title="{{vc_ShowDeletions}}" />'; //add trash icon - todo: diff icon for show/hide
+	$showhidedel_link ='<BR>&nbsp;<a href="viewcache.php?cacheid={cacheid}&amp;'; //need to add a new line due to breaking when Show all Logs is displayed
+	if (isset($_SESSION['showdel']) && $_SESSION['showdel']=='y') 
+	{
+		$showhidedel_link.='showdel=n'.$linkargs.'#log_start">'.$showdel_icon.tr('vc_HideDeletions'); 
+	} else {
+		$showhidedel_link.='showdel=y'.$linkargs.'#log_start">'.$showdel_icon.tr('vc_ShowDeletions');
+	}
+	$showhidedel_link.='</a>';
+}
+
 
 // MP3 Files table
 function viewcache_getmp3table($cacheid, $mp3count)

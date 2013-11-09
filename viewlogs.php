@@ -23,7 +23,7 @@
   //prepare the templates and include all neccessary
 	if(!isset($rootpath)) $rootpath = '';   
 	require_once('./lib/common.inc.php');
-	
+	if ($error == false)
 	//Preprocessing
 	{
 		//set here the template to process
@@ -200,9 +200,9 @@
 				$record = sql_fetch_array($rs);
 				$show_deleted = "";
 				$processed_text = "";
-				if( isset( $record['deleted'] ) && $record['deleted'] )
+				if( isset( $record['deleted'] ) && $record['deleted'])
 				{
-					if( $usr['admin'] )
+					if( $usr['admin'])
 						{	
 							$show_deleted = "show_deleted";
 							$processed_text= $record['text']; 

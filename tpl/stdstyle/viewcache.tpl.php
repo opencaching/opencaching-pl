@@ -139,6 +139,7 @@ else
 							{watch_icon} {watcher} {{watchers}}<br />
 							{visit_icon} {visits} {{visitors}}<br />
 							{vote_icon} {votes_count} x {{scored}}<br />
+							<!--{ignore_icon} {ignorer_count} x ignorowana<br />-->
 							{score_icon} {{score_label}}: <b><font color="{scorecolor}">{score}</font></b><br />
 							{list_of_rating_begin}{rating_stat}{list_of_rating_end}
 							{gk_icon} <a class="links" href="http://geokrety.org/szukaj.php?wpt={oc_waypoint}" target="_blank">{{history_gk}}  <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a><br />
@@ -472,19 +473,21 @@ else
 			</div>
 <!-- Text container -->
 			<div class="content2-container bg-blue02">
-				<p class="content-title-noshade-size1">
+				<p class="content-title-noshade-size1" id="log_start">
 					<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
 					{{log_entries}}
-					&nbsp;&nbsp;
+					&nbsp;
 					{found_icon} {founds}x
 					{notfound_icon} {notfounds}x
 					{note_icon} {notes}x
 					{gallery}
-					&nbsp;&nbsp;
+					&nbsp;
 					{viewlogs}
 					&nbsp;
 					<img src="images/actions/new-entry-18.png" alt=""/>
 					<a href="log.php?cacheid={cacheid_urlencode}">{{new_log_entry}}</a>
+					{showhidedel_link}
+					
 				</p>
 			</div>
 			<div class="content2-container" id="viewcache-logs">
