@@ -161,7 +161,8 @@ caches Geocaches
 cache Geocache
 search Search
 view_cache Cache description
-new_log_entry Log your visit
+new_log_entry Post new log
+new_log_entry_short New log
 edit_log Edit your log
 remove_log Remove your log
 edit_cache Edit cache description
@@ -440,7 +441,8 @@ find_geocaches_on Find geocaches on
 searchable without own and founded caches
 all_geocaches all
 log_entries Log entries
-show_all_log_entries Show all log entries 
+show_all_log_entries Show all log entries
+show_all_log_entries_short All entries  
 back_to_the_geocache_listing Back to the geocache listing
 register_new  New user registration
 password_confirm Confirm password
@@ -822,6 +824,7 @@ dont_show Don't show this picture
 pictures_intro Permitted image formats: BMP, GIF, PNG & JPG. JPG is best for photos.<br />Maximum size 100 KB. Recommended resolution: 480 x 360 pixels.
 add_new_picture Adding a new picture to the cache.
 gallery Show gallery
+gallery_short Gallery
 gallery_of_cache Gallery of geocache
 images_cache Images of geocache
 images_logs Images of logs

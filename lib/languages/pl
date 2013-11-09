@@ -162,6 +162,7 @@ cache Skrzynka
 search Szukaj
 view_cache Opis skrzynki
 new_log_entry Wpis do logu
+new_log_entry_short Nowy wpis
 edit_log Edycja wpisu w logu
 remove_log Usuń wpis z logu
 edit_cache Edycja opisu skrzynki
@@ -442,6 +443,7 @@ searchable bez moich własnych i znalezionych
 all_geocaches wszystkie
 log_entries Wpisy do logu
 show_all_log_entries  Wszystkie wpisy do logu 
+show_all_log_entries_short Wszystkie wpisy
 back_to_the_geocache_listing Przejdź do skrzynki
 register_new Rejestracja nowego użytkownika
 password_confirm Potwierdź hasło
@@ -823,7 +825,8 @@ spoiler_info Nie pokazuj miniatury (SPOILER) - użyj tej opcji jeśli wgrywasz z
 dont_show Nie pokazuj tego obrazka.
 pictures_intro Następujące formaty są akceptowane: BMP, GIF, PNG i JPG - dla zdjęć rekomendowany format JPG .<br />Maksymalna wielkość pliku dozwolona 100 KB. Zalecane wymiary obrazków: 480 Pixel szerokość i 360 Pixel wysokość. <br />Po potwierdzeniu następna strona, która się pojawi może potrwać chwilę.
 add_new_picture Dodanie nowego obrazka dla skrzynki
-gallery Zobacz galerie 
+gallery Zobacz galerię
+gallery_short Galeria 
 gallery_of_cache Galeria obrazków dla skrzynki
 images_cache Obrazki skrzynki
 images_logs Obrazki z logów

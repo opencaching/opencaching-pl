@@ -162,6 +162,7 @@ cache Cache
 search Zoeken
 view_cache Cache beschrijving
 new_log_entry Log je bezoek
+new_log_entry_short Log je bezoek
 edit_log Bewerk je log
 remove_log Verwijder je log
 edit_cache Bewerk cache beschrijving
@@ -441,7 +442,8 @@ find_geocaches_on Zoek caches op
 searchable zonder eigen en gevonden caches
 all_geocaches alles
 log_entries Logs
-show_all_log_entries Toon alle logs 
+show_all_log_entries Toon alle logs
+show_all_log_entries_short Alle logs
 back_to_the_geocache_listing Terug naar de cachepagina
 register_new  Als nieuwe gebruiker registreren
 password_confirm Bevestig wachtwoord
@@ -823,6 +825,7 @@ dont_show Verberg deze afbeelding
 pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto&#39;s.<br />Maximum grootte 100 KB. Aanbevolen resolutie: 640 x 480 pixels.
 add_new_picture Voeg nieuwe afbeelding toe aan cache
 gallery Toon galerij
+gallery_short Galerij
 gallery_of_cache Galerij van cache
 images_cache Afbeeldingen van cache
 images_logs Afbeeldingen van logs

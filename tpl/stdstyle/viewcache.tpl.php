@@ -480,11 +480,11 @@ else
                                         {notfound_icon} {notfounds}x
                                         {note_icon} {notes}x
                                         {gallery}
-                                        &nbsp;&nbsp;
+                                        &nbsp;
                                         {viewlogs}
                                         &nbsp;
-                                        <img src="images/actions/new-entry-18.png" alt=""/>
-                                        <a href="log.php?cacheid={cacheid_urlencode}">{{new_log_entry}}</a>
+										{new_log_entry_link}
+										 &nbsp;
 										{showhidedel_link}
                                 </p>
                         </div>

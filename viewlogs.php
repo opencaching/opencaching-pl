@@ -131,7 +131,7 @@
 			$rspiclogs =sqlValue("SELECT COUNT(*) FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`= $cache_id",0);
 
 				if ($rspiclogs !=0){
-				tpl_set_var('gallery', '<img src="tpl/stdstyle/images/free_icons/photo.png" class="icon16" alt="" />&nbsp;'.$rspiclogs.'x <a href=gallery_cache.php?cacheid='.$cache_id.'>'.tr(gallery).'</a>');
+				tpl_set_var('gallery', $gallery_icon.'&nbsp;'.$rspiclogs.'x '.mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $gallery_link));
 				} else {
 				tpl_set_var('gallery', '');
 				;}			

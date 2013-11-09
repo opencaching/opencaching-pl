@@ -61,7 +61,15 @@ $logpictures = '<div class="viewlogs-logpictures"><span class="info">'.tr('pictu
 $wpline='<tr>{stagehide_start}<td align="center" valign="middle"><center><strong>{number}</strong></center></td>{stagehide_end}<td align="center" valign="middle"><center><img src="{wp_icon}" alt="" title="{type}" /></center></td><td style="text-align: left; vertical-align: middle;">{type}</td><td align="left" valign="middle"><b><span style="color: rgb(88,144,168)">{lat_lon}</span></b></td><td align="left" valign="middle">{desc}</td></tr>';
 $cache_log_pw = '<br/>'.tr('password_required');
 $viewlogs_last = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt=""/></a>&nbsp;<a href="'.(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') .'.php?cacheid={cacheid_urlencode}&amp;showlogs=4'.$linkargs.'">'.tr('last_log_entries').'</a>';
-$viewlogs = '<a href="viewlogs.php?cacheid={cacheid_urlencode}"><img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt=""/></a>&nbsp;<a href="'.(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') .'.php?cacheid={cacheid_urlencode}'.$linkargs.'&amp;showlogsall=y">'.tr("show_all_log_entries").'</a>';
+$viewlogs_tr=tr('show_all_log_entries');
+$viewlogs = '<a href="viewlogs.php?cacheid={cacheid_urlencode}" ><img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="'.$viewlogs_tr.'" title="'.$viewlogs_tr.'"/></a>&nbsp;<a title="'.$viewlogs_tr.'" href="'.(isset($_REQUEST['print']) && $_REQUEST['print'] == 'y' ? 'viewcache' : 'viewlogs') .'.php?cacheid={cacheid_urlencode}'.$linkargs.'&amp;showlogsall=y">'.tr("show_all_log_entries_short").'</a>';
+
+$gallery_icon = '<img src="tpl/stdstyle/images/free_icons/photo.png" class="icon16" />';
+$gallery_tr = tr('gallery');
+$gallery_link ='<a href="gallery_cache.php?cacheid={cacheid}" title="'.$gallery_tr.'" alt="'.$gallery_tr.'">'.tr('gallery_short').'</a>';
+
+$new_log_entry_tr=tr('new_log_entry');
+$new_log_entry_link='<a href="log.php?cacheid={cacheid}" title="'.$new_log_entry_tr.'"><img src="images/actions/new-entry-18.png" title="'.$new_log_entry_tr.'" alt="'.$new_log_entry_tr.'">'.tr('new_log_entry_short').'</a>';
 $difficulty_text_diff = tr('task_difficulty').": %01.1f ".tr('out_of')." 5.0";
 $difficulty_text_terr = tr('terrain_difficulty').": %01.1f ".tr('out_of')." 5.0";
 $viewtext_on = tr('enter_text');
@@ -91,7 +99,11 @@ $visit_icon = '<img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16
 $exist_icon = '<img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title="uczestniczył"/>';
 $trash_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" />';
 $wattend_icon = '<img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" title="będzie uczestniczył"/>';
-
+$hide_del_tr=tr('vc_HideDeletions');
+$hide_del_link ='<a href="viewcache.php?cacheid={cacheid}&amp;showdel=n'.$linkargs.'#log_start" title="'.$hide_del_tr .'">'.'<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="'.$hide_del_tr.'" title="'.$hide_del_tr.'" />'.$hide_del_tr.'</a>';
+$show_del_tr= tr('vc_ShowDeletions');
+$show_del_link ='<a href="viewcache.php?cacheid={cacheid}&amp;showdel=y'.$linkargs.'#log_start" title="'.$show_del_tr .'">'.'<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="'.$show_del_tr.'" title="'.$show_del_tr.'" />'.$show_del_tr.'</a>'; //add trash icon - todo: diff icon for show/hide
+/*
  	if (($usr['admin']==1))
 	{
 		//$_SESSION['showdel']='y';
@@ -112,7 +124,7 @@ $wattend_icon = '<img src="tpl/stdstyle/images/log/16x16-will_attend.png" class=
  	}
  		$showhidedel_link.='</a>';
 	}
-
+*/
 // MP3 Files table
 function viewcache_getmp3table($cacheid, $mp3count)
 {

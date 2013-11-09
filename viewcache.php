@@ -838,7 +838,26 @@
 				tpl_set_var('notfound_text', $cache_notfound_text);
 			}
 
+if (($usr['admin']==1))
+	{
+		$showhidedel_link=""; //no need to hide/show deletion for COG (they always see deletions)
+ 	} else {
+ 			$del_count=sqlValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=1 and `cache_id`='" . sql_escape($cache_record['cache_id']) . "'", 0);
+			if ($del_count==0) {
+				$showhidedel_link=""; //don't show link if no deletion '	
+			} else 
+				{
+	 				if (isset($_SESSION['showdel']) && $_SESSION['showdel']=='y')
+					{
+						$showhidedel_link = $hide_del_link; //need to add a new line due to breaking when Show all Logs is displayed
+					} else {
+						$showhidedel_link = $show_del_link;//need to add a new line due to breaking when Show all Logs is displayed
+	 				}				
+			}
+	};
+
 				tpl_set_var('showhidedel_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $showhidedel_link));
+				tpl_set_var('new_log_entry_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $new_log_entry_link));
 
 			// number of visits
 			$rs = sql("SELECT `count` FROM `cache_visits` WHERE `cache_id`='&1' AND `user_id_ip`='0'", $cache_id);
@@ -1255,7 +1274,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 			$rspiclogs =sqlValue("SELECT COUNT(*) FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`= $cache_id",0);
 
 				if ($rspiclogs !=0){
-				tpl_set_var('gallery', '<img src="tpl/stdstyle/images/free_icons/photo.png" class="icon16" alt="" />&nbsp;'.$rspiclogs.'x <a href=gallery_cache.php?cacheid='.$cache_id.'>'.tr('gallery').'</a>');
+				tpl_set_var('gallery', $gallery_icon.'&nbsp;'.$rspiclogs.'x '.mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $gallery_link));
 				} else {
 				tpl_set_var('gallery', '');
 				;}
