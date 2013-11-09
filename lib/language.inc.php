@@ -555,6 +555,7 @@ $language['pl']['cache_logged_required'] = 'Musisz być zalogowany by wpisywać 
 $language['pl']['basic_information'] = 'Podstawowe informacje';
 
 
+
 ////////////////////////////////////////// ENGLISH //////////////////////////////////////////
 $language['en']['main_menu'] = 'Main Menu';
 $language['en']['user_menu'] = 'User\'s Menu';
@@ -1030,6 +1031,7 @@ $language['en']['not_registered'] = 'Not registered? <a href="register.php">Regi
 $language['en']['forgotten_your_password'] = 'Forgot your e-mail? <a href="newpw.php">Remind me</a>';
 $language['en']['cache_logged_required'] = 'You have to be logged to add new log entries and operate on this cache.';
 $language['en']['basic_information'] = 'Basic information.';
+
 
 ////////////////////////////////////// GERMAN  ////////////////////////////////////////////////
 $language['de']['main_menu'] = 'Main Menu';

@@ -838,8 +838,6 @@
 				tpl_set_var('notfound_text', $cache_notfound_text);
 			}
 
-				tpl_set_var('showhidedel_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $showhidedel_link));
-
 			// number of visits
 			$rs = sql("SELECT `count` FROM `cache_visits` WHERE `cache_id`='&1' AND `user_id_ip`='0'", $cache_id);
 			if (mysql_num_rows($rs) == 0)
@@ -850,11 +848,9 @@
 				tpl_set_var('visits', $watcher_record['count']);
 			}
 //START: edit by FelixP - 2013'10
-			//$number_logs=sqlValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=0 and `cache_id`='" . sql_escape($cache_record['cache_id']) . "'", 0);	
-isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false : $HideDeleted = true;	
+			//$number_logs=sqlValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=0 and `cache_id`='" . sql_escape($cache_record['cache_id']) . "'", 0);		
 			//now include also those deleted due to displaying this type of record for all
-			$number_logs_sql = "SELECT count(*) number FROM `cache_logs` WHERE ".($HideDeleted ? "`deleted`=0 AND" : "") ." `cache_id`='" . sql_escape($cache_record['cache_id']) . "'";
-			$number_logs=sqlValue($number_logs_sql,0);
+			$number_logs=sqlValue("SELECT count(*) number FROM `cache_logs` WHERE  `cache_id`='" . sql_escape($cache_record['cache_id']) . "'", 0);
 ////END: edit by FelixP - 2013'10
 //			if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) > $logs_to_display)
 			if ($number_logs > $logs_to_display)
@@ -1255,8 +1251,6 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				tpl_set_var('gallery', '');
 				;}
 
-
-
 //START: edit by FelixP - 2013'10	
 			// prepare the last n logs - show logs marked as deleted if admin
 			//
@@ -1267,12 +1261,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
 			//}
-			If ($HideDeleted && !$usr['admin'])
-			{
-				$show_deleted_logs = "";
-				$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
-			};			
-			
+
 				$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 												".$show_deleted_logs."
 			                  `cache_logs`.`id` `logid`,
@@ -1320,9 +1309,9 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				$record = sql_fetch_array($rs);
 				$show_deleted = "";
 				$processed_text = "";
-				if( isset( $record['deleted'] ) && $record['deleted'])
+				if( isset( $record['deleted'] ) && $record['deleted'] )
 				{
-					if( $usr['admin'])
+					if( $usr['admin'] )
 						{	
 							$show_deleted = "show_deleted";
 							$processed_text= $record['text']; 
