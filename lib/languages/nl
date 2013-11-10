@@ -162,7 +162,7 @@ cache Cache
 search Zoeken
 view_cache Cache beschrijving
 new_log_entry Log je bezoek
-new_log_entry_short Log je bezoek
+new_log_entry_short Log bezoek
 edit_log Bewerk je log
 remove_log Verwijder je log
 edit_cache Bewerk cache beschrijving
@@ -171,7 +171,7 @@ edit_desc Bewerk beschrijving
 remove_desc Verwijder beschrijving
 search_loc Look for location
 search_results Zoekresultaten
-show_log View log
+show_log Bekijk log
 store_queries Zoekopdracht opslaan
 cache_recommendation Recommend a cache
 login Inloggen
@@ -179,11 +179,11 @@ logout Uitloggen
 cache_descriptions How to create a cache description?
 html_preview HTML preview
 allowed_html_tags Allowed HTML tags
-special_caches Special caches
+special_caches Speciale caches
 user_ident Gebruikers profiel
 cache_map Kaart met caches v3
 cache_mapv2 Kaart met caches v2
-old_cache_map Map&#39;s older version
+old_cache_map Oude kaart
 abc Opencaching wiki
 forum Forum
 geokrets Geokrety
@@ -234,9 +234,9 @@ terrain_difficulty Terrein
 task_difficulty Moeilijkheid
 out_of out of
 list_of_participants Lijst van deelnemers
-show_recommended Show recommended
+show_recommended Toon aanbeveling
 show_all toon alles
-no_choice Selection not available
+no_choice Selectie niet beschikbaar
 username_incorrect Username is incorrect.
 username_exists This username is already taken.
 bad_coordinates Ingevoerde coördinaten zijn niet juist.
@@ -466,7 +466,7 @@ number_possible_recommend van
 possible_recommend Om aanbevelingen te kunnen geven moet je nog een aantal caches vinden
 comments_log Logtekst
 submit_log_entry Verstuur de log
-geokret_log Did you take Geokret? Regeister this on 
+geokret_log Een Geokret meegenomen? Registreer dit op 
 rate_cache Beoordeel deze cache: <br/><a href="{rating_desc_url}">Uitleg over beoordeling</a>
 do_not_rate Ik wil deze cache niet beoordelen
 listed_other Log deze cache ook op de volgende sites
