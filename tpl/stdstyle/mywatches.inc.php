@@ -23,7 +23,7 @@
 				.'<td style="background-color: {bgcolor}"><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td>'
 				.'<td style="background-color: {bgcolor}">&nbsp;</td>'
 				.'<td nowrap style="text-align:center; background-color: {bgcolor}">{lastfound}</td>'
-				.'<td nowrap style="text-align:center; background-color: {bgcolor}"><img src="tpl/stdstyle/images/{icon_name}" border="0" alt="1" onmouseover="Tip(\'{log_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"/></td>'
+				.'<td nowrap style="text-align:center; background-color: {bgcolor}"><img src="tpl/stdstyle/images/{icon_name}" border="0" alt="" onmouseover="Tip(\'{log_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"/></td>'
 				.'<td style="width:23px;background-color: {bgcolor}; text-align: center"><a class="links"  href="removewatch.php?cacheid={cacheid}&target=mywatches.php" onclick="return confirm(\''.tr("mywatches_1").'\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title='.tr('delete').' /></a></td>'
 			.'</tr>';
 

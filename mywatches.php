@@ -199,12 +199,15 @@ function CleanSpecChars( $log, $flg_html )
 						cl.id
 						FROM `cache_watches` 
 						INNER JOIN `caches` ON (`cache_watches`.`cache_id`=`caches`.`cache_id`)
-						INNER JOIN cache_logs as cl ON (caches.cache_id = cl.cache_id)
-						INNER JOIN log_types ON (cl.type = log_types.id) 
-						INNER JOIN user ON (cl.user_id = user.user_id)
 						INNER JOIN cache_type ON (caches.type = cache_type.id)
 						
-						WHERE `cache_watches`.`user_id`= :1 and cl.id =
+						left outer JOIN cache_logs as cl ON (caches.cache_id = cl.cache_id)
+						left outer JOIN log_types ON (cl.type = log_types.id) 
+						left outer JOIN user ON (cl.user_id = user.user_id)
+						
+						
+						WHERE `cache_watches`.`user_id`= :1 and 
+						( cl.id is null or cl.id =
 							( SELECT id
 								FROM cache_logs cl_id
 								WHERE cl.cache_id = cl_id.cache_id and cl_id.date =
@@ -214,7 +217,7 @@ function CleanSpecChars( $log, $flg_html )
 										WHERE cl.cache_id = cache_id 
 									)
 								limit 1
-							)  
+							))  
 						
 						ORDER BY `caches`.`name`";
 						
@@ -257,15 +260,23 @@ function CleanSpecChars( $log, $flg_html )
 							
 							if (!$usrlatitude ) $usrlatitude = $rlat;
 							if (!$usrlongitude ) $usrlongitude = $rlon;
-													
-							$rusername="\"".$record[ 'user_name' ]."\"";
+
+							if ($record['user_name'] == NULL)
+								$rusername="\"nikogo\"";
+							else
+								$rusername="\"".$record[ 'user_name' ]."\"";
 							
 							$rcache_icon_small = "\"".$record['cache_icon_small']."\"";
 							$rwp = "\"".$record['wp']."\"";
 							$rid = "\"".$record['id']."\"";
 							$ricon_small = "\"".$record['icon_small']."\"";
 							$rluser_id = "\"".$record['luser_id']."\"";
-							$rlog_date="\"".htmlspecialchars(date("Y-m-d", strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8')."\"";							
+							
+							if ($record['log_date'] == NULL || $record['log_date'] == '0000-00-00 00:00:00')
+								$rlog_date="\"".htmlspecialchars("", ENT_COMPAT, 'UTF-8')."\"";								
+							else 
+								$rlog_date="\"".htmlspecialchars(date("Y-m-d", strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8')."\"";
+														
 							$rcache_name="\"".CleanSpecChars( $record['name'], 0 )."\"";
 							
 							$icon = '{url:"tpl/stdstyle/images/google_maps/gmblue.png", 
@@ -286,21 +297,26 @@ function CleanSpecChars( $log, $flg_html )
 							//$tmp_watch = $i % 2 == 0 ? $watche : $watcho;
 							$bgcolor = ( $i% 2 )? $bgcolor1 : $bgcolor2; 						
 							$tmp_watch = $watch;
+							
+							$tmp_watch = mb_ereg_replace('{bgcolor}', $bgcolor, $tmp_watch);
 							$tmp_watch = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $tmp_watch);
-	
-							if ($record['last_found'] == NULL || $record['last_found'] == '0000-00-00 00:00:00')
+
+							if ( $record['cache_id'] == '10398' )
+								$jgtmp = $record['last_found'];
+							
+							if ($record['log_date'] == NULL || $record['log_date'] == '0000-00-00 00:00:00')
 							{
 								$tmp_watch = mb_ereg_replace('{lastfound}', htmlspecialchars($no_found_date, ENT_COMPAT, 'UTF-8'), $tmp_watch);
 							}
 							else
 							{
-								$tmp_watch = mb_ereg_replace('{lastfound}', htmlspecialchars(strftime($dateformat, strtotime($record['last_found'])), ENT_COMPAT, 'UTF-8'), $tmp_watch);
+								$tmp_watch = mb_ereg_replace('{lastfound}', htmlspecialchars(strftime($dateformat, strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8'), $tmp_watch);
 							}
 	
 							$tmp_watch = mb_ereg_replace('{urlencode_cacheid}', htmlspecialchars(urlencode($record['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_watch);
 							$tmp_watch = mb_ereg_replace('{cacheid}', htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_watch);
 							$tmp_watch = mb_ereg_replace('{icon_name}', $record['icon_small'], $tmp_watch);
-							$tmp_watch = mb_ereg_replace('{bgcolor}', $bgcolor, $tmp_watch);
+							
 							
 							$log_text  = CleanSpecChars( $record[ 'log_text'], 1 );
 							

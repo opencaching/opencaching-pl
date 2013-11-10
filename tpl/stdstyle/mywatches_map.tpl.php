@@ -21,7 +21,7 @@ watch_map of this user
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/search1.png" class="icon32" alt="{title_text}" title="{title_text}" align="middle" />&nbsp;{title_text}</div>
 
 <div class='searchdiv' >
-<div id="mapka" style="width:100%; height:500pt; text-align:center;"></div>
+<div id="mapka" style="width:100%; height:500pt; text-align:left;"></div>
 </div>
 
 
@@ -64,9 +64,13 @@ function BlockControl(controlDiv, map, text, fun )
 	  // Setting padding to 5 px will offset the control
 	  // from the edge of the map
 	  controlDiv.style.padding = '5px';
+	  controlDiv.className = "gmnoprint gm-style-mtc";
+	   
 	  //controlDiv.style.boxShadow="0px 1px 4px -1px #888888";
-
-	/*<div style="direction: ltr; overflow: hidden; text-align: left; 
+	  
+	/*<div class="gmnoprint gm-style-mtc" style="margin: 5px; z-index: 0; position: absolute; 
+	  cursor: pointer; text-align: left; width: 85px; right: 0px; top: 0px;">
+	  <div style="direction: ltr; overflow: hidden; text-align: left; 
 	position: relative; color: rgb(0, 0, 0); font-family: Roboto,Arial,sans-serif; 
 	-moz-user-select: none; font-size: 11px; background-color: rgb(255, 255, 255); 
 	padding: 1px 6px; border-radius: 2px; background-clip: padding-box; 
@@ -82,6 +86,7 @@ function BlockControl(controlDiv, map, text, fun )
 	  controlUI.style.cursor = 'pointer';
 	  controlUI.style.textAlign = 'center';
 	  controlUI.style.boxShadow="0px 1px 4px -1px #888888";
+	  
 
 	  controlUI.title = '';
 	  controlDiv.appendChild(controlUI);
@@ -104,6 +109,14 @@ function BlockControl(controlDiv, map, text, fun )
 		  fun();
 	  });
 
+	  google.maps.event.addDomListener(controlUI, 'mouseover', function() {
+		  controlUI.style.backgroundColor = '#dddddd';
+	  });
+
+	 google.maps.event.addDomListener(controlUI, 'mouseout', function() {
+		  controlUI.style.backgroundColor = 'white';
+	  });
+
 	}
 
 function AddMarker(wspolrzedne, icon, cache_icon, wp, cache_name, log_id, log_icon, user_id, user_name, log_date, log_text)
@@ -116,10 +129,16 @@ function AddMarker(wspolrzedne, icon, cache_icon, wp, cache_name, log_id, log_ic
   
      });
 
+  	var textContent;
+
+  	if ( log_date == "" )
+  		textContent = '<table><tr><td><img src=\"tpl/stdstyle/images/' + cache_icon + '\" border=\"0\" alt=\"\" title=\"geocache\"/><b>&nbsp;<a class=\"links\" href=\"viewcache.php?wp=' + wp + '\">' + wp + ': ' + cache_name + '</a></td></tr><tr><td><span style = \"font-size: 8pt\">Brak wpisu</span></td></tr></table>';
+  	else
+  	textContent = '<table><tr><td><img src=\"tpl/stdstyle/images/' + cache_icon + '\" border=\"0\" alt=\"\" title=\"geocache\"/><b>&nbsp;<a class=\"links\" href=\"viewcache.php?wp=' + wp + '\">' + wp + ': ' + cache_name + '</a></td></tr><tr><td><a class=\"links\" href=\"viewlogs.php?logid=' + log_id + '\"><img src=\"tpl/stdstyle/images/' + log_icon + '\" border=\"0\" alt=\"\" /></a> <span style = \"links\"> {{mywatches_map_01}} </span> <a class=\"links\" href=\"viewprofile.php?userid=' + user_id + '\">' + user_name + '</a> <span style = \"links\">{{mywatches_map_02}}: ' + log_date + '</span><hr><span style = \"font-size: 8pt\">'+log_text+'</span></td></tr></table>';
+  	
+    
 	var infowindow = new google.maps.InfoWindow({
-		 
-	    content: '<table><tr><td><img src=\"tpl/stdstyle/images/' + cache_icon + '\" border=\"0\" alt=\"\" title=\"geocache\"/><b>&nbsp;<a class=\"links\" href=\"viewcache.php?wp=' + wp + '\">' + wp + ': ' + cache_name + '</a></td></tr><tr><td><a class=\"links\" href=\"viewlogs.php?logid=' + log_id + '\"><img src=\"tpl/stdstyle/images/' + log_icon + '\" border=\"0\" alt=\"\" /></a> <span style = \"links\"> {{mywatches_map_01}} </span> <a class=\"links\" href=\"viewprofile.php?userid=' + user_id + '\">' + user_name + '</a> <span style = \"links\">{{mywatches_map_02}}: ' + log_date + '</span><hr><span style = \"font-size: 8pt\">'+log_text+'</span></td></tr></table>'
-	    	
+	    content: textContent	
 	});
 	
 	google.maps.event.addListener(marker, "click", function() {
