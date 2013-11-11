@@ -91,7 +91,7 @@ $gpxLine = '
         {cache_waypoints}
 ';
 
-//$gpxAttributes = '		<groundspeak:attribute id="{attrib_id}" inc="1">{attrib_text_long}</groundspeak:attribute>';
+$gpxAttributes = '		<groundspeak:attribute id="{attrib_id}" inc="1">{attrib_text_long}</groundspeak:attribute>';
 
 $gpxLog = '
                                 <groundspeak:log id="{id}">
@@ -226,12 +226,12 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 		$gpxAttribName[85] = 'Bikes allowed';
 
 	// 2nd set of attributes - OC only attributes, changed ID (+100) to be save in oc-gc-mixed environments
-		$gpxAttribID[6] = '106';
-		$gpxAttribName[6] = 'Only loggable at Opencaching';
-		$gpxAttribID[43] = '143';
-		$gpxAttribName[43] = 'GeoHotel';
-		$gpxAttribID[47] = '147';
-		$gpxAttribName[47] = 'Compass';
+		//$gpxAttribID[6] = '106';
+		//$gpxAttribName[6] = 'Only loggable at Opencaching';
+		//$gpxAttribID[43] = '143';
+		//$gpxAttribName[43] = 'GeoHotel';
+		//$gpxAttribID[47] = '147';
+		//$gpxAttribName[47] = 'Compass';
 
 
                 //prepare the output
@@ -398,7 +398,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         $thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
                         $thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
                         $thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
-                        $thisline = str_replace('{country}', $r['country'], $thisline);
+                        $thisline = str_replace('{country}', tr($r['country']), $thisline);
                         $region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);              
                         $thisline = str_replace('{region}', $region, $thisline);
                        
@@ -422,21 +422,22 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         } else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 
 		// attributes
-		//$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=&1", $r['cacheid']);
-		//while ($rAttrib = sql_fetch_array($rsAttributes))
-		//{
-			//$thisattribute = $gpxAttributes;
+		$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=&1", $r['cacheid']);
+		$attribentries='';
+		while ($rAttrib = sql_fetch_array($rsAttributes))
+		{
+			$thisattribute = $gpxAttributes;
 
-			//$thisattribute_id = $gpxAttribID[$rAttrib['attrib_id']];
-			//$thisattribute_name = $gpxAttribName[$rAttrib['attrib_id']];
+			$thisattribute_id = $gpxAttribID[$rAttrib['attrib_id']];
+			$thisattribute_name = $gpxAttribName[$rAttrib['attrib_id']];
 			
-			//$thisattribute = mb_ereg_replace('{attrib_id}', $thisattribute_id, $thisattribute);
-			//$thisattribute = mb_ereg_replace('{attrib_text_long}', $thisattribute_name, $thisattribute);
+			$thisattribute = mb_ereg_replace('{attrib_id}', $thisattribute_id, $thisattribute);
+			$thisattribute = mb_ereg_replace('{attrib_text_long}', $thisattribute_name, $thisattribute);
 			
-			//$attribentries .= $thisattribute . "\n";
-		//}
-		//mysql_free_result($rsAttributes);
-		//$thisline = str_replace('{attributes}', $attribentries, $thisline);
+			$attribentries .= $thisattribute . "\n";
+		}
+		mysql_free_result($rsAttributes);
+		$thisline = str_replace('{attributes}', $attribentries, $thisline);
 
                         // start extra info
                         $thisextra="";
