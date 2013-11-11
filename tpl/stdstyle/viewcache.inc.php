@@ -69,7 +69,7 @@ $gallery_tr = tr('gallery');
 $gallery_link ='<a href="gallery_cache.php?cacheid={cacheid}" title="'.$gallery_tr.'" alt="'.$gallery_tr.'">'.tr('gallery_short').'</a>';
 
 $new_log_entry_tr=tr('new_log_entry');
-$new_log_entry_link='<a href="log.php?cacheid={cacheid}" title="'.$new_log_entry_tr.'"><img src="images/actions/new-entry-18.png" title="'.$new_log_entry_tr.'" alt="'.$new_log_entry_tr.'">'.tr('new_log_entry_short').'</a>';
+$new_log_entry_link='<a href="log.php?cacheid={cacheid}" title="'.$new_log_entry_tr.'"><img src="images/actions/new-entry-18.png" title="'.$new_log_entry_tr.'" alt="'.$new_log_entry_tr.'"></a>&nbsp;<a href="log.php?cacheid={cacheid}" title="'.$new_log_entry_tr.'">'.tr('new_log_entry_short').'</a>';
 $difficulty_text_diff = tr('task_difficulty').": %01.1f ".tr('out_of')." 5.0";
 $difficulty_text_terr = tr('terrain_difficulty').": %01.1f ".tr('out_of')." 5.0";
 $viewtext_on = tr('enter_text');
@@ -103,28 +103,7 @@ $hide_del_tr=tr('vc_HideDeletions');
 $hide_del_link ='<a href="viewcache.php?cacheid={cacheid}&amp;showdel=n'.$linkargs.'#log_start" title="'.$hide_del_tr .'">'.'<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="'.$hide_del_tr.'" title="'.$hide_del_tr.'" />'.$hide_del_tr.'</a>';
 $show_del_tr= tr('vc_ShowDeletions');
 $show_del_link ='<a href="viewcache.php?cacheid={cacheid}&amp;showdel=y'.$linkargs.'#log_start" title="'.$show_del_tr .'">'.'<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="'.$show_del_tr.'" title="'.$show_del_tr.'" />'.$show_del_tr.'</a>'; //add trash icon - todo: diff icon for show/hide
-/*
- 	if (($usr['admin']==1))
-	{
-		//$_SESSION['showdel']='y';
-		$showhidedel_link=""; //no need to hide/show deletion for COG (they always see deletions)
- 	} else {
- 		
-		$showhidedel_link ='<BR>&nbsp;<a href="viewcache.php?cacheid={cacheid}&amp;'; //need to add a new line due to breaking when Show all Logs is displayed
-		$showdel_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="';
- 	if (isset($_SESSION['showdel']) && $_SESSION['showdel']=='y')
-	{
-		$showdel_trans=tr('vc_HideDeletions');
-		$showdel_icon.=$showdel_trans.'" title="'.$showdel_trans.'" />'; //add trash icon - todo: diff icon for show/hide
- 		$showhidedel_link.='showdel=n'.$linkargs.'#log_start">'.$showdel_icon.$showdel_trans;
- 	} else {
-		$showdel_trans= tr('vc_ShowDeletions');
-		$showdel_icon.=$showdel_trans.'" title="'.$showdel_trans.'" />'; //add trash icon - todo: diff icon for show/hide
- 		$showhidedel_link.='showdel=y'.$linkargs.'#log_start">'.$showdel_icon.$showdel_trans;
- 	}
- 		$showhidedel_link.='</a>';
-	}
-*/
+
 // MP3 Files table
 function viewcache_getmp3table($cacheid, $mp3count)
 {
