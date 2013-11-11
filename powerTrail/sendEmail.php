@@ -74,5 +74,5 @@ function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $actio
 		mb_send_mail($userDetails['email'], $subject, $mailbody, $headers);
 	}
 	//for debug only
-	//mb_send_mail('lza@tlen.pl', $subject, $mailbody, $headers);
+	mb_send_mail('lza@tlen.pl', $subject, $mailbody, $headers);
 }

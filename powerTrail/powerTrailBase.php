@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/../lib/db.php';
-
+require_once __DIR__.'/sendEmail.php';
 /**
  * 
  */
@@ -12,12 +12,10 @@ class powerTrailBase{
 	
 	public static function minimumCacheCount(){
 		include __DIR__.'/../lib/settings.inc.php';
-		// var_dump($powerTrailMinimumCacheCount);
 		return $powerTrailMinimumCacheCount;
 	} 
 	public static function userMinimumCacheFoundToSetNewPowerTrail(){
 		include __DIR__.'/../lib/settings.inc.php';
-		// var_dump($powerTrailMinimumCacheCount);
 		return $powerTrailUserMinimumCacheFoundToSetNewPowerTrail;
 	} 
 	
@@ -336,7 +334,7 @@ class powerTrailBase{
 	
 	public static function writePromoPt4mainPage($oldPtId){
 		include __DIR__.'/../lib/settings.inc.php';
-		$q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1 AND `cacheCount` > '.$powerTrailMinimumCacheCount.' ORDER BY `id` ASC';
+		$q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1 AND `cacheCount` >= '.$powerTrailMinimumCacheCount.' ORDER BY `id` ASC';
 		$db = new dataBase;
 		$db->multiVariableQuery($q, $oldPtId);
 		$r = $db->dbResultFetchAll();
@@ -390,10 +388,45 @@ class powerTrailBase{
 		$sortOder = 'ASC';
 		$sortBy = 'name';
 		
-		$q = 'SELECT * FROM `PowerTrail` WHERE cacheCount > '.self::minimumCacheCount() .' '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
+		$q = 'SELECT * FROM `PowerTrail` WHERE cacheCount >= '.self::minimumCacheCount() .' '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
 		$db = new dataBase();
 		$db->multiVariableQuery($q);
 		return $db->dbResultFetchAll();
+	}
+	
+	/**
+	 * used to set geoPath ststus to inactive, when has too small amount of caches,
+	 * etc.
+	 */
+	public static function cleanGeoPaths() {
+		$getPtQuery = 'SELECT * FROM `PowerTrail` WHERE `status` =1';
+		$db = new dataBase();
+		$db->simpleQuery($getPtQuery);
+		$ptToClean = $db->dbResultFetchAll();
+		$text = tr('pt227').tr('pt228');
+		foreach ($ptToClean as $pt) {
+			if($pt['cacheCount'] < self::minimumCacheCount()){ // set status to 4 (in service)
+				print $pt['id'];
+				$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
+				$db->multiVariableQuery($queryStatus, 4, $pt['id']);
+				$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES (0, :1, 4, :2, NOW(), NOW(),0)';
+				$db->multiVariableQuery($query, $pt['id'], $text);
+				emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+			}
+		}
+		
+		$archiveAbandonQuery = 'SELECT `id` FROM `PowerTrail` WHERE `id` NOT IN (SELECT PowerTrailId FROM `PowerTrail_owners` WHERE 1 GROUP BY PowerTrailId)';
+		$db->simpleQuery($archiveAbandonQuery);
+		if($db->rowCount()>0){ // close all abandon geoPaths
+			$ptToClose = $db->dbResultFetchAll();
+			$updateArr = array();
+			foreach ($ptToClose as $pt) {
+				array_push ($updateArr, $pt['id']);
+			}
+			$updateArr = implode(',', $updateArr);
+			$updQuery = 'UPDATE `PowerTrail` SET `status` =3 WHERE `id` IN ( :1 )';
+			$db->multiVariableQuery($updQuery, $updateArr); 
+		}
 	}
 
 }

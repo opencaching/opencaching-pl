@@ -20,6 +20,7 @@ class processGeokretyErrors {
 	public function run(){
         	
 		// geoPaths
+		$this->cleanGeoPaths();
         $this->makePt();
 		
 		// geoKrety
@@ -118,5 +119,9 @@ class processGeokretyErrors {
 		file_put_contents($dynstylepath.'ptPromo.inc-'.$langTr.'.php' , $fileContent);
 		
 		// print "$langTr <br/> $fileContent";
+	}
+	
+	private function cleanGeoPaths(){
+		powerTrailBase::cleanGeoPaths();
 	}
 }
