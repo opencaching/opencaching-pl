@@ -214,7 +214,7 @@ function CleanSpecChars( $log, $flg_html )
 						
 									( SELECT max( date )
 										FROM cache_logs
-										WHERE cl.cache_id = cache_id 
+										WHERE cl.cache_id = cache_id and cache_logs.deleted = 0
 									)
 								limit 1
 							))  
@@ -227,7 +227,7 @@ function CleanSpecChars( $log, $flg_html )
 				
 				//if (mysql_num_rows($rs) == 0)
 				$rowCount = $dbc->rowCount();
-				if ( !$rowCount )
+					if ( !$rowCount )
 				{
 					tpl_set_var('watches', $no_watches);
 					tpl_set_var('print_delete_all_watches', '');
