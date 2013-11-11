@@ -395,7 +395,7 @@ class powerTrailBase{
 	}
 	
 	/**
-	 * used to set geoPath ststus to inactive, when has too small amount of caches,
+	 * used to set geoPath status to inactive, when has too small amount of caches,
 	 * etc.
 	 */
 	public static function cleanGeoPaths() {
@@ -406,10 +406,11 @@ class powerTrailBase{
 		$text = tr('pt227').tr('pt228');
 		foreach ($ptToClean as $pt) {
 			if($pt['cacheCount'] < self::minimumCacheCount()){ // set status to 4 (in service)
-				print $pt['id'];
+				print 'put in service geoPath #'.$pt['id'].'<br/>';
 				$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
 				$db->multiVariableQuery($queryStatus, 4, $pt['id']);
-				$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES (0, :1, 4, :2, NOW(), NOW(),0)';
+				$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES 
+				(-1, :1, 4, :2, NOW(), NOW(),0)';
 				$db->multiVariableQuery($query, $pt['id'], $text);
 				emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
 			}

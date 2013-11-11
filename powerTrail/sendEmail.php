@@ -46,7 +46,8 @@ function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $actio
 			$mailbody = mb_ereg_replace('{pt153}', '', $mailbody);
 			break;
 	}
-	
+	if(!isset($usr['userid']))$usr['userid']=-1;
+	if(!isset($usr['username']))$usr['username']='SYSTEM';
 	$mailbody = mb_ereg_replace('{runwatch14}', tr('runwatch14'), $mailbody);
 	$mailbody = mb_ereg_replace('{commentDateTime}', date($siteDateFormat,strtotime($commentDateTime)), $mailbody);
 	$mailbody = mb_ereg_replace('{userId}', $usr['userid'], $mailbody);

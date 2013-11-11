@@ -1759,6 +1759,8 @@ pt223 geoPaths
 pt224 hidden caches points
 pt225 logs count in gpx file
 pt226 for each cache. Available only for &quot;gpx&quot; files
+pt227 GeoPath not match criteria. Is closed for service until owners correct that. Closure reason: 
+pt228 to low cache count in geoPath
 statpic_found Found:
 statpic_hidden Hidden:
 statpic_html_link - Statistics for
