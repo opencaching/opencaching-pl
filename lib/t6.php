@@ -24,9 +24,9 @@ if ($result === false)
 	$rsfCR = sql("SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region FROM `cache_location` INNER JOIN caches ON cache_location.cache_id=caches.cache_id WHERE `cache_location`.`code1`='PL' AND `caches`.`status`=1 AND `caches`.`type`<>6 AND `cache_location`.`adm3`!='' GROUP BY `cache_location`.`code3` ORDER BY count DESC");
 
 	echo '<table width="97%"><tr><td align="center"><center><b> '.tr('number_of_caches_by_region').'</b> <br />'.tr('only_active_caches').'<br /> '.tr('users_who_created_caches').': ';
-	echo $rsUs[count]; 
+	echo $rsUs["count"]; 
 	echo ' .::. '.tr('number_of_active_caches').': ';
-	echo $fCt[count]; 
+	echo $fCt["count"]; 
 	echo '<br /><br />(Kliknij na nazwe województwa aby zobaczyć statytykę użytkowników w danym województwie)</center></td></tr></table><br><table border="1" bgcolor="white" width="97%">' . "\n";
 
 	 
@@ -44,7 +44,7 @@ if ($result === false)
 	{
 		echo '<tr class="bgcolor2">
 				<td align="right">
-					&nbsp;&nbsp;<b>'.$line[count].'</b>&nbsp;&nbsp;
+					&nbsp;&nbsp;<b>'.$line["count"].'</b>&nbsp;&nbsp;
 				</td>
 				<td align="right">
 					&nbsp;&nbsp;<b><a class=links href=articles.php?page=s9&region='.$line[code_region].'>'.$line[region].'</a></b>&nbsp;&nbsp;
