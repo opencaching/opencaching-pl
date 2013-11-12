@@ -851,12 +851,15 @@ if (($usr['admin']==1))
 				{
 	 				if (isset($_SESSION['showdel']) && $_SESSION['showdel']=='y')
 					{
-						$showhidedel_link = $hide_del_link; //need to add a new line due to breaking when Show all Logs is displayed
+						$showhidedel_link = $hide_del_link; 
 					} else {
-						$showhidedel_link = $show_del_link;//need to add a new line due to breaking when Show all Logs is displayed
-	 				}				
+						$showhidedel_link = $show_del_link;
+	 				}			
+			$showhidedel_link = str_replace('{thispage}', 'viewcache.php', $showhidedel_link); //$show_del_link is defined in viecache.inc.php - for both viewlogs and viewcashes .php	
 			}
+		
 	};
+
 
 				tpl_set_var('showhidedel_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $showhidedel_link));
 				tpl_set_var('new_log_entry_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $new_log_entry_link));

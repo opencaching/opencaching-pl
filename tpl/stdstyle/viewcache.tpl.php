@@ -484,7 +484,7 @@ else
                                         {viewlogs}
                                         &nbsp;
 										{new_log_entry_link}
-										 &nbsp;
+										&nbsp;
 										{showhidedel_link}
                                 </p>
                         </div>

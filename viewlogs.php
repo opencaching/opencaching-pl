@@ -135,7 +135,32 @@
 				} else {
 				tpl_set_var('gallery', '');
 				;}			
+
+if (($usr['admin']==1) || ($show_one_log!=''))
+	{
+		$showhidedel_link=""; //no need to hide/show deletion icon for COG (they always see deletions) or this is single log call
+ 	} else {
+ 			$del_count=sqlValue("SELECT count(*) number FROM `cache_logs` WHERE `deleted`=1 and `cache_id`='" .$cache_id . "'", 0);
+			if ($del_count==0) {
+				$showhidedel_link=""; //don't show link if no deletion '	
+			} else 
+				{
+	 				if (isset($_SESSION['showdel']) && $_SESSION['showdel']=='y')
+					{
+						$showhidedel_link = $hide_del_link; 
+					} else {
+						$showhidedel_link = $show_del_link;
+	 				}
+				$showhidedel_link = str_replace('{thispage}', 'viewlogs.php', $showhidedel_link); //$show_del_link is defined in viecache.inc.php - for both viewlogs and viewcashe .php				
+			}
+			
+	};		
+
+					tpl_set_var('showhidedel_link', mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $showhidedel_link));			
+				
+				
 //START: edit by FelixP - 2013'10
+isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false : $HideDeleted = true;
 			// prepare the logs - show logs marked as deleted if admin
 			//$show_deleted_logs = "";
 			//$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
@@ -146,6 +171,12 @@
 				$show_deleted_logs = "`cache_logs`.`deleted` `deleted`,";
 				$show_deleted_logs2 = "";
 			//}
+				If (($HideDeleted && $show_one_log=='' && !$usr['admin']) ) //hide deletions if (hide_deletions opotions is on and this is single_log call=not and user is not COG) 
+			{
+				$show_deleted_logs = "";
+				$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
+			};				
+			
  
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					".$show_deleted_logs."
