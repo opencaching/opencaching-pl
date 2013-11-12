@@ -400,6 +400,8 @@
 			}
 			if (!isset($map_msg)) $map_msg = '';
 			if (!isset($map_msg)) $map_msg = '';
+			if (!isset($coords2)) $coords2 = '';
+			if (!isset($coords3)) $coords3 = '';
 			tpl_set_var('cache_stats', $cache_stats);
 			tpl_set_var('googlemap_key', $googlemap_key);
 			tpl_set_var('map_msg', $map_msg);
@@ -1720,6 +1722,16 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 					)
 				);
 				$report_action = "<li><a href=\"reportcache.php?cacheid=$cache_id\">".tr('report_problem')."</a></li>";
+			} else {
+				$cache_menu = array(
+					'title' => tr('cache_menu'),
+					'menustring' => tr('cache_menu'),
+					'siteid' => 'cachelisting',
+					'navicolor' => '#E8DDE4',
+					'visible' => false,
+					'filename' => 'viewcache.php',
+					'submenu' => array(),
+				);
 			}
 
 			tpl_set_var('log', $log_action);
