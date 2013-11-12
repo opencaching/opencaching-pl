@@ -44,6 +44,5 @@ function emailCacheOwner($ptId, $cacheId, $linkCode){
 	mb_send_mail($cacheData['email'], tr('pt183'), $mailbody, $headers);
 
 	// for debug only
-	// print $mailbody;
-	mb_send_mail('lza@tlen.pl', tr('pt183'), $mailbody, $headers);
+	// mb_send_mail('lza@tlen.pl', tr('pt183'), $mailbody, $headers);
 }
