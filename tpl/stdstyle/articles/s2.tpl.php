@@ -10,6 +10,74 @@
   ga('create', 'UA-45656189-1', 'opencaching.pl');
   ga('send', 'pageview');
 
+/*//////////////////////////////////////////////////////////////
+ TrackTiming
+
+ call: 	TimeTrack
+ params: mode = START, END, DEBUG
+ 
+/////////////////////////////////////////////////////////////////*/
+  function trackTiming()
+  {
+  	this.startTime;
+  	this.endTime;
+  	
+  	this.debug = false;
+  };
+
+  trackTiming.prototype.startTime = function() {
+    this.startTime = new Date().getTime();  
+    return this;
+  };
+
+  trackTiming.prototype.endTime = function() {
+    this.endTime = new Date().getTime();
+    return this;
+  };
+
+  trackTiming.prototype.sendTime = function() 
+  {
+  	var elapsedTime = this.endTime - this.startTime;
+  	
+  	if (!this.debug) 
+  	{		
+  		_gaq.push(['_trackTiming', 'DB', 'Run Query', elapsedTime, 'OCPL-Statystka: Seeker', 100]);
+  	}
+  	else
+  	{
+  		alert( elapsedTime/1000 );
+  	}
+  	
+    return this;
+  };
+
+  trackTiming.prototype.setDebug = function() 
+  {
+  	this.debug = true;
+    	return this;
+  };
+
+  function TimeTrack( mode )
+  {		
+  	if (mode == "START")
+  	{
+  		t = new trackTiming();
+  		t.startTime();		
+  	} 
+
+  	if (mode == "END")
+  	{
+  		t.endTime();
+  		t.sendTime();
+  	} 
+
+  	if (mode == "DEBUG")
+  	{
+  		t.setDebug()
+  	}		
+  }
+  
+
 </script>
 
 
@@ -18,9 +86,24 @@
 	<tr><td class="spacer"></td></tr>
 </table>
 
+
+
+<script type="text/javascript">
+TimeTrack( "START" );
+</script>
+
+<?php
+global $debug_page; 
+if ( $debug_page )
+	echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";  
+?>
+
 <table width="760" class="table" style="line-height: 1.6em; font-size: 10px;">
 <tr>
 <td><?php include ("t2.php");?>
 </td></tr>
 </table>
 
+<script type="text/javascript">
+TimeTrack( "END" );
+</script>

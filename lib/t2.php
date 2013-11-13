@@ -23,7 +23,7 @@
 	while( $res = sql_fetch_array($res_q) )
 	{
 		$no_types++;
-		if( $_GET[$res['id']] == 1)
+		if( isset( $_GET[$res['id']] ) && $_GET[$res['id']] == 1)
 		{
 			$checked = 'checked';
 			$typ .= " AND caches.type <> ".$res['id'];
@@ -42,9 +42,10 @@
 	echo '<table border="1" bgcolor="white" width="97%" style="font-size:11px; line-height:1.6em;">' . "\n";
 
 $a = "SELECT COUNT(*) count, username, stat_ban, user.user_id FROM caches, cache_logs, user ".
-     "WHERE `cache_logs`.`deleted`=0 AND cache_logs.user_id=user.user_id AND cache_logs.type=1 AND cache_logs.cache_id = caches.cache_id ".$typ." ".
+     "WHERE `cache_logs`.`deleted`=0 AND cache_logs.user_id=user.user_id AND cache_logs.type=1 AND cache_logs.cache_id = caches.cache_id ".$typ." ".     
      "GROUP BY user.user_id ".
      "ORDER BY 1 DESC, user.username ASC";
+     
 
 $cache_key = md5($a);
 $lines = apc_fetch($cache_key);
@@ -81,7 +82,7 @@ foreach ($lines as $line)
 			$color = "gray";
 			$banned = " (BAN)";
 		}
-    $l1=$line[count];
+    $l1=$line["count"];
     if ($l2!=$l1)
     {
         // new rank (finish recent row and start new one)
@@ -91,13 +92,13 @@ foreach ($lines as $line)
 	     '<td align="right">&nbsp;&nbsp;<b>'.$rank.'</b>&nbsp;&nbsp;</td>'.
              '<td align="right">&nbsp;&nbsp;'.$position.'&nbsp;&nbsp;</td>'.
 	     '<td align="right">&nbsp;&nbsp;<b>'.$l1.'</b>&nbsp;&nbsp;</td>'.
-             '<td><a style="color:'.$color.'" href="viewprofile.php?userid='.$line[user_id].'">'.htmlspecialchars($line[username]).$banned.'</a>';
+             '<td><a style="color:'.$color.'" href="viewprofile.php?userid='.$line["user_id"].'">'.htmlspecialchars($line["username"]).$banned.'</a>';
         $l2=$l1;
     }
     else 
     {
         // the same rank (continue row)
-        echo ', <a style="color:'.$color.'" href="viewprofile.php?userid='.$line[user_id].'">'.htmlspecialchars($line[username]).$banned.'</a>';
+        echo ', <a style="color:'.$color.'" href="viewprofile.php?userid='.$line["user_id"].'">'.htmlspecialchars($line["username"]).$banned.'</a>';
     }
     $position++;
 	}
@@ -108,3 +109,5 @@ foreach ($lines as $line)
 echo "</table>\n";
 
 ?>
+
+
