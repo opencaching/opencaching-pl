@@ -34,6 +34,7 @@
 		require($stylepath . '/viewcache.inc.php');
 		require($stylepath . '/viewlogs.inc.php');
 		require($stylepath.'/smilies.inc.php');
+		require_once('./lib/db.php');
 		global $usr;
 		
 		$cache_id = 0;
@@ -60,44 +61,55 @@
 			if (!is_numeric($count)) $count = 999999;
 		}
 
+		$dbc = new dataBase();
 		if ($cache_id != 0)
 		{
 			//get cache record
-			$rs = sql("SELECT `user_id`, `name`, `founds`, `notfounds`, `notes`, `status`, `type` FROM `caches` WHERE `caches`.`cache_id`='&1'", $cache_id);
+			
+			//$rs = sql("SELECT `user_id`, `name`, `founds`, `notfounds`, `notes`, `status`, `type` FROM `caches` WHERE `caches`.`cache_id`='&1'", $cache_id);
+			$thatquery = "SELECT `user_id`, `name`, `founds`, `notfounds`, `notes`, `status`, `type` FROM `caches` WHERE `caches`.`cache_id`=:1";
+			$dbc->multiVariableQuery($thatquery,$cache_id);
 
-			if (mysql_num_rows($rs) == 0)
+			//if (mysql_num_rows($rs) == 0)
+			if ($dbc->rowCount()==0)
 			{
 				$cache_id = 0;
 			}
 			else
 			{
-				$cache_record = sql_fetch_array($rs);
+				//$cache_record = sql_fetch_array($rs);
+				$cache_record = $dbc->dbResultFetch();
 				// check if the cache is published, if not only the owner is allowed to view the log
 				if(($cache_record['status'] == 4 || $cache_record['status'] == 5 || $cache_record['status'] == 6 ) && ($cache_record['user_id'] != $usr['userid'] && !$usr['admin']))
 				{
 					$cache_id = 0;
 				}
 			}
-			mysql_free_result($rs);
+			//mysql_free_result($rs);
+			
 		} else {
 		
 					//get cache record
-			$rs = sql("SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`='&1' AND `caches`.`cache_id`=`cache_logs`.`cache_id` ", $logid);
+			//$rs = sql("SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`='&1' AND `caches`.`cache_id`=`cache_logs`.`cache_id` ", $logid);
+			$thatquery = "SELECT `cache_logs`.`cache_id`,`caches`.`user_id`, `caches`.`name`, `caches`.`founds`, `caches`.`notfounds`, `caches`.`notes`, `caches`.`status`, `caches`.`type` FROM `caches`,`cache_logs` WHERE `cache_logs`.`id`=:1 AND `caches`.`cache_id`=`cache_logs`.`cache_id` ";
+			$dbc->multiVariableQuery($thatquery,$logid);
 
-			if (mysql_num_rows($rs) == 0)
+			//if (mysql_num_rows($rs) == 0)
+			 if ($dbc->rowCount()==0)
 			{
 				$cache_id = 0;
 			}
 			else
 			{
-				$cache_record = sql_fetch_array($rs);
+				//$cache_record = sql_fetch_array($rs);
+				$cache_record = $dbc->dbResultFetch();
 				// check if the cache is published, if not only the owner is allowed to view the log
 				if(($cache_record['status'] == 4 || $cache_record['status'] == 5 || $cache_record['status'] == 6 ) && ($cache_record['user_id'] != $usr['userid'] && !$usr['admin']))
 				{
 					$cache_id = 0;
 				} else { $cache_id =$cache_record['cache_id'] ;}
 			}
-			mysql_free_result($rs);
+			//mysql_free_result($rs);
 		}			
 
 
@@ -131,7 +143,7 @@
 			$rspiclogs =sqlValue("SELECT COUNT(*) FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`= $cache_id",0);
 
 				if ($rspiclogs !=0){
-				tpl_set_var('gallery', $gallery_icon.'&nbsp;'.$rspiclogs.'x '.mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $gallery_link));
+				tpl_set_var('gallery', $gallery_icon.'&nbsp;'.$rspiclogs.'x&nbsp;'.mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $gallery_link));
 				} else {
 				tpl_set_var('gallery', '');
 				;}			
@@ -151,6 +163,7 @@ if (($usr['admin']==1) || ($show_one_log!=''))
 					} else {
 						$showhidedel_link = $show_del_link;
 	 				}
+				
 				$showhidedel_link = str_replace('{thispage}', 'viewlogs.php', $showhidedel_link); //$show_del_link is defined in viecache.inc.php - for both viewlogs and viewcashe .php				
 			}
 			
@@ -219,16 +232,71 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				".$show_deleted_logs2."
 				".$show_one_log."
 				ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT &3, &4", $lang, $cache_id, $start+0, $count+0);
-
+/*
+			$thatquery= "SELECT `cache_logs`.`user_id` `userid`,
+					".$show_deleted_logs."
+					`cache_logs`.`id` AS `log_id`,
+			        `cache_logs`.`encrypt` `encrypt`,
+					`cache_logs`.`picturescount` AS `picturescount`,
+					`cache_logs`.`user_id` AS `user_id`,
+					`cache_logs`.`date` AS `date`,
+					`cache_logs`.`type` AS `type`,
+					`cache_logs`.`text` AS `text`,
+					`cache_logs`.`text_html` AS `text_html`,
+					`cache_logs`.`last_modified` AS `last_modified`,
+					`cache_logs`.`last_deleted` AS `last_deleted`,
+					`cache_logs`.`edit_count` AS `edit_count`,
+					`cache_logs`.`date_created` AS `date_created`,
+					`user`.`username` AS `username`,
+					`user`.`hidden_count` AS    `ukryte`,
+					`user`.`founds_count` AS    `znalezione`, 	
+					`user`.`notfounds_count` AS `nieznalezione`,
+                    `user`.`admin` AS `admin`,
+					`u2`.`username` AS `del_by_username`,
+					`u2`.`admin` AS `del_by_admin`,
+					`u3`.`username` AS `edit_by_username`,
+					`u3`.`admin` AS `edit_by_admin`,
+					`log_types`.`icon_small` AS `icon_small`,
+					`cache_moved`.`longitude` AS `mobile_longitude`, 
+					`cache_moved`.`latitude` AS `mobile_latitude`, 
+					`cache_moved`.`km` AS `km`,
+					`log_types_text`.`text_listing` AS `text_listing`,
+			    IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
+				FROM `cache_logs`
+				INNER JOIN `log_types` ON `log_types`.`id`=`cache_logs`.`type`
+				INNER JOIN `log_types_text` ON `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`=:v1
+				INNER JOIN `user` ON `user`.`user_id` = `cache_logs`.`user_id`
+				LEFT JOIN `cache_moved` ON `cache_moved`.`log_id` = `cache_logs`.`id`
+				LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+				LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
+				LEFT JOIN `user` `u3` ON `cache_logs`.`edit_by_user_id`=`u3`.`user_id`
+				WHERE `cache_logs`.`cache_id`=:v2
+				".$show_deleted_logs2."
+				".$show_one_log."
+				ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT  :v3, :v4";
+   $params['v1']['value'] = (string) $lang;
+   $params['v1']['data_type'] = 'string';
+   $params['v2']['value'] = (integer) $cache_id;;
+   $params['v2']['data_type'] = 'integer';
+   $params['v3']['value'] = (integer) $start;;
+   $params['v3']['data_type'] = 'integer';
+   $params['v4']['value'] = (integer) $count;;
+   $params['v4']['data_type'] = 'integer';
+			$dbc->paramQuery($thatquery,$params); */
 			$logs = '';
 
 			$thisdateformat = $dateformat;
 			$thisdatetimeformat = $datetimeformat;
 //START: same code ->viewlogs.php / viewcache.php
 			$edit_count_date_from = date_create('2005-01-01 00:00');
-			for ($i = 0; $i < mysql_num_rows($rs); $i++)
+			//$logs_count = $dbc->rowCount();
+			$logs_count = mysql_num_rows($rs);
+
+			
+			for ($i = 0; $i < $logs_count; $i++)
 			{
 				$record = sql_fetch_array($rs);
+				//$record = $dbc->dbResultFetch();
 				$show_deleted = "";
 				$processed_text = "";
 				if( isset( $record['deleted'] ) && $record['deleted'])
@@ -413,11 +481,14 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				{
 					$logpicturelines = '';
 					$append_atag='';
-					$rspictures = sql("SELECT `url`, `title`, `uuid`, `user_id` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=1", $record['log_id']);
-
-					for ($j = 0; $j < mysql_num_rows($rspictures); $j++)
+					//$rspictures = sql("SELECT `url`, `title`, `uuid`, `user_id` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=1", $record['log_id']);
+					$thatquery = "SELECT `url`, `title`, `uuid`, `user_id` FROM `pictures` WHERE `object_id`=:1 AND `object_type`=1";
+					$dbc->multiVariableQuery($thatquery,$record['log_id']);
+					$pic_count = $dbc->rowCount();
+					for ($j = 0; $j < $pic_count ; $j++)
 					{
-						$pic_record = sql_fetch_array($rspictures);
+						//$pic_record = sql_fetch_array($rspictures);
+						$pic_record = $dbc->dbResultFetch();
 						$thisline = $logpictureline;
 
 
@@ -438,7 +509,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
 						$logpicturelines .= $thisline;
 					}
-					mysql_free_result($rspictures);
+					//mysql_free_result($rspictures);
 
 					$logpicturelines = mb_ereg_replace('{lines}', $logpicturelines, $logpictures);
 					$tmplog = mb_ereg_replace('{logpictures}', $logpicturelines, $tmplog);
@@ -456,7 +527,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 			exit;
 		}
 	}
-
+	unset( $dbc );
 	//make the template and send it out
 	tpl_BuildTemplate();
 ?>
