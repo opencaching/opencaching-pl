@@ -11,6 +11,8 @@
  * @author Andrzej Łza Woźniak
  *
  */
+global $debug_page;
+
 class dataBase
 {
 	/**
@@ -46,7 +48,7 @@ class dataBase
 		
 	 	//JG 2013-10-20
 	 	$this->debug = $debug_page;
-	 	
+	 		 	
 	 	// turn on debug to screen
 	 	if ($debug === true) {
 	 		$this->debug = true;
