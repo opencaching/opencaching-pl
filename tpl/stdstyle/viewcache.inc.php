@@ -99,10 +99,10 @@ $visit_icon = '<img src="tpl/stdstyle/images/free_icons/vcard.png" class="icon16
 $exist_icon = '<img src="tpl/stdstyle/images/log/16x16-attend.png" class="icon16" alt="" title="uczestniczył"/>';
 $trash_icon = '<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="" />';
 $wattend_icon = '<img src="tpl/stdstyle/images/log/16x16-will_attend.png" class="icon16" alt="" title="będzie uczestniczył"/>';
-$hide_del_tr=str_replace(" ","&nbsp;",tr('vc_HideDeletions'));
-$hide_del_link ='<a href="{thispage}?cacheid={cacheid}&amp;showdel=n'.$linkargs.'#log_start" title="'.$hide_del_tr .'">'.'<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="'.$hide_del_tr.'" title="'.$hide_del_tr.'" /></a>&nbsp;<a href="{thispage}?cacheid={cacheid}&amp;showdel=n'.$linkargs.'#log_start" title="'.$hide_del_tr .'">'.$hide_del_tr.'</a>';
-$show_del_tr= str_replace(" ","&nbsp;",tr('vc_ShowDeletions'));
-$show_del_link ='<a href="{thispage}?cacheid={cacheid}&amp;showdel=y'.$linkargs.'#log_start" title="'.$show_del_tr .'">'.'<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="'.$show_del_tr.'" title="'.$show_del_tr.'" /></a>&nbsp;<a href="{thispage}?cacheid={cacheid}&amp;showdel=y'.$linkargs.'#log_start" title="'.$show_del_tr .'">'.$show_del_tr.'</a>'; //add trash icon - todo: diff icon for show/hide
+$hide_del_tr=tr('vc_HideDeletions');
+$hide_del_link ='<span style="white-space: nowrap;"><a href="{thispage}?cacheid={cacheid}&amp;showdel=n'.$linkargs.'#log_start" title="'.$hide_del_tr .'">'.'<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="'.$hide_del_tr.'" title="'.$hide_del_tr.'" /></a>&nbsp;<a href="{thispage}?cacheid={cacheid}&amp;showdel=n'.$linkargs.'#log_start" title="'.$hide_del_tr .'">'.$hide_del_tr.'</a></span>';
+$show_del_tr=tr('vc_ShowDeletions');
+$show_del_link ='<span style="white-space: nowrap;"><a href="{thispage}?cacheid={cacheid}&amp;showdel=y'.$linkargs.'#log_start" title="'.$show_del_tr .'">'.'<img src="tpl/stdstyle/images/log/16x16-trash.png" class="icon16" alt="'.$show_del_tr.'" title="'.$show_del_tr.'" /></a>&nbsp;<a href="{thispage}?cacheid={cacheid}&amp;showdel=y'.$linkargs.'#log_start" title="'.$show_del_tr .'">'.$show_del_tr.'</a></span>'; //add trash icon - todo: diff icon for show/hide
 //$show_del_link and $hide_del_link are used in both viewlogs and viewcashes .php - so {thispage} is determined for caller
 
 

@@ -143,7 +143,7 @@
 			$rspiclogs =sqlValue("SELECT COUNT(*) FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`= $cache_id",0);
 
 				if ($rspiclogs !=0){
-				tpl_set_var('gallery', $gallery_icon.'&nbsp;'.$rspiclogs.'x&nbsp;'.mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $gallery_link));
+				tpl_set_var('gallery','<span style="white-space: nowrap;">'.$gallery_icon.'&nbsp;'.$rspiclogs.'x&nbsp;'.mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $gallery_link).'</span>');  //todo - move galery link to viewcache.inc.php
 				} else {
 				tpl_set_var('gallery', '');
 				;}			
@@ -218,20 +218,20 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 					`cache_moved`.`longitude` AS `mobile_longitude`, 
 					`cache_moved`.`latitude` AS `mobile_latitude`, 
 					`cache_moved`.`km` AS `km`,
-					`log_types_text`.`text_listing` AS `text_listing`,
+					
 			    IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
 				FROM `cache_logs`
 				INNER JOIN `log_types` ON `log_types`.`id`=`cache_logs`.`type`
-				INNER JOIN `log_types_text` ON `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`='&1'
+				
 				INNER JOIN `user` ON `user`.`user_id` = `cache_logs`.`user_id`
 				LEFT JOIN `cache_moved` ON `cache_moved`.`log_id` = `cache_logs`.`id`
 				LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 				LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
 				LEFT JOIN `user` `u3` ON `cache_logs`.`edit_by_user_id`=`u3`.`user_id`
-				WHERE `cache_logs`.`cache_id`='&2'
+				WHERE `cache_logs`.`cache_id`='&1'
 				".$show_deleted_logs2."
 				".$show_one_log."
-				ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT &3, &4", $lang, $cache_id, $start+0, $count+0);
+				ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT &2, &3", $cache_id, $start+0, $count+0);
 /*
 			$thatquery= "SELECT `cache_logs`.`user_id` `userid`,
 					".$show_deleted_logs."
@@ -296,6 +296,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 			for ($i = 0; $i < $logs_count; $i++)
 			{
 				$record = sql_fetch_array($rs);
+				$record['text_listing']= ucfirst(tr('logType'.$record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
 				//$record = $dbc->dbResultFetch();
 				$show_deleted = "";
 				$processed_text = "";

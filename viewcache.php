@@ -1325,10 +1325,10 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 							  `u3`.`username` AS `edit_by_username`,
 							  `u3`.`admin` AS `edit_by_admin`,
 			                  `log_types`.`icon_small` `icon_small`,
-			                  `log_types_text`.`text_listing` `text_listing`,
+			                  
 			                  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
 			             FROM `cache_logs` INNER JOIN `log_types` ON `cache_logs`.`type`=`log_types`.`id`
-			                               INNER JOIN `log_types_text` ON `log_types`.`id`=`log_types_text`.`log_types_id` AND `log_types_text`.`lang`='&2'
+			                               
 			                               INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id`
 			                               LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 										   LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
@@ -1336,7 +1336,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 			            WHERE `cache_logs`.`cache_id`='&1'
 									".$show_deleted_logs2."
 			         ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC
-			            LIMIT &3", $cache_id, $lang, $logs_to_display+0);
+			            LIMIT &2", $cache_id, $logs_to_display+0);
 
 			$logs = '';
 		
@@ -1344,9 +1344,13 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 			$thisdatetimeformat = "%d %B %Y %H:%m";
 //START: same code ->viewlogs.php / viewcache.php
 			$edit_count_date_from = date_create('2005-01-01 00:00');
-			for ($i = 0; $i < mysql_num_rows($rs); $i++)
+			//$logs_count = $dbc->rowCount();
+			$logs_count = mysql_num_rows($rs);
+
+			for ($i = 0; $i < $logs_count; $i++)
 			{
 				$record = sql_fetch_array($rs);
+				$record['text_listing']= ucfirst(tr('logType'.$record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
 				$show_deleted = "";
 				$processed_text = "";
 				if( isset( $record['deleted'] ) && $record['deleted'])
