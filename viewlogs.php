@@ -190,7 +190,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
 			};				
 			
- 
+ /*
 			$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 					".$show_deleted_logs."
 					`cache_logs`.`id` AS `log_id`,
@@ -232,7 +232,8 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				".$show_deleted_logs2."
 				".$show_one_log."
 				ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT &2, &3", $cache_id, $start+0, $count+0);
-/*
+				
+*/
 			$thatquery= "SELECT `cache_logs`.`user_id` `userid`,
 					".$show_deleted_logs."
 					`cache_logs`.`id` AS `log_id`,
@@ -260,44 +261,46 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 					`cache_moved`.`longitude` AS `mobile_longitude`, 
 					`cache_moved`.`latitude` AS `mobile_latitude`, 
 					`cache_moved`.`km` AS `km`,
-					`log_types_text`.`text_listing` AS `text_listing`,
+					
 			    IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
 				FROM `cache_logs`
 				INNER JOIN `log_types` ON `log_types`.`id`=`cache_logs`.`type`
-				INNER JOIN `log_types_text` ON `log_types_text`.`log_types_id`=`log_types`.`id` AND `log_types_text`.`lang`=:v1
+				
 				INNER JOIN `user` ON `user`.`user_id` = `cache_logs`.`user_id`
 				LEFT JOIN `cache_moved` ON `cache_moved`.`log_id` = `cache_logs`.`id`
 				LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
 				LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
 				LEFT JOIN `user` `u3` ON `cache_logs`.`edit_by_user_id`=`u3`.`user_id`
-				WHERE `cache_logs`.`cache_id`=:v2
+				WHERE `cache_logs`.`cache_id`=:v1
 				".$show_deleted_logs2."
 				".$show_one_log."
-				ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT  :v3, :v4";
-   $params['v1']['value'] = (string) $lang;
-   $params['v1']['data_type'] = 'string';
-   $params['v2']['value'] = (integer) $cache_id;;
+				ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT :v2, :v3";
+   $params['v1']['value'] = (integer) $cache_id;;
+   $params['v1']['data_type'] = 'integer';
+   $params['v2']['value'] = (integer) $start;;
    $params['v2']['data_type'] = 'integer';
-   $params['v3']['value'] = (integer) $start;;
+   $params['v3']['value'] = (integer) $count;;
    $params['v3']['data_type'] = 'integer';
-   $params['v4']['value'] = (integer) $count;;
-   $params['v4']['data_type'] = 'integer';
-			$dbc->paramQuery($thatquery,$params); */
+			$dbc->paramQuery($thatquery,$params);
 			$logs = '';
 
 			$thisdateformat = $dateformat;
 			$thisdatetimeformat = $datetimeformat;
 //START: same code ->viewlogs.php / viewcache.php
 			$edit_count_date_from = date_create('2005-01-01 00:00');
-			//$logs_count = $dbc->rowCount();
-			$logs_count = mysql_num_rows($rs);
+			$logs_count = $dbc->rowCount();
+			//$logs_count = mysql_num_rows($rs);
 
-			
+			$all_rec = $dbc->dbResultFetchAll();
+			//var_dump($all_rec);
+			unset($dbc); //kill $dbc - possible long execution time due to loop - to be set conditional ($log_count>1)?
 			for ($i = 0; $i < $logs_count; $i++)
 			{
-				$record = sql_fetch_array($rs);
-				$record['text_listing']= ucfirst(tr('logType'.$record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
+				//$record = sql_fetch_array($rs);
 				//$record = $dbc->dbResultFetch();
+				$record = $all_rec[$i];
+				$record['text_listing']= ucfirst(tr('logType'.$record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
+
 				$show_deleted = "";
 				$processed_text = "";
 				if( isset( $record['deleted'] ) && $record['deleted'])
@@ -483,6 +486,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 					$logpicturelines = '';
 					$append_atag='';
 					//$rspictures = sql("SELECT `url`, `title`, `uuid`, `user_id` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=1", $record['log_id']);
+					if (!isset($dbc)) {$dbc = new dataBase();};
 					$thatquery = "SELECT `url`, `title`, `uuid`, `user_id` FROM `pictures` WHERE `object_id`=:1 AND `object_type`=1";
 					$dbc->multiVariableQuery($thatquery,$record['log_id']);
 					$pic_count = $dbc->rowCount();

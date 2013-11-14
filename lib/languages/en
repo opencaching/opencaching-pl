@@ -114,7 +114,7 @@ hide_caches Hide caches
 ignored ignored
 not_yet_found not yet found
 temp_unavailables temporarily unavailable
-ready_to_find ready for search
+ready_to_find ready to find
 other_options other options
 show_signes show signatures
 filter filter
@@ -638,12 +638,12 @@ activity_by_region Activity by region
 number_of_visit_caches Number of search caches
 users_active Number of active users
 show_labels Show labels
-history_gk GeoKrety historie 
+history_gk GeoKrety records
 cache_notes Notes
 my_statistics My statistics
 mycache_note My cache notes
 personal_cache_note Personal cache note
-cache_note_visible The note is not visible to other users. If will be included in GPX files you download.
+cache_note_visible The note is not visible to other users. It will be included in GPX files you download.
 for_cache for 
 add_new_note Add a new note
 back_to_cache Back to cache
@@ -925,7 +925,7 @@ os_minut_end minutes until you can try again.
 viewlog_aktywnosc Total user activity (sum of caches found, not found and hidden)
 viewlog_kordy Cache coordinates after moving
 log_type_temp_unavailable Temporarily unavailable
-log_type_available Ready for searching
+log_type_available Ready to find
 log_mobile_init Starting coordinates
 error_coords_not_ok Wrong coordinates!
 GKApi01 Integration OC account with GeoKrety.org
@@ -1186,8 +1186,8 @@ registermail14 Use the next code to complete your registration:
 registermail15 Enter your activation code on the next page:
 registermail16 If you don't login in the next 14 days, your account will be deleted.
 activatemail01 The cache
-activatemail02 has bin aproved by the Opencaching Team.
-activatenail03 You can change the status in "Ready for search" on:
+activatemail02 has been aproved by the Opencaching Team.
+activatenail03 You can change the status in "Ready to find" on:
 activatemail04 If you have any questions about this, contact:
 activatemail05 octeam@opencaching.pl
 map_01 show FTFs only!
@@ -1673,7 +1673,7 @@ pt137 geoPath of the day
 pt138 caches
 pt139 geoPath
 pt140 Number of points in the geoPath category
-pt141 Cache ready to search
+pt141 Cache ready to find
 pt142 temporarily unavailable
 pt143 cache was archived
 pt144 Not published
@@ -1856,6 +1856,6 @@ logType6 Archieving recommended
 logType7 Attended
 logType8 Will attend
 logType9 Archived
-logType10 Ready for searching
+logType10 Ready to find
 logType11 Temporarily unavailable
 logType12 OC Team comment 
