@@ -28,6 +28,8 @@ function do_reset() {
 			document.getElementById( 'logtype' ).onchange();
 		
 			handle_score_note();
+			var GKBox = document.getElementById("toggleGeoKretyDIV");
+			GKBox.style.display = "none";
 			return true;
 		};
 				
