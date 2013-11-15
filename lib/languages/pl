@@ -1896,7 +1896,7 @@ pt207 filtry gpx
 pt208 GeoŚcieżki COG
 pt209 wybierz
 pt210 usunięcie z geoŚcieżki
-pt211 Uwaga! usunięcie skrzynki z geoŚcieżki, która została już zalogowana jako 'zdobyta' niesie ze sobą utratę punktów zdobytych przez użytkowników, którzy zdobyli geoŚcieżkę. Dlatego operacja ta powinna być używana tylko w wyjątkowych i uzasadnionych okolicznościach. Operację tą może przeprowadzić tylko COG (nawet założyciele geoŚcieżki nie mają takiej możliwośći). należy starannie przeanalizować, czy rzeczywiście nie ma innego rozwiązania. (Preferowanym rozwiązaniem jest archiwizacja skrzynki).
+pt211 Uwaga! usunięcie skrzynki z geoŚcieżki, która została już zalogowana jako 'zdobyta' niesie ze sobą utratę punktów zdobytych przez użytkowników, którzy zdobyli geoŚcieżkę. Dlatego operacja ta powinna być używana tylko w wyjątkowych i uzasadnionych okolicznościach. Operację tą może przeprowadzić tylko COG (nawet założyciele geoŚcieżki nie mają takiej możliwośći). należy starannie przeanalizować, czy rzeczywiście nie ma innego rozwiązania. (Preferowanym rozwiązaniem jest archiwizacja skrzynki).<br /><br />- Jeśli użytkownik chce usunąć (wycofać) swoją skrzynkę z geoŚcieżki - należy ją zarchiwizować. Zawsze, jeżeli została co najmniej raz znaleziona.<br />- W żadnym wypadku nie usuwać z geoŚcieżek skrzynek zarchiwizowanych (chyba, że skrzynka była założona z premedytacją niezgodnie z prawem i.t.p bardzo wyjątkowe okoliczności)<br />- Można usuwać, na prośbę właściciela skrzynki, skrzynki które jeszcze nigdy nie zostały znalezione. (wtedy punkty utraci tylko założyciel)<br />
 pt212 Zamknięta
 pt213 Zamknięcie geoŚcieżki
 pt214 Otwarcie geoŚcieżki
