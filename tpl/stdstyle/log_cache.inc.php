@@ -40,7 +40,7 @@
 	$sel_message = tr('lxg06');
  	$log_types = tr('lxg03');
  	$error_coords_not_ok = tr('error_coords_not_ok');
- 	
+
 //  $log_types[] = array('id' => '-1', 'pl' => 'Prosze wybrac!', 'en' => 'Please select!');
 
 ?>

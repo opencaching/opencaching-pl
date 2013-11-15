@@ -210,31 +210,51 @@ $debug = false;
 				// print mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl); exit;	
 				// enable backscoring
 				$sql = "SELECT count(*) FROM scores WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(intval($cache_id))."'";
-
 				// disable backscoring
 				// $sql = "SELECT count(*) FROM cache_logs WHERE `deleted`=0 AND type='1' AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(intval($cache_id))."'";
 				$is_scored_query = mysql_query($sql);
 //				mysql_result($is_scored_query,0);
 				if( mysql_result($is_scored_query,0) == 0 && $usr['userid'] != $record['user_id'])
 				{
-					//$color_table = array("#FF0000","#FF6600","#FF9900","#99FF00","#66FF00","#33FF00","#00FF00");
-					$score = "<select name='r' id = 'r'> 
-						";//triPPer 2013-10-28 dodałem id, na potrzeby onSubmitHandler
+					$color_table = array("#DD0000","#F06464","#DD7700","#77CC00","#00DD00");
+
+					
+				//	$score = "<select name='r' id = 'r'>
+				$score=''; 
+				$line_cnt=0;
+			//			";//triPPer 2013-10-28 dodałem id, na potrzeby onSubmitHandler
+
+					for( $score_radio=$MIN_SCORE;$score_radio<=$MAX_SCORE;$score_radio++)
+					{
+						
+						if (($line_cnt==2)) {
+							$break_line = "<BR>";
+							$break_line ="";
+						} else {
+							$break_line = "";
+							
+						};
+						if( isset($_POST['r']) && $score_radio == $_POST['r'] )
+							$checked = ' checked="true"';
+						else
+							$checked = "";
+						//$score .= "<option value='".$score_radio."' $checked>".$ratingDesc[$score_radio]."</option>";
+						$score.= '
+						<label><input type="radio" style="vertical-align: top" name="r" id="r'.$line_cnt.'" value="'.$score_radio.'" onclick="clear_no_score ();"'.$checked.'  /><b><font color="'.$color_table[$line_cnt].'"><span id="score_lbl_'.$line_cnt.'">'.ucfirst($ratingDesc[$score_radio]).'</span></font></b></label>&nbsp;&nbsp;'.$break_line;
+						$line_cnt++;
+					}
+					//$score .= "</select>";
+					//var_dump($_POST['r']);
 					if( isset($_POST['r']) && $_POST['r'] == -10)
-						$checked = " selected";
+						$checked = ' checked="true"';
 					else
 						$checked = "";
 						
-					$score .= "<option value='-10' $checked>".tr('do_not_rate')."</option>";
-					for( $score_radio=$MIN_SCORE;$score_radio<=$MAX_SCORE;$score_radio++)
-					{
-						if( isset($_POST['r']) && $score_radio == $_POST['r'] )
-							$checked = " selected";
-						else
-							$checked = "";
-						$score .= "<option value='".$score_radio."' $checked>".$ratingDesc[$score_radio]."</option>";
-					}
-					$score .= "</select>";
+					//$score .= "<option value='-10' $checked>".tr('do_not_rate')."</option>";
+					$score .= '<BR><label><input type="radio" style="vertical-align: top" name="r" "id="r'.$line_cnt.'" value="-10"'.$checked.' onclick="encor_no_score ();" /><span id="score_lbl_'.$line_cnt.'">'.tr('do_not_rate').'</span></label>';
+
+					//$score.= '
+					//<font color="#0011FF"><div id="no_score" name="no_score"> Jeszcze nie oceniono tej skrzynki</div></font>';
 					/*
 					for( $score_radio=$MIN_SCORE;$score_radio<=$MAX_SCORE;$score_radio++)
 						$score .= "<td width='14%' align='center'><label style='color:#ffffff;font-weight:bold;font-size:12px;' for='r$score_radio'>".$ratingDesc[$score_radio-1]."</label>";
@@ -253,6 +273,11 @@ $debug = false;
 				tpl_set_var('score', $score );
 				tpl_set_var('score_header', $score_header);
 				tpl_set_var('display', $display);
+				tpl_set_var('score_note_innitial', tr('log_score_note_innitial'));
+				tpl_set_var('score_note_thanks', tr('log_score_note_thanks'));
+				tpl_set_var('score_note_encorage',  tr('log_score_note_encorage'));
+				tpl_set_var('Do_reset_logform', tr('Do_reset_logform'));
+				tpl_set_var('log_reset_button',tr('log_reset_button'));
 				
 				// check if geokret is in this cache
 				if( isGeokretInCache($cache_id) )
@@ -434,20 +459,25 @@ $debug = false;
 						}
 					}
 				}
-
+				$mark_as_rated = false;
 				if( isset($_POST['submitform']) && ($log_type == 1 || $log_type == 7))
 				{
+					
+					if(!isset($_POST['r'])) {$_POST['r']=-15;};
+						
 					// fix
 					if( $log_type == 7 && $usr['userid'] == $record['user_id'] )
 					{
 						$_POST['r'] = -10;
 					}
-					if( $_POST['r'] != -10 )
+					if( $_POST['r'] != -10 && $_POST['r'] != -15 )
 					{
 						$_POST['r'] =  new2oldscore(intval($_POST['r'])); // convert to old score format
+						$mark_as_rated = true; 
+						
 					}
 					
-					if( $_POST['r'] == -10 || ($_POST['r'] >= -3 && $_POST['r'] <= 3))
+					if( $_POST['r'] == -10 || $_POST['r'] == -15  || ($_POST['r'] >= -3 && $_POST['r'] <= 3))
 					{
 						$score_not_ok = false;
 					}
@@ -463,7 +493,7 @@ $debug = false;
 				}
 				if( isset($_POST['submitform']) && ($all_ok == true) )
 				{
-					if( $_POST['r'] >= -3 && $_POST['r'] <= 3 )
+					if( $_POST['r'] >= -3 && $_POST['r'] <= 3  && $mark_as_rated == true) //mark_as_rated to avoid possbility to set rate to 0,1,2 then change to Comment log type and actually give score (what could take place before!)!
 					{
 						// oceniono skrzynkę
 						$sql = "SELECT count(*) FROM scores WHERE user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape(floatval($cache_id))."'";

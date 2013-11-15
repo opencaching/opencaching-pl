@@ -16,10 +16,27 @@ require_once('./lib/common.inc.php');
 ?>
 <script type="text/javascript">
 <!--
+function do_reset() {
+		if(!confirm("{Do_reset_logform}")) 
+		{
+			return false;
+		} else {
+			var frm = document.getElementById("logform");
+			
+			frm.reset();
+			//window.location.reload();
+			document.getElementById( 'logtype' ).onchange();
+		
+			handle_score_note();
+			return true;
+		};
+				
+};
+
 function onSubmitHandler()
 {
 
-	
+	handle_score_note();
 	if(document.getElementById('logtext').value.length == 0) {
 		
 	}	
@@ -34,8 +51,17 @@ function onSubmitHandler()
 		if(!confirm("{{empty_entry_confirm}}"))
 			return false;
 	}
+	
+    var rates = document.getElementsByName('r');
+	var rate_value =-15;
+	for (var i = 0; i < rates.length; i++) {
+              if (rates[i].checked) {
+               rate_value =  rates[i].value;
+           		};
+          };
+	//alert(rate_value);
 
-	if ( (document.getElementById( 'logtype' ).value == 1) && (document.getElementById( 'r' ).value == -10) )
+	if ((document.getElementById( 'logtype' ).value == 1) && ((rate_value == -10) || (rate_value  == -15)))
 	{
 		if(!confirm("{{empty_mark}}"))
 			return false;
@@ -217,7 +243,7 @@ function toggleGeoKrety() {
 
 
 </script>
-<form action="log.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" dir="ltr" onsubmit="return onSubmitHandler()">
+<form action="log.php" method="post" enctype="application/x-www-form-urlencoded" name="logform" id="logform" dir="ltr" onsubmit="return onSubmitHandler()" >
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
@@ -268,10 +294,10 @@ function toggleGeoKrety() {
 </table>
 
 <div class="content" id="ocena" style="display:{display};">
-<table class="content" style="font-size: 12px; line-height: 1.6em;">
+<table class="content" style="font-size: 12px; line-height: 1.6em;" border="0">
 	<tr>
-		<td width="180px"><img src="tpl/stdstyle/images/free_icons/star.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{score_header}</b></td>
-		<td width="*">{score}<br/></td>
+		<td width="180px" valign="top"><img src="tpl/stdstyle/images/free_icons/star.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{score_header}</b></td>
+		<td width="*">{score}<br/>&nbsp;<span class="notice" style="width:500px;height:44px" id="no_score" name="no_score"  >{score_note_innitial}</span></td>
 	</tr>
 </table>
 <br />
@@ -382,8 +408,8 @@ function toggleGeoKrety() {
 	{listed_end}
 	<tr>
 		<td class="header-small" colspan="2">
-			<input type="reset" name="reset" value="Reset" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="width:120px"/>
+			<input type="button" name="reset_from" value="{log_reset_button}" style="width:120px" onclick="return do_reset()" />&nbsp;&nbsp;
+			<input type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="width:120px" />
 		</td>
 	</tr>
 	<?php if (strpos($_SERVER['HTTP_USER_AGENT'], "Android") !== false) { ?>
@@ -409,6 +435,8 @@ function toggleGeoKrety() {
 		2 = HTML
 		3 = HTML-Editor
 	*/
+	handle_score_note();
+	
 	var use_tinymce = 0;
 	var descMode = {descMode};
 	document.getElementById("scriptwarning").firstChild.nodeValue = "";
@@ -638,6 +666,56 @@ function toggleGeoKrety() {
 				break;
 		}
 	}
+
+function highlight_score_labels () {
+  var score_rates = document.getElementsByName('r');
+  for(var i = 0; i < score_rates.length; i++)
+  {
+  		if (score_rates[i].value!=-15) //do not do for hidden default value
+		{
+	  		var thisLabel = document.getElementById('score_lbl_'+i) ;
+	  		var score_txt = thisLabel.innerHTML;
+	  		score_txt = score_txt.replace('<u>','');
+	  		score_txt = score_txt.replace('</u>','');
+	        if(score_rates[i].checked) {score_txt= '<u>'+score_txt+'</u>';};
+	   		thisLabel.innerHTML = score_txt;
+		};
+  }
+}
+
+function clear_no_score () {
+document.getElementById('no_score').innerHTML="{score_note_thanks}";
+highlight_score_labels();
+
+}
+
+function encor_no_score () {
+document.getElementById('no_score').innerHTML="{score_note_encorage}";
+highlight_score_labels();
+
+}
+
+function handle_score_note () {
+ var score_rates = document.getElementsByName('r');
+  for(var i = 0; i < score_rates.length; i++)
+  {
+  	if (score_rates[i].checked) 
+		{
+			//alert(i);
+			if (score_rates[i].value == -10) 
+			{
+				encor_no_score ();
+				return;
+			} else {
+				 clear_no_score ();
+				 return;
+			}
+		}
+	
+  }
+  document.getElementById('no_score').innerHTML="{score_note_innitial}";
+  highlight_score_labels();
+}
 
 
 //-->

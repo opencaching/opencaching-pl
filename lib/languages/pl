@@ -467,7 +467,7 @@ possible_recommend Aby móc rekomendować inne skrzynki, musisz jeszcze znależ�
 comments_log Treść wpisu
 submit_log_entry Wyślij wpis do logu
 geokret_log Zabrałeś geokreta? Zarejestruj ten fakt na
-rate_cache Oceń skrzynkę: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_right.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="{rating_desc_url}">Opis skali</a>
+rate_cache Oceń skrzynkę: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_right.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" target="_blank" href="{rating_desc_url}">Opis skali</a>
 do_not_rate Nie chcę oceniać tej skrzynki
 listed_other Proszę wpisać się w logi także na następujących stronach
 not_spcified nie wybrano
@@ -2034,3 +2034,9 @@ vl_Record_deleted Wpis skasowany
 vc_ShowDeletions Pokazuj usunięcia
 vc_HideDeletions Ukrywaj usunięcia
 mycache_notes_01 Czy na pewno chcesz usunąć notatkę?
+log_score_note_innitial Jeszcze nie oceniłe(a)ś tej skrzynki.
+log_score_note_thanks Dziękujemy za ocenę!
+log_score_note_encorage Prosimy o ocenę!
+Do_reset_logform Czy na prawdę wyczyścić formularz?
+log_reset_button Resetuj
+

@@ -492,7 +492,7 @@ forgotten_your_password Forgot your password? <a href="newpw.php">Remind me</a>
 cache_logged_required You have to be logged-in in order to perform operations on this cache.
 basic_information Basic information.
 rating_poor poor
-rating_mediocre mediocre
+rating_mediocre below average
 rating_avarage avarage
 rating_good good
 rating_excellent excellent
@@ -798,7 +798,7 @@ list_of_caches_is_empty There are no new caches in the specified area
 online_users Online registered users
 online_users_info based on users active over the past 10 minutes
 empty_entry_notice <b>Log Etiquette:</b> Try to not submit empty log entries. Even ordinary "Thanks" will be enough!
-empty_entry_confirm Do you really want to leave an empty log entry?
+empty_entry_confirm Do you really want to post an empty log entry?
 empty_mark Don't you really want to mark this cache ?
 where_i_am Where am I
 read_info_about_cache_types Please read information about <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
@@ -1078,7 +1078,7 @@ error_viewcache_04 Cache is suspended by OC Team
 event_attendance_01 Event:
 event_attendance_02 On:
 event_attendance_03 Organized by:
-event_attendance_04 The event:
+event_attendance_04 Event participants:
 event_attendance_05 Number:
 printcache_01 Do not show logs
 printcache_02 Show last logs
@@ -1859,3 +1859,8 @@ logType9 Archived
 logType10 Ready to find
 logType11 Temporarily unavailable
 logType12 OC Team comment 
+log_score_note_innitial You have not rated this cache yet.
+log_score_note_thanks Thank you for rating!
+log_score_note_encorage Please reconsider rating this cache! 
+Do_reset_logform Are you sure to reset the log form?
+log_reset_button Reset 
