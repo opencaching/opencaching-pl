@@ -40,6 +40,7 @@
 	tpl_set_var('cachemap_js', '');
 	tpl_set_var('cachemap_header', '');
 	tpl_set_var('viewcache_header', '');
+	tpl_set_var('ga_script_header', '');
 
 
 	tpl_set_var('cachemap_count', '0');
