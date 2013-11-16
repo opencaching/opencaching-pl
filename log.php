@@ -930,11 +930,15 @@ $debug = false;
 					}
 				else
 				{
-					$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE `deleted`=0 AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($cache_id)."' AND type='1'";
+					$sql = "SELECT count(*) as founds FROM `cache_logs` WHERE `deleted`=0 AND user_id='".sql_escape($usr['userid'])."' AND cache_id='".sql_escape($cache_id)."' AND type = '1'";
 					$res = mysql_fetch_array(mysql_query($sql));
 					$sql = "SELECT status, type FROM `caches` WHERE cache_id='".sql_escape($cache_id)."'";
 					$res2 = mysql_fetch_array(mysql_query($sql));
-
+					$db = new dataBase;
+					$queryEventAttended = "SELECT count(*) as eventAttended FROM `cache_logs` WHERE `deleted`=0 AND user_id=:1 AND cache_id=:2 AND type = '7'";
+					$db->multiVariableQuery($queryEventAttended, $usr['userid'], $cache_id);
+					$eventAttended = $db->dbResultFetch();
+					
 					// debug('$res', $res);
 					// debug('$res2', $res2);
 					// debug('$log_types', $log_types);
@@ -1019,6 +1023,8 @@ $debug = false;
 						
 						if($cache_type == 6)
 						{
+							// if user logged event as attended before, do not display logtype 'attended'	
+							if( $eventAttended['eventAttended'] == 1 && $type['id'] == 7) continue;
 							if ($usr['admin']) {
 								if($type['id'] == 1 || $type['id'] == 2|| $type['id'] == 4|| $type['id'] == 5 || $type['id'] == 9 || $type['id'] == 10|| $type['id'] == 11) {
 										continue;
