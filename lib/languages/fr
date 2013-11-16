@@ -487,3 +487,9 @@ mp3_label Podcast MP3 for cache type PodCache
 add_new_mp3 Add new MP3 file
 location Location
 okapi_apps Your Apps
+timePicker_hourText Heures                
+timePicker_minuteText Minutes             
+timePicker_timeSeparator h   
+timePicker_nowButtonText Maintenant
+timePicker_closeButtonText Fermer
+timePicker_deselectButtonText Désélectionner

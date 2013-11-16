@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/timepicker.js"></script>
+
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language={language4js}"></script>
 <script type="text/javascript">
 tinymce.init({
@@ -36,7 +38,19 @@ $(function() {
 		dateFormat: 'yy-mm-dd',
 		regional: '{language4js}'
 	}).val();
-	
+	$('#timepicker').timepicker({
+	    hourText: '{{timePicker_hourText}}',
+	    minuteText: '{{timePicker_minuteText}}',
+	    timeSeparator: ':',
+	    nowButtonText: '{{timePicker_nowButtonText}}',
+	    showNowButton: true,
+	    closeButtonText: '{{timePicker_closeButtonText}}',
+	    showCloseButton: true,
+	    deselectButtonText: '{{timePicker_deselectButtonText}}',
+	    dshowDeselectButton:false,
+	    showDeselectButton: true,
+	    showPeriodLabels: false,
+	});
 	getActiveSortBy();
 	ajaxGetPtCaches();
 	ajaxGetComments(0, {commentsPaginateCount});
@@ -230,7 +244,12 @@ function addRmFinals(isFinal, cacheId, ptId){
 }
 
 function editComment(commentId,ClickinguserId){
-	commentHtml = $('#commentId-'+commentId).html();
+	var commentHtml = $('#commentId-'+commentId).html();
+	var commentDate = $('#CommentDate-'+commentId).html();
+	var commentTime = $('#commentTime-'+commentId).html();
+	
+	console.log(commentTime);
+	
 	$('#editedCommentId').val(commentId);
 	$('#ClickinguserId').val(ClickinguserId);
 	// alert(commentHtml);
@@ -238,6 +257,8 @@ function editComment(commentId,ClickinguserId){
 	$('#addC2').hide();
 	$('#addCe1').show();
 	$('#addCe2').show();
+	$('#commentDateTime').val(commentDate);
+	$('#timepicker').val(commentTime);
 	
 	$('#commentType').hide();
 	$('#addComment').fadeIn(1200);
@@ -267,7 +288,7 @@ function ajaxUpdateComment(){
 	request = $.ajax({
     	url: "powerTrail/ajaxUpdateComment.php",
     	type: "post",
-    	data:{text: newComment, dateTime: $('#commentDateTime').val(), ptId: $('#xmd34nfywr54').val(), commentId: $('#editedCommentId').val(), callingUser: $('#ClickinguserId').val()},
+    	data:{text: newComment, dateTime: $('#commentDateTime').val()+' '+$('#timepicker').val(), ptId: $('#xmd34nfywr54').val(), commentId: $('#editedCommentId').val(), callingUser: $('#ClickinguserId').val()},
 	});
 
     request.done(function (response, textStatus, jqXHR){
@@ -612,7 +633,7 @@ function ajaxAddComment(){
 	request = $.ajax({
     	url: "powerTrail/ajaxAddComment.php",
     	type: "post",
-    	data:{projectId: $('#xmd34nfywr54').val(), text: newComment, type: $('#commentType').val(), datetime: $('#commentDateTime').val() },
+    	data:{projectId: $('#xmd34nfywr54').val(), text: newComment, type: $('#commentType').val(), datetime: $('#commentDateTime').val()+' '+$('#timepicker').val() },
 	});
 
     // callback handler that will be called on success
@@ -1376,6 +1397,11 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 .CommentDate {
 	font-size: 11px;
 	padding-left: 2px;
+	padding-right: 2px;
+}
+.commentTime {
+	font-size: 8px;
+	padding-left: 2px;
 	padding-right: 15px;
 }
 
@@ -1682,6 +1708,8 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 <link rel="stylesheet" href="tpl/stdstyle/css/ptMenuCss/style.css" type="text/css" /><style type="text/css">._css3m{display:none}</style>
 
 <body>
+
+
 
 <input type="hidden" id="xmd34nfywr54" value="{powerTrailId}">
 
@@ -2141,10 +2169,11 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 	<div id="addComment" style="display: none">
 		<input type="hidden" id="editedCommentId" value="0" />
 		<input type="hidden" id="ClickinguserId" value="0" />
-		<textarea id="addCommentTxtArea"></textarea>
-		{ptCommentsSelector}
-		<br />
-		<input type="text" id="commentDateTime" value="{date}">
+		<textarea id="addCommentTxtArea"></textarea><br /><br />
+		{{pt229}} {ptCommentsSelector}
+		<br /><br />
+		{{pt230}} <input type="text" id="commentDateTime" value="{date}">
+		{{pt231}} <input type="text" id="timepicker" value="0:01" style="width:50px;">
 		<br /><br />
 		<a id="addC1" href="javascript:void(0)" onclick="toggleAddComment();" class="editPtDataButton">{{pt031}}</a>
 		<a id="addC2" href="javascript:void(0)" onclick="ajaxAddComment();" class="editPtDataButton">{{pt044}}</a>

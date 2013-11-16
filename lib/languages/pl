@@ -1914,6 +1914,9 @@ pt225 ilość logów w pliku gpx
 pt226 dla każdej skrzynki. Dostepne tylko dla formatu &quot;gpx&quot;
 pt227 GeoŚcieżka nie spełnia kryteriów, do chwili poprawienia jej przez autorów będzie zamknięta. Powód zamknięcia: 
 pt228 zbyt mała ilość skrzynek w geoŚcieżce
+pt229 Typ wpisu
+pt230 Data
+pt231 czas
 statpic_found Znalazł:
 statpic_hidden Ukrył:
 statpic_html_link - Statystyka dla
@@ -2039,4 +2042,10 @@ log_score_note_thanks Dziękujemy za ocenę!
 log_score_note_encorage Prosimy o ocenę!
 Do_reset_logform Czy na prawdę wyczyścić formularz?
 log_reset_button Resetuj
+timePicker_hourText Godzina                
+timePicker_minuteText Minuta             
+timePicker_nowButtonText Teraz
+timePicker_closeButtonText Gotowe
+timePicker_deselectButtonText Kasuj
+            
 

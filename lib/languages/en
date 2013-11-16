@@ -1864,3 +1864,8 @@ log_score_note_thanks Thank you for rating!
 log_score_note_encorage Please reconsider rating this cache! 
 Do_reset_logform Are you sure to reset the log form?
 log_reset_button Reset 
+timePicker_hourText Houra                
+timePicker_minuteText Minute             
+timePicker_nowButtonText Now!
+timePicker_closeButtonText Done
+timePicker_deselectButtonText Reset
