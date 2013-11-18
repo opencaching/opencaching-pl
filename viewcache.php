@@ -20,6 +20,7 @@
     if (!isset($rootpath)) global $rootpath;
 	require_once('./lib/common.inc.php');
 	require_once('lib/cache_icon.inc.php');
+	require_once('/lib/db.php');
 	global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email;
 	global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key;
 
@@ -59,12 +60,16 @@
 		{
 			$uuid = $_REQUEST['uuid'];
 
-			$rs = sql("SELECT `cache_id` FROM `caches` WHERE uuid='&1' LIMIT 1", $uuid);
-			if ($r = sql_fetch_assoc($rs))
+			//$rs = sql("SELECT `cache_id` FROM `caches` WHERE uuid='&1' LIMIT 1", $uuid);
+			if (!isset($dbc)) {$dbc = new dataBase();};
+					$thatquery = "SELECT `cache_id` FROM `caches` WHERE uuid='&1' LIMIT 1" ;
+					$dbc->multiVariableQuery($thatquery,$uuid);
+			//if ($r = sql_fetch_assoc($rs))
+			if ($r = $dbc->dbResultFetch() )
 			{
 				$cache_id = $r['cache_id'];
 			}
-			mysql_free_result($rs);
+			//mysql_free_result($rs);
 		}
 		else if (isset($_REQUEST['wp']))
 		{
@@ -80,12 +85,15 @@
 
 			$sql .= '=\'' . sql_escape($wp) . '\' LIMIT 1';
 
-			$rs = sql($sql);
-			if ($r = sql_fetch_assoc($rs))
+			//$rs = sql($sql);
+			if (!isset($dbc)) {$dbc = new dataBase();};
+			$dbc->simpleQuery($sql);
+			//if ($r = sql_fetch_assoc($rs))
+			if ($r=$dbc->dbResultFetch())
 			{
 				$cache_id = $r['cache_id'];
 			}
-			mysql_free_result($rs);
+			//mysql_free_result($rs);
 		}
 
 		$no_crypt = 0;
@@ -102,7 +110,7 @@
 				else
 					$lang_db = "en";
 
-			$rs = sql("SELECT `caches`.`cache_id` `cache_id`,
+			/*$rs = sql("SELECT `caches`.`cache_id` `cache_id`,
 			                  `caches`.`user_id` `user_id`,
 			                  `caches`.`status` `status`,
 			                  `caches`.`latitude` `latitude`,
@@ -148,16 +156,75 @@
 				          WHERE `caches`.`user_id` = `user`.`user_id` AND
 					              `cache_type`.`id`=`caches`.`type` AND
 					              `caches`.`cache_id`='&2'", $lang_db, $cache_id);
-
-			if (mysql_num_rows($rs) == 0)
+*/
+					if (!isset($dbc)) {$dbc = new dataBase();};
+					$thatquery = "SELECT `caches`.`cache_id` `cache_id`,
+			                  `caches`.`user_id` `user_id`,
+			                  `caches`.`status` `status`,
+			                  `caches`.`latitude` `latitude`,
+			                  `caches`.`longitude` `longitude`,
+			                  `caches`.`name` `name`,
+			                  `caches`.`type` `type`,
+			                  `caches`.`size` `size`,
+			                  `caches`.`search_time` `search_time`,
+			                  `caches`.`way_length` `way_length`,
+			                  `caches`.`country` `country`,
+			                  `caches`.`logpw` `logpw`,
+			                  `caches`.`date_hidden` `date_hidden`,
+			                  `caches`.`wp_oc` `wp_oc`,
+			                  `caches`.`wp_gc` `wp_gc`,
+			                  `caches`.`wp_ge` `wp_ge`,
+			                  `caches`.`wp_tc` `wp_tc`,
+			                  `caches`.`wp_nc` `wp_nc`,
+			                  `caches`.`date_created` `date_created`,
+			                  `caches`.`difficulty` `difficulty`,
+			                  `caches`.`terrain` `terrain`,
+			                  `caches`.`founds` `founds`,
+			                  `caches`.`notfounds` `notfounds`,
+			                  `caches`.`notes` `notes`,
+			                  `caches`.`watcher` `watcher`,
+								`caches`.`votes` `votes`,
+								`caches`.`score` `score`,
+								`caches`.`picturescount` `picturescount`,
+								`caches`.`mp3count` `mp3count`,
+								`caches`.`desc_languages` `desc_languages`,
+								`caches`.`topratings` `topratings`,
+								`caches`.`ignorer_count` `ignorer_count`,
+								`caches`.`votes` `votes_count`,
+								`cache_type`.`icon_large` `icon_large`,
+			                  `user`.`username` `username`,
+							  `countries`.`short` AS `country_short`,  
+				IFNULL(`cache_location`.`code1`, '') AS `code1`,
+				IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
+				IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
+				IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
+				IFNULL(`cache_location`.`code3`, '') AS `code3`,
+				IFNULL(`cache_location`.`adm4`, '') AS `adm4`
+			             FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `cache_type`, `user`
+				          WHERE `caches`.`user_id` = `user`.`user_id` AND
+					              `cache_type`.`id`=`caches`.`type` AND
+					              `caches`.`cache_id`= :v1";
+		// $params['v1']['value'] = (string) $lang_db;; //TODO: be check if to replace with translation throuhgh languages
+   		// $params['v1']['data_type'] = 'string';
+  		 $params['v1']['value'] = (integer) $cache_id;;
+   		 $params['v1']['data_type'] = 'integer';
+   		 
+		$dbc->paramQuery($thatquery,$params);
+		unset($params); //clear to avoid overlaping on next paramQuery (if any))
+								  
+										  
+			//if (mysql_num_rows($rs) == 0)
+			if ($dbc->rowCount() == 0)
+			
 			{
 				$cache_id = 0;
 			}
 			else
 			{
-				$cache_record = sql_fetch_array($rs);
+				//$cache_record = sql_fetch_array($rs);
+				$cache_record =$dbc->dbResultFetch();
 			}
-			mysql_free_result($rs);
+			//mysql_free_result($rs);
 			if( $cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 			{
 				$show_edit = true;
@@ -166,23 +233,36 @@
 				$show_edit = false;
 			//mysql_query("SET NAMES 'utf8'");
 			//get last last_modified
-			$rs = sql("SELECT MAX(`last_modified`) `last_modified` FROM
+			if (!isset($dbc)) {$dbc = new dataBase();};
+			
+			/*$rs = sql("SELECT MAX(`last_modified`) `last_modified` FROM
 			             (SELECT `last_modified` FROM `caches` WHERE `cache_id` ='&1'
 				            UNION
 				            SELECT `last_modified` FROM `cache_desc` WHERE `cache_id` ='&1') `tmp_result`",
 				            $cache_id);
-
-			if (mysql_num_rows($rs) == 0)
+			*/				
+			$thatquery= "SELECT MAX(`last_modified`) `last_modified` FROM
+			             (SELECT `last_modified` FROM `caches` WHERE `cache_id` = :v1
+				            UNION
+				            SELECT `last_modified` FROM `cache_desc` WHERE `cache_id` =:v1) `tmp_result`";							
+			$params['v1']['value'] = (integer) $cache_id;;
+   		    $params['v1']['data_type'] = 'integer';
+   		 	$dbc->paramQuery($thatquery,$params);
+			unset($params); //clear to avoid overlaping on next paramQuery (if any))	           
+			
+			//if (mysql_num_rows($rs) == 0)
+			if ($dbc->rowCount() == 0)
 			{
 				$cache_id = 0;
 			}
 			else
 			{
-				$lm = sql_fetch_array($rs);
+				//$lm = sql_fetch_array($rs);
+				$lm = $dbc->dbResultFetch();
 				$last_modified = strtotime($lm['last_modified']);
 				tpl_set_var('last_modified', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $last_modified), ENT_COMPAT, 'UTF-8')));
 			}
-			mysql_free_result($rs);
+			//mysql_free_result($rs);
 			unset($ls);
 		}
 		if( isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y')
@@ -233,8 +313,18 @@
 				$cache_wp = $cache_record['wp_ge'];
 
 			// check if there is geokret in this cache
-			$geokret_query = sql("SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = '&1' AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0", $cache_wp);
-			if (mysql_num_rows($geokret_query) == 0)
+			//$geokret_query = sql("SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = '&1' AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0", $cache_wp);
+			if (!isset($dbc)) {$dbc = new dataBase();};
+			$thatquery= "SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = :v1 AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0";	
+									
+			$params['v1']['value'] = (string) $cache_wp;;
+   		    $params['v1']['data_type'] = 'string';
+   		 	$dbc->paramQuery($thatquery,$params);
+			unset($params); //clear to avoid overlaping on next paramQuery (if any))	
+			
+			//if (mysql_num_rows($geokret_query) == 0)
+			$geokrety_all_count = $dbc->rowCount();
+			if ($geokrety_all_count  == 0)
 			{
 				// no geokrets in this cache
 				tpl_set_var('geokrety_begin', '<!--');
@@ -245,8 +335,12 @@
 			{
 				// geokret is present in this cache
 				$geokrety_content = '';
-				while( $geokret = sql_fetch_array($geokret_query) )
+				$geokrety_all = $dbc->dbResultFetchAll();
+
+				//while( $geokret = sql_fetch_array($geokret_query) )
+				for ($i = 0; $i < $geokrety_all_count; $i++)
 				{
+					$geokret = $geokrety_all[i];
 					$geokrety_content .= "<img src=\"/images/geokret.gif\" alt=\"\"/>&nbsp;<a href='http://geokrety.org/konkret.php?id=".$geokret['id']."'>".$geokret['name']."</a> - ".tr('total_distance').": ".$geokret['distance']." km<br/>";
 //					$geokrety_content .= "Przebyty dystans: ".$geokret['distance']."km<br /><br />";
 				}
@@ -256,7 +350,7 @@
 
 
 			}
-			mysql_free_result($geokret_query);
+			//mysql_free_result($geokret_query);
 
 			/**
 			 * GeoKretyApi. Display window with logging report of Geokrets.
@@ -421,7 +515,7 @@
 			// if (substr(@tr($cache_record['code3']), -5) == '-todo') $regionTranslation = $cache_record['adm3']; else $regionTranslation = tr($cache_record['code3']);
 			$regionTranslation = $cache_record['adm3'];			
 			
-			if ($cache_record['code1'] !="") {tpl_set_var('kraj',$countryTranslation);} else {tpl_set_var('kraj',$cache_record['country_name']);}
+			if ($cache_record['code1'] !="") {tpl_set_var('kraj',$countryTranslation);} else {tpl_set_var('kraj',tr($cache_record['country_short']));}
 			if ($cache_record['code3'] !="") {$woj=$cache_record['adm3']; tpl_set_var('woj',$regionTranslation); } else {$woj=$cache_record['adm2']; tpl_set_var('woj',$woj);}
 			if ($woj =="") { tpl_set_var('woj',$cache_record['adm4']);}
 			if ($woj !="" || $cache_record['adm3'] !="") tpl_set_var('dziubek1',">");
@@ -1301,7 +1395,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				$show_deleted_logs = "";
 				$show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
 			};			
-			
+/*			
 				$rs = sql("SELECT `cache_logs`.`user_id` `userid`,
 												".$show_deleted_logs."
 			                  `cache_logs`.`id` `logid`,
@@ -1337,19 +1431,69 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 									".$show_deleted_logs2."
 			         ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC
 			            LIMIT &2", $cache_id, $logs_to_display+0);
-
+		*/				
+					if (!isset($dbc)) {$dbc = new dataBase();};
+					$thatquery = "SELECT `cache_logs`.`user_id` `userid`,
+												".$show_deleted_logs."
+			                  `cache_logs`.`id` `logid`,
+			                  `cache_logs`.`date` `date`,
+			                  `cache_logs`.`type` `type`,
+			                  `cache_logs`.`text` `text`,
+			                  `cache_logs`.`text_html` `text_html`,
+			                  `cache_logs`.`picturescount` `picturescount`,
+							  `cache_logs`.`mp3count` `mp3count`,
+							  `cache_logs`.`last_modified` AS `last_modified`,
+							  `cache_logs`.`last_deleted` AS `last_deleted`,
+							  `cache_logs`.`edit_count` AS `edit_count`,
+							  `cache_logs`.`date_created` AS `date_created`, 
+			                  `user`.`username` `username`,
+                              `user`.`admin` `admin`,
+							  `user`.`hidden_count` AS    `ukryte`,
+					          `user`.`founds_count` AS    `znalezione`, 	
+					          `user`.`notfounds_count` AS `nieznalezione`,
+							  `u2`.`username` AS `del_by_username`,
+							  `u2`.`admin` AS `del_by_admin`,
+							  `u3`.`username` AS `edit_by_username`,
+							  `u3`.`admin` AS `edit_by_admin`,
+			                  `log_types`.`icon_small` `icon_small`,
+			                  
+			                  IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
+			             FROM `cache_logs` INNER JOIN `log_types` ON `cache_logs`.`type`=`log_types`.`id`
+			                               
+			                               INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id`
+			                               LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
+										   LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
+										   LEFT JOIN `user` `u3` ON `cache_logs`.`edit_by_user_id`=`u3`.`user_id`
+			            WHERE `cache_logs`.`cache_id`=:v1
+									".$show_deleted_logs2."
+			         ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC
+			            LIMIT :v2";
+		 $params['v1']['value'] = (integer) $cache_id;;
+   		 $params['v1']['data_type'] = 'integer';
+		 $params['v2']['value'] = (integer) $logs_to_display+0;;
+   		 $params['v2']['data_type'] = 'integer';
+		 
+   		 
+		$dbc->paramQuery($thatquery,$params);
+		unset($params); //clear to avoid overlaping on next paramQuery (if any))
+		
 			$logs = '';
 		
 			$thisdateformat = "%d %B %Y";
 			$thisdatetimeformat = "%d %B %Y %H:%m";
 //START: same code ->viewlogs.php / viewcache.php
 			$edit_count_date_from = date_create('2005-01-01 00:00');
-			//$logs_count = $dbc->rowCount();
-			$logs_count = mysql_num_rows($rs);
+			$logs_count = $dbc->rowCount();
+			//$logs_count = mysql_num_rows($rs);
 
+			$all_rec = $dbc->dbResultFetchAll();
+			//var_dump($all_rec);
+			unset($dbc); //kill $dbc - possible long execution time due to loop - to be set conditional ($log_count>1)?
 			for ($i = 0; $i < $logs_count; $i++)
 			{
-				$record = sql_fetch_array($rs);
+				//$record = sql_fetch_array($rs);
+				//$record = $dbc->dbResultFetch();
+				$record = $all_rec[$i];
 				$record['text_listing']= ucfirst(tr('logType'.$record['type'])); //add new attrib 'text_listing based on translation (instead of query as before)'
 				$show_deleted = "";
 				$processed_text = "";
@@ -1493,11 +1637,23 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				//END: edit by FelixP - 2013'10
 				{
 					$logpicturelines = '';
-					$rspictures = sql("SELECT `url`, `title`, `user_id`, `uuid` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=1", $record['logid']);
-
-					for ($j = 0; $j < mysql_num_rows($rspictures); $j++)
+					//$rspictures = sql("SELECT `url`, `title`, `user_id`, `uuid` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=1", $record['logid']);
+					$thatquery = "SELECT `url`, `title`, `user_id`, `uuid` FROM `pictures` WHERE `object_id`= :v1 AND `object_type`=1";
+				 	$params['v1']['value'] = (integer) $record['logid'];;
+   		 			$params['v1']['data_type'] = 'integer';
+		
+				if (!isset($dbc)) {$dbc = new dataBase();};
+				$dbc->paramQuery($thatquery, $params);
+				unset($params);  //clear to avoid overlaping on next paramQuery (if any))
+				
+				$rspictures_count = $dbc->rowCount();
+				$rspictures_all = $dbc->dbResultFetchAll();
+				unset($dbc);
+			
+					for ($j = 0; $j < $rspictures_count; $j++)
 					{
-						$pic_record = sql_fetch_array($rspictures);
+						//$pic_record = sql_fetch_array($rspictures);
+						$pic_record = $rspictures_all[$j];
 						if(!isset($showspoiler)) $showspoiler = '';
 						$thisline = $logpictureline;
 
@@ -1512,7 +1668,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
 						$logpicturelines .= $thisline;
 					}
-					mysql_free_result($rspictures);
+					//mysql_free_result($rspictures);
 
 					$logpicturelines = mb_ereg_replace('{lines}', $logpicturelines, $logpictures);
 					$tmplog = mb_ereg_replace('{logpictures}', $logpicturelines, $tmplog);
@@ -1979,6 +2135,7 @@ if($powerTrailModuleSwitchOn) {
 	$ptHtml = '';
 	$ptDisplay = 'none';
 }
+	unset ($dbc);
 	tpl_set_var('ptName', $ptHtml);
 	tpl_set_var('ptSectionDisplay', $ptDisplay);
 	tpl_BuildTemplate();
