@@ -20,7 +20,7 @@
     if (!isset($rootpath)) global $rootpath;
 	require_once('./lib/common.inc.php');
 	require_once('lib/cache_icon.inc.php');
-	require_once('/lib/db.php');
+	require_once('lib/db.php');
 	global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email;
 	global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key;
 
