@@ -441,7 +441,7 @@ else
                                         ?>
                                         </span>
                                 </div><hr style="color: blue;"/>
-                                <div>
+                               
                                         <?php 
                                         if ($usr == false && $hide_coords) // // hide downloading gpx etc if user is not logged
                                                         {
@@ -449,8 +449,8 @@ else
                                                         }
                                                         else
                                                         {
-									
-										echo "{save_icon} <b>{{download_as_file}}</b><br/>
+									     
+										echo "<div>{save_icon} <b>{{download_as_file}}</b><br/>
                                         <table class=\"content\" style=\"font-size: 12px; line-height: 1.6em;\">            
                                         <tr>  
                                                         <td  width=\"350\" align=\"left\" style=\"padding-left:5px;\">
