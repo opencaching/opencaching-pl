@@ -221,6 +221,7 @@ initial_params = {
 		scored: "{{scored}}"
 	}
 };
+
 window.onload = function() {
 	load([], document.getElementById("search_control"));
 };

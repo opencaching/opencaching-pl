@@ -2,72 +2,7 @@
 <script>
 //JG - włączenie śledzenia na potrzeby oszacowania użycia zasobów serwera 
 
-/*//////////////////////////////////////////////////////////////
- TrackTiming
 
- call: 	TimeTrack
- params: mode = START, END, DEBUG
- 
-/////////////////////////////////////////////////////////////////*/
-  function trackTiming()
-  {
-  	this.startTime;
-  	this.endTime;
-  	
-  	this.debug = false;
-  };
-
-  trackTiming.prototype.startTime = function() {
-    this.startTime = new Date().getTime();  
-    return this;
-  };
-
-  trackTiming.prototype.endTime = function() {
-    this.endTime = new Date().getTime();
-    return this;
-  };
-
-  trackTiming.prototype.sendTime = function() 
-  {
-  	var elapsedTime = this.endTime - this.startTime;
-  	
-  	if (!this.debug) 
-  	{	
-  		ga('send', 'timing', 'DB', 'Run Query', elapsedTime, 'OCPL');
-  	}
-  	else
-  	{
-  		alert( elapsedTime/1000 );
-  	}
-  	
-    return this;
-  };
-
-  trackTiming.prototype.setDebug = function() 
-  {
-  	this.debug = true;
-    	return this;
-  };
-
-  function TimeTrack( mode )
-  {		
-  	if (mode == "START")
-  	{
-  		t = new trackTiming();
-  		t.startTime();		
-  	} 
-
-  	if (mode == "END")
-  	{
-  		t.endTime();
-  		t.sendTime();
-  	} 
-
-  	if (mode == "DEBUG")
-  	{
-  		t.setDebug()
-  	}		
-  }
   
 
 </script>
@@ -97,5 +32,5 @@ if ( $debug_page )
 </table>
 
 <script type="text/javascript">
-TimeTrack( "END" );
+TimeTrack( "END", "S2" );
 </script>

@@ -3,9 +3,23 @@
 	<tr><td class="spacer"></td></tr>
 </table>
 
+<script type="text/javascript">
+TimeTrack( "START" );
+</script>
+
+<?php
+global $debug_page; 
+if ( $debug_page )
+	echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";  
+?>
+
+
 <table class="table" width="760" style="line-height: 1.6em; font-size: 10px;">
 <tr>
 <td><?php include ("t6.php"); ?>
 </td></tr>
 </table>
 
+<script type="text/javascript">
+TimeTrack( "END", "S7" );
+</script>
