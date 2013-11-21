@@ -15,7 +15,8 @@ function onTheList($theArray, $item)
 
 function getDBFilter($user_id)
 {
-
+	global $MIN_SCORE, $MAX_SCORE;
+		
 	$filter = array("h_u"=>1,
 									"h_t"=>1,
 									"h_m"=>1,
@@ -244,7 +245,9 @@ else
 	 * Generate dynamic URL to cachemap3.js file, this will make sure it will be reloaded by the browser.
 	 * The time-stamp will be stripped by a rewrite rule in lib/.htaccess.
 	 * */
+
 	tpl_set_var('lib_cachemap3_js', "lib/cachemap3." . date("YmdHis", filemtime($rootpath . 'lib/cachemap3.js')) . ".js");
+
 	
 	tpl_BuildTemplate(); 
 }
