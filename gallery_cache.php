@@ -17,6 +17,7 @@
 
   //prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
+	require_once('./lib/db.php');
 	
 	//Preprocessing
 	if ($error == false)
@@ -29,7 +30,9 @@
 		require($stylepath . '/viewcache.inc.php');
 		require($stylepath . '/gallery_cache.inc.php');
 		require($stylepath.'/smilies.inc.php');
+		require_once('lib/db.php');
 		global $usr;
+		
 		
 		$cache_id = 0;
 		if (isset($_REQUEST['cacheid']))
@@ -98,24 +101,35 @@
 
 					$cachepicturelines = '';
 					$append_atag='';
-					$rscpictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures` WHERE `pictures`.`object_id`=&1 AND `pictures`.`object_type`=2 ORDER BY `pictures`.`date_created` ASC", $cache_id);
+				//	$rscpictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures` WHERE `pictures`.`object_id`=&1 AND `pictures`.`object_type`=2 ORDER BY `pictures`.`date_created` ASC", $cache_id);
+				if (!isset($dbc)) {$dbc = new dataBase();};
+					$thatquery ="SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures` WHERE `pictures`.`object_id`=:v1 AND `pictures`.`object_type`=2 ORDER BY `pictures`.`seq`, `pictures`.`date_created` ASC";
+				//// requires: ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';	
+				$params['v1']['value'] = (integer) $cache_id;;
+   		 		$params['v1']['data_type'] = 'integer';
+				$dbc->paramQuery($thatquery,$params);
+				unset($params); //clear to avoid overlaping on next paramQuery (if any))				
+				$rscpictures_count = $dbc->rowCount();
 				
-				if (mysql_num_rows($rscpictures)!=0){
+				if ($rscpictures_count!=0){
 				tpl_set_var('cache_images_start', '');
 				tpl_set_var('cache_images_end', '');
 				} else {
 				tpl_set_var('cache_images_start', '<!--');
 				tpl_set_var('cache_images_end', '-->');}
-
-					for ($j = 0; $j < mysql_num_rows($rscpictures); $j++)
+					$rscpictures_all=$dbc->dbResultFetchAll();
+					unset($dbc);
+					//for ($j = 0; $j < mysql_num_rows($rscpictures); $j++)
+					for ($j = 0; $j < $rscpictures_count; $j++)
 					{
-						$pic_crecord = sql_fetch_array($rscpictures);
+						//$pic_crecord = sql_fetch_array($rscpictures);
+						$pic_crecord = $rscpictures_all[$j];
 						$thisline = $cachepicture;
 
 
                         $thisline = mb_ereg_replace('{link}', $pic_crecord['url'], $thisline);
                         $thisline = mb_ereg_replace('{longdesc}', str_replace("uploads","uploads",$pic_crecord['url']), $thisline);
-	                $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?'.$showspoiler.'uuid=' . urlencode($pic_crecord['uuid']), $thisline);
+	               		 $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?'.$showspoiler.'uuid=' . urlencode($pic_crecord['uuid']), $thisline);
                         $thisline = mb_ereg_replace('{log}', $tmplog_username .": ". htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
                         if ($pic_crecord['title']=="") {$title="link";} else { $title=htmlspecialchars($pic_crecord['title'],ENT_COMPAT,'UTF-8');}
                         $thisline = mb_ereg_replace('{title}', $title, $thisline);
@@ -124,7 +138,7 @@
 				
 						$cachepicturelines .= $thisline;
 					}
-					mysql_free_result($rscpictures);
+					//mysql_free_result($rscpictures);
 
 					$tmplog = $cachepicturelines;
 
@@ -179,7 +193,7 @@
 			exit;
 		}
 	}
-
+unset($dbc);
 	//make the template and send it out
 	tpl_BuildTemplate();
 ?>

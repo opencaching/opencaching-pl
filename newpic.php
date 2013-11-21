@@ -51,6 +51,7 @@
 			
 			$objectid = isset($_REQUEST['objectid']) ? $_REQUEST['objectid'] : 0;
 			$type = isset($_REQUEST['type']) ? $_REQUEST['type'] : -1;
+			$def_seq = isset($_REQUEST['def_seq']) ? $_REQUEST['def_seq'] : 1; // set up defaul seq for newly added picture
 
 			$bSpoiler = isset($_REQUEST['spoiler']) ? $_REQUEST['spoiler'] : 0;
 			if (($bSpoiler != 0) && ($bSpoiler != 1)) $bSpoiler = 0;
@@ -197,6 +198,7 @@
 																							
 							// datei verschieben und in DB eintragen
 							move_uploaded_file($_FILES['file']['tmp_name'], $picdir . '/' . $uuid . '.' . $extension);
+					
 							
 							sql("INSERT INTO pictures (`uuid`, 
 																				 `url`, 
@@ -212,9 +214,11 @@
 																				 `local`,
 																				 `spoiler`,
 																				 `display`,
-																				 `node`
-															) VALUES ('&1', '&2', NOW(), '&3', '', 0, NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8', '&9')",
-															$uuid, $picurl . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'], ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid);
+																				 `node`,
+																				 `seq`
+																				 
+															) VALUES ('&1', '&2', NOW(), '&3', '', 0, NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8', '&9', '&10')",
+															$uuid, $picurl . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'], ($bSpoiler == 1) ? '1' : '0', ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid, $def_seq);
 
 							switch ($type)
 							{
@@ -243,6 +247,8 @@
 
 					tpl_set_var('type', htmlspecialchars($type, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('objectid', htmlspecialchars($objectid, ENT_COMPAT, 'UTF-8'));
+					tpl_set_var('def_seq', htmlspecialchars($def_seq, ENT_COMPAT, 'UTF-8')); //update hidden value in newpic.tbl.php
+					
 					tpl_set_var('title', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('maxpicsize', $maxpicsize);
 					tpl_set_var('submit', $submit);

@@ -25,7 +25,33 @@
     global $rootpath;
 	
 	require_once('./lib/common.inc.php');
+	require_once('lib/db.php');
 	$OWNCACHE_LIMIT=$GLOBALS['owncache_limit'];
+
+
+function build_drop_seq ($pic_row, $selected_seq, $max_drop, $thisid) {
+	//builds drop-down menu to define sequence
+	if ($max_drop >0) 
+	{
+		
+			
+		$ret ='<label title="'.tr('ec_Sequence').'"><select onchange="document.getElementById(\'pic_seq_changed'.$pic_row.'\').value=\'yes\';" id="pic_seq_select'.$pic_row.'" name="pic_seq_select'.$pic_row.'">
+		';
+		for ($i=1; $i<=$max_drop+1 ; $i++) { //add extra row so spacer can be added
+			if ($i==$selected_seq) {$sel = ' selected="true" ';} else {$sel ='';};
+				
+			$ret.= '<option value="'.$i.'" label="'.$i.'"'. $sel.' >'.$i.'</option>
+			';
+		}
+		$ret.="</select></label>&nbsp;
+		";
+		$ret.='<input type="hidden"  id="pic_seq_id'.$pic_row.'" name="pic_seq_id'.$pic_row.'" value="'.$thisid.'" />
+		'; //instert picture id into hidden fields - pic_row is current order based on current seq values
+		$ret.='<input type="hidden" id="pic_seq_changed'.$pic_row.'" name="pic_seq_changed'.$pic_row.'" value="no" />
+		'; // set hidden field - to be changed by javascript to yes - in such case it will trigger sql update 
+		return $ret;
+	};
+}
 
 	//Preprocessing
 	if ($error == false)
@@ -45,12 +71,24 @@
 		}
 		else
 		{
-			$cache_rs = sql("SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `date_created`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`,
+			
+		/*	$cache_rs = sql("SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `date_created`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`,
 			`desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc`,`wp_ge`,`wp_tc`,`node`, IFNULL(`cache_location`.`code3`,'') region
-			FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`= `cache_location`.`cache_id`)  WHERE `caches`.`cache_id`='&1'", $cache_id);
-			if (mysql_num_rows($cache_rs) == 1)
+			FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`= `cache_location`.`cache_id`)  WHERE `caches`.`cache_id`='&1'", $cache_id); */
+			$thatquery= "SELECT `user_id`, `name`, `picturescount`, `mp3count`,`type`, `size`, `date_hidden`, `date_activate`, `date_created`, `longitude`, `latitude`, `country`, `terrain`, `difficulty`,
+			`desc_languages`, `status`, `search_time`, `way_length`, `logpw`, `wp_gc`, `wp_nc`,`wp_ge`,`wp_tc`,`node`, IFNULL(`cache_location`.`code3`,'') region
+			FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`= `cache_location`.`cache_id`)  WHERE `caches`.`cache_id`=:v1";
+		 	$params['v1']['value'] = (integer) $cache_id;;
+			$params['v1']['data_type'] = 'integer';
+			if (!isset($dbc)) {$dbc = new dataBase();};	
+			$dbc->paramQuery($thatquery,$params);
+			unset($params);
+			
+			//if (mysql_num_rows($cache_rs) == 1)
+			if ($dbc->rowCount()==1)
 			{
-				$cache_record = sql_fetch_array($cache_rs);
+				//$cache_record = sql_fetch_array($cache_rs);
+				$cache_record = $dbc->dbResultFetch();
 				
 				if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'])
 				{
@@ -77,6 +115,37 @@
 					
 					$cache_name = isset($_POST['name']) ? $_POST['name'] : $cache_record['name'];
 					$cache_type = isset($_POST['type']) ? $_POST['type'] : $cache_record['type'];
+					
+					$pic_count_check =$cache_record['picturescount'];
+					if ($pic_count_check>0) {
+						
+						if (isset($_POST['pic_seq_select1'])) // check if in POST mode and in case any picture is attached (re-)update sequence value, providing it was changed - value of pic_seq_change_X)
+						{
+							if (!isset($dbc)) {$dbc = new dataBase();};	
+							for ($i=1; $i <= $pic_count_check; $i++) 
+							{
+								$this_seq = $_POST['pic_seq_select'.$i]; //get new seqence
+								$this_pic_id  = $_POST['pic_seq_id'.$i]; //get picutre ID the new seq is applicable to
+								$this_pic_changed =  $_POST['pic_seq_changed'.$i]; //get changed status ("yes" or "no")
+								if (isset($this_seq) && isset($this_pic_id) && $this_pic_changed=="yes") {
+										
+										 $thatquery = 'UPDATE `pictures` SET `last_modified`=NOW(), `seq` = :v1 WHERE `id` = :v2';
+ 										 $params['v1']['value'] = (integer) $this_seq;;
+								   		 $params['v1']['data_type'] = 'integer';
+										 $params['v2']['value'] = (integer) $this_pic_id;;
+								   		 $params['v2']['data_type'] = 'integer';
+		 
+										$dbc->paramQuery($thatquery,$params);
+										
+								};		
+								
+							};
+							unset($dbc);
+							unset($params);
+						}
+					}
+					
+					
 					if (!isset($_POST['size']))
 					{
 						if( $cache_type == $CACHETYPE['VIRTUAL'] || 
@@ -402,12 +471,24 @@
 					else
 					{
 						// get attribs for this cache from db
-						$rs = sql("SELECT `attrib_id` FROM `caches_attributes` WHERE `cache_id`='&1'", $cache_id);
-						if(mysql_num_rows($rs) > 0)
+						//$rs = sql("SELECT `attrib_id` FROM `caches_attributes` WHERE `cache_id`='&1'", $cache_id);
+						$thatquery = "SELECT `attrib_id` FROM `caches_attributes` WHERE `cache_id`=:v1";
+						$params['v1']['value'] = (integer) $cache_id;;
+						$params['v1']['data_type'] = 'integer';
+						if (!isset($dbc)) {$dbc = new dataBase();};	
+						$dbc->paramQuery($thatquery,$params);
+						unset($params);
+						$cache_attribs_count = $dbc->rowCount();
+						
+						//if(mysql_num_rows($rs) > 0)
+						if ($cache_attribs_count > 0)
 						{
+							$cache_attribs_all = $dbc->dbResultFetchAll();
 							unset($cache_attribs);
-							while($record = sql_fetch_array($rs))
+							//while($record = sql_fetch_array($rs))
+							for ($i=0; $i<$cache_attribs_count ; $i++)
 							{
+								$record = $cache_attribs_all[$i];
 								$cache_attribs[] = $record['attrib_id'];
 							}
 							unset($record);
@@ -416,7 +497,7 @@
 						{
 							$cache_attribs = array();
 						}
-						mysql_free_result($rs);
+						//mysql_free_result($rs);
 					}
 
 					//try to save to DB?
@@ -836,13 +917,39 @@
 					if ($cache_record['picturescount'] > 0)
 					{
 						$pictures = '';
-						$rspictures = sql("SELECT `url`, `title`, `uuid` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=2", $cache_id);
-
-						for ($i = 0; $i < mysql_num_rows($rspictures); $i++)
+					//	$rspictures = sql("SELECT `url`, `title`, `uuid` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=2", $cache_id);
+					
+					//$thatquery = "SELECT `url`, `title`, `uuid` FROM `pictures` WHERE `object_id`=:v1 AND `object_type`=2";
+					$thatquery = "SELECT `id`, `url`, `title`, `uuid`, `seq` FROM `pictures` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY seq, date_created";
+					// requires: ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
+				 	$params['v1']['value'] = (integer) $cache_id;;
+   		 			$params['v1']['data_type'] = 'integer';
+		
+				if (!isset($dbc)) {$dbc = new dataBase();};
+					$dbc->paramQuery($thatquery, $params);
+						
+					$rspictures_count = $dbc->rowCount();
+					$rspictures_all = $dbc->dbResultFetchAll();
+					
+					$thatquery = "SELECT `seq` FROM `pictures` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY `seq` DESC"; //get highest seq number for this cache
+					$dbc->paramQuery($thatquery, $params); //params are same as few lines above
+					$max_seq_record  = $dbc->dbResultFetch();
+					unset($params);  //clear to avoid overlaping on next paramQuery (if any))
+					unset($dbc);
+					$max_seq_number = (isset($max_seq_record ['seq']) ? $max_seq_record ['seq'] : 0) ;
+					if ($max_seq_number < $rspictures_count) {
+						$max_seq_number = $rspictures_count;
+					};
+					tpl_set_var ('def_seq',$max_seq_number+1); // set default seq for picture to be added (if link is click) - this line updated link to newpic.php)	)
+					
+					for ($i = 0; $i <  $rspictures_count; $i++)
 						{
 							$tmpline = $pictureline;
-							$pic_record = sql_fetch_array($rspictures);
+							//$pic_record = sql_fetch_array($rspictures);
+							$pic_record = $rspictures_all[$i]; 
 
+							$tmpline = mb_ereg_replace('{seq_drop}',build_drop_seq($i+1,$pic_record['seq'],$max_seq_number , $pic_record['id']),$tmpline);
+							// requires: ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
 							$tmpline = mb_ereg_replace('{link}', htmlspecialchars($pic_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline);
 							$tmpline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline);
 							$tmpline = mb_ereg_replace('{uuid}', htmlspecialchars($pic_record['uuid'], ENT_COMPAT, 'UTF-8'), $tmpline);
@@ -851,11 +958,12 @@
 						}
 
 						$pictures = mb_ereg_replace('{lines}', $pictures, $picturelines);
-						mysql_free_result($rspictures);
+					//	mysql_free_result($rspictures);
 						tpl_set_var('pictures', $pictures);
 					}
 					else
 					{
+						tpl_set_var ('def_seq',1); //set default sequence to 1 for add picture link (in case there is no picture att all yet))
 						tpl_set_var('pictures', $nopictures);
 					}
 					//MP3 files only for type of cache: 
@@ -1042,7 +1150,7 @@
 			}
 		}
 	}
-
+unset($dbc);
 	//make the template and send it out
 	tpl_BuildTemplate();
 ?>

@@ -145,7 +145,10 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 	$nCol = 0;
 	if($spoiler_only) $spoiler_only = 'spoiler=1 AND';
 	else $spoiler_only = "";
-	$sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE '.$spoiler_only.' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY date_created';
+	//$sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE '.$spoiler_only.' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
+	//requires:ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
+	
+	$sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE '.$spoiler_only.' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
 	$rs = sql($sql);
 	while ($r = sql_fetch_array($rs))
 	{

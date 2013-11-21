@@ -32,6 +32,7 @@
 <form action="newpic.php" method="post" enctype="multipart/form-data" name="newpic_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="objectid" value="{objectid}" />
 <input type="hidden" name="type" value="{type}" />
+<input type="hidden" name="def_seq" value="{def_seq}" />
 <table class="content">
 	<colgroup>
 		<col width="100">
