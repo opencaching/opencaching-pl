@@ -1335,7 +1335,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				tpl_set_var('hidehint_end', '-->');
 				
 			}
-			elseif ($usr == false && $hide_coord) 
+			elseif ($usr == false && $hide_coords)  
 			{ // hind avaiable but user not logged on
 				tpl_set_var('hints','<span class="notice" style="width:500px;height:44px"  >'.tr('vc_hint_for_logged_only').'</span> ');
 				tpl_set_var('cryptedhints', '');
