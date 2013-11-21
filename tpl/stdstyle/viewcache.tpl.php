@@ -257,7 +257,8 @@ else
                                         <b>{{additional_hints}}</b>&nbsp;&nbsp;
                                         <span id="decrypt-info">
                                         {decrypt_link_start}
-                                        <img src="tpl/stdstyle/images/blue/decrypt.png" class="icon32" alt="" />
+										{decrypt_icon}
+                                       
                                         {decrypt_link}
                                         {decrypt_link_end}
                                         </span>
@@ -272,8 +273,8 @@ else
 
                                         <div style="width:200px;align:right;float:right">
                                                 {decrypt_table_start}
-                                                <font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">A|B|C|D|E|F|G|H|I|J|K|L|M</font>
-                                                <font face="Courier" size="2" style="font-family : 'Courier New', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font>
+                                                {decrypt_table}	
+												
                                                 {decrypt_table_end}
                                         </div>
                                 </div>

@@ -1320,22 +1320,41 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 			//
 			$hint = $desc_record['hint'];
 
-			if ($hint == '')
-			{
+			if ($hint == '') 
+			{  // no hint - blank all items 
 				tpl_set_var('cryptedhints', '');
 				tpl_set_var('hints', '');
 				tpl_set_var("decrypt_link_start", '');
 				tpl_set_var("decrypt_link_end", '');
 				tpl_set_var("decrypt_table_start", '');
 				tpl_set_var("decrypt_table_end", '');
+				tpl_set_var("decrypt_icon",'');
+				tpl_set_var('$decrypt_table','');
 
 				tpl_set_var('hidehint_start', '<!--');
 				tpl_set_var('hidehint_end', '-->');
+				
 			}
-			else
-			{
+			elseif ($usr == false && $hide_coord) 
+			{ // hind avaiable but user not logged on
+				tpl_set_var('hints','<span class="notice" style="width:500px;height:44px"  >'.tr('vc_hint_for_logged_only').'</span> ');
+				tpl_set_var('cryptedhints', '');
+
+				tpl_set_var("decrypt_link_start", '');
+				tpl_set_var("decrypt_link_end", '');
+				tpl_set_var("decrypt_table_start", '');
+				tpl_set_var("decrypt_table_end", '');
 				tpl_set_var('hidehint_start', '');
 				tpl_set_var('hidehint_end', '');
+				tpl_set_var('decrypt_link', '');
+				tpl_set_var('decrypt_icon','');
+				tpl_set_var('decrypt_table','');
+			} else
+			{ //hind avaiable, user logged - proceed with hint
+				tpl_set_var('hidehint_start', '');
+				tpl_set_var('hidehint_end', '');
+				tpl_set_var('decrypt_icon',$decrypt_icon);
+				tpl_set_var('decrypt_table',$decrypt_table);
 
 				if ($no_crypt == 0)
 				{
