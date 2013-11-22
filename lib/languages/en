@@ -1871,5 +1871,9 @@ timePicker_closeButtonText Done
 timePicker_deselectButtonText Reset
 ec_Sequence Picture sequence
 vc_hint_for_logged_only You must be logged to see additional hints
-lc_Day_before Previous day 
+lc_Day_before Previous day
 lc_Day_after Next day
+ec_proceed_without_save You have made changes to the cache settings that have NOT been saved - are you sure to proceed (the page will be reloaded and changes LOST)?
+ec_delete_pic Are you sure to delete this picture?
+ec_delete_mp3 Are you sure to delete this file?
+ec_delete_wp Are you sure to delete this waypoint?

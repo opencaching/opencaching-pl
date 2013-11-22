@@ -35,7 +35,7 @@ function build_drop_seq ($pic_row, $selected_seq, $max_drop, $thisid) {
 	{
 		
 			
-		$ret ='<label title="'.tr('ec_Sequence').'"><select onchange="document.getElementById(\'pic_seq_changed'.$pic_row.'\').value=\'yes\';" id="pic_seq_select'.$pic_row.'" name="pic_seq_select'.$pic_row.'">
+		$ret ='<label title="'.tr('ec_Sequence').'"><select onchange="document.getElementById(\'pic_seq_changed'.$pic_row.'\').value=\'yes\'; yes_change(); " id="pic_seq_select'.$pic_row.'" name="pic_seq_select'.$pic_row.'">
 		';
 		for ($i=1; $i<=$max_drop+1 ; $i++) { //add extra row so spacer can be added
 			if ($i==$selected_seq) {$sel = ' selected="true" ';} else {$sel ='';};
@@ -808,7 +808,7 @@ function build_drop_seq ($pic_row, $selected_seq, $max_drop, $thisid) {
 						if (count($desclangs) > 1)
 						{
 							$remove_url = 'removedesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
-							$removedesc = '&nbsp;<img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="Delete" />[<a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '">' . $remove . '</a>]';
+							$removedesc = '&nbsp;<img src="tpl/stdstyle/images/log/16x16-trash.png" border="0" align="middle" class="icon16" alt="" title="Delete" />[<a href="' . htmlspecialchars($remove_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . $remove . '</a>]';
 						}
 						else
 						{
@@ -823,7 +823,7 @@ function build_drop_seq ($pic_row, $selected_seq, $max_drop, $thisid) {
 
 						$edit_url = 'editdesc.php?cacheid=' . urlencode($cache_id) . '&desclang=' . urlencode($desclang);
 
-						$cache_descs .= '<tr><td colspan="2"><img src="images/flags/'.strtolower($desclang).'.gif" class="icon16" alt=""  />&nbsp;' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" alt="" title="Edit" /> [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '">' . $edit . '</a>]' . $removedesc . '</td></tr>';
+						$cache_descs .= '<tr><td colspan="2"><img src="images/flags/'.strtolower($desclang).'.gif" class="icon16" alt=""  />&nbsp;' . htmlspecialchars(db_LanguageFromShort($desclang), ENT_COMPAT, 'UTF-8') . '&nbsp;&nbsp;<img src="images/actions/edit-16.png" border="0" align="middle" alt="" title="Edit" /> [<a href="' . htmlspecialchars($edit_url, ENT_COMPAT, 'UTF-8') . '" onclick="return check_if_proceed();">' . $edit . '</a>]' . $removedesc . '</td></tr>';
 					}
 					tpl_set_var('cache_descs', $cache_descs);
 

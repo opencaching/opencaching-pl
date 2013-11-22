@@ -23,6 +23,31 @@ $(function() {
 
 var maAttributes = new Array({jsattributes_array});
 
+function check_if_proceed() { 
+//purpose: to warn user on changes lost - warning appears in case any change has been done (hidden any_changes set to "yes" by"yes_change func")
+var any_change = document.getElementById('any_changes').value;
+
+if (any_change =="yes")
+	{
+		var answ = confirm('{{ec_proceed_without_save}}');
+		  if (answ==true) {
+		  	 return true;
+		  } else {
+		  	 return false;
+		  };
+	} else {
+		return true;
+	}
+}
+
+function yes_change () {
+	//purpose: set any_changes flag to "yes" - in order to trigger warning in check_if_proceed func
+	var hidden_a_c = document.getElementById('any_changes');
+	hidden_a_c.value = "yes";
+	//alert ('Change!');
+	
+};
+
 function chkcountry2(){
 	$('#region1').hide();
 	$('#regionAjaxLoader').show();
@@ -127,6 +152,8 @@ function toggleAttr(id)
 		}
 	}
 }
+
+
 //-->
 </script>
 
@@ -138,6 +165,7 @@ function toggleAttr(id)
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" id="cache_attribs" name="cache_attribs" value="{cache_attribs}" />
 <input type="hidden" name="show_all_countries" value="{show_all_countries}"/>
+<input type="hidden" id ="any_changes" name="any_changes" value="no"/>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="" />&nbsp;{{edit_cache}} &#8211; {name}</div>
 	{general_message}
@@ -155,7 +183,7 @@ function toggleAttr(id)
 	<tr>
 		<td class="content-title-noshade">{{status_label}}:</td>
 		<td class="content-title-noshade">
-			<select name="status" class="input200" {disablestatusoption}>
+			<select name="status" onChange="yes_change();" class="input200" {disablestatusoption}>
 				{statusoptions}
 			</select>{status_message}
 		</td>
@@ -163,13 +191,13 @@ function toggleAttr(id)
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td class="content-title-noshade">{{name_label}}:</td>
-		<td class="content-title-noshade"><input type="text" name="name" value="{name}" maxlength="60" class="input400">{name_message}</td>
+		<td class="content-title-noshade"><input type="text" name="name" value="{name}" maxlength="60" class="input400" onChange="yes_change();"> {name_message}</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
 	<tr>
 		<td class="content-title-noshade">{{cache_type}}:</td>
 		<td>
-			<select name="type" class="input200" onChange="return _chkVirtual()">
+			<select name="type" class="input200" onChange="yes_change(); return _chkVirtual()">
 				{typeoptions}
 			</select>
 		</td>
@@ -177,7 +205,7 @@ function toggleAttr(id)
 	<tr>
 		<td class="content-title-noshade">{{cache_size}}:</td>
 		<td class="content-title-noshade">
-			<select name="size" class="input200" onChange="return _chkVirtual()">
+			<select name="size" class="input200" onChange="yes_change(); return _chkVirtual()">
 				{sizeoptions}
 			</select>{size_message}
 		</td>
@@ -188,20 +216,20 @@ function toggleAttr(id)
 		<td class="content-title-noshade">
 		<fieldset style="border: 1px solid black; width: 65%; height: 32%; background-color: #FAFBDF;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
-			<select name="latNS" class="input40">
+			<select name="latNS" class="input40" onChange="yes_change();">
 				<option value="N"{selLatN}>N</option>
 				<option value="S"{selLatS}>S</option>
 			</select>
-			&nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />
-			&deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" />&nbsp;'&nbsp;
+			&nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" onChange="yes_change();" />
+			&deg;&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" onChange="yes_change();"  />&nbsp;'&nbsp;
 			{lat_message}<br />
 			&nbsp;&nbsp;&nbsp;
-			<select name="lonEW" class="input40">
+			<select name="lonEW" class="input40" onChange="yes_change();" >
 				<option value="E"{selLonE}>E</option>
 				<option value="W"{selLonW}>W</option>
 			</select>
-			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
-			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
+			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" onChange="yes_change();"  />
+			&deg;&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" onChange="yes_change();"  />&nbsp;'&nbsp;
 			{lon_message}
 			</fieldset>
 		</td>
@@ -210,7 +238,7 @@ function toggleAttr(id)
 	<tr>
 		<td><p class="content-title-noshade">{{country_label}}:</p></td>
 		<td>
-			<select name="country" id="country" class="input200" onChange="javascript:chkcountry2();">
+			<select name="country" id="country" class="input200" onChange="javascript:chkcountry2(); yes_change();">
 				{countryoptions}
 			</select>
 			{show_all_countries_submit}
@@ -228,7 +256,7 @@ function toggleAttr(id)
 	<tr>
 		<td><p class="content-title-noshade">{{regiononly}}:</p></td>
 		<td>
-			<select name="region" id="region1" class="input200">
+			<select name="region" id="region1" class="input200" onChange="yes_change();">
 				
 			</select>
 			&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/help.png" class="icon16" alt=""/>&nbsp;<button onclick="return extractregion()">{{region_from_coord}}</button>
@@ -245,11 +273,11 @@ function toggleAttr(id)
 	<tr><td><p class="content-title-noshade">{{difficulty_level}}:</p></td>
 		<td>
 			{{task_difficulty}}:
-			<select name="difficulty" class="input50">
+			<select name="difficulty" class="input50" onChange="yes_change();">
 				{difficultyoptions}
 			</select>&nbsp;&nbsp;
 			{{terrain_difficulty}}:
-			<select name="terrain" class="input50">
+			<select name="terrain" class="input50" onChange="yes_change();">
 				{terrainoptions}
 			</select>
 		</td>
@@ -262,10 +290,10 @@ function toggleAttr(id)
 	<tr><td><p class="content-title-noshade">{{additional_information}} ({{optional}}):</p></td>
 	    <td>
 				{{time}}:
-				<input type="text" name="search_time" maxlength="10" value="{search_time}" class="input30" /> h
+				<input type="text" name="search_time" maxlength="10" value="{search_time}" class="input30" onChange="yes_change();" /> h
 				&nbsp;&nbsp;
 				{{length}}:
-				<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> km &nbsp; {effort_message}
+				<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" onChange="yes_change();" /> km &nbsp; {effort_message}
 			</td>
 	</tr>
 	<tr>
@@ -275,10 +303,10 @@ function toggleAttr(id)
 	<tr>
 		<td><p class="content-title-noshade">{{waypoint}} ({{optional}}):</p></td>
 		<td>
-			Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" size="7" />
-			Navicache.com: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" size="6"/><br/>
-			OpenCaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7"/>
-			&nbsp;GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" size="6"/>
+			Geocaching.com: &nbsp;&nbsp;<input type="text" name="wp_gc" value="{wp_gc}" maxlength="7" size="7" onChange="yes_change();"/>
+			Navicache.com: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" size="6" onChange="yes_change();"/><br/>
+			OpenCaching.com: <input type="text" name="wp_tc" value="{wp_tc}" maxlength="7" size="7" onChange="yes_change();"/>
+			&nbsp;GPSGames.org: <input type="text" name="wp_ge" value="{wp_ge}" maxlength="6" size="6" onChange="yes_change();"/>
 
 		</td>
 	</tr>
@@ -302,7 +330,7 @@ function toggleAttr(id)
 	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p></div>
-			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt="" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}">{{add_new_desc}}</a></p>
+			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt="" title="Dodaj nowy opis"/>&nbsp;<a href="newdesc.php?cacheid={cacheid_urlencode}" onclick="return check_if_proceed();">{{add_new_desc}}</a></p>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -316,7 +344,7 @@ function toggleAttr(id)
 	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/compas.png" class="icon32" alt=""/>&nbsp;{{additional_waypoints}}</p></div>
-			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newwp.php?cacheid={cacheid}">{{add_new_waypoint}}</a></p>
+			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a onclick="return check_if_proceed();" href="newwp.php?cacheid={cacheid}" >{{add_new_waypoint}}</a></p>
 
 			</td>
 	</tr>
@@ -334,7 +362,7 @@ function toggleAttr(id)
 	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/picture.png" class="icon32" alt=""/>&nbsp;&nbsp;{{pictures_label}}</p></div>
-			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2&def_seq={def_seq}">{{add_new_pict}}</a></p>
+			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newpic.php?objectid={cacheid_urlencode}&type=2&def_seq={def_seq}" onclick="return check_if_proceed();">{{add_new_pict}}</a></p>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -345,7 +373,7 @@ function toggleAttr(id)
 	<tr>
 		<td colspan="2">
 			<div class="content2-container bg-blue02"><p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/podcache-mp3.png" class="icon32" alt=""/>&nbsp;&nbsp;{{mp3_label}}</p></div>
-			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newmp3.php?objectid={cacheid_urlencode}&type=2">{{add_new_mp3}}</a></p>
+			<p class="content-title-noshade"><img src="images/actions/list-add-20.png" align="middle" border="0" alt=""/>&nbsp;<a href="newmp3.php?objectid={cacheid_urlencode}&type=2" onclick="return check_if_proceed();">{{add_new_mp3}}</a></p>
 		</td>
 	</tr>
 	<tr><td class="buffer" colspan="2"></td></tr>
@@ -363,9 +391,9 @@ function toggleAttr(id)
 		<td colspan="2">
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
 		<legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
-			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}"/>-
-			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{date_month}"/>-
-			<input class="input40" type="text" name="hidden_year" maxlength="4" value="{date_year}"/>&nbsp;
+			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{date_day}" onChange="yes_change();" />-
+			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{date_month}" onChange="yes_change();" />-
+			<input class="input40" type="text" name="hidden_year" maxlength="4" value="{date_year}" onChange="yes_change();" />&nbsp;
 			{date_message}
 			</fieldset>	
 		</td>
@@ -377,7 +405,7 @@ function toggleAttr(id)
 	<tr>
 		<td colspan="2"><br />	
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
-		<legend>&nbsp; <strong>{{log_password}}</strong> &nbsp;</legend><input class="input100" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20"/> ({{no_password_label}})
+		<legend>&nbsp; <strong>{{log_password}}</strong> &nbsp;</legend><input class="input100" type="text" name="log_pw" id="log_pw" value="{log_pw}" maxlength="20" onChange="yes_change();" /> ({{no_password_label}})
 		</fieldset>
 
 		</td>

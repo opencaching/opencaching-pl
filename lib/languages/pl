@@ -2050,4 +2050,9 @@ timePicker_deselectButtonText Kasuj
 ec_Sequence Kolejność wyświetlania 
 vc_hint_for_logged_only Musisz być zalogowany aby zobaczyć dodatkowe informacje 
 lc_Day_before Poprzednij dzień
-lc_Day_after Następny dzień        
+lc_Day_after Następny dzień 
+ec_proceed_without_save Zmiany w ustawieniach skrzynki NIE zostały zapisane. Jesteś pewny(a) aby kontunuować (strona zostanie przeładowana a zmiany UTRACONE)?
+ec_delete_pic Czy usunąć ten obrazek?  
+ec_delete_mp3 Czy usunąć ten plik?
+ec_delete_wp Czy usunąć ten waypoint? 
+
