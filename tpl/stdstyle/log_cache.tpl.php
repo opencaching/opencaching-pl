@@ -78,7 +78,7 @@ function onSubmitHandler()
     var rates = document.getElementsByName('r');
 	var rate_value =-15;
 	for (var i = 0; i < rates.length; i++) {
-				alert(i);
+				
               if (rates[i].checked) {
                rate_value =  rates[i].value;
            		};

@@ -11,6 +11,28 @@
 ?>
 <script type="text/javascript">
 <!--
+
+function subs_days (days_number) {
+ //alert('ok');
+ var d_day = document.getElementById('logday').value ;
+ var d_mn = document.getElementById('logmonth').value-1;
+ var d_yr = document.getElementById('logyear').value ;
+ var d = new Date (d_yr, d_mn , d_day - days_number , 0, 0,0);
+
+ 
+ //alert(d);
+ if (isNaN(d)==false) 
+    {
+		
+		if (d <=Date.now() ) 
+ 		{
+ 		 document.getElementById('logday').value = d.getDate();
+ 		 document.getElementById('logmonth').value = d.getMonth()+1;
+		 document.getElementById('logyear').value = d.getFullYear();
+		}	;
+	};
+};
+
 function insertSmiley(parSmiley) {
   var myText = document.editlog.logtext;
   myText.focus();
@@ -133,10 +155,13 @@ function chkMoved()
 	<tr>
 		<td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{date_logged}}:</td>
 		<td align="left">
-			<input class="input20" type="text" name="logday" maxlength="2" value="{logday}"/>.
-			<input class="input20" type="text" name="logmonth" maxlength="2" value="{logmonth}"/>.
-			<input class="input40" type="text" name="logyear" maxlength="4" value="{logyear}"/>
-			  <img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
+			<img src="tpl/stdstyle/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
+			<input class="input20" type="text" id="logday"  name="logday" maxlength="2" value="{logday}"/>.
+			<input class="input20" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
+			<input class="input40" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
+			<img src="tpl/stdstyle/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
+			&nbsp;&nbsp;
+			<img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
 			<input class="input20" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
 			<br />{date_message}
 		</td>
