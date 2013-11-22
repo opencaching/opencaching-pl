@@ -23,8 +23,8 @@ function subs_days (days_number) {
  //alert(d);
  if (isNaN(d)==false) 
     {
-		
-		if (d <=Date.now() ) 
+		var d_now = +new Date;
+		if (d <=d_now ) 
  		{
  		 document.getElementById('logday').value = d.getDate();
  		 document.getElementById('logmonth').value = d.getMonth()+1;
