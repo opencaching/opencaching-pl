@@ -1870,4 +1870,6 @@ timePicker_nowButtonText Now!
 timePicker_closeButtonText Done
 timePicker_deselectButtonText Reset
 ec_Sequence Picture sequence
-vc_hint_for_logged_only You must be logged to see additional hints 
+vc_hint_for_logged_only You must be logged to see additional hints
+lc_Day_before Previous day 
+lb_Day_after Next day

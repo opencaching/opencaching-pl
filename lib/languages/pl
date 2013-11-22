@@ -2048,5 +2048,7 @@ timePicker_nowButtonText Teraz
 timePicker_closeButtonText Gotowe
 timePicker_deselectButtonText Kasuj
 ec_Sequence Kolejność wyświetlania 
-vc_hint_for_logged_only Musisz być zalogowany aby zobaczyć dodatkowe informacje       
+vc_hint_for_logged_only Musisz być zalogowany aby zobaczyć dodatkowe informacje 
+lc_Day_before Poprzednij dzień
+lb_Day_after Następny dzień        
 
