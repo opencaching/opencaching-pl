@@ -1,4 +1,4 @@
-/*************************************************6************/
+/*************************************************************/
 /*   Design:  MultiFlex-2 (Screen)                           */
 /*   Author:  G. Wolfgang (gw@actamail.com)                  */
 /*   Date:    June 8, 2006                                   */
@@ -919,3 +919,85 @@ table.myneighborhood tbody tr:nth-child(odd) {
 #wrinfo.green { border: 2px solid #494; background: #afa; }
 #wrinfo.green p { color: #020; }
 #wrinfo.green p.podpis { color: #6a6; }
+
+/*power trails (geoPaths) medals (viewprofile)*/
+.ptMedal {
+	float: left;
+	display:compact;
+	width: 70px;
+	height: 70px;
+	padding: 5px;
+	border-radius: 50px 50px; 
+	-moz-border-radius: 50px; 
+	-webkit-border-radius: 50px; 
+	
+}
+.ptType2{
+	background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left bottom,
+	color-stop(0, #059FFF),
+	color-stop(1, #EFF7EA)
+);
+background-image: -o-linear-gradient(left bottom, #059FFF 0%, #EFF7EA 100%);
+background-image: -moz-linear-gradient(left bottom, #059FFF 0%, #EFF7EA 100%);
+background-image: -webkit-linear-gradient(left bottom, #059FFF 0%, #EFF7EA 100%);
+background-image: -ms-linear-gradient(left bottom, #059FFF 0%, #EFF7EA 100%);
+background-image: linear-gradient(to left bottom, #059FFF 0%, #EFF7EA 100%);
+	
+}
+.ptType3{
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left bottom,
+	color-stop(0, #09AB03),
+	color-stop(1, #EFF7EA)
+);
+background-image: -o-linear-gradient(left bottom, #09AB03 0%, #EFF7EA 100%);
+background-image: -moz-linear-gradient(left bottom, #09AB03 0%, #EFF7EA 100%);
+background-image: -webkit-linear-gradient(left bottom, #09AB03 0%, #EFF7EA 100%);
+background-image: -ms-linear-gradient(left bottom, #09AB03 0%, #EFF7EA 100%);
+background-image: linear-gradient(to left bottom, #09AB03 0%, #EFF7EA 100%);
+}
+.ptType4{
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left bottom,
+	color-stop(0, #F3FF05),
+	color-stop(1, #EFF7EA)
+);
+background-image: -o-linear-gradient(left bottom, #F3FF05 0%, #EFF7EA 100%);
+background-image: -moz-linear-gradient(left bottom, #F3FF05 0%, #EFF7EA 100%);
+background-image: -webkit-linear-gradient(left bottom, #F3FF05 0%, #EFF7EA 100%);
+background-image: -ms-linear-gradient(left bottom, #F3FF05 0%, #EFF7EA 100%);
+background-image: linear-gradient(to left bottom, #F3FF05 0%, #EFF7EA 100%);
+	
+}
+.ptType1{
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left bottom,
+	color-stop(0, #FF0505),
+	color-stop(1, #EFF7EA)
+);
+background-image: -o-linear-gradient(left bottom, #FF0505 0%, #EFF7EA 100%);
+background-image: -moz-linear-gradient(left bottom, #FF0505 0%, #EFF7EA 100%);
+background-image: -webkit-linear-gradient(left bottom, #FF0505 0%, #EFF7EA 100%);
+background-image: -ms-linear-gradient(left bottom, #FF0505 0%, #EFF7EA 100%);
+background-image: linear-gradient(to left bottom, #FF0505 0%, #EFF7EA 100%);	
+}
+
+.imgPtMedal{
+	max-height: 50px;
+	max-width: 50px;
+}
+.ptMedalSpacer {
+	width: 3px;
+	height: 60px;
+	float: left;
+	display:compact;
+}

@@ -241,6 +241,8 @@ if ($error == false) {
 							<p class="content-title-noshade-size1">
 							<img src="tpl/stdstyle/images/blue/powerTrailGenericLogo.png" width="33" class="icon32" alt="geoPaths" title="geoPaths" />&nbsp'.tr('pt001').'</div>';
 			require_once 'powerTrail/powerTrailBase.php';
+			//geoPaths medals
+			$content .= getPowerTrailsCompletedByUser($user_id);
 			$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>'.powerTrailBase::getUserPoints($user_id).'</strong> (' . tr('pt093') . ' '.powerTrailBase::getPoweTrailCompletedCountByUser($user_id).')</p>';
 			$pointsEarnedForPlacedCaches = powerTrailBase::getOwnerPoints($user_id);
 			$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>'.$pointsEarnedForPlacedCaches['totalPoints'].'</strong> ('.tr('pt222').' '.$pointsEarnedForPlacedCaches['geoPathCount'].' '.tr('pt223').')</p>';
@@ -787,4 +789,18 @@ if ($error == false) {
 	}
 }
 tpl_BuildTemplate();
+
+/**
+ * generate html string displaying geoPaths completed by user (power trail) medals
+ * @author Andrzej Łza Woźniak, 2013-11-23
+ */
+function getPowerTrailsCompletedByUser($userId){
+	$ptCompletedList = powerTrailBase::getPowerTrailsCompletedByUser($userId);
+	// var_dump($ptCompletedList);
+	$result = '<table width="100%"><tr><td>';
+	foreach ($ptCompletedList as $pt) {
+		$result .= '<div class="ptMedal ptType'.$pt['type'].'"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td valign="center" align="center"><a title="'.$pt['name'].'" href="http://xampp.opencaching.pl/powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'"><img class="imgPtMedal" src="'.$pt['image'].'"></a></td></tr></table></div><div class="ptMedalSpacer"></div>';
+	}
+	return $result.'</td></tr><tr><td></td></tr></table>';
+}
 ?>

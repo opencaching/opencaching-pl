@@ -281,7 +281,6 @@ function toggleEditComment(){
 
 function ajaxUpdateComment(){
 	var newComment = tinyMCE.activeEditor.getContent();
-	alert('do zrobirnia!' + newComment);
 	$('#addC1').hide();
 	$('#addC2').hide();
 	$('#addCe1').hide();
