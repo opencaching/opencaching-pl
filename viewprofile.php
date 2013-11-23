@@ -800,7 +800,7 @@ function getPowerTrailsCompletedByUser($userId){
 	$result = '<table width="100%"><tr><td>';
 	foreach ($ptCompletedList as $pt) {
 		if($pt['image'] == '') $pt['image'] = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
-		$result .= '<div class="ptMedal ptType'.$pt['type'].'"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td valign="center" align="center"><a title="'.$pt['name'].'" href="http://xampp.opencaching.pl/powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'"><img class="imgPtMedal" src="'.$pt['image'].'"></a></td></tr></table></div><div class="ptMedalSpacer"></div>';
+		$result .= '<div class="ptMedal ptType'.$pt['type'].'"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td valign="center" align="center"><a title="'.$pt['name'].'" href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'"><img class="imgPtMedal" src="'.$pt['image'].'"></a></td></tr></table></div><div class="ptMedalSpacer"></div>';
 	}
 	return $result.'</td></tr><tr><td></td></tr></table>';
 }
