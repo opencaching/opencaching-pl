@@ -222,7 +222,7 @@ $debug = false;
 				//	$score = "<select name='r' id = 'r'>
 				$score=''; 
 				$line_cnt=0;
-			//			";//triPPer 2013-10-28 dodałem id, na potrzeby onSubmitHandler
+			//			";//triPPer 2013-10-28 I added id for onSubmitHandler
 
 					for( $score_radio=$MIN_SCORE;$score_radio<=$MAX_SCORE;$score_radio++)
 					{

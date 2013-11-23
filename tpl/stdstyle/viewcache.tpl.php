@@ -9,7 +9,9 @@
         *
         ***************************************************************************/
 ?>
- 
+
+
+
 <!-- Text container -->
 {body_scripts}
 
@@ -450,9 +452,11 @@ else
                                                         }
                                                         else
                                                         {
-									     
-										echo "<div>{save_icon} <b>{{download_as_file}}</b><br/>
-                                        <table class=\"content\" style=\"font-size: 12px; line-height: 1.6em;\">            
+												//test jg było save_icon
+                                        ?>								     
+										<div>{save_icon}<b> {{download_as_file}}</b><br/>
+										<?php
+                                        echo "<table class=\"content\" style=\"font-size: 12px; line-height: 1.6em;\">            
                                         <tr>  
                                                         <td  width=\"350\" align=\"left\" style=\"padding-left:5px;\">
                                                         <div class=\"searchdiv\">

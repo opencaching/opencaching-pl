@@ -1,5 +1,6 @@
 Options -Indexes
 
 RewriteEngine on
+RewriteBase /okapi/
 RewriteCond %{REQUEST_URI} !/okapi/static/
 RewriteRule ^(.*)$ controller.php [L,QSA,E=no-gzip:1,E=dont-vary:1]

@@ -95,7 +95,8 @@ if ($usr == false)
 }
 else
 {
-	session_start();
+	//JG - The debug message: A session had already been started - ignoring session_start()
+	// session_start();  
 
 	if ( isset( $_GET['sc'] ) )
 		tpl_set_var('sc', intval($_GET['sc']));
