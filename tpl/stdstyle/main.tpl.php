@@ -63,14 +63,18 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
         <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
         <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_{season}.css" />
         <link rel="SHORTCUT ICON" href="favicon.ico" />
-        <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />
+        <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />       
         <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
         <title><?php echo $tpl_subtitle; ?>{title}</title>
+        
         {htmlheaders}
         {cachemap_header}
         {viewcache_header}
         {ga_script_header}
-	<script type='text/javascript' src = 'lib/js/ga.js'></script>        
+	<script type='text/javascript' src = 'lib/js/ga.js'></script>
+	<script type='text/javascript' src = 'lib/js/CookiesInfo.js'></script>
+
+	        
     </head>
     <body{bodyMod}>
         <script language="javascript" type="text/javascript">
@@ -265,6 +269,6 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                     <p><a href="http://validator.w3.org/check?uri=referer" title="Validate code as W3C XHTML 1.0 Compliant">W3C XHTML 1.0</a> | <a href="http://jigsaw.w3.org/css-validator/" title="Validate Style Sheet as W3C CSS 2.0 Compliant">W3C CSS 2.0</a></p>
                 </div>
             </div>
-        </div>
+        </div>  
     </body>
 </html>
