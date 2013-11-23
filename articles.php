@@ -82,11 +82,9 @@
 			$tplname = 'news';
 		} 
 	
-		//$file_content = file_get_contents( "lib/js/ga.js" );
-		//$ga_scr = "<script> " . $file_content . " </script>";
-		
-		$ga_scr = " <script type='text/javascript' src = 'lib/js/ga.js'></script> ";
-		tpl_set_var( 'ga_script_header', $ga_scr);		
+		//JG - The script was added on the begin of a main page
+		//$ga_scr = " <script type='text/javascript' src = 'lib/js/ga.js'></script> ";
+		//tpl_set_var( 'ga_script_header', $ga_scr);		
 		
 	//make the template and send it out
 	tpl_BuildTemplate();

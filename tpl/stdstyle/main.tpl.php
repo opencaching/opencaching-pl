@@ -70,6 +70,7 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
         {cachemap_header}
         {viewcache_header}
         {ga_script_header}
+	<script type='text/javascript' src = 'lib/js/ga.js'></script>        
     </head>
     <body{bodyMod}>
         <script language="javascript" type="text/javascript">
