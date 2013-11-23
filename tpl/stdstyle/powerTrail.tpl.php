@@ -1277,6 +1277,9 @@ mapTypeIds.push("UMP");
 var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
 var mapOptions = {
     zoom: mapZoom,
+	zoomControl: {zoomControl},
+	scrollwheel: {scrollwheel},
+	scaleControl: {scaleControl},
     center: myLatlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     mapTypeControlOptions: {
@@ -1824,7 +1827,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 		<tr>
 			<td colspan="8" class="linearBg1">{{pt035}}</td>
 		</tr>
-		<tr>
+		<tr id="filtersTr" style="display: {filtersTrDisplay};">
 			<td colspan="8" align="center">
 				<div class="displayOptionsClass" id="displayOptionsButton">
 					{{pt175}}: {displayedPowerTrailsCount}
@@ -2039,7 +2042,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 		<tr>
 			<td class="linearBg1">{{pt020}} {powerTrailName}</td>
 		</tr>
-		<tr>
+		<tr style="display: {gpxOptionsTrDisplay}">
 			<td>
 				<div id="gpxOptions">	
 					<p>{{pt206}}:</p><hr>	
@@ -2064,7 +2067,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 				</div>
 			</td>
 		</tr>
-		<tr>
+		<tr style="display: {gpxOptionsTrDisplay}">
 			<td class="linearBg2"></td>
 		</tr>
 	</table>

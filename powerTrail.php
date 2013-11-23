@@ -12,7 +12,7 @@
  */
 
 // variables required by opencaching.pl
-global $lang, $rootpath, $usr;
+global $lang, $rootpath, $usr, $absolute_server_URI, $cookie;
 
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
@@ -27,8 +27,22 @@ $firePtMenu = true;
 //Preprocessing
 if ($error == false)
 {
-		$tplname = 'powerTrail';
+	if(isset($_REQUEST['sortBy']) || isset($_REQUEST['filter']) || isset($_REQUEST['sortDir'])) {
+		saveCookie($cookie);
+	} else {
+		if ($cookie->is_set("ptSrBy")) $_REQUEST['sortBy'] = $cookie->get("ptSrBy"); else $_REQUEST['sortBy'] = 'cacheCount';
+		if ($cookie->is_set("ptFltr")) $_REQUEST['filter'] = $cookie->get("ptFltr"); else $_REQUEST['filter'] = 0;
+		if ($cookie->is_set("ptSrDr")) $_REQUEST['sortDir'] = $cookie->get("ptSrDr"); else $_REQUEST['sortDir'] = 'desc';
+	}
 		
+		$tplname = 'powerTrail';
+		if(!$usr && $hide_coords) {
+			$mapControls = 0; 
+			tpl_set_var('gpxOptionsTrDisplay', 'none');
+		}else {
+			$mapControls = 1;
+			tpl_set_var('gpxOptionsTrDisplay', 'table-row');
+		}
 		include_once('powerTrail/powerTrailController.php');
 		include_once('powerTrail/powerTrailMenu.php');
 		if (isset($_SESSION['user_id'])) tpl_set_var('displayAddCommentSection', 'block'); else  tpl_set_var('displayAddCommentSection', 'none');
@@ -50,6 +64,10 @@ if ($error == false)
 		tpl_set_var('mapCenterLat', 0);
 		tpl_set_var('mapCenterLon', 0);
 		tpl_set_var('mapZoom', 15);
+		tpl_set_var('zoomControl', $mapControls);
+		tpl_set_var('scrollwheel',$mapControls);
+		tpl_set_var('scaleControl',$mapControls);
+		
 		tpl_set_var('ptList4map', '[]');
 		tpl_set_var('fullCountryMap', '1');
 		tpl_set_var('googleMapApiKey', $googlemap_key);
@@ -79,9 +97,7 @@ if ($error == false)
 				break;
 			case 'showAllSeries':
 				$ptListData = displayPTrails($pt->getpowerTrails(), $pt->getPowerTrailOwn());
-				if(!isset($_REQUEST['sortBy'])) $_REQUEST['sortBy'] = 'cacheCount';
-				if(!isset($_REQUEST['filter'])) $_REQUEST['filter'] = 0;
-				if(!isset($_REQUEST['sortDir'])) $_REQUEST['sortDir'] = 'desc';
+				tpl_set_var('filtersTrDisplay', 'table-row');
 				tpl_set_var('ptTypeSelector2', displayPtTypesSelector('filter',$_REQUEST['filter'], true));
 				tpl_set_var('sortSelector', getSortBySelector($_REQUEST['sortBy']));
 				tpl_set_var('sortDirSelector', getSortDirSelector($_REQUEST['sortDir']));
@@ -98,6 +114,28 @@ if ($error == false)
 				tpl_set_var('mapInit', 1);
 				tpl_set_var('fullCountryMap', '1');
 				break;
+			case 'showMySeries':
+				$ptListData = displayPTrails($pt->getpowerTrails(), $pt->getPowerTrailOwn());
+				// tpl_set_var('ptTypeSelector2', displayPtTypesSelector('filter',$_REQUEST['filter'], true));
+				// tpl_set_var('sortSelector', getSortBySelector($_REQUEST['sortBy']));
+				// tpl_set_var('sortDirSelector', getSortDirSelector($_REQUEST['sortDir']));
+				tpl_set_var('filtersTrDisplay', 'none');
+				
+				tpl_set_var('displayedPowerTrailsCount', $pt->getDisplayedPowerTrailsCount());
+				tpl_set_var('mapCenterLat', $main_page_map_center_lat);
+				tpl_set_var('mapCenterLon', $main_page_map_center_lon);
+				tpl_set_var('mapZoom', 6);
+				tpl_set_var('PowerTrails',$ptListData[0]);
+				tpl_set_var('ptList4map',$ptListData[1]);
+				tpl_set_var('displayPowerTrails', 'block');
+				if($pt->getPowerTrailOwn() === false) tpl_set_var('statusOrPoints', tr('pt037'));
+				else tpl_set_var('statusOrPoints', tr('pt040')); 
+				tpl_set_var('mapOuterdiv', 'block');
+				tpl_set_var('mapInit', 1);
+				tpl_set_var('fullCountryMap', '1');
+				break;
+				
+					
 			case 'showSerie':
 				$ptDbRow = $pt->getPowerTrailDbRow();
 				$ptOwners = $pt->getPtOwners();
@@ -254,10 +292,14 @@ function displayPTrails($pTrails, $areOwnSeries)
 		$dataForMap .= "[".	$pTrail["centerLatitude"].",".$pTrail["centerLongitude"].",'<a href=powerTrail.php?ptAction=showSerie&ptrail=".$pTrail["id"].">".$pTrail["name"]."</a>','tpl/stdstyle/images/blue/".$poweTrailMarkers[$pTrail["type"]]."','".$pTrail["name"]."'],";
 		$ptTypes = powerTrailBase::getPowerTrailTypes();
 		$ptStatus = powerTrailBase::getPowerTrailStatus();
-		if(!$areOwnSeries) $ownOrAll = $pTrail["points"];
+		if(!$areOwnSeries) $ownOrAll = round($pTrail["points"],2);
 		else $ownOrAll = tr($ptStatus[$pTrail["status"]]['translate']);
+		$ptHrefTitle = $pTrail["name"];
+		if(strlen($pTrail["name"]) > 40){
+			$pTrail["name"] = substr($pTrail["name"], 0,35).' (...)';
+		}
 		$result .= '<tr>'.
-		'<td align="right" style="padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pTrail["id"].'">'.$pTrail["name"].'</a></b></td>'.
+		'<td align="right" style="padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pTrail["id"].'" title="'.$ptHrefTitle.'">'.$pTrail["name"].'</a></b></td>'.
 		'<td ><img src="tpl/stdstyle/images/blue/'.$poweTrailMarkers[$pTrail["type"]].'" /> '.tr($ptTypes[$pTrail["type"]]['translate']).'</td>'.
 		'<td class="ptTd">'. $ownOrAll .'</td>'.
 		'<td class="ptTd">'.substr($pTrail["dateCreated"] , 0, -9).'</td>'.
@@ -450,4 +492,11 @@ function generateStatusSelector($currStatus){
 	$selector .= '</select>';
 	return $selector;
 }
+
+function saveCookie($cookie) {
+	$cookie->set("ptFltr", $_REQUEST['filter']);
+	$cookie->set("ptSrBy", $_REQUEST['sortBy']);
+	$cookie->set("ptSrDr", $_REQUEST['sortDir']);
+}
+
 ?>

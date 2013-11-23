@@ -65,7 +65,7 @@ class powerTrailController {
 		$db = new dataBase();
 		$db->multiVariableQuery($q, $_SESSION['user_id']);
 		$this->allSeries = $db->dbResultFetchAll();
-		$this->action = 'showAllSeries';
+		$this->action = 'showMySeries';
 		$this->areOwnSeries = true;
 		
 	}
