@@ -451,8 +451,7 @@ else
                                         echo "";
                                                         }
                                                         else
-                                                        {
-												//test jg było save_icon
+                                                        {										
                                         ?>								     
 										<div>{save_icon}<b> {{download_as_file}}</b><br/>
 										<?php
