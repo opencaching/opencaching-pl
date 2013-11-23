@@ -248,8 +248,6 @@ function editComment(commentId,ClickinguserId){
 	var commentDate = $('#CommentDate-'+commentId).html();
 	var commentTime = $('#commentTime-'+commentId).html();
 	
-	console.log(commentTime);
-	
 	$('#editedCommentId').val(commentId);
 	$('#ClickinguserId').val(ClickinguserId);
 	// alert(commentHtml);
@@ -283,7 +281,12 @@ function toggleEditComment(){
 
 function ajaxUpdateComment(){
 	var newComment = tinyMCE.activeEditor.getContent();
-	//alert('do zrobirnia!' + newComment);
+	alert('do zrobirnia!' + newComment);
+	$('#addC1').hide();
+	$('#addC2').hide();
+	$('#addCe1').hide();
+	$('#addCe2').hide();
+	$('#addCeLoader').show();
 	
 	request = $.ajax({
     	url: "powerTrail/ajaxUpdateComment.php",
@@ -672,9 +675,14 @@ function toggleAddComment(){
 			setTimeout(function() {
 		    	$('#addComment').fadeIn(800);
 		    }, 801);
-		$('html, body').animate({
-        	scrollTop: $("#animateHere").offset().top
-    	}, 2000);    
+			$('html, body').animate({
+	        	scrollTop: $("#animateHere").offset().top
+	    	}, 2000);
+	    	var currentTime = new Date();
+  			var hours = currentTime.getHours();
+  			var minutes = currentTime.getMinutes();
+  			if (minutes < 10) minutes = "0" + minutes; 
+	    	$('#timepicker').val(hours+':'+minutes);   
 		});
 	} else {
 		$('#addComment').fadeOut(800);
@@ -2178,6 +2186,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 		{{pt230}} <input type="text" id="commentDateTime" value="{date}">
 		{{pt231}} <input type="text" id="timepicker" value="0:01" style="width:50px;">
 		<br /><br />
+		<img id="addCeLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" style="display: none;" />
 		<a id="addC1" href="javascript:void(0)" onclick="toggleAddComment();" class="editPtDataButton">{{pt031}}</a>
 		<a id="addC2" href="javascript:void(0)" onclick="ajaxAddComment();" class="editPtDataButton">{{pt044}}</a>
 		<a id="addCe1" href="javascript:void(0)" onclick="toggleEditComment();" class="editPtDataButton" style="display: none" >{{pt031}}</a>
