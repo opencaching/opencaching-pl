@@ -56,15 +56,15 @@ $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
 		<tr><td colspan="2">		
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
 			<legend>&nbsp; <strong>'.tr("submit_new_cache").'</strong> &nbsp;</legend>
-				<input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}>&nbsp;<label for="publish_now">'.tr('publish_now').'</label><br />
-				<input type="radio" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}>&nbsp;<label for="publish_later">'.tr('publish_date').':</label>
-				<input class="input40" type="text" name="activate_year" maxlength="4" value="{activate_year}"/> -
-                                <input class="input20" type="text" name="activate_month" maxlength="2" value="{activate_month}"/> - 
-				<input class="input20" type="text" name="activate_day" maxlength="2" value="{activate_day}"/>&nbsp;
-                                <select name="activate_hour" class="input40">
+				<input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}>&nbsp;<label for="publish_now">'.tr('publish_now').'</label><br />
+				<input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}>&nbsp;<label for="publish_later">'.tr('publish_date').':</label>
+				<input class="input40" type="text" name="activate_year" onChange="yes_change();" maxlength="4" value="{activate_year}"/> -
+                                <input class="input20" type="text" name="activate_month" onChange="yes_change();" maxlength="2" value="{activate_month}"/> - 
+				<input class="input20" type="text" name="activate_day" onChange="yes_change();" maxlength="2" value="{activate_day}"/>&nbsp;
+                                <select name="activate_hour" class="input40" onChange="yes_change();" >
 					{activation_hours}
 				</select>&nbsp;'.tr('hour').'&nbsp;{activate_on_message}<br />
-				<input type="radio" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}>&nbsp;<label for="publish_notnow">'.tr('dont_publish_yet').'</label>
+				<input type="radio" onChange="yes_change();" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}>&nbsp;<label for="publish_notnow">'.tr('dont_publish_yet').'</label>
 				</fieldset>
 				</td>
 		</tr>
