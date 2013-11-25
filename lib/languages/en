@@ -1875,4 +1875,9 @@ lc_Day_before Previous day
 lc_Day_after Next day
 ec_proceed_without_save You have made changes to the cache settings that have NOT been saved - are you sure to proceed (the page will be reloaded and changes LOST)?
 ec_delete_pic Are you sure to delete this picture?
-ec_delete_mp3 Are you sure to delete this file? 
+ec_delete_mp3 Are you sure to delete this file?
+mc_edit_geocache Edit cache 
+mc_by_founds By founds
+mc_by_reco By recomendatios
+mc_by_gk By Geo-Krets in
+mc_by_visits By visitors 

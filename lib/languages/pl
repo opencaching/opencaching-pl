@@ -2055,3 +2055,8 @@ ec_proceed_without_save Zmiany w ustawieniach skrzynki NIE zostały zapisane. Je
 ec_delete_pic Czy usunąć ten obrazek?  
 ec_delete_mp3 Czy usunąć ten plik?
 ec_delete_wp Czy usunąć ten waypoint? 
+mc_edit_geocache Edytuj skrzynkę 
+mc_by_founds Po ilości znalezionych
+mc_by_reco Po ilości rekomendacji
+mc_by_gk Po ilości Geo-Kretów w skrzynce
+mc_by_visits Po ilości odwiedzających 
