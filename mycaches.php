@@ -24,6 +24,7 @@ if (!isset($rootpath)) $rootpath = '';
 require_once($rootpath . 'lib/common.inc.php');
 require_once($rootpath . 'lib/cache_icon.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
+require_once('lib/db.php');
 
 //Preprocessing
 if ($error == false)
@@ -110,7 +111,7 @@ if ($error == false)
 		if ( !isset($_GET['start']) || intval($_GET['start'])<0 || intval($_GET['start']) > $total_logs) $start = 0;
 		else $start = intval($_GET['start']);
 		// obsluga sortowania kolumn
-		if ( !isset($_GET['col']) || intval($_GET['col'])<1 || intval($_GET['col']) > 6) $sort_col = 1;
+		if ( !isset($_GET['col']) || intval($_GET['col'])<1 || intval($_GET['col']) > 7) $sort_col = 1;
 		else $sort_col = intval($_GET['col']);
 		if ( !isset($_GET['sort']) || intval($_GET['sort'])<0 || intval($_GET['sort']) > 1) $sort_sort = 2;
 		else $sort_sort = intval($_GET['sort']);
@@ -143,6 +144,9 @@ if ($error == false)
 			case 6:
 				$sort_warunek='gkcount';
 				break;
+			case 7:
+				$sort_warunek='VISITS';
+				break;
 			default:
 				$sort_warunek='date_hidden';
 				break;
@@ -161,27 +165,62 @@ if ($error == false)
 		else $pages .= '{last_img_inactive}';
 		if ($stat_cache==2) $dodatkowe = ', datediff(now(),`caches`.`last_modified` ) as `dni_od_zmiany`';
 			else $dodatkowe = '';
-		$rs = sql("SELECT `cache_id`, `caches`.`name`, `date_hidden`, `status`,cache_type.icon_small AS cache_icon_small,	`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`,
-					`caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`, datediff(now(),`caches`.`last_found` ) as `ilosc_dni` $dodatkowe, COUNT(`gk_item`.`id`) AS `gkcount`
+		/*$rs = sql("SELECT `caches`.`cache_id`, `caches`.`name`, `date_hidden`, `status`,cache_type.icon_small AS cache_icon_small,	`cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`,
+					`caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`, datediff(now(),`caches`.`last_found` ) as `ilosc_dni` $dodatkowe, COUNT(`gk_item`.`id`) AS `gkcount`,
+					COALESCE(`cv`.`count`,0) AS `visits`
 					FROM `caches`  
 					LEFT JOIN `gk_item_waypoint` ON `gk_item_waypoint`.`wp` = `caches`.`wp_oc`
 					LEFT JOIN `gk_item` ON `gk_item`.`id` = `gk_item_waypoint`.`id` AND `gk_item`.`stateid`<>1 AND `gk_item`.`stateid`<>4 AND `gk_item`.`typeid`<>2 AND `gk_item`.`stateid` <>5
+					LEFT JOIN ( SELECT `count`, `user_id_ip`, `cache_id` FROM `cache_visits` WHERE `user_id_ip`=0 ) `cv`  ON `caches`.`cache_id` =  `cv`.`cache_id`
 					INNER JOIN `cache_type` ON (`caches`.`type` = `cache_type`.`id`),`cache_status`
-					WHERE `user_id`='&2' AND `cache_status`.`id`=`caches`.`status` AND `caches`.`status` = '$stat_cache'
+					WHERE `user_id`='&2' AND `cache_status`.`id`=`caches`.`status` AND `caches`.`status` = '$stat_cache' 
 					GROUP BY `caches`.`cache_id`
 					ORDER BY `$sort_warunek` $sort_txt
 					LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE), $lang_db,$user_id);
+					*/
+		$thatquery = "SELECT `caches`.`cache_id`, `caches`.`name`, `date_hidden`, `status`,cache_type.icon_small AS cache_icon_small,	`cache_status`.`id` AS `cache_status_id`,
+					`caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`, datediff(now(),`caches`.`last_found` ) as `ilosc_dni` $dodatkowe, COUNT(`gk_item`.`id`) AS `gkcount`,
+					COALESCE(`cv`.`count`,0) AS `visits`
+					FROM `caches`  
+					LEFT JOIN `gk_item_waypoint` ON `gk_item_waypoint`.`wp` = `caches`.`wp_oc`
+					LEFT JOIN `gk_item` ON `gk_item`.`id` = `gk_item_waypoint`.`id` AND `gk_item`.`stateid`<>1 AND `gk_item`.`stateid`<>4 AND `gk_item`.`typeid`<>2 AND `gk_item`.`stateid` <>5
+					LEFT JOIN ( SELECT `count`, `user_id_ip`, `cache_id` FROM `cache_visits` WHERE `user_id_ip`=0 ) `cv`  ON `caches`.`cache_id` =  `cv`.`cache_id`
+					INNER JOIN `cache_type` ON (`caches`.`type` = `cache_type`.`id`),`cache_status`
+					WHERE `user_id`=:v1 AND `cache_status`.`id`=`caches`.`status` AND `caches`.`status` = '$stat_cache' 
+					GROUP BY `caches`.`cache_id`
+					ORDER BY `$sort_warunek` $sort_txt
+					LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE);
+			//$params['v1']['value'] = (string) $lang_db;;
+			//$params['v1']['data_type'] = 'string';
+			$params['v1']['value'] = (integer) $user_id;;
+			$params['v1']['data_type'] = 'integer';
+			if (!isset($dbc)) {$dbc = new dataBase();};	
+			$dbc->paramQuery($thatquery,$params);
+			unset($params);		
+			$log_record_all = $dbc->dbResultFetchAll();
+			
+			$log_record_count = count($log_record_all);
 		$file_content ='';
-		while ($log_record=sql_fetch_assoc($rs))
+		//while ($log_record=sql_fetch_assoc($rs))
+		//prepare second queryt
+		$thatquery2 ="SELECT cache_logs.id,  cache_logs.type AS log_type, cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
+						caches.user_id AS cache_owner, cache_logs.encrypt encrypt, cache_logs.user_id AS luser_id, user.username AS user_name,
+						user.user_id AS user_id, log_types.icon_small AS icon_small, datediff(now(),`cache_logs`.`date_created`) as `ilosc_dni`
+						FROM cache_logs JOIN caches USING (cache_id) JOIN user ON (cache_logs.user_id=user.user_id) JOIN log_types ON (cache_logs.type = log_types.id)
+						WHERE cache_logs.deleted=0 AND `cache_logs`.`cache_id`=:v1 ORDER BY `cache_logs`.`date_created` DESC LIMIT 5";
+		$edit_geocache_tr = tr('mc_edit_geocache');				
+		for ($zz = 0; $zz<$log_record_count; $zz++)
 		{
+			$log_record = $log_record_all[$zz];
 			$tabelka = '';
 			$tabelka .= '<td style="width: 90px;">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['date_hidden'])), ENT_COMPAT, 'UTF-8') . '</td>';			
-			$tabelka .= '<td ><a href="editcache.php?cacheid='. htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="" title="edit geocache"/></a></td>';	
+			$tabelka .= '<td ><a href="editcache.php?cacheid='. htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="'.$edit_geocache_tr .'" title="'.$edit_geocache_tr.'"/></a></td>';	
 			$tabelka .= '<td >&nbsp;<img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
 			$tabelka .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-			$tabelka .= '<td>&nbsp;'.intval($log_record['founds']).'&nbsp;</td>';
-			$tabelka .= '<td>&nbsp;'.intval($log_record['topratings']).'&nbsp;</td>';
-			$tabelka .= '<td>&nbsp;'.intval($log_record['gkcount']).'&nbsp;</td>';
+			$tabelka .= '<td align="right">&nbsp;'.intval($log_record['founds']).'&nbsp;</td>';
+			$tabelka .= '<td  align="right">&nbsp;'.intval($log_record['topratings']).'&nbsp;</td>';
+			$tabelka .= '<td  align="right">&nbsp;'.intval($log_record['gkcount']).'&nbsp;</td>';
+			$tabelka .= '<td  align="right">&nbsp;'.intval($log_record['visits']).'&nbsp;</td>';
 			$tabelka .= '<td>&nbsp;';
 			if ($stat_cache==2) $dni=$log_record['dni_od_zmiany'];
 				else $dni=$log_record['ilosc_dni'];
@@ -192,17 +231,27 @@ if ($error == false)
 				elseif ($dni>1) $tabelka .= intval($dni).' '.tr('days_ago');
 			$tabelka .= '&nbsp;</td>';
 
-			$rs_logs = sql("SELECT cache_logs.id,  cache_logs.type AS log_type, cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
+			/*$rs_logs = sql("SELECT cache_logs.id,  cache_logs.type AS log_type, cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
 						caches.user_id AS cache_owner, cache_logs.encrypt encrypt, cache_logs.user_id AS luser_id, user.username AS user_name,
 						user.user_id AS user_id, log_types.icon_small AS icon_small, datediff(now(),`cache_logs`.`date_created`) as `ilosc_dni`
 						FROM cache_logs JOIN caches USING (cache_id) JOIN user ON (cache_logs.user_id=user.user_id) JOIN log_types ON (cache_logs.type = log_types.id)
-						WHERE cache_logs.deleted=0 AND `cache_logs`.`cache_id`='&1' ORDER BY `cache_logs`.`date_created` DESC LIMIT 5", $log_record['cache_id']);
+						WHERE cache_logs.deleted=0 AND `cache_logs`.`cache_id`='&1' ORDER BY `cache_logs`.`date_created` DESC LIMIT 5", $log_record['cache_id']);*/
+		
+			$params['v1']['value'] = (integer) $log_record['cache_id'];;
+			$params['v1']['data_type'] = 'integer';
+			$dbc->paramQuery($thatquery2,$params);
+			
 			$tabelka .= '<td align=left>';
 			$warning=0;
 			$dnf=0;
 			$sprawdzaj=0;
-			while ($logs=sql_fetch_assoc($rs_logs))
+			$log_entries_all = $dbc->dbResultFetchAll();
+			$log_entries_count = count($log_entries_all);
+			
+			//while ($logs=sql_fetch_assoc($rs_logs))
+			for ($yy=0; $yy<$log_entries_count;$yy++)
 			{
+				$logs=$log_entries_all [$yy];
 				$tabelka .= '<a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
 				$tabelka .= '<b>'.$logs['user_name'].'</b>&nbsp;('.htmlspecialchars(date("d-m-Y", strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8').'):';
 
@@ -255,7 +304,7 @@ if ($error == false)
 			};
 			$file_content .= "<tr ".$pokaz_problem.">".$tabelka."</td></tr>\n";
 		}
-
+		unset($dbc);
 		$pages = mb_ereg_replace('{last_img}', $last_img, $pages);
 		$pages = mb_ereg_replace('{first_img}', $first_img, $pages);
 
@@ -264,7 +313,9 @@ if ($error == false)
 
 		tpl_set_var('file_content',$file_content);
 		tpl_set_var('pages', $pages);
+	
 	}
+	
 }
 //make the template and send it out
 tpl_BuildTemplate();

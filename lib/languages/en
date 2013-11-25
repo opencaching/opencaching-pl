@@ -1877,3 +1877,8 @@ ec_proceed_without_save You have made changes to the cache settings that have NO
 ec_delete_pic Are you sure to delete this picture?
 ec_delete_mp3 Are you sure to delete this file?
 ec_delete_wp Are you sure to delete this waypoint?
+mc_edit_geocache Edit cache 
+mc_by_founds By founds
+mc_by_reco By recomendatios
+mc_by_gk By Geo-Krets in
+mc_by_visits By visitors
