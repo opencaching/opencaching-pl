@@ -39,7 +39,13 @@
 		{
 			$cache_id = $_REQUEST['cacheid'];
 		}
-
+			
+			if ($usr == false && $hide_coords) {
+				$disable_spoiler_view =true; //hide any kind of spoiler if usr not logged in
+			} else {
+				$disable_spoiler_view =false;
+			};
+				
 
 		if ($cache_id != 0)
 		{
@@ -103,7 +109,7 @@
 					$append_atag='';
 				//	$rscpictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures` WHERE `pictures`.`object_id`=&1 AND `pictures`.`object_type`=2 ORDER BY `pictures`.`date_created` ASC", $cache_id);
 				if (!isset($dbc)) {$dbc = new dataBase();};
-					$thatquery ="SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures` WHERE `pictures`.`object_id`=:v1 AND `pictures`.`object_type`=2 ORDER BY `pictures`.`seq`, `pictures`.`date_created` ASC";
+					$thatquery ="SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id`, `pictures`.`spoiler` FROM `pictures` WHERE `pictures`.`object_id`=:v1 AND `pictures`.`object_type`=2 ORDER BY `pictures`.`seq`, `pictures`.`date_created` ASC";
 				//// requires: ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';	
 				$params['v1']['value'] = (integer) $cache_id;;
    		 		$params['v1']['data_type'] = 'integer';
@@ -125,10 +131,19 @@
 						//$pic_crecord = sql_fetch_array($rscpictures);
 						$pic_crecord = $rscpictures_all[$j];
 						$thisline = $cachepicture;
+						
+						if ($disable_spoiler_view && intval($pic_crecord['spoiler'])==1) {  // if hide spoiler (due to user not logged in) option is on prevent viewing pic link and show alert 
+							$thisline = mb_ereg_replace('{log_picture_onclick}', "alert('".$spoiler_disable_msg."'); return false;", $thisline);
+							$thisline = mb_ereg_replace('{link}','index.php', $thisline);
+							$thisline = mb_ereg_replace('{longdesc}', 'index.php', $thisline);						
+	
+						} else { 
+							$thisline = mb_ereg_replace('{log_picture_onclick}', "enlarge(this)", $thisline);
+							$thisline = mb_ereg_replace('{link}', $pic_crecord['url'], $thisline);
+							$thisline = mb_ereg_replace('{longdesc}', str_replace("uploads","uploads",$pic_crecord['url']), $thisline);
+						};
 
 
-                        $thisline = mb_ereg_replace('{link}', $pic_crecord['url'], $thisline);
-                        $thisline = mb_ereg_replace('{longdesc}', str_replace("uploads","uploads",$pic_crecord['url']), $thisline);
 	               		 $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?'.$showspoiler.'uuid=' . urlencode($pic_crecord['uuid']), $thisline);
                         $thisline = mb_ereg_replace('{log}', $tmplog_username .": ". htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
                         if ($pic_crecord['title']=="") {$title="link";} else { $title=htmlspecialchars($pic_crecord['title'],ENT_COMPAT,'UTF-8');}
@@ -149,7 +164,7 @@
 
 					$logpicturelines = '';
 					$append_atag='';
-					$rspictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id` FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `cache_logs`.`deleted` = 0 AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`=&1 ORDER BY `pictures`.`date_created` DESC", $cache_id);
+					$rspictures = sql("SELECT `pictures`.`url`, `pictures`.`title`, `pictures`.`uuid`, `pictures`.`user_id`,`pictures`.`object_id`, `pictures`.`spoiler` FROM `pictures`,`cache_logs`WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `cache_logs`.`deleted` = 0 AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`=&1 ORDER BY `pictures`.`date_created` DESC", $cache_id);
 
 				if (mysql_num_rows($rspictures)!=0){
 				tpl_set_var('logs_images_start', '');
@@ -162,10 +177,18 @@
 					{
 						$pic_record = sql_fetch_array($rspictures);
 						$thisline = $logpicture;
-
-
+						if ($disable_spoiler_view && intval($pic_record['spoiler'])==1) {  // if hide spoiler (due to user not logged in) option is on prevent viewing pic link and show alert 
+							$thisline = mb_ereg_replace('{log_picture_onclick}', "alert('".$spoiler_disable_msg."'); return false;", $thisline);
+							$thisline = mb_ereg_replace('{link}','index.php', $thisline);
+							$thisline = mb_ereg_replace('{longdesc}', 'index.php', $thisline);						
+	
+						} else { 
+							$thisline = mb_ereg_replace('{log_picture_onclick}', "enlarge(this)", $thisline);
                         $thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
                         $thisline = mb_ereg_replace('{longdesc}', str_replace("uploads","uploads",$pic_record['url']), $thisline);
+						};
+
+
 	                $thisline = mb_ereg_replace('{imgsrc}', 'thumbs.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
                         $thisline = mb_ereg_replace('{log}', $tmplog_username ." ". htmlspecialchars($record['text'], ENT_COMPAT, 'UTF-8'), $thisline);
                         if ($pic_record['title']=="") {$title="link";} else { $title=htmlspecialchars($pic_record['title'],ENT_COMPAT,'UTF-8');}

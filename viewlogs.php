@@ -60,7 +60,7 @@
 			$count = $_REQUEST['count'];
 			if (!is_numeric($count)) $count = 999999;
 		}
-		
+			
 			if ($usr == false && $hide_coords) {
 				$disable_spoiler_view =true; //hide any kind of spoiler if usr not logged in
 			} else {

@@ -147,6 +147,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 	global $dblink;
 	global $thumb_max_width;
 	global $thumb_max_height;
+	global $spoiler_disable_msg;
 	$nCol = 0;
 	if($spoiler_only) $spoiler_only = 'spoiler=1 AND';
 	else $spoiler_only = "";
@@ -159,7 +160,7 @@ function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = tr
 	if ($disable_spoiler==false) {
 		$spoiler_onclick = "enlarge(this);";
 	} else {
-		$spoiler_onclick = "alert('".$spoiler_disable_msg."!'); return false;";
+		$spoiler_onclick = "alert('".$spoiler_disable_msg."'); return false;";
 	};
 	
 	while ($r = sql_fetch_array($rs))
