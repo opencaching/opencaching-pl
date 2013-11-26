@@ -1870,7 +1870,7 @@ timePicker_nowButtonText Now!
 timePicker_closeButtonText Done
 timePicker_deselectButtonText Reset
 ec_Sequence Picture sequence
-vc_hint_for_logged_only You must be logged to see additional hints
+vc_hint_for_logged_only You must be logged-in to see additional hints
 lc_Day_before Previous day
 lc_Day_after Next day
 ec_proceed_without_save You have made changes to the cache settings that have NOT been saved - are you sure to proceed (the page will be reloaded and changes LOST)?
@@ -1881,3 +1881,4 @@ mc_by_founds By founds
 mc_by_reco By recomendatios
 mc_by_gk By Geo-Krets in
 mc_by_visits By visitors 
+vc_spoiler_disable_msg You must be logged-in to view spoilers! 

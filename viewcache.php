@@ -95,7 +95,12 @@
 			}
 			//mysql_free_result($rs);
 		}
-
+			
+			if ($usr == false && $hide_coords) {
+				$disable_spoiler_view =true; //hide any kind of spoiler if usr not logged in
+			} else {
+				$disable_spoiler_view =false;
+			};
 		$no_crypt = 0;
 		if (isset($_REQUEST['nocrypt']))
 		{
@@ -1203,13 +1208,13 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				else
 					$spoiler_only = false;
 				if(isset($_REQUEST['pictures']) && $_REQUEST['pictures'] == 'big')
-					tpl_set_var('pictures', viewcache_getfullsizedpicturestable($cache_id, true, $spoiler_only, $cache_record['picturescount']));
+					tpl_set_var('pictures', viewcache_getfullsizedpicturestable($cache_id, true, $spoiler_only, $cache_record['picturescount'],$disable_spoiler_view));
 				else if(isset($_REQUEST['pictures']) && $_REQUEST['pictures'] == 'small')
-					tpl_set_var('pictures', viewcache_getpicturestable($cache_id, true, true, $spoiler_only, true, $cache_record['picturescount']));
+					tpl_set_var('pictures', viewcache_getpicturestable($cache_id, true, true, $spoiler_only, true, $cache_record['picturescount'],$disable_spoiler_view));
 				else if(isset($_REQUEST['pictures']) && $_REQUEST['pictures'] == 'no')
 					tpl_set_var('pictures', "");
 				else
-					tpl_set_var('pictures', viewcache_getpicturestable($cache_id, true, true, false, false, $cache_record['picturescount']));
+					tpl_set_var('pictures', viewcache_getpicturestable($cache_id, true, true, false, false, $cache_record['picturescount'],$disable_spoiler_view));
 
 				tpl_set_var('hidepictures_start', '');
 				tpl_set_var('hidepictures_end', '');
@@ -1657,7 +1662,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				{
 					$logpicturelines = '';
 					//$rspictures = sql("SELECT `url`, `title`, `user_id`, `uuid` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=1", $record['logid']);
-					$thatquery = "SELECT `url`, `title`, `user_id`, `uuid` FROM `pictures` WHERE `object_id`= :v1 AND `object_type`=1";
+					$thatquery = "SELECT `url`, `title`, `user_id`, `uuid`, `spoiler` FROM `pictures` WHERE `object_id`= :v1 AND `object_type`=1";
 				 	$params['v1']['value'] = (integer) $record['logid'];;
    		 			$params['v1']['data_type'] = 'integer';
 		
@@ -1675,9 +1680,17 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 						$pic_record = $rspictures_all[$j];
 						if(!isset($showspoiler)) $showspoiler = '';
 						$thisline = $logpictureline;
-
-						$thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
-						$thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads","upload",$pic_record['url']), $thisline);
+						if ($disable_spoiler_view && intval($pic_record['spoiler'])==1) {  // if hide spoiler (due to user not logged in) option is on prevent viewing pic link and show alert 
+							$thisline = mb_ereg_replace('{log_picture_onclick}', "alert('".$spoiler_disable_msg."'); return false;", $thisline);
+							$thisline = mb_ereg_replace('{link}','index.php', $thisline);
+							$thisline = mb_ereg_replace('{longdesc}', 'index.php', $thisline);						
+	
+						} else { 
+							$thisline = mb_ereg_replace('{log_picture_onclick}', "enlarge(this)", $thisline);
+							$thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
+							$thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads","upload",$pic_record['url']), $thisline);
+						};
+						
 						$thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
 						$thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 						if ($pic_record['user_id'] == $usr['userid'] || (isset($user['admin']) && $user['admin']))
@@ -2157,5 +2170,8 @@ if($powerTrailModuleSwitchOn) {
 	unset ($dbc);
 	tpl_set_var('ptName', $ptHtml);
 	tpl_set_var('ptSectionDisplay', $ptDisplay);
+	
+
+	
 	tpl_BuildTemplate();
 ?>

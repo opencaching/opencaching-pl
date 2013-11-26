@@ -60,7 +60,12 @@
 			$count = $_REQUEST['count'];
 			if (!is_numeric($count)) $count = 999999;
 		}
-
+		
+			if ($usr == false && $hide_coords) {
+				$disable_spoiler_view =true; //hide any kind of spoiler if usr not logged in
+			} else {
+				$disable_spoiler_view =false;
+			};
 		$dbc = new dataBase();
 		if ($cache_id != 0)
 		{
@@ -487,7 +492,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 					$append_atag='';
 					//$rspictures = sql("SELECT `url`, `title`, `uuid`, `user_id` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=1", $record['log_id']);
 					if (!isset($dbc)) {$dbc = new dataBase();};
-					$thatquery = "SELECT `url`, `title`, `uuid`, `user_id` FROM `pictures` WHERE `object_id`=:1 AND `object_type`=1";
+					$thatquery = "SELECT `url`, `title`, `uuid`, `user_id`, `spoiler` FROM `pictures` WHERE `object_id`=:1 AND `object_type`=1";
 					$dbc->multiVariableQuery($thatquery,$record['log_id']);
 					$pic_count = $dbc->rowCount();
 					for ($j = 0; $j < $pic_count ; $j++)
@@ -496,9 +501,17 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 						$pic_record = $dbc->dbResultFetch();
 						$thisline = $logpictureline;
 
+						if ($disable_spoiler_view && intval($pic_record['spoiler'])==1) {  // if hide spoiler (due to user not logged in) option is on prevent viewing pic link and show alert 
+							$thisline = mb_ereg_replace('{log_picture_onclick}', "alert('".$spoiler_disable_msg."'); return false;", $thisline);
+							$thisline = mb_ereg_replace('{link}','index.php', $thisline);
+							$thisline = mb_ereg_replace('{longdesc}', 'index.php', $thisline);						
+	
+						} else { 
+							$thisline = mb_ereg_replace('{log_picture_onclick}', "enlarge(this)", $thisline);
+							$thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
+							$thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads","upload",$pic_record['url']), $thisline);
+						};
 
-                        $thisline = mb_ereg_replace('{link}', $pic_record['url'], $thisline);
-                        $thisline = mb_ereg_replace('{longdesc}', str_replace("images/uploads","uploads",$pic_record['url']), $thisline);
 	                    $thisline = mb_ereg_replace('{imgsrc}', 'thumbs2.php?'.$showspoiler.'uuid=' . urlencode($pic_record['uuid']), $thisline);
                         $thisline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $thisline);
 
