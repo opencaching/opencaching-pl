@@ -498,7 +498,8 @@ tooltip {
     text-align: left;
     border: 1px solid #7ba2d2;
     background: #e4f5fa;
-    color: #000;u
+    color: #000;
+u
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
@@ -879,7 +880,7 @@ td.myr{
 /* ===================================================================================== */
 
 table.myneighborhood {
-    width: 98%;
+    width: auto;
     margin: 9px;
     border-collapse: collapse;
     font-size: 11px;
@@ -905,7 +906,7 @@ table.myneighborhood tbody tr:nth-child(even) {
     background: #FCFCFC;
 }
 table.myneighborhood tbody tr:nth-child(odd) {
-    background: #F6F6F6;
+    background: #F0F0F0;
 }
 
 /* This is a red/green frame, like this one: http://i.imgur.com/xHpnKD7.png */
