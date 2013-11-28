@@ -24,7 +24,10 @@ require_once($rootpath .  'lib/calculation.inc.php');
 require_once($rootpath .  'lib/cache_icon.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
 require_once($rootpath .  'lib/found_caches.php');
-require_once($rootpath. 'lib/db.php');
+require_once  __DIR__.'/lib/db.php';
+
+
+
 //Preprocessing
 if ($error == false) {
     //user logged in?
