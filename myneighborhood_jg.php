@@ -536,10 +536,10 @@ if ($error == false) {
                // $cacheicon_found = 'tpl/stdstyle/images/cache/' . $found_icon;
                // $cacheicon       = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
 				$cacheicon =  $icon_folder;
-				if ($log_record['cache_type']!="6") {
-					$cacheicon .=is_cache_found($log_record['cache_id'], $user_id) ? $foundCacheTypesIcons[$log_record['cache_type']] : $CacheTypesIcons[$log_record['cache_type']] ;
+				if ($record['cache_type']!="6") {
+					$cacheicon .=is_cache_found($record['cache_id'], $user_id) ? $foundCacheTypesIcons[$record['cache_type']] : $CacheTypesIcons[$record['cache_type']] ;
 				} else { //rather practically  not possible - event reco not allowed but just in case or for past 
-					$cacheicon .=is_event_attended ($log_record['cache_id'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
+					$cacheicon .=is_event_attended ($record['cache_id'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
 				};
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',                 $i,                                                                                 $thisline);
