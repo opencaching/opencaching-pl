@@ -816,7 +816,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 900; # This gets replaced in automatically deployed packages
+	public static $revision = 901; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -2003,7 +2003,7 @@ class OkapiHttpRequest extends OkapiRequest
 			}
 		}
 
-		if ($this->consumer->admin)
+		if (is_object($this->consumer) && $this->consumer->admin)
 		{
 			/* Some chosen Consumers gain special permissions within OKAPI.
 			 * Currently, there's only a single "admin" flag in the okapi_consumers
