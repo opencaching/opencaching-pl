@@ -136,12 +136,37 @@ function rebuildCacheAttr()
 }
 
 function toggleAttr(id)
-{
+{ // same func in newcache.tpl.php and editcache.tpl.php
 	var i = 0;
+	var answ =''; var bike_id=''; var walk_id='';
+	if (id ==85 || id ==84)  
+	{ //toggle contradictory attribs
+		for (i = 0; i < maAttributes.length; i++) //finding id of bike and walk_only attributes
+		{
+			if (maAttributes[i][0]==85)  {bike_id = i;};
+			if (maAttributes[i][0]==84)  {walk_id = i;};
+			if ((bike_id!='') && (walk_id!='')) {break;};
+		};
+		
+		if ((id == 84) && (maAttributes[bike_id][1] == 1) && (maAttributes[walk_id][1] == 0)) {
+			//request confirmation if bike is set and attemting to set Walk_only
+			answ = confirm('{{ec_bike_set_msg}}');
+			if (answ == false) { return false;	};
+			maAttributes[bike_id][1] =0;
+		};
+		if ((id == 85) && (maAttributes[bike_id][1] == 0) && (maAttributes[walk_id][1] == 1)) {
+			//request confirmation if Walk_only is set and attemting to set Bike
+			answ = confirm('{{ec_walk_set_msg}}');
+			if (answ == false) { return false;	};
+			maAttributes[walk_id][1] =0;
+		};
+	//alert(id);
+	};
 	for (i = 0; i < maAttributes.length; i++)
 	{
 		if (maAttributes[i][0] == id)
 		{
+			
 			if (maAttributes[i][1] == 0)
 				maAttributes[i][1] = 1;
 			else

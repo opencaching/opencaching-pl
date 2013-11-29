@@ -1882,3 +1882,5 @@ mc_by_reco By recomendatios
 mc_by_gk By Geo-Krets in
 mc_by_visits By visitors 
 vc_spoiler_disable_msg You must be logged-in to view spoilers! 
+ec_bike_set_msg Cache attribute [Bike] has been set. Are you to add [Access only by walk] attribute?
+ec_walk_set_msg Cache attribute [Access only by walk] has been set. Are you to add [Bike] attribute?
