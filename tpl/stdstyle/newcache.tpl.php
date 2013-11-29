@@ -243,28 +243,39 @@ function chkiconcache()
 function toggleAttr(id)
 { // same func in newcache.tpl.php and editcache.tpl.php
 	var i = 0;
-	var answ =''; var bike_id=''; var walk_id='';
-	if (id ==85 || id ==84)  
+	var answ =''; var bike_id=''; var walk_id=''; var boat_id='';
+	if (id ==85 || id ==84 || id == 86)  
 	{ //toggle contradictory attribs
 		for (i = 0; i < maAttributes.length; i++) //finding id of bike and walk_only attributes
 		{
-			if (maAttributes[i][0]==85)  {bike_id = i;};
 			if (maAttributes[i][0]==84)  {walk_id = i;};
-			if ((bike_id!='') && (walk_id!='')) {break;};
+			if (maAttributes[i][0]==85)  {bike_id = i;};
+			if (maAttributes[i][0]==86)  {boat_id = i;};
+			if ((bike_id!='') && (walk_id!='') && (boat_id!='')) {break;};
 		};
 		
-		if ((id == 84) && (maAttributes[bike_id][1] == 1) && (maAttributes[walk_id][1] == 0)) {
-			//request confirmation if bike is set and attemting to set Walk_only
+		if ((id == 84) && (maAttributes[walk_id][1] == 0) && ((maAttributes[bike_id][1] == 1) || (maAttributes[boat_id][1] == 1))) {
+			//request confirmation if bike or boat is set and attemting to set Walk_only
 			answ = confirm('{{ec_bike_set_msg}}');
 			if (answ == false) { return false;	};
 			maAttributes[bike_id][1] =0;
+			maAttributes[boat_id][1] =0;
 		};
-		if ((id == 85) && (maAttributes[bike_id][1] == 0) && (maAttributes[walk_id][1] == 1)) {
-			//request confirmation if Walk_only is set and attemting to set Bike
+		if ((id == 85) && (maAttributes[bike_id][1] == 0) && ((maAttributes[walk_id][1] == 1) || (maAttributes[boat_id][1] == 1))) {
+			//request confirmation if Walk or boat_only is set and attemting to set Bike
 			answ = confirm('{{ec_walk_set_msg}}');
 			if (answ == false) { return false;	};
 			maAttributes[walk_id][1] =0;
+			maAttributes[boat_id][1] =0;
 		};
+		if ((id == 86) && (maAttributes[boat_id][1] == 0) && ((maAttributes[walk_id][1] == 1) || (maAttributes[bike_id][1] == 1))) {
+			//request confirmation if bike or boat_only is set and attemting to set Boat
+			answ = confirm('{{ec_boat_set_msg}}');
+			if (answ == false) { return false;	};
+			maAttributes[bike_id][1] =0;
+			maAttributes[walk_id][1] =0;
+		};		
+		
 	//alert(id);
 	};
 	for (i = 0; i < maAttributes.length; i++)
@@ -538,7 +549,7 @@ function nearbycachemapOC()
 	</tr>
 	<tr><td colspan="2"><div class="buffer"></div></td></tr>
 	<tr>
-		<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;">{{attributes_edit_hint}} {{attributes_desc_hint}}</div></td></tr>
+		<td colspan="2"><div class="notice" style="width:500px;min-height:24px;height:auto;white-space: nowrap;">{{attributes_edit_hint}} {{attributes_desc_hint}}</div></td></tr>
 	<tr>
 		<td colspan="2"><div class="content2-container bg-blue02"> 
 			<p class="content-title-noshade-size1"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt=""/>&nbsp;{{descriptions}}</p>

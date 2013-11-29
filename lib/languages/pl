@@ -2061,6 +2061,6 @@ mc_by_reco Po ilości rekomendacji
 mc_by_gk Po ilości Geo-Kretów w skrzynce
 mc_by_visits Po ilości odwiedzających 
 vc_spoiler_disable_msg Musisz być zalogowany aby zobaczyć zdjęcia spojlerowe! 
-ec_bike_set_msg Atrybut skrzynki [Dostępna rowerem] jest ustawiony. Czy na pewno chcesz dodać atrybut [Dostępna tylko pieszo]?
-ec_walk_set_msg Atrybut skrzynki [Dostępna tylko pieszo] jest ustawiony. Czy na pewno chcesz dodać atrybut [Dostępna rowerem]?
- 
+ec_bike_set_msg Atrybut skrzynki [Dostępna rowerem] lub [Dostępna tylko łodzią] jest ustawiony. Czy na pewno chcesz dodać atrybut [Dostępna tylko pieszo]?
+ec_walk_set_msg Atrybut skrzynki [Dostępna tylko pieszo] lub [Dostępna tylko łodzią] jest ustawiony. Czy na pewno chcesz dodać atrybut [Dostępna rowerem]?
+ec_boat_set_msg Atrybut skrzynki [Dostępna tylko pieszo] lub [Dostępna rowerem] jest ustawiony. Czy na pewno chcesz dodać atrybut [Dostępna tylko łodzią]?
