@@ -32,6 +32,7 @@ $(function() {
 	$.datepicker.setDefaults($.datepicker.regional['pl']);
     $('#powerTrailDateCreatedInput').datepicker({
 		dateFormat: 'yy-mm-dd',
+		minDate: new Date(2013, 10, 30),
 		regional: '{language4js}'
 	}).val();
     $('#commentDateTime').datepicker({
@@ -915,6 +916,13 @@ function ajaxUpdatType(){
 	return false;
 	
 	
+}
+
+function ajaxUpdateDateCancel(){
+	$("#powerTrailDateCreatedEdit").hide();
+   	$("#powerTrailDateCreated").fadeIn(800);
+	$("#ptDateUserActionsDiv").fadeIn(800);
+	$("#ajaxLoaderPtDate").hide();
 }
 
 function ajaxUpdateDate(){
@@ -1871,6 +1879,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 			<th class="ptTd">{{pt057}}</th>
 		</tr>
 		{PowerTrails}
+		<tr><td colspan="6" align="right"><a class="editPtDataButton" href="{historicLimitHref}">{switchMiniPT}</a></td></tr>
 	</table>
 </div>
 
@@ -2004,6 +2013,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 				<img id="ptDateOKimg" style="display: none" src="tpl/stdstyle/images/free_icons/accept.png" />
 				<span id="powerTrailDateCreatedEdit" style="display: none">
 					<input id="powerTrailDateCreatedInput" type="text" value="{powerTrailDateCreated}" maxlength="10" />
+					<a href="javascript:void(0)" id="editDateSaveButton" onclick="ajaxUpdateDateCancel()" class="editPtDataButton">{{pt031}}</a>
 					<a href="javascript:void(0)" id="editDateSaveButton" onclick="ajaxUpdateDate()" class="editPtDataButton">{{pt044}}</a>
 				</span>
 			</td>

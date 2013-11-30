@@ -1917,6 +1917,9 @@ pt228 zbyt mała ilość skrzynek w geoŚcieżce
 pt229 Typ wpisu
 pt230 Data
 pt231 czas
+pt232 pokaż również miniGeoŚcieżki
+pt233 ukryj miniGeoŚcieżki
+pt234 zdobycie geoŚcieżki jest niemożliwe. (wymagana ilość skrzynek jest większa niż liczba aktywnych skrzynek geoŚcieżki - Właściele geoŚcieżki powinni ustawić inną liczbę wymaganych skrzynek lub reaktywować/zarchiwizować nieaktywne skrzynki).
 statpic_found Znalazł:
 statpic_hidden Ukrył:
 statpic_html_link - Statystyka dla

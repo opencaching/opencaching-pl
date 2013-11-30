@@ -122,6 +122,6 @@ class processGeokretyErrors {
 	}
 	
 	private function cleanGeoPaths(){
-		powerTrailBase::cleanGeoPaths();
+		// powerTrailBase::cleanGeoPaths();
 	}
 }

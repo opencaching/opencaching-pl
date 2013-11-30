@@ -70,8 +70,7 @@ class powerTrailController {
 		
 	}
 
-	private function getAllPowerTrails()
-	{
+	private function getAllPowerTrails() {
 		// sort by
 		if(isset($_REQUEST['sortBy'])) {	
 			switch ($_REQUEST['sortBy']) {
@@ -132,9 +131,10 @@ class powerTrailController {
 		} else {
 			$sortOder = 'DESC';
 		}
-		$q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount > '.powerTrailBase::minimumCacheCount() .' '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
+		if(isset($_REQUEST['historicLimit']) && $_REQUEST['historicLimit']==1) $cacheCountLimit = powerTrailBase::historicMinimumCacheCount(); else $cacheCountLimit = powerTrailBase::minimumCacheCount();
+		$q = 'SELECT * FROM `PowerTrail` WHERE `status` = 1 and cacheCount >= :1 '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
 		$db = new dataBase();
-		$db->multiVariableQuery($q);
+		$db->multiVariableQuery($q, $cacheCountLimit);
 		$this->allSeries = $db->dbResultFetchAll();
 	}
 	

@@ -23,6 +23,8 @@ if(!$powerTrailModuleSwitchOn) {
 	header("location: $absolute_server_URI");
 }
 
+if(!is_array($powerTrailMinimumCacheCount)) { print 'GeoŚcieżki są tymczasowo wyłączone - przerwa techniczna'; exit; }
+
 $firePtMenu = true;
 //Preprocessing
 if ($error == false)
@@ -46,6 +48,13 @@ if ($error == false)
 		include_once('powerTrail/powerTrailController.php');
 		include_once('powerTrail/powerTrailMenu.php');
 		if (isset($_SESSION['user_id'])) tpl_set_var('displayAddCommentSection', 'block'); else  tpl_set_var('displayAddCommentSection', 'none');
+		if(isset($_REQUEST['historicLimit']) && $_REQUEST['historicLimit'] == 1) {
+			tpl_set_var('historicLimitHref', 'powerTrail.php'); 
+			tpl_set_var('switchMiniPT', tr('pt233')); 
+		} else {
+			tpl_set_var('historicLimitHref', 'powerTrail.php?historicLimit=1');
+			tpl_set_var('switchMiniPT', tr('pt232')); 
+		}
 		tpl_set_var('nocachess', 'none');
 		tpl_set_var('displayCreateNewPowerTrailForm', 'none');
 		tpl_set_var('displayUserCaches', 'none');

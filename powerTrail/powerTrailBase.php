@@ -12,8 +12,18 @@ class powerTrailBase{
 	
 	public static function minimumCacheCount(){
 		include __DIR__.'/../lib/settings.inc.php';
-		return $powerTrailMinimumCacheCount;
+		return $powerTrailMinimumCacheCount['current'];
 	} 
+	
+	public static function historicMinimumCacheCount(){
+		include __DIR__.'/../lib/settings.inc.php';
+		$min = $powerTrailMinimumCacheCount['current'];
+		foreach ($powerTrailMinimumCacheCount['old'] as $date){
+			//var_dump($date['dateFrom'], $ptPublished, $date['dateTo']);
+			if ($min > $date['limit']) $min = $date['limit'];
+		}
+		return $min; 
+	}
 	public static function userMinimumCacheFoundToSetNewPowerTrail(){
 		include __DIR__.'/../lib/settings.inc.php';
 		return $powerTrailUserMinimumCacheFoundToSetNewPowerTrail;
@@ -340,8 +350,7 @@ class powerTrailBase{
 	}
 	
 	public static function writePromoPt4mainPage($oldPtId){
-		include __DIR__.'/../lib/settings.inc.php';
-		$q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1 AND `cacheCount` >= '.$powerTrailMinimumCacheCount.' ORDER BY `id` ASC';
+		$q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1 AND `cacheCount` >= '.self::historicMinimumCacheCount().' ORDER BY `id` ASC';
 		$db = new dataBase;
 		$db->multiVariableQuery($q, $oldPtId);
 		$r = $db->dbResultFetchAll();
@@ -406,13 +415,17 @@ class powerTrailBase{
 	 * etc.
 	 */
 	public static function cleanGeoPaths() {
+		
 		$getPtQuery = 'SELECT * FROM `PowerTrail` WHERE `status` =1';
 		$db = new dataBase();
 		$db->simpleQuery($getPtQuery);
 		$ptToClean = $db->dbResultFetchAll();
 		$text = tr('pt227').tr('pt228');
+		$checkPt = new checkPt();
 		foreach ($ptToClean as $pt) {
-			if($pt['cacheCount'] < self::minimumCacheCount()){ // set status to 4 (in service)
+			self::checkCacheCountInPt($pt);
+			self::disableUncompletablePt($pt);
+			if($pt['cacheCount'] < $checkPt->getPtMinCacheCountLimit($pt)){ // set status to 4 (in service)
 				print 'put in service geoPath #'.$pt['id'].'<br/>';
 				$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
 				$db->multiVariableQuery($queryStatus, 4, $pt['id']);
@@ -437,4 +450,67 @@ class powerTrailBase{
 		}
 	}
 
+	/**
+	 * check if real cache count in pt is equal stored in db.
+	 */
+	private function checkCacheCountInPt($pt){
+		$countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1) AND `status` IN ( 1, 2, 4, 5 )';
+		$db = new dataBase;
+		$db->multiVariableQuery($countQuery, $pt['id']);
+		$answer = $db->dbResultFetch();
+		if($answer['cacheCount'] != $pt['cacheCount']) {
+			$updateQuery = 'UPDATE `PowerTrail` SET `cacheCount` =:1  WHERE `id` = :2 ';
+			$db->multiVariableQuery($updateQuery, $answer['cacheCount'], $pt['id']);
+		}
+	}
+	
+	/**
+	 * check if real cache count in pt is equal stored in db.
+	 */
+	private function disableUncompletablePt($pt){
+		$countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1) AND `status` != 1';
+		$db = new dataBase;
+		$db->multiVariableQuery($countQuery, $pt['id']);
+		$answer = $db->dbResultFetch();
+		if($answer['cacheCount'] < ($pt['cacheCount']*$pt['perccentRequired'])/100) {
+				print 'put in service geoPath #'.$pt['id'].' (uncompletable)<br/>';
+				$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
+				$db->multiVariableQuery($queryStatus, 4, $pt['id']);
+				$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES 
+				(-1, :1, 4, :2, NOW(), NOW(),0)';
+				$text = tr('pt227').tr('pt234');
+				$db->multiVariableQuery($query, $pt['id'], $text);
+				emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+		}
+	}
+}
+
+
+class checkPt {
+	private $config;
+	 
+	function __construct(){
+		include __DIR__.'/../lib/settings.inc.php';
+		$this->config = $powerTrailMinimumCacheCount;
+		foreach ($this->config['old'] as &$date) {
+			$date['dateFrom'] = strtotime($date['dateFrom']);
+			$date['dateTo'] = strtotime($date['dateTo']);
+		}
+	}
+	
+	/**
+	 * get minimum cache limit from period of time when ptWas published
+	 */
+	public function getPtMinCacheCountLimit($pt){
+		$ptId = $pt['id'];
+		$ptPublished = strtotime($pt['dateCreated']);
+		
+		$done=false;
+		foreach ($this->config['old'] as $date){ //find interval path was created
+			if ($ptPublished >= $date['dateFrom'] && $ptPublished < $date['dateTo']){ // patch was created here
+				return $date['limit'];
+			}
+		}
+		return false;
+	}
 }
