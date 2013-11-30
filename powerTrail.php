@@ -23,8 +23,6 @@ if(!$powerTrailModuleSwitchOn) {
 	header("location: $absolute_server_URI");
 }
 
-if(!is_array($powerTrailMinimumCacheCount)) { print 'GeoŚcieżki są tymczasowo wyłączone - przerwa techniczna'; exit; }
-
 $firePtMenu = true;
 //Preprocessing
 if ($error == false)

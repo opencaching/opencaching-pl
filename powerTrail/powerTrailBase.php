@@ -420,19 +420,11 @@ class powerTrailBase{
 		$db = new dataBase();
 		$db->simpleQuery($getPtQuery);
 		$ptToClean = $db->dbResultFetchAll();
-		$text = tr('pt227').tr('pt228');
 		$checkPt = new checkPt();
 		foreach ($ptToClean as $pt) {
 			self::checkCacheCountInPt($pt);
-			self::disableUncompletablePt($pt);
-			if($pt['cacheCount'] < $checkPt->getPtMinCacheCountLimit($pt)){ // set status to 4 (in service)
-				print 'put in service geoPath #'.$pt['id'].'<br/>';
-				$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
-				$db->multiVariableQuery($queryStatus, 4, $pt['id']);
-				$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES 
-				(-1, :1, 4, :2, NOW(), NOW(),0)';
-				$db->multiVariableQuery($query, $pt['id'], $text);
-				emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+			if(!self::disableUncompletablePt($pt)){
+				self::disablePtByCacheCount($pt, $checkPt);
 			}
 		}
 		
@@ -465,7 +457,7 @@ class powerTrailBase{
 	}
 	
 	/**
-	 * check if real cache count in pt is equal stored in db.
+	 * disable geoPaths, when its WIS > active caches count.
 	 */
 	private function disableUncompletablePt($pt){
 		$countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1) AND `status` != 1';
@@ -473,15 +465,36 @@ class powerTrailBase{
 		$db->multiVariableQuery($countQuery, $pt['id']);
 		$answer = $db->dbResultFetch();
 		if($answer['cacheCount'] < ($pt['cacheCount']*$pt['perccentRequired'])/100) {
-				print 'put in service geoPath #'.$pt['id'].' (uncompletable)<br/>';
-				$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
-				$db->multiVariableQuery($queryStatus, 4, $pt['id']);
-				$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES 
-				(-1, :1, 4, :2, NOW(), NOW(),0)';
-				$text = tr('pt227').tr('pt234');
-				$db->multiVariableQuery($query, $pt['id'], $text);
-				emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+			print 'put in service geoPath #'.$pt['id'].' (uncompletable)<br/>';
+			$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
+			$db->multiVariableQuery($queryStatus, 4, $pt['id']);
+			$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES 
+			(-1, :1, 4, :2, NOW(), NOW(),0)';
+			$text = tr('pt227').tr('pt234');
+			$db->multiVariableQuery($query, $pt['id'], $text);
+			emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+			return true;
 		}
+		return false;
+	}
+	
+	/**
+	 * disable (set status to 4) geoPaths witch has not enough cacheCount.
+	 */
+	private function disablePtByCacheCount($pt, $checkPt){
+		if($pt['cacheCount'] < $checkPt->getPtMinCacheCountLimit($pt)){
+			$text = tr('pt227').tr('pt228'); 
+			print 'put in service geoPath #'.$pt['id'].' (geoPtah cache count is lower than minimum) <br/>';
+			$db = new dataBase;
+			$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
+			$db->multiVariableQuery($queryStatus, 4, $pt['id']);
+			$query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES 
+			(-1, :1, 4, :2, NOW(), NOW(),0)';
+			$db->multiVariableQuery($query, $pt['id'], $text);
+			emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+			return true;
+		}
+	return false;
 	}
 }
 
