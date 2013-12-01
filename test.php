@@ -1,7 +1,13 @@
 <?php
 // mail('lza@tlen.pl', 'test from xamp', 'email do testów');
-require_once 'util.sec/geokrety/processGeokretyErrors.php';
+//require_once 'util.sec/geokrety/processGeokretyErrors.php';
 
+require_once(__DIR__.'/lib/db.php');
+$q = 'UPDATE `PowerTrail` SET `status`=1 WHERE `id` IN(1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,31,32,33,34,35,36,38,40,41,42,43,47,48,49,50,51,53,54,55,56,57,59,60,61,62,63,64,65,66,67,68,69,70,72,73,75,76,77,78,81,82,83,85,86,87,88)';
+$q2 = "DELETE FROM `PowerTrail_comments` WHERE `commentType` IN (3,4) AND `dbInsertDateTime` BETWEEN '2013-12-01 2:00:00' AND  NOW()";
+$db=new dataBase;
+$db->multiVariableQuery($q);
+$db->multiVariableQuery($q2);
 
 exit;
 /*
