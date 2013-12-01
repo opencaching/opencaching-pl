@@ -945,8 +945,25 @@ $debug = false;
 
 					/****************
 					 * build logtypeoptions
+					 * 
+					 * value  = Info
+					 * 
+  					 * -2=  Chose log type;
+                       1 = Write a note;
+                       2 = '16x16-dnf.png';
+                       3 = Write a note;
+                       4 = Moved;
+                       5 = Needs maintenace;
+                       6 = Made service;
+                       7 = '16x16-go.png';
+                       8 = '16x16-wattend.png';
+                       9 = '16x16-trash.png';
+                       10 = Ready to find;
+                       11 = Temporarily unavailable;
+                       12 = OC Team Comment;
 					 *
-					 * cache types:
+					 *
+					 * cache types: $res2['type' ]
 					 * 1 	Other 	
 					 * 2 	Trad. 	
 					 * 3 	Multi 	
@@ -958,7 +975,7 @@ $debug = false;
 					 * 9 	Podcast 
 					 * 10 	own-cache
 					 * 
-					 * cache statuses:
+					 * cache statuses:  $res2['status']
 					 *  1 	Ready for search 
 					 * 	2 	Temporarily unavailable 
 					 * 	3 	Archived 
@@ -971,8 +988,9 @@ $debug = false;
 					
 					// setting selector neutral
 					 if ($log_type < 0) {
-					 if ($res2['status'] != 4) $logtypeoptions .= '<option value="-2" selected="selected">'. tr('wybrac_log') . '</option>' . '\n';
-					 tpl_set_var('display', "none"); 
+					 	//-2 = Chose log type
+					 	if ($res2['status'] != 4) $logtypeoptions .= '<option value="-2" selected="selected">'. tr('wybrac_log') . '</option>' . '\n';					 	
+					 	tpl_set_var('display', "none"); 
 					 }
 					
 					
@@ -983,23 +1001,32 @@ $debug = false;
 
 						if( $res2['type'] != 6 && ($usr['userid'] == $cache_user_id || $res['founds'] > 0 || $res2['status'] == 4 || $res2['status'] == 6))
 						{
+							//3 = Write a note;
 							if ($usr['admin']==true && $res2['status'] == 4) $logtypeoptions .= '<option selected="selected" value="3">'.tr('lxg08').'</option>' . "\n";
 							else $logtypeoptions .= '<option value="3">'.tr('lxg08').'</option>' . "\n";
+							
+							//4 = Moved
 							if  ($res2['type'] == 8){
 							$logtypeoptions .= '<option value="4">'.tr('lxg09').'</option>' . "\n";}
+							
+							//5 = Needs maintenace
 							if ($usr['userid']!=$cache_user_id){$logtypeoptions .= '<option value="5">'.tr('lxg10').'</option>' . "\n";}
+							if ($usr['userid']!=$cache_user_id){$logtypeoptions .= '<option value="6">'.tr('made_service').'</option>' . "\n";}
+							
+							//12 = OC Team Comment
 							if ($usr['admin']==true){$logtypeoptions .= '<option value="12">'.tr('lxg11').'</option>' . "\n";}
 							
 							// service log by Łza
 					        // if curently logged user is a cache owner and cache status is "avilable"
-					        // then add log type option "temp. unavailable";
-							
+					        // then add log type option "temp. unavailable";							
+							//11 = Temporarily unavailable
 					        if ($usr['userid'] == $cache_user_id && $res2['status'] == 1)
 					           {
 							     $logtypeoptions .= '<option value="11">'.tr("log_type_temp_unavailable").'</option>'. "\n";
 					           }
 							// if curently logged user is a cache owner and cache status is "temp. unavailable" 
-					        // then add log type option "avilable" 
+					        // then add log type option "avilable"
+							// 10 = Ready to find					           
 							if (($usr['userid'] == $cache_user_id) && ($res2['status'] == 2	))
 							   {
 								 $logtypeoptions .= '<option value="10">'.tr("log_type_available").'</option>'. "\n";

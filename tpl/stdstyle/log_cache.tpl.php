@@ -186,7 +186,7 @@ function chkMoved()
                                 iconarray['3'] = '16x16-note.png';
                                 iconarray['4'] = '16x16-moved.png';
                                 iconarray['5'] = '16x16-need-maintenance.png';
-                                iconarray['6'] = '16x16-need-maintenance.png';
+                                iconarray['6'] = '16x16-made-maintenance.png';
                                 iconarray['7'] = '16x16-go.png';
                                 iconarray['8'] = '16x16-wattend.png';
                                 iconarray['9'] = '16x16-trash.png';

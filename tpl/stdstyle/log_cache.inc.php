@@ -43,4 +43,7 @@
 
 //  $log_types[] = array('id' => '-1', 'pl' => 'Prosze wybrac!', 'en' => 'Please select!');
 
+ 	
+ 	/*insert into log_types
+ 	values( 6, 0, 'C', 'Serwis wykonany', 'Service was made', 'log/16x16-made-maintenance.png', '' )*/
 ?>
