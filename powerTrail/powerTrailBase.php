@@ -460,7 +460,7 @@ class powerTrailBase{
 	 * disable geoPaths, when its WIS > active caches count.
 	 */
 	private function disableUncompletablePt($pt){
-		$countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1) AND `status` != 1';
+		$countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1) AND `status` = 1';
 		$db = new dataBase;
 		$db->multiVariableQuery($countQuery, $pt['id']);
 		$answer = $db->dbResultFetch();

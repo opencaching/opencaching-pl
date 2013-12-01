@@ -1,4 +1,9 @@
 <?php
+// mail('lza@tlen.pl', 'test from xamp', 'email do testów');
+require_once 'util.sec/geokrety/processGeokretyErrors.php';
+
+
+exit;
 /*
 require_once(__DIR__.'/lib/db.php');
 $ptId = addslashes($_REQUEST['id']);
@@ -43,8 +48,4 @@ var_dump($pointsEarnedForPlacedCaches);
 
 exit;
 */
-
-require_once 'util.sec/geokrety/processGeokretyErrors.php';
-$g = new processGeokretyErrors;	
-$g->run();
 ?>
