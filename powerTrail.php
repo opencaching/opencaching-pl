@@ -5,7 +5,7 @@
  *  Power Trails in opencaching
  *  this is display file. for API check dir powerTrail
  *  ------------------------------------------------------------------------------------------------
- *  @author: Andrzej 'Łza' Woźniak [wloczynutka@gmail.com]
+ *  @author: Andrzej 'Łza' Woźniak [wloczynutka[on]gmail.com]
  *  
  *  
  *  
