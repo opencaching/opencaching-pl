@@ -1011,7 +1011,7 @@ $debug = false;
 							
 							//5 = Needs maintenace
 							if ($usr['userid']!=$cache_user_id){$logtypeoptions .= '<option value="5">'.tr('lxg10').'</option>' . "\n";}
-							if ($usr['userid']!=$cache_user_id){$logtypeoptions .= '<option value="6">'.tr('made_service').'</option>' . "\n";}
+							$logtypeoptions .= '<option value="6">'.tr('made_service').'</option>' . "\n";
 							
 							//12 = OC Team Comment
 							if ($usr['admin']==true){$logtypeoptions .= '<option value="12">'.tr('lxg11').'</option>' . "\n";}
