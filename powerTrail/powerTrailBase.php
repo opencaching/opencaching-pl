@@ -465,7 +465,7 @@ class powerTrailBase{
 		$db->multiVariableQuery($countQuery, $pt['id']);
 		$answer = $db->dbResultFetch();
 		
-		print '#'.__LINE__,'<pre>';	
+		print '#'.__LINE__.'<pre>';	
 		var_dump($answer, $pt,  $pt['cacheCount']*$pt['perccentRequired']/100);
 		
 		if($answer['cacheCount'] < ($pt['cacheCount']*$pt['perccentRequired'])/100) {
