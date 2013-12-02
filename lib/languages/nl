@@ -724,7 +724,7 @@ incorrect_password_to_log Incorrecte log wachtwoord
 only_for_found_it alleen voor gevonden logs
 store Opslaan
 here Hier
-alternative_recommend Alternative you can remove recommendations
+alternative_recommend Eventueel kunnen aanbevelingen verweiderd worden. 
 comment_log Opmerking
 need_maintenance_log Need maintenance
 comment_octeam_log OC Team comment
@@ -801,6 +801,7 @@ online_users Online registreerde gebruikers
 online_users_info gebaseerd op actieve gebruikers van de laatste 10 minuten
 empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. Het maken van een cache kost moeite en het schrijven van waarderingen en kritiek zijn ook welkom! Zelfs een "Bedankt voor de cache" zou voldoende kunnen zijn.
 empty_entry_confirm Wil je werkelijk het logveld leeg laten?
+empty_mark Moet de markering werkelijk verwijderd worden?
 where_i_am Waar ben ik?
 read_info_about_cache_types Lees hier meer informatie over <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
 regiononly Regio
@@ -1129,6 +1130,7 @@ lxg08 Geef opmerking
 lxg09 Verplaats
 lxg10 Onderhoud nodig
 lxg11 OC Team opmerking
+made_service Een wijziging gemaakt
 remove_desc_01 Moet beschrijving
 remove_desc_02 van cache
 remove_desc_03 werkelijk verwijderd worden?
@@ -1446,8 +1448,8 @@ rating-c_45 Deze cache is makkelijk te vinden.
 rating-c_46 Verschillende verstopplekken, er moet wel gezocht worden.
 rating-c_47 Erg goed verborgen. Moet wel flink zoeken.
 rating-c_48 Het zoeken vereist behoorlijk wat ervaring, kenis en voorbereiding. Misschien is nog een bezoek nodig.
-rating-c_49 Het is zeer moeilijk om deze te vind. Er is zelfs apparatuur nodig om de cache te vinden.
-rating-c_50 Houd rekeing met zichtbaarheid, of obstakels en degelijke met het beantwoorden van deze vragen.
+rating-c_49 Het is zeer moeilijk om deze te vinden. Er is zelfs apparatuur nodig om de cache te vinden.
+rating-c_50 Houd rekening met zichtbaarheid, of obstakels en degelijke met het beantwoorden van deze vragen.
 rating-c_51 Verzenden
 rating-c_52 Herstellen
 rating-c_53 Het Cache moeilijkheid berekening systeem is beschikbaar op http://www.clayjar.com/gcrs/
@@ -2019,8 +2021,8 @@ attribute_81 Een schep nodig
 attribute_82 Een zaklamp is nodig
 attribute_83 Neem gereedshap mee
 attribute_84 De cache is alleen te voet te bereiken
-attribute_85 Dit is goed om met de fiets te doen
-attribute_86 Er is een boot nodig
+attribute_85 De cache is alleen per fiets te bereiken
+attribute_86 De cache is alleen per boot te bereiken
 attribute_90 Deze cache kan gevaarlijk zijn
 attribute_91 Bij voorkeur in het donker te doen
 gpxCog OC Team
@@ -2039,6 +2041,6 @@ vl_deleted verwijderd
 vl_Record_deleted Bewerking verwijderd
 vc_ShowDeletions Toon verwijderde logs
 vc_HideDeletions Verberg verwijderde logs
-
+mycache_notes_01 Moet deze cache notitie werkelijk verwijderd worden?
 
 
