@@ -430,7 +430,7 @@ what_do_you_find_intro_nl Geocaching is een buitensport of activiteit waarbij ca
 more_news More news
 filename_rules {rules_url}
 filename_describe_cache {cache_params_url}
-map_msg In order to view coordinates and <br/>the map of cache&#39;s location<br/> you must be <a href="login.php?target={target}">logged in</a>
+map_msg Om de coördinaten en de kaart te zien <br/>van de cache&#39;s <br/> moet men <a href="login.php?target={target}">ingelogt zijn</a>
 additional_hints Extra hints
 images Afbeeldingen
 mp3_files_info PodCasts - luister naar de instructies om je naar de cache te leiden - MP3 bestenden
@@ -724,7 +724,7 @@ incorrect_password_to_log Incorrecte log wachtwoord
 only_for_found_it alleen voor gevonden logs
 store Opslaan
 here Hier
-alternative_recommend Eventueel kunnen aanbevelingen verweiderd worden. 
+alternative_recommend Eventueel kunnen aanbevelingen verwijderd worden. 
 comment_log Opmerking
 need_maintenance_log Need maintenance
 comment_octeam_log OC Team comment
@@ -754,7 +754,7 @@ once_day Eens per dag
 once_week Eens per week
 weekday Dag van de week
 send Verzenden
-commit_watch Settings have been successfully saved
+commit_watch Instellingen zijn met succes opgeslagen
 no_queries Er zijn geen opgeslagen zoek resultaten
 name_queries Naam voor zoek opdracht
 save_queries Zoek opdrachten
@@ -1687,7 +1687,6 @@ ZA Zuid-Afrika
 ZM Zambia
 ZW Zimbabwe
 SU Rusland
-
 pt001 PowerTrail
 pt002 Voeg toe aan PowerTrail
 pt003 Maak een nieuwe PowerTrail
@@ -2042,5 +2041,31 @@ vl_Record_deleted Bewerking verwijderd
 vc_ShowDeletions Toon verwijderde logs
 vc_HideDeletions Verberg verwijderde logs
 mycache_notes_01 Moet deze cache notitie werkelijk verwijderd worden?
-
+log_score_note_innitial De cache is nog niet beoordeeld.
+log_score_note_thanks Bedankt voor de beoordeling
+log_score_note_encorage Overweeg eens om deze cache te beoordelen
+Do_reset_logform Moet de log werkelijk ongedaan gemaakt worden?
+log_reset_button Herstellen
+timePicker_hourText Uren
+timePicker_minuteText Minuten
+timePicker_nowButtonText Nu
+timePicker_closeButtonText Klaar
+timePicker_deselectButtonText Herstellen
+ec_Sequence Volgorde afbeeldingen
+vc_hint_for_logged_only Je moet ingelogt zijn om de hints te zien
+lc_Day_before Dag eerder
+lc_Day_after Dag later
+ec_proceed_without_save Er zijn veranderingen gemaakt die nog NIET opgelagen zijn. Werkelijk verder gaan (de pagina zal ververst worden en de veranderingen zullen verloren gaan)? 
+ec_delete_pic Moet de afbeelding werkelijk verwijderd worden?
+ec_delete_mp3 Moet het MP3 bestand werkelijk verwijderd worden?
+ec_delete_wp Moet dit waypoint werkelijk verwijderd worden?
+mc_edit_geocache Cache bewerken
+mc_by_founds Per gevonden
+mc_by_reco Per aanbevelingen
+mc_by_gk Per GoeKrets
+mc_by_visits Per bekeken
+vc_spoiler_disable_msg Om spoilers te zien moet men ingelogt zijn!
+ec_bike_set_msg
+ec_walk_set_msg
+ec_boat_set_msg
 
