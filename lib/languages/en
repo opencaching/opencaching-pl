@@ -1888,3 +1888,4 @@ ec_walk_set_msg Cache attribute [Access only by walk] or [Boat] has been set. Ar
 ec_boat_set_msg Cache attribute [Access only by walk] or [Bike] has been set. Are you sure to set [Boat] attribute?
 no_pictures_yet No picture added yet. 
 ec_Sequence_mp3 File sequence 
+show_all_countries Show all countries 

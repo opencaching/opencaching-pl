@@ -32,7 +32,7 @@ $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
  $size_not_ok_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">'.tr('size_incorrect').'</span>';
  $diff_not_ok_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">'.tr('diff_incorrect').'</span>';
  $sizemismatch_message = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;&nbsp;<span class="errormsg">'.tr('virtual_cache_size').'</span>';
-	$all_countries_submit = '<input type="submit" name="show_all_countries_submit" value="Wszystkie kraje"/>';
+	$all_countries_submit = '<input type="submit" name="show_all_countries_submit" value="'.tr('show_all_countries').'"/>';
 
 	$status_message = '&nbsp;<span class="errormsg">'.tr('status_incorrect').'</span>';
 	$nopictures = '<tr><td colspan="2"><div class="notice">'.tr('no_pictures_yet').'</div></td></tr>';
