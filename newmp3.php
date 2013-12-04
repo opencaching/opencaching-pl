@@ -51,8 +51,10 @@
 			
 			$objectid = isset($_REQUEST['objectid']) ? $_REQUEST['objectid'] : 0;
 			$type = isset($_REQUEST['type']) ? $_REQUEST['type'] : -1;
+			$def_seq_m = isset($_REQUEST['def_seq_m']) ? $_REQUEST['def_seq_m'] : 1; // set up default seq for newly added mp3
+
 			
-			$bNoDisplay = isset($_REQUEST['notdisplay']) ? $_REQUEST['notdisplay'] : 0;
+				$bNoDisplay = isset($_REQUEST['notdisplay']) ? $_REQUEST['notdisplay'] : 0;
 			if (($bNoDisplay != 0) && ($bNoDisplay != 1)) $bNoDisplay = 0;
 			
 			$title = isset($_REQUEST['title']) ? stripslashes($_REQUEST['title']) : '';
@@ -206,9 +208,10 @@ sql("INSERT INTO mp3 (`uuid`,
 																				 `user_id`,
 																				 `local`,
 																				 `display`,
-																				 `node`
-															) VALUES ('&1', '&2', NOW(), '&3', NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8')",
-															$uuid, $mp3url . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'], ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid);
+																				 `node`,
+																				 `seq`
+															) VALUES ('&1', '&2', NOW(), '&3', NOW(), NOW(),'&4', '&5', '&6', 1, '&7', '&8', '&9')",
+															$uuid, $mp3url . '/' . $uuid . '.' . $extension, $title, $objectid, $type, $usr['userid'], ($bNoDisplay == 1) ? '0' : '1', $oc_nodeid, $def_seq_m);
 							switch ($type)
 							{
 								// log
@@ -235,6 +238,7 @@ sql("INSERT INTO mp3 (`uuid`,
 
 					tpl_set_var('type', htmlspecialchars($type, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('objectid', htmlspecialchars($objectid, ENT_COMPAT, 'UTF-8'));
+					tpl_set_var('def_seq_m', htmlspecialchars($def_seq_m, ENT_COMPAT, 'UTF-8')); //update hidden value in newmp3.tbl.php
 					tpl_set_var('title', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('maxmp3size', $maxmp3size);
 					tpl_set_var('submit', $submit);
@@ -250,6 +254,7 @@ sql("INSERT INTO mp3 (`uuid`,
 
 						tpl_set_var('type', htmlspecialchars($type, ENT_COMPAT, 'UTF-8'));
 						tpl_set_var('objectid', htmlspecialchars($objectid, ENT_COMPAT, 'UTF-8'));
+						
 						tpl_set_var('title', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
 						tpl_set_var('maxmp3size', $maxmp3size);
 						tpl_set_var('submit', $submit);

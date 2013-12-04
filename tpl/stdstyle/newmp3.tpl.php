@@ -32,6 +32,7 @@
 <form action="newmp3.php" method="post" enctype="multipart/form-data" name="newmp3_form" dir="ltr" onsubmit="return checkForm();">
 <input type="hidden" name="objectid" value="{objectid}" />
 <input type="hidden" name="type" value="{type}" />
+<input type="hidden" name="def_seq_m" value="{def_seq_m}" />
 <div class="searchdiv">
 <table class="content">
 	<colgroup>

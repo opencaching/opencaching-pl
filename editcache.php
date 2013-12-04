@@ -29,13 +29,19 @@
 	$OWNCACHE_LIMIT=$GLOBALS['owncache_limit'];
 
 
-function build_drop_seq ($pic_row, $selected_seq, $max_drop, $thisid) {
-	//builds drop-down menu to define sequence
+function build_drop_seq ($item_row, $selected_seq, $max_drop, $thisid, $drop_type) {
+	//builds drop-down menu to define sequence for pciture or mp3 - drop_type decides)
 	if ($max_drop >0) 
 	{
+		switch ($drop_type) {
+			case 'pic':
+			$drop_label_tit= tr('ec_Sequence'); break;
+			case 'mp3': 
+			$drop_label_tit= tr('ec_Sequence_mp3'); break;
+		};
 		
 			
-		$ret ='<label title="'.tr('ec_Sequence').'"><select onchange="document.getElementById(\'pic_seq_changed'.$pic_row.'\').value=\'yes\'; yes_change(); " id="pic_seq_select'.$pic_row.'" name="pic_seq_select'.$pic_row.'">
+		$ret ='<label title="'.$drop_label_tit.'"><select onchange="document.getElementById(\''.$drop_type.'_seq_changed'.$item_row.'\').value=\'yes\'; yes_change(); " id="'.$drop_type.'_seq_select'.$item_row.'" name="'.$drop_type.'_seq_select'.$item_row.'">
 		';
 		for ($i=1; $i<=$max_drop+1 ; $i++) { //add extra row so spacer can be added
 			if ($i==$selected_seq) {$sel = ' selected="true" ';} else {$sel ='';};
@@ -45,9 +51,9 @@ function build_drop_seq ($pic_row, $selected_seq, $max_drop, $thisid) {
 		}
 		$ret.="</select></label>&nbsp;
 		";
-		$ret.='<input type="hidden"  id="pic_seq_id'.$pic_row.'" name="pic_seq_id'.$pic_row.'" value="'.$thisid.'" />
-		'; //instert picture id into hidden fields - pic_row is current order based on current seq values
-		$ret.='<input type="hidden" id="pic_seq_changed'.$pic_row.'" name="pic_seq_changed'.$pic_row.'" value="no" />
+		$ret.='<input type="hidden"  id="'.$drop_type.'_seq_id'.$item_row.'" name="'.$drop_type.'_seq_id'.$item_row.'" value="'.$thisid.'" />
+		'; //instert picture/mp3 id into hidden fields - item_row is current order based on current seq values
+		$ret.='<input type="hidden" id="'.$drop_type.'_seq_changed'.$item_row.'" name="'.$drop_type.'_seq_changed'.$item_row.'" value="no" />
 		'; // set hidden field - to be changed by javascript to yes - in such case it will trigger sql update 
 		return $ret;
 	};
@@ -144,6 +150,41 @@ function build_drop_seq ($pic_row, $selected_seq, $max_drop, $thisid) {
 							unset($params);
 						}
 					}
+					// mp3 update start
+					$mp3_count_check =$cache_record['mp3count'];
+					if ($mp3_count_check>0) {
+						
+						if (isset($_POST['mp3_seq_select1'])) // check if in POST mode and in case any mp3 is attached (re-)update sequence value, providing it was changed - value of mp3_seq_change_X)
+						{
+							if (!isset($dbc)) {$dbc = new dataBase();};	
+							for ($i=1; $i <= $mp3_count_check; $i++) 
+							{
+								$this_seq = $_POST['mp3_seq_select'.$i]; //get new seqence
+								$this_mp3_id  = $_POST['mp3_seq_id'.$i]; //get mp3 ID the new seq is applicable to
+								$this_mp3_changed =  $_POST['mp3_seq_changed'.$i]; //get changed status ("yes" or "no")
+								if (isset($this_seq) && isset($this_mp3_id) && $this_mp3_changed=="yes") {
+										
+										 $thatquery = 'UPDATE `mp3` SET `last_modified`=NOW(), `seq` = :v1 WHERE `id` = :v2';
+ 										 $params['v1']['value'] = (integer) $this_seq;;
+								   		 $params['v1']['data_type'] = 'integer';
+										 $params['v2']['value'] = (integer) $this_mp3_id;;
+								   		 $params['v2']['data_type'] = 'integer';
+		 
+										$dbc->paramQuery($thatquery,$params);
+										
+								};		
+								
+							};
+							unset($dbc);
+							unset($params);
+						}
+					}
+					// mp3 update end()
+					
+					
+					
+					
+					
 					
 					
 					if (!isset($_POST['size']))
@@ -948,7 +989,7 @@ function build_drop_seq ($pic_row, $selected_seq, $max_drop, $thisid) {
 							//$pic_record = sql_fetch_array($rspictures);
 							$pic_record = $rspictures_all[$i]; 
 
-							$tmpline = mb_ereg_replace('{seq_drop}',build_drop_seq($i+1,$pic_record['seq'],$max_seq_number , $pic_record['id']),$tmpline);
+							$tmpline = mb_ereg_replace('{seq_drop}',build_drop_seq($i+1,$pic_record['seq'],$max_seq_number , $pic_record['id'],'pic'),$tmpline);
 							// requires: ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
 							$tmpline = mb_ereg_replace('{link}', htmlspecialchars($pic_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline);
 							$tmpline = mb_ereg_replace('{title}', htmlspecialchars($pic_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline);
@@ -975,13 +1016,40 @@ function build_drop_seq ($pic_row, $selected_seq, $max_drop, $thisid) {
 						if( $cache_record['mp3count'] > 0 )
 						{
 							$mp3files = '';
-							$rsmp3 = sql("SELECT `url`, `title`, `uuid` FROM `mp3` WHERE `object_id`='&1' AND `object_type`=2", $cache_id);
-
-							for ($i = 0; $i < mysql_num_rows($rsmp3); $i++)
+							
+							//$rsmp3 = sql("SELECT `url`, `title`, `uuid` FROM `mp3` WHERE `object_id`='&1' AND `object_type`=2", $cache_id);
+					$thatquery = "SELECT `id`, `url`, `title`, `uuid`, `seq` FROM `mp3` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY seq, date_created";
+					// requires: ALTER TABLE `mp3` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
+				 	$params['v1']['value'] = (integer) $cache_id;;
+   		 			$params['v1']['data_type'] = 'integer';
+		
+				if (!isset($dbc)) {$dbc = new dataBase();};
+					$dbc->paramQuery($thatquery, $params);
+						
+					$mp3_count = $dbc->rowCount();
+					$mp3_all = $dbc->dbResultFetchAll();
+					
+					$thatquery = "SELECT `seq` FROM `mp3` WHERE `object_id`=:v1 AND `object_type`=2 ORDER BY `seq` DESC"; //get highest seq number for this cache
+					$dbc->paramQuery($thatquery, $params); //params are same as a few lines above
+					$max_seq_record  = $dbc->dbResultFetch();
+					unset($params);  //clear to avoid overlaping on next paramQuery (if any))
+					unset($dbc);
+					$max_seq_number = (isset($max_seq_record ['seq']) ? $max_seq_record ['seq'] : 0) ;
+					if ($max_seq_number < $mp3_count) {
+						$max_seq_number = $mp3_count;
+					};
+					tpl_set_var ('def_seq_m',$max_seq_number+1); // set default seq for mp3 to be added (if link is click) - this line updated link to newmp3.php)	)
+					
+						
+						//	for ($i = 0; $i < mysql_num_rows($rsmp3); $i++)
+							for ($i = 0; $i <  $mp3_count; $i++)
+							
 							{
 								$tmpline1 = $mp3line;
-								$mp3_record = sql_fetch_array($rsmp3);
+							//	$mp3_record = sql_fetch_array($rsmp3);
+							$mp3_record = $mp3_all[$i]; 
 
+							$tmpline1 = mb_ereg_replace('{seq_drop_mp3}',build_drop_seq($i+1,$mp3_record['seq'],$max_seq_number , $mp3_record['id'],'mp3'),$tmpline1);
 								$tmpline1 = mb_ereg_replace('{link}', htmlspecialchars($mp3_record['url'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 								$tmpline1 = mb_ereg_replace('{title}', htmlspecialchars($mp3_record['title'], ENT_COMPAT, 'UTF-8'), $tmpline1);
 								$tmpline1 = mb_ereg_replace('{uuid}', htmlspecialchars($mp3_record['uuid'], ENT_COMPAT, 'UTF-8'), $tmpline1);
@@ -990,7 +1058,7 @@ function build_drop_seq ($pic_row, $selected_seq, $max_drop, $thisid) {
 							}
 
 							$mp3files = mb_ereg_replace('{lines}', $mp3files, $mp3lines);
-							mysql_free_result($rsmp3);
+							//mysql_free_result($rsmp3);
 							tpl_set_var('mp3files', $mp3files);
 							tpl_set_var('hidemp3_start', '');
 							tpl_set_var('hidemp3_end', '');
@@ -998,6 +1066,7 @@ function build_drop_seq ($pic_row, $selected_seq, $max_drop, $thisid) {
 						else
 						{
 							tpl_set_var('mp3files', $nomp3);
+							tpl_set_var ('def_seq_m',1); //set default sequence to 1 for add mp3 link (in case there is no mp3 at all yet))
 							tpl_set_var('hidemp3_start', '');
 							tpl_set_var('hidemp3_end', '');
 						}
