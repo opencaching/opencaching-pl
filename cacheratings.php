@@ -23,7 +23,10 @@
 	require_once('./lib/cache_icon.inc.php');
 	require_once($rootpath . 'lib/caches.inc.php');
 	require_once($stylepath . '/lib/icons.inc.php');
+	require_once  __DIR__.'/lib/myn.inc.php';
+	require_once  __DIR__.'/lib/db.php';		
 
+global $usr;
 	//Preprocessing
 	if ($error == false)
 	{
@@ -52,6 +55,7 @@
 				`user`.`username` `username`,
 				`caches`.`cache_id` `cache_id`,
 				`caches`.`name` `name`,
+				`caches`.`type` AS `cache_type`,
 				`cache_type`.`icon_large` `icon_large`,
 				count(`cache_rating`.`cache_id`) as `anzahl`
 			FROM `caches`, `user`, `cache_type`, `cache_rating`
@@ -62,8 +66,8 @@
 			GROUP BY `user`.`user_id`, `user`.`username`, `caches`.`cache_id`, `caches`.`name`, `cache_type`.`icon_large`
 			ORDER BY `anzahl` DESC, `caches`.`name` ASC
 			LIMIT ' . ($startat+0) . ', ' . ($perpage+0));
-			
-	$cacheline = '<tr><td>&nbsp;</td><td><span class="content-title-noshade txt-blue08" >{rating_absolute}</span></td><td><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></td><td><strong><a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a></strong></td><td><strong><a class="links" href="viewprofile.php?userid={userid}">{username}</a></strong></td></tr>';
+	$tr_myn_click_to_view_cache=tr('myn_click_to_view_cache');		
+	$cacheline = '<tr><td>&nbsp;</td><td><span class="content-title-noshade txt-blue08" >{rating_absolute}</span></td><td><a class="links" href="viewcache.php?cacheid={cacheid}"><img src="{cacheicon}" class="icon16" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td><td><strong><a class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a></strong></td><td><strong><a class="links" href="viewprofile.php?userid={userid}">{username}</a></strong></td></tr>';
 
 if (mysql_num_rows($rs) == 0)
 	{
@@ -77,7 +81,7 @@ if (mysql_num_rows($rs) == 0)
 	for ($i = 0; $i < mysql_num_rows($rs); $i++)
 	{
 		$record = sql_fetch_array($rs);
-		$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
+		//$cacheicon = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
 
 		$thisline = $cacheline;
 		$thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
@@ -85,6 +89,14 @@ if (mysql_num_rows($rs) == 0)
 		$thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
 		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{rating_absolute}', $record['anzahl'], $thisline);
+		
+		$cacheicon =  $cache_icon_folder;
+				if ( $record['cache_type']!="6") { //if not event - check is_cache found 
+					$cacheicon .=is_cache_found($record ['cache_id'], $usr['userid']) ? $foundCacheTypesIcons[ $record['cache_type']] : $CacheTypesIcons[$record ['cache_type']] ;
+				} else { //if an event - check is_event_attended - only hipothetical as normally events are not displayed here
+					$cacheicon .=is_event_attended ($record['cache_id'], $usr['userid']) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
+				};
+		
 		$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
 
 		$file_content .= $thisline . "\n";
