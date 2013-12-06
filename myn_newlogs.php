@@ -22,6 +22,8 @@ if (!isset($rootpath)) $rootpath = '';
 
 require_once($rootpath . 'lib/common.inc.php');
 require_once($rootpath . 'lib/cache_icon.inc.php');
+require_once  __DIR__.'/lib/myn.inc.php';
+require_once  __DIR__.'/lib/db.php';
 
 //Preprocessing
 if ($error == false) {
@@ -190,7 +192,7 @@ if ($error == false) {
                 ORDER BY cache_logs.date_created DESC');
 
     $file_content = '';
-
+	$tr_myn_click_to_view_cache =tr('myn_click_to_view_cache');
     for ($i = 0; $i < mysql_num_rows($rs); $i++) {
         $log_record      = sql_fetch_array($rs);
 
@@ -210,8 +212,16 @@ if ($error == false) {
         else {
             $file_content .= '<td width="22">&nbsp;</td>';
         }    
+		
+		$cacheicon =  $cache_icon_folder;
+				if ($log_record['cache_type']!="6") { //if not event - check is_cache found 
+					$cacheicon .=is_cache_found($log_record['cache_id'], $user_id) ? $foundCacheTypesIcons[$log_record['cache_type']] : $CacheTypesIcons[$log_record['cache_type']] ;
+				} else { //if an event - check is_event_attended
+					$cacheicon .=is_event_attended ($log_record['cache_id'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
+				};
+		
         $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
-        $file_content .= '<td width="22" ><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt="" title="Kliknij aby zobaczyć skrzynke" /></a></td>';
+        $file_content .= '<td width="22" ><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td>';
         $file_content .= '<td><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($log_record['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
 
         // ukrywanie autora komentarza COG przed zwykłym userem

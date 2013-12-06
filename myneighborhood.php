@@ -23,7 +23,7 @@ require_once($rootpath .  'lib/common.inc.php');
 require_once($rootpath .  'lib/calculation.inc.php');
 require_once($rootpath .  'lib/cache_icon.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
-require_once($rootpath .  'lib/found_caches.php');
+require_once  __DIR__.'/lib/myn.inc.php';
 require_once  __DIR__.'/lib/db.php';
 
 
@@ -200,7 +200,7 @@ if ($error == false) {
             }
             $markers_str        = "&amp;markers=color:blue|size:small|";
             $markers_ev_str     = "&amp;markers=color:orange|size:small|";
-            $markers_ftf_str    = "&amp;markers=color:green|size:small|";
+            $markers_ftf_str    = "&amp;markers=color:0x66FF33|size:small|";
             $sel_marker_str     = "";
             foreach ($markers as $i => $marker) {
                 $lat   = sprintf("%.3f", $marker['lat']);
@@ -216,7 +216,7 @@ if ($error == false) {
                     if ($i != $index) 
                         $markers_ftf_str .= "$lat,$lon|";
                     else 
-                        $sel_marker_str = "&amp;markers=color:green|label:$type|$lat,$lon|";
+                        $sel_marker_str = "&amp;markers=color:0x66FF33|label:$type|$lat,$lon|";
                 else if (strcmp ($kind, 'new') == 0) 
                     if ($i != $index) 
                         $markers_str .= "$lat,$lon|";
@@ -228,33 +228,8 @@ if ($error == false) {
             return $google_map;
         }
 
-// 2 functions copied from powerTrail.php - START:
-		function getCacheTypesIcons() 
-{
-	$q = 'SELECT `id`, `icon_small` FROM `cache_type` WHERE 1';
-	$db = new dataBase;
-	$db->simpleQuery($q);
-	$cacheTypesArr = $db->dbResultFetchAll();
-	foreach ($cacheTypesArr as $cacheType) {
-		$cacheTypesIcons[$cacheType['id']] = $cacheType['icon_small'];
-	}
-	return $cacheTypesIcons;
-}
 
-		function getFoundCacheTypesIcons($cacheTypesIcons)
-{
-	foreach ($cacheTypesIcons as $id => $cacheIcon) {
-		$tmp = explode('.', $cacheIcon);
-		$tmp[0] = $tmp[0].'-found';
-		$foundCacheTypesIcons[$id] = implode('.', $tmp);
-	}
-	// powerTrailController::debug($foundCacheTypesIcons);
-	return $foundCacheTypesIcons;
-}
-		$CacheTypesIcons = getCacheTypesIcons();
-		$foundCacheTypesIcons = getFoundCacheTypesIcons($CacheTypesIcons);	
-// 2 functions copied from powerTrail.php - END	
-		$icon_folder = 'tpl/stdstyle/images/';
+		
 		
         tpl_set_var('more_caches',   '');
         tpl_set_var('more_ftf',      '');
@@ -390,7 +365,7 @@ if ($error == false) {
                // $found_icon      = is_cache_found($record['cache_id'], $user_id) ? '16x16-found.png' : '16x16-blank.png'; 
                // $cacheicon_found = 'tpl/stdstyle/images/' . $found_icon;
                 //$cacheicon       = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
-				$cacheicon =  $icon_folder;
+				$cacheicon =  $cache_icon_folder;
 				$cacheicon .=is_cache_found($record['cache_id'], $user_id) ? $foundCacheTypesIcons[$record['cache_type']] : $CacheTypesIcons[$record['cache_type']] ;
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',                 $i,                                                                                 $thisline);
@@ -538,7 +513,7 @@ if ($error == false) {
                // $found_icon      = is_cache_found($record['cache_id'], $user_id) ? '16x16-found.png' : '16x16-blank.png'; 
                // $cacheicon_found = 'tpl/stdstyle/images/cache/' . $found_icon;
                // $cacheicon       = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
-				$cacheicon =  $icon_folder;
+				$cacheicon =  $cache_icon_folder;
 				if ($record['cache_type']!="6") {
 					$cacheicon .=is_cache_found($record['cache_id'], $user_id) ? $foundCacheTypesIcons[$record['cache_type']] : $CacheTypesIcons[$record['cache_type']] ;
 				} else { //rather practically  not possible - event reco not allowed but just in case or for past 
@@ -611,7 +586,7 @@ if ($error == false) {
             for ($i = 0; $i < mysql_num_rows($rss); $i++) {
 
                 $record   = sql_fetch_array($rss);
-				$cacheicon =  $icon_folder;
+				$cacheicon =  $cache_icon_folder;
 				$cacheicon .=is_event_attended($record['cache_id'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',             $i + $markerpositions['plain_cache_num'],                                                           $thisline);
@@ -733,7 +708,7 @@ if ($error == false) {
                 $log_record      = sql_fetch_array($rsl);
                 //$found_icon      = is_cache_found($log_record['cache_id'], $user_id) ? '16x16-found.png' : '16x16-blank.png'; 
                 //$logicon_found   = 'tpl/stdstyle/images/cache/' . $found_icon;
-			   	$cacheicon =  $icon_folder;
+			   	$cacheicon =  $cache_icon_folder;
 				if ($log_record['cache_type']!="6") {
 					$cacheicon .=is_cache_found($log_record['cache_id'], $user_id) ? $foundCacheTypesIcons[$log_record['cache_type']] : $CacheTypesIcons[$log_record['cache_type']] ;
 				} else {

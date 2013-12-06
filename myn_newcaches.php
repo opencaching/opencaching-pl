@@ -21,7 +21,9 @@
 	require_once('./lib/cache_icon.inc.php');
 	require_once($rootpath . 'lib/caches.inc.php');
 	require_once($stylepath . '/lib/icons.inc.php');
-	
+	require_once  __DIR__.'/lib/myn.inc.php';
+	require_once  __DIR__.'/lib/db.php';
+		
 	//Preprocessing
 	if ($error == false)
 	{
@@ -145,6 +147,7 @@ $radius=$distance;
 							`caches`.`type` `type`,
 							`caches`.`name` `cachename`, 
 							`caches`.`wp_oc` `wp_name`, 
+							`caches`.`type` `cache_type`,
 							`user`.`username` `username`, 
 							`caches`.`date_created` `date_created`, 
 							`caches`.`date_hidden` `date_hidden`, 
@@ -161,14 +164,21 @@ $radius=$distance;
 						`caches`.`cache_id` DESC 
 						LIMIT ' . ($startat+0) . ', ' . ($perpage+0));
 
-
+$tr_myn_click_to_view_cache=tr('myn_click_to_view_cache');
 		while ($r = sql_fetch_array($rs))
 		{
 
 
 				$file_content .= '<tr>';
-				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';			
-				$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
+				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';		
+				$cacheicon =  $cache_icon_folder;
+				if ($r ['cache_type']!="6") { //if not event - check is_cache found 
+					$cacheicon .=is_cache_found($r ['cacheid'], $user_id) ? $foundCacheTypesIcons[$r ['cache_type']] : $CacheTypesIcons[$r ['cache_type']] ;
+				} else { //if an event - check is_event_attended
+					$cacheicon .=is_event_attended ($r ['cacheid'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
+				};				
+					
+				$file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td>';
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '">' .htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 
@@ -188,6 +198,7 @@ $radius=$distance;
 							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5				
 			WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1
 			 GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1",$r['cacheid']);
+
 
 			if (mysql_num_rows($rs_log) != 0)
 			{
