@@ -21,6 +21,10 @@
 	require_once('./lib/cache_icon.inc.php');
 	require_once($rootpath . 'lib/caches.inc.php');
 	require_once($stylepath . '/lib/icons.inc.php');
+	require_once  __DIR__.'/lib/myn.inc.php';
+	require_once  __DIR__.'/lib/db.php';		
+	
+	global $usr;
 	
 	//Preprocessing
 	if ($error == false)
@@ -103,7 +107,14 @@
 			else { $thisline = mb_ereg_replace('{region}', '', $thisline);}
 			$thisline = mb_ereg_replace('{date}', date('d-m-Y', strtotime($r['date'])), $thisline);
 			$thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
-			$thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($r['icon_large']), $thisline);
+			
+			$cacheicon =  $cache_icon_folder;
+				if ( $r['type']!="6") { //if not event - check is_cache found 
+					$cacheicon .=is_cache_found($r ['cacheid'], $usr['userid']) ? $foundCacheTypesIcons[$r['type']] : $CacheTypesIcons[$r['type']] ;
+				} else { //if an event - check is_event_attended
+					$cacheicon .=is_event_attended ($r['cacheid'], $usr['userid']) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
+				};
+			$thisline = mb_ereg_replace('{imglink}', $cacheicon, $thisline);
 			$thisline = mb_ereg_replace('{country_name}', htmlspecialchars($rr['country_name'], ENT_COMPAT, 'UTF-8'), $thisline);		
 			$content .= $thisline . "\n";
 			mysql_free_result($rs_log);
