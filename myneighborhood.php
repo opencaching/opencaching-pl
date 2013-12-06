@@ -200,7 +200,7 @@ if ($error == false) {
             }
             $markers_str        = "&amp;markers=color:blue|size:small|";
             $markers_ev_str     = "&amp;markers=color:orange|size:small|";
-            $markers_ftf_str    = "&amp;markers=color:0xFFD700|size:small|";
+            $markers_ftf_str    = "&amp;markers=color:0xFFDF00|size:small|";
             $sel_marker_str     = "";
             foreach ($markers as $i => $marker) {
                 $lat   = sprintf("%.3f", $marker['lat']);
@@ -216,7 +216,7 @@ if ($error == false) {
                     if ($i != $index) 
                         $markers_ftf_str .= "$lat,$lon|";
                     else 
-                        $sel_marker_str = "&amp;markers=color:0xFFD700|label:$type|$lat,$lon|";
+                        $sel_marker_str = "&amp;markers=color:0xFFDF00|label:$type|$lat,$lon|";
                 else if (strcmp ($kind, 'new') == 0) 
                     if ($i != $index) 
                         $markers_str .= "$lat,$lon|";
