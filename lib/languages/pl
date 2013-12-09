@@ -2070,4 +2070,10 @@ ec_walk_set_msg Atrybut skrzynki [Dostępna tylko pieszo] lub [Dostępna tylko �
 ec_boat_set_msg Atrybut skrzynki [Dostępna tylko pieszo] lub [Dostępna rowerem] jest ustawiony. Czy na pewno chcesz dodać atrybut [Dostępna tylko łodzią]?
 ec_Sequence_mp3 Kolejność pliku 
 myn_click_to_view_cache Kliknij aby zobaczyć skrzynkę 
+mylist_01 Nie znaleziono żadnych skrzynek w schowku
+mylist_02 Usuń
+mylist_03 Wydrukuj wszystkie
+mylist_04 Usuń wszystkie
+mylist_05 Pobierz dane skrzynek ze schowka
+
  

@@ -1304,7 +1304,7 @@ logType2 Niet gevonden
 logType3 Notitie
 logType4 Cache verplaatst
 logType5 Heeft onderhoud nodig
-logType6 Moet gearchiveerd worden
+logType6 Er is onderhoud gedaan
 logType7 Deelgenomen
 logType8 Wil deelnemen
 logType9 Cache gearchiveerd
@@ -1913,6 +1913,13 @@ pt223 PowerTrail
 pt224 Verzamelde punten
 pt225 aantal logs in het GPX bestand
 pt226 voor elke cache. Alleen beschikbaar voor GPX formaat.
+pt227 PowerTrail voldoet niet aan eisen. Is tijdelijk niet beschikbaar tot eigenaar dit verholpen heeft. De reden is: 
+pt228 Te weinig caches in PowerTrail
+pt229 Soort log
+pt230 Datum
+pt231 Tijd
+pt232 Toon ook kleine PowerTrails
+pt233 Toon geen kleine PowerTrails
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
@@ -2062,10 +2069,16 @@ ec_delete_wp Moet dit waypoint werkelijk verwijderd worden?
 mc_edit_geocache Cache bewerken
 mc_by_founds Per gevonden
 mc_by_reco Per aanbevelingen
-mc_by_gk Per GoeKrets
+mc_by_gk Per GeoKrets
 mc_by_visits Per bekeken
 vc_spoiler_disable_msg Om spoilers te zien moet men ingelogt zijn!
 ec_bike_set_msg
 ec_walk_set_msg
 ec_boat_set_msg
+myn_click_to_view_cache Klik om de cache te zien
+mylist_01 Er staan nog geen caches in mijn klembord 
+mylist_02 Verwijderen
+mylist_03 Alles afdrukken
+mylist_04 Verwijder alles
+mylist_05 Download de gegevens van de caches uit het klembord 
 

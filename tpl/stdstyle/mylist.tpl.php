@@ -29,9 +29,9 @@
 					<col width="90">
 				</colgroup>
 				<tr>
-					<td class="header-small">Nazwa skrzynki</td>
+					<td class="header-small">{{cache_label}}</td>
 					<td class="header-small">&nbsp;</td>
-					<td class="header-small" nowrap="nowrap">Ostatnio znalezione</td>
+					<td class="header-small" nowrap="nowrap">{{last_found}}</td>
 					<td class="header-small" nowrap="nowrap">&nbsp;</td>
 				</tr>
 				{list}
