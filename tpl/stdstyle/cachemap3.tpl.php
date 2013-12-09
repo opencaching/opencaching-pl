@@ -219,7 +219,7 @@ initial_params = {
 		size: "{{size}}",
 		created_by: "{{created_by}}",
 		scored: "{{scored}}",
-		add_clipboard: "{{doadd_to_list}}"
+		add_clipboard: "{{add_to_list}}"
 	}
 };
 
