@@ -44,7 +44,7 @@ function CleanSpecChars( $log, $flg_html )
 			//get user record
 			$userid = $usr['userid'];
 			
-
+			$tr_COG = tr('cog_user_name');
 			$no_found_date = '---';	
 			
 			$db = new dataBase(); 			
@@ -69,6 +69,7 @@ function CleanSpecChars( $log, $flg_html )
 								 cl.type AS log_type,
 								 cl.user_id AS luser_id,
 								 cl.date AS log_date,
+								 cl.deleted AS log_deleted,
 								 log_types.icon_small AS icon_small,
 								 user.username AS user_name
 								 FROM `cache_notes` 
@@ -87,7 +88,7 @@ function CleanSpecChars( $log, $flg_html )
 						
 												( SELECT max( cache_logs.date )
 													FROM cache_logs
-													WHERE cl.cache_id = cache_id and cache_logs.deleted = 0
+													WHERE cl.cache_id = cache_id 
 												)
 												limit 1
 											))  
@@ -137,7 +138,22 @@ function CleanSpecChars( $log, $flg_html )
 							{
 								$notes = mb_ereg_replace('{lastfound}', htmlspecialchars(strftime($dateformat, strtotime($notes_record['log_date'])), ENT_COMPAT, 'UTF-8'), $notes);
 							};
-							$log_text  = CleanSpecChars( $notes_record[ 'log_text'], 1 );
+							
+							if ($notes_record["log_deleted"] == 1) {  // if last record is deleted change icon and text
+								$log_text = tr('vl_Record_deleted');
+								$notes_record['icon_small']="log/16x16-trash.png";
+								
+							} else {
+								$log_text  = CleanSpecChars( $notes_record[ 'log_text'], 1 );
+							};
+							
+
+							 if ($notes_record['log_type'] == 12 && !$usr['admin']) {
+                    			 $notes_record['user_id']   = '0';
+                   				 $notes_record['user_name'] = $tr_COG;
+             				  };		
+							
+							
 							$log_text = "<b>".$notes_record['user_name'].":</b><br>".$log_text;	
 							$notes = mb_ereg_replace('{log_text}', $log_text, $notes);	
 							$notes_text = CleanSpecChars( $notes_record[ 'notes_desc'], 1 );

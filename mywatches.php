@@ -55,6 +55,7 @@ function CleanSpecChars( $log, $flg_html )
 		}
 		else
 		{
+			$tr_COG = tr('cog_user_name');
 			$dbc = new dataBase();
 			$RQ = "";
 			if ( isset($_REQUEST['rq']) )
@@ -196,6 +197,7 @@ function CleanSpecChars( $log, $flg_html )
 						cl.type AS log_type,
 						cl.user_id AS luser_id,
 						cl.date AS log_date,
+						cl.deleted as log_deleted,
 						cl.id
 						FROM `cache_watches` 
 						INNER JOIN `caches` ON (`cache_watches`.`cache_id`=`caches`.`cache_id`)
@@ -206,7 +208,7 @@ function CleanSpecChars( $log, $flg_html )
 						left outer JOIN user ON (cl.user_id = user.user_id)
 						
 						
-						WHERE `cache_watches`.`user_id`= :1 and 
+						WHERE `cache_watches`.`user_id`= :1 and  
 						( cl.id is null or cl.id =
 							( SELECT id
 								FROM cache_logs cl_id
@@ -214,7 +216,7 @@ function CleanSpecChars( $log, $flg_html )
 						
 									( SELECT max( date )
 										FROM cache_logs
-										WHERE cl.cache_id = cache_id and cache_logs.deleted = 0
+										WHERE cl.cache_id = cache_id 
 									)
 								limit 1
 							))  
@@ -265,11 +267,27 @@ function CleanSpecChars( $log, $flg_html )
 								$rusername="\"nikogo\"";
 							else
 								$rusername="\"".$record[ 'user_name' ]."\"";
-							
+								
+							if ($record['log_type'] == 12 && !$usr['admin']) {
+                    			 $rusername="\"".$tr_COG."\"";
+                      		};	
+								
+							if ($record["log_deleted"] == 1) {  // if last record is deleted change icon and text
+								$record[ 'log_text'] = tr('vl_Record_deleted');
+								$record['icon_small']="log/16x16-trash.png";
+														
+							};
 							$rcache_icon_small = "\"".$record['cache_icon_small']."\"";
 							$rwp = "\"".$record['wp']."\"";
 							$rid = "\"".$record['id']."\"";
 							$ricon_small = "\"".$record['icon_small']."\"";
+							if ($record['log_type'] == 12 && !$usr['admin']) {
+                    			 $record['luser_id']   = '0';
+                   				 $record['user_name'] = $tr_COG;
+             				  };
+							
+							
+							
 							$rluser_id = "\"".$record['luser_id']."\"";
 							
 							if ($record['log_date'] == NULL || $record['log_date'] == '0000-00-00 00:00:00')
@@ -315,10 +333,17 @@ function CleanSpecChars( $log, $flg_html )
 	
 							$tmp_watch = mb_ereg_replace('{urlencode_cacheid}', htmlspecialchars(urlencode($record['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_watch);
 							$tmp_watch = mb_ereg_replace('{cacheid}', htmlspecialchars($record['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_watch);
+							
+							if ($record["log_deleted"] == 1) {  // if last record is deleted change icon and text
+								$log_text = tr('vl_Record_deleted');
+								$record['icon_small']="log/16x16-trash.png";
+								
+							} else {
+								$log_text  = CleanSpecChars( $record[ 'log_text'], 1 );
+								
+							};
+							
 							$tmp_watch = mb_ereg_replace('{icon_name}', $record['icon_small'], $tmp_watch);
-							
-							
-							$log_text  = CleanSpecChars( $record[ 'log_text'], 1 );
 							
 							/*$log_text  = htmlspecialchars( $record[ 'log_text'], ENT_COMPAT, 'UTF-8');
 							$log_text = str_replace("\r\n", " ",$log_text);
@@ -329,8 +354,15 @@ function CleanSpecChars( $log, $flg_html )
 							//$log_text = str_replace("\r", " ",$log_text);
 							//$log_text = cleanup_text(str_replace("\r\n", " ", $log_text ));
 							//$log_text = str_rot13_html($log_text);
+							if ($record['log_type'] == 12 && !$usr['admin']) {
+                    			 $record['user_id']   = '0';
+                   				 $record['user_name'] = $tr_COG;
+             				  };
+							
 							$log_text = "<b>".$record['user_name'].":</b><br>".$log_text;
 							//$log_text = "ala ma kota";
+							
+							
 							
 							$tmp_watch = mb_ereg_replace('{log_text}', $log_text, $tmp_watch);
 	
