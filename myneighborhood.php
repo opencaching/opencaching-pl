@@ -47,6 +47,10 @@ if ($error == false) {
         }
         //get the news
         $tplname = 'myneighborhood';
+		
+		
+		$fixed_google_map_link='';
+		$marker_offset =0;
 
         function cleanup_text($str) {
             $from[] = '<p>&nbsp;</p>';      $to[] = '';
@@ -121,6 +125,7 @@ if ($error == false) {
         }
 
         function get_marker_positions($latitude, $longitude,$radius,$user_id) {
+			
             $markerpos = array();
             $markers = array();
             $rs = sql("
@@ -190,6 +195,7 @@ if ($error == false) {
 
         function create_map_url($markerpos, $index,$latitude,$longitude) {
             global $googlemap_key;
+			global $fixed_google_map_link;
 
             $markers = $markerpos['markers'];
             if (empty($markerpos['markers'])) {
@@ -225,11 +231,27 @@ if ($error == false) {
             }
             $google_map = "http://maps.google.com/maps/api/staticmap?center=".$latitude.",".$longitude.$dzoom."&amp;size=350x350&amp;maptype=roadmap&amp;key=".$googlemap_key."&amp;sensor=false".$markers_ftf_str.$markers_str.$markers_ev_str.$sel_marker_str;
 
+			if ($index==-1) {
+				$fixed_google_map_link= $google_map; // store fixed map link to be used with Top Reco and New logs items
+			};
             return $google_map;
         }
 
 
-		
+		function add_single_marker($c_kind, $c_type, $c_lat, $c_long) {
+				global $fixed_google_map_link;
+			    $lat   = sprintf("%.3f", $c_lat);
+                $lon   = sprintf("%.3f", $c_long);
+                $type  = strtoupper(typeToLetter($c_type));
+                $kind  = $c_kind;
+				$single_marker ='';
+				 if (strcmp($kind, 'TopR') == 0) {
+				 	$single_marker = "&amp;markers=color:0x29BD1A|label:$type|$lat,$lon|";
+				 } else if (strcmp($kind, 'NewL') == 0) {
+				 	$single_marker  = "&amp;markers=color:black|label:$type|$lat,$lon|";
+				 };
+				return $fixed_google_map_link.$single_marker ;
+		};
 		
         tpl_set_var('more_caches',   '');
         tpl_set_var('more_ftf',      '');
@@ -383,161 +405,11 @@ if ($error == false) {
                 $file_content .= $thisline . "\n";
             }
             $file_content .= '</table>';
+			$marker_offset = $marker_offset+$i;
         }
 
         tpl_set_var('new_caches',$file_content);
         mysql_free_result($rs);
-
-        /* ===================================================================================== */
-        /*                          Skrzynki z FTF                                               */
-        /* ===================================================================================== */
-
-        //start_ftfcaches.include
-        $rs =sql("SELECT    `user`.`user_id`            AS `user_id`,
-                            `user`.`username`           AS `username`,
-                            `caches`.`cache_id`         AS `cache_id`,
-                            `caches`.`name`             AS `name`,
-                            `caches`.`longitude`        AS `longitude`,
-                            `caches`.`latitude`         AS `latitude`,
-                            `caches`.`date_hidden`      AS `date`,
-                            `caches`.`date_created`     AS `date_created`,
-                            `caches`.`country`          AS `country`,
-                            `caches`.`difficulty`       AS `difficulty`,
-                            `caches`.`distance`         AS `distance`,
-                            `caches`.`terrain`          AS`terrain`,
-                            `cache_type`.`icon_large`   AS `icon_large`
-                 FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type`
-                 WHERE `caches`.`type`!=6
-                    AND `caches`.`status`=1
-                    AND `caches`.`type`=`cache_type`.`id`
-                    AND `caches`.`founds`=0
-                 ORDER BY `date` DESC, `caches`.`cache_id` DESC
-                 LIMIT 0 , 11");
-
-        if (mysql_num_rows($rs) > 10)  {
-            tpl_set_var('more_ftf','<a class="links" href="myn_ftf.php">['.tr("show_more").'...]</a>');
-            $limit=10;
-        } 
-        else $limit=mysql_num_rows($rs);
-
-        if ($limit == 0) {
-            $file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br />";
-        } 
-        else {
-            $cacheline =    '
-                <tr>
-                    <td class="myneighborhood tab_icon"> <img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></td>
-                    <td class="myneighborhood tab_date"> {date}</td>
-                    <td class="myneighborhood"> <a id="mapcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>  (&nbsp;{distance}&nbsp;km&nbsp;) </td>
-                    <td class="myneighborhood tab_arrow"> <img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" /></td>
-                    <td class="myneighborhood tab_user"> <a class="links" href="viewprofile.php?userid={userid}">{username}</a></td>
-                </tr>';
-            $file_content = '<table  class="myneighborhood"> ';
-
-            for ($i = 0; $i < $limit; $i++) {
-                $record        = sql_fetch_array($rs);
-                $cacheicon     = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
-                $thisline      = $cacheline;
-                $thisline = mb_ereg_replace('{nn}',             $i + $markerpositions['plain_cache_num2'],                                                          $thisline);
-                $thisline = mb_ereg_replace('{date}',           htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),                   $thisline);
-                $thisline = mb_ereg_replace('{cacheid}',        urlencode($record['cache_id']),                                                                     $thisline);
-                $thisline = mb_ereg_replace('{cache_count}',    $i,                                                                                                 $thisline);
-                $thisline = mb_ereg_replace('{smallmapurl}',    create_map_url($markerpositions, $i +  $markerpositions['plain_cache_num2'],$latitude,$longitude),  $thisline);
-                $thisline = mb_ereg_replace('{cachename}',      htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'),                                             $thisline);
-                $thisline = mb_ereg_replace('{userid}',         urlencode($record['user_id']),                                                                      $thisline);
-                $thisline = mb_ereg_replace('{username}',       htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'),                                         $thisline);
-                $thisline = mb_ereg_replace('{distance}',       number_format($record['distance'], 1, ',', ''),                                                     $thisline);
-                $thisline = mb_ereg_replace('{cacheicon}',      $cacheicon,                                                                                         $thisline);
-
-                $file_content .= $thisline . "\n";
-            }
-            $file_content .= '</table>';
-        }
-
-        tpl_set_var('ftf_caches',$file_content);
-        mysql_free_result($rs);
-
-        /* ===================================================================================== */
-        /*                          TOP rekomendowanych skrzynek                                 */
-        /* ===================================================================================== */
-
-        //start_topcaches.include
-        $rstr =sql("SELECT  `user`.`user_id`                    AS `user_id`,
-                            `user`.`username`                   AS `username`,
-                            `caches`.`cache_id`                 AS `cache_id`,
-                            `caches`.`name`                     AS `name`,
-                            `caches`.`longitude`                AS `longitude`,
-                            `caches`.`latitude`                 AS `latitude`,
-                            `caches`.`date_hidden`              AS `date`,
-                            `caches`.`date_created`             AS `date_created`,
-                            `caches`.`country`                  AS `country`,
-                            `caches`.`difficulty`               AS `difficulty`,
-                            `caches`.`terrain`                  AS `terrain`,
-                            `cache_type`.`icon_large`           AS `icon_large`,
-							`caches`.`type`						AS `cache_type`,
-                            count(`cache_rating`.`cache_id`)    AS `toprate`
-                   FROM local_caches `caches`
-                        INNER JOIN `user`           ON (`caches`.`user_id`=`user`.`user_id`)
-                        LEFT JOIN `cache_rating`    ON (`caches`.`cache_id`=`cache_rating`.`cache_id`), `cache_type`
-                   WHERE `caches`.`type`!=6
-                        AND `cache_rating`.`cache_id`=`caches`.`cache_id`
-                        AND `caches`.`status`=1
-                        AND `caches`.`type`=`cache_type`.`id`
-                   GROUP BY `caches`.`cache_id`
-                   ORDER BY `toprate` DESC, `caches`.`name` ASC LIMIT 0 , 11");
-
-        if (mysql_num_rows($rstr) > 10)  {
-            tpl_set_var('more_topcaches','<a class="links" href="myn_topcaches.php">['.tr("show_more").'...]</a>');
-            $limit=10;
-        } 
-        else $limit=mysql_num_rows($rstr);
-
-        if ($limit == 0) {
-            $file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br />";
-        } 
-        else {
-            $cacheline ='
-                <tr>
-                    <td class="myneighborhood tab_icon"> <img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></td>
-               
-                    <td class="myneighborhood tab_date"> {date} </td>
-                    <td class="myneighborhood"> <a id="topcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}">{cachename}</a><span style="font-weight:bold;color: green;">&nbsp;[{toprate}]</span></td>
-                    <td class="myneighborhood tab_arrow"> <img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" /></td>
-                    <td class="myneighborhood tab_user"> <a class="links" href="viewprofile.php?userid={userid}">{username}</a></td>
-                </tr>';
-
-            $file_content = '<table  class="myneighborhood">';
-
-            for ($i = 0; $i < $limit; $i++) {
-                $record          = sql_fetch_array($rstr);
-               // $found_icon      = is_cache_found($record['cache_id'], $user_id) ? '16x16-found.png' : '16x16-blank.png'; 
-               // $cacheicon_found = 'tpl/stdstyle/images/cache/' . $found_icon;
-               // $cacheicon       = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
-				$cacheicon =  $cache_icon_folder;
-				if ($record['cache_type']!="6") {
-					$cacheicon .=is_cache_found($record['cache_id'], $user_id) ? $foundCacheTypesIcons[$record['cache_type']] : $CacheTypesIcons[$record['cache_type']] ;
-				} else { //rather practically  not possible - event reco not allowed but just in case or for past 
-					$cacheicon .=is_event_attended ($record['cache_id'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
-				};
-                $thisline = $cacheline;
-                $thisline = mb_ereg_replace('{nn}',                 $i,                                                                                 $thisline);
-                $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
-                $thisline = mb_ereg_replace('{cacheid}',            urlencode($record['cache_id']),                                                     $thisline);
-                $thisline = mb_ereg_replace('{cachename}',          htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'),                             $thisline);
-                $thisline = mb_ereg_replace('{userid}',             urlencode($record['user_id']),                                                      $thisline);
-                $thisline = mb_ereg_replace('{username}',           htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'),                         $thisline);
-                $thisline = mb_ereg_replace('{cacheicon}',          $cacheicon,                                                                         $thisline);
-            //    $thisline = mb_ereg_replace('{cacheicon_found}',    $cacheicon_found,                                                                   $thisline);
-                $thisline = mb_ereg_replace('{toprate}',            $record['toprate'],                                                                 $thisline);
-
-                $file_content .= $thisline . "\n";
-            }
-            $file_content .= '</table>';
-        }
-
-        tpl_set_var('top_caches',$file_content);
-        mysql_free_result($rstr);
-
         /* ===================================================================================== */
         /*                          Lista wydarzeń                                               */
         /* ===================================================================================== */
@@ -604,12 +476,83 @@ if ($error == false) {
                 $file_content .= $thisline . "\n";
             }
             $file_content .= '</table>';
+			$marker_offset = $marker_offset+$i;
         }
 
         tpl_set_var('new_events',$file_content);
         mysql_free_result($rss);
-
+		
         /* ===================================================================================== */
+        /*                          Skrzynki z FTF                                               */
+        /* ===================================================================================== */
+
+        //start_ftfcaches.include
+        $rs =sql("SELECT    `user`.`user_id`            AS `user_id`,
+                            `user`.`username`           AS `username`,
+                            `caches`.`cache_id`         AS `cache_id`,
+                            `caches`.`name`             AS `name`,
+                            `caches`.`longitude`        AS `longitude`,
+                            `caches`.`latitude`         AS `latitude`,
+                            `caches`.`date_hidden`      AS `date`,
+                            `caches`.`date_created`     AS `date_created`,
+                            `caches`.`country`          AS `country`,
+                            `caches`.`difficulty`       AS `difficulty`,
+                            `caches`.`distance`         AS `distance`,
+                            `caches`.`terrain`          AS`terrain`,
+                            `cache_type`.`icon_large`   AS `icon_large`
+                 FROM local_caches `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type`
+                 WHERE `caches`.`type`!=6
+                    AND `caches`.`status`=1
+                    AND `caches`.`type`=`cache_type`.`id`
+                    AND `caches`.`founds`=0
+                 ORDER BY `date` DESC, `caches`.`cache_id` DESC
+                 LIMIT 0 , 11");
+
+        if (mysql_num_rows($rs) > 10)  {
+            tpl_set_var('more_ftf','<a class="links" href="myn_ftf.php">['.tr("show_more").'...]</a>');
+            $limit=10;
+        } 
+        else $limit=mysql_num_rows($rs);
+
+        if ($limit == 0) {
+            $file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br />";
+        } 
+        else {
+            $cacheline =    '
+                <tr>
+                    <td class="myneighborhood tab_icon"> <img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></td>
+                    <td class="myneighborhood tab_date"> {date}</td>
+                    <td class="myneighborhood"> <a id="mapcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a>  (&nbsp;{distance}&nbsp;km&nbsp;) </td>
+                    <td class="myneighborhood tab_arrow"> <img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" /></td>
+                    <td class="myneighborhood tab_user"> <a class="links" href="viewprofile.php?userid={userid}">{username}</a></td>
+                </tr>';
+            $file_content = '<table  class="myneighborhood"> ';
+
+            for ($i = 0; $i < $limit; $i++) {
+                $record        = sql_fetch_array($rs);
+                $cacheicon     = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
+                $thisline      = $cacheline;
+                $thisline = mb_ereg_replace('{nn}',             $i + $markerpositions['plain_cache_num2'],                                                          $thisline);
+                $thisline = mb_ereg_replace('{date}',           htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),                   $thisline);
+                $thisline = mb_ereg_replace('{cacheid}',        urlencode($record['cache_id']),                                                                     $thisline);
+                $thisline = mb_ereg_replace('{cache_count}',    $i,                                                                                                 $thisline);
+                $thisline = mb_ereg_replace('{smallmapurl}',    create_map_url($markerpositions, $i +  $markerpositions['plain_cache_num2'],$latitude,$longitude),  $thisline);
+                $thisline = mb_ereg_replace('{cachename}',      htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'),                                             $thisline);
+                $thisline = mb_ereg_replace('{userid}',         urlencode($record['user_id']),                                                                      $thisline);
+                $thisline = mb_ereg_replace('{username}',       htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'),                                         $thisline);
+                $thisline = mb_ereg_replace('{distance}',       number_format($record['distance'], 1, ',', ''),                                                     $thisline);
+                $thisline = mb_ereg_replace('{cacheicon}',      $cacheicon,                                                                                         $thisline);
+
+                $file_content .= $thisline . "\n";
+            }
+            $file_content .= '</table>';
+			$marker_offset=$marker_offset+$i;
+        }
+
+        tpl_set_var('ftf_caches',$file_content);
+        mysql_free_result($rs);
+
+      /* ===================================================================================== */
         /*                          Najnowsze komentarze                                         */
         /* ===================================================================================== */
 
@@ -650,6 +593,8 @@ if ($error == false) {
                             user.user_id                                AS user_id,
                             local_caches.wp_oc                          AS wp_name,
                             local_caches.type                           AS cache_type,
+							`local_caches`.`longitude` 			       AS `longitude`,
+                            `local_caches`.`latitude`        			 AS `latitude`,
                             cache_type.icon_small                       AS cache_icon_small,
 						
                             log_types.icon_small                        AS icon_small,
@@ -696,9 +641,10 @@ if ($error == false) {
                     <td class="myneighborhood tab_icon" > <img src="{rateicon}" class="icon16" alt="" title="rate" /></td>
                     <td class="myneighborhood tab_icon" > <img src="{logicon}" class="icon16" alt="" title="log" /></td>
                     <td class="myneighborhood tab_icon" > <a id="logcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}"><img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /> </a></td>
+	
                     
                     <td class="myneighborhood tab_date" > {date} </td>
-                    <td class="myneighborhood"> <a id="newlog{nn}" class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{log_text}\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">{cachename}</a></td>
+                    <td class="myneighborhood"> <a id="mapcache{nn}" class="links" href="viewlogs.php?logid={logid}" onmouseover="Tip(\'{log_text}\', PADDING,5, WIDTH,280,SHADOW,true); Lite({nn});" onmouseout="UnTip();Unlite();"  maphref="{smallmapurl}">{cachename}</a></td>
                     <td class="myneighborhood tab_arrow" > <img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" /></td>
                     <td class="myneighborhood tab_user" > <a class="links" href="viewprofile.php?userid={userid}"> {username}</a> </td>
                 </tr>';
@@ -740,7 +686,7 @@ if ($error == false) {
                 }
                 // koniec ukrywania autora komentarza COG przed zwykłym userem
 
-                $thisline = mb_ereg_replace('{nn}',         $i,                                                                                         $thisline);
+                $thisline = mb_ereg_replace('{nn}',         $i+$marker_offset,                                                                                       $thisline);//TODO: dynamic number  
                 $thisline = mb_ereg_replace('{date}',       htmlspecialchars(date("Y-m-d", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',    urlencode($log_record['cache_id']),                                                         $thisline);
                 $thisline = mb_ereg_replace('{cachename}',  htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8'),                           $thisline);
@@ -758,15 +704,104 @@ if ($error == false) {
                 $thisline = mb_ereg_replace('{logicon}',        "tpl/stdstyle/images/". $log_record['icon_small'],                                                  $thisline);
              //   $thisline = mb_ereg_replace('{logicon_found}',  $logicon_found,                                                                                     $thisline);
                 $thisline = mb_ereg_replace('{cacheicon}',      $cacheicon,                                                                                         $thisline);
-                $thisline = mb_ereg_replace('{smallmapurl}',    create_map_url($markerpositions, $i + $markerpositions['plain_cache_num'],$latitude,$longitude),    $thisline);
+			$thisline = mb_ereg_replace('{smallmapurl}', add_single_marker('NewL',$log_record['cache_type'], $log_record['latitude'],$log_record['longitude']),  $thisline);
 
                 $file_content .= $thisline . "\n";
             }
             $file_content .= '</table>';
+			$marker_offset=$marker_offset+$i;
         }
         tpl_set_var('new_logs',$file_content);
         mysql_free_result($rsl);
     }
+
+        /* ===================================================================================== */
+        /*                          TOP rekomendowanych skrzynek                                 */
+        /* ===================================================================================== */
+
+        //start_topcaches.include
+        $rstr =sql("SELECT  `user`.`user_id`                    AS `user_id`,
+                            `user`.`username`                   AS `username`,
+                            `caches`.`cache_id`                 AS `cache_id`,
+                            `caches`.`name`                     AS `name`,
+                            `caches`.`longitude`                AS `longitude`,
+                            `caches`.`latitude`                 AS `latitude`,
+                            `caches`.`date_hidden`              AS `date`,
+                            `caches`.`date_created`             AS `date_created`,
+                            `caches`.`country`                  AS `country`,
+                            `caches`.`difficulty`               AS `difficulty`,
+                            `caches`.`terrain`                  AS `terrain`,
+                            `cache_type`.`icon_large`           AS `icon_large`,
+							`caches`.`type`						AS `cache_type`,
+                            count(`cache_rating`.`cache_id`)    AS `toprate`
+                   FROM local_caches `caches`
+                        INNER JOIN `user`           ON (`caches`.`user_id`=`user`.`user_id`)
+                        LEFT JOIN `cache_rating`    ON (`caches`.`cache_id`=`cache_rating`.`cache_id`), `cache_type`
+                   WHERE `caches`.`type`!=6
+                        AND `cache_rating`.`cache_id`=`caches`.`cache_id`
+                        AND `caches`.`status`=1
+                        AND `caches`.`type`=`cache_type`.`id`
+                   GROUP BY `caches`.`cache_id`
+                   ORDER BY `toprate` DESC, `caches`.`name` ASC LIMIT 0 , 11");
+
+        if (mysql_num_rows($rstr) > 10)  {
+            tpl_set_var('more_topcaches','<a class="links" href="myn_topcaches.php">['.tr("show_more").'...]</a>');
+            $limit=10;
+        } 
+        else $limit=mysql_num_rows($rstr);
+
+        if ($limit == 0) {
+            $file_content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>".tr('list_of_caches_is_empty')."</b></p><br />";
+        } 
+        else {
+            $cacheline ='
+                <tr>
+                    <td class="myneighborhood tab_icon"> <img src="{cacheicon}" class="icon16" alt="Cache" title="Cache" /></td>
+               
+                    <td class="myneighborhood tab_date"> {date} </td>
+                    <td class="myneighborhood"> <a id="mapcache{nn}" class="links" href="viewcache.php?cacheid={cacheid}" onmouseover="Lite({nn})" onmouseout="Unlite()" maphref="{smallmapurl}">{cachename}</a><span style="font-weight:bold;color: green;">&nbsp;[{toprate}]</span></td>
+					                   
+                    <td class="myneighborhood tab_arrow"> <img src="tpl/stdstyle/images/blue/arrow.png" alt="" title="user" /></td>
+                    <td class="myneighborhood tab_user"> <a class="links" href="viewprofile.php?userid={userid}">{username}</a></td>
+                </tr>';
+
+            $file_content = '<table  class="myneighborhood">';
+
+            for ($i = 0; $i < $limit; $i++) {
+                $record          = sql_fetch_array($rstr);
+               // $found_icon      = is_cache_found($record['cache_id'], $user_id) ? '16x16-found.png' : '16x16-blank.png'; 
+               // $cacheicon_found = 'tpl/stdstyle/images/cache/' . $found_icon;
+               // $cacheicon       = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
+				$cacheicon =  $cache_icon_folder;
+				if ($record['cache_type']!="6") {
+					$cacheicon .=is_cache_found($record['cache_id'], $user_id) ? $foundCacheTypesIcons[$record['cache_type']] : $CacheTypesIcons[$record['cache_type']] ;
+				} else { //rather practically  not possible - event reco not allowed but just in case or for past 
+					$cacheicon .=is_event_attended ($record['cache_id'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
+				};
+                $thisline = $cacheline;
+                $thisline = mb_ereg_replace('{nn}',                 $i+$marker_offset,      $thisline);   //TODO: dynamic number   
+                $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
+                $thisline = mb_ereg_replace('{cacheid}',            urlencode($record['cache_id']),                                                     $thisline);
+                $thisline = mb_ereg_replace('{cachename}',          htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'),                             $thisline);
+                $thisline = mb_ereg_replace('{userid}',             urlencode($record['user_id']),                                                      $thisline);
+                $thisline = mb_ereg_replace('{username}',           htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'),                         $thisline);
+                $thisline = mb_ereg_replace('{cacheicon}',          $cacheicon,                                                                         $thisline);
+            //    $thisline = mb_ereg_replace('{cacheicon_found}',    $cacheicon_found,                                                                   $thisline);
+                $thisline = mb_ereg_replace('{toprate}',            $record['toprate'],                                                                 $thisline);
+			$thisline = mb_ereg_replace('{smallmapurl}', add_single_marker('TopR',$record['cache_type'], $record['latitude'],$record['longitude']),  $thisline);
+
+                $file_content .= $thisline . "\n";
+            }
+            $file_content .= '</table>';
+			$marker_offset = $i+$marker_offset;
+        }
+
+        tpl_set_var('top_caches',$file_content);
+        mysql_free_result($rstr);
+
+
+
+  
 }
 
 // AJAX Chat -shoutbox

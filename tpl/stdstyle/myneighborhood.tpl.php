@@ -33,7 +33,7 @@
             map_image_cache = [];
             map_image_cache[-1] = new Image();
             map_image_cache[-1].src = document.getElementById('main-cachemap').getAttribute('basesrc');
-            for (i = 0; i < 30; i++) {
+            for (i = 0; i < 50; i++) {
                 var nc_elem = document.getElementById('mapcache' + i);
                 if (nc_elem != null) {
                     map_image_cache[i] = new Image();
