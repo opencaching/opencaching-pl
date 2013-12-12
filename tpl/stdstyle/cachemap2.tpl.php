@@ -553,7 +553,7 @@ else
 	<input id="podpisy" name="C" value="1" type="checkbox" <?php echo (!$filter[15])?"":"checked";?>><label for="podpisy">{{show_signes}}</label>	
 	
 	<br />
-	<input type="submit" name="submit" value="Filtruj">
+	<input type="submit" name="submit" value={{filter}}>
 	<input type="hidden" name="userid" value="<?php echo $userid;?>">
 	<input type="hidden" name="maptype" id="maptype" value="<?php echo $filter[18]; ?>">
 	<input type="hidden" name="cachelimit" id="cachelimit" value="<?php echo (($filter[19] + 1) * 50); ?>">
