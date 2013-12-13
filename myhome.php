@@ -140,8 +140,8 @@
 					$record_logs = sql_fetch_array($rs_logs);
 
 					$tmp_log = $log_line;
-					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], $record_logs['text_combo']), $tmp_log);
-					$tmp_log = mb_ereg_replace('{logtype}', $record_logs['text_combo'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], ucfirst(tr('logType'.$record_logs['type'])) /*$record_logs['text_combo']*/), $tmp_log);
+					$tmp_log = mb_ereg_replace('{logtype}', ucfirst(tr('logType'.$record_logs['type'])) /*$record_logs['text_combo']*/, $tmp_log);
 					$tmp_log = mb_ereg_replace('{date}', fixPlMonth(strftime($dateformat , strtotime($record_logs['date']))), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($record_logs['cache_id']), ENT_COMPAT, 'UTF-8'), $tmp_log);
@@ -253,8 +253,8 @@
 					$record_logs = sql_fetch_array($rs_logs);
 
 					$tmp_log = $cache_line_my_caches;
-					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], $record_logs['text_combo']), $tmp_log);
-					$tmp_log = mb_ereg_replace('{logtype}', $record_logs['text_combo'], $tmp_log);
+					$tmp_log = mb_ereg_replace('{logimage}', icon_log_type($record_logs['icon_small'], ucfirst(tr('logType'.$record['type'])) /*$record_logs['text_combo']*/), $tmp_log);
+					$tmp_log = mb_ereg_replace('{logtype}', ucfirst(tr('logType'.$record['type'])) /*$record_logs['text_combo']*/, $tmp_log);
 					$tmp_log = mb_ereg_replace('{date}', fixPlMonth(strftime($dateformat , strtotime($record_logs['date']))), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cachename}', htmlspecialchars($record_logs['name'], ENT_COMPAT, 'UTF-8'), $tmp_log);
 					$tmp_log = mb_ereg_replace('{cacheid}', htmlspecialchars($record_logs['cache_id'], ENT_COMPAT, 'UTF-8'), $tmp_log);

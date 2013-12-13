@@ -34,7 +34,10 @@
  $logtype[2] = 'Nie znalezione';
  $logtype[3] = 'Komentarz';
 
- $cache_line = '<tr><td>{cacheimage}&nbsp;{cachestatus}</td><td>{date}</td><td><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>';
+ $cache_line = '<tr><td style="background-color: {bgcolor}">{cacheimage}&nbsp;{cachestatus}</td><td style="background-color: {bgcolor}">{date}</td><td style="background-color: {bgcolor}"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>';
  $cache_notpublished_line = '<tr><td>{cacheimage}&nbsp;{cachestatus}</td><td><a href="editcache.php?cacheid={cacheid}">{date}</a></td><td><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>';
- $log_line = '<tr><td>{logimage}&nbsp;{logtype}</td><td>{date}</td><td><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>';
+ $log_line = '<tr><td style="background-color: {bgcolor}">{logimage}&nbsp;{logtype}</td><td style="background-color: {bgcolor}">{date}</td><td style="background-color: {bgcolor}"><a href="viewcache.php?cacheid={cacheid}">{cachename}</a></td></tr>';
+ 
+ $bgcolor1 = '#ffffff';
+ $bgcolor2 = '#eeeeee';
 ?>

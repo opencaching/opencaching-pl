@@ -252,7 +252,7 @@ class dataBase
 	 * $param1 = 1;
 	 * $param2 = 'cat is very lovelly animal';
 	 * // note that variable in query MUST be in format :1, :2, :3 (and so on).
-	 * $query = 'SELECT something FROM tabele WHERE field1=:1 AND field2:2';
+	 * $query = 'SELECT something FROM tabele WHERE field1=:1 AND field2=:2';
 	 * 
 	 * multiVariableQuery($query, $param1, $param2 )
 	 * ----------------------------------------------------------------------------------
