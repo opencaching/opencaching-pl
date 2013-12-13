@@ -42,7 +42,7 @@
 	<tr>
 		<td colspan="2">
 			{reports}<br /><br />
-			<span class="content-title-noshade-size05">
+			<span class="content-title-noshade-size1">
 			<b>{{your_newest_log_entries}}:</b><br />
 			</span>
 			<table class="table">
