@@ -62,6 +62,7 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
         <link rel="stylesheet" type="text/css" media="screen,projection" href="chat/css/shoutbox.css" />
         <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
         <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_{season}.css" />
+        <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
         <link rel="SHORTCUT ICON" href="favicon.ico" />
         <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />       
         <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
@@ -77,6 +78,12 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
 	        
     </head>
     <body{bodyMod}>
+    
+    <?php    	
+ 		echo "<script type='text/javascript'>WHSetText('".tr('cookiesInfo')."');</script>;"  
+	?>
+    
+    
         <script language="javascript" type="text/javascript">
             function chname( newName ) {
                 document.getElementById("search_input").name = newName;
