@@ -816,7 +816,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 901; # This gets replaced in automatically deployed packages
+	public static $revision = 903; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -1618,6 +1618,7 @@ class Okapi
 		# Other.
 		if ($id == 4) return "Moved";
 		if ($id == 5) return "Needs maintenance";
+		if ($id == 6) return "Maintenance performed";
 		if ($id == 9) return "Archived";
 		if ($id == 10) return "Ready to search";
 		if ($id == 11) return "Temporarily unavailable";
