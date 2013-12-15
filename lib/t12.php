@@ -66,19 +66,19 @@ $query =
 		
 $dbc->multiVariableQuery($query);
 
-echo "
-<script type='text/javascript'>
-";
+echo "<script type='text/javascript'>";
 
 $nRanking = 0;
+$sOpis = "";
+
 while ( $record = $dbc->dbResultFetch() )
 {	
 	$nRanking++;
 		
-	if ( $record[ "description" ] <> "" )
+	/*if ( $record[ "description" ] <> "" )
 		$sOpis = $record[ "description" ];
 	else
-		$sOpis = "Niestety, brak opisu <img src=lib/tinymce/plugins/emotions/images/smiley-surprised.gif />";
+		$sOpis = "Niestety, brak opisu <img src=lib/tinymce/plugins/emotions/images/smiley-surprised.gif />";*/
 	
 	//<img src='lib/tinymce/plugins/emotions/images/smiley-smile.gif'/>
 	//smiley-surprised.gif
