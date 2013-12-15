@@ -69,6 +69,11 @@ class dataBase
 		$dbNumRows = null;
 	}
 
+	//JG 2013-12-14
+	public function switchDebug( $debug ) {
+		$this->debug = $debug;
+	}
+	
 	
 	/**
 	 * @return one row from result
@@ -312,7 +317,7 @@ class dataBase
 		if ($this->debug) {
 			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
 			for ($i = 1; $i < $numargs; $i++)
-				echo "Param :", $i, " = ", $arg_list[$i], "<br>";
+				print "Param :" . $i. " = " . $arg_list[$i]. "<br>";
 		}
 		return true;
 	}

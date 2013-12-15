@@ -1,0 +1,19 @@
+/*
+		GoogleTableChart - JG (triPPer)
+		
+	Using (for example) in STATS		
+*/
+
+
+.GCTrow-color { background-color: #efefef; }
+.GCToddRow-color { background-color: #ffffff; }
+.GCTtext-color { color: #777777; }	
+.GCTborder-color {}
+.GCTheader-color {background-color: white; color: rgb(88,144,168);  }
+.GCThoverText-color { color: #000000; }
+.GCTselectedRow-color{ background-color: #dddddd; }
+.GCTrowNumber-color{}
+
+.GCTalign-left{ text-align: left; }
+.GCTalign-center{ text-align: center; }
+.GCTalign-right{ text-align: right; } 

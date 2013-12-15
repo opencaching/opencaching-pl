@@ -536,6 +536,11 @@ toggle_filters Przełącz filtry
 fullscreen Pełny ekran
 disable_fullscreen Wyłącz pełny ekran
 stats Statystyki
+rise_charts Nasze pnące się wykresy...
+region_ranking Ranking wg województw
+user_ranking Ranking uczestników gry
+cache_ranking Ranking skrzynek
+ranking_by_maintenace Serwis skrzynek 
 ranking_by_number_of_created_caches Ranking użytkowników według liczby założonych skrzynek
 ranking_by_number_of_created_active_caches Ranking użytkowników według liczby założonych aktywnych skrzynek
 ranking_by_number_of_finds Ranking użytkowników według liczby odkryć
@@ -2076,4 +2081,6 @@ mylist_03 Wydrukuj wszystkie
 mylist_04 Usuń wszystkie
 mylist_05 Pobierz dane skrzynek ze schowka
 cookiesInfo Używamy cookies, dzięki którym nasz serwis może działać lepiej. Przeczytaj o prywatności i ochronie danych w naszym <a href ="{rules_url}">Regulaminie</a>. <br> Do końca roku 2013 będą zapisywane cookies GA, które pozwolą określić obciążenie naszego serwera
- 
+FiltrYear Rok
+FiltrMonth Miesiąc 
+StatTestVer <span style="color: red" >Uwaga wersja testowa!!! Proszę o zgłaszanie konstruktywnych uwag na forum w temacie: <a href="http://forum.opencaching.pl/viewtopic.php?f=9&t=7734">Statystyki</a></span>

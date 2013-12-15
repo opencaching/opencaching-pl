@@ -535,6 +535,11 @@ toggle_filters Change filters
 fullscreen Full screen
 disable_fullscreen Turn off full screen
 stats Statistics
+rise_charts Our rising charts... 
+region_ranking Ranking per region
+user_ranking Users ranking
+cache_ranking Cache ranking
+ranking_by_maintenace Maintenance of caches
 ranking_by_number_of_created_caches Users ranking by number of created caches
 ranking_by_number_of_created_active_caches Users ranking by number of created and active caches
 ranking_by_number_of_finds Users ranking by number of finds
@@ -1896,8 +1901,9 @@ mylist_03 Print all
 mylist_04 Remove all
 mylist_05 Download the data from the clipboard caches
 cookiesInfo We are using cookies which help us to improve our service. 
-
-
+FiltrYear Year
+FiltrMonth Month 
+StatTestVer <span style="color: red" >Attention. This is a test version!!! You can write your opinion about it on forum: <a href="http://forum.opencaching.pl/viewtopic.php?f=9&t=7734">Statystyki</a></span>
 
 
 
