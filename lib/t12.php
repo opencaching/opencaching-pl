@@ -75,10 +75,17 @@ while ( $record = $dbc->dbResultFetch() )
 {	
 	$nRanking++;
 		
-	/*if ( $record[ "description" ] <> "" )
+	if ( $record[ "description" ] <> "" )
+	{
 		$sOpis = $record[ "description" ];
+		
+		$sOpis = str_replace("\r\n", " ",$sOpis);
+		$sOpis = str_replace("\n", " ",$sOpis);
+		$sOpis = str_replace("'", "-",$sOpis);
+		$sOpis = str_replace("\"", " ",$sOpis);		
+	}
 	else
-		$sOpis = "Niestety, brak opisu <img src=lib/tinymce/plugins/emotions/images/smiley-surprised.gif />";*/
+		$sOpis = "Niestety, brak opisu <img src=lib/tinymce/plugins/emotions/images/smiley-surprised.gif />";
 	
 	//<img src='lib/tinymce/plugins/emotions/images/smiley-smile.gif'/>
 	//smiley-surprised.gif
