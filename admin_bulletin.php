@@ -31,7 +31,7 @@
 			//get emails
 			$sql = "SELECT `email` FROM `user` WHERE `is_active_flag`=1 AND get_bulletin=1 AND rules_confirmed=1";
 			$query = @mysql_query($sql);
-			$tr_newsletter = $short_sitename." ".tr('Newsletter');
+			$tr_newsletter = $short_sitename." ".tr('newsletter');
 			while( $email = @mysql_fetch_array($query))
 			{
 				
