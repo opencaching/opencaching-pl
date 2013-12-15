@@ -27,7 +27,7 @@
 			$sql = "INSERT INTO bulletins (content, user_id) VALUES ('".sql_escape($bulletin)."', ".sql_escape(intval($usr['userid'])).")";
 			@mysql_query($sql);
 			$tr_newsletter_removal = tr('newsletter_removal');
-			$bulletin .= "\r\n\r\n".$tr_newsletter_removal." na ".$absolute_server_URI."myprofile.php?action=change.";
+			$bulletin .= "\r\n\r\n".$tr_newsletter_removal." ".$absolute_server_URI."myprofile.php?action=change.";
 			//get emails
 			$sql = "SELECT `email` FROM `user` WHERE `is_active_flag`=1 AND get_bulletin=1 AND rules_confirmed=1";
 			$query = @mysql_query($sql);
