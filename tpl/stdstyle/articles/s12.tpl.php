@@ -60,6 +60,15 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 
 {{StatTestVer}}
 
+<br>
+Kilka słów o możliwościach:<br>
+1. stronicowanie, ustawiłem 10 wpisów na stronie (docelowo będzie na 100) - więc na razie nie widać efektów<br>
+2. sortowanie poprzez klikanie na nagłówek<br>
+3. po najechaniu myszką na konkretnego użytkownika pojawia się krótka notka o nim; kolor czcionki zmienia się na dekadencko czarny; po kliknięciu na użytkownika link przeniesie nas do profilu użytkownika;<br>
+4. wstępne filtrowanie po bieżącym mc i roku<br>
+5. można wykasować filtry i jechać od narodzin ... hmmm OC<br>
+6. można podświetlać wybraną pozycję na liście, z szarego na bardziej szary :p<br>
+
 <hr style="color: black">
 <br>
 </span>
