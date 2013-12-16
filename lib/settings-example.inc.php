@@ -228,6 +228,8 @@
 	  
   /* end of power Trail module switch and settings */
 
+		$BlogSwitchOn = true;	// enables/disables linkage to blog in index.php 
+
 	// OC specific email addresses for international use.
 	$mail_cog = 'cog@opencaching.pl';
 	$mail_rt = 'rt@opencaching.pl';

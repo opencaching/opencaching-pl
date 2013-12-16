@@ -92,7 +92,7 @@ function Unlite(nn) {
 					?>
 				</div>
 				
-				<div class="content2-container-2col-left" id="new-events-area">
+				<div class="content2-container-2col-left" id="new-events-area" style="display: {blogDisplay}; width: 100%">
 				  <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;{{latest_blog}}</p>
 				  <?php
 					global $dynstylepath;

@@ -70,6 +70,8 @@
         tpl_set_var('what_do_you_find_intro',tr('what_do_you_find_intro_'.$nodeDetect));
         
         if ($powerTrailModuleSwitchOn) tpl_set_var('ptDisplay','block'); else tpl_set_var('ptDisplay','none');
+		
+		if ($BlogSwitchOn) tpl_set_var('blogDisplay','block'); else tpl_set_var('blogDisplay','none');
 
 	//make the template and send it out
 	tpl_BuildTemplate(false);
