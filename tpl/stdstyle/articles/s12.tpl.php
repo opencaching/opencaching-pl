@@ -67,7 +67,7 @@ Kilka słów o możliwościach:<br>
 3. po najechaniu myszką na konkretnego użytkownika pojawia się krótka notka o nim; kolor czcionki zmienia się na dekadencko czarny; po kliknięciu na użytkownika link przeniesie nas do profilu użytkownika (to akurat standard);<br> 
 4. wstępne filtrowanie po bieżącym mc i roku<br>
 5. można wykasować filtry i jechać od narodzin ... hmmm OC<br>
-6. można podświetlać wybraną pozycję na liście, z szarego na bardziej szary :p<br>
+6. klikając na daną pozycję (wszędzie tylko nie na link) można podświetlać wybraną pozycję na liście, z szarego na bardziej szary :p<br>
 
 <hr style="color: black">
 <br>
