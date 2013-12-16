@@ -410,7 +410,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				  {
 				    $record['userid'] = '0';
 					$tmplog_username_aktywnosc = '';
-				    $tmplog_username = 'Centrum Obsługi Geocachera ';
+				    $tmplog_username = tr('cog_user_name');
 				  }
             
 				$tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
