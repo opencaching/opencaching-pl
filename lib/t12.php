@@ -111,18 +111,6 @@ while ( $record = $dbc->dbResultFetch() )
 	
 }
 
-if ( $nOldCount != -1 )
-{
-	$nRanking++;
-	
-	echo "
-	gct.addEmptyRow();
-	gct.addToLastRow( 0, $nRanking );
-	gct.addToLastRow( 1, $nOldCount );
-	gct.addToLastRow( 2, '$sLUsername' );
-	";
-}
-
 echo "gct.drawTable();";
 echo "</script>";
 
