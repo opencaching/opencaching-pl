@@ -228,7 +228,7 @@ if ($error == false) {
         // (Łza)
         if ($log_record['log_type'] == 12 && !$usr['admin'])  {
             $log_record['user_id']      = '0';
-            $log_record['user_name']    = 'Centrum Obsługi Geocachera ';
+            $log_record['user_name']    = tr('cog_user_name');
         }
         // koniec ukrywania autora komentarza COG przed zwykłym userem
 
