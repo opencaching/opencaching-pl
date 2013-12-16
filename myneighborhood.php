@@ -687,7 +687,7 @@ if ($error == false) {
                 // koniec ukrywania autora komentarza COG przed zwykłym userem
 
                 $thisline = mb_ereg_replace('{nn}',         $i+$marker_offset,                                                                                       $thisline);//TODO: dynamic number  
-                $thisline = mb_ereg_replace('{date}',       htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
+                $thisline = mb_ereg_replace('{date}',       htmlspecialchars(date("Y-m-d", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',    urlencode($log_record['cache_id']),                                                         $thisline);
                 $thisline = mb_ereg_replace('{cachename}',  htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8'),                           $thisline);
                 $thisline = mb_ereg_replace('{userid}',     urlencode($log_record['user_id']),                                                          $thisline);
