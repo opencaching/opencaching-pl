@@ -355,7 +355,7 @@ dont_publish_yet Nog niet publiceren
 log_password Geef wachtwoord
 no_password_label Laat leeg voor geen wachtwoord
 please_read Lees meer <a href="{cache_params_url}" target="_blank">informatie over wachtwoorden in logs!</a>
-creating_cache Met het maken van een nieuwe cache accepteer je de <a href="{rules_url}" target="_blank">Gebruikers voorwaarden</a> met alle consequencies.
+creating_cache Met het maken van een nieuwe cache accepteer je de <a href="{rules_url}" target="_blank">Gebruikers voorwaarden</a> met alle consequenties.
 with_all_consequences with all consequences.
 cache_name cache naam
 distance_label Afstand
@@ -1868,7 +1868,7 @@ pt178 Sorteerwijze
 pt179 Download als
 pt180 caches
 pt181 Hoofdeigenaar
-pt182 Hoofdeigenaar is de persoon die de PowerTrail gegeristreerd heeft.
+pt182 Hoofdeigenaar is de persoon die de PowerTrail geregistreerd heeft.
 pt183 Verzoek om cache toe te voegen aan PowerTrail
 pt184 Hallo
 pt185 er is een verzoek om een cache toe te voegen aan een PowerTrail
