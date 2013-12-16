@@ -70,11 +70,12 @@ echo "<script type='text/javascript'>";
 
 $nRanking = 0;
 $sOpis = "";
+$sLUsername = "";
+$nOldCount = -1;
+
 
 while ( $record = $dbc->dbResultFetch() )
 {	
-	$nRanking++;
-		
 	if ( $record[ "description" ] <> "" )
 	{
 		$sOpis = $record[ "description" ];
@@ -87,32 +88,57 @@ while ( $record = $dbc->dbResultFetch() )
 	else
 		$sOpis = "Niestety, brak opisu <img src=lib/tinymce/plugins/emotions/images/smiley-surprised.gif />";
 	
-	//<img src='lib/tinymce/plugins/emotions/images/smiley-smile.gif'/>
-	//smiley-surprised.gif
 	
 	$sProfil = "<b>Zarejestrowany od:</b> ".$record[ "date_created" ]
 		 ." <br><b>Opis: </b> ".$sOpis;
 
-	$count = $record[ "count" ];
-	$username = '<a href="viewprofile.php?userid='.$record["user_id"].'" onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</a>';
+	$nCount = $record[ "count" ];
+	$sUsername = '<a href="viewprofile.php?userid='.$record["user_id"].'" onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</a>';
+	
+	if ($nOldCount == -1 )
+		$nOldCount = $nCount;
+	
+	if ( $nCount != $nOldCount )
+	{				
+		$nRanking++;
 		
-	echo "
+		echo "
 		gct.addEmptyRow();
 		gct.addToLastRow( 0, $nRanking );
-		gct.addToLastRow( 1, $count );
-		gct.addToLastRow( 2, '$username' ); 
-	";		
+		gct.addToLastRow( 1, $nOldCount );
+		gct.addToLastRow( 2, '$sLUsername' );
+		";
+		
+		$sLUsername = $sUsername;				
+		$nOldCount = $nCount; 
+	}
+	else
+	{
+		if ( $sLUsername <> "" )
+			$sLUsername .= ", " ;
+		
+		$sLUsername .= $sUsername;
+	} 
+	
 }
 
-echo "</script>"
- 	
-		
+if ( $nOldCount != -1 )
+{
+	$nRanking++;
+	
+	echo "
+	gct.addEmptyRow();
+	gct.addToLastRow( 0, $nRanking );
+	gct.addToLastRow( 1, $nOldCount );
+	gct.addToLastRow( 2, '$sLUsername' );
+	";
+}
+
+echo "gct.drawTable();";
+echo "</script>";
+
 ?>
 
-<script type="text/javascript">  	
-   	gct.drawTable();
-        
- </script>	
 
  
  
