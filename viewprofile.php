@@ -353,7 +353,7 @@ if ($error == false) {
 					}
 				}
 				if (mysql_num_rows($rsms) > 100) {
-					for ($i = 0; $i < mysql_num_rows($rsms); $i += 100) {
+					for ($i = 0; $i <= mysql_num_rows($rsms); $i += 100) {
 						$ii = $i;
 						$is = $i - 1;
 						if ($i == 0) {$ii = 1;
