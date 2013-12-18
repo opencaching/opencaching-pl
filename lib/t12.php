@@ -119,7 +119,7 @@ while ( $record = $dbc->dbResultFetch() )
 	echo "
 	gct.addEmptyRow();
 	gct.addToLastRow( 0, $nRanking );
-	gct.addToLastRow( 1, $nOldCount );
+	gct.addToLastRow( 1, $nCount );
 	gct.addToLastRow( 2, '$sUsername' );
 	";
 	

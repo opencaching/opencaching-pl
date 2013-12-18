@@ -9,9 +9,14 @@
 
 	var gct = new GCT( 'idGTC' );
 
-	gct.addColumn('number', '".tr('ranking')."', 'width:60px; text-align: left;');
+	//gct.addColumn('number', '".tr('ranking')."', 'width:60px; text-align: left;');
 	gct.addColumn('number', '".tr('caches')."', 'width:60px; text-align: left;');
-	gct.addColumn('string', '".tr('user')."' );	    	
+	gct.addColumn('string', '".tr('user')."' );
+
+ 	gct.addTblOption( 'showRowNumber', true );
+ 	gct.addTblOption( 'sortColumn', 0 );
+	
+ 		 	
    	    	
 </script>";
 
@@ -73,10 +78,13 @@ $query =
 		WHERE cl.deleted=0 AND cl.type=1 "
 		
 		. $sCondition .
+
 		
-		"GROUP BY u.user_id   
+		"GROUP BY u.user_id "; 
 		
-		ORDER BY count DESC, u.username ASC";
+		
+		//"GROUP BY u.user_id   		
+		//ORDER BY count DESC, u.username ASC";
 
 		
 $dbc->multiVariableQuery($query);
@@ -116,17 +124,26 @@ while ( $record = $dbc->dbResultFetch() )
 		$nOldCount = $nCount; 
 	}
 
+	$s = '\'a\'';
+	
 	echo "
-	gct.addEmptyRow();
-	gct.addToLastRow( 0, $nRanking );
-	gct.addToLastRow( 1, $nOldCount );
-	gct.addToLastRow( 2, '$sUsername' );
+			gct.addEmptyRow();
+			
+			gct.addToLastRow( 0, $nCount );
+			gct.addToLastRow( 1, '$sUsername' );	
 	";
 	
+	//gct.addEmptyRow();
+	//gct.addToLastRow( 0, $nRanking );
+	//gct.addToLastRow( 1, $nCount );
+	//gct.addToLastRow( 2, '$sUsername' );
 	
+	//{v: 12500, f: '$12,500'}
 }
 
+
 echo "gct.drawTable();";
+echo "gct.sort();";
 echo "</script>";
 
 
