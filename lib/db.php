@@ -329,7 +329,7 @@ class dataBase
 					'X-Mailer: PHP/' . phpversion();
 		
 		
-		if(!isset($topic)) $topic = 'ErrorMail'; //JG - niezainicjowna zmienna 2013-10-19
+		if(!isset($topic)) $topic = 'Database error caught in db.php';
 		mail('rt@opencaching.pl', $topic, $message, $headers);
 	}
 
