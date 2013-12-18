@@ -58,7 +58,7 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 	</table>
 </form> 
 
-{{StatTestVer}}
+{{StatTestVer}}<br>
 Poprzednia wersja znajduje się na stronie: Statystyki (na samym końcu)
 <br>
 <br>
