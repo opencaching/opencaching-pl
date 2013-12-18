@@ -1,5 +1,5 @@
 <table class="content" width="97%">
-	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{{stats}}" title="{{stats}} {{ranking_by_maintenace}}" align="middle" /><font size="4">  <b>{{statistics}}: {{ranking_by_maintenace}}</b></font></td></tr>
+	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{{stats}}" title="{{stats}} {{ranking_by_maintenace}}" align="middle" /><font size="4">  <b>{{statistics}}: {{ranking_by_number_of_finds_new}}</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 </table>
 
