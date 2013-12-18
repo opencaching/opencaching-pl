@@ -22,6 +22,7 @@ require_once('./lib/db.php');
 $sRok = "";
 $sMc = "";
 $sCondition = "";
+$nIsCondition = 0;
 
 if ( isset( $_REQUEST[ 'Rok' ]) )
 	$sRok =  $_REQUEST[ 'Rok' ];
@@ -37,10 +38,23 @@ if ( $sRok <> "" and $sMc <> "" )
 	
 	$dDate = new DateTime( $sData_od );
 	$dDate->add( new DateInterval('P1M') );
-	
-	$sData_do = $dDate->format( 'Y-m-d');
-	
-	$sCondition = "and date >='" .$sData_od ."' and date < '".$sData_do."'"; 
+	$nIsCondition = 1;
+}
+
+if ( $sRok <> "" and $sMc == "" )
+{
+	$sData_od = $sRok.'-01-01';
+
+	$dDate = new DateTime( $sData_od );
+	$dDate->add( new DateInterval('P1Y') );
+	$nIsCondition = 1;
+}
+
+
+if ( $nIsCondition )
+{
+	$sData_do = $dDate->format( 'Y-m-d');	
+	$sCondition = "and date >='" .$sData_od ."' and date < '".$sData_do."'";	
 }
 
 
