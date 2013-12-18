@@ -61,14 +61,14 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 {{StatTestVer}}
 <br>
 <br>
-<b>Do statystyk liczy się tylko serwisowanie <b>"N I E W Ł A S N Y C H"</b> skrzynek.<br> 
+<b>Do statystyk liczy się tylko serwisowanie "N I E W Ł A S N Y C H"</b> skrzynek.<br> 
 <br>
 Kilka słów o możliwościach:<br>
 1. stronicowanie, ustawiłem na 10 wpisów na stronie (docelowo będzie na 100) - więc na razie nie widać efektów<br>
 2. sortowanie poprzez klikanie na nagłówek kolumny<br>
 3. po najechaniu myszką na konkretnego użytkownika pojawia się krótka notka o nim; kolor czcionki zmienia się na dekadencko czarny; po kliknięciu na użytkownika link przeniesie nas do profilu użytkownika (to akurat standard);<br> 
 4. wstępne filtrowanie po bieżącym mc i roku<br>
-5. można wykasować filtry i jechać od narodzin ... hmmm OC<br>
+5. można wykasować filtry (oba) i jechać od narodzin ... hmmm OC lub tylko mc i wtedy ... wiadomo <br>
 6. klikając na daną pozycję (wszędzie tylko nie na link) można ją podświetlić z szarego na bardziej szary :p<br>
 
 <hr style="color: black">

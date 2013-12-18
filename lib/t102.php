@@ -13,11 +13,12 @@
 	gct.addColumn('number', '".tr('caches')."', 'width:60px; text-align: left;');
 	gct.addColumn('string', '".tr('user')."' );
 
+ 		
  	//gct.addTblOption( 'showRowNumber', true );
  	//gct.addTblOption( 'sortColumn', 0 );
 	
  		 	
-   	    	
+ 	
 </script>";
 
  
@@ -28,6 +29,8 @@ $sRok = "";
 $sMc = "";
 $sCondition = "";
 $nIsCondition = 0;
+$nMyRanking = 0;
+
 
 if ( isset( $_REQUEST[ 'Rok' ]) )
 	$sRok =  $_REQUEST[ 'Rok' ];
@@ -80,11 +83,11 @@ $query =
 		. $sCondition .
 
 		
-	//	"GROUP BY u.user_id "; 
+		"GROUP BY u.user_id "; 
 		
 		
-		"GROUP BY u.user_id   		
-		ORDER BY count DESC, u.username ASC";
+//		"GROUP BY u.user_id   		
+//		ORDER BY count DESC, u.username ASC";
 
 		
 $dbc->multiVariableQuery($query);
@@ -123,8 +126,7 @@ while ( $record = $dbc->dbResultFetch() )
 		$nRanking++;
 		$nOldCount = $nCount; 
 	}
-
-	$s = '\'a\'';
+	
 	
 	echo "
 			gct.addEmptyRow();
@@ -132,6 +134,10 @@ while ( $record = $dbc->dbResultFetch() )
 			gct.addToLastRow( 1, $nCount );
 			gct.addToLastRow( 2, '$sUsername' );
 		";
+	
+	if ( $usr['userid'] == $record[ 'user_id'] )
+		$nMyRanking = $nRanking; 
+	
 	
 	//gct.addEmptyRow();
 	//gct.addToLastRow( 0, $nRanking );
@@ -143,7 +149,7 @@ while ( $record = $dbc->dbResultFetch() )
 
 
 echo "gct.drawTable();";
-echo "gct.sort();";
+echo "document.filtrDat.Ranking.value = '".$nMyRanking."'";
 echo "</script>";
 
 
