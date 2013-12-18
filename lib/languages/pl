@@ -543,6 +543,7 @@ cache_ranking Ranking skrzynek
 ranking_by_maintenace Serwis skrzynek 
 ranking_by_number_of_created_caches Ranking użytkowników według liczby założonych skrzynek
 ranking_by_number_of_created_active_caches Ranking użytkowników według liczby założonych aktywnych skrzynek
+ranking_by_number_of_finds_new Liczba odkryć
 ranking_by_number_of_finds Ranking użytkowników według liczby odkryć
 ranking_by_number_of_recommnedations Ranking użytkowników według liczby otrzymanych rekomendacji
 cache_ranking_by_number_of_finds Ranking skrzynek według liczby odkryć
@@ -2083,6 +2084,5 @@ mylist_05 Pobierz dane skrzynek ze schowka
 cookiesInfo Używamy cookies, dzięki którym nasz serwis może działać lepiej. Przeczytaj o prywatności i ochronie danych w naszym <a href ="{rules_url}">Regulaminie</a>. <br> Do końca roku 2013 będą zapisywane cookies GA, które pozwolą określić obciążenie naszego serwera
 FiltrYear Rok
 FiltrMonth Miesiąc 
-StatTestVer <span style="color: red" >Uwaga wersja testowa!!! Do statystyk liczy się tylko serwisowanie <b>"N I E W Ł A S N Y C H"</b> skrzynek. Proszę o zgłaszanie konstruktywnych uwag na forum w temacie: <a href="http://forum.opencaching.pl/viewtopic.php?f=9&t=7734">Statystyki</a></span>
 newsletter Biuletyn Informacyjny 
 newsletter_removal Jeśli nie chcesz więcej otrzymywać biuletynów informacyjnych z naszego serwisu, zmień ustawienia konta na

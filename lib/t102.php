@@ -1,6 +1,6 @@
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
-<script type='text/javascript' src='lib/js/GCT.js'></script>
-<script type='text/javascript' src='lib/js/wz_tooltip.js'></script>
+<script type='text/javascript' src="lib/js/GCT.js"></script>
+<script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
 
 <div id='idGTC' ></div>
 
@@ -46,6 +46,7 @@ if ( $sRok <> "" and $sMc <> "" )
 
 
 $dbc = new dataBase();
+
 $query = 
 		"SELECT COUNT(*) count, u.username username, u.user_id user_id, 
 		u.date_created date_created, u.description description
@@ -55,7 +56,7 @@ $query =
 		join caches c on c.cache_id = cl.cache_id
 		join user u on cl.user_id = u.user_id
 		
-		WHERE cl.deleted=0 AND  cl.type=6 and c.user_id <> cl.user_id "
+		WHERE cl.deleted=0 AND cl.type=1 "
 		
 		. $sCondition .
 		
@@ -187,10 +188,3 @@ if ( $nOldCount != -1 )
 */
 
 ?>
-
-
- 
- 
-
-
-

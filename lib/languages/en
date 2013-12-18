@@ -542,6 +542,7 @@ cache_ranking Cache ranking
 ranking_by_maintenace Maintenance of caches
 ranking_by_number_of_created_caches Users ranking by number of created caches
 ranking_by_number_of_created_active_caches Users ranking by number of created and active caches
+ranking_by_number_of_finds_new Number of finds
 ranking_by_number_of_finds Users ranking by number of finds
 ranking_by_number_of_recommnedations Users ranking by number of received recommendations
 cache_ranking_by_number_of_finds Cache ranking by number of finds
