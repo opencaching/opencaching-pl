@@ -83,11 +83,11 @@ $query =
 		. $sCondition .
 
 		
-		"GROUP BY u.user_id "; 
+		//"GROUP BY u.user_id "; 
 		
 		
-//		"GROUP BY u.user_id   		
-//		ORDER BY count DESC, u.username ASC";
+		"GROUP BY u.user_id   		
+		ORDER BY count DESC, u.username ASC";
 
 		
 $dbc->multiVariableQuery($query);
