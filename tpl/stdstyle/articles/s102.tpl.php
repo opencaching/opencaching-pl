@@ -60,7 +60,7 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 </form> 
 
 {{StatTestVer}}<br>
-Poprzednia wersja znajduje się na stronie: Statystyki (na samym końcu)
+{{PrevVersion}}
 <br>
 <br>
 Kilka słów o możliwościach:<br>
