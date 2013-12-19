@@ -11,8 +11,8 @@ TimeTrack( "START" );
 
 <?php
 global $debug_page; 
-if ( $debug_page )
-	echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";  
+//if ( $debug_page )
+//	echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";  
 ?>
 
 
@@ -45,24 +45,53 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 ?> 
 
 
+<script type="text/javascript">
+function GCTGotoPosition()
+{
+	var myPos = document.Position.RealPosOfTable.value;
+
+
+
+	if ( myPos != 0 )
+		gct.goToPosition( myPos );  
+}
+
+</script>
+
 <span class="content-title-noshade" >
 <form name="filtrDat" style="display:inline;" action='articles.php' method="get">
 	<table style="border: solid 1px;">
 		<tr>
 		<input type="hidden" value="s102" name="page" >
+		<input type="hidden" value="0" name="RealPosOfTable" >
 		<td width="100px">{{FiltrYear}}:&nbsp&nbsp<input type="text" name="Rok" value="<?php echo $sRok?>"; style="width:30px; text-align: center"  maxlength="4"></td>
 		<td width="110px">{{FiltrMonth}}:&nbsp&nbsp<input type="text" value="<?php echo $sMc?>"  name="Mc" style="width:20px; text-align: center" maxlength="2"></td>		
-		<td width="320px"> <button type="submit" name="submit" value="{{search}}" style="font-size:12px;width:100px;"/><b>{{search}}</b></button></td>
-		<td width="190px">Moja pozycja w rankingu:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" style="width:40px; text-align: center; color:red; font-weight: bold; font-size:15px" readonly></td>
-		
+		<td width="120px"> <button type="submit" name="submit" value="{{search}}" style="font-size:12px;width:100px;"/><b>{{search}}</b></button></td>
+		<!-- <td width="190px" style="color:black" >Moja pozycja:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" style="width:70px; text-align: center; color: black;  font-weight: bold; font-size:12px" readonly></td>
+		 -->
+		<!--  <td width="190px" style="color:black" ><input  type="button" name="go" value="GO" style="font-size:12px;width:40px;"; onClick ="GCTGotoPosition()"  /><b></b></input></td>
+		-->
 		</tr>
 	</table>
 </form> 
 
+
+<form name="Position" style="display:inline;" >
+
+<input type="hidden" value="0" name="RealPosOfTable" >
+Moja pozycja:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" style="width:70px; text-align: center; color: black;  font-weight: bold; font-size:12px" readonly>
+
+</form>
+
+<button  name="go" value="GO" style="font-size:12px;width:50px;"; onClick ="GCTGotoPosition()"  /><b>GO</b></button>
+
+<br><br>
 {{StatTestVer}}<br>
 {{PrevVersion}}
 <br>
 <br>
+Przepraszam za bałagan estetyczny. Pamiętajcie że to wersja testowa :) <br><br> 
+ 
 Kilka słów o możliwościach:<br>
 1. stronicowanie, ustawiłem na 10 wpisów na stronie (docelowo będzie na 100) - więc na razie nie widać efektów<br>
 2. sortowanie poprzez klikanie na nagłówek kolumny<br>
