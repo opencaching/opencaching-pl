@@ -19,7 +19,7 @@
 
 	TODO:
 	- fehlermeldungen bei falschen koordinaten
-	- entfernungsberechnung "auslagern" (getSqlDistanceFormula Ăźberall verwenden)
+	- entfernungsberechnung "auslagern" (getCalcDistanceSqlFormula Ăźberall verwenden)
 	- nochmals alles testen
 
  ****************************************************************************/
@@ -540,13 +540,14 @@
 
 							sql('CREATE TEMPORARY TABLE result_caches ENGINE=MEMORY 
 													SELECT 
-														(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
+														(' . getCalcDistanceSqlFormula(true,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
 														`caches`.`cache_id` `cache_id`
 													FROM `caches` FORCE INDEX (`latitude`)
-													WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
-														AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
-														AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
-														AND `latitude` < ' . ($lat + $max_lat_diff) . '
+													LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'].'
+													WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) > ' . ($lon - $max_lon_diff) . ' 
+														AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  < ' . ($lon + $max_lon_diff) . ' 
+														AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  > ' . ($lat - $max_lat_diff) . ' 
+														AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`) < ' . ($lat + $max_lat_diff) . '
 													HAVING `distance` < ' . $distance);
 							sql('ALTER TABLE result_caches ADD PRIMARY KEY ( `cache_id` )');
 
@@ -686,13 +687,14 @@
 							
 							sql('CREATE TEMPORARY TABLE result_caches ENGINE=MEMORY 
 													SELECT 
-														(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
+														(' . getCalcDistanceSqlFormula(true,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
 														`caches`.`cache_id` `cache_id`
 													FROM `caches` FORCE INDEX (`latitude`)
-													WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
-														AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
-														AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
-														AND `latitude` < ' . ($lat + $max_lat_diff) . '
+												LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'].'
+													WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) > ' . ($lon - $max_lon_diff) . ' 
+														AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  < ' . ($lon + $max_lon_diff) . ' 
+														AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  > ' . ($lat - $max_lat_diff) . ' 
+														AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`) < ' . ($lat + $max_lat_diff) . '
 													HAVING `distance` < ' . $distance);
 							sql('ALTER TABLE result_caches ADD PRIMARY KEY ( `cache_id` )');
 
@@ -786,13 +788,14 @@
 
 					sql('CREATE TEMPORARY TABLE result_caches ENGINE=MEMORY 
 											SELECT 
-												(' . getSqlDistanceFormula($lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
+												(' . getCalcDistanceSqlFormula(true,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
 												`caches`.`cache_id` `cache_id`
 											FROM `caches` FORCE INDEX (`latitude`)
-											WHERE `longitude` > ' . ($lon - $max_lon_diff) . ' 
-												AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
-												AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
-												AND `latitude` < ' . ($lat + $max_lat_diff) . '
+												LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'].'
+													WHERE IFNULL(cache_mod_cords.longitude, `caches`.`longitude`) > ' . ($lon - $max_lon_diff) . ' 
+														AND IFNULL(cache_mod_cords.longitude, `caches`.`longitude`)  < ' . ($lon + $max_lon_diff) . ' 
+														AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`)  > ' . ($lat - $max_lat_diff) . ' 
+														AND IFNULL(cache_mod_cords.latitude, `caches`.`latitude`) < ' . ($lat + $max_lat_diff) . '
 											HAVING `distance` < ' . $distance);
 					sql('ALTER TABLE result_caches ADD PRIMARY KEY ( `cache_id` )');
 

@@ -30,7 +30,7 @@
 '
 <Placemark>
   <description><![CDATA[<a href="'.$absolute_server_URI.'viewcache.php?cacheid={cacheid}">'.tr('search_kml_01').'</a><br />'.tr('search_kml_02').' {username}<br />&nbsp;<br /><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>'.tr('search_kml_03').' {type}<br />'.tr('search_kml_04').' {{size}}</td></tr><tr><td colspan="2">'.tr('search_kml_05').' {difficulty} '.tr('search_kml_06').' 5.0<br />'.tr('search_kml_07').' {terrain} '.tr('search_kml_06').' 5.0</td></tr></table>]]></description>
-   <name>{name}</name>
+   <name>{mod_suffix}{name}</name>
   <LookAt>
     <longitude>{lon}</longitude>
     <latitude>{lat}</latitude>
@@ -281,6 +281,22 @@
 			$thisline = str_replace('{{time}}', $time, $thisline);
 
 			$thisline = str_replace('{name}', xmlentities(PlConvert("UTF-8", "POLSKAWY", $r['name'])), $thisline);
+//modified coords
+		if ($r['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
+			if (!isset($dbc)) {$dbc = new dataBase();};	
+			$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$r['cacheid'].' AND user_id = '.$usr['userid'];
+			$dbc->simpleQuery($mod_coord_sql);
+			if ($dbc->rowCount() > 0 )
+			{
+				$thisline = str_replace('{mod_suffix}', '[F]', $thisline);
+			} else {
+				$thisline = str_replace('{mod_suffix}', '', $thisline);
+			}
+		} else {
+			$thisline = str_replace('{mod_suffix}', '', $thisline);
+		}; 
+
+
 			
 			if (($r['status'] == 2) || ($r['status'] == 3))
 			{
@@ -311,7 +327,7 @@
 			ob_flush();
 		}
 		mysql_free_result($rs);
-		
+		unset($dbc);
 		append_output($kmlFoot);
 	
 		if ($sqldebug == true) outputSqlDebugForm();

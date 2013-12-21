@@ -139,10 +139,31 @@
 	$startat = floor($startat / $caches_per_page) * $caches_per_page;
 	$sql .= ' LIMIT ' . $startat . ', ' . $caches_per_page;
 	$rs_caches = sql($sql, $sqldebug);
-
+	$tr_Coord_have_been_modified = tr('srch_Coord_have_been_modified');
+	$tr_Recommended =  tr('srch_Recommended');
+	$tr_Send_to_GPS =tr('srch_Send_to_GPS');
+	if (!isset($dbc)) {$dbc = new dataBase();};		
+		
 	for ($i = 0; $i < mysql_num_rows($rs_caches); $i++)
 	{
+		
 		$caches_record = sql_fetch_array($rs_caches);
+		if ($caches_record['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
+		
+			$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$caches_record['cache_id'].' AND user_id = '.$usr['userid'];
+			$dbc->simpleQuery($mod_coord_sql);
+		//	$dbc->dbResultFetch();
+			//var_dump($dbc->rowCount());
+			if ($dbc->rowCount() > 0 )
+			{
+				$caches_record['coord_modified'] = true; //mark as coords midified
+				//$caches_record['name'] = "[F]".$caches_record['name'];
+			} else {
+				$caches_record['coord_modified'] = false;
+			}
+		} else {
+			$caches_record['coord_modified']= false;
+		}
 		$tmpline = $cache_line;
 
 		list($iconname, $inactive) = getCacheIcon($usr['userid'], $caches_record['cache_id'], $caches_record['status'],
@@ -152,7 +173,7 @@
 		// sp2ong
 
 	$ratingA = $caches_record['toprating'];
-	if ($ratingA > 0) $ratingimg='<img src="images/rating-star.png" alt="Rekomendowana" title="Rekomendowana" />'; else $ratingimg=''; 
+	if ($ratingA > 0) $ratingimg='<img src="images/rating-star.png" alt="'.$tr_Recommended.'" title="'.$tr_Recommended.'" />'; else $ratingimg=''; 
 	$tmpline = str_replace('{ratpic}', $ratingimg, $tmpline);
 $login=0;
 	if ($usr == false ) {
@@ -160,6 +181,14 @@ $login=0;
 	$tmpline = str_replace('{lat}',tr('to_see_coords'), $tmpline);
 } else {
 	$tmpline = str_replace('{long}', htmlspecialchars(help_lonToDegreeStr($caches_record['longitude'])), $tmpline);
+	if ($caches_record['coord_modified'] == true) {
+		$tmpline = str_replace('{mod_cord_style}', 'style="color:orange;" alt ="'.$tr_Coord_have_been_modified.'" title="'.$tr_Coord_have_been_modified.'"', $tmpline);
+		$tmpline = str_replace('{mod_suffix}','[F]',$tmpline);	
+	} else {
+		$tmpline = str_replace('{mod_cord_style}','',$tmpline);
+		$tmpline = str_replace('{mod_suffix}','',$tmpline);	
+	}
+	
 	$tmpline = str_replace('{lat}', htmlspecialchars(help_latToDegreeStr($caches_record['latitude'])), $tmpline);
 };
 		$tmpline = str_replace('{cachetype}', htmlspecialchars(cache_type_from_id($caches_record['type'], $lang), ENT_COMPAT, 'UTF-8'), $tmpline);
@@ -246,7 +275,7 @@ $login=0;
 		}
 		$tmpline = str_replace('{desclangs}', $desclangs, $tmpline);
 		if($usr || !$hide_coords)
-			$tmpline = str_replace('{sendtogps}', ("<a href=\"#\" onclick=\"javascript:window.open('garmin.php?lat=".$caches_record['latitude']."&amp;long=".$caches_record['longitude']."&amp;wp=".$caches_record['wp_oc']."&amp;name=".urlencode($caches_record['name'])."&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><img src='/images/garmin.jpg' alt='Send to GPS' title='Wyślij do GPS' border='0' /></a>"), $tmpline);
+			$tmpline = str_replace('{sendtogps}', ("<a href=\"#\" onclick=\"javascript:window.open('garmin.php?lat=".$caches_record['latitude']."&amp;long=".$caches_record['longitude']."&amp;wp=".$caches_record['wp_oc']."&amp;name=".urlencode($caches_record['name'])."&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><img src='/images/garmin.jpg' alt='Send to GPS' title='".$tr_Send_to_GPS."' border='0' /></a>"), $tmpline);
 		else
 			$tmpline = str_replace('{sendtogps}', "", $tmpline);
 		$tmpline = str_replace('{cachename}', htmlspecialchars($caches_record['name'], ENT_COMPAT, 'UTF-8'), $tmpline);
@@ -280,6 +309,7 @@ $login=0;
 
 		$caches_output .= $tmpline;
 	}
+	unset($dbc);
 	tpl_set_var('results', $caches_output);
 
 	//more than one page?

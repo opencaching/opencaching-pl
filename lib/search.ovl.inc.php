@@ -27,7 +27,7 @@
 
 	global $content, $bUseZip, $sqldebug, $hide_coords, $usr;
 	set_time_limit(1800);
-	$ovlLine = "[Symbol {symbolnr1}]\r\nTyp=6\r\nGroup=1\r\nWidth=20\r\nHeight=20\r\nDir=100\r\nArt=1\r\nCol=3\r\nZoom=1\r\nSize=103\r\nArea=2\r\nXKoord={lon}\r\nYKoord={lat}\r\n[Symbol {symbolnr2}]\r\nTyp=2\r\nGroup=1\r\nCol=3\r\nArea=1\r\nZoom=1\r\nSize=130\r\nFont=1\r\nDir=100\r\nXKoord={lonname}\r\nYKoord={latname}\r\nText={cachename}\r\n";
+	$ovlLine = "[Symbol {symbolnr1}]\r\nTyp=6\r\nGroup=1\r\nWidth=20\r\nHeight=20\r\nDir=100\r\nArt=1\r\nCol=3\r\nZoom=1\r\nSize=103\r\nArea=2\r\nXKoord={lon}\r\nYKoord={lat}\r\n[Symbol {symbolnr2}]\r\nTyp=2\r\nGroup=1\r\nCol=3\r\nArea=1\r\nZoom=1\r\nSize=130\r\nFont=1\r\nDir=100\r\nXKoord={lonname}\r\nYKoord={latname}\r\nText={mod_suffix}{cachename}\r\n";
 	$ovlFoot = "[Overlay]\r\nSymbols={symbolscount}\r\n";
 
 	if( $usr || !$hide_coords )
@@ -70,8 +70,8 @@
 				mysql_free_result($rs_coords);
 			}
 		}
-		$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`
-					FROM `caches`
+		$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`type` `type`
+							FROM `caches`
 					WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
 		
 		$sortby = $options['sort'];
@@ -178,7 +178,7 @@
 	*/
 
 		$nr = 1;
-		$rs = sql('SELECT `ovlcontent`.`cache_id` `cacheid`, `ovlcontent`.`longitude` `longitude`, `ovlcontent`.`latitude` `latitude`, `caches`.`name` `name` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id`');
+		$rs = sql('SELECT `ovlcontent`.`cache_id` `cacheid`, `ovlcontent`.`longitude` `longitude`, `ovlcontent`.`latitude` `latitude`, `caches`.`name` `name`, `ovlcontent`.`type` `type` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id`');
 		while($r = sql_fetch_array($rs))
 		{
 			$thisline = $ovlLine;
@@ -190,7 +190,21 @@
 			$lon = sprintf('%01.5f', $r['longitude']);
 			$thisline = mb_ereg_replace('{lon}', $lon, $thisline);
 			$thisline = mb_ereg_replace('{lonname}', $lon, $thisline);
-
+			//modified coords
+		if ($r['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
+			if (!isset($dbc)) {$dbc = new dataBase();};	
+			$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$r['cacheid'].' AND user_id = '.$usr['userid'];
+			$dbc->simpleQuery($mod_coord_sql);
+			if ($dbc->rowCount() > 0 )
+			{
+				$thisline = str_replace('{mod_suffix}', '<F>', $thisline);
+			} else {
+				$thisline = str_replace('{mod_suffix}', '', $thisline);
+			}
+		} else {
+			$thisline = str_replace('{mod_suffix}', '', $thisline);
+		}; 
+		
 			$thisline = mb_ereg_replace('{cachename}', convert_string($r['name']), $thisline);
 			$thisline = mb_ereg_replace('{symbolnr1}', $nr, $thisline);
 			$thisline = mb_ereg_replace('{symbolnr2}', $nr + 1, $thisline);
@@ -200,7 +214,7 @@
 			$nr += 2;
 		}
 		mysql_free_result($rs);
-		
+		unset($dbc);
 		$ovlFoot = mb_ereg_replace('{symbolscount}', $nr - 1, $ovlFoot);
 		append_output($ovlFoot);
 		

@@ -228,7 +228,23 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 						
 						$lat = sprintf('%01.6f', $r['latitude']);
 						$lon = sprintf('%01.6f', $r['longitude']);
-						$name = PLConvert('UTF-8','POLSKAWY',str_replace(',','',$r['name']));
+						
+						//modified coords
+						if ($r['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
+							if (!isset($dbc)) {$dbc = new dataBase();};	
+							$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$r['cacheid'].' AND user_id = '.$usr['userid'];
+							$dbc->simpleQuery($mod_coord_sql);
+							if ($dbc->rowCount() > 0 )
+							{
+								$r['mod_suffix']= '[F]';
+							} else {
+								$r['mod_suffix']= '';
+							}
+						} else {
+							$r['mod_suffix']= '';
+						}; 							
+					
+						$name = PLConvert('UTF-8','POLSKAWY',str_replace(',','',$r['mod_suffix'].$r['name']));
 						$username = PLConvert('UTF-8','POLSKAWY',str_replace(',','',$r['username']));
 						$type = $wptType[$r['type']];
 						$size = $wptSize[$r['size']];
@@ -271,7 +287,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 						ob_flush();
 					}
 					mysql_free_result($rs);
-
+					unset($cdb);
 					if ($sqldebug == true) sqldbg_end();
 
 					// phpzip versenden

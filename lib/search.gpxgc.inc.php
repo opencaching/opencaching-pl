@@ -60,13 +60,13 @@ $gpxLine = '
         <wpt lat="{lat}" lon="{lon}">
                 <time>{{time}}</time>
                 <name>{{waypoint}}</name>
-                <desc>{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})</desc>
+                <desc>{mod_suffix}{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})</desc>
                 <url>'.$absolute_server_URI.'viewcache.php?wp={{waypoint}}</url>
-                <urlname>{cachename} by {owner}, {type_text}</urlname>
+                <urlname>{mod_suffix}{cachename} by {owner}, {type_text}</urlname>
                 <sym>Geocache</sym>
                 <type>Geocache|{type}</type>
                 <groundspeak:cache id="{cacheid}" available="{available}" archived="{{archived}}" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0/1">
-                        <groundspeak:name>{cachename}</groundspeak:name>
+                        <groundspeak:name>{mod_suffix}{cachename}</groundspeak:name>
                         <groundspeak:placed_by>{owner}</groundspeak:placed_by>
                         <groundspeak:owner id="{owner_id}">{owner}</groundspeak:owner>
                         <groundspeak:type>{type}</groundspeak:type>
@@ -78,7 +78,7 @@ $gpxLine = '
                         <groundspeak:country>{country}</groundspeak:country>
                         <groundspeak:state>{region}</groundspeak:state>
                         <groundspeak:short_description html="False">{shortdesc}</groundspeak:short_description>
-                        <groundspeak:long_description html="True">{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}&lt;br&gt;{extra_info}</groundspeak:long_description>
+                        <groundspeak:long_description html="True">{mod_suffix}{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}&lt;br&gt;{extra_info}</groundspeak:long_description>
                         <groundspeak:encoded_hints>{hints}</groundspeak:encoded_hints>
                         <groundspeak:logs>
                         {logs}
@@ -466,7 +466,21 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         $thisline = str_replace('{country}', tr($r['country']), $thisline);
                         $region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);              
                         $thisline = str_replace('{region}', $region, $thisline);
-                       
+						// modified coords
+						if ($r['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
+							if (!isset($dbc)) {$dbc = new dataBase();};	
+							$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$r['cacheid'].' AND user_id = '.$usr['userid'];
+							$dbc->simpleQuery($mod_coord_sql);
+						//	$dbc->dbResultFetch();
+							//var_dump($dbc->rowCount());
+							if ($dbc->rowCount() > 0 )
+							{
+								$thisline = str_replace('{mod_suffix}', '[F]', $thisline);
+							} else {
+								$thisline = str_replace('{mod_suffix}', '""', $thisline);
+							}
+						};     
+						                   
                         if ($r['hint'] == '')
                                 $thisline = str_replace('{hints}', '', $thisline);
                         else

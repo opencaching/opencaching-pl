@@ -32,7 +32,7 @@ $locHead = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 	
 $locLine = '
 <waypoint>
-	<name id="{{waypoint}}"><![CDATA[{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})]]></name>
+	<name id="{{waypoint}}"><![CDATA[{mod_suffix}{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})]]></name>
 	<coord lat="{lat}" lon="{lon}"/>
 	<type>Geocache</type>
 	<link text="Cache Details">'.$absolute_server_URI.'viewcache.php?cacheid={cacheid}</link>
@@ -231,6 +231,21 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
 
 			$thisline = mb_ereg_replace('{{waypoint}}', $r['waypoint'], $thisline);
 			$thisline = mb_ereg_replace('{cachename}', PLConvert('UTF-8','POLSKAWY',$r['name']), $thisline);
+
+			//modified coords
+		if ($r['type_id'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
+			if (!isset($dbc)) {$dbc = new dataBase();};	
+			$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$r['cacheid'].' AND user_id = '.$usr['userid'];
+			$dbc->simpleQuery($mod_coord_sql);
+			if ($dbc->rowCount() > 0 )
+			{
+				$thisline = str_replace('{mod_suffix}', '<F>', $thisline);
+			} else {
+				$thisline = str_replace('{mod_suffix}', '', $thisline);
+			}
+		} else {
+			$thisline = str_replace('{mod_suffix}', '', $thisline);
+		}; 
 			
 //			if (($r['status'] == 2) || ($r['status'] == 3))
 //			{
@@ -258,7 +273,7 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
 			ob_flush();
 		}
 		mysql_free_result($rs);
-		
+		unset($dbc);
 		append_output($locFoot);
 		
 		if ($sqldebug == true) sqldbg_end();

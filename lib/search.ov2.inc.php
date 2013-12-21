@@ -208,7 +208,23 @@ $cacheTypeText[9] = 'PodCastCache';
 		{
 			$lat = sprintf('%07d', $r['latitude'] * 100000);
 			$lon = sprintf('%07d', $r['longitude'] * 100000);
-			$name = convert_string($r['name']);
+		//modified coords	
+		if ($r['type_id'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
+			if (!isset($dbc)) {$dbc = new dataBase();};	
+			$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$r['cacheid'].' AND user_id = '.$usr['userid'];
+			$dbc->simpleQuery($mod_coord_sql);
+			if ($dbc->rowCount() > 0 )
+			{
+				$r['mod_suffix'] ="[F]";
+			} else {
+				$r['mod_suffix'] ="";
+			}
+		} else {
+			$r['mod_suffix'] ="";
+		}; 			
+			
+			$comb_name=$r['mod_suffix'].$r['name'];
+			$name = convert_string($comb_name);
 			$username = convert_string($r['username']);
 			$type = convert_string($cacheTypeText[$r['type_id']]);
 			$size = convert_string($r['sizedesc']);
@@ -223,7 +239,7 @@ $cacheTypeText[9] = 'PodCastCache';
 			ob_flush();
 		}
 		mysql_free_result($rs);
-		
+		unset($dbc);
 		if ($sqldebug == true) sqldbg_end();
 		
 		// phpzip versenden

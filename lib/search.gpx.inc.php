@@ -58,14 +58,14 @@
 '	<wpt lat="{lat}" lon="{lon}">
 	<time>{time}</time>
 	<name>{waypoint}</name>
-	<desc>{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
+	<desc>{mod_suffix}{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
 	<src>www.opencaching.pl</src>
 	<url>http://opencaching.pl/viewcache.php?wp={waypoint}</url>
-	<urlname>{cachename}</urlname>
+	<urlname>{mod_suffix}{cachename}</urlname>
 	<sym>Geocache</sym>
 	<type>Geocache|{geocache_type}</type>
 	<geocache status="{status}" xmlns="http://geocaching.com.au/geocache/1">
-			<name>{cachename}</name>
+			<name>{mod_suffix}{cachename}</name>
 			<owner>{owner}</owner>
 			<locale></locale>
 			<state>{region}</state>
@@ -75,7 +75,7 @@
 			<difficulty>{difficulty}</difficulty>
 			<terrain>{terrain}</terrain>
 			<summary html="false">{shortdesc}</summary>
-			<description html="true">{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}&lt;br&gt;{extra_info}</description>
+			<description html="true">{mod_suffix}{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}&lt;br&gt;{extra_info}</description>
 			{hints}
 			<licence></licence>
 			<logs>
@@ -367,6 +367,22 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{country}', $r['country'], $thisline);
 			$region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);		
 			$thisline = str_replace('{region}', $region, $thisline);
+
+			//modified coords
+		if ($r['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
+			if (!isset($dbc)) {$dbc = new dataBase();};	
+			$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$r['cacheid'].' AND user_id = '.$usr['userid'];
+			$dbc->simpleQuery($mod_coord_sql);
+			if ($dbc->rowCount() > 0 )
+			{
+				$thisline = str_replace('{mod_suffix}', '[F]', $thisline);
+			} else {
+				$thisline = str_replace('{mod_suffix}', '', $thisline);
+			}
+		} else {
+			$thisline = str_replace('{mod_suffix}', '', $thisline);
+		}; 
+
 			
 			if ($r['hint'] == '')
 				$thisline = str_replace('{hints}', '', $thisline);
@@ -376,6 +392,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$logpw = ($r['logpw']==""?"":"UWAGA! W skrzynce znajduje się hasło - pamiętaj o jego zapisaniu!<br />");			
 			$thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
 			$thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
+			
+			
 
 			// add personal cache info if user login to OC
 			if ($usr == true)
@@ -573,11 +591,11 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$thisline = str_replace('{cache_waypoints}', $waypoints, $thisline);
 
 
-
 			append_output($thisline);
 			ob_flush();
 		}
 		mysql_free_result($rs);
+		unset($dbc);
 		
 		append_output($gpxFoot);
 

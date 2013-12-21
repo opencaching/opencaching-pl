@@ -27,7 +27,7 @@
 
 	global $content, $bUseZip, $sqldebug, $hide_coords, $usr, $lang;
 	set_time_limit(1800);
-	$txtLine = "".tr('search_text_01')." {cachename} ".tr('search_text_02')." {owner}
+	$txtLine = "".tr('search_text_01')." {mod_suffix}{cachename} ".tr('search_text_02')." {owner}
 ".tr('search_text_03')." {lat} {lon}
 ".tr('search_text_04')." {status}
 
@@ -213,7 +213,7 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 
 		// ok, ausgabe ...
 		
-		$rs = sql('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`pl` `size`, `cache_type`.`pl` `type`, `cache_status`.`pl` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
+		$rs = sql('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`pl` `size`, `caches`.`type` `type_id`, `cache_type`.`pl` `type`, `cache_status`.`pl` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
 		while($r = sql_fetch_array($rs))
 		{
 			$thisline = $txtLine;
@@ -230,6 +230,22 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 			$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
 			$thisline = str_replace('{cachename}', $r['name'], $thisline);
 			$thisline = str_replace('{country}', db_CountryFromShort($r['country']), $thisline);
+		
+			//modified coords
+		if ($r['type_id'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
+			if (!isset($dbc)) {$dbc = new dataBase();};	
+			$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$r['cacheid'].' AND user_id = '.$usr['userid'];
+			$dbc->simpleQuery($mod_coord_sql);
+			if ($dbc->rowCount() > 0 )
+			{
+				$thisline = str_replace('{mod_suffix}', '[F]', $thisline);
+			} else {
+				$thisline = str_replace('{mod_suffix}', '', $thisline);
+			}
+		} else {
+			$thisline = str_replace('{mod_suffix}', '', $thisline);
+		}; 		
+		
 			
 			if ($r['hint'] == '')
 				$thisline = str_replace('{hints}', '', $thisline);
@@ -312,6 +328,7 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 			ob_flush();
 		}
 		mysql_free_result($rs);
+		unset($dbc);
 		sql('DROP TABLE `txtcontent` ');		
 		if ($sqldebug == true) sqldbg_end();
 		
