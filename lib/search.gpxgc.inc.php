@@ -177,8 +177,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $gpxGeocacheTypeText[7] = 'Quiz';
         $gpxGeocacheTypeText[8] = 'Moving Cache';
         $gpxGeocacheTypeText[9] = 'Podcast cache';
-
-       
+	
         $gpxLogType[0] = 'Write note';                  //OC: Other
         $gpxLogType[1] = 'Found it';                    //OC: Found
         $gpxLogType[2] = 'Didn\'t find it';             //OC: Not Found
@@ -194,44 +193,108 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $gpxLogType[12] = 'Post Reviewer Note';                         //OC: Note
        
         if( $usr || !$hide_coords )
-                {
+        {
+			// 1st set of attributes - attributes that correlate to GC attributes
+			$gpxAttribID[12] = '22';
+			$gpxAttribName[12] = 'Hunting grounds';
+			$gpxAttribID[13] = '39';
+			$gpxAttribName[13] = 'Thorn';
+			$gpxAttribID[14] = '19';
+			$gpxAttribName[14] = 'Ticks';
+			$gpxAttribID[18] = '25';
+			$gpxAttribName[18] = 'Parking available';
+			$gpxAttribID[25] = '57';
+			$gpxAttribName[25] = 'Long hike';
+			$gpxAttribID[30] = '8';
+			$gpxAttribName[30] = 'Point of interest';
+			$gpxAttribID[40] = '53';
+			$gpxAttribName[40] = 'One-minute cache';
+			$gpxAttribID[44] = '24';
+			$gpxAttribName[44] = 'Wheelchair accessible';
+			$gpxAttribID[52] = '60';
+			$gpxAttribName[52] = 'Beacon - Garmin chirp';
+			$gpxAttribID[59] = '6';
+			$gpxAttribName[59] = 'Kid friendly';
+			$gpxAttribID[82] = '44';
+			$gpxAttribName[82] = 'Flashlight required';
+			$gpxAttribID[83] = '51';
+			$gpxAttribName[83] = 'Special tool required';
+			$gpxAttribID[85] = '32';
+			$gpxAttribName[85] = 'Bikes allowed';
+			
+			// 2nd set of attributes - OC only attributes, changed ID (+100) to be save in oc-gc-mixed environments
+			//$gpxAttribID[6] = '106';
+			//$gpxAttribName[6] = 'Only loggable at Opencaching';
+			//$gpxAttribID[43] = '143';
+			//$gpxAttribName[43] = 'GeoHotel';
+			//$gpxAttribID[47] = '147';
+			//$gpxAttribName[47] = 'Compass';
+			
+			//prepare the output
+			$caches_per_page = 20;
+			
+			$sql = 'SELECT '; 
+			
+			if (isset($lat_rad) && isset($lon_rad))
+			{
+				//	$sql .= getSqlDistanceFormula($lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+				$sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+			}
+			else
+			{
+				if ($usr === false)
+				{
+					$sql .= '0 distance, ';
+				}
+				else
+				{
+					//get the users home coords
+					$rs_coords = sql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
+					$record_coords = sql_fetch_array($rs_coords);
+					
+					if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0)))
+					{
+						$sql .= '0 distance, ';
+					}
+					else
+					{
+						//TODO: load from the users-profile
+						$distance_unit = 'km';
 
-	// 1st set of attributes - attributes that correlate to GC attributes
+						//$sql .= getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+						$sql .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+					}
+					mysql_free_result($rs_coords);
+				}
+			}
+			$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`wp_oc` `cache_wp`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id` ,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings`,';
+			if ($usr === false) 
+			{
+				$sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude` FROM `caches` ';
+			}
+			else 
+			{
+				$sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, `caches`.`latitude`) `latitude`
+				FROM `caches`
+				LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'];
+			}
+			$sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+			
+			$sortby = $options['sort'];
+			if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
+			{
+				$sql .= ' ORDER BY distance ASC';
+			}
+			else if ($sortby == 'bycreated')
+			{
+				$sql .= ' ORDER BY date_created DESC';
+			}
+			else // by name
+			{
+				$sql .= ' ORDER BY name ASC';
+			}
 
-		$gpxAttribID[12] = '22';
-		$gpxAttribName[12] = 'Hunting grounds';
-		$gpxAttribID[13] = '39';
-		$gpxAttribName[13] = 'Thorn';
-		$gpxAttribID[14] = '19';
-		$gpxAttribName[14] = 'Ticks';
-		$gpxAttribID[18] = '25';
-		$gpxAttribName[18] = 'Parking available';
-		$gpxAttribID[25] = '57';
-		$gpxAttribName[25] = 'Long hike';
-		$gpxAttribID[30] = '8';
-		$gpxAttribName[30] = 'Point of interest';
-		$gpxAttribID[40] = '53';
-		$gpxAttribName[40] = 'One-minute cache';
-		$gpxAttribID[44] = '24';
-		$gpxAttribName[44] = 'Wheelchair accessible';
-		$gpxAttribID[52] = '60';
-		$gpxAttribName[52] = 'Beacon - Garmin chirp';
-		$gpxAttribID[59] = '6';
-		$gpxAttribName[59] = 'Kid friendly';
-		$gpxAttribID[82] = '44';
-		$gpxAttribName[82] = 'Flashlight required';
-		$gpxAttribID[83] = '51';
-		$gpxAttribName[83] = 'Special tool required';
-		$gpxAttribID[85] = '32';
-		$gpxAttribName[85] = 'Bikes allowed';
-
-	// 2nd set of attributes - OC only attributes, changed ID (+100) to be save in oc-gc-mixed environments
-		//$gpxAttribID[6] = '106';
-		//$gpxAttribName[6] = 'Only loggable at Opencaching';
-		//$gpxAttribID[43] = '143';
-		//$gpxAttribName[43] = 'GeoHotel';
-		//$gpxAttribID[47] = '147';
-		//$gpxAttribName[47] = 'Compass';
+	
 
 
                 //prepare the output
@@ -272,8 +335,10 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                 mysql_free_result($rs_coords);
                         }
                 }
-                $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`wp_oc` `cache_wp`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`user_id` `user_id` ,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings`
+                $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`wp_oc` `cache_wp`, `caches`.`status` `status`, `caches`.`type` `type`, IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, `caches`.`latitude`) `latitude`, `caches`.`user_id` `user_id` ,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings`
+										
                                         FROM `caches`
+										LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'].'
                                         WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
                
                 $sortby = $options['sort'];

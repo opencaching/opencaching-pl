@@ -72,9 +72,20 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 													mysql_free_result($rs_coords);
 									}
 					}
-					$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`user_id` `user_id`
-																	FROM `caches`
-																	WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+					$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, 
+						`caches`.`user_id` `user_id`, ';
+					if ($usr === false) 
+					{
+						$sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude` FROM `caches` ';
+					}
+					else 
+					{
+						$sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, 
+							`caches`.`latitude`) `latitude` FROM `caches`
+						LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' 
+							. $usr['userid'];						
+					}
+					$sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
 
 					$sortby = $options['sort'];
 					if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
@@ -112,6 +123,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 		sql('DROP TEMPORARY TABLE IF EXISTS `zipcontent`');
 					// temporäre tabelle erstellen
 					sql('CREATE TEMPORARY TABLE `zipcontent` ' . $sql . $sqlLimit);
+					echo $sql;
 					$rsCount = sql('SELECT COUNT(*) `count` FROM `zipcontent`');
 					$rCount = sql_fetch_array($rsCount);
 					mysql_free_result($rsCount);

@@ -49,7 +49,7 @@
 	
 	if (isset($lat_rad) && isset($lon_rad))
 	{
-		$sql .= getSqlDistanceFormula($lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+		$sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
 	}
 	else
 	{
@@ -72,15 +72,12 @@
 				//TODO: load from the users-profile
 				$distance_unit = 'km';
 
-				$sql .= getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+				$sql .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
 			}
 			mysql_free_result($rs_coords);
 		}
-	}
-	$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`user_id` `user_id`
-				FROM `caches`
-				WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
-	
+	}	
+	$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, 		`caches`.`user_id` `user_id`, ';	if ($usr === false) 	{		$sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude` FROM `caches` ';	}	else 	{		$sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, 			`caches`.`latitude`) `latitude` FROM `caches`		LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' 			. $usr['userid'];							}	$sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';					
 	$sortby = $options['sort'];
 	if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
 	{

@@ -65,7 +65,7 @@
 
 	if (isset($lat_rad) && isset($lon_rad))
 	{
-		$sql .= getSqlDistanceFormula($lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+		$sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
 	}
 	else
 	{
@@ -89,24 +89,35 @@
 				$distance_unit = 'km';
 
 				$lon_rad = $record_coords['longitude'] * 3.14159 / 180;   
-        $lat_rad = $record_coords['latitude'] * 3.14159 / 180; 
+				$lat_rad = $record_coords['latitude'] * 3.14159 / 180; 
 
-				$sql .= getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+				$sql .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
 			}
 			mysql_free_result($rs_coords);
 		}
 	}
-	$sql .= '	`caches`.`name` `name`, `caches`.`status` `status`, `caches`.`wp_oc` `wp_oc`,`caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`,
+	$sql .= '	`caches`.`name` `name`, `caches`.`status` `status`, `caches`.`wp_oc` `wp_oc`,
 				`caches`.`difficulty` `difficulty`, `caches`.`terrain` `terrain`, `caches`.`desc_languages` `desc_languages`,
 				`caches`.`date_created` `date_created`, `caches`.`type` `type`, `caches`.`cache_id` `cache_id`,
 				`user`.`username` `username`, `user`.`user_id` `user_id`,
 				`cache_type`.`icon_large` `icon_large`,
-				`caches`.`founds` `founds`, `caches`.`topratings` `toprating`
-				FROM `caches`, `user`, `cache_type`
-				WHERE `caches`.`user_id`=`user`.`user_id`
-				AND `caches`.`cache_id` IN (' . $sqlFilter . ')
-				AND `cache_type`.`id`=`caches`.`type`
-				';
+				`caches`.`founds` `founds`, `caches`.`topratings` `toprating`, ';
+	if ($usr === false)
+	{
+		$sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`
+				FROM `caches`, ';
+	}
+	else 
+	{
+		$sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, 
+							`caches`.`latitude`) `latitude` FROM `caches`
+						LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' 
+							. $usr['userid'] . ', ';
+	}
+	$sql .= ' `user`, `cache_type`
+		WHERE `caches`.`user_id`=`user`.`user_id`
+		AND `caches`.`cache_id` IN (' . $sqlFilter . ')
+		AND `cache_type`.`id`=`caches`.`type` ';
 	$sortby = $options['sort'];
 	if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
 	{
@@ -127,7 +138,6 @@
 	if (!is_numeric($caches_per_page)) $caches_per_page = 20;
 	$startat = floor($startat / $caches_per_page) * $caches_per_page;
 	$sql .= ' LIMIT ' . $startat . ', ' . $caches_per_page;
-
 	$rs_caches = sql($sql, $sqldebug);
 
 	for ($i = 0; $i < mysql_num_rows($rs_caches); $i++)
