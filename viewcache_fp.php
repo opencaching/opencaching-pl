@@ -47,7 +47,7 @@
 
 		require_once($rootpath . 'lib/caches.inc.php');
 		require_once($stylepath . '/lib/icons.inc.php');
-		require($stylepath . '/viewcache.inc.php');
+		require($stylepath . '/viewcache_fp.inc.php');
 		require($stylepath . '/viewlogs.inc.php');
 		require($stylepath.'/smilies.inc.php');
 
@@ -819,7 +819,7 @@
 			list($lon_dir, $lon_h, $lon_min) = help_lonToArray($cache_record['longitude']);
 
 			$tpl_subtitle = htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8') . ' - ';
-			$map_msg = mb_ereg_replace("{target}", urlencode("viewcache.php?cacheid=".$cache_id), tr('map_msg'));
+			$map_msg = mb_ereg_replace("{target}", urlencode("viewcache_fp.php?cacheid=".$cache_id), tr('map_msg'));
 
 			tpl_set_var('googlemap_key', $googlemap_key);
 			tpl_set_var('map_msg', $map_msg);
@@ -1046,7 +1046,7 @@
 					//remove 
 					sql("DELETE FROM `cache_notes` WHERE `note_id`='&1'", $note_id);
 				//display cache-page
-				tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id));
+				tpl_redirect('viewcache_fp.php?cacheid=' . urlencode($cache_id));
 				exit;
 					
 				}
@@ -1082,7 +1082,7 @@
 					}
 				
 				//display cache-page
-				tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id).'#cache_note2');
+				tpl_redirect('viewcache_fp.php?cacheid=' . urlencode($cache_id).'#cache_note2');
 				exit;
 				}	
 				
@@ -1176,7 +1176,7 @@ if (($usr['admin']==1))
 					} else {
 						$showhidedel_link = $show_del_link;
 	 				}			
-			$showhidedel_link = str_replace('{thispage}', 'viewcache.php', $showhidedel_link); //$show_del_link is defined in viecache.inc.php - for both viewlogs and viewcashes .php	
+			$showhidedel_link = str_replace('{thispage}', 'viewcache_fp.php', $showhidedel_link); //$show_del_link is defined in viecache.inc.php - for both viewlogs and viewcashes .php	
 			}
 		
 	};
@@ -1261,7 +1261,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 			{
 				if ($langlist != '') $langlist .= ', ';
 
-				$langlist .= '<a href="viewcache.php?cacheid=' . urlencode($cache_id) . '&amp;desclang=' . urlencode($desclanguage) . $linkargs .'">';
+				$langlist .= '<a href="viewcache_fp.php?cacheid=' . urlencode($cache_id) . '&amp;desclang=' . urlencode($desclanguage) . $linkargs .'">';
 				if ($desclanguage == $desclang)
 				{
 					$langlist .= '<i>' . htmlspecialchars($desclanguage, ENT_COMPAT, 'UTF-8') . '</i>';
@@ -1520,7 +1520,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				if( $desc_record['rr_comment'] == "" )
 					tpl_set_var('remove_rr_comment', '');
 				else
-					tpl_set_var('remove_rr_comment', '[<a href="viewcache.php?cacheid='.$cache_id.'&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">'.tr('remove_rr_comment').'</a>]');
+					tpl_set_var('remove_rr_comment', '[<a href="viewcache_fp.php?cacheid='.$cache_id.'&amp;removerrcomment=1" onclick="return confirm(\'Czy usunąć wszystkie adnotacje?\');">'.tr('remove_rr_comment').'</a>]');
 
 			}
 			else
@@ -1727,7 +1727,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 		
 			$thisdateformat = "%d %B %Y";
 			$thisdatetimeformat = "%d %B %Y %H:%m";
-//START: same code ->viewlogs.php / viewcache.php
+//START: same code ->viewlogs.php / viewcache_fp.php
 			$edit_count_date_from = date_create('2005-01-01 00:00');
 			$logs_count = $dbc->rowCount();
 			//$logs_count = mysql_num_rows($rs);
@@ -1828,7 +1828,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				
 				$tmplog_text =  $processed_text.$edit_footer;
 				$tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
-//END: same code ->viewlogs.php / viewcache.php				
+//END: same code ->viewlogs.php / viewcache_fp.php				
 //END: edit by FelixP - 2013'10
 				$tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
 				$tmplog_date = fixPlMonth(htmlspecialchars(strftime("%d %B %Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
@@ -2004,13 +2004,13 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				if (mysql_num_rows($rs) == 0)
 				{
 					$watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch);
-					$is_watched = 'watchcache.php?cacheid='.$cache_id.'&amp;target=viewcache.php%3Fcacheid='.$cache_id;
+					$is_watched = 'watchcache.php?cacheid='.$cache_id.'&amp;target=viewcache_fp.php%3Fcacheid='.$cache_id;
 					$watch_label = tr('watch');
 				}
 				else
 				{
 					$watch_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_watch_not);
-					$is_watched = 'removewatch.php?cacheid='.$cache_id.'&amp;target=viewcache.php%3Fcacheid='.$cache_id;
+					$is_watched = 'removewatch.php?cacheid='.$cache_id.'&amp;target=viewcache_fp.php%3Fcacheid='.$cache_id;
 					$watch_label = tr('watch_not');
 				}
 				//is this cache ignored by this user?
@@ -2018,14 +2018,14 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				if (mysql_num_rows($rs) == 0)
 				{
 					$ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore);
-					$is_ignored = "addignore.php?cacheid=".$cache_id."&amp;target=viewcache.php%3Fcacheid%3D".$cache_id;
+					$is_ignored = "addignore.php?cacheid=".$cache_id."&amp;target=viewcache_fp.php%3Fcacheid%3D".$cache_id;
 					$ignore_label = tr('ignore');
 					$ignore_icon = 'images/actions/ignore';
 				}
 				else
 				{
 					$ignore_action = mb_ereg_replace('{cacheid}', urlencode($cache_id), $function_ignore_not);
-					$is_ignored = "removeignore.php?cacheid=".$cache_id."&amp;target=viewcache.php%3Fcacheid%3D".$cache_id;
+					$is_ignored = "removeignore.php?cacheid=".$cache_id."&amp;target=viewcache_fp.php%3Fcacheid%3D".$cache_id;
 					$ignore_label = tr('ignore_not');
 					$ignore_icon = 'images/actions/ignore';
 				}
@@ -2052,14 +2052,14 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 					
 					if( onTheList($sesPrintList, $cache_id)==-1 )
 					{
-						$print_list = "viewcache.php?cacheid=$cache_id&amp;print_list=y";
+						$print_list = "viewcache_fp.php?cacheid=$cache_id&amp;print_list=y";
 						$print_list_label = $addToPrintList;
 						$print_list_icon = 'images/actions/list-add';
 					}
 
 				else
 				{
-					$print_list = "viewcache.php?cacheid=$cache_id&amp;print_list=n";
+					$print_list = "viewcache_fp.php?cacheid=$cache_id&amp;print_list=n";
 					$print_list_label = $removeFromPrintList;
 					$print_list_icon = 'images/actions/list-remove';
 				}
@@ -2071,7 +2071,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 					'siteid' => 'cachelisting',
 					'navicolor' => '#E8DDE4',
 					'visible' => false,
-					'filename' => 'viewcache.php',
+					'filename' => 'viewcache_fp.php',
 					'submenu' => array(
 						array(
 							'title' => tr('new_log_entry'),
@@ -2146,7 +2146,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 					'siteid' => 'cachelisting',
 					'navicolor' => '#E8DDE4',
 					'visible' => false,
-					'filename' => 'viewcache.php',
+					'filename' => 'viewcache_fp.php',
 					'submenu' => array(),
 				);
 			}

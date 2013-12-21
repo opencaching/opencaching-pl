@@ -295,7 +295,7 @@ else
 </p></div>
 <p>
 {{coordsmod_main}}<br/> 
-<form action="viewcache.php?cacheid={cacheid}" method="post" name="form_coords_mod">
+<form action="viewcache_fp.php?cacheid={cacheid}" method="post" name="form_coords_mod">
 <fieldset style="border: 1px solid black; width: 200px; background-color: #FAFBDF; margin-left: 50px;">
 			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
 			<select name="coordmod_latNS" class="input40">
@@ -333,7 +333,7 @@ else
         </div>
 
         <div class="content2-container">
-<form action="viewcache.php" method="post" name="cache_note">
+<form action="viewcache_fp.php" method="post" name="cache_note">
 <input type="hidden" name="cacheid" value="{cacheid}" />
 
   <table id="cache_note1" class="table">
@@ -366,7 +366,7 @@ else
         </div>
 
         <div class="content2-container">
-<form action="viewcache.php?cacheid={cacheid}#cache_note1" method="post" name="cache_note">
+<form action="viewcache_fp.php?cacheid={cacheid}#cache_note1" method="post" name="cache_note">
 <input type="hidden" name="cacheid" value="{cacheid}" />
 
   <table id="cache_note2" class="table">
