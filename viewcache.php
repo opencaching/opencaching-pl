@@ -375,7 +375,7 @@
 				  		foreach ($geokret['errors'] as $errorGK) {
 				  			if ($errorGK['error'] == '') $GeokretyWindowContent .= ' - ' . tr('GKApi20');
 				  			else {
-				  				$GeokretyWindowContent .= '  - ' . tr('GKApi21') .': '. tr($errorGK['error']);
+				  				$GeokretyWindowContent .= '  - ' . tr('GKApi21') .': '. tr('GKApi22');
 				  				$geoKretErrorInfoDisplay = true;
 							}
 				  		}
