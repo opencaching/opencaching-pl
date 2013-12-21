@@ -2090,4 +2090,15 @@ newsletter_removal Jeśli nie chcesz więcej otrzymywać biuletynów informacyjn
 PrevVersion Poprzednia wersja znajduje się na stronie: Statystyki (na samym końcu)
 my_position Moja pozycja
 go Idź 
-Filter Filtruj
+Filter Filtruj 
+coords_modifier Modyfikator współrzędnych
+coordsmod_main Wprowadź własne współrzędne dla skrzynki
+coordsmod_lon Długość geograficzna
+coordsmod_lat Szerokość geograficzna
+modify_coords Modyfikuj współrzędne
+reset_coords Przywróć oryginalne 
+orig_coord_modified_info Wprowadziłe(a)ś własne współrzędne - współrzędne oryginalne to: 
+modified_coord_notice Zmodyfikowane współrzędne będo eksportowane do plików, np. gpx, kml.
+srch_Coord_have_been_modified Współrzędne zmodyfikowane 
+srch_Recommended Rekomendowana 
+srch_Send_to_GPS Wyślij do GPS
