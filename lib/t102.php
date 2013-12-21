@@ -9,12 +9,15 @@
 
 	var gct = new GCT( 'idGTC' );
 
-	gct.addColumn('number', '".tr('ranking')."', 'width:60px; text-align: left;');
-	gct.addColumn('number', '".tr('caches')."', 'width:60px; text-align: left;');
-	gct.addColumn('string', '".tr('user')."' );
+	gct.addColumn('number', '".tr('ranking')."', 'width:50px; text-align: left;');
+	gct.addColumn('number', '".tr('caches')."', 'width:50px; text-align: left;');
+	gct.addColumn('string', '".tr('user')."', 'width:50px; text-align: left;' ); 
+ 	gct.addColumn('string', '".tr('descriptions')."' );
  		
  	gct.addColumn('string', 'UserName' );
-
+ 		
+ 	
+	gct.hideColumns( [4] );
  
  	//gct.addTblOption( 'pageSize', 100 );
  	//gct.addTblOption( 'showRowNumber', true );
@@ -73,8 +76,8 @@ if ( $nIsCondition )
 $dbc = new dataBase();
 
 $query = 
-		"SELECT COUNT(*) count, u.username username, u.user_id user_id, 
-		u.date_created date_created, u.description description
+		"SELECT COUNT(*) count, u.username username, UPPER(u.username) UUN, u.user_id user_id, 
+		DATE(u.date_created) date_created, u.description description
 		
 		FROM 
 		cache_logs cl
@@ -122,11 +125,14 @@ while ( $record = $dbc->dbResultFetch() )
 		$sOpis = "Niestety, brak opisu <img src=lib/tinymce/plugins/emotions/images/smiley-surprised.gif />";
 	
 	
-	$sProfil = "<b>Zarejestrowany od:</b> ".$record[ "date_created" ]
-		 ." <br><b>Opis: </b> ".$sOpis;
+	$sProfil = "<b>Zarejestrowany od:</b> ".$record[ "date_created" ];
+		
 
 	$nCount = $record[ "count" ];
-	$sUN = $record[ "username" ];
+	$sUUN = $record[ "UUN" ];
+	$sDateCr = $record[ "date_created" ];
+	
+	
 	$sUsername = '<a href="viewprofile.php?userid='.$record["user_id"].'" onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</a>';
 
 	
@@ -143,14 +149,15 @@ while ( $record = $dbc->dbResultFetch() )
 			gct.addToLastRow( 0, $nRanking );
 			gct.addToLastRow( 1, $nCount );
 			gct.addToLastRow( 2, '$sUsername' );
-			gct.addToLastRow( 3, '$sUN' );
+			gct.addToLastRow( 3, '$sOpis' );
+			gct.addToLastRow( 4, '$sUUN' );
 		";
 	
 	if ( $usr['userid'] == $record[ 'user_id'] )
 	{
 		$nMyRanking = $nRanking;
-		$nMyRealPos = $nPos;
-		echo " gct.addToLastRow( 3, '<span style=\"color:red\">$sUN</span>' );";
+		$nMyRealPos = $nPos-1;
+		//echo " gct.addToLastRow( 3, '<span style=\"color:red\">$sUUN</span>' );";
 	} 
 
 	 
@@ -165,6 +172,8 @@ while ( $record = $dbc->dbResultFetch() )
 
 //echo "alert( '$nMyRanking' ); ";
 
+
+//echo "gct.hideColumns( [3] );";
 echo "gct.drawTable();";
 //echo "document.filtrDat.Ranking.value = '".$nMyRanking."';";
 

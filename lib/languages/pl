@@ -2083,8 +2083,11 @@ mylist_04 Usuń wszystkie
 mylist_05 Pobierz dane skrzynek ze schowka
 cookiesInfo Używamy cookies, dzięki którym nasz serwis może działać lepiej. Przeczytaj o prywatności i ochronie danych w naszym <a href ="{rules_url}">Regulaminie</a>. <br> Do końca roku 2013 będą zapisywane cookies GA, które pozwolą określić obciążenie naszego serwera
 FiltrYear Rok
-FiltrMonth Miesiąc 
+FiltrMonth Miesiąc
 StatTestVer <span style="color: red" >Uwaga wersja testowa!!! Proszę o zgłaszanie konstruktywnych uwag na forum w temacie: <a href="http://forum.opencaching.pl/viewtopic.php?f=9&t=7734">Statystyki</a></span>
 newsletter Biuletyn Informacyjny 
 newsletter_removal Jeśli nie chcesz więcej otrzymywać biuletynów informacyjnych z naszego serwisu, zmień ustawienia konta na
 PrevVersion Poprzednia wersja znajduje się na stronie: Statystyki (na samym końcu)
+my_position Moja pozycja
+go Idź 
+Filter Filtruj
