@@ -11,15 +11,16 @@
  * @author Andrzej Łza Woźniak
  *
  */
-global $debug_page;
 
 class dataBase
 {
 	/**
 	 * set this value to true to print all variables to screen.
 	 * set to false to hide (switch off) all printed debug.
+	 * 
+	 * JG 2013-10-20
 	 */
-	private $debug;  //JG 2013-10-20
+	private $debug;
 
 	/**
 	 * database link setup
@@ -36,6 +37,8 @@ class dataBase
 	 */
 	private $dbData = null;
 	private $lastInsertId;
+	private $errorEmail;
+	private $replyToEmail;
 
 	function __construct($debug = false) {
 	 	include __DIR__.'/settings.inc.php';
@@ -44,10 +47,9 @@ class dataBase
 	 	$this->username = $opt['db']['username'];
 	 	$this->password = $opt['db']['password'];
 	 	
-		// print_r($opt); exit;
-		
-	 	//JG 2013-10-20
 	 	$this->debug = $debug_page;
+		$this->errorEmail[] = $mail_rt;
+		$this->replyToEmail = $mail_rt;
 	 		 	
 	 	// turn on debug to screen
 	 	if ($debug === true) {
@@ -128,7 +130,7 @@ class dataBase
 			$this->dbData  -> setFetchMode(PDO::FETCH_ASSOC);
 			$this->dbData  -> execute();
 		} catch (PDOException $e) {
-			$message = $this->errorMessage( __line__, $e, $query, "");
+			$message = $this->errorMessage( __line__, $e, $query, array());
 			if ($this->debug) {
 				print $message;
 			} else {
@@ -279,6 +281,8 @@ class dataBase
 	 * )
 	 */
 	public function multiVariableQuery($query) {
+		$numargs = func_num_args();
+		$arg_list = func_get_args();
 		try {
 			$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
 			if ( $this->debug )
@@ -288,23 +292,18 @@ class dataBase
 			$dbh -> query ("SET NAMES utf8");
 			$dbh -> query ("SET CHARACTER SET utf8");
 			$dbh -> query ("SET collation_connection = utf8_unicode_ci" );
-			
 			$this->dbData  = $dbh->prepare($query);
 
-			$numargs = func_num_args();
-			$arg_list = func_get_args();
 			for ($i = 1; $i < $numargs; $i++) {
-			//	if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
-				
-				$this->dbData->	bindParam(':'.$i,$arg_list[$i]);
-				//$dbh->bindParam(':'.$i,$arg_list[$i]);
+				// if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
+				$this->dbData->bindParam(':'.$i,$arg_list[$i]);
 			}
 
 			$this->dbData ->setFetchMode(PDO::FETCH_ASSOC);
 			$this->dbData ->execute();
 			$this->lastInsertId = $dbh->lastInsertId();
 		} catch (PDOException $e) {
-			$message = $this->errorMessage( __line__, $e, $query, print_r($arg_list, true) );
+			$message = $this->errorMessage( __line__, $e, $query, $arg_list);
 			
 			if ($this->debug) {
 				print $message;
@@ -322,25 +321,26 @@ class dataBase
 		return true;
 	}
 	
-	private function errorMail($message) {
-	
+	private function errorMail($message, $topic=null) {
 		$headers = 	'From: dataBase class' . "\r\n" .
-					'Reply-To: rt@opencaching.pl' . "\r\n" .
-					'X-Mailer: PHP/' . phpversion();
-		
+					'Reply-To: '.$this->replyToEmail . "\r\n" .
+					'X-Mailer: PHP/' . phpversion().
+					'MIME-Version: 1.0' . "\r\n" .
+					'Content-type: text/html; charset=utf-8' . "\r\n";
 		
 		if(!isset($topic)) $topic = 'Database error caught in db.php';
-		mail('rt@opencaching.pl', $topic, $message, $headers);
+		foreach ($this->errorEmail as $email) {
+			mail($email, $topic, $message, $headers);
+		}
 	}
 
 	
-	private function errorMessage( $line, $e, $query, $params )
-	{
-	$message = 'db.php, line: ' . $line .', <p class="errormsg"> PDO error: ' . $e .'</p><br />
+	private function errorMessage( $line, $e, $query, $params ) {
+		$message = 'db.php, line: ' . $line .', <p class="errormsg"> PDO error: ' . $e .'</p><br />
 					Database Query: '.$query.'<br>
-							Parametres array: '.
-								print_r($params, true).
-								'<br><br>';
+					Parametres array: <pre>'.
+					print_r($params, true).
+					'</pre><br><br>';
 	
 		return $message;
 	}
