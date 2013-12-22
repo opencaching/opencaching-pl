@@ -375,7 +375,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 			$dbc->simpleQuery($mod_coord_sql);
 			if ($dbc->rowCount() > 0 )
 			{
-				$thisline = str_replace('{mod_suffix}', '[F]', $thisline);
+				$thisline = str_replace('{mod_suffix}', '(F)', $thisline);
 			} else {
 				$thisline = str_replace('{mod_suffix}', '', $thisline);
 			}
