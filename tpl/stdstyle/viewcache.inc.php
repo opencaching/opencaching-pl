@@ -111,6 +111,8 @@ $decrypt_table =' <font face="Courier" size="2" style="font-family : \'Courier N
                                                 <font face="Courier" size="2" style="font-family : \'Courier New\', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font>';
 												
 $spoiler_disable_msg = tr('vc_spoiler_disable_msg');
+
+$error_coords_not_ok = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">'.tr('bad_coordinates').'</span>';
 												
 // MP3 Files table
 function viewcache_getmp3table($cacheid, $mp3count)
