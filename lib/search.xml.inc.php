@@ -1,4 +1,5 @@
-<?php
+<?php
+
 	/***************************************************************************
 		*                                         				                                
 		*   This program is free software; you can redistribute it and/or modify  	
@@ -20,7 +21,7 @@
 	$encoding = 'UTF-8';
 
 	$xmlLine = "	<cache>
-		<name><![CDATA[{cachename}]]></name>
+		<name><![CDATA[{mod_suffix}{cachename}]]></name>
 		<owner><![CDATA[{owner}]]></owner>
 		<id>{cacheid}</id>
 		<waypoint>{waypoint}</waypoint>
@@ -76,8 +77,23 @@
 			}
 			mysql_free_result($rs_coords);
 		}
-	}	
-	$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, 		`caches`.`user_id` `user_id`, ';	if ($usr === false) 	{		$sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude` FROM `caches` ';	}	else 	{		$sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, 			`caches`.`latitude`) `latitude` FROM `caches`		LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' 			. $usr['userid'];							}	$sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';					
+	}
+	
+	$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, 
+		`caches`.`user_id` `user_id`, ';
+	if ($usr === false) 
+	{
+		$sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude` FROM `caches` ';
+	}
+	else 
+	{
+		$sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, 
+			`caches`.`latitude`) `latitude` FROM `caches`
+		LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' 
+			. $usr['userid'];						
+	}
+	$sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+					
 	$sortby = $options['sort'];
 	if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
 	{
@@ -134,7 +150,7 @@
 
 	// ok, ausgabe ...
 	
-	$rs = sql('SELECT `xmlcontent`.`cache_id` `cacheid`, `xmlcontent`.`longitude` `longitude`, `xmlcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`'.$lang.'` `size`, `cache_type`.`'.$lang.'` `type`, `cache_status`.`'.$lang.'` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `xmlcontent`.`distance` `distance` FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size` WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `xmlcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
+	$rs = sql('SELECT `xmlcontent`.`cache_id` `cacheid`, `xmlcontent`.`longitude` `longitude`, `xmlcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`type` `type_id`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`'.$lang.'` `size`, `cache_type`.`'.$lang.'` `type`, `cache_status`.`'.$lang.'` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `xmlcontent`.`distance` `distance` FROM `xmlcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size` WHERE `xmlcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `xmlcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
 	while($r = sql_fetch_array($rs))
 	{
 		$thisline = $xmlLine;
@@ -149,6 +165,23 @@
 		$thisline = str_replace('{time}', $time, $thisline);
 		$thisline = str_replace('{waypoint}', $r['waypoint'], $thisline);
 		$thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
+		
+			//modified coords
+		if ($r['type_id'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
+			if (!isset($dbc)) {$dbc = new dataBase();};	
+			$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$r['cacheid'].' AND user_id = '.$usr['userid'];
+			$dbc->simpleQuery($mod_coord_sql);
+			if ($dbc->rowCount() > 0 )
+			{
+				$thisline = str_replace('{mod_suffix}', '(F)', $thisline);
+			} else {
+				$thisline = str_replace('{mod_suffix}', '', $thisline);
+			}
+		} else {
+			$thisline = str_replace('{mod_suffix}', '', $thisline);
+		}; 				
+		
+		
 		$thisline = str_replace('{cachename}', filterevilchars($r['name']), $thisline);
 		$thisline = str_replace('{country}', db_CountryFromShort($r['country']), $thisline);
 		
@@ -208,6 +241,7 @@
 		echo $thisline;
 	}
 	mysql_free_result($rs);
+	unset($dbc);
 	sql('DROP TABLE `xmlcontent` ');	
 	if ($sqldebug == true) sqldbg_end();
 	echo "</result>\n";
