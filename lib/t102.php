@@ -113,7 +113,7 @@ gct.addToLastRow( 4, 'Św. Mikołaj, Santa Clause' );
 ";
 
 
-$nRanking = 0;
+//$nRanking = 0;
 $sOpis = "";
 $nOldCount = -1;
 $nPos = 0;
