@@ -4,16 +4,25 @@
 	Using (for example) in STATS		
 */
 
+.GCT-background-color-white { background-color: #ffffff; }
+.GCT-background-color-whiteB { background-color:#FBFBFB; }
+.GCT-background-color-white6 { background-color:#F6F6F6 }
+.GCT-background-color-grey { background-color: #efefef; }
+.GCT-background-color-grey25 { background-color: #DDDDDD; }
 
-.GCTrow-color { background-color: #efefef; }
-.GCToddRow-color { background-color: #ffffff; }
-.GCTtext-color { color: #777777; }	
-.GCTborder-color {}
-.GCTheader-color {background-color: white; color: rgb(88,144,168);  }
-.GCThoverText-color { color: #000000; }
-.GCTselectedRow-color{ background-color: #dddddd; }
-.GCTrowNumber-color{}
+.GCT-border-color-grey{ border: 1px solid #efefef ;}
+.GCT-border-color-black{ border: 1px solid #000000 ; }
+
+.GCT-color-black{ color: #000000; }
+.GCT-color-grey50{ color: #777777; }
+.GCT-color-blueOC{ color: rgb(88,144,168); }
+.GCT-color-darkred{ color: #AA0000;  }
+.GCT-color-none {}
+
+.GCT-font-bold{font-weight: bold}
+
 
 .GCTalign-left{ text-align: left; }
 .GCTalign-center{ text-align: center; }
-.GCTalign-right{ text-align: right; } 
+.GCTalign-right{ text-align: right; }
+

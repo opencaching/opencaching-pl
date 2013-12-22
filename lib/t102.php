@@ -9,23 +9,14 @@
 
 	var gct = new GCT( 'idGTC' );
 
-	gct.addColumn('number', '".tr('ranking')."', 'width:50px; text-align: left;');
-	gct.addColumn('number', '".tr('caches')."', 'width:50px; text-align: left;');
-	gct.addColumn('string', '".tr('user')."', 'width:50px; text-align: left;' ); 
- 	gct.addColumn('string', '".tr('descriptions')."' );
- 		
+	gct.addColumn('number', '".tr('ranking')."', 'width:30px; text-align: left; font-weight: bold; ');
+	gct.addColumn('number', '".tr('caches')."', 'width:50px; text-align: left; font-weight: bold; ');  
+	gct.addColumn('string', '".tr('user')."', 'width:50px; text-align: left; font-weight: bold; ' ); 
+ 	gct.addColumn('string', '".tr('descriptions')."', 'font-family: curier new; font-style: italic;  ');		
  	gct.addColumn('string', 'UserName' );
- 		
- 	
 	gct.hideColumns( [4] );
- 
- 	//gct.addTblOption( 'pageSize', 100 );
- 	//gct.addTblOption( 'showRowNumber', true );
- 	//gct.addTblOption( 'sortColumn', 0 );
-	
- 		 	
- 	
-</script>";
+			
+ </script>";
 
  
 
@@ -71,6 +62,18 @@ if ( $nIsCondition )
 	$sCondition = "and date >='" .$sData_od ."' and date < '".$sData_do."'";	
 }
 
+//SantaClause
+$dbc = new dataBase();
+$query = "SELECT COUNT(*) count FROM `caches` WHERE `status`=1";
+$dbc->multiVariableQuery($query);
+$record = $dbc->dbResultFetch();
+$nNrActiveCaches = $record[ "count"];
+$sUserStyle = ' style="color:green" ';
+$sProfil = 'Jest od z nami od zawsze ...';
+$sUsername = '<a Św.Mikołaj style="color:red" href="viewprofile.php?userid=59241" onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >Św. Mikołaj Santa Claus</a>';
+
+unset( $dbc );
+
 
 
 $dbc = new dataBase();
@@ -86,11 +89,7 @@ $query =
 		
 		WHERE cl.deleted=0 AND cl.type=1 "
 		
-		. $sCondition .
-
-		
-		//"GROUP BY u.user_id "; 
-		
+		. $sCondition .		
 		
 		"GROUP BY u.user_id   		
 		ORDER BY count DESC, u.username ASC";
@@ -100,12 +99,26 @@ $dbc->multiVariableQuery($query);
 
 echo "<script type='text/javascript'>";
 
+//SantaClause
+$nRanking = 0;
+$nRanking++;
+echo "
+gct.addEmptyRow();
+gct.addToLastRow( 0, 1 );
+gct.addToLastRow( 1, $nNrActiveCaches );
+gct.addToLastRow( 2, '$sUsername' );
+gct.addToLastRow( 3, 'Ho Ho ho ..., czy są tu grzeczne Keszerki i Keszerzy ???' );
+gct.addToLastRow( 4, 'Św. Mikołaj, Santa Clause' );
+";
+
+
 $nRanking = 0;
 $sOpis = "";
 $nOldCount = -1;
 $nPos = 0;
 $nMyRanking = 0;
 $nMyRealPos = 0;
+
 
 
 
@@ -122,7 +135,9 @@ while ( $record = $dbc->dbResultFetch() )
 		$sOpis = str_replace("\"", " ",$sOpis);		
 	}
 	else
-		$sOpis = "Niestety, brak opisu <img src=lib/tinymce/plugins/emotions/images/smiley-surprised.gif />";
+		$sOpis = "";
+	
+	$sOpis = "<br>".$sOpis;
 	
 	
 	$sProfil = "<b>Zarejestrowany od:</b> ".$record[ "date_created" ];
@@ -131,9 +146,14 @@ while ( $record = $dbc->dbResultFetch() )
 	$nCount = $record[ "count" ];
 	$sUUN = $record[ "UUN" ];
 	$sDateCr = $record[ "date_created" ];
-	
-	
-	$sUsername = '<a href="viewprofile.php?userid='.$record["user_id"].'" onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</a>';
+
+	if ( $nRanking <3 )
+		$sUserStyle = ' style="color:green" ';
+	else
+		$sUserStyle = '';
+	 
+	$sUsername = '<a '.$record[ "username" ].$sUserStyle.' href="viewprofile.php?userid='.$record["user_id"].'" onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</a>';
+	//$sUsername = ''.$record[ "username" ].'';
 
 	
 	if ( $nCount != $nOldCount )
@@ -158,108 +178,18 @@ while ( $record = $dbc->dbResultFetch() )
 		$nMyRanking = $nRanking;
 		$nMyRealPos = $nPos-1;
 		//echo " gct.addToLastRow( 3, '<span style=\"color:red\">$sUUN</span>' );";
-	} 
+	}
 
-	 
+
 	
-	//gct.addEmptyRow();
-	//gct.addToLastRow( 0, $nRanking );
-	//gct.addToLastRow( 1, $nCount );
-	//gct.addToLastRow( 2, '$sUsername' );
 	
-	//{v: 12500, f: '$12,500'}
 }
 
-//echo "alert( '$nMyRanking' ); ";
 
-
-//echo "gct.hideColumns( [3] );";
 echo "gct.drawTable();";
-//echo "document.filtrDat.Ranking.value = '".$nMyRanking."';";
-
-//echo "document.filtrDat.Ranking.value = '".$nMyRanking." / ".$nRanking."';";
-//echo "document.filtrDat.RealPosOfTable.value = '".$nMyRealPos."';";
 
 echo "document.Position.Ranking.value = '".$nMyRanking." / ".$nRanking."';";
 echo "document.Position.RealPosOfTable.value = '".$nMyRealPos."';";
-
-//echo "gct.getFilteredRows( [{column: 3, minValue: 'Qba', maxValue: 'Qbaz'}] );";
-
-//echo "gct.addTblOption( 'startPage', 5 );";
-//echo "gct.drawTable();";
-
 echo "</script>";
-
-
-
-
-/* Ex aequo
- * 
- * $nRanking = 0;
-$sOpis = "";
-$sLUsername = "";
-$nOldCount = -1;
-
-
-while ( $record = $dbc->dbResultFetch() )
-{	
-	if ( $record[ "description" ] <> "" )
-	{
-		$sOpis = $record[ "description" ];
-		
-		$sOpis = str_replace("\r\n", " ",$sOpis);
-		$sOpis = str_replace("\n", " ",$sOpis);
-		$sOpis = str_replace("'", "-",$sOpis);
-		$sOpis = str_replace("\"", " ",$sOpis);		
-	}
-	else
-		$sOpis = "Niestety, brak opisu <img src=lib/tinymce/plugins/emotions/images/smiley-surprised.gif />";
-	
-	
-	$sProfil = "<b>Zarejestrowany od:</b> ".$record[ "date_created" ]
-		 ." <br><b>Opis: </b> ".$sOpis;
-
-	$nCount = $record[ "count" ];
-	$sUsername = '<a href="viewprofile.php?userid='.$record["user_id"].'" onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</a>';
-	
-	if ($nOldCount == -1 )
-		$nOldCount = $nCount;
-	
-	if ( $nCount != $nOldCount )
-	{				
-		$nRanking++;
-		
-		echo "
-		gct.addEmptyRow();
-		gct.addToLastRow( 0, $nRanking );
-		gct.addToLastRow( 1, $nOldCount );
-		gct.addToLastRow( 2, '$sLUsername' );
-		";
-		
-		$sLUsername = $sUsername;				
-		$nOldCount = $nCount; 
-	}
-	else
-	{
-		if ( $sLUsername <> "" )
-			$sLUsername .= ", " ;
-		
-		$sLUsername .= $sUsername;
-	} 
-	
-}
-
-if ( $nOldCount != -1 )
-{
-	$nRanking++;
-	
-	echo "
-	gct.addEmptyRow();
-	gct.addToLastRow( 0, $nRanking );
-	gct.addToLastRow( 1, $nOldCount );
-	gct.addToLastRow( 2, '$sLUsername' );
-	";
-}
-*/
 
 ?>

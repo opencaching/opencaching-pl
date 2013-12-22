@@ -99,7 +99,7 @@ function GCTFindUser()
  <form name="FilterDate" style="display:inline; " action='articles.php' method="get">
 	<input type="hidden" value="s102" name="page" >
 	
-	<table style="border: solid 1px grey; background: #FAFAFA">
+	<table style="border-bottom: solid 1px #aaaaaa; border-right: solid 1px #aaaaaa; background: #F0F0F0">
 		<tr>
 			<td width="70px">{{FiltrYear}}: <input type="text" name="Rok" value="<?php echo $sRok?>"; style="width:30px; text-align: center"  maxlength="4"></td>			
 			<td width="80px">{{FiltrMonth}}: <input type="text" value="<?php echo $sMc?>"  name="Mc" style="width:20px; text-align: center" maxlength="2"></td>		
@@ -109,13 +109,16 @@ function GCTFindUser()
 </form>
 </td>
 <td>
-<table style="border: solid 1px grey; background: #FAFAFA">
+<table style="border-bottom: solid 1px #aaaaaa; border-right: solid 1px #aaaaaa; background: #F0F0F0">
 <tr>
 <td width="270px">
-<form name="FindUser" style="display:inline;" action="ala">
+
+</form>
+<form name="FindUser" style="display:inline;" action="" onsubmit="return false;">
 &nbsp{{user}}:&nbsp<input type="text" name="User" value=""; style="width:100px; text-align: left">
 </form>
 &nbsp&nbsp&nbsp<button  name="bFindUsr" style="font-size:12px;width:70px;"; onClick ="GCTFindUser()"  /><b>{{search}}</b></button>
+
 </td>
 </tr>
 </table>
@@ -128,10 +131,10 @@ function GCTFindUser()
 
 <td>
 
-<table style="border: solid 1px grey; background: #FAFAFA">
+<table style="border-bottom: solid 1px #aaaaaa; border-right: solid 1px #aaaaaa; background: #F0F0F0">
 <tr>
 <td width="220px">
-<form name="Position" style="display:inline;" >
+<form name="Position" style="display:inline;" action="" onsubmit="return false;" >
 <input type="hidden" value="0" name="RealPosOfTable" >
 &nbsp{{my_position}}:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" style="width:70px; text-align: center; color: black;  font-weight: bold; font-size:12px" readonly>
 </form>
@@ -146,8 +149,10 @@ function GCTFindUser()
 
 </tr>
 </table>
-<hr style="color: black">
 <br>
+<!-- <hr style="color: black"> -->
+
+
 </span>
 
 
@@ -157,5 +162,5 @@ function GCTFindUser()
 </div>
 
 <script type="text/javascript">
-TimeTrack( "END", "S12" );
+TimeTrack( "END", "S102" );
 </script>
