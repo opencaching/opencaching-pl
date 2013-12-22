@@ -71,6 +71,7 @@ $nNrActiveCaches = $record[ "count"];
 $sUserStyle = ' style="color:green" ';
 $sProfil = 'Jest od z nami od zawsze ...';
 $sUsername = '<a Św.Mikołaj style="color:red" href="viewprofile.php?userid=59241" onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >Św. Mikołaj Santa Claus</a>';
+$sWellBehaved = tr(well_behaved);
 
 unset( $dbc );
 
@@ -107,7 +108,7 @@ gct.addEmptyRow();
 gct.addToLastRow( 0, 1 );
 gct.addToLastRow( 1, $nNrActiveCaches );
 gct.addToLastRow( 2, '$sUsername' );
-gct.addToLastRow( 3, 'Ho Ho ho ..., czy są tu grzeczne Keszerki i Keszerzy ???' );
+gct.addToLastRow( 3, '$sWellBehaved' );
 gct.addToLastRow( 4, 'Św. Mikołaj, Santa Clause' );
 ";
 
