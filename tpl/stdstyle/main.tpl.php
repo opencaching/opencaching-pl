@@ -80,7 +80,7 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
     <body{bodyMod}>
     
     <?php    	
- 		echo "<script type='text/javascript'>WHSetText('".tr('cookiesInfo')."');</script>;"  
+ 		echo "<script type='text/javascript'>WHSetText('".tr('cookiesInfo')."');</script>";
 	?>
     
     
