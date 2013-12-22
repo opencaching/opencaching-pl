@@ -90,7 +90,7 @@
                                 <div class="content2-container-2col-left" id="viewcache-baseinfo">
                                         <p class="content-title-noshade-size3">
                                                 <img src="tpl/stdstyle/images/blue/kompas.png" class="icon32" alt="" title="" />
-                                                <b>{coords}</b> <span class="content-title-noshade-size0">(WGS84)</span><br />
+                                                <b>{coords}</b> <span class="content-title-noshade-size0">(WGS84){mod_cord_info}</span><br />
                                         </p>
                                         <p style="line-height: 1.6em;">
                                                 <img src="tpl/stdstyle/images/free_icons/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;{coords_other} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"><br />
@@ -283,6 +283,45 @@ else
 
 {hidehint_end}
 <!-- End Text Container -->
+
+<!-- sekcja modyfikatora współrzędnych -->
+{coordsmod_start}
+<div  class="content2-container bg-blue02">
+<a id="coords_mod">
+<p class="content-title-noshade-size1">
+<img src="tpl/stdstyle/images/blue/signature1.png" class="icon32" alt="" /></a>
+{{coords_modifier}}
+</p></div>
+<p>
+{{coordsmod_main}}<br/> 
+<form action="viewcache.php?cacheid={cacheid}" method="post" name="form_coords_mod">
+<fieldset style="border: 1px solid black; width: 200px; background-color: #FAFBDF; margin-left: 50px;">
+			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
+			<select name="coordmod_latNS" class="input40">
+				<option value="N" {N_selected}>N</option>
+				<option value="S" {S_selected}>S</option>
+			</select>
+			&nbsp;<input name="coordmod_lat_degree" type="text" maxlength="2" class="input30" value="{coordmod_lat_h}" />
+			&deg;&nbsp;<input type="text" name="coordmod_lat" value="{coordmod_lat}" maxlength="6" class="input50" />&nbsp;'&nbsp;
+			<br />
+			&nbsp;&nbsp;&nbsp;
+			<select name="coordmod_lonEW" class="input40">
+				<option value="E" {E_selected}>E</option>
+				<option value="W" {W_selected}>W</option>
+			</select>
+			&nbsp;<input name="coordmod_lon_degree" type="text" maxlength="3" value="{coordmod_lon_h}" class="input30"/>
+			&deg;&nbsp;<input type="text" name="coordmod_lon" maxlength="6" value="{coordmod_lon}" class="input50" />&nbsp;'&nbsp;
+			</fieldset>
+			{coords_message}
+</p>
+<p>
+	<input type="submit" name="modCoords" value="{{modify_coords}}" />
+	<input type="submit" name="resetCoords" value="{{reset_coords}}" />
+</p>
+</form>
+<div class="notice buffer" id="viewcache-mod_coord">{{modified_coord_notice}}</div>
+{coordsmod_end}
+<!-- koniec sekcji modyfikatora współrzędnych -->
 
 
 {EditCacheNoteS}

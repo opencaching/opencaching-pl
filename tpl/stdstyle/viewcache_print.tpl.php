@@ -30,7 +30,7 @@ document.getElementById('hideshow').style.visibility = 'visible';
 			
 
 				<div class="content-title-noshade-size1">
-					<img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/>{cachename} 
+					<img src="{icon_cache}" class="icon32" id="viewcache-cacheicon" alt="{cachetype}" title="{cachetype}"/>{mod_suffix}{cachename} 
 					<img src="tpl/stdstyle/images/free_icons/arrow_in.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{oc_waypoint} 
 					<img src="tpl/stdstyle/images/blue/kompas.png" class="icon16" alt="" title="" />{coords}</b><br/>
 				
@@ -135,6 +135,25 @@ global $usr, $lang, $hide_coords;
 </table></center>
 			</div>
 {hidenpa_end}
+
+<!-- sekcja modyfikatora współrzędnych -->
+{coordsmod_start}
+<div  class="content2-container bg-blue02">
+<p class="content-title-noshade-size1">
+<img src="tpl/stdstyle/images/blue/signature1.png" class="icon32" alt="" />
+{{coords_modifier}}
+</p>
+</div>
+<div class="content2-container">
+<p>
+{{srch_Coord_have_been_modified}}:<BR/>
+	{coordmod_lat_h} {coordmod_lat}<BR/>
+	{coordmod_lon_h} {coordmod_lon}<BR/>
+</p>
+</div>
+{coordsmod_end}
+<!-- koniec sekcji modyfikatora współrzędnych -->
+
 {geokrety_begin}
 			<div class="content2-container bg-blue02">
 				<p class="content-title-noshade-size1">

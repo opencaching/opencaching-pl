@@ -237,6 +237,232 @@
 			else
 				$show_edit = false;
 			//mysql_query("SET NAMES 'utf8'");
+			
+// coordnates modificator -START
+// getting modified cords
+			$orig_coord_info_lon=''; //use to determine whether icon shall be displayed
+			$coords_correct = true;
+			$mod_coords_modified = false;
+			$cache_type = $cache_record['type'];
+			$mod_coord_delete_mode = isset($_POST['resetCoords']);
+			$cache_mod_lat =0;
+			$cache_mod_lon =0;
+			if ($cache_type == $CACHETYPE['QUIZ'])
+			{
+				
+				$orig_cache_lon = $cache_record['longitude'];
+				$orig_cache_lat = $cache_record['latitude'];
+				$cache_modifiable = true;
+				
+				if (!isset($dbc)) {$dbc = new dataBase();};
+			
+				
+			$thatquery= "SELECT `cache_mod_cords`.`id` AS `mod_cords_id`,
+					`cache_mod_cords`.`longitude` AS `mod_lon`, `cache_mod_cords`.`latitude` AS `mod_lat`
+					FROM `cache_mod_cords` INNER JOIN `caches` ON (`caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND
+							`cache_mod_cords`.`user_id` = :v1) 
+							WHERE `caches`.`cache_id`=:v2";							
+			$params['v1']['value'] = (integer) $usr['userid'];;
+   		    $params['v1']['data_type'] = 'integer';
+			$params['v2']['value'] = (integer) $cache_id;;
+   		    $params['v2']['data_type'] = 'integer';
+   		 	$dbc->paramQuery($thatquery,$params);
+			unset($params); //clear to avoid overlaping on next paramQuery (if any))	
+				/*$rs = sql("SELECT `cache_mod_cords`.`id` AS `mod_cords_id`,
+					`cache_mod_cords`.`longitude` AS `mod_lon`, `cache_mod_cords`.`latitude` AS `mod_lat`
+					FROM `cache_mod_cords` INNER JOIN `caches` ON (`caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND
+							`cache_mod_cords`.`user_id` = &1) 
+							WHERE `caches`.`cache_id`='&2'", $usr['userid'], $cache_id);
+				*/
+				$cache_mod_coords = $dbc->dbResultFetch();
+				if ($cache_mod_coords != 0)
+				{
+					
+					if ($mod_coord_delete_mode==false) {
+						$orig_coord_info_lon=htmlspecialchars(help_lonToDegreeStr($orig_cache_lon), ENT_COMPAT, 'UTF-8');
+						$orig_coord_info_lat=htmlspecialchars(help_latToDegreeStr($orig_cache_lat), ENT_COMPAT, 'UTF-8');
+						$cache_record['longitude'] = $cache_mod_coords['mod_lon'];
+						$cache_record['latitude'] = $cache_mod_coords['mod_lat'];
+					};
+				} 
+				//mysql_free_result($rs);
+				
+				// insert/edit modified coordinates
+				if (isset($_POST['modCoords'])) 
+				{
+					$coords_lat_h = $_POST['coordmod_lat_degree'];
+					$coords_lon_h = $_POST['coordmod_lon_degree'];
+					$coords_lat_min = $_POST['coordmod_lat'];
+					$coords_lon_min = $_POST['coordmod_lon'];
+					
+					// validation. Copy&Paste from editcache.php. It should be available in common code place.
+					$lon_not_ok = false;
+
+					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lon_h))
+					{
+						$lon_not_ok = true;
+					}
+					else
+					{
+						$lon_not_ok = (($coords_lon_h >= 0) && ($coords_lon_h < 180)) ? false : true;
+					}
+
+					if (is_numeric($coords_lon_min))
+					{
+						// important: use here |=
+						$lon_not_ok |= (($coords_lon_min >= 0) && ($coords_lon_min < 60)) ? false : true;
+					}
+					else
+					{
+						$lon_not_ok = true;
+					}
+
+					//same with lat
+					$lat_not_ok = false;
+
+					if (!mb_ereg_match('^[0-9]{1,3}$', $coords_lat_h))
+					{
+						$lat_not_ok = true;
+					}
+					else
+					{
+						$lat_not_ok = (($coords_lat_h >= 0) && ($coords_lat_h < 180)) ? false : true;
+					}
+
+					if (is_numeric($coords_lat_min))
+					{
+						// important: use here |=
+						$lat_not_ok |= (($coords_lat_min >= 0) && ($coords_lat_min < 60)) ? false : true;
+					}
+					else
+					{
+						$lat_not_ok = true;
+					}
+						
+					if ($lat_not_ok || $lon_not_ok) 
+					{
+						$coords_correct = false;
+						tpl_set_var('coords_message', $error_coords_not_ok);
+					}
+					else 
+					{
+						// set inputs values
+						$mod_coords_modified = true;
+						tpl_set_var('coordmod_lat_h', $coords_lat_h);
+						tpl_set_var('coordmod_lat', $coords_lat_min);
+						tpl_set_var('coordmod_lon_h', $coords_lon_h);
+						tpl_set_var('coordmod_lon', $coords_lon_min);
+						
+						$cache_mod_lat = $coords_lat_h + round($coords_lat_min,3)/60;
+						if ($_POST['coordmod_latNS'] == 'S') $cache_mod_lat = -$cache_mod_lat;
+						
+						$cache_mod_lon = $coords_lon_h + round($coords_lon_min,3)/60;
+						if ($_POST['coordmod_lonEW'] == 'W') $cache_mod_lon = -$cache_mod_lon;
+						
+						if ($cache_mod_coords['mod_cords_id'] != null)	// user modified caches cords earlier
+						{
+							
+							sql("UPDATE `cache_mod_cords` SET `date` = NOW(), `longitude` = &1, `latitude` = &2
+								WHERE `id` = &3", $cache_mod_lon, $cache_mod_lat, $cache_mod_coords['mod_cords_id']);
+						}
+						else // first edit
+						{
+							sql("INSERT INTO `cache_mod_cords` (`cache_id`, `user_id`, `date`, `longitude`, `latitude`) values(&1, &2, now(), &3, &4)",
+								$cache_id, $usr['userid'], $cache_mod_lon, $cache_mod_lat);
+						}
+						
+					$orig_coord_info_lon=htmlspecialchars(help_lonToDegreeStr($orig_cache_lon), ENT_COMPAT, 'UTF-8');
+					$orig_coord_info_lat=htmlspecialchars(help_latToDegreeStr($orig_cache_lat), ENT_COMPAT, 'UTF-8');
+					$cache_record['longitude'] = $cache_mod_lon;
+					$cache_record['latitude'] = $cache_mod_lat;
+						
+					}
+				}
+				
+				// delete modified coordinates
+				if ($mod_coord_delete_mode) 
+				{
+					$thatquery="DELETE FROM `cache_mod_cords` WHERE `id` = :v1";
+					$params['v1']['value'] = (integer) $cache_mod_coords['mod_cords_id'];;
+   		    		$params['v1']['data_type'] = 'integer';
+					if (!isset($dbc)) {$dbc = new dataBase();};
+					$dbc->paramQuery($thatquery,$params);
+					unset($params);
+					//sql("DELETE FROM `cache_mod_cords` WHERE `id` = &1", $cache_mod_coords['mod_cords_id']);
+				}
+
+			}
+				unset($dbc);
+				if ($coords_correct)
+				tpl_set_var('coords_message', "");	
+				
+				
+				if ($orig_coord_info_lon!=='' && (!$mod_coord_delete_mode)) {
+					$orig_coord_info_full = tr('orig_coord_modified_info').'&#10;'.$orig_coord_info_lat.'&#10;'.$orig_coord_info_lon;
+					$orig_coord_info_icon = '<a href="#coords_mod"><img src="tpl/stdstyle/images/blue/signature1-orange.png" class="icon32" alt="'.$orig_coord_info_full.'" title="'.$orig_coord_info_full.'" /></a>';
+					tpl_set_var('mod_cord_info', $orig_coord_info_icon);
+					if 	($cache_mod_lat >= 0) {
+							tpl_set_var('N_selected','selected="selected"');
+							tpl_set_var('S_selected','');		
+						  } else {
+							tpl_set_var('S_selected','selected="selected"');
+							tpl_set_var('N_selected','');					  	
+						  };					
+					if 	($cache_mod_lon >= 0) {
+							tpl_set_var('E_selected','selected="selected"');
+							tpl_set_var('W_selected','');		
+						  } else {
+							tpl_set_var('W_selected','selected="selected"');
+							tpl_set_var('E_selected','');				
+					  };
+						  tpl_set_var('mod_suffix','[F]') ;
+				} else {
+					tpl_set_var('mod_cord_info','');
+					tpl_set_var('N_selected','selected="selected"'); //set default coords to N and E
+					tpl_set_var('S_selected','');
+					tpl_set_var('E_selected','selected="selected"');
+					tpl_set_var('W_selected','');
+					tpl_set_var('mod_suffix','') ;
+				};
+				
+				
+				
+			if ($usr == false || !isset($cache_modifiable))
+			{
+				tpl_set_var('coordsmod_start', '<!--');
+				tpl_set_var('coordsmod_end', '-->');
+				tpl_set_var('mod_suffix','') ;
+			}
+			else 
+			{
+				tpl_set_var('coordsmod_start', '');
+				tpl_set_var('coordsmod_end', '');
+				
+			}
+			if (!$mod_coords_modified)
+			{
+				if (($cache_mod_coords['mod_cords_id'] != null) && ($mod_coord_delete_mode==false))
+				{
+					$mod_lat_arr = help_latToArray($cache_mod_coords['mod_lat']);
+					tpl_set_var('coordmod_lat_h', $mod_lat_arr[1]);
+					tpl_set_var('coordmod_lat', $mod_lat_arr[2]);
+					
+					$mod_lon_arr = help_latToArray($cache_mod_coords['mod_lon']);
+					tpl_set_var('coordmod_lon_h', $mod_lon_arr[1]);
+					tpl_set_var('coordmod_lon', $mod_lon_arr[2]);
+				}
+				else 
+				{
+					tpl_set_var('coordmod_lat_h', '-');
+					tpl_set_var('coordmod_lat', '00.000');
+					tpl_set_var('coordmod_lon_h', '-');
+					tpl_set_var('coordmod_lon', '00.000');
+				}
+			}
+				
+		// coordnates modificator -END	
+			
+				
 			//get last last_modified
 			if (!isset($dbc)) {$dbc = new dataBase();};
 			
@@ -1084,7 +1310,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 			 mysql_free_result($os_exist);
 			// ===== opensprawdzacz end ====================================================
 			
-			
+		
 			// show additional waypoints
 				if(checkField('waypoint_type',$lang) )
 					$lang_db = $lang;

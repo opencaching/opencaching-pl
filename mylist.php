@@ -26,8 +26,9 @@
  ****************************************************************************/
 
 	//prepare the templates and include all neccessary
-	require_once('./lib/common.inc.php');
-	require_once __DIR__.'/lib/db.php';
+	require_once('/lib/common.inc.php');
+	require_once ('/lib/db.php');
+	
 	//Preprocessing
 	if ($error == false)
 	{

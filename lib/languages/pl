@@ -2099,7 +2099,7 @@ modify_coords Modyfikuj współrzędne
 reset_coords Przywróć oryginalne 
 orig_coord_modified_info Wprowadziłe(a)ś własne współrzędne - współrzędne oryginalne to: 
 modified_coord_notice Zmodyfikowane współrzędne będo eksportowane do plików, np. gpx, kml.
-srch_Coord_have_been_modified Współrzędne zmodyfikowane 
+srch_Coord_have_been_modified Współrzędne zmodyfikowane
 srch_Recommended Rekomendowana 
 srch_Send_to_GPS Wyślij do GPS
 well_behaved HO Ho ho ... Czy są tu grzeczne Keszerki i grzeczni Keszerzy ???
