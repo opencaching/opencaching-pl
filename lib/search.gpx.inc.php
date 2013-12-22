@@ -58,10 +58,10 @@
 '	<wpt lat="{lat}" lon="{lon}">
 	<time>{time}</time>
 	<name>{waypoint}</name>
-	<desc>{mod_suffix}{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
+	<desc>{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
 	<src>www.opencaching.pl</src>
 	<url>http://opencaching.pl/viewcache.php?wp={waypoint}</url>
-	<urlname>{mod_suffix}{cachename}</urlname>
+	<urlname>{cachename}</urlname>
 	<sym>Geocache</sym>
 	<type>Geocache|{geocache_type}</type>
 	<geocache status="{status}" xmlns="http://geocaching.com.au/geocache/1">

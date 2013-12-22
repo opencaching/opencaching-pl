@@ -60,9 +60,9 @@ $gpxLine = '
         <wpt lat="{lat}" lon="{lon}">
                 <time>{{time}}</time>
                 <name>{{waypoint}}</name>
-                <desc>{mod_suffix}{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})</desc>
+                <desc>{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})</desc>
                 <url>'.$absolute_server_URI.'viewcache.php?wp={{waypoint}}</url>
-                <urlname>{mod_suffix}{cachename} by {owner}, {type_text}</urlname>
+                <urlname>{cachename} by {owner}, {type_text}</urlname>
                 <sym>Geocache</sym>
                 <type>Geocache|{type}</type>
                 <groundspeak:cache id="{cacheid}" available="{available}" archived="{{archived}}" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0/1">
