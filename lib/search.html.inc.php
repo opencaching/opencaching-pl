@@ -274,10 +274,21 @@ $login=0;
 			$desclangs .= '<a href="viewcache.php?cacheid=' . urlencode($caches_record['cache_id']) . '&amp;desclang=' . urlencode($thislang) . '" style="text-decoration:none;"><b><font color="blue">' . htmlspecialchars($thislang, ENT_COMPAT, 'UTF-8') . '</font></b></a> ';
 		}
 		$tmpline = str_replace('{desclangs}', $desclangs, $tmpline);
-		if($usr || !$hide_coords)
-			$tmpline = str_replace('{sendtogps}', ("<a href=\"#\" onclick=\"javascript:window.open('garmin.php?lat=".$caches_record['latitude']."&amp;long=".$caches_record['longitude']."&amp;wp=".$caches_record['wp_oc']."&amp;name=".urlencode($caches_record['name'])."&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><img src='/images/garmin.jpg' alt='Send to GPS' title='".$tr_Send_to_GPS."' border='0' /></a>"), $tmpline);
-		else
-			$tmpline = str_replace('{sendtogps}', "", $tmpline);
+		if($usr || !$hide_coords) {
+			
+		
+		
+			if ($caches_record['coord_modified'] == true) {
+				$mod_suffix_garmin = '(F)';
+			} else {
+				$mod_suffix_garmin ='';
+			};
+			$tmpline = str_replace('{sendtogps}', ("<a href=\"#\" onclick=\"javascript:window.open('garmin.php?lat=".$caches_record['latitude']."&amp;long=".$caches_record['longitude']."&amp;wp=".$caches_record['wp_oc']."&amp;name=".urlencode($mod_suffix_garmin.$caches_record['name'])."&amp;popup=y','Send_To_GPS','width=450,height=160,resizable=no,scrollbars=0')\"><img src='/images/garmin.jpg' alt='Send to GPS' title='".$tr_Send_to_GPS."' border='0' /></a>"), $tmpline);
+		} else {
+			
+		
+			$tmpline = str_replace('{sendtogps}', "", $tmpline); 
+		};
 		$tmpline = str_replace('{cachename}', htmlspecialchars($caches_record['name'], ENT_COMPAT, 'UTF-8'), $tmpline);
 		$tmpline = str_replace('{urlencode_cacheid}', htmlspecialchars(urlencode($caches_record['cache_id']), ENT_COMPAT, 'UTF-8'), $tmpline);
 		$tmpline = str_replace('{urlencode_userid}', htmlspecialchars(urlencode($caches_record['user_id']), ENT_COMPAT, 'UTF-8'), $tmpline);

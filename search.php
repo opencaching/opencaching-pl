@@ -540,7 +540,7 @@
 
 							sql('CREATE TEMPORARY TABLE result_caches ENGINE=MEMORY 
 													SELECT 
-														(' . getCalcDistanceSqlFormula(true,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
+														(' . getCalcDistanceSqlFormula($usr !== false,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
 														`caches`.`cache_id` `cache_id`
 													FROM `caches` FORCE INDEX (`latitude`)
 													LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'].'
@@ -687,7 +687,7 @@
 							
 							sql('CREATE TEMPORARY TABLE result_caches ENGINE=MEMORY 
 													SELECT 
-														(' . getCalcDistanceSqlFormula(true,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
+														(' . getCalcDistanceSqlFormula($usr !== false,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
 														`caches`.`cache_id` `cache_id`
 													FROM `caches` FORCE INDEX (`latitude`)
 												LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'].'
@@ -788,7 +788,7 @@
 
 					sql('CREATE TEMPORARY TABLE result_caches ENGINE=MEMORY 
 											SELECT 
-												(' . getCalcDistanceSqlFormula(true,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
+												(' . getCalcDistanceSqlFormula($usr !== false,$lon, $lat, $distance, $multiplier[$distance_unit]) . ') `distance`,
 												`caches`.`cache_id` `cache_id`
 											FROM `caches` FORCE INDEX (`latitude`)
 												LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'].'

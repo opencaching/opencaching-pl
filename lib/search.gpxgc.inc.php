@@ -304,7 +304,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                
                 if (isset($lat_rad) && isset($lon_rad))
                 {
-                        $sql .= getSqlDistanceFormula($lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+                        $sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
                 }
                 else
                 {
@@ -330,7 +330,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                         $lon_rad = $record_coords['longitude'] * 3.14159 / 180;  
                                         $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
 
-                                        $sql .= getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+                                       $sql .= getCalcDistanceSqlFormula($usr !== false,$record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
                                 }
                                 mysql_free_result($rs_coords);
                         }
