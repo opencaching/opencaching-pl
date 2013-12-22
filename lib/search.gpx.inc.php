@@ -61,11 +61,11 @@
 	<desc>{mod_suffix}{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
 	<src>www.opencaching.pl</src>
 	<url>http://opencaching.pl/viewcache.php?wp={waypoint}</url>
-	<urlname>{mod_suffix}{cachename}</urlname>
+	<urlname>{cachename}</urlname>
 	<sym>Geocache</sym>
 	<type>Geocache|{geocache_type}</type>
 	<geocache status="{status}" xmlns="http://geocaching.com.au/geocache/1">
-			<name>{mod_suffix}{cachename}</name>
+			<name>{cachename}</name>
 			<owner>{owner}</owner>
 			<locale></locale>
 			<state>{region}</state>
@@ -75,7 +75,7 @@
 			<difficulty>{difficulty}</difficulty>
 			<terrain>{terrain}</terrain>
 			<summary html="false">{shortdesc}</summary>
-			<description html="true">{mod_suffix}{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}&lt;br&gt;{extra_info}</description>
+			<description html="true">{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}&lt;br&gt;{extra_info}</description>
 			{hints}
 			<licence></licence>
 			<logs>

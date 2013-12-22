@@ -62,11 +62,11 @@ $gpxLine = '
                 <name>{{waypoint}}</name>
                 <desc>{mod_suffix}{cachename} '.tr('from').' {owner}, {type_text} ({difficulty}/{terrain})</desc>
                 <url>'.$absolute_server_URI.'viewcache.php?wp={{waypoint}}</url>
-                <urlname>{mod_suffix}{cachename} by {owner}, {type_text}</urlname>
+                <urlname>{cachename} by {owner}, {type_text}</urlname>
                 <sym>Geocache</sym>
                 <type>Geocache|{type}</type>
                 <groundspeak:cache id="{cacheid}" available="{available}" archived="{{archived}}" xmlns:groundspeak="http://www.groundspeak.com/cache/1/0/1">
-                        <groundspeak:name>{mod_suffix}{cachename}</groundspeak:name>
+                        <groundspeak:name>{cachename}</groundspeak:name>
                         <groundspeak:placed_by>{owner}</groundspeak:placed_by>
                         <groundspeak:owner id="{owner_id}">{owner}</groundspeak:owner>
                         <groundspeak:type>{type}</groundspeak:type>
@@ -78,7 +78,7 @@ $gpxLine = '
                         <groundspeak:country>{country}</groundspeak:country>
                         <groundspeak:state>{region}</groundspeak:state>
                         <groundspeak:short_description html="False">{shortdesc}</groundspeak:short_description>
-                        <groundspeak:long_description html="True">{mod_suffix}{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}&lt;br&gt;{extra_info}</groundspeak:long_description>
+                        <groundspeak:long_description html="True">{desc}{rr_comment}&lt;br&gt;{{images}}&lt;br&gt;{personal_cache_note}&lt;br&gt;{extra_info}</groundspeak:long_description>
                         <groundspeak:encoded_hints>{hints}</groundspeak:encoded_hints>
                         <groundspeak:logs>
                         {logs}
