@@ -71,7 +71,7 @@ $nNrActiveCaches = $record[ "count"];
 $sUserStyle = ' style="color:green" ';
 $sProfil = 'Jest od z nami od zawsze ...';
 $sUsername = '<a Św.Mikołaj style="color:red" href="viewprofile.php?userid=59241" onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >Św. Mikołaj Santa Claus</a>';
-$sWellBehaved = tr(well_behaved);
+$sWellBehaved = tr('well_behaved');
 
 unset( $dbc );
 
@@ -102,6 +102,7 @@ echo "<script type='text/javascript'>";
 
 //SantaClause
 $nRanking = 0;
+$nPos = 1;
 $nRanking++;
 echo "
 gct.addEmptyRow();
@@ -116,7 +117,7 @@ gct.addToLastRow( 4, 'Św. Mikołaj, Santa Clause' );
 //$nRanking = 0;
 $sOpis = "";
 $nOldCount = -1;
-$nPos = 0;
+//$nPos = 0;
 $nMyRanking = 0;
 $nMyRealPos = 0;
 
@@ -185,6 +186,7 @@ while ( $record = $dbc->dbResultFetch() )
 	
 	
 }
+
 
 
 echo "gct.drawTable();";

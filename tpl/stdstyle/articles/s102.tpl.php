@@ -66,6 +66,7 @@ function GCTFindUser()
 	
 	var nrRowsArray = gct.getFilteredRows( [{column: 4, minValue: user, maxValue: userMax}] );
 
+
 	if ( nrRowsArray.length == 1 )
 	{
 		/*var v = gct.getValue( nrRowsArray[0], 1 );
