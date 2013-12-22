@@ -28,8 +28,8 @@
 	$standard_title = tr('clipboard');
 	$no_list = '<tr><td colspan="4">'.tr('mylist_01').'</td></tr>';
 
-	$list_e = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removelist.php?cacheid={cacheid}&target=mylist.php">'.tr('mylist_02').'</a>]</td></tr>';
-	$list_o = '<tr bgcolor=\'#eeeeee\'><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removelist.php?cacheid={cacheid}&target=mylist.php">Usuń</a>]</td></tr>';
+	$list_e = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{mod_suffix}{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removelist.php?cacheid={cacheid}&target=mylist.php">'.tr('mylist_02').'</a>]</td></tr>';
+	$list_o = '<tr bgcolor=\'#eeeeee\'><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{mod_suffix}{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removelist.php?cacheid={cacheid}&target=mylist.php">Usuń</a>]</td></tr>';
 	$no_found_date = '---';
 	$print_delete_list = '<tr><td colspan="4">&nbsp;</td></tr><tr><td colspan="2">&nbsp;</td><td nowrap style="text-align:center;">[<a href="printcache.php?source=mylist">'.tr('mylist_03').'</a>]</td><td nowrap style="text-align:center;">[<a href="removelist.php?cacheid=all&target=mylist.php">'.tr('mylist_04').'</a>]</td></tr>';
 	$export_list = '<div>'.tr('mylist_05').':

@@ -27,7 +27,7 @@
 
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-
+	require_once __DIR__.'/lib/db.php';
 	//Preprocessing
 	if ($error == false)
 	{
@@ -51,12 +51,28 @@
 				tpl_set_var('export_list', '');
 			} else {
 				$cache_list = implode(",", $_SESSION['print_list']);
-				$rs = sql("SELECT `caches`.`cache_id` AS `cache_id`, `caches`.`name` AS `name`, `caches`.`last_found` AS `last_found` FROM `caches` WHERE `caches`.`cache_id` IN (".sql_escape($cache_list).") ORDER BY `caches`.`name`");
+				$rs = sql("SELECT `caches`.`cache_id` AS `cache_id`, `caches`.`name` AS `name`,   `caches`.`type` AS `type`,  `caches`.`last_found` AS `last_found` FROM `caches` WHERE `caches`.`cache_id` IN (".sql_escape($cache_list).") ORDER BY `caches`.`name`");
 				$list = '';
 				for ($i = 0; $i < mysql_num_rows($rs); $i++)
 				{
 					$record = sql_fetch_array($rs);
 					$tmp_list = $i % 2 == 0 ? $list_e : $list_o;
+				//modified coords
+				if ($record ['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
+					if (!isset($dbc)) {$dbc = new dataBase();};	
+					$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$record ['cache_id'].' AND user_id = '.$usr['userid'];
+					$dbc->simpleQuery($mod_coord_sql);
+					if ($dbc->rowCount() > 0 )
+					{
+						$tmp_list = str_replace('{mod_suffix}', '[F]', $tmp_list);
+					} else {
+						$tmp_list = str_replace('{mod_suffix}', '',$tmp_list);
+					}
+				} else {
+					$tmp_list= str_replace('{mod_suffix}', '', $tmp_list);
+				}; 							
+					
+					
 					$tmp_list = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $tmp_list);
 					if ($record['last_found'] == NULL || $record['last_found'] == '0000-00-00 00:00:00')
 					{
@@ -72,6 +88,10 @@
 
 						$list .= $tmp_list . "\n";
 					}
+					
+				unset($dbc);
+					
+					
 					tpl_set_var('list', $list);
 					tpl_set_var('print_delete_list', $print_delete_list);
 					tpl_set_var('export_list', $export_list);
