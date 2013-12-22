@@ -61,7 +61,7 @@
 	<desc>{mod_suffix}{cachename} by {owner}, {type_text} ({difficulty}/{terrain})</desc>
 	<src>www.opencaching.pl</src>
 	<url>http://opencaching.pl/viewcache.php?wp={waypoint}</url>
-	<urlname>{cachename}</urlname>
+	<urlname>{mod_suffix}{cachename}</urlname>
 	<sym>Geocache</sym>
 	<type>Geocache|{geocache_type}</type>
 	<geocache status="{status}" xmlns="http://geocaching.com.au/geocache/1">
