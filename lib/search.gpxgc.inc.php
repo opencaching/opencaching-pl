@@ -481,7 +481,6 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 							}
 						} else {
 							$thisline = str_replace('{mod_suffix}', '', $thisline);
-						}
 						};     
 						                   
                         if ($r['hint'] == '')
@@ -717,6 +716,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         append_output($thisline);
                         ob_flush();
                 }
+				unset($dbc);
                 mysql_free_result($rs);
 
                 append_output($gpxFoot);
