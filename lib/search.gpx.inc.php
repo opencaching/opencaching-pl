@@ -65,7 +65,7 @@
 	<sym>Geocache</sym>
 	<type>Geocache|{geocache_type}</type>
 	<geocache status="{status}" xmlns="http://geocaching.com.au/geocache/1">
-			<name>{mod_suffix}{cachename}</name>
+			<name>{cachename}</name>
 			<owner>{owner}</owner>
 			<locale></locale>
 			<state>{region}</state>
