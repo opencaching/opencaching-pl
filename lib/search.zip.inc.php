@@ -123,7 +123,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 		sql('DROP TEMPORARY TABLE IF EXISTS `zipcontent`');
 					// temporäre tabelle erstellen
 					sql('CREATE TEMPORARY TABLE `zipcontent` ' . $sql . $sqlLimit);
-					echo $sql;
+					// echo $sql;
 					$rsCount = sql('SELECT COUNT(*) `count` FROM `zipcontent`');
 					$rCount = sql_fetch_array($rsCount);
 					mysql_free_result($rsCount);
@@ -200,6 +200,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 					{
 						// use 'LIMIT' only if it's needed
 						if($caches_count > $okapi_max_caches) $ziplimit = ' LIMIT '.$startat.','.$okapi_max_caches;
+						else $ziplimit = '';
 						// OKAPI need only waypoints
 						$rs = sql('SELECT `caches`.`wp_oc` `wp_oc` FROM `zipcontent`, `caches` WHERE `zipcontent`.`cache_id`=`caches`.`cache_id`'.$ziplimit);
 
