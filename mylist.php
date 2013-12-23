@@ -61,8 +61,17 @@
 				//modified coords
 				if ($record ['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
 					if (!isset($dbc)) {$dbc = new dataBase();};	
-					$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$record ['cache_id'].' AND user_id = '.$usr['userid'];
-					$dbc->simpleQuery($mod_coord_sql);
+					$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords
+								WHERE cache_id = :v1 AND user_id =:v2';
+
+					$params['v1']['value'] = (integer) $record ['cache_id'];
+					$params['v1']['data_type'] = 'integer';
+					$params['v2']['value'] = (integer) $usr['userid'];
+					$params['v2']['data_type'] = 'integer';
+
+					$dbc ->paramQuery($mod_coord_sql,$params);
+					Unset($params);
+
 					if ($dbc->rowCount() > 0 )
 					{
 						$tmp_list = str_replace('{mod_suffix}', '[F]', $tmp_list);

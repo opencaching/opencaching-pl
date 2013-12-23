@@ -149,9 +149,17 @@
 		
 		$caches_record = sql_fetch_array($rs_caches);
 		if ($caches_record['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
-		
-			$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords WHERE cache_id = '.$caches_record['cache_id'].' AND user_id = '.$usr['userid'];
-			$dbc->simpleQuery($mod_coord_sql);
+			$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords
+						WHERE cache_id = :v1 AND user_id =:v2';
+
+			$params['v1']['value'] = (integer) $caches_record['cache_id'];
+			$params['v1']['data_type'] = 'integer';
+			$params['v2']['value'] = (integer) $usr['userid'];
+			$params['v2']['data_type'] = 'integer';
+
+			$dbc ->paramQuery($mod_coord_sql,$params);
+			Unset($params);			
+
 		//	$dbc->dbResultFetch();
 			//var_dump($dbc->rowCount());
 			if ($dbc->rowCount() > 0 )
