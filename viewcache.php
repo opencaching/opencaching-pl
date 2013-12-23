@@ -62,8 +62,10 @@
 
 			//$rs = sql("SELECT `cache_id` FROM `caches` WHERE uuid='&1' LIMIT 1", $uuid);
 			if (!isset($dbc)) {$dbc = new dataBase();};
-					$thatquery = "SELECT `cache_id` FROM `caches` WHERE uuid='&1' LIMIT 1" ;
-					$dbc->multiVariableQuery($thatquery,$uuid);
+					$thatquery = "SELECT `cache_id` FROM `caches` WHERE uuid=:v1 LIMIT 1" ;
+					$params['v1']['value'] = (string) $uuid;;
+   		 			$params['v1']['data_type'] = 'string';
+					$dbc->paramQuery($thatquery,$params);
 			//if ($r = sql_fetch_assoc($rs))
 			if ($r = $dbc->dbResultFetch() )
 			{
@@ -391,7 +393,9 @@
 					//sql("DELETE FROM `cache_mod_cords` WHERE `id` = &1", $cache_mod_coords['mod_cords_id']);
 				}
 
-			}
+			} else {
+			   	$cache_mod_coords=false;
+			 };
 				unset($dbc);
 				if ($coords_correct)
 				tpl_set_var('coords_message', "");	
