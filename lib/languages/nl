@@ -536,8 +536,14 @@ toggle_filters Verander filters
 fullscreen Volledig scherm
 disable_fullscreen Terug naar klein scherm
 stats Statistics
+rise_charts Onze stijgende cijfers 
+region_ranking Statistieken per regio
+user_ranking Statistieken per gebruiker
+cache_ranking statistieken per cache
+ranking_by_maintenace Gebruikers ranglijst met aantal caches in onderhoud
 ranking_by_number_of_created_caches Gebruikers ranglijst met aantal gemaakte caches
 ranking_by_number_of_created_active_caches Gebruikers ranglijst met aantal gemaakte en actieve caches
+ranking_by_number_of_finds_new Gebruikers ranglijst met aantal gevonden caches
 ranking_by_number_of_finds Gebruikers ranglijst met aantal gevonden caches
 ranking_by_number_of_recommnedations Gebruikers ranglijst met aantal ontvangen aanbevelingen
 cache_ranking_by_number_of_finds Cache ranglijst van meeste keren gevonden
@@ -2082,8 +2088,21 @@ mylist_03 Alles afdrukken
 mylist_04 Verwijder alles
 mylist_05 Download de gegevens van de caches uit het klembord 
 cookiesInfo Wij maken gebruik van cookies om onze dienstverlening te verbeteren. Lees meer over privacy en gegevensbescherming in onze <a href ="{rules_url}">Gebruikersvoorwaarden</a>. <br> De cookies zullen tot eind 2013 worden opgelagen om het gebruik van de server te bepalen.
+FiltrYear Jaar
+FiltrMonth Maand
+StatTestVer <span style="color: red" >Dit is een proef voor de statistieken</span>
 newsletter Bulletin
 newsletter_removal Indien er geen bulletins ontvangen mogen worden, kan dit veranderd worden in 
+PrevVersion De oude statistieken versie is terug te vinden onderaan op de hoofd statistieken pagina.
+my_position Mijn positie
+go Zoeken
+Filter Filter
+well_behaved Zomaar een zinlose tekst om dit vak te vullen.
+
+
+
+
+
 
 
 
