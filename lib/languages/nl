@@ -1237,7 +1237,7 @@ no_pictures_yet Er zijn nog geen afbeeldingen
 show_all_countries Toon alle landen
 newcache_upload Verzenden
 newcache_import_wpt Nieuwe cache importeren
-newcache_import_wpt_help Met deze functie kan waypoint gegevens uit GPX bestand van bijvoorbeeld Garmin (coordinaat, naam) als basis voor nieuwe cache verstuurd worden. Bij meer dan 1 waypoint zal eerste gebruikt worden.
+newcache_import_wpt_help Met deze functie kan waypoint gegevens uit GPX bestand van bijvoorbeeld Garmin (coördinaat, naam) als basis voor nieuwe cache verstuurd worden. Bij meer dan 1 waypoint zal eerste gebruikt worden.
 newcache_import_wpt_ok De gegevens zijn geïmporteerd
 email_reset Herstellen
 email_submit Verzenden
@@ -2097,11 +2097,18 @@ PrevVersion De oude statistieken versie is terug te vinden onderaan op de hoofd 
 my_position Mijn positie
 go Zoeken
 Filter Filter
-well_behaved Zomaar een zinlose tekst om dit vak te vullen.
-
-
-
-
+well_behaved Zomaar een zinloze tekst om dit vak te vullen.
+coords_modifier Coördinaten corrigeren
+coordsmod_main Vul hier de gecorrigeerde coördinaten in
+coordsmod_lon Longitude
+coordsmod_lat Latitude
+modify_coords Veranderen
+reset_coords Herstellen
+orig_coord_modified_info Er zijn gecorrigeerde coördinaten ingevoerd. De originele coördinaten zijn:
+modified_coord_notice De gecorrigeerde coördinaten zullen ook in de gedownloade bestanden weergegeven worden. Zoals in GPX, kml, enz.
+srch_Coord_have_been_modified De coördinaten zijn veranderd
+srch_Recommended
+srch_Send_to_GPS Verzend naar GPS
 
 
 
