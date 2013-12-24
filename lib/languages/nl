@@ -2099,7 +2099,7 @@ go Zoeken
 Filter Filter
 well_behaved Zomaar een zinloze tekst om dit vak te vullen.
 coords_modifier Coördinaten corrigeren
-coordsmod_main Vul hier de gecorrigeerde coördinaten in
+coordsmod_main Noteer hier de gecorrigeerde coördinaten
 coordsmod_lon Longitude
 coordsmod_lat Latitude
 modify_coords Veranderen
