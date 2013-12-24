@@ -1214,7 +1214,7 @@ noaccess_error_01 Nie masz uprawnień do przeglądania tej strony.
 noaccess_error_02 Powrót na stronę główną
 report_problem_notice Możesz zgłosić problem związany z skrzynką do właściciela skrzynki np <b>Uwagę do lokalizacji</b> (lub do Zespołu OC PL) wykorzystując ten formularz
 qrcode_01 Etykietka z QR Code
-qrcode_02 Etykietkę z <a class="links" href="http://pl.wikipedia.org/wiki/QR_Code">QR Code</a> (zalaminowaną lub w woreczku stronowym lub jako naklejka) możesz użyć do zapisania krótkiej wskazówki max 77 znaków, współrzędnych następnego etapu multicache, hasło do logu itp. Do odczytania kodu czytnika zainstalowanego np w telefonie komórkowym.
+qrcode_02 Etykietkę z <a class="links" href="http://pl.wikipedia.org/wiki/QR_Code">QR Code</a> (zalaminowaną lub w woreczku strunowym lub jako naklejka) możesz użyć do zapisania krótkiej wskazówki max 77 znaków, współrzędnych następnego etapu multicache, hasło do logu itp. Do odczytania kodu czytnika zainstalowanego np w telefonie komórkowym.
 qrcode_03 Dane w QR Code
 qrcode_04 Generuj
 qrcode_05 Tu znajdziesz czytnik QR Code dla różnych telefonów
@@ -2099,7 +2099,7 @@ coordsmod_lat Szerokość geograficzna
 modify_coords Modyfikuj współrzędne
 reset_coords Przywróć oryginalne 
 orig_coord_modified_info Wprowadziłe(a)ś własne współrzędne - współrzędne oryginalne to: 
-modified_coord_notice Zmodyfikowane współrzędne zostaną wyeksportowane do plików, np. GPX, KLM, itp.
+modified_coord_notice Zmodyfikowane współrzędne zostaną wyeksportowane do plików, np. GPX, KML, itp.
 srch_Coord_have_been_modified Współrzędne zmodyfikowane
 srch_Recommended Rekomendowana 
 srch_Send_to_GPS Wyślij do GPS
