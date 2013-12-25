@@ -2103,5 +2103,12 @@ modified_coord_notice Modified coordinates will be exported to files, e.g. gpx, 
 srch_Coord_have_been_modified The coordinates have been modified
 srch_Recommended Rekomendowana Recommended
 srch_Send_to_GPS Send to GPS
+addnews_confirm_01 Add news
+addnews_confirm_02 Thank you for sending a new message. We will try as soon as possible to view this information
+addnews_confirm_03 Back to
+addnews_confirm_04 homepage
+
+
+
 
 
