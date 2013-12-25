@@ -240,16 +240,12 @@ else
 	}*/
 
 	/*SET YOUR MAP CODE HERE*/
-	tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language='.$lang.'" type="text/javascript"></script>
-    <script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;key='.$googlemap_key.'&amp;hl='.$lang.'" type="text/javascript"></script>');
+	tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language='.$lang.'" type="text/javascript"></script>');
 	/*
 	 * Generate dynamic URL to cachemap3.js file, this will make sure it will be reloaded by the browser.
 	 * The time-stamp will be stripped by a rewrite rule in lib/.htaccess.
 	 * */
-
 	tpl_set_var('lib_cachemap3_js', "lib/cachemap3." . date("YmdHis", filemtime($rootpath . 'lib/cachemap3.js')) . ".js");
-
-	
 	tpl_BuildTemplate(); 
 }
 ?>

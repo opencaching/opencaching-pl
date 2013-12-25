@@ -56,9 +56,12 @@
 	<table style='border: 1px solid #ccc; background: #eee; padding: 3px 6px 3px 8px; width: 100%; margin-bottom: 10px;'>
 		<tr>
 			<td>
-				<div id="ext_search">
-					<div id="search_control" style="float: left;">&nbsp;</div>
-				</div>
+				<div id="ext_search"><div id="search_control" style="float: left;">
+					<table cellspacing="0" cellpadding="0"><tr>
+						<td><input id="place_search_text" class="gsc-input" type="text" size="10"></td>
+						<td><input id="place_search_button" class="gsc-search-button" value="{{search}}" type="button"></td>
+					</tr></table>
+				</div></div>
 			</td>
 			<td>
 				<table style='float: right;'><tr>

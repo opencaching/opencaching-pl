@@ -18,9 +18,12 @@
 	<table id="control_combo_table" style='background: #eee; padding: 3px 0px 3px 8px;'>
 		<tr>
 			<td>
-				<div id="ext_search">
-					<div id="search_control" style="float: left;">&nbsp;</div>
-				</div>
+				<div id="ext_search"><div id="search_control" style="float: left;">
+					<table cellspacing="0" cellpadding="0"><tr>
+						<td><input id="place_search_text" class="gsc-input" type="text" size="10"></td>
+						<td><input id="place_search_button" class="gsc-search-button" value="{{search}}" type="button"></td>
+					</tr></table>
+				</div></div>
 			</td>
 			<td>
 				<table style='float: right;'><tr>
