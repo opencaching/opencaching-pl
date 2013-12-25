@@ -741,8 +741,8 @@ delete_logentry Delete log entry
 confirm_remove_log Are you sure you want to delete your log
 add_comment_to_remove Would you like to send additional comment to
 removed_log_title Your log entry was removed by the geocache owner 
-dont_have_recommended_caches You don't have any recommended geocaches
 removed_message_titel The owner of the geocache wrote you a comment
+dont_have_recommended_caches You don't have any recommended geocaches
 your_recommendations Your recommendations for geocache
 was_removed has been removed
 recommended_geocaches Recommended geocaches
@@ -1013,13 +1013,37 @@ removed_message_title The owner of geocache wrote to you the following comment
 to_do To do
 mc_beginn_00 Registering a new cache - information
 
+
+
+
+
 latest_blog Recent blog entries
 geocache Geocache
 
-format_GPX GPX type
-format_pict GPX + photos
-format_other others types
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+format_GPX GPX type
+format_other others types
+format_pict GPX + photos
+
+
+
+type Type
+logs_info latest logs
+recomm_short R
 select Select
 report_01 Report a problem with cache:
 report_02 Report the problem to:
@@ -1034,7 +1058,29 @@ report_10 Other reason
 report_11 Comment (required)
 report_12 Report has bin send. the Opencaching-team will investigate the issue and take appropriate action.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 no_logtype_choosen No logtype choosen!
+choose Select
 nc01 Dear User
 nc02 Thank you for registering your cache at {site_name}. If you need help with hiding or registering the cache, please read the information at <a class="links" href="{wiki_url}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> or contact the Centre of the Service of Geocachers - email address: cog@opencaching.pl. Remember that your cache tells also something about you. For sure you are concerned about its best quality and due to that fact we ask you to answer yourself the following questions: <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
 nc03 Is the cache located in place that doesn't violate the law, isn't it hidden at the private area without the permission of its owner?
