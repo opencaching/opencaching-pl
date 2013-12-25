@@ -1967,6 +1967,10 @@ graph_statistics_04 Gegevens per
 graph_statistics_05 Geplaatste caches: 
 graph_statistics_06 Actieve caches: 
 graph_statistics_07 Totaal gevonden caches: 
+
+
+
+
 search_text_01 Cache naam:
 search_text_02 van
 search_text_03 Coördinaten:
@@ -2070,6 +2074,7 @@ vc_spoiler_disable_msg Om spoilers te zien moet men ingelogt zijn!
 ec_bike_set_msg
 ec_walk_set_msg
 ec_boat_set_msg
+ec_Sequence_mp3 Volgorde
 myn_click_to_view_cache Klik om de cache te zien
 mylist_01 Er staan nog geen caches in mijn klembord 
 mylist_02 Verwijderen
