@@ -771,7 +771,7 @@ last_found Last found
 delete_recommend Delete recommendations
 off_ignore Switch off ignore
 no_ignores No ignored caches
-oc_stat Statistics of OCPL geocaches
+oc_stat {site_name} geocache statistics
 administration OC Administration
 stat_octeam OCTeam Statistics
 cache_notfound Not found geocache
