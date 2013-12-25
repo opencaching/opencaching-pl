@@ -771,7 +771,7 @@ last_found Laatst gevonden&nbsp&nbsp&nbsp
 delete_recommend Delete recommendations
 off_ignore Schakel negeren uit
 no_ignores Geen genegeerde caches
-oc_stat OC NL cache statistieken
+oc_stat {site_name} cache statistieken
 administration Administratie OC
 stat_octeam Statistieken OCTeam.
 cache_notfound Niet gevonden caches
