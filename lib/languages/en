@@ -1039,8 +1039,8 @@ format_GPX GPX type
 format_other others types
 format_pict GPX + photos
 
-
-
+user_activity01 User activity
+user_activity02 User activity count (found + did not found + owed)
 type Type
 logs_info latest logs
 recomm_short R
@@ -1062,23 +1062,23 @@ report_12 Report has bin send. the Opencaching-team will investigate the issue a
 
 
 
+size_02 Micro
+size_03 Small
+size_04 Medium
+size_05 Large
+size_06 Very large
+syze_07 No container
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+map_01 show FTFs only!
+map_02 Minimum rating:
+map_03 any rating will do
+map_04 include unrated caches
+print_all Print all
+remove_all Remove all
 no_logtype_choosen No logtype choosen!
 choose Select
 nc01 Dear User
@@ -1101,15 +1101,30 @@ nc17 on our OpenGeoWiki
 nc18 Regards
 nc19 Team {site_name}
 nc20 I have considered all the matters listed above and I want to proceed with the registration of the cache
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 guru_15 Recieved recommendations
 guru_16 Write E-mail
-user_activity01 User activity
-user_activity02 User activity count (found + did not found + owed)
-yesterday yesterday
+
+
+
+
 today today
+yesterday yesterday
 days_ago days ago!
 make_new_description Make a new cache description for:
-
 lxg01 Wrong date. Please enter correct date: DD-MM-YYYY
 lxg02 Rate cache or select you do not want rate this cache. 
 lxg03 Please select!
@@ -1146,7 +1161,49 @@ printcache_08 Show spoilers
 printcache_09 Change
 yes Yes
 no No
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 revert Revert 
+
+
+
+
+
+
+
+
+
+
+
 oc_on_all_pages_top_pl OPENCACHING.pl
 oc_subtitle_on_all_pages_pl Geocaching in Poland
 oc_on_all_pages_top_nl OPENCACHING.nl
@@ -1155,6 +1212,29 @@ Statictics Statistics
 org1 organized by
 noaccess_error_01 You do not have permission to view this page.
 noaccess_error_02 Back to main page
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+no_pictures_yet No picture added yet.
+show_all_countries Show all countries 
 newcache_upload Load
 newcache_import_wpt Load data from gpx file
 newcache_import_wpt_help This feature allow you to get waypoint data (coords, name) from gpx file. (f.ex.&nbsp;from garmin). If file contain more than one waypoint, only first will be processed.
@@ -1219,11 +1299,39 @@ reportcache17 On
 reportcache18 has user
 reportcache19 reported a problem with a cache
 reportcache20 a problem with a cache is reported
+
 register00 User name 
 register01 your@email.address
 register02 password
 register03 repeat password
 register04 Clear form
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+runwatch04 If you cannot see this picture, add sender to your addressbook
+
+
+
+
+
+
+
+
+
+
+
 registermail01 Hello
 registermail02 Welcome at
 registermail03 To have a good start, you can read most information on our OpenGeoWiki.You can find OpenGeoWiki at:
@@ -1245,11 +1353,6 @@ activatemail02 has been aproved by the Opencaching Team.
 activatenail03 You can change the status in "Ready to find" on:
 activatemail04 If you have any questions about this, contact:
 activatemail05 octeam@opencaching.pl
-map_01 show FTFs only!
-map_02 Minimum rating:
-map_03 any rating will do
-map_04 include unrated caches
-runwatch04 If you cannot see this picture, add sender to your addressbook
 bearinglong_n North
 bearinglong_nne North / North-east
 bearinglong_ne North-east
@@ -1940,9 +2043,9 @@ vc_spoiler_disable_msg You must be logged-in to view spoilers!
 ec_bike_set_msg Cache attribute [Bike] or [Boat] has been set. Are you sure to set [Access only by walk] attribute?
 ec_walk_set_msg Cache attribute [Access only by walk] or [Boat] has been set. Are you sure to set [Bike] attribute?
 ec_boat_set_msg Cache attribute [Access only by walk] or [Bike] has been set. Are you sure to set [Boat] attribute?
-no_pictures_yet No picture added yet. 
+ 
 ec_Sequence_mp3 File sequence 
-show_all_countries Show all countries 
+
 myn_click_to_view_cache Click to view the cache 
 mylist_01 There are no caches in the clipboard 
 mylist_02 Remove
