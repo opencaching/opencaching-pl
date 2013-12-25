@@ -1910,7 +1910,7 @@ pt214 PowerTrail verwijderen
 pt215 PowerTrail is beschikbaar
 pt216 PowerTrail onderhoud
 pt217 PowerTrail is tijdelijk niet actief
-0t218 PowerTrail is verwijderd
+pt218 PowerTrail is verwijderd
 pt219 Onderhoud
 pt220 Reden van status verandering
 pt221 Status veranderen
@@ -1926,21 +1926,10 @@ pt230 Datum
 pt231 Tijd
 pt232 Toon ook kleine PowerTrails
 pt233 Toon geen kleine PowerTrails
+
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
-notify_newcachemail01 Hallo
-notify_newcachemail02 Er is net een nieuwe cache gemeld in jouw ingestelde zoekradius
-notify_newcachemail03 heeft op
-notify_newcachemail04 een nieuwe cache geplaatst
-notify_newcachemail05 Afstand:
-notify_newcachemail06 Richting:
-notify_newcachemail07 Soort:
-notify_newcachemail08 Grootte:
-notify_newcachemail09 De instellingen voor jouw zoekradius kun je bekijken en bewerken op:
-notify_newcachemail10 Dit bericht is automatisch gegenereerd, gelieve niet te reageren.
-notify_newcachemail11 Nieuwe cache:
-notify_newcachemail12 Er zijn nog geen nieuwe logs.
 cog_user_name Dienst Cache Beheer
 region_01 Regio via opgegeven coördinaten:
 region_02 Land
@@ -2112,4 +2101,15 @@ srch_Send_to_GPS Verzend naar GPS
 
 
 
-
+notify_newcachemail01 Hallo
+notify_newcachemail02 Er is net een nieuwe cache gemeld in jouw ingestelde zoekradius
+notify_newcachemail03 heeft op
+notify_newcachemail04 een nieuwe cache geplaatst
+notify_newcachemail05 Afstand:
+notify_newcachemail06 Richting:
+notify_newcachemail07 Soort:
+notify_newcachemail08 Grootte:
+notify_newcachemail09 De instellingen voor jouw zoekradius kun je bekijken en bewerken op:
+notify_newcachemail10 Dit bericht is automatisch gegenereerd, gelieve niet te reageren.
+notify_newcachemail11 Nieuwe cache:
+notify_newcachemail12 Er zijn nog geen nieuwe logs.
