@@ -333,6 +333,7 @@ html_incorrect This HTML code is not allowed.
 type_incorrect Cache type is incorrect! 
 size_incorrect Cache size is incorrect!
 diff_incorrect Difficulty is incorrect!
+status_incorrect Status does not match published data.
 virtual_cache_size Cache size for "event" have to be set as "no container" 
 cache_submitted Your cache has been successfully registered at {site_name}.
 full_description Full description
@@ -676,6 +677,7 @@ write_wp Write waypoint
 edit_wp Edit waypoint
 delete_wp Delete waypoint
 show_info_about_wp See the description and the type of additional waypoints
+show_info_for_value If the waypoint is not the next step required to find cache type Multicache or quiz insert the value 0
 comment_octeam_visible OC Team comments are visible for OC Team and the owner of the cache only.
 ready_to_search The cache is ready to search. Good Luck!
 archived_cache The cache has been archived.
@@ -745,7 +747,7 @@ your_recommendations Your recommendations for geocache
 was_removed has been removed
 recommended_geocaches Recommended geocaches
 number_recommendations Number of recommendations
-regions_only_for Regions (only for Poland)
+regions_only_for Regions
 monday Monday
 tuesday Tuesday
 wednesday Wednesday
