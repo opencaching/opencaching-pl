@@ -1212,27 +1212,27 @@ Statictics Statistics
 org1 organized by
 noaccess_error_01 You do not have permission to view this page.
 noaccess_error_02 Back to main page
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+report_problem_notice Możesz zgłosić problem związany z skrzynką do właściciela skrzynki np <b>Uwagę do lokalizacji</b> (lub do Zespołu OC PL) wykorzystując ten formularz
+qrcode_01 QR Code label
+qrcode_02 A label generated at <a class="links" href="http://pl.wikipedia.org/wiki/QR_Code">QR Code</a> laminated, in a strin bag or as a sticker) can be used to wrire a short, 77-character long message, e.g. coordinates of next stage of multicache, logbook passowrd etc. One need a QR code scanner e.g. available in some mobile phoes to red thate code.
+qrcode_03 QR Code data
+qrcode_04 Generate
+qrcode_05 Here you can find QR Code reader for different phone types
+error_ort Locating failed
+alert_search_by_cachename Enter the name!
+alert_search_by_dist_01 Longitude degrees must be numeric!\nFormat: hh° mm.mmm
+alert_search_by_dist_02 Latitude degrees must be numeric!!\nFormat: hh° mm.mmm
+alert_search_by_dist_03 Max. distance must be numeric!
+alert_search_by_dist_04 Max. distance shall be within this range: 0 - 9999
+alert_search_by_text_01 Please enter the description!
+alert_search_by_text_02 Minimal number of characters of desciption is 3!
+alert_search_by_text_03 At least one field must be selected!
+alert_search_by_owner Enter the owner!
+alert_search_by_finder Enter the seeker!
+alert_search_by_ort_01 Enter the city name!
+alert_search_by_ort_02 Minimal number of characters of name place is 3!
+alert_search_by_ort_03 Max. distant must be numeric!
+alert_search_by_ort_04 Maximum distance shall be within this range: 0 - 9999
 no_pictures_yet No picture added yet.
 show_all_countries Show all countries 
 newcache_upload Load
@@ -1299,7 +1299,7 @@ reportcache17 On
 reportcache18 has user
 reportcache19 reported a problem with a cache
 reportcache20 a problem with a cache is reported
-
+reportcache21 The Opencaching team will review your report as soon as possible. If you need to contact the Opencaching team with regards to this report, please reply to this message.
 register00 User name 
 register01 your@email.address
 register02 password
@@ -1320,7 +1320,7 @@ logType12 OC Team comment
 runwatch01 made
 runwatch02 to the log of the cache
 runwatch03 New cache logs report
-runwatch04 Jeśli obrazki nie wyświetlają się poprawnie, dodaj nadawcę do książki adresowej
+runwatch04 If you cannot see this picture, add sender to your addressbook
 runwatch05 Please be informed that there are new log entries to your own caches or your watched caches.<br/><br/> New log entires to your own caches 
 runwatch06 Date/Time 
 runwatch07 Geocacher   
@@ -1925,7 +1925,7 @@ pt229 Log entry type
 pt230 Date
 pt231 time
 pt232 include miniGeoPaths
-pt233 miniGeoPaths
+pt233 exclude miniGeoPaths
 pt234 Completing the GeoPath is not possible (required number of caches is higher then number of active caches that belongs to the GeoPath - the GeoPath owners should reset the minimum required number or reactivate/archive inactive cashes).
 statpic_found Found:
 statpic_hidden Hidden:
