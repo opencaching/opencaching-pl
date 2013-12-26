@@ -1317,21 +1317,21 @@ logType9 Archived
 logType10 Ready to find
 logType11 Temporarily unavailable
 logType12 OC Team comment
-
-
-
-runwatch04 If you cannot see this picture, add sender to your addressbook
-
-
-
-
-
-
-
-
-
-
-
+runwatch01 made
+runwatch02 to the log of the cache
+runwatch03 New cache logs report
+runwatch04 Jeśli obrazki nie wyświetlają się poprawnie, dodaj nadawcę do książki adresowej
+runwatch05 Please be informed that there are new log entries to your own caches or your watched caches.<br/><br/> New log entires to your own caches 
+runwatch06 Date/Time 
+runwatch07 Geocacher   
+runwatch08 Cache       
+runwatch09 Hello
+runwatch10 log content
+runwatch11 New log entires to your watched caches
+runwatch12 the list of your watched cached can be found at
+runwatch13 by clicking at
+runwatch14 This message is auto-generated - please do not reply
+runwatch15 No log entries
 registermail01 Hello
 registermail02 Welcome at
 registermail03 To have a good start, you can read most information on our OpenGeoWiki.You can find OpenGeoWiki at:
@@ -1404,8 +1404,8 @@ index_03 Number of users that recommend this cache
 index_04 Number of times the cache has been found
 index_05 The Index tries to calculate a quality ranking of geocaches from the recommendation and the number of find logs.
 index_06 Index
-
-
+adopt00 The adoption process has been completed. The previous cache owner was
+adopt01 The current owner of the caches is
 rating-c_01 Cache Difficulty Rating System
 rating-c_02 Overall Difficulty:
 rating-c_03 For example, if difficulty is between 1 and 2, in the settings box you can use difficulty levels with an accuracy of 0.5, eg 1.5 
@@ -1921,12 +1921,12 @@ pt225 logs count in gpx file
 pt226 for each cache. Available only for &quot;gpx&quot; files
 pt227 GeoPath not match criteria. Is closed for service until owners correct that. Closure reason: 
 pt228 to low cache count in geoPath
-
-
-
-
-
-
+pt229 Log entry type
+pt230 Date
+pt231 time
+pt232 include miniGeoPaths
+pt233 miniGeoPaths
+pt234 Completing the GeoPath is not possible (required number of caches is higher then number of active caches that belongs to the GeoPath - the GeoPath owners should reset the minimum required number or reactivate/archive inactive cashes).
 statpic_found Found:
 statpic_hidden Hidden:
 statpic_html_link - Statistics for
@@ -1967,44 +1967,44 @@ graph_statistics_04 Date
 graph_statistics_05 Hidden caches: 
 graph_statistics_06 Active caches: 
 graph_statistics_07 Total found caches: 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+chowner01 Cache Adoption
+chowner02 Goecacher 
+chowner03 transfers to you the cache for adoption
+chowner04 Please visit the opencahing site to complete adoption process (User's Menu> Cache Adoption).
+search_text_01 Name:
+search_text_02 by
+search_text_03 Coordinates:
+search_text_04 Status:
+search_text_05 Owned by:
+search_text_06 Waypoint:
+search_text_07 Country:
+search_text_08 Type:
+search_text_09 Size:
+search_text_10 Short description:
+search_text_11 Full description:
+search_text_12 Additional hints:
+search_text_13 Log entries:
+search_text_14 WARNING! There is a PASSWORD in the cache - please remember to note it down!
+search_text_15 (no HTML)
+search_text_16 Personal cache note:
+search_kml_01 See cache details
+search_kml_02 Owned by:
+search_kml_03 Type:
+search_kml_04 Size:
+search_kml_05 Difficulty:
+search_kml_06 with
+search_kml_07 Terrain:
 mytop5_1 Do you want to remove your recomandation ?
 mywatches_1 Do you want to stop watching this cache ?
 myignores_1 Do you want to switch off ignore ?
 myviewqueries_1 Do you want to remove this qurey collection ?
-
-
-
-
-
-
-
+earch_gpxgc_01 WARNING! There is a PASSWORD in the cache - please remember to note it down!
+search_gpxgc_02 Personal cache note
+search_gpxgc_03 Additinal information
+search_gpxgc_04 Attributes
+search_gpxgc_05 Rating
+search_gpxgc_06 Recommendation
+search_gpxgc_07 National/Scenic Parks
 attribute_40 One-minute cache
 attribute_41 Go geocaching with children
 attribute_43 GeoHotel
