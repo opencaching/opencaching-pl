@@ -1,3 +1,14 @@
+
+<script type="text/javascript" src="lib/js/datepicker/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="lib/js/datepicker/jquery-ui-1.8.21.custom.min.js"></script>
+
+
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type='text/javascript' src="lib/js/GCT.js"></script>
+<script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
+
+
+
 <table class="content" width="97%">
 	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{{stats}}" title="{{stats}} {{ranking_by_maintenace}}" align="middle" /><font size="4">  <b>{{statistics}}: {{ranking_by_number_of_finds_new}}</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
@@ -18,12 +29,18 @@ global $debug_page;
 {{StatTestVer}}<br>
 {{PrevVersion}}
 
+
+
 <div class="searchdiv">
+
 
 <?php
 
 $sRok = "";
 $sMc = "";
+$sDataOd = "";
+$sDataDo = "";
+$sRD = "R";
 
 
 
@@ -31,6 +48,11 @@ if ( !isset( $_REQUEST[ "init" ] ) )
 {
 	$sRok = $_REQUEST[ "Rok" ];
 	$sMc = $_REQUEST[ "Mc" ];
+	
+	$sDataOd = $_REQUEST[ "DataOd" ];
+	$sDataDo = $_REQUEST[ "DataDo" ];
+	
+	$sRD = $_REQUEST[ "rRD" ];	
 }
 
 if ( ( isset( $_REQUEST[ "init" ] ) or intval($sMc) > 12 or intval($sMc) < 0 or intval($sRok) < 0 )
@@ -41,12 +63,39 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 	
 	$_REQUEST[ "Rok" ] = $sRok;
 	$_REQUEST[ "Mc" ] = $sMc;
+	
+	$_REQUEST[ "DataOd" ] = $sDataOd;
+	$_REQUEST[ "DataDo" ] = $sDataDo;
+		
+	$_REQUEST[ "rRD" ] = $sRD;
 }
 
 ?> 
 
 
+
 <script type="text/javascript">
+
+
+function GCTSetRadio(name )
+{	
+	var radio;
+		
+	if ( name == "Rok" ) 
+		radio = document.getElementById("rR");
+	else
+		radio = document.getElementById("rD");
+	
+	radio.checked= true;
+}
+
+
+function GCTGotoProfil( link )
+{
+	window.location.href = link;
+}
+
+
 function GCTGotoPosition()
 {
 	var myPos = parseInt( document.Position.RealPosOfTable.value );
@@ -86,79 +135,89 @@ function GCTFindUser()
 </script>
 
 
-<span class="content-title-noshade" >
+<!-- content-title-noshade -->
+<div class="< GCT-div" >
 
-
-
-
-
-
-<table >
-
+<table width="100%" >
 <tr>
-<td>
- <form name="FilterDate" style="display:inline; " action='articles.php' method="get">
-	<input type="hidden" value="s102" name="page" >
-	
-	<table style="border-bottom: solid 1px #aaaaaa; border-right: solid 1px #aaaaaa; background: #F0F0F0">
-		<tr>
-			<td width="70px">{{FiltrYear}}: <input type="text" name="Rok" value="<?php echo $sRok?>"; style="width:30px; text-align: center"  maxlength="4"></td>			
-			<td width="80px">{{FiltrMonth}}: <input type="text" value="<?php echo $sMc?>"  name="Mc" style="width:20px; text-align: center" maxlength="2"></td>		
-			<td width="70px"> <button type="submit" name="submit" value="{{search}}" style="font-size:12px;width:70px;"/><b>{{Filter}}</b></button></td>
-		</tr>
-	</table>
-</form>
-</td>
-<td>
-<table style="border-bottom: solid 1px #aaaaaa; border-right: solid 1px #aaaaaa; background: #F0F0F0">
-<tr>
-<td width="270px">
+	<!-- Begin of Filter -->
+	<td>
+ 		<form name="FilterDate" style="display:inline; " action='articles.php' method="get">
+			<input type="hidden" value="s102" name="page" >
+			<table	class = "GCT-div-table" >
+				<tr>
+					<td><input type="radio" name="rRD" id="rR" value="R" <?php if ($sRD == "R") echo "checked" ?> ></td>
+					<td width="10px">{{FiltrYear}}:</td>
+					<td width="64px"> <input type="text" name="Rok" value="<?php echo $sRok?>"; style="width:30px; text-align: center" maxlength="4" onclick="GCTSetRadio( 'Rok' )"></td>			
+					<td >{{FiltrMonth}}: <input type="text" value="<?php echo $sMc?>"  name="Mc" style="width:20px; text-align: center" maxlength="2" onclick="GCTSetRadio( 'Rok' )"></td>		
+					<td width="90px" rowspan=2; width="70px"  style="text-align: center"> <button type="submit" name="bFilterDate" />{{Filter}}</td>			
+				</tr>
+				
+				<tr>
+					<td><input type="radio" name="rRD" id="rD" value="D" <?php if ($sRD == "D") echo "checked" ?>></td>
+					<td>Daty:</td>
+					<td colspan=2>		
+					<input type="text" id="datepicker" name="DataOd" onclick="GCTSetRadio( 'Data' )" value="<?php echo $sDataOd?>" style="width:60px; text-align: left"  maxlength="10">&nbsp&nbsp-
+					<input type="text" id="datepicker1" name="DataDo" onclick="GCTSetRadio( 'Data' )" value="<?php echo $sDataDo?>" style="width:60px; text-align: left"  maxlength="10">
+					</td>									
+				</tr>
+		
+			</table>
+ 		</form>
+	</td>
+	<!-- END of Filter -->
 
-</form>
-<form name="FindUser" style="display:inline;" action="" onsubmit="return false;">
-&nbsp{{user}}:&nbsp<input type="text" name="User" value=""; style="width:100px; text-align: left">
-</form>
-&nbsp&nbsp&nbsp<button  name="bFindUsr" style="font-size:12px;width:70px;"; onClick ="GCTFindUser()"  /><b>{{search}}</b></button>
+	<!-- EMPTY -->
+	<!-- <td width="124px"> </td> -->
 
-</td>
-</tr>
-</table>
-
-</td>
-
-<td width="8px">
- 
-</td>
-
-<td>
-
-<table style="border-bottom: solid 1px #aaaaaa; border-right: solid 1px #aaaaaa; background: #F0F0F0">
-<tr>
-<td width="220px">
-<form name="Position" style="display:inline;" action="" onsubmit="return false;" >
-<input type="hidden" value="0" name="RealPosOfTable" >
-&nbsp{{my_position}}:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" style="width:70px; text-align: center; color: black;  font-weight: bold; font-size:12px" readonly>
-</form>
-<button  name="bGo" style="font-size:12px;width:50px;"; onClick ="GCTGotoPosition()"  /><b>{{go}}</b></button>
-</td>
+	<!-- Begin of User -->
+	<td align="right">	
+		<table	class = "GCT-div-table" >
+			<tr >
+				<td >
+					<form name="FindUser" style="display:inline;" action="" onsubmit="return false;">
+						{{user}}:&nbsp&nbsp<input type="text" name="User" value=""; style="width:100px; text-align: left; ">
+						&nbsp&nbsp&nbsp<button type="submit" value={{search}} name="bFindUser" style="font-size:12px;width:70px;"; onClick ="GCTFindUser()"  />{{search}}</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</td>
+<!-- End of User -->
 </tr>
 </table>
 
 
-</td>
 
-
-</tr>
-</table>
+<hr style="color: black">
 <br>
-<!-- <hr style="color: black"> -->
+<!-- Begin of Position -->
+<table width="100%" >
+<tr>	 	
+	<td align="right">				
+		<table	class = "GCT-div-table" >
+			<tr>
+				<td >
+				<form name="Position" style="display:inline;" action="" onsubmit="return false;" >
+					<input type="hidden" value="0" name="RealPosOfTable" >
+					{{my_position}}:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" style="width:70px; text-align: center; color: black;  font-weight: bold; font-size:12px; background-color: #FAFAFA;" readonly >
+					&nbsp&nbsp&nbsp&nbsp<button name="bGo" onClick ="GCTGotoPosition()"  />{{go}}</button>
+				</form>
+				</td>
+			</tr>
+		</table>
+	</td>
+	
+</tr>
+</table>
+<!-- End of Position -->
+<br>
 
 
-</span>
-
-
+</div> <!-- End of GCT-div --> 
 
 <?php include ("t102.php"); ?>
+
 
 </div>
 

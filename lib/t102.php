@@ -1,29 +1,39 @@
-<script type='text/javascript' src='https://www.google.com/jsapi'></script>
-<script type='text/javascript' src="lib/js/GCT.js"></script>
-<script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
 
-<div id='idGTC' ></div>
+
+<div id='idGTC' align = "center"> </div>
+
+
 
 <?php
  echo "<script type='text/javascript'>
 
 	var gct = new GCT( 'idGTC' );
 
-	gct.addColumn('number', '".tr('ranking')."', 'width:30px; text-align: left; font-weight: bold; ');
-	gct.addColumn('number', '".tr('caches')."', 'width:50px; text-align: left; font-weight: bold; ');  
+	gct.addColumn('number', '".tr('Pos')."', 'text-align: left; ');
+	gct.addColumn('number', '".tr('Nr')."', 'text-align: left; ');  
 	gct.addColumn('string', '".tr('user')."', 'width:50px; text-align: left; font-weight: bold; ' ); 
- 	gct.addColumn('string', '".tr('descriptions')."', 'font-family: curier new; font-style: italic;  ');		
+ 	gct.addColumn('string', '".tr('descriptions')."', 'font-family: curier new; font-style: italic; padding-bottom: 5px; padding-top: 5px;');		
  	gct.addColumn('string', 'UserName' );
 	gct.hideColumns( [4] );
 			
  </script>";
-
+ 
+ 
  
 
 require_once('./lib/db.php');
 
 $sRok = "";
 $sMc = "";
+
+$sDataOd = "";
+$sDataDo = "";
+
+$sData_od = "";
+$sData_do = "";
+
+$sRD = "";
+
 $sCondition = "";
 $nIsCondition = 0;
 $nMyRanking = 0;
@@ -35,45 +45,70 @@ if ( isset( $_REQUEST[ 'Rok' ]) )
 if ( isset( $_REQUEST[ 'Mc' ]) )
 	$sMc =  $_REQUEST[ 'Mc' ];
 
+if ( isset( $_REQUEST[ 'rRD' ]) )
+	$sRD =  $_REQUEST[ 'rRD' ];
+
+if ( isset( $_REQUEST[ 'DataOd' ]) )
+	$sDataOd =  $_REQUEST[ 'DataOd' ];
+
+if ( isset( $_REQUEST[ 'DataDo' ]) )
+	$sDataDo =  $_REQUEST[ 'DataDo' ];
 
 
-if ( $sRok <> "" and $sMc <> "" )
+if ( $sRD == "R"   )
 {
-	$sData_od = $sRok.'-'.$sMc.'-'.'01';
+	if ( $sRok <> "" and $sMc <> "" )
+	{
+		$sData_od = $sRok.'-'.$sMc.'-'.'01';
+		
+		$dDate = new DateTime( $sData_od );
+		$dDate->add( new DateInterval('P1M') );
+		$nIsCondition = 1;
+	}
 	
-	$dDate = new DateTime( $sData_od );
-	$dDate->add( new DateInterval('P1M') );
-	$nIsCondition = 1;
+	if ( $sRok <> "" and $sMc == "" )
+	{
+		$sData_od = $sRok.'-01-01';
+	
+		$dDate = new DateTime( $sData_od );
+		$dDate->add( new DateInterval('P1Y') );
+		$nIsCondition = 1;
+	}
+	
+	
+	if ( $nIsCondition )
+	{
+		$sData_do = $dDate->format( 'Y-m-d');	
+		$sCondition = "and date >='" .$sData_od ."' and date < '".$sData_do."'";	
+	}
 }
-
-if ( $sRok <> "" and $sMc == "" )
-{
-	$sData_od = $sRok.'-01-01';
-
-	$dDate = new DateTime( $sData_od );
-	$dDate->add( new DateInterval('P1Y') );
-	$nIsCondition = 1;
+else
+{	
+	try {
+		if ( $sDataOd <> "" )
+		{
+			$dDate = new DateTime( $sDataOd );
+			$sData_od = $dDate->format( 'Y-m-d');
+		}
+			
+		$dDate = new DateTime( $sDataDo );
+		$dDate->add( new DateInterval('P1D') );
+		$sData_do = $dDate->format( 'Y-m-d');
+	
+		if ( $sData_od <> "" )
+			$sCondition = " and date >='" .$sData_od ."' ";
+				 
+		if ( $sData_do <> "" )
+			$sCondition = $sCondition . " and date < '".$sData_do."' ";
+	}
+	
+	catch (Exception $e)
+	{
+		$sCondition = "";
+		
+	}
+	
 }
-
-
-if ( $nIsCondition )
-{
-	$sData_do = $dDate->format( 'Y-m-d');	
-	$sCondition = "and date >='" .$sData_od ."' and date < '".$sData_do."'";	
-}
-
-//SantaClause
-$dbc = new dataBase();
-$query = "SELECT COUNT(*) count FROM `caches` WHERE `status`=1";
-$dbc->multiVariableQuery($query);
-$record = $dbc->dbResultFetch();
-$nNrActiveCaches = $record[ "count"];
-$sUserStyle = ' style="color:green" ';
-$sProfil = 'Jest od z nami od zawsze ...';
-$sUsername = '<a Św.Mikołaj style="color:red" href="viewprofile.php?userid=59241" onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >Św. Mikołaj Santa Claus</a>';
-$sWellBehaved = tr('well_behaved');
-
-unset( $dbc );
 
 
 
@@ -100,24 +135,12 @@ $dbc->multiVariableQuery($query);
 
 echo "<script type='text/javascript'>";
 
-//SantaClause
+
+
 $nRanking = 0;
-$nPos = 1;
-$nRanking++;
-echo "
-gct.addEmptyRow();
-gct.addToLastRow( 0, 1 );
-gct.addToLastRow( 1, $nNrActiveCaches );
-gct.addToLastRow( 2, '$sUsername' );
-gct.addToLastRow( 3, '$sWellBehaved' );
-gct.addToLastRow( 4, 'Św. Mikołaj, Santa Clause' );
-";
-
-
-//$nRanking = 0;
 $sOpis = "";
 $nOldCount = -1;
-//$nPos = 0;
+$nPos = 0;
 $nMyRanking = 0;
 $nMyRealPos = 0;
 
@@ -139,7 +162,7 @@ while ( $record = $dbc->dbResultFetch() )
 	else
 		$sOpis = "";
 	
-	$sOpis = "<br>".$sOpis;
+	$sOpis = "".$sOpis;
 	
 	
 	$sProfil = "<b>Zarejestrowany od:</b> ".$record[ "date_created" ];
@@ -148,15 +171,17 @@ while ( $record = $dbc->dbResultFetch() )
 	$nCount = $record[ "count" ];
 	$sUUN = $record[ "UUN" ];
 	$sDateCr = $record[ "date_created" ];
-
-	if ( $nRanking <3 )
-		$sUserStyle = ' style="color:green" ';
-	else
-		$sUserStyle = '';
-	 
-	$sUsername = '<a '.$record[ "username" ].$sUserStyle.' href="viewprofile.php?userid='.$record["user_id"].'" onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</a>';
-	//$sUsername = ''.$record[ "username" ].'';
-
+	
+	$sUserClass ="";
+	if ( $nRanking < 3 )
+		$sUserClass = ' class="GCT-link-3"; '; 
+	else 
+		$sUserClass = ' class="GCT-link"; ';
+	
+	$sUserProfil = "viewprofile.php?userid=".$record['user_id'];
+	
+	$sUsername = '<span '.$record[ "username" ].$sUserClass.' onclick="GCTGotoProfil( \\\''.$sUserProfil.'\\\' )"  onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</span>';
+	
 	
 	if ( $nCount != $nOldCount )
 	{				
@@ -196,3 +221,4 @@ echo "document.Position.RealPosOfTable.value = '".$nMyRealPos."';";
 echo "</script>";
 
 ?>
+
