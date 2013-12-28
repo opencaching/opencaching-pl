@@ -1,8 +1,10 @@
-
-<script type="text/javascript" src="lib/js/datepicker/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="lib/js/datepicker/jquery-ui-1.8.21.custom.min.js"></script>
-
-
+<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
+<link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
+ 
+ 
+<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
 <script type='text/javascript' src="lib/js/GCT.js"></script>
 <script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
@@ -155,7 +157,7 @@ function GCTFindUser()
 				
 				<tr>
 					<td><input type="radio" name="rRD" id="rD" value="D" <?php if ($sRD == "D") echo "checked" ?>></td>
-					<td>Daty:</td>
+					<td>{{Dates}}:</td>
 					<td colspan=2>		
 					<input type="text" id="datepicker" name="DataOd" onclick="GCTSetRadio( 'Data' )" value="<?php echo $sDataOd?>" style="width:60px; text-align: left"  maxlength="10">&nbsp&nbsp-
 					<input type="text" id="datepicker1" name="DataDo" onclick="GCTSetRadio( 'Data' )" value="<?php echo $sDataDo?>" style="width:60px; text-align: left"  maxlength="10">

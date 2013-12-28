@@ -59,18 +59,12 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
         <meta http-equiv="cache-control" content="no-cache" />
         <meta name="author" content="Opencaching.pl " />
         <meta http-equiv="X-UA-Compatible" content="IE=10" />
-        
-                 
-		<link type="text/css" href="lib/js/datepicker/css/pepper-grinder/jquery-ui-1.8.21.custom.css" rel="stylesheet" />                 
+        		                 
         <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_screen.css" />
         <link rel="stylesheet" type="text/css" media="screen,projection" href="chat/css/shoutbox.css" />
         <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
         <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_{season}.css" />
-        <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
-        
-        
-        
-        
+                 
         <link rel="SHORTCUT ICON" href="favicon.ico" />
         <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />
                
