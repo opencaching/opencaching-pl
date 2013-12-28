@@ -82,7 +82,8 @@
 			$tplname = 'news';
 		} 
 		
-		
+	tpl_set_var('language4js', $lang);
+	
 	//make the template and send it out
 	tpl_BuildTemplate();
 ?>
