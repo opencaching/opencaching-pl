@@ -236,8 +236,8 @@ function CleanSpecChars( $log, $flg_html )
 					tpl_set_var('export_all_watches', '');
 					
 					//JG - home, sweet home, Gdansk
-					if (!$usrlatitude ) $usrlatitude = 54.400;
-					if (!$usrlongitude ) $usrlongitude = 18.650;
+					if (!isset($usrlatitude) || !$usrlatitude ) $usrlatitude = 54.400;
+					if (!isset($usrlongitude) || !$usrlongitude ) $usrlongitude = 18.650;
 				}
 				else
 				{
