@@ -49,9 +49,11 @@ if ($error == false)
 		if(isset($_REQUEST['historicLimit']) && $_REQUEST['historicLimit'] == 1) {
 			tpl_set_var('historicLimitHref', 'powerTrail.php'); 
 			tpl_set_var('switchMiniPT', tr('pt233')); 
+			tpl_set_var('historicLimit', 1); 
 		} else {
 			tpl_set_var('historicLimitHref', 'powerTrail.php?historicLimit=1');
 			tpl_set_var('switchMiniPT', tr('pt232')); 
+			tpl_set_var('historicLimit', 0); 
 		}
 		tpl_set_var('nocachess', 'none');
 		tpl_set_var('displayCreateNewPowerTrailForm', 'none');

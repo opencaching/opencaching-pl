@@ -1850,6 +1850,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
 				</div>
 				<div id="displayOptions" class="displayOptionsClass" style="display: none">
 					<form id="dOptionForm" name="dOptionForm" action="powerTrail.php" method="get">
+						<input type="hidden" id="historicLimit" name="historicLimit" value="{historicLimit}"/>
 						<table>
 							<tr>
 								<td>{{pt166}}</td>
