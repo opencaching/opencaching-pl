@@ -2107,6 +2107,13 @@ addnews_confirm_01 Verzend nieuws
 addnews_confirm_02 Bedankt voor het verzenden van een nieuw bericht. Wij zullen de informatie zo snel mogelijk bekijken.
 addnews_confirm_03 Terug naar
 addnews_confirm_04 hoofdpagina
+Pos Pos
+Nr Nr
+Dates Datum
+adm_cachenotfound_01 Toon gemelde caches
+adm_cachenotfound_02 Toon gemelde met verschilende datum
+adm_cachenotfound_03 Niet gevonden
+adm_cachenotfound_04 Rapprteer probleem
 
 
 

@@ -2110,6 +2110,11 @@ addnews_confirm_04 homepage
 Pos Pos
 Nr Nr
 Dates Dates
+adm_cachenotfound_01 Show reported caches
+adm_cachenotfound_02 Show reported with different dates
+adm_cachenotfound_03 Not found
+adm_cachenotfound_04 Report problem
+
 
 
 

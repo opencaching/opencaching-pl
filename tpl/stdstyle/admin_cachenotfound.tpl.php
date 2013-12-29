@@ -8,8 +8,8 @@ global $usr;
 <tr><td class="spacer"></td></tr>
 <tr>
 	<td>
-		<input type="checkbox" name="show_reported" value="1" id="l_show_reported" class="checkbox" {show_reported} /> <label for="l_show_reported">Pokaż zgłoszone skrzynki</label><br />
-		<input type="checkbox" name="show_duplicated" value="1" id="l_show_duplicated" class="checkbox" {show_duplicated} /> <label for="l_show_duplicated">Pokaż nieznalezienia z tą samą datą</label><br />
+		<input type="checkbox" name="show_reported" value="1" id="l_show_reported" class="checkbox" {show_reported} /> <label for="l_show_reported">{{adm_cachenotfound_01}}</label><br />
+		<input type="checkbox" name="show_duplicated" value="1" id="l_show_duplicated" class="checkbox" {show_duplicated} /> <label for="l_show_duplicated">{{adm_cachenotfound_02}}</label><br />
 		<input type="submit" value={{filter}} class="formbuttons" />
 	</td>
 </tr>
@@ -19,8 +19,8 @@ global $usr;
 		<tr>
 			<td width="18" height="13" bgcolor="#E6E6E6">#</td>
 			<td width="200" height="13" bgcolor="#E6E6E6"><b>{{name_label}}</b></td>
-			<td width="60" height="13" bgcolor="#E6E6E6"><b>Nieznalezienia</b></td>
-			<td width="60" height="13" bgcolor="#E6E6E6"><b>Zgłoś problem</b></td>
+			<td width="60" height="13" bgcolor="#E6E6E6"><b>{{adm_cachenotfound_03}}</b></td>
+			<td width="60" height="13" bgcolor="#E6E6E6"><b>{{adm_cachenotfound_04}}</b></td>
 		</tr>
 		<!--a-->{results}<!--z-->
 		</table>
