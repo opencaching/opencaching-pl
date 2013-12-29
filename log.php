@@ -839,12 +839,9 @@ $debug = false;
 						//inc cache stat and "last found"
 						$rs = sql("SELECT `founds`, `notfounds`, `notes`, `last_found` FROM `caches` WHERE `cache_id`='&1'", sql_escape($cache_id));
 						$record = sql_fetch_array($rs);
-
 						$last_found = '';
 						if ($log_type == 1 || $log_type == 7)
 						{
-							$tmpset_var = '`founds`=\'' . ($record['founds'] + 1) . '\'';
-
 							$dlog_date = mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year);
 							if ($record['last_found'] == NULL)
 							{
@@ -855,18 +852,9 @@ $debug = false;
 								$last_found = ', `last_found`=\'' . sql_escape(date('Y-m-d H:i:s', $dlog_date)) . '\'';
 							}
 						}
-						elseif ($log_type == 2 || $log_type == 8) // fuer Events wird not found als will attend Zaehler missbraucht
-						{
-							$tmpset_var = '`notfounds`=\'' . sql_escape($record['notfounds'] + 1) . '\'';
-						}
-						elseif ($log_type == 3)
-						{
-							$tmpset_var = '`notes`=\'' . sql_escape($record['notes'] + 1) . '\'';
-						}
-
 						if ($log_type == 1 || $log_type == 2 || $log_type == 3 || $log_type == 7 || $log_type == 8)
 						{
-							sql("UPDATE `caches` SET " . $tmpset_var . $last_found . " WHERE `cache_id`='&1'", sql_escape($cache_id));
+							recalculateCacheStats($cache_id, $last_found);	
 						}
 
 						//inc user stat
@@ -1429,4 +1417,23 @@ function debug($label, $array)
 	print_r($array);
 	print "===========================================</pre>";
 }
-?>
+
+/**
+ * after add a log it is a good idea to full recalculate stats of cache, that can avoid 
+ * possible errors which used to appear when was calculated old method. 
+ * 
+ * by Andrzej Łza Woźniak, 12-2013
+ */
+function recalculateCacheStats($cacheId, $lastFoundQueryString){
+	$query = "	
+		UPDATE `caches` 
+		SET `founds`   = (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =1 AND `deleted` =0 ),
+			`notfounds`= (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =2 AND `deleted` =0 ),
+			`notes`= (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =3 AND `deleted` =0 )
+		$lastFoundQueryString
+		WHERE `cache_id` =:1
+	";
+	
+	$db = new dataBase;
+	$db->multiVariableQuery($query, $cacheId);
+}
