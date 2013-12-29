@@ -5,8 +5,10 @@
  
  
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
+<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
 <script type='text/javascript' src="lib/js/GCT.js"></script>
+<script type='text/javascript' src="lib/js/GCTStats.js"></script>
 <script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
 
 
@@ -79,59 +81,12 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 <script type="text/javascript">
 
 
-function GCTSetRadio(name )
-{	
-	var radio;
-		
-	if ( name == "Rok" ) 
-		radio = document.getElementById("rR");
-	else
-		radio = document.getElementById("rD");
-	
-	radio.checked= true;
-}
 
 
-function GCTGotoProfil( link )
-{
-	window.location.href = link;
-}
 
 
-function GCTGotoPosition()
-{
-	var myPos = parseInt( document.Position.RealPosOfTable.value );
-	
-	if ( myPos != 0 )
-	{
-		gct.setAsSelected( myPos );	
-		gct.goToPosition( myPos, 1 );
-	}
-}
-
-function GCTFindUser()
-{
-	var user = document.FindUser.User.value;
-	user = user.toUpperCase();	
-	var userMax = user + 'z';
-	
-	var nrRowsArray = gct.getFilteredRows( [{column: 4, minValue: user, maxValue: userMax}] );
 
 
-	if ( nrRowsArray.length == 1 )
-	{
-		/*var v = gct.getValue( nrRowsArray[0], 1 );
-		v = '<span style="color: red">' + v + '</span>';
-		alert( v );
-		gct.modifyValue( nrRowsArray[0], 1, v );*/
-		
-		gct.setAsSelected( nrRowsArray[0] );
-		gct.goToPosition( nrRowsArray[0], 1  );
-	} 
-	else
-		gct.showRows( nrRowsArray, 1 );
-	
-}
 
 
 </script>
@@ -150,8 +105,8 @@ function GCTFindUser()
 				<tr>
 					<td><input type="radio" name="rRD" id="rR" value="R" <?php if ($sRD == "R") echo "checked" ?> ></td>
 					<td width="10px">{{FiltrYear}}:</td>
-					<td width="64px"> <input type="text" name="Rok" value="<?php echo $sRok?>"; style="width:30px; text-align: center" maxlength="4" onclick="GCTSetRadio( 'Rok' )"></td>			
-					<td >{{FiltrMonth}}: <input type="text" value="<?php echo $sMc?>"  name="Mc" style="width:20px; text-align: center" maxlength="2" onclick="GCTSetRadio( 'Rok' )"></td>		
+					<td width="64px"> <input type="text" name="Rok" value="<?php echo $sRok?>"; style="width:30px; text-align: center" maxlength="4" onclick="GCTStatsSetRadio( 'Rok' )"></td>			
+					<td >{{FiltrMonth}}: <input type="text" value="<?php echo $sMc?>"  name="Mc" style="width:20px; text-align: center" maxlength="2" onclick="GCTStatsSetRadio( 'Rok' )"></td>		
 					<td width="90px" rowspan=2; width="70px"  style="text-align: center"> <button type="submit" name="bFilterDate" />{{Filter}}</td>			
 				</tr>
 				
@@ -159,8 +114,8 @@ function GCTFindUser()
 					<td><input type="radio" name="rRD" id="rD" value="D" <?php if ($sRD == "D") echo "checked" ?>></td>
 					<td>{{Dates}}:</td>
 					<td colspan=2>		
-					<input type="text" id="datepicker" name="DataOd" onclick="GCTSetRadio( 'Data' )" value="<?php echo $sDataOd?>" style="width:60px; text-align: left"  maxlength="10">&nbsp&nbsp-
-					<input type="text" id="datepicker1" name="DataDo" onclick="GCTSetRadio( 'Data' )" value="<?php echo $sDataDo?>" style="width:60px; text-align: left"  maxlength="10">
+					<input type="text" id="datepicker" name="DataOd" onclick="GCTStatsSetRadio( 'Data' )" value="<?php echo $sDataOd?>" style="width:60px; text-align: left"  maxlength="10">&nbsp&nbsp-
+					<input type="text" id="datepicker1" name="DataDo" onclick="GCTStatsSetRadio( 'Data' )" value="<?php echo $sDataDo?>" style="width:60px; text-align: left"  maxlength="10">
 					</td>									
 				</tr>
 		
@@ -179,7 +134,7 @@ function GCTFindUser()
 				<td >
 					<form name="FindUser" style="display:inline;" action="" onsubmit="return false;">
 						{{user}}:&nbsp&nbsp<input type="text" name="User" value=""; style="width:100px; text-align: left; ">
-						&nbsp&nbsp&nbsp<button type="submit" value={{search}} name="bFindUser" style="font-size:12px;width:70px;"; onClick ="GCTFindUser()"  />{{search}}</button>
+						&nbsp&nbsp&nbsp<button type="submit" value={{search}} name="bFindUser" style="font-size:12px;width:70px;"; onClick ="GCTStatsFindUser( document.FindUser.User.value )"  />{{search}}</button>
 					</form>
 				</td>
 			</tr>
@@ -203,7 +158,7 @@ function GCTFindUser()
 				<form name="Position" style="display:inline;" action="" onsubmit="return false;" >
 					<input type="hidden" value="0" name="RealPosOfTable" >
 					{{my_position}}:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" style="width:70px; text-align: center; color: black;  font-weight: bold; font-size:12px; background-color: #FAFAFA;" readonly >
-					&nbsp&nbsp&nbsp&nbsp<button name="bGo" onClick ="GCTGotoPosition()"  />{{go}}</button>
+					&nbsp&nbsp&nbsp&nbsp<button name="bGo" onClick ="GCTStatsGotoPosition(document.Position.RealPosOfTable.value)"  />{{go}}</button>
 				</form>
 				</td>
 			</tr>

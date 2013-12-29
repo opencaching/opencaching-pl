@@ -180,7 +180,7 @@ while ( $record = $dbc->dbResultFetch() )
 	
 	$sUserProfil = "viewprofile.php?userid=".$record['user_id'];
 	
-	$sUsername = '<span '.$record[ "username" ].$sUserClass.' onclick="GCTGotoProfil( \\\''.$sUserProfil.'\\\' )"  onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</span>';
+	$sUsername = '<span '.$record[ "username" ].$sUserClass.' onclick="GCTStatsGotoProfil( \\\''.$sUserProfil.'\\\' )"  onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</span>';
 	
 	
 	if ( $nCount != $nOldCount )

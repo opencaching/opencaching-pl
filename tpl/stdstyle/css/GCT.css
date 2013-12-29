@@ -1,47 +1,10 @@
 /*
-		GoogleTableChart - JG (triPPer)
-		
-	Using (for example) in STATS		
+		GoogleTableChart - 	JG (triPPer) 
+							tripper1971@wp.pl
+							
+		2013.12				
 */
 
-
-div.ui-datepicker{font-size:12px;}
-
-.GCT-link-3 {text-decoration: underline; cursor: pointer; color: #006600}
-.GCT-link {text-decoration: underline; cursor: pointer;}
-
-.GCT-div button{ 	
-	background-color: #DBE6F1;
-	-moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	border-radius: 5px;
-	border:2px solid grey;
-	
-	-webkit-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
-	-moz-box-shadow:    4px 4px 6px rgba(50, 50, 50, 0.65);
-	box-shadow:         4px 4px 6px rgba(50, 50, 50, 0.65);
-		
-	font-size:12px;
-	width:70px;
-	font-weight: bold;
-}
-
-
-.GCT-div button:hover{ 					
-	-webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-	-moz-box-shadow:    0px 0px 0px rgba(0, 0, 0, 0);
-	box-shadow:         0px 0px 0px rgba(0, 0, 0, 0);
-}
-
-
-.GCT-div-table {
-	border-radius: 5px; 
-	border: solid 1px grey; 
-	background: #EFEFEF; 
-	padding:10px 10px 10px 10px; 
-	font-weight:bold;	
-}
 
 .GCT-background-color-white { background-color: #ffffff; }
 .GCT-background-color-whiteB { background-color:#FBFBFB; }
@@ -51,8 +14,6 @@ div.ui-datepicker{font-size:12px;}
 .GCT-background-color-grey25 { background-color: #DDDDDD; }
 .GCT-background-color-lightblue { background-color: #F5F5FF; }
 
-
-//color:#D9D9D9; #EBEBEB;
 .GCT-border-color-greyEF{ border: 1px solid #efefef ;}
 .GCT-border-color-greyD9{ border: 1px solid #D9D9D9; }
 .GCT-border-color-black{ border: 1px solid #000000 ; }
@@ -66,14 +27,13 @@ div.ui-datepicker{font-size:12px;}
 
 .GCT-font-bold{font-weight: bold}
 
-
 .GCTalign-left{ text-align: left; }
 .GCTalign-center{ text-align: center; }
 .GCTalign-right{ text-align: right; }
 
 .GCT-border-color-greyD9.google-visualization-table-sorthdr {		
-	padding-bottom: 25px; 
-	padding-top: 25px; 
+	padding-bottom: 10px; 
+	padding-top: 10px; 
 	padding-left: 5px;
 	
 	
@@ -90,8 +50,3 @@ div.ui-datepicker{font-size:12px;}
 	background-image: -ms-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
 	background-image: linear-gradient(to bottom, #FFFFFF 0%, #DDDDDD 100%);
 }
-
-
-
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight
-{border: 1px solid grey; background: #BBDDFF  url(images/ui-bg_highlight-soft_25_ffef8f_1x100.png) 50% 50% repeat-x; color: #363636; }  
