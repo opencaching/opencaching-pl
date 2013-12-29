@@ -677,7 +677,7 @@ write_wp Waypoint opslaan
 edit_wp Bewerk waypoint
 delete_wp Verwijder waypoint
 show_info_about_wp Zie beschrijving en soorten van extra waypoints
-show_info_for_value Wanneer dit waypoint de volgende stap is voor multicache zet waarde op 0.
+show_info_for_value Wanneer dit waypoint niet de volgende stap is voor multicache of puzzelcache zet waarde op 0.
 comment_octeam_visible OC Team notities zijn alleen zichtbaar voor OC Team en de cache eigenaar.
 ready_to_search Cache is gepubliceerd. 
 archived_cache Cache is gearchiveerd.
