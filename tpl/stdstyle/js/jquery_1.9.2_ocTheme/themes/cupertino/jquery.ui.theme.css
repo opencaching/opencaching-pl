@@ -33,7 +33,7 @@
 
 /* Interaction Cues
 ----------------------------------*/
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #f9dd34; background: #ffef8f url(images/ui-bg_highlight-soft_25_ffef8f_1x100.png) 50% top repeat-x; color: #363636; }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {border: 1px solid #2694e8; background: #BBDDFF  url(images/ui-bg_glass_50_3baae3_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #363636; }
 .ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #363636; }
 .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #cd0a0a url(images/ui-bg_flat_15_cd0a0a_40x100.png) 50% 50% repeat-x; color: #ffffff; }
 .ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #ffffff; }
