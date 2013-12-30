@@ -854,7 +854,7 @@ $debug = false;
 						}
 						if ($log_type == 1 || $log_type == 2 || $log_type == 3 || $log_type == 7 || $log_type == 8)
 						{
-							recalculateCacheStats($cache_id, $last_found);	
+							recalculateCacheStats($cache_id, $cache_type, $last_found);	
 						}
 
 						//inc user stat
@@ -1424,15 +1424,26 @@ function debug($label, $array)
  * 
  * by Andrzej Łza Woźniak, 12-2013
  */
-function recalculateCacheStats($cacheId, $lastFoundQueryString){
-	$query = "	
-		UPDATE `caches` 
-		SET `founds`   = (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =1 AND `deleted` =0 ),
-			`notfounds`= (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =2 AND `deleted` =0 ),
-			`notes`= (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =3 AND `deleted` =0 )
-		$lastFoundQueryString
-		WHERE `cache_id` =:1
-	";
+function recalculateCacheStats($cacheId, $cacheType, $lastFoundQueryString){
+	if($cacheType == 6){ // event (no idea who developed so irracional rules, not me!)
+		$query = "	
+			UPDATE `caches` 
+			SET `founds`   = (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =7 AND `deleted` =0 ),
+				`notfounds`= (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =8 AND `deleted` =0 ),
+				`notes`= (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =3 AND `deleted` =0 )
+			$lastFoundQueryString
+			WHERE `cache_id` =:1
+		";
+	} else {	
+		$query = "	
+			UPDATE `caches` 
+			SET `founds`   = (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =1 AND `deleted` =0 ),
+				`notfounds`= (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =2 AND `deleted` =0 ),
+				`notes`= (SELECT count(*) FROM `cache_logs` WHERE `cache_id` =:1 AND TYPE =3 AND `deleted` =0 )
+			$lastFoundQueryString
+			WHERE `cache_id` =:1
+		";
+	}
 	
 	$db = new dataBase;
 	$db->multiVariableQuery($query, $cacheId);
