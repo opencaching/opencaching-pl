@@ -2101,7 +2101,7 @@ reset_coords Restore
 orig_coord_modified_info You have ented own coordinates - original ones are as follows:
 modified_coord_notice Modified coordinates will be exported to files, e.g. gpx, klm.
 srch_Coord_have_been_modified The coordinates have been modified
-srch_Recommended Rekomendowana Recommended
+srch_Recommended Recommended
 srch_Send_to_GPS Send to GPS
 addnews_confirm_01 Add news
 addnews_confirm_02 Thank you for sending a new message. We will try as soon as possible to view this information

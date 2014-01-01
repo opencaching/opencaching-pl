@@ -361,17 +361,33 @@
 						$cache_mod_lon = $coords_lon_h + round($coords_lon_min,3)/60;
 						if ($_POST['coordmod_lonEW'] == 'W') $cache_mod_lon = -$cache_mod_lon;
 						
+						if (!isset($dbc)) {$dbc = new dataBase();};
+
 						if ($cache_mod_coords['mod_cords_id'] != null)	// user modified caches cords earlier
 						{
-							
-							sql("UPDATE `cache_mod_cords` SET `date` = NOW(), `longitude` = &1, `latitude` = &2
+							$thatquery = "UPDATE `cache_mod_cords` SET `date` = NOW(), `longitude` = :v1, `latitude` = :v2
+								WHERE `id` = :v3";
+							$params['v1']['value'] = (float)   $cache_mod_lon; 					  $params['v1']['data_type'] = 'string';
+							$params['v2']['value'] = (float)   $cache_mod_lat; 				  	  $params['v2']['data_type'] = 'string';
+							$params['v3']['value'] = (integer) $cache_mod_coords['mod_cords_id']; $params['v3']['data_type'] = 'integer';
+
+							/*sql("UPDATE `cache_mod_cords` SET `date` = NOW(), `longitude` = &1, `latitude` = &2
 								WHERE `id` = &3", $cache_mod_lon, $cache_mod_lat, $cache_mod_coords['mod_cords_id']);
+							*/
 						}
 						else // first edit
 						{
-							sql("INSERT INTO `cache_mod_cords` (`cache_id`, `user_id`, `date`, `longitude`, `latitude`) values(&1, &2, now(), &3, &4)",
-								$cache_id, $usr['userid'], $cache_mod_lon, $cache_mod_lat);
+							$thatquery = "INSERT INTO `cache_mod_cords` (`cache_id`, `user_id`, `date`, `longitude`, `latitude`) values(:v1, :v2, now(), :v3, :v4)";
+							$params['v1']['value'] = (integer) $cache_id; 	   $params['v1']['data_type'] = 'integer';
+							$params['v2']['value'] = (integer) $usr['userid']; $params['v2']['data_type'] = 'integer';
+							$params['v3']['value'] = (float)   $cache_mod_lon; $params['v3']['data_type'] = 'string';											$params['v4']['value'] = (float)   $cache_mod_lat; $params['v4']['data_type'] = 'string';
+							
+							
+							/*sql("INSERT INTO `cache_mod_cords` (`cache_id`, `user_id`, `date`, `longitude`, `latitude`) values(&1, &2, now(), &3, &4)",
+								$cache_id, $usr['userid'], $cache_mod_lon, $cache_mod_lat); */
 						}
+						$dbc->paramQuery($thatquery,$params);	
+						unset($dbc); unset($params);
 						
 					$orig_coord_info_lon=htmlspecialchars(help_lonToDegreeStr($orig_cache_lon), ENT_COMPAT, 'UTF-8');
 					$orig_coord_info_lat=htmlspecialchars(help_latToDegreeStr($orig_cache_lat), ENT_COMPAT, 'UTF-8');
