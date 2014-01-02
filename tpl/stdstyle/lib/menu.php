@@ -38,7 +38,7 @@
 
  ****************************************************************************/
 include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString, $powerTrailModuleSwitchOn, $powerTrailFaqLink;
+global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString, $powerTrailModuleSwitchOn, $powerTrailFaqLink, $forum_url;
 
 $menu = array(
     array(
@@ -243,7 +243,7 @@ $menu = array(
         'menustring'    => tr('forum'),
         'siteid'        => 'forum',
         'visible'       => true,
-        'filename'      => 'http://forum.opencaching.pl',
+        'filename'      => $forum_url,
         'newwindow'     => true
     ),
     array(
