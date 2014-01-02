@@ -170,8 +170,10 @@
 
 	$cachemap_mapper = "lib/mapper-okapi.php";
 
+	//links to forum page on oc site
+	$forum_url = 'http://forum.opencaching.pl';
 
-
+	//links to wiki page on oc site
 	$wiki_url  = 'http://wiki.opencaching.pl';
 	$rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
 	$cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
