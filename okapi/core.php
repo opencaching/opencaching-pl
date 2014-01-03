@@ -816,7 +816,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 913; # This gets replaced in automatically deployed packages
+	public static $revision = 914; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -1647,7 +1647,7 @@ class Okapi
 		 */
 
 		$html = preg_replace(
-			"~\b(src|href)=([\"'])(?![a-z0-9-_]+:)~",
+			"~\b(src|href)=([\"'])(?![a-z0-9_-]+:)~",
 			"$1=$2".Settings::get("SITE_URL"),
 			$html
 		);
