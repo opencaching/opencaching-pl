@@ -95,6 +95,12 @@
 					//save to db?
 					if (isset($_POST['submitform']))
 					{
+						/* Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags. */
+							
+						if (strlen($desc) > 300000) {
+							die("Description length limit exceeded (300k chars).");
+						}
+						
 						//check if the entered language already exists
 						$desc_rs = sql("SELECT `id` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $sel_lang);
 						$desc_lang_exists = (mysql_num_rows($desc_rs) > 0);

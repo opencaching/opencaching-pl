@@ -654,6 +654,13 @@ else if ($verify_all==1) {
 				{
 					//check the entered data
 
+					/* Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags. */
+					
+					if (strlen($desc) > 300000) {
+						tpl_set_var('desc_message', "Description length limit exceeded (300k chars).");
+						$error = true;
+					}
+					
 					//check coordinates
 					if ($lat_h!='' || $lat_min!='')
 					{

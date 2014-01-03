@@ -143,6 +143,12 @@
 						
 							if($desc_html == 0)
 								$desc = nl2br($desc);
+							
+							/* Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags. */
+							
+							if (strlen($desc) > 300000) {
+								tpl_errorMsg('editdesc', "Description length limit exceeded (300k chars).");
+							}
 
 							$desc = tidy_html_description($desc);
 							mysql_query("SET NAMES 'utf8'");
