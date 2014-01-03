@@ -98,7 +98,7 @@
 						/* Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags. */
 							
 						if (strlen($desc) > 300000) {
-							die("Description length limit exceeded (300k chars).");
+							die(tr('error3KCharsExcedeed'));
 						}
 						
 						//check if the entered language already exists

@@ -657,7 +657,7 @@ else if ($verify_all==1) {
 					/* Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags. */
 					
 					if (strlen($desc) > 300000) {
-						tpl_set_var('desc_message', "Description length limit exceeded (300k chars).");
+						tpl_set_var('desc_message', tr('error3KCharsExcedeed'));
 						$error = true;
 					}
 					

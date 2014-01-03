@@ -145,9 +145,9 @@
 								$desc = nl2br($desc);
 							
 							/* Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags. */
-							
+
 							if (strlen($desc) > 300000) {
-								tpl_errorMsg('editdesc', "Description length limit exceeded (300k chars).");
+								tpl_errorMsg('editdesc', tr('error3KCharsExcedeed'));
 							}
 
 							$desc = tidy_html_description($desc);
