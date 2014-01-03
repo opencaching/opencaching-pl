@@ -2114,7 +2114,7 @@ adm_cachenotfound_01 Show reported caches
 adm_cachenotfound_02 Show reported with different dates
 adm_cachenotfound_03 Not found
 adm_cachenotfound_04 Report problem
-error3KCharsExcedeed ediDescription length limit exceeded (300 000 chars).
+error3KCharsExcedeed Description length limit exceeded (max 300000 chars).
 
 
 
