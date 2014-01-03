@@ -816,7 +816,7 @@ class Okapi
 {
 	public static $data_store;
 	public static $server;
-	public static $revision = 914; # This gets replaced in automatically deployed packages
+	public static $revision = 915; # This gets replaced in automatically deployed packages
 	private static $okapi_vars = null;
 
 	/** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -857,7 +857,13 @@ class Okapi
 	/** Send an email message to local OKAPI administrators. */
 	public static function mail_admins($subject, $message)
 	{
-		# First, make sure we're not spamming.
+		# Make sure we're not sending HUGE emails.
+
+		if (strlen($message) > 10000) {
+			$message = substr($message, 0, 10000)."\n\n...(message clipped at 10k chars)\n";
+		}
+
+		# Make sure we're not spamming.
 
 		$cache_key = 'mail_admins_counter/'.(floor(time() / 3600) * 3600).'/'.md5($subject);
 		try {
