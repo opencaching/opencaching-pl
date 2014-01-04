@@ -1426,7 +1426,9 @@ function fixPlMonth($string)
 
 function tidy_html_description($text)
 {
-// 'wrap' => 200
+	return htmlspecialchars_decode(stripslashes($text));
+	
+	// old way, I have no idea what is going there and why, so I leave it as is for resque if above line will work not corrrect..
 	$options = array("input-encoding" => "utf8", "output-encoding" => "utf8", "output-xhtml" => true, "doctype" => "omit", "show-body-only" => true, "char-encoding" => "utf8", "quote-ampersand" => true, "quote-nbsp" => true, "wrap" => 0);
 	$tidy =  tidy_parse_string(html_entity_decode($text, ENT_NOQUOTES, "UTF-8"), $options);
 	tidy_clean_repair($tidy);

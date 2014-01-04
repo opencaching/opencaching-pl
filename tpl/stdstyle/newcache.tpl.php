@@ -16,15 +16,55 @@
 
  ****************************************************************************/
 ?>
+<script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
 <input type="hidden" value="arrrgh" id="qwertyuiop">
 <script src="tpl/stdstyle/js/jquery-2.0.3.js"></script>
+<link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/timepicker.js"></script>
 
+
+<script type="text/javascript">
+tinymce.init({
+   selector: "#desc",
+    width: 600,
+    height: 350,
+    menubar: false,
+	toolbar_items_size: 'small',
+    language : "{language4js}",
+    toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
+    toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | preview ",
+    toolbar3: "bold italic underline strikethrough |  alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor | nonbreaking ",
+
+     plugins: [
+        "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+        "table contextmenu directionality emoticons template textcolor paste textcolor"
+     ],
+ });
+</script>
 
 <script type="text/javascript">
 <!--
 
+function hiddenDatePickerChange(identifier){
+	var dateTimeStr = $('#'+identifier+'DatePicker').val();
+	var dateArr = dateTimeStr.split("-");
+	$("#"+identifier+"_year").val(dateArr[0]);
+	$("#"+identifier+"_month").val(dateArr[1]);
+	$("#"+identifier+"_day").val(dateArr[2]);  
+}
+
 $(function() {
+	$('#scriptwarning').hide();
 	chkcountry2();
+	
+	$.datepicker.setDefaults($.datepicker.regional['pl']);
+    $('#hiddenDatePicker, #activateDatePicker').datepicker({
+		dateFormat: 'yy-mm-dd',
+		regional: '{language4js}'
+	}).val();
 }); 
 
 function checkRegion(){
@@ -102,6 +142,7 @@ function stopUpload(success){
 	$("#lat_min").val(gpx.coords_lat_min);
 	$("#lon_min").val(gpx.coords_lon_min);
 	$("#name").val(gpx.name);
+	tinyMCE.activeEditor.setContent(gpx.desc);
 	$("#desc").val(gpx.desc);
    	checkRegion();
 	return true;
@@ -365,6 +406,11 @@ function nearbycachemapOC()
 	padding: 10px;
 	width:90%;
 	}
+	
+	#hiddenDatePicker, #activateDatePicker{
+		width: 75px;
+	}
+	
 </style>
 <!--[if IE 6 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
 <!--[if IE 7 ]> <div id="oldIE">{{pt129}}</div><br/><br/> <![endif]--> 
@@ -579,17 +625,7 @@ function nearbycachemapOC()
 			{desc_message}
 		</td>
 	</tr>
-	<tr>
-		<td colspan="2">
-			<div class="menuBar" style="height:20px;">
-				<span id="descText" class="buttonNormal" onclick="btnSelect(1)" onmouseover="btnMouseOver(1)" onmouseout="btnMouseOut(1)">Text</span>
-				<span class="buttonSplitter">|</span>
-				<span id="descHtml" class="buttonNormal" onclick="btnSelect(2)" onmouseover="btnMouseOver(2)" onmouseout="btnMouseOut(2)">&lt;html&gt;</span>
-				<span class="buttonSplitter">|</span>
-				<span id="descHtmlEdit" class="buttonNormal" onclick="btnSelect(3)" onmouseover="btnMouseOver(3)" onmouseout="btnMouseOut(3)">Editor</span>
-			</div>
-		</td>
-	</tr>
+
 	<tr>
 		<td colspan="2">
 			<span id="scriptwarning" class="errormsg">{{no_javascript}}</span>
@@ -597,7 +633,7 @@ function nearbycachemapOC()
 	</tr>
 	<tr>
 		<td colspan="2">
-			<textarea id="desc" name="desc" rows="20" cols="20" class="cachedesc">{desc}</textarea>
+			<textarea id="desc" name="desc" class="descMCE">{desc}</textarea>
 		</td>
 	</tr>
 	<tr>
@@ -611,7 +647,8 @@ function nearbycachemapOC()
 	</tr>
 	<tr>
 		<td colspan="2">
-			<textarea name="hints" rows="5" cols="20" class="hint mceNoEditor">{hints}</textarea><br /><br />
+		    <textarea style="display: none" name="hintaa" id="hintaa"></textarea>
+			<textarea name="hints" id="hints" style="width: 500px; height: 80px;" >{hints}</textarea><br /><br />
 		</td>
 	</tr>
 	<tr>
@@ -629,9 +666,10 @@ function nearbycachemapOC()
 		<td colspan="2">	
 		<fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
 			<legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
-			<input class="input40" type="text" name="hidden_year" maxlength="4" value="{hidden_year}"/>-
-			<input class="input20" type="text" name="hidden_month" maxlength="2" value="{hidden_month}"/>-
-			<input class="input20" type="text" name="hidden_day" maxlength="2" value="{hidden_day}"/>
+			<input type="date" id="hiddenDatePicker" id="hiddenDatePicker" value="{hidden_year}-{hidden_month}-{hidden_day}" onchange="hiddenDatePickerChange('hidden');"/>
+			<input type="hidden" name="hidden_year"  id="hidden_year"  maxlength="4" value="{hidden_year}"/>
+			<input type="hidden" name="hidden_month" id="hidden_month" maxlength="2" value="{hidden_month}"/>
+			<input type="hidden" name="hidden_day"   id="hidden_day"   maxlength="2" value="{hidden_day}"/>
 			{hidden_since_message}
 		</fieldset>		
 		</td>
@@ -644,9 +682,10 @@ function nearbycachemapOC()
 			<legend>&nbsp; <strong>{{submit_new_cache}}</strong> &nbsp;</legend>
 			<input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}/>&nbsp;<label for="publish_now">{{publish_now}}</label><br />
 			<input type="radio" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}/>&nbsp;<label for="publish_later">{{publish_date}}:</label>
-			<input class="input40" type="text" name="activate_year" maxlength="4" value="{activate_year}"/>-
-			<input class="input20" type="text" name="activate_month" maxlength="2" value="{activate_month}"/>-
-			<input class="input20" type="text" name="activate_day" maxlength="2" value="{activate_day}"/>&nbsp;
+			<input type="date" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate');"/>
+			<input class="input40" type="hidden" name="activate_year"  id="activate_year"  maxlength="4" value="{activate_year}"/>
+			<input class="input20" type="hidden" name="activate_month" id="activate_month" maxlength="2" value="{activate_month}"/>
+			<input class="input20" type="hidden" name="activate_day"   id="activate_day"   maxlength="2" value="{activate_day}"/>&nbsp;
 			<select name="activate_hour" class="input40">{activation_hours}
 			</select>&nbsp;{{hour}}&nbsp;{activate_on_message}<br />
 			<input type="radio" class="radio" name="publish" id="publish_notnow" value="notnow" {publish_notnow_checked}/>&nbsp;<label for="publish_notnow">{{dont_publish_yet}}</label>
@@ -673,247 +712,8 @@ function nearbycachemapOC()
 	</tr>
 </table>
 </form>
-<script language="javascript" type="text/javascript">
-<!--
-	/*
-		1 = Text
-		2 = HTML
-		3 = HTML-Editor
-	*/
-	var use_tinymce = 0;
-	var descMode = {descMode};
-	document.getElementById("scriptwarning").firstChild.nodeValue = "";
-	
-	// descMode auf 1 oder 2 stellen ... wenn Editor erfolgreich geladen wieder auf 3 Stellen
-	if (descMode == 3)
-	{
-		toggleEditor("desc");
-		use_tinymce = 1;
-/*		if (document.getElementById("desc").value == '')
-			descMode = 1;
-		else
-			descMode = 2;*/
-	}
 
-	document.getElementById("descMode").value = descMode;
-	mnuSetElementsNormal();
-	
-	function postInit()
-	{
-		descMode = 3;
-		use_tinymce = 1;
-		document.getElementById("descMode").value = descMode;
-		mnuSetElementsNormal();
-	}
-
-
-
-
-	function toggleEditor(id) {
-		if (!tinyMCE.getInstanceById(id))
-			tinyMCE.execCommand('mceAddControl', false, id);
-		else
-			tinyMCE.execCommand('mceRemoveControl', false, id);
-	}
-
-
-	function SwitchToTextDesc(oldMode)
-	{
-		document.getElementById("descMode").value = 1;
-
-		if(use_tinymce)
-			toggleEditor("desc");
-		use_tinymce = 0;
-		// convert HTML to text
-		var desc = document.getElementById("desc").value;
-
-		desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
-
-		document.getElementById("desc").value = desc;
-	}
-
-	function SwitchToHtmlDesc(oldMode)
-	{
-		document.getElementById("descMode").value = 2;
-
-		if(use_tinymce)
-			toggleEditor("desc");
-		use_tinymce = 0;
-
-		// convert text to HTML
-		var desc = document.getElementById("desc").value;
-
-		if(oldMode != 3)
-			desc = htmlspecialchars(desc, ['ENT_NOQUOTES']);
-
-		document.getElementById("desc").value = desc;
-	}
-
-	function SwitchToHtmlEditDesc(oldMode)
-	{
-		document.getElementById("descMode").value = 3;
-		use_tinymce = 1;
-
-		if(oldMode == 2) {
-			var desc = document.getElementById("desc").value;
-			desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
-			document.getElementById("desc").value = desc;
-		}
-
-		toggleEditor("desc");
-	}
-
-	function mnuSelectElement(e)
-	{
-		e.backgroundColor = '#D4D5D8';
-		e.borderColor = '#6779AA';
-		e.borderWidth = '1px';
-		e.borderStyle = 'solid';
-	}
-
-	function mnuNormalElement(e)
-	{
-		e.backgroundColor = '#F0F0EE';
-		e.borderColor = '#F0F0EE';
-		e.borderWidth = '1px';
-		e.borderStyle = 'solid';
-	}
-
-	function mnuHoverElement(e)
-	{
-		e.backgroundColor = '#B6BDD2';
-		e.borderColor = '#0A246A';
-		e.borderWidth = '1px';
-		e.borderStyle = 'solid';
-	}
-
-	function mnuUnhoverElement(e)
-	{
-		mnuSetElementsNormal();
-	}
-
-	function mnuSetElementsNormal()
-	{
-		var descText = document.getElementById("descText").style;
-		var descHtml = document.getElementById("descHtml").style;
-		var descHtmlEdit = document.getElementById("descHtmlEdit").style;
-
-		switch (descMode)
-		{
-			case 1:
-				mnuSelectElement(descText);
-				mnuNormalElement(descHtml);
-				mnuNormalElement(descHtmlEdit);
-
-				break;
-			case 2:
-				mnuNormalElement(descText);
-				mnuSelectElement(descHtml);
-				mnuNormalElement(descHtmlEdit);
-
-				break;
-			case 3:
-				mnuNormalElement(descText);
-				mnuNormalElement(descHtml);
-				mnuSelectElement(descHtmlEdit);
-
-				break;
-		}
-	}
-
-	function btnSelect(mode)
-	{
-		var descText = document.getElementById("descText").style;
-		var descHtml = document.getElementById("descHtml").style;
-		var descHtmlEdit = document.getElementById("descHtmlEdit").style;
-
-		var oldMode = descMode;
-		descMode = mode;
-		mnuSetElementsNormal();
-
-		if(oldMode == descMode)
-	{
-			// convert text to HTML
-			var desc = document.getElementById("desc").value;
-
-			if ((desc.indexOf('&amp;') == -1) &&
-			    (desc.indexOf('&quot;') == -1) &&
-			    (desc.indexOf('&lt;') == -1) &&
-			    (desc.indexOf('&gt;') == -1) &&
-			    (desc.indexOf('<p>') == -1) &&
-			    (desc.indexOf('<i>') == -1) &&
-			    (desc.indexOf('<strong>') == -1) &&
-			    (desc.indexOf('<br />') == -1))
-			{
-				desc = desc.replace(/&/g, "&amp;");
-				desc = desc.replace(/"/g, "&quot;");
-				desc = desc.replace(/</g, "&lt;");
-				desc = desc.replace(/>/g, "&gt;");
-				desc = desc.replace(/\r\n/g, "\<br />");
-				desc = desc.replace(/\n/g, "<br />");
-				desc = desc.replace(/<br \/>/g, "<br />\n");
-			}
-
-			document.getElementById("desc").value = desc;
-		}
-
-
-		switch (mode)
-		{
-			case 1:
-				SwitchToTextDesc(oldMode);
-				break;
-			case 2:
-				SwitchToHtmlDesc(oldMode);
-				break;
-			case 3:
-
-				SwitchToHtmlEditDesc(oldMode);
-				break;
-		}
-	}
-	
-	function btnMouseOver(id)
-	{
-		var descText = document.getElementById("descText").style;
-		var descHtml = document.getElementById("descHtml").style;
-		var descHtmlEdit = document.getElementById("descHtmlEdit").style;
-
-		switch (id)
-		{
-			case 1:
-				mnuHoverElement(descText);
-				break;
-			case 2:
-				mnuHoverElement(descHtml);
-				break;
-			case 3:
-				mnuHoverElement(descHtmlEdit);
-				break;
-		}
-	}
-	
-	function btnMouseOut(id)
-	{
-		var descText = document.getElementById("descText").style;
-		var descHtml = document.getElementById("descHtml").style;
-		var descHtmlEdit = document.getElementById("descHtmlEdit").style;
-
-		switch (id)
-		{
-			case 1:
-				mnuUnhoverElement(descText);
-				break;
-			case 2:
-				mnuUnhoverElement(descHtml);
-				break;
-			case 3:
-				mnuUnhoverElement(descHtmlEdit);
-				break;
-		}
-	}
-//-->
-</script>
+		
 
 
 
