@@ -37,6 +37,34 @@
 			
  ****************************************************************************/
 ?>
+<script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
+<script src="tpl/stdstyle/js/jquery-2.0.3.js"></script>
+<script type="text/javascript">
+tinymce.init({
+   selector: "#desc",
+    width: 600,
+    height: 350,
+    menubar: false,
+	toolbar_items_size: 'small',
+    language : "{language4js}",
+    toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
+    toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | preview ",
+    toolbar3: "bold italic underline strikethrough |  alignleft aligncenter alignright alignjustify | hr | subscript superscript | charmap emoticons | forecolor backcolor | nonbreaking ",
+
+     plugins: [
+        "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+        "table contextmenu directionality emoticons template textcolor paste textcolor"
+     ],
+ });
+ 
+$(function() {
+	$('#scriptwarning').hide();
+});  
+ 
+</script>
+
+
 <form name="descform" action="editdesc.php" method="post" enctype="application/x-www-form-urlencoded" id="editcache_form" dir="ltr">
 <input type="hidden" name="post" value="1"/>
 <input type="hidden" name="descid" value="{descid}"/>
@@ -67,17 +95,9 @@
 	<div class="buffer"></div>
 	<div>
 		<p class="content-title-noshade-size1">{{full_description}}:{desc_err}</p>
-		<div class="buffer"></div>
-		<div class="menuBar">
-			<span id="descText" class="buttonNormal" onclick="btnSelect(1)" onmouseover="btnMouseOver(1)" onmouseout="btnMouseOut(1)">Text</span>
-			<span class="buttonSplitter">|</span>
-			<span id="descHtml" class="buttonNormal" onclick="btnSelect(2)" onmouseover="btnMouseOver(2)" onmouseout="btnMouseOut(2)">&lt;html&gt;</span>
-			<span class="buttonSplitter">|</span>
-			<span id="descHtmlEdit" class="buttonNormal" onclick="btnSelect(3)" onmouseover="btnMouseOver(3)" onmouseout="btnMouseOut(3)">Editor</span>
-		</div>
 	</div>
 	<p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
-	<p><textarea id="desc" name="desc" cols="80" rows="25">{desc}</textarea></p>
+	<p><textarea id="desc" name="desc" class="descMCE">{desc}</textarea></p>
 	<div class="buffer"></div>
 	<div class="notice">{{html_edit_info}}</div>
 	<div class="notice">{{geocaching_com_foto_info}}</div>
@@ -92,243 +112,4 @@
 	</div>
 	<div class="buffer"></div>
 </form>
-<script language="javascript" type="text/javascript">
-<!--
-	/*
-		1 = Text
-		2 = HTML
-		3 = HTML-Editor
-	*/
-	var use_tinymce = 0;
-	var descMode = {descMode};
-	document.getElementById("scriptwarning").firstChild.nodeValue = "";
-	
-	// descMode auf 1 oder 2 stellen ... wenn Editor erfolgreich geladen wieder auf 3 Stellen
-	if (descMode == 3)
-	{
-		toggleEditor("desc");
-		use_tinymce = 1;
-/*		if (document.getElementById("desc").value == '')
-			descMode = 1;
-		else
-			descMode = 2;*/
-	}
 
-	document.getElementById("descMode").value = descMode;
-	mnuSetElementsNormal();
-	
-	function postInit()
-	{
-		descMode = 3;
-		use_tinymce = 1;
-		document.getElementById("descMode").value = descMode;
-		mnuSetElementsNormal();
-	}
-
-
-
-
-	function toggleEditor(id) {
-		if (!tinyMCE.getInstanceById(id))
-			tinyMCE.execCommand('mceAddControl', false, id);
-		else
-			tinyMCE.execCommand('mceRemoveControl', false, id);
-	}
-
-
-	function SwitchToTextDesc(oldMode)
-	{
-		document.getElementById("descMode").value = 1;
-
-		if(use_tinymce)
-			toggleEditor("desc");
-		use_tinymce = 0;
-		// convert HTML to text
-		var desc = document.getElementById("desc").value;
-
-		desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
-
-		document.getElementById("desc").value = desc;
-	}
-
-	function SwitchToHtmlDesc(oldMode)
-	{
-		document.getElementById("descMode").value = 2;
-
-		if(use_tinymce)
-			toggleEditor("desc");
-		use_tinymce = 0;
-
-		// convert text to HTML
-		var desc = document.getElementById("desc").value;
-
-		if(oldMode != 3)
-			desc = htmlspecialchars(desc, ['ENT_NOQUOTES']);
-
-		document.getElementById("desc").value = desc;
-	}
-
-	function SwitchToHtmlEditDesc(oldMode)
-	{
-		document.getElementById("descMode").value = 3;
-		use_tinymce = 1;
-
-		if(oldMode == 2) {
-			var desc = document.getElementById("desc").value;
-			desc = html_entity_decode(desc, ['ENT_NOQUOTES']);
-			document.getElementById("desc").value = desc;
-		}
-
-		toggleEditor("desc");
-	}
-
-	function mnuSelectElement(e)
-	{
-		e.backgroundColor = '#D4D5D8';
-		e.borderColor = '#6779AA';
-		e.borderWidth = '1px';
-		e.borderStyle = 'solid';
-	}
-
-	function mnuNormalElement(e)
-	{
-		e.backgroundColor = '#F0F0EE';
-		e.borderColor = '#F0F0EE';
-		e.borderWidth = '1px';
-		e.borderStyle = 'solid';
-	}
-
-	function mnuHoverElement(e)
-	{
-		e.backgroundColor = '#B6BDD2';
-		e.borderColor = '#0A246A';
-		e.borderWidth = '1px';
-		e.borderStyle = 'solid';
-	}
-
-	function mnuUnhoverElement(e)
-	{
-		mnuSetElementsNormal();
-	}
-
-	function mnuSetElementsNormal()
-	{
-		var descText = document.getElementById("descText").style;
-		var descHtml = document.getElementById("descHtml").style;
-		var descHtmlEdit = document.getElementById("descHtmlEdit").style;
-
-		switch (descMode)
-		{
-			case 1:
-				mnuSelectElement(descText);
-				mnuNormalElement(descHtml);
-				mnuNormalElement(descHtmlEdit);
-
-				break;
-			case 2:
-				mnuNormalElement(descText);
-				mnuSelectElement(descHtml);
-				mnuNormalElement(descHtmlEdit);
-
-				break;
-			case 3:
-				mnuNormalElement(descText);
-				mnuNormalElement(descHtml);
-				mnuSelectElement(descHtmlEdit);
-
-				break;
-		}
-	}
-
-	function btnSelect(mode)
-	{
-		var descText = document.getElementById("descText").style;
-		var descHtml = document.getElementById("descHtml").style;
-		var descHtmlEdit = document.getElementById("descHtmlEdit").style;
-
-		var oldMode = descMode;
-		descMode = mode;
-		mnuSetElementsNormal();
-
-		if(oldMode == descMode)
-	{
-			// convert text to HTML
-			var desc = document.getElementById("desc").value;
-
-			if ((desc.indexOf('&amp;') == -1) &&
-			    (desc.indexOf('&quot;') == -1) &&
-			    (desc.indexOf('&lt;') == -1) &&
-			    (desc.indexOf('&gt;') == -1) &&
-			    (desc.indexOf('<p>') == -1) &&
-			    (desc.indexOf('<i>') == -1) &&
-			    (desc.indexOf('<strong>') == -1) &&
-			    (desc.indexOf('<br />') == -1))
-			{
-				desc = desc.replace(/&/g, "&amp;");
-				desc = desc.replace(/"/g, "&quot;");
-				desc = desc.replace(/</g, "&lt;");
-				desc = desc.replace(/>/g, "&gt;");
-				desc = desc.replace(/\r\n/g, "\<br />");
-				desc = desc.replace(/\n/g, "<br />");
-				desc = desc.replace(/<br \/>/g, "<br />\n");
-			}
-
-			document.getElementById("desc").value = desc;
-		}
-
-		switch (mode)
-		{
-			case 1:
-				SwitchToTextDesc(oldMode);
-				break;
-			case 2:
-				SwitchToHtmlDesc(oldMode);
-				break;
-			case 3:
-
-				SwitchToHtmlEditDesc(oldMode);
-				break;
-		}
-	}
-	
-	function btnMouseOver(id)
-	{
-		var descText = document.getElementById("descText").style;
-		var descHtml = document.getElementById("descHtml").style;
-		var descHtmlEdit = document.getElementById("descHtmlEdit").style;
-
-		switch (id)
-		{
-			case 1:
-				mnuHoverElement(descText);
-				break;
-			case 2:
-				mnuHoverElement(descHtml);
-				break;
-			case 3:
-				mnuHoverElement(descHtmlEdit);
-				break;
-		}
-	}
-	
-	function btnMouseOut(id)
-	{
-		var descText = document.getElementById("descText").style;
-		var descHtml = document.getElementById("descHtml").style;
-		var descHtmlEdit = document.getElementById("descHtmlEdit").style;
-
-		switch (id)
-		{
-			case 1:
-				mnuUnhoverElement(descText);
-				break;
-			case 2:
-				mnuUnhoverElement(descHtml);
-				break;
-			case 3:
-				mnuUnhoverElement(descHtmlEdit);
-				break;
-		}
-	}
-//-->
-</script>

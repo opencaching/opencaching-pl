@@ -1529,7 +1529,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 			// TODO: UTF-8 compatible str_replace (with arrays)
 			$desc = str_replace($smileytext, $smileyimage, $desc);
 
-			//$desc = tidy_html_description($desc);
+			$desc = tidy_html_description($desc);
 
 
 			if ($desc_record['desc_html'] == 0)
@@ -1538,7 +1538,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 			
 			
 			
-			tpl_set_var('desc', htmlspecialchars_decode(stripslashes($desc)), true);
+			tpl_set_var('desc', $desc, true);
 
 			if( $usr['admin'] )
 			{

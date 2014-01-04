@@ -39,8 +39,14 @@
 	//Preprocessing
 	if ($error == false)
 	{
-		require($stylepath . '/editdesc.inc.php');
 
+	// from removed inc.php - unused??? 
+	// $desc_not_ok_message = '<br /><br /><p style="margin-top:0px;margin-left:0px;width:550px;background-color:#e5e5e5;border:1px solid black;text-align:left;padding:3px 8px 3px 8px;"><span class="errormsg">Użyty HTML kod jest niedozwolony.</span><br />%text%</p><br />';
+	// $pictureline = '<td><a href="javascript:SelectFile(\'{link}\');">{title}<br/><img src="{link}" width="180" /></a></td>';
+	// $picturelines = '{lines}';
+		
+		
+		
 		// check for old-style parameters
 		if (isset($_REQUEST['cacheid']) && isset($_REQUEST['desclang']) && !isset($_REQUEST['descid']))
 		{
@@ -92,45 +98,22 @@
 					if (isset($_POST['post']))
 					{
 						//here we read all used information from the form if submitted
-						$descMode = isset($_POST['descMode']) ? $_POST['descMode'] : 1;
+						$desc_html = 1;
 
-						switch ($descMode)
-						{
-							case 2:
-								$desc_htmledit = 0;
-								$desc_html = 1;
-								break;
-							case 3:
-								$desc_htmledit = 1;
-								$desc_html = 1;
-								break;
-							default:
-								$desc_htmledit = 0;
-								$desc_html = 0;
-								break;
-						}
 						$short_desc = $_POST['short_desc'];
 						$hint = htmlspecialchars($_POST['hints'], ENT_COMPAT, 'UTF-8');
 						$desclang = $_POST['desclang'];
 						$show_all_langs = isset($_POST['show_all_langs_value']) ? $_POST['show_all_langs_value'] : 0;
 						if (!is_numeric($show_all_langs)) $show_all_langs = 0;
 
-						if ($desc_html == 1)
-						{
-							// Text from textarea
-							$desc = $_POST['desc'];
-						
-							// check input
-							require_once($rootpath . 'lib/class.inputfilter.php');
-							$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-							$desc = $myFilter->process($desc);
-						}
-						else
-						{
-							// escape text
-							$desc = htmlspecialchars($_POST['desc'], ENT_COMPAT, 'UTF-8');
 
-						}
+						// Text from textarea
+						$desc = $_POST['desc'];
+						
+						// check input
+						require_once($rootpath . 'lib/class.inputfilter.php');
+						$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+						$desc = $myFilter->process($desc);
 
 						if (isset($_POST['submitform']))
 						{
@@ -189,21 +172,11 @@
 						$desc_htmledit = $desc_record['desc_htmledit'];
 						$desc_html = $desc_record['desc_html'];
 						$desc_lang = $desc_record['language'];
-	
-						if ($desc_html == 1)
-							$desc = $desc_record['desc'];
-						else{
-							$desc = strip_tags($desc_record['desc']);
-						}
+						$desc = $desc_record['desc'];
 					}
 					
 					//here we only set up the template variables
-					if ($desc_html == 1)
-						tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'), true);
-					else
-						tpl_set_var('desc', $desc, true);
-			
-					// ok ... die desclang zusammenbauen
+					tpl_set_var('desc', $desc, true);
 					if ($show_all_langs == false)
 					{
 						$rs = sql('SELECT `list_default_' . sql_escape($lang) . "` `list` FROM `languages` WHERE `short`='&1'", $desc_lang);
@@ -221,10 +194,13 @@
 					mysql_free_result($rs);
 					tpl_set_var('desclangs', $languages);				
 					
-					if ($show_all_langs == false)
+					
+					if ($show_all_langs == false){
+						$show_all_langs_submit = '&nbsp;<input type="submit" name="show_all_langs" value="'.tr('edDescShowAll').'" />';
 						tpl_set_var('show_all_langs_submit', $show_all_langs_submit);
-					else
+					} else {
 						tpl_set_var('show_all_langs_submit', '');
+					}
 					
 					tpl_set_var('show_all_langs_value', (($show_all_langs == false) ? 0 : 1));
 					tpl_set_var('short_desc', htmlspecialchars($short_desc, ENT_COMPAT, 'UTF-8'));
@@ -235,22 +211,10 @@
 					tpl_set_var('desclang_name', htmlspecialchars(db_LanguageFromShort($desc_lang), ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('cachename', htmlspecialchars($desc_record['name'], ENT_COMPAT, 'UTF-8'));
 
-					// Text / normal HTML / HTML editor
-					tpl_set_var('use_tinymce', (($desc_htmledit == 1) ? 1 : 0));
 
-					if (($desc_html == 1) && ($desc_htmledit == 1))
-					{
-						tpl_set_var('descMode', 3);
-					}
-					else if ($desc_html == 1)
-						tpl_set_var('descMode', 2);
-					else
-						tpl_set_var('descMode', 1);
 					// TinyMCE
 					$headers = tpl_get_var('htmlheaders') . "\n";
-					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
-					$headers .= tiny_mce_compressor_config() . "\n";
-					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
+					//$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
 					tpl_set_var('htmlheaders', $headers);
 				}
 				else
@@ -264,5 +228,6 @@
 	}
 	
 	//make the template and send it out
+	tpl_set_var('language4js',$lang);
 	tpl_BuildTemplate();
 ?>
