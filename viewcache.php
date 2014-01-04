@@ -1530,13 +1530,9 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 			$desc = str_replace($smileytext, $smileyimage, $desc);
 
 			$desc = tidy_html_description($desc);
-
-
 			if ($desc_record['desc_html'] == 0)
 				$desc = help_addHyperlinkToURL($desc);
 			$res = '';
-			
-			
 			
 			tpl_set_var('desc', $desc, true);
 

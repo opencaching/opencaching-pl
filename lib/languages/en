@@ -2116,6 +2116,7 @@ adm_cachenotfound_03 Not found
 adm_cachenotfound_04 Report problem
 error3KCharsExcedeed Description length limit exceeded (max 300000 chars).
 edDescShowAll Show all
+lngExist Cache description in this language already exist.
 
 
 

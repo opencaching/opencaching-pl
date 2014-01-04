@@ -59,7 +59,12 @@
 				{
 					$tplname = 'newdesc';
 					
-					require($stylepath . '/newdesc.inc.php');
+					$submit = tr('submit');
+					$default_lang = 'PL';
+ 
+					$lang_message = '<br/><span class="errormsg">'.tr('lngExist').'</span>';
+					$show_all_langs_submit = '<input type="submit" name="show_all_langs_submit" value="'.tr('edDescShowAll').'"/>';
+
 					
 					//get the posted data
 					$show_all_langs = isset($_POST['show_all_langs']) ? $_POST['show_all_langs'] : 0;
@@ -96,7 +101,6 @@
 					if (isset($_POST['submitform']))
 					{
 						/* Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags. */
-							
 						if (strlen($desc) > 300000) {
 							die(tr('error3KCharsExcedeed'));
 						}
@@ -183,7 +187,6 @@
 						$langs_rs = sql('SELECT `&1`, `short` FROM `languages` WHERE `short` NOT IN (' . $sql_nosellangs . ') ORDER BY `&1` ASC', $lang);
 					}
 
-					// deutsche beschreibung schon vorhanden?
 					$rs = sql("SELECT COUNT(*) `count` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $sel_lang);
 					$r = sql_fetch_array($rs);
 					$bSelectFirst = ($r['count'] == 1);
@@ -220,26 +223,8 @@
 					tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
 					tpl_set_var('hints', htmlspecialchars($hints, ENT_COMPAT, 'UTF-8'));
 
-					// Text / normal HTML / HTML editor
-					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
-
-					if ($descMode == 1)
-						tpl_set_var('descMode', 1);
-					else if ($descMode == 2)
-						tpl_set_var('descMode', 2);
-					else
-					{
-						// TinyMCE
-						$headers = tpl_get_var('htmlheaders') . "\n";
-						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/tiny_mce_gzip.php"></script>' . "\n";
-						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?cacheid=' . ($cache_id+0) . '"></script>' . "\n";
-						tpl_set_var('htmlheaders', $headers);
-
-						tpl_set_var('descMode', 3);
-					}
-
-					tpl_set_var('reset', $reset);
 					tpl_set_var('submit', $submit);
+					tpl_set_var('language4js', $lang);
 				}
 				else
 				{

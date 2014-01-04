@@ -244,10 +244,8 @@ else if ($verify_all==1) {
 					{
 						$headers = tpl_get_var('htmlheaders') . "\n";
 						$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
-//						$headers .= tiny_mce_compressor_config() . "\n";
 
 						if (!isset($desc_record['cache_id'])) $desc_record['cache_id'] = null;
-						$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/desc.js.php?lang='.$lang.'&amp;cacheid=' . ($desc_record['cache_id']+0) . '"></script>' . "\n";
 						tpl_set_var('htmlheaders', $headers);
 
 				tpl_set_var('descMode', 3);
