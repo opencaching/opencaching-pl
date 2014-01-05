@@ -324,19 +324,8 @@ $debug = false;
 				   tpl_set_var('GeoKretApiSelector', '');
 				}
 				
-				
-				
-				// descMode auslesen, falls nicht gesetzt aus dem Profil laden
-				if (isset($_POST['descMode']))
-					$descMode = $_POST['descMode']+0;
-				else
-				{
-					if (sqlValue("SELECT `no_htmledit_flag` FROM `user` WHERE `user_id`='" .  sql_escape($usr['userid']) . "'", 1) == 1)
-						$descMode = 1;
-					else
-						$descMode = 3;
-				}
-				if (($descMode < 1) || ($descMode > 3)) $descMode = 3;
+				// descMode is depreciated. this was description type. Now all description are in html, then always use 3 for back compatibility
+				$descMode = 3;
 
 				// fuer alte Versionen von OCProp
 				if (isset($_POST['submit']) && !isset($_POST['version2']))
@@ -614,7 +603,7 @@ $debug = false;
 						{	
 						sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
 										 VALUES        ('',   '&1',       '&2',      '&3',   '&4',  '&5',   '&6',         '&7', NOW(), NOW(), '&8', '&9')",
-										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, (($descMode != 1) ? 1 : 0), (($descMode == 3) ? 1 : 0), $log_uuid, $oc_nodeid);
+										 $cache_id, $usr['userid'], $log_type, $log_date, $log_text, 1, 1, $log_uuid, $oc_nodeid);
 						}
 						
 						// mobline by Łza (mobile caches)
@@ -1120,28 +1109,8 @@ $debug = false;
 				    tpl_set_var('$wybor_WE',  $wybor_WE);
 				    tpl_set_var('$wybor_NS',  $wybor_NS);
 
-					// Text / normal HTML / HTML editor
-					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
-
-					if ($descMode == 1)
-						tpl_set_var('descMode', 1);
-					else if ($descMode == 2)
-						tpl_set_var('descMode', 2);
-					else
-					{
-					// TinyMCE
-					$headers = tpl_get_var('htmlheaders') . "\n";
-					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
-					$headers .= tiny_mce_compressor_config() . "\n";
-					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
-					tpl_set_var('htmlheaders', $headers);
-						tpl_set_var('descMode', 3);
-					}
-					
-					if ($descMode != 1)
-						tpl_set_var('logtext', htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'), true);
-					else
-						tpl_set_var('logtext', strip_tags($log_text));
+					tpl_set_var('descMode', 3);
+					tpl_set_var('logtext', htmlspecialchars($log_text, ENT_COMPAT, 'UTF-8'), true);
 					
 					$listed_on = array();
 					
@@ -1248,6 +1217,7 @@ $debug = false;
 	if ($no_tpl_build == false)
 	{
 		//make the template and send it out
+		tpl_set_var('language4js', $lang);
 		tpl_BuildTemplate(false);
 	}
 

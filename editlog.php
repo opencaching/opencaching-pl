@@ -149,29 +149,15 @@
 						$rating_msg = mb_ereg_replace('{curr}', $user_tops, $rating_msg);
 					}
 
-// sp2ong 28.I.2010 recommendation all caches except events
-				if ( $log_record['cachetype'] != 6 ) {
-					tpl_set_var('rating_message', mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl));
-
-				} else {
-				tpl_set_var('rating_message', ""); 			
-				}
+					// sp2ong 28.I.2010 recommendation all caches except events
+					if ( $log_record['cachetype'] != 6 ) {
+						tpl_set_var('rating_message', mb_ereg_replace('{rating_msg}', $rating_msg, $rating_tpl));
+	
+					} else {
+					tpl_set_var('rating_message', ""); 			
+					}
 				
-					if (isset($_POST['descMode']))
-					{
-						$descMode = $_POST['descMode']+0;
-						if (($descMode < 1) || ($descMode > 3)) $descMode = 3;
-					}
-					else
-					{
-						if ($log_record['text_html'] == 1)
-							if ($log_record['text_htmledit'] == 1)
-								$descMode = 3;
-							else
-								$descMode = 2;
-						else
-							$descMode = 1;
-					}
+					$descMode = 3;
 
 					// fuer alte Versionen von OCProp
 					if (isset($_POST['submit']) && !isset($_POST['version2']))
@@ -180,33 +166,20 @@
 						$_POST['submitform'] = $_POST['submit'];
 					}
 
-					if ($descMode != 1)
+					// Text from textarea
+					$log_text = isset($_POST['logtext']) ? ($_POST['logtext']) : ($log_record['text']);
+
+					// fuer alte Versionen von OCProp
+					if (isset($_POST['submit']) && !isset($_POST['version2']))
 					{
-						// Text from textarea
-						$log_text = isset($_POST['logtext']) ? ($_POST['logtext']) : ($log_record['text']);
-
-						// fuer alte Versionen von OCProp
-						if (isset($_POST['submit']) && !isset($_POST['version2']))
-						{
-							$log_text = iconv("ISO-8859-1", "UTF-8", $log_text);
-						}
-
-						// check input
-						require_once($rootpath . 'lib/class.inputfilter.php');
-						$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-						$log_text = $myFilter->process($log_text);
+						$log_text = iconv("ISO-8859-1", "UTF-8", $log_text);
 					}
-					else
-					{
-						// escape text
-						$log_text = isset($_POST['logtext']) ? htmlspecialchars($_POST['logtext'], ENT_COMPAT, 'UTF-8') : strip_tags($log_record['text']);
 
-						// fuer alte Versionen von OCProp
-						if (isset($_POST['submit']) && !isset($_POST['version2']))
-						{
-							$log_text = iconv("ISO-8859-1", "UTF-8", $log_text);
-						}
-					}
+					// check input
+					require_once($rootpath . 'lib/class.inputfilter.php');
+					$myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
+					$log_text = $myFilter->process($log_text);
+
 
 					//validate date
 					$date_not_ok = true;
@@ -325,8 +298,8 @@
 						                             $log_type,
 						                             date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
 						                             tidy_html_description((($descMode != 1) ? $log_text : nl2br($log_text))),
-						                             (($descMode != 1) ? 1 : 0),
-						                             (($descMode == 3) ? 1 : 0),
+						                             1,
+						                             1,
 						                             $log_id);
 //requires ALTER TABLE `cache_logs` ADD `edit_by_user_id` INT NULL , ADD `edit_count` INT NOT NULL DEFAULT '0';
 //END: edit by FelixP - 2013'10
@@ -577,22 +550,7 @@
 					tpl_set_var('bodyMod', ' onload="chkMoved()"');
 
 					$log_text = tidy_html_description($log_text);
-
-					if ($descMode != 1)
-						tpl_set_var('logtext', htmlspecialchars($log_text, ENT_NOQUOTES, 'UTF-8'), true);
-					else
-						tpl_set_var('logtext', $log_text);
-
-					// Text / normal HTML / HTML editor
-					tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
-
-					// TinyMCE
-					$headers = tpl_get_var('htmlheaders') . "\n";
-					$headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
-					$headers .= tiny_mce_compressor_config() . "\n";
-					$headers .= '<script language="javascript" type="text/javascript" src="lib/tinymce/config/log.js.php?lang='.$lang.'&amp;logid=0"></script>' . "\n";
-					tpl_set_var('htmlheaders', $headers);
-
+					tpl_set_var('logtext', htmlspecialchars($log_text, ENT_NOQUOTES, 'UTF-8'), true);
 					tpl_set_var('descMode', $descMode);
 
 					if ($use_log_pw == true && $log_pw != '')
@@ -649,5 +607,6 @@
 	}
 
 	//make the template and send it out
+	tpl_set_var('language4js', $lang);
 	tpl_BuildTemplate();
 ?>
