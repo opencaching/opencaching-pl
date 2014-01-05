@@ -2114,6 +2114,9 @@ adm_cachenotfound_01 Toon gemelde caches
 adm_cachenotfound_02 Toon gemelde met verschilende datum
 adm_cachenotfound_03 Niet gevonden
 adm_cachenotfound_04 Rapprteer probleem
+error3KCharsExcedeed De maximum lengte van beschrijving is overschreden (max 300000 tekens)
+edDescShowAll Toon alles
+lngExist De beschrijving in deze taal bestaat al
 
 
 
