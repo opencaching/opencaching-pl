@@ -385,7 +385,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 		
 					}				
 
-					$edit_footer.=".</small</div>";
+					$edit_footer.=".</small></div>";
 						
 				} else {
 					$edit_footer ="";
@@ -425,6 +425,8 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				
 				if ($record['text_html'] == 0)
 					$tmplog_text = help_addHyperlinkToURL($tmplog_text);
+
+
 
 				$tmplog_text = tidy_html_description($tmplog_text);
 

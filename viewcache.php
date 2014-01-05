@@ -1842,7 +1842,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 		
 					}				
 
-					$edit_footer.=".</small</div>";
+					$edit_footer.=".</small></div>";
 						
 				} else {
 					$edit_footer ="";
