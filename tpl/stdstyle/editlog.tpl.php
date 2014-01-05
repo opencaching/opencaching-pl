@@ -232,7 +232,7 @@ $(function() {
 	<tr>
 		<td class="header-small" colspan="2" align="center">
 			<input class="blueConfirmButton" type="reset" name="reset" value="{{reset}}" style="width:120px"/>&nbsp;&nbsp;
-			<a href="#" class="blueConfirmButton" onclick="$(this).closest('form').submit()">{{submit}}</a>
+			<a href="#" class="blueConfirmButton" onclick="event.preventDefault();$(this).closest('form').submit()">{{submit}}</a>
 			<input type="hidden" name="submitform" value="{{submit}}" style="width:120px"/>
 		</td>
 	</tr>

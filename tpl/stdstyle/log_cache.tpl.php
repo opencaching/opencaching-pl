@@ -462,7 +462,7 @@ $(function() {
 	<tr>
 		<td class="header-small" colspan="2" align="center">
 			<a href="#" class="blueConfirmButton" onclick="return do_reset()">{log_reset_button}</a>
-			<a href="#" class="blueConfirmButton" onclick="$(this).closest('form').submit()">{{submit_log_entry}}</a>
+			<a href="#" class="blueConfirmButton" onclick="event.preventDefault();$(this).closest('form').submit()">{{submit_log_entry}}</a>
 			<input type="hidden" name="submitform" value="{{submit}}" style="width:120px"/>
 		</td>		
 		
