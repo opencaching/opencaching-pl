@@ -14,6 +14,7 @@
 require_once('./lib/common.inc.php');
 
 ?>
+<link href="tpl/stdstyle/css/confirmCancelButtons.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">
 <!--
 function subs_days (days_number) {
@@ -459,10 +460,12 @@ $(function() {
 	<tr><td class="spacer" colspan="2"></td></tr>
 	{listed_end}
 	<tr>
-		<td class="header-small" colspan="2">
-			<input type="button" name="reset_from" value="{log_reset_button}" style="width:120px" onclick="return do_reset()" />&nbsp;&nbsp;
-			<input type="submit" name="submitform" id="submitform" value="{{submit_log_entry}}" style="width:120px" />
-		</td>
+		<td class="header-small" colspan="2" align="center">
+			<a href="#" class="blueConfirmButton" onclick="return do_reset()">{log_reset_button}</a>
+			<a href="#" class="blueConfirmButton" onclick="$(this).closest('form').submit()">{{submit_log_entry}}</a>
+			<input type="hidden" name="submitform" value="{{submit}}" style="width:120px"/>
+		</td>		
+		
 	</tr>
 	<?php if (strpos($_SERVER['HTTP_USER_AGENT'], "Android") !== false) { ?>
 		<tr>

@@ -9,6 +9,7 @@
 	*  UTF-8 ąść
 	***************************************************************************/
 ?>
+<link href="tpl/stdstyle/css/confirmCancelButtons.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">
 <!--
 
@@ -166,7 +167,7 @@ $(function() {
 </script>
 
 
-<form action="editlog.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" dir="ltr">
+<form action="editlog.php" method="post" enctype="application/x-www-form-urlencoded" name="editlog" id="editlog" dir="ltr">
 <input type="hidden" name="logid" value="{logid}"/>
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="{descMode}" />
@@ -229,9 +230,10 @@ $(function() {
 
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td class="header-small" colspan="2">
-			<input type="reset" name="reset" value="{{reset}}" style="width:120px"/>&nbsp;&nbsp;
-			<input type="submit" name="submitform" value="{{submit}}" style="width:120px"/>
+		<td class="header-small" colspan="2" align="center">
+			<input class="blueConfirmButton" type="reset" name="reset" value="{{reset}}" style="width:120px"/>&nbsp;&nbsp;
+			<a href="#" class="blueConfirmButton" onclick="$(this).closest('form').submit()">{{submit}}</a>
+			<input type="hidden" name="submitform" value="{{submit}}" style="width:120px"/>
 		</td>
 	</tr>
 </table>
