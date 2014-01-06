@@ -1821,7 +1821,7 @@ pt125 wis
 pt126 Informacja
 pt127 dodał wpis typu
 pt128 Nowy wpis dla geoŚcieżki
-pt129 Używasz starej przeglądarki (IE6, IE7, IE8), która nie jest już obsługiwana. Strona nie będzie działać prawidłowo, lub jej funkcje zostaną znacząco ograniczone. (nie będziesz mieć dostępu do większośći funkcjonalności). Zalecamy skorzystanie z najnowszych przeglądarek. (<a href="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>)
+pt129 Javascript jest wyłączona przez twoją przeglądarkę lub używasz starej przeglądarki (IE6, IE7, IE8), która nie jest już obsługiwana. Strona nie będzie działać prawidłowo, lub jej funkcje zostaną znacząco ograniczone. (nie będziesz mieć dostępu do większośći funkcjonalności). Zalecamy skorzystanie z najnowszych przeglądarek. (<a href="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>)
 pt130 Usuń
 pt131 Usunięto wpis z geoŚcieżki
 pt132 usunął wpis typu
@@ -2117,5 +2117,4 @@ adm_cachenotfound_04 Zgłoś problem
 error3KCharsExcedeed Opis jest zbyt długi (max. 300 tysięcy znaków).
 edDescShowAll Pokaż wszystkie
 lngExist Już w tym języku jest opis skrzynki
-
 

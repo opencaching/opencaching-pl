@@ -1821,7 +1821,7 @@ pt125 r.n.c
 pt126 Information
 pt127 Add a new comment
 pt128 Add a new comment for geoPath
-pt129 You are using an old browser (IE6, IE7, IE8), which is no longer supported. This site will not work properly, or its functions will be significantly reduced. (you will not have access to most of the functionality). We recommend to use the latest browsers. (<ahref="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>)
+pt129 Javascript in your browser is switched off or you are using an old browser (IE6, IE7, IE8), which is no longer supported. This site will not work properly, or its functions will be significantly reduced. (you will not have access to most of the functionality). We recommend to use the latest browsers. (<ahref="https://www.mozilla.org/pl/firefox/new/">FireFox</a>, <a href="http://www.google.pl/intl/pl/chrome/">Chrome</a>, <a href="http://www.opera.com/">Opera</a>)
 pt130 Remove
 pt131 Entry from the geoPath has been removed
 pt132 removed the entry type

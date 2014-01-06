@@ -315,6 +315,10 @@ $(function() {
 			<b>{{post_new_log}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
 		</td>
 	</tr>
+		<tr>
+			<br /><span id="scriptwarning" class="errormsg">{{pt129}}.</span><br />
+		</td>
+	</tr>
 </table>
 <div class="searchdiv">
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
@@ -419,22 +423,8 @@ $(function() {
 
 
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
-<!--  <tr>
-		<td colspan="2">
-			{log_geokret}
-		</td>
-	</tr>
--->	
-
-	
 	<tr>
 		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
-	</tr>
-
-	<tr>
-		<td>
-			<span id="scriptwarning" class="errormsg">Javascript jest wyłączona przez twoją przeglądarke.Możesz tylko wprowadzić zwykły tekst. Aby wprawdzić kod HTML i użyć edytor musisz włączyć obsługe Javascript.</span>
-		</td>
 	</tr>
 	<tr>
 		<td>
