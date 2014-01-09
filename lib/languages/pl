@@ -2099,7 +2099,7 @@ coordsmod_lat Szerokość geograficzna
 modify_coords Modyfikuj współrzędne
 reset_coords Przywróć oryginalne 
 orig_coord_modified_info Wprowadziłe(a)ś własne współrzędne - współrzędne oryginalne to: 
-modified_coord_notice Zmodyfikowane współrzędne zostaną wyeksportowane do plików, np. GPX, KML, itp.
+modified_coord_notice Zmodyfikowane współrzędne zostaną wyeksportowane do plików, np. GPX, KML, itp.  za WYJĄTKIEM formatu "GARMIN (GPX + zdjęcia)"
 srch_Coord_have_been_modified Współrzędne zmodyfikowane
 srch_Recommended Rekomendowana 
 srch_Send_to_GPS Wyślij do GPS
@@ -2117,4 +2117,4 @@ adm_cachenotfound_04 Zgłoś problem
 error3KCharsExcedeed Opis jest zbyt długi (max. 300 tysięcy znaków).
 edDescShowAll Pokaż wszystkie
 lngExist Już w tym języku jest opis skrzynki
-
+os_modify_coords_button Zapisz jako własne współrzędne

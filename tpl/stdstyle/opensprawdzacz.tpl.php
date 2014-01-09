@@ -195,8 +195,10 @@ function toggle() {
 	<table class="content"><tr><td>{ikonka_yesno}</td>
 	<td class="content">
 	 {test1}<br><br>
+	 	
 	 {wynik}
-     {twoje_ws}
+     {twoje_ws}<BR><BR>
+	 {save_mod_coord}<br>
 	</td>
 	</tr></table>
 	    

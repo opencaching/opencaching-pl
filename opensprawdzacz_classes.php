@@ -70,6 +70,7 @@ class OpensprawdzaczCore
 					tpl_set_var("sekcja_4_start", '');
 					tpl_set_var("sekcja_4_stop", '');
 					tpl_set_var("twoje_ws", tr('os_ma_max').' '.$ile_prob.' '. tr('os_ma_na') .' '.$limit_czasu.' '.tr('os_godzine') .'<br /> '.tr('os_mus').' '. $czas_jaki_uplynal .' '. tr('os_minut_end'));
+					tpl_set_var("save_mod_coord",'');
 					$this->endzik();
 					// goto endzik;
 				}
@@ -116,6 +117,10 @@ class OpensprawdzaczCore
 
 		$wspolN = new convertLangLat($stopnie_N, $minuty_N);
 		$wspolE = new convertLangLat($stopnie_E, $minuty_E);
+		
+		//setting long & lat. signs 
+		if($stopnie_N>=0) {$NorS ="N";} else {$NorS = "S";};
+		if($stopnie_E>=0) {$EorW ="E";} else {$EorW  ="W";};	
 
 		// geting data from database
 		$conn = new PDO("mysql:host=".$opt['db']['server'].";dbname=".$opt['db']['name'],$opt['db']['username'],$opt['db']['password']);
@@ -169,8 +174,24 @@ class OpensprawdzaczCore
 				echo "Error PDO Library: ($OpensprawdzaczSetup->scriptname) " . $e -> getMessage();
 				exit;
 			}
+			
+		
+
+		
+			$post_viewcache_form = '<form name="post_coord" action="viewcache.php?cacheid='.$cache_id.'" method="post">
+									<input type="submit" name="modCoords" value="'.tr('os_modify_coords_button').'" />
+									<input type="hidden" name="coordmod_lat_degree" value="'. $stopnie_N.'"/>
+									<input type="hidden" name="coordmod_lon_degree" value="'. $stopnie_E.'"/>
+									<input type="hidden" name="coordmod_lat" value="'.$minuty_N .'"/>
+									<input type="hidden" name="coordmod_lon" value="'.$minuty_E .'"/>
+									<input type="hidden" name="coordmod_latNS" value="'.$NorS.'"/>
+									<input type="hidden" name="coordmod_lonEW" value="'.$EorW.'"/>
+									<input type="hidden" name="save_requester" value="OpenChecker"/>
+									</form>"';				
+			
 			tpl_set_var("test1", tr('os_sukces'));
 			tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_tak.png" />');
+			tpl_set_var("save_mod_coord",$post_viewcache_form );
 		}
 		else
 		{
@@ -189,6 +210,7 @@ class OpensprawdzaczCore
 			}
 			tpl_set_var("test1", tr('os_fail'));
 			tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_nie.png" />');
+			tpl_set_var("save_mod_coord",'');
 		}
 		//tpl_set_var("wynik", $wspolrzedneN.'/'.$wspolrzedneN_wzorcowe.'<br>'.$wspolrzedneE.'/'. $wspolrzedneE_wzorcowe);
 		tpl_set_var("wynik",'');
@@ -197,7 +219,7 @@ class OpensprawdzaczCore
 
 		// tpl_set_var("wsp_NS", );
 		// tpl_set_var("wsp_EW", );
-		tpl_set_var("twoje_ws", tr('os_twojews') . '<b> N '. $stopnie_N.'° '.$minuty_N . '</b>/<b> E '. $stopnie_E.'° '.$minuty_E .'</b>');
+		tpl_set_var("twoje_ws", tr('os_twojews') . '<b> '.$NorS.' '. $stopnie_N.'° '.$minuty_N . '</b>/<b> '.$EorW.' '. $stopnie_E.'° '.$minuty_E .'</b>');
 		tpl_set_var("cache_id",  $cache_id);
 
 		$this->endzik();
@@ -399,6 +421,8 @@ class OpensprawdzaczCore
 	}
 	}
 	
+
+
 	public function endzik()
 	{
 		tpl_BuildTemplate();
