@@ -18,11 +18,15 @@ function is_cache_found ($cache_id, $user_id) {
 * zwraca true lub false
 *
  ===================================================================================== */
-	$q = 'SELECT user_id FROM cache_logs WHERE cache_id = '. $cache_id . ' AND user_id = '. $user_id . ' AND type = 1';
+	$q = 'SELECT user_id FROM cache_logs WHERE cache_id =:v1 AND user_id =:v2 AND type = 1 AND Deleted=0';
 	$db = new dataBase;
-	$db->simpleQuery($q);
+	$params['v1']['value'] = (integer) $cache_id;
+    $params['v1']['data_type'] = 'integer';
+    $params['v2']['value'] =(integer) $user_id;
+    $params['v2']['data_type'] = 'integer';
+    $db->paramQuery($q,$params);
 	$rec = $db->dbResultFetch();
-	
+	unset($db);
     //$sql     = ( sql('SELECT user_id FROM cache_logs WHERE cache_id = '. $cache_id . ' AND user_id = '. $user_id . ' AND type = 1') );
     //$rec     = sql_fetch_array($sql);
     if (isset ($rec['user_id'])) {
@@ -46,11 +50,15 @@ function is_event_attended ($cache_id, $user_id) {
 * zwraca true lub false
 *
  ===================================================================================== */
-	$q = 'SELECT user_id FROM cache_logs WHERE cache_id = '. $cache_id . ' AND user_id = '. $user_id . ' AND type = 7';
+	$q = 'SELECT user_id FROM cache_logs WHERE cache_id =:v1 AND user_id =:v2 AND type = 7 AND Deleted=0'; 
 	$db = new dataBase;
-	$db->simpleQuery($q);
+	$params['v1']['value'] = (integer) $cache_id;
+    $params['v1']['data_type'] = 'integer';
+    $params['v2']['value'] =(integer) $user_id;
+    $params['v2']['data_type'] = 'integer';
+    $db->paramQuery($q,$params);
 	$rec = $db->dbResultFetch();
-	
+	unset($db);
   //  $sql     = ( sql('SELECT user_id FROM cache_logs WHERE cache_id = '. $cache_id . ' AND user_id = '. $user_id . ' AND type = 7') );
   //  $rec     = sql_fetch_array($sql);
     if (isset ($rec['user_id'])) {
