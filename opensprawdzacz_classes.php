@@ -132,17 +132,19 @@ class OpensprawdzaczCore
 		`waypoints`.`type`,
 		`waypoints`.`opensprawdzacz`,
 		`opensprawdzacz`.`proby`,
-		`opensprawdzacz`.`sukcesy`
-		FROM   `waypoints`, `opensprawdzacz`
+		`opensprawdzacz`.`sukcesy`,
+		`caches`.`type`
+		FROM   `waypoints`, `opensprawdzacz`, `caches`
 		WHERE  `waypoints`.`cache_id`='$cache_id'
 		AND `waypoints`.`opensprawdzacz` = 1
 		AND `waypoints`.`type` = 3
 		AND `waypoints`.`cache_id`= `opensprawdzacz`.`cache_id`
+		AND `waypoints`.`cache_id`= `caches`.`cache_id`
 		";
 
 		$dane   = $conn->query($pyt) or die("failed!");
 		$dane = $dane->fetch(PDO::FETCH_ASSOC);
-
+			
 		$licznik_prob = $dane['proby']+1;
 
 		$wspolrzedneN_wzorcowe = $dane['latitude'];
@@ -176,18 +178,21 @@ class OpensprawdzaczCore
 			}
 			
 		
-
+			if ($dane['type']== 7) {  //only for quiz type for time being
 		
-			$post_viewcache_form = '<form name="post_coord" action="viewcache.php?cacheid='.$cache_id.'" method="post">
-									<input type="submit" name="modCoords" value="'.tr('os_modify_coords_button').'" />
-									<input type="hidden" name="coordmod_lat_degree" value="'. $stopnie_N.'"/>
-									<input type="hidden" name="coordmod_lon_degree" value="'. $stopnie_E.'"/>
-									<input type="hidden" name="coordmod_lat" value="'.$minuty_N .'"/>
-									<input type="hidden" name="coordmod_lon" value="'.$minuty_E .'"/>
-									<input type="hidden" name="coordmod_latNS" value="'.$NorS.'"/>
-									<input type="hidden" name="coordmod_lonEW" value="'.$EorW.'"/>
-									<input type="hidden" name="save_requester" value="OpenChecker"/>
-									</form>"';				
+					$post_viewcache_form = '<form name="post_coord" action="viewcache.php?cacheid='.$cache_id.'" method="post">
+											<input type="submit" name="modCoords" value="'.tr('os_modify_coords_button').'" />
+											<input type="hidden" name="coordmod_lat_degree" value="'. $stopnie_N.'"/>
+											<input type="hidden" name="coordmod_lon_degree" value="'. $stopnie_E.'"/>
+											<input type="hidden" name="coordmod_lat" value="'.$minuty_N .'"/>
+											<input type="hidden" name="coordmod_lon" value="'.$minuty_E .'"/>
+											<input type="hidden" name="coordmod_latNS" value="'.$NorS.'"/>
+											<input type="hidden" name="coordmod_lonEW" value="'.$EorW.'"/>
+											<input type="hidden" name="save_requester" value="OpenChecker"/>
+											</form>';		
+			} else {
+					$post_viewcache_form = '';
+			};		
 			
 			tpl_set_var("test1", tr('os_sukces'));
 			tpl_set_var("ikonka_yesno", '<image src="tpl/stdstyle/images/blue/opensprawdzacz_tak.png" />');
