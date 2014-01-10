@@ -1136,7 +1136,7 @@ lxg08 Geef opmerking
 lxg09 Verplaats
 lxg10 Onderhoud nodig
 lxg11 OC Team opmerking
-made_service Een wijziging gemaakt
+made_service Onderhoud gepleegt
 remove_desc_01 Moet beschrijving
 remove_desc_02 van cache
 remove_desc_03 werkelijk verwijderd worden?
@@ -2099,7 +2099,7 @@ coordsmod_lat Latitude
 modify_coords Veranderen
 reset_coords Herstellen
 orig_coord_modified_info Er zijn gecorrigeerde coördinaten ingevoerd. De originele coördinaten zijn:
-modified_coord_notice De gecorrigeerde coördinaten zullen ook in de gedownloade bestanden weergegeven worden. Zoals in GPX, kml, enz.
+modified_coord_notice De gecorrigeerde coördinaten zullen ook in de gedownloade bestanden weergegeven worden. Zoals in GPX, kml, enz. Exclusief GARMIN (GPX met afbeeldingen) 
 srch_Coord_have_been_modified De coördinaten zijn veranderd
 srch_Recommended
 srch_Send_to_GPS Verzend naar GPS
@@ -2117,6 +2117,7 @@ adm_cachenotfound_04 Rapprteer probleem
 error3KCharsExcedeed De maximum lengte van beschrijving is overschreden (max 300000 tekens)
 edDescShowAll Toon alles
 lngExist De beschrijving in deze taal bestaat al
+os_modify_coords_button Opslaan als gecorrigeerde coördinaten
 
 
 
