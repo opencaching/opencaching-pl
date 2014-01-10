@@ -3,6 +3,7 @@ $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/../lib/common.inc.php';
 require_once __DIR__.'/powerTrailBase.php';
+db_disconnect();
 $commentsArr = powerTrailBase::getPowerTrailComments();
 $ptOwners = powerTrailBase::getPtOwners($_REQUEST['projectId']);
 $paginateCount = powerTrailBase::commentsPaginateCount;

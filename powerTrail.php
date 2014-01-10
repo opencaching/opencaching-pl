@@ -16,6 +16,7 @@ global $lang, $rootpath, $usr, $absolute_server_URI, $cookie;
 
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
+db_disconnect();
 
 $_SESSION['powerTrail']['userFounds'] = $usr['userFounds']; 
 
