@@ -819,8 +819,8 @@ waypoints_about_info <a class="links" href="{cache_params_url}" target="_blank">
 cache_pictures Cache afbeelding
 log_pictures Log afbeelding
 no_title No title
-to_big_data Too big size image
-max_size Maximum image size is 100 KB. Please reduce the dimensions or quality.
+to_big_data Afbeelding te groot
+max_size Afbeelding is groter dan 100 kb. Reduceer de afmetingen of kwaliteit.
 bad_format Incompatable Incorrect file format
 bad_format_info Incorrect format. Acceptable formats BMP, GIF, PNG, JPG . Suggested size 480 x 360 pixels
 no_picture Afbeelding niet gevonden
