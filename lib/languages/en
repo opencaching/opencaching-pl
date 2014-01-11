@@ -2118,5 +2118,10 @@ error3KCharsExcedeed Description length limit exceeded (max 300000 chars).
 edDescShowAll Show all
 lngExist Cache description in this language already exist.
 os_modify_coords_button Save as own coordinates to the cache
-
-
+Next1 Next
+Prev1 Prev
+chart Chart
+SelectUsers Select users
+NrCaches Number of caches
+Selected Selected
+HelpHowToSelect <br> <b>How to select users</b><br><hr><br><br>- To select user, click on his position (but not on his name) <br><br>- To select multi-users: Ctlr + click or Shift + click <br>
