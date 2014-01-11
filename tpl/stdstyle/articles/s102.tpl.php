@@ -1,8 +1,13 @@
-<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
+<!-- <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
-<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
- 
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script> -->
+
+
+<link href="tpl/stdstyle/js/jquery.1.10.3/css/myCupertino/jquery-ui-1.10.3.custom.css" rel="stylesheet">
+<script src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-1.9.1.js"></script>
+<script src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-ui-1.10.3.custom.js"></script>
+<script src="tpl/stdstyle/js/jquery.1.10.3/development-bundle/ui/jquery.datepick-{language4js}.js"></script>
  
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
@@ -10,6 +15,7 @@
 <script type='text/javascript' src="lib/js/GCT.js"></script>
 <script type='text/javascript' src="lib/js/GCTStats.js"></script>
 <script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
+
 
 
 
@@ -77,23 +83,8 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 ?> 
 
 
-
-<script type="text/javascript">
-
-
-
-
-
-
-
-
-
-
-</script>
-
-
 <!-- content-title-noshade -->
-<div class="< GCT-div" >
+<div class="GCT-div" >
 
 <table width="100%" >
 <tr>
@@ -101,6 +92,8 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 	<td>
  		<form name="FilterDate" style="display:inline; " action='articles.php' method="get">
 			<input type="hidden" value="s102" name="page" >
+			<input type="hidden" name="DateFrom" id="DateFrom" value="" >
+			<input type="hidden" name="DateTo" id="DateTo" value="" >
 			<table	class = "GCT-div-table" >
 				<tr>
 					<td><input type="radio" name="rRD" id="rR" value="R" <?php if ($sRD == "R") echo "checked" ?> ></td>
@@ -132,9 +125,10 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 		<table	class = "GCT-div-table" >
 			<tr >
 				<td >
-					<form name="FindUser" style="display:inline;" action="" onsubmit="return false;">
-						{{user}}:&nbsp&nbsp<input type="text" name="User" value=""; style="width:100px; text-align: left; ">
+					<form name="FindUser" style="display:inline;" action="" onsubmit="return false;">						
+						{{user}}:&nbsp&nbsp<input type="text" name="User" value=""; style="width:100px; text-align: left; ">						
 						&nbsp&nbsp&nbsp<button type="submit" value={{search}} name="bFindUser" style="font-size:12px;width:70px;"; onClick ="GCTStatsFindUser( document.FindUser.User.value )"  />{{search}}</button>
+						
 					</form>
 				</td>
 			</tr>
@@ -148,27 +142,60 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 
 <hr style="color: black">
 <br>
-<!-- Begin of Position -->
+
+
 <table width="100%" >
-<tr>	 	
+<tr>
+	<td>				
+<!-- 	<table	class = "GCT-div-table" >
+			<tr>
+				<td width = "150px" align = "center" >
+				<form name="ChartHelp" style="display:inline;" action="" onsubmit="return false;" >										
+					<button name="bChartHelp" id="bChartHelp"  />Help</button>
+				</form>
+				</td>
+			</tr>
+		</table>-->
+		
+	</td>
+
+	<td>				
+		<table class="GCT-div-table" >
+			<tr>				
+				<td>
+				<form name="Details" style="display:inline;" action="" onsubmit="return false;" >
+					{{Selected}}:&nbsp&nbsp<input type="text" name="SelectedUser" id="SelectedUser" class="GCT-div-readOnly" style="width:20px" readonly >									
+					&nbsp&nbsp&nbsp&nbsp<button name="bDetails" id="bDetails"  />{{chart}}</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span id ="bChartHelp" style="cursor: pointer">?</span>					
+				</form>
+				</td>
+			</tr>
+		</table>
+		
+	</td>
+	
+	
+<!-- Begin of Position   width = "200px" align = "center"-->
 	<td align="right">				
 		<table	class = "GCT-div-table" >
 			<tr>
 				<td >
 				<form name="Position" style="display:inline;" action="" onsubmit="return false;" >
 					<input type="hidden" value="0" name="RealPosOfTable" >
-					{{my_position}}:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" style="width:70px; text-align: center; color: black;  font-weight: bold; font-size:12px; background-color: #FAFAFA;" readonly >
+					{{my_position}}:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" class="GCT-div-readOnly" style="width:70px" readonly >
 					&nbsp&nbsp&nbsp&nbsp<button name="bGo" onClick ="GCTStatsGotoPosition(document.Position.RealPosOfTable.value)"  />{{go}}</button>
 				</form>
 				</td>
 			</tr>
 		</table>
 	</td>
-	
+<!-- End of Position -->	
 </tr>
 </table>
-<!-- End of Position -->
+
+
 <br>
+
+
 
 
 </div> <!-- End of GCT-div --> 
@@ -177,6 +204,20 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 
 
 </div>
+
+    <script type="text/javascript">
+      google.load('visualization', '1', {'packages':['corechart'], 'language': '{language4js}'});      
+    </script>
+
+
+<div  id="dialog"  >
+</div>
+
+
+<div  id="HelpDialog"  >
+{{HelpHowToSelect}}
+</div>
+
 
 <script type="text/javascript">
 TimeTrack( "END", "S102" );

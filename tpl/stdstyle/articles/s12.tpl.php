@@ -1,3 +1,16 @@
+<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
+<link rel="stylesheet" href="tpl/stdstyle/js/jquery_1.9.2_ocTheme/themes/cupertino/jquery.ui.all.css">
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/minified/jquery-ui.min.js"></script>
+<script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
+ 
+ 
+<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
+<link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type='text/javascript' src="lib/js/GCT.js"></script>
+<script type='text/javascript' src="lib/js/GCTStats.js"></script>
+<script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
+
 <table class="content" width="97%">
 	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{{stats}}" title="{{stats}} {{ranking_by_maintenace}}" align="middle" /><font size="4">  <b>{{statistics}}: {{ranking_by_maintenace}}</b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
@@ -11,8 +24,8 @@ TimeTrack( "START" );
 
 <?php
 global $debug_page; 
-if ( $debug_page )
-	echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";  
+//if ( $debug_page )
+//	echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";  
 ?>
 
 

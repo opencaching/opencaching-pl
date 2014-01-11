@@ -1,17 +1,17 @@
-<script type='text/javascript' src='https://www.google.com/jsapi'></script>
-<script type='text/javascript' src='lib/js/GCT.js'></script>
-<script type='text/javascript' src='lib/js/wz_tooltip.js'></script>
-
 <div id='idGTC' ></div>
+
+<script type="text/javascript">
+GCTLoad( 'ChartTable' );		
+</script>
 
 <?php
  echo "<script type='text/javascript'>
 
 	var gct = new GCT( 'idGTC' );
 
-	gct.addColumn('number', '".tr('ranking')."', 'width:60px; text-align: left;');
+	gct.addColumn('number', '".tr('ranking')."', 'width:60px; text-align: left; ');
 	gct.addColumn('number', '".tr('caches')."', 'width:60px; text-align: left;');
-	gct.addColumn('string', '".tr('user')."' );	    	
+	gct.addColumn('string', '".tr('user')."', ' font-weight: bold; ' );	    	
    	    	
 </script>";
 
@@ -125,7 +125,7 @@ while ( $record = $dbc->dbResultFetch() )
 	
 }
 
-echo "gct.drawTable();";
+echo "gct.drawChart();";
 echo "</script>";
 
 

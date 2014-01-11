@@ -3,24 +3,36 @@
 <div id='idGTC' align = "center"> </div>
 
 
+<?php 
+echo "<script type='text/javascript'>";
+echo "GCTLoad( 'ChartTable', '". $lang ."' );";
+echo "</script>";
+?>
 
-<?php
- echo "<script type='text/javascript'>
 
+ <script type='text/javascript'>
+ 	
 	var gct = new GCT( 'idGTC' );
 
-	gct.addColumn('number', '".tr('Pos')."', 'text-align: left; ');
-	gct.addColumn('number', '".tr('Nr')."', 'text-align: left; ');  
-	gct.addColumn('string', '".tr('user')."', 'width:50px; text-align: left; font-weight: bold; ' ); 
- 	gct.addColumn('string', '".tr('descriptions')."', 'font-family: curier new; font-style: italic; padding-bottom: 5px; padding-top: 5px;');		
+	gct.addColumn('number', "<?php echo tr('Pos')?>", 'text-align: left; ');
+	gct.addColumn('number', "<?php echo tr('Nr')?>", 'text-align: left; ');	 
+	gct.addColumn('string', "<?php echo tr('user')?>", 'width:50px; text-align: left; font-weight: bold; ' ); 
+ 	gct.addColumn('string', "<?php echo tr('descriptions')?>", 'font-family: curier new; font-style: italic; padding-bottom: 5px; padding-top: 5px;');
  	gct.addColumn('string', 'UserName' );
-	gct.hideColumns( [4] );
-			
- </script>";
- 
- 
- 
+ 	gct.addColumn('string', 'UserId' );		
+ 	 	
+	gct.hideColumns( [4,5] );
 
+</script>
+
+<?php 
+echo "<script type='text/javascript'>";
+echo "gct.addChartOption('pagingSymbols', { prev: '".tr('Prev1')."', next: '".tr('Next1')."' });";
+echo "</script>";
+?>
+ 
+ 
+<?php
 require_once('./lib/db.php');
 
 $sRok = "";
@@ -34,7 +46,7 @@ $sData_do = "";
 
 $sRD = "";
 
-$sCondition = "";
+$sDateCondition = "";
 $nIsCondition = 0;
 $nMyRanking = 0;
 
@@ -79,7 +91,7 @@ if ( $sRD == "R"   )
 	if ( $nIsCondition )
 	{
 		$sData_do = $dDate->format( 'Y-m-d');	
-		$sCondition = "and date >='" .$sData_od ."' and date < '".$sData_do."'";	
+		$sDateCondition = "and date >='" .$sData_od."' and date < '".$sData_do."' ";	
 	}
 }
 else
@@ -96,18 +108,17 @@ else
 		$sData_do = $dDate->format( 'Y-m-d');
 	
 		if ( $sData_od <> "" )
-			$sCondition = " and date >='" .$sData_od ."' ";
+			$sDateCondition = " and date >='" .$sData_od ."' ";
 				 
 		if ( $sData_do <> "" )
-			$sCondition = $sCondition . " and date < '".$sData_do."' ";
+			$sDateCondition = $sDateCondition . " and date < '".$sData_do."' ";
 	}
 	
 	catch (Exception $e)
 	{
-		$sCondition = "";
+		$sDateCondition = "";
 		
-	}
-	
+	}	
 }
 
 
@@ -125,7 +136,7 @@ $query =
 		
 		WHERE cl.deleted=0 AND cl.type=1 "
 		
-		. $sCondition .		
+		. $sDateCondition .		
 		
 		"GROUP BY u.user_id   		
 		ORDER BY count DESC, u.username ASC";
@@ -134,6 +145,7 @@ $query =
 $dbc->multiVariableQuery($query);
 
 echo "<script type='text/javascript'>";
+
 
 
 
@@ -170,6 +182,7 @@ while ( $record = $dbc->dbResultFetch() )
 
 	$nCount = $record[ "count" ];
 	$sUUN = $record[ "UUN" ];
+	$sUserID = $record[ "user_id" ];
 	$sDateCr = $record[ "date_created" ];
 	
 	$sUserClass ="";
@@ -194,31 +207,34 @@ while ( $record = $dbc->dbResultFetch() )
 	echo "
 			gct.addEmptyRow();
 			gct.addToLastRow( 0, $nRanking );
-			gct.addToLastRow( 1, $nCount );
+			gct.addToLastRow( 1, $nCount );			
 			gct.addToLastRow( 2, '$sUsername' );
 			gct.addToLastRow( 3, '$sOpis' );
 			gct.addToLastRow( 4, '$sUUN' );
+			gct.addToLastRow( 5, '$sUserID' );			
 		";
 	
 	if ( $usr['userid'] == $record[ 'user_id'] )
 	{
 		$nMyRanking = $nRanking;
-		$nMyRealPos = $nPos-1;
-		//echo " gct.addToLastRow( 3, '<span style=\"color:red\">$sUUN</span>' );";
+		$nMyRealPos = $nPos-1;		
 	}
-
-
-	
-	
 }
 
 
 
-echo "gct.drawTable();";
+echo "gct.drawChart();";
+echo "gct.addSelectEvent( GCTEventSelectFunction );";
 
+echo "document.Details.SelectedUser.value = '0';";
 echo "document.Position.Ranking.value = '".$nMyRanking." / ".$nRanking."';";
 echo "document.Position.RealPosOfTable.value = '".$nMyRealPos."';";
+echo "document.FilterDate.DateFrom.value = '".$sData_od."';";
+echo "document.FilterDate.DateTo.value = '".$sData_do."';";
+
+
 echo "</script>";
 
+unset( $dbc );
 ?>
 

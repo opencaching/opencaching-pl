@@ -11,8 +11,10 @@
 .GCT-background-color-white2 { background-color:#F2F2F2; }
 .GCT-background-color-white6 { background-color:#F6F6F6 }
 .GCT-background-color-grey { background-color: #efefef; }
-.GCT-background-color-grey25 { background-color: #DDDDDD; }
+.GCT-background-color-greyDD { background-color: #DDDDDD;  }
+.GCT-background-color-greyDE { background-color: #DEDEDE;  }
 .GCT-background-color-lightblue { background-color: #F5F5FF; }
+
 
 .GCT-border-color-greyEF{ border: 1px solid #efefef ;}
 .GCT-border-color-greyD9{ border: 1px solid #D9D9D9; }
@@ -24,6 +26,7 @@
 .GCT-color-blueOC{ color: rgb(88,144,168); }
 .GCT-color-darkred{ color: #AA0000;  }
 .GCT-color-none {}
+
 
 .GCT-font-bold{font-weight: bold}
 
