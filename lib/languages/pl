@@ -932,7 +932,7 @@ os_mus Musisz odczekać jeszcze
 os_minut_end minut zanim będziesz mógł znów użyć OpenSprawdzacza.
 viewlog_aktywnosc Aktywność użytkownika (suma skrzynek znalezionych,nieznalezionych i założonych)
 viewlog_kordy Współrzędne ukrycia keszynki po przeniesieniu
-log_type_temp_unavailable tymczasowo niedostępna
+log_type_temp_unavailable Tymczasowo niedostępna
 log_type_available Gotowa do szukania
 log_mobile_init Punkt startowy kesza
 error_coords_not_ok Niepoprawne współrzędne!
@@ -1315,7 +1315,7 @@ logType7 uczestniczył w spotkaniu
 logType8 będzie uczestniczył w spotkaniu
 logType9 skrzynka została zarchiwizowana
 logType10 skrzynka gotowa do szukania
-logType11 skrzynka będzie niedostepna czasowo
+logType11 skrzynka będzie niedostępna czasowo
 logType12 komentarz Centrum Obsługi Geocachera
 runwatch01 zrobił
 runwatch02 do logu skrzynki
