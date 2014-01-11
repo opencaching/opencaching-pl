@@ -247,7 +247,9 @@ if ($error == false) {
 			$pointsEarnedForPlacedCaches = powerTrailBase::getOwnerPoints($user_id);
 			$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt224') . '</span>:&nbsp;<strong>'.$pointsEarnedForPlacedCaches['totalPoints'].'</strong> ('.tr('pt222').' '.$pointsEarnedForPlacedCaches['geoPathCount'].' '.tr('pt223').')</p>';
 			//var_dump($a);
+			db_connect(); // db mysql_* connection is switched off in geoPatch module, so re-open it.
 		}
+		
 		//$content .= '</div>';
 
 		// -----------  begin Find section -------------------------------------
