@@ -45,8 +45,8 @@ handicap_not_allowed Nicht verfügbar für Behinderte
 can_drive_in Kann Drive-in direkt in der Nähe von cache 
 no_shorts Tragen Sie keine kurzen Hosen 
 hunting_area Jagdgebiet
-danger_area Gefährlich Bereich
-toilet_nearby Die Toiletten in der Nähe
+danger_area Gefährlicher Bereich
+toilet_nearby Toiletten in der Nähe
 no_toilet_nearby Keine Toiletten in der Nähe
 drink_water Trinkwasser
 hiking Mehr als 500 m von der großen Straße
@@ -58,7 +58,7 @@ horse_path Pferdpfad
 check_tide Flut überprüfen
 take_compass Nehmen Sie Kompass
 sights Sehenswürdigkeiten
-skeeter Tragen Sie etwas Insekten-Resist
+skeeter Schützen Sie sich vor Insekten
 tick Ticks
 snake Achtung! Schlangen
 generate_code Code generieren
@@ -70,8 +70,8 @@ recommendation Empfehlung
 created_by erstellt von
 found gefunden
 founds gefunden
-only_founds nur
-only_new Nur Neues
+only_founds Nur Gefundene
+only_new Nur Neue
 not_found nicht gefunden
 add_to Hinzufügen
 add_to_list Zur Liste hinzufügen
@@ -121,20 +121,20 @@ filter Filter
 without_geokret ohne geokret 
 show_caches Show-Caches
 archived_plural archiviert
-choose_statpic Wählen Sie statpic 
-statpic_previews Statpic Vorschauen sind unten aufgeführt
+choose_statpic Wählen Sie ihr Statistikbild 
+statpic_previews Statistikbild-Vorschauen sind unten aufgeführt
 change Veränderung
-no_statpics_available Nein statpics verfügbar
+no_statpics_available Kein Statistikbild verfügbar
 user_statpic_text Benutzer Label 
-available_statpics Verfügbare statpics
+available_statpics Verfügbare Statistikbilder
 statpic_text_message Statpics (max. 30 Zeichen) 
 illegal_char Nicht erlaubtes Zeichen!
 main_page Startseite
 what_is_geocaching Was ist Geocaching?
 registration Registrieren
 news Aktuelles
-new_caches Neue-Caches
-new_cache New cache 
+new_caches Neue Caches
+new_cache Neuer Cache 
 abroad_poland im Ausland von Polen
 recommended_caches Empfohlene Caches
 new_logs Die neuesten logs
@@ -235,11 +235,11 @@ show_recommended Show empfohlen
 show_all Alle anzeigen
 no_choice Auswahl nicht verfügbar
 username_incorrect Benutzername ist nicht korrekt.
-username_exists Angesichts Benutzername ist bereits vergeben.
-bad_coordinates Angesichts Koordinaten sind ungültig.
+username_exists Benutzername ist bereits vergeben.
+bad_coordinates Koordinaten sind ungültig.
 bad_radius Der Radius ist ungültig.
 your_data Ihre Daten
-data_in_profile Die nachstehend aufgeführten Daten ist derzeit in Ihrem Benutzer's Profil
+data_in_profile Folgende Informationen sind in deinem Benutzerprofil gespeichert:
 desc_updated Ihre Beschreibung wurde erfolgreich aktualisiert.
 gray_field_is_hidden Grau Felder sind nicht sichtbar für andere Nutzer.
 username_label Benutzername
@@ -248,11 +248,11 @@ coordinates Koordinaten
 notification Anmeldung
 my_description Meine Beschreibung
 other Andere
-registered_since_label Hier seit 
-statpic_label Statpic 
-html_statpic_link HTML-Code für Ihre statpic 
-bbcode_statpic BBCode für Ihre statpic 
-pmr_message I bin mit PMR-Funk auf Kanal 2
+registered_since_label Registriert seit 
+statpic_label Statistikbild
+html_statpic_link HTML-Code für Ihr Statistikbild
+bbcode_statpic BBCode für Ihr Statistikbild
+pmr_message Ich nehme ein PMR-Funkgerät auf Kanal 2 mit zum Cachen.
 no_auto_logout Keine automatische Abmeldung nach 15 Minuten der Inaktivität.
 hide_html_editor Verwenden Sie nicht den HTML-Editor.
 notify_new_caches_radius Benachrichtigung über neue Caches in 
