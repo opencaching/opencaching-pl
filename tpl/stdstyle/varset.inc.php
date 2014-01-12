@@ -80,7 +80,7 @@
 	$target = basename($_SERVER['PHP_SELF']).'?';
 
 	// REQUEST-Variablen durchlaufen und an target anhaengen
-	$allowed = array('cacheid', 'userid', 'logid', 'desclang', 'descid');
+	$allowed = array('cacheid', 'userid', 'logid', 'desclang', 'descid', 'wp');
 	reset ($_REQUEST);
 	while (list ($varname, $varvalue) = each ($_REQUEST))
 	{
