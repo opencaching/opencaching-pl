@@ -2391,7 +2391,7 @@ if ($usr == false  || $usr['userFounds'] < 99) $userLogged = 'none'; else $userL
 tpl_set_var('userLogged', $userLogged);
 
 // power trails
-if($powerTrailModuleSwitchOn) {
+if($powerTrailModuleSwitchOn && $cache_id != null) {
 	require_once 'powerTrail/powerTrailBase.php';
 	$ptArr = powerTrailBase::checkForPowerTrailByCache($cache_id);
 	if(count($ptArr)>0){	
