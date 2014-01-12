@@ -165,7 +165,7 @@ echo "<script type='text/javascript'>";
 while ( $record = $dbc->dbResultFetch() )
 {
 	$nYear = $record['year'];
-	$nMonth = $record['month'];
+	$nMonth = $record['month']-1;
 	$nDay = $record['day'];
 	
 	$sNewDate = "new Date( $nYear, $nMonth, $nDay )";
