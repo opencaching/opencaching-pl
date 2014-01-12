@@ -46,6 +46,7 @@ tinymce.init({
     height: 350,
     menubar: false,
 	toolbar_items_size: 'small',
+	gecko_spellcheck : true,
     language : "{language4js}",
     toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
     toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | preview ",
