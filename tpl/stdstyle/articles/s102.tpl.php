@@ -16,11 +16,22 @@
 <script type='text/javascript' src="lib/js/GCTStats.js"></script>
 <script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
 
+<?php
+$sTitleOfStat="";  
+if ( isset( $_REQUEST[ "stat" ] ) )
+{
+	$sNameOfStat = $_REQUEST[ "stat" ];
+}
 
+if ( $sNameOfStat == "NumberOfFinds" )
+	$sTitleOfStat = " {{ranking_by_number_of_finds_new}} ";
 
+if ( $sNameOfStat == "MaintenanceOfCaches" )
+	$sTitleOfStat = " {{ranking_by_maintenace}} ";
+?>
 
 <table class="content" width="97%">
-	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{{stats}}" title="{{stats}} {{ranking_by_maintenace}}" align="middle" /><font size="4">  <b>{{statistics}}: {{ranking_by_number_of_finds_new}}</b></font></td></tr>
+	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{{stats}}" title="{{stats}} <?php echo $sTitleOfStat?>" align="middle" /><font size="4">  <b>{{statistics}}: <?php echo $sTitleOfStat?></b></font></td></tr>
 	<tr><td class="spacer"></td></tr>
 </table>
 
@@ -53,10 +64,7 @@ $sDataDo = "";
 $sRD = "R";
 $sNameOfStat = "";
 
-if ( isset( $_REQUEST[ "stat" ] ) )
-{
-	$sNameOfStat = $_REQUEST[ "stat" ];
-}
+
 
 
 if ( !isset( $_REQUEST[ "init" ] ) )
