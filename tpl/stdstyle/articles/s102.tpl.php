@@ -17,6 +17,7 @@
 <script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
 
 <?php
+$sNameOfStat = "";
 $sTitleOfStat="";  
 if ( isset( $_REQUEST[ "stat" ] ) )
 {
@@ -62,7 +63,7 @@ $sMc = "";
 $sDataOd = "";
 $sDataDo = "";
 $sRD = "R";
-$sNameOfStat = "";
+
 
 
 

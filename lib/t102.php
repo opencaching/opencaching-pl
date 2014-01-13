@@ -129,7 +129,7 @@ if ( $sNameOfStat == "NumberOfFinds" )
 	$sTypeCondition = " and  cl.type=1 ";
 
 if ( $sNameOfStat == "MaintenanceOfCaches" )
-	$sTypeCondition = " and  cl.type=6 ";
+	$sTypeCondition = " and  cl.type=6 and c.user_id <> cl.user_id ";
 
 
 
