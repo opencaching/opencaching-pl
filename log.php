@@ -926,8 +926,8 @@ $debug = false;
 					 * value  = Info
 					 * 
   					 * -2=  Chose log type;
-                       1 = Write a note;
-                       2 = '16x16-dnf.png';
+                       1 = Found;
+                       2 = Didn't found';
                        3 = Write a note;
                        4 = Moved;
                        5 = Needs maintenace;

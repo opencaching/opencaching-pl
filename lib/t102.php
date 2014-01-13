@@ -47,9 +47,13 @@ $sData_do = "";
 $sRD = "";
 
 $sDateCondition = "";
+$sTypeCondition="";
+
 $nIsCondition = 0;
 $nMyRanking = 0;
 
+if ( isset( $_REQUEST[ 'stat' ]) )
+	$sNameOfStat = $_REQUEST[ 'stat' ];
 
 if ( isset( $_REQUEST[ 'Rok' ]) )
 	$sRok =  $_REQUEST[ 'Rok' ];
@@ -121,6 +125,12 @@ else
 	}	
 }
 
+if ( $sNameOfStat == "NumberOfFinds" )
+	$sTypeCondition = " and  cl.type=1 ";
+
+if ( $sNameOfStat == "MaintenanceOfCaches" )
+	$sTypeCondition = " and  cl.type=6 ";
+
 
 
 $dbc = new dataBase();
@@ -134,8 +144,8 @@ $query =
 		join caches c on c.cache_id = cl.cache_id
 		join user u on cl.user_id = u.user_id
 		
-		WHERE cl.deleted=0 AND cl.type=1 "
-		
+		WHERE cl.deleted=0 " 
+		. $sTypeCondition 
 		. $sDateCondition .		
 		
 		"GROUP BY u.user_id   		

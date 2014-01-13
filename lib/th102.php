@@ -23,7 +23,7 @@ echo "</script>";
 <?php
 $sEND = "";
 $sDateCondition = "";
-
+$sTypeCondition = "";
 
 global $lang;
 
@@ -41,12 +41,23 @@ require_once('db.php');
 $sUserIDLine = $_REQUEST[ "UserID"];
 $sDateFrom = $_REQUEST[ "DF"];
 $sDateTo = $_REQUEST[ "DT"];
+$sNameOfStat = $_REQUEST[ "stat"];
+
+
 
 if ( $sDateFrom <> "" )
 	$sDateCondition .= "and date >='" .$sDateFrom."'"; 
 
 if ( $sDateTo <> "" )
 	$sDateCondition .= " and date < '".$sDateTo."' ";
+
+
+if ( $sNameOfStat == "NumberOfFinds" )
+	$sTypeCondition = " and  cl.type=1 ";
+
+if ( $sNameOfStat == "MaintenanceOfCaches" )
+	$sTypeCondition = " and  cl.type=6 ";
+
 
 $asUserID = explode(",", $sUserIDLine);
 
@@ -140,8 +151,9 @@ $query =
 		join caches c on c.cache_id = cl.cache_id
 		join user u on cl.user_id = u.user_id
 
-		WHERE cl.deleted=0 AND cl.type=1 "
-
+		WHERE cl.deleted=0 "
+			 
+		.$sTypeCondition 
 		. $sCondition .
 
 		"GROUP BY year, month, day, user_id 

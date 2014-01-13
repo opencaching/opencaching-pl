@@ -51,7 +51,12 @@ $sMc = "";
 $sDataOd = "";
 $sDataDo = "";
 $sRD = "R";
+$sNameOfStat = "";
 
+if ( isset( $_REQUEST[ "stat" ] ) )
+{
+	$sNameOfStat = $_REQUEST[ "stat" ];
+}
 
 
 if ( !isset( $_REQUEST[ "init" ] ) )
@@ -92,6 +97,7 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 	<td>
  		<form name="FilterDate" style="display:inline; " action='articles.php' method="get">
 			<input type="hidden" value="s102" name="page" >
+			<input type="hidden" value="<?php echo $sNameOfStat?>" name="stat" id = "stat" >
 			<input type="hidden" name="DateFrom" id="DateFrom" value="" >
 			<input type="hidden" name="DateTo" id="DateTo" value="" >
 			<table	class = "GCT-div-table" >
