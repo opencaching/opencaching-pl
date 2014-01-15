@@ -1018,8 +1018,9 @@ $debug = false;
 						if($type['permission'] == 'O' && $usr['userid'] != $cache_user_id && $type['permission'])
 							continue;
 						
-						// if virtual display only log typ comment available
-						if (($cache_type == 4 || $cache_type == 5)  && $res2['status'] == 3) {
+						
+            // if virtual, webcam or own = archived -> allow only comment log type
+						if (($cache_type == 4 || $cache_type == 5 || $cache_type == 10)  && $res2['status'] == 3) {
 								if($type['id'] != 3) { 
 									continue;
 								}	
