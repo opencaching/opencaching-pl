@@ -38,40 +38,39 @@
 		$perpage = 50;
 		$startat -= $startat % $perpage;
 
-	        function cleanup_text($str)
-        {
-          $str = strip_tags($str, "<li>");
-	      $from[] = '&nbsp;'; $to[] = ' ';
-          $from[] = '<p>'; $to[] = '';
-         $from[] = '\n'; $to[] = '';
-         $from[] = '\r'; $to[] = '';
-          $from[] = '</p>'; $to[] = "";
-          $from[] = '<br>'; $to[] = "";
-          $from[] = '<br />'; $to[] = "";
-    	 $from[] = '<br/>'; $to[] = "";
-            
-          $from[] = '<li>'; $to[] = " - ";
-          $from[] = '</li>'; $to[] = "";
-          
-          $from[] = '&oacute;'; $to[] = 'o';
-          $from[] = '&quot;'; $to[] = '"';
-          $from[] = '&[^;]*;'; $to[] = '';
-          
-          $from[] = '&'; $to[] = '';
-          $from[] = '\''; $to[] = '';
-          $from[] = '"'; $to[] = '';
-          $from[] = '<'; $to[] = '';
-          $from[] = '>'; $to[] = '';
-          $from[] = '('; $to[] = ' -';
-          $from[] = ')'; $to[] = '- ';
-          $from[] = ']]>'; $to[] = ']] >';
-	 $from[] = ''; $to[] = '';
+		function cleanup_text($str) {
+			$str = strip_tags($str, "<li>");
+			$from[] = '&nbsp;'; $to[] = ' ';
+			$from[] = '<p>'; $to[] = '';
+			$from[] = '\n'; $to[] = '';
+			$from[] = '\r'; $to[] = '';
+			$from[] = '</p>'; $to[] = "";
+			$from[] = '<br>'; $to[] = "";
+			$from[] = '<br />'; $to[] = "";
+			$from[] = '<br/>'; $to[] = "";
+			    
+			$from[] = '<li>'; $to[] = " - ";
+			$from[] = '</li>'; $to[] = "";
+			  
+			$from[] = '&oacute;'; $to[] = 'o';
+			$from[] = '&quot;'; $to[] = '"';
+			$from[] = '&[^;]*;'; $to[] = '';
+			  
+			$from[] = '&'; $to[] = '';
+			$from[] = '\''; $to[] = '';
+			$from[] = '"'; $to[] = '';
+			$from[] = '<'; $to[] = '';
+			$from[] = '>'; $to[] = '';
+			$from[] = '('; $to[] = ' -';
+			$from[] = ')'; $to[] = '- ';
+			$from[] = ']]>'; $to[] = ']] >';
+			$from[] = ''; $to[] = '';
               
-          for ($i = 0; $i < count($from); $i++)
-            $str = str_replace($from[$i], $to[$i], $str);
+			for ($i = 0; $i < count($from); $i++)
+            	$str = str_replace($from[$i], $to[$i], $str);
                                  
-          return filterevilchars($str);
-        }
+			return filterevilchars($str);
+		}
         
 	
         function filterevilchars($str)
@@ -141,8 +140,10 @@ $radius=$distance;
 
 
 				$file_content ='';
-		$rs = sql('SELECT `caches`.`cache_id` `cacheid`, 
-							`user`.`user_id` `userid`, 
+		$rs = sql('SELECT `caches`.`cache_id` `cacheid`,
+							`caches`.`cache_id` `cache_id`, 
+							`user`.`user_id` `userid`,
+							 `user`.`user_id` `user_id`,
 							`caches`.`country` `country`, 
 							`caches`.`type` `type`,
 							`caches`.`name` `cachename`, 
@@ -164,70 +165,57 @@ $radius=$distance;
 						`caches`.`cache_id` DESC 
 						LIMIT ' . ($startat+0) . ', ' . ($perpage+0));
 
-$tr_myn_click_to_view_cache=tr('myn_click_to_view_cache');
-		while ($r = sql_fetch_array($rs))
-		{
+		$tr_myn_click_to_view_cache=tr('myn_click_to_view_cache');
+		$bgColor = '#eeeeee';
+		while ($r = sql_fetch_array($rs)) {
+			if($bgColor=='#eeeeee') $bgColor='#ffffff';
+			else $bgColor = '#eeeeee';
+			$file_content .= '<tr bgcolor="'.$bgColor.'">';
+			$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';		
+			$cacheicon = myninc::checkCacheStatusByUser($r, $user_id);			
+				
+			$file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td>';
+			$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+			$file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '">' .htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 
-
-				$file_content .= '<tr>';
-				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';		
-				$cacheicon =  $cache_icon_folder;
-				if ($r ['cache_type']!="6") { //if not event - check is_cache found 
-					$cacheicon .=is_cache_found($r ['cacheid'], $user_id) ? $foundCacheTypesIcons[$r ['cache_type']] : $CacheTypesIcons[$r ['cache_type']] ;
-				} else { //if an event - check is_event_attended
-					$cacheicon .=is_event_attended ($r ['cacheid'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
-				};				
-					
-				$file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td>';
-				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-				$file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '">' .htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
-
-	$rs_log = sql("SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
-	                          cache_logs.type AS log_type,
-	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
-				cache_logs.text AS log_text,
-	                          user.username AS user_name,
-				caches.user_id AS cache_owner,
-				cache_logs.encrypt encrypt,
-				cache_logs.user_id AS luser_id,
-				user.user_id AS user_id,
-				log_types.icon_small AS icon_small, COUNT(gk_item.id) AS geokret_in
+			$rs_log = sql("SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
+			cache_logs.type AS log_type,
+			DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
+			cache_logs.text AS log_text,
+			user.username AS user_name,
+			caches.user_id AS cache_owner,
+			cache_logs.encrypt encrypt,
+			cache_logs.user_id AS luser_id,
+			user.user_id AS user_id,
+			log_types.icon_small AS icon_small, COUNT(gk_item.id) AS geokret_in
 			FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id)
-							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
-							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
-							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5				
+			LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
+			LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
+			gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5				
 			WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1
-			 GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1",$r['cacheid']);
+			GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1",$r['cacheid']);
 
-
-			if (mysql_num_rows($rs_log) != 0)
-			{
 			$r_log = sql_fetch_array($rs_log);
-
-				$file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("Y-m-d", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
-
-				$file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\''; 
-
-				$file_content .= '<b>'.$r_log['user_name'].'</b>:&nbsp;';
-				if ( $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid'] && $r_log['luser_id']!=$usr['userid']){
-				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
-				if ( $r_log['encrypt']==1 && ($r_log['cache_owner']==$usr['userid']|| $r_log['luser_id']==$usr['userid'])){
-				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
-				$data = cleanup_text(str_replace("\r\n", " ", $r_log['log_text']));
-				$data = str_replace("\n", " ",$data);
-				if ( $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid'] && $r_log['luser_id']!=$usr['userid'])
-				{//crypt the log ROT13, but keep HTML-Tags and Entities
-				$data = str_rot13_html($data);} else {$file_content .= "<br/>";}
-				$file_content .=$data;
-				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
-				$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-
-					}				
-			mysql_free_result($rs_log);
+			$file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("Y-m-d", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
+			$file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\''; 
+			$file_content .= '<b>'.$r_log['user_name'].'</b>:&nbsp;';
+			if ( $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid'] && $r_log['luser_id']!=$usr['userid']){
+			$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
+			if ( $r_log['encrypt']==1 && ($r_log['cache_owner']==$usr['userid']|| $r_log['luser_id']==$usr['userid'])){
+			$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
+			$data = cleanup_text(str_replace("\r\n", " ", $r_log['log_text']));
+			$data = str_replace("\n", " ",$data);
+			if ( $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid'] && $r_log['luser_id']!=$usr['userid'])
+			{//crypt the log ROT13, but keep HTML-Tags and Entities
+			$data = str_rot13_html($data);} else {$file_content .= "<br/>";}
+			$file_content .= $data;
+			$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
+			$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 			$file_content .= "</tr>";
+			mysql_free_result($rs_log);
 		}
 		mysql_free_result($rs);
-	        tpl_set_var('file_content',$file_content);
+	    tpl_set_var('file_content',$file_content);
 
 		$rs = sql('SELECT COUNT(*) `count` FROM (local_caches'.$user_id.' caches)');
 		$r = sql_fetch_array($rs);

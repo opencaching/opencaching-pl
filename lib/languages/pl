@@ -430,7 +430,7 @@ what_do_you_find_intro_nl <b>Geocaching</b> to gra terenowa użytkowników GPS p
 more_news więcej nowości
 filename_rules {rules_url}
 filename_describe_cache {cache_params_url}
-map_msg Aby zobaczyć współrzędne oraz<br/> mapę lokalizacji skrzynki <br/> musisz się <a href="login.php?target={target}">zalogować</a>.
+map_msg Aby zobaczyć współrzędne oraz<br/> mapę lokalizacji skrzynki <br/> musisz się zalogować.
 additional_hints Dodatkowe informacje
 images Obrazki/Zdjęcia
 mp3_files_info PodCast - słuchaj jak dotrzeć do skrzynki - plik MP3

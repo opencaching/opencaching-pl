@@ -212,13 +212,7 @@ if ($error == false) {
         else {
             $file_content .= '<td width="22">&nbsp;</td>';
         }    
-		
-		$cacheicon =  $cache_icon_folder;
-				if ($log_record['cache_type']!="6") { //if not event - check is_cache found 
-					$cacheicon .=is_cache_found($log_record['cache_id'], $user_id) ? $foundCacheTypesIcons[$log_record['cache_type']] : $CacheTypesIcons[$log_record['cache_type']] ;
-				} else { //if an event - check is_event_attended
-					$cacheicon .=is_event_attended ($log_record['cache_id'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
-				};
+		$cacheicon = myninc::checkCacheStatusByUser($log_record, $user_id);
 		
         $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
         $file_content .= '<td width="22" ><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td>';

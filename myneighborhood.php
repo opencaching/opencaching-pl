@@ -384,11 +384,8 @@ if ($error == false) {
 
             for ($i = 0; $i < $limit; $i++) {
                 $record          = sql_fetch_array($rs);
-               // $found_icon      = is_cache_found($record['cache_id'], $user_id) ? '16x16-found.png' : '16x16-blank.png'; 
-               // $cacheicon_found = 'tpl/stdstyle/images/' . $found_icon;
-                //$cacheicon       = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
-				$cacheicon =  $cache_icon_folder;
-				$cacheicon .=is_cache_found($record['cache_id'], $user_id) ? $foundCacheTypesIcons[$record['cache_type']] : $CacheTypesIcons[$record['cache_type']] ;
+				
+				$cacheicon = myninc::checkCacheStatusByUser($record, $user_id);
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',                 $i,                                                                                 $thisline);
                 $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
@@ -399,7 +396,6 @@ if ($error == false) {
                 $thisline = mb_ereg_replace('{username}',           htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'),                         $thisline);
                 $thisline = mb_ereg_replace('{distance}',           number_format($record['distance'], 1, ',', ''),                                     $thisline);
                 $thisline = mb_ereg_replace('{cacheicon}',          $cacheicon,                                                                         $thisline);
-            //    $thisline = mb_ereg_replace('{cacheicon_found}',    $cacheicon_found,                                                                   $thisline);
                 $thisline = mb_ereg_replace('{smallmapurl}',        create_map_url($markerpositions, $i,$latitude,$longitude),                          $thisline);
 
                 $file_content .= $thisline . "\n";
@@ -425,6 +421,7 @@ if ($error == false) {
                             `caches`.`date_hidden`      AS `date_hidden`,
                             `caches`.`date_created`     AS `date_created`,
                             `caches`.`country`          AS `country`,
+                            `caches`.`type`				AS `cache_type`,
                             `caches`.`difficulty`       AS `difficulty`,
                             `local_caches`.`distance`   AS `distance`,
                             `caches`.`terrain`          AS `terrain`,
@@ -458,8 +455,7 @@ if ($error == false) {
             for ($i = 0; $i < mysql_num_rows($rss); $i++) {
 
                 $record   = sql_fetch_array($rss);
-				$cacheicon =  $cache_icon_folder;
-				$cacheicon .=is_event_attended($record['cache_id'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
+				$cacheicon = myninc::checkCacheStatusByUser($record, $user_id);				// $cacheicon =is_event_attended($record['cache_id'], $user_id) ? $cacheTypesIcons[6]['iconSet'][1]['iconSmallFound'] : $cacheTypesIcons[6]['iconSet'][1]['iconSmallFound'] ;
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',             $i + $markerpositions['plain_cache_num'],                                                           $thisline);
                 $thisline = mb_ereg_replace('{date}',           htmlspecialchars(date("Y-m-d", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'),            $thisline);
@@ -492,6 +488,7 @@ if ($error == false) {
                             `caches`.`cache_id`         AS `cache_id`,
                             `caches`.`name`             AS `name`,
                             `caches`.`longitude`        AS `longitude`,
+                            `caches`.`type`				AS `cache_type`,
                             `caches`.`latitude`         AS `latitude`,
                             `caches`.`date_hidden`      AS `date`,
                             `caches`.`date_created`     AS `date_created`,
@@ -529,9 +526,9 @@ if ($error == false) {
             $file_content = '<table  class="myneighborhood"> ';
 
             for ($i = 0; $i < $limit; $i++) {
-                $record        = sql_fetch_array($rs);
-                $cacheicon     = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
-                $thisline      = $cacheline;
+                $record = sql_fetch_array($rs);
+                $cacheicon = myninc::checkCacheStatusByUser($record, $user_id);
+                $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',             $i + $markerpositions['plain_cache_num2'],                                                          $thisline);
                 $thisline = mb_ereg_replace('{date}',           htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),                   $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',        urlencode($record['cache_id']),                                                                     $thisline);
@@ -652,16 +649,8 @@ if ($error == false) {
 
             for ($i = 0; $i < mysql_num_rows($rsl); $i++) {
                 $log_record      = sql_fetch_array($rsl);
-                //$found_icon      = is_cache_found($log_record['cache_id'], $user_id) ? '16x16-found.png' : '16x16-blank.png'; 
-                //$logicon_found   = 'tpl/stdstyle/images/cache/' . $found_icon;
-			   	$cacheicon =  $cache_icon_folder;
-				if ($log_record['cache_type']!="6") {
-					$cacheicon .=is_cache_found($log_record['cache_id'], $user_id) ? $foundCacheTypesIcons[$log_record['cache_type']] : $CacheTypesIcons[$log_record['cache_type']] ;
-				} else {
-					$cacheicon .=is_event_attended ($log_record['cache_id'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
-				};
+				$cacheicon = myninc::checkCacheStatusByUser($log_record, $user_id);
                 $thisline        = $cacheline;
-               // $cacheicon       = 'tpl/stdstyle/images/'.$log_record['cache_icon_small'];
 
                 if ( $log_record['geokret_in'] !='0') {
                     $thisline = mb_ereg_replace('{gkicon}',"images/gk.png", $thisline);
@@ -768,16 +757,8 @@ if ($error == false) {
             $file_content = '<table  class="myneighborhood">';
 
             for ($i = 0; $i < $limit; $i++) {
-                $record          = sql_fetch_array($rstr);
-               // $found_icon      = is_cache_found($record['cache_id'], $user_id) ? '16x16-found.png' : '16x16-blank.png'; 
-               // $cacheicon_found = 'tpl/stdstyle/images/cache/' . $found_icon;
-               // $cacheicon       = 'tpl/stdstyle/images/'.getSmallCacheIcon($record['icon_large']);
-				$cacheicon =  $cache_icon_folder;
-				if ($record['cache_type']!="6") {
-					$cacheicon .=is_cache_found($record['cache_id'], $user_id) ? $foundCacheTypesIcons[$record['cache_type']] : $CacheTypesIcons[$record['cache_type']] ;
-				} else { //rather practically  not possible - event reco not allowed but just in case or for past 
-					$cacheicon .=is_event_attended ($record['cache_id'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
-				};
+                $record = sql_fetch_array($rstr);
+				$cacheicon = myninc::checkCacheStatusByUser($record, $user_id);
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',                 $i+$marker_offset,      $thisline);   //TODO: dynamic number   
                 $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);

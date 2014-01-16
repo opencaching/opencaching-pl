@@ -2,6 +2,7 @@
 $rootpath = __DIR__.'/../';
 require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/../lib/common.inc.php';
+require_once __DIR__.'/../lib/cache.php';
 require_once __DIR__.'/powerTrailBase.php';
 require_once __DIR__.'/powerTrailController.php';
 db_disconnect();
@@ -34,9 +35,7 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		5 => tr('pt144'),
 	);
 
-	$cacheTypesIcons = getCacheTypesIcons();
-	$foundCacheTypesIcons = getFoundCacheTypesIcons($cacheTypesIcons);
-	
+	$cacheTypesIcons = cache::getCacheIconsSet();
 	$cacheRows = '<table class="ptCacheTable" align="center" width="90%"><tr>
 		<th>'.tr('pt075').'</th>
 		<th>'.tr('pt076').'</th>';
@@ -53,6 +52,7 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 	$cachetypes = array (1 => 0,2 => 0,3 => 0,4 => 0,5 => 0,6 => 0,7 => 0,8 => 0,9 => 0,10 => 0,);
 	$cacheSize = array (2 => 0,3 => 0,4 => 0,5 => 0,6 => 0,7 => 0,);
 	unset($_SESSION['geoPathCacheList']);
+	isset($_SESSION['user_id']) ? $userId = $_SESSION['user_id'] : $userId=-9999;
 	foreach ($pTrailCaches as $rowNr => $cache) {
 		$_SESSION['geoPathCacheList'][] = $cache['cache_id'];
 		$totalFounds += $cache['founds'];
@@ -69,8 +69,9 @@ function displayAllCachesOfPowerTrail($pTrailCaches, $powerTrailCachesUserLogsBy
 		}
 		$cacheRows .= '<tr bgcolor="'.$bgcolor.'">';
 		//display icon found/not found depend on current user
-		if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $cacheRows .= '<td align="center"><img src="tpl/stdstyle/images/'.$foundCacheTypesIcons[$cache['type']].'" /></td>';
-		else $cacheRows .= '<td align="center"><img src="tpl/stdstyle/images/'.$cacheTypesIcons[$cache['type']].'" /></td>';
+		if (isset($powerTrailCachesUserLogsByCache[$cache['cache_id']])) $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$cache['type']]['iconSet'][1]['iconSmallFound'].'" /></td>';
+		elseif($cache['user_id'] == $userId) $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$cache['type']]['iconSet'][1]['iconSmallOwner'].'" /></td>';
+		else $cacheRows .= '<td align="center"><img src="'.$cacheTypesIcons[$cache['type']]['iconSet'][1]['iconSmall'].'" /></td>';
 		//cachename, username
 		$cacheRows .= '<td><b><a href="'.$cache['wp_oc'].'">'.$fontColor.$cache['name'].'</b></a> ('.$cache['username'].') ';
 		if($cache['isFinal']) $cacheRows .= '<span class="finalCache">'.tr('pt148').'</span>';
@@ -127,29 +128,4 @@ function ratings($score, $votes){
 	if ($score < -1)               return '<span style="color: red">'.tr('pt074').'</span>';
 }
 
-/**
- * prepare array contain small icons for diffrent cachetypes
- */
-function getCacheTypesIcons() 
-{
-	$q = 'SELECT `id`, `icon_small` FROM `cache_type` WHERE 1';
-	$db = new dataBase;
-	$db->simpleQuery($q);
-	$cacheTypesArr = $db->dbResultFetchAll();
-	foreach ($cacheTypesArr as $cacheType) {
-		$cacheTypesIcons[$cacheType['id']] = $cacheType['icon_small'];
-	}
-	return $cacheTypesIcons;
-}
-
-function getFoundCacheTypesIcons($cacheTypesIcons)
-{
-	foreach ($cacheTypesIcons as $id => $cacheIcon) {
-		$tmp = explode('.', $cacheIcon);
-		$tmp[0] = $tmp[0].'-found';
-		$foundCacheTypesIcons[$id] = implode('.', $tmp);
-	}
-	// powerTrailController::debug($foundCacheTypesIcons);
-	return $foundCacheTypesIcons;
-}
 ?>
