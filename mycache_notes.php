@@ -10,10 +10,12 @@
 	***************************************************************************/
 
 //prepare the templates and include all neccessary
-	require_once('./lib/common.inc.php');
-	require_once('./lib/db.php');
+require_once('./lib/common.inc.php');
+require_once('./lib/db.php');
 require_once  __DIR__.'/lib/myn.inc.php';
 require_once  __DIR__.'/lib/db.php';
+
+global $usr;
 
 function CleanSpecChars( $log, $flg_html )
 {	
@@ -64,6 +66,8 @@ function CleanSpecChars( $log, $flg_html )
 								 `caches`.`name` `cache_name`, 
 								 `cache_type`.`icon_small` `icon_large`, 
 								 `caches`.`type` `cache_type`,
+								 `caches`.`cache_id` `cache_id`,
+								 `caches`.`user_id` `user_id`,
 								 note_id, 
 								 cl.text AS log_text, 
 								 cl.type AS log_type,
@@ -113,12 +117,7 @@ function CleanSpecChars( $log, $flg_html )
 									
 								//$notes_record = sql_fetch_array($notes_rs);
 								$notes_record = $db->dbResultFetch();
-				$cacheicon =  $cache_icon_folder;
-				if ($notes_record['cache_type']!="6") {
-					$cacheicon .=is_cache_found($notes_record['cacheid'], $userid) ? $foundCacheTypesIcons[$notes_record['cache_type']] : $CacheTypesIcons[$notes_record['cache_type']] ;
-				} else {
-					$cacheicon .=is_event_attended ($notes_record['cacheid'],$userid) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
-				};	
+								$cacheicon =  myninc::checkCacheStatusByUser($notes_record, $usr['userid']);
 								
 								$notes .= '<tr>
 								<td style="background-color: {bgcolor}"><img src="'.$cacheicon.'" alt="" /></td>

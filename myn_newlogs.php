@@ -193,10 +193,12 @@ if ($error == false) {
 
     $file_content = '';
 	$tr_myn_click_to_view_cache =tr('myn_click_to_view_cache');
+	$bgColor = '#eeeeee';
     for ($i = 0; $i < mysql_num_rows($rs); $i++) {
         $log_record      = sql_fetch_array($rs);
+		if($bgColor=='#eeeeee') $bgColor='#ffffff';
 
-        $file_content .= '<tr >';
+        $file_content .= '<tr bgcolor="'.$bgColor.'">';
         $file_content .= '<td style="width: 70px;">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
         if ( $log_record['geokret_in'] !='0') {
