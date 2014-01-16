@@ -2099,7 +2099,7 @@ coordsmod_lat Latitude
 modify_coords Modify 
 reset_coords Restore 
 orig_coord_modified_info You have ented own coordinates - original ones are as follows:
-modified_coord_notice Modified coordinates will be exported to files, e.g. GPX, KML etc. EXCLUDING "GARMIN (GPX + photos)" format
+modified_coord_notice Modified coordinates will be exported to files, e.g. GPX, KML etc.
 srch_Coord_have_been_modified The coordinates have been modified
 srch_Recommended Recommended
 srch_Send_to_GPS Send to GPS

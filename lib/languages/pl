@@ -2099,7 +2099,7 @@ coordsmod_lat Szerokość geograficzna
 modify_coords Modyfikuj współrzędne
 reset_coords Przywróć oryginalne 
 orig_coord_modified_info Wprowadziłe(a)ś własne współrzędne - współrzędne oryginalne to: 
-modified_coord_notice Zmodyfikowane współrzędne zostaną wyeksportowane do plików, np. GPX, KML, itp.  za WYJĄTKIEM formatu "GARMIN (GPX + zdjęcia)"
+modified_coord_notice Zmodyfikowane współrzędne zostaną wyeksportowane do plików, np. GPX, KML, itp.
 srch_Coord_have_been_modified Współrzędne zmodyfikowane
 srch_Recommended Rekomendowana 
 srch_Send_to_GPS Wyślij do GPS

@@ -226,7 +226,9 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
 						try
 						{
 							$okapi_response =  \okapi\Facade::service_call('services/caches/formatters/garmin',
-								$usr['userid'], array('cache_codes' => $waypoints, 'langpref' => 'pl'));
+								$usr['userid'], 
+								array('cache_codes' => $waypoints, 'langpref' => 'pl', 
+									  'location_source'=> 'alt_wpt:user-coords', 'location_change_prefix' => '(F)'));
 									
 							// Modifying OKAPI's default HTTP Response headers.
 							$okapi_response->content_type = 'application/zip';

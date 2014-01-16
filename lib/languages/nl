@@ -2099,7 +2099,7 @@ coordsmod_lat Latitude
 modify_coords Veranderen
 reset_coords Herstellen
 orig_coord_modified_info Er zijn gecorrigeerde coördinaten ingevoerd. De originele coördinaten zijn:
-modified_coord_notice De gecorrigeerde coördinaten zullen ook in de gedownloade bestanden weergegeven worden. Zoals in GPX, kml, enz. Exclusief GARMIN (GPX met afbeeldingen) 
+modified_coord_notice De gecorrigeerde coördinaten zullen ook in de gedownloade bestanden weergegeven worden. Zoals in GPX, kml, enz. 
 srch_Coord_have_been_modified De coördinaten zijn veranderd
 srch_Recommended
 srch_Send_to_GPS Verzend naar GPS
