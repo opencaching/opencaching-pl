@@ -171,8 +171,9 @@ if ($error == false) {
                         cache_logs.text_html                        AS text_html,
                         caches.name                                 AS cache_name,
                         caches.user_id                              AS cache_owner,
+                        caches.user_id                              AS user_id,
                         user.username                               AS user_name,
-                        user.user_id                                AS user_id,
+                        user.user_id                                AS xuser_id,
                         caches.wp_oc                                AS wp_name,
                         caches.type                                 AS cache_type,
                         cache_type.icon_small                       AS cache_icon_small,
@@ -195,9 +196,9 @@ if ($error == false) {
 	$tr_myn_click_to_view_cache =tr('myn_click_to_view_cache');
 	$bgColor = '#eeeeee';
     for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-        $log_record      = sql_fetch_array($rs);
+        $log_record = sql_fetch_array($rs);
 		if($bgColor=='#eeeeee') $bgColor='#ffffff';
-
+		else $bgColor='#eeeeee';
         $file_content .= '<tr bgcolor="'.$bgColor.'">';
         $file_content .= '<td style="width: 70px;">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
@@ -242,7 +243,7 @@ if ($error == false) {
         }
         $file_content .= $data;
         $file_content .= '\', PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">' . htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
-        $file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['user_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
+        $file_content .= '<td><b><a class="links" href="viewprofile.php?userid='. htmlspecialchars($log_record['xuser_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['user_name'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
         $file_content .= "</tr>";
     }
 
