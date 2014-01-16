@@ -165,23 +165,19 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
 
 	$file_content = '';
 	$tr_myn_click_to_view_cache=tr('myn_click_to_view_cache');
-	for ($i = 0; $i < mysql_num_rows($rs); $i++)
-	{
-
+	$bgColor = '#eeeeee';
+	
+	for ($i = 0; $i < mysql_num_rows($rs); $i++) {
+		if($bgColor=='#eeeeee') $bgColor='#ffffff';
+		else $bgColor = '#eeeeee';
 		$log_record = sql_fetch_array($rs);
-
-
-				$file_content .= '<tr>';
-				$file_content .= '<td style="width: 70px;">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
-
-			if ( $log_record['geokret_in'] !='0')
-					{
-					$file_content .= '<td width="22">&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" /></td>';
-					}
-					else
-					{
-					$file_content .='<td width="22">&nbsp;</td>';
-					}					
+		$file_content .= '<tr bgcolor="'.$bgColor.'">';
+		$file_content .= '<td style="width: 70px;">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+		if ( $log_record['geokret_in'] !='0') {
+			$file_content .= '<td width="22">&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" /></td>';
+		} else {
+			$file_content .='<td width="22">&nbsp;</td>';
+		}					
 				
 				        //$rating_picture
 				if ($log_record['recommended'] == 1 && $log_record['log_type']==1) 
@@ -205,13 +201,8 @@ $rs = sql("SELECT cache_logs.id, cache_logs.cache_id AS cache_id,
             
                
 				$file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
+ 				$cacheicon =  myninc::checkCacheStatusByUser($log_record, $usr['userid']);
 				
- 				$cacheicon =  $cache_icon_folder;
-				if ( $log_record['cache_type']!="6") { //if not event - check is_cache found 
-					$cacheicon .=is_cache_found($log_record ['cache_id'], $usr['userid']) ? $foundCacheTypesIcons[ $log_record['cache_type']] : $CacheTypesIcons[$log_record ['cache_type']] ;
-				} else { //if an event - check is_event_attended
-					$cacheicon .=is_event_attended ($log_record['cache_id'], $usr['userid']) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
-				};
 				$file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td>';  
 								
 				//$file_content .= '<td width="22"><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt="" title="Kliknij aby zobaczyć skrzynke" /></a></td>';
