@@ -487,8 +487,7 @@ class powerTrailBase{
 	 */
 	private function disablePtByCacheCount($pt, $checkPt){
 		
-		print 'disablePtByCacheCount #'.__LINE__;
-		var_dump($pt['cacheCount'], $checkPt->getPtMinCacheCountLimit($pt));
+		print 'pt #'.$pt['id'].', caches in pt: '.$pt['cacheCount'].'; min. caches limit: '. $checkPt->getPtMinCacheCountLimit($pt).'<br>';
 		
 		if($pt['cacheCount'] < $checkPt->getPtMinCacheCountLimit($pt)){
 			$text = tr('pt227').tr('pt228'); 
@@ -502,6 +501,7 @@ class powerTrailBase{
 			emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
 			return true;
 		}
+		print '<br>';
 	return false;
 	}
 }
