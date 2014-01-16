@@ -144,6 +144,8 @@ $radius=$distance;
 	$rs =sql('SELECT `user`.`user_id` `userid`,
 				`user`.`username` `username`,
 				`caches`.`cache_id` `cacheid`,
+				`caches`.`cache_id` `cache_id`,
+				`caches`.`user_id` `user_id`,
 				`caches`.`name` `cachename`,
 				`caches`.`longitude` `longitude`,
 				`caches`.`latitude` `latitude`,
@@ -169,12 +171,7 @@ $tr_myn_click_to_view_cache=tr('myn_click_to_view_cache');
 				$file_content .= '<tr>';
 				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';	
 				$file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: green;">'. $r['toprate'] . '</span></td>';							
-				$cacheicon =  $cache_icon_folder;
-				if ($r ['cache_type']!="6") { //if not event - check is_cache found 
-					$cacheicon .=is_cache_found($r ['cacheid'], $user_id) ? $foundCacheTypesIcons[$r ['cache_type']] : $CacheTypesIcons[$r ['cache_type']] ;
-				} else { //if an event - check is_event_attended
-					$cacheicon .=is_event_attended ($r ['cacheid'], $user_id) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
-				};
+				$cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
 				
 				//$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
 				$file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td>';

@@ -90,12 +90,7 @@ if (mysql_num_rows($rs) == 0)
 		$thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
 		$thisline = mb_ereg_replace('{rating_absolute}', $record['anzahl'], $thisline);
 		
-		$cacheicon =  $cache_icon_folder;
-				if ( $record['cache_type']!="6") { //if not event - check is_cache found 
-					$cacheicon .=is_cache_found($record ['cache_id'], $usr['userid']) ? $foundCacheTypesIcons[ $record['cache_type']] : $CacheTypesIcons[$record ['cache_type']] ;
-				} else { //if an event - check is_event_attended - only hipothetical as normally events are not displayed here
-					$cacheicon .=is_event_attended ($record['cache_id'], $usr['userid']) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
-				};
+		$cacheicon =  myninc::checkCacheStatusByUser($record, $usr['userid']);
 		
 		$thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
 

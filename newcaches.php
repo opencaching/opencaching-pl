@@ -43,8 +43,11 @@
 		$content = '';
 		$rs = sql('SELECT `caches`.`cache_id` `cacheid`, 
 							`user`.`user_id` `userid`, 
+							`user`.`user_id` `user_id`, 
 							`caches`.`country` `country`, 
+							`caches`.`cache_id` `cache_id`, 
 							`caches`.`type` `type`,
+							`caches`.`type` `cache_type`,
 							`caches`.`name` `cachename`, 
 							`caches`.`wp_oc` `wp_name`, 
 							`user`.`username` `username`, 
@@ -108,12 +111,7 @@
 			$thisline = mb_ereg_replace('{date}', date('d-m-Y', strtotime($r['date'])), $thisline);
 			$thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
 			
-			$cacheicon =  $cache_icon_folder;
-				if ( $r['type']!="6") { //if not event - check is_cache found 
-					$cacheicon .=is_cache_found($r ['cacheid'], $usr['userid']) ? $foundCacheTypesIcons[$r['type']] : $CacheTypesIcons[$r['type']] ;
-				} else { //if an event - check is_event_attended
-					$cacheicon .=is_event_attended ($r['cacheid'], $usr['userid']) ? $foundCacheTypesIcons["6"] : $CacheTypesIcons["6"] ;
-				};
+			$cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
 			$thisline = mb_ereg_replace('{imglink}', $cacheicon, $thisline);
 			$thisline = mb_ereg_replace('{country_name}', htmlspecialchars($rr['country_name'], ENT_COMPAT, 'UTF-8'), $thisline);		
 			$content .= $thisline . "\n";

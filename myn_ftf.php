@@ -170,8 +170,7 @@ $tr_myn_click_to_view_cache=tr('myn_click_to_view_cache');
 	
 				$file_content .= '<tr>';
 				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';
-				$cacheicon =  $cache_icon_folder;
-				$cacheicon .= $CacheTypesIcons[$r ['cache_type']];
+				$cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
 								
 				//$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
 				$file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td>';

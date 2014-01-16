@@ -117,7 +117,7 @@ function CleanSpecChars( $log, $flg_html )
 									
 								//$notes_record = sql_fetch_array($notes_rs);
 								$notes_record = $db->dbResultFetch();
-								$cacheicon =  myninc::checkCacheStatusByUser($notes_record, $usr['userid']);
+								$cacheicon = myninc::checkCacheStatusByUser($notes_record, $usr['userid']);
 								
 								$notes .= '<tr>
 								<td style="background-color: {bgcolor}"><img src="'.$cacheicon.'" alt="" /></td>
