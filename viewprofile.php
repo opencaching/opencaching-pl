@@ -111,7 +111,6 @@ if ($error == false) {
 		$database->multiVariableQuery($query, $user_id);
 		$user_record = $database->dbResultFetch();
 		unset($database);
-		
 		tpl_set_var('username', $user_record['username']);
 		if ((date('m') == 4) and (date('d') == 1)) {
 			tpl_set_var('username', tr('primaAprilis1'));
@@ -350,6 +349,13 @@ if ($error == false) {
 			mysql_free_result($rsncd);
 			mysql_free_result($rsc);
 			mysql_free_result($rsfc2);
+
+			//ftf Ajax
+			$content .= '<hr>'.tr('viewprofileFTF').
+			'<center><div id="ftfDiv">
+				<img id="commentsLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+			</div></center>
+			<input type="hidden" id="userId" value="'.$user_id.'" />';
 
 			//------------ begin owner section
 			//			if ($user_id == $usr['userid'])

@@ -14,6 +14,31 @@
 global $user_id;
 ?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
+<script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		ajaxGetFTF();
+	});
+
+function ajaxGetFTF(){
+	request = $.ajax({
+    	url: "ajaxGetFTF.php",
+    	type: "post",
+    	data:{id: $('#userId').val()},
+	});
+
+    request.done(function (response, textStatus, jqXHR){
+    	console.log(response);
+		$('#ftfDiv').html(response);
+    });
+	
+	request.always(function () {
+    });
+}	
+</script>
+<style>
+	
+</style>
 <!-- 	CONTENT -->
 <div class="content2-container">
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{user_profile}}: {username} </div>

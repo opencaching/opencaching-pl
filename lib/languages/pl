@@ -2125,3 +2125,4 @@ SelectUsers Wybierz użytkowników
 NrCaches Ilość keszy
 Selected Wybrano
 HelpHowToSelect <br><b>Wybór użytkowników w tabeli</b><br><hr><br><br>- Wybór pojedynczego użytkownika: kliknięcie w dowolne miejsce jego pozycji (z wyjątkiem kolumny z nazwą)<br><br>- Wybór kilku użytkowników: Ctrl + kliknięcie lub Shift + kliknięcie<br>
+viewprofileFTF FTF zdobyte przez użytkownika
