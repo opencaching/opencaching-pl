@@ -17,7 +17,7 @@ global $user_id;
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		ajaxGetFTF();
+		//ajaxGetFTF();
 	});
 
 function ajaxGetFTF(){

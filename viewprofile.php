@@ -351,11 +351,7 @@ if ($error == false) {
 			mysql_free_result($rsfc2);
 
 			//ftf Ajax
-			$content .= '<hr>'.tr('viewprofileFTF').
-			'<center><div id="ftfDiv">
-				<img id="commentsLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
-			</div></center>
-			<input type="hidden" id="userId" value="'.$user_id.'" />';
+			//$content .= '<hr>'.tr('viewprofileFTF').'<center><div id="ftfDiv" style="display"><img id="commentsLoader" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /></div></center><input type="hidden" id="userId" value="'.$user_id.'" />';
 
 			//------------ begin owner section
 			//			if ($user_id == $usr['userid'])
