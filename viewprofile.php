@@ -106,40 +106,17 @@ if ($error == false) {
 		$ddays = mysql_fetch_array($rdd);
 		mysql_free_result($rdd);
 
-
-		// select proper language depend on $lang
-		if (isset($lang)) {
-			$countryCode = strtolower($lang);
-		} else {
-			$countryCode = 'en';
-		}
-
 		$database = new dataBase(false);
-		$query = "SELECT admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, countries.$countryCode country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=:1 LIMIT 1";
+		$query = "SELECT admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, country, date_created, description, hide_flag FROM user WHERE user_id=:1 LIMIT 1";
 		$database->multiVariableQuery($query, $user_id);
-		// if specified language is in database
-		if($database->rowCount() > 0) {
-			$user_record = $database->dbResultFetch();
-		} else { // if we have not specified language in db, just use english.
-			$countryCode = 'en';
-			$database->multiVariableQuery($query, $user_id);
-			$user_record = $database->dbResultFetch();
-		}
+		$user_record = $database->dbResultFetch();
 		unset($database);
-	
-		//	echo "<pre>";
-		//	print_r($user_record);
-		
-		// $rsGeneralStat = sql("SELECT admin,guru,hidden_count, founds_count, is_active_flag,email, password,log_notes_count, notfounds_count, username, last_login, countries.pl country, date_created, description, hide_flag FROM user LEFT JOIN countries ON (user.country=countries.short) WHERE user_id=&1", $user_id);
-		// $user_record = sql_fetch_array($rsGeneralStat);
-		// print_r($user_record);
-		// exit;
 		
 		tpl_set_var('username', $user_record['username']);
 		if ((date('m') == 4) and (date('d') == 1)) {
 			tpl_set_var('username', tr('primaAprilis1'));
 		}
-		tpl_set_var('country', htmlspecialchars($user_record['country'], ENT_COMPAT, 'UTF-8'));
+		tpl_set_var('country', tr($user_record['country']));
 		tpl_set_var('registered', fixPlMonth(strftime($dateformat, strtotime($user_record['date_created']))));
 		$description = $user_record['description'];
 		tpl_set_var('description', nl2br($description));

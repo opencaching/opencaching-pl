@@ -12,7 +12,7 @@
 
 	***************************************************************************/
 global $user_id;
-	?>
+?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <!-- 	CONTENT -->
 <div class="content2-container">

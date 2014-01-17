@@ -50,8 +50,7 @@ function available_languages()
 function tr($str)
 {
 	global $language, $lang;
-	if($language[$lang][$str])
-	{
+	if(isset($language[$lang][$str])&&$language[$lang][$str]) {
 		$ref = &$language[$lang][$str];
 		if (strpos($ref, "{") !== false)
 			return tpl_do_replace($ref, true);
@@ -59,7 +58,7 @@ function tr($str)
 			return $ref;
 	}
 	else
-		return $str . "-todo";
+		return "No translation available (identifier: $str)";
 }
 
 function tr2($str, $lang) {
@@ -73,7 +72,7 @@ function tr2($str, $lang) {
 		else
 			return $ref;
 	} else {
-		return $str . "-todo";
+		return $str . "No translation available (identifier: $str)";
 	}
 }
 

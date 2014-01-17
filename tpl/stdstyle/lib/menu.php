@@ -267,7 +267,7 @@ $menu = array(
         'menustring'    => 'IRC',
         'siteid'        => 'irc',
         'visible'       => false,
-        'filename'      => 'http://webchat.freenode.net/?nick='.$usr['username'].'&amp;channels=opencaching.pl&amp;prompt=1',
+        'filename'      => isset($usr['username'])?'http://webchat.freenode.net/?nick='.$usr['username'].'&amp;channels=opencaching.pl&amp;prompt=1':'',
         'newwindow'     => true
     ),
     array(
@@ -495,7 +495,7 @@ $menu = array(
         'menustring'    => tr('user_menu'),
         'siteid'        => 'myhome',
         'visible'       => false,
-        'filename'      => 'viewprofile.php?userid='.$usr['userid'].'',
+        'filename'      => isset($usr['userid'])?'viewprofile.php?userid='.$usr['userid']:'',
         'navicolor'     => '#D5D9FF',
         'submenu'       => array(
             array(
@@ -552,7 +552,7 @@ $menu = array(
                 'title'         => tr('my_statistics'),
                 'menustring'    => tr('my_statistics'),
                 'visible'       => true,
-                'filename'      => 'viewprofile.php?userid='.$usr['userid'].'',
+                'filename'      => isset($usr['userid'])?'viewprofile.php?userid='.$usr['userid']:'',
                 'siteid'        => 'myhome'
             ),
             array(
