@@ -58,7 +58,7 @@ function tr($str)
 			return $ref;
 	}
 	else
-		return "No translation available (identifier: $str)";
+		return "No translation available (identifier: $str)-todo";
 }
 
 function tr2($str, $lang) {
@@ -72,7 +72,7 @@ function tr2($str, $lang) {
 		else
 			return $ref;
 	} else {
-		return $str . "No translation available (identifier: $str)";
+		return $str . "No translation available (identifier: $str)-todo";
 	}
 }
 
