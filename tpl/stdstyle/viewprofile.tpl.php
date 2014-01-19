@@ -16,11 +16,11 @@ global $user_id;
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <script src="tpl/stdstyle/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
-	$(function() {
-		//ajaxGetFTF();
-	});
 
 function ajaxGetFTF(){
+	$('#showFtfBtn').hide();
+	$('#commentsLoader').show();
+	$('#ftfDiv').fadeOut(1000);
 	request = $.ajax({
     	url: "ajaxGetFTF.php",
     	type: "post",
@@ -28,11 +28,21 @@ function ajaxGetFTF(){
 	});
 
     request.done(function (response, textStatus, jqXHR){
-    	console.log(response);
-		$('#ftfDiv').html(response);
+    	var ftfList = jQuery.parseJSON(response);
+		html = '<table><tr><th>{{viewprofileDate}}</th><th>{{viewprofileTime}}</th><th>{{viewprofileCache}}</th></tr>';
+		bgColor='#eeeeff';
+		ftfList.forEach(function(entry) {
+			if(bgColor == '#eeeeff') bgColor = '#ffffff'; else bgColor ='#eeeeff';
+			var date = entry.date.split(" ");
+			html += '<tr bgcolor="'+bgColor+'"><td style="width: 60px;" align="center">'+date[0]+'</td><td style="width: 60px;">'+date[1]+'</td><td><a href=viewcache.php?cacheid='+entry.cache_id+'>'+entry.name+'</a></td></tr>';
+		});
+    	html += '</table>';
+		$('#ftfDiv').html(html);
+		$('#ftfDiv').fadeIn(1000);
     });
 	
 	request.always(function () {
+		$('#commentsLoader').hide();
     });
 }	
 </script>
