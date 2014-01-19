@@ -2081,7 +2081,7 @@ mylist_02 Verwijderen
 mylist_03 Alles afdrukken
 mylist_04 Verwijder alles
 mylist_05 Download de gegevens van de caches uit het klembord 
-cookiesInfo Wij maken gebruik van cookies om onze dienstverlening te verbeteren. Lees meer over privacy en gegevensbescherming in onze <a href ="{rules_url}">Gebruikersvoorwaarden</a>. <br> De cookies zullen tot eind 2013 worden opgelagen om het gebruik van de server te bepalen.
+cookiesInfo Wij maken gebruik van cookies om onze dienstverlening te verbeteren. Lees meer over privacy en gegevensbescherming in onze <a href ="{rules_url}">Gebruikersvoorwaarden</a>.
 FiltrYear Jaar
 FiltrMonth Maand
 StatTestVer <span style="color: red" >Dit is een proef voor de statistieken</span>
@@ -2108,7 +2108,7 @@ addnews_confirm_02 Bedankt voor het verzenden van een nieuw bericht. Wij zullen 
 addnews_confirm_03 Terug naar
 addnews_confirm_04 hoofdpagina
 Pos Pos
-Nr Nr
+Nr Aantal
 Dates Datum
 adm_cachenotfound_01 Toon gemelde caches
 adm_cachenotfound_02 Toon gemelde met verschilende datum
@@ -2118,6 +2118,14 @@ error3KCharsExcedeed De maximum lengte van beschrijving is overschreden (max 300
 edDescShowAll Toon alles
 lngExist De beschrijving in deze taal bestaat al
 os_modify_coords_button Opslaan als gecorrigeerde coördinaten
+Next1 Volgende
+Prev1 Vorige
+chart Tonen
+SelectUsers Selecteer gebruikers
+NrCaches Aantal caches
+Selected Geselecteerd
+HelpHowToSelect <br> <b>Hoe gebruikers te selecteren</b><br><hr><br><br>- Selecteren gebruiker: klik op zijn positie (niet op de naam zelf) <br><br>- Selecteer meerdere gebruikers: Ctlr + klik of Shift + klik <br>
+viewprofileFTF FTF van gebruiker
 
 
 
