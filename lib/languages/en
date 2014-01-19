@@ -2129,3 +2129,4 @@ viewprofileFTF Show user's FTFs
 viewprofileDate FTF date
 viewprofileTime FTF time
 viewprofileCache Cache name
+viewprofileTotFtf Total Ftf

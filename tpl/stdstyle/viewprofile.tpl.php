@@ -31,12 +31,14 @@ function ajaxGetFTF(){
     	var ftfList = jQuery.parseJSON(response);
 		html = '<table><tr><th>{{viewprofileDate}}</th><th>{{viewprofileTime}}</th><th>{{viewprofileCache}}</th></tr>';
 		bgColor='#eeeeff';
+		var i = 0;
 		ftfList.forEach(function(entry) {
 			if(bgColor == '#eeeeff') bgColor = '#ffffff'; else bgColor ='#eeeeff';
 			var date = entry.date.split(" ");
 			html += '<tr bgcolor="'+bgColor+'"><td style="width: 60px;" align="center">'+date[0]+'</td><td style="width: 60px;">'+date[1]+'</td><td><a href=viewcache.php?cacheid='+entry.cache_id+'>'+entry.name+'</a></td></tr>';
+			i++;
 		});
-    	html += '</table>';
+    	html += '</table><br>{{viewprofileTotFtf}}: '+i;
 		$('#ftfDiv').html(html);
 		$('#ftfDiv').fadeIn(1000);
     });
