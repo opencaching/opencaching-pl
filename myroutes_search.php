@@ -811,6 +811,58 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 			$tplname = 'myroutes_result';		}
 	} //end submit
 
+		if (isset($_POST['submit_gpx_with_photos']))
+		{
+			// create cache list	
+			$caches_list=caches_along_route($route_id, $distance);
+			$sql = "SELECT `caches`.`wp_oc`
+					FROM `caches`
+					WHERE `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') 
+					  AND `caches`.`cache_id` IN (" . $sqlFilter . ")
+					LIMIT 500";
+		
+			error_log($sql);
+		
+			$rs_cache_codes = sql($sql);
+			$waypoints_tab = array();
+			while($r = sql_fetch_array($rs_cache_codes))
+			{
+				$waypoints_tab[] = $r['wp_oc'];	
+			}
+			$waypoints = implode("|",$waypoints_tab);
+			mysql_free_result($rs_cache_codes);
+			
+			require_once($rootpath.'okapi/facade.php');
+			try
+			{
+				
+				// TODO: why the langpref is fixed to pl? shouldn't it depend on current user/session language?
+				$okapi_response =  \okapi\Facade::service_call('services/caches/formatters/garmin',
+					$usr['userid'], 
+					array('cache_codes' => $waypoints, 'langpref' => 'pl', 
+						  'location_source'=> 'alt_wpt:user-coords', 'location_change_prefix' => '(F)'));
+						
+				// Modifying OKAPI's default HTTP Response headers.
+				$okapi_response->content_type = 'application/zip';
+				$okapi_response->content_disposition = 'attachment; filename=myroute.zip';
+			
+				// This outputs headers and the ZIP file.
+				$okapi_response->display();
+			}
+			catch (\okapi\BadRequest $e)
+			{
+				# In case of bad requests, simply output OKAPI's error response.
+				# In case of other, internal errors, don't catch the error. This
+				# will cause OKAPI's default error hangler to kick in (so the admins
+				# will get informed).
+				
+				header('Content-Type: text/plain');
+				echo $e;
+				exit;
+			}
+			exit;
+		}
+	
 
 		if (isset($_POST['submit_gpx']))
 		{

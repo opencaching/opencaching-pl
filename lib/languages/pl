@@ -856,6 +856,7 @@ route_radius Promień szukania
 search_caches_along_route Szukaj skrzynek wzdłuż trasy
 caches_along_route Skrzynki wzdłuż trasy
 save_gpx Zapisz do GPX
+save_gpx_with_photos Zapisz do GPX + Zdjęcia
 show_gmap Pokaż na GMAP'ie
 show_list Pokaż listę skrzynek
 logs_cache_gpx Liczba logów dla skrzynki w GPX 

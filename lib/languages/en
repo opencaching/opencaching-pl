@@ -856,6 +856,7 @@ route_radius Search Radius
 search_caches_along_route Search caches along route
 caches_along_route Geocaches along route
 save_gpx Save to GPX
+save_gpx_with_photos Save to GPX with photos
 show_gmap Show on GMAP
 show_list Show list of geocaches
 logs_cache_gpx Number of logs for each cache in GPX

@@ -135,6 +135,7 @@ window.onload = function() {
 			<button type="submit" name="back" value="back" style="font-size:12px;width:160px"><b>{{back}}</b></button>&nbsp;&nbsp;
 {list_empty_start}
 			<button type="submit" name="submit_gpx" value="submit_gpx" style="font-size:12px;width:160px"><b>{{save_gpx}}</b></button>
+			<button type="submit" name="submit_gpx_with_photos" value="submit_gpx_with_photos" style="font-size:12px;width:160px"><b>{{save_gpx_with_photos}}</b></button>
 {list_empty_end}			
 			<br/><br/><br/>
 </form>
