@@ -817,6 +817,9 @@
 				}
 				elseif ($options['searchtype'] == 'bylist')
 				{
+					if (isset($options['cache_ids'])){
+						$cache_bylist = implode(',', array_map('mysql_real_escape_string', $options['cache_ids']));
+					} else
 					if (count($_SESSION['print_list']) == 0) {
 						$cache_bylist = -1;
 					} else {

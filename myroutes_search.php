@@ -815,51 +815,88 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 		{
 			// create cache list	
 			$caches_list=caches_along_route($route_id, $distance);
-			$sql = "SELECT `caches`.`wp_oc`
+			$sql = "SELECT `caches`.`wp_oc`, `caches`.`cache_id`
 					FROM `caches`
 					WHERE `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') 
-					  AND `caches`.`cache_id` IN (" . $sqlFilter . ")
-					LIMIT 500";
-		
-			error_log($sql);
+					  AND `caches`.`cache_id` IN (" . $sqlFilter . ")";
 		
 			$rs_cache_codes = sql($sql);
 			$waypoints_tab = array();
+			$cache_ids_tab = array();
 			while($r = sql_fetch_array($rs_cache_codes))
 			{
 				$waypoints_tab[] = $r['wp_oc'];	
+				$cache_ids_tab[] = $r['cache_id'];
 			}
-			$waypoints = implode("|",$waypoints_tab);
+			
 			mysql_free_result($rs_cache_codes);
 			
-			require_once($rootpath.'okapi/facade.php');
-			try
-			{
+			$okapi_max_caches = 50;
+			$caches_count = count($waypoints_tab);
+			// too much caches for one zip file - generate webpage instead
+			if ($caches_count > $okapi_max_caches){ 
+				$tplname = 'garminzip';
 				
-				// TODO: why the langpref is fixed to pl? shouldn't it depend on current user/session language?
-				$okapi_response =  \okapi\Facade::service_call('services/caches/formatters/garmin',
-					$usr['userid'], 
-					array('cache_codes' => $waypoints, 'langpref' => 'pl', 
-						  'location_source'=> 'alt_wpt:user-coords', 'location_change_prefix' => '(F)'));
-						
-				// Modifying OKAPI's default HTTP Response headers.
-				$okapi_response->content_type = 'application/zip';
-				$okapi_response->content_disposition = 'attachment; filename=myroute.zip';
-			
-				// This outputs headers and the ZIP file.
-				$okapi_response->display();
-			}
-			catch (\okapi\BadRequest $e)
-			{
-				# In case of bad requests, simply output OKAPI's error response.
-				# In case of other, internal errors, don't catch the error. This
-				# will cause OKAPI's default error hangler to kick in (so the admins
-				# will get informed).
+				tpl_set_var('zip_total_cache_count', $caches_count);
+				tpl_set_var('zip_max_count', $okapi_max_caches);
 				
-				header('Content-Type: text/plain');
-				echo $e;
-				exit;
-			}
+				$queryid = -1; 
+				$options = array();
+				$options['showresult'] = 1;
+				$options['searchtype'] = 'bylist';
+				$options['cache_ids'] = $cache_ids_tab;
+				
+				$rs_query_id = sql("select `queries`.`id` from `queries` where `user_id` = '&1' and `options` = '&2'", $usr['userid'], serialize($options));
+				while($r = sql_fetch_array($rs_query_id))
+				{
+					$queryid = $r['id'];	
+				}
+				mysql_free_result($rs_query_id);
+				
+				if ($queryid > 0){
+					sql("UPDATE `queries` SET `last_queried` = NOW() WHERE `id` = '&1'", $queryid); 
+				} else {
+					sql("INSERT INTO `queries` (`user_id`, `last_queried`, `uuid`, `options`) VALUES ( '&1', NOW(), UUID(), '&2')", $usr['userid'], serialize($options)); 
+					$queryid = mysql_insert_id(); 
+				}
+				$links_content = '';
+				$forlimit=intval($caches_count/$okapi_max_caches)+1;
+				for($i=1;$i<=$forlimit;$i++)
+				{
+					$zipname='ocpl'.$queryid.'.zip?startat=0&count=max&zip=1&zippart='.$i.(isset($_REQUEST['okapidebug'])?'&okapidebug':'');
+					$links_content .= '<li><a class="links" href="'.$zipname.'" title="Garmin ZIP file (part '.$i.')">ocpl'.$queryid.'-'.$i.'.zip</a></li>';
+				}
+				tpl_set_var('zip_links', $links_content);
+				tpl_BuildTemplate();
+			} else {
+				require_once($rootpath.'okapi/facade.php');
+				try
+				{
+					$waypoints = implode("|",$waypoints_tab);	
+					// TODO: why the langpref is fixed to pl? shouldn't it depend on current user/session language?
+					$okapi_response =  \okapi\Facade::service_call('services/caches/formatters/garmin',
+						$usr['userid'], 
+						array('cache_codes' => $waypoints, 'langpref' => 'pl', 
+							  'location_source'=> 'alt_wpt:user-coords', 'location_change_prefix' => '(F)'));
+							
+					// Modifying OKAPI's default HTTP Response headers.
+					$okapi_response->content_type = 'application/zip';
+					$okapi_response->content_disposition = 'attachment; filename=myroute.zip';
+				
+					// This outputs headers and the ZIP file.
+					$okapi_response->display();
+				}
+				catch (\okapi\BadRequest $e)
+				{
+					# In case of bad requests, simply output OKAPI's error response.
+					# In case of other, internal errors, don't catch the error. This
+					# will cause OKAPI's default error hangler to kick in (so the admins
+					# will get informed).
+					
+					header('Content-Type: text/plain');
+					echo $e;
+				}
+			}	
 			exit;
 		}
 	
