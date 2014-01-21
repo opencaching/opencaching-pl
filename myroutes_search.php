@@ -16,7 +16,11 @@
 
 	//prepare the templates and include all neccessary
 	require_once('./lib/common.inc.php');
-		require_once($rootpath . 'lib/calculation.inc.php');
+	require_once('./lib/db.php'); 
+
+	$database=new dataBase;
+	
+	require_once($rootpath . 'lib/calculation.inc.php');
 	require_once('./lib/cache_icon.inc.php');
 	require_once($rootpath . 'lib/caches.inc.php');
 	require_once($stylepath . '/lib/icons.inc.php');
@@ -51,14 +55,22 @@
 			
 			tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?libraries=geometry&amp;sensor=false&amp;language='.$lang.'" type="text/javascript"></script>');
 
-			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes` WHERE `route_id`='&1' AND `user_id`='&2'", $route_id,$user_id);
-			$record = sql_fetch_array($route_rs);	
+			$database->paramQuery(
+				'SELECT `user_id`,`name`, `description`, `radius`, `options` FROM `routes` WHERE `route_id`=:route_id AND `user_id`=:user_id', 
+				array ('user_id'=> array('value' => $user_id, 'data_type' => 'integer'),
+						'route_id'=> array('value' => $route_id, 'data_type' => 'integer'))
+			);
+			$record = $database->dbResultFetch();
 			$distance=$record['radius'];
 			tpl_set_var('routes_name',$record['name']);
 			tpl_set_var('distance',$record['radius']);
 			tpl_set_var('routeid',$route_id);
-			$rsc = sql("SELECT  length(`options`) `optsize`, `options` FROM `routes` WHERE `route_id`='&1' AND `user_id`='&2'", $route_id,$user_id);		    
-			$rec = sql_fetch_array($rsc);
+			$database->paramQuery(
+				'SELECT  length(`options`) `optsize`, `options` FROM `routes` WHERE `route_id`=:route_id AND `user_id`=:user_id',
+				array ('user_id'=> array('value' => $user_id, 'data_type' => 'integer'),
+						'route_id'=> array('value' => $route_id, 'data_type' => 'integer'))
+			);
+			$rec = $database->dbResultFetch();
 			$optsize= $rec['optsize'];	
 			
 
@@ -237,8 +249,13 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 	$attributes_jsarray = '';
 	$attributes_img = '';
 	$attributesCat2_img = '';
-	$rs = sql("SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language`='&1' ORDER BY `id`", $lang_attribute);
-	while ($record = sql_fetch_array($rs))
+	
+	$database->multiVariableQuery(
+		'SELECT `id`, `text_long`, `icon_large`, `icon_no`, `icon_undef`, `category` FROM `cache_attrib` WHERE `language`=:1 ORDER BY `id`',
+		$lang_attribute
+	);
+
+	while ($record = $database->dbResultFetch())
 	{
 	
 		// icon specified
@@ -500,16 +517,17 @@ function attr_image($tpl, $options, $id, $textlong, $iconlarge, $iconno, $iconun
 		global $thumb_max_width;
 		global $thumb_max_height;
 
-		$sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY date_created';
-		
+		$database = new dataBase;
+		$database->multiVariableQuery(
+			'SELECT uuid, title, url, spoiler FROM pictures WHERE object_id=:1 AND object_type=2 AND display=1 ORDER BY date_created',
+			$cacheid
+		);
 
-		$rs = sql($sql);
-		while ($r = sql_fetch_array($rs))
+		while ($r = $database->dbResultFetch())
 		{
 			$retval .= '&lt;img src="'.$r['url'].'"&gt;&lt;br&gt;'.cleanup_text($r['title']).'&lt;br&gt;';
 		}
 
-		mysql_free_result($rs);
 		return $retval;
 	}
 	
@@ -595,20 +613,6 @@ function PlConvert($source,$dest,$tekst)
         }
         
 			
-//*************************************************************************
-// Returns information about a route based on $route_id.
-//*************************************************************************
-	function route_info($route_id) {
-	$query = "SELECT * FROM routes WHERE id=".stripslashes($route_id).";";
-	$result = sql($query);
-	if ($result) {
-	$row = mysql_fetch_array($result,NULL);
-	$info = $row;
-	} else {
-		return FALSE;
-		}
-		return $info;
-		}
 
 /**
     * function cache_distances ($lat1, $lon1, $lat2, $lon2)
@@ -631,18 +635,34 @@ function PlConvert($source,$dest,$tekst)
 // Find all the caches that appear with $distance from each point in the defined $route_id.
 //*************************************************************************
 function caches_along_route($route_id, $distance) {
-$initial_cache_list = array();
-$inter_cache_list = array();
-$final_cache_list = array();
+
+	$initial_cache_list = array();
+	$inter_cache_list = array();
+	$final_cache_list = array();
 
 	// Get caches where within the minimum bounding box of the route
 	// Actually, add the distance to the minimum bounding box
 	//  1 degree is around 110km (close enough)
-	//$bounds = route_info($route_id);
-	$smallestLat = sqlValue("SELECT `route_points`.`lat`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lat` ASC LIMIT 1", 0);
-	$largestLat = sqlValue("SELECT `route_points`.`lat`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lat` DESC LIMIT 1 ", 0);
-	$smallestLon = sqlValue("SELECT `route_points`.`lon`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lon` ASC LIMIT 1", 0);
-	$largestLon = sqlValue("SELECT `route_points`.`lon`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`lon` DESC LIMIT 1", 0);
+	$smallestLat = 0;
+	$largestLat = 0;
+	$smallestLon = 0;
+	$largestLon = 0;
+	
+	$database = new dataBase;
+	$database->multiVariableQuery(
+		'SELECT min(`route_points`.`lat`) `smallest_lat`,
+	 		max(`route_points`.`lat`) `largest_lat`,
+	 		min(`route_points`.`lon`) `smallest_lon`,
+	 		max(`route_points`.`lon`) `largest_lon`  
+		FROM `route_points` WHERE `route_id`=:1', 
+		$route_id);
+	$data = $database->dbResultFetch();	
+	if ($data){
+		$smallestLat = $data['smallest_lat'];
+		$largestLat = $data['largest_lat'];
+		$smallestLon = $data['smallest_lon'];
+		$largestLon = $data['largest_lon'];
+	}
 
 	// 110 km is width of 1 deg
 	$bounds_min_lat = $smallestLat - $distance/110;
@@ -657,58 +677,93 @@ $final_cache_list = array();
 	tpl_set_var('mapcenterLat', $mapcenterLat);
 	tpl_set_var('mapcenterLon', $mapcenterLon);
 	
-	$query = "SELECT wp_oc waypoint, latitude lat, longitude lon "." FROM caches "."WHERE latitude>'$bounds_min_lat' ".
-	"AND latitude<'$bounds_max_lat' "."AND longitude>'$bounds_min_lon' "."AND longitude<'$bounds_max_lon' "."AND status != '3' AND status != '4' AND status != '5' AND status != '6';";
-	$result=sql($query);
-	if ($result AND $count=mysql_num_rows($result)) {
-		for ( $i=0; $i<$count; $i++ ) {
-		$row = mysql_fetch_array($result);
+	$database->multiVariableQuery(
+		'SELECT wp_oc waypoint, latitude lat, longitude lon FROM caches 
+		  WHERE latitude>:1 
+	        AND latitude<:2 
+			AND longitude>:3 
+			AND longitude<:4 
+			AND status not in (3, 4, 5, 6)',
+		$bounds_min_lat, $bounds_max_lat, $bounds_min_lon, $bounds_max_lon);
+	while ($row = $database->dbResultFetch()) {
 		$initial_cache_list[] =array("waypoint"=>$row['waypoint'],"lat"=>$row['lat'],"lon"=>$row['lon']);
-		}
+	}
 	$points = array();
-	$query = "SELECT * FROM route_points WHERE route_id ='$route_id' ORDER BY point_nr;";
-	$result = sql($query);
-	if ( $result AND $count=mysql_num_rows($result) ) {
-	for ( $i=0; $i<$count; $i++ ) {
-	$row = mysql_fetch_array($result);
-	$points[] = array("lat"=>$row["lat"],"lon"=>$row["lon"]);}
+	$database->paramQuery(
+		'SELECT * FROM route_points WHERE route_id = :route_id  ORDER BY point_nr', 
+		array ('route_id'=> array('value' => $route_id, 'data_type' => 'integer')) 
+	);
+
+	while ($row = $database->dbResultFetch()) {
+		$points[] = array("lat"=>$row["lat"],"lon"=>$row["lon"]);
 	}
 	foreach ($initial_cache_list as $list) {
 		foreach ($points as $point) {
-		$route_distance =cache_distances($point["lat"],$point["lon"],$list["lat"],$list["lon"]);
-		if ( $route_distance <= $distance ) {
-		if ( !$inter_cache_list[$list['waypoint']] ) {
-		$final_cache_list[] = $list['waypoint'];
-		$inter_cache_list[$list['waypoint']] = $list['waypoint'];
-		break;}}}}}	
-		return $final_cache_list;
+			$route_distance =cache_distances($point["lat"],$point["lon"],$list["lat"],$list["lon"]);
+			if ( $route_distance <= $distance ) {
+				if ( !$inter_cache_list[$list['waypoint']] ) {
+					$final_cache_list[] = $list['waypoint'];
+					$inter_cache_list[$list['waypoint']] = $list['waypoint'];
+					break;
+				}
+			}
+		}
 	}
+	
+	return $final_cache_list;
+}
 // end of function		
 
-				if (isset($_POST['back_list']))
-				{	
-				// store options in DB
-				sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($options), $route_id);
-							tpl_redirect('myroutes.php');
-							exit;
-				}		
-		if (isset($_POST['submit']) || isset($_POST['submit_map']))
-		{
-			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`='&1'", $route_id);
-			$record = sql_fetch_array($route_rs);	
-			$distance=$record['radius'];
-			tpl_set_var('route_name',$record['name']);
+function set_route_options($route_id, $options) {
+	$database = new dataBase;
+	$database->paramQuery(
+		'UPDATE `routes` SET `options`=:options WHERE `route_id`=:route_id', 
+		array ('route_id'=> array('value' => $route_id, 'data_type' => 'integer'),
+			'options'=> array('value' => serialize($options), 'data_type' => 'string'),
+		) 
+	);
+}
+// end of function		
+
+	if (isset($_POST['back_list'])) {	
+		// store options in DB
+		set_route_options($route_id, $options);
+		tpl_redirect('myroutes.php');
+		exit;
+	}
+	
+	if (isset($_POST['submit']) || isset($_POST['submit_map'])) {
+		$database->paramQuery(
+			'SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`=:route_id', 
+			array ('route_id'=> array('value' => $route_id, 'data_type' => 'integer')) 
+		);
+		$record = $database->dbResultFetch();
+		$distance=$record['radius'];
+		tpl_set_var('route_name',$record['name']);
 		
-$caches_list=caches_along_route($route_id, $distance);
+		$caches_list=caches_along_route($route_id, $distance);
 
-// store options in DB
-sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($options), $route_id);
+		// store options in DB
+		set_route_options($route_id, $options);
 
-// get first point of route to calculate distance to cache and sort list by distance
- $lat=sqlValue("SELECT `route_points`.`lat`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`point_nr` LIMIT 1", 0);
- $lon=sqlValue("SELECT `route_points`.`lon`  FROM `route_points` WHERE `route_id`='" . sql_escape($route_id) . "' ORDER BY `route_points`.`point_nr` LIMIT 1", 0);
-
- $rs=sql("SELECT (". getSqlDistanceFormula($lon, $lat, 0, 1) .") `distance`,
+		// get first point of route to calculate distance to cache and sort list by distance
+		$lon = 0;
+		$lat = 0;
+		$database->paramQuery(
+			'SELECT `route_points`.`lat`, `route_points`.`lon` FROM `route_points` WHERE `route_id`=:route_id ORDER BY `route_points`.`point_nr` LIMIT 1',
+			array ('route_id'=> array('value' => $route_id, 'data_type' => 'integer')) 
+		);
+		$record = $database->dbResultFetch();
+		if ($record){
+			$lon = $record['lon'];
+			$lat = $record['lat'];
+		}
+		
+		// yes, I know that this SQL is a little violation of bound parameters concept, but
+		// first of all, rewrite $sqlFilter to use PDO is terrible job,
+		// second, using IN operator with dynamic list is pain in the ass :( - unless we have better 
+		// database wrapper to handle that automatically
+		$database->simpleQuery("SELECT (". getSqlDistanceFormula($lon, $lat, 0, 1) .") `distance`,
 							`caches`.`cache_id` `cacheid`, 
 							`user`.`user_id` `userid`, 
 							`caches`.`type` `type`,
@@ -727,23 +782,23 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 						AND `cache_type`.`id`=`caches`.`type`
 					   AND `caches`.`cache_id` IN (" . $sqlFilter . ") ORDER BY distance");
 	
-	$ncaches=mysql_num_rows($rs);
+		$ncaches=$database->rowCount();
 	
-	tpl_set_var('number_caches',$ncaches);
-	if ($ncaches==0){
-		tpl_set_var('list_empty_start','<!--');
-		tpl_set_var('list_empty_end','-->');
-		tpl_set_var('file_content','');
+		tpl_set_var('number_caches',$ncaches);
+		if ($ncaches==0){
+			tpl_set_var('list_empty_start','<!--');
+			tpl_set_var('list_empty_end','-->');
+			tpl_set_var('file_content','');
 		}else{
-		tpl_set_var('list_empty_start','');
-		tpl_set_var('list_empty_end','');}
+			tpl_set_var('list_empty_start','');
+			tpl_set_var('list_empty_end','');
+		}
 		$point="";
 
-	while ($r = sql_fetch_array($rs))
-		{
+		$database_inner = new dataBase;
+		while ($r = $database->dbResultFetch()){
 
-			if (isset($_POST['submit_map']))
-			{
+			if (isset($_POST['submit_map'])){
 				$y=$r['longitude'];
 				$x=$r['latitude'];
 				$point.=sprintf("addMarker(%s,%s,'%s',%s,'%s','%s','%s',%s);\n",
@@ -754,157 +809,167 @@ sql("UPDATE `routes` SET `options`='&1' WHERE `route_id`='&2'", serialize($optio
 				$file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';	
 		//		$file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: blue;">'.sprintf("%01.1f",$r['distance']). '</span></td>';
 				if ($r['topratings']!=0) {
-				$file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: green;">'.$r['topratings']. '</span></td>';
+					$file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: green;">'.$r['topratings']. '</span></td>';
 				}else{
-				$file_content .= '<td style="width: 22px;">&nbsp;&nbsp;</td>';}				
+					$file_content .= '<td style="width: 22px;">&nbsp;&nbsp;</td>';
+				}				
 				$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
 				$file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '" target="_blank" >' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 				$file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '"  target="_blank">' .htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
 
-	$rs_log = sql("SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
-	                          cache_logs.type AS log_type,
-	                          DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
-				cache_logs.text AS log_text,
-				caches.user_id AS cache_owner,
-				cache_logs.encrypt encrypt,
-				cache_logs.user_id AS luser_id,
-	                          user.username AS user_name,
-				user.user_id AS user_id,
-				log_types.icon_small AS icon_small, COUNT(gk_item.id) AS geokret_in
-			FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id)
+				$database_inner->multiVariableQuery(
+						'SELECT cache_logs.id AS id, cache_logs.cache_id AS cache_id,
+							cache_logs.type AS log_type,
+							DATE_FORMAT(cache_logs.date,\'%Y-%m-%d\') AS log_date,
+							cache_logs.text AS log_text,
+							caches.user_id AS cache_owner,
+							cache_logs.encrypt encrypt,
+							cache_logs.user_id AS luser_id,
+							user.username AS user_name,
+							user.user_id AS user_id,
+							log_types.icon_small AS icon_small, COUNT(gk_item.id) AS geokret_in
+						FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id)
 							LEFT JOIN	gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
 							LEFT JOIN	gk_item ON gk_item.id = gk_item_waypoint.id AND
-							gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5				
-			WHERE cache_logs.deleted=0 AND cache_logs.cache_id=&1 
-			 GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1",$r['cacheid']);
+								gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5				
+						WHERE cache_logs.deleted=0 AND cache_logs.cache_id=:1 
+						GROUP BY cache_logs.id ORDER BY cache_logs.date_created DESC LIMIT 1',
+					$r['cacheid']);
 
-			if (mysql_num_rows($rs_log) != 0)
-			{
-			$r_log = sql_fetch_array($rs_log);			
-				$file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("Y-m-d", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
+				if ($database_inner->rowCount() != 0) {
+					$r_log = $database_inner->dbResultFetch();
+					$file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("Y-m-d", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';			
 
-				$file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\''; 
-				$file_content .= '<b>'.$r_log['user_name'].'</b>:&nbsp;';
-				if ( $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid'] && $r_log['luser_id']!=$usr['userid']){
-				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
-				if ( $r_log['encrypt']==1 && ($r_log['cache_owner']==$usr['userid']|| $r_log['luser_id']==$usr['userid'])){
-				$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
-				$data = cleanup_text(str_replace("\r\n", " ", $r_log['log_text']));
-				$data = str_replace("\n", " ",$data);
-				if ( $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid'] && $r_log['luser_id']!=$usr['userid'])
-				{//crypt the log ROT13, but keep HTML-Tags and Entities
-				$data = str_rot13_html($data);} else {$file_content .= "<br/>";}
-				$file_content .=$data;
-				$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()" target="_blank"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
-				$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '" target="_blank">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
+					$file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\''; 
+					$file_content .= '<b>'.$r_log['user_name'].'</b>:&nbsp;';
+					if ( $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid'] && $r_log['luser_id']!=$usr['userid']){
+					$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";}			
+					if ( $r_log['encrypt']==1 && ($r_log['cache_owner']==$usr['userid']|| $r_log['luser_id']==$usr['userid'])){
+					$file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";}
+					$data = cleanup_text(str_replace("\r\n", " ", $r_log['log_text']));
+					$data = str_replace("\n", " ",$data);
+					if ( $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid'] && $r_log['luser_id']!=$usr['userid'])
+					{//crypt the log ROT13, but keep HTML-Tags and Entities
+					$data = str_rot13_html($data);} else {$file_content .= "<br/>";}
+					$file_content .=$data;
+					$file_content .= '\',OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()" target="_blank"><img src="tpl/stdstyle/images/' . $r_log['icon_small'] . '" border="0" alt=""/></a></b></td>';
+					$file_content .= '<td>&nbsp;&nbsp;<b><a class="links" href="viewprofile.php?userid=' . htmlspecialchars($r_log['user_id'], ENT_COMPAT, 'UTF-8') . '" target="_blank">' . htmlspecialchars($r_log['user_name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
 
-					}				
-			mysql_free_result($rs_log);
-			$file_content .= "</tr>";
-		}
-
-	        tpl_set_var('file_content',$file_content);
+				}
+				
+				$file_content .= "</tr>";
 			}
-			mysql_free_result($rs);
-			if (isset($_POST['submit_map']))
-			{	$tplname = 'myroutes_result_map';} else {			
-			$tplname = 'myroutes_result';		}
+		}
+		unset($database_inner);
+
+		tpl_set_var('file_content',$file_content);
+		if (isset($_POST['submit_map'])) {
+			$tplname = 'myroutes_result_map';
+		} else {			
+			$tplname = 'myroutes_result';		
+		}
 	} //end submit
 
-		if (isset($_POST['submit_gpx_with_photos']))
+	if (isset($_POST['submit_gpx_with_photos']))
+	{
+		// create cache list	
+		$caches_list=caches_along_route($route_id, $distance);
+		$database->simpleQuery(
+			'SELECT `caches`.`wp_oc`, `caches`.`cache_id`
+				FROM `caches`
+				WHERE `caches`.`wp_oc` IN(\''.implode('\', \'', $caches_list).'\') 
+				  AND `caches`.`cache_id` IN (' . $sqlFilter . ')'
+		);
+		$waypoints_tab = array();
+		$cache_ids_tab = array();
+		while ($r = $database->dbResultFetch())
 		{
-			// create cache list	
-			$caches_list=caches_along_route($route_id, $distance);
-			$sql = "SELECT `caches`.`wp_oc`, `caches`.`cache_id`
-					FROM `caches`
-					WHERE `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') 
-					  AND `caches`.`cache_id` IN (" . $sqlFilter . ")";
-		
-			$rs_cache_codes = sql($sql);
-			$waypoints_tab = array();
-			$cache_ids_tab = array();
-			while($r = sql_fetch_array($rs_cache_codes))
-			{
-				$waypoints_tab[] = $r['wp_oc'];	
-				$cache_ids_tab[] = $r['cache_id'];
-			}
-			
-			mysql_free_result($rs_cache_codes);
-			
-			$okapi_max_caches = 50;
-			$caches_count = count($waypoints_tab);
-			// too much caches for one zip file - generate webpage instead
-			if ($caches_count > $okapi_max_caches){ 
-				$tplname = 'garminzip';
-				
-				tpl_set_var('zip_total_cache_count', $caches_count);
-				tpl_set_var('zip_max_count', $okapi_max_caches);
-				
-				$queryid = -1; 
-				$options = array();
-				$options['showresult'] = 1;
-				$options['searchtype'] = 'bylist';
-				$options['cache_ids'] = $cache_ids_tab;
-				
-				$rs_query_id = sql("select `queries`.`id` from `queries` where `user_id` = '&1' and `options` = '&2'", $usr['userid'], serialize($options));
-				while($r = sql_fetch_array($rs_query_id))
-				{
-					$queryid = $r['id'];	
-				}
-				mysql_free_result($rs_query_id);
-				
-				if ($queryid > 0){
-					sql("UPDATE `queries` SET `last_queried` = NOW() WHERE `id` = '&1'", $queryid); 
-				} else {
-					sql("INSERT INTO `queries` (`user_id`, `last_queried`, `uuid`, `options`) VALUES ( '&1', NOW(), UUID(), '&2')", $usr['userid'], serialize($options)); 
-					$queryid = mysql_insert_id(); 
-				}
-				$links_content = '';
-				$forlimit=intval($caches_count/$okapi_max_caches)+1;
-				for($i=1;$i<=$forlimit;$i++)
-				{
-					$zipname='ocpl'.$queryid.'.zip?startat=0&count=max&zip=1&zippart='.$i.(isset($_REQUEST['okapidebug'])?'&okapidebug':'');
-					$links_content .= '<li><a class="links" href="'.$zipname.'" title="Garmin ZIP file (part '.$i.')">ocpl'.$queryid.'-'.$i.'.zip</a></li>';
-				}
-				tpl_set_var('zip_links', $links_content);
-				tpl_BuildTemplate();
-			} else {
-				require_once($rootpath.'okapi/facade.php');
-				try
-				{
-					$waypoints = implode("|",$waypoints_tab);	
-					// TODO: why the langpref is fixed to pl? shouldn't it depend on current user/session language?
-					$okapi_response =  \okapi\Facade::service_call('services/caches/formatters/garmin',
-						$usr['userid'], 
-						array('cache_codes' => $waypoints, 'langpref' => 'pl', 
-							  'location_source'=> 'alt_wpt:user-coords', 'location_change_prefix' => '(F)'));
-							
-					// Modifying OKAPI's default HTTP Response headers.
-					$okapi_response->content_type = 'application/zip';
-					$okapi_response->content_disposition = 'attachment; filename=myroute.zip';
-				
-					// This outputs headers and the ZIP file.
-					$okapi_response->display();
-				}
-				catch (\okapi\BadRequest $e)
-				{
-					# In case of bad requests, simply output OKAPI's error response.
-					# In case of other, internal errors, don't catch the error. This
-					# will cause OKAPI's default error hangler to kick in (so the admins
-					# will get informed).
-					
-					header('Content-Type: text/plain');
-					echo $e;
-				}
-			}	
-			exit;
+			$waypoints_tab[] = $r['wp_oc'];	
+			$cache_ids_tab[] = $r['cache_id'];
 		}
+		
+		$okapi_max_caches = 50;
+		$caches_count = count($waypoints_tab);
+		// too much caches for one zip file - generate webpage instead
+		if ($caches_count > $okapi_max_caches){ 
+			$tplname = 'garminzip';
+			
+			tpl_set_var('zip_total_cache_count', $caches_count);
+			tpl_set_var('zip_max_count', $okapi_max_caches);
+			
+			$options = array();
+			$options['showresult'] = 1;
+			$options['searchtype'] = 'bylist';
+			$options['cache_ids'] = $cache_ids_tab;
+			
+			$options_text = serialize($options);
+	
+			$queryid = $database->paramQueryValue(
+				'select `queries`.`id` from `queries` where `user_id` = 0 and `options` = :options',
+				-1, // default value
+				array ('options'=> array('value' => $options_text, 'data_type' => 'string'))
+			);
+			if ($queryid > 0){
+				$database->multiVariableQuery(
+					'UPDATE `queries` SET `last_queried` = NOW() WHERE `id` = :1', 
+					$queryid
+				); 
+			} else {
+				$database->paramQuery(
+					'INSERT INTO `queries` (`user_id`, `last_queried`, `uuid`, `options`) VALUES ( 0, NOW(), UUID(), :options)', 
+					array ('options'=> array('value' => $options_text, 'data_type' => 'large')) 
+				);
+				$queryid = $database->lastInsertId(); 
+			}			
+			$links_content = '';
+			$forlimit=intval($caches_count/$okapi_max_caches)+1;
+			for($i=1;$i<=$forlimit;$i++)
+			{
+				$zipname='ocpl'.$queryid.'.zip?startat=0&count=max&zip=1&zippart='.$i.(isset($_REQUEST['okapidebug'])?'&okapidebug':'');
+				$links_content .= '<li><a class="links" href="'.$zipname.'" title="Garmin ZIP file (part '.$i.')">ocpl'.$queryid.'-'.$i.'.zip</a></li>';
+			}
+			tpl_set_var('zip_links', $links_content);
+			tpl_BuildTemplate();
+		} else {
+			require_once($rootpath.'okapi/facade.php');
+			try
+			{
+				$waypoints = implode("|",$waypoints_tab);	
+				// TODO: why the langpref is fixed to pl? shouldn't it depend on current user/session language?
+				$okapi_response =  \okapi\Facade::service_call('services/caches/formatters/garmin',
+					$usr['userid'], 
+					array('cache_codes' => $waypoints, 'langpref' => 'pl', 
+						  'location_source'=> 'alt_wpt:user-coords', 'location_change_prefix' => '(F)'));
+						
+				// Modifying OKAPI's default HTTP Response headers.
+				$okapi_response->content_type = 'application/zip';
+				$okapi_response->content_disposition = 'attachment; filename=myroute.zip';
+			
+				// This outputs headers and the ZIP file.
+				$okapi_response->display();
+			}
+			catch (\okapi\BadRequest $e)
+			{
+				# In case of bad requests, simply output OKAPI's error response.
+				# In case of other, internal errors, don't catch the error. This
+				# will cause OKAPI's default error hangler to kick in (so the admins
+				# will get informed).
+				
+				header('Content-Type: text/plain');
+				echo $e;
+			}
+		}	
+		exit;
+	}
 	
 
 		if (isset($_POST['submit_gpx']))
 		{
-			$route_rs = sql("SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`='&1'", $route_id);
-			$record = sql_fetch_array($route_rs);	
+			$database->paramQuery(
+				'SELECT `user_id`,`name`, `description`, `radius` FROM `routes` WHERE `route_id`=:route_id', 
+				array ('route_id'=> array('value' => $route_id, 'data_type' => 'integer'))
+			);
+			$record = $database->dbResultFetch();
 			$distance=$record['radius'];
 			tpl_set_var('route_name',$record['name']);
 	$gpxHead = 
@@ -1072,7 +1137,9 @@ $caches_list=caches_along_route($route_id, $distance);
 			FROM `caches`
 			WHERE `caches`.`wp_oc` IN('".implode("', '", $caches_list)."') AND `caches`.`cache_id` IN (" . $sqlFilter . ")");	
 	
-		// cleanup (old gpxcontent lingers if gpx-download is cancelled by user)		
+		// cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
+		// BSz: does TEMPORARY TABLES work with PDO? In dataBase class, we are instantinating new PDO
+		// object (== new connection) for every query
 		sql('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
 
 		// temporäre tabelle erstellen

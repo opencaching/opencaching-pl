@@ -59,7 +59,7 @@ class dataBase
 	
 	function __destruct() {
 		if ($this->debug){
-			print 'destructing object dataBase class <br ><br >';
+			self::debugOut('destructing object dataBase class <br ><br >');
 		}
 		// free up the memory
 		$debug = null;
@@ -129,10 +129,11 @@ class dataBase
 			$this->dbData  = $dbh -> prepare($query);
 			$this->dbData  -> setFetchMode(PDO::FETCH_ASSOC);
 			$this->dbData  -> execute();
+			$this->lastInsertId = $dbh->lastInsertId();
 		} catch (PDOException $e) {
 			$message = $this->errorMessage( __line__, $e, $query, array());
 			if ($this->debug) {
-				print $message;
+				self::debugOut($message);
 			} else {
 				self::errorMail($message);
 			}
@@ -142,7 +143,7 @@ class dataBase
 		}
 
 		if ($this->debug) {
-			print 'db.php, # ' . __line__ .', mysql query on input: ' . $query .'<br />';
+			self::debugOut('db.php, # ' . __line__ .', mysql query on input: ' . $query .'<br />');
 		}
 		
 		return true;
@@ -230,10 +231,11 @@ class dataBase
 
 			$this->dbData->setFetchMode(PDO::FETCH_ASSOC);
 			$this->dbData->execute();
+			$this->lastInsertId = $dbh->lastInsertId();
 		} catch (PDOException $e) {
 			$message = $this->errorMessage( __line__, $e, $query, $params );
 			if ($this->debug) {
-				print $message;
+				self::debugOut($message);
 			} else {
 				self::errorMail($message);
 			}
@@ -241,7 +243,7 @@ class dataBase
 			return false;
 		}
 		if ($this->debug) {
-			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
+			self::debugOut('db.php, # ' . __line__ .', Query on input: ' . $query .'<br />');
 			self::debugOC('db.php, # ' . __line__ .', input parametres for query', $params );
 			// self::debugOC('db.php, # ' . __line__ .', database output', $result );
 		}
@@ -284,6 +286,9 @@ class dataBase
 		$numargs = func_num_args();
 		$arg_list = func_get_args();
 		try {
+			// We are instantinating new PDO object, and new connection for every query.
+			// This is inefficient (compared to old sql() function, and especially on my Windows box)
+			// Moreover, this could prevent TEMPORARY TABLES from working -> find out!
 			$dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
 			if ( $this->debug )
 				$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //JG 2013-10-19
@@ -306,7 +311,7 @@ class dataBase
 			$message = $this->errorMessage( __line__, $e, $query, $arg_list);
 			
 			if ($this->debug) {
-				print $message;
+				self::debugOut($message);
 			} else {
 				self::errorMail($message);
 			}
@@ -314,13 +319,92 @@ class dataBase
 			return false;
 		}
 		if ($this->debug) {
-			print 'db.php, # ' . __line__ .', Query on input: ' . $query .'<br />';
+			self::debugOut('db.php, # ' . __line__ .', Query on input: ' . $query .'<br />');
 			for ($i = 1; $i < $numargs; $i++)
-				print "Param :" . $i. " = " . $arg_list[$i]. "<br>";
+				self::debugOut("Param :" . $i. " = " . $arg_list[$i]. "<br>");
 		}
 		return true;
 	}
 	
+	/**
+	 * Executes given query. If the query return no rows, or null value, default value is returned.
+	 * Otherwise, value of first column in a first row is returned.
+	 *
+	 * @param $query Query to be executed
+	 * @param $default Default value
+	 * 
+	 * @return 
+	 */
+	public function simpleQueryValue($query, $default) {
+		$this->simpleQuery($query);
+		$r = $this->dbResultFetch();
+		if ($r){
+			$value = reset($r);
+			if ($value == null)
+				return $default;
+			else
+				return $value;
+		} else {
+			return $default;
+		}
+	}
+	
+	/**
+	 * Executes given query, as described in method multiVariableQuery(). 
+	 * If the query return no rows, or null value, default value is returned.
+	 * Otherwise, value of first column in a first row is returned.
+	 *
+	 * @param $query Query to be executed, default value, query params
+	 * 
+	 * @return 
+	 */
+	public function multiVariableQueryValue($query) {
+		$arg_list = func_get_args();
+		$default = null;
+		if (count($arg_list)>=2){
+			$default = $arg_list[1];
+			unset($arg_list[1]);
+		}
+		// could be this done better?
+		call_user_func_array(array($this, 'multiVariableQuery'), $arg_list);
+		$r = $this->dbResultFetch();
+		if ($r){
+			$value = reset($r);
+			if ($value == null)
+				return $default;
+			else
+				return $value;
+		} else {
+			return $default;
+		}
+	}
+	
+	/**
+	 * Executes given query, as described in method paramQuery(). 
+	 * If the query return no rows, or null value, default value is returned.
+	 * Otherwise, value of first column in a first row is returned.
+	 *
+	 * @param $query Query to be executed
+	 * @param $default Default value
+	 * @param $params Query params
+	 * 
+	 * @return 
+	 */
+	public function paramQueryValue($query, $default, $params) {
+		if (!is_array($params)) return false;
+		$this->paramQuery($query, $params);
+		$r = $this->dbResultFetch();
+		if ($r){
+			$value = reset($r);
+			if ($value == null)
+				return $default;
+			else
+				return $value;
+		} else {
+			return $default;
+		}
+	}
+
 	private function errorMail($message, $topic=null) {
 		$headers = 	'From: dataBase class' . "\r\n" .
 					'Reply-To: '.$this->replyToEmail . "\r\n" .
@@ -354,10 +438,19 @@ class dataBase
 	 * @example dataBase::debugOC('some.php, # ' . __line__ .', my variable', $array_variable );
 	 */
 	public static function debugOC($position, $array) {
-		print "<pre> --- $position --<br>";
-		print_r ($array);
-		print '----------------------<br /><br /></pre>';
+		dataBase::debugOut("<pre> --- $position --<br>");
+		dataBase::debugOut(print_r ($array, true));
+		dataBase::debugOut('----------------------<br /><br /></pre>', true);
 
 	}
-
+	
+	private static function debugOut($text, $onlyHtmlString = false) {
+		// TODO: make it configurable
+		// useful when debugging stripts generating content other than HTML
+		
+		//if ($onlyHtmlString !== true){
+		//	error_log($text);
+		//}
+		print $text; 
+	}
 }
