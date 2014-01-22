@@ -423,6 +423,14 @@ $menu = array(
         'menustring'    => tr('main_page'),
         'siteid'        => 'sitemap'
     ),
+    array(
+        'title'         => tr('add_newmp3'),
+        'visible'       => false,
+        'filename'      => 'newmp3.php',
+        'menustring'    => tr('add_newmp3'),
+        'siteid'        => 'newmp3'
+    ),
+
     // OC management 
     array(
         'title'         => tr('administration'),

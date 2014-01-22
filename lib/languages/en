@@ -2149,4 +2149,5 @@ newmp3_15 File name
 newmp3_16 Don't show this MP3 file
 newmp3_17 Attention
 newmp3_18 The following file format is accepted: MP3. Maximum file size allowed 5 Mb. Recommended quality MP3 22kHZ MONO.
+add_newmp3 Add MP3
 
