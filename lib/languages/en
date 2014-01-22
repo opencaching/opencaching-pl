@@ -2131,3 +2131,22 @@ viewprofileDate FTF date
 viewprofileTime FTF time
 viewprofileCache Cache name
 viewprofileTotFtf Total Ftf
+newmp3_01 Submit
+newmp3_02 Adding new PodCast MP3 to the cache
+newmp3_03 Adding a new PodCast MP3 to cache
+newmp3_04 No title
+newmp3_05 No file name
+newmp3_06 Internal Server Error
+newmp3_07 If the problem persists, please contact us at {mail_oc}. To investigate the cause, please describe the details.
+newmp3_08 File is too big
+newmp3_09 Maximum allowable file size is .... KB. Change the quality or syze of the MP3 file.
+newmp3_10 Invalid file type
+newmp3_11 The uploaded file has invalid format. Permitted format is MP3. Recommended quality MP3 22kHZ MONO.
+newmp3_12 Please give the MP3 file a name!
+newmp3_13 Please select a MP3 file!
+newmp3_14 Title
+newmp3_15 File name
+newmp3_16 Don't show this MP3 file
+newmp3_17 Attention
+newmp3_18 The following file format is accepted: MP3. Maximum file size allowed 5 Mb. Recommended quality MP3 22kHZ MONO.
+

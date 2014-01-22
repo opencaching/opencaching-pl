@@ -2131,3 +2131,22 @@ viewprofileDate Data FTF
 viewprofileTime Czas FTF
 viewprofileCache Nazwa skrzynki
 viewprofileTotFtf Razem FTF
+newmp3_01 Wyślij
+newmp3_02 Dodanie nowego PodCast MP3 dla skrzynki
+newmp3_03 Dodanie nowego PodCast MP3 do Logu dla skrzynki
+newmp3_04 Brak tytułu
+newmp3_05 Brak nazwy pliku
+newmp3_06 Wewnętrzny błąd serwera
+newmp3_07 Wystąpił wewnętrzny błąd serwera, jeśli ten błąd powtarza się prosimy o kontakt na adres {mail_oc}. W celu powtórzenia błędu wskazane byłoby załączenie do tego emial pliku z opisem sytuacji.
+newmp3_08 Dane są za duże
+newmp3_09 Dopuszczalna wielkość pliku to .... KB. Zmień jakość pliku MP3.
+newmp3_10 Niepoprawny typ pliku
+newmp3_11 Wysłany plik ma niedozwolony format. Dozwolone format to MP3. Zalecana jakość MONO 22kHz
+newmp3_12 Proszę nadać nazwę plikowi!
+newmp3_13 Proszę podać źródło pliku!
+newmp3_14 Tytuł
+newmp3_15 Nazwa pliku
+newmp3_16 Tego pliku nie pokazuj
+newmp3_17 Uwaga
+newmp3_18 Następujacy format pliku jest akceptowany: MP3. Maksymalna wielkość pliku dozwolona 5 Mb. Zalecane jakość MP3 22kHZ MONO.
+

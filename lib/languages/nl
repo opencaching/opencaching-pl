@@ -2129,7 +2129,24 @@ viewprofileFTF Toon gebruikers FTF's
 viewprofileDate FTF datum
 viewprofileTime FTF tijd
 viewprofileCache Cache naam
-
+newmp3_01 Verzenden
+newmp3_02 Voeg nieuwe PodCast MP3 toe aan de cache
+newmp3_03 Voeg nieuw PodCast MP3 toe aan cache
+newmp3_04 Geen naam
+newmp3_05 Geen bestandsnaam
+newmp3_06 Interne server fout
+newmp3_07 Wanneer het probleem blijft bestaan, gelieve contact met ons op te nemen op {mail_oc}. Om de oorzaak te onderzoeken gelieve de details te beschrijven.
+newmp3_08 Bestand is te groot
+newmp3_09 Maximale bestand grootte is ....KB. Verander kwaliteit of grootte van het MP3 bestand.
+newmp3_10 Verkeerde bestand soort
+newmp3_11 Het verzonden bestandsoort is geen MP3. Toegestane bestanden zijn MP3. Aanbevolen kwaliteit is MP3 22kHZ MONO.
+newmp3_12 Geef MP3 bestand een naam!
+newmp3_13 Selecteer een MP3 bestand!
+newmp3_14 Naam
+newmp3_15 Bestandsnaam
+newmp3_16 Laat MP3 bestand niet zien
+newmp3_17 Attention
+newmp3_18 De volgende bestanden worden geaccepteerd: MP3. Maximum grootte bestand is 5 Mb. Aanbevolen kwaliteit is MP3 22kHZ MONO.
 
 
 notify_newcachemail01 Hallo
