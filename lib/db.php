@@ -78,21 +78,28 @@ class dataBase
 	
 	
 	/**
-	 * @return one row from result
+	 * @return one row from result, or FALSE if there are no more rows available
+	 * The data is returned as an array indexed by column name, as returned in your 
+	 * SQL SELECT
 	 */
 	public function dbResultFetch() {
 		return $this->dbData->fetch();
 	}
 	
 	/**
-	 * @return number of row in results
+	 * @return number of row in results (i.e. number of rows returned by SQL SELECT)
+	 * or the number of rows affected by the last DELETE, INSERT, or UPDATE statement
 	 */
 	public function rowCount() {
 		return $this->dbData->rowCount();
 	}
 	
 	/**
-	 * @return all rows from result as complex array
+	 * @return all rows from result as complex array.
+	 * The returned array contains all of the remaining rows (if you have previously called
+	 * dbResultFetch(), or all returned rows if not) in the result set. The array represents 
+	 * each row as an array indexed by column name, as returned in your SQL SELECT.
+	 * An empty array is returned if there are zero results to fetch, or FALSE on failure.
 	 */
 	public function dbResultFetchAll() {
 		return $this->dbData->fetchAll();
@@ -109,10 +116,10 @@ class dataBase
 	/**
 	 * simple querry
 	 * Use only with static queries, Queries should contain no variables.
-	 * For queries with variables use paramQery methode
+	 * For queries with variables use paramQery method
 	 *
 	 * @param string $query
-	 * @return array
+	 * @return true, if the query succeeded; false, if there was SQL error 
 	 */
 	public function simpleQuery($query) {
 		try {
@@ -173,16 +180,7 @@ class dataBase
 	 * - 'large' 					Represents the SQL large object data type.
 	 * - 'recordset' 				Represents a recordset type. Not currently supported by any drivers.
 	 *
-	 * @return array or false
-	 *  - return array structure:
-	 *  Array
-	 * (
-	 *   [row_count] => 1
-	 *   [result] => Array
-	 *     (
-	 *       [secid] => 12
-	 *     )
-	 * )
+	 * @return true, if the query succeeded; false, if there was SQL error 
 	 */
 	public function paramQuery($query, $params) {
 		if (!is_array($params)) return false;
@@ -266,21 +264,7 @@ class dataBase
 	 * multiVariableQuery($query, $param1, $param2 )
 	 * ----------------------------------------------------------------------------------
 	 * 
-	 * @return array or false
-	 *  - return array structure:
-	 *  Array
-	 * (
-	 *   [row_count] => 2
-	 *   [result] => Array
-	 *     (
-	 *      [0] => Array (
-     *           	[something] => 12
-     *           )
-     *      [1] => Array (
-     *           	[something] => 20
-     *           )    
-	 *     )
-	 * )
+	 * @return true, if the query succeeded; false, if there was SQL error 
 	 */
 	public function multiVariableQuery($query) {
 		$numargs = func_num_args();
