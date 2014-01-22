@@ -663,6 +663,7 @@ no_note Brak notatek
 additional_waypoints Dodatkowe waypointy
 nowp_notice Nie ma dodatkowych waypointów dla skrzynki
 stage_wp Etap
+symbol_wp Symbol
 type_wp Typ
 type_wp2 Typ waypointa
 coordinates_wp Współrzędne

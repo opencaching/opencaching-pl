@@ -1352,7 +1352,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 				$waypoints .= '<tr>';
 				if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7) $waypoints .= '<th align="center" valign="middle" width="30"><b>'.tr('stage_wp').'</b></th>';
 
-				$waypoints .='<th align="center" valign="middle" width="40">&nbsp;<b>Symbol</b>&nbsp;</th>
+				$waypoints .='<th align="center" valign="middle" width="40">&nbsp;<b>'.tr('symbol_wp').'</b>&nbsp;</th>
 				<th align="center" valign="middle" width="40">&nbsp;<b>'.tr('type_wp').'</b>&nbsp;</th>
 				<th width="90" align="center" valign="middle">&nbsp;<b>'.tr('coordinates_wp').'</b>&nbsp;</th>
 				<th align="center" valign="middle"><b>'.tr('describe_wp').'</b></th></tr>';}

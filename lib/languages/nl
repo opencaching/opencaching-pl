@@ -663,6 +663,7 @@ no_note Er zijn nog geen cache notities
 additional_waypoints Extra waypoints
 nowp_notice Er zijn nog geen extra waypoints
 stage_wp Etappe
+symbol_wp Symbool
 type_wp Soort
 type_wp2 Soort waypoint
 coordinates_wp Coördinaten
