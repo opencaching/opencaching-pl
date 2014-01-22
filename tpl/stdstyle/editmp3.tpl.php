@@ -15,7 +15,7 @@ function checkForm()
 	{
 		if(document.editmp3_form.title.value == "")
 		{
-			alert("Proszę nadać nazwę plikowi!");
+			alert("{{editmp3_01}}");
 			return false;
 		}
 
@@ -41,19 +41,19 @@ function checkForm()
 	
 	<tr><td class="spacer" colspan="2"><br /><br /></td></tr>
 	<tr>
-		<td valign="top">Tytuł:</td>
+		<td valign="top">{{editmp3_03}}:</td>
 		<td><input class="input200" name="title" type="text" value="{title}" size="43" /> {errnotitledesc}</td>
 	</tr>
 
 	<tr>
-		<td valign="top">Nazwa pliku:</td>
+		<td valign="top">{{editmp3_04}}:</td>
 		<td><input class="input200" name="file" type="file" maxlength="{maxmp3size}" /></td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 	{begin_cacheonly}
 	<tr>
 		<td align="right"><input class="checkbox" type="checkbox" name="notdisplay" value="1" {notdisplaychecked}></td>
-		<td>Tego pliku nie pokazuj</td>
+		<td>{{editmp3_05}}</td>
 	</tr>
 	{end_cacheonly}
 
