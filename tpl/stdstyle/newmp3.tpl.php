@@ -15,13 +15,13 @@
 	{
 		if(document.newmp3_form.title.value == "")
 		{
-			alert("Proszę nadać nazwę plikowi!");
+			alert("{{newmp3_12}}");
 			return false;
 		}
 
 		if(document.newmp3_form.file.value == "")
 		{
-			alert("Proszę podać źródło pliku!");
+			alert("{{newmp3_13}}");
 			return false;
 		}
 
@@ -43,12 +43,12 @@
 
 	<tr><td class="spacer" colspan="2"><br /><br /></td></tr>
 	<tr>
-		<td valign="top">Tytuł:</td>
+		<td valign="top">{{newmp3_14}}:</td>
 		<td><input class="input200" name="title" type="text" value="{title}" size="43" /> {errnotitledesc}</td>
 	</tr>
 
 	<tr>
-		<td valign="top">Nazwa pliku:</td>
+		<td valign="top">{{newmp3_15}}:</td>
 		<td><input class="input200" name="file" type="file" maxlength="{maxmp3size}" /> {errnomp3givendesc}</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
@@ -56,13 +56,13 @@
 	{begin_cacheonly}
 	<tr>
 		<td align="right"><input class="checkbox" type="checkbox" name="notdisplay" value="1"{notdisplaychecked}/></td>
-		<td>Tego pliku nie pokazuj</td>
+		<td>{{newmp3_16}}</td>
 	</tr>
 	{end_cacheonly}
 
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.png" border="0" alt="Uwaga" title="Uwaga" /> Następujacy format pliku jest akceptowany: MP3. Maksymalna wielkość pliku dozwolona 5 Mb. Zalecane jakość MP3 22kHZ MONO.</td>
+		<td class="help" colspan="2"><img src="tpl/stdstyle/images/misc/16x16-info.png" border="0" alt="Uwaga" title="{{newmp3_17}}" /> {{newmp3_18}}</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
 
