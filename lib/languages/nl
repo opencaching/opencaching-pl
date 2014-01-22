@@ -2137,7 +2137,7 @@ newmp3_05 Geen bestandsnaam
 newmp3_06 Interne server fout
 newmp3_07 Wanneer het probleem blijft bestaan, gelieve contact met ons op te nemen op {mail_oc}. Om de oorzaak te onderzoeken gelieve de details te beschrijven.
 newmp3_08 Bestand is te groot
-newmp3_09 Maximale bestand grootte is ....KB. Verander kwaliteit of grootte van het MP3 bestand.
+newmp3_09 Maximale bestand grootte is 5 Mb. Verander kwaliteit of grootte van het MP3 bestand.
 newmp3_10 Verkeerde bestand soort
 newmp3_11 Het verzonden bestandsoort is geen MP3. Toegestane bestanden zijn MP3. Aanbevolen kwaliteit is MP3 22kHZ MONO.
 newmp3_12 Geef MP3 bestand een naam!
@@ -2151,6 +2151,16 @@ editmp3_01 Geef MP3 bestand een naam!
 editmp3_03 Naam
 editmp3_04 Bestandsnaam
 editmp3_05 Laat MP3 bestand niet zien
+editmp3_06 Bewerk PodCast MP3 bestand van cache
+editmp3_07 
+editmp3_08 Geen naam
+editmp3_09 Interne server fout
+editmp3_10 Wanneer het probleem blijft bestaan, gelieve contact met ons op te nemen op {mail_oc}. Om de oorzaak te onderzoeken gelieve de details te beschrijven.
+editmp3_11 Bestand is te groot
+editmp3_12 Maximale bestand grootte is 5 Mb. Verander kwaliteit of grootte van het MP3 bestand.
+editmp3_13 Verkeerde bestand soort
+editmp3_14 Het verzonden bestandsoort is geen MP3. Toegestane bestanden zijn MP3. Aanbevolen kwaliteit is MP3 22kHZ MONO.
+editmp3_15 MP3 bestand niet in de database
 add_newmp3 MP3 toevoegen
 
 

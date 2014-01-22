@@ -8,23 +8,24 @@
 	*   
 	*  UTF-8 ąść
 	***************************************************************************/
+	tpl_set_var('mail_oc', $mail_oc);
 	
 	$submit = 'Wyślij';
 	
-	$mp3typedesc_cache = 'Nowy PodCast dla skrznyki ';
-	$mp3typedesc_log = 'PodCast dla wpisu w LOGu ';
+	$mp3typedesc_cache = tr('editmp3_06');
+	$mp3typedesc_log = tr('editmp3_07');
 
-	$errnotitledesc = '<span class="errormsg">Brak tytułu</span>';
+	$errnotitledesc = '<span class="errormsg">'.tr('editmp3_08').'</span>';
 
-	$message_title_internal = 'Wewnętrzny błąd serwera';
-	$message_internal = 'Wystąpił wewnętrzny błąd serwera, jeśli ten błąd powtarza się prosimy o kontakt na adres ocpl @ opencaching.pl.';
+	$message_title_internal = tr('editmp3_09');
+	$message_internal = tr('editmp3_10');
 
-	$message_title_toobig = 'Dane są za duże';
-	$message_toobig = 'Dopuszczalna wielkość mp3 plikuto 100 KB. Zmniejsz jakość pliku na mono i 22kHz.';
+	$message_title_toobig = tr('editmp3_11');
+	$message_toobig = tr('editmp3_12');
 
-	$message_title_wrongext = 'Niepoprawny typ pliku';
-	$message_wrongext = 'Wysłany plik ma niedozwolony format. Dozwolone format to MP3. Zalecana jakosc MONO 22kHz.';
+	$message_title_wrongext = tr('editmp3_13');
+	$message_wrongext = tr('editmp3_14');
 	
-	$message_mp3_not_found = 'Pliku MP3 nie ma w bazie danych';
+	$message_mp3_not_found = tr('editmp3_15');
 
 ?>

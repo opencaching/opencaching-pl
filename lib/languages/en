@@ -2139,7 +2139,7 @@ newmp3_05 No file name
 newmp3_06 Internal Server Error
 newmp3_07 If the problem persists, please contact us at {mail_oc}. To investigate the cause, please describe the details.
 newmp3_08 File is too big
-newmp3_09 Maximum allowable file size is .... KB. Change the quality or syze of the MP3 file.
+newmp3_09 Maximum allowable file size is 5 Mb. Change the quality or syze of the MP3 file.
 newmp3_10 Invalid file type
 newmp3_11 The uploaded file has invalid format. Permitted format is MP3. Recommended quality MP3 22kHZ MONO.
 newmp3_12 Please give the MP3 file a name!
@@ -2153,5 +2153,15 @@ editmp3_01 Please give the MP3 file a name!
 editmp3_03 Title
 editmp3_04 File name
 editmp3_05 Don't show this MP3 file
+editmp3_06 Edit PodCast MP3 for cache
+editmp3_07
+editmp3_08 No title
+editmp3_09 Internal Server Error
+editmp3_10 If the problem persists, please contact us at {mail_oc}. To investigate the cause, please describe the details.
+editmp3_11 File is too big
+editmp3_12 Maximum allowable file size is 5 Mb. Change the quality or syze of the MP3 file.
+editmp3_13 Invalid file type
+editmp3_14 The uploaded file has invalid format. Permitted format is MP3. Recommended quality MP3 22kHZ MONO.
+editmp3_15 MP3 file is not in the database
 add_newmp3 Add MP3
 
