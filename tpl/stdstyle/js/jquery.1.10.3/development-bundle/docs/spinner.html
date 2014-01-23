@@ -1,37 +1,37 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>jQuery UI spinner documentation</title>
+    <meta charset="utf-8">
+    <title>jQuery UI spinner documentation</title>
 
-	<style>
-	body {
-		font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
-	}
-	.gutter {
-		display: none;
-	}
-	</style>
+    <style>
+    body {
+        font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
+    }
+    .gutter {
+        display: none;
+    }
+    </style>
 </head>
 <body>
 
 <script>{
-		"title":
-			"Spinner Widget",
-		"excerpt":
-			"\n\t\tEnhance a text input for entering numeric values, with up/down buttons and arrow key handling.\n\t",
-		"termSlugs": {
-			"category": [
-				"widgets"
-			]
-		}
-	}</script><article id="spinner1" class="entry widget"><h2 class="section-title">
+        "title":
+            "Spinner Widget",
+        "excerpt":
+            "\n\t\tEnhance a text input for entering numeric values, with up/down buttons and arrow key handling.\n\t",
+        "termSlugs": {
+            "category": [
+                "widgets"
+            ]
+        }
+    }</script><article id="spinner1" class="entry widget"><h2 class="section-title">
 <span>Spinner Widget</span><span class="version-details">version added: 1.9</span>
 </h2>
 <div class="entry-wrapper">
 <p class="desc"><strong>Description: </strong>
-		Enhance a text input for entering numeric values, with up/down buttons and arrow key handling.
-	</p>
+        Enhance a text input for entering numeric values, with up/down buttons and arrow key handling.
+    </p>
 <section id="quick-nav"><header><h2>QuickNav<a href="#entry-examples">Examples</a>
 </h2></header><div class="quick-nav-section">
 <h3>Options</h3>
@@ -66,25 +66,25 @@
 <div><a href="#event-stop">stop</a></div>
 <div><a href="#event-change">change</a></div>
 </div></section><div class="longdesc" id="entry-longdesc">
-		<p>Spinner, or number stepper, widget is perfect for handling all kinds of numeric input. It allow users to type a value directly or modify an existing value by spinning with the keyboard, mouse or scrollwheel. When combined with Globalize, you can even spin currencies and dates in a variety of locales.</p>
+        <p>Spinner, or number stepper, widget is perfect for handling all kinds of numeric input. It allow users to type a value directly or modify an existing value by spinning with the keyboard, mouse or scrollwheel. When combined with Globalize, you can even spin currencies and dates in a variety of locales.</p>
 
-		<p>Spinner wraps a text input, adds two buttons to increment and decrement the current value, along with handling key events for the same purpose. It delegates to <a href="https://github.com/jquery/globalize">Globalize</a> for number formatting and parsing.</p>
+        <p>Spinner wraps a text input, adds two buttons to increment and decrement the current value, along with handling key events for the same purpose. It delegates to <a href="https://github.com/jquery/globalize">Globalize</a> for number formatting and parsing.</p>
 
-		<h3>Keyboard interaction</h3>
+        <h3>Keyboard interaction</h3>
 
-		<ul>
-			<li>UP: Increment the value by one step.</li>
-			<li>DOWN: Decrement the value by one step.</li>
-			<li>PAGE UP: Increment the value by one page.</li>
-			<li>PAGE DOWN: Decrement the value by one page.</li>
-		</ul>
+        <ul>
+            <li>UP: Increment the value by one step.</li>
+            <li>DOWN: Decrement the value by one step.</li>
+            <li>PAGE UP: Increment the value by one page.</li>
+            <li>PAGE DOWN: Decrement the value by one page.</li>
+        </ul>
 
-		<p>Focus stays in the text field, even after using the mouse to click one of the spin buttons.</p>
-	</div>
+        <p>Focus stays in the text field, even after using the mouse to click one of the spin buttons.</p>
+    </div>
 <h3>Additional Notes:</h3>
 <div class="longdesc"><ul><li>
-			This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
-		</li></ul></div>
+            This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
+        </li></ul></div>
 <section id="options"><header><h2 class="underline">Options</h2></header><div id="option-culture" class="api-item first-item">
 <h3>culture<span class="option-type"><strong>Type: </strong><a href="http://api.jquery.com/Types#String">String</a></span>
 </h3>
@@ -116,12 +116,12 @@
 <strong>Default: </strong><code>{ down: "ui-icon-triangle-1-s", up: "ui-icon-triangle-1-n" }</code>
 </div>
 <div>
-				Icons to use for buttons, matching an icon defined by the jQuery UI CSS Framework.
-				<ul>
-					<li>up (string, default: "ui-icon-triangle-1-n")</li>
-					<li>down (string, default: "ui-icon-triangle-1-s")</li>
-				</ul>
-			</div>
+                Icons to use for buttons, matching an icon defined by the jQuery UI CSS Framework.
+                <ul>
+                    <li>up (string, default: "ui-icon-triangle-1-n")</li>
+                    <li>down (string, default: "ui-icon-triangle-1-s")</li>
+                </ul>
+            </div>
 <strong>Code examples:</strong><p>Initialize the spinner with the icons option specified:</p>
 <div class="syntaxhighlighter nogutter  "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain">$( </code><code class="string">".selector"</code> <code class="plain">).spinner({ icons: { down: </code><code class="string">"custom-down-icon"</code><code class="plain">, up: </code><code class="string">"custom-up-icon"</code> <code class="plain">} });</code></div></div></td></tr></tbody></table></div>
 <p>Get or set the icons option, after initialization:</p>
@@ -225,8 +225,8 @@
 </div></section><section id="methods"><header><h2 class="underline">Methods</h2></header><div id="method-destroy"><div class="api-item first-item">
 <h3>destroy()</h3>
 <div>
-		Removes the spinner functionality completely. This will return the element back to its pre-init state.
-	</div>
+        Removes the spinner functionality completely. This will return the element back to its pre-init state.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the destroy method:</p>
@@ -236,8 +236,8 @@
 <div id="method-disable"><div class="api-item">
 <h3>disable()</h3>
 <div>
-		Disables the spinner.
-	</div>
+        Disables the spinner.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the disable method:</p>
@@ -247,8 +247,8 @@
 <div id="method-enable"><div class="api-item">
 <h3>enable()</h3>
 <div>
-		Enables the spinner.
-	</div>
+        Enables the spinner.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the enable method:</p>
@@ -321,8 +321,8 @@
 <div id="method-pageDown"><div class="api-item">
 <h3>pageDown(  [pages ] )</h3>
 <div>
-				Decrements the value by the specified number of pages, as defined by the <a href="#option-page"><code>page</code></a> option. Without the parameter, a single page is decremented.
-			</div>
+                Decrements the value by the specified number of pages, as defined by the <a href="#option-page"><code>page</code></a> option. Without the parameter, a single page is decremented.
+            </div>
 <ul><li>
 <div><strong>pages</strong></div>
 <div>Type: <a href="http://api.jquery.com/Types#Number">Number</a>
@@ -337,8 +337,8 @@
 <div id="method-pageUp"><div class="api-item">
 <h3>pageUp(  [pages ] )</h3>
 <div>
-				Increments the value by the specified number of pages, as defined by the <a href="#option-page"><code>page</code></a> option. Without the parameter, a single page is incremented.
-			</div>
+                Increments the value by the specified number of pages, as defined by the <a href="#option-page"><code>page</code></a> option. Without the parameter, a single page is incremented.
+            </div>
 <ul><li>
 <div><strong>pages</strong></div>
 <div>Type: <a href="http://api.jquery.com/Types#Number">Number</a>
@@ -353,9 +353,9 @@
 <div id="method-stepDown"><div class="api-item">
 <h3>stepDown(  [steps ] )</h3>
 <div>
-				Decrements the value by the specified number of steps. Without the parameter, a single step is decremented.
-				<p>If the resulting value is above the max, below the min, or reuslts in a step mismatch, the value will be adjusted to the closest valid value.</p>
-			</div>
+                Decrements the value by the specified number of steps. Without the parameter, a single step is decremented.
+                <p>If the resulting value is above the max, below the min, or reuslts in a step mismatch, the value will be adjusted to the closest valid value.</p>
+            </div>
 <ul><li>
 <div><strong>steps</strong></div>
 <div>Type: <a href="http://api.jquery.com/Types#Number">Number</a>
@@ -370,9 +370,9 @@
 <div id="method-stepUp"><div class="api-item">
 <h3>stepUp(  [steps ] )</h3>
 <div>
-				Increments the value by the specified number of steps. Without the parameter, a single step is incremented.
-				<p>If the resulting value is above the max, below the min, or reuslts in a step mismatch, the value will be adjusted to the closest valid value.</p>
-			</div>
+                Increments the value by the specified number of steps. Without the parameter, a single step is incremented.
+                <p>If the resulting value is above the max, below the min, or reuslts in a step mismatch, the value will be adjusted to the closest valid value.</p>
+            </div>
 <ul><li>
 <div><strong>steps</strong></div>
 <div>Type: <a href="http://api.jquery.com/Types#Number">Number</a>
@@ -414,8 +414,8 @@
 <h3>widget()<span class="returns">Returns: <a href="http://api.jquery.com/Types#jQuery">jQuery</a></span>
 </h3>
 <div>
-		Returns a <code>jQuery</code> object containing the generated wrapper.
-	</div>
+        Returns a <code>jQuery</code> object containing the generated wrapper.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the widget method:</p>
@@ -425,8 +425,8 @@
 <h3>change( event, ui )<span class="returns">Type: <code>spinchange</code></span>
 </h3>
 <div>
-				Triggered when the value of the spinner has changed and the input is no longer focused.
-			</div>
+                Triggered when the value of the spinner has changed and the input is no longer focused.
+            </div>
 <ul>
 <li>
 <div><strong>event</strong></div>
@@ -452,8 +452,8 @@
 <h3>create( event, ui )<span class="returns">Type: <code>spincreate</code></span>
 </h3>
 <div>
-		Triggered when the spinner is created.
-	</div>
+        Triggered when the spinner is created.
+    </div>
 <ul>
 <li>
 <div><strong>event</strong></div>
@@ -479,9 +479,9 @@
 <h3>spin( event, ui )<span class="returns">Type: <code>spin</code></span>
 </h3>
 <div>
-				Triggered during increment/decrement (to determine direction of spin compare current value with <code>ui.value</code>).
-				<p>Can be canceled, preventing the value from being updated.</p>
-			</div>
+                Triggered during increment/decrement (to determine direction of spin compare current value with <code>ui.value</code>).
+                <p>Can be canceled, preventing the value from being updated.</p>
+            </div>
 <ul>
 <li>
 <div><strong>event</strong></div>
@@ -513,8 +513,8 @@
 <h3>start( event, ui )<span class="returns">Type: <code>spinstart</code></span>
 </h3>
 <div>
-				Triggered before a spin. Can be canceled, preventing the spin from occurring.
-			</div>
+                Triggered before a spin. Can be canceled, preventing the spin from occurring.
+            </div>
 <ul>
 <li>
 <div><strong>event</strong></div>

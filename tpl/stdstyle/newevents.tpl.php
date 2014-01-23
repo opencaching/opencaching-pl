@@ -3,7 +3,7 @@
 
    Unicode Reminder メモ
 
-	***************************************************************************/
+    ***************************************************************************/
 ?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/event.png" class="icon32" alt="Cache" title="Cache" align="middle"/>&nbsp;{{incomming_events}}</div>
@@ -20,7 +20,7 @@
 <tr>
 <td colspan="7"><hr></hr></td>
 </tr>
-		{file_content}
+        {file_content}
 <tr>
 <td colspan="7"><hr></hr></td>
 </tr>

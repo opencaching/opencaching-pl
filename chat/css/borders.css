@@ -12,16 +12,16 @@
  */
 
 #content img {
-	border:none;
+    border:none;
 }
 #content #chatList, #content #onlineListContainer, #content #helpContainer, #content #settingsContainer, #content #bbCodeContainer, #content #colorCodesContainer, #content #emoticonsContainer, #content #colorCodesContainer a {
-	border-width:1px;
-	border-style:solid;
+    border-width:1px;
+    border-style:solid;
 }
 #content #chatList .deleteSelected {
-	border-width:1px;
-	border-style:dotted;
+    border-width:1px;
+    border-style:dotted;
 }
 #content #helpContainer #helpList table, #content #settingsContainer #settingsList table {
-	border-collapse:collapse;
+    border-collapse:collapse;
 }

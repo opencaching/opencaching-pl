@@ -14,7 +14,7 @@
 <tr>
 <td colspan="6"><hr></hr></td>
 </tr>
-		{newcachesrest}
+        {newcachesrest}
 <tr>
 <td colspan="6"><hr></hr></td>
 </tr>

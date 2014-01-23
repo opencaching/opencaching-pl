@@ -7,9 +7,9 @@
 
 function wgs2u1992 ($lat, $lon) {
 
-//double Brad , Lrad, Lorad ,k, C, firad, Xmer, Ymer, Xgk, Ygk; 
+//double Brad , Lrad, Lorad ,k, C, firad, Xmer, Ymer, Xgk, Ygk;
 
-// stale 
+// stale
 $E=  0.0818191910428;
 $Pi=  3.141592653589793238462643;
 $Pi_2=  1.570796327;  //3.141592653589793238462643 / 2  // Pi / 2
@@ -29,7 +29,7 @@ $a8=  0.00000000000244337624251;
 //#define FE  500000   //False Easting
 //#define FN  0 //False Northing
 
-// uklad 1992 
+// uklad 1992
 $mo=  0.9993;   //wspo#udnik #rodkowy
 $Lo=  19.0;
 $FE=  500000;   //False Easting

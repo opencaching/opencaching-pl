@@ -1,8 +1,8 @@
 <?php
 session_start();
 if(!isset($_SESSION['user_id'])){
-	print 'no hacking please!';
-	exit;
+    print 'no hacking please!';
+    exit;
 }
 require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/powerTrailController.php';
@@ -13,9 +13,9 @@ $projectId = $_REQUEST['projectId'];
 $userId = $_REQUEST['userId'];
 
 if (is_numeric($userId)) {
-	$queryParam = ' user_id = ';
+    $queryParam = ' user_id = ';
 } else {
-	$queryParam = ' username LIKE ';
+    $queryParam = ' username LIKE ';
 }
 $query = 'SELECT user_id, username FROM user WHERE '.$queryParam .' :1';
 $db->multiVariableQuery($query, $userId);
@@ -36,16 +36,16 @@ echo $ptOwners;
 
 function displayPtOwnerList($ptOwners)
 {
-	$ownerList = '';
-	foreach ($ptOwners as $userId => $user) {
-		$ownerList .= '<a href="viewprofile.php?userid='.$userId.'">'.$user['username'].'</a>';
-		if($userId != $_SESSION['user_id']) {
-			$ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt('.$userId.');" src="tpl/stdstyle/images/free_icons/cross.png" width=10 " /></span>, ';
-		} else {
-			$ownerList .= ', ';
-		}
-	}
-	$ownerList = substr($ownerList, 0, -2);
-	return $ownerList;
+    $ownerList = '';
+    foreach ($ptOwners as $userId => $user) {
+        $ownerList .= '<a href="viewprofile.php?userid='.$userId.'">'.$user['username'].'</a>';
+        if($userId != $_SESSION['user_id']) {
+            $ownerList .= '<span style="display: none" class="removeUserIcon"><img onclick="ajaxRemoveUserFromPt('.$userId.');" src="tpl/stdstyle/images/free_icons/cross.png" width=10 " /></span>, ';
+        } else {
+            $ownerList .= ', ';
+        }
+    }
+    $ownerList = substr($ownerList, 0, -2);
+    return $ownerList;
 }
 ?>

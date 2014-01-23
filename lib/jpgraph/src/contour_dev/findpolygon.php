@@ -2,7 +2,7 @@
 require_once '../jpgraph.php';
 require_once '../jpgraph_canvas.php';
 require_once '../jpgraph_canvtools.php';
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -657,7 +657,7 @@ class PixelFill {
                     $this->dataPoints[$row+1][$col+1],
                     $this->dataPoints[$row+1][$col],
                 );
-                
+
                 list($x1,$y1) = $canvas->scale->Translate($col, $row);
                 list($x2,$y2) = $canvas->scale->Translate($col+1, $row+1);
 

@@ -9,12 +9,12 @@
 	***************************************************************************/
 
  /***************************************************************************
-		
+
 		Ggf. muss die Location des php-Binaries angepasst werden.
-		
+
 		Diese Script versendet die am Frontend eingetragenen und in der Table
 		'email_user' zwischengespeicherten Emails an die entsprechenden Adressen.
-		
+
 	***************************************************************************/
 
 	require_once('/opencaching/lib/settings.inc.php');
@@ -43,7 +43,7 @@
 		exit;
 	}
 /* end db connect */
-  
+
 /* begin */
 	$result = sql('SELECT `id`, `to_email`, `send_emailaddress`, `from_email`, `mail_subject`, `mail_text` FROM `email_user` WHERE `date_sent`=0');
 
@@ -52,7 +52,7 @@
 		$headers = '';
 		$to_email = ($debug == true) ? $debug_mailto : $row['to_email'];
 
-		if ($row['send_emailaddress'] == '1') // send emailaddress 
+		if ($row['send_emailaddress'] == '1') // send emailaddress
 		{
 			$headers .= 'From: "' . $mailfrom . '" <' . $emailaddr . ">\n";
 			$headers .= 'Return-Path: ' . $row['from_email'] . "\n";
@@ -69,7 +69,7 @@
 		{
 			// Kopie an Sender
 			mail($row['from_email'], $row['mail_subject'], $row['mail_text'], $headers);
-			
+
 			$upd_result = sql('UPDATE `email_user` SET `mail_text`=\'[Delivered]\', `date_sent`=NOW() WHERE `id`=\'' . addslashes($row['id']) . '\'');
 		}
 	}

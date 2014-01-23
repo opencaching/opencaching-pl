@@ -13,15 +13,15 @@ if (Garmin == undefined) var Garmin = {};
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @fileoverview Garmin.Measurement - A datastructure designed to contain a single data measurement.
- * 
+ *
  * @author Bobby Yang bobby.yang.at.garmin.com
  * @version 1.0
  */
 /**Represent a real measurement.
  * @class Garmin.Measurement
- * @constructor 
+ * @constructor
  * @param value - value of the measurement
  * @param context - the context of the measurement (feet, seconds, etc...)
  */
@@ -29,36 +29,36 @@ Garmin.Measurement = function(value, context){};
 Garmin.Measurement = Class.create();
 Garmin.Measurement.prototype = {
 
-	initialize: function(value, context) {
-		this.value = value;
-		this.context = context;
-	},
-	
-	getContext: function() {
-		return this.context;
-	},
-	
-	setContext: function(context) {
-		this.context = context;
-	},
-	
-	getValue: function() {
-		return this.value;
-	},
-	
-	setValue: function(value) {
-		this.value = value;
-	},
-	
-	printMe: function(tabs) {
-		var output = "";
-		output += tabs + "  [Measurement]\n";
-		output += tabs + "    value: " + this.value + '\n';
-		//output += tabs + "    context: " + this.context + '\n';
-		return output;
-	},
-	
-	toString: function() {
-		return this.value + " " + this.context;
-	}
+    initialize: function(value, context) {
+        this.value = value;
+        this.context = context;
+    },
+
+    getContext: function() {
+        return this.context;
+    },
+
+    setContext: function(context) {
+        this.context = context;
+    },
+
+    getValue: function() {
+        return this.value;
+    },
+
+    setValue: function(value) {
+        this.value = value;
+    },
+
+    printMe: function(tabs) {
+        var output = "";
+        output += tabs + "  [Measurement]\n";
+        output += tabs + "    value: " + this.value + '\n';
+        //output += tabs + "    context: " + this.context + '\n';
+        return output;
+    },
+
+    toString: function() {
+        return this.value + " " + this.context;
+    }
 };

@@ -19,18 +19,18 @@ div.viewcache-pictureblock { float: left; }
 
 div.viewcache-pictureblock span.title { display: block; max-width: 175px; padding-left: 10px; padding-right: 5px;clear: left; font-size: 12px;}
 div.frame {
-	width: 94%;
-	margin: 5px;
-	padding: 5px; 	border: solid 1px rgb(219,230,241);
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
+    width: 94%;
+    margin: 5px;
+    padding: 5px;   border: solid 1px rgb(219,230,241);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 
 .img-shadow {
   float:left;
   background: url(shadowAlpha.png) no-repeat bottom right !important;
 /*  background: url(shadow.gif) no-repeat bottom right;*/
-/*	background-color: red;*/
+/*  background-color: red;*/
   margin: 10px 0 0 10px !important;
   margin: 10px 0 0 5px;
   }
@@ -45,8 +45,8 @@ div.frame {
 }
 
 @media print {
-	/* Arkusz dla wydruku */
-	.text_gray {
-		display: none;
-	}
+    /* Arkusz dla wydruku */
+    .text_gray {
+        display: none;
+    }
 }

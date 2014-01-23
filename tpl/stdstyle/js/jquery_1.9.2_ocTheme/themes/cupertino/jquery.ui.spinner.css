@@ -18,6 +18,6 @@
 
 /* TR overrides */
 .ui-spinner .ui-icon-triangle-1-s {
-	/* need to fix icons sprite */
-	background-position:-65px -16px;
+    /* need to fix icons sprite */
+    background-position:-65px -16px;
 }

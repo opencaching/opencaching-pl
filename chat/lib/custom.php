@@ -5,7 +5,7 @@
  * @copyright (c) Sebastian Tschan
  * @license GNU Affero General Public License
  * @link https://blueimp.net/ajax/
- * 
+ *
  * MyBB integration:
  * http://www.mybboard.net/
  */

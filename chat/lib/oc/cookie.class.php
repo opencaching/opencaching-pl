@@ -7,78 +7,78 @@
  *  Cookie handling
  ***************************************************************************/
 
-	$cookie = new cookie();
+    $cookie = new cookie();
 
 class cookie
 {
-	var $changed = false;
-	var $values = array();
+    var $changed = false;
+    var $values = array();
 
-	function cookie()
-	{
-		global $opt;
+    function cookie()
+    {
+        global $opt;
 
-		if (isset($_COOKIE[$opt['cookie']['name'] . 'data']))
-		{
-			//get the cookievars-array
-			$decoded = base64_decode($_COOKIE[$opt['cookie']['name'] . 'data']);
-			
-			if ($decoded !== false)
-			{
-				$this->values = @unserialize($decoded);
-				if (!is_array($this->values))
-					$this->values = array();
-			}
-			else
-				$this->values = array();
-		}
-	}
+        if (isset($_COOKIE[$opt['cookie']['name'] . 'data']))
+        {
+            //get the cookievars-array
+            $decoded = base64_decode($_COOKIE[$opt['cookie']['name'] . 'data']);
 
-	function set($name, $value)
-	{
-		if (!isset($this->values[$name]) || $this->values[$name] != $value)
-		{
-			$this->values[$name] = $value;
-			$this->changed = true;
-		}
-	}
-	
-	function get($name)
-	{
-		return isset($this->values[$name]) ? $this->values[$name] : '';
-	}
+            if ($decoded !== false)
+            {
+                $this->values = @unserialize($decoded);
+                if (!is_array($this->values))
+                    $this->values = array();
+            }
+            else
+                $this->values = array();
+        }
+    }
 
-	function is_set($name)
-	{
-		return isset($this->values[$name]);
-	}
+    function set($name, $value)
+    {
+        if (!isset($this->values[$name]) || $this->values[$name] != $value)
+        {
+            $this->values[$name] = $value;
+            $this->changed = true;
+        }
+    }
 
-	function un_set($name)
-	{
-		if (isset($this->values[$name]))
-		{
-			unset($this->values[$name]);
-			$this->changed = true;
-		}
-	}
+    function get($name)
+    {
+        return isset($this->values[$name]) ? $this->values[$name] : '';
+    }
 
-	function header()
-	{
-		global $opt;
+    function is_set($name)
+    {
+        return isset($this->values[$name]);
+    }
 
-		if ($this->changed == true)
-		{
-			if (count($this->values) == 0)
-				setcookie($opt['cookie']['name'] . 'data', false, time() + 31536000, $opt['cookie']['path'], $opt['cookie']['domain'], 0);
-			else
-				setcookie($opt['cookie']['name'] . 'data', base64_encode(serialize($this->values)), time() + 31536000, $opt['cookie']['path'], $opt['cookie']['domain'], 0);
-		}
-	}
-	
-	function debug()
-	{
-		print_r($this->values);
-		exit;
-	}
+    function un_set($name)
+    {
+        if (isset($this->values[$name]))
+        {
+            unset($this->values[$name]);
+            $this->changed = true;
+        }
+    }
+
+    function header()
+    {
+        global $opt;
+
+        if ($this->changed == true)
+        {
+            if (count($this->values) == 0)
+                setcookie($opt['cookie']['name'] . 'data', false, time() + 31536000, $opt['cookie']['path'], $opt['cookie']['domain'], 0);
+            else
+                setcookie($opt['cookie']['name'] . 'data', base64_encode(serialize($this->values)), time() + 31536000, $opt['cookie']['path'], $opt['cookie']['domain'], 0);
+        }
+    }
+
+    function debug()
+    {
+        print_r($this->values);
+        exit;
+    }
 }
 ?>

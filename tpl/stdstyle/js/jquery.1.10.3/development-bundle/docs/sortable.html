@@ -1,31 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>jQuery UI sortable documentation</title>
+    <meta charset="utf-8">
+    <title>jQuery UI sortable documentation</title>
 
-	<style>
-	body {
-		font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
-	}
-	.gutter {
-		display: none;
-	}
-	</style>
+    <style>
+    body {
+        font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
+    }
+    .gutter {
+        display: none;
+    }
+    </style>
 </head>
 <body>
 
 <script>{
-		"title":
-			"Sortable Widget",
-		"excerpt":
-			"Reorder elements in a list or grid using the mouse.",
-		"termSlugs": {
-			"category": [
-				"interactions"
-			]
-		}
-	}</script><article id="sortable1" class="entry widget"><h2 class="section-title">
+        "title":
+            "Sortable Widget",
+        "excerpt":
+            "Reorder elements in a list or grid using the mouse.",
+        "termSlugs": {
+            "category": [
+                "interactions"
+            ]
+        }
+    }</script><article id="sortable1" class="entry widget"><h2 class="section-title">
 <span>Sortable Widget</span><span class="version-details">version added: 1.0</span>
 </h2>
 <div class="entry-wrapper">
@@ -88,9 +88,9 @@
 <div><a href="#event-activate">activate</a></div>
 <div><a href="#event-deactivate">deactivate</a></div>
 </div></section><div class="longdesc" id="entry-longdesc">
-		<p>The jQuery UI Sortable plugin makes selected elements sortable by dragging with the mouse.</p>
-		<p><em>Note: In order to sort table rows, the <code>tbody</code> must be made sortable, not the <code>table</code>.</em></p>
-	</div>
+        <p>The jQuery UI Sortable plugin makes selected elements sortable by dragging with the mouse.</p>
+        <p><em>Note: In order to sort table rows, the <code>tbody</code> must be made sortable, not the <code>table</code>.</em></p>
+    </div>
 <section id="options"><header><h2 class="underline">Options</h2></header><div id="option-appendTo" class="api-item first-item">
 <h3>appendTo<span class="option-type"><strong>Type: </strong><a href="http://api.jquery.com/Types#jQuery">jQuery</a> or <a href="http://api.jquery.com/Types#Element">Element</a> or <a href="http://api.jquery.com/Types#Selector">Selector</a> or <a href="http://api.jquery.com/Types#String">String</a></span>
 </h3>
@@ -156,10 +156,10 @@
 <strong>Default: </strong><code>false</code>
 </div>
 <div>
-				<p>Defines a bounding box that the sortable items are contrained to while dragging.</p>
+                <p>Defines a bounding box that the sortable items are contrained to while dragging.</p>
 
-				<p>Note: The element specified for containment must have a calculated width and height (though it need not be explicit). For example, if you have <code>float: left</code> sortable children and specify <code>containment: "parent"</code> be sure to have <code>float: left</code> on the sortable/parent container as well or it will have <code>height: 0</code>, causing undefined behavior.</p>
-			</div>
+                <p>Note: The element specified for containment must have a calculated width and height (though it need not be explicit). For example, if you have <code>float: left</code> sortable children and specify <code>containment: "parent"</code> be sure to have <code>float: left</code> on the sortable/parent container as well or it will have <code>height: 0</code>, causing undefined behavior.</p>
+            </div>
 <strong>Multiple types supported:</strong><ul>
 <li>
 <strong>Element</strong>: An element to use as the container.</li>
@@ -408,14 +408,14 @@
 <strong>Default: </strong><code>"intersect"</code>
 </div>
 <div>
-				Specifies which mode to use for testing whether the item being moved is hovering over another item. Possible values:
-				<ul>
-					<li>
+                Specifies which mode to use for testing whether the item being moved is hovering over another item. Possible values:
+                <ul>
+                    <li>
 <code>"intersect"</code>: The item overlaps the other item by at least 50%.</li>
-					<li>
+                    <li>
 <code>"pointer"</code>: The mouse pointer overlaps the other item.</li>
-				</ul>
-			</div>
+                </ul>
+            </div>
 <strong>Code examples:</strong><p>Initialize the sortable with the tolerance option specified:</p>
 <div class="syntaxhighlighter nogutter  "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain">$( </code><code class="string">".selector"</code> <code class="plain">).sortable({ tolerance: </code><code class="string">"pointer"</code> <code class="plain">});</code></div></div></td></tr></tbody></table></div>
 <p>Get or set the tolerance option, after initialization:</p>
@@ -444,8 +444,8 @@
 <div id="method-destroy"><div class="api-item">
 <h3>destroy()</h3>
 <div>
-		Removes the sortable functionality completely. This will return the element back to its pre-init state.
-	</div>
+        Removes the sortable functionality completely. This will return the element back to its pre-init state.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the destroy method:</p>
@@ -455,8 +455,8 @@
 <div id="method-disable"><div class="api-item">
 <h3>disable()</h3>
 <div>
-		Disables the sortable.
-	</div>
+        Disables the sortable.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the disable method:</p>
@@ -466,8 +466,8 @@
 <div id="method-enable"><div class="api-item">
 <h3>enable()</h3>
 <div>
-		Enables the sortable.
-	</div>
+        Enables the sortable.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the enable method:</p>
@@ -559,12 +559,12 @@
 <h3>serialize( options )<span class="returns">Returns: <a href="http://api.jquery.com/Types#String">String</a></span>
 </h3>
 <div>
-				<p>Serializes the sortable's item <code>id</code>s into a form/ajax submittable string. Calling this method produces a hash that can be appended to any url to easily submit a new item order back to the server.</p>
+                <p>Serializes the sortable's item <code>id</code>s into a form/ajax submittable string. Calling this method produces a hash that can be appended to any url to easily submit a new item order back to the server.</p>
 
-				<p>It works by default by looking at the <code>id</code> of each item in the format <code>"setname_number"</code>, and it spits out a hash like <code>"setname[]=number&amp;setname[]=number"</code>.</p>
+                <p>It works by default by looking at the <code>id</code> of each item in the format <code>"setname_number"</code>, and it spits out a hash like <code>"setname[]=number&amp;setname[]=number"</code>.</p>
 
-				<p><em>Note: If serialize returns an empty string, make sure the <code>id</code> attributes include an underscore.  They must be in the form: <code>"set_number"</code> For example, a 3 element list with <code>id</code> attributes <code>"foo_1"</code>, <code>"foo_5"</code>, <code>"foo_2"</code> will serialize to <code>"foo[]=1&amp;foo[]=5&amp;foo[]=2"</code>. You can use an underscore, equal sign or hyphen to separate the set and number. For example <code>"foo=1"</code>, <code>"foo-1"</code>, and <code>"foo_1"</code> all serialize to <code>"foo[]=1"</code>.</em></p>
-			</div>
+                <p><em>Note: If serialize returns an empty string, make sure the <code>id</code> attributes include an underscore.  They must be in the form: <code>"set_number"</code> For example, a 3 element list with <code>id</code> attributes <code>"foo_1"</code>, <code>"foo_5"</code>, <code>"foo_2"</code> will serialize to <code>"foo[]=1&amp;foo[]=5&amp;foo[]=2"</code>. You can use an underscore, equal sign or hyphen to separate the set and number. For example <code>"foo=1"</code>, <code>"foo-1"</code>, and <code>"foo_1"</code> all serialize to <code>"foo[]=1"</code>.</em></p>
+            </div>
 <ul><li>
 <div><strong>options</strong></div>
 <div>Type: <a href="http://api.jquery.com/Types#Object">Object</a>
@@ -613,8 +613,8 @@
 <h3>widget()<span class="returns">Returns: <a href="http://api.jquery.com/Types#jQuery">jQuery</a></span>
 </h3>
 <div>
-		Returns a <code>jQuery</code> object containing the sortable element.
-	</div>
+        Returns a <code>jQuery</code> object containing the sortable element.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the widget method:</p>
@@ -822,8 +822,8 @@
 <h3>create( event, ui )<span class="returns">Type: <code>sortcreate</code></span>
 </h3>
 <div>
-		Triggered when the sortable is created.
-	</div>
+        Triggered when the sortable is created.
+    </div>
 <ul>
 <li>
 <div><strong>event</strong></div>

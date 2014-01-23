@@ -1,43 +1,43 @@
 <?php
 /***************************************************************************
-	*                                         				                                
-	*   This program is free software; you can redistribute it and/or modify  	
-	*   it under the terms of the GNU General Public License as published by  
-	*   the Free Software Foundation; either version 2 of the License, or	    	
-	*   (at your option) any later version.
-	*   
-	*  UTF-8 ąść
-	***************************************************************************/
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    *  UTF-8 ąść
+    ***************************************************************************/
 ?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <script language="javascript" type="text/javascript">
 <!--
 
 function check_logs(){
-	if (document.myroute_form.cache_log[1].checked == true) {
-		if (isNaN(document.myroute_form.nrlogs.value)) {
-			alert("Minimalna ilość logów musi być cyfrą!");
-			return false;
-		} else if (document.myroute_form.nrlogs.value <= 0 || document.myroute_form.nrlogs.value > 999) {
-			alert("Dozwolona wartość minimalnej ilości logów musi być z zakresu: 0 - 999");
-			return false;
-		}
-	}
-	return true;
+    if (document.myroute_form.cache_log[1].checked == true) {
+        if (isNaN(document.myroute_form.nrlogs.value)) {
+            alert("Minimalna ilość logów musi być cyfrą!");
+            return false;
+        } else if (document.myroute_form.nrlogs.value <= 0 || document.myroute_form.nrlogs.value > 999) {
+            alert("Dozwolona wartość minimalnej ilości logów musi być z zakresu: 0 - 999");
+            return false;
+        }
+    }
+    return true;
 }
 function sync_options(element)
 {
-	var nlogs = 0;
-	if (document.forms['myroute_form'].cache_log[0].checked == true) {
-		document.forms['myroute_form'].nrlogs.disabled = 'disabled';
-		nlogs = 0;
-	}
-	else if (document.forms['myroute_form'].cache_log[1].checked == true) {
-		document.forms['myroute_form'].nrlogs.disabled = false;
-		nlogs = document.forms['myroute_form'].nrlogs.value;
-	}
-		document.forms['myroute_form'].logs.value = nlogs;
-}	
+    var nlogs = 0;
+    if (document.forms['myroute_form'].cache_log[0].checked == true) {
+        document.forms['myroute_form'].nrlogs.disabled = 'disabled';
+        nlogs = 0;
+    }
+    else if (document.forms['myroute_form'].cache_log[1].checked == true) {
+        document.forms['myroute_form'].nrlogs.disabled = false;
+        nlogs = document.forms['myroute_form'].nrlogs.value;
+    }
+        document.forms['myroute_form'].logs.value = nlogs;
+}
 //-->
 </script>
 
@@ -60,7 +60,7 @@ function sync_options(element)
 <tr>
 <td colspan="8"><hr></hr></td>
 </tr>
-		{file_content}
+        {file_content}
 <tr>
 <td colspan="8"><hr></hr></td>
 </tr>
@@ -70,23 +70,23 @@ function sync_options(element)
 {list_empty_start}
 <div class="searchdiv">
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
-	<tr>
-			<td class="content-title-noshade" style="font-size:14px;">{{logs_cache_gpx}}:</td></tr>
+    <tr>
+            <td class="content-title-noshade" style="font-size:14px;">{{logs_cache_gpx}}:</td></tr>
 <tr>
-			<td class="content-title-noshade" style="font-size:12px;" colspan="2">
-				<input type="radio" name="cache_log" value="0" tabindex="0" id="l_all_logs_caches" class="radio" onclick="javascript:sync_options(this)" {all_logs_caches} /> <label for="l_all_logs_caches">{{show_all_log_entries}}</label>&nbsp;
-				<input type="radio" name="cache_log" value="1" tabindex="1" id="l_minl_caches" class="radio" onclick="javascript:sync_options(this)" {min_logs_caches} /> <label for="l_minl_caches">{{min_logs_cache}}</label>&nbsp;
-				<input type="text" name="nrlogs" value="{nrlogs}" maxlength="3" class="input50" onchange="javascript:sync_options(this)" {min_logs_caches_disabled}/>
-			</td>
-		</tr>
-	</table>
+            <td class="content-title-noshade" style="font-size:12px;" colspan="2">
+                <input type="radio" name="cache_log" value="0" tabindex="0" id="l_all_logs_caches" class="radio" onclick="javascript:sync_options(this)" {all_logs_caches} /> <label for="l_all_logs_caches">{{show_all_log_entries}}</label>&nbsp;
+                <input type="radio" name="cache_log" value="1" tabindex="1" id="l_minl_caches" class="radio" onclick="javascript:sync_options(this)" {min_logs_caches} /> <label for="l_minl_caches">{{min_logs_cache}}</label>&nbsp;
+                <input type="text" name="nrlogs" value="{nrlogs}" maxlength="3" class="input50" onchange="javascript:sync_options(this)" {min_logs_caches_disabled}/>
+            </td>
+        </tr>
+    </table>
 </div>
 {list_empty_end}
 <br/>
-			<button type="submit" name="back" value="back" style="font-size:12px;width:160px"><b>{{back}}</b></button>&nbsp;&nbsp;
+            <button type="submit" name="back" value="back" style="font-size:12px;width:160px"><b>{{back}}</b></button>&nbsp;&nbsp;
 {list_empty_start}
-			<button type="submit" name="submit_gpx" value="submit_gpx" style="font-size:12px;width:160px"><b>{{save_gpx}}</b></button>
-			<button type="submit" name="submit_gpx_with_photos" value="submit_gpx_with_photos" style="font-size:12px;width:160px"><b>{{save_gpx_with_photos}}</b></button>
-{list_empty_end}			
-			<br/><br/><br/>
+            <button type="submit" name="submit_gpx" value="submit_gpx" style="font-size:12px;width:160px"><b>{{save_gpx}}</b></button>
+            <button type="submit" name="submit_gpx_with_photos" value="submit_gpx_with_photos" style="font-size:12px;width:160px"><b>{{save_gpx_with_photos}}</b></button>
+{list_empty_end}
+            <br/><br/><br/>
 </form>

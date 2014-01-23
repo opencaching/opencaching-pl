@@ -8,11 +8,11 @@
  */
 
 // Define AJAX Chat user roles:
-define('AJAX_CHAT_CHATBOT',		4);
-define('AJAX_CHAT_ADMIN',		3);
-define('AJAX_CHAT_MODERATOR',	2);
-define('AJAX_CHAT_USER',		1);
-define('AJAX_CHAT_GUEST',		0);
+define('AJAX_CHAT_CHATBOT',     4);
+define('AJAX_CHAT_ADMIN',       3);
+define('AJAX_CHAT_MODERATOR',   2);
+define('AJAX_CHAT_USER',        1);
+define('AJAX_CHAT_GUEST',       0);
 
 // AJAX Chat config parameters:
 $config = array();
@@ -34,10 +34,10 @@ $config['dbConnection']['link'] = null;
 
 // Database table names:
 $config['dbTableNames'] = array();
-$config['dbTableNames']['online']		= 'ajax_chat_online';
-$config['dbTableNames']['messages']		= 'ajax_chat_messages';
-$config['dbTableNames']['bans']			= 'ajax_chat_bans';
-$config['dbTableNames']['invitations']	= 'ajax_chat_invitations';
+$config['dbTableNames']['online']       = 'ajax_chat_online';
+$config['dbTableNames']['messages']     = 'ajax_chat_messages';
+$config['dbTableNames']['bans']         = 'ajax_chat_bans';
+$config['dbTableNames']['invitations']  = 'ajax_chat_invitations';
 
 // Available languages:
 $config['langAvailable'] = array('ar','bg','bp','ca','cy','cz','de','dk','el','en','es','et','fi','fr','gl','he','hr','hu','in','it','ka','kr','ja','nl','no','pl','ro','ru','sk','sl','sr','sv','tr','uk','zh','zh-tw');
@@ -45,9 +45,9 @@ $config['langAvailable'] = array('ar','bg','bp','ca','cy','cz','de','dk','el','e
 $config['langDefault'] = 'en';
 // Language names:
 $config['langNames'] = array('ar'=>'عربي','bg'=>'Български','bp'=>'Português (Brasil)','ca'=>'Català','cy'=>'Cymraeg','cz'=>'Česky','de'=>'Deutsch','dk'=>'Dansk','el'=>'Ελληνικα','en'=>'English','es'=>'Español',
-	'et'=>'Eesti','fi'=>'Suomi','fr'=>'Français','gl'=>'Galego','he'=>'עברית','hr' => 'Hrvatski','hu' => 'Magyar','in'=>'Bahasa Indonesia','it'=>'Italiano','ja'=>'日本語','ka'=>'ქართული','kr'=>'한 글','nl'=>'Nederlands',
-	'no'=>'Norsk','pl'=> 'Polski','ro'=>'România','ru'=>'Русский','sk'=> 'Slovenčina','sl'=>'Slovensko','sr'=>'Srpski','sv'=> 'Svenska','tr'=>'Türkçe','uk'=>'Українська','zh'=>'中文 (简体)','zh- tw'=>'中文 (繁體)');
-	
+    'et'=>'Eesti','fi'=>'Suomi','fr'=>'Français','gl'=>'Galego','he'=>'עברית','hr' => 'Hrvatski','hu' => 'Magyar','in'=>'Bahasa Indonesia','it'=>'Italiano','ja'=>'日本語','ka'=>'ქართული','kr'=>'한 글','nl'=>'Nederlands',
+    'no'=>'Norsk','pl'=> 'Polski','ro'=>'România','ru'=>'Русский','sk'=> 'Slovenčina','sl'=>'Slovensko','sr'=>'Srpski','sv'=> 'Svenska','tr'=>'Türkçe','uk'=>'Українська','zh'=>'中文 (简体)','zh- tw'=>'中文 (繁體)');
+
 // Available styles:
 $config['styleAvailable'] = array('beige','black','grey','Oxygen','Lithium','Sulfur','Cobalt','Mercury','Radium','prosilver','subsilver2','subblack2','subSilver','Core','MyBB','vBulletin');
 // Default style:

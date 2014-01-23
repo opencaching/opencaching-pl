@@ -2,8 +2,8 @@
 session_start();
 //ajaxRetreiveRegionByCoordinates.php
 if(!isset($_SESSION['user_id'])){
-	print 'no hacking please!';
-	exit;
+    print 'no hacking please!';
+    exit;
 }
 require_once __DIR__.'/region_class.php';
 

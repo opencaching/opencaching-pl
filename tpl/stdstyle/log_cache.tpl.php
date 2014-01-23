@@ -1,14 +1,14 @@
 <?php
 
 /***************************************************************************
-	*
-	*   This program is free software; you can redistribute it and/or modify
-	*   it under the terms of the GNU General Public License as published by
-	*   the Free Software Foundation; either version 2 of the License, or
-	*   (at your option) any later version.
-	*
-	*  UTF8 remaider śąłó
-	***************************************************************************/
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    *  UTF8 remaider śąłó
+    ***************************************************************************/
 
 
 require_once('./lib/common.inc.php');
@@ -24,81 +24,81 @@ function subs_days (days_number) {
  var d_yr = document.getElementById('logyear').value ;
  var d = new Date (d_yr, d_mn , d_day - days_number , 0, 0,0);
 
- 
+
  //alert(d);
- if (isNaN(d)==false) 
+ if (isNaN(d)==false)
     {
-		
-		var d_now = +new Date;
-		if (d <=d_now ) 
- 		{
- 		 document.getElementById('logday').value = d.getDate();
- 		 document.getElementById('logmonth').value = d.getMonth()+1;
-		 document.getElementById('logyear').value = d.getFullYear();
-		}	;
-	};
+
+        var d_now = +new Date;
+        if (d <=d_now )
+        {
+         document.getElementById('logday').value = d.getDate();
+         document.getElementById('logmonth').value = d.getMonth()+1;
+         document.getElementById('logyear').value = d.getFullYear();
+        }   ;
+    };
 };
 
 function do_reset() {
-		if(!confirm("{Do_reset_logform}")) 
-		{
-			return false;
-		} else {
-			var frm = document.getElementById("logform");
-			
-			frm.reset();
-			//window.location.reload();
-			document.getElementById( 'logtype' ).onchange();
-		
-			handle_score_note();
-			var GKBox = document.getElementById("toggleGeoKretyDIV");
-			GKBox.style.display = "none";
-			return true;
-		};
-				
+        if(!confirm("{Do_reset_logform}"))
+        {
+            return false;
+        } else {
+            var frm = document.getElementById("logform");
+
+            frm.reset();
+            //window.location.reload();
+            document.getElementById( 'logtype' ).onchange();
+
+            handle_score_note();
+            var GKBox = document.getElementById("toggleGeoKretyDIV");
+            GKBox.style.display = "none";
+            return true;
+        };
+
 };
 
 function onSubmitHandler()
 {
 
-	handle_score_note();
-	if(document.getElementById('logtext').value.length == 0) {
-		
-	}	
-	var length;
-	if(tinyMCE && tinyMCE.get('logtext')) {
-		length = tinyMCE.get('logtext').getContent().length;
-	}
-	else  {
-		length = document.getElementById('logtext').value.length;
-	}
-	if(length == 0) {
-		if(!confirm("{{empty_entry_confirm}}"))
-			return false;
-	}
-	
+    handle_score_note();
+    if(document.getElementById('logtext').value.length == 0) {
+
+    }
+    var length;
+    if(tinyMCE && tinyMCE.get('logtext')) {
+        length = tinyMCE.get('logtext').getContent().length;
+    }
+    else  {
+        length = document.getElementById('logtext').value.length;
+    }
+    if(length == 0) {
+        if(!confirm("{{empty_entry_confirm}}"))
+            return false;
+    }
+
     var rates = document.getElementsByName('r');
-	var rate_value =-15;
-	for (var i = 0; i < rates.length; i++) {
-				
+    var rate_value =-15;
+    for (var i = 0; i < rates.length; i++) {
+
               if (rates[i].checked) {
                rate_value =  rates[i].value;
-           		};
+                };
           };
-	//alert(rate_value);
+    //alert(rate_value);
 
-	if ((document.getElementById( 'logtype' ).value == 1) && ((rate_value == -10) || (rate_value  == -15)))
-	{
-		if(!confirm("{{empty_mark}}"))
-			return false;
-	}
-	
-			
-	//document.getElementById(obj).disabled = true;
-	//document.logform.submitform.disabled = true;	
-	setTimeout('document.logform.submitform.disabled=true',1);
-	
-	return true;
+    if ((document.getElementById( 'logtype' ).value == 1) && ((rate_value == -10) || (rate_value  == -15)))
+    {
+        if(!confirm("{{empty_mark}}"))
+            return false;
+    }
+
+
+    //document.getElementById(obj).disabled = true;
+    //document.logform.submitform.disabled = true;
+    setTimeout('document.logform.submitform.disabled=true',1);
+
+    return true;
 }
 
 function insertSmiley(parSmiley) {
@@ -130,10 +130,10 @@ function insertSmiley(parSmiley) {
 
 function _chkFound () {
 
-<?php 
+<?php
         $sql = "SELECT count(cache_id) FROM cache_logs WHERE `deleted`=0 AND cache_id = '".sql_escape($_REQUEST['cacheid'])."' AND user_id = '".sql_escape($usr['userid'])."' AND type='1'";
         $tmp = sql($sql);
-		$founds = mysql_result($tmp,0);
+        $founds = mysql_result($tmp,0);
 ?>
 
 
@@ -162,10 +162,10 @@ function toogleLayer( whichLayer, val )
         else if( document.layers )
                 elem = document.layers[whichLayer];
         vis = elem.style;
-        
+
         if(val != '')
         {
-        if (document.logform.logtype.value == "1" || document.logform.logtype.value == "7") 
+        if (document.logform.logtype.value == "1" || document.logform.logtype.value == "7")
                 vis.display = 'block';
         else
                 vis.display = 'none';
@@ -199,33 +199,33 @@ function chkMoved()
 
          var el;
       el='coord_table';
-	  mvd1="wybor_NS";  
-	  mvd2="wsp_NS_st"; 
-	  mvd3="wsp_NS_min";
-	  mvd4="wybor_WE";   
-	  mvd5="wsp_WE_st";  
-	  mvd6="wsp_WE_min"; 
-	  
-      if (document.logform.logtype.value == "4")              
+      mvd1="wybor_NS";
+      mvd2="wsp_NS_st";
+      mvd3="wsp_NS_min";
+      mvd4="wybor_WE";
+      mvd5="wsp_WE_st";
+      mvd6="wsp_WE_min";
+
+      if (document.logform.logtype.value == "4")
        {
-	    document.getElementById(el).style.display='block';
-		document.getElementById(mvd1).disabled=false;
+        document.getElementById(el).style.display='block';
+        document.getElementById(mvd1).disabled=false;
         document.getElementById(mvd2).disabled=false;
-		document.getElementById(mvd3).disabled=false;
-		document.getElementById(mvd4).disabled=false;
-		document.getElementById(mvd5).disabled=false;
-		document.getElementById(mvd6).disabled=false;
-       } 
-	  else 
-	  {
-	   document.getElementById(el).style.display='none';
-	   document.getElementById(mvd1).disabled=true;
-	   document.getElementById(mvd2).disabled=true; 
-	   document.getElementById(mvd3).disabled=true; 
-	   document.getElementById(mvd4).disabled=true; 
-	   document.getElementById(mvd5).disabled=true; 
-	   document.getElementById(mvd6).disabled=true;   
-	  }
+        document.getElementById(mvd3).disabled=false;
+        document.getElementById(mvd4).disabled=false;
+        document.getElementById(mvd5).disabled=false;
+        document.getElementById(mvd6).disabled=false;
+       }
+      else
+      {
+       document.getElementById(el).style.display='none';
+       document.getElementById(mvd1).disabled=true;
+       document.getElementById(mvd2).disabled=true;
+       document.getElementById(mvd3).disabled=true;
+       document.getElementById(mvd4).disabled=true;
+       document.getElementById(mvd5).disabled=true;
+       document.getElementById(mvd6).disabled=true;
+      }
 }
 //-->
 
@@ -238,32 +238,32 @@ theInput.value = theInput.defaultValue;
 function GkActionMoved(kret)
     {
        var mode = document.logform.GeoKretSelector1.value;
-	   gk = "GKtxt" + kret;  
-	   sel = "GeoKretSelector" + kret;
-		  
-      // if (document.logform.GeoKretSelector1.value != -1) 
-      if (document.getElementById(sel).value == -1)             
+       gk = "GKtxt" + kret;
+       sel = "GeoKretSelector" + kret;
+
+      // if (document.logform.GeoKretSelector1.value != -1)
+      if (document.getElementById(sel).value == -1)
        {
-		document.getElementById(gk).style.display='none';
-       } 
-	  else 
-	  {
-	   document.getElementById(gk).style.display='inline';
-	  }
+        document.getElementById(gk).style.display='none';
+       }
+      else
+      {
+       document.getElementById(gk).style.display='inline';
+      }
 }
 
 function toggleGeoKrety() {
-	var GKBox = document.getElementById("toggleGeoKretyDIV");
+    var GKBox = document.getElementById("toggleGeoKretyDIV");
 
-	if(GKBox.style.display == "block") 
-	 {
-		GKBox.style.display = "none";
- 	 }
-	else 
-	 {
-		GKBox.style.display = "block";
-	 }
-} 
+    if(GKBox.style.display == "block")
+     {
+        GKBox.style.display = "none";
+     }
+    else
+     {
+        GKBox.style.display = "block";
+     }
+}
 
 
 
@@ -278,7 +278,7 @@ tinymce.init({
     width: 600,
     height: 350,
     menubar: false,
-	toolbar_items_size: 'small',
+    toolbar_items_size: 'small',
     language : "{language4js}",
     gecko_spellcheck : true,
     toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
@@ -293,14 +293,14 @@ tinymce.init({
  });
 
 $(function() {
-	$('#scriptwarning').hide();
-	
-	// $.datepicker.setDefaults($.datepicker.regional['pl']);
+    $('#scriptwarning').hide();
+
+    // $.datepicker.setDefaults($.datepicker.regional['pl']);
     // $('#hiddenDatePicker, #activateDatePicker').datepicker({
-		// dateFormat: 'yy-mm-dd',
-		// regional: '{language4js}'
-	// }).val();
-}); 
+        // dateFormat: 'yy-mm-dd',
+        // regional: '{language4js}'
+    // }).val();
+});
 
 </script>
 
@@ -310,63 +310,63 @@ $(function() {
 <input id="descMode" type="hidden" name="descMode" value="3" />
 
 <table class="content">
-	<tr>
-		<td class="content2-pagetitle" colspan="2">
-			<img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Cache" align="middle" />
-			<b>{{post_new_log}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
-		</td>
-	</tr>
-		<tr>
-			<br /><span id="scriptwarning" class="errormsg">{{pt129}}.</span><br />
-		</td>
-	</tr>
+    <tr>
+        <td class="content2-pagetitle" colspan="2">
+            <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Cache" align="middle" />
+            <b>{{post_new_log}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></b>
+        </td>
+    </tr>
+        <tr>
+            <br /><span id="scriptwarning" class="errormsg">{{pt129}}.</span><br />
+        </td>
+    </tr>
 </table>
 <div class="searchdiv">
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr>
-		<td colspan="2"><div class="notice" style="width: 500px;">{{report_problem_notice}} <img src="/tpl/stdstyle/images/blue/arrow.png" alt="" title=""/>&nbsp; <a class="links" href="reportcache.php?cacheid={cacheid}">{{report_problem}}</a> </div></td>
-	</tr>
-        <tr>                                                                                                                                                                                                                                 
-	                <td colspan="2"><div class="notice" style="width:500px;height:44px">{{empty_entry_notice}}</div></td>                                                                                                                                                                                                 
-			        </tr> 
-	<tr>
-		<td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
-		<td>
-			<select onLoad="javascript:toogleLayer('ocena');" name="logtype" id="logtype" onChange="toogleLayer('ocena');">
-				{logtypeoptions}
-			</select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">
-			<br />{log_message}
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	
-	
-	<tr>
-		<td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{date_logged}}:</strong></td>
-		<td>
-			<img src="tpl/stdstyle/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
-			<input class="input20" type="text" id="logday" name="logday" maxlength="2" value="{logday}"/>.
-			<input class="input20" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
-			<input class="input40" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
-			<img src="tpl/stdstyle/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
-			
-			  &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
-			<input class="input20" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
-			<br />{date_message}
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	{rating_message} 
-	<tr><td class="spacer" colspan="2"></td></tr>
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr>
+        <td colspan="2"><div class="notice" style="width: 500px;">{{report_problem_notice}} <img src="/tpl/stdstyle/images/blue/arrow.png" alt="" title=""/>&nbsp; <a class="links" href="reportcache.php?cacheid={cacheid}">{{report_problem}}</a> </div></td>
+    </tr>
+        <tr>
+                    <td colspan="2"><div class="notice" style="width:500px;height:44px">{{empty_entry_notice}}</div></td>
+                    </tr>
+    <tr>
+        <td width="180px"><img src="tpl/stdstyle/images/free_icons/page_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{type_of_log}}:</strong></td>
+        <td>
+            <select onLoad="javascript:toogleLayer('ocena');" name="logtype" id="logtype" onChange="toogleLayer('ocena');">
+                {logtypeoptions}
+            </select>&nbsp;&nbsp;<img name='actionicon' src='' align="top" alt="">
+            <br />{log_message}
+        </td>
+    </tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
+
+
+    <tr>
+        <td width="180px"><img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{date_logged}}:</strong></td>
+        <td>
+            <img src="tpl/stdstyle/images/free_icons/date_previous.png" alt ="{{lc_Day_before}}" title="{{lc_Day_before}}" onclick="subs_days(1);"/>
+            <input class="input20" type="text" id="logday" name="logday" maxlength="2" value="{logday}"/>.
+            <input class="input20" type="text" id="logmonth" name="logmonth" maxlength="2" value="{logmonth}"/>.
+            <input class="input40" type="text" id="logyear" name="logyear" maxlength="4" value="{logyear}"/>
+            <img src="tpl/stdstyle/images/free_icons/date_next.png" alt ="{{lc_Day_after}}" title="{{lc_Day_after}}" onclick="subs_days(-1);"/>
+
+              &nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/clock.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}} :  <input class="input20" type="text" name="loghour" maxlength="2" value="{loghour}"/> HH (0-23)
+            <input class="input20" type="text" name="logmin" maxlength="2" value="{logmin}"/> MM (0-60)
+            <br />{date_message}
+        </td>
+    </tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
+    {rating_message}
+    <tr><td class="spacer" colspan="2"></td></tr>
 </table>
 
 <div class="content" id="ocena" style="display:{display};">
 <table class="content" style="font-size: 12px; line-height: 1.6em;" border="0">
-	<tr>
-		<td width="180px" valign="top"><img src="tpl/stdstyle/images/free_icons/star.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{score_header}</b></td>
-		<td width="*">{score}<br/>&nbsp;<span class="notice" style="width:500px;height:44px" id="no_score" name="no_score"  >{score_note_innitial}</span></td>
-	</tr>
+    <tr>
+        <td width="180px" valign="top"><img src="tpl/stdstyle/images/free_icons/star.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{score_header}</b></td>
+        <td width="*">{score}<br/>&nbsp;<span class="notice" style="width:500px;height:44px" id="no_score" name="no_score"  >{score_note_innitial}</span></td>
+    </tr>
 </table>
 <br />
 <!-- GeoKretyApi (by Łza) -->
@@ -388,7 +388,7 @@ $(function() {
     {GeoKretApiSelector2}
    </div>
  </div>
-</div> 
+</div>
 <!-- end of GeoKretyApi (by Łza) -->
 
 </div>
@@ -396,81 +396,81 @@ $(function() {
 <!-- [Łza] logowanie keszynek mobilnych: nowe współrzędne  -->
 <div class="content" id="coord_table" style="display:none;">
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
-	<tr>
-		<td></td>
-		<td><span style="color: red; font-weight:bold;">{coords_not_ok}</span></td>
-	</tr>
-	<tr>
-		<td width="180px">
-		  <img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="" title="" align="middle" /><b>&nbsp;{{nowe_wsp}}</b>
-		  
-		</td>
-		<td>
-		 <select name="wybor_NS"   id="wybor_NS"   disabled="disabled"><option selected="selected">N</option><option>S</option></select>
-		 <input type="text"        id="wsp_NS_st"  name="wsp_NS_st"  size="2" maxlength="2" disabled="disabled" value="{wsp_NS_st}"/>
-		 <input type="text"        id="wsp_NS_min" name="wsp_NS_min" size="6" maxlength="6" disabled="disabled" value="{wsp_NS_min}" onkeyup="this.value=this.value.replace( /,/g,'.' );"/>
+    <tr>
+        <td></td>
+        <td><span style="color: red; font-weight:bold;">{coords_not_ok}</span></td>
+    </tr>
+    <tr>
+        <td width="180px">
+          <img src="tpl/stdstyle/images/log/16x16-moved.png" class="icon16" alt="" title="" align="middle" /><b>&nbsp;{{nowe_wsp}}</b>
+
+        </td>
+        <td>
+         <select name="wybor_NS"   id="wybor_NS"   disabled="disabled"><option selected="selected">N</option><option>S</option></select>
+         <input type="text"        id="wsp_NS_st"  name="wsp_NS_st"  size="2" maxlength="2" disabled="disabled" value="{wsp_NS_st}"/>
+         <input type="text"        id="wsp_NS_min" name="wsp_NS_min" size="6" maxlength="6" disabled="disabled" value="{wsp_NS_min}" onkeyup="this.value=this.value.replace( /,/g,'.' );"/>
          <span style="color: red; font-weight:bold;">{lat_message}</span>
-		 <br />
-		 <select name="wybor_WE"  id="wybor_WE"   disabled="disabled"><option selected="selected">E</option><option>W</option></select>
-		 <input type="text"       id="wsp_WE_st"  name="wsp_WE_st"  size="2" value="{wsp_WE_st}"  maxlength="2" disabled="disabled" />
-		 <input type="text"       id="wsp_WE_min" name="wsp_WE_min" size="6" value="{wsp_WE_min}" maxlength="6" disabled="disabled" onkeyup="this.value=this.value.replace( /,/g,'.' );" />
-		 <span style="color: red; font-weight:bold;">{lon_message}</span>
-		</td>
-		<td width="*">		<br/></td>
-	</tr>
+         <br />
+         <select name="wybor_WE"  id="wybor_WE"   disabled="disabled"><option selected="selected">E</option><option>W</option></select>
+         <input type="text"       id="wsp_WE_st"  name="wsp_WE_st"  size="2" value="{wsp_WE_st}"  maxlength="2" disabled="disabled" />
+         <input type="text"       id="wsp_WE_min" name="wsp_WE_min" size="6" value="{wsp_WE_min}" maxlength="6" disabled="disabled" onkeyup="this.value=this.value.replace( /,/g,'.' );" />
+         <span style="color: red; font-weight:bold;">{lon_message}</span>
+        </td>
+        <td width="*">      <br/></td>
+    </tr>
 </table>
 </div>
 
 
 
 <table class="content" style="font-size: 12px; line-height: 1.6em;">
-	<tr>
-		<td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
-	</tr>
-	<tr>
-		<td>
-			<textarea name="logtext" id="logtext">{logtext}</textarea>
+    <tr>
+        <td colspan="2"><br /><img src="tpl/stdstyle/images/free_icons/page_edit.png" class="icon16" alt="" title="" align="middle" />&nbsp;<strong>{{comments_log}}:</strong><br /></td>
+    </tr>
+    <tr>
+        <td>
+            <textarea name="logtext" id="logtext">{logtext}</textarea>
     </td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			{smilies}
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
+    </tr>
+    <tr>
+        <td colspan="2">
+            {smilies}
+        </td>
+    </tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
 
-		{log_pw_field}
+        {log_pw_field}
 
-	<tr><td class="spacer" colspan="2"></td></tr>
-	{listed_start}
-	<tr>
-		<td colspan="2" width="600px"><strong><img src="tpl/stdstyle/images/free_icons/world_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_other}}:&nbsp;{listed_on}</strong>
-		</td>
-	</tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
+    {listed_start}
+    <tr>
+        <td colspan="2" width="600px"><strong><img src="tpl/stdstyle/images/free_icons/world_go.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_other}}:&nbsp;{listed_on}</strong>
+        </td>
+    </tr>
 
-	<tr><td class="spacer" colspan="2"></td></tr>
-	{listed_end}
-	<tr>
-		<td class="header-small" colspan="2" align="center">
-			<a href="#" class="blueConfirmButton" onclick="return do_reset()">{log_reset_button}</a>
-			<a href="#" class="blueConfirmButton" onclick="event.preventDefault();$(this).closest('form').submit()">{{submit_log_entry}}</a>
-			<input type="hidden" name="submitform" value="{{submit}}" style="width:120px"/>
-		</td>		
-		
-	</tr>
-	<?php if (strpos($_SERVER['HTTP_USER_AGENT'], "Android") !== false) { ?>
-		<tr>
-			<td colspan="2">
-				<div style='background: url(/images/android_notice.png); background-repeat: no-repeat; padding-left: 70px; padding-top: 10px; max-width: 400px; margin: 7px 0 20px 0'>
-					<p style='font-size: 18px; font-weight: bold'>Ułatwienia dla Androida</p>
-					<p>Na <a href='http://forum.opencaching.pl/viewforum.php?f=6'>naszym forum</a> znajdziesz
-					informacje o wielu aplikacjach ułatwiających keszowanie z Androidem. Niektóre z nich są
-					płatne, ale jest też wiele bardzo przydatnych, darmowych aplikacji. Warto
-					<a href='http://forum.opencaching.pl/viewforum.php?f=6'>sprawdzić</a>!</p>
-				</div>
-			</td>
-		</tr>
-	<?php } ?>
+    <tr><td class="spacer" colspan="2"></td></tr>
+    {listed_end}
+    <tr>
+        <td class="header-small" colspan="2" align="center">
+            <a href="#" class="blueConfirmButton" onclick="return do_reset()">{log_reset_button}</a>
+            <a href="#" class="blueConfirmButton" onclick="event.preventDefault();$(this).closest('form').submit()">{{submit_log_entry}}</a>
+            <input type="hidden" name="submitform" value="{{submit}}" style="width:120px"/>
+        </td>
+
+    </tr>
+    <?php if (strpos($_SERVER['HTTP_USER_AGENT'], "Android") !== false) { ?>
+        <tr>
+            <td colspan="2">
+                <div style='background: url(/images/android_notice.png); background-repeat: no-repeat; padding-left: 70px; padding-top: 10px; max-width: 400px; margin: 7px 0 20px 0'>
+                    <p style='font-size: 18px; font-weight: bold'>Ułatwienia dla Androida</p>
+                    <p>Na <a href='http://forum.opencaching.pl/viewforum.php?f=6'>naszym forum</a> znajdziesz
+                    informacje o wielu aplikacjach ułatwiających keszowanie z Androidem. Niektóre z nich są
+                    płatne, ale jest też wiele bardzo przydatnych, darmowych aplikacji. Warto
+                    <a href='http://forum.opencaching.pl/viewforum.php?f=6'>sprawdzić</a>!</p>
+                </div>
+            </td>
+        </tr>
+    <?php } ?>
 </table>
 </div>
 </form>
@@ -481,15 +481,15 @@ function highlight_score_labels () {
   var score_rates = document.getElementsByName('r');
   for(var i = 0; i < score_rates.length; i++)
   {
-  		if (score_rates[i].value!=-15) //do not do for hidden default value
-		{
-	  		var thisLabel = document.getElementById('score_lbl_'+i) ;
-	  		var score_txt = thisLabel.innerHTML;
-	  		score_txt = score_txt.replace('<u>','');
-	  		score_txt = score_txt.replace('</u>','');
-	        if(score_rates[i].checked) {score_txt= '<u>'+score_txt+'</u>';};
-	   		thisLabel.innerHTML = score_txt;
-		};
+        if (score_rates[i].value!=-15) //do not do for hidden default value
+        {
+            var thisLabel = document.getElementById('score_lbl_'+i) ;
+            var score_txt = thisLabel.innerHTML;
+            score_txt = score_txt.replace('<u>','');
+            score_txt = score_txt.replace('</u>','');
+            if(score_rates[i].checked) {score_txt= '<u>'+score_txt+'</u>';};
+            thisLabel.innerHTML = score_txt;
+        };
   }
 }
 
@@ -509,19 +509,19 @@ function handle_score_note () {
  var score_rates = document.getElementsByName('r');
   for(var i = 0; i < score_rates.length; i++)
   {
-  	if (score_rates[i].checked) 
-		{
-			//alert(i);
-			if (score_rates[i].value == -10) 
-			{
-				encor_no_score ();
-				return;
-			} else {
-				 clear_no_score ();
-				 return;
-			}
-		}
-	
+    if (score_rates[i].checked)
+        {
+            //alert(i);
+            if (score_rates[i].value == -10)
+            {
+                encor_no_score ();
+                return;
+            } else {
+                 clear_no_score ();
+                 return;
+            }
+        }
+
   }
   document.getElementById('no_score').innerHTML="{score_note_innitial}";
   highlight_score_labels();

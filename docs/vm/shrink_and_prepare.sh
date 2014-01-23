@@ -3,8 +3,8 @@
 echo "Checking local uncommited changes..."
 if [ `svn st /srv/ocpl | wc -l` -gt 0 ]
 then
-	echo "UNCOMMITED CHANGES DETECTED. CANCELLED."
-	exit 1
+    echo "UNCOMMITED CHANGES DETECTED. CANCELLED."
+    exit 1
 fi
 echo "Stopping services (until next restart)..."
 sudo service cron stop
@@ -35,10 +35,10 @@ cat /dev/zero | pv -s 50g > zero.fill; sync; sleep 1; sync; rm -f zero.fill
 echo "Preparing for shrink (filling swap partition with zeroes)..."
 if [ `cat /proc/swaps | grep "/dev/sda5" | wc -l` -eq 1 ]
 then
-	sudo swapoff /dev/sda5
-	sudo sswap -fllvz /dev/sda5
-	sudo swapon /dev/sda5
+    sudo swapoff /dev/sda5
+    sudo sswap -fllvz /dev/sda5
+    sudo swapon /dev/sda5
 else
-	echo "-> /dev/sda5 is NOT a swap partition on your system, skipping this step."
+    echo "-> /dev/sda5 is NOT a swap partition on your system, skipping this step."
 fi
 echo "Done. (You're ready for `sudo shutdown -P 0`)"

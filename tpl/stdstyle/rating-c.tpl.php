@@ -31,11 +31,11 @@
 
 <body>
 <table width=600 class="content">
-	<colgroup>
-		<col width="100">
-	</colgroup>
-	<tr><td width=600 class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="ABC" title="ABC" align="middle" /><font size="4">  <b>{{rating-c_01}}</b></font></td></tr>
-	<tr><td class="spacer"></td></tr>
+    <colgroup>
+        <col width="100">
+    </colgroup>
+    <tr><td width=600 class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="ABC" title="ABC" align="middle" /><font size="4">  <b>{{rating-c_01}}</b></font></td></tr>
+    <tr><td class="spacer"></td></tr>
 </table>
 
 <table>
@@ -98,7 +98,7 @@
 </tr>
 <tr>
   <td class="even" align="right" nowrap="nowrap">****</td>
-  <td class="even"><?php if ($intTerr == 3) echo '<strong><em>'; ?>{{rating-c_14}}       
+  <td class="even"><?php if ($intTerr == 3) echo '<strong><em>'; ?>{{rating-c_14}}
   <?php if ($intTerr == 3) echo '</em></strong>'; ?></td>
 </tr>
 <tr>
@@ -130,11 +130,11 @@
 
 <body>
 <table width=600 class="content">
-	<colgroup>
-		<col width="100">
-	</colgroup>
-	<tr><td width=600 class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="ABC" title="ABC" align="middle" /><font size="4">  <b>{{rating-c_01}}</b></font></td></tr>
-	<tr><td class="spacer"></td></tr>
+    <colgroup>
+        <col width="100">
+    </colgroup>
+    <tr><td width=600 class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="ABC" title="ABC" align="middle" /><font size="4">  <b>{{rating-c_01}}</b></font></td></tr>
+    <tr><td class="spacer"></td></tr>
 </table>
 
 
@@ -239,19 +239,19 @@
 <tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Overgrowth" value="0" checked></td>
-  <td class="odd">{{rating-c_35}} 
+  <td class="odd">{{rating-c_35}}
       <br /><em></em>
   </td>
 </tr>
 <tr>
   <td class="even" valign="top"><input type="radio" name="Overgrowth" value="1"></td>
-  <td class="even">{{rating-c_36}} 
+  <td class="even">{{rating-c_36}}
       <br /><em></em>
   </td>
 </tr>
 <tr>
   <td class="odd" valign="top"><input type="radio" name="Overgrowth" value="2"></td>
-  <td class="odd">{{rating-c_37}} 
+  <td class="odd">{{rating-c_37}}
       <br /><em></em>
   </td>
 </tr>

@@ -1,31 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>jQuery UI dialog documentation</title>
+    <meta charset="utf-8">
+    <title>jQuery UI dialog documentation</title>
 
-	<style>
-	body {
-		font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
-	}
-	.gutter {
-		display: none;
-	}
-	</style>
+    <style>
+    body {
+        font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
+    }
+    .gutter {
+        display: none;
+    }
+    </style>
 </head>
 <body>
 
 <script>{
-		"title":
-			"Dialog Widget",
-		"excerpt":
-			"Open content in an interactive overlay.",
-		"termSlugs": {
-			"category": [
-				"widgets"
-			]
-		}
-	}</script><article id="dialog1" class="entry widget"><h2 class="section-title">
+        "title":
+            "Dialog Widget",
+        "excerpt":
+            "Open content in an interactive overlay.",
+        "termSlugs": {
+            "category": [
+                "widgets"
+            ]
+        }
+    }</script><article id="dialog1" class="entry widget"><h2 class="section-title">
 <span>Dialog Widget</span><span class="version-details">version added: 1.0</span>
 </h2>
 <div class="entry-wrapper">
@@ -77,16 +77,16 @@
 <div><a href="#event-resizeStop">resizeStop</a></div>
 <div><a href="#event-close">close</a></div>
 </div></section><div class="longdesc" id="entry-longdesc">
-		<p>A dialog is a floating window that contains a title bar and a content area. The dialog window can be moved, resized and closed with the 'x' icon by default.</p>
+        <p>A dialog is a floating window that contains a title bar and a content area. The dialog window can be moved, resized and closed with the 'x' icon by default.</p>
 
-		<p>If the content length exceeds the maximum height, a scrollbar will automatically appear.</p>
+        <p>If the content length exceeds the maximum height, a scrollbar will automatically appear.</p>
 
-		<p>A bottom button bar and semi-transparent modal overlay layer are common options that can be added.</p>
-	</div>
+        <p>A bottom button bar and semi-transparent modal overlay layer are common options that can be added.</p>
+    </div>
 <h3>Additional Notes:</h3>
 <div class="longdesc"><ul><li>
-			This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
-		</li></ul></div>
+            This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
+        </li></ul></div>
 <section id="options"><header><h2 class="underline">Options</h2></header><div id="option-appendTo" class="api-item first-item">
 <h3>appendTo<span class="option-type"><strong>Type: </strong><a href="http://api.jquery.com/Types#Selector">Selector</a></span>
 </h3>
@@ -205,13 +205,13 @@
 <div>If and how to animate the hiding of the dialog.</div>
 <strong>Multiple types supported:</strong><ul>
 <li>
-<strong>Number</strong>: 
-					The dialog will fade out while animating the height and width for the specified duration.
-				</li>
+<strong>Number</strong>:
+                    The dialog will fade out while animating the height and width for the specified duration.
+                </li>
 <li>
-<strong>String</strong>: 
-					The dialog will be hidden using the specified jQuery UI effect. See the <a href="/category/effects/">list of effects</a> for possible values.
-				</li>
+<strong>String</strong>:
+                    The dialog will be hidden using the specified jQuery UI effect. See the <a href="/category/effects/">list of effects</a> for possible values.
+                </li>
 <li>
 <strong>Object</strong>: If the value is an object, then <code>effect</code>, <code>duration</code>, and <code>easing</code> properties may be provided. The <code>effect</code> property must be the name of a jQuery UI effect. When using a jQuery UI effect that supports additional settings, you may include those settings in the object and they will be passed to the effect. If <code>duration</code> or <code>easing</code> is omitted, then the default values will be used.</li>
 </ul>
@@ -287,9 +287,9 @@
 <strong>Default: </strong><code>{ my: "center", at: "center", of: window }</code>
 </div>
 <div>
-				<p>Specifies where the dialog should be displayed. The dialog will handle collisions such that as much of the dialog is visible as possible.</p>
-				<p><em>Note: The <code>String</code> and <code>Array</code> forms are deprecated.</em></p>
-			</div>
+                <p>Specifies where the dialog should be displayed. The dialog will handle collisions such that as much of the dialog is visible as possible.</p>
+                <p><em>Note: The <code>String</code> and <code>Array</code> forms are deprecated.</em></p>
+            </div>
 <strong>Multiple types supported:</strong><ul>
 <li>
 <strong>Object</strong>: Identifies the position of the dialog when opened. The <code>of</code> option defaults to the window, but you can specify another element to position against. You can refer to the <a href="/position">jQuery UI Position</a> utility for more details about the various options.</li>
@@ -324,13 +324,13 @@
 <div>If and how to animate the showing of the dialog.</div>
 <strong>Multiple types supported:</strong><ul>
 <li>
-<strong>Number</strong>: 
-					The dialog will fade in while animating the height and width for the specified duration.
-				</li>
+<strong>Number</strong>:
+                    The dialog will fade in while animating the height and width for the specified duration.
+                </li>
 <li>
-<strong>String</strong>: 
-					The dialog will be shown using the specified jQuery UI effect. See the <a href="/category/effects/">list of effects</a> for possible values.
-				</li>
+<strong>String</strong>:
+                    The dialog will be shown using the specified jQuery UI effect. See the <a href="/category/effects/">list of effects</a> for possible values.
+                </li>
 <li>
 <strong>Object</strong>: If the value is an object, then <code>effect</code>, <code>duration</code>, and <code>easing</code> properties may be provided. The <code>effect</code> property must be the name of a jQuery UI effect. When using a jQuery UI effect that supports additional settings, you may include those settings in the object and they will be passed to the effect. If <code>duration</code> or <code>easing</code> is omitted, then the default values will be used.</li>
 </ul>
@@ -374,8 +374,8 @@
 <div id="method-destroy"><div class="api-item">
 <h3>destroy()</h3>
 <div>
-		Removes the dialog functionality completely. This will return the element back to its pre-init state.
-	</div>
+        Removes the dialog functionality completely. This will return the element back to its pre-init state.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the destroy method:</p>
@@ -477,8 +477,8 @@
 <h3>widget()<span class="returns">Returns: <a href="http://api.jquery.com/Types#jQuery">jQuery</a></span>
 </h3>
 <div>
-		Returns a <code>jQuery</code> object containing the generated wrapper.
-	</div>
+        Returns a <code>jQuery</code> object containing the generated wrapper.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the widget method:</p>
@@ -538,8 +538,8 @@
 <h3>create( event, ui )<span class="returns">Type: <code>dialogcreate</code></span>
 </h3>
 <div>
-		Triggered when the dialog is created.
-	</div>
+        Triggered when the dialog is created.
+    </div>
 <ul>
 <li>
 <div><strong>event</strong></div>

@@ -39,7 +39,7 @@ Version 0.1.0.4  (12.06.2007):
 
 Bugfixes:
 - Replaced PHP short tags with long version ( <? => <?php ) in template files
-	This makes the Chat work on servers with php.ini setting "short_open_tag = off"
+    This makes the Chat work on servers with php.ini setting "short_open_tag = off"
 
 
 Version 0.1.0.5  (23.06.2007):
@@ -47,7 +47,7 @@ Version 0.1.0.5  (23.06.2007):
 
 Bugfixes:
 - Channel names and language variables were not HTML-encoded in template output.
-	This could lead to invalid XHTML, e.g. if a channel name contained the ampersand ("&").
+    This could lead to invalid XHTML, e.g. if a channel name contained the ampersand ("&").
 
 
 Version 0.1.1  (05.07.2007):
@@ -79,7 +79,7 @@ Version 0.1.1.3  (02.08.2007):
 
 Bugfixes:
 - dateTime had been dependent on local server time.
-	dateTime served is now GMT and calculated and formatted on client side through JavaScript
+    dateTime served is now GMT and calculated and formatted on client side through JavaScript
 
 
 Version 0.1.1.4  (14.08.2007):
@@ -126,7 +126,7 @@ Version 0.2.0.1  (17.08.2007):
 
 New features:
 - Easier phpBB integration - forum users are now logged in with their userName and userID automatically.
-	It is not required any more to include userID and userName of registered users in the link to the chat.
+    It is not required any more to include userID and userName of registered users in the link to the chat.
 
 
 
@@ -261,9 +261,9 @@ Other changes:
 
 Notes:
 - To update your existing database tables you can use the following SQL commands:
-	ALTER TABLE ajax_chat_online CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
-	ALTER TABLE ajax_chat_messages CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
-	ALTER TABLE ajax_chat_bans CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+    ALTER TABLE ajax_chat_online CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+    ALTER TABLE ajax_chat_messages CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+    ALTER TABLE ajax_chat_bans CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 
 Changed files:
 - chat.sql (all versions)
@@ -355,7 +355,7 @@ New features:
 
 Bugfixes:
 - Several (10) XMLHttpRequest objects are created for POST requests to allow real asynchronism.
-	This way messages sent before the server could respond don't result in an error message anymore.
+    This way messages sent before the server could respond don't result in an error message anymore.
 - JavaScript links (private message links in online list) were not escaped properly.
 - Removed Byte Order Mark at the beginning of finnish language files which caused unwanted output.
 - Session handling now allows to keep the current session on logout.
@@ -529,7 +529,7 @@ Version 0.5.2.2  (23.10.2007):
 Bugfixes:
 - Fixing the "Only variables should be assigned by reference" notice in standalone version on PHP4.
 - Fixing the "cannot yet handle MBCS in html_entity_decode()" warning on PHP4.
-	Due to PHP bug #25670, html_entity_decode does not work with UTF-8 for PHP versions < 5.
+    Due to PHP bug #25670, html_entity_decode does not work with UTF-8 for PHP versions < 5.
 - Improved the entity encoding/decoding handling.
 
 Changed files:
@@ -584,7 +584,7 @@ Version 0.5.4.1  (07.11.2007):
 
 Bugfixes:
 - The session is now started automatically if not already started.
-	The useless sessionCreateNew config variable has been removed accordingly.
+    The useless sessionCreateNew config variable has been removed accordingly.
 - Removed the duplicate #ajaxChatContent #ajaxChatMessageText entry in shoutbox CSS file.
 
 Changed files:
@@ -1018,7 +1018,7 @@ Version 0.7.4  (29.02.2008):
 
 New features:
 - Added an installation script (install.php) to create the database tables.
-	Make sure you delete this file after installation!
+    Make sure you delete this file after installation!
 - Updated ukrainian localization - thanks to Yuriy Smetana.
 - Updated greek localization - thanks to Akis Panas.
 
@@ -1058,12 +1058,12 @@ Bugfixes:
 Notes:
 - The chat messages delivered using the socket connection are not encrypted even if the Chat-URL is on HTTPS.
 - A new database table for the invitations has been added.
-	To update your existing database you can use the following SQL command:
-	CREATE TABLE ajax_chat_invitations (
-		userID INT(11) NOT NULL,
-		channel INT(11) NOT NULL,
-		dateTime DATETIME NOT NULL
-	) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+    To update your existing database you can use the following SQL command:
+    CREATE TABLE ajax_chat_invitations (
+        userID INT(11) NOT NULL,
+        channel INT(11) NOT NULL,
+        dateTime DATETIME NOT NULL
+    ) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 Changed files:
 - js/lang/zh.js (all versions - new)
@@ -1139,7 +1139,7 @@ Version 0.8.2  (27.02.2009):
 -------------------------------
 
 New features:
-- Added status icon to indicate when chat is waiting for a response from the server (orange) or when chat is idle (green). 
+- Added status icon to indicate when chat is waiting for a response from the server (orange) or when chat is idle (green).
 - Clicking the status icon will force the chat client to retry (workaround for when there is a lost connection).
 - Added Catalan locale - thanks to Manu Quintans.
 - Added Japanese locale - thanks to Ocean.
@@ -1208,13 +1208,13 @@ New features:
 - Nicer looking status icons.
 - Status icon turns red when there is connection trouble.
 - Chat will now automatically attempt to reconnect to the server if the connection is lost, rather than dying silently.
-- Chat now uses a buffer before performing multiple DOM operations. This should give a noticeable speed improvement when the 
+- Chat now uses a buffer before performing multiple DOM operations. This should give a noticeable speed improvement when the
 chat list updates many messages at once (such as when viewing logs). - thanks to varamin.
 
 Bugfixes:
 - The invite, uninvite, and whereis user menu options will now only appear in the inline user menu.
-- Rolled back the database name handling change because of too many conflicts. If your database has a hyphen in it, you should 
-check the AJAXChatDataBase.php file to see the commented line. 
+- Rolled back the database name handling change because of too many conflicts. If your database has a hyphen in it, you should
+check the AJAXChatDataBase.php file to see the commented line.
 
 Changed files:
 - css/* (all theme specific stylesheets in all versions)
@@ -1240,7 +1240,7 @@ Changed files:
 
 Version 0.8.4  (15.02.2012):
 -------------------------------
-Bugfixes: 
+Bugfixes:
 - Fix to remove javascript error message in Chrome when initializing flash bridge.
 
 Changed files:
@@ -1254,7 +1254,7 @@ New features:
 - Added easier to navigate html readme file.
 - PHPBB3 html readme file now includes proper custom instructions on implementing a shoutbox.
 
-Bugfixes: 
+Bugfixes:
 - Another fix to reintroduce sound in chrome - thanks to jsebean.
 
 
@@ -1265,7 +1265,7 @@ New features:
 - Added easier to navigate html readme file.
 - PHPBB3 html readme file now includes proper custom instructions on implementing a shoutbox.
 
-Bugfixes: 
+Bugfixes:
 - Another fix to reintroduce sound in chrome - thanks to jsebean.
 
 Changed files:
@@ -1277,5 +1277,5 @@ Changed files:
 
 Version 0.8.5a  (11.05.2012):
 -------------------------------
-Bugfixes: 
+Bugfixes:
 - Fixed a typo in config.php that would cause chat to crash if used. (all versions)

@@ -8,9 +8,9 @@ TimeTrack( "START" );
 </script>
 
 <?php
-global $debug_page; 
+global $debug_page;
 if ( $debug_page )
-	echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";  
+    echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";
 ?>
 
 <table class="table" width="760" style="line-height: 1.6em; font-size: 10px;">
@@ -32,7 +32,7 @@ if ( $debug_page )
     echo '<tr><td height="2"></td></tr>';
     while ($wynik = sql_fetch_assoc($wyniki))
     {
-        if ($wartosc == 0) 
+        if ($wartosc == 0)
         {
             $wartosc=$wynik['count'];
             $licznik=1;

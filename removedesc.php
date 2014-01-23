@@ -1,118 +1,118 @@
 <?php
 /***************************************************************************
-															./removedesc.php
-															-------------------
-		begin                : July 7 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
+                                                            ./removedesc.php
+                                                            -------------------
+        begin                : July 7 2004
+        copyright            : (C) 2004 The OpenCaching Group
+        forum contact at     : http://www.opencaching.com/phpBB2
 
-	***************************************************************************/
+    ***************************************************************************/
 
 /***************************************************************************
-	*                                         				                                
-	*   This program is free software; you can redistribute it and/or modify  	
-	*   it under the terms of the GNU General Public License as published by  
-	*   the Free Software Foundation; either version 2 of the License, or	    	
-	*   (at your option) any later version.
-	*
-	***************************************************************************/
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    ***************************************************************************/
 
 /****************************************************************************
-	                
+
    Unicode Reminder メモ
-                         				                                
-	 remove a cache description
-	 
+
+     remove a cache description
+
  ****************************************************************************/
- 
+
    //prepare the templates and include all neccessary
-	require_once('./lib/common.inc.php');
+    require_once('./lib/common.inc.php');
 
-	//Preprocessing
-	if ($error == false)
-	{
-		//cacheid
-		$cache_id = 0;
-		if (isset($_REQUEST['cacheid']))
-		{
-			$cache_id = $_REQUEST['cacheid'];
-		}
-		$desclang = '';
-		if (isset($_REQUEST['desclang']))
-		{
-			$desclang = $_REQUEST['desclang'];
-		}
-		$remove_commit = 0;
-		if (isset($_REQUEST['commit']))
-		{
-			$remove_commit = $_REQUEST['commit'];
-		}
+    //Preprocessing
+    if ($error == false)
+    {
+        //cacheid
+        $cache_id = 0;
+        if (isset($_REQUEST['cacheid']))
+        {
+            $cache_id = $_REQUEST['cacheid'];
+        }
+        $desclang = '';
+        if (isset($_REQUEST['desclang']))
+        {
+            $desclang = $_REQUEST['desclang'];
+        }
+        $remove_commit = 0;
+        if (isset($_REQUEST['commit']))
+        {
+            $remove_commit = $_REQUEST['commit'];
+        }
 
-		//user logged in?
-		if ($usr == false)
-		{
-		    $target = urlencode(tpl_get_current_page());
-		    tpl_redirect('login.php?target='.$target);
-		}
-		else
-		{
-			$cache_rs = sql("SELECT `user_id`, `name` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
-			if (mysql_num_rows($cache_rs) == 1)
-			{
-				$cache_record = sql_fetch_array($cache_rs);
+        //user logged in?
+        if ($usr == false)
+        {
+            $target = urlencode(tpl_get_current_page());
+            tpl_redirect('login.php?target='.$target);
+        }
+        else
+        {
+            $cache_rs = sql("SELECT `user_id`, `name` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
+            if (mysql_num_rows($cache_rs) == 1)
+            {
+                $cache_record = sql_fetch_array($cache_rs);
 
-				if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'] )
-				{
-					$desc_rs = sql("SELECT `id`, `uuid` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $desclang);
-					if (mysql_num_rows($desc_rs) == 1)
-					{
-						$desc_record = sql_fetch_array($desc_rs);
-						mysql_free_result($desc_rs);
-						require($stylepath . '/removedesc.inc.php');
+                if ($cache_record['user_id'] == $usr['userid'] || $usr['admin'] )
+                {
+                    $desc_rs = sql("SELECT `id`, `uuid` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $desclang);
+                    if (mysql_num_rows($desc_rs) == 1)
+                    {
+                        $desc_record = sql_fetch_array($desc_rs);
+                        mysql_free_result($desc_rs);
+                        require($stylepath . '/removedesc.inc.php');
 
-						if ($remove_commit == 1)
-						{
-							//add to removed_objects
-							sql("INSERT INTO `removed_objects` (`id`, `localID`, `uuid`, `type`, `removed_date`, `node`) VALUES ('', '&1', '&2', '3', NOW(), '&3')", $desc_record['id'], $desc_record['uuid'], $oc_nodeid);
-							
-							//remove it from cache_desc
-							sql("DELETE FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $desclang);
+                        if ($remove_commit == 1)
+                        {
+                            //add to removed_objects
+                            sql("INSERT INTO `removed_objects` (`id`, `localID`, `uuid`, `type`, `removed_date`, `node`) VALUES ('', '&1', '&2', '3', NOW(), '&3')", $desc_record['id'], $desc_record['uuid'], $oc_nodeid);
 
-							//update cache record
-							setCacheDefaultDescLang($cache_id);
+                            //remove it from cache_desc
+                            sql("DELETE FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", $cache_id, $desclang);
 
-							tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
-							exit;
-						}
-						else
-						{
-							//commit the removement
-							$tplname = 'removedesc';
-							
-							tpl_set_var('desclang_name', db_LanguageFromShort($desclang));
-							tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
-							tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
-							tpl_set_var('desclang_urlencode', htmlspecialchars(urlencode($desclang), ENT_COMPAT, 'UTF-8'));
-						}
-					}
-					else
-					{
-						//TODO: desc not exist
-					}
-				}
-				else
-				{
-					//TODO: not the owner
-				}
-			}
-			else
-			{
-				//TODO: cache not exist
-			}
-		}
-	}
-	
-	//make the template and send it out
-	tpl_BuildTemplate();
+                            //update cache record
+                            setCacheDefaultDescLang($cache_id);
+
+                            tpl_redirect('editcache.php?cacheid=' . urlencode($cache_id));
+                            exit;
+                        }
+                        else
+                        {
+                            //commit the removement
+                            $tplname = 'removedesc';
+
+                            tpl_set_var('desclang_name', db_LanguageFromShort($desclang));
+                            tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
+                            tpl_set_var('cacheid_urlencode', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'));
+                            tpl_set_var('desclang_urlencode', htmlspecialchars(urlencode($desclang), ENT_COMPAT, 'UTF-8'));
+                        }
+                    }
+                    else
+                    {
+                        //TODO: desc not exist
+                    }
+                }
+                else
+                {
+                    //TODO: not the owner
+                }
+            }
+            else
+            {
+                //TODO: cache not exist
+            }
+        }
+    }
+
+    //make the template and send it out
+    tpl_BuildTemplate();
 
 ?>

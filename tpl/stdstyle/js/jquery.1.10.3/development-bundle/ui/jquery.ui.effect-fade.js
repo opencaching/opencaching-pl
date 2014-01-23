@@ -9,22 +9,22 @@
  * http://api.jqueryui.com/fade-effect/
  *
  * Depends:
- *	jquery.ui.effect.js
+ *  jquery.ui.effect.js
  */
 (function( $, undefined ) {
 
 $.effects.effect.fade = function( o, done ) {
-	var el = $( this ),
-		mode = $.effects.setMode( el, o.mode || "toggle" );
+    var el = $( this ),
+        mode = $.effects.setMode( el, o.mode || "toggle" );
 
-	el.animate({
-		opacity: mode
-	}, {
-		queue: false,
-		duration: o.duration,
-		easing: o.easing,
-		complete: done
-	});
+    el.animate({
+        opacity: mode
+    }, {
+        queue: false,
+        duration: o.duration,
+        easing: o.easing,
+        complete: done
+    });
 };
 
 })( jQuery );

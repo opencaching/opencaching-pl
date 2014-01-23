@@ -66,7 +66,7 @@ score score:
 topratings Recommendations:
 show_attrib show attributes
 moved moved
-cog_note COG comment 
+cog_note COG comment
 temp_unavailable temporarily unavailable
 ready reday to search
 archived archived
@@ -79,7 +79,7 @@ yes yes
 no no
 not_your_entry This is not your entry!
 no_entry no entry
-show_gk show geokrety 
+show_gk show geokrety
 entry_type entry type:
 entry_date entry date:
 entry_time entry time:

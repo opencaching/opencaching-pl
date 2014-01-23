@@ -2,7 +2,7 @@
 <!ATTLIST oc10xml
   date CDATA #IMPLIED
   since CDATA #IMPLIED
-	version CDATA #REQUIRED
+    version CDATA #REQUIRED
 >
 
 <!ELEMENT cachelog (id, cacheid, userid, type, date, text?, datecreated, lastmodified)>
@@ -14,29 +14,29 @@
 
 <!ELEMENT cacheid (#PCDATA)>
 <!ATTLIST cacheid
-	id CDATA #IMPLIED
+    id CDATA #IMPLIED
 >
 <!ELEMENT country (#PCDATA)>
 <!ATTLIST country
-	id CDATA #REQUIRED
+    id CDATA #REQUIRED
 >
 <!ELEMENT date (#PCDATA)>
 <!ELEMENT datecreated (#PCDATA)>
 <!ELEMENT datehidden (#PCDATA)>
 <!ELEMENT desc (#PCDATA)>
 <!ATTLIST desc
-	html CDATA #REQUIRED
+    html CDATA #REQUIRED
 >
 <!ELEMENT desclanguages (#PCDATA)>
 <!ELEMENT difficulty (#PCDATA)>
 <!ELEMENT hint (#PCDATA)>
 <!ELEMENT id (#PCDATA)>
 <!ATTLIST id
-	id CDATA #IMPLIED
+    id CDATA #IMPLIED
 >
 <!ELEMENT language (#PCDATA)>
 <!ATTLIST language
-	id CDATA #REQUIRED
+    id CDATA #REQUIRED
 >
 <!ELEMENT lastmodified (#PCDATA)>
 <!ELEMENT latitude (#PCDATA)>
@@ -44,39 +44,39 @@
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT object (#PCDATA)>
 <!ATTLIST object
-	id CDATA #IMPLIED
-	type CDATA #REQUIRED
-	typename CDATA #REQUIRED
+    id CDATA #IMPLIED
+    type CDATA #REQUIRED
+    typename CDATA #REQUIRED
 >
 <!ELEMENT pmr (#PCDATA)>
 <!ELEMENT removeddate (#PCDATA)>
 <!ELEMENT shortdesc (#PCDATA)>
 <!ELEMENT size (#PCDATA)>
 <!ATTLIST size
-	id CDATA #REQUIRED
+    id CDATA #REQUIRED
 >
 <!ELEMENT status (#PCDATA)>
 <!ATTLIST status
-	id CDATA #REQUIRED
+    id CDATA #REQUIRED
 >
 <!ELEMENT terrain (#PCDATA)>
 <!ELEMENT text (#PCDATA)>
 <!ELEMENT title (#PCDATA)>
 <!ELEMENT type (#PCDATA)>
 <!ATTLIST type
-	id CDATA #REQUIRED
-	short CDATA #IMPLIED
+    id CDATA #REQUIRED
+    short CDATA #IMPLIED
 >
 <!ELEMENT userid (#PCDATA)>
 <!ATTLIST userid
-	id CDATA #IMPLIED
+    id CDATA #IMPLIED
 >
 <!ELEMENT url (#PCDATA)>
 <!ELEMENT username (#PCDATA)>
 <!ELEMENT waypoints (#PCDATA)>
 <!ATTLIST waypoints
-	gccom CDATA #IMPLIED
-	nccom CDATA #IMPLIED
+    gccom CDATA #IMPLIED
+    nccom CDATA #IMPLIED
 >
 
 
@@ -271,7 +271,7 @@
 <!ENTITY amp     "&#38;#38;"> <!--  ampersand, U+0026 ISOnum -->
 <!ENTITY lt      "&#38;#60;"> <!--  less-than sign, U+003C ISOnum -->
 <!ENTITY gt      "&#62;"> <!--  greater-than sign, U+003E ISOnum -->
-<!ENTITY apos	 "&#39;"> <!--  apostrophe = APL quote, U+0027 ISOnum -->
+<!ENTITY apos    "&#39;"> <!--  apostrophe = APL quote, U+0027 ISOnum -->
 
 <!-- Latin Extended-A -->
 <!ENTITY OElig   "&#338;"> <!--  latin capital ligature OE,
@@ -448,7 +448,7 @@
 <!ENTITY uArr     "&#8657;"> <!-- upwards double arrow, U+21D1 ISOamsa -->
 <!ENTITY rArr     "&#8658;"> <!-- rightwards double arrow,
                                      U+21D2 ISOtech -->
-<!-- Unicode does not say this is the 'implies' character but does not have 
+<!-- Unicode does not say this is the 'implies' character but does not have
      another character with this function so rArr can be used for 'implies'
      as ISOtech suggests -->
 <!ENTITY dArr     "&#8659;"> <!-- downwards double arrow, U+21D3 ISOamsa -->
@@ -521,11 +521,11 @@
 <!ENTITY rfloor   "&#8971;"> <!-- right floor, U+230B ISOamsc  -->
 <!ENTITY lang     "&#9001;"> <!-- left-pointing angle bracket = bra,
                                      U+2329 ISOtech -->
-<!-- lang is NOT the same character as U+003C 'less than sign' 
+<!-- lang is NOT the same character as U+003C 'less than sign'
      or U+2039 'single left-pointing angle quotation mark' -->
 <!ENTITY rang     "&#9002;"> <!-- right-pointing angle bracket = ket,
                                      U+232A ISOtech -->
-<!-- rang is NOT the same character as U+003E 'greater than sign' 
+<!-- rang is NOT the same character as U+003E 'greater than sign'
      or U+203A 'single right-pointing angle quotation mark' -->
 
 <!-- Geometric Shapes -->

@@ -1,40 +1,40 @@
 <?php
 
 /***************************************************************************
-	*
-	*   This program is free software; you can redistribute it and/or modify
-	*   it under the terms of the GNU General Public License as published by
-	*   the Free Software Foundation; either version 2 of the License, or
-	*   (at your option) any later version.
-	*
-	*  UTF8 remaider Ĺ›Ä…Ĺ‚Ăł
-	***************************************************************************/
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    *  UTF8 remaider Ĺ›Ä…Ĺ‚Ăł
+    ***************************************************************************/
 
 
 require_once('./lib/common.inc.php');
 
 function get_icon_for_status($status)
 {
-	$typyStatusow = get_log_types_from_database();
-	foreach($typyStatusow as $k=>$v)
-	{
-		if($v['id'] == $status)
-		{
-			return $v['icon_small'];
-		}
-	}
+    $typyStatusow = get_log_types_from_database();
+    foreach($typyStatusow as $k=>$v)
+    {
+        if($v['id'] == $status)
+        {
+            return $v['icon_small'];
+        }
+    }
 }
 
 function get_icon_for_cache_type($type)
 {
-	$typySkrzynek = get_cache_types_from_database();
-	foreach($typySkrzynek as $k=>$v)
-	{
-		if($v['id'] == $type)
-		{
-			return $v['icon_large'];
-		}
-	}
+    $typySkrzynek = get_cache_types_from_database();
+    foreach($typySkrzynek as $k=>$v)
+    {
+        if($v['id'] == $type)
+        {
+            return $v['icon_large'];
+        }
+    }
 }
 
 ?>
@@ -103,24 +103,24 @@ foreach($dane as $k=>$v) {
 <input type="hidden" name="loghour" value="<?php echo $v['godz']; ?>" />
 <input type="hidden" name="logmin" value="<?php echo $v['min']; ?>" />
 <table border="0" style="table-layout: fixed; border: 1px dotted black; line-height: 1.6em; font-size: 10px; "><?php
-	// jesli zgodne daty i typ to inny kolor:
-	if( (isset($v['data']) && isset($v['last_date']) && $v['data'] == $v['last_date'])
-	  &&(isset($v['status']) && isset($v['last_status']) && $v['status'] == $v['last_status']) )
-	{
-		$zgodne = true;
-		$styl = "bgcolorM1";
-	} else {
-		$zgodne = false;
-		$styl = "bgcolor2";
-	}
+    // jesli zgodne daty i typ to inny kolor:
+    if( (isset($v['data']) && isset($v['last_date']) && $v['data'] == $v['last_date'])
+      &&(isset($v['status']) && isset($v['last_status']) && $v['status'] == $v['last_status']) )
+    {
+        $zgodne = true;
+        $styl = "bgcolorM1";
+    } else {
+        $zgodne = false;
+        $styl = "bgcolor2";
+    }
 ?>
   <tr class="<?php echo $styl; ?>">
     <td width=560><?php echo isset($v['cache_name']) ? "<A href=\"viewcache.php?cacheid=".$v['cache_id']."\" target=\"_blank\">"."<img src=\"tpl/stdstyle/images/".get_icon_for_cache_type($v['cache_type'])."\" /> ".$v['kod_str']." ".$v['cache_name']."</a>" : " "; ?></td>
     <td width=70 style="text-align: right"><?php
-    	echo isset($v['data']) ? str_replace(" ","<br />", $v['data']) : " "; echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; echo isset($v['status']) ? "<img src=\"tpl/stdstyle/images/".get_icon_for_status($v['status'])."\" />" : " ";
+        echo isset($v['data']) ? str_replace(" ","<br />", $v['data']) : " "; echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; echo isset($v['status']) ? "<img src=\"tpl/stdstyle/images/".get_icon_for_status($v['status'])."\" />" : " ";
     ?></td>
     <td width=70 style="text-align: right"><?php
-    	echo isset($v['got_last_activity']) ? str_replace(" ","<br />", $v['last_date'])."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".(isset($v['last_status']) ? "<img src=\"tpl/stdstyle/images/".get_icon_for_status($v['last_status'])."\" />" : " ") : " ";
+        echo isset($v['got_last_activity']) ? str_replace(" ","<br />", $v['last_date'])."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".(isset($v['last_status']) ? "<img src=\"tpl/stdstyle/images/".get_icon_for_status($v['last_status'])."\" />" : " ") : " ";
     ?></td>
   </tr><tr class="<?php echo $styl; ?>">
     <td width="630" colspan=2><?php echo isset($v['koment']) ? $v['koment'] : " "; ?>&nbsp;</td>

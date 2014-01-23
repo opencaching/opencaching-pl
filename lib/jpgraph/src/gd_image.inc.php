@@ -357,8 +357,8 @@ class Image {
                              $shadowcolor=false,$paragraph_align="left",
                              $xmarg=6,$ymarg=4,$cornerradius=0,$dropwidth=3) {
 
-		$oldx = $this->lastx;
-		$oldy = $this->lasty;
+        $oldx = $this->lastx;
+        $oldy = $this->lasty;
 
         if( !is_numeric($dir) ) {
             if( $dir=="h" ) $dir=0;
@@ -429,8 +429,8 @@ class Image {
         $this->SetTextAlign($h,$v);
 
         $this->SetAngle($olda);
-		$this->lastx = $oldx;
-		$this->lasty = $oldy;
+        $this->lastx = $oldx;
+        $this->lasty = $oldy;
 
         return $bb;
     }
@@ -452,8 +452,8 @@ class Image {
            JpGraphError::RaiseL(25131);//StrokeBoxedText2() Only support TTF fonts and not built in bitmap fonts
        }
 
-		$oldx = $this->lastx;
-		$oldy = $this->lasty;
+        $oldx = $this->lastx;
+        $oldy = $this->lasty;
         $dir = $this->NormAngle($dir);
 
         if( !is_numeric($dir) ) {
@@ -474,7 +474,7 @@ class Image {
 
                 $x -= $rect_width/2;
                 $x += sin($dir*M_PI/180)*$height;
-                $y += $rect_height/2;                
+                $y += $rect_height/2;
 
             } elseif( $dir >= 270 && $dir <= 360 ) {
 
@@ -584,8 +584,8 @@ class Image {
         $this->SetTextAlign($h,$v);
         $this->SetAngle($olda);
 
-		$this->lastx = $oldx;
-		$this->lasty = $oldy;
+        $this->lastx = $oldx;
+        $this->lasty = $oldy;
 
         return $bb;
     }
@@ -723,7 +723,7 @@ class Image {
         // box is sometimes coinciding with the first pixel of the text
         //$bbox[0] -= 1;
         //$bbox[6] -= 1;
-        
+
         // For roatated text we need to add extra width for rotated
         // text since the kerning and stroking of the TTF is not the same as for
         // text at a 0 degree angle
@@ -876,7 +876,7 @@ class Image {
 
             if( $this->text_valign != 'basepoint' ) {
                 // Align x,y ot lower left corner of bbox
-                
+
 
                 if( $this->text_halign=='right' ) {
                     $x -= $width;
@@ -903,7 +903,7 @@ class Image {
                     // This is only support for text at 0 degree !!
                     // Do nothing the text is drawn at baseline by default
                 }
-            } 
+            }
             ImageTTFText ($this->img, $this->font_size, $dir, $x, $y,
                           $this->current_color,$this->font_file,$txt);
 
@@ -1083,7 +1083,7 @@ class Image {
         $this->plotheight=$this->height - $this->top_margin-$this->bottom_margin ;
         if( $this->width  > 0 && $this->height > 0 ) {
             if( $this->plotwidth < 0  || $this->plotheight < 0 ) {
-            	JpGraphError::RaiseL(25130, $this->plotwidth, $this->plotheight);
+                JpGraphError::RaiseL(25130, $this->plotwidth, $this->plotheight);
                 //JpGraphError::raise("To small plot area. ($lm,$rm,$tm,$bm : $this->plotwidth x $this->plotheight). With the given image size and margins there is to little space left for the plot. Increase the plot size or reduce the margins.");
             }
         }
@@ -1126,7 +1126,7 @@ class Image {
 
 
     function SetLineWeight($weight) {
-    	$old = $this->line_weight;
+        $old = $this->line_weight;
         imagesetthickness($this->img,$weight);
         $this->line_weight = $weight;
         return $old;

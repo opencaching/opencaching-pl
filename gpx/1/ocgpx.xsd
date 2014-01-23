@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- OpenGPX.xsd version 1.0 - GPX extension for OpenCachng/Geocaching -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns="http://opencaching.pl/gpx/1" 
-xmlns:gpx="http://www.topografix.com/GPX/1/1" 
-targetNamespace="http://opencaching.pl/gpx/1" 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns="http://opencaching.pl/gpx/1"
+xmlns:gpx="http://www.topografix.com/GPX/1/1"
+targetNamespace="http://opencaching.pl/gpx/1"
 attributeFormDefault="unqualified" elementFormDefault="qualified">
  <xsd:import namespace="http://www.topografix.com/GPX/1/1"
        schemaLocation="http://www.topografix.com/GPX/1/1/gpx.xsd" />
@@ -85,11 +85,11 @@ attributeFormDefault="unqualified" elementFormDefault="qualified">
         minOccurs="0" />
         <xsd:element name="licence" type="licenseType" />
 
-		<xsd:element name="additionalwaypoints" type="additionalwaypointsType" minOccurs="0" maxOccurs="1" />
-		<xsd:element name="additionalroutes" type="additionalroutesType" minOccurs="0" maxOccurs="1" />
-		<xsd:element name="additionaltracks" type="additionaltracksType" minOccurs="0" maxOccurs="1" />
+        <xsd:element name="additionalwaypoints" type="additionalwaypointsType" minOccurs="0" maxOccurs="1" />
+        <xsd:element name="additionalroutes" type="additionalroutesType" minOccurs="0" maxOccurs="1" />
+        <xsd:element name="additionaltracks" type="additionaltracksType" minOccurs="0" maxOccurs="1" />
 
-        
+
         <xsd:element name="logs" minOccurs="0">
           <xsd:complexType>
             <xsd:sequence>
@@ -119,9 +119,9 @@ attributeFormDefault="unqualified" elementFormDefault="qualified">
                         </xsd:simpleContent>
                       </xsd:complexType>
                     </xsd:element>
-					<xsd:element name="additionalwaypoints" type="additionalwaypointsType" minOccurs="0" maxOccurs="1" />
-					<xsd:element name="additionalroutes" type="additionalroutesType" minOccurs="0" maxOccurs="1" />
-					<xsd:element name="additionaltracks" type="additionaltracksType" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="additionalwaypoints" type="additionalwaypointsType" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="additionalroutes" type="additionalroutesType" minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="additionaltracks" type="additionaltracksType" minOccurs="0" maxOccurs="1" />
                   </xsd:sequence>
                   <xsd:attribute name="id" type="xsd:string" />
                 </xsd:complexType>
@@ -144,54 +144,54 @@ attributeFormDefault="unqualified" elementFormDefault="qualified">
   </xsd:element>
 
 <xsd:simpleType name="licensetypeType">
-	<xsd:restriction base="xsd:string">
-		<xsd:enumeration value="Public Domain">
-			<xsd:annotation><xsd:documentation>Owner of the cache resigns all rights to the cache description. The text is both free as in speech and as in beer.</xsd:documentation></xsd:annotation>
-		</xsd:enumeration>
-		<xsd:enumeration value="Only Attribution">
-			<xsd:annotation><xsd:documentation>Owner of the cache has to be mentioned when creating derivating works basing on the description.</xsd:documentation></xsd:annotation>
-		</xsd:enumeration>
-		<xsd:enumeration value="No Derivative Works">
-			<xsd:annotation><xsd:documentation>You may only use the data as is, leaving the original author intact and you cannot publish derivative works.</xsd:documentation></xsd:annotation>
-		</xsd:enumeration>
-	</xsd:restriction>
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Public Domain">
+            <xsd:annotation><xsd:documentation>Owner of the cache resigns all rights to the cache description. The text is both free as in speech and as in beer.</xsd:documentation></xsd:annotation>
+        </xsd:enumeration>
+        <xsd:enumeration value="Only Attribution">
+            <xsd:annotation><xsd:documentation>Owner of the cache has to be mentioned when creating derivating works basing on the description.</xsd:documentation></xsd:annotation>
+        </xsd:enumeration>
+        <xsd:enumeration value="No Derivative Works">
+            <xsd:annotation><xsd:documentation>You may only use the data as is, leaving the original author intact and you cannot publish derivative works.</xsd:documentation></xsd:annotation>
+        </xsd:enumeration>
+    </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:complexType name="licenseType">
-	<xsd:simpleContent>
-		<xsd:extension base="xsd:string">
-			<xsd:attribute name="type" type="licensetypeType" use="required" />
-		</xsd:extension>
-	</xsd:simpleContent>
+    <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+            <xsd:attribute name="type" type="licensetypeType" use="required" />
+        </xsd:extension>
+    </xsd:simpleContent>
 </xsd:complexType>
 
 <xsd:complexType name="userType">
-	<xsd:sequence>
-		<xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1">
-			<xsd:annotation><xsd:documentation>Casual username</xsd:documentation></xsd:annotation>
-		</xsd:element>
-		<xsd:element name="site" type="xsd:string" minOccurs="0" maxOccurs="1">
-			<xsd:annotation><xsd:documentation>Service URL to which user belongs</xsd:documentation></xsd:annotation>
-		</xsd:element>
-		<xsd:element name="id" type="xsd:unsignedInt" minOccurs="0" maxOccurs="1">
-			<xsd:annotation><xsd:documentation>User ID provided for convenience on resolving the correct user profile on service.</xsd:documentation></xsd:annotation>
-		</xsd:element>
-	</xsd:sequence>
+    <xsd:sequence>
+        <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1">
+            <xsd:annotation><xsd:documentation>Casual username</xsd:documentation></xsd:annotation>
+        </xsd:element>
+        <xsd:element name="site" type="xsd:string" minOccurs="0" maxOccurs="1">
+            <xsd:annotation><xsd:documentation>Service URL to which user belongs</xsd:documentation></xsd:annotation>
+        </xsd:element>
+        <xsd:element name="id" type="xsd:unsignedInt" minOccurs="0" maxOccurs="1">
+            <xsd:annotation><xsd:documentation>User ID provided for convenience on resolving the correct user profile on service.</xsd:documentation></xsd:annotation>
+        </xsd:element>
+    </xsd:sequence>
 </xsd:complexType>
 
-	<xsd:complexType name="additionalwaypointsType">
-		<xsd:sequence>
-			<xsd:element name="wpt" type="gpx:wptType" minOccurs="1" maxOccurs="unbounded" />
-		</xsd:sequence>
-		</xsd:complexType>
-		<xsd:complexType name="additionalroutesType">
-		<xsd:sequence>
-			<xsd:element name="rte" type="gpx:rteType" minOccurs="1" maxOccurs="unbounded" />
-		</xsd:sequence>
-		</xsd:complexType>
-		<xsd:complexType name="additionaltracksType">
-		<xsd:sequence>
-			<xsd:element name="trk" type="gpx:trkType" minOccurs="1" maxOccurs="unbounded" />
-		</xsd:sequence>
-	</xsd:complexType>
+    <xsd:complexType name="additionalwaypointsType">
+        <xsd:sequence>
+            <xsd:element name="wpt" type="gpx:wptType" minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+        </xsd:complexType>
+        <xsd:complexType name="additionalroutesType">
+        <xsd:sequence>
+            <xsd:element name="rte" type="gpx:rteType" minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+        </xsd:complexType>
+        <xsd:complexType name="additionaltracksType">
+        <xsd:sequence>
+            <xsd:element name="trk" type="gpx:trkType" minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:schema>

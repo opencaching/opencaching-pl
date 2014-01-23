@@ -1363,7 +1363,7 @@ class Graph {
                 // to be converted to real arguments.
                 $tmp = str_replace('?','%3f',$baseimg);
                 $htmlwrap = $this->GetHTMLImageMap($aCSIMName)."\n".
-   		'<img src="'.CSIMCACHE_HTTP_DIR.$tmp.'" ismap="ismap" usemap="#'.$aCSIMName.'" border="'.$aBorder.'" width="'.$this->img->width.'" height="'.$this->img->height."\" alt=\"".$this->iCSIMImgAlt."\" />\n";
+        '<img src="'.CSIMCACHE_HTTP_DIR.$tmp.'" ismap="ismap" usemap="#'.$aCSIMName.'" border="'.$aBorder.'" width="'.$this->img->width.'" height="'.$this->img->height."\" alt=\"".$this->iCSIMImgAlt."\" />\n";
 
                 if($fh =  @fopen($basecsim,'w') ) {
                     fwrite($fh,$htmlwrap);
@@ -2413,7 +2413,7 @@ class Graph {
     function StrokePlotGrad() {
         if( $this->plot_gradtype < 0  )
             return;
-            
+
         $grad = new Gradient($this->img);
         $xl = $this->img->left_margin;
         $yt = $this->img->top_margin;
@@ -3878,12 +3878,12 @@ class Axis extends AxisPrototype {
                     }
 
                     // We number the scale from 1 and not from 0 so increase by one
-                    if( $this->scale->textscale && 
+                    if( $this->scale->textscale &&
                         $this->scale->ticks->label_formfunc == '' &&
                         ! $this->scale->ticks->HaveManualLabels() ) {
 
                         ++$label;
-                        
+
                     }
                 }
 

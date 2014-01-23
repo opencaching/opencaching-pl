@@ -1,6 +1,6 @@
 <?php
   /*
-		Unicode Reminder ??
+        Unicode Reminder ??
 
     BBOX=2.38443,45.9322,20.7053,55.0289
   */
@@ -26,8 +26,8 @@
 
 //  if ((abs($lon_from - $lon_to) > 2) || (abs($lat_from - $lat_to) > 2))
 //  {
-//		$lon_from = $lon_to;
-//		$lat_from = $lat_to;
+//      $lon_from = $lon_to;
+//      $lat_from = $lat_to;
 //  }
 
   $rs = sql("SELECT `caches`.`cache_id` `cacheid`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `cache_type`.`pl` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `caches`, `cache_type`, `cache_size`, `user` WHERE `caches`.`type`=`cache_type`.`id` AND `caches`.`size`=`cache_size`.`id` AND `caches`.`user_id`=`user`.`user_id` AND `caches`.`status`=1 AND `caches`.`longitude`>='" . sql_escape($lon_from) . "' AND `caches`.`longitude`<='" . sql_escape($lon_to) . "' AND `caches`.`latitude`>='" . sql_escape($lat_from) . "' AND `caches`.`latitude`<='" . sql_escape($lat_to) . "'");
@@ -36,7 +36,7 @@
    kml processing
   */
 
-  $kmlLine = 
+  $kmlLine =
 '
 <Placemark>
   <description><![CDATA[<a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}">Zobacz wiecej szczegolow skrzynki</a><br />Zalozona przez {username}<br />&nbsp;<br /><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Rodzaj: {type}<br />Wielkosc: {{size}}</td></tr><tr><td colspan="2">Zadanie: {difficulty} z 5.0<br />Teren: {terrain} z 5.0</td></tr></table>]]></description>
@@ -59,65 +59,65 @@
 '<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.0">
 <Document>
-	<Style id="tradi">
-		<IconStyle>
-			<Icon>
-				<href>http://www.opencaching.pl/images/google-earth/tradi.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="multi">
-		<IconStyle>
-			<Icon>
-				<href>http://www.opencaching.pl/images/google-earth/multi.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="myst">
-		<IconStyle>
-			<Icon>
-				<href>http://www.opencaching.pl/images/google-earth/myst.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="virtual">
-		<IconStyle>
-			<Icon>
-				<href>http://www.opencaching.pl/images/google-earth/virtual.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="webcam">
-		<IconStyle>
-			<Icon>
-				<href>http://www.opencaching.pl/images/google-earth/webcam.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="event">
-		<IconStyle>
-			<Icon>
-				<href>http://www.opencaching.pl/images/google-earth/event.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="moving">
-		<IconStyle>
-			<Icon>
-				<href>http://www.opencaching.pl/images/google-earth/moving.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="unknown">
-		<IconStyle>
-			<Icon>
-				<href>http://www.opencaching.pl/images/google-earth/unknown.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Folder>
-		<Name>Geocaches (Opencaching)</Name>
-		<Open>0</Open>
+    <Style id="tradi">
+        <IconStyle>
+            <Icon>
+                <href>http://www.opencaching.pl/images/google-earth/tradi.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="multi">
+        <IconStyle>
+            <Icon>
+                <href>http://www.opencaching.pl/images/google-earth/multi.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="myst">
+        <IconStyle>
+            <Icon>
+                <href>http://www.opencaching.pl/images/google-earth/myst.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="virtual">
+        <IconStyle>
+            <Icon>
+                <href>http://www.opencaching.pl/images/google-earth/virtual.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="webcam">
+        <IconStyle>
+            <Icon>
+                <href>http://www.opencaching.pl/images/google-earth/webcam.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="event">
+        <IconStyle>
+            <Icon>
+                <href>http://www.opencaching.pl/images/google-earth/event.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="moving">
+        <IconStyle>
+            <Icon>
+                <href>http://www.opencaching.pl/images/google-earth/moving.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="unknown">
+        <IconStyle>
+            <Icon>
+                <href>http://www.opencaching.pl/images/google-earth/unknown.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Folder>
+        <Name>Geocaches (Opencaching)</Name>
+        <Open>0</Open>
 ';
   $kmlFoot = '</Folder></Document></kml>';
   $kmlTimeFormat = 'Y-m-d\TH:i:s\Z';
@@ -130,7 +130,7 @@
   while ($r = sql_fetch_array($rs))
   {
     $thisline = $kmlLine;
-		
+
     // icon suchen
     switch ($r['type'])
     {
@@ -169,10 +169,10 @@
     }
     $thisline = mb_ereg_replace('{icon}', $icon, $thisline);
     $thisline = mb_ereg_replace('{typeimgurl}', $typeimgurl, $thisline);
-		
+
     $lat = sprintf('%01.5f', $r['latitude']);
     $thisline = mb_ereg_replace('{lat}', $lat, $thisline);
-		
+
     $lon = sprintf('%01.5f', $r['longitude']);
     $thisline = mb_ereg_replace('{lon}', $lon, $thisline);
 
@@ -180,7 +180,7 @@
     $thisline = mb_ereg_replace('{{time}}', $time, $thisline);
 
     $thisline = mb_ereg_replace('{name}', xmlentities($r['name']), $thisline);
-		
+
     if (($r['status'] == 2) || ($r['status'] == 3))
     {
       if ($r['status'] == 2)
@@ -190,10 +190,10 @@
     }
     else
       $thisline = mb_ereg_replace('{archivedflag}', '', $thisline);
-		
+
     $thisline = mb_ereg_replace('{type}', xmlentities($r['typedesc']), $thisline);
     $thisline = mb_ereg_replace('{{size}}', xmlentities($r['sizedesc']), $thisline);
-		
+
     $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
     $thisline = mb_ereg_replace('{difficulty}', $difficulty, $thisline);
 
@@ -221,8 +221,8 @@ function xmlentities($str)
   $from[3] = '"'; $to[3] = '&quot;';
   $from[4] = '\''; $to[4] = '&apos;';
 
-	for ($i = 0; $i <= 4; $i++)
-		$str = mb_ereg_replace($from[$i], $to[$i], $str);
+    for ($i = 0; $i <= 4; $i++)
+        $str = mb_ereg_replace($from[$i], $to[$i], $str);
 
   return $str;
 }

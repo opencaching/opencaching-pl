@@ -1,23 +1,23 @@
 <?
 
-	// Unicode Reminder メモ
+    // Unicode Reminder メモ
 
 define("CS2CS", "cs2cs");
 
 
 function cs2cs_core($lat, $lon, $to) {
- 
+
   $descriptorspec = array(
-			  0 => array("pipe", "r"),     // stdin is a pipe that the child will read from
-			  1 => array("pipe", "w"),     // stdout is a pipe that the child will write to
-			  2 => array("pipe", "w")      // stderr is a pipe that the child will write to
-			  );
+              0 => array("pipe", "r"),     // stdin is a pipe that the child will read from
+              1 => array("pipe", "w"),     // stdout is a pipe that the child will write to
+              2 => array("pipe", "w")      // stderr is a pipe that the child will write to
+              );
 
   if (mb_eregi('^[a-z0-9_ ,\+\-=]*$', $to) == 0) {
     die("invalid arguments in command: " . $to ."\n");
   }
 
-  $command = CS2CS . " +proj=latlong +datum=WGS84 +to " . $to; 
+  $command = CS2CS . " +proj=latlong +datum=WGS84 +to " . $to;
 
   $process = proc_open($command, $descriptorspec, $pipes);
 
@@ -31,10 +31,10 @@ function cs2cs_core($lat, $lon, $to) {
 
     $stderr = stream_get_contents($pipes[2]);
     fclose($pipes[2]);
- 
-    // 
+
+    //
     // $procstat = proc_get_status($process);
-    // 
+    //
     // neither proc_close nor proc_get_status return reasonable results with PHP5 and linux 2.6.11,
     // see http://bugs.php.net/bug.php?id=32533
     //
@@ -42,9 +42,9 @@ function cs2cs_core($lat, $lon, $to) {
     // (Vinnie, 2006-02-09)
 
     if ($stderr) {
-    	die("proc_open() failed:<br />command='$command'<br />stderr='" . $stderr . "'");
+        die("proc_open() failed:<br />command='$command'<br />stderr='" . $stderr . "'");
     }
- 
+
     proc_close($process);
 
     return explode_multi(mb_trim($stdout), "\t\n ");
@@ -55,18 +55,18 @@ function cs2cs_core($lat, $lon, $to) {
 }
 
 function cs2cs_core2($lat, $lon, $to) {
- 
+
   $descriptorspec = array(
-			  0 => array("pipe", "r"),     // stdin is a pipe that the child will read from
-			  1 => array("pipe", "w"),     // stdout is a pipe that the child will write to
-			  2 => array("pipe", "w")      // stderr is a pipe that the child will write to
-			  );
+              0 => array("pipe", "r"),     // stdin is a pipe that the child will read from
+              1 => array("pipe", "w"),     // stdout is a pipe that the child will write to
+              2 => array("pipe", "w")      // stderr is a pipe that the child will write to
+              );
 
   if (mb_eregi('^[a-z0-9_ ,.\+\-=]*$', $to) == 0) {
     die("invalid arguments in command: " . $to ."\n");
   }
 
-  $command = CS2CS . " +proj=latlong +ellps=WGS84 +to " . $to; 
+  $command = CS2CS . " +proj=latlong +ellps=WGS84 +to " . $to;
 
   $process = proc_open($command, $descriptorspec, $pipes);
 
@@ -80,10 +80,10 @@ function cs2cs_core2($lat, $lon, $to) {
 
     $stderr = stream_get_contents($pipes[2]);
     fclose($pipes[2]);
- 
-    // 
+
+    //
     // $procstat = proc_get_status($process);
-    // 
+    //
     // neither proc_close nor proc_get_status return reasonable results with PHP5 and linux 2.6.11,
     // see http://bugs.php.net/bug.php?id=32533
     //
@@ -91,9 +91,9 @@ function cs2cs_core2($lat, $lon, $to) {
     // (Vinnie, 2006-02-09)
 
     if ($stderr) {
-    	die("proc_open() failed:<br />command='$command'<br />stderr='" . $stderr . "'");
+        die("proc_open() failed:<br />command='$command'<br />stderr='" . $stderr . "'");
     }
- 
+
     proc_close($process);
 
     return explode_multi(mb_trim($stdout), "\t\n ");
@@ -177,12 +177,12 @@ function cs2cs_utm($lat, $lon) {
 }
 
 function cs2cs_gk($lat, $lon) {
- 
+
   $zone = round($lon/3);
   $falseeasting = $zone * 1000000 + 500000;
 
   $cs2csresult = cs2cs_core($lat, $lon, "+proj=tmerc +ellps=bessel +lat_0=0 +lon_0=".($zone*3)." +x_0=".$falseeasting." +towgs84=606,23,413 ");
-  
+
   return $cs2csresult;
 
 }

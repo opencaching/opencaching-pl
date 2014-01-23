@@ -11,7 +11,7 @@
 
 </tr>
 <tr>
-<td width="100" class="{bgcolor}">{gray_s}<font size="1" {mod_cord_style}>{long}</font>{gray_e}&nbsp;</td> 
+<td width="100" class="{bgcolor}">{gray_s}<font size="1" {mod_cord_style}>{long}</font>{gray_e}&nbsp;</td>
   <td width="448" valign="top" class="{bgcolor}">{gray_s}{desclangs} {short_desc} {gray_e}&nbsp;</td>
   <td width="126" valign="top" class="{bgcolor}">&nbsp;&nbsp;&nbsp;&nbsp;{logtypes1}<!--<br/>{lastlogs}-->&nbsp;</td>
 </tr>

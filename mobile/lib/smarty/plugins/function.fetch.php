@@ -32,7 +32,7 @@ function smarty_function_fetch($params, $template)
         if(!$template->security_policy->isTrustedResourceDir($params['file'])) {
             return;
         }
-        
+
         // fetch the file
         if($fp = @fopen($params['file'],'r')) {
             while(!feof($fp)) {

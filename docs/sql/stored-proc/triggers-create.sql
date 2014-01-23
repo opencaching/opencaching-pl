@@ -34,7 +34,7 @@ DROP TRIGGER IF EXISTS cacheDescAfterDelete;;
 CREATE DEFINER=CURRENT_USER TRIGGER `cacheDescAfterDelete` AFTER DELETE ON `cache_desc`
   FOR EACH ROW
     BEGIN
-      UPDATE `caches`, (SELECT `cache_id`, GROUP_CONCAT(DISTINCT `language` ORDER BY `language` SEPARATOR ',') AS `lang` FROM `cache_desc` GROUP BY `cache_id`) AS `tbl2` SET `caches`.`desc_languages`=`tbl2`.`lang` WHERE `caches`.`cache_id`=`tbl2`.`cache_id` AND `tbl2`.`cache_id`=OLD.`cache_id`; 
+      UPDATE `caches`, (SELECT `cache_id`, GROUP_CONCAT(DISTINCT `language` ORDER BY `language` SEPARATOR ',') AS `lang` FROM `cache_desc` GROUP BY `cache_id`) AS `tbl2` SET `caches`.`desc_languages`=`tbl2`.`lang` WHERE `caches`.`cache_id`=`tbl2`.`cache_id` AND `tbl2`.`cache_id`=OLD.`cache_id`;
     END;;
 
 DROP TRIGGER IF EXISTS cacheLocationBeforeInsert;;
@@ -57,7 +57,7 @@ DROP TRIGGER IF EXISTS cacheRatingAfterInsert;;
 
 CREATE DEFINER=CURRENT_USER TRIGGER `cacheRatingAfterInsert` AFTER INSERT ON `cache_rating`
   FOR EACH ROW
-    BEGIN  
+    BEGIN
       UPDATE `caches` SET `topratings`=(SELECT COUNT(*) FROM `cache_rating` WHERE `cache_rating`.`cache_id`=NEW.`cache_id`) WHERE `cache_id`=NEW.`cache_id`;
     END;;
 
@@ -65,7 +65,7 @@ DROP TRIGGER IF EXISTS cacheRatingAfterUpdate;;
 
 CREATE DEFINER=CURRENT_USER TRIGGER `cacheRatingAfterUpdate` AFTER UPDATE ON `cache_rating`
   FOR EACH ROW
-    BEGIN  
+    BEGIN
       IF OLD.`cache_id`!=NEW.`cache_id` THEN
         UPDATE `caches` SET `topratings`=(SELECT COUNT(*) FROM `cache_rating` WHERE `cache_rating`.`cache_id`=OLD.`cache_id`) WHERE `cache_id`=OLD.`cache_id`;
         UPDATE `caches` SET `topratings`=(SELECT COUNT(*) FROM `cache_rating` WHERE `cache_rating`.`cache_id`=NEW.`cache_id`) WHERE `cache_id`=NEW.`cache_id`;
@@ -82,31 +82,31 @@ CREATE DEFINER=CURRENT_USER TRIGGER `cacheRatingAfterDelete` AFTER DELETE ON `ca
 
 DROP TRIGGER IF EXISTS cachesBeforeInsert;;
 
-CREATE DEFINER=CURRENT_USER TRIGGER `cachesBeforeInsert` BEFORE INSERT ON `caches` 
-				FOR EACH ROW 
-					BEGIN 
-						SET NEW.`need_npa_recalc`=1;
-					END;;
-					
+CREATE DEFINER=CURRENT_USER TRIGGER `cachesBeforeInsert` BEFORE INSERT ON `caches`
+                FOR EACH ROW
+                    BEGIN
+                        SET NEW.`need_npa_recalc`=1;
+                    END;;
+
 DROP TRIGGER IF EXISTS cachesBeforeUpdate;;
 
-CREATE DEFINER=CURRENT_USER TRIGGER `cachesBeforeUpdate` BEFORE UPDATE ON `caches` 
-				FOR EACH ROW 
-					BEGIN 
-						IF OLD.`longitude`!=NEW.`longitude` OR 
-						   OLD.`latitude`!=NEW.`latitude` THEN
-							SET NEW.`need_npa_recalc`=1;
-						END IF;
-					END;;
-					
+CREATE DEFINER=CURRENT_USER TRIGGER `cachesBeforeUpdate` BEFORE UPDATE ON `caches`
+                FOR EACH ROW
+                    BEGIN
+                        IF OLD.`longitude`!=NEW.`longitude` OR
+                           OLD.`latitude`!=NEW.`latitude` THEN
+                            SET NEW.`need_npa_recalc`=1;
+                        END IF;
+                    END;;
+
 DROP TRIGGER IF EXISTS cachesAfterInsert;;
 
 CREATE DEFINER=CURRENT_USER TRIGGER `cachesAfterInsert` AFTER INSERT ON `caches`
   FOR EACH ROW
     BEGIN
-      INSERT IGNORE INTO `cache_coordinates` (`cache_id`, `date_modified`, `longitude`, `latitude`) 
+      INSERT IGNORE INTO `cache_coordinates` (`cache_id`, `date_modified`, `longitude`, `latitude`)
                                       VALUES (NEW.`cache_id`, NOW(), NEW.`longitude`, NEW.`latitude`);
-      INSERT IGNORE INTO `cache_countries` (`cache_id`, `date_modified`, `country`) 
+      INSERT IGNORE INTO `cache_countries` (`cache_id`, `date_modified`, `country`)
                                       VALUES (NEW.`cache_id`, NOW(), NEW.`country`);
       UPDATE `user`, (SELECT COUNT(*) AS `hidden_count` FROM `caches` WHERE `user_id`=NEW.`user_id` AND `status` IN (1, 2, 3)) AS `c` SET `user`.`hidden_count`=`c`.`hidden_count` WHERE `user`.`user_id`=NEW.`user_id`;
     END;;
@@ -139,7 +139,7 @@ CREATE DEFINER=CURRENT_USER TRIGGER `cachesAfterDelete` AFTER DELETE ON `caches`
     BEGIN
       DELETE FROM `cache_coordinates` WHERE `cache_id`=OLD.`cache_id`;
       DELETE FROM `cache_countries` WHERE `cache_id`=OLD.`cache_id`;
-	  DELETE FROM `cache_npa_areas` WHERE `cache_id`=OLD.`cache_id`;
+      DELETE FROM `cache_npa_areas` WHERE `cache_id`=OLD.`cache_id`;
       UPDATE `user`, (SELECT COUNT(*) AS `hidden_count` FROM `caches` WHERE `user_id`=OLD.`user_id` AND `status` IN (1, 2, 3)) AS `c` SET `user`.`hidden_count`=`c`.`hidden_count` WHERE `user`.`user_id`=OLD.`user_id`;
     END;;
 

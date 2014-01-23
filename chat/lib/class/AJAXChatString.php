@@ -10,28 +10,28 @@
 // Class to provide multibyte enabled string methods
 class AJAXChatString {
 
-	function subString($str, $start=0, $length=null, $encoding='UTF-8') {
-		if($length === null) {
-			$length = AJAXChatString::stringLength($str);
-		}		
-		if(function_exists('mb_substr')) {
-			return mb_substr($str, $start, $length, $encoding);
-		} else if(function_exists('iconv_substr')) {
-			return iconv_substr($str, $start, $length, $encoding);
-		} else {
-			return substr($str, $start, $length);
-		}
-	}
-	
-	function stringLength($str, $encoding='UTF-8') {
-		if(function_exists('mb_strlen')) {
-			return mb_strlen($str, $encoding);
-		} else if(function_exists('iconv_strlen')) {
-			return iconv_strlen($str, $encoding);
-		} else {
-			return strlen($str);
-		}
-	}
+    function subString($str, $start=0, $length=null, $encoding='UTF-8') {
+        if($length === null) {
+            $length = AJAXChatString::stringLength($str);
+        }
+        if(function_exists('mb_substr')) {
+            return mb_substr($str, $start, $length, $encoding);
+        } else if(function_exists('iconv_substr')) {
+            return iconv_substr($str, $start, $length, $encoding);
+        } else {
+            return substr($str, $start, $length);
+        }
+    }
+
+    function stringLength($str, $encoding='UTF-8') {
+        if(function_exists('mb_strlen')) {
+            return mb_strlen($str, $encoding);
+        } else if(function_exists('iconv_strlen')) {
+            return iconv_strlen($str, $encoding);
+        } else {
+            return strlen($str);
+        }
+    }
 
 }
 ?>

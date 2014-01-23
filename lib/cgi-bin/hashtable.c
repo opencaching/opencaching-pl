@@ -98,7 +98,7 @@ hashtable_expand(struct hashtable *h)
         h->table = newtable;
     }
     /* Plan B: realloc instead */
-    else 
+    else
     {
         newtable = (struct entry **)
                    realloc(h->table, newsize * sizeof(struct entry *));
@@ -245,12 +245,12 @@ static inline uint32_t jenkins_one_at_a_time_hash(const char *key)
 {
     uint32_t hash = 0;
     size_t i;
- 
-	while(*key) {
+
+    while(*key) {
         hash += *key;
         hash += (hash << 10);
         hash ^= (hash >> 6);
-		key++;
+        key++;
     }
     hash += (hash << 3);
     hash ^= (hash >> 11);
@@ -261,49 +261,49 @@ static inline uint32_t jenkins_one_at_a_time_hash(const char *key)
 
 unsigned int hash_from_string( void *k )
 {
-	if(!k)
-		return 0;
+    if(!k)
+        return 0;
 
-	return (unsigned int)jenkins_one_at_a_time_hash((const char*)k);
+    return (unsigned int)jenkins_one_at_a_time_hash((const char*)k);
 }
 
 int string_equal_fn ( void *key1, void *key2 )
 {
-	return !strcmp((const char*)key1, (const char*)key2);
+    return !strcmp((const char*)key1, (const char*)key2);
 }
 
 int int_equal_fn ( void *key1, void *key2 )
 {
-	return (*(unsigned int*)key1 == *(unsigned int*)key2);
+    return (*(unsigned int*)key1 == *(unsigned int*)key2);
 }
 
 unsigned int hash_from_int(void *k )
 {
-	if(!k)
-		return 0;
-	return *(unsigned int *)k;
+    if(!k)
+        return 0;
+    return *(unsigned int *)k;
 }
 
 /*
  * Copyright (c) 2002, Christopher Clark
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  * * Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- * 
+ *
  * * Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- * 
+ *
  * * Neither the name of the original author; nor the names of any contributors
  * may be used to endorse or promote products derived from this software
  * without specific prior written permission.
- * 
- * 
+ *
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR

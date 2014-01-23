@@ -1,23 +1,23 @@
 <?php
 
 /***************************************************************************
-	*                                         				                                
-	*   This program is free software; you can redistribute it and/or modify  	
-	*   it under the terms of the GNU General Public License as published by  
-	*   the Free Software Foundation; either version 2 of the License, or	    	
-	*   (at your option) any later version.
-	*
-	***************************************************************************/
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    ***************************************************************************/
 
 /****************************************************************************
-	  
+
    Unicode Reminder ??
-                                       				                                
-	 remove a cache log
-		
-		cachename
-		logid_urlencode
-		log
+
+     remove a cache log
+
+        cachename
+        logid_urlencode
+        log
 
  ****************************************************************************/
 ?>
@@ -28,7 +28,7 @@
 <div class="buffer"></div>
 <p>{{confirm_remove_log}}?</p>
 <p>{log}</p>
-<p>			
+<p>
 <button type="submit" name="submit" value="{{delete}}" style="font-size:12px;width:140px;"/><b>{{delete}}</b></button>
 </p>
 </form>

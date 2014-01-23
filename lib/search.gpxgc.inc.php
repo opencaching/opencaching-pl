@@ -1,25 +1,25 @@
 <?php
 
         /***************************************************************************
-                *                                                                                                      
-                *   This program is free software; you can redistribute it and/or modify        
-                *   it under the terms of the GNU General Public License as published by  
-                *   the Free Software Foundation; either version 2 of the License, or          
+                *
+                *   This program is free software; you can redistribute it and/or modify
+                *   it under the terms of the GNU General Public License as published by
+                *   the Free Software Foundation; either version 2 of the License, or
                 *   (at your option) any later version.
                 *
                 ***************************************************************************/
 
         /****************************************************************************
-                   
+
                 Unicode Reminder ??
-                                                                                               
+
                 GPX search output
                 (HasChildren)
         ****************************************************************************/
 
         global $content, $bUseZip, $sqldebug, $usr, $hide_coords;
         set_time_limit(1800);
-       
+
         function getPictures($cacheid, $picturescount)
         {
                 global $dblink;
@@ -27,7 +27,7 @@
                 global $thumb_max_height;
 
                 $sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY date_created';
-               
+
 
                 $rs = sql($sql);
                 if(!isset($retval)) $retval = '';
@@ -39,7 +39,7 @@
                 mysql_free_result($rs);
                 return $retval;
         }
-               
+
                 // sitename and slogan iternational handling
                 $nodeDetect = substr($absolute_server_URI,-3,2);
 
@@ -55,7 +55,7 @@
         <time>{{time}}</time>
         <keywords>cache, geocache</keywords>
 ';
-       
+
 $gpxLine = '
         <wpt lat="{lat}" lon="{lon}">
                 <time>{{time}}</time>
@@ -71,8 +71,8 @@ $gpxLine = '
                         <groundspeak:owner id="{owner_id}">{owner}</groundspeak:owner>
                         <groundspeak:type>{type}</groundspeak:type>
                         <groundspeak:container>{container}</groundspeak:container>
-			<groundspeak:attributes>
-	{attributes}	</groundspeak:attributes>
+            <groundspeak:attributes>
+    {attributes}    </groundspeak:attributes>
                         <groundspeak:difficulty>{difficulty}</groundspeak:difficulty>
                         <groundspeak:terrain>{terrain}</groundspeak:terrain>
                         <groundspeak:country>{country}</groundspeak:country>
@@ -91,7 +91,7 @@ $gpxLine = '
         {cache_waypoints}
 ';
 
-$gpxAttributes = '		<groundspeak:attribute id="{attrib_id}" inc="1">{attrib_text_long}</groundspeak:attribute>';
+$gpxAttributes = '      <groundspeak:attribute id="{attrib_id}" inc="1">{attrib_text_long}</groundspeak:attribute>';
 
 $gpxLog = '
                                 <groundspeak:log id="{id}">
@@ -106,7 +106,7 @@ $gpxGeoKrety = '<groundspeak:travelbug id="{geokret_id}" ref="{geokret_ref}">
                 <groundspeak:name>{geokret_name}</groundspeak:name>
                 </groundspeak:travelbug>
                 ';
-               
+
 $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         <time>{{time}}</time>
         <name>{waypoint} {wp_stage}</name>
@@ -133,7 +133,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $gpxAvailable[1] = 'True';      //OC: Available
         $gpxAvailable[2] = 'False';     //OC: Unavailable
         $gpxAvailable[3] = 'False';     //OC: Archived
-       
+
         $gpxArchived[0] = 'False';      //OC: Unavailable
         $gpxArchived[1] = 'False';      //OC: Available
         $gpxArchived[2] = 'False';      //OC: Unavailable
@@ -154,7 +154,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $gpxType[4] = 'Virtual Cache';          //OC: Virtual
         $gpxType[5] = 'Webcam Cache';           //OC: Webcam
         $gpxType[6] = 'Event Cache';            //OC: Event
-       
+
         $gpxType[7] = 'Unknown Cache';          //OC: Quiz
         $gpxType[8] = 'Unknown Cache';          //OC: Moving
         $gpxType[9] = 'Unknown Cache';          //OC: PodCache
@@ -177,7 +177,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $gpxGeocacheTypeText[7] = 'Quiz';
         $gpxGeocacheTypeText[8] = 'Moving Cache';
         $gpxGeocacheTypeText[9] = 'Podcast cache';
-	
+
         $gpxLogType[0] = 'Write note';                  //OC: Other
         $gpxLogType[1] = 'Found it';                    //OC: Found
         $gpxLogType[2] = 'Didn\'t find it';             //OC: Not Found
@@ -191,117 +191,117 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $gpxLogType[10] = 'Enable Listing';                     //OC: Note
         $gpxLogType[11] = 'Temporarily Disable Listing';                        //OC: Note
         $gpxLogType[12] = 'Post Reviewer Note';                         //OC: Note
-       
+
         if( $usr || !$hide_coords )
         {
-			// 1st set of attributes - attributes that correlate to GC attributes
-			$gpxAttribID[12] = '22';
-			$gpxAttribName[12] = 'Hunting grounds';
-			$gpxAttribID[13] = '39';
-			$gpxAttribName[13] = 'Thorn';
-			$gpxAttribID[14] = '19';
-			$gpxAttribName[14] = 'Ticks';
-			$gpxAttribID[18] = '25';
-			$gpxAttribName[18] = 'Parking available';
-			$gpxAttribID[25] = '57';
-			$gpxAttribName[25] = 'Long hike';
-			$gpxAttribID[30] = '8';
-			$gpxAttribName[30] = 'Point of interest';
-			$gpxAttribID[40] = '53';
-			$gpxAttribName[40] = 'One-minute cache';
-			$gpxAttribID[44] = '24';
-			$gpxAttribName[44] = 'Wheelchair accessible';
-			$gpxAttribID[52] = '60';
-			$gpxAttribName[52] = 'Beacon - Garmin chirp';
-			$gpxAttribID[59] = '6';
-			$gpxAttribName[59] = 'Kid friendly';
-			$gpxAttribID[82] = '44';
-			$gpxAttribName[82] = 'Flashlight required';
-			$gpxAttribID[83] = '51';
-			$gpxAttribName[83] = 'Special tool required';
-			$gpxAttribID[85] = '32';
-			$gpxAttribName[85] = 'Bikes allowed';
-			
-			// 2nd set of attributes - OC only attributes, changed ID (+100) to be save in oc-gc-mixed environments
-			//$gpxAttribID[6] = '106';
-			//$gpxAttribName[6] = 'Only loggable at Opencaching';
-			//$gpxAttribID[43] = '143';
-			//$gpxAttribName[43] = 'GeoHotel';
-			//$gpxAttribID[47] = '147';
-			//$gpxAttribName[47] = 'Compass';
-			
-			//prepare the output
-			$caches_per_page = 20;
-			
-			$sql = 'SELECT '; 
-			
-			if (isset($lat_rad) && isset($lon_rad))
-			{
-				//	$sql .= getSqlDistanceFormula($lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
-				$sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
-			}
-			else
-			{
-				if ($usr === false)
-				{
-					$sql .= '0 distance, ';
-				}
-				else
-				{
-					//get the users home coords
-					$rs_coords = sql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-					$record_coords = sql_fetch_array($rs_coords);
-					
-					if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0)))
-					{
-						$sql .= '0 distance, ';
-					}
-					else
-					{
-						//TODO: load from the users-profile
-						$distance_unit = 'km';
+            // 1st set of attributes - attributes that correlate to GC attributes
+            $gpxAttribID[12] = '22';
+            $gpxAttribName[12] = 'Hunting grounds';
+            $gpxAttribID[13] = '39';
+            $gpxAttribName[13] = 'Thorn';
+            $gpxAttribID[14] = '19';
+            $gpxAttribName[14] = 'Ticks';
+            $gpxAttribID[18] = '25';
+            $gpxAttribName[18] = 'Parking available';
+            $gpxAttribID[25] = '57';
+            $gpxAttribName[25] = 'Long hike';
+            $gpxAttribID[30] = '8';
+            $gpxAttribName[30] = 'Point of interest';
+            $gpxAttribID[40] = '53';
+            $gpxAttribName[40] = 'One-minute cache';
+            $gpxAttribID[44] = '24';
+            $gpxAttribName[44] = 'Wheelchair accessible';
+            $gpxAttribID[52] = '60';
+            $gpxAttribName[52] = 'Beacon - Garmin chirp';
+            $gpxAttribID[59] = '6';
+            $gpxAttribName[59] = 'Kid friendly';
+            $gpxAttribID[82] = '44';
+            $gpxAttribName[82] = 'Flashlight required';
+            $gpxAttribID[83] = '51';
+            $gpxAttribName[83] = 'Special tool required';
+            $gpxAttribID[85] = '32';
+            $gpxAttribName[85] = 'Bikes allowed';
 
-						//$sql .= getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
-						$sql .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
-					}
-					mysql_free_result($rs_coords);
-				}
-			}
-			$sql .= '`caches`.`cache_id` `cache_id`, `caches`.`wp_oc` `cache_wp`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id` ,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings`,';
-			if ($usr === false) 
-			{
-				$sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude` FROM `caches` ';
-			}
-			else 
-			{
-				$sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, `caches`.`latitude`) `latitude`
-				FROM `caches`
-				LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'];
-			}
-			$sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
-			
-			$sortby = $options['sort'];
-			if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
-			{
-				$sql .= ' ORDER BY distance ASC';
-			}
-			else if ($sortby == 'bycreated')
-			{
-				$sql .= ' ORDER BY date_created DESC';
-			}
-			else // by name
-			{
-				$sql .= ' ORDER BY name ASC';
-			}
+            // 2nd set of attributes - OC only attributes, changed ID (+100) to be save in oc-gc-mixed environments
+            //$gpxAttribID[6] = '106';
+            //$gpxAttribName[6] = 'Only loggable at Opencaching';
+            //$gpxAttribID[43] = '143';
+            //$gpxAttribName[43] = 'GeoHotel';
+            //$gpxAttribID[47] = '147';
+            //$gpxAttribName[47] = 'Compass';
 
-	
+            //prepare the output
+            $caches_per_page = 20;
+
+            $sql = 'SELECT ';
+
+            if (isset($lat_rad) && isset($lon_rad))
+            {
+                //  $sql .= getSqlDistanceFormula($lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+                $sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
+            }
+            else
+            {
+                if ($usr === false)
+                {
+                    $sql .= '0 distance, ';
+                }
+                else
+                {
+                    //get the users home coords
+                    $rs_coords = sql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
+                    $record_coords = sql_fetch_array($rs_coords);
+
+                    if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0)))
+                    {
+                        $sql .= '0 distance, ';
+                    }
+                    else
+                    {
+                        //TODO: load from the users-profile
+                        $distance_unit = 'km';
+
+                        //$sql .= getSqlDistanceFormula($record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+                        $sql .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+                    }
+                    mysql_free_result($rs_coords);
+                }
+            }
+            $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`wp_oc` `cache_wp`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id` ,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings`,';
+            if ($usr === false)
+            {
+                $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude` FROM `caches` ';
+            }
+            else
+            {
+                $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, `caches`.`latitude`) `latitude`
+                FROM `caches`
+                LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'];
+            }
+            $sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+
+            $sortby = $options['sort'];
+            if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
+            {
+                $sql .= ' ORDER BY distance ASC';
+            }
+            else if ($sortby == 'bycreated')
+            {
+                $sql .= ' ORDER BY date_created DESC';
+            }
+            else // by name
+            {
+                $sql .= ' ORDER BY name ASC';
+            }
+
+
 
 
                 //prepare the output
                 $caches_per_page = 20;
-               
+
                 $sql = 'SELECT ';
-               
+
                 if (isset($lat_rad) && isset($lon_rad))
                 {
                         $sql .= getCalcDistanceSqlFormula($usr !== false, $lon_rad * 180 / 3.14159, $lat_rad * 180 / 3.14159, 0, $multiplier[$distance_unit]) . ' `distance`, ';
@@ -317,7 +317,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                 //get the users home coords
                                 $rs_coords = sql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
                                 $record_coords = sql_fetch_array($rs_coords);
-                               
+
                                 if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0)))
                                 {
                                         $sql .= '0 distance, ';
@@ -327,7 +327,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                         //TODO: load from the users-profile
                                         $distance_unit = 'km';
 
-                                        $lon_rad = $record_coords['longitude'] * 3.14159 / 180;  
+                                        $lon_rad = $record_coords['longitude'] * 3.14159 / 180;
                                         $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
 
                                        $sql .= getCalcDistanceSqlFormula($usr !== false,$record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
@@ -336,11 +336,11 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         }
                 }
                 $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`wp_oc` `cache_wp`, `caches`.`status` `status`, `caches`.`type` `type`, IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, `caches`.`latitude`) `latitude`, `caches`.`user_id` `user_id` ,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings`
-										
+
                                         FROM `caches`
-										LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'].'
+                                        LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'].'
                                         WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
-               
+
                 $sortby = $options['sort'];
                 if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
                 {
@@ -358,14 +358,14 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                 //startat?
                 $startat = isset($_REQUEST['startat']) ? $_REQUEST['startat'] : 0;
                 if (!is_numeric($startat)) $startat = 0;
-               
+
                 if (isset($_REQUEST['count']))
                         $count = $_REQUEST['count'];
                 else
                         $count = $caches_per_page;
-               
+
                 $maxlimit = 1000000000;
-               
+
                 if ($count == 'max') $count = $maxlimit;
                 if (!is_numeric($count)) $count = 0;
                 if ($count < 1) $count = 1;
@@ -373,7 +373,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
                 $sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
 
-                // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)                
+                // cleanup (old gpxcontent lingers if gpx-download is cancelled by user)
                 sql('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
 
                 // temporäre tabelle erstellen
@@ -382,13 +382,13 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                 $rsCount = sql('SELECT COUNT(*) `count` FROM `gpxcontent`');
                 $rCount = sql_fetch_array($rsCount);
                 mysql_free_result($rsCount);
-               
+
                 if ($rCount['count'] == 1)
                 {
                         $rsName = sql('SELECT `caches`.`wp_oc` `wp_oc` FROM `gpxcontent`, `caches` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
                         $rName = sql_fetch_array($rsName);
                         mysql_free_result($rsName);
-                       
+
                         $sFilebasename = $rName['wp_oc'];
                 }
                 else {
@@ -410,7 +410,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                 }
                         }
                 }
-                       
+
                 $bUseZip = ($rCount['count'] > 50);
                 $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
                 $bUseZip = false;
@@ -422,7 +422,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                 }
 
                 // ok, ausgabe starten
-               
+
                 if ($sqldebug == false)
                 {
                         if ($bUseZip == true)
@@ -454,7 +454,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         $thisline = $gpxLine;
                         $lat = sprintf('%01.5f', $r['latitude']);
                         $thisline = str_replace('{lat}', $lat, $thisline);
-                       
+
                         $lon = sprintf('%01.5f', $r['longitude']);
                         $thisline = str_replace('{lon}', $lon, $thisline);
 
@@ -464,39 +464,39 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         $thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
                         $thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
                         $thisline = str_replace('{country}', tr($r['country']), $thisline);
-                        $region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);              
+                        $region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);
                         $thisline = str_replace('{region}', $region, $thisline);
-						// modified coords
-						if ($r['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged 
-							if (!isset($dbc)) {$dbc = new dataBase();};	
-							$mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords
-										WHERE cache_id = :v1 AND user_id =:v2';
+                        // modified coords
+                        if ($r['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged
+                            if (!isset($dbc)) {$dbc = new dataBase();};
+                            $mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords
+                                        WHERE cache_id = :v1 AND user_id =:v2';
 
-							$params['v1']['value'] = (integer) $r['cacheid'];
-							$params['v1']['data_type'] = 'integer';
-							$params['v2']['value'] = (integer) $usr['userid'];
-							$params['v2']['data_type'] = 'integer';
+                            $params['v1']['value'] = (integer) $r['cacheid'];
+                            $params['v1']['data_type'] = 'integer';
+                            $params['v2']['value'] = (integer) $usr['userid'];
+                            $params['v2']['data_type'] = 'integer';
 
-							$dbc ->paramQuery($mod_coord_sql,$params);
-							Unset($params);
-							
-							if ($dbc->rowCount() > 0 )
-							{
-								$thisline = str_replace('{mod_suffix}', '(F)', $thisline);
-							} else {
-								$thisline = str_replace('{mod_suffix}', '', $thisline);
-							}
-						} else {
-							$thisline = str_replace('{mod_suffix}', '', $thisline);
-						};     
-						                   
+                            $dbc ->paramQuery($mod_coord_sql,$params);
+                            Unset($params);
+
+                            if ($dbc->rowCount() > 0 )
+                            {
+                                $thisline = str_replace('{mod_suffix}', '(F)', $thisline);
+                            } else {
+                                $thisline = str_replace('{mod_suffix}', '', $thisline);
+                            }
+                        } else {
+                            $thisline = str_replace('{mod_suffix}', '', $thisline);
+                        };
+
                         if ($r['hint'] == '')
                                 $thisline = str_replace('{hints}', '', $thisline);
                         else
                                 $thisline = str_replace('{hints}', cleanup_text($r['hint']), $thisline);
-                       
+
                         $logpw = ($r['logpw']==""?"":"".tr('search_gpxgc_01')." <br />");
-                       
+
                         $thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
                         $thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
                         if ($usr == true)
@@ -509,40 +509,40 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                 } else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
                         } else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 
-		// attributes
-		$rsAttributes = sql("SELECT `caches_attributes`.`attrib_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=&1", $r['cacheid']);
-		$attribentries='';
-		while ($rAttrib = sql_fetch_array($rsAttributes))
-		{
-			$thisattribute = $gpxAttributes;
+        // attributes
+        $rsAttributes = sql("SELECT `caches_attributes`.`attrib_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=&1", $r['cacheid']);
+        $attribentries='';
+        while ($rAttrib = sql_fetch_array($rsAttributes))
+        {
+            $thisattribute = $gpxAttributes;
 
-			$thisattribute_id = $gpxAttribID[$rAttrib['attrib_id']];
-			$thisattribute_name = $gpxAttribName[$rAttrib['attrib_id']];
-			
-			$thisattribute = mb_ereg_replace('{attrib_id}', $thisattribute_id, $thisattribute);
-			$thisattribute = mb_ereg_replace('{attrib_text_long}', $thisattribute_name, $thisattribute);
-			
-			$attribentries .= $thisattribute . "\n";
-		}
-		mysql_free_result($rsAttributes);
-		$thisline = str_replace('{attributes}', $attribentries, $thisline);
+            $thisattribute_id = $gpxAttribID[$rAttrib['attrib_id']];
+            $thisattribute_name = $gpxAttribName[$rAttrib['attrib_id']];
+
+            $thisattribute = mb_ereg_replace('{attrib_id}', $thisattribute_id, $thisattribute);
+            $thisattribute = mb_ereg_replace('{attrib_text_long}', $thisattribute_name, $thisattribute);
+
+            $attribentries .= $thisattribute . "\n";
+        }
+        mysql_free_result($rsAttributes);
+        $thisline = str_replace('{attributes}', $attribentries, $thisline);
 
                         // start extra info
                         $thisextra="";
                         $rsAttributes = sql("SELECT `cache_attrib`.`id`, `caches_attributes`.`attrib_id`, `cache_attrib`.`text_long` FROM `caches_attributes`, `cache_attrib` WHERE `caches_attributes`.`cache_id`=&1 AND `caches_attributes`.`attrib_id` = `cache_attrib`.`id` AND `cache_attrib`.`language` = '$lang' ORDER BY `caches_attributes`.`attrib_id`", $r['cacheid']);
                         if (( $r['votes'] > 3 ) || ( $r['topratings'] > 0 ) || (mysql_num_rows($rsAttributes) > 0 )) {
-                        $thisextra .= "\n-- ".tr('search_gpxgc_03').": --\n";          
+                        $thisextra .= "\n-- ".tr('search_gpxgc_03').": --\n";
                         if (mysql_num_rows($rsAttributes) > 0) {
                                 $attributes = ''.tr('search_gpxgc_04').': ';
                         while ($rAttribute = sql_fetch_array($rsAttributes))
                         {
                                         // if ($rAttribute['id'] == 55) $wigo = true; todo ustawic typ kesza na wigo
-                                        $attributes .= cleanup_text(xmlentities($rAttribute['text_long']));                                                                    
-                                        $attributes .=  " | ";          
+                                        $attributes .= cleanup_text(xmlentities($rAttribute['text_long']));
+                                        $attributes .=  " | ";
                         }
-                        $thisextra .= $attributes;              
+                        $thisextra .= $attributes;
                  }
-       
+
                         if( $r['votes'] > 3 ){
 
                                 $score = cleanup_text(score2rating($r['score']));
@@ -550,7 +550,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         }
                         if( $r['topratings'] > 0 ){
                         $thisextra .= "".tr('search_gpxgc_06').": " .$r['topratings']. "\n";}
-                       
+
         // NPA - nature protection areas
 
                 // Parki Narodowe , Krajobrazowe
@@ -582,7 +582,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                 $thisextra .=" - " .$npa['npaSitename']."  ".$npa['npaSitecode']." - ";
                                 }
                         }
-                               
+
                 }
                         $thisline = str_replace('{extra_info}', $thisextra, $thisline);
                         // end of extra info
@@ -591,7 +591,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                 $thisline = str_replace('{rr_comment}', '', $thisline);
                         else
                                 $thisline = str_replace('{rr_comment}', cleanup_text("<br /><br />--------<br />".$r['rr_comment']."<br />"), $thisline);
-                       
+
                         $thisline = str_replace('{{images}}', getPictures($r['cacheid'], false, $r['picturescount']), $thisline);
 
                         if (isset($gpxType[$r['type']]))
@@ -608,12 +608,12 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                 $thisline = str_replace('{container}', $gpxContainer[$r['size']], $thisline);
                         else
                                 $thisline = str_replace('{container}', $gpxContainer[0], $thisline);
-                       
+
                         if (isset($gpxAvailable[$r['status']]))
                                 $thisline = str_replace('{available}', $gpxAvailable[$r['status']], $thisline);
                         else
                                 $thisline = str_replace('{available}', $gpxAvailable[1], $thisline);
-                       
+
                         if (isset($gpxArchived[$r['status']]))
                                 $thisline = str_replace('{{archived}}', $gpxArchived[$r['status']], $thisline);
                         else
@@ -638,13 +638,13 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         } else {
                                 $gpxLogLimit = '';
                         }
-                       
+
                         $logentries = '';
                         $rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username`, `cache_logs`.`user_id` `userid` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC $gpxLogLimit", $r['cacheid']);
                         while ($rLog = sql_fetch_array($rsLogs))
                         {
                                 $thislog = $gpxLog;
-                               
+
                                 $thislog = str_replace('{id}', $rLog['id'], $thislog);
                                 $thislog = str_replace('{date}', date($gpxTimeFormat, strtotime($rLog['date'])), $thislog);
                                 if (isset($gpxLogType[$rLog['type']]))
@@ -657,11 +657,11 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                   $rLog['userid'] = '0';
                                  }
                                 $thislog = str_replace('{username}', xmlentities($rLog['username']), $thislog);
-                                $thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);                          
+                                $thislog = str_replace('{finder_id}', xmlentities($rLog['userid']), $thislog);
                                 $thislog = str_replace('{type}', $logtype, $thislog);
                                 $thislog = str_replace('{{text}}', cleanup_text($rLog['text']), $thislog);
                                 $logentries .= $thislog . "\n";
-                               
+
                         }
                         $thisline = str_replace('{logs}', $logentries, $thisline);
 
@@ -682,9 +682,9 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                         $thisGeoKret = str_replace('{geokret_id}',xmlentities($geokret['id']) , $thisGeoKret);
                                         $thisGeoKret = str_replace('{geokret_ref}',$gkWP, $thisGeoKret);
                                         $thisGeoKret = str_replace('{geokret_name}', cleanup_text(xmlentities($geokret['name'])), $thisGeoKret);
-                                                                       
+
                                         $geokrety .= $thisGeoKret;// . "\n";
-                               
+
                         }
                         $thisline = str_replace('{geokrety}', $geokrety, $thisline);
 // Waypoints
@@ -695,7 +695,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         if ($rwp['status']==1) {
                                 $thiswp = $gpxWaypoints;
                                 $lat = sprintf('%01.5f', $rwp['latitude']);
-                                $thiswp = str_replace('{wp_lat}', $lat, $thiswp);              
+                                $thiswp = str_replace('{wp_lat}', $lat, $thiswp);
                                 $lon = sprintf('%01.5f', $rwp['longitude']);
                                 $thiswp = str_replace('{wp_lon}', $lon, $thiswp);
                                 $thiswp = str_replace('{waypoint}', $waypoint,$thiswp);
@@ -705,8 +705,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                 if ($rwp['stage'] !=0) {
                                 $thiswp = str_replace('{wp_stage}', " Etap" .$rwp['stage'], $thiswp);
                                 } else {
-                                $thiswp = str_replace('{wp_stage}',$rwp['wp_type_name'] , $thiswp);}                            
-                                $thiswp = str_replace('{desc}', cleanup_text($rwp['desc']), $thiswp);                                  
+                                $thiswp = str_replace('{wp_stage}',$rwp['wp_type_name'] , $thiswp);}
+                                $thiswp = str_replace('{desc}', cleanup_text($rwp['desc']), $thiswp);
                                 if ($rwp['type']==5){$thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);}
                                 if ($rwp['type']==1){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
                                 if ($rwp['type']==2){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
@@ -715,7 +715,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                                 $waypoints .= $thiswp;
                                 }
                         }
-                        $thisline = str_replace('{cache_waypoints}', $waypoints, $thisline);    
+                        $thisline = str_replace('{cache_waypoints}', $waypoints, $thisline);
 
 
 
@@ -723,13 +723,13 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         append_output($thisline);
                         ob_flush();
                 }
-				unset($dbc);
+                unset($dbc);
                 mysql_free_result($rs);
 
                 append_output($gpxFoot);
 
                 if ($sqldebug == true) sqldbg_end();
-               
+
                 // phpzip versenden
                 if ($bUseZip == true)
                 {
@@ -737,9 +737,9 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         echo $phpzip->save($sFilebasename . '.zip', 'b');
                 }
         }
-       
+
         exit;
-       
+
         function xmlentities($str)
         {
                 $from[0] = '&'; $to[0] = '&amp;';
@@ -751,7 +751,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
 
                 for ($i = 0; $i <= 4; $i++)
                 $str = str_replace($from[$i], $to[$i], $str);
-                $str = preg_replace('/[[:cntrl:]]/', '', $str);                                
+                $str = preg_replace('/[[:cntrl:]]/', '', $str);
         return $str;
 
         }
@@ -772,31 +772,31 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
           $from[] = '<br />'; $to[] = "\n";
           $from[] = '<br>'; $to[] = "\n";
           $from[] = '<br>'; $to[] = "\n";
-           
+
           $from[] = '<li>'; $to[] = " - ";
           $from[] = '</li>'; $to[] = "\n";
-         
+
           $from[] = '&oacute;'; $to[] = 'o';
           $from[] = '&quot;'; $to[] = '"';
           $from[] = '&[^;]*;'; $to[] = '';
-         
+
           $from[] = '&'; $to[] = '&amp;';
           $from[] = '<'; $to[] = '&lt;';
           $from[] = '>'; $to[] = '&gt;';
           $from[] = ']]>'; $to[] = ']] >';
            $from[] = ''; $to[] = '';
-             
+
           for ($i = 0; $i < count($from); $i++)
             $str = str_replace($from[$i], $to[$i], $str);
-            $str = preg_replace('/[[:cntrl:]]/', '', $str);                                
+            $str = preg_replace('/[[:cntrl:]]/', '', $str);
             return $str;
         }
-       
+
         function append_output($str)
         {
                 global $content, $bUseZip, $sqldebug;
                 if ($sqldebug == true) return;
-               
+
                 if ($bUseZip == true)
                         $content .= $str;
                 else
@@ -835,12 +835,12 @@ function PlConvert($source,$dest,$tekst)
 
     if(!isset($chars[$source])) return false;
     if(!isset($chars[$dest])) return false;
-   
+
         $tekst = str_replace('a', 'a', $tekst);
         $tekst = str_replace('é', 'e', $tekst);
 
     return str_replace($chars[$source],$chars[$dest],$tekst);
 }
-                       
+
                         ?>
 

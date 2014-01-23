@@ -1,18 +1,18 @@
 <?php
 /***************************************************************************
-	*
-	*   This program is free software; you can redistribute it and/or modify
-	*   it under the terms of the GNU General Public License as published by
-	*   the Free Software Foundation; either version 2 of the License, or
-	*   (at your option) any later version.
-	*
-	***************************************************************************/
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    ***************************************************************************/
 
 /****************************************************************************
 
    Unicode Reminder ??
 
-	 set template specific language variables
+     set template specific language variables
 
  ****************************************************************************/
 
@@ -51,7 +51,7 @@
  $cache_size[] = array('id' => '-1', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one']);
  $cache_types[] = array('id' => '-1', 'short' => 'n/a', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one']);
  $wp_types[] = array('id' => '-1', 'short' => 'n/a', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one']);
- 
+
  $cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
  $cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})" /> ';
 

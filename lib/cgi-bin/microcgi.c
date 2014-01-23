@@ -27,7 +27,7 @@ static void unencode(const char *src, size_t len, char *dest)
 
       int code;
       if(sscanf(src+1, "%2x", &code) != 1)
-	code = '?';
+    code = '?';
       *dest = code;
       src +=2;
     }
@@ -47,19 +47,19 @@ static void handle_formdata(formtype type, const char* getquery)
   strncpy(getquery2, getquery, len+1);
   char *from = getquery2;
   char *to;
-  
+
   while((to = strchr(from, '&'))) {
     *to = 0;
     char buf[to-from+1];
     unencode(from, to - from, buf);
     char *assign = strchr(buf, '=');
     if(assign == NULL) {
-	  microcgi_setstr(type, buf, "");
+      microcgi_setstr(type, buf, "");
     }
     else {
       *assign=0;
       assign++;
-	  microcgi_setstr(type, buf, assign);
+      microcgi_setstr(type, buf, assign);
     }
     from = to+1;
   }
@@ -68,12 +68,12 @@ static void handle_formdata(formtype type, const char* getquery)
   unencode(from, to - from, buf);
   char *assign = strchr(buf, '=');
   if(assign == NULL) {
-	microcgi_setstr(type, buf, "");
+    microcgi_setstr(type, buf, "");
   }
   else {
     *assign=0;
     assign++;
-	microcgi_setstr(type, buf, assign);
+    microcgi_setstr(type, buf, assign);
   }
 }
 
@@ -91,33 +91,33 @@ void microcgi_init(void)
   if(!getquery)
     return;
   int len = atoi(getquery);
-  if(len <= 0) 
+  if(len <= 0)
     return;
   char postquery[len+2];
   fgets(postquery, len, stdin);
   handle_formdata(CGI_POST, postquery);
 
 }
-  
+
 void microcgi_setstr(formtype type, const char* variable, const char* value)
 {
-	struct hashtable *target = type==CGI_GET?getvars:postvars;
+    struct hashtable *target = type==CGI_GET?getvars:postvars;
 
-	void * t = hashtable_search(target, (void*)variable);
-	if(t) {
-		free(hashtable_remove(target, (void*)variable));
-	}
+    void * t = hashtable_search(target, (void*)variable);
+    if(t) {
+        free(hashtable_remove(target, (void*)variable));
+    }
     hashtable_insert(getvars, strdup(variable), strdup(value));
 }
 
 const char* microcgi_getstr(formtype type, const char* variable)
-{  
-	struct hashtable *target = type == CGI_GET?getvars:postvars;
-	const char *str = hashtable_search(target, (void*)variable);
-	if(str)
-		return str;
-	else
-		return "";
+{
+    struct hashtable *target = type == CGI_GET?getvars:postvars;
+    const char *str = hashtable_search(target, (void*)variable);
+    if(str)
+        return str;
+    else
+        return "";
 }
 
 double microcgi_getdouble(formtype type, const char* variable)

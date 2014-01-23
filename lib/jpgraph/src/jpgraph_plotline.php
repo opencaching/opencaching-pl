@@ -1,9 +1,9 @@
 <?php
 /*=======================================================================
- // File:  		 JPGRAPH_PLOTLINE.PHP
+ // File:        JPGRAPH_PLOTLINE.PHP
  // Description: PlotLine extension for JpGraph
- // Created:  	 2009-03-24
- // Ver:  		 $Id: jpgraph_plotline.php 1881 2009-10-01 10:28:12Z ljp $
+ // Created:     2009-03-24
+ // Ver:         $Id: jpgraph_plotline.php 1881 2009-10-01 10:28:12Z ljp $
  //
  // CLASS PlotLine
  // Data container class to hold properties for a static

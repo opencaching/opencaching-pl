@@ -1,7 +1,7 @@
 <?php
 /*
   sql("SELECT id FROM &tmpdb.table WHERE a=&1 AND &tmpdb.b='&2'", 12345, 'abc');
-		
+
   returns: recordset or false
 */
 function sql($sql)
@@ -16,7 +16,7 @@ function sql($sql)
 
   $sqlpos = 0;
   $filtered_sql = '';
-		
+
   // $sql von vorne bis hinten durchlaufen und alle &x ersetzen
   $nextarg = strpos($sql, '&');
   while ($nextarg !== false)
@@ -27,20 +27,20 @@ function sql($sql)
     {
       $arglength = 0;
       $arg = '';
-		
+
       // nästes Zeichen das keine Zahl ist herausfinden
       while (preg_match('/^[0-9]{1}/', $nextchar) == 1)
       {
         $arg .= $nextchar;
-	
+
         $arglength++;
         $nextchar = substr($sql, $nextarg + $arglength + 1, 1);
       }
-				
+
       // ok ... ersetzen
       $filtered_sql .= substr($sql, $sqlpos, $nextarg - $sqlpos);
       $sqlpos = $nextarg + $arglength;
-				
+
       if (isset($args[$arg]))
       {
         if (is_numeric($args[$arg]))
@@ -57,26 +57,26 @@ function sql($sql)
       }
       else
         sql_error();
-				
+
       $sqlpos++;
     }
     else
     {
       $arglength = 0;
       $arg = '';
-				
+
       // nästes Zeichen das kein Buchstabe/Zahl ist herausfinden
       while (preg_match('/^[a-zA-Z0-9]{1}/', $nextchar) == 1)
       {
         $arg .= $nextchar;
-					
+
         $arglength++;
         $nextchar = substr($sql, $nextarg + $arglength + 1, 1);
       }
-				
+
       // ok ... ersetzen
       $filtered_sql .= substr($sql, $sqlpos, $nextarg - $sqlpos);
-				
+
       if (isset($sql_replacements[$arg]))
       {
         $filtered_sql .= $sql_replacements[$arg];
@@ -89,20 +89,20 @@ function sql($sql)
 
     $nextarg = strpos($sql, '&', $nextarg + 1);
   }
-		
+
   // rest anhäen
   $filtered_sql .= substr($sql, $sqlpos);
 
   //
   // ok ... hier ist filtered_sql fertig
   //
-		
+
   /* todo:
     - errorlogging
     - LIMIT
     - DROP/DELETE ggf. blocken
   */
-		
+
   // Zeitmessung fü Ausfü
 //  require_once($rootpath . 'lib/bench.inc.php');
 //  $cSqlExecution = new Cbench;
@@ -119,7 +119,7 @@ function sql($sql)
 //  {
 //    sql_warn('execution took ' . $cSqlExecution->diff() . ' seconds');
 //  }
-	
+
   return $result;
 }
 

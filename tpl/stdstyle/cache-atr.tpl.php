@@ -1,51 +1,51 @@
 <?php
-  if 
+  if
      ($_POST["cache_icon"] == "TRUE") {
       $atr1 = $_POST["atr1"];
-	  $atr2 = $_POST["atr2"];
-	  $atr3 = $_POST["atr3"];
-	  $atr4 = $_POST["atr4"];
-	  $atr5 = $_POST["atr5"];
-	  $atr6 = $_POST["atr6"];
-	  $atr7 = $_POST["atr7"];
-	  $atr8 = $_POST["atr8"];
-	  $atr9 = $_POST["atr9"];
-	  $atr10 = $_POST["atr10"];
-	  $atr11 = $_POST["atr11"];
-	  $atr12 = $_POST["atr12"];
-	  $atr13 = $_POST["atr13"];
-	  $atr14 = $_POST["atr14"];
-	  $atr15 = $_POST["atr15"];
-	  $atr16 = $_POST["atr16"];
-	  $atr17 = $_POST["atr17"];
-	  $atr18 = $_POST["atr18"];
-	  $atr19 = $_POST["atr19"];
-	  $atr20 = $_POST["atr20"];
-	  $atr21 = $_POST["atr21"];
-	  $atr22 = $_POST["atr22"];
-	  $atr23 = $_POST["atr23"];
-	  $atr24 = $_POST["atr24"];
-	  $atr25 = $_POST["atr25"];
-	  $atr26 = $_POST["atr26"];
-	  $atr27 = $_POST["atr27"];
-	  $atr28 = $_POST["atr28"];
-	  $atr29 = $_POST["atr29"];
-	  $atr30 = $_POST["atr30"];
-	  $atr31 = $_POST["atr31"];
-	  $atr32 = $_POST["atr32"];
-	  $atr33 = $_POST["atr33"];
-	  $atr34 = $_POST["atr34"];
-	  $atr35 = $_POST["atr35"];
-	  $atr36 = $_POST["atr36"];
-	  $atr37 = $_POST["atr37"];
-	  $atr38 = $_POST["atr38"];
-	  $atr39 = $_POST["atr39"];
-	  $atr40 = $_POST["atr40"];
-	  $atr41 = $_POST["atr41"];
-	  $atr42 = $_POST["atr42"];
-	  $atr43 = $_POST["atr43"];
-	  $atr44 = $_POST["atr44"];
-	  $atr45 = $_POST["atr45"];
+      $atr2 = $_POST["atr2"];
+      $atr3 = $_POST["atr3"];
+      $atr4 = $_POST["atr4"];
+      $atr5 = $_POST["atr5"];
+      $atr6 = $_POST["atr6"];
+      $atr7 = $_POST["atr7"];
+      $atr8 = $_POST["atr8"];
+      $atr9 = $_POST["atr9"];
+      $atr10 = $_POST["atr10"];
+      $atr11 = $_POST["atr11"];
+      $atr12 = $_POST["atr12"];
+      $atr13 = $_POST["atr13"];
+      $atr14 = $_POST["atr14"];
+      $atr15 = $_POST["atr15"];
+      $atr16 = $_POST["atr16"];
+      $atr17 = $_POST["atr17"];
+      $atr18 = $_POST["atr18"];
+      $atr19 = $_POST["atr19"];
+      $atr20 = $_POST["atr20"];
+      $atr21 = $_POST["atr21"];
+      $atr22 = $_POST["atr22"];
+      $atr23 = $_POST["atr23"];
+      $atr24 = $_POST["atr24"];
+      $atr25 = $_POST["atr25"];
+      $atr26 = $_POST["atr26"];
+      $atr27 = $_POST["atr27"];
+      $atr28 = $_POST["atr28"];
+      $atr29 = $_POST["atr29"];
+      $atr30 = $_POST["atr30"];
+      $atr31 = $_POST["atr31"];
+      $atr32 = $_POST["atr32"];
+      $atr33 = $_POST["atr33"];
+      $atr34 = $_POST["atr34"];
+      $atr35 = $_POST["atr35"];
+      $atr36 = $_POST["atr36"];
+      $atr37 = $_POST["atr37"];
+      $atr38 = $_POST["atr38"];
+      $atr39 = $_POST["atr39"];
+      $atr40 = $_POST["atr40"];
+      $atr41 = $_POST["atr41"];
+      $atr42 = $_POST["atr42"];
+      $atr43 = $_POST["atr43"];
+      $atr44 = $_POST["atr44"];
+      $atr45 = $_POST["atr45"];
 
 ?>
 <H1><b>{{preview_attributes}}</b></h1><br /></center>
@@ -105,7 +105,7 @@
 <TEXTAREA cols="60" rows="15">
 <table align="center" border="0" cellpadding="2" cellspacing="0">
 <tr><td align="center"><b>Dodatkowe atrybuty skrzynki</b></td></tr><tr><td align="center">
-<?php 
+<?php
 if ($atr2 == ivy) echo '<img src="/images/cacheatr/ivy.gif" border="1" title="'.tr('toxic_plants').'" />';
  if ($atr3 == thorn) echo '<img src="/images/cacheatr/thorn.gif" border="1" title="'.tr('thorns').'" />';
  if ($atr4 == trash) echo '<img src="/images/cacheatr/trash.gif" border="1" title="'.tr('cito').'" />';
@@ -160,9 +160,9 @@ if ($atr2 == ivy) echo '<img src="/images/cacheatr/ivy.gif" border="1" title="'.
 ?>
 <form action='?' method="post">
 <center><h1><b>{{preview_attributes}}:</b></h1></center>
-<table align="center" bgcolor="#ffffff" cellpadding="2" cellspacing="4" width="100%">	
+<table align="center" bgcolor="#ffffff" cellpadding="2" cellspacing="4" width="100%">
 <tr>
-		<td class="form" valign="top" width="50%">
+        <td class="form" valign="top" width="50%">
 
 <input name="atr2" value="ivy" type="checkbox"><img src="/images/cacheatr/ivy.gif" align="middle" border="1" vspace="1" /> {{toxic_plants}}<br />
 <input name="atr3" value="thorn" type="checkbox"><img src="/images/cacheatr/thorn.gif" align="middle" border="1" vspace="1" /> {{thorns}}<br />
@@ -182,12 +182,12 @@ if ($atr2 == ivy) echo '<img src="/images/cacheatr/ivy.gif" border="1" title="'.
 <input name="atr20" value="mud" type="checkbox"><img src="/images/cacheatr/mud1.gif" align="middle" border="1" vspace="1" /> {{warning_mud}}<br />
 <input name="atr21" value="smokey" type="checkbox"><img src="/images/cacheatr/smokey.gif" title="Fire Danger" align="middle" border="1" vspace="1" /> {{fire_danger}}<br />
 <input name="atr22" value="tbughotel" type="checkbox"><img src="/images/cacheatr/tbughotel.gif" align="middle" border="1" vspace="1" /> {{travel_bug_hotel}}<br />
-		</td>
-		<td width="5%">
-		&nbsp;
-		</td>
-		<td class="form" valign="top" width="45%">
-&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr24" value="handicap" type="hidden"><img src="/images/cacheatr/handicap.gif" align="middle" border="1" vspace="1" /> {{handicap_allowed}}<input name="atr24" value="yes" type="radio"> {{handicap_not_allowed}}<input name="atr24" value="no" type="radio"><br />  
+        </td>
+        <td width="5%">
+        &nbsp;
+        </td>
+        <td class="form" valign="top" width="45%">
+&nbsp;&nbsp;&nbsp;&nbsp;<input name="atr24" value="handicap" type="hidden"><img src="/images/cacheatr/handicap.gif" align="middle" border="1" vspace="1" /> {{handicap_allowed}}<input name="atr24" value="yes" type="radio"> {{handicap_not_allowed}}<input name="atr24" value="no" type="radio"><br />
 <input name="atr26" value="grab" type="checkbox"><img src="/images/cacheatr/grab.gif" align="middle" border="1" vspace="1" /> {{can_drive_in}}<br />
 <input name="atr28" value="noshorts" type="checkbox"><img src="/images/cacheatr/noshorts.gif" align="middle" border="1" vspace="1" /> {{no_shorts}}<br />
 <input name="atr29" value="hunting" type="checkbox"><img src="/images/cacheatr/hunting.gif" align="middle" border="1" vspace="1" /> {{hunting_area}}<br />
@@ -207,15 +207,15 @@ if ($atr2 == ivy) echo '<img src="/images/cacheatr/ivy.gif" border="1" title="'.
 <input name="atr44" value="ticks" type="checkbox"><img src="/images/cacheatr/tick2.gif" align="middle" border="1" vspace="1" /> {{tick}}<br />
 <input name="atr45" value="snakes" type="checkbox"><img src="/images/cacheatr/snake.gif" align="middle" border="1" vspace="1" /> {{snake}}<br />
 
-		</td>
-	</tr>
+        </td>
+    </tr>
 <tr><td></td></tr>
-	<tr>
-		<td colspan="3" class="form" align="center">
-		<input type="hidden" name="cache_icon" value="TRUE">
-		<input type="submit" name="submit" value="{{generate_code}}">		
-		</td>
-	</tr>	
+    <tr>
+        <td colspan="3" class="form" align="center">
+        <input type="hidden" name="cache_icon" value="TRUE">
+        <input type="submit" name="submit" value="{{generate_code}}">
+        </td>
+    </tr>
 
 </table>
 </form>
@@ -226,5 +226,5 @@ if ($atr2 == ivy) echo '<img src="/images/cacheatr/ivy.gif" border="1" title="'.
 ?>
 
 
- 
- 
+
+

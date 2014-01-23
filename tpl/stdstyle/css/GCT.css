@@ -1,8 +1,8 @@
 /*
-		GoogleTableChart - 	JG (triPPer) 
-							tripper1971@wp.pl
-							
-		2013.12				
+        GoogleTableChart -  JG (triPPer)
+                            tripper1971@wp.pl
+
+        2013.12
 */
 
 
@@ -34,22 +34,22 @@
 .GCTalign-center{ text-align: center; }
 .GCTalign-right{ text-align: right; }
 
-.GCT-border-color-greyD9.google-visualization-table-sorthdr {		
-	padding-bottom: 10px; 
-	padding-top: 10px; 
-	padding-left: 5px;
-	
-	
-	background-image: -webkit-gradient(
-		linear,
-		left top,
-		left bottom,
-		color-stop(0, #FFFFFF),
-		color-stop(1, #DDDDDD)
-	);
-	background-image: -o-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
-	background-image: -moz-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
-	background-image: -webkit-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
-	background-image: -ms-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
-	background-image: linear-gradient(to bottom, #FFFFFF 0%, #DDDDDD 100%);
+.GCT-border-color-greyD9.google-visualization-table-sorthdr {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 5px;
+
+
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #FFFFFF),
+        color-stop(1, #DDDDDD)
+    );
+    background-image: -o-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
+    background-image: -moz-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
+    background-image: -webkit-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
+    background-image: -ms-linear-gradient(bottom, #FFFFFF 0%, #DDDDDD 100%);
+    background-image: linear-gradient(to bottom, #FFFFFF 0%, #DDDDDD 100%);
 }

@@ -92,7 +92,7 @@ $menu = array(
                         'onlylogged'    => true,
                         'filename'      => 'newcachesrest.php',
                         'siteid'        => 'newcachesrest'
-                    )                        
+                    )
                 )
             ),
             array(
@@ -115,8 +115,8 @@ $menu = array(
                 'siteid'        => 'cachemap3',
                 'visible'       => true,
                 'onlylogged'    => true,
-            	// On touch devices use full-screen map by default
-            	// **** Check for touch device below should be kept in sync with analogous check in lib/cachemap3.js ****
+                // On touch devices use full-screen map by default
+                // **** Check for touch device below should be kept in sync with analogous check in lib/cachemap3.js ****
                 'filename'      => 'javascript:window.location=(((\'ontouchstart\' in window) || (navigator.msMaxTouchPoints > 0)) ? \'cachemap-full.php\' : \'cachemap3.php\');',
                 'submenu'       => array(
                     array(
@@ -213,7 +213,7 @@ $menu = array(
                 'visible'       => false,
                 'filename'      => 'articles.php?page=s5'
             ),
-			array(
+            array(
                 'title'         => tr('pt001'),
                 'menustring'    => tr('pt001'),
                 'siteid'        => 'powerTrail',
@@ -258,7 +258,7 @@ $menu = array(
         'title'         => 'ChatBox',
         'menustring'    => 'ChatBox',
         'siteid'        => 'chatbox',
-        'visible'       => false, // Chat disabled because of server performance issues 
+        'visible'       => false, // Chat disabled because of server performance issues
         'filename'      => 'http://opencaching.pl/chat',
         'newwindow'     => true
     ),
@@ -431,7 +431,7 @@ $menu = array(
         'siteid'        => 'newmp3'
     ),
 
-    // OC management 
+    // OC management
     array(
         'title'         => tr('administration'),
         'menustring'    => tr('administration'),
@@ -488,7 +488,7 @@ $menu = array(
                 'visible'       => true,
                 'filename'      => 'admin_bulletin.php'
             ),
-			array(
+            array(
                 'title'         => tr('pt208'),
                 'menustring'    => tr('pt208'),
                 'siteid'        => 'powerTrailCOG',
@@ -513,14 +513,14 @@ $menu = array(
                 'filename'      => 'newcache.php',
                 'siteid'        => 'newcache'
             ),
-        	array(
-        			'title'         => tr('new_cache'),
-        			'menustring'    => tr('new_cache'),
-        			'visible'       => false,
-        			'filename'      => 'newcache.php',
-        			'siteid'        => 'newcache_info'
-        	),
-        		
+            array(
+                    'title'         => tr('new_cache'),
+                    'menustring'    => tr('new_cache'),
+                    'visible'       => false,
+                    'filename'      => 'newcache.php',
+                    'siteid'        => 'newcache_info'
+            ),
+
             array(
                 'title'         => tr('my_caches'),
                 'menustring'    => tr('my_caches'),
@@ -568,31 +568,31 @@ $menu = array(
                 'menustring'    => 'Field Notes',
                 'visible'       => true,
                 'filename'      => 'log_cache_multi_send.php',
-            	'siteid'        => 'log_cache_multi_send'	//JG 2013-10-25 było 'autolog'
+                'siteid'        => 'log_cache_multi_send'   //JG 2013-10-25 było 'autolog'
             ),
-       		array(
-       			'title'         => tr('new_logs'),
-       			'menustring'    => tr('new_logs'),
-       			'visible'       => false,
-       			'filename'      => 'myn_newlogs.php',
-       			'siteid'        => 'myn_newlogs'
-        		),
+            array(
+                'title'         => tr('new_logs'),
+                'menustring'    => tr('new_logs'),
+                'visible'       => false,
+                'filename'      => 'myn_newlogs.php',
+                'siteid'        => 'myn_newlogs'
+                ),
 
-        	array(
-        		'title'         => tr('new_logs'),
-        		'menustring'    => tr('new_logs'),
-        		'visible'       => false,
-        		'filename'      => 'myn_newcaches.php',
-        		'siteid'        => 'myn_newcaches'
-        		),
-        		
-        	array(
-        		'title'         => tr('new_logs'),
-        		'menustring'    => tr('new_logs'),
-        		'visible'       => false,
-        		'filename'      => 'myn_newcaches.php',
-        		'siteid'        => 'myn_topcaches'
-        		),
+            array(
+                'title'         => tr('new_logs'),
+                'menustring'    => tr('new_logs'),
+                'visible'       => false,
+                'filename'      => 'myn_newcaches.php',
+                'siteid'        => 'myn_newcaches'
+                ),
+
+            array(
+                'title'         => tr('new_logs'),
+                'menustring'    => tr('new_logs'),
+                'visible'       => false,
+                'filename'      => 'myn_newcaches.php',
+                'siteid'        => 'myn_topcaches'
+                ),
             array(
                 'title'         => tr('my_logs'),
                 'menustring'    => tr('my_logs'),
@@ -642,7 +642,7 @@ $menu = array(
                 'visible'       => true,
                 'filename'      => 'mywatches.php?rq=properties',
                 'siteid'        => 'mywatches_properties'
-                
+
             ),
             array(
                 'title'         => tr('clipboard'),
@@ -664,15 +664,15 @@ $menu = array(
                 'visible'       => true,
                 'filename'      => 'mywatches.php',
                 'siteid'        => 'mywatches',
-            	'submenu'       => array(
-            		array(
+                'submenu'       => array(
+                    array(
                         'title'         => tr('map_watched_caches'),
                         'menustring'    => tr('map_watched_caches'),
                         'visible'       => true,
                         'filename'      => 'mywatches.php?rq=map',
                         'siteid'        => 'mywatches_map',
                     ),
-            	),		
+                ),
             ),
             array(
                 'title'         => tr('ignored_caches'),
@@ -932,7 +932,7 @@ function mnu_MainMenuIndexFromPageId($menustructure, $pageid) {
         if ($menustructure[$i]['siteid'] == $pageid) {
             $mnu_selmenuitem = $menustructure[$i];
             return $i;
-        }  
+        }
         else  {
             if (isset($menustructure[$i]['submenu'])) {
                 $ret = mnu_MainMenuIndexFromPageId($menustructure[$i]['submenu'], $pageid);
@@ -954,11 +954,11 @@ function mnu_EchoMainMenu($selmenuid) {
     for ($i = 0; $i < count($menu); $i++) {
         if ($menu[$i]['visible'] == true) {
             if (!isset($menu[$i]['newwindow'])) $menu[$i]['newwindow'] = false;
-            if( $menu[$i]['newwindow'] == true ) 
+            if( $menu[$i]['newwindow'] == true )
                 $target_blank = "target='_blank'";
             else
                 $target_blank = "";
-                
+
             if ($menu[$i]['siteid'] == $selmenuid) {
                 echo '<li><a class="selected bg-green06" href="' . $menu[$i]['filename'] . '">' . htmlspecialchars($menu[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>';
             }
@@ -1005,7 +1005,7 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu) {
 
     for ($i = 0; $i < count($menustructure); $i++) {
         if (!isset($menustructure[$i]['newwindow'])) $menustructure[$i]['newwindow'] = false;
-        if( $menustructure[$i]['newwindow'] == true ) 
+        if( $menustructure[$i]['newwindow'] == true )
             $target_blank = "target='_blank'";
         else
             $target_blank = "";
@@ -1127,4 +1127,4 @@ function mnu_EchoQuicklinks($selmenuitem) {
     }
 }
 ?>
- 
+

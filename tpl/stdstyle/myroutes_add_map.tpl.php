@@ -1,38 +1,38 @@
 <?php
 /***************************************************************************
-	*                                         				                                
-	*   This program is free software; you can redistribute it and/or modify  	
-	*   it under the terms of the GNU General Public License as published by  
-	*   the Free Software Foundation; either version 2 of the License, or	    	
-	*   (at your option) any later version.
-	*   
-	*  UTF-8 ąść
-	***************************************************************************/
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    *  UTF-8 ąść
+    ***************************************************************************/
 ?>
 <script type="text/javascript">
 <!--
-	function checkForm()
-	{
-			if(document.myroute_form.name.value == "")
-		{
-			alert("{{route_name_info}}");
-			return false;
-		}
-				if(document.myroute_form.radius.value < 0.5 ||document.myroute_form.radius.value > 10 )
-		{
-			alert("{{radius_info}}");
-			return false;
-		}
-		document.forms['myroute_form'].fromaddr.value=document.myram.from.value;
-		document.forms['myroute_form'].toaddr.value=document.myram.to.value;
+    function checkForm()
+    {
+            if(document.myroute_form.name.value == "")
+        {
+            alert("{{route_name_info}}");
+            return false;
+        }
+                if(document.myroute_form.radius.value < 0.5 ||document.myroute_form.radius.value > 10 )
+        {
+            alert("{{radius_info}}");
+            return false;
+        }
+        document.forms['myroute_form'].fromaddr.value=document.myram.from.value;
+        document.forms['myroute_form'].toaddr.value=document.myram.to.value;
 
-		return true; 
-	}
-	//-->
+        return true;
+    }
+    //-->
 </script>
 
 
-	
+
 <script src=" http://maps.google.com/?file=api&v=2.x&key=ABQIAAAAKzfMHoyn1s1VSuNTwlFfzhTqTxhHAgqKNaAck663VX5jr8OSJBQrTiL58t4Rt3olsGRlxSuqVkU5Xg"
 type="text/javascript"></script>
 
@@ -108,7 +108,7 @@ color: #000000;
 <input type="hidden" name="fromaddr" value=""/>
 <input type="hidden" name="toaddr" value="" />
 <table class="content">
-	<tr>
+    <tr>
 <td valign='top' width='25%'><span style="font-weight:bold;">{{route_name}}:</span></td>
 <td width='75%'><input type='text' name='name' size='50' value=''></td>
 </tr>
@@ -122,9 +122,9 @@ color: #000000;
 </tr>
 <tr>
 <td valign="top" align="left" colspan="2">
-	<button type="submit" name="submitform" value="submit"  style="font-size:12px;width:160px"><b>{{save_route}}</b></button>
-		<br /><br /></td>
-	</tr>
+    <button type="submit" name="submitform" value="submit"  style="font-size:12px;width:160px"><b>{{save_route}}</b></button>
+        <br /><br /></td>
+    </tr>
 </table><br/>
 </form>
 <form action="#" name="myram" onsubmit="setDirections(this.from.value, this.to.value); return false">

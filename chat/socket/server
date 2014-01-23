@@ -44,8 +44,8 @@ function stop
 	exit 0
 }
 
-function main 
-{ 
+function main
+{
 	for arg in $@
 	do
 		if [ $arg == "start" ]
@@ -64,8 +64,8 @@ function main
 	echo "Missing argument."
 	echo "Usage: $0 [start|stop]"
 	exit 0
-} 
+}
 
 
-# Script execution: 
+# Script execution:
 main $@

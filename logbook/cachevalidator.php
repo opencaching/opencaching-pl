@@ -24,15 +24,15 @@ if (get_magic_quotes_gpc()) {
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl">    
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl">
 <head>
-	<title>Naprawiacz opisu</title>
-	<script src="ajax.js" type="text/javascript" charset="utf-8"></script>
+    <title>Naprawiacz opisu</title>
+    <script src="ajax.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 
-	<body>
-	<script type="text/javascript">
+    <body>
+    <script type="text/javascript">
 //<![CDATA[
 
 var cururl;
@@ -40,29 +40,29 @@ var curpage = 1;
 var numpages = 1;
 
 function startCallback() {
-	// make something useful before submit (onStart)
-	return true;
+    // make something useful before submit (onStart)
+    return true;
 }
 
 function bindArgument(fn, arg)
 {
-	return function () { return fn(arg); };
+    return function () { return fn(arg); };
 }
 
 function removeChildrenFromNode(node)
 {
-	var len = node.childNodes.length;
-	while (node.hasChildNodes()) {
-		node.removeChild(node.firstChild);
-	}
+    var len = node.childNodes.length;
+    while (node.hasChildNodes()) {
+        node.removeChild(node.firstChild);
+    }
 }
 
 //]]>
-	</script>
+    </script>
 <div id="logoblock">
-	<img src="geocaching.jpg" id="logo" />
+    <img src="geocaching.jpg" id="logo" />
 </div>
-	<div id="navibar">
+    <div id="navibar">
 <!--<span><a href="">Strona Główna</a></span>-->
 <?
 include("menu.inc");
@@ -86,7 +86,7 @@ $text = $_POST['text'];
 //callback function for the regex
 function utf8_entity_decode($entity){
  $convmap = array(0x0, 0x10000, 0, 0xfffff);
-	return "ż";
+    return "ż";
 // return mb_decode_numericentity($entity, $convmap, 'UTF-8');
 }
 
@@ -98,30 +98,30 @@ tidy_clean_repair($tidy);
 
 function iterate_over($node)
 {
-	$removed = array();
+    $removed = array();
 
-	print "<br />Iterating over " .  $node->tagName ."\n";
+    print "<br />Iterating over " .  $node->tagName ."\n";
 
-	if($node->tagName == "span") {
-		print "deleting\n";
-		array_push($removed, $node);
-	}
-	if(!$node)
-		return;
+    if($node->tagName == "span") {
+        print "deleting\n";
+        array_push($removed, $node);
+    }
+    if(!$node)
+        return;
 
-	if($node->hasAttributes()) {
-		$attributes = $node->attributes;
-		if(!is_null($attributes)) 
-		foreach ($attributes as $index=>$attr) 
-			echo $attr->name ." = " . htmlspecialchars($attr->value) . "\n";
-	}
-	if($node->hasChildNodes()) {
-		$children = $node->childNodes;
-		foreach($children as $child) {
-			$removed = array_merge($removed, iterate_over($child, $array));
-		}
-	}
-	return $removed;
+    if($node->hasAttributes()) {
+        $attributes = $node->attributes;
+        if(!is_null($attributes))
+        foreach ($attributes as $index=>$attr)
+            echo $attr->name ." = " . htmlspecialchars($attr->value) . "\n";
+    }
+    if($node->hasChildNodes()) {
+        $children = $node->childNodes;
+        foreach($children as $child) {
+            $removed = array_merge($removed, iterate_over($child, $array));
+        }
+    }
+    return $removed;
 }
 
 function appendSibling(DOMNode $newnode, DOMNode $ref)
@@ -133,42 +133,42 @@ function appendSibling(DOMNode $newnode, DOMNode $ref)
     // $ref has no brother next to him : insert newnode as last child of his parent
     return $ref->parentNode->appendChild($newnode);
   }
-} 
+}
 
 function remove_node($domElement)
 {
-	if($domElement->hasChildNodes()) {
-		$children = $domElement->childNodes;
-		$toAppend = array();
-		foreach($children as $child)
-			array_unshift($toAppend, $child);
-		foreach($toAppend as $child)
-			appendSibling($child, $domElement);
-	}
-//	$domElement->parentNode->removeChild($domElement); 
+    if($domElement->hasChildNodes()) {
+        $children = $domElement->childNodes;
+        $toAppend = array();
+        foreach($children as $child)
+            array_unshift($toAppend, $child);
+        foreach($toAppend as $child)
+            appendSibling($child, $domElement);
+    }
+//  $domElement->parentNode->removeChild($domElement);
 }
 
 
 $str = (string)$tidy;
 if($str) {
-//	$str = str_replace("&amp;", "&", $str);
-	$doc = DOMDocument::loadXML("<cache_description>".$str."</cache_description>");
-	$doc->encoding = "utf-8";
-	$main = $doc->documentElement;
+//  $str = str_replace("&amp;", "&", $str);
+    $doc = DOMDocument::loadXML("<cache_description>".$str."</cache_description>");
+    $doc->encoding = "utf-8";
+    $main = $doc->documentElement;
 
-	if($main) {
-		$for_removal = iterate_over($main);
-		foreach($for_removal as $domElement) {
-			echo "<br/>removing ..\n";
-			remove_node($domElement);
-			$domElement->parentNode->removeChild($domElement); 
-		}
-	}
+    if($main) {
+        $for_removal = iterate_over($main);
+        foreach($for_removal as $domElement) {
+            echo "<br/>removing ..\n";
+            remove_node($domElement);
+            $domElement->parentNode->removeChild($domElement);
+        }
+    }
 
-	$str = $doc->saveXML();
-	$str = str_replace('<?xml version="1.0" encoding="utf-8"?>'."\n", "", $str);
-	$str = str_replace('<cache_description>', "", $str);
-	$str = str_replace('</cache_description>', "", $str);
+    $str = $doc->saveXML();
+    $str = str_replace('<?xml version="1.0" encoding="utf-8"?>'."\n", "", $str);
+    $str = str_replace('<cache_description>', "", $str);
+    $str = str_replace('</cache_description>', "", $str);
 }
 
 ?>

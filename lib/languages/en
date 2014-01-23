@@ -330,11 +330,11 @@ date_incorrect Incorrect date. Legal format: DD-MM-YYYY
 no_cache_name Missing geocache name
 new_cache_no_terms You must confirm that you agree to {site_name}'s Terms of Use
 html_incorrect This HTML code is not allowed.
-type_incorrect Cache type is incorrect! 
+type_incorrect Cache type is incorrect!
 size_incorrect Cache size is incorrect!
 diff_incorrect Difficulty is incorrect!
 status_incorrect Status does not match published data.
-virtual_cache_size Cache size for "event" have to be set as "no container" 
+virtual_cache_size Cache size for "event" have to be set as "no container"
 cache_submitted Your cache has been successfully registered at {site_name}.
 full_description Full description
 mandatory_field This field is required
@@ -384,7 +384,7 @@ finder_label Finder
 search_by_finder Search by finder
 search_recommendations Recommendations
 search_all_caches all caches
-search_recommended_caches minimum number of recommendations: 
+search_recommended_caches minimum number of recommendations:
 incomming_events Upcomming events
 rr_comment_label Comment from OC Team
 add_rr_comment Add OC Team comment
@@ -393,7 +393,7 @@ get_bulletin I want to receive bulletins
 bulletin_label_yes User will receive bulletins
 bulletin_label_no User will not receive bulletins
 bulletin Bulletin
-user_desc User description 
+user_desc User description
 days_since_first_find_label Days since finding the first cache
 days_went_caching_label Days went caching
 days_no_caching_label Days didn't go caching
@@ -443,14 +443,14 @@ searchable without own and founded caches
 all_geocaches all
 log_entries Log entries
 show_all_log_entries Show all log entries
-show_all_log_entries_short All entries  
+show_all_log_entries_short All entries
 back_to_the_geocache_listing Back to the geocache listing
 register_new  New user registration
 password_confirm Confirm password
 register_msg1 To create an account on {site_name}, you have to enter a vaild E-Mail address and an username. <br/>An E-Mail will be sent to the address you supplied with an activation code. Only one account can be created per one E-Mail address.
 register_msg2 Fields marked with * are required
 register_msg3 If you have any questions, please contact us before you create your account.
-register_msg4 I have read, understood and accept <b><a href="{rules_url}"> Terms of Use</a></b>. 
+register_msg4 I have read, understood and accept <b><a href="{rules_url}"> Terms of Use</a></b>.
 register_msg5 A new account has been registered
 register_msg6 The activation code was sent via E-mail to you. Please follow the instructions within it.
 register_msg7 Users which have hidden a cache or logged at least one visit - cannot be deleted. However, it is possible to deactivate such accounts. All your personal data will be removed (including your email address), but your username will be kept. If you want your account to be deactivated contact us at ocpl@opencaching.pl.
@@ -510,14 +510,14 @@ hidden_by hidden by
 newcaches_label New caches
 cache_label cache name
 found_it found by
-did_not_find_it not-found by 
+did_not_find_it not-found by
 write_note write a note
 attende attended
 will_attende I will be attending
 add_new_desc Add a new describtion to the cache
 pictures_label Pictures or photos
 add_new_pict Add a new picture
-mp3_label MP3 podcast for a cache of the type PodCache 
+mp3_label MP3 podcast for a cache of the type PodCache
 add_new_mp3 Add new MP3 file
 no_mp3_files There are no MP3 files yet
 map Map
@@ -536,7 +536,7 @@ toggle_filters Change filters
 fullscreen Full screen
 disable_fullscreen Turn off full screen
 stats Statistics
-rise_charts Our rising charts... 
+rise_charts Our rising charts...
 region_ranking Ranking per region
 user_ranking Users ranking
 cache_ranking Cache ranking
@@ -651,7 +651,7 @@ my_statistics My statistics
 mycache_note My cache notes
 personal_cache_note Personal cache note
 cache_note_visible The note is not visible to other users. It will be included in GPX files you download.
-for_cache for 
+for_cache for
 add_new_note Add a new note
 back_to_cache Back to cache
 cachenotes notes
@@ -685,12 +685,12 @@ archived_cache The cache has been archived.
 temporarily_unavailable The cache will be temporarily unavailable.
 blocked_by_octeam The cache was blocked by OC-Team.
 approved_by_octeam The cache is approved by the OC-Team
-empty_coordinatest Please add the new coordinates of the moved mobile cache. 
+empty_coordinatest Please add the new coordinates of the moved mobile cache.
 empty_log_text Log shouldn't be empty. Please write a short note.
 route_cache Route of cache
 start_point start point
 trp_points trip points
-recently_seen recently seen 
+recently_seen recently seen
 moved_text moved
 encrypt_log Log entry encrypted
 my_neighborhood My neighborhood
@@ -698,7 +698,7 @@ my_neighborhood_v2 My neighborhood v2
 my_neighborhood_radius My neighborhood in radius
 new_caches_myn New geocaches
 ftf_awaiting Awaiting First Find Caches
-new_logs_myn Latest logs 
+new_logs_myn Latest logs
 top_recommended Most recommended caches
 myn_info You did not set your home-area coordinates. You can do this in your <a href="myprofile.php?action=change">profile</a>. You can also change the default notification radius there.
 search_user Search for users
@@ -730,7 +730,7 @@ password_to_log Password to log
 incorrect_password_to_log Incorrect password to log
 only_for_found_it only for found it geocaches
 store Write
-here Here 
+here Here
 alternative_recommend Alternative you can remove recommendations
 comment_log Comment
 need_maintenance_log Need maintenance
@@ -738,10 +738,10 @@ comment_octeam_log OC Team comment
 moved_log Moved
 new_coordinates New coordinates
 moved_distance Distance passed
-delete_logentry Delete log entry 
+delete_logentry Delete log entry
 confirm_remove_log Are you sure you want to delete your log
 add_comment_to_remove Would you like to send additional comment to
-removed_log_title Your log entry was removed by the geocache owner 
+removed_log_title Your log entry was removed by the geocache owner
 removed_message_titel The owner of the geocache wrote you a comment
 dont_have_recommended_caches You don't have any recommended geocaches
 your_recommendations Your recommendations for geocache
@@ -756,7 +756,7 @@ thursday Thursday
 friday Friday
 saturday Saturday
 sunday Sunday
-immediately Immediately 
+immediately Immediately
 once_day Once a day
 once_week Once a week
 weekday Day of the week
@@ -781,7 +781,7 @@ send_bulletin_01 Send bulletin
 send_bulletin_02 Example bulletin
 send_bulletin_03 Bulletin has been send
 add_news Add news
-email_subject_news New news OpenCaching 
+email_subject_news New news OpenCaching
 subject Subject
 contents Messages
 content_include_html Message include HTML
@@ -861,7 +861,7 @@ save_gpx_with_photos Save to GPX with photos
 show_gmap Show on GMAP
 show_list Show list of geocaches
 logs_cache_gpx Number of logs for each cache in GPX
-min_logs_cache Minimum number of logs 
+min_logs_cache Minimum number of logs
 marked_grey_search_area Search area for the defined radius is marked as grey
 lastlogins Last login
 this_month in the last 30 days
@@ -871,7 +871,7 @@ more_12_month more than 12 months
 unknown unknown
 user_not_active user account is not active
 distance_to_cache Distance to cache
-cacheguides Geocaching Guides / Gurus 
+cacheguides Geocaching Guides / Gurus
 guide Guide/Guru
 guides Guides/Gurus
 okapi_apps Your Apps
@@ -888,15 +888,15 @@ os_tak_chce Checking this element allow users to checking their coordinates with
 opensprawdzacz_main Cache owner gave you a chance to check if you get correct puzzle solution. (final cache coordinates). You can do it before you go cache hunting!
 os_pr Shots
 os_sukc Hits
-os_proba You've reached limit of  
-os_razy times. You can check coords only  
+os_proba You've reached limit of
+os_razy times. You can check coords only
 os_razy_srodek times per
 os_razy_koniec minutes.
-os_sukces YES!! You've correct coord's. Congratulations. 
+os_sukces YES!! You've correct coord's. Congratulations.
 os_fail NO! Your answer is incorrect. Check your calculations again.
 os_za_godzine Check your counts and try again later (after 1 hour)
-os_komunikat1 Check cache coordinates by its waypoint: 
-os_komunikat2 Select cache from the list to check its coordinates: 
+os_komunikat1 Check cache coordinates by its waypoint:
+os_komunikat2 Select cache from the list to check its coordinates:
 os_typ type
 os_powrot back
 os_pomoc Help
@@ -940,19 +940,19 @@ log_mobile_init Starting coordinates
 error_coords_not_ok Wrong coordinates!
 GKApi01 Integration OC account with GeoKrety.org
 GKApi02 Geokrety Secid:
-GKApi03 To integrate your Opencaching.pl account with Geokrety.org account copy here your <b>Secid</b>. Your <b>Secid</b> you can find on geokrety page in your account details. 
+GKApi03 To integrate your Opencaching.pl account with Geokrety.org account copy here your <b>Secid</b>. Your <b>Secid</b> you can find on geokrety page in your account details.
 GKApi04 (Here)
-GKApi05 Log geoKrety from your inventory at once: 
+GKApi05 Log geoKrety from your inventory at once:
 GKApi06 Log GeoKrety now
-GKApi07 This functionality require integration OC account with Geokrety account. Your OC profile is curently not configured to co-work with GeoKrety. 
-GKApi08 For integration OC account with Geokrety follow steps: 
-GKApi09 Copy your secid from geokrety web page 
+GKApi07 This functionality require integration OC account with Geokrety account. Your OC profile is curently not configured to co-work with GeoKrety.
+GKApi08 For integration OC account with Geokrety follow steps:
+GKApi09 Copy your secid from geokrety web page
 GKApi10 Paste it in your OC account data.
-GKApi11 Wrong secid 
+GKApi11 Wrong secid
 GKApi12 Geokrety was dropped
 GKApi13 No Action
 GKApi14 GeoKrety visited
-GKApi15 Took GeoKrety 
+GKApi15 Took GeoKrety
 GKApi16 Comment
 GKApi17 Seen GeoKrety
 GKApi18 Log geoKrety discovered in this cache:
@@ -991,7 +991,7 @@ log15 hour
 log16 Refresh
 log17 Open log-cache panel
 date Date
-myprofile01 User who create new cache or made a log entry cannot be deleted. It's only possible to deactivate your account. All your personal information will be deleted from your profile but your user name will be saved. If you want to deactivate your account, please contact us with your e-mail address and we will deactivate your profile. In unclear cases please contact ocpl @ opencaching.pl. Thant you. 
+myprofile01 User who create new cache or made a log entry cannot be deleted. It's only possible to deactivate your account. All your personal information will be deleted from your profile but your user name will be saved. If you want to deactivate your account, please contact us with your e-mail address and we will deactivate your profile. In unclear cases please contact ocpl @ opencaching.pl. Thant you.
 myprofile02 Yes, I am a volunteer geocaching Guide for beginners. See&nbsp
 myprofile03 Guides
 myprofile04 Yes, I want to be a volunteer geocaching Guide for beginners
@@ -1090,7 +1090,7 @@ nc04 Is the cache located in the area of the National Park, a reservation, monum
 nc05 Are there any other caches in the area, is the miminum 150 meter distance preserved?
 nc06 Are you able to provide service of your cache during the whole time of its presence on the webiste?
 nc07 Is the cache hidden the proper way (in a cold and moisture resistant container)?
-nc08 You can check your area if there is a 
+nc08 You can check your area if there is a
 nc09 Geocaching Guide
 nc10 that can help you with creating your own caches
 nc11 Does the cache comply with
@@ -1128,7 +1128,7 @@ yesterday yesterday
 days_ago days ago!
 make_new_description Make a new cache description for:
 lxg01 Wrong date. Please enter correct date: DD-MM-YYYY
-lxg02 Rate cache or select you do not want rate this cache. 
+lxg02 Rate cache or select you do not want rate this cache.
 lxg03 Please select!
 lxg04 Only here listed
 lxg05 Send log entery
@@ -1194,7 +1194,7 @@ no No
 
 
 
-revert Revert 
+revert Revert
 
 
 
@@ -1236,7 +1236,7 @@ alert_search_by_ort_02 Minimal number of characters of name place is 3!
 alert_search_by_ort_03 Max. distant must be numeric!
 alert_search_by_ort_04 Maximum distance shall be within this range: 0 - 9999
 no_pictures_yet No picture added yet.
-show_all_countries Show all countries 
+show_all_countries Show all countries
 newcache_upload Load
 newcache_import_wpt Load data from gpx file
 newcache_import_wpt_help This feature allow you to get waypoint data (coords, name) from gpx file. (f.ex.&nbsp;from garmin). If file contain more than one waypoint, only first will be processed.
@@ -1284,14 +1284,14 @@ rss_20 Information latest logs own caches from
 reportcache01 Cache might be on private property
 reportcache02 Cache requires archiving
 reportcache03 Copyright violation
-reportcache04 Other reason                        
+reportcache04 Other reason
 reportcache05 No comment text!
 reportcache06 No reason selected!
 reportcache07 New cache problem reported on OC PL
 reportcache08 [OC PL] Problem report with your cache
 reportcache09 [OC PL] Problem report with cache
 reportcache10 Description of problem
-reportcache11 begin 
+reportcache11 begin
 reportcache12 end
 reportcache13 These messages can be watched on
 reportcache14 It is about cache
@@ -1302,7 +1302,7 @@ reportcache18 has user
 reportcache19 reported a problem with a cache
 reportcache20 a problem with a cache is reported
 reportcache21 The Opencaching team will review your report as soon as possible. If you need to contact the Opencaching team with regards to this report, please reply to this message.
-register00 User name 
+register00 User name
 register01 your@email.address
 register02 password
 register03 repeat password
@@ -1311,7 +1311,7 @@ logType1 Found it
 logType2 Didn't find it
 logType3 Comment
 logType4 Moved
-logType5 Needs maintenance	
+logType5 Needs maintenance
 logType6 Service was made
 logType7 Attended
 logType8 Will attend
@@ -1323,10 +1323,10 @@ runwatch01 made
 runwatch02 to the log of the cache
 runwatch03 New cache logs report
 runwatch04 If you cannot see this picture, add sender to your addressbook
-runwatch05 Please be informed that there are new log entries to your own caches or your watched caches.<br/><br/> New log entires to your own caches 
-runwatch06 Date/Time 
-runwatch07 Geocacher   
-runwatch08 Cache       
+runwatch05 Please be informed that there are new log entries to your own caches or your watched caches.<br/><br/> New log entires to your own caches
+runwatch06 Date/Time
+runwatch07 Geocacher
+runwatch08 Cache
 runwatch09 Hello
 runwatch10 log content
 runwatch11 New log entires to your watched caches
@@ -1410,18 +1410,18 @@ adopt00 The adoption process has been completed. The previous cache owner was
 adopt01 The current owner of the caches is
 rating-c_01 Cache Difficulty Rating System
 rating-c_02 Overall Difficulty:
-rating-c_03 For example, if difficulty is between 1 and 2, in the settings box you can use difficulty levels with an accuracy of 0.5, eg 1.5 
+rating-c_03 For example, if difficulty is between 1 and 2, in the settings box you can use difficulty levels with an accuracy of 0.5, eg 1.5
 rating-c_04 How hard to find it?:
-rating-c_05 Easy. Easily found within a few minutes even by beginners. 
-rating-c_06 Medium. Most geocachers will find it in less than 30 minutes searching. 
-rating-c_07 Challenging. Experienced cache searchers will take a longer time to find the cache. 
-rating-c_08 Difficult. Very challenging for even the experienced geocacher. May require special skills, knowledge, thorough preparation or research. May require multiple days / trips to find the cache. 
-rating-c_09 Extreme. Sweet Jesus! Do you want anyone to be able to find this thing? 
+rating-c_05 Easy. Easily found within a few minutes even by beginners.
+rating-c_06 Medium. Most geocachers will find it in less than 30 minutes searching.
+rating-c_07 Challenging. Experienced cache searchers will take a longer time to find the cache.
+rating-c_08 Difficult. Very challenging for even the experienced geocacher. May require special skills, knowledge, thorough preparation or research. May require multiple days / trips to find the cache.
+rating-c_09 Extreme. Sweet Jesus! Do you want anyone to be able to find this thing?
 rating-c_10 Terrain Difficulty:
-rating-c_11 Wheelchair accessible. Less than 100 yards from a place to park. 
-rating-c_12 Suitable for small children. The area is generally along the marked trails. There are no steep elevation changes. Less than 3 kilometer hike required. 
-rating-c_13 Not for small children. The average adult or older child should be OK, depending on condition. It is possible that the area lies off-track, roads may have steep changes in elevation and more than 3 kilometer hike is required. 
-rating-c_14 Only enthusiastic hikers need apply. The area is off the beaten track. It will have one or more of the following characteristics: very steep sloping terrain (requiring scrambling) and more than 16 kilometer of hiking required. 
+rating-c_11 Wheelchair accessible. Less than 100 yards from a place to park.
+rating-c_12 Suitable for small children. The area is generally along the marked trails. There are no steep elevation changes. Less than 3 kilometer hike required.
+rating-c_13 Not for small children. The average adult or older child should be OK, depending on condition. It is possible that the area lies off-track, roads may have steep changes in elevation and more than 3 kilometer hike is required.
+rating-c_14 Only enthusiastic hikers need apply. The area is off the beaten track. It will have one or more of the following characteristics: very steep sloping terrain (requiring scrambling) and more than 16 kilometer of hiking required.
 rating-c_15 Extremely difficult. Requires specialized equipment, knowledge or experience (boats, 4 wheel drive, rock climbing, etc).
 rating-c_16 Rate again?
 rating-c_17 Do not know the difficulty level of your cache? Answer the following questions:
@@ -1707,8 +1707,8 @@ pt009 GeoPath&#39;s type
 pt010 Visibility
 pt011 GeoPath &#39;s Description
 pt012 All GeoPaths
-pt013 Caches <=> GeoPaths    
-pt014 Caches Geopaths 
+pt013 Caches <=> GeoPaths
+pt014 Caches Geopaths
 pt015 Your degree of progress for GeoPath
 pt016 from
 pt017 You found
@@ -1814,7 +1814,7 @@ pt116 Big
 pt117 Very Big
 pt118 There are currently any entries for this geoPath.
 pt119 Number of all founders
-pt120 Number of all Geocachers who have founded 
+pt120 Number of all Geocachers who have founded
 pt121 Average number of days needed to complete this geoPath
 pt122 other curiosities
 pt123 value
@@ -1880,10 +1880,10 @@ pt182 Mentor is a person, who registered geoPath in system.
 pt183 Adding your cache to geoPath request
 pt184 Hi
 pt185 wants add your cache
-pt186 If you agree click here 
+pt186 If you agree click here
 pt187 If you refuse click here
 pt188 or copy this address to your browser
-pt189 If any doubt please contact user 
+pt189 If any doubt please contact user
 pt190 to geoPatch
 pt191 Thanks. Your cache is now in geoPath
 pt192 Cache will no belongs to geoPath
@@ -1891,7 +1891,7 @@ pt193 Adding cache to geoPath confirmation
 pt194 Sorry, you are not a this cache owner
 pt195 was removed from cache-candidate list
 pt196 This cache in not on cache-candidate list (probably you already clicked a link.)
-pt197 This cache is curently on cache-candidate list or aready belongs to geoPath. Please contact her owner. 
+pt197 This cache is curently on cache-candidate list or aready belongs to geoPath. Please contact her owner.
 pt198 This cache was placed on cache-candidate list and to email has been sent to her owner If owner agree by clicking link in received email) cache would added to geoPatch automaticly.
 pt199 information
 pt200 This cache cannot be removed from geoPath (geoPath, which cache belomngs has been completed - you can archive this cache, but you cannot remove it from geoPath)
@@ -1900,7 +1900,7 @@ pt202 ignored
 pt203 placed by you
 pt204 watched
 pt205 founded
-pt206 include following caches in gpx file 
+pt206 include following caches in gpx file
 pt207 gpx filters
 pt208 GeoPath OC team
 pt209 select
@@ -1916,12 +1916,12 @@ pt218 geoPath was closed permanently
 pt219 In service
 pt220 Uzasadnienie zmiany statusu
 pt221 Status change
-pt222 Has hidden caches in 
+pt222 Has hidden caches in
 pt223 geoPaths
 pt224 hidden caches points
 pt225 logs count in gpx file
 pt226 for each cache. Available only for &quot;gpx&quot; files
-pt227 GeoPath not match criteria. Is closed for service until owners correct that. Closure reason: 
+pt227 GeoPath not match criteria. Is closed for service until owners correct that. Closure reason:
 pt228 to low cache count in geoPath
 pt229 Log entry type
 pt230 Date
@@ -1962,15 +1962,15 @@ login_message_06 Login failed.<br />Username or e-mail not recognized.
 login_message_07 Login failed.<br />Username or password not recognized.
 login_message_08 Your browser does not accept cookies from {site_name}
 login_message_09 To view this page, you need to log in.
-graph_statistics_01 Statistics van www.{site_name} :: Datum 
+graph_statistics_01 Statistics van www.{site_name} :: Datum
 graph_statistics_02 Active caches
 graph_statistics_03 Found caches
-graph_statistics_04 Date 
-graph_statistics_05 Hidden caches: 
-graph_statistics_06 Active caches: 
-graph_statistics_07 Total found caches: 
+graph_statistics_04 Date
+graph_statistics_05 Hidden caches:
+graph_statistics_06 Active caches:
+graph_statistics_07 Total found caches:
 chowner01 Cache Adoption
-chowner02 Goecacher 
+chowner02 Goecacher
 chowner03 transfers to you the cache for adoption
 chowner04 Please visit the opencahing site to complete adoption process (User's Menu> Cache Adoption).
 search_text_01 Name:
@@ -2019,7 +2019,7 @@ attribute_51 Offset cache
 attribute_52 Beacon - Garmin chirp
 attribute_53 Dead Drop USB cache
 attribute_54 Benchmark - geodetict point
-attribute_55 Cartridge 
+attribute_55 Cartridge
 attribute_56 Letterbox
 attribute_60 Nature
 attribute_61 Monumental place
@@ -2051,11 +2051,11 @@ vc_HideDeletions Hide deletions
 mycache_notes_01 Do you want to delete this note?
 log_score_note_innitial You have not rated this cache yet.
 log_score_note_thanks Thank you for rating!
-log_score_note_encorage Please reconsider rating this cache! 
+log_score_note_encorage Please reconsider rating this cache!
 Do_reset_logform Are you sure to reset the log form?
-log_reset_button Reset 
-timePicker_hourText Houra                
-timePicker_minuteText Minute             
+log_reset_button Reset
+timePicker_hourText Houra
+timePicker_minuteText Minute
 timePicker_nowButtonText Now!
 timePicker_closeButtonText Done
 timePicker_deselectButtonText Reset
@@ -2067,39 +2067,39 @@ ec_proceed_without_save You have made changes to the cache settings that have NO
 ec_delete_pic Are you sure to delete this picture?
 ec_delete_mp3 Are you sure to delete this file?
 ec_delete_wp Are you sure to delete this waypoint?
-mc_edit_geocache Edit cache 
+mc_edit_geocache Edit cache
 mc_by_founds By founds
 mc_by_reco By recomendatios
 mc_by_gk By Geo-Krets in
-mc_by_visits By visitors 
-vc_spoiler_disable_msg You must be logged-in to view spoilers! 
+mc_by_visits By visitors
+vc_spoiler_disable_msg You must be logged-in to view spoilers!
 ec_bike_set_msg Cache attribute [Bike] or [Boat] has been set. Are you sure to set [Access only by walk] attribute?
 ec_walk_set_msg Cache attribute [Access only by walk] or [Boat] has been set. Are you sure to set [Bike] attribute?
 ec_boat_set_msg Cache attribute [Access only by walk] or [Bike] has been set. Are you sure to set [Boat] attribute?
-ec_Sequence_mp3 File sequence 
-myn_click_to_view_cache Click to view the cache 
-mylist_01 There are no caches in the clipboard 
+ec_Sequence_mp3 File sequence
+myn_click_to_view_cache Click to view the cache
+mylist_01 There are no caches in the clipboard
 mylist_02 Remove
 mylist_03 Print all
 mylist_04 Remove all
 mylist_05 Download the data from the clipboard caches
-cookiesInfo We are using cookies which help us to improve our service. 
+cookiesInfo We are using cookies which help us to improve our service.
 FiltrYear Year
-FiltrMonth Month 
+FiltrMonth Month
 StatTestVer <span style="color: red" >Attention. This is a test version!!! You can write your opinion about it on forum: <a href="http://forum.opencaching.pl/viewtopic.php?f=9&t=7734">Statystyki</a></span>
 newsletter Newsletter
 newsletter_removal If you do not want to receive this newletter any more, please change your account settings at
 PrevVersion You can find prev version of this stat on the main site of statistics (at the bottom)
-my_position My position 
+my_position My position
 go Go
 Filter Filter
 
 coords_modifier Coordinate modifier
 coordsmod_main Enter own coordinates to the cache
-coordsmod_lon Longitude 
+coordsmod_lon Longitude
 coordsmod_lat Latitude
-modify_coords Modify 
-reset_coords Restore 
+modify_coords Modify
+reset_coords Restore
 orig_coord_modified_info You have ented own coordinates - original ones are as follows:
 modified_coord_notice Modified coordinates will be exported to files, e.g. GPX, KML etc.
 srch_Coord_have_been_modified The coordinates have been modified

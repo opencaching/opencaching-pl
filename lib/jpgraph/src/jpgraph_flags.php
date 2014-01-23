@@ -318,7 +318,7 @@ class FlagImages {
             $tmp=$this->iOrdIdx[$aOrd];
             $outFullName = $tmp[1];
             return $tmp[0];
-             
+
         }
         elseif( $aOrd >= 0 && $aOrd < $n ) {
             $tmp=$this->iOrdIdx[$aOrd];

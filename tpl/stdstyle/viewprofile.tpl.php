@@ -1,16 +1,16 @@
 <?php
 /***************************************************************************
-	*                                         				                                
-	*   This program is free software; you can redistribute it and/or modify  	
-	*   it under the terms of the GNU General Public License as published by  
-	*   the Free Software Foundation; either version 2 of the License, or	    	
-	*   (at your option) any later version.
-	*   
-	*  UTF-8 ąść
-	
-	<?php 	if ( $user_id == $usr['userid']){ echo '<br /><br/><p style="font-size: 12px;">[<a class="links" href="myhome.php">Stara strona użytkownika</a>]</p><br/><br/>';} ?>
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    *  UTF-8 ąść
 
-	***************************************************************************/
+    <?php   if ( $user_id == $usr['userid']){ echo '<br /><br/><p style="font-size: 12px;">[<a class="links" href="myhome.php">Stara strona użytkownika</a>]</p><br/><br/>';} ?>
+
+    ***************************************************************************/
 global $user_id;
 ?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
@@ -18,40 +18,40 @@ global $user_id;
 <script type="text/javascript">
 
 function ajaxGetFTF(){
-	$('#showFtfBtn').hide();
-	$('#commentsLoader').show();
-	$('#ftfDiv').fadeOut(1000);
-	request = $.ajax({
-    	url: "ajaxGetFTF.php",
-    	type: "post",
-    	data:{id: $('#userId').val()},
-	});
+    $('#showFtfBtn').hide();
+    $('#commentsLoader').show();
+    $('#ftfDiv').fadeOut(1000);
+    request = $.ajax({
+        url: "ajaxGetFTF.php",
+        type: "post",
+        data:{id: $('#userId').val()},
+    });
 
     request.done(function (response, textStatus, jqXHR){
-    	var ftfList = jQuery.parseJSON(response);
-		html = '<table><tr><th>{{viewprofileDate}}</th><th>{{viewprofileTime}}</th><th>{{viewprofileCache}}</th></tr>';
-		bgColor='#eeeeff';
-		var i = 0;
-		ftfList.forEach(function(entry) {
-			if(bgColor == '#eeeeff') bgColor = '#ffffff'; else bgColor ='#eeeeff';
-			var date = entry.date.split(" ");
-			html += '<tr bgcolor="'+bgColor+'"><td style="width: 60px;" align="center">'+date[0]+'</td><td style="width: 60px;">'+date[1]+'</td><td><a href=viewcache.php?cacheid='+entry.cache_id+'>'+entry.name+'</a></td></tr>';
-			i++;
-		});
-    	html += '</table><br>{{viewprofileTotFtf}}: '+i;
-		$('#ftfDiv').html(html);
-		$('#ftfDiv').fadeIn(1000);
+        var ftfList = jQuery.parseJSON(response);
+        html = '<table><tr><th>{{viewprofileDate}}</th><th>{{viewprofileTime}}</th><th>{{viewprofileCache}}</th></tr>';
+        bgColor='#eeeeff';
+        var i = 0;
+        ftfList.forEach(function(entry) {
+            if(bgColor == '#eeeeff') bgColor = '#ffffff'; else bgColor ='#eeeeff';
+            var date = entry.date.split(" ");
+            html += '<tr bgcolor="'+bgColor+'"><td style="width: 60px;" align="center">'+date[0]+'</td><td style="width: 60px;">'+date[1]+'</td><td><a href=viewcache.php?cacheid='+entry.cache_id+'>'+entry.name+'</a></td></tr>';
+            i++;
+        });
+        html += '</table><br>{{viewprofileTotFtf}}: '+i;
+        $('#ftfDiv').html(html);
+        $('#ftfDiv').fadeIn(1000);
     });
-	
-	request.always(function () {
-		$('#commentsLoader').hide();
+
+    request.always(function () {
+        $('#commentsLoader').hide();
     });
-}	
+}
 </script>
 <style>
-	
+
 </style>
-<!-- 	CONTENT -->
+<!--    CONTENT -->
 <div class="content2-container">
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{title_text}" title="{title_text}" />&nbsp;{{user_profile}}: {username} </div>
 <div class="content-title-noshade">
@@ -79,20 +79,20 @@ function ajaxGetFTF(){
 <?php
 
 
-					// statlisting
-					$statidx = mnu_MainMenuIndexFromPageId($menu, "statlisting");
-					if( $menu[$statidx]['title'] != '' )
-					{
-						echo '<ul id="statmenu">';
-						$menu[$statidx]['visible'] = false;
-						echo '<li class="title" ';
-						echo '>'.$menu[$statidx]["title"].'</li>';
-						mnu_EchoSubMenu($menu[$statidx]['submenu'], $tplname, 1, false);
-						echo '</ul>';
-					}
-					//end statlisting
+                    // statlisting
+                    $statidx = mnu_MainMenuIndexFromPageId($menu, "statlisting");
+                    if( $menu[$statidx]['title'] != '' )
+                    {
+                        echo '<ul id="statmenu">';
+                        $menu[$statidx]['visible'] = false;
+                        echo '<li class="title" ';
+                        echo '>'.$menu[$statidx]["title"].'</li>';
+                        mnu_EchoSubMenu($menu[$statidx]['submenu'], $tplname, 1, false);
+                        echo '</ul>';
+                    }
+                    //end statlisting
 ?>
-				</div>
+                </div>
 
 {content}
 </div>

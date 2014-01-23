@@ -21,27 +21,27 @@ $linkargs = (isset($_REQUEST['print']) && $_REQUEST['print'] == 'y') ? '&amp;pri
 $linkargs .= (isset($_REQUEST['nocrypt']) && $_REQUEST['nocrypt'] == '1') ? '&amp;nocrypt=1' : '';
 
 if (isset($_REQUEST['showdel'])) {
-	$_SESSION['showdel'] = $_REQUEST['showdel'];//use session in order to keep options on if URL changes
+    $_SESSION['showdel'] = $_REQUEST['showdel'];//use session in order to keep options on if URL changes
 }
 
 if(isset($_REQUEST['print']))
 {
-	if(isset($_REQUEST['showlogsall']))
-	{
-		$logs_to_display = 999;
-		$linkargs .= '&amp;showlogsall=y';
-	}
-	else if(isset($_REQUEST['showlogs']))
-	{
-		$logs_to_display = intval($_REQUEST['showlogs']);
-		$linkargs .= '&amp;showlogs='.htmlspecialchars($logs_to_display, ENT_COMPAT, 'UTF-8');
-	}
-	else
-		$logs_to_display = 0;
+    if(isset($_REQUEST['showlogsall']))
+    {
+        $logs_to_display = 999;
+        $linkargs .= '&amp;showlogsall=y';
+    }
+    else if(isset($_REQUEST['showlogs']))
+    {
+        $logs_to_display = intval($_REQUEST['showlogs']);
+        $linkargs .= '&amp;showlogs='.htmlspecialchars($logs_to_display, ENT_COMPAT, 'UTF-8');
+    }
+    else
+        $logs_to_display = 0;
 
 }
 else
-	$logs_to_display = 5;
+    $logs_to_display = 5;
 
 // $short_desc_title = 'Charakterisierung: ';
 
@@ -109,156 +109,156 @@ $decrypt_icon =' <img src="tpl/stdstyle/images/blue/decrypt.png" class="icon32" 
 
 $decrypt_table =' <font face="Courier" size="2" style="font-family : \'Courier New\', FreeMono, Monospace;">A|B|C|D|E|F|G|H|I|J|K|L|M</font>
                                                 <font face="Courier" size="2" style="font-family : \'Courier New\', FreeMono, Monospace;">N|O|P|Q|R|S|T|U|V|W|X|Y|Z</font>';
-												
+
 $spoiler_disable_msg = tr('vc_spoiler_disable_msg');
 
 $error_coords_not_ok = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">'.tr('bad_coordinates').'</span>';
-												
+
 // MP3 Files table
 function viewcache_getmp3table($cacheid, $mp3count)
 {
-	global $dblink;
-	$nCol = 0;
-	$sql = 'SELECT uuid, title, url FROM mp3 WHERE object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
-	//requires:ALTER TABLE `mp3` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
-	$rs = sql($sql);
-	while ($r = sql_fetch_array($rs))
-	{
-		if ($nCol == 4)
-		{
-			$nCol = 0;
-		}
-			
-		$retval .= '<div class="viewcache-pictureblock">';
-		$retval .= '<div class="img-shadow"><a href="'.$r['url'].'" target="_blank">';
-		$retval .= '<img src="tpl/stdstyle/images/blue/32x32-get-mp3.png" alt="" title="Download MP3 file"/>';
-		$retval .= '</a></div>';
-		$retval .= '<span class="title">'.$r['title'].'</span>';
-		$retval .= '</div>';
-		$nCol++;
-	}
+    global $dblink;
+    $nCol = 0;
+    $sql = 'SELECT uuid, title, url FROM mp3 WHERE object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
+    //requires:ALTER TABLE `mp3` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
+    $rs = sql($sql);
+    while ($r = sql_fetch_array($rs))
+    {
+        if ($nCol == 4)
+        {
+            $nCol = 0;
+        }
 
-	mysql_free_result($rs);
-	return $retval;
+        $retval .= '<div class="viewcache-pictureblock">';
+        $retval .= '<div class="img-shadow"><a href="'.$r['url'].'" target="_blank">';
+        $retval .= '<img src="tpl/stdstyle/images/blue/32x32-get-mp3.png" alt="" title="Download MP3 file"/>';
+        $retval .= '</a></div>';
+        $retval .= '<span class="title">'.$r['title'].'</span>';
+        $retval .= '</div>';
+        $nCol++;
+    }
+
+    mysql_free_result($rs);
+    return $retval;
 }
 
 
 // gibt eine tabelle für viewcache mit thumbnails von allen bildern zurück
 function viewcache_getpicturestable($cacheid, $viewthumbs = true, $viewtext = true, $spoiler_only = false, $showspoiler = false, $picturescount,$disable_spoiler=false)
 {
-	$retval = '';
-	global $dblink;
-	global $thumb_max_width;
-	global $thumb_max_height;
-	global $spoiler_disable_msg;
-	$nCol = 0;
-	if($spoiler_only) $spoiler_only = 'spoiler=1 AND';
-	else $spoiler_only = "";
-	//$sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE '.$spoiler_only.' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
-	//requires:ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
-	
-	$sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE '.$spoiler_only.' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
-	$rs = sql($sql);
-	
-	if ($disable_spoiler==false) {
-		$spoiler_onclick = "enlarge(this);";
-	} else {
-		$spoiler_onclick = "alert('".$spoiler_disable_msg."'); return false;";
-	};
-	
-	while ($r = sql_fetch_array($rs))
-	{
-		
-		if($viewthumbs)
-		{
-			if ($nCol == 4)
-			{
-				$nCol = 0;
-				$retval .= '<br style="clear: left;" />';
-			}
- 			
-			if( $showspoiler )
-				$showspoiler = "showspoiler=1&amp;";
-			else $showspoiler = "";
-			$retval .= '<div class="viewcache-pictureblock">';
-			
-			if (isset($_REQUEST['print'])) {
-				$reqPrint = $_REQUEST['print'];
-			} else {
-				$reqPrint = '';
-			}
-			
-			if ($r['spoiler']==1) {
-				$pic_onclick = $spoiler_onclick;
-				if ($disable_spoiler == true) {$r['url']='index.php';}; //hide URL so cannot be viewed
-			} else {
-				$pic_onclick ="enlarge(this);";
-			};
-			
-			if( $reqPrint!= 'y') {
-				
-				$retval .= '<div class="img-shadow">';
-				
-				
-				$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" onclick="'.$pic_onclick.'" class="viewcache-thumbimg" longdesc="'.str_replace("images/uploads","upload",$r['url']).'" />';
-			}
-			else
-			{
-				if ($disable_spoiler == true && $r['spoiler']==1 ) 
-				{
-					$retval .= '<div><BR><strong>'.$spoiler_disable_msg.'</strong><BR><BR>';
-				} else {
-					$retval .= '<div class="img-shadow"><a href="'.$r['url'].'" title="'.htmlspecialchars($r['title']).'" >';
-					$retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" /></a>';
-					
-				}
-			};
-			$retval .= '</div>';
-			if($viewtext)
-				$retval .= '<span class="title">'.$r['title'].'</span>';
-			$retval .= '</div>';
+    $retval = '';
+    global $dblink;
+    global $thumb_max_width;
+    global $thumb_max_height;
+    global $spoiler_disable_msg;
+    $nCol = 0;
+    if($spoiler_only) $spoiler_only = 'spoiler=1 AND';
+    else $spoiler_only = "";
+    //$sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE '.$spoiler_only.' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
+    //requires:ALTER TABLE `pictures` ADD `seq` SMALLINT UNSIGNED NOT NULL DEFAULT '1';
 
-			$nCol++;
-		}
-		else // only text
-		{
-			$retval .= '<a href="'.$r['url'].'" title="'.$r['title'].'">';
-			$retval .= $r['title'];
-			$retval .= "</a>\n";
-		}
-	}
+    $sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE '.$spoiler_only.' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY seq, date_created';
+    $rs = sql($sql);
 
-	mysql_free_result($rs);
-	return $retval;
+    if ($disable_spoiler==false) {
+        $spoiler_onclick = "enlarge(this);";
+    } else {
+        $spoiler_onclick = "alert('".$spoiler_disable_msg."'); return false;";
+    };
+
+    while ($r = sql_fetch_array($rs))
+    {
+
+        if($viewthumbs)
+        {
+            if ($nCol == 4)
+            {
+                $nCol = 0;
+                $retval .= '<br style="clear: left;" />';
+            }
+
+            if( $showspoiler )
+                $showspoiler = "showspoiler=1&amp;";
+            else $showspoiler = "";
+            $retval .= '<div class="viewcache-pictureblock">';
+
+            if (isset($_REQUEST['print'])) {
+                $reqPrint = $_REQUEST['print'];
+            } else {
+                $reqPrint = '';
+            }
+
+            if ($r['spoiler']==1) {
+                $pic_onclick = $spoiler_onclick;
+                if ($disable_spoiler == true) {$r['url']='index.php';}; //hide URL so cannot be viewed
+            } else {
+                $pic_onclick ="enlarge(this);";
+            };
+
+            if( $reqPrint!= 'y') {
+
+                $retval .= '<div class="img-shadow">';
+
+
+                $retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" onclick="'.$pic_onclick.'" class="viewcache-thumbimg" longdesc="'.str_replace("images/uploads","upload",$r['url']).'" />';
+            }
+            else
+            {
+                if ($disable_spoiler == true && $r['spoiler']==1 )
+                {
+                    $retval .= '<div><BR><strong>'.$spoiler_disable_msg.'</strong><BR><BR>';
+                } else {
+                    $retval .= '<div class="img-shadow"><a href="'.$r['url'].'" title="'.htmlspecialchars($r['title']).'" >';
+                    $retval .= '<img src="thumbs.php?'.$showspoiler.'uuid=' . urlencode($r['uuid']) . '" alt="'.htmlspecialchars($r['title']).'" title="'.htmlspecialchars($r['title']).'" /></a>';
+
+                }
+            };
+            $retval .= '</div>';
+            if($viewtext)
+                $retval .= '<span class="title">'.$r['title'].'</span>';
+            $retval .= '</div>';
+
+            $nCol++;
+        }
+        else // only text
+        {
+            $retval .= '<a href="'.$r['url'].'" title="'.$r['title'].'">';
+            $retval .= $r['title'];
+            $retval .= "</a>\n";
+        }
+    }
+
+    mysql_free_result($rs);
+    return $retval;
 }
 
 // Hmm, is this references at all?
 function viewcache_getfullsizedpicturestable($cacheid, $viewtext = true, $spoiler_only = false, $picturescount)
 {
-	global $dblink;
-	global $thumb_max_width;
-	global $thumb_max_height;
+    global $dblink;
+    global $thumb_max_width;
+    global $thumb_max_height;
 
-	$nCol = 0;
-	if($spoiler_only) $spoiler_only = 'spoiler=1 AND';
-	else $spoiler_only = "";
+    $nCol = 0;
+    if($spoiler_only) $spoiler_only = 'spoiler=1 AND';
+    else $spoiler_only = "";
 
-	$sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE '.$spoiler_only.' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY date_created';
-	//if($spoiler_only) $sql .= ' AND spoiler=1 ';
+    $sql = 'SELECT uuid, title, url, spoiler FROM pictures WHERE '.$spoiler_only.' object_id=\'' . sql_escape($cacheid) . '\' AND object_type=2 AND display=1 ORDER BY date_created';
+    //if($spoiler_only) $sql .= ' AND spoiler=1 ';
 
-	$rs = sql($sql);
-	while ($r = sql_fetch_array($rs))
-	{
-		$retval .= '<div style="display: block; float: left; margin: 3px;">';
-		if($viewtext)
-			$retval .= '<div style=""><p>'.$r['title'].'</p></div>';
-		$retval .= '<img style="max-width: 600px;" src="'.$r['url'].'" alt="'.$r['title'].'" title="'.$r['title'].'" />';
+    $rs = sql($sql);
+    while ($r = sql_fetch_array($rs))
+    {
+        $retval .= '<div style="display: block; float: left; margin: 3px;">';
+        if($viewtext)
+            $retval .= '<div style=""><p>'.$r['title'].'</p></div>';
+        $retval .= '<img style="max-width: 600px;" src="'.$r['url'].'" alt="'.$r['title'].'" title="'.$r['title'].'" />';
 
-		$retval .= '</div>';
-	}
+        $retval .= '</div>';
+    }
 
-	mysql_free_result($rs);
-	return $retval;
+    mysql_free_result($rs);
+    return $retval;
 }
 
 ?>

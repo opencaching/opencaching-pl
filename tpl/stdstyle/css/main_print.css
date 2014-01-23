@@ -1,311 +1,311 @@
 body
 {
-	color:Black;
-	margin:0 0 0 0;
-	background-color:#ffffff;
-	font-family:Helvetica,Arial,sans-serif;
+    color:Black;
+    margin:0 0 0 0;
+    background-color:#ffffff;
+    font-family:Helvetica,Arial,sans-serif;
 }
 hr
 {
-	visibility:visible;
+    visibility:visible;
 }
 a
 {
-	color:black;
-	text-decoration:underline;
+    color:black;
+    text-decoration:underline;
 }
 a:hover
 {
-	color:blue;
+    color:blue;
 }
 #content
 {
-	padding-left:1ex;
-	font-family:Helvetica,Arial,sans-serif;
-	font-size:small;
-	letter-spacing:0px;
-	line-height:3ex;
-	vertical-align:top;
+    padding-left:1ex;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:small;
+    letter-spacing:0px;
+    line-height:3ex;
+    vertical-align:top;
 }
 .errormsg
 {
-	color:red;
-	font-weight:bold;
+    color:red;
+    font-weight:bold;
 }
 .successmsg
 {
-	color:green;
+    color:green;
 }
 .warningmsg
 {
-	color:blue;
+    color:blue;
 }
 .navilevel2 a
 {
-	color:black;
-	text-decoration:none;
+    color:black;
+    text-decoration:none;
 }
 .navilevel2 a:hover
 {
-	color:blue;
-	text-decoration:underline;
+    color:blue;
+    text-decoration:underline;
 }
 .navilevel2n
 {
-	font-family:Helvetica,Arial,sans-serif;
-	font-size:small;
-	padding-left:1ex;
-	padding-right:1ex;
-	text-align:left;
-	vertical-align:top;
-	width:165px;
-	padding-bottom:0.5ex;
-	border-left:1px solid #666666;
-	border-right:1px solid #666666;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:small;
+    padding-left:1ex;
+    padding-right:1ex;
+    text-align:left;
+    vertical-align:top;
+    width:165px;
+    padding-bottom:0.5ex;
+    border-left:1px solid #666666;
+    border-right:1px solid #666666;
 }
 .navilevel2n a
 {
-	color:black;
-	text-decoration:none;
+    color:black;
+    text-decoration:none;
 }
 .navilevel2n a:hover
 {
-	color:blue;
-	text-decoration:underline;
+    color:blue;
+    text-decoration:underline;
 }
 .navilevel3
 {
-	font-family:Helvetica,Arial,sans-serif;
-	font-size:small;
-	padding-left:3ex;
-	padding-right:1ex;
-	text-align:left;
-	vertical-align:top;
-	width:165px;
-	padding-bottom:0.5ex;
-	border-left:1px solid #666666;
-	border-right:1px solid #666666;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:small;
+    padding-left:3ex;
+    padding-right:1ex;
+    text-align:left;
+    vertical-align:top;
+    width:165px;
+    padding-bottom:0.5ex;
+    border-left:1px solid #666666;
+    border-right:1px solid #666666;
 }
 .navilevel3 a
 {
-	color:black;
-	text-decoration:none;
+    color:black;
+    text-decoration:none;
 }
 .navilevel3 a:hover
 {
-	color:blue;
-	text-decoration:underline;
+    color:blue;
+    text-decoration:underline;
 }
 .navi2top
 {
-	font-size:xx-small;
-	height:1ex;
-	border-left:1px solid #666666;
-	border-right:1px solid #666666;
-	border-top:1px solid #666666;
+    font-size:xx-small;
+    height:1ex;
+    border-left:1px solid #666666;
+    border-right:1px solid #666666;
+    border-top:1px solid #666666;
 }
 .navi2bottom
 {
-	font-size:xx-small;
-	height:1ex;
-	border-left:1px solid #666666;
-	border-right:1px solid #666666;
-	border-bottom:1px solid #666666;
+    font-size:xx-small;
+    height:1ex;
+    border-left:1px solid #666666;
+    border-right:1px solid #666666;
+    border-bottom:1px solid #666666;
 }
 #loginbox
 {
-	background-color:#E8DDE4;
-	border:1px solid black;
-	padding-left:5px;
-	padding-right:5px;
-	text-align:right;
-	font-size:small;
-	height:38px;
-	vertical-align:middle;
-	visibility:hidden;
+    background-color:#E8DDE4;
+    border:1px solid black;
+    padding-left:5px;
+    padding-right:5px;
+    text-align:right;
+    font-size:small;
+    height:38px;
+    vertical-align:middle;
+    visibility:hidden;
 
 }
 #functionsbox
 {
-	background-color:#BDE1E7;
-	border:1px solid black;
-	padding-left:5px;
-	padding-right:5px;
-	text-align:right;
-	font-size:small;
-	height:38px;
-	vertical-align:middle;
-	visibility:hidden;
+    background-color:#BDE1E7;
+    border:1px solid black;
+    padding-left:5px;
+    padding-right:5px;
+    text-align:right;
+    font-size:small;
+    height:38px;
+    vertical-align:middle;
+    visibility:hidden;
 
 }
 .textboxes
 {
-	border:1px solid black;
-	background-color:white;
-	padding:0px;
-	font-size:9px;
-	height:14px;
+    border:1px solid black;
+    background-color:white;
+    padding:0px;
+    font-size:9px;
+    height:14px;
 }
 .loginsubmit
 {
-	background-color:white;
-	border:1px solid black;
-	padding:0px;
-	font-size:9px;
+    background-color:white;
+    border:1px solid black;
+    padding:0px;
+    font-size:9px;
 }
 #breadcrumb
 {
-	color:#505050;
-	font-size:x-small;
-	font-family:Helvetica,Arial,sans-serif;
-	border-bottom:1px solid #AAAAAA;
-	text-align:left;
-	margin-top:0.5ex;
-	margin-bottom:1ex;
-	line-height:3ex;
-	text-indent:1ex;
+    color:#505050;
+    font-size:x-small;
+    font-family:Helvetica,Arial,sans-serif;
+    border-bottom:1px solid #AAAAAA;
+    text-align:left;
+    margin-top:0.5ex;
+    margin-bottom:1ex;
+    line-height:3ex;
+    text-indent:1ex;
 }
 #breadcrumb a
 {
-	color:#505050;
-	text-decoration:none;
+    color:#505050;
+    text-decoration:none;
 }
 #breadcrumb a:hover
 {
-	color:blue;
-	text-decoration:underline;
+    color:blue;
+    text-decoration:underline;
 }
 #pagecontent
 {
-	font-family:Helvetica,Arial,sans-serif;
-	padding:0ex 1ex 1ex 1ex;
-	margin-bottom:1ex;
-	letter-spacing:0px;
-	vertical-align:top;
-	width:85%;
+    font-family:Helvetica,Arial,sans-serif;
+    padding:0ex 1ex 1ex 1ex;
+    margin-bottom:1ex;
+    letter-spacing:0px;
+    vertical-align:top;
+    width:85%;
 }
 #quicklinkstop
 {
-	line-height:3ex;
-	border:1px solid #666666;
-	font-family:Helvetica,Arial,sans-serif;
-	font-size:small;
-	padding-left:1ex;
-	padding-right:1ex;
-	text-align:left;
-	vertical-align:top;
-	padding-bottom:1px;
+    line-height:3ex;
+    border:1px solid #666666;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:small;
+    padding-left:1ex;
+    padding-right:1ex;
+    text-align:left;
+    vertical-align:top;
+    padding-bottom:1px;
 }
 
 /* styles for newcache */
 .text_gray
 {
-	color:gray;
+    color:gray;
 }
 
 
-table.null { 		margin: 0px; border-spacing: 0px; border-width: 0px; border-style: solid;
-					padding-left: 0px; padding-right: 0px;
-					padding-top: 0px; padding-bottom: 0px;
-					width: 100%; }
+table.null {        margin: 0px; border-spacing: 0px; border-width: 0px; border-style: solid;
+                    padding-left: 0px; padding-right: 0px;
+                    padding-top: 0px; padding-bottom: 0px;
+                    width: 100%; }
 
 
 /* styles for main content-table with new layout */
-table.content {		background-color:#ffffff; 
-					width: 100%;
-					padding-left: 0px; padding-right: 0px;
-					padding-top: 0px; padding-bottom: 0px;
-					border-spacing: 0;
-					font-size:small;
-					}
+table.content {     background-color:#ffffff;
+                    width: 100%;
+                    padding-left: 0px; padding-right: 0px;
+                    padding-top: 0px; padding-bottom: 0px;
+                    border-spacing: 0;
+                    font-size:small;
+                    }
 
-td.spacer {			height:5px; }
+td.spacer {         height:5px; }
 
-td.header { 		background-color:#E6E2E6; 
-					height:32px;
-					vertical-align : middle;
-					padding-left:5px; padding-right:5px; 
-					border: 0px; 
-					font-family:Helvetica,Arial,sans-serif;
-					border-color: #000000;
-					border-width: 1px;
-					border-style:dotted;
-					}
+td.header {         background-color:#E6E2E6;
+                    height:32px;
+                    vertical-align : middle;
+                    padding-left:5px; padding-right:5px;
+                    border: 0px;
+                    font-family:Helvetica,Arial,sans-serif;
+                    border-color: #000000;
+                    border-width: 1px;
+                    border-style:dotted;
+                    }
 
-td.header-small {	background-color:#ffffff; 
-					height:22px;
-					vertical-align : middle;
-					padding-left:5px; padding-right:5px; 
-					font-family:Helvetica,Arial,sans-serif;
-					font-weight: bold;
-					border-color: #000000;
-					border-width: 1px;
-					border-style:dotted;
-					}
+td.header-small {   background-color:#ffffff;
+                    height:22px;
+                    vertical-align : middle;
+                    padding-left:5px; padding-right:5px;
+                    font-family:Helvetica,Arial,sans-serif;
+                    font-weight: bold;
+                    border-color: #000000;
+                    border-width: 1px;
+                    border-style:dotted;
+                    }
 
 /* for normal contents the next two definitions should have the same attributes */
-table.content td {		padding-left: 5px; padding-right: 5px; }
-/*table.content td {	padding-left: 5px; padding-right: 5px; }*/
+table.content td {      padding-left: 5px; padding-right: 5px; }
+/*table.content td {    padding-left: 5px; padding-right: 5px; }*/
 
-td.help {   		padding-left: 50px; padding-right: 5px; 
-					font-size:10px;
-					color:#666666; }
+td.help {           padding-left: 50px; padding-right: 5px;
+                    font-size:10px;
+                    color:#666666; }
 
-td.ok	 {			background-color:#66CC00;
-					height:22px;
-					color:#000000; }
+td.ok    {          background-color:#66CC00;
+                    height:22px;
+                    color:#000000; }
 
-td.error {			background-color:#FF0000;
-					height:50px;
-					font-weight: bold;
-					color:#FFFF00; }
+td.error {          background-color:#FF0000;
+                    height:50px;
+                    font-weight: bold;
+                    color:#FFFF00; }
 
-td.message {		background-color:#E6E2E6;
-					height:50px;
-					font-size:12px;
-					font-weight: bold;
-					color:#FF0000; }
+td.message {        background-color:#E6E2E6;
+                    height:50px;
+                    font-size:12px;
+                    font-weight: bold;
+                    color:#FF0000; }
 
 /* styles for inputfields */
-input {				border:1px solid black;
-					background-color:white;
-					padding:1px;
-					font-size:11px; }
+input {             border:1px solid black;
+                    background-color:white;
+                    padding:1px;
+                    font-size:11px; }
 
-*.input20 {			width:20px; }  /* day,month */
-*.input30 {			width:30px; }
-*.input40 {			width:40px; }  /* year */
-*.input50 {			width:50px; }
-*.input100 {		width:100px; }	/* log-password */
-*.input120 {		width:120px; }	/* emailadress */
-*.input200 {		width:200px; }
-*.input400 {		width:400px; }	/* short cachedescription */
+*.input20 {         width:20px; }  /* day,month */
+*.input30 {         width:30px; }
+*.input40 {         width:40px; }  /* year */
+*.input50 {         width:50px; }
+*.input100 {        width:100px; }  /* log-password */
+*.input120 {        width:120px; }  /* emailadress */
+*.input200 {        width:200px; }
+*.input400 {        width:400px; }  /* short cachedescription */
 
-input.checkbox {	width:12px; height:12px; font-size:12px; border:0; }
+input.checkbox {    width:12px; height:12px; font-size:12px; border:0; }
 
-input.radio {		border:0px;
-					width:14px; height:14px; font-size:12px; }
+input.radio {       border:0px;
+                    width:14px; height:14px; font-size:12px; }
 
-textarea {			border:1px solid black;
-					background-color:white;
-					padding:1px;
-					font-size:11px; }
+textarea {          border:1px solid black;
+                    background-color:white;
+                    padding:1px;
+                    font-size:11px; }
 
-textarea.cachedesc {width:600px; height:500px; }	/* only cacheeditor */
-textarea.hint {		width:600px; height:200px; }	/* only cacheditor */
-textarea.logs {		width:600px; height:300px; }	/* only logeditor */
-
-
-select {			border:0px;
-					background-color:white;
-					padding:1px;
-					font-size:11px; }
+textarea.cachedesc {width:600px; height:500px; }    /* only cacheeditor */
+textarea.hint {     width:600px; height:200px; }    /* only cacheditor */
+textarea.logs {     width:600px; height:300px; }    /* only logeditor */
 
 
-input.formbuttons {	background-color:white;
-					width:120px;
-					border:1px solid black;
-					padding:0px; }
+select {            border:0px;
+                    background-color:white;
+                    padding:1px;
+                    font-size:11px; }
 
-.ul_icons { margin-top:0px; margin-bottom:0px; }	/* ul for action-links in viewcache */
+
+input.formbuttons { background-color:white;
+                    width:120px;
+                    border:1px solid black;
+                    padding:0px; }
+
+.ul_icons { margin-top:0px; margin-bottom:0px; }    /* ul for action-links in viewcache */
 

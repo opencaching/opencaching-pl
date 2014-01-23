@@ -7,12 +7,12 @@
 <br/>
 <div class="searchdiv">
 <table border="0" cellspacing="0" cellpadding="0" width="95%">
-	<tr><td colspan="2" class="header-small" style="margin-bottom:1px;"></td></tr>
+    <tr><td colspan="2" class="header-small" style="margin-bottom:1px;"></td></tr>
 </table>
 <table border="0" cellspacing="0" cellpadding="0" width="95%" style="font-size:13px;">
-	{locations}
+    {locations}
 </table>
 <table border="0" cellspacing="0" cellpadding="0" width="95%">
-	<tr><td colspan="2" class="header-small" style="margin-top:1px;"></td></tr>
+    <tr><td colspan="2" class="header-small" style="margin-top:1px;"></td></tr>
 </table>
 </div>

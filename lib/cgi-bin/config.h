@@ -11,8 +11,8 @@
 struct hashtable;
 
 typedef struct {
-	char* filename;
-	struct hashtable* h; 
+    char* filename;
+    struct hashtable* h;
 } config_handle;
 
 config_handle* config_load(const char* filename);

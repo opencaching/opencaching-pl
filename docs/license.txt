@@ -25,16 +25,16 @@
 
  In addition to the GNU GPL:
 
- You have to name and/or link opencaching.de to your customers as 
+ You have to name and/or link opencaching.de to your customers as
  original author of the used parts in your implementation.
 
- This license is only valid for the source code and documents stored in the 
- public CVS repository. There is a separate license agreement located on 
+ This license is only valid for the source code and documents stored in the
+ public CVS repository. There is a separate license agreement located on
  opencaching.de for data transfer from and to opencaching.de.
 
  If you are using this source code to establish a geocache listing service
- or some sort of service which can be compared with it, you agree to 
- populate your geocaching data via XML the same way and under the same 
+ or some sort of service which can be compared with it, you agree to
+ populate your geocaching data via XML the same way and under the same
  (or less restrictive) conditions as opencaching.de does.
 
 
@@ -86,7 +86,7 @@
      icons are available for free use for any purpose with no
      requirement for attribution.
 
- 14. JavaScript, DHTML Tooltips 
+ 14. JavaScript, DHTML Tooltips
      http://www.walterzorn.de/tooltip/tooltip.htm
 
  15. PHP Class: HTML to Plain Text Conversion

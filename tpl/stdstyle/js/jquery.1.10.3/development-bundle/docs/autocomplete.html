@@ -1,31 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>jQuery UI autocomplete documentation</title>
+    <meta charset="utf-8">
+    <title>jQuery UI autocomplete documentation</title>
 
-	<style>
-	body {
-		font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
-	}
-	.gutter {
-		display: none;
-	}
-	</style>
+    <style>
+    body {
+        font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
+    }
+    .gutter {
+        display: none;
+    }
+    </style>
 </head>
 <body>
 
 <script>{
-		"title":
-			"Autocomplete Widget",
-		"excerpt":
-			"Autocomplete enables users to quickly find and select from a pre-populated list of values as they type, leveraging searching and filtering.",
-		"termSlugs": {
-			"category": [
-				"widgets"
-			]
-		}
-	}</script><article id="autocomplete1" class="entry widget"><h2 class="section-title">
+        "title":
+            "Autocomplete Widget",
+        "excerpt":
+            "Autocomplete enables users to quickly find and select from a pre-populated list of values as they type, leveraging searching and filtering.",
+        "termSlugs": {
+            "category": [
+                "widgets"
+            ]
+        }
+    }</script><article id="autocomplete1" class="entry widget"><h2 class="section-title">
 <span>Autocomplete Widget</span><span class="version-details">version added: 1.8</span>
 </h2>
 <div class="entry-wrapper">
@@ -62,33 +62,33 @@
 <div><a href="#event-search">search</a></div>
 <div><a href="#event-select">select</a></div>
 </div></section><div class="longdesc" id="entry-longdesc">
-		<p>By giving an Autocomplete field focus or entering something into it, the plugin starts searching for entries that match and displays a list of values to choose from. By entering more characters, the user can filter down the list to better matches.</p>
+        <p>By giving an Autocomplete field focus or entering something into it, the plugin starts searching for entries that match and displays a list of values to choose from. By entering more characters, the user can filter down the list to better matches.</p>
 
-		<p>This can be used to choose previously selected values, such as entering tags for articles or entering email addresses from an address book. Autocomplete can also be used to populate associated information, such as entering a city name and getting the zip code.</p>
+        <p>This can be used to choose previously selected values, such as entering tags for articles or entering email addresses from an address book. Autocomplete can also be used to populate associated information, such as entering a city name and getting the zip code.</p>
 
-		<p>You can pull data in from a local or remote source: Local is good for small data sets, e.g., an address book with 50 entries; remote is necessary for big data sets, such as a database with hundreds or millions of entries to select from. To find out more about customizing the data soure, see the documentation for the <a href="#option-source"><code>source</code></a> option.</p>
+        <p>You can pull data in from a local or remote source: Local is good for small data sets, e.g., an address book with 50 entries; remote is necessary for big data sets, such as a database with hundreds or millions of entries to select from. To find out more about customizing the data soure, see the documentation for the <a href="#option-source"><code>source</code></a> option.</p>
 
-		<h3>Keyboard interaction</h3>
+        <h3>Keyboard interaction</h3>
 
-		<p>When the menu is open, the following key commands are available:</p>
-		<ul>
-			<li>UP - Move focus to the previous item. If on first item, move focus to the input. If on the input, move focus to last item.</li>
-			<li>DOWN - Move focus to the next item. If on last item, move focus to the input. If on the input, move focus to the first item.</li>
-			<li>ESCAPE - Close the menu.</li>
-			<li>ENTER - Select the currently focused item and close the menu.</li>
-			<li>TAB - Select the currently focused item, close the menu, and move focus to the next focusable element.</li>
-			<li>PAGE UP/DOWN - Scroll through a page of items (based on height of menu). <em>It's generally a bad idea to display so many items that users need to page.</em>.</li>
-		</ul>
+        <p>When the menu is open, the following key commands are available:</p>
+        <ul>
+            <li>UP - Move focus to the previous item. If on first item, move focus to the input. If on the input, move focus to last item.</li>
+            <li>DOWN - Move focus to the next item. If on last item, move focus to the input. If on the input, move focus to the first item.</li>
+            <li>ESCAPE - Close the menu.</li>
+            <li>ENTER - Select the currently focused item and close the menu.</li>
+            <li>TAB - Select the currently focused item, close the menu, and move focus to the next focusable element.</li>
+            <li>PAGE UP/DOWN - Scroll through a page of items (based on height of menu). <em>It's generally a bad idea to display so many items that users need to page.</em>.</li>
+        </ul>
 
-		<p>When the menu is closed, the following key commands are available:</p>
-		<ul>
-			<li>UP/DOWN - Open the menu, if the <a href="#option-minLength"><code>minLength</code></a> has been met.</li>
-		</ul>
-	</div>
+        <p>When the menu is closed, the following key commands are available:</p>
+        <ul>
+            <li>UP/DOWN - Open the menu, if the <a href="#option-minLength"><code>minLength</code></a> has been met.</li>
+        </ul>
+    </div>
 <h3>Additional Notes:</h3>
 <div class="longdesc"><ul><li>
-			This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
-		</li></ul></div>
+            This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
+        </li></ul></div>
 <section id="options"><header><h2 class="underline">Options</h2></header><div id="option-appendTo" class="api-item first-item">
 <h3>appendTo<span class="option-type"><strong>Type: </strong><a href="http://api.jquery.com/Types#Selector">Selector</a></span>
 </h3>
@@ -168,32 +168,32 @@
 <strong>Default: </strong><code>none; must be specified</code>
 </div>
 <div>
-				Defines the data to use, must be specified.
-				<p>Independent of the variant you use, the label is always treated as text. If you want the label to be treated as html you can use <a href="https://github.com/scottgonzalez/jquery-ui-extensions/blob/master/autocomplete/jquery.ui.autocomplete.html.js">Scott González' html extension</a>. The demos all focus on different variations of the <code>source</code> option - look for one that matches your use case, and check out the code.</p>
-			</div>
+                Defines the data to use, must be specified.
+                <p>Independent of the variant you use, the label is always treated as text. If you want the label to be treated as html you can use <a href="https://github.com/scottgonzalez/jquery-ui-extensions/blob/master/autocomplete/jquery.ui.autocomplete.html.js">Scott González' html extension</a>. The demos all focus on different variations of the <code>source</code> option - look for one that matches your use case, and check out the code.</p>
+            </div>
 <strong>Multiple types supported:</strong><ul>
 <li>
-<strong>Array</strong>: 
-					An array can be used for local data. There are two supported formats:
-					<ul>
-						<li>An array of strings: <code>[ "Choice1", "Choice2" ]</code>
+<strong>Array</strong>:
+                    An array can be used for local data. There are two supported formats:
+                    <ul>
+                        <li>An array of strings: <code>[ "Choice1", "Choice2" ]</code>
 </li>
-						<li>An array of objects with <code>label</code> and <code>value</code> properties: <code>[ { label: "Choice1", value: "value1" }, ... ]</code>
+                        <li>An array of objects with <code>label</code> and <code>value</code> properties: <code>[ { label: "Choice1", value: "value1" }, ... ]</code>
 </li>
-					</ul>
-					The label property is displayed in the suggestion menu. The value will be inserted into the input element when a user selects an item. If just one property is specified, it will be used for both, e.g., if you provide only <code>value</code> properties, the value will also be used as the label.
-				</li>
+                    </ul>
+                    The label property is displayed in the suggestion menu. The value will be inserted into the input element when a user selects an item. If just one property is specified, it will be used for both, e.g., if you provide only <code>value</code> properties, the value will also be used as the label.
+                </li>
 <li>
 <strong>String</strong>: When a string is used, the Autocomplete plugin expects that string to point to a URL resource that will return JSON data. It can be on the same host or on a different one (must provide JSONP). The Autocomplete plugin does not filter the results, instead a query string is added with a <code>term</code> field, which the server-side script should use for filtering the results. For example, if the <code>source</code> option is set to <code>"http://example.com"</code> and the user types <code>foo</code>, a GET request would be made to <code>http://example.com?term=foo</code>. The data itself can be in the same format as the local data described above.</li>
 <li>
-<strong>Function</strong>: 
-					The third variation, a callback, provides the most flexibility and can be used to connect any data source to Autocomplete. The callback gets two arguments:
-					<ul>
-						<li>A <code>request</code> object, with a single <code>term</code> property, which refers to the value currently in the text input. For example, if the user enters <code>"new yo"</code> in a city field, the Autocomplete term will equal <code>"new yo"</code>.</li>
-						<li>A <code>response</code> callback, which expects a single argument: the data to suggest to the user. This data should be filtered based on the provided term, and can be in any of the formats described above for simple local data. It's important when providing a custom source callback to handle errors during the request. You must always call the <code>response</code> callback even if you encounter an error. This ensures that the widget always has the correct state.</li>
-					</ul>
-					<p>When filtering data locally, you can make use of the built-in <code>$.ui.autocomplete.escapeRegex</code> function. It'll take a single string argument and escape all regex characters, making the result safe to pass to <code>new RegExp()</code>.</p>
-				</li>
+<strong>Function</strong>:
+                    The third variation, a callback, provides the most flexibility and can be used to connect any data source to Autocomplete. The callback gets two arguments:
+                    <ul>
+                        <li>A <code>request</code> object, with a single <code>term</code> property, which refers to the value currently in the text input. For example, if the user enters <code>"new yo"</code> in a city field, the Autocomplete term will equal <code>"new yo"</code>.</li>
+                        <li>A <code>response</code> callback, which expects a single argument: the data to suggest to the user. This data should be filtered based on the provided term, and can be in any of the formats described above for simple local data. It's important when providing a custom source callback to handle errors during the request. You must always call the <code>response</code> callback even if you encounter an error. This ensures that the widget always has the correct state.</li>
+                    </ul>
+                    <p>When filtering data locally, you can make use of the built-in <code>$.ui.autocomplete.escapeRegex</code> function. It'll take a single string argument and escape all regex characters, making the result safe to pass to <code>new RegExp()</code>.</p>
+                </li>
 </ul>
 <strong>Code examples:</strong><p>Initialize the autocomplete with the source option specified:</p>
 <div class="syntaxhighlighter nogutter  "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain">$( </code><code class="string">".selector"</code> <code class="plain">).autocomplete({ source: [ </code><code class="string">"c++"</code><code class="plain">, </code><code class="string">"java"</code><code class="plain">, </code><code class="string">"php"</code><code class="plain">, </code><code class="string">"coldfusion"</code><code class="plain">, </code><code class="string">"javascript"</code><code class="plain">, </code><code class="string">"asp"</code><code class="plain">, </code><code class="string">"ruby"</code> <code class="plain">] });</code></div></div></td></tr></tbody></table></div>
@@ -211,8 +211,8 @@
 <div id="method-destroy"><div class="api-item">
 <h3>destroy()</h3>
 <div>
-		Removes the autocomplete functionality completely. This will return the element back to its pre-init state.
-	</div>
+        Removes the autocomplete functionality completely. This will return the element back to its pre-init state.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the destroy method:</p>
@@ -222,8 +222,8 @@
 <div id="method-disable"><div class="api-item">
 <h3>disable()</h3>
 <div>
-		Disables the autocomplete.
-	</div>
+        Disables the autocomplete.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the disable method:</p>
@@ -233,8 +233,8 @@
 <div id="method-enable"><div class="api-item">
 <h3>enable()</h3>
 <div>
-		Enables the autocomplete.
-	</div>
+        Enables the autocomplete.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the enable method:</p>
@@ -386,8 +386,8 @@
 <h3>create( event, ui )<span class="returns">Type: <code>autocompletecreate</code></span>
 </h3>
 <div>
-		Triggered when the autocomplete is created.
-	</div>
+        Triggered when the autocomplete is created.
+    </div>
 <ul>
 <li>
 <div><strong>event</strong></div>
@@ -413,9 +413,9 @@
 <h3>focus( event, ui )<span class="returns">Type: <code>autocompletefocus</code></span>
 </h3>
 <div>
-				Triggered when focus is moved to an item (not selecting). The default action is to replace the text field's value with the value of the focused item, though only if the event was triggered by a keyboard interaction.
-				<p>Canceling this event prevents the value from being updated, but does not prevent the menu item from being focused.</p>
-			</div>
+                Triggered when focus is moved to an item (not selecting). The default action is to replace the text field's value with the value of the focused item, though only if the event was triggered by a keyboard interaction.
+                <p>Canceling this event prevents the value from being updated, but does not prevent the menu item from being focused.</p>
+            </div>
 <ul>
 <li>
 <div><strong>event</strong></div>
@@ -528,9 +528,9 @@
 <h3>select( event, ui )<span class="returns">Type: <code>autocompleteselect</code></span>
 </h3>
 <div>
-				Triggered when an item is selected from the menu. The default action is to replace the text field's value with the value of the selected item.
-				<p>Canceling this event prevents the value from being updated, but does not prevent the menu from closing.</p>
-			</div>
+                Triggered when an item is selected from the menu. The default action is to replace the text field's value with the value of the selected item.
+                <p>Canceling this event prevents the value from being updated, but does not prevent the menu from closing.</p>
+            </div>
 <ul>
 <li>
 <div><strong>event</strong></div>

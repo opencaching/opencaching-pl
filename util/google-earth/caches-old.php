@@ -23,8 +23,8 @@
 
 //  if ((abs($lon_from - $lon_to) > 2)||(abs($lat_from - $lat_to) > 2))
 //   {
-//	$lon_from=$lon_to;
-//	$lat_from=$lat_to;
+//  $lon_from=$lon_to;
+//  $lat_from=$lat_to;
 //   }
 
   $rs = sql("SELECT `caches`.`cache_id` `cacheid`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`type` `type`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `cache_type`.`pl` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `caches`, `cache_type`, `cache_size`, `user` WHERE `caches`.`type`=`cache_type`.`id` AND `caches`.`size`=`cache_size`.`id` AND `caches`.`user_id`=`user`.`user_id` AND `caches`.`status`=1 AND `caches`.`longitude`>='" . sql_escape($lon_from) . "' AND `caches`.`longitude`<='" . sql_escape($lon_to) . "' AND `caches`.`latitude`>='" . sql_escape($lat_from) . "' AND `caches`.`latitude`<='" . sql_escape($lat_to) . "'");
@@ -33,7 +33,7 @@
    kml processing
   */
 
-  $kmlLine = 
+  $kmlLine =
 '
 <Placemark>
   <description><![CDATA[<a href="http://www.opencaching.pl/viewcache.php?cacheid={cacheid}">Zobacz więcej szczegółów skrzynki</a><br /> założona przez {username}<br />&nbsp;<br /><table cellspacing="0" cellpadding="0" border="0"><tr><td>{typeimgurl} </td><td>Rodzaj: {type}<br />Wielkosc: {{size}}</td></tr><tr><td colspan="2">Zadania: {difficulty} z 5.0<br />Teren: {terrain} z 5.0</td></tr></table>]]></description>
@@ -56,57 +56,57 @@
 '<?xml version="1.0" encoding="utf-8"?>
 <kml xmlns="http://earth.google.com/kml/2.0">
 <Document>
-	<Style id="regular">
-		<IconStyle>
-			<scale>.4</scale>
-			<Icon>
-				<href>http://ocpl.geofizyka.pl/images/ge/regular.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="multi">
-		<IconStyle>
-			<scale>.4</scale>
-			<Icon>
-				<href>http://ocpl.geofizyka.pl/images/ge/multi.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="virtual">
-		<IconStyle>
-			<scale>.4</scale>
-			<Icon>
-				<href>http://ocpl.geofizyka.pl/images/ge/virtual.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="webcam">
-		<IconStyle>
-			<scale>.4</scale>
-			<Icon>
-				<href>http://ocpl.geofizyka.pl/images/ge/webcam.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="event">
-		<IconStyle>
-			<scale>.4</scale>
-			<Icon>
-				<href>http://ocpl.geofizyka.pl/images/ge/event.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Style id="other">
-		<IconStyle>
-			<scale>.4</scale>
-			<Icon>
-				<href>http://ocpl.geofizyka.pl/images/ge/other.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
-	<Folder>
-		<Name>Geocaches (Opencaching) Polska</Name>
-		<Open>0</Open>
+    <Style id="regular">
+        <IconStyle>
+            <scale>.4</scale>
+            <Icon>
+                <href>http://ocpl.geofizyka.pl/images/ge/regular.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="multi">
+        <IconStyle>
+            <scale>.4</scale>
+            <Icon>
+                <href>http://ocpl.geofizyka.pl/images/ge/multi.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="virtual">
+        <IconStyle>
+            <scale>.4</scale>
+            <Icon>
+                <href>http://ocpl.geofizyka.pl/images/ge/virtual.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="webcam">
+        <IconStyle>
+            <scale>.4</scale>
+            <Icon>
+                <href>http://ocpl.geofizyka.pl/images/ge/webcam.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="event">
+        <IconStyle>
+            <scale>.4</scale>
+            <Icon>
+                <href>http://ocpl.geofizyka.pl/images/ge/event.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Style id="other">
+        <IconStyle>
+            <scale>.4</scale>
+            <Icon>
+                <href>http://ocpl.geofizyka.pl/images/ge/other.png</href>
+            </Icon>
+        </IconStyle>
+    </Style>
+    <Folder>
+        <Name>Geocaches (Opencaching) Polska</Name>
+        <Open>0</Open>
 ';
   $kmlFoot = '</Folder></Document></kml>';
   $kmlTimeFormat = 'Y-m-d\TH:i:s\Z';
@@ -133,14 +133,14 @@ $iso2utf8tr = array (
         "\323"=>"\xc3\x93", /* O */
         "\246"=>"\xc5\x9a", /* S */
         "\254"=>"\xc5\xbb", /* Z */
-        "\257"=>"\xc5\xb9" /* Z */ 
+        "\257"=>"\xc5\xb9" /* Z */
 );
 
 
   while ($r = mysql_fetch_array($rs))
   {
     $thisline = $kmlLine;
-		
+
     // icon suchen
     switch ($r['type'])
     {
@@ -179,10 +179,10 @@ $iso2utf8tr = array (
     }
     $thisline = str_replace('{icon}', $icon, $thisline);
     $thisline = str_replace('{typeimgurl}', $typeimgurl, $thisline);
-		
+
     $lat = sprintf('%01.5f', $r['latitude']);
     $thisline = str_replace('{lat}', $lat, $thisline);
-		
+
     $lon = sprintf('%01.5f', $r['longitude']);
     $thisline = str_replace('{lon}', $lon, $thisline);
 
@@ -190,10 +190,10 @@ $iso2utf8tr = array (
     $thisline = str_replace('{{time}}', $time, $thisline);
 
 $iso_string = $r['name'];
-$utf8 = strtr($iso_string, $iso2utf8tr); 
+$utf8 = strtr($iso_string, $iso2utf8tr);
 
     $thisline = str_replace('{name}', xmlentities($utf8), $thisline);
-		
+
     if (($r['status'] == 2) || ($r['status'] == 3))
     {
       if ($r['status'] == 2)
@@ -203,10 +203,10 @@ $utf8 = strtr($iso_string, $iso2utf8tr);
     }
     else
       $thisline = str_replace('{archivedflag}', '', $thisline);
-		
+
     $thisline = str_replace('{type}', xmlentities($r['typedesc']), $thisline);
     $thisline = str_replace('{{size}}', xmlentities($r['sizedesc']), $thisline);
-		
+
     $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
     $thisline = str_replace('{difficulty}', $difficulty, $thisline);
 

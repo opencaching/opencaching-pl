@@ -29,30 +29,30 @@ if ($error == false) {
     //get the news
     $tplname = 'myn_newlogs_jg';
     require($stylepath . '/newlogs.inc.php');
-    
+
     $LOGS_PER_PAGE  = 50;
     $PAGES_LISTED   = 10;
     $rs             = sql("SELECT count(id) FROM cache_logs WHERE deleted=0");
     $total_logs     = mysql_result($rs,0);
     $pages          = "";
     $total_pages    = ceil($total_logs/$LOGS_PER_PAGE);
-    
+
     mysql_free_result($rs);
-    
+
     if( !isset($_GET['start']) || intval($_GET['start'])<0 || intval($_GET['start']) > $total_logs)
         $start = 0;
     else
         $start = intval($_GET['start']);
-    
+
     $startat = max(0,floor((($start/$LOGS_PER_PAGE)+1)/$PAGES_LISTED)*$PAGES_LISTED);
-    
+
     if( $start > 0 ) {
         $pages .= '<a href="myn_newlogs.php?start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'">{first_img}</a> ';
         $pages .= '<a href="myn_newlogs.php?start='.max(0,$start-$LOGS_PER_PAGE).'">{prev_img}</a> ';
     }
     else
         $pages .= "{first_img_inactive} {prev_img_inactive} ";
-    
+
     for( $i=max(1,$startat);$i<$startat+$PAGES_LISTED;$i++ ) {
         $page_number = ($i-1)*$LOGS_PER_PAGE;
         if( $page_number == $start )
@@ -71,13 +71,13 @@ if ($error == false) {
     $user_id    = $usr['userid'];
     $latitude   = sqlValue("SELECT `latitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
     $longitude  = sqlValue("SELECT `longitude` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
-    
-    tpl_set_var('userid',$user_id);    
+
+    tpl_set_var('userid',$user_id);
 
     if (($longitude==NULL && $latitude==NULL) ||($longitude==0 && $latitude==0) ) {
         tpl_set_var('info','<br><div class="notice" style="line-height: 1.4em;font-size: 120%;"><b>'.tr("myn_info").'</b></div><br>');
-    } 
-    else { 
+    }
+    else {
         tpl_set_var('info','');
     }
 
@@ -86,23 +86,23 @@ if ($error == false) {
 
     $distance =sqlValue("SELECT `notify_radius` FROM user WHERE user_id='" . sql_escape($usr['userid']) . "'", 0);
     if ($distance==0) $distance=35;
-    
+
     $distance_unit  = 'km';
-    $radius         = $distance;    
+    $radius         = $distance;
     //get the users home coords
     $lat            = $latitude;
     $lon            = $longitude;
-    $lon_rad        = $lon * 3.14159 / 180;   
-    $lat_rad        = $lat * 3.14159 / 180; 
+    $lon_rad        = $lon * 3.14159 / 180;
+    $lat_rad        = $lat * 3.14159 / 180;
     //all target caches are between lat - max_lat_diff and lat + max_lat_diff
     $max_lat_diff   = $distance / 111.12;
     //all target caches are between lon - max_lon_diff and lon + max_lon_diff
     //TODO: check!!!
     $max_lon_diff   = $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378  * 3.14159);
 
-    sql('DROP TEMPORARY TABLE IF EXISTS local_caches'.$user_id.'');                            
-    sql('CREATE TEMPORARY TABLE local_caches'.$user_id.' ENGINE=MEMORY 
-        SELECT 
+    sql('DROP TEMPORARY TABLE IF EXISTS local_caches'.$user_id.'');
+    sql('CREATE TEMPORARY TABLE local_caches'.$user_id.' ENGINE=MEMORY
+        SELECT
             (' . getSqlDistanceFormula($lon, $lat, $distance, 1) . ')   AS `distance`,
             `caches`.`cache_id`                                         AS `cache_id`,
             `caches`.`wp_oc`                                            AS `wp_oc`,
@@ -116,33 +116,33 @@ if ($error == false) {
             `caches`.`difficulty`                                       AS `difficulty`,
             `caches`.`terrain`                                          AS `terrain`,
             `caches`.`status`                                           AS `status`,
-            `caches`.`user_id`                                          AS `user_id` 
-        FROM `caches` 
-        WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\''.$user_id .'\') 
-            AND caches.status<>4 AND caches.status<>5 
-            AND caches.status <>6 
-            AND `longitude` > ' . ($lon - $max_lon_diff) . ' 
-            AND `longitude` < ' . ($lon + $max_lon_diff) . ' 
-            AND `latitude` > ' . ($lat - $max_lat_diff) . ' 
+            `caches`.`user_id`                                          AS `user_id`
+        FROM `caches`
+        WHERE `caches`.`cache_id` NOT IN (SELECT `cache_ignore`.`cache_id` FROM `cache_ignore` WHERE `cache_ignore`.`user_id`=\''.$user_id .'\')
+            AND caches.status<>4 AND caches.status<>5
+            AND caches.status <>6
+            AND `longitude` > ' . ($lon - $max_lon_diff) . '
+            AND `longitude` < ' . ($lon + $max_lon_diff) . '
+            AND `latitude` > ' . ($lat - $max_lat_diff) . '
             AND `latitude` < ' . ($lat + $max_lat_diff) . '
         HAVING `distance` < ' . $distance);
 
-    sql('ALTER TABLE local_caches'.$user_id.' 
+    sql('ALTER TABLE local_caches'.$user_id.'
             ADD PRIMARY KEY ( `cache_id` ),
-            ADD INDEX(`cache_id`), 
-            ADD INDEX (`wp_oc`), 
-            ADD INDEX(`type`), 
-            ADD INDEX(`name`), 
-            ADD INDEX(`user_id`), 
-            ADD INDEX(`date_hidden`), 
+            ADD INDEX(`cache_id`),
+            ADD INDEX (`wp_oc`),
+            ADD INDEX(`type`),
+            ADD INDEX(`name`),
+            ADD INDEX(`user_id`),
+            ADD INDEX(`date_hidden`),
             ADD INDEX(`date_created`)');
 
     $rs = sql(' SELECT `cache_logs`.`id`
                 FROM `cache_logs`, local_caches'.$user_id.'
                 WHERE `cache_logs`.`cache_id`=local_caches'.$user_id.'.cache_id
-                    AND `cache_logs`.`deleted`=0 
+                    AND `cache_logs`.`deleted`=0
                     AND local_caches'.$user_id.'.`status` != 4
-                    AND local_caches'.$user_id.'.`status` != 5 
+                    AND local_caches'.$user_id.'.`status` != 5
                     AND local_caches'.$user_id.'.`status` != 6
                 ORDER BY  `cache_logs`.`date_created` DESC
                 LIMIT '.intval($start).', '.intval($LOGS_PER_PAGE));
@@ -178,11 +178,11 @@ if ($error == false) {
                         log_types.icon_small                        AS icon_small,
                         IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
                         COUNT(gk_item.id)                           AS geokret_in
-                FROM (cache_logs 
-                    INNER JOIN caches               ON (caches.cache_id = cache_logs.cache_id)) 
-                    INNER JOIN user                 ON (cache_logs.user_id = user.user_id) 
-                    INNER JOIN log_types            ON (cache_logs.type = log_types.id) 
-                    INNER JOIN cache_type           ON (caches.type = cache_type.id) 
+                FROM (cache_logs
+                    INNER JOIN caches               ON (caches.cache_id = cache_logs.cache_id))
+                    INNER JOIN user                 ON (cache_logs.user_id = user.user_id)
+                    INNER JOIN log_types            ON (cache_logs.type = log_types.id)
+                    INNER JOIN cache_type           ON (caches.type = cache_type.id)
                     LEFT JOIN `cache_rating`        ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
                     LEFT JOIN gk_item_waypoint      ON gk_item_waypoint.wp = caches.wp_oc
                     LEFT JOIN gk_item               ON gk_item.id = gk_item_waypoint.id AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
@@ -194,7 +194,7 @@ if ($error == false) {
 
     for ($i = 0; $i < mysql_num_rows($rs); $i++) {
         $log_record      = sql_fetch_array($rs);
-        $found_icon      = is_cache_found($log_record['cache_id'], $user_id) ? '16x16-found.png' : '16x16-blank.png'; 
+        $found_icon      = is_cache_found($log_record['cache_id'], $user_id) ? '16x16-found.png' : '16x16-blank.png';
         $logicon_found   = 'tpl/stdstyle/images/cache/' . $found_icon;
 
         $file_content .= '<tr >';
@@ -205,14 +205,14 @@ if ($error == false) {
         }
         else {
             $file_content .='<td width="22">&nbsp;</td>';
-        }                                
+        }
                     //$rating_picture
         if ($log_record['recommended'] == 1 && $log_record['log_type']==1)  {
             $file_content .= '<td width="22"><img src="images/rating-star.png" border="0" alt="" title="Rekomendacja" /></td>';
         }
         else {
             $file_content .= '<td width="22">&nbsp;</td>';
-        }    
+        }
         $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
         $file_content .= '<td width="22" ><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt="" title="Kliknij aby zobaczyć skrzynke" /></a></td>';
         $file_content .= '<td width="22" ><img src="'. $logicon_found . '" border="0" alt="znaleziona" /></td>';
@@ -253,7 +253,7 @@ if ($error == false) {
     $pages = mb_ereg_replace('{next_img_inactive}',     $next_img_inactive,     $pages);
     $pages = mb_ereg_replace('{first_img_inactive}',    $first_img_inactive,    $pages);
     $pages = mb_ereg_replace('{last_img_inactive}',     $last_img_inactive,     $pages);
-        
+
     tpl_set_var('file_content',$file_content);
     tpl_set_var('pages', $pages);
 }
@@ -284,10 +284,10 @@ function cleanup_text($str) {
 
     for ($i = 0; $i < count($from); $i++)
         $str = str_replace($from[$i], $to[$i], $str);
-                     
+
     return filterevilchars($str);
 }
-        
+
 function filterevilchars($str) {
     return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
 }

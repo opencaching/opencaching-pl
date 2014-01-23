@@ -1,6 +1,6 @@
 <?php
 /*
-    Working with XML. Usage: 
+    Working with XML. Usage:
     $xml=xml2ary(file_get_contents('1.xml'));
     $link=&$xml['ddd']['_c'];
     $link['twomore']=$link['onemore'];
@@ -40,8 +40,8 @@ function xml2ary(&$string) {
         } elseif ($r['type']=='close') {
             $ary=&$ary['_p'];
         }
-    }    
-    
+    }
+
     _del_p($mnary);
     return $mnary;
 }
@@ -70,7 +70,7 @@ function ary2xml($cary, $d=0, $forcetag='') {
             elseif (isset($r['_v'])) $res[]=$r['_v'];
             $res[]=(isset($r['_c']) ? $sp : '')."</$tag>\n";
         }
-        
+
     }
     return implode('', $res);
 }

@@ -1,40 +1,40 @@
 <?php
 /***************************************************************************
-											./tpl/stdstyle/editdesc.tpl.php
-															-------------------
-		begin                : July 7 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
+                                            ./tpl/stdstyle/editdesc.tpl.php
+                                                            -------------------
+        begin                : July 7 2004
+        copyright            : (C) 2004 The OpenCaching Group
+        forum contact at     : http://www.opencaching.com/phpBB2
 
-	***************************************************************************/
+    ***************************************************************************/
 
 /***************************************************************************
-	*                                         				                                
-	*   This program is free software; you can redistribute it and/or modify  	
-	*   it under the terms of the GNU General Public License as published by  
-	*   the Free Software Foundation; either version 2 of the License, or	    	
-	*   (at your option) any later version.
-	*
-	***************************************************************************/
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    ***************************************************************************/
 
 /****************************************************************************
-	      
+
    Unicode Reminder ??
-                                   				                                
-	 edit a cache listing
-	
-	 template replacement(s):
-			
-			desclang
-			desclang_name
-			cachename
-			reset
-			submit
-			short_desc
-			desc_err
-			desc
-			hints
-			
+
+     edit a cache listing
+
+     template replacement(s):
+
+            desclang
+            desclang_name
+            cachename
+            reset
+            submit
+            short_desc
+            desc_err
+            desc
+            hints
+
  ****************************************************************************/
 ?>
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
@@ -45,8 +45,8 @@ tinymce.init({
     width: 600,
     height: 350,
     menubar: false,
-	toolbar_items_size: 'small',
-	gecko_spellcheck : true,
+    toolbar_items_size: 'small',
+    gecko_spellcheck : true,
     language : "{language4js}",
     toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
     toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image code | preview ",
@@ -58,11 +58,11 @@ tinymce.init({
         "table contextmenu directionality emoticons template textcolor paste textcolor"
      ],
  });
- 
+
 $(function() {
-	$('#scriptwarning').hide();
-});  
- 
+    $('#scriptwarning').hide();
+});
+
 </script>
 
 
@@ -73,44 +73,44 @@ $(function() {
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />&nbsp;{{edit_cache_description}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
-	<table class="table">
-	<colgroup>
-		<col width="100"/>
-		<col/>
-	</colgroup>
-	<tr>
-		<td class="content-title-noshade">{{language}}:</td>
-		<td>
-			<select name="desclang">
-				{desclangs}
-			</select>{show_all_langs_submit}
-		</td>
-	</tr>
-	<tr><td class="buffer" colspan="2"></td></tr>
-	<tr>
-		<td class="content-title-noshade">{{short_description}}:</td>
-		<td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400"/></td>
-	</tr>
-	<tr><td class="buffer" colspan="2"></td></tr>
-	</table>
-	<div class="buffer"></div>
-	<div>
-		<p class="content-title-noshade-size1">{{full_description}}:{desc_err}</p>
-	</div>
-	<p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
-	<p><textarea id="desc" name="desc" class="descMCE">{desc}</textarea></p>
-	<div class="buffer"></div>
-	<div class="notice">{{html_edit_info}}</div>
-	<div class="notice">{{geocaching_com_foto_info}}</div>
-	<div class="buffer"></div>
-	<div><p class="content-title-noshade-size1">{{extra_coded_info}}:</p></div>
-	<div class="buffer"></div>
-	<div><textarea name="hints" class="mceNoEditor" cols="80" rows="15">{hints}</textarea></div>
-	<div class="buffer"></div>
-	<div>
-			<input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;
-			<input type="submit" name="submitform" value="{{submit}}" class="formbuttons"/>
-	</div>
-	<div class="buffer"></div>
+    <table class="table">
+    <colgroup>
+        <col width="100"/>
+        <col/>
+    </colgroup>
+    <tr>
+        <td class="content-title-noshade">{{language}}:</td>
+        <td>
+            <select name="desclang">
+                {desclangs}
+            </select>{show_all_langs_submit}
+        </td>
+    </tr>
+    <tr><td class="buffer" colspan="2"></td></tr>
+    <tr>
+        <td class="content-title-noshade">{{short_description}}:</td>
+        <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400"/></td>
+    </tr>
+    <tr><td class="buffer" colspan="2"></td></tr>
+    </table>
+    <div class="buffer"></div>
+    <div>
+        <p class="content-title-noshade-size1">{{full_description}}:{desc_err}</p>
+    </div>
+    <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
+    <p><textarea id="desc" name="desc" class="descMCE">{desc}</textarea></p>
+    <div class="buffer"></div>
+    <div class="notice">{{html_edit_info}}</div>
+    <div class="notice">{{geocaching_com_foto_info}}</div>
+    <div class="buffer"></div>
+    <div><p class="content-title-noshade-size1">{{extra_coded_info}}:</p></div>
+    <div class="buffer"></div>
+    <div><textarea name="hints" class="mceNoEditor" cols="80" rows="15">{hints}</textarea></div>
+    <div class="buffer"></div>
+    <div>
+            <input type="reset" name="reset" value="{{reset}}" class="formbuttons"/>&nbsp;&nbsp;
+            <input type="submit" name="submitform" value="{{submit}}" class="formbuttons"/>
+    </div>
+    <div class="buffer"></div>
 </form>
 

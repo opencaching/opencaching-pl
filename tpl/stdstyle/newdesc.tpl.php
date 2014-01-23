@@ -1,39 +1,39 @@
 <?php
-	/***************************************************************************
-											./tpl/stdstyle/newdesc.tpl.php
-															-------------------
-		begin                : July 7 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
+    /***************************************************************************
+                                            ./tpl/stdstyle/newdesc.tpl.php
+                                                            -------------------
+        begin                : July 7 2004
+        copyright            : (C) 2004 The OpenCaching Group
+        forum contact at     : http://www.opencaching.com/phpBB2
 
-	***************************************************************************/
+    ***************************************************************************/
 
 /***************************************************************************
-	*                                         				                                
-	*   This program is free software; you can redistribute it and/or modify  	
-	*   it under the terms of the GNU General Public License as published by  
-	*   the Free Software Foundation; either version 2 of the License, or	    	
-	*   (at your option) any later version.
-	*
-	***************************************************************************/
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    ***************************************************************************/
 
 /****************************************************************************
-	     
+
    Unicode Reminder メモ
-                                    				                                
-	 new cache description
-	 
-	 replacements:
-		name
-		reset
-		submit
-		cacheid
-		langoptions
-		show_all_langs_submit
-		short_desc
-		desc
-		hints
-	 
+
+     new cache description
+
+     replacements:
+        name
+        reset
+        submit
+        cacheid
+        langoptions
+        show_all_langs_submit
+        short_desc
+        desc
+        hints
+
  ****************************************************************************/
 ?>
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
@@ -44,7 +44,7 @@ tinymce.init({
     width: 600,
     height: 350,
     menubar: false,
-	toolbar_items_size: 'small',
+    toolbar_items_size: 'small',
     language : "{language4js}",
     gecko_spellcheck : true,
     toolbar1: "newdocument | styleselect formatselect fontselect fontsizeselect",
@@ -57,11 +57,11 @@ tinymce.init({
         "table contextmenu directionality emoticons template textcolor paste textcolor"
      ],
  });
- 
+
 $(function() {
-	$('#scriptwarning').hide();
-});  
- 
+    $('#scriptwarning').hide();
+});
+
 </script>
 
 
@@ -72,69 +72,69 @@ $(function() {
 <input type="hidden" name="version2" value="1"/>
 <input id="descMode" type="hidden" name="descMode" value="1" />
 <table class="content">
-	<colgroup>
-		<col width="100">
-		<col>
-	</colgroup>
-	<tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" title="New Cache" align="middle" /> <b>{{make_new_description}} <a href="viewcache.php?cacheid={cacheid}">{name}</a></b></td></tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr>
-		<td>{{language}}:</td>
-		<td>
-			<select name="desc_lang">
-				{langoptions}
-			</select>
-			{show_all_langs_submit} {lang_message}
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
+    <colgroup>
+        <col width="100">
+        <col>
+    </colgroup>
+    <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" title="New Cache" align="middle" /> <b>{{make_new_description}} <a href="viewcache.php?cacheid={cacheid}">{name}</a></b></td></tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
+    <tr>
+        <td>{{language}}:</td>
+        <td>
+            <select name="desc_lang">
+                {langoptions}
+            </select>
+            {show_all_langs_submit} {lang_message}
+        </td>
+    </tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
 
-	<tr>
-		<td>{{short_desc_label}}:</td>
-		<td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400" /></td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr>
-		<td colspan="2">{{full_description}}:</td>
-	</tr>
+    <tr>
+        <td>{{short_desc_label}}:</td>
+        <td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400" /></td>
+    </tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
+    <tr>
+        <td colspan="2">{{full_description}}:</td>
+    </tr>
 
-	<tr>
-		<td colspan="2">
-			<span id="scriptwarning" class="errormsg">{{no_javascript}}</span>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<textarea id="desc" name="desc">{desc}</textarea>
-    </td>	
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr>
-		<td class="help" colspan="2">
-			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" /> {{html_edit_info}}.<br />
-			<img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" />
-			{{geocaching_com_foto_info}}
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
+    <tr>
+        <td colspan="2">
+            <span id="scriptwarning" class="errormsg">{{no_javascript}}</span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <textarea id="desc" name="desc">{desc}</textarea>
+    </td>
+    </tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
+    <tr>
+        <td class="help" colspan="2">
+            <img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" /> {{html_edit_info}}.<br />
+            <img src="tpl/stdstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="Uwagi" title="Uwagi" />
+            {{geocaching_com_foto_info}}
+        </td>
+    </tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
 
-	<tr>
-		<td colspan="2">{{extra_coded_info}}:</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<textarea name="hints" class="hint mceNoEditor">{hints}</textarea>
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
+    <tr>
+        <td colspan="2">{{extra_coded_info}}:</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <textarea name="hints" class="hint mceNoEditor">{hints}</textarea>
+        </td>
+    </tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
 
-	<tr>
-		<td class="header-small" colspan="2">
-			<input type="reset" name="reset" value="{{reset}}" class="formbuttons" />&nbsp;&nbsp;
-			<input type="submit" name="submitform" value="{submit}" class="formbuttons" />
-		</td>
-	</tr>
+    <tr>
+        <td class="header-small" colspan="2">
+            <input type="reset" name="reset" value="{{reset}}" class="formbuttons" />&nbsp;&nbsp;
+            <input type="submit" name="submitform" value="{submit}" class="formbuttons" />
+        </td>
+    </tr>
 </table>
 </form>
 

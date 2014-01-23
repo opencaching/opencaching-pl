@@ -6,8 +6,8 @@
 
 <div id="content">
 
-	<span class="error">{$404_text}</span>
-		
+    <span class="error">{$404_text}</span>
+
 </div>
 
-{include file="./tpl/footer.inc.tpl"}	
+{include file="./tpl/footer.inc.tpl"}

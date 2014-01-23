@@ -3,40 +3,40 @@
 
    Unicode Reminder ăĄă˘
 
-	***************************************************************************/
+    ***************************************************************************/
 ?>
 <script type="text/javascript">
-	function toogleButton(elementId)
-	{
-		if( document.getElementById(elementId).disabled == false )
-			document.getElementById(elementId).disabled = true;
-		else
-			document.getElementById(elementId).disabled = false;
-	}
+    function toogleButton(elementId)
+    {
+        if( document.getElementById(elementId).disabled == false )
+            document.getElementById(elementId).disabled = true;
+        else
+            document.getElementById(elementId).disabled = false;
+    }
 </script>
 
 <form action="confirm.php" method="post" enctype="application/x-www-form-urlencoded" style="display: inline;">
 <table class="content">
-	
-	<tr>
-		<td class="content2-pagetitle" colspan="2">
-			<img src="lang/pl/stdstyle/images/blue/describe.png" border="0" align="middle" width="32" height="32" alt="" title="Regulamin" align="middle" /><font size="4"> <b>Regulamin</b></font>
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
 
-	{message_start}<tr><td colspan="2" class="message">{message}</td></tr><tr><td class="spacer" colspan="2"></td></tr>{message_end}
+    <tr>
+        <td class="content2-pagetitle" colspan="2">
+            <img src="lang/pl/stdstyle/images/blue/describe.png" border="0" align="middle" width="32" height="32" alt="" title="Regulamin" align="middle" /><font size="4"> <b>Regulamin</b></font>
+        </td>
+    </tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
 
-	<tr><td class="spacer" colspan="2"></td></tr>
-	
-	<tr>
-		<td colspan="2">
-		
-		<p><b>1. Regulamin</b>
+    {message_start}<tr><td colspan="2" class="message">{message}</td></tr><tr><td class="spacer" colspan="2"></td></tr>{message_end}
+
+    <tr><td class="spacer" colspan="2"></td></tr>
+
+    <tr>
+        <td colspan="2">
+
+        <p><b>1. Regulamin</b>
 </p><p>1.1 Niniejszy <b>Regulamin</b> określa <u>zasady obowiązujące użytkowników</u> społecznie utrzymywanego serwisu internetowego "Opencaching PL" działającego pod adresem <a href="http://www.opencaching.pl/" class="external free" title="http://www.opencaching.pl/" rel="nofollow">http://www.opencaching.pl/</a> (zwanego dalej <b>Serwisem</b>), związanego z grą w <i>geocaching</i>. Każda osoba rejestrująca konto w <i>serwisie</i> (zwana w treści <i>Regulaminu</i> <b>Użytkownikiem</b>) zobowiązuje się tym samym przestrzegać zasad niniejszego <i>Regulaminu</i>, począwszy od momentu rozpoczęcia procedury rejestracyjnej.
 
 </p><p>1.2 <i>Regulamin</i> wchodzi w życie z dniem 1 listopada 2008 r. i obowiązuje od tego dnia wszystkich <i>Użytkowników</i> <i>Serwisu</i>. <i>Regulamin</i> może ulec zmianie w trybie określonym w "<a href="http://wiki.opencaching.pl/index.php/Zasady_funkcjonowania_Serwisu_OC_PL" title="Zasady funkcjonowania Serwisu OC PL">Zasadach funkcjonowania Serwisu OC PL</a>".
-</p><p>1.3 Przez <b>Skrzynkę</b> w treści <i>Regulaminu</i> rozumie się każdą skrzynkę (geocache) zarejestrowaną w <i>Serwisie</i>. 
+</p><p>1.3 Przez <b>Skrzynkę</b> w treści <i>Regulaminu</i> rozumie się każdą skrzynkę (geocache) zarejestrowaną w <i>Serwisie</i>.
 
 </p><p>1.4 <i>Serwis</i> działa na terenie Rzeczypospolitej Polskiej i podlega prawu polskiemu. Nieważność któregokolwiek zapisu <i>Regulaminu</i> nie ogranicza jego ważności w pozostałych częściach. W sprawach nie uregulowanych w <i>Regulaminie</i> mają zastosowanie przepisy Kodeksu cywilnego.
 </p><p><b>2. Zespół OC</b>
@@ -60,25 +60,25 @@
 </p><p>4.2 Przy rejestracji <i>Skrzynki</i> w <i>Serwisie</i>, jej <i>Założyciel</i> ma obowiązek umieścić w niekodowanej części opisu pełne informacje o wszelkich potencjalnych niebezpieczeństwach jakie mogą się pojawić w czasie jej poszukiwania, a także wszelkie informacje niezbędne do odnalezienia skrzynki, w tym informacje o ewentualnym haśle, o niezbędnych umiejętnościach oraz ew. wymaganym specjalistycznym sprzęcie. Ponadto, przy określaniu typu, rozmiaru oraz poziomu trudności <i>Skrzynki</i> podczas jej rejestracji, <i>Założyciel</i> ma obowiązek przestrzegać definicji tych parametrów obowiązujących w <i>Serwisie</i>. W przypadku skrzynek, których poszukiwanie może wiązać się z niebezpieczeństwem, skrzynka musi być oznaczona specjalnym informującym o tym atrybutem.
 
 </p><p>4.3 <i>Skrzynka</i> nie może zawierać materiałów wybuchowych, łatwopalnych, żrących lub innych przedmiotów niebezpiecznych dla znalazców, przedmiotów nietrwałych (np. żywność), a także przedmiotów lub treści niezgodnych z prawem. W papierowym dzienniku skrzynki musi znajdować się identyfikator <i>Założyciela</i> w <i>Serwisie</i>.
-</p><p>4.4 Bez dodatkowej zgody, <i>Skrzynki</i> mogą być zakładane jedynie na terenach publicznie dostępnych, tj. stale lub okresowo dostępnych dla przedstawicieli ogółu społeczeństwa. <i>Skrzynka</i> może także zostać umieszczona wewnątrz publicznie dostępnego budynku lub innego obiektu, jednak w przypadku <i>Skrzynki</i> innej niż wirtualna konieczne wtedy jest uprzednie uzyskanie pisemnej zgody zarządcy tej części budynku lub obiektu, w której będzie ukryta. Zgoda taka musi dotyczyć zarówno samego faktu umieszczenia <i>Skrzynki</i> jak i późniejszego jej poszukiwania przez osoby trzecie. 
+</p><p>4.4 Bez dodatkowej zgody, <i>Skrzynki</i> mogą być zakładane jedynie na terenach publicznie dostępnych, tj. stale lub okresowo dostępnych dla przedstawicieli ogółu społeczeństwa. <i>Skrzynka</i> może także zostać umieszczona wewnątrz publicznie dostępnego budynku lub innego obiektu, jednak w przypadku <i>Skrzynki</i> innej niż wirtualna konieczne wtedy jest uprzednie uzyskanie pisemnej zgody zarządcy tej części budynku lub obiektu, w której będzie ukryta. Zgoda taka musi dotyczyć zarówno samego faktu umieszczenia <i>Skrzynki</i> jak i późniejszego jej poszukiwania przez osoby trzecie.
 
 </p><p>4.5 <i>Skrzynek</i> nie wolno umieszczać w obiektach i na terenach objętych zakazem wstępu. W szczególności dotyczy to obszarów ścisłych rezerwatów przyrody. Ponadto, miejsce i sposób ukrycia Skrzynki nie może zagrażać uszkodzeniem zabytku w czasie jej ukrywania lub poszukiwania. <i>Skrzynek</i> innych niż wirtualne nie wolno także umieszczać bezpośrednio: w pomnikach przyrody oraz w ich strefach ochronnych, w gniazdach ptaków, skrzynkach lęgowych i dziuplach drzew nadających się do zamieszkania przez ptaki, także poza okresem lęgowym. <i>Skrzynki</i> chowane na cmentarzach, w miejscach martyrologii czy kultu nie mogą naruszać powagi miejsca - absolutnie zakazane jest ich zakopywanie oraz ukrywanie w bezpośrednim sąsiedztwie mogił.
 </p>
-					</li>
-				</ol>
-		</td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
-	
-	<tr>
-		<td colspan="2"><input type="checkbox" name="accepted" id="accepted" value="1" onclick="toogleButton('submit')"/>&nbsp;<label for="accepted"><b>Oświadczam, że zapoznałem się z regulaminem i akceptuję jego postanowienia.</b></label></td>
-	</tr>
-	<tr><td class="spacer" colspan="2"></td></tr>
+                    </li>
+                </ol>
+        </td>
+    </tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
 
-	<tr>
-		<td class="header-small" colspan="2">
-			<input type="submit" name="submit" id="submit" value="Zatwierdź" class="formbuttons" disabled/>
-		</td>
-	</tr>
-	</table>
+    <tr>
+        <td colspan="2"><input type="checkbox" name="accepted" id="accepted" value="1" onclick="toogleButton('submit')"/>&nbsp;<label for="accepted"><b>Oświadczam, że zapoznałem się z regulaminem i akceptuję jego postanowienia.</b></label></td>
+    </tr>
+    <tr><td class="spacer" colspan="2"></td></tr>
+
+    <tr>
+        <td class="header-small" colspan="2">
+            <input type="submit" name="submit" id="submit" value="Zatwierdź" class="formbuttons" disabled/>
+        </td>
+    </tr>
+    </table>
 </form>

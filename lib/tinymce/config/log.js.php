@@ -1,30 +1,30 @@
 tinyMCE.init({
-	mode : "textareas",
-	theme : "advanced",
+    mode : "textareas",
+    theme : "advanced",
 
-	plugins : "advhr,contextmenu,emotions,insertdatetime,paste,table,inlinepopups,autosave",
+    plugins : "advhr,contextmenu,emotions,insertdatetime,paste,table,inlinepopups,autosave",
 
-	theme_advanced_buttons1 : "cut,copy,paste,pasteword,pastetext,removeformat,separator,undo,redo,separator,link,unlink,separator,fontselect,fontsizeselect",
-	theme_advanced_buttons2 : "bold,italic,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,insertdate,inserttime,separator,forecolor,backcolor,charmap,emotions",
-	theme_advanced_buttons3 : "",
+    theme_advanced_buttons1 : "cut,copy,paste,pasteword,pastetext,removeformat,separator,undo,redo,separator,link,unlink,separator,fontselect,fontsizeselect",
+    theme_advanced_buttons2 : "bold,italic,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,insertdate,inserttime,separator,forecolor,backcolor,charmap,emotions",
+    theme_advanced_buttons3 : "",
 
-	theme_advanced_toolbar_location : "top",
-	theme_advanced_toolbar_align : "left",
-	theme_advanced_path_location : "bottom",
-	plugin_insertdate_dateFormat : "%d.%m.%Y",
-	plugin_insertdate_timeFormat : "%H:%M:%S",
-	file_browser_callback : "imageBrowser",
+    theme_advanced_toolbar_location : "top",
+    theme_advanced_toolbar_align : "left",
+    theme_advanced_path_location : "bottom",
+    plugin_insertdate_dateFormat : "%d.%m.%Y",
+    plugin_insertdate_timeFormat : "%H:%M:%S",
+    file_browser_callback : "imageBrowser",
 
-	theme_advanced_resize_horizontal : false,
-	theme_advanced_resizing : true,
-	editor_deselector : "mceNoEditor",
-	language : "<?php echo $_GET['lang'];?>",
-	preformatted : true,
-	remove_linebreaks : false,
-	oninit : "postInit",
-	forced_root_block : false,
-	
-	content_css : "lib/tinymce/config/content.css"
+    theme_advanced_resize_horizontal : false,
+    theme_advanced_resizing : true,
+    editor_deselector : "mceNoEditor",
+    language : "<?php echo $_GET['lang'];?>",
+    preformatted : true,
+    remove_linebreaks : false,
+    oninit : "postInit",
+    forced_root_block : false,
+
+    content_css : "lib/tinymce/config/content.css"
 });
 
 var fileBrowserReturnURL = "";
@@ -40,5 +40,5 @@ function imageBrowser(field_name, url, type, win)
 
 function fileBrowserReturn(url)
 {
-  fileBrowserWin.document.forms[0].elements[fileBrowserFieldName].value = url;    
+  fileBrowserWin.document.forms[0].elements[fileBrowserFieldName].value = url;
 }

@@ -54,7 +54,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
     public static const EventsToCallLater:Object = new Object();
     EventsToCallLater["mx.data.events::UnresolvedConflictsEvent"]="true";
     EventsToCallLater["mx.events::PropertyChangeEvent"]="true";
-    
+
     public static const INITIALIZED:String = "bridgeInitialized";
 
     // constructor
@@ -120,13 +120,13 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         _rootObject = value;
         checkInitialized();
     }
-    
+
     /**
      * the bridge name
      */
     public var bridgeName:String;
     private var _registerComplete:Boolean = false;
-    
+
     /**
      * increment the reference count for an object being passed over the bridge
      */
@@ -186,7 +186,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
     private var _rootObject:DisplayObject;
 
     private var _document:DisplayObject;
-    
+
     /**
      * called to check whether the bridge has been initialized for the specified document/id pairs
      */
@@ -199,7 +199,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
             checkInitialized();
         }
     }
-    
+
     private function get baseObject():DisplayObject
     {
         return (rootObject == null)? _document:rootObject;
@@ -220,7 +220,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         t.start();
     }
 
-    /** 
+    /**
      * auxiliary initialization check that is called after the timing has occurred
      */
     private function auxCheckInitialized(e:Event):void
@@ -382,7 +382,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
                             if (retrieveCachedTypeDescription(className, false) == null){
                                 result.newTypes.push(retrieveCachedTypeDescription(className, true));
                             } //end if push new data type
-                       
+
                         } //end for going through interfaces
                         var baseClass:String = describeType(value).@base.toString();
                         if (retrieveCachedTypeDescription(baseClass, false) == null){
@@ -400,11 +400,11 @@ public class FABridge extends EventDispatcher implements IMXMLObject
                     objRef = getRef(value, true);
                     should_keep_ref = true;
                 }
-                
+
                 result.newRefs[objRef] = className;
                 //trace("serializing new reference: " + className + " with value" + value);
-                
-                //the result is a getProperty / invokeMethod call. How can we know how much you will need the object ? 
+
+                //the result is a getProperty / invokeMethod call. How can we know how much you will need the object ?
                 if (keep_refs && should_keep_ref) {
                     incRef(objRef);
                 }
@@ -570,7 +570,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         {
              return serialize("__FLASHERROR__"+"||"+e.message)
         }
-        
+
         return ref;
     }
 
@@ -627,15 +627,15 @@ public class FABridge extends EventDispatcher implements IMXMLObject
                     var externalArgs:Array = args.concat();
                     externalArgs.unshift(functionID);
                     var serializedArgs:* = serialize(externalArgs, true);
-                    
+
                     if(checkToThrowLater(serializedArgs[1]))
                     {
-                        setTimeout(function a():* {   
-                            try {                            
+                        setTimeout(function a():* {
+                            try {
                                 var retVal:* = ExternalInterface.call("FABridge__invokeJSFunction", serializedArgs);
                                 for(var i:int = 0; i<serializedArgs.length; i++)
                                 {
-                                    if(typeof(serializedArgs[i]) == "object" && serializedArgs[i]!=null) 
+                                    if(typeof(serializedArgs[i]) == "object" && serializedArgs[i]!=null)
                                     {
                                         releaseRef(serializedArgs[i].value);
                                     }
@@ -653,7 +653,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
                         var retVal:* = ExternalInterface.call("FABridge__invokeJSFunction", serializedArgs);
                         for(var i:int = 0; i<serializedArgs.length; i++)
                         {
-                            if(typeof(serializedArgs[i]) == "object" && serializedArgs[i]!=null) 
+                            if(typeof(serializedArgs[i]) == "object" && serializedArgs[i]!=null)
                             {
                                 releaseRef(serializedArgs[i].value);
                             }
@@ -670,7 +670,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
 
         return remoteFunctionCache[functionID];
     }
-    
+
     /**
      * function that checks if the object on which we are working demands that it should be called at a later time, breaking the call chain
      * we check the actual object, as well as the bsae class and interfaces
@@ -680,7 +680,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         obj = resolveRef(obj.value);
         var className:String = getQualifiedClassName(obj);
         var classInfo:XML = describeType(obj);
-        
+
         if (FABridge.EventsToCallLater[className] != null) {
                 return true;
         }
@@ -694,7 +694,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
                     return true;
             }
         } //end for going through inheritance tree
-        
+
         //if we're still here, check the interfaces as well
 
         var interfaceInfo:XMLList = describeType(obj).implementsInterface;
@@ -707,7 +707,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         } //end for going through inheritance tree
 
         //if nothing was found, return false, so the function gets executed
-        return false;        
+        return false;
     }
 
     // callbacks exposed to JS
@@ -720,7 +720,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         incRef(objID);
         try
         {
-            var obj:Object = resolveRef(objID); 
+            var obj:Object = resolveRef(objID);
             var ret:* = serialize(obj[propName], true);
             releaseRef(objID);
             return ret;
@@ -735,7 +735,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         {
             releaseRef(objID);
             return serialize("__FLASHERROR__" + "||" + e.message);
-        }    
+        }
     }
 
     /**
@@ -779,7 +779,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         }
     }
 
-    /** 
+    /**
      * called to invoke a function or closure associated with funcID
      */
     private function js_invokeFunction(funcID:Number, args:Object):*
@@ -837,7 +837,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
             return serialize("__FLASHERROR__" + "||" + e.message);
         }
     }
-    
+
     /**
      * method that performs a check on the specified object and method to see if their execution should be delayed or not
      * it checks the object, its base class and implemented interfaces
@@ -847,11 +847,11 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         var methods:String;
         var className:String = getQualifiedClassName(obj);
         var classInfo:XML = describeType(obj);
-        
+
         if (FABridge.MethodsToCallLater[className] != null) {
             methods = FABridge.MethodsToCallLater[className];
             //must call later
-            if(methods.match(methodName)) 
+            if(methods.match(methodName))
             {
                 return true;
             }
@@ -865,13 +865,13 @@ public class FABridge extends EventDispatcher implements IMXMLObject
             if (FABridge.MethodsToCallLater[className] != null) {
                 methods = FABridge.MethodsToCallLater[className];
                 //must call later
-                if(methods.match(methodName)) 
+                if(methods.match(methodName))
                 {
                     return true;
                 }
             }
         } //end for going through inheritance tree
-        
+
         //if we're still here, check the interfaces as well
 
         var interfaceInfo:XMLList = describeType(obj).implementsInterface;
@@ -881,7 +881,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
             if (FABridge.MethodsToCallLater[className] != null) {
                 methods = FABridge.MethodsToCallLater[className];
                 //must call later
-                if(methods.match(methodName)) 
+                if(methods.match(methodName))
                 {
                     return true;
                 }
@@ -889,7 +889,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         } //end for going through inheritance tree
 
         //if nothing was found, return false, so the function gets executed
-        return false;        
+        return false;
     }
 
     /**
@@ -901,22 +901,22 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         localInstanceMap = new Dictionary();
         localFunctionMap = new Dictionary();
     }
-   
+
     /**
      * callback from JS to release a specific object, identified by its ID
      */
     private function js_releaseNamedASObject(objId:int):Boolean
-    {  
+    {
         var retVal:Boolean = false;
         if (localInstanceMap[objId] != null)
         {
             delete refMap[objId];
-            delete localInstanceMap[objId];        
+            delete localInstanceMap[objId];
             retVal = true;
         }
-        return retVal;    
-    }    
-    
+        return retVal;
+    }
+
     /**
      * callback for js to create a new class instance.
      */

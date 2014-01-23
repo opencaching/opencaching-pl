@@ -1,7 +1,7 @@
 <?php
   $rootpath = '../';
   require('../lib/common.inc.php');
-	global $lang;
+    global $lang;
 
 //  setlocale(LC_TIME, 'pl_PL.UTF-8');
 setlocale(LC_TIME, 'pl_PL.utf-8');

@@ -14,17 +14,17 @@ $db->simpleQuery($query);
 $regons = $db->dbResultFetchAll();
 
 if(count($regons) == 0){
-	$regionoptions = '<option value="-1">-</option>';
+    $regionoptions = '<option value="-1">-</option>';
 } else {
-	$regionoptions = '<option value="0">'.tr('select_regions').'</option>';
-	foreach ($regons as $record) {
-		if ($record['code'] == $selectedRegion)
-			$regionoptions .= '<option value="'.htmlspecialchars($record['code'],ENT_COMPAT,'UTF-8').'" selected="selected" >' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
-		else
-			$regionoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
-	
-		$regionoptions .= "\n";
-	}
+    $regionoptions = '<option value="0">'.tr('select_regions').'</option>';
+    foreach ($regons as $record) {
+        if ($record['code'] == $selectedRegion)
+            $regionoptions .= '<option value="'.htmlspecialchars($record['code'],ENT_COMPAT,'UTF-8').'" selected="selected" >' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
+        else
+            $regionoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
+
+        $regionoptions .= "\n";
+    }
 }
 
 echo $regionoptions;

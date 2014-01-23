@@ -234,7 +234,7 @@ terrain_difficulty Trudność terenu
 task_difficulty Trudność zadań
 out_of z
 list_of_participants Lista uczestników
-show_recommended Wskaz rekomendowanych 
+show_recommended Wskaz rekomendowanych
 show_all pokaż wszystkie
 no_choice Brak wyboru
 username_incorrect Nazwa użytkownika jest niepoprawna.
@@ -384,9 +384,9 @@ finder_label znalazca
 search_by_finder Szukaj według znalazcy
 search_recommendations Rekomendacje
 search_all_caches wszystkie skrzynki
-search_recommended_caches minimalna ilość rekomendacji: 
+search_recommended_caches minimalna ilość rekomendacji:
 incomming_events Nadchodzące wydarzenia
-rr_comment_label Adnotacje Centrum Obsługi Geocachera OC PL 
+rr_comment_label Adnotacje Centrum Obsługi Geocachera OC PL
 add_rr_comment Dodaj komentarz do adnotacji COG
 remove_rr_comment Usuń adnotacje COG
 get_bulletin Chcę otrzymywać biuletyny informacyjne
@@ -442,14 +442,14 @@ find_geocaches_on Pokaż najbliższe skrzynki na
 searchable bez moich własnych i znalezionych
 all_geocaches wszystkie
 log_entries Wpisy do logu
-show_all_log_entries  Wszystkie wpisy do logu 
+show_all_log_entries  Wszystkie wpisy do logu
 show_all_log_entries_short Wszystkie wpisy
 back_to_the_geocache_listing Przejdź do skrzynki
 register_new Rejestracja nowego użytkownika
 password_confirm Potwierdź hasło
-register_msg1 W celu rejestracji na Opencaching PL musisz posiadać rzeczywisty adres E-mail na który zostanie wysłany kod aktywacyjny. Możesz tylko jednego użytkownika zarejestrować na jeden adres E-mail. 
+register_msg1 W celu rejestracji na Opencaching PL musisz posiadać rzeczywisty adres E-mail na który zostanie wysłany kod aktywacyjny. Możesz tylko jednego użytkownika zarejestrować na jeden adres E-mail.
 register_msg2 Pola zaznaczone * są obowiązkowe.
-register_msg3 Jeżeli masz jakieś pytania, proszę skontaktować się z nami, zanim zarejestrujesz się. 
+register_msg3 Jeżeli masz jakieś pytania, proszę skontaktować się z nami, zanim zarejestrujesz się.
 register_msg4 Tak, zapoznałem się z <b><a href="{rules_url}">Regulaminem</a></b> serwisu Opencaching PL i zobowiązuję się go przestrzegać.
 register_msg5 Nowy użytkownik został zarejstrowany
 register_msg6 Kod aktywacyjny został wysłany na twój adres E-Mail.<br/>W celu zakończenia procesu rejestracji proszę się kierować instrukcją dostarczoną na twój adres E-Mail.<br/><b>Uwaga! Niektóre serwery pocztowe odrzucają list z kodem aktywacyjnym z serwera OC PL. Jeśli nie otrzymałeś kodu w ciągu najbliższych godzinach prosimy o kontakt na adres <span class="email">{contact_mail}</span> (podaj swój username jaki użyłeś podczas rejestracji)
@@ -483,7 +483,7 @@ error_tos Nie zaznaczyłeś, że zapoznałeś się i zobowiązujesz się przestr
 step1 Krok 1
 step2 Krok 2
 new_password_msg1 Aby zmienić hasło, należy otrzymać unikalny kod, który zostanie wysłany na Twój adres e-mail.
-new_password_msg2 Po otrzymaniu na email kod aktywacyjnego wprowadź informacje w poniższym formularzu. <br/>(Kod jest ważny 3 dni. Po tym okresie musisz wygenerować nowy kod.) 
+new_password_msg2 Po otrzymaniu na email kod aktywacyjnego wprowadź informacje w poniższym formularzu. <br/>(Kod jest ważny 3 dni. Po tym okresie musisz wygenerować nowy kod.)
 security_code Kod aktywacyjny
 change_password_msg1 Zmiana hasła
 logoutsuccess Wylogowanie przebiegło z powodzeniem
@@ -509,11 +509,11 @@ abroad_caches Poza Polską
 hidden_by założona przez
 newcaches_label Najnowsze skrzynki
 cache_label Nazwa skrzynki
-found_it znalazł(a) 
-did_not_find_it nie znalazł(a) 
-write_note komentarz 
-attende uczestniczył(a) 
-will_attende będzie uczestniczył(a) 
+found_it znalazł(a)
+did_not_find_it nie znalazł(a)
+write_note komentarz
+attende uczestniczył(a)
+will_attende będzie uczestniczył(a)
 add_new_desc Dodaj nowy opis skrzynki
 pictures_label Obrazki i zdjęcia
 add_new_pict Dodaj nowy obrazek
@@ -540,7 +540,7 @@ rise_charts Nasze pnące się wykresy...
 region_ranking Ranking wg województw
 user_ranking Ranking uczestników gry
 cache_ranking Ranking skrzynek
-ranking_by_maintenace Serwis skrzynek 
+ranking_by_maintenace Serwis skrzynek
 ranking_by_number_of_created_caches Ranking użytkowników według liczby założonych skrzynek
 ranking_by_number_of_created_active_caches Ranking użytkowników według liczby założonych aktywnych skrzynek
 ranking_by_number_of_finds_new Liczba odkryć
@@ -575,7 +575,7 @@ there_is_no_caches_registered Nie ma jeszcze żadnej założonej skrzynki
 there_is_no_caches_found Nie ma jeszcze żadnej znalezionej skrzynki
 with_password Skrzynka z hasłem
 user_account konto użytkownika
-management_users Zarządzanie użytkownikiem 
+management_users Zarządzanie użytkownikiem
 titles Tytuł
 content Treść
 my_email_will_send Mój adres email będzie wysłany w tym liście
@@ -668,7 +668,7 @@ type_wp Typ
 type_wp2 Typ waypointa
 coordinates_wp Współrzędne
 describe_wp Opis
-add_new_waypoint Dodaj nowy waypoint 
+add_new_waypoint Dodaj nowy waypoint
 wp_status1 Pokaż wszystkie informacje waypointa włączając w to współrzędne
 wp_status2 Pokaż wszystkie informacje waypointa za wyjątkiem współrzędnych
 wp_status3 Ukryj ten waypoint w wykazie waypointów skrzynki
@@ -685,7 +685,7 @@ archived_cache Skrzynka została zarchiwizowana.
 temporarily_unavailable Skrzynka będzie czasowo niedostępna.
 blocked_by_octeam Skrzynka zablokowana przez Centrum Obsługi Geocachera.
 approved_by_octeam Skrzynka została zaakceptowana przez OC-Team
-empty_coordinatest Podaj nowe współrzędne dla skrzynki mobilnej przeniesionej. 
+empty_coordinatest Podaj nowe współrzędne dla skrzynki mobilnej przeniesionej.
 empty_log_text Log nie powinien być pusty. Napisz parę słów, które mogą być cenna informacją dla właściciela skrzynki.
 route_cache Droga przebyta przez skrzynke
 start_point początek podróży
@@ -698,7 +698,7 @@ my_neighborhood_v2 Moja okolica v2
 my_neighborhood_radius Moja okolica w promieniu
 new_caches_myn Nowe skrzynki
 ftf_awaiting Skrzynki czekające na "FTF"
-new_logs_myn Najnowsze logi 
+new_logs_myn Najnowsze logi
 top_recommended TOP lista rekomendowanych skrzynek
 myn_info Nie masz ustawionych współrzędnych Twojej okolicy. Możesz to zrobić w swoim <a href="myprofile.php?action=change">profilu</a>. Jeśli chcesz mieć inny promien niż domyślny 35 km ustaw go w swoim profilu opcja: "Powiadamianie". Poniżej przykład dla współrzędnych ustawionych systemowo.
 search_user Szukaj użytkownika
@@ -717,7 +717,7 @@ by_cachetype Wg typów skrzynek
 by_logtype Wg typów logów
 stat_geocache Statystyka skrzynki
 does_not_have_stat nie ma jeszcze statystyki
-number_month Numer miesiąca 
+number_month Numer miesiąca
 stat_problems Statystyka COG - prowadzone zgłoszenia
 edit_logentry Edycja logu dla skrzynki
 moved_cache_info Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu
@@ -731,7 +731,7 @@ incorrect_password_to_log Nieprawidłowe hasło
 only_for_found_it tylko dla znalezionych skrzynek
 store Zapisz
 here TUTAJ
-alternative_recommend Alternatywnie możesz cofnąć przyznane rekomendacje 
+alternative_recommend Alternatywnie możesz cofnąć przyznane rekomendacje
 comment_log Komenatarz
 need_maintenance_log Potrzebny serwis
 comment_octeam_log Komenatrz COG
@@ -756,7 +756,7 @@ thursday Czwartek
 friday Piątek
 saturday Sobota
 sunday Niedziela
-immediately Natychmiast 
+immediately Natychmiast
 once_day Raz dziennie
 once_week Raz w tygodniu
 weekday Dzien tygodnia
@@ -772,7 +772,7 @@ last_found Ostatnio znaleziona
 delete_recommend Usuń rekomendacje
 off_ignore Wyłącz ignorowanie
 no_ignores Nie ma żadnych skrzynek ignorowanych
-oc_stat {site_name} Statystyka skrzynek 
+oc_stat {site_name} Statystyka skrzynek
 administration Zarządzanie OC
 stat_octeam Statystyka COG
 cache_notfound Skrzynki nieznalezione
@@ -860,13 +860,13 @@ save_gpx Zapisz do GPX
 save_gpx_with_photos Zapisz do GPX + Zdjęcia
 show_gmap Pokaż na GMAP'ie
 show_list Pokaż listę skrzynek
-logs_cache_gpx Liczba logów dla skrzynki w GPX 
-min_logs_cache Minimalna liczba logów 
+logs_cache_gpx Liczba logów dla skrzynki w GPX
+min_logs_cache Minimalna liczba logów
 marked_grey_search_area Kolorem szarym zaznaczony obszar poszukiwań dla zdefionowanego promienia.
 lastlogins Ostatnio zalogowany
 this_month w ciągu ostatnich 30 dni
 more_one_month pomiędzy 1 a 6 miesiącami
-more_six_month pomiędzy 6 a 12 miesiącami 
+more_six_month pomiędzy 6 a 12 miesiącami
 more_12_month więcej niż 12 miesięcy temu
 unknown unknown nieznane
 user_not_active konto użytkownika nieaktywne
@@ -879,18 +879,18 @@ os_times razy
 os_kesz Geocache
 os_autor autor:
 os_nie_ma_w_os Autor tego geocache nie dodał możliwości sprawdzania współrzędnych finałowych w OpenSprawdzaczu
-os_podaj_waypoint Proszę wpisać waypoint geocache (np.: OP2E48) 
+os_podaj_waypoint Proszę wpisać waypoint geocache (np.: OP2E48)
 os_podaj_twoje Podaj otrzymane współrzędne pojemnika finałowego:
 os_sprawdz Sprawdź
 os_stopnie Stopnie
-os_minuty minuty 
+os_minuty minuty
 os_tak_chce Zaznaczenie tego elementu umożliwi użytkownikom sprawdzanie otrzymanych współrzędnych przy pomocy OpenSprawdzacza
 opensprawdzacz_main Autor tego geocache umożliwił sprawdzenie poprawności rozwiązania zagadki (współrzędnych pojemnika finałowego) przed wyruszeniem w teren!
 os_pr prób
 os_sukc trafień
 os_proba próbowałeś zgadywać
 os_razy razy. Dopuszczalna ilość prób:
-os_razy_srodek w ciągu 
+os_razy_srodek w ciągu
 os_razy_koniec minut.
 os_sukces TAK! Masz poprawne współrzędne!!! Gratulacje.
 os_fail ŹLE! Twoje współrzędne są nieprawidłowe. Sprawdź swoje obliczenia!
@@ -926,7 +926,7 @@ os_wynik Wynik
 os_zgad Zgadywałeś(aś) za dużo razy!!
 wybrac_log Proszę wybrać typ logu
 nowe_wsp Nowe współrzędne
-os_ma_max Obowiązuje limit 
+os_ma_max Obowiązuje limit
 os_ma_pr prób
 os_ma_na sprawdzeń na
 os_godzine minut
@@ -940,15 +940,15 @@ log_mobile_init Punkt startowy kesza
 error_coords_not_ok Niepoprawne współrzędne!
 GKApi01 Integracja konta OC z Geokretami
 GKApi02 geoKrety Secid:
-GKApi03 Aby zintegrować konto Opencaching.pl ze swoim kontem na geoKrety.org przeklej tu swój <b>Secid</b>. <b>Secid</b> znajdziesz na stronie geokretów w szczegółach swojego konta. 
+GKApi03 Aby zintegrować konto Opencaching.pl ze swoim kontem na geoKrety.org przeklej tu swój <b>Secid</b>. <b>Secid</b> znajdziesz na stronie geokretów w szczegółach swojego konta.
 GKApi04 (Tutaj)
 GKApi05 Jednoczesne logowanie Geokretów z Twojego inwentarza:
 GKApi06 Zaloguj jednocześnie geoKrety
-GKApi07 Ta funkcja wymaga integracji konta OC z kontem Geokretów. Twoje konto OC nie jest w tej chwili skonfigurowane do współpracy z GeoKretami. 
-GKApi08 Aby zintegrować konto OC z Geokretami: 
-GKApi09 Skopiuj swoje secid ze strony geokretów 
+GKApi07 Ta funkcja wymaga integracji konta OC z kontem Geokretów. Twoje konto OC nie jest w tej chwili skonfigurowane do współpracy z GeoKretami.
+GKApi08 Aby zintegrować konto OC z Geokretami:
+GKApi09 Skopiuj swoje secid ze strony geokretów
 GKApi10 Wklej je w ustwieniach swojego konta OC.
-GKApi11 Błędny secid 
+GKApi11 Błędny secid
 GKApi12 Wrzucono Geokreta
 GKApi13 Brak Akcji
 GKApi14 Kret Odwiedził
@@ -1011,7 +1011,7 @@ em09 Adres e-mail jest nieprawidłowy.
 em10 Podany adres e-mail już istnieje w bazie OC PL
 em11 Kod wprowadzony nie jest poprawny
 em12 Kod stracił swoją ważność
-removed_message_title Właściciel keszynki napisał następujący komentarz 
+removed_message_title Właściciel keszynki napisał następujący komentarz
 to_do Do zrobienia
 mc_beginn_00 Rejestracja nowej skrzynki - informacja
 mc_beginn_01 Aby zarejestrować nowe skrzynki musisz najpierw znaleźć
@@ -1020,7 +1020,7 @@ mc_beginn_03 Obecnie liczba Twoich skrzynek znalezionych spośród wymienionych 
 mc_beginn_04 Po spełnieniu powyższego warunku Twoje pierwsze
 mc_beginn_05 skrzynki bedą weryfikowane przez Zespół OC PL. Po zatwierdzeniu skrzynki otrzymasz informacje via e-mail o tym fakcie i będziesz mógł ją opublikować poprzez edycje skrzynki i zmiane jej statusu. W przypadku uwag do skrzynki Zespół OC PL będzie się z Tobą kontaktował w sprawie uzpełnienia informacji lub zmian w skrzynce.
 latest_blog Najnowsze wpisy w blogach
-geocache Geocache 
+geocache Geocache
 adopt_00 Przekaż skrzynkę
 adopt_01 Za pośrednictwem tej strony możesz przekazać swoją skrzynkę innemu użytkownikowi. Wybierz skrzynkę z listy:
 adopt_02 Nazwa skrzynki
@@ -1090,15 +1090,15 @@ nc04 Czy skrzynka nie jest ulokowana na terenie Parku Narodowego, Rezerwatu, zab
 nc05 Czy w najbliższej okolicy znajdują się już inne skrzynki, czy zachowana jest minimalna odległość 150m?
 nc06 Czy jesteś w stanie zapewnić serwis dla skrzynki przez cały czas jej istnienia w serwisie?
 nc07 Czy wybrany przez Ciebie sposób ukrycia skrzynki jest właściwy dla wybranej lokalizacji skrzynki (odporność pojemnika na niską temperaturę, wilgoć)?
-nc08 Możesz poszukać czy w Twojej oklicy jest 
-nc09 Przewodnik geocachingu 
+nc08 Możesz poszukać czy w Twojej oklicy jest
+nc09 Przewodnik geocachingu
 nc10 który może pomóc Ci w założeniu Twoich skrzynek
-nc11 Czy skrzynka jest zgodna z 
+nc11 Czy skrzynka jest zgodna z
 nc12 Regulaminem serwisu OC PL
 nc13 Prosimy zapoznaj się z Poradnikiem
 nc14 Jak założyć skrzynkę
 nc15 oraz
-nc16 Kodeksem Geocacher'a 
+nc16 Kodeksem Geocacher'a
 nc17 na naszym OpenGeoWiki
 nc18 Pozdrawiamy
 nc19 Społeczność opencaching.pl
@@ -1119,9 +1119,9 @@ guru_13 profilu
 guru_14 Dziękujemy wszystkim którzy chcą pomagać bezinteresownie innym geocacherom.
 guru_15 rekomendacji otrzymanych
 guru_16 Napisz E-mail
-guru_17 Możesz zostać woluntariuszem Przewodnikiem po geocachingu dla początkujących geocacherów ustawiając opcje w swoim 
+guru_17 Możesz zostać woluntariuszem Przewodnikiem po geocachingu dla początkujących geocacherów ustawiając opcje w swoim
 guru_18 Profilu
-guru_19 Patrz więcej na stronie 
+guru_19 Patrz więcej na stronie
 guru_20 Przewodnicy
 today dzisiaj
 yesterday wczoraj
@@ -1187,7 +1187,7 @@ cache_reports_21 Treść zgłoszenia
 cache_reports_22 Podejmij działania
 cache_reports_23 Zapisz
 cache_reports_24 Notatka
-cache_reports_25 Wyślij e-mail do 
+cache_reports_25 Wyślij e-mail do
 cache_reports_26 zgłaszającego
 cache_reports_27 właściciela skrzynki
 cache_reports_28 zgłaszającego i właściciela skrzynki
@@ -1203,7 +1203,7 @@ rating_good_1A Wykrochmalona w kosmos
 rating_excellent_1A Miażdżąca cycki
 oc_on_all_pages_top_1A OftenCZACHING.pl
 oc_subtitle_on_all_pages_1A GeoCzaching, Portal Poszukiwania Szkieletów.
-PrimaAprilis Przepraszamy!! Ta strona dostępna jest tylko dla Członków, którzy wnieśli opłatę (premium member). <br>. Niestety, Ty nie wniosłeś opłaty, lub nic nam o tym nie wiadomo!!! 
+PrimaAprilis Przepraszamy!! Ta strona dostępna jest tylko dla Członków, którzy wnieśli opłatę (premium member). <br>. Niestety, Ty nie wniosłeś opłaty, lub nic nam o tym nie wiadomo!!!
 PMOnly Strefa Super Członka!
 primaAprilis1 konto zbiorowe Centrum Obsługi Geocachera, Rady Rejsu i Rady Technicznej
 oc_on_all_pages_top_pl OPENCACHING.pl
@@ -1211,7 +1211,7 @@ oc_subtitle_on_all_pages_pl Geocaching w Polsce
 oc_on_all_pages_top_nl OPENCACHING.nl
 oc_subtitle_on_all_pages_nl Geocaching w Holandi
 Statictics Statystyki
-org1 organizuje 
+org1 organizuje
 noaccess_error_01 Nie masz uprawnień do przeglądania tej strony.
 noaccess_error_02 Powrót na stronę główną
 report_problem_notice Możesz zgłosić problem związany z skrzynką do właściciela skrzynki np <b>Uwagę do lokalizacji</b> (lub do Zespołu OC PL) wykorzystując ten formularz
@@ -1240,7 +1240,7 @@ show_all_countries Wszystkie kraje
 newcache_upload wczytaj
 newcache_import_wpt Wczytaj dane z pliku gpx
 newcache_import_wpt_help Ta funkcja umożliwia wczytanie podstawowych danych (współrzędne, nazwa) waypointa z pliku gpx. (np.&nbsp;z garmina) jeśli w pliku jest więcej niż jeden waypoint zostaną wczytane dane tylko pierwszego waypointa.
-newcache_import_wpt_ok Dane zostały wczytane 
+newcache_import_wpt_ok Dane zostały wczytane
 email_reset Powrót
 email_submit Wyslij
 garmin_not_found Nie znalazłem GPSa
@@ -1284,14 +1284,14 @@ rss_20 Najnowsze wpisy do logów w skrzynkach użytkownika
 reportcache01 Uwaga co do lokalizacji skrzynkix
 reportcache02 Skrzynka wymaga archiwizacji
 reportcache03 Nieodpowiednia zawartość skrzynki
-reportcache04 Inny                         
+reportcache04 Inny
 reportcache05 Nie wybrano powodu
 reportcache06 Brak opisu problemu
 reportcache07 Nowe zgłoszenie problemu na OC PL
 reportcache08 [OC PL] Zgłoszono problem dotyczący Twojej skrzynki
 reportcache09 [OC PL] Zgłosiłeś problem dotyczący skrzynki
 reportcache10 Treść zgłoszenia
-reportcache11 początek 
+reportcache11 początek
 reportcache12 koniec
 reportcache13 Zgłoszenia można przeglądać pod adresem
 reportcache14 Dotyczy ono skrzynki
@@ -1324,9 +1324,9 @@ runwatch02 do logu skrzynki
 runwatch03 Raport nowych logów w skrzynkach
 runwatch04 Jeśli obrazki nie wyświetlają się poprawnie, dodaj nadawcę do książki adresowej
 runwatch05 Miło nam poinformować, iż pojawiły się nowe wpisy do logów w Twoich skrzynkach lub skrzynkach obserwowanych. <br/><br/> Nowe wpisy w Twoich skrzynkach
-runwatch06 Data/Czas 
-runwatch07 Geokeszer   
-runwatch08 Cache       
+runwatch06 Data/Czas
+runwatch07 Geokeszer
+runwatch08 Cache
 runwatch09 Witaj
 runwatch10 treść logu
 runwatch11 Nowe wpisy do logu w obserwowanych przez Ciebie skrzynkach
@@ -1398,7 +1398,7 @@ mailto_08 Aby odpowiedziec na ten E-mail uzyj funkcji odpowiedzi w swoim program
 mailto_09 Aby odpowiedziec na ten email uzyj funkcji EMAIL-DO-UZYTKOWNIKA w profilu tego uzytkownika.
 copy_sender Kopia Twojej wiadomości
 region_not_ok Proszę wybrać województwo!
-poland_outside Poza Polską 
+poland_outside Poza Polską
 benelux_outside poza krajami Benelux
 index_01 Ranking skrzynek wg liczonego indeksu
 index_02 Poniższy ranking jest generowany na podstawie rekomendacji użytkowników. Objaśnienie znaków:
@@ -1748,7 +1748,7 @@ pt050 Opinie i Komentarze
 pt051 Dodaj wpis
 pt052 typ wpisu
 pt053 data wpisu
-pt054 % skrzynek wymagany do zaliczenia geoŚcieżki 
+pt054 % skrzynek wymagany do zaliczenia geoŚcieżki
 pt055 Ustaw
 pt056 komentarz
 pt057 zdobyta
@@ -1762,7 +1762,7 @@ pt064 Zmień status
 pt065 Zdobyta
 pt066 razy
 pt067 Przyrodnicza
-pt068 Musisz najpierw znaleźć 
+pt068 Musisz najpierw znaleźć
 pt069 skrzynek by założyć nową geoŚcieżki
 pt070 znakomita
 pt071 dobra
@@ -1786,14 +1786,14 @@ pt088 Pomoc
 pt089 Publiczny - widoczny dla wszystkich <br /> Narazie niewidoczny - widoczny tylko dla założycieli
 pt090 Określa charakter geoŚcieżki. Jeśli większość skrzynek projektu pokazuje jakieś interesujące miejsce (szczyt, punkt widokowy, pomnik przyrody, pomnik, zabytek itp.) ustaw <b>krajoznawcza</b>. Jeśli większość skrzynek układa się w linię lub rysunek na mapie - ustaw <b>Geo-Szkic</b>. Analogicznie jesli większość skrzynek tyczy się tematyce historycznej lub przyrodniczej ustaw adekwatny typ. Jeśli uważasz, że Twoja geoŚcieżka powinna być w innej kategorii, której tu nie ma, napisz na adres RR (Menu -> kontakt)
 pt091 Zmień nazwę
-pt092 Na czas testów dostępne tylko dla wybranych użytkowników. Błędy proszę zgłaszać na adres rt lub skype 
+pt092 Na czas testów dostępne tylko dla wybranych użytkowników. Błędy proszę zgłaszać na adres rt lub skype
 pt093 Zdobytych geoŚcieżek
 pt094 Ta skrzynka należy do geoŚcieżki
 pt095 Geokeszer(ka)
 pt096 Znalezień w ramach geoŚcieżki
 pt097 procent znalezień
-pt098 Pokaż więcej statystyk 
-pt099 Statystyki dla geoŚcieżki 
+pt098 Pokaż więcej statystyk
+pt099 Statystyki dla geoŚcieżki
 pt100 Ukryj statystyki
 pt101 dni keszowania
 pt102 znaleznień/dzień
@@ -1814,8 +1814,8 @@ pt116 Duża
 pt117 B. Duża
 pt118 ta geoŚcieżka nie ma jeszcze żadnych wpisów :-(
 pt119 Liczba wszystkich zdobywających
-pt120 Liczba geokeszerów, którzy zdobyli 
-pt121 Średnia ilość dni potrzebnych do zdobycia 
+pt120 Liczba geokeszerów, którzy zdobyli
+pt121 Średnia ilość dni potrzebnych do zdobycia
 pt122 inne ciekawostki
 pt123 wartość
 pt124 <b>wis</b> - wymagana ilość skrzynek, zadeklarowana przez założycieli liczba określająca minimalną ilość skrzynek, która jest wymagana do zdobycia geoŚcieżki.
@@ -1830,7 +1830,7 @@ pt132 usunął wpis typu
 pt133 treść wpisu
 pt134 data wpisu (podana przez użytkownika)
 pt135 keszerzy 'zmarnowali' łącznie keszo-dni
-pt136 geograficzny środek geoŚcieżki 
+pt136 geograficzny środek geoŚcieżki
 pt137 GeoŚcieżka dnia
 pt138 skrzynek
 pt139 geoŚcieżka
@@ -1841,13 +1841,13 @@ pt143 Niestety zarchiwizowany
 pt144 Jeszcze nieopublikowany
 pt145 Edycja
 pt146 Edytowano treść wpisu geoŚcieżki
-pt147 edytował wpis 
+pt147 edytował wpis
 pt148 Kesz Finałowy
 pt149 Wskaż Finały
 pt150 Wróć do widoku normalnego
 pt151 Powtwierdź usunięcie wpisu
 pt152 Podaj przyczynę usunięcia wpisu:
-pt153 przyczyna usunięcia wpisu: 
+pt153 przyczyna usunięcia wpisu:
 pt154 znaków
 pt155 GeoŚcieżki - pomoc
 pt156 Usuń dowolną skrzynkę
@@ -1861,12 +1861,12 @@ pt163 Opcje wyświetlania
 pt164 Zastosuj
 pt165 Wszystkie typy
 pt166 Wyświetl geoŚcieżki typu:
-pt167 Sortuj według: 
+pt167 Sortuj według:
 pt168 nazwy
 pt169 daty publikacji
 pt170 ilości skrzynek
 pt171 punktów
-pt172 ilości wpisów &quot;zdobyta&quot; 
+pt172 ilości wpisów &quot;zdobyta&quot;
 pt173 ilości skrzynek
 pt174 typu
 pt175 ilość wyświetlonych geoŚcieżek
@@ -1883,7 +1883,7 @@ pt185 chce dodać Twoją skrzynkę
 pt186 Jeśli się zgadasz kliknij tu
 pt187 Jeśli odmawiasz kliknij tu
 pt188 lub skopiujj ten adres do przeglądarki
-pt189 Jeśli masz wątpliwości skontaktuj się z użytkowniekiem 
+pt189 Jeśli masz wątpliwości skontaktuj się z użytkowniekiem
 pt190 do geoŚcieżki
 pt191 Dziękujemy, Twoja skrzynka jest teraz w geoŚcieżce
 pt192 Skrzynka nie będzie należała do geoŚcieżki
@@ -1891,7 +1891,7 @@ pt193 Potwierdzenie dodania skrzynki do GeoŚcieżki
 pt194 Przykro mi, nie jesteś właścicielem tej skrzynki!
 pt195 Została usunięta z listy skrzynek-kandydatek
 pt196 Tej skrzynki nie ma na liście skrzynek-kandydatek. (Prawdopodobnie kliknąłeś już link.)
-pt197 Ta skrzynka jest już na liście keszynek-kandydatek lub należy już do jakjejś geoŚcieżki. Skontaktuj się z jej właścicielem. 
+pt197 Ta skrzynka jest już na liście keszynek-kandydatek lub należy już do jakjejś geoŚcieżki. Skontaktuj się z jej właścicielem.
 pt198 Skrzynka została umieszczona na liście keszynek-kandydatek, a do jej właściciela został wysłany email. Gdy właściciel wyrazi zgodę (poprzez kliknięcie linka w otrzymanym mailu) kesz zostanie dodany do geoŚcieżki automatycznie.
 pt199 informacja
 pt200 Ta skrzynka nie może być usunięta z geoŚcieżki (geoŚcieżka do której jest przypisana została już zdobyta - możesz zarchiwizować skrzynkę, ale nie możesz jej już usunąć z geoŚcieżki)
@@ -1916,12 +1916,12 @@ pt218 geoŚcieżka została zlikwidowana
 pt219 W serwisie
 pt220 Uzasadnienie zmiany statusu
 pt221 Zmiana statusu
-pt222 Założył skrzynki w 
+pt222 Założył skrzynki w
 pt223 geościeżkach
 pt224 punkty za skrzynki założone
 pt225 ilość logów w pliku gpx
 pt226 dla każdej skrzynki. Dostepne tylko dla formatu &quot;gpx&quot;
-pt227 GeoŚcieżka nie spełnia kryteriów, do chwili poprawienia jej przez autorów będzie zamknięta. Powód zamknięcia: 
+pt227 GeoŚcieżka nie spełnia kryteriów, do chwili poprawienia jej przez autorów będzie zamknięta. Powód zamknięcia:
 pt228 zbyt mała ilość skrzynek w geoŚcieżce
 pt229 Typ wpisu
 pt230 Data
@@ -1962,15 +1962,15 @@ login_message_06 Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkowni
 login_message_07 Logowanie nie powiodło się.<br />Wprowadzona nazwa użytkownika lub hasło są nieprawidłowe.
 login_message_08 Twoja przeglądarka nie zapisała ciasteczek dla {site_name}.
 login_message_09 Strona, którą zamierzasz otworzyć, wymaga zalogowania.
-graph_statistics_01 Statystyka dla www.{site_name} :: Data 
+graph_statistics_01 Statystyka dla www.{site_name} :: Data
 graph_statistics_02 Aktywne skrzynki
 graph_statistics_03 Ile razy odkryto skrzynki
-graph_statistics_04 Dane na dzieñ 
-graph_statistics_05 Ukryte skrzynki: 
-graph_statistics_06 W tym aktywnych: 
-graph_statistics_07 Ile razy odkryto skrzynki: 
+graph_statistics_04 Dane na dzieñ
+graph_statistics_05 Ukryte skrzynki:
+graph_statistics_06 W tym aktywnych:
+graph_statistics_07 Ile razy odkryto skrzynki:
 chowner01 Adopcja skrzynki
-chowner02 Geokeszer 
+chowner02 Geokeszer
 chowner03 przekazuje Ci skrzynkę do adopcji
 chowner04 Wejdź na stonę opencaching i dokończ prodedurę adopcji. (MENU UŻYTKOWNIKA > Adopcja Skrzynki)
 search_text_01 Nazwa:
@@ -2054,56 +2054,56 @@ log_score_note_thanks Dziękujemy za ocenę!
 log_score_note_encorage Prosimy o ocenę!
 Do_reset_logform Czy na prawdę wyczyścić formularz?
 log_reset_button Resetuj
-timePicker_hourText Godzina                
-timePicker_minuteText Minuta             
+timePicker_hourText Godzina
+timePicker_minuteText Minuta
 timePicker_nowButtonText Teraz
 timePicker_closeButtonText Gotowe
 timePicker_deselectButtonText Kasuj
-ec_Sequence Kolejność wyświetlania 
-vc_hint_for_logged_only Musisz być zalogowany aby zobaczyć dodatkowe informacje 
+ec_Sequence Kolejność wyświetlania
+vc_hint_for_logged_only Musisz być zalogowany aby zobaczyć dodatkowe informacje
 lc_Day_before Poprzednij dzień
-lc_Day_after Następny dzień 
+lc_Day_after Następny dzień
 ec_proceed_without_save Zmiany w ustawieniach skrzynki NIE zostały zapisane. Jesteś pewny(a) aby kontunuować (strona zostanie przeładowana a zmiany UTRACONE)?
-ec_delete_pic Czy usunąć ten obrazek?  
+ec_delete_pic Czy usunąć ten obrazek?
 ec_delete_mp3 Czy usunąć ten plik?
-ec_delete_wp Czy usunąć ten waypoint? 
-mc_edit_geocache Edytuj skrzynkę 
+ec_delete_wp Czy usunąć ten waypoint?
+mc_edit_geocache Edytuj skrzynkę
 mc_by_founds Po ilości znalezionych
 mc_by_reco Po ilości rekomendacji
 mc_by_gk Po ilości Geo-Kretów w skrzynce
-mc_by_visits Po ilości odwiedzających 
-vc_spoiler_disable_msg Musisz być zalogowany aby zobaczyć zdjęcia spojlerowe! 
+mc_by_visits Po ilości odwiedzających
+vc_spoiler_disable_msg Musisz być zalogowany aby zobaczyć zdjęcia spojlerowe!
 ec_bike_set_msg Atrybut skrzynki [Dostępna rowerem] lub [Dostępna tylko łodzią] jest ustawiony. Czy na pewno chcesz dodać atrybut [Dostępna tylko pieszo]?
 ec_walk_set_msg Atrybut skrzynki [Dostępna tylko pieszo] lub [Dostępna tylko łodzią] jest ustawiony. Czy na pewno chcesz dodać atrybut [Dostępna rowerem]?
 ec_boat_set_msg Atrybut skrzynki [Dostępna tylko pieszo] lub [Dostępna rowerem] jest ustawiony. Czy na pewno chcesz dodać atrybut [Dostępna tylko łodzią]?
-ec_Sequence_mp3 Kolejność pliku 
-myn_click_to_view_cache Kliknij aby zobaczyć skrzynkę 
+ec_Sequence_mp3 Kolejność pliku
+myn_click_to_view_cache Kliknij aby zobaczyć skrzynkę
 mylist_01 Nie znaleziono żadnych skrzynek w schowku
 mylist_02 Usuń
 mylist_03 Wydrukuj wszystkie
 mylist_04 Usuń wszystkie
 mylist_05 Pobierz dane skrzynek ze schowka
-cookiesInfo Używamy cookies, dzięki którym nasz serwis może działać lepiej. Przeczytaj o prywatności i ochronie danych w naszym <a href ="{rules_url}">Regulaminie</a>. 
+cookiesInfo Używamy cookies, dzięki którym nasz serwis może działać lepiej. Przeczytaj o prywatności i ochronie danych w naszym <a href ="{rules_url}">Regulaminie</a>.
 FiltrYear Rok
 FiltrMonth Miesiąc
 StatTestVer <span style="color: red" >Uwaga wersja testowa!!! Proszę o zgłaszanie konstruktywnych uwag na forum w temacie: <a href="http://forum.opencaching.pl/viewtopic.php?f=9&t=7734">Statystyki</a></span>
-newsletter Biuletyn Informacyjny 
+newsletter Biuletyn Informacyjny
 newsletter_removal Jeśli nie chcesz więcej otrzymywać biuletynów informacyjnych z naszego serwisu, zmień ustawienia konta na
 PrevVersion Poprzednia wersja znajduje się na stronie: Statystyki (na samym końcu)
 my_position Moja pozycja
-go Idź 
-Filter Filtruj 
+go Idź
+Filter Filtruj
 
 coords_modifier Modyfikator współrzędnych
 coordsmod_main Wprowadź własne współrzędne dla skrzynki:
 coordsmod_lon Długość geograficzna
 coordsmod_lat Szerokość geograficzna
 modify_coords Modyfikuj współrzędne
-reset_coords Przywróć oryginalne 
-orig_coord_modified_info Wprowadziłe(a)ś własne współrzędne - współrzędne oryginalne to: 
+reset_coords Przywróć oryginalne
+orig_coord_modified_info Wprowadziłe(a)ś własne współrzędne - współrzędne oryginalne to:
 modified_coord_notice Zmodyfikowane współrzędne zostaną wyeksportowane do plików, np. GPX, KML, itp.
 srch_Coord_have_been_modified Współrzędne zmodyfikowane
-srch_Recommended Rekomendowana 
+srch_Recommended Rekomendowana
 srch_Send_to_GPS Wyślij do GPS
 addnews_confirm_01 Dodaj newsa
 addnews_confirm_02 Dziękujemy za wysłanie nowej wiadomości. Postaramy się jak najszybciej przejrzeć tę informację.

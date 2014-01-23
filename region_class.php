@@ -22,7 +22,7 @@
  *    [code3] => PL22
  *    [code4] =>
  *  )
- *  
+ *
  *  (adm4 and code4 is returned when coordinates are in known huge city area. Not suer if it is useful, so be carefull with that)
  *
  * Example of use:
@@ -35,109 +35,109 @@
  *@author Andrzej Łza Woźniak (some code I copied from former code.)
  */
 
-require_once(__DIR__.'/lib/db.php'); 
- 
+require_once(__DIR__.'/lib/db.php');
+
 class GetRegions {
 
-	/**
-	 * 
-	 * @@param array $opt -  database accesing data from opencaching config
-	 * @param float $lat geografical latitude (coordinates)
-	 * @param float $lon geografical longitude (coordinates)
-	 * 
-	 * @return array with code and names of regions selected from input geografical coordinates.void
-	 */
-	public function GetRegion($lat, $lon) {
-		require_once(__DIR__.'/lib/gis/gis.class.php');
+    /**
+     *
+     * @@param array $opt -  database accesing data from opencaching config
+     * @param float $lat geografical latitude (coordinates)
+     * @param float $lon geografical longitude (coordinates)
+     *
+     * @return array with code and names of regions selected from input geografical coordinates.void
+     */
+    public function GetRegion($lat, $lon) {
+        require_once(__DIR__.'/lib/gis/gis.class.php');
 
-		$lat_float = (float) $lat;
-		$lon_float = (float) $lon;
+        $lat_float = (float) $lat;
+        $lon_float = (float) $lon;
 
-		$sCode = '';
-		$tmpqery = "SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('POINT($lon  $lat)'), `shape`) ORDER BY `level` DESC";
-		
-		$db = new dataBase;
-		$db->simpleQuery($tmpqery);
-		$rsLayers = $db->dbResultFetchAll();
-		
-		foreach ($rsLayers as $rLayers)	{
-			if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {
-				$sCode = $rLayers['code'];
-				break;
-			}
-		}
+        $sCode = '';
+        $tmpqery = "SELECT `level`, `code`, AsText(`shape`) AS `geometry` FROM `nuts_layer` WHERE WITHIN(GeomFromText('POINT($lon  $lat)'), `shape`) ORDER BY `level` DESC";
 
-		if ($sCode != '') {
-			$adm1 = null; $code1 = null;
-			$adm2 = null; $code2 = null;
-			$adm3 = null; $code3 = null;
-			$adm4 = null; $code4 = null;
+        $db = new dataBase;
+        $db->simpleQuery($tmpqery);
+        $rsLayers = $db->dbResultFetchAll();
 
-			if (mb_strlen($sCode) > 5) $sCode = mb_substr($sCode, 0, 5);
+        foreach ($rsLayers as $rLayers) {
+            if (gis::ptInLineRing($rLayers['geometry'], 'POINT(' . $lon . ' ' . $lat . ')')) {
+                $sCode = $rLayers['code'];
+                break;
+            }
+        }
 
-			if (mb_strlen($sCode) == 5) {
-				$code4 = $sCode;
-				$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-				$db->simpleQuery($q);
-				$re = $db->dbResultFetch();
-				$adm4 = $re["name"];
-				unset ($re, $q);
+        if ($sCode != '') {
+            $adm1 = null; $code1 = null;
+            $adm2 = null; $code2 = null;
+            $adm3 = null; $code3 = null;
+            $adm4 = null; $code4 = null;
 
-				$sCode = mb_substr($sCode, 0, 4);
-			}
+            if (mb_strlen($sCode) > 5) $sCode = mb_substr($sCode, 0, 5);
 
-			if (mb_strlen($sCode) == 4) {
-				$code3 = $sCode;
-				$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-				
-				$db->simpleQuery($q);
-				$re = $db->dbResultFetch();
-				
-				$adm3 = $re["name"];
-				unset ($re, $q);
-				$sCode = mb_substr($sCode, 0, 3);
-			}
+            if (mb_strlen($sCode) == 5) {
+                $code4 = $sCode;
+                $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
+                $db->simpleQuery($q);
+                $re = $db->dbResultFetch();
+                $adm4 = $re["name"];
+                unset ($re, $q);
 
-			if (mb_strlen($sCode) == 3) {
-				$code2 = $sCode;
-				$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-				$db->simpleQuery($q);
-				$re = $db->dbResultFetch();
-				$adm2 = $re["name"];
-				unset ($re, $q);
-				$sCode = mb_substr($sCode, 0, 2);
-			}
+                $sCode = mb_substr($sCode, 0, 4);
+            }
 
-			if (mb_strlen($sCode) == 2) {
+            if (mb_strlen($sCode) == 4) {
+                $code3 = $sCode;
+                $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
 
-				$code1 = $sCode;
-				// try to get localised name first
-				$q = "SELECT `countries`.`pl` FROM `countries` WHERE `countries`.`short`='$sCode'";
-				$db->simpleQuery($q);
-				$re = $db->dbResultFetch();
-				$adm1 = $re["pl"];
-				unset ($re, $q);
+                $db->simpleQuery($q);
+                $re = $db->dbResultFetch();
 
-				if ($adm1 == null) {
-					$q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
-					$db->simpleQuery($q);
-					$re = $db->dbResultFetch();	
-					$adm1  = $re["name"];
-					unset ($re, $q);
-				}
-			}
+                $adm3 = $re["name"];
+                unset ($re, $q);
+                $sCode = mb_substr($sCode, 0, 3);
+            }
 
-			$wynik['adm1'] = $adm1;
-			$wynik['adm2'] = $adm2;
-			$wynik['adm3'] = $adm3;
-			$wynik['adm4'] = $adm4;
-			$wynik['code1'] = $code1;
-			$wynik['code2'] = $code2;
-			$wynik['code3'] = $code3;
-			$wynik['code4'] = $code4;
-		}
-		else $wynik = false;
-		return $wynik;
-	}
+            if (mb_strlen($sCode) == 3) {
+                $code2 = $sCode;
+                $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
+                $db->simpleQuery($q);
+                $re = $db->dbResultFetch();
+                $adm2 = $re["name"];
+                unset ($re, $q);
+                $sCode = mb_substr($sCode, 0, 2);
+            }
+
+            if (mb_strlen($sCode) == 2) {
+
+                $code1 = $sCode;
+                // try to get localised name first
+                $q = "SELECT `countries`.`pl` FROM `countries` WHERE `countries`.`short`='$sCode'";
+                $db->simpleQuery($q);
+                $re = $db->dbResultFetch();
+                $adm1 = $re["pl"];
+                unset ($re, $q);
+
+                if ($adm1 == null) {
+                    $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
+                    $db->simpleQuery($q);
+                    $re = $db->dbResultFetch();
+                    $adm1  = $re["name"];
+                    unset ($re, $q);
+                }
+            }
+
+            $wynik['adm1'] = $adm1;
+            $wynik['adm2'] = $adm2;
+            $wynik['adm3'] = $adm3;
+            $wynik['adm4'] = $adm4;
+            $wynik['code1'] = $code1;
+            $wynik['code2'] = $code2;
+            $wynik['code3'] = $code3;
+            $wynik['code4'] = $code4;
+        }
+        else $wynik = false;
+        return $wynik;
+    }
 }
 ?>

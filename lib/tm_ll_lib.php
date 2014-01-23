@@ -1,31 +1,31 @@
 <?php
 /***************************************************************************
-													    ./lib/tm_ll_lib.php
-															--------------------
-		begin                : Mon Sep 30 2009
-		copyright            : (C) 2004 The OpenCaching Group
-		author               : MardoQ
+                                                        ./lib/tm_ll_lib.php
+                                                            --------------------
+        begin                : Mon Sep 30 2009
+        copyright            : (C) 2004 The OpenCaching Group
+        author               : MardoQ
 
-	***************************************************************************/
+    ***************************************************************************/
 
 /***************************************************************************
-	*
-	*   This program is free software; you can redistribute it and/or modify
-	*   it under the terms of the GNU General Public License as published by
-	*   the Free Software Foundation; either version 2 of the License, or
-	*   (at your option) any later version.
-	*
-	***************************************************************************/
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    ***************************************************************************/
 
 /****************************************************************************
 
-		Unicode Reminder メモ
+        Unicode Reminder メモ
 
-	sets up all neccessary variables and handle template and database-things
-	also useful functions
+    sets up all neccessary variables and handle template and database-things
+    also useful functions
 
-	parameter: Lat      
-	           Lon      
+    parameter: Lat
+               Lon
 
  ****************************************************************************/
 
@@ -33,8 +33,8 @@
 
 function ll2utm($Lat,$Lon,$NS=null,$EW=null)
 {
-if ($Lat>90)	die("Invalid Latitude");
-if ($Lon>180)	die("Invalid Lonitude");
+if ($Lat>90)    die("Invalid Latitude");
+if ($Lon>180)   die("Invalid Lonitude");
 //$NS=(strtoupper(($NS)=='S') && ($Lat>0));
 //$EW=(strtoupper($EW)=='W');
 if ($Lat<0) { $Lat=-$Lat; $NS='S';} else {$NS='N';};
@@ -73,21 +73,21 @@ $K4=$K+$K0;
 $Merid=floor(($Lon)/6)*6+3;
 if (($Lat>=72) && ($Lon>=0))
 {
-	if ($Lon<9) $Merid=3;
-	else if ($Lon<21) $Merid=15;
-	else if ($Lon<33) $Merid=27;
-	else if ($Lon<42) $Merid=39;
+    if ($Lon<9) $Merid=3;
+    else if ($Lon<21) $Merid=15;
+    else if ($Lon<33) $Merid=27;
+    else if ($Lon<42) $Merid=39;
 }
 if (($Lat>=56) && ($Lat<64))
 {
-	if (($Lon>=3) && ($Lon<12)) $Merid=9;
-	}
+    if (($Lon>=3) && ($Lon<12)) $Merid=9;
+    }
 $MeridEW=$Merid<0;
 if ($MeridEW)
 {
-	$MeridianEW='W';
-}	else	{
-	$MeridianEW='E';
+    $MeridianEW='W';
+}   else    {
+    $MeridianEW='E';
 }
 $Meridian=abs($Merid);
 $L0=$Merid*$Deg2Rad; // Lon of True Origin (3,9,15 etc)
@@ -112,7 +112,7 @@ $L0=$Merid*$Deg2Rad; // Lon of True Origin (3,9,15 etc)
     $J5=$V/24*$SINK*($COSK3)*(5-($TANK2)+9*$H2);
     $J6=$V/720*$SINK*$COSK3*$COSK2*(61-58*($TANK2)+$TANK2*$TANK2);
     $North=$J3+$P2*$J4+$P4*$J5+$P4*$P2*$J6;
-//		if ($NS) $North=$North+10000000.0; // UTM S hemisphere , nie wiem dlaczego ale w oryginale dodawa³o siê 10000000.0
+//      if ($NS) $North=$North+10000000.0; // UTM S hemisphere , nie wiem dlaczego ale w oryginale dodawa³o siê 10000000.0
     $J7=$V*$COSK;
     $J8=$V/6*$COSK3*($V/$R-$TANK2);
     $J9=$V/120*$COSK3*$COSK2;
@@ -121,12 +121,12 @@ $L0=$Merid*$Deg2Rad; // Lon of True Origin (3,9,15 etc)
     $IEast=round($East); $INorth=round($North); // should strictly be trunc
     $Easting=$IEast;
     $Northing=$INorth;
-	$EastStr=''+abs($IEast);
-	$NorthStr=''+abs($INorth);
+    $EastStr=''+abs($IEast);
+    $NorthStr=''+abs($INorth);
   //while (EastStr.length<7) EastStr='0'+EastStr;
-	$EastStr = sprintf("%07.0f", $EastStr);
+    $EastStr = sprintf("%07.0f", $EastStr);
   //while (NorthStr.length<7) NorthStr='0'+NorthStr;
-	$NorthStr = sprintf("%07.0f", $NorthStr);
+    $NorthStr = sprintf("%07.0f", $NorthStr);
   $GR100km=substr($EastStr,1,2-1).substr($NorthStr,1,2-1);
   $GRremainder=substr($EastStr,2,7-2).' '.substr($NorthStr,2,7-2);
 
@@ -143,20 +143,20 @@ $L0=$Merid*$Deg2Rad; // Lon of True Origin (3,9,15 etc)
         {
         $Letters='ABCDEFGHJKLMNPQRSTUVWXYZ';
         $Pos=round($Lat/8-0.5)+10+2;
-        $LatZone=substr($Letters,$Pos,1);					
+        $LatZone=substr($Letters,$Pos,1);
         if ($LatZone>'X') $LatZone='X';
         $Pos=round(abs($INorth)/100000-0.5);
         while ($Pos>19) $Pos=$Pos-20;
         if ($LonZone % 2 == 0)
         {
-					$Pos=$Pos+5;
-					if ($Pos>19) $Pos=$Pos-20;
-				}
-        $N100km=substr($Letters,$Pos,1);					
+                    $Pos=$Pos+5;
+                    if ($Pos>19) $Pos=$Pos-20;
+                }
+        $N100km=substr($Letters,$Pos,1);
         $Pos=$GR100km/10-1;
         $P=$LonZone; while ($P>3) $P=$P-3;
         $Pos=$Pos+(($P-1)*8);
-        $E100km=substr($Letters,$Pos,1);					
+        $E100km=substr($Letters,$Pos,1);
         $GR=$LonZone.$LatZone.$E100km.$N100km.' '.$GRremainder;
         }
       }

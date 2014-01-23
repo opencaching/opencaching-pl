@@ -13,16 +13,16 @@ if (Garmin == undefined) var Garmin = {};
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @fileoverview Garmin.XmlConverter A class for converting between xml strings and DOM objects.
- * 
+ *
  * @author Jason Holmes jason.holmes.at.garmin.com
  * @version 1.0
  */
 /**
  * @class Garmin.XmlConverter
  * Convert XML text to a DOM and back.
- * @constructor 
+ * @constructor
  */
 Garmin.XmlConverter = function(){}; //just here for jsdoc
 Garmin.XmlConverter = {
@@ -35,30 +35,30 @@ Garmin.XmlConverter = {
     toDocument: function(fromString) {
         return Try.these(
             function() {
-    		    var theDocument = new ActiveXObject("Microsoft.XMLDOM");
-    		    theDocument.async = "false";
-    		    theDocument.loadXML( fromString );
-    		    return theDocument;
+                var theDocument = new ActiveXObject("Microsoft.XMLDOM");
+                theDocument.async = "false";
+                theDocument.loadXML( fromString );
+                return theDocument;
             },
             function() {
-    		    return new DOMParser().parseFromString(fromString, "text/xml");
+                return new DOMParser().parseFromString(fromString, "text/xml");
             }
-        );        
+        );
     },
-    
+
     /**
      * Converts a document to a string, and then returns the string
      * @param {Document} fromDocument is the DOM Object to convert
      * @return {String}
      * @member Garmin.XmlConverter
-     */  
+     */
     toString: function(fromDocument) {
-		if( window.ActiveXObject ) {
-			return fromDocument.xml
-		}
-		else {
-			var theXmlSerializer = new XMLSerializer();
-			return theXmlSerializer.serializeToString( fromDocument );
-		}
+        if( window.ActiveXObject ) {
+            return fromDocument.xml
+        }
+        else {
+            var theXmlSerializer = new XMLSerializer();
+            return theXmlSerializer.serializeToString( fromDocument );
+        }
     }
 };

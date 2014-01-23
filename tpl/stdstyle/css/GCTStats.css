@@ -1,60 +1,60 @@
 /*
-		GoogleTableChart for Stats - 	JG (triPPer) 
-										tripper1971@wp.pl
-							
-		2013.12				
+        GoogleTableChart for Stats -    JG (triPPer)
+                                        tripper1971@wp.pl
+
+        2013.12
 */
 
 
 .GCT-link-3 {text-decoration: underline; cursor: pointer; color: #006600}
 .GCT-link {text-decoration: underline; cursor: pointer;}
 
-.GCT-div button{ 	
-	background-color: #DBE6F1;
-	-moz-border-radius: 5px;
+.GCT-div button{
+    background-color: #DBE6F1;
+    -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	border-radius: 5px;
-	border:2px solid grey;
-	
-	-webkit-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
-	-moz-box-shadow:    4px 4px 6px rgba(50, 50, 50, 0.65);
-	box-shadow:         4px 4px 6px rgba(50, 50, 50, 0.65);
-		
-	font-size:12px;
-	width:70px;
-	font-weight: bold;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    border:2px solid grey;
+
+    -webkit-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+    -moz-box-shadow:    4px 4px 6px rgba(50, 50, 50, 0.65);
+    box-shadow:         4px 4px 6px rgba(50, 50, 50, 0.65);
+
+    font-size:12px;
+    width:70px;
+    font-weight: bold;
 }
 
 
-.GCT-div button:hover{ 					
-	-webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-	-moz-box-shadow:    0px 0px 0px rgba(0, 0, 0, 0);
-	box-shadow:         0px 0px 0px rgba(0, 0, 0, 0);
+.GCT-div button:hover{
+    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    -moz-box-shadow:    0px 0px 0px rgba(0, 0, 0, 0);
+    box-shadow:         0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 
 .GCT-div-table {
-	border-radius: 5px; 
-	border: solid 1px grey; 
-	background: #EFEFEF; 
-	padding:10px 10px 10px 10px; 
-	font-weight: bold;	
+    border-radius: 5px;
+    border: solid 1px grey;
+    background: #EFEFEF;
+    padding:10px 10px 10px 10px;
+    font-weight: bold;
 }
- 
 
-.GCT-div-dialog { 	
-	-webkit-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
-	-moz-box-shadow:    4px 4px 6px rgba(50, 50, 50, 0.65);
-	box-shadow:         4px 4px 6px rgba(50, 50, 50, 0.65);
+
+.GCT-div-dialog {
+    -webkit-box-shadow: 4px 4px 6px rgba(50, 50, 50, 0.65);
+    -moz-box-shadow:    4px 4px 6px rgba(50, 50, 50, 0.65);
+    box-shadow:         4px 4px 6px rgba(50, 50, 50, 0.65);
 }
 
 .GCT-div-readOnly{
-	text-align: center; 
-	color: black;  
-	font-weight: bold; 
-	font-size:12px; 
-	background-color: #FAFAFA;	
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size:12px;
+    background-color: #FAFAFA;
 }
 
 

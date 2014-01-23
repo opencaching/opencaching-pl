@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<title>jQuery UI - DatePicker</title>
-		<link type="text/css" href="css/pepper-grinder/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
-		<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
-		<script type="text/javascript" src="jquery-ui-1.8.21.custom.min.js"></script>
-		<script type="text/javascript">
-			$(function(){
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title>jQuery UI - DatePicker</title>
+        <link type="text/css" href="css/pepper-grinder/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
+        <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="jquery-ui-1.8.21.custom.min.js"></script>
+        <script type="text/javascript">
+            $(function(){
 
-				// Datepicker
-				$('#datepicker').datepicker({
-					inline: true
-				});
+                // Datepicker
+                $('#datepicker').datepicker({
+                    inline: true
+                });
 
-				//hover states on the static widgets
-				$('#dialog_link, ul#icons li').hover(
-					function() { $(this).addClass('ui-state-hover'); },
-					function() { $(this).removeClass('ui-state-hover'); }
-				);
+                //hover states on the static widgets
+                $('#dialog_link, ul#icons li').hover(
+                    function() { $(this).addClass('ui-state-hover'); },
+                    function() { $(this).removeClass('ui-state-hover'); }
+                );
 
-			});
-		</script>
-		
-	</head>
-	<body>
-	Data: <input type="text" id="datepicker">
+            });
+        </script>
 
-	</body>
+    </head>
+    <body>
+    Data: <input type="text" id="datepicker">
+
+    </body>
 </html>
 
 

@@ -17,11 +17,11 @@
     //detect browser:
     if ((navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 3) || parseInt(navigator.appVersion) >= 4) {
         rollOvers = 1;
-    }       
+    }
     else {
         if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion) >= 4) {
             rollOvers = 1;
-        } 
+        }
         else {
             rollOvers = 0;
         }
@@ -60,7 +60,7 @@
 </script>
 
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/home.png" class="icon32" alt="" title="" align="middle"/>&nbsp;
-    {{my_neighborhood_radius}} 
+    {{my_neighborhood_radius}}
     {distance} km
 </div>
 <!-- Text container -->
@@ -102,7 +102,7 @@
     <div class="content2-container-2col-left" id="local-logs-area">
         <p class="content-title-noshade-size3"><img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt="" title="Event" align="middle" />&nbsp;
             {{latest_logs}}
-        </p> 
+        </p>
         {new_logs}
         {more_logs}
         <br/><br/>

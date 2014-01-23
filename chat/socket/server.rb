@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
-  
+
 # Simple Ruby XML Socket Server
 #
 # This is a a simple socket server implementation in ruby
 # to communicate with flash clients via Flash XML Sockets.
-# 
+#
 # The socket code is based on the tutorial
 # "Sockets programming in Ruby"
 # by M. Tim Jones (mtj@mtjones.com).
@@ -196,7 +196,7 @@ class SocketServer
             @config[key.to_sym] = value
           end
         end
-      end      
+      end
     end
     if @config[:eol].empty?
       # Use default EOL if configuration option is empty:
@@ -238,7 +238,7 @@ class SocketServer
         else
           client[:allowed_to_broadcast] = false
         end
-        # Add the client to the clients list:       
+        # Add the client to the clients list:
         @clients[socket] = client
         if @config[:log_level].to_i > 0
           # Log client connection and the number of connected clients:
@@ -277,7 +277,7 @@ class SocketServer
   def handle_client_input(client_socket, str)
     # Create a new XML stream handler:
     handler = XMLStreamHandler.new
-    begin    
+    begin
       # As soon as the parser has found the relevant information it throws a :break symbol:
       catch :break do
         # Parse the given input string for XML messages:
@@ -293,13 +293,13 @@ class SocketServer
           handle_client_authentication(client_socket, handler.chat_id, handler.user_id, handler.reg_id, handler.channel_ids)
         when :policy_file_request
           handle_policy_file_request(client_socket)
-      end    
+      end
     rescue Exception => error
       # Rescue if parsing the client input fails and log the error message:
       puts "#{Time.now}\t#{@clients[client_socket][:id]} Client Input Error:#{error.to_s.dump}"; STDOUT.flush
     end
   end
-  
+
   def handle_broadcast_message(client_socket, chat_id, channel_id, str)
     # Check if the_client is allowed to broadcast:
     if @clients[client_socket][:allowed_to_broadcast]
@@ -337,7 +337,7 @@ class SocketServer
       end
     end
   end
-  
+
   def handle_client_registration(client_socket, chat_id, user_id, reg_id)
     # Save the chat_id, use_id and reg_id as client properties:
     @clients[client_socket][:chat_id] = chat_id
@@ -348,7 +348,7 @@ class SocketServer
       puts "#{Time.now}\t#{@clients[client_socket][:id]} Chat:#{chat_id.to_s.dump} User:#{user_id.to_s.dump} Reg:#{reg_id.to_s.dump}"; STDOUT.flush
     end
   end
-  
+
   def handle_client_authentication(client_socket, chat_id, user_id, reg_id, channel_ids)
     # Only the broadcast clients may send authentication messages:
     if @clients[client_socket][:allowed_to_broadcast]
@@ -380,7 +380,7 @@ class SocketServer
       end
     end
   end
-  
+
   def handle_policy_file_request(client_socket)
     begin
       # Write the cross-domain-policy to the Flash client:

@@ -1,7 +1,7 @@
 <?
 /**
  * text cache founded statistics year 2 year.
- * All caches in database. 
+ * All caches in database.
  */
 header('Content-type: text/html; charset=utf-8');
 
@@ -28,12 +28,12 @@ print '<pre>';
 // print_r($arr);
 
 foreach ($arr as $value) {
-	$data = explode('-', $value['date_hidden']);
-	if (!isset($count[$data[0]])) $count[$data[0]]=0;
-	$count[$data[0]]++;
-	
-	if(!isset($region[$value['adm3']][$data[0]])) $region[$value['adm3']][$data[0]]=0;
-	$region[$value['adm3']][$data[0]]++;
+    $data = explode('-', $value['date_hidden']);
+    if (!isset($count[$data[0]])) $count[$data[0]]=0;
+    $count[$data[0]]++;
+
+    if(!isset($region[$value['adm3']][$data[0]])) $region[$value['adm3']][$data[0]]=0;
+    $region[$value['adm3']][$data[0]]++;
 }
 print 'region <br>';
 print '[rok] => ilosc utworzonych keszy w danym roku<br><br>';

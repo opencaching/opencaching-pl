@@ -1,36 +1,36 @@
 <?php
   //prepare the templates and include all neccessary
   if (!isset($rootpath)) $rootpath = '';
-	require_once('./lib/common.inc.php');
-	require_once('lib/cache_icon.inc.php');
-	require_once('lib/clicompatbase.inc.php');
-	
-	if (!isset($_POST['flush_print_list'])) $_POST['flush_print_list'] = '';
-	if( $_POST['flush_print_list'] != "")
-		$_SESSION['print_list'] = array();
-	
-	//Preprocessing
-	if($_GET['cacheid'] == '') {
-    	    if ($error == true || !$usr || ((count($_SESSION['print_list'])==0 ) && ($_GET['source'] != 'mywatches')) )
-    	    {
-	    	    header("Location:index.php");
-		    die();
-	    }
-	}
+    require_once('./lib/common.inc.php');
+    require_once('lib/cache_icon.inc.php');
+    require_once('lib/clicompatbase.inc.php');
+
+    if (!isset($_POST['flush_print_list'])) $_POST['flush_print_list'] = '';
+    if( $_POST['flush_print_list'] != "")
+        $_SESSION['print_list'] = array();
+
+    //Preprocessing
+    if($_GET['cacheid'] == '') {
+            if ($error == true || !$usr || ((count($_SESSION['print_list'])==0 ) && ($_GET['source'] != 'mywatches')) )
+            {
+                header("Location:index.php");
+            die();
+        }
+    }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title><?php echo $tpl_subtitle; ?>Opencaching PL - drukowanie</title>
-		<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
-		<meta http-equiv="Content-Style-Type" content="text/css" />
-		<meta http-equiv="Content-Language" content="{lang}" />
-		<meta http-equiv="gallerimg" content="no" />
-		<meta http-equiv="pragma" content="no-cache" />
-		<meta http-equiv="cache-control" content="no-cache" />
-		<!-- Favicon noch nicht vorhanden <link rel="shortcut icon" href="favicon.ico" />-->
-		<link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/style_print.css" />
-	</head>
+    <head>
+        <title><?php echo $tpl_subtitle; ?>Opencaching PL - drukowanie</title>
+        <meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
+        <meta http-equiv="Content-Style-Type" content="text/css" />
+        <meta http-equiv="Content-Language" content="{lang}" />
+        <meta http-equiv="gallerimg" content="no" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <!-- Favicon noch nicht vorhanden <link rel="shortcut icon" href="favicon.ico" />-->
+        <link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/style_print.css" />
+    </head>
 
 <script>
 function clientSideInclude(id, url) {
@@ -85,87 +85,87 @@ if (!isset($_POST['showlogs'])) $_POST['showlogs'] = '';
 if (!isset($_POST['nocrypt'])) $_POST['nocrypt'] = '';
 
 if($_GET['cacheid'] != "") {
-	$showlogs = $_POST['showlogs'];
-	$pictures = $_POST['showpictures']!=""?$_POST['showpictures']:"&pictures=no";
-	$nocrypt = $_POST['nocrypt'];
-	$spoiler_only = $_POST['spoiler_only'];
+    $showlogs = $_POST['showlogs'];
+    $pictures = $_POST['showpictures']!=""?$_POST['showpictures']:"&pictures=no";
+    $nocrypt = $_POST['nocrypt'];
+    $spoiler_only = $_POST['spoiler_only'];
 }
 else if( $_POST['flush_print_list'] != "" || $_POST['submit']!= "")
 {
-	$showlogs = $_POST['showlogs'];
-	$pictures = $_POST['showpictures'];
-	$nocrypt = $_POST['nocrypt'];
-	$spoiler_only = $_POST['spoiler_only'];
+    $showlogs = $_POST['showlogs'];
+    $pictures = $_POST['showpictures'];
+    $nocrypt = $_POST['nocrypt'];
+    $spoiler_only = $_POST['spoiler_only'];
 }
 else
 {
-	$showlogs = "";
-	$pictures = "&pictures=no";
-	$nocrypt = "";
-	$spoiler_only = "";
+    $showlogs = "";
+    $pictures = "&pictures=no";
+    $nocrypt = "";
+    $spoiler_only = "";
 }
-	if ((isset($_GET['source'])) && ($_GET['source'] == 'mywatches')) {
+    if ((isset($_GET['source'])) && ($_GET['source'] == 'mywatches')) {
 
-			$rs = sql("SELECT `cache_watches`.`cache_id` AS `cache_id` FROM `cache_watches` WHERE `cache_watches`.`user_id`='&1'", $usr['userid']);
-			if (mysql_num_rows($rs) > 0) {
-				$caches_list = array(); 
-				for ($i = 0; $i < mysql_num_rows($rs); $i++) {
-					$record = sql_fetch_array($rs);
-					$caches_list[] = $record['cache_id'];
-					//var_dump($record);
-				}
-			}
-	}
-	else if($_GET['cacheid'] != "") {
-	    $caches_list = array();
-	    $caches_list[] = $_GET['cacheid'];
-	}
-	else {
-		$caches_list = $_SESSION['print_list'];
-	}
-	
-	
+            $rs = sql("SELECT `cache_watches`.`cache_id` AS `cache_id` FROM `cache_watches` WHERE `cache_watches`.`user_id`='&1'", $usr['userid']);
+            if (mysql_num_rows($rs) > 0) {
+                $caches_list = array();
+                for ($i = 0; $i < mysql_num_rows($rs); $i++) {
+                    $record = sql_fetch_array($rs);
+                    $caches_list[] = $record['cache_id'];
+                    //var_dump($record);
+                }
+            }
+    }
+    else if($_GET['cacheid'] != "") {
+        $caches_list = array();
+        $caches_list[] = $_GET['cacheid'];
+    }
+    else {
+        $caches_list = $_SESSION['print_list'];
+    }
+
+
 /*$caches_list = array();
 $nr = 0;
 for( $i=1000;$i<2000;$i+=200)
 {
-	
-	$caches_list[$nr] = $i;
-	$nr++;
+
+    $caches_list[$nr] = $i;
+    $nr++;
 }
 */
-	
+
     if (!isset($include_caches)) $include_caches = '';
-	if (!isset($include_caches_list)) $include_caches_list = '';
-	foreach( $caches_list as $id )
-	{
-		$include_caches .= "clientSideInclude('include".$id."', 'viewcache.php?cacheid=".$id."&print=y".$pictures.$showlogs.$nocrypt.$spoiler_only."');";
-		$include_caches_list .= "<div id='include".$id."'></div>";
-	}
-	
-	$checked_1 = ""; $checked_2 = ""; $checked_3 = ""; $checked_4 = ""; $checked_5 = ""; $checked_6 = ""; $checked_7 = ""; $checked_8 = "";
-	
-	if (!isset($_POST['showlogs'])) $_POST['showlogs'] = '';
-	if($_POST['showlogs'] == "")
-		$checked_1 = "checked";
-	if( $_POST['showlogs'] == "&showlogs=4" )
-		$checked_2 = "checked";
-	if( $_POST['showlogs'] == "&showlogsall=y" )
-		$checked_3 = "checked";
-		
-	if( $_POST['showpictures'] == "&pictures=no" || !isset($_POST['showpictures']) )
-		$checked_4 = "checked";
-	if( $_POST['showpictures'] == "&pictures=small" )
-		$checked_5 = "checked";
-	if( $_POST['showpictures'] == "&pictures=big" )
-		$checked_6 = "checked";
-		
-	if( $_POST['nocrypt'] == "&nocrypt=1" )
-		$checked_7 = "checked";
-		
-	if( $_POST['spoiler_only'] == "&spoiler_only=1" )
-		$checked_8 = "checked";
-	
+    if (!isset($include_caches_list)) $include_caches_list = '';
+    foreach( $caches_list as $id )
+    {
+        $include_caches .= "clientSideInclude('include".$id."', 'viewcache.php?cacheid=".$id."&print=y".$pictures.$showlogs.$nocrypt.$spoiler_only."');";
+        $include_caches_list .= "<div id='include".$id."'></div>";
+    }
+
+    $checked_1 = ""; $checked_2 = ""; $checked_3 = ""; $checked_4 = ""; $checked_5 = ""; $checked_6 = ""; $checked_7 = ""; $checked_8 = "";
+
+    if (!isset($_POST['showlogs'])) $_POST['showlogs'] = '';
+    if($_POST['showlogs'] == "")
+        $checked_1 = "checked";
+    if( $_POST['showlogs'] == "&showlogs=4" )
+        $checked_2 = "checked";
+    if( $_POST['showlogs'] == "&showlogsall=y" )
+        $checked_3 = "checked";
+
+    if( $_POST['showpictures'] == "&pictures=no" || !isset($_POST['showpictures']) )
+        $checked_4 = "checked";
+    if( $_POST['showpictures'] == "&pictures=small" )
+        $checked_5 = "checked";
+    if( $_POST['showpictures'] == "&pictures=big" )
+        $checked_6 = "checked";
+
+    if( $_POST['nocrypt'] == "&nocrypt=1" )
+        $checked_7 = "checked";
+
+    if( $_POST['spoiler_only'] == "&spoiler_only=1" )
+        $checked_8 = "checked";
+
 ?>
 
 <body onload="<?php echo $include_caches;?>">
@@ -187,26 +187,26 @@ if ($_GET['cacheid']) {
 ?>
 <span class="text_gray">
 <div>
-		<input type="radio" name="showlogs" id="shownologs" value="" <?php echo $checked_1;?>><label for="shownologs"><?php print tr('printcache_01'); ?></label>
-		<input type="radio" name="showlogs" id="showlogs" value="&showlogs=4" <?php echo $checked_2;?>><label for="showlogs"><?php print tr('printcache_02'); ?></label>
-		<input type="radio" name="showlogs" id="showalllogs" value="&showlogsall=y" <?php echo $checked_3;?>><label for="showalllogs"><?php print tr('printcache_03'); ?></label>
+        <input type="radio" name="showlogs" id="shownologs" value="" <?php echo $checked_1;?>><label for="shownologs"><?php print tr('printcache_01'); ?></label>
+        <input type="radio" name="showlogs" id="showlogs" value="&showlogs=4" <?php echo $checked_2;?>><label for="showlogs"><?php print tr('printcache_02'); ?></label>
+        <input type="radio" name="showlogs" id="showalllogs" value="&showlogsall=y" <?php echo $checked_3;?>><label for="showalllogs"><?php print tr('printcache_03'); ?></label>
 </div>
-		<input type="radio" name="showpictures" id="shownopictures" value="&pictures=no" <?php echo $checked_4;?>><label for="shownopictures"><?php print tr('printcache_04'); ?></label>
-		<input type="radio" name="showpictures" id="showpictures" value="&pictures=small" <?php echo $checked_5;?>><label for="showpictures"><?php print tr('printcache_05'); ?></label>
-		<input type="radio" name="showpictures" id="showallpictures" value="&pictures=big" <?php echo $checked_6;?>><label for="showallpictures"><?php print tr('printcache_06'); ?></label>
+        <input type="radio" name="showpictures" id="shownopictures" value="&pictures=no" <?php echo $checked_4;?>><label for="shownopictures"><?php print tr('printcache_04'); ?></label>
+        <input type="radio" name="showpictures" id="showpictures" value="&pictures=small" <?php echo $checked_5;?>><label for="showpictures"><?php print tr('printcache_05'); ?></label>
+        <input type="radio" name="showpictures" id="showallpictures" value="&pictures=big" <?php echo $checked_6;?>><label for="showallpictures"><?php print tr('printcache_06'); ?></label>
 <div>
-		<input type="checkbox" name="nocrypt" id="nocrypt" value="&nocrypt=1" <?php echo $checked_7;?>><label for="nocrypt"><?php print tr('printcache_07'); ?></label>&nbsp;&nbsp;&nbsp;
-		<input type="checkbox" name="spoiler_only" id="spoiler_only" value="&spoiler_only=1" <?php echo $checked_8;?>><label for="spoiler_only"><?php print tr('printcache_08'); ?></label>&nbsp;&nbsp;&nbsp;
+        <input type="checkbox" name="nocrypt" id="nocrypt" value="&nocrypt=1" <?php echo $checked_7;?>><label for="nocrypt"><?php print tr('printcache_07'); ?></label>&nbsp;&nbsp;&nbsp;
+        <input type="checkbox" name="spoiler_only" id="spoiler_only" value="&spoiler_only=1" <?php echo $checked_8;?>><label for="spoiler_only"><?php print tr('printcache_08'); ?></label>&nbsp;&nbsp;&nbsp;
 </div>
-		<input type="submit" name="submit" value="<?php print tr('printcache_09'); ?>">
+        <input type="submit" name="submit" value="<?php print tr('printcache_09'); ?>">
 
 <?
 if($_GET['cacheid'] == '')
 if ((!isset($_GET['source'])) || ($_GET['source'] != 'mywatches')) {
 ?>
-		&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
 
-		<input type="submit" name="flush_print_list" value="<?php echo tr("clear_list") . " (" . count($_SESSION['print_list']);?>)">
+        <input type="submit" name="flush_print_list" value="<?php echo tr("clear_list") . " (" . count($_SESSION['print_list']);?>)">
 <?
 }
 ?>
@@ -218,9 +218,9 @@ echo $include_caches_list;
 ?>
 
 <div id="printedcaches">
-<?php 
+<?php
 if(isset($content)) echo $content;
 ?>
 </div>
-	</body>
+    </body>
 </html>

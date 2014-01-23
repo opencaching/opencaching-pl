@@ -1,31 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>jQuery UI progressbar documentation</title>
+    <meta charset="utf-8">
+    <title>jQuery UI progressbar documentation</title>
 
-	<style>
-	body {
-		font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
-	}
-	.gutter {
-		display: none;
-	}
-	</style>
+    <style>
+    body {
+        font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
+    }
+    .gutter {
+        display: none;
+    }
+    </style>
 </head>
 <body>
 
 <script>{
-		"title":
-			"Progressbar Widget",
-		"excerpt":
-			"Display status of a determinate or indeterminate process.",
-		"termSlugs": {
-			"category": [
-				"widgets"
-			]
-		}
-	}</script><article id="progressbar1" class="entry widget"><h2 class="section-title">
+        "title":
+            "Progressbar Widget",
+        "excerpt":
+            "Display status of a determinate or indeterminate process.",
+        "termSlugs": {
+            "category": [
+                "widgets"
+            ]
+        }
+    }</script><article id="progressbar1" class="entry widget"><h2 class="section-title">
 <span>Progressbar Widget</span><span class="version-details">version added: 1.6</span>
 </h2>
 <div class="entry-wrapper">
@@ -52,17 +52,17 @@
 <div><a href="#event-create">create</a></div>
 <div><a href="#event-complete">complete</a></div>
 </div></section><div class="longdesc" id="entry-longdesc">
-		<p>
-			The progress bar is designed to display the current percent complete for a process. The bar is coded to be flexibly sized through CSS and will scale to fit inside its parent container by default.
-		</p>
-		<p>
-			A determinate progress bar should only be used in situations where the system can accurately update the current status. A determinate progress bar should never fill from left to right, then loop back to empty for a single process — if the actual status cannot be calculated, an indeterminate progress bar should be used to provide user feedback.
-		</p>
-	</div>
+        <p>
+            The progress bar is designed to display the current percent complete for a process. The bar is coded to be flexibly sized through CSS and will scale to fit inside its parent container by default.
+        </p>
+        <p>
+            A determinate progress bar should only be used in situations where the system can accurately update the current status. A determinate progress bar should never fill from left to right, then loop back to empty for a single process — if the actual status cannot be calculated, an indeterminate progress bar should be used to provide user feedback.
+        </p>
+    </div>
 <h3>Additional Notes:</h3>
 <div class="longdesc"><ul><li>
-			This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
-		</li></ul></div>
+            This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
+        </li></ul></div>
 <section id="options"><header><h2 class="underline">Options</h2></header><div id="option-disabled" class="api-item first-item">
 <h3>disabled<span class="option-type"><strong>Type: </strong><a href="http://api.jquery.com/Types#Boolean">Boolean</a></span>
 </h3>
@@ -96,13 +96,13 @@
 <div>The value of the progressbar.</div>
 <strong>Multiple types supported:</strong><ul>
 <li>
-<strong>Number</strong>: 
-					A value between <code>0</code> and the <a href="#option-max"><code>max</code></a>.
-				</li>
+<strong>Number</strong>:
+                    A value between <code>0</code> and the <a href="#option-max"><code>max</code></a>.
+                </li>
 <li>
-<strong>Boolean</strong>: 
-					Value can be set to <code>false</code> to create an indeterminate progressbar.
-				</li>
+<strong>Boolean</strong>:
+                    Value can be set to <code>false</code> to create an indeterminate progressbar.
+                </li>
 </ul>
 <strong>Code examples:</strong><p>Initialize the progressbar with the value option specified:</p>
 <div class="syntaxhighlighter nogutter  "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain">$( </code><code class="string">".selector"</code> <code class="plain">).progressbar({ value: 25 });</code></div></div></td></tr></tbody></table></div>
@@ -111,8 +111,8 @@
 </div></section><section id="methods"><header><h2 class="underline">Methods</h2></header><div id="method-destroy"><div class="api-item first-item">
 <h3>destroy()</h3>
 <div>
-		Removes the progressbar functionality completely. This will return the element back to its pre-init state.
-	</div>
+        Removes the progressbar functionality completely. This will return the element back to its pre-init state.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the destroy method:</p>
@@ -122,8 +122,8 @@
 <div id="method-disable"><div class="api-item">
 <h3>disable()</h3>
 <div>
-		Disables the progressbar.
-	</div>
+        Disables the progressbar.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the disable method:</p>
@@ -133,8 +133,8 @@
 <div id="method-enable"><div class="api-item">
 <h3>enable()</h3>
 <div>
-		Enables the progressbar.
-	</div>
+        Enables the progressbar.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the enable method:</p>
@@ -234,8 +234,8 @@
 <h3>widget()<span class="returns">Returns: <a href="http://api.jquery.com/Types#jQuery">jQuery</a></span>
 </h3>
 <div>
-		Returns a <code>jQuery</code> object containing the progressbar.
-	</div>
+        Returns a <code>jQuery</code> object containing the progressbar.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the widget method:</p>
@@ -295,8 +295,8 @@
 <h3>create( event, ui )<span class="returns">Type: <code>progressbarcreate</code></span>
 </h3>
 <div>
-		Triggered when the progressbar is created.
-	</div>
+        Triggered when the progressbar is created.
+    </div>
 <ul>
 <li>
 <div><strong>event</strong></div>

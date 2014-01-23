@@ -1,31 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>jQuery UI tabs documentation</title>
+    <meta charset="utf-8">
+    <title>jQuery UI tabs documentation</title>
 
-	<style>
-	body {
-		font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
-	}
-	.gutter {
-		display: none;
-	}
-	</style>
+    <style>
+    body {
+        font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
+    }
+    .gutter {
+        display: none;
+    }
+    </style>
 </head>
 <body>
 
 <script>{
-		"title":
-			"Tabs Widget",
-		"excerpt":
-			"A single content area with multiple panels, each associated with a header in a list.",
-		"termSlugs": {
-			"category": [
-				"widgets"
-			]
-		}
-	}</script><article id="tabs1" class="entry widget"><h2 class="section-title">
+        "title":
+            "Tabs Widget",
+        "excerpt":
+            "A single content area with multiple panels, each associated with a header in a list.",
+        "termSlugs": {
+            "category": [
+                "widgets"
+            ]
+        }
+    }</script><article id="tabs1" class="entry widget"><h2 class="section-title">
 <span>Tabs Widget</span><span class="version-details">version added: 1.0</span>
 </h2>
 <div class="entry-wrapper">
@@ -59,35 +59,35 @@
 <div><a href="#event-create">create</a></div>
 <div><a href="#event-load">load</a></div>
 </div></section><div class="longdesc" id="entry-longdesc">
-		<p>Tabs are generally used to break content into multiple sections that can be swapped to save space, much like an accordion.</p>
+        <p>Tabs are generally used to break content into multiple sections that can be swapped to save space, much like an accordion.</p>
 
-		<p>The content for each tab panel can be defined in-page or can be loaded via Ajax; both are handled automatically based on the <code>href</code> of the anchor associated with the tab. By default tabs are activated on click, but the events can be changed to hover via the <a href="#option-event"><code>event</code></a> option.</p>
+        <p>The content for each tab panel can be defined in-page or can be loaded via Ajax; both are handled automatically based on the <code>href</code> of the anchor associated with the tab. By default tabs are activated on click, but the events can be changed to hover via the <a href="#option-event"><code>event</code></a> option.</p>
 
-		<h3>Keyboard interaction</h3>
+        <h3>Keyboard interaction</h3>
 
-		<p>When focus is on a tab, the following key commands are available:</p>
-		<ul>
-			<li>UP/LEFT: Move focus to the previous tab. If on first tab, moves focus to last tab. Activate focused tab after a short delay.</li>
-			<li>DOWN/RIGHT: Move focus to the next tab. If on last tab, moves focus to first tab. Activate focused tab after a short delay.</li>
-			<li>HOME: Move focus to the first tab. Activate focused tab after a short delay.</li>
-			<li>END: Move focus to the last tab. Activate focused tab after a short delay.</li>
-			<li>SPACE: Activate panel associated with focused tab.</li>
-			<li>ENTER: Activate or toggle panel associated with focused tab.</li>
-			<li>ALT+PAGE UP: Move focus to the previous tab and immediately activate.</li>
-			<li>ALT+PAGE DOWN: Move focus to the next tab and immediately activate.</li>
-		</ul>
+        <p>When focus is on a tab, the following key commands are available:</p>
+        <ul>
+            <li>UP/LEFT: Move focus to the previous tab. If on first tab, moves focus to last tab. Activate focused tab after a short delay.</li>
+            <li>DOWN/RIGHT: Move focus to the next tab. If on last tab, moves focus to first tab. Activate focused tab after a short delay.</li>
+            <li>HOME: Move focus to the first tab. Activate focused tab after a short delay.</li>
+            <li>END: Move focus to the last tab. Activate focused tab after a short delay.</li>
+            <li>SPACE: Activate panel associated with focused tab.</li>
+            <li>ENTER: Activate or toggle panel associated with focused tab.</li>
+            <li>ALT+PAGE UP: Move focus to the previous tab and immediately activate.</li>
+            <li>ALT+PAGE DOWN: Move focus to the next tab and immediately activate.</li>
+        </ul>
 
-		<p>When focus is in a panel, the following key commands are available:</p>
-		<ul>
-			<li>CTRL+UP: Move focus to associated tab.</li>
-			<li>ALT+PAGE UP: Move focus to the previous tab and immediately activate.</li>
-			<li>ALT+PAGE DOWN: Move focus to the next tab and immediately activate.</li>
-		</ul>
-	</div>
+        <p>When focus is in a panel, the following key commands are available:</p>
+        <ul>
+            <li>CTRL+UP: Move focus to associated tab.</li>
+            <li>ALT+PAGE UP: Move focus to the previous tab and immediately activate.</li>
+            <li>ALT+PAGE DOWN: Move focus to the next tab and immediately activate.</li>
+        </ul>
+    </div>
 <h3>Additional Notes:</h3>
 <div class="longdesc"><ul><li>
-			This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
-		</li></ul></div>
+            This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
+        </li></ul></div>
 <section id="options"><header><h2 class="underline">Options</h2></header><div id="option-active" class="api-item first-item">
 <h3>active<span class="option-type"><strong>Type: </strong><a href="http://api.jquery.com/Types#Boolean">Boolean</a> or <a href="http://api.jquery.com/Types#Integer">Integer</a></span>
 </h3>
@@ -95,8 +95,8 @@
 <strong>Default: </strong><code>0</code>
 </div>
 <div>
-				Which panel is currently open.
-			</div>
+                Which panel is currently open.
+            </div>
 <strong>Multiple types supported:</strong><ul>
 <li>
 <strong>Boolean</strong>: Setting <code>active</code> to <code>false</code> will collapse all panels. This requires the <a href="#option-collapsible"><code>collapsible</code></a> option to be <code>true</code>.</li>
@@ -157,16 +157,16 @@
 <strong>Default: </strong><code>"content"</code>
 </div>
 <div>
-				Controls the height of the tabs widget and each panel. Possible values:
-				<ul>
-					<li>
+                Controls the height of the tabs widget and each panel. Possible values:
+                <ul>
+                    <li>
 <code>"auto"</code>: All panels will be set to the height of the tallest panel.</li>
-					<li>
+                    <li>
 <code>"fill"</code>: Expand to the available height based on the tabs' parent height.</li>
-					<li>
+                    <li>
 <code>"content"</code>: Each panel will be only as tall as its content.</li>
-				</ul>
-			</div>
+                </ul>
+            </div>
 <strong>Code examples:</strong><p>Initialize the tabs with the heightStyle option specified:</p>
 <div class="syntaxhighlighter nogutter  "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain">$( </code><code class="string">".selector"</code> <code class="plain">).tabs({ heightStyle: </code><code class="string">"fill"</code> <code class="plain">});</code></div></div></td></tr></tbody></table></div>
 <p>Get or set the heightStyle option, after initialization:</p>
@@ -181,20 +181,20 @@
 <div>If and how to animate the hiding of the panel.</div>
 <strong>Multiple types supported:</strong><ul>
 <li>
-<strong>Boolean</strong>: 
-			When set to <code>false</code>, no animation will be used and the panel will be hidden immediately.
-			When set to <code>true</code>, the panel will fade out with the default duration and the default easing.
-		</li>
+<strong>Boolean</strong>:
+            When set to <code>false</code>, no animation will be used and the panel will be hidden immediately.
+            When set to <code>true</code>, the panel will fade out with the default duration and the default easing.
+        </li>
 <li>
-<strong>Number</strong>: 
-			The panel will fade out with the specified duration and the default easing.
-		</li>
+<strong>Number</strong>:
+            The panel will fade out with the specified duration and the default easing.
+        </li>
 <li>
-<strong>String</strong>: 
-			The panel will be hidden using the specified effect.
-			The value can either be the name of a built-in jQuery animateion method, such as <code>"slideUp"</code>, or the name of a jQuery UI effect, such as <code>"fold"</code>.
-			In either case the effect will be used with the default duration and the default easing.
-		</li>
+<strong>String</strong>:
+            The panel will be hidden using the specified effect.
+            The value can either be the name of a built-in jQuery animateion method, such as <code>"slideUp"</code>, or the name of a jQuery UI effect, such as <code>"fold"</code>.
+            In either case the effect will be used with the default duration and the default easing.
+        </li>
 <li>
 <strong>Object</strong>: If the value is an object, then <code>effect</code>, <code>duration</code>, and <code>easing</code> properties may be provided. If the <code>effect</code> property contains the name of a jQuery method, then that method will be used; otherwise it is assumed to be the name of a jQuery UI effect. When using a jQuery UI effect that supports additional settings, you may include those settings in the object and they will be passed to the effect. If <code>duration</code> or <code>easing</code> is omitted, then the default values will be used. If <code>effect</code> is omitted, then <code>"fadeOut"</code> will be used.</li>
 </ul>
@@ -212,20 +212,20 @@
 <div>If and how to animate the showing of the panel.</div>
 <strong>Multiple types supported:</strong><ul>
 <li>
-<strong>Boolean</strong>: 
-			When set to <code>false</code>, no animation will be used and the panel will be shown immediately.
-			When set to <code>true</code>, the panel will fade in with the default duration and the default easing.
-		</li>
+<strong>Boolean</strong>:
+            When set to <code>false</code>, no animation will be used and the panel will be shown immediately.
+            When set to <code>true</code>, the panel will fade in with the default duration and the default easing.
+        </li>
 <li>
-<strong>Number</strong>: 
-			The panel will fade in with the specified duration and the default easing.
-		</li>
+<strong>Number</strong>:
+            The panel will fade in with the specified duration and the default easing.
+        </li>
 <li>
-<strong>String</strong>: 
-			The panel will be shown using the specified effect.
-			The value can either be the name of a built-in jQuery animateion method, such as <code>"slideDown"</code>, or the name of a jQuery UI effect, such as <code>"fold"</code>.
-			In either case the effect will be used with the default duration and the default easing.
-		</li>
+<strong>String</strong>:
+            The panel will be shown using the specified effect.
+            The value can either be the name of a built-in jQuery animateion method, such as <code>"slideDown"</code>, or the name of a jQuery UI effect, such as <code>"fold"</code>.
+            In either case the effect will be used with the default duration and the default easing.
+        </li>
 <li>
 <strong>Object</strong>: If the value is an object, then <code>effect</code>, <code>duration</code>, and <code>easing</code> properties may be provided. If the <code>effect</code> property contains the name of a jQuery method, then that method will be used; otherwise it is assumed to be the name of a jQuery UI effect. When using a jQuery UI effect that supports additional settings, you may include those settings in the object and they will be passed to the effect. If <code>duration</code> or <code>easing</code> is omitted, then the default values will be used. If <code>effect</code> is omitted, then <code>"fadeIn"</code> will be used.</li>
 </ul>
@@ -236,8 +236,8 @@
 </div></section><section id="methods"><header><h2 class="underline">Methods</h2></header><div id="method-destroy"><div class="api-item first-item">
 <h3>destroy()</h3>
 <div>
-		Removes the tabs functionality completely. This will return the element back to its pre-init state.
-	</div>
+        Removes the tabs functionality completely. This will return the element back to its pre-init state.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the destroy method:</p>
@@ -257,8 +257,8 @@
 <div class="api-item">
 <h3>disable( index )</h3>
 <div>
-					Disables a tab. The selected tab cannot be disabled. To disable more than one tab at once, set the <a href="#option-disabled"><code>disabled</code></a> option: <code>$( "#tabs" ).tabs( "option", "disabled", [ 1, 2, 3 ] )</code>.
-				</div>
+                    Disables a tab. The selected tab cannot be disabled. To disable more than one tab at once, set the <a href="#option-disabled"><code>disabled</code></a> option: <code>$( "#tabs" ).tabs( "option", "disabled", [ 1, 2, 3 ] )</code>.
+                </div>
 <ul><li>
 <div><strong>index</strong></div>
 <div>Type: <a href="http://api.jquery.com/Types#Number">Number</a> or <a href="http://api.jquery.com/Types#String">String</a>
@@ -386,8 +386,8 @@
 <h3>widget()<span class="returns">Returns: <a href="http://api.jquery.com/Types#jQuery">jQuery</a></span>
 </h3>
 <div>
-		Returns a <code>jQuery</code> object containing the tabs container.
-	</div>
+        Returns a <code>jQuery</code> object containing the tabs container.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the widget method:</p>

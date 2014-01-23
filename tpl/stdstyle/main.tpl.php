@@ -23,25 +23,25 @@
     if ($tplname != 'start') $tpl_subtitle .= htmlspecialchars($mnu_selmenuitem['title'] . ' - ', ENT_COMPAT, 'UTF-8');
 
 
-	// sitename and slogan iternational handling
-	
-			
-		// print $_SERVER['SERVER_NAME'] ;
-        // print '   '; 
+    // sitename and slogan iternational handling
+
+
+        // print $_SERVER['SERVER_NAME'] ;
+        // print '   ';
         // $domain = substr($_SERVER['HTTP_HOST'],-2,2);
-		// exit; 
-	
-	$nodeDetect = substr($absolute_server_URI,-3,2);
+        // exit;
 
-	
-	$logo1 = tr('oc_on_all_pages_top_'.$nodeDetect);	
-	$logo2 = tr('oc_subtitle_on_all_pages_'.$nodeDetect);
-	$logo3 = 'oc_logo.png';
+    $nodeDetect = substr($absolute_server_URI,-3,2);
 
-if ((date('m') == 4) and (date('d') == 1)) { 
-	$logo1 = tr('oc_on_all_pages_top_1A');	
-	$logo2 = tr('oc_subtitle_on_all_pages_1A');
-	$logo3 = 'oc_logo_1A.png';
+
+    $logo1 = tr('oc_on_all_pages_top_'.$nodeDetect);
+    $logo2 = tr('oc_subtitle_on_all_pages_'.$nodeDetect);
+    $logo3 = 'oc_logo.png';
+
+if ((date('m') == 4) and (date('d') == 1)) {
+    $logo1 = tr('oc_on_all_pages_top_1A');
+    $logo2 = tr('oc_subtitle_on_all_pages_1A');
+    $logo3 = 'oc_logo_1A.png';
 }
 
 if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
@@ -59,35 +59,35 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
         <meta http-equiv="cache-control" content="no-cache" />
         <meta name="author" content="Opencaching.pl " />
         <meta http-equiv="X-UA-Compatible" content="IE=10" />
-        		                 
+
         <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_screen.css" />
         <link rel="stylesheet" type="text/css" media="screen,projection" href="chat/css/shoutbox.css" />
         <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
         <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_{season}.css" />
-                 
+
         <link rel="SHORTCUT ICON" href="favicon.ico" />
         <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />
-               
+
         <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
         <title><?php echo $tpl_subtitle; ?>{title}</title>
-        
+
         {htmlheaders}
         {cachemap_header}
         {viewcache_header}
         {ga_script_header}
-	<script type='text/javascript' src = 'lib/js/ga.js'></script>
-	<script type='text/javascript' src = 'lib/js/CookiesInfo.js'></script>
+    <script type='text/javascript' src = 'lib/js/ga.js'></script>
+    <script type='text/javascript' src = 'lib/js/CookiesInfo.js'></script>
 
-	        
+
     </head>
     <body{bodyMod}>
-   
-    
-    <?php    	
- 		echo "<script type='text/javascript'>WHSetText('".tr('cookiesInfo')."');</script>";
-	?>
-    
-    
+
+
+    <?php
+        echo "<script type='text/javascript'>WHSetText('".tr('cookiesInfo')."');</script>";
+    ?>
+
+
         <script language="javascript" type="text/javascript">
             function chname( newName ) {
                 document.getElementById("search_input").name = newName;
@@ -115,21 +115,21 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                     </div>
                 </div>
             <!-- google plus recos
-                	<script type="text/javascript">
-					  (function() {
-					    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-					    po.src = 'https://apis.google.com/js/plusone.js';
-					    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-					  })();
-					    window.___gcfg = {
-					    lang: '{language4js}',
-					    parsetags: 'onload',
-					    size: 'small'
-					  };
-					</script>
-					<g:plusone size="small"></g:plusone> 
-			-->
-            
+                    <script type="text/javascript">
+                      (function() {
+                        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                        po.src = 'https://apis.google.com/js/plusone.js';
+                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                      })();
+                        window.___gcfg = {
+                        lang: '{language4js}',
+                        parsetags: 'onload',
+                        size: 'small'
+                      };
+                    </script>
+                    <g:plusone size="small"></g:plusone>
+            -->
+
                 <!-- Site slogan -->
                 <div class="site-slogan-container">
                     <form method="get" action="search.php" name="search_form">
@@ -191,9 +191,9 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                                 $sql = "SELECT value FROM sysconfig WHERE name = 'hidden_for_approval'";
                                 $new_pendings = mysql_result(mysql_query($sql),0);
                             }
-							if(isset($menu[$pageidx])) {
-								mnu_EchoMainMenu($menu[$pageidx]['siteid']);
-							}
+                            if(isset($menu[$pageidx])) {
+                                mnu_EchoMainMenu($menu[$pageidx]['siteid']);
+                            }
                         ?>
                     </ul>
                 </div>
@@ -201,8 +201,8 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                 <div class="buffer" style="height:30px;"></div>
                 <!-- NAVIGATION -->
                 <!-- Navigation Level 3 -->
-                                
-                <div class="nav3">                             
+
+                <div class="nav3">
                     <?php
                         //Main menu
                         $mainmenuidx = mnu_MainMenuIndexFromPageId($menu, "start");
@@ -251,15 +251,15 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                             echo '</ul>';
                         }
                     ?>
-                    
+
                     <!-- Main title -->
                 </div>
-                
-                 
-                
+
+
+
                 <!--     CONTENT -->
                 <div class="content2">
-                               
+
                     {template}
                 </div>
                 <!-- FOOTER -->
@@ -286,6 +286,6 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                     <p><a href="http://validator.w3.org/check?uri=referer" title="Validate code as W3C XHTML 1.0 Compliant">W3C XHTML 1.0</a> | <a href="http://jigsaw.w3.org/css-validator/" title="Validate Style Sheet as W3C CSS 2.0 Compliant">W3C CSS 2.0</a></p>
                 </div>
             </div>
-        </div>  
+        </div>
     </body>
 </html>

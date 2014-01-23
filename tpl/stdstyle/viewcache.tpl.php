@@ -59,7 +59,7 @@
                                         <div>{difficulty_icon_diff}</div><div>{difficulty_icon_terr}</div>
                                         <div>{cache_stats}</div>
 
-                               
+
                                 </div>
                                 <div class="content2-container-2col-left" id="cache_name_block">
                                         <table width="100%"><tr><td valign="top" width="70%">
@@ -78,7 +78,7 @@
                                         </td>
                                         </tr></table>
                                 </div>
-                       
+
 
                         </div>
                 </div>
@@ -99,7 +99,7 @@
                                                 <img src="tpl/stdstyle/images/free_icons/box.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{cache_type}}: <b>{cachetype}</b><br />
                                                 <img src="tpl/stdstyle/images/free_icons/package_green.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{size}}: <b>{cachesize}</b><br />
                                                 <img src="tpl/stdstyle/images/free_icons/page.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{status_label}}: {status}<br />
-                                                {hidetime_start}<img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}}: {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{length}}: {way_length}<br />{hidetime_end}              
+                                                {hidetime_start}<img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{time}}: {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{length}}: {way_length}<br />{hidetime_end}
                                                 <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_hidden_label}}: {hidden_date}<br />
                                                 <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{date_created_label}}: {date_created}<br />
                                                 <img src="tpl/stdstyle/images/free_icons/date.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{last_modified_label}}: {last_modified}<br />
@@ -107,7 +107,7 @@
                                                 {hidelistingsites_start}<img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_also_on}}: {listed_on}<br />{hidelistingsites_end}
                                         </p>
                                         <?php
-global $usr, $lang, $hide_coords;                      
+global $usr, $lang, $hide_coords;
 
 // uśpiony mechanizm ukrywania niektórych danych dla niezalogowanych
 if ($usr == false && $hide_coords)
@@ -135,7 +135,7 @@ else
                                                 <div class="content2-container-2col-left" id="viewcache-numstats">
                                                 <p style="line-height: 1.4em;"><br />
                                                         {found_icon} {founds} {found_text}<br />
-                                                        {hidemobile_start}{moved_icon} {moved} x {{moved_text}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{dystans}&nbsp;km<br/>{hidemobile_end}      
+                                                        {hidemobile_start}{moved_icon} {moved} x {{moved_text}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{dystans}&nbsp;km<br/>{hidemobile_end}
                                                         {notfound_icon} {notfounds} {notfound_text}<br />
                                                         {note_icon} {notes} {{comments}}<br />
                                                         {watch_icon} {watcher} {{watchers}}<br />
@@ -162,16 +162,16 @@ else
                                         echo "<b>{{available_maps}}:</b>
                                                                                         <a target=\"_blank\" href='cachemap3.php?lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;cacheid=";?>{cacheid}<?php echo "&amp;inputZoom=14'>Opencaching.pl</a>,
                                                                                         <a target=\"_blank\" href='http://osmapa.pl?zoom=16&amp;lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;o=TFFT&amp;map=1'>OSMapa</a>,
-                                                                                        <a target=\"_blank\" href='http://mapa.ump.waw.pl/ump-www/?zoom=14&amp;lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;layers=B00000T&amp;mlat=";?>{latitude}<?php echo "&amp;mlon=";?>{longitude}<?php echo "'>UMP</a>, <a target=\"_blank\" href='http://www.zumi.pl/namapie.html?&amp;lat=";?>{latitude}<?php echo "&amp;long=";?>{longitude}<?php echo "&amp;type=1&amp;scale=4'>Zumi</a>,<br/>                                                                                      
+                                                                                        <a target=\"_blank\" href='http://mapa.ump.waw.pl/ump-www/?zoom=14&amp;lat=";?>{latitude}<?php echo "&amp;lon=";?>{longitude}<?php echo "&amp;layers=B00000T&amp;mlat=";?>{latitude}<?php echo "&amp;mlon=";?>{longitude}<?php echo "'>UMP</a>, <a target=\"_blank\" href='http://www.zumi.pl/namapie.html?&amp;lat=";?>{latitude}<?php echo "&amp;long=";?>{longitude}<?php echo "&amp;type=1&amp;scale=4'>Zumi</a>,<br/>
                                                                                         <a href=\"http://maps.google.com/maps?hl=UTF-8&q=";?>{latitude}<?php echo "+";?>{longitude}<?php echo '+(' . urlencode($vars['cachename'])  . ")\" target=\"_blank\">Google&nbsp;Maps</a>,
                                                                                         <a href=\"http://mapa.szukacz.pl/?n=";?>{latitude}<?php echo "&amp;e=";?>{longitude}<?php echo "&amp;t=Skrzynka%20Geocache\" target=\"_blank\">AutoMapa</a>";
-                                                               
+
                                         }
-                                        ?>                              
+                                        ?>
                                 </div>
                         </div>
 <!-- End Text Container -->
-       
+
 <!-- Text container -->
                                         {cache_attributes_start}
                         <div class="content2-container bg-blue02">
@@ -192,7 +192,7 @@ else
                         {start_rr_comment}
                         <div class="content2-container bg-blue02">
                                 <p class="content-title-noshade-size1">
-                                       
+
                                         <img src="tpl/stdstyle/images/blue/crypt.png" class="icon32" alt="" />
                                         {{rr_comment_label}}
                                 </p>
@@ -259,8 +259,8 @@ else
                                         <b>{{additional_hints}}</b>&nbsp;&nbsp;
                                         <span id="decrypt-info">
                                         {decrypt_link_start}
-										{decrypt_icon}
-                                       
+                                        {decrypt_icon}
+
                                         {decrypt_link}
                                         {decrypt_link_end}
                                         </span>
@@ -269,14 +269,14 @@ else
                                 </p>
                         </div>
                                         <div class="content2-container">
-                                        <p id="decrypt-hints">  
+                                        <p id="decrypt-hints">
                                                         {hints}
-                                        </p>  
+                                        </p>
 
                                         <div style="width:200px;align:right;float:right">
                                                 {decrypt_table_start}
-                                                {decrypt_table}	
-												
+                                                {decrypt_table}
+
                                                 {decrypt_table_end}
                                         </div>
                                 </div>
@@ -293,30 +293,30 @@ else
 {{coords_modifier}}
 </p></div>
 <p>
-{{coordsmod_main}}<br/> 
+{{coordsmod_main}}<br/>
 <form action="viewcache.php?cacheid={cacheid}" method="post" name="form_coords_mod">
 <fieldset style="border: 1px solid black; width: 200px; background-color: #FAFBDF; margin-left: 50px;">
-			<legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
-			<select name="coordmod_latNS" class="input40">
-				<option value="N" {N_selected}>N</option>
-				<option value="S" {S_selected}>S</option>
-			</select>
-			&nbsp;<input name="coordmod_lat_degree" type="text" maxlength="2" class="input30" value="{coordmod_lat_h}" />
-			&deg;&nbsp;<input type="text" name="coordmod_lat" value="{coordmod_lat}" maxlength="6" class="input50" />&nbsp;'&nbsp;
-			<br />
-			&nbsp;&nbsp;&nbsp;
-			<select name="coordmod_lonEW" class="input40">
-				<option value="E" {E_selected}>E</option>
-				<option value="W" {W_selected}>W</option>
-			</select>
-			&nbsp;<input name="coordmod_lon_degree" type="text" maxlength="3" value="{coordmod_lon_h}" class="input30"/>
-			&deg;&nbsp;<input type="text" name="coordmod_lon" maxlength="6" value="{coordmod_lon}" class="input50" />&nbsp;'&nbsp;
-			</fieldset>
-			{coords_message}
+            <legend>&nbsp; <strong>WGS-84</strong> &nbsp;</legend>&nbsp;&nbsp;&nbsp;
+            <select name="coordmod_latNS" class="input40">
+                <option value="N" {N_selected}>N</option>
+                <option value="S" {S_selected}>S</option>
+            </select>
+            &nbsp;<input name="coordmod_lat_degree" type="text" maxlength="2" class="input30" value="{coordmod_lat_h}" />
+            &deg;&nbsp;<input type="text" name="coordmod_lat" value="{coordmod_lat}" maxlength="6" class="input50" />&nbsp;'&nbsp;
+            <br />
+            &nbsp;&nbsp;&nbsp;
+            <select name="coordmod_lonEW" class="input40">
+                <option value="E" {E_selected}>E</option>
+                <option value="W" {W_selected}>W</option>
+            </select>
+            &nbsp;<input name="coordmod_lon_degree" type="text" maxlength="3" value="{coordmod_lon_h}" class="input30"/>
+            &deg;&nbsp;<input type="text" name="coordmod_lon" maxlength="6" value="{coordmod_lon}" class="input50" />&nbsp;'&nbsp;
+            </fieldset>
+            {coords_message}
 </p>
 <p>
-	<input type="submit" name="modCoords" value="{{modify_coords}}" />
-	<input type="submit" name="resetCoords" value="{{reset_coords}}" />
+    <input type="submit" name="modCoords" value="{{modify_coords}}" />
+    <input type="submit" name="resetCoords" value="{{reset_coords}}" />
 </p>
 </form>
 <div class="notice buffer" id="viewcache-mod_coord">{{modified_coord_notice}}</div>
@@ -397,7 +397,7 @@ else
 {hidenpa_start}
                         <div class="content2-container bg-blue02">
                                 <p class="content-title-noshade-size1">
-                                       
+
                                         <img src="tpl/stdstyle/images/blue/npav1.png" class="icon32" alt="" />
                                         Obszary ochrony przyrody
                                 </p>
@@ -466,7 +466,7 @@ else
                                          echo ":
                                                 <a href=\"search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=0&amp;f_userfound=0&amp;f_inactive=1&amp;latNS=";?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h="; ?>{lon_h}<?php echo "&amp;lon_min="; ?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">";?>{{all_geocaches}}<?php echo "</a>&nbsp;
                                                 <a href=\"search.php?searchto=searchbydistance&amp;showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bydistance&amp;f_userowner=1&amp;f_userfound=1&amp;f_inactive=1&amp;latNS="; ?>{latNS}<?php echo "&amp;lat_h="; ?>{lat_h}<?php echo "&amp;lat_min="; ?>{lat_min}<?php echo "&amp;lonEW="; ?>{lonEW}<?php echo "&amp;lon_h=";?>{lon_h}<?php echo "&amp;lon_min=";?>{lon_min}<?php echo "&amp;distance=100&amp;unit=km\">";?>{{searchable}}<?php echo "</a><br />"; ?>
-                                               
+
                                         <span style="display: {userLogged}">{search_icon} {{find_geocaches_on}}:&nbsp;
                                         <?php
                                                 if ($usr == !false && $usr['userFounds'] > 99)  {
@@ -483,19 +483,19 @@ else
                                         ?>
                                         </span>
                                 </div><hr style="color: blue;"/>
-                               
-                                        <?php 
+
+                                        <?php
                                         if ($usr == false && $hide_coords) // // hide downloading gpx etc if user is not logged
                                                         {
                                         echo "";
                                                         }
                                                         else
-                                                        {										
-                                        ?>								     
-										<div>{save_icon}<b> {{download_as_file}}</b><br/>
-										<?php
-                                        echo "<table class=\"content\" style=\"font-size: 12px; line-height: 1.6em;\">            
-                                        <tr>  
+                                                        {
+                                        ?>
+                                        <div>{save_icon}<b> {{download_as_file}}</b><br/>
+                                        <?php
+                                        echo "<table class=\"content\" style=\"font-size: 12px; line-height: 1.6em;\">
+                                        <tr>
                                                         <td  width=\"350\" align=\"left\" style=\"padding-left:5px;\">
                                                         <div class=\"searchdiv\">
                                                 <span class=\"content-title-noshade txt-blue08\">{{format_GPX}}</span>:<br/>
@@ -519,8 +519,8 @@ else
                                         </tr>
                                         </table>
                                         <div class=\"notice buffer\" id=\"viewcache-termsofuse\">"; ?> {{accept_terms_of_use}}<?php echo "</div></div>";
-										};
-										?>
+                                        };
+                                        ?>
                                 </div>
                         </div>
 <!-- Text container -->
@@ -536,9 +536,9 @@ else
                                         &nbsp;
                                         {viewlogs}
                                         &nbsp;
-										{new_log_entry_link}
-										&nbsp;
-										{showhidedel_link}
+                                        {new_log_entry_link}
+                                        &nbsp;
+                                        {showhidedel_link}
                                 </p>
                         </div>
                         <div class="content2-container" id="viewcache-logs">

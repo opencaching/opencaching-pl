@@ -1,8 +1,8 @@
 <?php
 session_start();
 if(!isset($_SESSION['user_id'])){
-	print 'no hacking please!';
-	exit;
+    print 'no hacking please!';
+    exit;
 }
 require_once __DIR__.'/../lib/db.php';
 // require_once __DIR__.'/powerTrailController.php';

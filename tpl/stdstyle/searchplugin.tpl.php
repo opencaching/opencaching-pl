@@ -1,31 +1,31 @@
 <?php
 /***************************************************************************
-											./tpl/stdstyle/error.tpl.php
-															-------------------
-		begin                : Mon June 14 2004
-		copyright            : (C) 2004 The OpenCaching Group
-		forum contact at     : http://www.opencaching.com/phpBB2
+                                            ./tpl/stdstyle/error.tpl.php
+                                                            -------------------
+        begin                : Mon June 14 2004
+        copyright            : (C) 2004 The OpenCaching Group
+        forum contact at     : http://www.opencaching.com/phpBB2
 
-	***************************************************************************/
+    ***************************************************************************/
 
 /***************************************************************************
-	*
-	*   This program is free software; you can redistribute it and/or modify
-	*   it under the terms of the GNU General Public License as published by
-	*   the Free Software Foundation; either version 2 of the License, or
-	*   (at your option) any later version.
-	*
-	***************************************************************************/
+    *
+    *   This program is free software; you can redistribute it and/or modify
+    *   it under the terms of the GNU General Public License as published by
+    *   the Free Software Foundation; either version 2 of the License, or
+    *   (at your option) any later version.
+    *
+    ***************************************************************************/
 
 /****************************************************************************
 
    Unicode Reminder メモ
 
-	 Searchplugin messages for the user
+     Searchplugin messages for the user
 
-	 template replacement(s):
+     template replacement(s):
 
-	   error_msg     message to display the user
+       error_msg     message to display the user
 
  ****************************************************************************/
 ?>

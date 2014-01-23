@@ -330,7 +330,7 @@ date_incorrect Datum niet correct. Invoer formaat: DD-MM-JJJJ
 no_cache_name De cache heeft geen naam
 new_cache_no_terms De cache is NIET geregistreerd, omdat de Gebruikers overeenkomst van {site_name} niet aangevinkt is
 html_incorrect Deze HTML code is niet toegestaan.
-type_incorrect Cache soort is niet correct! 
+type_incorrect Cache soort is niet correct!
 size_incorrect Cache grootte is niet correct!
 diff_incorrect Moeilijkheid is niet correct!
 status_incorrect Status komt niet overeen met publicatiegegevens.
@@ -384,7 +384,7 @@ finder_label vinder
 search_by_finder Zoek op vinder
 search_recommendations Aanbevelingen
 search_all_caches alle caches
-search_recommended_caches minimum aantal aanbevelingen: 
+search_recommended_caches minimum aantal aanbevelingen:
 incomming_events Aankomende evenementen
 rr_comment_label Opmerking van OC Team
 add_rr_comment Geef OC Team opmerking
@@ -393,7 +393,7 @@ get_bulletin Ik wil bulletins ontvangen
 bulletin_label_yes Gebruiker zal bulletins ontvangen
 bulletin_label_no Gebruiker zal geen bulletins ontvangen
 bulletin Bulletin
-user_desc User description 
+user_desc User description
 days_since_first_find_label Days since first cache has been founded
 days_went_caching_label Days went caching
 days_no_caching_label Days without caching
@@ -447,13 +447,13 @@ show_all_log_entries_short Alle logs
 back_to_the_geocache_listing Terug naar de cachepagina
 register_new  Als nieuwe gebruiker registreren
 password_confirm Bevestig wachtwoord
-register_msg1 Om een gebruikersaccount aan te maken op {site_name}, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.                                 
+register_msg1 Om een gebruikersaccount aan te maken op {site_name}, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.
 register_msg2 * zijn verplicht
 register_msg3 Mochten er nog vragen zijn, neem contact met ons op vóór je een account aanmaakt
-register_msg4 Ik heb de <b><a href="{rules_url}">gebruikers voorwaarden</a></b> gelezen en begrepen en accepteer deze. 
+register_msg4 Ik heb de <b><a href="{rules_url}">gebruikers voorwaarden</a></b> gelezen en begrepen en accepteer deze.
 register_msg5 Nieuw account is geregistreerd
 register_msg6 De activatiecode is verzonden per e-mail. Volg de instructies op welke in deze e-mail staan.
-register_msg7 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je {site_name} account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
+register_msg7 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je {site_name} account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren.
 total_distance Totale afstand
 send_to_gps Verzend naar GPS
 post_new_log Plaats een nieuwe log voor
@@ -466,7 +466,7 @@ number_possible_recommend van
 possible_recommend Om aanbevelingen te kunnen geven moet je nog een aantal caches vinden
 comments_log Logtekst
 submit_log_entry Verstuur de log
-geokret_log Een Geokret meegenomen? Registreer dit op 
+geokret_log Een Geokret meegenomen? Registreer dit op
 rate_cache Beoordeel deze cache: <br/><a href="{rating_desc_url}">Uitleg over beoordeling</a>
 do_not_rate Ik wil deze cache niet beoordelen
 listed_other Log deze cache ook op de volgende sites
@@ -510,7 +510,7 @@ hidden_by Geplaatst door
 newcaches_label Nieuwe caches
 cache_label Cache naam
 found_it found by
-did_not_find_it did not find by 
+did_not_find_it did not find by
 write_note write note
 attende attended
 will_attende I will be attending
@@ -536,7 +536,7 @@ toggle_filters Verander filters
 fullscreen Volledig scherm
 disable_fullscreen Terug naar klein scherm
 stats Statistics
-rise_charts Onze stijgende cijfers 
+rise_charts Onze stijgende cijfers
 region_ranking Statistieken per regio
 user_ranking Statistieken per gebruiker
 cache_ranking statistieken per cache
@@ -645,7 +645,7 @@ activity_by_region Activiteit per regio
 number_of_visit_caches Totaal aantal caches
 users_active Number of active users
 show_labels Show labels
-history_gk GeoKrety historie 
+history_gk GeoKrety historie
 cachenotes notes
 my_statistics Mijn statistieken
 mycache_note Mijn cache notities
@@ -656,7 +656,7 @@ add_new_note Add new note
 back_to_cache Terug naar cache
 cache_notes Notes
 cache_note Note
-delete Verwijderen 
+delete Verwijderen
 edit Bewerken
 cancel Annuleren
 no_note Er zijn nog geen cache notities
@@ -680,17 +680,17 @@ delete_wp Verwijder waypoint
 show_info_about_wp Zie beschrijving en soorten van extra waypoints
 show_info_for_value Wanneer dit waypoint niet de volgende stap is voor multicache of puzzelcache zet waarde op 0.
 comment_octeam_visible OC Team notities zijn alleen zichtbaar voor OC Team en de cache eigenaar.
-ready_to_search Cache is gepubliceerd. 
+ready_to_search Cache is gepubliceerd.
 archived_cache Cache is gearchiveerd.
 temporarily_unavailable De cache is tijdelijk niet beschikbaar.
 blocked_by_octeam De cache is geblokkerd door het OC Team.
 approved_by_octeam De cache is goedgekeurd door het OC-Team
-empty_coordinatest Vul de nieuwe coördinaten in van deze bewegende cache. 
+empty_coordinatest Vul de nieuwe coördinaten in van deze bewegende cache.
 empty_log_text Log mag niet leeg zijn. Schrijf een korte notitie.
 route_cache Route van cache
 start_point start punt
 trp_points trip punten
-recently_seen recently seen 
+recently_seen recently seen
 moved_text Verplaatst
 encrypt_log Log entry encrypted
 my_neighborhood Mijn omgeving
@@ -731,17 +731,17 @@ incorrect_password_to_log Incorrecte log wachtwoord
 only_for_found_it alleen voor gevonden logs
 store Opslaan
 here Hier
-alternative_recommend Eventueel kunnen aanbevelingen verwijderd worden. 
+alternative_recommend Eventueel kunnen aanbevelingen verwijderd worden.
 comment_log Opmerking
 need_maintenance_log Need maintenance
 comment_octeam_log OC Team comment
 moved_log Moved
 new_coordinates Nieuwe coördinaten
 moved_distance Afgelegde afstand
-delete_logentry Verwijderen van log 
+delete_logentry Verwijderen van log
 confirm_remove_log Moet deze log werkelijk verwijderd worden
 add_comment_to_remove Wil je ook een berichtje schrijven aan
-removed_log_title Your entry to the log was removed by geocache owner 
+removed_log_title Your entry to the log was removed by geocache owner
 removed_message_titel De eigenaar van de cache schreef je het volgende bericht
 dont_have_recommended_caches Je hebt nog geen aanbevolen caches
 your_recommendations Your recommendations for geocache
@@ -781,7 +781,7 @@ send_bulletin_01 Bulletin verzenden
 send_bulletin_02 Voorbeeld bulletin
 send_bulletin_03 Bulletin is verzonden
 add_news Verzend nieuws
-email_subject_news Nieuw nieuws OpenCaching 
+email_subject_news Nieuw nieuws OpenCaching
 subject Onderwerp
 contents Bericht
 content_include_html Bericht met HTML
@@ -888,14 +888,14 @@ opensprawdzacz_main &nbsp;&nbsp;De cache eigenaar geeft je de kans om de eindco�
 os_pr Pogingen
 os_sukc Hits
 os_proba Je bereikt nu de limiet van
-os_razy De limiet van coördinaten controle is 
+os_razy De limiet van coördinaten controle is
 os_razy_srodek keren per
 os_razy_koniec minuten.
 os_sukces YES!! Je hebt de juiste coördinaten. Gefeliciteerd.
 os_fail NEE! Jouw antwoord is niet goed. Controleer je berekening nog eens.
 os_za_godzine Controleer de berekeningen en probeer het later nog eens  (na 1 uur)
 os_komunikat1 Controleer cache coördinaten met opgegeven waypoint:
-os_komunikat2 Selecteer een cache uit de lijst om de coördinaten te controleren: 
+os_komunikat2 Selecteer een cache uit de lijst om de coördinaten te controleren:
 os_typ soort
 os_powrot terug
 os_pomoc Help
@@ -925,11 +925,11 @@ os_wynik Resultaat
 os_zgad Je hebt het te vaak geprobeerd.
 wybrac_log Kies logsoort
 nowe_wsp Nieuwe coördinaten
-os_ma_max Er is een limiet van 
-os_ma_pr pogingen 
+os_ma_max Er is een limiet van
+os_ma_pr pogingen
 os_ma_na  controles per
 os_godzine minuten
-os_mus Je moet nu nog 
+os_mus Je moet nu nog
 os_minut_end minuten wachten om het weer te proberen.
 viewlog_aktywnosc Totale gebruikers activiteit (som van gevonden, niet gevonden en geplaatst)
 viewlog_kordy Cache coördinaten na verplaatsing
@@ -944,7 +944,7 @@ GKApi04 (Hier)
 GKApi05 Log GeoKrety direkt uit je inventaris:
 GKApi06 Log GeoKrety nu
 GKApi07 Deze functie vereist intregratie van jouw OC account en jouw GeoKrety account. Jouw OC profiel is nog niet geconfigureerd om samen te werken met GeoKrety.
-GKApi08 Intregeer jouw OC account met GeoKrety met de volgende stappen: 
+GKApi08 Intregeer jouw OC account met GeoKrety met de volgende stappen:
 GKApi09 Kopieer je secid van de GeoKrety webpagina.
 GKApi10 Plak het in jouw OC profiel gegevens.
 GKApi11 Verkeerde Secid
@@ -990,7 +990,7 @@ log15 uur
 log16 verversen
 log17 Open het log scherm
 date Datum
-myprofile01 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je {site_name} account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren. 
+myprofile01 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je {site_name} account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren.
 myprofile02 Ja, ik heb mij aangemeld als vrijwillige hulp voor beginnende cachers. Zie:&nbsp;
 myprofile03 Cache hulp
 myprofile04 Ja, ik wil mij aanmelden als vrijwillige hulp voor beginnende cachers.
@@ -1000,7 +1000,7 @@ myprofile07 OC PL gebruikt openlijk coördinaten om afstanden te bepalen en op e
 em00 E-mail adres veranderen
 em01 Om het e-mail adres te veranderen, moet je eerst een veiligheidscode opvragen die naar je nieuwe e-mail adres verstuurd wordt
 em02 Nieuwe e-mail adres
-em03 Vul nu de veiligheidscode in die je per e-mail ontvangen hebt. De veiligheidscode is 3 dagen geldig, daarna moet je een nieuwe aanvragen. 
+em03 Vul nu de veiligheidscode in die je per e-mail ontvangen hebt. De veiligheidscode is 3 dagen geldig, daarna moet je een nieuwe aanvragen.
 em04 Veiligheidscode
 em05 E-mail wijzigen
 em06 Aanvraag nieuw e-mail is vertuurd
@@ -1009,14 +1009,14 @@ em08 Veiligheidscode voor een nieuw E-mail adres
 em09 Het e-mail adres is niet geldig
 em10 Opgegeven e-mail adres bestaat al
 em11 Ingevoerde code is niet geldig
-em12 Ingevoerde code is verlopen 
+em12 Ingevoerde code is verlopen
 removed_message_title The owner of geocache wrote to you the following comment
 to_do To do
 mc_beginn_00 Registreren van nieuwe caches - Informatie
 mc_beginn_01 Voordat je zelf caches kunt maken dien je eerst
 mc_beginn_02 caches te loggen. Je kunt uit verschillende soorten kiezen:
 mc_beginn_03 Tot nu toe heb je het volgende aantal caches gevonden:
-mc_beginn_04 Wanneer aan bovenstaande voldaan is, zullen er  
+mc_beginn_04 Wanneer aan bovenstaande voldaan is, zullen er
 mc_beginn_05 zelf gemaakte caches door het OC team gekeurd moeten worden. Na het goedkeuren zul je daarover een bericht ontvangen via e-mail met de nodige instructies. Je kunt dan zelf de cache bewerken en op "beschikbaar" zetten. Mocht het OC team de cache afkeuren dan zullen wij de reden opgeven en na het corrigeren van de cache zal het OC team de cache herkeuren.
 latest_blog Recente blog inzendingen
 geocache Cache
@@ -1025,7 +1025,7 @@ adopt_01 Hier kunnen jouw caches ter adoptie aangeboden worden. Kies er een uit 
 adopt_02 Cache naam
 adopt_03 Cache datum
 adopt_04 Deze cache wordt ter adoptie aangeboden:
-adopt_05 Voer de gebruikersnaam in die de cache adopteerd. Zodra deze gebruiker bevestigt, is de procedure voltooid.<br/>Om de adoptie te annuleren en terug te keren naar <a href='chowner.php'> "Cache adoptie" </a>.       
+adopt_05 Voer de gebruikersnaam in die de cache adopteerd. Zodra deze gebruiker bevestigt, is de procedure voltooid.<br/>Om de adoptie te annuleren en terug te keren naar <a href='chowner.php'> "Cache adoptie" </a>.
 adopt_06 NB! Zolang de nieuwe eigenaar niet reageerd blijft deze adoptie staan.
 adopt_07 Voer de naam in van de nieuwe eigenaar:
 adopt_08 Wijzig eigenaar
@@ -1092,7 +1092,7 @@ nc07 Is de gekozen verbergplaats geschikt om een cache te plaatsen (denk aan gro
 nc08 Is er ook even gekeken op
 nc09 Hulp bij cachen
 nc10 die kunnen helpen met het plaatsen van een cache?
-nc11 Voldoet de cache aan de 
+nc11 Voldoet de cache aan de
 nc12 gebruikersvoorwaarden
 nc13 Neem eens een kijkje op
 nc14 Hoe maak ik een cache
@@ -1118,9 +1118,9 @@ guru_13 profiel
 guru_14 Met dank aan iedereen die anderen willen helpen met het verbeteren van het cachen.
 guru_15 Ontvangen aanbevelingen
 guru_16 Schrijf e-mail
-guru_17 Je kunt je aanmelden als vrijwiliger als cache hulp voor beginnende geocachers. Dit is aan te passen in je 
+guru_17 Je kunt je aanmelden als vrijwiliger als cache hulp voor beginnende geocachers. Dit is aan te passen in je
 guru_18 profiel
-guru_19 Zie meer op 
+guru_19 Zie meer op
 guru_20 Cache hulp
 today Vandaag
 yesterday Gisteren
@@ -1186,7 +1186,7 @@ cache_reports_21 Tekst van melding
 cache_reports_22 Uit te voeren actie
 cache_reports_23 Opslaan
 cache_reports_24 Notitie
-cache_reports_25 Stuur e-mail naar 
+cache_reports_25 Stuur e-mail naar
 cache_reports_26 aanvrager
 cache_reports_27 cache eigenaar
 cache_reports_28 aanvrager en cache eigenaar
@@ -1283,14 +1283,14 @@ rss_20 Gegevens laatste gelogde eigen caches van
 reportcache01 Cache op privégrond
 reportcache02 Archiveren
 reportcache03 Schending auteursrecht
-reportcache04 Andere reden                         
+reportcache04 Andere reden
 reportcache05 Geen commentaar ingevult
 reportcache06 Selecteer probleemsoort
 reportcache07 Nieuwe melding van probleem op OC NL
 reportcache08 [OC NL] Melding probleem van jouw cache
 reportcache09 [OC NL] Melding probleem van cache
 reportcache10 Beschrijving van probleem
-reportcache11 begin 
+reportcache11 begin
 reportcache12 einde
 reportcache13 Deze berichten kunnen bekeken worden op
 reportcache14 Het gaat om cache
@@ -1319,13 +1319,13 @@ logType10 Kan gezocht worden
 logType11 Tijdelijk niet beschikbaar
 logType12 Notitie van oc team
 runwatch01 Log soort
-runwatch02 
+runwatch02
 runwatch03 Overzicht van nieuwe logs
 runwatch04 If you cannot see this picture, add sender to your addressbook
 runwatch05 Dit is een overzicht van gebeurtenissen uit de ingestelde gevolgde caches en eigen caches. <br/><br/> Nieuwe logs van eigen caches
-runwatch06 Datum/tijd 
-runwatch07 Cacher   
-runwatch08 Cache       
+runwatch06 Datum/tijd
+runwatch07 Cacher
+runwatch08 Cache
 runwatch09 Hallo
 runwatch10 Logtekst
 runwatch11 Nieuwe logs van gevolgde caches
@@ -1334,7 +1334,7 @@ runwatch13 klik dan hier
 runwatch14 Dit bericht is automatisch gegenereerd, gelieve niet te reageren.
 runwatch15 Er zijn nog geen logs
 registermail01 Hallo
-registermail02 Welkom op 
+registermail02 Welkom op
 registermail03 Om te beginnen kun je informatie terug vinden op Opencaching wiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. Opencaching wiki is beschikbaar op:
 registermail04 {wiki_url}
 registermail05 Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.
@@ -1779,11 +1779,11 @@ pt082 Er zijn nog geen caches in deze serie
 pt083 Ongewaardeerd
 pt084 Geen caches aanwezig
 pt085 Totalen
-pt086 Na het vinden van een bepaalde percentage zal de het mogelijk zijn om deze PowerTrail als voltooid te kunnen loggen. 
+pt086 Na het vinden van een bepaalde percentage zal de het mogelijk zijn om deze PowerTrail als voltooid te kunnen loggen.
 pt087 Wat is dit
 pt088 Uitleg
 pt089 <b>Zichtbaar</b> - Voor iedereen zichtbaar <br/> <b>Niet zichtbaar</b> - Alleen zichtbaar voor de maker
-pt090 De soort van de PowerTrail. <b>Vorm op kaart:</b> Bijvoorbeeld interesante plaatsen die een bepaalde vorm op een kaart hebben. <b>Verkennen:</b> Bijvoorbeeld om bepaalde plaatsen in je woonplaats te laten zien. <b>Natuur:</b> Mooie plaatsen die met natuur te maken hebben. <b>Thema:</b> Bijvoorbeeld een thema over een bepaald onderwerp. 
+pt090 De soort van de PowerTrail. <b>Vorm op kaart:</b> Bijvoorbeeld interesante plaatsen die een bepaalde vorm op een kaart hebben. <b>Verkennen:</b> Bijvoorbeeld om bepaalde plaatsen in je woonplaats te laten zien. <b>Natuur:</b> Mooie plaatsen die met natuur te maken hebben. <b>Thema:</b> Bijvoorbeeld een thema over een bepaald onderwerp.
 pt091 Verander de naam
 pt092 Voor testdoeleinden alleen beschikbaar voor geselecteerde gebruikers. Verbeteringen doorgeven via rt of Skype
 pt093 Voltooide PowerTrails
@@ -1920,7 +1920,7 @@ pt223 PowerTrail
 pt224 Verzamelde punten
 pt225 aantal logs in het GPX bestand
 pt226 voor elke cache. Alleen beschikbaar voor GPX formaat.
-pt227 PowerTrail voldoet niet aan eisen. Is tijdelijk niet beschikbaar tot eigenaar dit verholpen heeft. De reden is: 
+pt227 PowerTrail voldoet niet aan eisen. Is tijdelijk niet beschikbaar tot eigenaar dit verholpen heeft. De reden is:
 pt228 Te weinig caches in PowerTrail
 pt229 Soort log
 pt230 Datum
@@ -1961,13 +1961,13 @@ login_message_06 Inloggen mislukt.<br />Ingevoerde naam of e-mail is onjuist.
 login_message_07 Inloggen mislukt.<br />Ingevoerde naam of wachtwoord is onjuist.
 login_message_08 Deze browser ondersteunt geen cookies van {site_name}
 login_message_09 Om deze pagina te openen dient er ingelogt te zijn.
-graph_statistics_01 Statistieken van www.{site_name} :: Datum 
+graph_statistics_01 Statistieken van www.{site_name} :: Datum
 graph_statistics_02 Actieve caches
 graph_statistics_03 Gevonden caches
-graph_statistics_04 Gegevens per 
-graph_statistics_05 Geplaatste caches: 
-graph_statistics_06 Actieve caches: 
-graph_statistics_07 Totaal gevonden caches: 
+graph_statistics_04 Gegevens per
+graph_statistics_05 Geplaatste caches:
+graph_statistics_06 Actieve caches:
+graph_statistics_07 Totaal gevonden caches:
 
 
 
@@ -2062,7 +2062,7 @@ ec_Sequence Volgorde afbeeldingen
 vc_hint_for_logged_only Je moet ingelogt zijn om de hints te zien
 lc_Day_before Dag eerder
 lc_Day_after Dag later
-ec_proceed_without_save Er zijn veranderingen gemaakt die nog NIET opgelagen zijn. Werkelijk verder gaan (de pagina zal ververst worden en de veranderingen zullen verloren gaan)? 
+ec_proceed_without_save Er zijn veranderingen gemaakt die nog NIET opgelagen zijn. Werkelijk verder gaan (de pagina zal ververst worden en de veranderingen zullen verloren gaan)?
 ec_delete_pic Moet de afbeelding werkelijk verwijderd worden?
 ec_delete_mp3 Moet het MP3 bestand werkelijk verwijderd worden?
 ec_delete_wp Moet dit waypoint werkelijk verwijderd worden?
@@ -2077,17 +2077,17 @@ ec_walk_set_msg
 ec_boat_set_msg
 ec_Sequence_mp3 Volgorde
 myn_click_to_view_cache Klik om de cache te zien
-mylist_01 Er staan nog geen caches in mijn klembord 
+mylist_01 Er staan nog geen caches in mijn klembord
 mylist_02 Verwijderen
 mylist_03 Alles afdrukken
 mylist_04 Verwijder alles
-mylist_05 Download de gegevens van de caches uit het klembord 
+mylist_05 Download de gegevens van de caches uit het klembord
 cookiesInfo Wij maken gebruik van cookies om onze dienstverlening te verbeteren. Lees meer over privacy en gegevensbescherming in onze <a href ="{rules_url}">Gebruikersvoorwaarden</a>.
 FiltrYear Jaar
 FiltrMonth Maand
 StatTestVer <span style="color: red" >Dit is een proef voor de statistieken</span>
 newsletter Bulletin
-newsletter_removal Indien er geen bulletins ontvangen mogen worden, kan dit veranderd worden in 
+newsletter_removal Indien er geen bulletins ontvangen mogen worden, kan dit veranderd worden in
 PrevVersion De oude statistieken versie is terug te vinden onderaan op de hoofd statistieken pagina.
 my_position Mijn positie
 go Zoeken
@@ -2100,7 +2100,7 @@ coordsmod_lat Latitude
 modify_coords Veranderen
 reset_coords Herstellen
 orig_coord_modified_info Er zijn gecorrigeerde coördinaten ingevoerd. De originele coördinaten zijn:
-modified_coord_notice De gecorrigeerde coördinaten zullen ook in de gedownloade bestanden weergegeven worden. Zoals in GPX, kml, enz. 
+modified_coord_notice De gecorrigeerde coördinaten zullen ook in de gedownloade bestanden weergegeven worden. Zoals in GPX, kml, enz.
 srch_Coord_have_been_modified De coördinaten zijn veranderd
 srch_Recommended
 srch_Send_to_GPS Verzend naar GPS
@@ -2153,7 +2153,7 @@ editmp3_03 Naam
 editmp3_04 Bestandsnaam
 editmp3_05 Laat MP3 bestand niet zien
 editmp3_06 Bewerk PodCast MP3 bestand van cache
-editmp3_07 
+editmp3_07
 editmp3_08 Geen naam
 editmp3_09 Interne server fout
 editmp3_10 Wanneer het probleem blijft bestaan, gelieve contact met ons op te nemen op {mail_oc}. Om de oorzaak te onderzoeken gelieve de details te beschrijven.

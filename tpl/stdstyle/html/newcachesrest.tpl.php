@@ -1,7 +1,7 @@
 
-		<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Cachesuche" title="Cache" align="middle"/>&nbsp;Najnowsze skrzynki poza Polską</div>
-		<div class="content2-container line-box">
-			<p class="content-title-noshade-size3">Austria</p><p>29.05.2008 - <img src="tpl/stdstyle/images/cache/16x16-traditional.png" border="0" width="16" height="16" alt="Cache" title="Cache"/><a href="viewcache.php?cacheid=3693">Miasto... a może to morze?</a> założona przez <a href="viewprofile.php?userid=796">Kiko</a>
+        <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" border="0" width="32" height="32" alt="Cachesuche" title="Cache" align="middle"/>&nbsp;Najnowsze skrzynki poza Polską</div>
+        <div class="content2-container line-box">
+            <p class="content-title-noshade-size3">Austria</p><p>29.05.2008 - <img src="tpl/stdstyle/images/cache/16x16-traditional.png" border="0" width="16" height="16" alt="Cache" title="Cache"/><a href="viewcache.php?cacheid=3693">Miasto... a może to morze?</a> założona przez <a href="viewprofile.php?userid=796">Kiko</a>
 </p><p>29.05.2008 - <img src="tpl/stdstyle/images/cache/16x16-traditional.png" border="0" width="16" height="16" alt="Cache" title="Cache"/><a href="viewcache.php?cacheid=3692">Cały Wiedeń, w jednym oku</a> założona przez <a href="viewprofile.php?userid=796">Kiko</a>
 </p><p class="content-title-noshade-size3">Belgia</p><p>20.06.2007 - <img src="tpl/stdstyle/images/cache/16x16-traditional.png" border="0" width="16" height="16" alt="Cache" title="Cache"/><a href="viewcache.php?cacheid=1197">Belgijska Wierzba</a> założona przez <a href="viewprofile.php?userid=315">GeoCrak Team</a>
 </p><p class="content-title-noshade-size3">Białoruś</p><p>29.07.2007 - <img src="tpl/stdstyle/images/cache/16x16-traditional.png" border="0" width="16" height="16" alt="Cache" title="Cache"/><a href="viewcache.php?cacheid=1454">ted51_Różany</a> założona przez <a href="viewprofile.php?userid=457">t_e_d</a>

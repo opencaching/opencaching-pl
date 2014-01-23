@@ -1,7 +1,7 @@
 main_menu Main Menu
 user_menu User's Menu
 cache_menu Cache Menu
-activation_code_failed Aktivační kód, nebo e-mailová adresa je neplatná. <br/> Aktivovat svůj účet se pokazilo. Prosím zkontrolujte popełniłeś chybu. Pokud problém přetrvává, prosím, zprávu na adresu ocpl (at) opencaching.pl. 
+activation_code_failed Aktivační kód, nebo e-mailová adresa je neplatná. <br/> Aktivovat svůj účet se pokazilo. Prosím zkontrolujte popełniłeś chybu. Pokud problém přetrvává, prosím, zprávu na adresu ocpl (at) opencaching.pl.
 email_incorrect E-mailová adresa je neplatná.
 account_activation Aktivace
 finish_registration_hint Pro dokončení registrace musíte potvrdit svou e-mail a zadejte aktivační kód.
@@ -9,7 +9,7 @@ email_address E-mail
 activation_code Aktivace kód
 confirm Odeslat
 reset nepotvrdíte
-activation_success Aktivace vašeho účtu tak, aby byla úspěšná. Nyní se můžete přihlásit. 
+activation_success Aktivace vašeho účtu tak, aby byla úspěšná. Nyní se můžete přihlásit.
 goto_login Vstup na přihlašovací stránku
 preview_attributes Zobrazení dalších atributů políčko
 toxic_plants Jedovaté rostliny
@@ -91,7 +91,7 @@ red Red
 last_10_days poslední z posledních 10 dní
 own Vlastní
 rest zbytek
-max_caches_per_page Max počet boxů na stránku 
+max_caches_per_page Max počet boxů na stránku
 sort_by Řadit podle
 by_name name
 by_date data
@@ -252,8 +252,8 @@ notify_new_caches_radius Oznámení o nových případů v okruhu
 no_new_caches_notification Oznámení o nových případů se zdravotním postižením.
 change_account_data Změna vašeho účtu
 from_home_coords z mého co-
-radius_hint Maximální povolené poloměr je 150 km. Chcete-li zakázat oznámení, přidanou hodnotu <b> 0 </b>. 
-no_auto_logout_warning Poznámka! Pokud použijete tuto možnost, musíte být vědomi toho, že pokud nechcete podepsat, nesprávné osobě mohou mít přístup k vašemu účtu. 
+radius_hint Maximální povolené poloměr je 150 km. Chcete-li zakázat oznámení, přidanou hodnotu <b> 0 </b>.
+no_auto_logout_warning Poznámka! Pokud použijete tuto možnost, musíte být vědomi toho, že pokud nechcete podepsat, nesprávné osobě mohou mít přístup k vašemu účtu.
 hidden_coords Prosím přihlašte se pro zobrazení souřadnic.
 watchers pozorovatelů
 visitors Návštěvníků
@@ -300,9 +300,9 @@ difficulty_problem Pokud máte problém s hodnocením obtížnosti, použijte fo
 rating_system systém hodnocení krabice
 additional_information Další informace
 optional nepovinné
-time_distance_hint Čas a vzdálenost, jsou často spojeny s vnějším podmínkám, takže pokud si nejste schopni odhadnout tyto údaje, zadejte do kolonky výše mrazu.  Tyto údaje jsou užitečné například v případech typu <b> multicache </b> a <b> události </b>. 
+time_distance_hint Čas a vzdálenost, jsou často spojeny s vnějším podmínkám, takže pokud si nejste schopni odhadnout tyto údaje, zadejte do kolonky výše mrazu.  Tyto údaje jsou užitečné například v případech typu <b> multicache </b> a <b> události </b>.
 select_one Prosím vyberte!
-waypoint_other_portal_info Navigační bod z jiných databází v této kolonce. Žádné údaje jsou shromažďovány automaticky. 
+waypoint_other_portal_info Navigační bod z jiných databází v této kolonce. Žádné údaje jsou shromažďovány automaticky.
 cache_attributes_label Atributy políčko
 attributes_edit_hint Atributy lze měnit v průběhu následných úpravách.
 additional_attributes_hint Můžete přidat další atributy na název schránky pomocí formuláře
@@ -312,10 +312,10 @@ description Popis
 language Jazyk
 other_languages_desc Názvy v jiných jazycích, můžete zadat schránky po registraci - pomocí editace.
 short_desc_label Krátký popis
-error_new_cache Chyby spojené. Opravte prosím pole označená! 
+error_new_cache Chyby spojené. Opravte prosím pole označená!
 time_incorrect Je nesprávný čas
-distance_incorrect Vzhledem ke vzdálenosti v nesprávném formátu. Platný formát: aa.aaa 
-date_incorrect Datum formát je neplatný. Platný formát: DD-MM-YYYY 
+distance_incorrect Vzhledem ke vzdálenosti v nesprávném formátu. Platný formát: aa.aaa
+date_incorrect Datum formát je neplatný. Platný formát: DD-MM-YYYY
 no_cache_name No pole Název
 new_cache_no_terms Pole nebylo zarejstrowana, protože nemá kontrolu, budete souhlasit s Podmínkami služby a Opencaching EN
 html_incorrect To HTML není povoleno.
@@ -326,12 +326,12 @@ virtual_cache_size Velikost schránky v případě EVENT a musí být nastavena 
 cache_submitted Vaše schránka zosała zarejstrowana na Opencaching PL.
 full_description Jméno
 mandatory_field Povinný
-full_desc_long_text Zadejte zde informace o tom, proč ukryłeś box je na tomto místě, a <font color="red"> všechny nezbytné informace, </font> najít krabici. Hledání v boxech se musí opírat o poznatky z jeho souřadnice a jméno. 
+full_desc_long_text Zadejte zde informace o tom, proč ukryłeś box je na tomto místě, a <font color="red"> všechny nezbytné informace, </font> najít krabici. Hledání v boxech se musí opírat o poznatky z jeho souřadnice a jméno.
 description_hint Zkuste popsat krátké a stručné, nepředepisují informace z internetu pouze odkaz na ně.
-no_javascript JavaScriptu je v současné době ve vašem prohlížeči deaktivován. Můžete zadat pouze prostý text. Chcete-li wprawdzić HTML kód pro textový editor, musíte povolit Javascript. 
+no_javascript JavaScriptu je v současné době ve vašem prohlížeči deaktivován. Můžete zadat pouze prostý text. Chcete-li wprawdzić HTML kód pro textový editor, musíte povolit Javascript.
 html_usage Prosím pouze používat HTML tagy do formátu text.
 available_html Tento seznam je k dispozici HTML tagy
-additional_enc_info <font color="red"> <b> Additional </font> kódované informace. </b> <i> volitelné oblasti </i>. Zde si můžete dát další informace, které pomohou najít schránku. Informace, bez nichž schránky najít to nebude možné, musí být zahrnuta do "úplný popis." 
+additional_enc_info <font color="red"> <b> Additional </font> kódované informace. </b> <i> volitelné oblasti </i>. Zde si můžete dát další informace, které pomohou najít schránku. Informace, bez nichž schránky najít to nebude možné, musí být zahrnuta do "úplný popis."
 add_photo_newcache Obrázky a fotografie MP3 lze přidávat po registraci krabice.
 search_wildcard_info Typ "%" umožňuje vyhledávat libovolné znaky.
 event_hidden_hint Tip: Pro box-Typ údaje UDÁLOSTI skrýt data zahájení k události.
@@ -404,7 +404,7 @@ to_see_coords Souřadnice skryté.
 h_pl_label Zobrazit opencaching.pl krabice
 h_de_label Zobrazit opencaching.de krabice
 ozi_path_label Cesta k adresáři ' op 'na mobilním zařízení
-ozi_path_info Pro Ozi Explorer uživatelskou základnu a Filips. Cesta k adresáři 'op ' Filips databázi, si můžete stáhnout výsledky vyhledávání ve formátu WPT se budou automaticky ukládat stránky s popisem umístění v boxu. Chcete-li použít tuto možnost, stačí kliknout na cache na mapě Ozi Explorer a zvolte "Otevřít přílohu." Ukázka položky: <b> \\SDMMC \\Database \\</b>, <b> \\Paměťová karta \\BF \\</b> 
+ozi_path_info Pro Ozi Explorer uživatelskou základnu a Filips. Cesta k adresáři 'op ' Filips databázi, si můžete stáhnout výsledky vyhledávání ve formátu WPT se budou automaticky ukládat stránky s popisem umístění v boxu. Chcete-li použít tuto možnost, stačí kliknout na cache na mapě Ozi Explorer a zvolte "Otevřít přílohu." Ukázka položky: <b> \\SDMMC \\Database \\</b>, <b> \\Paměťová karta \\BF \\</b>
 newest_caches Nejmladší políčko
 total_of_active_caches Počet aktivních boxů
 number_of_active_users Počet aktivních členů
@@ -432,14 +432,14 @@ password_confirm Confirm password
 register_msg1 To create an account on opencaching.de, you have to enter a vaild E-Mail address and an username. An E-Mail will be sent to the address you supplied with an activation code. Only one account can be created per E-Mail address.
 register_msg2 * are required
 register_msg3 If you have further questions, please contact us before you create your account.
-register_msg4 I have read and understand <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">the terms of use</a></b> and accept them. 
+register_msg4 I have read and understand <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">the terms of use</a></b> and accept them.
 register_msg5 New account has been registered
 register_msg6 The activation code was sent via E-mail to you.Please follow the instruction which was send via E-Mail.
 total_distance Total distance
 send_to_gps Send WayPoint to GPS
 rate_cache Rate this cache: <br/><a href="http://wiki.opencaching.pl/index.php/Cache_rating" target="_blank">Description of scale</a>
 do_not_rate I do not want to rate this cache
-geokret_log Did you take Geokret? Rgeister this on 
+geokret_log Did you take Geokret? Rgeister this on
 post_new_log Post new log in reference to
 type_of_log Type of log
 date_logged Date

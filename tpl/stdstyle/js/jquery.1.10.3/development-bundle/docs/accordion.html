@@ -1,31 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>jQuery UI accordion documentation</title>
+    <meta charset="utf-8">
+    <title>jQuery UI accordion documentation</title>
 
-	<style>
-	body {
-		font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
-	}
-	.gutter {
-		display: none;
-	}
-	</style>
+    <style>
+    body {
+        font-family: "Trebuchet MS", "Arial", "Helvetica", "Verdana", "sans-serif"
+    }
+    .gutter {
+        display: none;
+    }
+    </style>
 </head>
 <body>
 
 <script>{
-		"title":
-			"Accordion Widget",
-		"excerpt":
-			"Convert a pair of headers and content panels into an accordion.",
-		"termSlugs": {
-			"category": [
-				"widgets"
-			]
-		}
-	}</script><article id="accordion1" class="entry widget"><h2 class="section-title">
+        "title":
+            "Accordion Widget",
+        "excerpt":
+            "Convert a pair of headers and content panels into an accordion.",
+        "termSlugs": {
+            "category": [
+                "widgets"
+            ]
+        }
+    }</script><article id="accordion1" class="entry widget"><h2 class="section-title">
 <span>Accordion Widget</span><span class="version-details">version added: 1.0</span>
 </h2>
 <div class="entry-wrapper">
@@ -57,33 +57,33 @@
 <div><a href="#event-beforeActivate">beforeActivate</a></div>
 <div><a href="#event-create">create</a></div>
 </div></section><div class="longdesc" id="entry-longdesc">
-		<p>The markup of your accordion container needs pairs of headers and content panels:</p>
+        <p>The markup of your accordion container needs pairs of headers and content panels:</p>
 
-		<div class="syntaxhighlighter  "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain">&lt;</code><code class="keyword">div</code> <code class="color1">id</code><code class="plain">=</code><code class="string">"accordion"</code><code class="plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="undefined spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">&lt;</code><code class="keyword">h3</code><code class="plain">&gt;First header&lt;/</code><code class="keyword">h3</code><code class="plain">&gt;</code></div><div class="line number3 index2 alt2"><code class="undefined spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">&lt;</code><code class="keyword">div</code><code class="plain">&gt;First content panel&lt;/</code><code class="keyword">div</code><code class="plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="undefined spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">&lt;</code><code class="keyword">h3</code><code class="plain">&gt;Second header&lt;/</code><code class="keyword">h3</code><code class="plain">&gt;</code></div><div class="line number5 index4 alt2"><code class="undefined spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">&lt;</code><code class="keyword">div</code><code class="plain">&gt;Second content panel&lt;/</code><code class="keyword">div</code><code class="plain">&gt;</code></div><div class="line number6 index5 alt1"><code class="plain">&lt;/</code><code class="keyword">div</code><code class="plain">&gt;</code></div></div></td></tr></tbody></table></div>
+        <div class="syntaxhighlighter  "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain">&lt;</code><code class="keyword">div</code> <code class="color1">id</code><code class="plain">=</code><code class="string">"accordion"</code><code class="plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="undefined spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">&lt;</code><code class="keyword">h3</code><code class="plain">&gt;First header&lt;/</code><code class="keyword">h3</code><code class="plain">&gt;</code></div><div class="line number3 index2 alt2"><code class="undefined spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">&lt;</code><code class="keyword">div</code><code class="plain">&gt;First content panel&lt;/</code><code class="keyword">div</code><code class="plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="undefined spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">&lt;</code><code class="keyword">h3</code><code class="plain">&gt;Second header&lt;/</code><code class="keyword">h3</code><code class="plain">&gt;</code></div><div class="line number5 index4 alt2"><code class="undefined spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">&lt;</code><code class="keyword">div</code><code class="plain">&gt;Second content panel&lt;/</code><code class="keyword">div</code><code class="plain">&gt;</code></div><div class="line number6 index5 alt1"><code class="plain">&lt;/</code><code class="keyword">div</code><code class="plain">&gt;</code></div></div></td></tr></tbody></table></div>
 
-		<p>Accordions support arbitrary markup, but each content panel must always be the next sibling after its associated header. See the <a href="#option-header"><code>header</code></a> option for information on how to use custom markup structures.</p>
-		<p>The panels can be activated programmatically by setting the <a href="#option-active"><code>active</code></a> option.</p>
+        <p>Accordions support arbitrary markup, but each content panel must always be the next sibling after its associated header. See the <a href="#option-header"><code>header</code></a> option for information on how to use custom markup structures.</p>
+        <p>The panels can be activated programmatically by setting the <a href="#option-active"><code>active</code></a> option.</p>
 
-		<h3>Keyboard interaction</h3>
+        <h3>Keyboard interaction</h3>
 
-		<p>When focus is on a header, the following key commands are available:</p>
-		<ul>
-			<li>UP/LEFT - Move focus to the previous header. If on first header, moves focus to last header.</li>
-			<li>DOWN/RIGHT - Move focus to the next header. If on last header, moves focus to first header.</li>
-			<li>HOME - Move focus to the first header.</li>
-			<li>END - Move focus to the last header.</li>
-			<li>SPACE/ENTER - Activate panel associated with focused header.</li>
-		</ul>
+        <p>When focus is on a header, the following key commands are available:</p>
+        <ul>
+            <li>UP/LEFT - Move focus to the previous header. If on first header, moves focus to last header.</li>
+            <li>DOWN/RIGHT - Move focus to the next header. If on last header, moves focus to first header.</li>
+            <li>HOME - Move focus to the first header.</li>
+            <li>END - Move focus to the last header.</li>
+            <li>SPACE/ENTER - Activate panel associated with focused header.</li>
+        </ul>
 
-		<p>When focus is in a panel:</p>
-		<ul>
-			<li>CTRL+UP: Move focus to associated header.</li>
-		</ul>
-	</div>
+        <p>When focus is in a panel:</p>
+        <ul>
+            <li>CTRL+UP: Move focus to associated header.</li>
+        </ul>
+    </div>
 <h3>Additional Notes:</h3>
 <div class="longdesc"><ul><li>
-			This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
-		</li></ul></div>
+            This widget requires some functional CSS, otherwise it won't work. If you build a custom theme, use the widget's specific CSS file as a starting point.
+        </li></ul></div>
 <section id="options"><header><h2 class="underline">Options</h2></header><div id="option-active" class="api-item first-item">
 <h3>active<span class="option-type"><strong>Type: </strong><a href="http://api.jquery.com/Types#Boolean">Boolean</a> or <a href="http://api.jquery.com/Types#Integer">Integer</a></span>
 </h3>
@@ -91,8 +91,8 @@
 <strong>Default: </strong><code>0</code>
 </div>
 <div>
-				Which panel is currently open.
-			</div>
+                Which panel is currently open.
+            </div>
 <strong>Multiple types supported:</strong><ul>
 <li>
 <strong>Boolean</strong>: Setting <code>active</code> to <code>false</code> will collapse all panels. This requires the <a href="#option-collapsible"><code>collapsible</code></a> option to be <code>true</code>.</li>
@@ -120,11 +120,11 @@
 <strong>String</strong>: Name of <a href="/easings/">easing</a> to use with default duration.</li>
 <li>
 <strong>Object</strong>: Animation settings with <code>easing</code> and <code>duration</code> properties.
-					<ul>
-						<li>Can also contain a <code>down</code> property with any of the above options.</li>
-						<li>"Down" animations occur when the panel being activated has a lower index than the currently active panel.</li>
-					</ul>
-				</li>
+                    <ul>
+                        <li>Can also contain a <code>down</code> property with any of the above options.</li>
+                        <li>"Down" animations occur when the panel being activated has a lower index than the currently active panel.</li>
+                    </ul>
+                </li>
 </ul>
 <strong>Code examples:</strong><p>Initialize the accordion with the animate option specified:</p>
 <div class="syntaxhighlighter nogutter  "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain">$( </code><code class="string">".selector"</code> <code class="plain">).accordion({ animate: </code><code class="string">"bounceslide"</code> <code class="plain">});</code></div></div></td></tr></tbody></table></div>
@@ -174,8 +174,8 @@
 <strong>Default: </strong><code>"&gt; li &gt; :first-child,&gt; :not(li):even"</code>
 </div>
 <div>
-				<p>Selector for the header element, applied via <code>.find()</code> on the main accordion element. Content panels must be the sibling immedately after their associated headers.</p>
-			</div>
+                <p>Selector for the header element, applied via <code>.find()</code> on the main accordion element. Content panels must be the sibling immedately after their associated headers.</p>
+            </div>
 <strong>Code examples:</strong><p>Initialize the accordion with the header option specified:</p>
 <div class="syntaxhighlighter nogutter  "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain">$( </code><code class="string">".selector"</code> <code class="plain">).accordion({ header: </code><code class="string">"h3"</code> <code class="plain">});</code></div></div></td></tr></tbody></table></div>
 <p>Get or set the header option, after initialization:</p>
@@ -188,16 +188,16 @@
 <strong>Default: </strong><code>"auto"</code>
 </div>
 <div>
-				<p>Controls the height of the accordion and each panel. Possible values:</p>
-				<ul>
-					<li>
+                <p>Controls the height of the accordion and each panel. Possible values:</p>
+                <ul>
+                    <li>
 <code>"auto"</code>: All panels will be set to the height of the tallest panel.</li>
-					<li>
+                    <li>
 <code>"fill"</code>: Expand to the available height based on the accordion's parent height.</li>
-					<li>
+                    <li>
 <code>"content"</code>: Each panel will be only as tall as its content.</li>
-				</ul>
-			</div>
+                </ul>
+            </div>
 <strong>Code examples:</strong><p>Initialize the accordion with the heightStyle option specified:</p>
 <div class="syntaxhighlighter nogutter  "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain">$( </code><code class="string">".selector"</code> <code class="plain">).accordion({ heightStyle: </code><code class="string">"fill"</code> <code class="plain">});</code></div></div></td></tr></tbody></table></div>
 <p>Get or set the heightStyle option, after initialization:</p>
@@ -210,12 +210,12 @@
 <strong>Default: </strong><code>{ "header": "ui-icon-triangle-1-e", "activeHeader": "ui-icon-triangle-1-s" }</code>
 </div>
 <div>
-				<p>Icons to use for headers, matching an icon defined by the jQuery UI CSS Framework. Set to <code>false</code> to have no icons displayed.</p>
-				<ul>
-					<li>header (string, default: "ui-icon-triangle-1-e")</li>
-					<li>activeHeader (string, default: "ui-icon-triangle-1-s")</li>
-				</ul>
-			</div>
+                <p>Icons to use for headers, matching an icon defined by the jQuery UI CSS Framework. Set to <code>false</code> to have no icons displayed.</p>
+                <ul>
+                    <li>header (string, default: "ui-icon-triangle-1-e")</li>
+                    <li>activeHeader (string, default: "ui-icon-triangle-1-s")</li>
+                </ul>
+            </div>
 <strong>Code examples:</strong><p>Initialize the accordion with the icons option specified:</p>
 <div class="syntaxhighlighter nogutter  "><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain">$( </code><code class="string">".selector"</code> <code class="plain">).accordion({ icons: { </code><code class="string">"header"</code><code class="plain">: </code><code class="string">"ui-icon-plus"</code><code class="plain">, </code><code class="string">"headerSelected"</code><code class="plain">: </code><code class="string">"ui-icon-minus"</code> <code class="plain">} });</code></div></div></td></tr></tbody></table></div>
 <p>Get or set the icons option, after initialization:</p>
@@ -223,8 +223,8 @@
 </div></section><section id="methods"><header><h2 class="underline">Methods</h2></header><div id="method-destroy"><div class="api-item first-item">
 <h3>destroy()</h3>
 <div>
-		Removes the accordion functionality completely. This will return the element back to its pre-init state.
-	</div>
+        Removes the accordion functionality completely. This will return the element back to its pre-init state.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the destroy method:</p>
@@ -234,8 +234,8 @@
 <div id="method-disable"><div class="api-item">
 <h3>disable()</h3>
 <div>
-		Disables the accordion.
-	</div>
+        Disables the accordion.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the disable method:</p>
@@ -245,8 +245,8 @@
 <div id="method-enable"><div class="api-item">
 <h3>enable()</h3>
 <div>
-		Enables the accordion.
-	</div>
+        Enables the accordion.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the enable method:</p>
@@ -329,8 +329,8 @@
 <h3>widget()<span class="returns">Returns: <a href="http://api.jquery.com/Types#jQuery">jQuery</a></span>
 </h3>
 <div>
-		Returns a <code>jQuery</code> object containing the accordion.
-	</div>
+        Returns a <code>jQuery</code> object containing the accordion.
+    </div>
 <ul><li><div class="null-signature">This method does not accept any arguments.</div></li></ul>
 <div>
 <strong>Code examples:</strong><p>Invoke the widget method:</p>

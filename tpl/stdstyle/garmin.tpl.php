@@ -1,31 +1,31 @@
 <script type="text/javascript">
-	        var waypoint = null;
-			var type = "Geocache|";
-			var sym = "Geocache";
+            var waypoint = null;
+            var type = "Geocache|";
+            var sym = "Geocache";
          function load() {
         var display = new Garmin.DeviceDisplay("garminDisplay", {
             pathKeyPairsArray: ["http://opencaching.pl","7af7fd68ffbdf2ba661be044dfcd054d"],
                 unlockOnPageLoad: false,
                 hideIfBrowserNotSupported: false,
                 showStatusElement: true,
-		poweredByGarmin: "Powered by <a href='http://www.opencaching.pl' target='_new'>OpenCaching PL</a>  &  <a href='http://www.garmin.com/products/communicator/' target='_blank'>Garmin Communicator</a>",
-		noDeviceDetectedStatusText: "{{garmin_not_found}}",
-		lookingForDevices: "{{garmin_search}}",
+        poweredByGarmin: "Powered by <a href='http://www.opencaching.pl' target='_new'>OpenCaching PL</a>  &  <a href='http://www.garmin.com/products/communicator/' target='_blank'>Garmin Communicator</a>",
+        noDeviceDetectedStatusText: "{{garmin_not_found}}",
+        lookingForDevices: "{{garmin_search}}",
                 autoFindDevices: false,
                 findDevicesButtonText: "{{garmin_to_gps}}",
-		pluginNotUnlocked: "{{garmin_plugin}}",
-		writtenToDevice: "{{garmin_written}}",
-		foundDevice: "{{garmin_found}} #{deviceName}",
-		downloadAndInstall: "{{garmin_download}}",
+        pluginNotUnlocked: "{{garmin_plugin}}",
+        writtenToDevice: "{{garmin_written}}",
+        foundDevice: "{{garmin_found}} #{deviceName}",
+        downloadAndInstall: "{{garmin_download}}",
                 showCancelFindDevicesButton: false,
                 showDeviceSelectOnLoad: false,
                 showDeviceSelectNoDevice: false,
                 autoReadData: false,
                 autoWriteData: true,
                 showReadDataElement: false,
-		writeDataButtonText: "{{garmin_write}}",
-                showProgressBar: true,              
-		getWriteData: function() {   
+        writeDataButtonText: "{{garmin_write}}",
+                showProgressBar: true,
+        getWriteData: function() {
             var waypoint = new Garmin.WayPoint("{lat}", "{long}", "0", "{wp_oc}",null,"OC PL: {cachename}","Geocache", "Traditional",null);
             var factory = new Garmin.GpsDataFactory();
             var gpx = factory.produceGpxString(null, [waypoint]);
@@ -39,4 +39,4 @@
     </script>
     <br /><center>
     <div id="garminDisplay"></div>
-	
+
