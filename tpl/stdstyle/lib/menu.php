@@ -321,7 +321,7 @@ $menu = array(
         'menustring'    => tr('guides'),
         'visible'       => true,
         'filename'      => 'cacheguides.php',
-        'siteid'        => 'guides'
+        'siteid'        => 'cacheguides'
     ),
     array(
         'title'         => 'API',
