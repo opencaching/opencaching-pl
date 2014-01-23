@@ -1002,3 +1002,8 @@ background-image: linear-gradient(to left bottom, #FF0505 0%, #EFF7EA 100%);
 	float: left;
 	display:compact;
 }
+
+.contact_info h2 {
+    font-size: 12px;
+    color: #4B4B4B;
+}

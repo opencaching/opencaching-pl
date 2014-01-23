@@ -73,6 +73,9 @@
 				default:
 					break;
 			}
+			if (file_exists($stylepath . '/articles/' . $article . '.inc.php')){
+				require_once $stylepath . '/articles/' . $article . '.inc.php';
+			}
 			$tplname = 'articles/' . $article;
 		}
 	}

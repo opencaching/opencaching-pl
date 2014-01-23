@@ -2166,3 +2166,16 @@ editmp3_14 Wysłany plik ma niedozwolony format. Dozwolone format to MP3. Zaleca
 editmp3_15 Pliku MP3 nie ma w bazie danych
 add_newmp3 Dodaj MP3
 
+contact_pl_about_title Zadawanie pytań o Geocaching
+contact_pl_about_description_1 Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
+contact_pl_about_description_2 Chciałbyś wymienić swoje uwagi zadać pytania innym, masz pomysł albo sugestie poprawy działania projektu <i>Opencaching</i>, chcesz pomóc w rozwoju projektu? Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.pl">Forum</a>.
+contact_pl_about_team OpenCaching PL Team
+contact_pl_rr_description - Skład Rady Rejsu patrz &gt;&gt;&gt;<a href="{link}">TUTAJ</a>&lt;&lt;&lt;
+contact_pl_rt_description - Skład Rady Technicznej patrz &gt;&gt;&gt;<a href="{link}">TUTAJ</a>&lt;&lt;&lt;
+contact_pl_cog_description - Skład COG patrz &gt;&gt;&gt;<a href="{link}">TUTAJ</a>&lt;&lt;&lt;
+contact_pl_other_title Inne
+contact_pl_other_description W sprawach bezpośrednio związanych z funkcjonowaniem serwisu OpenCaching PL możesz napisać list na adres <b>ocpl at opencaching.pl</b>. Otrzymanie odpowiedzi może potrwać, więc bądź cierpliwy.
+contact_ocpl_title Polska wersja OpenCaching
+contact_ocpl_description_1 - Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldek "sp2ong" + duża pomoc kolegów którzy brali udział w testowaniu.
+contact_ocpl_description_2 - 2011 Wojtek "wrygiel" autor OKAPI czyli Opencaching API http://opencaching.pl/okapi
+contact_ocpl_description_3 - 2011 Jakub "lecter69" autor wersji mobilnej OC PL http://m.opencaching.pl

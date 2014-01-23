@@ -241,4 +241,103 @@
 
 	//Short sitename for international use.
 	$short_sitename = 'OC PL';
+
+	// Contact data definition START
+	/*
+		Possible array entries are listed below. All the entries are optional.
+		+ groupName
+			HTML header with a group name. Group name can be either raw, html code;
+			or a reference to the translation file.
+		+ emailAddress
+			E-mail address, which will be printed just below the groupName.
+		+ groupDescription 
+			Group description is an actual text of the group, which is placed under the groupName 
+			and e-mail. This entry can be in one of the following types/formats:
+			  - an array - if so, each array entry is processed as one of those two types below;
+			  - raw, html code;
+			  - reference to the translation file.
+		+ subgroup
+			A nested array of the same structure. HTML headers for nested groups 
+			are one level lower.
+		+ other_keys
+			They are used to substitute {other_keys} references in both groupName and
+			groupDescription. Those keys do not propagate to subgroups.
+	
+	*/
+	
+	// Configuration for OC.PL contact page
+	// Translated to Polish and English only :/
+	$contactDataPL = array(
+		array (
+			'groupName' => 'contact_pl_about_title',
+			'groupDescription' => array(
+				'contact_pl_about_description_1',
+				'contact_pl_about_description_2'
+			)
+		),
+		array (
+			'groupName' => 'OpenCaching PL Team',
+			'subgroup' => array (
+				array (
+					'groupName' => 'Rada Rejsu',
+					'groupDescription' => 'contact_pl_rr_description',
+					'emailAddress' => 'rr at opencaching.pl',
+					'link' => 'http://forum.opencaching.pl/viewtopic.php?f=19&t=6297'
+				),
+				array (
+					'groupName' => 'Rada Techniczna',
+					'groupDescription' => 'contact_pl_rt_description',
+					'emailAddress' => 'rt at opencaching.pl',
+					'link' => 'https://code.google.com/p/opencaching-pl/people/list'
+				),
+				array (
+					'groupName' => 'Centrum Obsługi Geocachera',
+					'groupDescription' => 'contact_pl_cog_description',
+					'emailAddress' => 'cog at opencaching.pl',
+					'link' => 'http://forum.opencaching.pl/viewtopic.php?f=19&t=6297'
+				),
+			),	
+		),
+		array(
+			'groupName' => 'contact_pl_other_title',
+			'groupDescription' => 'contact_pl_other_description'
+		),
+		array(
+			'groupName' => 'contact_ocpl_title',
+			'groupDescription' => array(
+				'contact_ocpl_description_1',
+				'contact_ocpl_description_2',
+				'contact_ocpl_description_3',
+			)
+		)
+
+	);
+
+	// Configuration from OC.DE contact page
+	// This is only a template, to be translated/updated for OC.NL
+	$contactDataDE = array(
+		array (
+			'groupName' => 'Allgemeine Fragen zu Opencaching.de und zum Thema Geocaching',
+			'groupDescription' => array(
+				'Für Fragen rund um Opencaching und zum Thema Geocaching ist das <a href="http://wiki.opencaching.de/">Opencaching-Wiki</a> eine gute Anlaufstelle. Weitere Informationen zum Geocaching gibt es auf <a href="http://www.geocaching.de">www.geocaching.de</a>.',
+				'Wenn du ein spezielles Problem hast und darauf keine Antwort findest, kannst du dir unter <a href="http://forum.opencaching-network.org">forum.opencaching-network.org</a> ein passendes Forum raussuchen und dich dort erkundigen.'
+			)
+		),
+		array(
+			'groupName' => 'Bedienung der Website, Anregungen und Kritik',
+			'groupDescription' => 'Hierfür gibt es ein eigenes Unterforum auf <a href="http://forum.opencaching-network.org/index.php?board=33.0">forum.opencaching-network.org</a>. Dort findest du auch weitere Informationen, falls du in unserem Team mitmachen möchtest.'
+		),
+		array(
+			'groupName' => 'Sonstiges',
+			'groupDescription' => array(
+				'Sollten die oben genannten Möglichkeiten nicht ausreichen oder die Betreiber von <i>opencaching.de</i> direkt kontaktiert werden, kannst du auch eine Email an <a href="mailto:contact@opencaching.de">contact@opencaching.de</a> schreiben.',
+				'Bitte werde nicht ungeduldig wenn nicht sofort eine Antwort kommt, <i>opencaching.de</i> wird von Freiwilligen betreut, die leider nicht immer und sofort zur Verfügung stehen können.',
+			)
+		)
+
+	);
+	// 
+	$contactData = $contactDataPL;
+	// Contact data definition END
+	
 ?>
