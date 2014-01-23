@@ -152,7 +152,7 @@ $menu = array(
                 'visible'       => true,
                 'onlylogged'    => true,
                 'filename'      => 'cacheratings.php',
-                'siteid'        => 'ratings'
+                'siteid'        => 'cacheratings'
             ),
             array(
                 'title'         => tr('statistics'),
@@ -693,7 +693,7 @@ $menu = array(
                 'menustring'    => tr('adoption_cache'),
                 'visible'       => true,
                 'filename'      => 'chowner.php',
-                'siteid'        => 'adoption'
+                'siteid'        => 'chowner'
             ),
             array(
                 'title'         => tr('search_user'),
