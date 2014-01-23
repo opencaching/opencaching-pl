@@ -173,7 +173,7 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                 <div class="nav2">
                     <ul>
                         <?php
-                            $dowydrukuidx = mnu_MainMenuIndexFromPageId($menu, "dowydruku");
+                            $dowydrukuidx = mnu_MainMenuIndexFromPageId($menu, "mylist");
                             if (isset($_SESSION['print_list'])) {
                                 if( count($_SESSION['print_list']) > 0 ) {
                                     $menu[$dowydrukuidx]['visible'] = true;

@@ -333,7 +333,7 @@ $menu = array(
     array(
         'title'         => tr('clipboard'),
         'menustring'    => tr('clipboard'),
-        'siteid'        => 'dowydruku',
+        'siteid'        => 'mylist',
         'visible'       => false,
         'filename'      => 'mylist.php'
     ),
@@ -647,7 +647,7 @@ $menu = array(
             array(
                 'title'         => tr('clipboard'),
                 'menustring'    => tr('clipboard'),
-                'siteid'        => 'dowydruku',
+                'siteid'        => 'mylist',
                 'visible'       => false,
                 'filename'      => 'mylist.php'
             ),
