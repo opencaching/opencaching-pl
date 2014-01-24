@@ -1238,7 +1238,7 @@ no_pictures_yet Er zijn nog geen afbeeldingen
 show_all_countries Toon alle landen
 newcache_upload Verzenden
 newcache_import_wpt Nieuwe cache importeren
-newcache_import_wpt_help Met deze functie kan waypoint gegevens uit GPX bestand van bijvoorbeeld Garmin (coördinaat, naam) als basis voor nieuwe cache verstuurd worden. Bij meer dan 1 waypoint zal eerste gebruikt worden.
+newcache_import_wpt_help Met deze functie kan waypoint gegevens uit GPX bestand van bijvoorbeeld Garmin (coördinaat, naam) als basis voor nieuwe cache verstuurd worden.
 newcache_import_wpt_ok De gegevens zijn geïmporteerd
 email_reset Herstellen
 email_submit Verzenden
@@ -1341,7 +1341,7 @@ registermail05 Als je op zoek bent naar hulp via een interactieve kaart kun je i
 registermail06 Kijk eens op:
 registermail07 Maak gebruik van de huidige regel dat er vrij caches geplaats kunnen worden. Wanneer er voldoende caches zijn zal deze regel veranderd worden dat je eerst 10 caches gevonden moet hebben eer je caches mag plaatsen.
 registermail08 Je eerste 3 nieuwe caches zullen door het Opencaching team gekeurt worden.
-registermail09 De mobile versie van {site_name} is te vinden op: http://m.opencaching.nl
+registermail09 De mobile versie van {site_name} is te vinden op: http://m.{site_name}
 registermail10 Wij hebben de volgende informatie opgeslagen voor registratie:
 registermail11 E-mail adres:
 registermail12 Gebruikersnaam:
@@ -2140,14 +2140,14 @@ newmp3_07 Wanneer het probleem blijft bestaan, gelieve contact met ons op te nem
 newmp3_08 Bestand is te groot
 newmp3_09 Maximale bestand grootte is 5 Mb. Verander kwaliteit of grootte van het MP3 bestand.
 newmp3_10 Verkeerde bestand soort
-newmp3_11 Het verzonden bestandsoort is geen MP3. Toegestane bestanden zijn MP3. Aanbevolen kwaliteit is MP3 22kHZ MONO.
+newmp3_11 Het verzonden bestandsoort is geen MP3. Toegestane bestanden zijn MP3. Aanbevolen kwaliteit is MP3 22KHz MONO.
 newmp3_12 Geef MP3 bestand een naam!
 newmp3_13 Selecteer een MP3 bestand!
 newmp3_14 Naam
 newmp3_15 Bestandsnaam
 newmp3_16 Laat MP3 bestand niet zien
 newmp3_17 Attentie
-newmp3_18 De volgende bestanden worden geaccepteerd: MP3. Maximum grootte bestand is 5 Mb. Aanbevolen kwaliteit is MP3 22kHZ MONO.
+newmp3_18 De volgende bestanden worden geaccepteerd: MP3. Maximum grootte bestand is 5 Mb. Aanbevolen kwaliteit is MP3 22KHz MONO.
 editmp3_01 Geef MP3 bestand een naam!
 editmp3_03 Naam
 editmp3_04 Bestandsnaam
@@ -2160,9 +2160,24 @@ editmp3_10 Wanneer het probleem blijft bestaan, gelieve contact met ons op te ne
 editmp3_11 Bestand is te groot
 editmp3_12 Maximale bestand grootte is 5 Mb. Verander kwaliteit of grootte van het MP3 bestand.
 editmp3_13 Verkeerde bestand soort
-editmp3_14 Het verzonden bestandsoort is geen MP3. Toegestane bestanden zijn MP3. Aanbevolen kwaliteit is MP3 22kHZ MONO.
+editmp3_14 Het verzonden bestandsoort is geen MP3. Toegestane bestanden zijn MP3. Aanbevolen kwaliteit is MP3 22KHz MONO.
 editmp3_15 MP3 bestand niet in de database
 add_newmp3 MP3 toevoegen
+newCacheWpClose Sluiten
+contact_pl_about_title Vragen over Opencaching.pl (alleen voor deze Poolse site)
+contact_pl_about_description_1 Wil je meer weten over Opencaching? Je kunt het vinden op <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
+contact_pl_about_description_2 Heb je commentaar, vragen, suggesties, of wil je mee helpen met de <i>Opencaching</i> ontwikkeling? Al deze onderwerpen kun je terug vinden op onze <a href="http://forum.opencaching.pl">Forum</a>.
+contact_pl_rr_description - Rada Rejsu medewerkers zie je &gt;&gt;&gt;<a href="{link}">hier</a>&lt;&lt;&lt;
+contact_pl_rt_description - Rada Techniczna medewerkers zie je &gt;&gt;&gt;<a href="{link}">hier</a>&lt;&lt;&lt;
+contact_pl_cog_description - COG medewerkers zie je &gt;&gt;&gt;<a href="{link}">hier</a>&lt;&lt;&lt;
+contact_pl_other_title Anders
+contact_pl_other_description Om direct contact op te nemen met OpenCaching PL stuur dan een e-mail naar <b>ocpl at opencaching.pl</b>. Wees geduldig, een reactie kan even duren.
+contact_ocpl_title Poolse versie van Opencaching
+contact_ocpl_description_1 - Mei 2006 - Poolse geocaching idee ontstaan, Eerste ontwikkeling en realisatie van OC.PL - Waldek "sp2ong" + veel hulp van zijn vrienden.
+contact_ocpl_description_2 - 2011 Wojtek "wrygiel" - Ontwikkelaar van Opencaching API: http://opencaching.pl/okapi
+contact_ocpl_description_3 - 2011 Jakub "lecter69" - Ontwikkelaar van mobile versie: http://m.opencaching.pl
+newCacheWpTitle Selecteer waypoint
+newCacheWpDesc Bestand heeft meerdere waypoints. Kies er een.
 
 
 notify_newcachemail01 Hallo
@@ -2177,3 +2192,7 @@ notify_newcachemail09 De instellingen voor jouw zoekradius kun je bekijken en be
 notify_newcachemail10 Dit bericht is automatisch gegenereerd, gelieve niet te reageren.
 notify_newcachemail11 Nieuwe cache:
 notify_newcachemail12 Er zijn nog geen nieuwe logs.
+
+
+
+
