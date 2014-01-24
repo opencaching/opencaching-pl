@@ -49,6 +49,24 @@ tinymce.init({
 <script type="text/javascript">
 <!--
 
+$(function() {
+    $( "#waypointsToChose" ).dialog({
+        position: ['center',150],
+        autoOpen: false,
+        width: 500,
+        modal: true,
+        show: {effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 3},
+        hide: "explode",
+        buttons:
+        {
+            {{newCacheWpClose}}: function()
+            {
+                $(this).dialog( "close" );
+            }
+        }
+    });
+});
+
 function hiddenDatePickerChange(identifier){
     var dateTimeStr = $('#'+identifier+'DatePicker').val();
     var dateArr = dateTimeStr.split("-");
@@ -107,7 +125,6 @@ function checkRegion(){
             }, 2000);
     });
         }
-        console.log(obj);
     });
 
     request.always(function () {
@@ -127,7 +144,6 @@ function startUpload(){
 }
 
 function stopUpload(success){
-    // console.log(success);
     $('#ajaxLoaderLogo').hide();
     $('#f1_upload_form').show();
     $('#wptInfo').show();
@@ -138,6 +154,47 @@ function stopUpload(success){
     });
 
     var gpx = jQuery.parseJSON(success);
+    
+    var waypointsCount = count(gpx);
+    
+    //console.log(waypointsCount);
+    //console.log(gpx);
+    
+    if(waypointsCount==1){
+        fillFormInputs(gpx[0])
+    } 
+    if(waypointsCount>1){
+        $('#gpxWaypointObject').val(success);
+        var i=0;
+        var costam = '{{newCacheWpDesc}}<br/><br/>';
+        gpx.forEach(function(wayPoint) {
+            costam += '<a href="javascript:void(0);" onclick="updateFromWaypoint('+i+')"><b>'
+            +wayPoint.name+'</b> - '+wayPoint.coords_latNS+wayPoint.coords_lat_h+'°'+wayPoint.coords_lat_min+' / '
+            +wayPoint.coords_lonEW+wayPoint.coords_lon_h+'°'+wayPoint.coords_lon_min+'<br />';
+            i++;
+        });
+        $('#waypointsToChose').html(costam);
+        $('#waypointsToChose').dialog('open');
+        $(".ui-dialog-titlebar-close").hide();
+    }
+    return true;
+}
+
+function updateFromWaypoint(waypointId){
+    var gpxWaypointObject = $('#gpxWaypointObject').val();
+    var gpx = jQuery.parseJSON(gpxWaypointObject);
+    fillFormInputs(gpx[waypointId]);
+    $('#waypointsToChose').dialog("close");
+    $('#wptInfo').show();
+    $(function() {
+        setTimeout(function() {
+            $('#wptInfo').fadeOut(1000);
+        }, 5000);
+    });
+}
+
+function fillFormInputs(gpx){
+    var CacheHidedate = gpx.time.substring(0,10);
     $("#lat_h").val(gpx.coords_lat_h);
     $("#lon_h").val(gpx.coords_lon_h);
     $("#lat_min").val(gpx.coords_lat_min);
@@ -145,8 +202,8 @@ function stopUpload(success){
     $("#name").val(gpx.name);
     tinyMCE.activeEditor.setContent(gpx.desc);
     $("#desc").val(gpx.desc);
+    $("#hiddenDatePicker").val(CacheHidedate);
     checkRegion();
-    return true;
 }
 
 function chkregion() {
@@ -335,6 +392,45 @@ function toggleAttr(id)
         }
     }
 }
+
+
+function count(mixed_var, mode) {
+  // discuss at: http://phpjs.org/functions/count/
+  // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // input by: Waldo Malqui Silva
+  // input by: merabi
+  // bugfixed by: Soren Hansen
+  // bugfixed by: Olivier Louvignes (http://mg-crea.com/)
+  // improved by: Brett Zamir (http://brett-zamir.me)
+  // example 1: count([[0,0],[0,-4]], 'COUNT_RECURSIVE');
+  // returns 1: 6
+  // example 2: count({'one' : [1,2,3,4,5]}, 'COUNT_RECURSIVE');
+  // returns 2: 6
+  var key, cnt = 0;
+  if (mixed_var === null || typeof mixed_var === 'undefined') {
+    return 0;
+  } else if (mixed_var.constructor !== Array && mixed_var.constructor !== Object) {
+    return 1;
+  }
+  if (mode === 'COUNT_RECURSIVE') {
+    mode = 1;
+  }
+  if (mode != 1) {
+    mode = 0;
+  }
+  for (key in mixed_var) {
+    if (mixed_var.hasOwnProperty(key)) {
+      cnt++;
+      if (mode == 1 && mixed_var[key] && (mixed_var[key].constructor === Array || mixed_var[key].constructor ===
+        Object)) {
+        cnt += this.count(mixed_var[key], 1);
+      }
+    }
+  }
+  return cnt;
+}
+
+
 //-->
 </script>
 <script type="text/javascript"><!--
@@ -667,7 +763,7 @@ function nearbycachemapOC()
         <td colspan="2">
         <fieldset style="border: 1px solid black; width: 80%; height: 32%; background-color: #FFFFFF;">
             <legend>&nbsp; <strong>{{date_hidden_label}}</strong> &nbsp;</legend>
-            <input type="date" id="hiddenDatePicker" id="hiddenDatePicker" value="{hidden_year}-{hidden_month}-{hidden_day}" onchange="hiddenDatePickerChange('hidden');"/>
+            <input type="text" id="hiddenDatePicker" id="hiddenDatePicker" value="{hidden_year}-{hidden_month}-{hidden_day}" onchange="hiddenDatePickerChange('hidden');"/>
             <input type="hidden" name="hidden_year"  id="hidden_year"  maxlength="4" value="{hidden_year}"/>
             <input type="hidden" name="hidden_month" id="hidden_month" maxlength="2" value="{hidden_month}"/>
             <input type="hidden" name="hidden_day"   id="hidden_day"   maxlength="2" value="{hidden_day}"/>
@@ -683,7 +779,7 @@ function nearbycachemapOC()
             <legend>&nbsp; <strong>{{submit_new_cache}}</strong> &nbsp;</legend>
             <input type="radio" class="radio" name="publish" id="publish_now" value="now" {publish_now_checked}/>&nbsp;<label for="publish_now">{{publish_now}}</label><br />
             <input type="radio" class="radio" name="publish" id="publish_later" value="later" {publish_later_checked}/>&nbsp;<label for="publish_later">{{publish_date}}:</label>
-            <input type="date" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate');"/>
+            <input type="text" id="activateDatePicker" id="activateDatePicker" value="{activate_year}-{activate_month}-{activate_day}" onchange="hiddenDatePickerChange('activate');"/>
             <input class="input40" type="hidden" name="activate_year"  id="activate_year"  maxlength="4" value="{activate_year}"/>
             <input class="input20" type="hidden" name="activate_month" id="activate_month" maxlength="2" value="{activate_month}"/>
             <input class="input20" type="hidden" name="activate_day"   id="activate_day"   maxlength="2" value="{activate_day}"/>&nbsp;
@@ -714,7 +810,8 @@ function nearbycachemapOC()
 </table>
 </form>
 
-
+<input type="hidden" value="" id="gpxWaypointObject">
+<div id="waypointsToChose" title="{{newCacheWpTitle}}"></div>
 
 
 

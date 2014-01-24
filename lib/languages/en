@@ -1239,7 +1239,7 @@ no_pictures_yet No picture added yet.
 show_all_countries Show all countries
 newcache_upload Load
 newcache_import_wpt Load data from gpx file
-newcache_import_wpt_help This feature allow you to get waypoint data (coords, name) from gpx file. (f.ex.&nbsp;from garmin). If file contain more than one waypoint, only first will be processed.
+newcache_import_wpt_help This feature allow you to get waypoint data (coords, name) from gpx file. (f.ex.&nbsp;from garmin).
 newcache_import_wpt_ok Data was loaded
 email_reset Reset
 email_submit Submit
@@ -2165,7 +2165,7 @@ editmp3_13 Invalid file type
 editmp3_14 The uploaded file has invalid format. Permitted format is MP3. Recommended quality MP3 22kHZ MONO.
 editmp3_15 MP3 file is not in the database
 add_newmp3 Add MP3
-
+newCacheWpClose Close
 contact_pl_about_title Questions about Geocaching
 contact_pl_about_description_1 Would you like to know more about Geocaching? You'll find it in <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
 contact_pl_about_description_2 Do you have any comments, questions, suggestions, or just want to participate in <i>Opencaching</i> development? All those topics are discussed on our <a href="http://forum.opencaching.pl">Forum</a>.
@@ -2178,3 +2178,5 @@ contact_ocpl_title Polish version of OpenCaching
 contact_ocpl_description_1 - May 2006 - Polish geocaching service idea, initial development and deployment of OC.PL - Waldek "sp2ong" + a lot of help from his friends.
 contact_ocpl_description_2 - 2011 Wojtek "wrygiel" - Opencaching API author: http://opencaching.pl/okapi
 contact_ocpl_description_3 - 2011 Jakub "lecter69" - author of mobile version: http://m.opencaching.pl
+newCacheWpTitle Pick waypoint
+newCacheWpDesc File contain few waypoints. Pick proper one.  

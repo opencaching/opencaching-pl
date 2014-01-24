@@ -77,22 +77,20 @@ function ajaxGetFTF(){
 {guide_info}
 <div class="nav4">
 <?php
-
-
-                    // statlisting
-                    $statidx = mnu_MainMenuIndexFromPageId($menu, "statlisting");
-                    if( $menu[$statidx]['title'] != '' )
-                    {
-                        echo '<ul id="statmenu">';
-                        $menu[$statidx]['visible'] = false;
-                        echo '<li class="title" ';
-                        echo '>'.$menu[$statidx]["title"].'</li>';
-                        mnu_EchoSubMenu($menu[$statidx]['submenu'], $tplname, 1, false);
-                        echo '</ul>';
-                    }
-                    //end statlisting
+// statlisting
+$statidx = mnu_MainMenuIndexFromPageId($menu, "statlisting");
+if( $menu[$statidx]['title'] != '' )
+{
+    echo '<ul id="statmenu">';
+    $menu[$statidx]['visible'] = false;
+    echo '<li class="title" ';
+    echo '>'.$menu[$statidx]["title"].'</li>';
+    mnu_EchoSubMenu($menu[$statidx]['submenu'], $tplname, 1, false);
+    echo '</ul>';
+}
+//end statlisting
 ?>
-                </div>
+</div>
 
 {content}
 </div>

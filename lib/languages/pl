@@ -1239,7 +1239,7 @@ no_pictures_yet Nie ma załączonych obrazków.
 show_all_countries Wszystkie kraje
 newcache_upload wczytaj
 newcache_import_wpt Wczytaj dane z pliku gpx
-newcache_import_wpt_help Ta funkcja umożliwia wczytanie podstawowych danych (współrzędne, nazwa) waypointa z pliku gpx. (np.&nbsp;z garmina) jeśli w pliku jest więcej niż jeden waypoint zostaną wczytane dane tylko pierwszego waypointa.
+newcache_import_wpt_help Ta funkcja umożliwia wczytanie podstawowych danych (współrzędne, nazwa) waypointa z pliku gpx. (np.&nbsp;z garmina).
 newcache_import_wpt_ok Dane zostały wczytane
 email_reset Powrót
 email_submit Wyslij
@@ -2165,7 +2165,7 @@ editmp3_13 Niepoprawny typ pliku
 editmp3_14 Wysłany plik ma niedozwolony format. Dozwolone format to MP3. Zalecana jakosc MONO 22kHz.
 editmp3_15 Pliku MP3 nie ma w bazie danych
 add_newmp3 Dodaj MP3
-
+newCacheWpClose Zamknij
 contact_pl_about_title Zadawanie pytań o Geocaching
 contact_pl_about_description_1 Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
 contact_pl_about_description_2 Chciałbyś wymienić swoje uwagi zadać pytania innym, masz pomysł albo sugestie poprawy działania projektu <i>Opencaching</i>, chcesz pomóc w rozwoju projektu? Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.pl">Forum</a>.
@@ -2179,3 +2179,5 @@ contact_ocpl_title Polska wersja OpenCaching
 contact_ocpl_description_1 - Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldek "sp2ong" + duża pomoc kolegów którzy brali udział w testowaniu.
 contact_ocpl_description_2 - 2011 Wojtek "wrygiel" autor OKAPI czyli Opencaching API http://opencaching.pl/okapi
 contact_ocpl_description_3 - 2011 Jakub "lecter69" autor wersji mobilnej OC PL http://m.opencaching.pl
+newCacheWpTitle Wybierz waypoint
+newCacheWpDesc W pliku znajduje się kilka waypointów. Wskaż ten, którego chcesz użyć.
