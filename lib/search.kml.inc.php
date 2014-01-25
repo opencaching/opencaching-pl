@@ -24,7 +24,9 @@
 
     ****************************************************************************/
 
-    global $content, $bUseZip, $sqldebug, $usr, $hide_coords, $absolute_server_URI;
+    ob_start();
+    
+    global $bUseZip, $sqldebug, $usr, $hide_coords, $absolute_server_URI;
     set_time_limit(1800);
     $kmlLine =
 '
@@ -162,45 +164,25 @@
                 mysql_free_result($rsName);
                 if (isset($rName['name']) && ($rName['name'] != '')) {
                     $sFilebasename = trim($rName['name']);
-                    $sFilebasename = str_replace(" ", "_", $sFilebasename);
                 } else {
                     $sFilebasename = "$short_sitename" . $options['queryid'];
                 }
             }
         }
+        $sFilebasename = str_replace(" ", "_", $sFilebasename);
 
         $bUseZip = ($rCount['count'] > 50);
         $bUseZip = $bUseZip || (isset($_REQUEST['zip']) && ($_REQUEST['zip'] == '1'));
-        $bUseZip = false;
+        // $bUseZip = false;
         if ($bUseZip == true)
         {
-            $content = '';
             require_once($rootpath . 'lib/phpzip/ss_zip.class.php');
             $phpzip = new ss_zip('',6);
         }
 
         // ok, ausgabe starten
 
-        if ($sqldebug == false)
-        {
-            if ($bUseZip == true)
-            {
-                header("Content-Type:application/vnd.google-earth.kmz; charset=utf8");
-                header('Content-Disposition:attachment; filename=' . $sFilebasename . '.kmz');
-                header("Pragma:no-cache Expires:0");
-                header("Cache-Control:no-store,no-cache,must-revalidate,post-check=0,pre-check=0,private,false");
-                header("Content-Transfer-Encoding:binary");
-
-            }
-            else
-            {
-                header("Content-Type:application/vnd.google-earth.kml; charset=utf8");
-                header("Content-Disposition:attachment; filename=" . $sFilebasename . ".kml");
-
-            }
-        }
-
-        append_output(read_file($stylepath . '/search.result.caches.kml.head.tpl.php'));
+        readfile($stylepath . '/search.result.caches.kml.head.tpl.php');
 
         $rsMinMax = sql('SELECT MIN(`longitude`) `minlon`, MAX(`longitude`) `maxlon`, MIN(`latitude`) `minlat`, MAX(`latitude`) `maxlat` FROM `kmlcontent`', $sqldebug);
         $rMinMax = mysql_fetch_array($rsMinMax);
@@ -212,7 +194,7 @@
         $kmlDetailHead = str_replace('{maxlon}', $rMinMax['maxlon'], $kmlDetailHead);
         $kmlDetailHead = str_replace('{{time}}', date($kmlTimeFormat), $kmlDetailHead);
 
-        append_output($kmlDetailHead);
+        echo $kmlDetailHead;
 
         // ok, ausgabe ...
 
@@ -331,20 +313,33 @@
             $thisline = str_replace('{username}', xmlentities(PlConvert("UTF-8", "POLSKAWY", $r['username'])), $thisline);
             $thisline = str_replace('{cacheid}', xmlentities($r['cacheid']), $thisline);
 
-            append_output($thisline);
-            ob_flush();
+            echo $thisline;
+            // ob_flush();
         }
         mysql_free_result($rs);
         unset($dbc);
-        append_output($kmlFoot);
+        echo $kmlFoot;
 
         if ($sqldebug == true) outputSqlDebugForm();
 
         // phpzip versenden
         if ($bUseZip == true)
         {
+            $content = ob_get_clean();
             $phpzip->add_data($sFilebasename . '.kml', $content);
-            echo $phpzip->save($sFilebasename . '.kmz', 'r');
+            $out = $phpzip->save($sFilebasename . '.kmz', 'r');
+            header('Content-Type: application/vnd.google-earth.kmz; charset=utf8');
+            header('Content-Disposition: attachment; filename="' . $sFilebasename . '.kmz"');
+            header('Pragma: no-cache');
+            header('Cache-Control: no-store,no-cache,must-revalidate,post-check=0,pre-check=0,private');
+            // header('Content-Transfer-Encoding: binary');
+            echo $out;
+            ob_end_flush();
+            
+        } else {
+            header('Content-Type: application/vnd.google-earth.kml; charset=utf8');
+            header('Content-Disposition: attachment; filename="' . $sFilebasename . '.kml"');
+            ob_end_flush();
         }
     }
     exit;
@@ -362,18 +357,6 @@
 
         return $str;
     }
-
-    function append_output($str)
-    {
-        global $content, $bUseZip, $sqldebug;
-        if ($sqldebug == true) return;
-
-        if ($bUseZip == true)
-            $content .= $str;
-        else
-            echo $str;
-    }
-
 
         /*
 Funkcja do konwersji polskich znakow miedzy roznymi systemami kodowania.
