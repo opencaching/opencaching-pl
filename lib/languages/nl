@@ -2182,6 +2182,24 @@ logmap_01 door
 logmap_02 datum
 logmap_03 Kaart met 100 laatste logs
 logmap_04 Logkaart
+logbook_01 Logboek voorbeeld
+logbook_02 Soort
+logbook_03 Logboek A6 Dubbelzijdig
+logbook_04 Logboek A7 dubbelzijdig
+logbook_05 Laat de velden leeg als u dit later handmatig opgeeft of laat de standaardwaarden staan
+logbook_06 Cache naam 
+logbook_07 Coördinaten
+logbook_08 Hoofdafbeelding
+logbook_09 Achtergrond
+logbook_10 b
+logbook_11 h
+logbook_12 Transparantie
+logbook_13 Afbeelding bewerken voorbeeld: x -2 schuift de afbeelding 2 pixels naar links. b +4 vebreed de afbeelding met 4 pixels
+logbook_14 Zonder FTF
+logbook_15 Geen randen
+
+
+
 
 notify_newcachemail01 Hallo
 notify_newcachemail02 Er is net een nieuwe cache gemeld in jouw ingestelde zoekradius

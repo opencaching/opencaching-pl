@@ -2184,5 +2184,22 @@ logmap_01 By
 logmap_02 Date
 logmap_03 Map with last 100 logentries
 logmap_04 Logmap
+logbook_01 Logbook preview
+logbook_02 Type
+logbook_03 Logbook A6 Doublesided
+logbook_04 Logbook A7 Doublesided
+logbook_05 Leave the fields blank if you want to modify it later manually or leave the default values​​
+logbook_06 Cache name
+logbook_07 Coordinates
+logbook_08 Main picture
+logbook_09 Background pic
+logbook_10 w
+logbook_11 h
+logbook_12 Transparency
+logbook_13 Modify picture example: x -2 moves picture 2 pixels to left. h +4 increase height picture with 4 pixels
+logbook_14 Without FTF
+logbook_15 No borders
+
+
 
 

@@ -2185,4 +2185,21 @@ logmap_01 przez
 logmap_02 dnia
 logmap_03 Mapa 100 najnowszych logów
 logmap_04 Mapa logów
+logbook_01 Podgląd dziennik
+logbook_02 Rodzaj
+logbook_03 Logbook A6 Dwustronny
+logbook_04 Logbook A7 Dwustronny
+logbook_05 Zostaw puste pola jeśli chcesz je wspisać później ręcznie lub też zostawić wartości standardowe
+logbook_06 Nazwa skrzynki
+logbook_07 Współrzędne
+logbook_08 Obrazek tytułowy
+logbook_09 Obrazek w tle
+logbook_10 w
+logbook_11 h
+logbook_12 Widoczność
+logbook_13 Modyfikatory dla obrazka: np. -2 w polu x spowoduje przesunięcie o 2 piksele w lewo, a 4 w h zwiększy wysokośc o 4 piksele
+logbook_14 Bez ozdób FTF
+logbook_15 Bez ramek
+
+
 
