@@ -128,8 +128,8 @@ $menu = array(
                         'filename'      => 'cachemap2.php'
                     ),
                     array(
-                        'title'         => 'Mapa logów',
-                        'menustring'    => 'Mapa logów',
+                        'title'         => tr('logmap_04'),
+                        'menustring'    => tr('logmap_04'),
                         'siteid'        => 'logmap',
                         'visible'       => true,
                         'onlylogged'    => true,

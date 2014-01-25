@@ -2172,7 +2172,7 @@ contact_pl_about_description_2 Do you have any comments, questions, suggestions,
 contact_pl_rr_description - Rada Rejsu team members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
 contact_pl_rt_description - Rada Techniczna members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
 contact_pl_cog_description - COG members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
-contact_pl_other_title Ohter
+contact_pl_other_title Other
 contact_pl_other_description In cases directly regarding OpenCaching PL you could drop an e-mail to <b>ocpl at opencaching.pl</b>. Be patient, receiving a reply may take quite a long.
 contact_ocpl_title Polish version of OpenCaching
 contact_ocpl_description_1 - May 2006 - Polish geocaching service idea, initial development and deployment of OC.PL - Waldek "sp2ong" + a lot of help from his friends.
@@ -2180,3 +2180,9 @@ contact_ocpl_description_2 - 2011 Wojtek "wrygiel" - Opencaching API author: htt
 contact_ocpl_description_3 - 2011 Jakub "lecter69" - author of mobile version: http://m.opencaching.pl
 newCacheWpTitle Pick waypoint
 newCacheWpDesc File contain few waypoints. Pick proper one.  
+logmap_01 By
+logmap_02 Date
+logmap_03 Map with last 100 logentries
+logmap_04 Logmap
+
+

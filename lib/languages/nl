@@ -2178,7 +2178,10 @@ contact_ocpl_description_2 - 2011 Wojtek "wrygiel" - Ontwikkelaar van Opencachin
 contact_ocpl_description_3 - 2011 Jakub "lecter69" - Ontwikkelaar van mobile versie: http://m.opencaching.pl
 newCacheWpTitle Selecteer waypoint
 newCacheWpDesc Bestand heeft meerdere waypoints. Kies er een.
-
+logmap_01 door
+logmap_02 datum
+logmap_03 Kaart met 100 laatste logs
+logmap_04 Logkaart
 
 notify_newcachemail01 Hallo
 notify_newcachemail02 Er is net een nieuwe cache gemeld in jouw ingestelde zoekradius

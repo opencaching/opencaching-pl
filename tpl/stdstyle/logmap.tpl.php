@@ -16,7 +16,7 @@ var currentinfowindow = null;
 function addMarker(lat, lon, icon, cache_icon, wp, cache_name, log_id, log_icon, user_id, user_name, log_date) {
     var marker = new google.maps.Marker({position: new google.maps.LatLng(lat, lon), icon: icon, map: map0});
     var infowindow = new google.maps.InfoWindow({
-        content: "<table><tr><td><img src=\"tpl/stdstyle/images/" + cache_icon + "\" border=\"0\" alt=\"\" title=\"geocache\"/><b>&nbsp;<a class=\"links\" href=\"viewcache.php?wp=" + wp + "\">" + wp + ": " + cache_name + "</a></td></tr><tr><td><a class=\"links\" href=\"viewlogs.php?logid=" + log_id + "\"><img src=\"tpl/stdstyle/images/" + log_icon + "\" border=\"0\" alt=\"\" /></a> <b>przez</b> <a class=\"links\" href=\"viewprofile.php?userid=" + user_id + "\">" + user_name + "</a> <b>dnia: " + log_date + "</b></td></tr></table>"
+        content: "<table><tr><td><img src=\"tpl/stdstyle/images/" + cache_icon + "\" border=\"0\" alt=\"\" title=\"geocache\"/><b>&nbsp;<a class=\"links\" href=\"viewcache.php?wp=" + wp + "\">" + wp + ": " + cache_name + "</a></td></tr><tr><td><a class=\"links\" href=\"viewlogs.php?logid=" + log_id + "\"><img src=\"tpl/stdstyle/images/" + log_icon + "\" border=\"0\" alt=\"\" /></a> <b>{{logmap_01}}:</b> <a class=\"links\" href=\"viewprofile.php?userid=" + user_id + "\">" + user_name + "</a> <b>{{logmap_02}}: " + log_date + "</b></td></tr></table>"
     });
     google.maps.event.addListener(marker, "click", function() {
         if (currentinfowindow !== null) {
@@ -52,7 +52,7 @@ window.onload = function() {
 };
 
 </script>
-<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="" />&nbsp;Mapa 100 najnowszych logów</div>
+<div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="" />&nbsp;{{logmap_03}}</div>
 <br/>
 <div class="searchdiv">
 <center>
