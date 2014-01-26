@@ -55,8 +55,7 @@ if ($error == false) {
             $y = $record['longitude'];
             $x = $record['latitude'];
             $log_date = htmlspecialchars(date("Y-m-d", strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8');
-            $cache_name = cleanup_text($record['cache_name']);
-
+            $cache_name = common::cleanupText($record['cache_name']);
             $point .= "addMarker(" . $x . "," . $y . ",icon" . $record['log_type'] . ",'" . $record['cache_icon_small'] . "','" . $record['wp'] . "','" . $cache_name . "','" . $record['id'] . "','" . $record['icon_small'] . "','" . $record['luser_id'] . "','" . $username . "','" . $log_date . "');\n";
         }
 
@@ -70,60 +69,4 @@ if ($error == false) {
 }
 tpl_BuildTemplate();
 
-function cleanup_text($str) {
-    $str = strip_tags($str, "<li>");
-    $from[] = '<p>&nbsp;</p>';
-    $to[] = '';
-    $from[] = '&nbsp;';
-    $to[] = ' ';
-    $from[] = '<p>';
-    $to[] = '';
-    $from[] = '\n';
-    $to[] = '';
-    $from[] = '\r';
-    $to[] = '';
-    $from[] = '</p>';
-    $to[] = "";
-    $from[] = '<br>';
-    $to[] = "";
-    $from[] = '<br />';
-    $to[] = "";
-    $from[] = '<br/>';
-    $to[] = "";
-    $from[] = '<li>';
-    $to[] = " - ";
-    $from[] = '</li>';
-    $to[] = "";
-    $from[] = '&oacute;';
-    $to[] = 'o';
-    $from[] = '&quot;';
-    $to[] = '"';
-    $from[] = '&[^;]*;';
-    $to[] = '';
-    $from[] = '(';
-    $to[] = '[';
-    $from[] = ')';
-    $to[] = ']';
-    $from[] = '&';
-    $to[] = '';
-    $from[] = '\'';
-    $to[] = '';
-    $from[] = '"';
-    $to[] = '';
-    $from[] = '<';
-    $to[] = '';
-    $from[] = '>';
-    $to[] = '';
-    $from[] = ']]>';
-    $to[] = ']] >';
-    $from[] = '';
-    $to[] = '';
-    for ($i = 0; $i < count($from); $i++)
-        $str = str_replace($from[$i], $to[$i], $str);
-    return filterevilchars($str);
-}
-
-function filterevilchars($str) {
-    return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
-}
 ?>

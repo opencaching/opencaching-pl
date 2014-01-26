@@ -1663,43 +1663,6 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 $show_deleted_logs = "";
                 $show_deleted_logs2 = " AND `cache_logs`.`deleted` = 0 ";
             };
-/*
-                $rs = sql("SELECT `cache_logs`.`user_id` `userid`,
-                                                ".$show_deleted_logs."
-                              `cache_logs`.`id` `logid`,
-                              `cache_logs`.`date` `date`,
-                              `cache_logs`.`type` `type`,
-                              `cache_logs`.`text` `text`,
-                              `cache_logs`.`text_html` `text_html`,
-                              `cache_logs`.`picturescount` `picturescount`,
-                              `cache_logs`.`mp3count` `mp3count`,
-                              `cache_logs`.`last_modified` AS `last_modified`,
-                              `cache_logs`.`last_deleted` AS `last_deleted`,
-                              `cache_logs`.`edit_count` AS `edit_count`,
-                              `cache_logs`.`date_created` AS `date_created`,
-                              `user`.`username` `username`,
-                              `user`.`admin` `admin`,
-                              `user`.`hidden_count` AS    `ukryte`,
-                              `user`.`founds_count` AS    `znalezione`,
-                              `user`.`notfounds_count` AS `nieznalezione`,
-                              `u2`.`username` AS `del_by_username`,
-                              `u2`.`admin` AS `del_by_admin`,
-                              `u3`.`username` AS `edit_by_username`,
-                              `u3`.`admin` AS `edit_by_admin`,
-                              `log_types`.`icon_small` `icon_small`,
-
-                              IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`
-                         FROM `cache_logs` INNER JOIN `log_types` ON `cache_logs`.`type`=`log_types`.`id`
-
-                                           INNER JOIN `user` ON `cache_logs`.`user_id`=`user`.`user_id`
-                                           LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
-                                           LEFT JOIN `user` `u2` ON `cache_logs`.`del_by_user_id`=`u2`.`user_id`
-                                           LEFT JOIN `user` `u3` ON `cache_logs`.`edit_by_user_id`=`u3`.`user_id`
-                        WHERE `cache_logs`.`cache_id`='&1'
-                                    ".$show_deleted_logs2."
-                     ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC
-                        LIMIT &2", $cache_id, $logs_to_display+0);
-        */
                     if (!isset($dbc)) {$dbc = new dataBase();};
                     $thatquery = "SELECT `cache_logs`.`user_id` `userid`,
                                                 ".$show_deleted_logs."
@@ -1854,13 +1817,11 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 //END: edit by FelixP - 2013'10
                 $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
                 $tmplog_date = fixPlMonth(htmlspecialchars(strftime("%d %B %Y", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
-                //$tmplog_text = $record['text'];
-
+                $dateTimeTmpArray = explode(' ', $record['date']);
+                $tmplog = mb_ereg_replace('{time}', substr($dateTimeTmpArray[1], 0, -3), $tmplog);
                 // replace smilies in log-text with images and add hyperlinks
                 $tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
 
-                // wyswietlenie aktywności usera (dodane przez Łza    )
-                // $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']" width="13" height="13" border="0" />'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
                 // display user activity (by Łza 2012)
                 if ((date('m') == 4) and (date('d') == 1)){
                     $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').'"/>'. rand(1, 9) . ') ';

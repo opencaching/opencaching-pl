@@ -22,17 +22,9 @@ $lang;
 if ($error == false) {
     //user logged in?
     if ($usr == false) {
-
-        function myUrlEncode($string) {
-            $entities = array('%21', '%2A', '%27', '%28', '%29', '%3B', '%3A', '%40', '%26', '%3D', '%2B', '%24', '%2C', '%2F', '%3F', '%25', '%23', '%5B', '%5D');
-            $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]");
-            return str_replace($entities, $replacements, urlencode($string));
-        }
-
         $target = myUrlEncode(tpl_get_current_page());
         tpl_redirect('login.php?target=' . $target);
     } else {
-
         // check for old-style parameters
         if (isset($_REQUEST['userid'])) {
             $user_id = $_REQUEST['userid'];
@@ -44,69 +36,11 @@ if ($error == false) {
         $stat_menu = array('title' => tr('Statictics'), 'menustring' => tr('Statictics'), 'siteid' => 'statlisting', 'navicolor' => '#E8DDE4', 'visible' => false, 'filename' => 'viewprofile.php?userid=' . $user_id, 'submenu' => array( array('title' => tr('graph_find'), 'menustring' => tr('graph_find'), 'visible' => true, 'filename' => 'ustatsg2.php?userid=' . $user_id, 'newwindow' => false, 'siteid' => 'findstat', 'icon' => 'images/actions/stat'), array('title' => tr('graph_created'), 'menustring' => tr('graph_created'), 'visible' => true, 'filename' => 'ustatsg1.php?userid=' . $user_id, 'newwindow' => false, 'siteid' => 'createstat', 'icon' => 'images/actions/stat')));
 
         $content = "";
-        function cleanup_text($str) {
-            $from[] = '<p>&nbsp;</p>';
-            $to[] = '';
-            $str = strip_tags($str, "<li>");
-            $from[] = '&nbsp;';
-            $to[] = ' ';
-            $from[] = '<p>';
-            $to[] = '';
-            $from[] = '\n';
-            $to[] = '';
-            $from[] = '\r';
-            $to[] = '';
-            $from[] = '</p>';
-            $to[] = "";
-            $from[] = '<br>';
-            $to[] = "";
-            $from[] = '<br />';
-            $to[] = "";
-            $from[] = '<br/>';
-            $to[] = "";
 
-            $from[] = '<li>';
-            $to[] = " - ";
-            $from[] = '</li>';
-            $to[] = "";
-
-            $from[] = '&oacute;';
-            $to[] = 'o';
-            $from[] = '&quot;';
-            $to[] = '"';
-            $from[] = '&[^;]*;';
-            $to[] = '';
-
-            $from[] = '&';
-            $to[] = '';
-            $from[] = '\'';
-            $to[] = '';
-            $from[] = '"';
-            $to[] = '';
-            $from[] = '<';
-            $to[] = '';
-            $from[] = '>';
-            $to[] = '';
-            $from[] = ']]>';
-            $to[] = ']] >';
-            $from[] = '';
-            $to[] = '';
-
-            for ($i = 0; $i < count($from); $i++)
-                $str = str_replace($from[$i], $to[$i], $str);
-
-            return filterevilchars($str);
-        }
-
-        function filterevilchars($str) {
-            return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
-        }
-
-        $rdd = sql("select TO_DAYS(NOW()) - TO_DAYS(`date_created`) `diff` from `user` WHERE user_id=&1 ", $user_id);
-        $ddays = mysql_fetch_array($rdd);
-        mysql_free_result($rdd);
-
-        $database = new dataBase(false);
+        $database = new dataBase();
+        $rddQuery = "select TO_DAYS(NOW()) - TO_DAYS(`date_created`) `diff` from `user` WHERE user_id=:1 ";
+        $database->multiVariableQuery($rddQuery, $user_id);
+        $ddays = $database->dbResultFetch();
         $query = "SELECT admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, country, date_created, description, hide_flag FROM user WHERE user_id=:1 LIMIT 1";
         $database->multiVariableQuery($query, $user_id);
         $user_record = $database->dbResultFetch();
@@ -422,7 +356,7 @@ if ($error == false) {
                     if ($record_logs['encrypt'] == 1 && ($record_logs['cache_owner'] == $usr['userid'] || $record_logs['luser_id'] == $usr['userid'])) {
                         $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
                     }
-                    $data_text = cleanup_text(str_replace("\r\n", " ", $record_logs['log_text']));
+                    $data_text = common::cleanupText(str_replace("\r\n", " ", $record_logs['log_text']));
                     $data_text = str_replace("\n", " ", $data_text);
                     if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
                         $data_text = str_rot13_html($data_text);
@@ -627,11 +561,12 @@ if ($error == false) {
                     if ($record_logs['encrypt'] == 1 && ($record_logs['cache_owner'] == $usr['userid'] || $record_logs['luser_id'] == $usr['userid'])) {
                         $logtext .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
                     }
-                    $data_text = cleanup_text(str_replace("\r\n", " ", $record_logs['log_text']));
+                    $data_text = common::cleanupText(str_replace("\r\n", " ", $record_logs['log_text']));
                     $data_text = str_replace("\n", " ", $data_text);
                     if ($record_logs['encrypt'] == 1 && $record_logs['cache_owner'] != $usr['userid'] && $record_logs['luser_id'] != $usr['userid']) {//crypt the log ROT13, but keep HTML-Tags and Entities
                         $data_text = str_rot13_html($data_text);
-                    } else {$logtext .= "<br/>";
+                    } else {
+                        $logtext .= "<br/>";
                     }
                     $logtext .= $data_text;
 
@@ -787,5 +722,11 @@ function getPowerTrailsCompletedByUser($userId){
         $result .= '<div class="ptMedal ptType'.$pt['type'].'"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td valign="center" align="center"><a title="'.$pt['name'].'" href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'"><img class="imgPtMedal" src="'.$pt['image'].'"></a></td></tr></table></div><div class="ptMedalSpacer"></div>';
     }
     return $result.'</td></tr><tr><td></td></tr></table>';
+}
+
+function myUrlEncode($string) {
+    $entities = array('%21', '%2A', '%27', '%28', '%29', '%3B', '%3A', '%40', '%26', '%3D', '%2B', '%24', '%2C', '%2F', '%3F', '%25', '%23', '%5B', '%5D');
+    $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]");
+    return str_replace($entities, $replacements, urlencode($string));
 }
 ?>

@@ -2,9 +2,7 @@
 /* cachemap-mini.php */
 require_once ('./lib/common.inc.php');
 require_once ('./lib/db.php');
-
 db_disconnect();
-var_dump($cachemap_mapper);
 $tplname = 'cachemap-mini';
 $user_id = (isset($_REQUEST['userid']) && $_REQUEST['userid'] != '') ? $_REQUEST['userid'] : -1;
 

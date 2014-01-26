@@ -1519,4 +1519,69 @@ function get_image_for_interval($folder, $interval = 1800)
     return "";
 }
 
+/**
+ * class witch common methods
+ */
+class common
+{
+    public static function cleanupText($str)
+    {
+        $str = strip_tags($str, "<li>");
+        $from[] = '<p>&nbsp;</p>';
+        $to[] = '';
+        $from[] = '&nbsp;';
+        $to[] = ' ';
+        $from[] = '<p>';
+        $to[] = '';
+        $from[] = '\n';
+        $to[] = '';
+        $from[] = '\r';
+        $to[] = '';
+        $from[] = '</p>';
+        $to[] = "";
+        $from[] = '<br>';
+        $to[] = "";
+        $from[] = '<br />';
+        $to[] = "";
+        $from[] = '<br/>';
+        $to[] = "";
+        $from[] = '<li>';
+        $to[] = " - ";
+        $from[] = '</li>';
+        $to[] = "";
+        $from[] = '&oacute;';
+        $to[] = 'o';
+        $from[] = '&quot;';
+        $to[] = '"';
+        $from[] = '&[^;]*;';
+        $to[] = '';
+        $from[] = '(';
+        $to[] = '[';
+        $from[] = ')';
+        $to[] = ']';
+        $from[] = '&';
+        $to[] = '';
+        $from[] = '\'';
+        $to[] = '';
+        $from[] = '"';
+        $to[] = '';
+        $from[] = '<';
+        $to[] = '';
+        $from[] = '>';
+        $to[] = '';
+        $from[] = ']]>';
+        $to[] = ']] >';
+        $from[] = '';
+        $to[] = '';
+        for ($i = 0; $i < count($from); $i++) {
+            $str = str_replace($from[$i], $to[$i], $str);
+        }
+        return self::filterevilchars($str);
+    }
+
+    private static function filterevilchars($str) {
+        return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
+    }
+}
+
 ?>
