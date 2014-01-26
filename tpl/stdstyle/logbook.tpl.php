@@ -79,7 +79,7 @@ function onSubmit(obj) {
     </script>
 <div id="previewblock">
 <div id="previewpageselect">
-Podgląd:
+{{logbook_22}}:
 <div id="previewpages"></div>
 </div>
 <div id="preview<?echo (int)$_GET['logbook_type'];?>
