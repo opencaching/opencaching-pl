@@ -65,9 +65,7 @@ if ($usr || !$hide_coords){
     $queryid = tpl_get_var('queryid');
     $startat = tpl_get_var('startat');
     $google_kml_link = $absolute_server_URI . "search.php?queryid=$queryid&output=kml&startat=$startat";
-    if ($hide_coords){
-        $google_kml_link .= requestSigner::get_signature_text();
-    }
+    $google_kml_link .= requestSigner::get_signature_text();
     $google_kml_link = urlencode($google_kml_link);
 echo "
 

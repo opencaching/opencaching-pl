@@ -56,7 +56,7 @@ class requestSigner {
     public static function get_signature_text()
     {
         global $usr;
-        if ($usr !== false){
+        if (is_array($usr)){
             $signature = $_SESSION['signature'];
             if ($signature == null){
                 // TODO grhhh, it's not cryptographically strong RNG
@@ -84,7 +84,7 @@ class requestSigner {
     public static function extract_user()
     {
         global $usr;
-        if ($usr !== false){
+        if ($usr !== false || is_array($usr)){
             return ;
         }
         if (isset($_GET['signature'])){
