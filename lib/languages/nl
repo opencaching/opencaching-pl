@@ -2208,6 +2208,14 @@ logbook_23 Genereer PDF
 
 
 
+LineChart Lijn
+BarChart Bar
+positions Posities
+more10 Er zijn meer dan 10 geselecteerd
+more30 Er zijn meer dan 30 geselecteerd
+
+
+
 notify_newcachemail01 Hallo
 notify_newcachemail02 Er is net een nieuwe cache gemeld in jouw ingestelde zoekradius
 notify_newcachemail03 heeft op
