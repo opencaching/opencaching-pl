@@ -56,6 +56,11 @@
         else
         {
 */
+
+        // extract user data for KML search
+        requestSigner::extract_user();
+
+
         $tplname = 'search';
         require($stylepath . '/search.inc.php');
         require($rootpath . 'lib/caches.inc.php');
