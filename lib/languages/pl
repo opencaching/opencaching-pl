@@ -2203,6 +2203,11 @@ logbook_15 Modyfikatory dla obrazka: np. -2 w polu x spowoduje przesunięcie o 2
 logbook_16 Bez ozdób FTF
 logbook_17 Bez ramek
 logbook_18 przydatny gdy jest trudnośc w równym wydrukowaniu obu stron, ucina jedynie na stronach nieparzystych
+logbook_19 Nick
+logbook_20 E-Mail
+logbook_21 wykorzystywany jest tylko do uzupełnienia pola w Log Booku
+logbook_22 Podgląd
+logbook_23 Generuj PDF
 
 
 

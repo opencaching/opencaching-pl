@@ -2202,6 +2202,11 @@ logbook_15 Modify picture example: x -2 moves picture 2 pixels to left. h +4 inc
 logbook_16 Without FTF
 logbook_17 No borders
 logbook_18 Useful when there is difficulty in equal printed on both sides, cut only on odd-numbered pages
+logbook_19 Nick
+logbook_20 E-Mail
+logbook_21 Is only used to complete the fields in the logbook
+logbook_22 Preview
+logbook_23 Generate PDF
 
 
 

@@ -125,10 +125,10 @@ print
         <p><label for="nick">{{logbook_16}}:</label> <input type="checkbox" name="noftf" id="noftf" /></p>
 <!--        <p><label for="nick">{{logbook_17}}:</label> <input type="checkbox" name="noborders" id="noborders" />
             <span class="note">{{logbook_18}}</span></p>-->
-        <p><label for="nick">Nick:</label> <input type="text" name="nick" id="nick" /></p>
-        <p><label for="nick">E-Mail:</label> <input type="text" name="email" id="email" />
-            <span class="note">wykorzystywany jest tylko do uzupełnienia pola w Log Booku</span></p>
-        <p><input type="submit" onclick=\'document.getElementById("pdf").value = ""\'  name="gen_log" value="Podgląd" /><input type="submit" name="gen_log" onclick=\'document.getElementById("pdf").value = "pdf"\' value="Generuj PDF" /></p>
+        <p><label for="nick">{{logbook_19}}:</label> <input type="text" name="nick" id="nick" /></p>
+        <p><label for="nick">{{logbook_20}}:</label> <input type="text" name="email" id="email" />
+            <span class="note">{{logbook_21}}</span></p>
+        <p><input type="submit" onclick=\'document.getElementById("pdf").value = ""\'  name="gen_log" value="{{logbook_22}}" /><input type="submit" name="gen_log" onclick=\'document.getElementById("pdf").value = "pdf"\' value="{{logbook_23}}" /></p>
         <input type="hidden" name="pdf" id="pdf" />
     </form>
 ';
@@ -154,10 +154,10 @@ print
         <p><label for="nick">{{logbook_16}}:</label> <input type="checkbox" name="noftf" id="noftf" /></p>
         <p><label for="nick">{{logbook_17}}:</label> <input type="checkbox" name="noborders" id="noborders" />
             <span class="note">{{logbook_18}}</span></p>
-        <p><label for="nick">Nick:</label> <input type="text" name="nick" id="nick" /></p>
-        <p><label for="nick">E-Mail:</label> <input type="text" name="email" id="email" />
-            <span class="note">wykorzystywany jest tylko do uzupełnienia pola w Log Booku</span></p>
-        <p><input type="submit" onclick=\'document.getElementById("pdf").value = ""\'  name="gen_log" value="Podgląd" /><input type="submit" name="gen_log" onclick=\'document.getElementById("pdf").value = "pdf"\' value="Generuj PDF" /></p>
+        <p><label for="nick">{{logbook_19}}:</label> <input type="text" name="nick" id="nick" /></p>
+        <p><label for="nick">{{logbook_20}}:</label> <input type="text" name="email" id="email" />
+            <span class="note">{{logbook_21}}</span></p>
+        <p><input type="submit" onclick=\'document.getElementById("pdf").value = ""\'  name="gen_log" value="{{logbook_22}}" /><input type="submit" name="gen_log" onclick=\'document.getElementById("pdf").value = "pdf"\' value="{{logbook_23}}" /></p>
         <input type="hidden" name="pdf" id="pdf" />
     </form>
 ';
