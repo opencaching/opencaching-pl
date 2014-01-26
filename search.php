@@ -29,7 +29,8 @@
     require_once 'lib/db.php';
     require_once('./lib/common.inc.php');
     require_once('./lib/search.inc.php');
-    global $lang;
+    require_once('./lib/search-signatures.inc.php');
+   global $lang;
     // SQL-Debug?
     $sqldebug = false;
     global $sql_debug;

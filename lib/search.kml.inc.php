@@ -51,6 +51,10 @@
 
     $kmlTimeFormat = 'Y-m-d\TH:i:s\Z';
 
+    // we use this search signatures only for kml, since only kml is referenced externally
+    // if more formats need support - move this code up to search.php
+    requestSigner::extract_user();
+    
     if( $usr || !$hide_coords )
     {
         //prepare the output

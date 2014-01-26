@@ -61,7 +61,15 @@
 global $usr, $hide_coords;
 $login =0;
 $googlemaps = "";
-if ($usr || !$hide_coords){ echo "
+if ($usr || !$hide_coords){ 
+    $queryid = tpl_get_var('queryid');
+    $startat = tpl_get_var('startat');
+    $google_kml_link = $absolute_server_URI . "search.php?queryid=$queryid&output=kml&startat=$startat";
+    if ($hide_coords){
+        $google_kml_link .= requestSigner::get_signature_text();
+    }
+    $google_kml_link = urlencode($google_kml_link);
+echo "
 
 <table class=\"content\" style=\"font-size: 12px; line-height: 1.6em;\">
     <tr>
@@ -86,7 +94,7 @@ if ($usr || !$hide_coords){ echo "
                 <td><span class=\"content-title-noshade txt-blue08\">{{format_other}}</span>:<br/>
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=";?>{startat}<?php echo "\" title=\"Waypoint .loc\">LOC</a> |
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".kml?startat=";?>{startat}<?php echo "\" title=\"Google Earth .kml\">KML</a> |
-            <a class=\"links\" href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> | ";
+            <a class=\"links\" href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=$google_kml_link' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> | ";
             echo "<a class=\"links\" href=\"search.ov2?queryid=";?>{queryid}<?php echo "&amp;output=ov2&amp;startat=";?>{startat}<?php echo "\" title=\"TomTom POI .ov2\">OV2</a> |
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ovl?startat=";?>{startat}<?php echo "\" title=\"TOP50-Overlay .ovl\">OVL</a> |
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".txt?startat=";?>{startat}<?php echo "\" title=\"Text .txt\">TXT</a> |
