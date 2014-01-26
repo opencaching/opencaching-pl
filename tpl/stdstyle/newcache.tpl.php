@@ -154,15 +154,15 @@ function stopUpload(success){
     });
 
     var gpx = jQuery.parseJSON(success);
-    
+
     var waypointsCount = count(gpx);
-    
+
     //console.log(waypointsCount);
     //console.log(gpx);
-    
+
     if(waypointsCount==1){
         fillFormInputs(gpx[0])
-    } 
+    }
     if(waypointsCount>1){
         $('#gpxWaypointObject').val(success);
         var i=0;

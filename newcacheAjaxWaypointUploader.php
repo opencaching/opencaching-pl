@@ -71,7 +71,7 @@ function loadWaypointFromGpx($wpts) {
         unset($arr);
         $arr['wpt'][0] = $tmp ;
     }
-    
+
     foreach ($arr['wpt'] as $key => $waypoint) {
         $coordsLon = (float)$waypoint -> attributes() -> lon;
         $coordsLat = (float)$waypoint -> attributes() -> lat;
@@ -91,22 +91,22 @@ function loadWaypointFromGpx($wpts) {
 
         $coords_lat_h = floor($coordsLat);
         $coords_lon_h = floor($coordsLon);
-        
+
         $coords_lat_min = sprintf("%02.3f", round(($coordsLat - $coords_lat_h) * 60, 3));
         $coords_lon_min = sprintf("%02.3f", round(($coordsLon - $coords_lon_h) * 60, 3));
 
         $result[$key] = array(
-            'name' => (string)$waypoint->name, 
-            'coords_latNS' => $coords_latNS, 
-            'coords_lonEW' => $coords_lonEW, 
-            'coords_lat_h' => $coords_lat_h, 
-            'coords_lon_h' => $coords_lon_h, 
-            'coords_lat_min' => $coords_lat_min, 
-            'coords_lon_min' => $coords_lon_min, 
+            'name' => (string)$waypoint->name,
+            'coords_latNS' => $coords_latNS,
+            'coords_lonEW' => $coords_lonEW,
+            'coords_lat_h' => $coords_lat_h,
+            'coords_lon_h' => $coords_lon_h,
+            'coords_lat_min' => $coords_lat_min,
+            'coords_lon_min' => $coords_lon_min,
             'time' => (string) $waypoint->time,
             'altitude' => (float) $waypoint->ele,
             'desc' => '',
-            'cmt' => '', 
+            'cmt' => '',
         );
         //insert waypoint description in result array
         if (isset($waypoint->cmt) && $wpts->wpt->cmt != '') {

@@ -48,7 +48,7 @@ global $usr;
  * The signature expires in 1 hour from generation time
  */
 class requestSigner {
-    
+
     /**
      * If the user is logged in, returns signature URL snippet, in form &signature=SOMETHING.
      * Otherwise, empty string is returned
@@ -60,9 +60,9 @@ class requestSigner {
             $signature = $_SESSION['signature'];
             if ($signature == null){
                 // TODO grhhh, it's not cryptographically strong RNG
-                $signature = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', 
-                    mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), 
-                    mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), 
+                $signature = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X',
+                    mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535),
+                    mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535),
                     mt_rand(0, 65535), mt_rand(0, 65535));
                 $_SESSION['signature'] = $signature;
             }
@@ -72,12 +72,12 @@ class requestSigner {
             return '';
         }
     }
-    
+
     /**
      * Retrieves user data ( $usr global variable ) from the signed request.
      * When this method returns, and request is properly signed, $usr variable
      * is restored with data saved when get_signature_text() wass called.
-     * 
+     *
      * It will NOT override current user, if any is set.
      * It will NOT persist user information in a session.
      */

@@ -61,7 +61,7 @@
 global $usr, $hide_coords;
 $login =0;
 $googlemaps = "";
-if ($usr || !$hide_coords){ 
+if ($usr || !$hide_coords){
     $queryid = tpl_get_var('queryid');
     $startat = tpl_get_var('startat');
     $google_kml_link = $absolute_server_URI . "search.php?queryid=$queryid&output=kml&startat=$startat";

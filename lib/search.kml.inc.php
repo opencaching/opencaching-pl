@@ -25,7 +25,7 @@
     ****************************************************************************/
 
     ob_start();
-    
+
     global $bUseZip, $sqldebug, $usr, $hide_coords, $absolute_server_URI;
     set_time_limit(1800);
     $kmlLine =
@@ -50,7 +50,7 @@
     $kmlFoot = '</Folder></Document></kml>';
 
     $kmlTimeFormat = 'Y-m-d\TH:i:s\Z';
-    
+
     if( $usr || !$hide_coords )
     {
         //prepare the output
@@ -335,7 +335,7 @@
             // header('Content-Transfer-Encoding: binary');
             echo $out;
             ob_end_flush();
-            
+
         } else {
             header('Content-Type: application/vnd.google-earth.kml; charset=utf8');
             header('Content-Disposition: attachment; filename="' . $sFilebasename . '.kml"');

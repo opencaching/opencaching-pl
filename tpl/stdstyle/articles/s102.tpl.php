@@ -8,7 +8,7 @@
 <script src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-1.9.1.js"></script>
 <script src="tpl/stdstyle/js/jquery.1.10.3/js/jquery-ui-1.10.3.custom.js"></script>
 <script src="tpl/stdstyle/js/jquery.1.10.3/development-bundle/ui/jquery.datepick-{language4js}.js"></script>
- 
+
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCT.css" />
 <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/GCTStats.css" />
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
@@ -18,22 +18,22 @@
 
 <?php
 $sNameOfStat = "";
-$sTitleOfStat="";  
+$sTitleOfStat="";
 if ( isset( $_REQUEST[ "stat" ] ) )
 {
-	$sNameOfStat = $_REQUEST[ "stat" ];
+    $sNameOfStat = $_REQUEST[ "stat" ];
 }
 
 if ( $sNameOfStat == "NumberOfFinds" )
-	$sTitleOfStat = " {{ranking_by_number_of_finds_new}} ";
+    $sTitleOfStat = " {{ranking_by_number_of_finds_new}} ";
 
 if ( $sNameOfStat == "MaintenanceOfCaches" )
-	$sTitleOfStat = " {{ranking_by_maintenace}} ";
+    $sTitleOfStat = " {{ranking_by_maintenace}} ";
 ?>
 
 <table class="content" width="97%">
-	<tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{{stats}}" title="{{stats}} <?php echo $sTitleOfStat?>" align="middle" /><font size="4">  <b>{{statistics}}: <?php echo $sTitleOfStat?></b></font></td></tr>
-	<tr><td class="spacer"></td></tr>
+    <tr><td class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/stat1.png" class="icon32" alt="{{stats}}" title="{{stats}} <?php echo $sTitleOfStat?>" align="middle" /><font size="4">  <b>{{statistics}}: <?php echo $sTitleOfStat?></b></font></td></tr>
+    <tr><td class="spacer"></td></tr>
 </table>
 
 <script type="text/javascript">
@@ -43,9 +43,9 @@ TimeTrack( "START" );
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 
 <?php
-global $debug_page; 
+global $debug_page;
 //if ( $debug_page )
-//	echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";  
+//  echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";
 ?>
 
 {{StatTestVer}}<br>
@@ -70,31 +70,31 @@ $sRD = "R";
 
 if ( !isset( $_REQUEST[ "init" ] ) )
 {
-	$sRok = $_REQUEST[ "Rok" ];
-	$sMc = $_REQUEST[ "Mc" ];
-	
-	$sDataOd = $_REQUEST[ "DataOd" ];
-	$sDataDo = $_REQUEST[ "DataDo" ];
-	
-	$sRD = $_REQUEST[ "rRD" ];	
+    $sRok = $_REQUEST[ "Rok" ];
+    $sMc = $_REQUEST[ "Mc" ];
+
+    $sDataOd = $_REQUEST[ "DataOd" ];
+    $sDataDo = $_REQUEST[ "DataDo" ];
+
+    $sRD = $_REQUEST[ "rRD" ];
 }
 
 if ( ( isset( $_REQUEST[ "init" ] ) or intval($sMc) > 12 or intval($sMc) < 0 or intval($sRok) < 0 )
-or ( intval($sMc) != 0 and intval($sRok) == 0 ) )	
+or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 {
-	$sRok = date( "Y" );
-	$sMc = date( "m" );
-	
-	$_REQUEST[ "Rok" ] = $sRok;
-	$_REQUEST[ "Mc" ] = $sMc;
-	
-	$_REQUEST[ "DataOd" ] = $sDataOd;
-	$_REQUEST[ "DataDo" ] = $sDataDo;
-		
-	$_REQUEST[ "rRD" ] = $sRD;
+    $sRok = date( "Y" );
+    $sMc = date( "m" );
+
+    $_REQUEST[ "Rok" ] = $sRok;
+    $_REQUEST[ "Mc" ] = $sMc;
+
+    $_REQUEST[ "DataOd" ] = $sDataOd;
+    $_REQUEST[ "DataDo" ] = $sDataDo;
+
+    $_REQUEST[ "rRD" ] = $sRD;
 }
 
-?> 
+?>
 
 
 <!-- content-title-noshade -->
@@ -102,53 +102,53 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 
 <table width="100%" >
 <tr>
-	<!-- Begin of Filter -->
-	<td>
- 		<form name="FilterDate" style="display:inline; " action='articles.php' method="get">
-			<input type="hidden" value="s102" name="page" >
-			<input type="hidden" value="<?php echo $sNameOfStat?>" name="stat" id = "stat" >
-			<input type="hidden" name="DateFrom" id="DateFrom" value="" >
-			<input type="hidden" name="DateTo" id="DateTo" value="" >
-			<table	class = "GCT-div-table" >
-				<tr>
-					<td><input type="radio" name="rRD" id="rR" value="R" <?php if ($sRD == "R") echo "checked" ?> ></td>
-					<td width="10px">{{FiltrYear}}:</td>
-					<td width="64px"> <input type="text" name="Rok" value="<?php echo $sRok?>"; style="width:30px; text-align: center" maxlength="4" onclick="GCTStatsSetRadio( 'Rok' )"></td>			
-					<td >{{FiltrMonth}}: <input type="text" value="<?php echo $sMc?>"  name="Mc" style="width:20px; text-align: center" maxlength="2" onclick="GCTStatsSetRadio( 'Rok' )"></td>		
-					<td width="90px" rowspan=2; width="70px"  style="text-align: center"> <button type="submit" name="bFilterDate" />{{Filter}}</td>			
-				</tr>
-				
-				<tr>
-					<td><input type="radio" name="rRD" id="rD" value="D" <?php if ($sRD == "D") echo "checked" ?>></td>
-					<td>{{Dates}}:</td>
-					<td colspan=2>		
-					<input type="text" id="datepicker" name="DataOd" onclick="GCTStatsSetRadio( 'Data' )" value="<?php echo $sDataOd?>" style="width:60px; text-align: left"  maxlength="10">&nbsp&nbsp-
-					<input type="text" id="datepicker1" name="DataDo" onclick="GCTStatsSetRadio( 'Data' )" value="<?php echo $sDataDo?>" style="width:60px; text-align: left"  maxlength="10">
-					</td>									
-				</tr>
-		
-			</table>
- 		</form>
-	</td>
-	<!-- END of Filter -->
+    <!-- Begin of Filter -->
+    <td>
+        <form name="FilterDate" style="display:inline; " action='articles.php' method="get">
+            <input type="hidden" value="s102" name="page" >
+            <input type="hidden" value="<?php echo $sNameOfStat?>" name="stat" id = "stat" >
+            <input type="hidden" name="DateFrom" id="DateFrom" value="" >
+            <input type="hidden" name="DateTo" id="DateTo" value="" >
+            <table  class = "GCT-div-table" >
+                <tr>
+                    <td><input type="radio" name="rRD" id="rR" value="R" <?php if ($sRD == "R") echo "checked" ?> ></td>
+                    <td width="10px">{{FiltrYear}}:</td>
+                    <td width="64px"> <input type="text" name="Rok" value="<?php echo $sRok?>"; style="width:30px; text-align: center" maxlength="4" onclick="GCTStatsSetRadio( 'Rok' )"></td>
+                    <td >{{FiltrMonth}}: <input type="text" value="<?php echo $sMc?>"  name="Mc" style="width:20px; text-align: center" maxlength="2" onclick="GCTStatsSetRadio( 'Rok' )"></td>
+                    <td width="90px" rowspan=2; width="70px"  style="text-align: center"> <button type="submit" name="bFilterDate" />{{Filter}}</td>
+                </tr>
 
-	<!-- EMPTY -->
-	<!-- <td width="124px"> </td> -->
+                <tr>
+                    <td><input type="radio" name="rRD" id="rD" value="D" <?php if ($sRD == "D") echo "checked" ?>></td>
+                    <td>{{Dates}}:</td>
+                    <td colspan=2>
+                    <input type="text" id="datepicker" name="DataOd" onclick="GCTStatsSetRadio( 'Data' )" value="<?php echo $sDataOd?>" style="width:60px; text-align: left"  maxlength="10">&nbsp&nbsp-
+                    <input type="text" id="datepicker1" name="DataDo" onclick="GCTStatsSetRadio( 'Data' )" value="<?php echo $sDataDo?>" style="width:60px; text-align: left"  maxlength="10">
+                    </td>
+                </tr>
 
-	<!-- Begin of User -->
-	<td align="right">	
-		<table	class = "GCT-div-table" >
-			<tr >
-				<td >
-					<form name="FindUser" style="display:inline;" action="" onsubmit="return false;">						
-						{{user}}:&nbsp&nbsp<input type="text" name="User" value=""; style="width:100px; text-align: left; ">						
-						&nbsp&nbsp&nbsp<button type="submit" value={{search}} name="bFindUser" style="font-size:12px;width:70px;"; onClick ="GCTStatsFindUser( document.FindUser.User.value )"  />{{search}}</button>
-						
-					</form>
-				</td>
-			</tr>
-		</table>
-	</td>
+            </table>
+        </form>
+    </td>
+    <!-- END of Filter -->
+
+    <!-- EMPTY -->
+    <!-- <td width="124px"> </td> -->
+
+    <!-- Begin of User -->
+    <td align="right">
+        <table  class = "GCT-div-table" >
+            <tr >
+                <td >
+                    <form name="FindUser" style="display:inline;" action="" onsubmit="return false;">
+                        {{user}}:&nbsp&nbsp<input type="text" name="User" value=""; style="width:100px; text-align: left; ">
+                        &nbsp&nbsp&nbsp<button type="submit" value={{search}} name="bFindUser" style="font-size:12px;width:70px;"; onClick ="GCTStatsFindUser( document.FindUser.User.value )"  />{{search}}</button>
+
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </td>
 <!-- End of User -->
 </tr>
 </table>
@@ -161,62 +161,62 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 
 <table width="100%" >
 <tr>
-	<td>				
-<!-- 	<table	class = "GCT-div-table" >
-			<tr>
-				<td width = "150px" align = "center" >
-				<form name="ChartHelp" style="display:inline;" action="" onsubmit="return false;" >										
-					<button name="bChartHelp" id="bChartHelp"  />Help</button>
-				</form>
-				</td>
-			</tr>
-		</table>-->
-		
-	</td>
+    <td>
+<!--    <table  class = "GCT-div-table" >
+            <tr>
+                <td width = "150px" align = "center" >
+                <form name="ChartHelp" style="display:inline;" action="" onsubmit="return false;" >
+                    <button name="bChartHelp" id="bChartHelp"  />Help</button>
+                </form>
+                </td>
+            </tr>
+        </table>-->
 
-	<td>		
-		<form name="Details" style="display:inline;" action="" onsubmit="return false;" >		
-			<table class="GCT-div-table" >
-				<tr>
-					<td rowspan = 2>
-						{{Selected}}:&nbsp&nbsp<input type="text" name="SelectedUser" id="SelectedUser" class="GCT-div-readOnly" style="width:20px" readonly >&nbsp&nbsp{{positions}}
-					</td>
-									
-					<td>																			
-						&nbsp&nbsp&nbsp&nbsp<button name="bLineChart" id="bLineChart"  />{{LineChart}}</button>										
-					</td>
-					<td rowspan = 2>
-						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span id ="bChartHelp" style="cursor: pointer">?</span>
-					</td>
-					
-				</tr>
-				<tr>
-					
-					<td>
-						<br>
-						&nbsp&nbsp&nbsp&nbsp<button name="bBarChart" id="bBarChart"   />{{BarChart}}</button>
-					</td>
-				</tr>
-			</table>
-		</form>
-	</td>
-	
-	
+    </td>
+
+    <td>
+        <form name="Details" style="display:inline;" action="" onsubmit="return false;" >
+            <table class="GCT-div-table" >
+                <tr>
+                    <td rowspan = 2>
+                        {{Selected}}:&nbsp&nbsp<input type="text" name="SelectedUser" id="SelectedUser" class="GCT-div-readOnly" style="width:20px" readonly >&nbsp&nbsp{{positions}}
+                    </td>
+
+                    <td>
+                        &nbsp&nbsp&nbsp&nbsp<button name="bLineChart" id="bLineChart"  />{{LineChart}}</button>
+                    </td>
+                    <td rowspan = 2>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span id ="bChartHelp" style="cursor: pointer">?</span>
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        <br>
+                        &nbsp&nbsp&nbsp&nbsp<button name="bBarChart" id="bBarChart"   />{{BarChart}}</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </td>
+
+
 <!-- Begin of Position   width = "200px" align = "center"-->
-	<td align="right">				
-		<table	class = "GCT-div-table" >
-			<tr>
-				<td >
-				<form name="Position" style="display:inline;" action="" onsubmit="return false;" >
-					<input type="hidden" value="0" name="RealPosOfTable" >
-					{{my_position}}:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" class="GCT-div-readOnly" style="width:70px" readonly >
-					&nbsp&nbsp&nbsp&nbsp<button name="bGo" onClick ="GCTStatsGotoPosition(document.Position.RealPosOfTable.value)"  />{{go}}</button>
-				</form>
-				</td>
-			</tr>
-		</table>
-	</td>
-<!-- End of Position -->	
+    <td align="right">
+        <table  class = "GCT-div-table" >
+            <tr>
+                <td >
+                <form name="Position" style="display:inline;" action="" onsubmit="return false;" >
+                    <input type="hidden" value="0" name="RealPosOfTable" >
+                    {{my_position}}:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" class="GCT-div-readOnly" style="width:70px" readonly >
+                    &nbsp&nbsp&nbsp&nbsp<button name="bGo" onClick ="GCTStatsGotoPosition(document.Position.RealPosOfTable.value)"  />{{go}}</button>
+                </form>
+                </td>
+            </tr>
+        </table>
+    </td>
+<!-- End of Position -->
 </tr>
 </table>
 
@@ -226,7 +226,7 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 
 
 
-</div> <!-- End of GCT-div --> 
+</div> <!-- End of GCT-div -->
 
 <?php include ("t102.php"); ?>
 
@@ -234,7 +234,7 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 </div>
 
     <script type="text/javascript">
-      google.load('visualization', '1', {'packages':['corechart'], 'language': '{language4js}'});      
+      google.load('visualization', '1', {'packages':['corechart'], 'language': '{language4js}'});
     </script>
 
 
