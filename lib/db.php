@@ -40,6 +40,9 @@ class dataBase
     private $errorEmail;
     private $replyToEmail;
 
+    const dbQuote = '`';
+    const bindChar = ':';
+
     function __construct($debug = false) {
         include __DIR__.'/settings.inc.php';
         $this->server   = $opt['db']['server'];
@@ -269,6 +272,11 @@ class dataBase
     public function multiVariableQuery($query) {
         $numargs = func_num_args();
         $arg_list = func_get_args();
+        if(is_array($arg_list[1]) && $numargs === 2){ // params were passed in array
+            $arg_list = $arg_list[1];
+            $numargs = count($arg_list)+1;
+        }
+
         try {
             // We are instantinating new PDO object, and new connection for every query.
             // This is inefficient (compared to old sql() function, and especially on my Windows box)
@@ -285,7 +293,7 @@ class dataBase
 
             for ($i = 1; $i < $numargs; $i++) {
                 // if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
-                $this->dbData->bindParam(':'.$i,$arg_list[$i]);
+                $this->dbData->bindParam(self::bindChar.$i,$arg_list[$i]);
             }
 
             $this->dbData ->setFetchMode(PDO::FETCH_ASSOC);
@@ -413,6 +421,30 @@ class dataBase
         return $message;
     }
 
+    /**
+     * static experimental methode
+     *
+     * build select query automaticly, on argument basic.
+     */
+    public static function select($columnNameArray, $tableName, $whereArray=array(array('fieldName'=>'1','operator'=>'','fieldValue'=>''))){
+        $query = 'SELECT ';
+        foreach ($columnNameArray as $column) {
+            $query .= self::dbQuote.$column.self::dbQuote.',';
+        }
+        $query = rtrim($query, ",");
+        $query .= ' FROM '.$tableName.' WHERE ';
+        $i = 1;
+        foreach ($whereArray as $field) {
+           $query .= self::dbQuote.$field['fieldName'].self::dbQuote.$field['operator'].self::bindChar.$i.' AND ';
+           $variableArray[$i] = $field['fieldValue'];
+           $i++;
+        }
+        $query = rtrim($query, ' AND ');
+        $db = new dataBase;
+        $db->multiVariableQuery($query, $variableArray);
+
+        return $db->dbResultFetchAll();
+    }
     /**
      * this methode can be used for display any array from anywhere
      *
