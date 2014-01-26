@@ -58,15 +58,10 @@
     </tr>
 </table>
 <?php
-global $usr, $hide_coords;
+global $usr, $hide_coords, $lang;
 $login =0;
 $googlemaps = "";
 if ($usr || !$hide_coords){
-    $queryid = tpl_get_var('queryid');
-    $startat = tpl_get_var('startat');
-    $google_kml_link = $absolute_server_URI . "search.php?queryid=$queryid&output=kml&startat=$startat";
-    $google_kml_link .= requestSigner::get_signature_text();
-    $google_kml_link = urlencode($google_kml_link);
 echo "
 
 <table class=\"content\" style=\"font-size: 12px; line-height: 1.6em;\">
@@ -92,7 +87,7 @@ echo "
                 <td><span class=\"content-title-noshade txt-blue08\">{{format_other}}</span>:<br/>
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=";?>{startat}<?php echo "\" title=\"Waypoint .loc\">LOC</a> |
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".kml?startat=";?>{startat}<?php echo "\" title=\"Google Earth .kml\">KML</a> |
-            <a class=\"links\" href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=$google_kml_link' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> | ";
+            <a class=\"links\" href='";?>{google_maps_link}<?php echo "' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> | ";
             echo "<a class=\"links\" href=\"search.ov2?queryid=";?>{queryid}<?php echo "&amp;output=ov2&amp;startat=";?>{startat}<?php echo "\" title=\"TomTom POI .ov2\">OV2</a> |
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ovl?startat=";?>{startat}<?php echo "\" title=\"TOP50-Overlay .ovl\">OVL</a> |
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".txt?startat=";?>{startat}<?php echo "\" title=\"Text .txt\">TXT</a> |
@@ -119,7 +114,7 @@ echo "
                         <td><span class=\"content-title-noshade txt-blue08\">{{format_other}}</span>:<br/>
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".loc?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Waypoint .loc\">LOC</a> |
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".kml?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Google Earth .kml\">KML</a> |
-            <a class=\"links\" href='http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=http:%2F%2Fwww.opencaching.pl%2Fsearch.php%3Fqueryid%3D";?>{queryid}<?php echo "%26output%3Dkml%26startat%3D";?>{startat}<?php echo "%26count%3Dmax%26zip%3D1&amp;ie=UTF8&amp;z=7' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> |
+            <a class=\"links\" href='";?>{google_maps_link_all}<?php echo "' target='_blank' title='".tr('show_in_google_maps')."'>GoogleMaps</a> |
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ov2?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TomTom POI .ov2\">OV2</a> |
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ovl?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"TOP50-Overlay .ovl\">OVL</a> |
             <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".txt?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Text .txt\">TXT</a> |
