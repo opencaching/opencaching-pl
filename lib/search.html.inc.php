@@ -416,7 +416,7 @@ $login=0;
         $google_kml_link = $absolute_server_URI . "search.php?queryid=$queryid&output=kml&startat=$startat";
         $google_kml_link .= requestSigner::get_signature_text();
         
-        $google_kml_link_all = $google_kml_link.'count=max&zip=1';
+        $google_kml_link_all = $google_kml_link.'&count=max&zip=1';
 
         $domain = substr(trim($absolute_server_URI,'/'),-2,2); // It should be done better
 
