@@ -124,7 +124,9 @@
             $owner_id = $cache_record['user_id'];
 
             //cache data
-            tpl_set_var('cachename', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'));
+            $cache_name = htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8');
+            $tpl_subtitle = $cache_name . ' - ';
+            tpl_set_var('cachename', $cache_name);
             tpl_set_var('cacheid', $cache_id);
 
             if ($cache_record['type'] == 6)
