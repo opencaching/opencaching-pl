@@ -2187,19 +2187,22 @@ logmap_03 Mapa 100 najnowszych logów
 logmap_04 Mapa logów
 logbook_01 Podgląd dziennik
 logbook_02 Rodzaj
-logbook_03 Logbook A6 Dwustronny
-logbook_04 Logbook A7 Dwustronny
-logbook_05 Zostaw puste pola jeśli chcesz je wspisać później ręcznie lub też zostawić wartości standardowe
-logbook_06 Nazwa skrzynki
-logbook_07 Współrzędne
-logbook_08 Obrazek tytułowy
-logbook_09 Obrazek w tle
-logbook_10 w
-logbook_11 h
-logbook_12 Widoczność
-logbook_13 Modyfikatory dla obrazka: np. -2 w polu x spowoduje przesunięcie o 2 piksele w lewo, a 4 w h zwiększy wysokośc o 4 piksele
-logbook_14 Bez ozdób FTF
-logbook_15 Bez ramek
+logbook_03 Wybierz
+logbook_04 Logbook A6 Dwustronny
+logbook_05 Logbook A7 Dwustronny
+logbook_06 Proszę wybrać typ logbooku
+logbook_07 Zostaw puste pola jeśli chcesz je wspisać później ręcznie lub też zostawić wartości standardowe
+logbook_08 Nazwa skrzynki
+logbook_09 Współrzędne
+logbook_10 Obrazek tytułowy
+logbook_11 Obrazek w tle
+logbook_12 w
+logbook_13 h
+logbook_14 Widoczność
+logbook_15 Modyfikatory dla obrazka: np. -2 w polu x spowoduje przesunięcie o 2 piksele w lewo, a 4 w h zwiększy wysokośc o 4 piksele
+logbook_16 Bez ozdób FTF
+logbook_17 Bez ramek
+logbook_18 przydatny gdy jest trudnośc w równym wydrukowaniu obu stron, ucina jedynie na stronach nieparzystych
 
 
 
@@ -2208,3 +2211,6 @@ BarChart Słupkowy
 positions pozycji
 more10 Wybrano więcej niż 10
 more30 Wybrano więcej niż 30
+
+
+

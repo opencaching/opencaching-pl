@@ -2186,20 +2186,22 @@ logmap_03 Map with last 100 logentries
 logmap_04 Logmap
 logbook_01 Logbook preview
 logbook_02 Type
-logbook_03 Logbook A6 Doublesided
-logbook_04 Logbook A7 Doublesided
-logbook_05 Leave the fields blank if you want to modify it later manually or leave the default values​​
-logbook_06 Cache name
-logbook_07 Coordinates
-logbook_08 Main picture
-logbook_09 Background pic
-logbook_10 w
-logbook_11 h
-logbook_12 Transparency
-logbook_13 Modify picture example: x -2 moves picture 2 pixels to left. h +4 increase height picture with 4 pixels
-logbook_14 Without FTF
-logbook_15 No borders
-
+logbook_03 Select
+logbook_04 Logbook A6 Doublesided
+logbook_05 Logbook A7 Doublesided
+logbook_06 Select type of logbook
+logbook_07 Leave the fields blank if you want to modify it later manually or leave the default values​​
+logbook_08 Cache name
+logbook_09 Coordinates
+logbook_10 Main picture
+logbook_11 Background pic
+logbook_12 w
+logbook_13 h
+logbook_14 Transparency
+logbook_15 Modify picture example: x -2 moves picture 2 pixels to left. h +4 increase height picture with 4 pixels
+logbook_16 Without FTF
+logbook_17 No borders
+logbook_18 Useful when there is difficulty in equal printed on both sides, cut only on odd-numbered pages
 
 
 
@@ -2208,3 +2210,4 @@ BarChart Bar
 positions positions
 more10 Was selected more than 30
 more30 Was selected more than 30
+

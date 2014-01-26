@@ -2126,7 +2126,7 @@ SelectUsers Selecteer gebruikers
 NrCaches Aantal caches
 Selected Geselecteerd
 HelpHowToSelect <br> <b>Hoe gebruikers te selecteren</b><br><hr><br><br>- Selecteren gebruiker: klik op zijn positie (niet op de naam zelf) <br><br>- Selecteer meerdere gebruikers: Ctlr + klik of Shift + klik <br>
-viewprofileFTF Toon gebruikers FTF's
+viewprofileFTF Toon gebruikers FTF&#39;s
 viewprofileDate FTF datum
 viewprofileTime FTF tijd
 viewprofileCache Cache naam
@@ -2184,20 +2184,22 @@ logmap_03 Kaart met 100 laatste logs
 logmap_04 Logkaart
 logbook_01 Logboek voorbeeld
 logbook_02 Soort
-logbook_03 Logboek A6 Dubbelzijdig
-logbook_04 Logboek A7 dubbelzijdig
-logbook_05 Laat de velden leeg als u dit later handmatig opgeeft of laat de standaardwaarden staan
-logbook_06 Cache naam 
-logbook_07 Coördinaten
-logbook_08 Hoofdafbeelding
-logbook_09 Achtergrond
-logbook_10 b
-logbook_11 h
-logbook_12 Transparantie
-logbook_13 Afbeelding bewerken voorbeeld: x -2 schuift de afbeelding 2 pixels naar links. b +4 vebreed de afbeelding met 4 pixels
-logbook_14 Zonder FTF
-logbook_15 Geen randen
-
+logbook_03 Selecteer
+logbook_04 Logboek A6 dubbelzijdig
+logbook_05 Logboek A7 Dubbelzijdig
+logbook_06 Selecteer soort logboek
+logbook_07 Laat de velden leeg als u dit later handmatig opgeeft of laat de standaardwaarden staan
+logbook_08 Cache naam
+logbook_09 Coördinaten
+logbook_10 Hoofdafbeelding
+logbook_11 Achtergrond
+logbook_12 b
+logbook_13 h
+logbook_14 Transparantie
+logbook_15 Afbeelding bewerken voorbeeld: x -2 schuift de afbeelding 2 pixels naar links. b +4 vebreed de afbeelding met 4 pixels
+logbook_16 Zonder FTF
+logbook_17 Geen randen
+logbook_18 Handig wanneer er problemen zijn bij dubbelzijdige afdrukken, knippen op oneven pagina&#39;s
 
 
 

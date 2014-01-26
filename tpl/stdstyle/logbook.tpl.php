@@ -94,37 +94,37 @@ Podgląd:
 <select name="logbook_type" id="logbook_type" onchange="parentNode.submit();">
 <?
 $_GET['logbook_type'] = (int)$_GET['logbook_type'];
-if(!($_GET['logbook_type'] > 0 && (int)$_GET['logbook_type']<= 2)) print '<option value="0" selected="selected">Wybierz</option>';?>
-<option value="1" <?if($_GET['logbook_type'] == 1) print "selected=\"selected\"";?>>{{logbook_03}}</option>
-<option value="2" <?if($_GET['logbook_type'] == 2) print "selected=\"selected\"";?>>{{logbook_04}}</option>
+if(!($_GET['logbook_type'] > 0 && (int)$_GET['logbook_type']<= 2)) print '<option value="0" selected="selected">{{logbook_03}}</option>';?>
+<option value="1" <?if($_GET['logbook_type'] == 1) print "selected=\"selected\"";?>>{{logbook_04}}</option>
+<option value="2" <?if($_GET['logbook_type'] == 2) print "selected=\"selected\"";?>>{{logbook_05}}</option>
 </select>
 </form>
 <hr />
 <?
 if($_GET['logbook_type'] == 0) {
-    print 'Proszę wybrać typ logbooku.';
+    print '{{logbook_06}}.';
 }
 else if($_GET['logbook_type'] == 1) {
 print
-    '<span class="note">{{logbook_05}}.</span>
+    '<span class="note">{{logbook_07}}.</span>
     <form id="logbookopts" action="logbook/remotelogbook.php" method="post" onsubmit="return onSubmit(this);" enctype="multipart/form-data">
     <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
     <input type="hidden" name="secret" value="' .encrypt($_GET['logbook_type'] . " This is a secret message", $secret) . '" />
-        <p><label for="cache_name">{{logbook_06}}:</label> <input type="text" maxlength="80" name="cache_name" id="cache_name" /></p>
-        <p><label for="coords">{{logbook_07}}:</label> <input type="hidden" maxlength="80" name="coords" id="coords" /> N <input type="text" name="d1" maxlength="3" class="degrees" /> ° <input class="minutes" maxlength="6" name="m1" type="text" /> \' E <input class="degrees" maxlength="3" name="d2" type="text" /> ° <input class="minutes" maxlength="6" name="m2" type="text" /> \'</p>
-        <p><label for="image_file">{{logbook_08}}:</label> <input type="file" name="image_file" id="image_file" class="file" /><br />
-            <span class="posmod"> x <input type="text" name="x1" value="0.0" /> y <input type="text" name="y1" value="0.0" /> {{logbook_10}} <input type="text" name="w1" value="0.0"/> {{logbook_11}} <input type="text" name="h1" value="0.0"/></span>
+        <p><label for="cache_name">{{logbook_08}}:</label> <input type="text" maxlength="80" name="cache_name" id="cache_name" /></p>
+        <p><label for="coords">{{logbook_09}}:</label> <input type="hidden" maxlength="80" name="coords" id="coords" /> N <input type="text" name="d1" maxlength="3" class="degrees" /> ° <input class="minutes" maxlength="6" name="m1" type="text" /> \' E <input class="degrees" maxlength="3" name="d2" type="text" /> ° <input class="minutes" maxlength="6" name="m2" type="text" /> \'</p>
+        <p><label for="image_file">{{logbook_10}}:</label> <input type="file" name="image_file" id="image_file" class="file" /><br />
+            <span class="posmod"> x <input type="text" name="x1" value="0.0" /> y <input type="text" name="y1" value="0.0" /> {{logbook_12}} <input type="text" name="w1" value="0.0"/> {{logbook_13}} <input type="text" name="h1" value="0.0"/></span>
         </p>
-        <p><label for="image_file">{{logbook_09}}:</label> <input type="file" name="bgimage_file" id="bgimage_file" class="file" /><br />
+        <p><label for="image_file">{{logbook_11}}:</label> <input type="file" name="bgimage_file" id="bgimage_file" class="file" /><br />
 
-            <span class="posmod"> x <input type="text" name="x2" value="0.0" /> y <input type="text" name="y2" value="0.0" /> {{logbook_10}} <input type="text" name="w2" value="0.0"/> {{logbook_11}} <input type="text" name="h2" value="0.0"/> {{logbook_12}} <input type="text" name="opacity" value="20" />% </span>
+            <span class="posmod"> x <input type="text" name="x2" value="0.0" /> y <input type="text" name="y2" value="0.0" /> {{logbook_12}} <input type="text" name="w2" value="0.0"/> {{logbook_13}} <input type="text" name="h2" value="0.0"/> {{logbook_14}} <input type="text" name="opacity" value="20" />% </span>
 <br />
-<span class="note">{{logbook_13}}.</span>
+<span class="note">{{logbook_15}}.</span>
 
 </p>
-        <p><label for="nick">{{logbook_14}}:</label> <input type="checkbox" name="noftf" id="noftf" /></p>
-<!--        <p><label for="nick">{{logbook_15}}:</label> <input type="checkbox" name="noborders" id="noborders" />
-            <span class="note">przydatny gdy jest trudnośc w równym wydrukowaniu obu stron, ucina jedynie na stronach nieparzystych</span></p>-->
+        <p><label for="nick">{{logbook_16}}:</label> <input type="checkbox" name="noftf" id="noftf" /></p>
+<!--        <p><label for="nick">{{logbook_17}}:</label> <input type="checkbox" name="noborders" id="noborders" />
+            <span class="note">{{logbook_18}}</span></p>-->
         <p><label for="nick">Nick:</label> <input type="text" name="nick" id="nick" /></p>
         <p><label for="nick">E-Mail:</label> <input type="text" name="email" id="email" />
             <span class="note">wykorzystywany jest tylko do uzupełnienia pola w Log Booku</span></p>
@@ -135,25 +135,25 @@ print
 }
 else if($_GET['logbook_type'] == 2) {
 print
-    '<span class="note">{{logbook_05}}.</span>
+    '<span class="note">{{logbook_07}}.</span>
     <form id="logbookopts" action="logbook/remotelogbook.php" method="post" onsubmit="return onSubmit(this);" enctype="multipart/form-data">
     <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
     <input type="hidden" name="secret" value="' .encrypt($_GET['logbook_type'] . " This is a secret message", $secret) . '" />
-        <p><label for="cache_name">{{logbook_06}}:</label> <input type="text" maxlength="80" name="cache_name" id="cache_name" /></p>
-        <p><label for="coords">{{logbook_07}}:</label> <input type="hidden" maxlength="80" name="coords" id="coords" /> N <input type="text" name="d1" maxlength="3" class="degrees" /> ° <input class="minutes" maxlength="6" name="m1" type="text" /> \' E <input class="degrees" maxlength="3" name="d2" type="text" /> ° <input class="minutes" maxlength="6" name="m2" type="text" /> \'</p>
-        <p><label for="image_file">{{logbook_08}}:</label> <input type="file" name="image_file" id="image_file" class="file" /><br />
-            <span class="posmod"> x <input type="text" name="x1" value="0.0" /> y <input type="text" name="y1" value="0.0" /> {{logbook_10}} <input type="text" name="w1" value="0.0"/> {{logbook_11}} <input type="text" name="h1" value="0.0"/></span>
+        <p><label for="cache_name">{{logbook_08}}:</label> <input type="text" maxlength="80" name="cache_name" id="cache_name" /></p>
+        <p><label for="coords">{{logbook_09}}:</label> <input type="hidden" maxlength="80" name="coords" id="coords" /> N <input type="text" name="d1" maxlength="3" class="degrees" /> ° <input class="minutes" maxlength="6" name="m1" type="text" /> \' E <input class="degrees" maxlength="3" name="d2" type="text" /> ° <input class="minutes" maxlength="6" name="m2" type="text" /> \'</p>
+        <p><label for="image_file">{{logbook_10}}:</label> <input type="file" name="image_file" id="image_file" class="file" /><br />
+            <span class="posmod"> x <input type="text" name="x1" value="0.0" /> y <input type="text" name="y1" value="0.0" /> {{logbook_12}} <input type="text" name="w1" value="0.0"/> {{logbook_13}} <input type="text" name="h1" value="0.0"/></span>
         </p>
-        <p><label for="image_file">{{logbook_09}}:</label> <input type="file" name="bgimage_file" id="bgimage_file" class="file" /><br />
+        <p><label for="image_file">{{logbook_11}}:</label> <input type="file" name="bgimage_file" id="bgimage_file" class="file" /><br />
 <div>
-            <span class="posmod"> x <input type="text" name="x2" value="0.0" /> y <input type="text" name="y2" value="0.0" /> {{logbook_10}} <input type="text" name="w2" value="0.0"/> {{logbook_11}} <input type="text" name="h2" value="0.0"/> {{logbook_12}} <input type="text" name="opacity" value="20" />% </span>
+            <span class="posmod"> x <input type="text" name="x2" value="0.0" /> y <input type="text" name="y2" value="0.0" /> {{logbook_12}} <input type="text" name="w2" value="0.0"/> {{logbook_13}} <input type="text" name="h2" value="0.0"/> {{logbook_14}} <input type="text" name="opacity" value="20" />% </span>
 <br />
-<span class="note">{{logbook_13}}.</span>
+<span class="note">{{logbook_15}}.</span>
 </div>
 </p>
-        <p><label for="nick">{{logbook_14}}:</label> <input type="checkbox" name="noftf" id="noftf" /></p>
-        <p><label for="nick">{{logbook_15}}:</label> <input type="checkbox" name="noborders" id="noborders" />
-            <span class="note">przydatny gdy jest trudnośc w równym wydrukowaniu obu stron, ucina jedynie na stronach nieparzystych</span></p>
+        <p><label for="nick">{{logbook_16}}:</label> <input type="checkbox" name="noftf" id="noftf" /></p>
+        <p><label for="nick">{{logbook_17}}:</label> <input type="checkbox" name="noborders" id="noborders" />
+            <span class="note">{{logbook_18}}</span></p>
         <p><label for="nick">Nick:</label> <input type="text" name="nick" id="nick" /></p>
         <p><label for="nick">E-Mail:</label> <input type="text" name="email" id="email" />
             <span class="note">wykorzystywany jest tylko do uzupełnienia pola w Log Booku</span></p>
