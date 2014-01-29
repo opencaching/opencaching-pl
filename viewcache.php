@@ -249,7 +249,8 @@
             $mod_coord_delete_mode = isset($_POST['resetCoords']);
             $cache_mod_lat =0;
             $cache_mod_lon =0;
-            if ($cache_type == $CACHETYPE['QUIZ'])
+            if ($cache_type == $CACHETYPE['QUIZ'] || $cache_type == $CACHETYPE['OTHER'] 
+                || $cache_type == $CACHETYPE['MULTI'])
             {
 
                 $orig_cache_lon = $cache_record['longitude'];
