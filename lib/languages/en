@@ -2098,6 +2098,8 @@ coords_modifier Coordinate modifier
 coordsmod_main Enter own coordinates to the cache
 coordsmod_lon Longitude
 coordsmod_lat Latitude
+coordsmod_info_01 User coordinates (WGS84)
+coordsmod_info_02 Do you want to restore coordinates?
 modify_coords Modify
 reset_coords Restore
 orig_coord_modified_info You have ented own coordinates - original ones are as follows:

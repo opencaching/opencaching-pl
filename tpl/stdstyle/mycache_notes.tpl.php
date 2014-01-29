@@ -31,6 +31,7 @@
         <td><p class="content-title-noshade"></p></td>
         <td><p class="content-title-noshade">{{geocache}}</p></td>
         <td>&nbsp;</td>
+        <td nowrap="nowrap" ><p class="content-title-noshade">{{coordsmod_info_01}}</p></td>
         <td nowrap="nowrap" class="content-title-noshade">{{last_log_entries}}</td>
         <td>&nbsp;</td>
         <td nowrap="nowrap" class="content-title-noshade" style = "text-align: center" >{{delete}}</td>

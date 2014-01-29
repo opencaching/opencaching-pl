@@ -2098,6 +2098,8 @@ coords_modifier Modyfikator współrzędnych
 coordsmod_main Wprowadź własne współrzędne dla skrzynki:
 coordsmod_lon Długość geograficzna
 coordsmod_lat Szerokość geograficzna
+coordsmod_info_01 Własne współrzędne (WGS84)
+coordsmod_info_02 Czy na pewno chcesz przywrócić współrzędne?
 modify_coords Modyfikuj współrzędne
 reset_coords Przywróć oryginalne
 orig_coord_modified_info Wprowadziłe(a)ś własne współrzędne - współrzędne oryginalne to:

@@ -54,50 +54,113 @@ function CleanSpecChars( $log, $flg_html )
             {
                 $note_id = $_REQUEST["delete"];
                 //remove
-                $query = "DELETE FROM `cache_notes` WHERE `note_id`=:1";
-                $db->multiVariableQuery($query, $note_id );
+                $query = "DELETE FROM `cache_notes` WHERE `note_id`=:1 AND `user_id`=:2";
+                $db->multiVariableQuery($query, $note_id, $userid);
+            }
+            if (isset( $_REQUEST["delete_coords"]))
+            {
+                $coords_id = $_REQUEST["delete_coords"];
+                //remove
+                $query = "DELETE FROM `cache_mod_cords` WHERE `id`=:1 AND `user_id`=:2";
+                $db->multiVariableQuery($query, $coords_id, $userid);
             }
             //else
             {
 
                 //$notes_rs = sql("SELECT `cache_notes`.`cache_id` `cacheid`, `caches`.`name` `cache_name`, `cache_type`.`icon_small` `icon_large` FROM `cache_notes` INNER JOIN caches ON (`caches`.`cache_id` = `cache_notes`.`cache_id`), `cache_type`  WHERE `cache_notes`.`user_id`=&1 AND `cache_type`.`id`=`caches`.`type` GROUP BY `cacheid` ORDER BY `cacheid`,`date` DESC",$userid);
-                $query = "SELECT `cache_notes`.`cache_id` `cacheid`,
-                                 `cache_notes`.`desc` `notes_desc`,
-                                 `caches`.`name` `cache_name`,
-                                 `cache_type`.`icon_small` `icon_large`,
-                                 `caches`.`type` `cache_type`,
-                                 `caches`.`cache_id` `cache_id`,
-                                 `caches`.`user_id` `user_id`,
-                                 note_id,
-                                 cl.text AS log_text,
-                                 cl.type AS log_type,
-                                 cl.user_id AS luser_id,
-                                 cl.date AS log_date,
-                                 cl.deleted AS log_deleted,
-                                 log_types.icon_small AS icon_small,
-                                 user.username AS user_name
-                                 FROM `cache_notes`
-                                    INNER JOIN `caches` ON (`cache_notes`.`cache_id`=`caches`.`cache_id`)
-                                    INNER JOIN cache_type ON (caches.type = cache_type.id)
-                                    left outer JOIN cache_logs as cl ON (caches.cache_id = cl.cache_id)
-                                    left outer JOIN log_types ON (cl.type = log_types.id)
-                                    left outer JOIN user ON (cl.user_id = user.user_id)
+                $query = "
+                            SELECT `cache_notes`.`cache_id` `cacheid`,
+                                `cache_notes`.`desc` `notes_desc`,
+                                `caches`.`name` `cache_name`,
+                                `cache_type`.`icon_small` `icon_large`,
+                                `caches`.`type` `cache_type`,
+                                `caches`.`cache_id` `cache_id`,
+                                `caches`.`user_id` `user_id`,
+                                note_id,
+                                cl.text AS log_text,
+                                cl.type AS log_type,
+                                cl.user_id AS luser_id,
+                                cl.date AS log_date,
+                                cl.deleted AS log_deleted,
+                                log_types.icon_small AS icon_small,
+                                user.username AS user_name,
+                                cache_mod_cords.id as cache_mod_cords_id,
+                                cache_mod_cords.longitude,
+                                cache_mod_cords.latitude
+                            FROM 
+                                `cache_notes`
+                                INNER JOIN `caches` ON (`cache_notes`.`cache_id`=`caches`.`cache_id`)
+                                INNER JOIN cache_type ON (caches.type = cache_type.id)
+                                left outer JOIN cache_logs as cl ON (caches.cache_id = cl.cache_id)
+                                left outer JOIN log_types ON (cl.type = log_types.id)
+                                left outer JOIN user ON (cl.user_id = user.user_id)
+                                left outer JOIN cache_mod_cords ON (
+                                        cache_mod_cords.user_id = cache_notes.user_id
+                                        AND cache_mod_cords.cache_id = cache_notes.cache_id
+                                    )
+                            WHERE 
+                                `cache_notes`.`user_id`=:1 
+                                AND `cache_type`.`id`=`caches`.`type`
+                                AND 
+                                    ( cl.id is null or cl.id =
+                                    ( SELECT id
+                                        FROM cache_logs cl_id
+                                        WHERE cl.cache_id = cl_id.cache_id and cl_id.date =
 
-                                 WHERE `cache_notes`.`user_id`=:1 AND `cache_type`.`id`=`caches`.`type`
-                                        AND `cache_notes`.`user_id`= :1 and
-                                        ( cl.id is null or cl.id =
-                                        ( SELECT id
-                                            FROM cache_logs cl_id
-                                            WHERE cl.cache_id = cl_id.cache_id and cl_id.date =
+                                            ( SELECT max( cache_logs.date )
+                                                FROM cache_logs
+                                                WHERE cl.cache_id = cache_id
+                                            )
+                                            limit 1
+                                        ))
+                            GROUP BY `cacheid`
+                            UNION
+                            SELECT `cache_mod_cords`.`cache_id` `cacheid`,
+                                `cache_notes`.`desc` `notes_desc`,
+                                `caches`.`name` `cache_name`,
+                                `cache_type`.`icon_small` `icon_large`,
+                                `caches`.`type` `cache_type`,
+                                `caches`.`cache_id` `cache_id`,
+                                `caches`.`user_id` `user_id`,
+                                note_id,
+                                cl.text AS log_text,
+                                cl.type AS log_type,
+                                cl.user_id AS luser_id,
+                                cl.date AS log_date,
+                                cl.deleted AS log_deleted,
+                                log_types.icon_small AS icon_small,
+                                user.username AS user_name,
+                                cache_mod_cords.id as cache_mod_cords_id,
+                                cache_mod_cords.longitude,
+                                cache_mod_cords.latitude
+                            FROM 
+                                cache_mod_cords
+                                INNER JOIN `caches` ON (`cache_mod_cords`.`cache_id`=`caches`.`cache_id`)
+                                INNER JOIN cache_type ON (caches.type = cache_type.id)
+                                left outer JOIN cache_logs as cl ON (caches.cache_id = cl.cache_id)
+                                left outer JOIN log_types ON (cl.type = log_types.id)
+                                left outer JOIN user ON (cl.user_id = user.user_id)
+                                left outer JOIN cache_notes ON (
+                                        cache_notes.user_id = cache_mod_cords.user_id
+                                        AND cache_notes.cache_id = cache_mod_cords.cache_id
+                                    )
+                            WHERE 
+                                `cache_mod_cords`.`user_id`=:1 
+                                AND `cache_type`.`id`=`caches`.`type`
+                                AND 
+                                    ( cl.id is null or cl.id =
+                                    ( SELECT id
+                                        FROM cache_logs cl_id
+                                        WHERE cl.cache_id = cl_id.cache_id and cl_id.date =
 
-                                                ( SELECT max( cache_logs.date )
-                                                    FROM cache_logs
-                                                    WHERE cl.cache_id = cache_id
-                                                )
-                                                limit 1
-                                            ))
-                                 GROUP BY `cacheid`
-                                 ORDER BY `cacheid`, log_date DESC";
+                                            ( SELECT max( cache_logs.date )
+                                                FROM cache_logs
+                                                WHERE cl.cache_id = cache_id
+                                            )
+                                            limit 1
+                                        ))
+                            GROUP BY `cacheid`
+                            ORDER BY `cache_name`, log_date DESC";
                 $db->multiVariableQuery($query, $userid);
 
                 //if (mysql_num_rows($notes_rs) != 0)
@@ -119,12 +182,19 @@ function CleanSpecChars( $log, $flg_html )
                                 $notes_record = $db->dbResultFetch();
                                 $cacheicon = myninc::checkCacheStatusByUser($notes_record, $usr['userid']);
 
+                                $user_coords = '&nbsp;';
+                                if ($notes_record['latitude'] != null && $notes_record['longitude'] != null){
+                                    $user_coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($notes_record['latitude'], 1), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($notes_record['longitude'], 1), ENT_COMPAT, 'UTF-8'));
+                                    $user_coords.= '&nbsp;<a class="links"  href="mycache_notes.php?delete_coords='. $notes_record['cache_mod_cords_id'] .'" onclick="return confirm(\''.tr('coordsmod_info_02').'\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" title='.tr('reset_coords').' /></a>';
+                                }
+                                
                                 $notes .= '<tr>
                                 <td style="background-color: {bgcolor}"><img src="'.$cacheicon.'" alt="" /></td>
-                                <td align="left"  style="background-color: {bgcolor}"><a  href="viewcache.php?cacheid={cacheid}" onmouseover="Tip(\'{notes_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">'.$notes_record['cache_name'].'</a></td>
-                            <td style="background-color: {bgcolor}">&nbsp;</td>
-                            <td nowrap style="text-align:center; background-color: {bgcolor}">{lastfound}</td>
-                            <td nowrap style="text-align:center; background-color: {bgcolor}"><img src="tpl/stdstyle/images/{icon_name}" border="0" alt="" onmouseover="Tip(\'{log_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"/></td>
+                                <td align="left"  style="background-color: {bgcolor}"><a  href="viewcache.php?cacheid={cacheid}" onmouseover="if (\'{notes_text}\' != \'\') Tip(\'{notes_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">'.$notes_record['cache_name'].'</a></td>
+                                <td style="background-color: {bgcolor}">&nbsp;</td>
+                                <td nowrap style="background-color: {bgcolor}">'.$user_coords.'</td>
+                                <td nowrap style="text-align:center; background-color: {bgcolor}">{lastfound}</td>
+                                <td nowrap style="text-align:center; background-color: {bgcolor}"><img src="tpl/stdstyle/images/{icon_name}" border="0" alt="" onmouseover="Tip(\'{log_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"/></td>
                                 <td style="background-color: {bgcolor}; text-align:center"><a class="links"  href="mycache_notes.php?delete={noteid}" onclick="return confirm(\''.tr("mycache_notes_01").'\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title='.tr('delete').' /></a></td></tr>';
                                 $notes = mb_ereg_replace('{bgcolor}', $bgcolor, $notes);
                                 $notes = mb_ereg_replace('{cacheid}', $notes_record["cacheid"], $notes);
@@ -156,7 +226,7 @@ function CleanSpecChars( $log, $flg_html )
                             $log_text = "<b>".$notes_record['user_name'].":</b><br>".$log_text;
                             $notes = mb_ereg_replace('{log_text}', $log_text, $notes);
                             $notes_text = CleanSpecChars( $notes_record[ 'notes_desc'], 1 );
-                            if ($notes_text=='') {$notes_text='--';};
+                            // if ($notes_text=='') {$notes_text='--';};
                             $notes = mb_ereg_replace('{notes_text}', $notes_text, $notes);
                             $notes = mb_ereg_replace('{icon_name}', $notes_record['icon_small'], $notes);
                             }
