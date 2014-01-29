@@ -188,6 +188,11 @@ function CleanSpecChars( $log, $flg_html )
                                     $user_coords.= '&nbsp;<a class="links"  href="mycache_notes.php?delete_coords='. $notes_record['cache_mod_cords_id'] .'" onclick="return confirm(\''.tr('coordsmod_info_02').'\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" title='.tr('reset_coords').' /></a>';
                                 }
                                 
+                                $delete_user_note = '&nbsp;';
+                                if ($notes_record['notes_desc'] != null){
+                                    $delete_user_note = '<a class="links"  href="mycache_notes.php?delete={noteid}" onclick="return confirm(\''.tr("mycache_notes_01").'\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title='.tr('delete').' /></a>';
+                                }
+                                
                                 $notes .= '<tr>
                                 <td style="background-color: {bgcolor}"><img src="'.$cacheicon.'" alt="" /></td>
                                 <td align="left"  style="background-color: {bgcolor}"><a  href="viewcache.php?cacheid={cacheid}" onmouseover="if (\'{notes_text}\' != \'\') Tip(\'{notes_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">'.$notes_record['cache_name'].'</a></td>
@@ -195,7 +200,7 @@ function CleanSpecChars( $log, $flg_html )
                                 <td nowrap style="background-color: {bgcolor}">'.$user_coords.'</td>
                                 <td nowrap style="text-align:center; background-color: {bgcolor}">{lastfound}</td>
                                 <td nowrap style="text-align:center; background-color: {bgcolor}"><img src="tpl/stdstyle/images/{icon_name}" border="0" alt="" onmouseover="Tip(\'{log_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()"/></td>
-                                <td style="background-color: {bgcolor}; text-align:center"><a class="links"  href="mycache_notes.php?delete={noteid}" onclick="return confirm(\''.tr("mycache_notes_01").'\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title='.tr('delete').' /></a></td></tr>';
+                                <td style="background-color: {bgcolor}; text-align:center">' . $delete_user_note . '</td></tr>';
                                 $notes = mb_ereg_replace('{bgcolor}', $bgcolor, $notes);
                                 $notes = mb_ereg_replace('{cacheid}', $notes_record["cacheid"], $notes);
                                 $notes = mb_ereg_replace('{noteid}', $notes_record["note_id"], $notes);
