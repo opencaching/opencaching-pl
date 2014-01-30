@@ -213,7 +213,7 @@ function sync_options(element)
        // }else {
         document.forms[formnames[a]].country.value = $('#country').val();
         //document.optionsform.region.disabled = false;
-        document.forms[formnames[a]].region.value = document.optionsform.region.value;}
+        document.forms[formnames[a]].region.value = document.optionsform.region.value;
 
         document.forms[formnames[a]].cachetype.value = getCachetypeFilter();
 
@@ -234,7 +234,7 @@ function sync_options(element)
         document.forms[formnames[a]].cache_attribs_not.value = tmpattrib_not;
         document.forms[formnames[a]].cacherating.value = recommendations;
         document.forms[formnames[a]].gpxLogLimit.value = gpxLogLimit;
-    //}
+    }
 }
 
 function getCachetypeFilter(){
