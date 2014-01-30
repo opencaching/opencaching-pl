@@ -230,11 +230,11 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id`, `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings`, ';
         if ($usr === false)
         {
-            $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude` FROM `caches` ';
+            $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id FROM `caches` ';
         }
         else
         {
-            $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, `caches`.`latitude`) `latitude`
+            $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`, `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id
             FROM `caches`
             LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = ' . $usr['userid'];
         }
@@ -275,7 +275,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         sql('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
         // temporäre tabelle erstellen
         sql('CREATE TEMPORARY TABLE `gpxcontent` ' . $sql . $sqlLimit);
-
+        
         $rsCount = sql('SELECT COUNT(*) `count` FROM `gpxcontent`');
         $rCount = sql_fetch_array($rsCount);
         mysql_free_result($rsCount);
@@ -349,7 +349,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         append_output($gpxHead);
 
         // ok, ausgabe ...
-        $rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,`cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`, `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
+        $rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,`cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`, `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
         while($r = sql_fetch_array($rs))
         {
             $thisline = $gpxLine;
@@ -369,29 +369,11 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $thisline = str_replace('{region}', $region, $thisline);
 
             //modified coords
-        if ($r['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged
-            if (!isset($dbc)) {$dbc = new dataBase();};
-                $mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords
-                            WHERE cache_id = :v1 AND user_id =:v2';
-
-                $params['v1']['value'] = (integer) $r['cacheid'];
-                $params['v1']['data_type'] = 'integer';
-                $params['v2']['value'] = (integer) $usr['userid'];
-                $params['v2']['data_type'] = 'integer';
-
-                $dbc ->paramQuery($mod_coord_sql,$params);
-                Unset($params);
-
-            if ($dbc->rowCount() > 0 )
-            {
+            if ($r['cache_mod_cords_id'] > 0) {  //check if we have user coords
                 $thisline = str_replace('{mod_suffix}', '(F)', $thisline);
             } else {
                 $thisline = str_replace('{mod_suffix}', '', $thisline);
             }
-        } else {
-            $thisline = str_replace('{mod_suffix}', '', $thisline);
-        };
-
 
             if ($r['hint'] == '')
                 $thisline = str_replace('{hints}', '', $thisline);

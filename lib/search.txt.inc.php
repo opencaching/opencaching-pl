@@ -108,13 +108,13 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
         $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id`, ';
         if ($usr === false)
         {
-            $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`
+            $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id
                     FROM `caches` ';
         }
         else
         {
             $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
-                            `caches`.`latitude`) `latitude` FROM `caches`
+                            `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id FROM `caches`
                         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
                             . $usr['userid'];
         }
@@ -213,7 +213,7 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 
         // ok, ausgabe ...
 
-        $rs = sql('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`pl` `size`, `caches`.`type` `type_id`, `cache_type`.`pl` `type`, `cache_status`.`pl` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
+        $rs = sql('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `txtcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`pl` `size`, `caches`.`type` `type_id`, `cache_type`.`pl` `type`, `cache_status`.`pl` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
         while($r = sql_fetch_array($rs))
         {
             $thisline = $txtLine;
@@ -232,29 +232,11 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
             $thisline = str_replace('{country}', db_CountryFromShort($r['country']), $thisline);
 
             //modified coords
-        if ($r['type_id'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged
-            if (!isset($dbc)) {$dbc = new dataBase();};
-
-            $mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords
-                        WHERE cache_id = :v1 AND user_id =:v2';
-
-            $params['v1']['value'] = (integer) $r['cacheid'];
-            $params['v1']['data_type'] = 'integer';
-            $params['v2']['value'] = (integer) $usr['userid'];
-            $params['v2']['data_type'] = 'integer';
-
-            $dbc ->paramQuery($mod_coord_sql,$params);
-            Unset($params);
-            if ($dbc->rowCount() > 0 )
-            {
+            if ($r['cache_mod_cords_id'] > 0) {  //check if we have user coords
                 $thisline = str_replace('{mod_suffix}', '[F]', $thisline);
             } else {
                 $thisline = str_replace('{mod_suffix}', '', $thisline);
             }
-        } else {
-            $thisline = str_replace('{mod_suffix}', '', $thisline);
-        };
-
 
             if ($r['hint'] == '')
                 $thisline = str_replace('{hints}', '', $thisline);

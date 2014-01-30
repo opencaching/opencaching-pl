@@ -96,13 +96,13 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
         $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id`, ';
         if ($usr === false)
         {
-            $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`
+            $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id
                     FROM `caches` ';
         }
         else
         {
             $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
-                            `caches`.`latitude`) `latitude` FROM `caches`
+                            `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id FROM `caches`
                         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
                             . $usr['userid'];
         }
@@ -218,7 +218,7 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
             username
         */
 
-        $rs = sql('SELECT `loccontent`.`cache_id` `cacheid`, `loccontent`.`longitude` `longitude`, `loccontent`.`latitude` `latitude`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `waypoint`, `cache_type`.`short` `typedesc`, `cache_type`.`id` `type_id`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `loccontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `loccontent`.`cache_id`=`caches`.`cache_id` AND `loccontent`.`type`=`cache_type`.`id` AND `loccontent`.`size`=`cache_size`.`id` AND `loccontent`.`user_id`=`user`.`user_id`');
+        $rs = sql('SELECT `loccontent`.`cache_id` `cacheid`, `loccontent`.`longitude` `longitude`, `loccontent`.`latitude` `latitude`, `loccontent`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `waypoint`, `cache_type`.`short` `typedesc`, `cache_type`.`id` `type_id`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username` FROM `loccontent`, `caches`, `cache_type`, `cache_size`, `user` WHERE `loccontent`.`cache_id`=`caches`.`cache_id` AND `loccontent`.`type`=`cache_type`.`id` AND `loccontent`.`size`=`cache_size`.`id` AND `loccontent`.`user_id`=`user`.`user_id`');
         while($r = sql_fetch_array($rs))
         {
             $thisline = $locLine;
@@ -233,28 +233,11 @@ $cacheTypeText[10] = "".tr('cacheType_10')."";
             $thisline = mb_ereg_replace('{cachename}', PLConvert('UTF-8','POLSKAWY',$r['name']), $thisline);
 
             //modified coords
-        if ($r['type_id'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged
-            if (!isset($dbc)) {$dbc = new dataBase();};
-                        $mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords
-                        WHERE cache_id = :v1 AND user_id =:v2';
-
-            $params['v1']['value'] = (integer) $r['cacheid'];
-            $params['v1']['data_type'] = 'integer';
-            $params['v2']['value'] = (integer) $usr['userid'];
-            $params['v2']['data_type'] = 'integer';
-
-            $dbc ->paramQuery($mod_coord_sql,$params);
-            Unset($params);
-
-            if ($dbc->rowCount() > 0 )
-            {
+            if ($r['cache_mod_cords_id'] > 0) {  //check if we have user coords
                 $thisline = str_replace('{mod_suffix}', '<F>', $thisline);
             } else {
                 $thisline = str_replace('{mod_suffix}', '', $thisline);
             }
-        } else {
-            $thisline = str_replace('{mod_suffix}', '', $thisline);
-        };
 
 //          if (($r['status'] == 2) || ($r['status'] == 3))
 //          {

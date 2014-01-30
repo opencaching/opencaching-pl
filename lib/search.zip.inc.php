@@ -76,12 +76,12 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
                         `caches`.`user_id` `user_id`, ';
                     if ($usr === false)
                     {
-                        $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude` FROM `caches` ';
+                        $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id FROM `caches` ';
                     }
                     else
                     {
                         $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
-                            `caches`.`latitude`) `latitude` FROM `caches`
+                            `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id FROM `caches`
                         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
                             . $usr['userid'];
                     }

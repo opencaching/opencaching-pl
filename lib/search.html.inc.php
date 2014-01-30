@@ -104,13 +104,13 @@
                 `caches`.`founds` `founds`, `caches`.`topratings` `toprating`, ';
     if ($usr === false)
     {
-        $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`
+        $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id
                 FROM `caches`, ';
     }
     else
     {
         $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
-                            `caches`.`latitude`) `latitude` FROM `caches`
+                            `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id FROM `caches`
                         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
                             . $usr['userid'] . ', ';
     }
@@ -148,30 +148,13 @@
     {
 
         $caches_record = sql_fetch_array($rs_caches);
-        if ($caches_record['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged
-            $mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords
-                        WHERE cache_id = :v1 AND user_id =:v2';
-
-            $params['v1']['value'] = (integer) $caches_record['cache_id'];
-            $params['v1']['data_type'] = 'integer';
-            $params['v2']['value'] = (integer) $usr['userid'];
-            $params['v2']['data_type'] = 'integer';
-
-            $dbc ->paramQuery($mod_coord_sql,$params);
-            Unset($params);
-
-        //  $dbc->dbResultFetch();
-            //var_dump($dbc->rowCount());
-            if ($dbc->rowCount() > 0 )
-            {
-                $caches_record['coord_modified'] = true; //mark as coords midified
-                //$caches_record['name'] = "[F]".$caches_record['name'];
-            } else {
-                $caches_record['coord_modified'] = false;
-            }
+        //modified coords
+        if ($caches_record['cache_mod_cords_id'] > 0) {  //check if we have user coords
+            $caches_record['coord_modified'] = true; //mark as coords midified
         } else {
-            $caches_record['coord_modified']= false;
+            $caches_record['coord_modified'] = false;
         }
+
         $tmpline = $cache_line;
 
         list($iconname, $inactive) = getCacheIcon($usr['userid'], $caches_record['cache_id'], $caches_record['status'],

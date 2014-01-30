@@ -70,9 +70,19 @@
                 mysql_free_result($rs_coords);
             }
         }
-        $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, `caches`.`type` `type`
-                            FROM `caches`
-                    WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
+        if ($usr === false)
+        {
+            $sql .= ' `caches`.`cache_id`, `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id, `caches`.`type` `type`
+                    FROM `caches` ';
+        }
+        else
+        {
+            $sql .= ' `caches`.`cache_id`, IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
+                            `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id, `caches`.`type` `type` FROM `caches`
+                        LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
+                            . $usr['userid'];
+        }
+        $sql .= ' WHERE `caches`.`cache_id` IN (' . $sqlFilter . ')';
 
         $sortby = $options['sort'];
         if (isset($lat_rad) && isset($lon_rad) && ($sortby == 'bydistance'))
@@ -178,7 +188,7 @@
     */
 
         $nr = 1;
-        $rs = sql('SELECT `ovlcontent`.`cache_id` `cacheid`, `ovlcontent`.`longitude` `longitude`, `ovlcontent`.`latitude` `latitude`, `caches`.`name` `name`, `ovlcontent`.`type` `type` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id`');
+        $rs = sql('SELECT `ovlcontent`.`cache_id` `cacheid`, `ovlcontent`.`longitude` `longitude`, `ovlcontent`.`latitude` `latitude`, `ovlcontent`.cache_mod_cords_id, `caches`.`name` `name`, `ovlcontent`.`type` `type` FROM `ovlcontent`, `caches` WHERE `ovlcontent`.`cache_id`=`caches`.`cache_id`');
         while($r = sql_fetch_array($rs))
         {
             $thisline = $ovlLine;
@@ -191,30 +201,12 @@
             $thisline = mb_ereg_replace('{lon}', $lon, $thisline);
             $thisline = mb_ereg_replace('{lonname}', $lon, $thisline);
             //modified coords
-        if ($r['type'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged
-            if (!isset($dbc)) {$dbc = new dataBase();};
-            $mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords
-                        WHERE cache_id = :v1 AND user_id =:v2';
-
-            $params['v1']['value'] = (integer) $r['cacheid'];
-            $params['v1']['data_type'] = 'integer';
-            $params['v2']['value'] = (integer) $usr['userid'];
-            $params['v2']['data_type'] = 'integer';
-
-            $dbc ->paramQuery($mod_coord_sql,$params);
-            Unset($params);
-
-
-            if ($dbc->rowCount() > 0 )
-            {
+            if ($r['cache_mod_cords_id'] > 0) {  //check if we have user coords
                 $thisline = str_replace('{mod_suffix}', '<F>', $thisline);
             } else {
                 $thisline = str_replace('{mod_suffix}', '', $thisline);
             }
-        } else {
-            $thisline = str_replace('{mod_suffix}', '', $thisline);
-        };
-
+            
             $thisline = mb_ereg_replace('{cachename}', convert_string($r['name']), $thisline);
             $thisline = mb_ereg_replace('{symbolnr1}', $nr, $thisline);
             $thisline = mb_ereg_replace('{symbolnr2}', $nr + 1, $thisline);

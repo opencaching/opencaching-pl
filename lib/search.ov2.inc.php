@@ -81,13 +81,13 @@ $cacheTypeText[9] = 'PodCastCache';
 
         if ($usr === false)
         {
-            $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`
+            $sql .= ' `caches`.`longitude` `longitude`, `caches`.`latitude` `latitude`, 0 as cache_mod_cords_id
                     FROM `caches` ';
         }
         else
         {
             $sql .= ' IFNULL(`cache_mod_cords`.`longitude`, `caches`.`longitude`) `longitude`, IFNULL(`cache_mod_cords`.`latitude`,
-                            `caches`.`latitude`) `latitude` FROM `caches`
+                            `caches`.`latitude`) `latitude`, IFNULL(cache_mod_cords.id,0) as cache_mod_cords_id FROM `caches`
                         LEFT JOIN `cache_mod_cords` ON `caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND `cache_mod_cords`.`user_id` = '
                             . $usr['userid'];
         }
@@ -201,35 +201,19 @@ $cacheTypeText[9] = 'PodCastCache';
             username
         */
 
-        $sql = 'SELECT `ov2content`.`cache_id` `cacheid`, `ov2content`.`longitude` `longitude`, `ov2content`.`latitude` `latitude`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username`, `cache_type`.`id` `type_id` FROM `ov2content`, `caches`, `cache_type`, `cache_size`, `user` WHERE `ov2content`.`cache_id`=`caches`.`cache_id` AND `ov2content`.`type`=`cache_type`.`id` AND `ov2content`.`size`=`cache_size`.`id` AND `ov2content`.`user_id`=`user`.`user_id`';
+        $sql = 'SELECT `ov2content`.`cache_id` `cacheid`, `ov2content`.`longitude` `longitude`, `ov2content`.`latitude` `latitude`, `ov2content`.cache_mod_cords_id, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`wp_oc` `wp_oc`, `cache_type`.`short` `typedesc`, `cache_size`.`pl` `sizedesc`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `user`.`username` `username`, `cache_type`.`id` `type_id` FROM `ov2content`, `caches`, `cache_type`, `cache_size`, `user` WHERE `ov2content`.`cache_id`=`caches`.`cache_id` AND `ov2content`.`type`=`cache_type`.`id` AND `ov2content`.`size`=`cache_size`.`id` AND `ov2content`.`user_id`=`user`.`user_id`';
         $rs = sql($sql, $sqldebug);
 
         while($r = sql_fetch_array($rs))
         {
             $lat = sprintf('%07d', $r['latitude'] * 100000);
             $lon = sprintf('%07d', $r['longitude'] * 100000);
-        //modified coords
-        if ($r['type_id'] =='7' && $usr!=false) {  //check if quiz (7) and user is logged
-            if (!isset($dbc)) {$dbc = new dataBase();};
-            $mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords
-                        WHERE cache_id = :v1 AND user_id =:v2';
-
-            $params['v1']['value'] = (integer) $r['cacheid'];
-            $params['v1']['data_type'] = 'integer';
-            $params['v2']['value'] = (integer) $usr['userid'];
-            $params['v2']['data_type'] = 'integer';
-
-            $dbc ->paramQuery($mod_coord_sql,$params);
-            Unset($params);
-            if ($dbc->rowCount() > 0 )
-            {
+            //modified coords
+            if ($r['cache_mod_cords_id'] > 0) {  //check if we have user coords
                 $r['mod_suffix'] ="[F]";
             } else {
                 $r['mod_suffix'] ="";
             }
-        } else {
-            $r['mod_suffix'] ="";
-        };
 
             $comb_name=$r['mod_suffix'].$r['name'];
             $name = convert_string($comb_name);
