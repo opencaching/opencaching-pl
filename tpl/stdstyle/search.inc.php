@@ -98,9 +98,9 @@
     $gns_countries['LH'] = 'Litwa';
     $gns_countries['UP'] = 'Ukraina';
 
-    $default_lang = 'PL';
-    $search_all_countries = '<option value="" selected="selected">'.tr('search00').'</option>';
-    $search_all_regions = '<option value="" selected="selected">Wszystkie województwa</option>';
+    $default_lang = $lang;
+    $search_all_countries = '<option value="">'.tr('search00').'</option>';
+    $search_all_regions = '<option value="">Wszystkie województwa</option>';
     //$search_all_cachetypes = '<option value="" selected="selected">Wszystkie typy skrzynek</option>';
 
     $cache_attrib_jsarray_line = "new Array('{id}', {state}, '{text_long}', '{icon}', '{icon_no}', '{icon_undef}', '{category}')";

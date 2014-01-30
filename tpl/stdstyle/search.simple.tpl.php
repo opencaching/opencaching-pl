@@ -28,13 +28,37 @@
 var mnAttributesShowCat2 = 1;
 var maAttributes = new Array({attributes_jsarray});
 
+function loadRegionsSelector(){
+    console.log($('#country').val());
+    if(typeof $('#country').val() == 'undefined' || $('#country').val() == ''){
+        $('#region1').prop('disabled', true);
+        return false;
+    }
+    $('#region1').hide();
+    $('#region1').prop('disabled', false);
+    $('#regionAjaxLoader').show();
+    request = $.ajax({
+        url: "ajaxGetRegionsByCountryCode.php",
+        type: "post",
+        data:{countryCode: $('#country').val(), selectedRegion: '{region}', searchForm: 1 },
+    });
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+        $('#region1').html(response);
+        console.log(response);
+    });
+
+    request.always(function () {
+        $('#regionAjaxLoader').hide();
+        $('#region1').fadeIn(1000);
+    });
+}
+
 function _sbn_click() {
     if (document.searchbyname.cachename.value == "") {
         alert("{{alert_search_by_cachename}}");
         return false;
-//  } else if (document.searchbyname.cachename.value.length < 3) {
-//      alert("Minimalna ilość zanków w polu nazwa to 3!");
-//      return false;
     } else if (check_recommendations() == false) {
         return false;
     }
@@ -130,6 +154,7 @@ function check_recommendations(){
 }
 
 function sync_options(element)
+
 {
     var sortby = "";
     if (document.optionsform.sort[0].checked == true)
@@ -163,25 +188,14 @@ function sync_options(element)
     if(tmpattrib_not.length > 0)
         tmpattrib_not = tmpattrib_not.substr(0, tmpattrib_not.length-1);
 
-//  var formnames = new Array();
     var formnames = new Array("searchbyname","searchbydistance","searchbyort","searchbyfulltext","searchbyowner", "searchbyfinder");
-
     var gpxLogLimit = $('#gpxLogLimit').val();
 
-//  var formnames = new Array();
-//  formnames[0] = "searchbyname";
-//  formnames[1] = "searchbyname";
-//  formnames[2] = "searchbydistance";
-//  formnames[3] = "searchbyort";
-//  formnames[4] = "searchbyfulltext";
-//  formnames[5] = "searchbyowner";
-//  formnames[6] = "searchbyfinder";
 
 
-
-
-//  for (var a in formnames) {
     for (var a=0; a < formnames.length; a++) {
+
+        if(document.optionsform.region.value == 0) document.optionsform.region.value = '';
 
         document.forms[formnames[a]].sort.value = sortby;
         document.forms[formnames[a]].f_inactive.value = document.optionsform.f_inactive.checked ? 1 : 0;
@@ -191,16 +205,14 @@ function sync_options(element)
         document.forms[formnames[a]].f_watched.value = document.optionsform.f_watched.checked ? 1 : 0;
         //document.forms[formnames[a]].f_geokret.value = document.optionsform.f_geokret.checked ? 1 : 0;
 
-         if (document.optionsform.country.value != "" && document.optionsform.country.value != "PL" )
-        {
-        document.forms[formnames[a]].country.value = document.optionsform.country.value;
-        document.optionsform.region.value = "";
-        document.forms[formnames[a]].region.value = "";
-        document.optionsform.region.disabled = true;
-
+        if (document.optionsform.country.value != "" && document.optionsform.country.value != "PL" ) {
+            document.forms[formnames[a]].country.value = document.optionsform.country.value;
+            document.optionsform.region.value = "";
+            document.forms[formnames[a]].region.value = "";
+           // document.optionsform.region.disabled = false;
         }else {
         document.forms[formnames[a]].country.value = "PL";
-        document.optionsform.region.disabled = false;
+        //document.optionsform.region.disabled = false;
         document.forms[formnames[a]].region.value = document.optionsform.region.value;}
 
         document.forms[formnames[a]].cachetype.value = getCachetypeFilter();
@@ -348,6 +360,9 @@ function showGeoCoder()
 {
     var geocoder = window.open('geocoder.php','geocoder','width=650,height=500');
 }
+
+
+
 //-->
 </script>
 
@@ -486,9 +501,10 @@ function showGeoCoder()
         <tr>
             <td class="content-title-noshade">{{country_label}}:</td>
             <td class="content-title-noshade">
-                <select name="country" class="input200" onchange="javascript:sync_options(this)">
+                <select name="country" id="country" class="input200" onchange="sync_options(this); loadRegionsSelector();">
                     {countryoptions}
                 </select>
+                <script>loadRegionsSelector();</script>
             </td>
         </tr>
                 </tr>
@@ -497,7 +513,8 @@ function showGeoCoder()
         <tr>
             <td valign="top" class="content-title-noshade">{{regions_only_for}}:</td>
             <td class="content-title-noshade">
-                <select name="region" class="input200" onchange="javascript:sync_options(this)">
+                <img id="regionAjaxLoader" style="display: none" src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />
+                <select name="region" id="region1" class="input200" onchange="javascript:sync_options(this)">
                     {regionoptions}
                     </select>
             </tr>

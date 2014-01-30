@@ -30,11 +30,9 @@
     require_once('./lib/common.inc.php');
     require_once('./lib/search.inc.php');
     require_once('./lib/search-signatures.inc.php');
-   global $lang;
+    global $lang;
     // SQL-Debug?
     $sqldebug = false;
-    global $sql_debug;
-
     $sql_debug = $sqldebug;
 
     if ($sql_debug == true)
@@ -44,23 +42,10 @@
     }
 
     //Preprocessing
-    if ($error == false)
-    {
-/*
-    //user logged in?
-        if ($usr == false)
-        {
-            $target = urlencode(tpl_get_current_page());
-            tpl_redirect('login.php?target='.$target);
-        }
-        else
-        {
-*/
+    if ($error == false) {
 
         // extract user data for KML search
         requestSigner::extract_user();
-
-
         $tplname = 'search';
         require($stylepath . '/search.inc.php');
         require($rootpath . 'lib/caches.inc.php');
@@ -1123,19 +1108,6 @@ function outputSearchForm($options)
     global $default_lang, $search_all_countries, $cache_attrib_jsarray_line, $cache_attrib_img_line;
     global $lang, $language;
 
-  // $lang_attribute = $lang;
-  // if ($lang != 'pl') { $lang_attribute = 'en'; }
-
-
-
-//
-  // if(checkField('cache_type',$lang)) {
-    // $lang_db = $lang;
-  // }  else {
-    // $lang_db = "en";
-  // }
-
-
     //simple mode (only one easy filter)
     $filters = read_file($stylepath . '/search.simple.tpl.php');
     tpl_set_var('filters', $filters, false);
@@ -1212,6 +1184,7 @@ function outputSearchForm($options)
     {
         tpl_set_var('region', '');
     }
+
     if (isset($options['country']))
     {
         tpl_set_var('country', htmlspecialchars($options['country'], ENT_COMPAT, 'UTF-8'));
@@ -1457,22 +1430,17 @@ function outputSearchForm($options)
     tpl_set_var('finder', isset($options['finder']) ? htmlspecialchars($options['finder'], ENT_COMPAT, 'UTF-8') : '');
 
     //countryoptions
+    var_dump($search_all_countries);
     $countriesoptions = $search_all_countries;
-    if(checkField('countries','list_default_'.$lang) )
-                    $lang_db = $lang;
-                else
-                    $lang_db = "en";
-
-    $rs = sql('SELECT `&1`, `short` FROM `countries` WHERE `short` IN (SELECT DISTINCT `country` FROM `caches`) ORDER BY `sort_' . sql_escape($lang_db) . '` ASC', $lang_db);
+    $rs = sql('SELECT `short` FROM `countries` WHERE `short` IN (SELECT DISTINCT `country` FROM `caches`) ');
 
     for ($i = 0; $i < mysql_num_rows($rs); $i++)
     {
         $record = sql_fetch_array($rs);
-
         if ($record['short'] == $options['country'])
-            $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+            $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars(tr($record['short']), ENT_COMPAT, 'UTF-8') . '</option>';
         else
-            $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+            $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars(tr($record['short']), ENT_COMPAT, 'UTF-8') . '</option>';
 
         $countriesoptions .= "\n";
     }
@@ -1481,25 +1449,10 @@ function outputSearchForm($options)
 
     //regionoptions
     $regionsoptions = '<option value="" selected="selected">'.tr('all_regions').'</option>';
-
-    $rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
-
-    for ($i = 0; $i < mysql_num_rows($rs); $i++)
-    {
-        $record = sql_fetch_array($rs);
-
-        if ($record['code'] == $options['region'])
-            $regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
-        else
-            $regionsoptions .= '<option value="' . htmlspecialchars($record['code'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8') . '</option>';
-
-        $regionsoptions .= "\n";
-    }
-
     tpl_set_var('regionoptions', $regionsoptions);
 
-    // Typ skrzynki
 
+    // Typ skrzynki
     $cachetype_options = '';
                 if(checkField('cache_type',$lang) )
                     $lang_db = $lang;
