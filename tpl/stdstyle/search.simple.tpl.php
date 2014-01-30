@@ -211,7 +211,7 @@ function sync_options(element)
             document.forms[formnames[a]].region.value = "";
            // document.optionsform.region.disabled = false;
         }else {
-        document.forms[formnames[a]].country.value = "PL";
+        document.forms[formnames[a]].country.value = $('#country').val();
         //document.optionsform.region.disabled = false;
         document.forms[formnames[a]].region.value = document.optionsform.region.value;}
 

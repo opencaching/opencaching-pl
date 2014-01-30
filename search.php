@@ -1430,7 +1430,6 @@ function outputSearchForm($options)
     tpl_set_var('finder', isset($options['finder']) ? htmlspecialchars($options['finder'], ENT_COMPAT, 'UTF-8') : '');
 
     //countryoptions
-    var_dump($search_all_countries);
     $countriesoptions = $search_all_countries;
     $rs = sql('SELECT `short` FROM `countries` WHERE `short` IN (SELECT DISTINCT `country` FROM `caches`) ');
 
