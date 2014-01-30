@@ -2097,6 +2097,8 @@ coords_modifier Coördinaten corrigeren
 coordsmod_main Noteer hier de gecorrigeerde coördinaten
 coordsmod_lon Longitude
 coordsmod_lat Latitude
+coordsmod_info_01 Gecorrigeerde coördinaten
+coordsmod_info_02 Moeten de coördinaten weer hersteld worden?
 modify_coords Veranderen
 reset_coords Herstellen
 orig_coord_modified_info Er zijn gecorrigeerde coördinaten ingevoerd. De originele coördinaten zijn:
