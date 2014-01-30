@@ -450,6 +450,16 @@ class Db
         }
         return $rs;
     }
+    
+    /**
+     * Return number of rows actually updated, inserted or deleted by the last 
+     * statement executed with execute(). It DOES NOT return number of rows
+     * returned by the last select statement.
+     */
+    public static function get_affected_row_count()
+    {
+        return mysql_affected_rows();
+    }
 
     public static function field_exists($table, $field)
     {
@@ -816,7 +826,7 @@ class Okapi
 {
     public static $data_store;
     public static $server;
-    public static $revision = 965; # This gets replaced in automatically deployed packages
+    public static $revision = 973; # This gets replaced in automatically deployed packages
     private static $okapi_vars = null;
 
     /** Get a variable stored in okapi_vars. If variable not found, return $default. */
