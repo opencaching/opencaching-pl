@@ -205,12 +205,12 @@ function sync_options(element)
         document.forms[formnames[a]].f_watched.value = document.optionsform.f_watched.checked ? 1 : 0;
         //document.forms[formnames[a]].f_geokret.value = document.optionsform.f_geokret.checked ? 1 : 0;
 
-        if (document.optionsform.country.value != "" && document.optionsform.country.value != "PL" ) {
-            document.forms[formnames[a]].country.value = document.optionsform.country.value;
-            document.optionsform.region.value = "";
-            document.forms[formnames[a]].region.value = "";
+       // if (document.optionsform.country.value != "" && document.optionsform.country.value != "PL" ) {
+       //     document.forms[formnames[a]].country.value = document.optionsform.country.value;
+       //     document.optionsform.region.value = "";
+       //     document.forms[formnames[a]].region.value = "";
            // document.optionsform.region.disabled = false;
-        }else {
+       // }else {
         document.forms[formnames[a]].country.value = $('#country').val();
         //document.optionsform.region.disabled = false;
         document.forms[formnames[a]].region.value = document.optionsform.region.value;}
@@ -234,7 +234,7 @@ function sync_options(element)
         document.forms[formnames[a]].cache_attribs_not.value = tmpattrib_not;
         document.forms[formnames[a]].cacherating.value = recommendations;
         document.forms[formnames[a]].gpxLogLimit.value = gpxLogLimit;
-    }
+    //}
 }
 
 function getCachetypeFilter(){
