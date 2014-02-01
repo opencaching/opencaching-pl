@@ -1,6 +1,19 @@
 <?php
 class cache
 {
+    const TYPE_OTHERTYPE = 1;
+    const TYPE_TRADITIONAL = 2;
+    const TYPE_MULTICACHE = 3;
+    const TYPE_VIRTUAL = 4;
+    const TYPE_WEBCAM = 5;
+    const TYPE_EVENT = 6;
+    const TYPE_QUIZ = 7;
+    const TYPE_MOVING = 8;
+    const TYPE_PODCAST = 9;
+    const TYPE_OWNCACHE = 10;
+
+    private $cacheTypeIcons = null;
+
     public static $status = array (
         1 => 'Ready for search',
         2 => 'Temporarily unavailable',
@@ -11,52 +24,52 @@ class cache
     );
 
     private static $type = array (
-        1 => array(
+        self::TYPE_OTHERTYPE => array(
             'name' => 'other',
             'icon' => 'unknown.png',
             'translation' => 'cacheType_5'
         ),
-        2 => array(
+        self::TYPE_TRADITIONAL => array(
             'name' => 'traditional',
             'icon' => 'traditional.png',
             'translation' => 'cacheType_1'
         ),
-        3 => array(
+        self::TYPE_MULTICACHE => array(
             'name' => 'multicache',
             'icon' => 'multi.png',
             'translation' => 'cacheType_2',
         ),
-        4 => array(
+        self::TYPE_VIRTUAL => array(
             'name' => 'virtual',
             'icon' => 'virtual.png',
             'translation' => 'cacheType_8'
         ),
-        5 => array(
+        self::TYPE_WEBCAM => array(
             'name' => 'webcam',
             'icon' => 'webcam.png',
             'translation' => 'cacheType_7'
         ),
-        6 => array(
+        self::TYPE_EVENT => array(
             'name' => 'event',
             'icon' => 'event.png',
             'translation' => 'cacheType_6'
         ),
-        7 => array(
+        self::TYPE_QUIZ => array(
             'name' => 'quiz',
             'icon' => 'quiz.png',
             'translation' => 'cacheType_3'
         ),
-        8 => array(
+        self::TYPE_MOVING => array(
             'name' => 'moving',
             'icon' => 'moving.png',
             'translation' => 'cachetype_4'
         ),
-        9 => array(
+        self::TYPE_PODCAST => array(
             'name' => 'podcast',
             'icon' => 'podcache.png',
             'translation' => 'cacheType_9'
         ),
-        10 => array(
+        self::TYPE_OWNCACHE => array(
             'name' => 'own-cache',
             'icon' => 'owncache.png',
             'translation' => 'cacheType_10',
@@ -68,6 +81,10 @@ class cache
     private static $iconFoundStr = '-found';
     private static $iconArchivedStr = '-a';
     private static $iconTmpUnavStr = '-n';
+
+    function __construct(){
+        $this->cacheTypeIcons = self::getCacheIconsSet();
+    }
 
     /**
      * prepare array contain set of icons for diffrent cachetypes
@@ -109,6 +126,11 @@ class cache
         $tmp = explode('.', $cacheIcon);
         $tmp[0] = $tmp[0].$statusStr.'-s-owner';
         return implode('.', $tmp);
+    }
+
+    public function getCacheTypeIcons()
+    {
+        return $this->cacheTypeIcons;
     }
 
 }
