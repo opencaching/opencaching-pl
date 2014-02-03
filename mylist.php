@@ -27,7 +27,6 @@
 
     //prepare the templates and include all neccessary
     require_once (__DIR__.'/lib/common.inc.php');
-    require_once (__DIR__.'/lib/db.php');
 
     //Preprocessing
     if ($error == false)
@@ -59,7 +58,7 @@
                     $record = sql_fetch_array($rs);
                     $tmp_list = $i % 2 == 0 ? $list_e : $list_o;
                 	//modified coords
-                	if (($record['type'] =='7'  ||  $record['type'] =='1' || $record['type'] =='3' )  && 
+                	if (($record['type'] =='7'  ||  $record['type'] =='1' || $record['type'] =='3' )  &&
 $usr!=false) 		{  //check if quiz (7) or other(1) or multi (3) and user is logged
                     if (!isset($dbc)) {$dbc = new dataBase();};
                     $mod_coord_sql = 'SELECT cache_id FROM cache_mod_cords

@@ -24,7 +24,6 @@ if (!isset($rootpath)) $rootpath = '';
 require_once($rootpath . 'lib/common.inc.php');
 require_once($rootpath . 'lib/cache_icon.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
-require_once($rootpath . 'lib/db.php');
 
 //Preprocessing
 if ($error == false)

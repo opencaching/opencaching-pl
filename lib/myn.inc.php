@@ -1,13 +1,9 @@
 <?php
-require_once  __DIR__.'/db.php';
-require_once  __DIR__.'/cache.php';
-
 /**
  * set of functions used in myneighborhood and myn files
  */
 class myninc
 {
-
    /** =====================================================================================
     * Funkcja sprawdzająca czy skrzynka jest znaleziona przez użytkownika
     *

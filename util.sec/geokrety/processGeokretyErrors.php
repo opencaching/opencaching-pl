@@ -1,11 +1,7 @@
 <?php
-// /ocpl/util.sec/geokrety/processGeokretyErrors.php
-require_once(__DIR__.'/../../GeoKretyAPI.php');
-require_once(__DIR__.'/../../powerTrail/powerTrailBase.php');
-
-//$rootpath = __DIR__.'/../../';
-//include __DIR__.'/../../lib/common.inc.php';
-
+/**
+ * ocpl/util.sec/geokrety/processGeokretyErrors.php
+ */
 $run = new processGeokretyErrors;
 $run->run();
 
@@ -95,7 +91,6 @@ class processGeokretyErrors {
         $langArray = available_languages();
 
         $oldFileArr = explode('xxkgfj8ipzxx', file_get_contents($dynstylepath.'ptPromo.inc-'.$lang.'.php'));
-        require_once __DIR__.'/../../region_class.php';
         $region = new GetRegions();
         $newPt =  powerTrailBase::writePromoPt4mainPage($oldFileArr[1]);
         $regions = $region->GetRegion($newPt['centerLatitude'], $newPt['centerLongitude']);

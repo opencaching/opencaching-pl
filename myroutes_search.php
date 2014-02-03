@@ -16,10 +16,6 @@
 
     //prepare the templates and include all neccessary
     require_once('./lib/common.inc.php');
-    require_once('./lib/db.php');
-
-    $database=new dataBase;
-
     require_once($rootpath . 'lib/calculation.inc.php');
     require_once('./lib/cache_icon.inc.php');
     require_once($rootpath . 'lib/caches.inc.php');
@@ -27,6 +23,7 @@
     global $content, $bUseZip, $sqldebug, $usr;
     global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
     global $lang, $language;
+    $database=new dataBase;
     set_time_limit(1800);
     //Preprocessing
     if ($error == false)

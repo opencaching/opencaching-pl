@@ -1,6 +1,5 @@
 <?php
 require_once ('./lib/common.inc.php');
-require_once ('./lib/db.php');
 db_disconnect();
 
 //Preprocessing

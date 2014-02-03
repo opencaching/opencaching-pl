@@ -18,7 +18,6 @@
 
     require('./lib/common.inc.php');
     require($stylepath . '/usertops.inc.php');
-    require('./lib/db.php');
 
     if ($error == false)
     {

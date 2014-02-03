@@ -17,7 +17,6 @@
  ****************************************************************************/
 
     require('./lib/common.inc.php');
-    require('./lib/db.php');
     require($stylepath . '/query.inc.php');
 
     if ($error == false)

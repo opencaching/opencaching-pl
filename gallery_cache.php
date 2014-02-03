@@ -17,7 +17,6 @@
 
   //prepare the templates and include all neccessary
     require_once('./lib/common.inc.php');
-    require_once('./lib/db.php');
 
     //Preprocessing
     if ($error == false)
@@ -30,7 +29,6 @@
         require($stylepath . '/viewcache.inc.php');
         require($stylepath . '/gallery_cache.inc.php');
         require($stylepath.'/smilies.inc.php');
-        require_once('lib/db.php');
         global $usr;
 
 

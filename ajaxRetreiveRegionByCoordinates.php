@@ -5,7 +5,7 @@ if(!isset($_SESSION['user_id'])){
     print 'no hacking please!';
     exit;
 }
-require_once __DIR__.'/region_class.php';
+require_once __DIR__.'/GetRegions.php';
 
 $latitude = $_REQUEST['lat'];
 $longitude = $_REQUEST['lon'];

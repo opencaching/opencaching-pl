@@ -20,7 +20,6 @@
     if (!isset($rootpath)) global $rootpath;
     require_once('./lib/common.inc.php');
     require_once('lib/cache_icon.inc.php');
-    require_once('lib/db.php');
     global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email;
     global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key;
 
@@ -29,7 +28,7 @@
         for( $i=0;$i<count($theArray);$i++)
         {
             if( $theArray[$i] == $item )
-                return $i;
+            return $i;
         }
         return -1;
     }
@@ -59,19 +58,15 @@
         else if (isset($_REQUEST['uuid']))
         {
             $uuid = $_REQUEST['uuid'];
-
-            //$rs = sql("SELECT `cache_id` FROM `caches` WHERE uuid='&1' LIMIT 1", $uuid);
             if (!isset($dbc)) {$dbc = new dataBase();};
                     $thatquery = "SELECT `cache_id` FROM `caches` WHERE uuid=:v1 LIMIT 1" ;
                     $params['v1']['value'] = (string) $uuid;;
                     $params['v1']['data_type'] = 'string';
                     $dbc->paramQuery($thatquery,$params);
-            //if ($r = sql_fetch_assoc($rs))
             if ($r = $dbc->dbResultFetch() )
             {
                 $cache_id = $r['cache_id'];
             }
-            //mysql_free_result($rs);
         }
         else if (isset($_REQUEST['wp']))
         {
@@ -87,15 +82,12 @@
 
             $sql .= '=\'' . sql_escape($wp) . '\' LIMIT 1';
 
-            //$rs = sql($sql);
             if (!isset($dbc)) {$dbc = new dataBase();};
             $dbc->simpleQuery($sql);
-            //if ($r = sql_fetch_assoc($rs))
             if ($r=$dbc->dbResultFetch())
             {
                 $cache_id = $r['cache_id'];
             }
-            //mysql_free_result($rs);
         }
 
             if ($usr == false && $hide_coords) {
@@ -110,60 +102,12 @@
         }
 
         if ($cache_id != 0)
-        {   //mysql_query("SET NAMES 'utf8'");
+        {
             //get cache record
             if(checkField('countries','list_default_'.$lang) )
                     $lang_db = $lang;
                 else
                     $lang_db = "en";
-
-            /*$rs = sql("SELECT `caches`.`cache_id` `cache_id`,
-                              `caches`.`user_id` `user_id`,
-                              `caches`.`status` `status`,
-                              `caches`.`latitude` `latitude`,
-                              `caches`.`longitude` `longitude`,
-                              `caches`.`name` `name`,
-                              `caches`.`type` `type`,
-                              `caches`.`size` `size`,
-                              `caches`.`search_time` `search_time`,
-                              `caches`.`way_length` `way_length`,
-                              `caches`.`country` `country`,
-                              `caches`.`logpw` `logpw`,
-                              `caches`.`date_hidden` `date_hidden`,
-                              `caches`.`wp_oc` `wp_oc`,
-                              `caches`.`wp_gc` `wp_gc`,
-                              `caches`.`wp_ge` `wp_ge`,
-                              `caches`.`wp_tc` `wp_tc`,
-                              `caches`.`wp_nc` `wp_nc`,
-                              `caches`.`date_created` `date_created`,
-                              `caches`.`difficulty` `difficulty`,
-                              `caches`.`terrain` `terrain`,
-                              `caches`.`founds` `founds`,
-                              `caches`.`notfounds` `notfounds`,
-                              `caches`.`notes` `notes`,
-                              `caches`.`watcher` `watcher`,
-                                `caches`.`votes` `votes`,
-                                `caches`.`score` `score`,
-                                `caches`.`picturescount` `picturescount`,
-                                `caches`.`mp3count` `mp3count`,
-                                `caches`.`desc_languages` `desc_languages`,
-                                `caches`.`topratings` `topratings`,
-                                `caches`.`ignorer_count` `ignorer_count`,
-                                `caches`.`votes` `votes_count`,
-                                `cache_type`.`icon_large` `icon_large`,
-                              `user`.`username` `username`,
-                              `countries`.`&1` AS `country_name`,
-                IFNULL(`cache_location`.`code1`, '') AS `code1`,
-                IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
-                IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
-                IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
-                IFNULL(`cache_location`.`code3`, '') AS `code3`,
-                IFNULL(`cache_location`.`adm4`, '') AS `adm4`
-                         FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `cache_type`, `user`
-                          WHERE `caches`.`user_id` = `user`.`user_id` AND
-                                  `cache_type`.`id`=`caches`.`type` AND
-                                  `caches`.`cache_id`='&2'", $lang_db, $cache_id);
-*/
                     if (!isset($dbc)) {$dbc = new dataBase();};
                     $thatquery = "SELECT `caches`.`cache_id` `cache_id`,
                               `caches`.`user_id` `user_id`,
@@ -190,24 +134,24 @@
                               `caches`.`notfounds` `notfounds`,
                               `caches`.`notes` `notes`,
                               `caches`.`watcher` `watcher`,
-                                `caches`.`votes` `votes`,
-                                `caches`.`score` `score`,
-                                `caches`.`picturescount` `picturescount`,
-                                `caches`.`mp3count` `mp3count`,
-                                `caches`.`desc_languages` `desc_languages`,
-                                `caches`.`topratings` `topratings`,
-                                `caches`.`ignorer_count` `ignorer_count`,
-                                `caches`.`votes` `votes_count`,
-                                `cache_type`.`icon_large` `icon_large`,
+                              `caches`.`votes` `votes`,
+                              `caches`.`score` `score`,
+                              `caches`.`picturescount` `picturescount`,
+                              `caches`.`mp3count` `mp3count`,
+                              `caches`.`desc_languages` `desc_languages`,
+                              `caches`.`topratings` `topratings`,
+                              `caches`.`ignorer_count` `ignorer_count`,
+                              `caches`.`votes` `votes_count`,
+                              `cache_type`.`icon_large` `icon_large`,
                               `user`.`username` `username`,
                               `countries`.`short` AS `country_short`,
-                IFNULL(`cache_location`.`code1`, '') AS `code1`,
-                IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
-                IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
-                IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
-                IFNULL(`cache_location`.`code3`, '') AS `code3`,
-                IFNULL(`cache_location`.`adm4`, '') AS `adm4`
-                         FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `cache_type`, `user`
+                            IFNULL(`cache_location`.`code1`, '') AS `code1`,
+                            IFNULL(`cache_location`.`adm1`, '') AS `adm1`,
+                            IFNULL(`cache_location`.`adm2`, '') AS `adm2`,
+                            IFNULL(`cache_location`.`adm3`, '') AS `adm3`,
+                            IFNULL(`cache_location`.`code3`, '') AS `code3`,
+                            IFNULL(`cache_location`.`adm4`, '') AS `adm4`
+                          FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`) INNER JOIN countries ON (caches.country = countries.short), `cache_type`, `user`
                           WHERE `caches`.`user_id` = `user`.`user_id` AND
                                   `cache_type`.`id`=`caches`.`type` AND
                                   `caches`.`cache_id`= :v1";
@@ -249,8 +193,8 @@
             $mod_coord_delete_mode = isset($_POST['resetCoords']);
             $cache_mod_lat =0;
             $cache_mod_lon =0;
-            if ($cache_type == $CACHETYPE['QUIZ'] || $cache_type == $CACHETYPE['OTHER'] 
-                || $cache_type == $CACHETYPE['MULTI'])
+            if ($cache_type == cache::TYPE_QUIZ || $cache_type == cache::TYPE_OTHERTYPE
+                || $cache_type == cache::TYPE_MULTICACHE)
             {
 
                 $orig_cache_lon = $cache_record['longitude'];
@@ -720,29 +664,25 @@
             // end visit-counter
 
             // hide coordinates when user is not logged in
-            if( $usr == true || !$hide_coords)
-            {
+            if( $usr == true || !$hide_coords) {
                 $coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($cache_record['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($cache_record['longitude']), ENT_COMPAT, 'UTF-8'));
                 $coords2 = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($cache_record['latitude'], 0), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($cache_record['longitude'], 0), ENT_COMPAT, 'UTF-8'));
                 $coords3 = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($cache_record['latitude'], 2), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($cache_record['longitude'], 2), ENT_COMPAT, 'UTF-8'));
                 $coords_other = "<a href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=".$cache_record['latitude']."&amp;lon=".$cache_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1')\">".tr('coords_other')."</a>";
-            }
-            else
-            {
+            } else {
                 $coords = tr('hidden_coords');
                 $coords_other = "";
             }
 
 
-            if ($cache_record['type'] == 6 )
-            {$cache_stats='';
+            if ($cache_record['type'] == cache::TYPE_EVENT) {
+                $cache_stats='';
             } else {
-            if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) != 0)
-            {
-            $cache_stats = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('show_statictics_cache'). "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\" onclick=\"javascript:window.open('cache_stats.php?cacheid=".$cache_record['cache_id']."&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"Statystyka skrzynki\" title=\"Statystyka skrzynki\" /></a>";
-            } else {
-            $cache_stats="<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('not_stat_cache'). "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"\" /></a>";
-                    }
+                if (($cache_record['founds'] + $cache_record['notfounds'] + $cache_record['notes']) != 0) {
+                    $cache_stats = "<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('show_statictics_cache'). "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\" onclick=\"javascript:window.open('cache_stats.php?cacheid=".$cache_record['cache_id']."&amp;popup=y','Cache_Statistics','width=500,height=750,resizable=yes,scrollbars=1')\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"Statystyka skrzynki\" title=\"Statystyka skrzynki\" /></a>";
+                } else {
+                    $cache_stats="<a class =\"links2\" href=\"javascript:void(0)\" onmouseover=\"Tip('" .tr('not_stat_cache'). "', BALLOON, true, ABOVE, false, OFFSETX, -17, PADDING, 8, WIDTH, -240)\" onmouseout=\"UnTip()\"><img src=\"tpl/stdstyle/images/blue/stat1.png\" alt=\"\" title=\"\" /></a>";
+                }
             }
             if (!isset($map_msg)) $map_msg = '';
             if (!isset($map_msg)) $map_msg = '';
@@ -771,10 +711,6 @@
             if ($cache_record['code3'] !="") {$woj=$cache_record['adm3']; tpl_set_var('woj',$regionTranslation); } else {$woj=$cache_record['adm2']; tpl_set_var('woj',$woj);}
             if ($woj =="") { tpl_set_var('woj',$cache_record['adm4']);}
             if ($woj !="" || $cache_record['adm3'] !="") tpl_set_var('dziubek1',">");
-
-//          if ($cache_record['adm4'] !="") {tpl_set_var('miasto',$cache_record['adm4']); tpl_set_var('dziubek2',">");}
-
-
 
     // NPA - nature protection areas
         $npac="0";
@@ -857,7 +793,7 @@
                 // todo: poszerzyć tabelkę 'caches' (lub stworzyć nową z relacją)
                 //       pole dystans, żeby nie trzeba było za każdym razem zliczać
                 //       dystansu.
-            if ($cache_record['type']==8)
+            if ($cache_record['type']==cache::TYPE_MOVING)
                 {
                  tpl_set_var('moved_icon', $moved_icon);
                  /*if (!isset($_REQUEST['cacheid'])) $OpencacheID = $cache_id */
@@ -1164,7 +1100,7 @@
             tpl_set_var('score_icon', $score_icon);
             tpl_set_var('save_icon', $save_icon);
             tpl_set_var('search_icon', $search_icon);
-            if ($cache_record['type'] == 6)
+            if ($cache_record['type'] == cache::TYPE_EVENT)
             {
                 tpl_set_var('found_icon', $exist_icon);
                 tpl_set_var('notfound_icon', $wattend_icon);
@@ -1341,71 +1277,62 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 $cache_type = $cache_record['type'];
                 $waypoints_visible=0;
                 $wp_rsc = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`",$lang_db,$cache_id);
-                if (mysql_num_rows($wp_rsc) !=0 && $cache_record['type'] !=8)
-                {
-                            // check status all waypoints
-                            for ($i = 0; $i < mysql_num_rows($wp_rsc); $i++)
-                            { $wp_check = sql_fetch_array($wp_rsc);
-                             if ($wp_check['status'] ==1|| $wp_check['status'] ==2) { $waypoints_visible=1;}
-                             }
-                if ($waypoints_visible !=0) {
-                $waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
-                $waypoints .= '<tr>';
-                if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7) $waypoints .= '<th align="center" valign="middle" width="30"><b>'.tr('stage_wp').'</b></th>';
-
-                $waypoints .='<th align="center" valign="middle" width="40">&nbsp;<b>'.tr('symbol_wp').'</b>&nbsp;</th>
-                <th align="center" valign="middle" width="40">&nbsp;<b>'.tr('type_wp').'</b>&nbsp;</th>
-                <th width="90" align="center" valign="middle">&nbsp;<b>'.tr('coordinates_wp').'</b>&nbsp;</th>
-                <th align="center" valign="middle"><b>'.tr('describe_wp').'</b></th></tr>';}
-
-                $wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`",$lang_db,$cache_id);
-
-                for ($i = 0; $i < mysql_num_rows($wp_rs); $i++)
-                {
-                    $wp_record = sql_fetch_array($wp_rs);
-                    if ($wp_record['status'] !=3)
-                    {
-                        $tmpline1 = $wpline;    // string in viewcache.inc.php
-
-                        if ($wp_record['status'] ==1)
-                        {
-                            $coords_lat_lon = "<a class=\"links4\" href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=".$wp_record['latitude']."&amp;lon=".$wp_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">".mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8')."<br/>".htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'))."</a>";
-                        }
-                        if ($wp_record['status'] ==2)
-                        {
-                            $coords_lat_lon = "N ?? ??????<br />E ?? ??????";
-                        }
-                        $tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-                        $tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
-                        $tmpline1 = mb_ereg_replace('{lat_lon}', $coords_lat_lon, $tmpline1);
-                        $tmpline1 = mb_ereg_replace('{desc}', "&nbsp;". nl2br($wp_record['desc']) ."&nbsp;", $tmpline1);
-                        $tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
-
-                        if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7){
-                        $tmpline1=mb_ereg_replace('{stagehide_end}', '', $tmpline1);    $tmpline1=mb_ereg_replace('{stagehide_start}', '', $tmpline1);
-                        if ($wp_record['stage']==0)
-                        {
-                            $tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
-                        }
-                        else
-                        {
-                            $tmpline1 = mb_ereg_replace('{number}',$wp_record['stage'], $tmpline1);
-                        }
-                        } else { $tmpline1=mb_ereg_replace('{stagehide_end}', '-->', $tmpline1);    $tmpline1=mb_ereg_replace('{stagehide_start}', '<!--', $tmpline1);}
-
-                        $waypoints .= $tmpline1;
+                if (mysql_num_rows($wp_rsc) !=0 && $cache_record['type'] != cache::TYPE_MOVING) { // check status all waypoints
+                    for ($i = 0; $i < mysql_num_rows($wp_rsc); $i++) {
+                        $wp_check = sql_fetch_array($wp_rsc);
+                        if ($wp_check['status'] ==1|| $wp_check['status'] ==2) { $waypoints_visible=1;}
                     }
-                }
-                if ($waypoints_visible !=0) {   $waypoints .= '</table>';
-                tpl_set_var('waypoints_content', $waypoints);
-                tpl_set_var('waypoints_start', '');
-                tpl_set_var('waypoints_end', '');
+                    if ($waypoints_visible !=0) {
+                        $waypoints = '<table id="gradient" cellpadding="5" width="97%" border="1" style="border-collapse: collapse; font-size: 12px; line-height: 1.6em">';
+                        $waypoints .= '<tr>';
+                        if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7) $waypoints .= '<th align="center" valign="middle" width="30"><b>'.tr('stage_wp').'</b></th>';
 
-                    } else {
-                tpl_set_var('waypoints_content', '<br />');
-                tpl_set_var('waypoints_start', '<!--');
-                tpl_set_var('waypoints_end', '-->');
+                        $waypoints .='<th align="center" valign="middle" width="40">&nbsp;<b>'.tr('symbol_wp').'</b>&nbsp;</th>
+                        <th align="center" valign="middle" width="40">&nbsp;<b>'.tr('type_wp').'</b>&nbsp;</th>
+                        <th width="90" align="center" valign="middle">&nbsp;<b>'.tr('coordinates_wp').'</b>&nbsp;</th>
+                        <th align="center" valign="middle"><b>'.tr('describe_wp').'</b></th></tr>';
+                    }
+
+                    $wp_rs = sql("SELECT `wp_id`, `type`, `longitude`, `latitude`,  `desc`, `status`, `stage`, `waypoint_type`.`&1` wp_type, waypoint_type.icon wp_icon FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE `cache_id`='&2' ORDER BY `stage`,`wp_id`",$lang_db,$cache_id);
+                    for ($i = 0; $i < mysql_num_rows($wp_rs); $i++) {
+                        $wp_record = sql_fetch_array($wp_rs);
+                        if ($wp_record['status'] !=3) {
+                            $tmpline1 = $wpline;    // string in viewcache.inc.php
+
+                            if ($wp_record['status'] ==1) {
+                                $coords_lat_lon = "<a class=\"links4\" href=\"#\" onclick=\"javascript:window.open('http://www.opencaching.pl/coordinates.php?lat=".$wp_record['latitude']."&amp;lon=".$wp_record['longitude']."&amp;popup=y&amp;wp=".htmlspecialchars($cache_record['wp_oc'], ENT_COMPAT, 'UTF-8')."','Koordinatenumrechnung','width=240,height=334,resizable=yes,scrollbars=1'); return event.returnValue=false\">".mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($wp_record['latitude']), ENT_COMPAT, 'UTF-8')."<br/>".htmlspecialchars(help_lonToDegreeStr($wp_record['longitude']), ENT_COMPAT, 'UTF-8'))."</a>";
                             }
+                            if ($wp_record['status'] ==2) {
+                                $coords_lat_lon = "N ?? ??????<br />E ?? ??????";
+                            }
+                            $tmpline1 = mb_ereg_replace('{wp_icon}', htmlspecialchars($wp_record['wp_icon'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+                            $tmpline1 = mb_ereg_replace('{type}', htmlspecialchars($wp_record['wp_type'], ENT_COMPAT, 'UTF-8'), $tmpline1);
+                            $tmpline1 = mb_ereg_replace('{lat_lon}', $coords_lat_lon, $tmpline1);
+                            $tmpline1 = mb_ereg_replace('{desc}', "&nbsp;". nl2br($wp_record['desc']) ."&nbsp;", $tmpline1);
+                            $tmpline1 = mb_ereg_replace('{wpid}',$wp_record['wp_id'], $tmpline1);
+
+                            if ($cache_type ==1 || $cache_type ==3 || $cache_type ==7){
+                                $tmpline1=mb_ereg_replace('{stagehide_end}', '', $tmpline1);    $tmpline1=mb_ereg_replace('{stagehide_start}', '', $tmpline1);
+                                if ($wp_record['stage']==0) {
+                                    $tmpline1 = mb_ereg_replace('{number}',"", $tmpline1);
+                                } else  {
+                                    $tmpline1 = mb_ereg_replace('{number}',$wp_record['stage'], $tmpline1);
+                                }
+                            } else { $tmpline1=mb_ereg_replace('{stagehide_end}', '-->', $tmpline1);    $tmpline1=mb_ereg_replace('{stagehide_start}', '<!--', $tmpline1);}
+
+                            $waypoints .= $tmpline1;
+                        }
+                    }
+                    if ($waypoints_visible !=0) {   $waypoints .= '</table>';
+                    tpl_set_var('waypoints_content', $waypoints);
+                    tpl_set_var('waypoints_start', '');
+                    tpl_set_var('waypoints_end', '');
+
+                        } else {
+                    tpl_set_var('waypoints_content', '<br />');
+                    tpl_set_var('waypoints_start', '<!--');
+                    tpl_set_var('waypoints_end', '-->');
+                                }
             }
             else
             {
@@ -1843,18 +1770,15 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 $tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
 
                 // keszyny mobilne by Łza
-                if (($cache_record['type'] == 8) && ($record['type'] == 4))
-                 {
-                   $dane_mobilniaka = sql_fetch_array(sql("SELECT `user_id`, `longitude`, `latitude`, `km` FROM `cache_moved` WHERE `log_id` = '&1'", $record['logid']));
+                if (($cache_record['type'] == cache::TYPE_MOVING) && ($record['type'] == 4)) {
 
-                   if ($dane_mobilniaka['latitude'] != 0)
-                    {
-                     $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($dane_mobilniaka['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($dane_mobilniaka['longitude']), ENT_COMPAT, 'UTF-8'));
-                     $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $dane_mobilniaka['km'] . ' km [<img src="tpl/stdstyle/images/blue/szczalka_mobile.png" title="'.tr('viewlog_kordy').'" />'.$tmplog_kordy_mobilnej .']', $tmplog);
-                    }
-                    else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
-                 }
-                else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
+                    $dane_mobilniaka = sql_fetch_array(sql("SELECT `user_id`, `longitude`, `latitude`, `km` FROM `cache_moved` WHERE `log_id` = '&1'", $record['logid']));
+
+                    if ($dane_mobilniaka['latitude'] != 0) {
+                      $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($dane_mobilniaka['latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($dane_mobilniaka['longitude']), ENT_COMPAT, 'UTF-8'));
+                      $tmplog = mb_ereg_replace('{kordy_mobilniaka}', $dane_mobilniaka['km'] . ' km [<img src="tpl/stdstyle/images/blue/szczalka_mobile.png" title="'.tr('viewlog_kordy').'" />'.$tmplog_kordy_mobilnej .']', $tmplog);
+                    } else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
+                } else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
 
                 if ($record['text_html'] == 0)
                     $tmplog_text = help_addHyperlinkToURL($tmplog_text);
@@ -1867,7 +1791,6 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 //END: edit by FelixP - 2013'10
                 {
                     $logpicturelines = '';
-                    //$rspictures = sql("SELECT `url`, `title`, `user_id`, `uuid` FROM `pictures` WHERE `object_id`='&1' AND `object_type`=1", $record['logid']);
                     $thatquery = "SELECT `url`, `title`, `user_id`, `uuid`, `spoiler` FROM `pictures` WHERE `object_id`= :v1 AND `object_type`=1";
                     $params['v1']['value'] = (integer) $record['logid'];;
                     $params['v1']['data_type'] = 'integer';
@@ -2151,7 +2074,6 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
             // TODO: initial check if table cache_attrib is able to handle current language
             /*
-            require_once 'lib/db.php';
             $db = new dataBase(TRUE);
             $initialCheck = $db->multiVariableQuery('SELECT COUNT( * ) FROM cache_attrib WHERE language=:1 ', PL);
             var_dump($initialCheck); exit;
@@ -2354,7 +2276,6 @@ tpl_set_var('userLogged', $userLogged);
 
 // power trails
 if($powerTrailModuleSwitchOn && $cache_id != null) {
-    require_once 'powerTrail/powerTrailBase.php';
     $ptArr = powerTrailBase::checkForPowerTrailByCache($cache_id);
     if(count($ptArr)>0){
         $ptHtml = '<table width="99%">';
@@ -2373,11 +2294,10 @@ if($powerTrailModuleSwitchOn && $cache_id != null) {
     $ptHtml = '';
     $ptDisplay = 'none';
 }
-    unset ($dbc);
-    tpl_set_var('ptName', $ptHtml);
-    tpl_set_var('ptSectionDisplay', $ptDisplay);
+unset ($dbc);
+tpl_set_var('ptName', $ptHtml);
+tpl_set_var('ptSectionDisplay', $ptDisplay);
 
 
-
-    tpl_BuildTemplate();
+tpl_BuildTemplate();
 ?>

@@ -1,10 +1,6 @@
 <?php
 $rootpath = __DIR__.'/../';
-require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/../lib/common.inc.php';
-require_once __DIR__.'/../lib/cache.php';
-require_once __DIR__.'/powerTrailBase.php';
-require_once __DIR__.'/powerTrailController.php';
 db_disconnect();
 
 $pt = new powerTrailController($usr);

@@ -5,9 +5,6 @@ if(!isset($_SESSION['user_id'])){
     exit;
 }
 require_once __DIR__.'/../lib/db.php';
-// require_once __DIR__.'/powerTrailController.php';
-// $ptAPI = new powerTrailBase;
-
 $waypoint = $_REQUEST['waypoint'];
 
 // check if user is owner of selected power Trail

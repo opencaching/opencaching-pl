@@ -7,11 +7,9 @@ $siteDateTimeFormat = 'Y-m-d H:i';
 
 function emailOwners($ptId, $commentType, $commentDateTime, $commentText, $action, $commentOwnerId = false, $delReason = ''){
     global $octeam_email, $usr, $absolute_server_URI, $site_name, $siteDateFormat, $siteDateTimeFormat;
-    require_once __DIR__.'/powerTrailBase.php';
     $owners = powerTrailBase::getPtOwners($ptId);
     $commentTypes = powerTrailBase::getPowerTrailComments();
     $ptDbRow = powerTrailBase::getPtDbRow($ptId);
-
 
     //remove images
     $commentText = preg_replace("/<img[^>]+\>/i", "", $commentText);

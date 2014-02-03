@@ -1,8 +1,6 @@
 <?php
 $rootpath = __DIR__.DIRECTORY_SEPARATOR;
 require_once './lib/common.inc.php';
-include_once('powerTrail/powerTrailController.php');
-include_once('powerTrail/powerTrailBase.php');
 
 if ($error == false) {
     $tplname = 'powerTrailCOG';

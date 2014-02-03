@@ -18,7 +18,6 @@
 
     require('./lib/common.inc.php');
     require($stylepath . '/mytop5.inc.php');
-    require('./lib/db.php');
 
     if ($error == false)
     {

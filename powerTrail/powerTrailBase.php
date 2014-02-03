@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/sendEmail.php';
 /**
  *
@@ -469,7 +468,7 @@ class powerTrailBase{
      //print "active cc: ".$answer['cacheCount'].' / required caches: '. $pt['cacheCount']*$pt['perccentRequired']/100;
 
         if($answer['cacheCount'] < ($pt['cacheCount']*$pt['perccentRequired'])/100) {
-            print 'put in service geoPath #'.$pt['id'].' (uncompletable)<br/>';
+            // print 'put in service geoPath #'.$pt['id'].' (uncompletable)<br/>';
 
             //$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
             // $db->multiVariableQuery($queryStatus, 4, $pt['id']);
@@ -487,8 +486,7 @@ class powerTrailBase{
      */
     private function disablePtByCacheCount($pt, $checkPt){
 
-        print 'pt #'.$pt['id'].', caches in pt: '.$pt['cacheCount'].'; min. caches limit: '. $checkPt->getPtMinCacheCountLimit($pt).'<br>';
-
+        // print 'pt #'.$pt['id'].', caches in pt: '.$pt['cacheCount'].'; min. caches limit: '. $checkPt->getPtMinCacheCountLimit($pt).'<br>';
         if($pt['cacheCount'] < $checkPt->getPtMinCacheCountLimit($pt)){
             $text = tr('pt227').tr('pt228');
             print 'put in service geoPath #'.$pt['id'].' (geoPtah cache count is lower than minimum) <br/>';
@@ -501,13 +499,13 @@ class powerTrailBase{
             emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
             return true;
         }
-        print '<br>';
     return false;
     }
 }
 
 
-class checkPt {
+class checkPt
+{
     private $config;
 
     function __construct(){

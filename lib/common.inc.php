@@ -49,18 +49,6 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
     $dateformat = '%d %B %Y';
     $simpledateformat = '%d.%m.%Y';
 
-    $CACHETYPE =  array( "OTHER" => 1,
-                         "TRADITIONAL" => 2,
-                         "MULTI" => 3,
-                         "VIRTUAL" => 4,
-                         "WEBCAM" => 5,
-                         "EVENT" => 6,
-                         "QUIZ" => 7,
-                         "MOVING" => 8,
-                         "PODCAST" => 9,
-                         "OWNCACHE" => 10
-                        );
-
     $STATUS =     array( "READY" => 1,
                          "TEMP_UNAVAILABLE" => 2,
                          "ARCHIVED" => 3,
@@ -1520,6 +1508,14 @@ function get_image_for_interval($folder, $interval = 1800)
 }
 
 /**
+ * class autoloader
+ */
+require __DIR__.'/ClassPathDictionary.php';
+spl_autoload_register(function ($className) {
+    include_once ClassPathDictionary::getClassPath($className);
+});
+
+/**
  * class witch common methods
  */
 class common
@@ -1548,7 +1544,7 @@ class common
         $from[] = '"'; $to[] = '';
         $from[] = '<'; $to[] = '';
         $from[] = '>'; $to[] = '';
-        $from[] = ']]>'; $to[] = ']] >'; 
+        $from[] = ']]>'; $to[] = ']] >';
         $from[] = ''; $to[] = '';
         for ($i = 0; $i < count($from); $i++) {
             $str = str_replace($from[$i], $to[$i], $str);

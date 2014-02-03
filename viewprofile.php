@@ -9,14 +9,11 @@
  *  UTF-8 ąść%d-%m-%Y
  ***************************************************************************/
 
-require_once 'lib/db.php';
-
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = '';
 require_once ('./lib/common.inc.php');
 global $stat_menu;
-$lang;
 
 //Preprocessing
 if ($error == false) {
@@ -150,7 +147,6 @@ if ($error == false) {
             $content .= '<div class="content2-container bg-blue02">
                             <p class="content-title-noshade-size1">
                             <img src="tpl/stdstyle/images/blue/powerTrailGenericLogo.png" width="33" class="icon32" alt="geoPaths" title="geoPaths" />&nbsp'.tr('pt001').'</div>';
-            require_once 'powerTrail/powerTrailBase.php';
             //geoPaths medals
             $content .= getPowerTrailsCompletedByUser($user_id);
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('pt140') . '</span>:&nbsp;<strong>'.powerTrailBase::getUserPoints($user_id).'</strong> (' . tr('pt093') . ' '.powerTrailBase::getPoweTrailCompletedCountByUser($user_id).')</p>';

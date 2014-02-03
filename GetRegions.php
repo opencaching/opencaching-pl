@@ -35,8 +35,6 @@
  *@author Andrzej Łza Woźniak (some code I copied from former code.)
  */
 
-require_once(__DIR__.'/lib/db.php');
-
 class GetRegions {
 
     /**

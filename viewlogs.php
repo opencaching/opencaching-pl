@@ -34,7 +34,6 @@
         require($stylepath . '/viewcache.inc.php');
         require($stylepath . '/viewlogs.inc.php');
         require($stylepath.'/smilies.inc.php');
-        require_once('./lib/db.php');
         global $usr;
 
         $cache_id = 0;

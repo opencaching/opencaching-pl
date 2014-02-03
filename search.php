@@ -26,7 +26,6 @@
 
     //prepare the templates and include all neccessary
     if (!isset($rootpath)) $rootpath = '';
-    require_once 'lib/db.php';
     require_once('./lib/common.inc.php');
     require_once('./lib/search.inc.php');
     require_once('./lib/search-signatures.inc.php');
@@ -829,7 +828,6 @@
                         $options['gpxPtFileName'] = $_SESSION['ptName'];
                     } else {
                         $options['ptId'] = (int) $_REQUEST['ptId'];
-                        require_once $rootpath.DIRECTORY_SEPARATOR.'powerTrail/powerTrailBase.php';
                         $cache_bylist = implode(",",powerTrailBase::getPtCachesIds($options['ptId']));
                         $ptDetails = powerTrailBase::getPtDbRow($options['ptId']);
                         $options['gpxPtFileName'] = powerTrailBase::clearPtNames($ptDetails['name']);

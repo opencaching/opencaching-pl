@@ -3,8 +3,6 @@
 //prepare the templates and include all neccessary
 if (!isset ($rootpath)) $rootpath='./';
 require_once('./lib/common.inc.php');
-require_once('./lib/db.php');
-require_once './powerTrail/powerTrailBase.php';
 
 $no_tpl_build = false;
 //Preprocessing

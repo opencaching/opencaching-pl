@@ -21,8 +21,6 @@
     require_once('./lib/cache_icon.inc.php');
     require_once($rootpath . 'lib/caches.inc.php');
     require_once($stylepath . '/lib/icons.inc.php');
-    require_once  __DIR__.'/lib/myn.inc.php';
-    require_once  __DIR__.'/lib/db.php';
 
     //Preprocessing
     if ($error == false)

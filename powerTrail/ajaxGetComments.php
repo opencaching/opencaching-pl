@@ -1,8 +1,6 @@
 <?php
 $rootpath = __DIR__.'/../';
-require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/../lib/common.inc.php';
-require_once __DIR__.'/powerTrailBase.php';
 db_disconnect();
 $commentsArr = powerTrailBase::getPowerTrailComments();
 $ptOwners = powerTrailBase::getPtOwners($_REQUEST['projectId']);
@@ -35,7 +33,7 @@ if(count($result) == 0) {
 // build to display
 $toDisplay = '<table id="commentsTable" cellspacing="0">';
 foreach ($result as $key => $dbEntery) {
-    $userActivity = $dbEntery['hidden_count'] + $dbEntery['log_notes_count'] + $dbEntery['founds_count'] + $dbEntery['notfounds_count'];
+    $userActivity = $dbEntery['hidden_count'] + $dbEntery['founds_count'] + $dbEntery['notfounds_count'];
     $logDateTime = explode(' ', $dbEntery['logDateTime']);
     $toDisplay .= '
     <tr>
@@ -63,7 +61,6 @@ foreach ($result as $key => $dbEntery) {
     ;
 }
 $toDisplay .= '</table>';
-
 $toDisplay .= '<div align="center">';
 
 if ($count > $nextSearchStart || $_REQUEST['start'] > 0) $toDisplay .= '<div style="padding:3px">'.paginate(ceil($count/$paginateCount), $_REQUEST['start']).'</div>';

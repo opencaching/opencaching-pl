@@ -27,7 +27,6 @@
 
     //prepare the templates and include all neccessary
     require_once('./lib/common.inc.php');
-    require_once('./lib/db.php');
 
 function CleanSpecChars( $log, $flg_html )
 {

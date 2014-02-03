@@ -11,9 +11,6 @@
 
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
-require_once('./lib/db.php');
-require_once  __DIR__.'/lib/myn.inc.php';
-require_once  __DIR__.'/lib/db.php';
 
 global $usr;
 
@@ -87,7 +84,7 @@ function CleanSpecChars( $log, $flg_html )
                                 cache_mod_cords.id as cache_mod_cords_id,
                                 cache_mod_cords.longitude,
                                 cache_mod_cords.latitude
-                            FROM 
+                            FROM
                                 `cache_notes`
                                 INNER JOIN `caches` ON (`cache_notes`.`cache_id`=`caches`.`cache_id`)
                                 INNER JOIN cache_type ON (caches.type = cache_type.id)
@@ -98,10 +95,10 @@ function CleanSpecChars( $log, $flg_html )
                                         cache_mod_cords.user_id = cache_notes.user_id
                                         AND cache_mod_cords.cache_id = cache_notes.cache_id
                                     )
-                            WHERE 
-                                `cache_notes`.`user_id`=:1 
+                            WHERE
+                                `cache_notes`.`user_id`=:1
                                 AND `cache_type`.`id`=`caches`.`type`
-                                AND 
+                                AND
                                     ( cl.id is null or cl.id =
                                     ( SELECT id
                                         FROM cache_logs cl_id
@@ -133,7 +130,7 @@ function CleanSpecChars( $log, $flg_html )
                                 cache_mod_cords.id as cache_mod_cords_id,
                                 cache_mod_cords.longitude,
                                 cache_mod_cords.latitude
-                            FROM 
+                            FROM
                                 cache_mod_cords
                                 INNER JOIN `caches` ON (`cache_mod_cords`.`cache_id`=`caches`.`cache_id`)
                                 INNER JOIN cache_type ON (caches.type = cache_type.id)
@@ -144,10 +141,10 @@ function CleanSpecChars( $log, $flg_html )
                                         cache_notes.user_id = cache_mod_cords.user_id
                                         AND cache_notes.cache_id = cache_mod_cords.cache_id
                                     )
-                            WHERE 
-                                `cache_mod_cords`.`user_id`=:1 
+                            WHERE
+                                `cache_mod_cords`.`user_id`=:1
                                 AND `cache_type`.`id`=`caches`.`type`
-                                AND 
+                                AND
                                     ( cl.id is null or cl.id =
                                     ( SELECT id
                                         FROM cache_logs cl_id
@@ -187,12 +184,12 @@ function CleanSpecChars( $log, $flg_html )
                                     $user_coords = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($notes_record['latitude'], 1), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($notes_record['longitude'], 1), ENT_COMPAT, 'UTF-8'));
                                     $user_coords.= '&nbsp;<a class="links"  href="mycache_notes.php?delete_coords='. $notes_record['cache_mod_cords_id'] .'" onclick="return confirm(\''.tr('coordsmod_info_02').'\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" title='.tr('reset_coords').' /></a>';
                                 }
-                                
+
                                 $delete_user_note = '&nbsp;';
                                 if ($notes_record['notes_desc'] != null){
                                     $delete_user_note = '<a class="links"  href="mycache_notes.php?delete={noteid}" onclick="return confirm(\''.tr("mycache_notes_01").'\');"><img style="vertical-align: middle;" src="tpl/stdstyle/images/log/16x16-trash.png" alt="" title='.tr('delete').' /></a>';
                                 }
-                                
+
                                 $notes .= '<tr>
                                 <td style="background-color: {bgcolor}"><img src="'.$cacheicon.'" alt="" /></td>
                                 <td align="left"  style="background-color: {bgcolor}"><a  href="viewcache.php?cacheid={cacheid}" onmouseover="if (\'{notes_text}\' != \'\') Tip(\'{notes_text}\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()">'.$notes_record['cache_name'].'</a></td>

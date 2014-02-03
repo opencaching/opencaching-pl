@@ -15,7 +15,6 @@
 
 if (!isset($rootpath)) $rootpath = '';
 require_once('./lib/common.inc.php');
-require_once './lib/db.php';
 
 /***************************************************
  * Function reverts log from deleted. (undelete log).

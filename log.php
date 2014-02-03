@@ -288,9 +288,6 @@ $debug = false;
                     tpl_set_var('log_geokret', "");
 
                 /*GeoKretApi selector for logging Geokrets using GeoKretyApi*/
-                require_once 'GeoKretyAPI.php';
-                require_once 'lib/db.php';
-
                 $dbConWpt = New dataBase;
                 $dbConWpt->paramQuery("SELECT `secid` FROM `GeoKretyAPI` WHERE `userID` =:user_id LIMIT 1", array ('user_id'=> array('value' => $usr['userid'], 'data_type' => 'integer')) );
 
@@ -511,7 +508,6 @@ $debug = false;
                         if ($log_type == 1) {
                             /*GeoKretyApi: call method logging selected Geokrets  (by Łza)*/
                             if ($debug) {
-                                require_once 'lib/db.php';
                                 dataBase::debugOC('#'.__line__.' ', $_POST);
                             }
                             $MaxNr = $_POST['MaxNr'];
@@ -540,9 +536,7 @@ $debug = false;
                                                 'app_ver' => 'PL'
                                         );
                                         if ($debug) {
-                                            require_once 'lib/db.php';
                                             dataBase::debugOC('#'.__line__.' ', $GeokretyLogArray);
-
                                         }
                                         $GeoKretyLogResult[$b] = $LogGeokrety->LogGeokrety($GeokretyLogArray);
                                         $b++;
@@ -553,7 +547,6 @@ $debug = false;
                                 unset ($b);
 
                                 if ($debug) {
-                                    require_once 'lib/db.php';
                                     dataBase::debugOC('#'.__line__.' ', $GeoKretyLogResult);
                                 }
 
@@ -817,7 +810,6 @@ $debug = false;
                              sql("UPDATE `caches` SET `longitude` = '&2', `latitude` = '&3'  WHERE `cache_id`='&1'", sql_escape($cache_id), $wspolrzedneWE, $wspolrzedneNS);
 
                              // get new region (names and codes) from coordinates and put it into database.
-                             require_once 'region_class.php';
                              $region = new GetRegions();
                              $regiony = $region->GetRegion($wspolrzedneNS, $wspolrzedneWE);
                              sql("UPDATE `cache_location` SET adm1 = '&2', adm3 = '&3', code1='&4', code3='&5' WHERE cache_id = '&1'",sql_escape($cache_id),$regiony['adm1'],$regiony['adm3'],$regiony['code1'],$regiony['code3']);

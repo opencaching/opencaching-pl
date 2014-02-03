@@ -80,7 +80,7 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
 
 
     </head>
-    <body{bodyMod}>
+    <body {bodyMod}>
 
 
     <?php

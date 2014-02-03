@@ -20,7 +20,6 @@
  ****************************************************************************/
 if(!isset($rootpath)) $rootpath = '';
 require_once('./lib/common.inc.php');
-require_once __DIR__.'/lib/db.php';
 
 function removelog($log_id, $language, $lang)
 {

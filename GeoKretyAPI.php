@@ -6,7 +6,6 @@
  * @author Andrzej Łza Woźniak 2012, 2013
  *
  */
-require_once 'lib/db.php';
 
 class GeoKretyApi
 {

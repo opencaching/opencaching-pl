@@ -13,8 +13,6 @@ if(!isset($_SESSION['user_id'])){
     print 'no hacking please!';
     exit;
 }
-require_once __DIR__.'/../lib/db.php';
-require_once __DIR__.'/powerTrailBase.php';
 $ptAPI = new powerTrailBase;
 
 if(isset($_REQUEST['rcalcAll'])){
