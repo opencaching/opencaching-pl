@@ -5,9 +5,18 @@ require_once __DIR__.'/sendEmail.php';
  */
 class powerTrailBase{
 
+    /**
+     * declare types and id of types of geoPaths:
+     */
+    const GEODRAW = 1;
+    const TOURING = 2;
+    const NATURE = 3;
+    const TEMATIC = 4;
+
     const powerTrailLogoFileName = 'powerTrailLogoId';
     const commentsPaginateCount = 5;
     const cCountForMaxMagnifier = 50;
+    const iconPath = 'tpl/stdstyle/images/blue/';
 
     public static function minimumCacheCount(){
         include __DIR__.'/../lib/settings.inc.php';
@@ -49,8 +58,6 @@ class powerTrailBase{
         ),
     );
 
-    private $powerTrailTypes;
-
     function __construct() {
         //include __DIR__.'/../lib/settings.inc.php';
         //$this->userMinimumCacheFoundToSetNewPowerTrail = $userMinimumCacheFoundToSetNewPowerTrail;
@@ -73,22 +80,43 @@ class powerTrailBase{
      */
     public static function getPowerTrailTypes(){
         return array (
-            1 => array ( //sport (map shape)
+            self::GEODRAW => array (
+                'geopathTypeName' => self::getConstName(self::GEODRAW),
                 'translate' => 'pt004',
+                'icon' => self::iconPath.'footprintRed.png',
             ),
-            2 => array ( // touring
+            self::TOURING => array (
+                'geopathTypeName' => self::getConstName(self::TOURING),
                 'translate' => 'pt005',
+                'icon' => self::iconPath.'footprintBlue.png',
             ),
-            3 => array ( // nature (?)
+            self::NATURE => array (
+                'geopathTypeName' => self::getConstName(self::NATURE),
                 'translate' => 'pt067',
+                'icon' => self::iconPath.'footprintGreen.png',
             ),
-            4 => array ( // tematic (?)
+            self::TEMATIC => array (
+                'geopathTypeName' => self::getConstName(self::TEMATIC),
                 'translate' => 'pt079',
+                'icon' => self::iconPath.'footprintYellow.png',
             ),
-
         );
-
     }
+
+
+
+    private static function getConstName($constValue) {
+        $cClass = new ReflectionClass (__CLASS__);
+        $constants = $cClass->getConstants();
+        foreach ($constants as $name => $value){
+            if ($value == $constValue){
+                return $name;
+            }
+        }
+        return null;
+    }
+
+
 
     /**
      * here power Trail status
@@ -137,11 +165,7 @@ class powerTrailBase{
                 'translate' => 'pt213',
                 'color' => '#CC0000',
             ),
-
-
-
         );
-
     }
 
     public static function cacheSizePoints() {

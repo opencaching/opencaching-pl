@@ -289,20 +289,15 @@ function displayCaches($caches, $pTrails)
 
 function displayPTrails($pTrails, $areOwnSeries)
 {
-    $poweTrailMarkers = array (
-        1 => 'footprintRed.png',
-        2 => 'footprintBlue.png',
-        3 => 'footprintGreen.png',
-        4 => 'footprintYellow.png',
-    );
+    $ptTypes = powerTrailBase::getPowerTrailTypes();
+    $ptStatus = powerTrailBase::getPowerTrailStatus();
 
     $result = '';
     $dataForMap = '';
+
     foreach ($pTrails as $pTkey => $pTrail) {
         $pTrail["name"] = str_replace("'", '&#39;', $pTrail["name"]);
-        $dataForMap .= "[". $pTrail["centerLatitude"].",".$pTrail["centerLongitude"].",'<a href=powerTrail.php?ptAction=showSerie&ptrail=".$pTrail["id"].">".$pTrail["name"]."</a>','tpl/stdstyle/images/blue/".$poweTrailMarkers[$pTrail["type"]]."','".$pTrail["name"]."'],";
-        $ptTypes = powerTrailBase::getPowerTrailTypes();
-        $ptStatus = powerTrailBase::getPowerTrailStatus();
+        $dataForMap .= "[". $pTrail["centerLatitude"].",".$pTrail["centerLongitude"].",'<a href=powerTrail.php?ptAction=showSerie&ptrail=".$pTrail["id"].">".$pTrail["name"]."</a>','".$ptTypes[$pTrail['type']]['icon']."','".$pTrail["name"]."'],";
         if(!$areOwnSeries) $ownOrAll = round($pTrail["points"],2);
         else $ownOrAll = tr($ptStatus[$pTrail["status"]]['translate']);
         $ptHrefTitle = $pTrail["name"];
@@ -311,13 +306,12 @@ function displayPTrails($pTrails, $areOwnSeries)
         }
         $result .= '<tr>'.
         '<td align="right" style="padding-right: 5px;"><b><a href="powerTrail.php?ptAction=showSerie&ptrail='.$pTrail["id"].'" title="'.$ptHrefTitle.'">'.$pTrail["name"].'</a></b></td>'.
-        '<td ><img src="tpl/stdstyle/images/blue/'.$poweTrailMarkers[$pTrail["type"]].'" /> '.tr($ptTypes[$pTrail["type"]]['translate']).'</td>'.
+        '<td ><img src="'.$ptTypes[$pTrail["type"]]['icon'].'" /> '.tr($ptTypes[$pTrail["type"]]['translate']).'</td>'.
         '<td class="ptTd">'. $ownOrAll .'</td>'.
         '<td class="ptTd">'.substr($pTrail["dateCreated"] , 0, -9).'</td>'.
         '<td class="ptTd">'.$pTrail["cacheCount"].'</td>'.
         '<td class="ptTd">'.$pTrail["conquestedCount"].'</td>
         </tr>';
-        // var_dump($pTrail);
     }
 
     $result= array($result, rtrim($dataForMap, ","));
