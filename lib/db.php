@@ -272,7 +272,8 @@ class dataBase
     public function multiVariableQuery($query) {
         $numargs = func_num_args();
         $arg_list = func_get_args();
-        if(is_array($arg_list[1]) && $numargs === 2){ // params were passed in array
+        
+        if($numargs === 2 && is_array($arg_list[1]) ){ // params were passed in array
             $arg_list = $arg_list[1];
             $numargs = count($arg_list)+1;
         }
