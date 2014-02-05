@@ -638,8 +638,8 @@ if ($error == false) {
 				
 				// PowerTrail vel GeoPath icon
 				 if ($log_record['PT_ID']!=0)  {
-				 	$PT_title = $pt_cache_tr.$log_record['PT_name'];
-				 	$PT_icon = '<a href="powerTrail.php?ptAction=showSerie&ptrail='.$log_record['PT_ID'].'" onmouseover="if (\''.$PT_title.'\' != \'\') Tip(\''.$PT_title.'\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()" class="links">';
+				 	$PT_title = $pt_cache_tr.'<BR><B>'.$log_record['PT_name'].'</B>';
+				 	$PT_icon = '<a href="powerTrail.php?ptAction=showSerie&ptrail='.$log_record['PT_ID'].'" onmouseover="if (\''.$PT_title.'\' != \'\') Tip(\''.$PT_title.'\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,220,SHADOW,true)" onmouseout="UnTip()" class="links">';
 				 	$PT_icon.='<img src="tpl/stdstyle/images/blue/'.$poweTrailMarkers[$log_record['PT_type']].'" class="icon16" alt="'.$pt_icon_title.'" title="'.$pt_icon_title.'" /></a>';
 				 	$thisline = mb_ereg_replace('{GPicon}',$PT_icon, $thisline);
 				 } else {
