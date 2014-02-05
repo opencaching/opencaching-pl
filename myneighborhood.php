@@ -23,6 +23,7 @@ require_once($rootpath .  'lib/common.inc.php');
 require_once($rootpath .  'lib/calculation.inc.php');
 require_once($rootpath .  'lib/cache_icon.inc.php');
 require_once($stylepath . '/lib/icons.inc.php');
+//require_once($rootpath . '/powerTrail/PowerTrailBase.php');
 
 //Preprocessing
 if ($error == false) {
@@ -610,8 +611,13 @@ if ($error == false) {
             //PowerTrail vel GeoPath variables
 			$pt_cache_tr = tr('pt_cache');
 			$pt_icon_title =  tr('pt139');
-			$poweTrailMarkers = powerTrailBase::getPowerTrailIconsByType();
-
+			//$poweTrailMarkers = powerTrailBase::getPowerTrailIconsByType();
+			$poweTrailMarkers = array (
+       				 1 => 'footprintRed.png',
+        			2 => 'footprintBlue.png',
+        			3 => 'footprintGreen.png',
+        			4 => 'footprintYellow.png',
+    		);
             for ($i = 0; $i < mysql_num_rows($rsl); $i++) {
                 $log_record      = sql_fetch_array($rsl);
                 $cacheicon = myninc::checkCacheStatusByUser($log_record, $user_id);
@@ -631,7 +637,7 @@ if ($error == false) {
                 }
 				
 				// PowerTrail vel GeoPath icon
-				 if ($log_record['PT_ID']>0)  {
+				 if ($log_record['PT_ID']!=0)  {
 				 	$PT_title = $pt_cache_tr.$log_record['PT_name'];
 				 	$PT_icon = '<a href="powerTrail.php?ptAction=showSerie&ptrail='.$log_record['PT_ID'].'" onmouseover="if (\''.$PT_title.'\' != \'\') Tip(\''.$PT_title.'\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,280,SHADOW,true)" onmouseout="UnTip()" class="links">';
 				 	$PT_icon.='<img src="tpl/stdstyle/images/blue/'.$poweTrailMarkers[$log_record['PT_type']].'" class="icon16" alt="'.$pt_icon_title.'" title="'.$pt_icon_title.'" /></a>';
