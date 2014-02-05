@@ -287,10 +287,25 @@ function displayCaches($caches, $pTrails)
     return $rows;
 }
 
+
+
+
+
 function displayPTrails($pTrails, $areOwnSeries)
 {
+<<<<<<< .mine
+   	/* $poweTrailMarkers = array (
+        1 => 'footprintRed.png',
+        2 => 'footprintBlue.png',
+        3 => 'footprintGreen.png',
+        4 => 'footprintYellow.png',
+    );
+=======
     $ptTypes = powerTrailBase::getPowerTrailTypes();
     $ptStatus = powerTrailBase::getPowerTrailStatus();
+>>>>>>> .r5725
+	*/
+	$poweTrailMarkers = powerTrailBase::getPowerTrailIconsByType();
 
     $result = '';
     $dataForMap = '';
