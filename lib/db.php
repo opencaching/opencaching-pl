@@ -147,8 +147,6 @@ class dataBase
             } else {
                 self::errorMail($message);
             }
-
-
             return false;
         }
 
@@ -272,7 +270,7 @@ class dataBase
     public function multiVariableQuery($query) {
         $numargs = func_num_args();
         $arg_list = func_get_args();
-        
+
         if($numargs === 2 && is_array($arg_list[1]) ){ // params were passed in array
             $arg_list = $arg_list[1];
             $numargs = count($arg_list)+1;
@@ -399,6 +397,8 @@ class dataBase
     }
 
     private function errorMail($message, $topic=null) {
+        if(self::wasEmailSentLast60Sec()) return;
+        $message = 'NOTE: dataBase Class send ONLY 1 message per minute to avoid mass email.'."\r\n \r\n".$message;
         $headers =  'From: dataBase class' . "\r\n" .
                     'Reply-To: '.$this->replyToEmail . "\r\n" .
                     'X-Mailer: PHP/' . phpversion().
@@ -411,6 +411,18 @@ class dataBase
         }
     }
 
+    private static function wasEmailSentLast60Sec(){
+        $lockFile = __DIR__."/../tmp/dataBaseClassEmailLock.txt";
+        $lastEmail = false;
+        if (file_exists($lockFile)) {
+            $lastEmail = filemtime($lockFile);
+        }
+        if ($lastEmail !== false && (time()-$lastEmail) < 60) {
+            return true;
+        }
+        @touch($lockFile);
+        return false;
+    }
 
     private function errorMessage( $line, $e, $query, $params ) {
         $message = 'db.php, line: ' . $line .', <p class="errormsg"> PDO error: ' . $e .'</p><br />
@@ -446,6 +458,7 @@ class dataBase
 
         return $db->dbResultFetchAll();
     }
+
     /**
      * this methode can be used for display any array from anywhere
      *
@@ -458,7 +471,6 @@ class dataBase
         dataBase::debugOut("<pre> --- $position --<br>");
         dataBase::debugOut(print_r ($array, true));
         dataBase::debugOut('----------------------<br /><br /></pre>', true);
-
     }
 
     private static function debugOut($text, $onlyHtmlString = false) {
