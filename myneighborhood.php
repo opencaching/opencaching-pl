@@ -558,7 +558,8 @@ if ($error == false) {
                             COUNT(gk_item.id)          AS geokret_in,
                             IFNULL(`powerTrail_caches`.`PowerTrailId`,0) AS PT_ID,
 							`PowerTrail`.`name` AS PT_name,
-							`PowerTrail`.`type` As PT_type
+							`PowerTrail`.`type` As PT_type,
+							`PowerTrail`.`image` AS PT_image
                    FROM caches, (local_caches INNER JOIN cache_logs ON (local_caches.cache_id = cache_logs.cache_id))
                         INNER JOIN user             ON (cache_logs.user_id = user.user_id)
                         INNER JOIN log_types        ON (cache_logs.type = log_types.id)
@@ -632,13 +633,10 @@ if ($error == false) {
 				
 				// PowerTrail vel GeoPath icon
 				 if ($log_record['PT_ID']!=0)  {
-				 	$PT_title = $pt_cache_tr.'<BR><B>'.$log_record['PT_name'].'</B>';
-				 	$PT_icon = '<a href="powerTrail.php?ptAction=showSerie&ptrail='.$log_record['PT_ID'].'" onmouseover="if (\''.$PT_title.'\' != \'\') Tip(\''.$PT_title.'\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,220,SHADOW,true)" onmouseout="UnTip()" class="links">';
-				 	$PT_icon.='<img src="tpl/stdstyle/images/blue/'.$poweTrailMarkers[$log_record['PT_type']].'" class="icon16" alt="'.$pt_icon_title.'" title="'.$pt_icon_title.'" /></a>';
 				 	$PT_icon = icon_geopath_small($log_record['PT_ID'],$log_record['PT_image'],$log_record['PT_name'],$log_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
-				 	$thisline = str_replace('{GPicon}',$PT_icon, $thisline);
+				 	$thisline = mb_ereg_replace('{GPicon}',$PT_icon, $thisline);
 				 } else {
-				 	$thisline = mb_ereg_replace('{GPicon}','<img src="images/rating-star-empty.png" class="icon16" alt="'.$pt_icon_title.'" title="'.$pt_icon_title.'" />', $thisline);
+				 	$thisline = mb_ereg_replace('{GPicon}','<img src="images/rating-star-empty.png" class="icon16" alt="'.$pt_icon_title_tr.'" title="'.$pt_icon_title_tr.'" />', $thisline);
 				 }
 	
 				
