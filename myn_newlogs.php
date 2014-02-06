@@ -181,7 +181,8 @@ if ($error == false) {
                         COUNT(gk_item.id)                           AS geokret_in,
                         IFNULL(`powerTrail_caches`.`PowerTrailId`,0) AS PT_ID,
 						`PowerTrail`.`name`	 					 	AS PT_name,
-						`PowerTrail`.`type` 			     		AS PT_type
+						`PowerTrail`.`type` 			     		AS PT_type,
+						`PowerTrail`.`image` 			     		AS PT_image
                 FROM (cache_logs
                     INNER JOIN caches               ON (caches.cache_id = cache_logs.cache_id))
                     INNER JOIN user                 ON (cache_logs.user_id = user.user_id)
@@ -235,8 +236,18 @@ if ($error == false) {
  		// PowerTrail vel GeoPath icon
 		if ($log_record['PT_ID']!=0)  {  
 			$file_content .='<td width="22">';
-			$PT_title = $pt_cache_tr.'<BR><B>'.$log_record['PT_name'].'</B>';
-			$PT_icon = '<a href="powerTrail.php?ptAction=showSerie&ptrail='.$log_record['PT_ID'].'" onmouseover="if (\''.$PT_title.'\' != \'\') Tip(\''.$PT_title.'\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,220,SHADOW,true)" onmouseout="UnTip()" class="links">';
+			if($log_record['PT_image'] == '') $ptImg = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
+            else $ptImg = $log_record['PT_image'];
+            // use- for testing: $ptImg = 'ocpl-dynamic-files/images/uploads/powerTrailLogoId13.png';
+			//$PT_tip= $pt_cache_tr.'<BR><span align=center><B>'.$log_record['PT_name'].'</B><BR>	<img border=0 width=50 src='.$ptImg.' /></span>';
+			$PT_tip = $pt_cache_tr.'<BR>';
+			$PT_tip.='<table width=\\\'99%\\\'>';
+			$PT_tip.='	<tr>';
+			$PT_tip.='		<td width=\\\'50\\\'><img border=\\\'0\\\' width=\\\'50\\\' src=\\\''.$ptImg.'\\\' /></td>';
+			$PT_tip.='		<td align=\\\'center\\\'><span style=\\\'font-size:13px;\\\'><B>'.$log_record['PT_name'].'</B></span></td>';
+			$PT_tip.='	</tr>';
+			$PT_tip.='</table>';
+			$PT_icon = '<a href="powerTrail.php?ptAction=showSerie&ptrail='.$log_record['PT_ID'].'" onmouseover="Tip(\''.$PT_tip.'\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,220,SHADOW,true)" onmouseout="UnTip()" class="links">';
 			$PT_icon.='<img src="tpl/stdstyle/images/blue/'.$poweTrailMarkers[$log_record['PT_type']].'" class="icon16" alt="'.$pt_icon_title.'" title="'.$pt_icon_title.'" /></a>';			
 			$file_content .=$PT_icon.'</td>';
 		} else {
