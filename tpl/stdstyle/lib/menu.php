@@ -38,7 +38,8 @@
 
  ****************************************************************************/
 include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString, $powerTrailModuleSwitchOn, $powerTrailFaqLink, $forum_url;
+global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString, 
+    $powerTrailModuleSwitchOn, $powerTrailFaqLink, $forum_url, $blogsite_url;
 
 $menu = array(
     array(
@@ -251,7 +252,8 @@ $menu = array(
         'menustring'    => 'Blog',
         'siteid'        => 'blog',
         'visible'       => true,
-        'filename'      => 'http://blog.opencaching.pl',
+        // TODO: remove isset() condition once settings.inc.php are updated on production
+        'filename'      => isset($blogsite_url) ? $blogsite_url : 'http://blog.opencaching.pl',
         'newwindow'     => true
     ),
     array(
