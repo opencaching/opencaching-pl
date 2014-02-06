@@ -609,15 +609,9 @@ if ($error == false) {
                 </tr>';
             $file_content = '<table  class="myneighborhood">';
             //PowerTrail vel GeoPath variables
-			$pt_cache_tr = tr('pt_cache');
-			$pt_icon_title =  tr('pt139');
-			//$poweTrailMarkers = powerTrailBase::getPowerTrailIconsByType();
-			$poweTrailMarkers = array (
-       				 1 => 'footprintRed.png',
-        			2 => 'footprintBlue.png',
-        			3 => 'footprintGreen.png',
-        			4 => 'footprintYellow.png',
-    		);
+			$pt_cache_intro_tr = tr('pt_cache');
+			$pt_icon_title_tr =  tr('pt139');
+			
             for ($i = 0; $i < mysql_num_rows($rsl); $i++) {
                 $log_record      = sql_fetch_array($rsl);
                 $cacheicon = myninc::checkCacheStatusByUser($log_record, $user_id);
@@ -641,7 +635,8 @@ if ($error == false) {
 				 	$PT_title = $pt_cache_tr.'<BR><B>'.$log_record['PT_name'].'</B>';
 				 	$PT_icon = '<a href="powerTrail.php?ptAction=showSerie&ptrail='.$log_record['PT_ID'].'" onmouseover="if (\''.$PT_title.'\' != \'\') Tip(\''.$PT_title.'\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,220,SHADOW,true)" onmouseout="UnTip()" class="links">';
 				 	$PT_icon.='<img src="tpl/stdstyle/images/blue/'.$poweTrailMarkers[$log_record['PT_type']].'" class="icon16" alt="'.$pt_icon_title.'" title="'.$pt_icon_title.'" /></a>';
-				 	$thisline = mb_ereg_replace('{GPicon}',$PT_icon, $thisline);
+				 	$PT_icon = icon_geopath_small($log_record['PT_ID'],$log_record['PT_image'],$log_record['PT_name'],$log_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
+				 	$thisline = str_replace('{GPicon}',$PT_icon, $thisline);
 				 } else {
 				 	$thisline = mb_ereg_replace('{GPicon}','<img src="images/rating-star-empty.png" class="icon16" alt="'.$pt_icon_title.'" title="'.$pt_icon_title.'" />', $thisline);
 				 }

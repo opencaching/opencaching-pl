@@ -23,6 +23,7 @@ if (!isset($rootpath)) $rootpath = '';
 require_once($rootpath . 'lib/common.inc.php');
 require_once($rootpath . 'lib/cache_icon.inc.php');
 require_once  __DIR__.'/lib/myn.inc.php';
+require_once($stylepath . '/lib/icons.inc.php');
 
 //Preprocessing
 if ($error == false) {
@@ -201,15 +202,15 @@ if ($error == false) {
     $tr_myn_click_to_view_cache =tr('myn_click_to_view_cache');
     $bgColor = '#eeeeee';
             //PowerTrail vel GeoPath variables
-			$pt_cache_tr = tr('pt_cache');
-			$pt_icon_title =  tr('pt139');
+			$pt_cache_intro_tr = tr('pt_cache'); //set to call tr only once  (not for all caches)
+			$pt_icon_title_tr =  tr('pt139'); //set to call tr only once  (not for all caches)
 			//$poweTrailMarkers = powerTrailBase::getPowerTrailIconsByType();
-			$poweTrailMarkers = array (
+			/*$poweTrailMarkers = array (
        				 1 => 'footprintRed.png',
         			2 => 'footprintBlue.png',
         			3 => 'footprintGreen.png',
         			4 => 'footprintYellow.png',
-    		);    
+    		);    */
     
     
     for ($i = 0; $i < mysql_num_rows($rs); $i++) {
@@ -236,19 +237,7 @@ if ($error == false) {
  		// PowerTrail vel GeoPath icon
 		if ($log_record['PT_ID']!=0)  {  
 			$file_content .='<td width="22">';
-			if($log_record['PT_image'] == '') $ptImg = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
-            else $ptImg = $log_record['PT_image'];
-            // use- for testing: $ptImg = 'ocpl-dynamic-files/images/uploads/powerTrailLogoId13.png';
-			//$PT_tip= $pt_cache_tr.'<BR><span align=center><B>'.$log_record['PT_name'].'</B><BR>	<img border=0 width=50 src='.$ptImg.' /></span>';
-			$PT_tip = $pt_cache_tr.'<BR>';
-			$PT_tip.='<table width=\\\'99%\\\'>';
-			$PT_tip.='	<tr>';
-			$PT_tip.='		<td width=\\\'50\\\'><img border=\\\'0\\\' width=\\\'50\\\' src=\\\''.$ptImg.'\\\' /></td>';
-			$PT_tip.='		<td align=\\\'center\\\'><span style=\\\'font-size:13px;\\\'><B>'.$log_record['PT_name'].'</B></span></td>';
-			$PT_tip.='	</tr>';
-			$PT_tip.='</table>';
-			$PT_icon = '<a href="powerTrail.php?ptAction=showSerie&ptrail='.$log_record['PT_ID'].'" onmouseover="Tip(\''.$PT_tip.'\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,220,SHADOW,true)" onmouseout="UnTip()" class="links">';
-			$PT_icon.='<img src="tpl/stdstyle/images/blue/'.$poweTrailMarkers[$log_record['PT_type']].'" class="icon16" alt="'.$pt_icon_title.'" title="'.$pt_icon_title.'" /></a>';			
+			$PT_icon = icon_geopath_small($log_record['PT_ID'],$log_record['PT_image'],$log_record['PT_name'],$log_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
 			$file_content .=$PT_icon.'</td>';
 		} else {
 			$file_content .= '<td width="22">&nbsp;</td>';

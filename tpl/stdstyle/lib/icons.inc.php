@@ -94,6 +94,42 @@ function icon_rating($founds, $topratings)
     return '<nobr>' . $sRetval . '</nobr>&nbsp;';
 }
 
+function icon_geopath_small($ptID, $ptImg, $ptName, $ptType, $pt_cache_intro_tr, $pt_icon_title_tr) {
+	/*
+	attributes:
+		$ptID	= GeoPatch Name
+		$ptImg	= GeoPath Image (link)
+		$ptName	= GeoPath name
+		$ptTyp	= GeoPath Type (atr for $poweTrailMarkers below)
+		$pt_cache_intro_tr =  translated tooltip into ("This cache belongs to..") 
+		$pt_icon_title_tr = translate attr. for icon ALT and NAME
+	*/
+	global $stylepath;
+
+	$poweTrailMarkers = array (
+       				1 => 'footprintRed.png',
+        			2 => 'footprintBlue.png',
+        			3 => 'footprintGreen.png',
+        			4 => 'footprintYellow.png',
+    );   
+    //$poweTrailMarkers = powerTrailBase::getPowerTrailIconsByType();
+    if($ptImg == '') $ptImg = $stylepath.'/images/blue/powerTrailGenericLogo.png';
+  	 // for testing use: $ptImg = 'ocpl-dynamic-files/images/uploads/powerTrailLogoId13.png';
+	$PT_tip = $pt_cache_intro_tr.'<BR>';
+	$PT_tip.='<table width=\\\'99%\\\'>';
+	$PT_tip.='	<tr>';
+	$PT_tip.='		<td width=\\\'51\\\'><img border=\\\'0\\\' width=\\\'50\\\' src=\\\''.$ptImg.'\\\' /></td>';
+	$PT_tip.='		<td align=\\\'center\\\'><span style=\\\'font-size:13px;\\\'><B>'.$ptName.'</B></span></td>';
+	$PT_tip.='	</tr>';
+	$PT_tip.='</table>';
+	// no tabled version: $PT_tip= $pt_cache_intro_tr.'<BR><span align=center><B>'.$ptName.'</B><BR>	<img border=0 width=50 src='.$ptImg.' /></span>';
+	$PT_icon = '<a href="powerTrail.php?ptAction=showSerie&ptrail='.$ptID.'" onmouseover="Tip(\''.$PT_tip.'\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,220,SHADOW,true)" onmouseout="UnTip()" class="links">';
+			$PT_icon.='<img src="'.$stylepath.'/images/blue/'.$poweTrailMarkers[$ptType].'" class="icon16" alt="'.$pt_icon_title_tr.'" title="'.$pt_icon_title_tr.'" /></a>';	
+			
+	
+	return $PT_icon;
+}
+
 //function icon_rating($founds, $topratings)
 //{
 //  global $stylepath;
