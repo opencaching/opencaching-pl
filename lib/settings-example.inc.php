@@ -170,6 +170,9 @@
 
     $cachemap_mapper = "lib/mapper-okapi.php";
 
+    //Links to blog page on oc site
+    $blogsite_url = 'http://blog.opencaching.pl';
+
     //links to forum page on oc site
     $forum_url = 'http://forum.opencaching.pl';
 
@@ -230,7 +233,9 @@
 
   /* end of power Trail module switch and settings */
 
-        $BlogSwitchOn = true;   // enables/disables linkage to blog in index.php
+ 	// enables/disables linkage to blog in index.php    
+	$BlogSwitchOn = true;   
+
 
     // OC specific email addresses for international use.
     $mail_cog = 'cog@opencaching.pl';
