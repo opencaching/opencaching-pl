@@ -16,6 +16,7 @@ class ClassPathDictionary
         'myninc' => 'lib/myn.inc.php',
         'powerTrailBase' => 'powerTrail/powerTrailBase.php',
         'powerTrailController' => 'powerTrail/powerTrailController.php',
+        'sendEmail' => 'powerTrail/sendEmail.php',
     );
 
     public static function getClassPath($className)

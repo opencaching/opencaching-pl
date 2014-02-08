@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__.'/sendEmail.php';
 /**
  *
  */
@@ -118,7 +117,7 @@ class powerTrailBase{
      /**
      * here power Trail icons
      */
-    
+
 	public static function getPowerTrailIconsByType() {
 		$ret = array (
 	        1 => 'footprintRed.png',
@@ -533,7 +532,7 @@ class powerTrailBase{
             $query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES
             (-1, :1, 4, :2, NOW(), NOW(),0)';
             $db->multiVariableQuery($query, $pt['id'], $text);
-            emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+            sendEmail::emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
             return true;
         }
     return false;

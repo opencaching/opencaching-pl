@@ -5,7 +5,7 @@ if(!isset($_SESSION['user_id'])){
     exit;
 }
 require_once __DIR__.'/../lib/db.php';
-require_once __DIR__.'/powerTrailController.php';
+require_once __DIR__.'/powerTrailBase.php';
 $ptAPI = new powerTrailBase;
 
 $powerTrailId = $_REQUEST['projectId'];

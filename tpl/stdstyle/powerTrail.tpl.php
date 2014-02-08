@@ -319,10 +319,10 @@ function deleteComment(commentId, callingUser){
         "{{pt130}}": function() {
             if ($('#delReason').val() != ''){
                 request = $.ajax({
-
-                url: "powerTrail/ajaxRemoveComment.php",
-                type: "post",
-                data:{ptId: $('#xmd34nfywr54').val(), commentId: commentId, callingUser: callingUser, delReason: $('#delReason').val() },
+                    async: false,
+                    url: "powerTrail/ajaxRemoveComment.php",
+                    type: "post",
+                    data:{ptId: $('#xmd34nfywr54').val(), commentId: commentId, callingUser: callingUser, delReason: $('#delReason').val() },
                 });
 
                 request.done(function (response, textStatus, jqXHR){
@@ -331,9 +331,9 @@ function deleteComment(commentId, callingUser){
                 });
 
                 request.always(function () {
+                    ajaxGetComments(0, {commentsPaginateCount});
                 });
 
-                ajaxGetComments(0, {commentsPaginateCount});
                 $(this).dialog( "close" );
             }
         },
@@ -649,24 +649,24 @@ function ajaxAddComment(){
     });
     request.always(function (response, textStatus, jqXHR) {
         console.log(response);
-    });
+        if ($('#commentType').val() == 2) { // refresh conquest count
+            var newcount =  parseInt($('#conquestCount').html()) + 1;
+            $('#conquestCount').html(newcount);
+        }
+        toggleAddComment();
 
-    if ($('#commentType').val() == 2) { // refresh conquest count
-        var newcount =  parseInt($('#conquestCount').html()) + 1;
-        $('#conquestCount').html(newcount);
-    }
-    toggleAddComment();
-
-    $(function() {
-        $('#ptComments').html('<img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />');
-        setTimeout(function() {
-            ajaxGetComments(0, {commentsPaginateCount});
-            $('html, body').animate({
-                scrollTop: $("#ptComments").offset().top
+        $(function() {
+            $('#ptComments').html('<img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />');
+            setTimeout(function() {
+                ajaxGetComments(0, {commentsPaginateCount});
+                $('html, body').animate({
+                    scrollTop: $("#ptComments").offset().top
+                }, 2000);
             }, 2000);
-        }, 2000);
 
+        });
     });
+
 }
 
 function toggleAddComment(){

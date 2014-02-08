@@ -1,11 +1,9 @@
 <?php
-session_start();
+require_once __DIR__.'/../lib/common.inc.php';
 if(!isset($_SESSION['user_id'])){
     print 'no hacking please!';
     exit;
 }
-require_once __DIR__.'/sendEmail.php';
-require_once __DIR__.'/../lib/db.php';
 $q = '
     UPDATE `PowerTrail_comments`
     SET `commentText`=:1,
@@ -26,6 +24,6 @@ $db->multiVariableQuery(
     $_REQUEST['callingUser']    # :5
 );
 
-emailOwners($_REQUEST['ptId'], '', $_REQUEST['dateTime'], $text, 'editComment');
+sendEmail::emailOwners($_REQUEST['ptId'], '', $_REQUEST['dateTime'], $text, 'editComment');
 
 ?>

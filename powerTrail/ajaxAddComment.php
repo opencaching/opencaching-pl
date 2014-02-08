@@ -1,12 +1,12 @@
 <?php
-require_once __DIR__.'/powerTrailBase.php';
-require_once __DIR__.'/sendEmail.php';
+require_once __DIR__.'/../lib/common.inc.php';
+db_disconnect();
+
 if(!isset($_SESSION['user_id'])){
     print 'no hacking please! Fuck You!';
     exit;
 }
 require_once __DIR__.'/../lib/db.php';
-
 
 $db = new dataBase(false);
 if($_REQUEST['type'] == 2){ // check if PT is already conquested by user
@@ -31,7 +31,6 @@ if($_REQUEST['type'] == 2){
     $db->multiVariableQuery($q, $projectId);
 }
 
-emailOwners($projectId, $_REQUEST['type'], $_REQUEST['datetime'], $text, 'newComment');
-
+sendEmail::emailOwners($projectId, $_REQUEST['type'], $_REQUEST['datetime'], $text, 'newComment');
 
 ?>
