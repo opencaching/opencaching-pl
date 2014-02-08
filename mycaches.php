@@ -138,7 +138,10 @@ if ($error == false)
                 $sort_warunek='TOPRATINGS';
                 break;
             case 5:
-                $sort_warunek='LAST_FOUND';
+                if ($stat_cache==2)
+                    $sort_warunek='dni_od_zmiany';
+                else
+                    $sort_warunek='ilosc_dni';
                 break;
             case 6:
                 $sort_warunek='gkcount';
@@ -151,62 +154,102 @@ if ($error == false)
                 break;
         };
         $startat = max(0,floor((($start/$LOGS_PER_PAGE)+1)/$PAGES_LISTED)*$PAGES_LISTED);
-        if ( ($start/$LOGS_PER_PAGE)+1 >= $PAGES_LISTED ) $pages .= '<a href="mycaches.php?status='.$stat_cache.'&amp;start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'&col='.$sort_col.'&sort='.$sort_sort.'">{first_img}</a> ';
-        else $pages .= "{first_img_inactive}";
+        if ( ($start/$LOGS_PER_PAGE)+1 >= $PAGES_LISTED )
+            $pages .= '<a href="mycaches.php?status='.$stat_cache.'&amp;start='.max(0,($startat-$PAGES_LISTED-1)*$LOGS_PER_PAGE).'&col='.$sort_col.'&sort='.$sort_sort.'">{first_img}</a> ';
+        else
+            $pages .= "{first_img_inactive}";
         for( $i=max(1,$startat);$i<$startat+$PAGES_LISTED;$i++ )
         {
             $page_number = ($i-1)*$LOGS_PER_PAGE;
-            if ( $page_number == $start ) $pages .= '<b> [ ';
+            if ( $page_number == $start )
+                $pages .= '<b> [ ';
             $pages .= '<a href="mycaches.php?status='.$stat_cache.'&amp;start='.$page_number.'&col='.$sort_col.'&sort='.$sort_sort.'">'.$i.'</a> ';
-            if ( $page_number == $start ) $pages .= ' ] </b>';
+            if ( $page_number == $start )
+                $pages .= ' ] </b>';
         }
-        if( $total_pages > $PAGES_LISTED ) $pages .= '<a href="mycaches.php?status='.$stat_cache.'&amp;start='.(($i-1)*$LOGS_PER_PAGE).'&col='.$sort_col.'&sort='.$sort_sort.'">{last_img}</a> ';
-        else $pages .= '{last_img_inactive}';
-        if ($stat_cache==2) $dodatkowe = ', datediff(now(),`caches`.`last_modified` ) as `dni_od_zmiany`';
-            else $dodatkowe = '';
-        /*$rs = sql("SELECT `caches`.`cache_id`, `caches`.`name`, `date_hidden`, `status`,cache_type.icon_small AS cache_icon_small,    `cache_status`.`id` AS `cache_status_id`, `cache_status`.`&1` AS `cache_status_text`,
-                    `caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`, datediff(now(),`caches`.`last_found` ) as `ilosc_dni` $dodatkowe, COUNT(`gk_item`.`id`) AS `gkcount`,
-                    COALESCE(`cv`.`count`,0) AS `visits`
-                    FROM `caches`
-                    LEFT JOIN `gk_item_waypoint` ON `gk_item_waypoint`.`wp` = `caches`.`wp_oc`
-                    LEFT JOIN `gk_item` ON `gk_item`.`id` = `gk_item_waypoint`.`id` AND `gk_item`.`stateid`<>1 AND `gk_item`.`stateid`<>4 AND `gk_item`.`typeid`<>2 AND `gk_item`.`stateid` <>5
-                    LEFT JOIN ( SELECT `count`, `user_id_ip`, `cache_id` FROM `cache_visits` WHERE `user_id_ip`=0 ) `cv`  ON `caches`.`cache_id` =  `cv`.`cache_id`
-                    INNER JOIN `cache_type` ON (`caches`.`type` = `cache_type`.`id`),`cache_status`
-                    WHERE `user_id`='&2' AND `cache_status`.`id`=`caches`.`status` AND `caches`.`status` = '$stat_cache'
-                    GROUP BY `caches`.`cache_id`
-                    ORDER BY `$sort_warunek` $sort_txt
-                    LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE), $lang_db,$user_id);
-                    */
-        $thatquery = "SELECT `caches`.`cache_id`, `caches`.`name`, `date_hidden`, `status`,cache_type.icon_small AS cache_icon_small,   `cache_status`.`id` AS `cache_status_id`,
-                    `caches`.`founds`  AS `founds`, `caches`.`topratings` AS `topratings`, datediff(now(),`caches`.`last_found` ) as `ilosc_dni` $dodatkowe, COUNT(`gk_item`.`id`) AS `gkcount`,
-                    COALESCE(`cv`.`count`,0) AS `visits`
-                    FROM `caches`
-                    LEFT JOIN `gk_item_waypoint` ON `gk_item_waypoint`.`wp` = `caches`.`wp_oc`
-                    LEFT JOIN `gk_item` ON `gk_item`.`id` = `gk_item_waypoint`.`id` AND `gk_item`.`stateid`<>1 AND `gk_item`.`stateid`<>4 AND `gk_item`.`typeid`<>2 AND `gk_item`.`stateid` <>5
-                    LEFT JOIN ( SELECT `count`, `user_id_ip`, `cache_id` FROM `cache_visits` WHERE `user_id_ip`=0 ) `cv`  ON `caches`.`cache_id` =  `cv`.`cache_id`
-                    INNER JOIN `cache_type` ON (`caches`.`type` = `cache_type`.`id`),`cache_status`
-                    WHERE `user_id`=:v1 AND `cache_status`.`id`=`caches`.`status` AND `caches`.`status` = '$stat_cache'
-                    GROUP BY `caches`.`cache_id`
-                    ORDER BY `$sort_warunek` $sort_txt
-                    LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE);
-            //$params['v1']['value'] = (string) $lang_db;;
-            //$params['v1']['data_type'] = 'string';
-            $params['v1']['value'] = (integer) $user_id;;
-            $params['v1']['data_type'] = 'integer';
-            if (!isset($dbc)) {$dbc = new dataBase();};
-            $dbc->paramQuery($thatquery,$params);
-            unset($params);
-            $log_record_all = $dbc->dbResultFetchAll();
+        if( $total_pages > $PAGES_LISTED )
+            $pages .= '<a href="mycaches.php?status='.$stat_cache.'&amp;start='.(($i-1)*$LOGS_PER_PAGE).'&col='.$sort_col.'&sort='.$sort_sort.'">{last_img}</a> ';
+        else
+            $pages .= '{last_img_inactive}';
 
-            $log_record_count = count($log_record_all);
+        $caches_query = "
+            SELECT
+                `caches`.`cache_id`,
+                `caches`.`name`,
+                `date_hidden`,
+                `status`,cache_type.icon_small AS cache_icon_small,
+                `cache_status`.`id` AS `cache_status_id`,
+                `caches`.`founds` AS `founds`,
+                `caches`.`topratings` AS `topratings`,
+                datediff(now(),`caches`.`last_found` ) as `ilosc_dni`,
+                datediff(now(),`caches`.`last_modified` ) as `dni_od_zmiany`,
+                COUNT(`gk_item`.`id`) AS `gkcount`,
+                COALESCE(`cv`.`count`,0) AS `visits`
+            FROM `caches`
+                LEFT JOIN `gk_item_waypoint` ON `gk_item_waypoint`.`wp` = `caches`.`wp_oc`
+                LEFT JOIN `gk_item`
+                    ON `gk_item`.`id` = `gk_item_waypoint`.`id`
+                        AND `gk_item`.`stateid`<>1
+                        AND `gk_item`.`stateid`<>4
+                        AND `gk_item`.`typeid`<>2
+                        AND `gk_item`.`stateid` <>5
+                LEFT JOIN (
+                    SELECT
+                        `count`,
+                        `user_id_ip`,
+                        `cache_id`
+                    FROM `cache_visits`
+                    WHERE `user_id_ip`=0
+                    ) `cv`
+                    ON `caches`.`cache_id` = `cv`.`cache_id`
+                INNER JOIN `cache_type` ON (`caches`.`type` = `cache_type`.`id`),
+                `cache_status`
+            WHERE
+                `user_id`=:user_id
+                AND `cache_status`.`id`=`caches`.`status`
+                AND `caches`.`status` = :stat_cache
+            GROUP BY `caches`.`cache_id`
+            ORDER BY `$sort_warunek` $sort_txt
+            LIMIT ".intval($start).", ".intval($LOGS_PER_PAGE);
+        //$params['v1']['value'] = (string) $lang_db;;
+        //$params['v1']['data_type'] = 'string';
+        $params['user_id']['value'] = (integer) $user_id;;
+        $params['user_id']['data_type'] = 'integer';
+        $params['stat_cache']['value'] = (integer) $stat_cache;;
+        $params['stat_cache']['data_type'] = 'integer';
+
+        if (!isset($dbc)) {$dbc = new dataBase();};
+        $dbc->paramQuery($caches_query,$params);
+        unset($params);
+        $log_record_all = $dbc->dbResultFetchAll();
+
+        $log_record_count = count($log_record_all);
         $file_content ='';
         //while ($log_record=sql_fetch_assoc($rs))
         //prepare second queryt
-        $thatquery2 ="SELECT cache_logs.id,  cache_logs.type AS log_type, cache_logs.text AS log_text, DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
-                        caches.user_id AS cache_owner, cache_logs.encrypt encrypt, cache_logs.user_id AS luser_id, user.username AS user_name,
-                        user.user_id AS user_id, log_types.icon_small AS icon_small, datediff(now(),`cache_logs`.`date_created`) as `ilosc_dni`
-                        FROM cache_logs JOIN caches USING (cache_id) JOIN user ON (cache_logs.user_id=user.user_id) JOIN log_types ON (cache_logs.type = log_types.id)
-                        WHERE cache_logs.deleted=0 AND `cache_logs`.`cache_id`=:v1 ORDER BY `cache_logs`.`date_created` DESC LIMIT 5";
+        $logs_query = "
+            SELECT
+                cache_logs.id,
+                cache_logs.type AS log_type,
+                cache_logs.text AS log_text,
+                DATE_FORMAT(cache_logs.date,'%Y-%m-%d') AS log_date,
+                caches.user_id AS cache_owner,
+                cache_logs.encrypt encrypt,
+                cache_logs.user_id AS luser_id,
+                user.username AS user_name,
+                user.user_id AS user_id,
+                log_types.icon_small AS icon_small,
+                datediff(now(),`cache_logs`.`date_created`) as `ilosc_dni`
+            FROM
+                cache_logs
+                JOIN caches USING (cache_id)
+                JOIN user ON (cache_logs.user_id=user.user_id)
+                JOIN log_types ON (cache_logs.type = log_types.id)
+            WHERE
+                cache_logs.deleted=0 AND
+                `cache_logs`.`cache_id`=:v1
+            ORDER BY `cache_logs`.`date_created` DESC
+            LIMIT 5";
         $edit_geocache_tr = tr('mc_edit_geocache');
         for ($zz = 0; $zz<$log_record_count; $zz++)
         {
@@ -238,7 +281,7 @@ if ($error == false)
 
             $params['v1']['value'] = (integer) $log_record['cache_id'];;
             $params['v1']['data_type'] = 'integer';
-            $dbc->paramQuery($thatquery2,$params);
+            $dbc->paramQuery($logs_query,$params);
 
             $tabelka .= '<td align=left>';
             $warning=0;
@@ -313,6 +356,10 @@ if ($error == false)
         tpl_set_var('file_content',$file_content);
         tpl_set_var('pages', $pages);
 
+        if ($stat_cache==2)
+            tpl_set_var('col5_header', tr('last_modified2_label'));
+        else
+            tpl_set_var('col5_header', tr('last_found'));
     }
 
 }

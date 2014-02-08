@@ -211,6 +211,7 @@ status_label Status
 date_hidden_label Date hidden
 date_created_label Date created
 last_modified_label Last modification
+last_modified2_label Last modified
 waypoint Waypoint
 listed_also_on Also listed on
 comments Comments

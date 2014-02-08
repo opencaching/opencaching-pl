@@ -32,7 +32,7 @@
 <td align="middle"><a class="links" href="mycaches.php?col=4{my_cache_sort}" alt="{{mc_by_reco}}" title="{{mc_by_reco}}"><img src="images/rating-star.png"></a></td>
 <td align="middle"><a class="links" href="mycaches.php?col=6{my_cache_sort}" alt="{{mc_by_gk}}" title="{{mc_by_gk}}"><img src="images/gk.png"></a></td>
 <td align="middle"><a class="links" href="mycaches.php?col=7{my_cache_sort}" alt="{{mc_by_visits}}" title="{{mc_by_visits}}"><img src="tpl/stdstyle/images/free_icons/vcard.png"></a></td>
-<td><a class="links" href="mycaches.php?col=5{my_cache_sort}">{{last_found}}</a></td>
+<td><a class="links" href="mycaches.php?col=5{my_cache_sort}">{col5_header}</a></td>
 <td><strong>{{latest_logs}}</strong></td>
 </tr>
 <tr><td colspan="10"><hr></hr></td></tr>

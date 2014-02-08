@@ -211,6 +211,7 @@ status_label Status
 date_hidden_label Geplaatst op
 date_created_label Gemaakt op
 last_modified_label Laatste verandering
+last_modified2_label Laatste verandering
 waypoint Waypoint
 listed_also_on Ook gepubliceerd op
 comments Opmerkingen
