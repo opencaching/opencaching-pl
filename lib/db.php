@@ -22,6 +22,9 @@ class dataBase
      */
     private $debug;
 
+    private $persistent_connection;
+    private $pdo;
+
     /**
      * database link setup
      * @var string
@@ -72,6 +75,7 @@ class dataBase
         $password = null;
         $dbData = null;
         $dbNumRows = null;
+        $pdo = null;
     }
 
     //JG 2013-12-14
@@ -79,6 +83,25 @@ class dataBase
         $this->debug = $debug;
     }
 
+    /**
+     * Enables or disables persistent database connections.
+     * In persistent mode, each query issued against this dataBase object
+     * uses the same database connection. To release the connection,
+     * simply drop the object, or set persistentConnection to false.
+     *
+     * In persistentConnection mode, remember to closeCursor() when
+     * it's no longer needed.
+     *
+     * WARNING!
+     * This is still experimental functionality. It may not work as expected,
+     * especially in complicated query scenarios!
+     */
+    public function switchPersistentConnection($persistent_connection) {
+        $this->persistent_connection = $persistent_connection;
+        if (!$persistent_connection){
+            $this->pdo = null;
+        }
+    }
 
     /**
      * @return one row from result, or FALSE if there are no more rows available
@@ -105,7 +128,9 @@ class dataBase
      * An empty array is returned if there are zero results to fetch, or FALSE on failure.
      */
     public function dbResultFetchAll() {
-        return $this->dbData->fetchAll();
+        $result = $this->dbData->fetchAll();
+        $this->closeCursor();
+        return $result;
     }
 
     /**
@@ -114,6 +139,33 @@ class dataBase
     public function lastInsertId() {
         // return $this->dbData->lastInsertId();
         return $this->lastInsertId;
+    }
+
+    private function setupPDO()
+    {
+        if ($this->persistent_connection && $this->pdo != null){
+            return $this->pdo;
+        }
+
+        // We are instantinating new PDO object, and new connection for every query.
+        // This is inefficient (compared to old sql() function, and especially on my Windows box)
+        // Moreover, this could prevent TEMPORARY TABLES and transactions from working -> find out!
+
+        $params = array();
+        if ( $this->debug )
+            $params[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION; //JG 2013-10-19
+        $dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,
+            $this->username,$this->password,$params);
+
+        // JG 2013-10-20
+        $dbh -> query ("SET NAMES utf8");
+        $dbh -> query ("SET CHARACTER SET utf8");
+        $dbh -> query ("SET collation_connection = utf8_unicode_ci" );
+
+        if ($this->persistent_connection){
+            $this->pdo = $dbh;
+        }
+        return $dbh;
     }
 
     /**
@@ -126,15 +178,7 @@ class dataBase
      */
     public function simpleQuery($query) {
         try {
-            $dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
-            if ( $this->debug )
-                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //JG 2013-10-19
-
-            // JG 2013-10-20
-            $dbh -> query ("SET NAMES utf8");
-            $dbh -> query ("SET CHARACTER SET utf8");
-            $dbh -> query ("SET collation_connection = utf8_unicode_ci" );
-
+            $dbh = $this->setupPDO();
 
             $this->dbData  = $dbh -> prepare($query);
             $this->dbData  -> setFetchMode(PDO::FETCH_ASSOC);
@@ -187,15 +231,7 @@ class dataBase
         if (!is_array($params)) return false;
 
         try {
-            $dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
-            if ( $this->debug )
-                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //JG 2013-10-19
-
-            // JG 2013-10-20
-            $dbh -> query ("SET NAMES utf8");
-            $dbh -> query ("SET CHARACTER SET utf8");
-            $dbh -> query ("SET collation_connection = utf8_unicode_ci" );
-
+            $dbh = $this->setupPDO();
 
             $this->dbData = $dbh->prepare($query);
 
@@ -277,17 +313,8 @@ class dataBase
         }
 
         try {
-            // We are instantinating new PDO object, and new connection for every query.
-            // This is inefficient (compared to old sql() function, and especially on my Windows box)
-            // Moreover, this could prevent TEMPORARY TABLES from working -> find out!
-            $dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password);
-            if ( $this->debug )
-                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //JG 2013-10-19
+            $dbh = $this->setupPDO();
 
-            // JG 2013-10-20
-            $dbh -> query ("SET NAMES utf8");
-            $dbh -> query ("SET CHARACTER SET utf8");
-            $dbh -> query ("SET collation_connection = utf8_unicode_ci" );
             $this->dbData  = $dbh->prepare($query);
 
             for ($i = 1; $i < $numargs; $i++) {
@@ -329,6 +356,7 @@ class dataBase
     public function simpleQueryValue($query, $default) {
         $this->simpleQuery($query);
         $r = $this->dbResultFetch();
+        $this->closeCursor();
         if ($r){
             $value = reset($r);
             if ($value == null)
@@ -359,6 +387,7 @@ class dataBase
         // could be this done better?
         call_user_func_array(array($this, 'multiVariableQuery'), $arg_list);
         $r = $this->dbResultFetch();
+        $this->closeCursor();
         if ($r){
             $value = reset($r);
             if ($value == null)
@@ -385,6 +414,7 @@ class dataBase
         if (!is_array($params)) return false;
         $this->paramQuery($query, $params);
         $r = $this->dbResultFetch();
+        $this->closeCursor();
         if ($r){
             $value = reset($r);
             if ($value == null)
@@ -394,6 +424,22 @@ class dataBase
         } else {
             return $default;
         }
+    }
+
+    /**
+     * Closes current cursor. Some methods, which drain cursor (like dbResultFetchAll())
+     * or expect only one row (like *QueryValue()) close cursor implicitly.
+     *
+     * Remember to close cursor if you are using this class in persistentConnection mode.
+     */
+    public function closeCursor()
+    {
+        try{
+            $this->dbData->closeCursor();
+        }catch(Exception $e){
+            // ignore
+        }
+        $this->dbData = null;
     }
 
     private function errorMail($message, $topic=null) {

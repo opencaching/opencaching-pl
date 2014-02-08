@@ -218,7 +218,11 @@ if ($error == false)
         $params['stat_cache']['value'] = (integer) $stat_cache;;
         $params['stat_cache']['data_type'] = 'integer';
 
-        if (!isset($dbc)) {$dbc = new dataBase();};
+        if (!isset($dbc)) {
+            $dbc = new dataBase();
+            $dbc->switchPersistentConnection(true);
+            // 2 secs with persistent connections vs. 50 secs for 48 caches
+        };
         $dbc->paramQuery($caches_query,$params);
         unset($params);
         $log_record_all = $dbc->dbResultFetchAll();
