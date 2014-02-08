@@ -6,77 +6,129 @@
  ***************************************************************************/
     $rootpath = '../';
     require_once($rootpath.'lib/clicompatbase.inc.php');
-
-
-/* begin with some constants */
-
-    $sDateformat = 'Y-m-d H:i:s';
-
-/* end with some constants */
+    require_once($rootpath.'lib/db.php');
 
 class ClearFakeVotes
 {
 
     function run()
     {
-        /* begin db connect */
-        db_connect();
-        if ($dblink === false)
-        {
-            echo 'Unable to connect to database';
-            exit;
-        }
-    /* end db connect */
+        $db = new dataBase();
+        $db->switchPersistentConnection(true);
+        $db->switchDebug(false);
 
-$result = mysql_query("SELECT cache_id FROM caches");
-set_time_limit(3600);
-        while($rs = mysql_fetch_array($result))
+        $sql = "SELECT cache_id FROM caches";
+
+        // uncommend for debug pourposes only!
+        //if (isset($_GET['cache_id'])){
+        //    $sql .= " where cache_id='" . mysql_real_escape_string($_GET['cache_id']) . "'";
+        //}
+
+        $db->simpleQuery($sql);
+        $cache_ids = $db->dbResultFetchAll();
+        set_time_limit(3600);
+        $total_touched = 0;
+        foreach($cache_ids as $cache_id)
         {
+            $cache_id = $cache_id['cache_id'];
             // usuniecie falszywych ocen
             //echo "cache_logs.cache_id=".sql_escape($rs['cache_id']).", user.username=".sql_escape($rs['user_id'])."<br />";
             //$sql = "DELETE FROM scores WHERE cache_id = '".sql_escape($rs['cache_id'])."' AND user_id = '".sql_escape($rs['user_id'])."'";
             //mysql_query($sql);
 
-            // zliczenie liczby ocen po usunieciu
-            $sql = "SELECT count(*) FROM scores WHERE cache_id='".sql_escape($rs['cache_id'])."'";
-            $liczba = mysql_result(mysql_query($sql),0);
-            $sql = "SELECT score FROM scores WHERE cache_id='".sql_escape($rs['cache_id'])."'";
-            $score = mysql_query($sql);
-            $suma = 0;
+            // zliczenie ocen po usunieciu
+            $db->multiVariableQuery(
+                "SELECT avg(score) as avg_score, count(score) as votes FROM scores WHERE cache_id = :1", $cache_id);
+            $row = $db->dbResultFetch();
+            if ($row == false){
+                $liczba = 0;
+                $srednia = 0;
+            } else {
+                $liczba = $row['votes'];
+                if ($liczba > 0){
+                    $srednia = round($row['avg_score'],4);
+                } else {
+                    $srednia = 0;
+                }
+            }
+            unset($row);
+            $db->closeCursor();
+
 
             // repair founds
-            $founds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = ".sql_escape($rs['cache_id'])." AND (type=1 OR type=7)");
-            $founds = mysql_result($founds_query,0);
-            $notfounds_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = ".sql_escape($rs['cache_id'])." AND (type=2 OR type=8)");
-            $notfounds = mysql_result($notfounds_query,0);
-            $notes_query = mysql_query("SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = ".sql_escape($rs['cache_id'])." AND type=3");
-            $notes = mysql_result($notes_query,0);
-            $watcher_query = mysql_query("SELECT count(*) FROM cache_watches WHERE cache_id = ".sql_escape($rs['cache_id']));
-            $watcher = mysql_result($watcher_query,0);
+            $founds = $db->multiVariableQueryValue(
+                "SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND (type=1 OR type=7)", 0, $cache_id);
+            $notfounds = $db->multiVariableQueryValue(
+                "SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND (type=2 OR type=8)", 0, $cache_id);
+            $notes = $db->multiVariableQueryValue(
+                "SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND type=3", 0, $cache_id);
+            $watchers = $db->multiVariableQueryValue(
+                "SELECT count(*) FROM cache_watches WHERE cache_id = :1", 0, $cache_id);
+            $ignorers = $db->multiVariableQueryValue(
+                "SELECT count(*) FROM cache_ignore WHERE cache_id = :1", 0, $cache_id);
 
-            // obliczenie nowej sredniej
-            while( $res = mysql_fetch_array($score))
-                $suma += $res['score'];
+            $sql = "
+                UPDATE caches
+                SET
+                    votes=:new_votes,
+                    score=:new_score,
+                    founds=:new_founds,
+                    notfounds=:new_notfounds,
+                    notes=:new_notes,
+                    watcher=:new_watchers,
+                    ignorer_count=:new_ignorers
+                WHERE
+                    cache_id=:cache_id
+                    AND (
+                        votes is null
+                        OR score is null
+                        OR founds is null
+                        OR notfounds is null
+                        OR notes is null
+                        OR watcher is null
+                        OR ignorer_count is null
+                        OR votes!=:new_votes
+                        OR abs(score-:new_score)>0.0001
+                        OR founds!=:new_founds
+                        OR notfounds!=:new_notfounds
+                        OR notes!=:new_notes
+                        OR watcher!=:new_watchers
+                        OR ignorer_count!=:new_ignorers
+                    )
+            ";
 
-            if( $liczba != 0)
-                $srednia = $suma / $liczba;
-            else $srednia = 0;
-
-            $sql = "UPDATE caches SET votes='".sql_escape($liczba)."', score='".sql_escape($srednia)."', founds=".sql_escape(intval($founds)).", notfounds=".sql_escape(intval($notfounds)).", notes=".sql_escape(intval($notes)).", watcher=".sql_escape(intval($watcher))." WHERE cache_id='".sql_escape($rs['cache_id'])."'";
-            //echo "<br />";
-            mysql_query($sql);
+            $params = array();
+            $params['new_votes']['value'] = intval($liczba);
+            $params['new_votes']['data_type'] = 'integer';
+            $params['new_score']['value'] = strval($srednia);
+            $params['new_score']['data_type'] = 'string';
+            $params['new_founds']['value'] = intval($founds);
+            $params['new_founds']['data_type'] = 'integer';
+            $params['new_notfounds']['value'] = intval($notfounds);
+            $params['new_notfounds']['data_type'] = 'integer';
+            $params['new_notes']['value'] = intval($notes);
+            $params['new_notes']['data_type'] = 'integer';
+            $params['new_watchers']['value'] = intval($watchers);
+            $params['new_watchers']['data_type'] = 'integer';
+            $params['new_ignorers']['value'] = intval($ignorers);
+            $params['new_ignorers']['data_type'] = 'integer';
+            $params['cache_id']['value'] = intval($cache_id);
+            $params['cache_id']['data_type'] = 'integer';
+            $db->paramQuery($sql, $params);
+            if ($db->rowCount() > 0){
+                //echo "<b>cache_id=$cache_id</b><br>";
+                //echo "ratings=$liczba<br>rating=$srednia<br>";
+                //echo "founds=$founds<br>notfounds=$notfounds<br>";
+                //echo "notes=$notes<br>watchers=$watchers<br>";
+                //echo "ignorers=$ignorers<br>";
+                $total_touched++;
+            }
+            $db->closeCursor();
         }
 
-        /*$sql = "select cache_id, count(*) as watches from cache_watches group by cache_id";
-        $fixwatchers_query = mysql_query($sql);
-        while( $fixwatchers = mysql_fetch_array($fixwatchers_query))
-        {
-            echo $sql2 = "UPDATE caches SET watcher='".sql_escape($fixwatchers['watches'])."' WHERE cache_id='".sql_escape($fixwatchers['cache_id'])."'";
-            mysql_query($sql2);
-        }*/
         set_time_limit(60);
-        db_disconnect();
-
+        unset($db);
+        echo "-----------------------------------<br>total_touched=$total_touched<br>";
     }
 
 }
