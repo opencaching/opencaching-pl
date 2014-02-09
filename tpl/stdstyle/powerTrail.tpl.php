@@ -296,7 +296,7 @@ function ajaxUpdateComment(){
     });
 
     request.done(function (response, textStatus, jqXHR){
-        console.log(response);
+        // console.log(response);
         ajaxGetComments(0, {commentsPaginateCount});
         $('html, body').animate({
             scrollTop: $("#ptComments").offset().top
@@ -318,6 +318,8 @@ function deleteComment(commentId, callingUser){
     buttons: {
         "{{pt130}}": function() {
             if ($('#delReason').val() != ''){
+                $(this).dialog( "close" );
+                $('#ptComments').html('<br /><br /><center><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /><br /><br /></center>');
                 request = $.ajax({
                     async: false,
                     url: "powerTrail/ajaxRemoveComment.php",
@@ -326,15 +328,12 @@ function deleteComment(commentId, callingUser){
                 });
 
                 request.done(function (response, textStatus, jqXHR){
-                    console.log(response);
                     if(response == 2) $("#commentType").append('<option selected="selected" value="2">{{pt065}}</option>');
                 });
 
                 request.always(function () {
                     ajaxGetComments(0, {commentsPaginateCount});
                 });
-
-                $(this).dialog( "close" );
             }
         },
 
@@ -631,10 +630,11 @@ function togglePercentSection() {
 }
 
 function ajaxAddComment(){
-
     var newComment = tinyMCE.activeEditor.getContent();
-
+    $('#addComment').hide();
+    $('#ptComments').html('<br /><br /><center><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /><br /><br /></center>');
     request = $.ajax({
+        async: false,
         url: "powerTrail/ajaxAddComment.php",
         type: "post",
         data:{projectId: $('#xmd34nfywr54').val(), text: newComment, type: $('#commentType').val(), datetime: $('#commentDateTime').val()+' '+$('#timepicker').val() },
@@ -642,21 +642,17 @@ function ajaxAddComment(){
 
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
-        // $('#ptComments').html(response);
         if($('#commentType').val() == 2){
             $("#commentType option[value='2']").remove();
         }
     });
     request.always(function (response, textStatus, jqXHR) {
-        console.log(response);
+        toggleAddComment();
         if ($('#commentType').val() == 2) { // refresh conquest count
             var newcount =  parseInt($('#conquestCount').html()) + 1;
             $('#conquestCount').html(newcount);
         }
-        toggleAddComment();
-
         $(function() {
-            $('#ptComments').html('<img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" />');
             setTimeout(function() {
                 ajaxGetComments(0, {commentsPaginateCount});
                 $('html, body').animate({
@@ -696,7 +692,6 @@ function toggleAddComment(){
 }
 
 function ajaxGetComments(start, limit){
-    // alert(start+' '+limit);
     $('#ptComments').html('<br /><br /><center><img src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ptPreloader.gif" /><br /><br /></center>');
     request = $.ajax({
         url: "powerTrail/ajaxGetComments.php",
