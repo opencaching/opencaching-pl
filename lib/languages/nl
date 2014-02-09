@@ -767,7 +767,7 @@ no_queries Er zijn geen opgeslagen zoek resultaten
 name_queries Naam voor zoek opdracht
 save_queries Zoek opdrachten
 old_options Opgeslagen zoek opdrachten
-select_queries Select stored query to overwrite
+select_queries Selecteer te overschrijven zoekopdracht
 no_watched_caches Geen gevolgde caches
 last_found Laatst gevonden&nbsp&nbsp&nbsp
 delete_recommend Delete recommendations
@@ -2216,6 +2216,8 @@ BarChart Bar
 positions Posities
 more10 Er zijn meer dan 10 geselecteerd
 more30 Er zijn meer dan 30 geselecteerd
+pt_cache De cache hoort bij PowerTrail:
+Help Hulp
 
 
 
