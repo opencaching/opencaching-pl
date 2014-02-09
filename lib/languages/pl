@@ -2129,7 +2129,7 @@ chart Wykres
 SelectUsers Wybierz użytkowników
 NrCaches Ilość keszy
 Selected Wybrano
-HelpHowToSelect <br><b>Wybór użytkowników w tabeli</b><br><hr><br><br>- Wybór pojedynczego użytkownika: kliknięcie w dowolne miejsce jego pozycji (z wyjątkiem kolumny z nazwą)<br><br>- Wybór kilku użytkowników: Ctrl + kliknięcie lub Shift + kliknięcie<br>
+HelpHowToSelect <br><b>Wybór użytkowników w tabeli</b><br><hr><br><br>- Wybór pojedynczego użytkownika: klikamy myszką na jego pozycję w tabeli<br><br>- Wybór kilku użytkowników: trzymając wciśnięty Ctrl klikamy myszką na kolejne pozycje w tabeli<br><br> - Wybór grupy kolejnych użytkowników: klikamy myszyką na pozycję pierwszego użytkownika, następnie trzymając wciśnięty Shift klikamy na ostatniego użytkownika z grupy<br><br><br><b>UWAGA !!! Zaznaczając użytkownika w tabeli NIE klikamy na jego nazwę (wtedy zamiast zaznaczenia, zostaniemy przeniesieni do jego profilu)</b>
 viewprofileFTF Pokaż FTF zdobyte przez użytkownika
 viewprofileDate Data FTF
 viewprofileTime Czas FTF
@@ -2219,4 +2219,4 @@ positions pozycji
 more10 Wybrano więcej niż 10
 more30 Wybrano więcej niż 30
 pt_cache Skrzynka należy do GeoŚcieżki: 
-
+Help Pomoc

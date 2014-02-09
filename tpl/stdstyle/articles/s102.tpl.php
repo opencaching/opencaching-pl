@@ -16,6 +16,9 @@
 <script type='text/javascript' src="lib/js/GCTStats.js"></script>
 <script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
 
+
+
+
 <?php
 $sNameOfStat = "";
 $sTitleOfStat="";
@@ -137,17 +140,28 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 
     <!-- Begin of User -->
     <td align="right">
-        <table  class = "GCT-div-table" >
+    <form name="FindUser" style="display:inline;" action="" onsubmit="return false;">
+        <table  class = "GCT-div-table" >        
             <tr >
-                <td >
-                    <form name="FindUser" style="display:inline;" action="" onsubmit="return false;">
-                        {{user}}:&nbsp&nbsp<input type="text" name="User" value=""; style="width:100px; text-align: left; ">
-                        &nbsp&nbsp&nbsp<button type="submit" value={{search}} name="bFindUser" style="font-size:12px;width:70px;"; onClick ="GCTStatsFindUser( document.FindUser.User.value )"  />{{search}}</button>
-
-                    </form>
+            	<td>
+                        {{user}}:&nbsp&nbsp
                 </td>
+                <td>
+	                <input type="text" name="User" value="" style="width:100px; text-align: left; ">
+                    &nbsp&nbsp&nbsp<button type="submit" value={{search}} name="bFindUser" style="font-size:12px;width:70px;"; onClick ="GCTStatsFindUser( document.FindUser.User.value )"  />{{search}}</button>
+                </td>                
+            </tr>
+            <tr >
+            	<td align="right">
+            		Pozycja:&nbsp&nbsp 
+            	</td>
+            	<td>
+            		<input type="text" name="FUPosition" id="FUPosition" class="GCT-div-readOnly" style="width:70px" readonly > 
+            	</td>
+            	
             </tr>
         </table>
+        </form>
     </td>
 <!-- End of User -->
 </tr>
@@ -186,7 +200,7 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
                         &nbsp&nbsp&nbsp&nbsp<button name="bLineChart" id="bLineChart"  />{{LineChart}}</button>
                     </td>
                     <td rowspan = 2>
-                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span id ="bChartHelp" style="cursor: pointer">?</span>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><button name="bChartHelp" id="bChartHelp"  />{{Help}}</button>
                     </td>
 
                 </tr>

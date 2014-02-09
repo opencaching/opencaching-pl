@@ -208,10 +208,7 @@ while ( $record = $dbc->dbResultFetch() )
         $sUserClass = ' class="GCT-link"; ';
 
     $sUserProfil = "viewprofile.php?userid=".$record['user_id'];
-
-    $sUsername = '<span '.$record[ "username" ].$sUserClass.' onclick="GCTStatsGotoProfil( \\\''.$sUserProfil.'\\\' )"  onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</span>';
-
-
+	$sUsername = '<span '.$record[ "username" ].$sUserClass.'  onclick="GCTStatsGotoProfil( \\\''.$sUserProfil.'\\\' )"  onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</span><a name="'.$sUUN.'"></a>';
 
 
     $nPos++;
