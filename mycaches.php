@@ -221,7 +221,6 @@ if ($error == false)
         if (!isset($dbc)) {
             $dbc = new dataBase();
             $dbc->switchPersistentConnection(true);
-            // 2 secs with persistent connections vs. 50 secs for 48 caches
         };
         $dbc->paramQuery($caches_query,$params);
         unset($params);
