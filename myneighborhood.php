@@ -556,7 +556,7 @@ if ($error == false) {
                             log_types.icon_small       AS icon_small,
                             IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,	
                             COUNT(gk_item.id)          AS geokret_in,
-                            `powerTrail`.`id` AS PT_ID,
+                            `PowerTrail`.`id` AS PT_ID,
 							`PowerTrail`.`name` AS PT_name,
 							`PowerTrail`.`type` As PT_type,
 							`PowerTrail`.`image` AS PT_image
