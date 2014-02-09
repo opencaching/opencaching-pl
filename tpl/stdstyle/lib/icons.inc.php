@@ -116,7 +116,8 @@ function icon_geopath_small($ptID, $ptImg, $ptName, $ptType, $pt_cache_intro_tr,
 	$PT_tip.='		<td align=\'center\'><span style=\'font-size:13px;\'><B>'.$ptName.'</B></span></td>';
 	$PT_tip.='	</tr>';
 	$PT_tip.='</table>';
-    $PT_tip = mb_ereg_replace('\'', '\\\'', $PT_tip);
+    $PT_tip = str_replace('\\', '\\\\', $PT_tip);
+    $PT_tip = str_replace('\'', '\\\'', $PT_tip);
     $PT_tip = htmlspecialchars($PT_tip, ENT_QUOTES, 'UTF-8');
 	// no tabled version: $PT_tip= $pt_cache_intro_tr.'<BR><span align=center><B>'.$ptName.'</B><BR>	<img border=0 width=50 src='.$ptImg.' /></span>';
 	$PT_icon = '<a href="powerTrail.php?ptAction=showSerie&ptrail='.$ptID.'" onmouseover="Tip(\''.$PT_tip.'\', OFFSETY, 25, OFFSETX, -135, PADDING,5, WIDTH,220,SHADOW,true)" onmouseout="UnTip()" class="links">';
