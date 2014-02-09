@@ -556,7 +556,7 @@ if ($error == false) {
                             log_types.icon_small       AS icon_small,
                             IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,	
                             COUNT(gk_item.id)          AS geokret_in,
-                            IFNULL(`powerTrail_caches`.`PowerTrailId`,0) AS PT_ID,
+                            `powerTrail`.`id` AS PT_ID,
 							`PowerTrail`.`name` AS PT_name,
 							`PowerTrail`.`type` As PT_type,
 							`PowerTrail`.`image` AS PT_image
@@ -632,7 +632,7 @@ if ($error == false) {
                 }
 				
 				// PowerTrail vel GeoPath icon
-				 if ($log_record['PT_ID']!=0)  {
+				 if (isset($log_record['PT_ID']))  {
 				 	$PT_icon = icon_geopath_small($log_record['PT_ID'],$log_record['PT_image'],$log_record['PT_name'],$log_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
 				 	$thisline = mb_ereg_replace('{GPicon}',$PT_icon, $thisline);
 				 } else {
