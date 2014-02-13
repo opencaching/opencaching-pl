@@ -152,6 +152,8 @@ show_track toon hele track
 show_from_me toon vanaf hier
 watch volgen
 not_watch niet volgen
+vc_spoiler_disable_msg Om spoilers te zien moet men ingelogt zijn!
+map_msg Om de coördinaten te zien van de cache's moet men ingelogt zijn.
 skip_caches zonder deze caches:
 skip_mine mijn caches
 skip_found gevonden caches

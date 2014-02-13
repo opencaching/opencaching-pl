@@ -12,6 +12,10 @@
     }
 
     if(isset($_GET['wp']) && !empty($_GET['wp']) && isset($_GET['output']) && !empty($_GET['output'])){
+        if (!$show_coords){
+            header('Location: ./viewcache.php?wp=' . $_GET['wp']);
+            exit;
+        }
 
         db_connect();
 

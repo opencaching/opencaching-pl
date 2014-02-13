@@ -27,9 +27,13 @@
 
         <hr/>
 
+        {if $show_coords}
         <b>N {$cache['N']}</b> (N {$cache['latitude']})<br/>
         <b>E {$cache['E']}</b> (E {$cache['longitude']})<br/><br/>
-
+        {else}
+        <font size="smaller">{$map_msg}</font>
+        {/if}
+        
         <table class="tableview">
             <tr><td>{$type}</td><td><b>{$cache['type']}</b></td></tr>
             <tr><td>{$size}</td><td><b>{$cache['size']}</b></td></tr>
@@ -70,12 +74,12 @@
         {if $attr_text != ""}
             <div class='button' style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='javascript:alert("{$attr_text}");'><img style="vertical-align: middle;" src="../images/attributes.png" alt="{$show_attrib}"/></a></div>
         {/if}
-
+        {if $show_coords}
             <div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./file2.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle; " src="../images/download.png" alt="{$download_file}"/></a></div>
             <div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./googlemaps.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle;" src="../images/geo.png" alt="{$show_map}"/></a> </div>
 
             <div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./osmap.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle;" src="../images/osm.png" alt="{$show_map}"/></a> </div>
-
+        {/if}
             {if $cache['watched']==-1}
             <div class="button" style="width:16%; margin: -10px 0 5px 0; display:inline-block;"><a style="display:block;" href='./watchcache.php?wp={$cache['wp_oc']}'><img style="vertical-align: middle;" src="../images/eye.png" alt="{$watch}"/></a> </div>
             {/if}
@@ -98,9 +102,14 @@
             <hr/><br/><b>{$photos}:</b><br/><br/>
                 {section name=i loop=$photos_list}
                     <div class='button'>
+                        {if {$photos_list[i].spoiler} eq '1' && !$show_coords}
+                        <a href="#" onclick='alert("{$vc_spoiler_disable_msg}"); return false;'>{$photos_list[i].title} (spoiler)
+                        </a>
+                        {else}
                         <a target=blank href={$photos_list[i].url}>{$photos_list[i].title}
                         {if {$photos_list[i].spoiler} eq '1'}(spoiler){/if}
                         </a>
+                        {/if}
                     </div><br/>
                 {/section}
         {/if}

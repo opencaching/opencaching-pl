@@ -12,6 +12,13 @@
     $tpl -> template_dir = $dynbasepath . 'lib/templates/';
     $tpl -> compile_dir = $dynbasepath .'lib/templates_c/';
 
+    $show_coords = false;
+    if (!$hide_coords || (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0)){
+        $show_coords = true;
+    }
+    $tpl -> assign('show_coords', $show_coords);
+    
+    
     require_once('./lib/lang.inc.php');
 
 ?>

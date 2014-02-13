@@ -152,6 +152,8 @@ show_track show whole track
 show_from_me show from me
 watch watch
 not_watch don't watch
+vc_spoiler_disable_msg You must be logged-in to view spoilers!
+map_msg You must be logged-in to view coordinates.
 skip_caches skip caches:
 skip_mine mine
 skip_found founded

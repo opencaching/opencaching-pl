@@ -25,7 +25,7 @@
             $user=mysql_fetch_row($wynik);
 
             $query="select cache_desc.desc,hint,short_desc from cache_desc where cache_id ='".$caches['cache_id'].'\'';
-            $query.=' order by field(`language`, \'pl\', \'en\', \'de\') ASC;';
+            $query.=' order by field(`language`, \'pl\', \'en\', \'de\', \'nl\') ASC;';
 
             $wynik = db_query ($query);
 

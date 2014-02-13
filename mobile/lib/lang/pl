@@ -152,6 +152,8 @@ show_track pokaż całą trasę
 show_from_me pokaż ode mnie
 watch obserwuj
 not_watch nie obserwuj
+vc_spoiler_disable_msg Musisz być zalogowany aby zobaczyć zdjęcia spojlerowe!
+map_msg Aby zobaczyć współrzędne musisz się zalogować.
 skip_caches pomiń skrzynki:
 skip_mine własne
 skip_found znalezione
