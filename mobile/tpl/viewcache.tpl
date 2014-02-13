@@ -94,7 +94,7 @@
             <hr/><br/><div class='button'><a href='javascript:alert("\n{$gk}");'>{$show_gk}</a></div><br/>
         {/if}
 
-        {if $cache['hint'] != ""}
+        {if $cache['hint'] != "" && $show_coords}
             <br/><div class='button'><a href='javascript:alert("\n{$cache['hint']}\n\n");'>{$show_spoiler}</a></div><br/>
         {/if}
 
