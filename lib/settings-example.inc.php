@@ -181,6 +181,15 @@
     $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
     $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
     $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
+   	$wikiLinks = array(
+        'forBeginers' => 'http://wiki.opencaching.pl/index.php/Dla_początkujących',
+        'placingCache' => 'http://wiki.opencaching.pl/index.php/Zakładanie_skrzynki',
+        'makingCaches' => 'http://wiki.opencaching.pl/index.php/Jakość_skrzynki',
+        'makingRoutes' => 'http://wiki.opencaching.pl/index.php/Moje_trasy',
+        'cacheNotes' => 'http://wiki.opencaching.pl/index.php/Notatki_skrzynki',
+        'extraWaypoints' => 'http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce',
+        'cachingCode' => 'http://wiki.opencaching.pl/index.php/Kodeks_geocachera',
+	);
 
     $contact_mail = 'ocpl (at) localhost';
     // E-mail address group of people from OC Team who solve problems, verify cache
