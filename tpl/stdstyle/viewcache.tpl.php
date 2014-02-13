@@ -439,9 +439,9 @@
 {hidepictures_end}
 <!-- End Text Container -->
 <!-- Text container -->
+{hidesearchdownloadsection_start}
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1">
-        <!-- End Text Container -->
         <img src="tpl/stdstyle/images/blue/tools.png" class="icon32" alt="" />&nbsp;{{utilities}}
     </p>
 </div>
@@ -506,6 +506,7 @@
     ?>
 </div>
 </div>
+{hidesearchdownloadsection_end}
 <!-- Text container -->
 <div class="content2-container bg-blue02">
     <p class="content-title-noshade-size1" id="log_start">

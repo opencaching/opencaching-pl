@@ -90,11 +90,18 @@
             }
         }
 
-            if ($usr == false && $hide_coords) {
-                $disable_spoiler_view =true; //hide any kind of spoiler if usr not logged in
-            } else {
-                $disable_spoiler_view =false;
-            };
+        if ($usr == false && $hide_coords) {
+            $disable_spoiler_view =true; //hide any kind of spoiler if usr not logged in
+        } else {
+            $disable_spoiler_view =false;
+        };
+        if ($usr == false){
+            tpl_set_var('hidesearchdownloadsection_start', '<!--');
+            tpl_set_var('hidesearchdownloadsection_end', '-->');
+        } else {
+            tpl_set_var('hidesearchdownloadsection_start', '');
+            tpl_set_var('hidesearchdownloadsection_end', '');
+        }
         $no_crypt = 0;
         if (isset($_REQUEST['nocrypt']))
         {
