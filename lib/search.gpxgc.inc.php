@@ -209,13 +209,13 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $gpxAttribName[30] = 'Point of interest';
             $gpxAttribID[40] = '53';
             $gpxAttribName[40] = 'One-minute cache';
+            $gpxAttribID[41] = '6';
+            $gpxAttribName[41] = 'Kid friendly';
             $gpxAttribID[44] = '24';
             $gpxAttribName[44] = 'Wheelchair accessible';
             $gpxAttribID[52] = '60';
             $gpxAttribName[52] = 'Beacon - Garmin chirp';
-            $gpxAttribID[59] = '6';
-            $gpxAttribName[59] = 'Kid friendly';
-            $gpxAttribID[82] = '44';
+	    $gpxAttribID[82] = '44';
             $gpxAttribName[82] = 'Flashlight required';
             $gpxAttribID[83] = '51';
             $gpxAttribName[83] = 'Special tool required';
