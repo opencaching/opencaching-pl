@@ -354,4 +354,9 @@
     $contactData = $contactDataPL;
     // Contact data definition END
 
+	// Show date and date/time correct way.
+	$dateFormat = 'Y-m-d'
+	$datetimeFormat = 'Y-m-d H:i'
+
+
 ?>
