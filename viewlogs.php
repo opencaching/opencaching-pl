@@ -39,11 +39,11 @@
         $cache_id = 0;
         if (isset($_REQUEST['cacheid']))
         {
-            $cache_id = $_REQUEST['cacheid'];
+            $cache_id = (int) $_REQUEST['cacheid'];
         }
         if (isset($_REQUEST['logid']))
         {
-            $logid = $_REQUEST['logid'];
+            $logid = (int) $_REQUEST['logid'];
         $show_one_log = " AND `cache_logs`.`id` ='".$logid."'  ";
         }else {$show_one_log ='';}
 
@@ -146,7 +146,7 @@
             tpl_set_var('total_number_of_logs', htmlspecialchars($cache_record['notes'] + $cache_record['notfounds'] + $cache_record['founds'], ENT_COMPAT, 'UTF-8'));
 
             //check number of pictures in logs
-            $rspiclogs =sqlValue("SELECT COUNT(*) FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`= $cache_id",0);
+            $rspiclogs =sqlValue("SELECT COUNT(*) FROM `pictures`,`cache_logs` WHERE `pictures`.`object_id`=`cache_logs`.`id` AND `pictures`.`object_type`=1 AND `cache_logs`.`cache_id`= ".addslashes($cache_id),0);
 
                 if ($rspiclogs !=0){
                 tpl_set_var('gallery','<span style="white-space: nowrap;">'.$gallery_icon.'&nbsp;'.$rspiclogs.'x&nbsp;'.mb_ereg_replace('{cacheid}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $gallery_link).'</span>');  //todo - move galery link to viewcache.inc.php
