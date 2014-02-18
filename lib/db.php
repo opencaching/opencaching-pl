@@ -28,7 +28,7 @@ class dataBase
     private $was_persistent_connection = false;
     private $rollback_transaction = false;
     private $in_transaction_count = 0;
-    
+
     /**
      * database link setup
      * @var string
@@ -65,6 +65,8 @@ class dataBase
         if ($debug === true) {
             $this->debug = true;
         }
+
+        $this->setupPDO();
     }
 
     function __destruct() {
@@ -157,35 +159,18 @@ class dataBase
      * @return id of last inserted row
      */
     public function lastInsertId() {
-        // return $this->dbData->lastInsertId();
         return $this->lastInsertId;
     }
 
-    private function setupPDO()
-    {
-        if ($this->persistent_connection && $this->dbh != null){
-            return $this->dbh;
-        }
-
-        // We are instantinating new PDO object, and new connection for every query.
-        // This is inefficient (compared to old sql() function, and especially on my Windows box)
-        // Moreover, this could prevent TEMPORARY TABLES and transactions from working -> find out!
-
+    private function setupPDO() {
         $params = array();
-        if ( $this->debug )
-            $params[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION; //JG 2013-10-19
-        $dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,
-            $this->username,$this->password,$params);
-
-        // JG 2013-10-20
-        $dbh -> query ("SET NAMES utf8");
-        $dbh -> query ("SET CHARACTER SET utf8");
-        $dbh -> query ("SET collation_connection = utf8_unicode_ci" );
-
-        if ($this->persistent_connection){
-            $this->dbh = $dbh;
+        if ($this->debug) {
+            $params[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
         }
-        return $dbh;
+        $this->dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password,$params);
+        $this->dbh->query("SET NAMES utf8");
+        $this->dbh->query("SET CHARACTER SET utf8");
+        $this->dbh->query("SET collation_connection = utf8_unicode_ci" );
     }
 
     /**
@@ -198,12 +183,10 @@ class dataBase
      */
     public function simpleQuery($query) {
         try {
-            $dbh = $this->setupPDO();
-
-            $this->dbData  = $dbh -> prepare($query);
-            $this->dbData  -> setFetchMode(PDO::FETCH_ASSOC);
-            $this->dbData  -> execute();
-            $this->lastInsertId = $dbh->lastInsertId();
+            $this->dbData  = $this->dbh->prepare($query);
+            $this->dbData->setFetchMode(PDO::FETCH_ASSOC);
+            $this->dbData->execute();
+            $this->lastInsertId = $this->dbh->lastInsertId();
         } catch (PDOException $e) {
             $message = $this->errorMessage( __line__, $e, $query, array());
             if ($this->debug) {
@@ -251,9 +234,7 @@ class dataBase
         if (!is_array($params)) return false;
 
         try {
-            $dbh = $this->setupPDO();
-
-            $this->dbData = $dbh->prepare($query);
+            $this->dbData = $this->dbh->prepare($query);
 
             foreach ($params as $key => $val) {
                 switch ($val['data_type']) {
@@ -286,7 +267,7 @@ class dataBase
 
             $this->dbData->setFetchMode(PDO::FETCH_ASSOC);
             $this->dbData->execute();
-            $this->lastInsertId = $dbh->lastInsertId();
+            $this->lastInsertId = $this->dbh->lastInsertId();
         } catch (PDOException $e) {
             $message = $this->errorMessage( __line__, $e, $query, $params );
             if ($this->debug) {
@@ -333,27 +314,21 @@ class dataBase
         }
 
         try {
-            $dbh = $this->setupPDO();
-
-            $this->dbData  = $dbh->prepare($query);
-
+            $this->dbData = $this->dbh->prepare($query);
             for ($i = 1; $i < $numargs; $i++) {
                 // if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
                 $this->dbData->bindParam(self::bindChar.$i,$arg_list[$i]);
             }
-
-            $this->dbData ->setFetchMode(PDO::FETCH_ASSOC);
-            $this->dbData ->execute();
-            $this->lastInsertId = $dbh->lastInsertId();
+            $this->dbData->setFetchMode(PDO::FETCH_ASSOC);
+            $this->dbData->execute();
+            $this->lastInsertId = $this->dbh->lastInsertId();
         } catch (PDOException $e) {
             $message = $this->errorMessage( __line__, $e, $query, $arg_list);
-
             if ($this->debug) {
                 self::debugOut($message);
             } else {
                 self::errorMail($message);
             }
-
             return false;
         }
         if ($this->debug) {
@@ -447,12 +422,12 @@ class dataBase
     }
 
     /**
-     * Starts a transaction. 
-     * 
-     * The transaction is a separate flow of database statements issued against current 
-     * dataBase object, which will be applied (commited) by the database in a single step, 
-     * or reverted (rolled back) as if they never happen. Statements executed within 
-     * a transaction are not visible by other transactions (i.e. statements executed by 
+     * Starts a transaction.
+     *
+     * The transaction is a separate flow of database statements issued against current
+     * dataBase object, which will be applied (commited) by the database in a single step,
+     * or reverted (rolled back) as if they never happen. Statements executed within
+     * a transaction are not visible by other transactions (i.e. statements executed by
      * different dataBase object instance).
      *
      * Transactions can nest. This mean, that you can call beginTransaction() many times
@@ -476,7 +451,7 @@ class dataBase
      * The preffered usage patter follows:
      *
      * $db = new dataBase();
-     * 
+     *
      * $db->beginTransaction();
      * $db->paramQuery(...);
      * $db->multiVariableQuery(...);
@@ -487,7 +462,7 @@ class dataBase
      * $db->commit();
      *
      *
-     * function some_function($db) 
+     * function some_function($db)
      * {
      *     // executed within scope of calling transaction
      *     $db->beginTransaction();
@@ -495,14 +470,14 @@ class dataBase
      *     if (...){
      *         // since we are nested transaction, this will not commit immediately
      *         // the transaction may not commit at all, if other function calls rollback()
-     *         $db->commit(); 
+     *         $db->commit();
      *     } else {
      *         // mark the transaction for rollback, now it can not commit never ever
      *         $db->rollback();
      *     }
      * }
      *
-     * function some_function_with_separate_transaction() 
+     * function some_function_with_separate_transaction()
      * {
      *     $db = new dataBase();
      *     $db->beginTransaction();
@@ -510,14 +485,14 @@ class dataBase
      *     $db->paramQuery(...);
      *     if (...){
      *         // since we are separated transaction, this will commit immediately
-     *         $db->commit(); 
+     *         $db->commit();
      *     } else {
      *         // rollback the transaction now
      *         $db->rollback();
      *     }
      * }
      *
-     
+
      */
     public function beginTransaction()
     {
@@ -536,7 +511,7 @@ class dataBase
             $dbh = $this->setupPDO();
             //$dbh->setAttribute(PDO::ATTR_AUTOCOMMIT, false);
             $dbh->beginTransaction();
-            
+
         } else {
             $this->in_transaction_count++;
             if ($this->debug) {
@@ -544,7 +519,7 @@ class dataBase
             }
         }
     }
-    
+
     /**
      * Marks a transaction for rollback. Once called, the transaction can not commit.
      * If this call balances with first beginTransaction(), the transaction is rolled
@@ -565,8 +540,8 @@ class dataBase
     }
 
     /**
-     * Closes current transaction block with success. If this call balances with first 
-     * beginTransaction(), and rollback() has never been called, the transaction 
+     * Closes current transaction block with success. If this call balances with first
+     * beginTransaction(), and rollback() has never been called, the transaction
      * is commited immediatelly, and it ends (which means that other database statemens are
      * implicitly commited as they are executed).
      */
@@ -581,7 +556,7 @@ class dataBase
         $this->in_transaction_count--;
         $this->endTransaction();
     }
-    
+
     private function endTransaction()
     {
         if ($this->in_transaction_count == 0){
@@ -602,7 +577,7 @@ class dataBase
             $this->switchPersistentConnection($this->was_persistent_connection);
         }
     }
-    
+
     /**
      * Closes current cursor. Some methods, which drain cursor (like dbResultFetchAll())
      * or expect only one row (like *QueryValue()) close cursor implicitly.
@@ -617,6 +592,7 @@ class dataBase
             // ignore
         }
         $this->dbData = null;
+        $this->lastInsertId = null;
     }
 
     private function errorMail($message, $topic=null) {
@@ -658,11 +634,37 @@ class dataBase
     }
 
     /**
-     * static experimental methode
-     *
+     * simple select data from db
+     * This methode avoid use put hardcoded SQL query in php code.
      * build select query automaticly, on argument basic.
+     *
+     * @param $columnNameArray = array ('columnName1', 'columnName2', 'columnName3')
+     * @param $tableName string 'tableName'
+     * @param $whereArray leave empty if WHERE 1 or provide array
+     * ---------------------------------------------------------------------------------------
+     * @example
+     *      $columnNameArray = array ('columnName1', 'columnName2', 'columnName3');
+     *      $tableName = 'tableName';
+     *      $whereArray = array(
+     *          array(
+     *              'fieldName'=>'column3',
+     *              'operator'=>'=',
+     *              'fieldValue'=> 66
+     *          ),
+     *          array(
+     *              'fieldName'=>'column4',
+     *              'operator'=>'>',
+     *              'fieldValue'=> 5
+     *          ),
+     *      );
+     *      $db->update($columnNameValue, $tableName , $whereArray);
+     *      $result = $db->dbResultFetchAll();
+     *
+     * this generate and commit query 'SELECT columnName1, columnName2, columnName3 FROM tableName WHERE column3 = 66 AND column4 > 5':
+     * -----------------------------------------------------------------------------------------------
+     * @author Andrzej Łza Woźniak
      */
-    public static function select($columnNameArray, $tableName, $whereArray=array(array('fieldName'=>'1','operator'=>'','fieldValue'=>''))){
+    public function select($columnNameArray, $tableName, $whereArray=array(array('fieldName'=>'1','operator'=>'','fieldValue'=>''))){
         $query = 'SELECT ';
         foreach ($columnNameArray as $column) {
             $query .= self::dbQuote.$column.self::dbQuote.',';
@@ -672,14 +674,71 @@ class dataBase
         $i = 1;
         foreach ($whereArray as $field) {
            $query .= self::dbQuote.$field['fieldName'].self::dbQuote.$field['operator'].self::bindChar.$i.' AND ';
-           $variableArray[$i] = $field['fieldValue'];
-           $i++;
+           $variableArray[$i++] = $field['fieldValue'];
         }
         $query = rtrim($query, ' AND ');
-        $db = new dataBase;
-        $db->multiVariableQuery($query, $variableArray);
+        return $this->multiVariableQuery($query, $variableArray);
+    }
 
-        return $db->dbResultFetchAll();
+    /**
+     * simple update $columnNameValue fields in $tableName.
+     * This methode avoid use put hardcoded SQL query in php code.
+     * build update query automaticly, on argument basic.
+     *
+     * @param $columnNameValue = array (
+     *           'columnName1' => 'newValueOfCoumnName1',
+     *           'columnName2' => 'newValueOfCoumnName2',
+     *           'columnName3' => 'newValueOfCoumnName3',
+     *        )
+     * @param $tableName string 'tableName'
+     * @param $whereArray same as in methode select
+     *
+     * -------------------------------------------------------------------------------------
+     * example of use:
+     *      $columnNameValue = array(
+     *          'someColumnName1' => $variable1,
+     *          'someColumnName2' => $variable2,
+     *          'someColumnName5' => $variable5
+     *      );
+     *      $tableName = 'someTable';
+     *      $whereArray = array(
+     *          array(
+     *              'fieldName'=>'columnName3,
+     *              'operator'=>'=',
+     *              'fieldValue'=> $variable3
+     *          ),
+     *          array(
+     *              'fieldName'=>'columnName4,
+     *              'operator'=>'<',
+     *              'fieldValue'=> $variable4
+     *          ),
+     *      );
+     *      $db->update($columnNameValue, $tableName , $whereArray);
+     *      $result = $db->dbResultFetchAll();
+     * --------------------------------------------------------------------------------------
+     *  @author Andrzej Łza Woźniak
+     */
+    public function update($columnNameValue, $tableName, $whereArray=array(array('fieldName'=>'1','operator'=>'','fieldValue'=>''))){
+        $query = 'UPDATE '.$tableName.' SET ';
+        $i = 1;
+        foreach ($columnNameValue as $columnName => $newValue) {
+            $query .= self::dbQuote.$columnName.self::dbQuote.'=:'.$i.',';
+            $paramToBind[$i++] = $newValue;
+        }
+        $query = rtrim($query, ",").' WHERE ';
+        foreach ($whereArray as $field) {
+           $query .= self::dbQuote.$field['fieldName'].self::dbQuote.$field['operator'].self::bindChar.$i.' AND ';
+           $paramToBind[$i++] = $field['fieldValue'];
+        }
+        $query = rtrim($query, ' AND ');
+        return $this->multiVariableQuery($query, $paramToBind);
+    }
+
+    /**
+     * reset data from prevous results and make class ready for next query
+     */
+    public function reset(){
+        $this->closeCursor();
     }
 
     /**
@@ -690,6 +749,7 @@ class dataBase
      *
      * @example dataBase::debugOC('some.php, # ' . __line__ .', my variable', $array_variable );
      */
+
     public static function debugOC($position, $array) {
         dataBase::debugOut("<pre> --- $position --<br>");
         dataBase::debugOut(print_r ($array, true));
