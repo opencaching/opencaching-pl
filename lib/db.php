@@ -597,6 +597,7 @@ class dataBase
 
     private function errorMail($message, $topic=null) {
         if(self::wasEmailSentLast60Sec()) return;
+        $message = $this->removeSensitiveDataFromEmail($message);
         $message = 'NOTE: dataBase Class send ONLY 1 message per minute to avoid mass email.'."\r\n \r\n".$message;
         $headers =  'From: dataBase class' . "\r\n" .
                     'Reply-To: '.$this->replyToEmail . "\r\n" .
@@ -608,6 +609,15 @@ class dataBase
         foreach ($this->errorEmail as $email) {
             mail($email, $topic, $message, $headers);
         }
+    }
+
+    private function removeSensitiveDataFromEmail($message){
+        $hashStr = '******';
+        $message = str_replace($this->password, $hashStr, $message);
+        $message = str_replace($this->username, $hashStr, $message);
+        $message = str_replace("'".$this->name."'", $hashStr, $message);
+        $message = str_replace($this->server, $hashStr, $message);
+        return $message;
     }
 
     private static function wasEmailSentLast60Sec(){
