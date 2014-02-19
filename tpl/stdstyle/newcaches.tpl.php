@@ -6,6 +6,7 @@
 
     ***************************************************************************/
 ?>
+<script type='text/javascript' src="lib/js/wz_tooltip.js"></script>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/cache.png" class="icon32" alt="Cache" title="Cache" align="middle"/>&nbsp;{{newcaches_label}}</div>
 <!-- Text container -->
     <p>
@@ -19,16 +20,17 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 <td><strong>{{geocache}}</strong></td>
 <td><strong>{{region}}</strong></td>
 <td><strong>{{owner}}</strong></td>
 </tr>
 <tr>
-<td colspan="8"><hr></hr></td>
+<td colspan="9"><hr></hr></td>
 </tr>
         {newcaches}
 <tr>
-<td colspan="8"><hr></hr></td>
+<td colspan="9"><hr></hr></td>
 </tr>
 </table>
 </div>

@@ -15,17 +15,18 @@
 <div class="searchdiv">
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
 <tr>
-<td colspan="2"><strong>{{date_hidden_label}}</strong></td>
+<td colspan="3"><strong>{{date_hidden_label}}</strong></td>
+
 <td><strong>Geocache</strong></td>
 <td><strong>{{owner}}</strong>&nbsp;&nbsp;&nbsp;</td>
 <td colspan="3"><strong>{{latest_logs}}</strong></td>
 </tr>
 <tr>
-<td colspan="7"><hr></hr></td>
+<td colspan="8"><hr></hr></td>
 </tr>
         {file_content}
 <tr>
-<td colspan="7"><hr></hr></td>
+<td colspan="8"><hr></hr></td>
 </tr>
 </table>
 </div>

@@ -1,4 +1,4 @@
-
+<script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
     <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/recommendation.png" class="icon32" alt="" title="Recommendation" align="middle"/>&nbsp;{{recommended_caches}} {{geocache}}</div>
 <!-- Text container -->
     <p style="font-size: 12px; line-height: 1.6em;"><span class="content-title-noshade txt-blue08" >
@@ -10,15 +10,16 @@
 <td>&nbsp;</td>
 <td><img src="images/rating-star.png" border="0" alt=""/></td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 <td><strong>{{geocache}}</strong></td>
 <td><strong>{{owner}}</strong></td>
 </tr>
 <tr>
-<td colspan="5"><hr></hr></td>
+<td colspan="6"><hr></hr></td>
 </tr>
 {content}
 <tr>
-<td colspan="5"><hr></hr></td>
+<td colspan="6"><hr></hr></td>
 </tr>
 </table>
 </div>

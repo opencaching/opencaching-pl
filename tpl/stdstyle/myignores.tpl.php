@@ -32,5 +32,6 @@
     </tr>
     {ignores_caches}
 </table>
-</div>
 {no_ignores}
+</div>
+

@@ -16,15 +16,16 @@
 <table border="0" cellspacing="2" cellpadding="1" style="margin-left: 10px; line-height: 1.4em; font-size: 13px;" width="95%">
 <tr>
 <td colspan="2"><strong>{{date_hidden_label}}</strong></td>
+<td>&nbsp;</td>
 <td><strong>Geocache</strong></td>
 <td><strong>{{owner}}</strong>&nbsp;&nbsp;&nbsp;</td>
 </tr>
 <tr>
-<td colspan="4"><hr></hr></td>
+<td colspan="5"><hr></hr></td>
 </tr>
         {file_content}
 <tr>
-<td colspan="4"><hr></hr></td>
+<td colspan="5"><hr></hr></td>
 </tr>
 </table>
 </div>

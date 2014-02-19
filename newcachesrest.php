@@ -31,6 +31,7 @@
     //prepare the templates and include all neccessary
     require_once('./lib/common.inc.php');
     require_once('./lib/cache_icon.inc.php');
+    require_once($stylepath . '/lib/icons.inc.php');
 
     //Preprocessing
     if ($error == false)
@@ -61,11 +62,17 @@
                 `caches`.`date_created` `date_created`,
                 IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) AS `date`,
                 `countries`.`&1` `country`,
-                `cache_type`.`icon_large` `icon_large`
-            FROM `caches`, `user`, `countries`, `cache_type`
+                `cache_type`.`icon_large` `icon_large`,
+                `PowerTrail`.`id` AS PT_ID,
+				`PowerTrail`.`name` AS PT_name,
+				`PowerTrail`.`type` As PT_type,
+				`PowerTrail`.`image` AS PT_image
+            FROM (`caches`
+             	LEFT JOIN `powerTrail_caches` ON `caches`.`cache_id` = `powerTrail_caches`.`cacheId`
+                LEFT JOIN `PowerTrail` ON `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1 ), `user`, `countries`, `cache_type`
             WHERE `caches`.`user_id`=`user`.`user_id`
               AND `countries`.`short`=`caches`.`country`
-              AND `type` != 6
+              AND `caches`.`type` != 6
               AND `caches`.`status` = 1
               AND `caches`.`country` NOT IN($countryParamNewcacherestPhp)
               AND `caches`.`type`=`cache_type`.`id`
@@ -88,15 +95,24 @@
             'longitude' => $record['longitude'],
             'latitude' => $record['latitude'],
             'date' => $record['date'],
-            'icon_large' => $record['icon_large']
+            'icon_large' => $record['icon_large'],
+            'PT_ID'  => $record['PT_ID'],
+            'PT_name'  => $record['PT_name'],
+            'PT_type'  => $record['PT_type'],
+            'PT_image'  => $record['PT_image']
         );
     }
 
 //  uksort($newcaches, 'cmp');
 
-
+	
     if (isset($newcaches))
     {
+ 
+	       //PowerTrail vel GeoPath variables
+		$pt_cache_intro_tr = tr('pt_cache');
+		$pt_icon_title_tr =  tr('pt139');     	
+	    	
         foreach ($newcaches AS $countryname => $country_record)
         {
             $cache_country = '<tr><td colspan="6" class="content-title-noshade-size3">' . htmlspecialchars($countryname, ENT_COMPAT, 'UTF-8') . '</td></tr>';
@@ -137,6 +153,16 @@
             $thisline = mb_ereg_replace('{gkimage}','&nbsp;', $thisline);
                     }
             mysql_free_result($rs_log);
+            
+          // PowerTrail vel GeoPath icon
+			if (isset($cache_record['PT_ID']))  {
+				 	$PT_icon = icon_geopath_small($cache_record['PT_ID'],$cache_record['PT_image'],$cache_record['PT_name'],$cache_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
+				 	$thisline = mb_ereg_replace('{GPicon}',$PT_icon, $thisline);
+				 } else {
+				 	$thisline = mb_ereg_replace('{GPicon}','<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />', $thisline);
+				 };           
+            
+            
             $thisline = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $thisline);
             $thisline = mb_ereg_replace('{userid}', $cache_record['userid'], $thisline);
             $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'), $thisline);

@@ -17,16 +17,17 @@
 <tr>
 <td style="width: 90px;"><strong>{{date_hidden_label}}</strong></td>
 <td style="width: 22px;"><img src="images/rating-star.png" border="0" alt="Recomended" title="Recomended"/></td>
+<td>&nbsp;</td>
 <td colspan="2"><strong>Geocache</strong></td>
 <td><strong>{{owner}}</strong>&nbsp;&nbsp;&nbsp;</td>
 <td colspan="3"><strong>{{latest_logs}}</strong></td>
 </tr>
 <tr>
-<td colspan="8"><hr></hr></td>
+<td colspan="9"><hr></hr></td>
 </tr>
         {file_content}
 <tr>
-<td colspan="8"><hr></hr></td>
+<td colspan="9"><hr></hr></td>
 </tr>
 </table>
 </div>

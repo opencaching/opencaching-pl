@@ -101,8 +101,14 @@ if ($error == false) { //get the news
             `caches`.`difficulty` `difficulty`,
             `caches`.`terrain` `terrain`,
             `caches`.`type` `cache_type`,
-            `cache_type`.`icon_large` `icon_large`
-    FROM local_caches'.$user_id.' `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`), `cache_type`
+            `cache_type`.`icon_large` `icon_large`,
+            `PowerTrail`.`id` AS PT_ID,
+			`PowerTrail`.`name` AS PT_name,
+			`PowerTrail`.`type` As PT_type,
+			`PowerTrail`.`image` AS PT_image  
+    FROM local_caches'.$user_id.' `caches` INNER JOIN `user` ON (`caches`.`user_id`=`user`.`user_id`)
+            LEFT JOIN `powerTrail_caches` ON `caches`.`cache_id` = `powerTrail_caches`.`cacheId`
+     		LEFT JOIN `PowerTrail` ON (`PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1), `cache_type`
     WHERE `caches`.`type`!=6
           AND `caches`.`status`=1
           AND `caches`.`type`=`cache_type`.`id`
@@ -111,12 +117,24 @@ if ($error == false) { //get the news
                     LIMIT ' . ($startat+0) . ', ' . ($perpage+0));
 
     $tr_myn_click_to_view_cache=tr('myn_click_to_view_cache');
+   //powertrail vel geopath variables
+	$pt_cache_intro_tr = tr('pt_cache');
+	$pt_icon_title_tr =  tr('pt139'); 
+		
     while ($r = sql_fetch_array($rs)) {
         $file_content .= '<tr>';
         $file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';
         $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
 
         //$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
+// PowerTrail vel GeoPath icon
+	 		if (isset($r['PT_ID']))  {
+				 $PT_icon = icon_geopath_small($r['PT_ID'],$r['PT_image'],$r['PT_name'],$r['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
+			} else {
+				 $PT_icon = '<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />';
+			};
+			$file_content .= '<td width="22">'.$PT_icon.'</td>';            
+        
         $file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td>';
         $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
         $file_content .= '<td width="32"><b><a class="links" href="viewprofile.php?userid='.htmlspecialchars($r['userid'], ENT_COMPAT, 'UTF-8') . '">' .htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'). '</a></b></td>';
