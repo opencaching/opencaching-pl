@@ -21,7 +21,6 @@
     // ob_start();
     echo '<b>start</b><br>';
     $db = new dataBase();
-    $db->switchPersistentConnection(true);
     $db->simpleQuery("drop table if exists transaction_test;");
     $db->simpleQuery("
         create table transaction_test (

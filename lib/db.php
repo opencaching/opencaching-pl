@@ -22,13 +22,12 @@ class dataBase
      */
     private $debug;
 
-    private $persistent_connection = false;
     private $dbh = null;
 
-    private $was_persistent_connection = false;
     private $rollback_transaction = false;
     private $in_transaction_count = 0;
-
+    private $transaction_success_count = 0;
+    
     /**
      * database link setup
      * @var string
@@ -97,32 +96,6 @@ class dataBase
     //JG 2013-12-14
     public function switchDebug( $debug ) {
         $this->debug = $debug;
-    }
-
-    /**
-     * Enables or disables persistent database connections.
-     * In persistent mode, each query issued against this dataBase object
-     * uses the same database connection. To release the connection,
-     * simply drop the object, or set persistentConnection to false.
-     *
-     * In non persistent mode, each query establishes new, fresh connection
-     * to the database backend.
-     *
-     * In persistentConnection mode, remember to closeCursor() when
-     * it's no longer needed.
-     *
-     * WARNING!
-     * This is still experimental functionality. It may not work as expected,
-     * especially in complicated query scenarios!
-     */
-    public function switchPersistentConnection($persistent_connection) {
-        if ($in_transaction_count > 0){
-            throw new Exception('Can not change PersistentConnection flag while in transaction');
-        }
-        $this->persistent_connection = $persistent_connection;
-        if (!$persistent_connection){
-            $this->dbh = null;
-        }
     }
 
     /**
@@ -501,16 +474,12 @@ class dataBase
             if ($this->debug) {
                 self::debugOut('Starting new transaction<br>');
             }
-            $this->was_persistent_connection = persistent_connection;
-            $this->switchPersistentConnection(true);
 
             $this->in_transaction_count = 1;
             $this->transaction_success_count = 0;
             $this->rollback_transaction = false;
 
-            $dbh = $this->setupPDO();
-            //$dbh->setAttribute(PDO::ATTR_AUTOCOMMIT, false);
-            $dbh->beginTransaction();
+            $this->dbh->beginTransaction();
 
         } else {
             $this->in_transaction_count++;
@@ -569,20 +538,16 @@ class dataBase
                 }
             }
             if ($this->rollback_transaction){
-                $this->pdo->rollBack();
+                $this->dbh->rollBack();
             } else {
-                $this->pdo->commit();
+                $this->dbh->commit();
             }
-            //$this->pdo->setAttribute(PDO::ATTR_AUTOCOMMIT, true);
-            $this->switchPersistentConnection($this->was_persistent_connection);
         }
     }
 
     /**
      * Closes current cursor. Some methods, which drain cursor (like dbResultFetchAll())
      * or expect only one row (like *QueryValue()) close cursor implicitly.
-     *
-     * Remember to close cursor if you are using this class in persistentConnection mode.
      */
     public function closeCursor()
     {
