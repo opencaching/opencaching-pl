@@ -2,7 +2,7 @@ tinyMCE.init({
     mode : "textareas",
     theme : "advanced",
 
-    plugins : "advhr,contextmenu,emotions,insertdatetime,paste,table,inlinepopups,autosave",
+    plugins : "advhr,emotions,insertdatetime,paste,table,inlinepopups,autosave",
 
     theme_advanced_buttons1 : "cut,copy,paste,pasteword,pastetext,removeformat,separator,undo,redo,separator,link,unlink,separator,fontselect,fontsizeselect",
     theme_advanced_buttons2 : "bold,italic,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,insertdate,inserttime,separator,forecolor,backcolor,charmap,emotions",

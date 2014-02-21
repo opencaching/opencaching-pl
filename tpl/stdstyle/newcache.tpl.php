@@ -41,7 +41,7 @@ tinymce.init({
      plugins: [
         "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-        "table contextmenu directionality emoticons template textcolor paste textcolor"
+        "table directionality emoticons template textcolor paste textcolor"
      ],
  });
 </script>

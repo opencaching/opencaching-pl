@@ -2,7 +2,7 @@ tinyMCE.init({
     mode : "none",
     theme : "advanced",
 
-    plugins : "advhr,contextmenu,emotions,insertdatetime,paste,table,fullscreen,inlinepopups,autosave",
+    plugins : "advhr,emotions,insertdatetime,paste,table,fullscreen,inlinepopups,autosave",
 
     dialog_type : "modal",
 
