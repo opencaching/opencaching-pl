@@ -14,7 +14,6 @@ class ClearFakeVotes
     function run()
     {
         $db = new dataBase();
-        $db->switchPersistentConnection(true);
         $db->switchDebug(false);
 
         $sql = "SELECT cache_id FROM caches";

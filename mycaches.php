@@ -220,7 +220,6 @@ if ($error == false)
 
         if (!isset($dbc)) {
             $dbc = new dataBase();
-            $dbc->switchPersistentConnection(true);
         };
         $dbc->paramQuery($caches_query,$params);
         unset($params);
