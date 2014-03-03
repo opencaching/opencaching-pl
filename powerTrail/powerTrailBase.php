@@ -25,12 +25,15 @@ class powerTrailBase{
     public static function historicMinimumCacheCount(){
         include __DIR__.'/../lib/settings.inc.php';
         $min = $powerTrailMinimumCacheCount['current'];
-        foreach ($powerTrailMinimumCacheCount['old'] as $date){
+        foreach ($powerTrailMinimumCacheCount['old'] as $date) {
             //var_dump($date['dateFrom'], $ptPublished, $date['dateTo']);
-            if ($min > $date['limit']) $min = $date['limit'];
+            if ($min > $date['limit']) {
+                $min = $date['limit'];
+            }
         }
         return $min;
     }
+
     public static function userMinimumCacheFoundToSetNewPowerTrail(){
         include __DIR__.'/../lib/settings.inc.php';
         return $powerTrailUserMinimumCacheFoundToSetNewPowerTrail;
@@ -101,8 +104,6 @@ class powerTrailBase{
             ),
         );
     }
-
-
 
     private static function getConstName($constValue) {
         $cClass = new ReflectionClass (__CLASS__);
@@ -308,7 +309,7 @@ class powerTrailBase{
     }
 
     public static function getPtOwners($ptId) {
-        $query = 'SELECT user_id, username, email FROM `user` WHERE user_id IN (SELECT `userId` FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 ) ';
+        $query = 'SELECT user_id, username, email, power_trail_email FROM `user` WHERE user_id IN (SELECT `userId` FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 ) ';
         $db = new dataBase;
         $db->multiVariableQuery($query, $ptId);
         return $db->dbResultFetchAll();

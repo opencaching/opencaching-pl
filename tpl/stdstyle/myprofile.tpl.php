@@ -9,9 +9,6 @@
     ***************************************************************************/
 
 /****************************************************************************
-
-   Unicode Reminder ??
-
      the users profile page
 
      template replacement(s):
@@ -26,7 +23,7 @@
  ****************************************************************************/
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{my_account}}" title="{{my_account}}" />&nbsp;{{my_account}}</div>
-<div class=searchdiv>
+<div class="searchdiv">
 <div class="notice" style="height:44px;">
 {{myprofile01}}
 </div>

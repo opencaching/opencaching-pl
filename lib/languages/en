@@ -258,7 +258,6 @@ html_statpic_link HTML code for your statpic
 bbcode_statpic BBCode for your statpic
 pmr_message I'm using PMR-radio on channel 2
 no_auto_logout No auto logout after 15 minutes of inactivity.
-hide_html_editor Do not use the HTML editor.
 notify_new_caches_radius Notification about new caches within
 no_new_caches_notification Notification about new caches is turned off.
 change_account_data Change your profile data
@@ -1930,6 +1929,7 @@ pt231 time
 pt232 include miniGeoPaths
 pt233 exclude miniGeoPaths
 pt234 Completing the GeoPath is not possible (required number of caches is higher then number of active caches that belongs to the GeoPath - the GeoPath owners should reset the minimum required number or reactivate/archive inactive cashes).
+pt235 I want receive geoPaths notification emails ń
 statpic_found Found:
 statpic_hidden Hidden:
 statpic_html_link - Statistics for
@@ -2218,5 +2218,5 @@ BarChart Bar
 positions positions
 more10 Was selected more than 30
 more30 Was selected more than 30
-pt_cache The cache belongs to GeoPath: 
+pt_cache The cache belongs to GeoPath:
 Help Help

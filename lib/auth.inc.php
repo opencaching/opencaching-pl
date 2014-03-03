@@ -62,16 +62,18 @@
         global $usr, $login;
         $login->verify();
 
-        if ($login->userid != 0)
-        {
-            //set up $usr array
-            $usr['userid'] = $login->userid;
-            $usr['email'] = sqlValue("SELECT `email` FROM `user` WHERE `user_id`='" . sql_escape($login->userid) .  "'", '');
+        if ($login->userid != 0) {   //set up $usr array
+            $userRow = getUserRow($login->userid);
             $usr['username'] = $login->username;
-            $usr['userFounds'] = getuserFounds($login->userid);
-        }
-        else
+            $usr['hiddenCacheCount'] = $userRow['hidden_count'];
+            $usr['logNotesCount'] = $userRow['log_notes_count'];
+            $usr['userFounds'] = $userRow['founds_count'];
+            $usr['notFoundsCount'] = $userRow['notfounds_count'];
+            $usr['userid'] = $login->userid;
+            $usr['email'] = $userRow['email'];
+        } else{
             $usr = false;
+        }
 
         return;
     }
@@ -126,14 +128,9 @@
         }
     }
 
-    function getuserFounds($userId) {
-        $rs = sql("SELECT `founds_count` FROM `user` WHERE `user_id`='&1'", $userId);
-        if (mysql_num_rows($rs) > 0) {
-            $record = sql_fetch_array($rs);
-            return $record['founds_count'];
-        }
-        else {
-            return false;
-        }
+    function getUserRow($userId) {
+        require_once __DIR__.'/db.php';
+        $db = new dataBase();
+        $db->multiVariableQuery('SELECT * FROM `user` WHERE `user_id`=:1', $userId);
+        return $db->dbResultFetchOneRowOnly();
     }
-?>

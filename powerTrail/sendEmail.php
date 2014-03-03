@@ -68,14 +68,18 @@ class sendEmail
         $doNotSendEmailToCommentAuthor = false;
         foreach ($owners as $owner) {
             $to = $owner['email'];
-            mb_send_mail($to, $subject, $mailbody, $headers);
+            if($owner['power_trail_email'] == 1){
+                mb_send_mail($to, $subject, $mailbody, $headers);
+            }
             if ($commentOwnerId && $commentOwnerId == $owner["user_id"]) {
                 $doNotSendEmailToCommentAuthor = true;
             }
         }
         if ($commentOwnerId && !$doNotSendEmailToCommentAuthor) {
             $userDetails = powerTrailBase::getUserDetails($commentOwnerId);
-            mb_send_mail($userDetails['email'], $subject, $mailbody, $headers);
+            if($userDetails['power_trail_email']) {
+                mb_send_mail($userDetails['email'], $subject, $mailbody, $headers);
+            }
         }
         //for debug only
         //mb_send_mail('lza@tlen.pl', $subject, $mailbody, $headers);

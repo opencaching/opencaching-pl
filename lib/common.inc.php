@@ -1520,6 +1520,15 @@ spl_autoload_register(function ($className) {
  */
 class common
 {
+
+    /* (not used yet - for future use)
+    private $powerTrailModuleSwitchOn = false;
+    public function __construct() {
+        include_once __DIR__.'/settings.inc.php';
+        $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
+    }
+    */
+
     public static function cleanupText($str)
     {
         $str = strip_tags($str, "<li>");
@@ -1555,6 +1564,8 @@ class common
     private static function filterevilchars($str) {
         return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
     }
+
+
 }
 
 ?>

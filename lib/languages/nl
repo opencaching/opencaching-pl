@@ -258,7 +258,6 @@ html_statpic_link HTML code voor je statpic
 bbcode_statpic BBCode voor je statpic
 pmr_message Ik gebruik PMR-radio op kanaal 2
 no_auto_logout Niet automatisch uitloggen na 15 minuten inactivieteit.
-hide_html_editor Gebruik niet de HTML editor.
 notify_new_caches_radius Notificatie van nieuwe caches binnen
 no_new_caches_notification Notificatiie van nieuwe caches is uitgeschakeld.
 change_account_data Verander je profiel gegevens
@@ -1929,6 +1928,7 @@ pt231 Tijd
 pt232 Toon ook kleine PowerTrails
 pt233 Toon geen kleine PowerTrails
 
+
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
@@ -2205,7 +2205,7 @@ logbook_17 Geen randen
 logbook_18 Handig wanneer er problemen zijn bij dubbelzijdige afdrukken, knippen op oneven pagina&#39;s
 logbook_19 Nicknaam
 logbook_20 E-mail
-logbook_21 Wordt gebruikt om de velden vooraf in te vullen 
+logbook_21 Wordt gebruikt om de velden vooraf in te vullen
 logbook_22 Voorbeeld
 logbook_23 Genereer PDF
 

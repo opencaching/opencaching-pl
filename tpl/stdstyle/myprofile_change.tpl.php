@@ -1,5 +1,4 @@
 <?php
-
 /***************************************************************************
     *
     *   This program is free software; you can redistribute it and/or modify
@@ -8,13 +7,6 @@
     *   (at your option) any later version.
     *
     ***************************************************************************/
-
-/****************************************************************************
-
-   Unicode Reminder ??
-
-
- ****************************************************************************/
 ?>
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="{{change_account_data}}" title="{{change_account_data}}" align="middle" />&nbsp;{{change_account_data}}</div>
 <div class="searchdiv">
@@ -44,14 +36,13 @@
         <td class="txt-grey07">{email}</td>
     </tr>
     <tr>
-        <td class"content-title-noshade txt-grey07"><img src="tpl/stdstyle/images/description/22x22-geokret.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{GKApi02}}:</font></td>
+        <td class="content-title-noshade txt-grey07"><img src="tpl/stdstyle/images/description/22x22-geokret.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{GKApi02}}:</font></td>
         <td class="txt-grey07"><input type="text" name="GeoKretyApiSecid" maxlength="150" value="{GeoKretyApiSecid}" class="input200"/> <span style="color: red; font-weight:bold; font-size: 12;">{secid_message}</span></td>
-
     </tr>
     <tr>
     <td>&nbsp;</td>
     <td>
-    <div class="notice" style="width:500px;height:44px;">{{GKApi03}} <a href="http://geokrety.org/mypage.php" "target=_new">{{GKApi04}}</a></div>
+    <div class="notice" style="width:500px;height:44px;">{{GKApi03}} <a href="http://geokrety.org/mypage.php" target="_new">{{GKApi04}}</a></div>
     </td></tr>
 
     <tr><td class="buffer" colspan="2"></td></tr>
@@ -92,8 +83,8 @@
             {lat_message}
             <br/>&nbsp;&nbsp;&nbsp;
             <select name="lonEW" class="input40">
-                <option value="E"{lonEsel}>E</option>
-                <option value="W"{lonWsel}>W</option>
+                <option value="E" {lonEsel}>E</option>
+                <option value="W" {lonWsel}>W</option>
             </select>
             &nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
             °&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
@@ -134,18 +125,21 @@
     <tr>
         <td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/brick.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{other}}:</td>
         <td class="txt-grey07" valign="top">
-            <input type="checkbox" name="using_permanent_login" value="1"{permanent_login_sel} id="l_using_permanent_login" class="checkbox" />
+            <input type="checkbox" name="using_permanent_login" value="1" {permanent_login_sel} id="l_using_permanent_login" class="checkbox" />
             <label for="l_using_permanent_login">{{no_auto_logout}}</label><br/>
             <div class="notice" style="width:500px;height:44px;">{{no_auto_logout_warning}}</div>
         </td>
     </tr>
-    <tr>
-        <td valign="top">&nbsp;</td>
+
+    <tr style="display: {displayGeoPathSection}">
+        <td valign="top"></td>
         <td valign="top">
-            <span class="txt-grey07"><input type="checkbox" name="no_htmledit" value="1"{no_htmledit_sel} id="l_no_htmledit" class="checkbox" /> <label for="l_no_htmledit">{{hide_html_editor}}</label></span><br/>
-            <input type="checkbox" name="using_pmr" value="1"{pmr_sel} id="l_using_pmr" class="checkbox" /> <label for="l_using_pmr">{{pmr_message}}</label>
+            <span class="txt-grey07">
+                <input type="checkbox" name="geoPathsEmail" id="geoPathsEmail" value="1" {geoPathsEmailCheckboxChecked} class="checkbox" /> <label for="geoPathsEmail">{{pt235}}</label>
+            </span>
         </td>
     </tr>
+ 
     <tr><td class="buffer" colspan="2"></td></tr>
     <tr>
         <td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/plugin.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{ozi_path_label}}:</td>

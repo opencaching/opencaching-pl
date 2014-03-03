@@ -64,7 +64,7 @@ snake Uwaga węże!
 generate_code Wygeneruj kod
 9keycom System dodatkowych atrybutów na podstawie serwisu http://www.9key.com/selector.asp
 score Ocena
-scored oceniona
+scored ocenionaóó
 recommendations rekomendacje
 recommendation rekomendacja
 created_by Założona przez
@@ -258,7 +258,6 @@ html_statpic_link Kod HTML do obrazka statystyki
 bbcode_statpic BBCode do obrazka statystyki
 pmr_message Używam PMR-radio na kanale 2
 no_auto_logout Brak automatycznego wylogowania po 15 minutach nieaktywności.
-hide_html_editor Nie używaj edytora HTML.
 notify_new_caches_radius Powiadamianie o nowych skrzynkach w promieniu
 no_new_caches_notification Powiadamianie o nowych skrzynkach jest wyłączone.
 change_account_data Zmiana danych mojego konta
@@ -1930,6 +1929,7 @@ pt231 czas
 pt232 pokaż również miniGeoŚcieżki
 pt233 ukryj miniGeoŚcieżki
 pt234 zdobycie geoŚcieżki jest niemożliwe. (wymagana ilość skrzynek jest większa niż liczba aktywnych skrzynek geoŚcieżki - Właściele geoŚcieżki powinni ustawić inną liczbę wymaganych skrzynek lub reaktywować/zarchiwizować nieaktywne skrzynki).
+pt235 Chcę otrzymywać emaile powiadamiające dotyczące geoŚcieżek
 statpic_found Znalazł:
 statpic_hidden Ukrył:
 statpic_html_link - Statystyka dla
@@ -2218,5 +2218,5 @@ BarChart Słupkowy
 positions pozycji
 more10 Wybrano więcej niż 10
 more30 Wybrano więcej niż 30
-pt_cache Skrzynka należy do GeoŚcieżki: 
+pt_cache Skrzynka należy do GeoŚcieżki:
 Help Pomoc

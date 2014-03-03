@@ -211,14 +211,10 @@ else if ($verify_all==1) {
                 tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
 
                 // descMode auslesen, falls nicht gesetzt aus dem Profil laden
-                if (isset($_POST['descMode']))
-                    $descMode = $_POST['descMode']+0;
-                else
-                {
-                    if (sqlValue("SELECT `no_htmledit_flag` FROM `user` WHERE `user_id`='" .  sql_escape($usr['userid']) . "'", 1) == 1)
-                        $descMode = 1;
-                    else
-                        $descMode = 3;
+                if (isset($_POST['descMode'])) {
+                    $descMode = (int) $_POST['descMode'];
+                } else {
+                    $descMode = 3;
                 }
                 if (($descMode < 1) || ($descMode > 3)) $descMode = 3;
 

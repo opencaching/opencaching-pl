@@ -27,7 +27,7 @@ class dataBase
     private $rollback_transaction = false;
     private $in_transaction_count = 0;
     private $transaction_success_count = 0;
-    
+
     /**
      * database link setup
      * @var string
@@ -105,6 +105,15 @@ class dataBase
      */
     public function dbResultFetch() {
         return $this->dbData->fetch();
+    }
+
+    /**
+     * for queries witch LIMIT 1 return only one row and reset database class preparing it for next job.
+     */
+    public function dbResultFetchOneRowOnly(){
+        $result = $this->dbData->fetch();
+        $this->reset();
+        return $result;
     }
 
     /**
@@ -379,14 +388,17 @@ class dataBase
      * @return
      */
     public function paramQueryValue($query, $default, $params) {
-        if (!is_array($params)) return false;
+        if (!is_array($params)) {
+            return false;
+        }
         $this->paramQuery($query, $params);
         $r = $this->dbResultFetch();
         $this->closeCursor();
         if ($r){
             $value = reset($r);
-            if ($value == null)
+            if ($value == null) {
                 return $default;
+            }
             else
                 return $value;
         } else {
@@ -597,7 +609,6 @@ class dataBase
         @touch($lockFile);
         return false;
     }
-
     private function errorMessage( $line, $e, $query, $params ) {
         $message = 'db.php, line: ' . $line .', <p class="errormsg"> PDO error: ' . $e .'</p><br />
                     Database Query: '.$query.'<br>
@@ -607,6 +618,8 @@ class dataBase
 
         return $message;
     }
+
+
 
     /**
      * simple select data from db
