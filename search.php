@@ -40,6 +40,12 @@
         sqldbg_begin();
     }
 
+    if ($usr == false) {
+        $target = urlencode(tpl_get_current_page());
+        tpl_redirect('login.php?target='.$target);
+        exit;
+    }
+
     //Preprocessing
     if ($error == false) {
 
@@ -56,7 +62,7 @@
         if (isset($_REQUEST['queryid']) || isset($_REQUEST['showresult']))
         {
             $bCookieQueryid = false;
-            $queryid = isset($_REQUEST['queryid']) ? $_REQUEST['queryid'] : 0;
+            $queryid = isset($_REQUEST['queryid']) ? addslashes($_REQUEST['queryid']) : 0;
         }
         else
         {
