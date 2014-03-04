@@ -11,6 +11,10 @@ RewriteRule ^ocplgpx(\d+)\.(gpx)$ search.php?queryid=$1&output=gpxgc&%{QUERY_STR
 RewriteRule ^/wiki(.*)$ http://wiki.opencaching.pl$1 [R,L]
 RewriteRule ^/statpics/([0-9]+)\.jpg$ ocstats.php?userid=$1 [R,L]
 
-RewriteRule ^(OP[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [L]
+RewriteCond %{HTTP_HOST} \.nl$ [NC]
+RewriteRule ^(OB[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} \.pl$ [NC]
+RewriteRule ^(OP[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=301,L] 
 
 FileETag None
