@@ -867,8 +867,8 @@ this_month in de laatste 30 dagen
 more_one_month tussen 1 en 6 maanden geleden
 more_six_month tussen 6 en 12 maanden geleden
 more_12_month meer dan 12 maanden geleden
-unknown unknown
-user_not_active user account is not active
+unknown onbekend
+user_not_active Gebruikers account is niet actief
 distance_to_cache Afstand naar cache
 cacheguides Caching hulp met vrijwilligers
 guide Cache hulp
@@ -1927,8 +1927,8 @@ pt230 Datum
 pt231 Tijd
 pt232 Toon ook kleine PowerTrails
 pt233 Toon geen kleine PowerTrails
-
-
+pt234 Het is niet mogelijk om dezePowerTrail te voltooien (het vereistde te vinden caches is hoger dan het aantal actieve caches, de PowerTrail eigenaar(s) dienen dit na te kijken).
+pt235 Gebruiker zal PowerTail notificaties ontvangen
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
