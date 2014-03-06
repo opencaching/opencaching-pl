@@ -14,7 +14,7 @@
    Unicode Reminder  ąść
 
 ****************************************************************************/
-global $lang, $rootpath, $usr;
+global $lang, $rootpath, $usr, $dateFormat;
 
 if (!isset($rootpath)) $rootpath = '';
 
@@ -352,7 +352,7 @@ if ($error == false) {
                 $cacheicon = myninc::checkCacheStatusByUser($record, $user_id);
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',                 $i,                                                                                 $thisline);
-                $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
+                $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date($dateFormat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',            urlencode($record['cache_id']),                                                     $thisline);
                 $thisline = mb_ereg_replace('{cache_count}',        $i,                                                                                 $thisline);
                 $thisline = mb_ereg_replace('{cachename}',          htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'),                             $thisline);
@@ -421,7 +421,7 @@ if ($error == false) {
                 $cacheicon = myninc::checkCacheStatusByUser($record, $user_id);             // $cacheicon =is_event_attended($record['cache_id'], $user_id) ? $cacheTypesIcons[6]['iconSet'][1]['iconSmallFound'] : $cacheTypesIcons[6]['iconSet'][1]['iconSmallFound'] ;
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',          $i + $markerpositions['plain_cache_num'],                                                           $thisline);
-                $thisline = mb_ereg_replace('{date}',        htmlspecialchars(date("Y-m-d", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'),            $thisline);
+                $thisline = mb_ereg_replace('{date}',        htmlspecialchars(date($dateFormat, strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'),            $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',     urlencode($record['cache_id']),                                                                     $thisline);
                 $thisline = mb_ereg_replace('{cachename}',   htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'),                                             $thisline);
                 $thisline = mb_ereg_replace('{userid}',      urlencode($record['user_id']),                                                                      $thisline);
@@ -489,7 +489,7 @@ if ($error == false) {
                 $cacheicon = myninc::checkCacheStatusByUser($record, $user_id);
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',             $i + $markerpositions['plain_cache_num2'],                                                          $thisline);
-                $thisline = mb_ereg_replace('{date}',           htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),                   $thisline);
+                $thisline = mb_ereg_replace('{date}',           htmlspecialchars(date($dateFormat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),                   $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',        urlencode($record['cache_id']),                                                                     $thisline);
                 $thisline = mb_ereg_replace('{cache_count}',    $i,                                                                                                 $thisline);
                 $thisline = mb_ereg_replace('{smallmapurl}',    create_map_url($markerpositions, $i +  $markerpositions['plain_cache_num2'],$latitude,$longitude),  $thisline);
@@ -649,7 +649,7 @@ if ($error == false) {
                 // koniec ukrywania autora komentarza COG przed zwykłym userem
 
                 $thisline = mb_ereg_replace('{nn}',         $i+$marker_offset,                                                                                       $thisline);
-                $thisline = mb_ereg_replace('{date}',       htmlspecialchars(date("Y-m-d", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
+                $thisline = mb_ereg_replace('{date}',       htmlspecialchars(date($dateFormat, strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',    urlencode($log_record['cache_id']),                                                         $thisline);
                 $thisline = mb_ereg_replace('{cachename}',  htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8'),                           $thisline);
                 $thisline = mb_ereg_replace('{userid}',     urlencode($log_record['luser_id']),                                                          $thisline);
@@ -733,7 +733,7 @@ if ($error == false) {
                 $cacheicon = myninc::checkCacheStatusByUser($record, $user_id);
                 $thisline = $cacheline;
                 $thisline = mb_ereg_replace('{nn}',                 $i+$marker_offset,      $thisline);   //TODO: dynamic number
-                $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
+                $thisline = mb_ereg_replace('{date}',               htmlspecialchars(date($dateFormat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'),   $thisline);
                 $thisline = mb_ereg_replace('{cacheid}',            urlencode($record['cache_id']),                                                     $thisline);
                 $thisline = mb_ereg_replace('{cachename}',          htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'),                             $thisline);
                 $thisline = mb_ereg_replace('{userid}',             urlencode($record['user_id']),                                                      $thisline);
