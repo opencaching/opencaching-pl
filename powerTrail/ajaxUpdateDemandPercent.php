@@ -7,9 +7,10 @@ if(!isset($_SESSION['user_id'])){
 }
 require_once __DIR__.'/../lib/db.php';
 require_once __DIR__.'/powerTrailController.php';
+require_once __DIR__.'/powerTrailBase.php';
 $ptAPI = new powerTrailBase;
 
-$powerTrailId = $_REQUEST['projectId'];
+$powerTrailId = (int) $_REQUEST['projectId'];
 $newPercent = (int) $_REQUEST['newPercent'];
 if($newPercent < 0 || $newPercent > 100) {
     echo 'error';
