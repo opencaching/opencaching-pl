@@ -15,7 +15,7 @@
      include the newcaches HTML file
 
  ****************************************************************************/
-    global $lang, $rootpath, $usr;
+    global $lang, $rootpath, $usr, $dateFormat;
     //prepare the templates and include all neccessary
     require_once('./lib/common.inc.php');
     require_once('./lib/cache_icon.inc.php');
@@ -179,7 +179,7 @@ $tr_myn_click_to_view_cache=tr('myn_click_to_view_cache');
         while ($r = sql_fetch_array($rs))
         {
                 $file_content .= '<tr>';
-                $file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';
+                $file_content .= '<td style="width: 90px;">'. date($dateFormat, strtotime($r['date'])) . '</td>';
                 $file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: green;">'. $r['toprate'] . '</span></td>';
                 $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
 				
@@ -217,7 +217,7 @@ $tr_myn_click_to_view_cache=tr('myn_click_to_view_cache');
             {
             $r_log = sql_fetch_array($rs_log);
 
-                $file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("Y-m-d", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+                $file_content .= '<td style="width: 80px;">'. htmlspecialchars(date($dateFormat, strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
                 $file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
 
