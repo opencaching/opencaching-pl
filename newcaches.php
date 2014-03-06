@@ -22,7 +22,7 @@
     require_once($rootpath . 'lib/caches.inc.php');
     require_once($stylepath . '/lib/icons.inc.php');
 
-    global $usr;
+    global $usr, $dateFormat;
 
     //Preprocessing
     if ($error == false)
@@ -127,7 +127,7 @@
 //          if ($r['country']=='PL') {
             $thisline = mb_ereg_replace('{region}', htmlspecialchars($r['region'], ENT_COMPAT, 'UTF-8'), $thisline);
 //          else { $thisline = mb_ereg_replace('{region}', '', $thisline);}
-            $thisline = mb_ereg_replace('{date}', date('d-m-Y', strtotime($r['date'])), $thisline);
+            $thisline = mb_ereg_replace('{date}', date($dateFormat, strtotime($r['date'])), $thisline);
             $thisline = mb_ereg_replace('{country}', htmlspecialchars(strtolower($r['country']), ENT_COMPAT, 'UTF-8'), $thisline);
 
             $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
