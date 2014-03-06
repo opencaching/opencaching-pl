@@ -22,6 +22,18 @@
     global $dynbasepath;
     header('Content-type: text/html; charset=utf-8');
     require($rootpath . 'lib/common.inc.php');
+
+    function remove_watch($cache_id, $user_id) {
+        //remove watch
+        sql('DELETE FROM cache_watches WHERE cache_id=\'' . sql_escape($cache_id) . '\' AND user_id=\'' . sql_escape($user_id) . '\'');
+        //remove from caches
+        $rs = sql('SELECT watcher FROM caches WHERE cache_id=\'' . sql_escape($cache_id) . '\'');
+        if (mysql_num_rows($rs) > 0) {
+            $record = mysql_fetch_array($rs);
+            sql('UPDATE caches SET watcher=\'' . ($record['watcher'] - 1) . '\' WHERE cache_id=\'' . sql_escape($cache_id) . '\'');
+        }
+    }
+
     if( $usr['admin'] )
     {
 
@@ -73,6 +85,15 @@
 
             // queries
             sql("DELETE FROM `queries` WHERE `user_id`=&1", $userid);
+
+            // cache_watches
+            $rs = sql('SELECT cache_id FROM cache_watches WHERE user_id = &1', $userid);
+            if (mysql_num_rows($rs) > 0) {
+                for ($i = 0; $i < mysql_num_rows($rs); $i++) {
+                    $record = sql_fetch_array($rs);
+                    remove_watch($record['cache_id'], $userid);
+                }
+            }
 
             // watches_notified
             sql("DELETE FROM `watches_notified` WHERE `user_id`=&1", $userid);
