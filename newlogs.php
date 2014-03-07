@@ -11,7 +11,7 @@
 /****************************************************************************
  new logs
  ****************************************************************************/
-
+    global $dateFormat;
 if (!isset($rootpath)) $rootpath = '';
 
 //include template handling
@@ -127,7 +127,7 @@ if ($error == false) {
         if ($bgColor == '#eeeeee') $bgColor = '#ffffff'; else $bgColor = '#eeeeee';
         $log_record = $db->dbResultFetch();
         $file_content .= '<tr bgcolor="' . $bgColor . '">';
-        $file_content .= '<td style="width: 70px;">' . htmlspecialchars(date("d-m-Y", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+        $file_content .= '<td style="width: 70px;">' . htmlspecialchars(date($dateFormat, strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
         if ($log_record['geokret_in'] != '0') {
             $file_content .= '<td width="22">&nbsp;<img src="images/gk.png" border="0" alt="" title="GeoKret" /></td>';
         } else {
