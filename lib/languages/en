@@ -1015,7 +1015,7 @@ removed_message_title The owner of geocache wrote to you the following comment
 to_do To do
 mc_beginn_00 Registering a new cache - information
 mc_beginn_01 Before you can hide caches, you must find at least  
-mc_beginn_02 caches. You can choose from different types of caches.
+mc_beginn_02 caches. You can choose from different types of caches:
 mc_beginn_03 Until now you have found this number of caches:
 mc_beginn_04 After you have done found the required minimum, your first 
 mc_beginn_05 cache hides will require approval by the oc team. After approval you will receive an email with instructions. You can edit your new cache and put it on "availible". If the oc team rejected your cache they will give you the reason so that you can correct it and ask the oc team to approve the cache again.
