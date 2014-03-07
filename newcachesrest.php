@@ -25,7 +25,7 @@
 
  ****************************************************************************/
 
-    global $lang, $rootpath;
+    global $lang, $rootpath, $dateFormat;
 
 
     //prepare the templates and include all neccessary
@@ -167,7 +167,7 @@
             $thisline = mb_ereg_replace('{userid}', $cache_record['userid'], $thisline);
             $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($cache_record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{username}', htmlspecialchars($cache_record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
-            $thisline = mb_ereg_replace('{date}', date('d-m-Y', strtotime($cache_record['date'])), $thisline);
+            $thisline = mb_ereg_replace('{date}', date($dateFormat, strtotime($cache_record['date'])), $thisline);
             $thisline = mb_ereg_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($cache_record['icon_large']), $thisline);
 //          $thisline = mb_ereg_replace('{{hidden_by}}', htmlspecialchars(tr('created_by'), ENT_COMPAT, 'UTF-8'), $thisline);
             $content .= $thisline . "\n";
