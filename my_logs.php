@@ -16,7 +16,7 @@
         new logs
 
     ****************************************************************************/
-    global $lang, $rootpath;
+    global $lang, $rootpath, $dateFormat;
 
     if (!isset($rootpath)) $rootpath = '';
 
@@ -190,7 +190,7 @@ if ($error == false)
                 if (!(($log_record['log_type'] == 12) && (!$usr['admin']))) //ten warunek ukryje logi typu "komentarz COG" przed zwykłymi userami, natomiast adminom wyświetli wszystkie logi
                 {
                 $file_content .= '<tr>';
-                $file_content .= '<td style="width: 70px;">'. htmlspecialchars(date("Y-m-d", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+                $file_content .= '<td style="width: 70px;">'. htmlspecialchars(date($dateFormat, strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
             if ( $log_record['geokret_in'] !='0')
                     {
