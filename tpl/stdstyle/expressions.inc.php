@@ -31,9 +31,9 @@
     //common vars
     $datetimeformat = '%Y-%m-%d %H:%M:%S';
     $dateformat = '%Y-%m-%d';
-    $reset = 'Wyczyść';
-    $yes = 'Tak';
-    $no = 'Nie';
+    $reset = tr('reset');
+    $yes = tr('yes');
+    $no = tr('No');
 
     //common errors
     $error_pagenotexist = 'Taka strona nie istnieje!';
