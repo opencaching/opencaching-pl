@@ -1021,22 +1021,22 @@ mc_beginn_04 After you have done found the required minimum, your first
 mc_beginn_05 cache hides will require approval by the oc team. After approval you will receive an email with instructions. You can then edit your new cache and "activate" it. If the oc team rejected your cache they will give you the reason so that you can correct it and ask the oc team to approve the cache again.
 latest_blog Recent blog entries
 geocache Geocache
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+adopt_00 Cache adoption
+adopt_01 Here you can offer your caches for adoption. Choose one from the list:
+adopt_02 Cachename
+adopt_03 Cachedate
+adopt_04 This cache is offerd for adoption:
+adopt_05 Enter the username who adopt the cache. Once the user confirms, the procedure is complete.<br/>Cancel the adoption and return to <a href='chowner.php'> "Cache adoption" </a>.
+adopt_06 PS! As long as the new owner does not react this adoption remains.
+adopt_07 Enter the name of the new owner:
+adopt_08 Change onwner
+adopt_09 Cancel transfer
+adopt_10 Accept cache
+adopt_11 Below is a list of caches that can be adopted. Choose [accept] or [decline] to accept or not to accept te offered cache.
+adopt_12 accept
+adopt_13 decline
+adopt_14 cancel adoption
+adopt_15 Congratulations! You are now the owner of cache:
 format_GPX GPX type
 format_other others types
 format_pict GPX + photos
