@@ -13,7 +13,7 @@
      include the newcaches HTML file
 
  ****************************************************************************/
-global $lang, $rootpath, $usr;
+global $lang, $rootpath, $usr, $dateFormat;
 //prepare the templates and include all neccessary
 require_once('./lib/common.inc.php');
 require_once('./lib/cache_icon.inc.php');
@@ -123,7 +123,7 @@ if ($error == false) { //get the news
 		
     while ($r = sql_fetch_array($rs)) {
         $file_content .= '<tr>';
-        $file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';
+        $file_content .= '<td style="width: 90px;">'. date($dateFormat, strtotime($r['date'])) . '</td>';
         $cacheicon = myninc::checkCacheStatusByUser($r, $usr['userid']);
 
         //$file_content .= '<td width="22">&nbsp;<img src="tpl/stdstyle/images/' .getSmallCacheIcon($r['icon_large']) . '" border="0" alt=""/></td>';
