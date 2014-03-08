@@ -15,7 +15,7 @@
 
 
     ****************************************************************************/
-    global $lang, $rootpath, $usr;
+    global $lang, $rootpath, $usr, $dateFormat;
 
     if (!isset($rootpath)) $rootpath = '';
 
@@ -363,7 +363,7 @@ tpl_set_var('distance',$distance);
         $thisline = $cacheline;
         $thisline = mb_ereg_replace('{nn}', $i, $thisline);
 //      $thisline = mb_ereg_replace('{location}',join(" > ", array_slice($loc, 0, 2)), $thisline);
-        $thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
+        $thisline = mb_ereg_replace('{date}', htmlspecialchars(date($dateFormat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
         $thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
         $thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
         $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
@@ -446,7 +446,7 @@ tpl_set_var('distance',$distance);
         $thisline = $cacheline;
 //      $thisline = mb_ereg_replace('{nn}', $i, $thisline);
 //      $thisline = mb_ereg_replace('{location}',join(" > ", array_slice($loc, 0, 2)), $thisline);
-        $thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
+        $thisline = mb_ereg_replace('{date}', htmlspecialchars(date($dateFormat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
         $thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
         $thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
         $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
@@ -532,7 +532,7 @@ tpl_set_var('distance',$distance);
         $thisline = $cacheline;
 //      $thisline = mb_ereg_replace('{nn}', $i, $thisline);
 //      $thisline = mb_ereg_replace('{location}',join(" > ", array_slice($loc, 0, 2)), $thisline);
-        $thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
+        $thisline = mb_ereg_replace('{date}', htmlspecialchars(date($dateFormat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'), $thisline);
         $thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
 //      $thisline = mb_ereg_replace('{cache_count}',$i, $thisline);
         $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
@@ -597,7 +597,7 @@ tpl_set_var('distance',$distance);
 //          $thisline = mb_ereg_replace('{woj}',$loc['woj'], $thisline);
 //          $thisline = mb_ereg_replace('{miasto}',$loc['miasto'], $thisline);
 //          $thisline = mb_ereg_replace('{dziubek}',$loc['dziubek'], $thisline);
-            $thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
+            $thisline = mb_ereg_replace('{date}', htmlspecialchars(date($dateFormat, strtotime($record['date_hidden'])), ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
             $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
@@ -718,7 +718,7 @@ $rsll = sql("SELECT cache_logs.id FROM cache_logs
                                   }
                                      // koniec ukrywania autora komentarza COG przed zwykłym userem
 
-            $thisline = mb_ereg_replace('{date}', htmlspecialchars(date("Y-m-d", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'), $thisline);
+            $thisline = mb_ereg_replace('{date}', htmlspecialchars(date($dateFormat, strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{cacheid}', urlencode($log_record['cache_id']), $thisline);
             $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($log_record['cache_name'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{userid}', urlencode($log_record['user_id']), $thisline);
