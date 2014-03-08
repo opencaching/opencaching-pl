@@ -22,7 +22,7 @@
     require_once($stylepath . '/lib/icons.inc.php');
     global $content, $bUseZip, $sqldebug, $usr;
     global $default_lang, $cache_attrib_jsarray_line, $cache_attrib_img_line;
-    global $lang, $language;
+    global $lang, $language, $dateFormat;
     $database=new dataBase;
     set_time_limit(1800);
     //Preprocessing
@@ -803,7 +803,7 @@ function set_route_options($route_id, $options) {
                 tpl_set_var('points', $point);
             } else {
                 $file_content .= '<tr>';
-                $file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';
+                $file_content .= '<td style="width: 90px;">'. date($dateFormat, strtotime($r['date'])) . '</td>';
         //      $file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: blue;">'.sprintf("%01.1f",$r['distance']). '</span></td>';
                 if ($r['topratings']!=0) {
                     $file_content .= '<td style="width: 22px;"><span style="font-weight:bold;color: green;">'.$r['topratings']. '</span></td>';
@@ -835,7 +835,7 @@ function set_route_options($route_id, $options) {
 
                 if ($database_inner->rowCount() != 0) {
                     $r_log = $database_inner->dbResultFetch();
-                    $file_content .= '<td style="width: 80px;">'. htmlspecialchars(date("Y-m-d", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+                    $file_content .= '<td style="width: 80px;">'. htmlspecialchars(date($dateFormat, strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
                     $file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
                     $file_content .= '<b>'.$r_log['user_name'].'</b>:&nbsp;';
