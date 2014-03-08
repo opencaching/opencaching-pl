@@ -16,7 +16,7 @@
 
 
 ****************************************************************************/
-global $lang, $rootpath, $usr;
+global $lang, $rootpath, $usr, $dateFormat;
 
 if (!isset($rootpath)) $rootpath = '';
 
@@ -257,7 +257,7 @@ if ($error == false)
         {
             $log_record = $log_record_all[$zz];
             $tabelka = '';
-            $tabelka .= '<td style="width: 90px;">'. htmlspecialchars(date("d-m-Y", strtotime($log_record['date_hidden'])), ENT_COMPAT, 'UTF-8') . '</td>';
+            $tabelka .= '<td style="width: 90px;">'. htmlspecialchars(date($dateFormat, strtotime($log_record['date_hidden'])), ENT_COMPAT, 'UTF-8') . '</td>';
             $tabelka .= '<td ><a href="editcache.php?cacheid='. htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '"><img src="tpl/stdstyle/images/free_icons/pencil.png" alt="'.$edit_geocache_tr .'" title="'.$edit_geocache_tr.'"/></a></td>';
             $tabelka .= '<td >&nbsp;<img src="tpl/stdstyle/images/' . $log_record['cache_icon_small'] . '" border="0" alt=""/></td>';
             $tabelka .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($log_record['cache_id'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($log_record['name'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
@@ -297,7 +297,7 @@ if ($error == false)
             {
                 $logs=$log_entries_all [$yy];
                 $tabelka .= '<a class="links" href="viewlogs.php?logid=' . htmlspecialchars($logs['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
-                $tabelka .= '<b>'.$logs['user_name'].'</b>&nbsp;('.htmlspecialchars(date("d-m-Y", strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8').'):';
+                $tabelka .= '<b>'.$logs['user_name'].'</b>&nbsp;('.htmlspecialchars(date($dateFormat, strtotime($logs['log_date'])), ENT_COMPAT, 'UTF-8').'):';
 
                 if ( $logs['encrypt']==1 && $logs['cache_owner']!=$usr['userid'] && $logs['luser_id']!=$usr['userid'])
                 {
