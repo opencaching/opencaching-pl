@@ -15,7 +15,7 @@
 
 
     ****************************************************************************/
-    global $lang, $rootpath;
+    global $lang, $rootpath, $dateFormat;
 
     if (!isset($rootpath)) $rootpath = '';
 
@@ -189,7 +189,7 @@ if ($error == false)
                 $log_record = sql_fetch_array($rs);
 
                 $file_content .= '<tr>';
-                $file_content .= '<td style="width: 70px;">'. htmlspecialchars(date("Y-m-d", strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+                $file_content .= '<td style="width: 70px;">'. htmlspecialchars(date($dateFormat, strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 
             if ( $log_record['geokret_in'] !='0')
                     {
