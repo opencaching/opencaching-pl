@@ -1,4 +1,5 @@
 <?php
+global $dateFormat;
 require_once ('./lib/common.inc.php');
 db_disconnect();
 
@@ -53,7 +54,7 @@ if ($error == false) {
             $username = $record['username'];
             $y = $record['longitude'];
             $x = $record['latitude'];
-            $log_date = htmlspecialchars(date("Y-m-d", strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8');
+            $log_date = htmlspecialchars(date($dateFormat, strtotime($record['log_date'])), ENT_COMPAT, 'UTF-8');
             $cache_name = common::cleanupText($record['cache_name']);
             $point .= "addMarker(" . $x . "," . $y . ",icon" . $record['log_type'] . ",'" . $record['cache_icon_small'] . "','" . $record['wp'] . "','" . $cache_name . "','" . $record['id'] . "','" . $record['icon_small'] . "','" . $record['luser_id'] . "','" . $username . "','" . $log_date . "');\n";
         }
