@@ -15,7 +15,7 @@
      include the newcaches HTML file
 
  ****************************************************************************/
-    global $lang, $rootpath, $usr;
+    global $lang, $rootpath, $usr, $dateFormat;
     //prepare the templates and include all neccessary
     require_once('./lib/common.inc.php');
     require_once('./lib/cache_icon.inc.php');
@@ -179,7 +179,7 @@ $radius=$distance;
             if($bgColor=='#eeeeee') $bgColor='#ffffff';
             else $bgColor = '#eeeeee';
             $file_content .= '<tr bgcolor="'.$bgColor.'">';
-            $file_content .= '<td style="width: 90px;">'. date('Y-m-d', strtotime($r['date'])) . '</td>';
+            $file_content .= '<td style="width: 90px;">'. date($dateFormat, strtotime($r['date'])) . '</td>';
             $cacheicon = myninc::checkCacheStatusByUser($r, $user_id);
 
 // PowerTrail vel GeoPath icon
@@ -214,7 +214,7 @@ $radius=$distance;
             $r_log = sql_fetch_array($rs_log);
             if ($r_log){
                 $file_content .= '<td style="width: 80px;">'
-                    . htmlspecialchars(date("Y-m-d", strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
+                    . htmlspecialchars(date($dateFormat, strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
 		         // PowerTrail vel GeoPath icon
 	
 				                 
