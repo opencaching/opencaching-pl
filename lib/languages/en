@@ -1063,7 +1063,6 @@ report_12 Report has bin send. the Opencaching-team will investigate the issue a
 
 
 
-
 size_02 Micro
 size_03 Small
 size_04 Medium
@@ -1103,26 +1102,26 @@ nc17 on our OpenGeoWiki
 nc18 Regards
 nc19 Team {site_name}
 nc20 I have considered all the matters listed above and I want to proceed with the registration of the cache
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+guru_01 The map shows all volunteers who offer their help with questions about caching, provided that they have been active within the last 90 days.
+guru_02 Examples where help can be asked for:
+guru_03 Learn more about caching itself,
+guru_04 Ask help about placing and finding caches on {site_name},
+guru_05 Ask help about placing and finding caches in the field, like how to hide a cache the correct way, etc, etc.
+guru_06 Contact a volunteer in your area and make an appointment.
+guru_07 At the moment there are 
+guru_08 active volunteers
+guru_09 Number of recieved recommendations
+guru_10 In order to become an active volunteer, you must meet the following condition:
+guru_11 You must have received 20 recommendations for self placed caches.
+guru_12 This option can be set in your
+guru_13 profile
+guru_14 Thanks to everyone who want to help others to improve caching.
 guru_15 Recieved recommendations
 guru_16 Write E-mail
-
-
-
-
+guru_17 You can sign up as a volunteer for helping starting geocachers. This option can be set in your
+guru_18 profile
+guru_19 Read more on
+guru_20 Cache help
 today today
 yesterday yesterday
 days_ago days ago!
