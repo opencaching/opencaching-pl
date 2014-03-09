@@ -12,8 +12,6 @@ if ($error == false) {
         print 'sorry, only for oc-team';
         exit;
     }}
-    //var_dump($pt->getpowerTrails());
-    //exit;
     tpl_set_var("selPtDiv", 'none');
     tpl_set_var("PtDetailsDiv", 'none');
     tpl_set_var('language4js', $lang);

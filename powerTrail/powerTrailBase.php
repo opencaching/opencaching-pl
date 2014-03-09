@@ -440,7 +440,7 @@ class powerTrailBase{
         $sortOder = 'ASC';
         $sortBy = 'name';
 
-        $q = 'SELECT * FROM `PowerTrail` WHERE cacheCount >= '.self::minimumCacheCount() .' '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
+        $q = 'SELECT * FROM `PowerTrail` WHERE cacheCount >= '.self::historicMinimumCacheCount() .' '.$filter.' ORDER BY '.$sortBy.' '.$sortOder.' ';
         $db = new dataBase();
         $db->multiVariableQuery($q);
         return $db->dbResultFetchAll();
