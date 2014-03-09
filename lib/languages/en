@@ -731,7 +731,7 @@ incorrect_password_to_log Incorrect password to log
 only_for_found_it only for found it geocaches
 store Write
 here Here
-alternative_recommend Alternative you can remove recommendations
+alternative_recommend Alternative you can remove recommendations 
 comment_log Comment
 need_maintenance_log Need maintenance
 comment_octeam_log OC Team comment
@@ -806,7 +806,7 @@ list_of_latest_logs_is_empty There are no latest log entries
 list_of_caches_is_empty There are no new caches in the specified area
 online_users Online registered users
 online_users_info based on users active over the past 10 minutes
-empty_entry_notice <b>Log Etiquette:</b> Try to not submit empty log entries. Even ordinary "Thanks" will be enough!
+empty_entry_notice <b>Log Etiquette:</b> Try not to submit empty log entries. Even a ordinary "Thanks" will be enough!
 empty_entry_confirm Do you really want to post an empty log entry?
 empty_mark Don't you really want to mark this cache ?
 where_i_am Where am I
@@ -1213,7 +1213,7 @@ Statictics Statistics
 org1 organized by
 noaccess_error_01 You do not have permission to view this page.
 noaccess_error_02 Back to main page
-report_problem_notice Możesz zgłosić problem związany z skrzynką do właściciela skrzynki np <b>Uwagę do lokalizacji</b> (lub do Zespołu OC PL) wykorzystując ten formularz
+report_problem_notice If there is a problem with a cache, like <b>wrong location</b> Report the owner (or the octeam) by using this link.
 qrcode_01 QR Code label
 qrcode_02 A label generated at <a class="links" href="http://pl.wikipedia.org/wiki/QR_Code">QR Code</a> laminated, in a strin bag or as a sticker) can be used to wrire a short, 77-character long message, e.g. coordinates of next stage of multicache, logbook passowrd etc. One need a QR code scanner e.g. available in some mobile phoes to red thate code.
 qrcode_03 QR Code data
