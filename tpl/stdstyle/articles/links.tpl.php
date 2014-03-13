@@ -19,12 +19,11 @@
         </td>
         </tr>
     <tr>
-        <td style="width: 25%;">
-	<img src="/images/nl.png" class="icon32" align="middle" /> {{NL}}
-        </td>
-
         <td>
-            <a href="http://www.opencaching.nl">http://www.opencaching.nl </a>
+	<img src="/images/cs.png" class="icon32" align="middle" /> {{CZ}}
+        </td>
+        <td>
+            <a href="http://www.opencaching.cz">http://www.opencaching.cz</a>
         </td>
     </tr>
     <tr>
@@ -37,26 +36,19 @@
     </tr>
     <tr>
         <td>
-	<img src="/images/pl.png" class="icon32" align="middle" /> {{PL}}
-        </td>
-        <td>
-            <a href="http://www.opencaching.pl">http://www.opencaching.pl</a>
-        </td>
-    </tr>
-    <tr>
-        <td>
-	<img src="/images/us.png" class="icon32" align="middle" /> {{US}}
-        </td>
-        <td>
-            <a href="http://www.opencaching.us">http://www.opencaching.us</a>
-        </td>
-    </tr>
-    <tr>
-        <td>
 	<img src="/images/en.png" class="icon32" align="middle" /> {{GB}}
         </td>
         <td>
             <a href="http://www.opencaching.org.uk">http://www.opencaching.org.uk</a>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 25%;">
+	<img src="/images/nl.png" class="icon32" align="middle" /> {{NL}}
+        </td>
+
+        <td>
+            <a href="http://www.opencaching.nl">http://www.opencaching.nl </a>
         </td>
     </tr>
     <tr>
@@ -69,10 +61,26 @@
     </tr>
     <tr>
         <td>
-	<img src="/images/cs.png" class="icon32" align="middle" /> {{CZ}}
+	<img src="/images/pl.png" class="icon32" align="middle" /> {{PL}}
         </td>
         <td>
-            <a href="http://www.opencaching.cz">http://www.opencaching.cz</a>
+            <a href="http://www.opencaching.pl">http://www.opencaching.pl</a>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 25%;">
+	<img src="/images/sv.png" class="icon32" align="middle" /> {{SE}}
+        </td>
+        <td>
+            <a href="http://www.opencaching.se">http://www.opencaching.se </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+	<img src="/images/us.png" class="icon32" align="middle" /> {{US}}
+        </td>
+        <td>
+            <a href="http://www.opencaching.us">http://www.opencaching.us</a>
         </td>
     </tr>
     <tr>
