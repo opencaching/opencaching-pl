@@ -4,15 +4,15 @@
     </colgroup>
     <tr><td width="600" class="content2-pagetitle">
     <img src="tpl/stdstyle/images/blue/world.png" class="icon32" alt="ABC" title="ABC" align="middle" />
-    <font size="4">  <b>Linki do różnych stron związanych z Geocaching</b></font></td></tr>
+    <font size="4">  <b>{{links_01}}</b></font></td></tr>
     <tr><td class="spacer"></td></tr></table>
 <div class="searchdiv">
 <h2>Geocaching</h2>
 
 <table style="font-size: 125%;">
     <tbody><tr>
-        <td style="width: 25%;">
-            <b>Opencaching Network:</b>
+        <td style="width: 51%;">
+            <b>Opencaching Network Sites:</b>
         </td>
             <td>
             <a href="http://www.opencaching.eu">http://www.opencaching.eu</a>
@@ -21,12 +21,68 @@
 
     <tr>
         <td style="width: 25%;">
-            Inne serwisy Geocaching'owe:
+            {{NL}}
         </td>
-        <td>
 
+        <td>
+            <a href="http://www.opencaching.nl">http://www.opencaching.nl </a>
         </td>
     </tr>
+    <tr>
+        <td>
+            {{DE}}
+        </td>
+        <td>
+            <a href="http://www.opencaching.de">http://www.opencaching.de</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{PL}}
+        </td>
+        <td>
+            <a href="http://www.opencaching.pl">http://www.opencaching.pl</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{US}}
+        </td>
+        <td>
+            <a href="http://www.opencaching.us">http://www.opencaching.us</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{GB}}
+        </td>
+        <td>
+            <a href="http://www.opencaching.org.uk">http://www.opencaching.org.uk</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{NO}}
+        </td>
+        <td>
+            <a href="http://www.opencaching.no">http://www.opencaching.no</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{CZ}}
+        </td>
+        <td>
+            <a href="http://www.opencaching.cz">http://www.opencaching.cz</a>
+        </td>
+    </tr>
+    <tr>
+<table style="font-size: 125%;">
+    <tbody><tr>
+        <td style="width: 50%;">
+            <b>Inne serwisy Geocaching'owe:</b>
+        </td>
+        </tr>
 
     <tr>
         <td style="width: 25%;">
@@ -39,7 +95,7 @@
     </tr>
     <tr>
         <td>
-            Węgry
+            {{HU}}
         </td>
         <td>
             <a href="http://www.geocaching.hu/">http://www.geocaching.hu</a>
@@ -47,7 +103,7 @@
     </tr>
     <tr>
         <td>
-            Estonia
+            {{EE}}
         </td>
         <td>
             <a href="http://www.geopeitus.ee/english.html">http://www.geopeitus.ee</a>
@@ -55,7 +111,7 @@
     </tr>
     <tr>
         <td>
-            Turcja
+            {{TR}}
         </td>
         <td>
             <a href="http://geocachingturkey.com/">http://geocachingturkey.com</a>
@@ -63,7 +119,7 @@
     </tr>
     <tr>
         <td>
-            Rosja
+            {{SU}}
         </td>
         <td>
             <a href="http://www.geocaching.su/">http://www.geocaching.su</a>
@@ -118,7 +174,7 @@
 
 <table style="font-size: 125%;">
     <tbody><tr>
-        <td style="width: 25%;">
+        <td style="width: 48%;">
             Bazy danych letterboxing:
         </td>
         </tr>
@@ -158,7 +214,7 @@
     <tbody>
 
     <tr>
-        <td style="width: 25%;">
+        <td style="width: 51%;">
         </td>
 
         <td>
