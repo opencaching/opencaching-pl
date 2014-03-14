@@ -17,6 +17,7 @@
 
     ****************************************************************************/
     //prepare the templates and include all neccessary
+    global $dateFormat
     $rootpath = '../';
     require_once($rootpath . 'lib/common.inc.php');
 
@@ -91,7 +92,7 @@ header('Content-type: application/xml; charset="utf-8"');
             $thisline = str_replace('{cacheid}', $r['cache_id'], $thisline);;
             $thisline = str_replace('{cachename}', htmlspecialchars($r['cache_name']), $thisline);
             $thisline = str_replace('{logtype}', htmlspecialchars($r['log_name']), $thisline);
-            $thisline = str_replace('{date}', date('d-m-Y', strtotime($r['log_date'])), $thisline);
+            $thisline = str_replace('{date}', date($dateFormat, strtotime($r['log_date'])), $thisline);
             $content .= $thisline . "\n";
         }
         mysql_free_result($rs);

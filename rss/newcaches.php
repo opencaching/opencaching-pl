@@ -10,6 +10,7 @@
 
 
     //prepare the templates and include all neccessary
+    global $dateFormat;
     $rootpath = '../';
     require_once($rootpath . 'lib/common.inc.php');
 
@@ -35,7 +36,7 @@ header('Content-type: application/xml; charset="utf-8"');
             $thisline = str_replace('{userid}', $r['userid'], $thisline);
             $thisline = str_replace('{cachename}', htmlspecialchars($r['cachename']), $thisline);
             $thisline = str_replace('{username}', htmlspecialchars($r['username']), $thisline);
-            $thisline = str_replace('{date}', date('d-m-Y', strtotime($r['date'])), $thisline);
+            $thisline = str_replace('{date}', date($dateFormat, strtotime($r['date'])), $thisline);
             $thisline = str_replace('{country}', htmlspecialchars($r['country']), $thisline);
             //$thisline = str_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($r['icon_large']), $thisline);
 
