@@ -19,7 +19,7 @@
 
 
     //prepare the templates and include all neccessary
-    global $dateFormat
+    global $dateFormat;
     $rootpath = '../';
     require_once($rootpath . 'lib/common.inc.php');
 
