@@ -10,6 +10,7 @@
 
 
     //prepare the templates and include all neccessary
+    global $dateFormat;	
     $rootpath = '../';
     require_once($rootpath . 'lib/common.inc.php');
 
@@ -32,7 +33,7 @@ header('Content-type: application/xml; charset="utf-8"');
             {
             $thisline = "<item>\n<title>{date}</title>\n<description>{message}</description>\n<link>$absolute_server_URI/news.php</link>\n</item>\n";
 
-                $thisline =str_replace('{date}',date('d-m-Y', strtotime($rNews['date_posted'])), $thisline);
+                $thisline =str_replace('{date}',date($dateFormat, strtotime($rNews['date_posted'])), $thisline);
                 $thisline = str_replace('{message}', htmlspecialchars($rNews['content']), $thisline);
 
             $content .= $thisline . "\n";
