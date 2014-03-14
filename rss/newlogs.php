@@ -10,6 +10,7 @@
 
 
     //prepare the templates and include all neccessary
+    global $dateFormat;
     $rootpath = '../';
     require_once($rootpath . 'lib/common.inc.php');
 
@@ -60,7 +61,7 @@ LIMIT 20");
             $thisline = str_replace('{cachename}', htmlspecialchars($r['cache_name']), $thisline);
             $thisline = str_replace('{logtype}', htmlspecialchars($r['log_name']), $thisline);
             $thisline = str_replace('{username}', htmlspecialchars($r['user_name']), $thisline);
-            $thisline = str_replace('{date}', date('d-m-Y', strtotime($r['log_date'])), $thisline);
+            $thisline = str_replace('{date}', date($dateFormat, strtotime($r['log_date'])), $thisline);
             //$thisline = str_replace('{imglink}', 'tpl/stdstyle/images/'.getSmallCacheIcon($r['icon_large']), $thisline);
 
             $content .= $thisline . "\n";
