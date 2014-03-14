@@ -86,14 +86,14 @@
     <tr>
 <table style="font-size: 125%;">
     <tbody><tr>
-        <td style="width: 50%;">
-            <b>Inne serwisy Geocaching'owe:</b>
+        <td style="width: 51%;">
+            <b>{{links_02}}:</b>
         </td>
         </tr>
 
     <tr>
         <td style="width: 25%;">
-            Australia
+            {{AU}}
         </td>
 
         <td>
@@ -182,7 +182,7 @@
 <table style="font-size: 125%;">
     <tbody><tr>
         <td style="width: 48%;">
-            Bazy danych letterboxing:
+            {{links_03}}:
         </td>
         </tr>
     <tr>
@@ -215,10 +215,14 @@
 </tbody></table>
 
 
-<h2>Systemy typu Travel Bug itp</h2>
+<h2>Travel Bugs</h2>
 
 <table style="font-size: 125%;">
-    <tbody>
+    <tbody><tr>
+        <td style="width: 4%;">
+            {{links_04}}:
+        </td>
+        </tr>
 
     <tr>
         <td style="width: 51%;">
@@ -273,7 +277,7 @@
     </tr>
 </tbody></table>
 
-<h2>Inne</h2>
+<h2>{{links_05}}</h2>
 
 <table style="font-size: 125%;">
     <tbody>
