@@ -10,17 +10,10 @@
 
 /****************************************************************************
 
-   Unicode Reminder ăĄă˘
-
   search and export page for caches, users, logs and pictures possible output
   formats are currently XHTML and XML. The search options can be loaded from
   stored query in the database, dump of the options in HTTP-POST/GET variable
   or HTML form fields
-
-    TODO:
-    - fehlermeldungen bei falschen koordinaten
-    - entfernungsberechnung "auslagern" (getCalcDistanceSqlFormula Ăźberall verwenden)
-    - nochmals alles testen
 
  ****************************************************************************/
 
@@ -54,6 +47,8 @@
         $tplname = 'search';
         require($stylepath . '/search.inc.php');
         require($rootpath . 'lib/caches.inc.php');
+
+        common::sanitize($_REQUEST);
 
         //km => target-unit
         $multiplier['km'] = 1;
@@ -201,7 +196,7 @@
             $options['showresult'] = isset($_REQUEST['showresult']) ? $_REQUEST['showresult'] : 0;
             $options['output'] = isset($_REQUEST['output']) ? $_REQUEST['output'] : 'HTML';
             $options['gpxLogLimit'] = isset($_REQUEST['gpxLogLimit']) ? (int) $_REQUEST['gpxLogLimit'] : false;
-            if(isset($_GET['showonmap'])) {
+            if(isset($_REQUEST['showonmap'])) {
                 $_REQUEST['output'] = 'MAP';
                 $options['output'] = 'MAP';
 //          die($options['output']);

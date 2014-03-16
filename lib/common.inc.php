@@ -1522,6 +1522,21 @@ spl_autoload_register(function ($className) {
 class common
 {
 
+    /**
+     * add slashes to each element of $array.
+     * @param array $array
+     */
+    public static function sanitize(&$array){
+        foreach ($array as $key => $value) {
+            if(is_array($value)){
+                self::sanitize($value);
+            } else {
+                $array[$key] = addslashes(htmlspecialchars($value));
+            }
+        }
+    }
+
+
     /* (not used yet - for future use)
     private $powerTrailModuleSwitchOn = false;
     public function __construct() {
@@ -1529,6 +1544,7 @@ class common
         $this->powerTrailModuleSwitchOn = $powerTrailModuleSwitchOn;
     }
     */
+
 
     public static function cleanupText($str)
     {
