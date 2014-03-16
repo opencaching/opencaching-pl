@@ -2209,8 +2209,7 @@ logbook_21 Wordt gebruikt om de velden vooraf in te vullen
 logbook_22 Voorbeeld
 logbook_23 Genereer PDF
 
-
-
+search01 alle regio &#39;s
 LineChart Lijn
 BarChart Bar
 positions Posities
@@ -2223,6 +2222,9 @@ links_02 Andere Geocaching sites
 links_03 Letterbox websites
 links_04 Travelbugs websites
 links_05 Anders
+.week . week
+.month . maand
+.year . jaar
 
 
 
