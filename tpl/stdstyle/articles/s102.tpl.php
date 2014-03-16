@@ -20,6 +20,9 @@
 
 
 <?php
+//require_once('./lib/common.inc.php');
+
+
 $sNameOfStat = "";
 $sTitleOfStat="";
 if ( isset( $_REQUEST[ "stat" ] ) )
@@ -60,15 +63,21 @@ global $debug_page;
 
 
 <?php
+global $cookie;
 
 $sRok = "";
 $sMc = "";
 $sDataOd = "";
 $sDataDo = "";
 $sRD = "R";
+$sNameOfStat = $_REQUEST[ 'stat' ];
+$sNameOfStatCookieEmptyDate = $sNameOfStat . "EmptyDate";
+$sIsEmptDate = "";
 
-
-
+if ( isset( $_REQUEST[ "init" ] ) )
+{
+	$sIsEmptDate = $cookie->get( $sNameOfStatCookieEmptyDate );
+}		
 
 
 if ( !isset( $_REQUEST[ "init" ] ) )
@@ -80,14 +89,25 @@ if ( !isset( $_REQUEST[ "init" ] ) )
     $sDataDo = $_REQUEST[ "DataDo" ];
 
     $sRD = $_REQUEST[ "rRD" ];
+    
+    
+    if ( $sRD == "R" && $sRok == "" && $sMc == ""  )
+    	$cookie->set( $sNameOfStatCookieEmptyDate, "Yes" );
+    else
+    	$cookie->set( $sNameOfStatCookieEmptyDate, "No" );
+    
+    $cookie->header();
 }
 
 if ( ( isset( $_REQUEST[ "init" ] ) or intval($sMc) > 12 or intval($sMc) < 0 or intval($sRok) < 0 )
 or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 {
-    $sRok = date( "Y" );
-    $sMc = date( "m" );
-
+	if ( $sIsEmptDate != "Yes" )
+	{
+	    $sRok = date( "Y" );
+	    $sMc = date( "m" );
+	}
+	
     $_REQUEST[ "Rok" ] = $sRok;
     $_REQUEST[ "Mc" ] = $sMc;
 
@@ -112,6 +132,7 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
             <input type="hidden" value="<?php echo $sNameOfStat?>" name="stat" id = "stat" >
             <input type="hidden" name="DateFrom" id="DateFrom" value="" >
             <input type="hidden" name="DateTo" id="DateTo" value="" >
+            
             <table  class = "GCT-div-table" >
                 <tr>
                     <td><input type="radio" name="rRD" id="rR" value="R" <?php if ($sRD == "R") echo "checked" ?> ></td>
