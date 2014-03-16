@@ -95,7 +95,7 @@ if ( $sRD == "R"   )
     if ( $nIsCondition )
     {
         $sData_do = $dDate->format( 'Y-m-d');
-        $sDateCondition = "and date >='" .$sData_od."' and date < '".$sData_do."' ";
+        $sDateCondition = " date >='" .$sData_od."' and date < '".$sData_do."' ";
     }
 }
 else
@@ -112,10 +112,15 @@ else
         $sData_do = $dDate->format( 'Y-m-d');
 
         if ( $sData_od <> "" )
-            $sDateCondition = " and date >='" .$sData_od ."' ";
+            $sDateCondition = " date >='" .$sData_od ."' ";
 
         if ( $sData_do <> "" )
-            $sDateCondition = $sDateCondition . " and date < '".$sData_do."' ";
+        {
+        	if ( $sDateCondition != "" )
+        		$sDateCondition = $sDateCondition . " and ";
+        		 
+            $sDateCondition = $sDateCondition . " date < '".$sData_do."' ";
+        }
     }
 
     catch (Exception $e)
@@ -125,16 +130,21 @@ else
     }
 }
 
-if ( $sNameOfStat == "NumberOfFinds" )
+/*if ( $sNameOfStat == "NumberOfFinds" )
     $sTypeCondition = " and  cl.type=1 ";
 
 if ( $sNameOfStat == "MaintenanceOfCaches" )
-    $sTypeCondition = " and  cl.type=6 and c.user_id <> cl.user_id ";
-
+	$sTypeCondition = " and  cl.type=6 and c.user_id <> cl.user_id ";
+*/
 
 
 $dbc = new dataBase();
 
+if ( $sNameOfStat == "MaintenanceOfCaches" )
+{
+	if ( $sDateCondition != "" )
+		$sDateCondition = " and " . $sDateCondition;
+	
 $query =
         "SELECT COUNT(*) count, u.username username, UPPER(u.username) UUN, u.user_id user_id,
         DATE(u.date_created) date_created, u.description description
@@ -144,12 +154,38 @@ $query =
         join caches c on c.cache_id = cl.cache_id
         join user u on cl.user_id = u.user_id
 
-        WHERE cl.deleted=0 "
-        . $sTypeCondition
+        WHERE cl.deleted=0  and  cl.type=6 and c.user_id <> cl.user_id "
+        
         . $sDateCondition .
 
         "GROUP BY u.user_id
         ORDER BY count DESC, u.username ASC";
+
+}
+
+if ( $sNameOfStat == "NumberOfFinds" )
+{
+	if ( $sDateCondition != "" )
+		$sDateCondition = " WHERE " . $sDateCondition;	
+	
+	
+$query =
+	"SELECT f.c count, f.user_id, u.username username, UPPER(u.username) UUN,  
+	            		DATE(u.date_created) date_created, u.description description
+	            		            		
+	FROM (
+	
+	SELECT cl.user_id, sum( cl.number ) c
+	FROM user_finds cl "
+            		 
+		. $sDateCondition .
+			
+	"GROUP BY 1
+	ORDER BY c DESC
+	) AS f
+	JOIN user u ON f.user_id = u.user_id";
+}
+
 
 
 $dbc->multiVariableQuery($query);
