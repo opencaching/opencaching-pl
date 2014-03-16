@@ -3,7 +3,16 @@ require_once 'lib/db.php';
 
 $userId = addslashes($_REQUEST['id']);
 $database=new dataBase();
-$ftfQuery = 'SELECT `a`.`cache_id` , a.date, caches.name FROM `cache_logs` AS `a` , caches WHERE caches.cache_id = a.cache_id AND a.`user_id` =:1 AND `date` = ( SELECT MIN( date ) FROM `cache_logs` AS b WHERE a.cache_id = b.cache_id AND deleted =0 AND TYPE =1 ) AND id = ( SELECT id FROM `cache_logs` WHERE `cache_id` = a.cache_id AND `type` =1 AND deleted =0 ORDER BY `cache_logs`.`date` ASC LIMIT 1 ) ORDER BY date';
+$ftfQuery = 'SELECT clftf.cache_id, caches.name, clftf.date
+FROM (
+    SELECT cache_logs.cache_id, MIN(cache_logs.date) AS date, cache_logs.user_id
+    FROM cache_logs INNER JOIN (
+        SELECT DISTINCT cache_id FROM cache_logs WHERE deleted = 0 AND type = 1 AND user_id = :1
+    ) cl_u ON cache_logs.cache_id = cl_u.cache_id
+    WHERE cache_logs.deleted = 0 AND cache_logs.type = 1
+    GROUP BY cache_logs.cache_id) AS clftf INNER JOIN caches ON clftf.cache_id = caches.cache_id
+WHERE clftf.user_id = :1
+ORDER BY clftf.date';
 
 $database->multiVariableQuery($ftfQuery, $userId);
 $ftfResult = $database->dbResultFetchAll();
