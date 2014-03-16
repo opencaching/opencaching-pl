@@ -56,6 +56,7 @@ $sNameOfStat = $_REQUEST[ "stat"];
 
 $nDayInterval = 999;
 $sGranulate = "";
+$sPeriodName = "";
 
 if ( $sDateFrom <> ""  and  $sDateTo <> ""  )
 {
@@ -68,21 +69,18 @@ if ( $sDateFrom <> ""  and  $sDateTo <> ""  )
 if ( $nDayInterval < 65 )
 {
     $sGranulate = " (week( cl.date) + 1) period ";
+    $sPeriodName =  tr2('.week', $lang );
 }
 else if ( $nDayInterval < 367 )
 {
     $sGranulate = " month( cl.date) period ";
+    $sPeriodName =  tr2('.month', $lang );    
 }
 else
 {
     $sGranulate = " year( cl.date) period ";
+    $sPeriodName =  tr2('.year', $lang );    
 }
-
-
-//echo $interval->format('%R%a days');
-/*echo "<script type='text/javascript'>";
-echo "alert( '$sGranulate' );";
-echo "</script>";*/
 
 
 if ( $sDateFrom <> "" )
@@ -108,15 +106,24 @@ if ( !strlen( $sUserIDLine )  )
 if ( count( $asUserID ) > 30 )
     $sEND = tr2('more30', $lang );
 
-
-echo "<script type='text/javascript'>";
 if ( $sEND <> "" )
 {
-    echo "alert( '$sEND' );";
-    $asUserID = explode(",", "");
+	echo "<script type='text/javascript'>";
+	    echo "alert( '$sEND' );";
+	    //$asUserID = explode(",", "");
+    echo "</script>";   
 }
 
-echo "</script>";
+
+
+if ( $sEND <> "" )
+{
+	echo "<script type='text/javascript'>";
+		echo "return;";
+	echo "</script>";
+}
+
+
 
 
 $sCondition = "";
@@ -134,6 +141,8 @@ if( strlen( $sCondition ) )
 }
 
 $sCondition .= $sDateCondition;
+
+
 
 
 /////////////////
@@ -177,7 +186,9 @@ while ( $record = $dbc->dbResultFetch() )
 
 
     $aNrColumn[ $nPeriod ] = $i;
-    echo "gcb.addColumn('number', '$nPeriod');";
+    
+    $sPN = $nPeriod . $sPeriodName;
+    echo "gcb.addColumn('number', '$sPN');";
 
     $i = $i + 1;
 }
