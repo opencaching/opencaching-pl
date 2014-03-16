@@ -2212,7 +2212,6 @@ logbook_21 wykorzystywany jest tylko do uzupełnienia pola w Log Booku
 logbook_22 Podgląd
 logbook_23 Generuj PDF
 search01 wszystkie regiony
-
 LineChart Liniowy
 BarChart Słupkowy
 positions pozycji
@@ -2225,4 +2224,6 @@ links_02 Inne serwisy Geocaching'owe
 links_03 Bazy danych letterboxing
 links_04 Systemy typu Travel Bug itp
 links_05 Inne
-
+.week . tydzień
+.month . miesiąc
+.year . rok
