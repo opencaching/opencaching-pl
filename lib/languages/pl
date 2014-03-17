@@ -330,7 +330,10 @@ date_incorrect Data ma niepoprawny format. Prawidłowy format: DD-MM-RRRR HH:MM
 no_cache_name Brak nazwy skrzynki
 new_cache_no_terms Skrzynka nie została zarejestrowana, gdyż nie zaznaczyłeś, że zapoznałeś się i akceptujesz regulamin serwisu Opencaching PL.
 html_incorrect Ten kod HTML jest niedozwolony.
+descwp_incorrect Brak opisu.
 type_incorrect Brak typu skrzynki!
+typewp_incorrect Wybierz typ waypointa.
+stage_incorrect Nieprawidłowy numer etapu.
 size_incorrect Brak wielkości skrzynki!
 diff_incorrect Poziom trudności jest niepoprawny!
 status_incorrect Status skrzynki nie pasuje do opcji publikacji.

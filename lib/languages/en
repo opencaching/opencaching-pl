@@ -330,7 +330,10 @@ date_incorrect Incorrect date. Legal format: DD-MM-YYYY
 no_cache_name Missing geocache name
 new_cache_no_terms You must confirm that you agree to {site_name}'s Terms of Use
 html_incorrect This HTML code is not allowed.
+descwp_incorrect No description.
 type_incorrect Cache type is incorrect!
+typewp_incorrect No waypoint selected! 
+stage_incorrect Stagenumber is incorrect!
 size_incorrect Cache size is incorrect!
 diff_incorrect Difficulty is incorrect!
 status_incorrect Status does not match published data.

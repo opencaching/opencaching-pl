@@ -330,7 +330,10 @@ date_incorrect Datum niet correct. Invoer formaat: DD-MM-JJJJ
 no_cache_name De cache heeft geen naam
 new_cache_no_terms De cache is NIET geregistreerd, omdat de Gebruikers overeenkomst van {site_name} niet aangevinkt is
 html_incorrect Deze HTML code is niet toegestaan.
+descwp_incorrect Geen beschrijving ingevuld!
 type_incorrect Cache soort is niet correct!
+typewp_incorrect Geen waypoint geselecteerd!
+stage_incorrect WP nummer is niet correct!
 size_incorrect Cache grootte is niet correct!
 diff_incorrect Moeilijkheid is niet correct!
 status_incorrect Status komt niet overeen met publicatiegegevens.
@@ -662,7 +665,7 @@ cancel Annuleren
 no_note Er zijn nog geen cache notities
 additional_waypoints Extra waypoints
 nowp_notice Er zijn nog geen extra waypoints
-stage_wp Etappe
+stage_wp WP nummer
 symbol_wp Symbool
 type_wp Soort
 type_wp2 Soort waypoint
