@@ -675,7 +675,7 @@ add_new_waypoint Voeg waypoint toe
 wp_status1 Toon alle informatie over dit waypoint, inclusief coördinaten
 wp_status2 Toon details van dit waypoint, behalve de coördinaten
 wp_status3 Verberg dit waypoint op de cachepagina
-number_stage_wp Etappe #
+number_stage_wp WP nummer #
 status_wp Waypoint status
 write_wp Waypoint opslaan
 edit_wp Bewerk waypoint
