@@ -1,0 +1,141 @@
+-- 2014-03-18 Query optimization - Stat: Number of Finds
+-- @author: triPPer
+
+
+
+/*************************************
+*
+* create table USER_FIND 
+*
+*************************************/
+
+
+create table user_finds ( date date, user_id int, number int, PRIMARY KEY( date, user_id) )
+
+
+
+/*************************************
+*
+* insert datas to USER_FINDS from CACHE_LOGS, which are agregated to the user and one day
+*
+*************************************/
+
+
+insert into user_finds
+select date( date ), user_id, count(*) from cache_logs 
+where deleted=0 and type=1
+group by 1,2
+
+
+
+/*************************************
+*
+* insert trigger; 
+*
+* the trigger adds new record into USER_FINDS or updates number (+1),
+* if someone found a cache
+*
+* the trigger is called after inserting new record into CACHE_LOGS
+*************************************/
+
+
+DELIMITER $$
+
+create trigger cl_insert after insert on cache_logs
+for each row
+begin
+
+	
+
+if ( new.deleted = 0 and new.type = 1 ) then
+	
+    IF EXISTS (SELECT 1 FROM user_finds 
+                    WHERE date = date(new.date) and user_id = new.user_id) THEN 
+      
+      UPDATE user_finds SET number = number + 1 WHERE date = date(new.date) and user_id = new.user_id;
+      
+    ELSE
+    
+    
+      insert into user_finds (date, user_id, number ) 
+      values ( new.date, new.user_id, 1 );
+      
+    end if;
+
+end if;
+
+end; $$
+
+DELIMITER ;
+
+
+
+/*************************************
+*
+* update trigger; 
+*
+* the trigger updates number (-1), if someone canceled finding a cache
+* the trigger adds new record to USER_FINDS or updates number (+1), if someone found a cache
+*
+* the trigger is called after updating a record in CACHE_LOGS
+*
+*************************************/
+
+
+
+
+DELIMITER $$
+
+create trigger cl_update after update on cache_logs
+for each row
+begin
+
+
+if ( old.type = 1 ) then
+    if ( new.deleted = 1 and old.deleted = 0  ) or
+    ( new.type <> 1 ) or
+    ( date(new.date) <> date( old.date ) ) THEN
+             
+        IF EXISTS (SELECT 1 FROM user_finds 
+                        WHERE date = date(old.date) and user_id = new.user_id) THEN 
+                          
+          UPDATE user_finds SET number = number - 1 
+          WHERE date = date(old.date) and user_id = new.user_id;
+                    
+        end if;             
+                       
+    end if;
+end if;
+
+if ( new.deleted = 0 and new.type = 1) then
+
+    if ( old.deleted = 1 ) or
+    ( old.type <> 1 ) or
+    ( date(new.date) <> date( old.date )  ) THEN
+        
+	IF EXISTS (SELECT 1 FROM user_finds 
+        WHERE date = date(new.date) and user_id = new.user_id) THEN 
+      
+          UPDATE user_finds SET number = number + 1 
+          WHERE date = date(new.date) and user_id = new.user_id;
+          
+        ELSE
+                
+          insert into user_finds (date, user_id, number ) 
+          values ( new.date, new.user_id, 1 );
+          
+        end if;
+        
+        
+        
+end if;      
+      
+end if;      
+      
+
+
+
+
+end; $$
+
+DELIMITER ;
