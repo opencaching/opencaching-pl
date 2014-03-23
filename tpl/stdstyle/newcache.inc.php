@@ -17,9 +17,7 @@
  ****************************************************************************/
 
  $submit = tr('new_cache');
- $default_country = 'PL';
  $default_region = '0';
- $default_lang = 'PL';
  $show_all = tr('show_all');
  $default_NS = 'N';
  $default_EW = 'E';
@@ -55,5 +53,4 @@
  $cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
  $cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})" /> ';
 
- $default_lang = $lang;;
- ?>
+ $default_lang = $lang;

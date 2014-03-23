@@ -71,6 +71,9 @@
             $usr['notFoundsCount'] = $userRow['notfounds_count'];
             $usr['userid'] = $login->userid;
             $usr['email'] = $userRow['email'];
+            $usr['country'] = $userRow['country'];
+            $usr['latitude'] = $userRow['latitude'];
+            $usr['longitude'] = $userRow['longitude'];
         } else{
             $usr = false;
         }
