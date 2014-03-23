@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__.'/lib/ClassPathDictionary.php';
+spl_autoload_register(function ($className) {
+    include_once ClassPathDictionary::getClassPath($className);
+});
 session_start();
 //ajaxRetreiveRegionByCoordinates.php
 if(!isset($_SESSION['user_id'])){

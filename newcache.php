@@ -560,7 +560,6 @@ else if ($verify_all==1) {
 
                     if ($record['short'] == $sel_country)
                     {
-                        // $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
                         $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . tr($record['short']) . '</option>';
                     }
                     else
