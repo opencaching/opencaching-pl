@@ -32,9 +32,13 @@ if ( isset( $_REQUEST[ "stat" ] ) )
 
 if ( $sNameOfStat == "NumberOfFinds" )
     $sTitleOfStat = " {{ranking_by_number_of_finds_new}} ";
-
-if ( $sNameOfStat == "MaintenanceOfCaches" )
+else if ( $sNameOfStat == "MaintenanceOfCaches" )
     $sTitleOfStat = " {{ranking_by_maintenace}} ";
+else if ( $sNameOfStat == "FavoriteComments" )
+	$sTitleOfStat = " Ulubione komentarze ";
+else
+	$sTitleOfStat = " Ranking ";
+
 ?>
 
 <table class="content" width="97%">
@@ -54,8 +58,8 @@ global $debug_page;
 //  echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";
 ?>
 
-{{StatTestVer}}<br>
-{{PrevVersion}}
+<!-- {{StatTestVer}}<br>
+{{PrevVersion}} -->
 
 
 
@@ -161,28 +165,15 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 
     <!-- Begin of User -->
     <td align="right">
-    <form name="FindUser" style="display:inline;" action="" onsubmit="return false;">
-        <table  class = "GCT-div-table" >        
-            <tr >
-            	<td>
-                        {{user}}:&nbsp&nbsp
-                </td>
-                <td>
-	                <input type="text" name="User" value="" style="width:100px; text-align: left; ">
-                    &nbsp&nbsp&nbsp<button type="submit" value={{search}} name="bFindUser" style="font-size:12px;width:70px;"; onClick ="GCTStatsFindUser( document.FindUser.User.value )"  />{{search}}</button>
-                </td>                
-            </tr>
-            <tr >
-            	<td align="right">
-            		Pozycja:&nbsp&nbsp 
-            	</td>
-            	<td>
-            		<input type="text" name="FUPosition" id="FUPosition" class="GCT-div-readOnly" style="width:70px" readonly > 
-            	</td>
-            	
-            </tr>
-        </table>
-        </form>
+    
+    
+    
+    
+    <?php 
+    if ( $sNameOfStat != "FavoriteComments" )
+    	include("tpl/stdstyle/articles/userfilter.php"); 
+    ?>
+                 
     </td>
 <!-- End of User -->
 </tr>
@@ -194,76 +185,19 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 <br>
 
 
-<table width="100%" >
-<tr>
-    <td>
-<!--    <table  class = "GCT-div-table" >
-            <tr>
-                <td width = "150px" align = "center" >
-                <form name="ChartHelp" style="display:inline;" action="" onsubmit="return false;" >
-                    <button name="bChartHelp" id="bChartHelp"  />Help</button>
-                </form>
-                </td>
-            </tr>
-        </table>-->
-
-    </td>
-
-    <td>
-        <form name="Details" style="display:inline;" action="" onsubmit="return false;" >
-            <table class="GCT-div-table" >
-                <tr>
-                    <td rowspan = 2>
-                        {{Selected}}:&nbsp&nbsp<input type="text" name="SelectedUser" id="SelectedUser" class="GCT-div-readOnly" style="width:20px" readonly >&nbsp&nbsp{{positions}}
-                    </td>
-
-                    <td>
-                        &nbsp&nbsp&nbsp&nbsp<button name="bLineChart" id="bLineChart"  />{{LineChart}}</button>
-                    </td>
-                    <td rowspan = 2>
-                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><button name="bChartHelp" id="bChartHelp"  />{{Help}}</button>
-                    </td>
-
-                </tr>
-                <tr>
-
-                    <td>
-                        <br>
-                        &nbsp&nbsp&nbsp&nbsp<button name="bBarChart" id="bBarChart"   />{{BarChart}}</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </td>
 
 
-<!-- Begin of Position   width = "200px" align = "center"-->
-    <td align="right">
-        <table  class = "GCT-div-table" >
-            <tr>
-                <td >
-                <form name="Position" style="display:inline;" action="" onsubmit="return false;" >
-                    <input type="hidden" value="0" name="RealPosOfTable" >
-                    {{my_position}}:&nbsp&nbsp<input type="text" name="Ranking" id="Ranking" class="GCT-div-readOnly" style="width:70px" readonly >
-                    &nbsp&nbsp&nbsp&nbsp<button name="bGo" onClick ="GCTStatsGotoPosition(document.Position.RealPosOfTable.value)"  />{{go}}</button>
-                </form>
-                </td>
-            </tr>
-        </table>
-    </td>
-<!-- End of Position -->
-</tr>
-</table>
-
+ <?php 
+ if ( $sNameOfStat != "FavoriteComments" )
+ 	include("tpl/stdstyle/articles/mypositionandcharts.php"); 
+ ?>
 
 <br>
 
 
-
-
 </div> <!-- End of GCT-div -->
 
-<?php include ("t102.php"); ?>
+<?php include ("t102.php");  ?>
 
 
 </div>

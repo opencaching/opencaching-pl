@@ -1,3 +1,12 @@
+ <script type='text/javascript'>
+ 
+ function ToChangeLogRating( logid, target, cacheid) {	
+		//var posY = document.pageYOffset?document.pageYOffset:document.body.scrollTop;
+		var posY = document.body.scrollTop;
+		window.location.href = 'changelograting.php?logid='+logid.toString()+'&target='+target+'&cacheid='+cacheid.toString()+'&posY='+posY.toString() ;	
+	}
+</script>
+
 <?php
 /***************************************************************************
     *
@@ -248,6 +257,20 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
             $all_rec = $dbc->dbResultFetchAll();
             //var_dump($all_rec);
             unset($dbc); //kill $dbc - possible long execution time due to loop - to be set conditional ($log_count>1)?
+            
+			$dbc = new dataBase();
+			
+            $likequery= "SELECT lr.log_id log_id, lr.user_id user_id, u.username username 
+            			FROM cache_logs cl
+            			JOIN log_rating lr on lr.log_id = cl.id
+            			JOIN user u on lr.user_id = u.user_id             			
+            			WHERE cl.cache_id = :1 
+            			ORDER BY lr.log_id";
+            	
+            $dbc->multiVariableQuery($likequery, $cache_id );
+            $nLikeCount = $dbc->rowCount();
+            $aLikeAllRec = $dbc->dbResultFetchAll();
+            
             for ($i = 0; $i < $logs_count; $i++)
             {
                 //$record = sql_fetch_array($rs);
@@ -305,6 +328,54 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 // add edit footer if record has been modified
                 $record_date_create = date_create($record['date_created']);
 
+               
+                //////////////// I Like IT
+                $sLikeTxt = "";
+                $sLikeUser = "";
+                $nrLike = 0;
+                
+                for( $j = 0; $j < $nLikeCount; $j++ )
+                {
+                	$aLikeOneRec = $aLikeAllRec[ $j ];
+                	if ( $aLikeOneRec[ "log_id"] <> $record[ "log_id"]  )
+                	{
+                		if ( $nrLike == 0 )
+                			continue;
+                		else
+                			break;
+                	}
+                	
+                	$nrLike++;
+                	if ( $sLikeUser <> "" )
+                		$sLikeUser .= ", ";
+                		
+                	$sLikeUser .= '<a href="viewprofile.php?userid='.$aLikeOneRec["user_id"].'">'.$aLikeOneRec[ "username" ].'</a>';
+                }
+                                              
+                
+                // if there are likes
+                //if ( $nrLike <> 0 )
+                {                	
+                	                	               
+                	$sLikeTxt .= "<div style='background-color:#DBE6F1; font-size:10px; border:1px solid #CCCCCC; -moz-border-radius: 5px; -webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;' >";                	
+                	//$sLikeTxt .= '&nbsp&nbsp<a href="changelograting.php?logid='.$record[ "log_id"].'&target=viewlogs.php&cacheid='. $cache_id .'"><img src="tpl/stdstyle/images/blue/recommendation.png" alt="user activity" width="25" height="25" border="0" title="Czy podoba Ci się ten komentarz?"/></a>&nbsp&nbsp';
+                	$sLikeTxt .= '&nbsp&nbsp<a href="javascript:ToChangeLogRating('.$record[ "log_id"].',\'viewlogs.php\','.$cache_id.')"><img src="tpl/stdstyle/images/blue/recommendation.png" alt="user activity" width="25" height="25" border="0" title="'.tr("like_comment").'"/></a>&nbsp&nbsp';
+                	
+                	
+                	if ( $nrLike <> 0 )
+                		$sLikeTxt .= '<b>'.$nrLike.'</b> '.tr("like_it").' '.$sLikeUser;
+                	else
+                		$sLikeTxt .= tr("no_like_it");
+                			
+                	$sLikeTxt.= "</div>";
+
+                	$processed_text .= $sLikeTxt;
+                }
+                                              
+                ///////////////////////////
+                
+                
+                
                 if ($record['edit_count']>0)
                 //check if editted at all
                 {
@@ -340,6 +411,8 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                     $edit_footer ="";
                 }
 
+                
+                
                 $tmplog_text =  $processed_text.$edit_footer;
                 $tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
 //END: same code ->viewlogs.php / viewcache.php
@@ -410,7 +483,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                     if ($record['user_id'] == $usr['userid'])
                     {
                         $logfunctions = $functions_start . $tmpedit . $functions_middle;
-                        if ($record['type']!=12 && ($usr['userid']==$cache_record['cache_id'] || $usr['admin']==false)) {
+                        if ($record['type']!=12 && ($usr['userid']==$cache_record['user_id'] || $usr['admin']==false)) {
                             $logfunctions .=$tmpremove . $functions_middle;
                         }
                         if ($usr['admin'])  {
@@ -504,4 +577,11 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
     unset( $dbc );
     //make the template and send it out
     tpl_BuildTemplate();
+    
+if ( isset( $_REQUEST[ "posY" ]) )
+{
+	echo "<script type='text/javascript'>";
+    echo "window.scroll(0,".$_REQUEST[ "posY" ].");";
+    echo "</script>";
+}
 ?>

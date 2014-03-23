@@ -43,6 +43,8 @@ $sDataDo = "";
 
 $sData_od = "";
 $sData_do = "";
+$sJoinWDate = "";
+$sJoinWDateWOC = "";
 
 $sRD = "";
 
@@ -51,6 +53,16 @@ $sTypeCondition="";
 
 $nIsCondition = 0;
 $nMyRanking = 0;
+
+$nIsCondition = 0;
+$nMyRanking = 0;
+
+if ( $sNameOfStat == "FavoriteComments" )
+{
+	$sJoinWDateWOC = "lr";
+	$sJoinWDate = "lr.";
+}
+
 
 if ( isset( $_REQUEST[ 'stat' ]) )
     $sNameOfStat = $_REQUEST[ 'stat' ];
@@ -95,7 +107,7 @@ if ( $sRD == "R"   )
     if ( $nIsCondition )
     {
         $sData_do = $dDate->format( 'Y-m-d');
-        $sDateCondition = " date >='" .$sData_od."' and date < '".$sData_do."' ";
+        $sDateCondition = " ".$sJoinWDate."date >='" .$sData_od."' and ".$sJoinWDate."date < '".$sData_do."' ";
     }
 }
 else
@@ -112,14 +124,14 @@ else
         $sData_do = $dDate->format( 'Y-m-d');
 
         if ( $sData_od <> "" )
-            $sDateCondition = " date >='" .$sData_od ."' ";
+            $sDateCondition = " ".$sJoinWDate."date >='" .$sData_od ."' ";
 
         if ( $sData_do <> "" )
         {
         	if ( $sDateCondition != "" )
         		$sDateCondition = $sDateCondition . " and ";
         		 
-            $sDateCondition = $sDateCondition . " date < '".$sData_do."' ";
+            $sDateCondition = $sDateCondition . " ".$sJoinWDate."date < '".$sData_do."' ";
         }
     }
 
@@ -188,6 +200,31 @@ $query =
 
 
 
+if ( $sNameOfStat == "FavoriteComments" )
+{
+	if ( $sDateCondition != "" )
+		$sDateCondition = " and " . $sDateCondition;
+	
+$query =
+        "SELECT COUNT(*) count, u.username username, UPPER(u.username) UUN, u.user_id user_id,
+        DATE(u.date_created) date_created, cl.id, cl.text description, c.name cachename, c.cache_id cache_id
+
+        FROM
+        log_rating ".$sJoinWDateWOC." 		
+        join cache_logs cl on ".$sJoinWDate."log_id = cl.id
+        join caches c on c.cache_id = cl.cache_id        
+        join user u on cl.user_id = u.user_id
+
+        WHERE cl.deleted=0 "
+        
+        . $sDateCondition .
+
+        "GROUP BY cl.id 
+        ORDER BY count DESC, u.username ASC";
+}
+
+
+
 $dbc->multiVariableQuery($query);
 
 echo "<script type='text/javascript'>";
@@ -216,6 +253,10 @@ while ( $record = $dbc->dbResultFetch() )
         $sOpis = str_replace("\n", " ",$sOpis);
         $sOpis = str_replace("'", "-",$sOpis);
         $sOpis = str_replace("\"", " ",$sOpis);
+        
+        if ( $sNameOfStat == "FavoriteComments" )
+         $sOpis = "<b><a href=\\'viewcache.php?cacheid=".$record[ "cache_id" ]."\\'>".$record[ "cachename" ]."</a></b><br><br>" . $sOpis;
+        
     }
     else
         $sOpis = "";

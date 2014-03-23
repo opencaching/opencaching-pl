@@ -1,0 +1,1 @@
+create table log_rating ( log_id int, user_id int, date timestamp, primary key(log_id, user_id) )

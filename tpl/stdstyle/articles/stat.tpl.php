@@ -7,8 +7,8 @@
 <img src="tpl/stdstyle/images/free_icons/UsersStats.png" class="icon16"><span class = "content-title-noshade"> {{user_ranking}}</span>
 <hr align ="left" style="border: 0; width: 500px;color: #000000; background-color: #000000;height: 1px;"/>
 
+<img src="tpl/stdstyle/images/free_icons/tick.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s102&init=1&stat=FavoriteComments">Ulubione komentarze</a><br />
 <img src="tpl/stdstyle/images/free_icons/tick.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s102&init=1&stat=MaintenanceOfCaches">{{ranking_by_maintenace}} </a><br />
-
 <img src="tpl/stdstyle/images/free_icons/tick.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s1">{{ranking_by_number_of_created_active_caches}}</a><br />
 <img src="tpl/stdstyle/images/free_icons/tick.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s1b">{{ranking_by_number_of_created_caches}}</a><br />
 <img src="tpl/stdstyle/images/free_icons/tick.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="articles.php?page=s102&init=1&stat=NumberOfFinds">{{ranking_by_number_of_finds_new}}</a><br />
