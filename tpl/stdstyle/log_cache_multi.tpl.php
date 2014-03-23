@@ -91,10 +91,11 @@ text-decoration: none;
 <?php
 global $dane;
 global $lang;
+global $dateFormat, $datetimeFormat;
 foreach($dane as $k=>$v) {
 
 ?>
-<form method="POST" name="logCacheForm" action="log.php?cacheid=<?php echo $v['cache_id']; ?>" target="_blank">
+<form method="POST" name="logCacheForm" action="log.php?cacheid=<?php echo @$v['cache_id']; ?>" target="_blank">
 <textarea style="visibility:hidden;position:absolute;" name="logtext"><?php echo $v['koment']; ?></textarea>
 <input type="hidden" name="logtype" value="<?php echo $v['status']; ?>" />
 <input type="hidden" name="logyear" value="<?php echo $v['rok']; ?>" />
@@ -102,6 +103,7 @@ foreach($dane as $k=>$v) {
 <input type="hidden" name="logday" value="<?php echo $v['dzien']; ?>" />
 <input type="hidden" name="loghour" value="<?php echo $v['godz']; ?>" />
 <input type="hidden" name="logmin" value="<?php echo $v['min']; ?>" />
+
 <table border="0" style="table-layout: fixed; border: 1px dotted black; line-height: 1.6em; font-size: 10px; "><?php
     // jesli zgodne daty i typ to inny kolor:
     if( (isset($v['data']) && isset($v['last_date']) && $v['data'] == $v['last_date'])
@@ -117,10 +119,24 @@ foreach($dane as $k=>$v) {
   <tr class="<?php echo $styl; ?>">
     <td width=560><?php echo isset($v['cache_name']) ? "<A href=\"viewcache.php?cacheid=".$v['cache_id']."\" target=\"_blank\">"."<img src=\"tpl/stdstyle/images/".get_icon_for_cache_type($v['cache_type'])."\" /> ".$v['kod_str']." ".$v['cache_name']."</a>" : " "; ?></td>
     <td width=70 style="text-align: right"><?php
+
+    $v['data'] = date($datetimeFormat, strtotime($v['data']));
+
+
         echo isset($v['data']) ? str_replace(" ","<br />", $v['data']) : " "; echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; echo isset($v['status']) ? "<img src=\"tpl/stdstyle/images/".get_icon_for_status($v['status'])."\" />" : " ";
     ?></td>
     <td width=70 style="text-align: right"><?php
-        echo isset($v['got_last_activity']) ? str_replace(" ","<br />", $v['last_date'])."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".(isset($v['last_status']) ? "<img src=\"tpl/stdstyle/images/".get_icon_for_status($v['last_status'])."\" />" : " ") : " ";
+        if(isset($v['got_last_activity'])) {
+               $v['last_date'] = date($datetimeFormat, strtotime($v['last_date']));
+               echo str_replace(" ","<br />", $v['last_date'])."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+               if (isset($v['last_status'])) {
+                    echo "<img src=\"tpl/stdstyle/images/".get_icon_for_status($v['last_status'])."\" />"; 
+               } else {
+                   echo  " ";
+               }
+        } else {
+            echo " ";
+        }
     ?></td>
   </tr><tr class="<?php echo $styl; ?>">
     <td width="630" colspan=2><?php echo isset($v['koment']) ? $v['koment'] : " "; ?>&nbsp;</td>

@@ -1,7 +1,6 @@
 <?php
 $debug = false;
 // error_reporting(0);
-
 /***************************************************************************
     *
     *   This program is free software; you can redistribute it and/or modify
@@ -58,6 +57,7 @@ $debug = false;
     // Load the TinyMCE compressor class and configuration
     require_once("./lib/tinymce/tiny_mce_gzip.php");
     require_once("./lib/tinymce/config/compressor.php");
+
 
     $no_tpl_build = false;
     //Preprocessing
@@ -361,7 +361,7 @@ $debug = false;
                     {
                         if (isset($_POST['submitform']))
                         {
-                            if(mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year)>=mktime())
+                            if(mktime($log_date_hour, $log_date_min,0, $log_date_month, $log_date_day, $log_date_year)>=time())
                             {
                                 $date_not_ok = true;
                             }
@@ -411,6 +411,8 @@ $debug = false;
                 {
                  //warring: if coords are wrong, return true (this is not my idea...)
                  $coords_not_ok = validate_coords($wsp_NS_st, $wsp_NS_min, $wsp_WE_st, $wsp_WE_min, $wybor_WE, $wybor_NS, tr('lxg07'));
+                } else {
+                    $coords_not_ok = false;
                 }
 
 
@@ -510,7 +512,7 @@ $debug = false;
                             if ($debug) {
                                 dataBase::debugOC('#'.__line__.' ', $_POST);
                             }
-                            $MaxNr = $_POST['MaxNr'];
+                            $MaxNr = isset($_POST['MaxNr'])?(int) $_POST['MaxNr'] : 0 ;
                             if ($MaxNr > 0) {
                                 require_once 'GeoKretyAPI.php';
                                 $LogGeokrety = New GeoKretyApi($secid, $cache_waypt);

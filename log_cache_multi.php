@@ -277,7 +277,7 @@ else
                     $record = sql_fetch_array($rs);
                     foreach($dane as $k=>$v)
                     {
-                        if($v['cache_id'] == $record['cache_id'])
+                        if(isset($v['cache_id']) && $v['cache_id'] == $record['cache_id'])
                         {
                             $v['got_last_activity'] = true;
                             $v['last_date'] = substr($record['date'], 0, strlen($record['date'])-3);
