@@ -35,7 +35,7 @@ if ( $sNameOfStat == "NumberOfFinds" )
 else if ( $sNameOfStat == "MaintenanceOfCaches" )
     $sTitleOfStat = " {{ranking_by_maintenace}} ";
 else if ( $sNameOfStat == "FavoriteComments" )
-	$sTitleOfStat = " Ulubione komentarze ";
+	$sTitleOfStat = " {{fav_com}} ";
 else
 	$sTitleOfStat = " Ranking ";
 
