@@ -1,12 +1,5 @@
- <script type='text/javascript'>
- 
- function ToChangeLogRating( logid, target, cacheid) {	
-		//var posY = document.pageYOffset?document.pageYOffset:document.body.scrollTop;
-		var posY = document.body.scrollTop;
-		window.location.href = 'changelograting.php?logid='+logid.toString()+'&target='+target+'&cacheid='+cacheid.toString()+'&posY='+posY.toString() ;	
-	}
-</script>
- 
+
+
 
 <?php
 
@@ -27,6 +20,10 @@
      view a cache
 
  ****************************************************************************/
+
+
+  
+  
   //prepare the templates and include all neccessary
     if (!isset($rootpath)) global $rootpath;
     require_once('./lib/common.inc.php');
@@ -34,6 +31,8 @@
     global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email;
     global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key;
 
+
+    
     function onTheList($theArray, $item)
     {
         for( $i=0;$i<count($theArray);$i++)
@@ -1668,8 +1667,8 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
             //var_dump($all_rec);
             unset($dbc); //kill $dbc - possible long execution time due to loop - to be set conditional ($log_count>1)?
             
-            $dbc = new dataBase();
-            	
+            $dbc = new dataBase();            
+            
             $likequery= "SELECT lr.log_id log_id, lr.user_id user_id, u.username username
             			FROM cache_logs cl
             			JOIN log_rating lr on lr.log_id = cl.id
@@ -2379,7 +2378,10 @@ tpl_set_var('ptName', $ptHtml);
 tpl_set_var('ptSectionDisplay', $ptDisplay);
 
 
+
 tpl_BuildTemplate();
+
+echo "<script type='text/javascript' src='lib/js/other.js'></script>";
 
 if ( isset( $_REQUEST[ "posY" ]) )
 {

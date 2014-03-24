@@ -1,12 +1,3 @@
- <script type='text/javascript'>
- 
- function ToChangeLogRating( logid, target, cacheid) {	
-		//var posY = document.pageYOffset?document.pageYOffset:document.body.scrollTop;
-		var posY = document.body.scrollTop;
-		window.location.href = 'changelograting.php?logid='+logid.toString()+'&target='+target+'&cacheid='+cacheid.toString()+'&posY='+posY.toString() ;	
-	}
-</script>
-
 <?php
 /***************************************************************************
     *
@@ -577,6 +568,8 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
     unset( $dbc );
     //make the template and send it out
     tpl_BuildTemplate();
+
+echo "<script type='text/javascript' src='lib/js/other.js'></script>";    
     
 if ( isset( $_REQUEST[ "posY" ]) )
 {
