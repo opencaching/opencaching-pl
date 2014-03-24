@@ -353,11 +353,11 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 	//$sLikeTxt .= "<div style='width:40px; background-color:#DBE6F1; font-size:10px; border:1px solid #CCCCCC; -moz-border-radius: 5px; -webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;' >";
 
                
-               $sLikeIconTxt = '&nbsp&nbsp<a href="javascript:ToChangeLogRating('.$record[ "log_id"].',\'viewlogs.php\','.$cache_id.')"><img src="tpl/stdstyle/images/blue/recommendation.png" alt="user activity" width="13" height="13" border="0" title="'.tr("like_comment").'"/></a>&nbsp&nbsp';
+               $sLikeIconTxt = '<a href="javascript:ToChangeLogRating('.$record[ "log_id"].',\'viewlogs.php\','.$cache_id.')"><img src="tpl/stdstyle/images/blue/recommendation.png" alt="user activity" width="18" height="18" border="0" title="'.tr("like_comment").'"/></a>';
                 	
                 	
                	if ( $nrLike <> 0 )
-               	    $sLikeTxt .= $sLikeIconTxt.'<b>'.$nrLike.'</b> '.tr("like_it").' '.$sLikeUser;
+               	    $sLikeTxt .= '&nbsp&nbsp'.$sLikeIconTxt.'&nbsp&nbsp'.'<b>'.$nrLike.'</b> '.tr("like_it").' '.$sLikeUser;
                	//else
                	//	$sLikeTxt .= tr("no_like_it");
 
