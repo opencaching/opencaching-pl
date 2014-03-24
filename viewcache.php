@@ -1763,20 +1763,19 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 
                 
                 if ( $nrLike <> 0 )
-                	$sLikeTxt .= "<div style='background-color:#DBE6F1; font-size:10px; border:1px solid #CCCCCC; -moz-border-radius: 5px; -webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;' >";
-                else
-                	$sLikeTxt .= "<div>";
-                	//$sLikeTxt .= "<div style='width:40px; background-color:#DBE6F1; font-size:10px; border:1px solid #CCCCCC; -moz-border-radius: 5px; -webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;' >";
-                
-               	$sLikeTxt .= '&nbsp&nbsp<a href="javascript:ToChangeLogRating('.$record[ "logid"].',\'viewcache.php\','.$cache_id.')"><img src="tpl/stdstyle/images/blue/recommendation.png" alt="user activity" width="25" height="25" border="0" title="'.tr("like_comment").'"/></a>&nbsp&nbsp';
+               	    $sLikeTxt .= "<div style='background-color:#DBE6F1; font-size:10px; border:1px solid #CCCCCC; -moz-border-radius: 5px; -webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;' >";
+
+               
+               $sLikeIconTxt = '<a href="javascript:ToChangeLogRating('.$record[ "logid"].',\'viewlogs.php\','.$cache_id.')"><img src="tpl/stdstyle/images/blue/recommendation.png" alt="user activity" width="20" height="20" border="0" title="'.tr("like_comment").'"/></a>';
+                	
+                	
+               	if ( $nrLike <> 0 )
+               	    $sLikeTxt .= '&nbsp&nbsp'.$sLikeIconTxt.'&nbsp&nbsp'.'<b>'.$nrLike.'</b> '.tr("like_it").' '.$sLikeUser;
 
                	if ( $nrLike <> 0 )
-               		$sLikeTxt .= '<b>'.$nrLike.'</b> '.tr("like_it").' '.$sLikeUser;
-               	//else
-               	//	$sLikeTxt .= tr("no_like_it");
-                	 
-               	$sLikeTxt.= "</div>";
-                
+               		$sLikeTxt.= "</div>"; 
+
+               	
                	$processed_text .= $sLikeTxt;
 
                 
@@ -1836,7 +1835,8 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                     $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']"/>'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
                 }
 
-
+                if ( $nrLike == 0 )
+                    $tmplog_username_aktywnosc .= '&nbsp'.$sLikeIconTxt;
 
                 // ukrywanie autora komentarza COG przed zwykłym userem
                 if ($record['type'] == 12 && !$usr['admin'])
