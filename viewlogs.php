@@ -430,7 +430,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
                 //test-JG
                 if ( $nrLike == 0 )
-                    $tmplog_username_aktywnosc .= '&nbsp&nbsp&nbsp('.$sLikeIconTxt.')'; 
+                    $tmplog_username_aktywnosc .= '&nbsp'.$sLikeIconTxt; 
                 
                 // hide nick of athor of COG(OC Team) for user
                 if ($record['type'] == 12 && !$usr['admin'])
