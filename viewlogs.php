@@ -10,7 +10,7 @@
 
 /****************************************************************************
 
-   Unicode Reminder Ä�Â�Ä„Ä�Â�Ë�
+   Unicode Reminder ăĄă˘
 
      view all logs of a cache
 
@@ -328,20 +328,20 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 
                 for( $j = 0; $j < $nLikeCount; $j++ )
                 {
-                    $aLikeOneRec = $aLikeAllRec[ $j ];
-                    if ( $aLikeOneRec[ "log_id"] <> $record[ "log_id"]  )
-                    {
-                        if ( $nrLike == 0 )
-                	       continue;
-                        else
-                            break;
-                    }
+                	$aLikeOneRec = $aLikeAllRec[ $j ];
+                	if ( $aLikeOneRec[ "log_id"] <> $record[ "log_id"]  )
+                	{
+                		if ( $nrLike == 0 )
+                			continue;
+                		else
+                			break;
+                	}
                 	
-                    $nrLike++;
-                    if ( $sLikeUser <> "" )
-                	   $sLikeUser .= ", ";
+                	$nrLike++;
+                	if ( $sLikeUser <> "" )
+                		$sLikeUser .= ", ";
                 		
-                    $sLikeUser .= '<a href="viewprofile.php?userid='.$aLikeOneRec["user_id"].'">'.$aLikeOneRec[ "username" ].'</a>';
+                	$sLikeUser .= '<a href="viewprofile.php?userid='.$aLikeOneRec["user_id"].'">'.$aLikeOneRec[ "username" ].'</a>';
                 }
                                               
                 
@@ -357,7 +357,8 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
                	if ( $nrLike <> 0 )
                		$sLikeTxt.= "</div>"; 
-
+                
+               	
                	$processed_text .= $sLikeTxt;
 
                                               
@@ -415,16 +416,16 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
 
 
-                // display user activity (by Ĺ�za 2012)
+                // display user activity (by Łza 2012)
                 if ((date('m') == 4) and (date('d') == 1)){
                     $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').'"/>'. rand(1, 9) . ') ';
                 } else {
                     $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']"/>'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
                 }
-
-                //test-JG
+                
                 if ( $nrLike == 0 )
-                    $tmplog_username_aktywnosc .= '&nbsp'.$sLikeIconTxt; 
+                    $tmplog_username_aktywnosc .= '&nbsp'.$sLikeIconTxt;
+                
                 
                 // hide nick of athor of COG(OC Team) for user
                 if ($record['type'] == 12 && !$usr['admin'])
@@ -436,7 +437,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
                 $tmplog = mb_ereg_replace('{username_aktywnosc}', $tmplog_username_aktywnosc, $tmplog);
 
-                // mobile caches by Ĺ�za
+                // mobile caches by Łza
                 if (($record['type'] == 4) && ($record['mobile_latitude'] != 0))
                  {
                    $tmplog_kordy_mobilnej = mb_ereg_replace(" ", "&nbsp;",htmlspecialchars(help_latToDegreeStr($record['mobile_latitude']), ENT_COMPAT, 'UTF-8')) . '&nbsp;' . mb_ereg_replace(" ", "&nbsp;", htmlspecialchars(help_lonToDegreeStr($record['mobile_longitude']), ENT_COMPAT, 'UTF-8'));
