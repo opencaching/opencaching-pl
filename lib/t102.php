@@ -221,7 +221,7 @@ $query =
 
         "GROUP BY cl.id 
         ORDER BY count DESC, u.username ASC
-	     LIMIT 115, 125";
+	     LIMIT 111, 114";
 }
 
 
