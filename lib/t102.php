@@ -220,8 +220,7 @@ $query =
         . $sDateCondition .
 
         "GROUP BY cl.id 
-        ORDER BY count DESC, u.username ASC
-	     LIMIT 113, 1";
+        ORDER BY count DESC, u.username ASC";
 }
 
 
@@ -254,6 +253,7 @@ while ( $record = $dbc->dbResultFetch() )
         $sOpis = str_replace("\n", " ",$sOpis);
         $sOpis = str_replace("'", "-",$sOpis);
         $sOpis = str_replace("\"", " ",$sOpis);
+        $sOpis = str_replace("'", " ",$sOpis);
         
         if ( $sNameOfStat == "FavoriteComments" )
          $sOpis = "<b><a href=\\'viewcache.php?cacheid=".$record[ "cache_id" ]."\\'>".$record[ "cachename" ]."</a></b><br><br>" . $sOpis;
