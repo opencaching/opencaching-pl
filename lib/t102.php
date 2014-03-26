@@ -220,7 +220,8 @@ $query =
         . $sDateCondition .
 
         "GROUP BY cl.id 
-        ORDER BY count DESC, u.username ASC";
+        ORDER BY count DESC, u.username ASC
+	     LIMIT 150";
 }
 
 
