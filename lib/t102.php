@@ -248,15 +248,15 @@ while ( $record = $dbc->dbResultFetch() )
     if ( $record[ "description" ] <> "" )
     {
         $sOpis = $record[ "description" ];
-
+        
+        if ( $sNameOfStat == "FavoriteComments" )
+         $sOpis = "<b><a href=\\'viewcache.php?cacheid=".$record[ "cache_id" ]."\\'>".$record[ "cachename" ]."</a></b><br><br>" . $sOpis;
+        
         $sOpis = str_replace("\r\n", " ",$sOpis);
         $sOpis = str_replace("\n", " ",$sOpis);
         $sOpis = str_replace("'", "-",$sOpis);
         $sOpis = str_replace("\"", " ",$sOpis);
-        $sOpis = str_replace("\'", "-",$sOpis);
         
-        if ( $sNameOfStat == "FavoriteComments" )
-         $sOpis = "<b><a href=\\'viewcache.php?cacheid=".$record[ "cache_id" ]."\\'>".$record[ "cachename" ]."</a></b><br><br>" . $sOpis;
         
     }
     else
