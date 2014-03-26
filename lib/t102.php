@@ -260,13 +260,12 @@ while ( $record = $dbc->dbResultFetch() )
         if ( $sNameOfStat == "FavoriteComments" )
         {
             $sCacheName = $record[ "cachename" ];
-            
-            $sCacheName = str_replace("\r\n", " ",$sOpis);
-            $sCacheName = str_replace("\n", " ",$sOpis);
-            $sCacheName = str_replace("'", "-",$sOpis);
-            $sCacheName = str_replace("\"", " ",$sOpis);
-                                    
-            $sOpis = "<b><a href=\\'viewcache.php?cacheid=".$sCacheName."\\'>".$record[ "cachename" ]."</a></b><br><br>" . $sOpis;
+            $sCacheName = str_replace("\r\n", " ",$sCacheName);
+            $sCacheName = str_replace("\n", " ",$sCacheName);
+            $sCacheName = str_replace("'", "-",$sCacheName);
+            $sCacheName = str_replace("\"", " ",$sCacheName);
+                                  
+            $sOpis = "<b><a href=\\'viewcache.php?cacheid=".$record[ "cache_id" ]."\\'>".$sCacheName."</a></b><br><br>" . $sOpis;
         }
         
         
