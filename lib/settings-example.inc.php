@@ -358,5 +358,7 @@
 	$dateFormat = 'Y-m-d';
 	$datetimeFormat = 'Y-m-d H:i';
 
+     $defaultCountryList = array ("AT", "BE", "BY","BG", "HR","CZ", "DK","EE", "FI","FR", "GR","ES", "NL","IE", "LT","MD", "DE","NO", "PL","PT", "SU","RO", "SK","SI", "CH","SE", "TR","UA", "IT", "HU", "GB",);
+
 
 ?>
