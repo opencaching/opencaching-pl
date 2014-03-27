@@ -225,7 +225,12 @@ if ($error == false) {
     }
     else
     {
-      $rs = sql('SELECT `short` FROM `countries` ORDER BY `short ` ASC');
+      $query = 'SELECT `short` FROM `countries` WHERE 1 ORDER BY `short` ASC';
+      $db->simpleQuery($query);
+      $dbResult = $db->dbResultFetchAll();
+      foreach ($dbResult as $key => $value) {
+          $defaultCountryList[] = $value['short'];
+      }
     }
     foreach ($defaultCountryList as $countryCode) {
         if ($country == $countryCode) {
