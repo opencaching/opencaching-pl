@@ -7,3 +7,4 @@
 $config = array (
     'blogMostRecentRecordsUrl' => 'http://blog.opencaching.pl/feed/', /* url where xml witch most recent blog enterie are placed */
 );
+
