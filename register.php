@@ -1,8 +1,4 @@
 <?php
-/*temporary until be moved to settings.inc.php*/
-if(!isset($defaultCountryList)){
-     $defaultCountryList = array ("AT", "BE", "BY","BG", "HR","CZ", "DK","EE", "FI","FR", "GR","ES", "NL","IE", "LT","MD", "DE","NO", "PL","PT", "SU","RO", "SK","SI", "CH","SE", "TR","UA", "IT", "HU", "GB",);
- }
 /***************************************************************************
                                                                 ./register.php
                                                             -------------------
@@ -120,30 +116,29 @@ if ($error == false) {
 
                 //process email
                 $email_content = read_file($stylepath . '/email/register.email');
-
                 $email_content = mb_ereg_replace('%server%', $absolute_server_URI, $email_content);
-                                    $email_content = mb_ereg_replace('%registermail01%', tr('registermail01'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail02%', tr('registermail02'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail03%', tr('registermail03'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail04%', tr('registermail04'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail05%', tr('registermail05'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail06%', tr('registermail06'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail07%', tr('registermail07'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail08%', tr('registermail08'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail09%', tr('registermail09'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail10%', tr('registermail10'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail11%', tr('registermail11'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail12%', tr('registermail12'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail13%', tr('registermail13'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail14%', tr('registermail14'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail15%', tr('registermail15'), $email_content);
-                                    $email_content = mb_ereg_replace('%registermail16%', tr('registermail16'), $email_content);
-                                    $email_content = mb_ereg_replace('%user%', $username, $email_content);
+                $email_content = mb_ereg_replace('%registermail01%', tr('registermail01'), $email_content);
+                $email_content = mb_ereg_replace('%registermail02%', tr('registermail02'), $email_content);
+                $email_content = mb_ereg_replace('%registermail03%', tr('registermail03'), $email_content);
+                $email_content = mb_ereg_replace('%registermail04%', tr('registermail04'), $email_content);
+                $email_content = mb_ereg_replace('%registermail05%', tr('registermail05'), $email_content);
+                $email_content = mb_ereg_replace('%registermail06%', tr('registermail06'), $email_content);
+                $email_content = mb_ereg_replace('%registermail07%', tr('registermail07'), $email_content);
+                $email_content = mb_ereg_replace('%registermail08%', tr('registermail08'), $email_content);
+                $email_content = mb_ereg_replace('%registermail09%', tr('registermail09'), $email_content);
+                $email_content = mb_ereg_replace('%registermail10%', tr('registermail10'), $email_content);
+                $email_content = mb_ereg_replace('%registermail11%', tr('registermail11'), $email_content);
+                $email_content = mb_ereg_replace('%registermail12%', tr('registermail12'), $email_content);
+                $email_content = mb_ereg_replace('%registermail13%', tr('registermail13'), $email_content);
+                $email_content = mb_ereg_replace('%registermail14%', tr('registermail14'), $email_content);
+                $email_content = mb_ereg_replace('%registermail15%', tr('registermail15'), $email_content);
+                $email_content = mb_ereg_replace('%registermail16%', tr('registermail16'), $email_content);
+                $email_content = mb_ereg_replace('%user%', $username, $email_content);
                 $email_content = mb_ereg_replace('%email%', $email, $email_content);
                 $country_name = db_CountryFromShort($country);
                 $email_content = mb_ereg_replace('%country%', $country_name, $email_content);
                 $email_content = mb_ereg_replace('%code%', $activationcode, $email_content);
-                                    $email_content = mb_ereg_replace('%octeamEmailsSignature%', $octeamEmailsSignature, $email_content);
+                $email_content = mb_ereg_replace('%octeamEmailsSignature%', $octeamEmailsSignature, $email_content);
 
                 $uuid = create_uuid();
                 if(strtotime("2008-11-01 00:00:00") <= strtotime(date("Y-m-d h:i:s")))
@@ -162,12 +157,12 @@ if ($error == false) {
                                         $uuid,
                                         $activationcode,
                                         $oc_nodeid,
-                                                                $rules_conf_req);
+                                        $rules_conf_req);
 
-                mb_send_mail($email, $register_email_subject, $email_content, $emailheaders);
+              mb_send_mail($email, $register_email_subject, $email_content, $emailheaders);
 
-                //display confirmationpage
-                $tplname = 'register_confirm';
+              //display confirmationpage
+              $tplname = 'register_confirm';
               tpl_set_var('country', htmlspecialchars($country_name, ENT_COMPAT, 'UTF-8'));
             }
             else
@@ -222,9 +217,7 @@ if ($error == false) {
       //$rs = sql('SELECT `&1`, `short` FROM `countries` WHERE `list_default_' . $lang_db . '`=1 ORDER BY `sort_' . $lang_db . '` ASC', $lang_db);
       // $queryCountry = 'SELECT `short` FROM `countries` WHERE `list_default_' . $lang_db . '`=1 ORDER BY `sort_' . $lang_db . '` ASC', $lang_db);
       tpl_set_var('all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $allcountries . '" />');
-    }
-    else
-    {
+    } else {
       $query = 'SELECT `short` FROM `countries` WHERE 1 ORDER BY `short` ASC';
       $db->simpleQuery($query);
       $dbResult = $db->dbResultFetchAll();
