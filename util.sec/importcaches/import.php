@@ -86,11 +86,11 @@ class importCaches
     {
         /* begin db connect */
         db_connect();
-        if ($dblink === false)
-        {
-            echo 'Unable to connect to database';
-            exit;
-        }
+//        if ($dblink === false)
+//        {
+//            echo 'Unable to connect to database';
+//            exit;
+//        }
         /* end db connect */
 
         $xmlfile = $this->loadXML($node_id);
