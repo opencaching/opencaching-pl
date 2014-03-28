@@ -473,7 +473,7 @@ geokret_log Een Geokret meegenomen? Registreer dit op
 rate_cache Beoordeel deze cache: <br/><a href="{rating_desc_url}">Uitleg over beoordeling</a>
 do_not_rate Ik wil deze cache niet beoordelen
 listed_other Log deze cache ook op de volgende sites
-not_spcified not spcified
+not_spcified Niet geselecteerd
 all_countries toon alle landen
 register_email_subject Registratie bevestiging opencaching
 error_username_not_ok Gebruikersnaam is niet geldig
@@ -1343,7 +1343,7 @@ registermail04 {wiki_url}
 registermail05 Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.
 registermail06 Kijk eens op:
 registermail07 Maak gebruik van de huidige regel dat er vrij caches geplaats kunnen worden. Wanneer er voldoende caches zijn zal deze regel veranderd worden dat je eerst 10 caches gevonden moet hebben eer je caches mag plaatsen.
-registermail08 Je eerste 3 nieuwe caches zullen door het Opencaching team gekeurt worden.
+registermail08 Je eerste 3 nieuwe caches zullen door het Opencaching team gekeurd worden.
 registermail09 De mobile versie van {site_name} is te vinden op: http://m.{site_name}
 registermail10 Wij hebben de volgende informatie opgeslagen voor registratie:
 registermail11 E-mail adres:
