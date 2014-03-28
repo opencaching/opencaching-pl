@@ -21,7 +21,7 @@ class AutoArch
 
     function sendEmail($step, $cacheid)
     {
-        global $STEP, $stylepath;
+        global $STEP, $stylepath, $octeam_email;
         $sql = "SELECT caches.cache_id, caches.name, caches.wp_oc, user.email FROM caches, user WHERE caches.cache_id = ".sql_escape(intval($cacheid))." AND user.user_id = caches.user_id";
         $query = mysql_query($sql);
         $cache = mysql_fetch_array($query);
@@ -53,7 +53,7 @@ class AutoArch
 
     function run()
     {
-        global $STEP;
+        global $STEP, $dblink;
         /* begin db connect */
         db_connect();
         if ($dblink === false)
@@ -137,6 +137,7 @@ class AutoArch
 
     function ArchEvent()
     {
+        global $dblink;
         /* begin db connect */
         db_connect();
         if ($dblink === false)
