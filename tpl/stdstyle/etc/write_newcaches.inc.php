@@ -26,7 +26,6 @@
     //include template handling
     require_once($rootpath . 'lib/common.inc.php');
     require_once($rootpath . 'lib/cache_icon.inc.php');
-
     // Map parameters
     $map_center_lat = $main_page_map_center_lat;
     $map_center_lon = $main_page_map_center_lon;
@@ -133,7 +132,7 @@
         $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
         $thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
         $thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
-        $thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
+        //$thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
         $thisline = mb_ereg_replace('{cacheicon}', $cacheicon, $thisline);
 
         $file_content .= $thisline . "\n";
@@ -203,7 +202,7 @@
             $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
             $thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
-            $thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
+           // $thisline = mb_ereg_replace('{locationstring}', $locationstring, $thisline);
             $thisline = mb_ereg_replace('{cacheicon}', 'tpl/stdstyle/images/cache/22x22-event.png', $thisline);
 
             $file_content .= $thisline . "\n";

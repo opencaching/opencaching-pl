@@ -214,8 +214,6 @@ if ($error == false) {
     }
 
     if ($display_all_countries == 0) {
-      //$rs = sql('SELECT `&1`, `short` FROM `countries` WHERE `list_default_' . $lang_db . '`=1 ORDER BY `sort_' . $lang_db . '` ASC', $lang_db);
-      // $queryCountry = 'SELECT `short` FROM `countries` WHERE `list_default_' . $lang_db . '`=1 ORDER BY `sort_' . $lang_db . '` ASC', $lang_db);
       tpl_set_var('all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $allcountries . '" />');
     } else {
       $query = 'SELECT `short` FROM `countries` WHERE 1 ORDER BY `short` ASC';
