@@ -38,7 +38,7 @@ class cache_location
     function run()
     {
 
-
+        global $dblink, $lang;
         /* begin db connect */
         db_connect();
         if ($dblink === false)
