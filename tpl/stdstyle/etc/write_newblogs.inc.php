@@ -8,7 +8,7 @@
     *
     ***************************************************************************/
 /* this file to be run witch CRON. generate last blog entery list on main page */
-
+error_reporting(-1);
 setlocale(LC_TIME, 'pl_PL.UTF-8');
 
 global $lang, $rootpath, $config;
@@ -20,6 +20,8 @@ if (!isset($rootpath)) {
 require_once($rootpath . 'lib/common.inc.php');
 require_once($rootpath . 'lib/cache_icon.inc.php');
 require_once($rootpath . 'lib/rss_php.php');
+
+d($config);
 
 $rss = new rss_php;
 
@@ -42,3 +44,6 @@ $html.="</ul>";
 $n_file = fopen($dynstylepath . "start_newblogs.inc.php", 'w');
 fwrite($n_file, $html);
 fclose($n_file);
+
+
+echo $html;
