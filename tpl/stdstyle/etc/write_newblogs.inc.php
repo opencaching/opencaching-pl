@@ -17,9 +17,9 @@ if (!isset($rootpath)) {
 }
 
 //include template handling
-require_once($rootpath . 'lib/common.inc.php');
-require_once($rootpath . 'lib/cache_icon.inc.php');
-require_once($rootpath . 'lib/rss_php.php');
+require_once(__DIR__.'/../../../' . 'lib/common.inc.php');
+require_once(__DIR__.'/../../../' . 'lib/cache_icon.inc.php');
+require_once(__DIR__.'/../../../' . 'lib/rss_php.php');
 
 d($config);
 
