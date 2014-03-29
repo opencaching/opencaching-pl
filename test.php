@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(-1);
 include __DIR__.'/tpl/stdStyle/etc/write_newblogs.inc.php';
 exit;
 
