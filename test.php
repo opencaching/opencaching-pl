@@ -1,6 +1,8 @@
 <?php
 error_reporting(-1);
-include __DIR__.'/tpl/stdStyle/etc/write_newblogs.inc.php';
+print 'A';
+include __DIR__.'/tpl/stdstyle/etc/write_newblogs.inc.php';
+print 'B';
 exit;
 
 require '
