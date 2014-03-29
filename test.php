@@ -1,4 +1,13 @@
 <?php
+
+include __DIR__.'/tpl/stdStyle/etc/write_newblogs.inc.php';
+exit;
+
+require '
+ocpl/util.sec/geokrety/processGeokretyErrors.php
+';
+
+exit;
 error_reporting(-1);
 require __DIR__.'/lib/ClassPathDictionary.php';
 spl_autoload_register(function ($className) {
