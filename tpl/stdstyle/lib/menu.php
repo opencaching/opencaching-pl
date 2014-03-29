@@ -97,18 +97,18 @@ $menu = array(
                 )
             ),
             array(
-            'title'         => tr('new_logs'),
-            'menustring'    => tr('new_logs'),
-            'visible'       => true,
-            'filename'      => 'newlogs.php',
-            'siteid'        => 'newlogs'
+                'title'         => tr('new_logs'),
+                'menustring'    => tr('new_logs'),
+                'visible'       => true,
+                'filename'      => 'newlogs.php',
+                'siteid'        => 'newlogs'
             ),
             array(
-            'title'         => tr('incomming_events'),
-            'menustring'    => tr('incomming_events'),
-            'visible'       => true,
-            'filename'      => 'newevents.php',
-            'siteid'        => 'newevents'
+                'title'         => tr('incomming_events'),
+                'menustring'    => tr('incomming_events'),
+                'visible'       => true,
+                'filename'      => 'newevents.php',
+                'siteid'        => 'newevents'
             ),
             array(
                 'title'         => tr('cache_map'),
@@ -161,7 +161,21 @@ $menu = array(
                 'visible'       => true,
                 'onlylogged'    => true,
                 'filename'      => 'articles.php?page=stat',
-                'siteid'        => 'articles/stat'
+                'siteid'        => array (
+                    'articles/stat',
+                    'articles/s1',
+                    'articles/s1b',
+                    'articles/s2',
+                    'articles/s3',
+                    'articles/s4',
+                    'articles/s5',
+                    'articles/s6',
+                    'articles/s7',
+                    'articles/s8',
+                    'articles/s11a',
+                    'articles/s12',
+                    'articles/s102'
+                )
             ),
             array(
                 'title'         => tr('rules'),
@@ -178,42 +192,7 @@ $menu = array(
                 'navicolor'     => '#FFFFC5',
                 'visible'       => false,
                 'filename'      => 'articles.php?page=links'
-            ),
-            array(
-                'title'         => tr('statistics'),
-                'menustring'    => tr('statistics'),
-                'siteid'        => 'articles/s1',
-                'visible'       => false,
-                'filename'      => 'articles.php?page=s1'
-            ),
-            array(
-                'title'         => tr('statistics'),
-                'menustring'    => tr('statistics'),
-                'siteid'        => 'articles/s2',
-                'visible'       => false,
-                'filename'      => 'articles.php?page=s2'
-            ),
-            array(
-                'title'         => tr('statistics'),
-                'menustring'    => tr('statistics'),
-                'siteid'        => 'articles/s3',
-                'visible'       => false,
-                'filename'      => 'articles.php?page=s3'
-            ),
-            array(
-                'title'         => tr('statistics'),
-                'menustring'    => tr('statistics'),
-                'siteid'        => 'articles/s4',
-                'visible'       => false,
-                'filename'      => 'articles.php?page=s4'
-            ),
-            array(
-                'title'         => tr('statistics'),
-                'menustring'    => tr('statistics'),
-                'siteid'        => 'articles/s5',
-                'visible'       => false,
-                'filename'      => 'articles.php?page=s5'
-            ),
+            ), 
             array(
                 'title'         => tr('pt001'),
                 'menustring'    => tr('pt001'),
@@ -931,7 +910,9 @@ function mnu_MainMenuIndexFromPageId($menustructure, $pageid) {
     global $mnu_selmenuitem;
 
     for ($i = 0, $ret = -1; ($i < count($menustructure)) && ($ret == -1); $i++) {
-        if ($menustructure[$i]['siteid'] == $pageid) {
+        if ($menustructure[$i]['siteid'] === $pageid 
+                || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid']))
+        {
             $mnu_selmenuitem = $menustructure[$i];
             return $i;
         }
@@ -961,7 +942,9 @@ function mnu_EchoMainMenu($selmenuid) {
             else
                 $target_blank = "";
 
-            if ($menu[$i]['siteid'] == $selmenuid) {
+            if ($menu[$i]['siteid'] == $selmenuid
+                || is_array($menu[$i]['siteid']) && in_array($selmenuid, $menu[$i]['siteid']))
+            {
                 echo '<li><a class="selected bg-green06" href="' . $menu[$i]['filename'] . '">' . htmlspecialchars($menu[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>';
             }
             else {
@@ -1023,7 +1006,9 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu) {
                 continue;
             }
 
-            if ($menustructure[$i]['siteid'] == $pageid) {
+            if ($menustructure[$i]['siteid'] === $pageid 
+                    || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid']))
+            {
                 echo '<li class="'.$cssclass.' '.$cssclass.'_active "><a '.$target_blank.' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
             }
             else {
@@ -1045,7 +1030,11 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu) {
  */
 function mnu_IsMenuParentOf($parentmenuitems, $menuitemid) {
     for ($i = 0; $i < count($parentmenuitems); $i++) {
-        if ($parentmenuitems[$i]['siteid'] == $menuitemid) return true;
+        if ($parentmenuitems[$i]['siteid'] === $menuitemid
+            || is_array($parentmenuitems[$i]['siteid']) && in_array($menuitemid, $parentmenuitems[$i]['siteid']))
+        {
+            return true;
+        }
 
         if (isset($parentmenuitems[$i]['submenu'])) {
             $ret = mnu_IsMenuParentOf($parentmenuitems[$i]['submenu'], $menuitemid);
@@ -1067,7 +1056,10 @@ function mnu_EchoBreadCrumb($pageid, $mainmenuindex) {
 
     echo htmlspecialchars($menu[$mainmenuindex]['menustring'], ENT_COMPAT, 'UTF-8');
 
-    if (isset($menu[$mainmenuindex]['submenu']) && ($menu[$mainmenuindex]['siteid'] != $pageid)) {
+    if (isset($menu[$mainmenuindex]['submenu']) && !(
+            $menu[$mainmenuindex]['siteid'] === $pageid
+            || is_array($menu[$mainmenuindex]['siteid']) && in_array($pageid, $menu[$mainmenuindex]['siteid'])))
+    {
         mnu_prv_EchoBreadCrumbSubItem($pageid, $menu[$mainmenuindex]['submenu']);
     }
 }
@@ -1077,7 +1069,9 @@ function mnu_EchoBreadCrumb($pageid, $mainmenuindex) {
  */
 function mnu_prv_EchoBreadCrumbSubItem($pageid, $menustructure) {
     for ($i = 0; $i < count($menustructure); $i++) {
-        if ($menustructure[$i]['siteid'] == $pageid) {
+        if ($menustructure[$i]['siteid'] == $pageid
+            || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid'])) 
+        {
             echo '&nbsp;&gt;&nbsp;' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8');
             return;
         }
