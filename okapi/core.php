@@ -183,18 +183,23 @@ class OkapiExceptionHandler
         }
     }
 
-    private static function removeSensitiveData($message){
-        $hashStr1 = "'******'";
-        $hashStr2 = "******";
-        $search = array(
-            "'".Settings::get('DB_PASSWORD')."'",
-            "'".Settings::get('DB_USERNAME')."'", 
-            Settings::get('DB_SERVER'),
-            "'".Settings::get('DB_NAME')."'"
+    public static function removeSensitiveData($message)
+    {
+        return str_replace(
+            array(
+                Settings::get('DB_PASSWORD'),
+                "'".Settings::get('DB_USERNAME')."'",
+                Settings::get('DB_SERVER'),
+                "'".Settings::get('DB_NAME')."'"
+            ),
+            array(
+                "******",
+                "'******'",
+                "******",
+                "'******'"
+            ),
+            $message
         );
-        $replace = array($hashStr1, $hashStr1, $hashStr2, $hashStr1);
-        $message = str_replace($search, $replace, $message);
-        return $message;
     }
 
     public static function get_exception_info($e)
@@ -841,7 +846,7 @@ class Okapi
 {
     public static $data_store;
     public static $server;
-    public static $revision = 997; # This gets replaced in automatically deployed packages
+    public static $revision = 998; # This gets replaced in automatically deployed packages
     private static $okapi_vars = null;
 
     /** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -877,6 +882,18 @@ class Okapi
                 '".mysql_real_escape_string($value)."');
         ");
         self::$okapi_vars[$varname] = $value;
+    }
+
+    /**
+     * Remove database passwords and other sensitive data from the given
+     * message (which is usually a trace, var_dump or print_r output).
+     */
+    public static function removeSensitiveData($message)
+    {
+        # This method is initially defined in the OkapiExceptionHandler class,
+        # so that it is accessible even before the Okapi class is initialized.
+
+        return OkapiExceptionHandler::removeSensitiveData($message);
     }
 
     /** Send an email message to local OKAPI administrators. */
