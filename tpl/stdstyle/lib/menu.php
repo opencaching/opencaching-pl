@@ -45,7 +45,7 @@ $menu = array(
     array(
         'title'         => tr('main_page'),
         'menustring'    => tr('main_page'),
-        'siteid'        => 'start',
+        'siteid'        => array('start', 'articles/impressum'),
         'visible'       => true,
         'filename'      => 'index.php',
         'submenu'       => array(
