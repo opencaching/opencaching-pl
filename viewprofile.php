@@ -13,7 +13,7 @@
 if (!isset($rootpath))
     $rootpath = '';
 require_once ('./lib/common.inc.php');
-global $stat_menu;
+global $stat_menu, $mnu_siteid;
 
 //Preprocessing
 if ($error == false) {
@@ -25,11 +25,19 @@ if ($error == false) {
         // check for old-style parameters
         if (isset($_REQUEST['userid'])) {
             $user_id = $_REQUEST['userid'];
-            tpl_set_var('userid', $user_id);
+        } else {
+            $user_id = $usr['userid'];
         }
+        tpl_set_var('userid', $user_id);
         require ($stylepath . '/viewprofile.inc.php');
         require ($stylepath . '/lib/icons.inc.php');
         $tplname = 'viewprofile';
+        
+        if ($user_id != $usr['userid']){
+            // do not highlight My stats menu item if browsing other users stats
+            $mnu_siteid = 'start';
+        }
+        
         $stat_menu = array('title' => tr('Statictics'), 'menustring' => tr('Statictics'), 'siteid' => 'statlisting', 'navicolor' => '#E8DDE4', 'visible' => false, 'filename' => 'viewprofile.php?userid=' . $user_id, 'submenu' => array( array('title' => tr('graph_find'), 'menustring' => tr('graph_find'), 'visible' => true, 'filename' => 'ustatsg2.php?userid=' . $user_id, 'newwindow' => false, 'siteid' => 'findstat', 'icon' => 'images/actions/stat'), array('title' => tr('graph_created'), 'menustring' => tr('graph_created'), 'visible' => true, 'filename' => 'ustatsg1.php?userid=' . $user_id, 'newwindow' => false, 'siteid' => 'createstat', 'icon' => 'images/actions/stat')));
 
         $content = "";

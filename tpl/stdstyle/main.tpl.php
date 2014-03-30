@@ -10,9 +10,13 @@
  ***************************************************************************/
 
     // load menu
-    global $mnu_bgcolor, $mnu_selmenuitem, $develwarning, $tpl_subtitle, $absolute_server_URI;
+    global $mnu_bgcolor, $mnu_selmenuitem, $develwarning, $tpl_subtitle, $absolute_server_URI, $mnu_siteid;
     require_once $stylepath . '/lib/menu.php';
-    $pageidx = mnu_MainMenuIndexFromPageId($menu, $tplname);
+    $menu_item_siteid = $tplname;
+    if (isset($mnu_siteid)){
+        $menu_item_siteid = $mnu_siteid;
+    }
+    $pageidx = mnu_MainMenuIndexFromPageId($menu, $menu_item_siteid);
 
     if (isset($menu[$pageidx]['navicolor'])) {
         $mnu_bgcolor = $menu[$pageidx]['navicolor'];
@@ -215,7 +219,7 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                                 $menu[$mainmenuidx]['submenu'][$registeridx]['visible'] = true;
                             echo '<ul>';
                             echo '<li class="title">'.tr('main_menu').'</li>';
-                            mnu_EchoSubMenu($menu[$mainmenuidx]['submenu'], $tplname, 1, false);
+                            mnu_EchoSubMenu($menu[$mainmenuidx]['submenu'], $menu_item_siteid, 1, false);
                             echo '</ul>';
                         }
                     ?>
@@ -224,14 +228,15 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                             $myhomeidx = mnu_MainMenuIndexFromPageId($menu, "myhome");
                             $myprofileidx = mnu_MainMenuIndexFromPageId($menu[$myhomeidx]["submenu"], "myprofile");
                             // [fixme] Have to do the menu unrolling... in not such a crappy way
-                            if( $tplname == "myprofile" || $tplname == "myprofile_change" || $tplname == "newemail" || $tplname == "newpw" || $tplname == "change_statpic" ) {
+                            // ^ agreed, but it's 1:30 AM
+                            if( $menu_item_siteid == "myprofile" || $menu_item_siteid == "myprofile_change" || $menu_item_siteid == "newemail" || $menu_item_siteid == "newpw" || $menu_item_siteid == "change_statpic" ) {
                                 for( $i = 0; $i < count($menu[$myhomeidx]["submenu"][$myprofileidx]['submenu']); $i++ ) {
                                     $menu[$myhomeidx]["submenu"][$myprofileidx]['submenu'][$i]['visible'] = true;
                                 }
                             }
                             echo '<ul>';
                             echo '<li class="title">'.$menu[$myhomeidx]["title"].'</li>';
-                            mnu_EchoSubMenu($menu[$myhomeidx]['submenu'], $tplname, 1, false);
+                            mnu_EchoSubMenu($menu[$myhomeidx]['submenu'], $menu_item_siteid, 1, false);
                             echo '</ul>';
                         }
                     ?>
@@ -247,7 +252,7 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                             $zgloszeniaidx = mnu_MainMenuIndexFromPageId($menu[$adminidx]["submenu"], "viewpendings");
                             if( $new_pendings > 0)
                                 $menu[$adminidx]["submenu"][$zgloszeniaidx]['menustring'] .= " (".$new_pendings.")";
-                            mnu_EchoSubMenu($menu[$adminidx]['submenu'], $tplname, 1, false);
+                            mnu_EchoSubMenu($menu[$adminidx]['submenu'], $menu_item_siteid, 1, false);
                             echo '</ul>';
                         }
                     ?>
