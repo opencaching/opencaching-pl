@@ -1665,10 +1665,11 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
             $all_rec = $dbc->dbResultFetchAll();
             //var_dump($all_rec);
-            unset($dbc); //kill $dbc - possible long execution time due to loop - to be set conditional ($log_count>1)?
+            //unset($dbc); //kill $dbc - possible long execution time due to loop - to be set conditional ($log_count>1)?
             
-            $dbc = new dataBase();            
+            //$dbc = new dataBase();            
             
+            /*
             $likequery= "SELECT lr.log_id log_id, lr.user_id user_id, u.username username
             			FROM cache_logs cl
             			JOIN log_rating lr on lr.log_id = cl.id
@@ -1679,7 +1680,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
             $dbc->multiVariableQuery($likequery, $cache_id );
             $nLikeCount = $dbc->rowCount();
             $aLikeAllRec = $dbc->dbResultFetchAll();            
-            
+            */
             
             for ($i = 0; $i < $logs_count; $i++)
             {
@@ -1739,6 +1740,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 
                 
                 //////////////// I Like IT
+                /*
                 $sLikeTxt = "";
                 $sLikeUser = "";
                 $nrLike = 0;
@@ -1780,7 +1782,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
                 
                 ///////////////////////////
-                
+                */
 
                 if ($record['edit_count']>0)
                 //check if editted at all
