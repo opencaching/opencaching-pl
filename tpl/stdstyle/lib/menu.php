@@ -492,14 +492,7 @@ $menu = array(
                 'menustring'    => tr('new_cache'),
                 'visible'       => true,
                 'filename'      => 'newcache.php',
-                'siteid'        => 'newcache'
-            ),
-            array(
-                    'title'         => tr('new_cache'),
-                    'menustring'    => tr('new_cache'),
-                    'visible'       => false,
-                    'filename'      => 'newcache.php',
-                    'siteid'        => 'newcache_info'
+                'siteid'        => array('newcache_info', 'newcache_forbidden', 'newcache_beginner', 'newcache')
             ),
 
             array(
@@ -542,7 +535,7 @@ $menu = array(
                 'menustring'    => tr('my_statistics'),
                 'visible'       => true,
                 'filename'      => isset($usr['userid'])?'viewprofile.php?userid='.$usr['userid']:'',
-                'siteid'        => 'myhome'
+                'siteid'        => array('myhome', 'viewprofile', 'ustat', 'my_logs')
             ),
             array(
                 'title'         =>'Field Notes',
