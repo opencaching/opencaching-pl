@@ -8,7 +8,6 @@
     *
     ***************************************************************************/
 /* this file to be run witch CRON. generate last blog entery list on main page */
-error_reporting(-1);
 setlocale(LC_TIME, 'pl_PL.UTF-8');
 
 global $lang, $rootpath, $config;
@@ -21,14 +20,9 @@ require_once(__DIR__.'/../../../' . 'lib/common.inc.php');
 require_once(__DIR__.'/../../../' . 'lib/cache_icon.inc.php');
 require_once(__DIR__.'/../../../' . 'lib/rss_php.php');
 
-d($config);
-
 $rss = new rss_php;
-
 $rss->load($config['blogMostRecentRecordsUrl']);
-
 $items = $rss->getItems();
-
 $html = '<ul style="font-size: 11px;">';
 $n=0;
 foreach($items as $index => $item) {
@@ -44,6 +38,3 @@ $html.="</ul>";
 $n_file = fopen($dynstylepath . "start_newblogs.inc.php", 'w');
 fwrite($n_file, $html);
 fclose($n_file);
-
-
-echo $html;
