@@ -68,6 +68,14 @@
         </td>
     </tr>
     <tr>
+        <td>
+	<img src="/images/ro.png" class="icon32" align="middle" /> {{RO}}
+        </td>
+        <td>
+            <a href="http://www.opencaching.ro">http://www.opencaching.ro</a>
+        </td>
+    </tr>
+    <tr>
         <td style="width: 25%;">
 	<img src="/images/sv.png" class="icon32" align="middle" /> {{SE}}
         </td>
