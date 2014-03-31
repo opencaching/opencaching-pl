@@ -497,15 +497,17 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $attribentries='';
         while ($rAttrib = sql_fetch_array($rsAttributes))
         {
-            $thisattribute = $gpxAttributes;
+            if (isset($gpxAttribID[$rAttrib['attrib_id']]))
+            {
+                $thisattribute = $gpxAttributes;
+                $thisattribute_id = $gpxAttribID[$rAttrib['attrib_id']];
+                $thisattribute_name = $gpxAttribName[$rAttrib['attrib_id']];
 
-            $thisattribute_id = $gpxAttribID[$rAttrib['attrib_id']];
-            $thisattribute_name = $gpxAttribName[$rAttrib['attrib_id']];
+                $thisattribute = mb_ereg_replace('{attrib_id}', $thisattribute_id, $thisattribute);
+                $thisattribute = mb_ereg_replace('{attrib_text_long}', $thisattribute_name, $thisattribute);
 
-            $thisattribute = mb_ereg_replace('{attrib_id}', $thisattribute_id, $thisattribute);
-            $thisattribute = mb_ereg_replace('{attrib_text_long}', $thisattribute_name, $thisattribute);
-
-            $attribentries .= $thisattribute . "\n";
+                $attribentries .= $thisattribute . "\n";
+            }
         }
         mysql_free_result($rsAttributes);
         $thisline = str_replace('{attributes}', $attribentries, $thisline);
