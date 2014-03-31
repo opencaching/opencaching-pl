@@ -1,23 +1,26 @@
-lang en
-login [login]
-logout [logout]
-login_info logged in as
-about about
+# this file is encoded in UTF-8 charset
+# łł óó śźć 
+
+lang ro
+login [autentificare]
+logout [deconectare]
+login_info logat ca
+about despre
 contact contact
-main_page main page
-back ...return
-pc_ver PC version
+main_page pagina principală
+back ...reveni
+pc_ver versiunea pentru PC
 login_title login
 login_title2 Login
-wrong_login_pass Wrong username or password!
+wrong_login_pass Nume utilizator sau parolă greşită!
 user Username:
 passw Password:
 remember_me Remember me
 login_button Login
 mainpage_title main page
-seek seek a cache
-seek_near seek a caches in region
-entry add entry to logbook
+seek caută un cache
+seek_near caută un cache în regiune
+entry adaugă intrare în jurnalul de bord
 my_menu my menu...
 more more...
 menu_title my menu

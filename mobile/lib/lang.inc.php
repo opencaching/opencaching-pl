@@ -4,25 +4,28 @@
 
         switch($_COOKIE['lang']){
         case 'en':
-            $lang='en';
+            $lang2='en';
             break;
         case 'pl':
-            $lang='pl';
+            $lang2='pl';
             break;
         case 'nl':
-            $lang='nl';
+            $lang2='nl';
             break;
         case 'de':
-            $lang='de';
+            $lang2='de';
+            break;
+        case 'ro':
+            $lang2='ro';
             break;
         default:
-            $lang='pl';
+            $lang2=$lang;
 
     }
     else
-        $lang='pl';
+        $lang2=$lang;
 
-    $fhandle = fopen(dirname(__FILE__) . "/lang/".$lang, "r");
+    $fhandle = fopen(dirname(__FILE__) . "/lang/".$lang2, "r");
 
     if($fhandle) {
 
