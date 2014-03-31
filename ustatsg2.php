@@ -28,9 +28,13 @@
         if (isset($_REQUEST['userid']))
         {
             $user_id = $_REQUEST['userid'];
-
         }
-                $tplname = 'ustat';
+        $tplname = 'ustat';
+        if ($user_id != $usr['userid']){
+            // do not highlight My stats menu item if browsing other users stats
+            $mnu_siteid = 'start';
+        }
+
 
     $stat_menu = array(
                     'title' => 'Statictics',

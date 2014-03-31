@@ -25,13 +25,16 @@
         else
         {
 
-    // check for old-style parameters
-        if (isset($_REQUEST['userid']))
-        {
-            $user_id = $_REQUEST['userid'];
-
-        }
-
+            // check for old-style parameters
+            if (isset($_REQUEST['userid']))
+            {
+                $user_id = $_REQUEST['userid'];
+            }
+            if ($user_id != $usr['userid']){
+                // do not highlight My stats menu item if browsing other users stats
+                $mnu_siteid = 'start';
+            }
+            
                 $tplname = 'ustat';
                 $stat_menu = array(
                     'title' => 'Statystyka',
