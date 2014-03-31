@@ -286,7 +286,7 @@ $menu = array(
     array(
         'title'         => 'RSS',
         'menustring'    => 'RSS',
-        'siteid'        => 'RSS feed',
+        'siteid'        => 'articles/rss',
         'visible'       => true,
         'filename'      => 'articles.php?page=rss'
     ),
