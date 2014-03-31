@@ -688,7 +688,7 @@ $menu = array(
                 'menustring'    => tr('okapi_apps'),
                 'siteid'        => 'okapi_apps',
                 'visible'       => true,
-                'filename'      => 'okapi/apps/'
+                'filename'      => 'okapi/apps/?langpref='.$GLOBALS['lang']
             ),
             array(
                 'title'         => 'QR Code',
