@@ -101,8 +101,8 @@ $debug = false;
                     // only OC Team member and the owner allowed to make logs to not published caches
                     if ($record['user_id'] == $usr['userid'] || ($record['status'] != 5 && $record['status'] != 4 && $record['status'] != 6) || $usr['admin'])
                     {
-                        $cachename = $record['name'];
-                        $cache_user_id = $record['user_id'];
+                        $cachename = htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8');
+                        $tpl_subtitle = $cachename . ' - ';                        
                         $use_log_pw = (($record['logpw'] == NULL) || ($record['logpw'] == '')) ? false : true;
                         if ($use_log_pw) $log_pw = $record['logpw'];
                         $wp_gc = $record['wp_gc'];
