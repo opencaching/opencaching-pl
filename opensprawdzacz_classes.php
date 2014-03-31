@@ -142,7 +142,7 @@ class OpensprawdzaczCore
         AND `waypoints`.`cache_id`= `caches`.`cache_id`
         ";
 
-        $dane   = $conn->query($pyt) or die("failed!");
+        $dane   = $conn->query($pyt);
         $dane = $dane->fetch(PDO::FETCH_ASSOC);
 
         $licznik_prob = $dane['proby']+1;
@@ -336,7 +336,7 @@ class OpensprawdzaczCore
 
             $conn = new PDO("mysql:host=".$opt['db']['server'].";dbname=".$opt['db']['name'],$opt['db']['username'],$opt['db']['password']);
             $conn -> query( 'SET CHARSET utf8' );
-            $keszynki_opensprawdzacza   = $conn->query($zapytajka)->fetchAll() or die("failed!");
+            $keszynki_opensprawdzacza   = $conn->query($zapytajka)->fetchAll();
             $ile_keszynek = count($keszynki_opensprawdzacza);
 
 
