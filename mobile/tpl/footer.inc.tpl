@@ -7,7 +7,7 @@
                     <td class="button" style="width:50%"><a href="./about.php" >{$about}</a></td>
                     <td class="button" style="width:50%"><a href="./contact.php" >{$contact}</a> </td></tr>
                     <tr><td colspan="2" class="button"><a href="./index.php" >{$main_page}</a> </td></tr>
-                    <tr><td colspan="2" class="button"><a href="http://opencaching.pl/index.php?mobile=false" >{$pc_ver}</a></td>
+                    <tr><td colspan="2" class="button"><a href="{$absolute_server_url}/index.php?mobile=false" >{$pc_ver}</a></td>
                     </tr>
                 </table>
             </div>
