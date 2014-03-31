@@ -57,8 +57,11 @@
                     </b> <br/>
                     {/if}
 
-                    {$hidden_by} <b>{$znalezione[i].username}</b><br/><br/><i>
+                    {$hidden_by} <b>{$znalezione[i].username}</b><br/>
+                    {if $show_coords}
+                    <br/><i>
                     N {$znalezione[i].N}<br/>E {$znalezione[i].E}</i>
+                    {/if}
                 </span>
             </a>
         </div>
@@ -86,7 +89,8 @@
     {/if}
 
     <td style="width:2%"><a></a></td>
-    <td class="button" style="width:16%"><a href={$gpx_url}><img style="vertical-align: middle;" src="../images/download.png" alt="{$download_file}"/></a></td>
+    {if $show_coords}<td class="button" style="width:16%"><a href={$gpx_url}><img style="vertical-align: middle;" src="../images/download.png" alt="{$download_file}"/></a></td>
+    {else}<td style="width:16%">&nbsp;</td>{/if}
     <td style="width:2%"><a></a></td>
 
 
