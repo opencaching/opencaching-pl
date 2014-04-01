@@ -12,15 +12,68 @@ class cache
     const TYPE_PODCAST = 9;
     const TYPE_OWNCACHE = 10;
 
+    const SIZE_MICRO = 2;
+    const SIZE_SMALL = 3;
+    const SIZE_NORMAL = 4;
+    const SIZE_LARGE = 5;
+    const SIZE_VERYLARGE = 6;
+    const SIZE_NOCONTAINER = 7;
+
+    const STATUS_READY = 1;
+    const STATUS_UNAVAILABLE = 2;
+    const STATUS_ARCHIVED = 3;
+    const STATUS_WAITAPPROVERS = 4;
+    const STATUS_NOTYETAVAILABLE = 5;
+    const STATUS_BLOCKED = 6;
+
     private $cacheTypeIcons = null;
 
-    public static $status = array (
-        1 => 'Ready for search',
-        2 => 'Temporarily unavailable',
-        3 => 'Archived',
-        4 => 'Hidden by approvers to check',
-        5 => 'Not yet available',
-        6 => 'Blocked by COG',
+    private $status = array (
+        self::STATUS_READY => array(
+            'description' => 'Ready for search',
+            'translation' => 'cacheStatus_1',
+        ),
+        self::STATUS_UNAVAILABLE => array(
+            'description' => 'Temporarily unavailable',
+            'translation' => 'cacheStatus_2',
+        ),
+        self::STATUS_ARCHIVED => array(
+            'description' => 'Archived',
+            'translation' => 'cacheStatus_3',
+        ),
+        self::STATUS_WAITAPPROVERS => array(
+            'description' => 'Hidden by approvers to check',
+            'translation' => 'cacheStatus_4',
+        ),
+        self::STATUS_NOTYETAVAILABLE => array(
+            'description' => 'Not yet available',
+            'translation' => 'cacheStatus_5',
+        ),
+        self::STATUS_BLOCKED => array(
+            'description' => 'Blocked by COG',
+            'translation' => 'cacheStatus_6',
+        ),
+    );
+
+    private $size = array(
+        self::SIZE_MICRO => array(
+            'translation' => 'cacheSize_2',
+        ),
+        self::SIZE_SMALL => array(
+            'translation' => 'cacheSize_3',
+        ),
+        self::SIZE_NORMAL => array(
+            'translation' => 'cacheSize_4',
+        ),
+        self::SIZE_LARGE => array(
+            'translation' => 'cacheSize_5',
+        ),
+        self::SIZE_VERYLARGE => array(
+            'translation' => 'cacheSize_6',
+        ),
+        self::SIZE_NOCONTAINER => array(
+            'translation' => 'cacheSize_7',
+        ),
     );
 
     private static $type = array (
@@ -133,4 +186,12 @@ class cache
         return $this->cacheTypeIcons;
     }
 
+    public function getCacheSizes(){
+        return $this->size;
+    }
+
+    public function getCacheStatuses(){
+        return $this->status;
+    }
+  
 }

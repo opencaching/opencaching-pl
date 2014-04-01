@@ -27,6 +27,11 @@
 
     global $content, $bUseZip, $sqldebug, $hide_coords, $usr, $lang;
     set_time_limit(1800);
+    $cache = new cache();
+    $cacheSizes = $cache->getCacheSizes();
+    $cacheTypesArr = $cache->getCacheTypeIcons();
+    $cacheStatusArr = $cache->getCacheStatuses();
+
     $txtLine = "".tr('search_text_01')." {mod_suffix}{cachename} ".tr('search_text_02')." {owner}
 ".tr('search_text_03')." {lat} {lon}
 ".tr('search_text_04')." {status}
@@ -85,24 +90,19 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
             else
             {
                 //get the users home coords
-                $rs_coords = sql("SELECT `latitude`, `longitude` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
-                $record_coords = sql_fetch_array($rs_coords);
-
-                if ((($record_coords['latitude'] == NULL) || ($record_coords['longitude'] == NULL)) || (($record_coords['latitude'] == 0) || ($record_coords['longitude'] == 0)))
+                if ((($usr['latitude'] == NULL) || ($usr['longitude'] == NULL)) || (($usr['latitude'] == 0) || ($usr['longitude'] == 0)))
                 {
                     $sql .= '0 distance, ';
                 }
                 else
                 {
-                    //TODO: load from the users-profile
                     $distance_unit = 'km';
 
-                    $lon_rad = $record_coords['longitude'] * 3.14159 / 180;
-                    $lat_rad = $record_coords['latitude'] * 3.14159 / 180;
+                    $lon_rad = $usr['longitude'] * 3.14159 / 180;
+                    $lat_rad = $usr['latitude'] * 3.14159 / 180;
 
-                    $sql .= getCalcDistanceSqlFormula($usr !== false, $record_coords['longitude'], $record_coords['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
+                    $sql .= getCalcDistanceSqlFormula($usr !== false, $usr['longitude'], $usr['latitude'], 0, $multiplier[$distance_unit]) . ' `distance`, ';
                 }
-                mysql_free_result($rs_coords);
             }
         }
         $sql .= '`caches`.`cache_id` `cache_id`, `caches`.`status` `status`, `caches`.`type` `type`, `caches`.`size` `size`, `caches`.`user_id` `user_id`, ';
@@ -211,9 +211,7 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
             }
         }
 
-        // ok, ausgabe ...
-
-        $rs = sql('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `txtcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.'.$lang.' `size`, `caches`.`type` `type_id`, `cache_type`.'.$lang.' `type`, `cache_status`.'.$lang.' `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_type`, `cache_status`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`type`=`cache_type`.`id` AND `caches`.`status`=`cache_status`.`id` AND `caches`.`size`=`cache_size`.`id`');
+        $rs = sql('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `txtcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`id` `size`, `caches`.`type` `type_id`, `caches`.`status` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`size`=`cache_size`.`id`');
         while($r = sql_fetch_array($rs))
         {
             $thisline = $txtLine;
@@ -272,10 +270,9 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
                 $thisline = str_replace('{rr_comment}', '', $thisline);
             else
                 $thisline = str_replace('{rr_comment}', html2txt("<br /><br />--------<br />".$r['rr_comment']), $thisline);
-
-            $thisline = str_replace('{type}', $r['type'], $thisline);
-            $thisline = str_replace('{container}', $r['size'], $thisline);
-            $thisline = str_replace('{status}', $r['status'], $thisline);
+            $thisline = str_replace('{type}', tr($cacheTypesArr[$r['type_id']]['translation']), $thisline);
+            $thisline = str_replace('{container}', tr($cacheSizes[$r['size']]['translation']), $thisline);
+            $thisline = str_replace('{status}', tr($cacheStatusArr[$r['status']]['translation']), $thisline);
 
             $difficulty = sprintf('%01.1f', $r['difficulty'] / 2);
             $thisline = str_replace('{difficulty}', $difficulty, $thisline);
@@ -287,7 +284,7 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 
             // logs ermitteln
             $logentries = '';
-            $rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`text_html`, `log_types`.$lang `type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username` FROM `cache_logs`, `user`, `log_types` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id` AND `cache_logs`.`type`=`log_types`.`id` AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC LIMIT 20", $r['cacheid']);
+            $rsLogs = sql("SELECT `cache_logs`.`id`, `cache_logs`.`text_html`, `cache_logs`.`type`, `cache_logs`.`date`, `cache_logs`.`text`, `user`.`username` FROM `cache_logs`, `user` WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`user_id`=`user`.`user_id`AND `cache_logs`.`cache_id`=&1 ORDER BY `cache_logs`.`date` DESC LIMIT 20", $r['cacheid']);
             while ($rLog = sql_fetch_array($rsLogs))
             {
                 $thislog = $txtLogs;
@@ -296,7 +293,7 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
                 $thislog = str_replace('{date}', date('d.m.Y', strtotime($rLog['date'])), $thislog);
                 $thislog = str_replace('{username}', $rLog['username'], $thislog);
 
-                $logtype = $rLog['type'];
+                $logtype = tr('logType'.$rLog['type']);
 
                 $thislog = str_replace('{type}', $logtype, $thislog);
                 if ($rLog['text_html'] == 0)

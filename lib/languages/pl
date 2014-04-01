@@ -2235,3 +2235,15 @@ like_it os. to lubi:
 no_like_it Nikt jeszcze nie polubił tego komentarza
 Position Pozycja
 fav_com Ulubione komentarze
+cacheSize_2 Mikro
+cacheSize_3 Mała
+cacheSize_4 Normalna
+cacheSize_5 Duża
+cacheSize_6 Bardzo duża
+cacheSize_7 Bez pojemnika
+cacheStatus_1 Gotowa do szukania
+cacheStatus_2 Tymczasowo niedostępna
+cacheStatus_3 Zarchiwizowana
+cacheStatus_4 Ukryta do czasu weryfikacji
+cacheStatus_5 Jeszcze niedostępna
+cacheStatus_6 Zablokowana

@@ -2235,3 +2235,15 @@ like_it like it:
 no_like_it Nobody likes this comment
 Position Position
 fav_com Favorite comments
+cacheSize_2 Micro
+cacheSize_3 Small
+cacheSize_4 Regural
+cacheSize_5 Large
+cacheSize_6 Very large
+cacheSize_7 No container
+cacheStatus_1 Ready for search
+cacheStatus_2 Temporarily unavailable
+cacheStatus_3 Archived
+cacheStatus_4 Hidden by approvers to check
+cacheStatus_5 Not yet available
+cacheStatus_6 Blocked by COG
