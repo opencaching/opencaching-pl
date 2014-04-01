@@ -2,4 +2,5 @@ Allow From 127.0.0.1
 Allow From 86.111.244.117
 Allow From 86.111.244.119
 Allow From 158.75.199.253
+Allow From 89.33.126.190
 Deny From All
