@@ -33,6 +33,9 @@
         sqldbg_begin();
     }
 
+    // extract user data for KML search
+    requestSigner::extract_user();
+
     if ($usr == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target='.$target);
@@ -42,8 +45,6 @@
     //Preprocessing
     if ($error == false) {
 
-        // extract user data for KML search
-        requestSigner::extract_user();
         $tplname = 'search';
         require($stylepath . '/search.inc.php');
         require($rootpath . 'lib/caches.inc.php');

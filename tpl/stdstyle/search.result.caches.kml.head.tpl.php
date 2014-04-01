@@ -1,4 +1,4 @@
-<?php echo '<?xml version="1.0" encoding="UTF-8"?>'?>
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; echo "\n";?>
 <kml xmlns="http://earth.google.com/kml/2.0">
 <Document>
     <Style id="tradi">
