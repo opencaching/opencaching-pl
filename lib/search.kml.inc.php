@@ -182,7 +182,7 @@
 
         // ok, ausgabe starten
 
-        readfile($stylepath . '/search.result.caches.kml.head.tpl.php');
+        include ($stylepath . '/search.result.caches.kml.head.tpl.php');
 
         $rsMinMax = sql('SELECT MIN(`longitude`) `minlon`, MAX(`longitude`) `maxlon`, MIN(`latitude`) `minlat`, MAX(`latitude`) `maxlat` FROM `kmlcontent`', $sqldebug);
         $rMinMax = mysql_fetch_array($rsMinMax);
@@ -219,35 +219,35 @@
             {
                 case 2:
                     $icon = 'tradi';
-                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/traditional.png" alt="Tradycyjna" title="'.tr('cacheType_1').'" />';
+                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/traditional.png" alt="'.tr('cacheType_1').'" title="'.tr('cacheType_1').'" />';
                     break;
                 case 3:
                     $icon = 'multi';
-                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/multi.png" alt="Multicache" title="'.tr('cacheType_2').'" />';
+                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/multi.png" alt="'.tr('cacheType_2').'" title="'.tr('cacheType_2').'" />';
                     break;
                 case 4:
                     $icon = 'virtual';
-                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/virtual.png" alt="Wirtualna" title="'.tr('cacheType_8').'" />';
+                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/virtual.png" alt="'.tr('cacheType_8').'" title="'.tr('cacheType_8').'" />';
                     break;
                 case 5:
                     $icon = 'webcam';
-                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/webcam.png" alt="Webcam" title="'.tr('cacheType_7').'" />';
+                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/webcam.png" alt="'.tr('cacheType_7').'" title="'.tr('cacheType_7').'" />';
                     break;
                 case 6:
                     $icon = 'event';
-                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/event.png" alt="Wydarzenie" title="'.tr('cacheType_6').'" />';
+                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/event.png" alt="'.tr('cacheType_6').'" title="'.tr('cacheType_6').'" />';
                     break;
                 case 7:
                     $icon = 'myst';
-                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/quiz.png" alt="Quiz" title="'.tr('cacheType_3').'" />';
+                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/quiz.png" alt="'.tr('cacheType_3').'" title="'.tr('cacheType_3').'" />';
                     break;
                 case 9:
                     $icon = 'moving';
-                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/moving.png" alt="Mobilna" title="'.tr('cacheType_4').'" />';
+                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/moving.png" alt="'.tr('cacheType_4').'" title="'.tr('cacheType_4').'" />';
                     break;
                 default:
                     $icon = 'unknown';
-                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/unknown.png" alt="Nieznany typ" title="'.tr('cacheType_5').'" />';
+                    $typeimgurl = '<img src="'.$absolute_server_URI.'tpl/stdstyle/images/cache/unknown.png" alt="'.tr('cacheType_5').'" title="'.tr('cacheType_5').'" />';
                     break;
             }
             $thisline = str_replace('{icon}', $icon, $thisline);
