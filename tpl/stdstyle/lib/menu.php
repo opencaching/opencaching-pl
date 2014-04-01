@@ -38,7 +38,7 @@
 
  ****************************************************************************/
 include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString, 
+global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString, $config,
     $powerTrailModuleSwitchOn, $powerTrailFaqLink, $forum_url, $blogsite_url;
 
 $menu = array(
@@ -124,7 +124,7 @@ $menu = array(
                         'title'         => tr('cache_mapv2'),
                         'menustring'    => tr('cache_mapv2'),
                         'siteid'        => 'cachemap2',
-                        'visible'       => true,
+                        'visible'       => $config['map2SwithedOn'],
                         'onlylogged'    => true,
                         'filename'      => 'cachemap2.php'
                     ),
