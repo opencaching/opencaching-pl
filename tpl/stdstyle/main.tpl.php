@@ -1,5 +1,4 @@
 <?php
-
 /***************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -40,15 +39,17 @@
 
     $logo1 = tr('oc_on_all_pages_top_'.$nodeDetect);
     $logo2 = tr('oc_subtitle_on_all_pages_'.$nodeDetect);
-    $logo3 = 'oc_logo.png';
+    $logo3 = $config['headerLogo'];
 
 if ((date('m') == 4) and (date('d') == 1)) {
     $logo1 = tr('oc_on_all_pages_top_1A');
     $logo2 = tr('oc_subtitle_on_all_pages_1A');
-    $logo3 = 'oc_logo_1A.png';
+    $logo3 = $config['headerLogo1stApril'];
 }
 
-if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
+if (date('m') == 12 || date('m') == 1) {
+    $logo3 = $config['headerLogoWinter'];
+}
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -157,7 +158,7 @@ if (date('m') == 12 || date('m') == 1) $logo3 = 'oc_logo_winter.png';
                                 </p>
                             </div>
                             <div style="float:right;  margin-top:3px;">
-                                <input id="search_input" type="text" name="waypoint" class="input100;" style="color:gray;" />&nbsp;&nbsp;
+                                <input id="search_input" type="text" name="waypoint" class="input100" style="color:gray;" />&nbsp;&nbsp;
                                 <input type="submit" name="submit" value="{{search}}" class="formbuttons" />
                             </div>
                         </div>
