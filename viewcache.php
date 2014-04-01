@@ -1837,9 +1837,6 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                     $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']"/>'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
                 }
 
-                if ( $nrLike == 0 )
-                    $tmplog_username_aktywnosc .= '&nbsp'.$sLikeIconTxt;
-
                 // ukrywanie autora komentarza COG przed zwykłym userem
                 if ($record['type'] == 12 && !$usr['admin'])
                   {
