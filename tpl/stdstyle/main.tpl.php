@@ -105,7 +105,7 @@ if (date('m') == 12 || date('m') == 1) {
                 <div id="bg2">&nbsp;</div>
                 <!-- HEADER -->
                 <!-- OC-Logo -->
-                <div><img src="./images/<?php print $logo3;?>" alt="" style="margin-top:5px; margin-left:3px;" /></div>
+                <div><img src="/images/<?php print $logo3;?>" alt="" style="margin-top:5px; margin-left:3px;" /></div>
                 <!-- Sitename -->
                 <div class="site-name">
                     <p class="title"><a href="index.php"><?php print $logo1;?></a></p>
