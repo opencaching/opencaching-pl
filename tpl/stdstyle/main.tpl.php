@@ -70,7 +70,7 @@ if (date('m') == 12 || date('m') == 1) {
         <link rel="stylesheet" type="text/css" media="print" href="tpl/stdstyle/css/style_print.css" />
         <link rel="stylesheet" type="text/css" media="screen,projection" href="tpl/stdstyle/css/style_{season}.css" />
 
-        <link rel="SHORTCUT ICON" href="favicon.ico" />
+        <link rel="shortcut icon" href="/images/<?php print $config['headerFavicon'];?>" />
         <link rel="apple-touch-icon-precomposed" href="/images/oc_logo_144.png" />
 
         <script type="text/javascript" src="lib/enlargeit/enlargeit.js"></script>
