@@ -7,7 +7,6 @@
     *   (at your option) any later version.
     *
     ***************************************************************************/
-
 /****************************************************************************
      submitt a new cache
  ****************************************************************************/
@@ -28,6 +27,7 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target='.$target);
     } else {
+        $db = new dataBase(true);
         $default_country = getDefaultCountry($usr, $lang);
         if (isset($_REQUEST['newcache_info']))
             {$newcache_info=$_REQUEST['newcache_info'];
@@ -461,55 +461,10 @@ if ($error == false) {
             }
 
 
-            //langoptions
-            $langsoptions = '';
+            //langoptions selector
+            buildDescriptionLanguageSelector($show_all_langs, $lang, $config['defaultLangugaeList'], $db, $show_all, $show_all_langs);
 
-            //check if selected country is in list_default
-
-            if(checkField('countries','list_default_'.$lang) )
-                $lang_db = $lang;
-            else
-                $lang_db = "en";
-
-            if ($show_all_langs == 0)
-            {
-                $rs = sql("SELECT `short` FROM `languages` WHERE (`list_default_" . sql_escape($lang_db) . "`=1) AND (`short`='&1')", $sel_lang);
-                if (mysql_num_rows($rs) == 0)
-                {
-                    $show_all_langs = 1;
-                }
-            }
-            if ($show_all_langs == 0)
-            {
-                tpl_set_var('show_all_langs', '0');
-                tpl_set_var('show_all_langs_submit', '<input type="submit" name="show_all_langs_submit" value="' . $show_all . '"/>');
-
-                $rs = sql("SELECT `&1`, `short` FROM `languages` WHERE `list_default_" . sql_escape($lang_db) . "`=1 ORDER BY `&1` ASC", $lang_db);
-            }
-            else
-            {
-                tpl_set_var('show_all_langs', '1');
-                tpl_set_var('show_all_langs_submit', '');
-
-                $rs = sql("SELECT `&1`, `short` FROM `languages` ORDER BY `&1` ASC", $lang_db);
-            }
-
-            for ($i = 0; $i < mysql_num_rows($rs); $i++)
-            {
-                $record = sql_fetch_array($rs);
-                if ($record['short'] == strtoupper($sel_lang))
-                {
-                    $langsoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
-                }
-                else
-                {
-                    $langsoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
-                }
-
-                $langsoptions .= "\n";
-            }
-
-            tpl_set_var('langoptions', $langsoptions);
+           
 
             //countryoptions
             $countriesoptions = '';
@@ -1109,4 +1064,29 @@ function getDefaultCountry($usr, $lang) {
     } else {
         return strtoupper($lang);
     }
+}
+
+function buildDescriptionLanguageSelector($show_all_langs, $lang, $defaultLangugaeList, $db, $show_all, $show_all_langs) {
+    tpl_set_var('show_all_langs', '0');
+    tpl_set_var('show_all_langs_submit', '<input type="submit" name="show_all_langs_submit" value="' . $show_all . '"/>');
+    if($show_all_langs == 1){
+        tpl_set_var('show_all_langs', '1');
+        tpl_set_var('show_all_langs_submit', '');
+        $db->simpleQuery('SELECT short FROM languages WHERE 1');
+        $dbResult = $db->dbResultFetchAll();
+        $defaultLangugaeList = array();
+        foreach ($dbResult as $langTmp) {
+            $defaultLangugaeList[] = $langTmp['short'];
+        }
+    }
+    $langsoptions = '';
+    foreach ($defaultLangugaeList as $defLang) {
+        if (strtoupper($lang) === strtoupper($defLang)) {
+            $selected = 'selected="selected"';
+        } else {
+            $selected = '';
+        }
+        $langsoptions .= '<option value="' . htmlspecialchars($defLang, ENT_COMPAT, 'UTF-8') . '" '.$selected.' >' . htmlspecialchars(tr('language_'.strtoupper($defLang)), ENT_COMPAT, 'UTF-8') . '</option>'."\n";
+    }
+     tpl_set_var('langoptions', $langsoptions);
 }

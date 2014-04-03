@@ -27,7 +27,9 @@ $config = array (
 		A file /favicon.ico (windows icon ICO format, 16x16) should also exist as fallback 
 		mainly for MSIE */
 	'headerFavicon' => 'oc_icon.png', 
-
+    'defaultLangugaeList' => array (
+        'PL', 'EN', 'FR', 'DE', 'NL'
+    )
     
  );
 
