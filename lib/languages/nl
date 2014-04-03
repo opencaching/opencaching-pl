@@ -2233,6 +2233,18 @@ like_it Vinden dit leuk:
 no_like_it Nog niemand heeft gestemd
 Position Positie
 fav_com Vind ik leuk stemmen
+cacheSize_2 Mikro
+cacheSize_3 Klein
+cacheSize_4 Normaal
+cacheSize_5 Groot
+cacheSize_6 Extra groot
+cacheSize_7 Geen behuizing
+cacheStatus_1 Beschikbaar
+cacheStatus_2 Tijdelijk niet beschikbaar
+cacheStatus_3 Gearchieveerd
+cacheStatus_4 Verborgen voor controle
+cacheStatus_5 Nog niet beschikbaar
+cacheStatus_6 Geblokeerd door OC Team
 
 
 
