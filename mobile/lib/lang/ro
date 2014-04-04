@@ -1,167 +1,166 @@
 # this file is encoded in UTF-8 charset
-# łł óó śźć 
 
 lang ro
-login [autentificare]
+login [intră în cont]
 logout [deconectare]
-login_info logat ca
+login_info conectat ca
 about despre
 contact contact
 main_page pagina principală
-back ...reveni
+back ...înapoi
 pc_ver versiunea pentru PC
-login_title login
-login_title2 Login
+login_title autentificare
+login_title2 Autentificare
 wrong_login_pass Nume utilizator sau parolă greşită!
-user Username:
-passw Password:
-remember_me Remember me
-login_button Login
-mainpage_title main page
-seek caută un cache
-seek_near caută un cache în regiune
-entry adaugă intrare în jurnalul de bord
-my_menu my menu...
-more more...
-menu_title my menu
-menu_title2 My menu
-more_title more
-more_title2 More
-about_title about
-about_title2 About
+user Nume utilizator:
+passw Parolă:
+remember_me Reţine informaţiile de autentificare
+login_button Conectează-mă
+mainpage_title pagina principală
+seek caută o geocutie
+seek_near caută o geocutie în regiune
+entry adaugă însemnare în jurnal
+my_menu meniul meu...
+more mai mult...
+menu_title meniul meu
+menu_title2 Meniul meu
+more_title mail mult
+more_title2 Mai mult
+about_title despre
+about_title2 Despre
 contact_title contact
 contact_title2 Contact
-logs_title entries
-found found
-notfound not found
-notes note
-service service required
-file_title1 pobierz
-file_title2 Pobierz
-logout_title logout
-logout_title2 Logout
-find_title1 seek a cache
-find_title2 add entry
-find_title3 Seek a cache
-find_title4 Add entry
-login_order please login
-result Results:
-hidden_by hidden by
-name name:
-wpt waypoint:
-owner owner:
-seek_button Seek
-no_wp no cache
-view_title1 description
-type Type:
-size Size:
-status Status:
-hidden_date Hidden date:
-view_wpt Waypoint:
-view_owner Owner:
-stats Statistics:
-download_file download data in following format
-show_spoiler show spoiler
-photos photos
-show_entries show entries
-add_entry add entry
-score score:
-topratings Recommendations:
-show_attrib show attributes
-moved moved
-cog_note COG comment
-temp_unavailable temporarily unavailable
-ready reday to search
-archived archived
-need_archive archive required
-edit edit
-delete delete
-no_cookie your broswer does not support cookie!
-del_question Are you sure you want to delete?
-yes yes
-no no
-not_your_entry This is not your entry!
-no_entry no entry
-show_gk show geokrety
-entry_type entry type:
-entry_date entry date:
-entry_time entry time:
-entry_score score:
-entry_pass cache password:
-entry_text entry text:
-toprating recommendation:
-add add
-no_score no score
-seek_near2 Seek a caches in region
-cords coordinates:
-radius radius:
-logentry_title add entry
-wrong_dateformat wrong date format
-future_date date from future
+logs_title însemnări
+found găsită
+notfound negăsită
+notes notă
+service necesită serviciu activ
+file_title1 descărcare
+file_title2 Descărcare
+logout_title deconectare
+logout_title2 Deconectare
+find_title1 caută o geocutie
+find_title2 adaugă însemnare
+find_title3 Caută o geocutie
+find_title4 Adaugă însemnare
+login_order te rog să te autentifici
+result Rezultate:
+hidden_by ascunsă de
+name nume:
+wpt punct:
+owner proprietar:
+seek_button Caută
+no_wp nici o geocutie
+view_title1 descriere
+type Tip:
+size Dimensiune:
+status Stare:
+hidden_date Ascunsă în data:
+view_wpt Punct:
+view_owner Proprietar:
+stats Statistici:
+download_file descarcă informaţiile în formatul următor
+show_spoiler arată indiciu***
+photos fotografii
+show_entries arată însemnările
+add_entry adaugă însemnare
+score scor:
+topratings Recomandări:
+show_attrib arată atributele
+moved mutată
+cog_note comentariu COG***
+temp_unavailable indisponibilă temporar
+ready gata să fie găsită
+archived arhivată
+need_archive ar trebuie să fie arhivată
+edit modifică
+delete şterge
+no_cookie browser-ul tău nu suportă cookie!
+del_question Eşti sigur că vrei să ştergi?
+yes da
+no nu
+not_your_entry Aceasta nu este însemnarea ta!
+no_entry nici o însemnare
+show_gk arată geokrety
+entry_type tip însemnare:
+entry_date dată însemnare:
+entry_time oră însemnare:
+entry_score scor:
+entry_pass parola geocutiei:
+entry_text text însemnare:
+toprating recomandare:
+add adaugă
+no_score fără scor
+seek_near2 Caută geocutii în regiune
+cords coordonate:
+radius rază:
+logentry_title adaugă însemnare
+wrong_dateformat dată scrisă într-un format greşit
+future_date dată din viitor
 hack hacking
-wrong_pass wrong password
-my_caches my caches
-stats2 statistics
-reg conditions of use (ext. link)
-remove_title delete entry
-stats_title1 statistics
-stats_title2 Statistics
-caches_count Total of caches:
-caches_active active caches:
-caches_found_text Founds:
-user_count Number of users:
-top5_caches_found TOP5 found caches:
-top5_caches_rating TOP5 recommended caches:
-top5_user_found TOP5 finders:
-top5_user_hidden TOP5 founders:
-wrong_cords wrong cords format
-user_find_title1 find user
-user_find_title2 Find user
-no_user no user found
-country_user country:
-registered_user registered on:
-hidden_count_user hidden caches:
-founds_count_user founds:
-notfounds_count_user notfounds:
-notes_count_user notes:
-show_user_caches show user's caches
-user_name Username:
-my_stats my statistics
-find_user find user
-rate0 Poor
-rate1 Mediocre
-rate2 Avarage
-rate3 Good
-rate4 Excellent
-news_title1 news
-news_title2 News
-next next
-prev previous
-older older
-newer newer
-page page
-show_map show on map
-found_caches found caches
-observed_caches observed caches
-too_short_find word shorter than 3 letters
-fixed_cords Distances and directions from:
-newest_caches newest caches
-localize_me localize me
-no_city no city id database
-city city:
-center_on_me center on me
-normal_view normal view
-show_track show whole track
-show_from_me show from me
-watch watch
-not_watch don't watch
-vc_spoiler_disable_msg You must be logged-in to view spoilers!
-map_msg You must be logged-in to view coordinates.
-skip_caches skip caches:
-skip_mine mine
-skip_found founded
-skip_ignored ignored
+wrong_pass parolă greşită
+my_caches geocutiile mele
+stats2 statistici
+reg condiţii de utilizare (leg. externă)
+remove_title şterge însemnare
+stats_title1 statistici
+stats_title2 Statistici
+caches_count Total geocutii:
+caches_active geocutii active:
+caches_found_text Găsiri:
+user_count Număr de utilizatori:
+top5_caches_found TOP 5 geocutii găsite:
+top5_caches_rating TOP 5 geocutii recomandate:
+top5_user_found TOP 5 găsitori:
+top5_user_hidden TOP 5 utilizatori care ascund:
+wrong_cords coordonate scrise într-un format greşit
+user_find_title1 caută utilizator
+user_find_title2 Caută utilizator
+no_user nu am găsit nici un utilizator
+country_user ţară:
+registered_user înregistrat pe:
+hidden_count_user ascunse:
+founds_count_user găsite:
+notfounds_count_user negăsite:
+notes_count_user note:
+show_user_caches arată geocutiile utilizatorului
+user_name Nume utilizator:
+my_stats statisticile mele
+find_user caută utilizator
+rate0 Foarte Slabă
+rate1 Slabă
+rate2 Medie
+rate3 Bună
+rate4 Excelentă
+news_title1 noutăţi
+news_title2 Noutăţi
+next următor
+prev precedent
+older mai vechi
+newer mai noi
+page pagina
+show_map arată pe hartă
+found_caches geocutii găsite
+observed_caches geocutii observate***
+too_short_find cuvânt mai scurt de 3 litere
+fixed_cords Distanţe şi direcţii de la:
+newest_caches cele mai noi geocutii
+localize_me localizează-mă
+no_city oraş-ul nu a fost găsit în baza de date
+city oraş:
+center_on_me centrează pe mine
+normal_view vedere normală
+show_track arată tot traseul
+show_from_me arată de la mine
+watch urmăreşte
+not_watch nu urmări
+vc_spoiler_disable_msg Trebuie să fi autentificat pentru a vedea indiciile!
+map_msg Trebuie să fii autentificat pentru a vedea coordonatele.
+skip_caches sari peste geocutiile:
+skip_mine mele
+skip_found găsite
+skip_ignored ignorate
 skip_inactive inactive
 404_title error 404
-404_text file not found
+404_text file nu a fost găsit(ă)
 EOF

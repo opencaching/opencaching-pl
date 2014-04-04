@@ -1,3 +1,5 @@
+# this file is encoded in UTF-8 charset
+
 lang en
 login [login]
 logout [logout]
@@ -6,10 +8,10 @@ about about
 contact contact
 main_page main page
 back ...return
-pc_ver PC version
+pc_ver Desktop version
 login_title login
 login_title2 Login
-wrong_login_pass Wrong username or password!
+wrong_login_pass Incorrect username or password!
 user Username:
 passw Password:
 remember_me Remember me
@@ -33,8 +35,8 @@ found found
 notfound not found
 notes note
 service service required
-file_title1 pobierz
-file_title2 Pobierz
+file_title1 download
+file_title2 Download
 logout_title logout
 logout_title2 Logout
 find_title1 seek a cache
@@ -70,10 +72,10 @@ cog_note COG comment
 temp_unavailable temporarily unavailable
 ready reday to search
 archived archived
-need_archive archive required
+need_archive should be archived
 edit edit
 delete delete
-no_cookie your broswer does not support cookie!
+no_cookie your broswer does not support cookies!
 del_question Are you sure you want to delete?
 yes yes
 no no
@@ -103,14 +105,14 @@ reg conditions of use (ext. link)
 remove_title delete entry
 stats_title1 statistics
 stats_title2 Statistics
-caches_count Total of caches:
+caches_count Total caches:
 caches_active active caches:
 caches_found_text Founds:
 user_count Number of users:
-top5_caches_found TOP5 found caches:
-top5_caches_rating TOP5 recommended caches:
-top5_user_found TOP5 finders:
-top5_user_hidden TOP5 founders:
+top5_caches_found TOP 5 found caches:
+top5_caches_rating TOP 5 recommended caches:
+top5_user_found TOP 5 finders:
+top5_user_hidden TOP 5 hiders:
 wrong_cords wrong cords format
 user_find_title1 find user
 user_find_title2 Find user
@@ -119,7 +121,7 @@ country_user country:
 registered_user registered on:
 hidden_count_user hidden caches:
 founds_count_user founds:
-notfounds_count_user notfounds:
+notfounds_count_user not founds:
 notes_count_user notes:
 show_user_caches show user's caches
 user_name Username:
@@ -127,7 +129,7 @@ my_stats my statistics
 find_user find user
 rate0 Poor
 rate1 Mediocre
-rate2 Avarage
+rate2 Average
 rate3 Good
 rate4 Excellent
 news_title1 news
