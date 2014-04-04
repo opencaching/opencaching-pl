@@ -422,11 +422,11 @@ active_caches innerhalb Aktive
 number_of_active_users Anzahl der aktiven Benutzer
 number_of_founds Anzal der Cache Suchen
 latest_news Aktuelles
-what_do_you_find Wilkommen auf Opencaching.pl
+what_do_you_find Wilkommen auf {site_name}
 what_do_you_find_intro Hier finden Sie alles über Geocaching in Polen. Opencaching in Polen wurde im <span class="content-title-noshade"> Mai 2006 </span>. <br/> Dies ist die wichtigste Polen Geocaching Website. Unsere Datenbank an <b> OpenSource Projekt Opencaching </b>.<br/>
 more_news Mehr Nachrichten
-filename_rules http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use
-filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
+filename_rules {rules_url}
+filename_describe_cache {cache_params_url}
 map_msg Die Koordinates zu sehen und<br/> Karte der Cache Stellung<br/> musst du <a href="login.php?target={target}">angemeldet sein.</a>
 additional_hints zusäztlische Hinweise
 images Bilder
@@ -445,10 +445,10 @@ register_new Neuen Benutzer registrieren
 password_confirm Passwort bestätigen
 register_new Neuen Benutzer registrieren
 password_confirm Passwort bestätigen
-register_msg1 Ein neuen Account an opencaching.pl zu registrieren, musst du eine gültige E-Mail addresse und Benutzername eingeben. Ein E-Mail wurde mit Aktivierungskode geschickt. Nur ein Account kann mit einen E-mail Adresse registriert.
+register_msg1 Ein neuen Account an {site_name} zu registrieren, musst du eine gültige E-Mail addresse und Benutzername eingeben. Ein E-Mail wurde mit Aktivierungskode geschickt. Nur ein Account kann mit einen E-mail Adresse registriert.
 register_msg2 * sind erfordet
 register_msg3 Für weitere Fragen, bitte um Kontakt mit uns vor Registrierung.
-register_msg4 Ich habe gelesen und einverstanden <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">Nutztbedigungen</a></b> und ich akzeptiere die.
+register_msg4 Ich habe gelesen und einverstanden <b><a href="{rules_url}">Nutztbedigungen</a></b> und ich akzeptiere die.
 register_msg5 Neue Account war registiert.
 register_msg6 Die Aktivierungskode wan an deine Email geschickt. Bitte den Anweisungen folgen, die sind über E-Mail geschickt.
 total_distance Gesamtstrecke
