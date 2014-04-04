@@ -2140,6 +2140,7 @@ viewprofileFTF Toon gebruikers FTF&#39;s
 viewprofileDate FTF datum
 viewprofileTime FTF tijd
 viewprofileCache Cache naam
+viewprofileTotFtf Totaal FTF
 newmp3_01 Verzenden
 newmp3_02 Voeg nieuwe PodCast MP3 toe aan de cache
 newmp3_03 Voeg nieuw PodCast MP3 toe aan cache
@@ -2177,6 +2178,7 @@ newCacheWpClose Sluiten
 contact_pl_about_title Vragen over Opencaching.pl (alleen voor deze Poolse site)
 contact_pl_about_description_1 Wil je meer weten over Opencaching? Je kunt het vinden op <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
 contact_pl_about_description_2 Heb je commentaar, vragen, suggesties, of wil je mee helpen met de <i>Opencaching</i> ontwikkeling? Al deze onderwerpen kun je terug vinden op onze <a href="http://forum.opencaching.pl">Forum</a>.
+contact_pl_about_team OpenCaching PL Team
 contact_pl_rr_description - Rada Rejsu medewerkers zie je &gt;&gt;&gt;<a href="{link}">hier</a>&lt;&lt;&lt;
 contact_pl_rt_description - Rada Techniczna medewerkers zie je &gt;&gt;&gt;<a href="{link}">hier</a>&lt;&lt;&lt;
 contact_pl_cog_description - COG medewerkers zie je &gt;&gt;&gt;<a href="{link}">hier</a>&lt;&lt;&lt;
@@ -2215,7 +2217,6 @@ logbook_20 E-mail
 logbook_21 Wordt gebruikt om de velden vooraf in te vullen
 logbook_22 Voorbeeld
 logbook_23 Genereer PDF
-
 search01 alle regio &#39;s
 LineChart Lijn
 BarChart Bar
