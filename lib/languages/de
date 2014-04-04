@@ -258,7 +258,6 @@ html_statpic_link HTML-Code für Ihr Statistikbild
 bbcode_statpic BBCode für Ihr Statistikbild
 pmr_message Ich nehme ein PMR-Funkgerät auf Kanal 2 mit zum Cachen.
 no_auto_logout Keine automatische Abmeldung nach 15 Minuten der Inaktivität.
-hide_html_editor Verwenden Sie nicht den HTML-Editor.
 notify_new_caches_radius Benachrichtigung über neue Caches in
 no_new_caches_notification Benachrichtigung über neue Caches deaktiviert ist.
 change_account_data Ändern Sie Ihr Profil Daten
@@ -276,7 +275,6 @@ no_time_indicated Noch keine Zeit angegeben
 welcome Willkommen
 administrating_oc OCPL Administration
 view_your_profile Gehen Sie zu Ihrem Profil
-no_logs Keine Log-Einträge
 you_have_found Sie haben sie gefunden
 found_x_caches Caches
 you_have_participated_in Sie haben teilgenommen an
@@ -332,9 +330,13 @@ date_incorrect Datum ist falsch. Zulassige-Format: DD-MM-YYYY
 no_cache_name Kein Cache Name
 new_cache_no_terms Der Cache ist nicht registriert werden, weil Sie nicht überprüft haben, dass Sie die Nutzungsbedingungen Opencaching.pl
 html_incorrect Dieser HTML-Code ist nicht erlaubt.
+
 type_incorrect Kein Cache angegeben!
+
+
 size_incorrect Cache-Größe ist nicht korrekt!
 diff_incorrect Schwierigkeitsgrad ist falsch!
+
 virtual_cache_size Cache-Größe muss als "ohne Container", wenn Cache eingestellt ist oder als Event!
 cache_submitted Ihr Cache wurde auf Opencaching PL veröffentilicht.
 full_description Vollständig
@@ -383,7 +385,6 @@ search_by_owner Suche nach Cache-Besitzer
 owner_label Cache-Besitzer
 finder_label Sucher
 search_by_finder Suche nach Sucher
-short_desc_label Kurzbeschreibung
 search_recommendations Empfehlungen
 search_all_caches alle Caches
 search_recommended_caches Mindest-Reihe von Empfehlungen:
@@ -428,6 +429,7 @@ number_of_founds Anzal der Cache Suchen
 latest_news Aktuelles
 what_do_you_find Wilkommen auf {site_name}
 what_do_you_find_intro Hier finden Sie alles über Geocaching in Polen. Opencaching in Polen wurde im <span class="content-title-noshade"> Mai 2006 </span>. <br/> Dies ist die wichtigste Polen Geocaching Website. Unsere Datenbank an <b> OpenSource Projekt Opencaching </b>.<br/>
+
 more_news Mehr Nachrichten
 filename_rules {rules_url}
 filename_describe_cache {cache_params_url}
@@ -444,11 +446,11 @@ searchable ohne meine und bei mir gefundene
 all_geocaches alle
 log_entries Log Einträge
 show_all_log_entries  Alle Log Einträge
+
 back_to_the_geocache_listing Zur Cache beschreibung
 register_new Neuen Benutzer registrieren
 password_confirm Passwort bestätigen
 register_new Neuen Benutzer registrieren
-password_confirm Passwort bestätigen
 register_msg1 Ein neuen Account an {site_name} zu registrieren, musst du eine gültige E-Mail addresse und Benutzername eingeben. Ein E-Mail wurde mit Aktivierungskode geschickt. Nur ein Account kann mit einen E-mail Adresse registriert.
 register_msg2 * sind erfordet
 register_msg3 Für weitere Fragen, bitte um Kontakt mit uns vor Registrierung.
@@ -507,6 +509,7 @@ available_maps Verfügbare Karte
 cache_attributes Cache Attribute
 latest_logs Letzte Log-Einträge
 abroad_caches Ausser Polen
+
 newcaches_label Neue Saches
 cache_label cache Name
 found_it gefunden
@@ -536,10 +539,16 @@ toggle_filters Filter schalten
 fullscreen Vollbild
 disable_fullscreen Vollbild ausschalten
 stats Statistik
+
+
+
+
+
 ranking_by_number_of_created_caches Rangliste Benutzer durch Anzahl der festgestellte Caches
 ranking_by_number_of_created_active_caches Rangliste Benutzer durch Anzahl der festgestellte aktive Caches
 ranking_by_number_of_finds Rangliste Benutzer durch Anzahl der gefundene Caches
 ranking_by_number_of_recommnedations Rangliste Benutzer durch Anzahl der empfangene Empfehlungen
+
 cache_ranking_by_number_of_finds Rangliste der Caches nach Anzahl der Befundungs
 cache_ranking_by_calculated_indicator Rangliste der Caches nach kalkulierte Indikator
 user_ranking_by_number_of_finds_of_their_caches Rangliste der Benutzer nach Anzahl von Befundungs der Benutzers Caches
@@ -677,6 +686,7 @@ ready_to_search Cache bereit zu suchen. Viel Glück!
 archived_cache Cache war archiviert.
 temporarily_unavailable Cache wird temporär nicht verfügbar.
 blocked_by_octeam Cache gesperrt bei Geocacher HelpDesk.
+
 empty_coordinatest Geben Sie den neuen Koordinaten für den Fall der mobilen übertragen.
 empty_log_text Log-eintrag sollte nicht leer sein. Bitte ein paar Worte schreiben, die wertvolle Informationen für den Cache Besitzer sein kann
 route_cache Weg reiste bei Cache.
@@ -759,6 +769,8 @@ name_queries Bezeichnung zu den Suchergebnissen
 save_queries Suchergebnis Angemeldet
 old_options überschreiben die alten Suchergebnissen
 select_queries Wähls Du die gespeicherte Suche zu überschreiben
+
+
 last_found Letzte gefundene
 delete_recommend Emfehlung löschen
 off_ignore Ignorierung ausschalten
@@ -920,3 +932,7 @@ os_godzine Minute
 os_mus Du muss warten noch
 os_minut_end minut nächste Mal OpenChecker zu benutzen.
 viewlog_aktywnosc Benutzer Aktivität (Summe der Caches - gefunden, nicht gefunden und versteckt)
+hide_html_editor Verwenden Sie nicht den HTML-Editor.
+no_logs Keine Log-Einträge
+short_desc_label Kurzbeschreibung
+
