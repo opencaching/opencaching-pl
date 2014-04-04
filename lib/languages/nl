@@ -1976,10 +1976,10 @@ graph_statistics_04 Gegevens per
 graph_statistics_05 Geplaatste caches:
 graph_statistics_06 Actieve caches:
 graph_statistics_07 Totaal gevonden caches:
-
-
-
-
+chowner01 Cache adoptie
+chowner02 Geocacher
+chowner03 bied een cache aan voor adoptie
+chowner04 Ga naar de website om de adoptie af te ronden (Gebruikers menu> Cache adoptie)
 search_text_01 Cache naam:
 search_text_02 van
 search_text_03 Coördinaten:
