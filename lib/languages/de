@@ -151,6 +151,7 @@ change_email Ändern E-Mail-Adresse
 change_password Passwort ändern
 collected_queries Gesammelte Anfragen
 watched_caches Gesehen-Caches
+
 settings Einstellungen
 settings_notifications Notifizierung einstellungen
 ignored_caches Ignorierte Caches
@@ -161,6 +162,7 @@ cache Geocache
 search Suchen
 view_cache Cache-Verzeichnis
 new_log_entry Log eintragen
+
 edit_log Log-Eintrag bearbeiten
 remove_log Log-Eintrag entfernen
 edit_cache Bearbeiten Cache-Verzeichnis
@@ -180,6 +182,7 @@ allowed_html_tags Erlaubte HTML-Tags
 special_caches Besondere Caches
 user_ident Benutzers Identifikation
 cache_map Karte des Caches
+
 old_cache_map Ältere Version von cachemap
 abc Geocaching ABC
 forum Forum
@@ -208,6 +211,7 @@ status_label Status
 date_hidden_label Datum versteckte
 date_created_label Erstellungsdatum
 last_modified_label Letzte Änderung
+
 waypoint Waypoint
 listed_also_on Auch auf
 comments Kommentare
