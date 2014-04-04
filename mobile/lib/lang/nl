@@ -20,15 +20,15 @@ seek_near zoek caches in de buurt
 entry schrijf een log in logboek
 my_menu mijn menu...
 more meer...
-menu_title my menu
-menu_title2 My menu
-more_title more
+menu_title mijn menu
+menu_title2 Mijn menu
+more_title mer
 more_title2 Meer
-about_title about
-about_title2 About
+about_title over
+about_title2 Over
 contact_title contact
 contact_title2 Contact
-logs_title entries
+logs_title logs
 found gevonden
 notfound niet gevonden
 notes notitie
@@ -38,9 +38,9 @@ file_title2 Downloaden
 logout_title uitloggen
 logout_title2 Uitloggen
 find_title1 zoek een cache
-find_title2 add entry
+find_title2 voeg log toe
 find_title3 Zoek een cache
-find_title4 Add entry
+find_title4 Voeg log toe
 login_order please login
 result Resultaten:
 hidden_by geplaatst door
@@ -57,7 +57,7 @@ hidden_date Geplaatst op:
 view_wpt Waypoint:
 view_owner Eigenaar:
 stats Statistieken:
-download_file download data in following format
+download_file download gegevens in volgend formaat
 show_spoiler toon spoiler
 photos afbeeldingen
 show_entries toon logs
@@ -68,7 +68,7 @@ show_attrib toon attributen
 moved moved
 cog_note COG comment
 temp_unavailable tijdelijk niet beschikbaar
-ready ready to search
+ready beschikbaar
 archived gearchiveerd
 need_archive archiveren nodig
 edit bewerken
@@ -77,8 +77,8 @@ no_cookie Deze broswer ondersteunt geen cookies!
 del_question Moet dit echt verwijdert worden?
 yes ja
 no nee
-not_your_entry This is not your entry!
-no_entry no entry
+not_your_entry Dit is geen eigen log!
+no_entry geen log
 show_gk toon geokrety
 entry_type log soort:
 entry_date log datum:
@@ -87,13 +87,13 @@ entry_score score:
 entry_pass cache wachtwoord:
 entry_text log tekst:
 toprating aanbeveling:
-add
+add toevoegen
 no_score geen score
 seek_near2 Zoek caches in de buurt
 cords coördinaten :
 radius radius:
-logentry_title add entry
-wrong_dateformat wrong date format
+logentry_title voeg log toe
+wrong_dateformat verkeerde datum weergave
 future_date datum in toekomst
 hack hacking
 wrong_pass verkeerd wachtwoord
@@ -144,7 +144,7 @@ too_short_find woord korter dan 3 letters
 fixed_cords Afstand en richting vanaf:
 newest_caches nieuwste caches
 localize_me waar ben ik?
-no_city no city id database
+no_city stad niet in gegevensbank
 city stad:
 center_on_me centreer op mij
 normal_view normale weergave
@@ -160,6 +160,6 @@ skip_found gevonden caches
 skip_ignored genegeerde caches
 skip_inactive niet actieve caches
 404_title error 404
-404_text geen bestand
+404_text bestand niet gevonden
 EOF
 
