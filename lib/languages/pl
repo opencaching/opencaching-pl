@@ -1213,6 +1213,8 @@ oc_on_all_pages_top_pl OPENCACHING.pl
 oc_subtitle_on_all_pages_pl Geocaching w Polsce
 oc_on_all_pages_top_nl OPENCACHING.nl
 oc_subtitle_on_all_pages_nl Geocaching w Holandi
+oc_on_all_pages_top_oc OPENCACHING.oc
+oc_subtitle_on_all_pages_oc Geocaching w Rumunia
 Statictics Statystyki
 org1 organizuje
 noaccess_error_01 Nie masz uprawnień do przeglądania tej strony.
