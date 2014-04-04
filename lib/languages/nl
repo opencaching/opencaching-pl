@@ -860,6 +860,7 @@ route_radius Zoek radius
 search_caches_along_route Zoek caches langs een route
 caches_along_route Caches langs de route
 save_gpx Sla op als GPX
+save_gpx_with_photos Sla op als GPX + foto&#39;s
 show_gmap Toon op GMAP
 show_list Zoek caches langs een route
 logs_cache_gpx Aantal logs van elke cache in GPX
