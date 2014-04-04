@@ -1043,7 +1043,7 @@ adopt_15 Congratulations! You are now the owner of cache:
 format_GPX GPX type
 format_other others types
 format_pict GPX + photos
-
+mycache_notes For information about notes, see 
 user_activity01 User activity
 user_activity02 User activity count (found + did not found + owed)
 type Type
@@ -1062,10 +1062,11 @@ report_09 Copyright violation
 report_10 Other reason
 report_11 Comment (required)
 report_12 Report has bin send. the Opencaching-team will investigate the issue and take appropriate action.
-
-
-
-
+route_01 Startpoint
+route_02 Endpoint
+route_03 Delete route
+route_04 Restore map
+route_05 Loading route ....
 size_02 Micro
 size_03 Small
 size_04 Medium
@@ -1976,9 +1977,9 @@ graph_statistics_05 Hidden caches:
 graph_statistics_06 Active caches:
 graph_statistics_07 Total found caches:
 chowner01 Cache Adoption
-chowner02 Goecacher
+chowner02 Geocacher
 chowner03 transfers to you the cache for adoption
-chowner04 Please visit the opencahing site to complete adoption process (User's Menu> Cache Adoption).
+chowner04 Please visit the opencaching site to complete adoption process (User's Menu> Cache Adoption).
 search_text_01 Name:
 search_text_02 by
 search_text_03 Coordinates:
@@ -2006,7 +2007,7 @@ mytop5_1 Do you want to remove your recomandation ?
 mywatches_1 Do you want to stop watching this cache ?
 myignores_1 Do you want to switch off ignore ?
 myviewqueries_1 Do you want to remove this qurey collection ?
-earch_gpxgc_01 WARNING! There is a PASSWORD in the cache - please remember to note it down!
+search_gpxgc_01 WARNING! There is a PASSWORD in the cache - please remember to note it down!
 search_gpxgc_02 Personal cache note
 search_gpxgc_03 Additinal information
 search_gpxgc_04 Attributes
@@ -2177,6 +2178,7 @@ newCacheWpClose Close
 contact_pl_about_title Questions about Geocaching
 contact_pl_about_description_1 Would you like to know more about Geocaching? You'll find it in <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
 contact_pl_about_description_2 Do you have any comments, questions, suggestions, or just want to participate in <i>Opencaching</i> development? All those topics are discussed on our <a href="http://forum.opencaching.pl">Forum</a>.
+contact_pl_about_team OpenCaching PL Team
 contact_pl_rr_description - Rada Rejsu team members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
 contact_pl_rt_description - Rada Techniczna members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
 contact_pl_cog_description - COG members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
@@ -2215,9 +2217,7 @@ logbook_20 E-Mail
 logbook_21 Is only used to complete the fields in the logbook
 logbook_22 Preview
 logbook_23 Generate PDF
-
 search01 all regions
-
 LineChart Line
 BarChart Bar
 positions positions
