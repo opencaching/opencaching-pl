@@ -666,6 +666,7 @@ no_note Keine Notizen
 additional_waypoints Zusäztliche Waypoint
 nowp_notice Es gibt keine zusäztliche waypoints
 stage_wp Etappe
+
 type_wp Typ
 type_wp2 Waypoint Typ
 coordinates_wp Koordinaten
@@ -770,8 +771,7 @@ save_queries Suchergebnis Angemeldet
 old_options überschreiben die alten Suchergebnissen
 select_queries Wähls Du die gespeicherte Suche zu überschreiben
 
-
-last_found Letzte gefundene
+Last_found Letzte gefundene
 delete_recommend Emfehlung löschen
 off_ignore Ignorierung ausschalten
 no_ignores Hat keine ignorierte caches
@@ -780,6 +780,9 @@ administration OC Management
 stat_octeam COG Statistik
 cache_notfound Caches nicht Befundene
 send_bulletin Bulletin schicken
+
+
+
 add_news Nachricht eingeben
 email_subject_news Neue Information an OpenCaching PL
 subject Thema
@@ -808,6 +811,7 @@ Online online_users registrierte Benutzer
 online_users_info auf den aktiven Besuchern der letzten 10 Minuten online
 empty_entry_notice <b> Label Einträge </ b>: Versuchen Sie nicht, leere Einträge machen. Vorbereitung der Cache ist oft eine grosse Arbeit und Worte des Dankes oder Kritik sind in der Regel willkommen! Selbst ein einfaches "Danke" genug ist.
 empty_entry_confirm Sicher, dass Du ein leer Eintrag? \ Es ist immer viel besser als ein kurzes Kommentar schreiben.
+
 where_i_am Wo bin ich?
 read_info_about_cache_types Siehe Beschreibung <a href="http://wiki.opencaching.pl/index.php/Typ_skrzynki" target="_blank">Cache Typ</a>
 regiononly Land (nur Polen)
@@ -832,6 +836,7 @@ dont_show nicht zeigen dieses Bild.
 pictures_intro Folgende Formate werden akzeptiert: BMP, GIF, PNG, JPG und - empfohlen für Fotos im JPG-Format <br /> Maximale Dateigröße erlaubt 100 KB. Empfohlene Bildgröße: 480 Pixel breit und 360 Pixel Höhe. <br /> Nach der Bestätigung der nächsten Seite, die erscheint, kann eine Weile dauern.
 add_new_picture Hinzufügen ein neues Bild für Cache
 Galerie Galerie anzeigen
+
 gallery_of_cache Bildergalerie für Cache
 images_cache Pictures Cache
 images_logs Bilder von Protokollen
@@ -855,16 +860,15 @@ route_radius Umkreissuche
 search_caches_along_route Suche Caches entlang der Route
 caches_along_route Caches entlang der Route
 save_gpx zu GPX speichern
+
 show_gmap Auf GMAP'ie
 show_list Liste der Caches zeigen
 logs_cache_gpx Anzahl der Logs für Cache, in GPX
 min_logs_cache minimale Anzahl von Logs
 marked_grey_search_area Die grau markierten Bereich für definierte Suchradius.
 lastlogins Letztes Login
-dieser Monat in den letzten 30 Tagen
+this_month in den letzten 30 Tagen
 more_one_month zwischen 1 und 6 Monaten
-more_six_month zwischen 6 und 12 Monaten
-more_12_month mehr als 12 Monaten
 more_six_month zwischen 6 und 12 Monaten
 more_12_month mehr als 12 Monaten
 unknown unknown nicht bekannt
@@ -932,7 +936,4 @@ os_godzine Minute
 os_mus Du muss warten noch
 os_minut_end minut nächste Mal OpenChecker zu benutzen.
 viewlog_aktywnosc Benutzer Aktivität (Summe der Caches - gefunden, nicht gefunden und versteckt)
-hide_html_editor Verwenden Sie nicht den HTML-Editor.
-no_logs Keine Log-Einträge
-short_desc_label Kurzbeschreibung
 
