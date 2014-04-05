@@ -771,7 +771,7 @@ save_queries Suchergebnis Angemeldet
 old_options überschreiben die alten Suchergebnissen
 select_queries Wähls Du die gespeicherte Suche zu überschreiben
 
-Last_found Letzte gefundene
+last_found Letzte gefundene
 delete_recommend Emfehlung löschen
 off_ignore Ignorierung ausschalten
 no_ignores Hat keine ignorierte caches
@@ -807,7 +807,7 @@ octeam_comment_subject [OC] COG Adotation zur Cache
 octeam_comment_copy Kopie der Einverständniserklärung zur Cache hinzugefügt von
 list_of_latest_logs_is_empty Es gibt keine aktuellen Einträge im Log
 list_of_caches_is_empty Es gibt keine neue Caches in Nähe
-Online online_users registrierte Benutzer
+online_users registrierte Benutzer
 online_users_info auf den aktiven Besuchern der letzten 10 Minuten online
 empty_entry_notice <b> Label Einträge </ b>: Versuchen Sie nicht, leere Einträge machen. Vorbereitung der Cache ist oft eine grosse Arbeit und Worte des Dankes oder Kritik sind in der Regel willkommen! Selbst ein einfaches "Danke" genug ist.
 empty_entry_confirm Sicher, dass Du ein leer Eintrag? \ Es ist immer viel besser als ein kurzes Kommentar schreiben.
@@ -835,14 +835,14 @@ spoiler_info nicht zeigen Thumbnails (SPOILER) - Verwenden diese Option, wenn da
 dont_show nicht zeigen dieses Bild.
 pictures_intro Folgende Formate werden akzeptiert: BMP, GIF, PNG, JPG und - empfohlen für Fotos im JPG-Format <br /> Maximale Dateigröße erlaubt 100 KB. Empfohlene Bildgröße: 480 Pixel breit und 360 Pixel Höhe. <br /> Nach der Bestätigung der nächsten Seite, die erscheint, kann eine Weile dauern.
 add_new_picture Hinzufügen ein neues Bild für Cache
-Galerie Galerie anzeigen
+Galery Galerie anzeigen
 
 gallery_of_cache Bildergalerie für Cache
 images_cache Pictures Cache
 images_logs Bilder von Protokollen
 show_more Mehr anzeigen
 search_options Suchoptionen
-MyRoutes Meine Routen
+myroutes Meine Routen
 add_new_route Neue Route hinzufügen
 setup_new_route Bestimmen Sie neue Route
 add_new_route_kml hochladen neue Route KML
@@ -854,7 +854,7 @@ route_name Name der Route
 route_name_info Bitte geben die Route Namen
 file_name_info Bitte geben KML
 no_routes Strecke ist leer
-Radius Radius
+radius Radius
 see_desc_myroute Siehe Beschreibung von "My Tour"
 route_radius Umkreissuche
 search_caches_along_route Suche Caches entlang der Route
@@ -876,7 +876,7 @@ user_not_active Benuzer Konto nicht aktiv
 distance_to_cache Abstand zur Cache
 cacheguides Geocaching Guides
 guide Guide
-Guides Guides
+guides Guides
 okapi_apps Meine Apps
 os_times mal
 os_kesz Geocache
