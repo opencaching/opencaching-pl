@@ -1,5 +1,3 @@
-# this file is encoded in UTF-8 charset
-
 lang ro
 login [intră în cont]
 logout [deconectare]
@@ -160,7 +158,7 @@ skip_caches sari peste geocutiile:
 skip_mine mele
 skip_found găsite
 skip_ignored ignorate
-skip_inactive inactive
-404_title error 404
-404_text file nu a fost găsit(ă)
+skip_inactive inactivă
+404_title eroare 404
+404_text pagina nu a fost găsită
 EOF
