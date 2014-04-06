@@ -1,4 +1,3 @@
-
 main_menu Meniu Principal
 user_menu Meniul Utilizatorului
 new NOU
@@ -331,7 +330,10 @@ date_incorrect Dată greşită. Format curect: ZZ-LL-AAAA (Z=zi, L=lună, A=an)
 no_cache_name Nume lipsă
 new_cache_no_terms Trebuie să confirmi că accepţi Condiţiile de utilizare ale site-ului {site_name}
 html_incorrect Acest cod HTML nu este permis.
+descwp_incorrect No description.
 type_incorrect Tipul geocutiei este greşit!
+typewp_incorrect No waypoint selected! 
+stage_incorrect Stagenumber is incorrect!
 size_incorrect Dimensiunea geocutiei este greşită!
 diff_incorrect Dificultatea geocutiei este greşită!
 status_incorrect Statutul nu corespunde cu informaţiile publicate.
@@ -453,433 +455,433 @@ register_msg2 Câmpurile marcate cu * sunt obligatorii
 register_msg3 Dacă ai nelămuriri, contactează-ne înainte de a crea un cont.
 register_msg4 Am citit, înţeles şi accept <b><a href="{rules_url}">Condiţiile de Utilizare</a></b>.
 register_msg5 Contul a fost creat
-register_msg6 The activation code was sent via E-mail to you. Please follow the instructions within it.
-register_msg7 Users which have hidden a cache or logged at least one visit - cannot be deleted. However, it is possible to deactivate such accounts. All your personal data will be removed (including your email address), but your username will be kept. If you want your account to be deactivated contact us at ocpl@opencaching.pl.
-total_distance Total distance
-send_to_gps Send a waypoint to your GPS
-post_new_log Post new log in reference to
-type_of_log Type of log
-date_logged Date
-want_to_recommend I want to recommend this cache
-my_recommend Recommendation
-number_my_recommend Total number of recommendations used
-number_possible_recommend out of
-possible_recommend You don't have any recommendations left. You must find more caches:
-comments_log Comments
-submit_log_entry Submit log entry
-geokret_log Did you take Geokret? Register this on
-rate_cache Rate this cache: <br/><a href="{rating_desc_url}">Description of the rating scale</a>
-do_not_rate I do not want to rate this cache
-listed_other You can also submit the log for this cache on other sites
-not_spcified not specified
-all_countries show all countries
-register_email_subject Opencaching.PL - Confirm your registration
-error_username_not_ok Username is incorrect
-error_username_exists The chosen username is already registered at Opencaching.PL. Please select other name.
-error_email_not_ok The E-Mail address is incorrect
-error_email_exists The chosen e-mail address is already registered at Opencaching.PL.
-error_password_not_ok Your password is too short or it contains characters which are not allowed
-error_password_diffs Passwords don't match (check the "confirm password" field)
-error_tos You have to agree to Opencaching.PL's Terms of Use
-step1 Step 1
-step2 Step 2
-new_password_msg1 To change your password, you have to request a security code which will be sent to you via E-Mail.
-new_password_msg2 Please enter your E-Mail address, the security code you received and your new password. <br/>The security code is valid for 3 days only. You have to request a new one after that time.
-security_code Security code
-change_password_msg1 Change password
-logoutsuccess Successfully logged out
-error_usernotactive Yor account is not activated.<br />You can activate it <a href=activation.php>here</a>.
-not_registered Not registered? <a href="register.php">Register</a>
-forgotten_your_password Forgot your password? <a href="newpw.php">Remind me</a>
-cache_logged_required You have to be logged-in in order to perform operations on this cache.
-basic_information Basic information.
-rating_poor poor
-rating_mediocre below average
-rating_avarage avarage
-rating_good good
-rating_excellent excellent
-rating_ge_average at least "average"
-rating_ge_good at least "good"
-rating_ge_excellent "excellent" only!
-score_label Rated as
-show_noscore Show caches without score
-available_maps Available maps
-cache_attributes Cache attributes
-latest_logs Latest logs
-abroad_caches Out of Poland
-hidden_by hidden by
-newcaches_label New caches
-cache_label cache name
-found_it found by
-did_not_find_it not-found by
-write_note write a note
-attende attended
-will_attende I will be attending
-add_new_desc Add a new describtion to the cache
-pictures_label Pictures or photos
-add_new_pict Add a new picture
-mp3_label MP3 podcast for a cache of the type PodCache
-add_new_mp3 Add new MP3 file
-no_mp3_files There are no MP3 files yet
-map Map
-manage_ocpl Managing OCPL
-browse_problem_reports Show problem reports
-no_hidden_caches There are caches hidden yet
-no_log_entries There are no logs submitted yet
-your_newest_log_entries Your latest logs
-location Location
-stat_picture Statistics picture
-show_in_google_maps Show on Google Maps
-download_for_various_apps download for various applications
-download Download
-listing_from_to Listing from {startatp1} to {endat}
-toggle_filters Change filters
-fullscreen Full screen
-disable_fullscreen Turn off full screen
-stats Statistics
-rise_charts Our rising charts...
-region_ranking Ranking per region
-user_ranking Users ranking
-cache_ranking Cache ranking
-ranking_by_maintenace Maintenance of caches
-ranking_by_number_of_created_caches Users ranking by number of created caches
-ranking_by_number_of_created_active_caches Users ranking by number of created and active caches
-ranking_by_number_of_finds_new Number of finds
-ranking_by_number_of_finds Users ranking by number of finds
-ranking_by_number_of_recommnedations Users ranking by number of received recommendations
-cache_ranking_by_number_of_finds Cache ranking by number of finds
-cache_ranking_by_calculated_indicator Cache ranking by a formula
-user_ranking_by_number_of_finds_of_their_caches Users ranking by number of finds of caches they own
-cache_ranking_by_finds_per_region Cache ranking by finds per region
-cache_ranking_by_number_of_recommendations Cache ranking by number of recommendations
-oc_statistics oc statistics
-only_active_caches Active caches only
-users_who_created_caches Users, who created caches
-users_who_created_caches_active Users, who created active caches
-number_of_active_caches Number of active caches
-username User
-number_of_caches Number of caches
-ranking Pos.
-submit Submit
-edit_cache_description Edit cache description
-short_description Short description
-extra_attrs_info You can add some extra attributes using this form: <a href="cache-atr.php" target="_BLANK">Adittional cache attributes</a>.
-javascript_edit_info Javascript is turned off in your browser. You can enter plain text only. For rich text you have to turn Javascript on.
-html_edit_info Use basic HTML for formatting only. See <a href="articles.php?page=htmltags">here</a> for thie list allowed tags.
-geocaching_com_foto_info Please don't use pictures from geocaching.com unless you own them
-extra_coded_info Additional (encoded) information
-statistics_users User Statistics
-general_stat General statistics
-graph_created Graph of created caches
-graph_find Graph of found it caches
-there_is_no_caches_registered There are no caches registered
-there_is_no_caches_found There are no caches found
-with_password Cache with password
-user_account User's account
-management_users Managing the user
-titles Subject
-content Message
-my_email_will_send Include my e-mail address in the message
-email_publish If you select this option, the recipient will see your e-mail address and will be able to respond to you directly
-account_is_actived account was actived
-find_user find a user
-clear_list Clear list
-adoption_cache Cache adoption
-show_waypoints Show waypoints
-pendings Caches waiting to be accepted
-recommendation_rating Show ranking of caches calculated by a formula
-show_statictics_cache Show cache statistics
-not_stat_cache This cache does not have statistics yet
-recommended_by This cache is recommended by
-listing_from_this_page Listing for this page
-show_on_map show on the map
-list_of_events_is_empty There are no events planned for the nearest future
-stat_number_found Statistics of finds
-total_number_found_caches Number of found caches
-total_dnf_caches Number of caches not found ("Didn't find it" log entry)
-total_comments Number of notes/comments
-total_attended_events Number of attended events
-number_recommendations_given Number of recommendations given
-number_found_caches Number of found caches
-shared_place Shared place
-total_amount_loggers Total amount of loggers:
-total_amount_logs Total amount of logs:
-filter_out_caches Filter for statistics:
-days_caching Caching days
-from_total_days out of
-average_caches Average caches found per one caching day
-most_caches Maximum number of caches found on a single day
-latest_cache Latest cache found
-milestones Milestones
-latest_logs_by_user Latest log entries
-stat_created_caches Statistics of hidden caches
-not_caches_created  The user did not hide any caches yet
-total_created_caches Number of caches hidden
-number_temp_caches Number of caches marked as "temporarily unavailable"
-number_archived_caches Number of "archived" caches
-number_created_events Number of created events
-number_obtain_recommendations Number of obtained recommendations
-for for
-_caches_ caches
-ratio_recommendations Recommended/all caches ratio
-number_gk_in_caches Number of GeoKrety's in the caches
-latest_created_cache Latest cache hidden
-latest_logs_in_caches Latest log entry in caches owned
-caches_waiting_approve Caches which await OC Team approval
-caches_blocked Caches blocked by OC Team
-blocked_create_caches Your possiblity for creating new caches is blocked. Please contact with OC Team rr@opencaching.pl
-npa_info This geocache is probably placed in a nature protection area
-check_nearby_caches_info Before placing your cache, make sure there are no other caches in 150m radius
-check_nearby_caches Check for nearby caches at OCPL
-check_nearby_caches_map Check for nearby caches on the map&nbsp;&nbsp;&nbsp;
-my_caches_status My caches with status
-active Active
-temp_unavailable Unavailable
-archived Archived
-not_published Not published
-for_approval For approval
-blocked Blocked
-my_caches My caches
-region Region
-number_of_caches_by_region Number of caches by region
-activity_by_region Activity by region
-number_of_visit_caches Number of search caches
-users_active Number of active users
-show_labels Show labels
-history_gk GeoKrety records
-cache_notes Notes
-my_statistics My statistics
-mycache_note My cache notes
-personal_cache_note Personal cache note
-cache_note_visible The note is not visible to other users. It will be included in GPX files you download.
-for_cache for
-add_new_note Add a new note
-back_to_cache Back to cache
-cachenotes notes
-cache_note Note
-delete Delete
-edit edit
-cancel Cancel
-no_note I don't have any cache note
-additional_waypoints Additional waypoints
-nowp_notice There are no additional waypoints
-stage_wp Stage
-symbol_wp Symbol
-type_wp Type
-type_wp2 Type of waypoint
-coordinates_wp Coordinates
-describe_wp Description
-add_new_waypoint Add new waypoint
-wp_status1 Show all information for this waypoint, including coordinates
-wp_status2 Show details of this waypoint except the coordinates
-wp_status3 Hide this waypoint from cache view
-number_stage_wp Stage #
-status_wp Waypoint status
-write_wp Write waypoint
-edit_wp Edit waypoint
-delete_wp Delete waypoint
-show_info_about_wp See the description and the type of additional waypoints
-show_info_for_value If the waypoint is not the next step required to find cache type Multicache or quiz insert the value 0
-comment_octeam_visible OC Team comments are visible for OC Team and the owner of the cache only.
-ready_to_search The cache is ready to search. Good Luck!
-archived_cache The cache has been archived.
-temporarily_unavailable The cache will be temporarily unavailable.
-blocked_by_octeam The cache was blocked by OC-Team.
-approved_by_octeam The cache is approved by the OC-Team
-empty_coordinatest Please add the new coordinates of the moved mobile cache.
-empty_log_text Log shouldn't be empty. Please write a short note.
-route_cache Route of cache
-start_point start point
-trp_points trip points
-recently_seen recently seen
-moved_text moved
-encrypt_log Log entry encrypted
-my_neighborhood My neighborhood
-my_neighborhood_v2 My neighborhood v2
-my_neighborhood_radius My neighborhood in radius
-new_caches_myn New geocaches
-ftf_awaiting Awaiting First Find Caches
-new_logs_myn Latest logs
-top_recommended Most recommended caches
-myn_info You did not set your home-area coordinates. You can do this in your <a href="myprofile.php?action=change">profile</a>. You can also change the default notification radius there.
-search_user Search for users
-monthly_stat_founds Monthly statistics of cache finds
-monthly_stat_founds_user Monthly statistics of the user's finds
-monthly_stat_created_user Monthly statistics of the user's hidden caches
-monthly_stat Monthly statistics of the cache
-annual_stat_founds Annual finds statistics
-annual_stat_founds_user Annual statistics of geocache finds
-annual_stat_created Annual statistics of geocache hidings
-annual_stat Annual statistics geocache
-number_founds Number of founds
-number_caches Number of caches
-number_logentry Number of log entries
-by_cachetype By cache type
-by_logtype By log type
-stat_geocache Statistics geocache
-does_not_have_stat There are no statistics yet
-number_month Number of months
-stat_problems OC Team Statistics - solved problems
-edit_logentry Edit log entry
-moved_cache_info If you moved the cache to a new location please enter the new coordinates (will be included in the log)
-encrypt_log_info If your log contains spoilers, you can encode it. Text within brackets <b>[like this]</b> will not be encoded.
-encrypt_log_entry Encode this log entry
-not_recommend_own You cannot recommend a geocache that you own
-send_report_info Use this form to report a problem with the geocache to the OCPL Team or the cache owner
-send_report Send report
-password_to_log Password to log
-incorrect_password_to_log Incorrect password to log
-only_for_found_it only for found it geocaches
-store Write
-here Here
+register_msg6 Codul de activare a fost trimis prin e-mail. Urmează instrucţiunile.
+register_msg7 Utilizatorii care au ascuns sau au găsit cel puţin o geocutie - nu pot fi şterşi. Cu toate acestea, este posibil ca astfel de conturi sa fie dezactivate. Toate datele tale personale vor fi şterse (inclusiv adresa ta de e-mail), dar numele de utilizator va fi păstrat. Dacă vrei să îţi dezactivezi contul contactează-ne la ocpl@opencaching.pl.
+total_distance Distanţă totală
+send_to_gps Trimite un punct către receptorul GPS
+post_new_log Posteză o nouă însemnare cu referire la
+type_of_log Tipul postării
+date_logged Dată
+want_to_recommend Vreau să recomand această geocutie
+my_recommend Recomandare
+number_my_recommend Numărul total de recomandări folosite
+number_possible_recommend din
+possible_recommend Nu mai poţi recomanda. Trebuie să mai găseşti geocutii:
+comments_log Comentarii
+submit_log_entry Postează o însemnare
+geokret_log Ai luat vreun Geokret? Înregistrează-l pe
+rate_cache Votează această geocutie: <br/><a href="{rating_desc_url}">Scara de valori</a>
+do_not_rate Nu vreau să votez această geocutie
+listed_other Poţi publica însemnările pentru această geocutie si pe alte site-uri
+not_spcified nespecificat
+all_countries arată toate ţările
+register_email_subject Opencaching.PL - Confirmă înregistrarea
+error_username_not_ok Nume de utilizator incorect
+error_username_exists Numele de utilizator ales este deja existent pe Opencaching.PL. Alege alt nume.
+error_email_not_ok Adresa de E-Mail incorectă
+error_email_exists Adresa de e-mail aleasă este deja existentă pe Opencaching.PL.
+error_password_not_ok Parola ta este prea scurta sau conţine caractere care nu sunt permise
+error_password_diffs Parola nu se potriveşte (verifică câmpul "confirmă parola")
+error_tos Trebuie să accepţi condiţiile de utilizare ale site-ului Opencaching.PL's
+step1 Primul pas
+step2 Al doilea pas
+new_password_msg1 Pentru a-ţi schimba parola, trebuie sa ceri un cod de securitate pe care îl vei primi pe E-Mail.
+new_password_msg2 Introdu adresa ta de E-Mail, codul de securitate primit şi noua parolă. <br/>Codul de securitate este valabil doar 3 zile. Va trebui să ceri altul după ce exipră acea perioadă.
+security_code Cod de securitate
+change_password_msg1 Schimbă parola
+logoutsuccess Deconectare reuşită
+error_usernotactive Contul tău nu este activat.<br />Îl poţi activa <a href=activation.php>here</a>.
+not_registered Nu te-ai înregistrat? <a href="register.php">Înregistrare</a>
+forgotten_your_password Ţi-ai uitat parola? <a href="newpw.php">Aminteşte-mi</a>
+cache_logged_required Trebuie să fii conectat pentru a putea vedea mai multe.
+basic_information Informţii de bază.
+rating_poor foarte slabă
+rating_mediocre slăbuţă
+rating_avarage mediocră
+rating_good bună
+rating_excellent excelentă
+rating_ge_average peste "medie"
+rating_ge_good destul de "bună"
+rating_ge_excellent "excellent" only! ****
+score_label Votată ca
+show_noscore Arată cutiile fără voturi****
+available_maps Hărţi disponibile
+cache_attributes Atribute
+latest_logs Ultimele însemnări
+abroad_caches În afara ţării
+hidden_by ascunsă de
+newcaches_label Geocutii noi
+cache_label numele geocutiei
+found_it găsită de
+did_not_find_it negăsită de
+write_note scrie o notă
+attende am participat
+will_attende Voi participa
+add_new_desc Adaugă o descriere nouă geocutiei
+pictures_label Poze
+add_new_pict Adaugă o nouă poză
+mp3_label Fişier MP3 pentru o geocutie de tip PodCast
+add_new_mp3 Adaugă un nou fişier MP3
+no_mp3_files Nu există fişiere MP3
+map Hartă
+manage_ocpl Administrare OCRO
+browse_problem_reports Afişează rapoartele cu probleme
+no_hidden_caches Încă nu există geocutii ascunse
+no_log_entries Încă nu există însemnări
+your_newest_log_entries Ultimele tale însemnări
+location Locaţie
+stat_picture Imagine cu statistici
+show_in_google_maps Arată pe Google Maps
+download_for_various_apps Descarcă pentru diverse aplicaţii
+download Descarcă
+listing_from_to Listing de la {startatp1} până la {endat}
+toggle_filters Schimbă filtrele
+fullscreen Pe tot ecranul
+disable_fullscreen Anulează afişarea pe tot ecranul
+stats Statistici
+rise_charts Our rising charts... ****
+region_ranking Clasament pe regiuni
+user_ranking Clasament utilizatori
+cache_ranking Clasament geocutii
+ranking_by_maintenace Nivelul de întreţinere al geocutiilor
+ranking_by_number_of_created_caches Clasament utilizatori după numărul de geocutii ascunse
+ranking_by_number_of_created_active_caches Clasament utilizatori după numărul de geocutii deţinute şi active
+ranking_by_number_of_finds_new Număr de geocutii găsite
+ranking_by_number_of_finds Clasament utilizatori după numărul geocutiilor găsite
+ranking_by_number_of_recommnedations Clasament utilizatori după numărul recomandărilor primite
+cache_ranking_by_number_of_finds Clasament geocutii după numărul de găsiri
+cache_ranking_by_calculated_indicator Clasament geocutii după Cache ranking by a formula ****
+user_ranking_by_number_of_finds_of_their_caches Clasament utilizatori după cât de des au fost găsite geocutiile lor
+cache_ranking_by_finds_per_region Clasament geocutii după numărul de găsiri pe regiuni
+cache_ranking_by_number_of_recommendations Clasament geocutii după numărul de recomnadări
+oc_statistics oc statistici
+only_active_caches Doar geocutiile active
+users_who_created_caches Utilizatori, care au ascuns geocutii
+users_who_created_caches_active Utilizatori, care au ascuns geocutii active
+number_of_active_caches Număr de geocutii active
+username Utilizator
+number_of_caches Număr de geocutii
+ranking Poz.
+submit Trimite
+edit_cache_description Modifică descrierea geocutiei 
+short_description Descriere scurtă
+extra_attrs_info Poţi adăuga atribute suplimentare folosind acest formular: <a href="cache-atr.php" target="_BLANK">Atribute supimentare</a>.
+javascript_edit_info Javascript este dezactivat în browser-ul tău. Poţi introduce doar text. Pentru text cu formatare trebuie să porneşti Javascript-ul.
+html_edit_info Foloseşte cod HTML doar pentru formatări. Vezi <a href="articles.php?page=htmltags">here</a> pentru lista completă a elementelor permise.
+geocaching_com_foto_info Nu folosi poze de pe geocaching.com decât dacă eşti autorul lor
+extra_coded_info Informaţii suplimentare(codate)
+statistics_users Statisticile utilizatorilor
+general_stat Statistici generale
+graph_created Grafic al geocutiilor ascunse***
+graph_find Grafic al geocutiilor găsite **
+there_is_no_caches_registered Nu există geocutii
+there_is_no_caches_found Nu există geocutii găsite
+with_password Geocutie cu parolă
+user_account Contul utilizatorului
+management_users Gestionare utilizator
+titles Subiect
+content Mesaj
+my_email_will_send Include adresa mea de e-mail în mesaj
+email_publish Dacă selectezi această opţiune, destinatarul îţi va vedea adresa de e-mail şi îţi va putea răspunde direct
+account_is_actived contul a fost activat
+find_user găseşte un utilizator
+clear_list Goleşte lista
+adoption_cache Adopţie geocutie
+show_waypoints Arată punctele
+pendings Geocutii care aşteaptă să fie aprobate
+recommendation_rating Arată clasamentul geocutiilor calculat după o formulă dată
+show_statictics_cache Arată clasamentul geocutiilor
+not_stat_cache Această geocutie nu are statistici
+recommended_by Această geocutie este recomandată de
+listing_from_this_page Listing for this page ***
+show_on_map arată pe hartă
+list_of_events_is_empty Nu există evenimente planificate în viitorul apropiat
+stat_number_found Clasamentul găsirilor
+total_number_found_caches Numărul de geocutii găsite
+total_dnf_caches Numărul de geocutii negăsite (însemnări de tip "Nu am găsit-o")
+total_comments Număr de observaţii/comentarii
+total_attended_events Număr de evenimente la care ai participat *
+number_recommendations_given Număr de recomandări date
+number_found_caches Numărul de geocutii găsite
+shared_place Shared place **
+total_amount_loggers Numărul total al utilizatorilor care au scris însemnări:
+total_amount_logs Numărul total al însemnărilor:
+filter_out_caches Filtre pentru statistici:
+days_caching Zile de căutări
+from_total_days din
+average_caches Media geocutiilor găsite într-o zi
+most_caches Numărul maxim de geocutii găsite într-o zi
+latest_cache Ultimele geocutii găsite
+milestones Etape importante
+latest_logs_by_user Ultimele însemnări
+stat_created_caches Clasamentele geocutiilor ascunse
+not_caches_created  Utilizatorul încă nu a ascuns nicio geocutie
+total_created_caches Numărul de geocutii ascunse
+number_temp_caches Numărul de geocutii marcate "indisponibilă temporar"
+number_archived_caches Numărul de geocutii "arhivate"
+number_created_events Numărul de evenimente create
+number_obtain_recommendations Numărul de recomandări primite
+for pentru
+_caches_ geocutii
+ratio_recommendations Raport geocutii recomandate/total
+number_gk_in_caches Numărul de GeoKrety dgeocutii
+latest_created_cache Ultimele geocutii ascunse
+latest_logs_in_caches Ultimele însemnări la geocutiile tale
+caches_waiting_approve Geocutii care aşteaptă aprobarea Echipei OC
+caches_blocked Geocutii blocate de Echipa OC
+blocked_create_caches Nu mai poţi adăuga geocutii noi. Contactează Echipa OC rr@opencaching.pl
+npa_info Probabil că această geocutie este ascunsă într-o rezervaţie naturală
+check_nearby_caches_info Înainte să ascunzi geocutia, asigură-te că nu există alte geocutii pe o raza de 50m
+check_nearby_caches Caută geocutii din apropiere pe OCRO
+check_nearby_caches_map Caută geocutii în apropiere pe map&nbsp;&nbsp;&nbsp;
+my_caches_status Geocutiile mele cu status **
+active Activă
+temp_unavailable Indisponibilă
+archived Arhivată
+not_published Nepublicată
+for_approval Pentru aprobare
+blocked Blocată
+my_caches Geocutiile mele
+region Regiune
+number_of_caches_by_region Număr de geocutii după regiune
+activity_by_region Activitate după regiune
+number_of_visit_caches Numărul de geocutii căutate
+users_active Numărul de utilizatori activi
+show_labels Arată etichetele
+history_gk Înregistrări de GeoKrety
+cache_notes Notiţe
+my_statistics Statisticile mele
+mycache_note Notiţele geocutiei mele
+personal_cache_note Notiţă personală la geocutie
+cache_note_visible Notiţele nu pot fi văzute de ceilalţi utilizatori. Vor fi incluse în fişierele GPX pe care le descarci.
+for_cache pentru
+add_new_note Adaugă o notiţă
+back_to_cache Înapoi la geocutie
+cachenotes notiţe
+cache_note Notiţă
+delete Şterge
+edit modifică
+cancel Anulează
+no_note Nu am nicio notiţă
+additional_waypoints Puncte suplimentare
+nowp_notice Nu există puncte suplimentare
+stage_wp Stadiu
+symbol_wp Simbol
+type_wp Tip
+type_wp2 Tip de punct
+coordinates_wp Coordonate
+describe_wp Descriere
+add_new_waypoint Adaugă un nou punct
+wp_status1 Arată toate informaţiile pentru acest punct, inclusiv coordonatele
+wp_status2 Arată detaliile acestul punct cu excepţia coordonatelor
+wp_status3 Ascunde acest punct din pagina geocutiei
+number_stage_wp Stadiu #
+status_wp Waypoint status **
+write_wp Adaugă un punct
+edit_wp Modifică punctul
+delete_wp Şterge punctul
+show_info_about_wp Vezi descrierea şi felurile punctelor suplimentare
+show_info_for_value Dacă punctul nu corespunde cu următorul pas care duce la găsirea geoutiei de tip Multi sau chestionar introdu valoarea 0
+comment_octeam_visible Comentariile Echipei OC pot fi văzute doar de acasta şi de proprietarul geocutiei.
+ready_to_search Geocutia poate fi căutată. Mult succes!
+archived_cache Geocutia a fost arhivată.
+temporarily_unavailable Geocutia este indisponibilă momentan.
+blocked_by_octeam Geocutia a fost blocată de Echipa OC.
+approved_by_octeam Geocutia a fost aprobată de Echipa OC
+empty_coordinatest Adaugă noile coordonate ale geocutiei mobile mutată.
+empty_log_text Însemnările nu pot fi goale. Scrie ceva pe scurt.
+route_cache Roută către geocutie
+start_point punctul de pornire
+trp_points traseu
+recently_seen vizitată de curând
+moved_text mutată
+encrypt_log Însemnare codată
+my_neighborhood În apropiere
+my_neighborhood_v2 În apropiere v2
+my_neighborhood_radius În apropierea mea pe o rază de
+new_caches_myn Geocutii noi
+ftf_awaiting Geocutii care aşteaptă să fie găsite pentru prima oară
+new_logs_myn Ultimele însemnări
+top_recommended Geocutiile cele mai recomandate
+myn_info Nu ţi-ai selectat coordonatele de acasă. Poţi face asta în <a href="myprofile.php?action=change">profile</a>. Acolo îţi poţi modifica şi raza zonei pentru care primeşti în mod implicit notificări.
+search_user Caută utilizatori
+monthly_stat_founds Statistici lunare ale geocutiilor găsite
+monthly_stat_founds_user Statistici lunare ale geocutiilor găsite de utilizator
+monthly_stat_created_user Statistici lunare ale geocutiilor ascunse de utilizator
+monthly_stat Statistici lunare ale geocutiei
+annual_stat_founds Statistici anuale ale găsirilor **
+annual_stat_founds_user Statisitici anuale ale geocutiilor găsite **
+annual_stat_created Statistici anuale ale geocutiilor ascunse
+annual_stat Statistici anuale geocutii **
+number_founds Numărul geocutiilor găsite
+number_caches Numărul geocutiilor
+number_logentry Numărul însemnărilor
+by_cachetype După tipul geocutiei
+by_logtype După tipul însemnărilor
+stat_geocache Statisticile geocutiilor
+does_not_have_stat Încă nu există statistici
+number_month Numărul de luni
+stat_problems Statisticile Echipei OC - probleme rezolvate
+edit_logentry Modifică însemnarea
+moved_cache_info Dacă ai mutat geocutia în altă parte introdu noile coordonate (vor fi incluse în însemnare)
+encrypt_log_info Dacă însemnările tale conţin texte sau imagini care pot dezvălui ascunzişul geocutiei, poţi să le codezi. Textul dintre paranteze <b>[like this]</b> nu va fi codat.
+encrypt_log_entry Codează această însemnare
+not_recommend_own Nu poţi recomanda o geocutie de-a ta
+send_report_info Foloseşte acest formular pentru a raporta Echipei OCRO sau proprietarului o problemă a geocutiei
+send_report Trimite raport
+password_to_log Parola pentru a te loga
+incorrect_password_to_log Parolă greşită
+only_for_found_it doar pentru geocutii de tip "găsită"
+store Scrie
+here Aici
 alternative_recommend Alternative you can remove recommendations
-comment_log Comment
-need_maintenance_log Need maintenance
-comment_octeam_log OC Team comment
-moved_log Moved
-new_coordinates New coordinates
-moved_distance Distance passed
-delete_logentry Delete log entry
-confirm_remove_log Are you sure you want to delete your log
-add_comment_to_remove Would you like to send additional comment to
-removed_log_title Your log entry was removed by the geocache owner
-removed_message_titel The owner of the geocache wrote you a comment
-dont_have_recommended_caches You don't have any recommended geocaches
-your_recommendations Your recommendations for geocache
-was_removed has been removed
-recommended_geocaches Recommended geocaches
-number_recommendations Number of recommendations
-regions_only_for Regions
-monday Monday
-tuesday Tuesday
-wednesday Wednesday
-thursday Thursday
-friday Friday
-saturday Saturday
-sunday Sunday
-immediately Immediately
-once_day Once a day
-once_week Once a week
-weekday Day of the week
-send Send
-commit_watch Settings have been successfully saved
-no_queries There is not saved search result
-name_queries Name for result of search
-save_queries Save quieries
-old_options Old result of search overwrite
-select_queries Select stored query to overwrite
-no_watched_caches No watched geocaches
-last_found Last found
-delete_recommend Delete recommendations
-off_ignore Switch off ignore
-no_ignores No ignored caches
-oc_stat {site_name} geocache statistics
-administration OC Administration
-stat_octeam OCTeam Statistics
-cache_notfound Not found geocache
-send_bulletin Send bulletin
-send_bulletin_01 Send bulletin
-send_bulletin_02 Example bulletin
-send_bulletin_03 Bulletin has been send
-add_news Add news
-email_subject_news New news OpenCaching
-subject Subject
-contents Messages
-content_include_html Message include HTML
-logged_by Logged by
-all_regions All regions
-assigned_to Assigned to
-date_created Date created
-owner Owner
-actions Actions
-block Block
-assign_yourself Assign yourself to notification
-accept Accept
-octeam_stat_problems Statistics OCTeam - closed problems
-octeam_stat_m_problems Statistics OCTeam Mothly - reports
-octeam_stat_caches Statistics OCTeam - caches acctepted
-octeam_stat_m_caches Statistics OCTeam monthly - caches accepted
-number_problems Number of problems
-add_by add by
-octeam_comment_subject [OC] Comment OC Team
-octeam_comment_copy Copy email with OC Team comment add by
-list_of_latest_logs_is_empty There are no latest log entries
-list_of_caches_is_empty There are no new caches in the specified area
-online_users Online registered users
-online_users_info based on users active over the past 10 minutes
-empty_entry_notice <b>Log Etiquette:</b> Try to not submit empty log entries. Even ordinary "Thanks" will be enough!
-empty_entry_confirm Do you really want to post an empty log entry?
-empty_mark Don't you really want to mark this cache ?
-where_i_am Where am I
-read_info_about_cache_types Please read information about <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
-regiononly Region/Województwo (Poland only)
-region_from_coord Region from coordinates
-select_regions Select region
-not_applicable Not applicable
-input_coord Please input coordinates location of cache
+comment_log Comentează
+need_maintenance_log Are nevoie de îngrijire
+comment_octeam_log Comentariu al Echipei OC
+moved_log Mutată
+new_coordinates Noile coordonate
+moved_distance Deplasare
+delete_logentry Şterge însemnare
+confirm_remove_log Eşti sigur(ă) că vrei să ştergi însemnarea
+add_comment_to_remove Ai vrea sa trimiţi un comentariu suplimentar către
+removed_log_title Însemnarea a fost ştearsă de proprietarul geocutiei
+removed_message_titel Proprietarul geocutiei ţi-a scris un comentariu
+dont_have_recommended_caches Nu ai nicio geocutie recomandată
+your_recommendations Recomandările tale pentru geocutii
+was_removed a fost şters(ă)
+recommended_geocaches Geocutii recomandate
+number_recommendations Număr de recomandări
+regions_only_for Regiuni
+monday Luni
+tuesday Marţi
+wednesday Miercuri
+thursday Joi
+friday Vineri
+saturday Sâmbătă
+sunday Duminică
+immediately Imediat
+once_day O dată pe zi
+once_week O dată pe săptămână
+weekday Ziua
+send Trimite
+commit_watch Setările au fost salvate
+no_queries Nu există rezultate ale căutării salvate
+name_queries Nume pentru rezultatul căutării
+save_queries Salvează căutările **
+old_options Scrie peste rezultatele vechi ale căutării **
+select_queries Selectează rezultatele memorate peste care vrei să scrii **
+no_watched_caches Nu urmăreşti nicio geocutie
+last_found Ultima găsire
+delete_recommend Şterge recomandările
+off_ignore Nu ignora
+no_ignores Nu ai geocutii ignorate
+oc_stat {site_name} statisticile geocutiilor
+administration Administrare OC
+stat_octeam Statisticile Echipei OC
+cache_notfound Nu ai geocutii găsite
+send_bulletin Trimite buletin informativ
+send_bulletin_01 Trimite buletin informativ
+send_bulletin_02 Exemplu de buletin informativ
+send_bulletin_03 Buletinul informativ a fost trimis
+add_news Adaugă noutăţi
+email_subject_news Noutăţile OpenCaching
+subject Subiect
+contents Mesaje
+content_include_html Mesajul include HTML
+logged_by Însemnată de
+all_regions Toate regiunile
+assigned_to Alocată
+date_created Data când a fost creată
+owner Proprietar
+actions Actiuni
+block Blochează
+assign_yourself Înscrie-te ca să primeşti notificări
+accept Acceptă
+octeam_stat_problems Statisticile Echipei OC - probleme rezolvate
+octeam_stat_m_problems Statisticile Echipei OC Rapoarte - lunare
+octeam_stat_caches Statisticile Echipei OCT - geocutii acceptate
+octeam_stat_m_caches Statisticile Echipei OC geocutii acceptate - lunar
+number_problems Numărul de probleme
+add_by adăugat de 
+octeam_comment_subject [OC] Comenariul Echipei OC
+octeam_comment_copy Copie după e-mailul cu comentariul Echipei OC adăugat de **
+list_of_latest_logs_is_empty Nu există însemnări noi
+list_of_caches_is_empty Nu există geocutii noi în zona menţionată
+online_users Utilizatori înregistrţi online
+online_users_info bazată pe utilizatorii activi din ultimele 10 minute **
+empty_entry_notice <b>Log Etiquette:</b> Însemnările nu pot fi goale. Chiar şi un simplu "Mulţumesc" este de ajuns!
+empty_entry_confirm Chiar vrei să adaugi o însemnare goală?
+empty_mark Chiar nu vrei să marchezi această geocutie ?
+where_i_am Unde sunt
+read_info_about_cache_types Citeşte informaţiile despre <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
+regiononly Zonă
+region_from_coord Zonă de la coordonate **
+select_regions Alege o zonă
+not_applicable Nu se aplică
+input_coord Adaugă coordonatele geocutiei
 waypoints_about_info <a class="links" href="{cache_params_url}" target="_blank">See the description and the kinds of additional waypoints.</a>
-cache_pictures Geocache picture
-log_pictures Log picture
-no_title No title
-to_big_data The image is too big
-max_size Maximum image size is 100 KB. Please reduce the dimensions or quality.
-bad_format Incompatable Incorrect file format
-bad_format_info Incorrect format. Acceptable formats are: BMP, GIF, PNG, JPG. Suggested size is 480x360 pixels.
-no_picture Picture not found
-title_picture Title
-file_name File name
-cache_picture_intro  You sholud have copyrights and upload only pictures relevant to the cache
-spoiler_info Do not display thumbnail (SPOILER) - Use this option if the picture shows the location of the cache.<br> The picture will only be shown when SPOILER is clicked.
-dont_show Don't show this picture
-pictures_intro Permitted image formats: BMP, GIF, PNG & JPG. JPG is best for photos.<br />Maximum size 100 KB. Recommended resolution: 480 x 360 pixels.
-add_new_picture Adding a new picture to the cache.
-gallery Show gallery
-gallery_short Gallery
-gallery_of_cache Gallery of geocache
-images_cache Images of geocache
-images_logs Images of logs
-show_more Show more
-search_options Search options
-myroutes My routes
-add_new_route Add new route
-setup_new_route Set a new route
-add_new_route_kml Load new route from KML
-save_route Save route
-radius_info Radius should be between 0.5 km - 10 km
-edit_route Edit route
-route_desc Descriptions route
-route_name Name route
-route_name_info Please input route name
-file_name_info Please input name file KLM
-no_routes List of routes is empty
-radius Radius
-see_desc_myroute See description "My routes"
-route_radius Search Radius
-search_caches_along_route Search caches along route
-caches_along_route Geocaches along route
-save_gpx Save to GPX
-save_gpx_with_photos Save to GPX with photos
-show_gmap Show on GMAP
-show_list Show list of geocaches
-logs_cache_gpx Number of logs for each cache in GPX
-min_logs_cache Minimum number of logs
-marked_grey_search_area Search area for the defined radius is marked as grey
-lastlogins Last login
-this_month in the last 30 days
-more_one_month between 1 and 6 months
-more_six_month between 6 and 12 months
-more_12_month more than 12 months
-unknown unknown
-user_not_active user account is not active
-distance_to_cache Distance to cache
-cacheguides Geocaching Guides / Gurus
-guide Guide/Guru
-guides Guides/Gurus
-okapi_apps Your Apps
-os_times times
-os_kesz Cache
-os_autor by
-os_nie_ma_w_os The creator of this cache has not added the functionality of checking final coordinates with OpenSprawdzacz to it
+cache_pictures Poza geocutiei
+log_pictures Poza însemnării
+no_title Nu există titlu
+to_big_data Imaginea este prea mare
+max_size Imaginea poate să aibă maxim 100 KB. Redu dimensiunile sau calitatea.
+bad_format Formatul fişierului nu este acceptat
+bad_format_info Format incorect. Formatele acceptate sunt: BMP, GIF, PNG, JPG. Mărimea sugerată este 480x360 pixeli.
+no_picture Nu există poză
+title_picture Titlu
+file_name Numele fişierului
+cache_picture_intro  Trebuie să deţii copyrightul şi să încarci doar pozele relevante pentru geocutie
+spoiler_info Nu arăta această imagine (DĂ DE GOL) - Foloseşte această opţiune dacă poza arată locaţia geocutiei.<br> The picture will only be shown when SPOILER is clicked.
+dont_show Nu arăta această poză
+pictures_intro Formate permise pentru imagini: BMP, GIF, PNG & JPG. JPG este cel mai bun pentru poze.<br />Mărimea maximă 100 KB. Rezoluţie recomandată: 480 x 360 pixeli.
+add_new_picture Adaugă o nouă poză geocutiei.
+gallery Arată galerie foto
+gallery_short Galerie foto
+gallery_of_cache Galeria foto a geocutiei
+images_cache Pozele geocutiei
+images_logs Pozele însemnărilor
+show_more Arată mai multe opţiuni
+search_options Opţiuni de căutare
+myroutes Traseele mele
+add_new_route Adaugă un nou traseu
+setup_new_route Setează un traseu nou
+add_new_route_kml Încarcă un traseu nou din KML
+save_route Salvează traseu
+radius_info Raza ar trebui să fie între 0.5 km - 10 km
+edit_route Modifică traseul
+route_desc Descrierea traseului
+route_name Numele traseului
+route_name_info Adaugă numele traseului
+file_name_info Introdu numele fişierului KLM
+no_routes Lista cu trasee este goală
+radius Rază
+see_desc_myroute Vezi descrierea "Traseele mele"
+route_radius Caută o rază
+search_caches_along_route Caută geocutii pe traseu
+caches_along_route Geocutii de pe traseu
+save_gpx Salvează în format GPX
+save_gpx_with_photos Salvează în format GPX cu poze
+show_gmap Arată pe GMAP
+show_list Arată lista de geocutii
+logs_cache_gpx Numărul însemnărilor pentru fiecare geocutie din GPX
+min_logs_cache Numărul minim de însemnări
+marked_grey_search_area Caută zona marcată cu gri
+lastlogins Ultima logare
+this_month în ultimele 30 de zile
+more_one_month între 1 şi 6 luni
+more_six_month între 6 şi 12 luni
+more_12_month peste 12 luni
+unknown necunoscut **
+user_not_active contul utilizatorului nu este activ
+distance_to_cache Distanţă până la geocutie
+cacheguides Ghiduri în Geocaching-ului ** 
+guide Ghid
+guides Ghiduri
+okapi_apps Aplicaţiile tale
+os_times timpi **
+os_kesz Geocutie
+os_autor de
+os_nie_ma_w_os Proprietarul acestei geocutii nu a  added the functionality of checking final coordinates with OpenSprawdzacz to it
 os_podaj_waypoint Please enter a cache waypoint (eg.: OP2E48)
 os_podaj_twoje Enter the final coordinates:
 os_sprawdz Check
@@ -1015,33 +1017,33 @@ em12 Given code have lost it's validaty
 removed_message_title The owner of geocache wrote to you the following comment
 to_do To do
 mc_beginn_00 Registering a new cache - information
-
-
-
-
-
+mc_beginn_01 Before you can hide caches, you must find at least  
+mc_beginn_02 caches. You can choose from different types of caches:
+mc_beginn_03 Until now you have found this number of caches:
+mc_beginn_04 After you have done found the required minimum, your first 
+mc_beginn_05 cache hides will require approval by the oc team. After approval you will receive an email with instructions. You can then edit your new cache and "activate" it. If the oc team rejected your cache they will give you the reason so that you can correct it and ask the oc team to approve the cache again.
 latest_blog Recent blog entries
 geocache Geocache
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+adopt_00 Cache adoption
+adopt_01 Here you can offer your caches for adoption. Choose one from the list:
+adopt_02 Cachename
+adopt_03 Cachedate
+adopt_04 This cache is offerd for adoption:
+adopt_05 Enter the username who adopt the cache. Once the user confirms, the procedure is complete.<br/>Cancel the adoption and return to <a href='chowner.php'> "Cache adoption" </a>.
+adopt_06 PS! As long as the new owner does not react this adoption remains.
+adopt_07 Enter the name of the new owner:
+adopt_08 Change onwner
+adopt_09 Cancel transfer
+adopt_10 Accept cache
+adopt_11 Below is a list of caches that can be adopted. Choose [accept] or [decline] to accept or not to accept te offered cache.
+adopt_12 accept
+adopt_13 decline
+adopt_14 cancel adoption
+adopt_15 Congratulations! You are now the owner of cache:
 format_GPX GPX type
 format_other others types
 format_pict GPX + photos
-
+mycache_notes For information about notes, see 
 user_activity01 User activity
 user_activity02 User activity count (found + did not found + owed)
 type Type
@@ -1060,22 +1062,22 @@ report_09 Copyright violation
 report_10 Other reason
 report_11 Comment (required)
 report_12 Report has bin send. the Opencaching-team will investigate the issue and take appropriate action.
-
-
-
-
-
+route_01 Startpoint
+route_02 Endpoint
+route_03 Delete route
+route_04 Restore map
+route_05 Loading route ....
 size_02 Micro
 size_03 Small
 size_04 Medium
 size_05 Large
 size_06 Very large
 syze_07 No container
-
-
-
-
-
+chpw_01 Change password
+chpw_02 The security code has been sent to specified e-mail address.
+chpw_03 Security code to change password.
+chpw_04 The password is
+chpw_05 The code you entered is invalid 
 map_01 show FTFs only!
 map_02 Minimum rating:
 map_03 any rating will do
@@ -1104,26 +1106,26 @@ nc17 on our OpenGeoWiki
 nc18 Regards
 nc19 Team {site_name}
 nc20 I have considered all the matters listed above and I want to proceed with the registration of the cache
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+guru_01 The map shows all volunteers who offer their help with questions about caching, provided that they have been active within the last 90 days.
+guru_02 Examples where help can be asked for:
+guru_03 Learn more about caching itself,
+guru_04 Ask help about placing and finding caches on {site_name},
+guru_05 Ask help about placing and finding caches in the field, like how to hide a cache the correct way, etc, etc.
+guru_06 Contact a volunteer in your area and make an appointment.
+guru_07 At the moment there are 
+guru_08 active volunteers
+guru_09 Number of recieved recommendations
+guru_10 In order to become an active volunteer, you must meet the following condition:
+guru_11 You must have received 20 recommendations for self placed caches.
+guru_12 This option can be set in your
+guru_13 profile
+guru_14 Thanks to everyone who want to help others to improve caching.
 guru_15 Recieved recommendations
 guru_16 Write E-mail
-
-
-
-
+guru_17 You can sign up as a volunteer for helping starting geocachers. This option can be set in your
+guru_18 profile
+guru_19 Read more on
+guru_20 Cache help
 today today
 yesterday yesterday
 days_ago days ago!
@@ -1164,58 +1166,60 @@ printcache_08 Show spoilers
 printcache_09 Change
 yes Yes
 no No
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+cache_reports_01 Submission problems
+cache_reports_02 Return to
+cache_reports_03 Date of notification
+cache_reports_04 Status box
+cache_reports_05 Type of problem
+cache_reports_06 Applicant
+cache_reports_07 Leader
+cache_reports_08 Changed by
+cache_reports_09 Browse notification
+cache_reports_10 List of current applications
+cache_reports_11 Archive reports
+cache_reports_12 Note that the cache location is
+cache_reports_13 The cache requires archiving
+cache_reports_14 Innapropriate cache
+cache_reports_15 Other
+cache_reports_16 new
+cache_reports_17 in progress
+cache_reports_18 closed
+cache_reports_19 look here!
+cache_reports_20 Change
+cache_reports_21 Content of application
+cache_reports_22 Take action
+cache_reports_23 Save
+cache_reports_24 Note
+cache_reports_25 Send e-mail to
+cache_reports_26 applicant
+cache_reports_27 the mailbox owner
+cache_reports_28 the applicant and the owner of the box
+cache_reports_29 Send e-mail
+cache_reports_30 Cancel
+cache_reports_31 Use the template
 revert Revert
-
-
-
-
-
-
-
-
-
-
-
+found_beer_caches crates of beer
+rating_poor_1A Shitty
+rating_mediocre_1A It sucks
+rating_avarage_1A Average
+rating_good_1A Launched into space
+rating_excellent_1A Crushing tits
+oc_on_all_pages_top_1A OftenCZACHING.pl
+oc_subtitle_on_all_pages_1A GeoCzaching, Skeleton search portal.
+PrimaAprilis GeoCzaching, Skeleton search portal. Sorry! This page is only available for paying members (premium member). <br>. Unfortunately, you did not pay any fees, or anything we did not know about!
+PMOnly Zone Super Member!
+primaAprilis1 Sign Collective Center geocacher, Cruise Council and Technical Board
 oc_on_all_pages_top_pl OPENCACHING.pl
 oc_subtitle_on_all_pages_pl Geocaching in Poland
 oc_on_all_pages_top_nl OPENCACHING.nl
 oc_subtitle_on_all_pages_nl Geocaching in the BeNeLux
+oc_on_all_pages_top_ro OPENCACHING.ro
+oc_subtitle_on_all_pages_ro Geocaching in Romania
 Statictics Statistics
 org1 organized by
 noaccess_error_01 You do not have permission to view this page.
 noaccess_error_02 Back to main page
-report_problem_notice Możesz zgłosić problem związany z skrzynką do właściciela skrzynki np <b>Uwagę do lokalizacji</b> (lub do Zespołu OC PL) wykorzystując ten formularz
+report_problem_notice If there is a problem with a cache, like <b>wrong location</b> Report the owner (or the octeam) by using this link.
 qrcode_01 QR Code label
 qrcode_02 A label generated at <a class="links" href="http://pl.wikipedia.org/wiki/QR_Code">QR Code</a> laminated, in a strin bag or as a sticker) can be used to wrire a short, 77-character long message, e.g. coordinates of next stage of multicache, logbook passowrd etc. One need a QR code scanner e.g. available in some mobile phoes to red thate code.
 qrcode_03 QR Code data
@@ -1401,6 +1405,7 @@ copy_sender A copy of your message
 region_not_ok Please select district!
 poland_outside Outside Poland
 benelux_outside Outside the BeNeLux
+romania_outside Outside Romania
 index_01 Ranking caches by calculated index
 index_02 The following list is automatically generated from user recommendations. The numbers in the list below mean:
 index_03 Number of users that recommend this cache
@@ -2159,7 +2164,7 @@ editmp3_03 Title
 editmp3_04 File name
 editmp3_05 Don't show this MP3 file
 editmp3_06 Edit PodCast MP3 for cache
-editmp3_07
+editmp3_07 PodCast log entry
 editmp3_08 No title
 editmp3_09 Internal Server Error
 editmp3_10 If the problem persists, please contact us at {mail_oc}. To investigate the cause, please describe the details.
@@ -2173,6 +2178,7 @@ newCacheWpClose Close
 contact_pl_about_title Questions about Geocaching
 contact_pl_about_description_1 Would you like to know more about Geocaching? You'll find it in <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
 contact_pl_about_description_2 Do you have any comments, questions, suggestions, or just want to participate in <i>Opencaching</i> development? All those topics are discussed on our <a href="http://forum.opencaching.pl">Forum</a>.
+contact_pl_about_team OpenCaching PL Team
 contact_pl_rr_description - Rada Rejsu team members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
 contact_pl_rt_description - Rada Techniczna members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
 contact_pl_cog_description - COG members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
@@ -2211,9 +2217,7 @@ logbook_20 E-Mail
 logbook_21 Is only used to complete the fields in the logbook
 logbook_22 Preview
 logbook_23 Generează PDF
-
 search01 toate regiunile*
-
 LineChart Linii
 BarChart Bări
 positions poziţii
@@ -2221,3 +2225,61 @@ more10 Was selected more than 30
 more30 Was selected more than 30
 pt_cache Cutia aparţine GeoTraseului:
 Help Ajutor
+links_01 Links to sites connected with geocaching
+links_02 Other Geocachingsites
+links_03 Letterbox websites
+links_04 Travel Bugs websites
+links_05 Other
+.week . week
+.month . month
+.year . year
+like_comment Do you like this comment?
+like_it like it:
+no_like_it Nobody likes this comment
+Position Position
+fav_com Favorite comments
+cacheSize_2 Micro
+cacheSize_3 Small
+cacheSize_4 Regural
+cacheSize_5 Large
+cacheSize_6 Very large
+cacheSize_7 No container
+cacheStatus_1 Ready for search
+cacheStatus_2 Temporarily unavailable
+cacheStatus_3 Archived
+cacheStatus_4 Hidden by approvers to check
+cacheStatus_5 Not yet available
+cacheStatus_6 Blocked by COG
+language_DE German
+language_EN English
+language_FR French
+language_ES Spanish
+language_JP Japanese
+language_NL Dutch
+language_BG Bulgarian
+language_BS Bosnian
+language_CE Shekhinah
+language_CS Czech
+language_DA Danish
+language_EL Greek
+language_EO Esperanto
+language_ET Estonian
+language_EU Basque
+language_FI Finnish
+language_HR Croatian
+language_HU Hungarian
+language_IS Icelandic
+language_IT Italian
+language_LT Lithuanian
+language_LV Latvian
+language_NO Norwegian
+language_PL Polish
+language_PT Portuguese
+language_RO Romanian
+language_RU Russian
+language_SK Slovak
+language_SL Slovenian
+language_SV Swedish
+language_TR Turkish
+language_UZ Uzbek
+language_VI Vietnamese
