@@ -26,7 +26,7 @@
 
  $register = 'Rejestracja';
  $allcountries = ''.$language[$lang]['all_countries'].'';
- $default_country = 'PL';
+ $default_country = $config['defaultCountry'];
  $no_answer = ''.$language[$lang]['not_spcified'].'';
  $register_email_subject = ''.$language[$lang]['register_email_subject'].'';
 

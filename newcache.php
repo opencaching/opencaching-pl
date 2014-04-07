@@ -462,7 +462,7 @@ if ($error == false) {
 
 
             //langoptions selector
-            buildDescriptionLanguageSelector($show_all_langs, $lang, $config['defaultLangugaeList'], $db, $show_all, $show_all_langs);
+            buildDescriptionLanguageSelector($show_all_langs, $lang, $config['defaultLanguageList'], $db, $show_all, $show_all_langs);
 
            
 
