@@ -157,12 +157,12 @@ settings_notifications Notifizierung einstellungen
 ignored_caches Ignorierte Caches
 my_recommendations Meine Empfehlungen
 search_cache Suchen Sie einen Cache
-caches Caches
+caches Geocaches
 cache Geocache
 search Suchen
 view_cache Cache-Verzeichnis
 new_log_entry Log eintragen
-
+new_log_entry_short Log eintragen
 edit_log Log-Eintrag bearbeiten
 remove_log Log-Eintrag entfernen
 edit_cache Bearbeiten Cache-Verzeichnis
@@ -181,9 +181,9 @@ html_preview HTML-Vorschau
 allowed_html_tags Erlaubte HTML-Tags
 special_caches Besondere Caches
 user_ident Benutzers Identifikation
-cache_map Karte des Caches
-
-old_cache_map Ältere Version von cachemap
+cache_map Karte mit Caches v3
+cache_mapv2 Karte mit Caches v2
+old_cache_map Ältere karte
 abc Geocaching ABC
 forum Forum
 geokrets Geokrety
@@ -388,7 +388,7 @@ search_by_finder Suche nach Sucher
 search_recommendations Empfehlungen
 search_all_caches alle Caches
 search_recommended_caches Mindest-Reihe von Empfehlungen:
-incomming_events Eingehende Ereignisse
+incomming_events Nächsten Events
 rr_comment_label Opencaching.pl Rat Kommentar
 add_rr_comment RR Kommentar Opencaching.pl Rat hinzufügen
 remove_rr_comment Nehmen Sie Opencaching.pl Rat Kommentar aus
@@ -2250,9 +2250,38 @@ cacheStatus_3 Archiviert
 cacheStatus_4 Noch nicht verfügbar
 cacheStatus_5 Noch nicht veröffentlicht
 cacheStatus_6 Gesperrt durch OC Team
-
-
-
-
+language_DE Deutsch
+language_EN Englisch
+language_FR Französisch
+language_ES Spanisch
+language_JP Japanisch
+language_NL Niederländisch
+language_BG Bulgarisch
+language_BS Bosnisch
+language_CE Tschetschenisch
+language_CS Tschechisch
+language_DA Dänisch
+language_EL Griechisch
+language_EO Esperanto
+language_ET Estisch
+language_EU Baskisch
+language_FI Finnisch
+language_HR Kroatisch
+language_HU Ungarisch
+language_IS Isländisch
+language_IT Italienisch
+language_LT Litauisch
+language_LV Lettisch
+language_NO Norwegisch
+language_PL Polnisch
+language_PT Portugiesisch
+language_RO Rumänisch
+language_RU Russisch
+language_SK Slowakisch
+language_SL Slowenisch
+language_SV Schwedisch
+language_TR Türkisch
+language_UZ Usbekisch
+language_VI Vietnamesisch
 
 
