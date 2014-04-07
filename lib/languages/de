@@ -509,7 +509,7 @@ available_maps Verfügbare Karte
 cache_attributes Cache Attribute
 latest_logs Letzte Log-Einträge
 abroad_caches Ausser Polen
-
+hidden_by von
 newcaches_label Neue Saches
 cache_label cache Name
 found_it gefunden
@@ -993,6 +993,7 @@ viewlog_aktywnosc Benutzer Aktivität (Summe der Caches - gefunden, nicht gefund
 
 
 
+date Datum
 
 
 
@@ -1022,8 +1023,7 @@ viewlog_aktywnosc Benutzer Aktivität (Summe der Caches - gefunden, nicht gefund
 
 
 
-
-
+geocache Geocache
 
 
 
