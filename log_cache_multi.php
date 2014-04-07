@@ -164,6 +164,15 @@ else
                 $filecontent = utf16_to_utf8($filecontent);
             }
 
+            if (strlen($filecontent) >= 3 
+                && ord($filecontent[0]) == 0xEF 
+                && ord($filecontent[1]) == 0xBB 
+                && ord($filecontent[2]) == 0xBF)
+            {
+                // cut UTF-8 BOM
+                $filecontent = substr($filecontent, 3);
+            }
+            
             $filecontent = explode("\n", $filecontent);
 
             $dane_i = -1;
@@ -172,7 +181,7 @@ else
             $listaKodowOP = '';
             foreach($filecontent as $line)
             {
-                $rec = explode(",", trim($line));
+                $rec = preg_split('[,]', trim($line), 4);
                 if(count($rec) >= 4) {
                     // wyglada na skrzynke
                     if(substr($rec[0], 0, 2) == $oc_waypoint) {

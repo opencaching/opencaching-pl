@@ -542,7 +542,7 @@ $menu = array(
                 'menustring'    => 'Field Notes',
                 'visible'       => true,
                 'filename'      => 'log_cache_multi_send.php',
-                'siteid'        => 'log_cache_multi_send'   //JG 2013-10-25 było 'autolog'
+                'siteid'        => array('log_cache_multi_send', 'log_cache_multi')   //JG 2013-10-25 było 'autolog'
             ),
             array(
                 'title'         => tr('new_logs'),
