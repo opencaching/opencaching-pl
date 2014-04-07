@@ -212,7 +212,7 @@ date_hidden_label Datum versteckte
 date_created_label Erstellungsdatum
 last_modified_label Letzte Änderung
 
-waypoint Waypoint
+waypoint Wegpunkte
 listed_also_on Auch auf
 comments Kommentare
 comment Kommentar
@@ -303,8 +303,8 @@ first_cache Du kannst kennenlernen wie wählen Cache Typ, Große, Attribute bei 
 first_cache_approvement Weil es ist eine von Deine 3 Caches, wird sichtbar für alle nach Akzeptanz von Team {site_name}.
 all_cache_approvement Cache wird sichtbar für alle nach Akzeptanz von Team {site_name}.
 name_label Name
-cache_type Cache-Typ
-cache_size Cache-Größe
+cache_type Cacheart
+cache_size Größe
 in_wgs84_system in WGS-84-System
 difficulty_level Empfehlung
 difficulty_problem Wenn Sie Probleme mit der Schwierigkeit, empfehlen wir die Verwendung von
@@ -814,7 +814,7 @@ empty_entry_confirm Sicher, dass Du ein leer Eintrag? \ Es ist immer viel besser
 
 where_i_am Wo bin ich?
 read_info_about_cache_types Siehe Beschreibung <a href="http://wiki.opencaching.pl/index.php/Typ_skrzynki" target="_blank">Cache Typ</a>
-regiononly Land (nur Polen)
+regiononly Region
 region_from_coord Land von Koordinaten
 select_regions Land wählen
 not_applicable Nicht verwendet
@@ -1085,7 +1085,7 @@ size_07 Kein Behälter
 
 
 
-
+choose Wählen
 
 
 
