@@ -46,9 +46,9 @@
 
  $sel_message = tr('choose');
  if (!isset($language['en']['select_one'])) $language['en']['select_one'] = '';
- $cache_size[] = array('id' => '-1', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one'], 'ro' => $language['ro']['select_one']);
- $cache_types[] = array('id' => '-1', 'short' => 'n/a', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one'], 'ro' => $language['ro']['select_one']);
- $wp_types[] = array('id' => '-1', 'short' => 'n/a', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one'], 'ro' => $language['ro']['select_one']);
+ $cache_size[] = array('id' => '-1', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one'], 'nl' => $language['nl']['select_one'], 'ro' => $language['ro']['select_one']);
+ $cache_types[] = array('id' => '-1', 'short' => 'n/a', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one'], 'nl' => $language['nl']['select_one'], 'ro' => $language['ro']['select_one']);
+ $wp_types[] = array('id' => '-1', 'short' => 'n/a', 'pl' => $language['pl']['select_one'], 'en' => $language['en']['select_one'], 'nl' => $language['nl']['select_one'], 'ro' => $language['ro']['select_one']);
 
  $cache_attrib_js = "new Array({id}, {selected}, '{img_undef}', '{img_large}')";
  $cache_attrib_pic = '<img id="attr{attrib_id}" src="{attrib_pic}" border="0" alt="{attrib_text}" title="{attrib_text}" onmousedown="toggleAttr({attrib_id})" /> ';
