@@ -310,7 +310,7 @@ difficulty_level Empfehlung
 difficulty_problem Wenn Sie Probleme mit der Schwierigkeit, empfehlen wir die Verwendung von
 rating_system Cache-Bewertung-System
 additional_information Aufwand
-optional (optional)
+optional optional
 time_distance_hint Zeit und Entfernung zu reisen oft abhängig von äußeren Bedingungen, so dass, wenn Sie Probleme mit der Schätzung dieser Daten, sollten Sie Nullen in den Bereichen vor.  Diese Art von Daten ist beispielsweise nützlich, in <b> multicache</b> oder <b> Veranstaltung</b> Cache-Typen.
 select_one Wählen Sie ein!
 waypoint_other_portal_info Wegpunkt für diesen Cache in anderen Datenbanken. Es werden keine Daten automatisch getroffen.
@@ -318,8 +318,8 @@ cache_attributes_label Cache-Attribute
 attributes_edit_hint Attribute können auch später geändert werden
 additional_attributes_hint Sie können noch weitere Attribute zu Ihrem Cache's Beschreibung mit diesem Tool:
 additional_attributes Zusätzliche Cache-Attribute
-attributes_desc_hint Bitte lesen Sie die <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank"> Opencaching Attribute Beschreibung </a> Artikel
-description Beschreibung
+attributes_desc_hint Bitte lesen Sie die <a href="{cache_params_url}" target="_blank"> Opencaching Attribute Beschreibung </a> Artikel
+descriptions Beschreibung
 language Sprache
 other_languages_desc Beschreibung in anderen Sprachen hinzugefügt werden können nach der Registrierung einen Cache.
 short_desc_label Kurzbeschreibung
