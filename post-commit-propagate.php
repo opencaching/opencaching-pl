@@ -22,4 +22,4 @@ readfile("http://www.opencaching.nl/post-commit.php?from=ocpl-propagate");
 print "\n\n";
 print "OCRO\n";
 print "====\n\n";
-readfile("http://oc.opencaching.ro/post-commit.php?from=ocpl-propagate");
+readfile("http://www.opencaching.ro/post-commit.php?from=ocpl-propagate");
