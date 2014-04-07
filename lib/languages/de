@@ -205,8 +205,8 @@ password Passwort
 logged_as Angemeldet als
 coords_other Koordinaten in andere Systeme
 size Größe
-time Zeit erforderlich
-length Entfernung zu reisen
+time Zeitaufwand
+length Wegstrecke
 status_label Status
 date_hidden_label Datum versteckte
 date_created_label Erstellungsdatum
@@ -231,8 +231,8 @@ enter_text_error Text wurde noch nicht eingetragen
 only_these nur diese
 password_required Passwort erforderlich, um ein Log-Eintrag.
 last_log_entries Die letzte Log-Einträge
-terrain_difficulty Terrain Schwierigkeiten
-task_difficulty Aufgabe Schwierigkeiten
+terrain_difficulty Schwierigkeit
+task_difficulty Gelände
 out_of aus
 list_of_participants Die Liste der Teilnehmer
 show_recommended Show empfohlen
@@ -306,11 +306,11 @@ name_label Name
 cache_type Cache-Typ
 cache_size Cache-Größe
 in_wgs84_system in WGS-84-System
-difficulty_level Schwierigkeiten
+difficulty_level Empfehlung
 difficulty_problem Wenn Sie Probleme mit der Schwierigkeit, empfehlen wir die Verwendung von
 rating_system Cache-Bewertung-System
-additional_information Weitere Informationen
-optional zu wählen
+additional_information Aufwand
+optional (optional)
 time_distance_hint Zeit und Entfernung zu reisen oft abhängig von äußeren Bedingungen, so dass, wenn Sie Probleme mit der Schätzung dieser Daten, sollten Sie Nullen in den Bereichen vor.  Diese Art von Daten ist beispielsweise nützlich, in <b> multicache</b> oder <b> Veranstaltung</b> Cache-Typen.
 select_one Wählen Sie ein!
 waypoint_other_portal_info Wegpunkt für diesen Cache in anderen Datenbanken. Es werden keine Daten automatisch getroffen.
@@ -642,7 +642,7 @@ not_published Nicht veräffentliche
 for_approval Verifizierte
 blocked Gesperrte
 my_caches Meine Caches
-region Land
+region Region
 number_of_caches_by_region Anzahl der Caches in Land
 activity_by_region Aktivität in Lände
 number_of_visit_caches Anzahl von Cache Suchen
@@ -751,7 +751,7 @@ your_recommendations Deine Empfehlung zur Cache
 was_removed war gelöscht
 recommended_geocaches Caches mit Empfehlungen
 number_recommendations Anzahl der Empfehlungen
-regions_only_for Land (nur für Polen)
+regions_only_for Region
 monday Montag
 tuesday Dienstag
 wednesday Mittwoch
