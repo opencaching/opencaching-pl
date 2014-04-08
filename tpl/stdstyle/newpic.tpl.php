@@ -15,13 +15,13 @@
     {
         if(document.newpic_form.title.value == "")
         {
-            alert("Proszę nadać nazwę obrazkowi!");
+            alert("{{newpicjs01}}!");
             return false;
         }
 
         if(document.newpic_form.file.value == "")
         {
-            alert("Proszę podać źródło obrazka!");
+            alert("{{newpicjs02}}!");
             return false;
         }
 

@@ -21,7 +21,7 @@
 
     global $lang, $rootpath;
 
-    if (!isset($rootpath)) $rootpath = '../../../';
+    if (!isset($rootpath)) $rootpath = __DIR__.'/../../../';
 
     //include template handling
     require_once($rootpath . 'lib/common.inc.php');

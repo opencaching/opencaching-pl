@@ -2283,3 +2283,14 @@ language_SV Swedish
 language_TR Turkish
 language_UZ Uzbek
 language_VI Vietnamese
+newcacheDateFormat Format: YYYY-MM-DD
+htmltags01 allowed HTML tags and attributes
+htmltags02 HTML tags
+htmltags03 HTML attributes
+htmltags04 All left HTML tags and attributes are filtered out. List can be changed any time.
+errtpl01 Page error
+errtpl02 Error ocured while page display
+errtpl03 Page
+errtpl04 Error info
+newpicjs01 Plese enter image name
+newpicjs02 Plese enter image source

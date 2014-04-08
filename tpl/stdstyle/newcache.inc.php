@@ -21,7 +21,7 @@
  $show_all = tr('show_all');
  $default_NS = 'N';
  $default_EW = 'E';
- $date_time_format_message = '&nbsp;Format:&nbsp;RRRR-MM-DD';
+ $date_time_format_message = tr('newcacheDateFormat');
 
  $error_general = '<div class="warning">'.tr('error_new_cache').'</div>';
  $error_coords_not_ok = '<br/><img src="tpl/stdstyle/images/misc/32x32-impressum.png" class="icon32" alt=""  />&nbsp;<span class="errormsg">'.tr('bad_coordinates').'</span>';

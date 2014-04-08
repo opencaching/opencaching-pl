@@ -2283,3 +2283,14 @@ language_SV Szwedzki
 language_TR Turecki
 language_UZ Uzbecki
 language_VI Wietnamski
+newcacheDateFormat Format: RRRR-MM-DD
+htmltags01 Dozwolone HTML znaczniki i atrybuty
+htmltags02 znaczniki HTML
+htmltags03 atrybuty HTML
+htmltags04 Wszystkie inne znaczniki i atrybuty są odfiltrowane. Lista może być zmieniona
+errtpl01 Błąd strony
+errtpl02 Wystąpił błąd z wyświetleniem strony
+errtpl03 Strona
+errtpl04 Informacja o błędzie
+newpicjs01 Proszę nadać nazwę obrazkowi
+newpicjs02 Proszę podać źródło obrazka
