@@ -266,7 +266,7 @@ radius_hint Maximale gültig ist 150 km Radius. So schalten Sie die Meldungen au
 no_auto_logout_warning Achtung! Wenn Sie diese Option verwenden, müssen Sie sich bewusst sein, dass, wenn Sie nicht logout, jemand in der Lage, auf Ihr Konto zuzugreifen.
 hidden_coords Bitte melden Sie sich an, um zu sehen, die Koordinaten.
 watchers Beobachter
-visitors Besucher
+visitors Aufrufe
 view_reports Berichte anzeigen
 report_problem Cache melden
 no_not_published_caches Nein nicht veröffentlicht Caches
@@ -434,7 +434,7 @@ more_news Mehr Nachrichten
 filename_rules {rules_url}
 filename_describe_cache {cache_params_url}
 map_msg Die Koordinates zu sehen und<br/> Karte der Cache Stellung<br/> musst du <a href="login.php?target={target}">angemeldet sein.</a>
-additional_hints zusäztlische Hinweise
+additional_hints Verschlüsselter Hinweis
 images Bilder
 mp3_files_info PodCasts - MP3 Datei
 utilities Dienstprogramme
@@ -652,7 +652,7 @@ history_gk geoKrety besuchen
 cachenotes Notizen
 my_statistics Meine Statistik
 mycache_note Meine notizen
-personal_cache_note Besitzene Notiz zur Cache
+personal_cache_note Persönliche Notiz
 cache_note_visible Notiz ist nicht sichtbar für andere Benutzer. Notiz wird befestig zur GPX Datei.
 for_cache für Cache
 add_new_note Neue Notiz eingeben
