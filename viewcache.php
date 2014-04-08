@@ -1,6 +1,3 @@
-
-
-
 <?php
 
 // error_reporting(0);
@@ -526,10 +523,8 @@
                 $cache_wp = $cache_record['wp_ge'];
 
             // check if there is geokret in this cache
-            //$geokret_query = sql("SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = '&1' AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0", $cache_wp);
             if (!isset($dbc)) {$dbc = new dataBase();};
             $thatquery= "SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = :v1 AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0";
-
             $params['v1']['value'] = (string) $cache_wp;;
             $params['v1']['data_type'] = 'string';
             $dbc->paramQuery($thatquery,$params);
@@ -537,33 +532,24 @@
 
             //if (mysql_num_rows($geokret_query) == 0)
             $geokrety_all_count = $dbc->rowCount();
-            if ($geokrety_all_count  == 0)
-            {
+            if ($geokrety_all_count  == 0) {
                 // no geokrets in this cache
                 tpl_set_var('geokrety_begin', '<!--');
                 tpl_set_var('geokrety_end', '-->');
                 tpl_set_var('geokrety_content', '');
-            }
-            else
-            {
+            } else {
                 // geokret is present in this cache
                 $geokrety_content = '';
                 $geokrety_all = $dbc->dbResultFetchAll();
 
-                //while( $geokret = sql_fetch_array($geokret_query) )
-                for ($i = 0; $i < $geokrety_all_count; $i++)
-                {
+                for ($i = 0; $i < $geokrety_all_count; $i++) {
                     $geokret = $geokrety_all[$i];
                     $geokrety_content .= "<img src=\"/images/geokret.gif\" alt=\"\"/>&nbsp;<a href='http://geokrety.org/konkret.php?id=".$geokret['id']."'>".$geokret['name']."</a> - ".tr('total_distance').": ".$geokret['distance']." km<br/>";
-//                  $geokrety_content .= "Przebyty dystans: ".$geokret['distance']."km<br /><br />";
                 }
                 tpl_set_var('geokrety_begin', '');
                 tpl_set_var('geokrety_end', '');
                 tpl_set_var('geokrety_content', $geokrety_content);
-
-
             }
-            //mysql_free_result($geokret_query);
 
             /**
              * GeoKretyApi. Display window with logging report of Geokrets.
@@ -581,7 +567,9 @@
                     foreach ($GeoKretyLogResult as $geokret){
                         $GeokretyWindowContent .= $geokret['geokretName'];
                         foreach ($geokret['errors'] as $errorGK) {
-                            if ($errorGK['error'] == '') $GeokretyWindowContent .= ' - ' . tr('GKApi20');
+                            if ($errorGK['error'] == ''){
+                                $GeokretyWindowContent .= ' - ' . tr('GKApi20');
+                            }
                             else {
                                 $GeokretyWindowContent .= '  - ' . tr('GKApi21') .': '. tr('GKApi22');
                                 $geoKretErrorInfoDisplay = true;
@@ -1413,8 +1401,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
 
             // add OC Team comment
-            if( $usr['admin'] && isset($_POST['rr_comment']) && $_POST['rr_comment']!= "" && $_SESSION['submitted'] != true)
-            {
+            if( $usr['admin'] && isset($_POST['rr_comment']) && $_POST['rr_comment']!= "" && $_SESSION['submitted'] != true){
                 $sender_name = $usr['username'];
                 $comment = nl2br($_POST['rr_comment']);
                 $date=date("d-m-Y H:i:s");
@@ -1426,24 +1413,24 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 @mysql_query($sql);
                 $_SESSION['submitted'] = true;
 
-        // send notify to owner cache and copy to OC Team
-        $query1 = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache_record['user_id'] );
-        $owner_email = sql_fetch_array($query1);
-        $sender_email=$usr['email'];
-        $email_content = read_file($stylepath . '/email/octeam_comment.email');
-        $email_content = mb_ereg_replace('%cachename%', $cache_record['name'], $email_content);
-        $email_content = mb_ereg_replace('%cacheid%', $cache_record['cache_id'], $email_content);
-        $email_content = mb_ereg_replace('%octeam_comment%', $_POST['rr_comment'], $email_content);
-        $email_content = mb_ereg_replace('%sender%', $sender_name, $email_content);
-        $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-        $email_headers .= "From: OpenCaching <".$octeam_email.">\r\n";
-        $email_headers .= "Reply-To: ".$octeam_email. "\r\n";
-        //send email to owner
-        $subject=tr('octeam_comment_subject');
-        mb_send_mail($owner_email['email'], $subject.": ".$cache_record['name'], $email_content, $email_headers);
-        //send copy email to OC Team
-        $subject_copy=tr('octeam_comment_subject_copy');
-        mb_send_mail($sender_email, $subject." ".$cache_record['name'], $subject_copy." ".$sender_name.":\n\n".$email_content, $email_headers);
+                // send notify to owner cache and copy to OC Team
+                $query1 = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache_record['user_id'] );
+                $owner_email = sql_fetch_array($query1);
+                $sender_email=$usr['email'];
+                $email_content = read_file($stylepath . '/email/octeam_comment.email');
+                $email_content = mb_ereg_replace('%cachename%', $cache_record['name'], $email_content);
+                $email_content = mb_ereg_replace('%cacheid%', $cache_record['cache_id'], $email_content);
+                $email_content = mb_ereg_replace('%octeam_comment%', $_POST['rr_comment'], $email_content);
+                $email_content = mb_ereg_replace('%sender%', $sender_name, $email_content);
+                $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
+                $email_headers .= "From: OpenCaching <".$octeam_email.">\r\n";
+                $email_headers .= "Reply-To: ".$octeam_email. "\r\n";
+                //send email to owner
+                $subject=tr('octeam_comment_subject');
+                mb_send_mail($owner_email['email'], $subject.": ".$cache_record['name'], $email_content, $email_headers);
+                //send copy email to OC Team
+                $subject_copy=tr('octeam_comment_subject_copy');
+                mb_send_mail($sender_email, $subject." ".$cache_record['name'], $subject_copy." ".$sender_name.":\n\n".$email_content, $email_headers);
             }
 
             // remove OC Team comment
@@ -1453,11 +1440,11 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 @mysql_query($sql);
             }
 
-            // show descriptions
-            //
-            $rs = sql("SELECT `short_desc`, `desc`, `desc_html`, `hint`, `rr_comment` FROM `cache_desc` WHERE `cache_id`='&1' AND `language`='&2'", sql_escape($cache_id), sql_escape($desclang));
-            $desc_record = sql_fetch_array($rs);
-            mysql_free_result($rs);
+            // show description
+            $query = "SELECT `short_desc`, `desc`, `desc_html`, `hint`, `rr_comment` FROM `cache_desc` WHERE `cache_id`=:1 AND `language`=:2";
+            $dbc->multiVariableQuery($query,$cache_id,$desclang);
+            $desc_record = $dbc->dbResultFetch();
+            $dbc->reset();
 
             $short_desc = $desc_record['short_desc'];
 
@@ -1475,8 +1462,6 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
             $desc = str_replace($smileytext, $smileyimage, $desc);
 
             $desc = tidy_html_description($desc);
-            if ($desc_record['desc_html'] == 0)
-                $desc = help_addHyperlinkToURL($desc);
             $res = '';
 
             tpl_set_var('desc', $desc, true);

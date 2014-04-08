@@ -27,7 +27,7 @@ if ($error == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target='.$target);
     } else {
-        $db = new dataBase(true);
+        $db = new dataBase();
         $default_country = getDefaultCountry($usr, $lang);
         if (isset($_REQUEST['newcache_info']))
             {$newcache_info=$_REQUEST['newcache_info'];
@@ -194,14 +194,10 @@ if ($error == false) {
             $desc = isset($_POST['desc']) ? $_POST['desc'] : '';
             tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
 
-            // descMode auslesen, falls nicht gesetzt aus dem Profil laden
             if (isset($_POST['descMode'])) {
                 $descMode = (int) $_POST['descMode'];
             } else {
-                $descMode = 3;
-            }
-            if (($descMode < 1) || ($descMode > 3)) {
-                $descMode = 3;
+                $descMode = 1;
             }
 
             // fuer alte Versionen von OCProp
@@ -215,22 +211,8 @@ if ($error == false) {
                     $name = iconv("utf-8", "UTF-8", $name);
             }
 
-                // Text / normal HTML / HTML editor
-            tpl_set_var('use_tinymce', (($descMode == 3) ? 1 : 0));
-
-            if ($descMode == 1){
-                tpl_set_var('descMode', 1);
-            } else if ($descMode == 2) {
-                    tpl_set_var('descMode', 2);
-            } else {
-                $headers = tpl_get_var('htmlheaders') . "\n";
-                $headers .= '<script language="javascript" type="text/javascript" src="lib/phpfuncs.js"></script>' . "\n";
-                if (!isset($desc_record['cache_id'])) {
-                    $desc_record['cache_id'] = null;
-                }
-                tpl_set_var('htmlheaders', $headers);
-                tpl_set_var('descMode', 3);
-            }
+            tpl_set_var('use_tinymce', 1);
+            tpl_set_var('descMode', 1);
 
             //effort
             $search_time = isset($_POST['search_time']) ? $_POST['search_time'] : '0';
@@ -780,17 +762,6 @@ if ($error == false) {
 
                 //html-desc?
                 $desc_html_not_ok = false;
-                if ($descMode != 1) {
-                    require_once($rootpath . 'lib/class.inputfilter.php');
-                    $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-                    $desc = $myFilter->process($desc);
-                    tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
-                    $desc_html_not_ok = false;
-                    if ($desc_html_not_ok == true) {
-                        tpl_set_var('desc_message', mb_ereg_replace('%text%', $errmsg, $html_desc_errbox));
-                        $error = true;
-                    }
-                }
 
                 //cache-size
                 $size_not_ok = false;
@@ -871,7 +842,6 @@ if ($error == false) {
                             $activation_date = 'NULL';
                         }
                     }
-
                     $cache_uuid = create_uuid();
                     mysql_query("SET NAMES 'utf8'");
                     //add record to caches table
@@ -953,56 +923,19 @@ if ($error == false) {
 
                     $desc_uuid = create_uuid();
                     //add record to cache_desc table
-                    if ($descMode != 1)
-                    {
-                        mysql_query("SET NAMES 'utf8'");
-                        sql("INSERT INTO `cache_desc` (
-                                                    `id`,
-                                                    `cache_id`,
-                                                    `language`,
-                                                    `desc`,
-                                                    `desc_html`,
-                                                    `hint`,
-                                                    `short_desc`,
-                                                    `last_modified`,
-                                                    `uuid`,
-                                                    `desc_htmledit`,
-                                                    `node`
-                                                ) VALUES ('', '&1', '&2', '&3', '1', '&4', '&5', NOW(), '&6', '&7', '&8')",
-                                                $cache_id,
-                                                $sel_lang,
-                                                $desc,
-                                                nl2br(htmlspecialchars($hints)),
-                                                $short_desc,
-                                                $desc_uuid,
-                                                (($descMode == 3) ? 1 : 0),
-                                                $oc_nodeid);
-                    }
-                    else
-                    {
-                        mysql_query("SET NAMES 'utf8'");
-                        sql("INSERT INTO `cache_desc` (
-                                                    `id`,
-                                                    `cache_id`,
-                                                    `language`,
-                                                    `desc`,
-                                                    `desc_html`,
-                                                    `hint`,
-                                                    `short_desc`,
-                                                    `last_modified`,
-                                                    `uuid`,
-                                                    `desc_htmledit`,
-                                                    `node`
-                                                ) VALUES ('', '&1', '&2', '&3', '0', '&4', '&5', NOW(), '&6', 0, '&7')",
-                                                $cache_id,
-                                                $sel_lang,
-                                                nl2br(htmlspecialchars($desc, ENT_COMPAT, 'UTF-8')),
-                                                nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')),
-                                                $short_desc,
-                                                $desc_uuid,
-                                                $oc_nodeid);
-                    }
-
+                    $desc = tidy_html_description($desc);
+                   
+                    $query = "INSERT INTO `cache_desc` (
+                                                `cache_id`,
+                                                `language`,
+                                                `desc`,
+                                                `hint`,
+                                                `short_desc`,
+                                                `last_modified`,
+                                                `uuid`,
+                                                `node`
+                                            ) VALUES (:1, :2, :3, :4, :5, NOW(), :6, :7)";
+                    $db->multiVariableQuery($query,$cache_id, $sel_lang, $desc, nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')),$short_desc, $desc_uuid,$oc_nodeid);
                     setCacheDefaultDescLang($cache_id);
 
                     // insert cache-attributes
