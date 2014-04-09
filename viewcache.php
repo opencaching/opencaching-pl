@@ -924,18 +924,18 @@
             $listed_on = array();
             if($usr !== false  && $usr['userFounds'] >= $config['otherSites_minfinds'] ) {
                 if($cache_record['wp_ge'] != '' && $config['otherSites_gpsgames_org'] == 1)
-                    $listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp='.$cache_record['wp_ge'].'" target="_blank">GPSgames.org</a>';
+                    $listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp='.$cache_record['wp_ge'].'" target="_blank">GPSgames.org ('.$cache_record['wp_ge'].')</a>';
 
                 if($cache_record['wp_tc'] != '' && $config['otherSites_opencaching_com'] == 1)
-                    $listed_on[] = '<a href="http://www.opencaching.com/#geocache/'.$cache_record['wp_tc'].'" target="_blank">OpenCaching.com</a>';
+                    $listed_on[] = '<a href="http://www.opencaching.com/#geocache/'.$cache_record['wp_tc'].'" target="_blank">OpenCaching.com ('.$cache_record['wp_tc'].')</a>';
 
                 if($cache_record['wp_nc'] != '' && $config['otherSites_navicache_com'] == 1)
                 {
                     $wpnc = hexdec(mb_substr($cache_record['wp_nc'], 1));
-                    $listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID='.$wpnc.'" target="_blank">Navicache.com</a>';
+                    $listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID='.$wpnc.'" target="_blank">Navicache.com ('.$wpnc.')</a>';
                 }
                 if($cache_record['wp_gc'] != '' && $config['otherSites_geocaching_com'] == 1)
-                    $listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp='.$cache_record['wp_gc'].'" target="_blank">Geocaching.com</a>';
+                    $listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp='.$cache_record['wp_gc'].'" target="_blank">Geocaching.com ('.$cache_record['wp_gc'].')</a>';
             }
             tpl_set_var('listed_on', sizeof($listed_on) == 0 ? $listed_only_oc : implode(", ", $listed_on));
             if (sizeof($listed_on) == 0)
