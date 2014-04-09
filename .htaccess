@@ -18,6 +18,6 @@ RewriteCond %{HTTP_HOST} \.pl$ [NC]
 RewriteRule ^(OP[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=301,L,NC] 
 
 RewriteCond %{HTTP_HOST} \.ro$ [NC]
-RewriteRule ^(OP[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=301,L,NC] 
+RewriteRule ^(OR[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z])$ viewcache.php?wp=$1 [R=301,L,NC] 
 
 FileETag None
