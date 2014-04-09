@@ -39,6 +39,7 @@ document.getElementById('hideshow').style.visibility = 'visible';
                 <img src="tpl/stdstyle/images/free_icons/package.png" class="icon16" alt="" title="" align="middle" />&nbsp;<b>{cachesize}</b>
                 {hidetime_start}<img src="tpl/stdstyle/images/free_icons/time.png" class="icon16" alt="" title="" align="middle" />&nbsp; {search_time}&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_switch.png" class="icon16" alt="" title="" align="middle" />&nbsp; {way_length} {hidetime_end}
                 {score_icon}<b><font color="{scorecolor}">{score}</font></b>
+				{hidelistingsites_start}<br /><img src="tpl/stdstyle/images/free_icons/link.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{listed_also_on}}: {listed_on}{hidelistingsites_end}
 
             </div>
 
