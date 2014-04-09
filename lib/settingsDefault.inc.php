@@ -32,7 +32,14 @@ $config = array (
         'PL', 'EN', 'FR', 'DE', 'NL', 'RO'
     ),
 	/* default country in user registration form */
-	'defaultCountry' => 'PL'
-    
+	'defaultCountry' => 'PL',
+	
+	/* Enable referencing waypoints from other sites */
+	'otherSites_geocaching_com' => 1,
+	'otherSites_opencaching_com' => 1,
+	'otherSites_navicache_com' => 1,
+	'otherSites_gpsgames_org' => 1,
+	/* Minimum number of finds a user must have to see a cache's waypoint on another site */
+    'otherSites_minfinds' => 100
  );
 

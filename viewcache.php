@@ -922,19 +922,19 @@
             tpl_set_var('hidden_date', fixPlMonth(htmlspecialchars(strftime("%d %B %Y", $hidden_date), ENT_COMPAT, 'UTF-8')));
 
             $listed_on = array();
-            if($usr !== false  && $usr['userFounds'] > 99) {
-                if($cache_record['wp_ge'] != '')
+            if($usr !== false  && $usr['userFounds'] >= $config['otherSites_minfinds'] ) {
+                if($cache_record['wp_ge'] != '' && $config['otherSites_gpsgames_org'] == 1)
                     $listed_on[] = '<a href="http://geocaching.gpsgames.org/cgi-bin/ge.pl?wp='.$cache_record['wp_ge'].'" target="_blank">GPSgames.org</a>';
 
-                if($cache_record['wp_tc'] != '')
+                if($cache_record['wp_tc'] != '' && $config['otherSites_opencaching_com'] == 1)
                     $listed_on[] = '<a href="http://www.opencaching.com/#geocache/'.$cache_record['wp_tc'].'" target="_blank">OpenCaching.com</a>';
 
-                if($cache_record['wp_nc'] != '')
+                if($cache_record['wp_nc'] != '' && $config['otherSites_navicache_com'] == 1)
                 {
                     $wpnc = hexdec(mb_substr($cache_record['wp_nc'], 1));
                     $listed_on[] = '<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID='.$wpnc.'" target="_blank">Navicache.com</a>';
                 }
-                if($cache_record['wp_gc'] != '')
+                if($cache_record['wp_gc'] != '' && $config['otherSites_geocaching_com'] == 1)
                     $listed_on[] = '<a href="http://www.geocaching.com/seek/cache_details.aspx?wp='.$cache_record['wp_gc'].'" target="_blank">Geocaching.com</a>';
             }
             tpl_set_var('listed_on', sizeof($listed_on) == 0 ? $listed_only_oc : implode(", ", $listed_on));
