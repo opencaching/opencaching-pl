@@ -18,7 +18,7 @@ goto_login Du-te la pagina de autentificare
 preview_attributes Previzualizarea atributelor suplimentare ale geocutiei
 toxic_plants Plante otrăvitoare
 thorns Ţepi
-cito Cache In - Trash Out
+cito Cache In - Trash Out ***
 dogs_allowed Permis cu câini
 dogs_not_allowed Interzis cu câini
 all_year Disponibilă tot anul
@@ -39,7 +39,7 @@ wading Possible wadingPoate fi necesară traversare prin apă
 swimming_pool_nearby Piscină în apropiere
 warning_mud Atenţie, noroi
 fire_danger Pericol de incendiu
-travel_bug_hotel Trackables Hotel Pentru Obiecte Călătoare 
+travel_bug_hotel Hotel Pentru Obiecte Călătoare 
 handicap_allowed Disponibile pentru persoane cu handicap
 handicap_not_allowed Indisponibile pentru persoane cu handicap
 can_drive_in Parchează şi găseşte
@@ -65,7 +65,7 @@ generate_code Generează cod
 9keycom Atribute suplimentare bazate pe http://www.9key.com/selector.asp
 score votează
 scored votat
-recommendations recomeadari
+recommendations recomandări
 recommendation recomandare
 created_by Creat de
 found găsit
@@ -109,11 +109,11 @@ event Eveniment
 quiz Mister
 moving Mobilă
 podcast Podcast
-owncache Owncache *******************************************************
+owncache Geocutia personală ***
 hide_caches Ascunde geocutii
 ignored ignorate
 not_yet_found încă negăsite
-temp_unavailables indisponibile momentan ****************
+temp_unavailables indisponibile momentan **
 ready_to_find gata să fie găsite
 other_options alte opţiuni
 show_signes arată semnăturile
@@ -141,7 +141,7 @@ new_logs Ultimele însemnări
 statistics Statistici
 rules Reguli
 links Legături utile
-geochat Geocaching chat *****************************
+geochat Cameră de discuţii ***
 contact Contactează-ne
 my_account Profilul meu
 general Pagina utilizatorului
@@ -184,7 +184,7 @@ user_ident Identificarea utilizatorului
 cache_map Hartă cu geocutii v3
 cache_mapv2 Hartă cu geocutii v2
 old_cache_map Versiune mai veche a hărţii
-abc Introducere în Geocaching
+abc Introducere
 forum Forum
 geokrets Geokrety
 geoblog Blog
@@ -424,7 +424,7 @@ total_of_active_caches Numărul total de geocutii active
 total_of_caches Numărul total de geocutii
 total_moved Numărul de geocutii mutate
 active_caches cutii active
-number_of_active_users Numărul utilizatorilor
+number_of_active_users Utilizatori activi
 number_of_founds Găsite
 latest_news Noutăţi
 what_do_you_find Bine ai venit pe {site_name}
@@ -881,344 +881,344 @@ okapi_apps Aplicaţiile tale
 os_times timpi **
 os_kesz Geocutie
 os_autor de
-os_nie_ma_w_os Proprietarul acestei geocutii nu a  added the functionality of checking final coordinates with OpenSprawdzacz to it
-os_podaj_waypoint Please enter a cache waypoint (eg.: OP2E48)
-os_podaj_twoje Enter the final coordinates:
-os_sprawdz Check
-os_stopnie Degrees
-os_minuty minutes
-os_tak_chce Checking this element allow users to checking their coordinates with OpenSprawdzacz.
-opensprawdzacz_main Cache owner gave you a chance to check if you get correct puzzle solution. (final cache coordinates). You can do it before you go cache hunting!
-os_pr Shots
-os_sukc Hits
-os_proba You've reached limit of
-os_razy times. You can check coords only
-os_razy_srodek times per
-os_razy_koniec minutes.
-os_sukces YES!! You've correct coord's. Congratulations.
-os_fail NO! Your answer is incorrect. Check your calculations again.
-os_za_godzine Check your counts and try again later (after 1 hour)
-os_komunikat1 Check cache coordinates by its waypoint:
-os_komunikat2 Select cache from the list to check its coordinates:
-os_typ type
-os_powrot back
-os_pomoc Help
-os_zobo Read what OpenSprawdzacz is used for and how to add your cache.
-os_spr_form Checkig final cache coordinates
-os_twojews Your coordinates
-os_hlp_01 OpenSprawdzacz allow users to check coordinates of final cache for cache type "Quiz" (Puzzle), "Multicache" and "Other Type"
-os_hlp_02 If you are owner of Quiz/Other type cache, Here you can give a chance for other users check their calculated/obtained coords of final location befeore they go out cache hunting.
-os_hlp_03 How to add your cache to OpenSprawdzacz?
-os_hlp_04 1. Open cache edit panel
-os_hlp_05 2. Click add new waypoint
-os_hlp_06 3. Set waypoint type as "final location"
-os_hlp_07 4. Tick chevron next to "Opensprawdzacz"
-os_hlp_08 5. Set status of waypoint to "Hide this waypoint from view cache"
-os_hlp_09 6. click "Write waypoint"
-os_hlp_10 From now in your cache two changes were done:
-os_hlp_11 a) On page with your cache description new section "OpenSprawdzacz" appear with link to Checking coords.
-os_hlp_12 b) On OpenSprawdzacz page your cache appear on the list.
-os_hlp_13 How to remove cache from OpenSprawdzacz?
-os_hlp_14 To withdraw coordinates checking availability:
-os_hlp_15 1. Open cache edit panel
-os_hlp_16 2. Click edit on "Final Location" in waypoint list
-os_hlp_17 3. untick "OpenSprawdzacz"
-os_hlp_18 From now your cache disappears from OpenSprawdzacz list. Also your cache description page disappeares OpenSprawdzacz section.
-ni_ma_takiego_kesza Wrong cache waypoint!
-os_wynik Result
-os_zgad You were guessing to many times.
-wybrac_log Chose log type
-nowe_wsp New coordinates
-os_ma_max There is a limit
-os_ma_pr shots
-os_ma_na checks per
-os_godzine minutes
-os_mus You have to wait
-os_minut_end minutes until you can try again.
-viewlog_aktywnosc Total user activity (sum of caches found, not found and hidden)
-viewlog_kordy Cache coordinates after moving
-log_type_temp_unavailable Temporarily unavailable
-log_type_available Ready to find
-log_mobile_init Starting coordinates
-error_coords_not_ok Wrong coordinates!
-GKApi01 Integration OC account with GeoKrety.org
+os_nie_ma_w_os Proprietarul acestei geocutii nu a adăugat opţiunea de a-i verifica coordonatele finale cu OpenSprawdzacz
+os_podaj_waypoint Introdu un punct la geocutie (ex.: OP2E48)
+os_podaj_twoje Introdu coordonatele finale:
+os_sprawdz Verifică
+os_stopnie Grade
+os_minuty minute
+os_tak_chce Bifând aici permiţi utilizatorilor să verifice coordonatele cu OpenSprawdzacz.
+opensprawdzacz_main Proprietarul geocutiei ţi-a dat şansa să verifici dacă ai rezolvat corect puzzle-ul. (coordonatele finale ale geocutiei). Poţi face asta înainte de a pleca în căutare!
+os_pr Încercări
+os_sukc Indicii
+os_proba Ai ajuns la limita **
+os_razy times. Poţi verifica coordonate doar **
+os_razy_srodek de câte ori pe **
+os_razy_koniec minute.
+os_sukces YES!! Ai găsit coordonatele corecte. Felicitări!
+os_fail NO! Răspunsul tău este greşit. Mai verifică o dată calculele.
+os_za_godzine Mai verifică-ţi calculele şi încearcă din nou mai târziu (după 1 oră)
+os_komunikat1 Verifică coordonatele geocutiei după puncte:
+os_komunikat2 Alege geocutia din listă ale cărei coordonate vrei sa le verifici:
+os_typ tip
+os_powrot înapoi
+os_pomoc Ajutor
+os_zobo Află pentru ce este folosit OpenSprawdzacz şi cum poţi să îţi adaugi geocutia ta.
+os_spr_form Verifică coordonatele finale ale geocutiei
+os_twojews Coordonatele tale
+os_hlp_01 OpenChecker permite utilizatorilor să verifice coordonatele finale ale geocutiei de tip "Quiz" (Puzzle), "Multi" şi "Alt Tip"
+os_hlp_02 Dacă eşti proprietarul unei geocutii de tip Quiz/Alt tip , Aici le poţi oferi celorlalţi utilizatori şansa să îşi verifice coordonatele calculate/obţinute înainte să plece să caute.
+os_hlp_03 Cum să-ţi adaugi geocutia pe OpenChecker?
+os_hlp_04 1. Deschide panoul de editare al geocutiei 
+os_hlp_05 2. Apasă acolo unde scrie "Adaugă un punct nou"
+os_hlp_06 3. Selectează punctul ca "locaţie finală"
+os_hlp_07 4. Bifează în dreptul "OpenChecker" *
+os_hlp_08 5. Alege opţiunea "Nu afişa în pagina geocutiei"
+os_hlp_09 6. Apasă pe "Editează punct" **
+os_hlp_10 Au fost făcute două modificări la geocutia ta:
+os_hlp_11 a) Pe pagina geocutiei tale la descriere a apărut "OpenChecker" cu un link către OpenChecker.
+os_hlp_12 b) Pe pagina OpenChecker a apărut geocutia ta în listă.
+os_hlp_13 Cum să scoţi geocutia din lista OpenChecker?
+os_hlp_14 Pentru a scoate coordonatele din verificator:
+os_hlp_15 1. Deschide panoul de editare al geocutiei
+os_hlp_16 2. Apasă pe butonul de editare acolo unde apare "Locaţia Finală" din lista de puncte
+os_hlp_17 3. debifează "OpenChecker"
+os_hlp_18 Geocutia ta a dispărut din lista OpenChecker. A dispărut şi descrierea geocutiei tale din OpenChecker.
+ni_ma_takiego_kesza Punct greşit!
+os_wynik Rezultat
+os_zgad Ai încercat de prea multe ori.
+wybrac_log Alege tipul însemnării
+nowe_wsp Coordonate noi
+os_ma_max Există o limită
+os_ma_pr încercări
+os_ma_na încercări pe
+os_godzine minute
+os_mus Trebuie să aştepţi
+os_minut_end minute până când poţi încerca din nou.
+viewlog_aktywnosc Activitatea totală a utilizatorului (suma dintre geocutiile găsite, negăsite şi cele ascunse)
+viewlog_kordy Coordonatele geocutiei după ce a fost mutată
+log_type_temp_unavailable Indisponibilă momentan
+log_type_available Gata să fie găsită
+log_mobile_init Coordonatele de start
+error_coords_not_ok Coordonate greşite!
+GKApi01 Leagă contul tău OC cu GeoKrety.org
 GKApi02 Geokrety Secid:
-GKApi03 To integrate your Opencaching.pl account with Geokrety.org account copy here your <b>Secid</b>. Your <b>Secid</b> you can find on geokrety page in your account details.
-GKApi04 (Here)
-GKApi05 Log geoKrety from your inventory at once:
-GKApi06 Log GeoKrety now
-GKApi07 This functionality require integration OC account with Geokrety account. Your OC profile is curently not configured to co-work with GeoKrety.
-GKApi08 For integration OC account with Geokrety follow steps:
-GKApi09 Copy your secid from geokrety web page
-GKApi10 Paste it in your OC account data.
-GKApi11 Wrong secid
-GKApi12 Geokrety was dropped
-GKApi13 No Action
-GKApi14 GeoKrety visited
-GKApi15 Took GeoKrety
-GKApi16 Comment
-GKApi17 Seen GeoKrety
-GKApi18 Log geoKrety discovered in this cache:
-GKApi19 Log GeoKrety
-GKApi20 GeoKrety has been logged.
-GKApi21 Error
-GKApi22 No response from geokrety.org
-GKApi23 total geokrets in your inventory
-GKApi24 in cache
-GKApi25 GeoKrety Log text
-GKApi26 Grabbed from
-GKApi27 powered by Crete XML'owy interface!
-GKApi28 We are very Sorry, temporary no connection witch Geokrety.org
-GKApi29 No Geokrets in this geocache.
-GKApi30 Because error occured, system opencaching will retry logging GeoKrety in this geocache.
+GKApi03 Pentru a-ţi lega contul tău de pe Opencaching.ro cu Geokrety.org copiază aici <b>Secid</b>. Poţi găsi <b>Secid</b> pe pagina geokrety în detaliile contului tău. **
+GKApi04 (Aici)
+GKApi05 Scrie o însemnare pentru geoKrety-ul din inventarul tău imediat:
+GKApi06 Scrie o însemnare pentru GeoKrety acum
+GKApi07 Această funcţie necesită legarea contului tău OC cu cel de Geokrety. Profilul tău OC nu este configurat să comunice cu GeoKrety.
+GKApi08 Pentru legarea contului tău OC cu cel de Geokrety urmează următorii paşi:
+GKApi09 Copiază codul tău secid de pe pagina geokrety
+GKApi10 Introdul în contul tău OC.
+GKApi11 Cod secid greşit
+GKApi12 Geokrety-ul a fost lăsat
+GKApi13 Nicio Acţiune
+GKApi14 GeoKrety vizitat
+GKApi15 GeoKrety luat
+GKApi16 Comentariu
+GKApi17 GeoKrety descoperit
+GKApi18 Scrie că ai găsit un geoKrety în această geocutie:
+GKApi19 Scrie despre GeoKrety
+GKApi20 Informaţia despre GeoKrety a fost salvată.
+GKApi21 Eroare
+GKApi22 Nu am primit răspuns de la geokrety.org
+GKApi23 totalul geokretz-urilor din inventarul tău
+GKApi24 în geocutie
+GKApi25 Notiţe despre GeoKrety
+GKApi26 Luat din
+GKApi27 acţionat de interfaţa Krety-XML!
+GKApi28 Ne pare rău, dar momentan nu ne putem conecta la Geokrety.org
+GKApi29 Nu există Geokrety-uri în această geocutie.
+GKApi30 Deoarece a apărut o eroare, sistemul opencaching va încerca să adauge informaţiile despre GeoKrety din această geocutie.
 Open_Sprawdzacz OpenChecker
-os_f00 Caches in OpenChecker, legend
-os_f01 Next
-os_f02 Previous
-log00 If you have a log file from your Garmin device with your found caches' data, you can upload it to the website here.<br /> Select and upload the file to see the list of caches and be able to log them quickly on the website.<br /> Maximum file size allowed is 50KB.
-log01 Mass logging
-log02 Presentation of caches being sought by you
-log03 [Filtering] Date from:
-log04 Date to
-log05 Move the time of finding the caches for
-log06 Name
-log07 Date and status
-log08 Last
-log09 active
-log10 Comment
-log11 Action
-log12 Write here the content of the comment you want to set for all the caches visible on the screen, and press the button.
-log13 Update comment
-log14 Download as GPX
-log15 hour
-log16 Refresh
-log17 Open log-cache panel
-date Date
-myprofile01 User who create new cache or made a log entry cannot be deleted. It's only possible to deactivate your account. All your personal information will be deleted from your profile but your user name will be saved. If you want to deactivate your account, please contact us with your e-mail address and we will deactivate your profile. In unclear cases please contact ocpl @ opencaching.pl. Thant you.
-myprofile02 Yes, I am a volunteer geocaching Guide for beginners. See&nbsp
-myprofile03 Guides
-myprofile04 Yes, I want to be a volunteer geocaching Guide for beginners
-myprofile05 See more on the page
-myprofile06 Remember to set your coordinates below as you won't be visible on the Guides' map otherwise
-myprofile07 OC PL uses coordinates to calculate distance to caches on the map that available publicly. If you are worried about publishing the coordinates, use coordinates of the nearest park, bar... or just set a couple of last digits to zeroes.
-em00 E-mail Change your e-mail address
-em01 To change the e-mail address firstly you need to obtain a code which will be sent on your new e-mail address
-em02 New e-mail address
-em03 Please enter the validation code with a new e-mail address. The code is valid for 3 days and after that you need to generate a new
-em04 Code which you received via e-mail
-em05 Change e-mail address
-em06 Your e-mail address have been changed
-em07 Validation code has been sent to the new e-mail address
-em08 Validation code to change the e-mail address to OCPL
-em09 Invalid e-mail address
-em10 Given e-mail address already exists in the OCPL database
-em11 The code entered is not valid
-em12 Given code have lost it's validaty
-removed_message_title The owner of geocache wrote to you the following comment
-to_do To do
-mc_beginn_00 Registering a new cache - information
-mc_beginn_01 Before you can hide caches, you must find at least  
-mc_beginn_02 caches. You can choose from different types of caches:
-mc_beginn_03 Until now you have found this number of caches:
-mc_beginn_04 After you have done found the required minimum, your first 
-mc_beginn_05 cache hides will require approval by the oc team. After approval you will receive an email with instructions. You can then edit your new cache and "activate" it. If the oc team rejected your cache they will give you the reason so that you can correct it and ask the oc team to approve the cache again.
-latest_blog Recent blog entries
-geocache Geocache
-adopt_00 Cache adoption
-adopt_01 Here you can offer your caches for adoption. Choose one from the list:
-adopt_02 Cachename
-adopt_03 Cachedate
-adopt_04 This cache is offerd for adoption:
-adopt_05 Enter the username who adopt the cache. Once the user confirms, the procedure is complete.<br/>Cancel the adoption and return to <a href='chowner.php'> "Cache adoption" </a>.
-adopt_06 PS! As long as the new owner does not react this adoption remains.
-adopt_07 Enter the name of the new owner:
-adopt_08 Change onwner
-adopt_09 Cancel transfer
-adopt_10 Accept cache
-adopt_11 Below is a list of caches that can be adopted. Choose [accept] or [decline] to accept or not to accept te offered cache.
-adopt_12 accept
-adopt_13 decline
-adopt_14 cancel adoption
-adopt_15 Congratulations! You are now the owner of cache:
-format_GPX GPX type
-format_other others types
-format_pict GPX + photos
-mycache_notes For information about notes, see 
-user_activity01 User activity
-user_activity02 User activity count (found + did not found + owed)
-type Type
-logs_info latest logs
+os_f00 Geocutii din OpenChecker, legendă
+os_f01 Următoarea
+os_f02 Anterioara
+log00 Dacă ai un fişier cu însemnări din dispozitivul tău Garmin cu datele geocutiilor găsite, îl poţi încărca pe site aici.<br /> Select and upload the file to see the list of caches and be able to log them quickly on the website.<br /> Dimensiunea maximă permisă a fişierului este de 50KB.
+log01 Însemnări la greu
+log02 Prezentările geocutiilor căutate de tine **
+log03 [Filtrare] Din data de:
+log04 Până în data de
+log05 Schimbă oră găsirii geocutiilor în
+log06 Nume
+log07 Dată şi stare
+log08 Ultima
+log09 activă
+log10 Comentariu
+log11 Acţiune
+log12 Scrie aici comentariul care vrei să apară la toate geocutiile de pe ecran şi apasă butonul.
+log13 Schimbă comentariu
+log14 Descarcă GPX
+log15 oră
+log16 Reîncarcă
+log17 Deschide panoul de însemnări al geocutiei **
+date Dată
+myprofile01 Utilizatorul care a adăugat o geocutie nouă sau a scris o însemnare nu poate fi şters. Doar îţi poţi dezactiva contul. Toate datele tale personale vor fi şterse din profilul tău, dar numele tău de utilizator va rămâne. Dacă vrei să-ţi dezactivezi contul, contactează-ne pe e-mail şi îţi vom dezactiva profilul. Dacă ai nelămuriri contactează contact@opencaching.ro. Mulţumim.
+myprofile02 Da, mă ofer Ghid voluntar pentru a iniţia începătorii în ale căutării. Vezi &nbsp;
+myprofile03 Ghizi
+myprofile04 Da, doresc să fiu Ghid pentru începătorii în ale căutării.
+myprofile05 Arată mai multe pe pagină
+myprofile06 Setează-ţi coordonatele mai jos pentru că altfel nu vei apărea pe harta Ghizilor
+myprofile07 OC RO foloseşte coordonate pentru a calcula distanţe până la geocutiile de pe hartă care sunt disponibile pentru publicitate. Dacă te temi să îţi publici coordonatele, foloseşte-le pe cele din cel mai apropiat parc, bar... sau înlocuieşte ultimele cifre cu zerouri.
+em00 E-mail Schimbă-ţi adresa de e-mail
+em01 Pentru a-ţi putea schimba adresa de e-mail, mai întâi trebuie să obţii un cod pe care îl vei primi pe noua ta adresă de e-mail
+em02 Noua adresă de e-mail
+em03 Introdu codul de validare cu o noua adresă de e-mail. Codul este valabil 3 zile şi dacă nu îl foloseşti până atunci va trebui să generezi altul nou
+em04 Codul primit pe e-mail
+em05 Schimbă adresa de e-mail
+em06 Adresa ta de e-mail a fost schimbată
+em07 Codul de validare ţi-a fost trimis pe noua ta adresă de e-mail
+em08 Cod de validare pentru schimbarea adresei de e-mail pe OCRO
+em09 Adresă de e-mail incorectă
+em10 Adresa de e-mail dată deja există în baza de date OCRO
+em11 Codul introdus nu este corect
+em12 Codul dat a expirat
+removed_message_title Proprietarul geocutiei ţi-a scris următorul comentariu
+to_do De făcut
+mc_beginn_00 Adăugarea unei noi geocutii - informaţii
+mc_beginn_01 Înainte să ascunzi geocutii, trebuie să găseşti minim  
+mc_beginn_02 caches. Poţi alege dintre tipurile diferite de geocutii:
+mc_beginn_03 Până când nu ai găsit un număr de geocutii:
+mc_beginn_04 După ce ai găsit minimul de geocutii, primele tale 
+mc_beginn_05 geocutii trebuie aprobate de echipa oc. După ce au fost aprobate vei primi un email cu instrucţiuni. Apoi îţi vei putea modifica noua ta geocutie şi o poţi "activa". Dacă echip oc ţi-a respins geocutia îţi vor spune motivul astfel încât să o poţi corecta şi apoi să le ceri din nou aprobarea.
+latest_blog Ultimele însemnări pe blog
+geocache Geocutie
+adopt_00 Adopţie geocutii
+adopt_01 Aici îţi poţi da geocutiile spre adopţie. Alege una din listă:
+adopt_02 Numele geocutiei
+adopt_03 Data ascunderii
+adopt_04 Această geocutie este dată spre adopţie:
+adopt_05 Introdu numele utilizatorului căruia îi dai geocutia. Procedura se încheie atunci când utilizatorul confirmă.<br/>Cancel the adoption and return to <a href='chowner.php'> "Cache adoption" </a>.
+adopt_06 PS! Cererea de adopţie rămâne valabilă până când noul proprietar face ceva.
+adopt_07 Introdu numele noului proprietar:
+adopt_08 Schimbă proprietarul
+adopt_09 Anulează transferul
+adopt_10 Acceptă geocutia
+adopt_11 Mai jos este o listă cu geocutiile care pot fi adoptate. Alege [acceptă] sau [refuză] pentru a accepta sau refuza geocutia oferită.
+adopt_12 acceptă
+adopt_13 refuză
+adopt_14 anulează adopţia
+adopt_15 Felicitări! Acum eşti proprietarul geocutiei:
+format_GPX felul GPX-ului
+format_other alte tipuri
+format_pict GPX + poze
+mycache_notes Pentru informaţii despre notiţe, vezi 
+user_activity01 Activitate utilizator
+user_activity02 Activitate utilizator - total (găsite + negăsite + proprii)
+type Tip
+logs_info ultimele însemnări
 recomm_short R
-select Select
-report_01 Report a problem with cache:
-report_02 Report the problem to:
-report_03 Cache Owner
-report_04 Opencaching-team (there will also be send a copy to the cache owner)
-report_05 <b>Atention!</b> First try to solve the problem with the cache owner.
-report_06 Reason:
-report_07 Cache on private poperty
-report_08 Need archiving
-report_09 Copyright violation
-report_10 Other reason
-report_11 Comment (required)
-report_12 Report has bin send. the Opencaching-team will investigate the issue and take appropriate action.
-route_01 Startpoint
-route_02 Endpoint
-route_03 Delete route
-route_04 Restore map
-route_05 Loading route ....
+select Selectează
+report_01 Anunţă o problemă la o geocutie:
+report_02 Anunţă o problemă la:
+report_03 Proprietarul geocutiei
+report_04 Echipa-Opencaching (şi proprietarul geocutiei va primi o copie)
+report_05 <b>Atention!</b> Întâi încearcă să rezolvi problema cu proprietarul geocutiei.
+report_06 Motiv:
+report_07 Geocutia se află pe proprietate privată
+report_08 Trebuie arhivată
+report_09 Încălcarea drepturilor de autor
+report_10 Alt motiv
+report_11 Comentariu (obligatoriu)
+report_12 Raportul a fost trimis. Echipa-Opencaching va cerceta situaţia şi va lua măsurile necesare.
+route_01 Punct de pornire
+route_02 Punct final
+route_03 Şterge ruta
+route_04 Restaurează harta
+route_05 Încarcă ruta ....
 size_02 Micro
-size_03 Small
-size_04 Medium
-size_05 Large
-size_06 Very large
-syze_07 No container
-chpw_01 Change password
-chpw_02 The security code has been sent to specified e-mail address.
-chpw_03 Security code to change password.
-chpw_04 The password is
-chpw_05 The code you entered is invalid 
-map_01 show FTFs only!
-map_02 Minimum rating:
-map_03 any rating will do
-map_04 include unrated caches
-print_all Print all
-remove_all Remove all
-no_logtype_choosen No logtype choosen!
-choose Select
-nc01 Dear User
-nc02 Thank you for registering your cache at {site_name}. If you need help with hiding or registering the cache, please read the information at <a class="links" href="{wiki_url}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> or contact the Centre of the Service of Geocachers - email address: cog@opencaching.pl. Remember that your cache tells also something about you. For sure you are concerned about its best quality and due to that fact we ask you to answer yourself the following questions: <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
-nc03 Is the cache located in place that doesn't violate the law, isn't it hidden at the private area without the permission of its owner?
-nc04 Is the cache located in the area of the National Park, a reservation, monument, cemetery or some other area protected by law?
-nc05 Are there any other caches in the area, is the miminum 150 meter distance preserved?
-nc06 Are you able to provide service of your cache during the whole time of its presence on the webiste?
-nc07 Is the cache hidden the proper way (in a cold and moisture resistant container)?
-nc08 You can check your area if there is a
-nc09 Geocaching Guide
-nc10 that can help you with creating your own caches
-nc11 Does the cache comply with
-nc12 the terms and rules of the OC PL website
-nc13 Please familiarize yourself with the Guidebook
-nc14 How to create a cache
-nc15 as well as
-nc16 the Geocacher's Code
-nc17 on our OpenGeoWiki
-nc18 Regards
-nc19 Team {site_name}
-nc20 I have considered all the matters listed above and I want to proceed with the registration of the cache
-guru_01 The map shows all volunteers who offer their help with questions about caching, provided that they have been active within the last 90 days.
-guru_02 Examples where help can be asked for:
-guru_03 Learn more about caching itself,
-guru_04 Ask help about placing and finding caches on {site_name},
-guru_05 Ask help about placing and finding caches in the field, like how to hide a cache the correct way, etc, etc.
-guru_06 Contact a volunteer in your area and make an appointment.
-guru_07 At the moment there are 
-guru_08 active volunteers
-guru_09 Number of recieved recommendations
-guru_10 In order to become an active volunteer, you must meet the following condition:
-guru_11 You must have received 20 recommendations for self placed caches.
-guru_12 This option can be set in your
-guru_13 profile
-guru_14 Thanks to everyone who want to help others to improve caching.
-guru_15 Recieved recommendations
-guru_16 Write E-mail
-guru_17 You can sign up as a volunteer for helping starting geocachers. This option can be set in your
-guru_18 profile
-guru_19 Read more on
-guru_20 Cache help
-today today
-yesterday yesterday
-days_ago days ago!
-make_new_description Make a new cache description for:
-lxg01 Wrong date. Please enter correct date: DD-MM-YYYY
-lxg02 Rate cache or select you do not want rate this cache.
-lxg03 Please select!
-lxg04 Only here listed
-lxg05 Send log entery
-lxg06 Select
-lxg07 Enter new mobile cache coordinates please!
-lxg08 Write a note
-lxg09 Moved
-lxg10 Needs maintenace
-lxg11 OC Team Comment
-made_service I made a service
-remove_desc_01 Should description
-remove_desc_02 from cache
-remove_desc_03 be removed?
-remove_desc_04 Yes, remove this description
-error_viewcache_01 Cache can not be displayed.<br />Possible causes:
-error_viewcache_02 Cache not found in database
-error_viewcache_03 Cache is not published
-error_viewcache_04 Cache is suspended by OC Team
-event_attendance_01 Event:
-event_attendance_02 On:
-event_attendance_03 Organized by:
-event_attendance_04 Event participants:
-event_attendance_05 Number:
-printcache_01 Do not show logs
-printcache_02 Show last logs
-printcache_03 All logs
-printcache_04 Do not show pictures
-printcache_05 Show thumbnails
-printcache_06 View large images
-printcache_07 Decrypt hints
-printcache_08 Show spoilers
-printcache_09 Change
-yes Yes
-no No
-cache_reports_01 Submission problems
-cache_reports_02 Return to
-cache_reports_03 Date of notification
-cache_reports_04 Status box
-cache_reports_05 Type of problem
-cache_reports_06 Applicant
-cache_reports_07 Leader
-cache_reports_08 Changed by
-cache_reports_09 Browse notification
-cache_reports_10 List of current applications
-cache_reports_11 Archive reports
-cache_reports_12 Note that the cache location is
-cache_reports_13 The cache requires archiving
-cache_reports_14 Innapropriate cache
-cache_reports_15 Other
-cache_reports_16 new
-cache_reports_17 in progress
-cache_reports_18 closed
-cache_reports_19 look here!
-cache_reports_20 Change
-cache_reports_21 Content of application
-cache_reports_22 Take action
-cache_reports_23 Save
-cache_reports_24 Note
-cache_reports_25 Send e-mail to
-cache_reports_26 applicant
-cache_reports_27 the mailbox owner
-cache_reports_28 the applicant and the owner of the box
-cache_reports_29 Send e-mail
-cache_reports_30 Cancel
-cache_reports_31 Use the template
-revert Revert
-found_beer_caches crates of beer
-rating_poor_1A Shitty
-rating_mediocre_1A It sucks
-rating_avarage_1A Average
-rating_good_1A Launched into space
-rating_excellent_1A Crushing tits
-oc_on_all_pages_top_1A OftenCZACHING.pl
-oc_subtitle_on_all_pages_1A GeoCzaching, Skeleton search portal.
-PrimaAprilis GeoCzaching, Skeleton search portal. Sorry! This page is only available for paying members (premium member). <br>. Unfortunately, you did not pay any fees, or anything we did not know about!
-PMOnly Zone Super Member!
-primaAprilis1 Sign Collective Center geocacher, Cruise Council and Technical Board
-oc_on_all_pages_top_pl OPENCACHING.pl
-oc_subtitle_on_all_pages_pl Geocaching in Poland
-oc_on_all_pages_top_nl OPENCACHING.nl
-oc_subtitle_on_all_pages_nl Geocaching in the BeNeLux
-oc_on_all_pages_top_ro OPENCACHING.ro
-oc_subtitle_on_all_pages_ro Geocaching in Romania
-Statictics Statistics
-org1 organized by
-noaccess_error_01 You do not have permission to view this page.
-noaccess_error_02 Back to main page
+size_03 Mică
+size_04 Medie
+size_05 Mare
+size_06 Foarte mare
+syze_07 Fără cutie fizică
+chpw_01 Schimbă parola
+chpw_02 Codul de securitate a fost trimis pe adresa de e-mail specificată.
+chpw_03 Cod de securitate pentru a schimba parola.
+chpw_04 Parola este
+chpw_05 Codul introdus de tine este incorect! 
+map_01 arată doar FTF-urile!
+map_02 Parametrii minimi:
+map_03 oricare
+map_04 include geocutiile care nu au fost votate
+print_all Tipăreşte tot
+remove_all Şterge tot
+no_logtype_choosen Nu ai ales tipul de însemnare!
+choose Selectează
+nc01 Dragă Utilizatorule,
+nc02 Îţi mulţumim că ţi-ai adăugat geocutia pe {site_name}. Dacă ai nevoie de ajutor când ascunzi sau înregistrezi geocutia, citeşte informaţiile din <a class="links" href="{wiki_url}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> sau contactează Echipa OCRO - la adresa de e-mail: contact@opencaching.ro. Nu uita că geocutia te reprezintă. Cu siguranţă căîţi doreşti să fie una de calitate şi de aceea te rugăm să îţi pui următoarele întrebări: <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc03 Este geocutia într-un loc care nu încalcă legea, nu este ascunsă pe proprietatea privată a cuiva fără ca proprietarul să îşi fi dat acordul?
+nc04 Este geocutia ascunsă într-un Parc Naţional, o rezervaţie, un monument, un cimitir sau în alte zone protejate prin lege?
+nc05 Mai sunt şi alte geocutii în zonă, este respectată distanţa minimă de 50 de metrii?
+nc06 Poţi să te ocupi de ea în caz de probleme?
+nc07 Este bine ascunsă (într-un recipient rezistent la condiţiile vremii)?
+nc08 Poţi verifica dacă în zona ta există vreun
+nc09 Ghid de Geocaching
+nc10 care te poate ajuta să-ţi creezi propriile geocutii
+nc11 Geocutia respectă
+nc12 regulamentul site-ului OC RO
+nc13 Familiarizează-te cu Ghidul
+nc14 despre cum să creezi o geocutie
+nc15 precum şi cu
+nc16 Regulile Căutătorului
+nc17 de pe site-ul nostru OpenGeoWiki
+nc18 Cu respect,
+nc19 Echipa {site_name}
+nc20 Am luat la cunoştinţă toate informaţiile de mai sus şi vreau să înregistrez geocutia
+guru_01 Harta arată pe toţi voluntarii care s-au oferit să ajute cu răpunsuri despre căutări, dacă au fost activi în ultimele 90 de zile.
+guru_02 Poţi contacta voluntarii:
+guru_03 Atunci când vrei să aflii mai multe despre geocaching,
+guru_04 Ca să le ceri ajutorul când vrei să ascunzi sau să găseşti o geocutie pe {site_name},
+guru_05 Ca să le ceri ajutorul atunci când vrei să ascunzi sau să găseşti geocutii pe teren, atunci când vrei s-o ascunzi cum trebuie, etc.
+guru_06 Contactează un voluntar din zona ta şi stabileşte o întâlnire.
+guru_07 Acum sunt 
+guru_08 voluntari activi
+guru_09 Număr de recomandări primite
+guru_10 Pentru a deveni un voluntar activ, trebuie să îndeplineşti următoarele condiţii:
+guru_11 Să fi primit 20 de recomandări pentru geocutiile ascunse de tine.
+guru_12 Această opţiune poate fi setată în 
+guru_13 profilul tău
+guru_14 Mulţumiri tuturor care îi ajută pe ceilalţi să îmbunătăţească jocul.
+guru_15 Recomandări primite
+guru_16 Scrie E-mail
+guru_17 Poţi deveni voluntar pentru a-i ajuta pe începători. Această opţiune poate fi aleasă în
+guru_18 profilul tău
+guru_19 Citeşte mai multe pe
+guru_20 Ajutor
+today astăzi
+yesterday ieri
+days_ago zile în urmă!
+make_new_description Adaugă o nouă descriere a geocutiei:
+lxg01 Dată greşită. Introdu data corectă: ZZ-LL-AAAA
+lxg02 Votează această geocutie sau marchează că nu vrei să o votezi.
+lxg03 Selectează!
+lxg04 Publicate doar aici
+lxg05 Trimite însemnarea
+lxg06 Selectează
+lxg07 Introdu noile coordonate ale geocutiei mobile!
+lxg08 Scrie notă
+lxg09 Mutată
+lxg10 Trebuie întreţinută
+lxg11 Comentariul echipei OC
+made_service I made a service ** 
+remove_desc_01 Ar trebui ca descrierea
+remove_desc_02 geocutiei
+remove_desc_03 să fie ştearsă?
+remove_desc_04 Da, şterge această descriere
+error_viewcache_01 Geocutia nu poate fi afişată.<br />Cauze posibile:
+error_viewcache_02 Geocutia nu a fost găsită în baza de date
+error_viewcache_03 Geocutia nu este publicată
+error_viewcache_04 Geocutia este blocată de Echipa OC
+event_attendance_01 Eveniment:
+event_attendance_02 În data de:
+event_attendance_03 Organizat de:
+event_attendance_04 Participanţi:
+event_attendance_05 Număr:
+printcache_01 Nu afişa însemnările
+printcache_02 Arată ultimele însemnări
+printcache_03 Toate însemnările
+printcache_04 Nu arăta poze
+printcache_05 Arată pozele mici
+printcache_06 Arată imaginile mari
+printcache_07 Decodează indiciile
+printcache_08 Arată divulgările
+printcache_09 Schimbă
+yes Da
+no Nu
+cache_reports_01 Probleme de trimitere
+cache_reports_02 Întoarce-te la
+cache_reports_03 Data notificării
+cache_reports_04 Status box **
+cache_reports_05 Tipul problemei
+cache_reports_06 Solicitant
+cache_reports_07 Lider
+cache_reports_08 Modificare făcută de
+cache_reports_09 Răsfoieşte notificările
+cache_reports_10 Lista aplicaţiilor curente
+cache_reports_11 Arhivează rapoarte **
+cache_reports_12 Ia aminte că locaţia geocutiei este
+cache_reports_13 Geocutia trebuie arhivată
+cache_reports_14 Geocutie nepotrivită
+cache_reports_15 Altele
+cache_reports_16 nouă **
+cache_reports_17 în curs
+cache_reports_18 închis
+cache_reports_19 priveşte aici!
+cache_reports_20 Schimbă
+cache_reports_21 Conţinutul solicitării
+cache_reports_22 Fă ceva
+cache_reports_23 Salvează
+cache_reports_24 Notă
+cache_reports_25 Trimite un e-mail către
+cache_reports_26 solicitant
+cache_reports_27 posesorul adresei de e-mail
+cache_reports_28 solicitantul şi posesorul cutiei
+cache_reports_29 Trimite e-mail
+cache_reports_30 Anulează
+cache_reports_31 Foloseşte şablonul
+revert Revin-o
+found_beer_caches lăzi de bere
+rating_poor_1A De rahat
+rating_mediocre_1A E naşpa
+rating_avarage_1A Aşa-şi-aşa
+rating_good_1A Marfă
+rating_excellent_1A De vis
+oc_on_all_pages_top_1A OftenCZACHING.pl **
+oc_subtitle_on_all_pages_1A GeoCzaching, Skeleton search portal.**
+PrimaAprilis GeoCzaching, Skeleton search portal. Sorry! This page is only available for paying members (premium member). <br>. Unfortunately, you did not pay any fees, or anything we did not know about!** 
+PMOnly Zone Super Member!**
+primaAprilis1 Sign Collective Center geocacher, Cruise Council and Technical Board **
+oc_on_all_pages_top_pl OPENCACHING.ro
+oc_subtitle_on_all_pages_pl Geocaching-ul în Polonia
+oc_on_all_pages_top_nl OPENCACHING.nl **
+oc_subtitle_on_all_pages_nl Geocaching in the BeNeLux **
+oc_on_all_pages_top_ro OPENCACHING.ro **
+oc_subtitle_on_all_pages_ro Geocaching în România
+Statictics Statistici
+org1 organizat de
+noaccess_error_01 Nu ai permisiunea să vezi această pagină.
+noaccess_error_02 Înapoi la pagina principală
 report_problem_notice If there is a problem with a cache, like <b>wrong location</b> Report the owner (or the octeam) by using this link.
 qrcode_01 QR Code label
 qrcode_02 A label generated at <a class="links" href="http://pl.wikipedia.org/wiki/QR_Code">QR Code</a> laminated, in a strin bag or as a sticker) can be used to wrire a short, 77-character long message, e.g. coordinates of next stage of multicache, logbook passowrd etc. One need a QR code scanner e.g. available in some mobile phoes to red thate code.
