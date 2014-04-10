@@ -1578,9 +1578,50 @@ class common
         return self::filterevilchars($str);
     }
 
+    public static function buildCacheSizeSelector($sel_type, $sel_size)
+    {
+        $cache = cache::instance();
+        $cacheSizes = $cache->getCacheSizes();
+
+        $sizes = '<option value="-1">'.tr('select_one').'</option>';
+        foreach ($cacheSizes as $size) {
+            if( $sel_type == 6 ) {
+                if ($size['id'] == cache::SIZE_NOCONTAINER ) {
+                    $sizes .= '<option value="' . $size['id'] . '" selected="selected">' . tr($size['translation']) . '</option>';
+                    tpl_set_var('is_disabled_size', '');
+                } else {
+                    $sizes .= '<option value="' . $size['id'] . '">' . tr($size['translation']) . '</option>';
+                    tpl_set_var('is_disabled_size', 'disabled');
+                }
+            } elseif( $size['id'] != cache::SIZE_NOCONTAINER ) {
+                if ($size['id'] == $sel_size ) {
+                    $sizes .= '<option value="' . $size['id'] . '" selected="selected">' .tr($size['translation']) . '</option>';
+                } else {
+                    $sizes .= '<option value="' . $size['id'] . '">' . tr($size['translation']) . '</option>';
+                }
+            }
+        }
+        return $sizes;
+    }
+    /**
+     * @param type $db
+     */
+    public static function getUserActiveCacheCountByType(dataBase $db, $userId ){
+        $query = 'SELECT type, count(*) as cacheCount FROM `caches` WHERE `user_id` = :1 AND STATUS !=3 GROUP by type';
+        $db->multiVariableQuery($query, $userId);
+        $userCacheCountByType = $db->dbResultFetchAll();
+        $cacheLimitByTypePerUser = array();
+        foreach ($userCacheCountByType as $cacheCount) {
+            $cacheLimitByTypePerUser[$cacheCount['type']] = $cacheCount['cacheCount'];
+        }
+        return $cacheLimitByTypePerUser;
+    }
+
     private static function filterevilchars($str) {
         return str_replace('[\\x00-\\x09|\\x0A-\\x0E-\\x1F]', '', $str);
     }
+
+
 
 
 }

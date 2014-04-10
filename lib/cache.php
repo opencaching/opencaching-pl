@@ -1,5 +1,5 @@
 <?php
-class cache
+final class cache
 {
     const TYPE_OTHERTYPE = 1;
     const TYPE_TRADITIONAL = 2;
@@ -9,7 +9,7 @@ class cache
     const TYPE_EVENT = 6;
     const TYPE_QUIZ = 7;
     const TYPE_MOVING = 8;
-    const TYPE_PODCAST = 9;
+    const TYPE_GEOPATHFINAL = 9;
     const TYPE_OWNCACHE = 10;
 
     const SIZE_MICRO = 2;
@@ -57,21 +57,27 @@ class cache
 
     private $size = array(
         self::SIZE_MICRO => array(
+            'id' => self::SIZE_MICRO,
             'translation' => 'cacheSize_2',
         ),
         self::SIZE_SMALL => array(
+            'id' => self::SIZE_SMALL,
             'translation' => 'cacheSize_3',
         ),
         self::SIZE_NORMAL => array(
+            'id' => self::SIZE_NORMAL,
             'translation' => 'cacheSize_4',
         ),
         self::SIZE_LARGE => array(
+            'id' => self::SIZE_LARGE,
             'translation' => 'cacheSize_5',
         ),
         self::SIZE_VERYLARGE => array(
+            'id' => self::SIZE_VERYLARGE,
             'translation' => 'cacheSize_6',
         ),
         self::SIZE_NOCONTAINER => array(
+            'id' => self::SIZE_NOCONTAINER,
             'translation' => 'cacheSize_7',
         ),
     );
@@ -117,7 +123,7 @@ class cache
             'icon' => 'moving.png',
             'translation' => 'cachetype_4'
         ),
-        self::TYPE_PODCAST => array(
+        self::TYPE_GEOPATHFINAL => array(
             'name' => 'podcast',
             'icon' => 'podcache.png',
             'translation' => 'cacheType_9'
@@ -135,8 +141,18 @@ class cache
     private static $iconArchivedStr = '-a';
     private static $iconTmpUnavStr = '-n';
 
-    function __construct(){
+    private function __construct()
+    {
         $this->cacheTypeIcons = self::getCacheIconsSet();
+    }
+
+    public static function instance()
+    {
+        static $inst = null;
+        if ($inst === null) {
+            $inst = new cache();
+        }
+        return $inst;
     }
 
     /**
@@ -186,11 +202,18 @@ class cache
         return $this->cacheTypeIcons;
     }
 
-    public function getCacheSizes(){
+    public function getCacheSizes()
+    {
         return $this->size;
     }
 
-    public function getCacheStatuses(){
+    public function getCacheTypes()
+    {
+        return self::$type;
+    }
+
+    public function getCacheStatuses()
+    {
         return $this->status;
     }
   

@@ -3,7 +3,7 @@
  * This script contains configurable variables. Keys of array can be overriden if neccessary in file settings.inc.php
  *
  */
-
+require_once __dir__.'/cache.php';
 $config = array (
     
     /* url where xml witch most recent blog enterie are placed */
@@ -40,6 +40,29 @@ $config = array (
 	'otherSites_navicache_com' => 1,
 	'otherSites_gpsgames_org' => 1,
 	/* Minimum number of finds a user must have to see a cache's waypoint on another site */
-    'otherSites_minfinds' => 100
+    'otherSites_minfinds' => 100,
+
+    
+    /**
+     * not allowed cache types (user cannot create caches of this types). 
+     * 
+     * Cachetypes must be lib/cache.php constant TYPE_*
+     */
+    'forbidenCacheTypes' => array(
+        cache::TYPE_VIRTUAL,
+        cache::TYPE_WEBCAM,
+        cache::TYPE_GEOPATHFINAL
+    ),
+
+
+    /**
+     * cache limits for user. If user is allowed to place limited nomber of specified cache type,
+     * place cachetype and limit here. 
+     * 
+     * Cachetypes must be lib/cache.php constant TYPE_*
+     */
+    'cacheLimitByTypePerUser' => array(
+        cache::TYPE_OWNCACHE => 1,
+    )
  );
 

@@ -178,7 +178,7 @@ if ($error == false)
                     tpl_set_var('powerTrailOwnerList', displayPtOwnerList($ptOwners));
                     tpl_set_var('date', date('Y-m-d'));
                     tpl_set_var('powerTrailDemandPercent', $ptDbRow['perccentRequired']);
-                    tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $ptDbRow['perccentRequired'], $pt->getCountCachesAndUserFoundInPT(), $ptDbRow['id'] ));
+                    tpl_set_var('ptCommentsSelector', displayPtCommentsSelector('commentType', $ptDbRow['perccentRequired'], $pt->getCountCachesAndUserFoundInPT(), $ptDbRow['id'], null, $usr ));
                     tpl_set_var('conquestCount', $ptDbRow['conquestedCount']);
                     tpl_set_var('ptPoints', $ptDbRow['points']);
                     tpl_set_var('cacheFound', $stats['cachesFoundByUser']);
@@ -405,7 +405,7 @@ function displayPtTypesSelector($htmlid, $selectedId = 0, $witchZeroOption = fal
     return $selector;
 }
 
-function displayPtCommentsSelector($htmlid, $percetDemand, $userStats, $ptId, $selectedId = 0){
+function displayPtCommentsSelector($htmlid, $percetDemand, $userStats, $ptId, $selectedId = 0, $usr = null){
 
     if($userStats['totalCachesCountInPowerTrail'] != 0){
         $percentUserFound = round($userStats['cachesFoundByUser'] * 100 / $userStats['totalCachesCountInPowerTrail'], 2);
@@ -413,21 +413,27 @@ function displayPtCommentsSelector($htmlid, $percetDemand, $userStats, $ptId, $s
         $percentUserFound = 0;
     }
     $commentsArr = powerTrailBase::getPowerTrailComments();
-
+    $ptOwners = powerTrailBase::getPtOwners($ptId);
     $selector = '<select id="'.$htmlid.'" name="'.$htmlid.'">';
     foreach ($commentsArr as $id => $type) {
         if ($id == 2) {
             if ($percentUserFound<$percetDemand || powerTrailBase::checkUserConquestedPt($_SESSION['user_id'], $ptId) >0){
-                 break;
+                 continue;
             }
             $selected = 'selected="selected"';
         }
+
+        if(!isset($ptOwners[$usr['userid']]) && ($id == 3 || $id == 4 || $id == 5)){
+            continue;
+        }
+
         if(!isset($selected)) $selected = '';
         if ($selectedId == $id) $selected = 'selected';
         $selector .= '<option value="'.$id.'" '.$selected.'>'.tr($type['translate']).'</option>';
         unset($selected);
     }
     $selector .= '</select>';
+
     return $selector;
 }
 

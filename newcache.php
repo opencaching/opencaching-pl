@@ -18,7 +18,6 @@ if (!isset ($rootpath)) {
 require_once('./lib/common.inc.php');
 
 $ocWP=$GLOBALS['oc_waypoint'];
-$OWNCACHE_LIMIT=$GLOBALS['owncache_limit'];
 $no_tpl_build = false;
 
 //Preprocessing
@@ -73,10 +72,7 @@ if ($error == false) {
             $record = sql_fetch_array($rsnc);
             $num_caches = $record['num_caches'];
 
-                            //count owncaches
-            $own_que = sql("SELECT COUNT(`cache_id`) as num_own_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])." AND type = 10 AND status = 1");
-            $own_fetch = sql_fetch_array($own_que);
-            $num_own_caches = $own_fetch['num_own_caches'];
+            $cacheLimitByTypePerUser = common::getUserActiveCacheCountByType($db, $usr['userid']);
 
             if( $num_caches < $NEED_APPROVE_LIMIT )
             {
@@ -373,62 +369,28 @@ if ($error == false) {
                 $terrain_options .= "\n";
             }
             tpl_set_var('terrain_options', $terrain_options);
-
-            //sizeoptions
-            if(checkField('cache_size',$lang)){
-                $lang_db = $lang;
-            } else {
-                $lang_db = "en";
-            }
-            $sizes = '';
-            foreach ($cache_size as $size)
-            {
-                if( $sel_type == 6 )
-                {
-                    if ($size['id'] == 7 )
-                    {
-                        $sizes .= '<option value="' . $size['id'] . '" selected="selected">' . htmlspecialchars($size[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
-                        tpl_set_var('is_disabled_size', '');
-                    }
-                    else
-                    {
-                        $sizes .= '<option value="' . $size['id'] . '">' . htmlspecialchars($size[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
-                        tpl_set_var('is_disabled_size', 'disabled');
-                    }
-                }
-                else
-                if( $size['id'] != 7 )
-                {
-                    if ($size['id'] == $sel_size )
-                    {
-                        $sizes .= '<option value="' . $size['id'] . '" selected="selected">' . htmlspecialchars($size[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
-                    }
-                    else
-                    {
-                        $sizes .= '<option value="' . $size['id'] . '">' . htmlspecialchars($size[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
-                    }
-                }
-            }
-            tpl_set_var('sizeoptions', $sizes);
+            tpl_set_var('sizeoptions', common::buildCacheSizeSelector($sel_type, $sel_size));
             //typeoptions
-            if(checkField('cache_type',$lang) )
-                $lang_db = $lang;
-            else
-                $lang_db = "en";
 
-            $types = '';
-            foreach ($cache_types as $type)
-            {
-                   // block register virtual or webcam
-            if( $type['id'] == 4 || $type['id'] == 5 || $type['id'] == 9 || ($num_own_caches>=$OWNCACHE_LIMIT && $type['id'] == 10))
-                    continue;
-                if ($type['id'] == $sel_type)
+            $cache = cache::instance();
+            $cacheTypes = $cache->getCacheTypes();
+            $types = '<option value="-1">'.tr('select_one').'</option>';
+            foreach ($cacheTypes as $typeId => $type) {
+            /* block creating forbidden cache types */
+            if(in_array($typeId, $config['forbidenCacheTypes'])){
+                continue;
+            }
+            /*apply cache limit by type per user */
+            if(isset($config['cacheLimitByTypePerUser'][$typeId]) && $cacheLimitByTypePerUser[$typeId] >= $config['cacheLimitByTypePerUser'][$typeId]){
+                continue;
+            }
+                if ($typeId == $sel_type)
                 {
-                    $types .= '<option value="' . $type['id'] . '" selected="selected">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+                    $types .= '<option value="' . $typeId . '" selected="selected">' . tr($type['translation']) . '</option>';
                 }
                 else
                 {
-                    $types .= '<option value="' . $type['id'] . '">' . htmlspecialchars($type[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
+                    $types .= '<option value="' . $typeId . '">' . tr($type['translation']) . '</option>';
                 }
             }
             tpl_set_var('typeoptions', $types);
@@ -450,46 +412,26 @@ if ($error == false) {
 
             //countryoptions
             $countriesoptions = '';
-
-            //check if selected country is in list_default
-            if ($show_all_countries == 0)
-            {
-                $rs = sql("SELECT `short` FROM `countries` WHERE (`list_default_" . sql_escape($lang_db) . "`=1) AND (`short`='&1')", $sel_country);
-                if (mysql_num_rows($rs) == 0)
-                {
-                    $show_all_countries = 1;
-                }
-            }
-
-            if ($show_all_countries == 0)
-            {
-                tpl_set_var('show_all_countries', '0');
-                tpl_set_var('show_all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $show_all . '"/>');
-
-                $rs = sql("SELECT `&1`, `short` FROM `countries` WHERE `list_default_" . sql_escape($lang_db) . "`=1 ORDER BY `sort_" . sql_escape($lang_db) . "` ASC", $lang_db);
-            }
-            else
-            {
+            if($show_all_countries == 1) {
                 tpl_set_var('show_all_countries', '1');
                 tpl_set_var('show_all_countries_submit', '');
-
-                $rs = sql("SELECT `&1`, `short` FROM `countries` ORDER BY `sort_" . sql_escape($lang_db) . "` ASC", $lang_db);
+                $db->simpleQuery("SELECT `short` FROM `countries` ORDER BY `short` ASC");
+                $dbResult = $db->dbResultFetchAll();
+                $defaultCountryList = array();
+                foreach ($dbResult as $value) {
+                    $defaultCountryList[] = $value['short'];
+                }
+            } else {
+                tpl_set_var('show_all_countries', '0');
+                tpl_set_var('show_all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $show_all . '"/>');
             }
 
-            for ($i = 0; $i < mysql_num_rows($rs); $i++)
-            {
-                $record = sql_fetch_array($rs);
-
-                if ($record['short'] == $sel_country)
-                {
-                    $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '" selected="selected">' . tr($record['short']) . '</option>';
+           foreach ($defaultCountryList as $record) {
+                if ($record == $sel_country) {
+                    $countriesoptions .= '<option value="' . htmlspecialchars($record, ENT_COMPAT, 'UTF-8') . '" selected="selected">' . tr($record) . '</option>';
+                } else {
+                    $countriesoptions .= '<option value="' . htmlspecialchars($record, ENT_COMPAT, 'UTF-8') . '">' . tr($record) . '</option>';
                 }
-                else
-                {
-                    // $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($record[$lang_db], ENT_COMPAT, 'UTF-8') . '</option>';
-                    $countriesoptions .= '<option value="' . htmlspecialchars($record['short'], ENT_COMPAT, 'UTF-8') . '">' . tr($record['short']) . '</option>';
-                }
-
                 $countriesoptions .= "\n";
             }
 

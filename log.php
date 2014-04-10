@@ -85,6 +85,10 @@ $debug = false;
             require_once($rootpath . 'lib/caches.inc.php');
             require($stylepath.'/rating.inc.php');
 
+            if(!isset($cache_user_id)){
+                $cache_user_id = 0;
+            }
+
             $cachename = '';
             if ($cache_id != 0)
             {

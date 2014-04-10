@@ -25,7 +25,6 @@
 global $rootpath;
 
 require_once('./lib/common.inc.php');
-$OWNCACHE_LIMIT=$GLOBALS['owncache_limit'];
 
 
 function build_drop_seq ($item_row, $selected_seq, $max_drop, $thisid, $drop_type) {
@@ -94,7 +93,7 @@ if ($error == false)
                 require($stylepath . '/editcache.inc.php');
 
                 //here we read all used information from the form if submitted, otherwise from DB
-
+// TODO
                 // wihout virtuals and webcams
                 if (isset($_POST['type'])) {
 
@@ -134,9 +133,8 @@ if ($error == false)
 
                                     $dbc->paramQuery($thatquery,$params);
 
-                            };
-
-                        };
+                            }
+                        }
                         unset($dbc);
                         unset($params);
                     }
@@ -762,32 +760,21 @@ if ($error == false)
                 }
                 tpl_set_var('terrainoptions', $terrain_options);
 
-                //count owncaches
-            $own_que = sql("SELECT COUNT(`cache_id`) as num_own_caches FROM `caches` WHERE `user_id` = ".sql_escape($usr['userid'])."
-                                    AND type = 10");
-            $own_fetch = sql_fetch_array($own_que);
-            $num_own_caches = $own_fetch['num_own_caches'];
-
+                $cacheLimitByTypePerUser = common::getUserActiveCacheCountByType($dbc, $usr['userid']);
                 //build typeoptions
                 $types = '';
                 foreach ($cache_types as $type)
                 {
-                    // block virtual, webcam and owncache
-                    if( ( ( $cache_type != cache::TYPE_VIRTUAL && $type['id'] == cache::TYPE_VIRTUAL ) || ( $cache_type != cache::TYPE_PODCAST && $type['id'] == cache::TYPE_PODCAST ) || ( $cache_type != cache::TYPE_WEBCAM&& $type['id'] == cache::TYPE_WEBCAM ) ) &&
-                          !$usr['admin'] )
-                    {
-                        // if was not (wirtual or webcam)
-                        // then do not display in the list
+                    // blockforbiden cache types
+                    if( (in_array($cache_type, $config['forbidenCacheTypes']) || in_array($type['id'], $config['forbidenCacheTypes']) )  && !$usr['admin'] ) {
                         continue;
                     }
-                    // if above $OWNCACHE_LIMIT - do not show own cache in list
-                    if( ( ( $cache_type != cache::TYPE_OWNCACHE && $type['id'] == cache::TYPE_OWNCACHE ) &&
-                    $num_own_caches>=$OWNCACHE_LIMIT)  &&
-                          !$usr['admin'] )
-                    {
-                    continue;
+                    if(isset($config['cacheLimitByTypePerUser'][$cache_type]) && $cacheLimitByTypePerUser[$cache_type] >= $config['cacheLimitByTypePerUser'][$cache_type] && !$usr['admin']){
+                        continue;
                     }
-
+                    if(isset($config['cacheLimitByTypePerUser'][$type['id']]) && $cacheLimitByTypePerUser[$type['id']] >= $config['cacheLimitByTypePerUser'][$type['id']] && !$usr['admin']){
+                        continue;
+                    }
 
                     if ($type['id'] == $cache_type)
                     {
@@ -989,8 +976,8 @@ if ($error == false)
                 //MP3 files only for type of cache:
                 if( $cache_record['type'] == cache::TYPE_OTHERTYPE ||
                     $cache_record['type'] == cache::TYPE_MULTICACHE ||
-                    $cache_record['type'] == cache::TYPE_QUIZ ||
-                    $cache_record['type'] == cache::TYPE_PODCAST )
+                    $cache_record['type'] == cache::TYPE_QUIZ
+                    )
                 {
                     if( $cache_record['mp3count'] > 0 )
                     {

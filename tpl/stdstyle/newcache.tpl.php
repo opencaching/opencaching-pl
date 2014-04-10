@@ -8,13 +8,6 @@
     *   (at your option) any later version.
     *
     ***************************************************************************/
-
-/****************************************************************************
-
-   Unicode Reminder ?? ąść
-
-
- ****************************************************************************/
 ?>
 <script type="text/javascript" src="lib/tinymce4/tinymce.min.js"></script>
 <input type="hidden" value="arrrgh" id="qwertyuiop">

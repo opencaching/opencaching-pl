@@ -312,7 +312,11 @@ class powerTrailBase{
         $query = 'SELECT user_id, username, email, power_trail_email FROM `user` WHERE user_id IN (SELECT `userId` FROM `PowerTrail_owners` WHERE `PowerTrailId` = :1 ) ';
         $db = new dataBase;
         $db->multiVariableQuery($query, $ptId);
-        return $db->dbResultFetchAll();
+        $dbResult = $db->dbResultFetchAll();
+        foreach ($dbResult as $ptOwner) {
+            $result[$ptOwner['user_id']] = $ptOwner;
+        }
+        return $result;
     }
 
     public static function getPtDbRow($ptId) {
