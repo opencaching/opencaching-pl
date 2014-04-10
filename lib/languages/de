@@ -133,7 +133,7 @@ main_page Startseite
 what_is_geocaching Was ist Geocaching?
 registration Registrieren
 news Aktuelles
-new_caches Neue Caches
+new_caches Neueste Caches
 new_cache Neuer Cache
 abroad_poland im Ausland von Polen
 recommended_caches Empfohlene Caches
@@ -143,7 +143,7 @@ rules Nutzungsbedingungen
 links Links
 geochat Geocaching Chat
 contact Kontakt
-my_account Mein Konto
+my_account Mein Profil
 general Allgemein
 my_logs Mein logs
 change_data Daten ändern
@@ -507,7 +507,7 @@ score_label Bewertet als
 show_noscore Ohne bewertung schauen
 available_maps Verfügbare Karte
 cache_attributes Cache Attribute
-latest_logs Letzte Log-Einträge
+latest_logs Neueste Logeinträge 
 abroad_caches Ausser Polen
 hidden_by von
 newcaches_label Neue Saches
