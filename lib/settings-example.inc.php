@@ -34,6 +34,20 @@ require __DIR__.'/settingsDefault.inc.php';
     //site name
      $site_name = 'localhost';
 
+  // Used OC number nodes and name of waypoints :
+     // 1 Opencaching Germany http://www.opencaching.de OC
+     // 2 Opencaching Poland http://www.opencaching.pl OP
+     // 3 Opencaching Czech http://www.opencaching.cz OZ
+     // 4 Local Development AA
+     // 5 Opencaching Nederland http://www.opencaching.nl OB => OC Benelux
+     // 6 Opencaching Great Britain http://www.opencaching.org.uk OK
+     // 7 Opencaching Sweden http://www.opencaching.se OS =>OC Scandinavia
+     // 8 Opencaching Romania  http://www.opencaching.ro OR
+     // 9  free number node
+     // 10 Opencaching United States http://www.opencaching.us OU
+     // 11  free number node
+     // 12 Opencaching Russia http://www.opencaching.org.ru  (I don't know current status???)
+     
     //id of the node 4 for local development
      $oc_nodeid = 4;
 
