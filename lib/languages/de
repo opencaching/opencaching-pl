@@ -150,8 +150,8 @@ change_data Daten ändern
 change_email Ändern E-Mail-Adresse
 change_password Passwort ändern
 collected_queries Gesammelte Anfragen
-watched_caches Gesehen-Caches
-
+watched_caches Beobachtete Caches
+map_watched_caches Karte beobachtete Caches
 settings Einstellungen
 settings_notifications Notifizierung einstellungen
 ignored_caches Ignorierte Caches
@@ -211,7 +211,7 @@ status_label Status
 date_hidden_label Datum versteckte
 date_created_label Erstellungsdatum
 last_modified_label Letzte Änderung
-
+last_modified2_label Letzte Änderung
 waypoint Wegpunkte
 listed_also_on Auch auf
 comments Kommentare
