@@ -137,7 +137,7 @@ new_caches Neueste Caches
 new_cache Neuer Cache
 abroad_poland im Ausland von Polen
 recommended_caches Empfohlene Caches
-new_logs Die neuesten logs
+new_logs Neueste Logs
 statistics Statistik
 rules Nutzungsbedingungen
 links Links
@@ -419,7 +419,7 @@ h_se_label Caches von opencaching.se schauen
 h_no_label Caches von opencaching.no schauen
 ozi_path_label Pfad zum Ordner" OP "auf PDA
 ozi_path_info Geeignet für Ozi Explorer-Nutzer mit Filips-Datenbank. Wenn Sie den korrekten Pfad zum "OP" -Ordner, werden Sie zum Download WPT-Dateien als Suchergebnis mit Lokalisierung von Informationen über die Cache-Beschreibung. Danach können Sie auf den Cache auf Ozi Explorer anzeigen, und wählen Sie Öffnen Anlage-Option. Es öffnet sich detaillierte Beschreibung über den Cache. Beispiele: <b>\SDMMC\Baza\</b>, <b>\ Speicherkarte\bf\</b>
-newest_caches Die neuesten Caches
+newest_caches Neueste Caches
 total_of_active_caches Total der aktiven Caches
 total_of_caches Total der Caches
 total_moved Total der rüber getragte Caches
