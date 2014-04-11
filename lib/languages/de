@@ -510,7 +510,7 @@ cache_attributes Cache Attribute
 latest_logs Neueste Logeinträge 
 abroad_caches Ausser Polen
 hidden_by von
-newcaches_label Neue Saches
+newcaches_label Neueste Caches
 cache_label cache Name
 found_it gefunden
 did_not_find_it nicht gefunden
@@ -1701,18 +1701,22 @@ ZA Südafrika
 ZM Sambia
 ZW Simbabwe
 SU Rusland
+pt001 PowerTrail
 
 
 
 
 
 
+pt008 Name PowerTrail
+pt009 Art PowerTrail
 
 
 
 
 
 
+pt016 von
 
 
 
@@ -1731,6 +1735,7 @@ SU Rusland
 
 
 
+pt035 PowerTrail
 
 
 
@@ -1833,6 +1838,8 @@ SU Rusland
 
 
 
+pt138 caches
+pt139 PowerTrail
 
 
 
@@ -1841,21 +1848,14 @@ SU Rusland
 
 
 
+pt148 Letzte cache
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
+pt158 PowerTrail Hilfe
 
 
 
