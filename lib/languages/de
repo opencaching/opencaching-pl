@@ -1855,7 +1855,7 @@ pt148 Letzte cache
 
 
 
-pt158 PowerTrail Hilfe
+pt155 PowerTrail Hilfe
 
 
 
@@ -1884,6 +1884,7 @@ pt158 PowerTrail Hilfe
 
 
 
+pt184 Hallo
 
 
 
@@ -1922,12 +1923,15 @@ pt158 PowerTrail Hilfe
 
 
 
+pt223 PowerTrail
 
 
 
 
 
 
+pt230 Datum
+pt231 Zeit
 
 
 
@@ -1937,6 +1941,7 @@ pt158 PowerTrail Hilfe
 
 
 
+region_02 Land
 
 
 
@@ -1972,12 +1977,7 @@ pt158 PowerTrail Hilfe
 
 
 
-
-
-
-
-
-
+chowner02 Geocacher
 
 
 
