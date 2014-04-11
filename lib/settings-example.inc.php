@@ -39,16 +39,17 @@ require __DIR__.'/settingsDefault.inc.php';
      // 2 Opencaching Poland http://www.opencaching.pl OP
      // 3 Opencaching Czech http://www.opencaching.cz OZ
      // 4 Local Development AA
-     // 5
+     // 5 free
      // 6 Opencaching Great Britain http://www.opencaching.org.uk OK
      // 7 Opencaching Sweden http://www.opencaching.se OS =>OC Scandinavia
-     // 8 Opencaching Romania  http://www.opencaching.ro OR
-     // 9  free number node
+     // 8 free
+     // 9 free 
      // 10 Opencaching United States http://www.opencaching.us OU
-     // 11  free number node
+     // 11 free 
      // 12 Opencaching Russia http://www.opencaching.org.ru  (I don't know current status???)
      // 14 Opencaching Nederland http://www.opencaching.nl OB => OC Benelux
-     
+     // 16 Opencaching Romania http://www.opencaching.ro OR     
+     //
     //id of the node 4 for local development
      $oc_nodeid = 4;
 
