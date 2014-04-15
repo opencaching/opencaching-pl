@@ -32,6 +32,42 @@ function convert($str)
     $str = mb_ereg_replace('Ć', 'C', $str);
     $str = mb_ereg_replace('Ń', 'N', $str);
 
+    $str = mb_ereg_replace('ä', 'a', $str);
+    $str = mb_ereg_replace('Ä', 'A', $str);
+
+// romanian characters
+    $str = mb_ereg_replace('ă', 'a', $str);
+    $str = mb_ereg_replace('î', 'i', $str);
+    $str = mb_ereg_replace('ş', 's', $str);
+    $str = mb_ereg_replace('ţ', 't', $str);
+    $str = mb_ereg_replace('â', 'a', $str);
+    $str = mb_ereg_replace('Ă', 'A', $str);
+    $str = mb_ereg_replace('Î', 'I', $str);
+    $str = mb_ereg_replace('Ş', 'S', $str);
+    $str = mb_ereg_replace('Ţ', 'T', $str);
+    $str = mb_ereg_replace('Â', 'A', $str);
+// romanian new keyboard
+    $str = mb_ereg_replace('ș', 's', $str);
+    $str = mb_ereg_replace('ț', 't', $str);
+    $str = mb_ereg_replace('Ș', 'S', $str);
+    $str = mb_ereg_replace('Ț', 'T', $str);
+// hungarian characters
+    $str = mb_ereg_replace('é', 'e', $str);
+    $str = mb_ereg_replace('á', 'a', $str);
+    $str = mb_ereg_replace('ö', 'o', $str);
+    $str = mb_ereg_replace('ő', 'o', $str);
+    $str = mb_ereg_replace('ü', 'u', $str);
+    $str = mb_ereg_replace('ű', 'u', $str);
+    $str = mb_ereg_replace('ó', 'o', $str);
+    $str = mb_ereg_replace('ú', 'u', $str);
+    $str = mb_ereg_replace('É', 'E', $str);
+    $str = mb_ereg_replace('Á', 'A', $str);
+    $str = mb_ereg_replace('Ö', 'O', $str);
+    $str = mb_ereg_replace('Ő', 'O', $str);
+    $str = mb_ereg_replace('Ü', 'U', $str);
+    $str = mb_ereg_replace('Ű', 'U', $str);
+    $str = mb_ereg_replace('Ó', 'O', $str);
+    $str = mb_ereg_replace('Ú', 'U', $str);
 
     return $str;
 }
