@@ -107,6 +107,7 @@ $debug = false;
                     {
                         $cachename = htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8');
                         $tpl_subtitle = $cachename . ' - ';                        
+                        $cache_user_id = $record['user_id'];
                         $use_log_pw = (($record['logpw'] == NULL) || ($record['logpw'] == '')) ? false : true;
                         if ($use_log_pw) $log_pw = $record['logpw'];
                         $wp_gc = $record['wp_gc'];
