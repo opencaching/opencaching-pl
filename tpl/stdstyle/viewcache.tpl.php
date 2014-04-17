@@ -528,4 +528,14 @@
 <div class="content2-container" id="viewcache-logs">
     {logs}
 </div>
+{viewlogs_start}
+<div class="content2-container bg-blue02">
+    <p class="content-title-noshade-size1" id="logs_more_start">
+        <img src="tpl/stdstyle/images/blue/logs.png" class="icon32" alt=""/>
+        <a href="viewlogs.php?cacheid={cacheid_urlencode}" >
+            <img src="tpl/stdstyle/images/action/16x16-showall.png" class="icon16" alt="{{show_all_log_entries_short}}" title="{{show_all_log_entries_short}}"/></a>&nbsp;
+        <a title="{{show_all_log_entries_short}}" href="viewlogs.php?cacheid={cacheid_urlencode}">{{show_all_log_entries_short}}</a>
+    </p>
+</div>
+{viewlogs_end}
 <!-- End Text Container -->
