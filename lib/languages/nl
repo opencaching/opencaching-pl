@@ -2283,6 +2283,17 @@ language_SV Zweeds
 language_TR Turks
 language_UZ Oezbeeks
 language_VI Vietnamees
+newcacheDateFormat Format: YYYY-MM-DD
+htmltags01 Toegestane HTML tags en attributes
+htmltags02 HTML tags
+htmltags03 HTML attributes
+htmltags04 All left HTML tags and attributes are filtered out. List can be changed any time.
+errtpl01 Paginafout
+errtpl02 Er is een fout opgetreden tijden laden van pagina
+errtpl03 Pagina
+errtpl04 Fout informatie
+newpicjs01 Vul afbeeldingnaam in
+newpicjs02 Vul afbeeldinglocatie in
 
 
 
