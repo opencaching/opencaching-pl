@@ -1040,6 +1040,8 @@ adopt_12 acceptă
 adopt_13 refuză
 adopt_14 anulează adopţia
 adopt_15 Felicitări! Acum eşti proprietarul geocutiei:
+adopt_16 The procedure for changing the cacheowner has been canceled.
+adopt_17 An error occurred while attempting to change the cacheowner.
 format_GPX felul GPX-ului
 format_other alte tipuri
 format_pict GPX + poze
@@ -1976,6 +1978,7 @@ graph_statistics_04 Date
 graph_statistics_05 Hidden caches:
 graph_statistics_06 Active caches:
 graph_statistics_07 Total found caches:
+chowner00 The procedure for changing the cacheowner has started.
 chowner01 Cache Adoption
 chowner02 Goecacher
 chowner03 transfers to you the cache for adoption

@@ -1040,6 +1040,8 @@ adopt_12 accept
 adopt_13 decline
 adopt_14 cancel adoption
 adopt_15 Congratulations! You are now the owner of cache:
+adopt_16 The procedure for changing the cacheowner has been canceled.
+adopt_17 An error occurred while attempting to change the cacheowner.
 format_GPX GPX type
 format_other others types
 format_pict GPX + photos
@@ -1976,6 +1978,7 @@ graph_statistics_04 Date
 graph_statistics_05 Hidden caches:
 graph_statistics_06 Active caches:
 graph_statistics_07 Total found caches:
+chowner00 The procedure for changing the cacheowner has started.
 chowner01 Cache Adoption
 chowner02 Geocacher
 chowner03 transfers to you the cache for adoption

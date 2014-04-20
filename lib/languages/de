@@ -156,7 +156,7 @@ settings Einstellungen
 settings_notifications Notifizierung einstellungen
 ignored_caches Ignorierte Caches
 my_recommendations Meine Empfehlungen
-search_cache Suchen Sie einen Cache
+search_cache Caches suchen
 caches Geocaches
 cache Geocache
 search Suchen
@@ -175,7 +175,7 @@ show_log Logschauen
 store_queries Speichern Anfragen
 cache_recommendation Empfehlen einen Cache
 login Login
-logout Logout
+logout Abmelden
 cache_descriptions Wie beschreiben Sie einen Cache?
 html_preview HTML-Vorschau
 allowed_html_tags Erlaubte HTML-Tags
@@ -202,7 +202,7 @@ register_confirm Bestätigung
 impressum Über
 user Benutzer
 password Passwort
-logged_as Angemeldet als
+logged_as Eingeloggt als
 coords_other Koordinaten in andere Systeme
 size Größe
 time Zeitaufwand
@@ -1024,6 +1024,8 @@ date Datum
 
 
 geocache Geocache
+
+
 
 
 
@@ -1942,6 +1944,7 @@ pt231 Zeit
 
 
 region_02 Land
+
 
 
 

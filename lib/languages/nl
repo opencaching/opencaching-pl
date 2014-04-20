@@ -1040,6 +1040,8 @@ adopt_12 accepteren
 adopt_13 weigeren
 adopt_14 adoptie annuleren
 adopt_15 Gefeliciteerd! Je bent nu eigenaar van cache:
+adopt_16 De adoptie procedure is geannuleerd.
+adopt_17 Er is een fout opgetreden tijden de adoptie procedure.
 format_GPX GPX formaat
 format_other andere formaten
 format_pict GPX met afbeeldingen
@@ -1976,6 +1978,7 @@ graph_statistics_04 Gegevens per
 graph_statistics_05 Geplaatste caches:
 graph_statistics_06 Actieve caches:
 graph_statistics_07 Totaal gevonden caches:
+chowner00 De adoptie procedure is in gang gezet.
 chowner01 Cache adoptie
 chowner02 Geocacher
 chowner03 bied een cache aan voor adoptie

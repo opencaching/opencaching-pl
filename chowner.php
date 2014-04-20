@@ -227,9 +227,9 @@ require_once('./lib/common.inc.php');
                 $sql = "DELETE FROM chowner WHERE cache_id = '".sql_escape(intval($_GET['cacheid']))."'";
                 mysql_query($sql);
                 if( mysql_affected_rows() > 0 )
-                    tpl_set_var('info_msg', "Procedura zmiany właściciela skrzynki została przerwana.<br /><br />");
+                    tpl_set_var('info_msg', " ".tr('adopt_16')." <br /><br />");
                 else
-                    tpl_set_var('error_msg', "Wystąpił błąd podczas próby przerwania procedury zmiany właściciela skrzynki.<br /><br />");
+                    tpl_set_var('error_msg', " ".tr('adopt_17')." <br /><br />");
             }
 
             if( isAcceptanceNeeded($usr['userid']) )
@@ -268,7 +268,7 @@ require_once('./lib/common.inc.php');
                         $sql = "INSERT INTO chowner (cache_id, user_id) VALUES (".sql_escape(intval($_REQUEST['cacheid'])).", ".$newUserId.")";
                         mysql_query($sql);
                         if( mysql_affected_rows() > 0 ){
-                            tpl_set_var('info_msg', "Procedura zmiany właściciela skrzynki została rozpoczęta.<br /><br />");
+                            tpl_set_var('info_msg'," ".tr('chowner00')." <br /><br />");
                             mb_send_mail(getUserEmail($newUserId), tr('chowner01'), tr('chowner02').": ".$usr['username']." ".tr('chowner03').": ".getCacheName($_REQUEST['cacheid']).". ".tr('chowner04'), emailHeaders());
                         }
                         else

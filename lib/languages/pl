@@ -1040,6 +1040,8 @@ adopt_12 akceptuj
 adopt_13 odrzuć
 adopt_14 anuluj przekazanie
 adopt_15 Gratulacje! Stałeś się nowym właścicielem skrzynki:
+adopt_16 Procedura zmiany właściciela skrzynki została przerwana.
+adopt_17 Wystąpił błąd podczas próby przerwania procedury zmiany właściciela skrzynki.
 format_GPX GPX format
 format_other Inne formaty
 format_pict GPX + zdjęcia
@@ -1976,6 +1978,7 @@ graph_statistics_04 Dane na dzieñ
 graph_statistics_05 Ukryte skrzynki:
 graph_statistics_06 W tym aktywnych:
 graph_statistics_07 Ile razy odkryto skrzynki:
+chowner00 Procedura zmiany właściciela skrzynki została rozpoczęta.
 chowner01 Adopcja skrzynki
 chowner02 Geokeszer
 chowner03 przekazuje Ci skrzynkę do adopcji
