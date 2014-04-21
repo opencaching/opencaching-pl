@@ -13,7 +13,7 @@ email_address E-mail adres
 activation_code Activatie code
 confirm Bevestig
 reset Herstellen
-activation_success Je account is seccesvol geactiveerd. Je kunt nu inloggen.
+activation_success Je account is succesvol geactiveerd. Je kunt nu inloggen.
 goto_login Ga naar inlog pagina
 preview_attributes Voorbeeld van extra cache attributen
 toxic_plants Giftige planten
@@ -1356,7 +1356,7 @@ registermail12 Gebruikersnaam:
 registermail13 Land:
 registermail14 Hieronder vind je de activeringscode om de registratie te voltooien:
 registermail15 De activeringscode moet worden ingevoerd op onderstaande link:
-registermail16 Indien binnen 14 dagen na de registratie niet aanmeldt wordt, zal dit gemaakte account automatisch worden verwijderd.
+registermail16 Indien binnen 14 dagen na de registratie niet aangemeldt wordt, zal dit gemaakte account automatisch worden verwijderd.
 activatemail01 De cache:
 activatemail02 is door het Opencaching team goed gekeurd.
 activatemail03 Je kunt de status veranderen in "beschikbaar" op:
