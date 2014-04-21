@@ -1,12 +1,14 @@
-Witaj %log_owner%,
+%RemovedLog_01% %log_owner%,
 
 
-%cache_owner% usunął wpis do logu dla skrzynki "%cache_name%".
+%cache_owner% %removedLog_02% "%cache_name%".
 
-Treść usuniętego wpisu:
+%removedLog_03%:
 %log_entry%
 
 %comment%
 
 
 %octeamEmailsSignature%
+
+%removedLog_04%!

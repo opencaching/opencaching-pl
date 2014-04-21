@@ -2297,3 +2297,8 @@ errtpl03 Strona
 errtpl04 Informacja o błędzie
 newpicjs01 Proszę nadać nazwę obrazkowi
 newpicjs02 Proszę podać źródło obrazka
+removedLog_01 Witaj
+removedLog_02 usunął wpis do logu dla skrzynki 
+removedLog_03 Treść usuniętego wpisu
+removedLog_04 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
+

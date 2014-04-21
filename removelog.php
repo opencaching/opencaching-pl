@@ -95,7 +95,11 @@ function removelog($log_id, $language, $lang)
                             $email_content = mb_ereg_replace('%cache_name%', $log_record['cache_name'], $email_content);
                             $email_content = mb_ereg_replace('%log_entry%', $log_record['log_text'], $email_content);
                             $email_content = mb_ereg_replace('%comment%', $message, $email_content);
+                            $email_content = mb_ereg_replace('%removedLog_01%', tr('removedLog_01'), $email_content);
+                            $email_content = mb_ereg_replace('%removedLog_02%', tr('removedLog_02'), $email_content);
+                            $email_content = mb_ereg_replace('%removedLog_03%', tr('removedLog_03'), $email_content);
 			    $email_content = mb_ereg_replace('%octeamEmailsSignature%', $octeamEmailsSignature, $email_content);
+                            $email_content = mb_ereg_replace('%removedLog_04%', tr('removedLog_04'), $email_content);
 
                             //send email (only on single removement)
 

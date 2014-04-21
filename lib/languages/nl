@@ -1339,7 +1339,7 @@ runwatch10 Logtekst
 runwatch11 Nieuwe logs van gevolgde caches
 runwatch12 Om de lijst van gevolgde caches te zien of te bewerken
 runwatch13 klik dan hier
-runwatch14 Dit bericht is automatisch gegenereerd, gelieve niet te reageren.
+runwatch14 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
 runwatch15 Er zijn nog geen logs
 registermail01 Hallo
 registermail02 Welkom op
@@ -1414,7 +1414,7 @@ index_03 Aantal gebruikers die de cache hebben aanbevolen
 index_04 Aantal keren dat de cache is gevonden
 index_05 Hieronder de formule waarmee de cache kwaliteit berekend wordt.
 index_06 Index
-adopt00 De procedure is voltooid. De vorige eigenaar was
+adopt00 De adoptie is voltooid. De vorige eigenaar was
 adopt01 De nieuwe eigenaar is gebruiker
 rating-c_01 Cache moeilijkheid berekening systeem
 rating-c_02 Resultaat na berekening:
@@ -2290,13 +2290,17 @@ newcacheDateFormat Format: YYYY-MM-DD
 htmltags01 Toegestane HTML tags en attributes
 htmltags02 HTML tags
 htmltags03 HTML attributes
-htmltags04 All left HTML tags and attributes are filtered out. List can be changed any time.
+htmltags04 Alle andere tags en attributen worden weggefilterd. De lijst kan worden gewijzigd.
 errtpl01 Paginafout
 errtpl02 Er is een fout opgetreden tijden laden van pagina
 errtpl03 Pagina
 errtpl04 Fout informatie
 newpicjs01 Vul afbeeldingnaam in
 newpicjs02 Vul afbeeldinglocatie in
+removedLog_01 Hallo
+removedLog_02 heeft je log verwijderd van cache 
+removedLog_03 Inhoud van de log was
+removedLog_04 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
 
 
 
@@ -2309,7 +2313,7 @@ notify_newcachemail06 Richting:
 notify_newcachemail07 Soort:
 notify_newcachemail08 Grootte:
 notify_newcachemail09 De instellingen voor jouw zoekradius kun je bekijken en bewerken op:
-notify_newcachemail10 Dit bericht is automatisch gegenereerd, gelieve niet te reageren.
+notify_newcachemail10 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
 notify_newcachemail11 Nieuwe cache:
 notify_newcachemail12 Er zijn nog geen nieuwe logs.
 
