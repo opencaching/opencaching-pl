@@ -1414,8 +1414,8 @@ index_03 Aantal gebruikers die de cache hebben aanbevolen
 index_04 Aantal keren dat de cache is gevonden
 index_05 Hieronder de formule waarmee de cache kwaliteit berekend wordt.
 index_06 Index
-adopt00 De procedure is voltooid. De vorige eigenaar was
-adopt01 De nieuwe eigenaar is gebruiker
+adopt00 De adoptie is voltooid. De vorige eigenaar was:
+adopt01 De nieuwe eigenaar is:
 rating-c_01 Cache moeilijkheid berekening systeem
 rating-c_02 Resultaat na berekening:
 rating-c_03 Opmerking: Waanneer de moeilijkheid tussen 1 en 2 ligt kan met fijnafstemming 0.5 verhoogt worden tot 1.5.
