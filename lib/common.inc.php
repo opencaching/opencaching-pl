@@ -1511,10 +1511,7 @@ function get_image_for_interval($folder, $interval = 1800)
 /**
  * class autoloader
  */
-require __DIR__.'/ClassPathDictionary.php';
-spl_autoload_register(function ($className) {
-    include_once ClassPathDictionary::getClassPath($className);
-});
+require_once __DIR__.'/ClassPathDictionary.php';
 
 /**
  * class witch common methods

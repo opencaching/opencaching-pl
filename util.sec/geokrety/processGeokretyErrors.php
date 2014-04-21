@@ -2,6 +2,9 @@
 /**
  * ocpl/util.sec/geokrety/processGeokretyErrors.php
  */
+require_once __DIR__.'/../../lib/ClassPathDictionary.php';
+
+
 $run = new processGeokretyErrors;
 $run->run();
 
@@ -21,22 +24,28 @@ class processGeokretyErrors {
 
         // geoKrety
         $this->getErrors();
-        if($this->errorNumber == 0) return;
+        if($this->errorNumber == 0){
+            return;
+        }
         $this->processGetGeokretyErrors();
-        if($this->toMail) $this->sendReportEmail();
+        if($this->toMail) {
+            $this->sendReportEmail();
+        }
     }
 
     private function getErrors() {
         $this->errors = GeoKretyApi::getErrorsFromDb();
         $this->errorNumber = count($this->errors);
-        if($this->debug) print "znaleziono $this->errorNumber bledow<br/>";
+        if($this->debug) {
+            print "znaleziono $this->errorNumber bledow<br/>";
+        }
     }
 
     private function processGetGeokretyErrors(){
         $i = 1;
         $this->logGeokrety = new GeoKretyApi;
         $this->logGeokrety->setGeokretyTimeout(30);
-        foreach ($this->errors as $nr => $error) {
+        foreach ($this->errors as $error) {
             if ($error['operationType'] == 1 || $error['operationType'] == 2) {
                 // errors get geokrety in cache, get geokrety in user inventory
                 $this->toMail[$i] = $error;
@@ -60,20 +69,22 @@ class processGeokretyErrors {
         // send one mail with all errors to RT, clean db.
         $gk = new GeoKretyApi;
         if ($gk->mailToRT($this->toMail)) {
-            $queryParam = '';
+            $queryParamTmp = '';
             foreach ($this->toMail as $recordId) {
-                $queryParam .= $recordId['id'].',';
+                $queryParamTmp .= $recordId['id'].',';
             }
-        $queryParam = substr($queryParam, 0, -1);
-        GeoKretyApi::removeDbRows($queryParam);
-        if($this->debug) print "wyslano maila, usunieto wpisy z bazy<br/>";
+            $queryParam = substr($queryParamTmp, 0, -1);
+            GeoKretyApi::removeDbRows($queryParam);
+            if($this->debug) {
+                print "wyslano maila, usunieto wpisy z bazy<br/>";
+            }
         }
     }
 
     private function retryLoggingGeokrety($GeokretyLogArray) {
         $GeoKretyLogResult = $this->logGeokrety->LogGeokrety($GeokretyLogArray, true);
         $success = 'yes';
-        foreach ($GeoKretyLogResult['errors'] as $nr => $error) {
+        foreach ($GeoKretyLogResult['errors'] as $error) {
             if($error != '') {
                 $success = 'no';
                 $result['errors'] = $error;
@@ -87,9 +98,9 @@ class processGeokretyErrors {
 
     private function makePt() {
         include __DIR__.'/../../lib/settings.inc.php';
-        include __DIR__.'/../../lib/language.inc.php';
+        include_once __DIR__.'/../../lib/language.inc.php';
         $langArray = available_languages();
-
+d($dynstylepath);
         $oldFileArr = explode('xxkgfj8ipzxx', file_get_contents($dynstylepath.'ptPromo.inc-'.$lang.'.php'));
         $region = new GetRegions();
         $newPt =  powerTrailBase::writePromoPt4mainPage($oldFileArr[1]);
@@ -109,7 +120,9 @@ class processGeokretyErrors {
         }
         $fileContent .= '</td><td width=50% style="font-size: 13px; padding-left: 10px; padding-right: 10px;" valign="center"><a href="powerTrail.php?ptAction=showSerie&ptrail='.$newPt['id'].'">'.$newPt['name'].'</a>';
         $fileContent .= '<td style="font-size: 13px;" valign="center"><b>'.$newPt['cacheCount'].'</b>&nbsp;'.tr2('pt138',$langTr).', <b>'.round($newPt['points'], 2).'</b>&nbsp;'.tr2('pt038', $langTr).'</td>';
-        if ($regions) $fileContent .= '</td><td style="font-size: 12px;" valign="center">'.tr2($regions['code1'], $langTr).'>'.$regions['adm3'];
+        if ($regions) {
+            $fileContent .= '</td><td style="font-size: 12px;" valign="center">'.tr2($regions['code1'], $langTr).'>'.$regions['adm3'];
+        }
         $fileContent .= '</td></tr></table>';
         file_put_contents($dynstylepath.'ptPromo.inc-'.$langTr.'.php' , $fileContent);
 
@@ -117,6 +130,7 @@ class processGeokretyErrors {
     }
 
     private function cleanGeoPaths(){
+        require_once __DIR__.'/../../powerTrail/powerTrailBase.php';
         powerTrailBase::cleanGeoPaths();
     }
 }

@@ -313,6 +313,7 @@ class powerTrailBase{
         $db = new dataBase;
         $db->multiVariableQuery($query, $ptId);
         $dbResult = $db->dbResultFetchAll();
+        $result = array();
         foreach ($dbResult as $ptOwner) {
             $result[$ptOwner['user_id']] = $ptOwner;
         }
@@ -485,7 +486,7 @@ class powerTrailBase{
     /**
      * check if real cache count in pt is equal stored in db.
      */
-    private function checkCacheCountInPt($pt){
+    private static function checkCacheCountInPt($pt){
         $countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1) AND `status` IN ( 1, 2, 4, 5 )';
         $db = new dataBase;
         $db->multiVariableQuery($countQuery, $pt['id']);
@@ -499,7 +500,7 @@ class powerTrailBase{
     /**
      * disable geoPaths, when its WIS > active caches count.
      */
-    private function disableUncompletablePt($pt){
+    private static function disableUncompletablePt($pt){
         $countQuery = 'SELECT count(*) as `cacheCount` FROM `caches` WHERE `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1) AND `status` = 1';
         $db = new dataBase;
         $db->multiVariableQuery($countQuery, $pt['id']);
@@ -509,7 +510,7 @@ class powerTrailBase{
      //print "active cc: ".$answer['cacheCount'].' / required caches: '. $pt['cacheCount']*$pt['perccentRequired']/100;
 
         if($answer['cacheCount'] < ($pt['cacheCount']*$pt['perccentRequired'])/100) {
-            // print 'put in service geoPath #'.$pt['id'].' (uncompletable)<br/>';
+            print '<span style="color: red">[test message only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['id'].'</a>should be put in service (uncompletable) cacheCount: '.$answer['cacheCount'].' demand: '.(($pt['cacheCount']*$pt['perccentRequired'])/100).' </span><br/>';
 
             //$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
             // $db->multiVariableQuery($queryStatus, 4, $pt['id']);
@@ -525,19 +526,19 @@ class powerTrailBase{
     /**
      * disable (set status to 4) geoPaths witch has not enough cacheCount.
      */
-    private function disablePtByCacheCount($pt, $checkPt){
+    private static function disablePtByCacheCount($pt, $checkPt){
 
         // print 'pt #'.$pt['id'].', caches in pt: '.$pt['cacheCount'].'; min. caches limit: '. $checkPt->getPtMinCacheCountLimit($pt).'<br>';
         if($pt['cacheCount'] < $checkPt->getPtMinCacheCountLimit($pt)){
-            $text = tr('pt227').tr('pt228');
-            print 'put in service geoPath #'.$pt['id'].' (geoPtah cache count is lower than minimum) <br/>';
-            $db = new dataBase;
-            $queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
-            $db->multiVariableQuery($queryStatus, 4, $pt['id']);
-            $query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES
-            (-1, :1, 4, :2, NOW(), NOW(),0)';
-            $db->multiVariableQuery($query, $pt['id'], $text);
-            sendEmail::emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
+//            $text = tr('pt227').tr('pt228');
+              print '[test only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['id'].'</a> (geoPtah cache count='.$pt['cacheCount'].' is lower than minimum='.$checkPt->getPtMinCacheCountLimit($pt).') <br/>';
+//            $db = new dataBase;
+//            $queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
+//            $db->multiVariableQuery($queryStatus, 4, $pt['id']);
+//            $query = 'INSERT INTO `PowerTrail_comments`(`userId`, `PowerTrailId`, `commentType`, `commentText`, `logDateTime`, `dbInsertDateTime`, `deleted`) VALUES
+//            (-1, :1, 4, :2, NOW(), NOW(),0)';
+//            $db->multiVariableQuery($query, $pt['id'], $text);
+//            sendEmail::emailOwners($pt['id'], 4, date('Y-m-d H:i:s'), $text, 'newComment');
             return true;
         }
     return false;

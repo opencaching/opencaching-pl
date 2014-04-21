@@ -24,3 +24,7 @@ class ClassPathDictionary
         return __DIR__.'/../'. self::$classDictionary[$className];
     }
 }
+
+spl_autoload_register(function ($className) {
+    include_once ClassPathDictionary::getClassPath($className);
+});
