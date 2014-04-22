@@ -2224,7 +2224,7 @@ search01 all regions
 LineChart Line
 BarChart Bar
 positions positions
-more10 Was selected more than 30
+more10 Was selected more than 10
 more30 Was selected more than 30
 pt_cache The cache belongs to GeoPath:
 Help Help
@@ -2298,7 +2298,21 @@ errtpl04 Error info
 newpicjs01 Please enter image name
 newpicjs02 Please enter image source
 removedLog_01 Hello 
-removedLog_02 has removed your log from cache 
+removedLog_02 has removed your logentry from cache 
 removedLog_03 Contens of the log was 
 removedLog_04 This message is auto-generated - please do not reply
+notify_newcache_01 Hello
+notify_newcache_02 There has been placed a new cache in your area
+notify_newcache_03 has placed on 
+notify_newcache_04 a new cache
+notify_newcache_05 Distance
+notify_newcache_06 Bearing
+notify_newcache_07 Type
+notify_newcache_08 Size
+notify_newcache_09 You can watch and change your settings on
+notify_newcache_10 New caches
+notify_newcache_11 There are no new logs
+notify_newcache_12 This message is auto-generated - please do not reply
+
+
 

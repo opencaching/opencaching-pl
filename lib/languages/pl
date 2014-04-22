@@ -2301,4 +2301,16 @@ removedLog_01 Witaj
 removedLog_02 usunął wpis do logu dla skrzynki 
 removedLog_03 Treść usuniętego wpisu
 removedLog_04 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
+notify_newcache_01 Witaj
+notify_newcache_02 W zadeklarowanym przez Ciebie promieniu pojawiła się następująca skrzynka
+notify_newcache_03 dnia
+notify_newcache_04 zarejestrował nową skrzynkę
+notify_newcache_05 Odległość
+notify_newcache_06 kierunek
+notify_newcache_07 Typ
+notify_newcache_08 Wielkość
+notify_newcache_09 Możesz zmienić ustawienia powiadomień na stronie swojego profilu
+notify_newcache_10 Nowa skrzynka
+notify_newcache_11 Nie ma nowych wpisów do logu
+notify_newcache_12 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
 

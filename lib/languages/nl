@@ -2301,21 +2301,18 @@ removedLog_01 Hallo
 removedLog_02 heeft je log verwijderd van cache 
 removedLog_03 Inhoud van de log was
 removedLog_04 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
-
-
-
-notify_newcachemail01 Hallo
-notify_newcachemail02 Er is net een nieuwe cache gemeld in jouw ingestelde zoekradius
-notify_newcachemail03 heeft op
-notify_newcachemail04 een nieuwe cache geplaatst
-notify_newcachemail05 Afstand:
-notify_newcachemail06 Richting:
-notify_newcachemail07 Soort:
-notify_newcachemail08 Grootte:
-notify_newcachemail09 De instellingen voor jouw zoekradius kun je bekijken en bewerken op:
-notify_newcachemail10 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
-notify_newcachemail11 Nieuwe cache:
-notify_newcachemail12 Er zijn nog geen nieuwe logs.
+notify_newCache_01 Hallo
+notify_newCache_02 Er is net een nieuwe cache gemeld in jouw ingestelde zoekradius
+notify_newCache_03 heeft op
+notify_newCache_04 een nieuwe cache geplaatst
+notify_newCache_05 Afstand
+notify_newCache_06 Richting
+notify_newCache_07 Soort
+notify_newCache_08 Grootte
+notify_newCache_09 De instellingen voor jouw zoekradius kun je bekijken en bewerken op
+notify_newCache_10 Nieuwe cache
+notify_newCache_11 Er zijn nog geen nieuwe logs
+notify_newCache_12 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
 
 
 
