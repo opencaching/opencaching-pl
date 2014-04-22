@@ -928,7 +928,7 @@ ni_ma_takiego_kesza Solche Cache fehlt in OpenChecker Database
 os_wynik Ergebniss
 os_zgad Erraten zu viel Mal!!
 wybrac_log Bitte wählen Log-eintritt Typ
-nowe_wsp Neue Koordinaten
+nowe_wsp Neue Koordinaten <sub>(WGS84)</sub>
 os_ma_max Limit gültig
 os_ma_pr versuchen
 os_ma_na versuchen an

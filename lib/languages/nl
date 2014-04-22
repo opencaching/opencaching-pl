@@ -928,7 +928,7 @@ ni_ma_takiego_kesza Verkeerde cache waypoint!
 os_wynik Resultaat
 os_zgad Je hebt het te vaak geprobeerd.
 wybrac_log Kies logsoort
-nowe_wsp Nieuwe coördinaten
+nowe_wsp Nieuwe coördinaten <sub>(WGS84)</sub>
 os_ma_max Er is een limiet van
 os_ma_pr pogingen
 os_ma_na  controles per

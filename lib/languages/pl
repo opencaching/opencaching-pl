@@ -928,7 +928,7 @@ ni_ma_takiego_kesza Takiej skrzynki nie ma w bazie danych!
 os_wynik Wynik
 os_zgad Zgadywałeś(aś) za dużo razy!!
 wybrac_log Proszę wybrać typ logu
-nowe_wsp Nowe współrzędne
+nowe_wsp Nowe współrzędne <sub>(WGS84)</sub>
 os_ma_max Obowiązuje limit
 os_ma_pr prób
 os_ma_na sprawdzeń na

@@ -928,7 +928,7 @@ ni_ma_takiego_kesza Wrong cache waypoint!
 os_wynik Result
 os_zgad You were guessing to many times.
 wybrac_log Chose log type
-nowe_wsp New coordinates
+nowe_wsp New coordinates <sub>(WGS84)</sub>
 os_ma_max There is a limit
 os_ma_pr shots
 os_ma_na checks per

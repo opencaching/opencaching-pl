@@ -928,7 +928,7 @@ ni_ma_takiego_kesza Punct greşit!
 os_wynik Rezultat
 os_zgad Ai încercat de prea multe ori.
 wybrac_log Alege tipul însemnării
-nowe_wsp Coordonate noi
+nowe_wsp Coordonate noi <sub>(WGS84)</sub>
 os_ma_max Există o limită
 os_ma_pr încercări
 os_ma_na încercări pe

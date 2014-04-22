@@ -409,14 +409,14 @@ $(function() {
 
         </td>
         <td>
-         <select name="wybor_NS"   id="wybor_NS"   disabled="disabled"><option selected="selected">N</option><option>S</option></select>
-         <input type="text"        id="wsp_NS_st"  name="wsp_NS_st"  size="2" maxlength="2" disabled="disabled" value="{wsp_NS_st}"/>
-         <input type="text"        id="wsp_NS_min" name="wsp_NS_min" size="6" maxlength="6" disabled="disabled" value="{wsp_NS_min}" onkeyup="this.value=this.value.replace( /,/g,'.' );"/>
+         <select name="wybor_NS"   id="wybor_NS"   disabled="disabled" class="input40"><option selected="selected">N</option><option>S</option></select>
+         <input type="text"        id="wsp_NS_st"  name="wsp_NS_st"  size="2" maxlength="2" disabled="disabled" value="{wsp_NS_st}" class="input30" placeholder="dd" >&nbsp;°
+         <input type="text"        id="wsp_NS_min" name="wsp_NS_min" size="6" maxlength="6" disabled="disabled" value="{wsp_NS_min}" class="input50" placeholder="mm.mmm" onkeyup="this.value=this.value.replace( /,/g,'.' );"/>&nbsp;'
          <span style="color: red; font-weight:bold;">{lat_message}</span>
          <br />
-         <select name="wybor_WE"  id="wybor_WE"   disabled="disabled"><option selected="selected">E</option><option>W</option></select>
-         <input type="text"       id="wsp_WE_st"  name="wsp_WE_st"  size="2" value="{wsp_WE_st}"  maxlength="2" disabled="disabled" />
-         <input type="text"       id="wsp_WE_min" name="wsp_WE_min" size="6" value="{wsp_WE_min}" maxlength="6" disabled="disabled" onkeyup="this.value=this.value.replace( /,/g,'.' );" />
+         <select name="wybor_WE"  id="wybor_WE"   disabled="disabled" class="input40"><option selected="selected">E</option><option>W</option></select>
+         <input type="text"       id="wsp_WE_st"  name="wsp_WE_st"  size="2" value="{wsp_WE_st}"  maxlength="3" disabled="disabled" class="input30" placeholder="dd" />&nbsp;°
+         <input type="text"       id="wsp_WE_min" name="wsp_WE_min" size="6" value="{wsp_WE_min}" maxlength="6" disabled="disabled" class="input50" placeholder="mm.mmm" onkeyup="this.value=this.value.replace( /,/g,'.' );" />&nbsp;'
          <span style="color: red; font-weight:bold;">{lon_message}</span>
         </td>
         <td width="*">      <br/></td>
