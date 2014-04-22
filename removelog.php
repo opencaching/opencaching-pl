@@ -90,16 +90,16 @@ function removelog($log_id, $language, $lang)
                             $log_user_rs = sql("SELECT `email`, `username` FROM `user` WHERE `user_id`='&1'", $log_record['log_user_id']);
                             $log_user_record = sql_fetch_array($log_user_rs);
 
-                            $email_content = mb_ereg_replace('%log_owner%', $log_user_record['username'], $email_content);
-                            $email_content = mb_ereg_replace('%cache_owner%', $cache_owner_record['username'], $email_content);
-                            $email_content = mb_ereg_replace('%cache_name%', $log_record['cache_name'], $email_content);
-                            $email_content = mb_ereg_replace('%log_entry%', $log_record['log_text'], $email_content);
-                            $email_content = mb_ereg_replace('%comment%', $message, $email_content);
-                            $email_content = mb_ereg_replace('%removedLog_01%', tr('removedLog_01'), $email_content);
-                            $email_content = mb_ereg_replace('%removedLog_02%', tr('removedLog_02'), $email_content);
-                            $email_content = mb_ereg_replace('%removedLog_03%', tr('removedLog_03'), $email_content);
-			    $email_content = mb_ereg_replace('%octeamEmailsSignature%', $octeamEmailsSignature, $email_content);
-                            $email_content = mb_ereg_replace('%removedLog_04%', tr('removedLog_04'), $email_content);
+                            $email_content = mb_ereg_replace('{log_owner}', $log_user_record['username'], $email_content);
+                            $email_content = mb_ereg_replace('{cache_owner}', $cache_owner_record['username'], $email_content);
+                            $email_content = mb_ereg_replace('{cache_name}', $log_record['cache_name'], $email_content);
+                            $email_content = mb_ereg_replace('{log_entry}', $log_record['log_text'], $email_content);
+                            $email_content = mb_ereg_replace('{comment}', $message, $email_content);
+                            $email_content = mb_ereg_replace('{removedLog_01}', tr('removedLog_01'), $email_content);
+                            $email_content = mb_ereg_replace('{removedLog_02}', tr('removedLog_02'), $email_content);
+                            $email_content = mb_ereg_replace('{removedLog_03}', tr('removedLog_03'), $email_content);
+			    $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
+                            $email_content = mb_ereg_replace('{removedLog_04}', tr('removedLog_04'), $email_content);
 
                             //send email (only on single removement)
 

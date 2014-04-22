@@ -1,14 +1,14 @@
-%removedLog_01% %log_owner%,
+{removedLog_01} {log_owner},
 
 
-%cache_owner% %removedLog_02% "%cache_name%".
+{cache_owner} {removedLog_02} "{cache_name}".
 
-%removedLog_03%:
-%log_entry%
+{removedLog_03}:
+{log_entry}
 
-%comment%
+{comment}
 
 
-%octeamEmailsSignature%
+{octeamEmailsSignature}
 
-%removedLog_04%!
+{removedLog_04}!
