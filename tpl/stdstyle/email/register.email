@@ -1,31 +1,31 @@
-%registermail01% %user%
+{registermail01} {user}
 
-%registermail02% %server%
+{registermail02} {server}
 
-%registermail03%
-%registermail04%
+{registermail03}
+{registermail04}
 
-%registermail05%
-%registermail06% %server%cacheguides.php
+{registermail05}
+{registermail06} {server}cacheguides.php
 
-%registermail07%
-%registermail08%
+{registermail07}
+{registermail08}
 
-%registermail09%
+{registermail09}
 
-%registermail10%
-%registermail11% %email%
-%registermail12% %user%
-%registermail13% %country%
+{registermail10}
+{registermail11} {email}
+{registermail12} {user}
+{registermail13} {country}
 
-%registermail14%
-%code%
+{registermail14}
+{code}
 
-%registermail15%
-%server%activation.php
+{registermail15}
+{server}activation.php
 
-%registermail16%
+{registermail16}
 
 
-%octeamEmailsSignature%
+{octeamEmailsSignature}
 
