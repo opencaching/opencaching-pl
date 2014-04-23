@@ -1,15 +1,15 @@
-%reportcache17% %date% %reportcache18% %submitter% %reportcache19%.
+{reportcache17} {date} {reportcache18} {submitter} {reportcache19}.
 
-%reportcache14% %cache_wp% - %cachename%
-(%server%viewcache.php?cacheid=%cacheid%).
+{reportcache14} {cache_wp} - {cachename}
+({server}viewcache.php?cacheid={cacheid}).
 
-%reportcache15%: %reason%
+{reportcache15}: {reason}
 
-%reportcache10%:
-------------------- %reportcache11%  ------------------
-%text%
-------------------- %reportcache12% -------------------
+{reportcache10}:
+------------------- {reportcache11}  ------------------
+{text}
+------------------- {reportcache12} -------------------
 
 
 -- 
-%octeamEmailsSignature%
+{octeamEmailsSignature}
