@@ -80,7 +80,7 @@
 
 function process_new_cache($notify)
 {
-    global $notify_text, $mailfrom, $mailsubject, $debug, $debug_mailto, $rootpath;
+    global $notify_text, $mailfrom, $mailsubject, $debug, $debug_mailto, $rootpath, $octeamEmailsSignature, $absolute_server_URI, $site_name, $dateFormat;
 
 //  echo "process_new_cache(".$notify['id'].")\n";
     $fehler = false;
@@ -99,7 +99,7 @@ function process_new_cache($notify)
     if(!$fehler)
     {
         $mailbody = mb_ereg_replace('{username}', $notify['recpname'], $mailbody);
-        $mailbody = mb_ereg_replace('{date}', date('d.m.Y', strtotime($notify['date_hidden'])), $mailbody);
+        $mailbody = mb_ereg_replace('{date}', date($dateFormat, strtotime($notify['date_hidden'])), $mailbody);
         $mailbody = mb_ereg_replace('{cacheid}', $notify['cache_id'], $mailbody);
         $mailbody = mb_ereg_replace('{wp_oc}', $notify['wp_oc'], $mailbody);
         $mailbody = mb_ereg_replace('{user}', $notify['username'], $mailbody);
@@ -109,6 +109,18 @@ function process_new_cache($notify)
         $mailbody = mb_ereg_replace('{bearing}', Bearing2Text(calcBearing($notify['lat1'], $notify['lon1'], $notify['lat2'], $notify['lon2'])), $mailbody);
         $mailbody = mb_ereg_replace('{cachetype}', $notify['cachetype'], $mailbody);
         $mailbody = mb_ereg_replace('{cachesize}', $notify['cachesize'], $mailbody);
+        $mailbody = mb_ereg_replace('{server}', $absolute_server_URI, $mailbody);
+        $mailbody = mb_ereg_replace('{sitename}', $site_name, $mailbody);
+        $mailbody = mb_ereg_replace('{notify_newCache_01}', tr('notify_newCache_01'), $mailbody);
+        $mailbody = mb_ereg_replace('{notify_newCache_02}', tr('notify_newCache_02'), $mailbody);
+        $mailbody = mb_ereg_replace('{notify_newCache_03}', tr('notify_newCache_03'), $mailbody);
+        $mailbody = mb_ereg_replace('{notify_newCache_04}', tr('notify_newCache_04'), $mailbody);
+        $mailbody = mb_ereg_replace('{notify_newCache_05}', tr('notify_newCache_05'), $mailbody);
+        $mailbody = mb_ereg_replace('{notify_newCache_06}', tr('notify_newCache_06'), $mailbody);
+        $mailbody = mb_ereg_replace('{notify_newCache_07}', tr('notify_newCache_07'), $mailbody);
+        $mailbody = mb_ereg_replace('{notify_newCache_08}', tr('notify_newCache_08'), $mailbody);
+        $mailbody = mb_ereg_replace('{notify_newCache_09}', tr('notify_newCache_09'), $mailbody);
+        $mailbody = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $mailbody);
 
         $subject = mb_ereg_replace('{cachename}', $notify['cachename'], $mailsubject);
 

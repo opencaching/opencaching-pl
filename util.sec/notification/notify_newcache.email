@@ -1,22 +1,21 @@
-Witaj {username},
+{notify_newCache_01} {username},
 
-W zadeklarowanym przez Ciebie promieniu 
-pojawiła się następująca skrzynka:
+{notify_newCache_02}:
 
 ---
-{user} dnia {date} zarejestrował nową skrzynkę "{wp_oc}: {cachename}".
-Odległość: {distance} {unit}, kierunek: {bearing}
-Typ: {cachetype}
-Wielkość: {cachesize}
+{user} {notify_newCache_03} {date} {notify_newCache_04} "{wp_oc}: {cachename}".
+{notify_newCache_05}: {distance} {unit}, {notify_newCache_06}: {bearing}
+{notify_newCache_07}: {cachetype}
+{notify_newCache_08}: {cachesize}
 
-OC Link: http://www.opencaching.pl/viewcache.php?wp={wp_oc}
-OC Mobile Link: http://m.opencaching.pl/viewcache.php?wp={wp_oc}
+OC Link: {server}viewcache.php?wp={wp_oc}
+OC Mobile Link: http://m.{sitename}viewcache.php?wp={wp_oc}
 ---
 
-Możesz zmienić ustawienia powiadomień 
-na stronie swojego profilu:
-http://www.opencaching.pl/myprofile.php
+{notify_newCache_09}:
+{server}myprofile.php
 
 
--- 
-Opencaching PL Team
+---
+{octeamEmailsSignature}
+
