@@ -2301,18 +2301,18 @@ removedLog_01 Hello
 removedLog_02 has removed your logentry from cache 
 removedLog_03 Contens of the log was 
 removedLog_04 This message is auto-generated - please do not reply
-notify_newcache_01 Hello
-notify_newcache_02 There has been placed a new cache in your area
-notify_newcache_03 has placed on 
-notify_newcache_04 a new cache
-notify_newcache_05 Distance
-notify_newcache_06 Bearing
-notify_newcache_07 Type
-notify_newcache_08 Size
-notify_newcache_09 You can watch and change your settings on
-notify_newcache_10 New caches
-notify_newcache_11 There are no new logs
-notify_newcache_12 This message is auto-generated - please do not reply
+notify_newCache_01 Hello
+notify_newCache_02 There has been placed a new cache in your area
+notify_newCache_03 has placed on 
+notify_newCache_04 a new cache
+notify_newCache_05 Distance
+notify_newCache_06 Bearing
+notify_newCache_07 Type
+notify_newCache_08 Size
+notify_newCache_09 You can watch and change your settings on
+notify_newCache_10 New caches
+notify_newCache_11 There are no new logs
+notify_newCache_12 This message is auto-generated - please do not reply
 
 
 
