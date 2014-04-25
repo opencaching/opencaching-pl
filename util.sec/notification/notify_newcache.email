@@ -9,7 +9,7 @@
 {notify_newCache_08}: {cachesize}
 
 OC Link: {server}viewcache.php?wp={wp_oc}
-OC Mobile Link: http://m.{sitename}viewcache.php?wp={wp_oc}
+OC Mobile Link: http://m.{sitename}/viewcache.php?wp={wp_oc}
 ---
 
 {notify_newCache_09}:
