@@ -287,7 +287,7 @@ if ($error == false) {
                     } else {
                         if ($username != $usr['username']) {
                             $sql = "SELECT `username` FROM `user` WHERE `username`=:1";
-                            $db->multiVariableQuery($query, $username);
+                            $db->multiVariableQuery($sql, $username);
                             if ($db->rowCount() > 0) {
                                 $username_exists = true;
                                 tpl_set_var('username_message', $error_username_exists);
