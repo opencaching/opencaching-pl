@@ -269,8 +269,8 @@ watchers utilizatori care urmăresc această geocutie
 visitors vizitatori
 view_reports Afişează rapoarte
 report_problem Anunţă o problemă
-no_not_published_caches Nicio geocutie nepublicată
-no_logs Nicio însemnare
+no_not_published_caches Nici o geocutie nepublicată
+no_logs Nici o însemnare
 no_time_indicated Momentul activării nu este specificat
 welcome Bine ai venit
 administrating_oc Administrare OC
@@ -615,7 +615,7 @@ latest_cache Ultimele geocutii găsite
 milestones Etape importante
 latest_logs_by_user Ultimele însemnări
 stat_created_caches Clasamentele geocutiilor ascunse
-not_caches_created  Utilizatorul încă nu a ascuns nicio geocutie
+not_caches_created  Utilizatorul încă nu a ascuns nici o geocutie
 total_created_caches Numărul de geocutii ascunse
 number_temp_caches Numărul de geocutii marcate "indisponibilă temporar"
 number_archived_caches Numărul de geocutii "arhivate"
@@ -662,7 +662,7 @@ cache_note Notiţă
 delete Şterge
 edit modifică
 cancel Anulează
-no_note Nu am nicio notiţă
+no_note Nu am nici o notiţă
 additional_waypoints Puncte suplimentare
 nowp_notice Nu există puncte suplimentare
 stage_wp Stadiu
@@ -746,7 +746,7 @@ confirm_remove_log Eşti sigur(ă) că vrei să ştergi însemnarea
 add_comment_to_remove Ai vrea sa trimiţi un comentariu suplimentar către
 removed_log_title Însemnarea a fost ştearsă de proprietarul geocutiei
 removed_message_titel Proprietarul geocutiei ţi-a scris un comentariu
-dont_have_recommended_caches Nu ai nicio geocutie recomandată
+dont_have_recommended_caches Nu ai recomandat nici o geocutie
 your_recommendations Recomandările tale pentru geocutii
 was_removed a fost şters(ă)
 recommended_geocaches Geocutii recomandate
@@ -1951,7 +1951,7 @@ cacheType_2 Multiplă
 cacheType_3 Mister
 cachetype_4 În mişcare
 cacheType_5 Nescunoscută
-cacheType_6 Evenimet
+cacheType_6 Eveniment
 cacheType_7 Cameră web
 cacheType_8 Virtuală
 cacheType_9 Podcast
@@ -2193,27 +2193,27 @@ contact_ocpl_description_2 ***- 2011 Wojtek "wrygiel" - Opencaching API author: 
 contact_ocpl_description_3 ***- 2011 Jakub "lecter69" - author of mobile version: http://m.opencaching.pl
 newCacheWpTitle Alege Punct
 newCacheWpDesc File contain few waypoints. Pick proper one.
-logmap_01 By
+logmap_01 De
 logmap_02 Data
-logmap_03 Map with last 100 logentries
-logmap_04 Logmap
-logbook_01 Logbook preview
-logbook_02 Type
-logbook_03 Select
-logbook_04 Logbook A6 Doublesided
-logbook_05 Logbook A7 Doublesided
-logbook_06 Select type of logbook
-logbook_07 Leave the fields blank if you want to modify it later manually or leave the default values​​
-logbook_08 Cache name
+logmap_03 Harta cu ultimele 100 de însemnări
+logmap_04 Hartă însemnări
+logbook_01 Previzualizare jurnal
+logbook_02 Tip
+logbook_03 Alege
+logbook_04 Jurnal A6 afţă-verso
+logbook_05 Jurnal A7 faţă-verso
+logbook_06 Alege tipul jurnalului
+logbook_07 Nu completa câmpurile pe care vrei să le modifici mai târziu sau vrei să păstrezi valorile implicite
+logbook_08 Numele geocutiei
 logbook_09 Coordonate
-logbook_10 Main picture
-logbook_11 Background pic
+logbook_10 Imaginea principală
+logbook_11 Imagine de fundal
 logbook_12 w
 logbook_13 h
 logbook_14 Transparenţă
-logbook_15 Modify picture example: x -2 moves picture 2 pixels to left. h +4 increase height picture with 4 pixels
-logbook_16 Without FTF
-logbook_17 No borders
+logbook_15 Exemplu de modificare imagine: x -2 mută imaginea 2 pixeli la stânga. h +4 măreşte imaginea pe verticală cu 4 pixeli
+logbook_16 Fără PG
+logbook_17 Fără chenar
 logbook_18 Useful when there is difficulty in equal printed on both sides, cut only on odd-numbered pages
 logbook_19 Poreclă
 logbook_20 E-Mail
@@ -2230,8 +2230,8 @@ pt_cache Cutia aparţine GeoTraseului:
 Help Ajutor
 links_01 Legături către site-uri despre geocaching
 links_02 Alte site-uri de Geocaching
-links_03 Letterbox websites
-links_04 Travel Bugs websites
+links_03 Site-uri cu cutii poştale (Letterbox)
+links_04 Site-uri de urmărit obiecte călătoare
 links_05 Altele
 .week . săptămână
 .month . lună
