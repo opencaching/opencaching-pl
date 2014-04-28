@@ -344,9 +344,9 @@ mandatory_field Acest câmp este obligatoriu
 full_desc_long_text Descrie geocutia aici. De ce ai ales locul? Ce ar trebui să ştie căutătorii atunci când doresc să o găsească? Scrie toate informaţiile necesare astfel incât cutia să poată fi într-adevăr găsită.
 description_hint Adaugă un indiciu
 no_javascript Browser-ul tău nu are suport pentru Javascript. Poţi scrie doar text simplu, fără formatări. Pentru putea folosi editorul HTML, activează Javascript.
-html_usage Please use HTML tags only for editing a text.****
+html_usage Te rog foloseşte elemente HTML doar pentru text.
 available_html Lista cu elementele HTML disponibile
-additional_enc_info Optional encrypted hint. This is <b>NOT</b> required. Your can write some additional hints here.***
+additional_enc_info Indiciu opţional, codat. Acesta <b>NU</b> este necesar. Poţi scrie indicii suplimentare aici.
 add_photo_newcache Fotografii, sunete MP3, etc, pot fi adăugate după ce cutia a fost înregistrată.
 search_wildcard_info Use "%" as a wildcard.***
 event_hidden_hint Pentru evenimente câmpul "data ascunderii" conţine de fapt data de început a evenimentului.
@@ -437,7 +437,7 @@ map_msg Pentru a vedea coordonatele şi <br/>harta unde se află geocutia<br/> t
 additional_hints Indicii suplimentare
 images Fotografii
 mp3_files_info PodCast - ascultă instrucţiuni care te vor ghida către o geocutie - fişiere MP3
-utilities Utilities***
+utilities Utilitare
 search_geocaches_nearby Caută geocutii apropiere (pe o rază de 100 km)
 download_as_file Descarcă fişier
 accept_terms_of_use Descărcând acest fişier, accepţi <a href="{rules_url}">Condiţiile de Utilizare</a>.
@@ -475,14 +475,14 @@ do_not_rate Nu vreau să votez această geocutie
 listed_other Poţi publica însemnările pentru această geocutie si pe alte site-uri
 not_spcified nespecificat
 all_countries arată toate ţările
-register_email_subject Opencaching.PL - Confirmă înregistrarea
+register_email_subject Opencaching - Confirmă înregistrarea
 error_username_not_ok Nume de utilizator incorect
-error_username_exists Numele de utilizator ales este deja existent pe Opencaching.PL. Alege alt nume.
+error_username_exists Numele de utilizator ales există deja. Alege alt nume.
 error_email_not_ok Adresa de E-Mail incorectă
-error_email_exists Adresa de e-mail aleasă este deja existentă pe Opencaching.PL.
+error_email_exists Adresa de e-mail aleasă există deja.
 error_password_not_ok Parola ta este prea scurta sau conţine caractere care nu sunt permise
 error_password_diffs Parola nu se potriveşte (verifică câmpul "confirmă parola")
-error_tos Trebuie să accepţi condiţiile de utilizare ale site-ului Opencaching.PL's
+error_tos Trebuie să accepţi condiţiile de utilizare
 step1 Primul pas
 step2 Al doilea pas
 new_password_msg1 Pentru a-ţi schimba parola, trebuie sa ceri un cod de securitate pe care îl vei primi pe E-Mail.
@@ -724,7 +724,7 @@ number_month Numărul de luni
 stat_problems Statisticile Echipei OC - probleme rezolvate
 edit_logentry Modifică însemnarea
 moved_cache_info Dacă ai mutat geocutia în altă parte introdu noile coordonate (vor fi incluse în însemnare)
-encrypt_log_info Dacă însemnările tale conţin texte sau imagini care pot dezvălui ascunzişul geocutiei, poţi să le codezi. Textul dintre paranteze <b>[like this]</b> nu va fi codat.
+encrypt_log_info Dacă însemnările tale conţin texte sau imagini care pot dezvălui ascunzişul geocutiei, poţi să le codezi. Textul dintre paranteze <b>[ca acesta]</b> nu va fi codat.
 encrypt_log_entry Codează această însemnare
 not_recommend_own Nu poţi recomanda o geocutie de-a ta
 send_report_info Foloseşte acest formular pentru a raporta Echipei OCRO sau proprietarului o problemă a geocutiei
@@ -732,7 +732,7 @@ send_report Trimite raport
 password_to_log Parola pentru a te loga
 incorrect_password_to_log Parolă greşită
 only_for_found_it doar pentru geocutii de tip "găsită"
-store Scrie
+store Scrie*
 here Aici
 alternative_recommend Alternative you can remove recommendations
 comment_log Comentează
@@ -903,7 +903,7 @@ os_komunikat2 Alege geocutia din listă ale cărei coordonate vrei sa le verific
 os_typ tip
 os_powrot înapoi
 os_pomoc Ajutor
-os_zobo Află pentru ce este folosit OpenSprawdzacz şi cum poţi să îţi adaugi geocutia ta.
+os_zobo Află pentru ce este folosit OpenChecker şi cum poţi să îţi adaugi geocutia ta.
 os_spr_form Verifică coordonatele finale ale geocutiei
 os_twojews Coordonatele tale
 os_hlp_01 OpenChecker permite utilizatorilor să verifice coordonatele finale ale geocutiei de tip "Quiz" (Puzzle), "Multi" şi "Alt Tip"
@@ -943,7 +943,7 @@ log_mobile_init Coordonatele de start
 error_coords_not_ok Coordonate greşite!
 GKApi01 Leagă contul tău OC cu GeoKrety.org
 GKApi02 Geokrety Secid:
-GKApi03 Pentru a-ţi lega contul tău de pe Opencaching.ro cu Geokrety.org copiază aici <b>Secid</b>. Poţi găsi <b>Secid</b> pe pagina geokrety în detaliile contului tău. **
+GKApi03 Pentru a-ţi lega contul tău de pe {site_name} cu Geokrety.org copiază aici <b>Secid</b>. Poţi găsi <b>Secid</b> pe pagina geokrety în detaliile contului tău. **
 GKApi04 (Aici)
 GKApi05 Scrie o însemnare pentru geoKrety-ul din inventarul tău imediat:
 GKApi06 Scrie o însemnare pentru GeoKrety acum
@@ -1018,10 +1018,10 @@ removed_message_title Proprietarul geocutiei ţi-a scris următorul comentariu
 to_do De făcut
 mc_beginn_00 Adăugarea unei noi geocutii - informaţii
 mc_beginn_01 Înainte să ascunzi geocutii, trebuie să găseşti minim  
-mc_beginn_02 caches. Poţi alege dintre tipurile diferite de geocutii:
+mc_beginn_02 geocutii. Poţi alege dintre tipurile diferite de geocutii:
 mc_beginn_03 Până când nu ai găsit un număr de geocutii:
 mc_beginn_04 După ce ai găsit minimul de geocutii, primele tale 
-mc_beginn_05 geocutii trebuie aprobate de echipa oc. După ce au fost aprobate vei primi un email cu instrucţiuni. Apoi îţi vei putea modifica noua ta geocutie şi o poţi "activa". Dacă echip oc ţi-a respins geocutia îţi vor spune motivul astfel încât să o poţi corecta şi apoi să le ceri din nou aprobarea.
+mc_beginn_05 geocutii trebuie aprobate de Echipa Opencaching România. După ce au fost aprobate vei primi un email cu instrucţiuni. Apoi îţi vei putea modifica noua ta geocutie şi o poţi "activa". Dacă echip oc ţi-a respins geocutia îţi vor spune motivul astfel încât să o poţi corecta şi apoi să le ceri din nou aprobarea.
 latest_blog Ultimele însemnări pe blog
 geocache Geocutie
 adopt_00 Adopţie geocutii
@@ -1211,173 +1211,173 @@ oc_subtitle_on_all_pages_1A GeoCzaching, Skeleton search portal.**
 PrimaAprilis GeoCzaching, Skeleton search portal. Sorry! This page is only available for paying members (premium member). <br>. Unfortunately, you did not pay any fees, or anything we did not know about!** 
 PMOnly Zone Super Member!**
 primaAprilis1 Sign Collective Center geocacher, Cruise Council and Technical Board **
-oc_on_all_pages_top_pl OPENCACHING.ro
+oc_on_all_pages_top_pl OPENCACHING.pl
 oc_subtitle_on_all_pages_pl Geocaching-ul în Polonia
-oc_on_all_pages_top_nl OPENCACHING.nl **
-oc_subtitle_on_all_pages_nl Geocaching in the BeNeLux **
-oc_on_all_pages_top_ro OPENCACHING.ro **
+oc_on_all_pages_top_nl OPENCACHING.nl
+oc_subtitle_on_all_pages_nl Geocaching in the BeNeLux
+oc_on_all_pages_top_ro OPENCACHING.ro
 oc_subtitle_on_all_pages_ro Geocaching în România
 Statictics Statistici
 org1 organizat de
 noaccess_error_01 Nu ai permisiunea să vezi această pagină.
 noaccess_error_02 Înapoi la pagina principală
-report_problem_notice If there is a problem with a cache, like <b>wrong location</b> Report the owner (or the octeam) by using this link.
-qrcode_01 QR Code label
-qrcode_02 A label generated at <a class="links" href="http://pl.wikipedia.org/wiki/QR_Code">QR Code</a> laminated, in a strin bag or as a sticker) can be used to wrire a short, 77-character long message, e.g. coordinates of next stage of multicache, logbook passowrd etc. One need a QR code scanner e.g. available in some mobile phoes to red thate code.
-qrcode_03 QR Code data
-qrcode_04 Generate
-qrcode_05 Here you can find QR Code reader for different phone types
+report_problem_notice Dacă descoperi o problemă cu o geocutie, de exemplu <b>locaţie greşită</b> Raportază proprietarului (sau Echipei Opencaching România) folosind această legătură.
+qrcode_01 QR Etichetă
+qrcode_02 A label generated at <a class="links" href="http://pl.wikipedia.org/wiki/QR_Code">QR Code</a> laminated, in a strin bag or as a sticker) can be used to wrire a short, 77-character long message, e.g. coordinates of next stage of multicache, logbook passowrd etc. One need a QR code scanner e.g. available in some mobile phoes to red thate code.**
+qrcode_03 Conţinut pentru cod QR
+qrcode_04 Generează
+qrcode_05 Aici poţi găsi cititor de coduri QR pentru diferite telefoane
 error_ort Locating failed
 alert_search_by_cachename Enter the name!
-alert_search_by_dist_01 Longitude degrees must be numeric!\nFormat: hh° mm.mmm
-alert_search_by_dist_02 Latitude degrees must be numeric!!\nFormat: hh° mm.mmm
-alert_search_by_dist_03 Max. distance must be numeric!
-alert_search_by_dist_04 Max. distance shall be within this range: 0 - 9999
-alert_search_by_text_01 Please enter the description!
-alert_search_by_text_02 Minimal number of characters of desciption is 3!
-alert_search_by_text_03 At least one field must be selected!
-alert_search_by_owner Enter the owner!
-alert_search_by_finder Enter the seeker!
-alert_search_by_ort_01 Enter the city name!
-alert_search_by_ort_02 Minimal number of characters of name place is 3!
-alert_search_by_ort_03 Max. distant must be numeric!
-alert_search_by_ort_04 Maximum distance shall be within this range: 0 - 9999
-no_pictures_yet No picture added yet.
-show_all_countries Show all countries
-newcache_upload Load
-newcache_import_wpt Load data from gpx file
-newcache_import_wpt_help This feature allow you to get waypoint data (coords, name) from gpx file. (f.ex.&nbsp;from garmin).
-newcache_import_wpt_ok Data was loaded
-email_reset Reset
-email_submit Submit
-garmin_not_found No GPS device found
-garmin_search Search for GPS device
-garmin_to_gps Klick to send {wp_oc} to GPS te device
-garmin_plugin The plug-in is not installed
-garmin_written The data was stored in the GPS
-garmin_found Found
-garmin_download Download and install
-garmin_write Sending geocache to GPS device
-garmin_send Geocache is
-garmin_send_yes saved
-garmin_send_no not saved
-links_pagetitle Links to various sites related to Geocaching
-message_user_not_found There is no such user!
-message_sent E-Mail is send to user
-report_resultpage Report problem of cache
-report_sent_owner Report has been sent to cacheowner.
-search00 All countries
+alert_search_by_dist_01 Longitudinea trebuie să fie numerică!\nFormat: GG° MM.mmm
+alert_search_by_dist_02 Latitudinea trebuie să fie numerică!!\nFormat: GG° MM.mmm
+alert_search_by_dist_03 Distanţa maximă trebuie să fie numerică!
+alert_search_by_dist_04 Distanţa maximă trebuie să fie în gama: 0 - 9999
+alert_search_by_text_01 Te rog introdu descrierea!
+alert_search_by_text_02 Numărul minim de litere pentru descriere este 3!
+alert_search_by_text_03 Cel puţin o căsuţă trebuie să fie selectată!***
+alert_search_by_owner Introdu proprietarul!
+alert_search_by_finder Introdu căutătorul!
+alert_search_by_ort_01 Introdu numele oraşului!
+alert_search_by_ort_02 Numărul minim de litere pentru denumire este 3!
+alert_search_by_ort_03 Distanţa maximă trebuie să fie numerică!
+alert_search_by_ort_04 Distanţa maximă trebuie să fie în gama: 0 - 9999
+no_pictures_yet Încă nu a fost adăugate poze.
+show_all_countries Arată toate ţările
+newcache_upload Încarcă
+newcache_import_wpt Încarcă din fişier GPX
+newcache_import_wpt_help Această funcţie permite încărcarea de informaţii despre un punct (coordonate, denumire) dintr-un fişier GPX. (de ex.&nbsp; provenind dintr-un dispozitiv Garmin)
+newcache_import_wpt_ok Informaţiile au fost încărcate
+email_reset Anulează
+email_submit Trimite
+garmin_not_found Nu a fost găsit nici un dispozitiv GPS
+garmin_search Caută dispozitive GPS
+garmin_to_gps Apasă pentru a trimite {wp_oc} către dispozitivul GPS
+garmin_plugin Extensia nu este instalată
+garmin_written Informaţiile au fost încărcate în dispozitivul GPS
+garmin_found Găsite*
+garmin_download Descarcă şi instalează
+garmin_write Trimitere geocutie către dispozitiv GPS
+garmin_send Geocutia
+garmin_send_yes este salvată
+garmin_send_no nu este salvată
+links_pagetitle Legături către alte pagini despre Geocaching
+message_user_not_found Utilizatorul nu există!
+message_sent Mesajul a fost trimis
+report_resultpage Raportează o problemă cu geocutia
+report_sent_owner Reportul a fost trimis proprietarului.
+search00 Toate ţările
 geokret Geokrety
-rss_01 RSS Feeds {site_name}
-rss_02 Latest caches
-rss_03 Latest logs
-rss_04 Latest news
-rss_05 Latest logs at
-rss_06 User
-rss_07 Log
-rss_08 Date
-rss_09 Newest caches at
-rss_10 Cachename
-rss_11 Country
-rss_12 Latest news on
-rss_13 Latest logs from user
-rss_14 Information latest logs from user
-rss_15 GeoKrety: Yes
-rss_16 GeoKrety: No
-rss_17 Recommended: Yes
-rss_18 Recommended: No
-rss_19 Latest logs own caches from
-rss_20 Information latest logs own caches from
-reportcache01 Cache might be on private property
-reportcache02 Cache requires archiving
-reportcache03 Copyright violation
-reportcache04 Other reason
-reportcache05 No comment text!
-reportcache06 No reason selected!
+rss_01 Flux RSS {site_name}
+rss_02 Cele mai noi geocutii
+rss_03 Ultimele însemnări
+rss_04 Ultimele noutăţi
+rss_05 Ultimele însemnări la
+rss_06 Utilizator
+rss_07 Însemnare
+rss_08 Dată
+rss_09 Cele mai noi geocutii la
+rss_10 Nume geocutie
+rss_11 Ţară
+rss_12 Ultimele noutîţi pe
+rss_13 Ultimele însemnări de la utilizatorul
+rss_14 Ultimele însemnări informative de la utilizatorul
+rss_15 GeoKrety: Da
+rss_16 GeoKrety: Nu
+rss_17 Recomandări: Da
+rss_18 Recomandări: Nu
+rss_19 Ultimele însemnări la propriile cutii*
+rss_20 Information latest logs own caches from*
+reportcache01 Cutia pare să fie pe proprietate privată
+reportcache02 Cutia ar trebuie arhivată
+reportcache03 Încălcare a unor drepturi de autor
+reportcache04 Alte motive
+reportcache05 Nu ai scris nimic!
+reportcache06 Nu ai ales motivul!
 reportcache07 New cache problem reported on OC PL
-reportcache08 [OC PL] Problem report with your cache
+reportcache08 [OC RO] Problem report with your cache
 reportcache09 [OC PL] Problem report with cache
-reportcache10 Description of problem
-reportcache11 begin
-reportcache12 end
-reportcache13 These messages can be watched on
-reportcache14 It is about cache
-reportcache15 Reason of problem
-reportcache16 With nice greetings of your mailserver :-)
-reportcache17 On
-reportcache18 has user
-reportcache19 reported a problem with a cache
-reportcache20 a problem with a cache is reported
+reportcache10 Descrierea problemei
+reportcache11 început
+reportcache12 sfârşit
+reportcache13 Aceste mesaje pot fi urmărite pe
+reportcache14 Despre geocutie**
+reportcache15 Motivul
+reportcache16 Complimente de la server-ul tău de email :-)
+reportcache17 Pe
+reportcache18 has user**
+reportcache19 a raportat o problemă cu o geocutie
+reportcache20 a problem with a cache is reported**
 reportcache21 The Opencaching team will review your report as soon as possible. If you need to contact the Opencaching team with regards to this report, please reply to this message.
-register00 User name
-register01 your@email.address
-register02 password
-register03 repeat password
-register04 Clear form
-logType1 Found it
-logType2 Didn't find it
-logType3 Comment
-logType4 Moved
-logType5 Needs maintenance
+register00 Nume utilizator
+register01 adresa.ta@de.email
+register02 parolă
+register03 repetă parola
+register04 Anulează formularul
+logType1 Am găsit
+logType2 Nu am găsit
+logType3 Comentariu
+logType4 Mutată
+logType5 Necesită întreţinere
 logType6 Service was made
-logType7 Attended
-logType8 Will attend
-logType9 Archived
-logType10 Ready to find
-logType11 Temporarily unavailable
-logType12 OC Team comment
-runwatch01 made
-runwatch02 to the log of the cache
-runwatch03 New cache logs report
-runwatch04 If you cannot see this picture, add sender to your addressbook
-runwatch05 Please be informed that there are new log entries to your own caches or your watched caches.<br/><br/> New log entires to your own caches
-runwatch06 Date/Time
-runwatch07 Geocacher
-runwatch08 Cache
-runwatch09 Hello
-runwatch10 log content
-runwatch11 New log entires to your watched caches
-runwatch12 the list of your watched cached can be found at
-runwatch13 by clicking at
-runwatch14 This message is auto-generated - please do not reply
-runwatch15 No log entries
-registermail01 Hello
-registermail02 Welcome at
-registermail03 To have a good start, you can read most information on our OpenGeoWiki.You can find OpenGeoWiki at:
+logType7 Am participat
+logType8 Voi participa
+logType9 Arhivată
+logType10 Gata să fie găsită
+logType11 Temporar indisponibilă
+logType12 Comentariu din partea Echipei OC
+runwatch01 făcut**
+runwatch02 la jurnalul geocutiei**
+runwatch03 Raport cu noile însemnări la geocutii
+runwatch04 Dacă nu vezi această imagine, adaugă expeditorul în agenda ta
+runwatch05 Te anunţăm că au apărut noi însemnări la geocutiile tale sau cele pe care le urmăreşti.<br/><br/> Noi însemnări la geocutiile tale
+runwatch06 Dată/Oră
+runwatch07 Căutător
+runwatch08 Geocutie
+runwatch09 Bună
+runwatch10 conţinut jurnal**
+runwatch11 Noi însemnări la geocutiile urmărite de tine
+runwatch12 lista cu geocutiile urmărite poate fi găsită la
+runwatch13 apăsând pe
+runwatch14 Acest mesaj este generat automat, te rog nu răspunde
+runwatch15 Nu sunt însemnări
+registermail01 Bună
+registermail02 Bine ai venit pe
+registermail03 Pentru început, poţi afla mai multe pe GeoWiki. Poţi accesa GeoWiki la:
 registermail04 {wiki_url}
-registermail05 If you're looking for help through an interactive map where you can find volunteers who offer their help to beginning cachers.
-registermail06 Look at page:
-registermail07 Before you register your first cache on OC PL you must find 10 caches of follwing types:traditional, quiz, multicache and unknown type.
-registermail08 Your first 3 caches will be moderated by OC Team.
-registermail09 Mobile version OC PL services you can find on http://m.opencaching.pl
-registermail10 We have saved the next data from you for registration:
-registermail11 E-Mail adress:
-registermail12 Username:
-registermail13 Country:
-registermail14 Use the next code to complete your registration:
-registermail15 Enter your activation code on the next page:
-registermail16 If you don't login in the next 14 days, your account will be deleted.
-activatemail01 The cache
-activatemail02 has been aproved by the Opencaching Team.
-activatenail03 You can change the status in "Ready to find" on:
-activatemail04 If you have any questions about this, contact:
-activatemail05 octeam@opencaching.pl
-bearinglong_n North
-bearinglong_nne North / North-east
-bearinglong_ne North-east
-bearinglong_ene East / North-east
-bearinglong_e East
-bearinglong_ese East / South-east
-bearinglong_se South-east
-bearinglong_sse South / South-east
-bearinglong_s South
-bearinglong_ssw South / South-west
-bearinglong_sw South-west
-bearinglong_wsw West / South-west
-bearinglong_w West
-bearinglong_wnw West / North-west
-bearinglong_nw North-west
-bearinglong_nnw North / North-west
+registermail05 *If you're looking for help through an interactive map where you can find volunteers who offer their help to beginning cachers.
+registermail06 *Look at page:
+registermail07 *Before you register your first cache on OC PL you must find 10 caches of follwing types:traditional, quiz, multicache and unknown type.
+registermail08 *Your first 3 caches will be moderated by OC Team.
+registermail09 Versiunea mobilă poate fi găsită aici: http://m.{site_name}
+registermail10 Am reţinut următoarele informaţii din înregistrarea ta:
+registermail11 Adresă de E-Mail:
+registermail12 Nume utilizator:
+registermail13 Ţară:
+registermail14 Foloseşte acest cod de activare pentru a confirma înregistrarea:
+registermail15 Introdu codul de activare aici:
+registermail16 Dacă nu confirmi înregistrarea în următoarele 14 zile, contul tău va fi şters.
+activatemail01 Geocutia
+activatemail02 a fost aprobată de Echipa Opencaching.
+activatenail03 Poţi schimba starea ei în "Gata să fie găsită" pe:
+activatemail04 Dacă ai întrebări. contactează-ne:
+activatemail05 octeam@opencaching.pl**
+bearinglong_n Nord
+bearinglong_nne Nord-nord-est
+bearinglong_ne Nord-est
+bearinglong_ene Est-nord-est
+bearinglong_e Est
+bearinglong_ese Est-sud-est
+bearinglong_se Sud-est
+bearinglong_sse Sud-sud-est
+bearinglong_s Sud
+bearinglong_ssw Sud-sud-vest
+bearinglong_sw Sud-vest
+bearinglong_wsw Vest-sud-vest
+bearinglong_w Vest
+bearinglong_wnw Vest-nord-vest
+bearinglong_nw Nord-vest
+bearinglong_nnw Nord-nord-vest
 bearingshort_n N
 bearingshort_nne NNE
 bearingshort_ne NE
@@ -1387,107 +1387,107 @@ bearingshort_ese ESE
 bearingshort_se SE
 bearingshort_sse SSE
 bearingshort_s S
-bearingshort_ssw SSW
-bearingshort_sw SW
-bearingshort_wsw WSW
-bearingshort_w W
-bearingshort_wnw WNW
-bearingshort_nw NW
-bearingshort_nnw NNW
-mailto_01 No subject!
-mailto_02 No text entered!
-mailto_03 E-Mail from
-mailto_04 Hello
-mailto_05 E-mail address
-mailto_06 contacts you by
-mailto_07 User's profile:
-mailto_08 To reply to this e-mail please use the answer function in your email program.
-mailto_09 To reply to this e-mail please use the function "Mail to user" in the profile of the user.
-copy_sender A copy of your message
-region_not_ok Please select district!
-poland_outside Outside Poland
-benelux_outside Outside the BeNeLux
-romania_outside Outside Romania
-index_01 Ranking caches by calculated index
-index_02 The following list is automatically generated from user recommendations. The numbers in the list below mean:
-index_03 Number of users that recommend this cache
-index_04 Number of times the cache has been found
-index_05 The Index tries to calculate a quality ranking of geocaches from the recommendation and the number of find logs.
+bearingshort_ssw SSV
+bearingshort_sw SV
+bearingshort_wsw VSV
+bearingshort_w V
+bearingshort_wnw VNV
+bearingshort_nw NV
+bearingshort_nnw NNV
+mailto_01 Nu ai scris subiectul!
+mailto_02 Nu ai scris mesajul!
+mailto_03 E-Mail de la
+mailto_04 Bună
+mailto_05 Adresă E-mail
+mailto_06 te-a contactat prin
+mailto_07 Profilul utilizatorului:
+mailto_08 Pentru a răspunde la acest mesaj foloseşte funcţia "răspunde" din programul tău de email.
+mailto_09 Pentru a răspunde la acest mesaj foloseşte funcţia "Trimite e-mail utilizatorului" din profilul acestui utilizator.
+copy_sender O copie a mesajului tău
+region_not_ok Alege regiune!
+poland_outside În afara Poloniei
+benelux_outside În afara BeNeLux
+romania_outside În afara României
+index_01 Clasamentul geocutiilor după index calculat
+index_02 Următoarea listă este generată automat pe baza recomandărilor utilizatorilor. Cifrele din lista de mai jos înseamnă:
+index_03 Numărul de utilizatori care recomandă această geocutie
+index_04 Numărul de câte ori a fost găsită geocutia
+index_05 Indexul încearcă să calculeze calitatea geocutiilor pe baza recomandărilor şi a găsirilor.
 index_06 Index
-adopt00 The adoption process has been completed. The previous cache owner was
-adopt01 The current owner of the caches is
-rating-c_01 Cache Difficulty Rating System
-rating-c_02 Overall Difficulty:
-rating-c_03 For example, if difficulty is between 1 and 2, in the settings box you can use difficulty levels with an accuracy of 0.5, eg 1.5
-rating-c_04 How hard to find it?:
-rating-c_05 Easy. Easily found within a few minutes even by beginners.
-rating-c_06 Medium. Most geocachers will find it in less than 30 minutes searching.
-rating-c_07 Challenging. Experienced cache searchers will take a longer time to find the cache.
-rating-c_08 Difficult. Very challenging for even the experienced geocacher. May require special skills, knowledge, thorough preparation or research. May require multiple days / trips to find the cache.
-rating-c_09 Extreme. Sweet Jesus! Do you want anyone to be able to find this thing?
-rating-c_10 Terrain Difficulty:
-rating-c_11 Wheelchair accessible. Less than 100 yards from a place to park.
-rating-c_12 Suitable for small children. The area is generally along the marked trails. There are no steep elevation changes. Less than 3 kilometer hike required.
-rating-c_13 Not for small children. The average adult or older child should be OK, depending on condition. It is possible that the area lies off-track, roads may have steep changes in elevation and more than 3 kilometer hike is required.
-rating-c_14 Only enthusiastic hikers need apply. The area is off the beaten track. It will have one or more of the following characteristics: very steep sloping terrain (requiring scrambling) and more than 16 kilometer of hiking required.
-rating-c_15 Extremely difficult. Requires specialized equipment, knowledge or experience (boats, 4 wheel drive, rock climbing, etc).
-rating-c_16 Rate again?
-rating-c_17 Do not know the difficulty level of your cache? Answer the following questions:
-rating-c_18 Is special equipment is required?
-rating-c_19 No
-rating-c_20 Yes
-rating-c_21 Need a boat, ATV, climbing equipment, etc.?
-rating-c_22 Need an overnight stay?
-rating-c_23 What distance must be covered on foot?
-rating-c_24 Less than 1km
-rating-c_25 Between 1 to 3 km
-rating-c_26 Between 3 to 16 km
-rating-c_27 More than 16 km
-rating-c_28 Calculated from the nearest parking to the cache.
-rating-c_29 Trail characteristics?
-rating-c_30 Paved Foot Path <br /><em>Asphalt, or well beaten trail.
-rating-c_31 Good Foot Path <br /><em>Bicycles could cope with the terrain.
-rating-c_32 Rough Terrain <br /><em>Some mud. If a bicycle, better make it a mountain bike.
-rating-c_33 Trail. What trail? <br /><em>There is no path.
-rating-c_34 Is the area overgrown?
-rating-c_35 No bushes.
-rating-c_36 Small Shrubberies.
-rating-c_37 Tall Weeds.
-rating-c_38 Totally Overgrown <br /><em>Bring a machete. It's a jungle out there!
-rating-c_39 What about the terrain?
-rating-c_40 Mostly Flat <br /><em>Minor differences in height.
-rating-c_41 Small Hills <br /><em>Could be cycled over without difficulty.
-rating-c_42 Very Hilly <br /><em>You'll be pushing that bike over these hills.
-rating-c_43 Mountains <br /><em>Very steep hills. Scrambling needed at least.
-rating-c_44 How easy to find the cache?
-rating-c_45 Hiding place is obvious.
-rating-c_46 Could be in several places, some searching required.
-rating-c_47 Well hidden, may take a little while to find.
-rating-c_48 Finding requires special skills, knowledge or preparation. It may take a few visits.
-rating-c_49 Only a die hard, pain loving, glutton for punishment will ever find this.
-rating-c_50 Please take into account visibility, availability or obstacles when answering these questions.
-rating-c_51 Submit
-rating-c_52 Reset Form
-rating-c_53 The Cache Difficulty Rating System is available at the http://www.clayjar.com/gcrs/
-AD Andorra
-AE United Arab Emirates
-AF Afghanistan
-AG Antigua And Barbuda
-AI Anguilla
+adopt00 Adopţia s-a efectuat. Proprietarul anterior a fost
+adopt01 Proprietarul actual este
+rating-c_01 Sistemul de evaluare geocutiilor
+rating-c_02 Dificultate:
+rating-c_03 De exemplu, dacă dificultatea este între 1 şi 2, poţi alege dificultatea cu granularitate de 0,5, de ex. 1,5
+rating-c_04 Cât de greu este de găsit?:
+rating-c_05 Uşor. Uşor de găsit în câteva minute chiar şi de începători.
+rating-c_06 Mediu. Majoritatea căutătorilor o vor găsi în mai puţin de 30 de minute.
+rating-c_07 Provocator. Chiar şi căutătorii cu experienţă vor avea ceva de căutat pentru a o găsi.
+rating-c_08 Dificil. Foarte greu de găsit chiar şi pentru cei experimentaţi. S-ar putea să fie nevoie de abilităţi speciale, cunoştinţe, pregătire minuţioasă sau cercetare. S-ar putea să fie nevoie de mai multe zile / vizite la faţa locului pentru a găsi cutia.
+rating-c_09 Extrem. Aoleu! Eşti sigur că chiar vrei ca să mai fie şi găsită?
+rating-c_10 Teren:
+rating-c_11 Accesibilă cu scaun cu rotile. De obicei la mai puţin de 100m de un loc de parcare.
+rating-c_12 Adecvată pentru copii mici. Zona / poteca este în general bine marcată. Nu sunt pante abrupte. Distanţă de parcurs de mai puţin de 3km.
+rating-c_13 Nu e pentru copii mici. În regulă pentru tineri şi adulţi, poate şi în funcţie de condiţia fizică. Zona poate fi în afara potecilor marcate, pot exista pante abrupte şi/sau traseu de peste 3km.
+rating-c_14 Doar pentru excursionişti. Zone este în afara traseelor obişnuite. Va avea una sau mai multe din următoarele caracteristici: pante foarte abrupte, povârniş abrupt sau cu risc de alunecare, traseu de peste 16 km.
+rating-c_15 Exterm de dificil. Necesită echipament specializat, cunoştinţe sau experienţă deosebită (barcă, echipament de alpinism, echipament de scufundări, etc).
+rating-c_16 Evaluează din nou?
+rating-c_17 Nu ştii nivelul de dificultate pentru geocutia ta? Răspunde la următoarele întrebări:
+rating-c_18 Este nevoie de echipament specializat?
+rating-c_19 Nu
+rating-c_20 Da
+rating-c_21 Este nevoie de barcă, alpinism, scufundăr, etc.?
+rating-c_22 Este nevoie de cazare peste noapte?
+rating-c_23 Ce distanţă trebuie parcursă pe jos?
+rating-c_24 Mai puţin de 1km
+rating-c_25 Între 1 şi 3 km
+rating-c_26 Între 3 şi 16 km
+rating-c_27 Mai mult de 16 km
+rating-c_28 Calculat de la cel mai apropiat loc de parcare.
+rating-c_29 Caracteristicile traseului?
+rating-c_30 Potecă pavată <br /><em>Asfalt, pavele, bine umblată.
+rating-c_31 Potecă bună <br /><em>Poate fi parcursă cu bicicleta.
+rating-c_32 Potecă dificilă <br /><em>Poate fi noroi, pietre, şanţuri. Dacă vii cu bicicleta, foloseşte doar MTB.
+rating-c_33 Potecă? Ce potecă? <br /><em>Nu există potecă.
+rating-c_34 Zona este acoperită cu vegetaţie?
+rating-c_35 Nu există tufişuri.
+rating-c_36 Tufişuri mici
+rating-c_37 Buruieni şi arbuşti înalţi.
+rating-c_38 Vegetaţie densă <br /><em>Ia cu tine o macetă. E o adevărată junglă!
+rating-c_39 Cum este terenul?
+rating-c_40 Plat, în mare parte <br /><em>Foarte mici urcări sau coborâri.
+rating-c_41 Dealuri mici <br /><em>Poate fi parcurs cu bicicleta fără prea mare efort.
+rating-c_42 Deluros <br /><em>Mai mult ai împinge bicicleta la deal decât ai merge pe ea.
+rating-c_43 Muntos <br /><em>Foarte abrupt, va trebui să te şi caţeri.
+rating-c_44 Cât de uşor poate fi găsită?
+rating-c_45 Ascunzişul e evident.
+rating-c_46 Ar putea fi în mai multe locuri, trebuie verificate fiecare.
+rating-c_47 Bine ascunsă, s-ar putea să dureze puţin până să fie găsită.
+rating-c_48 Găsirea necesită abilităţi speciale, cunoştinţe sau pregătire în avans. Ar putea fi necesare mai multe vizite.
+rating-c_49 Doar cel mai dedicat, obsedat, căutător o va găsi vreodată.
+rating-c_50 Când răspunzi la aceste întrebări ţine seama şi de vizibilitate, disponibilitate sau obstacole.
+rating-c_51 Trimite
+rating-c_52 Anulează
+rating-c_53 Sistemul de evaluare geocutiilor este disponibil la http://www.clayjar.com/gcrs/
+AD Andora
+AE Emiratele Arabe Unite
+AF Afganistan
+AG Antigua şi Barbuda
+AI Anguila
 AL Albania
 AM Armenia
-AN Netherlands Antilles
+AN Antilele Olandeze
 AO Angola
 AR Argentina
-AS American Samoa
+AS Samoa Americană
 AT Austria
 AU Australia
 AW Aruba
 AZ Azerbaijan
-BA Bosnia And Herzegowina
+BA Bosnia şi Herţegovina
 BB Barbados
-BD Bangladesh
-BE Belgium
+BD Bangladeş
+BE Belgia
 BF Burkina Faso
 BG Bulgaria
 BH Bahrain
@@ -1496,117 +1496,117 @@ BJ Benin
 BM Bermuda
 BN Brunei Darussalam
 BO Bolivia
-BR Brazil
+BR Brazilia
 BS Bahamas
 BT Bhutan
-BV Bouvet Island
+BV Insula Bouvet
 BW Botswana
 BY Belarus
 BZ Belize
 CA Canada
-CC Cocos (Keeling) Islands
-CF Central African Republic
+CC Insulele Cocos (Keeling)
+CF Republica Centru Africană
 CG Congo
-CH Switzerland
-CI Cote d'Ivoire
-CK Cook Islands
+CH Elveţia
+CI Coasta de Fildeş
+CK Insulele Cook
 CL Chile
-CM Cameroon
+CM Camerun
 CN China
-CO Colombia
+CO Columbia
 CR Costa Rica
-CS Serbia and Montenegro
+CS Serbia şi Muntenegru
 CU Cuba
-CV Cape Verde
-CX Christmas Island
+CV Capul Verde
+CX Insula Christmas
 CY Cyprus
-CZ Czech Republic
-DE Germany
+CZ Republica Cehă
+DE Germania
 DJ Djibouti
-DK Denmark
-DO Dominican Republic
+DK Denemarca
+DO Republica Dominicană
 DZ Algeria
 EC Ecuador
 EE Estonia
-EG Egypt
-EH Western Sahara
+EG Egipt
+EH Sahara Occidentală
 ER Eritrea
-ES Spain
-ET Ethiopia
-FI Finnland
+ES Spania
+ET Etiopia
+FI Finlanda
 FJ Fiji
-FK Falkland Islands (Malvinas)
-FM Micronesia, Federated States Of
-FO Faroe Islands
-FR France
+FK Insulele Falkland (Malvinas)
+FM Micronesia
+FO Insulele Faroe
+FR Franţa
 GA Gabon
-GB United Kingdom (UK)
+GB Marea Britanie
 GD Grenada
 GE Georgia
-GF French Guiana
+GF Guiana Franceză
 GH Ghana
 GI Gibraltar
-GL Greenland
+GL Groenlanda
 GM Gambia
 GN Guinea
 GP Guadeloupe
-GR Greece
-GS South Georgia And The South Sandwich Islands
+GR Grecie
+GS Georgia de Sud şi Insulele Sandwich de Sud
 GT Guatemala
 GU Guam
 GW Guinea-Bissau
 GY Guyana
 HK Hong Kong
-HM Heard And Mc Donald Islands
+HM Insulele Heard şi Mc Donald
 HN Honduras
-HR Croatia (local name: Hrvatska)
+HR Croaţia
 HT Haiti
-HU Hungary
+HU Ungaria
 ID Indonesia
-IE Ireland
+IE Irlanda
 IL Israel
 IN India
-IO British Indian Ocean Territory
+IO Teritoriile Britanice din Oceanul Indian
 IQ Iraq
-IR Iran (Islamic Republic Of)
-IS Iceland
-IT Italy
+IR Iran
+IS Islanda
+IT Italia
 JM Jamaica
-JO Jordan
-JP Japan
+JO Iordania
+JP Japonia
 KE Kenya
 KG Kyrgyzstan
 KH Cambodia
 KI Kiribati
 KM Comoros
-KN Saint Kitts And Nevis
-KP Korea, Democratic People's Republic Of
-KR Korea, Republic Of
+KN Saint Kitts şi Nevis
+KP Republica Democrată Coreea (Coreea de Nord)
+KR Republica Coreea (Coreea de Sud)
 KW Kuwait
-KY Cayman Islands
+KY Insulele Cayman
 KZ Kazakhstan
-LA Lao People's Democratic Republic
-LB Lebanon
-LC Saint Lucia
+LA Republica Populară Lao
+LB Liban
+LC Santa Lucia
 LI Liechtenstein
 LK Sri Lanka
 LR Liberia
 LS Lesotho
-LT Lithuania
-LU Luxembourg
+LT Lituania
+LU Luxemburg
 LV Latvia
-LY Libyan Arab Jamahiriya
-MA Morocco
+LY Libia
+MA Maroc
 MC Monaco
-MD Moldova, Republic Of
+MD Republica Moldova
 MG Madagascar
-MH Marshall Islands
-MK Macedonia, The Former Yugoslav Republic Of
+MH Insulele Marshall
+MK Macedonia
 ML Mali
 MM Myanmar
 MN Mongolia
 MO Macau
-MP Northern Mariana Islands
+MP Insulele Mariana de nord
 MQ Martinique
 MR Mauritania
 MS Montserrat
@@ -1614,96 +1614,96 @@ MT Malta
 MU Mauritius
 MV Maldives
 MW Malawi
-MX Mexico
-MY Malaysia
-MZ Mozambique
+MX Mexic
+MY Malaezia
+MZ Mozambic
 NA Namibia
-NC New Caledonia
-NE Niger
-NF Norfolk Island
+NC Noua Caledonie
+NE Nigeria
+NF Insula Norfolk
 NG Nigeria
 NI Nicaragua
-NL Netherlands
-NO Norway
+NL Olanda
+NO Norvegia
 NP Nepal
 NR Nauru
 NU Niue
-NZ New Zealand
+NZ Noua Zeelandă
 OM Oman
 PA Panama
 PE Peru
-PF French Polynesia
-PG Papua New Guinea
-PH Philippines
+PF Polinezia Franceză
+PG Papua Noua Guinee
+PH Filipine
 PK Pakistan
-PL Poland
-PM St. Pierre And Miquelon
+PL Polonia
+PM St. Pierre şi Miquelon
 PN Pitcairn
 PR Puerto Rico
-PT Portugal
+PT Portugalia
 PW Palau
 PY Paraguay
 QA Qatar
 RE Reunion
-RO Romania
-RU Russian Federation
+RO România
+RU Federaţia Rusă
 RW Rwanda
-SA Saudi Arabia
-SB Solomon Islands
+SA Arabia Saudită
+SB Insulele Solomon
 SC Seychelles
 SD Sudan
-SE Sweden
+SE Suedia
 SG Singapore
 SH St. Helena
 SI Slovenia
-SJ Svalbard And Jan Mayen Islands
-SK Slovakia (Slovak Republic)
+SJ Insulele Svalbard şi Jan Mayen
+SK Slovacia
 SL Sierra Leone
 SM San Marino
 SN Senegal
 SO Somalia
-SR Suriname
-ST Sao Tome And Principe
+SR Surinam
+ST Sao Tome şi Principe
 SX El Salvador
-SY Syrian Arab Republic
+SY Siria
 SZ Swaziland
-TC Turks And Caicos Islands
-TD Chad
-TF French Southern Territories
+TC Insulele Turks şi Caicos Islands
+TD Ciad
+TF Teritoriile Franceze de Sud
 TG Togo
-TH Thailand
+TH Thailanda
 TJ Tajikistan
 TK Tokelau
 TM Turkmenistan
 TN Tunisia
 TO Tonga
-TR Turkey
-TT Trinidad And Tobago
+TR Turcia
+TT Trinidad şi Tobago
 TV Tuvalu
-TW Taiwan, Province Of China
-TZ Tanzania, United Republic Of
-UA Ukraina
+TW Taiwan
+TZ Tanzania
+UA Ucraina
 UG Uganda
-UM United States Minor Outlying Islands
-US United States
+UM Insulele Minore adiancente Statelor Unite ale Americii
+US Statele Unite ale Americii
 UY Uruguay
 UZ Uzbekistan
-VA Vatican City State (Holy See)
-VC Saint Vincent And The Grenadines
+VA Vatican
+VC Saint Vincent şi The Grenadines
 VE Venezuela
-VG Virgin Islands (British)
-VI Virgin Islands (U.S.)
+VG Insulele Virgin (Marea Britanie)
+VI Insulele Virgin (S.U.A.)
 VN Viet Nam
 VU Vanuatu
-WF Wallis And Futuna Islands
+WF Insulele Wallis şi Futuna
 WS Samoa
 YE Yemen
 YT Mayotte
-ZA South Africa
+ZA Africa de Sud
 ZM Zambia
 ZW Zimbabwe
-SU Soviet Union
-pt001 GeoPaths
+SU Uniunea Sovietică
+pt001 GeoTrasee
 pt002 belongs to GeoPath
 pt003 New GeoPath
 pt004 Form on the map
@@ -1938,259 +1938,259 @@ pt232 include miniGeoPaths
 pt233 exclude miniGeoPaths
 pt234 Completing the GeoPath is not possible (required number of caches is higher then number of active caches that belongs to the GeoPath - the GeoPath owners should reset the minimum required number or reactivate/archive inactive caches).
 pt235 I want receive geoPaths notification emails
-statpic_found Found:
-statpic_hidden Hidden:
-statpic_html_link - Statistics for
-cog_user_name Geocacher service center
-region_01 Region from coordinates:
-region_02 Country
-region_03 Region found by {site_name}
-region_04 Region found by Google Maps
-cacheType_1 Traditional
-cacheType_2 Multicache
-cacheType_3 Quiz
-cachetype_4 Moving
-cacheType_5 Unknown type
-cacheType_6 Event
-cacheType_7 Webcam
-cacheType_8 Virtual
-cacheType_9 Podcast cache
-cacheType_10 Own cache
+statpic_found Găsite:
+statpic_hidden Ascunse:
+statpic_html_link - Statistici pentru
+cog_user_name Geocacher service center**
+region_01 Regiune după coordonate:
+region_02 Ţara
+region_03 Regiune găsită de {site_name}
+region_04 Regiune găsită de Google Maps
+cacheType_1 Traditională
+cacheType_2 Multiplă
+cacheType_3 Mister
+cachetype_4 În mişcare
+cacheType_5 Nescunoscută
+cacheType_6 Evenimet
+cacheType_7 Cameră web
+cacheType_8 Virtuală
+cacheType_9 Podcast
+cacheType_10 Personală
 cacheSyze_2 Micro
-cacheSyze_3 Small
-cacheSyze_4 Normal
-cacheSyze_5 Large
-cacheSyze_6 Very large
-cacheSyze_7 No container
-login_message_01 You are logged in.
-login_message_02 You are logged in. If you want to login as another user, please <a href="logout.php">logout</a>.</p>
-login_message_03 You are succesfull logged in. You will be directed to the startpage.
-login_message_04 Login failed.<br />If the proble exists please contact the oc-team
-login_message_05 Login failed.<br />There where 25 false login attempts in past our on {site_name}
-login_message_06 Login failed.<br />Username or e-mail not recognized.
-login_message_07 Login failed.<br />Username or password not recognized.
-login_message_08 Your browser does not accept cookies from {site_name}
-login_message_09 To view this page, you need to log in.
-graph_statistics_01 Statistics van www.{site_name} :: Datum
-graph_statistics_02 Active caches
-graph_statistics_03 Found caches
-graph_statistics_04 Date
-graph_statistics_05 Hidden caches:
-graph_statistics_06 Active caches:
-graph_statistics_07 Total found caches:
+cacheSyze_3 Mică
+cacheSyze_4 Normală
+cacheSyze_5 Mare
+cacheSyze_6 Foarte mare
+cacheSyze_7 Fără cutie
+login_message_01 Eşti conectat.
+login_message_02 Eşti conectat. Dacă vrei să te conectezi ca alt utilizator, te rog <a href="logout.php">deconectează-te</a>.</p>
+login_message_03 Te-ai Autentificare cu succes. Vei fi redirecţionat către prima pagină.
+login_message_04 Autentificare eşuată.<br />If the proble exists please contact the oc-team
+login_message_05 Autentificare eşuată.<br />Au fost cel puţin 25 de încercări de conectare în ultima oră pe {site_name} pentru utilizatorul tău
+login_message_06 Autentificare eşuată.<br />Nume utilizator sau e-mail necunoscut.
+login_message_07 Autentificare eşuată.<br />Nume utilizator sau parolă greşită.
+login_message_08 Browser-ul tău nu accepta cookies de la {site_name}
+login_message_09 Trebuie să fi autentificat pentru a vedea această pagină.
+graph_statistics_01 Statistici pentru www.{site_name} :: Datum
+graph_statistics_02 Geocutii active
+graph_statistics_03 Geocutii găsite
+graph_statistics_04 Data
+graph_statistics_05 Geocutii ascunse:
+graph_statistics_06 Geocutii active:
+graph_statistics_07 Total geocutii găsite:
 chowner00 The procedure for changing the cacheowner has started.
-chowner01 Cache Adoption
-chowner02 Goecacher
-chowner03 transfers to you the cache for adoption
-chowner04 Please visit the opencahing site to complete adoption process (User's Menu> Cache Adoption).
-search_text_01 Name:
-search_text_02 by
-search_text_03 Coordinates:
-search_text_04 Status:
-search_text_05 Owned by:
-search_text_06 Waypoint:
-search_text_07 Country:
-search_text_08 Type:
-search_text_09 Size:
-search_text_10 Short description:
-search_text_11 Full description:
-search_text_12 Additional hints:
-search_text_13 Log entries:
-search_text_14 WARNING! There is a PASSWORD in the cache - please remember to note it down!
-search_text_15 (no HTML)
-search_text_16 Personal cache note:
-search_kml_01 See cache details
-search_kml_02 Owned by:
-search_kml_03 Type:
-search_kml_04 Size:
-search_kml_05 Difficulty:
-search_kml_06 with
-search_kml_07 Terrain:
-mytop5_1 Do you want to remove your recomandation ?
-mywatches_1 Do you want to stop watching this cache ?
-myignores_1 Do you want to switch off ignore ?
-myviewqueries_1 Do you want to remove this qurey collection ?
-earch_gpxgc_01 WARNING! There is a PASSWORD in the cache - please remember to note it down!
+chowner01 Adopţie geocutie
+chowner02 Utilizatorul
+chowner03 îţi trimite pentru adopţie geocutia*
+chowner04 Te rog vizitează {site_name} pentru a efectua adopţia (Meniul utilizatorului> Adopţie geocutie).
+search_text_01 Nume:
+search_text_02 de
+search_text_03 Coordonate:
+search_text_04 Stare
+search_text_05 Proprietar:
+search_text_06 Punct:
+search_text_07 Ţară:
+search_text_08 Tip:
+search_text_09 Dimensiune:
+search_text_10 Rezumat:
+search_text_11 Descriere:
+search_text_12 Indicii:
+search_text_13 Însemnări:
+search_text_14 ATENŢIE! Vei găsi o PAROLĂ în cutie. Nu uita să o notezi!
+search_text_15 (fără HTML)
+search_text_16 Notă personală:
+search_kml_01 Vezi detaliile geocutiei
+search_kml_02 Proprietar:
+search_kml_03 Tip:
+search_kml_04 Dimensiune:
+search_kml_05 Dificultate:
+search_kml_06 cu
+search_kml_07 Teren:
+mytop5_1 Vrei să ştergi recomandarea pe care ai dat-o?
+mywatches_1 Vrei să nu mai urmăreşti această geocutie?
+myignores_1 Vrei să anulezi ignorarea acestei geocutii?
+myviewqueries_1 Vrei să ştergi această colecţie de căutări?
+earch_gpxgc_01 ATENŢIE! Vei găsi o PAROLĂ în cutie. Nu uita să o notezi!
 search_gpxgc_02 Personal cache note
-search_gpxgc_03 Additinal information
-search_gpxgc_04 Attributes
+search_gpxgc_03 Alte informaţii
+search_gpxgc_04 Atribute
 search_gpxgc_05 Rating
-search_gpxgc_06 Recommendation
+search_gpxgc_06 Recomandări
 search_gpxgc_07 National/Scenic Parks
-attribute_40 One-minute cache
-attribute_41 Go geocaching with children
-attribute_43 GeoHotel
-attribute_44 Accessible for disabled
-attribute_47 Compass
-attribute_48 Take something to write
-attribute_49 Fixed by magnet
-attribute_50 Information in  MP3 file
-attribute_51 Offset cache
-attribute_52 Beacon - Garmin chirp
-attribute_53 Dead Drop USB cache
-attribute_54 Benchmark - geodetict point
-attribute_55 Cartridge
-attribute_56 Letterbox
-attribute_60 Nature
-attribute_61 Monumental place
-attribute_80 Periodical/Paid
-attribute_81 You will need a shovel
-attribute_82 Torch needed
-attribute_83 Take special equipment
-attribute_84 Access only by walk
-attribute_85 Bike
-attribute_86 Boat
-attribute_90 Dangerous Cache
-attribute_91 Recommended at night
+attribute_40 *One-minute cache
+attribute_41 *Go geocaching with children
+attribute_43 *GeoHotel
+attribute_44 *Accessible for disabled
+attribute_47 *Compass
+attribute_48 *Take something to write
+attribute_49 *Fixed by magnet
+attribute_50 *Information in  MP3 file
+attribute_51 *Offset cache
+attribute_52 *Beacon - Garmin chirp
+attribute_53 *Dead Drop USB cache
+attribute_54 *Benchmark - geodetict point
+attribute_55 *Cartridge
+attribute_56 *Letterbox
+attribute_60 *Nature
+attribute_61 *Monumental place
+attribute_80 *Periodical/Paid
+attribute_81 *You will need a shovel
+attribute_82 *Torch needed
+attribute_83 *Take special equipment
+attribute_84 *Access only by walk
+attribute_85 *Bike
+attribute_86 *Boat
+attribute_90 *Dangerous Cache
+attribute_91 *Recommended at night
 gpxCog OC Team
-mywatches_map_01 by
-mywatches_map_02 on
-weather Weather
-vl_Recently_modified_on Recently modified on
-vl_by_user by user
-vl_by_COG by Geocacher service center
-vl_totally_modified totally modified
-vl_count_plural times
-vl_count_singular time
-vl_on_date on
+mywatches_map_01 de
+mywatches_map_02 pe
+weather Vremea
+vl_Recently_modified_on Modificate recent pe
+vl_by_user de utilizatorul
+vl_by_COG by Geocacher service center***
+vl_totally_modified total modificate*
+vl_count_plural times***
+vl_count_singular time***
+vl_on_date pe
 vl_Record_of_type Record of type
-vl_deleted deleted
-vl_Record_deleted Record deleted
-vc_ShowDeletions Show deletions
-vc_HideDeletions Hide deletions
-mycache_notes_01 Do you want to delete this note?
-log_score_note_innitial You have not rated this cache yet.
-log_score_note_thanks Thank you for rating!
-log_score_note_encorage Please reconsider rating this cache!
-Do_reset_logform Are you sure to reset the log form?
-log_reset_button Reset
-timePicker_hourText Houra
-timePicker_minuteText Minute
-timePicker_nowButtonText Now!
-timePicker_closeButtonText Done
-timePicker_deselectButtonText Reset
-ec_Sequence Picture sequence
-vc_hint_for_logged_only You must be logged-in to see additional hints
-lc_Day_before Previous day
-lc_Day_after Next day
-ec_proceed_without_save You have made changes to the cache settings that have NOT been saved - are you sure to proceed (the page will be reloaded and changes LOST)?
-ec_delete_pic Are you sure to delete this picture?
-ec_delete_mp3 Are you sure to delete this file?
-ec_delete_wp Are you sure to delete this waypoint?
-mc_edit_geocache Edit cache
-mc_by_founds By founds
-mc_by_reco By recomendatios
-mc_by_gk By Geo-Krets in
-mc_by_visits By visitors
-vc_spoiler_disable_msg You must be logged-in to view spoilers!
-ec_bike_set_msg Cache attribute [Bike] or [Boat] has been set. Are you sure to set [Access only by walk] attribute?
-ec_walk_set_msg Cache attribute [Access only by walk] or [Boat] has been set. Are you sure to set [Bike] attribute?
-ec_boat_set_msg Cache attribute [Access only by walk] or [Bike] has been set. Are you sure to set [Boat] attribute?
+vl_deleted şterse
+vl_Record_deleted Record deleted***
+vc_ShowDeletions Arată înregistrările şterse
+vc_HideDeletions Ascunde înregistrările şterse
+mycache_notes_01 Vrei să ştergi această notă?
+log_score_note_innitial Încă nu ai apreciat această geocutie.
+log_score_note_thanks Mulţumim pentru aprecierea acordată!
+log_score_note_encorage Te rog mai gândeşte-te dacă să apreciezi sau nu această geocutie!
+Do_reset_logform Eşti sigur că vrei să anulezi formularul?
+log_reset_button Anulează
+timePicker_hourText Ora
+timePicker_minuteText Minut
+timePicker_nowButtonText Acum!
+timePicker_closeButtonText Gata
+timePicker_deselectButtonText Anulează
+ec_Sequence Secvenţă de imagini
+vc_hint_for_logged_only Trebuie să te autentifici pentru a vedea indiciile
+lc_Day_before Ziua anterioară
+lc_Day_after Ziua următoare
+ec_proceed_without_save Modificările pe care le-ai făcut la geocutie încă NU au fost salvate. Eşti sigur că vrei să continui? (pagina va fi reîncărcată şi toate modificările vor fi PIERDUTE)?
+ec_delete_pic Eşti sigur că vrei să ştergi această imagine?
+ec_delete_mp3 Eşti sigur că vrei să ştergi acest fişier?
+ec_delete_wp Eşti sigur că vrei să ştergi acest punct?
+mc_edit_geocache Modifică geocutie
+mc_by_founds După găsiri
+mc_by_reco După recomandări
+mc_by_gk După GeoKrety din cutie
+mc_by_visits După vizitatori
+vc_spoiler_disable_msg Trebuie să fi autentificat pentru a vedea ***spoilers!
+ec_bike_set_msg ***Cache attribute [Bike] or [Boat] has been set. Are you sure to set [Access only by walk] attribute?
+ec_walk_set_msg ***Cache attribute [Access only by walk] or [Boat] has been set. Are you sure to set [Bike] attribute?
+ec_boat_set_msg ***Cache attribute [Access only by walk] or [Bike] has been set. Are you sure to set [Boat] attribute?
 ec_Sequence_mp3 File sequence
-myn_click_to_view_cache Click to view the cache
-mylist_01 There are no caches in the clipboard
-mylist_02 Remove
-mylist_03 Print all
-mylist_04 Remove all
-mylist_05 Download the data from the clipboard caches
-cookiesInfo We are using cookies which help us to improve our service.
-FiltrYear Year
-FiltrMonth Month
-StatTestVer <span style="color: red" >Attention. This is a test version!!! You can write your opinion about it on forum: <a href="http://forum.opencaching.pl/viewtopic.php?f=9&t=7734">Statystyki</a></span>
-newsletter Newsletter
-newsletter_removal If you do not want to receive this newletter any more, please change your account settings at
-PrevVersion You can find prev version of this stat on the main site of statistics (at the bottom)
-my_position My position
+myn_click_to_view_cache Apasă pentru a vedea geocutia
+mylist_01 Nu sunt geocutii în memoria temporară
+mylist_02 Şterge
+mylist_03 Tipăreşte tot
+mylist_04 Şterge tot
+mylist_05 Descarcă informaţii despre geocutiile din memoria temporară
+cookiesInfo Folosim "cookies" care ajută la îmbunătăţirea serviciilor noastre.
+FiltrYear An
+FiltrMonth Lună
+StatTestVer <span style="color: red" >Atenţie. This is a test version!!! You can write your opinion about it on forum: <a href="http://forum.opencaching.pl/viewtopic.php?f=9&t=7734">Statystyki</a></span>
+newsletter Buletin informativ
+newsletter_removal Dacă nu vrei să mai primeşti acest buletin informativ, te rog modifică-ţi opţiunea în contul tău de pe
+PrevVersion Poţi găsi versiunea anterioare a acestor statistici în secţiunea principală de statistici (la subsolul paginii)
+my_position Poziţia mea
 go Go
-Filter Filter
+Filter Filtrează
 
-coords_modifier Coordinate modifier
-coordsmod_main Enter own coordinates to the cache
-coordsmod_lon Longitude
-coordsmod_lat Latitude
-coordsmod_info_01 User coordinates (WGS84)
-coordsmod_info_02 Do you want to restore coordinates?
-modify_coords Modify
-reset_coords Restore
-orig_coord_modified_info You have ented own coordinates - original ones are as follows:
-modified_coord_notice Modified coordinates will be exported to files, e.g. GPX, KML etc.
-srch_Coord_have_been_modified The coordinates have been modified
-srch_Recommended Recommended
-srch_Send_to_GPS Send to GPS
-addnews_confirm_01 Add news
-addnews_confirm_02 Thank you for sending a new message. We will try as soon as possible to view this information
-addnews_confirm_03 Back to
-addnews_confirm_04 homepage
-Pos Pos
+coords_modifier Editor de coordonate
+coordsmod_main Introdu propriile tale coordonate pentru geocutie
+coordsmod_lon Longitudine
+coordsmod_lat Latitudine
+coordsmod_info_01 Coordonatele utilizatorilor (WGS84)
+coordsmod_info_02 Vrei să revii la coordonatele originale?
+modify_coords Modifică
+reset_coords Anulează*
+orig_coord_modified_info Ai introdus propriile tale coordonate - cele originale sunt:
+modified_coord_notice Coordonatele modificate vor fi exportate în fişiere (de ex. GPX, KML etc.)
+srch_Coord_have_been_modified Coordonatele au fost modificate
+srch_Recommended Recommended***
+srch_Send_to_GPS Trimite către GPS
+addnews_confirm_01 Adaugă noutăţi
+addnews_confirm_02 Thank you for sending a new message. We will try as soon as possible to view this information***
+addnews_confirm_03 Înapoi la
+addnews_confirm_04 pagina principală
+Pos Poz
 Nr Nr
-Dates Dates
-adm_cachenotfound_01 Show reported caches
-adm_cachenotfound_02 Show reported with different dates
-adm_cachenotfound_03 Not found
-adm_cachenotfound_04 Report problem
+Dates Date
+adm_cachenotfound_01 Arată geocutiile raportate
+adm_cachenotfound_02 Arată rapoartele din alte zile***
+adm_cachenotfound_03 Not found***
+adm_cachenotfound_04 Raportează o problemă
 error3KCharsExcedeed Description length limit exceeded (max 300000 chars).
-edDescShowAll Show all
-lngExist Cache description in this language already exist.
-os_modify_coords_button Save as own coordinates to the cache
-Next1 Next
-Prev1 Prev
-chart Chart
-SelectUsers Select users
-NrCaches Number of caches
-Selected Selected
-HelpHowToSelect <br> <b>How to select users</b><br><hr><br><br>- To select user, click on his position (but not on his name) <br><br>- To select multi-users: Ctlr + click or Shift + click <br>
-viewprofileFTF Show user's FTFs
-viewprofileDate FTF date
-viewprofileTime FTF time
-viewprofileCache Cache name
-viewprofileTotFtf Total Ftf
-newmp3_01 Submit
-newmp3_02 Adding new PodCast MP3 to the cache
-newmp3_03 Adding a new PodCast MP3 to cache
-newmp3_04 No title
-newmp3_05 No file name
-newmp3_06 Internal Server Error
-newmp3_07 If the problem persists, please contact us at {mail_oc}. To investigate the cause, please describe the details.
-newmp3_08 File is too big
-newmp3_09 Maximum allowable file size is 5 Mb. Change the quality or syze of the MP3 file.
-newmp3_10 Invalid file type
-newmp3_11 The uploaded file has invalid format. Permitted format is MP3. Recommended quality MP3 22kHZ MONO.
-newmp3_12 Please give the MP3 file a name!
-newmp3_13 Please select a MP3 file!
-newmp3_14 Title
-newmp3_15 File name
-newmp3_16 Don't show this MP3 file
-newmp3_17 Attention
-newmp3_18 The following file format is accepted: MP3. Maximum file size allowed 5 Mb. Recommended quality MP3 22kHZ MONO.
-editmp3_01 Please give the MP3 file a name!
-editmp3_03 Title
-editmp3_04 File name
-editmp3_05 Don't show this MP3 file
-editmp3_06 Edit PodCast MP3 for cache
-editmp3_07 PodCast log entry
-editmp3_08 No title
-editmp3_09 Internal Server Error
-editmp3_10 If the problem persists, please contact us at {mail_oc}. To investigate the cause, please describe the details.
-editmp3_11 File is too big
-editmp3_12 Maximum allowable file size is 5 Mb. Change the quality or syze of the MP3 file.
-editmp3_13 Invalid file type
-editmp3_14 The uploaded file has invalid format. Permitted format is MP3. Recommended quality MP3 22kHZ MONO.
-editmp3_15 MP3 file is not in the database
-add_newmp3 Add MP3
-newCacheWpClose Close
-contact_pl_about_title Questions about Geocaching
-contact_pl_about_description_1 Would you like to know more about Geocaching? You'll find it in <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
-contact_pl_about_description_2 Do you have any comments, questions, suggestions, or just want to participate in <i>Opencaching</i> development? All those topics are discussed on our <a href="http://forum.opencaching.pl">Forum</a>.
-contact_pl_about_team OpenCaching PL Team
-contact_pl_rr_description - Rada Rejsu team members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
-contact_pl_rt_description - Rada Techniczna members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
-contact_pl_cog_description - COG members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
-contact_pl_other_title Other
-contact_pl_other_description In cases directly regarding OpenCaching PL you could drop an e-mail to <b>ocpl at opencaching.pl</b>. Be patient, receiving a reply may take quite a long.
-contact_ocpl_title Polish version of OpenCaching
-contact_ocpl_description_1 - May 2006 - Polish geocaching service idea, initial development and deployment of OC.PL - Waldek "sp2ong" + a lot of help from his friends.
-contact_ocpl_description_2 - 2011 Wojtek "wrygiel" - Opencaching API author: http://opencaching.pl/okapi
-contact_ocpl_description_3 - 2011 Jakub "lecter69" - author of mobile version: http://m.opencaching.pl
+edDescShowAll Arată tot
+lngExist Deja există descriere în această limbă.
+os_modify_coords_button Salvează ca coordonatele mele pentru aceasta geocutie
+Next1 Următor*
+Prev1 Anterior*
+chart Grafic**
+SelectUsers Selectează utilizatori
+NrCaches Numărul geocutiilor
+Selected Selectate*
+HelpHowToSelect <br> <b>Cum să selectez utilizatori</b><br><hr><br><br>- Pentru a selecta un utilizator, apasă pe poziţia sa (nu pe nume)<br><br>- Pentru a selecta mai mulţi utilizatori: Ctlr + apasă sau Shift + apasă <br>
+viewprofileFTF Arată primele găsiri (PG) ale utilizatorului
+viewprofileDate Ziua PG
+viewprofileTime Ora PG
+viewprofileCache Geocutie
+viewprofileTotFtf Total PG
+newmp3_01 Trimite
+newmp3_02 Adăugare PodCast MP3
+newmp3_03 Adăugare PodCast MP3 *
+newmp3_04 Lipsă titlu
+newmp3_05 Lipsă fişier
+newmp3_06 Eroare internă
+newmp3_07 Dacă problema persistă, te rugăm contactează-ne la {mail_oc}. Pentru a putea investiga cauza te rugăm să descrii problema în cât mai multe detalii.
+newmp3_08 Fişier prea mare
+newmp3_09 Dimensiunea maximă pentru fişiere este 5 Mb***. Modifică conţinutul şi/sau salvează cu alţi parametrii (bitrate mai mic).
+newmp3_10 Tip fişier incorect
+newmp3_11 Fişierul încărcat este într-un format greşit sau defect. Sunt permise fişiere în format MP3. Parametrii recomandaţi: MP3 22kHz MONO.
+newmp3_12 Te rog scrie un nume pentru acest fişier!
+newmp3_13 Te rog alege un fişier MP3!
+newmp3_14 Titlu
+newmp3_15 Fişier
+newmp3_16 Nu afişa acest MP3
+newmp3_17 Atenţie
+newmp3_18 Sunt permise fişiere în format MP3. Dimesiune maximă 5Mb. Parametrii recomandaţi: MP3 22kHz MONO.
+editmp3_01 Te rog scrie un nume pentru acest fişier!
+editmp3_03 Titlu
+editmp3_04 Fişier
+editmp3_05 Nu afişa acest MP3
+editmp3_06 Modifică PodCast MP3 pentru geocutia
+editmp3_07 Însemnare PodCast
+editmp3_08 Lipsă titlu***
+editmp3_09 Eroare internă
+editmp3_10 Dacă problema persistă, te rugăm contactează-ne la {mail_oc}. Pentru a putea investiga cauza te rugăm să descrii problema în cât mai multe detalii.
+editmp3_11 Fişier prea mare
+editmp3_12 Dimensiunea maximă pentru fişiere este 5 Mb***. Modifică conţinutul şi/sau salvează cu alţi parametrii (bitrate mai mic).
+editmp3_13 Tip fişier incorect
+editmp3_14 Fişierul încărcat este într-un format greşit sau defect. Sunt permise fişiere în format MP3. Parametrii recomandaţi: MP3 22kHz MONO.
+editmp3_15 Fişierul MP3 nu se găseşte în baza de date
+add_newmp3 Adaugă MP3
+newCacheWpClose Închide
+contact_pl_about_title ***Întrebări despre Geocaching
+contact_pl_about_description_1 ***Would you like to know more about Geocaching? You'll find it in <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
+contact_pl_about_description_2 ***Do you have any comments, questions, suggestions, or just want to participate in <i>Opencaching</i> development? All those topics are discussed on our <a href="http://forum.opencaching.pl">Forum</a>.
+contact_pl_about_team ***OpenCaching PL Team
+contact_pl_rr_description ***- Rada Rejsu team members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
+contact_pl_rt_description ***- Rada Techniczna members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
+contact_pl_cog_description ***- COG members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;
+contact_pl_other_title ***Other
+contact_pl_other_description ***In cases directly regarding OpenCaching PL you could drop an e-mail to <b>ocpl at opencaching.pl</b>. Be patient, receiving a reply may take quite a long.
+contact_ocpl_title ***Polish version of OpenCaching
+contact_ocpl_description_1*** - May 2006 - Polish geocaching service idea, initial development and deployment of OC.PL - Waldek "sp2ong" + a lot of help from his friends.
+contact_ocpl_description_2 ***- 2011 Wojtek "wrygiel" - Opencaching API author: http://opencaching.pl/okapi
+contact_ocpl_description_3 ***- 2011 Jakub "lecter69" - author of mobile version: http://m.opencaching.pl
 newCacheWpTitle Alege Punct
 newCacheWpDesc File contain few waypoints. Pick proper one.
 logmap_01 By
@@ -2221,68 +2221,98 @@ logbook_21 Is only used to complete the fields in the logbook
 logbook_22 Preview
 logbook_23 Generează PDF
 search01 toate regiunile*
-LineChart Linii
-BarChart Bări
-positions poziţii
-more10 Was selected more than 30
-more30 Was selected more than 30
+LineChart Linii*
+BarChart Bări*
+positions poziţii*
+more10 A fost aleasă de peste 10 ori
+more30 A fost aleasă de peste 30 de ori
 pt_cache Cutia aparţine GeoTraseului:
 Help Ajutor
-links_01 Links to sites connected with geocaching
-links_02 Other Geocachingsites
+links_01 Legături către site-uri despre geocaching
+links_02 Alte site-uri de Geocaching
 links_03 Letterbox websites
 links_04 Travel Bugs websites
-links_05 Other
-.week . week
-.month . month
-.year . year
-like_comment Do you like this comment?
-like_it like it:
+links_05 Altele
+.week . săptămână
+.month . lună
+.year . an
+like_comment Îţi place acest comentariu?
+like_it îmi place:
 no_like_it Nobody likes this comment
-Position Position
-fav_com Favorite comments
+Position Poziţie
+fav_com Comentarii favorite
 cacheSize_2 Micro
-cacheSize_3 Small
-cacheSize_4 Regural
-cacheSize_5 Large
-cacheSize_6 Very large
-cacheSize_7 No container
-cacheStatus_1 Ready for search
-cacheStatus_2 Temporarily unavailable
-cacheStatus_3 Archived
-cacheStatus_4 Hidden by approvers to check
-cacheStatus_5 Not yet available
-cacheStatus_6 Blocked by COG
-language_DE German
-language_EN English
-language_FR French
-language_ES Spanish
-language_JP Japanese
-language_NL Dutch
-language_BG Bulgarian
-language_BS Bosnian
+cacheSize_3 Mică
+cacheSize_4 Normală
+cacheSize_5 Mare
+cacheSize_6 Foarte mare
+cacheSize_7 Fără cutie
+cacheStatus_1 Gata să fie găsită
+cacheStatus_2 Temporar indisponibilă
+cacheStatus_3 Arhivată
+cacheStatus_4 Aşteaptă aprobare
+cacheStatus_5 Încă nu e disponibilă
+cacheStatus_6 Blocată de administratori
+language_DE Germană
+language_EN Engleză
+language_FR Franceză
+language_ES Spaniolă
+language_JP Japoneză
+language_NL Olandeză
+language_BG Bulgară
+language_BS Bosniacă
 language_CE Shekhinah
-language_CS Czech
-language_DA Danish
-language_EL Greek
+language_CS Cehă
+language_DA Daneză
+language_EL Greacă
 language_EO Esperanto
-language_ET Estonian
-language_EU Basque
-language_FI Finnish
-language_HR Croatian
-language_HU Hungarian
-language_IS Icelandic
-language_IT Italian
-language_LT Lithuanian
-language_LV Latvian
-language_NO Norwegian
-language_PL Polish
-language_PT Portuguese
-language_RO Romanian
-language_RU Russian
-language_SK Slovak
-language_SL Slovenian
-language_SV Swedish
-language_TR Turkish
-language_UZ Uzbek
-language_VI Vietnamese
+language_ET Estoniană
+language_EU Bască
+language_FI Finlandeză
+language_HR Croată
+language_HU Maghiară
+language_IS Islandeză
+language_IT Italiană
+language_LT Lituaniană
+language_LV Latvă
+language_NO Norvegiană
+language_PL Poloneză
+language_PT Portugheză
+language_RO Română
+language_RU Rusă
+language_SK Slovacă
+language_SL Slovenă
+language_SV Suedeză
+language_TR Turcă
+language_UZ Uzbecă
+language_VI Vietnameză
+newcacheDateFormat Format: AAAA-LL-ZZ
+htmltags01 elemente şi atribute HTML permise
+htmltags02 elemente HTML
+htmltags03 atribute HTML
+htmltags04 Toate celelalte elemente şi atribute HTML sunt filtrate şi eliminate. Această listă se poate modifica oricând.
+errtpl01 Eroare
+errtpl02 A apărut o eroare la generarea paginii
+errtpl03 Pagina
+errtpl04 Detalii despre eroare
+newpicjs01 Te rog scrie denumirea imaginii
+newpicjs02 Te rog precizează sursa imaginii
+removedLog_01 Bună
+removedLog_02 a scos însemnarea ta din jurnalul cutiei
+removedLog_03 Conţinutul însemnării era
+removedLog_04 Acest mesaj este generat automat, te rog nu răspunde
+notify_newCache_01 Bună
+notify_newCache_02 În zona ta a fost ascunsă o nouă geocutie
+notify_newCache_03 a ascuns
+notify_newCache_04 o geocutie nouă
+notify_newCache_05 Distanţă
+notify_newCache_06 Azimut
+notify_newCache_07 Tip
+notify_newCache_08 Dimensiune
+notify_newCache_09 Poţi să îţi verifici şi modifica opţiunile pe
+notify_newCache_10 Geocutii noi
+notify_newCache_11 Nu sunt însemnări noi
+notify_newCache_12 Acest mesaj este generat automat, te rog nu răspunde
+
+
+
