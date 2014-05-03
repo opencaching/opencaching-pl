@@ -391,12 +391,14 @@ class powerTrailBase{
     }
 
     public static function writePromoPt4mainPage($oldPtId){
+        d($oldPtId);
         $q = 'SELECT * FROM `PowerTrail` WHERE `id` != :1 AND `status` = 1 AND `cacheCount` >= '.self::historicMinimumCacheCount().' ORDER BY `id` ASC';
         $db = new dataBase;
         $db->multiVariableQuery($q, $oldPtId);
         $r = $db->dbResultFetchAll();
         foreach ($r as $pt) {
             if ($pt['id'] > $oldPtId){
+                d($pt);
                 return $pt;
             }
         }

@@ -100,8 +100,10 @@ class processGeokretyErrors {
         include __DIR__.'/../../lib/settings.inc.php';
         include_once __DIR__.'/../../lib/language.inc.php';
         $langArray = available_languages();
-d($dynstylepath);
+
+
         $oldFileArr = explode('xxkgfj8ipzxx', file_get_contents($dynstylepath.'ptPromo.inc-'.$lang.'.php'));
+        d($dynstylepath, $langArray, $oldFileArr);
         $region = new GetRegions();
         $newPt =  powerTrailBase::writePromoPt4mainPage($oldFileArr[1]);
         $regions = $region->GetRegion($newPt['centerLatitude'], $newPt['centerLongitude']);
@@ -126,7 +128,7 @@ d($dynstylepath);
         $fileContent .= '</td></tr></table>';
         file_put_contents($dynstylepath.'ptPromo.inc-'.$langTr.'.php' , $fileContent);
 
-        // print "$langTr <br/> $fileContent";
+        print "$langTr <br/> $fileContent";
     }
 
     private function cleanGeoPaths(){
