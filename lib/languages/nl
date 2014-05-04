@@ -1294,9 +1294,9 @@ reportcache03 Schending auteursrecht
 reportcache04 Andere reden
 reportcache05 Geen commentaar ingevult
 reportcache06 Selecteer probleemsoort
-reportcache07 Nieuwe melding van probleem op OC NL
-reportcache08 [OC NL] Melding probleem van jouw cache
-reportcache09 [OC NL] Melding probleem van cache
+reportcache07 Nieuwe melding van probleem op {site_name}
+reportcache08 Melding probleem van jouw cache
+reportcache09 Melding probleem van cache
 reportcache10 Beschrijving van probleem
 reportcache11 begin
 reportcache12 einde
