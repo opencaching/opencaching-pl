@@ -486,7 +486,7 @@ error_tos Je dient de gebruiksvoorwaarden te accepteren, om te registreren
 step1 Stap 1
 step2 Stap 2
 new_password_msg1 Om je wachtwoord te veranderen moet je een veiligheidscode aanvragen. Deze wordt naar je e-mail adres gestuurd.
-new_password_msg2 Vul je e-mail adres in, je ontvangt veiligheidscode en je nieuwe wachtwoord. <br/>De veiligheidscode is 3 dagen geldig; daarna moet je een nieuwe aanvragen.
+new_password_msg2 Vul je e-mail adres in, je ontvangen veiligheidscode en je nieuwe wachtwoord. <br/>De veiligheidscode is 3 dagen geldig; daarna moet je een nieuwe aanvragen.
 security_code Security code
 change_password_msg1 Verander wachtwoord
 logoutsuccess Succesvol uitgelogt
