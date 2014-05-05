@@ -21,7 +21,7 @@ class AutoArch
 
     function sendEmail($step, $cacheid)
     {
-        global $STEP, $stylepath, $octeam_email;
+        global $STEP, $stylepath, $octeam_email, $site_name;
         $sql = "SELECT caches.cache_id, caches.name, caches.wp_oc, user.email FROM caches, user WHERE caches.cache_id = ".sql_escape(intval($cacheid))." AND user.user_id = caches.user_id";
         $query = mysql_query($sql);
         $cache = mysql_fetch_array($query);
@@ -43,8 +43,8 @@ class AutoArch
         $email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);
 
         $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
-        $emailheaders .= "From: Opencaching.pl <$octeam_email>\r\n";
-        $emailheaders .= "Reply-To: Opencaching.pl <$octeam_email>";
+        $emailheaders .= "From: $site_name <$octeam_email>\r\n";
+        $emailheaders .= "Reply-To: $site_name <$octeam_email>";
 
         //echo "email:".$cache['email']."-->".$emailheaders."<br />".$email_content."<br />";
         mb_send_mail($cache['email'], "[OCPL] Automatyczna archiwizacja Twojej skrzynki", $email_content, $emailheaders);
