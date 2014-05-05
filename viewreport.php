@@ -1,4 +1,5 @@
 <?php
+global $site_name;
 $saved="";
 $email_sent = "";
 $email_form = "";
@@ -256,7 +257,7 @@ $email_form = "";
                 $email_content = $usr['username']." prosi, żebyś zajrzał do zgłoszenia problemu http://www.opencaching.pl/viewreport.php?reportid=".intval($_REQUEST['reportid'])." - ".$report['name']." (".writeReason($report['type']).").";
 
             $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-            $email_headers .= "From: Opencaching.pl <$octeam_email>\r\n";
+            $email_headers .= "From: $site_name <$octeam_email>\r\n";
             $email_headers .= "Reply-To: $octeam_email\r\n";
 
             //send email to rr
