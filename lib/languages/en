@@ -2313,6 +2313,10 @@ notify_newCache_09 You can watch and change your settings on
 notify_newCache_10 New caches
 notify_newCache_11 There are no new logs
 notify_newCache_12 This message is auto-generated - please do not reply
-
-
-
+newPassWord_01 Hello
+newPassWord_02 on 
+newPassWord_03 you have asked to set a new password
+nenPassWord_04 Securitycode
+newPassWord_05 This securitycode is valid for 3 days, after that you need a new code 
+newPassWord_06 On "Step 2" enter your e-mailaddress, your securitycode and your new password on
+newPassWord_07 This message is auto-generated - please do not reply

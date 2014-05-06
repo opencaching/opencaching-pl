@@ -2313,7 +2313,10 @@ notify_newCache_09 De instellingen voor jouw zoekradius kun je bekijken en bewer
 notify_newCache_10 Nieuwe cache
 notify_newCache_11 Er zijn nog geen nieuwe logs
 notify_newCache_12 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
-
-
-
-
+newPassWord_01 Hallo
+newPassWord_02 Op
+newPassWord_03 heb je een code opgevraagt voor een nieuw wachtwoord
+nenPassWord_04 Veiligheidscode
+newPassWord_05 Deze veiligheidscode is 3 dagen geldig, daarna moet er een nieuwe veiligheidscode aangevraagt worden
+newPassWord_06 Vul bij "Stap 2" het e-mailadres, de veiligheidscode en het nieuwe wachtwoord in op 
+newPassWord_07 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
