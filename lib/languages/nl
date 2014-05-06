@@ -1009,9 +1009,9 @@ em04 Veiligheidscode
 em05 E-mail wijzigen
 em06 Aanvraag nieuw e-mail is voltooid
 em07 De code is verstuurd naar het nieuwe e-mail adres.
-em08 Veiligheidscode voor een nieuw e-mail adres
+em08 Wijziging e-mailadres op {site_name}
 em09 Het e-mail adres is niet geldig
-em10 Opgegeven e-mail adres bestaat al
+em10 Opgegeven e-mail adres bestaat al op {site_name}
 em11 Ingevoerde code is niet geldig
 em12 Ingevoerde code is verlopen
 removed_message_title De eigenaar van de cache schreef het volgende
