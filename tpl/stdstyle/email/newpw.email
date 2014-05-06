@@ -1,19 +1,21 @@
-Witaj %user%,
+{newPassWord_01} {user},
 
 
 
-Dnia %date% poprosiłeś o specjalny kod do zmiany hasła.
+{newPassWord_02} {date} {newPassWord_03}.
 
 
+{newPassWord_04}:
+{code}
 
-Specjalny kod: %code%
-
-Kod ten ważny jest przez 3 dni.
-
-
-Nowe hasło możesz wprowadzić w "KROK 2" pod adresem: http://www.opencaching.pl/newpw.php
+{newPassWord_05}.
 
 
-Opencaching PL Team
+{newPassWord_06}:
+{server}newpw.php
 
-http://www.opencaching.pl
+
+{octeamEmailsSignature}
+
+{newPassWord_07}
+
