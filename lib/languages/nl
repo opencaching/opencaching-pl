@@ -1063,7 +1063,7 @@ report_08 Archiveren
 report_09 Schending auteursrecht
 report_10 Andere reden
 report_11 Commentaar (verplicht)
-report_12 Het rapport is verzonden. Het Opencaching.nl team zal het probleem onderzoeken en passende maatregelen nemen.
+report_12 Het rapport is verzonden. Het {sitename} team zal het probleem onderzoeken en passende maatregelen nemen.
 route_01 Startpunt
 route_02 Eindpunt
 route_03 Wis route
@@ -1075,7 +1075,7 @@ size_04 Middel
 size_05 Groot
 size_06 Extra groot
 size_07 Geen behuizing
-chpw_01 Wijzig wachtwoord
+chpw_01 Wijzigig wachtwoord op {site_name}
 chpw_02 De veilgheidscode is naar het opgegeven e-mailadres verstuurd.
 chpw_03 Veiligheidscode om wachtwoord te wijzigen.
 chpw_04 Wachtwoord is gewijzigd!
