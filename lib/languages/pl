@@ -2315,9 +2315,16 @@ notify_newCache_10 Nowa skrzynka
 notify_newCache_11 Nie ma nowych wpisów do logu
 notify_newCache_12 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
 newPassWord_01 Witaj
-newPassWord_02 Dnia 
+newPassWord_02 Dnia
 newPassWord_03 poprosiłeś o specjalny kod do zmiany hasła
 newPassWord_04 Specjalny kod
 newPassWord_05 Kod ten ważny jest przez 3 dni
 newPassWord_06 Nowe hasło możesz wprowadzić w "KROK 2" pod adresem
 newPassWord_07 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
+newEmailAddr_01 Witaj
+newEmailAddr_02 Dnia
+newEmailAddr_03 poprosiłeś o specjalny kod w celu zmiany Twojego adresu e-mail
+newEmailAddr_04 Specjalny kod
+newEmailAddr_05 Kod jest ważny 3 dni od daty wystawienia
+newEmailAddr_06 Nowy adres e-mail możesz zmienić pod adresem
+newEmailAddr_07 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
