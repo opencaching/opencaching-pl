@@ -1079,7 +1079,8 @@ chpw_01 Change password
 chpw_02 The security code has been sent to specified e-mail address.
 chpw_03 Security code to change password.
 chpw_04 The password is
-chpw_05 The code you entered is invalid 
+chpw_05 The code you entered is invalid
+chpw_06 Changing password on {site_name}
 map_01 show FTFs only!
 map_02 Minimum rating:
 map_03 any rating will do

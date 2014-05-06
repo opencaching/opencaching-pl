@@ -1080,6 +1080,7 @@ chpw_02 Wiadomość z kodem została wysłana na podany adres e-mail.
 chpw_03 Specjalny kod do zmiany hasła
 chpw_04 Hasło zostało zmienione. Proszę <a href="login.php">zalogować się</a> używając nowego hasła.
 chpw_05 Wprowadzony kod jest niepoprawny.
+chpw_06 Zmiana hasła w {site_name}
 map_01 pokaż tylko FTFy!
 map_02 Minimalna ocena:
 map_03 dowolna ocena
