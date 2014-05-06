@@ -2316,7 +2316,7 @@ notify_newCache_12 Ten list jest generowany automatycznie i prosimy na niego nie
 newPassWord_01 Witaj
 newPassWord_02 Dnia 
 newPassWord_03 poprosiłeś o specjalny kod do zmiany hasła
-nenPassWord_04 Specjalny kod
+newPassWord_04 Specjalny kod
 newPassWord_05 Kod ten ważny jest przez 3 dni
 newPassWord_06 Nowe hasło możesz wprowadzić w "KROK 2" pod adresem
 newPassWord_07 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
