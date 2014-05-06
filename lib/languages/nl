@@ -1000,16 +1000,16 @@ myprofile03 Cache hulp
 myprofile04 Ja, ik wil mij aanmelden als vrijwillige hulp voor beginnende cachers.
 myprofile05 Zie meer op pagina
 myprofile06 Vergeet niet om de coördinaten in te vullen, anders kan men je niet zien op de kaart.
-myprofile07 OC PL gebruikt openlijk coördinaten om afstanden te bepalen en op een kaart te tonen. Als je dit niet wilt kun je de coördinaten van een park of openbare plek in de buurt te nemen, of plaats een aantal nullen aan het einde
+myprofile07 {site_name} gebruikt openlijk coördinaten om afstanden te bepalen en op een kaart te tonen. Als je dit niet wilt kun je de coördinaten van een park of openbare plek in de buurt te nemen, of plaats een aantal nullen aan het einde
 em00 E-mail adres veranderen
 em01 Om het e-mail adres te veranderen, moet je eerst een veiligheidscode opvragen die naar je nieuwe e-mail adres verstuurd wordt
 em02 Nieuwe e-mail adres
 em03 Vul nu de veiligheidscode in die je per e-mail ontvangen hebt. De veiligheidscode is 3 dagen geldig, daarna moet je een nieuwe aanvragen.
 em04 Veiligheidscode
 em05 E-mail wijzigen
-em06 Aanvraag nieuw e-mail is vertuurd
+em06 Aanvraag nieuw e-mail is voltooid
 em07 De code is verstuurd naar het nieuwe e-mail adres.
-em08 Veiligheidscode voor een nieuw E-mail adres
+em08 Veiligheidscode voor een nieuw e-mail adres
 em09 Het e-mail adres is niet geldig
 em10 Opgegeven e-mail adres bestaat al
 em11 Ingevoerde code is niet geldig
