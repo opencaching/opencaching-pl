@@ -1000,7 +1000,7 @@ myprofile03 Przewodnicy
 myprofile04 Tak, chcę zostać wolontariuszem Przewodnikiem geocachingu dla początkujących
 myprofile05 Patrz: więcej na stronie
 myprofile06 Pamietaj ustawić poniżej współrzędne bez tego nie będziesz widzany na mapie Przewodników
-myprofile07 OC PL wykorzystuje współrzędne aby obliczyć odległość do skrzynek, na mapach, które są dostępne publicznie. Jeśli obawiasz sie upubliczniania współrzędnych, podaj współrzędne najbliższego parku, baru.. lub po prostu wpisz kilka ostatnich cyfr jako zera
+myprofile07 {site_name} wykorzystuje współrzędne aby obliczyć odległość do skrzynek, na mapach, które są dostępne publicznie. Jeśli obawiasz sie upubliczniania współrzędnych, podaj współrzędne najbliższego parku, baru.. lub po prostu wpisz kilka ostatnich cyfr jako zera
 em00 Zmiana adresu e-mail
 em01 Aby zmienić adres e-mail najpierw musisz otrzymać kod, który zostanie wysłany na nowy adres e-mail
 em02 Nowy adres e-mail
@@ -1009,9 +1009,9 @@ em04 Kod, który otrzymałeś via e-mail
 em05 Zmień adres e-mail
 em06 Adres e-mail został zmieniony
 em07 Kod został wysłany na nowy adres e-mail
-em08 Kod do zmiany adresu e-mail na OCPL
+em08 Kod do zmiany adresu e-mail na {site_name}
 em09 Adres e-mail jest nieprawidłowy.
-em10 Podany adres e-mail już istnieje w bazie OC PL
+em10 Podany adres e-mail już istnieje w bazie {site_name}
 em11 Kod wprowadzony nie jest poprawny
 em12 Kod stracił swoją ważność
 removed_message_title Właściciel keszynki napisał następujący komentarz

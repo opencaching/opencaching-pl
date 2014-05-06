@@ -1000,8 +1000,8 @@ myprofile03 Guides
 myprofile04 Yes, I want to be a volunteer geocaching Guide for beginners
 myprofile05 See more on the page
 myprofile06 Remember to set your coordinates below as you won't be visible on the Guides' map otherwise
-myprofile07 OC PL uses coordinates to calculate distance to caches on the map that available publicly. If you are worried about publishing the coordinates, use coordinates of the nearest park, bar... or just set a couple of last digits to zeroes.
-em00 E-mail Change your e-mail address
+myprofile07 {site_name} uses coordinates to calculate distance to caches on the map that available publicly. If you are worried about publishing the coordinates, use coordinates of the nearest park, bar... or just set a couple of last digits to zeroes.
+em00 Change your e-mail address
 em01 To change the e-mail address firstly you need to obtain a code which will be sent on your new e-mail address
 em02 New e-mail address
 em03 Please enter the validation code with a new e-mail address. The code is valid for 3 days and after that you need to generate a new
@@ -1009,9 +1009,9 @@ em04 Code which you received via e-mail
 em05 Change e-mail address
 em06 Your e-mail address have been changed
 em07 Validation code has been sent to the new e-mail address
-em08 Validation code to change the e-mail address to OCPL
+em08 Validation code to change the e-mail address on {site_name}
 em09 Invalid e-mail address
-em10 Given e-mail address already exists in the OCPL database
+em10 Given e-mail address already exists in the {site_name} database
 em11 The code entered is not valid
 em12 Given code have lost it's validaty
 removed_message_title The owner of geocache wrote to you the following comment
