@@ -1,20 +1,21 @@
-Witaj %user%,
+{newEmailAddr_01} {user},
 
 
 
-Dnia %date% poprosiłeś o specjalny kod w celu zmiany Twojego adresu e-mail.
+{newEmailAddr_02} {date} {newEmailAddr_03}.
 
 
+{newEmailAddr_04}:
+{code}
 
-Specjalny kod: %code%
-
-Kod jest ważny 3 dni od daty wystawienia.
-
-
-
-Nowy adres e-mail możesz zmienić pod adresem: http://www.opencaching.pl/newemail.php
+{newEmailAddr_05}.
 
 
-Opencaching PL Team
+{newEmailAddr_06}:
+(server)newemail.php
 
-http://www.opencaching.pl
+
+{octeamEmailsSignature}
+
+{newEmailAddr_07}.
+

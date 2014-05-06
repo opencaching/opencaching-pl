@@ -28,6 +28,7 @@
  ****************************************************************************/
 
     //prepare the templates and include all neccessary
+    global $octeamEmailsSignature, $absolute_server_URI;
     require_once('./lib/common.inc.php');
 
     //Preprocessing
@@ -92,11 +93,18 @@
                         sql("UPDATE `user` SET `new_email_date`='&1', `new_email_code`='&2', `new_email`='&3' WHERE `user_id`='&4'", time(), $secure_code, $new_email, $usr['userid']);
 
                         $email_content = read_file($stylepath . '/email/newemail.email');
-
-                        $email_content = mb_ereg_replace('%user%', $usr['username'], $email_content);
-                        $email_content = mb_ereg_replace('%date%', strftime($datetimeformat), $email_content);
-                        $email_content = mb_ereg_replace('%code%', $secure_code, $email_content);
-
+                	$email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
+                	$email_content = mb_ereg_replace('{newEmailAddr_01}', tr('newEmailAddr_01'), $email_content);
+                	$email_content = mb_ereg_replace('{newEmailAddr_02}', tr('newEmailAddr_02'), $email_content);
+                	$email_content = mb_ereg_replace('{newEmailAddr_03}', tr('newEmailAddr_03'), $email_content);
+                	$email_content = mb_ereg_replace('{newEmailAddr_04}', tr('newEmailAddr_04'), $email_content);
+                	$email_content = mb_ereg_replace('{newEmailAddr_05}', tr('newEmailAddr_05'), $email_content);
+                	$email_content = mb_ereg_replace('{newEmailAddr_06}', tr('newEmailAddr_06'), $email_content);
+                	$email_content = mb_ereg_replace('{newEmailAddr_07}', tr('newEmailAddr_07'), $email_content);
+                        $email_content = mb_ereg_replace('{user}', $usr['username'], $email_content);
+                        $email_content = mb_ereg_replace('{date}', strftime($datetimeformat), $email_content);
+                        $email_content = mb_ereg_replace('{code}', $secure_code, $email_content);
+                	$email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
                         //email versenden
                         mb_send_mail($new_email, $email_subject, $email_content, $emailheaders);
 
