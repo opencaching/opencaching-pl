@@ -2328,3 +2328,13 @@ newEmailAddr_04 Securitycode
 newEmailAddr_05 This securitycode is valid for 3 days, after that you need a new code
 newEmailAddr_06 Enter this securitycode and your new E-mailaddress on
 newEmailAddr_07 This message is auto-generated - please do not reply
+viewPending_01 Cache approved on {site_name}
+viewPending_02 Copie of approved cache
+viewPending_03 The cache is approved by the OC Team
+viewPending_04 Cache disapproved on {site_name}
+viewPending_05 Copy of disapproved cache
+viewPending_06 The cache is disappoved by the OC Team
+viewPending_07
+viewPending_08 
+viewPending_09
+viewPending_10

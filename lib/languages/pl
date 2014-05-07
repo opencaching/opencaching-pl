@@ -2328,3 +2328,13 @@ newEmailAddr_04 Specjalny kod
 newEmailAddr_05 Kod jest ważny 3 dni od daty wystawienia
 newEmailAddr_06 Nowy adres e-mail możesz zmienić pod adresem
 newEmailAddr_07 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
+viewPending_01 Akceptacja skrzynki {site_name}
+viewPending_02 Kopia potwierdzenia akceptacji skrzynki
+viewPending_03 Skrzynka została zaakceptowana przez OC-Team
+viewPending_04 Odrzucenie skrzynki {site_name}
+viewPending_05 Kopia potwierdzenia odrzucenia skrzynki
+viewPending_06 Skrzynka została odrzucona przez OC-Team
+viewPending_07
+viewPending_08
+viewPending_09
+viewPending_10
