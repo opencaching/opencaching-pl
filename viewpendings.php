@@ -130,7 +130,7 @@ global $bgcolor1, $bgcolor2;
     function notifyOwner($cacheid, $msgType)
     {
         // msgType - 0 = cache accepted, 1 = cache declined (=archived)
-        global $stylepath, $usr, $site_name;
+        global $stylepath, $usr, $octeam_email, $site_name;
         $user_id = getCacheOwnerId($cacheid);
 
         $cachename = getCachename($cacheid);
