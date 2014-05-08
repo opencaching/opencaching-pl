@@ -2328,10 +2328,10 @@ newEmailAddr_04 Veiligheidscode
 newEmailAddr_05 Deze veiligheidscode is 3 dagen geldig, daarna moet er een nieuwe veiligheidscode opgevraagd worden
 newEmailAddr_06 Vul deze veiligheidscode en het nieuwe e-mailadres in op
 newEmailAddr_07 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
-viewPending_01 Cache goedgekeurd op {site_name} 
+viewPending_01 Cache goedgekeurd op {site_name}
 viewPending_02 Kopie van goedgekeurde cache
 viewPending_03 De cache is goedgekeurd door het OC Team
-viewPending_04 Cache afgekeurd op {site_name} 
+viewPending_04 Cache afgekeurd op {site_name}
 viewPending_05 Kopie van afgekeurde cache
 viewPending_06 De cache is afgekeurd door het OC Team
 viewPending_07 Deze is aan
