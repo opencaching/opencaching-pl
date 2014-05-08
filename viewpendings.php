@@ -156,7 +156,7 @@ global $bgcolor1, $bgcolor2;
             //send email to owner
             mb_send_mail($owner_email['email'], tr('viewPending_01'). ":" .$cachename, $email_content, $email_headers);
             //send email to approver
-            mb_send_mail($usr['email'], tr('viewPending_01'). ":".$cachename, tr('viewPending_02'). ":\n".$email_content, $email_headers);
+            mb_send_mail($usr['email'], tr('viewPending_01'). ":" .$cachename, tr('viewPending_02'). ":\n".$email_content, $email_headers);
             // generate automatic log about status cache
             $log_text=tr("viewPending_03");
             $log_uuid = create_uuid();
@@ -169,9 +169,9 @@ global $bgcolor1, $bgcolor2;
         else
         {
             //send email to owner
-            mb_send_mail($owner_email['email'], tr('viewPending_04'). ":".$cachename, $email_content, $email_headers);
+            mb_send_mail($owner_email['email'], tr('viewPending_04'). ":" .$cachename, $email_content, $email_headers);
             //send email to approver
-            mb_send_mail($usr['email'], tr('viewPending_04'). ":".$cachename, tr('viewPending_05'). ":\n".$email_content, $email_headers);
+            mb_send_mail($usr['email'], tr('viewPending_04'). ":" .$cachename, tr('viewPending_05'). ":\n".$email_content, $email_headers);
 
             // generate automatic log about status cache
             $log_text=tr("viewPending_06");
