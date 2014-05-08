@@ -2328,13 +2328,24 @@ newEmailAddr_04 Securitycode
 newEmailAddr_05 This securitycode is valid for 3 days, after that you need a new code
 newEmailAddr_06 Enter this securitycode and your new E-mailaddress on
 newEmailAddr_07 This message is auto-generated - please do not reply
-viewPending_01 Cache approved on {site_name}
+viewPending_01 Cache is approved on {site_name}
 viewPending_02 Copie of approved cache
 viewPending_03 The cache is approved by the OC Team
 viewPending_04 Cache disapproved on {site_name}
 viewPending_05 Copy of disapproved cache
 viewPending_06 The cache is disappoved by the OC Team
-viewPending_07
-viewPending_08 
-viewPending_09
-viewPending_10
+viewPending_07 User
+viewPending_08 has assigned this case
+viewPending_09 The cache has been approved. The owner has been notified of this fact 
+viewPending_10 Was the approved cache. No change was made 
+viewPending_11 The box has been disapproved. The owner has been notified of this fact 
+viewPending_12 Was the rejection of the cache. No change was made
+viewPending_13 You are about to <b>approve</b> the cache
+viewPending_14 from user
+viewPending_15 Status of the cache will be changed to "Not yet available"
+viewPending_16 Accept cache
+viewPending_17 Cancel
+viewPending_18 You are about to <b>disapprove</b> the cache
+viewPending_19 Status of the cache will be changed to "Blocked by COG"
+viewPending_20 Block cache
+viewPending_21 The selected cache is already active, archived or not there

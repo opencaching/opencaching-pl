@@ -2334,7 +2334,18 @@ viewPending_03 Skrzynka została zaakceptowana przez OC-Team
 viewPending_04 Odrzucenie skrzynki {site_name}
 viewPending_05 Kopia potwierdzenia odrzucenia skrzynki
 viewPending_06 Skrzynka została odrzucona przez OC-Team
-viewPending_07
-viewPending_08
-viewPending_09
-viewPending_10
+viewPending_07 Przypisano użytkownika
+viewPending_08 do zgłoszenia
+viewPending_09 Skrzynka została zaakceptowana. Właściciel został powiadomiony o tym fakcie
+viewPending_10 Wystąpił problem z akceptacją skrzynki. Żadna zmiana nie została wprowadzona
+viewPending_11 Skrzynka została odrzucona. Właściciel został powiadomiony o tym fakcie
+viewPending_12 Wystąpił problem z odrzuceniem skrzynki. Żadna zmiana nie została wprowadzona
+viewPending_13 Zamierzasz <b>zaakceptować</b> skrzynkę
+viewPending_14 użytkownika
+viewPending_15 Status skrzynki zostanie zmieniony na "Jeszcze niedostępna"
+viewPending_16 Potwierdzam akceptację
+viewPending_17 Powrót
+viewPending_18 Zamierzasz <b>odrzucić</b> skrzynkę
+viewPending_19 Status skrzynki zostanie zmieniony na "Zablokowana przez COG"
+viewPending_20 Potwierdzam blokade
+viewPending_21 Wybrana skrzynka jest już aktywna, zarchiwizowana albo nie istnieje

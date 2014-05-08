@@ -2334,7 +2334,18 @@ viewPending_03 De cache is goedgekeurd door het OC Team
 viewPending_04 Cache afgekeurd op {site_name}
 viewPending_05 Kopie van afgekeurde cache
 viewPending_06 De cache is afgekeurd door het OC Team
-viewPending_07
-viewPending_08 
-viewPending_09
-viewPending_10
+viewPending_07 Deze is aan
+viewPending_08 toegewezen
+viewPending_09 De cache is goedgekeurd. De eigenaar is op de hoogte gebracht
+viewPending_10 Was de goedgekeurde cache. Er is geen verandering gemaakt 
+viewPending_11 De cache is afgekeurd.De eigenaar is op de hoogte gebracht
+viewPending_12 Was de afgoedgekeurde cache. Er is geen verandering gemaakt
+viewPending_13 Hier kan de cache <b>goedgekeurd</b> worden
+viewPending_14 van gebruiker
+viewPending_15 De status van de cache zal op "tijdelijk niet beschikbaar" gezet worden
+viewPending_16 Cache goedkeuren
+viewPending_17 Annuleren
+viewPending_18 Hier kan de cache <b>afgekeurd</b> worden
+viewPending_19 De status van de cache zal op "Geblokkeerd door OC Team" gezet worden
+viewPending_20 Cache afkeuren
+viewPending_21 De geselecteerde cache is al actief, gearchiveerd of bestaat niet
