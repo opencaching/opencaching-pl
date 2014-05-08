@@ -154,11 +154,11 @@ global $bgcolor1, $bgcolor2;
       if( $msgType == 0 )
         {
             //send email to owner
-            mb_send_mail($owner_email['email'], "[OC PL] Akceptacja skrzynki: ".$cachename, $email_content, $email_headers);
+            mb_send_mail($owner_email['email'], tr('viewPending_01'). ":" .$cachename, $email_content, $email_headers);
             //send email to approver
-            mb_send_mail($usr['email'], "[OC PL] Akceptacja skrzynki: ".$cachename, "Kopia potwierdzenia akceptacji skrzynki:\n".$email_content, $email_headers);
+            mb_send_mail($usr['email'], tr('viewPending_01'). ":".$cachename, tr('viewPending_02'). ":\n".$email_content, $email_headers);
             // generate automatic log about status cache
-            $log_text=tr("approved_by_octeam");
+            $log_text=tr("viewPending_03");
             $log_uuid = create_uuid();
             sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
                                      VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
@@ -169,12 +169,12 @@ global $bgcolor1, $bgcolor2;
         else
         {
             //send email to owner
-            mb_send_mail($owner_email['email'], "[OC PL] Odrzucenie skrzynki: ".$cachename, $email_content, $email_headers);
+            mb_send_mail($owner_email['email'], tr('viewPending_04'). ":".$cachename, $email_content, $email_headers);
             //send email to approver
-            mb_send_mail($usr['email'], "[OC PL] Odrzucenie skrzynki: ".$cachename, "Kopia potwierdzenia odrzucenia skrzynki:\n".$email_content, $email_headers);
+            mb_send_mail($usr['email'], tr('viewPending_04'). ":".$cachename, tr('viewPending_05'). ":\n".$email_content, $email_headers);
 
             // generate automatic log about status cache
-            $log_text="Skrzynka została odrzucona przez COG";
+            $log_text=tr("viewPending_06");
             $log_uuid = create_uuid();
             sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`,`encrypt`)
                                      VALUES ('', '&1', '&2', '&3', NOW(), '&4', '&5', '&6', NOW(), NOW(), '&7', '&8','&9')",
@@ -199,7 +199,7 @@ global $bgcolor1, $bgcolor2;
             {
                 if( assignUserToCase($_GET['assign'], $_GET['cacheid']) )
                 {
-                    $confirm = "<p>Przypisano użytkownika ".getUsername(sql_escape($_GET['assign']))." do zgłoszenia.</p>";
+                    $confirm = "<p>".tr("viewPending_07")." ".getUsername(sql_escape($_GET['assign']))." ".tr("viewPending_07").".</p>";
                     tpl_set_var('confirm', $confirm);
                 }
                 else
@@ -219,11 +219,11 @@ global $bgcolor1, $bgcolor2;
                         {
                             assignUserToCase($usr['userid'], $_GET['cacheid']);
                             notifyOwner($_GET['cacheid'], 0);
-                            $confirm = "<p>Skrzynka została zaakceptowana. Właściciel został powiadomiony o tym fakcie.</p>";
+                            $confirm = "<p> ".tr("viewPending_09").".</p>";
                         }
                         else
                         {
-                            $confirm = "<p>Wystąpił problem z akceptacją skrzynki. Żadna zmiana nie została wprowadzona.</p>";
+                            $confirm = "<p> ".tr("viewPending_10").".</p>";
                         }
                     }
                     else if( isset($_GET['confirm']) && $_GET['confirm'] == 2 )
@@ -233,32 +233,32 @@ global $bgcolor1, $bgcolor2;
                         {
                             assignUserToCase($usr['userid'], $_GET['cacheid']);
                             notifyOwner($_GET['cacheid'], 1);
-                            $confirm = "<p>Skrzynka została odrzucona. Właściciel został powiadomiony o tym fakcie.</p>";
+                            $confirm = "<p> ".tr("viewPending_11").".</p>";
                         }
                         else
                         {
-                            $confirm = "<p>Wystąpił problem z odrzuceniem skrzynki. Żadna zmiana nie została wprowadzona.</p>";
+                            $confirm = "<p> ".tr("viewPending_12").".</p>";
                         }
                     }
                     else if( $_GET['action'] == 1 )
                     {
                         // require confirmation
-                        $confirm = "<p>Zamierzasz <b>zaakceptować</b> skrzynkę \"<a href='viewcache.php?cacheid=".$_GET['cacheid']."'>".getCachename($_GET['cacheid'])."</a>\" użytkownika ".getCacheOwnername($_GET['cacheid']).". Status skrzynki zostanie zmieniony na \"Jeszcze niedostępna\".</p>";
-                        $confirm .= "<p><a href='viewpendings.php?cacheid=".$_GET['cacheid']."&amp;confirm=1'>Potwierdzam akceptację</a> |
-                        <a href='viewpendings.php'>Powrót</a></p>";
+                        $confirm = "<p> ".tr("viewPending_13")." \"<a href='viewcache.php?cacheid=".$_GET['cacheid']."'>".getCachename($_GET['cacheid'])."</a>\" ".tr("viewPending_14")." ".getCacheOwnername($_GET['cacheid']).". ".tr("viewPending_15").".</p>";
+                        $confirm .= "<p><a href='viewpendings.php?cacheid=".$_GET['cacheid']."&amp;confirm=1'>".tr("viewPending_16")."</a> |
+                        <a href='viewpendings.php'>".tr("viewPending_17")."</a></p>";
                     }
                     else if( $_GET['action'] == 2 )
                     {
                         // require confirmation
-                        $confirm = "<p>Zamierzasz <b>odrzucić</b> skrzynkę \"<a href='viewcache.php?cacheid=".$_GET['cacheid']."'>".getCachename($_GET['cacheid'])."</a>\" użytkownika ".getCacheOwnername($_GET['cacheid']).". Status skrzynki zostanie zmieniony na \"Zablokowana przez COG\".</p>";
-                        $confirm .= "<p><a href='viewpendings.php?cacheid=".$_GET['cacheid']."&amp;confirm=2'>Potwierdzam blokade</a> |
-                        <a href='viewpendings.php'>Powrót</a></p>";
+                        $confirm = "<p> ".tr("viewPending_18")." \"<a href='viewcache.php?cacheid=".$_GET['cacheid']."'>".getCachename($_GET['cacheid'])."</a>\" ".tr("viewPending_14")." ".getCacheOwnername($_GET['cacheid']).". ".tr("viewPending_19").".</p>";
+                        $confirm .= "<p><a href='viewpendings.php?cacheid=".$_GET['cacheid']."&amp;confirm=2'>".tr("viewPending_20")."</a> |
+                        <a href='viewpendings.php'>".tr("viewPending_17")."</a></p>";
                     }
                     tpl_set_var('confirm', $confirm);
                 }
                 else
                 {
-                    tpl_set_var('confirm', '<p>Wybrana skrzynka jest już aktywna, zarchiwizowana albo nie istnieje.</p>');
+                    tpl_set_var('confirm', '<p>'.tr('viewPending_21').'.</p>');
                 }
             }
         }
