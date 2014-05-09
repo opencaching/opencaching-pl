@@ -2351,4 +2351,5 @@ viewPending_20 Cache afkeuren
 viewPending_21 De geselecteerde cache is al actief, gearchiveerd of bestaat niet
 cacheArchived_01 Hallo
 cacheArchived_02 Je cache
-cacheArchived_03
+cacheArchived_03 Je afgekeurd door het OC Team
+cacheArchived_04 De status van de cache is nu veranderd naar "Geblokkeerd door OC Team"

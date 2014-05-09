@@ -2351,4 +2351,5 @@ viewPending_20 Block cache
 viewPending_21 The selected cache is already active, archived or not there
 cacheArchived_01 Hello
 cacheArchived_02 Your cache
-cacheArchived_03
+cacheArchived_03 Is disapproved by the OC-Team
+cacheArchived_04 The status of the cache has been changedto "Blocked by COG" 

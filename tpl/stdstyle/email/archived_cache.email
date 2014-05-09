@@ -3,9 +3,9 @@
 
 {cacheArchived_02}: {cachename}
 ({server}viewcache.php?cacheid={cacheid})
-NIE została aktywowana przez Zespół {site_name}. 
+{cacheArchived_03}. 
 
-Jej status został zmieniony na "Zablokowana przez COG". 
+{cacheArchived_04}. 
 
 W razie jakichkolwiek pytań, prosimy o kontakt na adres:
 cog@opencaching.pl.
