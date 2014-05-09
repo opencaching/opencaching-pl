@@ -2349,3 +2349,6 @@ viewPending_18 You are about to <b>disapprove</b> the cache
 viewPending_19 Status of the cache will be changed to "Blocked by COG"
 viewPending_20 Block cache
 viewPending_21 The selected cache is already active, archived or not there
+cacheArchived_01 Hello
+cacheArchived_02 Your cache
+cacheArchived_03

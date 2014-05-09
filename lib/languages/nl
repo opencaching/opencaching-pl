@@ -2349,3 +2349,6 @@ viewPending_18 Hier kan de cache <b>afgekeurd</b> worden
 viewPending_19 De status van de cache zal op "Geblokkeerd door OC Team" gezet worden
 viewPending_20 Cache afkeuren
 viewPending_21 De geselecteerde cache is al actief, gearchiveerd of bestaat niet
+cacheArchived_01 Hallo
+cacheArchived_02 Je cache
+cacheArchived_03

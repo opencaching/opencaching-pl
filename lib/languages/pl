@@ -2349,3 +2349,6 @@ viewPending_18 Zamierzasz <b>odrzucić</b> skrzynkę
 viewPending_19 Status skrzynki zostanie zmieniony na "Zablokowana przez COG"
 viewPending_20 Potwierdzam blokade
 viewPending_21 Wybrana skrzynka jest już aktywna, zarchiwizowana albo nie istnieje
+cacheArchived_01 Witaj
+cacheArchived_02 Twoja skrzynka
+cacheArchived_03 NIE została aktywowana przez Zespół
