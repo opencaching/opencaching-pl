@@ -130,7 +130,7 @@ global $bgcolor1, $bgcolor2;
     function notifyOwner($cacheid, $msgType)
     {
         // msgType - 0 = cache accepted, 1 = cache declined (=archived)
-        global $stylepath, $usr, $octeam_email, $site_name;
+        global $stylepath, $usr, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature;
         $user_id = getCacheOwnerId($cacheid);
 
         $cachename = getCachename($cacheid);
@@ -142,11 +142,15 @@ global $bgcolor1, $bgcolor2;
         {
             $email_content = read_file($stylepath . '/email/archived_cache.email');
         }
-        $email_content = mb_ereg_replace('%cachename%', $cachename, $email_content);
-        $email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);
         $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
         $email_headers .= "From: $site_name <$octeam_email>\r\n";
         $email_headers .= "Reply-To: $octeam_email\r\n";
+	$email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
+        $email_content = mb_ereg_replace('{cachename}', $cachename, $email_content);
+        $email_content = mb_ereg_replace('{cacheid}', $cacheid, $email_content);
+	$email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
+	$email_content = mb_ereg_replace('{cacheArchived_01}', tr('cacheArchived_01'), $email_content);
+	$email_content = mb_ereg_replace('{cacheArchived_02}', tr('cacheArchived_02'), $email_content);
 
         $query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $user_id);
         $owner_email = sql_fetch_array($query);

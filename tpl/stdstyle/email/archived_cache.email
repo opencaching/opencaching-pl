@@ -1,6 +1,9 @@
-Twoja skrzynka: %cachename%
-(http://www.opencaching.pl/viewcache.php?cacheid=%cacheid%)
-NIE została aktywowana przez Zespół Opencaching.pl. 
+{cacheArchived_01}
+
+
+{cacheArchived_02}: {cachename}
+({server}viewcache.php?cacheid={cacheid})
+NIE została aktywowana przez Zespół {site_name}. 
 
 Jej status został zmieniony na "Zablokowana przez COG". 
 
@@ -8,4 +11,4 @@ W razie jakichkolwiek pytań, prosimy o kontakt na adres:
 cog@opencaching.pl.
 
 -- 
-OC PL Team
+{octeamEmailsSignature}
