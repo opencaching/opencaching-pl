@@ -510,7 +510,7 @@ class powerTrailBase{
      //print "active cc: ".$answer['cacheCount'].' / required caches: '. $pt['cacheCount']*$pt['perccentRequired']/100;
 
         if($answer['cacheCount'] < ($pt['cacheCount']*$pt['perccentRequired'])/100) {
-            print '<span style="color: red">[test message only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['id'].'</a>should be put in service (uncompletable) cacheCount: '.$answer['cacheCount'].' demand: '.(($pt['cacheCount']*$pt['perccentRequired'])/100).' </span><br/>';
+            //print '<span style="color: red">[test message only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['id'].'</a>should be put in service (uncompletable) cacheCount: '.$answer['cacheCount'].' demand: '.(($pt['cacheCount']*$pt['perccentRequired'])/100).' </span><br/>';
 
             //$queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
             // $db->multiVariableQuery($queryStatus, 4, $pt['id']);
@@ -531,7 +531,7 @@ class powerTrailBase{
         // print 'pt #'.$pt['id'].', caches in pt: '.$pt['cacheCount'].'; min. caches limit: '. $checkPt->getPtMinCacheCountLimit($pt).'<br>';
         if($pt['cacheCount'] < $checkPt->getPtMinCacheCountLimit($pt)){
 //            $text = tr('pt227').tr('pt228');
-              print '[test only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['id'].'</a> (geoPtah cache count='.$pt['cacheCount'].' is lower than minimum='.$checkPt->getPtMinCacheCountLimit($pt).') <br/>';
+//            print '[test only] geoPath #<a href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'">'.$pt['id'].'</a> (geoPtah cache count='.$pt['cacheCount'].' is lower than minimum='.$checkPt->getPtMinCacheCountLimit($pt).') <br/>';
 //            $db = new dataBase;
 //            $queryStatus = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
 //            $db->multiVariableQuery($queryStatus, 4, $pt['id']);
