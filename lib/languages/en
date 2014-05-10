@@ -2311,7 +2311,7 @@ notify_newCache_06 Bearing
 notify_newCache_07 Type
 notify_newCache_08 Size
 notify_newCache_09 You can watch and change your settings on
-notify_newCache_10 New caches
+notify_newCache_10 There is a new cache on {site_name}
 notify_newCache_11 There are no new logs
 notify_newCache_12 This message is auto-generated - please do not reply
 newPassWord_01 Hello

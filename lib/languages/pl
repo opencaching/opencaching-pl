@@ -2311,7 +2311,7 @@ notify_newCache_06 kierunek
 notify_newCache_07 Typ
 notify_newCache_08 Wielkość
 notify_newCache_09 Możesz zmienić ustawienia powiadomień na stronie swojego profilu
-notify_newCache_10 Nowa skrzynka
+notify_newCache_10 Nowa skrzynka {site_name}
 notify_newCache_11 Nie ma nowych wpisów do logu
 notify_newCache_12 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
 newPassWord_01 Witaj
