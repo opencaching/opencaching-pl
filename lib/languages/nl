@@ -811,7 +811,7 @@ online_users Online registreerde gebruikers
 online_users_info gebaseerd op actieve gebruikers van de laatste 10 minuten
 empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. Het maken van een cache kost moeite en het schrijven van waarderingen en kritiek zijn ook welkom! Zelfs een "Bedankt voor de cache" zou voldoende kunnen zijn.
 empty_entry_confirm Wil je werkelijk het logveld leeg laten?
-empty_mark Deze cache heb je niet beoordeeld?
+empty_mark Deze cache is nog niet beoordeeld. Werkelijk verder gaan met loggen?
 where_i_am Waar ben ik?
 read_info_about_cache_types Lees hier meer informatie over <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
 regiononly Regio
