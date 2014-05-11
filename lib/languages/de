@@ -209,6 +209,7 @@ time Zeitaufwand
 length Wegstrecke
 status_label Status
 date_hidden_label Datum versteckte
+date_event_label Veranstaltungsbeginn
 date_created_label Erstellungsdatum
 last_modified_label Letzte Änderung
 last_modified2_label Letzte Änderung

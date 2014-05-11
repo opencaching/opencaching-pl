@@ -199,6 +199,7 @@ time Čas
 length Délka
 status_label Status
 date_hidden_label Datum převlek
+date_event_label Událost datum zahájení
 date_created_label Datum
 last_modified_label Poslední změna
 waypoint waypoint

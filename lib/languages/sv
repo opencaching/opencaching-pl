@@ -197,6 +197,7 @@ time Tidsåtgång
 length Avstånd
 status_label Status
 date_hidden_label Datum då cachen är gömd
+date_event_label Startdatum för konferens
 date_created_label Skapad datum
 last_modified_label Senast uppdaterad
 waypoint Waypoint

@@ -198,6 +198,7 @@ time Time
 length Distance
 status_label Etat
 date_hidden_label Date déguiser
+date_event_label Les dates de début
 date_created_label Date
 last_modified_label Derniere mise a jour
 waypoint Waypoint

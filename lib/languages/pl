@@ -209,6 +209,7 @@ time Czas
 length Długość trasy
 status_label Status
 date_hidden_label Data ukrycia
+date_event_label Data rozpoczęcia wydarzenia
 date_created_label Data utworzenia
 last_modified_label Ostatnio zmodyfikowano
 last_modified2_label Ostatnio zmodyfikowana

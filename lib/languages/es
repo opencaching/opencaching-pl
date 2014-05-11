@@ -199,6 +199,7 @@ time Tiempo
 length Distancia
 status_label Estado
 date_hidden_label Fecha disfraz
+date_event_label Fecha de inicio del evento
 date_created_label Fecha
 last_modified_label Última modificación
 waypoint Waypoint

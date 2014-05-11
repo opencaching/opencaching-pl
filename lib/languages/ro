@@ -209,6 +209,7 @@ time Timpul necesar
 length Distanţa de parcurs
 status_label Stare
 date_hidden_label Data ascunderii
+date_event_label Eveniment Data de începere
 date_created_label Data creării
 last_modified_label Ultima modificare **
 last_modified2_label Ultima modificare ***
