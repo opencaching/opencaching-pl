@@ -1,12 +1,14 @@
-Twoja skrzynka: %cachename%
-(http://www.opencaching.pl/viewcache.php?cacheid=%cacheid%)
-została zaakceptowana przez Zespół Opencaching.pl. 
+{Cacheactivated_01}
 
-Możesz teraz zmienić jej status na "gotowa do szukania" oraz opcje publikacji
-na stronie http://www.opencaching.pl/editcache.php?cacheid=%cacheid% 
+
+{Cacheactivated_02}: {cachename}
+({server}viewcache.php?cacheid={cacheid})
+{Cacheactivated_03}. 
+
+{Cacheactivated_04}: {server}editcache.php?cacheid={cacheid}
 
 W razie jakichkolwiek pytań, prosimy o kontakt na adres:
 cog@opencaching.pl.
 
 -- 
-OC PL Team
+{octeamEmailsSignature}
