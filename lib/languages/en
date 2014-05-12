@@ -2315,6 +2315,7 @@ notify_newCache_09 You can watch and change your settings on
 notify_newCache_10 There is a new cache on {site_name}
 notify_newCache_11 There are no new logs
 notify_newCache_12 This message is auto-generated - please do not reply
+notify_newCache_13 New cache on {site_name}
 newPassWord_01 Hello
 newPassWord_02 On
 newPassWord_03 you have asked to set a new password

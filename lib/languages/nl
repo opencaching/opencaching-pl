@@ -2315,6 +2315,7 @@ notify_newCache_09 De instellingen voor jouw zoekradius kun je bekijken en bewer
 notify_newCache_10 Er is een nieuwe cache op {site_name} 
 notify_newCache_11 Er zijn nog geen nieuwe logs
 notify_newCache_12 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
+notify_newCache_13 Nieuwe cache op {site_name}
 newPassWord_01 Hallo
 newPassWord_02 Op
 newPassWord_03 heb je een code opgevraagd voor een nieuw wachtwoord
