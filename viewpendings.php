@@ -153,6 +153,7 @@ global $bgcolor1, $bgcolor2;
         $email_content = mb_ereg_replace('{cacheArchived_02}', tr('cacheArchived_02'), $email_content);
         $email_content = mb_ereg_replace('{cacheArchived_03}', tr('cacheArchived_03'), $email_content);
         $email_content = mb_ereg_replace('{cacheArchived_04}', tr('cacheArchived_04'), $email_content);
+	$email_content = mb_ereg_replace('{cacheArchived_05}', tr('cacheArchived_05'), $email_content);
 
         $query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $user_id);
         $owner_email = sql_fetch_array($query);
