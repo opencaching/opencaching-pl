@@ -209,7 +209,6 @@ time Tijd
 length Lengte
 status_label Status
 date_hidden_label Geplaatst op
-date_event_label Event startdatum
 date_created_label Gemaakt op
 last_modified_label Laatste verandering
 last_modified2_label Laatste verandering
@@ -2365,8 +2364,8 @@ ForgottenEmail_03 Bevestigen
 ForgottenEmail_04 Vergeten e-mailadres van {site_name}
 ForgottenEmail_05 Gebruiker bestaat niet
 ForgottenEmail_06 Het e-mailadres is verzonden
-ForgottenEmail_07 Hallo 
-ForgottenEmail_08 op 
+ForgottenEmail_07 Hallo
+ForgottenEmail_08 op
 ForgottenEmail_09 is een vergeten e-mailadres opgevraagd
 ForgottenEmail_10 Het e-mailadres bij registratie was
 ForgottenEmail_11 Dit bericht is automatisch gegenereerd, gelieve niet te reageren

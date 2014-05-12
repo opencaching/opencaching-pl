@@ -56,4 +56,7 @@
 <input type="submit" name="LogMeIn" value="{{login}}" class="formbuttons" />
 </form>
 <p class="content-title-noshade">{{not_registered}}<br />
-{{forgotten_your_password}}</p>
+
+{{forgotten_your_password}}<br />
+
+{{forGottenEmailAddress}}</p>

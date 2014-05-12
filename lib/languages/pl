@@ -209,7 +209,6 @@ time Czas
 length Długość trasy
 status_label Status
 date_hidden_label Data ukrycia
-date_event_label Data rozpoczęcia wydarzenia
 date_created_label Data utworzenia
 last_modified_label Ostatnio zmodyfikowano
 last_modified2_label Ostatnio zmodyfikowana
@@ -2364,8 +2363,8 @@ ForgottenEmail_03 Confirm
 ForgottenEmail_04 Reminder e-mailaddress on {site_name}
 ForgottenEmail_05 User does not exist
 ForgottenEmail_06 The e-mail has been sent
-ForgottenEmail_07 Witaj 
-ForgottenEmail_08 dnia  
+ForgottenEmail_07 Witaj
+ForgottenEmail_08 dnia
 ForgottenEmail_09 wysłałeś zgłoszenie o przypomnienie adresu e-mail
 ForgottenEmail_10 Adres e-mail użyty podczas rejestracji, to
 ForgottenEmail_11 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
