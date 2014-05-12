@@ -2354,10 +2354,12 @@ cacheArchived_01 Witaj
 cacheArchived_02 Twoja skrzynka
 cacheArchived_03 NIE została aktywowana przez Zespół
 cacheArchived_04 Jej status został zmieniony na "Zablokowana przez COG"
+cacheArchived_05 Jeśłi masz jakieś pytania zadaj je odpowiadając na ten email
 Cacheactivated_01 witaj 
 Cacheactivated_02 Twoja skrzynka 
 Cacheactivated_03 została zaakceptowana przez Zespół
 Cacheactivated_04 Możesz teraz zmienić jej status na "gotowa do szukania" oraz opcje publikacji na stronie 
+Cacheactivated_05 Jeśłi masz jakieś pytania zadaj je odpowiadając na ten email
 ForgottenEmail_01 Forgotten email request
 ForgottenEmail_02 Username
 ForgottenEmail_03 Confirm

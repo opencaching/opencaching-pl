@@ -2354,10 +2354,12 @@ cacheArchived_01 Hallo
 cacheArchived_02 Je cache
 cacheArchived_03 is afgekeurd door het OC Team
 cacheArchived_04 De status van de cache is nu veranderd naar "Geblokkeerd door OC Team"
+cacheArchived_05 Wanneer er vragen zijn kan er op deze mail gereageerd worden
 Cacheactivated_01 Hallo 
 Cacheactivated_02 Je cache 
 Cacheactivated_03 is goedgekeurd door het OC Team
 Cacheactivated_04 Je kunt de status van de nieuwe cache op "Beschikbaar" zetten op 
+Cacheactivated_05 Wanneer er vragen zijn kan er op deze mail gereageerd worden
 ForgottenEmail_01 Vergeten e-mail opvragen
 ForgottenEmail_02 Gebruikersnaam
 ForgottenEmail_03 Bevestigen

@@ -2354,10 +2354,12 @@ cacheArchived_01 Hello
 cacheArchived_02 Your cache
 cacheArchived_03 is disapproved by the OC-Team
 cacheArchived_04 The status of the cache has been changedto "Blocked by COG" 
+cacheArchived_05 If you have any question, please reply to this e-mail
 Cacheapproved_01 Hello 
 Cacheapproved_02 Your cache 
 Cacheapproved_03 is approved by the OC-Team
 Cacheapproved_04 You can change the status of your new cache to "Ready for search" on 
+Cacheapproved_05 If you have any question, please reply to this e-mail
 ForgottenEmail_01 Forgotten email request
 ForgottenEmail_02 Username
 ForgottenEmail_03 Confirm
