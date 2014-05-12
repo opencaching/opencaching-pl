@@ -31,7 +31,7 @@
         <col width="150">
         <col>
     </colgroup>
-    <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="" title="Neuer Cache" align="middle" /><font size="4">  <b>E-Mail-Adresse vergessen</b></font></td></tr>
+    <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/profile.png" class="icon32" alt="" title="Neuer Cache" align="middle" /><font size="4">  <b>{{ForgottenEmail_01}}</b></font></td></tr>
     <tr><td class="spacer" colspan="2"></td></tr>
     <tr>
         <td class="help" colspan="2">
@@ -42,7 +42,7 @@
     <tr><td class="spacer" colspan="2"></td></tr>
 
     <tr>
-        <td>Username:</td>
+        <td>{{ForgottenEmail_02}}:</td>
         <td>
             <input name="username" type="text" value="{username}" maglength="60" class="input200"  /> {username_message}
         </td>
@@ -52,7 +52,7 @@
     <tr>
         <td width="150px">&nbsp;</td>
         <td>
-        <input type="submit" name="submit" value="Bestätigen" class="formbuttons" />
+        <input type="submit" name="submit" value="{{ForgottenEmail_03}}" class="formbuttons" />
         </td>
     </tr>
 </table>

@@ -1,11 +1,16 @@
-Witaj %user%,
+{ForgottenEmail_07} {user},
 
-dnia %date% wysłałeś zgłoszenie o przypomnienie adresu e-mail.
 
-Adres e-mail użyty podczas rejestracji, to:
 
-%email%
+{ForgottenEmail_08} {date} {ForgottenEmail_09}.
 
-Opencaching PL Team
 
-http://www.opencaching.pl
+{ForgottenEmail_10}:
+
+{email}
+
+
+{octeamEmailsSignature}
+
+{ForgottenEmail_11}
+

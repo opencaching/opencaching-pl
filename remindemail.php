@@ -26,6 +26,7 @@
  ****************************************************************************/
 
     //prepare the templates and include all neccessary
+    global $octeamEmailsSignature, $absolute_server_URI;
     require_once('./lib/common.inc.php');
 
     //Preprocessing
@@ -57,9 +58,16 @@
 
                 $email_content = read_file($stylepath . '/email/remindemail.email');
 
-                $email_content = mb_ereg_replace('%user%', $r['username'], $email_content);
-                $email_content = mb_ereg_replace('%date%', strftime($datetimeformat), $email_content);
-                $email_content = mb_ereg_replace('%email%', $r['email'], $email_content);
+		$email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
+		$email_content = mb_ereg_replace('{ForgottenEmail_07}', tr('ForgottenEmail_07'), $email_content);
+		$email_content = mb_ereg_replace('{ForgottenEmail_08}', tr('ForgottenEmail_08'), $email_content);
+		$email_content = mb_ereg_replace('{ForgottenEmail_09}', tr('ForgottenEmail_09'), $email_content);
+		$email_content = mb_ereg_replace('{ForgottenEmail_10}', tr('ForgottenEmail_10'), $email_content);
+		$email_content = mb_ereg_replace('{ForgottenEmail_11}', tr('ForgottenEmail_11'), $email_content);
+                $email_content = mb_ereg_replace('{user}', $r['username'], $email_content);
+                $email_content = mb_ereg_replace('{date}', strftime($datetimeformat), $email_content);
+                $email_content = mb_ereg_replace('{email}', $r['email'], $email_content);
+		$email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
 
                 // ok, mail verschicken
                 mb_send_mail($r['email'], $mail_subject, $email_content, $emailheaders);
