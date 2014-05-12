@@ -2358,3 +2358,14 @@ Cacheapproved_01 Hello
 Cacheapproved_02 Your cache 
 Cacheapproved_03 is approved by the OC-Team
 Cacheapproved_04 You can change the status of your new cache to "Ready for search" on 
+ForgottenEmail_01 Forgotten email request
+ForgottenEmail_02 Username
+ForgottenEmail_03 Confirm
+ForgottenEmail_04 Reminder e-mailaddress on {site_name}
+ForgottenEmail_05 User does not exist
+ForgottenEmail_06 The e-mail has been sent
+ForgottenEmail_07 Hello 
+ForgottenEmail_08 On  
+ForgottenEmail_09 you asked a remeninder of your forgoten e-mailaddress
+ForgottenEmail_10 E-mailaddress used for registration was
+ForgottenEmail_11 This message is auto-generated - please do not reply

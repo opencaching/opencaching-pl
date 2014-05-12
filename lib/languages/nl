@@ -494,6 +494,7 @@ logoutsuccess Succesvol uitgelogt
 error_usernotactive Dit account is niet actief of gedeactiveerd.<br />Het account kan <a href=activation.php> hier </a>geactieveerd worden.
 not_registered Niet geregistreerd? <a href="register.php">Registeer</a>
 forgotten_your_password Wachtwoord vergeten? <a href="newpw.php">Vraag nieuw wachtwoord aan</a>
+forGottenEmailAddress E-mail vergeten? <a href="remindemail.php">Vraag het E-mailadres op</a>
 cache_logged_required Je moet ingelogd zijn om deze cache te loggen of te bewerken.
 basic_information Basis informatie.
 rating_poor slecht
@@ -2358,3 +2359,14 @@ Cacheactivated_01 Hallo
 Cacheactivated_02 Je cache 
 Cacheactivated_03 is goedgekeurd door het OC Team
 Cacheactivated_04 Je kunt de status van de nieuwe cache op "Beschikbaar" zetten op 
+ForgottenEmail_01 Vergeten e-mail opvragen
+ForgottenEmail_02 Gebruikersnaam
+ForgottenEmail_03 Bevestigen
+ForgottenEmail_04 Vergeten e-mailadres van {site_name}
+ForgottenEmail_05 Gebruiker bestaat niet
+ForgottenEmail_06 Het e-mailadres is verzonden
+ForgottenEmail_07 Hallo 
+ForgottenEmail_08 op 
+ForgottenEmail_09 is een vergeten e-mailadres opgevraagd
+ForgottenEmail_10 Het e-mailadres bij registratie was
+ForgottenEmail_11 Dit bericht is automatisch gegenereerd, gelieve niet te reageren

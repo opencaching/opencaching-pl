@@ -2358,3 +2358,14 @@ Cacheactivated_01 witaj
 Cacheactivated_02 Twoja skrzynka 
 Cacheactivated_03 została zaakceptowana przez Zespół
 Cacheactivated_04 Możesz teraz zmienić jej status na "gotowa do szukania" oraz opcje publikacji na stronie 
+ForgottenEmail_01 Forgotten email request
+ForgottenEmail_02 Username
+ForgottenEmail_03 Confirm
+ForgottenEmail_04 Reminder e-mailaddress on {site_name}
+ForgottenEmail_05 User does not exist
+ForgottenEmail_06 The e-mail has been sent
+ForgottenEmail_07 Witaj 
+ForgottenEmail_08 dnia  
+ForgottenEmail_09 wysłałeś zgłoszenie o przypomnienie adresu e-mail
+ForgottenEmail_10 Adres e-mail użyty podczas rejestracji, to
+ForgottenEmail_11 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
