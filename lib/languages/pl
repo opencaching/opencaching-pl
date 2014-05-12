@@ -493,6 +493,7 @@ logoutsuccess Wylogowanie przebiegło z powodzeniem
 error_usernotactive Twoje konto nie było aktywowane jeszcze lub było ponownie zdeaktywowane.<br />Konto możesz <a href=activation.php>TUTAJ</a>Aktywować.
 not_registered Chcesz się zarejestrować? <a href="register.php">Rejestracja</a>
 forgotten_your_password Zapomniałeś hasła? <a href="newpw.php">Nowe hasło</a>
+forGottenEmailAddress Forgotten your E-mail? <a href="remindemail.php"> Ask it here
 cache_logged_required Musisz być zalogowany by wpisywać się do logu i dokonywać operacji na skrzynce.
 basic_information Podstawowe informacje
 rating_poor słaba
