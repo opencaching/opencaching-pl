@@ -7,6 +7,6 @@
     $debug = false;
     $debug_mailto = 'ocpl@opencaching.pl';
 
-    $nologs = 'Nie ma nowych wpisów do logu.';
+    $nologs = tr('notify_newCache_11'). '. ';
 
 ?>
