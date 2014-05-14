@@ -1,7 +1,8 @@
 <?php
     // Unicode Reminder ăĄă˘
-
-    $mailfrom = 'notify@opencaching.pl';
+    global $site_name;
+    
+    $mailfrom = $site_name;
     $mailsubject = tr('notify_newCache_13'). ': '. '{cachename}';
 
     $debug = false;
