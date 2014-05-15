@@ -2316,7 +2316,7 @@ notify_newCache_09 Możesz zmienić ustawienia powiadomień na stronie swojego p
 notify_newCache_10 Nowa skrzynka {site_name}
 notify_newCache_11 Nie ma nowych wpisów do logu
 notify_newCache_12 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
-notify_newCache_13 Nowa skrzynka w serwisie {site_name}
+notify_newCache_13 Nowa skrzynka: {cachename}
 newPassWord_01 Witaj
 newPassWord_02 Dnia
 newPassWord_03 poprosiłeś o specjalny kod do zmiany hasła

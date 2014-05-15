@@ -3,7 +3,7 @@
     global $site_name;
     
     $mailfrom = $site_name;
-    $mailsubject = tr('notify_newCache_13'). ': '. '{cachename}';
+    $mailsubject = tr('notify_newCache_13');
 
     $debug = false;
     $debug_mailto = 'ocpl@opencaching.pl';
