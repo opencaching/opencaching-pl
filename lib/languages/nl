@@ -209,6 +209,7 @@ time Tijd
 length Lengte
 status_label Status
 date_hidden_label Geplaatst op
+date_event_label Datum evenement
 date_created_label Gemaakt op
 last_modified_label Laatste verandering
 last_modified2_label Laatste verandering
