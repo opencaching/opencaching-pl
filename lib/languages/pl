@@ -209,6 +209,7 @@ time Czas
 length Długość trasy
 status_label Status
 date_hidden_label Data ukrycia
+date_event_label Data rozpoczęcia wydarzenia
 date_created_label Data utworzenia
 last_modified_label Ostatnio zmodyfikowano
 last_modified2_label Ostatnio zmodyfikowana
@@ -2355,16 +2356,16 @@ cacheArchived_01 Witaj
 cacheArchived_02 Twoja skrzynka
 cacheArchived_03 NIE została aktywowana przez Zespół
 cacheArchived_04 Jej status został zmieniony na "Zablokowana przez COG"
-cacheArchived_05 Jeśłi masz jakieś pytania zadaj je odpowiadając na ten email
+cacheArchived_05 Jeśli masz jakieś pytania zadaj je odpowiadając na ten email
 Cacheactivated_01 witaj 
 Cacheactivated_02 Twoja skrzynka 
 Cacheactivated_03 została zaakceptowana przez Zespół
 Cacheactivated_04 Możesz teraz zmienić jej status na "gotowa do szukania" oraz opcje publikacji na stronie 
-Cacheactivated_05 Jeśłi masz jakieś pytania zadaj je odpowiadając na ten email
+Cacheactivated_05 Jeśli masz jakieś pytania zadaj je odpowiadając na ten email
 ForgottenEmail_01 Forgotten email request
 ForgottenEmail_02 Username
 ForgottenEmail_03 Confirm
-ForgottenEmail_04 Reminder e-mailaddress on {site_name}
+ForgottenEmail_04 Reminder e-mail address on {site_name}
 ForgottenEmail_05 User does not exist
 ForgottenEmail_06 The e-mail has been sent
 ForgottenEmail_07 Witaj
