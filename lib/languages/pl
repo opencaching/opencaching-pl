@@ -1249,7 +1249,7 @@ no_pictures_yet Nie ma załączonych obrazków.
 show_all_countries Wszystkie kraje
 newcache_upload wczytaj
 newcache_import_wpt Wczytaj dane z pliku gpx
-newcache_import_wpt_help Ta funkcja umożliwia wczytanie podstawowych danych (współrzędne, nazwa) waypointa z pliku gpx. (np.&nbsp;z garmina).
+newcache_import_wpt_help Ta funkcja umożliwia wczytanie podstawowych danych (współrzędne, nazwa) waypointa z pliku gpx. (np.&nbsp;z garmina). Jest to ułatwienie: nie musisz wówczas wypeniać niektórych poniższych pól ręcznie
 newcache_import_wpt_ok Dane zostały wczytane
 email_reset Powrót
 email_submit Wyslij
