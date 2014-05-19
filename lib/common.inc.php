@@ -1415,7 +1415,9 @@ function fixPlMonth($string)
 
 function tidy_html_description($text)
 {
-    return htmlspecialchars_decode(stripslashes($text));
+    //There was a problem with backslashes '\'
+    //I've restored the old way  :) - triPPer 
+    //return htmlspecialchars_decode(stripslashes($text));
 
     // old way, I have no idea what is going there and why, so I leave it as is for resque if above line will work not corrrect..
     $options = array("input-encoding" => "utf8", "output-encoding" => "utf8", "output-xhtml" => true, "doctype" => "omit", "show-body-only" => true, "char-encoding" => "utf8", "quote-ampersand" => true, "quote-nbsp" => true, "wrap" => 0);
