@@ -2373,4 +2373,16 @@ ForgottenEmail_08 op
 ForgottenEmail_09 is een vergeten e-mailadres opgevraagd
 ForgottenEmail_10 Het e-mailadres bij registratie was
 ForgottenEmail_11 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
+autoArchive_01 Hallo 
+autoArchive_02 Jouw cache 
+autoArchive_03 staat al 4 maanden op "Tijdelijk niet beschikbaar"
+autoArchive_04 Als er niets mee gedaan wordt, overweeg dan om te archiveren
+autoArchive_05 Over 2 maanden zal deze cache automatich gearchiveerd worden
+autoArchive_06 staat al 5 maanden op "Tijdelijk niet beschikbaar"
+autoArchive_07 Over 1 maand zal deze cache automatich gearchiveerd worden
+autoArchive_08 staat al 6 maanden op "Tijdelijk niet beschikbaar"
+autoArchive_09 Deze cache is automatisch gearchiveerd
+autoArchive_10 De nodige informatie is toegevoegd in de log
+autoArchive_11 Automatisch gearchiveerde cache
+autoArchive_12 Automatische archivering, na 6 maanden van "Tijdelijk niet beschikbaar"
 

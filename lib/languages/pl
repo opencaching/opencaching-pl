@@ -2373,4 +2373,16 @@ ForgottenEmail_08 dnia
 ForgottenEmail_09 wysłałeś zgłoszenie o przypomnienie adresu e-mail
 ForgottenEmail_10 Adres e-mail użyty podczas rejestracji, to
 ForgottenEmail_11 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
+autoArchive_01 Witaj
+autoArchive_02 Twoja skrzynka
+autoArchive_03 jest w stanie "tymczasowo niedostępna" od 4 miesięcy
+autoArchive_04 Jeśli nie zamierzasz jej reaktywować, prosimy o jej archiwizację
+autoArchive_05 Za 2 miesiące skrzynka zostanie zarchiwizowana automatycznie
+autoArchive_06 jest w stanie "tymczasowo niedostępna" od 5 miesięcy
+autoArchive_07 Za miesiąc skrzynka zostanie zarchiwizowana automatycznie
+autoArchive_08 jest w stanie "tymczasowo niedostępna" od 6 miesięcy
+autoArchive_09 Skrzynka została automatycznie zarchiwizowana
+autoArchive_10 Odpowiednia informacja została dodana do logu
+autoArchive_11 Automatyczna archiwizacja Twojej skrzynki
+autoArchive_12 Automatyczna archiwizacja - 6 miesięcy w stanie "Tymczasowo niedostępna"
 

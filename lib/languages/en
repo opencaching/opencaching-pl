@@ -2355,13 +2355,13 @@ viewPending_21 The selected cache is already active, archived or not there
 cacheArchived_01 Hello
 cacheArchived_02 Your cache
 cacheArchived_03 is disapproved by the OC-Team
-cacheArchived_04 The status of the cache has been changedto "Blocked by COG" 
+cacheArchived_04 The status of the cache has been changed to "Blocked by COG" 
 cacheArchived_05 If you have any question, please reply to this e-mail
-Cacheapproved_01 Hello 
-Cacheapproved_02 Your cache 
-Cacheapproved_03 is approved by the OC-Team
-Cacheapproved_04 You can change the status of your new cache to "Ready for search" on 
-Cacheapproved_05 If you have any question, please reply to this e-mail
+Cacheactivated_01 Hello 
+Cacheactivated_02 Your cache 
+Cacheactivated_03 is approved by the OC-Team
+Cacheactivated_04 You can change the status of your new cache to "Ready for search" on 
+Cacheactivated_05 If you have any question, please reply to this e-mail
 ForgottenEmail_01 Forgotten email request
 ForgottenEmail_02 Username
 ForgottenEmail_03 Confirm
@@ -2373,4 +2373,16 @@ ForgottenEmail_08 On
 ForgottenEmail_09 you asked a remeninder of your forgoten e-mailaddress
 ForgottenEmail_10 E-mailaddress used for registration was
 ForgottenEmail_11 This message is auto-generated - please do not reply
+autoArchive_01 Hello 
+autoArchive_02 Your cache 
+autoArchive_03 is set to "temporarily unavailable" since 4 months
+autoArchive_04 If you do not intend to reactivate, please consider archiving this cache
+autoArchive_05 In two months this cache will be archived automatically
+autoArchive_06 is set to "temporarily unavailable" since 5 months
+autoArchive_07 In one month this cache will be archived automatically
+autoArchive_08 is set to "temporarily unavailable" since 6 months
+autoArchive_09 This cache has been automatically archived
+autoArchive_10 Relevant information has been added to the log
+autoArchive_11 Automatic archived cache
+autoArchive_12 Automatic archiving - after six months in "Temporarily unavailable"
 
