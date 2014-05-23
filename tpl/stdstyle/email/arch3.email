@@ -1,9 +1,13 @@
-Twoja skrzynka: %cache_wp% - %cachename%
-(http://www.opencaching.pl/viewcache.php?cacheid=%cacheid%)
-jest w stanie "tymczasowo niedostępna" od 6 miesięcy.
+{autoArchive_01}
 
-Skrzynka została automatycznie zarchiwizowana. 
-Odpowiednia informacja została dodana do logu.
+
+{autoArchive_02}: {cache_wp} - {cachename}
+{server}viewcache.php?cacheid={cacheid})
+{autoArchive_08}.
+
+{autoArchive_09}. 
+{autoArchive_10}.
 
 -- 
-OCPL Team
+{octeamEmailsSignature}
+

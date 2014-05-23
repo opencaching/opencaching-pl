@@ -5,6 +5,7 @@
  *  Unicode Reminder ăĄă˘
  ***************************************************************************/
 $rootpath = '../';
+global $octeamEmailsSignature, $absolute_server_URI;
 require_once($rootpath.'lib/clicompatbase.inc.php');
 require_once($rootpath.'lib/common.inc.php');
 
@@ -38,16 +39,28 @@ class AutoArch
                 $email_content = read_file($stylepath . '/email/arch3.email');
             break;
         }
-        $email_content = mb_ereg_replace('%cachename%', $cache['name'], $email_content);
-        $email_content = mb_ereg_replace('%cache_wp%', $cache['wp_oc'], $email_content);
-        $email_content = mb_ereg_replace('%cacheid%', $cacheid, $email_content);
+	$email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
+	$email_content = mb_ereg_replace('{autoArchive_01}', tr('autoArchive_01'), $email_content);
+	$email_content = mb_ereg_replace('{autoArchive_02}', tr('autoArchive_02'), $email_content);
+	$email_content = mb_ereg_replace('{autoArchive_03}', tr('autoArchive_03'), $email_content);
+	$email_content = mb_ereg_replace('{autoArchive_04}', tr('autoArchive_04'), $email_content);
+	$email_content = mb_ereg_replace('{autoArchive_05}', tr('autoArchive_05'), $email_content);
+	$email_content = mb_ereg_replace('{autoArchive_06}', tr('autoArchive_06'), $email_content);
+	$email_content = mb_ereg_replace('{autoArchive_07}', tr('autoArchive_07'), $email_content);
+	$email_content = mb_ereg_replace('{autoArchive_08}', tr('autoArchive_08'), $email_content);
+	$email_content = mb_ereg_replace('{autoArchive_09}', tr('autoArchive_09'), $email_content);
+	$email_content = mb_ereg_replace('{autoArchive_10}', tr('autoArchive_10'), $email_content);
+        $email_content = mb_ereg_replace('}cachename}', $cache['name'], $email_content);
+        $email_content = mb_ereg_replace('{cache_wp}', $cache['wp_oc'], $email_content);
+        $email_content = mb_ereg_replace('{cacheid}', $cacheid, $email_content);
+	$email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
 
         $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
         $emailheaders .= "From: $site_name <$octeam_email>\r\n";
         $emailheaders .= "Reply-To: $site_name <$octeam_email>";
 
         //echo "email:".$cache['email']."-->".$emailheaders."<br />".$email_content."<br />";
-        mb_send_mail($cache['email'], "[OCPL] Automatyczna archiwizacja Twojej skrzynki", $email_content, $emailheaders);
+        mb_send_mail($cache['email'], tr('autoArchive_11'), $email_content, $emailheaders);
 
     }
 
@@ -114,7 +127,7 @@ class AutoArch
                 $arch_sql = "UPDATE caches SET status = 3 WHERE cache_id=".intval($rs['cache_id']);
                 @mysql_query($arch_sql);
                 $log_uuid = create_uuid();
-                $log_sql = "INSERT INTO cache_logs (cache_id, uuid, user_id, type, date, last_modified, date_created, text, owner_notified, node) VALUES (".sql_escape(intval($rs['cache_id'])).", '".sql_escape($log_uuid)."', '-1', 9,NOW(),NOW(), NOW(), 'Automatyczna archiwizacja - 6 miesięcy w stanie \"Tymczasowo niedostępna\"', 1, 2)";
+                $log_sql = "INSERT INTO cache_logs (cache_id, uuid, user_id, type, date, last_modified, date_created, text, owner_notified, node) VALUES (".sql_escape(intval($rs['cache_id'])).", '".sql_escape($log_uuid)."', '-1', 9,NOW(),NOW(), NOW(), "tr('autoArchive_12')", 1, 2)";
                 @mysql_query($log_sql);
             }
             else if( strtotime($rs['last_modified']) < time() - 5*31*24*60*60 && $step < $STEP["AFTER_SECOND_MAIL_SENT"])
