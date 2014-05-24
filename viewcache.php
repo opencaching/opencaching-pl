@@ -1180,6 +1180,10 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 tpl_set_var('viewlogs', mb_ereg_replace('{cacheid_urlencode}', htmlspecialchars(urlencode($cache_id), ENT_COMPAT, 'UTF-8'), $viewlogs));
                 tpl_set_var('viewlogs_start', "");
                 tpl_set_var('viewlogs_end', "");
+                $viewlogs_from_sql = "SELECT id FROM cache_logs WHERE ".$sql_hide_del." cache_id=:1 ORDER BY date DESC, id LIMIT ".sql_escape($logs_to_display).",1 "; // sorry, bound variables does not work for LIMIT
+                $dbc = new dataBase();
+                $viewlogs_from = $dbc->multiVariableQueryValue($viewlogs_from_sql, -1, $cache_id);
+                tpl_set_var('viewlogs_from', $viewlogs_from);
             }
             else
             {
@@ -1187,6 +1191,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 tpl_set_var('viewlogs', '');
                 tpl_set_var('viewlogs_start', "<!--");
                 tpl_set_var('viewlogs_end', "-->");
+                tpl_set_var('viewlogs_from', '');
             }
 
             tpl_set_var('cache_watcher', '');
@@ -1945,7 +1950,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 $tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
                 $tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
                 $tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
-                $tmplog = mb_ereg_replace('{logimage}', '<a href="viewlogs.php?logid='.$record['logid'].'">'.icon_log_type($record['icon_small'], $record['logid']).'</a>', $tmplog);
+                $tmplog = mb_ereg_replace('{logimage}', '<a href="viewlogs.php?logid='.$record['logid'].'" id="log_'.$record['logid'].'">'.icon_log_type($record['icon_small'], $record['logid']).'</a>', $tmplog);
 
                 if ($record['recommended'] == 1 && $record['type']==1)
                     $tmplog = mb_ereg_replace('{ratingimage}', $rating_picture, $tmplog);
