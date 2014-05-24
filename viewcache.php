@@ -1950,7 +1950,8 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 $tmplog = mb_ereg_replace('{date}', $tmplog_date, $tmplog);
                 $tmplog = mb_ereg_replace('{type}', $record['text_listing'], $tmplog);
                 $tmplog = mb_ereg_replace('{logtext}', $tmplog_text, $tmplog);
-                $tmplog = mb_ereg_replace('{logimage}', '<a href="viewlogs.php?logid='.$record['logid'].'" id="log_'.$record['logid'].'">'.icon_log_type($record['icon_small'], $record['logid']).'</a>', $tmplog);
+                $tmplog = mb_ereg_replace('{logimage}', '<a href="viewlogs.php?logid='.$record['logid'].'">'.icon_log_type($record['icon_small'], $record['logid']).'</a>', $tmplog);
+                $tmplog = mb_ereg_replace('{log_id}', $record['logid'], $tmplog);
 
                 if ($record['recommended'] == 1 && $record['type']==1)
                     $tmplog = mb_ereg_replace('{ratingimage}', $rating_picture, $tmplog);
