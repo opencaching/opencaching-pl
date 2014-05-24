@@ -2385,4 +2385,10 @@ autoArchive_09 Deze cache is automatisch gearchiveerd
 autoArchive_10 De nodige informatie is toegevoegd in de log
 autoArchive_11 Automatisch gearchiveerde cache
 autoArchive_12 Automatische archivering, na 6 maanden van "Tijdelijk niet beschikbaar"
+rrActivateCache_01 Hallo
+rrActivateCache_02 Gebruiker
+rrActivateCache_03 maakte cache
+rrActivateCache_04 die gekeurt moet worden door het OC Team voordat deze gepubliceerd wordt
+rrActivateCache_05 Om deze cache te keuren, ga dan naar
+rrActivateCache_06 en selecteer "goedkeuren" of "afkeuren"
 

@@ -2385,4 +2385,10 @@ autoArchive_09 This cache has been automatically archived
 autoArchive_10 Relevant information has been added to the log
 autoArchive_11 Automatic archived cache
 autoArchive_12 Automatic archiving - after six months in "Temporarily unavailable"
+rrActivateCache_01 Hello
+rrActivateCache_02 User
+rrActivateCache_03 made a cache
+rrActivateCache_04 which must be verified by the OC Team prior to publication
+rrActivateCache_05 To approve this cache, go to
+rrActivateCache_06 and select "Accept" or "Block"
 
