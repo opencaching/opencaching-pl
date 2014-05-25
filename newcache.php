@@ -920,7 +920,7 @@ if ($error == false) {
                         $octeam_email = $octeam_email;
 
                         //send email to octeam
-                        mb_send_mail($octeam_email, "Nowa skrzynka do weryfikacji: ".$name, $email_content, $email_headers);
+                        mb_send_mail($octeam_email, tr('rrActivateCache_07').": ".$name, $email_content, $email_headers);
                         sql("UPDATE sysconfig SET value = value + 1 WHERE name = 'hidden_for_approval'");
                     }
 
