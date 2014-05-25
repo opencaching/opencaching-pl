@@ -12,6 +12,7 @@
  ****************************************************************************/
 
 //prepare the templates and include all neccessary
+global $site_name, $absolute_server_URI;
 if (!isset ($rootpath)) {
     $rootpath='./';
 }
@@ -901,16 +902,25 @@ if ($error == false) {
 
                     if ($needs_approvement) { // notify RR that new cache has to be verified
                         $email_content = read_file($stylepath . '/email/rr_activate_cache.email');
-                        $email_content = mb_ereg_replace('%username%', $usr['username'], $email_content);
-                        $email_content = mb_ereg_replace('%cachename%', $name, $email_content);
-                        $email_content = mb_ereg_replace('%cacheid%', $cache_id, $email_content);
+			$email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
+			$email_content = mb_ereg_replace('{rrActivateCache_01}', tr('rrActivateCache_01'), $email_content);
+			$email_content = mb_ereg_replace('{rrActivateCache_02}', tr('rrActivateCache_02'), $email_content);
+			$email_content = mb_ereg_replace('{rrActivateCache_03}', tr('rrActivateCache_03'), $email_content);
+			$email_content = mb_ereg_replace('{rrActivateCache_04}', tr('rrActivateCache_04'), $email_content);
+			$email_content = mb_ereg_replace('{rrActivateCache_05}', tr('rrActivateCache_05'), $email_content);
+			$email_content = mb_ereg_replace('{rrActivateCache_06}', tr('rrActivateCache_06'), $email_content);
+                        $email_content = mb_ereg_replace('{username}', $usr['username'], $email_content);
+                        $email_content = mb_ereg_replace('{cachename}', $name, $email_content);
+                        $email_content = mb_ereg_replace('{cacheid}', $cache_id, $email_content);
+			$email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
+
                         $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-                        $email_headers .= "From: OC PL <notify@opencaching.pl>\r\n";
+                        $email_headers .= "From: $site_name <$octeam_email>\r\n";
                         $email_headers .= "Reply-To: $octeam_email\r\n";
                         $octeam_email = $octeam_email;
 
                         //send email to octeam
-                        mb_send_mail($octeam_email, "[OC PL] Nowa skrzynka do weryfikacji: ".$name, $email_content, $email_headers);
+                        mb_send_mail($octeam_email, "Nowa skrzynka do weryfikacji: ".$name, $email_content, $email_headers);
                         sql("UPDATE sysconfig SET value = value + 1 WHERE name = 'hidden_for_approval'");
                     }
 

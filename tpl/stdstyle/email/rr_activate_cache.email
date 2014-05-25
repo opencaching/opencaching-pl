@@ -1,9 +1,13 @@
-Użytkownik %username% założył skrzynkę %cachename%
-(http://www.opencaching.pl/viewcache.php?cacheid=%cacheid%),
-która musi zostać zweryfikowana przez OC PL Team przed publikacją. 
+{rrActivateCache_01}
 
-By aktywować skrzynkę, wejdź na stronę 
-http://www.opencaching.pl/viewpendings.php i wybierz opcję "Akceptuj".
+
+{rrActivateCache_02} {username} {rrActivateCache_03} {cachename}
+{server}viewcache.php?cacheid={cacheid}),
+{rrActivateCache_04}. 
+
+{rrActivateCache_05} 
+{server}viewpendings.php {rrActivateCache_06}.
 
 -- 
-OC PL Team
+{octeamEmailsSignature}
+
