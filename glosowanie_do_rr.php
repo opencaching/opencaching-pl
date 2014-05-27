@@ -1,9 +1,33 @@
 <?php
+/*
+
+Table structure for voting
+
+CREATE TABLE IF NOT EXISTS `rr_ocpl_candidates_2014` (
+  `candidate_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `username` varchar(60) COLLATE utf8_polish_ci NOT NULL,
+  `city` varchar(60) COLLATE utf8_polish_ci NOT NULL,
+  PRIMARY KEY (`candidate_id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+
+CREATE TABLE IF NOT EXISTS `rr_ocpl_vote_2014` (
+  `vote_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `candidate_id` int(11) NOT NULL,
+  PRIMARY KEY (`vote_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+*/
+
 //prepare the templates and include all neccessary
     require_once('./lib/common.inc.php');
 
     $tplname = 'glosowanie_do_rr';
-    $tpl_subtitle = 'Głosowanie do Rady Rejsu 2013';
+    $tpl_subtitle = 'Głosowanie do Rady Rejsu 2014';
 
     //Preprocessing
     if ($error == false)
@@ -36,7 +60,7 @@
                 if (($user_num_rows == 1) && ($num_find_caches >= $user_min_found_caches)) { // użytkownik uprawiony do głosowania
 
                     // sprawdzanie czy użytkownik już głosował
-                    $query = "SELECT * FROM rr_ocpl_vote_2013 WHERE user_id='". sql_escape($usr['userid']) . "'";
+                    $query = "SELECT * FROM rr_ocpl_vote_2014 WHERE user_id='". sql_escape($usr['userid']) . "'";
                     $rs = sql($query);
                     $vote_num_rows = mysql_num_rows($rs);
                     mysql_free_result($rs);
@@ -48,7 +72,7 @@
 
                             $votes = array();
 
-                            $query = "SELECT candidate_id FROM rr_ocpl_candidates_2013 ORDER BY username";
+                            $query = "SELECT candidate_id FROM rr_ocpl_candidates_2014 ORDER BY username";
                             $rs = sql($query);
                             for ($i = 0; $i < mysql_num_rows($rs); $i++)
                             {
@@ -70,7 +94,7 @@
                                 tpl_set_var('vote_results_foother', '');
 
                                 for ($i = 0; $i < count($votes); $i++) {
-                                    sql('INSERT INTO `rr_ocpl_vote_2013` (`user_id`, `candidate_id`) VALUES (\'' . sql_escape($usr['userid']) . '\', \'' . sql_escape($votes[$i]) . '\')');
+                                    sql('INSERT INTO `rr_ocpl_vote_2014` (`user_id`, `candidate_id`) VALUES (\'' . sql_escape($usr['userid']) . '\', \'' . sql_escape($votes[$i]) . '\')');
                                 }
 
                             } else { // błędna ilość głosów
@@ -136,7 +160,7 @@
 
     function show_candidate_vote_list($candidate_vote_line) {
         $candidate_vote_list = '';
-        $query = "SELECT * FROM rr_ocpl_candidates_2013 ORDER BY username";
+        $query = "SELECT * FROM rr_ocpl_candidates_2014 ORDER BY username";
         $rs = sql($query);
         for ($i = 0; $i < mysql_num_rows($rs); $i++)
         {
@@ -160,7 +184,7 @@
 
     function show_candidate_info_list($candidate_info_line) {
         $candidate_info_list = '';
-        $query = "SELECT * FROM rr_ocpl_candidates_2013 ORDER BY username";
+        $query = "SELECT * FROM rr_ocpl_candidates_2014 ORDER BY username";
         $rs = sql($query);
         for ($i = 0; $i < mysql_num_rows($rs); $i++)
         {
@@ -178,8 +202,8 @@
 
     function show_candidate_result_list($candidate_result_line) {
         $candidate_result_list = '';
-        //$query = "SELECT count(v.candidate_id), v.candidate_id, c.username, c.city, c.user_id FROM rr_ocpl_candidates_2013 c, rr_ocpl_vote_2013 v WHERE v.candidate_id = c.candidate_id GROUP BY v.candidate_id ORDER BY count(v.candidate_id), c.username";
-        $query = "SELECT count(v.candidate_id) as ilosc, c.username, c.city, c.user_id FROM rr_ocpl_candidates_2013 c LEFT JOIN rr_ocpl_vote_2013 v ON c.candidate_id = v.candidate_id GROUP BY c.username ORDER BY count(v.candidate_id) DESC, c.username";
+        //$query = "SELECT count(v.candidate_id), v.candidate_id, c.username, c.city, c.user_id FROM rr_ocpl_candidates_2014 c, rr_ocpl_vote_2014 v WHERE v.candidate_id = c.candidate_id GROUP BY v.candidate_id ORDER BY count(v.candidate_id), c.username";
+        $query = "SELECT count(v.candidate_id) as ilosc, c.username, c.city, c.user_id FROM rr_ocpl_candidates_2014 c LEFT JOIN rr_ocpl_vote_2014 v ON c.candidate_id = v.candidate_id GROUP BY c.username ORDER BY count(v.candidate_id) DESC, c.username";
         $rs = sql($query);
         for ($i = 0; $i < mysql_num_rows($rs); $i++)
         {
