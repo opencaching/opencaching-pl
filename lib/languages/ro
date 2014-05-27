@@ -2275,7 +2275,7 @@ language_HU Maghiară
 language_IS Islandeză
 language_IT Italiană
 language_LT Lituaniană
-language_LV Latvă
+language_LV Latviană
 language_NO Norvegiană
 language_PL Poloneză
 language_PT Portugheză
@@ -2288,32 +2288,106 @@ language_TR Turcă
 language_UZ Uzbecă
 language_VI Vietnameză
 newcacheDateFormat Format: AAAA-LL-ZZ
-htmltags01 elemente şi atribute HTML permise
-htmltags02 elemente HTML
-htmltags03 atribute HTML
-htmltags04 Toate celelalte elemente şi atribute HTML sunt filtrate şi eliminate. Această listă se poate modifica oricând.
-errtpl01 Eroare
-errtpl02 A apărut o eroare la generarea paginii
+htmltags01 elemente si atribute HTML permise
+htmltags02 Elemente HTML
+htmltags03 Atribute HTML
+htmltags04 Toate celelalte elemente şi atribute HTML vor fi eliminate. Aceastălistă se poate modifica oricând.
+errtpl01 Eroare pagină
+errtpl02 A apărut o eroare la generarea acestei pagini
 errtpl03 Pagina
-errtpl04 Detalii despre eroare
-newpicjs01 Te rog scrie denumirea imaginii
-newpicjs02 Te rog precizează sursa imaginii
-removedLog_01 Bună
-removedLog_02 a scos însemnarea ta din jurnalul cutiei
-removedLog_03 Conţinutul însemnării era
-removedLog_04 Acest mesaj este generat automat, te rog nu răspunde
+errtpl04 Informaţii despre eroare
+newpicjs01 Te rog introdu denumirea imaginii
+newpicjs02 Te rog introdu sursa imaginii
+removedLog_01 Bună 
+removedLog_02 a şters însemnarea ta din jurnalul geocutiei
+removedLog_03 Conţinutul însemnării a fost 
+removedLog_04 Acesta mesaj este generat automat. Te rog nu răspunde.
 notify_newCache_01 Bună
-notify_newCache_02 În zona ta a fost ascunsă o nouă geocutie
-notify_newCache_03 a ascuns
+notify_newCache_02 În zona ta a fost ascună o nouă geocutie
+notify_newCache_03 a ascuns în 
 notify_newCache_04 o geocutie nouă
-notify_newCache_05 Distanţă
+notify_newCache_05 Distanţa
 notify_newCache_06 Azimut
 notify_newCache_07 Tip
 notify_newCache_08 Dimensiune
-notify_newCache_09 Poţi să îţi verifici şi modifica opţiunile pe
-notify_newCache_10 Geocutii noi
-notify_newCache_11 Nu sunt însemnări noi
-notify_newCache_12 Acest mesaj este generat automat, te rog nu răspunde
-
-
+notify_newCache_09 Poţi vedea sau modifica opţiunile tale pe
+notify_newCache_10 Geocutie nouă pe {site_name}
+notify_newCache_11 Nu există însemnări noi
+notify_newCache_12 Acesta mesaj este generat automat. Te rog nu răspunde.
+notify_newCache_13 Geocutie nouă pe {site_name}: {cachename}
+newPassWord_01 Bună
+newPassWord_02 Pe
+newPassWord_03 ai cerut o nouă parola
+newPassWord_04 Cod de siguranţă
+newPassWord_05 Acest cod de siguranţă este valabil 3 zile, după aceea, dacă nu l-ai folosit, vei avea nevoie de un cod nou
+newPassWord_06 La "Pasul 2" introdu adresa ta de e-mail, codul de siguranţă şi noua parolă pe
+newPassWord_07 Acesta mesaj este generat automat. Te rog nu răspunde.
+newEmailAddr_01 Bună
+newEmailAddr_02 Pe
+newEmailAddr_03 ai cerut schimbarea adresei de e-mail
+newEmailAddr_04 Cod de siguranţă
+newEmailAddr_05 Acest cod de siguranţă este valabil 3 zile, după aceea, dacă nu l-ai folosit, vei avea nevoie de un cod nou
+newEmailAddr_06 Introdu acest cod de siguranţă şi noua adresă de e-mail pe
+newEmailAddr_07 Acesta mesaj este generat automat. Te rog nu răspunde.
+viewPending_01 Geocutia este aprobată pe {site_name}
+viewPending_02 Copie după geocutia aprobată
+viewPending_03 Geocutia a fost aprobata de OC Team**
+viewPending_04 Geocutia este respinsă pe {site_name}
+viewPending_05 Copie după geocutia respinsă
+viewPending_06 Geocutia a fost respinsă de OC Team**
+viewPending_07 Utilizator
+viewPending_08 este desemnat pentru acest caz**
+viewPending_09 Geocutia a fost aprobată. Proprietarul a fost anunţat
+viewPending_10 Geocutia deja era activă. Nu a fost făcută nici o modificare**
+viewPending_11 Geocutia a fost respinsă. Proprietarul a fost anunţat
+viewPending_12 Was the rejection of the cache. No change was made**
+viewPending_13 Vei <b>aproba</b> geocutia
+viewPending_14 ascunsă de utilizatorul
+viewPending_15 Starea geocutiei se va schimba în "Not yet available"**
+viewPending_16 Acceptă geocutia
+viewPending_17 Renunţă
+viewPending_18 Vei <b>respinge</b> geocutia
+viewPending_19 Starea geocutiei se va schimba în "Blocked by COG"**
+viewPending_20 Respinge geocutia
+viewPending_21 Geocutia aleasă este deja activă, arhivată sau inexistentă
+cacheArchived_01 Bună
+cacheArchived_02 Geocutia ta
+cacheArchived_03 este respinsă de OC-Team
+cacheArchived_04 Starea geocutiei a fost schimbată în "Blocked by COG" **
+cacheArchived_05 Dacă ai orice întrebare sau nelămurire, te rog răspunde la acest mesaj
+Cacheactivated_01 Bună
+Cacheactivated_02 Geocutia ta
+Cacheactivated_03 este aprobată de OC-Team
+Cacheactivated_04 Acum poţi schimba starea ei în "Gata s fie găsită" pe 
+Cacheactivated_05 Dacă ai orice întrebare sau nelămurire, te rog răspunde la acest mesaj
+ForgottenEmail_01 Cerere recuperare adresa e-mail**
+ForgottenEmail_02 Utilizator
+ForgottenEmail_03 Confirmă
+ForgottenEmail_04 Adresă e-mail pentru notificări pe {site_name}
+ForgottenEmail_05 Utilizator inexistent
+ForgottenEmail_06 Mesajul a fost trimis
+ForgottenEmail_07 Bună
+ForgottenEmail_08 Pe
+ForgottenEmail_09 Ai cerut recuperarea adresei de e-mail pierdute
+ForgottenEmail_10 Adresa de e-mail folosită la înregistrare este
+ForgottenEmail_11 Acesta mesaj este generat automat. Te rog nu răspunde.
+autoArchive_01 Bună
+autoArchive_02 Geocutia ta
+autoArchive_03 este marcată de 4 luni ca "Indisponibilă temporar"
+autoArchive_04 Dacă nu intenţionezi (sau nu ai posibilitatea) să o reactivezi în curând, te rog să o arhivezi
+autoArchive_05 Peste două luni va fi arhivată automat
+autoArchive_06 este marcată de 5 luni ca "Indisponibilă temporar"
+autoArchive_07 Peste o lună va fi arhivată automat
+autoArchive_08 este marcată de 6 luni ca "Indisponibilă temporar"
+autoArchive_09 Această geocutie a fost arhivată automat
+autoArchive_10 Informaţii în acest sens au fost adăugate în jurnal
+autoArchive_11 Geocutie arhivată automat
+autoArchive_12 Arhivare automată - după 6 luni ca "Indisponibilă temporar"
+rrActivateCache_01 Bună
+rrActivateCache_02 Utilizator
+rrActivateCache_03 A creat o geocutie
+rrActivateCache_04 care trebuie verificată de OC Team înainte de a fi pulicată
+rrActivateCache_05 Pentru a aproba această geocutie, mergi la
+rrActivateCache_06 şi alege "Aprobă" sau "Respinge"
+rrActivateCache_07 Geocutie nouă de aprobat
 
