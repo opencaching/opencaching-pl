@@ -116,9 +116,7 @@ $menu = array(
                 'siteid'        => 'cachemap3',
                 'visible'       => true,
                 'onlylogged'    => true,
-                // On touch devices use full-screen map by default
-                // **** Check for touch device below should be kept in sync with analogous check in lib/cachemap3.js ****
-                'filename'      => 'javascript:window.location=(((\'ontouchstart\' in window) || (navigator.msMaxTouchPoints > 0)) ? \'cachemap-full.php\' : \'cachemap3.php\');',
+                'filename'      => 'cachemap3.php',
                 'submenu'       => array(
                     array(
                         'title'         => tr('cache_mapv2'),

@@ -1,3 +1,13 @@
+<!-- 
+// On touch devices use full-screen map by default
+// **** Check for touch device below should be kept in sync with analogous check in lib/cachemap3.js ****
+ -->
+ 
+<script type='text/javascript'>
+if (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0))
+	window.location = 'cachemap-full.php';
+</script>
+
 <?php
 
 require_once('./lib/common.inc.php');
