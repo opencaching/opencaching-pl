@@ -262,6 +262,8 @@ require __DIR__.'/settingsDefault.inc.php';
  	// enables/disables linkage to blog in index.php    
 	$BlogSwitchOn = true;   
 
+    // enable detailed cache access logging
+    //$enable_cache_access_logs = true;
 
     // OC specific email addresses for international use.
     $mail_cog = 'cog@opencaching.pl';

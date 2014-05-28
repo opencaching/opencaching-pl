@@ -119,6 +119,32 @@
 
         if ($cache_id != 0)
         {
+        
+            // detailed cache access logging
+            if (@$enable_cache_access_logs)
+            {
+                if (!isset($dbc)) {$dbc = new dataBase();};
+                $user_id = $usr !== false ? $usr['userid'] : null;
+                $access_log = @$_SESSION['CACHE_ACCESS_LOG_VL_'.$user_id];
+                if ($access_log === null)
+                {
+                    $_SESSION['CACHE_ACCESS_LOG_VL_'.$user_id] = array();
+                    $access_log = $_SESSION['CACHE_ACCESS_LOG_VL_'.$user_id];
+                }
+                if (@$access_log[$cache_id] !== true){
+                    $dbc->multiVariableQuery(
+                        'INSERT INTO CACHE_ACCESS_LOGS 
+                            (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for) 
+                         VALUES 
+                            (NOW(), :1, :2, \'B\', \'view_logs\', :3, :4, :5)',
+                            $cache_id, $user_id, 
+                            $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_X_FORWARDED_FOR']
+                    );
+                    $access_log[$cache_id] = true;
+                    $_SESSION['CACHE_ACCESS_LOG_VL_'.$user_id] = $access_log;
+                }
+            }
+        
             //ok, cache is here, let's process
             $owner_id = $cache_record['user_id'];
 

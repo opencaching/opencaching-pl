@@ -189,6 +189,33 @@
                 //$cache_record = sql_fetch_array($rs);
                 $cache_record =$dbc->dbResultFetch();
             }
+
+            // detailed cache access logging
+            if (@$enable_cache_access_logs && $cache_id > 0)
+            {
+                if (!isset($dbc)) {$dbc = new dataBase();};
+                $user_id = $usr !== false ? $usr['userid'] : null;
+                $access_log = @$_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id];
+                if ($access_log === null)
+                {
+                    $_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id] = array();
+                    $access_log = $_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id];
+                }
+                if (@$access_log[$cache_id] !== true){
+                    $dbc->multiVariableQuery(
+                        'INSERT INTO CACHE_ACCESS_LOGS 
+                            (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for) 
+                         VALUES 
+                            (NOW(), :1, :2, \'B\', \'view_cache\', :3, :4, :5)',
+                            $cache_id, $user_id, 
+                            $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_X_FORWARDED_FOR']
+                    );
+                    $access_log[$cache_id] = true;
+                    $_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id] = $access_log;
+                }
+            }
+            
+
             //mysql_free_result($rs);
             if( $cache_record['user_id'] == $usr['userid'] || $usr['admin'])
             {
