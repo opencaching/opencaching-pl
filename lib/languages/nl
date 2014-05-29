@@ -721,7 +721,7 @@ number_logentry Aantal logs
 by_cachetype Per cache soort
 by_logtype Per log soort
 stat_geocache Statistieken cache
-does_not_have_stat Er zijn nog geen staistieken
+does_not_have_stat Er zijn nog geen statistieken
 number_month Number of month
 stat_problems Statistics OC Team - solved problems
 edit_logentry Bewerk de log
@@ -799,11 +799,11 @@ actions Acties
 block Blokkeren
 assign_yourself Neem notificatie zelf
 accept Accepteren
-octeam_stat_problems Statistics OCTeam - closed problems
-octeam_stat_m_problems Maandelijkse statistiek OCTeam - rapport
-octeam_stat_caches Statistics OCTeam - caches acctepted
-octeam_stat_m_caches Statistics OCTeam monthly - caches accepted
-number_problems Number of problems
+octeam_stat_problems Statistieken OC Team - Gesloten problemen
+octeam_stat_m_problems Maandelijkse statistieken OC Team - Aantal problemen
+octeam_stat_caches Statistieken OC Team - Geaccepteerde caches
+octeam_stat_m_caches Maandelijkse statistieken OC Team - Geaccepteerde caches
+number_problems Aantal problemen
 add_by Toegevoegd door:
 octeam_comment_subject [OC] Comment OC Team
 octeam_comment_copy Copy email with OC Team comment add by
