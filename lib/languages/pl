@@ -722,7 +722,7 @@ by_cachetype Wg typów skrzynek
 by_logtype Wg typów logów
 stat_geocache Statystyka skrzynki
 does_not_have_stat nie ma jeszcze statystyki
-number_month Numer miesiąca
+number_month Numer miesiaca 
 stat_problems Statystyka COG - prowadzone zgłoszenia
 edit_logentry Edycja logu dla skrzynki
 moved_cache_info Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu

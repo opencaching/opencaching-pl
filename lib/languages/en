@@ -722,7 +722,7 @@ by_cachetype By cache type
 by_logtype By log type
 stat_geocache Statistics geocache
 does_not_have_stat There are no statistics yet
-number_month Number of months
+number_month Number of months 
 stat_problems OC Team Statistics - solved problems
 edit_logentry Edit log entry
 moved_cache_info If you moved the cache to a new location please enter the new coordinates (will be included in the log)

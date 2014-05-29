@@ -721,7 +721,7 @@ by_cachetype După tipul geocutiei
 by_logtype După tipul însemnărilor
 stat_geocache Statisticile geocutiilor
 does_not_have_stat Încă nu există statistici
-number_month Numărul de luni
+number_month Numărul de luni 
 stat_problems Statisticile Echipei OC - probleme rezolvate
 edit_logentry Modifică însemnarea
 moved_cache_info Dacă ai mutat geocutia în altă parte introdu noile coordonate (vor fi incluse în însemnare)

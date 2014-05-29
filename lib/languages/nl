@@ -722,7 +722,7 @@ by_cachetype Per cache soort
 by_logtype Per log soort
 stat_geocache Statistieken cache
 does_not_have_stat Er zijn nog geen statistieken
-number_month Aantal per maand
+number_month Aantal per maand 
 stat_problems Statistics OC Team - solved problems
 edit_logentry Bewerk de log
 moved_cache_info If you moved the cache to a new location please enter the new coordinates that will be shown in the log
