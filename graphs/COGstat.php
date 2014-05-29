@@ -192,7 +192,7 @@ $graph3->Add($bplot3);
 // Setup the titles
 $descibe3=tr("octeam_stat_m_problems");
 $graph3->title->Set($descibe3);
-$graph3->xaxis->title->Set('Numer miesiaca 2013/2014');
+$graph3->xaxis->title->Set(tr('number_month'). '2013/2014');
 //$graph3->xaxis->title->Set($title3);
 $graph3->xaxis->SetTickLabels($x3);
 
@@ -234,7 +234,7 @@ $graph4->Add($bplot4);
 // Setup the titles
 $descibe4=tr("octeam_stat_m_caches");
 $graph4->title->Set($descibe4);
-$graph4->xaxis->title->Set('Numer miesiaca 2013/2014');
+$graph4->xaxis->title->Set(tr('number_month'). '2013/2014');
 //$graph4->xaxis->title->Set($title3);
 $graph4->xaxis->SetTickLabels($x4);
 
