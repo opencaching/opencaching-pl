@@ -147,7 +147,7 @@ $graph2->Add($bplot2);
 
 
 // Setup the titles
-$descibe2="Statystyka COG - skrzynki weryfikowane";
+$descibe2=tr("octeam_stat_caches");
 $graph2->title->Set($descibe2);
 $graph2->xaxis->title->Set($xtitle);
 $graph2->xaxis->SetTickLabels($x2);
@@ -190,7 +190,7 @@ $graph3->Add($bplot3);
 
 
 // Setup the titles
-$descibe3="Statystyka COG Miesieczna - zgloszenia";
+$descibe3=tr("octeam_stat_m_problems");
 $graph3->title->Set($descibe3);
 $graph3->xaxis->title->Set('Numer miesiaca 2013/2014');
 //$graph3->xaxis->title->Set($title3);
@@ -232,7 +232,7 @@ $graph4->Add($bplot4);
 
 
 // Setup the titles
-$descibe4="Statystyak COG Miesieczna - skrzynki weryfikowane";
+$descibe4=tr("octeam_stat_m_caches");
 $graph4->title->Set($descibe4);
 $graph4->xaxis->title->Set('Numer miesiaca 2013/2014');
 //$graph4->xaxis->title->Set($title3);
