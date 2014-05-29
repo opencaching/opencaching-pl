@@ -105,11 +105,11 @@ $graph->Add($bplot);
 
 // Setup the titles
 
-$descibe="Statystyka COG - prowadzne zgloszenia";
+$descibe=tr("octeam_stat_problems");
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
-$noproblems='Liczba zgloszen';
+$noproblems=tr('number_problems');
 $graph->yaxis->title->Set($noproblems);
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
