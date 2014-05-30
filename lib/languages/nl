@@ -786,7 +786,7 @@ send_bulletin_01 Bulletin verzenden
 send_bulletin_02 Voorbeeld bulletin
 send_bulletin_03 Bulletin is verzonden
 add_news Verzend nieuws
-email_subject_news Nieuw nieuws OpenCaching
+email_subject_news Nieuw nieuwsiten ingezonden
 subject Onderwerp
 contents Bericht
 content_include_html Bericht met HTML
