@@ -1037,7 +1037,7 @@
                     $n_record = sql_fetch_array($notes_rs);
                     $note_id = $n_record['note_id'];
                     //remove
-                    sql("DELETE FROM `cache_notes` WHERE `note_id`='&1'", $note_id);
+                    sql("DELETE FROM `cache_notes` WHERE `note_id`='&1' and user_id='&2'", $note_id, $usr['userid']);
                 //display cache-page
                 tpl_redirect('viewcache.php?cacheid=' . urlencode($cache_id));
                 exit;
@@ -1054,7 +1054,7 @@
                     {
                     $n_record = sql_fetch_array($notes_rs);
                     $note_id = $n_record['note_id'];
-                    sql("UPDATE `cache_notes` SET `date`=NOW(),`desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$cnote, '1',$note_id);
+                    sql("UPDATE `cache_notes` SET `date`=NOW(),`desc`='&1', `desc_html`='&2' WHERE `note_id`='&3'",$cnote, '0',$note_id);
                     }
 
                 if (mysql_num_rows($notes_rs)==0 && $cn!=0)
@@ -1070,7 +1070,7 @@
                             '', '&1', '&2',NOW(),'&3', '&4')",
                             $cache_id,
                             $usr['userid'],
-                            '1',
+                            '0',
                             $cnote);
                     }
 
