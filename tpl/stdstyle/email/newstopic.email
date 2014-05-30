@@ -1,19 +1,18 @@
-Witaj,
+{newNewsTopic_01},
 
 
-Jest nowa informacja do opublikowania.
+{newNewsTopic_02}.
 
 
-E-Mail adres nadawcy: %email%
+{newNewsTopic_03}: {email}
 
-Data: %date%
-
----
-
-%newsconent%
+{newNewsTopic_04}: {date}
 
 ---
 
-Opencaching PL Team
+{newsconent}
 
-http://www.opencaching.pl
+---
+
+{octeamEmailsSignature}
+
