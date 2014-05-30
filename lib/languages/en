@@ -2392,4 +2392,8 @@ rrActivateCache_04 which must be verified by the OC Team prior to publication
 rrActivateCache_05 To approve this cache, go to
 rrActivateCache_06 and select "Accept" or "Block"
 rrActivateCache_07 New cache to approve
+newNewsTopic_01 Hello
+newNewsTopic_02 There is new news to be published
+newNewsTopic_03 E-Mail address of the sender
+newNewsTopic_04 Date
 
