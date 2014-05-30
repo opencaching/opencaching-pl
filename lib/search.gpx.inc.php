@@ -352,6 +352,32 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`,`cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`, `caches`.`votes` `votes`, `caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
         while($r = sql_fetch_array($rs))
         {
+            if (@$enable_cache_access_logs)
+            {
+                if (!isset($dbc)) {$dbc = new dataBase();};
+                $cache_id = $r['cacheid'];
+                $user_id = $usr !== false ? $usr['userid'] : null;
+                $access_log = @$_SESSION['CACHE_ACCESS_LOG_GPX_'.$user_id];
+                if ($access_log === null)
+                {
+                    $_SESSION['CACHE_ACCESS_LOG_GPX_'.$user_id] = array();
+                    $access_log = $_SESSION['CACHE_ACCESS_LOG_GPX_'.$user_id];
+                }
+                if (@$access_log[$cache_id] !== true){
+                    $dbc->multiVariableQuery(
+                        'INSERT INTO CACHE_ACCESS_LOGS 
+                            (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for) 
+                         VALUES 
+                            (NOW(), :1, :2, \'B\', \'download_gpx\', :3, :4, :5)',
+                            $cache_id, $user_id, 
+                            $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_X_FORWARDED_FOR']
+                    );
+                    $access_log[$cache_id] = true;
+                    $_SESSION['CACHE_ACCESS_LOG_GPX_'.$user_id] = $access_log;
+                }
+            }
+                
+
             $thisline = $gpxLine;
             $lat = sprintf('%01.5f', $r['latitude']);
             $thisline = str_replace('{lat}', $lat, $thisline);
@@ -556,27 +582,27 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $rswp = sql("SELECT  `longitude`, `cache_id`, `latitude`,`desc`,`stage`, `type`, `status`,`waypoint_type`.`pl` `wp_type_name` FROM `waypoints` INNER JOIN waypoint_type ON (waypoints.type = waypoint_type.id) WHERE  `waypoints`.`cache_id`=&1 ORDER BY `waypoints`.`stage`", $r['cacheid']);
             while ($rwp = sql_fetch_array($rswp))
             {
-            if ($rwp['status']==1) {
-                $thiswp = $gpxWaypoints;
-                $lat = sprintf('%01.5f', $rwp['latitude']);
-                $thiswp = str_replace('{wp_lat}', $lat, $thiswp);
-                $lon = sprintf('%01.5f', $rwp['longitude']);
-                $thiswp = str_replace('{wp_lon}', $lon, $thiswp);
-                $thiswp = str_replace('{waypoint}', $waypoint,$thiswp);
-                $thiswp = str_replace('{cacheid}', $rwp['cache_id'],$thiswp);
-                $thiswp = str_replace('{time}', $time, $thiswp);
-                $thiswp = str_replace('{wp_type_name}', $rwp['wp_type_name'], $thiswp);
+                if ($rwp['status']==1) {
+                    $thiswp = $gpxWaypoints;
+                    $lat = sprintf('%01.5f', $rwp['latitude']);
+                    $thiswp = str_replace('{wp_lat}', $lat, $thiswp);
+                    $lon = sprintf('%01.5f', $rwp['longitude']);
+                    $thiswp = str_replace('{wp_lon}', $lon, $thiswp);
+                    $thiswp = str_replace('{waypoint}', $waypoint,$thiswp);
+                    $thiswp = str_replace('{cacheid}', $rwp['cache_id'],$thiswp);
+                    $thiswp = str_replace('{time}', $time, $thiswp);
+                    $thiswp = str_replace('{wp_type_name}', $rwp['wp_type_name'], $thiswp);
                 if ($rwp['stage'] !=0) {
-                $thiswp = str_replace('{wp_stage}', " Etap" .$rwp['stage'], $thiswp);
+                    $thiswp = str_replace('{wp_stage}', " Etap" .$rwp['stage'], $thiswp);
                 } else {
-                $thiswp = str_replace('{wp_stage}',$rwp['wp_type_name'] , $thiswp);}
-                $thiswp = str_replace('{desc}', cleanup_text($rwp['desc']), $thiswp);
-                if ($rwp['type']==5){$thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);}
-                if ($rwp['type']==1){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
-                if ($rwp['type']==2){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
-                if ($rwp['type']==3){$thiswp = str_replace('{wp_type}', "Flag, Red", $thiswp);}
-                if ($rwp['type']==4){$thiswp = str_replace('{wp_type}', "Circle with X", $thiswp);}
-                $waypoints .= $thiswp;
+                    $thiswp = str_replace('{wp_stage}',$rwp['wp_type_name'] , $thiswp);}
+                    $thiswp = str_replace('{desc}', cleanup_text($rwp['desc']), $thiswp);
+                    if ($rwp['type']==5){$thiswp = str_replace('{wp_type}', "Parking Area", $thiswp);}
+                    if ($rwp['type']==1){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
+                    if ($rwp['type']==2){$thiswp = str_replace('{wp_type}', "Flag, Green", $thiswp);}
+                    if ($rwp['type']==3){$thiswp = str_replace('{wp_type}', "Flag, Red", $thiswp);}
+                    if ($rwp['type']==4){$thiswp = str_replace('{wp_type}', "Circle with X", $thiswp);}
+                    $waypoints .= $thiswp;
                 }
             }
             $thisline = str_replace('{cache_waypoints}', $waypoints, $thisline);

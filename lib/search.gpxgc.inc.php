@@ -451,46 +451,72 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                 $rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
                 while($r = sql_fetch_array($rs))
                 {
-                        $thisline = $gpxLine;
-                        $lat = sprintf('%01.5f', $r['latitude']);
-                        $thisline = str_replace('{lat}', $lat, $thisline);
-
-                        $lon = sprintf('%01.5f', $r['longitude']);
-                        $thisline = str_replace('{lon}', $lon, $thisline);
-
-                        $time = date($gpxTimeFormat, strtotime($r['date_hidden']));
-                        $thisline = str_replace('{{time}}', $time, $thisline);
-                        $thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
-                        $thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
-                        $thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
-                        $thisline = str_replace('{country}', tr($r['country']), $thisline);
-                        $region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);
-                        $thisline = str_replace('{region}', $region, $thisline);
-                        //modified coords
-                        if ($r['cache_mod_cords_id'] > 0) {  //check if we have user coords
-                            $thisline = str_replace('{mod_suffix}', '(F)', $thisline);
-                        } else {
-                            $thisline = str_replace('{mod_suffix}', '', $thisline);
-                        }
-
-                        if ($r['hint'] == '')
-                                $thisline = str_replace('{hints}', '', $thisline);
-                        else
-                                $thisline = str_replace('{hints}', cleanup_text($r['hint']), $thisline);
-
-                        $logpw = ($r['logpw']==""?"":"".tr('search_gpxgc_01')." <br />");
-
-                        $thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
-                        $thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
-                        if ($usr == true)
+                
+                    if (@$enable_cache_access_logs)
+                    {
+                        if (!isset($dbc)) {$dbc = new dataBase();};
+                        $cache_id = $r['cacheid'];
+                        $user_id = $usr !== false ? $usr['userid'] : null;
+                        $access_log = @$_SESSION['CACHE_ACCESS_LOG_GPX_'.$user_id];
+                        if ($access_log === null)
                         {
-                        $notes_rs = sql("SELECT  `cache_notes`.`desc` `desc` FROM `cache_notes` WHERE `cache_notes` .`user_id`=&1 AND `cache_notes`.`cache_id`=&2", $usr['userid'],$r['cacheid']);
-                                if (mysql_num_rows($notes_rs) != 0)
-                                {
-                                $cn = sql_fetch_array($notes_rs);
-                        $thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- ".tr('search_gpxgc_02').": -- <br/> ".$cn['desc']."<br/>"), $thisline);
-                                } else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
-                        } else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
+                            $_SESSION['CACHE_ACCESS_LOG_GPX_'.$user_id] = array();
+                            $access_log = $_SESSION['CACHE_ACCESS_LOG_GPX_'.$user_id];
+                        }
+                        if (@$access_log[$cache_id] !== true){
+                            $dbc->multiVariableQuery(
+                                'INSERT INTO CACHE_ACCESS_LOGS 
+                                    (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for) 
+                                 VALUES 
+                                    (NOW(), :1, :2, \'B\', \'download_gpxgc\', :3, :4, :5)',
+                                    $cache_id, $user_id, 
+                                    $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_X_FORWARDED_FOR']
+                            );
+                            $access_log[$cache_id] = true;
+                            $_SESSION['CACHE_ACCESS_LOG_GPX_'.$user_id] = $access_log;
+                        }
+                    }
+                
+                    $thisline = $gpxLine;
+                    $lat = sprintf('%01.5f', $r['latitude']);
+                    $thisline = str_replace('{lat}', $lat, $thisline);
+
+                    $lon = sprintf('%01.5f', $r['longitude']);
+                    $thisline = str_replace('{lon}', $lon, $thisline);
+
+                    $time = date($gpxTimeFormat, strtotime($r['date_hidden']));
+                    $thisline = str_replace('{{time}}', $time, $thisline);
+                    $thisline = str_replace('{{waypoint}}', $r['waypoint'], $thisline);
+                    $thisline = str_replace('{cacheid}', $r['cacheid'], $thisline);
+                    $thisline = str_replace('{cachename}', cleanup_text($r['name']), $thisline);
+                    $thisline = str_replace('{country}', tr($r['country']), $thisline);
+                    $region = sqlValue("SELECT `adm3` FROM `cache_location` WHERE `cache_id`='" . sql_escape($r['cacheid']) . "'", 0);
+                    $thisline = str_replace('{region}', $region, $thisline);
+                    //modified coords
+                    if ($r['cache_mod_cords_id'] > 0) {  //check if we have user coords
+                        $thisline = str_replace('{mod_suffix}', '(F)', $thisline);
+                    } else {
+                        $thisline = str_replace('{mod_suffix}', '', $thisline);
+                    }
+
+                    if ($r['hint'] == '')
+                            $thisline = str_replace('{hints}', '', $thisline);
+                    else
+                            $thisline = str_replace('{hints}', cleanup_text($r['hint']), $thisline);
+
+                    $logpw = ($r['logpw']==""?"":"".tr('search_gpxgc_01')." <br />");
+
+                    $thisline = str_replace('{shortdesc}', cleanup_text($r['short_desc']), $thisline);
+                    $thisline = str_replace('{desc}', cleanup_text($logpw.$r['desc']), $thisline);
+                    if ($usr == true)
+                    {
+                    $notes_rs = sql("SELECT  `cache_notes`.`desc` `desc` FROM `cache_notes` WHERE `cache_notes` .`user_id`=&1 AND `cache_notes`.`cache_id`=&2", $usr['userid'],$r['cacheid']);
+                            if (mysql_num_rows($notes_rs) != 0)
+                            {
+                            $cn = sql_fetch_array($notes_rs);
+                    $thisline = str_replace('{personal_cache_note}', cleanup_text("<br/><br/>-- ".tr('search_gpxgc_02').": -- <br/> ".$cn['desc']."<br/>"), $thisline);
+                            } else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
+                    } else {$thisline = str_replace('{personal_cache_note}', "", $thisline);}
 
         // attributes
         $rsAttributes = sql("SELECT `caches_attributes`.`attrib_id` FROM `caches_attributes` WHERE `caches_attributes`.`cache_id`=&1", $r['cacheid']);
