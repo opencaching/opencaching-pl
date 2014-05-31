@@ -25,7 +25,7 @@
     if (!isset($rootpath)) global $rootpath;
     require_once('./lib/common.inc.php');
     require_once('lib/cache_icon.inc.php');
-    global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email, $site_name, $absolute_server_URI;
+    global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email, $site_name, $absolute_server_URI, $octeamEmailsSignature;
     global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key, $config;
 
 
@@ -1460,6 +1460,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 		$email_content = mb_ereg_replace('{ocTeamComment_03}', tr('ocTeamComment_03'), $email_content);
 		$email_content = mb_ereg_replace('{ocTeamComment_04}', tr('ocTeamComment_04'), $email_content);
 		$email_content = mb_ereg_replace('{ocTeamComment_05}', tr('ocTeamComment_05'), $email_content);
+		$email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
                 $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
                 $email_headers .= "From: $site_name <".$octeam_email.">\r\n";
                 $email_headers .= "Reply-To: ".$octeam_email. "\r\n";
