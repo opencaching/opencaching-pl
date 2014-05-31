@@ -629,8 +629,8 @@ ratio_recommendations Gemiddelde aanbevolen caches van alle caches
 number_gk_in_caches Aantal GeoKrety&#39;s in caches
 latest_created_cache Laatste gemaakte cache
 latest_logs_in_caches Laatste logs van gebruikers caches
-caches_waiting_approve My caches waiting to approve by OC Team
-caches_blocked My caches blocked by OC Team
+caches_waiting_approve Mijn caches wachtend op goedkeuring van het OC Team
+caches_blocked Mijn caches afgekeurd door het OC Team
 blocked_create_caches Your possiblity for creating new caches is blocked. Please contact with OC Team rr@opencaching.pl
 npa_info This geocache is probably placed in a nature protection area
 check_nearby_caches_info Controleer voor het plaatsen van een cache of er geen andere cache ligt in <br /> een straal van 150 m
@@ -805,7 +805,7 @@ octeam_stat_caches Statistieken OC Team - Geaccepteerde caches
 octeam_stat_m_caches Maandelijkse statistieken OC Team - Geaccepteerde caches
 number_problems Aantal problemen
 add_by Toegevoegd door:
-octeam_comment_subject [OC] Comment OC Team
+octeam_comment_subject Commentaar van OC Team
 octeam_comment_copy Copy email with OC Team comment add by
 list_of_latest_logs_is_empty Er zijn nog geen nieuwste logs
 list_of_caches_is_empty Er zijn geen nieuwe caches in de opgegeven omgeving
