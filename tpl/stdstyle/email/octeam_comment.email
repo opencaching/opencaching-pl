@@ -1,12 +1,15 @@
-Do Twojej skrzynki: %cachename%
-(http://www.opencaching.pl/viewcache.php?cacheid=%cacheid%)
-została dodana adnotacja przez Centrum Obsługi Geocachera. 
-Prosimy o zapoznanie sie z uwagami i reakcje na wysłane sugestie.
+{ocTeamComment_01}
 
------ Treść adnotacji COG -----
 
-%octeam_comment%
+{ocTeamComment_02}: {cachename}
+{server}viewcache.php?cacheid={cacheid})
+{ocTeamComment_03}. 
+{ocTeamComment_04}.
+
+----- {ocTeamComment_05} -----
+
+{octeam_comment}
 
 -------------------------------
 
-%sender%  - Centrum Obsługi Geocachera OC PL
+{sender}  - Centrum Obsługi Geocachera OC PL

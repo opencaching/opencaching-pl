@@ -25,7 +25,7 @@
     if (!isset($rootpath)) global $rootpath;
     require_once('./lib/common.inc.php');
     require_once('lib/cache_icon.inc.php');
-    global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email;
+    global $caches_list, $usr, $hide_coords, $cache_menu, $octeam_email, $site_name, $absolute_server_URI;
     global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key, $config;
 
 
@@ -1450,12 +1450,18 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 $owner_email = sql_fetch_array($query1);
                 $sender_email=$usr['email'];
                 $email_content = read_file($stylepath . '/email/octeam_comment.email');
-                $email_content = mb_ereg_replace('%cachename%', $cache_record['name'], $email_content);
-                $email_content = mb_ereg_replace('%cacheid%', $cache_record['cache_id'], $email_content);
-                $email_content = mb_ereg_replace('%octeam_comment%', $_POST['rr_comment'], $email_content);
-                $email_content = mb_ereg_replace('%sender%', $sender_name, $email_content);
+		$email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
+                $email_content = mb_ereg_replace('{cachename}', $cache_record['name'], $email_content);
+                $email_content = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $email_content);
+                $email_content = mb_ereg_replace('{octeam_comment}', $_POST['rr_comment'], $email_content);
+                $email_content = mb_ereg_replace('{sender}', $sender_name, $email_content);
+		$email_content = mb_ereg_replace('{ocTeamComment_01}', tr('ocTeamComment_01'), $email_content);
+		$email_content = mb_ereg_replace('{ocTeamComment_02}', tr('ocTeamComment_02'), $email_content);
+		$email_content = mb_ereg_replace('{ocTeamComment_03}', tr('ocTeamComment_03'), $email_content);
+		$email_content = mb_ereg_replace('{ocTeamComment_04}', tr('ocTeamComment_04'), $email_content);
+		$email_content = mb_ereg_replace('{ocTeamComment_05}', tr('ocTeamComment_05'), $email_content);
                 $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
-                $email_headers .= "From: OpenCaching <".$octeam_email.">\r\n";
+                $email_headers .= "From: $site_name <".$octeam_email.">\r\n";
                 $email_headers .= "Reply-To: ".$octeam_email. "\r\n";
                 //send email to owner
                 $subject=tr('octeam_comment_subject');
