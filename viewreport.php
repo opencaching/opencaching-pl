@@ -192,7 +192,7 @@ $email_form = "";
                     $report_email = sql_fetch_array($query);
                     //send email to reporter
                     mb_send_mail($report_email['email'], tr('cache_reports_32'). ": ".$cache_info['name'], $email_content, $email_headers);
-                    mb_send_mail($usr['email'], "[OC PL] Dot. skrzynki: ".$cache_info['name'], "Kopia Twojej wiadomości:\n".$email_content, $email_headers);
+                    mb_send_mail($usr['email'], tr('cache_reports_32'). ": ".$cache_info['name'], "Kopia Twojej wiadomości:\n".$email_content, $email_headers);
                     break;
 
                 case "1":
@@ -200,8 +200,8 @@ $email_form = "";
                     $query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache_user_id);
                     $report_email = sql_fetch_array($query);
                     //send email to cache owner
-                    mb_send_mail($report_email['email'], "[OC PL] Dot. skrzynki: ".$cache_info['name'], $email_content, $email_headers);
-                    mb_send_mail($usr['email'], "[OC PL] Dot. skrzynki: ".$cache_info['name'], "Kopia Twojej wiadomości:\n".$email_content, $email_headers);
+                    mb_send_mail($report_email['email'], tr('cache_reports_32'). ": ".$cache_info['name'], $email_content, $email_headers);
+                    mb_send_mail($usr['email'], tr('cache_reports_32'). ": ".$cache_info['name'], "Kopia Twojej wiadomości:\n".$email_content, $email_headers);
                 break;
 
                 case "2":
@@ -209,15 +209,15 @@ $email_form = "";
                     $query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $report_user_id);
                     $report_email = sql_fetch_array($query);
                     //send email to reporter
-                    mb_send_mail($report_email['email'], "[OC PL] Dot. skrzynki: ".$cache_info['name'], $email_content, $email_headers);
+                    mb_send_mail($report_email['email'], tr('cache_reports_32'). ": ".$cache_info['name'], $email_content, $email_headers);
 
                     //get email address of cache owner
                     $query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $cache_user_id);
                     $report_email = sql_fetch_array($query);
 
                     //send email to cache owner
-                    mb_send_mail($report_email['email'], "[OC PL] Dot. skrzynki: ".$cache_info['name'], $email_content, $email_headers);
-                    mb_send_mail($usr['email'], "[OC PL] Dot. skrzynki: ".$cache_info['name'], "Kopia Twojej wiadomości:\n".$email_content, $email_headers);
+                    mb_send_mail($report_email['email'], tr('cache_reports_32'). ": ".$cache_info['name'], $email_content, $email_headers);
+                    mb_send_mail($usr['email'], tr('cache_reports_32'). ": ".$cache_info['name'], "Kopia Twojej wiadomości:\n".$email_content, $email_headers);
 
                 break;
             }
@@ -261,7 +261,7 @@ $email_form = "";
             $email_headers .= "Reply-To: $octeam_email\r\n";
 
             //send email to rr
-            mb_send_mail($octeam_email, "[OC PL] Dot. skrzynki: ".$report['name'], $email_content, $email_headers);
+            mb_send_mail($octeam_email, tr('cache_reports_32'). ": ".$report['name'], $email_content, $email_headers);
             }
         }
         if( isset($_POST['note']) && isset($_REQUEST['reportid']) )
