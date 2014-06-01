@@ -192,7 +192,7 @@ $email_form = "";
                     $report_email = sql_fetch_array($query);
                     //send email to reporter
                     mb_send_mail($report_email['email'], tr('cache_reports_32'). ": ".$cache_info['name'], $email_content, $email_headers);
-                    mb_send_mail($usr['email'], tr('cache_reports_32'). ": ".$cache_info['name'], "Kopia Twojej wiadomości:\n".$email_content, $email_headers);
+                    mb_send_mail($usr['email'], tr('cache_reports_32'). ": ".$cache_info['name'], tr('cache_reports_33'). ":\n".$email_content, $email_headers);
                     break;
 
                 case "1":
@@ -201,7 +201,7 @@ $email_form = "";
                     $report_email = sql_fetch_array($query);
                     //send email to cache owner
                     mb_send_mail($report_email['email'], tr('cache_reports_32'). ": ".$cache_info['name'], $email_content, $email_headers);
-                    mb_send_mail($usr['email'], tr('cache_reports_32'). ": ".$cache_info['name'], "Kopia Twojej wiadomości:\n".$email_content, $email_headers);
+                    mb_send_mail($usr['email'], tr('cache_reports_32'). ": ".$cache_info['name'], tr('cache_reports_33'). ":\n".$email_content, $email_headers);
                 break;
 
                 case "2":
@@ -217,7 +217,7 @@ $email_form = "";
 
                     //send email to cache owner
                     mb_send_mail($report_email['email'], tr('cache_reports_32'). ": ".$cache_info['name'], $email_content, $email_headers);
-                    mb_send_mail($usr['email'], tr('cache_reports_32'). ": ".$cache_info['name'], "Kopia Twojej wiadomości:\n".$email_content, $email_headers);
+                    mb_send_mail($usr['email'], tr('cache_reports_32'). ": ".$cache_info['name'], tr('cache_reports_33'). ":\n".$email_content, $email_headers);
 
                 break;
             }
