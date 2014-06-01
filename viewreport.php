@@ -191,7 +191,7 @@ $email_form = "";
                     $query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $report_user_id);
                     $report_email = sql_fetch_array($query);
                     //send email to reporter
-                    mb_send_mail($report_email['email'], "[OC PL] Dot. skrzynki: ".$cache_info['name'], $email_content, $email_headers);
+                    mb_send_mail($report_email['email'], tr('cache_reports_32'). ": ".$cache_info['name'], $email_content, $email_headers);
                     mb_send_mail($usr['email'], "[OC PL] Dot. skrzynki: ".$cache_info['name'], "Kopia Twojej wiadomości:\n".$email_content, $email_headers);
                     break;
 
