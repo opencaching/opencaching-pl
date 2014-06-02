@@ -8,14 +8,13 @@
     *
     *
     ***************************************************************************/
-  $rootpath = '../';
-  require('../lib/common.inc.php');
-  global $lang;
+$rootpath = '../';
+require('../lib/common.inc.php');
+global $lang;
 setlocale(LC_TIME, 'pl_PL.utf-8');
 
-    //Preprocessing
-    if ($error == false)
-    {
+//Preprocessing
+if ($error == false) {
 
 require("../lib/jpgraph/src/jpgraph.php");
 require('../lib/jpgraph/src/jpgraph_bar.php');
@@ -27,12 +26,13 @@ $year = date('Y');
 $year_old= $year-1;
 $year_new=$year+1;
 $count_days= date('z');
-if ($count_days < 181) {$start_time = $year_old .'-07-1 00:00:00';
+if ($count_days < 181) {
+    $start_time = $year_old .'-07-1 00:00:00';
     $title3=tr('number_month').' '. $year_old .'/'. $year;
-    } else {
-        $start_time= $year .'-07-1 00:00:00';
-        $title3=tr('number_month').' '. $year .'/'. $year_new;
-        }
+} else {
+    $start_time= $year .'-07-1 00:00:00';
+    $title3=tr('number_month').' '. $year .'/'. $year_new;
+}
 
 
   $y=array();
@@ -109,7 +109,7 @@ $descibe=tr("octeam_stat_problems");
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
-$noproblems=tr('number_problems');
+$noproblems = iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_problems'));
 $graph->yaxis->title->Set($noproblems);
 $graph->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
