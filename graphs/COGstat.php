@@ -29,10 +29,10 @@ $year_new=$year+1;
 $count_days= date('z');
 if ($count_days < 181) {
     $start_time = $year_old .'-07-1 00:00:00';
-    $title3=tr('number_month').' '. $year_old .'/'. $year;
+    $title3 = iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')).' '. $year_old .'/'. $year;
 } else {
     $start_time= $year .'-07-1 00:00:00';
-    $title3=tr('number_month').' '. $year .'/'. $year_new;
+    $title3 = iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')).' '. $year .'/'. $year_new;
 }
 
 
@@ -106,7 +106,7 @@ $graph->Add($bplot);
 
 // Setup the titles
 
-$descibe=tr("octeam_stat_problems");
+$descibe = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_problems"));
 $graph->title->Set($descibe);
 $graph->xaxis->title->Set($xtitle);
 $graph->xaxis->SetTickLabels($x);
@@ -148,12 +148,12 @@ $graph2->Add($bplot2);
 
 
 // Setup the titles
-$descibe2=tr("octeam_stat_caches");
+$descibe2 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_caches"));
 $graph2->title->Set($descibe2);
 $graph2->xaxis->title->Set($xtitle);
 $graph2->xaxis->SetTickLabels($x2);
 
-$ncaches=tr('number_caches');
+$ncaches = iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_caches'));
 $graph2->yaxis->title->Set($ncaches);
 
 $graph2->title->SetFont(FF_FONT1,FS_BOLD);
@@ -191,13 +191,10 @@ $graph3->Add($bplot3);
 
 
 // Setup the titles
-$descibe3=tr("octeam_stat_m_problems");
+$descibe3 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_m_problems"));
 $graph3->title->Set($descibe3);
-$graph3->xaxis->title->Set(tr('number_month'). '2013/2014');
-//$graph3->xaxis->title->Set($title3);
+$graph3->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')). '2013/2014');
 $graph3->xaxis->SetTickLabels($x3);
-
-
 $graph3->yaxis->title->Set($noproblems);
 
 $graph3->title->SetFont(FF_FONT1,FS_BOLD);
@@ -233,9 +230,9 @@ $graph4->Add($bplot4);
 
 
 // Setup the titles
-$descibe4=tr("octeam_stat_m_caches");
+$descibe4 = iconv('UTF-8', 'ASCII//TRANSLIT', tr("octeam_stat_m_caches"));
 $graph4->title->Set($descibe4);
-$graph4->xaxis->title->Set(tr('number_month'). '2013/2014');
+$graph4->xaxis->title->Set(iconv('UTF-8', 'ASCII//TRANSLIT', tr('number_month')). '2013/2014');
 //$graph4->xaxis->title->Set($title3);
 $graph4->xaxis->SetTickLabels($x4);
 
