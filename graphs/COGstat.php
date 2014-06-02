@@ -12,7 +12,7 @@ $rootpath = '../';
 require('../lib/common.inc.php');
 global $lang;
 setlocale(LC_TIME, 'pl_PL.utf-8');
-
+setlocale(LC_ALL, 'en_GB');
 //Preprocessing
 if ($error == false) {
 
