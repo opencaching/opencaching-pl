@@ -1,4 +1,4 @@
--- 2014-05-28 Detailed cache access logging
+-- 2014-06-02 Detailed cache access logging
 -- @author: Bogus z Polska
 
 create table CACHE_ACCESS_LOGS (
@@ -11,6 +11,7 @@ create table CACHE_ACCESS_LOGS (
   ip_addr varchar(32) not null comment 'request IP',
   user_agent varchar(128) comment 'User-Agent HTTP header',
   forwarded_for varchar(128) comment 'X-Forwarded-For HTTP header',
+  okapi_consumer_key varchar(20) comment 'OKAPI consumer key',
   PRIMARY KEY (id),
   KEY access_logs_cache_id (cache_id),
   KEY access_logs_user_id (user_id)
