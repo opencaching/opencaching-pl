@@ -154,10 +154,10 @@ require __DIR__.'/settingsDefault.inc.php';
     $dbname = 'ocpl';
     $dbusername = 'ocdbu';
     $dbpasswd = 'PassworD';
-    $opt['db']['server'] = 'localhost';
-    $opt['db']['name'] = 'ocpl';
-        $opt['db']['username'] = 'ocdbu';
-        $opt['db']['password'] = 'PassworD';
+    $opt['db']['server'] = $dbserver;
+    $opt['db']['name'] = $dbname;
+    $opt['db']['username'] = $dbusername;
+    $opt['db']['password'] = $dbpasswd;
 
 
     $tmpdbname = 'test';
@@ -212,6 +212,10 @@ require __DIR__.'/settingsDefault.inc.php';
     // E-mail address group of people from OC Team who solve problems, verify cache
     $octeam_email = 'cog@localhost';
 
+    // name of the sender for user-to-user notofications
+    $mailfrom = 'opencaching.pl';
+    
+    
     // signature of e-mails send by system
     $octeamEmailsSignature = "Pozdrawiamy, Zespół www.opencaching.pl";
 
