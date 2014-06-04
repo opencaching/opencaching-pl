@@ -1843,7 +1843,6 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                     $edit_footer ="";
                 }
 
-                $tmplog_text =  $processed_text.$edit_footer;
                 $tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
 //END: same code ->viewlogs.php / viewcache.php
 //END: edit by FelixP - 2013'10
@@ -1882,10 +1881,17 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                     } else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
                 } else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
 
-                if ($record['text_html'] == 0)
-                    $tmplog_text = help_addHyperlinkToURL($tmplog_text);
-
-                $tmplog_text = tidy_html_description($tmplog_text);
+                if ($record['text_html'] == 0){
+                    $processed_text = htmlspecialchars($processed_text, ENT_COMPAT, 'UTF-8');
+                    $processed_text = help_addHyperlinkToURL($processed_text);
+                } else {
+                    // why the hell is this -> some old store format?
+                    // it actually calls htmlspecialchars_decode
+                    $processed_text = tidy_html_description($processed_text);
+                }
+                $processed_text = str_replace($smileytext, $smileyimage, $processed_text);
+                
+                $tmplog_text =  $processed_text.$edit_footer;
 
                 // pictures
                 //START: edit by FelixP - 2013'10

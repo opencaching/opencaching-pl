@@ -255,12 +255,12 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 ".$show_deleted_logs2."
                 ".$show_one_log."
                 ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`Id` DESC LIMIT :v2, :v3";
-   $params['v1']['value'] = (integer) $cache_id;;
-   $params['v1']['data_type'] = 'integer';
-   $params['v2']['value'] = (integer) $start;;
-   $params['v2']['data_type'] = 'integer';
-   $params['v3']['value'] = (integer) $count;;
-   $params['v3']['data_type'] = 'integer';
+            $params['v1']['value'] = (integer) $cache_id;;
+            $params['v1']['data_type'] = 'integer';
+            $params['v2']['value'] = (integer) $start;;
+            $params['v2']['data_type'] = 'integer';
+            $params['v3']['value'] = (integer) $count;;
+            $params['v3']['data_type'] = 'integer';
             $dbc->paramQuery($thatquery,$params);
             $logs = '';
 
@@ -387,7 +387,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                		$sLikeTxt.= "</div>"; 
                 
                	
-               	$processed_text .= $sLikeTxt;
+               	$processed_text .= $sLikeTxt; // XXX do not add any HTML here!
 
                                               
                 ///////////////////////////
@@ -431,13 +431,11 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
                 
                 
-                $tmplog_text =  $processed_text.$edit_footer;
                 $tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
 //END: same code ->viewlogs.php / viewcache.php
                 $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
                 $tmplog_date = fixPlMonth(htmlspecialchars(strftime($dateformat, strtotime($record['date'])), ENT_COMPAT, 'UTF-8'));
                 // replace smilies in log-text with images
-                $tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
 
                 $dateTimeTmpArray = explode(' ', $record['date']);
                 $tmplog = mb_ereg_replace('{time}', substr($dateTimeTmpArray[1], 0, -3), $tmplog);
@@ -473,12 +471,17 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                  }
                 else $tmplog = mb_ereg_replace('{kordy_mobilniaka}', ' ', $tmplog);
 
-                if ($record['text_html'] == 0)
-                    $tmplog_text = help_addHyperlinkToURL($tmplog_text);
-
-
-
-                $tmplog_text = tidy_html_description($tmplog_text);
+                if ($record['text_html'] == 0){
+                    $processed_text = htmlspecialchars($processed_text, ENT_COMPAT, 'UTF-8');
+                    $processed_text = help_addHyperlinkToURL($processed_text);
+                } else {
+                    // why the hell is this -> some old store format?
+                    // it actually calls htmlspecialchars_decode
+                    $processed_text = tidy_html_description($processed_text);
+                }
+                $processed_text = str_replace($smileytext, $smileyimage, $processed_text);
+                
+                $tmplog_text =  $processed_text.$edit_footer;
 
                 $tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
                 $tmplog = mb_ereg_replace('{username}', $tmplog_username, $tmplog);
@@ -588,7 +591,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 else
                     $tmplog = mb_ereg_replace('{logpictures}', '', $tmplog);
 
-                $logs .= "$tmplog\n";
+                $logs .= $tmplog."\n";
             }
             tpl_set_var('logs', $logs);
         }
