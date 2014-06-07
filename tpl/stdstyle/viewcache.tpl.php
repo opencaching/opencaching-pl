@@ -401,9 +401,11 @@
     </p>
 </div>
 <div class="content2-container">
+<div id="geoKretySection">
     <p>
         {geokrety_content}
     </p>
+  </div>
 </div>
 {geokrety_end}
 <!-- End Text Container -->
