@@ -198,7 +198,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $gpxAttribID[12] = '22';
             $gpxAttribName[12] = 'Hunting grounds';
             $gpxAttribID[13] = '39';
-            $gpxAttribName[13] = 'Thorn';
+            $gpxAttribName[13] = 'Thorns';
             $gpxAttribID[14] = '19';
             $gpxAttribName[14] = 'Ticks';
             $gpxAttribID[18] = '25';
