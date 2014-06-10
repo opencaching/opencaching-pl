@@ -196,7 +196,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         {
             // 1st set of attributes - attributes that correlate to GC attributes
             $gpxAttribID[12] = '22';
-            $gpxAttribName[12] = 'Hunting grounds';
+            $gpxAttribName[12] = 'Hunting';
             $gpxAttribID[13] = '39';
             $gpxAttribName[13] = 'Thorns';
             $gpxAttribID[14] = '19';
@@ -204,23 +204,23 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $gpxAttribID[18] = '25';
             $gpxAttribName[18] = 'Parking available';
             $gpxAttribID[25] = '57';
-            $gpxAttribName[25] = 'Long hike';
+            $gpxAttribName[25] = 'Significant Hike';
             $gpxAttribID[30] = '8';
             $gpxAttribName[30] = 'Point of interest';
             $gpxAttribID[40] = '53';
-            $gpxAttribName[40] = 'One-minute cache';
+            $gpxAttribName[40] = 'Park and Grab';
             $gpxAttribID[41] = '6';
-            $gpxAttribName[41] = 'Kid friendly';
+            $gpxAttribName[41] = 'Recommended for kids';
             $gpxAttribID[44] = '24';
             $gpxAttribName[44] = 'Wheelchair accessible';
             $gpxAttribID[52] = '60';
-            $gpxAttribName[52] = 'Beacon - Garmin chirp';
+            $gpxAttribName[52] = 'Wireless Beacon';
 	    $gpxAttribID[82] = '44';
             $gpxAttribName[82] = 'Flashlight required';
             $gpxAttribID[83] = '51';
-            $gpxAttribName[83] = 'Special tool required';
+            $gpxAttribName[83] = 'Special Tool Required';
             $gpxAttribID[85] = '32';
-            $gpxAttribName[85] = 'Bikes allowed';
+            $gpxAttribName[85] = 'Bicycles';
 
             // 2nd set of attributes - OC only attributes, changed ID (+100) to be save in oc-gc-mixed environments
             //$gpxAttribID[6] = '106';
