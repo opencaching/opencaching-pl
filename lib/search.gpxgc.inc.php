@@ -221,6 +221,12 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $gpxAttribName[83] = 'Special Tool Required';
             $gpxAttribID[85] = '32';
             $gpxAttribName[85] = 'Bicycles';
+            $gpxAttribID[86] = '4';
+            $gpxAttribName[86] = 'Boat';
+            $gpxAttribID[91] = '14';
+            $gpxAttribName[91] = 'Recommended at night';
+            $gpxAttribID[98] = '23';
+            $gpxAttribName[98] = 'Dangerous area';
 
             // 2nd set of attributes - OC only attributes, changed ID (+100) to be save in oc-gc-mixed environments
             //$gpxAttribID[6] = '106';
