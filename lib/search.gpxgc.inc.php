@@ -207,6 +207,8 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $gpxAttribName[25] = 'Significant Hike';
             $gpxAttribID[30] = '8';
             $gpxAttribName[30] = 'Point of interest';
+            $gpxAttribID[38] = '13';
+            $gpxAttribName[38] = 'Available at all times';
             $gpxAttribID[40] = '53';
             $gpxAttribName[40] = 'Park and Grab';
             $gpxAttribID[41] = '6';
