@@ -201,7 +201,7 @@ require_once('./lib/common.inc.php');
                     tpl_set_var("error_msg", "");
                     tpl_set_var("info_msg", " ".tr('adopt_15')." ".getCacheName($_GET['cacheid'])."<br /><br />");
 
-                    mb_send_mail(getUserEmail($oldOwnerId), tr('adopt_18'), "Witaj!\nNowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid']). tr('adopt_21'), ": ".$usr['username'].".", emailHeaders());
+                    mb_send_mail(getUserEmail($oldOwnerId), tr('adopt_18'), "Witaj!\nNowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid'])." został użytkownik: ".$usr['username'].".", emailHeaders());
                     }
             }
             if( isset($_GET['accept']) && $_GET['accept'] == 0 )
