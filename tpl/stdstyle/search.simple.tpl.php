@@ -56,7 +56,7 @@ function loadRegionsSelector(){
 }
 
 function _sbn_click() {
-    if (document.searchbyname.cachename.value == "") {
+    if ($('#cachename').val() === "") {
         alert("{{alert_search_by_cachename}}");
         return false;
     } else if (check_recommendations() == false) {
@@ -631,7 +631,7 @@ function showGeoCoder()
         <tr><td class="buffer" colspan="3"></td></tr>
         <tr>
             <td class="content-title-noshade">{{cache_name}}:</td>
-            <td><input type="text" name="cachename" value="{cachename}" class="input200" /></td>
+            <td><input type="text" name="cachename" id="cachename" value="{cachename}" class="input200" /></td>
             <td><input type="submit" value="{{search}}" class="formbuttons" /></td>
             <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1" /><label for="showonmap1">{{show_on_map}}</label></td>
         </tr>
