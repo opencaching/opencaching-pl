@@ -1044,6 +1044,10 @@ adopt_14 anuluj przekazanie
 adopt_15 Gratulacje! Stałeś się nowym właścicielem skrzynki:
 adopt_16 Procedura zmiany właściciela skrzynki została przerwana.
 adopt_17 Wystąpił błąd podczas próby przerwania procedury zmiany właściciela skrzynki.
+adopt_18 Nowy właściciel Twojej skrzynki
+adopt_19 Witaj!
+adopt_20 Nowym właścicielem Twojej skrzynki
+adopt_21 został użytkownik
 format_GPX GPX format
 format_other Inne formaty
 format_pict GPX + zdjęcia

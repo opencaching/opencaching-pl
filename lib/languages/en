@@ -1044,6 +1044,10 @@ adopt_14 cancel adoption
 adopt_15 Congratulations! You are now the owner of cache:
 adopt_16 The procedure for changing the cacheowner has been canceled.
 adopt_17 An error occurred while attempting to change the cacheowner.
+adopt_18 New owner of a cache
+adopt_19 Hello
+adopt_20 The new owner of your cache
+adopt_21 is user
 format_GPX GPX type
 format_other others types
 format_pict GPX + photos
