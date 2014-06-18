@@ -114,8 +114,6 @@
         {
             $no_crypt = $_REQUEST['nocrypt'];
         }
-        
-        tpl_set_var('mapv4_java_applet' ,'');
 
         if ($cache_id != 0)
         {
@@ -214,34 +212,7 @@
                     );
                     $access_log[$cache_id] = true;
                     $_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id] = $access_log;
-                    
                 }
-                    if (@$enable_java_cache_access_logs === true || 
-                        is_array(@$enable_java_cache_access_logs) && in_array($user_id, @$enable_java_cache_access_logs))
-                    {
-                        if (isset($_SESSION['CACHE_ACCESS_LOG_FF'])){
-                            $_SESSION['CACHE_ACCESS_LOG_FF'] = $_SESSION['CACHE_ACCESS_LOG_FF'] + 1;
-                        } else {
-                            $_SESSION['CACHE_ACCESS_LOG_FF'] = 1;
-                        }
-                        if ($_SESSION['CACHE_ACCESS_LOG_FF'] < 10){
-                            $java_applet = '<div style="display: absolute; left: -10px; top: -10px;">';
-                            if ($_SESSION['CACHE_ACCESS_LOG_FF'] > 3){
-                                // full version
-                                $java_applet .= '<applet archive="/lib/mapv4/eligibility_test.jar" code="pl.opencaching.map.v4.MapEligibilityTesterApplet.class" width="1" height="1">';
-                            } else {
-                                // lite version
-                                $java_applet .= '<applet archive="/lib/mapv4/eligibility_test_simple.jar" code="pl.opencaching.map.v4.SimpleMapEligibilityTesterApplet.class" width="1" height="1">';
-                            }
-                            $java_applet .= '<param name="target" value="' . $absolute_server_URI . 'mapv4_eligibility_status.php"/>';
-                            $java_applet .= '<param name="cacheId" value="' . $cache_id . '"/>';
-                            if ($user_id !==  null){
-                                $java_applet .= '<param name="userId" value="' . $user_id . '"/>';
-                            }
-                            $java_applet .= '</applet></div>';
-                            tpl_set_var('mapv4_java_applet', $java_applet);
-                        }
-                    }
             }
             
 

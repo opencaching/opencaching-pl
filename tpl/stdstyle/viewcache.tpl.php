@@ -70,6 +70,7 @@
     </div>
 </div>
 
+
 <!-- End Text Container -->
 <!-- Text container -->
 <div class="content2-container">
@@ -101,7 +102,6 @@
             }
         ?>
     </div>
-    {mapv4_java_applet}
     <div class="content2-container-2col-right" id="viewcache-maptypes">
         <?php
         if ($usr == false && $hide_coords) {
