@@ -319,11 +319,11 @@ if ($error == false) {
                             if (strlen($GeoKretyApiSecid) == 128) {
                                 $db->multiVariableQuery("insert into `GeoKretyAPI` (`userID`, `secid`) values (:1, :2) on duplicate key update `secid`=:2", $usr['userid'], $GeoKretyApiSecid);
                                 $db->reset();
-                                tpl_set_var('GeoKretyApiIntegration', 'TAK');
+                                tpl_set_var('GeoKretyApiIntegration', tr('yes'));
                             } elseif ($GeoKretyApiSecid == '') {
                                 $db->multiVariableQuery("DELETE FROM `GeoKretyAPI` WHERE `userID` = :1",$usr['userid']);
                                 $db->reset();
-                                tpl_set_var('GeoKretyApiIntegration', 'NIE');
+                                tpl_set_var('GeoKretyApiIntegration', tr('no'));
                             }
                             $sql = "UPDATE `user` SET `username`=:1, `last_modified`=NOW(), `latitude`=:2, `longitude`=:3, `pmr_flag`=:4, `country`=:5, `permanent_login_flag`=:6, `power_trail_email`=:8 , `notify_radius`=:9, `ozi_filips`=:10, `guru`=:11 WHERE `user_id`=:7";
                             $db->multiVariableQuery($sql, $username, $latitude, $longitude, 0, $country, $using_permantent_login, (int) $usr['userid'], $geoPathsEmail, $radius, $ozi_path,$guide);
