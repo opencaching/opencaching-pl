@@ -805,7 +805,7 @@ octeam_stat_m_caches Monatliche COG Statistik - Caches in Verifikation
 number_problems Anzahl der Anwendungen
 add_by hinzugefügt bei
 octeam_comment_subject [OC] COG Adotation zur Cache
-octeam_comment_copy Kopie der Einverständniserklärung zur Cache hinzugefügt von
+octeam_comment_subject_copy Kopie der Einverständniserklärung zur Cache hinzugefügt von
 list_of_latest_logs_is_empty Es gibt keine aktuellen Einträge im Log
 list_of_caches_is_empty Es gibt keine neue Caches in Nähe
 online_users registrierte Benutzer

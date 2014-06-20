@@ -806,7 +806,7 @@ octeam_stat_m_caches Statystyka COG Miesięczna - skrzynki weryfikowane
 number_problems Liczba zgłoszeń
 add_by dodane przez
 octeam_comment_subject [OC] Adnotacja COG do skrzynki
-octeam_comment_copy Kopia listu z adnotacja do skrzynki dodaną przez
+octeam_comment_subject_copy Kopia listu z adnotacja do skrzynki dodaną przez
 list_of_latest_logs_is_empty Nie ma najnowszych wpisów do logów
 list_of_caches_is_empty Nie ma najnowyszych skrzynek w tej okolicy
 online_users Online zarejestrowani użytkownicy

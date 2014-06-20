@@ -806,7 +806,7 @@ octeam_stat_m_caches Statistics OCTeam monthly - caches accepted
 number_problems Number of problems
 add_by add by
 octeam_comment_subject [OC] Comment OC Team
-octeam_comment_copy Copy email with OC Team comment add by
+octeam_comment_subject_copy Copy email with OC Team comment add by
 list_of_latest_logs_is_empty There are no latest log entries
 list_of_caches_is_empty There are no new caches in the specified area
 online_users Online registered users

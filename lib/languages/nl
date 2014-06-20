@@ -805,8 +805,8 @@ octeam_stat_caches Statistieken OC Team - Geaccepteerde caches
 octeam_stat_m_caches Maandelijkse statistieken OC Team - Geaccepteerde caches
 number_problems Aantal problemen
 add_by Toegevoegd door:
-octeam_comment_subject Commentaar van OC Team
-octeam_comment_copy Copy email with OC Team comment add by
+octeam_comment_subject_copy Commentaar van OC Team
+octeam_comment_copy Kopie email van OC Team commentaar
 list_of_latest_logs_is_empty Er zijn nog geen nieuwste logs
 list_of_caches_is_empty Er zijn geen nieuwe caches in de opgegeven omgeving
 online_users Online registreerde gebruikers
