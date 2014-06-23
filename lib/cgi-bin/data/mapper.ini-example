@@ -1,9 +1,0 @@
-[Connection]
-Host=localhost
-Port=3306
-DatabaseName=ocpl
-Username=ocpl
-Password=your_password_here
-
-[Paths]
-SearchDataDir=/some/dir/oc-data/searchdata
