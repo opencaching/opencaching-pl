@@ -9,6 +9,7 @@ namespace okapi;
 
 use Exception;
 use ErrorException;
+use ArrayObject;
 use OAuthServerException;
 use OAuthServer400Exception;
 use OAuthServer401Exception;
@@ -846,7 +847,7 @@ class Okapi
 {
     public static $data_store;
     public static $server;
-    public static $revision = 1024; # This gets replaced in automatically deployed packages
+    public static $revision = 1025; # This gets replaced in automatically deployed packages
     private static $okapi_vars = null;
 
     /** Get a variable stored in okapi_vars. If variable not found, return $default. */
@@ -1448,10 +1449,10 @@ class Okapi
         {
             $chunks[] = "<null$attrs/>";
         }
-        elseif (is_array($obj))
+        elseif (is_array($obj) || ($obj instanceof ArrayObject))
         {
             # Have to check if this is associative or not! Shit. I hate PHP.
-            if (array_keys($obj) === range(0, count($obj) - 1))
+            if (is_array($obj) && (array_keys($obj) === range(0, count($obj) - 1)))
             {
                 # Not assoc.
                 $chunks[] = "<array$attrs>";
@@ -1475,7 +1476,7 @@ class Okapi
         else
         {
             # That's a bug.
-            throw new Exception("Cannot encode as xmlmap2: " + print_r($obj, true));
+            throw new Exception("Cannot encode as xmlmap2: " . print_r($obj, true));
         }
     }
 
