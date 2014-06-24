@@ -55,8 +55,8 @@ class dataBase
         $this->name     = $opt['db']['name'];
         $this->username = $opt['db']['username'];
         $this->password = $opt['db']['password'];
+        $this->debug = $GLOBALS['config']['debugDB'];
 
-        $this->debug = $debug_page;
         $this->errorEmail[] = $mail_rt;
         $this->replyToEmail = $mail_rt;
 
