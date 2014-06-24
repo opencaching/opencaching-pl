@@ -56,6 +56,7 @@ function get_okapi_settings()
         'IMAGES_DIR' => rtrim($picdir, '/'),
         'OC_NODE_ID' => $oc_nodeid,
         'OC_COOKIE_NAME' => $cookiename.'data',
-        'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => isset($enable_cache_access_logs) ? $enable_cache_access_logs : false
+        //'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => isset($enable_cache_access_logs) ? $enable_cache_access_logs : false
+        'OCPL_ENABLE_GEOCACHE_ACCESS_LOGS' => false
     );
 }
