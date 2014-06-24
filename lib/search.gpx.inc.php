@@ -275,7 +275,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         sql('DROP TEMPORARY TABLE IF EXISTS `gpxcontent`');
         // temporäre tabelle erstellen
         sql('CREATE TEMPORARY TABLE `gpxcontent` ' . $sql . $sqlLimit);
-        
+
         $rsCount = sql('SELECT COUNT(*) `count` FROM `gpxcontent`');
         $rCount = sql_fetch_array($rsCount);
         mysql_free_result($rsCount);
@@ -365,18 +365,18 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                 }
                 if (@$access_log[$cache_id] !== true){
                     $dbc->multiVariableQuery(
-                        'INSERT INTO CACHE_ACCESS_LOGS 
-                            (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for) 
-                         VALUES 
+                        'INSERT INTO CACHE_ACCESS_LOGS
+                            (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for)
+                         VALUES
                             (NOW(), :1, :2, \'B\', \'download_gpx\', :3, :4, :5)',
-                            $cache_id, $user_id, 
+                            $cache_id, $user_id,
                             $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_X_FORWARDED_FOR']
                     );
                     $access_log[$cache_id] = true;
                     $_SESSION['CACHE_ACCESS_LOG_GPX_'.$user_id] = $access_log;
                 }
             }
-                
+
 
             $thisline = $gpxLine;
             $lat = sprintf('%01.5f', $r['latitude']);

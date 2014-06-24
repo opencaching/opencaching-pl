@@ -1010,5 +1010,5 @@ background-image: linear-gradient(to left bottom, #FF0505 0%, #EFF7EA 100%);
 
 /* override google maps font to default ones */
 div.gm-style {
-	font-family: "arial", sans-serif, "Tahoma", "Verdana";
+    font-family: "arial", sans-serif, "Tahoma", "Verdana";
 }

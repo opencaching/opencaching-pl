@@ -214,7 +214,7 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
         $rs = sql('SELECT `txtcontent`.`cache_id` `cacheid`, `txtcontent`.`longitude` `longitude`, `txtcontent`.`latitude` `latitude`, `txtcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `cache_size`.`id` `size`, `caches`.`type` `type_id`, `caches`.`status` `status`, `user`.`username` `username`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`desc_html` `html`, `cache_desc`.`rr_comment`, `caches`.`logpw` FROM `txtcontent`, `caches`, `user`, `cache_desc`, `cache_size` WHERE `txtcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `txtcontent`.`user_id`=`user`.`user_id` AND `caches`.`size`=`cache_size`.`id`');
         while($r = sql_fetch_array($rs))
         {
-        
+
             if (@$enable_cache_access_logs)
             {
                 if (!isset($dbc)) {$dbc = new dataBase();};
@@ -228,18 +228,18 @@ N|O|P|Q|R|S|T|U|V|W|X|Y|Z
                 }
                 if (@$access_log[$cache_id] !== true){
                     $dbc->multiVariableQuery(
-                        'INSERT INTO CACHE_ACCESS_LOGS 
-                            (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for) 
-                         VALUES 
+                        'INSERT INTO CACHE_ACCESS_LOGS
+                            (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for)
+                         VALUES
                             (NOW(), :1, :2, \'B\', \'download_txt\', :3, :4, :5)',
-                            $cache_id, $user_id, 
+                            $cache_id, $user_id,
                             $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_X_FORWARDED_FOR']
                     );
                     $access_log[$cache_id] = true;
                     $_SESSION['CACHE_ACCESS_LOG_TXT_'.$user_id] = $access_log;
                 }
             }
-        
+
             $thisline = $txtLine;
 
             $lat = sprintf('%01.5f', $r['latitude']);

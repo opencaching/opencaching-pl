@@ -33,7 +33,7 @@
         {else}
         <font size="smaller">{$map_msg}</font>
         {/if}
-        
+
         <table class="tableview">
             <tr><td>{$type}</td><td><b>{$cache['type']}</b></td></tr>
             <tr><td>{$size}</td><td><b>{$cache['size']}</b></td></tr>

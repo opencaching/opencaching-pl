@@ -84,18 +84,18 @@
                         sql("UPDATE `user` SET `new_pw_date`='&1', `new_pw_code`='&2' WHERE `email`='&3'", time(), $secure_code, $email);
 
                         $email_content = read_file($stylepath . '/email/newpw.email');
-                	$email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
-                	$email_content = mb_ereg_replace('{newPassWord_01}', tr('newPassWord_01'), $email_content);
-                	$email_content = mb_ereg_replace('{newPassWord_02}', tr('newPassWord_02'), $email_content);
-                	$email_content = mb_ereg_replace('{newPassWord_03}', tr('newPassWord_03'), $email_content);
-                	$email_content = mb_ereg_replace('{newPassWord_04}', tr('newPassWord_04'), $email_content);
-                	$email_content = mb_ereg_replace('{newPassWord_05}', tr('newPassWord_05'), $email_content);
-                	$email_content = mb_ereg_replace('{newPassWord_06}', tr('newPassWord_06'), $email_content);
-                	$email_content = mb_ereg_replace('{newPassWord_07}', tr('newPassWord_07'), $email_content);
+                    $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
+                    $email_content = mb_ereg_replace('{newPassWord_01}', tr('newPassWord_01'), $email_content);
+                    $email_content = mb_ereg_replace('{newPassWord_02}', tr('newPassWord_02'), $email_content);
+                    $email_content = mb_ereg_replace('{newPassWord_03}', tr('newPassWord_03'), $email_content);
+                    $email_content = mb_ereg_replace('{newPassWord_04}', tr('newPassWord_04'), $email_content);
+                    $email_content = mb_ereg_replace('{newPassWord_05}', tr('newPassWord_05'), $email_content);
+                    $email_content = mb_ereg_replace('{newPassWord_06}', tr('newPassWord_06'), $email_content);
+                    $email_content = mb_ereg_replace('{newPassWord_07}', tr('newPassWord_07'), $email_content);
                         $email_content = mb_ereg_replace('{user}', $record['username'], $email_content);
                         $email_content = mb_ereg_replace('{date}', strftime($datetimeformat), $email_content);
                         $email_content = mb_ereg_replace('{code}', $secure_code, $email_content);
-                	$email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
+                    $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
                         //send email
                         mb_send_mail($email, $newpw_subject, $email_content, $emailheaders);
 

@@ -74,12 +74,12 @@ if ( $nDayInterval < 65 )
 else if ( $nDayInterval < 367 )
 {
     $sGranulate = " month( cl.date) period ";
-    $sPeriodName =  tr2('.month', $lang );    
+    $sPeriodName =  tr2('.month', $lang );
 }
 else
 {
     $sGranulate = " year( cl.date) period ";
-    $sPeriodName =  tr2('.year', $lang );    
+    $sPeriodName =  tr2('.year', $lang );
 }
 
 
@@ -108,19 +108,19 @@ if ( count( $asUserID ) > 30 )
 
 if ( $sEND <> "" )
 {
-	echo "<script type='text/javascript'>";
-	    echo "alert( '$sEND' );";
-	    //$asUserID = explode(",", "");
-    echo "</script>";   
+    echo "<script type='text/javascript'>";
+        echo "alert( '$sEND' );";
+        //$asUserID = explode(",", "");
+    echo "</script>";
 }
 
 
 
 if ( $sEND <> "" )
 {
-	echo "<script type='text/javascript'>";
-		echo "return;";
-	echo "</script>";
+    echo "<script type='text/javascript'>";
+        echo "return;";
+    echo "</script>";
 }
 
 
@@ -186,7 +186,7 @@ while ( $record = $dbc->dbResultFetch() )
 
 
     $aNrColumn[ $nPeriod ] = $i;
-    
+
     $sPN = $nPeriod . $sPeriodName;
     echo "gcb.addColumn('number', '$sPN');";
 

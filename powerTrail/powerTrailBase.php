@@ -119,15 +119,15 @@ class powerTrailBase{
      * here power Trail icons
      */
 
-	public static function getPowerTrailIconsByType() {
-		$ret = array (
-	        1 => 'footprintRed.png',
-	        2 => 'footprintBlue.png',
-	        3 => 'footprintGreen.png',
-	        4 => 'footprintYellow.png',
-	    );
-	    return $ret;
-	}
+    public static function getPowerTrailIconsByType() {
+        $ret = array (
+            1 => 'footprintRed.png',
+            2 => 'footprintBlue.png',
+            3 => 'footprintGreen.png',
+            4 => 'footprintYellow.png',
+        );
+        return $ret;
+    }
 
 
 

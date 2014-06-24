@@ -39,7 +39,7 @@ wading Possible wadingPoate fi necesară traversare prin apă
 swimming_pool_nearby Piscină în apropiere
 warning_mud Atenţie, noroi
 fire_danger Pericol de incendiu
-travel_bug_hotel Hotel Pentru Obiecte Călătoare 
+travel_bug_hotel Hotel Pentru Obiecte Călătoare
 handicap_allowed Disponibile pentru persoane cu handicap
 handicap_not_allowed Indisponibile pentru persoane cu handicap
 can_drive_in Parchează şi găseşte
@@ -154,7 +154,7 @@ watched_caches Geocutii urmărite
 map_watched_caches Harta geocutiilor urmărite
 settings Setări
 settings_notifications Notificări
-ignored_caches Geocutii ignorate 
+ignored_caches Geocutii ignorate
 my_recommendations Recomandările mele
 search_cache Caută o geocutie
 caches Geocutii
@@ -162,7 +162,7 @@ cache Geocutie
 search Caută
 view_cache Descrierea cutiei
 new_log_entry Anunţă-ţi vizita
-new_log_entry_short Anunţă vizita 
+new_log_entry_short Anunţă vizita
 edit_log Modifică însemnările
 remove_log Şterge însemnările
 edit_cache Modifică descrierea geocutiei
@@ -333,7 +333,7 @@ new_cache_no_terms Trebuie să confirmi că accepţi Condiţiile de utilizare al
 html_incorrect Acest cod HTML nu este permis.
 descwp_incorrect No description.
 type_incorrect Tipul geocutiei este greşit!
-typewp_incorrect No waypoint selected! 
+typewp_incorrect No waypoint selected!
 stage_incorrect Stagenumber is incorrect!
 size_incorrect Dimensiunea geocutiei este greşită!
 diff_incorrect Dificultatea geocutiei este greşită!
@@ -564,7 +564,7 @@ username Utilizator
 number_of_caches Număr de geocutii
 ranking Poz.
 submit Trimite
-edit_cache_description Modifică descrierea geocutiei 
+edit_cache_description Modifică descrierea geocutiei
 short_description Descriere scurtă
 extra_attrs_info Poţi adăuga atribute suplimentare folosind acest formular: <a href="cache-atr.php" target="_BLANK">Atribute supimentare</a>.
 javascript_edit_info Javascript este dezactivat în browser-ul tău. Poţi introduce doar text. Pentru text cu formatare trebuie să porneşti Javascript-ul.
@@ -721,7 +721,7 @@ by_cachetype După tipul geocutiei
 by_logtype După tipul însemnărilor
 stat_geocache Statisticile geocutiilor
 does_not_have_stat Încă nu există statistici
-number_month Numărul de luni 
+number_month Numărul de luni
 stat_problems Statisticile Echipei OC - probleme rezolvate
 edit_logentry Modifică însemnarea
 moved_cache_info Dacă ai mutat geocutia în altă parte introdu noile coordonate (vor fi incluse în însemnare)
@@ -803,7 +803,7 @@ octeam_stat_m_problems Statisticile Echipei OC Rapoarte - lunare
 octeam_stat_caches Statisticile Echipei OCT - geocutii acceptate
 octeam_stat_m_caches Statisticile Echipei OC geocutii acceptate - lunar
 number_problems Numărul de probleme
-add_by adăugat de 
+add_by adăugat de
 octeam_comment_subject [OC] Comenariul Echipei OC
 octeam_comment_subject_copy Copie după e-mailul cu comentariul Echipei OC adăugat de **
 list_of_latest_logs_is_empty Nu există însemnări noi
@@ -875,7 +875,7 @@ more_12_month peste 12 luni
 unknown necunoscut **
 user_not_active contul utilizatorului nu este activ
 distance_to_cache Distanţă până la geocutie
-cacheguides Ghiduri în Geocaching-ului ** 
+cacheguides Ghiduri în Geocaching-ului **
 guide Ghid
 guides Ghiduri
 okapi_apps Aplicaţiile tale
@@ -910,7 +910,7 @@ os_twojews Coordonatele tale
 os_hlp_01 OpenChecker permite utilizatorilor să verifice coordonatele finale ale geocutiei de tip "Quiz" (Puzzle), "Multi" şi "Alt Tip"
 os_hlp_02 Dacă eşti proprietarul unei geocutii de tip Quiz/Alt tip , Aici le poţi oferi celorlalţi utilizatori şansa să îşi verifice coordonatele calculate/obţinute înainte să plece să caute.
 os_hlp_03 Cum să-ţi adaugi geocutia pe OpenChecker?
-os_hlp_04 1. Deschide panoul de editare al geocutiei 
+os_hlp_04 1. Deschide panoul de editare al geocutiei
 os_hlp_05 2. Apasă acolo unde scrie "Adaugă un punct nou"
 os_hlp_06 3. Selectează punctul ca "locaţie finală"
 os_hlp_07 4. Bifează în dreptul "OpenChecker" *
@@ -1018,10 +1018,10 @@ em12 Codul dat a expirat
 removed_message_title Proprietarul geocutiei ţi-a scris următorul comentariu
 to_do De făcut
 mc_beginn_00 Adăugarea unei noi geocutii - informaţii
-mc_beginn_01 Înainte să ascunzi geocutii, trebuie să găseşti minim  
+mc_beginn_01 Înainte să ascunzi geocutii, trebuie să găseşti minim
 mc_beginn_02 geocutii. Poţi alege dintre tipurile diferite de geocutii:
 mc_beginn_03 Până când nu ai găsit un număr de geocutii:
-mc_beginn_04 După ce ai găsit minimul de geocutii, primele tale 
+mc_beginn_04 După ce ai găsit minimul de geocutii, primele tale
 mc_beginn_05 geocutii trebuie aprobate de Echipa Opencaching România. După ce au fost aprobate vei primi un email cu instrucţiuni. Apoi îţi vei putea modifica noua ta geocutie şi o poţi "activa". Dacă echip oc ţi-a respins geocutia îţi vor spune motivul astfel încât să o poţi corecta şi apoi să le ceri din nou aprobarea.
 latest_blog Ultimele însemnări pe blog
 geocache Geocutie
@@ -1046,7 +1046,7 @@ adopt_17 An error occurred while attempting to change the cacheowner.
 format_GPX felul GPX-ului
 format_other alte tipuri
 format_pict GPX + poze
-mycache_notes Pentru informaţii despre notiţe, vezi 
+mycache_notes Pentru informaţii despre notiţe, vezi
 user_activity01 Activitate utilizator
 user_activity02 Activitate utilizator - total (găsite + negăsite + proprii)
 type Tip
@@ -1080,7 +1080,7 @@ chpw_01 Schimbă parola
 chpw_02 Codul de securitate a fost trimis pe adresa de e-mail specificată.
 chpw_03 Cod de securitate pentru a schimba parola.
 chpw_04 Parola este
-chpw_05 Codul introdus de tine este incorect! 
+chpw_05 Codul introdus de tine este incorect!
 map_01 arată doar FTF-urile!
 map_02 Parametrii minimi:
 map_03 oricare
@@ -1115,12 +1115,12 @@ guru_03 Atunci când vrei să aflii mai multe despre geocaching,
 guru_04 Ca să le ceri ajutorul când vrei să ascunzi sau să găseşti o geocutie pe {site_name},
 guru_05 Ca să le ceri ajutorul atunci când vrei să ascunzi sau să găseşti geocutii pe teren, atunci când vrei s-o ascunzi cum trebuie, etc.
 guru_06 Contactează un voluntar din zona ta şi stabileşte o întâlnire.
-guru_07 Acum sunt 
+guru_07 Acum sunt
 guru_08 voluntari activi
 guru_09 Număr de recomandări primite
 guru_10 Pentru a deveni un voluntar activ, trebuie să îndeplineşti următoarele condiţii:
 guru_11 Să fi primit 20 de recomandări pentru geocutiile ascunse de tine.
-guru_12 Această opţiune poate fi setată în 
+guru_12 Această opţiune poate fi setată în
 guru_13 profilul tău
 guru_14 Mulţumiri tuturor care îi ajută pe ceilalţi să îmbunătăţească jocul.
 guru_15 Recomandări primite
@@ -1144,7 +1144,7 @@ lxg08 Scrie notă
 lxg09 Mutată
 lxg10 Trebuie întreţinută
 lxg11 Comentariul echipei OC
-made_service I made a service ** 
+made_service I made a service **
 remove_desc_01 Ar trebui ca descrierea
 remove_desc_02 geocutiei
 remove_desc_03 să fie ştearsă?
@@ -1209,7 +1209,7 @@ rating_good_1A Marfă
 rating_excellent_1A De vis
 oc_on_all_pages_top_1A OftenCZACHING.pl **
 oc_subtitle_on_all_pages_1A GeoCzaching, Skeleton search portal.**
-PrimaAprilis GeoCzaching, Skeleton search portal. Sorry! This page is only available for paying members (premium member). <br>. Unfortunately, you did not pay any fees, or anything we did not know about!** 
+PrimaAprilis GeoCzaching, Skeleton search portal. Sorry! This page is only available for paying members (premium member). <br>. Unfortunately, you did not pay any fees, or anything we did not know about!**
 PMOnly Zone Super Member!**
 primaAprilis1 Sign Collective Center geocacher, Cruise Council and Technical Board **
 oc_on_all_pages_top_pl OPENCACHING.pl
@@ -2298,13 +2298,13 @@ errtpl03 Pagina
 errtpl04 Informaţii despre eroare
 newpicjs01 Te rog introdu denumirea imaginii
 newpicjs02 Te rog introdu sursa imaginii
-removedLog_01 Bună 
+removedLog_01 Bună
 removedLog_02 a şters însemnarea ta din jurnalul geocutiei
-removedLog_03 Conţinutul însemnării a fost 
+removedLog_03 Conţinutul însemnării a fost
 removedLog_04 Acesta mesaj este generat automat. Te rog nu răspunde.
 notify_newCache_01 Bună
 notify_newCache_02 În zona ta a fost ascună o nouă geocutie
-notify_newCache_03 a ascuns în 
+notify_newCache_03 a ascuns în
 notify_newCache_04 o geocutie nouă
 notify_newCache_05 Distanţa
 notify_newCache_06 Azimut
@@ -2358,7 +2358,7 @@ cacheArchived_05 Dacă ai orice întrebare sau nelămurire, te rog răspunde la 
 Cacheactivated_01 Bună
 Cacheactivated_02 Geocutia ta
 Cacheactivated_03 este aprobată de OC-Team
-Cacheactivated_04 Acum poţi schimba starea ei în "Gata s fie găsită" pe 
+Cacheactivated_04 Acum poţi schimba starea ei în "Gata s fie găsită" pe
 Cacheactivated_05 Dacă ai orice întrebare sau nelămurire, te rog răspunde la acest mesaj
 ForgottenEmail_01 Cerere recuperare adresa e-mail**
 ForgottenEmail_02 Utilizator

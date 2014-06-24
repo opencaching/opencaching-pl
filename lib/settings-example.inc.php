@@ -43,12 +43,12 @@ require __DIR__.'/settingsDefault.inc.php';
      // 6 Opencaching Great Britain http://www.opencaching.org.uk OK
      // 7 Opencaching Sweden http://www.opencaching.se OS =>OC Scandinavia
      // 8 free
-     // 9 free 
+     // 9 free
      // 10 Opencaching United States http://www.opencaching.us OU
-     // 11 free 
+     // 11 free
      // 12 Opencaching Russia http://www.opencaching.org.ru  (I don't know current status???)
      // 14 Opencaching Nederland http://www.opencaching.nl OB => OC Benelux
-     // 16 Opencaching Romania http://www.opencaching.ro OR     
+     // 16 Opencaching Romania http://www.opencaching.ro OR
      //
     //id of the node 4 for local development
      $oc_nodeid = 4;
@@ -198,7 +198,7 @@ require __DIR__.'/settingsDefault.inc.php';
     $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
     $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
     $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';
-   	$wikiLinks = array(
+    $wikiLinks = array(
         'forBeginers' => 'http://wiki.opencaching.pl/index.php/Dla_początkujących',
         'placingCache' => 'http://wiki.opencaching.pl/index.php/Zakładanie_skrzynki',
         'makingCaches' => 'http://wiki.opencaching.pl/index.php/Jakość_skrzynki',
@@ -206,7 +206,7 @@ require __DIR__.'/settingsDefault.inc.php';
         'cacheNotes' => 'http://wiki.opencaching.pl/index.php/Notatki_skrzynki',
         'extraWaypoints' => 'http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce',
         'cachingCode' => 'http://wiki.opencaching.pl/index.php/Kodeks_geocachera',
-	);
+    );
 
     $contact_mail = 'ocpl (at) localhost';
     // E-mail address group of people from OC Team who solve problems, verify cache
@@ -214,8 +214,8 @@ require __DIR__.'/settingsDefault.inc.php';
 
     // name of the sender for user-to-user notofications
     $mailfrom = 'opencaching.pl';
-    
-    
+
+
     // signature of e-mails send by system
     $octeamEmailsSignature = "Pozdrawiamy, Zespół www.opencaching.pl";
 
@@ -263,8 +263,8 @@ require __DIR__.'/settingsDefault.inc.php';
 
   /* end of power Trail module switch and settings */
 
- 	// enables/disables linkage to blog in index.php    
-	$BlogSwitchOn = true;   
+    // enables/disables linkage to blog in index.php
+    $BlogSwitchOn = true;
 
     // enable detailed cache access logging
     //$enable_cache_access_logs = true;
@@ -377,9 +377,9 @@ require __DIR__.'/settingsDefault.inc.php';
     $contactData = $contactDataPL;
     // Contact data definition END
 
-	// Show date and date/time correct way.
-	$dateFormat = 'Y-m-d';
-	$datetimeFormat = 'Y-m-d H:i';
+    // Show date and date/time correct way.
+    $dateFormat = 'Y-m-d';
+    $datetimeFormat = 'Y-m-d H:i';
 
      $defaultCountryList = array ("AT", "BE", "BY","BG", "HR","CZ", "DK","EE", "FI","FR", "GR","ES", "NL","IE", "LT","MD", "DE","NO", "PL","PT", "SU","RO", "SK","SI", "CH","SE", "TR","UA", "IT", "HU", "GB",);
 

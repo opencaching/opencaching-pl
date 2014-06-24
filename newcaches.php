@@ -55,13 +55,13 @@
                             `cache_type`.`icon_large` `icon_large`,
                             IFNULL(`cache_location`.`adm3`,\'\') `region`,
                             `PowerTrail`.`id` AS PT_ID,
-							`PowerTrail`.`name` AS PT_name,
-							`PowerTrail`.`type` As PT_type,
-							`PowerTrail`.`image` AS PT_image
-                        FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id` 
-                        			   LEFT JOIN `powerTrail_caches` ON `caches`.`cache_id` = `powerTrail_caches`.`cacheId`
-                        			   LEFT JOIN `PowerTrail` ON `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1 ), `user`, `cache_type`
-                       
+                            `PowerTrail`.`name` AS PT_name,
+                            `PowerTrail`.`type` As PT_type,
+                            `PowerTrail`.`image` AS PT_image
+                        FROM (`caches` LEFT JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id`
+                                       LEFT JOIN `powerTrail_caches` ON `caches`.`cache_id` = `powerTrail_caches`.`cacheId`
+                                       LEFT JOIN `PowerTrail` ON `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1 ), `user`, `cache_type`
+
                         WHERE `caches`.`date_hidden` <= NOW()
                         AND `caches`.`date_created` <= NOW()
                         AND `caches`.`user_id`=`user`.`user_id`
@@ -70,11 +70,11 @@
                         ORDER BY IF((`caches`.`date_hidden`>`caches`.`date_created`), `caches`.`date_hidden`, `caches`.`date_created`) DESC,
                         `caches`.`cache_id` DESC
                         LIMIT ' . ($startat+0) . ', ' . ($perpage+0));
-                        
+
            //PowerTrail vel GeoPath variables
-			$pt_cache_intro_tr = tr('pt_cache');
-			$pt_icon_title_tr =  tr('pt139');     
-			              
+            $pt_cache_intro_tr = tr('pt_cache');
+            $pt_icon_title_tr =  tr('pt139');
+
         while ($r = sql_fetch_array($rs))
         {
             $rss = sql("SELECT `pl` `country_name` FROM `countries` WHERE `short` = '&1'",$r['country']);
@@ -112,15 +112,15 @@
 
             $thisline = mb_ereg_replace('{cacheid}', $r['cacheid'], $thisline);
             $thisline = mb_ereg_replace('{userid}', $r['userid'], $thisline);
-            
+
            // PowerTrail vel GeoPath icon
-			if (isset($r['PT_ID']))  {
-				 	$PT_icon = icon_geopath_small($r['PT_ID'],$r['PT_image'],$r['PT_name'],$r['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
-				 	$thisline = mb_ereg_replace('{GPicon}',$PT_icon, $thisline);
-				 } else {
-				 	$thisline = mb_ereg_replace('{GPicon}','<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />', $thisline);
-				 };
-            
+            if (isset($r['PT_ID']))  {
+                    $PT_icon = icon_geopath_small($r['PT_ID'],$r['PT_image'],$r['PT_name'],$r['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
+                    $thisline = mb_ereg_replace('{GPicon}',$PT_icon, $thisline);
+                 } else {
+                    $thisline = mb_ereg_replace('{GPicon}','<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />', $thisline);
+                 };
+
             $thisline = mb_ereg_replace('{cachetype}', htmlspecialchars(cache_type_from_id($r['type'], $lang), ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8'), $thisline);
             $thisline = mb_ereg_replace('{username}', htmlspecialchars($r['username'], ENT_COMPAT, 'UTF-8'), $thisline);

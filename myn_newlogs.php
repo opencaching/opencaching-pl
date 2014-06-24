@@ -181,9 +181,9 @@ if ($error == false) {
                         IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
                         COUNT(gk_item.id)                           AS geokret_in,
                         `PowerTrail`.`id`                           AS PT_ID,
-						`PowerTrail`.`name`	 					 	AS PT_name,
-						`PowerTrail`.`type` 			     		AS PT_type,
-						`PowerTrail`.`image` 			     		AS PT_image
+                        `PowerTrail`.`name`                         AS PT_name,
+                        `PowerTrail`.`type`                         AS PT_type,
+                        `PowerTrail`.`image`                        AS PT_image
                 FROM (cache_logs
                     INNER JOIN caches               ON (caches.cache_id = cache_logs.cache_id))
                     INNER JOIN user                 ON (cache_logs.user_id = user.user_id)
@@ -192,7 +192,7 @@ if ($error == false) {
                     LEFT JOIN `cache_rating`        ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
                     LEFT JOIN gk_item_waypoint      ON gk_item_waypoint.wp = caches.wp_oc
                     LEFT JOIN gk_item               ON gk_item.id = gk_item_waypoint.id AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
-                    LEFT JOIN `powerTrail_caches` ON (`cache_logs`.`cache_id` = `powerTrail_caches`.`cacheId`) 
+                    LEFT JOIN `powerTrail_caches` ON (`cache_logs`.`cache_id` = `powerTrail_caches`.`cacheId`)
                     LEFT JOIN `PowerTrail` ON (`PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1 )
                 WHERE cache_logs.deleted=0 AND cache_logs.id IN (' . $log_ids . ')
                 GROUP BY cache_logs.id
@@ -202,17 +202,17 @@ if ($error == false) {
     $tr_myn_click_to_view_cache =tr('myn_click_to_view_cache');
     $bgColor = '#eeeeee';
             //PowerTrail vel GeoPath variables
-			$pt_cache_intro_tr = tr('pt_cache'); //set to call tr only once  (not for all caches)
-			$pt_icon_title_tr =  tr('pt139'); //set to call tr only once  (not for all caches)
-			//$poweTrailMarkers = powerTrailBase::getPowerTrailIconsByType();
-			/*$poweTrailMarkers = array (
-       				 1 => 'footprintRed.png',
-        			2 => 'footprintBlue.png',
-        			3 => 'footprintGreen.png',
-        			4 => 'footprintYellow.png',
-    		);    */
-    
-    
+            $pt_cache_intro_tr = tr('pt_cache'); //set to call tr only once  (not for all caches)
+            $pt_icon_title_tr =  tr('pt139'); //set to call tr only once  (not for all caches)
+            //$poweTrailMarkers = powerTrailBase::getPowerTrailIconsByType();
+            /*$poweTrailMarkers = array (
+                     1 => 'footprintRed.png',
+                    2 => 'footprintBlue.png',
+                    3 => 'footprintGreen.png',
+                    4 => 'footprintYellow.png',
+            );    */
+
+
     for ($i = 0; $i < mysql_num_rows($rs); $i++) {
         $log_record = sql_fetch_array($rs);
         if($bgColor=='#eeeeee') $bgColor='#ffffff';
@@ -233,17 +233,17 @@ if ($error == false) {
         else {
             $file_content .= '<td width="22">&nbsp;</td>';
         }
- 		
- 		// PowerTrail vel GeoPath icon
-		if (isset($log_record['PT_ID']))  {  
-			$file_content .='<td width="22">';
-			$PT_icon = icon_geopath_small($log_record['PT_ID'],$log_record['PT_image'],$log_record['PT_name'],$log_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
-			$file_content .=$PT_icon.'</td>';
-		} else {
-			$file_content .= '<td width="22">&nbsp;</td>';
-		}     
-        
-        
+
+        // PowerTrail vel GeoPath icon
+        if (isset($log_record['PT_ID']))  {
+            $file_content .='<td width="22">';
+            $PT_icon = icon_geopath_small($log_record['PT_ID'],$log_record['PT_image'],$log_record['PT_name'],$log_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
+            $file_content .=$PT_icon.'</td>';
+        } else {
+            $file_content .= '<td width="22">&nbsp;</td>';
+        }
+
+
         $cacheicon = myninc::checkCacheStatusByUser($log_record, $user_id);
 
         $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';

@@ -554,12 +554,12 @@ if ($error == false) {
                             caches.user_id AS user_id,
 
                             log_types.icon_small       AS icon_small,
-                            IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,	
+                            IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
                             COUNT(gk_item.id)          AS geokret_in,
                             `PowerTrail`.`id` AS PT_ID,
-							`PowerTrail`.`name` AS PT_name,
-							`PowerTrail`.`type` As PT_type,
-							`PowerTrail`.`image` AS PT_image
+                            `PowerTrail`.`name` AS PT_name,
+                            `PowerTrail`.`type` As PT_type,
+                            `PowerTrail`.`image` AS PT_image
                    FROM caches, (local_caches INNER JOIN cache_logs ON (local_caches.cache_id = cache_logs.cache_id))
                         INNER JOIN user             ON (cache_logs.user_id = user.user_id)
                         INNER JOIN log_types        ON (cache_logs.type = log_types.id)
@@ -567,11 +567,11 @@ if ($error == false) {
                         LEFT JOIN `cache_rating`    ON (`cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`)
                         LEFT JOIN gk_item_waypoint  ON (gk_item_waypoint.wp = local_caches.wp_oc)
                         LEFT JOIN gk_item           ON (gk_item.id = gk_item_waypoint.id AND gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5)
-                        LEFT JOIN `powerTrail_caches` ON (`cache_logs`.`cache_id` = `powerTrail_caches`.`cacheId`) 
+                        LEFT JOIN `powerTrail_caches` ON (`cache_logs`.`cache_id` = `powerTrail_caches`.`cacheId`)
                         LEFT JOIN `PowerTrail` ON (`PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1 )
                    WHERE    cache_logs.id IN (" . $log_ids . ")
                    AND caches.cache_id = cache_logs.cache_id
-                  
+
                    GROUP BY cache_logs.id
                    ORDER BY cache_logs.date_created DESC LIMIT 0, 10");
 
@@ -610,14 +610,14 @@ if ($error == false) {
                 </tr>';
             $file_content = '<table  class="myneighborhood">';
             //PowerTrail vel GeoPath variables
-			$pt_cache_intro_tr = tr('pt_cache');
-			$pt_icon_title_tr =  tr('pt139');
-			
+            $pt_cache_intro_tr = tr('pt_cache');
+            $pt_icon_title_tr =  tr('pt139');
+
             for ($i = 0; $i < mysql_num_rows($rsl); $i++) {
                 $log_record      = sql_fetch_array($rsl);
                 $cacheicon = myninc::checkCacheStatusByUser($log_record, $user_id);
                 $thisline        = $cacheline;
-				
+
                 if ( $log_record['geokret_in'] !='0') {
                     $thisline = mb_ereg_replace('{gkicon}',"images/gk.png", $thisline);
                 } else {
@@ -630,16 +630,16 @@ if ($error == false) {
                 } else  {
                     $thisline = mb_ereg_replace('{rateicon}',"images/rating-star-empty.png", $thisline);
                 }
-				
-				// PowerTrail vel GeoPath icon
-				 if (isset($log_record['PT_ID']))  {
-				 	$PT_icon = icon_geopath_small($log_record['PT_ID'],$log_record['PT_image'],$log_record['PT_name'],$log_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
-				 	$thisline = mb_ereg_replace('{GPicon}',$PT_icon, $thisline);
-				 } else {
-				 	$thisline = mb_ereg_replace('{GPicon}','<img src="images/rating-star-empty.png" class="icon16" alt="'.$pt_icon_title_tr.'" title="'.$pt_icon_title_tr.'" />', $thisline);
-				 }
-	
-				
+
+                // PowerTrail vel GeoPath icon
+                 if (isset($log_record['PT_ID']))  {
+                    $PT_icon = icon_geopath_small($log_record['PT_ID'],$log_record['PT_image'],$log_record['PT_name'],$log_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
+                    $thisline = mb_ereg_replace('{GPicon}',$PT_icon, $thisline);
+                 } else {
+                    $thisline = mb_ereg_replace('{GPicon}','<img src="images/rating-star-empty.png" class="icon16" alt="'.$pt_icon_title_tr.'" title="'.$pt_icon_title_tr.'" />', $thisline);
+                 }
+
+
                 // ukrywanie autora komentarza COG przed zwykłym userem
                 // (Łza)
                 if ($log_record['log_type'] == 12 && !$usr['admin']) {

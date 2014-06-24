@@ -39,21 +39,21 @@ class AutoArch
                 $email_content = read_file($stylepath . '/email/arch3.email');
             break;
         }
-	$email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
-	$email_content = mb_ereg_replace('{autoArchive_01}', tr('autoArchive_01'), $email_content);
-	$email_content = mb_ereg_replace('{autoArchive_02}', tr('autoArchive_02'), $email_content);
-	$email_content = mb_ereg_replace('{autoArchive_03}', tr('autoArchive_03'), $email_content);
-	$email_content = mb_ereg_replace('{autoArchive_04}', tr('autoArchive_04'), $email_content);
-	$email_content = mb_ereg_replace('{autoArchive_05}', tr('autoArchive_05'), $email_content);
-	$email_content = mb_ereg_replace('{autoArchive_06}', tr('autoArchive_06'), $email_content);
-	$email_content = mb_ereg_replace('{autoArchive_07}', tr('autoArchive_07'), $email_content);
-	$email_content = mb_ereg_replace('{autoArchive_08}', tr('autoArchive_08'), $email_content);
-	$email_content = mb_ereg_replace('{autoArchive_09}', tr('autoArchive_09'), $email_content);
-	$email_content = mb_ereg_replace('{autoArchive_10}', tr('autoArchive_10'), $email_content);
+    $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
+    $email_content = mb_ereg_replace('{autoArchive_01}', tr('autoArchive_01'), $email_content);
+    $email_content = mb_ereg_replace('{autoArchive_02}', tr('autoArchive_02'), $email_content);
+    $email_content = mb_ereg_replace('{autoArchive_03}', tr('autoArchive_03'), $email_content);
+    $email_content = mb_ereg_replace('{autoArchive_04}', tr('autoArchive_04'), $email_content);
+    $email_content = mb_ereg_replace('{autoArchive_05}', tr('autoArchive_05'), $email_content);
+    $email_content = mb_ereg_replace('{autoArchive_06}', tr('autoArchive_06'), $email_content);
+    $email_content = mb_ereg_replace('{autoArchive_07}', tr('autoArchive_07'), $email_content);
+    $email_content = mb_ereg_replace('{autoArchive_08}', tr('autoArchive_08'), $email_content);
+    $email_content = mb_ereg_replace('{autoArchive_09}', tr('autoArchive_09'), $email_content);
+    $email_content = mb_ereg_replace('{autoArchive_10}', tr('autoArchive_10'), $email_content);
         $email_content = mb_ereg_replace('}cachename}', $cache['name'], $email_content);
         $email_content = mb_ereg_replace('{cache_wp}', $cache['wp_oc'], $email_content);
         $email_content = mb_ereg_replace('{cacheid}', $cacheid, $email_content);
-	$email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
+    $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
 
         $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
         $emailheaders .= "From: $site_name <$octeam_email>\r\n";

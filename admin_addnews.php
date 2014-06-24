@@ -89,11 +89,11 @@ global $octeamEmailsSignature;
                     $mailcontent = mb_ereg_replace('{email}', $email, $mailcontent);
                     $mailcontent = mb_ereg_replace('{date}', date('d.m.Y H:i:s', time()), $mailcontent);
                     $mailcontent = mb_ereg_replace('{newsconent}', $newstext, $mailcontent);
-		    $mailcontent = mb_ereg_replace('{newNewsTopic_01}', tr('newNewsTopic_01'), $mailcontent);
-		    $mailcontent = mb_ereg_replace('{newNewsTopic_02}', tr('newNewsTopic_02'), $mailcontent);
-		    $mailcontent = mb_ereg_replace('{newNewsTopic_03}', tr('newNewsTopic_03'), $mailcontent);
-		    $mailcontent = mb_ereg_replace('{newNewsTopic_04}', tr('newNewsTopic_04'), $mailcontent);
-		    $mailcontent = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $mailcontent);
+            $mailcontent = mb_ereg_replace('{newNewsTopic_01}', tr('newNewsTopic_01'), $mailcontent);
+            $mailcontent = mb_ereg_replace('{newNewsTopic_02}', tr('newNewsTopic_02'), $mailcontent);
+            $mailcontent = mb_ereg_replace('{newNewsTopic_03}', tr('newNewsTopic_03'), $mailcontent);
+            $mailcontent = mb_ereg_replace('{newNewsTopic_04}', tr('newNewsTopic_04'), $mailcontent);
+            $mailcontent = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $mailcontent);
 
                     mb_send_mail($news_approver_email, $email_subject, $mailcontent, $emailheaders);
                 }

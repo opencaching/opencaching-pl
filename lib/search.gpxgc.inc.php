@@ -217,7 +217,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
             $gpxAttribName[44] = 'Wheelchair accessible';
             $gpxAttribID[52] = '60';
             $gpxAttribName[52] = 'Wireless Beacon';
-	    $gpxAttribID[82] = '44';
+        $gpxAttribID[82] = '44';
             $gpxAttribName[82] = 'Flashlight required';
             $gpxAttribID[83] = '51';
             $gpxAttribName[83] = 'Special Tool Required';
@@ -459,7 +459,7 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                 $rs = sql('SELECT `gpxcontent`.`cache_id` `cacheid`, `gpxcontent`.`longitude` `longitude`, `gpxcontent`.`latitude` `latitude`, `gpxcontent`.cache_mod_cords_id, `caches`.`wp_oc` `waypoint`, `caches`.`date_hidden` `date_hidden`, `caches`.`picturescount` `picturescount`, `caches`.`name` `name`, `caches`.`country` `country`, `caches`.`terrain` `terrain`, `caches`.`difficulty` `difficulty`, `caches`.`desc_languages` `desc_languages`, `caches`.`size` `size`, `caches`.`type` `type`, `caches`.`status` `status`, `user`.`username` `username`, `gpxcontent`.`user_id` `owner_id`, `cache_desc`.`desc` `desc`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`rr_comment`, `caches`.`logpw`,`caches`.`votes` `votes`,`caches`.`score` `score`, `caches`.`topratings` `topratings` FROM `gpxcontent`, `caches`, `user`, `cache_desc` WHERE `gpxcontent`.`cache_id`=`caches`.`cache_id` AND `caches`.`cache_id`=`cache_desc`.`cache_id` AND `caches`.`default_desclang`=`cache_desc`.`language` AND `gpxcontent`.`user_id`=`user`.`user_id`');
                 while($r = sql_fetch_array($rs))
                 {
-                
+
                     if (@$enable_cache_access_logs)
                     {
                         if (!isset($dbc)) {$dbc = new dataBase();};
@@ -473,18 +473,18 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
                         }
                         if (@$access_log[$cache_id] !== true){
                             $dbc->multiVariableQuery(
-                                'INSERT INTO CACHE_ACCESS_LOGS 
-                                    (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for) 
-                                 VALUES 
+                                'INSERT INTO CACHE_ACCESS_LOGS
+                                    (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for)
+                                 VALUES
                                     (NOW(), :1, :2, \'B\', \'download_gpxgc\', :3, :4, :5)',
-                                    $cache_id, $user_id, 
+                                    $cache_id, $user_id,
                                     $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_X_FORWARDED_FOR']
                             );
                             $access_log[$cache_id] = true;
                             $_SESSION['CACHE_ACCESS_LOG_GPX_'.$user_id] = $access_log;
                         }
                     }
-                
+
                     $thisline = $gpxLine;
                     $lat = sprintf('%01.5f', $r['latitude']);
                     $thisline = str_replace('{lat}', $lat, $thisline);

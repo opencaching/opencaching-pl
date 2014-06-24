@@ -16,7 +16,7 @@ create table CACHE_ACCESS_LOGS (
   PRIMARY KEY (id),
   KEY access_logs_cache_id (cache_id),
   KEY access_logs_user_id (user_id)
-) 
+)
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- alter table CACHE_ACCESS_LOGS add column info_text varchar(2048) comment 'Free info text';

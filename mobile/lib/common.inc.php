@@ -19,7 +19,7 @@
     }
     $tpl -> assign('show_coords', $show_coords);
     $tpl -> assign('absolute_server_url', rtrim($absolute_server_URI, '/'));
-    
+
     require_once('./lib/lang.inc.php');
 
 ?>

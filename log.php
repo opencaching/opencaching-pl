@@ -106,7 +106,7 @@ $debug = false;
                     if ($record['user_id'] == $usr['userid'] || ($record['status'] != 5 && $record['status'] != 4 && $record['status'] != 6) || $usr['admin'])
                     {
                         $cachename = htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8');
-                        $tpl_subtitle = $cachename . ' - ';                        
+                        $tpl_subtitle = $cachename . ' - ';
                         $cache_user_id = $record['user_id'];
                         $use_log_pw = (($record['logpw'] == NULL) || ($record['logpw'] == '')) ? false : true;
                         if ($use_log_pw) $log_pw = $record['logpw'];

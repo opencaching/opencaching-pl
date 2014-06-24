@@ -164,15 +164,15 @@ else
                 $filecontent = utf16_to_utf8($filecontent);
             }
 
-            if (strlen($filecontent) >= 3 
-                && ord($filecontent[0]) == 0xEF 
-                && ord($filecontent[1]) == 0xBB 
+            if (strlen($filecontent) >= 3
+                && ord($filecontent[0]) == 0xEF
+                && ord($filecontent[1]) == 0xBB
                 && ord($filecontent[2]) == 0xBF)
             {
                 // cut UTF-8 BOM
                 $filecontent = substr($filecontent, 3);
             }
-            
+
             $filecontent = explode("\n", $filecontent);
 
             $dane_i = -1;

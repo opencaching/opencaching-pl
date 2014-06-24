@@ -190,7 +190,7 @@ $menu = array(
                 'navicolor'     => '#FFFFC5',
                 'visible'       => false,
                 'filename'      => 'articles.php?page=links'
-            ), 
+            ),
             array(
                 'title'         => tr('pt001'),
                 'menustring'    => tr('pt001'),
@@ -901,7 +901,7 @@ function mnu_MainMenuIndexFromPageId($menustructure, $pageid) {
     global $mnu_selmenuitem;
 
     for ($i = 0, $ret = -1; ($i < count($menustructure)) && ($ret == -1); $i++) {
-        if ($menustructure[$i]['siteid'] === $pageid 
+        if ($menustructure[$i]['siteid'] === $pageid
                 || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid']))
         {
             $mnu_selmenuitem = $menustructure[$i];
@@ -997,7 +997,7 @@ function mnu_EchoSubMenu($menustructure, $pageid, $level, $bHasSubmenu) {
                 continue;
             }
 
-            if ($menustructure[$i]['siteid'] === $pageid 
+            if ($menustructure[$i]['siteid'] === $pageid
                     || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid']))
             {
                 echo '<li class="'.$cssclass.' '.$cssclass.'_active "><a '.$target_blank.' href="' . $menustructure[$i]['filename'] . '">' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8') . '</a></li>' . "\n";
@@ -1061,7 +1061,7 @@ function mnu_EchoBreadCrumb($pageid, $mainmenuindex) {
 function mnu_prv_EchoBreadCrumbSubItem($pageid, $menustructure) {
     for ($i = 0; $i < count($menustructure); $i++) {
         if ($menustructure[$i]['siteid'] == $pageid
-            || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid'])) 
+            || is_array($menustructure[$i]['siteid']) && in_array($pageid, $menustructure[$i]['siteid']))
         {
             echo '&nbsp;&gt;&nbsp;' . htmlspecialchars($menustructure[$i]['menustring'], ENT_COMPAT, 'UTF-8');
             return;

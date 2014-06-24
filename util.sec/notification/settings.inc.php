@@ -1,7 +1,7 @@
 <?php
     // Unicode Reminder ăĄă˘
     global $site_name;
-    
+
     $mailfrom = $site_name;
     $mailsubject = tr('notify_newCache_13');
 

@@ -35,9 +35,9 @@ if ( $sNameOfStat == "NumberOfFinds" )
 else if ( $sNameOfStat == "MaintenanceOfCaches" )
     $sTitleOfStat = " {{ranking_by_maintenace}} ";
 else if ( $sNameOfStat == "FavoriteComments" )
-	$sTitleOfStat = " {{fav_com}} ";
+    $sTitleOfStat = " {{fav_com}} ";
 else
-	$sTitleOfStat = " Ranking ";
+    $sTitleOfStat = " Ranking ";
 
 ?>
 
@@ -80,8 +80,8 @@ $sIsEmptDate = "";
 
 if ( isset( $_REQUEST[ "init" ] ) )
 {
-	$sIsEmptDate = $cookie->get( $sNameOfStatCookieEmptyDate );
-}		
+    $sIsEmptDate = $cookie->get( $sNameOfStatCookieEmptyDate );
+}
 
 
 if ( !isset( $_REQUEST[ "init" ] ) )
@@ -93,25 +93,25 @@ if ( !isset( $_REQUEST[ "init" ] ) )
     $sDataDo = $_REQUEST[ "DataDo" ];
 
     $sRD = $_REQUEST[ "rRD" ];
-    
-    
+
+
     if ( $sRD == "R" && $sRok == "" && $sMc == ""  )
-    	$cookie->set( $sNameOfStatCookieEmptyDate, "Yes" );
+        $cookie->set( $sNameOfStatCookieEmptyDate, "Yes" );
     else
-    	$cookie->set( $sNameOfStatCookieEmptyDate, "No" );
-    
+        $cookie->set( $sNameOfStatCookieEmptyDate, "No" );
+
     $cookie->header();
 }
 
 if ( ( isset( $_REQUEST[ "init" ] ) or intval($sMc) > 12 or intval($sMc) < 0 or intval($sRok) < 0 )
 or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 {
-	if ( $sIsEmptDate != "Yes" )
-	{
-	    $sRok = date( "Y" );
-	    $sMc = date( "m" );
-	}
-	
+    if ( $sIsEmptDate != "Yes" )
+    {
+        $sRok = date( "Y" );
+        $sMc = date( "m" );
+    }
+
     $_REQUEST[ "Rok" ] = $sRok;
     $_REQUEST[ "Mc" ] = $sMc;
 
@@ -136,7 +136,7 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
             <input type="hidden" value="<?php echo $sNameOfStat?>" name="stat" id = "stat" >
             <input type="hidden" name="DateFrom" id="DateFrom" value="" >
             <input type="hidden" name="DateTo" id="DateTo" value="" >
-            
+
             <table  class = "GCT-div-table" >
                 <tr>
                     <td><input type="radio" name="rRD" id="rR" value="R" <?php if ($sRD == "R") echo "checked" ?> ></td>
@@ -165,15 +165,15 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 
     <!-- Begin of User -->
     <td align="right">
-    
-    
-    
-    
-    <?php 
+
+
+
+
+    <?php
     if ( $sNameOfStat != "FavoriteComments" )
-    	include("tpl/stdstyle/articles/userfilter.php"); 
+        include("tpl/stdstyle/articles/userfilter.php");
     ?>
-                 
+
     </td>
 <!-- End of User -->
 </tr>
@@ -187,9 +187,9 @@ or ( intval($sMc) != 0 and intval($sRok) == 0 ) )
 
 
 
- <?php 
+ <?php
  if ( $sNameOfStat != "FavoriteComments" )
- 	include("tpl/stdstyle/articles/mypositionandcharts.php"); 
+    include("tpl/stdstyle/articles/mypositionandcharts.php");
  ?>
 
 <br>

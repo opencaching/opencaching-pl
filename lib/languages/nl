@@ -722,7 +722,7 @@ by_cachetype Per cache soort
 by_logtype Per log soort
 stat_geocache Statistieken cache
 does_not_have_stat Er zijn nog geen statistieken
-number_month Aantal per maand 
+number_month Aantal per maand
 stat_problems Statistics OC Team - solved problems
 edit_logentry Bewerk de log
 moved_cache_info If you moved the cache to a new location please enter the new coordinates that will be shown in the log
@@ -1046,7 +1046,7 @@ adopt_16 De adoptie procedure is geannuleerd.
 adopt_17 Er is een fout opgetreden tijden de adoptie procedure.
 adopt_18 Nieuwe cache eigenaar
 adopt_19 Hallo
-adopt_20 De nieuwe eigenaar van jouw cache  
+adopt_20 De nieuwe eigenaar van jouw cache
 adopt_21 is gebruiker
 format_GPX GPX formaat
 format_other andere formaten
@@ -1105,7 +1105,7 @@ nc07 Is de gekozen verbergplaats geschikt om een cache te plaatsen (denk aan gro
 nc08 Is er ook even gekeken op
 nc09 Hulp bij cachen
 nc10 die kunnen helpen met het plaatsen van een cache?
-nc11 Voldoet de cache aan de 
+nc11 Voldoet de cache aan de
 nc12 gebruikersvoorwaarden
 nc13 Neem eens een kijkje op
 nc14 Hoe maak ik een cache
@@ -2307,7 +2307,7 @@ errtpl04 Fout informatie
 newpicjs01 Vul afbeeldingnaam in
 newpicjs02 Vul afbeeldinglocatie in
 removedLog_01 Hallo
-removedLog_02 heeft je log verwijderd van cache 
+removedLog_02 heeft je log verwijderd van cache
 removedLog_03 Inhoud van de log was
 removedLog_04 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
 notify_newCache_01 Hallo
@@ -2319,7 +2319,7 @@ notify_newCache_06 Richting
 notify_newCache_07 Soort
 notify_newCache_08 Grootte
 notify_newCache_09 De instellingen voor jouw zoekradius kun je bekijken en bewerken op
-notify_newCache_10 Er is een nieuwe cache op {site_name} 
+notify_newCache_10 Er is een nieuwe cache op {site_name}
 notify_newCache_11 Er zijn nog geen nieuwe logs
 notify_newCache_12 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
 notify_newCache_13 Nieuwe cache op {site_name}: {cachename}
@@ -2346,7 +2346,7 @@ viewPending_06 De cache is afgekeurd door het OC Team
 viewPending_07 Deze is aan
 viewPending_08 toegewezen
 viewPending_09 De cache is goedgekeurd. De eigenaar is op de hoogte gebracht
-viewPending_10 Was de goedgekeurde cache. Er is geen verandering gemaakt 
+viewPending_10 Was de goedgekeurde cache. Er is geen verandering gemaakt
 viewPending_11 De cache is afgekeurd.De eigenaar is op de hoogte gebracht
 viewPending_12 Was de afgoedgekeurde cache. Er is geen verandering gemaakt
 viewPending_13 Hier kan de cache <b>goedgekeurd</b> worden
@@ -2363,10 +2363,10 @@ cacheArchived_02 Je cache
 cacheArchived_03 is afgekeurd door het OC Team
 cacheArchived_04 De status van de cache is nu veranderd naar "Geblokkeerd door OC Team"
 cacheArchived_05 Wanneer er vragen zijn kan er op deze mail gereageerd worden
-Cacheactivated_01 Hallo 
-Cacheactivated_02 Je cache 
+Cacheactivated_01 Hallo
+Cacheactivated_02 Je cache
 Cacheactivated_03 is goedgekeurd door het OC Team
-Cacheactivated_04 Je kunt de status van de nieuwe cache op "Beschikbaar" zetten op 
+Cacheactivated_04 Je kunt de status van de nieuwe cache op "Beschikbaar" zetten op
 Cacheactivated_05 Wanneer er vragen zijn kan er op deze mail gereageerd worden
 ForgottenEmail_01 Vergeten e-mail opvragen
 ForgottenEmail_02 Gebruikersnaam
@@ -2379,8 +2379,8 @@ ForgottenEmail_08 op
 ForgottenEmail_09 is een vergeten e-mailadres opgevraagd
 ForgottenEmail_10 Het e-mailadres bij registratie was
 ForgottenEmail_11 Dit bericht is automatisch gegenereerd, gelieve niet te reageren
-autoArchive_01 Hallo 
-autoArchive_02 Jouw cache 
+autoArchive_01 Hallo
+autoArchive_02 Jouw cache
 autoArchive_03 staat al 4 maanden op "Tijdelijk niet beschikbaar"
 autoArchive_04 Als er niets mee gedaan wordt, overweeg dan om te archiveren
 autoArchive_05 Over 2 maanden zal deze cache automatich gearchiveerd worden

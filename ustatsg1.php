@@ -34,7 +34,7 @@
                 // do not highlight My stats menu item if browsing other users stats
                 $mnu_siteid = 'start';
             }
-            
+
                 $tplname = 'ustat';
                 $stat_menu = array(
                     'title' => 'Statystyka',

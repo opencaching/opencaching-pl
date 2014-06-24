@@ -216,5 +216,5 @@ final class cache
     {
         return $this->status;
     }
-  
+
 }

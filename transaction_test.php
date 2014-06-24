@@ -14,34 +14,34 @@
             echo '</table>';
             die;
         }
-        
+
     }
-    
-    require_once('./lib/common.inc.php'); 
+
+    require_once('./lib/common.inc.php');
     // ob_start();
     echo '<b>start</b><br>';
     $db = new dataBase();
     $db->simpleQuery("drop table if exists transaction_test;");
     $db->simpleQuery("
         create table transaction_test (
-            id int(10) not null auto_increment, 
+            id int(10) not null auto_increment,
             name varchar(50) not null,
             PRIMARY KEY (id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-    
+
     $db2 = new dataBase();
-    
+
     // test transaction isolation
     $db2->beginTransaction();
     $db2->simpleQuery("insert into transaction_test (name) values('Asia')");
     $db2->simpleQuery("insert into transaction_test (name) values('Kasia')");
     $db2->simpleQuery("insert into transaction_test (name) values('Natalia')");
     check_database_count($db, 0, __line__);
-    
+
     // test commit
     $db2->commit();
     check_database_count($db, 3, __line__);
-    
+
     // test no-transaction
     $db2->simpleQuery("insert into transaction_test (name) values('Basia')");
     check_database_count($db, 4, __line__);
@@ -57,10 +57,10 @@
     check_database_count($db2, 3, __line__);
     $db2->rollback();
     check_database_count($db2, 4, __line__);
-    
+
     $db2->simpleQuery("delete from transaction_test;");
     $db2->simpleQuery("insert into transaction_test (name) values('Kasia')");
-    
+
     // test transation nesting
     $db2->beginTransaction();
     $db2->simpleQuery("insert into transaction_test (name) values('Zosia')");
@@ -75,17 +75,17 @@
     $db2->commit();
     check_database_count($db, 5, __line__);
     check_database_count($db2, 5, __line__);
-  
+
     // test transaction nesting with rollback
     $db2->beginTransaction();
     $db2->simpleQuery("insert into transaction_test (name) values('Zosia')");
         $db2->beginTransaction();
         $db2->simpleQuery("insert into transaction_test (name) values('Gosia')");
-        
+
             $db2->beginTransaction();
             $db2->simpleQuery("insert into transaction_test (name) values('Monika')");
             $db2->commit();
-        
+
         $db2->simpleQuery("insert into transaction_test (name) values('Marta')");
         $db2->rollback();
 
@@ -96,12 +96,12 @@
     $db2->commit(); // should rollback transaction!
     check_database_count($db, 5, __line__);
     check_database_count($db2, 5, __line__);
-    
+
     $db2->simpleQuery("delete from transaction_test;");
     $db2->beginTransaction();
     $db2->simpleQuery("insert into transaction_test (name) values('Michalina')");
     //$db->simpleQuery("drop table if exist transaction_test;");
     echo 'If you see this message, it means that each tests <b>PASSED</b>!<br>';
-    
+
     // should leave table empty!
 ?>

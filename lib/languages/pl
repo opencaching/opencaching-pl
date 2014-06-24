@@ -722,7 +722,7 @@ by_cachetype Wg typów skrzynek
 by_logtype Wg typów logów
 stat_geocache Statystyka skrzynki
 does_not_have_stat nie ma jeszcze statystyki
-number_month Numer miesiaca 
+number_month Numer miesiaca
 stat_problems Statystyka COG - prowadzone zgłoszenia
 edit_logentry Edycja logu dla skrzynki
 moved_cache_info Jeśli przeniosłeś skrzynke na nowe miejsce podaj nowe współrzędne które będą widzane w logu
@@ -2307,7 +2307,7 @@ errtpl04 Informacja o błędzie
 newpicjs01 Proszę nadać nazwę obrazkowi
 newpicjs02 Proszę podać źródło obrazka
 removedLog_01 Witaj
-removedLog_02 usunął wpis do logu dla skrzynki 
+removedLog_02 usunął wpis do logu dla skrzynki
 removedLog_03 Treść usuniętego wpisu
 removedLog_04 Ten list jest generowany automatycznie i prosimy na niego nie odpowiadać
 notify_newCache_01 Witaj
@@ -2363,10 +2363,10 @@ cacheArchived_02 Twoja skrzynka
 cacheArchived_03 NIE została aktywowana przez Zespół
 cacheArchived_04 Jej status został zmieniony na "Zablokowana przez COG"
 cacheArchived_05 Jeśli masz jakieś pytania zadaj je odpowiadając na ten email
-Cacheactivated_01 witaj 
-Cacheactivated_02 Twoja skrzynka 
+Cacheactivated_01 witaj
+Cacheactivated_02 Twoja skrzynka
 Cacheactivated_03 została zaakceptowana przez Zespół
-Cacheactivated_04 Możesz teraz zmienić jej status na "gotowa do szukania" oraz opcje publikacji na stronie 
+Cacheactivated_04 Możesz teraz zmienić jej status na "gotowa do szukania" oraz opcje publikacji na stronie
 Cacheactivated_05 Jeśli masz jakieś pytania zadaj je odpowiadając na ten email
 ForgottenEmail_01 Forgotten email request
 ForgottenEmail_02 Username

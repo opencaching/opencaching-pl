@@ -154,12 +154,12 @@ $radius=$distance;
                             `cache_type`.`icon_large` `icon_large`,
                             IFNULL(`cache_location`.`adm3`,\'\') `region`,
                             `PowerTrail`.`id` AS PT_ID,
-							`PowerTrail`.`name` AS PT_name,
-							`PowerTrail`.`type` As PT_type,
-							`PowerTrail`.`image` AS PT_image  
+                            `PowerTrail`.`name` AS PT_name,
+                            `PowerTrail`.`type` As PT_type,
+                            `PowerTrail`.`image` AS PT_image
                         FROM (local_caches'.$user_id.' caches LEFT JOIN `cache_location` ON `caches`.`cache_id`=`cache_location`.`cache_id`
                         LEFT JOIN `powerTrail_caches` ON `caches`.`cache_id` = `powerTrail_caches`.`cacheId`
-                 		LEFT JOIN `PowerTrail` ON `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1), `user`, `cache_type`
+                        LEFT JOIN `PowerTrail` ON `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1), `user`, `cache_type`
                         WHERE `caches`.`date_hidden` <= NOW()
                         AND `caches`.`date_created` <= NOW()
                         AND `caches`.`user_id`=`user`.`user_id`
@@ -171,10 +171,10 @@ $radius=$distance;
 
         $tr_myn_click_to_view_cache=tr('myn_click_to_view_cache');
         $bgColor = '#eeeeee';
-        
+
    //powertrail vel geopath variables
-	$pt_cache_intro_tr = tr('pt_cache');
-	$pt_icon_title_tr =  tr('pt139'); 
+    $pt_cache_intro_tr = tr('pt_cache');
+    $pt_icon_title_tr =  tr('pt139');
         while ($r = sql_fetch_array($rs)) {
             if($bgColor=='#eeeeee') $bgColor='#ffffff';
             else $bgColor = '#eeeeee';
@@ -183,12 +183,12 @@ $radius=$distance;
             $cacheicon = myninc::checkCacheStatusByUser($r, $user_id);
 
 // PowerTrail vel GeoPath icon
-	 		if (isset($r['PT_ID']))  {
-				 $PT_icon = icon_geopath_small($r['PT_ID'],$r['PT_image'],$r['PT_name'],$r['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
-			} else {
-				 $PT_icon = '<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />';
-			};
-			$file_content .= '<td width="22">'.$PT_icon.'</td>';
+            if (isset($r['PT_ID']))  {
+                 $PT_icon = icon_geopath_small($r['PT_ID'],$r['PT_image'],$r['PT_name'],$r['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
+            } else {
+                 $PT_icon = '<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />';
+            };
+            $file_content .= '<td width="22">'.$PT_icon.'</td>';
 
             $file_content .= '<td width="22">&nbsp;<a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '"><img src="' . $cacheicon . '" border="0" alt="'.$tr_myn_click_to_view_cache.'" title="'.$tr_myn_click_to_view_cache.'" /></a></td>';
             $file_content .= '<td><b><a class="links" href="viewcache.php?cacheid=' . htmlspecialchars($r['cacheid'], ENT_COMPAT, 'UTF-8') . '">' . htmlspecialchars($r['cachename'], ENT_COMPAT, 'UTF-8') . '</a></b></td>';
@@ -215,28 +215,28 @@ $radius=$distance;
             if ($r_log){
                 $file_content .= '<td style="width: 80px;">'
                     . htmlspecialchars(date($dateFormat, strtotime($r_log['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
-		         // PowerTrail vel GeoPath icon
-	
-				                 
-                $file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid=' 
+                 // PowerTrail vel GeoPath icon
+
+
+                $file_content .= '<td width="22"><b><a class="links" href="viewlogs.php?logid='
                     . htmlspecialchars($r_log['id'], ENT_COMPAT, 'UTF-8') . '" onmouseover="Tip(\'';
                 $file_content .= '<b>'.$r_log['user_name'].'</b>:&nbsp;';
-                if ( 
+                if (
                     $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid']
                     && $r_log['luser_id']!=$usr['userid']
                 ){
                     $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock.png\' alt=\`\` /><br/>";
                 }
                 if (
-                    $r_log['encrypt']==1 && ($r_log['cache_owner']==$usr['userid'] 
+                    $r_log['encrypt']==1 && ($r_log['cache_owner']==$usr['userid']
                     || $r_log['luser_id']==$usr['userid']))
                 {
                     $file_content .= "<img src=\'/tpl/stdstyle/images/free_icons/lock_open.png\' alt=\`\` /><br/>";
                 }
                 $data = cleanup_text(str_replace("\r\n", " ", $r_log['log_text']));
                 $data = str_replace("\n", " ",$data);
-                if ( 
-                    $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid'] 
+                if (
+                    $r_log['encrypt']==1 && $r_log['cache_owner']!=$usr['userid']
                     && $r_log['luser_id']!=$usr['userid'])
                 {
                     //crypt the log ROT13, but keep HTML-Tags and Entities

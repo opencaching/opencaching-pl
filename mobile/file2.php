@@ -11,7 +11,7 @@
         header('Location: ./viewcache.php?wp=' . $_GET['wp']);
         exit;
     }
-    
+
     $tpl -> display('tpl/file.tpl');
 
 ?>

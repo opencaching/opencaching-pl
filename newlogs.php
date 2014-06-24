@@ -74,8 +74,8 @@ if ($error == false) {
     }
 
    //powertrail vel geopath variables
-	$pt_cache_intro_tr = tr('pt_cache');
-	$pt_icon_title_tr =  tr('pt139'); 
+    $pt_cache_intro_tr = tr('pt_cache');
+    $pt_icon_title_tr =  tr('pt139');
 
     for ($i = 0; $i < $db->rowCount(); $i++) {
         $record = $db->dbResultFetch();
@@ -103,15 +103,15 @@ if ($error == false) {
                   cache_type.icon_small AS cache_icon_small,
                   log_types.icon_small AS icon_small,
                   IF(ISNULL(`cache_rating`.`cache_id`), 0, 1) AS `recommended`,
-                  COUNT(gk_item.id) AS geokret_in, 
-		         `PowerTrail`.`id` AS PT_ID,
-				 `PowerTrail`.`name` AS PT_name,
-				 `PowerTrail`.`type` As PT_type,
-				 `PowerTrail`.`image` AS PT_image                  
+                  COUNT(gk_item.id) AS geokret_in,
+                 `PowerTrail`.`id` AS PT_ID,
+                 `PowerTrail`.`name` AS PT_name,
+                 `PowerTrail`.`type` As PT_type,
+                 `PowerTrail`.`image` AS PT_image
                   FROM (cache_logs INNER JOIN caches ON (caches.cache_id = cache_logs.cache_id)) INNER JOIN user ON (cache_logs.user_id = user.user_id) INNER JOIN log_types ON (cache_logs.type = log_types.id) INNER JOIN cache_type ON (caches.type = cache_type.id) LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id`
                   LEFT JOIN gk_item_waypoint ON gk_item_waypoint.wp = caches.wp_oc
                   LEFT JOIN gk_item ON gk_item.id = gk_item_waypoint.id AND
-                  
+
                   gk_item.stateid<>1 AND gk_item.stateid<>4 AND gk_item.typeid<>2 AND gk_item.stateid !=5
                   LEFT JOIN `powerTrail_caches` ON cache_logs.cache_id = `powerTrail_caches`.`cacheId`
                   LEFT JOIN `PowerTrail` ON `PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1
@@ -147,12 +147,12 @@ if ($error == false) {
         }
 
            // PowerTrail vel GeoPath icon
- 		if (isset($log_record['PT_ID']))  {
-			$PT_icon = icon_geopath_small($log_record['PT_ID'],$log_record['PT_image'],$log_record['PT_name'],$log_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
-		} else {
-			 $PT_icon = '<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />';
-		};
-		$file_content .= '<td width="22">'.$PT_icon.'</td>';	 
+        if (isset($log_record['PT_ID']))  {
+            $PT_icon = icon_geopath_small($log_record['PT_ID'],$log_record['PT_image'],$log_record['PT_name'],$log_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
+        } else {
+             $PT_icon = '<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />';
+        };
+        $file_content .= '<td width="22">'.$PT_icon.'</td>';
 
         $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
         $cacheicon = myninc::checkCacheStatusByUser($log_record, $usr['userid']);

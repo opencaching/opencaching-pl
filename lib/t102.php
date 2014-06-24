@@ -59,8 +59,8 @@ $nMyRanking = 0;
 
 if ( $sNameOfStat == "FavoriteComments" )
 {
-	$sJoinWDateWOC = "lr";
-	$sJoinWDate = "lr.";
+    $sJoinWDateWOC = "lr";
+    $sJoinWDate = "lr.";
 }
 
 
@@ -128,9 +128,9 @@ else
 
         if ( $sData_do <> "" )
         {
-        	if ( $sDateCondition != "" )
-        		$sDateCondition = $sDateCondition . " and ";
-        		 
+            if ( $sDateCondition != "" )
+                $sDateCondition = $sDateCondition . " and ";
+
             $sDateCondition = $sDateCondition . " ".$sJoinWDate."date < '".$sData_do."' ";
         }
     }
@@ -146,7 +146,7 @@ else
     $sTypeCondition = " and  cl.type=1 ";
 
 if ( $sNameOfStat == "MaintenanceOfCaches" )
-	$sTypeCondition = " and  cl.type=6 and c.user_id <> cl.user_id ";
+    $sTypeCondition = " and  cl.type=6 and c.user_id <> cl.user_id ";
 */
 
 
@@ -154,9 +154,9 @@ $dbc = new dataBase();
 
 if ( $sNameOfStat == "MaintenanceOfCaches" )
 {
-	if ( $sDateCondition != "" )
-		$sDateCondition = " and " . $sDateCondition;
-	
+    if ( $sDateCondition != "" )
+        $sDateCondition = " and " . $sDateCondition;
+
 $query =
         "SELECT COUNT(*) count, u.username username, UPPER(u.username) UUN, u.user_id user_id,
         DATE(u.date_created) date_created, u.description description
@@ -167,7 +167,7 @@ $query =
         join user u on cl.user_id = u.user_id
 
         WHERE cl.deleted=0  and  cl.type=6 and c.user_id <> cl.user_id "
-        
+
         . $sDateCondition .
 
         "GROUP BY u.user_id
@@ -177,49 +177,49 @@ $query =
 
 if ( $sNameOfStat == "NumberOfFinds" )
 {
-	if ( $sDateCondition != "" )
-		$sDateCondition = " WHERE " . $sDateCondition;	
-	
-	
+    if ( $sDateCondition != "" )
+        $sDateCondition = " WHERE " . $sDateCondition;
+
+
 $query =
-	"SELECT f.c count, f.user_id, u.username username, UPPER(u.username) UUN,  
-	            		DATE(u.date_created) date_created, u.description description
-	            		            		
-	FROM (
-	
-	SELECT cl.user_id, sum( cl.number ) c
-	FROM user_finds cl "
-            		 
-		. $sDateCondition .
-			
-	"GROUP BY 1
-	ORDER BY c DESC
-	) AS f
-	JOIN user u ON f.user_id = u.user_id";
+    "SELECT f.c count, f.user_id, u.username username, UPPER(u.username) UUN,
+                        DATE(u.date_created) date_created, u.description description
+
+    FROM (
+
+    SELECT cl.user_id, sum( cl.number ) c
+    FROM user_finds cl "
+
+        . $sDateCondition .
+
+    "GROUP BY 1
+    ORDER BY c DESC
+    ) AS f
+    JOIN user u ON f.user_id = u.user_id";
 }
 
 
 
 if ( $sNameOfStat == "FavoriteComments" )
 {
-	if ( $sDateCondition != "" )
-		$sDateCondition = " and " . $sDateCondition;
-	
+    if ( $sDateCondition != "" )
+        $sDateCondition = " and " . $sDateCondition;
+
 $query =
         "SELECT COUNT(*) count, u.username username, UPPER(u.username) UUN, u.user_id user_id,
         DATE(u.date_created) date_created, cl.id, cl.text description, c.name cachename, c.cache_id cache_id
 
         FROM
-        log_rating ".$sJoinWDateWOC." 		
+        log_rating ".$sJoinWDateWOC."
         join cache_logs cl on ".$sJoinWDate."log_id = cl.id
-        join caches c on c.cache_id = cl.cache_id        
+        join caches c on c.cache_id = cl.cache_id
         join user u on cl.user_id = u.user_id
 
         WHERE cl.deleted=0 "
-        
+
         . $sDateCondition .
 
-        "GROUP BY cl.id 
+        "GROUP BY cl.id
         ORDER BY count DESC, u.username ASC";
 }
 
@@ -253,10 +253,10 @@ while ( $record = $dbc->dbResultFetch() )
         $sOpis = str_replace("\n", " ",$sOpis);
         $sOpis = str_replace("'", "-",$sOpis);
         $sOpis = str_replace("\"", " ",$sOpis);
-        
-        
-        
-        
+
+
+
+
         if ( $sNameOfStat == "FavoriteComments" )
         {
             $sCacheName = $record[ "cachename" ];
@@ -264,11 +264,11 @@ while ( $record = $dbc->dbResultFetch() )
             $sCacheName = str_replace("\n", " ",$sCacheName);
             $sCacheName = str_replace("'", "-",$sCacheName);
             $sCacheName = str_replace("\"", " ",$sCacheName);
-                                  
+
             $sOpis = "<b><a href=\\'viewcache.php?cacheid=".$record[ "cache_id" ]."\\'>".$sCacheName."</a></b><br><br>" . $sOpis;
         }
-        
-        
+
+
     }
     else
         $sOpis = "";
@@ -297,7 +297,7 @@ while ( $record = $dbc->dbResultFetch() )
         $sUserClass = ' class="GCT-link"; ';
 
     $sUserProfil = "viewprofile.php?userid=".$record['user_id'];
-	$sUsername = '<span '.$record[ "username" ].$sUserClass.'  onclick="GCTStatsGotoProfil( \\\''.$sUserProfil.'\\\' )"  onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</span><a name="'.$sUUN.'"></a>';
+    $sUsername = '<span '.$record[ "username" ].$sUserClass.'  onclick="GCTStatsGotoProfil( \\\''.$sUserProfil.'\\\' )"  onmouseover="Tip(\\\''.$sProfil.'\\\')" onmouseout="UnTip()"  >'.$record[ "username" ].'</span><a name="'.$sUUN.'"></a>';
 
 
     $nPos++;

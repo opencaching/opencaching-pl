@@ -508,7 +508,7 @@ score_label Bewertet als
 show_noscore Ohne bewertung schauen
 available_maps Verfügbare Karte
 cache_attributes Cache Attribute
-latest_logs Neueste Logeinträge 
+latest_logs Neueste Logeinträge
 abroad_caches Ausser Polen
 hidden_by von
 newcaches_label Neueste Caches
@@ -2247,10 +2247,10 @@ cacheSize_3 Klein
 cacheSize_4 Normal
 cacheSize_5 Groß
 cacheSize_6 Extra Groß
-cacheSize_7 Kein Behälter 
-cacheStatus_1 Kann gesucht werden 
+cacheSize_7 Kein Behälter
+cacheStatus_1 Kann gesucht werden
 cacheStatus_2 Momentan nicht verfügbar
-cacheStatus_3 Archiviert 
+cacheStatus_3 Archiviert
 cacheStatus_4 Noch nicht verfügbar
 cacheStatus_5 Noch nicht veröffentlicht
 cacheStatus_6 Gesperrt durch OC Team

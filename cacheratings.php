@@ -57,14 +57,14 @@ global $usr;
                 `cache_type`.`icon_large` `icon_large`,
                 count(`cache_rating`.`cache_id`) as `anzahl`,
                 `PowerTrail`.`id` AS PT_ID,
-				`PowerTrail`.`name` AS PT_name,
-				`PowerTrail`.`type` As PT_type,
-				`PowerTrail`.`image` AS PT_image  
+                `PowerTrail`.`name` AS PT_name,
+                `PowerTrail`.`type` As PT_type,
+                `PowerTrail`.`image` AS PT_image
             FROM `caches`
                  LEFT JOIN `powerTrail_caches` ON `caches`.`cache_id` = `powerTrail_caches`.`cacheId`
-     			LEFT JOIN `PowerTrail` ON (`PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1) 
-     		, `user`, `cache_type`, `cache_rating`	           
-     		  WHERE `caches`.`user_id`=`user`.`user_id`
+                LEFT JOIN `PowerTrail` ON (`PowerTrail`.`id` = `powerTrail_caches`.`PowerTrailId`  AND `PowerTrail`.`status` = 1)
+            , `user`, `cache_type`, `cache_rating`
+              WHERE `caches`.`user_id`=`user`.`user_id`
               AND `cache_rating`.`cache_id`=`caches`.`cache_id`
               AND `caches`.`status`=1  AND `caches`.`type` <> 6
               AND `caches`.`type`=`cache_type`.`id`
@@ -80,11 +80,11 @@ if (mysql_num_rows($rs) == 0)
     }
     else
     {
-	
+
     tpl_set_var('num_ratings', mysql_num_rows($rs));
-	   //powertrail vel geopath variables
-	$pt_cache_intro_tr = tr('pt_cache');
-	$pt_icon_title_tr =  tr('pt139'); 
+       //powertrail vel geopath variables
+    $pt_cache_intro_tr = tr('pt_cache');
+    $pt_icon_title_tr =  tr('pt139');
     for ($i = 0; $i < mysql_num_rows($rs); $i++)
     {
         $record = sql_fetch_array($rs);
@@ -94,13 +94,13 @@ if (mysql_num_rows($rs) == 0)
         $thisline = mb_ereg_replace('{cacheid}', urlencode($record['cache_id']), $thisline);
         $thisline = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $thisline);
         // PowerTrail vel GeoPath icon
-		if (isset($record['PT_ID']))  {
-			 	$PT_icon = icon_geopath_small($record['PT_ID'],$record['PT_image'],$record['PT_name'],$record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
-			 	$thisline = mb_ereg_replace('{GPicon}',$PT_icon, $thisline);
-			 } else {
-			 	$thisline = mb_ereg_replace('{GPicon}','<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />', $thisline);
-			 };       
-        
+        if (isset($record['PT_ID']))  {
+                $PT_icon = icon_geopath_small($record['PT_ID'],$record['PT_image'],$record['PT_name'],$record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
+                $thisline = mb_ereg_replace('{GPicon}',$PT_icon, $thisline);
+             } else {
+                $thisline = mb_ereg_replace('{GPicon}','<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />', $thisline);
+             };
+
         $thisline = mb_ereg_replace('{userid}', urlencode($record['user_id']), $thisline);
         $thisline = mb_ereg_replace('{username}', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'), $thisline);
         $thisline = mb_ereg_replace('{rating_absolute}', $record['anzahl'], $thisline);

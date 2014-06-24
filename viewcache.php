@@ -19,8 +19,8 @@
  ****************************************************************************/
 
 
-  
-  
+
+
   //prepare the templates and include all neccessary
     if (!isset($rootpath)) global $rootpath;
     require_once('./lib/common.inc.php');
@@ -29,7 +29,7 @@
     global $dynbasepath, $powerTrailModuleSwitchOn, $googlemap_key, $config;
 
 
-    
+
     function onTheList($theArray, $item)
     {
         for( $i=0;$i<count($theArray);$i++)
@@ -203,18 +203,18 @@
                 }
                 if (@$access_log[$cache_id] !== true){
                     $dbc->multiVariableQuery(
-                        'INSERT INTO CACHE_ACCESS_LOGS 
-                            (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for) 
-                         VALUES 
+                        'INSERT INTO CACHE_ACCESS_LOGS
+                            (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for)
+                         VALUES
                             (NOW(), :1, :2, \'B\', \'view_cache\', :3, :4, :5)',
-                            $cache_id, $user_id, 
+                            $cache_id, $user_id,
                             $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_X_FORWARDED_FOR']
                     );
                     $access_log[$cache_id] = true;
                     $_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id] = $access_log;
                 }
             }
-            
+
 
             //mysql_free_result($rs);
             if( $cache_record['user_id'] == $usr['userid'] || $usr['admin'])
@@ -1450,17 +1450,17 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 $owner_email = sql_fetch_array($query1);
                 $sender_email=$usr['email'];
                 $email_content = read_file($stylepath . '/email/octeam_comment.email');
-		$email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
+        $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                 $email_content = mb_ereg_replace('{cachename}', $cache_record['name'], $email_content);
                 $email_content = mb_ereg_replace('{cacheid}', $cache_record['cache_id'], $email_content);
                 $email_content = mb_ereg_replace('{octeam_comment}', $_POST['rr_comment'], $email_content);
                 $email_content = mb_ereg_replace('{sender}', $sender_name, $email_content);
-		$email_content = mb_ereg_replace('{ocTeamComment_01}', tr('ocTeamComment_01'), $email_content);
-		$email_content = mb_ereg_replace('{ocTeamComment_02}', tr('ocTeamComment_02'), $email_content);
-		$email_content = mb_ereg_replace('{ocTeamComment_03}', tr('ocTeamComment_03'), $email_content);
-		$email_content = mb_ereg_replace('{ocTeamComment_04}', tr('ocTeamComment_04'), $email_content);
-		$email_content = mb_ereg_replace('{ocTeamComment_05}', tr('ocTeamComment_05'), $email_content);
-		$email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
+        $email_content = mb_ereg_replace('{ocTeamComment_01}', tr('ocTeamComment_01'), $email_content);
+        $email_content = mb_ereg_replace('{ocTeamComment_02}', tr('ocTeamComment_02'), $email_content);
+        $email_content = mb_ereg_replace('{ocTeamComment_03}', tr('ocTeamComment_03'), $email_content);
+        $email_content = mb_ereg_replace('{ocTeamComment_04}', tr('ocTeamComment_04'), $email_content);
+        $email_content = mb_ereg_replace('{ocTeamComment_05}', tr('ocTeamComment_05'), $email_content);
+        $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
                 $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
                 $email_headers .= "From: $site_name <".$octeam_email.">\r\n";
                 $email_headers .= "Reply-To: ".$octeam_email. "\r\n";
@@ -1675,9 +1675,9 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
 
         $dbc->paramQuery($thatquery,$params);
-        unset($params); //clear to avoid overlaping on next paramQuery (if any))        
-        
-        
+        unset($params); //clear to avoid overlaping on next paramQuery (if any))
+
+
             $logs = '';
 
             $thisdateformat = "%d %B %Y";
@@ -1690,22 +1690,22 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
             $all_rec = $dbc->dbResultFetchAll();
             //var_dump($all_rec);
             //unset($dbc); //kill $dbc - possible long execution time due to loop - to be set conditional ($log_count>1)?
-            
-            //$dbc = new dataBase();            
-            
+
+            //$dbc = new dataBase();
+
             /*
             $likequery= "SELECT lr.log_id log_id, lr.user_id user_id, u.username username
-            			FROM cache_logs cl
-            			JOIN log_rating lr on lr.log_id = cl.id
-            			JOIN user u on lr.user_id = u.user_id
-            			WHERE cl.cache_id = :1
-            			ORDER BY lr.log_id";
-             
+                        FROM cache_logs cl
+                        JOIN log_rating lr on lr.log_id = cl.id
+                        JOIN user u on lr.user_id = u.user_id
+                        WHERE cl.cache_id = :1
+                        ORDER BY lr.log_id";
+
             $dbc->multiVariableQuery($likequery, $cache_id );
             $nLikeCount = $dbc->rowCount();
-            $aLikeAllRec = $dbc->dbResultFetchAll();            
+            $aLikeAllRec = $dbc->dbResultFetchAll();
             */
-            
+
             for ($i = 0; $i < $logs_count; $i++)
             {
                 //$record = sql_fetch_array($rs);
@@ -1761,50 +1761,50 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
 
                 // add edit footer if record has been modified
                 $record_date_create = date_create($record['date_created']);
-                
-                
+
+
                 //////////////// I Like IT
                 /*
                 $sLikeTxt = "";
                 $sLikeUser = "";
                 $nrLike = 0;
-                
+
                 for( $j = 0; $j < $nLikeCount; $j++ )
                 {
-                	$aLikeOneRec = $aLikeAllRec[ $j ];
-                	if ( $aLikeOneRec[ "log_id"] <> $record[ "logid"]  )
-                	{
-                		if ( $nrLike == 0 )
-                			continue;
-                		else
-                			break;
-                	}
-                	 
-                	$nrLike++;
-                	if ( $sLikeUser <> "" )
-                		$sLikeUser .= ", ";
-                
-                	$sLikeUser .= '<a href="viewprofile.php?userid='.$aLikeOneRec["user_id"].'">'.$aLikeOneRec[ "username" ].'</a>';
+                    $aLikeOneRec = $aLikeAllRec[ $j ];
+                    if ( $aLikeOneRec[ "log_id"] <> $record[ "logid"]  )
+                    {
+                        if ( $nrLike == 0 )
+                            continue;
+                        else
+                            break;
+                    }
+
+                    $nrLike++;
+                    if ( $sLikeUser <> "" )
+                        $sLikeUser .= ", ";
+
+                    $sLikeUser .= '<a href="viewprofile.php?userid='.$aLikeOneRec["user_id"].'">'.$aLikeOneRec[ "username" ].'</a>';
                 }
-                
-                
+
+
                 if ( $nrLike <> 0 )
-               	    $sLikeTxt .= "<div style='background-color:#DBE6F1; font-size:10px; border:1px solid #CCCCCC; -moz-border-radius: 5px; -webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;' >";
+                    $sLikeTxt .= "<div style='background-color:#DBE6F1; font-size:10px; border:1px solid #CCCCCC; -moz-border-radius: 5px; -webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;' >";
 
-               
+
                $sLikeIconTxt = '<a href="javascript:ToChangeLogRating('.$record[ "logid"].',\'viewcache.php\','.$cache_id.')"><img src="tpl/stdstyle/images/blue/recommendation.png" alt="user activity" width="20" height="20" border="0" title="'.tr("like_comment").'"/></a>';
-                	
-                	
-               	if ( $nrLike <> 0 )
-               	    $sLikeTxt .= '&nbsp&nbsp'.$sLikeIconTxt.'&nbsp&nbsp'.'<b>'.$nrLike.'</b> '.tr("like_it").' '.$sLikeUser;
 
-               	if ( $nrLike <> 0 )
-               		$sLikeTxt.= "</div>"; 
 
-               	
-               	$processed_text .= $sLikeTxt;
+                if ( $nrLike <> 0 )
+                    $sLikeTxt .= '&nbsp&nbsp'.$sLikeIconTxt.'&nbsp&nbsp'.'<b>'.$nrLike.'</b> '.tr("like_it").' '.$sLikeUser;
 
-                
+                if ( $nrLike <> 0 )
+                    $sLikeTxt.= "</div>";
+
+
+                $processed_text .= $sLikeTxt;
+
+
                 ///////////////////////////
                 */
 
@@ -1890,7 +1890,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                     $processed_text = tidy_html_description($processed_text);
                 }
                 $processed_text = str_replace($smileytext, $smileyimage, $processed_text);
-                
+
                 $tmplog_text =  $processed_text.$edit_footer;
 
                 // pictures
@@ -2415,9 +2415,9 @@ echo "<script type='text/javascript' src='lib/js/other.js'></script>";
 
 if ( isset( $_REQUEST[ "posY" ]) )
 {
-	echo "<script type='text/javascript'>";
-	echo "window.scroll(0,".$_REQUEST[ "posY" ].");";
-	echo "</script>";
+    echo "<script type='text/javascript'>";
+    echo "window.scroll(0,".$_REQUEST[ "posY" ].");";
+    echo "</script>";
 }
 ?>
 

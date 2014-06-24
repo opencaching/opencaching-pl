@@ -130,7 +130,7 @@ foreach($dane as $k=>$v) {
                $v['last_date'] = date($datetimeFormat, strtotime($v['last_date']));
                echo str_replace(" ","<br />", $v['last_date'])."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                if (isset($v['last_status'])) {
-                    echo "<img src=\"tpl/stdstyle/images/".get_icon_for_status($v['last_status'])."\" />"; 
+                    echo "<img src=\"tpl/stdstyle/images/".get_icon_for_status($v['last_status'])."\" />";
                } else {
                    echo  " ";
                }

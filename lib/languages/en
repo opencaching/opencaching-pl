@@ -333,7 +333,7 @@ new_cache_no_terms You must confirm that you agree to {site_name}'s Terms of Use
 html_incorrect This HTML code is not allowed.
 descwp_incorrect No description.
 type_incorrect Cache type is incorrect!
-typewp_incorrect No waypoint selected! 
+typewp_incorrect No waypoint selected!
 stage_incorrect Stagenumber is incorrect!
 size_incorrect Cache size is incorrect!
 diff_incorrect Difficulty is incorrect!
@@ -722,7 +722,7 @@ by_cachetype By cache type
 by_logtype By log type
 stat_geocache Statistics geocache
 does_not_have_stat There are no statistics yet
-number_month Number of months 
+number_month Number of months
 stat_problems OC Team Statistics - solved problems
 edit_logentry Edit log entry
 moved_cache_info If you moved the cache to a new location please enter the new coordinates (will be included in the log)
@@ -736,7 +736,7 @@ incorrect_password_to_log Incorrect password to log
 only_for_found_it only for found it geocaches
 store Write
 here Here
-alternative_recommend Alternative you can remove recommendations 
+alternative_recommend Alternative you can remove recommendations
 comment_log Comment
 need_maintenance_log Need maintenance
 comment_octeam_log OC Team comment
@@ -1019,10 +1019,10 @@ em12 Given code have lost it's validaty
 removed_message_title The owner of geocache wrote to you the following comment
 to_do To do
 mc_beginn_00 Registering a new cache - information
-mc_beginn_01 Before you can hide caches, you must find at least  
+mc_beginn_01 Before you can hide caches, you must find at least
 mc_beginn_02 caches. You can choose from different types of caches:
 mc_beginn_03 Until now you have found this number of caches:
-mc_beginn_04 After you have done found the required minimum, your first 
+mc_beginn_04 After you have done found the required minimum, your first
 mc_beginn_05 cache hides will require approval by the oc team. After approval you will receive an email with instructions. You can then edit your new cache and "activate" it. If the oc team rejected your cache they will give you the reason so that you can correct it and ask the oc team to approve the cache again.
 latest_blog Recent blog entries
 geocache Geocache
@@ -1051,7 +1051,7 @@ adopt_21 is user
 format_GPX GPX type
 format_other others types
 format_pict GPX + photos
-mycache_notes For information about notes, see 
+mycache_notes For information about notes, see
 user_activity01 User activity
 user_activity02 User activity count (found + did not found + owed)
 type Type
@@ -1121,7 +1121,7 @@ guru_03 Learn more about caching itself,
 guru_04 Ask help about placing and finding caches on {site_name},
 guru_05 Ask help about placing and finding caches in the field, like how to hide a cache the correct way, etc, etc.
 guru_06 Contact a volunteer in your area and make an appointment.
-guru_07 At the moment there are 
+guru_07 At the moment there are
 guru_08 active volunteers
 guru_09 Number of recieved recommendations
 guru_10 In order to become an active volunteer, you must meet the following condition:
@@ -2306,13 +2306,13 @@ errtpl03 Page
 errtpl04 Error info
 newpicjs01 Please enter image name
 newpicjs02 Please enter image source
-removedLog_01 Hello 
-removedLog_02 has removed your logentry from cache 
-removedLog_03 Contens of the log was 
+removedLog_01 Hello
+removedLog_02 has removed your logentry from cache
+removedLog_03 Contens of the log was
 removedLog_04 This message is auto-generated - please do not reply
 notify_newCache_01 Hello
 notify_newCache_02 There has been placed a new cache in your area
-notify_newCache_03 has placed on 
+notify_newCache_03 has placed on
 notify_newCache_04 a new cache
 notify_newCache_05 Distance
 notify_newCache_06 Bearing
@@ -2327,7 +2327,7 @@ newPassWord_01 Hello
 newPassWord_02 On
 newPassWord_03 you have asked to set a new password
 newPassWord_04 Securitycode
-newPassWord_05 This securitycode is valid for 3 days, after that you need a new code 
+newPassWord_05 This securitycode is valid for 3 days, after that you need a new code
 newPassWord_06 On "Step 2" enter your e-mailaddress, your securitycode and your new password on
 newPassWord_07 This message is auto-generated - please do not reply
 newEmailAddr_01 Hello
@@ -2345,9 +2345,9 @@ viewPending_05 Copy of disapproved cache
 viewPending_06 The cache is disappoved by the OC Team
 viewPending_07 User
 viewPending_08 has assigned this case
-viewPending_09 The cache has been approved. The owner has been notified of this fact 
-viewPending_10 Was the approved cache. No change was made 
-viewPending_11 The box has been disapproved. The owner has been notified of this fact 
+viewPending_09 The cache has been approved. The owner has been notified of this fact
+viewPending_10 Was the approved cache. No change was made
+viewPending_11 The box has been disapproved. The owner has been notified of this fact
 viewPending_12 Was the rejection of the cache. No change was made
 viewPending_13 You are about to <b>approve</b> the cache
 viewPending_14 from user
@@ -2361,12 +2361,12 @@ viewPending_21 The selected cache is already active, archived or not there
 cacheArchived_01 Hello
 cacheArchived_02 Your cache
 cacheArchived_03 is disapproved by the OC-Team
-cacheArchived_04 The status of the cache has been changed to "Blocked by COG" 
+cacheArchived_04 The status of the cache has been changed to "Blocked by COG"
 cacheArchived_05 If you have any question, please reply to this e-mail
-Cacheactivated_01 Hello 
-Cacheactivated_02 Your cache 
+Cacheactivated_01 Hello
+Cacheactivated_02 Your cache
 Cacheactivated_03 is approved by the OC-Team
-Cacheactivated_04 You can change the status of your new cache to "Ready for search" on 
+Cacheactivated_04 You can change the status of your new cache to "Ready for search" on
 Cacheactivated_05 If you have any question, please reply to this e-mail
 ForgottenEmail_01 Forgotten email request
 ForgottenEmail_02 Username
@@ -2379,8 +2379,8 @@ ForgottenEmail_08 On
 ForgottenEmail_09 you asked a remeninder of your forgoten e-mailaddress
 ForgottenEmail_10 E-mailaddress used for registration was
 ForgottenEmail_11 This message is auto-generated - please do not reply
-autoArchive_01 Hello 
-autoArchive_02 Your cache 
+autoArchive_01 Hello
+autoArchive_02 Your cache
 autoArchive_03 is set to "temporarily unavailable" since 4 months
 autoArchive_04 If you do not intend to reactivate, please consider archiving this cache
 autoArchive_05 In two months this cache will be archived automatically

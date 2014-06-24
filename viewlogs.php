@@ -119,7 +119,7 @@
 
         if ($cache_id != 0)
         {
-        
+
             // detailed cache access logging
             if (@$enable_cache_access_logs)
             {
@@ -133,18 +133,18 @@
                 }
                 if (@$access_log[$cache_id] !== true){
                     $dbc->multiVariableQuery(
-                        'INSERT INTO CACHE_ACCESS_LOGS 
-                            (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for) 
-                         VALUES 
+                        'INSERT INTO CACHE_ACCESS_LOGS
+                            (event_date, cache_id, user_id, source, event, ip_addr, user_agent, forwarded_for)
+                         VALUES
                             (NOW(), :1, :2, \'B\', \'view_logs\', :3, :4, :5)',
-                            $cache_id, $user_id, 
+                            $cache_id, $user_id,
                             $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_X_FORWARDED_FOR']
                     );
                     $access_log[$cache_id] = true;
                     $_SESSION['CACHE_ACCESS_LOG_VL_'.$user_id] = $access_log;
                 }
             }
-        
+
             //ok, cache is here, let's process
             $owner_id = $cache_record['user_id'];
 
@@ -274,17 +274,17 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
             $all_rec = $dbc->dbResultFetchAll();
             //var_dump($all_rec);
             //unset($dbc); //kill $dbc - possible long execution time due to loop - to be set conditional ($log_count>1)?
-            
-			//$dbc = new dataBase();
-			
+
+            //$dbc = new dataBase();
+
             /*
-            $likequery= "SELECT lr.log_id log_id, lr.user_id user_id, u.username username 
-            			FROM cache_logs cl
-            			JOIN log_rating lr on lr.log_id = cl.id
-            			JOIN user u on lr.user_id = u.user_id             			
-            			WHERE cl.cache_id = :1 
-            			ORDER BY lr.log_id";
-            	
+            $likequery= "SELECT lr.log_id log_id, lr.user_id user_id, u.username username
+                        FROM cache_logs cl
+                        JOIN log_rating lr on lr.log_id = cl.id
+                        JOIN user u on lr.user_id = u.user_id
+                        WHERE cl.cache_id = :1
+                        ORDER BY lr.log_id";
+
             $dbc->multiVariableQuery($likequery, $cache_id );
             $nLikeCount = $dbc->rowCount();
             $aLikeAllRec = $dbc->dbResultFetchAll();
@@ -346,54 +346,54 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 // add edit footer if record has been modified
                 $record_date_create = date_create($record['date_created']);
 
-               
+
                 //////////////// I Like IT
                 /*
                 $sLikeTxt = "";
                 $sLikeIconTxt = "";
                 $sLikeUser = "";
                 $nrLike = 0;
-                
+
                 for( $j = 0; $j < $nLikeCount; $j++ )
                 {
-                	$aLikeOneRec = $aLikeAllRec[ $j ];
-                	if ( $aLikeOneRec[ "log_id"] <> $record[ "log_id"]  )
-                	{
-                		if ( $nrLike == 0 )
-                			continue;
-                		else
-                			break;
-                	}
-                	
-                	$nrLike++;
-                	if ( $sLikeUser <> "" )
-                		$sLikeUser .= ", ";
-                		
-                	$sLikeUser .= '<a href="viewprofile.php?userid='.$aLikeOneRec["user_id"].'">'.$aLikeOneRec[ "username" ].'</a>';
+                    $aLikeOneRec = $aLikeAllRec[ $j ];
+                    if ( $aLikeOneRec[ "log_id"] <> $record[ "log_id"]  )
+                    {
+                        if ( $nrLike == 0 )
+                            continue;
+                        else
+                            break;
+                    }
+
+                    $nrLike++;
+                    if ( $sLikeUser <> "" )
+                        $sLikeUser .= ", ";
+
+                    $sLikeUser .= '<a href="viewprofile.php?userid='.$aLikeOneRec["user_id"].'">'.$aLikeOneRec[ "username" ].'</a>';
                 }
-                                              
-                
+
+
                 if ( $nrLike <> 0 )
-               	    $sLikeTxt .= "<div style='background-color:#DBE6F1; font-size:10px; border:1px solid #CCCCCC; -moz-border-radius: 5px; -webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;' >";
+                    $sLikeTxt .= "<div style='background-color:#DBE6F1; font-size:10px; border:1px solid #CCCCCC; -moz-border-radius: 5px; -webkit-border-radius: 5px;-khtml-border-radius: 5px;border-radius: 5px;' >";
 
-               
+
                $sLikeIconTxt = '<a href="javascript:ToChangeLogRating('.$record[ "log_id"].',\'viewlogs.php\','.$cache_id.')"><img src="tpl/stdstyle/images/blue/recommendation.png" alt="user activity" width="20" height="20" border="0" title="'.tr("like_comment").'"/></a>';
-                	
-                	
-               	if ( $nrLike <> 0 )
-               	    $sLikeTxt .= '&nbsp&nbsp'.$sLikeIconTxt.'&nbsp&nbsp'.'<b>'.$nrLike.'</b> '.tr("like_it").' '.$sLikeUser;
 
-               	if ( $nrLike <> 0 )
-               		$sLikeTxt.= "</div>"; 
-                
-               	
-               	$processed_text .= $sLikeTxt; // XXX do not add any HTML here!
 
-                                              
+                if ( $nrLike <> 0 )
+                    $sLikeTxt .= '&nbsp&nbsp'.$sLikeIconTxt.'&nbsp&nbsp'.'<b>'.$nrLike.'</b> '.tr("like_it").' '.$sLikeUser;
+
+                if ( $nrLike <> 0 )
+                    $sLikeTxt.= "</div>";
+
+
+                $processed_text .= $sLikeTxt; // XXX do not add any HTML here!
+
+
                 ///////////////////////////
                 */
-                
-                
+
+
                 if ($record['edit_count']>0)
                 //check if editted at all
                 {
@@ -429,8 +429,8 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                     $edit_footer ="";
                 }
 
-                
-                
+
+
                 $tmplog = read_file($stylepath . '/viewcache_log.tpl.php');
 //END: same code ->viewlogs.php / viewcache.php
                 $tmplog_username = htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8');
@@ -448,11 +448,11 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 } else {
                     $tmplog_username_aktywnosc = ' (<img src="tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="13" height="13" border="0" title="'.tr('viewlog_aktywnosc').' ['.$record['znalezione'].'+'. $record['nieznalezione'].'+'. $record['ukryte'].']"/>'. ($record['ukryte'] + $record['znalezione'] + $record['nieznalezione']) . ') ';
                 }
-                
+
                 if ( $nrLike == 0 )
                     $tmplog_username_aktywnosc .= '&nbsp'.$sLikeIconTxt;
-                
-                
+
+
                 // hide nick of athor of COG(OC Team) for user
                 if ($record['type'] == 12 && !$usr['admin'])
                   {
@@ -480,7 +480,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                     $processed_text = tidy_html_description($processed_text);
                 }
                 $processed_text = str_replace($smileytext, $smileyimage, $processed_text);
-                
+
                 $tmplog_text =  $processed_text.$edit_footer;
 
                 $tmplog = mb_ereg_replace('{show_deleted}', $show_deleted, $tmplog);
@@ -605,11 +605,11 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
     //make the template and send it out
     tpl_BuildTemplate();
 
-echo "<script type='text/javascript' src='lib/js/other.js'></script>";    
-    
+echo "<script type='text/javascript' src='lib/js/other.js'></script>";
+
 if ( isset( $_REQUEST[ "posY" ]) )
 {
-	echo "<script type='text/javascript'>";
+    echo "<script type='text/javascript'>";
     echo "window.scroll(0,".$_REQUEST[ "posY" ].");";
     echo "</script>";
 }

@@ -20,7 +20,7 @@
         </tr>
     <tr>
         <td>
-	<img src="/images/cs.png" class="icon32" align="middle" /> {{CZ}}
+    <img src="/images/cs.png" class="icon32" align="middle" /> {{CZ}}
         </td>
         <td>
             <a href="http://www.opencaching.cz">http://www.opencaching.cz</a>
@@ -28,7 +28,7 @@
     </tr>
     <tr>
         <td>
-	<img src="/images/de.png" class="icon32" align="middle" /> {{DE}}
+    <img src="/images/de.png" class="icon32" align="middle" /> {{DE}}
         </td>
         <td>
             <a href="http://www.opencaching.de">http://www.opencaching.de</a>
@@ -36,7 +36,7 @@
     </tr>
     <tr>
         <td>
-	<img src="/images/en.png" class="icon32" align="middle" /> {{GB}}
+    <img src="/images/en.png" class="icon32" align="middle" /> {{GB}}
         </td>
         <td>
             <a href="http://www.opencaching.org.uk">http://www.opencaching.org.uk</a>
@@ -44,7 +44,7 @@
     </tr>
     <tr>
         <td style="width: 25%;">
-	<img src="/images/nl.png" class="icon32" align="middle" /> {{NL}}
+    <img src="/images/nl.png" class="icon32" align="middle" /> {{NL}}
         </td>
 
         <td>
@@ -53,7 +53,7 @@
     </tr>
     <tr>
         <td>
-	<img src="/images/no.png" class="icon32" align="middle" /> {{NO}}
+    <img src="/images/no.png" class="icon32" align="middle" /> {{NO}}
         </td>
         <td>
             <a href="http://www.opencaching.no">http://www.opencaching.no</a>
@@ -61,7 +61,7 @@
     </tr>
     <tr>
         <td>
-	<img src="/images/pl.png" class="icon32" align="middle" /> {{PL}}
+    <img src="/images/pl.png" class="icon32" align="middle" /> {{PL}}
         </td>
         <td>
             <a href="http://www.opencaching.pl">http://www.opencaching.pl</a>
@@ -69,7 +69,7 @@
     </tr>
     <tr>
         <td>
-	<img src="/images/ro.png" class="icon32" align="middle" /> {{RO}}
+    <img src="/images/ro.png" class="icon32" align="middle" /> {{RO}}
         </td>
         <td>
             <a href="http://www.opencaching.ro">http://www.opencaching.ro</a>
@@ -77,7 +77,7 @@
     </tr>
     <tr>
         <td style="width: 25%;">
-	<img src="/images/sv.png" class="icon32" align="middle" /> {{SE}}
+    <img src="/images/sv.png" class="icon32" align="middle" /> {{SE}}
         </td>
         <td>
             <a href="http://www.opencaching.se">http://www.opencaching.se </a>
@@ -85,7 +85,7 @@
     </tr>
     <tr>
         <td>
-	<img src="/images/us.png" class="icon32" align="middle" /> {{US}}
+    <img src="/images/us.png" class="icon32" align="middle" /> {{US}}
         </td>
         <td>
             <a href="http://www.opencaching.us">http://www.opencaching.us</a>

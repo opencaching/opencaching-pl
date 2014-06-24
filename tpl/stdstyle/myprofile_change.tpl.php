@@ -139,7 +139,7 @@
             </span>
         </td>
     </tr>
- 
+
     <tr><td class="buffer" colspan="2"></td></tr>
     <tr>
         <td class="content-title-noshade txt-grey07" valign="top"><img src="tpl/stdstyle/images/free_icons/plugin.png" class="icon16" alt="" title="" align="middle" />&nbsp;{{ozi_path_label}}:</td>

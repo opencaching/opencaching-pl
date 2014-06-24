@@ -206,7 +206,7 @@
             } else {
                 $thisline = str_replace('{mod_suffix}', '', $thisline);
             }
-            
+
             $thisline = mb_ereg_replace('{cachename}', convert_string($r['name']), $thisline);
             $thisline = mb_ereg_replace('{symbolnr1}', $nr, $thisline);
             $thisline = mb_ereg_replace('{symbolnr2}', $nr + 1, $thisline);

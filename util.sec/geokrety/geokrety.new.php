@@ -37,15 +37,15 @@
     $url='http://geokrety.org/export_oc.php?modifiedsince=' . date('YmdHis', $modifiedsince - 1);
 
 
-	$xmlString = file_get_contents($url);
-	$gkxml = @simplexml_load_string($xmlString);
+    $xmlString = file_get_contents($url);
+    $gkxml = @simplexml_load_string($xmlString);
 
 
 //    $gkxml=@simplexml_load_file($url);
     if(!$gkxml) {
-		print $xmlString;
-		die("Geokrety export error! Failed to load XML file [simplexml_load_file()]: ".$url);
-	}
+        print $xmlString;
+        die("Geokrety export error! Failed to load XML file [simplexml_load_file()]: ".$url);
+    }
 
     /* read geokrety data */
     foreach($gkxml->geokret as $geokret) {
