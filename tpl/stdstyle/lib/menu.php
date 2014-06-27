@@ -220,7 +220,7 @@ $menu = array(
         'title'         => tr('forum'),
         'menustring'    => tr('forum'),
         'siteid'        => 'forum',
-        'visible'       => isset($forum_url)? true, false,
+        'visible'       => isset($forum_url)? true: false,
         'filename'      => $forum_url,
         'newwindow'     => true
     ),
