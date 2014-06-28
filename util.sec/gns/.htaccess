@@ -1,6 +1,6 @@
-'AuthUserFile' /var/www/htdocs/util.sec/delete/.htpasswd
-'AuthGroupFile' /dev/null
-'AuthName' "Acces Restreint"
-'AuthType' Basic
-
-require valid-user
+#'AuthUserFile' /var/www/htdocs/util.sec/delete/.htpasswd
+#'AuthGroupFile' /dev/null
+#'AuthName' "Acces Restreint"
+#'AuthType' Basic
+#
+#require valid-user

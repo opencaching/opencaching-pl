@@ -11,14 +11,31 @@
 
  /***************************************************************************
 
-    Dieses Script liest Dateien von GEOnet Names Server (GNS) ein und importiert
-    diese in die Table gns_locations.
+    This script imports data downloaded from GEOnet Names Server (GNS) into the 
+    table gns_locations. 
     Homepage:       http://earth-info.nga.mil/gns/html/
-    Downloadseite:  http://earth-info.nga.mil/gns/html/cntry_files.html
-    Aktuell eingelesene Dateien:
-                    http://earth-info.nga.mil/gns/html/cntyfile/au.zip
-                    http://earth-info.nga.mil/gns/html/cntyfile/gm.zip
-                    http://earth-info.nga.mil/gns/html/cntyfile/sz.zip
+    Download links by country:     
+                    http://earth-info.nga.mil/gns/html/namefiles.htm
+    Direct links:
+                PL: http://earth-info.nga.mil/gns/html/cntyfile/pl.zip
+                NL: http://earth-info.nga.mil/gns/html/cntyfile/nl.zip
+                BE: http://earth-info.nga.mil/gns/html/cntyfile/be.zip
+                LU: http://earth-info.nga.mil/gns/html/cntyfile/lu.zip
+                RO: http://earth-info.nga.mil/gns/html/cntyfile/ro.zip
+                
+    This script only imports existing data in current directory. 
+    You must manually download the data files in this directory, extract the files
+    from the archives, and then run this script on your own server like this:
+    path/to/do-wget-url   util.sec/gns/gns_import.php       gns_import.html    
+    path/to/do-wget-url   util.sec/gns/mkadmtxt.php         mkadmtxt.html    
+    path/to/do-wget-url   util.sec/gns/mksearchindex.php    mksearchindex.html    
+    
+    !!! Since this script only works on already downloaded files, there is 
+    no point in running in from a cron job at this time.
+    
+    *** updated to perform an import for PL, BENELUX, RO, so you need to 
+    *** download the files from the explicit links above.
+    
     ***************************************************************************/
 
 set_time_limit(0);
@@ -27,7 +44,10 @@ set_time_limit(0);
     require($rootpath . 'lib/clicompatbase.inc.php');
 
     /* defaults */
-    $importfiles = array("pl.txt"); # first download the file from the URLs above
+    $importfiles = array("pl.txt", 
+                        "nl.txt", "be.txt", "lu.txt",
+                        "ro.txt"
+                        ); # first download the file from the URLs above
 
     /* begin db connect */
     db_connect();
