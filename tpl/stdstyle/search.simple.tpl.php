@@ -27,6 +27,7 @@
 <!--
 var mnAttributesShowCat2 = 1;
 var maAttributes = new Array({attributes_jsarray});
+var firstBtnClicked = false;
 
 function loadRegionsSelector(){
     console.log($('#country').val());
@@ -55,7 +56,14 @@ function loadRegionsSelector(){
     });
 }
 
+function firstBtnClick(){
+    firstBtnClicked = true;
+}
+
 function _sbn_click() {
+    if(firstBtnClicked === true){
+        return true
+    }
     if ($('#cachename').val() === "") {
         alert("{{alert_search_by_cachename}}");
         return false;
@@ -370,7 +378,6 @@ function showGeoCoder()
 <div class="searchdiv">
 
 <p class="content-title-noshade-size3">{{search_options}}</p>
-
 <form name="optionsform" style="display:inline;" action="search.php" method="post">
     <table class="table">
         <colgroup>
@@ -612,7 +619,7 @@ function showGeoCoder()
         </colgroup>
         <tr><td class="buffer"></td></tr>
         <tr>
-            <td><button type="submit" value="{{search}}" style="font-size:12px;width:140px"><b>{{search}}</b></button></td>
+            <td><button type="submit" value="{{search}}" style="font-size:12px;width:140px" onclick="firstBtnClick();"><b>{{search}}</b></button></td>
             <td class="content-title-noshade"><input type="checkbox" name="showonmap" id="showonmap1" /><label for="showonmap1">{{show_on_map}}</label></td>
         </tr>
         <tr><td class="buffer" colspan="2"></td></tr>
