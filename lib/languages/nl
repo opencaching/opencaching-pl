@@ -169,7 +169,7 @@ edit_cache Bewerk cache beschrijving
 new_desc Maak beschrijving
 edit_desc Bewerk beschrijving
 remove_desc Verwijder beschrijving
-search_loc Look for location
+search_loc Zoek op plaats
 search_results Zoekresultaten
 show_log Bekijk log
 store_queries Zoekopdracht opslaan
@@ -2407,4 +2407,6 @@ ocTeamComment_02 Op jouw cache
 ocTeamComment_03 is een commentaar toegevoegd door het OC Team
 ocTeamComment_04 Lees het commentaar door voor eventuele suggesties
 ocTeamComment_05 Commentaar van het OC Team
+SearchByPlace_01 Gevonden plaatsen
+SearchByPlace_02 De opgegeven plaats lijkt te voldoen aan opgevraagde plaats(en). Kies een plaats uit de lijst
 
