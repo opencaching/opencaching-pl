@@ -618,7 +618,11 @@ milestones Mijlpalen
 latest_logs_by_user Laatste logs van gebruiker
 stat_created_caches Statistieken van gemaakte caches
 not_caches_created  Er zijn nog geen gemaakte caches
-total_created_caches Totaal aantal gemaakte caches
+total_owned_caches Totaal aantal gemaakte caches
+# translation warning: the above string should be: Number of caches owned, not Number of caches hidden
+total_owned_caches_adopted - including adopted
+total_created_caches Number of caches created by the user
+total_created_caches_adopted - including given to adoption
 number_temp_caches Aantal tijdelijk niet beschikbare caches
 number_archived_caches Aantal gearchiveerde caches
 number_created_events Aantal georganiseerde evenementen
@@ -795,6 +799,7 @@ all_regions Alle regio&#39;s
 assigned_to Toegewezen aan
 date_created Datum gemaakt
 owner Eigenaar
+creator Stichter
 actions Acties
 block Blokkeren
 assign_yourself Neem notificatie zelf

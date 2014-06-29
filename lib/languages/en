@@ -618,7 +618,10 @@ milestones Milestones
 latest_logs_by_user Latest log entries
 stat_created_caches Statistics of hidden caches
 not_caches_created  The user did not hide any caches yet
-total_created_caches Number of caches hidden
+total_owned_caches Number of caches owned
+total_owned_caches_adopted - including adopted
+total_created_caches Number of caches created by the user
+total_created_caches_adopted - including given to adoption
 number_temp_caches Number of caches marked as "temporarily unavailable"
 number_archived_caches Number of "archived" caches
 number_created_events Number of created events
@@ -795,6 +798,7 @@ all_regions All regions
 assigned_to Assigned to
 date_created Date created
 owner Owner
+creator Founder
 actions Actions
 block Block
 assign_yourself Assign yourself to notification

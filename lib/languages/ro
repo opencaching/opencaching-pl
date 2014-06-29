@@ -617,7 +617,11 @@ milestones Etape importante
 latest_logs_by_user Ultimele însemnări
 stat_created_caches Clasamentele geocutiilor ascunse
 not_caches_created  Utilizatorul încă nu a ascuns nici o geocutie
-total_created_caches Numărul de geocutii ascunse
+total_owned_caches Numărul de geocutii ascunse
+# translation warning: the above string should be: Number of caches owned, not Number of caches hidden
+total_owned_caches_adopted - including adopted
+total_created_caches Number of caches created by the user
+total_created_caches_adopted - including given to adoption
 number_temp_caches Numărul de geocutii marcate "indisponibilă temporar"
 number_archived_caches Numărul de geocutii "arhivate"
 number_created_events Numărul de evenimente create
@@ -794,6 +798,7 @@ all_regions Toate regiunile
 assigned_to Alocată
 date_created Data când a fost creată
 owner Proprietar
+creator Fondator
 actions Actiuni
 block Blochează
 assign_yourself Înscrie-te ca să primeşti notificări

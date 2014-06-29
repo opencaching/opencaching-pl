@@ -618,7 +618,10 @@ milestones  Milestones "kamienie milowe"
 latest_logs_by_user Najnowsze wpisy do logów wprowadzone przez użytkownika
 stat_created_caches Statystyka liczbowa skrzynek założonych
 not_caches_created Nie ma jeszcze żadnej założonej skrzynki
-total_created_caches Liczba wszystkich założonych skrzynek
+total_owned_caches Liczba wszystkich skrzynek użytkownika
+total_owned_caches_adopted - w tym adoptowanych
+total_created_caches Liczba skrzynek założonych przez użytkownika
+total_created_caches_adopted - w tym oddanych do adopcji
 number_temp_caches Liczba czasowo niedostępnych skrzynek
 number_archived_caches Liczba zarchiwizowanych skrzynek
 number_created_events Liczba zorganizowanych spotkań (events)
@@ -795,6 +798,7 @@ all_regions Wszystkie województwa
 assigned_to Przypisane do
 date_created Data utworzenia
 owner Właściciel
+creator Założyciel
 actions Akcja
 block Zablokuj
 assign_yourself Przypisz siebie do zgłoszenia

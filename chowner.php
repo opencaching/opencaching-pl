@@ -185,14 +185,22 @@ require_once('./lib/common.inc.php');
                     $sql = "UPDATE pictures SET user_id = :2 WHERE object_id = :1";
                     $db->multiVariableQuery($sql, $_GET['cacheid'], $usr['userid']);
 
-                    $sql = "UPDATE user SET hidden_count = hidden_count - 1 WHERE user_id = :1";
-                    $db->multiVariableQuery($sql, $oldOwnerId);
+                    // this should be kept consistent by a trigger
+                    //$sql = "UPDATE user SET hidden_count = hidden_count - 1 WHERE user_id = :1";
+                    //$db->multiVariableQuery($sql, $oldOwnerId);
                     
-                    $sql = "UPDATE user SET hidden_count = hidden_count + 1 WHERE user_id = :1";
-                    $db->multiVariableQuery($sql, $usr['userid']);
+                    //$sql = "UPDATE user SET hidden_count = hidden_count + 1 WHERE user_id = :1";
+                    //$db->multiVariableQuery($sql, $usr['userid']);
 
+                    // ... but it's not
+                    //$sql = "UPDATE user SET hidden_count = (select count(cache_id) from caches where status in (1,2,3) and user_id = :user_id) WHERE user_id = :user_id";
+                    //foreach(array($oldOwnerId, $usr['userid']) as $key => $user_id){
+                    //    $params = array();
+                    //    $params['user_id']['value'] = $user_id;
+                    //    $params['user_id']['data_type'] = 'string';
+                    //    $db->paramQuery($sql, $params);
+                    //}
                     // put log into cache logs.
-                    
                     if ($isCachePublished){
                         $logMessage = tr('adopt_32');
                         $oldUserName = ' <a href="'.$absolute_server_URI.'viewprofile.php?userid='.$oldOwnerId.'">'.getUsername($oldOwnerId).'</a> ';
@@ -222,11 +230,9 @@ require_once('./lib/common.inc.php');
             if( isset($_GET['accept']) && $_GET['accept'] == 0 )
             {
                 // odrzucenie zmiany
-                $oldOwnerId = getCacheOwner($_GET['cacheid']);
-
-                $sql = "DELETE FROM chowner WHERE cache_id = '".sql_escape($_GET['cacheid'])."' AND user_id = '".sql_escape($usr['userid'])."'";
-                mysql_query($sql);
-                if( mysql_affected_rows() > 0 )
+                $sql = "DELETE FROM chowner WHERE cache_id = :1 AND user_id = :2";
+                $db->multiVariableQuery($sql, $_GET['cacheid'], $usr['userid']);
+                if($db->rowCount() > 0)
                 {
                     tpl_set_var("info_msg", tr('adopt_27').'<br /><br />');
                     $mailContent = tr('adopt_29');
@@ -243,9 +249,9 @@ require_once('./lib/common.inc.php');
             if( isset($_GET['abort']) && isUserOwner($usr['userid'], $_GET['cacheid']))
             {
                 // anulowanie procedury przejecia
-                $sql = "DELETE FROM chowner WHERE cache_id = '".sql_escape(intval($_GET['cacheid']))."'";
-                mysql_query($sql);
-                if( mysql_affected_rows() > 0 )
+                $sql = "DELETE FROM chowner WHERE cache_id = :1";
+                $db->multiVariableQuery($sql, $_GET['cacheid']);
+                if($db->rowCount() > 0)
                     tpl_set_var('info_msg', " ".tr('adopt_16')." <br /><br />");
                 else
                     tpl_set_var('error_msg', " ".tr('adopt_17')." <br /><br />");

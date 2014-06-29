@@ -617,7 +617,11 @@ milestones  Milestones - Meilensteine
 latest_logs_by_user Neueste Log-Einträge eingegebene bei Benutzer
 stat_created_caches Statistik der versteckte Caches
 not_caches_created Hat noch keine versteckte Cache
-total_created_caches Anzahl der allen versteckte Caches
+total_owned_caches Anzahl der allen versteckte Caches
+# translation warning: the above string should be: Number of caches owned, not Number of caches hidden
+total_owned_caches_adopted - including adopted
+total_created_caches Number of caches created by the user
+total_created_caches_adopted - including given to adoption
 number_temp_caches Anzahl der temporär nicht verfügbare Caches
 number_archived_caches Anzal der archivierte Caches
 number_created_events Anzahl der organisierte Veranstaltungen (events)

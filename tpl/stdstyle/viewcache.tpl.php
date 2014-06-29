@@ -54,7 +54,8 @@
             <table width="100%"><tr><td valign="top" width="70%">
             <span class="content-title-noshade-size5">{cachename} - {oc_waypoint}</span><br />
             <p class="content-title-noshade-size1">&nbsp;{short_desc}</p>
-            <p>{{owner}}&nbsp; <a class="links" href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a></p>
+            <p>{{owner}}&nbsp; <a class="links" href="viewprofile.php?userid={userid_urlencode}">{owner_name}</a>
+            {creator_name_start}<br/>{{creator}}&nbsp; <a class="links" href="viewprofile.php?userid={creator_userid}">{creator_name}</a>{creator_name_end}</p>
             {event_attendance_list}
             </td><td>
             <div align="center" style="

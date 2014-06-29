@@ -49,7 +49,6 @@ if ($error == false) {
         $query = "SELECT admin, guru, hidden_count, founds_count, is_active_flag, email, password, log_notes_count, notfounds_count, username, last_login, country, date_created, description, hide_flag FROM user WHERE user_id=:1 LIMIT 1";
         $database->multiVariableQuery($query, $user_id);
         $user_record = $database->dbResultFetch();
-        unset($database);
         tpl_set_var('username', $user_record['username']);
         if ((date('m') == 4) and (date('d') == 1)) {
             tpl_set_var('username', tr('primaAprilis1'));
@@ -398,8 +397,6 @@ if ($error == false) {
                 $hidden_event = mysql_result($odp, 0);
             else
                 $hidden_event = 0;
-            $rsms = sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%d-%m-%Y') data FROM caches WHERE user_id=&1 AND status <> 4 AND status <> 5 AND status <> 6 AND type <> 6 ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC, HOUR(`date_created`) ASC", $user_id);
-            $hidden_all = mysql_num_rows($rsms);
             $rscc2 = sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%d-%m-%Y') data FROM caches WHERE status <> 4 AND status <> 5 AND status <> 6 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY YEAR(`date_created`) DESC, MONTH(`date_created`) DESC, DAY(`date_created`) DESC, HOUR(`date_created`) DESC LIMIT 1", $user_id);
             $rcc2 = mysql_fetch_array($rscc2);
             $rsc = sql("SELECT COUNT(*) number FROM caches WHERE status <> 4 AND status <> 5 AND user_id=&1 GROUP BY YEAR(`date_created`), MONTH(`date_created`), DAY(`date_created`) ORDER BY number DESC LIMIT 1", $user_id);
@@ -414,14 +411,46 @@ if ($error == false) {
                 $aver1 = 0;
             }
             $aver2 = round(($user_record['hidden_count'] / $num_rows), 2);
-            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_created_caches') . ':  </span><strong>' . $hidden_all . '</strong>';
-            if ($user_record['hidden_count'] == 0) {$content .= '</p>';
-            } else {$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            
+            // total owned
+            $total_owned_caches = $database->multiVariableQueryValue(
+                    "select count(cache_id) from caches where user_id = :1 and status in (1,2,3) and type not in (6)", 
+                    0, $user_id);
+            // total adopted
+            $total_owned_caches_adopted = $database->multiVariableQueryValue(
+                    "select count(cache_id) from caches where user_id = :1 and org_user_id <> user_id and status in (1,2,3) and type not in (6)", 
+                    0, $user_id);
+            // created and owned
+            $total_created_and_owned_caches = $database->multiVariableQueryValue(
+            		"select count(cache_id) from caches where user_id = :1 and (org_user_id = user_id or org_user_id is null) and status in (1,2,3) and type not in (6)",
+            		0, $user_id);
+            // created, but given to adoption
+            $total_created_caches_adopted = $database->multiVariableQueryValue(
+            		"select count(cache_id) from caches where org_user_id = :1 and org_user_id <> user_id and status in (1,2,3) and type not in (6)",
+            		0, $user_id);
+            $total_created_caches = $total_created_and_owned_caches + $total_created_caches_adopted;
+            
+            $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_owned_caches') . ':  </span><strong>' . $total_owned_caches . '</strong>';
+            if ($total_owned_caches == 0) {
+                $content .= '</p>';
+            } else {
+                $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+                if ($total_owned_caches_adopted > 0){
+                	$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_owned_caches_adopted') . ':  </span><strong>' . $total_owned_caches_adopted . '</strong></p>';
+                }
             }
-
+            if ($total_created_caches > 0 && ($total_owned_caches_adopted > 0 or $total_created_caches_adopted > 0)){
+            	$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_created_caches') . ':  </span><strong>' . $total_created_caches . '</strong></p>';
+            	if ($total_created_caches_adopted > 0){
+            	    $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_created_caches_adopted') . ':  </span><strong>' . $total_created_caches_adopted . '</strong></p>';
+            	}
+            }
+            
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_of_active_caches') . ':  </span><strong>' . $hidden . '</strong>';
-            if ($hidden == 0) {$content .= '</p>';
-            } else {$content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
+            if ($hidden == 0) {
+                $content .= '</p>';
+            } else {
+                $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=1&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
             }
 
             $hidden_temp = sqlValue("SELECT COUNT(*) FROM `caches` WHERE status=2 AND `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
@@ -438,7 +467,7 @@ if ($error == false) {
             $recommend_caches = sqlValue("SELECT COUNT(*) FROM caches WHERE `caches`.`topratings` >= 1 AND caches.type <> 6 AND  `caches`.`user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0);
             if ($recomendr != 0) {
 
-                $ratio = sprintf("%u", ($recommend_caches / $hidden_all) * 100);
+                $ratio = sprintf("%u", ($recommend_caches / $total_owned_caches) * 100);
                 $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('number_obtain_recommendations') . ':</span> <strong>' . $recomendr . '</strong> ' . tr('for') . ' <strong>' . $recommend_caches . '</strong> ' . tr('_caches_') . ' &nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;cachetype=1111101111&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;cacherating=1">' . tr('show') . '</a>]</p>
 <p><span class="content-title-noshade txt-blue08">' . tr('ratio_recommendations') . ':</span> <strong>' . $ratio . '%</strong></p>';
             }
@@ -458,6 +487,7 @@ if ($error == false) {
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('latest_created_cache') . ':</span>&nbsp;&nbsp;<strong><a class="links" href="viewcache.php?cacheid=' . $rcc2['cache_id'] . '">' . $rcc2['wp_oc'] . '</a>&nbsp;&nbsp;</strong>(' . $rcc2['data'] . ')</p>';
             $content .= '<br /><table style="border-collapse: collapse; font-size: 110%;" width="250" border="1"><tr><td colspan="3" align="center" bgcolor="#DBE6F1"><b>' . tr('milestones') . '</b></td> </tr><tr><td bgcolor="#EEEDF9"><b> Nr </b></td> <td bgcolor="#EEEDF9"><b> Data </b></td> <td bgcolor="#EEEDF9"><b> Geocache</b> </td> </tr>';
 
+            $rsms = sql("SELECT cache_id, wp_oc, DATE_FORMAT(date_created,'%d-%m-%Y') data FROM caches WHERE user_id=&1 AND status <> 4 AND status <> 5 AND status <> 6 AND type <> 6 ORDER BY YEAR(`date_created`) ASC, MONTH(`date_created`) ASC, DAY(`date_created`) ASC, HOUR(`date_created`) ASC", $user_id);
             $rms = mysql_fetch_array($rsms);
             if (mysql_num_rows($rsms) < 101) {
                 for ($i = 0; $i <= mysql_num_rows($rsms); $i += 10) {
