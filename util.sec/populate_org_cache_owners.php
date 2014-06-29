@@ -13,5 +13,5 @@
     $db->beginTransaction();
     $pco = new OrgCacheOwners($db);
     $pco->populateAll();
-    $db->rollback();
+    $db->commit();
 ?>
