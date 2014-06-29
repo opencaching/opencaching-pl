@@ -3,6 +3,8 @@
  
 alter table caches add column org_user_id int(11) COMMENT 'Origianl user_id, who created the geocache';
 
+create index caches_org_user_id on caches(org_user_id);  
+
 create index chowner_user_id on chowner(user_id);  
 create index chowner_cache_id on chowner(cache_id);  
 
