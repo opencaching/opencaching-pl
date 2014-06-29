@@ -4,4 +4,8 @@ Allow From 86.111.244.119
 Allow From 158.75.199.253
 Allow From 89.33.126.190
 Allow From 46.4.66.184
+
+# Bogus z Polska
+allow from 194.242.0.188
+
 Deny From All
