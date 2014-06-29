@@ -63,7 +63,7 @@ if ($error == false) {
             tpl_set_var('guide_end', '-->');
         }
         $sql="SELECT `guru`,`username`, `email`, `country`, `latitude`, `longitude`, `date_created`, `permanent_login_flag`, `power_trail_email`, `notify_radius`, `ozi_filips` FROM `user` WHERE `user_id`=:1 ";
-        $db->multiVariableQuery($sql, $usr['userid']);
+        $db->multiVariableQuery($sql, (int)$usr['userid']);
         $record = $db->dbResultFetchOneRowOnly();
         if ($record['guru']==1){
             tpl_set_var('guides_start', '');
@@ -72,7 +72,7 @@ if ($error == false) {
             tpl_set_var('guides_start', '<!--');
             tpl_set_var('guides_end', '-->');
         }
-        tpl_set_var('userid', $usr['userid']+0);
+        tpl_set_var('userid', (int)$usr['userid']);
         tpl_set_var('profileurl', $absolute_server_URI.'viewprofile.php?userid=' . ($usr['userid']+0));
         tpl_set_var('statlink', $absolute_server_URI.'statpics/' . ($usr['userid']+0) . '.jpg');
         tpl_set_var('username', htmlspecialchars($record['username'], ENT_COMPAT, 'UTF-8'));
@@ -325,9 +325,35 @@ if ($error == false) {
                                 $db->reset();
                                 tpl_set_var('GeoKretyApiIntegration', tr('no'));
                             }
-                            $sql = "UPDATE `user` SET `username`=:1, `last_modified`=NOW(), `latitude`=:2, `longitude`=:3, `pmr_flag`=:4, `country`=:5, `permanent_login_flag`=:6, `power_trail_email`=:8 , `notify_radius`=:9, `ozi_filips`=:10, `guru`=:11 WHERE `user_id`=:7";
-                            $db->multiVariableQuery($sql, $username, $latitude, $longitude, 0, $country, $using_permantent_login, (int) $usr['userid'], $geoPathsEmail, $radius, $ozi_path,$guide);
+                            $sql = "UPDATE `user` SET `last_modified`=NOW(), `latitude`=:2, `longitude`=:3, `pmr_flag`=:4, `country`=:5, `permanent_login_flag`=:6, `power_trail_email`=:8 , `notify_radius`=:9, `ozi_filips`=:10, `guru`=:1 WHERE `user_id`=:7";
+                            $db->multiVariableQuery($sql, $guide, $latitude, $longitude, 0, $country, $using_permantent_login, (int) $usr['userid'], $geoPathsEmail, $radius, $ozi_path);
                             $db->reset();
+                            
+                            // update user nick
+                            if ($username != $usr['username']) {
+                                $db->beginTransaction();
+                                $sql = "select count(id) from user_nick_history where user_id = :1";
+                                $hist_count = $db->multiVariableQueryValue($sql, 0, (int)$usr['userid']);
+                                if ($hist_count == 0){
+                                    echo 'no history at all<br>';
+                                    // no history at all
+                                    $sql = "insert into user_nick_history (user_id, date_from, date_to, username) select user_id, date_created, now(), username from user where user_id = :1";
+                                    $db->multiVariableQuery($sql, (int)$usr['userid']);
+                                } else {
+                                    echo 'close previous entry<br>';
+                                    // close previous entry
+                                    $sql = "update user_nick_history set date_to = NOW() where date_to is null and user_id = :1";
+                                    $db->multiVariableQuery($sql, (int)$usr['userid']);
+                                }
+                                // update and save current nick
+                                $sql = "update user set username = :1 where user_id = :2";
+                                $db->multiVariableQuery($sql, $username, (int)$usr['userid']);
+                                $sql = "insert into user_nick_history (user_id, date_from, username) select user_id, now(), username from user where user_id = :1";
+                                $db->multiVariableQuery($sql, (int)$usr['userid']);
+                                $db->commit();
+                                $usr['username'] = $username;
+                            }
+                            
                             $tplname = 'myprofile';
                             tpl_set_var('country', htmlspecialchars(db_CountryFromShort($country), ENT_COMPAT, 'UTF-8'));
                             tpl_set_var('coords', htmlspecialchars(help_latToDegreeStr($latitude), ENT_COMPAT, 'UTF-8') . '<br />' . htmlspecialchars(help_lonToDegreeStr($longitude), ENT_COMPAT, 'UTF-8'));

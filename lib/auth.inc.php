@@ -64,7 +64,7 @@
 
         if ($login->userid != 0) {   //set up $usr array
             $userRow = getUserRow($login->userid);
-            $usr['username'] = $login->username;
+            $usr['username'] = $userRow['username'];
             $usr['hiddenCacheCount'] = $userRow['hidden_count'];
             $usr['logNotesCount'] = $userRow['log_notes_count'];
             $usr['userFounds'] = $userRow['founds_count'];
@@ -134,6 +134,6 @@
     function getUserRow($userId) {
         require_once __DIR__.'/db.php';
         $db = new dataBase();
-        $db->multiVariableQuery('SELECT * FROM `user` WHERE `user_id`=:1', $userId);
+        $db->multiVariableQuery('SELECT username, hidden_count, log_notes_count, founds_count, notfounds_count, email, country, latitude, longitude FROM `user` WHERE `user_id`=:1', $userId);
         return $db->dbResultFetchOneRowOnly();
     }
