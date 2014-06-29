@@ -335,12 +335,10 @@ if ($error == false) {
                                 $sql = "select count(id) from user_nick_history where user_id = :1";
                                 $hist_count = $db->multiVariableQueryValue($sql, 0, (int)$usr['userid']);
                                 if ($hist_count == 0){
-                                    echo 'no history at all<br>';
                                     // no history at all
                                     $sql = "insert into user_nick_history (user_id, date_from, date_to, username) select user_id, date_created, now(), username from user where user_id = :1";
                                     $db->multiVariableQuery($sql, (int)$usr['userid']);
                                 } else {
-                                    echo 'close previous entry<br>';
                                     // close previous entry
                                     $sql = "update user_nick_history set date_to = NOW() where date_to is null and user_id = :1";
                                     $db->multiVariableQuery($sql, (int)$usr['userid']);
