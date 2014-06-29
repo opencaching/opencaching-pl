@@ -135,7 +135,6 @@ if ($error == false)
 
                             }
                         }
-                        unset($dbc);
                         unset($params);
                     }
                 }
@@ -164,7 +163,6 @@ if ($error == false)
                             };
 
                         };
-                        unset($dbc);
                         unset($params);
                     }
                 }
@@ -942,7 +940,6 @@ if ($error == false)
                 $dbc->paramQuery($thatquery, $params); //params are same as few lines above
                 $max_seq_record  = $dbc->dbResultFetch();
                 unset($params);  //clear to avoid overlaping on next paramQuery (if any))
-                unset($dbc);
                 $max_seq_number = (isset($max_seq_record ['seq']) ? $max_seq_record ['seq'] : 0) ;
                 if ($max_seq_number < $rspictures_count) {
                     $max_seq_number = $rspictures_count;
@@ -999,7 +996,6 @@ if ($error == false)
                 $dbc->paramQuery($thatquery, $params); //params are same as a few lines above
                 $max_seq_record  = $dbc->dbResultFetch();
                 unset($params);  //clear to avoid overlaping on next paramQuery (if any))
-                unset($dbc);
                 $max_seq_number = (isset($max_seq_record ['seq']) ? $max_seq_record ['seq'] : 0) ;
                 if ($max_seq_number < $mp3_count) {
                     $max_seq_number = $mp3_count;
