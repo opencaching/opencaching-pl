@@ -1026,6 +1026,7 @@ mc_beginn_04 After you have done found the required minimum, your first
 mc_beginn_05 cache hides will require approval by the oc team. After approval you will receive an email with instructions. You can then edit your new cache and "activate" it. If the oc team rejected your cache they will give you the reason so that you can correct it and ask the oc team to approve the cache again.
 latest_blog Recent blog entries
 geocache Geocache
+
 adopt_00 Cache adoption
 adopt_01 Here you can offer your caches for adoption. Choose one from the list:
 adopt_02 Cachename
@@ -1041,13 +1042,22 @@ adopt_11 Below is a list of caches that can be adopted. Choose [accept] or [decl
 adopt_12 accept
 adopt_13 decline
 adopt_14 cancel adoption
-adopt_15 Congratulations! You are now the owner of cache:
+adopt_15 Congratulations! You are now the owner of cache {cacheName}
 adopt_16 The procedure for changing the cacheowner has been canceled.
 adopt_17 An error occurred while attempting to change the cacheowner.
 adopt_18 New owner of a cache
-adopt_19 Hello
-adopt_20 The new owner of your cache
-adopt_21 is user
+adopt_22 Failed to start cache cacheowner procedure.
+adopt_23 User {userName} does not exist.
+adopt_24 The procedure for changing the cacheowner has started.
+adopt_25 [opencaching] Cache Adoption
+adopt_26 Geocacher {userName} transfers to you the cache {cacheName} for adoption. Please visit the opencaching site to complete adoption process (User's Menu> Cache Adoption).
+adopt_27 You have rejected request to adopt geocache.
+adopt_28 [opencaching] User has rejected your geocache
+adopt_29 Hi!\nUnfortunately, user {userName} does not want to be an owner of your geocache {cacheName}.
+adopt_30 Failed to change geocache owner.
+adopt_31 Hi!\nNew owner of your geocache {cacheName} is user {userName}
+adopt_32 <font color="blue"><b>The adoption process has been completed. The previous cache owner was {oldUserName}. The current owner of the caches is {newUserName}.</font></b>
+
 format_GPX GPX type
 format_other others types
 format_pict GPX + photos
@@ -1423,8 +1433,6 @@ index_03 Number of users that recommend this cache
 index_04 Number of times the cache has been found
 index_05 The Index tries to calculate a quality ranking of geocaches from the recommendation and the number of find logs.
 index_06 Index
-adopt00 The adoption process has been completed. The previous cache owner was
-adopt01 The current owner of the caches is
 rating-c_01 Cache Difficulty Rating System
 rating-c_02 Overall Difficulty:
 rating-c_03 For example, if difficulty is between 1 and 2, in the settings box you can use difficulty levels with an accuracy of 0.5, eg 1.5
@@ -1988,10 +1996,6 @@ graph_statistics_05 Hidden caches:
 graph_statistics_06 Active caches:
 graph_statistics_07 Total found caches:
 chowner00 The procedure for changing the cacheowner has started.
-chowner01 Cache Adoption
-chowner02 Geocacher
-chowner03 transfers to you the cache for adoption
-chowner04 Please visit the opencaching site to complete adoption process (User's Menu> Cache Adoption).
 search_text_01 Name:
 search_text_02 by
 search_text_03 Coordinates:

@@ -1,6 +1,18 @@
 <?php
 if(!isset($rootpath)) $rootpath = '';
 require_once('./lib/common.inc.php');
+    global $db;
+    $db = new dataBase();
+    
+    function mb_send_mail_2($to,$subject,$content,$headers){
+        global $debug_page;
+        if ($debug_page){
+            echo "<pre>mail\nto: $to\nsubject: $subject\n$content</pre>";
+        } else {
+            mb_send_mail($to,$subject,$content,$headers);
+        }
+    }
+
     function orderBy($orderId)
     {
         switch( $orderId )
@@ -31,108 +43,83 @@ require_once('./lib/common.inc.php');
 
     function listUserCaches($userid)
     {
+        global $db;
         // lists all approved caches belonging to user
-        $cacheList = array();
-        $i = 0;
-        if(!isset($_GET['orderId'])) $_GET['orderId'] = ' ';
-        if(!isset($_GET['orderType'])) $_GET['orderType'] = ' ';
-        $sql = "SELECT cache_id, name, date_hidden FROM caches WHERE user_id='".sql_escape(intval($userid))."' AND status <> 4 AND type != 10 ORDER BY ".sql_escape(orderBy($_GET['orderId']))." ".sql_escape(orderType($_GET['orderType']));
-        $query = mysql_query($sql);
-        while( $cache = mysql_fetch_array($query) )
-        {
-            $cacheList[$i] = $cache;
-            $i++;
-        }
-            return $cacheList;
+        $sql = "SELECT cache_id, name, date_hidden FROM caches WHERE user_id=:1 AND status <> 4 AND type != 10 ORDER BY ".orderBy(@$_GET['orderId'])." ".orderType(@$_GET['orderType']);
+        $db->multiVariableQuery($sql, $userid);
+        return $db->dbResultFetchAll();
     }
 
     function listPendingCaches($userid)
     {
-        $cacheList = array();
-        $i = 0;
-        $sql = "SELECT cache_id, name, date_hidden FROM caches WHERE cache_id IN (SELECT cache_id FROM chowner WHERE user_id = '".sql_escape($userid)."')";
-        $query = mysql_query($sql);
-        while( $cache = mysql_fetch_array($query) )
-        {
-            $cacheList[$i] = $cache;
-            $i++;
-        }
-            return $cacheList;
+        global $db;
+        $sql = "SELECT cache_id, name, date_hidden FROM caches WHERE cache_id IN (SELECT cache_id FROM chowner WHERE user_id = :1)";
+        $db->multiVariableQuery($sql, $userid);
+        return $db->dbResultFetchAll();
     }
 
     function getUsername($userid)
     {
-        $sql = "SELECT username FROM user WHERE user_id='".sql_escape(intval($userid))."'";
-        $query = mysql_query($sql) or die();
-        if( mysql_num_rows($query) > 0)
-            return mysql_result($query,0);
-        return -1;
+        global $db;
+        $sql = "SELECT username FROM user WHERE user_id=:1";
+        return $db->multiVariableQueryValue($sql, -1, $userid);
     }
 
     function getUserEmail($userid)
     {
-        $sql = "SELECT email FROM user WHERE user_id='".sql_escape(intval($userid))."'";
-        $query = mysql_query($sql) or die();
-        if( mysql_num_rows($query) > 0)
-            return mysql_result($query,0);
-        return -1;
+        global $db;
+        $sql = "SELECT email FROM user WHERE user_id=:1";
+        return $db->multiVariableQueryValue($sql, -1, $userid);
     }
 
     function getCacheName($cacheid)
     {
-        $sql = "SELECT name FROM caches WHERE cache_id='".sql_escape(intval($cacheid))."'";
-        $query = mysql_query($sql) or die();
-        if( mysql_num_rows($query) > 0)
-            return mysql_result($query,0);
-        return -1;
+        global $db;
+        $sql = "SELECT name FROM caches WHERE cache_id=:1";
+        return $db->multiVariableQueryValue($sql, -1, $cacheid);
     }
 
+    function isCachePublished($cacheid)
+    {
+        global $db;
+        $sql = 'SELECT count(cache_id) FROM caches WHERE cache_id=:1 AND status in (1,2,3)';
+        return $db->multiVariableQueryValue($sql, 0, $cacheid) > 0;
+    }
+    
     function getCacheOwner($cacheid)
     {
-        $sql = "SELECT user_id FROM caches WHERE cache_id='".sql_escape(intval($cacheid))."'";
-        $query = mysql_query($sql) or die();
-        if( mysql_num_rows($query) > 0)
-            return mysql_result($query,0);
-        return -1;
+        global $db;
+        $sql = "SELECT user_id FROM caches WHERE cache_id=:1";
+        return $db->multiVariableQueryValue($sql, -1, $cacheid);
     }
 
     function isUserOwner($userid, $cacheid)
     {
-        //if( $usr['admin'])
-        //  return 1;
-        $sql = "SELECT count(*) FROM caches WHERE cache_id='".sql_escape(intval($cacheid))."' AND user_id='".sql_escape(intval($userid))."'";
-        $query = mysql_query($sql) or die();
-        if( mysql_num_rows($query) > 0)
-            return mysql_result($query,0);
-        return -1;
+        global $db;
+        $sql = "SELECT count(cache_id) FROM caches WHERE cache_id=:1 AND user_id=:2";
+        return $db->multiVariableQueryValue($sql, 0, $cacheid, $userid);
     }
 
     function doesUserExist($username)
     {
-        $sql = "SELECT user_id FROM user WHERE username='".sql_escape(strip_tags($username))."'";
-        $query = mysql_query($sql) or die();
-        if( mysql_num_rows($query) > 0)
-            return mysql_result($query,0);
-        return -1;
+        global $db;
+        $sql = "SELECT user_id FROM user WHERE username=:1";
+        return $db->multiVariableQueryValue($sql, 0, $username);
     }
 
     function isRequestPending($cacheid)
     {
+        global $db;
         // czy skrzynka cacheid juz oczekuje na zmiane wlasciciela?
-        $sql = "SELECT count(*) FROM chowner WHERE cache_id='".sql_escape(intval($cacheid))."'";
-        $query = mysql_query($sql) or die();
-        if( mysql_num_rows($query) > 0)
-            return mysql_result($query,0);
-        return -1;
+        $sql = "SELECT count(id) FROM chowner WHERE cache_id=:1";
+        return $db->multiVariableQueryValue($sql, -1, $cacheid);
     }
 
     function isAcceptanceNeeded($userid)
     {
-        $sql = "SELECT count(*) FROM chowner WHERE user_id='".sql_escape(intval($userid))."'";
-        $query = mysql_query($sql) or die();
-        if( mysql_num_rows($query) > 0)
-            return mysql_result($query,0);
-        return -1;
+        global $db;
+        $sql = "SELECT count(id) FROM chowner WHERE user_id=:1";
+        return $db->multiVariableQueryValue($sql, -1, $userid);
     }
 
     function emailHeaders() {
@@ -168,41 +155,69 @@ require_once('./lib/common.inc.php');
         {
             if( isset($_GET['accept']) && $_GET['accept'] == 1 )
             {
-                $sql = "SELECT count(*) FROM chowner WHERE cache_id = '".sql_escape(intval($_GET['cacheid']))."' AND user_id = '".sql_escape(intval($usr['userid']))."'";
-                $potwierdzenie = mysql_result(mysql_query($sql),0);
+                $sql = "SELECT count(id) FROM chowner WHERE cache_id = :1 AND user_id = :2";
+                $potwierdzenie = $db->multiVariableQueryValue($sql, 0, $_GET['cacheid'], $usr['userid']);
                 if( $potwierdzenie > 0 )
                 // zmiana wlasciciela
                 {
-                    $oldOwnerId = sql_escape(getCacheOwner($_GET['cacheid']));
-
-
-                    tpl_set_var("error_msg", "Wystąpił błąd podczas zmiany właściciela skrzynki.<br /><br />");
+                    tpl_set_var("error_msg", tr('adopt_30'));
                     tpl_set_var("info_msg", "");
-                    $sql = "DELETE FROM chowner WHERE cache_id = '".sql_escape(intval($_GET['cacheid']))."' AND user_id = '".sql_escape(intval($usr['userid']))."'";
-                    mysql_query($sql);
-                    $sql = "UPDATE caches SET user_id = '".sql_escape(intval($usr['userid']))."' WHERE cache_id='".sql_escape(intval($_GET['cacheid']))."'";
-                    mysql_query($sql);
-                    $sql = "UPDATE pictures SET user_id = '".sql_escape(intval($usr['userid']))."' WHERE object_id = '".sql_escape(intval($_GET['cacheid']))."'";
-                    mysql_query($sql);
+                    
+                    $db->beginTransaction();
+                    
+                    require_once($rootpath.'lib/cache_owners.inc.php');
+                    $pco = new OrgCacheOwners($db);
+                    $pco->populateForCache($_GET['cacheid']);
+                    
+                    $oldOwnerId = getCacheOwner($_GET['cacheid']);
+                    $isCachePublished = isCachePublished($_GET['cacheid']);
+                    
+                    $sql = "DELETE FROM chowner WHERE cache_id = :1 AND user_id = :2";
+                    $db->multiVariableQuery($sql, $_GET['cacheid'], $usr['userid']);
+                    
+                    if ($isCachePublished){
+                        $sql = "UPDATE caches SET user_id = :2, org_user_id = IF(org_user_id IS NULL, :3, org_user_id) WHERE cache_id= :1";
+                        $db->multiVariableQuery($sql, $_GET['cacheid'], $usr['userid'], $oldOwnerId);
+                    } else {
+                        $sql = "UPDATE caches SET user_id = :2 WHERE cache_id= :1";
+                        $db->multiVariableQuery($sql, $_GET['cacheid'], $usr['userid']);
+                    }
+                    $sql = "UPDATE pictures SET user_id = :2 WHERE object_id = :1";
+                    $db->multiVariableQuery($sql, $_GET['cacheid'], $usr['userid']);
 
-                    $sql = "UPDATE user SET hidden_count = hidden_count - 1 WHERE user_id = '".$oldOwnerId."'";
-                    mysql_query($sql);
-
-                    $sql = "UPDATE user SET hidden_count = hidden_count + 1 WHERE user_id = '".sql_escape(intval($usr['userid']))."'";
-                    mysql_query($sql);
+                    $sql = "UPDATE user SET hidden_count = hidden_count - 1 WHERE user_id = :1";
+                    $db->multiVariableQuery($sql, $oldOwnerId);
+                    
+                    $sql = "UPDATE user SET hidden_count = hidden_count + 1 WHERE user_id = :1";
+                    $db->multiVariableQuery($sql, $usr['userid']);
 
                     // put log into cache logs.
-                    $log_text = '<font color="blue"><b>'.tr('adopt00').' <a href="'.$absolute_server_URI.'viewprofile.php?userid='.$oldOwnerId.'">'.getUsername($oldOwnerId).'</a> ';
-                    $log_text .= tr('adopt01').' <a href="'.$absolute_server_URI.'viewprofile.php?userid='.$usr['userid'].'">'.getUsername($usr['userid']).'</a></font></b>. ';
-                    sql("INSERT INTO `cache_logs` (`id`, `cache_id`, `user_id`, `type`, `date`, `text`, `text_html`, `text_htmledit`, `date_created`, `last_modified`, `uuid`, `node`)
-                                    VALUES        ('',   '&1',       '&2',      '&3',   NOW(),  '&4',   '&5',         '&6', NOW(), NOW(), '&7', '&8')",
-                                    sql_escape(intval($_GET['cacheid'])), -1, 3, $log_text, 1, 1, create_uuid(), $oc_nodeid);
-
+                    
+                    if ($isCachePublished){
+                        $logMessage = tr('adopt_32');
+                        $oldUserName = ' <a href="'.$absolute_server_URI.'viewprofile.php?userid='.$oldOwnerId.'">'.getUsername($oldOwnerId).'</a> ';
+                        $newUserName = ' <a href="'.$absolute_server_URI.'viewprofile.php?userid='.$usr['userid'].'">'.getUsername($usr['userid']).'</a>';
+                        
+                        $logMessage = str_replace('{oldUserName}', $oldUserName, $logMessage);
+                        $logMessage = str_replace('{newUserName}', $newUserName, $logMessage);
+                        
+                        $sql = 'INSERT INTO cache_logs(cache_id, user_id, type, date, text, text_html, text_htmledit, date_created, last_modified, uuid, node)
+                                VALUES                (:1,       -1,      3,    NOW(), :2,  1,         1,             NOW(),        NOW(),         :3,   :4)';
+                        $db->multiVariableQuery($sql, $_GET['cacheid'], $logMessage, create_uuid(), $oc_nodeid);
+                    }                            
+                    $db->commit();        
+                            
+                    $message = tr('adopt_15');
+                    $message = str_replace('{cacheName}', getCacheName($_GET['cacheid']), $message);
+                    tpl_set_var('error_msg', $message.'<br /><br />');
                     tpl_set_var("error_msg", "");
-                    tpl_set_var("info_msg", " ".tr('adopt_15')." ".getCacheName($_GET['cacheid'])."<br /><br />");
-
-                    mb_send_mail(getUserEmail($oldOwnerId), tr('adopt_18'), "Witaj!\nNowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid']). tr('adopt_21').": ".$usr['username'].".", emailHeaders());
-                    }
+                    
+                    $mailContent = tr('adopt_31');
+                    $mailContent = str_replace('\n', "\n", $mailContent);
+                    $mailContent = str_replace('{userName}', $usr['username'], $mailContent);
+                    $mailContent = str_replace('{cacheName}', getCacheName($_GET['cacheid']), $mailContent);
+                    mb_send_mail_2(getUserEmail($oldOwnerId), tr('adopt_18'), $mailContent, emailHeaders());
+                }
             }
             if( isset($_GET['accept']) && $_GET['accept'] == 0 )
             {
@@ -213,11 +228,15 @@ require_once('./lib/common.inc.php');
                 mysql_query($sql);
                 if( mysql_affected_rows() > 0 )
                 {
-                    tpl_set_var("info_msg", "Zaproszenie do przejęcia skrzynki zostało przez Ciebie odrzucone.<br /><br />");
-                    mb_send_mail(getUserEmail($oldOwnerId), "[OC PL] Użytkownik nie przyjął Twojej skrzynki", "Witaj!\nNiestety użytkownik: ".$usr['username']." nie chce być nowym właścicielem Twojej skrzynki: ".getCacheName($_GET['cacheid']).".", emailHeaders());
+                    tpl_set_var("info_msg", tr('adopt_27').'<br /><br />');
+                    $mailContent = tr('adopt_29');
+                    $mailContent = str_replace('\n', "\n", $mailContent);
+                    $mailContent = str_replace('{userName}', $usr['username'], $mailContent);
+                    $mailContent = str_replace('{cacheName}', getCacheName($_REQUEST['cacheid']), $mailContent);
+                    mb_send_mail_2(getUserEmail($oldOwnerId), tr('adopt_28'), $mailContent, emailHeaders());
                 }
                 else
-                    tpl_set_var("error_msg", "Wystąpił błąd podczas zmiany właściciela skrzynki.<br /><br />");
+                    tpl_set_var("error_msg", tr('adopt_30').'<br /><br />');
 
             }
 
@@ -247,7 +266,7 @@ require_once('./lib/common.inc.php');
 
 
                     $acceptList .= "</td>
-                    <td>".$cache['date_hidden']."</td>
+                    <td>".strftime($dateformat, strtotime($cache['date_hidden']))."</td>
                     </tr>
                     ";
                 }
@@ -268,15 +287,22 @@ require_once('./lib/common.inc.php');
                         $sql = "INSERT INTO chowner (cache_id, user_id) VALUES (".sql_escape(intval($_REQUEST['cacheid'])).", ".$newUserId.")";
                         mysql_query($sql);
                         if( mysql_affected_rows() > 0 ){
-                            tpl_set_var('info_msg'," ".tr('chowner00')." <br /><br />");
-                            mb_send_mail(getUserEmail($newUserId), tr('chowner01'), tr('chowner02').": ".$usr['username']." ".tr('chowner03').": ".getCacheName($_REQUEST['cacheid']).". ".tr('chowner04'), emailHeaders());
+                            tpl_set_var('info_msg',' '.tr('adopt_24').' <br /><br />');
+                            $mailContent = tr('adopt_26');
+                            $mailContent = str_replace('\n', "\n", $mailContent);
+                            $mailContent = str_replace('{userName}', $usr['username'], $mailContent);
+                            $mailContent = str_replace('{cacheName}', getCacheName($_REQUEST['cacheid']), $mailContent);
+                            mb_send_mail_2(getUserEmail($newUserId), tr('adopt_25'), $mailContent, emailHeaders());
                         }
                         else
-                            tpl_set_var('error_msg', "Wystąpił błąd podczas rozpoczynania procedury zmiany właściciela skrzynki.<br /><br />");
+                            tpl_set_var('error_msg', tr('adopt_22').'<br /><br />');
                     }
                 }
-                else
-                    tpl_set_var('error_msg', "Użytkownik ".$_POST['username']." nie istnieje.<br /><br />");
+                else {
+                    $message = tr('adopt_23');
+                    $message = str_replace('{userName}', $_POST['username'], $message);
+                    tpl_set_var('error_msg', $message.'<br /><br />');
+                }
             }
             // strona glowna - wybor skrzynki
             $cacheList = '';
@@ -298,7 +324,7 @@ require_once('./lib/common.inc.php');
                 $cacheList .= "</a>";
 
                 $cacheList .= "</td>
-                <td>".$cache['date_hidden']."</td>
+                <td>".strftime($dateformat, strtotime($cache['date_hidden']))."</td>
                 </tr>
                 ";
             }

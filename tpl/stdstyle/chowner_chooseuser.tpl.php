@@ -4,7 +4,7 @@
                 <col width="200">
                 <col>
             </colgroup>
-            <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" align="middle" /> <b>{{adopt_04}} <font color="#ff0000">{cachename}</font></b></td></tr>
+            <tr><td class="content2-pagetitle" colspan="2"><img src="tpl/stdstyle/images/blue/email.png" class="icon32" align="middle" /> <b>{{adopt_04}} <a href="viewcache.php?cacheid={cacheid}"><font color="#ff0000">{cachename}</font></a></b></td></tr>
             <tr><td colspan="2">&nbsp;</td></tr>
             <tr>
                 <td>

@@ -1026,6 +1026,7 @@ mc_beginn_04 Wanneer aan bovenstaande voldaan is, zullen er
 mc_beginn_05 zelf gemaakte caches door het OC team gekeurd moeten worden. Na het goedkeuren zul je daarover een bericht ontvangen via e-mail met de nodige instructies. Je kunt dan zelf de cache bewerken en op "beschikbaar" zetten. Mocht het OC team de cache afkeuren dan zullen wij de reden opgeven en na het corrigeren van de cache zal het OC team de cache herkeuren.
 latest_blog Recente blog inzendingen
 geocache Cache
+
 adopt_00 Cache aanbieden
 adopt_01 Hier kunnen jouw caches ter adoptie aangeboden worden. Kies er een uit de lijst:
 adopt_02 Cache naam
@@ -1041,13 +1042,22 @@ adopt_11 Hieronder is een lijst van caches die geadopteerd kunnen worden. Kies [
 adopt_12 accepteren
 adopt_13 weigeren
 adopt_14 adoptie annuleren
-adopt_15 Gefeliciteerd! Je bent nu eigenaar van cache:
+adopt_15 Gefeliciteerd! Je bent nu eigenaar van cache {cacheName}
 adopt_16 De adoptie procedure is geannuleerd.
 adopt_17 Er is een fout opgetreden tijden de adoptie procedure.
 adopt_18 Nieuwe cache eigenaar
-adopt_19 Hallo
-adopt_20 De nieuwe eigenaar van jouw cache
-adopt_21 is gebruiker
+adopt_22 Failed to start cache cacheowner procedure.
+adopt_23 User {userName} does not exist.
+adopt_24 De adoptie procedure is in gang gezet.
+adopt_25 [opencaching] Cache adoptie
+adopt_26 Geocacher {userName} bied een cache aan voor adoptie {cacheName}. Ga naar de website om de adoptie af te ronden (Gebruikers menu> Cache adoptie)
+adopt_27 You have rejected request to adopt geocache.
+adopt_28 [opencaching] User has rejected your geocache
+adopt_29 Hi!\nUnfortunately, user {userName} does not want to be an owner of your geocache {cacheName}.
+adopt_30 Failed to change geocache owner.
+adopt_31 Hallo!\nDe nieuwe eigenaar van jouw cache {cacheName} is gebruiker {userName}
+adopt_32 <font color="blue"><b>De adoptie is voltooid. De vorige eigenaar was {oldUserName}. De nieuwe eigenaar is gebruiker {newUserName}.</font></b>
+
 format_GPX GPX formaat
 format_other andere formaten
 format_pict GPX met afbeeldingen
@@ -1423,8 +1433,6 @@ index_03 Aantal gebruikers die de cache hebben aanbevolen
 index_04 Aantal keren dat de cache is gevonden
 index_05 Hieronder de formule waarmee de cache kwaliteit berekend wordt.
 index_06 Index
-adopt00 De adoptie is voltooid. De vorige eigenaar was
-adopt01 De nieuwe eigenaar is gebruiker
 rating-c_01 Cache moeilijkheid berekening systeem
 rating-c_02 Resultaat na berekening:
 rating-c_03 Opmerking: Waanneer de moeilijkheid tussen 1 en 2 ligt kan met fijnafstemming 0.5 verhoogt worden tot 1.5.
@@ -1987,11 +1995,6 @@ graph_statistics_04 Gegevens per
 graph_statistics_05 Geplaatste caches:
 graph_statistics_06 Actieve caches:
 graph_statistics_07 Totaal gevonden caches:
-chowner00 De adoptie procedure is in gang gezet.
-chowner01 Cache adoptie
-chowner02 Geocacher
-chowner03 bied een cache aan voor adoptie
-chowner04 Ga naar de website om de adoptie af te ronden (Gebruikers menu> Cache adoptie)
 search_text_01 Cache naam:
 search_text_02 van
 search_text_03 Coördinaten:

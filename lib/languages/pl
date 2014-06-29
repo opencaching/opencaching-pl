@@ -1026,6 +1026,7 @@ mc_beginn_04 Po spełnieniu powyższego warunku Twoje pierwsze
 mc_beginn_05 skrzynki bedą weryfikowane przez Zespół OC PL. Po zatwierdzeniu skrzynki otrzymasz informacje via e-mail o tym fakcie i będziesz mógł ją opublikować poprzez edycje skrzynki i zmiane jej statusu. W przypadku uwag do skrzynki Zespół OC PL będzie się z Tobą kontaktował w sprawie uzpełnienia informacji lub zmian w skrzynce.
 latest_blog Najnowsze wpisy w blogach
 geocache Geocache
+
 adopt_00 Przekaż skrzynkę
 adopt_01 Za pośrednictwem tej strony możesz przekazać swoją skrzynkę innemu użytkownikowi. Wybierz skrzynkę z listy:
 adopt_02 Nazwa skrzynki
@@ -1041,13 +1042,22 @@ adopt_11 Poniżej znajduje się lista skrzynek, które oczekują na Twoją akcep
 adopt_12 akceptuj
 adopt_13 odrzuć
 adopt_14 anuluj przekazanie
-adopt_15 Gratulacje! Stałeś się nowym właścicielem skrzynki:
+adopt_15 Gratulacje! Stałeś się nowym właścicielem skrzynki {cacheName}
 adopt_16 Procedura zmiany właściciela skrzynki została przerwana.
 adopt_17 Wystąpił błąd podczas próby przerwania procedury zmiany właściciela skrzynki.
 adopt_18 Nowy właściciel Twojej skrzynki
-adopt_19 Witaj!
-adopt_20 Nowym właścicielem Twojej skrzynki
-adopt_21 został użytkownik
+adopt_22 Wystąpił błąd podczas rozpoczynania procedury zmiany właściciela skrzynki.
+adopt_23 Użytkownik {userName} nie istnieje.
+adopt_24 Procedura zmiany właściciela skrzynki została rozpoczęta.
+adopt_25 [opencaching] Adopcja skrzynki
+adopt_26 Geokeszer {userName} przekazuje Ci skrzynkę {cacheName} do adopcji. Wejdź na stonę opencaching i dokończ prodedurę adopcji. (MENU UŻYTKOWNIKA > Adopcja Skrzynki)
+adopt_27 Zaproszenie do przejęcia skrzynki zostało przez Ciebie odrzucone.
+adopt_28 [opencaching] Użytkownik nie przyjął Twojej skrzynki
+adopt_29 Witaj!\nNiestety użytkownik {userName} nie chce być nowym właścicielem Twojej skrzynki {cacheName}.
+adopt_30 Wystąpił błąd podczas zmiany właściciela skrzynki.
+adopt_31 Witaj!\nNowym właścicielem Twojej skrzynki {cacheName} został użytkownik {userName}
+adopt_32 <font color="blue"><b>Przeprowadzono procedurę adopcji skrzynki. Dotychczasowym właścicielem był {oldUserName}. Nowym właścicielem został użytkownik {newUserName}.</font></b>
+
 format_GPX GPX format
 format_other Inne formaty
 format_pict GPX + zdjęcia
@@ -1423,8 +1433,6 @@ index_03 Ilość użytkowników rekomendujących tę skrzynkę
 index_04 Ilość wszystkich znalezień skrzynki
 index_05 Wzór w/g którego obliczana jest pozycja w rankingu:
 index_06 Indeks
-adopt00 Przeprowadzono procedurę adopcji skrzynki. Dotychczasowym właścicielem był
-adopt01 Nowym właścicielem został użytkownik
 rating-c_01 System oceny poziomu trudności zadań i terenu dla skrzynki
 rating-c_02 Twoja skrzynka została oceniona na:
 rating-c_03 Uwaga:  Jeśli stopień trudności jest pomiędzy np 1 a 2 to w ustawieniach skrzynki możesz podawać poziomy trudności z dokładnością 0.5 np 1.5
@@ -1987,11 +1995,6 @@ graph_statistics_04 Dane na dzieñ
 graph_statistics_05 Ukryte skrzynki:
 graph_statistics_06 W tym aktywnych:
 graph_statistics_07 Ile razy odkryto skrzynki:
-chowner00 Procedura zmiany właściciela skrzynki została rozpoczęta.
-chowner01 Adopcja skrzynki
-chowner02 Geokeszer
-chowner03 przekazuje Ci skrzynkę do adopcji
-chowner04 Wejdź na stonę opencaching i dokończ prodedurę adopcji. (MENU UŻYTKOWNIKA > Adopcja Skrzynki)
 search_text_01 Nazwa:
 search_text_02 przez
 search_text_03 Wspolrzedne:
@@ -2409,4 +2412,3 @@ ocTeamComment_04 Prosimy o zapoznanie sie z uwagami i reakcje na wysłane sugest
 ocTeamComment_05 Treść adnotacji COG
 SearchByPlace_01 Liczba znalezionych miejsc
 SearchByPlace_02 Dla podanych kryteriów poszukiwań nie znaleziono jednoznacznego wyniku. Proszę wybrać lokalizacje z listy
-
