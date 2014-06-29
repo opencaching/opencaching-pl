@@ -8,7 +8,7 @@
     require_once($rootpath.'lib/clicompatbase.inc.php');
     require_once($rootpath.'lib/db.php');
 
-class ClearFakeVotes
+class RepairCacheScores
 {
 
     function run()
@@ -16,25 +16,34 @@ class ClearFakeVotes
         $db = new dataBase();
         $db->switchDebug(false);
 
-        $sql = "SELECT cache_id FROM caches";
+        $sql = "SELECT cache_id, status FROM caches";
 
-        // uncommend for debug pourposes only!
-        //if (isset($_GET['cache_id'])){
-        //    $sql .= " where cache_id='" . mysql_real_escape_string($_GET['cache_id']) . "'";
-        //}
+        $params = array();
+        if (isset($_GET['cache_id'])){
+            $sql .= ' where cache_id=:cache_id';
+            $params['cache_id']['value'] = intval($_GET['cache_id']);
+            $params['cache_id']['data_type'] = 'integer';
+        }
 
-        $db->simpleQuery($sql);
-        $cache_ids = $db->dbResultFetchAll();
+        
+        $db->paramQuery($sql, $params);
+        $caches = $db->dbResultFetchAll();
         set_time_limit(3600);
         $total_touched = 0;
-        foreach($cache_ids as $cache_id)
+        foreach($caches as $cache)
         {
-            $cache_id = $cache_id['cache_id'];
+            $cache_id = $cache['cache_id'];
             // usuniecie falszywych ocen
             //echo "cache_logs.cache_id=".sql_escape($rs['cache_id']).", user.username=".sql_escape($rs['user_id'])."<br />";
             //$sql = "DELETE FROM scores WHERE cache_id = '".sql_escape($rs['cache_id'])."' AND user_id = '".sql_escape($rs['user_id'])."'";
             //mysql_query($sql);
 
+            $db->multiVariableQuery(
+                "delete from scores where cache_id = :1 and user_id not in (
+                    select user_id from cache_logs where deleted=0 and cache_id = :2
+                )",
+                $cache_id, $cache_id);
+            
             // zliczenie ocen po usunieciu
             $db->multiVariableQuery(
                 "SELECT avg(score) as avg_score, count(score) as votes FROM scores WHERE cache_id = :1", $cache_id);
@@ -115,11 +124,11 @@ class ClearFakeVotes
             $params['cache_id']['data_type'] = 'integer';
             $db->paramQuery($sql, $params);
             if ($db->rowCount() > 0){
-                //echo "<b>cache_id=$cache_id</b><br>";
-                //echo "ratings=$liczba<br>rating=$srednia<br>";
-                //echo "founds=$founds<br>notfounds=$notfounds<br>";
-                //echo "notes=$notes<br>watchers=$watchers<br>";
-                //echo "ignorers=$ignorers<br>";
+                echo "<b>cache_id=$cache_id</b><br>";
+                echo "ratings=$liczba<br>rating=$srednia<br>";
+                echo "founds=$founds<br>notfounds=$notfounds<br>";
+                echo "notes=$notes<br>watchers=$watchers<br>";
+                echo "ignorers=$ignorers<br>";
                 $total_touched++;
             }
             $db->closeCursor();
@@ -132,7 +141,7 @@ class ClearFakeVotes
 
 }
 
-$clearFakeVotes = new ClearFakeVotes();
-$clearFakeVotes->run();
+$rcs = new RepairCacheScores();
+$rcs->run();
 
 ?>
