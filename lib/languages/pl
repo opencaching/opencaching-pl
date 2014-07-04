@@ -2416,3 +2416,12 @@ ocTeamComment_04 Prosimy o zapoznanie sie z uwagami i reakcje na wysłane sugest
 ocTeamComment_05 Treść adnotacji COG
 SearchByPlace_01 Liczba znalezionych miejsc
 SearchByPlace_02 Dla podanych kryteriów poszukiwań nie znaleziono jednoznacznego wyniku. Proszę wybrać lokalizacje z listy
+GarminZip_01 Pobieranie
+GarminZip_02 Próbujesz pobrać plik .ZIP  zawierający dane w postaci GPX oraz <b><u>zdjęcia</u></b> dla {zip_total_cache_count} skrzynek. Niestety, ze względu na ograniczenia serwera oraz przypuszczalny spory rozmiar pliku, w jednej paczce ZIP mogą zostać umieszczone zdjęcia z maksymalnie {zip_max_count} skrzynek.Żądana zawartość, została podzielona na kilka mniejszych plików ZIP, do których linki znajdują się poniżej
+GarminZip_03 Ograniczenie {zip_max_count} skrzynek w jednym pliku jest eksperymentalne i może ulec zwiększeniu
+GarminZip_04 W celu skorzystania z tej funkcjonalności, należy
+GarminZip_05 Pobrać wszystkie powyższe pliki .zip
+GarminZip_06 Podłączyć urządzenie Garmin Montana / Oregon / Dakota / 62 / 78 / eTrex za pomocą kabla
+GarminZip_07 <b>Rozpakować</b> wszystkie pliki do katalogu głownego <b>pamięci wewnętrznej</b> urządzenia
+GarminZip_08 Uwaga: konieczne jest posiadanie kompatybilnego urządzenia (lista poniżej) z wgranym aktualnym firmware (liczba w nawiasie). Jeśli nie widzisz zdjęć, należy zaktualizować urządzenie. Więcej informacji na
+

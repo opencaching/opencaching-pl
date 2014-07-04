@@ -16,13 +16,11 @@
  ****************************************************************************/
  ?>
 
-<div class="content2-pagetitle">&nbsp;Pobieranie: Garmin ZIP</div>
+<div class="content2-pagetitle">&nbsp;{{GarminZip_01}}: Garmin ZIP</div>
 <p>&nbsp;</p>
 
    <div class="searchdiv">
-   <p style="font-size:12px;">Próbujesz pobrać plik .ZIP  zawierający dane w postaci GPX oraz <b><u>zdjęcia</u></b> dla {zip_total_cache_count} skrzynek.
-   Niestety, ze względu na ograniczenia serwera oraz przypuszczalny spory rozmiar pliku, w jednej paczce ZIP mogą zostać umieszczone zdjęcia z maksymalnie {zip_max_count} skrzynek.
-   Żądana zawartość, została podzielona na kilka mniejszych plików ZIP, do których linki znajdują się poniżej:
+   <p style="font-size:12px;">{{GarminZip_02}}:
    </p>
    <br/>
     <p>
@@ -31,17 +29,16 @@
         </ol>
     </p>
     <br/><br/>
-    <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />Ograniczenie {zip_max_count} skrzynek w jednym pliku jest eksperymentalne i może ulec zwiększeniu.
+    <img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />{{GarminZip_03}}.
 <p>&nbsp;</p>
-<p style="font-size:12px;">W celu skorzystania z tej funkcjonalności, należy:
+<p style="font-size:12px;">{{GarminZip_04}}:
     <ol>
-        <li>Pobrać wszystkie powyższe pliki .zip
-        <li>Podłączyć urządzenie Garmin Montana / Oregon / Dakota / 62 / 78 / eTrex za pomocą kabla</li>
-        <li><b>Rozpakować</b> wszystkie pliki do katalogu głownego <b>pamięci wewnętrznej</b> urządzenia</li>
+        <li>{{GarminZip_05}}
+        <li>{{GarminZip_06}}</li>
+        <li>{{GarminZip_07}}</li>
     </ol>
    </p> <p>&nbsp;</p>
-<img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />Uwaga: konieczne jest posiadanie kompatybilnego urządzenia (lista poniżej) z wgranym aktualnym firmware (liczba w nawiasie). Jeśli nie widzisz zdjęć, należy zaktualizować urządzenie.
-Więcej informacji na <a class="links" href="http://wiki.opencaching.pl/">wiki</a>.
+<img src="tpl/stdstyle/images/misc/16x16-info.png" class="icon16" alt="Info" />{{GarminZip_08}} <a class="links" href="{wiki_url}">wiki</a>.
 <p>&nbsp;</p>
 <p style="font-size:12px;">
     <ul>
