@@ -2417,4 +2417,12 @@ ocTeamComment_04 Lees het commentaar door voor eventuele suggesties
 ocTeamComment_05 Commentaar van het OC Team
 SearchByPlace_01 Gevonden plaatsen
 SearchByPlace_02 De opgegeven plaats lijkt te voldoen aan opgevraagde plaats(en). Kies een plaats uit de lijst
+GarminZip_01 Collectie
+GarminZip_02 Er is ZIP bestand opgevraagt van een GPX met <b><u>afbeeldingen</u></b> van {zip_total_cache_count} caches.<br/> Door de beperking van de server en de bestandsgrootte met afbeeldingen is een bestand beperkt tot {zip_max_count} caches.<br/> De opgevraagde inhoud is onderverdeeld in kleinere zip bestanden, de links zijn hieronder weergegeven
+GarminZip_03 De beperking van {zip_max_count} caches per zip bestand is experimenteel en kan mischien nog verhoogt worden
+GarminZip_04 Volg de onderstaande stappen om de caches in de GPS te plaatsen
+GarminZip_05 Download alle bovenstaande zip bestanden
+GarminZip_06 Sluit de Garmin Montana / Oregon / Dakota / 62 / 78 / eTrex aan via de kabel
+GarminZip_07 <b>Unzip</b> alle bestanden en plaats deze in de <b>root</b> van de GPS
+GarminZip_08 Let op: De GPS (zie onderstaande lijst) moet deze functie ondersteunen met de huidige firmware (het getal tussen haakjes). Als er geen afbeeldingen te zien zijn dan zou een firmware update moeten gebeuren. Zie voor meer informatie op de 
 
