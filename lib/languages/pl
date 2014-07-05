@@ -2417,7 +2417,7 @@ ocTeamComment_05 Treść adnotacji COG
 SearchByPlace_01 Liczba znalezionych miejsc
 SearchByPlace_02 Dla podanych kryteriów poszukiwań nie znaleziono jednoznacznego wyniku. Proszę wybrać lokalizacje z listy
 GarminZip_01 Pobieranie
-GarminZip_02 Próbujesz pobrać plik .ZIP  zawierający dane w postaci GPX oraz <b><u>zdjęcia</u></b> dla {zip_total_cache_count} skrzynek. Niestety, ze względu na ograniczenia serwera oraz przypuszczalny spory rozmiar pliku, w jednej paczce ZIP mogą zostać umieszczone zdjęcia z maksymalnie {zip_max_count} skrzynek.Żądana zawartość, została podzielona na kilka mniejszych plików ZIP, do których linki znajdują się poniżej
+GarminZip_02 Próbujesz pobrać plik .ZIP  zawierający dane w postaci GPX oraz <b><u>zdjęcia</u></b> dla {zip_total_cache_count} skrzynek.<br/> Niestety, ze względu na ograniczenia serwera oraz przypuszczalny spory rozmiar pliku, w jednej paczce ZIP mogą zostać umieszczone zdjęcia z maksymalnie {zip_max_count} skrzynek.<br/>Żądana zawartość, została podzielona na kilka mniejszych plików ZIP, do których linki znajdują się poniżej
 GarminZip_03 Ograniczenie {zip_max_count} skrzynek w jednym pliku jest eksperymentalne i może ulec zwiększeniu
 GarminZip_04 W celu skorzystania z tej funkcjonalności, należy
 GarminZip_05 Pobrać wszystkie powyższe pliki .zip
