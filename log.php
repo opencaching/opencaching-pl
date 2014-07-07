@@ -1392,6 +1392,11 @@ function debug($label, $array)
  * after add a log it is a good idea to full recalculate stats of cache, that can avoid
  * possible errors which used to appear when was calculated old method.
  *
+ * TODO: (regarding issue #138)
+ * 1. recalculate last_found from DB
+ * 2. make this method a library method or so
+ * 3. use this method in other places, where such recalculation is needed
+ *
  * by Andrzej Łza Woźniak, 12-2013
  */
 function recalculateCacheStats($cacheId, $cacheType, $lastFoundQueryString){
