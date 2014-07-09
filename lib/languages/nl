@@ -1111,7 +1111,7 @@ remove_all Alles verwijderen
 no_logtype_choosen Geen logsoort gekozen
 choose Kiezen
 nc01 Beste gebruiker
-nc02 Bedankt voor het willen registreren van een nieuwe cache op {site_name}. Voor meer informatie bij het plaatsen of registreren van een cache kan gekeken worden op <a class="links" href="{wiki_url}">Opencaching wiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> of neem bij grotere problemen contact op via e-mail: cog@opencaching.pl, zodat er toch een goede cache geplaatst kan worden. Om een goed kwaliteit cache te maken kun je de volgende vragen bekijken en te zien of je nieuwe cache aan de eisen voldoet:<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc02 Bedankt voor het willen registreren van een nieuwe cache op {site_name}. Voor meer informatie bij het plaatsen of registreren van een cache kan gekeken worden op <a class="links" href="{wiki_url}">Opencaching wiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> of neem bij grotere problemen contact op via e-mail: octeam@opencaching.nl, zodat er toch een goede cache geplaatst kan worden. Om een goed kwaliteit cache te maken kun je de volgende vragen bekijken en te zien of je nieuwe cache aan de eisen voldoet:<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
 nc03 Is de cache niet illegaal geplaatst, zoals op privégrond zonder toestemming van de eigenaar?
 nc04 Is de cache niet geplaats in een Nationaal park, in/op een monument, begraafplaats of ander beschermd gebied?
 nc05 Is de cache geplaatst op een plek minimaal 150 meter waar nog een andere cache ligt?
