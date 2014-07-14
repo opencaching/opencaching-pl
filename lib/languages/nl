@@ -347,7 +347,7 @@ description_hint Geef een korte en bondige beschrijving. Plaats geen gekopieerde
 no_javascript Je Browser ondersteunt nog geen Javascript. Je kunt alleen gewone tekst gebruiken.Om de HTML editor te gebruiken die je Javascript in te schakelen.
 html_usage Gebruik HTML tags voor het bewerken van tekst.
 available_html Beschikbare HTML tags lijst
-additional_enc_info <b><font color="red">Extra </font> versleutelde hint.</b> <i>Geen verplicht veld</i>. Hier kun een een extra hint toevoegen. Informatie om de cache normaal te kunnen vinen dient in de "Omschrijving" beschreven te staan.
+additional_enc_info <b><font color="red">Extra </font> versleutelde hint.</b> <i>Geen verplicht veld</i>. Hier kun een een extra hint toevoegen. Informatie om de cache normaal te kunnen vinden dient in de "Omschrijving" beschreven te staan.
 add_photo_newcache Afbeeldingen,foto&#39;s, extra waypoints en MP3 bestanden kunnen na het registren van de cache toegevoegt worden.
 search_wildcard_info Use "%" as a wildcard.
 event_hidden_hint Hint: Bij EVENEMENTEN moet in het "datum van plaatsing" veld de datum staan wanneer het evenement begint.
