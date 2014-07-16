@@ -4,90 +4,60 @@
                                                             -------------------
         begin                : August 25 2006
         copyright            : (C) 2006 The OpenCaching Group
-        forum contact at     : http://www.opencaching.com/phpBB2
 
-    ***************************************************************************/
+ ***************************************************************************/
 
- /***************************************************************************
+$rootpath = __dir__.'/../../';
+require_once($rootpath . 'lib/common.inc.php');
+require_once($rootpath . 'util.sec/notification/settings.inc.php');
+require_once($rootpath . 'lib/consts.inc.php');
 
-        Unicode Reminder ăĄă˘
-
-        Ggf. muss die Location des php-Binaries angepasst werden.
-
-        Arbeitet die Tabelle `notify_waiting` ab und verschickt
-        Benachrichtigungsmails ueber neue Caches.
-
-    ***************************************************************************/
-// wlacz wyswietlanie bledow
-// ini_set ('display_errors', On);
-
-    $rootpath = '../../';
-    require_once($rootpath . 'lib/common.inc.php');
-    require_once($rootpath . 'util.sec/notification/settings.inc.php');
-    require_once($rootpath . 'lib/consts.inc.php');
-
-/* begin with some constants */
-
-    $sDateformat = 'Y-m-d H:i:s';
-
-/* end with some constants */
+/* take datetime format from settings.inc.php */
+$sDateformat = $datetimeFormat;
 
 // Check if another instance of the script is running
-    $lock_file = fopen("/tmp/notification-run_notify.lock", "w");
-    if (!flock($lock_file, LOCK_EX | LOCK_NB))
-    {
-        // Another instance of the script is running - exit
-        echo "Another instance of run_notify.php is currently running.\nExiting.\n";
-        fclose($lock_file);
-        exit;
-    }
-
+$lock_file = fopen("/tmp/notification-run_notify.lock", "w");
+if (!flock($lock_file, LOCK_EX | LOCK_NB)) { // Another instance of the script is running - exit
+    echo "Another instance of run_notify.php is currently running.\nExiting.\n";
+    fclose($lock_file);
+    exit;
+}
 // No other instance - do normal processing
 
-/* begin db connect */
-    db_connect();
-    if ($dblink === false)
-    {
-        echo 'Unable to connect to database';
-        exit;
-    }
-/* end db connect */
-
-  $rsNotify = sql(" SELECT  `notify_waiting`.`id`, `notify_waiting`.`cache_id`, `notify_waiting`.`type`,
+$db = new dataBase();
+$rsNotifyQuery = " SELECT  `notify_waiting`.`id`, `notify_waiting`.`cache_id`, `notify_waiting`.`type`,
                 `user`.`username`,
                 `user2`.`email`, `user2`.`username` as `recpname`, `user2`.`latitude` as `lat1`, `user2`.`longitude` as `lon1`, `user2`.`user_id` as `recid`,
                 `caches`.`name` as `cachename`, `caches`.`date_hidden`, `caches`.`latitude` as `lat2`, `caches`.`longitude` as `lon2`, `caches`.`wp_oc`,
-                `cache_type`.`pl` as `cachetype`,
-                `cache_size`.`pl` as `cachesize`
-            FROM `notify_waiting`, `caches`, `user`, `user` `user2`, `cache_type`, `cache_size`
+                `caches`.`type` as `cachetype`,
+                `caches`.`size` as `cachesize`
+            FROM `notify_waiting`, `caches`, `user`, `user` `user2`
             WHERE `notify_waiting`.`cache_id`=`caches`.`cache_id`
               AND `notify_waiting`.`user_id`=`user2`.`user_id`
               AND `caches`.`user_id`=`user`.`user_id`
-              AND `caches`.`type`=`cache_type`.`id`
-              AND `caches`.`size`=`cache_size`.`id`");
+";
+$db->simpleQuery($rsNotifyQuery);
+$rsNotify = $db->dbResultFetchAll();
 
-  while($rNotify = sql_fetch_array($rsNotify))
-  {
-        if (process_new_cache($rNotify) == 0)
-            sql("DELETE FROM `notify_waiting` WHERE `id` ='&1'", $rNotify['id']);
-  }
-  mysql_free_result($rsNotify);
+/*init caches container*/
+$cacheCntainer = cache::instance();
+$cacheTypes = $cacheCntainer->getCacheTypes();
+$cacheSizes = $cacheCntainer->getCacheSizes();
 
-/* end send out everything that has to be sent */
+foreach ($rsNotify as $rNotify) { /* end send out everything that has to be sent */
+    if (process_new_cache($rNotify) == 0){
+        $db->multiVariableQuery("DELETE FROM `notify_waiting` WHERE `id` =:1", $rNotify['id']);
+    }
+}
 
 // Release lock
-    fclose($lock_file);
+fclose($lock_file);
 
-function process_new_cache($notify)
-{
-    global $notify_text, $mailfrom, $mailsubject, $debug, $debug_mailto, $rootpath, $octeamEmailsSignature, $absolute_server_URI, $site_name, $dateFormat;
-
-//  echo "process_new_cache(".$notify['id'].")\n";
+function process_new_cache($notify) {
+    global $mailfrom, $mailsubject, $debug, $debug_mailto, $rootpath, $octeamEmailsSignature, $absolute_server_URI, $site_name, $dateFormat, $cacheTypes, $cacheSizes;
     $fehler = false;
 
-    // mail-template lesen
-    switch($notify['type'])
-    {
+    switch($notify['type']){
         case notify_new_cache: // Type: new cache
             $mailbody = read_file($rootpath . 'util.sec/notification/notify_newcache.email');
             break;
@@ -96,8 +66,7 @@ function process_new_cache($notify)
             break;
     }
 
-    if(!$fehler)
-    {
+    if(!$fehler) {
         $mailbody = mb_ereg_replace('{username}', $notify['recpname'], $mailbody);
         $mailbody = mb_ereg_replace('{date}', date($dateFormat, strtotime($notify['date_hidden'])), $mailbody);
         $mailbody = mb_ereg_replace('{cacheid}', $notify['cache_id'], $mailbody);
@@ -107,8 +76,8 @@ function process_new_cache($notify)
         $mailbody = mb_ereg_replace('{distance}', round(calcDistance($notify['lat1'], $notify['lon1'], $notify['lat2'], $notify['lon2'], 1), 1), $mailbody);
         $mailbody = mb_ereg_replace('{unit}', 'km', $mailbody);
         $mailbody = mb_ereg_replace('{bearing}', Bearing2Text(calcBearing($notify['lat1'], $notify['lon1'], $notify['lat2'], $notify['lon2'])), $mailbody);
-        $mailbody = mb_ereg_replace('{cachetype}', $notify['cachetype'], $mailbody);
-        $mailbody = mb_ereg_replace('{cachesize}', $notify['cachesize'], $mailbody);
+        $mailbody = mb_ereg_replace('{cachetype}', tr($cacheTypes[$notify['cachetype']]['translation']), $mailbody);
+        $mailbody = mb_ereg_replace('{cachesize}', tr($cacheSizes[$notify['cachesize']]['translation']), $mailbody);
         $mailbody = mb_ereg_replace('{server}', $absolute_server_URI, $mailbody);
         $mailbody = mb_ereg_replace('{sitename}', $site_name, $mailbody);
         $mailbody = mb_ereg_replace('{notify_newCache_01}', tr('notify_newCache_01'), $mailbody);
@@ -129,15 +98,13 @@ function process_new_cache($notify)
         $email_headers .= 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
 
         // mail versenden
-        if ($debug == true)
+        if ($debug == true) {
             $mailadr = $debug_mailto;
-        else
+        } else {
             $mailadr = $notify['email'];
-
+        }
         mb_send_mail($mailadr, $subject, $mailbody, $email_headers);
-    }
-    else
-    {
+    } else {
         echo "Unbekannter Notification-Typ: " . $notify['type'] . "<br />";
     }
 
@@ -146,4 +113,3 @@ function process_new_cache($notify)
 
     return 0;
 }
-?>
