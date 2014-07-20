@@ -67,7 +67,7 @@
             $uuid = $_REQUEST['uuid'];
             if (!isset($dbc)) {$dbc = new dataBase();};
                     $thatquery = "SELECT `cache_id` FROM `caches` WHERE uuid=:v1 LIMIT 1" ;
-                    $params['v1']['value'] = (string) $uuid;;
+                    $params['v1']['value'] = (string) $uuid;
                     $params['v1']['data_type'] = 'string';
                     $dbc->paramQuery($thatquery,$params);
             if ($r = $dbc->dbResultFetch() )
@@ -177,29 +177,21 @@
                           WHERE `caches`.`cache_id`= :v1";
         // $params['v1']['value'] = (string) $lang_db;; //TODO: be check if to replace with translation throuhgh languages
         // $params['v1']['data_type'] = 'string';
-         $params['v1']['value'] = (integer) $cache_id;;
+         $params['v1']['value'] = (integer) $cache_id;
          $params['v1']['data_type'] = 'integer';
 
         $dbc->paramQuery($thatquery,$params);
         unset($params); //clear to avoid overlaping on next paramQuery (if any))
-
-
-            //if (mysql_num_rows($rs) == 0)
-            if ($dbc->rowCount() == 0)
-
-            {
+            if ($dbc->rowCount() == 0) {
                 $cache_id = 0;
-            }
-            else
-            {
-                //$cache_record = sql_fetch_array($rs);
+            } else {
                 $cache_record =$dbc->dbResultFetch();
             }
 
             // detailed cache access logging
             if (@$enable_cache_access_logs && $cache_id > 0)
             {
-                if (!isset($dbc)) {$dbc = new dataBase();};
+                if (!isset($dbc)) {$dbc = new dataBase();}
                 $user_id = $usr !== false ? $usr['userid'] : null;
                 $access_log = @$_SESSION['CACHE_ACCESS_LOG_VC_'.$user_id];
                 if ($access_log === null)
@@ -256,9 +248,9 @@
                     FROM `cache_mod_cords` INNER JOIN `caches` ON (`caches`.`cache_id` = `cache_mod_cords`.`cache_id` AND
                             `cache_mod_cords`.`user_id` = :v1)
                             WHERE `caches`.`cache_id`=:v2";
-            $params['v1']['value'] = (integer) $usr['userid'];;
+            $params['v1']['value'] = (integer) $usr['userid'];
             $params['v1']['data_type'] = 'integer';
-            $params['v2']['value'] = (integer) $cache_id;;
+            $params['v2']['value'] = (integer) $cache_id;
             $params['v2']['data_type'] = 'integer';
             $dbc->paramQuery($thatquery,$params);
             unset($params); //clear to avoid overlaping on next paramQuery (if any))
@@ -393,9 +385,9 @@
                 if ($mod_coord_delete_mode)
                 {
                     $thatquery="DELETE FROM `cache_mod_cords` WHERE `id` = :v1";
-                    $params['v1']['value'] = (integer) $cache_mod_coords['mod_cords_id'];;
+                    $params['v1']['value'] = (integer) $cache_mod_coords['mod_cords_id'];
                     $params['v1']['data_type'] = 'integer';
-                    if (!isset($dbc)) {$dbc = new dataBase();};
+                    if (!isset($dbc)) {$dbc = new dataBase();}
                     $dbc->paramQuery($thatquery,$params);
                     unset($params);
                     //sql("DELETE FROM `cache_mod_cords` WHERE `id` = &1", $cache_mod_coords['mod_cords_id']);
@@ -488,7 +480,7 @@
                          (SELECT `last_modified` FROM `caches` WHERE `cache_id` = :v1
                             UNION
                             SELECT `last_modified` FROM `cache_desc` WHERE `cache_id` =:v1) `tmp_result`";
-            $params['v1']['value'] = (integer) $cache_id;;
+            $params['v1']['value'] = (integer) $cache_id;
             $params['v1']['data_type'] = 'integer';
             $dbc->paramQuery($thatquery,$params);
             unset($params); //clear to avoid overlaping on next paramQuery (if any))
@@ -558,7 +550,7 @@
             // check if there is geokret in this cache
             if (!isset($dbc)) {$dbc = new dataBase();};
             $thatquery= "SELECT gk_item.id, name, distancetravelled as distance FROM gk_item INNER JOIN gk_item_waypoint ON (gk_item.id = gk_item_waypoint.id) WHERE gk_item_waypoint.wp = :v1 AND stateid<>1 AND stateid<>4 AND stateid <>5 AND typeid<>2 AND missing=0";
-            $params['v1']['value'] = (string) $cache_wp;;
+            $params['v1']['value'] = (string) $cache_wp;
             $params['v1']['data_type'] = 'string';
             $dbc->paramQuery($thatquery,$params);
             unset($params); //clear to avoid overlaping on next paramQuery (if any))
@@ -1684,9 +1676,9 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                                     ".$show_deleted_logs2."
                      ORDER BY `cache_logs`.`date` DESC, `cache_logs`.`id` DESC
                         LIMIT :v2";
-         $params['v1']['value'] = (integer) $cache_id;;
+         $params['v1']['value'] = (integer) $cache_id;
          $params['v1']['data_type'] = 'integer';
-         $params['v2']['value'] = (integer) $logs_to_display+0;;
+         $params['v2']['value'] = (integer) $logs_to_display+0;
          $params['v2']['data_type'] = 'integer';
 
 
@@ -1764,7 +1756,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                         };
                         if(isset($record['last_deleted']))
                         {
-                            $comm_replace.=" ".tr('vl_on_date')." ".fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));;
+                            $comm_replace.=" ".tr('vl_on_date')." ".fixPlMonth(htmlspecialchars(strftime($thisdateformat, strtotime($record['last_deleted'])), ENT_COMPAT, 'UTF-8'));
                         };
                         $comm_replace.=".";
                         $processed_text = $comm_replace;
@@ -1916,7 +1908,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 {
                     $logpicturelines = '';
                     $thatquery = "SELECT `url`, `title`, `user_id`, `uuid`, `spoiler` FROM `pictures` WHERE `object_id`= :v1 AND `object_type`=1";
-                    $params['v1']['value'] = (integer) $record['logid'];;
+                    $params['v1']['value'] = (integer) $record['logid'];
                     $params['v1']['data_type'] = 'integer';
 
                 if (!isset($dbc)) {$dbc = new dataBase();};
