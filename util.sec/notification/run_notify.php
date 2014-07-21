@@ -16,7 +16,7 @@ require_once($rootpath . 'lib/consts.inc.php');
 $sDateformat = $datetimeFormat;
 
 // Check if another instance of the script is running
-$lock_file = fopen(__DIR__."/../../tmp/notification-run_notify.lock", "w");
+$lock_file = fopen("/tmp/notification-run_notify.lock", "w");
 if (!flock($lock_file, LOCK_EX | LOCK_NB)) { // Another instance of the script is running - exit
     echo "Another instance of run_notify.php is currently running.\nExiting.\n";
     fclose($lock_file);
