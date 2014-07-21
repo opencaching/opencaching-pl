@@ -293,10 +293,15 @@
     <tr>
     <td style="width: 25%;">
 
-            <a href="http://www.cistes.net/">http://www.cistes.net</a>
+            <a href="http://www.globalcaching.eu">globalcaching.eu</a>
         </td>
     </tr>
 
+        <tr>
+        <td>
+            <a href="http://www.cistes.net">http://www.cistes.net  </a>
+        </td>
+            </tr>
         <tr>
         <td>
             <a href="http://onlinegeocacher.com">Magazyn o Geocaching  </a>
