@@ -356,9 +356,9 @@ publish_now Publiceer nu
 publish_date Publiceer datum
 hour Tijd
 dont_publish_yet Nog niet publiceren
-log_password Geef wachtwoord
-no_password_label Laat leeg voor geen wachtwoord
-please_read Lees meer <a href="{cache_params_url}" target="_blank">informatie over wachtwoorden in logs!</a>
+log_password Geef logwachtwoord
+no_password_label Laat leeg voor geen logwachtwoord
+please_read Lees meer <a href="{cache_params_url}" target="_blank">informatie over wachtwoorden in logs</a>
 creating_cache Met het maken van een nieuwe cache accepteer je de <a href="{rules_url}" target="_blank">Gebruikers voorwaarden</a> met alle consequenties.
 with_all_consequences with all consequences.
 cache_name cache naam
@@ -430,7 +430,7 @@ number_of_founds Gevonden
 latest_news Nieuws
 what_do_you_find Welkom op {site_name}
 what_do_you_find_intro_pl Geocaching is een buitensport of activiteit waarbij cachers een GPS gebruiken om een "schat" te vinden die verstopt is door andere deelnemers. Caches zijn waterdichte dozen, die ruilspulletjes en een logboek bevatten waar cachers hun bezoek in kunnen schrijven. De coördinaten van de locatie van de caches zijn opgeslagen in een online database, evenals de beschrijving en instructies om deze te vinden.<br/>Op deze site kun je een heleboel vinden over cachen in Polen. Opencaching.pl in Polen is opgericht in <span class="content-title-noshade">Mei 2006</span>. Onze database werkt op <b>opensource project Opencaching</b>. Het idee hierachter is om met meerdere opencaching nodes uit verschillende landen over de hele wereld een gesyngroniseerde database met caches en gebruikers te werken.<br/>Opencaching sites zoals deze hebben niets gemeen met Opencaching.com.
-what_do_you_find_intro_nl Geocaching is een buitensport of activiteit waarbij cachers een GPS gebruiken om een "schat" te vinden die verstopt is door andere deelnemers. Caches zijn waterdichte dozen, die ruilspulletjes en een logboek bevatten waar cachers hun bezoek in kunnen schrijven. De coördinaten van de locatie van de caches zijn opgeslagen in een online database, evenals de beschrijving en instructies om deze te vinden.<br/>Op deze site kun je een heleboel vinden over cachen in Nederland, luxemburg en België. Opencaching.nl in Nederland is opgericht in <span class="content-title-noshade">October 2002</span>. Onze database werkt op <b>opensource project Opencaching</b>. Het idee hierachter is om met meerdere opencaching nodes uit verschillende landen over de hele wereld een gesyngroniseerde database met caches en gebruikers te werken.<br/><b>Opencaching sites zoals deze hebben niets gemeen met Opencaching.com.</b> <br/><b><p><font color="#ff0000">Het schijnt wel eens voor te komen dat bij de eerste maal inloggen na registratie de site terug springt naar de inlogpagina en hiermee lijkt dat men niet ingelogt is. Dit kan opgelost worden door het browsergeheugen te legen zoals <a href="http://www.browserchecker.nl/cache-bestanden-verwijderen">hier </a> beschreven. Mocht dit onverhoopt gebeuren gelieve een e-mail te sturen naar het oc-team met de vermelding van welke browser er op dat ogenblik gebruikt werd zodat hier een oplossing voor gevonden kan worden.</font></p><b/>
+what_do_you_find_intro_nl Geocaching is een buitensport of activiteit waarbij cachers een GPS gebruiken om een "schat" te vinden die verstopt is door andere deelnemers. Caches zijn waterdichte dozen, die ruilspulletjes en een logboek bevatten waar cachers hun bezoek in kunnen schrijven. De coördinaten van de locatie van de caches zijn opgeslagen in een online database, evenals de beschrijving en instructies om deze te vinden.<br/>Op deze site kun je een heleboel vinden over cachen in Nederland, luxemburg en België. Opencaching.nl in Nederland is opgericht in <span class="content-title-noshade">October 2002</span>. Onze database werkt op <b>opensource project Opencaching</b>. Het idee hierachter is om met meerdere opencaching nodes uit verschillende landen over de hele wereld een gesyngroniseerde database met caches en gebruikers te werken.<br/><b>Opencaching sites zoals deze hebben niets gemeen met Opencaching.com.</b> <br/><b><p><font color="#ff0000">Het schijnt wel eens voor te komen dat bij de eerste maal inloggen na registratie de site terug springt naar de inlogpagina en hiermee lijkt dat men niet ingelogd is. Dit kan opgelost worden door het browsergeheugen te legen zoals <a href="http://www.browserchecker.nl/cache-bestanden-verwijderen">hier </a> beschreven. Mocht dit onverhoopt gebeuren gelieve een e-mail te sturen naar het oc-team met de vermelding van welke browser er op dat ogenblik gebruikt werd zodat hier een oplossing voor gevonden kan worden.</font></p><b/>
 more_news More news
 filename_rules {rules_url}
 filename_describe_cache {cache_params_url}
@@ -618,11 +618,11 @@ milestones Mijlpalen
 latest_logs_by_user Laatste logs van gebruiker
 stat_created_caches Statistieken van gemaakte caches
 not_caches_created  Er zijn nog geen gemaakte caches
-total_owned_caches Totaal aantal gemaakte caches
+total_owned_caches Totaal aantal eigen caches
 # translation warning: the above string should be: Number of caches owned, not Number of caches hidden
-total_owned_caches_adopted - including adopted
-total_created_caches Number of caches created by the user
-total_created_caches_adopted - including given to adoption
+total_owned_caches_adopted Aantal aangeboden adoptie caches
+total_created_caches Totaal eigen gemaakte caches
+total_created_caches_adopted Aantal aangenomen adoptie caches
 number_temp_caches Aantal tijdelijk niet beschikbare caches
 number_archived_caches Aantal gearchiveerde caches
 number_created_events Aantal georganiseerde evenementen
@@ -1993,13 +1993,13 @@ login_message_06 Inloggen mislukt.<br />Ingevoerde naam of e-mail is onjuist.
 login_message_07 Inloggen mislukt.<br />Ingevoerde naam of wachtwoord is onjuist.
 login_message_08 Deze browser ondersteunt geen cookies van {site_name}
 login_message_09 Om deze pagina te openen dient er ingelogt te zijn.
-graph_statistics_01 Statistieken van www.{site_name} :: Datum
+graph_statistics_01 Statistieken van www.{site_name} :: Datum 
 graph_statistics_02 Actieve caches
 graph_statistics_03 Gevonden caches
-graph_statistics_04 Gegevens per
-graph_statistics_05 Geplaatste caches:
-graph_statistics_06 Actieve caches:
-graph_statistics_07 Totaal gevonden caches:
+graph_statistics_04 Gegevens per 
+graph_statistics_05 Geplaatste caches: 
+graph_statistics_06 Actieve caches: 
+graph_statistics_07 Totaal gevonden caches: 
 search_text_01 Cache naam:
 search_text_02 van
 search_text_03 Coördinaten:
