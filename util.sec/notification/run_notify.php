@@ -16,7 +16,7 @@ require_once($rootpath . 'lib/consts.inc.php');
 $sDateformat = $datetimeFormat;
 
 // Check if another instance of the script is running
-$lock_file = fopen("/tmp/notification-run_notify.lock", "w");
+$lock_file = fopen(__DIR__."/../../tmp/notification-run_notify.lock", "w");
 if (!flock($lock_file, LOCK_EX | LOCK_NB)) { // Another instance of the script is running - exit
     echo "Another instance of run_notify.php is currently running.\nExiting.\n";
     fclose($lock_file);
@@ -26,7 +26,8 @@ if (!flock($lock_file, LOCK_EX | LOCK_NB)) { // Another instance of the script i
 
 $db = new dataBase();
 $rsNotifyQuery = " SELECT  `notify_waiting`.`id`, `notify_waiting`.`cache_id`, `notify_waiting`.`type`,
-                `user`.`username`,
+                `user`.`username`, user.user_id as cache_owner_id,
+                user.hidden_count as hidden, user.notfounds_count as dnf, user.founds_count as found,
                 `user2`.`email`, `user2`.`username` as `recpname`, `user2`.`latitude` as `lat1`, `user2`.`longitude` as `lon1`, `user2`.`user_id` as `recid`,
                 `caches`.`name` as `cachename`, `caches`.`date_hidden`, `caches`.`latitude` as `lat2`, `caches`.`longitude` as `lon2`, `caches`.`wp_oc`,
                 `caches`.`type` as `cachetype`,
@@ -43,6 +44,7 @@ $rsNotify = $db->dbResultFetchAll();
 $cacheCntainer = cache::instance();
 $cacheTypes = $cacheCntainer->getCacheTypes();
 $cacheSizes = $cacheCntainer->getCacheSizes();
+$cacheTypeIcons = $cacheCntainer->getCacheTypeIcons();
 
 foreach ($rsNotify as $rNotify) { /* end send out everything that has to be sent */
     if (process_new_cache($rNotify) == 0){
@@ -54,12 +56,15 @@ foreach ($rsNotify as $rNotify) { /* end send out everything that has to be sent
 fclose($lock_file);
 
 function process_new_cache($notify) {
-    global $mailfrom, $mailsubject, $debug, $debug_mailto, $rootpath, $octeamEmailsSignature, $absolute_server_URI, $site_name, $dateFormat, $cacheTypes, $cacheSizes;
+    global $mailfrom, $mailsubject, $debug, $debug_mailto, $rootpath, $octeamEmailsSignature, $absolute_server_URI, $site_name, $dateFormat, $cacheTypes, $cacheSizes, $cacheTypeIcons;
     $fehler = false;
 
     switch($notify['type']){
         case notify_new_cache: // Type: new cache
-            $mailbody = read_file($rootpath . 'util.sec/notification/notify_newcache.email');
+            //$emailFilePath = 'util.sec/notification/notify_newcache.email';
+            $emailFilePath = '/notifyNewcacheEmail.html';
+            //$mailbody = read_file($rootpath.$emailFilePath);
+            $mailbody = file_get_contents(__DIR__.$emailFilePath);
             break;
         default:
             $fehler = true;
@@ -67,6 +72,7 @@ function process_new_cache($notify) {
     }
 
     if(!$fehler) {
+        $thunderSection = ' (<img src="'.$absolute_server_URI.'tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="9" height="9" border="0" title="'.tr('viewlog_aktywnosc').' ['.$notify['found'].'+'. $notify['dnf'].'+'. $notify['hidden'].']"/>'. ($notify['hidden'] + $notify['found'] + $notify['dnf']) . ') ';
         $mailbody = mb_ereg_replace('{username}', $notify['recpname'], $mailbody);
         $mailbody = mb_ereg_replace('{date}', date($dateFormat, strtotime($notify['date_hidden'])), $mailbody);
         $mailbody = mb_ereg_replace('{cacheid}', $notify['cache_id'], $mailbody);
@@ -90,11 +96,18 @@ function process_new_cache($notify) {
         $mailbody = mb_ereg_replace('{notify_newCache_08}', tr('notify_newCache_08'), $mailbody);
         $mailbody = mb_ereg_replace('{notify_newCache_09}', tr('notify_newCache_09'), $mailbody);
         $mailbody = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $mailbody);
+        $mailbody = mb_ereg_replace('{runwatch04}', tr('runwatch04'), $mailbody);
+        $mailbody = mb_ereg_replace('{runwatch08}', tr('runwatch08'), $mailbody);
+        $mailbody = mb_ereg_replace('{runwatch09}', tr('runwatch09'), $mailbody);
+        $mailbody = mb_ereg_replace('{wp_oc}', $notify['wp_oc'], $mailbody);
+        $mailbody = mb_ereg_replace('{cache_owner_id}', $notify['cache_owner_id'], $mailbody);
+        $mailbody = mb_ereg_replace('{caheIcon}', $cacheTypeIcons[$notify['cachetype']]['iconSet'][1]['iconSmall'], $mailbody);
+        $mailbody = mb_ereg_replace('{thunderSection}', $thunderSection, $mailbody);
 
         $subject = mb_ereg_replace('{cachename}', $notify['cachename'], $mailsubject);
 
         /* begin send out everything that has to be sent */
-        $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
+        $email_headers = "Content-Type: text/html; charset=utf-8\r\n";
         $email_headers .= 'From: "' . $mailfrom . '" <' . $mailfrom . '>';
 
         // mail versenden
