@@ -22,7 +22,7 @@
                 tpl_redirect('admin_users.php?userid=' . htmlspecialchars($record['user_id'], ENT_COMPAT, 'UTF-8'));
             } else { // Nie znaleziono użytkownika
           tpl_set_var('username', $options['username']);
-          tpl_set_var('not_found', '<b>'.tr('Nie znaleziono użytkownika').': '. $options['username'] .'</b><br/><br/>');
+          tpl_set_var('not_found', '<b>'.tr("message_user_not_found").': '. $options['username'] .'</b><br/><br/>');
             }
             mysql_free_result($rs);
         } else {
