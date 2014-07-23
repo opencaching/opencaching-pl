@@ -76,7 +76,7 @@
                     }
                 } else { // Nie znaleziono użytkownika
                     tpl_set_var('username', $options['username']);
-                    tpl_set_var('not_found', '<b>Nie znaleziono użytkownika: '. $options['username'] .'</b><br/><br/>');
+                    tpl_set_var('not_found', '<b>'.tr("message_user_not_found").': '. $options['username'] .'</b><br/><br/>');
                     tpl_set_var('lines', '');
                 }
                 //mysql_free_result($rs);
