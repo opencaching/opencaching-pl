@@ -657,6 +657,7 @@ show_labels Show labels
 history_gk GeoKrety historie
 cachenotes notes
 my_statistics Mijn statistieken
+Field_Notes Garmin logbestand
 mycache_note Mijn cache notities
 personal_cache_note Persoonlijke cache notitie
 cache_note_visible De notitie is niet zichtbaar voor andere gebruikers. De notitie zit wel in het GPX-bestand.

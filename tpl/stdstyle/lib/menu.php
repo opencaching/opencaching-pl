@@ -536,8 +536,8 @@ $menu = array(
                 'siteid'        => array('myhome', 'viewprofile', 'ustat', 'my_logs')
             ),
             array(
-                'title'         =>'Field Notes',
-                'menustring'    => 'Field Notes',
+                'title'         => tr('Field_Notes'),
+                'menustring'    => tr('Field_Notes'),
                 'visible'       => true,
                 'filename'      => 'log_cache_multi_send.php',
                 'siteid'        => array('log_cache_multi_send', 'log_cache_multi')   //JG 2013-10-25 było 'autolog'

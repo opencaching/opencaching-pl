@@ -656,6 +656,7 @@ show_labels Pokaż etykiety
 history_gk geoKrety wizyty
 cachenotes notatki
 my_statistics Moje statystyki
+Field_Notes Field notes
 mycache_note Moje notatki
 personal_cache_note Własna notatka do skrzynki
 cache_note_visible Notatka nie jest widziana przez innych użytkowników. Notatka będzie dołączana do pliku GPX.

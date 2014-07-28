@@ -656,6 +656,7 @@ show_labels Show labels
 history_gk GeoKrety records
 cache_notes Notes
 my_statistics My statistics
+Field_Notes Garmin Logfile
 mycache_note My cache notes
 personal_cache_note Personal cache note
 cache_note_visible The note is not visible to other users. It will be included in GPX files you download.
