@@ -791,20 +791,20 @@ send_bulletin_01 Bulletin verzenden
 send_bulletin_02 Voorbeeld bulletin
 send_bulletin_03 Bulletin is verzonden
 add_news Verzend nieuws
-email_subject_news Nieuw nieuwsiten ingezonden
+email_subject_news Nieuw nieuwsitem ingezonden
 subject Onderwerp
 contents Bericht
 content_include_html Bericht met HTML
 logged_by Gelogt door
 all_regions Alle regio&#39;s
-assigned_to Toegewezen aan
+assigned_to Behandelaar
 date_created Datum gemaakt
 owner Eigenaar
 creator Stichter
 actions Acties
-block Blokkeren
-assign_yourself Neem notificatie zelf
-accept Accepteren
+block Afkeuren
+assign_yourself Neem in behandeling
+accept Goedkeuren
 octeam_stat_problems Statistieken OC Team - Gesloten problemen
 octeam_stat_m_problems Maandelijkse statistieken OC Team - Aantal problemen
 octeam_stat_caches Statistieken OC Team - Geaccepteerde caches
@@ -832,7 +832,7 @@ cache_pictures Cache afbeelding
 log_pictures Log afbeelding
 no_title No title
 to_big_data Afbeelding te groot
-max_size Afbeelding is groter dan 100 kb. Reduceer de afmetingen of kwaliteit.
+max_size Afbeelding is groter dan 150 kb. Reduceer de afmetingen of kwaliteit.
 bad_format Incompatable Incorrect file format
 bad_format_info Incorrect format. Acceptable formats BMP, GIF, PNG, JPG . Suggested size 480 x 360 pixels
 no_picture Afbeelding niet gevonden
@@ -841,7 +841,7 @@ file_name Bestandsnaam
 cache_picture_intro  Dit dient een eigen afbeelding te zijn die met de cache te maken heeft
 spoiler_info Toon geen voorbeeld (SPOILER) - Gebruik deze optie wanneer de afbeelding de locatie van de cache weergeeft.<br> De afbeelding wordt alleen getoont als op SPOILER geklikt wordt.
 dont_show Verberg deze afbeelding
-pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto&#39;s.<br />Maximum grootte 100 KB. Aanbevolen resolutie: 640 x 480 pixels.
+pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto&#39;s.<br />Maximum grootte 150 KB. Aanbevolen resolutie: 640 x 480 pixels.
 add_new_picture Voeg nieuwe afbeelding toe aan cache
 gallery Toon galerij
 gallery_short Galerij
