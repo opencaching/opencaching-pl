@@ -3,15 +3,20 @@
 class cCorection
 {
 	private $userId = 0;
+	private $cacheId = 0;
 	private $latitude = 0;
 	private $longitude = 0;
 	private $userArray = array();
+	private $cacheType = 0;
 
 	public function __construct($params)
 	{
 		$this->latitude = $params['latitude'];
 		$this->longitude = $params['longitude'];
 		$this->userId = $params['userId'];
+		$this->cacheType = $params['cacheType'];
+		$this->cacheId = $params['cacheId'];
+
 		$userrCollection = new UserCollection();
 		$this->userArray = $userrCollection->getUserCollection();
 		$this->process();
@@ -29,13 +34,41 @@ class cCorection
 
 	private function process()
 	{
-		if(in_array($this->userId, $this->userArray)){
-			$this->updateCoords();
+		if($this->cacheType == cache::TYPE_TRADITIONAL || $this->cacheType == cache::TYPE_MULTICACHE){
+			if(in_array($this->userId, $this->userArray)){
+				$this->updateCoords();
+			}
+		}
+	}
+
+	private function takeDistance(){
+		$lastchar = substr($this->cacheId, -1);
+		switch ($lastchar) {
+			case 0:
+				return 40;
+			case 1:
+				return 45;
+			case 2:
+				return 50;
+			case 3:
+				return 52;
+			case 4:
+				return 65;
+			case 5:
+				return 57;
+			case 6:
+				return 60;
+			case 7:
+				return 70;
+			case 8:
+				return 75;
+			case 9:
+				return 56;
 		}
 	}
 
 	private function updateCoords(){
-		$meters = rand(30,60); //Number of meters to calculate coords for north/south/east/west
+		$meters = $this->takeDistance(); //Number of meters to calculate coords for north/south/east/west
 		$equatorCircumference = 6371000; //meters
 		$polarCircumference = 6356800; //meters
 		$mPerDegLong = 360 / $polarCircumference;
@@ -46,8 +79,19 @@ class cCorection
 		$this->calcNewCoords($degDiffLong, $degDiffLat);
 	}
 
+	private function getDirectionInteger() {
+		$direction = substr($this->cacheId, 0, 1);
+		if($direction == 0 ) {
+			return 5;
+		}
+		if($direction == 9) {
+			 return 8;
+		}
+		return $direction;
+	}
+
 	private function calcNewCoords($degDiffLong, $degDiffLat) {
-		$direction = rand(1,8);
+		$direction = $this->getDirectionInteger();
 		switch ($direction) {
 			case 1:
 				$this->latitude = $this->latitude + $degDiffLat;
@@ -109,3 +153,4 @@ final class UserCollection
 		return $this->userArray;
 	}
 }
+
