@@ -36,8 +36,8 @@ $rsNotifyQuery = " SELECT  `notify_waiting`.`id`, `notify_waiting`.`cache_id`, `
             WHERE `notify_waiting`.`cache_id`=`caches`.`cache_id`
               AND `notify_waiting`.`user_id`=`user2`.`user_id`
               AND `caches`.`user_id`=`user`.`user_id`
+            LIMIT 0,100  
 ";
-$db->simpleQuery($rsNotifyQuery);
 
 /*init caches container*/
 $cacheCntainer = cache::instance();
@@ -45,12 +45,18 @@ $cacheTypes = $cacheCntainer->getCacheTypes();
 $cacheSizes = $cacheCntainer->getCacheSizes();
 $cacheTypeIcons = $cacheCntainer->getCacheTypeIcons();
 
-while (($rNotify = $db->dbResultFetch())){
-    /* end send out everything that has to be sent */
-    if (process_new_cache($rNotify) == 0){
-        $db->multiVariableQuery("DELETE FROM `notify_waiting` WHERE `id` =:1", $rNotify['id']);
+do{
+    $rsNotify = $db->dbResultFetchAll();
+
+    foreach ($rsNotify as $rNotify) { 
+        /* end send out everything that has to be sent */
+        //if (process_new_cache($rNotify) == 0){
+        //    $db->multiVariableQuery("DELETE FROM `notify_waiting` WHERE `id` =:1", $rNotify['id']);
+        //}
+        echo $rNotify['id'] . "\n";
     }
-}
+    echo "---\n";
+} while(count($rsNotify) > 0);
 
 // Release lock
 fclose($lock_file);
