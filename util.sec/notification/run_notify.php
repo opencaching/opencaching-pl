@@ -51,16 +51,16 @@ $id = 0;
 do{
     $db->multiVariableQuery($rsNotifyQuery, $id);
     $rsNotify = $db->dbResultFetchAll();
-    echo "count: " . count($rsNotify) . "\n";
+    //echo "count: " . count($rsNotify) . "\n";
     foreach ($rsNotify as $rNotify) { 
         $id = $rNotify['id'];
-        /* end send out everything that has to be sent */
-        //if (process_new_cache($rNotify) == 0){
-        //    $db->multiVariableQuery("DELETE FROM `notify_waiting` WHERE `id` =:1", $rNotify['id']);
-        //}
-        echo $rNotify['id'] . "\n";
+        /* send out everything that has to be sent */
+        if (process_new_cache($rNotify) == 0){
+            $db->multiVariableQuery("DELETE FROM `notify_waiting` WHERE `id` =:1", $rNotify['id']);
+        }
+        //echo $rNotify['id'] . "\n";
     }
-    echo "---\n";
+    //echo "---\n";
 } while(count($rsNotify) > 0);
 
 // Release lock
