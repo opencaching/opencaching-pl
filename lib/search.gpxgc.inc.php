@@ -140,12 +140,12 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $gpxArchived[3] = 'True';       //OC: Archived
 
         $gpxContainer[0] = 'Unknown';   //OC: Other
-        $gpxContainer[2] = 'Micro';             //OC: Micro
-        $gpxContainer[3] = 'Small';             //OC: Small
-        $gpxContainer[4] = 'Regular';   //OC: Regular
-        $gpxContainer[5] = 'Large';             //OC: Large
-        $gpxContainer[6] = 'Large';             //OC: Large
-        $gpxContainer[7] = 'Virtual';   //OC: Virtual
+        $gpxContainer[2] = tr('cacheSyze_2');             //OC: Micro
+        $gpxContainer[3] = tr('cacheSyze_3');             //OC: Small
+        $gpxContainer[4] = tr('cacheSyze_4');   //OC: Regular
+        $gpxContainer[5] = tr('cacheSyze_5');             //OC: Large
+        $gpxContainer[6] = tr('cacheSyze_6');             //OC: Large
+        $gpxContainer[7] = tr('cacheSyze_7');   //OC: Virtual
 
         // known by gpx
         $gpxType[1] = 'Unknown Cache';          //OC: Other;
@@ -179,18 +179,18 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $gpxGeocacheTypeText[9] = 'Podcast cache';
 
         $gpxLogType[0] = 'Write note';                  //OC: Other
-        $gpxLogType[1] = 'Found it';                    //OC: Found
-        $gpxLogType[2] = 'Didn\'t find it';             //OC: Not Found
-        $gpxLogType[3] = 'Write note';                  //OC: Note
+        $gpxLogType[1] = tr('logType1');                    //OC: Found
+        $gpxLogType[2] = tr('logType2');             //OC: Not Found
+        $gpxLogType[3] = tr('logType3');                  //OC: Note
         $gpxLogType[4] = 'Write note';                  //OC: Note
-        $gpxLogType[5] = 'Needs Maintenance';                   //OC: Note
+        $gpxLogType[5] = tr('logType5');                   //OC: Note
         $gpxLogType[6] = 'Needs Archived';                      //OC: Other
-        $gpxLogType[7] = 'Attended';                    //OC: Found
-        $gpxLogType[8] = 'Will Attend';         //OC: Not Found
-        $gpxLogType[9] = 'Archive';                     //OC: Note
-        $gpxLogType[10] = 'Enable Listing';                     //OC: Note
-        $gpxLogType[11] = 'Temporarily Disable Listing';                        //OC: Note
-        $gpxLogType[12] = 'Post Reviewer Note';                         //OC: Note
+        $gpxLogType[7] = tr('logType7');                    //OC: Found
+        $gpxLogType[8] = tr('logType8');         //OC: Not Found
+        $gpxLogType[9] = tr('logType9');                     //OC: Note
+        $gpxLogType[10] = tr('logType10');                     //OC: Note
+        $gpxLogType[11] = tr('logType11');                        //OC: Note
+        $gpxLogType[12] = tr('logType12');                         //OC: Note
 
         if( $usr || !$hide_coords )
         {
