@@ -45,7 +45,7 @@ $cacheTypes = $cacheCntainer->getCacheTypes();
 $cacheSizes = $cacheCntainer->getCacheSizes();
 $cacheTypeIcons = $cacheCntainer->getCacheTypeIcons();
 
-while (($rNotify = $db->dbResultFetch()) !== FALSE){
+while (($rNotify = $db->dbResultFetch())){
     /* end send out everything that has to be sent */
     if (process_new_cache($rNotify) == 0){
         $db->multiVariableQuery("DELETE FROM `notify_waiting` WHERE `id` =:1", $rNotify['id']);
