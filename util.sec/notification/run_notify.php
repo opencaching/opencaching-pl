@@ -61,6 +61,7 @@ do{
         //echo $rNotify['id'] . "\n";
     }
     //echo "---\n";
+    sleep(5);
 } while(count($rsNotify) > 0);
 
 // Release lock
