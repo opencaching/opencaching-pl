@@ -38,7 +38,6 @@ $rsNotifyQuery = " SELECT  `notify_waiting`.`id`, `notify_waiting`.`cache_id`, `
               AND `caches`.`user_id`=`user`.`user_id`
 ";
 $db->simpleQuery($rsNotifyQuery);
-$rsNotify = $db->dbResultFetchAll();
 
 /*init caches container*/
 $cacheCntainer = cache::instance();
@@ -46,7 +45,8 @@ $cacheTypes = $cacheCntainer->getCacheTypes();
 $cacheSizes = $cacheCntainer->getCacheSizes();
 $cacheTypeIcons = $cacheCntainer->getCacheTypeIcons();
 
-foreach ($rsNotify as $rNotify) { /* end send out everything that has to be sent */
+while (($rNotify = $db->dbResultFetch()) !== FALSE){
+    /* end send out everything that has to be sent */
     if (process_new_cache($rNotify) == 0){
         $db->multiVariableQuery("DELETE FROM `notify_waiting` WHERE `id` =:1", $rNotify['id']);
     }
