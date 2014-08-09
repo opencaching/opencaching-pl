@@ -84,12 +84,12 @@ function process_new_cache($notify) {
 
     if(!$fehler) {
         $thunderSection = ' (<img src="'.$absolute_server_URI.'tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="9" height="9" border="0" title="'.tr('viewlog_aktywnosc').' ['.$notify['found'].'+'. $notify['dnf'].'+'. $notify['hidden'].']"/>'. ($notify['hidden'] + $notify['found'] + $notify['dnf']) . ') ';
-        $mailbody = mb_ereg_replace('{username}', $notify['recpname'], $mailbody);
+        $mailbody = mb_ereg_replace('{username}', htmlspecialchars($notify['recpname'], ENT_COMPAT, 'UTF-8'), $mailbody);
         $mailbody = mb_ereg_replace('{date}', date($dateFormat, strtotime($notify['date_hidden'])), $mailbody);
         $mailbody = mb_ereg_replace('{cacheid}', $notify['cache_id'], $mailbody);
         $mailbody = mb_ereg_replace('{wp_oc}', $notify['wp_oc'], $mailbody);
-        $mailbody = mb_ereg_replace('{user}', $notify['username'], $mailbody);
-        $mailbody = mb_ereg_replace('{cachename}', $notify['cachename'], $mailbody);
+        $mailbody = mb_ereg_replace('{user}', htmlspecialchars($notify['username'], ENT_COMPAT, 'UTF-8'), $mailbody);
+        $mailbody = mb_ereg_replace('{cachename}', htmlspecialchars($notify['cachename'], ENT_COMPAT, 'UTF-8'), $mailbody);
         $mailbody = mb_ereg_replace('{distance}', round(calcDistance($notify['lat1'], $notify['lon1'], $notify['lat2'], $notify['lon2'], 1), 1), $mailbody);
         $mailbody = mb_ereg_replace('{unit}', 'km', $mailbody);
         $mailbody = mb_ereg_replace('{bearing}', Bearing2Text(calcBearing($notify['lat1'], $notify['lon1'], $notify['lat2'], $notify['lon2'])), $mailbody);
