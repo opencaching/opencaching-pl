@@ -127,6 +127,8 @@ function process_new_cache($notify) {
         } else {
             $mailadr = $notify['email'];
         }
+        header("Content-Type: text/html; charset=utf-8\r\n");
+        echo $mailbody;
         mb_send_mail($mailadr, $subject, $mailbody, $email_headers);
     } else {
         echo "Unbekannter Notification-Typ: " . $notify['type'] . "<br />";
