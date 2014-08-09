@@ -46,6 +46,7 @@ $cacheSizes = $cacheCntainer->getCacheSizes();
 $cacheTypeIcons = $cacheCntainer->getCacheTypeIcons();
 
 do{
+    $db->simpleQuery($rsNotifyQuery);
     $rsNotify = $db->dbResultFetchAll();
     echo "count: " . count($rsNotify) . "\n";
     foreach ($rsNotify as $rNotify) { 
