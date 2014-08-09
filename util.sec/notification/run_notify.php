@@ -47,7 +47,7 @@ $cacheTypeIcons = $cacheCntainer->getCacheTypeIcons();
 
 do{
     $rsNotify = $db->dbResultFetchAll();
-
+    echo "count: " . count($rsNotify) . "\n";
     foreach ($rsNotify as $rNotify) { 
         /* end send out everything that has to be sent */
         //if (process_new_cache($rNotify) == 0){
