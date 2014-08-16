@@ -1833,11 +1833,11 @@ pt104 Nog doen
 pt105 Er zijn nog geen statistieken voor deze PowerTrail
 pt106 Cache grootte
 pt107 Cache soort
-pt108 traditioneel
-pt109 multi
-pt110 puzzel
-pt111 overige
-pt112 onbekend
+pt108 traditionele cache
+pt109 multi cache
+pt110 puzzel cache
+pt111 obekende cache
+pt112 overige cache
 pt113 micro
 pt114 klein
 pt115 normaal
@@ -1928,10 +1928,10 @@ pt199 Informatie:
 pt200 De cache kan niet uit de PowerTrail verwijderd worden (de toewijzing van deze cache in PowerTrail is voltooid, de cache kan eventueel gearchiveerd worden maar niet uit de PowerTrail verwiderd worden).
 pt201 niet actief
 pt202 negeren
-pt203 zelf gemaakt
-pt204 gevolgt
-pt205 gemaakt
-pt206 voeg volgende caches toe in GPX
+pt203 gemaakte
+pt204 gevolgde
+pt205 gevonden
+pt206 Voeg volgende caches toe in GPX
 pt207 GPX filter
 pt208 Beheer PowerTrails
 pt209 Selecteer
@@ -1940,8 +1940,8 @@ pt211 Let op! Het verwijderen van deze cache uit de PowerTrail zal ook gevolgen 
 pt212 Gesloten
 pt213 PowerTrail openen
 pt214 PowerTrail is beschikbaar
-pt215 PowerTrail is verwijderd
-pt216 PowerTrail onderhoud
+pt215 PowerTrail is beschikbaar
+pt216 PowerTrail in onderhoud
 pt217 PowerTrail is tijdelijk niet actief
 pt218 PowerTrail is verwijderd
 pt219 Onderhoud
