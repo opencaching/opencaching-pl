@@ -1743,7 +1743,7 @@ pt014 uit deze cache serie gevonden
 pt015 Voortgang van deze PowerTrail
 pt016 van
 pt017 je hebt
-pt018 De PowerTrail in niet zichtbaar (nog niet gepubliceerd, onderhoud, enz)
+pt018 De PowerTrail is niet zichtbaar (nog niet gepubliceerd, onderhoud, enz)
 pt019 Eigenschappen PowerTrail
 pt020 Caches in PowerTrail
 pt021 Mijn statistieken van
@@ -1807,7 +1807,7 @@ pt078 Waardering
 pt079 Thema
 pt080 Sla nieuwe PowerTrail op
 pt081 PowerTrail moet een naam hebben
-pt082 Er zijn nog geen caches in deze serie
+pt082 Er zijn nog geen caches in deze PowerTrail
 pt083 Ongewaardeerd
 pt084 Geen caches aanwezig
 pt085 Totalen
@@ -1819,7 +1819,7 @@ pt090 De soort van de PowerTrail. <b>Vorm op kaart:</b> Bijvoorbeeld interesante
 pt091 Verander de naam
 pt092 Voor testdoeleinden alleen beschikbaar voor geselecteerde gebruikers. Verbeteringen doorgeven via rt of Skype
 pt093 Voltooide PowerTrails
-pt094 Deze cache maakt deel uit van de serie
+pt094 Deze cache maakt deel uit van PowerTrail
 pt095 Naam cacher
 pt096 Gevonden uit PowerTrail
 pt097 Percentage gevonden
@@ -1830,7 +1830,7 @@ pt101 Cache dagen
 pt102 Caches per dag
 pt103 Gevonden
 pt104 Nog doen
-pt105 Er zijn nog geen statistieken voor deze serie
+pt105 Er zijn nog geen statistieken voor deze PowerTrail
 pt106 Cache grootte
 pt107 Cache soort
 pt108 traditioneel
@@ -1939,8 +1939,8 @@ pt210 Verwijderen van cache
 pt211 Let op! Het verwijderen van deze cache uit de PowerTrail zal ook gevolgen hebben voor de punten van deze PowerTrail wanneer deze gevonden is. Kijk eerst of er een andere oplossing te vinden is. (Eventueel is het archiveren een optie).
 pt212 Gesloten
 pt213 PowerTrail openen
-pt214 PowerTrail verwijderen
-pt215 PowerTrail is beschikbaar
+pt214 PowerTrail is beschikbaar
+pt215 PowerTrail is verwijderd
 pt216 PowerTrail onderhoud
 pt217 PowerTrail is tijdelijk niet actief
 pt218 PowerTrail is verwijderd
