@@ -139,13 +139,14 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $gpxArchived[2] = 'False';      //OC: Unavailable
         $gpxArchived[3] = 'True';       //OC: Archived
 
+        // Should not be translated -> see http://forum.opencaching.pl/viewtopic.php?p=121737#p121737
         $gpxContainer[0] = 'Unknown';   //OC: Other
-        $gpxContainer[2] = tr('cacheSyze_2');             //OC: Micro
-        $gpxContainer[3] = tr('cacheSyze_3');             //OC: Small
-        $gpxContainer[4] = tr('cacheSyze_4');   //OC: Regular
-        $gpxContainer[5] = tr('cacheSyze_5');             //OC: Large
-        $gpxContainer[6] = tr('cacheSyze_6');             //OC: Large
-        $gpxContainer[7] = tr('cacheSyze_7');   //OC: Virtual
+        $gpxContainer[2] = 'Micro';             //OC: Micro
+        $gpxContainer[3] = 'Small';             //OC: Small
+        $gpxContainer[4] = 'Regular';   //OC: Regular
+        $gpxContainer[5] = 'Large';             //OC: Large
+        $gpxContainer[6] = 'Large';             //OC: Large
+        $gpxContainer[7] = 'Virtual';   //OC: Virtual
 
         // known by gpx
         $gpxType[1] = 'Unknown Cache';          //OC: Other;
