@@ -179,19 +179,19 @@ $gpxWaypoints = '<wpt lat="{wp_lat}" lon="{wp_lon}">
         $gpxGeocacheTypeText[8] = 'Moving Cache';
         $gpxGeocacheTypeText[9] = 'Podcast cache';
 
+        // Should not be translated
         $gpxLogType[0] = 'Write note';                  //OC: Other
-        $gpxLogType[1] = tr('logType1');                    //OC: Found
-        $gpxLogType[2] = tr('logType2');             //OC: Not Found
-        $gpxLogType[3] = tr('logType3');                  //OC: Note
+        $gpxLogType[1] = 'Found it';                    //OC: Found
+        $gpxLogType[2] = 'Didn\'t find it';             //OC: Not Found
+        $gpxLogType[3] = 'Write note';                  //OC: Note
         $gpxLogType[4] = 'Write note';                  //OC: Note
-        $gpxLogType[5] = tr('logType5');                   //OC: Note
+        $gpxLogType[5] = 'Needs Maintenance';                   //OC: Note
         $gpxLogType[6] = 'Needs Archived';                      //OC: Other
-        $gpxLogType[7] = tr('logType7');                    //OC: Found
-        $gpxLogType[8] = tr('logType8');         //OC: Not Found
-        $gpxLogType[9] = tr('logType9');                     //OC: Note
-        $gpxLogType[10] = tr('logType10');                     //OC: Note
-        $gpxLogType[11] = tr('logType11');                        //OC: Note
-        $gpxLogType[12] = tr('logType12');                         //OC: Note
+        $gpxLogType[7] = 'Attended';                    //OC: Found
+        $gpxLogType[8] = 'Will Attend';         //OC: Not Found
+        $gpxLogType[9] = 'Archive';                     //OC: Note
+        $gpxLogType[10] = 'Enable Listing';                     //OC: Note
+        $gpxLogType[11] = 'Temporarily Disable Listing';                        //OC: Note
 
         if( $usr || !$hide_coords )
         {
