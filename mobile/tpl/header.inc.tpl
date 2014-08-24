@@ -7,7 +7,7 @@
     <meta name="description" content="Geocaching Opencaching Polska"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="pl" />
-    <title>Opencaching PL Mobile - {$pagename}</title>
+    <title>{$site_name} Mobile - {$pagename}</title>
     <meta name="HandheldFriendly" content="true" />
     <meta name="Viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <link rel="stylesheet" type="text/css" href="../lib/style.css" />
