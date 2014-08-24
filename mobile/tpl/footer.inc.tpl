@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="footertitle">m.Opencaching.pl</div>
+        <div class="footertitle">m.{$site_name}</div>
 
         <table class="tablefooter">
             <tr>

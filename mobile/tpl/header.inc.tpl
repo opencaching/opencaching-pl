@@ -20,7 +20,7 @@
     <div id="header">
 
         <div id="logo" class="headertitle">
-            <a href="./index.php" ><img alt="" src="../images/oc_logo.gif"/>m.Opencaching.pl</a>
+            <a href="./index.php" ><img alt="" src="../images/oc_logo.gif"/>m.{$site_name}</a>
         </div>
 
         <div id="login_nav" class="button">
