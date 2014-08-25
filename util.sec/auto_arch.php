@@ -10,12 +10,12 @@ require_once($rootpath.'lib/common.inc.php');
 
 
 /* begin with some constants */
-
-    $sDateformat = 'Y-m-d H:i:s';
+$sDateformat = 'Y-m-d H:i:s';
 
 /* end with some constants */
-
 $STEP = array("START" => 0, "AFTER_FIRST_MAIL_SENT" => 1,"AFTER_SECOND_MAIL_SENT" => 2, "ARCH_COMPLETE" => 3);
+
+
 class AutoArch
 {
 

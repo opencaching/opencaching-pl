@@ -1,6 +1,10 @@
 <?php
 
-class cCorection
+/**
+ * class is used for correct coordinates of geopath center point. (point used to represent geoPtah
+ * location on map.
+ */
+class powerTrail_cCorection
 {
 	private $userId = 0;
 	private $cacheId = 0;
@@ -11,13 +15,12 @@ class cCorection
 
 	public function __construct($params)
 	{
-		$this->latitude = $params['latitude'];
-		$this->longitude = $params['longitude'];
-		$this->userId = $params['userId'];
-		$this->cacheType = $params['cacheType'];
-		$this->cacheId = $params['cacheId'];
-
-		$userrCollection = new UserCollection();
+        $this->latitude = (float) $params['latitude'];
+		$this->longitude = (float) $params['longitude'];
+		$this->userId = (int) $_SESSION['user_id'];
+		$this->cacheType = (int) $params['type'];
+		$this->cacheId = (int) $params['cache_id'];
+		$userrCollection = UserCollection::Instance();
 		$this->userArray = $userrCollection->getUserCollection();
 		$this->process();
 	}

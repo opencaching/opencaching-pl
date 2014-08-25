@@ -150,7 +150,6 @@ if ($error == false) {
         // PowerTrails stats
 
         if ($powerTrailModuleSwitchOn) {
-
             $content .= '<div class="content2-container bg-blue02">
                             <p class="content-title-noshade-size1">
                             <img src="tpl/stdstyle/images/blue/powerTrailGenericLogo.png" width="33" class="icon32" alt="geoPaths" title="geoPaths" />&nbsp'.tr('pt001').'</div>';
@@ -747,15 +746,17 @@ tpl_BuildTemplate();
  * generate html string displaying geoPaths completed by user (power trail) medals
  * @author Andrzej Łza Woźniak, 2013-11-23
  */
-function getPowerTrailsCompletedByUser($userId){
+function getPowerTrailsCompletedByUser($userId)
+{
+    $ptTypes = powerTrailBase::getPowerTrailTypes();
     $ptCompletedList = powerTrailBase::getPowerTrailsCompletedByUser($userId);
     // var_dump($ptCompletedList);
     $result = '<table width="100%"><tr><td>';
     foreach ($ptCompletedList as $pt) {
         if($pt['image'] == '') $pt['image'] = 'tpl/stdstyle/images/blue/powerTrailGenericLogo.png';
-        $result .= '<div class="ptMedal ptType'.$pt['type'].'"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td valign="center" align="center"><a title="'.$pt['name'].'" href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'"><img class="imgPtMedal" src="'.$pt['image'].'"></a></td></tr></table></div><div class="ptMedalSpacer"></div>';
+        $result .= '<div class="ptMedal"><table style="padding-top: 7px;" align="center" height="51" width="51"><tr><td width=52 height=52 valign="center" align="center"><a title="'.$pt['name'].'" href="powerTrail.php?ptAction=showSerie&ptrail='.$pt['id'].'"><img class="imgPtMedal" src="'.$pt['image'].'"></a></td></tr><tr><td align="center"><img src="'.$ptTypes[$pt["type"]]['icon'].'" /></td></tr></table></div><div class="ptMedalSpacer"></div>';
     }
-    return $result.'</td></tr><tr><td></td></tr></table>';
+    return $result.'</td></tr><tr><td></td></tr></table><br /><br />';
 }
 
 function myUrlEncode($string) {
