@@ -1846,7 +1846,7 @@ pt117 extra groot
 pt118 Er zijn nog geen logs
 pt119 Aantal cachers die al meedoen
 pt120 Aantal cachers die serie hebben voltooid
-pt121 Gemiddelde aantal dagen om te voltooien
+pt121 Geschatte aantal dagen om te voltooien
 pt122 Andere gegevens
 pt123 Aantal
 pt124 <b>Uitleg:</b> Het vereist minimum (percentage) gevonden caches die door de maker is ingesteld om deze PowerTrail te kunnen loggen.
@@ -1937,13 +1937,13 @@ pt208 Beheer PowerTrails
 pt209 Selecteer
 pt210 Verwijderen van cache
 pt211 Let op! Het verwijderen van deze cache uit de PowerTrail zal ook gevolgen hebben voor de punten van deze PowerTrail wanneer deze gevonden is. Kijk eerst of er een andere oplossing te vinden is. (Eventueel is het archiveren een optie).
-pt212 Gesloten
+pt212 Gearchiveerd
 pt213 PowerTrail openen
 pt214 PowerTrail is beschikbaar
 pt215 PowerTrail is beschikbaar
 pt216 PowerTrail in onderhoud
 pt217 PowerTrail is tijdelijk niet actief
-pt218 PowerTrail is verwijderd
+pt218 PowerTrail is gearchiveerd
 pt219 Onderhoud
 pt220 Reden van status verandering
 pt221 Status veranderen
@@ -1964,7 +1964,7 @@ pt235 Gebruiker zal PowerTail notificaties ontvangen
 statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
-cog_user_name Dienst Cache Beheer
+cog_user_name OC-Team
 region_01 Regio via opgegeven coördinaten:
 region_02 Land
 region_03 Provincie gevonden via {site_name}
@@ -2066,7 +2066,7 @@ mywatches_map_02 op
 weather Het weer
 vl_Recently_modified_on Laatst bewerkt op
 vl_by_user door gebruiker
-vl_by_COG door Dienst Cache Beheer
+vl_by_COG door  OC-Team
 vl_totally_modified Aantal keren bewerkt
 vl_count_plural keren
 vl_count_singular keer
@@ -2356,7 +2356,7 @@ viewPending_07 Deze is aan
 viewPending_08 toegewezen
 viewPending_09 De cache is goedgekeurd. De eigenaar is op de hoogte gebracht
 viewPending_10 Was de goedgekeurde cache. Er is geen verandering gemaakt
-viewPending_11 De cache is afgekeurd.De eigenaar is op de hoogte gebracht
+viewPending_11 De cache is afgekeurd. De eigenaar is op de hoogte gebracht
 viewPending_12 Was de afgoedgekeurde cache. Er is geen verandering gemaakt
 viewPending_13 Hier kan de cache <b>goedgekeurd</b> worden
 viewPending_14 van gebruiker
@@ -2392,9 +2392,9 @@ autoArchive_01 Hallo
 autoArchive_02 Jouw cache
 autoArchive_03 staat al 4 maanden op "Tijdelijk niet beschikbaar"
 autoArchive_04 Als er niets mee gedaan wordt, overweeg dan om te archiveren
-autoArchive_05 Over 2 maanden zal deze cache automatich gearchiveerd worden
+autoArchive_05 Over 2 maanden zal deze cache automatisch gearchiveerd worden
 autoArchive_06 staat al 5 maanden op "Tijdelijk niet beschikbaar"
-autoArchive_07 Over 1 maand zal deze cache automatich gearchiveerd worden
+autoArchive_07 Over 1 maand zal deze cache automatisch gearchiveerd worden
 autoArchive_08 staat al 6 maanden op "Tijdelijk niet beschikbaar"
 autoArchive_09 Deze cache is automatisch gearchiveerd
 autoArchive_10 De nodige informatie is toegevoegd in de log
@@ -2403,7 +2403,7 @@ autoArchive_12 Automatische archivering, na 6 maanden van "Tijdelijk niet beschi
 rrActivateCache_01 Hallo
 rrActivateCache_02 Gebruiker
 rrActivateCache_03 maakte cache
-rrActivateCache_04 die gekeurt moet worden door het OC Team voordat deze gepubliceerd wordt
+rrActivateCache_04 die gekeurd moet worden door het OC Team voordat deze gepubliceerd wordt
 rrActivateCache_05 Om deze cache te keuren, ga dan naar
 rrActivateCache_06 en selecteer "goedkeuren" of "afkeuren"
 rrActivateCache_07 Nieuwe cache te keuren
@@ -2419,7 +2419,7 @@ ocTeamComment_05 Commentaar van het OC Team
 SearchByPlace_01 Gevonden plaatsen
 SearchByPlace_02 De opgegeven plaats lijkt te voldoen aan opgevraagde plaats(en). Kies een plaats uit de lijst
 GarminZip_01 Collectie
-GarminZip_02 Er is ZIP bestand opgevraagt van een GPX met <b><u>afbeeldingen</u></b> van {zip_total_cache_count} caches.<br/> Door de beperking van de server en de bestandsgrootte met afbeeldingen is een bestand beperkt tot {zip_max_count} caches.<br/> De opgevraagde inhoud is onderverdeeld in kleinere zip bestanden, de links zijn hieronder weergegeven
+GarminZip_02 Er is ZIP bestand opgevraagd van een GPX met <b><u>afbeeldingen</u></b> van {zip_total_cache_count} caches.<br/> Door de beperking van de server en de bestandsgrootte met afbeeldingen is een bestand beperkt tot {zip_max_count} caches.<br/> De opgevraagde inhoud is onderverdeeld in kleinere zip bestanden, de links zijn hieronder weergegeven
 GarminZip_03 De beperking van {zip_max_count} caches per zip bestand is experimenteel en kan mischien nog verhoogt worden
 GarminZip_04 Volg de onderstaande stappen om de caches in de GPS te plaatsen
 GarminZip_05 Download alle bovenstaande zip bestanden
