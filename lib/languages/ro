@@ -2396,9 +2396,28 @@ autoArchive_10 Informaţii în acest sens au fost adăugate în jurnal
 autoArchive_11 Geocutie arhivată automat
 autoArchive_12 Arhivare automată - după 6 luni ca "Indisponibilă temporar"
 rrActivateCache_01 Bună
-rrActivateCache_02 Utilizator
+rrActivateCache_02 Utilizatorul
 rrActivateCache_03 A creat o geocutie
-rrActivateCache_04 care trebuie verificată de OC Team înainte de a fi pulicată
+rrActivateCache_04 care trebuie verificată de OC-Team înainte de a fi pulicată
 rrActivateCache_05 Pentru a aproba această geocutie, mergi la
 rrActivateCache_06 şi alege "Aprobă" sau "Respinge"
 rrActivateCache_07 Geocutie nouă de aprobat
+newNewsTopic_01 Bună
+newNewsTopic_02 Există ştiri noi spre publicare
+newNewsTopic_03 Adresa E-Mail a expeditorului
+newNewsTopic_04 Data
+ocTeamComment_01 Bună
+ocTeamComment_02 La geocutia ta
+ocTeamComment_03 a fost postat un comentariu din partea echipei OC-Team
+ocTeamComment_04 Te rog citeşte comentariile şi sugestiile
+ocTeamComment_05 Comentariul din partea OC-Team este
+SearchByPlace_01 Locuri găsite
+SearchByPlace_02 Criteriul de căutare a dat rezultate neconcludente. Te rog alege din listă
+GarminZip_01 Colecţie
+GarminZip_02 You are trying to download a ZIP file. Containing the data as GPX with <b><u>pictures</u></b> for {zip_total_cache_count} caches.<br/> Unfortunately, due to the limitation of the server and the alleged dispute file size, in one package ZIP pictures can be contain up to {zip_max_count} caches.<br/> The requested content is divided into several smaller zip files, links to which are below
+GarminZip_03 Limitation of {zip_max_count} cases in a single file is experimental and may be increased
+GarminZip_04 Urmează instrucţiunile de mai jos pentru a încărca geocutiile în GPS-ul tău
+GarminZip_05 Descarcă toate fişierele ZIP de mai sus
+GarminZip_06 Conectează GPS-ul Garmin Montana / Oregon / Dakota / 62/78 / eTrex prin cablu
+GarminZip_07 <b>Dezarhivează</b> toate fişierele şi copiază-le în <b>rădăcina</b> dispozitivului GPS
+GarminZip_08 Notă: trebuie să ai un dispozitiv compatibil (vezi lista de mai jos) cu firmware la zi (numărul din paranteză). Dacă nu vezi pozele, actualizează-ţi software-ul dispozitivului. Pentru mai multe informaţii, vezi
