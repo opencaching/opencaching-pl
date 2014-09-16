@@ -764,7 +764,7 @@ if ($error == false)
                 foreach ($cache_types as $type)
                 {
                     // blockforbiden cache types
-                    if( (in_array($cache_type, $config['forbidenCacheTypes']) || in_array($type['id'], $config['forbidenCacheTypes']) )  && !$usr['admin'] ) {
+                    if( ($type['id'] != $cache_type) && in_array($type['id'], $config['forbidenCacheTypes']) && !$usr['admin'] ) {
                         continue;
                     }
                     if(isset($config['cacheLimitByTypePerUser'][$cache_type]) && $cacheLimitByTypePerUser[$cache_type] >= $config['cacheLimitByTypePerUser'][$cache_type] && !$usr['admin']){
