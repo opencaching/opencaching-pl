@@ -134,7 +134,7 @@ what_is_geocaching Geocaching. Ce înseamnă?
 registration Înregistrare
 news Noutăţi
 new_caches Geocutii noi
-new_cache Ascunde o geocutie
+new_cache Ascunde geocutia*
 abroad_poland În afara României
 recommended_caches Geocutii recomandate
 new_logs Ultimele însemnări
@@ -172,7 +172,7 @@ remove_desc Şterge descrierea
 search_loc Caută un loc
 search_results Rezultatele căutării
 show_log Citeşte însemnarea
-store_queries Salvează căutările
+store_queries Salvează căutarea
 cache_recommendation Recomandă o geocutie
 login Intră în cont
 logout Deconectează-te
@@ -203,7 +203,7 @@ impressum Despre
 user Utilizator
 password Parolă
 logged_as Conectat ca
-coords_other Diferite sisteme de coordonate
+coords_other Alte sisteme de coordonate
 size Mărime
 time Timpul necesar
 length Distanţa de parcurs
@@ -237,7 +237,7 @@ task_difficulty Dificultate
 out_of din
 list_of_participants Lista participanţilor
 show_recommended Arată recomandările
-show_all arată totul
+show_all arată toate
 no_choice Selectia nu este disponibilă **
 username_incorrect Utilizator greşit.
 username_exists Acest nume de utilizator deja există.
@@ -285,7 +285,7 @@ user_new_log_entries Ultimele însemnări
 your_caches_new_log_entries Ultimele însemnări ale geocutiilor tale
 your_latest_hiddens Geocutiile tale recent ascunse
 number_of_your_hiddens Numărul geocutiilor ascunse de tine
-not_yet_published Geocutiile mele nu au fost publicate încă
+not_yet_published Geocutii proprii care nu au fost publicate încă
 emails_sent_label Mesaje trimise
 user_profile Profilul utilizatorului
 no_userprofile Profilul utilizatorului nu poate fi afişat, deoarece utilizatorul nu a fost găsit în baza de date.
@@ -304,7 +304,7 @@ first_cache Dacă este prima oară când ascunzi o geocutie, mai întâi citeşt
 first_cache_approvement Deoarece aceasta este una dintre primele trei geocutii ascunse de tine, pagina geocutiei va putea fi văzută şi de ceilalţi după ce a fost aprobată de Echipa Opencaching.
 all_cache_approvement Geocutia va fi vizibilă pentru ceilalţi după aprobarea Echipei OC
 name_label Nume
-cache_type Tip de geocutie
+cache_type Tip geocutie
 cache_size Dimensiune
 in_wgs84_system in sistemul WGS-84
 difficulty_level Dificultate
@@ -361,8 +361,8 @@ no_password_label Nu completa dacă nu vrei să foloseşti o parolă
 please_read Citeşte <a href="{cache_params_url}" target="_blank">informaţii despre însemnări cu parolă!</a>
 creating_cache Publicând o geocutie nouă accepţi <a href="{rules_url}" target="_blank">Condiţiile de Utilizare</a> a {site_name}.
 with_all_consequences cu toate conecinţele.
-cache_name numele geocutiei
-distance_label distanţa
+cache_name Nume
+distance_label Distanţă
 omit_caches Omite geocutiile
 of_owner proprietarului
 not_active inactive
@@ -383,7 +383,7 @@ text Text
 logs_label însemnări
 pictures fotografii
 search_by_owner Caută după proprietarul geocutiei
-owner_label Proprietar geocutie
+owner_label Proprietar
 finder_label Găsitor
 search_by_finder Caută după găsitori
 search_recommendations Recomandări
@@ -459,7 +459,7 @@ register_msg5 Contul a fost creat
 register_msg6 Codul de activare a fost trimis prin e-mail. Urmează instrucţiunile.
 register_msg7 Utilizatorii care au ascuns sau au găsit cel puţin o geocutie - nu pot fi şterşi. Cu toate acestea, este posibil ca astfel de conturi sa fie dezactivate. Toate datele tale personale vor fi şterse (inclusiv adresa ta de e-mail), dar numele de utilizator va fi păstrat. Dacă vrei să îţi dezactivezi contul contactează-ne la ocpl@opencaching.pl.
 total_distance Distanţă totală
-send_to_gps Trimite un punct către receptorul GPS
+send_to_gps Trimite punct către receptorul GPS
 post_new_log Posteză o nouă însemnare cu referire la
 type_of_log Tipul postării
 date_logged Dată
@@ -495,7 +495,7 @@ error_usernotactive Contul tău nu este activat.<br />Îl poţi activa <a href=a
 not_registered Nu te-ai înregistrat? <a href="register.php">Înregistrare</a>
 forgotten_your_password Ţi-ai uitat parola? <a href="newpw.php">Aminteşte-mi</a>
 cache_logged_required Trebuie să fii conectat pentru a putea vedea mai multe.
-basic_information Informţii de bază.
+basic_information Informaţii de bază.
 rating_poor foarte slabă
 rating_mediocre slăbuţă
 rating_avarage mediocră
@@ -512,7 +512,7 @@ latest_logs Ultimele însemnări
 abroad_caches În afara ţării
 hidden_by ascunsă de
 newcaches_label Geocutii noi
-cache_label numele geocutiei
+cache_label Nume
 found_it găsită de
 did_not_find_it negăsită de
 write_note scrie o notă
@@ -530,12 +530,12 @@ browse_problem_reports Afişează rapoartele cu probleme
 no_hidden_caches Încă nu există geocutii ascunse
 no_log_entries Încă nu există însemnări
 your_newest_log_entries Ultimele tale însemnări
-location Locaţie
+location Localizare
 stat_picture Imagine cu statistici
 show_in_google_maps Arată pe Google Maps
 download_for_various_apps Descarcă pentru diverse aplicaţii
 download Descarcă
-listing_from_to Listing de la {startatp1} până la {endat}
+listing_from_to Rezultatele de la {startatp1} până la {endat}
 toggle_filters Schimbă filtrele
 fullscreen Pe tot ecranul
 disable_fullscreen Anulează afişarea pe tot ecranul
@@ -573,8 +573,8 @@ geocaching_com_foto_info Nu folosi poze de pe geocaching.com decât dacă eşti 
 extra_coded_info Informaţii suplimentare(codate)
 statistics_users Statisticile utilizatorilor
 general_stat Statistici generale
-graph_created Grafic al geocutiilor ascunse***
-graph_find Grafic al geocutiilor găsite **
+graph_created Grafic al geocutiilor ascunse
+graph_find Grafic al geocutiilor găsite
 there_is_no_caches_registered Nu există geocutii
 there_is_no_caches_found Nu există geocutii găsite
 with_password Geocutie cu parolă
@@ -594,14 +594,14 @@ recommendation_rating Arată clasamentul geocutiilor calculat după o formulă d
 show_statictics_cache Arată clasamentul geocutiilor
 not_stat_cache Această geocutie nu are statistici
 recommended_by Această geocutie este recomandată de
-listing_from_this_page Listing for this page ***
+listing_from_this_page Rezultatele din această pagină
 show_on_map arată pe hartă
 list_of_events_is_empty Nu există evenimente planificate în viitorul apropiat
 stat_number_found Clasamentul găsirilor
 total_number_found_caches Numărul de geocutii găsite
 total_dnf_caches Numărul de geocutii negăsite (însemnări de tip "Nu am găsit-o")
 total_comments Număr de observaţii/comentarii
-total_attended_events Număr de evenimente la care ai participat *
+total_attended_events Număr de evenimente la care a participat
 number_recommendations_given Număr de recomandări date
 number_found_caches Numărul de geocutii găsite
 shared_place Shared place **
@@ -619,7 +619,7 @@ stat_created_caches Clasamentele geocutiilor ascunse
 not_caches_created  Utilizatorul încă nu a ascuns nici o geocutie
 total_owned_caches Numărul de geocutii ascunse
 # translation warning: the above string should be: Number of caches owned, not Number of caches hidden
-total_owned_caches_adopted - including adopted
+total_owned_caches_adopted - inclusiv cele adoptate
 total_created_caches Number of caches created by the user
 total_created_caches_adopted - including given to adoption
 number_temp_caches Numărul de geocutii marcate "indisponibilă temporar"
@@ -631,7 +631,7 @@ _caches_ geocutii
 ratio_recommendations Raport geocutii recomandate/total
 number_gk_in_caches Numărul de GeoKrety dgeocutii
 latest_created_cache Ultimele geocutii ascunse
-latest_logs_in_caches Ultimele însemnări la geocutiile tale
+latest_logs_in_caches Ultimele însemnări la geocutiile proprii
 caches_waiting_approve Geocutii care aşteaptă aprobarea Echipei OC
 caches_blocked Geocutii blocate de Echipa OC
 blocked_create_caches Nu mai poţi adăuga geocutii noi. Contactează Echipa OC rr@opencaching.pl
@@ -639,13 +639,13 @@ npa_info Probabil că această geocutie este ascunsă într-o rezervaţie natura
 check_nearby_caches_info Înainte să ascunzi geocutia, asigură-te că nu există alte geocutii pe o raza de 50m
 check_nearby_caches Caută geocutii din apropiere pe OCRO
 check_nearby_caches_map Caută geocutii în apropiere pe map&nbsp;&nbsp;&nbsp;
-my_caches_status Geocutiile mele cu status **
-active Activă
-temp_unavailable Indisponibilă
-archived Arhivată
-not_published Nepublicată
+my_caches_status Geocutiile mele în starea
+active Active
+temp_unavailable Indisponibile
+archived Arhivate
+not_published Nepublicate
 for_approval Pentru aprobare
-blocked Blocată
+blocked Blocate
 my_caches Geocutiile mele
 region Regiune
 number_of_caches_by_region Număr de geocutii după regiune
@@ -656,7 +656,7 @@ show_labels Arată etichetele
 history_gk Înregistrări de GeoKrety
 cache_notes Notiţe
 my_statistics Statisticile mele
-Field_Notes Field notes
+Field_Notes Însemnări din teren*
 mycache_note Notiţele geocutiei mele
 personal_cache_note Notiţă personală la geocutie
 cache_note_visible Notiţele nu pot fi văzute de ceilalţi utilizatori. Vor fi incluse în fişierele GPX pe care le descarci.
@@ -738,7 +738,7 @@ send_report Trimite raport
 password_to_log Parola pentru a te loga
 incorrect_password_to_log Parolă greşită
 only_for_found_it doar pentru geocutii de tip "găsită"
-store Scrie*
+store Salvează
 here Aici
 alternative_recommend Alternative you can remove recommendations
 comment_log Comentează
@@ -814,15 +814,15 @@ octeam_comment_subject [OC] Comenariul Echipei OC
 octeam_comment_subject_copy Copie după e-mailul cu comentariul Echipei OC adăugat de **
 list_of_latest_logs_is_empty Nu există însemnări noi
 list_of_caches_is_empty Nu există geocutii noi în zona menţionată
-online_users Utilizatori înregistrţi online
-online_users_info bazată pe utilizatorii activi din ultimele 10 minute **
+online_users Utilizatori înregistraţi online
+online_users_info bazată pe utilizatorii activi din ultimele 10 minute
 empty_entry_notice <b>Log Etiquette:</b> Însemnările nu pot fi goale. Chiar şi un simplu "Mulţumesc" este de ajuns!
 empty_entry_confirm Chiar vrei să adaugi o însemnare goală?
 empty_mark Chiar nu vrei să marchezi această geocutie ?
-where_i_am Unde sunt
+where_i_am Unde mă aflu
 read_info_about_cache_types Citeşte informaţiile despre <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
 regiononly Zonă
-region_from_coord Zonă de la coordonate **
+region_from_coord Detectează zona folosind coordonatele
 select_regions Alege o zonă
 not_applicable Nu se aplică
 input_coord Adaugă coordonatele geocutiei
@@ -873,14 +873,14 @@ show_list Arată lista de geocutii
 logs_cache_gpx Numărul însemnărilor pentru fiecare geocutie din GPX
 min_logs_cache Numărul minim de însemnări
 marked_grey_search_area Caută zona marcată cu gri
-lastlogins Ultima logare
+lastlogins Ultima conectare
 this_month în ultimele 30 de zile
 more_one_month între 1 şi 6 luni
 more_six_month între 6 şi 12 luni
 more_12_month peste 12 luni
 unknown necunoscut **
 user_not_active contul utilizatorului nu este activ
-distance_to_cache Distanţă până la geocutie
+distance_to_cache Distanţa până la geocutie
 cacheguides Ghiduri în Geocaching-ului **
 guide Ghid
 guides Ghiduri
@@ -1036,9 +1036,9 @@ adopt_00 Adopţie geocutii
 adopt_01 Aici îţi poţi da geocutiile spre adopţie. Alege una din listă:
 adopt_02 Numele geocutiei
 adopt_03 Data ascunderii
-adopt_04 Această geocutie este dată spre adopţie:
-adopt_05 Introdu numele utilizatorului căruia îi dai geocutia. Procedura se încheie atunci când utilizatorul confirmă.<br/>Cancel the adoption and return to <a href='chowner.php'> "Cache adoption" </a>.
-adopt_06 PS! Cererea de adopţie rămâne valabilă până când noul proprietar face ceva.
+adopt_04 Această geocutie va fi dată spre adopţie:
+adopt_05 Introdu numele utilizatorului căruia îi dai geocutia. Procedura se încheie atunci când utilizatorul confirmă.<br/>Renunţă la această adopţie şi revin-o la <a href='chowner.php'> "Adopţie geocutii" </a>.
+adopt_06 ATENŢIE!!! Cererea de adopţie rămâne valabilă până când noul proprietar face ceva.
 adopt_07 Introdu numele noului proprietar:
 adopt_08 Schimbă proprietarul
 adopt_09 Anulează transferul
@@ -1069,7 +1069,7 @@ mycache_notes Pentru informaţii despre notiţe, vezi
 user_activity01 Activitate utilizator
 user_activity02 Activitate utilizator - total (găsite + negăsite + proprii)
 type Tip
-logs_info ultimele însemnări
+logs_info Ultimele însemnări
 recomm_short R
 select Selectează
 report_01 Anunţă o problemă la o geocutie:
