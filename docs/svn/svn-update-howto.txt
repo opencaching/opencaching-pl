@@ -1,19 +1,19 @@
 How to set up automatic updates via SVN commit
 ==============================================
 
-This document explains how an OPENCACHING-PL node administrator can
-set up his server to perform automatic updates of OPENCACHING-PL tree via
+This document explains how an *OCPL branch* node administrator can
+set up his server to perform automatic updates of *OCPL branch* tree via
 SVN upon each commit to the repository.
 
-This guide takes into account the fact that all OPENCACHING-PL files are
-owner by a specific UNIX user and this ownership is important because that
+This guide takes into account the fact that all *OCPL branch* files are
+owned by a specific UNIX user and this ownership is important because that
 user may also access the tree via FTP or other means.
 Proper ownership and permissions must be ensured by both SVN updates and
 the configuration of FTP or other means of access.
 SVN updates will have proper ownership following this guide.
 
 Existing nodes that do not whish to change root ownership of files in
-OPENCACHING-PL tree to another designated user should skip steps 1-2 and
+*OCPL branch* tree to another designated user should skip steps 1-2 and
 keep their current setup.
 If they whish to log updates, install this version of ocpl-update.sh having
 commented out the variable SUDO_CMD
@@ -21,23 +21,23 @@ commented out the variable SUDO_CMD
 Preparation
 ------------
 
-1. Create user to own OPENCACHING-PL files under tree
+1. Create user to own *OCPL branch* files under tree
    This user must have as primary group the same group as the user of the
    web server (usually apache). Other group memberships are your decision.
 
    For the rest of this guide let's assume this user is called oc_xx and it
    is member of group apache.
 
-2. Go to your OPENCACHING-PL tree root
+2. Go to your *OCPL branch* tree root
    (ex. cd /var/www/oc_xx)
    run this command:
    find . -exec chown oc_xx.apache {} \;
    (all files now have the proper ownership)
 
-3. Create a directory to hold administrative scripts outside the OPENCACHING-PL tree.
+3. Create a directory to hold administrative scripts outside the *OCPL branch* tree.
    /path/to/oc_admin
 
-4. Look in the OPENCACHING-PL tree under docs/svn for ocpl-update.sh script
+4. Look in the *OCPL branch* tree under docs/svn for ocpl-update.sh script
    Place that script in /path/to/oc_admin
 
 Configuration
@@ -45,7 +45,7 @@ Configuration
 
 5. Edit your copy of ocpl-update.sh and set these variables:
    SITE_NAME    - Fully Qualified Domain Name of your website
-   SITE_ROOT    - directory for the root of your OPENCACHING-PL tree
+   SITE_ROOT    - directory for the root of your *OCPL branch* tree
    SITE_USER    - user that owns all files under SITE_ROOT
    SUDO_CMD     - comment ONLY if you do not whish svn updates to store files
                   owner by SITE_USER
