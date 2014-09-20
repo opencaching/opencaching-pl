@@ -1,0 +1,85 @@
+How to set up automatic updates via SVN commit
+==============================================
+
+This document explains how an OPENCACHING-PL node administrator can
+set up his server to perform automatic updates of OPENCACHING-PL tree via
+SVN upon each commit to the repository.
+
+This guide takes into account the fact that all OPENCACHING-PL files are
+owner by a specific UNIX user and this ownership is important because that
+user may also access the tree via FTP or other means.
+Proper ownership and permissions must be ensured by both SVN updates and
+the configuration of FTP or other means of access.
+SVN updates will have proper ownership following this guide.
+
+Existing nodes that do not whish to change root ownership of files in
+OPENCACHING-PL tree to another designated user should skip steps 1-2 and
+keep their current setup.
+If they whish to log updates, install this version of ocpl-update.sh having
+commented out the variable SUDO_CMD
+
+Preparation
+------------
+
+1. Create user to own OPENCACHING-PL files under tree
+   This user must have as primary group the same group as the user of the
+   web server (usually apache). Other group memberships are your decision.
+
+   For the rest of this guide let's assume this user is called oc_xx and it
+   is member of group apache.
+
+2. Go to your OPENCACHING-PL tree root
+   (ex. cd /var/www/oc_xx)
+   run this command:
+   find . -exec chown oc_xx.apache {} \;
+   (all files now have the proper ownership)
+
+3. Create a directory to hold administrative scripts outside the OPENCACHING-PL tree.
+   /path/to/oc_admin
+
+4. Look in the OPENCACHING-PL tree under docs/svn for ocpl-update.sh script
+   Place that script in /path/to/oc_admin
+
+Configuration
+-------------
+
+5. Edit your copy of ocpl-update.sh and set these variables:
+   SITE_NAME    - Fully Qualified Domain Name of your website
+   SITE_ROOT    - directory for the root of your OPENCACHING-PL tree
+   SITE_USER    - user that owns all files under SITE_ROOT
+   SUDO_CMD     - comment ONLY if you do not whish svn updates to store files
+                  owner by SITE_USER
+   DO_LOG       - set to 1 to log each automatic update via syslog.
+   LOG_LEVEL    - define the log_facility and log_level (see man logger)
+
+6. Symlink to it from /var/www:
+   ln -s /path/to/oc_admin/ocpl-update.sh /var/www/ocpl-update.sh
+
+7. Ask developers to add your node to the automatic update list:
+   edit post-commit-propagate.php and add your node to it, the commit
+
+  print "\n\n";
+  print "OCXX\n";
+  print "====\n\n";
+  readfile("http://www.opencaching.XX/post-commit.php?from=ocpl-propagate");
+
+System permissions
+------------------
+
+8. Create a file under /etc/sudoers.d named ocxx and paste the code below:
+
+### BEGIN sudoers configuration ###########################################
+# Opencaching SVN update
+
+# allow running without being actually logged in to a real tty
+Defaults:oc_xx !requiretty
+
+# allow
+
+apache ALL = NOPASSWD: /var/www/ocpl-update.sh
+### END sudoers configuration #############################################
+
+Alternately, you could add this to the end of /etc/sudoers.conf
+
+Since /var/www/ocpl-update.sh is run as root, the sudo command in this
+script should not require additional permissions
