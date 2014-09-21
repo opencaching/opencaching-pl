@@ -410,41 +410,41 @@ if ($error == false) {
                 $aver1 = 0;
             }
             $aver2 = round(($user_record['hidden_count'] / $num_rows), 2);
-            
+
             // total owned
             $total_owned_caches = $database->multiVariableQueryValue(
-                    "select count(cache_id) from caches where user_id = :1 and status in (1,2,3) and type not in (6)", 
+                    "select count(cache_id) from caches where user_id = :1 and status in (1,2,3) and type not in (6)",
                     0, $user_id);
             // total adopted
             $total_owned_caches_adopted = $database->multiVariableQueryValue(
-                    "select count(cache_id) from caches where user_id = :1 and org_user_id <> user_id and status in (1,2,3) and type not in (6)", 
+                    "select count(cache_id) from caches where user_id = :1 and org_user_id <> user_id and status in (1,2,3) and type not in (6)",
                     0, $user_id);
             // created and owned
             $total_created_and_owned_caches = $database->multiVariableQueryValue(
-            		"select count(cache_id) from caches where user_id = :1 and (org_user_id = user_id or org_user_id is null) and status in (1,2,3) and type not in (6)",
-            		0, $user_id);
+                    "select count(cache_id) from caches where user_id = :1 and (org_user_id = user_id or org_user_id is null) and status in (1,2,3) and type not in (6)",
+                    0, $user_id);
             // created, but given to adoption
             $total_created_caches_adopted = $database->multiVariableQueryValue(
-            		"select count(cache_id) from caches where org_user_id = :1 and org_user_id <> user_id and status in (1,2,3) and type not in (6)",
-            		0, $user_id);
+                    "select count(cache_id) from caches where org_user_id = :1 and org_user_id <> user_id and status in (1,2,3) and type not in (6)",
+                    0, $user_id);
             $total_created_caches = $total_created_and_owned_caches + $total_created_caches_adopted;
-            
+
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_owned_caches') . ':  </span><strong>' . $total_owned_caches . '</strong>';
             if ($total_owned_caches == 0) {
                 $content .= '</p>';
             } else {
                 $content .= '&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/blue/arrow.png" alt="" /> [<a class="links" href="search.php?showresult=1&amp;expert=0&amp;output=HTML&amp;sort=bycreated&amp;ownerid=' . $user_id . '&amp;cachetype=1111101111&amp;searchbyowner=&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0">' . tr('show') . '</a>]</p>';
                 if ($total_owned_caches_adopted > 0){
-                	$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_owned_caches_adopted') . ':  </span><strong>' . $total_owned_caches_adopted . '</strong></p>';
+                    $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_owned_caches_adopted') . ':  </span><strong>' . $total_owned_caches_adopted . '</strong></p>';
                 }
             }
             if ($total_created_caches > 0 && ($total_owned_caches_adopted > 0 or $total_created_caches_adopted > 0)){
-            	$content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_created_caches') . ':  </span><strong>' . $total_created_caches . '</strong></p>';
-            	if ($total_created_caches_adopted > 0){
-            	    $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_created_caches_adopted') . ':  </span><strong>' . $total_created_caches_adopted . '</strong></p>';
-            	}
+                $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_created_caches') . ':  </span><strong>' . $total_created_caches . '</strong></p>';
+                if ($total_created_caches_adopted > 0){
+                    $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_created_caches_adopted') . ':  </span><strong>' . $total_created_caches_adopted . '</strong></p>';
+                }
             }
-            
+
             $content .= '<p><span class="content-title-noshade txt-blue08">' . tr('total_of_active_caches') . ':  </span><strong>' . $hidden . '</strong>';
             if ($hidden == 0) {
                 $content .= '</p>';

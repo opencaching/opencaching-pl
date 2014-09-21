@@ -167,12 +167,12 @@
                             IFNULL(`cache_location`.`adm4`, '') AS `adm4`,
                             caches.org_user_id,
                             org_user.username as org_username
-                          FROM (`caches` 
+                          FROM (`caches`
                                     JOIN user ON `caches`.`user_id` = `user`.`user_id`
-                                    JOIN cache_type ON `cache_type`.`id`=`caches`.`type` 
+                                    JOIN cache_type ON `cache_type`.`id`=`caches`.`type`
                                     LEFT JOIN `cache_location` ON `caches`.`cache_id` = `cache_location`.`cache_id`
                                     LEFT OUTER JOIN user org_user ON org_user.user_id = caches.org_user_id
-                                ) 
+                                )
                                 INNER JOIN countries ON (caches.country = countries.short)
                           WHERE `caches`.`cache_id`= :v1";
         // $params['v1']['value'] = (string) $lang_db;; //TODO: be check if to replace with translation throuhgh languages
@@ -1237,7 +1237,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 tpl_set_var('creator_userid', $cache_record['org_user_id']);
                 tpl_set_var('creator_name', htmlspecialchars($cache_record['org_username'], ENT_COMPAT, 'UTF-8'));
             }
-            
+
             //get description languages
             $desclangs = mb_split(',', $cache_record['desc_languages']);
 

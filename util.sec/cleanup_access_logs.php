@@ -20,7 +20,7 @@ class CleanupAccessLogs
 
         set_time_limit(360);
         $db->simpleQuery($sql);
-        
+
         $total_deleted = $db->rowCount();
 
         set_time_limit(60);

@@ -1,6 +1,6 @@
 -- 2014-06-28 Save history of user's nick
 -- @author: Bogus z Polska
- 
+
  create table user_nick_history (
 id int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
 user_id int(11) NOT NULL COMMENT 'FK to user.user_id',

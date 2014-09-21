@@ -25,7 +25,7 @@ class RepairCacheScores
             $params['cache_id']['data_type'] = 'integer';
         }
 
-        
+
         $db->paramQuery($sql, $params);
         $caches = $db->dbResultFetchAll();
         set_time_limit(3600);
@@ -43,7 +43,7 @@ class RepairCacheScores
                     select user_id from cache_logs where deleted=0 and cache_id = :2
                 )",
                 $cache_id, $cache_id);
-            
+
             // zliczenie ocen po usunieciu
             $db->multiVariableQuery(
                 "SELECT avg(score) as avg_score, count(score) as votes FROM scores WHERE cache_id = :1", $cache_id);

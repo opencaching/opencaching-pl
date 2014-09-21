@@ -328,7 +328,7 @@ if ($error == false) {
                             $sql = "UPDATE `user` SET `last_modified`=NOW(), `latitude`=:2, `longitude`=:3, `pmr_flag`=:4, `country`=:5, `permanent_login_flag`=:6, `power_trail_email`=:8 , `notify_radius`=:9, `ozi_filips`=:10, `guru`=:1 WHERE `user_id`=:7";
                             $db->multiVariableQuery($sql, $guide, $latitude, $longitude, 0, $country, $using_permantent_login, (int) $usr['userid'], $geoPathsEmail, $radius, $ozi_path);
                             $db->reset();
-                            
+
                             // update user nick
                             if ($username != $usr['username']) {
                                 $db->beginTransaction();
@@ -351,7 +351,7 @@ if ($error == false) {
                                 $db->commit();
                                 $usr['username'] = $username;
                             }
-                            
+
                             $tplname = 'myprofile';
                             tpl_set_var('country', htmlspecialchars(db_CountryFromShort($country), ENT_COMPAT, 'UTF-8'));
                             tpl_set_var('coords', htmlspecialchars(help_latToDegreeStr($latitude), ENT_COMPAT, 'UTF-8') . '<br />' . htmlspecialchars(help_lonToDegreeStr($longitude), ENT_COMPAT, 'UTF-8'));

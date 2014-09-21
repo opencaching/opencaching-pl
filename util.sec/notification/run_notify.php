@@ -37,8 +37,8 @@ $rsNotifyQuery = " SELECT  `notify_waiting`.`id`, `notify_waiting`.`cache_id`, `
               AND `notify_waiting`.`user_id`=`user2`.`user_id`
               AND `caches`.`user_id`=`user`.`user_id`
               AND `notify_waiting`.`id` > :1
-            ORDER BY `notify_waiting`.`id` 
-            LIMIT 0,100  
+            ORDER BY `notify_waiting`.`id`
+            LIMIT 0,100
 ";
 
 /*init caches container*/
@@ -51,7 +51,7 @@ $id = 0;
 do{
     $db->multiVariableQuery($rsNotifyQuery, $id);
     $rsNotify = $db->dbResultFetchAll();
-    foreach ($rsNotify as $rNotify) { 
+    foreach ($rsNotify as $rNotify) {
         $id = $rNotify['id'];
         /* send out everything that has to be sent */
         if (process_new_cache($rNotify) == 0){

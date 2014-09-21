@@ -25,7 +25,7 @@ class RepairUserScores
             $params['user_id']['data_type'] = 'integer';
         }
 
-        
+
         $db->paramQuery($sql, $params);
         $users = $db->dbResultFetchAll();
         set_time_limit(3600);
@@ -47,7 +47,7 @@ class RepairUserScores
                 "SELECT count(id) FROM cache_ignore WHERE user_id = :1", 0, $user_id);
             $hidden_count = $db->multiVariableQueryValue(
                 "select count(cache_id) from caches where status in (1,2,3) and user_id = :1", 0, $user_id);
-            
+
             $sql = "
                 UPDATE user
                 SET

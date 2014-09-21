@@ -3,7 +3,7 @@ if(!isset($rootpath)) $rootpath = '';
 require_once('./lib/common.inc.php');
     global $db;
     $db = new dataBase();
-    
+
     function mb_send_mail_2($to,$subject,$content,$headers){
         global $debug_page;
         if ($debug_page){
@@ -85,7 +85,7 @@ require_once('./lib/common.inc.php');
         $sql = 'SELECT count(cache_id) FROM caches WHERE cache_id=:1 AND status in (1,2,3)';
         return $db->multiVariableQueryValue($sql, 0, $cacheid) > 0;
     }
-    
+
     function getCacheOwner($cacheid)
     {
         global $db;
@@ -162,19 +162,19 @@ require_once('./lib/common.inc.php');
                 {
                     tpl_set_var("error_msg", tr('adopt_30'));
                     tpl_set_var("info_msg", "");
-                    
+
                     $db->beginTransaction();
-                    
+
                     require_once($rootpath.'lib/cache_owners.inc.php');
                     $pco = new OrgCacheOwners($db);
                     $pco->populateForCache($_GET['cacheid']);
-                    
+
                     $oldOwnerId = getCacheOwner($_GET['cacheid']);
                     $isCachePublished = isCachePublished($_GET['cacheid']);
-                    
+
                     $sql = "DELETE FROM chowner WHERE cache_id = :1 AND user_id = :2";
                     $db->multiVariableQuery($sql, $_GET['cacheid'], $usr['userid']);
-                    
+
                     if ($isCachePublished){
                         $sql = "UPDATE caches SET user_id = :2, org_user_id = IF(org_user_id IS NULL, :3, org_user_id) WHERE cache_id= :1";
                         $db->multiVariableQuery($sql, $_GET['cacheid'], $usr['userid'], $oldOwnerId);
@@ -188,7 +188,7 @@ require_once('./lib/common.inc.php');
                     // this should be kept consistent by a trigger
                     //$sql = "UPDATE user SET hidden_count = hidden_count - 1 WHERE user_id = :1";
                     //$db->multiVariableQuery($sql, $oldOwnerId);
-                    
+
                     //$sql = "UPDATE user SET hidden_count = hidden_count + 1 WHERE user_id = :1";
                     //$db->multiVariableQuery($sql, $usr['userid']);
 
@@ -205,21 +205,21 @@ require_once('./lib/common.inc.php');
                         $logMessage = tr('adopt_32');
                         $oldUserName = ' <a href="'.$absolute_server_URI.'viewprofile.php?userid='.$oldOwnerId.'">'.getUsername($oldOwnerId).'</a> ';
                         $newUserName = ' <a href="'.$absolute_server_URI.'viewprofile.php?userid='.$usr['userid'].'">'.getUsername($usr['userid']).'</a>';
-                        
+
                         $logMessage = str_replace('{oldUserName}', $oldUserName, $logMessage);
                         $logMessage = str_replace('{newUserName}', $newUserName, $logMessage);
-                        
+
                         $sql = 'INSERT INTO cache_logs(cache_id, user_id, type, date, text, text_html, text_htmledit, date_created, last_modified, uuid, node)
                                 VALUES                (:1,       -1,      3,    NOW(), :2,  1,         1,             NOW(),        NOW(),         :3,   :4)';
                         $db->multiVariableQuery($sql, $_GET['cacheid'], $logMessage, create_uuid(), $oc_nodeid);
-                    }                            
-                    $db->commit();        
-                            
+                    }
+                    $db->commit();
+
                     $message = tr('adopt_15');
                     $message = str_replace('{cacheName}', getCacheName($_GET['cacheid']), $message);
                     tpl_set_var('error_msg', $message.'<br /><br />');
                     tpl_set_var("error_msg", "");
-                    
+
                     $mailContent = tr('adopt_31');
                     $mailContent = str_replace('\n', "\n", $mailContent);
                     $mailContent = str_replace('{userName}', $usr['username'], $mailContent);

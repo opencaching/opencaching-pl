@@ -1994,13 +1994,13 @@ login_message_06 Inloggen mislukt.<br />Ingevoerde naam of e-mail is onjuist.
 login_message_07 Inloggen mislukt.<br />Ingevoerde naam of wachtwoord is onjuist.
 login_message_08 Deze browser ondersteunt geen cookies van {site_name}
 login_message_09 Om deze pagina te openen dient er ingelogt te zijn.
-graph_statistics_01 Statistieken van www.{site_name} :: Datum 
+graph_statistics_01 Statistieken van www.{site_name} :: Datum
 graph_statistics_02 Actieve caches
 graph_statistics_03 Gevonden caches
-graph_statistics_04 Gegevens per 
-graph_statistics_05 Geplaatste caches: 
-graph_statistics_06 Actieve caches: 
-graph_statistics_07 Totaal gevonden caches: 
+graph_statistics_04 Gegevens per
+graph_statistics_05 Geplaatste caches:
+graph_statistics_06 Actieve caches:
+graph_statistics_07 Totaal gevonden caches:
 search_text_01 Cache naam:
 search_text_02 van
 search_text_03 Coördinaten:
@@ -2425,5 +2425,5 @@ GarminZip_04 Volg de onderstaande stappen om de caches in de GPS te plaatsen
 GarminZip_05 Download alle bovenstaande zip bestanden
 GarminZip_06 Sluit de Garmin Montana / Oregon / Dakota / 62 / 78 / eTrex aan via de kabel
 GarminZip_07 <b>Unzip</b> alle bestanden en plaats deze in de <b>root</b> van de GPS
-GarminZip_08 Let op: De GPS (zie onderstaande lijst) moet deze functie ondersteunen met de huidige firmware (het getal tussen haakjes). Als er geen afbeeldingen te zien zijn dan zou een firmware update moeten gebeuren. Zie voor meer informatie op de 
+GarminZip_08 Let op: De GPS (zie onderstaande lijst) moet deze functie ondersteunen met de huidige firmware (het getal tussen haakjes). Als er geen afbeeldingen te zien zijn dan zou een firmware update moeten gebeuren. Zie voor meer informatie op de
 
