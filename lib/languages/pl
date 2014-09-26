@@ -594,6 +594,7 @@ adoption_cache Adopcja skrzynki
 show_waypoints pokaż waypointy
 pendings Skrzynki oczekujące na akceptację
 recommendation_rating Zobacz ranking skrzynek rekomendowanych wg liczonego wskaznika
+recommendation_rating_none Brak polecane geocaches
 show_statictics_cache Zobacz statystykę skrzynki
 not_stat_cache Skrzynka nie ma jeszcze statystyki
 recommended_by Skrzynka rekomendowana przez

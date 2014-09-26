@@ -593,6 +593,7 @@ adoption_cache Adopţie geocutie
 show_waypoints Arată punctele
 pendings Geocutii care aşteaptă să fie aprobate
 recommendation_rating Arată clasamentul geocutiilor calculat după o formulă dată
+recommendation_rating_none Nu există geocutii recomandate
 show_statictics_cache Arată clasamentul geocutiilor
 not_stat_cache Această geocutie nu are statistici
 recommended_by Această geocutie este recomandată de

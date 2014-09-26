@@ -594,6 +594,7 @@ adoption_cache Cache adoption
 show_waypoints Show waypoints
 pendings Caches waiting to be accepted
 recommendation_rating Show ranking of caches calculated by a formula
+recommendation_rating_none There are no recommended geocaches
 show_statictics_cache Show cache statistics
 not_stat_cache This cache does not have statistics yet
 recommended_by This cache is recommended by

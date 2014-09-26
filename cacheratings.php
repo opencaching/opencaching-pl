@@ -76,7 +76,7 @@ global $usr;
 
 if (mysql_num_rows($rs) == 0)
     {
-        $file_content = '<tr><td colspan="5"><strong>Nie ma nowych skrzynek z rekomendacjami</strong></td></tr>';
+        $file_content = '<tr><td colspan="5"><strong>' . tr('recommendation_rating_none') . '</strong></td></tr>';
     }
     else
     {

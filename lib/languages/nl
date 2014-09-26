@@ -594,6 +594,7 @@ adoption_cache Cache adoptie
 show_waypoints Toon waypoints
 pendings Caches keuren
 recommendation_rating Rangorde van caches berekend met een formule
+recommendation_rating_none Er zijn geen aanbevolen geocaches
 show_statictics_cache Toon cache statistieken
 not_stat_cache Deze cache heeft nog geen statistieken
 recommended_by Deze cache is aanbevolen door
