@@ -93,17 +93,16 @@
     </tr>
     <tr>
 <table style="font-size: 125%;">
-    <tbody><tr>
+  <tbody>
+    <tr>
         <td style="width: 51%;">
             <b>{{links_02}}:</b>
         </td>
-        </tr>
-
+    </tr>
     <tr>
         <td style="width: 25%;">
             {{AU}}
         </td>
-
         <td>
             <a href="http://www.geocaching.com.au/">http://www.geocaching.com.au </a>
         </td>
@@ -114,6 +113,14 @@
         </td>
         <td>
             <a href="http://www.geocaching.hu/">http://www.geocaching.hu</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{RO}}
+        </td>
+        <td>
+            <a href="http://geotrekking.plus.ro/">http://geotrekking.plus.ro/</a>
         </td>
     </tr>
     <tr>
@@ -140,44 +147,20 @@
             <a href="http://www.geocaching.su/">http://www.geocaching.su</a>
         </td>
     </tr>
-
     <tr>
-
-        <td>
-        </td>
-
-        <td>
-            <a href="http://www.geocaching.com//">http://www.geocaching.com</a>
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-        </td>
-
-        <td>
-            <a href="http://www.terracaching.com//">http://www.terracaching.com</a>
-        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
     </tr>
     <tr>
         <td>
-
+            {{links_03}}:
         </td>
-
         <td>
-            <a href="http://geocaching.gpsgames.org/">http://www.gpsgames.org</a>
+            <a href="http://www.geocaching.com//">http://www.geocaching.com</a> <br />
+            <a href="http://www.terracaching.com//">http://www.terracaching.com</a> <br />
+            <a href="http://geocaching.gpsgames.org/">http://www.gpsgames.org</a> <br />
+            <a href="http://www.navicache.com/">http://www.navicache.com</a> <br />
         </td>
-    </tr>
-
-    <tr>
-        <td>
-
-        </td>
-
-        <td>
-            <a href="http://www.navicache.com/">http://www.navicache.com</a>
-        </td>
-
     </tr>
 
 
@@ -190,7 +173,7 @@
 <table style="font-size: 125%;">
     <tbody><tr>
         <td style="width: 48%;">
-            {{links_03}}:
+            {{links_04}}:
         </td>
         </tr>
     <tr>
@@ -228,7 +211,7 @@
 <table style="font-size: 125%;">
     <tbody><tr>
         <td style="width: 4%;">
-            {{links_04}}:
+            {{links_05}}:
         </td>
         </tr>
 
@@ -285,7 +268,7 @@
     </tr>
 </tbody></table>
 
-<h2>{{links_05}}</h2>
+<h2>{{links_06}}</h2>
 
 <table style="font-size: 125%;">
     <tbody>

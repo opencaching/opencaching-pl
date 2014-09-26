@@ -1722,7 +1722,7 @@ YT Mayotte
 ZA Africa de Sud
 ZM Zambia
 ZW Zimbabwe
-SU Uniunea Sovietică
+SU fosta Uniune Sovietică
 pt001 GeoTrasee
 pt002 belongs to GeoPath
 pt003 New GeoPath
@@ -2245,9 +2245,10 @@ pt_cache Cutia aparţine GeoTraseului:
 Help Ajutor
 links_01 Legături către site-uri despre geocaching
 links_02 Alte site-uri de Geocaching
-links_03 Site-uri cu cutii poştale (Letterbox)
-links_04 Site-uri de urmărit obiecte călătoare
-links_05 Altele
+links_03 Site-uri internaţionale
+links_04 Site-uri cu cutii poştale (Letterbox)
+links_05 Site-uri de urmărit obiecte călătoare
+links_06 Altele
 .week . săptămână
 .month . lună
 .year . an
