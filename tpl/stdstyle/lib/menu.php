@@ -11,7 +11,7 @@
 ***************************************************************************/
 /****************************************************************************
  *
- *  Unicode Reminder ??
+ *  Unicode Reminder メモ
  *
  * $menu contains the entire menu structure
  *
@@ -38,7 +38,7 @@
 
  ****************************************************************************/
 include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu, $stat_menu, $wiki_url, $SiteOutsideCountryString, $config,
+global $menu, $usr, $lang, $cache_menu, $stat_menu, $rules_url, $wiki_url, $SiteOutsideCountryString, $config,
     $powerTrailModuleSwitchOn, $powerTrailFaqLink, $forum_url, $blogsite_url;
 
 $menu = array(
@@ -177,8 +177,8 @@ $menu = array(
             ),
             array(
                 'title'         => tr('rules'),
-                'visible'       => true,
-                'filename'      => tr('filename_rules'),
+                'visible'       => isset($rules_url) ? true: false,
+                'filename'      => $rules_url,
                 'menustring'    => tr('rules'),
                 'newwindow'     => true,
                 'siteid'        => 'articles/regulamin'
@@ -212,7 +212,7 @@ $menu = array(
         'title'         => tr('abc'),
         'menustring'    => tr('abc'),
         'siteid'        => 'articles/info',
-        'visible'       => true,
+        'visible'       => isset($wiki_url) ? true: false,
         'filename'      => $wiki_url,
         'newwindow'     => true
     ),
@@ -220,7 +220,7 @@ $menu = array(
         'title'         => tr('forum'),
         'menustring'    => tr('forum'),
         'siteid'        => 'forum',
-        'visible'       => isset($forum_url)? true: false,
+        'visible'       => isset($forum_url) ? true: false,
         'filename'      => $forum_url,
         'newwindow'     => true
     ),
@@ -269,7 +269,7 @@ $menu = array(
         'title'         => 'Download',
         'menustring'    => 'Download',
         'siteid'        => 'Download',
-        'visible'       => true,
+        'visible'       => isset($wiki_url) ? true: false,
         'filename'      => $wiki_url.'/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL',
         'newwindow'     => 'true'
     ),

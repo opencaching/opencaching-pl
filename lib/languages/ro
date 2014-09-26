@@ -134,7 +134,7 @@ what_is_geocaching Geocaching. Ce înseamnă?
 registration Înregistrare
 news Noutăţi
 new_caches Geocutii noi
-new_cache Ascunde geocutia*
+new_cache Ascunde o geocutie*
 abroad_poland În afara României
 recommended_caches Geocutii recomandate
 new_logs Ultimele însemnări
@@ -184,7 +184,7 @@ user_ident Identificarea utilizatorului
 cache_map Hartă cu geocutii v3
 cache_mapv2 Hartă cu geocutii v2
 old_cache_map Versiune mai veche a hărţii
-abc Introducere
+abc Introducere în geocaching
 forum Forum
 geokrets Geokrety
 geoblog Blog
@@ -542,7 +542,7 @@ toggle_filters Schimbă filtrele
 fullscreen Pe tot ecranul
 disable_fullscreen Anulează afişarea pe tot ecranul
 stats Statistici
-rise_charts Our rising charts... ****
+rise_charts Graficele noastre în creştere vertiginoasă...
 region_ranking Clasament pe regiuni
 user_ranking Clasament utilizatori
 cache_ranking Clasament geocutii
@@ -553,7 +553,7 @@ ranking_by_number_of_finds_new Număr de geocutii găsite
 ranking_by_number_of_finds Clasament utilizatori după numărul geocutiilor găsite
 ranking_by_number_of_recommnedations Clasament utilizatori după numărul recomandărilor primite
 cache_ranking_by_number_of_finds Clasament geocutii după numărul de găsiri
-cache_ranking_by_calculated_indicator Clasament geocutii după Cache ranking by a formula ****
+cache_ranking_by_calculated_indicator Clasament geocutii după o formulă dată
 user_ranking_by_number_of_finds_of_their_caches Clasament utilizatori după cât de des au fost găsite geocutiile lor
 cache_ranking_by_finds_per_region Clasament geocutii după numărul de găsiri pe regiuni
 cache_ranking_by_number_of_recommendations Clasament geocutii după numărul de recomnadări
@@ -1111,25 +1111,25 @@ print_all Tipăreşte tot
 remove_all Şterge tot
 no_logtype_choosen Nu ai ales tipul de însemnare!
 choose Selectează
-nc01 Dragă Utilizatorule,
-nc02 Îţi mulţumim că ţi-ai adăugat geocutia pe {site_name}. Dacă ai nevoie de ajutor când ascunzi sau înregistrezi geocutia, citeşte informaţiile din <a class="links" href="{wiki_url}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> sau contactează Echipa OCRO - la adresa de e-mail: contact@opencaching.ro. Nu uita că geocutia te reprezintă. Cu siguranţă căîţi doreşti să fie una de calitate şi de aceea te rugăm să îţi pui următoarele întrebări: <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
-nc03 Este geocutia într-un loc care nu încalcă legea, nu este ascunsă pe proprietatea privată a cuiva fără ca proprietarul să îşi fi dat acordul?
+nc01 Dragă Utilizatorule
+nc02 Îţi mulţumim că îţi adaugi geocutia pe {site_name}. Dacă ai nevoie de ajutor când ascunzi sau înregistrezi geocutia, citeşte informaţiile din <a class="links" href="{wiki_url}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> sau contactează Echipa Opencaching România - la adresa de e-mail: {contact_mail}. Nu uita că geocutia te reprezintă. Cu siguranţă că îţi doreşti să fie una de calitate şi de aceea te rugăm să îţi pui următoarele întrebări: <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc03 Este geocutia într-un loc care nu încalcă legea, un loc care nu este pe proprietatea privată a cuiva fără ca proprietarul să îşi fi dat acordul?
 nc04 Este geocutia ascunsă într-un Parc Naţional, o rezervaţie, un monument, un cimitir sau în alte zone protejate prin lege?
-nc05 Mai sunt şi alte geocutii în zonă, este respectată distanţa minimă de 50 de metrii?
+nc05 Mai sunt şi alte geocutii în zonă, dacă da, este respectată distanţa minimă de 50 de metri?
 nc06 Poţi să te ocupi de ea în caz de probleme?
 nc07 Este bine ascunsă (într-un recipient rezistent la condiţiile vremii)?
 nc08 Poţi verifica dacă în zona ta există vreun
 nc09 Ghid de Geocaching
 nc10 care te poate ajuta să-ţi creezi propriile geocutii
 nc11 Geocutia respectă
-nc12 regulamentul site-ului OC RO
+nc12 regulamentul site-ului {site_name}
 nc13 Familiarizează-te cu Ghidul
 nc14 despre cum să creezi o geocutie
 nc15 precum şi cu
 nc16 Regulile Căutătorului
 nc17 de pe site-ul nostru OpenGeoWiki
 nc18 Cu respect,
-nc19 Echipa {site_name}
+nc19 Echipa Opencaching România
 nc20 Am luat la cunoştinţă toate informaţiile de mai sus şi vreau să înregistrez geocutia
 guru_01 Harta arată pe toţi voluntarii care s-au oferit să ajute cu răpunsuri despre căutări, dacă au fost activi în ultimele 90 de zile.
 guru_02 Poţi contacta voluntarii:
@@ -2207,6 +2207,13 @@ contact_ocpl_title ***Polish version of OpenCaching
 contact_ocpl_description_1*** - May 2006 - Polish geocaching service idea, initial development and deployment of OC.PL - Waldek "sp2ong" + a lot of help from his friends.
 contact_ocpl_description_2 ***- 2011 Wojtek "wrygiel" - Opencaching API author: http://opencaching.pl/okapi
 contact_ocpl_description_3 ***- 2011 Jakub "lecter69" - author of mobile version: http://m.opencaching.pl
+contact_ro_about_title Întrebări despre Opencaching şi Geocaching
+contact_ro_about_description_1 Vrei să afli mai multe despre <b>geocaching</b>? Vei găsi pe site-ul românesc <a href="{link}">OpenGeoWiki</a>.
+contact_ro_other_title Altele
+contact_ro_other_description Dacă întâmpini probleme legate de funcţionarea {site_name}, te rugăm să ne scrii la <b>{contact_mail}</b>. Te rugăm să înţelegi că suntem o echipă de voluntari care s-ar putea să nu fie disponibili în permanenţă. Ai răbdare, mesajul tău este important pentru noi, chiar dacă nu reuşim să răspundem imediat.
+contact_ocro_title Opencaching în România: istoric
+contact_ocro_description_1 2011 - Cunoscând deja existenţa serviciului Opencaching în alte ţări, apare ideea unui astfel de serviciu românesc.
+contact_ocro_description_2 aprilie 2014 - Lansarea {site_name} în România, bazat pe proiectul open-source OPENCACHING-PL
 newCacheWpTitle Alege Punct
 newCacheWpDesc File contain few waypoints. Pick proper one.
 logmap_01 De
