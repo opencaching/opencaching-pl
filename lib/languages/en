@@ -1098,7 +1098,7 @@ size_03 Small
 size_04 Medium
 size_05 Large
 size_06 Very large
-syze_07 No container
+size_07 No container
 chpw_01 Change password
 chpw_02 The security code has been sent to specified e-mail address.
 chpw_03 Security code to change password.
