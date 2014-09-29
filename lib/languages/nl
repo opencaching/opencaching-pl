@@ -622,7 +622,6 @@ latest_logs_by_user Laatste logs van gebruiker
 stat_created_caches Statistieken van gemaakte caches
 not_caches_created  Er zijn nog geen gemaakte caches
 total_owned_caches Totaal aantal eigen caches
-# translation warning: the above string should be: Number of caches owned, not Number of caches hidden
 total_owned_caches_adopted Aantal aangeboden adoptie caches
 total_created_caches Totaal eigen gemaakte caches
 total_created_caches_adopted Aantal aangenomen adoptie caches
@@ -633,7 +632,7 @@ number_obtain_recommendations Aantal ontvangen aanbevelingen
 for van
 _caches_ caches
 ratio_recommendations Gemiddelde aanbevolen caches van alle caches
-number_gk_in_caches Aantal GeoKrety&#39;s in caches
+number_gk_in_caches Aantal GeoKrety's in caches
 latest_created_cache Laatste gemaakte cache
 latest_logs_in_caches Laatste logs van gebruikers caches
 caches_waiting_approve Mijn caches wachtend op goedkeuring van het OC Team
@@ -2430,4 +2429,6 @@ GarminZip_05 Download alle bovenstaande zip bestanden
 GarminZip_06 Sluit de Garmin Montana / Oregon / Dakota / 62 / 78 / eTrex aan via de kabel
 GarminZip_07 <b>Unzip</b> alle bestanden en plaats deze in de <b>root</b> van de GPS
 GarminZip_08 Let op: De GPS (zie onderstaande lijst) moet deze functie ondersteunen met de huidige firmware (het getal tussen haakjes). Als er geen afbeeldingen te zien zijn dan zou een firmware update moeten gebeuren. Zie voor meer informatie op de
+
+
 
