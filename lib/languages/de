@@ -888,7 +888,7 @@ os_times mal
 os_kesz Geocache
 os_autor Autor:
 os_nie_ma_w_os Autor dieser Cache hat nicht erlaubt prüfen die Koordinaten in OpenChecker
-os_podaj_waypoint Bitte Waypoint der Cache angeben (np.: OP2E48)
+os_podaj_waypoint Bitte Waypoint der Cache angeben (zB.: OP2E48)
 os_podaj_twoje Geben die Koordinaten empfangen Endbehälter:
 os_sprawdz prüfen
 os_stopnie Degrees
@@ -981,7 +981,7 @@ viewlog_aktywnosc Benutzer Aktivität (Summe der Caches - gefunden, nicht gefund
 
 
 
-
+Open_Sprawdzacz OpenChecker
 
 
 
@@ -1028,7 +1028,7 @@ date Datum
 
 
 
-
+latest_blog Letzten Blogeinträge
 geocache Geocache
 
 
@@ -1475,6 +1475,25 @@ romania_outside ohne Rumänien
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 AD Andorra
 AE Vereinigte Arabische Emirate
 AF Afghanistan
@@ -1710,32 +1729,32 @@ ZM Sambia
 ZW Simbabwe
 SU Rusland
 pt001 PowerTrail
-
-
-
-
-
-
+pt002 Hinzufügen Zu PowerTral
+pt003 Neuen PowerTrail eintragen 
+pt004 Form auf Karte
+pt005 Erforschen
+pt006 Sichtbar
+pt007 nicht sichtbar
 pt008 Name PowerTrail
 pt009 Art PowerTrail
-
-
-
-
+pt010 Sichtbarkeit
+pt011 Beschreibung PowerTrail
+pt012 Alle PowerTrails
+pt013 Cache zu PowerTrail hinfügen
 
 
 pt016 von
+pt017 Du hast
+
+
+pt020 Caches in PowerTrail
+
+
+pt023 Art PowerTrail
 
 
 
-
-
-
-
-
-
-
-
+pt027 Erforschen
 
 
 
@@ -1744,9 +1763,17 @@ pt016 von
 
 
 pt035 PowerTrail
+pt036 Name
+pt037 Score
+pt038 punkte
+pt040 Status
 
 
 
+pt044 Speicheren
+pt045 Ändere datum
+pt046 Ändere typ
+pt047 Hinzufügen
 
 
 
@@ -1762,6 +1789,8 @@ pt035 PowerTrail
 
 
 
+pt062 Eigener PowerTrails
+pt063 Status
 
 
 
@@ -1824,6 +1853,7 @@ pt035 PowerTrail
 
 
 
+pt126 Information
 
 
 
@@ -1834,18 +1864,7 @@ pt035 PowerTrail
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+pt137 PowerTrail des Tages
 pt138 caches
 pt139 PowerTrail
 
@@ -1879,16 +1898,16 @@ pt155 PowerTrail Hilfe
 
 
 
+pt171 Punkte
+
+
+pt174 Art
 
 
 
 
 
-
-
-
-
-
+pt180 caches
 
 
 
@@ -1940,8 +1959,8 @@ pt223 PowerTrail
 
 pt230 Datum
 pt231 Zeit
-
-
+pt232 Zeige auch kleine PowerTrails
+pt233 Zeige keine kleine PowerTrails
 
 
 
