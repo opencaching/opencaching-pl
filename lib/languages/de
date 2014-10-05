@@ -85,7 +85,7 @@ active_caches_in_area aktive Caches im Bereich
 shown angezeigt
 next Weiter
 printer_friendly Druckerfreundliche
-user_map Karte der Benutzer
+user_map Karte von Benutzer
 current_zoom Aktuelle zoom
 colors Farben
 yellow Gelb
@@ -134,7 +134,7 @@ what_is_geocaching Was ist Geocaching?
 registration Registrieren
 news Aktuelles
 new_caches Neueste Caches
-new_cache Neuer Cache
+new_cache Cache eintragen
 abroad_poland im Ausland von Polen
 recommended_caches Empfohlene Caches
 new_logs Neueste Logs
@@ -312,9 +312,9 @@ difficulty_problem Wenn Sie Probleme mit der Schwierigkeit, empfehlen wir die Ve
 rating_system Cache-Bewertung-System
 additional_information Aufwand
 optional optional
-time_distance_hint Zeit und Entfernung zu reisen oft abhängig von äußeren Bedingungen, so dass, wenn Sie Probleme mit der Schätzung dieser Daten, sollten Sie Nullen in den Bereichen vor.  Diese Art von Daten ist beispielsweise nützlich, in <b> multicache</b> oder <b> Veranstaltung</b> Cache-Typen.
-select_one Wählen Sie ein!
-waypoint_other_portal_info Wegpunkt für diesen Cache in anderen Datenbanken. Es werden keine Daten automatisch getroffen.
+time_distance_hint Der Aufwand kann natürlich nur geschätzt werden und kann auch je nach Umwelteinflüssen sehr verschieden sein. Solltest du keine ausreichend genauen Angaben machen können, schreibe in beide Felder 0 (Null).  Diese Art von Daten ist beispielsweise nützlich, in <b> multicache</b> oder <b> Veranstaltung</b> Cache-Typen.
+select_one Bitte auswählen!
+waypoint_other_portal_info Diese Wegpunkte dienen zur Generierung entsprechender Links in der Cacheansicht bzw. beim Loggen. Es werden keine Daten automatisch von diesen Cachedatenbanken übernommen. 
 cache_attributes_label Cache-Attribute
 attributes_edit_hint Attribute können auch später geändert werden
 additional_attributes_hint Sie können noch weitere Attribute zu Ihrem Cache's Beschreibung mit diesem Tool:
@@ -322,7 +322,7 @@ additional_attributes Zusätzliche Cache-Attribute
 attributes_desc_hint Bitte lesen Sie die <a href="{cache_params_url}" target="_blank"> Opencaching Attribute Beschreibung </a> Artikel
 descriptions Beschreibung
 language Sprache
-other_languages_desc Beschreibung in anderen Sprachen hinzugefügt werden können nach der Registrierung einen Cache.
+other_languages_desc Weitere Beschreibungen in anderen Sprachen können nach dem Veröffentlichen des Caches eingetragen werden.
 short_desc_label Kurzbeschreibung
 error_new_cache Ein oder mehrere Fehler aufgetreten sind. Bitte korrigieren Sie die markierten Felder!
 time_incorrect Die Zeit ist falsch
@@ -340,7 +340,7 @@ diff_incorrect Schwierigkeitsgrad ist falsch!
 
 virtual_cache_size Cache-Größe muss als "ohne Container", wenn Cache eingestellt ist oder als Event!
 cache_submitted Ihr Cache wurde auf Opencaching PL veröffentilicht.
-full_description Vollständig
+full_description Beschreibung
 mandatory_field Dieses Feld ist obligatorisch
 full_desc_long_text Bitte schreiben Sie zum Beispiel, warum haben Sie den Cache verstecken und merken Sie sich hier - ein in der Lage sein muß, um den Cache mit den Koordinaten und diese Beschreibung nur, so geben Sie alle erforderlichen Informationen finden Sie hier.
 description_hint Bitte geben Sie kurze und knappe Beschreibung. Nicht neu zu schreiben Informationen finden Sie unter Internet-Link zu bieten, sondern sie.
@@ -348,18 +348,18 @@ no_javascript Ihr Browser unterstützt kein Javascript unterstützt. Sie können
 html_usage Bitte verwenden Sie HTML-Tags nur für die Bearbeitung eines Textes.
 available_html Liste der verfügbaren HTML-Tags
 additional_enc_info <b> <font color="red"> Zusätzliche </font> verschlüsselten Hinweis. </b> <i> Nicht ein Pflichtfeld </i>. Sie können einige weitere Hinweise hier. Informationen erforderlich sind, um eine Cache ist in "Vollständig"-Feld. "	red>Additional</font> encrypted hint.</b> <i>Not a mandatory field</i>. Your can place some additional hints here. Information neccessary to find a cache has to be placed in "Full description" field.
-add_photo_newcache Bilder und Fotos können nach der Registrierung einen Cache.
+add_photo_newcache Bilder,extra waypoints und MP3 für diesen Cache können nach dem Anlegen des Caches hinzugefügt werden. 
 search_wildcard_info Verwenden Sie"% "als Platzhalter.
 event_hidden_hint Hinweis: Bei Veranstaltungen, die" versteckte Datum "-Feld sollte ein Tag, an dem die Veranstaltung beginnt
 submit_new_cache Veröffentlichen
-publish_now Los!
-publish_date Veröffentlicht
+publish_now Sofort veröffentlichen
+publish_date Veröffentlichen am
 hour Stunde
-dont_publish_yet Nicht veröffentlicht noch
+dont_publish_yet Noch nicht veröffentlichen
 log_password Log-Passwort
 no_password_label Leer lassen, wenn kein Passwort
-please_read Bitte lesen <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank">Information über Passwort in Logs!</a>
-creating_cache Weil erstellung neuen Cache akzeptierst du <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">Nutztbedingungen</a> mit allen Konsequenzen.
+please_read Bitte lesen <a href="{cache_params_url}" target="_blank">Information über Passwort in Logs!</a>
+creating_cache Weil erstellung neuen Cache akzeptierst du <a href="{rules_url}" target="_blank">Nutztbedingungen</a> mit allen Konsequenzen.
 with_all_consequences mit allen Konsequenzen.
 cache_name Cache-Name
 distance_label Distanz
@@ -461,13 +461,13 @@ register_msg6 Die Aktivierungskode wan an deine Email geschickt. Bitte den Anwei
 total_distance Gesamtstrecke
 send_to_gps WayPoint an GPS schicken
 post_new_log Neu log zur Cache einträgen
-type_of_log Art des Logs
+type_of_log Art des Logeintrages
 date_logged Datum
 want_to_recommend Ja, Ich möchte diese Cache empfehlen
 my_recommend Empfehlung
 number_my_recommend Anzahl der meine Empfehlungen
 number_possible_recommend von
-possible_recommend  Du musst finden folgende Anzahl der Caches mögliche Satz der Empfehlungen zu erhalten
+possible_recommend  Um eine weitere Empfehlung vorzunehmen benötigst Du noch
 comments_log Kommentare
 submit_log_entry Log eintragen
 geokret_log Hast Du Geokret genommen? Registrier das an
@@ -637,8 +637,8 @@ caches_blocked Meine gesperrte Caches bei OC Team
 blocked_create_caches ACHTUNG! Deine Möglichkeit für Cache Versteckung ist gesperrt. Bitte um Kontakt mit OC Team rr@opencaching.pl
 npa_info Wahrscheinlich Cache ist versteck an Bereich
 check_nearby_caches_info Vor einsetzung der Cache bitte prüfen ob in geplante Platz <br /> keine Cache in Radius 150 m schon versteckt ist, wann ja - bitte um andere Platz suchen.
-check_nearby_caches Prüfen ob die Caches versteckt an OC PL in Nähe sind
-check_nearby_caches_map Prüfen ob die Caches versteckt an OC PL an Karte sind
+check_nearby_caches Caches versteckt in Nähe auf {site_name}
+check_nearby_caches_map Caches versteckt in Nähe auf Karte
 my_caches_status Meine Caches mit Status
 active Aktive
 temp_unavailable Nicht verfügbare
@@ -819,7 +819,7 @@ empty_entry_notice <b> Label Einträge </ b>: Versuchen Sie nicht, leere Einträ
 empty_entry_confirm Sicher, dass Du ein leer Eintrag? \ Es ist immer viel besser als ein kurzes Kommentar schreiben.
 
 where_i_am Wo bin ich?
-read_info_about_cache_types Siehe Beschreibung <a href="http://wiki.opencaching.pl/index.php/Typ_skrzynki" target="_blank">Cache Typ</a>
+read_info_about_cache_types Siehe Beschreibung <a href="{cache_params_url}" target="_blank">Cacheart</a>
 regiononly Region
 region_from_coord Land von Koordinaten
 select_regions Land wählen
@@ -933,7 +933,7 @@ os_hlp_18 Von nun an deiner Cache wird aus der Liste OpenSprawdzacza sowie aus d
 ni_ma_takiego_kesza Solche Cache fehlt in OpenChecker Database
 os_wynik Ergebniss
 os_zgad Erraten zu viel Mal!!
-wybrac_log Bitte wählen Log-eintritt Typ
+wybrac_log Bitte wählen!
 nowe_wsp Neue Koordinaten <sub>(WGS84)</sub>
 os_ma_max Limit gültig
 os_ma_pr versuchen
@@ -1971,7 +1971,16 @@ region_02 Land
 
 
 
-
+cacheType_1 Traditionele Cache
+cacheType_2 Multi Cache
+cacheType_3 Rätsel Cache
+cachetype_4 Reisende Cache
+cacheType_5 Unbekannter Cache
+cacheType_6 Event Cache
+cacheType_7 Webcam Cache
+cacheType_8 Virtuelle Cache
+cacheType_9 Podcast Cache
+cacheType_10 Eigene Cache
 
 
 
@@ -2083,7 +2092,7 @@ chowner02 Geocacher
 
 
 
-
+log_reset_button Text löschen
 
 
 
@@ -2292,5 +2301,7 @@ language_SV Schwedisch
 language_TR Türkisch
 language_UZ Usbekisch
 language_VI Vietnamesisch
+newcacheDateFormat Format: YYYY-MM-DD
+
 
 
