@@ -1,8 +1,8 @@
 <?php
     // Unicode Reminder ăĄă˘
-    global $site_name;
+    global $site_name, $emailaddr;
 
-    $mailfrom = 'noreply@'.$site_name;
+    $mailfrom = $emailaddr;
     $mailsubject = tr('notify_newCache_13');
 
     $debug = false;
