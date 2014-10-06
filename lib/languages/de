@@ -111,7 +111,7 @@ moving Verschieben
 podcast Podcast
 owncache Owncache
 hide_caches Caches ausblenden
-ignored ignoriert
+ignored ignorierte
 not_yet_found noch nicht gefunden
 temp_unavailables vorübergehend nicht verfügbar
 ready_to_find bereit für die Suche
@@ -305,7 +305,7 @@ first_cache_approvement Weil es ist eine von Deine 3 Caches, wird sichtbar für 
 all_cache_approvement Cache wird sichtbar für alle nach Akzeptanz von Team {site_name}.
 name_label Name
 cache_type Cacheart
-cache_size Größe
+cache_size Cachegröße
 in_wgs84_system in WGS-84-System
 difficulty_level Empfehlung
 difficulty_problem Wenn Sie Probleme mit der Schwierigkeit, empfehlen wir die Verwendung von
@@ -361,34 +361,34 @@ no_password_label Leer lassen, wenn kein Passwort
 please_read Bitte lesen <a href="{cache_params_url}" target="_blank">Information über Passwort in Logs!</a>
 creating_cache Weil erstellung neuen Cache akzeptierst du <a href="{rules_url}" target="_blank">Nutztbedingungen</a> mit allen Konsequenzen.
 with_all_consequences mit allen Konsequenzen.
-cache_name Cache-Name
-distance_label Distanz
-omit_caches Lassen Caches weg
+cache_name Cachename
+distance_label Entfernung
+omit_caches Caches ausblenden
 of_owner Besitzer's
-not_active nicht aktiv
+not_active deaktivierte
 observed beobachtet
-from aus
+from von
 to bis
 with_hidden_score Show-Caches ohne Bewertung
-search_by_distance Suche nach der Entfernung
-search_by_name Suche nach Namen-Cache
+search_by_distance Suche nach Umkreis
+search_by_name Suche nach Cachename
 max_distance Maximaler Abstand
 kilometer km
 mile Meilen
 nautical_mile -Meilen-Zone
 search_by_city Suche nach Stadt
 city_name Stadt
-search_text Suche Text
+search_text Suche nach Text
 text Text
 logs_label logs
 pictures Bilder
-search_by_owner Suche nach Cache-Besitzer
-owner_label Cache-Besitzer
-finder_label Sucher
-search_by_finder Suche nach Sucher
+search_by_owner Suche nach Besitzer
+owner_label Besitzer
+finder_label Benutzer
+search_by_finder Suche nach Benutzer
 search_recommendations Empfehlungen
 search_all_caches alle Caches
-search_recommended_caches Mindest-Reihe von Empfehlungen:
+search_recommended_caches Empfehlungen:
 incomming_events Nächsten Events
 rr_comment_label Opencaching.pl Rat Kommentar
 add_rr_comment RR Kommentar Opencaching.pl Rat hinzufügen
@@ -507,7 +507,7 @@ rating_ge_excellent nur "ausgezeichnet" :D
 score_label Bewertet als
 show_noscore Ohne bewertung schauen
 available_maps Verfügbare Karte
-cache_attributes Cache Attribute
+cache_attributes Cacheattribute
 latest_logs Neueste Logeinträge
 abroad_caches Ausser Polen
 hidden_by von
@@ -595,7 +595,7 @@ show_statictics_cache Cache Statistik schauen
 not_stat_cache Cache hat noch keine Statistik
 recommended_by Cache empfehlt bei
 listing_from_this_page Liste von diese Seite
-show_on_map An Karte schauen
+show_on_map Auf Karte anzeigen
 list_of_events_is_empty Es gibt keine Veranstaltungen in nähere Zukunft.
 stat_number_found Statistik der Anzahl von gesuchte Caches
 total_number_found_caches Anzahl der gefundene Caches
@@ -1293,7 +1293,7 @@ oc_subtitle_on_all_pages_ro Geocaching in Rumänien
 
 
 
-
+search00 Alle Länder
 
 
 
@@ -1766,6 +1766,7 @@ pt035 PowerTrail
 pt036 Name
 pt037 Score
 pt038 punkte
+
 pt040 Status
 
 
@@ -1774,7 +1775,6 @@ pt044 Speicheren
 pt045 Ändere datum
 pt046 Ändere typ
 pt047 Hinzufügen
-
 
 
 
@@ -1806,6 +1806,7 @@ pt063 Status
 
 
 
+pt079 Thema
 
 
 
@@ -1820,9 +1821,8 @@ pt063 Status
 
 
 
-
-
-
+pt094 Dieser Cache ist Teil von PowerTrail
+pt095 Name cacher
 
 
 
@@ -1895,7 +1895,7 @@ pt155 PowerTrail Hilfe
 
 
 
-
+pt168 Name
 
 
 pt171 Punkte
@@ -1952,7 +1952,7 @@ pt184 Hallo
 
 pt223 PowerTrail
 
-
+pt225 Einträge im GPX
 
 
 
