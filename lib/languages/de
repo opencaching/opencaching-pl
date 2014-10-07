@@ -105,15 +105,15 @@ traditional Traditionellen
 multicache Multicache
 virtual Virtuelle
 webcam Webcam
-event Veranstaltung
+event Event
 quiz Quiz
-moving Verschieben
+moving Reisende
 podcast Podcast
-owncache Owncache
+owncache Eigene Cache
 hide_caches Caches ausblenden
 ignored ignorierte
 not_yet_found noch nicht gefunden
-temp_unavailables vorübergehend nicht verfügbar
+temp_unavailables deaktivierte
 ready_to_find bereit für die Suche
 other_options Andere Optionen
 show_signes Signes zeigen
@@ -781,16 +781,16 @@ last_found Letzte gefundene
 delete_recommend Emfehlung löschen
 off_ignore Ignorierung ausschalten
 no_ignores Hat keine ignorierte caches
-oc_stat OC PL Caches Statistik
+oc_stat {site_name} cache statistik
 administration OC Management
 stat_octeam COG Statistik
-cache_notfound Caches nicht Befundene
+cache_notfound Nicht gefundene caches
 send_bulletin Bulletin schicken
 
 
 
 add_news Nachricht eingeben
-email_subject_news Neue Information an OpenCaching PL
+email_subject_news Neue nachricht gesendet
 subject Thema
 contents Inhalt
 content_include_html Inhalte enthält HTML
@@ -1971,25 +1971,6 @@ pt233 Zeige keine kleine PowerTrails
 region_02 Land
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 cacheType_1 Traditionele Cache
 cacheType_2 Multi Cache
 cacheType_3 Rätsel Cache
@@ -2000,12 +1981,12 @@ cacheType_7 Webcam Cache
 cacheType_8 Virtuelle Cache
 cacheType_9 Podcast Cache
 cacheType_10 Eigene Cache
-
-
-
-
-
-
+cacheSyze_2 Mikro
+cacheSyze_3 Klein
+cacheSyze_4 Normal
+cacheSyze_5 größ
+cacheSyze_6 Extra größ
+cacheSyze_7 Kein Behälter
 
 
 
@@ -2015,12 +1996,13 @@ cacheType_10 Eigene Cache
 
 
 chowner02 Geocacher
-
-
-
-
-
-
+graph_statistics_01 Statistike von www.{site_name} :: Datum
+graph_statistics_02 Active caches
+graph_statistics_03 Gefundene caches
+graph_statistics_04 Datei ab 
+graph_statistics_05 Ingesamt gemachte caches:
+graph_statistics_06 Active caches:
+graph_statistics_07 Insgesamt gefundene caches:
 
 
 
