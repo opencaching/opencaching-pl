@@ -74,7 +74,7 @@ only_founds Nur Gefundene
 only_new Nur Neue
 not_found nicht gefunden
 add_to Hinzufügen
-add_to_list Zur Liste hinzufügen
+add_to_list Zu Liste hinzufügen
 remove_from_list Entfernen Sie aus der Liste
 print Drucken
 remove_from entfernen
@@ -666,7 +666,7 @@ back_to_cache Zurück zur Cache
 cache_notes Notizen
 cache_note Notiz
 delete entfernen
-edit Ausgabe
+edit Bearbeiten
 cancel Anulieren
 no_note Keine Notizen
 additional_waypoints Zusäztliche Waypoint
@@ -2303,6 +2303,6 @@ language_TR Türkisch
 language_UZ Usbekisch
 language_VI Vietnamesisch
 newcacheDateFormat Format: YYYY-MM-DD
-
+JpGraph_25121 Eine leerer Datenvektor wurde fur den Plot eingegeben. Es muss wenigstens ein Datenpunkt vorliegen.
 
 

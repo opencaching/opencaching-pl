@@ -2432,3 +2432,4 @@ GarminZip_05 Download all of the above zip files
 GarminZip_06 Connect the Garmin Montana / Oregon / Dakota / 62/78 / eTrex via cable
 GarminZip_07 <b>Unzip</b> all files and place them in the <b>root</b> of your GPS device
 GarminZip_08 Note: you must have a compatible device (see list below) with current firmware (the number in parentheses). If you do not see the pictures, update the device. For more information, see the
+JpGraph_25121 Empty input data array specified for plot. Must have at least one data point.

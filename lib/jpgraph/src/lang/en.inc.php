@@ -392,7 +392,7 @@ HTTP headers have already been sent.<br>Caused by output from file <b>%s</b> at 
 25119 => array('Can\'t set permissions for "%s". Permission problems?',1),
 
 25120 => array('Position for legend must be given as percentage in range 0-1',0),
-25121 => array('Empty input data array specified for plot. Must have at least one data point.',0),
+25121 => array(tr('JpGraph_25121'),0),
 25122 => array('Stroke() must be implemented by concrete subclass to class Plot',0),
 25123 => array('You can\'t use a text X-scale with specified X-coords. Use a "int" or "lin" scale instead.',0),
 25124 => array('The input data array must have consecutive values from position 0 and forward. The given y-array starts with empty values (NULL)',0),
