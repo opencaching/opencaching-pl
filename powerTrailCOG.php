@@ -9,7 +9,7 @@ if ($error == false) {
     $result = $pt->run();
     if($usr['userid'] == 9067){}else{
     if(!(isset($usr['admin']) && $usr['admin'] == 1)) {
-        print 'sorry, only for oc-team';
+        print tr('pt236');
         exit;
     }}
     tpl_set_var("selPtDiv", 'none');
