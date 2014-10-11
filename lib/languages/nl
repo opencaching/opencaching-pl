@@ -2222,17 +2222,21 @@ contact_ocro_title
 contact_ocro_description_1
 contact_ocro_description_2
 contact_nl_title_1 Algemene vragen over Opencaching.nl en het thema Geocaching.
-contact_nl_desc_1_1
+contact_nl_desc_1_1 Voor vragen over opencaching en het thema Geocaching is onze <a href="http://wiki.opencaching.nl/">Opencaching Wiki</a> een goede plek om eens te lezen. <br/>Er is een mooi introductie filmpje gemaakt waarin uit de doeken gedaan wordt wat Opencaching.nl en Geocaching precies inhoudt. Neem <a href="https://www.youtube.com/watch?v=_ujk70YhKLA&feature=youtu.be">hier</a> eens een kijkje.
+contact_nl_desc_1_2 Wanneer er op een bepaalde vraag geen antwoord gevonden kan worden. kan er ook op ons <a href="http://forum.opencaching.nl">forum.opencaching.nl</a> gezocht worden. Ook kan die vraag aldaar gesteld worden.
 contact_nl_title_2 Cachers die zich inzetten voor deze site en tot het OC-Team behoren.
-contact_nl_desc_2_1
+contact_nl_desc_2_1 <a href="http://www.opencaching.nl/viewprofile.php?userid=630"><b>RHCV</b></a> (Ruben): Verzorgt de blogpagina, verzorgt alle PR zaken, aanvullen van onze Wikipagina, keurt nieuwe caches, etc. etc.'
+contact_nl_desc_2_2 <a href="http://www.opencaching.nl/viewprofile.php?userid=3"><b>harrieklomp</b></a> (Harrie): Beheer van de opencaching site, aanvullen van onze wikipagina, keurt nieuwe caches, etc. etc.
 contact_nl_title_3 Gebruik van de website, suggesties en kritiek.
-contact_nl_desc_3_1
+contact_nl_desc_3_1 Hiervoor hebben we een onderforum op <a href="http://forum.opencaching.nl/viewforum.php?f=4">forum.opencaching.nl</a>. Hier vind je ook andere informatie, indien je misschien ook ons Opencaching-team wilt versterken.
 contact_nl_title_4 Opencaching Benelux is ook terug te vinden op de volgende sociale media.
-contact_nl_desc_4_1
+contact_nl_desc_4_1 <a href="https://twitter.com/Opencachingnl"><img src="http://www.opencaching.nl/images/social_media/Twitter-32.png" class="icon32" align="middle" /></a> <a href="https://www.facebook.com/groups/opencachingbenelux/"><img src="http://www.opencaching.nl/images/social_media/Facebook-32.png" class="icon32" align="middle" /></a> <a href="https://plus.google.com/u/0/communities/111177041019520838177"><img src="http://www.opencaching.nl/images/social_media/Google-32.png" class="icon32" align="middle" /></a> <a href="https://www.youtube.com/channel/UCLBglwWiI6HRjCwBVLZQfWw"><img src="http://www.opencaching.nl/images/social_media/YouTube-32.png" class="icon32" align="middle" /></a>
 contact_nl_title_5 Overige
-contact_nl_desc_5_1
+contact_nl_desc_5_1 Mochten bovenstaande mogelijkheden niet het antwoord op een vraag geven, dan kan ook rechtstreeks aan <i>opencaching.nl</i> een mail geschreven worden aan <a href="mailto:contact@opencaching.nl">contact@opencaching.nl</a>.
+contact_nl_desc_5_2 Omdat de medewerkers van <i>opencaching.nl</i> vrijwilligers zijn kan het voorkomen dat het antwoord even op zich laat wachten. Wees daarom niet te ongeduldig als er niet direct een antwoord op een vraag komt.
 contact_nl_title_6 Doneren
-contact_nl_desc_6_1 
+contact_nl_desc_6_1 Zoals jullie kunnen zien, hebben jullie de mogelijkheid om aan Opencaching Benelux te doneren. Dit zou voor de organisatie een enorme hulp en steun bieden en zal duidelijk geapprecieerd worden. Meer info op ons <a href="http://forum.opencaching.nl/viewforum.php?f=27">forum</a> en/of op onze <a href="http://wiki.opencaching.nl/index.php/Financieel">wiki.</a>
+contact_nl_desc_6_2 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="2QNGQ2WN6A44E"><input type="image" src="https://www.paypalobjects.com/nl_NL/BE/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal, de veilige en complete manier van online betalen."><img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1"></form>
 newCacheWpTitle Selecteer waypoint
 newCacheWpDesc Bestand heeft meerdere waypoints. Kies er een.
 logmap_01 door
