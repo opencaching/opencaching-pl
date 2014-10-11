@@ -2215,6 +2215,22 @@ contact_ocpl_title Polish version of OpenCaching
 contact_ocpl_description_1 - May 2006 - Polish geocaching service idea, initial development and deployment of OC.PL - Waldek "sp2ong" + a lot of help from his friends.
 contact_ocpl_description_2 - 2011 Wojtek "wrygiel" - Opencaching API author: http://opencaching.pl/okapi
 contact_ocpl_description_3 - 2011 Jakub "lecter69" - author of mobile version: http://m.opencaching.pl
+contact_ro_about_title
+contact_ro_about_description_1
+contact_ro_other_title Overige
+contact_ro_other_description
+contact_ocro_title
+contact_ocro_description_1
+contact_ocro_description_2
+contact_nl_title_1 General questions about Opencaching.nl and theme Geocaching.
+contact_nl_title_2 Cachers who are committed to this site and are members of the OC-Team.
+contact_nl_title_3 Use of the website, suggestions and criticism.
+contact_nl_title_4 Opencaching Benelux can also be found on following social media.
+contact_nl_desc_4_1 <a href="https://twitter.com/Opencachingnl"><img src="http://www.opencaching.nl/images/social_media/Twitter-32.png" class="icon32" align="middle" /></a> <a href="https://www.facebook.com/groups/opencachingbenelux/"><img src="http://www.opencaching.nl/images/social_media/Facebook-32.png" class="icon32" align="middle" /></a> <a href="https://plus.google.com/u/0/communities/111177041019520838177"><img src="http://www.opencaching.nl/images/social_media/Google-32.png" class="icon32" align="middle" /></a> <a href="https://www.youtube.com/channel/UCLBglwWiI6HRjCwBVLZQfWw"><img src="http://www.opencaching.nl/images/social_media/YouTube-32.png" class="icon32" align="middle" /></a>
+contact_nl_title_5 Other
+contact_nl_title_6 Donate
+contact_nl_desc_6_1 As you can see, you have the opportunity to donate to Opencaching Benelux This would be for the organization a huge help and support and will be appreciated. More info on our <a href="http://forum.opencaching.nl/viewforum.php?f=27"> forum </a> and/or our <a href="http://wiki.opencaching.nl/index.php/Financieel">wiki. </a>
+contact_nl_desc_6_2 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="2QNGQ2WN6A44E"><input type="image" src="https://www.paypalobjects.com/nl_NL/BE/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal, de veilige en complete manier van online betalen."><img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1"></form>
 newCacheWpTitle Pick waypoint
 newCacheWpDesc File contain few waypoints. Pick proper one.
 logmap_01 By
