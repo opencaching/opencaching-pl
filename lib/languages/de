@@ -1343,18 +1343,18 @@ search00 Alle Länder
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+logType1 Gefunden
+logType2 Nicht gefunden
+logType3 Notitz
+logType4 Cache 
+logType5 Wartung ist notwendig
+logType6 Wartung ist gemacht
+logType7 Teilgenommem
+logType8 Möchte teilnehmen
+logType9 Cache archivierd
+logType10 Kann gesucht werden
+logType11 Momentan nicht verfügbar 
+logType12 Notitz von oc-team
 
 
 
@@ -2003,22 +2003,22 @@ graph_statistics_04 Datei ab
 graph_statistics_05 Ingesamt gemachte caches:
 graph_statistics_06 Active caches:
 graph_statistics_07 Insgesamt gefundene caches:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+search_text_01 Cachename:
+search_text_02 von:
+search_text_03 Koordinaten:
+search_text_04 Status:
+search_text_05 Versteckt am:
+search_text_06 Waypoint:
+search_text_07 Land:
+search_text_08 Cacheart:
+search_text_09 Cachegröße
+search_text_10 Kurzbeschreibung:
+search_text_11 Beschreibung:
+search_text_12 Verschlüsselter Hinweis:
+search_text_13 Logs:
+search_text_14 Achtung! Dies ist ein cache mit logpasswort, nehme es mit zum loggen.
+search_text_15 (Ohne HTML)
+search_text_16 Persönliche Notiz:
 
 
 
