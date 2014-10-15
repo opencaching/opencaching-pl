@@ -956,7 +956,7 @@ GKApi02 GeoKrety Secid:
 GKApi03 Intregeer je {site_name} account met GeoKrety.org account en kopieer hier jouw <b>Secid</b>. Jouw <b>Secid</b> kun je vinden op GeoKrety pagina in je account details.
 GKApi04 (Hier)
 GKApi05 Log GeoKrety direkt uit je inventaris:
-GKApi06 Log GeoKrety nu
+GKApi06 Log een GeoKrety
 GKApi07 Deze functie vereist intregratie van jouw OC account en jouw GeoKrety account. Jouw OC profiel is nog niet geconfigureerd om samen te werken met GeoKrety.
 GKApi08 Intregeer jouw OC account met GeoKrety met de volgende stappen:
 GKApi09 Kopieer je secid van de GeoKrety webpagina.
@@ -968,7 +968,7 @@ GKApi14 GeoKrety bezocht
 GKApi15 GeoKrety gepakt
 GKApi16 Kommentaar
 GKApi17 GeoKrety gezien
-GKApi18 Log GeoKrety ontdekt in deze cache:
+GKApi18 Log GeoKrety aanweig in deze cache:
 GKApi19 Log GeoKrety
 GKApi20 GeoKrety is gelogd.
 GKApi21 Fout
