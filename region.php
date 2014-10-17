@@ -127,7 +127,7 @@
 
             //From Google
 
-$url='http://maps.googleapis.com/maps/api/geocode/json?latlng='.$lat.','.$lon.'&sensor=false&language=pl';
+$url='http://maps.googleapis.com/maps/api/geocode/json?latlng='.$lat.','.$lon.'&sensor=false&language='.$lang;
 $data = @file_get_contents($url);
 
 $jsondata = json_decode($data,true);
