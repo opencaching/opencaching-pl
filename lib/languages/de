@@ -424,9 +424,9 @@ newest_caches Neueste Caches
 total_of_active_caches Total aktiven Caches
 total_of_caches Totale Caches
 total_moved Total der rüber getragte Caches
-active_caches active Caches
-number_of_active_users Anzahl aktiven Benutzer
-number_of_founds Anzahl gefundene caches
+active_caches Active Caches
+number_of_active_users Aktive Benutzer
+number_of_founds Gefundene Caches
 latest_news Aktuelles
 what_do_you_find Wilkommen auf {site_name}
 what_do_you_find_intro_pl Hier finden Sie alles über Geocaching in Polen. Opencaching in Polen wurde im <span class="content-title-noshade"> Mai 2006 </span>. <br/> Dies ist die wichtigste Polen Geocaching Website. Unsere Datenbank an <b> OpenSource Projekt Opencaching </b>.<br/>
@@ -656,7 +656,7 @@ show_labels Etiketten anzeigen
 history_gk geoKrety besuchen
 cachenotes Notizen
 my_statistics Meine Statistik
-Filed_Notes Garmin logdatei
+Field_Notes Garmin logdatei
 mycache_note Meine notizen
 personal_cache_note Persönliche Notiz
 cache_note_visible Notiz ist nicht sichtbar für andere Benutzer. Notiz wird befestig zur GPX Datei.
@@ -710,7 +710,7 @@ ftf_awaiting Caches erwarten für "FTF"
 new_logs_myn Neueste Logs
 top_recommended TOP-Liste der Caches mit Empfehlungen
 myn_info Du hasst nicht die Koordinaten von Umgebung erstellt. Du kannst es einsetzen in <a href="myprofile.php?action=change">Deinem Profil</a>.Wenn Du einen anderen Radius als der Standardwert 35 km einstezten wird, kann in Deinen Profil Option machen. Hier ist ein Beispiel für die Koordinaten gesetzt systemisch.
-search_user benutzer Suchen
+search_user Benutzer suchen
 monthly_stat_founds Monatliche Statistik für Cache Befundungs
 monthly_stat_founds_user Monatliche Statistik für Befundungs bei Benutzer
 monthly_stat_created_user Monatliche Statistik für versteckte Caches
@@ -1741,36 +1741,36 @@ pt010 Sichtbarkeit
 pt011 Beschreibung PowerTrail
 pt012 Alle PowerTrails
 pt013 Cache zu PowerTrail hinfügen
-
-
+pt014 aus diese PowerTrail gefunden
+pt015 Fortschritt dieser PowerTrail
 pt016 von
 pt017 Du hast
-
-
+pt018 Die PowerTrail ist nicht sichtbar (noch nicht veröffentlicht, Wartung, etc.)
+pt019 Eigenschaften PowerTrail
 pt020 Caches in PowerTrail
-
-
+pt021 Meine Statistike von
+pt022 Anzahl Caches
 pt023 Art PowerTrail
-
-
-
+pt024 Veröffentlichung datum
+pt025 Besitzer
+pt026 Sportlich
 pt027 Erforschen
-
-
-
-
-
-
-
+pt028 Benutzername oder Benutzer-ID
+pt029 Diese Person Entfernen aus PowerTrail
+pt030 Hinzufügen/entfernen
+pt031 Abbrechen
+pt032 Hinzufügen
+pt033 Aktualisieren
+pt034 Bescheibung PowerTrail
 pt035 PowerTrail
 pt036 Name
 pt037 Score
 pt038 punkte
-
+pt039 Art
 pt040 Status
-
-
-
+pt041 Veröffentlichung datum
+pt042 Anzahl Caches
+pt043 Bescheibung bearbeiten
 pt044 Speicheren
 pt045 Ändere datum
 pt046 Ändere typ
@@ -1794,18 +1794,18 @@ pt063 Status
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+pt067 Natur
+pt068 Du musst mindestens
+pt069 Caches gefunden haben um ein PowerTrial ein zu tragen
+pt070 Ausgezeichnet
+pt071 Gut
+pt072 Normal
+pt073 Mäßig
+pt074 Schlecht
+pt075 Art
+pt076 Name (Besitzer)
+pt077 Status
+pt078 Bewertung
 pt079 Thema
 
 
@@ -1828,23 +1828,23 @@ pt095 Name cacher
 
 
 
+pt101 Cache tage
+pt102 Caches pro tag
+pt103 Gefunden
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+pt106 Cache Größe
+pt107 Cache art
+pt108 traditionele cache
+pt109 multi Cache
+pt110 rätsel Cache
+pt111 unbekannter Cache
+pt112 ubrige Caches
+pt113 mikro
+pt114 klein
+pt115 normal
+pt116 größ
+pt117 Extra größ
 
 
 
@@ -1936,6 +1936,8 @@ pt184 Hallo
 
 
 
+
+pt208 Verwalten PowerTrails
 
 
 
