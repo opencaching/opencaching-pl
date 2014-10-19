@@ -112,7 +112,7 @@
                         $lang_db = "en";
 
                     // try to get localised name first
-                    $adm1 = sqlvalue("SELECT `countries`.`pl`
+                    $adm1 = sqlvalue("SELECT `countries`.`$countries`
                      FROM `countries`
                     WHERE `countries`.`short`='$sCode'",0);
 
