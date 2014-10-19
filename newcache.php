@@ -843,7 +843,7 @@ if ($error == false) {
                     $cache_id = mysql_insert_id($dblink);
                     // insert cache_location
                     $code1=$sel_country;
-                    $adm1 = sqlvalue("SELECT `countries`.`pl`
+                    $adm1 = sqlvalue("SELECT `countries`.$lang
                                      FROM `countries`
                                     WHERE `countries`.`short`='$code1'",0);
                     // check if selected country has no districts, then use $default_region
