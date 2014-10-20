@@ -2456,5 +2456,8 @@ GarminZip_06 Sluit de Garmin Montana / Oregon / Dakota / 62 / 78 / eTrex aan via
 GarminZip_07 <b>Unzip</b> alle bestanden en plaats deze in de <b>root</b> van de GPS
 GarminZip_08 Let op: De GPS (zie onderstaande lijst) moet deze functie ondersteunen met de huidige firmware (het getal tussen haakjes). Als er geen afbeeldingen te zien zijn dan zou een firmware update moeten gebeuren. Zie voor meer informatie op de
 JpGraph_25121 Lege invoer data-array opgegeven voor plot. Moet ten minste een meetpunt hebben.
-
+Stats_s3_01 Gebruikers ranglijst met aantal van hun gevonden caches
+Stats_s3_02 Plaats
+Stats_s3_03 Aantal logs
+Stats_s3_04 Gebruikersnaam
 

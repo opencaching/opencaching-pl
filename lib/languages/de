@@ -2306,5 +2306,7 @@ language_UZ Usbekisch
 language_VI Vietnamesisch
 newcacheDateFormat Format: YYYY-MM-DD
 JpGraph_25121 Eine leerer Datenvektor wurde fur den Plot eingegeben. Es muss wenigstens ein Datenpunkt vorliegen.
-
-
+Stats_s3_01 Benutzerrangfolge mit einigen ihrer gefunden Caches
+Stats_s3_02 Rangfolge
+Stats_s3_03 Anzahl logs
+Stats_s3_04 Benutzer

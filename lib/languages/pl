@@ -2432,3 +2432,7 @@ GarminZip_05 Pobrać wszystkie powyższe pliki .zip
 GarminZip_06 Podłączyć urządzenie Garmin Montana / Oregon / Dakota / 62 / 78 / eTrex za pomocą kabla
 GarminZip_07 <b>Rozpakować</b> wszystkie pliki do katalogu głownego <b>pamięci wewnętrznej</b> urządzenia
 GarminZip_08 Uwaga: konieczne jest posiadanie kompatybilnego urządzenia (lista poniżej) z wgranym aktualnym firmware (liczba w nawiasie). Jeśli nie widzisz zdjęć, należy zaktualizować urządzenie. Więcej informacji na
+Stats_s3_01 Ranking użytkowników wg liczby odkryć skrzynek danego użytkownika
+Stats_s3_02 Ranking
+Stats_s3_03 Liczba odkryć
+Stats_s3_04 Username
