@@ -28,7 +28,7 @@
         ****************************************************************************/
 setlocale(LC_TIME, 'pl_PL.UTF-8');
 
-        global $content, $bUseZip, $sqldebug, $usr, $hide_coords;
+        global $content, $bUseZip, $sqldebug, $usr, $hide_coords, $lang;
     set_time_limit(1800);
 
 
@@ -227,7 +227,7 @@ setlocale(LC_TIME, 'pl_PL.UTF-8');
                         {
                             $okapi_response =  \okapi\Facade::service_call('services/caches/formatters/garmin',
                                 $usr['userid'],
-                                array('cache_codes' => $waypoints, 'langpref' => 'pl',
+                                array('cache_codes' => $waypoints, 'langpref' => $lang,
                                       'location_source'=> 'alt_wpt:user-coords', 'location_change_prefix' => '(F)'));
 
                             // Modifying OKAPI's default HTTP Response headers.
