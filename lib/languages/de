@@ -2306,16 +2306,20 @@ language_UZ Usbekisch
 language_VI Vietnamesisch
 newcacheDateFormat Format: YYYY-MM-DD
 JpGraph_25121 Eine leerer Datenvektor wurde fur den Plot eingegeben. Es muss wenigstens ein Datenpunkt vorliegen.
+Stats_s3_01 Rangliste basiert auf gefundene caches in ein Region
+Stats_s3_02 Rangfolge
+Stats_s3_03 Anzahl gefunden
+Stats_s3_04 Geocache (Benutzernahme)
 Stats_s3a_01 Rangliste basiert auf gefundene caches in ein Region
 Stats_s3a_02 Klicke auf den Namen der Region um die Statistik in der Region zu sehen
 Stats_s3a_03 Wähle ein region
 Stats_t3_01 Benutzerrangfolge mit einigen ihrer gefunden Caches
 Stats_t3_02 Rangfolge
-Stats_t3_03 Anzahl logs
+Stats_t3_03 Anzahl gefunden
 Stats_t3_04 Benutzer
 Stats_t4_01 Rangliste Caches entsprechend der Anzahl von gefunden
 Stats_t4_02 Rangfolge
-Stats_t4_03 Anzahl logs
+Stats_t4_03 Anzahl gefunden
 Stats_t4_04 Benutzer
 Stats_t5_01 Ranking Benutzer durch die Anzahl von empfangenen Empfehlungen
 Stats_t5_02 Wo

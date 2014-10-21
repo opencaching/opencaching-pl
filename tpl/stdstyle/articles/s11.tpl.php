@@ -31,7 +31,7 @@ if ( $debug_page )
         }
     $woj=sqlValue("SELECT nuts_codes.name FROM nuts_codes WHERE code='$region'", 0);
 
-    echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>Ranking skrzynek wg liczby odkryć w regionie<br/><b>';
+    echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>{{Stats_s3_01}}<br/><b>';
     echo '<br /><br /><b><font color="blue">';
     echo $woj;
     echo '</font></b></center></td></tr></table>';
@@ -42,9 +42,9 @@ if ( $debug_page )
     $r=sql("SELECT COUNT(*) `count`, `caches`.`name`, `cache_logs`.`cache_id`, `user`.`username` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` INNER JOIN `user` ON `caches`.`user_id`=`user`.`user_id`, cache_location  WHERE (`cache_location`.`code3`='$region' AND `cache_location`.`cache_id`=`caches`.`cache_id`) AND `cache_logs`.`deleted`=0 AND `cache_logs`.`type`=1 AND `caches`.`status`=1 GROUP BY `caches`.`cache_id` ORDER BY `count` DESC, `caches`.`name` ASC");
 
 echo    '<tr class="bgcolor2">'.
-        '<td align="center">&nbsp;&nbsp;<b>Ranking</b>&nbsp;&nbsp;</td>'.
-    '<td align="center"><b>Liczba odkryć</b></td>'.
-    '<td align="center">&nbsp;&nbsp;<b>Geocache (User)</b>&nbsp;&nbsp;</td></tr><tr><td>';
+        '<td align="center"><b>{{Stats_s3_02}}</b>&nbsp;&nbsp;</td>'.
+    '<td align="center"><b>{{Stats_s3_03}}</b></td>'.
+    '<td align="center"><b>{{Stats_s3_04}}</b>&nbsp;&nbsp;</td></tr><tr><td>';
 
 $l2="";
 $licznik=0;

@@ -2456,16 +2456,20 @@ GarminZip_06 Sluit de Garmin Montana / Oregon / Dakota / 62 / 78 / eTrex aan via
 GarminZip_07 <b>Unzip</b> alle bestanden en plaats deze in de <b>root</b> van de GPS
 GarminZip_08 Let op: De GPS (zie onderstaande lijst) moet deze functie ondersteunen met de huidige firmware (het getal tussen haakjes). Als er geen afbeeldingen te zien zijn dan zou een firmware update moeten gebeuren. Zie voor meer informatie op de
 JpGraph_25121 Lege invoer data-array opgegeven voor plot. Moet ten minste een meetpunt hebben.
+Stats_s3_01 Cache ranglijst van gevonden caches per regio
+Stats_s3_02 Plaats
+Stats_s3_03 Aantal gevonden
+Stats_s3_04 Geocache (gebruikersnaam)
 Stats_s3a_01 Cache ranglijst van gevonden caches per regio
 Stats_s3a_02 Klik op de naam van de regio om de statistieken in de regio te zien
 Stats_s3a_03 Selecteer een regio
 Stats_t3_01 Gebruikers ranglijst met aantal van hun gevonden caches
 Stats_t3_02 Plaats
-Stats_t3_03 Aantal logs
+Stats_t3_03 Aantal gevonden
 Stats_t3_04 Gebruikersnaam
 Stats_t4_01 Cache ranglijst van meeste keren gevonden
 Stats_t4_02 Plaats
-Stats_t4_03 Aantal logs
+Stats_t4_03 Aantal gevonden
 Stats_t4_04 Gebruikersnaam
 Stats_t5_01 Gebruikers ranglijst met aantal ontvangen aanbevelingen
 Stats_t5_02 Waar
