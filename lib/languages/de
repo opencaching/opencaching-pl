@@ -2310,13 +2310,17 @@ Stats_t3_01 Benutzerrangfolge mit einigen ihrer gefunden Caches
 Stats_t3_02 Rangfolge
 Stats_t3_03 Anzahl logs
 Stats_t3_04 Benutzer
-Stats_t5_01 Ranking Benutzer durch die Anzahl der empfangenen Empfehlungen
+Stats_t4_01 Rangliste Caches entsprechend der Anzahl von gefunden
+Stats_t4_02 Rangfolge
+Stats_t4_03 Anzahl logs
+Stats_t4_04 Benutzer
+Stats_t5_01 Ranking Benutzer durch die Anzahl von empfangenen Empfehlungen
 Stats_t5_02 Wo
 Stats_t5_03 anzahl Empfehlungen 
 Stats_t5_04 gesamtzahl Caches
 Stats_t5_05 verhältnis in 
 Stats_t5_06 oder
-Stats_t5_07 Platz
+Stats_t5_07 Rangfolge
 Stats_t5_08 Anzahl Empfehlungen 
 Stats_t5_09 Benutzer
 

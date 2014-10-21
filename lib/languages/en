@@ -2461,6 +2461,10 @@ Stats_t3_01 Users ranking by number of finds of caches they own
 Stats_t3_02 Ranking
 Stats_t3_03 Finds
 Stats_t3_04 Username
+Stats_t4_01 Cache ranking by number of finds
+Stats_t4_02 Ranking
+Stats_t4_03 Finds
+Stats_t4_04 Username
 Stats_t5_01 Ranking users by the number of received recommendations
 Stats_t5_02 Where
 Stats_t5_03 number of recommendations

@@ -2460,6 +2460,10 @@ Stats_t3_01 Gebruikers ranglijst met aantal van hun gevonden caches
 Stats_t3_02 Plaats
 Stats_t3_03 Aantal logs
 Stats_t3_04 Gebruikersnaam
+Stats_t4_01 Cache ranglijst van meeste keren gevonden
+Stats_t4_02 Plaats
+Stats_t4_03 Aantal logs
+Stats_t4_04 Gebruikersnaam
 Stats_t5_01 Gebruikers ranglijst met aantal ontvangen aanbevelingen
 Stats_t5_02 Waar
 Stats_t5_03 aantal aanbevelingen
@@ -2468,4 +2472,5 @@ Stats_t5_05 verhouding in
 Stats_t5_06 of
 Stats_t5_07 Plaats
 Stats_t5_08 Aantal aanbevelingen
-Stats_t5_09 Gebruikersnaam 
+Stats_t5_09 Gebruikersnaam
+

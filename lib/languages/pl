@@ -2436,6 +2436,10 @@ Stats_t3_01 Ranking użytkowników wg liczby odkryć skrzynek danego użytkownik
 Stats_t3_02 Ranking
 Stats_t3_03 Liczba odkryć
 Stats_t3_04 Username
+Stats_t4_01 Ranking skrzynek wg liczby odkryć
+Stats_t4_02 Ranking
+Stats_t4_03 Liczba odkryć
+Stats_t4_04 Nazwa skrzynki (Username)
 Stats_t5_01 Ranking użytkowników wg liczby otrzymanych rekomendacji
 Stats_t5_02 gdzie
 Stats_t5_03 liczba skrzynek z rekomendacjami
@@ -2445,7 +2449,4 @@ Stats_t5_06 czyli
 Stats_t5_07 Ranking
 Stats_t5_08 Liczba rekomendacji
 Stats_t5_09 Username
-
-
-
 
