@@ -332,41 +332,41 @@ $login=0;
     $topage = $frompage + 8;
     if ($topage > $maxpage) $topage = $maxpage;
 
-    for ($i = $frompage; $i <= $topage; $i++)
-    {
-        if (($startat / $caches_per_page + 1) == $i)
+    if ($topage > 1){
+        for ($i = $frompage; $i <= $topage; $i++)
         {
-            $pages .= ' <b>' . $i . '</b>';
+            if (($startat / $caches_per_page + 1) == $i)
+            {
+                $pages .= ' <b>' . $i . '</b>';
+            }
+            else
+            {
+                $pages .= ' <a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=' . (($i - 1) * $caches_per_page) . '">' . $i . '</a>';
+            }
+        }
+    
+        if ($startat / $caches_per_page < ($maxpage - 1))
+        {
+            $pages .= ' <a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=' . ($startat + $caches_per_page) . '">{next_img}</a> <a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=' . (($maxpage - 1) * $caches_per_page) . '">{last_img}</a> ';
         }
         else
         {
-            $pages .= ' <a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=' . (($i - 1) * $caches_per_page) . '">' . $i . '</a>';
+            $pages .= ' {next_img_inactive} {last_img_inactive}';
         }
+    
+        $pages = mb_ereg_replace('{prev_img}', $prev_img, $pages);
+        $pages = mb_ereg_replace('{next_img}', $next_img, $pages);
+        $pages = mb_ereg_replace('{last_img}', $last_img, $pages);
+        $pages = mb_ereg_replace('{first_img}', $first_img, $pages);
+    
+        $pages = mb_ereg_replace('{prev_img_inactive}', $prev_img_inactive, $pages);
+        $pages = mb_ereg_replace('{next_img_inactive}', $next_img_inactive, $pages);
+        $pages = mb_ereg_replace('{first_img_inactive}', $first_img_inactive, $pages);
+        $pages = mb_ereg_replace('{last_img_inactive}', $last_img_inactive, $pages);
+        tpl_set_var('pages', $pages);
+    } else {
+        tpl_set_var('pages', '');
     }
-
-    if ($startat / $caches_per_page < ($maxpage - 1))
-    {
-        $pages .= ' <a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=' . ($startat + $caches_per_page) . '">{next_img}</a> <a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=' . (($maxpage - 1) * $caches_per_page) . '">{last_img}</a> ';
-    }
-    else
-    {
-        $pages .= ' {next_img_inactive} {last_img_inactive}';
-    }
-
-    $pages = mb_ereg_replace('{prev_img}', $prev_img, $pages);
-    $pages = mb_ereg_replace('{next_img}', $next_img, $pages);
-    $pages = mb_ereg_replace('{last_img}', $last_img, $pages);
-    $pages = mb_ereg_replace('{first_img}', $first_img, $pages);
-
-    $pages = mb_ereg_replace('{prev_img_inactive}', $prev_img_inactive, $pages);
-    $pages = mb_ereg_replace('{next_img_inactive}', $next_img_inactive, $pages);
-    $pages = mb_ereg_replace('{first_img_inactive}', $first_img_inactive, $pages);
-    $pages = mb_ereg_replace('{last_img_inactive}', $last_img_inactive, $pages);
-
-    //'<a href="search.php?queryid=' . $options['queryid'] . '&amp;startat=20">20</a> 40 60 80 100';
-    //$caches_per_page
-    //count($caches) - 1
-    tpl_set_var('pages', $pages);
 
     // speichern-link
     if ($usr === false)
