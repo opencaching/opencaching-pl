@@ -553,7 +553,7 @@ ranking_by_number_of_recommnedations Rangliste Benutzer durch Anzahl der empfang
 cache_ranking_by_number_of_finds Rangliste der Caches nach Anzahl der Befundungs
 cache_ranking_by_calculated_indicator Rangliste der Caches nach kalkulierte Indikator
 user_ranking_by_number_of_finds_of_their_caches Rangliste der Benutzer nach Anzahl von Befundungs der Benutzers Caches
-cache_ranking_by_finds_per_region Ranking skrzynek według liczby odkryć w województwie
+cache_ranking_by_finds_per_region Rangliste basiert auf gefundene caches in ein Region
 cache_ranking_by_number_of_recommendations Rankliste der Caches nach Anzahl der Empfehlungen
 oc_statistics Statistik OC PL
 only_active_caches nur aktive Caches
@@ -2306,6 +2306,9 @@ language_UZ Usbekisch
 language_VI Vietnamesisch
 newcacheDateFormat Format: YYYY-MM-DD
 JpGraph_25121 Eine leerer Datenvektor wurde fur den Plot eingegeben. Es muss wenigstens ein Datenpunkt vorliegen.
+Stats_s3a_01 Rangliste basiert auf gefundene caches in ein Region
+Stats_s3a_02 Klicke auf den Namen der Region um die Statistik in der Region zu sehen
+Stats_s3a_03 Wähle ein region
 Stats_t3_01 Benutzerrangfolge mit einigen ihrer gefunden Caches
 Stats_t3_02 Rangfolge
 Stats_t3_03 Anzahl logs

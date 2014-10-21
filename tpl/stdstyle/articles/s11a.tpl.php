@@ -30,14 +30,14 @@ if ( $debug_page )
 
 // $rsfCR = sql("SELECT `cache_location`.`adm3` region, `cache_location`.`code3` code_region FROM `cache_location` WHERE `cache_location`.`code1`='PL' ORDER BY `cache_location`.`code3` DESC");
 
-    echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>Ranking skrzynek wg liczby odkryć w regionie<br/><b>';
-    echo '<br /><br />(Kliknij na nazwe województwa aby zobaczyć statytykę w danym województwie)</center></td></tr></table><br><table border="1" bgcolor="white" width="30%">' . "\n";
+    echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>{{Stats_s3a_01}}<br/><b>';
+    echo '<br /><br />({{Stats_s3a_02}})</center></td></tr></table><br><table border="1" bgcolor="white" width="30%">' . "\n";
 
 
 echo '
 <tr class="bgcolor2">
     <td align="right">
-        &nbsp;&nbsp;<b>Wybierz '.tr('region').':</b>&nbsp;&nbsp;
+        <b>{{Stats_s3a_03}}:</b>&nbsp;&nbsp;
     </td>
 </tr><tr><td height="2"></td></tr>';
     $rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
@@ -48,7 +48,7 @@ echo '
 
     echo '<tr class="bgcolor2">
             <td align="right">
-                &nbsp;&nbsp;<b><a class=links href=articles.php?page=s11&region='.$record[code].'>'.$record[name].'</a></b>&nbsp;&nbsp;
+                <b><a class=links href=articles.php?page=s11&region='.$record[code].'>'.$record[name].'</a></b>&nbsp;&nbsp;
             </td>';
 
 }
