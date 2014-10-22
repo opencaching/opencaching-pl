@@ -233,7 +233,7 @@
                                     'langpref' => $lang,
                                     'ns_ground' => 'true',
                                     'ns_ox' => 'true',
-                                    'images' => 'ox:all',
+                                    'images' => 'none',
                                     'attrs' => 'ox:tags',
                                     'trackables' => 'desc:count',
                                     'alt_wpts' => 'true',
