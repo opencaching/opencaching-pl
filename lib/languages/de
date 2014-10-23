@@ -825,11 +825,11 @@ empty_mark Diese cache hat noch kein beorteilung. Weitergehen mit loggen?
 where_i_am Wo bin ich?
 read_info_about_cache_types Siehe Beschreibung <a href="{cache_params_url}" target="_blank">Cacheart</a>
 regiononly Region
-region_from_coord Land von Koordinaten
-select_regions Land wählen
+region_from_coord Region durch angegebenen Koordinaten
+select_regions Region auswählen
 not_applicable Nicht verwendet
 input_coord Bitte Koordinaten der Cache angeben
-waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Siehe Beschreibung über zusätzliche Waypoints </a>
+waypoints_about_info <a class="links" {cache_params_url}" target="_blank">Siehe Beschreibung zür zusätzliche Waypoints </a>
 cache_pictures Bild mit Cache verbunden
 log_pictures Bild in LOG-Eintrag
 no_title Ohne Titel
@@ -845,11 +845,11 @@ spoiler_info nicht zeigen Thumbnails (SPOILER) - Verwenden diese Option, wenn da
 dont_show nicht zeigen dieses Bild.
 pictures_intro Folgende Formate werden akzeptiert: BMP, GIF, PNG, JPG und - empfohlen für Fotos im JPG-Format <br /> Maximale Dateigröße erlaubt 100 KB. Empfohlene Bildgröße: 480 Pixel breit und 360 Pixel Höhe. <br /> Nach der Bestätigung der nächsten Seite, die erscheint, kann eine Weile dauern.
 add_new_picture Hinzufügen ein neues Bild für Cache
-Galery Galerie anzeigen
-
+gallery Galerie anzeigen
+gallery_short Galerie
 gallery_of_cache Bildergalerie für Cache
-images_cache Pictures Cache
-images_logs Bilder von Protokollen
+images_cache Bilder von Cache
+images_logs Bilder von logs
 show_more Mehr anzeigen
 search_options Suchoptionen
 myroutes Meine Routen
@@ -861,17 +861,17 @@ radius_info Radius sollte im Bereich von 0,5 km bis 10 km sein
 edit_route Rundgang bearbeiten
 route_desc Der Route Beschreibung
 route_name Name der Route
-route_name_info Bitte geben die Route Namen
+route_name_info Bitte geben die Route ein name
 file_name_info Bitte geben KML
-no_routes Strecke ist leer
+no_routes Liste mit Routen ist leer
 radius Radius
 see_desc_myroute Siehe Beschreibung von "My Tour"
 route_radius Umkreissuche
 search_caches_along_route Suche Caches entlang der Route
 caches_along_route Caches entlang der Route
-save_gpx zu GPX speichern
-
-show_gmap Auf GMAP'ie
+save_gpx Als GPX speichern
+save_gpx_with_photos Als GPX mit bilder speichern
+show_gmap Zeige auf GMAP
 show_list Liste der Caches zeigen
 logs_cache_gpx Anzahl der Logs für Cache, in GPX
 min_logs_cache minimale Anzahl von Logs
@@ -881,30 +881,30 @@ this_month in den letzten 30 Tagen
 more_one_month zwischen 1 und 6 Monaten
 more_six_month zwischen 6 und 12 Monaten
 more_12_month mehr als 12 Monaten
-unknown unknown nicht bekannt
+unknown ubekannt
 user_not_active Benuzer Konto nicht aktiv
 distance_to_cache Abstand zur Cache
-cacheguides Geocaching Guides
+cacheguides Geocaching Hilfe mit Freiwilligen
 guide Guide
 guides Guides
 okapi_apps Meine Apps
 os_times mal
 os_kesz Geocache
-os_autor Autor:
+os_autor von:
 os_nie_ma_w_os Autor dieser Cache hat nicht erlaubt prüfen die Koordinaten in OpenChecker
 os_podaj_waypoint Bitte Waypoint der Cache angeben (zB.: OP2E48)
-os_podaj_twoje Geben die Koordinaten empfangen Endbehälter:
-os_sprawdz prüfen
-os_stopnie Degrees
+os_podaj_twoje Geben die gefundene Koordinaten ein:
+os_sprawdz Überprüfe die Koordinaten
+os_stopnie grad
 os_minuty Minuten
 os_tak_chce Auswahl dieser Option können Benutzer die Koordinaten überprüfen mit OpenChecker erhielt
 opensprawdzacz_main Autor dieser Geocache möglich Validierung die Rätsel lösen (die endgültigen Behälter-Koordinaten), bevor in das Feld!
-os_pr Studie
+os_pr Versuche
 os_sukc Treffern
-os_proba Anlzah der Deine Versuche:
-os_razy razy. Zullasige Anzahl der Versuche:
-os_razy_srodek innerhalb
-os_razy_koniec Minute.
+os_proba Du erreichst jezt die limiet von 
+os_razy Zullasige Anzahl der Versuche ist 
+os_razy_srodek versuche innerhalb
+os_razy_koniec minute.
 os_sukces JA! Du hast die richtigen Koordinaten! Herzlichen Glückwunsch.
 os_fail FALSCH! Die Koordinaten sind ungültig. Überprüfen Deine Berechnungen!
 os_za_godzine Warten  eine Stunde und versuchen  es erneut.
@@ -1176,51 +1176,58 @@ choose Wählen
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 yes Ja
 no Nein
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+cache_reports_01 Problemberichte
+cache_reports_02 zurück
+cache_reports_03 Datum
+cache_reports_04 Status Cache
+cache_reports_05 Problemart
+cache_reports_06 Anmelder
+cache_reports_07 Praktiker
+cache_reports_08 Behandelt
+cache_reports_09 Problembericht
+cache_reports_10 Problemberichte
+cache_reports_11 Bericht Archiv
+cache_reports_12 Cache auf Privatgrund
+cache_reports_13 Muss Archiviert werden
+cache_reports_14 Copyright Verletzung
+cache_reports_15 Anders
+cache_reports_16 neu
+cache_reports_17 in Behandlung
+cache_reports_18 abgeschlossen
+cache_reports_19 annehmen
+cache_reports_20 Anpassen
+cache_reports_21 Text der Meldung
+cache_reports_22 Maßnahme
+cache_reports_23 Speichern
+cache_reports_24 Notiz
+cache_reports_25 Schicke eine e-mail an
+cache_reports_26 Anmelder
+cache_reports_27 Cachebesitzer
+cache_reports_28 Anmelder und Cachebesitzer
+cache_reports_29 Schicke eine e-mail
+cache_reports_30 Abbrechen
+cache_reports_31 Oder wähle aus folgenden Standardmeldungen
+cache_reports_32 Problem mit Cache
+cache_reports_33 Kopie von Bericht
+cache_reports_34 aktive Themen
+cache_reports_35 archiv
 oc_on_all_pages_top_pl OPENCACHING.pl
 oc_subtitle_on_all_pages_pl Geocaching in Polen
 oc_on_all_pages_top_nl OPENCACHING.nl
