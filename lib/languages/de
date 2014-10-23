@@ -331,13 +331,13 @@ date_incorrect Datum ist falsch. Zulassige-Format: DD-MM-YYYY
 no_cache_name Kein Cache Name
 new_cache_no_terms Der Cache ist nicht registriert werden, weil Sie nicht überprüft haben, dass Sie die Nutzungsbedingungen Opencaching.pl
 html_incorrect Dieser HTML-Code ist nicht erlaubt.
-
+descwp_incorrect Kein beschreibung eingegeben!
 type_incorrect Kein Cache angegeben!
-
-
+typewp_incorrect Kein waypoint angegeben!
+stage_incorrect WP nummer ist nicht korrect!
 size_incorrect Cachegröße ist nicht korrekt!
 diff_incorrect Schwierigkeitsgrad ist falsch!
-
+status_incorrect Status kommt nicht überein mit publizierten Datei.
 virtual_cache_size Cache-Größe muss als "ohne Container", wenn Cache eingestellt ist oder als Event!
 cache_submitted Ihr Cache wurde auf {site_name} veröffentilicht.
 full_description Beschreibung
@@ -375,7 +375,7 @@ search_by_name Suche nach Cachename
 max_distance Maximaler Abstand
 kilometer km
 mile Meilen
-nautical_mile -Meilen-Zone
+nautical_mile nautische Meilen
 search_by_city Suche nach Stadt
 city_name Stadt
 search_text Suche nach Text
@@ -390,9 +390,9 @@ search_recommendations Empfehlungen
 search_all_caches alle Caches
 search_recommended_caches Empfehlungen:
 incomming_events Nächsten Events
-rr_comment_label Opencaching.pl Rat Kommentar
-add_rr_comment RR Kommentar Opencaching.pl Rat hinzufügen
-remove_rr_comment Nehmen Sie Opencaching.pl Rat Kommentar aus
+rr_comment_label Anmerkung von OC team
+add_rr_comment Anmerkung OC Team hinzufügen
+remove_rr_comment Anmerkung OC Team löschen
 get_bulletin Ich möchte Bulletins bekommen
 bulletin_label_yes Nutzer erhalten Bulletins
 bulletin_label_no Nutzer erhalten keine Bulletins
@@ -412,7 +412,7 @@ total_dist_hidden_caches_label Total Abstand zwischen versteckten Caches
 median_dist_hidden_caches_label Die mittlere Entfernung zwischen versteckten Caches
 average_dist_hidden_caches_label Durchschnittlicher Abstand zwischen versteckten Caches
 be_ftf_label Seien Sie Erster zu finden!
-please_login Bitte melden Sie sich.
+please_login Bitte anmelden!.
 to_see_coords Koordinaten versteckt.
 h_pl_label Caches von opencaching.pl schauen
 h_de_label Caches von opencaching.de schauen
@@ -431,6 +431,8 @@ latest_news Aktuelles
 what_do_you_find Wilkommen auf {site_name}
 what_do_you_find_intro_pl Hier finden Sie alles über Geocaching in Polen. Opencaching in Polen wurde im <span class="content-title-noshade"> Mai 2006 </span>. <br/> Dies ist die wichtigste Polen Geocaching Website. Unsere Datenbank an <b> OpenSource Projekt Opencaching </b>.<br/>
 
+
+
 more_news Mehr Nachrichten
 filename_rules {rules_url}
 filename_describe_cache {cache_params_url}
@@ -443,16 +445,16 @@ search_geocaches_nearby Cache suchen in Umkreis von 100km
 download_as_file Als Datei download
 accept_terms_of_use Weil downloading diese Datei, akzeptierst du unsere <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">Nutztbedigungen</a>.
 find_geocaches_on Geocaches finden an
-searchable ohne meine und bei mir gefundene
+searchable ohne eigene und gefundene caches
 all_geocaches alle
 log_entries Log Einträge
 show_all_log_entries  Alle Log Einträge
-
+show_all_log_entries_short Alle logs
 back_to_the_geocache_listing Zur Cache beschreibung
 register_new Neuen Benutzer registrieren
 password_confirm Passwort bestätigen
 register_new Neuen Benutzer registrieren
-register_msg1 Ein neuen Account an {site_name} zu registrieren, musst du eine gültige E-Mail addresse und Benutzername eingeben. Ein E-Mail wurde mit Aktivierungskode geschickt. Nur ein Account kann mit einen E-mail Adresse registriert.
+register_msg1 Um ein neuen Account an {site_name} zu registrieren, musst du eine gültige E-Mail addresse und Benutzername eingeben. Ein E-Mail wird mit Aktivierungskode geschickt. Nur ein Account kann mit einen E-mail Adresse registriert werden.
 register_msg2 * sind erfordet
 register_msg3 Für weitere Fragen, bitte um Kontakt mit uns vor Registrierung.
 register_msg4 Ich habe gelesen und einverstanden <b><a href="{rules_url}">Nutztbedigungen</a></b> und ich akzeptiere die.
@@ -494,6 +496,7 @@ logoutsuccess Abmeldung war erfolgreich
 error_usernotactive Konto ist nicht aktiv oder deaktiv.<br />Du kannst deine Konto aktivieren<a href=activation.php>hier klicken</a>aktivieren.
 not_registered Not registered? <a href="register.php">Registrieren</a>
 forgotten_your_password Passwort vergessen? <a href="newpw.php">Erinnern mich</a>
+forGottenEmailAddress E-mail adresse vergessen? <a href="remindemail.php">Frage hier deine E-mailadresse</a>
 cache_logged_required Du musst eingeloggt sein, um neue Log-Einträge hinzufügen und auf diesem Cache bedient werden.
 basic_information Grundlegende Informationen.
 rating_poor schlecht
@@ -540,16 +543,16 @@ toggle_filters Filter schalten
 fullscreen Vollbild
 disable_fullscreen Vollbild ausschalten
 stats Statistik
-
-
-
-
-
+rise_charts Unsere steigende Zahle
+region_ranking Statistiek pro Region
+user_ranking Statistiek pro Benutzer
+cache_ranking Statistiek pro Cache
+ranking_by_maintenace Rangliste Benutzer mit Caches in wartung
 ranking_by_number_of_created_caches Rangliste Benutzer durch Anzahl der festgestellte Caches
 ranking_by_number_of_created_active_caches Rangliste Benutzer durch Anzahl der festgestellte aktive Caches
+ranking_by_number_of_finds_new Rangliste Benutzer durch Anzahl der gefundene Caches
 ranking_by_number_of_finds Rangliste Benutzer durch Anzahl der gefundene Caches
 ranking_by_number_of_recommnedations Rangliste Benutzer durch Anzahl der empfangene Empfehlungen
-
 cache_ranking_by_number_of_finds Rangliste der Caches nach Anzahl der Befundungs
 cache_ranking_by_calculated_indicator Rangliste der Caches nach kalkulierte Indikator
 user_ranking_by_number_of_finds_of_their_caches Rangliste der Benutzer nach Anzahl von Befundungs der Benutzers Caches
@@ -672,7 +675,7 @@ no_note Keine Notizen
 additional_waypoints Zusäztliche Waypoint
 nowp_notice Es gibt keine zusäztliche waypoints
 stage_wp Etappe
-
+symbol_wp Symbol
 type_wp Typ
 type_wp2 Waypoint Typ
 coordinates_wp Koordinaten
@@ -682,18 +685,18 @@ wp_status1 Alle Waypoint-Informationen zeigen, einschlißlich Koordinaten
 wp_status2 Alle Waypoint-Informationen zeigen, statt Koordinaten
 wp_status3 Verschtecken dieser Waypoint in Beschreibung
 number_stage_wp Etappe Nummer
-status_wp Waypoint-Status
+status_wp Waypoint status
 write_wp Waypoint speichern
 edit_wp Waypoint
-delete_wp Waypoint läschen
+delete_wp Waypoint löschen
 show_info_about_wp Siehe Beschreibung und die Art der zusätzlichen Waypoints
 show_info_for_value Wenn der Waypoint ist der nicht eine nächste Schritt in Quiz oder Multicache den Wert 0 setzen
 comment_octeam_visible COG-Anmerkungen sind sichtbar nur für COG und Cache Besitzer.
 ready_to_search Cache bereit zu suchen. Viel Glück!
 archived_cache Cache war archiviert.
 temporarily_unavailable Cache wird temporär nicht verfügbar.
-blocked_by_octeam Cache gesperrt bei Geocacher HelpDesk.
-
+blocked_by_octeam Cache ist gesperrt bei OC Team.
+approved_by_octeam Cache ist zugelassen bei OC Team.
 empty_coordinatest Geben Sie den neuen Koordinaten für den Fall der mobilen übertragen.
 empty_log_text Log-eintrag sollte nicht leer sein. Bitte ein paar Worte schreiben, die wertvolle Informationen für den Cache Besitzer sein kann
 route_cache Weg reiste bei Cache.
@@ -776,7 +779,7 @@ name_queries Bezeichnung zu den Suchergebnissen
 save_queries Suchergebnis Angemeldet
 old_options überschreiben die alten Suchergebnissen
 select_queries Wähls Du die gespeicherte Suche zu überschreiben
-
+no_watched_caches Kein beobachtete Caches
 last_found Letzte gefundene
 delete_recommend Emfehlung löschen
 off_ignore Ignorierung ausschalten
@@ -785,10 +788,10 @@ oc_stat {site_name} cache statistik
 administration OC Management
 stat_octeam COG Statistik
 cache_notfound Nicht gefundene caches
-send_bulletin Bulletin schicken
-
-
-
+send_bulletin Schicke ein Bulletin
+send_bulletin_01 Bulletin Schicken
+send_bulletin_02 Beispiel Bulletin
+send_bulletin_03 Bulletin ist verschickt
 add_news Nachricht eingeben
 email_subject_news Neue nachricht gesendet
 subject Thema
@@ -799,6 +802,7 @@ all_regions Alle Regionen
 assigned_to Zugewiesen
 date_created Erstellungsdatum
 owner Besitzer
+creator Gründer
 actions Aktion
 block Sperren
 assign_yourself Ordnen sich auf die Benachrichtigung
@@ -817,7 +821,7 @@ online_users registrierte Benutzer
 online_users_info auf den aktiven Besuchern der letzten 10 Minuten online
 empty_entry_notice <b> Label Einträge </ b>: Versuchen Sie nicht, leere Einträge machen. Vorbereitung der Cache ist oft eine grosse Arbeit und Worte des Dankes oder Kritik sind in der Regel willkommen! Selbst ein einfaches "Danke" genug ist.
 empty_entry_confirm Sicher, dass Du ein leer Eintrag? \ Es ist immer viel besser als ein kurzes Kommentar schreiben.
-
+empty_mark Diese cache hat noch kein beorteilung. Weitergehen mit loggen?
 where_i_am Wo bin ich?
 read_info_about_cache_types Siehe Beschreibung <a href="{cache_params_url}" target="_blank">Cacheart</a>
 regiononly Region
@@ -1066,9 +1070,9 @@ geocache Geocache
 
 
 
-
-
-
+format_GPX GPX
+format_other andere formate
+format_pict GPX mit bilder
 
 
 
@@ -2330,4 +2334,5 @@ Stats_t5_06 oder
 Stats_t5_07 Rangfolge
 Stats_t5_08 Anzahl Empfehlungen 
 Stats_t5_09 Benutzer
+
 
