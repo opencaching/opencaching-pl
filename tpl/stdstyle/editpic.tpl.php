@@ -47,7 +47,7 @@ function checkForm()
 
     <tr>
         <td valign="top">{{file_name}}:</td>
-        <td><input class="input200" name="file" type="file" maxlength="{maxpicsize}" /></td>
+        <td><input class="input200" name="file" type="file" accept="image/jpeg,image/gif,image/png" maxlength="{maxpicsize}" /></td>
     </tr>
     <tr><td class="spacer" colspan="2"></td></tr>
 
