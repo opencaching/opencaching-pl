@@ -64,7 +64,7 @@ snake Achtung! Schlangen
 generate_code Code generieren
 9keycom Zusätzliche Attribute auf http://www.9key.com/selector.asp
 score Bewerten
-scored Bewertung
+scored Bewertet
 recommendations Empfehlungen
 recommendation Empfehlung
 created_by erstellt von
@@ -215,8 +215,8 @@ last_modified_label Letzte Änderung
 last_modified2_label Letzte Änderung
 waypoint Wegpunkte
 listed_also_on Auch auf
-comments Kommentare
-comment Kommentar
+comments Bemerkungen
+comment Bemerkung
 write_to_log Melden Sie Ihren Besuch
 edit Bearbeiten
 watch Beobachten
@@ -225,8 +225,8 @@ ignore Ignorieren
 ignore_not Nicht ignorieren
 decrypt Entschlüsseln
 pictures_included Bilder im Zusammenhang mit dieser Log-Eintrag
-attendends Besucht bei
-will_attend Wird an
+attendends Teilgenommen
+will_attend Möchte teilnehmen
 enter_text Geben Sie Text
 enter_text_error Text wurde noch nicht eingetragen
 only_these nur diese
@@ -391,8 +391,8 @@ search_all_caches alle Caches
 search_recommended_caches Empfehlungen:
 incomming_events Nächsten Events
 rr_comment_label Anmerkung von OC team
-add_rr_comment Anmerkung OC Team hinzufügen
-remove_rr_comment Anmerkung OC Team löschen
+add_rr_comment Bemerkung OC Team hinzufügen
+remove_rr_comment Bemerkung OC Team löschen
 get_bulletin Ich möchte Bulletins bekommen
 bulletin_label_yes Nutzer erhalten Bulletins
 bulletin_label_no Nutzer erhalten keine Bulletins
@@ -1350,7 +1350,7 @@ search00 Alle Länder
 logType1 Gefunden
 logType2 Nicht gefunden
 logType3 Notitz
-logType4 Cache 
+logType4 verschoben
 logType5 Wartung ist notwendig
 logType6 Wartung ist gemacht
 logType7 Teilgenommem
@@ -1358,7 +1358,7 @@ logType8 Möchte teilnehmen
 logType9 Cache archivierd
 logType10 Kann gesucht werden
 logType11 Momentan nicht verfügbar 
-logType12 Notitz von oc-team
+logType12 Bemerkung von OC Team
 
 
 
