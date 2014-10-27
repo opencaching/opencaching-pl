@@ -123,7 +123,7 @@ require_once('./lib/common.inc.php');
     }
 
     function emailHeaders() {
-        global $usr, $site_name;
+        global $usr, $site_name, $octeam_email;
         $email_headers = "Content-Type: text/plain; charset=utf-8\r\n";
         $email_headers .= "From: $site_name <$octeam_email>\r\n";
         $email_headers .= "Reply-To: ".$usr['email']."\r\n";
