@@ -741,19 +741,17 @@ class OkapiHttpResponse
             header("ETag: $this->etag");
 
         # Make sure that gzip is supported by the client.
-        $try_gzip = $this->allow_gzip;
+        $use_gzip = $this->allow_gzip;
         if (empty($_SERVER["HTTP_ACCEPT_ENCODING"]) || (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], "gzip") === false))
-            $try_gzip = false;
+            $use_gzip = false;
 
         # We will gzip the data ourselves, while disabling gziping by Apache. This way, we can
         # set the Content-Length correctly which is handy in some scenarios.
 
-        if (function_exists('apache_setenv')) {
-            @apache_setenv('no-gzip', 1);
-        }
-
-        if ($try_gzip && is_string($this->body))
+        if ($use_gzip && is_string($this->body))
         {
+            # Apache won't gzip a response which is already gzipped.
+
             header("Content-Encoding: gzip");
             $gzipped = gzencode($this->body, 5);
             header("Content-Length: ".strlen($gzipped));
@@ -761,6 +759,12 @@ class OkapiHttpResponse
         }
         else
         {
+            # We don't want Apache to gzip this response. Tell it so.
+
+            if (function_exists('apache_setenv')) {
+                @apache_setenv('no-gzip', 1);
+            }
+
             $length = $this->get_length();
             if ($length)
                 header("Content-Length: ".$length);
@@ -851,7 +855,7 @@ class Okapi
 {
     public static $data_store;
     public static $server;
-    public static $revision = 1047; # This gets replaced in automatically deployed packages
+    public static $revision = 1048; # This gets replaced in automatically deployed packages
     private static $okapi_vars = null;
 
     /** Get a variable stored in okapi_vars. If variable not found, return $default. */
