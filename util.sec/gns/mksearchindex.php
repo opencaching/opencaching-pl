@@ -19,6 +19,7 @@
         GNS-DB.
 
     ***************************************************************************/
+header ('Content-Type: text/plain');
 set_time_limit(0);
 
   $rootpath = '../../';
@@ -38,11 +39,25 @@ set_time_limit(0);
 
     $doubleindex['sankt'] = 'st';
 
-    sql('DELETE FROM gns_search');
+    sql('TRUNCATE TABLE `gns_search`');
+    sql("DROP TABLE IF EXISTS `gns_search`");
+    sql("CREATE TABLE `gns_search` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uni_id` int(11) NOT NULL DEFAULT '0',
+  `sort` varchar(255) NOT NULL,
+  `simple` varchar(255) NOT NULL,
+  `simplehash` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `simplehash` (`simplehash`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8");
 
+    $in_count = 0;
+    $out_count = 0;
+    
     $rs = sql("SELECT `uni`, `full_name_nd` FROM `gns_locations` WHERE `dsg` LIKE 'PPL%'");
     while ($r = sql_fetch_array($rs))
     {
+        $in_count++;
         $simpletexts = search_text2sort($r['full_name_nd']);
         $simpletextsarray = explode_multi($simpletexts, ' -/,');
 
@@ -56,14 +71,18 @@ set_time_limit(0);
                 $simpletext = search_text2simple($text);
 
                 sql("INSERT INTO `gns_search` (`uni_id`, `sort`, `simple`, `simplehash`) VALUES ('&1', '&2', '&3', '&4')", $r['uni'], $text, $simpletext, sprintf("%u", crc32($simpletext)));
-
-                if (isset($doubleindex[$text]))
+                $out_count++;
+                if (isset($doubleindex[$text])){
                     sql("INSERT INTO `gns_search` (`uni_id`, `sort`, `simple`, `simplehash`) VALUES ('&1', '&2', '&3', '&4')", $r['uni'], $text, $doubleindex[$text], sprintf("%u", crc32($doubleindex[$text])));
+                    $out_count++;
+                }
             }
         }
     }
     mysql_free_result($rs);
 
+    echo "Processed $in_count rows, inserted $out_count index items";
+    
 /* end search index rebuild */
 
 function nonalpha($str)

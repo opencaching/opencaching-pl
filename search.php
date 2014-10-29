@@ -560,7 +560,7 @@
                         {
                             require_once($rootpath . 'lib/search.inc.php');
 
-                            $ort = $options['ort'];
+                            $ort = trim($options['ort']);
                             $simpletexts = search_text2sort($ort);
                             $simpletextsarray = explode_multi($simpletexts, ' -/,');
 
@@ -1770,7 +1770,7 @@ function outputUniidSelectionForm($uniSql, $urlparams)
 
     tpl_set_var('pages', $pages);
 
-    $rs = sql('SELECT `gns_locations`.`rc` `rc`, `gns_locations`.`cc1` `cc1`, `gns_locations`.`admtxt1` `admtxt1`, `gns_locations`.`admtxt2` `admtxt2`, `gns_locations`.`admtxt3` `admtxt3`, `gns_locations`.`admtxt4` `admtxt4`, `gns_locations`.`uni` `uni_id`, `gns_locations`.`lon` `lon`, `gns_locations`.`lat` `lat`, `gns_locations`.`full_name` `full_name`, `uniids`.`olduni` `olduni` FROM `gns_locations`, `uniids` WHERE `uniids`.`uni_id`=`gns_locations`.`uni` ORDER BY `gns_locations`.`full_name` ASC LIMIT ' . ($locidsite * 20) . ', 20');
+    $rs = sql('SELECT `gns_locations`.`rc` `rc`, `gns_locations`.`cc1` `cc1`, `gns_locations`.`admtxt1` `admtxt1`, `gns_locations`.`admtxt2` `admtxt2`, `gns_locations`.`admtxt3` `admtxt3`, `gns_locations`.`admtxt4` `admtxt4`, `gns_locations`.`uni` `uni_id`, `gns_locations`.`lon` `lon`, `gns_locations`.`lat` `lat`, `gns_locations`.`full_name` `full_name`, `uniids`.`olduni` `olduni` FROM `gns_locations`, `uniids` WHERE `uniids`.`uni_id`=`gns_locations`.`uni` ORDER BY `gns_locations`.`full_name`, `gns_locations`.`admtxt1` ASC LIMIT ' . ($locidsite * 20) . ', 20');
 
     $nr = $locidsite * 20 + 1;
     $locations = '';

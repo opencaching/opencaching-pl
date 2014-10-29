@@ -110,7 +110,7 @@ class GetRegions {
 
                 $code1 = $sCode;
                 // try to get localised name first
-                $q = "SELECT `countries`.`pl` FROM `countries` WHERE `countries`.`short`='$sCode'";
+                $q = "SELECT `countries`.`pl` FROM `countries` WHERE `countries`.`short`='$sCode'"; // TODO: country column should be localized
                 $db->simpleQuery($q);
                 $re = $db->dbResultFetch();
                 $adm1 = $re["pl"];

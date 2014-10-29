@@ -1,6 +1,14 @@
-#'AuthUserFile' /var/www/htdocs/util.sec/delete/.htpasswd
-#'AuthGroupFile' /dev/null
-#'AuthName' "Acces Restreint"
-#'AuthType' Basic
-#
-#require valid-user
+order deny,allow
+
+# OC PL
+allow from 127.0.0.1
+allow from 86.111.241.39
+
+deny from all
+
+<FILES index.html>
+allow from all
+</FILES>
+
+ErrorDocument 403 /index.html
+

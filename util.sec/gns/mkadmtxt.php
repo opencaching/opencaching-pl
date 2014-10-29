@@ -17,6 +17,8 @@
 
         Dieses Script erstellt den Suchindex für Ortsnamen aus den Daten der
         GNS-DB.
+        
+        This script won't work in current setup, since geodb_* tables are empty.
 
     ***************************************************************************/
 
