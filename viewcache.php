@@ -1689,7 +1689,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
             $logs = '';
 
             $thisdateformat = "%d %B %Y";
-            $thisdatetimeformat = "%d %B %Y %H:%i";
+            $thisdatetimeformat = "%d %B %Y %H:%M";
 //START: same code ->viewlogs.php / viewcache.php
             $edit_count_date_from = date_create('2005-01-01 00:00');
             $logs_count = $dbc->rowCount();
