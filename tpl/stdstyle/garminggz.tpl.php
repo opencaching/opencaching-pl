@@ -42,6 +42,7 @@
     <ul>
         <li>Garmin Oregon 600/600t (fw. 2.70)</li>
         <li>Garmin Oregon 650/650t (fw. 2.70)</li>
+        <li>Garmin GPSmap 64st (fw. 3.20)</li>
     </ul></p>
 </div>
 <p>&nbsp;</p>
