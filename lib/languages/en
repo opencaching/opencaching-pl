@@ -1069,6 +1069,7 @@ adopt_32 <font color="blue"><b>The adoption process has been completed. The prev
 format_GPX GPX type
 format_other others types
 format_pict GPX + photos
+format_ggz_pict GGZ + photos
 mycache_notes For information about notes, see
 user_activity01 User activity
 user_activity02 User activity count (found + did not found + owed)

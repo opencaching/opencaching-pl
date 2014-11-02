@@ -1069,6 +1069,7 @@ adopt_32 <font color="blue"><b>De adoptie is voltooid. De vorige eigenaar was {o
 format_GPX GPX formaat
 format_other andere formaten
 format_pict GPX met afbeeldingen
+format_ggz_pict GGZ met afbeeldingen
 mycache_notes Zie voor informatie over cachenotities
 user_activity01 Gebruikers activiteit
 user_activity02 Totaal van gevonden, niet gevonden en gemaakte caches:

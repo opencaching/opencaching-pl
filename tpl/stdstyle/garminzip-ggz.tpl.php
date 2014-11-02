@@ -16,7 +16,7 @@
  ****************************************************************************/
  ?>
 
-<div class="content2-pagetitle">&nbsp;{{GarminZip_01}}: Garmin ZIP</div>
+<div class="content2-pagetitle">&nbsp;{{GarminZip_01}}: Garmin {{format_ggz_pict}}</div>
 <p>&nbsp;</p>
 
    <div class="searchdiv">

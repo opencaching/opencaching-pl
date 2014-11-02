@@ -68,7 +68,11 @@
     
     function get_pagination_page_title()
     {
-        return tr('GarminZip_01') . ': Garmin ZIP';
+        switch(get_pagination_template()){
+            case 'garminzip': return tr('GarminZip_01') . ': Garmin ZIP';
+            case 'garminzip-ggz': return tr('GarminZip_01') . ': Garmin ' . tr('format_ggz_pict'); 
+        }
+        
     }
     
     // all the logic is done here

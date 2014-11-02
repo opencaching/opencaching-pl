@@ -1068,6 +1068,7 @@ adopt_32 <font color="blue"><b>Adopţia s-a efectuat. Proprietarul anterior a fo
 format_GPX felul GPX-ului
 format_other alte tipuri
 format_pict GPX + poze
+format_ggz_pict GGZ + poze
 mycache_notes Pentru informaţii despre notiţe, vezi
 user_activity01 Activitate utilizator
 user_activity02 Activitate utilizator - total (găsite + negăsite + proprii)
