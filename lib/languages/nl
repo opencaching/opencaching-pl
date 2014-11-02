@@ -2455,6 +2455,11 @@ GarminZip_05 Download alle bovenstaande zip bestanden
 GarminZip_06 Sluit de Garmin Montana / Oregon / Dakota / 62 / 78 / eTrex aan via de kabel
 GarminZip_07 <b>Unzip</b> alle bestanden en plaats deze in de <b>root</b> van de GPS
 GarminZip_08 Let op: De GPS (zie onderstaande lijst) moet deze functie ondersteunen met de huidige firmware (het getal tussen haakjes). Als er geen afbeeldingen te zien zijn dan zou een firmware update moeten gebeuren. Zie voor meer informatie op de
+GarminGgz_02 You are trying to download a GGZ file, containing the data as GPX with additional index (for access speed improvment) for {zip_total_cache_count} caches.<br/> Unfortunately, due to the limitation of the server, one GGZ file can contain up to {zip_max_count} caches.<br/> The requested content is divided into several smaller GGZ files, links to which are below
+GarminGgz_05 Download alle bovenstaande GGZ bestanden
+GarminGgz_06 Sluit de Garmin Oregon 6xx aan via de kabel
+GarminGgz_07 <b>Copy</b> all the files to the directory <b>Garmin/GGZ</b> of device's memory (it can also be a SD card memory)
+GarminZipGgz_02 You are trying to download a ZIP file containing the data as GGZ with <b><u>pictures</u></b> for {zip_total_cache_count} caches.<br/> Unfortunately, due to the limitation of the server and the alleged dispute file size, in one package ZIP pictures can be contain up to {zip_max_count} caches.<br/> The requested content is divided into several smaller zip files, links to which are below
 JpGraph_25121 Lege invoer data-array opgegeven voor plot. Moet ten minste een meetpunt hebben.
 Stats_s3_01 Cache ranglijst van gevonden caches per regio
 Stats_s3_02 Plaats

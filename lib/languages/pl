@@ -1069,6 +1069,7 @@ adopt_32 <font color="blue"><b>Przeprowadzono procedurę adopcji skrzynki. Dotyc
 format_GPX GPX format
 format_other Inne formaty
 format_pict GPX + zdjęcia
+format_ggz_pict GGZ + zdjęcia
 mycache_notes Zobacz opis o notatkach skrzynki
 user_activity01 Aktywność użytkownika
 user_activity02 Suma skrzynek znalezionych, nieznalezionych i założonych
@@ -2425,13 +2426,18 @@ ocTeamComment_05 Treść adnotacji COG
 SearchByPlace_01 Liczba znalezionych miejsc
 SearchByPlace_02 Dla podanych kryteriów poszukiwań nie znaleziono jednoznacznego wyniku. Proszę wybrać lokalizacje z listy
 GarminZip_01 Pobieranie
-GarminZip_02 Próbujesz pobrać plik .ZIP  zawierający dane w postaci GPX oraz <b><u>zdjęcia</u></b> dla {zip_total_cache_count} skrzynek.<br/> Niestety, ze względu na ograniczenia serwera oraz przypuszczalny spory rozmiar pliku, w jednej paczce ZIP mogą zostać umieszczone zdjęcia z maksymalnie {zip_max_count} skrzynek.<br/>Żądana zawartość, została podzielona na kilka mniejszych plików ZIP, do których linki znajdują się poniżej
+GarminZip_02 Próbujesz pobrać plik .ZIP  zawierający dane w postaci GPX oraz <b><u>zdjęcia</u></b> dla {zip_total_cache_count} skrzynek.<br/> Niestety, ze względu na ograniczenia serwera oraz przypuszczalny spory rozmiar pliku, w jednej paczce ZIP mogą zostać umieszczone zdjęcia z maksymalnie {zip_max_count} skrzynek.<br/>Żądana zawartość została podzielona na kilka mniejszych plików ZIP, do których linki znajdują się poniżej
 GarminZip_03 Ograniczenie {zip_max_count} skrzynek w jednym pliku jest eksperymentalne i może ulec zwiększeniu
 GarminZip_04 W celu skorzystania z tej funkcjonalności, należy
 GarminZip_05 Pobrać wszystkie powyższe pliki .zip
 GarminZip_06 Podłączyć urządzenie Garmin Montana / Oregon / Dakota / 62 / 78 / eTrex za pomocą kabla
-GarminZip_07 <b>Rozpakować</b> wszystkie pliki do katalogu głownego <b>pamięci wewnętrznej</b> urządzenia
+GarminZip_07 <b>Rozpakować</b> wszystkie pliki do katalogu głównego <b>pamięci wewnętrznej</b> urządzenia
 GarminZip_08 Uwaga: konieczne jest posiadanie kompatybilnego urządzenia (lista poniżej) z wgranym aktualnym firmware (liczba w nawiasie). Jeśli nie widzisz zdjęć, należy zaktualizować urządzenie. Więcej informacji na
+GarminGgz_02 Próbujesz pobrać plik .GGZ zawierający dane w postaci GGZ (plik GPX oraz indeks) dla {zip_total_cache_count} skrzynek.<br/> Niestety, ze względu na ograniczenia serwera, w jednym pliku GGZ mogą zostać umieszczone dane maksymalnie {zip_max_count} skrzynek.<br/>Żądana zawartość została podzielona na kilka mniejszych plików GGZ, do których linki znajdują się poniżej
+GarminGgz_05 Pobrać wszystkie powyższe pliki .ggz
+GarminGgz_06 Podłączyć urządzenie Garmin Oregon 6xx za pomocą kabla
+GarminGgz_07 <b>Skopiować</b> wszystkie pliki do katalogu <b>Garmin/GGZ</b> pamięci urządzenia (może być to katalog karty pamięci)
+GarminZipGgz_02 Próbujesz pobrać plik .ZIP  zawierający dane w postaci GGZ oraz <b><u>zdjęcia</u></b> dla {zip_total_cache_count} skrzynek.<br/> Niestety, ze względu na ograniczenia serwera oraz przypuszczalny spory rozmiar pliku, w jednej paczce ZIP mogą zostać umieszczone zdjęcia z maksymalnie {zip_max_count} skrzynek.<br/>Żądana zawartość została podzielona na kilka mniejszych plików ZIP, do których linki znajdują się poniżej
 Stats_s3_01 Ranking skrzynek wg liczby odkryć w regionie
 Stats_s3_02 Ranking
 Stats_s3_03 Liczba odkryć

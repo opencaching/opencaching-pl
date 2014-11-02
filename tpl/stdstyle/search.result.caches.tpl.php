@@ -81,7 +81,8 @@ echo "
                 <a class=\"links\" href=\"ocplgpx";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "\" title=\"GPS Exchange Format .gpx\">GPX</a> |
                 <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a>
                 | <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ggz?startat=";?>{startat}<?php echo "\" title=\"Garmin  .ggz\">GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
-                    </td>
+                | <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}&format=ggz<?php echo "\" title=\"Garmin ZIP file ({{format_ggz_pict}})  .zip\">GARMIN {{format_ggz_pict}}</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
+                </td>
         </tr>
         <tr>
                 <td>&nbsp;</td>
@@ -110,8 +111,9 @@ if (strlen(tpl_get_var('pages')) > 1){
                      <td>
                        <span class=\"content-title-noshade txt-blue08\">{{format_GPX}}</span>:<br/>
                 <a class=\"links\" href=\"ocplgpx";?>{queryid}<?php echo ".gpx?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"GPS Exchange Format .gpx\">GPX</a> |
-                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a>
-                | <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ggz?startat=";?>{startat}<?php echo "&amp;count=max&amp;zip=1\" title=\"Garmin .ggz\">GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
+                <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}<?php echo "&amp;count=max\" title=\"Garmin ZIP file ({{format_pict}})  .zip\">GARMIN ({{format_pict}})</a>
+                | <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".ggz?startat=";?>{startat}<?php echo "&amp;count=max\" title=\"Garmin .ggz\">GARMIN GGZ</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
+                | <a class=\"links\" href=\"ocpl";?>{queryid}<?php echo ".zip?startat=";?>{startat}&format=ggz<?php echo "&amp;count=max\" title=\"Garmin ZIP file ({{format_ggz_pict}})  .zip\">GARMIN {{format_ggz_pict}}</a> <sup style='color:red;text-shadow: 2px 2px 2px rgba(255, 109, 255, 1);'>Beta!</sup>
                 </td>
               </tr>
               <tr>

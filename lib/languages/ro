@@ -2433,3 +2433,8 @@ GarminZip_05 Descarcă toate fişierele ZIP de mai sus
 GarminZip_06 Conectează GPS-ul Garmin Montana / Oregon / Dakota / 62/78 / eTrex prin cablu
 GarminZip_07 <b>Dezarhivează</b> toate fişierele şi copiază-le în <b>rădăcina</b> dispozitivului GPS
 GarminZip_08 Notă: trebuie să ai un dispozitiv compatibil (vezi lista de mai jos) cu firmware la zi (numărul din paranteză). Dacă nu vezi pozele, actualizează-ţi software-ul dispozitivului. Pentru mai multe informaţii, vezi
+GarminGgz_02 You are trying to download a GGZ file, containing the data as GPX with additional index (for access speed improvment) for {zip_total_cache_count} caches.<br/> Unfortunately, due to the limitation of the server, one GGZ file can contain up to {zip_max_count} caches.<br/> The requested content is divided into several smaller GGZ files, links to which are below
+GarminGgz_05 Descarcă toate fişierele GGZ de mai sus
+GarminGgz_06 Conectează GPS-ul Garmin Oregon 6xx prin cablu
+GarminGgz_07 <b>Copy</b> all the files to the directory <b>Garmin/GGZ</b> of device's memory (it can also be a SD card memory)
+GarminZipGgz_02 You are trying to download a ZIP file containing the data as GGZ with <b><u>pictures</u></b> for {zip_total_cache_count} caches.<br/> Unfortunately, due to the limitation of the server and the alleged dispute file size, in one package ZIP pictures can be contain up to {zip_max_count} caches.<br/> The requested content is divided into several smaller zip files, links to which are below

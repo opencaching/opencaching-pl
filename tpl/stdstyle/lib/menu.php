@@ -892,7 +892,14 @@ $menu = array(
         )
     ),
     $cache_menu,
-    $stat_menu
+    $stat_menu,
+    array(
+        'title'         => '',
+        'menustring'    => '',
+        'filename'      => '',
+        'siteid'        => array('garminzip', 'garminggz', 'garminzip-ggz'),
+        'visible'       => false
+    )
 );
 
 
