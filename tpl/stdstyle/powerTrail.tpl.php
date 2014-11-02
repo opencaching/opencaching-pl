@@ -2150,7 +2150,7 @@ table.ptCacheTable th:last-child, table.statsTable th:last-child{
     </tr>
     </table>
 
-    <table border=0 width=100%>
+    <table border=0 width=100% style="{statsOptionsDisplay}">
         <tr>
             <td class="linearBg1">{{pt099}} {powerTrailName}</td>
         </tr>

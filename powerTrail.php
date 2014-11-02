@@ -17,7 +17,6 @@ global $lang, $rootpath, $usr, $absolute_server_URI, $cookie;
 //prepare the templates and include all neccessary
 require_once('lib/common.inc.php');
 require_once('lib/cache.php');
-db_disconnect();
 
 $_SESSION['powerTrail']['userFounds'] = $usr['userFounds'];
 
@@ -44,6 +43,11 @@ if ($error == false)
         }else {
             $mapControls = 1;
             tpl_set_var('gpxOptionsTrDisplay', 'table-row');
+        }
+        if(!$usr){
+            tpl_set_var('statsOptionsDisplay', 'display: none;');
+        } else {
+            tpl_set_var('statsOptionsDisplay', '');
         }
         include_once('powerTrail/powerTrailController.php');
         include_once('powerTrail/powerTrailMenu.php');
@@ -152,7 +156,11 @@ if ($error == false)
                 $ptOwners = $pt->getPtOwners();
                 $_SESSION['ptName'] = powerTrailBase::clearPtNames($ptDbRow['name']);
                 tpl_set_var('powerTrailId', $ptDbRow['id']);
-                tpl_set_var('mapOuterdiv', 'block');
+                if(!$usr && $hide_coords) {
+                	tpl_set_var('mapOuterdiv', 'none');
+                } else {
+                	tpl_set_var('mapOuterdiv', 'block');
+                }
                 if ($ptOwners) $userIsOwner = array_key_exists($usr['userid'], $ptOwners);
                 else $userIsOwner = false;
                 if ($ptDbRow['status'] == 1 || $userIsOwner) {
@@ -210,7 +218,9 @@ if ($error == false)
                         tpl_set_var('cacheCountUserActions', '');
                         tpl_set_var('ownerListUserActions', '');
                     }
-                    tpl_set_var('ptList4map', displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache()));
+                    if($usr || !$hide_coords) {
+                        tpl_set_var('ptList4map', displayAllCachesOfPowerTrail($pt->getAllCachesOfPt(), $pt->getPowerTrailCachesUserLogsByCache()));
+                    }
                     // powerTrailController::debug($pt->getPowerTrailDbRow(), __LINE__);
                     // powerTrailController::debug($ptOwners, __LINE__);
                 } else {
