@@ -27,7 +27,7 @@
         $okapi_params = array('cache_codes' => $waypoints, 'langpref' => $lang,
         		'location_source'=> 'alt_wpt:user-coords', 'location_change_prefix' => '(F)');
         if (isset($_GET['format']))
-        	$okapi_params['format'] = $_GET['format'];
+        	$okapi_params['caches_format'] = $_GET['format'];
         $okapi_response =  \okapi\Facade::service_call('services/caches/formatters/garmin',
         		$usr['userid'], $okapi_params);
     	// Modifying OKAPI's default HTTP Response headers.
