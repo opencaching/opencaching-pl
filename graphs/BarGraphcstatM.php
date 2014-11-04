@@ -99,7 +99,7 @@ $rsCachesFindMonth2= sql("SELECT COUNT(*) `count`,YEAR(`date`) `year` , MONTH(`d
 setlocale(LC_ALL, 'pl_PL.utf8');
 $dateLocale = new DateLocale();
 // Use Swedish locale
-$dateLocale->Set('pl_PL.utf8');
+//$dateLocale->Set('pl_PL.utf8');
 // Create the graph. These two calls are always required
 $graph = new Graph(400,200);
 $graph->SetScale("textlin");
@@ -143,8 +143,11 @@ $graph->yaxis->title->Set($le);
 //$graph->xaxis->SetTickLabels($year);
 
 $graph->title->SetFont(FF_ARIAL,FS_NORMAL);
-$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph->yaxis->title->SetFont(FF_COURIER,FS_BOLD);
+$graph->xaxis->title->SetFont(FF_COURIER,FS_BOLD);
+
+$graph->legend->SetFont(FF_ARIAL,FS_NORMAL);
+
 
 // Display the graph
 $graph->Stroke();

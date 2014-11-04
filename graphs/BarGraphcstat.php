@@ -100,15 +100,15 @@ $nf="";
 $graph->yaxis->title->Set($nf);
 
 $graph->title->SetFont(FF_ARIAL,FS_NORMAL);
-$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph->yaxis->title->SetFont(FF_COURIER,FS_BOLD);
+$graph->xaxis->title->SetFont(FF_COURIER,FS_BOLD);
 
 
 // Setup the values that are displayed on top of each bar
 $bplot->value->Show();
 
 // Must use TTF fonts if we want text at an arbitrary angle
-$bplot->value->SetFont(FF_FONT1,FS_BOLD);
+$bplot->value->SetFont(FF_COURIER,FS_BOLD);
 $bplot->value->SetAngle(0);
 $bplot->value->SetFormat('%d');
 
