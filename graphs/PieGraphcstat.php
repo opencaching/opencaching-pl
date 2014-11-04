@@ -94,11 +94,11 @@ $p1->SetCenter(0.25,0.52);
  $com=tr("comment");
 // Setup slice labels and move them into the plot
 $xx= array($f,$dnf,$com);
-$p1->value->SetFont(FF_FONT1,FS_BOLD);
+$p1->value->SetFont(FF_COURIER,FS_NORMAL);
 $p1->value->SetColor("black");
 $p1->SetLabelPos(0.65);
 $p1->SetLegends($xx);
-
+$graph->legend->SetFont(FF_ARIAL,FS_NORMAL);
 
 // Explode all slices
 //$p1->ExplodeAll(10);
