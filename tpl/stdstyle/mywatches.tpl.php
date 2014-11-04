@@ -23,6 +23,7 @@
 <div class="searchdiv">
 <table class="table" border="0" cellspacing="0">
     <colgroup>
+        <col width="10x"/>
         <col width="500px"/>
         <col width="1x"/>
         <col width="40px"/>
@@ -31,6 +32,7 @@
     </colgroup>
 
     <tr>
+        <td><p class="content-title-noshade">&nbsp;</p></td>
         <td><p class="content-title-noshade">{{geocache}}</p></td>
         <td>&nbsp;</td>
         <td nowrap="nowrap" class="content-title-noshade">{{last_log_entries}}</td>

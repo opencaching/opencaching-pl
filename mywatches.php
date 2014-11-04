@@ -189,6 +189,8 @@ function CleanSpecChars( $log, $flg_html )
                         `caches`.`latitude` `latitude`,
                         `caches`.`longitude` `longitude`,
                         caches.wp_oc AS wp,
+                        caches.type as cache_type,
+                        caches.user_id,
                         cache_type.icon_small AS cache_icon_small,
                         user.username AS user_name,
                         log_types.icon_small AS icon_small,
@@ -315,6 +317,8 @@ function CleanSpecChars( $log, $flg_html )
                             $bgcolor = ( $i% 2 )? $bgcolor1 : $bgcolor2;
                             $tmp_watch = $watch;
 
+                            $cacheicon = myninc::checkCacheStatusByUser($record, $usr['userid']);
+                            $tmp_watch = mb_ereg_replace('{cacheicon}', $cacheicon, $tmp_watch);
                             $tmp_watch = mb_ereg_replace('{bgcolor}', $bgcolor, $tmp_watch);
                             $tmp_watch = mb_ereg_replace('{cachename}', htmlspecialchars($record['name'], ENT_COMPAT, 'UTF-8'), $tmp_watch);
 

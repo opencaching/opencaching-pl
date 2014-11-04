@@ -20,6 +20,7 @@
 
     //$watche = '<tr><td><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td><td>&nbsp;</td><td nowrap style="text-align:center;">{lastfound}</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid={cacheid}&target=mywatches.php">'.tr('delete').'</a>]</td></tr>';
     $watch = '<tr>'
+                .'<td style="background-color: {bgcolor}"><img src="{cacheicon}" alt="" /></td>'
                 .'<td style="background-color: {bgcolor}"><a href="viewcache.php?cacheid={urlencode_cacheid}">{cachename}</a></td>'
                 .'<td style="background-color: {bgcolor}">&nbsp;</td>'
                 .'<td nowrap style="text-align:center; background-color: {bgcolor}">{lastfound}</td>'
@@ -30,13 +31,13 @@
 //<a class="links" onmouseover="Tip({log_text})" onmouseout="UnTip() >
 //.'<td style="text-align:center; background-color: {bgcolor}">[<a href="removewatch.php?cacheid={cacheid}&target=mywatches.php">'.tr('delete').'</a>]</td>'
 
-    $no_watches = '<tr><td colspan="4">'.tr('no_watched_caches').'</td></tr>';
+    $no_watches = '<tr><td colspan="6">'.tr('no_watched_caches').'</td></tr>';
     $no_found_date = '---';
     $standard_title = tr('watched_caches');
-    $print_delete_all_watches = '<tr><td colspan="2">&nbsp;</td><td nowrap style="text-align:center;">[<a href="printcache.php?source=mywatches">'.tr('print_all').'</a>]</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid=all&target=mywatches.php">'.tr('remove_all').'</a>]</td></tr>';
+    $print_delete_all_watches = '<tr><td colspan="4">&nbsp;</td><td nowrap style="text-align:center;">[<a href="printcache.php?source=mywatches">'.tr('print_all').'</a>]</td><td nowrap style="text-align:center;">[<a href="removewatch.php?cacheid=all&target=mywatches.php">'.tr('remove_all').'</a>]</td></tr>';
     $export_all_watches = '
                 <tr>
-                    <td colspan="4">'.tr('download').':
+                    <td colspan="6">'.tr('download').':
                         <a href="search.php?searchto=searchbywatched&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=gpxgc" title="GPS Exchange Format .gpx">GPX</a>
                         <a href="search.php?searchto=searchbywatched&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=loc" title="Waypoint .loc">LOC</a>
                         <a href="search.php?searchto=searchbywatched&amp;showresult=1&amp;f_inactive=0&amp;f_ignored=0&amp;f_userfound=0&amp;f_userowner=0&amp;f_watched=0&amp;count=max&amp;output=kml" title="Google Earth .kml">KML</a>
