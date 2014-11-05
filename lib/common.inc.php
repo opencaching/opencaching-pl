@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__.'/kint/Kint.class.php'; /* magnificant debug tool */
 
 if ((!isset($GLOBALS['no-session'])) || ($GLOBALS['no-session'] == false))
     session_start();
