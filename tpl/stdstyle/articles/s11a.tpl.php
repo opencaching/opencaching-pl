@@ -40,7 +40,7 @@ echo '
         <b>{{Stats_s3a_03}}:</b>&nbsp;&nbsp;
     </td>
 </tr><tr><td height="2"></td></tr>';
-    $rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE `code` LIKE 'PL__' ORDER BY `name` COLLATE utf8_polish_ci ASC");
+    $rs = sql("SELECT `code`, `name` FROM `nuts_codes` WHERE (" . $config['provinceNutsCondition'] . ") ORDER BY `name` ASC");
 
     for ($i = 0; $i < mysql_num_rows($rs); $i++)
     {

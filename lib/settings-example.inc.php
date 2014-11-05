@@ -16,6 +16,7 @@ require __DIR__.'/settingsDefault.inc.php';
     server specific settings
 
  ****************************************************************************/
+    require __DIR__.'/settingsDefault.inc.php';
 
     //Replace localhost to you own domain site
 

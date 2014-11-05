@@ -82,4 +82,7 @@ $config = array (
      * functioning properly.)
      */
     'debugDB' => false,
+    
+    /** The filter fragment selecting provinces from nuts_codes table. */
+    'provinceNutsCondition' => '`code` like \'PL__\'',
 );
