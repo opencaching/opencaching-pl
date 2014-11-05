@@ -2215,6 +2215,18 @@ contact_ocpl_title Polska wersja OpenCaching
 contact_ocpl_description_1 - Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldek "sp2ong" + duża pomoc kolegów którzy brali udział w testowaniu.
 contact_ocpl_description_2 - 2011 Wojtek "wrygiel" autor OKAPI czyli Opencaching API http://opencaching.pl/okapi
 contact_ocpl_description_3 - 2011 Jakub "lecter69" autor wersji mobilnej OC PL http://m.opencaching.pl
+
+
+
+
+
+
+
+
+
+
+
+
 newCacheWpTitle Wybierz waypoint
 newCacheWpDesc W pliku znajduje się kilka waypointów. Wskaż ten, którego chcesz użyć.
 logmap_01 przez
@@ -2462,5 +2474,17 @@ Stats_t5_06 czyli
 Stats_t5_07 Ranking
 Stats_t5_08 Liczba rekomendacji
 Stats_t5_09 Username
-Stats_s3_02 Kliknij na nazwe województwa aby zobaczyć statytykę użytkowników w danym województwie
+Stats_t6_01 Liczba skrzynek w województwach
+Stats_t6_02 tylko aktywne skrzynki
+Stats_t6_03 Użytkowników, którzy założyli skrzynki
+Stats_t6_04 Liczba aktywnych skrzynek
+Stats_t6_05 Kliknij na nazwe województwa aby zobaczyć statytykę użytkowników w danym województwie
+Stats_t6_06 Liczba skrzynek
+Stats_t6_07 Województwo
+Stats_t7_01
+Stats_t7_02
+Stats_t7_03
+Stats_t7_04
+Stats_t7_05
+Stats_t7_06
 

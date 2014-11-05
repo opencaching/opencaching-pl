@@ -2487,4 +2487,16 @@ Stats_t5_06 or
 Stats_t5_07 Ranking
 Stats_t5_08 Number of recommendations
 Stats_t5_09 Username
-Stats_s3_02 Click region for user stats in region
+Stats_t6_01 Number of caches by region
+Stats_t6_02 Active caches only
+Stats_t6_03 Users, who created caches
+Stats_t6_04 Number of active caches
+Stats_t6_05 Click on the name of the region to see the statistics in the region
+Stats_t6_06 Number of caches
+Stats_t6_07 Region
+Stats_t7_01
+Stats_t7_02
+Stats_t7_03
+Stats_t7_04
+Stats_t7_05
+Stats_t7_06

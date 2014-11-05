@@ -559,7 +559,7 @@ user_ranking_by_number_of_finds_of_their_caches Gebruikers ranglijst met aantal 
 cache_ranking_by_finds_per_region Cache ranglijst van gevonden caches per regio
 cache_ranking_by_number_of_recommendations Cache ranglijst per gegeven aanbevelingen
 oc_statistics oc statistics
-only_active_caches Active caches only
+only_active_caches Alleen actieve caches
 users_who_created_caches Gebruikers, met gemaakte caches
 users_who_created_caches_active Gebruikers, met actieve gemaakte caches
 number_of_active_caches Totale actieve caches
@@ -2000,10 +2000,10 @@ login_message_06 Inloggen mislukt.<br />Ingevoerde naam of e-mail is onjuist.
 login_message_07 Inloggen mislukt.<br />Ingevoerde naam of wachtwoord is onjuist.
 login_message_08 Deze browser ondersteunt geen cookies van {site_name}
 login_message_09 Om deze pagina te openen dient er ingelogt te zijn.
-graph_statistics_01 Statistieken van www.{site_name} :: Datum
+graph_statistics_01 Statistieken van www.{site_name} :: Datum 
 graph_statistics_02 Actieve caches
 graph_statistics_03 Gevonden caches
-graph_statistics_04 Gegevens per
+graph_statistics_04 Gegevens per 
 graph_statistics_05 Geplaatste caches:
 graph_statistics_06 Actieve caches:
 graph_statistics_07 Totaal gevonden caches:
@@ -2147,7 +2147,7 @@ addnews_confirm_03 Terug naar
 addnews_confirm_04 hoofdpagina
 Pos Pos
 Nr Aantal
-Dates Datum
+Dates Datum 
 adm_cachenotfound_01 Toon gemelde caches
 adm_cachenotfound_02 Toon gemelde met verschilende datum
 adm_cachenotfound_03 Niet gevonden
@@ -2486,4 +2486,17 @@ Stats_t5_06 of
 Stats_t5_07 Plaats
 Stats_t5_08 Aantal aanbevelingen
 Stats_t5_09 Gebruikersnaam
+Stats_t6_01 Aantal caches per regio
+Stats_t6_02 Alleen actieve caches
+Stats_t6_03 Gebruikers, met gemaakte caches
+Stats_t6_04 Totale actieve caches
+Stats_t6_05 Klik op de naam van de regio om de statistieken in de regio te zien
+Stats_t6_06 Aantal caches
+Stats_t6_07 Regio
+Stats_t7_01
+Stats_t7_02
+Stats_t7_03
+Stats_t7_04
+Stats_t7_05
+Stats_t7_06
 
