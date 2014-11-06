@@ -2494,9 +2494,9 @@ Stats_t6_04 Number of active caches
 Stats_t6_05 Click on the name of the region to see the statistics in the region
 Stats_t6_06 Number of caches
 Stats_t6_07 Region
-Stats_t7_01
-Stats_t7_02
-Stats_t7_03
-Stats_t7_04
-Stats_t7_05
-Stats_t7_06
+Stats_t7_01 Activity by region
+Stats_t7_02 Number of search caches (Found + Not found)
+Stats_t7_03 Number of active users
+Stats_t7_04 Click on the name of the region to see the statistics in the region
+Stats_t7_05 Number of search caches
+Stats_t7_06 Region

@@ -2481,10 +2481,10 @@ Stats_t6_04 Liczba aktywnych skrzynek
 Stats_t6_05 Kliknij na nazwe województwa aby zobaczyć statytykę użytkowników w danym województwie
 Stats_t6_06 Liczba skrzynek
 Stats_t6_07 Województwo
-Stats_t7_01
-Stats_t7_02
-Stats_t7_03
-Stats_t7_04
-Stats_t7_05
-Stats_t7_06
+Stats_t7_01 Aktywność w województwach
+Stats_t7_02 Liczba poszukiwań skrzynek (znalezione + nieznalezione)
+Stats_t7_03 Liczba aktywnych użytkowników w poszukiwaniach
+Stats_t7_04 Kliknij na nazwe województwa aby zobaczyć statytykę użytkowników w danym województwie
+Stats_t7_05 Liczba poszukiwań skrzynek
+Stats_t7_06 Województwo
 

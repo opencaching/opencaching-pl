@@ -23,19 +23,19 @@ if ($result === false)
     $r = sql_fetch_array($rs);
 
     $rsfCR = sql("SELECT COUNT(*) `count`, `cache_location`.`adm3` region, `cache_location`.`code3` code_region FROM `cache_location` INNER JOIN cache_logs ON cache_location.cache_id=cache_logs.cache_id WHERE `cache_location`.`code1`='PL' AND (cache_logs.type='1' OR cache_logs.type='2') AND cache_logs.deleted='0' GROUP BY `cache_location`.`code3` ORDER BY count DESC");
-    echo '<table width="97%"><tr><td align="center"><center><b> '.tr('activity_by_region').'</b> <br /><br /> '.tr('number_of_visit_caches').' (znalezione + nieznalezione): <b>';
+    echo '<table width="97%"><tr><td align="center"><center><b> '.tr('Stats_t7_01').'</b> <br /><br /> '.tr('Stats_t7_02').':<b> ';
     echo $fCt["count"];
-    echo ' </b><br />'.tr('users_active').':<b> ';
+    echo ' </b><br />'.tr('Stats_t7_03').':<b> ';
     echo  $r['users'];
-    echo '</b><br /><br />(Kliknij na nazwe województwa aby zobaczyć statytykę użytkowników w danym województwie)</center></td></tr></table><br><table border="1" bgcolor="white" width="97%">' . "\n";
+    echo '</b><br /><br />('.tr('Stats_t7_04').')</center></td></tr></table><br><table border="1" bgcolor="white" width="97%">' . "\n";
     mysql_free_result($rs);
     echo '
     <tr class="bgcolor2">
         <td width="20%">
-            <center><b>'.tr('number_of_visit_caches').'</b></center>
+            <center><b>'.tr('Stats_t7_05').'</b></center>
         </td>
         <td align="right">
-            &nbsp;&nbsp;<b>'.tr('region').'</b>&nbsp;&nbsp;
+            &nbsp;&nbsp;<b>'.tr('Stats_t7_06').'</b>&nbsp;&nbsp;
         </td>
     </tr><tr><td height="2"></td></tr>';
 

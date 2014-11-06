@@ -2493,10 +2493,10 @@ Stats_t6_04 Totale actieve caches
 Stats_t6_05 Klik op de naam van de provincie om de statistieken te zien
 Stats_t6_06 Aantal caches
 Stats_t6_07 Provincie
-Stats_t7_01
-Stats_t7_02
-Stats_t7_03
-Stats_t7_04
-Stats_t7_05
-Stats_t7_06
+Stats_t7_01 Activiteit per provincie
+Stats_t7_02 Totaal aantal caches (Gevonden en Niet gevonden)
+Stats_t7_03 Aantal actieve gebruikers
+Stats_t7_04 Klik op de naam van de provincie om de statistieken te zien
+Stats_t7_05 Totaal aantal caches
+Stats_t7_06 Provincie
 

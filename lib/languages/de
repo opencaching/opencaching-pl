@@ -2348,10 +2348,10 @@ Stats_t6_04 Anzahl der Aktive Caches
 Stats_t6_05 Klicke auf den Namen der Region um die Statistik in der Region zu sehen
 Stats_t6_06 Anzahl der Caches
 Stats_t6_07 Region
-Stats_t7_01
-Stats_t7_02
-Stats_t7_03
-Stats_t7_04
-Stats_t7_05
-Stats_t7_06
+Stats_t7_01 Aktivität pro Region
+Stats_t7_02 Gesamtzahl Caches (Gefunden und Nicht gefunden)
+Stats_t7_03 Anzahl der Aktive Benutzer
+Stats_t7_04 Klicke auf den Namen der Region um die Statistik in der Region zu sehen
+Stats_t7_05 Gesamtzahl Caches
+Stats_t7_06 Region
 
