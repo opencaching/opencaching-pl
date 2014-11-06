@@ -544,7 +544,7 @@ fullscreen Volledig scherm
 disable_fullscreen Terug naar klein scherm
 stats Statistics
 rise_charts Onze stijgende cijfers
-region_ranking Statistieken per regio
+region_ranking Statistieken per provincie
 user_ranking Statistieken per gebruiker
 cache_ranking statistieken per cache
 ranking_by_maintenace Gebruikers ranglijst met aantal caches in onderhoud
@@ -556,7 +556,7 @@ ranking_by_number_of_recommnedations Gebruikers ranglijst met aantal ontvangen a
 cache_ranking_by_number_of_finds Cache ranglijst van meeste keren gevonden
 cache_ranking_by_calculated_indicator Cache ranglijst via berekende formule
 user_ranking_by_number_of_finds_of_their_caches Gebruikers ranglijst met aantal van hun gevonden caches
-cache_ranking_by_finds_per_region Cache ranglijst van gevonden caches per regio
+cache_ranking_by_finds_per_region Cache ranglijst van gevonden caches per provincie
 cache_ranking_by_number_of_recommendations Cache ranglijst per gegeven aanbevelingen
 oc_statistics oc statistics
 only_active_caches Alleen actieve caches
@@ -650,9 +650,9 @@ not_published Niet gepubliceerd
 for_approval Te keuren
 blocked Geblokkeerd
 my_caches Mijn caches
-region Regio
-number_of_caches_by_region Aantal caches per regio
-activity_by_region Activiteit per regio
+region Provincie
+number_of_caches_by_region Aantal caches per provincie
+activity_by_region Activiteit per provincie
 number_of_visit_caches Totaal aantal caches
 users_active Number of active users
 show_labels Show labels
@@ -760,7 +760,7 @@ your_recommendations Your recommendations for geocache
 was_removed has been removed
 recommended_geocaches Recommended geocaches
 number_recommendations Number of recommendations
-regions_only_for Regio&#39;s
+regions_only_for Provincies
 monday Maandag
 tuesday Dinsdag
 wednesday Woensdag
@@ -798,7 +798,7 @@ subject Onderwerp
 contents Bericht
 content_include_html Bericht met HTML
 logged_by Gelogt door
-all_regions Alle regio&#39;s
+all_regions Alle provincies
 assigned_to Behandelaar
 date_created Datum gemaakt
 owner Eigenaar
@@ -824,9 +824,9 @@ empty_entry_confirm Wil je werkelijk het logveld leeg laten?
 empty_mark Deze cache is nog niet beoordeeld. Werkelijk verder gaan met loggen?
 where_i_am Waar ben ik?
 read_info_about_cache_types Lees hier meer informatie over <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
-regiononly Regio
-region_from_coord Regio via opgegeven coördinaten
-select_regions Selecteer regio
+regiononly Provincie
+region_from_coord Provincie via opgegeven coördinaten
+select_regions Selecteer provincie
 not_applicable Not applicable
 input_coord Vul de coördinaten van de cache in
 waypoints_about_info <a class="links" href="{cache_params_url}" target="_blank">Zie de omschrijving en soorten van extra waypoints.</a>
@@ -1434,7 +1434,7 @@ mailto_07 Gebruikersprofiel:
 mailto_08 Om dit bericht te beantwoorden kan de antwoordfunctie van het e-mailprogramma gebruikt worden.
 mailto_09 Om dit bericht te beantwoorden kan gebruik gemaakt worden van de functie "Mail deze gebruiker" in het gebruikersprofiel.
 copy_sender Een kopie van verzonden bericht
-region_not_ok Selecteer een regio
+region_not_ok Selecteer een provincie
 poland_outside Buiten Polen
 benelux_outside Buiten de BeNeLux
 romania_outside Buiten Roemenië
@@ -1971,7 +1971,7 @@ statpic_found Gevonden:
 statpic_hidden Geplaatst:
 statpic_html_link - statistieken van
 cog_user_name OC-Team
-region_01 Regio via opgegeven coördinaten:
+region_01 Provincie via opgegeven coördinaten:
 region_02 Land
 region_03 Provincie gevonden via {site_name}
 region_04 Provincie gevonden via Google Map
@@ -2267,7 +2267,7 @@ logbook_20 E-mail
 logbook_21 Wordt gebruikt om de velden vooraf in te vullen
 logbook_22 Voorbeeld
 logbook_23 Genereer PDF
-search01 alle regio &#39;s
+search01 alle provincies
 LineChart Lijn
 BarChart Bar
 positions Posities
@@ -2462,13 +2462,13 @@ GarminGgz_06 Sluit de Garmin Oregon 6xx aan via de kabel
 GarminGgz_07 <b>Copy</b> all the files to the directory <b>Garmin/GGZ</b> of device's memory (it can also be a SD card memory)
 GarminZipGgz_02 You are trying to download a ZIP file containing the data as GGZ with <b><u>pictures</u></b> for {zip_total_cache_count} caches.<br/> Unfortunately, due to the limitation of the server and the alleged dispute file size, in one package ZIP pictures can be contain up to {zip_max_count} caches.<br/> The requested content is divided into several smaller zip files, links to which are below
 JpGraph_25121 Lege invoer data-array opgegeven voor plot. Moet ten minste een meetpunt hebben.
-Stats_s3_01 Cache ranglijst van gevonden caches per regio
+Stats_s3_01 Cache ranglijst van gevonden caches per provincie
 Stats_s3_02 Plaats
 Stats_s3_03 Aantal gevonden
 Stats_s3_04 Geocache (gebruikersnaam)
-Stats_s3a_01 Cache ranglijst van gevonden caches per regio
-Stats_s3a_02 Klik op de naam van de regio om de statistieken in de regio te zien
-Stats_s3a_03 Selecteer een regio
+Stats_s3a_01 Cache ranglijst van gevonden caches per provincie
+Stats_s3a_02 Klik op de naam van de provincie om de statistieken te zien
+Stats_s3a_03 Selecteer een provincie
 Stats_t3_01 Gebruikers ranglijst met aantal van hun gevonden caches
 Stats_t3_02 Plaats
 Stats_t3_03 Aantal gevonden
@@ -2486,13 +2486,13 @@ Stats_t5_06 of
 Stats_t5_07 Plaats
 Stats_t5_08 Aantal aanbevelingen
 Stats_t5_09 Gebruikersnaam
-Stats_t6_01 Aantal caches per regio
+Stats_t6_01 Aantal caches per provincie
 Stats_t6_02 Alleen actieve caches
 Stats_t6_03 Gebruikers, met gemaakte caches
 Stats_t6_04 Totale actieve caches
-Stats_t6_05 Klik op de naam van de regio om de statistieken in de regio te zien
+Stats_t6_05 Klik op de naam van de provincie om de statistieken te zien
 Stats_t6_06 Aantal caches
-Stats_t6_07 Regio
+Stats_t6_07 Provincie
 Stats_t7_01
 Stats_t7_02
 Stats_t7_03
