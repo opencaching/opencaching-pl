@@ -21,7 +21,9 @@ LOG_LEVEL="-p cron.info"
 if [ "$DO_LOG" == "1" ]; then
     echo "Updating ${SITE_NAME}..."                         | logger ${LOG_LEVEL}
     # run "svn up"
-    ${SUDO_CMD} svn up ${SITE_ROOT} --accept postpone 2>&1  | logger ${LOG_LEVEL}
+    ${SUDO_CMD} svn up ${SITE_ROOT} --accept mine-full 2>&1 | logger ${LOG_LEVEL}
+    echo "- SVN status and conflicts (if any)."             | logger ${LOG_LEVEL}
+    ${SUDO_CMD} svn status -q ${SITE_ROOT}                  | logger ${LOG_LEVEL}
     echo "- SVN update completed."                          | logger ${LOG_LEVEL}
     echo                                                    | logger ${LOG_LEVEL}
 
@@ -31,6 +33,6 @@ if [ "$DO_LOG" == "1" ]; then
     echo                                                    | logger ${LOG_LEVEL}
 else
     # run "svn up"
-    ${SUDO_CMD} svn up ${SITE_ROOT} --accept postpone
+    ${SUDO_CMD} svn up ${SITE_ROOT} --accept mine-full
     wget -O - -q http://${SITE_NAME}/okapi/update
 fi
