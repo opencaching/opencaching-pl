@@ -651,8 +651,8 @@ for_approval Verifizierte
 blocked Gesperrte
 my_caches Meine Caches
 region Region
-number_of_caches_by_region Anzahl der Caches in Land
-activity_by_region Aktivität in Lände
+number_of_caches_by_region Anzahl der Caches pro Region
+activity_by_region Aktivität pro Region
 number_of_visit_caches Anzahl von Cache Suchen
 users_active Anzahl der Aktive Benutzer in Cache Suchen
 show_labels Etiketten anzeigen
