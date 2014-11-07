@@ -2324,6 +2324,10 @@ Stats_s3_04 Geocache (Benutzernahme)
 Stats_s3a_01 Rangliste basiert auf gefundene caches in ein Region
 Stats_s3a_02 Klicke auf den Namen der Region um die Statistik in der Region zu sehen
 Stats_s3a_03 Wähle ein region
+Stats_s10_01 Benutzerrangfolge von gesuchte Caches in ein Region<br />(Gefunden und Nicht gefunden)
+Stats_s10_02 Rangfolge
+Stats_s10_03 Anzahl Besucher
+Stats_s10_04 Benutzer
 Stats_t3_01 Benutzerrangfolge mit einigen ihrer gefunden Caches
 Stats_t3_02 Rangfolge
 Stats_t3_03 Anzahl gefunden

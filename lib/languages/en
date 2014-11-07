@@ -2470,6 +2470,10 @@ Stats_s3_04 Geocache (username)
 Stats_s3a_01 Cache ranking by finds per region
 Stats_s3a_02 Click on the name of the region to see the statistics in the region
 Stats_s3a_03 Select a region 
+Stats_s10_01 User Ranking by number of searches in a region<br />(Found + Not found)
+Stats_s10_02 Ranking
+Stats_s10_03 Number of logs
+Stats_s10_04 User
 Stats_t3_01 Users ranking by number of finds of caches they own
 Stats_t3_02 Ranking
 Stats_t3_03 Finds

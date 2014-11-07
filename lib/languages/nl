@@ -2473,6 +2473,10 @@ Stats_t3_01 Gebruikers ranglijst met aantal van hun gevonden caches
 Stats_t3_02 Plaats
 Stats_t3_03 Aantal gevonden
 Stats_t3_04 Gebruikersnaam
+Stats_s10_01 Gebruikers ranglijst van gelogde caches per provincie<br />(Gevonden en Niet gevonden)
+Stats_s10_02 Plaats
+Stats_s10_03 Aantal bezoekers
+Stats_s10_04 Gebrukersnaam
 Stats_t4_01 Cache ranglijst van meeste keren gevonden
 Stats_t4_02 Plaats
 Stats_t4_03 Aantal gevonden

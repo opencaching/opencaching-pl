@@ -36,7 +36,7 @@ if ( $debug_page )
  // $rsUs = mysql_fetch_array($rsU);
   //  $fCt = mysql_fetch_array($fC);
 
-    echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>Ranking użytkowników wg liczby poszukiwań w regionie<br />(znalezione + nieznalezione)  <b>';
+    echo '<center><table width="97%" border="0"><tr><td align="center"><center><b>'.tr(Stats_s10_01).'  <b>';
 //  echo $rsUs[count];
     echo '<br /><br /><b><font color="blue">';
     echo $woj;
@@ -53,9 +53,9 @@ echo "<br />";
 
 $r=mysql_query($a) or die(mysql_error());
 echo    '<tr class="bgcolor2">'.
-        '<td align="center">&nbsp;&nbsp;<b>Ranking</b>&nbsp;&nbsp;</td>'.
-    '<td align="center"><b>Liczba poszukiwań</b></td>'.
-    '<td align="center">&nbsp;&nbsp;<b>User</b>&nbsp;&nbsp;</td></tr><tr><td>';
+        '<td align="center">&nbsp;&nbsp;<b>'.tr(Stats_s10_02).'</b>&nbsp;&nbsp;</td>'.
+    '<td align="center"><b>'.tr(Stats_s10_03).'</b></td>'.
+    '<td align="center">&nbsp;&nbsp;<b>'.tr(Stats_s10_04).'</b>&nbsp;&nbsp;</td></tr><tr><td>';
 
 $l2=""; // number of users within the same rank
 $rank=0; // rank number; increamented by one for each group of users having the same caches discovered

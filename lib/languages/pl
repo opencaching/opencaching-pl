@@ -2457,6 +2457,10 @@ Stats_s3_04 Geocache (User)
 Stats_s3a_01 Ranking skrzynek wg liczby odkryć w regionie
 Stats_s3a_02 Kliknij na nazwe województwa aby zobaczyć statytykę w danym województwie
 Stats_s3a_03 Wybierz region
+Stats_s10_01 Ranking użytkowników wg liczby poszukiwań w regionie<br />(znalezione + nieznalezione)
+Stats_s10_02 Ranking
+Stats_s10_03 Liczba poszukiwań
+Stats_s10_04 Username
 Stats_t3_01 Ranking użytkowników wg liczby odkryć skrzynek danego użytkownika
 Stats_t3_02 Ranking
 Stats_t3_03 Liczba odkryć
