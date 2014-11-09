@@ -224,7 +224,7 @@ class powerTrailBase{
     }
 
     public static function getPowerTrailsCompletedByUser($userId){
-        $queryPtList = 'SELECT `id`, `name`, `image`, `type` FROM `PowerTrail` WHERE `id` IN (SELECT `PowerTrailId` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 ORDER BY `logDateTime`)';
+        $queryPtList = 'SELECT `id`, `name`, `image`, `type` FROM `PowerTrail` WHERE `id` IN (SELECT `PowerTrailId` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 ORDER BY `logDateTime` DESC)';
         $db = new dataBase;
         $db->multiVariableQuery($queryPtList, $userId);
         return $db->dbResultFetchAll();
