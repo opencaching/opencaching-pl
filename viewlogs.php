@@ -44,7 +44,7 @@
         if (isset($_REQUEST['logid']))
         {
             $logid = (int) $_REQUEST['logid'];
-        $show_one_log = " AND `cache_logs`.`id` ='".$logid."'  ";
+            $show_one_log = " AND `cache_logs`.`id` ='".$logid."'  ";
         }else {$show_one_log ='';}
 
         $start = 0;
@@ -300,14 +300,32 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 $processed_text = "";
                 if( isset( $record['deleted'] ) && $record['deleted'])
                 {
-                    if( $usr['admin'])
-                        {
+                    if( $usr['admin']) {
                             $show_deleted = "show_deleted";
                             $processed_text= $record['text'];
 
+                    } else {
+                        // Boguś z Polska, 2014-11-15
+                        // for 'Needs maintenance', 'Ready to search' and 'Temporarly unavailable' log types
+                        if ($record['type'] == 5 || $record['type'] == 10 || $record['type'] == 11){
+                            // hide if user is not logged in
+                            if (!isset($usr)){
+                                if ($show_one_log!=''){
+                                    exit;
+                                } else {
+                                    continue;
+                                }
+                            }
+                            // hide if user is neither a geocache owner nor log author 
+                            if ($owner_id != $usr['userid'] && $record['userid'] != $usr['userid']){
+                                if ($show_one_log!=''){
+                                	exit;
+                                } else {
+                                	continue;
+                                }
+                            }
                         }
-                    else
-                    {
+                        
                         $record['icon_small']="log/16x16-trash.png"; //replace record icon with trash icon
                         $comm_replace =tr('vl_Record_of_type')." [". $record['text_listing']."] ".tr('vl_deleted');
                         $record['text_listing']=tr('vl_Record_deleted'); ////replace type of record
