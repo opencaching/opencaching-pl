@@ -119,11 +119,11 @@ function ratings($score, $votes){
     if ($votes < 3) return '<span style="color: gray">'.tr('pt083').'</span>';
     $scoreNum = score2ratingnum($score);
     switch($scoreNum){
-        case 0: return '<span style="color: #DD0000">'.tr('pt074').'</span>';
-        case 1: return '<span style="color: #F06464">'.tr('pt073').'</span>';
-        case 2: return '<span style="color: #DD7700">'.tr('pt072').'</span>';
-        case 3: return '<span style="color: #77CC00">'.tr('pt071').'</span>';
-        case 4: return '<span style="color: #00DD00">'.tr('pt070').'</span>';
+        case 0: return '<span style="color: #790000">'.tr('pt074').'</span>';
+        case 1: return '<span style="color: #BF3C3C">'.tr('pt073').'</span>';
+        case 2: return '<span style="color: #B36200">'.tr('pt072').'</span>';
+        case 3: return '<span style="color: #518C00">'.tr('pt071').'</span>';
+        case 4: return '<span style="color: #009D00">'.tr('pt070').'</span>';
     }
 }
 
