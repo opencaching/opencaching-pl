@@ -1420,6 +1420,11 @@ function fixPlMonth($string)
  */
 function tidy_html_description($text) {
     require_once 'lib/htmlpurifier/library/HTMLPurifier.auto.php';
+    $config = HTMLPurifier_Config::createDefault();
+
+    $config->set('HTML.SafeIframe', true);
+    $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
+
     $purifier = new HTMLPurifier();
     $text = $purifier->purify($text);
     return htmlspecialchars_decode($text);
