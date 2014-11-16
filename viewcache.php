@@ -1,6 +1,4 @@
 <?php
-
-// error_reporting(0);
 /***************************************************************************
     *
     *   This program is free software; you can redistribute it and/or modify
@@ -8,18 +6,9 @@
     *   the Free Software Foundation; either version 2 of the License, or
     *   (at your option) any later version.
     *
-    ***************************************************************************/
-
-/****************************************************************************
-
-   Unicode Reminder ăĄă˘
-
      view a cache
 
  ****************************************************************************/
-
-
-
 
   //prepare the templates and include all neccessary
     if (!isset($rootpath)) global $rootpath;
