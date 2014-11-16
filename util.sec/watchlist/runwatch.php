@@ -305,7 +305,7 @@ function process_log_watch($user_id, $log_id)
     */
     $logtext = preg_replace("/<img[^>]+\>/i", "", $logtext);
 
-    $watchtext = mb_ereg_replace('{date}', date('Y-m-d', strtotime($rLog['logdate'])) . '<br />'. date('H:i', strtotime($rLog['logdate'])), $watchtext);
+    $watchtext = mb_ereg_replace('{date}', date('Y-m-d H:i', strtotime($rLog['logdate'])), $watchtext);
     $watchtext = mb_ereg_replace('{wp}', $rLog['wp'], $watchtext);
     $watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
     $watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
