@@ -1356,7 +1356,7 @@ logType9 skrzynka została zarchiwizowana
 logType10 skrzynka gotowa do szukania
 logType11 skrzynka będzie niedostępna czasowo
 logType12 komentarz Centrum Obsługi Geocachera
-runwatch01 zrobił
+runwatch01 Zrobił
 runwatch02 do logu skrzynki
 runwatch03 Raport nowych logów w skrzynkach
 runwatch04 Jeśli obrazki nie wyświetlają się poprawnie, dodaj nadawcę do książki adresowej
@@ -1365,7 +1365,7 @@ runwatch06 Data/Czas
 runwatch07 Geokeszer
 runwatch08 Cache
 runwatch09 Witaj
-runwatch10 treść logu
+runwatch10 Treść logu
 runwatch11 Nowe wpisy do logu w obserwowanych przez Ciebie skrzynkach
 runwatch12 Wykaz obserwowanych skrzynek mozesz zobaczyć
 runwatch13 klikając tu
@@ -2492,3 +2492,4 @@ Stats_t7_04 Kliknij na nazwe województwa aby zobaczyć statytykę użytkownikó
 Stats_t7_05 Liczba poszukiwań skrzynek
 Stats_t7_06 Województwo
 
+admin_users_remove_logs Usuń wszystkie logi tego użytkownika
