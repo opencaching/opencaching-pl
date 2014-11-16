@@ -249,7 +249,7 @@ function process_owner_log($user_id, $log_id)
     } else {
         $recommended = '';
     }
-    $watchtext = mb_ereg_replace('{date}', date('Y-m-d', strtotime($rLog['logdate'])) . '<br />'. date('H:i', strtotime($rLog['logdate'])), $watchtext);
+    $watchtext = mb_ereg_replace('{date}', date('Y-m-d H:i', strtotime($rLog['logdate'])), $watchtext);
     $watchtext = mb_ereg_replace('{wp}', $rLog['wp'], $watchtext);
     $watchtext = mb_ereg_replace('{text}', $logtext, $watchtext);
     $watchtext = mb_ereg_replace('{user}', $rLog['username'], $watchtext);
@@ -388,10 +388,10 @@ function send_mail_and_clean_watches_waiting($currUserID, $currUserName, $currUs
         $mailadr = $currUserEMail;
 
     // $mailbody;
-    mb_send_mail($mailadr, $mailsubject, $mailbody, $email_headers);
+    $status = mb_send_mail($mailadr, $mailsubject, $mailbody, $email_headers);
 
     // logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
-    logentry('watchlist', 2, $currUserID, 0, 0, 'Sending mail to ' . $mailadr, array());
+    logentry('watchlist', 2, $currUserID, 0, 0, 'Sending mail to ' . $mailadr, array('status' => $status));
 
     // entries entfernen
     sql("DELETE FROM watches_waiting WHERE user_id='&1' AND watchtype IN (1, 2)", $currUserID);
