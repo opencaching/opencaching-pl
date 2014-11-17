@@ -1858,7 +1858,6 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 $dateTimeTmpArray = explode(' ', $record['date']);
                 $tmplog = mb_ereg_replace('{time}', substr($dateTimeTmpArray[1], 0, -3), $tmplog);
                 // replace smilies in log-text with images and add hyperlinks
-                $tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
 
                 // display user activity (by Łza 2012)
                 if ((date('m') == 4) and (date('d') == 1)){
@@ -1892,18 +1891,14 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                     $processed_text = htmlspecialchars($processed_text, ENT_COMPAT, 'UTF-8');
                     $processed_text = help_addHyperlinkToURL($processed_text);
                 } else {
-                    // why the hell is this -> some old store format?
-                    // it actually calls htmlspecialchars_decode
                     $processed_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($processed_text);
                 }
                 $processed_text = str_replace($smileytext, $smileyimage, $processed_text);
 
                 $tmplog_text =  $processed_text.$edit_footer;
-
+                $tmplog_text = str_replace($smileytext, $smileyimage, $tmplog_text);
                 // pictures
-                //START: edit by FelixP - 2013'10
                 if (($record['picturescount'] > 0) && (($record['deleted']==false) || ($usr['admin']))) // show pictures if (any added) and ((not deleted) or (user is admin))
-                //END: edit by FelixP - 2013'10
                 {
                     $logpicturelines = '';
                     $thatquery = "SELECT `url`, `title`, `user_id`, `uuid`, `spoiler` FROM `pictures` WHERE `object_id`= :v1 AND `object_type`=1";
