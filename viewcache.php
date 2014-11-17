@@ -1497,7 +1497,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
             // TODO: UTF-8 compatible str_replace (with arrays)
             $desc = str_replace($smileytext, $smileyimage, $desc);
 
-            $desc = tidy_html_description($desc);
+            $desc = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($desc);
             $res = '';
 
             tpl_set_var('desc', $desc, true);
@@ -1894,7 +1894,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                 } else {
                     // why the hell is this -> some old store format?
                     // it actually calls htmlspecialchars_decode
-                    $processed_text = tidy_html_description($processed_text);
+                    $processed_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($processed_text);
                 }
                 $processed_text = str_replace($smileytext, $smileyimage, $processed_text);
 

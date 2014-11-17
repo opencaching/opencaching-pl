@@ -18,6 +18,7 @@ class ClassPathDictionary
         'powerTrailController' => 'powerTrail/powerTrailController.php',
         'sendEmail' => 'powerTrail/sendEmail.php',
         'Kint' => 'lib/kint/Kint.class.php',
+        'userInputFilter' => 'lib/userInputFilters/userInputFilter.php'
     );
 
     public static function getClassPath($className)

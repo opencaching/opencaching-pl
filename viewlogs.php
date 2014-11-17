@@ -493,9 +493,7 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
                     $processed_text = htmlspecialchars($processed_text, ENT_COMPAT, 'UTF-8');
                     $processed_text = help_addHyperlinkToURL($processed_text);
                 } else {
-                    // why the hell is this -> some old store format?
-                    // it actually calls htmlspecialchars_decode
-                    $processed_text = tidy_html_description($processed_text);
+                    $processed_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($processed_text);
                 }
                 $processed_text = str_replace($smileytext, $smileyimage, $processed_text);
 

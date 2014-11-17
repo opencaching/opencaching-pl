@@ -297,7 +297,7 @@
                                                WHERE `id`='&6'",
                                                      $log_type,
                                                      date('Y-m-d H:i:s', mktime($log_date_hour, $log_date_min, 0, $log_date_month, $log_date_day, $log_date_year)),
-                                                     tidy_html_description((($descMode != 1) ? $log_text : nl2br($log_text))),
+                                                     userInputFilter::purifyHtmlString((($descMode != 1) ? $log_text : nl2br($log_text))),
                                                      1,
                                                      1,
                                                      $log_id);
@@ -549,7 +549,7 @@
                     tpl_set_var('date_message', ($date_not_ok == true) ? $date_message : '');
                     tpl_set_var('bodyMod', ' onload="chkMoved()"');
 
-                    $log_text = tidy_html_description($log_text);
+                    $log_text = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($log_text);
                     tpl_set_var('logtext', htmlspecialchars($log_text, ENT_NOQUOTES, 'UTF-8'), true);
                     tpl_set_var('descMode', $descMode);
 

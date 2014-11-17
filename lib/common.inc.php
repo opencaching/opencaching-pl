@@ -1413,48 +1413,6 @@ function fixPlMonth($string)
     return $string;
 }
 
-/**
- * clean user-input html string before display.
- * @param string $text
- * @return string
- */
-function tidy_html_description($text) {
-    if (isset($_GET['use_purifier'])) {
-        return tidy_html_description_new($text);
-    } else {
-        return tidy_html_description_old($text);
-    }
-}
-
-function tidy_html_description_new($text) {
-    require_once 'lib/htmlpurifier/library/HTMLPurifier.auto.php';
-    $config = HTMLPurifier_Config::createDefault();
-    $config->set('HTML.SafeIframe', true);
-    $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'); //allow YouTube and Vimeo
-    $config->set('Filter.YouTube', true);
-    $config->set('HTML.SafeObject', true);
-    $config->set('HTML.MaxImgLength', null);
-    $config->set('CSS.MaxImgLength', null);
-    $config->set('Attr.AllowedFrameTargets', array("_blank"));
-
-    $purifier = new HTMLPurifier($config);
-    $text = $purifier->purify($text);
-    return htmlspecialchars_decode($text);
-}
-
-function tidy_html_description_old($text)
-{
-    // 2014-05-25 I removed function: stripslashes. There were problems with backslashes - triPPer
-    return htmlspecialchars_decode($text);
-    //return htmlspecialchars_decode(stripslashes($text));
-
-    // old way, I have no idea what is going there and why, so I leave it as is for resque if above line will work not corrrect..
-    $options = array("input-encoding" => "utf8", "output-encoding" => "utf8", "output-xhtml" => true, "doctype" => "omit", "show-body-only" => true, "char-encoding" => "utf8", "quote-ampersand" => true, "quote-nbsp" => true, "wrap" => 0);
-    $tidy =  tidy_parse_string(html_entity_decode($text, ENT_NOQUOTES, "UTF-8"), $options);
-    tidy_clean_repair($tidy);
-    return $tidy;
-}
-
 function run_in_bg($Command, $Priority = 0)
 {
     if($Priority)

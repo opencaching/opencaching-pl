@@ -133,7 +133,7 @@
                                 tpl_errorMsg('editdesc', tr('error3KCharsExcedeed'));
                             }
 
-                            $desc = tidy_html_description($desc);
+                            $desc = userInputFilter::purifyHtmlString($desc);
                             mysql_query("SET NAMES 'utf8'");
                             sql("UPDATE `cache_desc` SET
                                         `last_modified`=NOW(),

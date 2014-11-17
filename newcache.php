@@ -866,7 +866,7 @@ if ($error == false) {
 
                     $desc_uuid = create_uuid();
                     //add record to cache_desc table
-                    $desc = tidy_html_description($desc);
+                    $desc = userInputFilter::purifyHtmlString($desc);
 
                     $query = "INSERT INTO `cache_desc` (
                                                 `cache_id`,
