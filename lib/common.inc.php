@@ -1429,11 +1429,12 @@ function tidy_html_description($text) {
 function tidy_html_description_new($text) {
     require_once 'lib/htmlpurifier/library/HTMLPurifier.auto.php';
     $config = HTMLPurifier_Config::createDefault();
-
     $config->set('HTML.SafeIframe', true);
-    $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
+    $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'); //allow YouTube and Vimeo
+    $config->set('Filter.YouTube', true);
+    $config->set('HTML.SafeObject', true);
 
-    $purifier = new HTMLPurifier();
+    $purifier = new HTMLPurifier($config);
     $text = $purifier->purify($text);
     return htmlspecialchars_decode($text);
 }
