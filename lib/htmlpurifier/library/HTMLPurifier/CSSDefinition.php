@@ -227,6 +227,8 @@ class HTMLPurifier_CSSDefinition extends HTMLPurifier_Definition
 
         $this->info['width'] =
         $this->info['height'] =
+        $this->info['max-width'] =
+        $this->info['max-height'] =
             $max === null ?
                 $trusted_wh :
                 new HTMLPurifier_AttrDef_Switch(
