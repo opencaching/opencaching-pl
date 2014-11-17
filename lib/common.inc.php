@@ -1433,6 +1433,8 @@ function tidy_html_description_new($text) {
     $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'); //allow YouTube and Vimeo
     $config->set('Filter.YouTube', true);
     $config->set('HTML.SafeObject', true);
+    $config->set('HTML.MaxImgLength', null);
+    $config->set('CSS.MaxImgLength', null);
 
     $purifier = new HTMLPurifier($config);
     $text = $purifier->purify($text);
