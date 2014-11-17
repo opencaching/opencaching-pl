@@ -1435,6 +1435,7 @@ function tidy_html_description_new($text) {
     $config->set('HTML.SafeObject', true);
     $config->set('HTML.MaxImgLength', null);
     $config->set('CSS.MaxImgLength', null);
+    $config->set('Attr.AllowedFrameTargets', array("_blank"));
 
     $purifier = new HTMLPurifier($config);
     $text = $purifier->purify($text);
