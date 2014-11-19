@@ -284,6 +284,7 @@ if (date('m') == 12 || date('m') == 1) {
                     ?>
                     <p>
                         <a href="articles.php?page=impressum">{{impressum}}</a> |
+                        <a href="articles.php?page=history">{{history}}</a> |
                         <a href="articles.php?page=contact">{{contact}}</a> |
                         <a href="/index.php?page=sitemap">{{main_page}}</a> |
                         <a href="/okapi/">API</a><br />
