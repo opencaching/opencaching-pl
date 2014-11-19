@@ -37,7 +37,39 @@ class userInputFilter
      * @return string
      */
     public static function purifyHtmlStringAndDecodeHtmlSpecialChars($dirtyHtml) {
-        $cleanHtml = self::purifyHtmlString($dirtyHtml);
+        if (isset($_GET['use_purifier'])){
+            $upo = $_GET['use_purifier'];
+            switch($upo){
+                case '0': 
+                    return self::purifyHtmlStringAndDecodeHtmlSpecialChars_old($dirtyHtml);
+                case '1': 
+                case '':
+                    return self::purifyHtmlStringAndDecodeHtmlSpecialChars_new($dirtyHtml);
+                    
+            }
+        }
+        
+        // current working implementation
+        // the proposal is: 
+        // 1. htmlspecialchars_decode - since after this step we get the "old way" html
+        // 2. self::purifyHtmlString
+        
+        return htmlspecialchars_decode($dirtyHtml);
+    }
+    
+    /**
+     * the oldest version of the function - for backward compatibility
+     */
+    private static function purifyHtmlStringAndDecodeHtmlSpecialChars_old($dirtyHtml) {
         return htmlspecialchars_decode($cleanHtml);
     }
+
+    /**
+     * the newest possible version of the function - all the experiments should be done here
+     */
+    private static function purifyHtmlStringAndDecodeHtmlSpecialChars_new($dirtyHtml) {
+        $cleanHtml = self::purifyHtmlString($dirtyHtml);
+        return $cleanHtml;
+    }
+    
 }
