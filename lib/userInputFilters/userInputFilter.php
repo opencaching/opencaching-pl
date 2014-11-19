@@ -68,6 +68,7 @@ class userInputFilter
      * the newest possible version of the function - all the experiments should be done here
      */
     private static function purifyHtmlStringAndDecodeHtmlSpecialChars_new($dirtyHtml) {
+        $dirtyHtml = htmlspecialchars_decode($dirtyHtml);
         $cleanHtml = self::purifyHtmlString($dirtyHtml);
         return $cleanHtml;
     }
