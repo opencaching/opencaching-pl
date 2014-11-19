@@ -57,7 +57,7 @@ class userInputFilter
      * the oldest version of the function - for backward compatibility
      */
     private static function purifyHtmlStringAndDecodeHtmlSpecialChars_old($dirtyHtml) {
-        return htmlspecialchars_decode($cleanHtml);
+        return htmlspecialchars_decode($dirtyHtml);
     }
 
     /**
