@@ -32,7 +32,7 @@ class userInputFilter
     }
 
     /**
-     * filter html string using HTMLPurifier, then htmlspecialchars_decode.
+     * filter html string using HTMLPurifier
      * @param string $dirtyHtml
      * @return string
      */
@@ -49,11 +49,7 @@ class userInputFilter
             }
         }
         
-        // current working implementation
-        // the proposal is: 
-        // 1. htmlspecialchars_decode - since after this step we get the "old way" html
-        // 2. self::purifyHtmlString
-        
+        // current working implementation - the old way
         return htmlspecialchars_decode($dirtyHtml);
     }
     
