@@ -50,7 +50,7 @@ $_kintSettings['fileLinkFormat'] = ini_get( 'xdebug.file_link_format' );
  *
  */
 $_kintSettings['appRootDirs'] = array(
-    $_SERVER['DOCUMENT_ROOT'] => '&lt;ROOT&gt;'
+	$_SERVER['DOCUMENT_ROOT'] => '&lt;ROOT&gt;'
 );
 
 
