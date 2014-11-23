@@ -637,8 +637,8 @@ latest_created_cache Laatste gemaakte cache
 latest_logs_in_caches Laatste logs van gebruikers caches
 caches_waiting_approve Mijn caches wachtend op goedkeuring van het OC Team
 caches_blocked Mijn caches afgekeurd door het OC Team
-blocked_create_caches Your possiblity for creating new caches is blocked. Please contact with OC Team rr@opencaching.pl
-npa_info This geocache is probably placed in a nature protection area
+blocked_create_caches De mogelijkheid om nieuwe caches te maken is geblokkerd. Neem contact op met het Opencaching team.
+npa_info Deze cache bevind zich waarschijnlijk in een beschermd natuurgebied
 check_nearby_caches_info Controleer voor het plaatsen van een cache of er geen andere cache ligt in <br /> een straal van 150 m
 check_nearby_caches Contoleer caches dichtbij op {site_name}
 check_nearby_caches_map Controleer op caches met kaart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
