@@ -756,10 +756,10 @@ add_comment_to_remove Wil je ook een berichtje schrijven aan
 removed_log_title Een log is verwijderd door een cache eigenaar
 removed_message_titel De eigenaar van de cache schreef je het volgende bericht
 dont_have_recommended_caches Je hebt nog geen aanbevolen caches
-your_recommendations Your recommendations for geocache
-was_removed has been removed
-recommended_geocaches Recommended geocaches
-number_recommendations Number of recommendations
+your_recommendations Je aanbeveling voor de cache
+was_removed is verwijderd
+recommended_geocaches Aanbevolen caches
+number_recommendations Aantal aanbevelingen
 regions_only_for Provincies
 monday Maandag
 tuesday Dinsdag
