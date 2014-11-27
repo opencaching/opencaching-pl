@@ -390,7 +390,7 @@
     <p class="content-title-noshade-size1">
 
         <img src="tpl/stdstyle/images/blue/npav1.png" class="icon32" alt="" />
-        Obszary ochrony przyrody
+        {{obszary_ochrony_przyrody}}
     </p>
 </div>
 <div class="content2-container">

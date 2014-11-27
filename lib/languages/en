@@ -663,6 +663,7 @@ Field_Notes Garmin Logfile
 mycache_note My cache notes
 personal_cache_note Personal cache note
 cache_note_visible The note is not visible to other users. It will be included in GPX files you download.
+obszary_ochrony_przyrody Nature protection areas
 for_cache for
 add_new_note Add a new note
 back_to_cache Back to cache

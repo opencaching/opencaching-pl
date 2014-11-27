@@ -663,6 +663,7 @@ Field_Notes Field notes
 mycache_note Moje notatki
 personal_cache_note Własna notatka do skrzynki
 cache_note_visible Notatka nie jest widziana przez innych użytkowników. Notatka będzie dołączana do pliku GPX.
+obszary_ochrony_przyrody Obszary ochrony przyrody
 for_cache dla skrzynki
 add_new_note Dodaj nową notatkę
 back_to_cache Wróć do skrzynki
