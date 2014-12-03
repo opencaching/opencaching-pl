@@ -74,7 +74,7 @@
 
         //default data
         tpl_set_var('qrcode', $config['qrCodeUrl']);
-        QRcode::png('http://opencaching.pl/viewcache.php?wp=OP3C90', $filename, $errorCorrectionLevel, $matrixPointSize, 2);
+        QRcode::png($config['qrCodeUrl'], $filename, $errorCorrectionLevel, $matrixPointSize, 2);
 
     }
 
