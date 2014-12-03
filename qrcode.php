@@ -73,13 +73,13 @@
     } else {
 
         //default data
-        tpl_set_var('qrcode', "http://opencaching.pl/viewcache.php?wp=OP3C90");
+        tpl_set_var('qrcode', $config['qrCodeUrl']);
         QRcode::png('http://opencaching.pl/viewcache.php?wp=OP3C90', $filename, $errorCorrectionLevel, $matrixPointSize, 2);
 
     }
 
         // Create image instances
-        $dest =  imagecreatefromjpeg($GLOBALS['rootpath']."./images/qrcode_bg.jpg");
+        $dest =  imagecreatefromjpeg($GLOBALS['rootpath'].'/images/'. $config['qrCodeLogo']);
         $src =  imagecreatefrompng($dynbasepath . 'tmp/test.png');
         $src_w = imagesx($src);
         $xd=86-($src_w/2);
