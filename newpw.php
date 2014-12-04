@@ -78,7 +78,7 @@
                     }
                     else
                     {
-                        $secure_code = uniqid('');
+                        $secure_code = PasswordManager::generateRandomString(13);
 
                         //set code in DB
                         sql("UPDATE `user` SET `new_pw_date`='&1', `new_pw_code`='&2' WHERE `email`='&3'", time(), $secure_code, $email);
@@ -119,7 +119,7 @@
 
                 tpl_set_var('email', htmlspecialchars($email, ENT_COMPAT, 'UTF-8'));
 
-                $rs = sql("SELECT `is_active_flag`, `new_pw_code`, `new_pw_date` FROM `user` WHERE `email`='&1'", $email);
+                $rs = sql("SELECT `is_active_flag`, `new_pw_code`, `new_pw_date`, `user_id` FROM `user` WHERE `email`='&1'", $email);
                 if (mysql_num_rows($rs) > 0)
                 {
                     //ok, a user with this email does exist
@@ -151,7 +151,9 @@
                                 else
                                 {
                                     //set new pw
-                                    sql("UPDATE `user` SET `new_pw_date`=0, `new_pw_code`=NULL, `password`='&1', `last_modified`=NOW() WHERE `email`='&2'", hash('sha512', md5($password)), $email);
+                                    $pm = new PasswordManager($record['user_id']);
+                                    $pm->change($password);
+                                    sql("UPDATE `user` SET `new_pw_date`=0, `new_pw_code`=NULL, `last_modified`=NOW() WHERE `email`='&1'", $email);
                                     tpl_set_var('message', $pw_changed);
                                 }
                             }

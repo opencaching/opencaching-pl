@@ -82,10 +82,20 @@ class login
 
         db_connect();
 
-        $query = "select user_id,username from user where username = '".mysql_real_escape_string($user)."' and password ='".hash('sha512', md5(mysql_real_escape_string($password)))."';";
+        $query = "select user_id,username from user where username = '".mysql_real_escape_string($user)."';";
         $wynik = db_query($query);
         $wiersz=mysql_fetch_assoc($wynik);
         $user_id = $wiersz['user_id'];
+
+        if ($user_id)
+        {
+            /* User exists. Is the password correct? */
+
+            $pm = new PasswordManager($user_id);
+            if (!$pm->verify($password)) {
+                $user_id = null;
+            }
+        }
 
         if(!empty($user_id)) {
             $_SESSION['username']=$wiersz['username'];

@@ -154,17 +154,44 @@ class login
         $min_lastlogin_permanent = date('Y-m-d H:i:s', time() - LOGIN_TIME_PERMANENT);
         sql("DELETE FROM `sys_sessions` WHERE `last_login`<'&1'", $min_lastlogin_permanent);
 
-        // compare $user with email and username, if both matches use email
-        $rsUser = sql("SELECT `user_id`, `username`, 2 AS `prio`, `is_active_flag`, `permanent_login_flag`, `admin` FROM `user` WHERE `username` LIKE '&1' AND `password`='&2' UNION
-                       SELECT `user_id`, `username`, 1 AS `prio`, `is_active_flag`, `permanent_login_flag`, `admin` FROM `user` WHERE `email` LIKE '&1' AND `password`='&2' ORDER BY `prio` ASC LIMIT 1", mb_strtolower($user), hash('sha512',md5($password)));
+        // compare $user with email and username, if both match, use email
+        $rsUser = sql("
+            SELECT
+                `user_id`, `username`, 2 AS `prio`, `is_active_flag`,
+                `permanent_login_flag`, `admin`
+            FROM `user`
+            WHERE `username` LIKE '&1'
+
+            UNION
+
+            SELECT
+                `user_id`, `username`, 1 AS `prio`, `is_active_flag`,
+                `permanent_login_flag`, `admin`
+            FROM `user`
+            WHERE
+                `email` LIKE '&1'
+
+            ORDER BY `prio` ASC
+            LIMIT 1
+        ", mb_strtolower($user));
         $rUser = sql_fetch_assoc($rsUser);
         sql_free_result($rsUser);
 
-        if ($permanent == null)
-            $permanent = ($rUser['permanent_login_flag'] == 1);
+        if ($rUser)
+        {
+            /* User exists. Is the password correct? */
+
+            $pm = new PasswordManager($rUser['user_id']);
+            if (!$pm->verify($password)) {
+                $rUser = null;
+            }
+        }
 
         if ($rUser)
         {
+            if ($permanent == null)
+                $permanent = ($rUser['permanent_login_flag'] == 1);
+
             // ok, there is a valid login
             if ($rUser['is_active_flag'] != 0)
             {

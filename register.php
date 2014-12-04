@@ -151,7 +151,7 @@ if ($error == false) {
                                           `uuid`, `activation_code`, `node`, `rules_confirmed`
                                         ) VALUES ('', '&1', '&2', '&3', NULL, NULL, NOW(), '0', '0', '0', '0', '&4', NOW(), '&5', '&6', '&7', &8)",
                                         $username,
-                                        hash('sha512', md5($password)),
+                                        hash('sha512', md5($password)), // WRTODO - could be better
                                         $email,
                                         $country,
                                         $uuid,

@@ -43,7 +43,8 @@
     {
         $r = mysql_fetch_array($rs);
 
-        if (strtolower(hash('sha512', md5($r['login_id']))) == strtolower($loginid))
+        $pm = new PasswordManager($userid);
+        if ($pm->verify($loginid))
             echo str_replace('{username}', htmlspecialchars($r['username']), $loginbox_loggedin);
         else
             echo $loginbox_form;

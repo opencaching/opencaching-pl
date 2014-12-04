@@ -8,6 +8,7 @@
     require_once("./lib/cookie.class.php");
     require_once("./lib/login.class.php");
     require_once('../lib/db.php');
+    require_once('../lib/ClassPathDictionary.php');
 
     $tpl = new Smarty;
     $tpl -> template_dir = $dynbasepath . 'lib/templates/';
