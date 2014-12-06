@@ -30,6 +30,11 @@
     $uuid = isset($_REQUEST['uuid']) ? $_REQUEST['uuid'] : '';
     $debug = isset($_REQUEST['debug']) ? $_REQUEST['debug'] : 0;
 
+    // TODO: zmerge'ować z thumbs.php (jedyna różnica to wielkość generowanej miniaturki, i katalog zapisu)
+    /* TODO: zmiana obrazka powinna odświeżać obydwie miniaturki, teraz tak nie jest - 
+             odświeżana jest tylko ta, o którą pierwszą zapyta przeglądarka */
+    // TODO: uuid (renderowany w HTMLu zawsze) zdradza adres obrazka 
+    
     if ($error == false)
     {
         require_once($stylepath . '/thumbs.inc.php');
