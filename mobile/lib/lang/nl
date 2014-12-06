@@ -58,7 +58,7 @@ view_wpt Waypoint:
 view_owner Eigenaar:
 stats Statistieken:
 download_file download gegevens in volgend formaat
-show_spoiler toon spoiler
+show_spoiler toon hint
 photos afbeeldingen
 show_entries toon logs
 add_entry voeg log toe
@@ -66,7 +66,7 @@ score score:
 topratings Aanbevelingen:
 show_attrib toon attributen
 moved moved
-cog_note COG comment
+cog_note OC-Team opmerking
 temp_unavailable tijdelijk niet beschikbaar
 ready beschikbaar
 archived gearchiveerd
