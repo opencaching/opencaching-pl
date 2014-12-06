@@ -40,15 +40,15 @@
             $next_page='2';
         }elseif(isset($_GET['page']) && !empty($_GET['page']) && preg_match("/^\d+$/", $_GET['page'])){
 
-                $ile_wyników=find_news(($_GET['page']-1)*$na_stronie,$na_stronie);
+                $ile_wynikow=find_news(($_GET['page']-1)*$na_stronie,$na_stronie);
 
-                if($ile_wyników==0){
-                header('Location: ./news.php?page=1');
-                exit;
+                if($ile_wynikow==0){
+                    header('Location: ./news.php?page=1');
+                    exit;
                 }else{
-                if(((($_GET['page']-1)*$na_stronie)+$na_stronie)<=$ile)
-                    $next_page=$_GET['page']+1;
-                $prev_page=$_GET['page']-1;
+                    if(((($_GET['page']-1)*$na_stronie)+$na_stronie)<=$ile)
+                        $next_page=$_GET['page']+1;
+                    $prev_page=$_GET['page']-1;
                 }
         }
     }

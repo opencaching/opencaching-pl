@@ -17,6 +17,8 @@
 
     ***************************************************************************/
 
+    // Bogus z Polska, 2014-12-06 - is this script used at all? I don't think so.
+
     global $dblink, $language, $lang;
 
     require('../../lib/settings.inc.php');

@@ -278,8 +278,12 @@ if ((!isset($GLOBALS['oc_waypoint'])) && isset($GLOBALS['ocWP']))
                 }
             }
 
-
+            if (!(isset($_SESSION['logout_cookie']))){
+                $_SESSION['logout_cookie'] = mt_rand(1000,9999).mt_rand(1000,9999);
+            }
+            
             $sTmpString = mb_ereg_replace('{username}', $usr['username'], $sLoggedIn);
+            $sTmpString = mb_ereg_replace('{logout_cookie}', $_SESSION['logout_cookie'], $sTmpString);
             tpl_set_var('loginbox', $sTmpString);
             unset($sTmpString);
 

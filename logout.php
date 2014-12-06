@@ -23,12 +23,16 @@
     //Preprocessing
     if ($error == false)
     {
-        //load language specific variables
-        require_once($stylepath . '/login.inc.php');
-        if (auth_logout() == true)
+        if (isset($_GET['token']) && isset($_SESSION['logout_cookie']) 
+                && $_GET['token'] == $_SESSION['logout_cookie'])
         {
-            $_SESSION = array();
-            session_destroy();
+            //load language specific variables
+            require_once($stylepath . '/login.inc.php');
+            if (auth_logout() == true)
+            {
+                $_SESSION = array();
+                session_destroy();
+            }
         }
     }
 

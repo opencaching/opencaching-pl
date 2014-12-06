@@ -25,7 +25,7 @@
 
         <div id="login_nav" class="button">
             {if $smarty.session.user_id}
-                <a href='./logout.php'>{$login_info} <b>{$smarty.session.username}</b><br/></span><span class='login'>{$logout}</span></a>
+                <a href='./logout.php?token={$smarty.session.logout_cookie}'>{$login_info} <b>{$smarty.session.username}</b><br/></span><span class='login'>{$logout}</span></a>
             {else}
                 <a href='login.php'><span class='login'>{$login}</span></a>
             {/if}
