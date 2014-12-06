@@ -87,7 +87,7 @@
             $kord2=zamiana($_GET['Estopien'],$_GET['Eminuty']);
                 if($_GET['ew'] == 'W') $kord2 = "-".$kord2;
 
-            $jsonurl = "http://opencaching.pl/okapi/services/caches/search/nearest?&center=".$kord1."|".$kord2."&status=Available&radius=".$_GET['radius']."&consumer_key=HpLvDvvjmG3HkeX8RsgU&limit=500 ";
+            $jsonurl = "$absolute_server_URI/okapi/services/caches/search/nearest?&center=".$kord1."|".$kord2."&status=Available&radius=".$_GET['radius']."&consumer_key=HpLvDvvjmG3HkeX8RsgU&limit=500 ";
 
             $input = file_get_contents($jsonurl);
             $output = json_decode($input,true);
