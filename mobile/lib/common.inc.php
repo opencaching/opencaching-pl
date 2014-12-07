@@ -7,7 +7,6 @@
     require_once('./lib/functions.inc.php');
     require_once("./lib/cookie.class.php");
     require_once("./lib/login.class.php");
-    require_once('../lib/db.php');
     require_once('../lib/ClassPathDictionary.php');
 
     $tpl = new Smarty;
