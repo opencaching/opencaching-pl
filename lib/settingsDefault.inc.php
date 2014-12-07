@@ -89,4 +89,7 @@ $config = array (
     
     /** The filter fragment selecting provinces from nuts_codes table. */
     'provinceNutsCondition' => '`code` like \'PL__\'',
+
+    /**/
+    'medalsModuleSwitchedOn' => true,
 );

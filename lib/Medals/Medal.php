@@ -9,7 +9,6 @@ namespace lib\Medals;
  */
 class Medal
 {
-
     private $typeId;
     private $image;
     private $name;
@@ -84,7 +83,7 @@ class Medal
     }
 
     private function setImage() {
-        $medalsLayout = new \tpl\stdstyle\lib\medalsLayout();
+        $medalsLayout = new \tpl\stdstyle\lib\MedalsLayout();
         $this->image = $medalsLayout->getImage($this->typeId);
     }
 
