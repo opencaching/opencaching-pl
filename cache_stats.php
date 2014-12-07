@@ -18,16 +18,20 @@ if ($error == false) {
     } else {
         // check for old-style parameters
         if (isset($_REQUEST['cacheid'])) {
-            $cache_id = $_REQUEST['cacheid'];
+            $cache_id = (int) $_REQUEST['cacheid'];
+        } else {
+            $cache_id = 0;
         }
+        $geoCache = new \lib\GeoCache\GeoCache(array('cacheId' => $cache_id ));
         $tplname = 'cache_stats';
         $content = "";
-        $cachename = sqlValue("SELECT name FROM caches WHERE `cache_id`=$cache_id", 0);
+        $cachename = $geoCache->getCacheName();
         tpl_set_var('cachename', $cachename);
-        $cachetime = sqlValue("SELECT YEAR(`date_hidden`) FROM caches WHERE `cache_id`=$cache_id", 0);
-        $rsGeneralStat = sql("SELECT count(*) count FROM `cache_logs` WHERE cache_logs.deleted=0 AND (type=1 OR type=2) AND cache_id=&1 ", $cache_id);
-        $cache_record = sql_fetch_array($rsGeneralStat);
-        if ($cache_record['count'] == 0) {
+        $cachetime = date('Y', $geoCache->getDatePlaced());
+        $db = \lib\Database\DataBaseSingleton::Instance();
+        $rsGeneralStatQuery = 'SELECT count(*) count FROM `cache_logs` WHERE cache_logs.deleted=0 AND (type=1 OR type=2) AND cache_id=:1 ';
+        $dbResult = $db->multiVariableQueryValue($rsGeneralStatQuery, 0, $cache_id);
+        if ($dbResult == 0) {
             $content .= '<p>&nbsp;</p><p style="background-color: #FFFFFF; margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 14px;">' . $cachename . '<br /> <br />nie ma jeszcze statystyki</b></p>';
         } else {
             $content .='<center><p style="background-color: #FFFFFF; margin: 0px; padding: 0px; color: rgb(88,144,168); font-weight: bold; font-size: 14px;">' . tr("stat_geocache") . ': ' . $cachename . '<br /></p>';
@@ -39,7 +43,6 @@ if ($error == false) {
                 $content .= '<img src="graphs/BarGraphcstatM.php?cacheid=' . $cache_id . '&amp;t=csm' . $yearr . '"  border="0" alt="" width="400" height="200" /><br /><br />';
             }
             $content .= '<img src="graphs/BarGraphcstat.php?cacheid=' . $cache_id . '&amp;t=csy"  border="0" alt="" width="400" height="200" /><br /><br /><br /></p></center>';
-            mysql_free_result($rsGeneralStat);
         }
         tpl_set_var('content', $content);
         tpl_set_var('bodyMod', ' bgcolor="#FFFFFF" style="border:none"');
