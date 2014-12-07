@@ -1,6 +1,6 @@
 <?php
 
-namespace lib\geoCache;
+namespace lib\GeoCache;
 
 /**
  * Description of geoCache
@@ -13,6 +13,7 @@ class GeoCache
     private $caheId;
     private $cacheType;
     private $cacheName;
+    private $datePlaced;
     private $cacheLocation = array();
 
     /**
@@ -25,13 +26,13 @@ class GeoCache
         $db = \lib\Database\DataBaseSingleton::Instance();
         if(isset($params['cacheId'])){
             $this->caheId = (int) $params['cacheId'];
-            $queryById = "SELECT name, type FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
+            $queryById = "SELECT name, type, date_hidden FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
             $db->multiVariableQuery($queryById, $this->caheId);
         }
         $cacheDbRow = $db->dbResultFetch();
         $this->cacheType = $cacheDbRow['type'];
         $this->cacheName = $cacheDbRow['name'];
-
+        $this->datePlaced = strtotime($cacheDbRow['date_hidden']);
         $this->loadCacheLocation($db);
     }
     
@@ -51,5 +52,12 @@ class GeoCache
         return $this->cacheLocation;
     }
 
-
+    public function getCacheName()
+    {
+        return $this->cacheName;
+    }
+    public function getDatePlaced()
+    {
+        return $this->datePlaced;
+    }
 }
