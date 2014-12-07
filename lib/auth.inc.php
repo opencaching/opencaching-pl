@@ -132,7 +132,7 @@
     }
 
     function getUserRow($userId) {
-        require_once __DIR__.'/db.php';
+        require_once __DIR__.'/Database/Db.php';
         $db = new dataBase();
         $db->multiVariableQuery('SELECT username, hidden_count, log_notes_count, founds_count, notfounds_count, email, country, latitude, longitude FROM `user` WHERE `user_id`=:1', $userId);
         return $db->dbResultFetchOneRowOnly();
