@@ -15,7 +15,7 @@ $q = '
         `userId` =:5
 ';
 $text = htmlspecialchars($_REQUEST['text']);
-$db = new dataBase(false);
+$db = \lib\Database\DataBaseSingleton::Instance();
 $db->multiVariableQuery(
     $q,
     $text,  # :1

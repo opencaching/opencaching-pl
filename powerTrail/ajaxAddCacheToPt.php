@@ -26,7 +26,7 @@ isset($_REQUEST['projectId']) ? $projectId = $_REQUEST['projectId'] : exit;
 isset($_REQUEST['cacheId']) ? $cacheId = $_REQUEST['cacheId'] : exit;
 isset($_REQUEST['rmOtherUserCacheFromPt']) ? $rmOtherUserCacheFromPt = true : $rmOtherUserCacheFromPt = false;
 
-$db = new dataBase();
+$db = \lib\Database\DataBaseSingleton::Instance();
 // check if cache is already cannected with any power trail
 $query = 'SELECT `PowerTrailId` FROM `powerTrail_caches` WHERE `cacheId` = :1';
 $db->multiVariableQuery($query, $cacheId);
@@ -132,7 +132,7 @@ function removeCacheFromPowerTrail($cacheId, $resultPowerTrailId, $db, $ptAPI){
 }
 
 function getCachePoints($cacheId){
-    $db = new dataBase;
+    $db = \lib\Database\DataBaseSingleton::Instance();
     $queryCacheData = 'SELECT * FROM caches WHERE cache_id = :1 LIMIT 1';
     $db->multiVariableQuery($queryCacheData, $cacheId);
     $cacheData = $db->dbResultFetch();
@@ -152,7 +152,7 @@ function getCachePoints($cacheId){
 
 function recalculate($projectId) {
     $allCachesQuery = 'SELECT * FROM `caches` where `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE `PowerTrailId` =:1 )';
-    $db = new dataBase();
+    $db = \lib\Database\DataBaseSingleton::Instance();
     $db->multiVariableQuery($allCachesQuery, $projectId);
     $allCaches = $db->dbResultFetchAll();
     $newData = powerTrailBase::recalculateCenterAndPoints($allCaches);
@@ -166,7 +166,7 @@ function recalculate($projectId) {
  */
 function recalculateOnce() {
     $allCachesQuery = 'SELECT * FROM `caches` where `cache_id` IN (SELECT `cacheId` FROM `powerTrail_caches` WHERE 1)';
-    $db = new dataBase();
+    $db = \lib\Database\DataBaseSingleton::Instance();
     $db->multiVariableQuery($allCachesQuery);
     $allCaches = $db->dbResultFetchAll();
 
@@ -183,7 +183,7 @@ function recalculateOnce() {
 
 function isCacheOwnByLoggedUser($caheId){
     $query = 'SELECT  `user_id` AS `userId`  FROM  `caches` WHERE  `cache_id` = :1 LIMIT 1';
-    $db = new dataBase(false);
+    $db = \lib\Database\DataBaseSingleton::Instance();
     $db->multiVariableQuery($query, $caheId);
     $result = $db->dbResultFetch();
     if($result['userId'] == $_SESSION['user_id']) return true;
@@ -192,7 +192,7 @@ function isCacheOwnByLoggedUser($caheId){
 
 function isCacheCanditate($ptId, $cacheId){
     $q = "SELECT count(*) AS `c` FROM `PowerTrail_cacheCandidate` WHERE `PowerTrailId` = :1 AND `cacheId` =:2";
-    $db = new dataBase(false);
+    $db = \lib\Database\DataBaseSingleton::Instance();
     $db->multiVariableQuery($q, $ptId, $cacheId);
     $result = $db->dbResultFetch();
     if($result['c']>0) return true;
@@ -203,7 +203,7 @@ function addCacheToCacheCandidate($cacheId, $ptId){
     $linkCode = randomPassword(50);
     $q = "INSERT INTO `PowerTrail_cacheCandidate`(`PowerTrailId`, `cacheId`, `link`, `date`) VALUES (:1,:2,:3,NOW())";
 
-    $db = new dataBase(false);
+    $db = \lib\Database\DataBaseSingleton::Instance();
     $db->multiVariableQuery($q, $ptId, $cacheId, $linkCode);
 
     require_once 'sendEmailCacheCandidate.php';

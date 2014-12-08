@@ -20,7 +20,7 @@ $commentDbRow = powerTrailBase::getSingleComment($commentId);
 // check if user is owner of selected power Trail
 if(powerTrailBase::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 1 || $commentDbRow['userId'] == $callingUser) {
     $query = 'UPDATE `PowerTrail_comments` SET `deleted` = 1 WHERE `id` = :1';
-    $db = new dataBase(false);
+    $db = \lib\Database\DataBaseSingleton::Instance();
     $db->multiVariableQuery($query, $commentId);
     if($commentDbRow['commentType'] == 2){
         print '2';

@@ -33,7 +33,7 @@ $powerTrailId = $_REQUEST['powerTrailId'];
                 $image -> save($target_path);
 
                 $query = 'UPDATE `PowerTrail` SET `image`= :1 WHERE `id` = :2';
-                $db = new dataBase(false);
+                $db = \lib\Database\DataBaseSingleton::Instance();
                 $db->multiVariableQuery($query, $picurl.'/'.$actual_image_name, $powerTrailId);
 
                 $result = '<img src="'.$picurl.'/'.$actual_image_name.'?'.rand(1000, 9999).'" />';

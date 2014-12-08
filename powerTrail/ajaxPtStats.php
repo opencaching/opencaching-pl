@@ -33,7 +33,7 @@ ORDER BY `FoundCount` DESC, `username` ASC
 
 ";
 
-$db = new dataBase;
+$db = \lib\Database\DataBaseSingleton::Instance();
 $db->multiVariableQuery($q, $ptId);
 $statsArr = $db->dbResultFetchAll();
 

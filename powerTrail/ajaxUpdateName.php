@@ -18,7 +18,7 @@ if($newName == '') {
 // check if user is owner of selected power Trail
 if($ptAPI::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 1) {
     $query = 'UPDATE `PowerTrail` SET `name` = :1 WHERE `id` = :2';
-    $db = new dataBase();
+    $db = \lib\Database\DataBaseSingleton::Instance();
     $db->multiVariableQuery($query, $newName, $powerTrailId);
     echo $newName;
 }

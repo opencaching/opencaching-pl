@@ -10,7 +10,7 @@ foreach ($ptOwners as $owner) {
 }
 $nextSearchStart = $_REQUEST['start'] + $_REQUEST['limit'];
 
-$db = new dataBase(false);
+$db = \lib\Database\DataBaseSingleton::Instance();
 $q = 'SELECT count(*) AS `count` FROM  `PowerTrail_comments` WHERE  `PowerTrailId` =:1 AND `deleted` = 0 ';
 $db->multiVariableQuery($q, $_REQUEST['projectId']);
 $count = $db->dbResultFetch();

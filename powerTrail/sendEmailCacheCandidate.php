@@ -1,16 +1,18 @@
 <?php
+
+require_once __DIR__.'/../lib/ClassPathDictionary.php';
+
 // sendEmailCacheCandidate.php
 $siteDateFormat = 'Y-m-d';
 $siteDateTimeFormat = 'Y-m-d H:i';
 
 function emailCacheOwner($ptId, $cacheId, $linkCode){
     global $octeam_email, $usr, $absolute_server_URI, $site_name, $siteDateFormat, $siteDateTimeFormat;
-    require_once __DIR__.'/powerTrailBase.php';
     $owners = powerTrailBase::getPtOwners($ptId);
     $ptDbRow = powerTrailBase::getPtDbRow($ptId);
 
     $query = 'SELECT `caches` . * , `user`.`email`, `user`.`username` FROM `caches` , `user` WHERE `cache_id` =:1 AND `caches`.`user_id` = `user`.`user_id` LIMIT 1';
-    $db = new dataBase(false);
+    $db = \lib\Database\DataBaseSingleton::Instance();
     $db->multiVariableQuery($query, $cacheId);
     $cacheData = $db->dbResultFetch();
 

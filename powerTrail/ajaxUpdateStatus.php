@@ -8,8 +8,6 @@ if(!isset($_SESSION['user_id'])){
     print 'no hacking please!';
     exit;
 }
-require_once __DIR__.'/../lib/db.php';
-require_once __DIR__.'/powerTrailController.php';
 $ptAPI = new powerTrailBase;
 
 $powerTrailId = (int) $_REQUEST['projectId'];
@@ -41,7 +39,7 @@ if($ptAPI::checkIfUserIsPowerTrailOwner($_SESSION['user_id'], $powerTrailId) == 
 
     // update geoPatch status
     $query = 'UPDATE `PowerTrail` SET `status`= :1 WHERE `id` = :2';
-    $db = new dataBase(false);
+    $db = \lib\Database\DataBaseSingleton::Instance();
     $db->multiVariableQuery($query, $newStatus, $powerTrailId);
 
     // add comment

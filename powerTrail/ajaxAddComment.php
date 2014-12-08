@@ -7,14 +7,12 @@ if(!isset($_SESSION['user_id'])){
     print 'no hacking please! Fuck You!';
     exit;
 }
-require_once __DIR__.'/../lib/db.php';
 
-$db = new dataBase(false);
+$db = \lib\Database\DataBaseSingleton::Instance();
 if($_REQUEST['type'] == 2){ // check if PT is already conquested by user
     $mySqlRequest = 'SELECT count(*) AS `ptConquestCount` FROM `PowerTrail_comments` WHERE `commentType` =2 AND `deleted` =0 AND `userId` =:1 AND `PowerTrailId` = :2';
     $db->multiVariableQuery($mySqlRequest, (int) $_SESSION['user_id'], (int) $_REQUEST['projectId']);
     $mySqlResult = $db->dbResultFetch();
-    // var_dump($mySqlResult);
     if ($mySqlResult['ptConquestCount'] > 0) {
         echo 'pt conquested before';
         exit;
@@ -33,5 +31,3 @@ if($_REQUEST['type'] == 2){
 }
 
 sendEmail::emailOwners($projectId, $_REQUEST['type'], $_REQUEST['datetime'], $text, 'newComment');
-
-?>
