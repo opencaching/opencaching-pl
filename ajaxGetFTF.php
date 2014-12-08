@@ -1,8 +1,8 @@
 <?php
-require_once 'lib/db.php';
+require_once __DIR__.'/lib/ClassPathDictionary.php';
 
-$userId = addslashes($_REQUEST['id']);
-$database=new dataBase();
+$userId = (int) $_REQUEST['id'];
+$database = \lib\Database\DataBaseSingleton::Instance();
 $ftfQuery = 'SELECT clftf.cache_id, caches.name, clftf.date
 FROM (
     SELECT cache_logs.cache_id, MIN(cache_logs.date) AS date, cache_logs.user_id
@@ -18,5 +18,4 @@ $database->multiVariableQuery($ftfQuery, $userId);
 $ftfResult = $database->dbResultFetchAll();
 
 print json_encode($ftfResult);
-exit;
-?>
+
