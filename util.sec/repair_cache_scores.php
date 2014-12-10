@@ -6,7 +6,7 @@
  ***************************************************************************/
     $rootpath = '../';
     require_once($rootpath.'lib/clicompatbase.inc.php');
-    require_once($rootpath.'lib/db.php');
+    require_once __DIR__.'/../lib/ClassPathDictionary.php';
 
 class RepairCacheScores
 {

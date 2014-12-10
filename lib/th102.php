@@ -45,7 +45,7 @@
         if ($cookie->is_set('lang'))
             $lang = $cookie->get('lang');
 
-        require_once('db.php');
+        require_once __DIR__.'/ClassPathDictionary.php';
 
 
 

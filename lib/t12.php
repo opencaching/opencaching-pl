@@ -17,7 +17,7 @@ echo "<script type='text/javascript'>
 
 
 
-require_once('./lib/db.php');
+require_once __DIR__.'/ClassPathDictionary.php';
 
 $sRok = "";
 $sMc = "";

@@ -1,11 +1,11 @@
-<?
+<?php
 /**
  * text cache founded statistics year 2 year.
  * All caches in database.
  */
 header('Content-type: text/html; charset=utf-8');
 
-require_once 'lib/db.php';
+require_once __DIR__.'/lib/ClassPathDictionary.php';
 $db = new dataBase;
 
 $query = "SELECT `date_hidden`
@@ -41,4 +41,3 @@ print 'caly opencaching.pl:<br>';
 print_r($count);
 print 'regiony: <br>';
 print_r($region);
-?>

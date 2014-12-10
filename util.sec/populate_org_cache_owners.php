@@ -6,7 +6,7 @@
  ***************************************************************************/
     $rootpath = '../';
     require_once($rootpath.'lib/clicompatbase.inc.php');
-    require_once($rootpath.'lib/db.php');
+    require_once __DIR__.'/../lib/ClassPathDictionary.php';
     require_once($rootpath.'lib/cache_owners.inc.php');
 
     $db = new dataBase();
@@ -14,4 +14,4 @@
     $pco = new OrgCacheOwners($db);
     $pco->populateAll();
     $db->commit();
-?>
+
