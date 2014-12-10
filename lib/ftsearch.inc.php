@@ -1,73 +1,73 @@
 <?php
-/***************************************************************************
-                                                        ./lib/ftsearch.inc.php
-                                                            --------------------
-        begin                : January 10 2007
-        copyright            : (C) 2007 The OpenCaching Group
-        forum contact at     : http://develforum.opencaching.de
 
-    ***************************************************************************/
+/* * *************************************************************************
+  ./lib/ftsearch.inc.php
+  --------------------
+  begin                : January 10 2007
+  copyright            : (C) 2007 The OpenCaching Group
+  forum contact at     : http://develforum.opencaching.de
 
-/***************************************************************************
-    *
-    *   This program is free software; you can redistribute it and/or modify
-    *   it under the terms of the GNU General Public License as published by
-    *   the Free Software Foundation; either version 2 of the License, or
-    *   (at your option) any later version.
-    *
-    ***************************************************************************/
+ * ************************************************************************* */
 
-/****************************************************************************
+/* * *************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ * ************************************************************************* */
 
-        Unicode Reminder ??
+/* * **************************************************************************
 
-    functions for the full text search-engine
+  Unicode Reminder ??
 
- ****************************************************************************/
+  functions for the full text search-engine
+
+ * ************************************************************************** */
 
 /* begin conversion rules */
 
-    $ftsearch_simplerules[] = array('qu', 'k');
-    $ftsearch_simplerules[] = array('ts', 'z');
-    $ftsearch_simplerules[] = array('tz', 'z');
-    $ftsearch_simplerules[] = array('alp', 'alb');
-    $ftsearch_simplerules[] = array('y', 'i');
-    $ftsearch_simplerules[] = array('ai', 'ei');
-    $ftsearch_simplerules[] = array('ou', 'u');
-    $ftsearch_simplerules[] = array('th', 't');
-    $ftsearch_simplerules[] = array('ph', 'f');
-    $ftsearch_simplerules[] = array('oh', 'o');
-    $ftsearch_simplerules[] = array('ah', 'a');
-    $ftsearch_simplerules[] = array('eh', 'e');
-    $ftsearch_simplerules[] = array('aux', 'o');
-    $ftsearch_simplerules[] = array('eau', 'o');
-    $ftsearch_simplerules[] = array('eux', 'oe');
-    $ftsearch_simplerules[] = array('^ch', 'sch');
-    $ftsearch_simplerules[] = array('ck', 'k');
-    $ftsearch_simplerules[] = array('ie', 'i');
-    $ftsearch_simplerules[] = array('ih', 'i');
-    $ftsearch_simplerules[] = array('ent', 'end');
-    $ftsearch_simplerules[] = array('uh', 'u');
-    $ftsearch_simplerules[] = array('sh', 'sch');
-    $ftsearch_simplerules[] = array('ver', 'wer');
-    $ftsearch_simplerules[] = array('dt', 't');
-    $ftsearch_simplerules[] = array('hard', 'hart');
-    $ftsearch_simplerules[] = array('egg', 'ek');
-    $ftsearch_simplerules[] = array('eg', 'ek');
-    $ftsearch_simplerules[] = array('cr', 'kr');
-    $ftsearch_simplerules[] = array('ca', 'ka');
-    $ftsearch_simplerules[] = array('ce', 'ze');
-    $ftsearch_simplerules[] = array('x', 'ks');
-    $ftsearch_simplerules[] = array('ve', 'we');
-    $ftsearch_simplerules[] = array('va', 'wa');
+$ftsearch_simplerules[] = array('qu', 'k');
+$ftsearch_simplerules[] = array('ts', 'z');
+$ftsearch_simplerules[] = array('tz', 'z');
+$ftsearch_simplerules[] = array('alp', 'alb');
+$ftsearch_simplerules[] = array('y', 'i');
+$ftsearch_simplerules[] = array('ai', 'ei');
+$ftsearch_simplerules[] = array('ou', 'u');
+$ftsearch_simplerules[] = array('th', 't');
+$ftsearch_simplerules[] = array('ph', 'f');
+$ftsearch_simplerules[] = array('oh', 'o');
+$ftsearch_simplerules[] = array('ah', 'a');
+$ftsearch_simplerules[] = array('eh', 'e');
+$ftsearch_simplerules[] = array('aux', 'o');
+$ftsearch_simplerules[] = array('eau', 'o');
+$ftsearch_simplerules[] = array('eux', 'oe');
+$ftsearch_simplerules[] = array('^ch', 'sch');
+$ftsearch_simplerules[] = array('ck', 'k');
+$ftsearch_simplerules[] = array('ie', 'i');
+$ftsearch_simplerules[] = array('ih', 'i');
+$ftsearch_simplerules[] = array('ent', 'end');
+$ftsearch_simplerules[] = array('uh', 'u');
+$ftsearch_simplerules[] = array('sh', 'sch');
+$ftsearch_simplerules[] = array('ver', 'wer');
+$ftsearch_simplerules[] = array('dt', 't');
+$ftsearch_simplerules[] = array('hard', 'hart');
+$ftsearch_simplerules[] = array('egg', 'ek');
+$ftsearch_simplerules[] = array('eg', 'ek');
+$ftsearch_simplerules[] = array('cr', 'kr');
+$ftsearch_simplerules[] = array('ca', 'ka');
+$ftsearch_simplerules[] = array('ce', 'ze');
+$ftsearch_simplerules[] = array('x', 'ks');
+$ftsearch_simplerules[] = array('ve', 'we');
+$ftsearch_simplerules[] = array('va', 'wa');
 
 /* end conversion rules */
 
 function ftsearch_hash(&$str)
 {
     $astr = ftsearch_split($str, true);
-    foreach ($astr AS $k => $s)
-    {
+    foreach ($astr AS $k => $s) {
         if (strlen($s) > 2)
             $astr[$k] = sprintf("%u", crc32($s));
         else
@@ -97,8 +97,7 @@ function ftsearch_split(&$str, $simple)
     $str = mb_ereg_replace("\r", ' ', $str);
 
     $ostr = '';
-    while ($ostr != $str)
-    {
+    while ($ostr != $str) {
         $ostr = $str;
         $str = mb_ereg_replace('  ', ' ', $str);
     }
@@ -107,13 +106,11 @@ function ftsearch_split(&$str, $simple)
     $str = '';
 
     ftsearch_load_ignores();
-    for ($i = count($astr) - 1; $i >= 0; $i--)
-    {
+    for ($i = count($astr) - 1; $i >= 0; $i--) {
         // ignore?
         if (array_search(mb_strtolower($astr[$i]), $ftsearch_ignores) !== false)
             unset($astr[$i]);
-        else
-        {
+        else {
             if ($simple)
                 $astr[$i] = ftsearch_text2simple($astr[$i]);
 
@@ -130,8 +127,7 @@ function ftsearch_load_ignores()
     global $ftsearch_ignores;
     global $ftsearch_ignores_loaded;
 
-    if ($ftsearch_ignores_loaded != true)
-    {
+    if ($ftsearch_ignores_loaded != true) {
         $rs = sql('SELECT `word` FROM `search_ignore`');
         while ($r = sql_fetch_assoc($rs))
             $ftsearch_ignores[] = $r['word'];
@@ -149,17 +145,14 @@ function ftsearch_text2simple($str)
     $str = ftsearch_text2sort($str);
 
     // regeln anwenden
-    foreach ($ftsearch_simplerules AS $rule)
-    {
+    foreach ($ftsearch_simplerules AS $rule) {
         $str = mb_ereg_replace($rule[0], $rule[1], $str);
     }
 
     // doppelte chars ersetzen
-    for ($c = ord('a'); $c <= ord('z'); $c++)
-    {
+    for ($c = ord('a'); $c <= ord('z'); $c++) {
         $old_str = '';
-        while ($old_str != $str)
-        {
+        while ($old_str != $str) {
             $old_str = $str;
             $str = mb_ereg_replace(chr($c) . chr($c), chr($c), $str);
         }
@@ -175,18 +168,18 @@ function ftsearch_text2sort($str)
     $str = mb_strtolower($str);
 
     // deutsches
-  $str = mb_ereg_replace('ä', 'ae', $str);
+    $str = mb_ereg_replace('ä', 'ae', $str);
     $str = mb_ereg_replace('ö', 'oe', $str);
     $str = mb_ereg_replace('ü', 'ue', $str);
-  $str = mb_ereg_replace('Ä', 'ae', $str);
+    $str = mb_ereg_replace('Ä', 'ae', $str);
     $str = mb_ereg_replace('Ö', 'oe', $str);
     $str = mb_ereg_replace('Ü', 'ue', $str);
     $str = mb_ereg_replace('ß', 'ss', $str);
 
-  // akzente usw.
-  $str = mb_ereg_replace('a', 'a', $str);
-  $str = mb_ereg_replace('á', 'a', $str);
-  $str = mb_ereg_replace('â', 'a', $str);
+    // akzente usw.
+    $str = mb_ereg_replace('a', 'a', $str);
+    $str = mb_ereg_replace('á', 'a', $str);
+    $str = mb_ereg_replace('â', 'a', $str);
     $str = mb_ereg_replace('e', 'e', $str);
     $str = mb_ereg_replace('é', 'e', $str);
     $str = mb_ereg_replace('ë', 'e', $str);
@@ -241,8 +234,7 @@ function ftsearch_refresh_all_caches()
 function ftsearch_refresh_cache($cache_id)
 {
     $rs = sql("SELECT `name`, `last_modified` FROM `caches` WHERE `cache_id`='&1'", $cache_id);
-    if ($r = sql_fetch_assoc($rs))
-    {
+    if ($r = sql_fetch_assoc($rs)) {
         ftsearch_set_entries(2, $cache_id, $cache_id, $r['name'], $r['last_modified']);
     }
     sql_free_result($rs);
@@ -259,8 +251,7 @@ function ftsearch_refresh_all_cache_desc()
 function ftsearch_refresh_cache_desc($id)
 {
     $rs = sql("SELECT `cache_id`, `desc`, `last_modified` FROM `cache_desc` WHERE `id`='&1'", $id);
-    if ($r = sql_fetch_assoc($rs))
-    {
+    if ($r = sql_fetch_assoc($rs)) {
         $r['desc'] = ftsearch_strip_html($r['desc']);
         ftsearch_set_entries(3, $id, $r['cache_id'], $r['desc'], $r['last_modified']);
     }
@@ -278,8 +269,7 @@ function ftsearch_refresh_all_pictures()
 function ftsearch_refresh_picture($id)
 {
     $rs = sql("SELECT `caches`.`cache_id`, `pictures`.`title`, `pictures`.`last_modified` FROM `pictures` INNER JOIN `caches` ON `pictures`.`object_type`=2 AND `caches`.`cache_id`=`pictures`.`object_id` WHERE `pictures`.`id`='&1' UNION DISTINCT SELECT `cache_logs`.`cache_id` , `pictures`.`title`, `pictures`.`last_modified` FROM `pictures` INNER JOIN `cache_logs` ON `pictures`.`object_type`=1 AND `cache_logs`.`id`=`pictures`.`object_id` WHERE `cache_logs`.`deleted`=0 AND `pictures`.`id`='&1' LIMIT 1", $id);
-    if ($r = sql_fetch_assoc($rs))
-    {
+    if ($r = sql_fetch_assoc($rs)) {
         ftsearch_set_entries(6, $id, $r['cache_id'], $r['title'], $r['last_modified']);
     }
     sql_free_result($rs);
@@ -296,8 +286,7 @@ function ftsearch_refresh_all_cache_logs()
 function ftsearch_refresh_cache_logs($id)
 {
     $rs = sql("SELECT `cache_id`, `text`, `last_modified` FROM `cache_logs` WHERE `id`='&1' AND `cache_logs`.`deleted` = &2", $id, 0);
-    if ($r = sql_fetch_assoc($rs))
-    {
+    if ($r = sql_fetch_assoc($rs)) {
         $r['text'] = ftsearch_strip_html($r['text']);
         ftsearch_set_entries(1, $id, $r['cache_id'], $r['text'], $r['last_modified']);
     }
@@ -315,8 +304,7 @@ function ftsearch_set_entries($object_type, $object_id, $cache_id, &$text, $last
     ftsearch_delete_entries($object_type, $object_id, $cache_id);
 
     $ahash = ftsearch_hash($text);
-    foreach ($ahash AS $k => $h)
-    {
+    foreach ($ahash AS $k => $h) {
         sql("INSERT DELAYED INTO `search_index` (`object_type`, `cache_id`, `hash`, `count`) VALUES ('&1', '&2', '&3', '&4') ON DUPLICATE KEY UPDATE `count`=`count`+1", $object_type, $cache_id, $h, 1);
     }
     sql("INSERT INTO `search_index_times` (`object_id`, `object_type`, `last_refresh`) VALUES ('&1', '&2', '&3') ON DUPLICATE KEY UPDATE `last_refresh`='&3'", $object_id, $object_type, $last_modified);
@@ -334,4 +322,5 @@ function ftsearch_strip_html($text)
 
     return $text;
 }
+
 ?>

@@ -22,9 +22,10 @@ class GeoCache
      *  'cacheId' => (integer) database cache identifier
      *  'wpId' => (string) geoCache wayPoint (ex. OP21F4)
      */
-    public function __construct($params) {
+    public function __construct($params)
+    {
         $db = \lib\Database\DataBaseSingleton::Instance();
-        if(isset($params['cacheId'])){
+        if (isset($params['cacheId'])) {
             $this->caheId = (int) $params['cacheId'];
             $queryById = "SELECT name, type, date_hidden FROM `caches` WHERE `cache_id`=:1 LIMIT 1";
             $db->multiVariableQuery($queryById, $this->caheId);
@@ -35,8 +36,9 @@ class GeoCache
         $this->datePlaced = strtotime($cacheDbRow['date_hidden']);
         $this->loadCacheLocation($db);
     }
-    
-    private function loadCacheLocation() {
+
+    private function loadCacheLocation()
+    {
         $db = \lib\Database\DataBaseSingleton::Instance();
         $query = 'SELECT `code1`, `code2`, `code3`, `code4`  FROM `cache_location` WHERE `cache_id` =:1 LIMIT 1';
         $db->multiVariableQuery($query, $this->caheId);
@@ -44,11 +46,13 @@ class GeoCache
         $this->cacheLocation = $dbResult;
     }
 
-    public function getCacheType() {
+    public function getCacheType()
+    {
         return $this->cacheType;
     }
 
-    public function getCacheLocation() {
+    public function getCacheLocation()
+    {
         return $this->cacheLocation;
     }
 
@@ -56,8 +60,10 @@ class GeoCache
     {
         return $this->cacheName;
     }
+
     public function getDatePlaced()
     {
         return $this->datePlaced;
     }
+
 }

@@ -1,6 +1,7 @@
 <?php
 
-class Tile {
+class Tile
+{
 
     // The point (x,y) for this tile
     var $p;
@@ -8,7 +9,6 @@ class Tile {
     var $co;
     // Zoom level for this tile
     var $z;
-
     // ...Constants...
     var $PI = 3.1415926535;
     var $tileSize = 256;
@@ -23,21 +23,23 @@ class Tile {
     var $Wa;
 
     // Fill in the constants array
-    function fillinconstants() {
-        $this->bc = 2*$this->PI;
-        $this->Wa = $this->PI/180;
+    function fillinconstants()
+    {
+        $this->bc = 2 * $this->PI;
+        $this->Wa = $this->PI / 180;
 
-        for($d = 17; $d >= 0; --$d) {
+        for ($d = 17; $d >= 0; --$d) {
             $this->pixelsPerLonDegree[$d] = $this->c / 360;
             $this->pixelsPerLonRadian[$d] = $this->c / $this->bc;
             $e = $this->c / 2;
-            $this->bitmapOrigo[$d] = new p($e,$e);
+            $this->bitmapOrigo[$d] = new p($e, $e);
             $this->numTiles[$d] = $this->c / 256;
             $this->c *= 2;
         }
     }
 
-    function Tile($latitude, $longitude, $zoomLevel) {
+    function Tile($latitude, $longitude, $zoomLevel)
+    {
         $this->fillInConstants();
         $this->z = $zoomLevel;
         $this->p = $this->getTileCoordinate($latitude, $longitude, $zoomLevel);
@@ -45,40 +47,44 @@ class Tile {
         $this->getLatLong($latitude, $longitude, $zoomLevel);
     }
 
-    function getTileCoord() {
+    function getTileCoord()
+    {
         return $this->p;
     }
 
-    function getTileLatLong() {
+    function getTileLatLong()
+    {
         return $this->co;
     }
 
-    function getKeyholeString() {
+    function getKeyholeString()
+    {
         $s = "";
         $myX = $this->p->x;
         $myY = $this->p->y;
 
-        for($i = 17; $i > $this->z; $i--) {
+        for ($i = 17; $i > $this->z; $i--) {
             $rx = (fmod($myX, 2));
             $myX = floor($myX / 2);
             $ry = (fmod($myY, 2));
             $myY = floor($myY / 2);
-            $s = $this->getKeyholeDirection($rx, $ry).$s;
+            $s = $this->getKeyholeDirection($rx, $ry) . $s;
         }
-        return 't'.$s;
+        return 't' . $s;
     }
 
-    function getKeyholeDirection($x, $y) {
-        if($x == 1) {
-            if($y == 1) {
+    function getKeyholeDirection($x, $y)
+    {
+        if ($x == 1) {
+            if ($y == 1) {
                 return 's';
-            } else if($y == 0) {
+            } else if ($y == 0) {
                 return 'r';
             }
-        } else if($x == 0) {
-            if($y == 1) {
+        } else if ($x == 0) {
+            if ($y == 1) {
                 return 't';
-            } else if($y == 0) {
+            } else if ($y == 0) {
                 return 'q';
             }
         }
@@ -86,25 +92,27 @@ class Tile {
         return '';
     }
 
-    function getBitmapCoordinate($a, $b, $c) {
-        $d = new p(0,0);
+    function getBitmapCoordinate($a, $b, $c)
+    {
+        $d = new p(0, 0);
 
         $d->x = floor($this->bitmapOrigo[$c]->x + $b * $this->pixelsPerLonDegree[$c]);
         $e = sin($a * $this->Wa);
 
-        if($e > 0.9999) {
+        if ($e > 0.9999) {
             $e = 0.9999;
         }
 
-        if($e < -0.9999) {
+        if ($e < -0.9999) {
             $e = -0.9999;
         }
 
-        $d->y = floor($this->bitmapOrigo[$c]->y + 0.5 * log((1 + $e) / (1 - $e)) * -1*($this->pixelsPerLonRadian[$c]));
+        $d->y = floor($this->bitmapOrigo[$c]->y + 0.5 * log((1 + $e) / (1 - $e)) * -1 * ($this->pixelsPerLonRadian[$c]));
         return $d;
     }
 
-    function getTileCoordinate($a, $b, $c) {
+    function getTileCoordinate($a, $b, $c)
+    {
         $d = $this->getBitmapCoordinate($a, $b, $c);
         $d->x = floor($d->x / $this->tileSize);
         $d->y = floor($d->y / $this->tileSize);
@@ -112,27 +120,34 @@ class Tile {
         return $d;
     }
 
-    function getLatLong($a, $b, $c) {
+    function getLatLong($a, $b, $c)
+    {
         $d = new p(0, 0);
         $e = $this->getBitmapCoordinate($a, $b, $c);
         $a = $e->x;
         $b = $e->y;
 
         $d->x = ($a - $this->bitmapOrigo[$c]->x) / $this->pixelsPerLonDegree[$c];
-        $e = ($b - $this->bitmapOrigo[$c]->y) / (-1*$this->pixelsPerLonRadian[$c]);
+        $e = ($b - $this->bitmapOrigo[$c]->y) / (-1 * $this->pixelsPerLonRadian[$c]);
         $d->y = (2 * atan(exp($e)) - $this->PI / 2) / $this->Wa;
         return $d;
     }
+
 }
 
 // A simple PHP class that represents a point
-class p {
+class p
+{
+
     var $x;
     var $y;
 
-    function p($x,$y) {
+    function p($x, $y)
+    {
         $this->x = $x;
         $this->y = $y;
     }
+
 }
+
 ?>

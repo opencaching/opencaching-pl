@@ -1,14 +1,17 @@
 <?php
-/***************************************************************************
+
+/* * *************************************************************************
  *  You can find the license in the docs directory
  *
  *  Unicode Reminder ăĄă˘
- ***************************************************************************/
+ * ************************************************************************* */
 
 class OrgCacheOwners
 {
+
     private $db;
     private $verbose;
+
     function __construct(dataBase $db)
     {
         $this->db = $db;
@@ -34,7 +37,6 @@ class OrgCacheOwners
                 order by cl.id";
         $this->db->multiVariableQuery($sql, $cache_id);
         $this->process();
-
     }
 
     public function populateAll()
@@ -63,23 +65,21 @@ class OrgCacheOwners
         $this->db->simpleQuery($sql);
         $this->process();
         set_time_limit(60);
-
     }
 
     private function process()
     {
         $results = $this->db->dbResultFetchAll();
-        foreach($results as $key => $r){
-            if ($this->verbose){
-               echo $r['cache_id'].','.$r['id'].',';
+        foreach ($results as $key => $r) {
+            if ($this->verbose) {
+                echo $r['cache_id'] . ',' . $r['id'] . ',';
             }
             $matches = array();
             $matched = preg_match(
-                    '/viewprofile\\.php\\?userid=([0-9]+)["\'](.*)viewprofile\\.php\\?userid=([0-9]+)["\']/i',
-                    $r['text'], $matches);
-            if (!$matched){
-                if ($this->verbose){
-                    echo 'does-not-match,,'.$r['text']."\n";
+                    '/viewprofile\\.php\\?userid=([0-9]+)["\'](.*)viewprofile\\.php\\?userid=([0-9]+)["\']/i', $r['text'], $matches);
+            if (!$matched) {
+                if ($this->verbose) {
+                    echo 'does-not-match,,' . $r['text'] . "\n";
                 }
                 continue;
             }
@@ -87,8 +87,8 @@ class OrgCacheOwners
             $new_user_id = $matches[3];
             $sql = 'update caches set org_user_id = :1 where cache_id = :2 and org_user_id is null';
             $this->db->multiVariableQuery($sql, $org_user_id, $r['cache_id']);
-            if ($this->verbose){
-                if ($this->db->rowCount() > 0){
+            if ($this->verbose) {
+                if ($this->db->rowCount() > 0) {
                     echo "updated,$org_user_id,\n";
                 } else {
                     echo "skipped,,\n";
@@ -96,6 +96,7 @@ class OrgCacheOwners
             }
         }
     }
+
 }
 
 ?>

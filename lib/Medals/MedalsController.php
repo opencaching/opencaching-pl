@@ -9,12 +9,12 @@ use lib\GeoCache;
  *
  * @author Łza
  */
-class MedalsController {
+class MedalsController
+{
 
     const MEDAL_CHILD_GEOGRAPHICAL = 1;
     const MEDAL_CHILD_CACHEFOUND = 2;
     const MEDAL_CHILD_GEOPATHCOMPLETED = 3;
-
     const USER_TO_CACHE_OWNER = 1;
     const USER_TO_CACHE_FINDER = 2;
 
@@ -28,7 +28,7 @@ class MedalsController {
                     \cache::TYPE_TRADITIONAL,
                     \cache::TYPE_MULTICACHE,
                 ),
-                'cacheLocation' => array (
+                'cacheLocation' => array(
                     'code3' => 'PL21',
                 ),
                 'cacheCountToAward' => 1,
@@ -44,7 +44,7 @@ class MedalsController {
                     \cache::TYPE_TRADITIONAL,
                     \cache::TYPE_MULTICACHE,
                 ),
-                'cacheLocation' => array (
+                'cacheLocation' => array(
                     'code3' => 'PL21',
                     'code4' => 'PL213',
                 ),
@@ -58,7 +58,7 @@ class MedalsController {
             'dateIntroduced' => '2014-04-09 10:30:00',
             'conditions' => array(
                 'cacheType' => array(
-                   \cache::TYPE_TRADITIONAL,
+                    \cache::TYPE_TRADITIONAL,
                 ),
                 'cacheCountToAward' => 5,
                 'userToCacheRelation' => self::USER_TO_CACHE_FINDER,
@@ -78,14 +78,15 @@ class MedalsController {
             ),
         ),
     );
-
     public $config;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->config = \lib\Medals\OcConfig::Instance();
     }
 
-    public function checkMedalConditions(\lib\User\User $user) {
+    public function checkMedalConditions(\lib\User\User $user)
+    {
         // $cache = new \lib\geoCache(array('cacheId' => $params['cacheId']));
         // $user = new \lib\User\User($params['userId']);
         $allPossibleMedals = $this->allMedals();
@@ -97,7 +98,8 @@ class MedalsController {
     /**
      * get all today's active users
      */
-    public function checkAllUsersMedals(){
+    public function checkAllUsersMedals()
+    {
         $query = 'SELECT user_id, username, founds_count, notfounds_count, hidden_count FROM `user` WHERE (`last_login` BETWEEN DATE_SUB(NOW(), INTERVAL 24 HOUR) AND NOW()) ';
         /* @var $db \dataBase */
         $db = \lib\Database\DataBaseSingleton::Instance();
@@ -109,15 +111,15 @@ class MedalsController {
             $this->checkMedalConditions($user);
         }
         dd($usersToCheck);
-
     }
 
-    public static function getMedalTypeDetails($medalType){
+    public static function getMedalTypeDetails($medalType)
+    {
         return self::$medalTypes[$medalType];
     }
 
-
-    private function allMedals() {
+    private function allMedals()
+    {
         foreach (self::$medalTypes as $type => $medalDetails) {
             $medalDetails['type'] = $type;
             $medals[] = $this->buildMedalObject($medalDetails);
@@ -125,7 +127,8 @@ class MedalsController {
         return $medals;
     }
 
-    private function buildMedalObject($medalDetails){
+    private function buildMedalObject($medalDetails)
+    {
         switch ($medalDetails['child']) {
             case self::MEDAL_CHILD_GEOGRAPHICAL:
                 return new MedalGeographical($medalDetails);
@@ -138,4 +141,5 @@ class MedalsController {
                 break;
         }
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  Autoload class solution.
  *
@@ -23,6 +24,7 @@
  */
 class ClassPathDictionary
 {
+
     /**
 
      * While new class creating, try use namespace, leading to class php file. Thanks to that class 
@@ -53,16 +55,17 @@ class ClassPathDictionary
     public static function getClassPath($className)
     {
         $classPathArr = explode('\\', $className);
-        if(isset($classPathArr[1])){ /* namespace solution */
-            $classPath = __DIR__.'/../';
+        if (isset($classPathArr[1])) { /* namespace solution */
+            $classPath = __DIR__ . '/../';
             foreach ($classPathArr as $pathPiece) {
-               $classPath .= $pathPiece.'/';
+                $classPath .= $pathPiece . '/';
             }
-            $classPath = substr($classPath, 0, -1).'.php';
+            $classPath = substr($classPath, 0, -1) . '.php';
             return $classPath;
-        } 
-        return __DIR__.'/../'. self::$classDictionary[$className];
+        }
+        return __DIR__ . '/../' . self::$classDictionary[$className];
     }
+
 }
 
 spl_autoload_register(function ($className) {

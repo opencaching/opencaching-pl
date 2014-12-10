@@ -1,14 +1,16 @@
 <?php
-/***************************************************************************
+
+/* * *************************************************************************
  *  You can find the license in the docs directory
  *
  *  Unicode Reminder メモ
- ***************************************************************************/
+ * ************************************************************************* */
 
 define('BIN_CS2CS', '/usr/local/bin/cs2cs');
 
 class coordinate
 {
+
     var $nLat = 0;
     var $nLon = 0;
 
@@ -26,14 +28,14 @@ class coordinate
         $zone = round(($rechts - 500000) / 1000000);
         $falseeasting = $zone * 1000000 + 500000;
 
-        $cs2csresult = self::getCoreCommand($rechts, $hoch, "+proj=tmerc +lat_0=0 +lon_0=" . ($zone*3) . " +k=1.000000 +x_0=" . $falseeasting . " +y_0=0 +ellps=bessel +towgs84=606,23,413 +units=m +no_defs +to +proj=latlong +datum=WGS84");
+        $cs2csresult = self::getCoreCommand($rechts, $hoch, "+proj=tmerc +lat_0=0 +lon_0=" . ($zone * 3) . " +k=1.000000 +x_0=" . $falseeasting . " +y_0=0 +ellps=bessel +towgs84=606,23,413 +units=m +no_defs +to +proj=latlong +datum=WGS84");
         //$cs2csresult = self::getCoreCommand($rechts, $hoch, "+proj=tmerc +lat_0=0 +lon_0=9 +k=1.000000 +x_0=3500000 +y_0=0 +ellps=bessel +towgs84=591.28,81.35,396.39,1.477,-0.0736,-1.458,9.82 +units=m +no_defs +to +proj=latlong +datum=WGS84");
 
         preg_match('/^(\d+)d(\d+)\'(\d+\.\d+)"E$/', $cs2csresult[0], $aLon);
-        $lon = $aLon[1] + ($aLon[2]/60) + ($aLon[3]/3600);
+        $lon = $aLon[1] + ($aLon[2] / 60) + ($aLon[3] / 3600);
 
         preg_match('/^(\d+)d(\d+)\'(\d+\.\d+)"N$/', $cs2csresult[1], $aLat);
-        $lat = $aLat[1] + ($aLat[2]/60) + ($aLat[3]/3600);
+        $lat = $aLat[1] + ($aLat[2] / 60) + ($aLat[3] / 3600);
 
         return new coordinate($lat, $lon);
     }
@@ -67,7 +69,8 @@ class coordinate
     {
         $nLat = $this->nLat;
         $bLatN = ($nLat < 0) ? false : true;
-        if (!$bLatN) $nLat = -$nLat;
+        if (!$bLatN)
+            $nLat = -$nLat;
         $nLatDeg = floor($nLat);
         $nLatMin = ($nLat - $nLatDeg) * 60;
         if ($bLatN)
@@ -77,7 +80,8 @@ class coordinate
 
         $nLon = $this->nLon;
         $bLonE = ($nLon < 0) ? false : true;
-        if (!$bLonE) $nLon = -$nLon;
+        if (!$bLonE)
+            $nLon = -$nLon;
         $nLonDeg = floor($nLon);
         $nLonMin = ($nLon - $nLonDeg) * 60;
         if ($bLonE)
@@ -93,7 +97,8 @@ class coordinate
     {
         $nLat = $this->nLat;
         $bLatN = ($nLat < 0) ? false : true;
-        if (!$bLatN) $nLat = -$nLat;
+        if (!$bLatN)
+            $nLat = -$nLat;
         $nLatDeg = floor($nLat);
         $nLatMin = ($nLat - $nLatDeg) * 60;
         $nLatSec = $nLatMin - floor($nLatMin);
@@ -106,7 +111,8 @@ class coordinate
 
         $nLon = $this->nLon;
         $bLonE = ($nLon < 0) ? false : true;
-        if (!$bLonE) $nLon = -$nLon;
+        if (!$bLonE)
+            $nLon = -$nLon;
         $nLonDeg = floor($nLon);
         $nLonMin = ($nLon - $nLonDeg) * 60;
         $nLonSec = $nLonMin - floor($nLonMin);
@@ -124,63 +130,63 @@ class coordinate
     function getUTM()
     {
         // get UTM letter
-        if ( $this->nLat <= 84.0 && $this->nLat >= 72.0 )
+        if ($this->nLat <= 84.0 && $this->nLat >= 72.0)
             $utmLetter = 'X';
-        else if ( $this->nLat < 72.0 && $this->nLat >= 64.0 )
+        else if ($this->nLat < 72.0 && $this->nLat >= 64.0)
             $utmLetter = 'W';
-        else if ( $this->nLat < 64.0 && $this->nLat >= 56.0 )
+        else if ($this->nLat < 64.0 && $this->nLat >= 56.0)
             $utmLetter = 'V';
-        else if ( $this->nLat < 56.0 && $this->nLat >= 48.0 )
+        else if ($this->nLat < 56.0 && $this->nLat >= 48.0)
             $utmLetter = 'U';
-        else if ( $this->nLat < 48.0 && $this->nLat >= 40.0 )
+        else if ($this->nLat < 48.0 && $this->nLat >= 40.0)
             $utmLetter = 'T';
-        else if ( $this->nLat < 40.0 && $this->nLat >= 32.0 )
+        else if ($this->nLat < 40.0 && $this->nLat >= 32.0)
             $utmLetter = 'S';
-        else if ( $this->nLat < 32.0 && $this->nLat >= 24.0 )
+        else if ($this->nLat < 32.0 && $this->nLat >= 24.0)
             $utmLetter = 'R';
-        else if ( $this->nLat < 24.0 && $this->nLat >= 16.0 )
+        else if ($this->nLat < 24.0 && $this->nLat >= 16.0)
             $utmLetter = 'Q';
-        else if ( $this->nLat < 16.0 && $this->nLat >= 8.0 )
+        else if ($this->nLat < 16.0 && $this->nLat >= 8.0)
             $utmLetter = 'P';
-        else if ( $this->nLat < 8.0 && $this->nLat >= 0.0 )
+        else if ($this->nLat < 8.0 && $this->nLat >= 0.0)
             $utmLetter = 'N';
-        else if ( $this->nLat < 0.0 && $this->nLat >= -8.0 )
+        else if ($this->nLat < 0.0 && $this->nLat >= -8.0)
             $utmLetter = 'M';
-        else if ( $this->nLat < -8.0 && $this->nLat >= -16.0 )
+        else if ($this->nLat < -8.0 && $this->nLat >= -16.0)
             $utmLetter = 'L';
-        else if ( $this->nLat < -16.0 && $this->nLat >= -24.0 )
+        else if ($this->nLat < -16.0 && $this->nLat >= -24.0)
             $utmLetter = 'K';
-        else if ( $this->nLat < -24.0 && $this->nLat >= -32.0 )
+        else if ($this->nLat < -24.0 && $this->nLat >= -32.0)
             $utmLetter = 'J';
-        else if ( $this->nLat < -32.0 && $this->nLat >= -40.0 )
+        else if ($this->nLat < -32.0 && $this->nLat >= -40.0)
             $utmLetter = 'H';
-        else if ( $this->nLat < -40.0 && $this->nLat >= -48.0 )
+        else if ($this->nLat < -40.0 && $this->nLat >= -48.0)
             $utmLetter = 'G';
-        else if ( $this->nLat < -48.0 && $this->nLat >= -56.0 )
+        else if ($this->nLat < -48.0 && $this->nLat >= -56.0)
             $utmLetter = 'F';
-        else if ( $this->nLat < -56.0 && $this->nLat >= -64.0 )
+        else if ($this->nLat < -56.0 && $this->nLat >= -64.0)
             $utmLetter = 'E';
-        else if ( $this->nLat < -64.0 && $this->nLat >= -72.0 )
+        else if ($this->nLat < -64.0 && $this->nLat >= -72.0)
             $utmLetter = 'D';
-        else if ( $this->nLat < -72.0 && $this->nLat >= -80.0 )
+        else if ($this->nLat < -72.0 && $this->nLat >= -80.0)
             $utmLetter = 'C';
         else
             $utmLetter = 'Z'; //returns 'Z' if the lat is outside the UTM limits of 84N to 80S
 
         $zone = (int) ( ( $this->nLon + 180 ) / 6 ) + 1;
 
-        if ( $this->nLat >= 56.0 && $this->nLat < 64.0 && $this->nLon >= 3.0 && $this->nLon < 12.0 ) $zone = 32;
+        if ($this->nLat >= 56.0 && $this->nLat < 64.0 && $this->nLon >= 3.0 && $this->nLon < 12.0)
+            $zone = 32;
 
         // Special zones for Svalbard.
-        if ($this->nLat >= 72.0 && $this->nLat < 84.0 )
-        {
-            if ( $this->nLon >= 0.0 && $this->nLon < 9.0 )
+        if ($this->nLat >= 72.0 && $this->nLat < 84.0) {
+            if ($this->nLon >= 0.0 && $this->nLon < 9.0)
                 $zone = 31;
-            else if ( $this->nLon >= 9.0 && $this->nLon < 21.0 )
+            else if ($this->nLon >= 9.0 && $this->nLon < 21.0)
                 $zone = 33;
-            else if ( $this->nLon >= 21.0 && $this->nLon < 33.0 )
+            else if ($this->nLon >= 21.0 && $this->nLon < 33.0)
                 $zone = 35;
-            else if ( $this->nLon >= 33.0 && $this->nLon < 42.0 )
+            else if ($this->nLon >= 33.0 && $this->nLon < 42.0)
                 $zone = 37;
         }
 
@@ -192,10 +198,10 @@ class coordinate
     // return string
     function getGK()
     {
-        $zone = round($this->nLon/3);
+        $zone = round($this->nLon / 3);
         $falseeasting = $zone * 1000000 + 500000;
 
-        $cs2csresult = $this->getCore("+proj=tmerc +ellps=bessel +lat_0=0 +lon_0=".($zone*3)." +x_0=".$falseeasting." +towgs84=606,23,413 ");
+        $cs2csresult = $this->getCore("+proj=tmerc +ellps=bessel +lat_0=0 +lon_0=" . ($zone * 3) . " +x_0=" . $falseeasting . " +towgs84=606,23,413 ");
 
         return 'R ' . floor($cs2csresult[0]) . ' H ' . floor($cs2csresult[1]);
     }
@@ -207,20 +213,20 @@ class coordinate
         $lat = $this->nLat;
 
         $lon += 180;
-        $l[0] = floor($lon/20);
-        $lon -= 20*$l[0];
-        $l[2] = floor($lon/2);
-        $lon -= 2 *$l[2];
-        $l[4] = floor($lon*60/5);
+        $l[0] = floor($lon / 20);
+        $lon -= 20 * $l[0];
+        $l[2] = floor($lon / 2);
+        $lon -= 2 * $l[2];
+        $l[4] = floor($lon * 60 / 5);
 
         $lat += 90;
-        $l[1] = floor($lat/10);
-        $lat -= 10*$l[1];
+        $l[1] = floor($lat / 10);
+        $lat -= 10 * $l[1];
         $l[3] = floor($lat);
         $lat -= $l[3];
-        $l[5] = floor($lat*120/5);
+        $l[5] = floor($lat * 120 / 5);
 
-        return sprintf("%c%c%c%c%c%c", $l[0]+65, $l[1]+65, $l[2]+48, $l[3]+48, $l[4]+65, $l[5]+65);
+        return sprintf("%c%c%c%c%c%c", $l[0] + 65, $l[1] + 65, $l[2] + 48, $l[3] + 48, $l[4] + 65, $l[5] + 65);
     }
 
     // return string
@@ -235,11 +241,11 @@ class coordinate
         $l = ($nLon - 26782.5) / 10000.0;
 
         // Nord x
-        $x =   200147.07 + 308807.95 * $b + 3745.25 * $l * $l +  76.63 * $b * $b + 119.79 * $b * $b * $b - 194.56 * $b * $l * $l;
+        $x = 200147.07 + 308807.95 * $b + 3745.25 * $l * $l + 76.63 * $b * $b + 119.79 * $b * $b * $b - 194.56 * $b * $l * $l;
         $x = floor($x);
 
         // Ost y
-        $y =   600072.37 + 211455.93 * $l - 10938.51 * $l * $b - 0.36 * $l * $b * $b - 44.54 * $l * $l * $l;
+        $y = 600072.37 + 211455.93 * $l - 10938.51 * $l * $b - 0.36 * $l * $b * $b - 44.54 * $l * $l * $l;
         $y = floor($y);
 
         // Namen: "CH1903", "Schweizer Landeskoordinaten" oder "Swiss Grid"
@@ -259,20 +265,19 @@ class coordinate
     static function getCoreCommand($x, $y, $command)
     {
         $descriptorspec = array(
-                    0 => array("pipe", "r"),     // stdin is a pipe that the child will read from
-                    1 => array("pipe", "w"),     // stdout is a pipe that the child will write to
-                    2 => array("pipe", "w")      // stderr is a pipe that the child will write to
-                    );
+            0 => array("pipe", "r"), // stdin is a pipe that the child will read from
+            1 => array("pipe", "w"), // stdout is a pipe that the child will write to
+            2 => array("pipe", "w")      // stderr is a pipe that the child will write to
+        );
 
         if (mb_eregi('^[a-z0-9_ ,\+\-=\.]*$', $command) == 0)
-            die("invalid arguments in command: " . $command ."\n");
+            die("invalid arguments in command: " . $command . "\n");
 
         $command = BIN_CS2CS . " " . $command;
 
         $process = proc_open($command, $descriptorspec, $pipes);
 
-        if (is_resource($process))
-        {
+        if (is_resource($process)) {
             fwrite($pipes[0], $x . " " . $y);
             fclose($pipes[0]);
 
@@ -292,13 +297,12 @@ class coordinate
             // (Vinnie, 2006-02-09)
 
             if ($stderr)
-            die("proc_open() failed:<br>command='$command'<br>stderr='" . $stderr . "'");
+                die("proc_open() failed:<br>command='$command'<br>stderr='" . $stderr . "'");
 
             proc_close($process);
 
             return explode_multi(mb_trim($stdout), "\t\n ");
-        }
-        else
+        } else
             die("proc_open() failed, command=$command\n");
     }
 
@@ -308,10 +312,10 @@ class coordinate
             return false;
 
         $coordNS = $_REQUEST[$name . 'NS'];
-        $coordLat = $_REQUEST[$name . 'Lat']+0;
-        $coordLatMin = str_replace(',', '.', $_REQUEST[$name . 'LatMin'])+0;
+        $coordLat = $_REQUEST[$name . 'Lat'] + 0;
+        $coordLatMin = str_replace(',', '.', $_REQUEST[$name . 'LatMin']) + 0;
 
-        $lat = $coordLat + $coordLatMin/60;
+        $lat = $coordLat + $coordLatMin / 60;
         if ($coordNS == 'S')
             $lat = -$lat;
 
@@ -324,14 +328,16 @@ class coordinate
             return false;
 
         $coordEW = $_REQUEST[$name . 'EW'];
-        $coordLon = $_REQUEST[$name . 'Lon']+0;
-        $coordLonMin = str_replace(',', '.', $_REQUEST[$name . 'LonMin'])+0;
+        $coordLon = $_REQUEST[$name . 'Lon'] + 0;
+        $coordLonMin = str_replace(',', '.', $_REQUEST[$name . 'LonMin']) + 0;
 
-        $lon = $coordLon + $coordLonMin/60;
+        $lon = $coordLon + $coordLonMin / 60;
         if ($coordEW == 'W')
             $lon = -$lon;
 
         return $lon;
     }
+
 }
+
 ?>

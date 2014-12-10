@@ -1,30 +1,31 @@
 <?php
-    /***************************************************************************
-            ./lib/calculation.inc.php
-            --------------------
-            begin                : Wed October 11 2006
-            copyright            : (C) 2006 The OpenCaching Group
-            forum contact at     : http://develforum.opencaching.de
 
-        ***************************************************************************/
+/* * *************************************************************************
+  ./lib/calculation.inc.php
+  --------------------
+  begin                : Wed October 11 2006
+  copyright            : (C) 2006 The OpenCaching Group
+  forum contact at     : http://develforum.opencaching.de
 
-    /***************************************************************************
-        *
-        *   This program is free software; you can redistribute it and/or modify
-        *   it under the terms of the GNU General Public License as published by
-        *   the Free Software Foundation; either version 2 of the License, or
-        *   (at your option) any later version.
-        *
-        ***************************************************************************/
+ * ************************************************************************* */
 
-    /****************************************************************************
+/* * *************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ * ************************************************************************* */
 
-        Unicode Reminder メモ
+/* * **************************************************************************
 
-        all coordinate calculation related functions
-        Dont include this file by hand - it will be included from clicompatbase.inc.php
+  Unicode Reminder メモ
 
-    ****************************************************************************/
+  all coordinate calculation related functions
+  Dont include this file by hand - it will be included from clicompatbase.inc.php
+
+ * ************************************************************************** */
 
 function calcBearing($lat1, $lon1, $lat2, $lon2)
 {
@@ -32,16 +33,15 @@ function calcBearing($lat1, $lon1, $lat2, $lon2)
     // Der Fall lat/lon1 == lat/lon2 sollte vorher abgefangen werden,
     // zB. ueber die Abfrage der Distanz, dass Bearing nur bei Distanz > 5m
     // geholt wird, sonst = " - " gesetzt wird...
-    if ($lat1 == $lat2 && $lon1 == $lon2)
-    {
+    if ($lat1 == $lat2 && $lon1 == $lon2) {
         return '-';
-    }
-    else
-    {
+    } else {
         $pi = 3.141592653589793238462643383279502884197;
 
-        if ($lat1 == $lat2) $lat1 += 0.0000166;
-        if ($lon1 == $lon2) $lon1 += 0.0000166;
+        if ($lat1 == $lat2)
+            $lat1 += 0.0000166;
+        if ($lon1 == $lon2)
+            $lon1 += 0.0000166;
 
         $rad_lat1 = $lat1 / 180.0 * $pi;
         $rad_lon1 = $lon1 / 180.0 * $pi;
@@ -49,13 +49,13 @@ function calcBearing($lat1, $lon1, $lat2, $lon2)
         $rad_lon2 = $lon2 / 180.0 * $pi;
 
         $delta_lon = $rad_lon2 - $rad_lon1;
-        $bearing = atan2 (  sin ( $delta_lon ) * cos ( $rad_lat2 ),
-                    cos ( $rad_lat1 ) * sin ( $rad_lat2 ) - sin ( $rad_lat1 ) * cos ( $rad_lat2 ) * cos ( $delta_lon ) );
+        $bearing = atan2(sin($delta_lon) * cos($rad_lat2), cos($rad_lat1) * sin($rad_lat2) - sin($rad_lat1) * cos($rad_lat2) * cos($delta_lon));
         $bearing = 180.0 * $bearing / $pi;
 
         // Output Richtung von lat/lon1 nach lat/lon2 in Altgrad von -180 bis +180
         // wenn man Output von 0 bis 360 haben moechte, kann man dies machen:
-        if ( $bearing < 0.0 ) $bearing = $bearing + 360.0;
+        if ($bearing < 0.0)
+            $bearing = $bearing + 360.0;
 
         return $bearing;
     }
@@ -63,13 +63,10 @@ function calcBearing($lat1, $lon1, $lat2, $lon2)
 
 function Bearing2Text($parBearing, $parShortText = 0)
 {
-    if ($parShortText == 0)
-    {
-        if ($parBearing == '-')
-        {
+    if ($parShortText == 0) {
+        if ($parBearing == '-') {
             return 'N/A';
-        }
-        elseif (($parBearing < 11.25) || ($parBearing > 348.75))
+        } elseif (($parBearing < 11.25) || ($parBearing > 348.75))
             return tr('bearinglong_n');
         elseif ($parBearing < 33.75)
             return tr('bearinglong_nne');
@@ -101,15 +98,13 @@ function Bearing2Text($parBearing, $parShortText = 0)
             return tr('bearinglong_nw');
         elseif ($parBearing <= 348.75)
             return tr('bearinglong_nnw');
-        else return 'N/A';
-    }
-    else
-    {
-        if ($parBearing == '-')
-        {
+        else
             return 'N/A';
-        }
-        elseif (($parBearing < 11.25) || ($parBearing > 348.75))
+    }
+    else {
+        if ($parBearing == '-') {
+            return 'N/A';
+        } elseif (($parBearing < 11.25) || ($parBearing > 348.75))
             return tr('bearingshort_n');
         elseif ($parBearing < 33.75)
             return tr('bearingshort_nne');
@@ -141,33 +136,29 @@ function Bearing2Text($parBearing, $parShortText = 0)
             return tr('bearingshort_nw');
         elseif ($parBearing <= 348.75)
             return tr('bearingshort_nnw');
-        else return 'N/A';
+        else
+            return 'N/A';
     }
 }
 
-function calcDistance($latFrom, $lonFrom, $latTo, $lonTo, $distanceMultiplier=1)
+function calcDistance($latFrom, $lonFrom, $latTo, $lonTo, $distanceMultiplier = 1)
 {
-     $distance=acos(cos((90-$latFrom) * 3.14159 / 180) * cos((90-$latTo) * 3.14159 / 180) + sin((90-$latFrom) * 3.14159 / 180) * sin((90-$latTo) * 3.14159 / 180) * cos(($lonFrom-$lonTo) * 3.14159 / 180)) * 6370 * $distanceMultiplier;
-     if ($distance<0) $distance=0;
-     return $distance;
-     }
+    $distance = acos(cos((90 - $latFrom) * 3.14159 / 180) * cos((90 - $latTo) * 3.14159 / 180) + sin((90 - $latFrom) * 3.14159 / 180) * sin((90 - $latTo) * 3.14159 / 180) * cos(($lonFrom - $lonTo) * 3.14159 / 180)) * 6370 * $distanceMultiplier;
+    if ($distance < 0)
+        $distance = 0;
+    return $distance;
+}
 
-function getCalcDistanceSqlFormula($modEnabled, $lonFrom, $latFrom, $maxDistance, $distanceMultiplier=1, $lonField='longitude',
-    $latField='latitude', $tableName = 'caches',$modLonField='longitude', $modLatField='latitude', $modTableName='cache_mod_cords')
+function getCalcDistanceSqlFormula($modEnabled, $lonFrom, $latFrom, $maxDistance, $distanceMultiplier = 1, $lonField = 'longitude', $latField = 'latitude', $tableName = 'caches', $modLonField = 'longitude', $modLatField = 'latitude', $modTableName = 'cache_mod_cords')
 {
-    if ($modEnabled)
-    {
-        return getSqlDistanceFormulaForModCoords($lonFrom, $latFrom, $maxDistance, $distanceMultiplier, $lonField, $latField,
-            $tableName, $modLonField, $modLatField, $modTableName);
-    }
-    else
-    {
+    if ($modEnabled) {
+        return getSqlDistanceFormulaForModCoords($lonFrom, $latFrom, $maxDistance, $distanceMultiplier, $lonField, $latField, $tableName, $modLonField, $modLatField, $modTableName);
+    } else {
         return getSqlDistanceFormula($lonFrom, $latFrom, $maxDistance, $distanceMultiplier, $lonField, $latField, $tableName);
     }
 }
 
-function getSqlDistanceFormulaForModCoords($lonFrom, $latFrom, $maxDistance, $distanceMultiplier=1, $lonField='longitude',
-    $latField='latitude', $tableName = 'caches',$modLonField='longitude', $modLatField='latitude', $modTableName='cache_mod_cords')
+function getSqlDistanceFormulaForModCoords($lonFrom, $latFrom, $maxDistance, $distanceMultiplier = 1, $lonField = 'longitude', $latField = 'latitude', $tableName = 'caches', $modLonField = 'longitude', $modLatField = 'latitude', $modTableName = 'cache_mod_cords')
 {
     $lonFrom = $lonFrom + 0;
     $latFrom = $latFrom + 0;
@@ -203,7 +194,7 @@ function getSqlDistanceFormulaForModCoords($lonFrom, $latFrom, $maxDistance, $di
     return $retval;
 }
 
-function getSqlDistanceFormula($lonFrom, $latFrom, $maxDistance, $distanceMultiplier=1, $lonField='longitude', $latField='latitude', $tableName = 'caches')
+function getSqlDistanceFormula($lonFrom, $latFrom, $maxDistance, $distanceMultiplier = 1, $lonField = 'longitude', $latField = 'latitude', $tableName = 'caches')
 {
     $lonFrom = $lonFrom + 0;
     $latFrom = $latFrom + 0;
@@ -230,23 +221,24 @@ function getSqlDistanceFormula($lonFrom, $latFrom, $maxDistance, $distanceMultip
     return $retval;
 }
 
-function getMaxLat($lon, $lat, $distance, $distanceMultiplier=1)
+function getMaxLat($lon, $lat, $distance, $distanceMultiplier = 1)
 {
     return $lat + $distance / (111.12 * $distanceMultiplier);
 }
 
-function getMinLat($lon, $lat, $distance, $distanceMultiplier=1)
+function getMinLat($lon, $lat, $distance, $distanceMultiplier = 1)
 {
     return $lat - $distance / (111.12 * $distanceMultiplier);
 }
 
-function getMaxLon($lon, $lat, $distance, $distanceMultiplier=1)
+function getMaxLon($lon, $lat, $distance, $distanceMultiplier = 1)
 {
-    return $lon + $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378 * $distanceMultiplier * 3.14159);
+    return $lon + $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180)) * 6378 * $distanceMultiplier * 3.14159);
 }
 
-function getMinLon($lon, $lat, $distance, $distanceMultiplier=1)
+function getMinLon($lon, $lat, $distance, $distanceMultiplier = 1)
 {
-    return $lon - $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180 )) * 6378 * $distanceMultiplier * 3.14159);
+    return $lon - $distance * 180 / (abs(sin((90 - $lat) * 3.14159 / 180)) * 6378 * $distanceMultiplier * 3.14159);
 }
+
 ?>

@@ -1,5 +1,6 @@
 <?php
-/***************************************************************************
+
+/* * *************************************************************************
  *  You can find the license in the docs directory
  *
  *  Unicode Reminder ăĄă˘
@@ -28,21 +29,21 @@
  *    userid          Integer 0 if no login, userid otherwise
  *    username        String username or ''
  *
- ***************************************************************************/
+ * ************************************************************************* */
 
-    define('LOGIN_OK', 0);            // login succeeded
-    define('LOGIN_BADUSERPW', 1);     // bad username or password
-    define('LOGIN_TOOMUCHLOGINS', 2); // too many logins in short time
-    define('LOGIN_USERNOTACTIVE', 3); // the useraccount locked
+define('LOGIN_OK', 0);            // login succeeded
+define('LOGIN_BADUSERPW', 1);     // bad username or password
+define('LOGIN_TOOMUCHLOGINS', 2); // too many logins in short time
+define('LOGIN_USERNOTACTIVE', 3); // the useraccount locked
+// login times in seconds
+define('LOGIN_TIME', 60 * 60);
+define('LOGIN_TIME_PERMANENT', 90 * 24 * 60 * 60);
 
-    // login times in seconds
-    define('LOGIN_TIME', 60*60);
-    define('LOGIN_TIME_PERMANENT', 90*24*60*60);
-
-    $login = new login();
+$login = new login();
 
 class login
 {
+
     var $userid = 0;
     var $username = '';
     var $lastlogin = 0;
@@ -55,26 +56,24 @@ class login
     {
         global $cookie;
 
-        if ($cookie->is_set('userid') && $cookie->is_set('username'))
-        {
-            $this->userid = $cookie->get('userid')+0;
+        if ($cookie->is_set('userid') && $cookie->is_set('username')) {
+            $this->userid = $cookie->get('userid') + 0;
             $this->username = $cookie->get('username');
-            $this->permanent = (($cookie->get('permanent')+0) == 1);
+            $this->permanent = (($cookie->get('permanent') + 0) == 1);
             $this->lastlogin = $cookie->get('lastlogin');
             $this->sessionid = $cookie->get('sessionid');
-            $this->admin = (($cookie->get('admin')+0) == 1);
+            $this->admin = (($cookie->get('admin') + 0) == 1);
             $this->verified = false;
 
             // wenn lastlogin zu 50% abgelaufen, verify()
             // permanent = 90 Tage, sonst 60 Minuten
-            if ((($this->permanent == true) && (strtotime($this->lastlogin) + LOGIN_TIME/2 < time())) ||
-                (($this->permanent == false) && (strtotime($this->lastlogin) + LOGIN_TIME_PERMANENT/2 < time())))
+            if ((($this->permanent == true) && (strtotime($this->lastlogin) + LOGIN_TIME / 2 < time())) ||
+                    (($this->permanent == false) && (strtotime($this->lastlogin) + LOGIN_TIME_PERMANENT / 2 < time())))
                 $this->verify();
 
             if ($this->admin != false)
                 $this->verify();
-        }
-        else
+        } else
             $this->pClear();
     }
 
@@ -97,10 +96,10 @@ class login
         global $cookie;
         $cookie->set('userid', $this->userid);
         $cookie->set('username', $this->username);
-        $cookie->set('permanent', ($this->permanent==true ? 1 : 0));
+        $cookie->set('permanent', ($this->permanent == true ? 1 : 0));
         $cookie->set('lastlogin', $this->lastlogin);
         $cookie->set('sessionid', $this->sessionid);
-        $cookie->set('admin', ($this->admin==true ? 1 : 0));
+        $cookie->set('admin', ($this->admin == true ? 1 : 0));
     }
 
     function verify()
@@ -108,8 +107,7 @@ class login
         if ($this->verified == true)
             return;
 
-        if ($this->userid == 0)
-        {
+        if ($this->userid == 0) {
             $this->pClear();
             return;
         }
@@ -118,21 +116,18 @@ class login
         $min_lastlogin_permanent = date('Y-m-d H:i:s', time() - LOGIN_TIME_PERMANENT);
 
         $rs = sql("SELECT `sys_sessions`.`last_login`, `user`.`admin` FROM &db.`sys_sessions`, &db.`user` WHERE `sys_sessions`.`user_id`=`user`.`user_id` AND `user`.`is_active_flag`=1 AND `sys_sessions`.`uuid`='&1' AND `sys_sessions`.`user_id`='&2' AND ((`sys_sessions`.`permanent`=1 AND `sys_sessions`.`last_login`>'&3') OR (`sys_sessions`.`permanent`=0 AND `sys_sessions`.`last_login`>'&4'))", $this->sessionid, $this->userid, $min_lastlogin_permanent, $min_lastlogin);
-        if ($rUser = sql_fetch_assoc($rs))
-        {
-            if ((($this->permanent == true) && (strtotime($rUser['last_login']) + LOGIN_TIME/2 < time())) ||
-                (($this->permanent == false) && (strtotime($rUser['last_login']) + LOGIN_TIME_PERMANENT/2 < time())))
-            {
+        if ($rUser = sql_fetch_assoc($rs)) {
+            if ((($this->permanent == true) && (strtotime($rUser['last_login']) + LOGIN_TIME / 2 < time())) ||
+                    (($this->permanent == false) && (strtotime($rUser['last_login']) + LOGIN_TIME_PERMANENT / 2 < time()))) {
                 sql("UPDATE `sys_sessions` SET `sys_sessions`.`last_login`=NOW() WHERE `sys_sessions`.`uuid`='&1' AND `sys_sessions`.`user_id`='&2'", $this->sessionid, $this->userid);
                 $rUser['last_login'] = date('Y-m-d H:i:s');
-                sql("UPDATE `user` SET `last_login`=NOW() WHERE `user_id`='&1'",$this->userid);
+                sql("UPDATE `user` SET `last_login`=NOW() WHERE `user_id`='&1'", $this->userid);
             }
 
             $this->lastlogin = $rUser['last_login'];
             $this->admin = ($rUser['admin'] == 1);
             $this->verified = true;
-        }
-        else
+        } else
             $this->pClear();
         sql_free_result($rs);
 
@@ -177,8 +172,7 @@ class login
         $rUser = sql_fetch_assoc($rsUser);
         sql_free_result($rsUser);
 
-        if ($rUser)
-        {
+        if ($rUser) {
             /* User exists. Is the password correct? */
 
             $pm = new PasswordManager($rUser['user_id']);
@@ -187,18 +181,16 @@ class login
             }
         }
 
-        if ($rUser)
-        {
+        if ($rUser) {
             if ($permanent == null)
                 $permanent = ($rUser['permanent_login_flag'] == 1);
 
             // ok, there is a valid login
-            if ($rUser['is_active_flag'] != 0)
-            {
+            if ($rUser['is_active_flag'] != 0) {
                 // begin session
                 $uuid = sqlValue('SELECT UUID()', '');
-                sql("INSERT INTO `sys_sessions` (`uuid`, `user_id`, `permanent`, `last_login`) VALUES ('&1', '&2', '&3', NOW())", $uuid, $rUser['user_id'], ($permanent!=false ? 1 : 0));
-                sql("UPDATE `user` SET `last_login`=NOW() WHERE `user_id`='&1'",$rUser['user_id']);
+                sql("INSERT INTO `sys_sessions` (`uuid`, `user_id`, `permanent`, `last_login`) VALUES ('&1', '&2', '&3', NOW())", $uuid, $rUser['user_id'], ($permanent != false ? 1 : 0));
+                sql("UPDATE `user` SET `last_login`=NOW() WHERE `user_id`='&1'", $rUser['user_id']);
                 $this->userid = $rUser['user_id'];
                 $this->username = $rUser['username'];
                 $this->permanent = $permanent;
@@ -208,17 +200,15 @@ class login
                 $this->verified = true;
 
                 $retval = LOGIN_OK;
-            }
-            else
+            } else
                 $retval = LOGIN_USERNOTACTIVE;
         }
-        else
-        {
+        else {
             // sorry, bad login
             $retval = LOGIN_BADUSERPW;
         }
 
-        sql("INSERT INTO `sys_logins` (`remote_addr`, `success`, `timestamp`) VALUES ('&1', '&2', NOW())", $_SERVER['REMOTE_ADDR'], ($rUser===false ? 0 : 1));
+        sql("INSERT INTO `sys_logins` (`remote_addr`, `success`, `timestamp`) VALUES ('&1', '&2', NOW())", $_SERVER['REMOTE_ADDR'], ($rUser === false ? 0 : 1));
 
         // store to cookie
         $this->pStoreCookie();
@@ -232,5 +222,7 @@ class login
         $this->pClear();
         $this->pStoreCookie();
     }
+
 }
+
 ?>

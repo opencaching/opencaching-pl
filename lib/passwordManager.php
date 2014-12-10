@@ -7,6 +7,7 @@
  */
 class PasswordManager
 {
+
     /**
      * By default, if hashes stored in the database are considered unsafe,
      * PasswordManager will automatically "upgrade" the stored hashes to a
@@ -22,12 +23,10 @@ class PasswordManager
      * if ($manager->verify($password)) { ... }
      */
     public $autoUpgradeOldHashes;
-
     private $user_id;
     private $hash;
     private $salt;
     private $rounds;
-
     private $wantedHashingRounds;
     private $wantedSaltLength;
 
@@ -147,16 +146,12 @@ class PasswordManager
             }
 
             $this->hash = $this->computeHash(
-
-                /* This is the current hash (which is the original password
-                 * after $previousRounds hashing rounds). */
-                $this->hash,
-
-                /* The number of hashing rounds that `computeHash` should
-                 * skip. */
-                $previousRounds
+                    /* This is the current hash (which is the original password
+                     * after $previousRounds hashing rounds). */
+                    $this->hash,
+                    /* The number of hashing rounds that `computeHash` should
+                     * skip. */ $previousRounds
             );
-
         } else {
 
             /* The correct password is known. In that case, we will generate
@@ -199,7 +194,6 @@ class PasswordManager
              * passwords.) */
 
             return hash('sha512', md5($input));
-
         } else {
 
             /* All the other rounds are salted. */
@@ -242,4 +236,5 @@ class PasswordManager
         }
         return $randomString;
     }
+
 }

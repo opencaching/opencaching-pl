@@ -1,4 +1,5 @@
 <?php
+
 /*
  * mnu_MainMenuIndexFromPageId - returns the top level menu
  *

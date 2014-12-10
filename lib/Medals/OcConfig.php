@@ -7,7 +7,8 @@ namespace lib\Medals;
  *
  * @author Andrzej Łza Wozniak
  */
-final class OcConfig {
+final class OcConfig
+{
 
     private $medalsModuleSwitchedOn = false;
     private $dbDatetimeFormat = 'Y-m-d H:i:s';
@@ -37,22 +38,26 @@ final class OcConfig {
 
     private function loadConfig()
     {
-        include __dir__.'/../settings.inc.php';
+        include __dir__ . '/../settings.inc.php';
         $this->medalsModuleSwitchedOn = $config['medalsModuleSwitchedOn'];
         $this->datetimeFormat = $datetimeFormat;
         $this->ocNodeId = $oc_nodeid;
 //       dd($config, $oc_nodeid);
     }
 
-    public function getOcNodeId() {
+    public function getOcNodeId()
+    {
         return $this->ocNodeId;
     }
 
-    public function getMedalsModuleSwitchOn() {
+    public function getMedalsModuleSwitchOn()
+    {
         return $this->medalsModuleSwitchedOn;
     }
 
-    public function getDbDateTimeFormat() {
+    public function getDbDateTimeFormat()
+    {
         return $this->dbDatetimeFormat;
     }
+
 }

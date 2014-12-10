@@ -1,6 +1,8 @@
 <?php
+
 final class cache
 {
+
     const TYPE_OTHERTYPE = 1;
     const TYPE_TRADITIONAL = 2;
     const TYPE_MULTICACHE = 3;
@@ -11,14 +13,12 @@ final class cache
     const TYPE_MOVING = 8;
     const TYPE_GEOPATHFINAL = 9;
     const TYPE_OWNCACHE = 10;
-
     const SIZE_MICRO = 2;
     const SIZE_SMALL = 3;
     const SIZE_NORMAL = 4;
     const SIZE_LARGE = 5;
     const SIZE_VERYLARGE = 6;
     const SIZE_NOCONTAINER = 7;
-
     const STATUS_READY = 1;
     const STATUS_UNAVAILABLE = 2;
     const STATUS_ARCHIVED = 3;
@@ -27,8 +27,7 @@ final class cache
     const STATUS_BLOCKED = 6;
 
     private $cacheTypeIcons = null;
-
-    private $status = array (
+    private $status = array(
         self::STATUS_READY => array(
             'description' => 'Ready for search',
             'translation' => 'cacheStatus_1',
@@ -54,7 +53,6 @@ final class cache
             'translation' => 'cacheStatus_6',
         ),
     );
-
     private $size = array(
         self::SIZE_MICRO => array(
             'id' => self::SIZE_MICRO,
@@ -81,8 +79,7 @@ final class cache
             'translation' => 'cacheSize_7',
         ),
     );
-
-    private static $type = array (
+    private static $type = array(
         self::TYPE_OTHERTYPE => array(
             'name' => 'other',
             'icon' => 'unknown.png',
@@ -134,7 +131,6 @@ final class cache
             'translation' => 'cacheType_10',
         ),
     );
-
     private static $iconPath = 'tpl/stdstyle/images/cache/';
     private static $iconSmallStr = '16x16-';
     private static $iconFoundStr = '-found';
@@ -158,42 +154,45 @@ final class cache
     /**
      * prepare array contain set of icons for diffrent cachetypes
      */
-    public static function getCacheIconsSet() {
+    public static function getCacheIconsSet()
+    {
         $cacheTypeIcons = self::$type;
         foreach ($cacheTypeIcons as $cacheTypeId => $cacheType) {
-            $cacheTypeIcons[$cacheTypeId]['iconSet'] = array (
-                1 => array ( //active, published
-                    'iconFound' => self::$iconPath.self::getFoundCacheIcon($cacheType['icon']),
-                    'iconSmall' => self::$iconPath.self::$iconSmallStr.$cacheType['icon'],
-                    'iconSmallFound' => self::$iconPath.self::getFoundCacheIcon(self::$iconSmallStr.$cacheType['icon']),
-                    'iconSmallOwner' => self::$iconPath.self::getOwnerCacheIcon(self::$iconSmallStr.$cacheType['icon']),
+            $cacheTypeIcons[$cacheTypeId]['iconSet'] = array(
+                1 => array(//active, published
+                    'iconFound' => self::$iconPath . self::getFoundCacheIcon($cacheType['icon']),
+                    'iconSmall' => self::$iconPath . self::$iconSmallStr . $cacheType['icon'],
+                    'iconSmallFound' => self::$iconPath . self::getFoundCacheIcon(self::$iconSmallStr . $cacheType['icon']),
+                    'iconSmallOwner' => self::$iconPath . self::getOwnerCacheIcon(self::$iconSmallStr . $cacheType['icon']),
                 ),
-                2 => array( //tempUnavailable
-                    'iconFound' => self::$iconPath.self::getFoundCacheIcon($cacheType['icon'],self::$iconTmpUnavStr),
-                    'iconSmall' => self::$iconPath.self::$iconSmallStr.$cacheType['icon'],
-                    'iconSmallFound' => self::$iconPath.self::getFoundCacheIcon(self::$iconSmallStr.$cacheType['icon'],self::$iconTmpUnavStr),
-                    'iconSmallOwner' => self::$iconPath.self::getOwnerCacheIcon(self::$iconSmallStr.$cacheType['icon'],self::$iconTmpUnavStr),
+                2 => array(//tempUnavailable
+                    'iconFound' => self::$iconPath . self::getFoundCacheIcon($cacheType['icon'], self::$iconTmpUnavStr),
+                    'iconSmall' => self::$iconPath . self::$iconSmallStr . $cacheType['icon'],
+                    'iconSmallFound' => self::$iconPath . self::getFoundCacheIcon(self::$iconSmallStr . $cacheType['icon'], self::$iconTmpUnavStr),
+                    'iconSmallOwner' => self::$iconPath . self::getOwnerCacheIcon(self::$iconSmallStr . $cacheType['icon'], self::$iconTmpUnavStr),
                 ),
-                3 => array( // archived
-                    'iconFound' => self::$iconPath.self::getFoundCacheIcon($cacheType['icon'],self::$iconArchivedStr),
-                    'iconSmall' => self::$iconPath.self::$iconSmallStr.$cacheType['icon'],
-                    'iconSmallFound' => self::$iconPath.self::getFoundCacheIcon(self::$iconSmallStr.$cacheType['icon'],self::$iconArchivedStr),
-                    'iconSmallOwner' => self::$iconPath.self::getOwnerCacheIcon(self::$iconSmallStr.$cacheType['icon'],self::$iconArchivedStr),
+                3 => array(// archived
+                    'iconFound' => self::$iconPath . self::getFoundCacheIcon($cacheType['icon'], self::$iconArchivedStr),
+                    'iconSmall' => self::$iconPath . self::$iconSmallStr . $cacheType['icon'],
+                    'iconSmallFound' => self::$iconPath . self::getFoundCacheIcon(self::$iconSmallStr . $cacheType['icon'], self::$iconArchivedStr),
+                    'iconSmallOwner' => self::$iconPath . self::getOwnerCacheIcon(self::$iconSmallStr . $cacheType['icon'], self::$iconArchivedStr),
                 ),
             );
         }
         return $cacheTypeIcons;
     }
 
-    private static function getFoundCacheIcon($cacheIcon,$statusStr='') {
+    private static function getFoundCacheIcon($cacheIcon, $statusStr = '')
+    {
         $tmp = explode('.', $cacheIcon);
-        $tmp[0] = $tmp[0].$statusStr.'-found';
+        $tmp[0] = $tmp[0] . $statusStr . '-found';
         return implode('.', $tmp);
     }
 
-    private static function getOwnerCacheIcon($cacheIcon,$statusStr='') {
+    private static function getOwnerCacheIcon($cacheIcon, $statusStr = '')
+    {
         $tmp = explode('.', $cacheIcon);
-        $tmp[0] = $tmp[0].$statusStr.'-s-owner';
+        $tmp[0] = $tmp[0] . $statusStr . '-s-owner';
         return implode('.', $tmp);
     }
 

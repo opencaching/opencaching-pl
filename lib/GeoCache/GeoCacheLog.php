@@ -19,10 +19,12 @@ namespace lib\geoCache;
  */
 class GeoCacheLog
 {
+
     const LOGTYPE_FOUNDIT = 1;
     const LOGTYPE_DIDNOTFIND = 2;
     const LOGTYPE_COMMENT = 3;
     const LOGTYPE_MOVED = 4;
     const LOGTYPE_NEEDMAINTENANCE = 5;
     const LOGTYPE_ATTENDED = 7;
+
 }

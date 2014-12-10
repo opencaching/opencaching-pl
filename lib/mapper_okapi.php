@@ -12,7 +12,7 @@
 
 $rootpath = "../";
 
-require_once($rootpath.'okapi/facade.php');
+require_once($rootpath . 'okapi/facade.php');
 
 # The code below may produce notices, so we will disable OKAPI's default
 # error handler.
@@ -48,37 +48,32 @@ $user_id = $_GET['userid'];
 # 2. With "searchdata" - ONLY "searchdata" is taken into account. All other
 #    parameters are ignored.
 
-$searchdata = (isset($_GET['searchdata']) && preg_match('/^[a-f0-9]{6,32}/', $_GET['searchdata']))
-    ? $_GET['searchdata'] : null;
+$searchdata = (isset($_GET['searchdata']) && preg_match('/^[a-f0-9]{6,32}/', $_GET['searchdata'])) ? $_GET['searchdata'] : null;
 
-if ($searchdata)  # Mode 2 - with "searchdata".
-{
+if ($searchdata) {  # Mode 2 - with "searchdata".
     \okapi\OkapiErrorHandler::reenable();
 
     # We need to transform OC's "searchdata" into OKAPI's "search set".
     # First, we need to determine if we ALREADY did that.
-
     # Note, that this is not exactly thread-efficient. Multiple threads may
     # do this transformation in the same time. However, this is done only once
     # for each searchdata, so we will ignore it.
 
-    $cache_key = "OC_searchdata_".$searchdata;
+    $cache_key = "OC_searchdata_" . $searchdata;
     $set_id = \okapi\Cache::get($cache_key);
-    if ($set_id === null)
-    {
+    if ($set_id === null) {
         # Read the searchdata file into a temporary table.
 
-        $filepath = \okapi\Settings::get('VAR_DIR')."/searchdata/".$searchdata;
+        $filepath = \okapi\Settings::get('VAR_DIR') . "/searchdata/" . $searchdata;
         \okapi\Db::execute("
-            create temporary table temp_".$searchdata." (
+            create temporary table temp_" . $searchdata . " (
                 cache_id integer primary key
             ) engine=memory
         ");
-        if (file_exists($filepath))
-        {
+        if (file_exists($filepath)) {
             \okapi\Db::execute("
                 load data local infile '$filepath'
-                into table temp_".$searchdata."
+                into table temp_" . $searchdata . "
                 fields terminated by ' '
                 lines terminated by '\\n'
                 (cache_id)
@@ -88,7 +83,7 @@ if ($searchdata)  # Mode 2 - with "searchdata".
         # Tell OKAPI to import the table into its own internal structures.
         # Cache it for two hours.
 
-        $set_info = \okapi\Facade::import_search_set("temp_".$searchdata, 7200, 7200);
+        $set_info = \okapi\Facade::import_search_set("temp_" . $searchdata, 7200, 7200);
         $set_id = $set_info['set_id'];
         \okapi\Cache::set($cache_key, $set_id, 7200);
     }
@@ -96,11 +91,8 @@ if ($searchdata)  # Mode 2 - with "searchdata".
     $params['status'] = "Available|Temporarily unavailable|Archived";
 
     \okapi\OkapiErrorHandler::disable();
-}
-else  # Mode 1 - without "searchdata".
-{
+} else {  # Mode 1 - without "searchdata".
     # h_ignored - convert to OKAPI's "exclude_ignored".
-
     if ($_GET['h_ignored'] == "true")
         $params['exclude_ignored'] = "true";
 
@@ -125,18 +117,17 @@ else  # Mode 1 - without "searchdata".
     $min_rating = ($t < 0) ? "1" : (($t < 1) ? "2" : (($t < 1.5) ? "3" : (($t < 2.2) ? "4" : "5")));
     $t = floatval($_GET['max_score']);
     $max_rating = ($t < 0.7) ? "1" : (($t < 1.3) ? "2" : (($t < 2.2) ? "3" : (($t < 2.7) ? "4" : "5")));
-    $params['rating'] = $min_rating."-".$max_rating;
+    $params['rating'] = $min_rating . "-" . $max_rating;
     unset($t, $min_rating, $max_rating);
 
     # h_noscore - convert to OKAPI's "rating" parameter.
 
     if ($_GET['h_noscore'] == "true")
-        $params['rating'] = $params['rating']."|X";
+        $params['rating'] = $params['rating'] . "|X";
 
     # be_ftf (hunt for FTFs) - convert to OKAPI's "ftf_hunter" parameter.
 
-    if ($_GET['be_ftf'] == "true")
-    {
+    if ($_GET['be_ftf'] == "true") {
         $params['ftf_hunter'] = "true";
 
         # Also, override previously set "status" filter. This behavior is
@@ -168,13 +159,13 @@ else  # Mode 1 - without "searchdata".
         'q' => "Quiz",
         'o' => "Moving",
         'owncache' => "Own",
-        # Note: Some are missing!
+            # Note: Some are missing!
     );
     foreach ($mapping as $letter => $type)
-        if (isset($_GET['h_'.$letter]) && ($_GET['h_'.$letter] == "true"))
+        if (isset($_GET['h_' . $letter]) && ($_GET['h_' . $letter] == "true"))
             $types_to_hide[] = $type;
     if (count($types_to_hide) > 0)
-        $params['type'] = "-".implode("|", $types_to_hide);
+        $params['type'] = "-" . implode("|", $types_to_hide);
     unset($types_to_hide, $mapping, $letter, $type);
 
     # h_own (hide user's own caches) - convert to OKAPI's "exclude_my_own" parameter.

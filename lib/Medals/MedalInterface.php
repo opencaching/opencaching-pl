@@ -1,4 +1,5 @@
 <?php
+
 namespace lib\Medals;
 
 /**
@@ -8,5 +9,6 @@ namespace lib\Medals;
  */
 interface MedalInterface
 {
+
     public function checkConditionsForUser(\lib\User\User $user);
 }

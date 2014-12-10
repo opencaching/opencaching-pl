@@ -1,6 +1,7 @@
 <?php
 
-class MyPDO extends PDO {
+class MyPDO extends PDO
+{
     // Extend and add debugging code here.
 }
 
@@ -11,7 +12,8 @@ class MyPDO extends PDO {
  * It simply instatiates a single PDO subclass with a single MySQL database
  * connection and allows developers to retrieve it with a public method.
  */
-class MyDB {
+class MyDB
+{
 
     private static $dbh = null;
 
@@ -30,14 +32,16 @@ class MyDB {
      *
      * @return MyPDO
      */
-    public static function getPDO() {
+    public static function getPDO()
+    {
         if (self::$dbh === null) {
             self::connect();
         }
         return self::$dbh;
     }
 
-    private static function connect() {
+    private static function connect()
+    {
         require(__DIR__ . '/../settings.inc.php');
 
         $dsnarr = array(

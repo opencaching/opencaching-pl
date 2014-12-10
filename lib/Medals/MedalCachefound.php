@@ -9,10 +9,12 @@ namespace lib\Medals;
  */
 class MedalCachefound extends medal implements \lib\Medals\MedalInterface
 {
-   
+
     private $medalcachefoundTest = 'asdasdas';
 
-    public function checkConditionsForUser(\lib\User\User $user) {
+    public function checkConditionsForUser(\lib\User\User $user)
+    {
         d('add a body!!');
     }
+
 }

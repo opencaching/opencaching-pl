@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class for safe database operations
  *
@@ -11,9 +12,9 @@
  * @author Andrzej Łza Woźniak
  *
  */
-
 class dataBase
 {
+
     /**
      * set this value to true to print all variables to screen.
      * set to false to hide (switch off) all printed debug.
@@ -21,9 +22,7 @@ class dataBase
      * JG 2013-10-20
      */
     private $debug;
-
     private $dbh = null;
-
     private $rollback_transaction = false;
     private $in_transaction_count = 0;
     private $transaction_success_count = 0;
@@ -49,13 +48,13 @@ class dataBase
     const dbQuote = '`';
     const bindChar = ':';
 
-    function __construct($debug = false) {
-        include __DIR__.'/../settings.inc.php';
-        $this->server   = $opt['db']['server'];
-        $this->name     = $opt['db']['name'];
+    function __construct($debug = false)
+    {
+        include __DIR__ . '/../settings.inc.php';
+        $this->server = $opt['db']['server'];
+        $this->name = $opt['db']['name'];
         $this->username = $opt['db']['username'];
         $this->password = $opt['db']['password'];
-        $this->debug = $GLOBALS['config']['debugDB'];
 
         $this->errorEmail[] = $mail_rt;
         $this->replyToEmail = $mail_rt;
@@ -68,7 +67,8 @@ class dataBase
         $this->setupPDO();
     }
 
-    function __destruct() {
+    function __destruct()
+    {
         // free up the memory
         $debug = null;
         $server = null;
@@ -77,24 +77,25 @@ class dataBase
         $password = null;
         $dbData = null;
         $dbNumRows = null;
-        if ($this->dbh != null && $this->in_transaction_count > 0){
+        if ($this->dbh != null && $this->in_transaction_count > 0) {
             if ($this->debug) {
                 self::debugOut('implicitly rolling back a transaction<br>');
             }
-            try{
+            try {
                 $this->dbh->rollBack();
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 // ignore
             }
         }
         $this->dbh = null;
-        if ($this->debug){
+        if ($this->debug) {
             self::debugOut('destructing object dataBase class <br ><br >');
         }
     }
 
     //JG 2013-12-14
-    public function switchDebug( $debug ) {
+    public function switchDebug($debug)
+    {
         $this->debug = $debug;
     }
 
@@ -103,14 +104,16 @@ class dataBase
      * The data is returned as an array indexed by column name, as returned in your
      * SQL SELECT
      */
-    public function dbResultFetch() {
+    public function dbResultFetch()
+    {
         return $this->dbData->fetch();
     }
 
     /**
      * for queries witch LIMIT 1 return only one row and reset database class preparing it for next job.
      */
-    public function dbResultFetchOneRowOnly(){
+    public function dbResultFetchOneRowOnly()
+    {
         $result = $this->dbData->fetch();
         $this->reset();
         return $result;
@@ -120,7 +123,8 @@ class dataBase
      * @return number of row in results (i.e. number of rows returned by SQL SELECT)
      * or the number of rows affected by the last DELETE, INSERT, or UPDATE statement
      */
-    public function rowCount() {
+    public function rowCount()
+    {
         return $this->dbData->rowCount();
     }
 
@@ -131,7 +135,8 @@ class dataBase
      * each row as an array indexed by column name, as returned in your SQL SELECT.
      * An empty array is returned if there are zero results to fetch, or FALSE on failure.
      */
-    public function dbResultFetchAll() {
+    public function dbResultFetchAll()
+    {
         $result = $this->dbData->fetchAll();
         $this->closeCursor();
         return $result;
@@ -140,19 +145,21 @@ class dataBase
     /**
      * @return id of last inserted row
      */
-    public function lastInsertId() {
+    public function lastInsertId()
+    {
         return $this->lastInsertId;
     }
 
-    private function setupPDO() {
+    private function setupPDO()
+    {
         $params = array();
         if ($this->debug) {
             $params[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
         }
-        $this->dbh = new PDO("mysql:host=".$this->server.";dbname=".$this->name,$this->username,$this->password,$params);
+        $this->dbh = new PDO("mysql:host=" . $this->server . ";dbname=" . $this->name, $this->username, $this->password, $params);
         $this->dbh->query("SET NAMES utf8");
         $this->dbh->query("SET CHARACTER SET utf8");
-        $this->dbh->query("SET collation_connection = utf8_unicode_ci" );
+        $this->dbh->query("SET collation_connection = utf8_unicode_ci");
     }
 
     /**
@@ -163,14 +170,15 @@ class dataBase
      * @param string $query
      * @return true, if the query succeeded; false, if there was SQL error
      */
-    public function simpleQuery($query) {
+    public function simpleQuery($query)
+    {
         try {
-            $this->dbData  = $this->dbh->prepare($query);
+            $this->dbData = $this->dbh->prepare($query);
             $this->dbData->setFetchMode(PDO::FETCH_ASSOC);
             $this->dbData->execute();
             $this->lastInsertId = $this->dbh->lastInsertId();
         } catch (PDOException $e) {
-            $message = $this->errorMessage( __line__, $e, $query, array());
+            $message = $this->errorMessage(__line__, $e, $query, array());
             if ($this->debug) {
                 self::debugOut($message);
             } else {
@@ -180,7 +188,7 @@ class dataBase
         }
 
         if ($this->debug) {
-            self::debugOut('db.php, # ' . __line__ .', mysql query on input: ' . $query .'<br />');
+            self::debugOut('db.php, # ' . __line__ . ', mysql query on input: ' . $query . '<br />');
         }
 
         return true;
@@ -212,8 +220,10 @@ class dataBase
      *
      * @return true, if the query succeeded; false, if there was SQL error
      */
-    public function paramQuery($query, $params) {
-        if (!is_array($params)) return false;
+    public function paramQuery($query, $params)
+    {
+        if (!is_array($params))
+            return false;
 
         try {
             $this->dbData = $this->dbh->prepare($query);
@@ -251,7 +261,7 @@ class dataBase
             $this->dbData->execute();
             $this->lastInsertId = $this->dbh->lastInsertId();
         } catch (PDOException $e) {
-            $message = $this->errorMessage( __line__, $e, $query, $params );
+            $message = $this->errorMessage(__line__, $e, $query, $params);
             if ($this->debug) {
                 self::debugOut($message);
             } else {
@@ -261,8 +271,8 @@ class dataBase
             return false;
         }
         if ($this->debug) {
-            self::debugOut('db.php, # ' . __line__ .', Query on input: ' . $query .'<br />');
-            self::debugOC('db.php, # ' . __line__ .', input parametres for query', $params );
+            self::debugOut('db.php, # ' . __line__ . ', Query on input: ' . $query . '<br />');
+            self::debugOC('db.php, # ' . __line__ . ', input parametres for query', $params);
             // self::debugOC('db.php, # ' . __line__ .', database output', $result );
         }
 
@@ -286,26 +296,27 @@ class dataBase
      *
      * @return true, if the query succeeded; false, if there was SQL error
      */
-    public function multiVariableQuery($query) {
+    public function multiVariableQuery($query)
+    {
         $numargs = func_num_args();
         $arg_list = func_get_args();
 
-        if($numargs === 2 && is_array($arg_list[1]) ){ // params were passed in array
+        if ($numargs === 2 && is_array($arg_list[1])) { // params were passed in array
             $arg_list = $arg_list[1];
-            $numargs = count($arg_list)+1;
+            $numargs = count($arg_list) + 1;
         }
 
         try {
             $this->dbData = $this->dbh->prepare($query);
             for ($i = 1; $i < $numargs; $i++) {
                 // if ($this->debug) echo 'db.php, # ' . __line__ .". Argument $i is: " . $arg_list[$i] . "<br />\n";
-                $this->dbData->bindParam(self::bindChar.$i,$arg_list[$i]);
+                $this->dbData->bindParam(self::bindChar . $i, $arg_list[$i]);
             }
             $this->dbData->setFetchMode(PDO::FETCH_ASSOC);
             $this->dbData->execute();
             $this->lastInsertId = $this->dbh->lastInsertId();
         } catch (PDOException $e) {
-            $message = $this->errorMessage( __line__, $e, $query, $arg_list);
+            $message = $this->errorMessage(__line__, $e, $query, $arg_list);
             if ($this->debug) {
                 self::debugOut($message);
             } else {
@@ -314,9 +325,9 @@ class dataBase
             return false;
         }
         if ($this->debug) {
-            self::debugOut('db.php, # ' . __line__ .', Query on input: ' . $query .'<br />');
+            self::debugOut('db.php, # ' . __line__ . ', Query on input: ' . $query . '<br />');
             for ($i = 1; $i < $numargs; $i++)
-                self::debugOut("Param :" . $i. " = " . $arg_list[$i]. "<br>");
+                self::debugOut("Param :" . $i . " = " . $arg_list[$i] . "<br>");
         }
         return true;
     }
@@ -330,11 +341,12 @@ class dataBase
      *
      * @return
      */
-    public function simpleQueryValue($query, $default) {
+    public function simpleQueryValue($query, $default)
+    {
         $this->simpleQuery($query);
         $r = $this->dbResultFetch();
         $this->closeCursor();
-        if ($r){
+        if ($r) {
             $value = reset($r);
             if ($value == null)
                 return $default;
@@ -354,10 +366,11 @@ class dataBase
      *
      * @return
      */
-    public function multiVariableQueryValue($query) {
+    public function multiVariableQueryValue($query)
+    {
         $arg_list = func_get_args();
         $default = null;
-        if (count($arg_list)>=2){
+        if (count($arg_list) >= 2) {
             $default = $arg_list[1];
             unset($arg_list[1]);
         }
@@ -365,7 +378,7 @@ class dataBase
         call_user_func_array(array($this, 'multiVariableQuery'), $arg_list);
         $r = $this->dbResultFetch();
         $this->closeCursor();
-        if ($r){
+        if ($r) {
             $value = reset($r);
             if ($value == null)
                 return $default;
@@ -387,19 +400,19 @@ class dataBase
      *
      * @return
      */
-    public function paramQueryValue($query, $default, $params) {
+    public function paramQueryValue($query, $default, $params)
+    {
         if (!is_array($params)) {
             return false;
         }
         $this->paramQuery($query, $params);
         $r = $this->dbResultFetch();
         $this->closeCursor();
-        if ($r){
+        if ($r) {
             $value = reset($r);
             if ($value == null) {
                 return $default;
-            }
-            else
+            } else
                 return $value;
         } else {
             return $default;
@@ -481,7 +494,7 @@ class dataBase
      */
     public function beginTransaction()
     {
-        if ($this->in_transaction_count == 0){
+        if ($this->in_transaction_count == 0) {
             // start a transaction
             if ($this->debug) {
                 self::debugOut('Starting new transaction<br>');
@@ -492,7 +505,6 @@ class dataBase
             $this->rollback_transaction = false;
 
             $this->dbh->beginTransaction();
-
         } else {
             $this->in_transaction_count++;
             if ($this->debug) {
@@ -512,7 +524,7 @@ class dataBase
         if ($this->debug) {
             self::debugOut('rollback, transaction nesting: ' . $this->in_transaction_count . '<br>');
         }
-        if ($this->in_transaction_count <= 0){
+        if ($this->in_transaction_count <= 0) {
             throw new Exception('Not in a transaction');
         }
         $this->rollback_transaction = true;
@@ -531,7 +543,7 @@ class dataBase
         if ($this->debug) {
             self::debugOut('commit, transaction nesting: ' . $this->in_transaction_count . '<br>');
         }
-        if ($this->in_transaction_count <= 0){
+        if ($this->in_transaction_count <= 0) {
             throw new Exception('Not in a transaction');
         }
         $this->in_transaction_count--;
@@ -540,16 +552,16 @@ class dataBase
 
     private function endTransaction()
     {
-        if ($this->in_transaction_count == 0){
+        if ($this->in_transaction_count == 0) {
             // closing last transaction block, perform commit or rollback
             if ($this->debug) {
-                if ($this->rollback_transaction){
+                if ($this->rollback_transaction) {
                     self::debugOut('transaction rollback<br>');
                 } else {
                     self::debugOut('transaction commit<br>');
                 }
             }
-            if ($this->rollback_transaction){
+            if ($this->rollback_transaction) {
                 $this->dbh->rollBack();
             } else {
                 $this->dbh->commit();
@@ -563,63 +575,68 @@ class dataBase
      */
     public function closeCursor()
     {
-        try{
+        try {
             $this->dbData->closeCursor();
-        }catch(Exception $e){
+        } catch (Exception $e) {
             // ignore
         }
         $this->dbData = null;
         $this->lastInsertId = null;
     }
 
-    private function errorMail($message, $topic=null) {
-        if(self::wasEmailSentLast60Sec()) return;
+    private function errorMail($message, $topic = null)
+    {
+        if (self::wasEmailSentLast60Sec())
+            return;
         $message = $this->removeSensitiveDataFromEmail($message);
-        $message = 'NOTE: dataBase Class send ONLY 1 message per minute to avoid mass email.'."\r\n \r\n".$message;
-        $headers =  'From: dataBase class' . "\r\n" .
-                    'Reply-To: '.$this->replyToEmail . "\r\n" .
-                    'X-Mailer: PHP/' . phpversion().
-                    'MIME-Version: 1.0' . "\r\n" .
-                    'Content-type: text/html; charset=utf-8' . "\r\n";
+        $message = 'NOTE: dataBase Class send ONLY 1 message per minute to avoid mass email.' . "\r\n \r\n" . $message;
+        $headers = 'From: dataBase class' . "\r\n" .
+                'Reply-To: ' . $this->replyToEmail . "\r\n" .
+                'X-Mailer: PHP/' . phpversion() .
+                'MIME-Version: 1.0' . "\r\n" .
+                'Content-type: text/html; charset=utf-8' . "\r\n";
 
-        if(!isset($topic)) $topic = 'Database error caught in db.php';
+        if (!isset($topic))
+            $topic = 'Database error caught in db.php';
         foreach ($this->errorEmail as $email) {
             mail($email, $topic, $message, $headers);
         }
     }
 
-    private function removeSensitiveDataFromEmail($message){
+    private function removeSensitiveDataFromEmail($message)
+    {
         $hashStr = '******';
         $message = str_replace($this->password, $hashStr, $message);
         $message = str_replace($this->username, $hashStr, $message);
-        $message = str_replace("'".$this->name."'", $hashStr, $message);
+        $message = str_replace("'" . $this->name . "'", $hashStr, $message);
         $message = str_replace($this->server, $hashStr, $message);
         return $message;
     }
 
-    private static function wasEmailSentLast60Sec(){
-        $lockFile = __DIR__."/../tmp/dataBaseClassEmailLock.txt";
+    private static function wasEmailSentLast60Sec()
+    {
+        $lockFile = __DIR__ . "/../tmp/dataBaseClassEmailLock.txt";
         $lastEmail = false;
         if (file_exists($lockFile)) {
             $lastEmail = filemtime($lockFile);
         }
-        if ($lastEmail !== false && (time()-$lastEmail) < 60) {
+        if ($lastEmail !== false && (time() - $lastEmail) < 60) {
             return true;
         }
         @touch($lockFile);
         return false;
     }
-    private function errorMessage( $line, $e, $query, $params ) {
-        $message = 'db.php, line: ' . $line .', <p class="errormsg"> PDO error: ' . $e .'</p><br />
-                    Database Query: '.$query.'<br>
-                    Parametres array: <pre>'.
-                    print_r($params, true).
-                    '</pre><br><br>';
+
+    private function errorMessage($line, $e, $query, $params)
+    {
+        $message = 'db.php, line: ' . $line . ', <p class="errormsg"> PDO error: ' . $e . '</p><br />
+                    Database Query: ' . $query . '<br>
+                    Parametres array: <pre>' .
+                print_r($params, true) .
+                '</pre><br><br>';
 
         return $message;
     }
-
-
 
     /**
      * simple select data from db
@@ -652,17 +669,18 @@ class dataBase
      * -----------------------------------------------------------------------------------------------
      * @author Andrzej Łza Woźniak
      */
-    public function select($columnNameArray, $tableName, $whereArray=array(array('fieldName'=>'1','operator'=>'','fieldValue'=>''))){
+    public function select($columnNameArray, $tableName, $whereArray = array(array('fieldName' => '1', 'operator' => '', 'fieldValue' => '')))
+    {
         $query = 'SELECT ';
         foreach ($columnNameArray as $column) {
-            $query .= self::dbQuote.$column.self::dbQuote.',';
+            $query .= self::dbQuote . $column . self::dbQuote . ',';
         }
         $query = rtrim($query, ",");
-        $query .= ' FROM '.$tableName.' WHERE ';
+        $query .= ' FROM ' . $tableName . ' WHERE ';
         $i = 1;
         foreach ($whereArray as $field) {
-           $query .= self::dbQuote.$field['fieldName'].self::dbQuote.$field['operator'].self::bindChar.$i.' AND ';
-           $variableArray[$i++] = $field['fieldValue'];
+            $query .= self::dbQuote . $field['fieldName'] . self::dbQuote . $field['operator'] . self::bindChar . $i . ' AND ';
+            $variableArray[$i++] = $field['fieldValue'];
         }
         $query = rtrim($query, ' AND ');
         return $this->multiVariableQuery($query, $variableArray);
@@ -706,17 +724,18 @@ class dataBase
      * --------------------------------------------------------------------------------------
      *  @author Andrzej Łza Woźniak
      */
-    public function update($columnNameValue, $tableName, $whereArray=array(array('fieldName'=>'1','operator'=>'','fieldValue'=>''))){
-        $query = 'UPDATE '.$tableName.' SET ';
+    public function update($columnNameValue, $tableName, $whereArray = array(array('fieldName' => '1', 'operator' => '', 'fieldValue' => '')))
+    {
+        $query = 'UPDATE ' . $tableName . ' SET ';
         $i = 1;
         foreach ($columnNameValue as $columnName => $newValue) {
-            $query .= self::dbQuote.$columnName.self::dbQuote.'=:'.$i.',';
+            $query .= self::dbQuote . $columnName . self::dbQuote . '=:' . $i . ',';
             $paramToBind[$i++] = $newValue;
         }
-        $query = rtrim($query, ",").' WHERE ';
+        $query = rtrim($query, ",") . ' WHERE ';
         foreach ($whereArray as $field) {
-           $query .= self::dbQuote.$field['fieldName'].self::dbQuote.$field['operator'].self::bindChar.$i.' AND ';
-           $paramToBind[$i++] = $field['fieldValue'];
+            $query .= self::dbQuote . $field['fieldName'] . self::dbQuote . $field['operator'] . self::bindChar . $i . ' AND ';
+            $paramToBind[$i++] = $field['fieldValue'];
         }
         $query = rtrim($query, ' AND ');
         return $this->multiVariableQuery($query, $paramToBind);
@@ -725,7 +744,8 @@ class dataBase
     /**
      * reset data from prevous results and make class ready for next query
      */
-    public function reset(){
+    public function reset()
+    {
         $this->closeCursor();
     }
 
@@ -737,20 +757,21 @@ class dataBase
      *
      * @example dataBase::debugOC('some.php, # ' . __line__ .', my variable', $array_variable );
      */
-
-    public static function debugOC($position, $array) {
+    public static function debugOC($position, $array)
+    {
         dataBase::debugOut("<pre> --- $position --<br>");
-        dataBase::debugOut(print_r ($array, true));
+        dataBase::debugOut(print_r($array, true));
         dataBase::debugOut('----------------------<br /><br /></pre>', true);
     }
 
-    private static function debugOut($text, $onlyHtmlString = false) {
+    private static function debugOut($text, $onlyHtmlString = false)
+    {
         // TODO: make it configurable
         // useful when debugging stripts generating content other than HTML
-
         //if ($onlyHtmlString !== true){
         //  error_log($text);
         //}
         print $text;
     }
+
 }

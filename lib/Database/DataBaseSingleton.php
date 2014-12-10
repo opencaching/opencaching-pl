@@ -9,8 +9,9 @@ namespace lib\Database;
  */
 final class DataBaseSingleton
 {
+
     private static $dataBase = null;
-    
+
     public static function Instance()
     {
         static $inst = null;

@@ -1,159 +1,152 @@
 <html>
-<head>
-</head>
+    <head>
+    </head>
 
-<body>
-<div id="idGCL"></div>
+    <body>
+        <div id="idGCL"></div>
 
-<script type="text/javascript">
-TimeTrack( "START" );
-</script>
+        <script type="text/javascript">
+            TimeTrack("START");
+        </script>
 
-<?php
-global $debug_page;
+        <?php
+        global $debug_page;
 //if ( $debug_page )
 //  echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";
-?>
+        ?>
 
 
-<?php
-echo "<script type='text/javascript'>";
-echo "GCTLoad( 'ChartLine', '', 1 );";
-echo "</script>";
-?>
+        <?php
+        echo "<script type='text/javascript'>";
+        echo "GCTLoad( 'ChartLine', '', 1 );";
+        echo "</script>";
+        ?>
 
 
-<script type="text/javascript">
+        <script type="text/javascript">
 
-    var gcl = new GCT( 'idGCL' );
-    gcl.addColumn('date', 'Date');
-
-
-</script>
-
-<?php
-$sEND = "";
-$sDateCondition = "";
-$sTypeCondition = "";
-
-global $lang;
-
-require_once('settings.inc.php');
-require_once('language.inc.php');
-require_once('cookie.class.php');
-
-if ($cookie->is_set('lang'))
-    $lang = $cookie->get('lang');
-
-require_once('db.php');
+            var gcl = new GCT('idGCL');
+            gcl.addColumn('date', 'Date');
 
 
+        </script>
 
-$sUserIDLine = $_REQUEST[ "UserID"];
-$sDateFrom = $_REQUEST[ "DF"];
-$sDateTo = $_REQUEST[ "DT"];
-$sNameOfStat = $_REQUEST[ "stat"];
+        <?php
+        $sEND = "";
+        $sDateCondition = "";
+        $sTypeCondition = "";
+
+        global $lang;
+
+        require_once('settings.inc.php');
+        require_once('language.inc.php');
+        require_once('cookie.class.php');
+
+        if ($cookie->is_set('lang'))
+            $lang = $cookie->get('lang');
+
+        require_once('db.php');
 
 
 
-if ( $sDateFrom <> "" )
-    $sDateCondition .= "and date >='" .$sDateFrom."'";
-
-if ( $sDateTo <> "" )
-    $sDateCondition .= " and date < '".$sDateTo."' ";
-
-
-if ( $sNameOfStat == "NumberOfFinds" )
-    $sTypeCondition = " and  cl.type=1 ";
-
-if ( $sNameOfStat == "MaintenanceOfCaches" )
-    $sTypeCondition = " and  cl.type=6 ";
+        $sUserIDLine = $_REQUEST["UserID"];
+        $sDateFrom = $_REQUEST["DF"];
+        $sDateTo = $_REQUEST["DT"];
+        $sNameOfStat = $_REQUEST["stat"];
 
 
-$asUserID = explode(",", $sUserIDLine);
+
+        if ($sDateFrom <> "")
+            $sDateCondition .= "and date >='" . $sDateFrom . "'";
+
+        if ($sDateTo <> "")
+            $sDateCondition .= " and date < '" . $sDateTo . "' ";
 
 
-if ( !strlen( $sUserIDLine )  )
-    $sEND = tr2('SelectUsers', $lang );
+        if ($sNameOfStat == "NumberOfFinds")
+            $sTypeCondition = " and  cl.type=1 ";
 
-if ( count( $asUserID ) > 10 )
-    $sEND = tr2('more10', $lang );
-
-echo "<script type='text/javascript'>";
-if ( $sEND <> "" )
-{
-    echo "alert( '$sEND' );";
-    $asUserID = explode(",", "");
-}
-echo "</script>";
+        if ($sNameOfStat == "MaintenanceOfCaches")
+            $sTypeCondition = " and  cl.type=6 ";
 
 
-$sCondition = "";
+        $asUserID = explode(",", $sUserIDLine);
 
-$aNrColumn=array();
 
-foreach( $asUserID as $sID )
-{
-    if( strlen( $sCondition ) )
-        $sCondition = $sCondition . " or ";
+        if (!strlen($sUserIDLine))
+            $sEND = tr2('SelectUsers', $lang);
 
-    $sCondition = $sCondition . "cl.user_id = '". $sID."'";
-}
+        if (count($asUserID) > 10)
+            $sEND = tr2('more10', $lang);
 
-if( strlen( $sCondition ) )
-{
-    $sConditionUser =" ( " . $sCondition . " )";
-    $sCondition =" and ( " . $sCondition . " )";
-}
+        echo "<script type='text/javascript'>";
+        if ($sEND <> "") {
+            echo "alert( '$sEND' );";
+            $asUserID = explode(",", "");
+        }
+        echo "</script>";
 
-$sCondition .= $sDateCondition;
+
+        $sCondition = "";
+
+        $aNrColumn = array();
+
+        foreach ($asUserID as $sID) {
+            if (strlen($sCondition))
+                $sCondition = $sCondition . " or ";
+
+            $sCondition = $sCondition . "cl.user_id = '" . $sID . "'";
+        }
+
+        if (strlen($sCondition)) {
+            $sConditionUser = " ( " . $sCondition . " )";
+            $sCondition = " and ( " . $sCondition . " )";
+        }
+
+        $sCondition .= $sDateCondition;
 
 /////////////////
 
-$dbc = new dataBase();
+        $dbc = new dataBase();
 
-$query =
-"SELECT user_id, username FROM user cl where " . $sConditionUser;
-$dbc->multiVariableQuery($query);
+        $query = "SELECT user_id, username FROM user cl where " . $sConditionUser;
+        $dbc->multiVariableQuery($query);
 
-$aUserName = array();
+        $aUserName = array();
 
-while ( $record = $dbc->dbResultFetch() )
-{
-    $sID = $record[ 'user_id' ];
-    $aUserName[ $sID ] = $record[ 'username' ];
-}
-unset( $dbc );
+        while ($record = $dbc->dbResultFetch()) {
+            $sID = $record['user_id'];
+            $aUserName[$sID] = $record['username'];
+        }
+        unset($dbc);
 
 ////////////////////
 
 
 
-echo "<script type='text/javascript'>";
+        echo "<script type='text/javascript'>";
 
-$i = 0;
-foreach( $asUserID as $sID )
-{
-    $sName = $aUserName[ $sID ];
-    //$sName = $sID;
-    echo "gcl.addColumn('number', '$sName');";
-    $aNrColumn[ $sID ] = $i;
-    $i++;
-}
+        $i = 0;
+        foreach ($asUserID as $sID) {
+            $sName = $aUserName[$sID];
+            //$sName = $sID;
+            echo "gcl.addColumn('number', '$sName');";
+            $aNrColumn[$sID] = $i;
+            $i++;
+        }
 
 
 //echo "gcl.addChartOption('vAxis', { title: 'Ilość keszy' } );";
-echo " var chartOpt = gcl.getChartOption();";
-echo " chartOpt.vAxis.title= '".tr2('NrCaches',$lang)."';";
-echo "</script>";
+        echo " var chartOpt = gcl.getChartOption();";
+        echo " chartOpt.vAxis.title= '" . tr2('NrCaches', $lang) . "';";
+        echo "</script>";
 
 ////////////////////////////
 
 
-$dbc = new dataBase();
+        $dbc = new dataBase();
 
-$query =
-"SELECT year( cl.date) year, month( cl.date ) month, day( cl.date ) day,
+        $query = "SELECT year( cl.date) year, month( cl.date ) month, day( cl.date ) day,
          u.username username, u.user_id user_id,
         COUNT(*) count
 
@@ -163,67 +156,62 @@ $query =
         join user u on cl.user_id = u.user_id
 
         WHERE cl.deleted=0 "
-
-        .$sTypeCondition
-        . $sCondition .
-
-        "GROUP BY year, month, day, user_id
+                . $sTypeCondition
+                . $sCondition .
+                "GROUP BY year, month, day, user_id
         order by year, month, day   ";
 
-$dbc->multiVariableQuery($query);
+        $dbc->multiVariableQuery($query);
 
 
-$nCount = array();
+        $nCount = array();
 
-foreach( $asUserID as $sID )
-{
-    $anCount[ $sID ] = 0;
-}
-
-
-echo "<script type='text/javascript'>";
+        foreach ($asUserID as $sID) {
+            $anCount[$sID] = 0;
+        }
 
 
-
-while ( $record = $dbc->dbResultFetch() )
-{
-    $nYear = $record['year'];
-    $nMonth = $record['month']-1;
-    $nDay = $record['day'];
-
-    $sNewDate = "new Date( $nYear, $nMonth, $nDay )";
-    $sUserName = $record[ 'username' ];
-    $nUserId = $record[ 'user_id' ];
-
-    $anCount[ $nUserId ] += $record[ 'count' ];
+        echo "<script type='text/javascript'>";
 
 
-    echo "
+
+        while ($record = $dbc->dbResultFetch()) {
+            $nYear = $record['year'];
+            $nMonth = $record['month'] - 1;
+            $nDay = $record['day'];
+
+            $sNewDate = "new Date( $nYear, $nMonth, $nDay )";
+            $sUserName = $record['username'];
+            $nUserId = $record['user_id'];
+
+            $anCount[$nUserId] += $record['count'];
+
+
+            echo "
             gcl.addEmptyRow();
             gcl.addToLastRow( 0, $sNewDate );
         ";
 
 
-    $nrCol = $aNrColumn[ $nUserId ];
-    $val = $anCount[ $nUserId ];
-    echo "gcl.addToLastRow( $nrCol+1 , $val );";
+            $nrCol = $aNrColumn[$nUserId];
+            $val = $anCount[$nUserId];
+            echo "gcl.addToLastRow( $nrCol+1 , $val );";
+        }
 
-}
+        echo "</script>";
 
-echo "</script>";
-
-unset( $dbc );
-?>
+        unset($dbc);
+        ?>
 
 
-<script type="text/javascript">
-    gcl.drawChart( 1 );
-</script>
+        <script type="text/javascript">
+            gcl.drawChart(1);
+        </script>
 
-<script type="text/javascript">
-TimeTrack( "END", "SL102" );
-</script>
+        <script type="text/javascript">
+            TimeTrack("END", "SL102");
+        </script>
 
-</body>
+    </body>
 
 </html>

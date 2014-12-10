@@ -1,25 +1,24 @@
 <?php
 
-
 //L (dlugosc)
 //B (szerokosc)
 // lat,lon
 
-function wgs2u1992 ($lat, $lon) {
+function wgs2u1992($lat, $lon)
+{
 
 //double Brad , Lrad, Lorad ,k, C, firad, Xmer, Ymer, Xgk, Ygk;
-
 // stale
-$E=  0.0818191910428;
-$Pi=  3.141592653589793238462643;
-$Pi_2=  1.570796327;  //3.141592653589793238462643 / 2  // Pi / 2
-$Pi_4=  0.7853981634; // 3.141592653589793238462643 / 4  // Pi / 4
-$Pi__180=  0.01745329252; // 3.141592653589793238462643 / 180
-$Ro=  6367449.14577;
-$a2=  0.0008377318247344;
-$a4=  0.0000007608527788826;
-$a6=  0.000000001197638019173;
-$a8=  0.00000000000244337624251;
+    $E = 0.0818191910428;
+    $Pi = 3.141592653589793238462643;
+    $Pi_2 = 1.570796327;  //3.141592653589793238462643 / 2  // Pi / 2
+    $Pi_4 = 0.7853981634; // 3.141592653589793238462643 / 4  // Pi / 4
+    $Pi__180 = 0.01745329252; // 3.141592653589793238462643 / 180
+    $Ro = 6367449.14577;
+    $a2 = 0.0008377318247344;
+    $a4 = 0.0000007608527788826;
+    $a6 = 0.000000001197638019173;
+    $a8 = 0.00000000000244337624251;
 
 
 // uklad UTM
@@ -28,21 +27,19 @@ $a8=  0.00000000000244337624251;
 // zone = (int)(lon+180/6)+1
 //#define FE  500000   //False Easting
 //#define FN  0 //False Northing
-
 // uklad 1992
-$mo=  0.9993;   //wspo#udnik #rodkowy
-$Lo=  19.0;
-$FE=  500000;   //False Easting
-$FN=  -5300000; //False Northing
+    $mo = 0.9993;   //wspo#udnik #rodkowy
+    $Lo = 19.0;
+    $FE = 500000;   //False Easting
+    $FN = -5300000; //False Northing
 
 
     $Brad = $lat * $Pi / 180; //Pi / 180;
     $Lrad = $lon * $Pi / 180; // Pi / 180;
     $Lorad = $Lo * $Pi / 180; // Pi / 180;
-
     //k = ((1 - E * sin(Brad)) / (1 + E * sin(Brad))) ^ (E / 2); // pasc
     //k = pow(((1 - E * sin(Brad)) / (1 + E * sin(Brad))) , (E / 2)); // c
-    $k = exp( ($E / 2) * log((1 - $E * sin($Brad)) / (1 + $E * sin($Brad))) );
+    $k = exp(($E / 2) * log((1 - $E * sin($Brad)) / (1 + $E * sin($Brad))));
 
     $C = $k * tan(($Brad / 2) + ($Pi_4));
 
@@ -57,12 +54,11 @@ $FN=  -5300000; //False Northing
     $X = $mo * $Xgk + $FN;
     $Y = $mo * $Ygk + $FE;
 
-    return (array($X,$Y));
+    return (array($X, $Y));
 }
 
 //$temp= wgs2u1992(52.11,20.67);
 //print $temp[0];
 //print " ";
 //print $temp[1];
-
 ?>

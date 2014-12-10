@@ -9,6 +9,7 @@ namespace lib\User;
  */
 class User
 {
+
     private $userId;
     private $userName;
     private $foundGeocachesCount;
@@ -23,8 +24,9 @@ class User
      * @param type $userId - user identifier in db
      * @param type $userDbRow - array - user data taken from db, from table user.
      */
-    public function __construct($userId, $userDbRow = null) {
-        if($userId && $userDbRow === null) {
+    public function __construct($userId, $userDbRow = null)
+    {
+        if ($userId && $userDbRow === null) {
             $this->userId = (int) $userId;
             $this->loadUserDataFromDb();
         } else {
@@ -34,11 +36,13 @@ class User
         $this->buildMedals();
     }
 
-    public function getMedals() {
+    public function getMedals()
+    {
         return $this->medals;
     }
 
-    private function loadUserDataFromDb() {
+    private function loadUserDataFromDb()
+    {
         $db = \lib\Database\DataBaseSingleton::Instance();
         $queryById = "SELECT username, founds_count, notfounds_count, hidden_count FROM `user` WHERE `user_id`=:1 LIMIT 1";
         $db->multiVariableQuery($queryById, $this->userId);
@@ -46,14 +50,16 @@ class User
         $this->setUserFieldsByUsedDbRow($userDbRow);
     }
 
-    private function setUserFieldsByUsedDbRow($userDbRow){
+    private function setUserFieldsByUsedDbRow($userDbRow)
+    {
         $this->userName = $userDbRow['username'];
         $this->foundGeocachesCount = $userDbRow['founds_count'];
         $this->notFoundGeocachesCount = $userDbRow['notfounds_count'];
         $this->hiddenGeocachesCount = $userDbRow['hidden_count'];
     }
 
-    private function buildMedals(){
+    private function buildMedals()
+    {
         $db = \lib\Database\DataBaseSingleton::Instance();
         $query = 'SELECT `medal_type`, `prized_time` FROM `medals` WHERE `user_id`=:1';
         $db->multiVariableQuery($query, $this->userId);
@@ -64,7 +70,8 @@ class User
         }
     }
 
-    public function getUserId() {
+    public function getUserId()
+    {
         return $this->userId;
     }
 
