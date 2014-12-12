@@ -80,7 +80,7 @@
         else
         {
             mysql_query("SET NAMES 'utf8'");
-            $desc_rs = sql("SELECT `cache_desc`.`cache_id` `cache_id`, `cache_desc`.`language` `language`, `caches`.`name` `name`, `caches`.`user_id` `user_id`, `cache_desc`.`desc` `desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`desc_html` `desc_html`, `cache_desc`.`desc_htmledit` `desc_htmledit` FROM `caches`, `cache_desc` WHERE (`caches`.`cache_id` = `cache_desc`.`cache_id`) AND `cache_desc`.`id`='&1'", $descid);
+            $desc_rs = sql("SELECT `cache_desc`.`cache_id` `cache_id`, `cache_desc`.`language` `language`, `caches`.`name` `name`, `caches`.`user_id` `user_id`, `cache_desc`.`desc` `desc`, `cache_desc`.`hint` `hint`, `cache_desc`.`short_desc` `short_desc`, `cache_desc`.`desc_html` `desc_html` FROM `caches`, `cache_desc` WHERE (`caches`.`cache_id` = `cache_desc`.`cache_id`) AND `cache_desc`.`id`='&1'", $descid);
             if (mysql_num_rows($desc_rs) == 1)
             {
                 $desc_record = sql_fetch_array($desc_rs);
@@ -98,23 +98,17 @@
                     if (isset($_POST['post']))
                     {
                         //here we read all used information from the form if submitted
-                        $desc_html = 1;
-
                         $short_desc = $_POST['short_desc'];
-                        $hint = htmlspecialchars($_POST['hints'], ENT_COMPAT, 'UTF-8');
+                        $hints = $_POST['hints'];
                         $desclang = $_POST['desclang'];
                         $show_all_langs = isset($_POST['show_all_langs_value']) ? $_POST['show_all_langs_value'] : 0;
                         if (!is_numeric($show_all_langs)) $show_all_langs = 0;
 
-
                         // Text from textarea
                         $desc = $_POST['desc'];
-
-                        // check input
-                        require_once($rootpath . 'lib/class.inputfilter.php');
-                        $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-                        $desc = $myFilter->process($desc);
-
+                        $desc = userInputFilter::purifyHtmlString($desc);
+                        $hints = htmlspecialchars($hints, ENT_COMPAT, 'UTF-8');
+                        
                         if (isset($_POST['submitform']))
                         {
                             // prüfen, ob sprache nicht schon vorhanden
@@ -124,31 +118,25 @@
                                 tpl_errorMsg('editdesc', $error_desc_exists);
                             mysql_free_result($rs);
 
-                            if($desc_html == 0)
-                                $desc = nl2br($desc);
-
                             /* Prevent binary data in cache descriptions, e.g. <img src='data:...'> tags. */
-
                             if (strlen($desc) > 300000) {
                                 tpl_errorMsg('editdesc', tr('error3KCharsExcedeed'));
                             }
 
-                            $desc = userInputFilter::purifyHtmlString($desc);
                             mysql_query("SET NAMES 'utf8'");
                             sql("UPDATE `cache_desc` SET
                                         `last_modified`=NOW(),
-                                    `desc_html`='&1',
-                                    `desc_htmledit`='&2',
+                                        `desc_html`='&1',
+                                        `desc_htmledit`='&2',
                                         `desc`='&3',
                                         `short_desc`='&4',
                                         `hint`='&5',
                                         `language`='&6'
                                   WHERE `id`='&7'",
-                                        (($desc_html == 1) ? '1' : '0'),
-                                        (($desc_htmledit == 1) ? '1' : '0'),
+                                        '2', '1', // desc_html and desc_htmledit
                                         $desc,
                                         $short_desc,
-                                        nl2br($hint),
+                                        nl2br($hints),
                                         $desclang,
                                         $descid);
 
@@ -168,15 +156,13 @@
                     {
                         //here we read all used information from the DB
                         $short_desc = strip_tags($desc_record['short_desc']);
-                        $hint = strip_tags($desc_record['hint']);
-                        $desc_htmledit = $desc_record['desc_htmledit'];
-                        $desc_html = $desc_record['desc_html'];
+                        $hints = strip_tags($desc_record['hint']);
                         $desc_lang = $desc_record['language'];
                         $desc = $desc_record['desc'];
                     }
 
                     //here we only set up the template variables
-                    tpl_set_var('desc', $desc, true);
+                    tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'), true);
                     if ($show_all_langs == false)
                     {
                         $rs = sql('SELECT `list_default_' . sql_escape($lang) . "` `list` FROM `languages` WHERE `short`='&1'", $desc_lang);
@@ -204,7 +190,7 @@
 
                     tpl_set_var('show_all_langs_value', (($show_all_langs == false) ? 0 : 1));
                     tpl_set_var('short_desc', htmlspecialchars($short_desc, ENT_COMPAT, 'UTF-8'));
-                    tpl_set_var('hints', $hint);
+                    tpl_set_var('hints', $hints);
                     tpl_set_var('descid', $descid);
                     tpl_set_var('cacheid', htmlspecialchars($desc_record['cache_id'], ENT_COMPAT, 'UTF-8'));
                     tpl_set_var('desclang', htmlspecialchars($desc_lang, ENT_COMPAT, 'UTF-8'));
@@ -219,7 +205,7 @@
                 }
                 else
                 {
-                    //TODO: not the owner
+                    tpl_redirect('');
                 }
             }
             else

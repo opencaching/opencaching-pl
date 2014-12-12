@@ -73,28 +73,10 @@
                     $hints = isset($_POST['hints']) ? $_POST['hints'] : '';
                     $sel_lang = isset($_POST['desc_lang']) ? $_POST['desc_lang'] : $default_lang;
                     $desc = isset($_POST['desc']) ? $_POST['desc'] : '';
-                    $descMode = isset($_POST['descMode']) ? ($_POST['descMode']+0) : 3;
-                    if (($descMode < 1) || ($descMode > 3)) $descMode = 3;
 
-                    // fuer alte Versionen von OCProp
-                    if (isset($_POST['submit']) && !isset($_POST['version2']))
-                    {
-                        $descMode = (isset($_POST['desc_html']) && ($_POST['desc_html']==1)) ? 2 : 1;
-                        $_POST['submitform'] = $_POST['submit'];
-
-                        $desc = iconv("ISO-8859-1", "UTF-8", $desc);
-                        $short_desc = iconv("ISO-8859-1", "UTF-8", $short_desc);
-                        $hints = iconv("ISO-8859-1", "UTF-8", $hints);
-                    }
-
-                    if ($descMode != 1)
-                    {
-                        require_once($rootpath . 'lib/class.inputfilter.php');
-
-                        $myFilter = new InputFilter($allowedtags, $allowedattr, 0, 0, 1);
-                        $desc = $myFilter->process($desc);
-                    }
-
+                    $desc = userInputFilter::purifyHtmlString($desc);
+                    $hints = htmlspecialchars($hints, ENT_COMPAT, 'UTF-8');
+                    
                     $desc_lang_exists = false;
 
                     //save to db?
@@ -114,9 +96,7 @@
                         {
                             $desc_uuid = create_uuid();
                             //add to DB
-                            if ($descMode != 1)
-                            {
-                                sql("INSERT INTO `cache_desc` (
+                            sql("INSERT INTO `cache_desc` (
                                                             `id`,
                                                             `cache_id`,
                                                             `language`,
@@ -128,39 +108,16 @@
                                                             `last_modified`,
                                                             `uuid`,
                                                             `node`
-                                                        ) VALUES ('', '&1', '&2', '&3', 1, '&4', '&5', '&6', NOW(), '&7', '&8')",
+                                                        ) VALUES ('', '&1', '&2', '&3', 2, '&4', '&5', '&6', NOW(), '&7', '&8')",
                                                             $cache_id,
                                                             $sel_lang,
                                                             $desc,
-                                                            ($descMode == 3) ? '1' : '0',
-                                                            nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')),
+                                                            '1',
+                                                            nl2br($hints),
                                                             $short_desc,
                                                             $desc_uuid,
                                                             $oc_nodeid);
-                            }
-                            else
-                            {
-                                sql("INSERT INTO `cache_desc` (
-                                                            `id`,
-                                                            `cache_id`,
-                                                            `language`,
-                                                            `desc`,
-                                                            `desc_html`,
-                                                            `desc_htmledit`,
-                                                            `hint`,
-                                                            `short_desc`,
-                                                            `last_modified`,
-                                                            `uuid`,
-                                                            `node`
-                                                        ) VALUES ('', '&1', '&2', '&3', 0, 0, '&4', '&5', NOW(), '&6', '&7')",
-                                                        $cache_id,
-                                                        $sel_lang,
-                                                        nl2br(htmlspecialchars($desc, ENT_COMPAT, 'UTF-8')),
-                                                        nl2br(htmlspecialchars($hints, ENT_COMPAT, 'UTF-8')),
-                                                        $short_desc,
-                                                        $desc_uuid,
-                                                        $oc_nodeid);
-                            }
+
 
                             //update cache-record
                             setCacheDefaultDescLang($cache_id);
@@ -220,15 +177,15 @@
                     tpl_set_var('show_all_langs', $show_all_langs);
                     tpl_set_var('show_all_langs_submit', ($show_all_langs == 0) ? $show_all_langs_submit : '');
                     tpl_set_var('short_desc', htmlspecialchars($short_desc, ENT_COMPAT, 'UTF-8'));
-                    tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
-                    tpl_set_var('hints', htmlspecialchars($hints, ENT_COMPAT, 'UTF-8'));
+                    tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'), true);
+                    tpl_set_var('hints', $hints);
 
                     tpl_set_var('submit', $submit);
                     tpl_set_var('language4js', $lang);
                 }
                 else
                 {
-                    //TODO: not the owner
+                    tpl_redirect('');
                 }
             }
             else

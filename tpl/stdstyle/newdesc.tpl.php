@@ -72,8 +72,6 @@ $(function() {
 <form action="newdesc.php" method="post" enctype="application/x-www-form-urlencoded" name="newdescform" dir="ltr">
 <input type="hidden" name="cacheid" value="{cacheid}"/>
 <input type="hidden" name="show_all_langs" value="{show_all_langs}"/>
-<input type="hidden" name="version2" value="1"/>
-<input id="descMode" type="hidden" name="descMode" value="1" />
 <table class="content">
     <colgroup>
         <col width="100">
@@ -108,7 +106,7 @@ $(function() {
     </tr>
     <tr>
         <td colspan="2">
-            <textarea id="desc" name="desc">{desc}</textarea>
+            <textarea id="desc" name="desc" cols="80" rows="15">{desc}</textarea>
     </td>
     </tr>
     <tr><td class="spacer" colspan="2"></td></tr>

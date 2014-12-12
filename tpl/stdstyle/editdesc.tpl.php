@@ -73,8 +73,6 @@ $(function() {
 <input type="hidden" name="post" value="1"/>
 <input type="hidden" name="descid" value="{descid}"/>
 <input type="hidden" name="show_all_langs_value" value="{show_all_langs_value}"/>
-<input type="hidden" name="version2" value="1"/>
-<input id="descMode" type="hidden" name="descMode" value="1" />
 <div class="content2-pagetitle"><img src="tpl/stdstyle/images/blue/describe.png" class="icon32" alt="" />&nbsp;{{edit_cache_description}} <a href="viewcache.php?cacheid={cacheid}">{cachename}</a></div>
     <table class="table">
     <colgroup>
@@ -101,7 +99,7 @@ $(function() {
         <p class="content-title-noshade-size1">{{full_description}}:{desc_err}</p>
     </div>
     <p id="scriptwarning" class="errormsg">{{javascript_edit_info}}</p>
-    <p><textarea id="desc" name="desc" class="descMCE">{desc}</textarea></p>
+    <p><textarea id="desc" name="desc" class="descMCE" cols="80" rows="15">{desc}</textarea></p>
     <div class="buffer"></div>
     <div class="notice">{{html_edit_info}}</div>
     <div class="notice">{{geocaching_com_foto_info}}</div>

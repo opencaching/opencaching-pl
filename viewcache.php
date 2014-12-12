@@ -1482,22 +1482,32 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
             $desc_record = $dbc->dbResultFetch();
             $dbc->reset();
 
+            $desc_html = $desc_record['desc_html'];
+            
             $short_desc = $desc_record['short_desc'];
 
+            // plain text, needs escaping
+            $short_desc = htmlspecialchars($short_desc, ENT_COMPAT, 'UTF-8');
             //replace { and } to prevent replacing
             $short_desc = mb_ereg_replace('{', '&#0123;', $short_desc);
             $short_desc = mb_ereg_replace('}', '&#0125;', $short_desc);
-            tpl_set_var('short_desc', htmlspecialchars($short_desc, ENT_COMPAT, 'UTF-8'));
+            tpl_set_var('short_desc', $short_desc);
 
-            //replace { and } to prevent replacing
             $desc = $desc_record['desc'];
+            if ($desc_html != 2){
+                // unsafe HTML, needs purifying
+                $desc = htmlspecialchars_decode($desc);
+                $desc = userInputFilter::purifyHtmlString($desc);
+            } else {
+                // safe HTML - pass as is
+            }
+            //replace { and } to prevent replacing
             $desc = mb_ereg_replace('{', '&#0123;', $desc);
             $desc = mb_ereg_replace('}', '&#0125;', $desc);
 
             // TODO: UTF-8 compatible str_replace (with arrays)
             $desc = str_replace($smileytext, $smileyimage, $desc);
-
-            $desc = userInputFilter::purifyHtmlStringAndDecodeHtmlSpecialChars($desc);
+            
             $res = '';
 
             tpl_set_var('desc', $desc, true);
