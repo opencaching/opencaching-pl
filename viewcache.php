@@ -1497,7 +1497,11 @@ isset($_SESSION['showdel']) && $_SESSION['showdel']=='y' ? $HideDeleted = false 
             if ($desc_html != 2){
                 // unsafe HTML, needs purifying
                 $desc = htmlspecialchars_decode($desc);
-                $desc = userInputFilter::purifyHtmlString($desc);
+                if (isset($_GET['use_purifier']) && $_GET['use_purifier'] == 0) {
+                    // skip using HTML Purifier - to let show original content
+                } else {
+                    $desc = userInputFilter::purifyHtmlString($desc);
+                }
             } else {
                 // safe HTML - pass as is
             }
