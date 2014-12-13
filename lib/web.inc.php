@@ -1,6 +1,6 @@
 <?php
 
-require('comon.inc.php');
+require('common.inc.php');
 
 function sql_error()
 {
