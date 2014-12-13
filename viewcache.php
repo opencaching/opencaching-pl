@@ -769,7 +769,11 @@
 
                 while( $npa = mysql_fetch_array($rsArea) )
                 {
-                    $npa_content .= "<font color=\"blue\"><a target=\"_blank\" href=\"http://obszary.natura2000.org.pl/index.php?s=obszar&id=".$npa['linkid']."\">".$npa['npaSitename']."&nbsp;&nbsp;-&nbsp;&nbsp;".$npa['npaSitecode']."</a></font><br />";
+                    $npa_item = $config['nature2000link'];
+                    $npa_item = mb_ereg_replace('{linkid}', $npa['linkid'], $npa_item);
+                    $npa_item = mb_ereg_replace('{sitename}', $npa['npaSitename'], $npa_item);
+                    $npa_item = mb_ereg_replace('{sitecode}', $npa['npaSitecode'], $npa_item);
+                    $npa_content .= $npa_item . '<br />';
                 }
                 $npa_content .="</td><td align=\"center\" valign=\"middle\"><img src=\"tpl/stdstyle/images/misc/natura2000.png\"></td>
                 </tr></table>";
