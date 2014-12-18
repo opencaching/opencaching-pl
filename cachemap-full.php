@@ -1,9 +1,9 @@
 <?php
+
 function onTheList($theArray, $item)
 {
-    for( $i=0;$i<count($theArray);$i++)
-    {
-        if( $theArray[$i] == $item )
+    for ($i = 0; $i < count($theArray); $i++) {
+        if ($theArray[$i] == $item)
             return $i;
     }
     return -1;
@@ -11,32 +11,31 @@ function onTheList($theArray, $item)
 
 function getDBFilter($user_id)
 {
-    $filter = array("h_u"=>1,
-                                    "h_t"=>1,
-                                    "h_m"=>1,
-                                    "h_v"=>1,
-                                    "h_w"=>1,
-                                    "h_e"=>1,
-                                    "h_q"=>1,
-                                    "h_o"=>1,
-                                    "h_owncache"=>1,
-                                    "h_ignored"=>0,
-                                    "h_own"=>1,
-                                    "h_found"=>1,
-                                    "h_noattempt"=>1,
-                                    "h_nogeokret"=>1,
-                                    "h_avail"=>0,
-                                    "h_temp_unavail"=>1,
-                                    "map_type"=>1,
-                                    "h_arch"=>0,
-                                    "be_ftf"=>0,
-                                    "min_score"=>$MIN_SCORE,
-                                    "max_score"=>$MAX_SCORE,
-                                    "h_noscore"=>1
-                                    ); // default filter
+    $filter = array("h_u" => 1,
+        "h_t" => 1,
+        "h_m" => 1,
+        "h_v" => 1,
+        "h_w" => 1,
+        "h_e" => 1,
+        "h_q" => 1,
+        "h_o" => 1,
+        "h_owncache" => 1,
+        "h_ignored" => 0,
+        "h_own" => 1,
+        "h_found" => 1,
+        "h_noattempt" => 1,
+        "h_nogeokret" => 1,
+        "h_avail" => 0,
+        "h_temp_unavail" => 1,
+        "map_type" => 1,
+        "h_arch" => 0,
+        "be_ftf" => 0,
+        "min_score" => $MIN_SCORE,
+        "max_score" => $MAX_SCORE,
+        "h_noscore" => 1
+    ); // default filter
     $query = mysql_query("SELECT * from map_settings WHERE `user_id`=$user_id");
-    while($row = mysql_fetch_assoc($query))
-    {
+    while ($row = mysql_fetch_assoc($query)) {
         $filter["h_u"] = $row['unknown'];
         $filter["h_t"] = $row['traditional'];
         $filter["h_m"] = $row['multicache'];
@@ -79,23 +78,19 @@ $user_id = '';
 
 $get_userid = intval($_REQUEST['userid']);
 //user logged in?
-if ($usr == false)
-{
+if ($usr == false) {
     $target = urlencode(tpl_get_current_page());
-    tpl_redirect('login.php?target='.$target);
-}
-else
-{
+    tpl_redirect('login.php?target=' . $target);
+} else {
     session_start();
 
 
     tpl_set_var('sc', intval($_GET['sc']));
 
-    if( $get_userid == '') {
+    if ($get_userid == '') {
         $user_id = $usr['userid'];
         tpl_set_var('extrauserid', "");
-    }
-    else  {
+    } else {
         tpl_set_var('extrauserid', "&userid=$get_userid");
         $user_id = $get_userid;
     }
@@ -104,106 +99,95 @@ else
 
     $rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$user_id'");
     $record = mysql_fetch_array($rs);
-    if( ($_REQUEST['lat'] != "" && $_REQUEST['lon'] != ""))
-    {
-        $coordsXY=$_REQUEST['lat'].",".$_REQUEST['lon'];
-        $coordsX=$_REQUEST['lat'];
-        if( $_REQUEST['inputZoom'] != "" )
+    if (($_REQUEST['lat'] != "" && $_REQUEST['lon'] != "")) {
+        $coordsXY = $_REQUEST['lat'] . "," . $_REQUEST['lon'];
+        $coordsX = $_REQUEST['lat'];
+        if ($_REQUEST['inputZoom'] != "")
             tpl_set_var('zoom', $_REQUEST['inputZoom']);
         else
             tpl_set_var('zoom', 11);
     }
-    else
-    {
-        $coordsXY="$record[latitude],$record[longitude]";
-        $coordsX="$record[latitude]";
-        if ($coordsX=="" || $coordsX==0)
-        {
-            $coordsXY=$country_coordinates;
+    else {
+        $coordsXY = "$record[latitude],$record[longitude]";
+        $coordsX = "$record[latitude]";
+        if ($coordsX == "" || $coordsX == 0) {
+            $coordsXY = $country_coordinates;
             tpl_set_var('zoom', $default_country_zoom);
-        }
-        else
+        } else
             tpl_set_var('zoom', 11);
     }
 
-    if( isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y')
-    {
+    if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y') {
         // add cache to print (do not duplicate items)
-        if( count($_SESSION['print_list']) == 0 )
+        if (count($_SESSION['print_list']) == 0)
             $_SESSION['print_list'] = array();
-        if( onTheList($_SESSION['print_list'], $_REQUEST['cacheid']) == -1 )
-            array_push($_SESSION['print_list'],$_REQUEST['cacheid']);
+        if (onTheList($_SESSION['print_list'], $_REQUEST['cacheid']) == -1)
+            array_push($_SESSION['print_list'], $_REQUEST['cacheid']);
     }
-    if( isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'n')
-    {
+    if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'n') {
         // remove cache from print list
-        while( onTheList($_SESSION['print_list'], $_REQUEST['cacheid']) != -1 )
+        while (onTheList($_SESSION['print_list'], $_REQUEST['cacheid']) != -1)
             unset($_SESSION['print_list'][onTheList($_SESSION['print_list'], $_REQUEST['cacheid'])]);
         $_SESSION['print_list'] = array_values($_SESSION['print_list']);
     }
 
-    tpl_set_var('doopen', $_REQUEST['cacheid']?"true":"false");
+    tpl_set_var('doopen', $_REQUEST['cacheid'] ? "true" : "false");
     tpl_set_var('coords', $coordsXY);
     tpl_set_var('username', $record[username]);
-    tpl_set_var('map_width', isset($_GET['print'])?($x_print."px"):("99%"));
-    tpl_set_var('map_height', isset($_GET['print'])?$y_print:("512")."px");
+    tpl_set_var('map_width', isset($_GET['print']) ? ($x_print . "px") : ("99%"));
+    tpl_set_var('map_height', isset($_GET['print']) ? $y_print : ("512") . "px");
 
     $filter = getDBFilter($usr['userid']);
-        tpl_set_var("min_sel1", "");
-        tpl_set_var("min_sel2", "");
-        tpl_set_var("min_sel3", "");
-        tpl_set_var("min_sel4", "");
-        tpl_set_var("min_sel5", "");
-        tpl_set_var("max_sel1", "");
-        tpl_set_var("max_sel2", "");
-        tpl_set_var("max_sel3", "");
-        tpl_set_var("max_sel4", "");
-        tpl_set_var("max_sel5", "");
-    foreach($filter as $key=>$value)
-    {
+    tpl_set_var("min_sel1", "");
+    tpl_set_var("min_sel2", "");
+    tpl_set_var("min_sel3", "");
+    tpl_set_var("min_sel4", "");
+    tpl_set_var("min_sel5", "");
+    tpl_set_var("max_sel1", "");
+    tpl_set_var("max_sel2", "");
+    tpl_set_var("max_sel3", "");
+    tpl_set_var("max_sel4", "");
+    tpl_set_var("max_sel5", "");
+    foreach ($filter as $key => $value) {
         $value = intval($value);
-        if( $key == "min_score" || $key == "max_score")
-        {
-            if( $key == "min_score" )
+        if ($key == "min_score" || $key == "max_score") {
+            if ($key == "min_score")
                 $minmax = "min";
             else
                 $minmax = "max";
 
-            tpl_set_var($minmax."_sel".intval(score2ratingnum($value)+1), 'selected="selected"');
+            tpl_set_var($minmax . "_sel" . intval(score2ratingnum($value) + 1), 'selected="selected"');
             tpl_set_var($key, $value);
             continue;
         }
 
-        if( !($key == "h_avail" || $key == "h_temp_unavail" || $key == "be_ftf" || $key == "map_type" || $key == "h_noscore"))
-        {
+        if (!($key == "h_avail" || $key == "h_temp_unavail" || $key == "be_ftf" || $key == "map_type" || $key == "h_noscore")) {
             // workaround for reversed values
-            $value = 1-$value;
+            $value = 1 - $value;
         }
 
-        if( $value )
+        if ($value)
             $chk = ' checked="checked"';
         else
             $chk = "";
         //echo "k=".$key.":".$chk."(".($value).")<br />";
-        tpl_set_var($key."_checked", $chk);
-        if( $key == "map_type" )
+        tpl_set_var($key . "_checked", $chk);
+        if ($key == "map_type")
             tpl_set_var($key, $value);
         else
-            tpl_set_var($key, $value?"true":"");
-
+            tpl_set_var($key, $value ? "true" : "");
     }
 
 
-    if(isset($_GET['searchdata']) && preg_match('/^[a-f0-9]+/', $_GET['searchdata'])) {
+    if (isset($_GET['searchdata']) && preg_match('/^[a-f0-9]+/', $_GET['searchdata'])) {
         tpl_set_var('filters_hidden', "display: none;");
-        tpl_set_var('searchdata', 'searchdata='.$_GET['searchdata']);
+        tpl_set_var('searchdata', 'searchdata=' . $_GET['searchdata']);
         tpl_set_var('fromlat', floatval($_GET['fromlat']));
         tpl_set_var('fromlon', floatval($_GET['fromlon']));
         tpl_set_var('tolat', floatval($_GET['tolat']));
         tpl_set_var('tolon', floatval($_GET['tolon']));
-        tpl_set_var('boundsurl', '&amp;fromlat='.floatval($_GET['fromlat']).'&amp;fromlon='.floatval($_GET['fromlon']).'&amp;tolat='.floatval($_GET['tolat']).'&amp;tolon='.floatval($_GET['tolon']));
-    }
-    else {
+        tpl_set_var('boundsurl', '&amp;fromlat=' . floatval($_GET['fromlat']) . '&amp;fromlon=' . floatval($_GET['fromlon']) . '&amp;tolat=' . floatval($_GET['tolat']) . '&amp;tolon=' . floatval($_GET['tolon']));
+    } else {
         tpl_set_var('filters_hidden', "");
         tpl_set_var('searchdata', '');
         tpl_set_var('fromlat', '0');
@@ -215,15 +199,15 @@ else
 
     tpl_set_var("cachemap_mapper", $cachemap_mapper);
 
-    /*if( isset( $_POST['submit'] ) )
-    {
-            $makeFilterResult = makeDBFilter();
-            setDBFilter($usr['userid'],$makeFilterResult);
-            $filter = $makeFilterResult;
-    }*/
+    /* if( isset( $_POST['submit'] ) )
+      {
+      $makeFilterResult = makeDBFilter();
+      setDBFilter($usr['userid'],$makeFilterResult);
+      $filter = $makeFilterResult;
+      } */
 
-    /*SET YOUR MAP CODE HERE*/
-    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=true&amp;language='.$lang.'" type="text/javascript"></script>
+    /* SET YOUR MAP CODE HERE */
+    tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=true&amp;language=' . $lang . '" type="text/javascript"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">');
     /*
      * Generate dynamic URL to cachemap3.js file, this will make sure it will be reloaded by the browser.

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -25,11 +26,11 @@
  * @return string |void
  * @uses smarty_make_timestamp()
  */
-function smarty_modifier_date_format($string, $format = SMARTY_RESOURCE_DATE_FORMAT, $default_date = '',$formatter='auto')
+function smarty_modifier_date_format($string, $format = SMARTY_RESOURCE_DATE_FORMAT, $default_date = '', $formatter = 'auto')
 {
     /**
-    * Include the {@link shared.make_timestamp.php} plugin
-    */
+     * Include the {@link shared.make_timestamp.php} plugin
+     */
     require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
     if ($string != '') {
         $timestamp = smarty_make_timestamp($string);
@@ -38,7 +39,7 @@ function smarty_modifier_date_format($string, $format = SMARTY_RESOURCE_DATE_FOR
     } else {
         return;
     }
-    if($formatter=='strftime'||($formatter=='auto'&&strpos($format,'%')!==false)) {
+    if ($formatter == 'strftime' || ($formatter == 'auto' && strpos($format, '%') !== false)) {
         if (DS == '\\') {
             $_win_from = array('%D', '%h', '%n', '%r', '%R', '%t', '%T');
             $_win_to = array('%m/%d/%y', '%b', "\n", '%I:%M:%S %p', '%H:%M', "\t", '%H:%M:%S');

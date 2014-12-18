@@ -13,7 +13,9 @@
 /**
  * Class for filter processing
  */
-class Smarty_Internal_Filter_Handler {
+class Smarty_Internal_Filter_Handler
+{
+
     /**
      * Run filters over content
      *
@@ -32,7 +34,7 @@ class Smarty_Internal_Filter_Handler {
         if ($type != 'variable' || ($template->smarty->variable_filter && $flag !== false) || $flag === true) {
             // loop over autoload filters of specified type
             if (!empty($template->smarty->autoload_filters[$type])) {
-                foreach ((array)$template->smarty->autoload_filters[$type] as $name) {
+                foreach ((array) $template->smarty->autoload_filters[$type] as $name) {
                     $plugin_name = "Smarty_{$type}filter_{$name}";
                     if ($template->smarty->loadPlugin($plugin_name)) {
                         if (function_exists($plugin_name)) {
@@ -62,6 +64,7 @@ class Smarty_Internal_Filter_Handler {
         // return filtered output
         return $output;
     }
+
 }
 
 ?>

@@ -1,5 +1,4 @@
-<?php
-?>
+<?php ?>
 <style>
     #start{
         font-size: 13px;

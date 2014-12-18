@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__.'/lib/ClassPathDictionary.php';
+
+require_once __DIR__ . '/lib/ClassPathDictionary.php';
 
 $userId = (int) $_REQUEST['id'];
 $database = \lib\Database\DataBaseSingleton::Instance();

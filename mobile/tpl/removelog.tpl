@@ -6,10 +6,10 @@
 
     {if $error eq '1'}
         <center><span class="error">{$no_entry}</span></center>
-    {elseif $error eq '2'}
+        {elseif $error eq '2'}
         <center><span class="error">{$not_your_entry}</span></center>
-    {else}
-        {$del_question}
+        {else}
+            {$del_question}
         <div class="menu">
             <div class="button">
                 <form name='form2' action='#' method='post'>

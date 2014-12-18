@@ -12,10 +12,12 @@
 /**
  * Smarty Internal Plugin Compile Eval Class
  */
-class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase
+{
+
     public $required_attributes = array('var');
     public $optional_attributes = array('assign');
-    public $shorttag_order = array('var','assign');
+    public $shorttag_order = array('var', 'assign');
 
     /**
      * Compiles code for the {eval} tag
@@ -32,12 +34,12 @@ class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
         if (isset($_attr['assign'])) {
-              // output will be stored in a smarty variable instead of beind displayed
+            // output will be stored in a smarty variable instead of beind displayed
             $_assign = $_attr['assign'];
         }
 
         // create template object
-        $_output = "\$_template = new {$compiler->smarty->template_class}('eval:'.".$_attr['var'].", \$_smarty_tpl->smarty, \$_smarty_tpl);";
+        $_output = "\$_template = new {$compiler->smarty->template_class}('eval:'." . $_attr['var'] . ", \$_smarty_tpl->smarty, \$_smarty_tpl);";
         //was there an assign attribute?
         if (isset($_assign)) {
             $_output .= "\$_smarty_tpl->assign($_assign,\$_template->getRenderedTemplate());";
@@ -46,6 +48,7 @@ class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase {
         }
         return "<?php $_output ?>";
     }
+
 }
 
 ?>

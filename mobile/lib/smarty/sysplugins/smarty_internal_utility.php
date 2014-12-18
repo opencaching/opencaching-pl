@@ -31,8 +31,9 @@
  * @subpackage PluginsInternal
  * @version 3-SVN$Rev: 3286 $
  */
+class Smarty_Internal_Utility
+{
 
-class Smarty_Internal_Utility {
     protected $smarty;
 
     function __construct($smarty)
@@ -59,26 +60,28 @@ class Smarty_Internal_Utility {
         $_count = 0;
         $_error_count = 0;
         // loop over array of template directories
-        foreach((array)$this->smarty->template_dir as $_dir) {
+        foreach ((array) $this->smarty->template_dir as $_dir) {
             if (strpos('/\\', substr($_dir, -1)) === false) {
                 $_dir .= DS;
             }
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             $_compile = new RecursiveIteratorIterator($_compileDirs);
             foreach ($_compile as $_fileinfo) {
-                if (substr($_fileinfo->getBasename(),0,1) == '.') continue;
+                if (substr($_fileinfo->getBasename(), 0, 1) == '.')
+                    continue;
                 $_file = $_fileinfo->getFilename();
-                if (!substr_compare($_file, $extention, - strlen($extention)) == 0) continue;
+                if (!substr_compare($_file, $extention, - strlen($extention)) == 0)
+                    continue;
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
-                   $_template_file = $_file;
+                    $_template_file = $_file;
                 } else {
-                   $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
+                    $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
                 }
                 echo '<br>', $_dir, '---', $_template_file;
                 flush();
                 $_start_time = microtime(true);
                 try {
-                    $_tpl = $this->smarty->createTemplate($_template_file,null,null,null,false);
+                    $_tpl = $this->smarty->createTemplate($_template_file, null, null, null, false);
                     if ($_tpl->mustCompile()) {
                         $_tpl->compileTemplateSource();
                         echo ' compiled in  ', microtime(true) - $_start_time, ' seconds';
@@ -87,8 +90,7 @@ class Smarty_Internal_Utility {
                         echo ' is up to date';
                         flush();
                     }
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     echo 'Error: ', $e->getMessage(), "<br><br>";
                     $_error_count++;
                 }
@@ -124,16 +126,18 @@ class Smarty_Internal_Utility {
         $_count = 0;
         $_error_count = 0;
         // loop over array of template directories
-        foreach((array)$this->smarty->config_dir as $_dir) {
+        foreach ((array) $this->smarty->config_dir as $_dir) {
             if (strpos('/\\', substr($_dir, -1)) === false) {
                 $_dir .= DS;
             }
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             $_compile = new RecursiveIteratorIterator($_compileDirs);
             foreach ($_compile as $_fileinfo) {
-            if (substr($_fileinfo->getBasename(),0,1) == '.') continue;
+                if (substr($_fileinfo->getBasename(), 0, 1) == '.')
+                    continue;
                 $_file = $_fileinfo->getFilename();
-                if (!substr_compare($_file, $extention, - strlen($extention)) == 0) continue;
+                if (!substr_compare($_file, $extention, - strlen($extention)) == 0)
+                    continue;
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
                     $_config_file = $_file;
                 } else {
@@ -152,8 +156,7 @@ class Smarty_Internal_Utility {
                         echo ' is up to date';
                         flush();
                     }
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     echo 'Error: ', $e->getMessage(), "<br><br>";
                     $_error_count++;
                 }
@@ -195,16 +198,17 @@ class Smarty_Internal_Utility {
         $_compileDirs = new RecursiveDirectoryIterator($_dir);
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_compile as $_file) {
-            if (substr($_file->getBasename(),0,1) == '.') continue;
+            if (substr($_file->getBasename(), 0, 1) == '.')
+                continue;
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {
                     // delete folder if empty
                     @rmdir($_file->getPathname());
                 }
             } else {
-                if ((!isset($_compile_id) || (strlen((string)$_file) > strlen($_compile_id_part) && substr_compare((string)$_file, $_compile_id_part, 0, strlen($_compile_id_part)) == 0)) &&
-                        (!isset($resource_name) || (strlen((string)$_file) > strlen($_resource_part_1) && substr_compare((string)$_file, $_resource_part_1, - strlen($_resource_part_1), strlen($_resource_part_1)) == 0) ||
-                            (strlen((string)$_file) > strlen($_resource_part_2) && substr_compare((string)$_file, $_resource_part_2, - strlen($_resource_part_2), strlen($_resource_part_2)) == 0))) {
+                if ((!isset($_compile_id) || (strlen((string) $_file) > strlen($_compile_id_part) && substr_compare((string) $_file, $_compile_id_part, 0, strlen($_compile_id_part)) == 0)) &&
+                        (!isset($resource_name) || (strlen((string) $_file) > strlen($_resource_part_1) && substr_compare((string) $_file, $_resource_part_1, - strlen($_resource_part_1), strlen($_resource_part_1)) == 0) ||
+                        (strlen((string) $_file) > strlen($_resource_part_2) && substr_compare((string) $_file, $_resource_part_2, - strlen($_resource_part_2), strlen($_resource_part_2)) == 0))) {
                     if (isset($exp_time)) {
                         if (time() - @filemtime($_file) >= $exp_time) {
                             $_count += @unlink((string) $_file) ? 1 : 0;
@@ -239,7 +243,7 @@ class Smarty_Internal_Utility {
 
         echo "Testing template directory...\n";
 
-        foreach((array)$this->smarty->template_dir as $template_dir) {
+        foreach ((array) $this->smarty->template_dir as $template_dir) {
             if (!is_dir($template_dir))
                 echo "FAILED: $template_dir is not a directory.\n";
             elseif (!is_readable($template_dir))
@@ -261,7 +265,7 @@ class Smarty_Internal_Utility {
 
         echo "Testing plugins directory...\n";
 
-        foreach((array)$this->smarty->plugins_dir as $plugin_dir) {
+        foreach ((array) $this->smarty->plugins_dir as $plugin_dir) {
             if (!is_dir($plugin_dir))
                 echo "FAILED: $plugin_dir is not a directory.\n";
             elseif (!is_readable($plugin_dir))
@@ -296,5 +300,7 @@ class Smarty_Internal_Utility {
 
         return true;
     }
+
 }
+
 ?>

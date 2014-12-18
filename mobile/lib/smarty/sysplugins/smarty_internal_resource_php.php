@@ -13,7 +13,9 @@
 /**
  * Smarty Internal Plugin Resource PHP
  */
-class Smarty_Internal_Resource_PHP {
+class Smarty_Internal_Resource_PHP
+{
+
     /**
      * Class constructor, enable short open tags
      */
@@ -22,6 +24,7 @@ class Smarty_Internal_Resource_PHP {
         $this->smarty = $smarty;
         ini_set('short_open_tag', '1');
     }
+
     // properties
     public $usesCompiler = false;
     public $isEvaluated = false;
@@ -48,7 +51,7 @@ class Smarty_Internal_Resource_PHP {
      */
     public function getTemplateFilepath($_template)
     {
-        $_filepath = $_template->buildTemplateFilepath ();
+        $_filepath = $_template->buildTemplateFilepath();
 
         if (is_object($_template->smarty->security_policy)) {
             $_template->smarty->security_policy->isTrustedResourceDir($_filepath);
@@ -117,11 +120,12 @@ class Smarty_Internal_Resource_PHP {
             }
             $_smarty_ptr = $_smarty_ptr->parent;
         } while ($_smarty_ptr != null);
-        unset ($_smarty_var, $_smarty_var_object, $_smarty_ptr);
+        unset($_smarty_var, $_smarty_var_object, $_smarty_ptr);
         // include PHP template
         include($this->getTemplateFilepath($_smarty_template));
         return;
     }
+
 }
 
 ?>

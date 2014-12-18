@@ -12,7 +12,9 @@
 /**
  * Smarty Internal Plugin Compile Ldelim Class
  */
-class Smarty_Internal_Compile_Ldelim extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Ldelim extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for the {ldelim} tag
      *
@@ -32,6 +34,7 @@ class Smarty_Internal_Compile_Ldelim extends Smarty_Internal_CompileBase {
         $this->compiler->has_code = true;
         return $this->compiler->smarty->left_delimiter;
     }
+
 }
 
 ?>

@@ -1,16 +1,21 @@
-<?php
+<img src="http://xampp.opencaching.pl/osmMap.html">
 
+<?php
 require_once 'lib/kint/Kint.class.php';
 require_once 'lib/common.inc.php';
 ini_set('max_execution_time', 600);
 error_reporting(-1);
 
+
+$a = file_get_contents('http://xampp.opencaching.pl/osmMap.html');
+d($a);
+exit;
 /* fill altitude table
-$timStart = time();
-fillAltitudeTable();
-$time = time()-$timStart;
-dd('koniec', $time);
-*/
+  $timStart = time();
+  fillAltitudeTable();
+  $time = time()-$timStart;
+  dd('koniec', $time);
+ */
 
 $medals = new \lib\Medals\MedalsController();
 if ($medals->config->getMedalsModuleSwitchOn() === true) {
@@ -23,9 +28,8 @@ dd($medals);
 
 exit;
 
-
-
-function fillAltitudeTable() {
+function fillAltitudeTable()
+{
     $db = \lib\Database\DataBaseSingleton::Instance();
     $cachesAltitudeCount = 0;
     for ($i = 0; $i < 100; $i++) {
@@ -33,7 +37,7 @@ function fillAltitudeTable() {
         $db->simpleQuery($query);
         $caches = $db->dbResultFetchAll();
         $gapiStr = 'http://maps.googleapis.com/maps/api/elevation/xml?locations=';
-        if(count($caches) === 0 ){
+        if (count($caches) === 0) {
             print 'no caches to process';
             break;
         }
@@ -52,12 +56,13 @@ function fillAltitudeTable() {
         }
         d($url, $altitudes, $caches);
     }
-    print '<br><br>'.$cachesAltitudeCount.' caches altitudes added';
+    print '<br><br>' . $cachesAltitudeCount . ' caches altitudes added';
 }
 
-function storeAlitudeToDb($altitudes, $caches, &$cachesAltitudeCount ){
+function storeAlitudeToDb($altitudes, $caches, &$cachesAltitudeCount)
+{
     $status = (string) $altitudes->status;
-    if($status !== 'OK'){
+    if ($status !== 'OK') {
         print 'error occured';
         return;
     }
@@ -73,7 +78,8 @@ function storeAlitudeToDb($altitudes, $caches, &$cachesAltitudeCount ){
             $db->multiVariableQuery($query2, $altInt, $caches[$i]['cache_id']);
         }
         // d($altInt, $key, $value, $lat, $lon, $caches[$i]);
-        $i++; $cachesAltitudeCount++;
+        $i++;
+        $cachesAltitudeCount++;
     }
     return $cachesAltitudeCount;
 }

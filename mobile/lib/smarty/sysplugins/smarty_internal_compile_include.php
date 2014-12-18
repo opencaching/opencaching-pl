@@ -13,13 +13,16 @@
 /**
  * Smarty Internal Plugin Compile Include Class
  */
-class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
+{
+
     // caching mode to create nocache code but no cache file
     const CACHING_NOCACHE_CODE = 9999;
+
     // attribute definitions
     public $required_attributes = array('file');
     public $shorttag_order = array('file');
-    public $option_flags = array('nocache','inline','caching');
+    public $option_flags = array('nocache', 'inline', 'caching');
     public $optional_attributes = array('_any');
 
     /**
@@ -40,10 +43,10 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         if ($compiler->smarty->merge_compiled_includes || $_attr['inline'] === true) {
             // check if compiled code can be merged (contains no variable part)
             if (!$compiler->has_variable_string && (substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2) and substr_count($include_file, '(') == 0) {
-             $tmp = null;
-        eval("\$tmp = $include_file;");
+                $tmp = null;
+                eval("\$tmp = $include_file;");
                 if ($this->compiler->template->template_resource != $tmp) {
-                    $tpl = new $compiler->smarty->template_class ($tmp, $compiler->smarty, $compiler->template, $compiler->template->cache_id, $compiler->template->compile_id);
+                    $tpl = new $compiler->smarty->template_class($tmp, $compiler->smarty, $compiler->template, $compiler->template->cache_id, $compiler->template->compile_id);
                     // suppress writing of compiled file
                     $tpl->write_compiled_code = false;
                     if ($this->compiler->template->caching) {
@@ -51,8 +54,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                         $tpl->caching = self::CACHING_NOCACHE_CODE;
                     }
 //                    if ($this->compiler->template->mustCompile) {
-                        // make sure whole chain gest compiled
-                        $tpl->mustCompile = true;
+                    // make sure whole chain gest compiled
+                    $tpl->mustCompile = true;
 //                    }
                     if ($tpl->resource_object->usesCompiler && $tpl->isExisting()) {
                         // get compiled code
@@ -105,10 +108,10 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             $_caching = self::CACHING_NOCACHE_CODE;
         }
         /*
-        * if the {include} tag provides individual parameter for caching
-        * it will not be included into the common cache file and treated like
-        * a nocache section
-        */
+         * if the {include} tag provides individual parameter for caching
+         * it will not be included into the common cache file and treated like
+         * a nocache section
+         */
         if (isset($_attr['cache_lifetime'])) {
             $_cache_lifetime = $_attr['cache_lifetime'];
             $this->compiler->tag_nocache = true;
@@ -181,6 +184,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         $_output .= "<?php unset(\$_template);?>";
         return $_output;
     }
+
 }
 
 ?>

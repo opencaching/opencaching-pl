@@ -1,9 +1,8 @@
 <?php
 
-    require_once("./lib/common.inc.php");
+require_once("./lib/common.inc.php");
 
-    $tpl -> display('tpl/moar.tpl');
-
+$tpl->display('tpl/moar.tpl');
 ?>
 
 

@@ -1,7 +1,6 @@
 <?php
 
-    require_once("./lib/common.inc.php");
+require_once("./lib/common.inc.php");
 
-    $tpl -> display('tpl/404.tpl');
-
+$tpl->display('tpl/404.tpl');
 ?>

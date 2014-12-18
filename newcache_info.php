@@ -1,11 +1,10 @@
 <?php
 
-    require('./lib/common.inc.php');
+require('./lib/common.inc.php');
 
-    if ($error == false)
-    {
+if ($error == false) {
 
-        $tplname = 'newcache_info';
+    $tplname = 'newcache_info';
 }
-            tpl_BuildTemplate();
+tpl_BuildTemplate();
 ?>

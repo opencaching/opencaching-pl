@@ -13,13 +13,16 @@
 /**
  * Smarty Internal Plugin Resource Extends
  */
-class Smarty_Internal_Resource_Extends {
+class Smarty_Internal_Resource_Extends
+{
+
     public function __construct($smarty)
     {
         $this->smarty = $smarty;
         $this->_rdl = preg_quote($smarty->right_delimiter);
         $this->_ldl = preg_quote($smarty->left_delimiter);
     }
+
     // classes used for compiling Smarty templates from file resource
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
     public $template_lexer_class = 'Smarty_Internal_Templatelexer';
@@ -37,14 +40,15 @@ class Smarty_Internal_Resource_Extends {
      */
     public function isExisting($_template)
     {
-          $_template->getTemplateFilepath();
-          foreach ($this->allFilepaths as $_filepath) {
+        $_template->getTemplateFilepath();
+        foreach ($this->allFilepaths as $_filepath) {
             if ($_filepath === false) {
-            return false;
-          }
+                return false;
+            }
         }
         return true;
     }
+
     /**
      * Get filepath to template source
      *
@@ -56,7 +60,7 @@ class Smarty_Internal_Resource_Extends {
         $sha1String = '';
         $_files = explode('|', $_template->resource_name);
         foreach ($_files as $_file) {
-            $_filepath = $_template->buildTemplateFilepath ($_file);
+            $_filepath = $_template->buildTemplateFilepath($_file);
             if ($_filepath !== false) {
                 if (is_object($_template->smarty->security_policy)) {
                     $_template->smarty->security_policy->isTrustedResourceDir($_filepath);
@@ -90,22 +94,22 @@ class Smarty_Internal_Resource_Extends {
     {
         $this->template = $_template;
         $_files = array_reverse($this->allFilepaths);
-            $_first = reset($_files);
-            $_last = end($_files);
+        $_first = reset($_files);
+        $_last = end($_files);
         foreach ($_files as $_file => $_filepath) {
-                if ($_filepath === false) {
-                    throw new SmartyException("Unable to load template 'file : {$_file}'");
-                }
+            if ($_filepath === false) {
+                throw new SmartyException("Unable to load template 'file : {$_file}'");
+            }
             // read template file
             if ($_filepath != $_first) {
-                $_template->properties['file_dependency'][sha1($_filepath)] = array($_filepath, filemtime($_filepath),'file');
+                $_template->properties['file_dependency'][sha1($_filepath)] = array($_filepath, filemtime($_filepath), 'file');
             }
             $_template->template_filepath = $_filepath;
             $_content = file_get_contents($_filepath);
             if ($_filepath != $_last) {
                 if (preg_match_all("!({$this->_ldl}block\s(.+?){$this->_rdl})!", $_content, $_open) !=
                         preg_match_all("!({$this->_ldl}/block{$this->_rdl})!", $_content, $_close)) {
-                        throw new SmartyException("unmatched {block} {/block} pairs in file '$_filepath'");
+                    throw new SmartyException("unmatched {block} {/block} pairs in file '$_filepath'");
                 }
                 preg_match_all("!{$this->_ldl}block\s(.+?){$this->_rdl}|{$this->_ldl}/block{$this->_rdl}!", $_content, $_result, PREG_OFFSET_CAPTURE);
                 $_result_count = count($_result[0]);
@@ -121,8 +125,7 @@ class Smarty_Internal_Resource_Extends {
                             $_level--;
                         }
                     }
-                    $_block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
-                        substr($_content, $_result[0][$_start][1] + strlen($_result[0][$_start][0]), $_result[0][$_start + $_end][1] - $_result[0][$_start][1] - + strlen($_result[0][$_start][0])));
+                    $_block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%', substr($_content, $_result[0][$_start][1] + strlen($_result[0][$_start][0]), $_result[0][$_start + $_end][1] - $_result[0][$_start][1] - + strlen($_result[0][$_start][0])));
                     Smarty_Internal_Compile_Block::saveBlockData($_block_content, $_result[0][$_start][0], $_template, $_filepath);
                     $_start = $_start + $_end + 1;
                 }
@@ -132,7 +135,6 @@ class Smarty_Internal_Resource_Extends {
             }
         }
     }
-
 
     /**
      * Get filepath to compiled template
@@ -152,9 +154,9 @@ class Smarty_Internal_Resource_Extends {
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
-             . substr($_filepath, 2, 2) . DS
-             . substr($_filepath, 4, 2) . DS
-             . $_filepath;
+                    . substr($_filepath, 2, 2) . DS
+                    . substr($_filepath, 4, 2) . DS
+                    . $_filepath;
         }
         $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
         if (isset($_compile_id)) {
@@ -169,8 +171,9 @@ class Smarty_Internal_Resource_Extends {
         if (substr($_compile_dir, -1) != DS) {
             $_compile_dir .= DS;
         }
-        return $_compile_dir . $_filepath . '.' . $_template->resource_type . '.' . basename($_files[count($_files)-1]) . $_cache . '.php';
+        return $_compile_dir . $_filepath . '.' . $_template->resource_type . '.' . basename($_files[count($_files) - 1]) . $_cache . '.php';
     }
+
 }
 
 ?>

@@ -13,7 +13,9 @@
 /**
  * Smarty Internal Plugin Compile Insert Class
  */
-class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
+{
+
     // attribute definitions
     public $required_attributes = array('file');
     public $shorttag_order = array('file');
@@ -49,12 +51,12 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
                 $_dir = $this->compiler->smarty->trusted_dir;
             }
             if (!empty($_dir)) {
-                foreach((array)$_dir as $_script_dir) {
+                foreach ((array) $_dir as $_script_dir) {
                     if (strpos('/\\', substr($_script_dir, -1)) === false) {
                         $_script_dir .= DS;
                     }
                     if (file_exists($_script_dir . $_file)) {
-                        $_filepath = $_script_dir .  $_file;
+                        $_filepath = $_script_dir . $_file;
                         break;
                     }
                 }
@@ -85,6 +87,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
             return "<?php include{$_once} ('{$_filepath}');?>\n";
         }
     }
+
 }
 
 ?>

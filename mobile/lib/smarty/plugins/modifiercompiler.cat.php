@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -23,7 +24,7 @@
  */
 function smarty_modifiercompiler_cat($params, $compiler)
 {
-    return '('.implode(').(', $params).')';
+    return '(' . implode(').(', $params) . ')';
 }
 
 ?>

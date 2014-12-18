@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile Modifier
  *
@@ -12,7 +13,9 @@
 /**
  * Smarty Internal Plugin Compile Modifier Class
  */
-class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for modifier execution
      *
@@ -31,7 +34,7 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
         // loop over list of modifiers
         foreach ($parameter['modifierlist'] as $single_modifier) {
             $modifier = $single_modifier[0];
-       $single_modifier[0] = $output;
+            $single_modifier[0] = $output;
             $params = implode(',', $single_modifier);
             // check for registered modifier
             if (isset($compiler->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$modifier])) {
@@ -59,11 +62,12 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
                     $output = "{$modifier}({$params})";
                 }
             } else {
-                $this->compiler->trigger_template_error ("unknown modifier \"" . $modifier . "\"", $this->compiler->lex->taglineno);
+                $this->compiler->trigger_template_error("unknown modifier \"" . $modifier . "\"", $this->compiler->lex->taglineno);
             }
         }
         return $output;
     }
+
 }
 
 ?>

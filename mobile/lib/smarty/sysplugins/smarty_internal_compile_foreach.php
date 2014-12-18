@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile Foreach
  *
@@ -12,11 +13,13 @@
 /**
  * Smarty Internal Plugin Compile Foreach Class
  */
-class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase
+{
+
     // attribute definitions
     public $required_attributes = array('from', 'item');
     public $optional_attributes = array('name', 'key');
-    public $shorttag_order = array('from','item','key','name');
+    public $shorttag_order = array('from', 'item', 'key', 'name');
 
     /**
      * Compiles code for the {foreach} tag
@@ -36,7 +39,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
         $from = $_attr['from'];
         $item = $_attr['item'];
 
-        if (substr_compare("\$_smarty_tpl->getVariable($item)", $from,0, strlen("\$_smarty_tpl->getVariable($item)")) == 0) {
+        if (substr_compare("\$_smarty_tpl->getVariable($item)", $from, 0, strlen("\$_smarty_tpl->getVariable($item)")) == 0) {
             $this->compiler->trigger_template_error("item variable {$item} may not be the same variable as at 'from'", $this->compiler->lex->taglineno);
         }
 
@@ -154,12 +157,15 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
 
         return $output;
     }
+
 }
 
 /**
  * Smarty Internal Plugin Compile Foreachelse Class
  */
-class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for the {foreachelse} tag
      *
@@ -179,12 +185,15 @@ class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase {
 
         return "<?php }} else { ?>";
     }
+
 }
 
 /**
  * Smarty Internal Plugin Compile Foreachclose Class
  */
-class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for the {/foreach} tag
      *
@@ -214,6 +223,7 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase {
         else
             return "<?php }} ?>";
     }
+
 }
 
 ?>

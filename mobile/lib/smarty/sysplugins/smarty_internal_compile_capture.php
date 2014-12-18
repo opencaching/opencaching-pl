@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile Capture
  *
@@ -12,7 +13,9 @@
 /**
  * Smarty Internal Plugin Compile Capture Class
  */
-class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
+{
+
     // attribute definitions
     public $shorttag_order = array('name');
     public $optional_attributes = array('name', 'assign', 'append');
@@ -41,12 +44,15 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase {
 
         return $_output;
     }
+
 }
 
 /**
  * Smarty Internal Plugin Compile Captureclose Class
  */
-class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for the {/capture} tag
      *
@@ -76,6 +82,7 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase {
         $_output .= " Smarty::\$_smarty_vars['capture'][$buffer]=ob_get_clean();?>";
         return $_output;
     }
+
 }
 
 ?>

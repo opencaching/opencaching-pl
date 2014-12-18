@@ -2,18 +2,16 @@
 
 class Pagination
 {
+
     var $data;
 
     function Paginate($values, $per_page)
     {
         $total_values = count($values);
 
-        if (isset($_GET['page']))
-        {
+        if (isset($_GET['page'])) {
             $current_page = $_GET['page'];
-        }
-        else
-        {
+        } else {
             $current_page = 1;
         }
         $counts = ceil($total_values / $per_page);
@@ -21,19 +19,17 @@ class Pagination
         $this->data = array_slice($values, $param1, $per_page);
 
 
-        for ($x=1; $x<=$counts; $x++)
-        {
-        $numbers[] = $x;
+        for ($x = 1; $x <= $counts; $x++) {
+            $numbers[] = $x;
         }
         return $numbers;
     }
 
-
-
-        function fetchResult()
-        {
+    function fetchResult()
+    {
         return $this->data;
-        }
-        }
+    }
+
+}
 
 ?>

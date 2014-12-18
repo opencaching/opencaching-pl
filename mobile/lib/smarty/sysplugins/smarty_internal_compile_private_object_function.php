@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile Object Funtion
  *
@@ -12,7 +13,9 @@
 /**
  * Smarty Internal Plugin Compile Object Function Class
  */
-class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_CompileBase
+{
+
     // attribute definitions
     public $required_attributes = array();
     public $optional_attributes = array('_any');
@@ -63,9 +66,10 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
             $output = "<?php echo {$return};?>\n";
         } else {
             $output = "<?php \$_smarty_tpl->assign({$_assign},{$return});?>\n";
-    }
+        }
         return $output;
     }
+
 }
 
 ?>

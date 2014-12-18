@@ -1,33 +1,34 @@
 <?php
 // Edit upload location here
-$destination_path = $picdir.DIRECTORY_SEPARATOR;
+$destination_path = $picdir . DIRECTORY_SEPARATOR;
 
-    $valid_formats = array("gpx");
+$valid_formats = array("gpx");
 
-    $name = $_FILES['myfile']['name'];
-    $size = $_FILES['myfile']['size'];
-    if (strlen($name)) {
-        list($txt, $ext) = explode(".", $name);
-        $ext = strtolower($ext);
-        if (in_array($ext, $valid_formats)) {
-            if ($size < (1024 * 1024 * 2)) { // Image size max 2 MB
-                $actual_image_name = 'tempgpx.' . $ext;
+$name = $_FILES['myfile']['name'];
+$size = $_FILES['myfile']['size'];
+if (strlen($name)) {
+    list($txt, $ext) = explode(".", $name);
+    $ext = strtolower($ext);
+    if (in_array($ext, $valid_formats)) {
+        if ($size < (1024 * 1024 * 2)) { // Image size max 2 MB
+            $actual_image_name = 'tempgpx.' . $ext;
 
-                $result = 0;
-                $target_path = $destination_path . $actual_image_name;
+            $result = 0;
+            $target_path = $destination_path . $actual_image_name;
 
-                $wpts = simplexml_load_file($_FILES['myfile']['tmp_name']);
-                @unlink($_FILES['myfile']);
+            $wpts = simplexml_load_file($_FILES['myfile']['tmp_name']);
+            @unlink($_FILES['myfile']);
 
-                $result = json_encode(loadWaypointFromGpx($wpts));
-            }
+            $result = json_encode(loadWaypointFromGpx($wpts));
         }
     }
+}
 
-function loadWaypointFromGpx_OLD($wpts) {
+function loadWaypointFromGpx_OLD($wpts)
+{
 
-    $coords_lon = (float)$wpts -> wpt -> attributes() -> lon;
-    $coords_lat = (float)$wpts -> wpt -> attributes() -> lat;
+    $coords_lon = (float) $wpts->wpt->attributes()->lon;
+    $coords_lat = (float) $wpts->wpt->attributes()->lat;
 
     if ($coords_lon < 0) {
         $coords_lonEW = 'W';
@@ -49,32 +50,32 @@ function loadWaypointFromGpx_OLD($wpts) {
     $coords_lat_min = sprintf("%02.3f", round(($coords_lat - $coords_lat_h) * 60, 3));
     $coords_lon_min = sprintf("%02.3f", round(($coords_lon - $coords_lon_h) * 60, 3));
 
-    $result = array('name' => (string)$wpts -> wpt -> name, 'coords_latNS' => $coords_latNS, 'coords_lonEW' => $coords_lonEW, 'coords_lat_h' => $coords_lat_h, 'coords_lon_h' => $coords_lon_h, 'coords_lat_min' => $coords_lat_min, 'coords_lon_min' => $coords_lon_min, 'desc' => '', );
+    $result = array('name' => (string) $wpts->wpt->name, 'coords_latNS' => $coords_latNS, 'coords_lonEW' => $coords_lonEW, 'coords_lat_h' => $coords_lat_h, 'coords_lon_h' => $coords_lon_h, 'coords_lat_min' => $coords_lat_min, 'coords_lon_min' => $coords_lon_min, 'desc' => '',);
 
     //insert waypoint description in result array
-    if (isset($wpts -> wpt -> cmt) && $wpts -> wpt -> cmt != '') {
-        $result['desc'] .= $wpts -> wpt -> desc;
+    if (isset($wpts->wpt->cmt) && $wpts->wpt->cmt != '') {
+        $result['desc'] .= $wpts->wpt->desc;
     }
-    if (isset($wpts -> wpt -> cmt) && $wpts -> wpt -> cmt != '') {
-        $result['desc'] .= $wpts -> wpt -> cmt;
+    if (isset($wpts->wpt->cmt) && $wpts->wpt->cmt != '') {
+        $result['desc'] .= $wpts->wpt->cmt;
     }
 
     //$result = print_r($result, true);
     return $result;
 }
 
-
-function loadWaypointFromGpx($wpts) {
+function loadWaypointFromGpx($wpts)
+{
     $arr = (array) $wpts;
-    if(count($wpts->wpt) == 1){
+    if (count($wpts->wpt) == 1) {
         $tmp = $arr['wpt'];
         unset($arr);
-        $arr['wpt'][0] = $tmp ;
+        $arr['wpt'][0] = $tmp;
     }
 
     foreach ($arr['wpt'] as $key => $waypoint) {
-        $coordsLon = (float)$waypoint -> attributes() -> lon;
-        $coordsLat = (float)$waypoint -> attributes() -> lat;
+        $coordsLon = (float) $waypoint->attributes()->lon;
+        $coordsLat = (float) $waypoint->attributes()->lat;
         if ($coordsLon < 0) {
             $coords_lonEW = 'W';
             $coordsLon = -$coordsLon;
@@ -96,7 +97,7 @@ function loadWaypointFromGpx($wpts) {
         $coords_lon_min = sprintf("%02.3f", round(($coordsLon - $coords_lon_h) * 60, 3));
 
         $result[$key] = array(
-            'name' => (string)$waypoint->name,
+            'name' => (string) $waypoint->name,
             'coords_latNS' => $coords_latNS,
             'coords_lonEW' => $coords_lonEW,
             'coords_lat_h' => $coords_lat_h,
@@ -110,17 +111,16 @@ function loadWaypointFromGpx($wpts) {
         );
         //insert waypoint description in result array
         if (isset($waypoint->cmt) && $wpts->wpt->cmt != '') {
-                $result[$key]['desc'] .= (string) $wpts->wpt->desc;
+            $result[$key]['desc'] .= (string) $wpts->wpt->desc;
         }
         if (isset($waypoint->cmt) && $wpts->wpt->cmt != '') {
-                $result[$key]['cmt'] .= (string)$wpts->wpt-> cmt;
+            $result[$key]['cmt'] .= (string) $wpts->wpt->cmt;
         }
     }
 
     //var_dump($result);
     return $result;
 }
-
 ?>
 
-<script language="javascript" type="text/javascript">window.top.window.stopUpload(<?php echo "'".$result."'"; ?>);</script>
+<script language="javascript" type="text/javascript">window.top.window.stopUpload(<?php echo "'" . $result . "'"; ?>);</script>

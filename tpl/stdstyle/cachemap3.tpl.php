@@ -20,36 +20,35 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script>
-    $(function() {
+        $(function() {
         /*var left = 0;
-        var $shortcuts = $('#shortcut_icons');
-        $('#cache_types input').each(function() {
-            var $img = $("<img/>");
-            $img.attr('src', $(this).closest('tr').find('img').attr('src'));
-            $img.css('left', left + "px");
-            $img.addClass($(this).attr('name'));
-            $img.data('type', $(this).attr('name'));
-            $shortcuts.append($img);
-            left += 28;
-        });*/
+         var $shortcuts = $('#shortcut_icons');
+         $('#cache_types input').each(function() {
+         var $img = $("<img/>");
+         $img.attr('src', $(this).closest('tr').find('img').attr('src'));
+         $img.css('left', left + "px");
+         $img.addClass($(this).attr('name'));
+         $img.data('type', $(this).attr('name'));
+         $shortcuts.append($img);
+         left += 28;
+         });*/
         var checkbox_changed = function() {
-            var $related = $("." + $(this).attr('name'));
-            if ($(this).is(':checked'))
+        var $related = $("." + $(this).attr('name'));
+                if ($(this).is(':checked'))
                 $related.addClass('dim');
-            else
+                else
                 $related.removeClass('dim');
         }
         $('.opt_table input')
-            .each(checkbox_changed)
-            .change(checkbox_changed);
-        /*$shortcuts.find('img').click(function() {
-            var $check = $('#' + $(this).data('type'));
-            $check.prop('checked', !$check.prop('checked'));
-            $check.each(checkbox_changed);
-            reload();
-        });*/
-    });
-</script>
+                .each(checkbox_changed)
+                .change(checkbox_changed);
+                /*$shortcuts.find('img').click(function() {
+                 var $check = $('#' + $(this).data('type'));
+                 $check.prop('checked', !$check.prop('checked'));
+                 $check.each(checkbox_changed);
+                 reload();
+                 });*/
+        });</script>
 
 <div style='margin-right: 6px;' style='position: relative'>
     <div id='shortcut_icons'></div>
@@ -57,21 +56,21 @@
         <tr>
             <td>
                 <div id="ext_search"><div id="search_control" style="float: left;">
-                    <table cellspacing="0" cellpadding="0"><tr>
-                        <td><input id="place_search_text" class="gsc-input" type="text" size="10"></td>
-                        <td><input id="place_search_button" class="gsc-search-button" value="{{search}}" type="button"></td>
-                    </tr></table>
-                </div></div>
+                        <table cellspacing="0" cellpadding="0"><tr>
+                                <td><input id="place_search_text" class="gsc-input" type="text" size="10"></td>
+                                <td><input id="place_search_button" class="gsc-search-button" value="{{search}}" type="button"></td>
+                            </tr></table>
+                    </div></div>
             </td>
             <td>
                 <table style='float: right;'><tr>
-                    <td style='font-size: 13px;'>
-                        {{current_zoom}}:
-                        <input type="text" id="zoom" size="2" value="{zoom}" disabled="disabled" style='border: 0; font-weight: bold; font-size: 13px; background: transparent'/>
-                    </td>
-                    <td><a onclick="fullscreen();" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
-                    <td><a onclick="generate_new_rand(); reload();" style='cursor: pointer'><img src="images/refresh.png"/></a></td>
-                </tr></table>
+                        <td style='font-size: 13px;'>
+                            {{current_zoom}}:
+                            <input type="text" id="zoom" size="2" value="{zoom}" disabled="disabled" style='border: 0; font-weight: bold; font-size: 13px; background: transparent'/>
+                        </td>
+                        <td><a onclick="fullscreen();" style='cursor: pointer'><img src="images/fullscreen.png" alt="{{fullscreen}}"/></a></td>
+                        <td><a onclick="generate_new_rand(); reload();" style='cursor: pointer'><img src="images/refresh.png"/></a></td>
+                    </tr></table>
             </td>
         </tr>
     </table>
@@ -163,7 +162,7 @@
                 </div>
                 <hr>
                 <div>
-                    <input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload();check_field()"/><label for="be_ftf">&nbsp;{{map_01}}</label>
+                    <input class="chbox" id="be_ftf" name="be_ftf" value="1" type="checkbox" {be_ftf_checked} onclick="reload(); check_field()"/><label for="be_ftf">&nbsp;{{map_01}}</label>
                 </div>
             </td>
         </tr>
@@ -182,8 +181,8 @@
                     </center>
                 </div>
                 <div style='margin-top: 5px'><center>
-                    <input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">&nbsp;{{map_04}}</label>
-                </center></div>
+                        <input class="chbox" id="h_noscore" name="h_noscore" value="1" type="checkbox" {h_noscore_checked} onclick="reload()"/><label for="h_noscore">&nbsp;{{map_04}}</label>
+                    </center></div>
             </td>
         </tr>
     </table>
@@ -192,41 +191,40 @@
 
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
-initial_params = {
-    start: {
-        cachemap_mapper: "{cachemap_mapper}",
-        userid: {userid},
-        coords: [{coords}],
-        zoom: {zoom},
-        map_type: {map_type},
-        circle: {circle},
-        doopen: {doopen},
-        fromlat: {fromlat}, fromlon: {fromlon},
-        tolat: {tolat}, tolon: {tolon},
-        searchdata: "{searchdata}",
-        boundsurl: "{boundsurl}",
-        extrauserid: "{extrauserid}",
-        moremaptypes: false,
-        fullscreen: false,
-        largemap: true,
-        savesettings: true
-    },
-    translation: {
-        score_label: "{{score_label}}",
-        recommendations: "{{search_recommendations}}",
-        recommendation: "{{recommendation}}",
-        attendends: "{{attendends}}",
-        will_attend: "{{will_attend}}",
-        found: "{{found}}",
-        not_found: "{{not_found}}",
-        size: "{{size}}",
-        created_by: "{{created_by}}",
-        scored: "{{scored}}",
-        add_clipboard: "{{add_to_list}}"
-    }
-};
-
-window.onload = function() {
-    load([], document.getElementById("search_control"));
-};
+                                    initial_params = {
+                                    start: {
+                                    cachemap_mapper: "{cachemap_mapper}",
+                                            userid: {userid},
+                                            coords: [{coords}],
+                                            zoom: {zoom},
+                                            map_type: {map_type},
+                                            circle: {circle},
+                                            doopen: {doopen},
+                                            fromlat: {fromlat}, fromlon: {fromlon},
+                                            tolat: {tolat}, tolon: {tolon},
+                                            searchdata: "{searchdata}",
+                                            boundsurl: "{boundsurl}",
+                                            extrauserid: "{extrauserid}",
+                                            moremaptypes: false,
+                                            fullscreen: false,
+                                            largemap: true,
+                                            savesettings: true
+                                    },
+                                            translation: {
+                                            score_label: "{{score_label}}",
+                                                    recommendations: "{{search_recommendations}}",
+                                                    recommendation: "{{recommendation}}",
+                                                    attendends: "{{attendends}}",
+                                                    will_attend: "{{will_attend}}",
+                                                    found: "{{found}}",
+                                                    not_found: "{{not_found}}",
+                                                    size: "{{size}}",
+                                                    created_by: "{{created_by}}",
+                                                    scored: "{{scored}}",
+                                                    add_clipboard: "{{add_to_list}}"
+                                            }
+                                    };
+                                    window.onload = function() {
+                                    load([], document.getElementById("search_control"));
+                                    };
 </script>

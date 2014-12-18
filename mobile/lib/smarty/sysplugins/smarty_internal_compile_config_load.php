@@ -13,10 +13,12 @@
 /**
  * Smarty Internal Plugin Compile Config Load Class
  */
-class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
+{
+
     // attribute definitions
     public $required_attributes = array('file');
-    public $shorttag_order = array('file','section');
+    public $shorttag_order = array('file', 'section');
     public $optional_attributes = array('section', 'scope');
 
     /**
@@ -48,17 +50,18 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
         // scope setup
         if (isset($_attr['scope'])) {
             $_attr['scope'] = trim($_attr['scope'], "'\"");
-            if (in_array($_attr['scope'],array('local','parent','root','global'))) {
+            if (in_array($_attr['scope'], array('local', 'parent', 'root', 'global'))) {
                 $scope = $_attr['scope'];
-           } else {
+            } else {
                 $this->compiler->trigger_template_error('illegal value for "scope" attribute', $this->compiler->lex->taglineno);
-           }
+            }
         }
         // create config object
         $_output = "<?php  \$_config = new Smarty_Internal_Config($conf_file, \$_smarty_tpl->smarty, \$_smarty_tpl);";
         $_output .= "\$_config->loadConfigVars($section, '$scope'); ?>";
         return $_output;
     }
+
 }
 
 ?>

@@ -1,11 +1,12 @@
 <?php
+
 /**
  * text cache founded statistics year 2 year.
  * All caches in database.
  */
 header('Content-type: text/html; charset=utf-8');
 
-require_once __DIR__.'/lib/ClassPathDictionary.php';
+require_once __DIR__ . '/lib/ClassPathDictionary.php';
 $db = new dataBase;
 
 $query = "SELECT `date_hidden`
@@ -29,11 +30,13 @@ print '<pre>';
 
 foreach ($arr as $value) {
     $data = explode('-', $value['date_hidden']);
-    if (!isset($count[$data[0]])) $count[$data[0]]=0;
-    $count[$data[0]]++;
+    if (!isset($count[$data[0]]))
+        $count[$data[0]] = 0;
+    $count[$data[0]] ++;
 
-    if(!isset($region[$value['adm3']][$data[0]])) $region[$value['adm3']][$data[0]]=0;
-    $region[$value['adm3']][$data[0]]++;
+    if (!isset($region[$value['adm3']][$data[0]]))
+        $region[$value['adm3']][$data[0]] = 0;
+    $region[$value['adm3']][$data[0]] ++;
 }
 print 'region <br>';
 print '[rok] => ilosc utworzonych keszy w danym roku<br><br>';

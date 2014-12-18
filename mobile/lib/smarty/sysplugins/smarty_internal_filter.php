@@ -12,12 +12,14 @@
 /**
  * Class for filter methods
  */
-class Smarty_Internal_Filter {
+class Smarty_Internal_Filter
+{
 
     function __construct($smarty)
     {
         $this->smarty = $smarty;
     }
+
     /**
      * Registers a filter function
      *
@@ -38,11 +40,10 @@ class Smarty_Internal_Filter {
     public function unregisterFilter($type, $callback)
     {
         $name = $this->_get_filter_name($callback);
-        if(isset($this->smarty->registered_filters[$type][$name])) {
+        if (isset($this->smarty->registered_filters[$type][$name])) {
             unset($this->smarty->registered_filters[$type][$name]);
         }
     }
-
 
     /**
      * Return internal filter name
@@ -53,13 +54,12 @@ class Smarty_Internal_Filter {
     {
         if (is_array($function_name)) {
             $_class_name = (is_object($function_name[0]) ?
-                get_class($function_name[0]) : $function_name[0]);
+                            get_class($function_name[0]) : $function_name[0]);
             return $_class_name . '_' . $function_name[1];
         } else {
             return $function_name;
         }
     }
-
 
     /**
      * load a filter of specified type and name
@@ -84,6 +84,6 @@ class Smarty_Internal_Filter {
         return false;
     }
 
-
 }
+
 ?>

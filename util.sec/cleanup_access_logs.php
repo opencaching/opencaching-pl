@@ -1,13 +1,14 @@
 <?php
-/***************************************************************************
+
+/* * *************************************************************************
  *  You can find the license in the docs directory
  *
  *  Unicode Reminder ăĄă˘
- ***************************************************************************/
-    $rootpath = '../';
-    require_once($rootpath.'lib/clicompatbase.inc.php');
-    require_once($rootpath.'lib/db.php');
-require_once __DIR__.'/../lib/ClassPathDictionary.php';
+ * ************************************************************************* */
+$rootpath = '../';
+require_once($rootpath . 'lib/clicompatbase.inc.php');
+require_once($rootpath . 'lib/db.php');
+require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 
 class CleanupAccessLogs
 {
@@ -33,5 +34,4 @@ class CleanupAccessLogs
 
 $cal = new CleanupAccessLogs();
 $cal->run();
-
 ?>

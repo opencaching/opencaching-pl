@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile Section
  *
@@ -12,7 +13,9 @@
 /**
  * Smarty Internal Plugin Compile Section Class
  */
-class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
+{
+
     // attribute definitions
     public $required_attributes = array('name', 'loop');
     public $shorttag_order = array('name', 'loop');
@@ -31,7 +34,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        $this->_open_tag('section', array('section',$this->compiler->nocache));
+        $this->_open_tag('section', array('section', $this->compiler->nocache));
         // maybe nocache because of nocache variables
         $this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache;
 
@@ -113,12 +116,15 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
         $output .= "?>";
         return $output;
     }
+
 }
 
 /**
-* Smarty Internal Plugin Compile Sectionelse Class
-*/
-class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase {
+ * Smarty Internal Plugin Compile Sectionelse Class
+ */
+class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for the {sectionelse} tag
      *
@@ -133,16 +139,19 @@ class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase {
         $_attr = $this->_get_attributes($args);
 
         list($_open_tag, $nocache) = $this->_close_tag(array('section'));
-        $this->_open_tag('sectionelse',array('sectionelse', $nocache));
+        $this->_open_tag('sectionelse', array('sectionelse', $nocache));
 
         return "<?php endfor; else: ?>";
     }
+
 }
 
 /**
  * Smarty Internal Plugin Compile Sectionclose Class
  */
-class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for the {/section} tag
      *
@@ -158,7 +167,7 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase {
 
         // must endblock be nocache?
         if ($this->compiler->nocache) {
-                 $this->compiler->tag_nocache = true;
+            $this->compiler->tag_nocache = true;
         }
 
         list($_open_tag, $this->compiler->nocache) = $this->_close_tag(array('section', 'sectionelse'));
@@ -168,6 +177,7 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase {
         else
             return "<?php endfor; endif; ?>";
     }
+
 }
 
 ?>

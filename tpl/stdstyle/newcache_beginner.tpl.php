@@ -1,21 +1,20 @@
 <?php
+/* * *************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ * ************************************************************************* */
 
-/***************************************************************************
-    *
-    *   This program is free software; you can redistribute it and/or modify
-    *   it under the terms of the GNU General Public License as published by
-    *   the Free Software Foundation; either version 2 of the License, or
-    *   (at your option) any later version.
-    *
-    ***************************************************************************/
+/* * **************************************************************************
 
-/****************************************************************************
-
-   Unicode Reminder ąść
+  Unicode Reminder ąść
 
 
- ****************************************************************************/
- global $NEED_FIND_LIMIT,$NEED_APPROVE_LIMIT;
+ * ************************************************************************** */
+global $NEED_FIND_LIMIT, $NEED_APPROVE_LIMIT;
 ?>
 
 <table class="content" border="0">
@@ -24,19 +23,19 @@
 </table>
 <br />
 <div class="searchdiv" style="background-color: #FFF9E3;">
-<p style="margin: 10px;font-size: 12.5px; line-height:1.6em; text-align: justify;"><b>{{mc_beginn_01}} <span style="font-size: 14px;color:red;"><?php echo $NEED_FIND_LIMIT; ?></span> {{mc_beginn_02}}
-<font color="blue">
-<ul>
-<li><img src="tpl/stdstyle/images/cache/traditional-i.png" alt="cache"> {{traditional}}, </li>
-<li><img src="tpl/stdstyle/images/cache/multi-i.png" alt="cache"> {{multicache}},</li>
-<li><img src="tpl/stdstyle/images/cache/quiz-i.png" alt="cache"> {{quiz}}, </li>
-<li><img src="tpl/stdstyle/images/cache/moving-i.png" alt="cache"> {{moving}}, </li>
-<li><img src="tpl/stdstyle/images/cache/unknown-i.png" alt="cache"> {{unknown_type}}.</li>
-</ul></font><br/>
-{{mc_beginn_03}} <span style="font-size: 14px;color:green;">{number_finds_caches}</span><br/><br/>
+    <p style="margin: 10px;font-size: 12.5px; line-height:1.6em; text-align: justify;"><b>{{mc_beginn_01}} <span style="font-size: 14px;color:red;"><?php echo $NEED_FIND_LIMIT; ?></span> {{mc_beginn_02}}
+            <font color="blue">
+            <ul>
+                <li><img src="tpl/stdstyle/images/cache/traditional-i.png" alt="cache"> {{traditional}}, </li>
+                <li><img src="tpl/stdstyle/images/cache/multi-i.png" alt="cache"> {{multicache}},</li>
+                <li><img src="tpl/stdstyle/images/cache/quiz-i.png" alt="cache"> {{quiz}}, </li>
+                <li><img src="tpl/stdstyle/images/cache/moving-i.png" alt="cache"> {{moving}}, </li>
+                <li><img src="tpl/stdstyle/images/cache/unknown-i.png" alt="cache"> {{unknown_type}}.</li>
+            </ul></font><br/>
+            {{mc_beginn_03}} <span style="font-size: 14px;color:green;">{number_finds_caches}</span><br/><br/>
 
-{{mc_beginn_04}} <span style="font-size: 14px;color:red;"><?php echo $NEED_APPROVE_LIMIT; ?></span> {{mc_beginn_05}}</b>
-</p>
-<br />
+            {{mc_beginn_04}} <span style="font-size: 14px;color:red;"><?php echo $NEED_APPROVE_LIMIT; ?></span> {{mc_beginn_05}}</b>
+    </p>
+    <br />
 </div>
 

@@ -1,5 +1,6 @@
 <?php
-/*****************************************************************************************
+
+/* * ***************************************************************************************
  *  Opencaching Webservice API Version 1.0
  *
  *  You can find the license in the docs directory
@@ -32,38 +33,36 @@
  *   void Logout($sessionid)
  *        $sessionid   := sessionid returned by Login
  *
- ******************************************************************************************/
+ * **************************************************************************************** */
 
-    // Empty user or password supplied
-    define('WS_ERR_LOGIN_EMPTY_USERPASSWORD_ID', 1000);
-    define('WS_ERR_LOGIN_EMPTY_USERPASSWORD_STR', 'WS_ERR_LOGIN_EMPTY_USERPASSWORD');
+// Empty user or password supplied
+define('WS_ERR_LOGIN_EMPTY_USERPASSWORD_ID', 1000);
+define('WS_ERR_LOGIN_EMPTY_USERPASSWORD_STR', 'WS_ERR_LOGIN_EMPTY_USERPASSWORD');
 
-    // Too much logins in last hour
-    define('WS_ERR_LOGIN_TOOMUCHLOGINS_ID', 1001);
-    define('WS_ERR_LOGIN_TOOMUCHLOGINS_STR', 'WS_ERR_LOGIN_TOOMUCHLOGINS');
+// Too much logins in last hour
+define('WS_ERR_LOGIN_TOOMUCHLOGINS_ID', 1001);
+define('WS_ERR_LOGIN_TOOMUCHLOGINS_STR', 'WS_ERR_LOGIN_TOOMUCHLOGINS');
 
-    // The user has been deactivated
-    define('WS_ERR_LOGIN_USERNOTACTIVE_ID', 1002);
-    define('WS_ERR_LOGIN_USERNOTACTIVE_STR', 'WS_ERR_LOGIN_USERNOTACTIVE');
+// The user has been deactivated
+define('WS_ERR_LOGIN_USERNOTACTIVE_ID', 1002);
+define('WS_ERR_LOGIN_USERNOTACTIVE_STR', 'WS_ERR_LOGIN_USERNOTACTIVE');
 
-    // Username or password does not match
-    define('WS_ERR_LOGIN_BADUSERPW_ID', 1003);
-    define('WS_ERR_LOGIN_BADUSERPW_STR', 'WS_ERR_LOGIN_BADUSERPW');
+// Username or password does not match
+define('WS_ERR_LOGIN_BADUSERPW_ID', 1003);
+define('WS_ERR_LOGIN_BADUSERPW_STR', 'WS_ERR_LOGIN_BADUSERPW');
 
 //  $opt['rootpath'] = '';
 //  require_once($opt['rootpath'] . 'lib2/nusoap.inc.php');
-    require('../../lib2/nusoap.inc.php');
+require('../../lib2/nusoap.inc.php');
 
-    initSoapRequest('OCAPI10_Session', 'http://www.opencaching.pl/xml/ocapi10');
+initSoapRequest('OCAPI10_Session', 'http://www.opencaching.pl/xml/ocapi10');
 
-    $nuserver->register('Login', array('user' => 'xsd:string',
-                                       'pwmd5' => 'xsd:string'),
-                                 array('return' => 'xsd:string'));
-    $nuserver->register('IsValidSession', array('sessionid' => 'xsd:string'),
-                                          array('return' => 'xsd:boolean'));
-    $nuserver->register('Logout', array('sessionid' => 'xsd:string'));
+$nuserver->register('Login', array('user' => 'xsd:string',
+    'pwmd5' => 'xsd:string'), array('return' => 'xsd:string'));
+$nuserver->register('IsValidSession', array('sessionid' => 'xsd:string'), array('return' => 'xsd:boolean'));
+$nuserver->register('Logout', array('sessionid' => 'xsd:string'));
 
-    finishSoapRequest();
+finishSoapRequest();
 
 /**
  * Method Login
@@ -75,33 +74,33 @@
 function Login($user, $pwMd5)
 {
     global $login;
-    if ($err = initSoapFunction()) return $err;
+    if ($err = initSoapFunction())
+        return $err;
 
     $nRet = $login->try_login_md5($user, $pwMd5, false);
-    switch ($nRet)
-    {
+    switch ($nRet) {
         case LOGIN_OK:
             return $login->sessionid;
             break;
 
         case LOGIN_EMPTY_USERPASSWORD:
-            return new soap_fault(WS_ERR_LOGIN_EMPTY_USERPASSWORD_ID, '' , WS_ERR_LOGIN_EMPTY_USERPASSWORD_STR);
+            return new soap_fault(WS_ERR_LOGIN_EMPTY_USERPASSWORD_ID, '', WS_ERR_LOGIN_EMPTY_USERPASSWORD_STR);
             break;
 
         case LOGIN_TOOMUCHLOGINS:
-            return new soap_fault(WS_ERR_LOGIN_TOOMUCHLOGINS_ID, '' , WS_ERR_LOGIN_TOOMUCHLOGINS_STR);
+            return new soap_fault(WS_ERR_LOGIN_TOOMUCHLOGINS_ID, '', WS_ERR_LOGIN_TOOMUCHLOGINS_STR);
             break;
 
         case LOGIN_USERNOTACTIVE:
-            return new soap_fault(WS_ERR_LOGIN_USERNOTACTIVE_ID, '' , WS_ERR_LOGIN_USERNOTACTIVE_STR);
+            return new soap_fault(WS_ERR_LOGIN_USERNOTACTIVE_ID, '', WS_ERR_LOGIN_USERNOTACTIVE_STR);
             break;
 
         case LOGIN_BADUSERPW:
-            return new soap_fault(WS_ERR_LOGIN_BADUSERPW_ID, '' , WS_ERR_LOGIN_BADUSERPW_STR);
+            return new soap_fault(WS_ERR_LOGIN_BADUSERPW_ID, '', WS_ERR_LOGIN_BADUSERPW_STR);
             break;
 
         default:
-            return new soap_fault(WS_ERR_UNKOWN_ID, '' , WS_ERR_UNKOWN_STR);
+            return new soap_fault(WS_ERR_UNKOWN_ID, '', WS_ERR_UNKOWN_STR);
     }
 }
 
@@ -114,7 +113,8 @@ function Login($user, $pwMd5)
 function IsValidSession($sessionid)
 {
     global $login;
-    if ($err = initSoapFunction()) return $err;
+    if ($err = initSoapFunction())
+        return $err;
 
     return $login->restoreSession($sessionid);
 }
@@ -128,9 +128,11 @@ function IsValidSession($sessionid)
 function Logout($sessionid)
 {
     global $login;
-    if ($err = initSoapFunction()) return $err;
+    if ($err = initSoapFunction())
+        return $err;
 
     if ($login->restoreSession($sessionid))
         $login->logout();
 }
+
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile Registered Function
  *
@@ -12,7 +13,9 @@
 /**
  * Smarty Internal Plugin Compile Registered Function Class
  */
-class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Internal_CompileBase
+{
+
     // attribute definitions
     public $optional_attributes = array('_any');
 
@@ -37,14 +40,14 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
         }
         unset($_attr['nocache']);
         // not cachable?
-        $this->compiler->tag_nocache =  $this->compiler->tag_nocache || !$compiler->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION][$tag][1];
+        $this->compiler->tag_nocache = $this->compiler->tag_nocache || !$compiler->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION][$tag][1];
         // convert attributes into parameter array string
         $_paramsArray = array();
         foreach ($_attr as $_key => $_value) {
             if (is_int($_key)) {
                 $_paramsArray[] = "$_key=>$_value";
-            } elseif ($this->compiler->template->caching && in_array($_key,$compiler->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION][$tag][2])) {
-                $_value = str_replace("'","^#^",$_value);
+            } elseif ($this->compiler->template->caching && in_array($_key, $compiler->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION][$tag][2])) {
+                $_value = str_replace("'", "^#^", $_value);
                 $_paramsArray[] = "'$_key'=>^#^.var_export($_value,true).^#^";
             } else {
                 $_paramsArray[] = "'$_key'=>$_value";
@@ -62,6 +65,7 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
         }
         return $output;
     }
+
 }
 
 ?>

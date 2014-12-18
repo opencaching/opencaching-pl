@@ -9,17 +9,17 @@
         <!-- <link rel="stylesheet" type="text/css" href="tpl/stdstyle/css/main.css" /> -->
     </head>
     <body bgcolor="white">
-    <center>
-                    <img src="/images/logo.jpg" alt="oc-Logo" style="border:0px;"/>
-  <div id="content">
-        <h1>Przerwa w pracy Opencaching PL.
-        <p>Przepraszamy za utrudnienia.</p>
-        <p><br/>Opencaching PL Team</p>
-        <p><br/>Zapraszamy na <a href="http://forum.opencaching.pl">forum</a></p>
-  </div>
-    <hr noshade="noshade" />
-        <div id="footBox">
+        <center>
+            <img src="/images/logo.jpg" alt="oc-Logo" style="border:0px;"/>
+            <div id="content">
+                <h1>Przerwa w pracy Opencaching PL.
+                    <p>Przepraszamy za utrudnienia.</p>
+                    <p><br/>Opencaching PL Team</p>
+                    <p><br/>Zapraszamy na <a href="http://forum.opencaching.pl">forum</a></p>
+            </div>
+            <hr noshade="noshade" />
+            <div id="footBox">
 
-        </div>
+            </div>
     </body>
 </html>

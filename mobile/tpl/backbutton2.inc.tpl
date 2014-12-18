@@ -1,7 +1,7 @@
-    <div class='menu'>
-        <div class='button'>
-            <a href='javascript:history.back()'>{$back}</a>
-        </div>
+<div class='menu'>
+    <div class='button'>
+        <a href='javascript:history.back()'>{$back}</a>
     </div>
-    <hr/>
-    <br/>
+</div>
+<hr/>
+<br/>

@@ -1,5 +1,6 @@
 <?php
-/***************************************************************************
+
+/* * *************************************************************************
  *  You can find the license in the docs directory
  *
  *  Unicode Reminder メモ
@@ -8,12 +9,13 @@
  *
  *                         run it once a day
  *
- ***************************************************************************/
+ * ************************************************************************* */
 
 checkJob(new cleanup_temptables());
 
 class cleanup_temptables
 {
+
     var $name = 'cleanup_temptables';
     var $interval = 86400;
 
@@ -26,12 +28,13 @@ class cleanup_temptables
         msql_free_result($rs);
 
         $rs = sqlf("SELECT DISTINCT `threadid` FROM `sys_temptables`");
-        while ($r = msql_fetch_assoc($rs))
-        {
+        while ($r = msql_fetch_assoc($rs)) {
             if (!isset($nIds[$r['threadid']]))
                 sqlf("DELETE FROM `sys_temptables` WHERE `threadid`='&1'", $r['threadid']);
         }
         msql_free_result($rs);
     }
+
 }
+
 ?>

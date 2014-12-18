@@ -1,4 +1,5 @@
 <?php
+
 /*
  * @package AJAX_Chat
  * @author Sebastian Tschan
@@ -121,5 +122,4 @@ $lang['logsTime'] = 'Hora';
 $lang['logsSearch'] = 'Buscar';
 $lang['logsPrivateChannels'] = 'Canals privats';
 $lang['logsPrivateMessages'] = 'Missatges privats';
-
 ?>

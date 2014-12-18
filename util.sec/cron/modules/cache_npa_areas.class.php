@@ -1,13 +1,13 @@
 <?php
 
-/**************************************************************************
+/* * ************************************************************************
  *  You can find the license in the docs directory
  *
  *  Cleanup the table sys_temptables from entries of dead threads
  *
  *                         run it once a day
  *
- ***************************************************************************/
+ * ************************************************************************* */
 
 $rootpath = '../../../';
 //  require_once($rootpath.'lib2/logic/gis.class.php');
@@ -15,9 +15,11 @@ require_once($rootpath . 'lib/gis/gis.class.php');
 require_once($rootpath . 'lib/clicompatbase.inc.php');
 require_once($rootpath . 'lib/common.inc.php');
 
-class cache_npa_areas {
+class cache_npa_areas
+{
 
-    function run() {
+    function run()
+    {
         db_connect();
         $rsCache = sql("SELECT `cache_id`, `latitude`, `longitude` FROM `caches` WHERE `need_npa_recalc`=1");
         while ($rCache = mysql_fetch_assoc($rsCache)) {
@@ -51,6 +53,7 @@ class cache_npa_areas {
         mysql_free_result($rsCache);
         db_disconnect();
     }
+
 }
 
 $cache_npa = new cache_npa_areas();

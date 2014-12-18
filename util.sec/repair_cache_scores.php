@@ -1,12 +1,13 @@
 <?php
-/***************************************************************************
+
+/* * *************************************************************************
  *  You can find the license in the docs directory
  *
  *  Unicode Reminder ăĄă˘
- ***************************************************************************/
-    $rootpath = '../';
-    require_once($rootpath.'lib/clicompatbase.inc.php');
-    require_once __DIR__.'/../lib/ClassPathDictionary.php';
+ * ************************************************************************* */
+$rootpath = '../';
+require_once($rootpath . 'lib/clicompatbase.inc.php');
+require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 
 class RepairCacheScores
 {
@@ -19,7 +20,7 @@ class RepairCacheScores
         $sql = "SELECT cache_id, status FROM caches";
 
         $params = array();
-        if (isset($_GET['cache_id'])){
+        if (isset($_GET['cache_id'])) {
             $sql .= ' where cache_id=:cache_id';
             $params['cache_id']['value'] = intval($_GET['cache_id']);
             $params['cache_id']['data_type'] = 'integer';
@@ -30,8 +31,7 @@ class RepairCacheScores
         $caches = $db->dbResultFetchAll();
         set_time_limit(3600);
         $total_touched = 0;
-        foreach($caches as $cache)
-        {
+        foreach ($caches as $cache) {
             $cache_id = $cache['cache_id'];
             // usuniecie falszywych ocen
             //echo "cache_logs.cache_id=".sql_escape($rs['cache_id']).", user.username=".sql_escape($rs['user_id'])."<br />";
@@ -39,22 +39,21 @@ class RepairCacheScores
             //mysql_query($sql);
 
             $db->multiVariableQuery(
-                "delete from scores where cache_id = :1 and user_id not in (
+                    "delete from scores where cache_id = :1 and user_id not in (
                     select user_id from cache_logs where deleted=0 and cache_id = :2
-                )",
-                $cache_id, $cache_id);
+                )", $cache_id, $cache_id);
 
             // zliczenie ocen po usunieciu
             $db->multiVariableQuery(
-                "SELECT avg(score) as avg_score, count(score) as votes FROM scores WHERE cache_id = :1", $cache_id);
+                    "SELECT avg(score) as avg_score, count(score) as votes FROM scores WHERE cache_id = :1", $cache_id);
             $row = $db->dbResultFetch();
-            if ($row == false){
+            if ($row == false) {
                 $liczba = 0;
                 $srednia = 0;
             } else {
                 $liczba = $row['votes'];
-                if ($liczba > 0){
-                    $srednia = round($row['avg_score'],4);
+                if ($liczba > 0) {
+                    $srednia = round($row['avg_score'], 4);
                 } else {
                     $srednia = 0;
                 }
@@ -65,15 +64,15 @@ class RepairCacheScores
 
             // repair founds
             $founds = $db->multiVariableQueryValue(
-                "SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND (type=1 OR type=7)", 0, $cache_id);
+                    "SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND (type=1 OR type=7)", 0, $cache_id);
             $notfounds = $db->multiVariableQueryValue(
-                "SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND (type=2 OR type=8)", 0, $cache_id);
+                    "SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND (type=2 OR type=8)", 0, $cache_id);
             $notes = $db->multiVariableQueryValue(
-                "SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND type=3", 0, $cache_id);
+                    "SELECT count(*) FROM cache_logs WHERE deleted=0 AND cache_id = :1 AND type=3", 0, $cache_id);
             $watchers = $db->multiVariableQueryValue(
-                "SELECT count(*) FROM cache_watches WHERE cache_id = :1", 0, $cache_id);
+                    "SELECT count(*) FROM cache_watches WHERE cache_id = :1", 0, $cache_id);
             $ignorers = $db->multiVariableQueryValue(
-                "SELECT count(*) FROM cache_ignore WHERE cache_id = :1", 0, $cache_id);
+                    "SELECT count(*) FROM cache_ignore WHERE cache_id = :1", 0, $cache_id);
 
             $sql = "
                 UPDATE caches
@@ -123,7 +122,7 @@ class RepairCacheScores
             $params['cache_id']['value'] = intval($cache_id);
             $params['cache_id']['data_type'] = 'integer';
             $db->paramQuery($sql, $params);
-            if ($db->rowCount() > 0){
+            if ($db->rowCount() > 0) {
                 echo "<b>cache_id=$cache_id</b><br>";
                 echo "ratings=$liczba<br>rating=$srednia<br>";
                 echo "founds=$founds<br>notfounds=$notfounds<br>";
@@ -143,5 +142,4 @@ class RepairCacheScores
 
 $rcs = new RepairCacheScores();
 $rcs->run();
-
 ?>

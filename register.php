@@ -1,23 +1,25 @@
 <?php
-/***************************************************************************
-                                                                ./register.php
-                                                            -------------------
-        begin                : Mon June 14 2004
-        copyright            : (C) 2004 The OpenCaching Group
-        forum contact at     : http://www.opencaching.com/phpBB2
-    **************************************************************************
-    *   This program is free software; you can redistribute it and/or modify
-    *   it under the terms of the GNU General Public License as published by
-    *   the Free Software Foundation; either version 2 of the License, or
-    *   (at your option) any later version.
-    *
-    ***************************************************************************
-     register a new user
-     used template(s): register
- ****************************************************************************/
+
+/* * *************************************************************************
+  ./register.php
+  -------------------
+  begin                : Mon June 14 2004
+  copyright            : (C) 2004 The OpenCaching Group
+  forum contact at     : http://www.opencaching.com/phpBB2
+ * *************************************************************************
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ * **************************************************************************
+  register a new user
+  used template(s): register
+ * ************************************************************************** */
 
 //prepare the templates and include all neccessary
-if (!isset($rootpath)) $rootpath = '';
+if (!isset($rootpath))
+    $rootpath = '';
 require_once('./lib/common.inc.php');
 
 //Preprocessing
@@ -42,9 +44,8 @@ if ($error == false) {
     tpl_set_var('show_all_countries', 0);
 
     $db = new dataBase();
-    if (isset($_POST['submit']) || isset($_POST['show_all_countries_submit']))
-    {
-      //form load setting
+    if (isset($_POST['submit']) || isset($_POST['show_all_countries_submit'])) {
+        //form load setting
         $display_all_countries = $_POST['allcountries'];
         $username = $_POST['username'];
         $password = $_POST['password1'];
@@ -54,15 +55,12 @@ if ($error == false) {
         $tos = isset($_POST['TOS']) ? ($_POST['TOS'] == 'ON') : false;
 
 
-        if (isset($_POST['submit']))
-        {
+        if (isset($_POST['submit'])) {
             //try to register
-
             //validate the entered data
             $email_not_ok = !is_valid_email_address($email);
             $username_not_ok = mb_ereg_match(regex_username, $username) ? false : true;
-            if ($username_not_ok == false)
-            {
+            if ($username_not_ok == false) {
                 // username should not be formatted like an email-address
                 $username_not_ok = is_valid_email_address($username);
             }
@@ -71,23 +69,17 @@ if ($error == false) {
 
             //check if email is in the database
             $rs = sql("SELECT `username` FROM `user` WHERE `email`='&1'", $email);
-            if (mysql_num_rows($rs) > 0)
-            {
+            if (mysql_num_rows($rs) > 0) {
                 $email_exists = true;
-            }
-            else
-            {
+            } else {
                 $email_exists = false;
             }
 
             //check if username is in the database
             $rs = sql("SELECT `username` FROM `user` WHERE `username`='&1'", $username);
-            if (mysql_num_rows($rs) > 0)
-            {
+            if (mysql_num_rows($rs) > 0) {
                 $username_exists = true;
-            }
-            else
-            {
+            } else {
                 $username_exists = false;
             }
 
@@ -96,21 +88,16 @@ if ($error == false) {
                     (!$username_not_ok) &&
                     (!$password_not_ok) &&
                     (!$password_diffs) &&
-                  (!$email_exists))
-            {
-                if ($username_exists == false)
-                {
-                    if ($tos == true)
-                    {
+                    (!$email_exists)) {
+                if ($username_exists == false) {
+                    if ($tos == true) {
                         $all_ok = true;
                     }
                 }
             }
 
-            if ($all_ok)
-            {
+            if ($all_ok) {
                 //send email
-
                 //generate random password
                 $activationcode = mb_strtoupper(mb_substr(md5(uniqid('')), 0, 13));
 
@@ -141,56 +128,50 @@ if ($error == false) {
                 $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
 
                 $uuid = create_uuid();
-                if(strtotime("2008-11-01 00:00:00") <= strtotime(date("Y-m-d h:i:s")))
+                if (strtotime("2008-11-01 00:00:00") <= strtotime(date("Y-m-d h:i:s")))
                     $rules_conf_req = 1;
-                else $rules_conf_req = 0;
+                else
+                    $rules_conf_req = 0;
                 //insert the user
                 sql("INSERT INTO `user` ( `user_id`, `username`, `password`, `email`, `latitude`,
                                           `longitude`, `last_modified`, `login_faults`, `login_id`, `is_active_flag`,
                                           `was_loggedin`, `country`, `date_created`,
                                           `uuid`, `activation_code`, `node`, `rules_confirmed`
-                                        ) VALUES ('', '&1', '&2', '&3', NULL, NULL, NOW(), '0', '0', '0', '0', '&4', NOW(), '&5', '&6', '&7', &8)",
-                                        $username,
-                                        hash('sha512', md5($password)), // WRTODO - could be better
-                                        $email,
-                                        $country,
-                                        $uuid,
-                                        $activationcode,
-                                        $oc_nodeid,
-                                        $rules_conf_req);
+                                        ) VALUES ('', '&1', '&2', '&3', NULL, NULL, NOW(), '0', '0', '0', '0', '&4', NOW(), '&5', '&6', '&7', &8)", $username, hash('sha512', md5($password)), // WRTODO - could be better
+                        $email, $country, $uuid, $activationcode, $oc_nodeid, $rules_conf_req);
 
-              mb_send_mail($email, $register_email_subject, $email_content, $emailheaders);
+                mb_send_mail($email, $register_email_subject, $email_content, $emailheaders);
 
-              //display confirmationpage
-              $tplname = 'register_confirm';
-              tpl_set_var('country', htmlspecialchars($country_name, ENT_COMPAT, 'UTF-8'));
+                //display confirmationpage
+                $tplname = 'register_confirm';
+                tpl_set_var('country', htmlspecialchars($country_name, ENT_COMPAT, 'UTF-8'));
             }
-            else
-            {
+            else {
                 //set error strings
-                if ($email_not_ok)  tpl_set_var('email_message', $error_email_not_ok);
-                if ($username_not_ok)   tpl_set_var('username_message', $error_username_not_ok);
-                if ($email_exists)  tpl_set_var('email_message', $error_email_exists);
-                if ($username_exists)   tpl_set_var('username_message', $error_username_exists);
+                if ($email_not_ok)
+                    tpl_set_var('email_message', $error_email_not_ok);
+                if ($username_not_ok)
+                    tpl_set_var('username_message', $error_username_not_ok);
+                if ($email_exists)
+                    tpl_set_var('email_message', $error_email_exists);
+                if ($username_exists)
+                    tpl_set_var('username_message', $error_username_exists);
 
                 if ($password_not_ok)
                     tpl_set_var('password_message', $error_password_not_ok);
                 else
-                    if ($password_diffs)
-                        tpl_set_var('password_message', $error_password_diffs);
+                if ($password_diffs)
+                    tpl_set_var('password_message', $error_password_diffs);
 
-                if ($tos == false) tpl_set_var('tos_message', $error_tos);
-
+                if ($tos == false)
+                    tpl_set_var('tos_message', $error_tos);
             }
         }
-        else if (isset($_POST['show_all_countries_submit']))
-        {
+        else if (isset($_POST['show_all_countries_submit'])) {
             //display all countries
             $display_all_countries = 1;
         }
-    }
-    else
-    {
+    } else {
         //set to defaults
         $display_all_countries = 0;
         $username = '';
@@ -199,29 +180,26 @@ if ($error == false) {
         $tos = false;
     }
 
-  tpl_set_var('email', htmlspecialchars($email, ENT_COMPAT, 'UTF-8'));
-  tpl_set_var('username', htmlspecialchars($username, ENT_COMPAT, 'UTF-8'));
+    tpl_set_var('email', htmlspecialchars($email, ENT_COMPAT, 'UTF-8'));
+    tpl_set_var('username', htmlspecialchars($username, ENT_COMPAT, 'UTF-8'));
 
-  //make countries list
+    //make countries list
 
-    if ($country == 'XX')
-    {
+    if ($country == 'XX') {
         $stmp = '<option value="XX" selected="selected">' . $no_answer . '</option>';
-    }
-    else
-    {
+    } else {
         $stmp = '<option value="XX">' . $no_answer . '</option>';
     }
 
     if ($display_all_countries == 0) {
-      tpl_set_var('all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $allcountries . '" />');
+        tpl_set_var('all_countries_submit', '<input type="submit" name="show_all_countries_submit" value="' . $allcountries . '" />');
     } else {
-      $query = 'SELECT `short` FROM `countries` WHERE 1 ORDER BY `short` ASC';
-      $db->simpleQuery($query);
-      $dbResult = $db->dbResultFetchAll();
-      foreach ($dbResult as $key => $value) {
-          $defaultCountryList[] = $value['short'];
-      }
+        $query = 'SELECT `short` FROM `countries` WHERE 1 ORDER BY `short` ASC';
+        $db->simpleQuery($query);
+        $dbResult = $db->dbResultFetchAll();
+        foreach ($dbResult as $key => $value) {
+            $defaultCountryList[] = $value['short'];
+        }
     }
     foreach ($defaultCountryList as $countryCode) {
         if ($country == $countryCode) {
@@ -231,10 +209,10 @@ if ($error == false) {
         }
     }
 
-  tpl_set_var('countries_list', $stmp);
-  unset($stmp);
+    tpl_set_var('countries_list', $stmp);
+    unset($stmp);
 
-  tpl_set_var('show_all_countries', $display_all_countries);
+    tpl_set_var('show_all_countries', $display_all_countries);
 }
 
 //make the template and send it out

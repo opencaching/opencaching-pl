@@ -8,10 +8,10 @@
 
     {if $error eq '1'}
         <center><span class="error">{$no_wp}</span></center><br/>
-    {/if}
-    {if $error eq '2'}
+        {/if}
+        {if $error eq '2'}
         <center><span class="error">{$too_short_find}</span></center><br/>
-    {/if}
+        {/if}
 
     <form action=".{$action}" method="get" name="form1">
         {$name}<br/>

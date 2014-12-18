@@ -1,16 +1,17 @@
 <?php
-/***************************************************************************
+
+/* * *************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation; either version 2 of the License, or
  *   (at your option) any later version.
  *
- ***************************************************************************/
+ * ************************************************************************* */
 
-/****************************************************************************
- display all watches of this user
- ****************************************************************************/
+/* * **************************************************************************
+  display all watches of this user
+ * ************************************************************************** */
 
 //prepare the templates and include all neccessary
 require_once ('./lib/common.inc.php');
@@ -37,7 +38,7 @@ if ($error == false) {
 
         if (isset($_POST['back'])) {
             tpl_redirect('myroutes.php');
-            exit ;
+            exit;
         }
 
         if (isset($_POST['submitform'])) {
@@ -58,8 +59,7 @@ if ($error == false) {
             }
 
             tpl_redirect('myroutes.php');
-            exit ;
-
+            exit;
         } //end submit
     }
 }

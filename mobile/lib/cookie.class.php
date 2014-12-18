@@ -1,16 +1,18 @@
 <?php
-/***************************************************************************
+
+/* * *************************************************************************
  *  You can find the license in the docs directory
  *
  *  Unicode Reminder メモ
  *
  *  Cookie handling
- ***************************************************************************/
+ * ************************************************************************* */
 
 $cookie = new cookie();
 
 class cookie
 {
+
     var $changed = false;
     var $values = array();
 
@@ -18,26 +20,22 @@ class cookie
     {
         global $opt;
 
-        if (isset($_COOKIE[$opt['cookie']['name'] . 'data']))
-        {
+        if (isset($_COOKIE[$opt['cookie']['name'] . 'data'])) {
             //get the cookievars-array
             $decoded = base64_decode($_COOKIE[$opt['cookie']['name'] . 'data']);
 
-            if ($decoded !== false)
-            {
+            if ($decoded !== false) {
                 $this->values = @unserialize($decoded);
                 if (!is_array($this->values))
                     $this->values = array();
-            }
-            else
+            } else
                 $this->values = array();
         }
     }
 
     function set($name, $value)
     {
-        if (!isset($this->values[$name]) || $this->values[$name] != $value)
-        {
+        if (!isset($this->values[$name]) || $this->values[$name] != $value) {
             $this->values[$name] = $value;
             $this->changed = true;
         }
@@ -65,8 +63,7 @@ class cookie
 
     function un_set($name)
     {
-        if (isset($this->values[$name]))
-        {
+        if (isset($this->values[$name])) {
             unset($this->values[$name]);
             $this->changed = true;
         }
@@ -76,8 +73,7 @@ class cookie
     {
         global $opt;
 
-        if ($this->changed == true)
-        {
+        if ($this->changed == true) {
             if (count($this->values) == 0)
                 setcookie($opt['cookie']['name'] . 'data', false, time() + 31536000, $opt['cookie']['path'], $opt['cookie']['domain'], 0);
             else
@@ -90,5 +86,7 @@ class cookie
         print_r($this->values);
         exit;
     }
+
 }
+
 ?>

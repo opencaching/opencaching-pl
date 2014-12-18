@@ -12,12 +12,13 @@
  * This class does extend all internal compile plugins
  */
 // abstract class Smarty_Internal_CompileBase implements TagCompilerInterface
-class Smarty_Internal_CompileBase {
+class Smarty_Internal_CompileBase
+{
+
     public $required_attributes = array();
     public $optional_attributes = array();
     public $shorttag_order = array();
     public $option_flags = array('nocache');
-
 
     /**
      * This function checks if the attributes passed are valid
@@ -30,7 +31,7 @@ class Smarty_Internal_CompileBase {
      * @param array $attributes attributes applied to the tag
      * @return array of mapped attributes for further processing
      */
-    function _get_attributes ($attributes)
+    function _get_attributes($attributes)
     {
         $_indexed_attr = array();
         // loop over attributes
@@ -128,7 +129,7 @@ class Smarty_Internal_CompileBase {
             // get stacked info
             list($_open_tag, $_data) = array_pop($this->compiler->_tag_stack);
             // open tag must match with the expected ones
-            if (in_array($_open_tag, (array)$expected_tag)) {
+            if (in_array($_open_tag, (array) $expected_tag)) {
                 if (is_null($_data)) {
                     // return opening tag
                     return $_open_tag;
@@ -145,6 +146,7 @@ class Smarty_Internal_CompileBase {
         $this->compiler->trigger_template_error("unexpected closing tag", $this->compiler->lex->taglineno);
         return;
     }
+
 }
 
 ?>

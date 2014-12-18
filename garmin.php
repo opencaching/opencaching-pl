@@ -1,16 +1,15 @@
 <?php
-/***************************************************************************
+
+/* * *************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation; either version 2 of the License, or
  *   (at your option) any later version.
  *
- ***************************************************************************/
+ * ************************************************************************* */
 
-
-
-    //prepare the templates and include all neccessary
+//prepare the templates and include all neccessary
 function convert($str)
 {
     $str = mb_ereg_replace('ę', 'e', $str);
@@ -72,27 +71,25 @@ function convert($str)
     return $str;
 }
 
-    $tplname = 'garmin';
-    require_once('./lib/common.inc.php');
-    require($stylepath . '/garmin.inc.php');
+$tplname = 'garmin';
+require_once('./lib/common.inc.php');
+require($stylepath . '/garmin.inc.php');
 
 
-    $lat = isset($_REQUEST['lat']) ? $_REQUEST['lat'] : '';
-    $long = isset($_REQUEST['long']) ? $_REQUEST['long'] : '';
-    $wp = isset($_REQUEST['wp']) ? $_REQUEST['wp'] : '';
-    $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
+$lat = isset($_REQUEST['lat']) ? $_REQUEST['lat'] : '';
+$long = isset($_REQUEST['long']) ? $_REQUEST['long'] : '';
+$wp = isset($_REQUEST['wp']) ? $_REQUEST['wp'] : '';
+$name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
 
-    $str=convert($name);
+$str = convert($name);
 
-    tpl_set_var('lat', $lat);
-    tpl_set_var('long', $long);
-    tpl_set_var('wp_oc',$wp);
-    tpl_set_var('cachename',$str);
-
-
-
-    //make the template and send it out
-    tpl_BuildTemplate();
+tpl_set_var('lat', $lat);
+tpl_set_var('long', $long);
+tpl_set_var('wp_oc', $wp);
+tpl_set_var('cachename', $str);
 
 
+
+//make the template and send it out
+tpl_BuildTemplate();
 ?>

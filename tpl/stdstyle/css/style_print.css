@@ -4,9 +4,9 @@ body, html {
 
 .noprint, .navflag-container, .site-slogan-container, .nav1-container, .footer, .page-container-1-2, #logo, #bg1, #bg2, .header, .site-name, .nav2, .nav3, .notlogged-cacheview, #cachemenu, #viewcache-attributesend
 {
-  display: none;
-  width:0;
-  height:0;
+    display: none;
+    width:0;
+    height:0;
 }
 
 #overall {
@@ -27,21 +27,21 @@ div.frame {
 }
 
 .img-shadow {
-  float:left;
-  background: url(shadowAlpha.png) no-repeat bottom right !important;
-/*  background: url(shadow.gif) no-repeat bottom right;*/
-/*  background-color: red;*/
-  margin: 10px 0 0 10px !important;
-  margin: 10px 0 0 5px;
-  }
+    float:left;
+    background: url(shadowAlpha.png) no-repeat bottom right !important;
+    /*  background: url(shadow.gif) no-repeat bottom right;*/
+    /*  background-color: red;*/
+    margin: 10px 0 0 10px !important;
+    margin: 10px 0 0 5px;
+}
 
 .img-shadow img {
-  display: block;
-  position: relative;
-  background-color: #fff;
-  border: 1px solid #a9a9a9;
-  margin: -4px 4px 4px -4px;
-  padding: 2px;
+    display: block;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #a9a9a9;
+    margin: -4px 4px 4px -4px;
+    padding: 2px;
 }
 
 @media print {

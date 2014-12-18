@@ -1,8 +1,5 @@
 <?php
-
-  // Unicode Reminder メモ
-
-
+// Unicode Reminder メモ
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -13,7 +10,7 @@
         <meta http-equiv="refresh" content="3;url={url}" />
         <meta http-equiv="pragma" content="no-cache" />
         <style type="text/css">
-        <!--
+            <!--
             table, tr, td
             {
                 font:11px Tahoma;
@@ -41,7 +38,7 @@
                 font-weight:bold;
                 border:1 solid #C0C0C0;
             }
-        -->
+            -->
         </style>
     </head>
     <body bgcolor='#C2CFDF'>

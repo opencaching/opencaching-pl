@@ -1,20 +1,19 @@
 <?php
+/* * *************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ * ************************************************************************* */
 
-/***************************************************************************
-    *
-    *   This program is free software; you can redistribute it and/or modify
-    *   it under the terms of the GNU General Public License as published by
-    *   the Free Software Foundation; either version 2 of the License, or
-    *   (at your option) any later version.
-    *
-    ***************************************************************************/
+/* * **************************************************************************
 
-/****************************************************************************
-
-   Unicode Reminder ąść
+  Unicode Reminder ąść
 
 
- ****************************************************************************/
+ * ************************************************************************** */
 ?>
 
 <table class="content" border="0">
@@ -23,19 +22,19 @@
 </table>
 <br/>
 <div class="searchdiv" style="background-color: #FFF9E3;"><span style="font-weight:bold;font-size: 12.5px; line-height:1.7em; text-align: justify;">{{nc01}},<br/>
-{{nc02}}
-<li>{{nc03}},</li>
-<li>{{nc04}},</li>
-<li>{{nc05}},</li>
-<li>{{nc06}},</li>
-<li>{{nc07}},</li>
-<li>{{nc08}} <a class="links" href="/cacheguides.php">{{nc09}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>, {{nc10}},</li>
-<li>{{nc11}} <a class="links" href="{rules_url}">{{nc12}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>?.</li>
-</ul><span style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: justify;">{{nc13}} <a class="links" href="http://wiki.opencaching.pl/index.php/Zak%C5%82adanie_skrzynki">{{nc14}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> {{nc15}} <a class="links" href="http://wiki.opencaching.pl/index.php/Kodeks_geocachera">{{nc16}}<img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> {{nc17}}.
-<br/><br />{{nc18}}<br/>{{nc19}}</span>
+        {{nc02}}
+        <li>{{nc03}},</li>
+        <li>{{nc04}},</li>
+        <li>{{nc05}},</li>
+        <li>{{nc06}},</li>
+        <li>{{nc07}},</li>
+        <li>{{nc08}} <a class="links" href="/cacheguides.php">{{nc09}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>, {{nc10}},</li>
+        <li>{{nc11}} <a class="links" href="{rules_url}">{{nc12}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a>?.</li>
+        </ul><span style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: justify;">{{nc13}} <a class="links" href="http://wiki.opencaching.pl/index.php/Zak%C5%82adanie_skrzynki">{{nc14}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> {{nc15}} <a class="links" href="http://wiki.opencaching.pl/index.php/Kodeks_geocachera">{{nc16}}<img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> {{nc17}}.
+            <br/><br />{{nc18}}<br/>{{nc19}}</span>
 </div>
 <br/><br/>
 <form action="newcache.php" method="post" enctype="application/x-www-form-urlencoded" name="newcacheform" dir="ltr"><input type="hidden" name="newcache_info" value="0"/>
-<center><button type ="submit" style="font-size:13px;"><b>{{nc20}}</b></button>
-</center>
+    <center><button type ="submit" style="font-size:13px;"><b>{{nc20}}</b></button>
+    </center>
 </form>

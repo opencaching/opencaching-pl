@@ -1,50 +1,51 @@
 <?php
-/***************************************************************************
-                                                                ./voting.php
-                                                            -------------------
-        begin                : August 21 2004
-        copyright            : (C) 2004 The OpenCaching Group
-        forum contact at     : http://www.opencaching.com/phpBB2
 
-    ***************************************************************************/
+/* * *************************************************************************
+  ./voting.php
+  -------------------
+  begin                : August 21 2004
+  copyright            : (C) 2004 The OpenCaching Group
+  forum contact at     : http://www.opencaching.com/phpBB2
 
-/***************************************************************************
-    *
-    *   This program is free software; you can redistribute it and/or modify
-    *   it under the terms of the GNU General Public License as published by
-    *   the Free Software Foundation; either version 2 of the License, or
-    *   (at your option) any later version.
-    *
-    ***************************************************************************/
+ * ************************************************************************* */
 
-/****************************************************************************
+/* * *************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ * ************************************************************************* */
 
-   Unicode Reminder ăĄă˘
+/* * **************************************************************************
 
-     view the profile of an other user
+  Unicode Reminder ăĄă˘
 
- ****************************************************************************/
+  view the profile of an other user
+
+ * ************************************************************************** */
 
 
-    //prepare the templates and include all neccessary
-    require_once('./lib/common.inc.php');
+//prepare the templates and include all neccessary
+require_once('./lib/common.inc.php');
 
 // for admins' eyes only
 if( $usr['admin'] )
 {
-    //Preprocessing
-    if ($error == false)
-    {
-        $tplname = 'voting';
+//Preprocessing
+if ($error == false)
+{
+$tplname = 'voting';
 
-        $userid = intval(isset($_REQUEST['userid']) ? $_REQUEST['userid']+0 : 0);
-        if( $_GET['stat_ban'] == 1 && $usr['admin'] )
-        {
-            $sql = "UPDATE user SET stat_ban = 1 - stat_ban WHERE user_id = ".intval($userid);
-            mysql_query($sql);
-        }
+$userid = intval(isset($_REQUEST['userid']) ? $_REQUEST['userid']+0 : 0);
+if( $_GET['stat_ban'] == 1 && $usr['admin'] )
+{
+$sql = "UPDATE user SET stat_ban = 1 - stat_ban WHERE user_id = ".intval($userid);
+mysql_query($sql);
+}
 
-        $rs = sql("SELECT report
+$rs = sql("SELECT report
 
         if (mysql_num_rows($rs) == 0)
         {
@@ -69,15 +70,15 @@ if( $usr['admin'] )
                 tpl_set_var('opis_end', '-->');
             }
 
-            $sql = "SELECT COUNT(*) FROM caches WHERE user_id='$userid' AND status <> 5";
+            $sql = "SELECT COUNT(*) FROM caches WHERE user_id = '$userid' AND status <> 5";
             if( $odp = mysql_query($sql) )
                 $hidden_count = mysql_result($odp,0);
             else
                 $hidden_count = 0;
 
             $sql = "SELECT COUNT(*) founds_count
-                            FROM cache_logs
-                            WHERE user_id='$userid' AND type=1 AND deleted=0";
+FROM cache_logs
+WHERE user_id = '$userid' AND type = 1 AND deleted = 0";
 
             if( $odp = mysql_query($sql) )
                 $founds_count = mysql_result($odp,0);
@@ -85,8 +86,8 @@ if( $usr['admin'] )
                 $founds_count = 0;
 
             $sql = "SELECT COUNT(*) not_founds_count
-                            FROM cache_logs
-                            WHERE user_id='$userid' AND type=2 AND deleted=0";
+FROM cache_logs
+WHERE user_id = '$userid' AND type = 2 AND deleted = 0";
 
             if( $odp = mysql_query($sql) )
                 $not_founds_count = mysql_result($odp,0);
@@ -105,7 +106,7 @@ if( $usr['admin'] )
             tpl_set_var('hidden', $hidden_count);
             tpl_set_var('founds', $founds_count);
             tpl_set_var('not_founds', $not_founds_count);
-            tpl_set_var('recommended', sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id`='" . sql_escape($_REQUEST['userid']) . "'", 0));
+            tpl_set_var('recommended', sqlValue("SELECT COUNT(*) FROM `cache_rating` WHERE `user_id` = '" . sql_escape($_REQUEST['userid']) . "'", 0));
             tpl_set_var('maxrecommended', floor($founds_count * rating_percentage / 100));
 
             tpl_set_var('country', htmlspecialchars($record['country'], ENT_COMPAT, 'UTF-8'));
@@ -115,28 +116,28 @@ if( $usr['admin'] )
                 tpl_set_var('email', '(<a href="mailto:'.strip_tags($record['email']).'">'.strip_tags($record['email']).'</a>)');
 
                 if( !$record['stat_ban'] )
-                    tpl_set_var('stat_ban', '<tr><td align="left" class="header-small" colspan="2">[<a href="viewprofile.php?userid='.$userid.'&stat_ban=1"><font color="#ff0000">Zablokuj statystyki tego użytkownika</font></a>]</td></tr>');
-                else
-                    tpl_set_var('stat_ban', '<tr><td align="left" class="header-small" colspan="2">[<a href="viewprofile.php?userid='.$userid.'&stat_ban=1"><font color="#00ff00">Odblokuj statystyki tego użytkownika</font></a>]</td></tr>');
-            }
-            else
-            {
-                tpl_set_var('stat_ban', '');
-                tpl_set_var('email', '');
-            }
-            $options = '';
-            if ($record['pmr_flag'] == 1)
-            {
-                $options .= $using_pmr_message;
-            }
-
-            tpl_set_var('options', $options);
-            tpl_set_var('uuid', htmlspecialchars($record['uuid'], ENT_COMPAT, 'UTF-8'));
-        }
-    }
-
-    tpl_BuildTemplate();
+                    tpl_set_var('stat_ban', '<tr><td align="left" class="header-small" colspan="2">[<a href="viewprofile.php?userid = '.$userid.'&stat_ban = 1"><font color="#ff0000">Zablokuj statystyki tego użytkownika</font></a>]</td></tr>');
+else
+tpl_set_var('stat_ban', '<tr><td align="left" class="header-small" colspan="2">[<a href="viewprofile.php?userid='.$userid.'&stat_ban=1"><font color="#00ff00">Odblokuj statystyki tego użytkownika</font></a>]</td></tr>');
 }
 else
-    header('Location: index.php');
+{
+tpl_set_var('stat_ban', '');
+tpl_set_var('email', '');
+}
+$options = '';
+if ($record['pmr_flag'] == 1)
+{
+$options .= $using_pmr_message;
+}
+
+tpl_set_var('options', $options);
+tpl_set_var('uuid', htmlspecialchars($record['uuid'], ENT_COMPAT, 'UTF-8'));
+}
+}
+
+tpl_BuildTemplate();
+}
+else
+header('Location: index.php');
 ?>

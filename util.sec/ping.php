@@ -1,10 +1,10 @@
 <?php
 
-  $rootpath = '../';
-  require('../lib/common.inc.php');
+$rootpath = '../';
+require('../lib/common.inc.php');
 
-  $rs = mysql_query('SELECT NOW()', $dblink);
-  $r = mysql_fetch_array($rs);
+$rs = mysql_query('SELECT NOW()', $dblink);
+$r = mysql_fetch_array($rs);
 
-  echo $r[0];
+echo $r[0];
 ?>

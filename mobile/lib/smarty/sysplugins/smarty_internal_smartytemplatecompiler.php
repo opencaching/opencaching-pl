@@ -9,15 +9,17 @@
  * @subpackage Compiler
  * @author Uwe Tews
  */
-
 require_once("smarty_internal_parsetree.php");
 
 /**
  * Class SmartyTemplateCompiler
  */
-class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase {
+class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase
+{
+
     // array of vars which can be compiled in local scope
     public $local_var = array();
+
     /**
      * Initialize compiler
      */
@@ -39,15 +41,17 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
     protected function doCompile($_content)
     {
         /* here is where the compiling takes place. Smarty
-       tags in the templates are replaces with PHP code,
-       then written to compiled files. */
+          tags in the templates are replaces with PHP code,
+          then written to compiled files. */
         // init the lexer/parser to compile the template
         $this->lex = new $this->lexer_class($_content, $this);
         $this->parser = new $this->parser_class($this->lex, $this);
-        if (isset($this->smarty->_parserdebug)) $this->parser->PrintTrace();
+        if (isset($this->smarty->_parserdebug))
+            $this->parser->PrintTrace();
         // get tokens from lexer and parse them
         while ($this->lex->yylex() && !$this->abort_and_recompile) {
-            if (isset($this->smarty->_parserdebug)) echo "<pre>Line {$this->lex->line} Parsing  {$this->parser->yyTokenName[$this->lex->token]} Token " . htmlentities($this->lex->value) . "</pre>";
+            if (isset($this->smarty->_parserdebug))
+                echo "<pre>Line {$this->lex->line} Parsing  {$this->parser->yyTokenName[$this->lex->token]} Token " . htmlentities($this->lex->value) . "</pre>";
             $this->parser->doParse($this->lex->token, $this->lex->value);
         }
 
@@ -67,6 +71,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         // return str_replace(array("? >\n<?php","? ><?php"), array('',''), $this->parser->retvalue);
         return $this->parser->retvalue;
     }
+
 }
 
 ?>

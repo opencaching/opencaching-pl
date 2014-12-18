@@ -2,8 +2,7 @@
 
 function reason($reason)
 {
-    switch( $reason )
-    {
+    switch ($reason) {
         case 1:
             return tr('reportcache01');
         case 2:
@@ -17,52 +16,42 @@ function reason($reason)
 
 //prepare the templates and include all neccessary
 global $datetimeFormat, $site_name;
-if (!isset($rootpath)) $rootpath = '';
+if (!isset($rootpath))
+    $rootpath = '';
 require_once('./lib/common.inc.php');
-if($usr==true)
-{
+if ($usr == true) {
     //Preprocessing
-    if ($error == false)
-    {
+    if ($error == false) {
         $tplname = 'reportcache';
         tpl_set_var('noreason_error', '');
         tpl_set_var('notext_error', '');
-        $cacheid = isset($_REQUEST['cacheid']) ? $_REQUEST['cacheid']+0 : 0;
-        $sql = "SELECT name, wp_oc, user_id FROM caches WHERE cache_id='".sql_escape($cacheid)."'";
+        $cacheid = isset($_REQUEST['cacheid']) ? $_REQUEST['cacheid'] + 0 : 0;
+        $sql = "SELECT name, wp_oc, user_id FROM caches WHERE cache_id='" . sql_escape($cacheid) . "'";
         $query = mysql_query($sql);
 
-        if (mysql_num_rows($query) == 0)
-        {
+        if (mysql_num_rows($query) == 0) {
             $tplname = 'reportcache_nocache';
-        }
-        else
-        {
+        } else {
             $cache = @mysql_fetch_array($query) or die("DB error.");
             tpl_set_var('cachename', htmlspecialchars($cache['name'], ENT_COMPAT, 'UTF-8'));
             tpl_set_var('cacheid', $cacheid);
 
-            if( isset($_POST['ok']) )
-            {
-                if( $_POST['text'] == "" )
-                {
-                    tpl_set_var('notext_error','&nbsp;<b><font size="1" color="#ff0000">'. tr('reportcache05'). '.</font></b>');
+            if (isset($_POST['ok'])) {
+                if ($_POST['text'] == "") {
+                    tpl_set_var('notext_error', '&nbsp;<b><font size="1" color="#ff0000">' . tr('reportcache05') . '.</font></b>');
                     $tplname = 'reportcache_notext';
-                }
-                else if( $_POST['reason'] == 0)
-                    tpl_set_var('noreason_error', '&nbsp;<b><font size="1" color="#ff0000">'. tr('reportcache06'). '.</font></b>');
-                else
-                {
+                } else if ($_POST['reason'] == 0)
+                    tpl_set_var('noreason_error', '&nbsp;<b><font size="1" color="#ff0000">' . tr('reportcache06') . '.</font></b>');
+                else {
                     // formularz został wysłany
-
                     // pobierz adres email zglaszajacego
                     $query = sql("SELECT `email` FROM `user` WHERE `user_id`='&1'", $usr['userid']);
                     $cache_reporter = sql_fetch_array($query);
 
-                    if( $_POST['adresat'] == "rr")
-                    {
+                    if ($_POST['adresat'] == "rr") {
                         $tplname = 'reportcache_sent';
                         // zapisz zgłoszenie w bazie
-                        $sql = "INSERT INTO reports (user_id, cache_id, text, type) VALUES ('".sql_escape($usr['userid'])."', '".sql_escape($cacheid)."', '".strip_tags(sql_escape($_POST['text']))."', '".sql_escape(intval($_POST['reason']))."' )";
+                        $sql = "INSERT INTO reports (user_id, cache_id, text, type) VALUES ('" . sql_escape($usr['userid']) . "', '" . sql_escape($cacheid) . "', '" . strip_tags(sql_escape($_POST['text'])) . "', '" . sql_escape(intval($_POST['reason'])) . "' )";
                         @mysql_query($sql) or die("DB error");
 
                         // wysłanie powiadomień
@@ -89,21 +78,17 @@ if($usr==true)
                         // send email to RR
 
                         $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
-                        $emailheaders .= "From: ". $site_name." <".$cache_reporter['email'].">\r\n";
-                        $emailheaders .= "Reply-To: ". $site_name." <".$cache_reporter['email'].">";
+                        $emailheaders .= "From: " . $site_name . " <" . $cache_reporter['email'] . ">\r\n";
+                        $emailheaders .= "Reply-To: " . $site_name . " <" . $cache_reporter['email'] . ">";
 
-                        mb_send_mail($octeam_email, tr('reportcache07')." (".$cache['wp_oc'].")", $email_content, $emailheaders);
+                        mb_send_mail($octeam_email, tr('reportcache07') . " (" . $cache['wp_oc'] . ")", $email_content, $emailheaders);
                         // echo($octeam_email. tr('reportcache07'). $email_content. $emailheaders);
-                    }
-                    else
+                    } else
                         $tplname = 'reportcache_sent_owner';
                     //get email address of cache owner
-                    if( $_POST['adresat'] == "rr")
-                    {
+                    if ($_POST['adresat'] == "rr") {
                         $email_content = read_file($stylepath . '/email/newreport_cacheowner.email');
-                    }
-                    else
-                    {
+                    } else {
                         $email_content = read_file($stylepath . '/email/newreport_cacheowneronly.email');
                     }
 
@@ -129,8 +114,8 @@ if($usr==true)
 
                     //send email to cache owner
                     $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
-                    $emailheaders .= "From: ".$usr['username']." <".$usr['email'].">\r\n";
-                    $emailheaders .= "Reply-To: ".$usr['username']." <".$usr['email'].">";
+                    $emailheaders .= "From: " . $usr['username'] . " <" . $usr['email'] . ">\r\n";
+                    $emailheaders .= "Reply-To: " . $usr['username'] . " <" . $usr['email'] . ">";
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                     $email_content = mb_ereg_replace('{reportcache10}', tr('reportcache10'), $email_content);
                     $email_content = mb_ereg_replace('{reportcache11}', tr('reportcache11'), $email_content);
@@ -143,11 +128,11 @@ if($usr==true)
                     $email_content = mb_ereg_replace('{reportcache21}', tr('reportcache21'), $email_content);
                     $email_content = mb_ereg_replace('{octeamEmailsSignature}', $octeamEmailsSignature, $email_content);
 
-                    mb_send_mail($cache_owner['email'], tr('reportcache08')." ".$cache['wp_oc'], $email_content, $emailheaders);
+                    mb_send_mail($cache_owner['email'], tr('reportcache08') . " " . $cache['wp_oc'], $email_content, $emailheaders);
 
                     // send email to cache reporter
                     $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
-                    $emailheaders .= "From: ". $site_name." <$octeam_email>\r\n";
+                    $emailheaders .= "From: " . $site_name . " <$octeam_email>\r\n";
                     $email_content = read_file($stylepath . '/email/newreport_reporter.email');
                     $email_content = mb_ereg_replace('{server}', $absolute_server_URI, $email_content);
                     $email_content = mb_ereg_replace('{reportcache10}', tr('reportcache10'), $email_content);
@@ -165,7 +150,7 @@ if($usr==true)
                     $email_content = mb_ereg_replace('{reason}', reason($_POST['reason']), $email_content);
                     $email_content = mb_ereg_replace('{text}', strip_tags($_POST['text']), $email_content);
 
-                    mb_send_mail($cache_reporter['email'], tr('reportcache09')." ".$cache['wp_oc'], $email_content, $emailheaders);
+                    mb_send_mail($cache_reporter['email'], tr('reportcache09') . " " . $cache['wp_oc'], $email_content, $emailheaders);
 
                     //echo($cache_owner['email']. "[OC PL] Zgłoszono problem dotyczący Twojej skrzynki". $email_content. $emailheaders);
                 }

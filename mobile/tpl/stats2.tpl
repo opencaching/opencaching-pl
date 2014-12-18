@@ -38,7 +38,7 @@
         {/section}
     {/if}
 
-        {include file="./tpl/backbutton.inc.tpl"}
+    {include file="./tpl/backbutton.inc.tpl"}
 
 </div>
 

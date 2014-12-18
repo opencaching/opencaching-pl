@@ -1,13 +1,14 @@
 <?php
- /***************************************************************************
-                                                    ./util/notification/run_notify.php
-                                                            -------------------
-        begin                : August 25 2006
-        copyright            : (C) 2006 The OpenCaching Group
 
- ***************************************************************************/
+/* * *************************************************************************
+  ./util/notification/run_notify.php
+  -------------------
+  begin                : August 25 2006
+  copyright            : (C) 2006 The OpenCaching Group
 
-$rootpath = __dir__.'/../../';
+ * ************************************************************************* */
+
+$rootpath = __dir__ . '/../../';
 require_once($rootpath . 'lib/common.inc.php');
 require_once($rootpath . 'util.sec/notification/settings.inc.php');
 require_once($rootpath . 'lib/consts.inc.php');
@@ -41,51 +42,52 @@ $rsNotifyQuery = " SELECT  `notify_waiting`.`id`, `notify_waiting`.`cache_id`, `
             LIMIT 0,100
 ";
 
-/*init caches container*/
+/* init caches container */
 $cacheCntainer = cache::instance();
 $cacheTypes = $cacheCntainer->getCacheTypes();
 $cacheSizes = $cacheCntainer->getCacheSizes();
 $cacheTypeIcons = $cacheCntainer->getCacheTypeIcons();
 
 $id = 0;
-do{
+do {
     $db->multiVariableQuery($rsNotifyQuery, $id);
     $rsNotify = $db->dbResultFetchAll();
     foreach ($rsNotify as $rNotify) {
         $id = $rNotify['id'];
         /* send out everything that has to be sent */
-        if (process_new_cache($rNotify) == 0){
+        if (process_new_cache($rNotify) == 0) {
             $db->multiVariableQuery("DELETE FROM `notify_waiting` WHERE `id` =:1", $rNotify['id']);
         }
     }
-    if (count($rsNotify) > 0){
+    if (count($rsNotify) > 0) {
         sleep(5);
     } else {
         break;
     }
-} while(true);
+} while (true);
 
 // Release lock
 fclose($lock_file);
 
-function process_new_cache($notify) {
+function process_new_cache($notify)
+{
     global $mailfrom, $mailsubject, $debug, $debug_mailto, $rootpath, $octeamEmailsSignature, $absolute_server_URI, $site_name, $dateFormat, $cacheTypes, $cacheSizes, $cacheTypeIcons;
     $fehler = false;
 
-    switch($notify['type']){
+    switch ($notify['type']) {
         case notify_new_cache: // Type: new cache
             //$emailFilePath = 'util.sec/notification/notify_newcache.email';
             $emailFilePath = '/notifyNewcacheEmail.html';
             //$mailbody = read_file($rootpath.$emailFilePath);
-            $mailbody = file_get_contents(__DIR__.$emailFilePath);
+            $mailbody = file_get_contents(__DIR__ . $emailFilePath);
             break;
         default:
             $fehler = true;
             break;
     }
 
-    if(!$fehler) {
-        $thunderSection = ' (<img src="'.$absolute_server_URI.'tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="9" height="9" border="0" title="'.tr('viewlog_aktywnosc').' ['.$notify['found'].'+'. $notify['dnf'].'+'. $notify['hidden'].']"/>'. ($notify['hidden'] + $notify['found'] + $notify['dnf']) . ') ';
+    if (!$fehler) {
+        $thunderSection = ' (<img src="' . $absolute_server_URI . 'tpl/stdstyle/images/blue/thunder_ico.png" alt="user activity" width="9" height="9" border="0" title="' . tr('viewlog_aktywnosc') . ' [' . $notify['found'] . '+' . $notify['dnf'] . '+' . $notify['hidden'] . ']"/>' . ($notify['hidden'] + $notify['found'] + $notify['dnf']) . ') ';
         $mailbody = mb_ereg_replace('{username}', htmlspecialchars($notify['recpname'], ENT_COMPAT, 'UTF-8'), $mailbody);
         $mailbody = mb_ereg_replace('{date}', date($dateFormat, strtotime($notify['date_hidden'])), $mailbody);
         $mailbody = mb_ereg_replace('{cacheid}', $notify['cache_id'], $mailbody);

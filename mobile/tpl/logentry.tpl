@@ -1,26 +1,26 @@
 {capture name=javascript}
     {literal}
-    <script type="text/javascript">
+        <script type="text/javascript">
 
-        window.onload = function (){
-            wid = document.getElementById("content").offsetWidth;
-            document.getElementById("tekst").cols=Math.round(wid*0.09);
-            $uchwyt = document.getElementById('rodzaj').value;
-            if( $uchwyt=='4' || $uchwyt=='3' || $uchwyt=='2')
-                hideextra();
-        }
+            window.onload = function () {
+                wid = document.getElementById("content").offsetWidth;
+                document.getElementById("tekst").cols = Math.round(wid * 0.09);
+                $uchwyt = document.getElementById('rodzaj').value;
+                if ($uchwyt == '4' || $uchwyt == '3' || $uchwyt == '2')
+                    hideextra();
+            }
 
-        function showextra(){
-            var uchwyt = document.getElementById("extra");
-            uchwyt.style.display = 'block';
-        }
+            function showextra() {
+                var uchwyt = document.getElementById("extra");
+                uchwyt.style.display = 'block';
+            }
 
-        function hideextra(){
-            var uchwyt = document.getElementById("extra");
-            uchwyt.style.display = 'none';
-        }
+            function hideextra() {
+                var uchwyt = document.getElementById("extra");
+                uchwyt.style.display = 'none';
+            }
 
-    </script>
+        </script>
     {/literal}
 {/capture}
 
@@ -34,23 +34,23 @@
 
     {if $error == '1'}
         <center><span class="error">{$no_wp}</span></center>
-    {else}
+        {else}
 
         <div id="formularz" class="big infotitle"><b><a href="./viewcache.php?wp={$wp_oc}">{$cache_name}</a></b></div>
         <hr/><br/>
 
         {if $error == '2'}
             <center><span class="error">{$wrong_dateformat}</span></center><br/>
-        {/if}
-        {if $error == '3'}
+            {/if}
+            {if $error == '3'}
             <center><span class="error">{$future_date}</span></center><br/>
-        {/if}
-        {if $error == '4'}
+            {/if}
+            {if $error == '4'}
             <center><span class="error">{$hack}</span></center><br/>
-        {/if}
-        {if $error == '5'}
+            {/if}
+            {if $error == '5'}
             <center><span class="error">{$wrong_pass}</span></center><br/>
-        {/if}
+            {/if}
 
         <form name="form1" action="#" method="POST">
 

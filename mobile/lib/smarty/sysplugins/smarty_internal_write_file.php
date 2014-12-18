@@ -11,7 +11,9 @@
 /**
  * Smarty Internal Write File Class
  */
-class Smarty_Internal_Write_File {
+class Smarty_Internal_Write_File
+{
+
     /**
      * Writes file in a save way to disk
      *
@@ -33,10 +35,10 @@ class Smarty_Internal_Write_File {
         if (!($fd = @fopen($_tmp_file, 'wb'))) {
             $_tmp_file = $_dirpath . DS . uniqid('wrt');
             if (!($fd = @fopen($_tmp_file, 'wb'))) {
-            throw new SmartyException("unable to write file {$_tmp_file}");
-            return false;
+                throw new SmartyException("unable to write file {$_tmp_file}");
+                return false;
             }
-         }
+        }
 
         fwrite($fd, $_contents);
         fclose($fd);
@@ -51,6 +53,7 @@ class Smarty_Internal_Write_File {
         umask($old_umask);
         return true;
     }
+
 }
 
 ?>

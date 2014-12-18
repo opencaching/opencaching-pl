@@ -14,7 +14,9 @@
 /**
  * Main config file compiler class
  */
-class Smarty_Internal_Config_File_Compiler {
+class Smarty_Internal_Config_File_Compiler
+{
+
     /**
      * Initialize compiler
      */
@@ -37,8 +39,8 @@ class Smarty_Internal_Config_File_Compiler {
     public function compileSource($config)
     {
         /* here is where the compiling takes place. Smarty
-       tags in the templates are replaces with PHP code,
-       then written to compiled files. */
+          tags in the templates are replaces with PHP code,
+          then written to compiled files. */
         $this->config = $config;
         // get config file source
         $_content = $config->getConfigSource() . "\n";
@@ -49,16 +51,19 @@ class Smarty_Internal_Config_File_Compiler {
         // init the lexer/parser to compile the config file
         $lex = new Smarty_Internal_Configfilelexer($_content, $this->smarty);
         $parser = new Smarty_Internal_Configfileparser($lex, $this);
-        if (isset($this->smarty->_parserdebug)) $parser->PrintTrace();
+        if (isset($this->smarty->_parserdebug))
+            $parser->PrintTrace();
         // get tokens from lexer and parse them
         while ($lex->yylex()) {
-            if (isset($this->smarty->_parserdebug)) echo "<br>Parsing  {$parser->yyTokenName[$lex->token]} Token {$lex->value} Line {$lex->line} \n";
+            if (isset($this->smarty->_parserdebug))
+                echo "<br>Parsing  {$parser->yyTokenName[$lex->token]} Token {$lex->value} Line {$lex->line} \n";
             $parser->doParse($lex->token, $lex->value);
         }
         // finish parsing process
         $parser->doParse(0, 0);
         $config->compiled_config = '<?php $_config_vars = ' . var_export($this->config_data, true) . '; ?>';
     }
+
     /**
      * display compiler error messages without dying
      *
@@ -80,7 +85,7 @@ class Smarty_Internal_Config_File_Compiler {
             // $line--;
         }
         $match = preg_split("/\n/", $this->lex->data);
-        $error_text = "Syntax error in config file '{$this->config->getConfigFilepath()}' on line {$line} '{$match[$line-1]}' ";
+        $error_text = "Syntax error in config file '{$this->config->getConfigFilepath()}' on line {$line} '{$match[$line - 1]}' ";
         if (isset($args)) {
             // individual error message
             $error_text .= $args;
@@ -101,6 +106,7 @@ class Smarty_Internal_Config_File_Compiler {
         }
         throw new SmartyCompilerException($error_text);
     }
+
 }
 
 ?>

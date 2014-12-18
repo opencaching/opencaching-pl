@@ -13,11 +13,14 @@
 /**
  * Smarty Internal Plugin Resource String
  */
-class Smarty_Internal_Resource_String {
+class Smarty_Internal_Resource_String
+{
+
     public function __construct($smarty)
     {
         $this->smarty = $smarty;
     }
+
     // classes used for compiling Smarty templates from file resource
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
     public $template_lexer_class = 'Smarty_Internal_Templatelexer';
@@ -78,7 +81,6 @@ class Smarty_Internal_Resource_String {
         return 0;
     }
 
-
     /**
      * Retuen template source from resource name
      *
@@ -109,9 +111,9 @@ class Smarty_Internal_Resource_String {
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
-             . substr($_filepath, 2, 2) . DS
-             . substr($_filepath, 4, 2) . DS
-             . $_filepath;
+                    . substr($_filepath, 2, 2) . DS
+                    . substr($_filepath, 4, 2) . DS
+                    . $_filepath;
         }
         $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
         if (isset($_compile_id)) {
@@ -128,6 +130,7 @@ class Smarty_Internal_Resource_String {
         }
         return $_compile_dir . $_filepath . '.' . $_template->resource_type . $_cache . '.php';
     }
+
 }
 
 ?>

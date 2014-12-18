@@ -1,4 +1,5 @@
 <?php
+
 /*
  * @package AJAX_Chat
  * @author Sebastian Tschan
@@ -7,9 +8,11 @@
  * @link https://blueimp.net/ajax/
  */
 
-class CustomAJAXChatInterface extends CustomAJAXChat {
+class CustomAJAXChatInterface extends CustomAJAXChat
+{
 
-    function initialize() {
+    function initialize()
+    {
         // Initialize configuration settings:
         $this->initConfig();
 
@@ -18,4 +21,5 @@ class CustomAJAXChatInterface extends CustomAJAXChat {
     }
 
 }
+
 ?>

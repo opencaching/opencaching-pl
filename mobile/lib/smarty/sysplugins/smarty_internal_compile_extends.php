@@ -13,7 +13,9 @@
 /**
  * Smarty Internal Plugin Compile extend Class
  */
-class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
+{
+
     // attribute definitions
     public $required_attributes = array('file');
     public $shorttag_order = array('file');
@@ -40,23 +42,23 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
 
         $_smarty_tpl = $compiler->template;
         $include_file = null;
-        if (strpos($_attr['file'],'$_tmp') !== false || strpos($_attr['file'],'$_smarty_tpl') !== false || strpos($_attr['file'],'::') !== false) {
+        if (strpos($_attr['file'], '$_tmp') !== false || strpos($_attr['file'], '$_smarty_tpl') !== false || strpos($_attr['file'], '::') !== false) {
             $this->compiler->trigger_template_error('a variable file attribute is illegal', $this->compiler->lex->taglineno);
         }
         eval('$include_file = ' . $_attr['file'] . ';');
         // create template object
         $_template = new $compiler->smarty->template_class($include_file, $this->smarty, $compiler->template);
         // save file dependency
-        if (in_array($_template->resource_type,array('eval','string'))) {
+        if (in_array($_template->resource_type, array('eval', 'string'))) {
             $template_sha1 = sha1($include_file);
         } else {
             $template_sha1 = sha1($_template->getTemplateFilepath());
         }
         if (isset($compiler->template->properties['file_dependency'][$template_sha1])) {
-            $this->compiler->trigger_template_error("illegal recursive call of \"{$include_file}\"",$compiler->lex->line-1);
+            $this->compiler->trigger_template_error("illegal recursive call of \"{$include_file}\"", $compiler->lex->line - 1);
         }
-        $compiler->template->properties['file_dependency'][$template_sha1] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp(),$_template->resource_type);
-        $_content = substr($compiler->template->template_source,$compiler->lex->counter-1);
+        $compiler->template->properties['file_dependency'][$template_sha1] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp(), $_template->resource_type);
+        $_content = substr($compiler->template->template_source, $compiler->lex->counter - 1);
         if (preg_match_all("!({$this->_ldl}block\s(.+?){$this->_rdl})!", $_content, $s) !=
                 preg_match_all("!({$this->_ldl}/block{$this->_rdl})!", $_content, $c)) {
             $this->compiler->trigger_template_error('unmatched {block} {/block} pairs');
@@ -75,8 +77,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
                     $_level--;
                 }
             }
-            $_block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
-                substr($_content, $_result[0][$_start][1] + strlen($_result[0][$_start][0]), $_result[0][$_start + $_end][1] - $_result[0][$_start][1] - + strlen($_result[0][$_start][0])));
+            $_block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%', substr($_content, $_result[0][$_start][1] + strlen($_result[0][$_start][0]), $_result[0][$_start + $_end][1] - $_result[0][$_start][1] - + strlen($_result[0][$_start][0])));
             Smarty_Internal_Compile_Block::saveBlockData($_block_content, $_result[0][$_start][0], $compiler->template, $filepath);
             $_start = $_start + $_end + 1;
         }
@@ -87,4 +88,5 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
     }
 
 }
+
 ?>

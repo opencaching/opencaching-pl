@@ -499,7 +499,7 @@ tooltip {
     border: 1px solid #7ba2d2;
     background: #e4f5fa;
     color: #000;
-u
+    u
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
@@ -706,7 +706,7 @@ a.info:hover span{ /*the span will display just on :hover state*/
     text-align: left; font-size: 11px;
 }
 /* links without decorations */
- a.links3:link {
+a.links3:link {
     text-decoration:none;
 }
 a.links3:visited {
@@ -764,13 +764,13 @@ a.links4:hover {
     background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
 }
 table.border {    background: url(/images/bg_blue.png) repeat-x;
-    color: #333;
-    padding: 2px;
-    width: 95%;
-    border-bottom: 1px solid #CCCCCC;
-    border-top: 1px solid #CCCCCC;
-    border-left: 1px solid #CCCCCC;
-    border-right: 1px solid #CCCCCC;
+                  color: #333;
+                  padding: 2px;
+                  width: 95%;
+                  border-bottom: 1px solid #CCCCCC;
+                  border-top: 1px solid #CCCCCC;
+                  border-left: 1px solid #CCCCCC;
+                  border-right: 1px solid #CCCCCC;
 }
 .img_cache {
     border:solid 1px silver; padding:5px;
@@ -802,7 +802,7 @@ div.isarchived {
     width: 735px;
     margin: 0px 0px 10px 0px;
     padding: 15px;
-     border: solid 2px red;
+    border: solid 2px red;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }

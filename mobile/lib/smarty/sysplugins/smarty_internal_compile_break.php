@@ -9,14 +9,16 @@
  * @subpackage Compiler
  * @author Uwe Tews
  */
+
 /**
  * Smarty Internal Plugin Compile Break Class
  */
-class Smarty_Internal_Compile_Break extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Break extends Smarty_Internal_CompileBase
+{
+
     // attribute definitions
     public $optional_attributes = array('levels');
     public $shorttag_order = array('levels');
-
 
     /**
      * Compiles code for the {break} tag
@@ -60,6 +62,7 @@ class Smarty_Internal_Compile_Break extends Smarty_Internal_CompileBase {
         $this->compiler->has_code = true;
         return "<?php break {$_levels}?>";
     }
+
 }
 
 ?>

@@ -4,17 +4,17 @@
 </table>
 
 <script type="text/javascript">
-TimeTrack( "START" );
+    TimeTrack("START");
 </script>
 
 <?php
 global $debug_page;
-if ( $debug_page )
+if ($debug_page)
     echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";
 ?>
 
-<?php include ("top.php");?>
+<?php include ("top.php"); ?>
 
 <script type="text/javascript">
-TimeTrack( "END", "S5" );
+    TimeTrack("END", "S5");
 </script>

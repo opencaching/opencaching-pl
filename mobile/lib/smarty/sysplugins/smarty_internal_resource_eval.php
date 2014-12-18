@@ -13,11 +13,14 @@
 /**
  * Smarty Internal Plugin Resource Eval
  */
-class Smarty_Internal_Resource_Eval {
+class Smarty_Internal_Resource_Eval
+{
+
     public function __construct($smarty)
     {
         $this->smarty = $smarty;
     }
+
     // classes used for compiling Smarty templates from file resource
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
     public $template_lexer_class = 'Smarty_Internal_Templatelexer';
@@ -85,5 +88,7 @@ class Smarty_Internal_Resource_Eval {
         // no filepath for strings
         return false;
     }
+
 }
+
 ?>

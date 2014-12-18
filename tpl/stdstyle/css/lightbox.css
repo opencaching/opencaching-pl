@@ -5,7 +5,7 @@
     z-index: 100;
     text-align: center;
     line-height: 0;
-    }
+}
 
 #lightbox a img{ border: none; }
 
@@ -15,11 +15,11 @@
     width: 250px;
     height: 250px;
     margin: 0 auto;
-    }
+}
 
 #imageContainer{
     padding: 10px;
-    }
+}
 
 #loading{
     position: absolute;
@@ -29,7 +29,7 @@
     width: 100%;
     text-align: center;
     line-height: 0;
-    }
+}
 #hoverNav{
     position: absolute;
     top: 0;
@@ -37,7 +37,7 @@
     height: 100%;
     width: 100%;
     z-index: 10;
-    }
+}
 #imageContainer>#hoverNav{ left: 0;}
 #hoverNav a{ outline: none;}
 
@@ -46,7 +46,7 @@
     height: 100%;
     background: transparent url(../images/lightbox/blank.gif) no-repeat; /* Trick IE into showing hover */
     display: block;
-    }
+}
 #prevLink { left: 0; float: left;}
 #nextLink { right: 0; float: right;}
 #prevLink:hover, #prevLink:visited:hover { background: url(../images/lightbox/prevlabel.gif) left 15% no-repeat; }
@@ -60,7 +60,7 @@
     line-height: 1.4em;
     overflow: auto;
     width: 100%
-    }
+}
 
 #imageData{ padding:0 10px; color: #666; }
 #imageData #imageDetails{ width: 70%; float: left; text-align: left; }
@@ -76,4 +76,4 @@
     width: 100%;
     height: 500px;
     background-color: #000;
-    }
+}

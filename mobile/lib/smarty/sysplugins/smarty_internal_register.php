@@ -12,12 +12,14 @@
 /**
  * Class for register/unregister methods
  */
-class Smarty_Internal_Register {
+class Smarty_Internal_Register
+{
 
     function __construct($smarty)
     {
         $this->smarty = $smarty;
     }
+
     /**
      * Registers plugin to be used in templates
      *
@@ -27,7 +29,6 @@ class Smarty_Internal_Register {
      * @param boolean $cacheable if true (default) this fuction is cachable
      * @param array $cache_attr caching attributes if any
      */
-
     public function registerPlugin($type, $tag, $callback, $cacheable = true, $cache_attr = null)
     {
         if (isset($this->smarty->registered_plugins[$type][$tag])) {
@@ -68,13 +69,12 @@ class Smarty_Internal_Register {
      *
      * @param string $type name of resource type
      */
-   function unregisterResource($type)
+    function unregisterResource($type)
     {
         if (isset($this->smarty->registered_resources[$type])) {
             unset($this->smarty->registered_resources[$type]);
         }
     }
-
 
     /**
      * Registers object to be used in templates
@@ -89,7 +89,7 @@ class Smarty_Internal_Register {
     {
         // test if allowed methodes callable
         if (!empty($allowed)) {
-            foreach ((array)$allowed as $method) {
+            foreach ((array) $allowed as $method) {
                 if (!is_callable(array($object_impl, $method))) {
                     throw new SmartyException("Undefined method '$method' in registered object");
                 }
@@ -97,15 +97,14 @@ class Smarty_Internal_Register {
         }
         // test if block methodes callable
         if (!empty($block_methods)) {
-            foreach ((array)$block_methods as $method) {
+            foreach ((array) $block_methods as $method) {
                 if (!is_callable(array($object_impl, $method))) {
                     throw new SmartyException("Undefined method '$method' in registered object");
                 }
             }
         }
         // register the object
-        $this->smarty->registered_objects[$object_name] =
-        array($object_impl, (array)$allowed, (boolean)$smarty_args, (array)$block_methods);
+        $this->smarty->registered_objects[$object_name] = array($object_impl, (array) $allowed, (boolean) $smarty_args, (array) $block_methods);
     }
 
     /**
@@ -153,4 +152,5 @@ class Smarty_Internal_Register {
     }
 
 }
+
 ?>

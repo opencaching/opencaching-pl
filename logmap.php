@@ -1,4 +1,5 @@
 <?php
+
 global $dateFormat;
 require_once ('./lib/common.inc.php');
 db_disconnect();
@@ -18,7 +19,8 @@ if ($error == false) {
         $cacheLogsCount = $db->rowCount();
 
         $log_ids = '';
-        if ($cacheLogsCount == 0) $log_ids = '0';
+        if ($cacheLogsCount == 0)
+            $log_ids = '0';
 
         for ($i = 0; $i < $cacheLogsCount; $i++) {
             $record = $db->dbResultFetch();
@@ -59,7 +61,7 @@ if ($error == false) {
             $point .= "addMarker(" . $x . "," . $y . ",icon" . $record['log_type'] . ",'" . $record['cache_icon_small'] . "','" . $record['wp'] . "','" . $cache_name . "','" . $record['id'] . "','" . $record['icon_small'] . "','" . $record['luser_id'] . "','" . $username . "','" . $log_date . "');\n";
         }
 
-        /*SET YOUR MAP CODE HERE*/
+        /* SET YOUR MAP CODE HERE */
         tpl_set_var('cachemap_header', '<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language=' . $lang . '" type="text/javascript"></script>');
         tpl_set_var('points', $point);
         tpl_set_var('mapzoom', 6);
@@ -68,5 +70,4 @@ if ($error == false) {
     }
 }
 tpl_BuildTemplate();
-
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -47,7 +48,7 @@ function smarty_function_html_image($params, $template)
     $path_prefix = '';
     $server_vars = $_SERVER;
     $basedir = isset($server_vars['DOCUMENT_ROOT']) ? $server_vars['DOCUMENT_ROOT'] : '';
-    foreach($params as $_key => $_val) {
+    foreach ($params as $_key => $_val) {
         switch ($_key) {
             case 'file':
             case 'height':
@@ -62,7 +63,7 @@ function smarty_function_html_image($params, $template)
                 if (!is_array($_val)) {
                     $$_key = smarty_function_escape_special_chars($_val);
                 } else {
-                    throw new SmartyException ("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    throw new SmartyException("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
 
@@ -76,7 +77,7 @@ function smarty_function_html_image($params, $template)
                 if (!is_array($_val)) {
                     $extra .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_val) . '"';
                 } else {
-                    throw new SmartyException ("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    throw new SmartyException("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }

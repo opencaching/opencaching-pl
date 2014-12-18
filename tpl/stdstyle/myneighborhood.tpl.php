@@ -1,17 +1,17 @@
 <?php
-/***************************************************************************
-*
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-*
-*  UTF-8 ąść
-***************************************************************************/
+/* * *************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ *  UTF-8 ąść
+ * ************************************************************************* */
 ?>
 <script type="text/javascript" src="lib/js/wz_tooltip.js"></script>
 <script language="javascript" type="text/javascript">
-   <!-- hide script from old browsers
+    <!-- hide script from old browsers
     var map_image_cache;
 
     //detect browser:
@@ -27,7 +27,7 @@
         }
     }
 
-    window.onload = function() {
+    window.onload = function () {
         //preload images
         if (rollOvers) {
             map_image_cache = [];
@@ -121,8 +121,8 @@
 <!-- Chat disabled because of server performance issues
 <br/>
 <h2><a class="links" href=/chat/>Shoutbox</a></h2>
-    <?php
+<?php
 // echo getShoutBoxContent();
-    ?>
+?>
     <br/>
-    -->
+-->

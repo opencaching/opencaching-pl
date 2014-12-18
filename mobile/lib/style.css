@@ -1,144 +1,144 @@
 body {
-font-family:Verdana;
+    font-family:Verdana;
 }
 
 body input{
-font-size:16px;
+    font-size:16px;
 }
 
 body select{
-font-size:16px;
-text-align:center;
+    font-size:16px;
+    text-align:center;
 }
 
 img{
-border-style: none;
+    border-style: none;
 }
 
 body a, body a:link,body a:visited,body a:hover{
-text-decoration:none;
-color: black;
+    text-decoration:none;
+    color: black;
 }
 
 .button a, .button a:link,.button a:visited,.button a:hover{
-display: block;
-padding:5px 8px;
+    display: block;
+    padding:5px 8px;
 }
 
 .headertitle hr{
-margin: 4px 0;
+    margin: 4px 0;
 }
 
 .data{
-width: 25px;
-text-align:center;
+    width: 25px;
+    text-align:center;
 }
 
 .dataY{
-width: 45px;
-text-align:center;
+    width: 45px;
+    text-align:center;
 }
 
 .cords{
-width: 55px;
+    width: 55px;
 }
 
 .headertitle img {
-vertical-align: middle;
+    vertical-align: middle;
 }
 
 #login_nav{
-margin: 5px 0 10px 0;
-font-size:12px;
+    margin: 5px 0 10px 0;
+    font-size:12px;
 }
 
 .login{
-font-weight: bold;
+    font-weight: bold;
 }
 
 .blue, .login{
-color: darkblue;
+    color: darkblue;
 }
 
 .error{
-color:red;
-font-weight:bold;
+    color:red;
+    font-weight:bold;
 }
 
 #pagetitle{
-margin: 0 5px 8px 5px;
-padding: 2px 20px;
-border-bottom: 1px solid;
+    margin: 0 5px 8px 5px;
+    padding: 2px 20px;
+    border-bottom: 1px solid;
 }
 
 #description{
-border-radius:10px;
-text-align:justify;
-background: #ddd;
-padding: 8px
+    border-radius:10px;
+    text-align:justify;
+    background: #ddd;
+    padding: 8px
 }
 
 #content {
-text-align:center;
-border-radius:10px;
-padding: 10px;
-background:#eee;
+    text-align:center;
+    border-radius:10px;
+    padding: 10px;
+    background:#eee;
 }
 
 .button{
-margin: 5px auto;
-border-radius:10px;
-box-shadow:2px 2px 3px #333;
-border:1px solid #888;
-background:#ADD8E6;
-text-align:center;
+    margin: 5px auto;
+    border-radius:10px;
+    box-shadow:2px 2px 3px #333;
+    border:1px solid #888;
+    background:#ADD8E6;
+    text-align:center;
 }
 
 .menu{
-width: 85%;
-margin: 0 auto;
+    width: 85%;
+    margin: 0 auto;
 }
 
 #footer{
-font-size:12px;
-border-radius:0 0 10px 10px;
-padding: 4px 0;
-background:#ddd;
-margin: 8px 0;
-border-bottom: 1px solid #888;
+    font-size:12px;
+    border-radius:0 0 10px 10px;
+    padding: 4px 0;
+    background:#ddd;
+    margin: 8px 0;
+    border-bottom: 1px solid #888;
 }
 
 .tablefooter{
-margin: 0 auto 5px auto;
-border-spacing: 5px ;
+    margin: 0 auto 5px auto;
+    border-spacing: 5px ;
 }
 
 .tableview{
-border-collapse: collapse;
-margin: auto;
+    border-collapse: collapse;
+    margin: auto;
 }
 
 .tableview td{
-padding: 2px;
-border: 1px solid;
+    padding: 2px;
+    border: 1px solid;
 }
 
 .headertitle {
-padding: 8px 0 0 0;
-border-top: 1px solid #888;
-border-radius:10px 10px 0 0;
-font-size:20px;
-background:url(../images/background.gif) repeat-x;
+    padding: 8px 0 0 0;
+    border-top: 1px solid #888;
+    border-radius:10px 10px 0 0;
+    font-size:20px;
+    background:url(../images/background.gif) repeat-x;
 }
 
 .footertitle{
-color: #444;
-padding: 0 0 2px 0;
+    color: #444;
+    padding: 0 0 2px 0;
 }
 
 .footertitle, .headertitle{
-text-shadow:2px 2px 3px #aaa;
-font-weight:700;
-color: #444;
-text-align:center;
+    text-shadow:2px 2px 3px #aaa;
+    font-weight:700;
+    color: #444;
+    text-align:center;
 }

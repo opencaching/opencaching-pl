@@ -30,39 +30,39 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="{lib_cachemap3_js}" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
-initial_params = {
-    start: {
-        cachemap_mapper: "{cachemap_mapper}",
-        userid: {userid},
-        coords: [{coords}],
-        zoom: {zoom},
-        map_type: {map_type},
-        circle: 0, //{circle},
-        doopen: {doopen},
-        //fromlat: {fromlat}, fromlon: {fromlon},
-        //tolat: {tolat}, tolon: {tolon},
-        searchdata: "{searchdata}",
-        boundsurl: "{boundsurl}",
-        extrauserid: "{extrauserid}",
-        moremaptypes: false,
-        fullscreen: true,
-        largemap: false,
-        savesettings: false
-    },
-    translation: {
-        score_label: "{{score_label}}",
-        recommendations: "{{search_recommendations}}",
-        recommendation: "{{recommendation}}",
-        attendends: "{{attendends}}",
-        will_attend: "{{will_attend}}",
-        found: "{{found}}",
-        not_found: "{{not_found}}",
-        size: "{{size}}",
-        created_by: "{{created_by}}",
-        scored: "{{scored}}"
-    }
-};
-window.onload = function() {
-    load([], null);
-};
+            initial_params = {
+            start: {
+            cachemap_mapper: "{cachemap_mapper}",
+                    userid: {userid},
+                    coords: [{coords}],
+                    zoom: {zoom},
+                    map_type: {map_type},
+                    circle: 0, //{circle},
+                    doopen: {doopen},
+                    //fromlat: {fromlat}, fromlon: {fromlon},
+                    //tolat: {tolat}, tolon: {tolon},
+                    searchdata: "{searchdata}",
+                    boundsurl: "{boundsurl}",
+                    extrauserid: "{extrauserid}",
+                    moremaptypes: false,
+                    fullscreen: true,
+                    largemap: false,
+                    savesettings: false
+            },
+                    translation: {
+                    score_label: "{{score_label}}",
+                            recommendations: "{{search_recommendations}}",
+                            recommendation: "{{recommendation}}",
+                            attendends: "{{attendends}}",
+                            will_attend: "{{will_attend}}",
+                            found: "{{found}}",
+                            not_found: "{{not_found}}",
+                            size: "{{size}}",
+                            created_by: "{{created_by}}",
+                            scored: "{{scored}}"
+                    }
+            };
+            window.onload = function() {
+            load([], null);
+            };
 </script>

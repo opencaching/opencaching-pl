@@ -1,4 +1,5 @@
 <?php
+
 /*
  * @package AJAX_Chat
  * @author Sebastian Tschan
@@ -8,10 +9,12 @@
  */
 
 // Class to provide methods for file system access:
-class AJAXChatFileSystem {
+class AJAXChatFileSystem
+{
 
-    function getFileContents($file) {
-        if(function_exists('file_get_contents')) {
+    function getFileContents($file)
+    {
+        if (function_exists('file_get_contents')) {
             return file_get_contents($file);
         } else {
             return(implode('', file($file)));
@@ -19,4 +22,5 @@ class AJAXChatFileSystem {
     }
 
 }
+
 ?>

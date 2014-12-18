@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  * @package Smarty
@@ -17,7 +18,6 @@
  * @param array $params parameters
  * @return string with compiled code
  */
-
 function smarty_modifiercompiler_indent($params, $compiler)
 {
     if (!isset($params[1])) {

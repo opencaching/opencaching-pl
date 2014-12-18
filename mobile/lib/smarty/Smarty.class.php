@@ -30,7 +30,6 @@
  * @package Smarty
  * @version 3.0.8
  */
-
 /**
  * define shorthand directory separator constant
  */
@@ -82,10 +81,12 @@ if (SMARTY_SPL_AUTOLOAD && set_include_path(get_include_path() . PATH_SEPARATOR 
 /**
  * This is the main Smarty class
  */
-class Smarty extends Smarty_Internal_Data {
+class Smarty extends Smarty_Internal_Data
+{
+
     /**
-    * constant definitions
-    */
+     * constant definitions
+     */
     // smarty version
     const SMARTY_VERSION = 'Smarty-3.0.8';
     //define variable scopes
@@ -97,7 +98,8 @@ class Smarty extends Smarty_Internal_Data {
     const CACHING_OFF = 0;
     const CACHING_LIFETIME_CURRENT = 1;
     const CACHING_LIFETIME_SAVED = 2;
-    /** modes for handling of "<?php ... ?>" tags in templates. **/
+
+    /** modes for handling of "<?php ... ?>" tags in templates. * */
     const PHP_PASSTHRU = 0; //-> print tags as plain text
     const PHP_QUOTE = 1; //-> escape tags as entities
     const PHP_REMOVE = 2; //-> escape tags as entities
@@ -114,14 +116,14 @@ class Smarty extends Smarty_Internal_Data {
     const PLUGIN_MODIFIER = 'modifier';
 
     /**
-    * static variables
-    */
+     * static variables
+     */
     // assigned global tpl vars
     static $global_tpl_vars = array();
 
     /**
-    * variables
-    */
+     * variables
+     */
     // auto literal on delimiters with whitspace
     public $auto_literal = true;
     // display error on not assigned variables
@@ -269,6 +271,7 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function __destruct()
     {
+
     }
 
     /**
@@ -291,8 +294,8 @@ class Smarty extends Smarty_Internal_Data {
             $parent = $this;
         }
         // create template object if necessary
-        ($template instanceof $this->template_class)? $_template = $template :
-        $_template = $this->createTemplate ($template, $cache_id, $compile_id, $parent, false);
+        ($template instanceof $this->template_class) ? $_template = $template :
+                        $_template = $this->createTemplate($template, $cache_id, $compile_id, $parent, false);
         if (isset($this->error_reporting)) {
             $_smarty_old_error_level = error_reporting($this->error_reporting);
         }
@@ -379,7 +382,7 @@ class Smarty extends Smarty_Internal_Data {
     public function display($template, $cache_id = null, $compile_id = null, $parent = null)
     {
         // display template
-        $this->fetch ($template, $cache_id, $compile_id, $parent, true);
+        $this->fetch($template, $cache_id, $compile_id, $parent, true);
     }
 
     /**
@@ -397,7 +400,7 @@ class Smarty extends Smarty_Internal_Data {
             $parent = $this;
         }
         if (!($template instanceof $this->template_class)) {
-            $template = $this->createTemplate ($template, $cache_id, $compile_id, $parent, false);
+            $template = $this->createTemplate($template, $cache_id, $compile_id, $parent, false);
         }
         // return cache status of template
         return $template->isCached();
@@ -439,7 +442,7 @@ class Smarty extends Smarty_Internal_Data {
         if (!is_object($template)) {
             // we got a template resource
             // already in template cache?
-            $_templateId =  sha1($template . $cache_id . $compile_id);
+            $_templateId = sha1($template . $cache_id . $compile_id);
             if (isset($this->template_objects[$_templateId]) && $this->caching) {
                 // return cached template object
                 $tpl = $this->template_objects[$_templateId];
@@ -464,8 +467,6 @@ class Smarty extends Smarty_Internal_Data {
         }
         return $tpl;
     }
-
-
 
     /**
      * Check if a template resource exists
@@ -509,31 +510,31 @@ class Smarty extends Smarty_Internal_Data {
     }
 
     /**
-    * Empty cache folder
-    *
-    * @param integer $exp_time expiration time
-    * @param string $type resource type
-    * @return integer number of cache files deleted
-    */
+     * Empty cache folder
+     *
+     * @param integer $exp_time expiration time
+     * @param string $type resource type
+     * @return integer number of cache files deleted
+     */
     function clearAllCache($exp_time = null, $type = null)
     {
-       // load cache resource and call clearAll
+        // load cache resource and call clearAll
         return $this->loadCacheResource($type)->clearAll($exp_time);
     }
 
     /**
-    * Empty cache for a specific template
-    *
-    * @param string $template_name template name
-    * @param string $cache_id cache id
-    * @param string $compile_id compile id
-    * @param integer $exp_time expiration time
-    * @param string $type resource type
-    * @return integer number of cache files deleted
-    */
+     * Empty cache for a specific template
+     *
+     * @param string $template_name template name
+     * @param string $cache_id cache id
+     * @param string $compile_id compile id
+     * @param integer $exp_time expiration time
+     * @param string $type resource type
+     * @return integer number of cache files deleted
+     */
     function clearCache($template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)
     {
-       // load cache resource and call clear
+        // load cache resource and call clear
         return $this->loadCacheResource($type)->clear($template_name, $cache_id, $compile_id, $exp_time);
     }
 
@@ -561,35 +562,33 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function disableSecurity()
     {
-       $this->security_policy = null;
+        $this->security_policy = null;
     }
 
     /**
-    * Loads cache resource.
-    *
-    * @param string $type cache resource type
-    * @return object of cache resource
-    */
-    public function loadCacheResource($type = null) {
+     * Loads cache resource.
+     *
+     * @param string $type cache resource type
+     * @return object of cache resource
+     */
+    public function loadCacheResource($type = null)
+    {
         if (!isset($type)) {
             $type = $this->caching_type;
         }
         if (in_array($type, $this->cache_resource_types)) {
             $cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($type);
             return new $cache_resource_class($this);
-        }
-        else {
+        } else {
             // try plugins dir
             $cache_resource_class = 'Smarty_CacheResource_' . ucfirst($type);
             if ($this->loadPlugin($cache_resource_class)) {
                 return new $cache_resource_class($this);
-            }
-            else {
+            } else {
                 throw new SmartyException("Unable to load cache resource '{$type}'");
             }
         }
     }
-
 
     /**
      * Set template directory
@@ -598,7 +597,7 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function setTemplateDir($template_dir)
     {
-        $this->template_dir = (array)$template_dir;
+        $this->template_dir = (array) $template_dir;
         return;
     }
 
@@ -609,7 +608,7 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function addTemplateDir($template_dir)
     {
-        $this->template_dir = array_unique(array_merge((array)$this->template_dir, (array)$template_dir));
+        $this->template_dir = array_unique(array_merge((array) $this->template_dir, (array) $template_dir));
         return;
     }
 
@@ -622,10 +621,9 @@ class Smarty extends Smarty_Internal_Data {
      */
     function addPluginsDir($plugins_dir)
     {
-        $this->plugins_dir = array_unique(array_merge((array)$this->plugins_dir, (array)$plugins_dir));
+        $this->plugins_dir = array_unique(array_merge((array) $this->plugins_dir, (array) $plugins_dir));
         return;
     }
-
 
     /**
      * return a reference to a registered object
@@ -643,7 +641,6 @@ class Smarty extends Smarty_Internal_Data {
 
         return $this->registered_objects[$name][0];
     }
-
 
     /**
      * return name of debugging template
@@ -700,7 +697,7 @@ class Smarty extends Smarty_Internal_Data {
         // plugin filename is expected to be: [type].[name].php
         $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}.php";
         // loop through plugin dirs and find the plugin
-        foreach((array)$this->plugins_dir as $_plugin_dir) {
+        foreach ((array) $this->plugins_dir as $_plugin_dir) {
             if (strpos('/\\', substr($_plugin_dir, -1)) === false) {
                 $_plugin_dir .= DS;
             }
@@ -715,7 +712,7 @@ class Smarty extends Smarty_Internal_Data {
     }
 
     /**
-    * clean up properties on cloned object
+     * clean up properties on cloned object
      */
     public function __clone()
     {
@@ -727,7 +724,6 @@ class Smarty extends Smarty_Internal_Data {
         unset($this->register);
         unset($this->filter);
     }
-
 
     /**
      * Handle unknown class methods
@@ -757,36 +753,37 @@ class Smarty extends Smarty_Internal_Data {
             else
                 return $this->$property_name = $args[0];
         }
-       // Smarty Backward Compatible wrapper
-        if (strpos($name,'_') !== false) {
+        // Smarty Backward Compatible wrapper
+        if (strpos($name, '_') !== false) {
             if (!isset($this->wrapper)) {
-             $this->wrapper = new Smarty_Internal_Wrapper($this);
+                $this->wrapper = new Smarty_Internal_Wrapper($this);
             }
             return $this->wrapper->convert($name, $args);
         }
         // external Smarty methods ?
-        foreach(array('Filter','Register') as $external) {
-            if (class_exists("Smarty_Internal_{$external}") && method_exists("Smarty_Internal_{$external}",$name)) {
+        foreach (array('Filter', 'Register') as $external) {
+            if (class_exists("Smarty_Internal_{$external}") && method_exists("Smarty_Internal_{$external}", $name)) {
                 if (!isset($this->$external)) {
                     $class = "Smarty_Internal_{$external}";
                     $this->$external = new $class($this);
                 }
-                return call_user_func_array(array($this->$external,$name), $args);
+                return call_user_func_array(array($this->$external, $name), $args);
             }
         }
-        if (in_array($name,array('clearCompiledTemplate','compileAllTemplates','compileAllConfig','testInstall','getTags'))) {
+        if (in_array($name, array('clearCompiledTemplate', 'compileAllTemplates', 'compileAllConfig', 'testInstall', 'getTags'))) {
             if (!isset($this->utility)) {
                 $this->utility = new Smarty_Internal_Utility($this);
             }
-            return call_user_func_array(array($this->utility,$name), $args);
+            return call_user_func_array(array($this->utility, $name), $args);
         }
-         // PHP4 call to constructor?
+        // PHP4 call to constructor?
         if (strtolower($name) == 'smarty') {
             throw new SmartyException('Please use parent::__construct() to call parent constuctor');
             return false;
         }
         throw new SmartyException("Call of unknown function '$name'.");
-   }
+    }
+
 }
 
 /**
@@ -803,13 +800,17 @@ function smartyAutoload($class)
 /**
  * Smarty exception class
  */
-Class SmartyException extends Exception {
+Class SmartyException extends Exception
+{
+
 }
 
 /**
  * Smarty compiler exception class
  */
-Class SmartyCompilerException extends SmartyException  {
+Class SmartyCompilerException extends SmartyException
+{
+
 }
 
 ?>

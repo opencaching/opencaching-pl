@@ -4,21 +4,21 @@
 </table>
 
 <script type="text/javascript">
-TimeTrack( "START" );
+    TimeTrack("START");
 </script>
 
 <?php
 global $debug_page;
-if ( $debug_page )
+if ($debug_page)
     echo "<script type='text/javascript'>TimeTrack( 'DEBUG' );</script>";
 ?>
 
 <table class="table" width="760" style="line-height: 1.6em; font-size: 10px;">
-<tr>
-<td><?php include ("t1b.php");?>
-</td></tr>
+    <tr>
+        <td><?php include ("t1b.php"); ?>
+        </td></tr>
 </table>
 
 <script type="text/javascript">
-TimeTrack( "END", "S1b" );
+    TimeTrack("END", "S1b");
 </script>

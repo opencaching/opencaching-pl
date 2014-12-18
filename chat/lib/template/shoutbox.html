@@ -1,17 +1,17 @@
 <div class="searchdiv">
-<div id="ajaxChatContent">
-    <script src="[AJAX_CHAT_URL/]js/chat.js" type="text/javascript" charset="UTF-8"></script>
-    <script src="[AJAX_CHAT_URL/]js/custom.js" type="text/javascript" charset="UTF-8"></script>
-    <script src="[AJAX_CHAT_URL/]js/shoutbox.js" type="text/javascript" charset="UTF-8"></script>
-    <script src="[AJAX_CHAT_URL/]js/lang/[LANG_CODE/].js" type="text/javascript" charset="UTF-8"></script>
-    <script src="[AJAX_CHAT_URL/]js/config.js" type="text/javascript" charset="UTF-8"></script>
-    <script src="[AJAX_CHAT_URL/]js/FABridge.js" type="text/javascript" charset="UTF-8"></script>
-    <div id="ajaxChatChatList"></div>
-    <div id="ajaxChatInputFieldContainer">
-        <label><input id="ajaxChatInputField" maxlength="[MESSAGE_TEXT_MAX_LENGTH/]" onkeypress="ajaxChat.handleInputFieldKeyPress(event);" type="text"> <a href="https://blueimp.net/ajax/">AJAX Chat</a> © <a href="https://blueimp.net/">blueimp.net</a></label>
-    </div>
-    <script type="text/javascript">
-        // <![CDATA[
+    <div id="ajaxChatContent">
+        <script src="[AJAX_CHAT_URL/]js/chat.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="[AJAX_CHAT_URL/]js/custom.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="[AJAX_CHAT_URL/]js/shoutbox.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="[AJAX_CHAT_URL/]js/lang/[LANG_CODE/].js" type="text/javascript" charset="UTF-8"></script>
+        <script src="[AJAX_CHAT_URL/]js/config.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="[AJAX_CHAT_URL/]js/FABridge.js" type="text/javascript" charset="UTF-8"></script>
+        <div id="ajaxChatChatList"></div>
+        <div id="ajaxChatInputFieldContainer">
+            <label><input id="ajaxChatInputField" maxlength="[MESSAGE_TEXT_MAX_LENGTH/]" onkeypress="ajaxChat.handleInputFieldKeyPress(event);" type="text"> <a href="https://blueimp.net/ajax/">AJAX Chat</a> © <a href="https://blueimp.net/">blueimp.net</a></label>
+        </div>
+        <script type="text/javascript">
+            // <![CDATA[
             ajaxChatConfig.ajaxURL = '[AJAX_CHAT_URL/]?ajax=true&shoutbox=true';
             ajaxChatConfig.baseURL = '[AJAX_CHAT_URL/]';
 
@@ -43,18 +43,18 @@
             ajaxChatConfig.settings.wordWrap = true;
             ajaxChatConfig.settings.maxWordLength = 11;
             ajaxChatConfig.settings.blink = false;
-            ajaxChatConfig.nonPersistentSettings.push('autoFocus','wordWrap','maxWordLength','blink');
+            ajaxChatConfig.nonPersistentSettings.push('autoFocus', 'wordWrap', 'maxWordLength', 'blink');
 
             ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, false, true);
-        // ]]>
-    </script>
-    <!--
-        Please retain the full copyright notice below including the link to blueimp.net.
-        This not only gives respect to the amount of time given freely by the developer
-        but also helps build interest, traffic and use of AJAX Chat.
+            // ]]>
+        </script>
+        <!--
+            Please retain the full copyright notice below including the link to blueimp.net.
+            This not only gives respect to the amount of time given freely by the developer
+            but also helps build interest, traffic and use of AJAX Chat.
 
-        Thanks,
-        Sebastian Tschan
-    //-->
-</div>
-<div id="ajaxChatFlashInterfaceContainer"></div></div>
+            Thanks,
+            Sebastian Tschan
+        //-->
+    </div>
+    <div id="ajaxChatFlashInterfaceContainer"></div></div>

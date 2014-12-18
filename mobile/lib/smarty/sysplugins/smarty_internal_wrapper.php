@@ -31,17 +31,18 @@
  * @subpackage PluginsInternal
  * @version 3-SVN$Rev: 3286 $
  */
-
 /*
  * Smarty Backward Compatability Wrapper
  */
 
-class Smarty_Internal_Wrapper {
+class Smarty_Internal_Wrapper
+{
 
     protected $smarty;
 
-    function __construct($smarty) {
-      $this->smarty = $smarty;
+    function __construct($smarty)
+    {
+        $this->smarty = $smarty;
     }
 
     /**
@@ -51,70 +52,71 @@ class Smarty_Internal_Wrapper {
      * @param string $name Smarty 2 function name
      * @param array $args Smarty 2 function args
      */
-    function convert($name, $args) {
-       // throw notice about deprecated function
-       if($this->smarty->deprecation_notices)
-         trigger_error("function call '$name' is unknown or deprecated.",E_USER_NOTICE);
-       // get first and last part of function name
-       $name_parts = explode('_',$name,2);
-       switch($name_parts[0]) {
-         case 'register':
-         case 'unregister':
-           switch($name_parts[1]) {
-              case 'object':
-                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Object"),$args);
-              case 'compiler_function':
-                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Plugin"),array_merge(array('compiler'),$args));
-              case 'prefilter':
-                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Filter"),array_merge(array('pre'),$args));
-              case 'postfilter':
-                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Filter"),array_merge(array('post'),$args));
-              case 'outputfilter':
-                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Filter"),array_merge(array('output'),$args));
-             case 'resource':
-                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Resource"),$args);
-              default:
-                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Plugin"),array_merge(array($name_parts[1]),$args));
-           }
-           case 'get':
-           switch($name_parts[1]) {
-              case 'template_vars':
-                 return call_user_func_array(array($this->smarty,'getTemplateVars'),$args);
-              case 'config_vars':
-                 return call_user_func_array(array($this->smarty,'getConfigVars'),$args);
-              default:
-                 return call_user_func_array(array($myobj,$name_parts[1]),$args);
-           }
-           case 'clear':
-           switch($name_parts[1]) {
-              case 'all_assign':
-                 return call_user_func_array(array($this->smarty,'clearAllAssign'),$args);
-              case 'assign':
-                 return call_user_func_array(array($this->smarty,'clearAssign'),$args);
-              case 'all_cache':
-                 return call_user_func_array(array($this->smarty,'clearAllCache'),$args);
-              case 'cache':
-                 return call_user_func_array(array($this->smarty,'clearCache'),$args);
-              case 'compiled_template':
-                 return call_user_func_array(array($this->smarty,'clearCompiledTemplate'),$args);
-           }
-           case 'config':
-           switch($name_parts[1]) {
-              case 'load':
-                 return call_user_func_array(array($this->smarty,'configLoad'),$args);
-           }
-           case 'trigger':
-           switch($name_parts[1]) {
-              case 'error':
-                 return call_user_func_array('trigger_error',$args);
-           }
-           case 'load':
-           switch($name_parts[1]) {
-              case 'filter':
-                 return call_user_func_array(array($this->smarty,'loadFilter'),$args);
-           }
-       }
-       throw new SmartyException("unknown method '$name'");
+    function convert($name, $args)
+    {
+        // throw notice about deprecated function
+        if ($this->smarty->deprecation_notices)
+            trigger_error("function call '$name' is unknown or deprecated.", E_USER_NOTICE);
+        // get first and last part of function name
+        $name_parts = explode('_', $name, 2);
+        switch ($name_parts[0]) {
+            case 'register':
+            case 'unregister':
+                switch ($name_parts[1]) {
+                    case 'object':
+                        return call_user_func_array(array($this->smarty, "{$name_parts[0]}Object"), $args);
+                    case 'compiler_function':
+                        return call_user_func_array(array($this->smarty, "{$name_parts[0]}Plugin"), array_merge(array('compiler'), $args));
+                    case 'prefilter':
+                        return call_user_func_array(array($this->smarty, "{$name_parts[0]}Filter"), array_merge(array('pre'), $args));
+                    case 'postfilter':
+                        return call_user_func_array(array($this->smarty, "{$name_parts[0]}Filter"), array_merge(array('post'), $args));
+                    case 'outputfilter':
+                        return call_user_func_array(array($this->smarty, "{$name_parts[0]}Filter"), array_merge(array('output'), $args));
+                    case 'resource':
+                        return call_user_func_array(array($this->smarty, "{$name_parts[0]}Resource"), $args);
+                    default:
+                        return call_user_func_array(array($this->smarty, "{$name_parts[0]}Plugin"), array_merge(array($name_parts[1]), $args));
+                }
+            case 'get':
+                switch ($name_parts[1]) {
+                    case 'template_vars':
+                        return call_user_func_array(array($this->smarty, 'getTemplateVars'), $args);
+                    case 'config_vars':
+                        return call_user_func_array(array($this->smarty, 'getConfigVars'), $args);
+                    default:
+                        return call_user_func_array(array($myobj, $name_parts[1]), $args);
+                }
+            case 'clear':
+                switch ($name_parts[1]) {
+                    case 'all_assign':
+                        return call_user_func_array(array($this->smarty, 'clearAllAssign'), $args);
+                    case 'assign':
+                        return call_user_func_array(array($this->smarty, 'clearAssign'), $args);
+                    case 'all_cache':
+                        return call_user_func_array(array($this->smarty, 'clearAllCache'), $args);
+                    case 'cache':
+                        return call_user_func_array(array($this->smarty, 'clearCache'), $args);
+                    case 'compiled_template':
+                        return call_user_func_array(array($this->smarty, 'clearCompiledTemplate'), $args);
+                }
+            case 'config':
+                switch ($name_parts[1]) {
+                    case 'load':
+                        return call_user_func_array(array($this->smarty, 'configLoad'), $args);
+                }
+            case 'trigger':
+                switch ($name_parts[1]) {
+                    case 'error':
+                        return call_user_func_array('trigger_error', $args);
+                }
+            case 'load':
+                switch ($name_parts[1]) {
+                    case 'filter':
+                        return call_user_func_array(array($this->smarty, 'loadFilter'), $args);
+                }
+        }
+        throw new SmartyException("unknown method '$name'");
     }
 
     /**
@@ -127,5 +129,7 @@ class Smarty_Internal_Wrapper {
     {
         trigger_error("Smarty error: $error_msg", $error_type);
     }
+
 }
+
 ?>

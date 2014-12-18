@@ -13,11 +13,14 @@
 /**
  * Smarty Internal Plugin Resource File
  */
-class Smarty_Internal_Resource_File {
+class Smarty_Internal_Resource_File
+{
+
     public function __construct($smarty)
     {
         $this->smarty = $smarty;
     }
+
     // classes used for compiling Smarty templates from file resource
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
     public $template_lexer_class = 'Smarty_Internal_Templatelexer';
@@ -48,7 +51,7 @@ class Smarty_Internal_Resource_File {
      */
     public function getTemplateFilepath($_template)
     {
-        $_filepath = $_template->buildTemplateFilepath ();
+        $_filepath = $_template->buildTemplateFilepath();
 
         if ($_filepath !== false) {
             if (is_object($_template->smarty->security_policy)) {
@@ -104,9 +107,9 @@ class Smarty_Internal_Resource_File {
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
-             . substr($_filepath, 2, 2) . DS
-             . substr($_filepath, 4, 2) . DS
-             . $_filepath;
+                    . substr($_filepath, 2, 2) . DS
+                    . substr($_filepath, 4, 2) . DS
+                    . $_filepath;
         }
         $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
         if (isset($_compile_id)) {
@@ -123,6 +126,7 @@ class Smarty_Internal_Resource_File {
         }
         return $_compile_dir . $_filepath . '.' . $_template->resource_type . '.' . basename($_template->resource_name) . $_cache . '.php';
     }
+
 }
 
 ?>

@@ -1,294 +1,273 @@
 <?php
-/***************************************************************************
-                                                             ./xml/ocxml11.php
-                                                            -------------------
-        begin                : December 27, 2005
-        copyright            : (C) 2005 The OpenCaching Group
-        forum contact at     : http://www.opencaching.com/phpBB2
 
-        Unicode Reminder ??
-New OC PL
-    ***************************************************************************/
+/* * *************************************************************************
+  ./xml/ocxml11.php
+  -------------------
+  begin                : December 27, 2005
+  copyright            : (C) 2005 The OpenCaching Group
+  forum contact at     : http://www.opencaching.com/phpBB2
+
+  Unicode Reminder ??
+  New OC PL
+ * ************************************************************************* */
 
 /* begin configuration */
 
-    $rootpath = '../';
-  require($rootpath . 'lib/common.inc.php');
+$rootpath = '../';
+require($rootpath . 'lib/common.inc.php');
 //   require($rootpath . 'lib/clicompatbase.inc.php');
-  if ($error == true)
-    {
-        echo 'Unable to connect to database';
-        exit;
-    }
+if ($error == true) {
+    echo 'Unable to connect to database';
+    exit;
+}
 
 /* end configuration */
 
 /* begin with some constants */
-    $t1 = "\t";
-    $t2 = "\t\t";
-    $t3 = "\t\t\t";
-    $t4 = "\t\t\t\t";
-    $t5 = "\t\t\t\t\t";
-    $t6 = "\t\t\t\t\t\t";
+$t1 = "\t";
+$t2 = "\t\t";
+$t3 = "\t\t\t";
+$t4 = "\t\t\t\t";
+$t5 = "\t\t\t\t\t";
+$t6 = "\t\t\t\t\t\t";
 
-    $sDateshort = 'Y-m-d';
-    $sDateformat = 'Y-m-d H:i:s';
+$sDateshort = 'Y-m-d';
+$sDateformat = 'Y-m-d H:i:s';
 
 /* end with some constants */
 
 /* begin parameter reading */
-    global $bXmlCData;
-    global $sCharset;
+global $bXmlCData;
+global $sCharset;
 
-    // xml options
-    $bOcXmlTag = isset($_REQUEST['ocxmltag']) ? $_REQUEST['ocxmltag'] : '1';
-    $bDocType = isset($_REQUEST['doctype']) ? $_REQUEST['doctype'] : '1';
-    $bXmlDecl    = isset($_REQUEST['xmldecl']) ? $_REQUEST['xmldecl'] : '1';
-    $sCharset = isset($_REQUEST['charset']) ? mb_strtolower($_REQUEST['charset']) : 'utf-8';
-    $bXmlCData = isset($_REQUEST['cdata']) ? $_REQUEST['cdata'] : '1';
+// xml options
+$bOcXmlTag = isset($_REQUEST['ocxmltag']) ? $_REQUEST['ocxmltag'] : '1';
+$bDocType = isset($_REQUEST['doctype']) ? $_REQUEST['doctype'] : '1';
+$bXmlDecl = isset($_REQUEST['xmldecl']) ? $_REQUEST['xmldecl'] : '1';
+$sCharset = isset($_REQUEST['charset']) ? mb_strtolower($_REQUEST['charset']) : 'utf-8';
+$bXmlCData = isset($_REQUEST['cdata']) ? $_REQUEST['cdata'] : '1';
 
-    if ((($bOcXmlTag != '0') && ($bOcXmlTag != '1')) ||
-            (($bDocType != '0') && ($bDocType != '1')) ||
-            (($bXmlCData != '0') && ($bXmlCData != '1')) ||
-            (($bXmlDecl != '0') && ($bXmlDecl != '1')))
-    {
-        echo 'Invalid xml options value';
+if ((($bOcXmlTag != '0') && ($bOcXmlTag != '1')) ||
+        (($bDocType != '0') && ($bDocType != '1')) ||
+        (($bXmlCData != '0') && ($bXmlCData != '1')) ||
+        (($bXmlDecl != '0') && ($bXmlDecl != '1'))) {
+    echo 'Invalid xml options value';
+    exit;
+}
+
+if (($sCharset != 'iso-8859-2') && ($sCharset != 'utf-8')) {
+    echo 'Invalid charset';
+    exit;
+}
+
+// doctype but no ocxml?
+if (($bDocType == '1') && ($bOcXmlTag == '0')) {
+    echo 'doctype yes but no for ocxml-tag? Are you sure that you know what you are doing?';
+    exit;
+}
+
+// xmldecl but no ocxml?
+if (($bXmlDecl == '1') && ($bOcXmlTag == '0')) {
+    echo 'xmldecl yes but no for ocxml-tag? Are you sure that you know what you are doing?';
+    exit;
+}
+
+$ziptype = isset($_REQUEST['zip']) ? $_REQUEST['zip'] : 'zip';
+if (($ziptype != '0') && ($ziptype != 'zip') && ($ziptype != 'gzip') && ($ziptype != 'bzip2')) {
+    echo 'invalid zip type';
+    exit;
+}
+
+// aufräumen ... 24h nach letztem Abruf bylo 86400
+$cleanerdate = date($sDateformat, time() - 10800);
+$rs = sql("SELECT `id` FROM `xmlsession` WHERE `last_use`<'&1' AND `cleaned`=0", $cleanerdate);
+while ($r = sql_fetch_array($rs)) {
+    // xmlsession_data löschen
+    sql('DELETE FROM `xmlsession_data` WHERE `session_id`=&1', $r['id']);
+
+    // dateien löschen
+    $path = $zip_basedir . 'ocxml11/' . $r['id'];
+    if (is_dir($path))
+        unlinkrecursiv($path);
+
+    // cleaned speichern
+    sql('UPDATE `xmlsession` SET `cleaned`=1 WHERE `id`=&1', $r['id']);
+}
+
+if (isset($_REQUEST['sessionid'])) {
+    $sessionid = $_REQUEST['sessionid'];
+    $filenr = isset($_REQUEST['file']) ? $_REQUEST['file'] : '1';
+
+    if (!mb_ereg_match('^[0-9]{1,11}', $sessionid))
+        die('sessionid invalid');
+
+    if (!mb_ereg_match('^[0-9]{1,11}', $filenr))
+        die('filenr invalid');
+
+    outputXmlSessionFile($sessionid, $filenr, $bOcXmlTag, $bDocType, $bXmlDecl, $ziptype);
+}
+else {
+    // fitler parameters
+    $dModifiedsince = isset($_REQUEST['modifiedsince']) ? $_REQUEST['modifiedsince'] : '0';
+
+    // selections
+    $bCache = isset($_REQUEST['cache']) ? $_REQUEST['cache'] : '0';
+    $bCachedesc = isset($_REQUEST['cachedesc']) ? $_REQUEST['cachedesc'] : '0';
+    $bCachelog = isset($_REQUEST['cachelog']) ? $_REQUEST['cachelog'] : '0';
+    $bUser = isset($_REQUEST['user']) ? $_REQUEST['user'] : '0';
+    $bPicture = isset($_REQUEST['picture']) ? $_REQUEST['picture'] : '0';
+    $bRemovedObject = isset($_REQUEST['removedobject']) ? $_REQUEST['removedobject'] : '0';
+    $bPictureFromCachelog = isset($_REQUEST['picturefromcachelog']) ? $_REQUEST['picturefromcachelog'] : '0';
+
+    // validation and parsing
+    if (mb_strlen($dModifiedsince) != 14) {
+        echo 'Invalid modifiedsince value (wrong length)';
         exit;
     }
 
-    if (($sCharset != 'iso-8859-2') && ($sCharset != 'utf-8'))
-    {
-        echo 'Invalid charset';
+    // convert to time
+    $nYear = mb_substr($dModifiedsince, 0, 4);
+    $nMonth = mb_substr($dModifiedsince, 4, 2);
+    $nDay = mb_substr($dModifiedsince, 6, 2);
+    $nHour = mb_substr($dModifiedsince, 8, 2);
+    $nMinute = mb_substr($dModifiedsince, 10, 2);
+    $nSecond = mb_substr($dModifiedsince, 12, 2);
+
+    if ((!is_numeric($nYear)) && (!is_numeric($nMonth)) && (!is_numeric($nDay)) && (!is_numeric($nHour)) && (!is_numeric($nMinute)) && (!is_numeric($nSecond))) {
+        echo 'Invalid modifiedsince value (non-numeric content)';
         exit;
     }
 
-    // doctype but no ocxml?
-    if (($bDocType == '1') && ($bOcXmlTag == '0'))
-    {
-        echo 'doctype yes but no for ocxml-tag? Are you sure that you know what you are doing?';
+    if (($nYear < 1970) || ($nYear > 2100) || ($nMonth < 1) || ($nMonth > 12) || ($nDay < 1) || ($nDay > 31) || ($nHour < 0) || ($nHour > 23) || ($nMinute < 0) || ($nMinute > 59) || ($nSecond < 0) || ($nSecond > 59)) {
+        echo 'Invalid modifiedsince value (value out of range)';
+        exit;
+    }
+    $sModifiedSince = date('Y-m-d H:i:s', mktime($nHour, $nMinute, $nSecond, $nMonth, $nDay, $nYear));
+
+    if ((($bCache != '0') && ($bCache != '1')) ||
+            (($bCachedesc != '0') && ($bCachedesc != '1')) ||
+            (($bCachelog != '0') && ($bCachelog != '1')) ||
+            (($bUser != '0') && ($bUser != '1')) ||
+            (($bPicture != '0') && ($bPicture != '1')) ||
+            (($bRemovedObject != '0') && ($bRemovedObject != '1'))) {
+        echo 'Invalid selection value';
         exit;
     }
 
-    // xmldecl but no ocxml?
-    if (($bXmlDecl == '1') && ($bOcXmlTag == '0'))
-    {
-        echo 'xmldecl yes but no for ocxml-tag? Are you sure that you know what you are doing?';
-        exit;
+    // selection options
+    if (isset($_REQUEST['country'])) {
+        $country = $_REQUEST['country'];
+
+        if (sqlValue('SELECT COUNT(*) FROM `countries` WHERE `short`=\'' . sql_escape($country) . '\'', 0) != 1)
+            die('Unknown country');
+
+        $selection['type'] = 1;
+        $selection['country'] = $country;
     }
+    else if (isset($_REQUEST['lat']) || isset($_REQUEST['lon']) || isset($_REQUEST['distance'])) {
+        if (!(isset($_REQUEST['lat']) && isset($_REQUEST['lon']) && isset($_REQUEST['distance'])))
+            die('lat, lon, distance: you have to specify all paramters');
 
-    $ziptype = isset($_REQUEST['zip']) ? $_REQUEST['zip'] : 'zip';
-    if (($ziptype != '0') && ($ziptype != 'zip') && ($ziptype != 'gzip') && ($ziptype != 'bzip2'))
-    {
-        echo 'invalid zip type';
-        exit;
+        $lat = $_REQUEST['lat'];
+        $lon = $_REQUEST['lon'];
+        $distance = $_REQUEST['distance'];
+
+        if (!is_numeric($lat))
+            die('lat is no number');
+        if (!is_numeric($lon))
+            die('lon is no number');
+        if (!is_numeric($distance))
+            die('distance is no number');
+
+        if (($lat < -180) || ($lat > 180))
+            die('lat out of range');
+        if (($lon < -180) || ($lon > 180))
+            die('lon out of range');
+        if (($distance < 0) || ($distance > 250))
+            die('distance out of range [0, 250]');
+
+        $selection['type'] = 2;
+        $selection['lat'] = $lat;
+        $selection['lon'] = $lon;
+        $selection['distance'] = $distance;
     }
+    else if (isset($_REQUEST['cacheid']) || isset($_REQUEST['wp']) || isset($_REQUEST['uuid'])) {
 
-    // aufräumen ... 24h nach letztem Abruf bylo 86400
-    $cleanerdate = date($sDateformat, time() - 10800);
-    $rs = sql("SELECT `id` FROM `xmlsession` WHERE `last_use`<'&1' AND `cleaned`=0", $cleanerdate);
-    while ($r = sql_fetch_array($rs))
-    {
-        // xmlsession_data löschen
-        sql('DELETE FROM `xmlsession_data` WHERE `session_id`=&1', $r['id']);
-
-        // dateien löschen
-        $path = $zip_basedir . 'ocxml11/' . $r['id'];
-        if (is_dir($path))
-            unlinkrecursiv($path);
-
-        // cleaned speichern
-        sql('UPDATE `xmlsession` SET `cleaned`=1 WHERE `id`=&1', $r['id']);
-    }
-
-    if (isset($_REQUEST['sessionid']))
-    {
-        $sessionid = $_REQUEST['sessionid'];
-        $filenr = isset($_REQUEST['file']) ? $_REQUEST['file'] : '1';
-
-        if (!mb_ereg_match('^[0-9]{1,11}', $sessionid))
-            die('sessionid invalid');
-
-        if (!mb_ereg_match('^[0-9]{1,11}', $filenr))
-            die('filenr invalid');
-
-        outputXmlSessionFile($sessionid, $filenr, $bOcXmlTag, $bDocType, $bXmlDecl, $ziptype);
-    }
-    else
-    {
-        // fitler parameters
-        $dModifiedsince = isset($_REQUEST['modifiedsince']) ? $_REQUEST['modifiedsince'] : '0';
-
-        // selections
-        $bCache = isset($_REQUEST['cache']) ? $_REQUEST['cache'] : '0';
-        $bCachedesc = isset($_REQUEST['cachedesc']) ? $_REQUEST['cachedesc'] : '0';
-        $bCachelog = isset($_REQUEST['cachelog']) ? $_REQUEST['cachelog'] : '0';
-        $bUser = isset($_REQUEST['user']) ? $_REQUEST['user'] : '0';
-        $bPicture = isset($_REQUEST['picture']) ? $_REQUEST['picture'] : '0';
-        $bRemovedObject = isset($_REQUEST['removedobject']) ? $_REQUEST['removedobject'] : '0';
-        $bPictureFromCachelog = isset($_REQUEST['picturefromcachelog']) ? $_REQUEST['picturefromcachelog'] : '0';
-
-        // validation and parsing
-        if (mb_strlen($dModifiedsince) != 14)
-        {
-            echo 'Invalid modifiedsince value (wrong length)';
-            exit;
-        }
-
-        // convert to time
-        $nYear = mb_substr($dModifiedsince, 0, 4);
-        $nMonth = mb_substr($dModifiedsince, 4, 2);
-        $nDay = mb_substr($dModifiedsince, 6, 2);
-        $nHour = mb_substr($dModifiedsince, 8, 2);
-        $nMinute = mb_substr($dModifiedsince, 10, 2);
-        $nSecond = mb_substr($dModifiedsince, 12, 2);
-
-        if ((!is_numeric($nYear)) && (!is_numeric($nMonth)) && (!is_numeric($nDay)) && (!is_numeric($nHour)) && (!is_numeric($nMinute)) && (!is_numeric($nSecond)))
-        {
-            echo 'Invalid modifiedsince value (non-numeric content)';
-            exit;
-        }
-
-        if (($nYear < 1970) || ($nYear > 2100)
-                || ($nMonth < 1) || ($nMonth > 12)
-                || ($nDay < 1) || ($nDay > 31)
-                || ($nHour < 0) || ($nHour > 23)
-                || ($nMinute < 0) || ($nMinute > 59)
-                || ($nSecond < 0) || ($nSecond > 59))
-        {
-            echo 'Invalid modifiedsince value (value out of range)';
-            exit;
-        }
-        $sModifiedSince = date('Y-m-d H:i:s', mktime($nHour, $nMinute, $nSecond, $nMonth, $nDay, $nYear));
-
-        if ((($bCache != '0') && ($bCache != '1')) ||
-                (($bCachedesc != '0') && ($bCachedesc != '1')) ||
-                (($bCachelog != '0') && ($bCachelog != '1')) ||
-                (($bUser != '0') && ($bUser != '1')) ||
-                (($bPicture != '0') && ($bPicture != '1')) ||
-                (($bRemovedObject != '0') && ($bRemovedObject != '1')))
-        {
-            echo 'Invalid selection value';
-            exit;
-        }
-
-        // selection options
-        if (isset($_REQUEST['country']))
-        {
-            $country = $_REQUEST['country'];
-
-            if (sqlValue('SELECT COUNT(*) FROM `countries` WHERE `short`=\'' . sql_escape($country) . '\'', 0) != 1)
-                die('Unknown country');
-
-            $selection['type'] = 1;
-            $selection['country'] = $country;
-        }
-        else if (isset($_REQUEST['lat']) || isset($_REQUEST['lon']) || isset($_REQUEST['distance']))
-        {
-            if (!(isset($_REQUEST['lat']) && isset($_REQUEST['lon']) && isset($_REQUEST['distance'])))
-                die('lat, lon, distance: you have to specify all paramters');
-
-            $lat = $_REQUEST['lat'];
-            $lon = $_REQUEST['lon'];
-            $distance = $_REQUEST['distance'];
-
-            if (!is_numeric($lat)) die('lat is no number');
-            if (!is_numeric($lon)) die('lon is no number');
-            if (!is_numeric($distance)) die('distance is no number');
-
-            if (($lat < -180) || ($lat > 180)) die('lat out of range');
-            if (($lon < -180) || ($lon > 180)) die('lon out of range');
-            if (($distance < 0) || ($distance > 250)) die('distance out of range [0, 250]');
-
-            $selection['type'] = 2;
-            $selection['lat'] = $lat;
-            $selection['lon'] = $lon;
-            $selection['distance'] = $distance;
-        }
-        else if (isset($_REQUEST['cacheid']) || isset($_REQUEST['wp']) || isset($_REQUEST['uuid']))
-        {
-
-            $selection['type'] = 3;
-            if (isset($_REQUEST['wp']))
-            {
+        $selection['type'] = 3;
+        if (isset($_REQUEST['wp'])) {
             $wpl = $_REQUEST['wp'];
-            $selection['cacheid'] = sqlValue("SELECT `cache_id` FROM `caches` WHERE `wp_oc`='$wpl'",0);
+            $selection['cacheid'] = sqlValue("SELECT `cache_id` FROM `caches` WHERE `wp_oc`='$wpl'", 0);
 //           $r =sql_fetch_array($rs);
 //              $selection['cacheid'] = $r['cache_id'];
-            }
-            else if (isset($_REQUEST['uuid']))
-            {
-                $selection['cacheid'] = sqlValue("SELECT `cache_id` FROM `caches` WHERE `uuid`='" . sql_escape($_REQUEST['uuid']) . "'", 0);
-            }
-            else
-            {
-                $selection['cacheid'] = $_REQUEST['cacheid']+0;
-            }
+        } else if (isset($_REQUEST['uuid'])) {
+            $selection['cacheid'] = sqlValue("SELECT `cache_id` FROM `caches` WHERE `uuid`='" . sql_escape($_REQUEST['uuid']) . "'", 0);
+        } else {
+            $selection['cacheid'] = $_REQUEST['cacheid'] + 0;
         }
-        else
-            $selection['type'] = 0;
+    } else
+        $selection['type'] = 0;
 
-        if ($selection['type'] != 0)
-            if ($bUser == 1)
-                die('selection used, user has to be 0');
+    if ($selection['type'] != 0)
+        if ($bUser == 1)
+            die('selection used, user has to be 0');
 
-        // session-management verwenden?
-        $usesession = isset($_REQUEST['session']) ? $_REQUEST['session'] : 1;
-        if (($usesession != 0) && ($usesession != 1))
-            die('session-value invalid');
+    // session-management verwenden?
+    $usesession = isset($_REQUEST['session']) ? $_REQUEST['session'] : 1;
+    if (($usesession != 0) && ($usesession != 1))
+        die('session-value invalid');
 
-        $sessionid = startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUser, $bPicture, $bRemovedObject, $bPictureFromCachelog, $selection);
+    $sessionid = startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUser, $bPicture, $bRemovedObject, $bPictureFromCachelog, $selection);
 
-        if ($usesession == 1)
-        {
-            $rs = sql('SELECT `users`, `caches`, `cachedescs`, `cachelogs`, `pictures`, `removedobjects` FROM `xmlsession` WHERE id=&1', $sessionid);
-            $recordcount = sql_fetch_array($rs);
-            mysql_free_result($rs);
+    if ($usesession == 1) {
+        $rs = sql('SELECT `users`, `caches`, `cachedescs`, `cachelogs`, `pictures`, `removedobjects` FROM `xmlsession` WHERE id=&1', $sessionid);
+        $recordcount = sql_fetch_array($rs);
+        mysql_free_result($rs);
 
+        if ($sCharset == 'iso-8859-2')
+            header('Content-Type: application/xml; charset=ISO-8859-1');
+        else if ($sCharset == 'utf-8')
+            header('Content-Type: application/xml; charset=UTF-8');
+
+        $xmloutput = '';
+        if ($bXmlDecl == '1') {
             if ($sCharset == 'iso-8859-2')
-                header('Content-Type: application/xml; charset=ISO-8859-1');
+                $xmloutput .= '<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>' . "\n";
             else if ($sCharset == 'utf-8')
-                header('Content-Type: application/xml; charset=UTF-8');
-
-            $xmloutput = '';
-            if ($bXmlDecl == '1')
-            {
-                if ($sCharset == 'iso-8859-2')
-                    $xmloutput .= '<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>' . "\n";
-                else if ($sCharset == 'utf-8')
-                    $xmloutput .= '<?xml version="1.0" encoding="utf-8" standalone="yes" ?>' . "\n";
-            }
-            if ($bOcXmlTag == '1') $xmloutput .= '<ocxmlsession>' . "\n";
-            $xmloutput .= '  <sessionid>' . $sessionid . '</sessionid>' . "\n";
-            $xmloutput .= '  <records user="' . $recordcount['users'] .
-                                                '" cache="' . $recordcount['caches'] .
-                                            '" cachedesc="' . $recordcount['cachedescs'] .
-                                             '" cachelog="' . $recordcount['cachelogs'] .
-                                              '" picture="' . $recordcount['pictures'] .
-                                         '" removeobject="' . $recordcount['removedobjects'] . '" />' . "\n";
-            if ($bOcXmlTag == '1') $xmloutput .= '</ocxmlsession>';
-
-            if ($sCharset == 'iso-8859-2')
-                echo iconv('UTF-8', 'ISO-8859-2', $xmloutput);
-            else if ($sCharset == 'utf-8')
-                echo $xmloutput;
-
-            exit;
+                $xmloutput .= '<?xml version="1.0" encoding="utf-8" standalone="yes" ?>' . "\n";
         }
-        else
-        {
-            // return all records
-            sql('CREATE TEMPORARY TABLE `tmpxml_users` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=4', $sessionid);
-            sql('CREATE TEMPORARY TABLE `tmpxml_caches` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=2', $sessionid);
-            sql('CREATE TEMPORARY TABLE `tmpxml_cachedescs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=3', $sessionid);
-            sql('CREATE TEMPORARY TABLE `tmpxml_cachelogs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=1', $sessionid);
-            sql('CREATE TEMPORARY TABLE `tmpxml_pictures` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=6', $sessionid);
-            sql('CREATE TEMPORARY TABLE `tmpxml_removedobjects` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=7', $sessionid);
+        if ($bOcXmlTag == '1')
+            $xmloutput .= '<ocxmlsession>' . "\n";
+        $xmloutput .= '  <sessionid>' . $sessionid . '</sessionid>' . "\n";
+        $xmloutput .= '  <records user="' . $recordcount['users'] .
+                '" cache="' . $recordcount['caches'] .
+                '" cachedesc="' . $recordcount['cachedescs'] .
+                '" cachelog="' . $recordcount['cachelogs'] .
+                '" picture="' . $recordcount['pictures'] .
+                '" removeobject="' . $recordcount['removedobjects'] . '" />' . "\n";
+        if ($bOcXmlTag == '1')
+            $xmloutput .= '</ocxmlsession>';
 
-            outputXmlFile($sessionid, 0, $bXmlDecl, $bOcXmlTag, $bDocType, $ziptype);
-        }
+        if ($sCharset == 'iso-8859-2')
+            echo iconv('UTF-8', 'ISO-8859-2', $xmloutput);
+        else if ($sCharset == 'utf-8')
+            echo $xmloutput;
+
+        exit;
     }
+    else {
+        // return all records
+        sql('CREATE TEMPORARY TABLE `tmpxml_users` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=4', $sessionid);
+        sql('CREATE TEMPORARY TABLE `tmpxml_caches` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=2', $sessionid);
+        sql('CREATE TEMPORARY TABLE `tmpxml_cachedescs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=3', $sessionid);
+        sql('CREATE TEMPORARY TABLE `tmpxml_cachelogs` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=1', $sessionid);
+        sql('CREATE TEMPORARY TABLE `tmpxml_pictures` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=6', $sessionid);
+        sql('CREATE TEMPORARY TABLE `tmpxml_removedobjects` (`id` int(11), PRIMARY KEY (`id`)) SELECT `object_id` `id` FROM `xmlsession_data` WHERE `session_id`=&1 AND `object_type`=7', $sessionid);
 
-    exit;
+        outputXmlFile($sessionid, 0, $bXmlDecl, $bOcXmlTag, $bDocType, $ziptype);
+    }
+}
+
+exit;
 
 /* end parameter reading */
 
@@ -307,8 +286,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
     $logtypes = array();
     $rs = sql('SELECT `id`, `pl` FROM log_types');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++)
-    {
+    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
         $r = sql_fetch_array($rs);
         $logtypes[$r['id']] = $r['pl'];
     }
@@ -316,8 +294,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
     $cachetypes = array();
     $rs = sql('SELECT `id`, `short`, `pl` FROM cache_type');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++)
-    {
+    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
         $r = sql_fetch_array($rs);
         $cachetypes[$r['id']]['pl'] = $r['pl'];
         $cachetypes[$r['id']]['short'] = $r['short'];
@@ -326,8 +303,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
     $cachestatus = array();
     $rs = sql('SELECT `id`, `pl` FROM cache_status');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++)
-    {
+    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
         $r = sql_fetch_array($rs);
         $cachestatus[$r['id']]['pl'] = $r['pl'];
     }
@@ -335,8 +311,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
     $counties = array();
     $rs = sql('SELECT `short`, `pl` FROM countries');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++)
-    {
+    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
         $r = sql_fetch_array($rs);
         $counties[$r['short']]['pl'] = $r['pl'];
     }
@@ -344,8 +319,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
     $cachesizes = array();
     $rs = sql('SELECT `id`, `pl` FROM cache_size');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++)
-    {
+    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
         $r = sql_fetch_array($rs);
         $cachesizes[$r['id']]['pl'] = $r['pl'];
     }
@@ -353,8 +327,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
     $languages = array();
     $rs = sql('SELECT `short`, `pl` FROM languages');
-    for ($i = 0; $i < mysql_num_rows($rs); $i++)
-    {
+    for ($i = 0; $i < mysql_num_rows($rs); $i++) {
         $r = sql_fetch_array($rs);
         $languages[$r['short']]['pl'] = $r['pl'];
     }
@@ -380,16 +353,15 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
 
     $f = fopen($xmlfilename, 'w');
 
-    if ($bXmlDecl == '1')
-    {
+    if ($bXmlDecl == '1') {
         if ($sCharset == 'iso-8859-2')
             fwrite($f, '<?xml version="1.0" encoding="iso-8859-2" standalone="no" ?>' . "\n");
         else if ($sCharset == 'utf-8')
             fwrite($f, '<?xml version="1.0" encoding="UTF-8" standalone="no" ?>' . "\n");
     }
-    if ($bDocType == '1') fwrite($f, '<!DOCTYPE oc11xml PUBLIC "-//Opencaching Network//DTD OCXml V 1.1//EN" "http://www.opencaching.pl/xml/ocxml11.dtd">' . "\n");
-    if ($bOcXmlTag == '1')
-    {
+    if ($bDocType == '1')
+        fwrite($f, '<!DOCTYPE oc11xml PUBLIC "-//Opencaching Network//DTD OCXml V 1.1//EN" "http://www.opencaching.pl/xml/ocxml11.dtd">' . "\n");
+    if ($bOcXmlTag == '1') {
         $rs = sql('SELECT `date_created`, `modified_since` FROM `xmlsession` WHERE `id`=&1', $sessionid);
         $r = sql_fetch_array($rs);
         fwrite($f, '<oc11xml version="1.1" date="' . date($sDateformat, strtotime($r['date_created'])) . '" since="' . date($sDateformat, strtotime($r['modified_since'])) . '">' . "\n");
@@ -397,8 +369,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     }
 
     $rs = sql('SELECT `user`.`user_id` `id`, `user`.`node` `node`, `user`.`uuid` `uuid`, `user`.`username` `username`, `user`.`pmr_flag` `pmr_flag`, `user`.`date_created` `date_created`, `user`.`last_modified` `last_modified` FROM `tmpxml_users`, `user` WHERE `tmpxml_users`.`id`=`user`.`user_id`');
-    while ($r = sql_fetch_array($rs))
-    {
+    while ($r = sql_fetch_array($rs)) {
         fwrite($f, $t1 . '<user>' . "\n");
 
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '">' . $r['uuid'] . '</id>' . "\n");
@@ -420,8 +391,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
                       `caches`.`wp_oc` `wp_oc`, `caches`.`date_hidden` `date_hidden`, `caches`.`date_created` `date_created`,
                       `caches`.`last_modified` `last_modified`, `caches`.`status` `status`, `caches`.`node` `node`
                  FROM `tmpxml_caches`, `caches`, `user` WHERE `tmpxml_caches`.`id`=`caches`.`cache_id` AND `caches`.`user_id`=`user`.`user_id`');
-    while ($r = sql_fetch_array($rs))
-    {
+    while ($r = sql_fetch_array($rs)) {
         fwrite($f, $t1 . '<cache>' . "\n");
 
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '">' . $r['uuid'] . '</id>' . "\n");
@@ -452,8 +422,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
                       `cache_desc`.`last_modified` `last_modified`, `caches`.`uuid` `cacheuuid`, `cache_desc`.`node` `node`
                  FROM `tmpxml_cachedescs`, `cache_desc`, `caches` WHERE `tmpxml_cachedescs`.`id`=`cache_desc`.`id` AND
                  `caches`.`cache_id`=`cache_desc`.`cache_id`');
-    while ($r = sql_fetch_array($rs))
-    {
+    while ($r = sql_fetch_array($rs)) {
         fwrite($f, $t1 . '<cachedesc>' . "\n");
 
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '">' . $r['uuid'] . '</id>' . "\n");
@@ -462,8 +431,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
         fwrite($f, $t2 . '<language id="' . $r['language'] . '">' . xmlcdata($languages[$r['language']]['pl']) . '</language>' . "\n");
         fwrite($f, $t2 . '<shortdesc>' . xmlcdata($r['short_desc']) . '</shortdesc>' . "\n");
 
-        if ($r['desc_html'] == 0)
-        {
+        if ($r['desc_html'] == 0) {
             $r['desc'] = mb_ereg_replace('<br />', '', $r['desc']);
             $r['desc'] = html_entity_decode($r['desc'], ENT_COMPAT, 'UTF-8');
         }
@@ -491,8 +459,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
            INNER JOIN `caches` ON `caches`.`cache_id`=`cache_logs`.`cache_id`
             LEFT JOIN `cache_rating` ON `cache_logs`.`cache_id`=`cache_rating`.`cache_id` AND `cache_logs`.`user_id`=`cache_rating`.`user_id` AND   `cache_logs`.`deleted`=0
                     ');
-    while ($r = sql_fetch_array($rs))
-    {
+    while ($r = sql_fetch_array($rs)) {
         $r['text'] = mb_ereg_replace('<br />', '', $r['text']);
         $r['text'] = html_entity_decode($r['text'], ENT_COMPAT, 'UTF-8');
 
@@ -515,8 +482,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
                       `pictures`.`last_modified` `last_modified`, `pictures`.`display` `display`,
                       `pictures`.`spoiler` `spoiler`, `pictures`.`node` `node`
                  FROM `tmpxml_pictures`, `pictures` WHERE `tmpxml_pictures`.`id`=`pictures`.id');
-    while ($r = sql_fetch_array($rs))
-    {
+    while ($r = sql_fetch_array($rs)) {
         fwrite($f, $t1 . '<picture>' . "\n");
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '">' . $r['uuid'] . '</id>' . "\n");
         fwrite($f, $t2 . '<url>' . xmlcdata($r['url']) . '</url>' . "\n");
@@ -532,8 +498,7 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     $rs = sql('SELECT `removed_objects`.`id` `id`, `removed_objects`.`localid` `localid`, `removed_objects`.`uuid` `uuid`,
                       `removed_objects`.`type` `type`, `removed_objects`.`removed_date` `removed_date`, `removed_objects`.`node` `node`
                  FROM `tmpxml_removedobjects`, `removed_objects` WHERE `removed_objects`.`id`=`tmpxml_removedobjects`.`id`');
-    while ($r = sql_fetch_array($rs))
-    {
+    while ($r = sql_fetch_array($rs)) {
         fwrite($f, $t1 . '<removedobject>' . "\n");
         fwrite($f, $t2 . '<id id="' . $r['id'] . '" node="' . $r['node'] . '" />' . "\n");
         fwrite($f, $t2 . '<object id="' . $r['localid'] . '" type="' . $r['type'] . '" typename="' . xmlentities($objecttypes[$r['type']]) . '">' . $r['uuid'] . '</object>' . "\n");
@@ -542,7 +507,8 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     }
     mysql_free_result($rs);
 
-    if ($bOcXmlTag == '1') fwrite($f, '</oc11xml>' . "\n");
+    if ($bOcXmlTag == '1')
+        fwrite($f, '</oc11xml>' . "\n");
 
     fclose($f);
 
@@ -550,12 +516,10 @@ function outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $z
     $rel_zipfile = 'ocxml11/' . $sessionid . '/' . $sessionid . '-' . $filenr . '-' . $fileid;
 
     // zippen und url-redirect
-    if ($ziptype == '0')
-    {
+    if ($ziptype == '0') {
         tpl_redirect($zip_wwwdir . 'ocxml11/' . $sessionid . '/' . $sessionid . '-' . $filenr . '-' . $fileid . '.xml');
         exit;
-    }
-    else if ($ziptype == 'zip')
+    } else if ($ziptype == 'zip')
         $rel_zipfile .= '.zip';
     else if ($ziptype == 'bzip2')
         $rel_zipfile .= '.bz2';
@@ -591,47 +555,33 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
     $recordcount['pictures'] = 0;
     $recordcount['removedobjects'] = 0;
 
-    if ($selection['type'] == 0)
-    {
+    if ($selection['type'] == 0) {
         // ohne selection
-        if ($bCache == 1)
-        {
+        if ($bCache == 1) {
             sql("INSERT INTO xmlsession_data (`session_id`, `object_type`, `object_id`)
-                 SELECT &1, 2, `cache_id` FROM `caches` WHERE `last_modified` >= '&2' AND `status`!=5 AND `status`!=6 AND `status`!=4",
-                 $sessionid,
-                 $sModifiedSince);
+                 SELECT &1, 2, `cache_id` FROM `caches` WHERE `last_modified` >= '&2' AND `status`!=5 AND `status`!=6 AND `status`!=4", $sessionid, $sModifiedSince);
             $recordcount['caches'] = mysql_affected_rows();
         }
 
-        if ($bCachedesc == 1)
-        {
+        if ($bCachedesc == 1) {
             sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT &1, 3, `cache_desc`.`id` FROM `cache_desc` INNER JOIN `caches` ON `cache_desc`.`cache_id`=`caches`.`cache_id` WHERE `cache_desc`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4",
-                 $sessionid,
-                 $sModifiedSince);
+                 SELECT &1, 3, `cache_desc`.`id` FROM `cache_desc` INNER JOIN `caches` ON `cache_desc`.`cache_id`=`caches`.`cache_id` WHERE `cache_desc`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4", $sessionid, $sModifiedSince);
             $recordcount['cachedescs'] = mysql_affected_rows();
         }
 
-        if ($bCachelog == 1)
-        {
+        if ($bCachelog == 1) {
             sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT &1, 1, `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` WHERE `cache_logs`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4 AND `cache_logs`.`deleted`=0",
-                 $sessionid,
-                 $sModifiedSince);
+                 SELECT &1, 1, `cache_logs`.`id` FROM `cache_logs` INNER JOIN `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id` WHERE `cache_logs`.`last_modified` >= '&2' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4 AND `cache_logs`.`deleted`=0", $sessionid, $sModifiedSince);
             $recordcount['cachelogs'] = mysql_affected_rows();
         }
 
-        if ($bUser == 1)
-        {
+        if ($bUser == 1) {
             sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT &1, 4, `user_id` FROM `user` WHERE `last_modified` >= '&2'",
-                 $sessionid,
-                 $sModifiedSince);
+                 SELECT &1, 4, `user_id` FROM `user` WHERE `last_modified` >= '&2'", $sessionid, $sModifiedSince);
             $recordcount['users'] = mysql_affected_rows();
         }
 
-        if ($bPicture == 1)
-        {
+        if ($bPicture == 1) {
             sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
                  SELECT &1, 6, `pictures`.`id` FROM `pictures` INNER JOIN
                                                     `caches` ON `pictures`.`object_type`=2 AND
@@ -644,33 +594,23 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
                                                                     `pictures`.`object_id`=`cache_logs`.`id` INNER JOIN
                                                     `caches` ON `cache_logs`.`cache_id`=`caches`.`cache_id`
                                               WHERE `pictures`.`last_modified` >= '&2' AND
-                                                    `caches`.`status`!=5 AND `status`!=6 AND `status`!=4 AND `cache_logs`.`deleted`=0",
-                 $sessionid,
-                 $sModifiedSince);
+                                                    `caches`.`status`!=5 AND `status`!=6 AND `status`!=4 AND `cache_logs`.`deleted`=0", $sessionid, $sModifiedSince);
             $recordcount['pictures'] = mysql_affected_rows();
         }
 
-        if ($bRemovedObject == 1)
-        {
+        if ($bRemovedObject == 1) {
             sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT &1, 7, `id` FROM `removed_objects` WHERE `removed_date` >= '&2'",
-                 $sessionid,
-                 $sModifiedSince);
+                 SELECT &1, 7, `id` FROM `removed_objects` WHERE `removed_date` >= '&2'", $sessionid, $sModifiedSince);
             $recordcount['removedobjects'] = mysql_affected_rows();
         }
-    }
-    else
-    {
+    } else {
         $sqlWhere = '';
         $sqlHaving = '';
 
-        if ($selection['type'] == 1)
-        {
+        if ($selection['type'] == 1) {
             sql("CREATE TEMPORARY TABLE `tmpxmlSesssionCaches` (`cache_id` int(11), PRIMARY KEY (`cache_id`)) ENGINE=MEMORY
                  SELECT DISTINCT `cache_countries`.`cache_id` FROM `caches`, `cache_countries` WHERE `caches`.`cache_id`=`cache_countries`.`cache_id` AND `cache_countries`.`country`='&1' AND `caches`.`status`!=5 AND `status`!=6 AND `status`!=4", $selection['country']);
-        }
-        else if ($selection['type'] == 2)
-        {
+        } else if ($selection['type'] == 2) {
             require_once($rootpath . 'lib/search.inc.php');
 
             $sql = 'CREATE TEMPORARY TABLE `tmpxmlSesssionCaches` (`cache_id` int(11), `distance` double, KEY (`cache_id`)) ENGINE=MEMORY ';
@@ -686,87 +626,60 @@ function startXmlSession($sModifiedSince, $bCache, $bCachedesc, $bCachelog, $bUs
             $sql .= ' HAVING `distance` < ' . ($selection['distance'] + 0);
 
             sql($sql);
-        }
-        else if ($selection['type'] == 3)
-        {
+        } else if ($selection['type'] == 3) {
             sql("CREATE TEMPORARY TABLE `tmpxmlSesssionCaches` (`cache_id` int(11), PRIMARY KEY (`cache_id`)) ENGINE=MEMORY
-                 SELECT '&1' AS cache_id", $selection['cacheid']+0);
+                 SELECT '&1' AS cache_id", $selection['cacheid'] + 0);
         }
 
-        if ($bCache == 1)
-        {
+        if ($bCache == 1) {
             sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
                  SELECT DISTINCT &1, 2, `tmpxmlSesssionCaches`.`cache_id` FROM `tmpxmlSesssionCaches`, `caches`
-                 WHERE `tmpxmlSesssionCaches`.`cache_id`=`caches`.`cache_id` AND `caches`.`last_modified` >= '&2'",
-                 $sessionid,
-                 $sModifiedSince);
+                 WHERE `tmpxmlSesssionCaches`.`cache_id`=`caches`.`cache_id` AND `caches`.`last_modified` >= '&2'", $sessionid, $sModifiedSince);
             $recordcount['caches'] = mysql_affected_rows();
         }
 
-        if ($bCachedesc == 1)
-        {
+        if ($bCachedesc == 1) {
             sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
                  SELECT DISTINCT &1, 3, `cache_desc`.`id` FROM `cache_desc`, `tmpxmlSesssionCaches`
-                 WHERE `cache_desc`.`cache_id`=`tmpxmlSesssionCaches`.`cache_id` AND `cache_desc`.`last_modified` >= '&2'",
-                 $sessionid,
-                 $sModifiedSince);
+                 WHERE `cache_desc`.`cache_id`=`tmpxmlSesssionCaches`.`cache_id` AND `cache_desc`.`last_modified` >= '&2'", $sessionid, $sModifiedSince);
             $recordcount['cachedescs'] = mysql_affected_rows();
         }
 
-        if ($bCachelog == 1)
-        {
+        if ($bCachelog == 1) {
             sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
                  SELECT DISTINCT &1, 1, `cache_logs`.`id` FROM `cache_logs`, `tmpxmlSesssionCaches`
-                 WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`cache_id`=`tmpxmlSesssionCaches`.`cache_id` AND `cache_logs`.`last_modified` >= '&2'",
-                 $sessionid,
-                 $sModifiedSince);
+                 WHERE `cache_logs`.`deleted`=0 AND `cache_logs`.`cache_id`=`tmpxmlSesssionCaches`.`cache_id` AND `cache_logs`.`last_modified` >= '&2'", $sessionid, $sModifiedSince);
             $recordcount['cachelogs'] = mysql_affected_rows();
         }
 
-        if ($bPicture == 1)
-        {
+        if ($bPicture == 1) {
             // cachebilder
             sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
                  SELECT DISTINCT &1, 6, `pictures`.`id` FROM `pictures`, `tmpxmlSesssionCaches`
                  WHERE `pictures`.`object_id`=`tmpxmlSesssionCaches`.`cache_id` AND `pictures`.`object_type`=2 AND
-                       `pictures`.`last_modified` >= '&2'",
-                 $sessionid,
-                 $sModifiedSince);
+                       `pictures`.`last_modified` >= '&2'", $sessionid, $sModifiedSince);
             $recordcount['pictures'] = mysql_affected_rows();
 
             // bilder von logs
-            if ($bPictureFromCachelog == 1)
-            {
+            if ($bPictureFromCachelog == 1) {
                 sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
                      SELECT DISTINCT &1, 6, `pictures`.id FROM `pictures` , `cache_logs`, `tmpxmlSesssionCaches`
                      WHERE `tmpxmlSesssionCaches`.`cache_id`=`cache_logs`.`cache_id` AND `cache_logs`.`deleted`=0 AND
                            `pictures`.`object_type`=1 AND `pictures`.`object_id`=`cache_logs`.`id` AND
-                           `pictures`.`last_modified` >= '&2'",
-                 $sessionid,
-                 $sModifiedSince);
+                           `pictures`.`last_modified` >= '&2'", $sessionid, $sModifiedSince);
 
                 $recordcount['pictures'] += mysql_affected_rows();
             }
         }
 
-        if ($bRemovedObject == 1)
-        {
+        if ($bRemovedObject == 1) {
             sql("INSERT INTO `xmlsession_data` (`session_id`, `object_type`, `object_id`)
-                 SELECT DISTINCT &1, 7, `id` FROM `removed_objects` WHERE `removed_date` >= '&2'",
-                 $sessionid,
-                 $sModifiedSince);
+                 SELECT DISTINCT &1, 7, `id` FROM `removed_objects` WHERE `removed_date` >= '&2'", $sessionid, $sModifiedSince);
             $recordcount['removedobjects'] = mysql_affected_rows();
         }
     }
 
-    sql('UPDATE `xmlsession` SET `caches`=&1, `cachedescs`=&2, `cachelogs`=&3, `users`=&4, `pictures`=&5, `removedobjects`=&6 WHERE `id`=&7 LIMIT 1',
-        $recordcount['caches'],
-        $recordcount['cachedescs'],
-        $recordcount['cachelogs'],
-        $recordcount['users'],
-        $recordcount['pictures'],
-        $recordcount['removedobjects'],
-        $sessionid);
+    sql('UPDATE `xmlsession` SET `caches`=&1, `cachedescs`=&2, `cachelogs`=&3, `users`=&4, `pictures`=&5, `removedobjects`=&6 WHERE `id`=&7 LIMIT 1', $recordcount['caches'], $recordcount['cachedescs'], $recordcount['cachelogs'], $recordcount['users'], $recordcount['pictures'], $recordcount['removedobjects'], $sessionid);
 
     return $sessionid;
 }
@@ -804,10 +717,8 @@ function outputXmlSessionFile($sessionid, $filenr, $bOcXmlTag, $bDocType, $bXmlD
 //  echo $startat . ' ' . $endat . '<br /><br />';
 //  echo '<table>';
 //  echo '<tr><td>sql-start</td><td>sql-count</td><td>count</td><td>begin</td><td>end</td></tr>';
-    for ($i = 0; $i < 6; $i++)
-    {
-        if (($startat >= $recordnr[$i]) && ($startat + 500 < $recordnr[$i + 1]))
-        {
+    for ($i = 0; $i < 6; $i++) {
+        if (($startat >= $recordnr[$i]) && ($startat + 500 < $recordnr[$i + 1])) {
             if ($recordnr[$i + 1] - $startat > 500)
                 $limits[$i] = array('start' => $startat - $recordnr[$i], 'count' => 500);
             else
@@ -815,34 +726,29 @@ function outputXmlSessionFile($sessionid, $filenr, $bOcXmlTag, $bDocType, $bXmlD
 
             //$limits[$i] = array('start' => 'a', 'count' => 'a');
         }
-        else if (($startat >= $recordnr[$i]) && ($startat < $recordnr[$i + 1]))
-        {
+        else if (($startat >= $recordnr[$i]) && ($startat < $recordnr[$i + 1])) {
             $limits[$i] = array('start' => $startat - $recordnr[$i], 'count' => $recordnr[$i + 1] - $startat);
             //$limits[$i] = array('start' => 'b', 'count' => 'b');
-        }
-        else if (($startat + 500 >= $recordnr[$i]) && ($startat + 500 < $recordnr[$i + 1]))
-        {
+        } else if (($startat + 500 >= $recordnr[$i]) && ($startat + 500 < $recordnr[$i + 1])) {
             if ($startat + 500 < $recordnr[$i + 1])
                 $limits[$i] = array('start' => 0, 'count' => 500 - $recordnr[$i] + $startat);
             else
                 $limits[$i] = array('start' => 0, 'count' => $recordnr[$i + 1] - $recordnr[$i]);
 
-            if ($limits[$i]['count'] < 0) $limits[$i]['count'] = 0;
+            if ($limits[$i]['count'] < 0)
+                $limits[$i]['count'] = 0;
 
             //$limits[$i] = array('start' => 'c', 'count' => 'c');
         }
-        else if (($startat < $recordnr[$i]) && ($startat + 500 >= $recordnr[$i + 1]))
-        {
+        else if (($startat < $recordnr[$i]) && ($startat + 500 >= $recordnr[$i + 1])) {
             $limits[$i] = array('start' => 0, 'count' => $recordnr[$i + 1] - $recordnr[$i]);
             //$limits[$i] = array('start' => 'd', 'count' => 'd');
-        }
-        else
+        } else
             $limits[$i] = array('start' => '0', 'count' => '0');
 
 //      echo '<tr><td>' . $limits[$i]['start'] . '</td><td>' . $limits[$i]['count'] . '</td><td>' . ($recordnr[$i + 1] - $recordnr[$i]) . '</td><td>' . $recordnr[$i] . '</td><td>' . $recordnr[$i + 1] . '</td></tr>';
     }
 //  echo '</table>';
-
 //  echo '<a href="ocxml11.php?sessionid=' . $sessionid . '&file=' . ($filenr - 1) . '">Zurück</a><br />';
 //  echo '<a href="ocxml11.php?sessionid=' . $sessionid . '&file=' . ($filenr + 1) . '">Vor</a>';
 
@@ -864,30 +770,32 @@ function outputXmlSessionFile($sessionid, $filenr, $bOcXmlTag, $bDocType, $bXmlD
     outputXmlFile($sessionid, $filenr, $bXmlDecl, $bOcXmlTag, $bDocType, $ziptype);
 }
 
-
 /* begin some useful functions */
 
 function xmlcdata($str)
 {
     global $bXmlCData;
 
-    if ($bXmlCData == '1')
-    {
+    if ($bXmlCData == '1') {
         $str = mb_ereg_replace(']]>', ']] >', $str);
         $str = output_convert($str);
         return '<![CDATA[' . filterevilchars($str) . ']]>';
-    }
-    else
+    } else
         return xmlentities($str);
 }
 
 function xmlentities($str)
 {
-    $from[0] = '&'; $to[0] = '&amp;';
-    $from[1] = '<'; $to[1] = '&lt;';
-    $from[2] = '>'; $to[2] = '&gt;';
-    $from[3] = '"'; $to[3] = '&quot;';
-    $from[4] = '\''; $to[4] = '&apos;';
+    $from[0] = '&';
+    $to[0] = '&amp;';
+    $from[1] = '<';
+    $to[1] = '&lt;';
+    $from[2] = '>';
+    $to[2] = '&gt;';
+    $from[3] = '"';
+    $to[3] = '&quot;';
+    $from[4] = '\'';
+    $to[4] = '&apos;';
 
     for ($i = 0; $i <= 4; $i++)
         $str = mb_ereg_replace($from[$i], $to[$i], $str);
@@ -950,26 +858,23 @@ function user_id2uuid($id)
 
 function unlinkrecursiv($path)
 {
-    if (mb_substr($path, -1) != '/') $path .= '/';
+    if (mb_substr($path, -1) != '/')
+        $path .= '/';
 
     $notunlinked = 0;
 
     $hDir = opendir($path);
-    while (false !== ($file = readdir($hDir)))
-    {
-        if (($file != '.') && ($file != '..'))
-        {
-            if (is_dir($path . $file))
-            {
+    while (false !== ($file = readdir($hDir))) {
+        if (($file != '.') && ($file != '..')) {
+            if (is_dir($path . $file)) {
                 if (unlinkrecursiv($path . $file . '/') == false)
                     $notunlinked++;
             }
-            else
-            {
+            else {
                 if ((mb_substr($file, -4) == '.zip') ||
-                    (mb_substr($file, -3) == '.gz') ||
-                    (mb_substr($file, -4) == '.bz2') ||
-                    (mb_substr($file, -4) == '.xml'))
+                        (mb_substr($file, -3) == '.gz') ||
+                        (mb_substr($file, -4) == '.bz2') ||
+                        (mb_substr($file, -4) == '.xml'))
                     unlink($path . $file);
                 else
                     $notunlinked++;
@@ -978,12 +883,10 @@ function unlinkrecursiv($path)
     }
     closedir($hDir);
 
-    if ($notunlinked == 0)
-    {
+    if ($notunlinked == 0) {
         rmdir($path);
         return true;
-    }
-    else
+    } else
         return false;
 }
 
@@ -991,10 +894,8 @@ function output_convert($str)
 {
     global $sCharset;
 
-    if ($sCharset == 'iso-8859-2')
-    {
-        if ($str != null)
-        {
+    if ($sCharset == 'iso-8859-2') {
+        if ($str != null) {
             $str = @iconv('UTF-8', 'ISO-8859-2', $str);
             if ($str == false)
                 $str = '--- charset conversion error ---';
@@ -1004,4 +905,5 @@ function output_convert($str)
     else if ($sCharset == 'utf-8')
         return $str;
 }
+
 ?>

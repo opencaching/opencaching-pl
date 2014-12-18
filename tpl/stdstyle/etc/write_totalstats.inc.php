@@ -2,7 +2,8 @@
 
 global $lang, $rootpath;
 
-if (!isset($rootpath)) $rootpath = '../../../';
+if (!isset($rootpath))
+    $rootpath = '../../../';
 
 require_once($rootpath . 'lib/common.inc.php');
 
@@ -35,5 +36,4 @@ $file_content .= "?>\n";
 $n_file = fopen($dynstylepath . "totalstats.inc.php", 'w');
 fwrite($n_file, $file_content);
 fclose($n_file);
-
 ?>

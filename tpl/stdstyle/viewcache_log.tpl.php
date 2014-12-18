@@ -4,4 +4,4 @@
         {logtext}
         {logpictures}
     </div>
-   </div>
+</div>

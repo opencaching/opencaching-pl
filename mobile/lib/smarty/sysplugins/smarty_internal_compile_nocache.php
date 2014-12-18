@@ -12,7 +12,9 @@
 /**
  * Smarty Internal Plugin Compile Nocache Class
  */
-class Smarty_Internal_Compile_Nocache extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Nocache extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for the {nocache} tag
      *
@@ -34,12 +36,15 @@ class Smarty_Internal_Compile_Nocache extends Smarty_Internal_CompileBase {
         $this->compiler->has_code = false;
         return true;
     }
+
 }
 
 /**
  * Smarty Internal Plugin Compile Nocacheclose Class
  */
-class Smarty_Internal_Compile_Nocacheclose extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Nocacheclose extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for the {/nocache} tag
      *
@@ -58,6 +63,7 @@ class Smarty_Internal_Compile_Nocacheclose extends Smarty_Internal_CompileBase {
         $this->compiler->has_code = false;
         return true;
     }
+
 }
 
 ?>

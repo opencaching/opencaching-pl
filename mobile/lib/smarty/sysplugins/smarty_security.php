@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -10,7 +11,9 @@
 /**
  * This class does contain the security settings
  */
-class Smarty_Security {
+class Smarty_Security
+{
+
     /**
      * This determines how Smarty handles "<?php ... ?>" tags in templates.
      * possible values:
@@ -33,7 +36,6 @@ class Smarty_Security {
      */
     public $secure_dir = array();
 
-
     /**
      * This is an array of directories where trusted php scripts reside.
      * {@link $security} is disabled during their inclusion/execution.
@@ -41,7 +43,6 @@ class Smarty_Security {
      * @var array
      */
     public $trusted_dir = array();
-
 
     /**
      * This is an array of trusted static classes.
@@ -60,7 +61,7 @@ class Smarty_Security {
      * @var array
      */
     public $php_functions = array('isset', 'empty',
-            'count', 'sizeof','in_array', 'is_array','time','nl2br');
+        'count', 'sizeof', 'in_array', 'is_array', 'time', 'nl2br');
 
     /**
      * This is an array of trusted PHP modifers.
@@ -69,7 +70,7 @@ class Smarty_Security {
      * To disable all modifier set $modifiers = null.
      * @var array
      */
-    public $php_modifiers = array('escape','count');
+    public $php_modifiers = array('escape', 'count');
 
     /**
      * This is an array of trusted streams.
@@ -79,14 +80,17 @@ class Smarty_Security {
      * @var array
      */
     public $streams = array('file');
+
     /**
      * + flag if constants can be accessed from template
      */
     public $allow_constants = true;
+
     /**
      * + flag if super globals can be accessed from template
      */
     public $allow_super_globals = true;
+
     /**
      * + flag if the {php} and {include_php} tag can be executed
      */
@@ -96,6 +100,7 @@ class Smarty_Security {
     {
         $this->smarty = $smarty;
     }
+
     /**
      * Check if PHP function is trusted.
      *
@@ -108,7 +113,7 @@ class Smarty_Security {
         if (isset($this->php_functions) && (empty($this->php_functions) || in_array($function_name, $this->php_functions))) {
             return true;
         } else {
-            $compiler->trigger_template_error ("PHP function '{$function_name}' not allowed by security setting");
+            $compiler->trigger_template_error("PHP function '{$function_name}' not allowed by security setting");
             return false;
         }
     }
@@ -125,10 +130,11 @@ class Smarty_Security {
         if (isset($this->static_classes) && (empty($this->static_classes) || in_array($class_name, $this->static_classes))) {
             return true;
         } else {
-            $compiler->trigger_template_error ("access to static class '{$class_name}' not allowed by security setting");
+            $compiler->trigger_template_error("access to static class '{$class_name}' not allowed by security setting");
             return false;
         }
     }
+
     /**
      * Check if modifier is trusted.
      *
@@ -141,10 +147,11 @@ class Smarty_Security {
         if (isset($this->php_modifiers) && (empty($this->php_modifiers) || in_array($modifier_name, $this->php_modifiers))) {
             return true;
         } else {
-            $compiler->trigger_template_error ("modifier '{$modifier_name}' not allowed by security setting");
+            $compiler->trigger_template_error("modifier '{$modifier_name}' not allowed by security setting");
             return false;
         }
     }
+
     /**
      * Check if stream is trusted.
      *
@@ -157,7 +164,7 @@ class Smarty_Security {
         if (isset($this->streams) && (empty($this->streams) || in_array($stream_name, $this->streams))) {
             return true;
         } else {
-            throw new SmartyException ("stream '{$stream_name}' not allowed by security setting");
+            throw new SmartyException("stream '{$stream_name}' not allowed by security setting");
             return false;
         }
     }
@@ -173,7 +180,7 @@ class Smarty_Security {
     {
         $_rp = realpath($filepath);
         if (isset($this->smarty->template_dir)) {
-            foreach ((array)$this->smarty->template_dir as $curr_dir) {
+            foreach ((array) $this->smarty->template_dir as $curr_dir) {
                 if (($_cd = realpath($curr_dir)) !== false &&
                         strncmp($_rp, $_cd, strlen($_cd)) == 0 &&
                         (strlen($_rp) == strlen($_cd) || substr($_rp, strlen($_cd), 1) == DS)) {
@@ -182,7 +189,7 @@ class Smarty_Security {
             }
         }
         if (!empty($this->smarty->security_policy->secure_dir)) {
-            foreach ((array)$this->smarty->security_policy->secure_dir as $curr_dir) {
+            foreach ((array) $this->smarty->security_policy->secure_dir as $curr_dir) {
                 if (($_cd = realpath($curr_dir)) !== false) {
                     if ($_cd == $_rp) {
                         return true;
@@ -194,7 +201,7 @@ class Smarty_Security {
             }
         }
 
-        throw new SmartyException ("directory '{$_rp}' not allowed by security setting");
+        throw new SmartyException("directory '{$_rp}' not allowed by security setting");
         return false;
     }
 
@@ -209,7 +216,7 @@ class Smarty_Security {
     {
         $_rp = realpath($filepath);
         if (!empty($this->trusted_dir)) {
-            foreach ((array)$this->trusted_dir as $curr_dir) {
+            foreach ((array) $this->trusted_dir as $curr_dir) {
                 if (($_cd = realpath($curr_dir)) !== false) {
                     if ($_cd == $_rp) {
                         return true;
@@ -221,9 +228,10 @@ class Smarty_Security {
             }
         }
 
-        throw new SmartyException ("directory '{$_rp}' not allowed by security setting");
+        throw new SmartyException("directory '{$_rp}' not allowed by security setting");
         return false;
     }
+
 }
 
 ?>

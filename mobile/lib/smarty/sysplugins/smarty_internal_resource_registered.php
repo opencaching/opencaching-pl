@@ -13,18 +13,20 @@
 /**
  * Smarty Internal Plugin Resource Registered
  */
-class Smarty_Internal_Resource_Registered {
+class Smarty_Internal_Resource_Registered
+{
+
     public function __construct($template, $resource_type = null)
     {
         $this->smarty = $template->smarty;
         if (isset($resource_type)) {
-            $template->smarty->registerResource($resource_type,
-                array("smarty_resource_{$resource_type}_source",
-                    "smarty_resource_{$resource_type}_timestamp",
-                    "smarty_resource_{$resource_type}_secure",
-                    "smarty_resource_{$resource_type}_trusted"));
+            $template->smarty->registerResource($resource_type, array("smarty_resource_{$resource_type}_source",
+                "smarty_resource_{$resource_type}_timestamp",
+                "smarty_resource_{$resource_type}_secure",
+                "smarty_resource_{$resource_type}_trusted"));
         }
     }
+
     // classes used for compiling Smarty templates from file resource
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
     public $template_lexer_class = 'Smarty_Internal_Templatelexer';
@@ -46,6 +48,7 @@ class Smarty_Internal_Resource_Registered {
             return false;
         }
     }
+
     /**
      * Get filepath to template source
      *
@@ -54,7 +57,7 @@ class Smarty_Internal_Resource_Registered {
      */
     public function getTemplateFilepath($_template)
     {
-        $_filepath = $_template->resource_type .':'.$_template->resource_name;
+        $_filepath = $_template->resource_type . ':' . $_template->resource_name;
         $_template->templateUid = sha1($_filepath);
         return $_filepath;
     }
@@ -69,9 +72,8 @@ class Smarty_Internal_Resource_Registered {
     {
         // return timestamp
         $time_stamp = false;
-        call_user_func_array($this->smarty->registered_resources[$_template->resource_type][0][1],
-            array($_template->resource_name, &$time_stamp, $this->smarty));
-        return is_numeric($time_stamp) ? (int)$time_stamp : $time_stamp;
+        call_user_func_array($this->smarty->registered_resources[$_template->resource_type][0][1], array($_template->resource_name, &$time_stamp, $this->smarty));
+        return is_numeric($time_stamp) ? (int) $time_stamp : $time_stamp;
     }
 
     /**
@@ -84,9 +86,8 @@ class Smarty_Internal_Resource_Registered {
     {
         // return timestamp
         $time_stamp = false;
-        call_user_func_array($this->smarty->registered_resources[$_resource_type][0][1],
-            array($_resource_name, &$time_stamp, $this->smarty));
-        return is_numeric($time_stamp) ? (int)$time_stamp : $time_stamp;
+        call_user_func_array($this->smarty->registered_resources[$_resource_type][0][1], array($_resource_name, &$time_stamp, $this->smarty));
+        return is_numeric($time_stamp) ? (int) $time_stamp : $time_stamp;
     }
 
     /**
@@ -98,8 +99,7 @@ class Smarty_Internal_Resource_Registered {
     public function getTemplateSource($_template)
     {
         // return template string
-        return call_user_func_array($this->smarty->registered_resources[$_template->resource_type][0][0],
-            array($_template->resource_name, &$_template->template_source, $this->smarty));
+        return call_user_func_array($this->smarty->registered_resources[$_template->resource_type][0][0], array($_template->resource_name, &$_template->template_source, $this->smarty));
     }
 
     /**
@@ -110,7 +110,7 @@ class Smarty_Internal_Resource_Registered {
      */
     public function getCompiledFilepath($_template)
     {
-        $_compile_id =  isset($_template->compile_id) ? preg_replace('![^\w\|]+!','_',$_template->compile_id) : null;
+        $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w\|]+!', '_', $_template->compile_id) : null;
         // calculate Uid if not already done
         if ($_template->templateUid == '') {
             $_template->getTemplateFilepath();
@@ -119,9 +119,9 @@ class Smarty_Internal_Resource_Registered {
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
-             . substr($_filepath, 2, 2) . DS
-             . substr($_filepath, 4, 2) . DS
-             . $_filepath;
+                    . substr($_filepath, 2, 2) . DS
+                    . substr($_filepath, 4, 2) . DS
+                    . $_filepath;
         }
         $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
         if (isset($_compile_id)) {
@@ -138,6 +138,7 @@ class Smarty_Internal_Resource_Registered {
         }
         return $_compile_dir . $_filepath . '.' . $_template->resource_type . '.' . basename($_template->resource_name) . $_cache . '.php';
     }
+
 }
 
 ?>

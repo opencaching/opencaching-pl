@@ -13,7 +13,9 @@
 /**
  * Smarty Internal Plugin Compile Assign Class
  */
-class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for the {assign} tag
      *
@@ -59,6 +61,7 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase {
             return "<?php \$_smarty_tpl->tpl_vars[$_attr[var]] = new Smarty_variable($_attr[value], $_nocache, $_scope);?>";
         }
     }
+
 }
 
 ?>

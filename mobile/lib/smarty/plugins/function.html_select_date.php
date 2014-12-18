@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -60,23 +61,23 @@ function smarty_function_html_select_date($params, $template)
     /* Display years in reverse order? Ie. 2000,1999,.... */
     $reverse_years = false;
     /* Should the select boxes be part of an array when returned from PHP?
-       e.g. setting it to "birthday", would create "birthday[Day]",
-       "birthday[Month]" & "birthday[Year]". Can be combined with prefix */
+      e.g. setting it to "birthday", would create "birthday[Day]",
+      "birthday[Month]" & "birthday[Year]". Can be combined with prefix */
     $field_array = null;
     /* <select size>'s of the different <select> tags.
-       If not set, uses default dropdown. */
+      If not set, uses default dropdown. */
     $day_size = null;
     $month_size = null;
     $year_size = null;
     /* Unparsed attributes common to *ALL* the <select>/<input> tags.
-       An example might be in the template: all_extra ='class ="foo"'. */
+      An example might be in the template: all_extra ='class ="foo"'. */
     $all_extra = null;
     /* Separate attributes for the tags. */
     $day_extra = null;
     $month_extra = null;
     $year_extra = null;
     /* Order in which to display the fields.
-       "D" -> day, "M" -> month, "Y" -> year. */
+      "D" -> day, "M" -> month, "Y" -> year. */
     $field_order = 'MDY';
     /* String printed between the different fields. */
     $field_separator = "\n";
@@ -110,11 +111,11 @@ function smarty_function_html_select_date($params, $template)
             case 'month_empty':
             case 'day_empty':
             case 'year_empty':
-                $$_key = (string)$_value;
+                $$_key = (string) $_value;
                 break;
 
             case 'all_empty':
-                $$_key = (string)$_value;
+                $$_key = (string) $_value;
                 $day_empty = $month_empty = $year_empty = $all_empty;
                 break;
 
@@ -123,7 +124,7 @@ function smarty_function_html_select_date($params, $template)
             case 'display_years':
             case 'year_as_text':
             case 'reverse_years':
-                $$_key = (bool)$_value;
+                $$_key = (bool) $_value;
                 break;
 
             default:
@@ -212,10 +213,9 @@ function smarty_function_html_select_date($params, $template)
         $month_result .= $extra_attrs . '>' . "\n";
 
         $month_result .= smarty_function_html_options(array('output' => $month_names,
-                'values' => $month_values,
-                'selected' => (int)$time[1] ? strftime($month_value_format, mktime(0, 0, 0, (int)$time[1], 1, 2000)) : '',
-                'print_result' => false),
-                 $template);
+            'values' => $month_values,
+            'selected' => (int) $time[1] ? strftime($month_value_format, mktime(0, 0, 0, (int) $time[1], 1, 2000)) : '',
+            'print_result' => false), $template);
         $month_result .= '</select>';
     }
 
@@ -248,10 +248,9 @@ function smarty_function_html_select_date($params, $template)
         }
         $day_result .= $extra_attrs . '>' . "\n";
         $day_result .= smarty_function_html_options(array('output' => $days,
-                'values' => $day_values,
-                'selected' => $time[2],
-                'print_result' => false),
-             $template);
+            'values' => $day_values,
+            'selected' => $time[2],
+            'print_result' => false), $template);
         $day_result .= '</select>';
     }
 
@@ -272,7 +271,7 @@ function smarty_function_html_select_date($params, $template)
             }
             $year_result .= ' />';
         } else {
-            $years = range((int)$start_year, (int)$end_year);
+            $years = range((int) $start_year, (int) $end_year);
             if ($reverse_years) {
                 rsort($years, SORT_NUMERIC);
             } else {
@@ -295,10 +294,9 @@ function smarty_function_html_select_date($params, $template)
             }
             $year_result .= $extra_attrs . '>' . "\n";
             $year_result .= smarty_function_html_options(array('output' => $years,
-                    'values' => $yearvals,
-                    'selected' => $time[0],
-                    'print_result' => false),
-                   $template);
+                'values' => $yearvals,
+                'selected' => $time[0],
+                'print_result' => false), $template);
             $year_result .= '</select>';
         }
     }

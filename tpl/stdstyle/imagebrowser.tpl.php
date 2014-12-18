@@ -1,7 +1,5 @@
 <?php
-
-  // Unicode Reminder メモ
-
+// Unicode Reminder メモ
 ?>
 <script type="text/javascript">
 <!--

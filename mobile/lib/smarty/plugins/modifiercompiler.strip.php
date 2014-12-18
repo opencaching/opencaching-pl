@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -21,7 +22,6 @@
  * @param array $params parameters
  * @return string with compiled code
  */
-
 function smarty_modifiercompiler_strip($params, $compiler)
 {
     if (!isset($params[1])) {

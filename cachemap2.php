@@ -1,9 +1,9 @@
 <?php
+
 function onTheList($theArray, $item)
 {
-    for( $i=0;$i<count($theArray);$i++)
-    {
-        if( $theArray[$i] == $item )
+    for ($i = 0; $i < count($theArray); $i++) {
+        if ($theArray[$i] == $item)
             return $i;
     }
     return -1;
@@ -13,13 +13,11 @@ function getDBFilter($userid)
 {
     $filter = "11111111110111110134100000000000"; // default filter
     $query = mysql_query("SELECT * from map_settings_v2 WHERE `user_id`=$userid");
-    while($row = mysql_fetch_assoc($query))
-    {
+    while ($row = mysql_fetch_assoc($query)) {
         $filter = '';
-        foreach($row as $k=>$v)
-        {
-            if( $k != 'user_id')
-            $filter .= $v;
+        foreach ($row as $k => $v) {
+            if ($k != 'user_id')
+                $filter .= $v;
         }
     }
     //echo $filter;
@@ -58,71 +56,89 @@ function setDBFilter($userid, $filter)
 function makeDBFilter()
 {
     $f = "";
-    if( isset($_POST['u']) )
+    if (isset($_POST['u']))
         $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['t']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['m']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['v']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['w']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['e']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['q']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['o']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['c']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['d']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['I']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['W']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['Z']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['A']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['N']) )
-        $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['C']) )
+    else
         $f .= "1";
-    else $f .= "0";
-    if( isset($_POST['T']) )
+    if (isset($_POST['t']))
         $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['Y']) )
+    else
+        $f .= "1";
+    if (isset($_POST['m']))
         $f .= "0";
-    else $f .= "1";
-    if( isset($_POST['maptype'])) {
+    else
+        $f .= "1";
+    if (isset($_POST['v']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['w']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['e']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['q']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['o']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['c']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['d']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['I']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['W']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['Z']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['A']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['N']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['C']))
+        $f .= "1";
+    else
+        $f .= "0";
+    if (isset($_POST['T']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['Y']))
+        $f .= "0";
+    else
+        $f .= "1";
+    if (isset($_POST['maptype'])) {
         $f .= $_POST['maptype'];
     } else {
         $f .= "3";
     }
-    if( isset($_POST['cachelimit'])) {
+    if (isset($_POST['cachelimit'])) {
         $f .= (($_POST['cachelimit'] / 50) - 1);
     } else {
         $f .= "4";
     }
-    if( isset($_POST['cachesort'])) {
+    if (isset($_POST['cachesort'])) {
         $f .= $_POST['cachesort'];
     } else {
         $f .= "1";
@@ -131,7 +147,6 @@ function makeDBFilter()
     return $f;
 //  ifutmvweqocdIWZANCT
 }
-
 
 require_once('./lib/common.inc.php');
 $tplname = 'cachemap2';
@@ -148,57 +163,48 @@ $userid = '';
 
 $get_userid = strip_tags($_REQUEST['userid']);
 //user logged in?
-        if ($usr == false)
-        {
-            $target = urlencode(tpl_get_current_page());
-            tpl_redirect('login.php?target='.$target);
-        }
-        else
-{
+if ($usr == false) {
+    $target = urlencode(tpl_get_current_page());
+    tpl_redirect('login.php?target=' . $target);
+} else {
     session_start();
 
 
 
-    if( $get_userid == '')
+    if ($get_userid == '')
         $userid = $usr['userid'];
     else
         $userid = $get_userid;
     $rs = mysql_query("SELECT `latitude`, `longitude`, `username` FROM `user` WHERE `user_id`='$userid'");
     $record = mysql_fetch_array($rs);
-    if( ($_REQUEST['lat'] != "" && $_REQUEST['lon'] != "") && ($_REQUEST['lat'] != 0 && $_REQUEST['lon'] != 0))
-    {
-        $coordsXY=$_REQUEST['lat'].",".$_REQUEST['lon'];
-        $coordsX=$_REQUEST['lat'];
-        if( $_REQUEST['inputZoom'] != "" )
+    if (($_REQUEST['lat'] != "" && $_REQUEST['lon'] != "") && ($_REQUEST['lat'] != 0 && $_REQUEST['lon'] != 0)) {
+        $coordsXY = $_REQUEST['lat'] . "," . $_REQUEST['lon'];
+        $coordsX = $_REQUEST['lat'];
+        if ($_REQUEST['inputZoom'] != "")
             tpl_set_var('zoom', $_REQUEST['inputZoom']);
         else
             tpl_set_var('zoom', 11);
     }
-    else
-    {
-        $coordsXY="$record[latitude],$record[longitude]";
-        $coordsX="$record[latitude]";
-        if ($coordsX=="" || $coordsX==0)
-        {
-            $coordsXY="52.5,19.2";
+    else {
+        $coordsXY = "$record[latitude],$record[longitude]";
+        $coordsX = "$record[latitude]";
+        if ($coordsX == "" || $coordsX == 0) {
+            $coordsXY = "52.5,19.2";
             tpl_set_var('zoom', 6);
-        }
-        else
+        } else
             tpl_set_var('zoom', 11);
     }
 
-    if( isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y')
-    {
+    if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'y') {
         // add cache to print (do not duplicate items)
-        if( count($_SESSION['print_list']) == 0 )
+        if (count($_SESSION['print_list']) == 0)
             $_SESSION['print_list'] = array();
-        if( onTheList($_SESSION['print_list'], $_REQUEST['cacheid']) == -1 )
-            array_push($_SESSION['print_list'],$_REQUEST['cacheid']);
+        if (onTheList($_SESSION['print_list'], $_REQUEST['cacheid']) == -1)
+            array_push($_SESSION['print_list'], $_REQUEST['cacheid']);
     }
-    if( isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'n')
-    {
+    if (isset($_REQUEST['print_list']) && $_REQUEST['print_list'] == 'n') {
         // remove cache from print list
-        while( onTheList($_SESSION['print_list'], $_REQUEST['cacheid']) != -1 )
+        while (onTheList($_SESSION['print_list'], $_REQUEST['cacheid']) != -1)
             unset($_SESSION['print_list'][onTheList($_SESSION['print_list'], $_REQUEST['cacheid'])]);
         $_SESSION['print_list'] = array_values($_SESSION['print_list']);
     }
@@ -208,15 +214,14 @@ $get_userid = strip_tags($_REQUEST['userid']);
 
     $filter = getDBFilter($usr['userid']);
 
-    if( isset( $_POST['submit'] ) )
-    {
-            $makeFilterResult = makeDBFilter();
-            setDBFilter($usr['userid'],$makeFilterResult);
-            $filter = $makeFilterResult;
+    if (isset($_POST['submit'])) {
+        $makeFilterResult = makeDBFilter();
+        setDBFilter($usr['userid'], $makeFilterResult);
+        $filter = $makeFilterResult;
     }
 
-    /*SET YOUR MAP CODE HERE*/
-    tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key='.$googlemap_key.'" type="text/javascript"></script>
+    /* SET YOUR MAP CODE HERE */
+    tpl_set_var('cachemap_header', '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=' . $googlemap_key . '" type="text/javascript"></script>
     <script language="JavaScript1.2" type="text/javascript">
     <!--
         window.onbeforeunload = saveMapType;

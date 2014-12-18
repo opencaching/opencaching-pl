@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile Function Plugin
  *
@@ -12,7 +13,9 @@
 /**
  * Smarty Internal Plugin Compile Function Plugin Class
  */
-class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_CompileBase
+{
+
     // attribute definitions
     public $required_attributes = array();
     public $optional_attributes = array('_any');
@@ -53,6 +56,7 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
         $output = "<?php echo {$function}({$_params},\$_smarty_tpl);?>\n";
         return $output;
     }
+
 }
 
 ?>

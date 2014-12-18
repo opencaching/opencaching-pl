@@ -20,8 +20,8 @@
     <b>Polska wersja OpenCaching</b>
     <br/><br/>
     - Maj 2006 - Pomysł i idea polskiego serwisu geocaching oraz uruchmienie i opracowanie polskiej wersji OC plus modyfikacje Waldek "sp2ong" + duża pomoc kolegów którzy brali udział w testowaniu.<br/>
-  - 2011 Wojtek "wrygiel" autor OKAPI czyli Opencaching API http://opencaching.pl/okapi<br/>
-  - 2011 Jakub "lecter69" autor wersji mobilnej OC PL http://m.opencaching.pl<br/>
+    - 2011 Wojtek "wrygiel" autor OKAPI czyli Opencaching API http://opencaching.pl/okapi<br/>
+    - 2011 Jakub "lecter69" autor wersji mobilnej OC PL http://m.opencaching.pl<br/>
 
     {include file="./tpl/backbutton.inc.tpl"}
 

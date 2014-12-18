@@ -1,4 +1,5 @@
 <?php
+
 require_once('./lib/common.inc.php');
 
 
@@ -9,14 +10,13 @@ AND cache_logs.user_id = caches.user_id
 AND cache_logs.cache_id = caches.cache_id";
 $res = mysql_query($sql);
 
-while( $result = mysql_fetch_array($res))
-{
+while ($result = mysql_fetch_array($res)) {
     echo '<table border="0">
     <tr>
         <td bgcolor="#cccccc">';
     //echo 'uid='.$result['user_id'].' cid='.$result['cache_id'].'<br />';
-    echo '<b>CACHE ID: '.$result['cache_id'].'<br /><a href="viewcache.php?cacheid='.$result['cache_id'].'">'.$result['name'].'</a></b><br />';
-    echo ''.$result['text'].'<br />
+    echo '<b>CACHE ID: ' . $result['cache_id'] . '<br /><a href="viewcache.php?cacheid=' . $result['cache_id'] . '">' . $result['name'] . '</a></b><br />';
+    echo '' . $result['text'] . '<br />
         </td>
     </tr>
     </table>
@@ -29,5 +29,4 @@ while( $result = mysql_fetch_array($res))
 //WHERE cache_logs.type =1
 //AND cache_logs.user_id = caches.user_id
 //AND cache_logs.cache_id = caches.cache_id
-
 ?>

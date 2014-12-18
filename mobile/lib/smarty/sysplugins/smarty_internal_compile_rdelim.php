@@ -12,7 +12,9 @@
 /**
  * Smarty Internal Plugin Compile Rdelim Class
  */
-class Smarty_Internal_Compile_Rdelim extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Rdelim extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for the {rdelim} tag
      *
@@ -32,6 +34,7 @@ class Smarty_Internal_Compile_Rdelim extends Smarty_Internal_CompileBase {
         $this->compiler->has_code = true;
         return $this->compiler->smarty->right_delimiter;
     }
+
 }
 
 ?>

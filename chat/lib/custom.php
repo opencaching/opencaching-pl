@@ -1,4 +1,5 @@
 <?php
+
 /*
  * @package AJAX_Chat
  * @author Sebastian Tschan
@@ -9,5 +10,5 @@
  * MyBB integration:
  * http://www.mybboard.net/
  */
-require(AJAX_CHAT_PATH.'/lib/oc/auth_oc.php');
+require(AJAX_CHAT_PATH . '/lib/oc/auth_oc.php');
 ?>

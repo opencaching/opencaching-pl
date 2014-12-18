@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -20,20 +21,20 @@
  * @param integer $
  * @return string
  */
-function smarty_modifier_debug_print_var ($var, $depth = 0, $length = 40)
+function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40)
 {
     $_replace = array("\n" => '<i>\n</i>',
         "\r" => '<i>\r</i>',
         "\t" => '<i>\t</i>'
-        );
+    );
 
     switch (gettype($var)) {
         case 'array' :
             $results = '<b>Array (' . count($var) . ')</b>';
             foreach ($var as $curr_key => $curr_val) {
                 $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
-                 . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
-                 . smarty_modifier_debug_print_var($curr_val, ++$depth, $length);
+                        . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
+                        . smarty_modifier_debug_print_var($curr_val, ++$depth, $length);
                 $depth--;
             }
             break;
@@ -42,8 +43,8 @@ function smarty_modifier_debug_print_var ($var, $depth = 0, $length = 40)
             $results = '<b>' . get_class($var) . ' Object (' . count($object_vars) . ')</b>';
             foreach ($object_vars as $curr_key => $curr_val) {
                 $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
-                 . '<b> -&gt;' . strtr($curr_key, $_replace) . '</b> = '
-                 . smarty_modifier_debug_print_var($curr_val, ++$depth, $length);
+                        . '<b> -&gt;' . strtr($curr_key, $_replace) . '</b> = '
+                        . smarty_modifier_debug_print_var($curr_val, ++$depth, $length);
                 $depth--;
             }
             break;

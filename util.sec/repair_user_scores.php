@@ -1,12 +1,13 @@
 <?php
-/***************************************************************************
+
+/* * *************************************************************************
  *  You can find the license in the docs directory
  *
  *  Unicode Reminder ăĄă˘
- ***************************************************************************/
-    $rootpath = '../';
-    require_once($rootpath.'lib/clicompatbase.inc.php');
-    require_once __DIR__.'/../lib/ClassPathDictionary.php';
+ * ************************************************************************* */
+$rootpath = '../';
+require_once($rootpath . 'lib/clicompatbase.inc.php');
+require_once __DIR__ . '/../lib/ClassPathDictionary.php';
 
 class RepairUserScores
 {
@@ -19,7 +20,7 @@ class RepairUserScores
         $sql = "SELECT user_id FROM user where user_id >= 0 ";
 
         $params = array();
-        if (isset($_GET['user_id'])){
+        if (isset($_GET['user_id'])) {
             $sql .= ' and user_id=:user_id';
             $params['user_id']['value'] = intval($_GET['user_id']);
             $params['user_id']['data_type'] = 'integer';
@@ -30,23 +31,22 @@ class RepairUserScores
         $users = $db->dbResultFetchAll();
         set_time_limit(3600);
         $total_touched = 0;
-        foreach($users as $user)
-        {
+        foreach ($users as $user) {
             $user_id = $user['user_id'];
 
             // repair founds
             $founds_count = $db->multiVariableQueryValue(
-                "SELECT count(id) FROM cache_logs WHERE deleted=0 AND user_id = :1 AND type=1", 0, $user_id);
+                    "SELECT count(id) FROM cache_logs WHERE deleted=0 AND user_id = :1 AND type=1", 0, $user_id);
             $notfounds_count = $db->multiVariableQueryValue(
-                "SELECT count(id) FROM cache_logs WHERE deleted=0 AND user_id = :1 AND type=2", 0, $user_id);
+                    "SELECT count(id) FROM cache_logs WHERE deleted=0 AND user_id = :1 AND type=2", 0, $user_id);
             $log_notes_count = $db->multiVariableQueryValue(
-                "SELECT count(id) FROM cache_logs WHERE deleted=0 AND user_id = :1 AND type=3", 0, $user_id);
+                    "SELECT count(id) FROM cache_logs WHERE deleted=0 AND user_id = :1 AND type=3", 0, $user_id);
             $cache_watches = $db->multiVariableQueryValue(
-                "SELECT count(id) FROM cache_watches WHERE user_id = :1", 0, $user_id);
+                    "SELECT count(id) FROM cache_watches WHERE user_id = :1", 0, $user_id);
             $cache_ignores = $db->multiVariableQueryValue(
-                "SELECT count(id) FROM cache_ignore WHERE user_id = :1", 0, $user_id);
+                    "SELECT count(id) FROM cache_ignore WHERE user_id = :1", 0, $user_id);
             $hidden_count = $db->multiVariableQueryValue(
-                "select count(cache_id) from caches where status in (1,2,3) and user_id = :1", 0, $user_id);
+                    "select count(cache_id) from caches where status in (1,2,3) and user_id = :1", 0, $user_id);
 
             $sql = "
                 UPDATE user
@@ -91,7 +91,7 @@ class RepairUserScores
             $params['user_id']['value'] = intval($user_id);
             $params['user_id']['data_type'] = 'integer';
             $db->paramQuery($sql, $params);
-            if ($db->rowCount() > 0){
+            if ($db->rowCount() > 0) {
                 echo "<b>user_id=$user_id</b><br>";
                 echo "hidden_count=$hidden_count<br>cache_ignores=$cache_ignores<br>";
                 echo "log_notes_count=$log_notes_count<br>founds_count=$founds_count<br>";
@@ -110,5 +110,4 @@ class RepairUserScores
 
 $rus = new RepairUserScores();
 $rus->run();
-
 ?>

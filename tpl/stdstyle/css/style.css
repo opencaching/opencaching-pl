@@ -532,7 +532,7 @@ tooltip {
     border: 1px solid #7ba2d2;
     background: #e4f5fa;
     color: #000;
-u
+    u
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
@@ -574,9 +574,9 @@ div.logs {
 }
 span.username_aktywnosc
 {
-color: #000000;
-font-family: verdana;
-font-size: 6;
+    color: #000000;
+    font-family: verdana;
+    font-size: 6;
 }
 div#viewcache-utility { margin: 0px 0px 0.5em 0px; padding: 0px; line-height: 1.6em; font-family: arial, sans serif; font-size: 120%; }
 
@@ -603,21 +603,21 @@ div#fullscreen_map_filters * {
 }
 
 .img-shadow {
-  float:left;
-  background: url(shadowAlpha.png) no-repeat bottom right !important;
-/*  background: url(shadow.gif) no-repeat bottom right;*/
-/*  background-color: red;*/
-  margin: 10px 0 0 10px !important;
-  margin: 10px 0 0 5px;
-  }
+    float:left;
+    background: url(shadowAlpha.png) no-repeat bottom right !important;
+    /*  background: url(shadow.gif) no-repeat bottom right;*/
+    /*  background-color: red;*/
+    margin: 10px 0 0 10px !important;
+    margin: 10px 0 0 5px;
+}
 
 .img-shadow img {
-  display: block;
-  position: relative;
-  background-color: #fff;
-  border: 1px solid #a9a9a9;
-  margin: -4px 4px 4px -4px;
-  padding: 2px;
+    display: block;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #a9a9a9;
+    margin: -4px 4px 4px -4px;
+    padding: 2px;
 }
 
 form#register label { text-align: right; width: 14em; padding-right: 20px; display: block; float: left;}
@@ -678,7 +678,7 @@ a.links:active {
 a.links:hover {
     font-weight:bold;
     color:blue;
-/*  background-color:rgb(219,230,241); */
+    /*  background-color:rgb(219,230,241); */
     text-decoration: underline;
 }
 a.links-onlusers:link {
@@ -698,7 +698,7 @@ a.links-onlusers:active {
 
 a.links-onlusers:hover {
     color:purple;
-/*  background-color:rgb(219,230,241); */
+    /*  background-color:rgb(219,230,241); */
     text-decoration: underline;
 }
 a.links2:link {
@@ -721,10 +721,10 @@ a.links2:active {
 a.links2:hover {
     font-weight:bold;
     color:blue;
-/*  background-color:rgb(219,230,241); */
+    /*  background-color:rgb(219,230,241); */
     text-decoration: none;
 }
-    a.info{
+a.info{
     position:relative; /*this is the key*/
     z-index:24; background-color:#FFFFFF;
     color:#000;
@@ -742,9 +742,9 @@ a.info:hover span{ /*the span will display just on :hover state*/
     border:1px solid #000;
     background-color:#FFFFCC; color:#000;
     text-align: left; font-size: 11px;
-    }
+}
 /* links without decorations */
- a.links3:link {
+a.links3:link {
     text-decoration:none;
 }
 a.links3:visited {
@@ -777,7 +777,7 @@ a.links4:active {
 a.links4:hover {
     font-weight:bold;
     color:blue;
-/*  background-color:rgb(219,230,241); */
+    /*  background-color:rgb(219,230,241); */
     text-decoration: underline;
 }
 /* external Links with symbol*/
@@ -801,28 +801,28 @@ a.links4:hover {
     background-color: #a4d9ff;
     color: #000000;
     background: #fff url(/tpl/stdstyle/images/misc/bg-gradient-blue.png) repeat-x top left;
-/*    background-image: url(/images/gradient.png);
-    background-repeat: repeat-x;
-    background-position: top left;*/
+    /*    background-image: url(/images/gradient.png);
+        background-repeat: repeat-x;
+        background-position: top left;*/
 }
 table.border {  background: url(/images/bg_blue.png) repeat-x;
-    color: #333;
-    padding: 2px;
-    width: 95%;
-    border-bottom: 1px solid #CCCCCC;
-    border-top: 1px solid #CCCCCC;
-    border-left: 1px solid #CCCCCC;
-    border-right: 1px solid #CCCCCC;
+                color: #333;
+                padding: 2px;
+                width: 95%;
+                border-bottom: 1px solid #CCCCCC;
+                border-top: 1px solid #CCCCCC;
+                border-left: 1px solid #CCCCCC;
+                border-right: 1px solid #CCCCCC;
 }
 .img_cache {border:solid 1px silver; padding:5px;
-    margin-left:10px;width:195px;
-    height:200px;float:right;
-    margin-bottom:3px;}
+            margin-left:10px;width:195px;
+            height:200px;float:right;
+            margin-bottom:3px;}
 .img_cache img {max-width: 175px; max-height: 175px; vertical-align: top;}
 .img_log {border:solid 1px silver; padding:5px;
-    margin-left:10px;width:80px;
-    height:120px;float:right;
-    margin-bottom:3px;}
+          margin-left:10px;width:80px;
+          height:120px;float:right;
+          margin-bottom:3px;}
 .img_log img {max-width: 64px; max-height: 64px; vertical-align: top;}
 div.gallery-pictureblock { float: left; max-width: 180px; height:220px;padding-left: 10px; padding-right: 10px;vertical-align: middle;}
 
@@ -880,37 +880,37 @@ div.listitems {
     -moz-border-radius: 5px;
 }
 div.ver {
-height: 30px;
-margin-top:3px;
-margin-bottom:3px;
-margin-right:5px;
-margin-left:5px;
-float:left;
-border-left: 2px solid white;
+    height: 30px;
+    margin-top:3px;
+    margin-bottom:3px;
+    margin-right:5px;
+    margin-left:5px;
+    float:left;
+    border-left: 2px solid white;
 }
 div.ver35 {
-height: 100%;
-margin-top:3px;
-margin-bottom:3px;
-margin-right:5px;
-margin-left:5px;
-float:left;
-border-left: 2px solid #7fa2ca;
+    height: 100%;
+    margin-top:3px;
+    margin-bottom:3px;
+    margin-right:5px;
+    margin-left:5px;
+    float:left;
+    border-left: 2px solid #7fa2ca;
 }
 div.myr{
-vertical-align: middle;
-text-align:center;
-float:left;
-font-size:12px;
-font-weight:bold;
-line-height:1.6em;}
+    vertical-align: middle;
+    text-align:center;
+    float:left;
+    font-size:12px;
+    font-weight:bold;
+    line-height:1.6em;}
 
 td.myr{
-text-align:center;
-vertical-align: middle;
-font-size:11px;
-font-weight:bold;
-line-height:1.4em;}
+    text-align:center;
+    vertical-align: middle;
+    font-size:11px;
+    font-weight:bold;
+    line-height:1.4em;}
 
 #oclogo {
     width: 68px;

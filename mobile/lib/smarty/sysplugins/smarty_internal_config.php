@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Config
  *
@@ -9,7 +10,9 @@
  * @subpackage Config
  * @author Uwe Tews
  */
-class Smarty_Internal_Config {
+class Smarty_Internal_Config
+{
+
     static $config_objects = array();
 
     public function __construct($config_resource, $smarty, $data = null)
@@ -28,23 +31,23 @@ class Smarty_Internal_Config {
         $this->mustCompile = null;
         $this->compiler_object = null;
         // parse config resource name
-        if (!$this->parseConfigResourceName ($config_resource)) {
-            throw new SmartyException ("Unable to parse config resource '{$config_resource}'");
+        if (!$this->parseConfigResourceName($config_resource)) {
+            throw new SmartyException("Unable to parse config resource '{$config_resource}'");
         }
     }
 
-    public function getConfigFilepath ()
+    public function getConfigFilepath()
     {
         return $this->config_filepath === null ?
-        $this->config_filepath = $this->buildConfigFilepath() :
-        $this->config_filepath;
+                $this->config_filepath = $this->buildConfigFilepath() :
+                $this->config_filepath;
     }
 
-    public function getTimestamp ()
+    public function getTimestamp()
     {
         return $this->config_timestamp === null ?
-        $this->config_timestamp = filemtime($this->getConfigFilepath()) :
-        $this->config_timestamp;
+                $this->config_timestamp = filemtime($this->getConfigFilepath()) :
+                $this->config_timestamp;
     }
 
     private function parseConfigResourceName($config_resource)
@@ -72,9 +75,10 @@ class Smarty_Internal_Config {
     /*
      * get system filepath to config
      */
-    public function buildConfigFilepath ()
+
+    public function buildConfigFilepath()
     {
-        foreach((array)$this->smarty->config_dir as $_config_dir) {
+        foreach ((array) $this->smarty->config_dir as $_config_dir) {
             if (strpos('/\\', substr($_config_dir, -1)) === false) {
                 $_config_dir .= DS;
             }
@@ -90,11 +94,13 @@ class Smarty_Internal_Config {
         throw new SmartyException("Unable to load config file \"{$this->config_resource_name}\"");
         return false;
     }
+
     /**
      * Read config file source
      *
      * @return string content of source file
      */
+
     /**
      * Returns the template source code
      *
@@ -102,7 +108,7 @@ class Smarty_Internal_Config {
      *
      * @return string the template source
      */
-    public function getConfigSource ()
+    public function getConfigSource()
     {
         if ($this->config_source === null) {
             if ($this->readConfigSource($this) === false) {
@@ -111,6 +117,7 @@ class Smarty_Internal_Config {
         }
         return $this->config_source;
     }
+
     public function readConfigSource()
     {
         // read source file
@@ -127,24 +134,25 @@ class Smarty_Internal_Config {
      *
      * @return string the compiled filepath
      */
-    public function getCompiledFilepath ()
+    public function getCompiledFilepath()
     {
         return $this->compiled_filepath === null ?
-        ($this->compiled_filepath = $this->buildCompiledFilepath()) :
-        $this->compiled_filepath;
+                ($this->compiled_filepath = $this->buildCompiledFilepath()) :
+                $this->compiled_filepath;
     }
+
     public function buildCompiledFilepath()
     {
         $_compile_id = isset($this->smarty->compile_id) ? preg_replace('![^\w\|]+!', '_', $this->smarty->compile_id) : null;
-        $_flag = (int)$this->smarty->config_read_hidden + (int)$this->smarty->config_booleanize * 2 +
-        (int)$this->smarty->config_overwrite * 4;
+        $_flag = (int) $this->smarty->config_read_hidden + (int) $this->smarty->config_booleanize * 2 +
+                (int) $this->smarty->config_overwrite * 4;
         $_filepath = sha1($this->config_resource_name . $_flag);
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
-             . substr($_filepath, 2, 2) . DS
-             . substr($_filepath, 4, 2) . DS
-             . $_filepath;
+                    . substr($_filepath, 2, 2) . DS
+                    . substr($_filepath, 4, 2) . DS
+                    . $_filepath;
         }
         $_compile_dir_sep = $this->smarty->use_sub_dirs ? DS : '^';
         if (isset($_compile_id)) {
@@ -156,17 +164,19 @@ class Smarty_Internal_Config {
         }
         return $_compile_dir . $_filepath . '.' . basename($this->config_resource_name) . '.config' . '.php';
     }
+
     /**
      * Returns the timpestamp of the compiled file
      *
      * @return integer the file timestamp
      */
-    public function getCompiledTimestamp ()
+    public function getCompiledTimestamp()
     {
         return $this->compiled_timestamp === null ?
-        ($this->compiled_timestamp = (file_exists($this->getCompiledFilepath())) ? filemtime($this->getCompiledFilepath()) : false) :
-        $this->compiled_timestamp;
+                ($this->compiled_timestamp = (file_exists($this->getCompiledFilepath())) ? filemtime($this->getCompiledFilepath()) : false) :
+                $this->compiled_timestamp;
     }
+
     /**
      * Returns if the current config file must be compiled
      *
@@ -174,12 +184,13 @@ class Smarty_Internal_Config {
      *
      * @return boolean true if the file must be compiled
      */
-    public function mustCompile ()
+    public function mustCompile()
     {
         return $this->mustCompile === null ?
-        $this->mustCompile = ($this->smarty->force_compile || $this->getCompiledTimestamp () === false || $this->smarty->compile_check && $this->getCompiledTimestamp () < $this->getTimestamp ()):
-        $this->mustCompile;
+                $this->mustCompile = ($this->smarty->force_compile || $this->getCompiledTimestamp() === false || $this->smarty->compile_check && $this->getCompiledTimestamp() < $this->getTimestamp()) :
+                $this->mustCompile;
     }
+
     /**
      * Returns the compiled config file
      *
@@ -187,7 +198,7 @@ class Smarty_Internal_Config {
      *
      * @return string the compiled config file
      */
-    public function getCompiledConfig ()
+    public function getCompiledConfig()
     {
         if ($this->compiled_config === null) {
             // see if template needs compiling.
@@ -203,7 +214,7 @@ class Smarty_Internal_Config {
     /**
      * Compiles the config files
      */
-    public function compileConfigSource ()
+    public function compileConfigSource()
     {
         // compile template
         if (!is_object($this->compiler_object)) {
@@ -219,8 +230,7 @@ class Smarty_Internal_Config {
         // call compiler
         try {
             $this->compiler_object->compileSource($this);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             // restore old timestamp in case of error
             if ($this->smarty->compile_locking && $saved_timestamp) {
                 touch($this->getCompiledFilepath(), $saved_timestamp);
@@ -234,14 +244,15 @@ class Smarty_Internal_Config {
 
     /*
      * load config variables
-    *
-    * @param mixed $sections array of section names, single section or null
-    * @param object $scope global,parent or local
-    */
-    public function loadConfigVars ($sections = null, $scope = 'local')
+     *
+     * @param mixed $sections array of section names, single section or null
+     * @param object $scope global,parent or local
+     */
+
+    public function loadConfigVars($sections = null, $scope = 'local')
     {
         if ($this->data instanceof Smarty_Internal_Template) {
-            $this->data->properties['file_dependency'][sha1($this->getConfigFilepath())] = array($this->getConfigFilepath(), $this->getTimestamp(),'file');
+            $this->data->properties['file_dependency'][sha1($this->getConfigFilepath())] = array($this->getConfigFilepath(), $this->getTimestamp(), 'file');
         }
         if ($this->mustCompile()) {
             $this->compileConfigSource();
@@ -262,29 +273,31 @@ class Smarty_Internal_Config {
             }
         }
         $_config_vars = array();
-        include($this->getCompiledFilepath ());
+        include($this->getCompiledFilepath());
         // copy global config vars
         foreach ($_config_vars['vars'] as $variable => $value) {
             if ($this->smarty->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
                 $scope_ptr->config_vars[$variable] = $value;
             } else {
-                $scope_ptr->config_vars[$variable] = array_merge((array)$scope_ptr->config_vars[$variable], (array)$value);
+                $scope_ptr->config_vars[$variable] = array_merge((array) $scope_ptr->config_vars[$variable], (array) $value);
             }
         }
         // scan sections
-        if(!empty($sections)) {
-          foreach ($_config_vars['sections'] as $this_section => $dummy) {
-              if (in_array($this_section, (array)$sections)) {
-                  foreach ($_config_vars['sections'][$this_section]['vars'] as $variable => $value) {
-                      if ($this->smarty->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
-                          $scope_ptr->config_vars[$variable] = $value;
-                      } else {
-                          $scope_ptr->config_vars[$variable] = array_merge((array)$scope_ptr->config_vars[$variable], (array)$value);
-                      }
-                  }
-              }
-          }
+        if (!empty($sections)) {
+            foreach ($_config_vars['sections'] as $this_section => $dummy) {
+                if (in_array($this_section, (array) $sections)) {
+                    foreach ($_config_vars['sections'][$this_section]['vars'] as $variable => $value) {
+                        if ($this->smarty->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
+                            $scope_ptr->config_vars[$variable] = $value;
+                        } else {
+                            $scope_ptr->config_vars[$variable] = array_merge((array) $scope_ptr->config_vars[$variable], (array) $value);
+                        }
+                    }
+                }
+            }
         }
     }
+
 }
+
 ?>

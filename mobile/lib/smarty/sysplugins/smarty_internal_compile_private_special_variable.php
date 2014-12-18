@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile Special Smarty Variable
  *
@@ -12,7 +13,9 @@
 /**
  * Smarty Internal Plugin Compile special Smarty Variable Class
  */
-class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_CompileBase
+{
+
     /**
      * Compiles code for the speical $smarty variables
      *
@@ -22,7 +25,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
      */
     public function compile($args, $compiler, $parameter)
     {
-        $_index = preg_split("/\]\[/",substr($parameter, 1, strlen($parameter)-2));
+        $_index = preg_split("/\]\[/", substr($parameter, 1, strlen($parameter) - 2));
         $compiled_ref = ' ';
         $variable = trim($_index[0], "'");
         switch ($variable) {
@@ -52,7 +55,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                     $compiler->trigger_template_error("(secure mode) super globals not permitted");
                     break;
                 }
-                $compiled_ref = '$_'.strtoupper($variable);
+                $compiled_ref = '$_' . strtoupper($variable);
                 break;
 
             case 'template':
@@ -94,6 +97,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
         }
         return $compiled_ref;
     }
+
 }
 
 ?>

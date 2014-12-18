@@ -14,11 +14,14 @@
 /**
  * This class does contain all necessary methods for the HTML cache on file system
  */
-class Smarty_Internal_CacheResource_File {
+class Smarty_Internal_CacheResource_File
+{
+
     function __construct($smarty)
     {
         $this->smarty = $smarty;
     }
+
     /**
      * Returns the filepath of the cached template output
      *
@@ -34,9 +37,9 @@ class Smarty_Internal_CacheResource_File {
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
-             . substr($_filepath, 2, 2) . DS
-             . substr($_filepath, 4, 2) . DS
-             . $_filepath;
+                    . substr($_filepath, 2, 2) . DS
+                    . substr($_filepath, 4, 2) . DS
+                    . $_filepath;
         }
         $_compile_dir_sep = $this->smarty->use_sub_dirs ? DS : '^';
         if (isset($_cache_id)) {
@@ -65,7 +68,7 @@ class Smarty_Internal_CacheResource_File {
     public function getCachedTimestamp($_template)
     {
         // return @filemtime ($_template->getCachedFilepath());
-        return ($_template->getCachedFilepath() && file_exists($_template->getCachedFilepath())) ? filemtime($_template->getCachedFilepath()) : false ;
+        return ($_template->getCachedFilepath() && file_exists($_template->getCachedFilepath())) ? filemtime($_template->getCachedFilepath()) : false;
     }
 
     /**
@@ -84,7 +87,7 @@ class Smarty_Internal_CacheResource_File {
         if ($no_render) {
             return null;
         } else {
-          return ob_get_clean();
+            return ob_get_clean();
         }
     }
 
@@ -115,6 +118,7 @@ class Smarty_Internal_CacheResource_File {
     {
         return $this->clear(null, null, null, $exp_time);
     }
+
     /**
      * Empty cache for a specific template
      *
@@ -161,7 +165,8 @@ class Smarty_Internal_CacheResource_File {
             $_cacheDirs = new RecursiveDirectoryIterator($_dir);
             $_cache = new RecursiveIteratorIterator($_cacheDirs, RecursiveIteratorIterator::CHILD_FIRST);
             foreach ($_cache as $_file) {
-                if (substr($_file->getBasename(),0,1) == '.') continue;
+                if (substr($_file->getBasename(), 0, 1) == '.')
+                    continue;
                 // directory ?
                 if ($_file->isDir()) {
                     if (!$_cache->isDot()) {
@@ -169,16 +174,16 @@ class Smarty_Internal_CacheResource_File {
                         @rmdir($_file->getPathname());
                     }
                 } else {
-                    $_parts = explode($_dir_sep, str_replace('\\', '/', substr((string)$_file, $_dir_length)));
+                    $_parts = explode($_dir_sep, str_replace('\\', '/', substr((string) $_file, $_dir_length)));
                     $_parts_count = count($_parts);
                     // check name
                     if (isset($resource_name)) {
-                        if ($_parts[$_parts_count-1] != $_resourcename_parts) {
+                        if ($_parts[$_parts_count - 1] != $_resourcename_parts) {
                             continue;
                         }
                     }
                     // check compile id
-                    if (isset($_compile_id) && (!isset($_parts[$_parts_count-2 - $_compile_id_offset]) || $_parts[$_parts_count-2 - $_compile_id_offset] != $_compile_id)) {
+                    if (isset($_compile_id) && (!isset($_parts[$_parts_count - 2 - $_compile_id_offset]) || $_parts[$_parts_count - 2 - $_compile_id_offset] != $_compile_id)) {
                         continue;
                     }
                     // check cache id
@@ -189,7 +194,8 @@ class Smarty_Internal_CacheResource_File {
                             continue;
                         }
                         for ($i = 0; $i < $_cache_id_parts_count; $i++) {
-                            if ($_parts[$i] != $_cache_id_parts[$i]) continue 2;
+                            if ($_parts[$i] != $_cache_id_parts[$i])
+                                continue 2;
                         }
                     }
                     // expired ?
@@ -202,6 +208,7 @@ class Smarty_Internal_CacheResource_File {
         }
         return $_count;
     }
+
 }
 
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -43,25 +44,25 @@ function smarty_function_html_options($params, $template)
     $extra = '';
     $options_extra = '';
 
-    foreach($params as $_key => $_val) {
+    foreach ($params as $_key => $_val) {
         switch ($_key) {
             case 'name':
             case 'class':
             case 'id':
-                $$_key = (string)$_val;
+                $$_key = (string) $_val;
                 break;
 
             case 'options':
-                $$_key = (array)$_val;
+                $$_key = (array) $_val;
                 break;
 
             case 'values':
             case 'output':
-                $$_key = array_values((array)$_val);
+                $$_key = array_values((array) $_val);
                 break;
 
             case 'selected':
-                $$_key = array_map('strval', array_values((array)$_val));
+                $$_key = array_map('strval', array_values((array) $_val));
                 break;
 
             default:
@@ -83,7 +84,7 @@ function smarty_function_html_options($params, $template)
 
     if (isset($options)) {
         foreach ($options as $_key => $_val) {
-          $_html_result .= smarty_function_html_options_optoutput($_key, $_val, $selected, $id, $class, $_idx);
+            $_html_result .= smarty_function_html_options_optoutput($_key, $_val, $selected, $id, $class, $_idx);
         }
     } else {
         foreach ($values as $_i => $_key) {
@@ -93,8 +94,8 @@ function smarty_function_html_options($params, $template)
     }
 
     if (!empty($name)) {
-        $_html_class = !empty($class) ? ' class="'.$class.'"' : '';
-        $_html_id = !empty($id) ? ' id="'.$id.'"' : '';
+        $_html_class = !empty($class) ? ' class="' . $class . '"' : '';
+        $_html_id = !empty($id) ? ' id="' . $id . '"' : '';
         $_html_result = '<select name="' . $name . '"' . $_html_class . $_html_id . $extra . '>' . "\n" . $_html_result . '</select>' . "\n";
     }
 
@@ -105,16 +106,16 @@ function smarty_function_html_options_optoutput($key, $value, $selected, $id, $c
 {
     if (!is_array($value)) {
         $_html_result = '<option value="' .
-        smarty_function_escape_special_chars($key) . '"';
-        if (in_array((string)$key, $selected))
+                smarty_function_escape_special_chars($key) . '"';
+        if (in_array((string) $key, $selected))
             $_html_result .= ' selected="selected"';
-        $_html_class = !empty($class) ? ' class="'.$class.' option"' : '';
-        $_html_id = !empty($id) ? ' id="'.$id.'-'.$idx.'"' : '';
+        $_html_class = !empty($class) ? ' class="' . $class . ' option"' : '';
+        $_html_id = !empty($id) ? ' id="' . $id . '-' . $idx . '"' : '';
         $_html_result .= $_html_class . $_html_id . '>' . smarty_function_escape_special_chars($value) . '</option>' . "\n";
         $idx++;
     } else {
         $_idx = 0;
-        $_html_result = smarty_function_html_options_optgroup($key, $value, $selected, $id.'-'.$idx, $class, $_idx);
+        $_html_result = smarty_function_html_options_optgroup($key, $value, $selected, $id . '-' . $idx, $class, $_idx);
         $idx++;
     }
     return $_html_result;

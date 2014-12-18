@@ -1,18 +1,20 @@
 <?php
-/***************************************************************************
+
+/* * *************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation; either version 2 of the License, or
  *   (at your option) any later version.
  *
- ***************************************************************************/
+ * ************************************************************************* */
 
-/****************************************************************************
- new logs
- ****************************************************************************/
-    global $dateFormat;
-if (!isset($rootpath)) $rootpath = '';
+/* * **************************************************************************
+  new logs
+ * ************************************************************************** */
+global $dateFormat;
+if (!isset($rootpath))
+    $rootpath = '';
 
 //include template handling
 require_once ($rootpath . 'lib/common.inc.php');
@@ -67,15 +69,15 @@ if ($error == false) {
             AND `caches`.`status` IN (1, 2, 3)
             ORDER BY  `cache_logs`.`date_created` DESC
             LIMIT :variable1, :variable2 ";
-    $db->paramQuery($rsQuery, array('variable1' => array ('value' => intval($start),'data_type'=> 'integer'),'variable2' => array ('value' => intval($LOGS_PER_PAGE),'data_type'=> 'integer'),));
+    $db->paramQuery($rsQuery, array('variable1' => array('value' => intval($start), 'data_type' => 'integer'), 'variable2' => array('value' => intval($LOGS_PER_PAGE), 'data_type' => 'integer'),));
     $log_ids = '';
-    if ($db->rowCount() == 0){
+    if ($db->rowCount() == 0) {
         $log_ids = '0';
     }
 
-   //powertrail vel geopath variables
+    //powertrail vel geopath variables
     $pt_cache_intro_tr = tr('pt_cache');
-    $pt_icon_title_tr =  tr('pt139');
+    $pt_icon_title_tr = tr('pt139');
 
     for ($i = 0; $i < $db->rowCount(); $i++) {
         $record = $db->dbResultFetch();
@@ -124,7 +126,10 @@ if ($error == false) {
     $bgColor = '#eeeeee';
     $db->simpleQuery($rsQuery);
     for ($i = 0; $i < $db->rowCount(); $i++) {
-        if ($bgColor == '#eeeeee') $bgColor = '#ffffff'; else $bgColor = '#eeeeee';
+        if ($bgColor == '#eeeeee')
+            $bgColor = '#ffffff';
+        else
+            $bgColor = '#eeeeee';
         $log_record = $db->dbResultFetch();
         $file_content .= '<tr bgcolor="' . $bgColor . '">';
         $file_content .= '<td style="width: 70px;">' . htmlspecialchars(date($dateFormat, strtotime($log_record['log_date'])), ENT_COMPAT, 'UTF-8') . '</td>';
@@ -146,13 +151,13 @@ if ($error == false) {
             $log_record['user_name'] = tr('cog_user_name');
         }
 
-           // PowerTrail vel GeoPath icon
-        if (isset($log_record['PT_ID']))  {
-            $PT_icon = icon_geopath_small($log_record['PT_ID'],$log_record['PT_image'],$log_record['PT_name'],$log_record['PT_type'],$pt_cache_intro_tr,$pt_icon_title_tr);
+        // PowerTrail vel GeoPath icon
+        if (isset($log_record['PT_ID'])) {
+            $PT_icon = icon_geopath_small($log_record['PT_ID'], $log_record['PT_image'], $log_record['PT_name'], $log_record['PT_type'], $pt_cache_intro_tr, $pt_icon_title_tr);
         } else {
-             $PT_icon = '<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />';
+            $PT_icon = '<img src="images/rating-star-empty.png" class="icon16" alt="" title="" />';
         };
-        $file_content .= '<td width="22">'.$PT_icon.'</td>';
+        $file_content .= '<td width="22">' . $PT_icon . '</td>';
 
         $file_content .= '<td width="22"><img src="tpl/stdstyle/images/' . $log_record['icon_small'] . '" border="0" alt="" /></td>';
         $cacheicon = myninc::checkCacheStatusByUser($log_record, $usr['userid']);
@@ -193,7 +198,8 @@ if ($error == false) {
     tpl_set_var('pages', $pages);
 }
 
-function cmp($a, $b) {
+function cmp($a, $b)
+{
     if ($a == $b) {
         return 0;
     }

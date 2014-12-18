@@ -11,7 +11,7 @@
         {if $smarty.session.user_id}
             <div class="button"><a href="./logentryfind.php" >{$entry}</a></div>
             <div class="button"><a href="./menu.php" >{$my_menu}</a></div>
-        {/if}
+            {/if}
 
         <div class="button"><a href="./moar.php" >{$more}</a></div>
     </div>

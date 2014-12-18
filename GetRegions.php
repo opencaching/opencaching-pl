@@ -1,4 +1,5 @@
 <?php
+
 /** class GetRegions
  *
  * this class find Counrty and region (administation district, for exapmle Poland, woj. Małopolskie)
@@ -32,10 +33,10 @@
  * print_r ($regiony);
  * ?>
  *
- *@author Andrzej Łza Woźniak (some code I copied from former code.)
+ * @author Andrzej Łza Woźniak (some code I copied from former code.)
  */
-
-class GetRegions {
+class GetRegions
+{
 
     /**
      *
@@ -45,8 +46,9 @@ class GetRegions {
      *
      * @return array with code and names of regions selected from input geografical coordinates.void
      */
-    public function GetRegion($lat, $lon) {
-        require_once(__DIR__.'/lib/gis/gis.class.php');
+    public function GetRegion($lat, $lon)
+    {
+        require_once(__DIR__ . '/lib/gis/gis.class.php');
 
         $lat_float = (float) $lat;
         $lon_float = (float) $lon;
@@ -66,12 +68,17 @@ class GetRegions {
         }
 
         if ($sCode != '') {
-            $adm1 = null; $code1 = null;
-            $adm2 = null; $code2 = null;
-            $adm3 = null; $code3 = null;
-            $adm4 = null; $code4 = null;
+            $adm1 = null;
+            $code1 = null;
+            $adm2 = null;
+            $code2 = null;
+            $adm3 = null;
+            $code3 = null;
+            $adm4 = null;
+            $code4 = null;
 
-            if (mb_strlen($sCode) > 5) $sCode = mb_substr($sCode, 0, 5);
+            if (mb_strlen($sCode) > 5)
+                $sCode = mb_substr($sCode, 0, 5);
 
             if (mb_strlen($sCode) == 5) {
                 $code4 = $sCode;
@@ -79,7 +86,7 @@ class GetRegions {
                 $db->simpleQuery($q);
                 $re = $db->dbResultFetch();
                 $adm4 = $re["name"];
-                unset ($re, $q);
+                unset($re, $q);
 
                 $sCode = mb_substr($sCode, 0, 4);
             }
@@ -92,7 +99,7 @@ class GetRegions {
                 $re = $db->dbResultFetch();
 
                 $adm3 = $re["name"];
-                unset ($re, $q);
+                unset($re, $q);
                 $sCode = mb_substr($sCode, 0, 3);
             }
 
@@ -102,7 +109,7 @@ class GetRegions {
                 $db->simpleQuery($q);
                 $re = $db->dbResultFetch();
                 $adm2 = $re["name"];
-                unset ($re, $q);
+                unset($re, $q);
                 $sCode = mb_substr($sCode, 0, 2);
             }
 
@@ -114,14 +121,14 @@ class GetRegions {
                 $db->simpleQuery($q);
                 $re = $db->dbResultFetch();
                 $adm1 = $re["pl"];
-                unset ($re, $q);
+                unset($re, $q);
 
                 if ($adm1 == null) {
                     $q = "SELECT `name` FROM `nuts_codes` WHERE `code`='$sCode'";
                     $db->simpleQuery($q);
                     $re = $db->dbResultFetch();
-                    $adm1  = $re["name"];
-                    unset ($re, $q);
+                    $adm1 = $re["name"];
+                    unset($re, $q);
                 }
             }
 
@@ -133,9 +140,11 @@ class GetRegions {
             $wynik['code2'] = $code2;
             $wynik['code3'] = $code3;
             $wynik['code4'] = $code4;
-        }
-        else $wynik = false;
+        } else
+            $wynik = false;
         return $wynik;
     }
+
 }
+
 ?>
