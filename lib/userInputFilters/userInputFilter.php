@@ -45,6 +45,7 @@ class userInputFilter
 
         // do not validate values, pass as is...
         $cssDefinition->info['box-shadow'] = $cssDefinition->info['text-shadow'] = new HTMLPurifier_AttrDef_Text();
+        $cssDefinition->info['max-width'] = new HTMLPurifier_AttrDef_HTML_Length();
 
         $htmlDefinition = $config->getHTMLDefinition(true);
 

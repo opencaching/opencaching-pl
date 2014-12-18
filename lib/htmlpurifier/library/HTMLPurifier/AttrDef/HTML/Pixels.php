@@ -35,8 +35,10 @@ class HTMLPurifier_AttrDef_HTML_Pixels extends HTMLPurifier_AttrDef
             return false;
         }
         $length = strlen($string);
+        $usePx = false;
         if (substr($string, $length - 2) == 'px') {
             $string = substr($string, 0, $length - 2);
+            $usePx = true;
         }
         if (!is_numeric($string)) {
             return false;
@@ -54,7 +56,7 @@ class HTMLPurifier_AttrDef_HTML_Pixels extends HTMLPurifier_AttrDef
         if ($this->max !== null && $int > $this->max) {
             return (string)$this->max;
         }
-        return (string)$int;
+        return ((string)$int). ($usePx ? 'px' : ''); // BSz
     }
 
     /**
