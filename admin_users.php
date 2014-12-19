@@ -51,7 +51,7 @@ if ($usr['admin']) {
     }
 
     if ($usr['userid'] == $super_admin_id) {
-        tpl_set_var('remove_all_logs', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="removelog.php?userid=' . $user_id . '"><font color="#ff0000">' . tr('Usuń wszystkie logi tego użytkownika') . '</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-red.png" align="top" alt="" /></p>');
+        tpl_set_var('remove_all_logs', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="removelog.php?userid=' . $user_id . '"><font color="#ff0000">' . tr('admin_users_remove_logs') . '</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-red.png" align="top" alt="" /></p>');
     } else
         tpl_set_var('remove_all_logs', '');
 
@@ -121,9 +121,9 @@ if ($usr['admin']) {
     $verify_all = $record['verify_all'];
 
     if ($verify_all == 0) {
-        tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid=' . $user_id . '&amp;verify_all=1"><font color="#ff0000">Przekazuj wszystkie nowe skrzynki do weryfikacji</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-red.png" align="top" alt="" /></p>');
+        tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid=' . $user_id . '&amp;verify_all=1"><font color="#ff0000">' . tr('admin_users_verify_all') . '</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-red.png" align="top" alt="" /></p>');
     } else {
-        tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid=' . $user_id . '&amp;verify_all=0"><font color="#228b22">Pozwój na zakładanie nowych skrzynek bez weryfikacji</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-green.png" align="top" alt="" /></p>');
+        tpl_set_var('hide_flag', '<p><img src="tpl/stdstyle/images/blue/arrow2.png" alt="" align="middle" />&nbsp;&nbsp;<a href="admin_users.php?userid=' . $user_id . '&amp;verify_all=0"><font color="#228b22">' . tr('admin_users_verify_none') . '</font></a>&nbsp;<img src="' . $stylepath . '/images/blue/atten-green.png" align="top" alt="" /></p>');
     }
     ;
 

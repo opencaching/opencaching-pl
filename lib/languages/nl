@@ -2504,4 +2504,7 @@ Stats_t7_03 Aantal actieve gebruikers
 Stats_t7_04 Klik op de naam van de provincie om de statistieken te zien
 Stats_t7_05 Totaal aantal caches
 Stats_t7_06 Provincie
+admin_users_remove_logs Verwijder alle logs van deze gebruiker
+admin_users_verify_all Contoleer alle nieuwe caches van deze gebruiker
+admin_users_verify_none Controleer niet alle nieuwe caches van deze gebruiker
 

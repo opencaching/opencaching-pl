@@ -2506,3 +2506,7 @@ Stats_t7_04 Click on the name of the region to see the statistics in the region
 Stats_t7_05 Number of search caches
 Stats_t7_06 Region
 history History OC
+admin_users_remove_logs Remove all logs from this user
+admin_users_verify_all Verify all new caches for this user
+admin_users_verify_none Don't verify all new caches for this user
+
