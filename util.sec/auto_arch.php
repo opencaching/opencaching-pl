@@ -65,7 +65,8 @@ class AutoArch
         $emailheaders = "Content-Type: text/plain; charset=utf-8\r\n";
         $emailheaders .= "From: $site_name <$octeam_email>\r\n";
         $emailheaders .= "Reply-To: $site_name <$octeam_email>";
-        mb_send_mail($cache['email'], tr('autoArchive_11'), $email_content, $emailheaders);
+        $status = mb_send_mail($cache['email'], tr('autoArchive_11'), $email_content, $emailheaders);
+        logentry('autoarchive', 6, $currUserID, $cache['cache_id'], 0, 'Sending mail to ' . $cache['email'], array('status' => $status));
     }
 
     function run()
