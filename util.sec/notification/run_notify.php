@@ -133,13 +133,12 @@ function process_new_cache($notify)
         }
         //header("Content-Type: text/html; charset=utf-8\r\n");
         //echo $mailbody;
-        mb_send_mail($mailadr, $subject, $mailbody, $email_headers);
+        $status = mb_send_mail($mailadr, $subject, $mailbody, $email_headers);
+        // logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
+        logentry('notify_newcache', 5, $notify['recid'], $notify['cache_id'], 0, 'Sending mail to ' . $mailadr, array('status' => $status));
     } else {
         echo "Unbekannter Notification-Typ: " . $notify['type'] . "<br />";
     }
-
-    // logentry($module, $eventid, $userid, $objectid1, $objectid2, $logtext, $details)
-    logentry('notify_newcache', 5, $notify['recid'], $notify['cache_id'], 0, 'Sending mail to ' . $mailadr, array());
 
     return 0;
 }
