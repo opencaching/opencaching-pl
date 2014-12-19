@@ -300,7 +300,7 @@ show pokaż
 lock Zablokuj
 unlock Odblokuj
 user_stats statystyki użytkownika
-first_cache Możesz zapoznać się jak wybrać typ skrzynki, wielkość, atrybuty itp czytając artykuł z <a href="{cache_params_url}" target="_blank">podstawowymi informacjami</a>.
+first_cache Możesz zapoznać się jak wybrać typ skrzynki, wielkość, atrybuty itp czytając artykuł z <a href="{wiki_link_cacheParams}" target="_blank">podstawowymi informacjami</a>.
 first_cache_approvement Ponieważ jest to jedna z trzech pierwszych Twoich skrzynek, będzie ona widoczna dla innych, gdy zostanie zaakceptowana przez Zespół {site_name}.
 all_cache_approvement Skrzynka będzie widoczna dla innych, gdy zostanie zaakceptowana przez Zespół {site_name}.
 name_label Nazwa
@@ -312,14 +312,14 @@ difficulty_problem Jeśli masz problem z oceną poziomów trudności, skorzystaj
 rating_system system oceny skrzynek
 additional_information Informacje dodatkowe
 optional opcjonalnie
-time_distance_hint Czas i odległość zależą często od warunków zewnętrznych, więc jeśli nie jesteś w stanie oszacować tych danych, wpisz w powyższe pola zera. Więcej informacji znajdziesz w artykule <a href="{cache_params_url}" target="_BLANK">"czas i droga"</a>. Dane te przydatne są na przykład przy skrzynkach typu <b>multicache</b> i <b>wydarzenie</b>.
+time_distance_hint Czas i odległość zależą często od warunków zewnętrznych, więc jeśli nie jesteś w stanie oszacować tych danych, wpisz w powyższe pola zera. Więcej informacji znajdziesz w artykule <a href="{wiki_link_cacheParams}" target="_BLANK">"czas i droga"</a>. Dane te przydatne są na przykład przy skrzynkach typu <b>multicache</b> i <b>wydarzenie</b>.
 select_one proszę wybrać!
 waypoint_other_portal_info Waypoint z innych baz danych dla tej skrzynki. Żadne dane nie są pobierane automatycznie.
 cache_attributes_label Atrybuty skrzynki
 attributes_edit_hint Atrybuty można zmieniać także podczas późniejszej edycji.
 additional_attributes_hint Możesz dołożyć dodatkowe atrybuty do opisu skrzynki korzystając z formularza
 additional_attributes Dodatkowe atrybuty skrzynki
-attributes_desc_hint Zapoznaj się z <a href="{cache_params_url}" target="_blank">opisem atrybutów OC</a>.
+attributes_desc_hint Zapoznaj się z <a href="{wiki_link_cacheParams}" target="_blank">opisem atrybutów OC</a>.
 descriptions Opis
 language Język
 other_languages_desc Opisy w innych językach możesz wprowadzić po rejestracji skrzynki - poprzez jej edycję.
@@ -358,8 +358,8 @@ hour godzina
 dont_publish_yet Jeszcze nie publikuj
 log_password Hasło do logu
 no_password_label Pozostaw puste jeśli bez hasła
-please_read Zapoznaj się z <a href="{cache_params_url}" target="_blank">informacją o haśle w logu!</a>
-creating_cache Zakładając nową skrzynkę akceptujesz <a href="{rules_url}" target="_blank">Regulamin</a> oraz konsekwencje wynikające z niego.
+please_read Zapoznaj się z <a href="{wiki_link_cacheParams}" target="_blank">informacją o haśle w logu!</a>
+creating_cache Zakładając nową skrzynkę akceptujesz <a href="{wiki_link_rules}" target="_blank">Regulamin</a> oraz konsekwencje wynikające z niego.
 with_all_consequences oraz konsekwencje wynikające z niego.
 cache_name nazwa skrzynki
 distance_label odległość
@@ -429,13 +429,13 @@ number_of_active_users Liczba użytkowników
 number_of_founds Liczba poszukiwań skrzynek
 latest_news Aktualności
 what_do_you_find Witamy na {site_name}
-what_do_you_find_intro_pl <b>Geocaching</b> to gra terenowa użytkowników GPS polegająca na poszukiwaniu "skarbów" ukrytych przez jej innych uczestników. Poszukiwane skarby, tzw. skrzynki to odpowiednio zabezpieczone, wodoszczelne pojemniki zawierające drobne upominki oraz dziennik, w którym kolejni znalazcy odnotowują swoje odkrycia. Na tej stronie znajdziesz wszystko, co dotyczy geocachingu w Polsce - począwszy od <b><a href="{wiki_url}">ABC Geocachingu</a></b> do forum, gdzie możesz prowadzić dyskusje z innymi geocacherami. <b>{site_name}</b> wystartował w <span class="content-title-noshade">maju 2006 roku</span>. Nasza baza skrzynek pracuje na projekcie opensource <b> Opencaching </b> (<a href='http://code.google.com/p/opencaching-pl/'>strona projektu tutaj</a>).
-what_do_you_find_intro_nl <b>Geocaching</b> to gra terenowa użytkowników GPS polegająca na poszukiwaniu "skarbów" ukrytych przez jej innych uczestników. Poszukiwane skarby, tzw. skrzynki to odpowiednio zabezpieczone, wodoszczelne pojemniki zawierające drobne upominki oraz dziennik, w którym kolejni znalazcy odnotowują swoje odkrycia. Na tej stronie znajdziesz wszystko, co dotyczy geocachingu w Holandii, Luksemburgu i Belgii - począwszy od <b><a href="{wiki_url}">ABC Geocachingu</a></b> do forum, gdzie możesz prowadzić dyskusje z innymi geocacherami. <b>{site_name}</b> wystartował w <span class="content-title-noshade">Październik 2002 roku</span>. Nasza baza skrzynek pracuje na projekcie opensource <b> Opencaching </b> (<a href='http://code.google.com/p/opencaching-pl/'>strona projektu tutaj</a>).
+what_do_you_find_intro_pl <b>Geocaching</b> to gra terenowa użytkowników GPS polegająca na poszukiwaniu "skarbów" ukrytych przez jej innych uczestników. Poszukiwane skarby, tzw. skrzynki to odpowiednio zabezpieczone, wodoszczelne pojemniki zawierające drobne upominki oraz dziennik, w którym kolejni znalazcy odnotowują swoje odkrycia. Na tej stronie znajdziesz wszystko, co dotyczy geocachingu w Polsce - począwszy od <b><a href="{wiki_link_main}">ABC Geocachingu</a></b> do forum, gdzie możesz prowadzić dyskusje z innymi geocacherami. <b>{site_name}</b> wystartował w <span class="content-title-noshade">maju 2006 roku</span>. Nasza baza skrzynek pracuje na projekcie opensource <b> Opencaching </b> (<a href='http://code.google.com/p/opencaching-pl/'>strona projektu tutaj</a>).
+what_do_you_find_intro_nl <b>Geocaching</b> to gra terenowa użytkowników GPS polegająca na poszukiwaniu "skarbów" ukrytych przez jej innych uczestników. Poszukiwane skarby, tzw. skrzynki to odpowiednio zabezpieczone, wodoszczelne pojemniki zawierające drobne upominki oraz dziennik, w którym kolejni znalazcy odnotowują swoje odkrycia. Na tej stronie znajdziesz wszystko, co dotyczy geocachingu w Holandii, Luksemburgu i Belgii - począwszy od <b><a href="{wiki_link_main}">ABC Geocachingu</a></b> do forum, gdzie możesz prowadzić dyskusje z innymi geocacherami. <b>{site_name}</b> wystartował w <span class="content-title-noshade">Październik 2002 roku</span>. Nasza baza skrzynek pracuje na projekcie opensource <b> Opencaching </b> (<a href='http://code.google.com/p/opencaching-pl/'>strona projektu tutaj</a>).
 what_do_you_find_intro_en Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in The Netherlands, Luxembourgh and Belgium. Opencaching.nl in The Netherlands was started in <span class="content-title-noshade">October 2002</span>. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches.<br/> Opencaching site like this has nothing to do with Opencaching.com
 what_do_you_find_intro_ro Geocaching este un joc în aer liber prin care jucătorii încearcă să găsească cu ajutorul unui receptor GPS "comori" ascunse de alţi jucători. Aceste "comori" (<i>geocutii</i>) sunt cutii ermetice de diverse forme şi mărimi, care conţin mici jucării sau cadouri şi un carneţel (<i>jurnal</i>) în care fiecare jucător înregistrează descoperirea geocutiei. Coordonatele geografice la care se află geocutia sunt păstrate într-o bază de date publică precum opencaching.ro împreună cu o descriere şi instrucţiuni care să ajute la găsirea ei. <br /> Pe acest site afli despre geocaching în România. Opencaching.ro funcţionează din <span class="content-title-noshade">aprilie 2014</span> pentru a sprijini şi promova acest joc în România. <br /><br /> Proiectul Opencaching este o abordare <b>open-source</b> a jocului "geocaching" şi se bazează pe mai multe noduri în diferite ţări, care fac schimb de informaţii între ele despre geocutiile si utilizatorii fiecăruia. <br /> Opencaching.ro funcţionează pe platforma open-source <span class="content-title-noshade">opencaching-pl</span>. <br /> Acest site nu este în nici un fel afiliat cu Opencaching.com.
 more_news więcej nowości
-filename_rules {rules_url}
-filename_describe_cache {cache_params_url}
+filename_rules {wiki_link_rules}
+filename_describe_cache {wiki_link_cacheParams}
 map_msg Aby zobaczyć współrzędne oraz<br/> mapę lokalizacji skrzynki <br/> musisz się zalogować.
 additional_hints Dodatkowe informacje
 images Obrazki/Zdjęcia
@@ -443,7 +443,7 @@ mp3_files_info PodCast - słuchaj jak dotrzeć do skrzynki - plik MP3
 utilities Użyteczne
 search_geocaches_nearby Szukaj skrzynek w promieniu 100km
 download_as_file Pobierz dane
-accept_terms_of_use Pobierając dane z Opencaching PL akceptujesz <a href="{rules_url}">warunki ich użycia</a>.
+accept_terms_of_use Pobierając dane z Opencaching PL akceptujesz <a href="{wiki_link_rules}">warunki ich użycia</a>.
 find_geocaches_on Pokaż najbliższe skrzynki na
 searchable bez moich własnych i znalezionych
 all_geocaches wszystkie
@@ -473,7 +473,7 @@ possible_recommend Aby móc rekomendować inne skrzynki, musisz jeszcze znależ�
 comments_log Treść wpisu
 submit_log_entry Wyślij wpis do logu
 geokret_log Zabrałeś geokreta? Zarejestruj ten fakt na
-rate_cache Oceń skrzynkę: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_right.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" target="_blank" href="{rating_desc_url}">Opis skali</a>
+rate_cache Oceń skrzynkę: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_right.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" target="_blank" href="{wiki_link_ratingDesc}">Opis skali</a>
 do_not_rate Nie chcę oceniać tej skrzynki
 listed_other Proszę wpisać się w logi także na następujących stronach
 not_spcified nie wybrano
@@ -824,13 +824,13 @@ empty_entry_notice <b>Etykieta wpisów</b>: Staraj się nie robić pustych wpis�
 empty_entry_confirm Czy na pewno chcesz dokonać pustego wpisu?\nZwykle dużo lepszy jest krótki komentarz niż milczenie.
 empty_mark Czy na pewno nie chcesz ocenić tej skrzynki ?
 where_i_am Gdzie jestem?
-read_info_about_cache_types Zapoznaj się z opisem jak wybrać <a href="http://wiki.opencaching.pl/index.php/Typ_skrzynki" target="_blank">Typ skrzynki</a>
+read_info_about_cache_types Zapoznaj się z opisem jak wybrać <a href="{wiki_link_cacheTypes}" target="_blank">Typ skrzynki</a>
 regiononly Województwo (region)
 region_from_coord Województwo z współrzędnych
 select_regions Wybierz województwo
 not_applicable Nie stosowane
 input_coord Proszę podać współrzędne lokalizacji skrzynki
-waypoints_about_info <a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypoints_w_skrzynce" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a>
+waypoints_about_info <a class="links" href="{wiki_link_additionalWaypoints}" target="_blank">Zobacz opis i rodzaje dodatkowych waypointów</a>
 cache_pictures Obrazk związany z skrzynką
 log_pictures Obrazek dla wpisu w LOGu
 no_title Brak tytułu
@@ -841,7 +841,7 @@ bad_format_info Wysłany plik ma niedozwolony format. Dozwolone formaty to BMP, 
 no_picture Obrazka nie ma w bazie danych
 title_picture Tytuł
 file_name Nazwa pliku
-cache_picture_intro UWAGA! Użytkownik musi dbać o to, aby publikowane przez niego w Serwisie treści/zdjęcia nie naruszały obowiązującego prawa oraz przepisów <a href=http://wiki.opencaching.pl/index.php/Regulamin_OC_PL>Regulaminu OC PL</a>. W szczególności publikowane przez Użytkownika treści/zdjęcia nie mogą naruszać praw autorskich osób trzecich. Użytkownik odpowiedzialny jest bezpośrednio przed posiadaczami praw autorskich za wszelkie związane naruszenia w zakresie tych praw publikowanymi przez niego w Serwisie obrazki/zdjecia. <br/><br/>Umieszczaj tylko istotne obrazki związane z skrzynką. Nie rób fotoalbumu okolicy.
+cache_picture_intro UWAGA! Użytkownik musi dbać o to, aby publikowane przez niego w Serwisie treści/zdjęcia nie naruszały obowiązującego prawa oraz przepisów <a href="{wiki_link_rules}">Regulaminu OC PL</a>. W szczególności publikowane przez Użytkownika treści/zdjęcia nie mogą naruszać praw autorskich osób trzecich. Użytkownik odpowiedzialny jest bezpośrednio przed posiadaczami praw autorskich za wszelkie związane naruszenia w zakresie tych praw publikowanymi przez niego w Serwisie obrazki/zdjecia. <br/><br/>Umieszczaj tylko istotne obrazki związane z skrzynką. Nie rób fotoalbumu okolicy.
 spoiler_info Nie pokazuj miniatury (SPOILER) - użyj tej opcji jeśli wgrywasz zdjęcie na którym pokazane jest miejsce ukrycia skrzynki. <br>Dopiero jak ktoś kliknie na SPOILER pokaże mu się wgrany obrazek.
 dont_show Nie pokazuj tego obrazka.
 pictures_intro Następujące formaty są akceptowane: BMP, GIF, PNG i JPG - dla zdjęć rekomendowany format JPG .<br />Maksymalna wielkość pliku dozwolona 100 KB. Zalecane wymiary obrazków: 480 Pixel szerokość i 360 Pixel wysokość. <br />Po potwierdzeniu następna strona, która się pojawi może potrwać chwilę.
@@ -1116,7 +1116,7 @@ remove_all Usuń wszystkie
 no_logtype_choosen Brak typu logu!
 choose Wybierz
 nc01 Drogi Użytkowniku
-nc02 Dziękujemy za to, że chcesz zarejestrować swoja skrzynkę w serwisie opencaching.pl. Jeśli potrzebujesz pomocy w ukryciu lub rejestracji skrzynki, proszę zapoznaj się z informacjami zawartymi w <a class="links" href="http://wiki.opencaching.pl">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> lub skontaktuj się z Centrum Obsługi Geocacher’a - adres email: cog@opencaching.pl Pamiętaj, że Twoja skrzynka świadczy o Tobie. Na pewno zależy Ci na tym, by była jak najlepszej jakości, a w związku z tym prosimy o to, abyś odpowiedział sobie samodzielnie na poniższe pytania :<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc02 Dziękujemy za to, że chcesz zarejestrować swoja skrzynkę w serwisie opencaching.pl. Jeśli potrzebujesz pomocy w ukryciu lub rejestracji skrzynki, proszę zapoznaj się z informacjami zawartymi w <a class="links" href="{wiki_link_main}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> lub skontaktuj się z Centrum Obsługi Geocacher’a - adres email: cog@opencaching.pl Pamiętaj, że Twoja skrzynka świadczy o Tobie. Na pewno zależy Ci na tym, by była jak najlepszej jakości, a w związku z tym prosimy o to, abyś odpowiedział sobie samodzielnie na poniższe pytania :<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
 nc03 Czy skrzynka jest ulokowana w miejscu zgodnym z prawem, nie jest umieszczona na terenie prywatnym bez zgody jego właściciela?
 nc04 Czy skrzynka nie jest ulokowana na terenie Parku Narodowego, Rezerwatu, zabytku, cmentarza lub innego obszaru chronionego prawem?
 nc05 Czy w najbliższej okolicy znajdują się już inne skrzynki, czy zachowana jest minimalna odległość 150m?
@@ -2204,7 +2204,7 @@ editmp3_15 Pliku MP3 nie ma w bazie danych
 add_newmp3 Dodaj MP3
 newCacheWpClose Zamknij
 contact_pl_about_title Zadawanie pytań o Geocaching
-contact_pl_about_description_1 Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
+contact_pl_about_description_1 Chciałbyś się dowiedzieć coś więcej o Geocaching? Znajdziesz to na stronie <a href="{wiki_link_main}/">OpenGeoWiki</a>.
 contact_pl_about_description_2 Chciałbyś wymienić swoje uwagi zadać pytania innym, masz pomysł albo sugestie poprawy działania projektu <i>Opencaching</i>, chcesz pomóc w rozwoju projektu? Z wszystkimi tymi sprawami możesz pisać na <a href="http://forum.opencaching.pl">Forum</a>.
 contact_pl_about_team OpenCaching PL Team
 contact_pl_rr_description - Skład Rady Rejsu patrz &gt;&gt;&gt;<a href="{link}">TUTAJ</a>&lt;&lt;&lt;

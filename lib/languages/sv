@@ -289,7 +289,7 @@ show visa
 lock Lås
 unlock Lås upp
 user_stats Användarstatistik
-first_cache Om detta är första gången du gömmer en cache tänk på att läsa följande <a href="http://wiki.opencaching.pl/index.php/Cache_parameters"> beskrivning </a>
+first_cache Om detta är första gången du gömmer en cache tänk på att läsa följande <a href="{wiki_link_cacheParams_en}"> beskrivning </a>
 name_label Namn
 cache_type Cachetyp
 cache_size Cachestorlek
@@ -306,7 +306,7 @@ cache_attributes Cacheattribut
 attributes_edit_hint Attribut kan också ändras senare.
 additional_attributes_hint Du kan lägga till fler attribut för cachebeskrivningen  med det här verktyget:
 additional_attributes Ytterligare cacheattribut
-attributes_desc_hint Vänligen läs <a href="http://wiki.opencaching.pl/index.php/Cache_parameters" target="_blank"> Opencaching attributbeskrivning</a>.
+attributes_desc_hint Vänligen läs <a href="{wiki_link_cacheParams_en}" target="_blank"> Opencaching attributbeskrivning</a>.
 descriptions Beskrivning
 language Språk
 other_languages_desc Beskrivning på fler språk kan läggas till efter registrering av cachen.
@@ -341,9 +341,9 @@ hour timme
 dont_publish_yet Publicera inte ännu
 log_password Loggningslösenord
 no_password_label Lämna tomt om inget lösenord
-please_read Läs <a href=http://wiki.opencaching.pl/index.php/Cache_parameters target=_blank> information om lösenord i loggarna!</a>
+please_read Läs <a href="{wiki_link_cacheParams_en}" target=_blank> information om lösenord i loggarna!</a>
 password_info_label information om lösenord i loggar
-creating_cache När du skapar en ny cache accepterar du <a href=http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use target=_blank>användarvillkoren</a> fullt ut.
+creating_cache När du skapar en ny cache accepterar du <a href="{wiki_link_rules_en}" target=_blank>användarvillkoren</a> fullt ut.
 with_all_consequences med alla konsekvenser.
 sort_by Sortera sökresultatet efter
 cache_name Cachenamn
@@ -412,8 +412,8 @@ latest_news Nyheter
 what_do_you_find Vad hittar du på denna webbplats
 what_do_you_find_intro Du kan hitta allt om geocaching i Polen. Opencaching i Polen inleddes i <b><font color=blue>maj 2006</font></b>. <br> Detta är den viktigaste Polska Geocachingwebbplatsen. Vår databas använder <b>opensource projektet OpenCaching</b><br>
 more_news Fler nyheter
-filename_rules http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use
-filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
+filename_rules {wiki_link_rules_en}
+filename_describe_cache {wiki_link_cacheParams_en}
 map_msg För att visa koordinater och <br> karta över platsen <br> måste du vara <a href=http://www.opencaching.pl/login.php> inloggad</a>
 additional_hints Ytterligare tips
 images Bilder
@@ -422,7 +422,7 @@ utilities Tjänster
 log_entries Loggar
 search_geocaches_nearby Hitta cacher i närheten på OC PL (radie 100 km)
 download_as_file Ladda ner filen som
-accept_terms_of_use När du hämtar filen, accepterar du våra <a href=http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use>användarvillkor</a>.
+accept_terms_of_use När du hämtar filen, accepterar du våra <a href="{wiki_link_rules_en}">användarvillkor</a>.
 find_geocaches_on Hitta cacher på
 searchable sökbar
 all_geocaches alla
@@ -431,12 +431,12 @@ password_confirm Bekräfta lösenord
 register_msg1 För att skapa ett konto på opencaching.pl måste du ange en fungerande e-postadress och ett användarnamn. <br> Ett e-post med en aktiveringskod kommer att skickas till den adress du anger. Endast ett konto kan skapas per e-postadress.
 register_msg2 * Krävs
 register_msg3 Om du har ytterligare frågor, vänligen kontakta oss innan du skapar ditt konto.
-register_msg4 Jag har läst och förstått <b><a href=http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use> användarvillkoren</a></b> och godkänner dem.
+register_msg4 Jag har läst och förstått <b><a href="{wiki_link_rules_en}"> användarvillkoren</a></b> och godkänner dem.
 register_msg5 Nytt konto har registrerats
 register_msg6 Aktiveringskoden skickades via e-post till dig. Följ instruktionerna som skickats via e-post.
 total_distance Total distans
 send_to_gps Skicka Waypoint till GPS
-rate_cache Betygsätt cache: <br><a href=http://wiki.opencaching.pl/index.php/Cache_rating>Beskrivning av skalan</a>
+rate_cache Betygsätt cache: <br><a href="{wiki_link_ratingDesc_en}">Beskrivning av skalan</a>
 do_not_rate Jag vill inte betygsätta denna cachen
 geokret_log Har du tagit ett Geokret? Registrera detta på
 post_new_log Gör ny logg med hänvisning till

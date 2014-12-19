@@ -39,7 +39,7 @@
 </div>
 
 
-<div class="notice" id="viewcache-attributesend">{{mycache_notes}} <a href="http://wiki.opencaching.pl/index.php/Notatki_skrzynki" target="_blank">{{here}}</a></div>
+<div class="notice" id="viewcache-attributesend">{{mycache_notes}} <a href="{wiki_link_cacheNotes}" target="_blank">{{here}}</a></div>
 
 
 

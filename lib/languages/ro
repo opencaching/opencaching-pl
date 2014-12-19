@@ -1113,7 +1113,7 @@ remove_all Şterge tot
 no_logtype_choosen Nu ai ales tipul de însemnare!
 choose Selectează
 nc01 Dragă Utilizatorule
-nc02 Îţi mulţumim că îţi adaugi geocutia pe {site_name}. Dacă ai nevoie de ajutor când ascunzi sau înregistrezi geocutia, citeşte informaţiile din <a class="links" href="{wiki_url}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> sau contactează Echipa Opencaching România - la adresa de e-mail: {contact_mail}. Nu uita că geocutia te reprezintă. Cu siguranţă că îţi doreşti să fie una de calitate şi de aceea te rugăm să îţi pui următoarele întrebări: <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc02 Îţi mulţumim că îţi adaugi geocutia pe {site_name}. Dacă ai nevoie de ajutor când ascunzi sau înregistrezi geocutia, citeşte informaţiile din <a class="links" href="{wiki_link_main}">OpenGeoWiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> sau contactează Echipa Opencaching România - la adresa de e-mail: {contact_mail}. Nu uita că geocutia te reprezintă. Cu siguranţă că îţi doreşti să fie una de calitate şi de aceea te rugăm să îţi pui următoarele întrebări: <ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
 nc03 Este geocutia într-un loc care nu încalcă legea, un loc care nu este pe proprietatea privată a cuiva fără ca proprietarul să îşi fi dat acordul?
 nc04 Este geocutia ascunsă într-un Parc Naţional, o rezervaţie, un monument, un cimitir sau în alte zone protejate prin lege?
 nc05 Mai sunt şi alte geocutii în zonă, dacă da, este respectată distanţa minimă de 50 de metri?
@@ -1368,7 +1368,7 @@ runwatch15 Nu sunt însemnări
 registermail01 Bună
 registermail02 Bine ai venit pe
 registermail03 Pentru început, poţi afla mai multe pe GeoWiki. Poţi accesa GeoWiki la:
-registermail04 {wiki_url}
+registermail04 {wiki_link_main}
 registermail05 *If you're looking for help through an interactive map where you can find volunteers who offer their help to beginning cachers.
 registermail06 *Look at page:
 registermail07 *Before you register your first cache on OC PL you must find 10 caches of follwing types:traditional, quiz, multicache and unknown type.
@@ -2197,7 +2197,7 @@ editmp3_15 Fişierul MP3 nu se găseşte în baza de date
 add_newmp3 Adaugă MP3
 newCacheWpClose Închide
 contact_pl_about_title ***Întrebări despre Geocaching
-contact_pl_about_description_1 ***Would you like to know more about Geocaching? You'll find it in <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
+contact_pl_about_description_1 ***Would you like to know more about Geocaching? You'll find it in <a href="{wiki_link_main}">OpenGeoWiki</a>.
 contact_pl_about_description_2 ***Do you have any comments, questions, suggestions, or just want to participate in <i>Opencaching</i> development? All those topics are discussed on our <a href="http://forum.opencaching.pl">Forum</a>.
 contact_pl_about_team ***OpenCaching PL Team
 contact_pl_rr_description ***- Rada Rejsu team members are listed &gt;&gt;&gt;<a href="{link}">here</a>&lt;&lt;&lt;

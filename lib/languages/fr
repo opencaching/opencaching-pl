@@ -287,7 +287,7 @@ show show
 lock Block
 unlock Unlock
 user_stats utilisateur de statistiques
-first_cache S'il s'agit de votre premiere case de l'enregistrement de PL Opencaching s'il vous plaît voir cette <a href='http://wiki.opencaching.pl/index.php/Cache_parameters' target='_blank'> description </a>
+first_cache S'il s'agit de votre premiere case de l'enregistrement de PL Opencaching s'il vous plaît voir cette <a href='{wiki_link_cacheParams_en}' target='_blank'> description </a>
 name_label Nom
 cache_type Boîte de type
 cache_size La taille de la boîte
@@ -303,7 +303,7 @@ waypoint_other_portal_info Waypoint a partir d'autres bases de données dans cet
 cache_attributes_label Zone Attributs
 additional_attributes_hint Vous pouvez ajouter des attributs supplémentaires au nom de la boîte aux lettres en utilisant le formulaire
 additional_attributes D'autres attributs de la boîte
-attributes_desc_hint Lire la <a href='http://wiki.opencaching.pl/index.php/Cache_parameters' target='_blank'> description des attributs OC </a>.
+attributes_desc_hint Lire la <a href='{wiki_link_cacheParams_en}' target='_blank'> description des attributs OC </a>.
 description Description
 language Langue
 short_desc_label Description
@@ -333,9 +333,9 @@ hour heure
 dont_publish_yet Pas encore de publication
 log_password Mot de passe pour vous connecter
 no_password_label Laissez en blanc si aucun mot de passe
-please_read Please read <a href='http://wiki.opencaching.pl/index.php/Cache_parameters' target='_blank'>information about passwords in logs!</a>
+please_read Please read <a href='{wiki_link_cacheParams_en}' target='_blank'>information about passwords in logs!</a>
 password_info_label base de données de mot de passe dans le journal
-creating_cache Creating a new cache you accept <a href='http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use' target='_blank'>Terms of Use</a> with all consequences.
+creating_cache Creating a new cache you accept <a href='{wiki_link_rules_en}' target='_blank'>Terms of Use</a> with all consequences.
 sort_by Résultat de la recherche Trier par
 cache_name boîte aux lettres le nom
 distance_label distance
@@ -400,10 +400,10 @@ number_of_active_users Le nombre des membres actifs
 number_of_founds Le nombre des découvertes de décodeurs
 latest_news News
 what_do_you_find Welcome on Opencaching.pl
-what_do_you_find_intro Sur cette page vous trouverez tous les geocachingu en Pologne - de <b> <a href='http://wiki.opencaching.pl' target='_blank'> ABC Geocachingu </a> </b> a un forum ou vous pouvez mener des discussions avec les autres de la géocache. <b> Opencaching PL </b> a débuté en <span class='content-title-noshade'> Mai 2006 </span>. Nos boîtes aux lettres sont de travail sur le projet de base de données opensource <b> Opencaching </b>.
+what_do_you_find_intro Sur cette page vous trouverez tous les geocachingu en Pologne - de <b> <a href='{wiki_link_main}' target='_blank'> ABC Geocachingu </a> </b> a un forum ou vous pouvez mener des discussions avec les autres de la géocache. <b> Opencaching PL </b> a débuté en <span class='content-title-noshade'> Mai 2006 </span>. Nos boîtes aux lettres sont de travail sur le projet de base de données opensource <b> Opencaching </b>.
 more_news Plus de nouvelles
-filename_rules http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use
-filename_describe_cache http://wiki.opencaching.pl/index.php/Cache_parameters
+filename_rules {wiki_link_rules_en}
+filename_describe_cache {wiki_link_cacheParams_en}
 map_msg To view coordinates and <br/> map of location cache<br/> you must be <a href="login.php?target={target}">logged in</a>
 additional_hints Additional hints
 images Pictures
@@ -412,7 +412,7 @@ utilities Utilities
 log_entries Logentries
 search_geocaches_nearby Find geocaches nearby on OC PL (radius 100 km)
 download_as_file Download as file
-accept_terms_of_use When downloading this file, you accept our <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">terms of use</a>.
+accept_terms_of_use When downloading this file, you accept our <a href="{wiki_link_rules_en}" target="_blank">terms of use</a>.
 find_geocaches_on Find geocaches on
 searchable searchable
 all_geocaches all
@@ -421,12 +421,12 @@ password_confirm Confirm password
 register_msg1 To create an account on opencaching.de, you have to enter a vaild E-Mail address and an username. An E-Mail will be sent to the address you supplied with an activation code. Only one account can be created per E-Mail address.
 register_msg2 * are required
 register_msg3 If you have further questions, please contact us before you create your account.
-register_msg4 I have read and understand <b><a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use" target="_blank">the terms of use</a></b> and accept them.
+register_msg4 I have read and understand <b><a href="{wiki_link_rules_en}" target="_blank">the terms of use</a></b> and accept them.
 register_msg5 New account has been registered
 register_msg6 The activation code was sent via E-mail to you. Please follow the instruction which was send via E-Mail.
 total_distance Total distance
 send_to_gps Send WayPoint to GPS
-rate_cache Rate this cache: <br/><a href="http://wiki.opencaching.pl/index.php/Cache_rating" target="_blank">Description of scale</a>
+rate_cache Rate this cache: <br/><a href="{wiki_link_ratingDesc_en}" target="_blank">Description of scale</a>
 do_not_rate I do not want to rate this cache
 geokret_log Did you take Geokret? Rgeister this on
 post_new_log Post new log in reference to

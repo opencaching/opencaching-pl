@@ -300,7 +300,7 @@ show toon
 lock Blokkeer
 unlock Deblokkeer
 user_stats gebruikersstatistieken
-first_cache Als dit de eerste geplaatste cache wordt, lees dan eerst de volgende <a href="{cache_params_url}" target="_blank">omschrijving</a>
+first_cache Als dit de eerste geplaatste cache wordt, lees dan eerst de volgende <a href="{wiki_link_cacheParams}" target="_blank">omschrijving</a>
 first_cache_approvement Omdat dit een van de eerste 3 caches is, zal het Opencaching Team deze cache beoordelen.
 all_cache_approvement Cache zal zichtbaar zijn na goedkeuring van het OC Team.
 name_label Cache naam
@@ -319,7 +319,7 @@ cache_attributes_label Cache attributen
 attributes_edit_hint Attributen kunnen later ook verandert worden.
 additional_attributes_hint You can add some more attributes to your cache&#39;s description with this tool:
 additional_attributes Additional cache attributes
-attributes_desc_hint Lees ook het <a href="{cache_params_url}" target="_blank">Opencaching attributen beschrijving</a> artikel.
+attributes_desc_hint Lees ook het <a href="{wiki_link_cacheParams}" target="_blank">Opencaching attributen beschrijving</a> artikel.
 descriptions Beschrijving
 language Taal
 other_languages_desc Beschrijvingen in andere talen kunnen na aanmelden van de cache toegevoegd worden.
@@ -358,8 +358,8 @@ hour Tijd
 dont_publish_yet Nog niet publiceren
 log_password Geef logwachtwoord
 no_password_label Laat leeg voor geen logwachtwoord
-please_read Lees meer <a href="{cache_params_url}" target="_blank">informatie over wachtwoorden in logs</a>
-creating_cache Met het maken van een nieuwe cache accepteer je de <a href="{rules_url}" target="_blank">Gebruikers voorwaarden</a> met alle consequenties.
+please_read Lees meer <a href="{wiki_link_cacheParams}" target="_blank">informatie over wachtwoorden in logs</a>
+creating_cache Met het maken van een nieuwe cache accepteer je de <a href="{wiki_link_rules}" target="_blank">Gebruikers voorwaarden</a> met alle consequenties.
 with_all_consequences with all consequences.
 cache_name cache naam
 distance_label Afstand
@@ -434,8 +434,8 @@ what_do_you_find_intro_nl <b>Welkom bij opencaching.nl, dé geocaching website v
 what_do_you_find_intro_en Geocaching is an outdoor sport or activity in which cachers use a GPS receiver to find a "treasure" hidden by other participants. Caches are secured in watertight containers, containing gifts and a logbook in which they record their discovery of the cache. The coordinates of the location of the caches are stored on online databases such as opencaching.se along with descriptions and instructions necessary to find them.<br/>On this site you can find everything about geocaching in The Netherlands, Luxembourgh and Belgium. Opencaching.nl in The Netherlands was started in <span class="content-title-noshade">October 2002</span>. Our database working on <b>opensource project Opencaching</b>. The idea is to have several opencaching nodes for different countries around the world with a synchronized database of users and caches.<br/> Opencaching site like this has nothing to do with Opencaching.com
 what_do_you_find_intro_ro Geocaching este un joc în aer liber prin care jucătorii încearcă să găsească cu ajutorul unui receptor GPS "comori" ascunse de alţi jucători. Aceste "comori" (<i>geocutii</i>) sunt cutii ermetice de diverse forme şi mărimi, care conţin mici jucării sau cadouri şi un carneţel (<i>jurnal</i>) în care fiecare jucător înregistrează descoperirea geocutiei. Coordonatele geografice la care se află geocutia sunt păstrate într-o bază de date publică precum opencaching.ro împreună cu o descriere şi instrucţiuni care să ajute la găsirea ei. <br /> Pe acest site afli despre geocaching în România. Opencaching.ro funcţionează din <span class="content-title-noshade">aprilie 2014</span> pentru a sprijini şi promova acest joc în România. <br /><br /> Proiectul Opencaching este o abordare <b>open-source</b> a jocului "geocaching" şi se bazează pe mai multe noduri în diferite ţări, care fac schimb de informaţii între ele despre geocutiile si utilizatorii fiecăruia. <br /> Opencaching.ro funcţionează pe platforma open-source <span class="content-title-noshade">opencaching-pl</span>. <br /> Acest site nu este în nici un fel afiliat cu Opencaching.com.
 more_news More news
-filename_rules {rules_url}
-filename_describe_cache {cache_params_url}
+filename_rules {wiki_link_rules}
+filename_describe_cache {wiki_link_cacheParams}
 map_msg Om de coördinaten en de kaart te zien <br/>van de cache&#39;s <br/> moet men <a href="login.php?target={target}">ingelogt zijn</a>
 additional_hints Extra hints
 images Afbeeldingen
@@ -443,7 +443,7 @@ mp3_files_info PodCasts - luister naar de instructies om je naar de cache te lei
 utilities Hulpmiddelen
 search_geocaches_nearby Zoek caches dichtbij (radius 100 km)
 download_as_file Download als bestand
-accept_terms_of_use Met het downloaden van dit bestand, accepteer je onze <a href="{rules_url}">gebruikersvoorwaarden</a>.
+accept_terms_of_use Met het downloaden van dit bestand, accepteer je onze <a href="{wiki_link_rules}">gebruikersvoorwaarden</a>.
 find_geocaches_on Zoek caches op
 searchable zonder eigen en gevonden caches
 all_geocaches alles
@@ -456,7 +456,7 @@ password_confirm Bevestig wachtwoord
 register_msg1 Om een gebruikersaccount aan te maken op {site_name}, dien je een geldig e-mail adres en een gebruikersnaam op te geven. Een e-mail bericht zal naar het opgegeven e-mail adres verzonden worden, waarmee het gebruikersaccount geactiveerd kan worden. Per e-mail adres kan één account aangemaakt worden.
 register_msg2 * zijn verplicht
 register_msg3 Mochten er nog vragen zijn, neem contact met ons op vóór je een account aanmaakt
-register_msg4 Ik heb de <b><a href="{rules_url}">gebruikers voorwaarden</a></b> gelezen en begrepen en accepteer deze.
+register_msg4 Ik heb de <b><a href="{wiki_link_rules}">gebruikers voorwaarden</a></b> gelezen en begrepen en accepteer deze.
 register_msg5 Nieuw account is geregistreerd
 register_msg6 De activatiecode is verzonden per e-mail. Volg de instructies op welke in deze e-mail staan.
 register_msg7 Een gebruikersaccount kan niet verwijderd worden als er al caches gelogd of verstopt zijn. Het is echter mogelijk om een gebruikersaccount te deactiveren. Dan zullen alle gegevens (ook het e-mail adres) in "Mijn profiel" De gebruikersnaam, de geplaatste en gevonden caches zullen wel bewaard blijven. Mocht je je {site_name} account weer willen activeren, kun je ons een mail sturen met het e-mail adres uit je gebruikers profiel en zullen wij je account activeren.
@@ -473,7 +473,7 @@ possible_recommend Om aanbevelingen te kunnen geven moet je nog een aantal cache
 comments_log Logtekst
 submit_log_entry Verstuur de log
 geokret_log Een Geokret meegenomen? Registreer dit op
-rate_cache Beoordeel deze cache: <br/><a href="{rating_desc_url}">Uitleg over beoordeling</a>
+rate_cache Beoordeel deze cache: <br/><a href="{wiki_link_ratingDesc}">Uitleg over beoordeling</a>
 do_not_rate Ik wil deze cache niet beoordelen
 listed_other Log deze cache ook op de volgende sites
 not_spcified Niet geselecteerd
@@ -824,13 +824,13 @@ empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. H
 empty_entry_confirm Wil je werkelijk het logveld leeg laten?
 empty_mark Deze cache is nog niet beoordeeld. Werkelijk verder gaan met loggen?
 where_i_am Waar ben ik?
-read_info_about_cache_types Lees hier meer informatie over <a href="{cache_params_url}" target="_blank">Cache eigenschappen</a>
+read_info_about_cache_types Lees hier meer informatie over <a href="{wiki_link_cacheParams}" target="_blank">Cache eigenschappen</a>
 regiononly Provincie
 region_from_coord Provincie via opgegeven coördinaten
 select_regions Selecteer provincie
 not_applicable Not applicable
 input_coord Vul de coördinaten van de cache in
-waypoints_about_info <a class="links" href="{cache_params_url}" target="_blank">Zie de omschrijving en soorten van extra waypoints.</a>
+waypoints_about_info <a class="links" href="{wiki_link_cacheParams}" target="_blank">Zie de omschrijving en soorten van extra waypoints.</a>
 cache_pictures Cache afbeelding
 log_pictures Log afbeelding
 no_title No title
@@ -1116,7 +1116,7 @@ remove_all Alles verwijderen
 no_logtype_choosen Geen logsoort gekozen
 choose Kiezen
 nc01 Beste gebruiker
-nc02 Bedankt voor het willen registreren van een nieuwe cache op {site_name}. Voor meer informatie bij het plaatsen of registreren van een cache kan gekeken worden op <a class="links" href="{wiki_url}">Opencaching wiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> of neem bij grotere problemen contact op via e-mail: octeam@opencaching.nl, zodat er toch een goede cache geplaatst kan worden. Om een goed kwaliteit cache te maken kun je de volgende vragen bekijken en te zien of je nieuwe cache aan de eisen voldoet:<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
+nc02 Bedankt voor het willen registreren van een nieuwe cache op {site_name}. Voor meer informatie bij het plaatsen of registreren van een cache kan gekeken worden op <a class="links" href="{wiki_link_main}">Opencaching wiki <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a> of neem bij grotere problemen contact op via e-mail: octeam@opencaching.nl, zodat er toch een goede cache geplaatst kan worden. Om een goed kwaliteit cache te maken kun je de volgende vragen bekijken en te zien of je nieuwe cache aan de eisen voldoet:<ul style="font-weight:bold;font-size: 12.5px; line-height:1.6em; text-align: left;color:blue;">
 nc03 Is de cache niet illegaal geplaatst, zoals op privégrond zonder toestemming van de eigenaar?
 nc04 Is de cache niet geplaats in een Nationaal park, in/op een monument, begraafplaats of ander beschermd gebied?
 nc05 Is de cache geplaatst op een plek minimaal 150 meter waar nog een andere cache ligt?
@@ -1375,7 +1375,7 @@ runwatch15 Er zijn nog geen logs
 registermail01 Hallo
 registermail02 Welkom op
 registermail03 Om te beginnen kun je informatie terug vinden op Opencaching wiki, Deze site is nog niet compleet maar wordt regelmatig aangevuld. Opencaching wiki is beschikbaar op:
-registermail04 {wiki_url}
+registermail04 {wiki_link_main}
 registermail05 Als je op zoek bent naar hulp via een interactieve kaart kun je in jouw gebied vrijwilligers vinden die hun hulp aanbieden aan beginnende cachers.
 registermail06 Kijk eens op:
 registermail07 Maak gebruik van de huidige regel dat er vrij caches geplaats kunnen worden. Wanneer er voldoende caches zijn zal deze regel veranderd worden dat je eerst 10 caches gevonden moet hebben eer je caches mag plaatsen.
@@ -2118,7 +2118,7 @@ mylist_02 Verwijderen
 mylist_03 Alles afdrukken
 mylist_04 Verwijder alles
 mylist_05 Download de gegevens van de caches uit het klembord
-cookiesInfo Wij maken gebruik van cookies om onze dienstverlening te verbeteren. Lees meer over privacy en gegevensbescherming in onze <a href ="{rules_url}">Gebruikersvoorwaarden</a>.
+cookiesInfo Wij maken gebruik van cookies om onze dienstverlening te verbeteren. Lees meer over privacy en gegevensbescherming in onze <a href ="{wiki_link_rules}">Gebruikersvoorwaarden</a>.
 FiltrYear Jaar
 FiltrMonth Maand
 StatTestVer <span style="color: red" >Dit is een proef voor de statistieken</span>
@@ -2204,7 +2204,7 @@ editmp3_15 MP3 bestand niet in de database
 add_newmp3 MP3 toevoegen
 newCacheWpClose Sluiten
 contact_pl_about_title Vragen over Opencaching.pl (alleen voor deze Poolse site)
-contact_pl_about_description_1 Wil je meer weten over Opencaching? Je kunt het vinden op <a href="http://wiki.opencaching.pl/">OpenGeoWiki</a>.
+contact_pl_about_description_1 Wil je meer weten over Opencaching? Je kunt het vinden op <a href="{wiki_link_main}">OpenGeoWiki</a>.
 contact_pl_about_description_2 Heb je commentaar, vragen, suggesties, of wil je mee helpen met de <i>Opencaching</i> ontwikkeling? Al deze onderwerpen kun je terug vinden op onze <a href="http://forum.opencaching.pl">Forum</a>.
 contact_pl_about_team OpenCaching PL Team
 contact_pl_rr_description - Rada Rejsu medewerkers zie je &gt;&gt;&gt;<a href="{link}">hier</a>&lt;&lt;&lt;

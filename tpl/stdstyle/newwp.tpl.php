@@ -67,7 +67,7 @@
                 </td>
             </tr>
             <tr><td>&nbsp;</td>
-                <td><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce" target="_blank">{{show_info_about_wp}}</a></div></td>
+                <td><div class="notice" style="width:500px;min-height:24px;height:auto;"><a class="links" href="{wiki_link_additionalWaypoints}" target="_blank">{{show_info_about_wp}}</a></div></td>
             </tr>
             {start_stage}
             <tr>

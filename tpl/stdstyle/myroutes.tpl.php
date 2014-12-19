@@ -13,7 +13,7 @@
 <br/><p>&nbsp;&nbsp;&nbsp;<button type="button" style="font-weight:bold;font-size:12px;" onclick="window.location.href = 'myroutes_add_map2.php'">{{setup_new_route}}</button>&nbsp;&nbsp;&nbsp;<button type="button" style="font-weight:bold;font-size:12px;" onclick="window.location.href = 'myroutes_add.php'">{{add_new_route_kml}}</button></p>
 <br/>
 {content}
-<div class="notice">{{see_desc_myroute}} <a href="http://wiki.opencaching.pl/index.php/Moje_trasy" target="_blank">{{here}}</a></div>
+<div class="notice">{{see_desc_myroute}} <a href="{wiki_link_myRoutes}" target="_blank">{{here}}</a></div>
 
 
 

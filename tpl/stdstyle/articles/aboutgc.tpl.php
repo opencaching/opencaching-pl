@@ -13,7 +13,7 @@
             <p>A co jak już znajdą? Otwierają skrzynkę wyjmują z niej niespodziankę przeznaczoną tylko dla nich i wkładają nową od siebie. Co to będzie zależy tylko od nich samych. Oprócz tego w każdej skrzynce znajduje się dziennik skrzynki do którego trzeba się wpisać na pamiątkę.</p>
 
             <p>Nie martwcie się jeśli zapomnicie czegoś do pisania. W każdej skrzynce jest ołówek zostawiony przez poprzednika.....
-                <br />Jest to opis uproszczonej wersji geocache. Więcej o geocaching <a href=http://wiki.opencaching.pl/>TUTAJ</a></p>
+                <br />Jest to opis uproszczonej wersji geocache. Więcej o geocaching <a href="{wiki_link_main}">TUTAJ</a></p>
 
 
         </td>

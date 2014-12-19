@@ -8,9 +8,9 @@
         niezbędne informacje i przybliżą Ci zasady zakładania skrzynki, wyboru pojemników, typu skrzynki itd, dzięki temu Twoja skrzynka będzie poprawnie założona z ogólnie przyjętymi zasadami.
     </p>
     <br /><ul>
-        <li><p style="font-size: 16px;"><a class="links" href="http://wiki.opencaching.pl/index.php/Dla_pocz%C4%85tkuj%C4%85cych" target="_blank">Dla początkujących</a></p>
-        <li><p style="font-size: 16px;"><a class="links" href="http://wiki.opencaching.pl/index.php/Zak%C5%82adanie_skrzynki" target="_blank">Jak przygotować i schować skrzynkę</a></p>
-        <li><p style="font-size: 16px;"><a class="links" href="http://wiki.opencaching.pl/index.php/Jako%C5%9B%C4%87_skrzynki" target="_blank">Jakość skrzynki</a></p>
-        <li><p style="font-size: 16px;"><a class="links" href="http://wiki.opencaching.pl/index.php/Kodeks_geocachera" target="_blank">Kodeks geocachera</a></p>
+        <li><p style="font-size: 16px;"><a class="links" href="{wiki_link_forBeginers}" target="_blank">Dla początkujących</a></p>
+        <li><p style="font-size: 16px;"><a class="links" href="{wiki_link_placingCache}" target="_blank">Jak przygotować i schować skrzynkę</a></p>
+        <li><p style="font-size: 16px;"><a class="links" href="{wiki_link_cacheQuality}" target="_blank">Jakość skrzynki</a></p>
+        <li><p style="font-size: 16px;"><a class="links" href="{wiki_link_cachingCode}" target="_blank">Kodeks geocachera</a></p>
     </ul>
 </div>

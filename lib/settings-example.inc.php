@@ -213,7 +213,31 @@ $blogsite_url = 'http://blog.opencaching.pl';
 $forum_url = 'http://forum.opencaching.pl';
 
 //links to wiki page on oc site
-$wiki_url = 'http://wiki.opencaching.pl';
+// they are available in tpl files under {wiki_link_<name>}, i.e. {wiki_link_forBeginers}
+// protocol agnostic links - just for fun
+$wiki_url  = '//wiki.opencaching.pl';
+$wikiLinks = array(
+    'main'  => $wiki_url,
+    'rules' => $wiki_url.'/index.php/Regulamin_OC_PL',
+    'rules_en' => $wiki_url.'/index.php/OC_PL_Conditions_of_Use',
+    'cacheParams' => $wiki_url.'/index.php/Parametry_skrzynki',
+    'cacheParams_en' => $wiki_url.'/index.php/Cache_parameters',
+    'ratingDesc' => $wiki_url.'/index.php/Oceny_skrzynek',
+    'ratingDesc_en' => $wiki_url.'/index.php/Cache_rating',
+    'forBeginers' => $wiki_url.'/index.php/Dla_pocz%C4%85tkuj%C4%85cych',
+    'placingCache' => $wiki_url.'/index.php/Zak%C5%82adanie_skrzynki',
+    'cacheQuality' => $wiki_url.'/index.php/Jako%C5%9B%C4%87_skrzynki',
+    'myRoutes' => $wiki_url.'/index.php/Moje_trasy',
+    'cacheNotes' => $wiki_url.'/index.php/Notatki_skrzynki',
+    'additionalWaypoints' => $wiki_url.'/index.php/Dodatkowe_waypointy_w_skrzynce',
+    'cachingCode' => $wiki_url.'/index.php/Kodeks_geocachera',
+    'usefulFiles' => $wiki_url.'/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL',
+    'ocSiteRules' => $wiki_url.'/index.php/Zasady_funkcjonowania_Serwisu_OC_PL',
+    'cacheTypes' => $wiki_url.'/index.php/Typ_skrzynki',
+    // optional item
+    'downloads' => $wiki_url.'/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL',
+);
+
 $rules_url = 'http://wiki.opencaching.pl/index.php/Regulamin_OC_PL';
 $cache_params_url = 'http://wiki.opencaching.pl/index.php/Parametry_skrzynki';
 $rating_desc_url = 'http://wiki.opencaching.pl/index.php/Oceny_skrzynek';

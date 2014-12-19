@@ -300,7 +300,7 @@ show schauen
 lock sperren
 unlock entsperren
 user_stats Benutzer Statistik
-first_cache Du kannst kennenlernen wie wählen Cache Typ, Große, Attribute bei lesen <a href="{cache_params_url}" target="_blank">basis Information</a>.
+first_cache Du kannst kennenlernen wie wählen Cache Typ, Große, Attribute bei lesen <a href="{wiki_link_cacheParams_en}" target="_blank">basis Information</a>.
 first_cache_approvement Weil es ist eine von Deine 3 Caches, wird sichtbar für alle nach Akzeptanz von Team {site_name}.
 all_cache_approvement Cache wird sichtbar für alle nach Akzeptanz von Team {site_name}.
 name_label Name
@@ -319,7 +319,7 @@ cache_attributes_label Cache-Attribute
 attributes_edit_hint Attribute können auch später geändert werden
 additional_attributes_hint Sie können noch weitere Attribute zu Ihrem Cache's Beschreibung mit diesem Tool:
 additional_attributes Zusätzliche Cache-Attribute
-attributes_desc_hint Bitte lesen Sie die <a href="{cache_params_url}" target="_blank"> Opencaching Attribute Beschreibung </a> Artikel
+attributes_desc_hint Bitte lesen Sie die <a href="{wiki_link_cacheParams_en}" target="_blank"> Opencaching Attribute Beschreibung </a> Artikel
 descriptions Beschreibung
 language Sprache
 other_languages_desc Weitere Beschreibungen in anderen Sprachen können nach dem Veröffentlichen des Caches eingetragen werden.
@@ -358,8 +358,8 @@ hour Stunde
 dont_publish_yet Noch nicht veröffentlichen
 log_password Log-Passwort
 no_password_label Leer lassen, wenn kein Passwort
-please_read Bitte lesen <a href="{cache_params_url}" target="_blank">Information über Passwort in Logs!</a>
-creating_cache Weil erstellung neuen Cache akzeptierst du <a href="{rules_url}" target="_blank">Nutztbedingungen</a> mit allen Konsequenzen.
+please_read Bitte lesen <a href="{wiki_link_cacheParams_en}" target="_blank">Information über Passwort in Logs!</a>
+creating_cache Weil erstellung neuen Cache akzeptierst du <a href="{wiki_link_rules_en}" target="_blank">Nutztbedingungen</a> mit allen Konsequenzen.
 with_all_consequences mit allen Konsequenzen.
 cache_name Cachename
 distance_label Entfernung
@@ -434,8 +434,8 @@ what_do_you_find_intro_pl Hier finden Sie alles über Geocaching in Polen. Openc
 
 
 more_news Mehr Nachrichten
-filename_rules {rules_url}
-filename_describe_cache {cache_params_url}
+filename_rules {wiki_link_rules_en}
+filename_describe_cache {wiki_link_cacheParams_en}
 map_msg Die Koordinates zu sehen und<br/> Karte der Cache Stellung<br/> musst du <a href="login.php?target={target}">angemeldet sein.</a>
 additional_hints Verschlüsselter Hinweis
 images Bilder
@@ -443,7 +443,7 @@ mp3_files_info PodCasts - MP3 Datei
 utilities Dienstprogramme
 search_geocaches_nearby Cache suchen in Umkreis von 100km
 download_as_file Als Datei download
-accept_terms_of_use Weil downloading diese Datei, akzeptierst du unsere <a href="http://wiki.opencaching.pl/index.php/OC_PL_Conditions_of_Use">Nutztbedigungen</a>.
+accept_terms_of_use Weil downloading diese Datei, akzeptierst du unsere <a href="{wiki_link_rules_en}">Nutztbedigungen</a>.
 find_geocaches_on Geocaches finden an
 searchable ohne eigene und gefundene caches
 all_geocaches alle
@@ -457,7 +457,7 @@ register_new Neuen Benutzer registrieren
 register_msg1 Um ein neuen Account an {site_name} zu registrieren, musst du eine gültige E-Mail addresse und Benutzername eingeben. Ein E-Mail wird mit Aktivierungskode geschickt. Nur ein Account kann mit einen E-mail Adresse registriert werden.
 register_msg2 * sind erfordet
 register_msg3 Für weitere Fragen, bitte um Kontakt mit uns vor Registrierung.
-register_msg4 Ich habe gelesen und einverstanden <b><a href="{rules_url}">Nutztbedigungen</a></b> und ich akzeptiere die.
+register_msg4 Ich habe gelesen und einverstanden <b><a href="{wiki_link_rules_en}">Nutztbedigungen</a></b> und ich akzeptiere die.
 register_msg5 Neue Account war registiert.
 register_msg6 Die Aktivierungskode wan an deine Email geschickt. Bitte den Anweisungen folgen, die sind über E-Mail geschickt.
 total_distance Gesamtstrecke
@@ -473,7 +473,7 @@ possible_recommend  Um eine weitere Empfehlung vorzunehmen benötigst Du noch
 comments_log Kommentare
 submit_log_entry Log eintragen
 geokret_log Hast Du Geokret genommen? Registrier das an
-rate_cache Cache bewerten: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_right.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="{rating_desc_url}">Bereich Beschreibung</a>
+rate_cache Cache bewerten: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_right.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="{wiki_link_ratingDesc}">Bereich Beschreibung</a>
 do_not_rate Ich möchte diese Cache nicht bewerten
 listed_other Dieser Cache bitte loggen auf den folgenden Webseiten
 not_spcified keine Angabe
@@ -824,13 +824,13 @@ empty_entry_notice <b> Label Einträge </ b>: Versuchen Sie nicht, leere Einträ
 empty_entry_confirm Sicher, dass Du ein leer Eintrag? \ Es ist immer viel besser als ein kurzes Kommentar schreiben.
 empty_mark Diese cache hat noch kein beorteilung. Weitergehen mit loggen?
 where_i_am Wo bin ich?
-read_info_about_cache_types Siehe Beschreibung <a href="{cache_params_url}" target="_blank">Cacheart</a>
+read_info_about_cache_types Siehe Beschreibung <a href="{wiki_link_cacheTypes}" target="_blank">Cacheart</a>
 regiononly Region
 region_from_coord Region durch angegebenen Koordinaten
 select_regions Region auswählen
 not_applicable Nicht verwendet
 input_coord Bitte Koordinaten der Cache angeben
-waypoints_about_info <a class="links" {cache_params_url}" target="_blank">Siehe Beschreibung zür zusätzliche Waypoints </a>
+waypoints_about_info <a class="links" href="{wiki_link_additionalWaypoints}" target="_blank">Siehe Beschreibung zür zusätzliche Waypoints </a>
 cache_pictures Bild mit Cache verbunden
 log_pictures Bild in LOG-Eintrag
 no_title Ohne Titel
@@ -841,7 +841,7 @@ bad_format_info Datei hat ungültiges Format. Erlaubte Dateiformate BMP, GIF, PN
 no_picture Bild fehlt in Database
 title_picture Titel
 file_name Datei Name
-cache_picture_intro HINWEIS! Du musstsich darum kümmern, um  von ihm in der Website veröffentlichten Inhalte werden / Fotos nicht gegen geltende Gesetze und Vorschriften <a href=http://wiki.opencaching.pl/index.php/Regulamin_OC_PL> Regeln OC UK </ a>. Insbesondere veröffentlicht die User Inhalte / Bilder dürfen nicht gegen das Urheberrecht Dritter. Sie sind verantwortlich direkt gegen die Copyright-Inhaber für daraus resultierende Verletzung solcher Rechte durch ihn auf die Seite Bilder / Fotos veröffentlicht. Setzen <br/> nur relevante Bild mit dem Fall verbunden. Tun Sie das nicht Fotoalbum herum.
+cache_picture_intro HINWEIS! Du musstsich darum kümmern, um  von ihm in der Website veröffentlichten Inhalte werden / Fotos nicht gegen geltende Gesetze und Vorschriften <a href="{wiki_link_rules_en}"> Regeln OC UK </ a>. Insbesondere veröffentlicht die User Inhalte / Bilder dürfen nicht gegen das Urheberrecht Dritter. Sie sind verantwortlich direkt gegen die Copyright-Inhaber für daraus resultierende Verletzung solcher Rechte durch ihn auf die Seite Bilder / Fotos veröffentlicht. Setzen <br/> nur relevante Bild mit dem Fall verbunden. Tun Sie das nicht Fotoalbum herum.
 spoiler_info nicht zeigen Thumbnails (SPOILER) - Verwenden diese Option, wenn das Bild hochladen, um das Versteck ist in der Box gezeigt. Fotos bis jemand auf SPOILER zeigt er ein Bild hochgeladen.
 dont_show nicht zeigen dieses Bild.
 pictures_intro Folgende Formate werden akzeptiert: BMP, GIF, PNG, JPG und - empfohlen für Fotos im JPG-Format <br /> Maximale Dateigröße erlaubt 100 KB. Empfohlene Bildgröße: 480 Pixel breit und 360 Pixel Höhe. <br /> Nach der Bestätigung der nächsten Seite, die erscheint, kann eine Weile dauern.

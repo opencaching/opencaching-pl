@@ -233,7 +233,7 @@
     {waypoints_content}
 </p>
 <br />
-<div class="notice" id="viewcache-attributesend"><a class="links" href="http://wiki.opencaching.pl/index.php/Dodatkowe_waypointy_w_skrzynce" target="_blank">{{show_info_about_wp}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a></div>
+<div class="notice" id="viewcache-attributesend"><a class="links" href="{wiki_link_additionalWaypoints}" target="_blank">{{show_info_about_wp}} <img src="tpl/stdstyle/images/misc/linkicon.png" alt="link"></a></div>
 {waypoints_end}
 <!-- End Text Container -->
 <!-- Text container -->

@@ -286,11 +286,12 @@ if ((date('m') == 4) and ( date('d') == 1)) {
 }
 
 tpl_set_var('site_name', $site_name);
-tpl_set_var('wiki_url', $wiki_url);
-tpl_set_var('rules_url', $rules_url);
-tpl_set_var('cache_params_url', $cache_params_url);
 tpl_set_var('contact_mail', $contact_mail);
-tpl_set_var('rating_desc_url', $rating_desc_url);
+
+// BSz: to make ease use of wikilinks
+foreach($wikiLinks as $key => $value){
+	tpl_set_var('wiki_link_'.$key, $value);
+}
 
 function score2ratingnum($score)
 {

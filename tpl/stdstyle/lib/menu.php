@@ -39,7 +39,7 @@
 
  * ************************************************************************** */
 include_once('lib/language.inc.php');
-global $menu, $usr, $lang, $cache_menu, $stat_menu, $rules_url, $wiki_url, $SiteOutsideCountryString, $config,
+global $menu, $usr, $lang, $cache_menu, $stat_menu, $wikiLinks, $SiteOutsideCountryString, $config,
  $powerTrailModuleSwitchOn, $powerTrailFaqLink, $forum_url, $blogsite_url;
 
 $menu = array(
@@ -212,8 +212,8 @@ $menu = array(
         'title' => tr('abc'),
         'menustring' => tr('abc'),
         'siteid' => 'articles/info',
-        'visible' => isset($wiki_url) ? true : false,
-        'filename' => $wiki_url,
+        'visible' => isset($wikiLinks['main']) ? true : false,
+        'filename' => @$wikiLinks['main'],
         'newwindow' => true
     ),
     array(
@@ -269,8 +269,8 @@ $menu = array(
         'title' => 'Download',
         'menustring' => 'Download',
         'siteid' => 'Download',
-        'visible' => isset($wiki_url) ? true : false,
-        'filename' => $wiki_url . '/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL',
+        'visible' => isset($wikiLinks['downloads']) ? true : false,
+        'filename' => @$wikiLinks['downloads'],
         'newwindow' => 'true'
     ),
     array(
