@@ -319,7 +319,7 @@ cache_attributes_label Cache attributen
 attributes_edit_hint Attributen kunnen later ook verandert worden.
 additional_attributes_hint You can add some more attributes to your cache&#39;s description with this tool:
 additional_attributes Additional cache attributes
-attributes_desc_hint Lees ook het <a href="{wiki_link_cacheParams}" target="_blank">Opencaching attributen beschrijving</a> artikel.
+attributes_desc_hint Lees ook het <a href="{wiki_link_cacheAttrib}" target="_blank">Opencaching attributen beschrijving</a> artikel.
 descriptions Beschrijving
 language Taal
 other_languages_desc Beschrijvingen in andere talen kunnen na aanmelden van de cache toegevoegd worden.
@@ -358,7 +358,7 @@ hour Tijd
 dont_publish_yet Nog niet publiceren
 log_password Geef logwachtwoord
 no_password_label Laat leeg voor geen logwachtwoord
-please_read Lees meer <a href="{wiki_link_cacheParams}" target="_blank">informatie over wachtwoorden in logs</a>
+please_read Lees meer <a href="{wiki_link_cacheLogPass}" target="_blank">informatie over wachtwoorden in logs</a>
 creating_cache Met het maken van een nieuwe cache accepteer je de <a href="{wiki_link_rules}" target="_blank">Gebruikers voorwaarden</a> met alle consequenties.
 with_all_consequences with all consequences.
 cache_name cache naam
@@ -824,7 +824,7 @@ empty_entry_notice <b>Schrijf een log</b>: Laat het veld "logtekst" niet leeg. H
 empty_entry_confirm Wil je werkelijk het logveld leeg laten?
 empty_mark Deze cache is nog niet beoordeeld. Werkelijk verder gaan met loggen?
 where_i_am Waar ben ik?
-read_info_about_cache_types Lees hier meer informatie over <a href="{wiki_link_cacheParams}" target="_blank">Cache eigenschappen</a>
+read_info_about_cache_types Lees hier meer informatie over <a href="{wiki_link_cacheTypes}" target="_blank">Cache soorten</a>
 regiononly Provincie
 region_from_coord Provincie via opgegeven coördinaten
 select_regions Selecteer provincie
