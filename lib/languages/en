@@ -473,7 +473,7 @@ possible_recommend You don't have any recommendations left. You must find more c
 comments_log Comments
 submit_log_entry Submit log entry
 geokret_log Did you take Geokret? Register this on
-rate_cache Rate this cache: <br/><a href="{wiki_link_ratingDesc}">Description of the rating scale</a>
+rate_cache Rate this cache: <br/><a href="{wiki_link_ratingDesc_en}">Description of the rating scale</a>
 do_not_rate I do not want to rate this cache
 listed_other You can also submit the log for this cache on other sites
 not_spcified not specified
