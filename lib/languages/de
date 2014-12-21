@@ -319,7 +319,7 @@ cache_attributes_label Cache-Attribute
 attributes_edit_hint Attribute können auch später geändert werden
 additional_attributes_hint Sie können noch weitere Attribute zu Ihrem Cache's Beschreibung mit diesem Tool:
 additional_attributes Zusätzliche Cache-Attribute
-attributes_desc_hint Bitte lesen Sie die <a href="{wiki_link_cacheParams_en}" target="_blank"> Opencaching Attribute Beschreibung </a> Artikel
+attributes_desc_hint Bitte lesen Sie die <a href="{wiki_link_cacheAttrib_en}" target="_blank"> Opencaching Attribute Beschreibung </a> Artikel
 descriptions Beschreibung
 language Sprache
 other_languages_desc Weitere Beschreibungen in anderen Sprachen können nach dem Veröffentlichen des Caches eingetragen werden.
@@ -358,7 +358,7 @@ hour Stunde
 dont_publish_yet Noch nicht veröffentlichen
 log_password Log-Passwort
 no_password_label Leer lassen, wenn kein Passwort
-please_read Bitte lesen <a href="{wiki_link_cacheParams_en}" target="_blank">Information über Passwort in Logs!</a>
+please_read Bitte lesen <a href="{wiki_link_cacheLogPass_en}" target="_blank">Information über Passwort in Logs!</a>
 creating_cache Weil erstellung neuen Cache akzeptierst du <a href="{wiki_link_rules_en}" target="_blank">Nutztbedingungen</a> mit allen Konsequenzen.
 with_all_consequences mit allen Konsequenzen.
 cache_name Cachename
@@ -473,7 +473,7 @@ possible_recommend  Um eine weitere Empfehlung vorzunehmen benötigst Du noch
 comments_log Kommentare
 submit_log_entry Log eintragen
 geokret_log Hast Du Geokret genommen? Registrier das an
-rate_cache Cache bewerten: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_right.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="{wiki_link_ratingDesc}">Bereich Beschreibung</a>
+rate_cache Cache bewerten: <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="tpl/stdstyle/images/free_icons/arrow_right.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a class="links" href="{wiki_link_ratingDesc_en}">Bereich Beschreibung</a>
 do_not_rate Ich möchte diese Cache nicht bewerten
 listed_other Dieser Cache bitte loggen auf den folgenden Webseiten
 not_spcified keine Angabe
