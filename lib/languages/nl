@@ -28,7 +28,7 @@ not_accessible_winter Niet toegankelijk in winter
 depends_weather Toegang wordt bepaald door het weer
 bikes_allowed Fietsen toegestaan
 bikes_not_allowed Fietsen niet toegestaan
-cars_allowed Auto&#39;s toegestaan
+cars_allowed Auto's toegestaan
 cave Grot
 outside_path_allowed Naast paden wandelen is toegestaan
 outside_path_not_allowed Naast paden wandelen is niet toegestaan
@@ -144,7 +144,7 @@ links Links
 geochat Geocaching chat
 contact Contact us
 my_account Mijn profiel
-general User&#39;s Page
+general User's Page
 my_logs Mijn logs
 change_data Verander gegevens
 change_email Verander E-mail adres
@@ -317,7 +317,7 @@ select_one selecteer!
 waypoint_other_portal_info Waypoint voor deze cache bevind zich in andere databases. Gegevens worden niet overgenomen.
 cache_attributes_label Cache attributen
 attributes_edit_hint Attributen kunnen later ook verandert worden.
-additional_attributes_hint You can add some more attributes to your cache&#39;s description with this tool:
+additional_attributes_hint You can add some more attributes to your caches description with this tool:
 additional_attributes Additional cache attributes
 attributes_desc_hint Lees ook het <a href="{wiki_link_cacheAttrib}" target="_blank">Opencaching attributen beschrijving</a> artikel.
 descriptions Beschrijving
@@ -348,7 +348,7 @@ no_javascript Je Browser ondersteunt nog geen Javascript. Je kunt alleen gewone 
 html_usage Gebruik HTML tags voor het bewerken van tekst.
 available_html Beschikbare HTML tags lijst
 additional_enc_info <b><font color="red">Extra </font> versleutelde hint.</b> <i>Geen verplicht veld</i>. Hier kun een een extra hint toevoegen. Informatie om de cache normaal te kunnen vinden dient in de "Omschrijving" beschreven te staan.
-add_photo_newcache Afbeeldingen,foto&#39;s, extra waypoints en MP3 bestanden kunnen na het registren van de cache toegevoegt worden.
+add_photo_newcache Afbeeldingen,foto's, extra waypoints en MP3 bestanden kunnen na het registren van de cache toegevoegt worden.
 search_wildcard_info Use "%" as a wildcard.
 event_hidden_hint Hint: Bij EVENEMENTEN moet in het "datum van plaatsing" veld de datum staan wanneer het evenement begint.
 submit_new_cache Publiceren
@@ -419,7 +419,7 @@ h_de_label Toon caches van opencaching.de
 h_se_label Toon caches van opencaching.se
 h_no_label Toon caches van opencaching.no
 ozi_path_label Path to folder 'op' on PDA
-ozi_path_info Applicable for Ozi Explorer users with Filips' database. When you provide correct path to 'op' folder, you will be able to download WPT files as a search results with localization of information about cache description. After that, you can tap on the cache on Ozi Explorer&#39;s map and choose \"Open attachment\" option. This will open detailed description about the cache. Examples: <b>\\SDMMC\\baza\\</b>, <b>\\Memory card\\BF\\</b>
+ozi_path_info Applicable for Ozi Explorer users with Filips' database. When you provide correct path to 'op' folder, you will be able to download WPT files as a search results with localization of information about cache description. After that, you can tap on the cache on Ozi Explorers map and choose \"Open attachment\" option. This will open detailed description about the cache. Examples: <b>\\SDMMC\\baza\\</b>, <b>\\Memory card\\BF\\</b>
 newest_caches Nieuwste caches
 total_of_active_caches Totaal aantal actieve caches
 total_of_caches Totaal aantal caches
@@ -436,7 +436,7 @@ what_do_you_find_intro_ro Geocaching este un joc în aer liber prin care jucăto
 more_news More news
 filename_rules {wiki_link_rules}
 filename_describe_cache {wiki_link_cacheParams}
-map_msg Om de coördinaten en de kaart te zien <br/>van de cache&#39;s <br/> moet men <a href="login.php?target={target}">ingelogt zijn</a>
+map_msg Om de coördinaten en de kaart te zien <br/>van de caches <br/> moet men <a href="login.php?target={target}">ingelogt zijn</a>
 additional_hints Extra hints
 images Afbeeldingen
 mp3_files_info PodCasts - luister naar de instructies om je naar de cache te leiden - MP3 bestenden
@@ -522,7 +522,7 @@ write_note write note
 attende attended
 will_attende I will be attending
 add_new_desc Voeg nieuwe beschrijving toe aan cache
-pictures_label Afbeeldingen of foto&#39;s
+pictures_label Afbeeldingen of foto's
 add_new_pict Voeg nieuwe afbeelding toe
 mp3_label MP3 voor een PodCache
 add_new_mp3 Voeg nieuwe MP3 bestand toe
@@ -830,7 +830,7 @@ region_from_coord Provincie via opgegeven coördinaten
 select_regions Selecteer provincie
 not_applicable Not applicable
 input_coord Vul de coördinaten van de cache in
-waypoints_about_info <a class="links" href="{wiki_link_cacheParams}" target="_blank">Zie de omschrijving en soorten van extra waypoints.</a>
+waypoints_about_info <a class="links" href="{wiki_link_additionalWaypoints}" target="_blank">Zie de omschrijving en soorten van extra waypoints.</a>
 cache_pictures Cache afbeelding
 log_pictures Log afbeelding
 no_title No title
@@ -844,7 +844,7 @@ file_name Bestandsnaam
 cache_picture_intro  Dit dient een eigen afbeelding te zijn die met de cache te maken heeft
 spoiler_info Toon geen voorbeeld (SPOILER) - Gebruik deze optie wanneer de afbeelding de locatie van de cache weergeeft.<br> De afbeelding wordt alleen getoont als op SPOILER geklikt wordt.
 dont_show Verberg deze afbeelding
-pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto&#39;s.<br />Maximum grootte 150 KB. Aanbevolen resolutie: 640 x 480 pixels.
+pictures_intro Toegestane formaten: BMP, GIF, PNG & JPG. JPG is het beste foto's.<br />Maximum grootte 150 KB. Aanbevolen resolutie: 640 x 480 pixels.
 add_new_picture Voeg nieuwe afbeelding toe aan cache
 gallery Toon galerij
 gallery_short Galerij
@@ -871,7 +871,7 @@ route_radius Zoek radius
 search_caches_along_route Zoek caches langs een route
 caches_along_route Caches langs de route
 save_gpx Sla op als GPX
-save_gpx_with_photos Sla op als GPX + foto&#39;s
+save_gpx_with_photos Sla op als GPX + foto's
 show_gmap Toon op GMAP
 show_list Zoek caches langs een route
 logs_cache_gpx Aantal logs van elke cache in GPX
@@ -1189,7 +1189,7 @@ printcache_02 Toon laatste logs
 printcache_03 Alle logs
 printcache_04 Geen afbeeldingen
 printcache_05 Toon miniaturen
-printcache_06 Toon grote foto&#39;s
+printcache_06 Toon grote foto's
 printcache_07 Decodeer hint
 printcache_08 Toon alleen spoiler foto
 printcache_09 Veranderen
@@ -2164,7 +2164,7 @@ SelectUsers Selecteer gebruikers
 NrCaches Aantal caches
 Selected Geselecteerd
 HelpHowToSelect <br> <b>Hoe gebruikers te selecteren</b><br><hr><br><br>- Selecteren gebruiker: klik op zijn positie (niet op de naam zelf) <br><br>- Selecteer meerdere gebruikers: Ctlr + klik of Shift + klik <br>
-viewprofileFTF Toon gebruikers FTF&#39;s
+viewprofileFTF Toon gebruikers FTF's
 viewprofileDate FTF datum
 viewprofileTime FTF tijd
 viewprofileCache Cache naam
@@ -2262,7 +2262,7 @@ logbook_14 Transparantie
 logbook_15 Afbeelding bewerken voorbeeld: x -2 schuift de afbeelding 2 pixels naar links. b +4 vebreed de afbeelding met 4 pixels
 logbook_16 Zonder FTF
 logbook_17 Geen randen
-logbook_18 Handig wanneer er problemen zijn bij dubbelzijdige afdrukken, knippen op oneven pagina&#39;s
+logbook_18 Handig wanneer er problemen zijn bij dubbelzijdige afdrukken, knippen op oneven pagina's
 logbook_19 Nicknaam
 logbook_20 E-mail
 logbook_21 Wordt gebruikt om de velden vooraf in te vullen
