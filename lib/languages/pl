@@ -319,7 +319,7 @@ cache_attributes_label Atrybuty skrzynki
 attributes_edit_hint Atrybuty można zmieniać także podczas późniejszej edycji.
 additional_attributes_hint Możesz dołożyć dodatkowe atrybuty do opisu skrzynki korzystając z formularza
 additional_attributes Dodatkowe atrybuty skrzynki
-attributes_desc_hint Zapoznaj się z <a href="{wiki_link_cacheParams}" target="_blank">opisem atrybutów OC</a>.
+attributes_desc_hint Zapoznaj się z <a href="{wiki_link_cacheAttrib}" target="_blank">opisem atrybutów OC</a>.
 descriptions Opis
 language Język
 other_languages_desc Opisy w innych językach możesz wprowadzić po rejestracji skrzynki - poprzez jej edycję.
@@ -358,7 +358,7 @@ hour godzina
 dont_publish_yet Jeszcze nie publikuj
 log_password Hasło do logu
 no_password_label Pozostaw puste jeśli bez hasła
-please_read Zapoznaj się z <a href="{wiki_link_cacheParams}" target="_blank">informacją o haśle w logu!</a>
+please_read Zapoznaj się z <a href="{wiki_link_cacheLogPass}" target="_blank">informacją o haśle w logu!</a>
 creating_cache Zakładając nową skrzynkę akceptujesz <a href="{wiki_link_rules}" target="_blank">Regulamin</a> oraz konsekwencje wynikające z niego.
 with_all_consequences oraz konsekwencje wynikające z niego.
 cache_name nazwa skrzynki
