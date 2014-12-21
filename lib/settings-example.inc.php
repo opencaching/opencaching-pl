@@ -236,7 +236,7 @@ $wikiLinks = array(
     'cacheTypes' => $wiki_url.'/index.php/Typ_skrzynki',
     'cacheAttrib' => $wiki_url.'/index.php/Parametry_skrzynki#Atrybuty_skrzynki',
     'cacheAttrib_en' => $wiki_url.'/index.php/Cache_parameters#Attributes',
-    'cacheLogPass' => $wiki_url.'/index.php/Parametry_skrzynki#Hasło_do_wpisu_do_Logu',
+    'cacheLogPass' => $wiki_url.'/index.php/Parametry_skrzynki#Has.C5.82o_do_wpisu_do_Logu',
     'cacheLogPass_en' => $wiki_url.'/index.php/Cache_parameters#Log_password',
     // optional item
     'downloads' => $wiki_url.'/index.php/U%C5%BCyteczne_pliki_zwi%C4%85zane_z_OC_PL',
