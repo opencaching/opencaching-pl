@@ -32,7 +32,7 @@ class AutoArch
     function sendEmail($step, $cacheid)
     {
         global $STEP, $stylepath, $octeam_email, $site_name;
-        $sql = "SELECT caches.cache_id, caches.name, caches.wp_oc, user.email FROM caches, user WHERE caches.cache_id = " . sql_escape(intval($cacheid)) . " AND user.user_id = caches.user_id";
+        $sql = "SELECT caches.cache_id, caches.name, caches.wp_oc, user.email, user.user_id FROM caches, user WHERE caches.cache_id = " . sql_escape(intval($cacheid)) . " AND user.user_id = caches.user_id";
         $query = mysql_query($sql);
         $cache = mysql_fetch_array($query);
 
@@ -66,7 +66,7 @@ class AutoArch
         $emailheaders .= "From: $site_name <$octeam_email>\r\n";
         $emailheaders .= "Reply-To: $site_name <$octeam_email>";
         $status = mb_send_mail($cache['email'], tr('autoArchive_11'), $email_content, $emailheaders);
-        logentry('autoarchive', 6, $currUserID, $cache['cache_id'], 0, 'Sending mail to ' . $cache['email'], array('status' => $status));
+        logentry('autoarchive', 6, $cache['user_id'], $cache['cache_id'], 0, 'Sending mail to ' . $cache['email'], array('status' => $status));
     }
 
     function run()
