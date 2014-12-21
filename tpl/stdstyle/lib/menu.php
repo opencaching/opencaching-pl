@@ -177,8 +177,8 @@ $menu = array(
             ),
             array(
                 'title' => tr('rules'),
-                'visible' => isset($rules_url) ? true : false,
-                'filename' => $rules_url,
+                'visible' => isset($wikiLinks['rules']) ? true : false,
+                'filename' => @$wikiLinks['rules'],
                 'menustring' => tr('rules'),
                 'newwindow' => true,
                 'siteid' => 'articles/regulamin'
