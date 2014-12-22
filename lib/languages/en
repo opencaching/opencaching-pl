@@ -319,7 +319,7 @@ cache_attributes_label Cache attributes
 attributes_edit_hint Attributes can also be modified later.
 additional_attributes_hint You can add some more attributes to your cache's description with this tool:
 additional_attributes Additional cache attributes
-attributes_desc_hint Please read the <a href="{wiki_link_cacheParams_en}" target="_blank">Opencaching attributes description</a> article.
+attributes_desc_hint Please read the <a href="{wiki_link_cacheAttrib_en}" target="_blank">Opencaching attributes description</a> article.
 descriptions Description
 language Language
 other_languages_desc You can add descriptions in other languages later (after the cache is successfully registered).
@@ -358,7 +358,7 @@ hour hour
 dont_publish_yet Don't publish yet
 log_password Enter password
 no_password_label Leave empty if you don't want to use password
-please_read Please read <a href="{wiki_link_cacheParams_en}" target="_blank">information about passwords in logs!</a>
+please_read Please read <a href="{wiki_link_cacheLogPass_en}" target="_blank">information about passwords in logs!</a>
 creating_cache By creating a new cache you accept {site_name}'s <a href="{wiki_link_rules}" target="_blank">Terms of Use</a>.
 with_all_consequences with all consequences.
 cache_name cache name
@@ -824,13 +824,13 @@ empty_entry_notice <b>Log Etiquette:</b> Try not to submit empty log entries. Ev
 empty_entry_confirm Do you really want to post an empty log entry?
 empty_mark Don't you really want to mark this cache ?
 where_i_am Where am I
-read_info_about_cache_types Please read information about <a href="{wiki_link_cacheParams_en}" target="_blank">Cache eigenschappen</a>
+read_info_about_cache_types Please read information about <a href="{wiki_link_cacheTypes}" target="_blank">Cachetypes</a>
 regiononly Region/Województwo (Poland only)
 region_from_coord Region from coordinates
 select_regions Select region
 not_applicable Not applicable
 input_coord Please input coordinates location of cache
-waypoints_about_info <a class="links" href="{wiki_link_cacheParams_en}" target="_blank">See the description and the kinds of additional waypoints.</a>
+waypoints_about_info <a class="links" href="{wiki_link_additionalWaypoints}" target="_blank">See the description and the kinds of additional waypoints.</a>
 cache_pictures Geocache picture
 log_pictures Log picture
 no_title No title
