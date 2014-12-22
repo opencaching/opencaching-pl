@@ -97,9 +97,7 @@ $polyline = $encoder->encode($points);
     window.onload = function () {
         load(document.myroute_form.distance.value, "<?= $polyline->points ?>");
 // display caches
-        {
-            points
-        }
+        {points}
     };
 
 //]]>

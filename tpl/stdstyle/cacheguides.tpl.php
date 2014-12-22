@@ -34,16 +34,12 @@
                 document.getElementById("map0"),
         {
         center: new google.maps.LatLng({mapcenterLat}, {mapcenterLon}),
-                zoom: {
-                    mapzoom
-                }
+                zoom: {mapzoom}
         ,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
         }
         );
-        {
-            points
-        }
+        {points}
 
     }
 
