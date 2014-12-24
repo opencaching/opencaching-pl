@@ -308,7 +308,7 @@ cache_attributes_label Atributos de caja
 attributes_edit_hint Los atributos se pueden cambiar durante la edición posterior.
 additional_attributes_hint Usted puede agregar atributos adicionales para el nombre del buzón de correo utilizando el formulario
 additional_attributes Atributos adicionales de la caja
-attributes_desc_hint Leer los <a href="{wiki_link_cacheParams}" target=\"_blank\"> descripción atributos CO </a>.
+attributes_desc_hint Leer los <a href="{wiki_link_cacheAttrib_en}" target=\"_blank\"> descripción atributos CO </a>.
 description Descripción
 language Idioma
 other_languages_desc Nombres en otros idiomas, usted puede entrar después del registro del buzón - a través de la edición.
@@ -343,7 +343,7 @@ hour horas
 dont_publish_yet Pendiente de publicación
 log_password Contrasena para iniciar sesión
 no_password_label Dejar en blanco si no hay contrasena
-please_read Please read <a href='{wiki_link_cacheParams_en}' target='_blank'>information about passwords in logs!</a>
+please_read Please read <a href='{wiki_link_cacheLogPass_en}' target='_blank'>information about passwords in logs!</a>
 password_info_label base de datos de la contrasena en el registro
 creating_cache Creating a new cache you accept <a href='{wiki_link_rules_en}' target='_blank'>Terms of Use</a> with all consequences.
 with_all_consequences y las consecuencias derivadas de ellos.

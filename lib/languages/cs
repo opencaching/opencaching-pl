@@ -308,7 +308,7 @@ cache_attributes_label Atributy políčko
 attributes_edit_hint Atributy lze měnit v průběhu následných úpravách.
 additional_attributes_hint Můžete přidat další atributy na název schránky pomocí formuláře
 additional_attributes Další atributy políčko
-attributes_desc_hint Si přečtěte <a href="{wiki_link_cacheParams_en}" target="_blank"> popis atributů OC </a>.
+attributes_desc_hint Si přečtěte <a href="{wiki_link_cacheAttrib_en}" target="_blank"> popis atributů OC </a>.
 description Popis
 language Jazyk
 other_languages_desc Názvy v jiných jazycích, můžete zadat schránky po registraci - pomocí editace.
@@ -343,7 +343,7 @@ hour hodiny
 dont_publish_yet Dosud Zveřejněno
 log_password Heslo pro přihlášení
 no_password_label Nechte prázdné, pokud žádné heslo
-please_read Please read <a href="{wiki_link_cacheParams_en}" target="_blank">information about passwords in logs!</a>
+please_read Please read <a href="{wiki_link_cacheLogPass_en}" target="_blank">information about passwords in logs!</a>
 password_info_label Databáze heslo log
 creating_cache Creating a new cache you accept <a href="{wiki_link_rules_en}" target="_blank">Terms of Use</a> with all consequences.
 with_all_consequences a důsledky z nich vyplývající.

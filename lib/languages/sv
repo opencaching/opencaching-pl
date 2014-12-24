@@ -306,7 +306,7 @@ cache_attributes Cacheattribut
 attributes_edit_hint Attribut kan också ändras senare.
 additional_attributes_hint Du kan lägga till fler attribut för cachebeskrivningen  med det här verktyget:
 additional_attributes Ytterligare cacheattribut
-attributes_desc_hint Vänligen läs <a href="{wiki_link_cacheParams_en}" target="_blank"> Opencaching attributbeskrivning</a>.
+attributes_desc_hint Vänligen läs <a href="{wiki_link_cacheAttrib_en}" target="_blank"> Opencaching attributbeskrivning</a>.
 descriptions Beskrivning
 language Språk
 other_languages_desc Beskrivning på fler språk kan läggas till efter registrering av cachen.
@@ -341,7 +341,7 @@ hour timme
 dont_publish_yet Publicera inte ännu
 log_password Loggningslösenord
 no_password_label Lämna tomt om inget lösenord
-please_read Läs <a href="{wiki_link_cacheParams_en}" target=_blank> information om lösenord i loggarna!</a>
+please_read Läs <a href="{wiki_link_cacheLogPass_en}" target=_blank> information om lösenord i loggarna!</a>
 password_info_label information om lösenord i loggar
 creating_cache När du skapar en ny cache accepterar du <a href="{wiki_link_rules_en}" target=_blank>användarvillkoren</a> fullt ut.
 with_all_consequences med alla konsekvenser.

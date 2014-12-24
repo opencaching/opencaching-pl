@@ -303,7 +303,7 @@ waypoint_other_portal_info Waypoint a partir d'autres bases de données dans cet
 cache_attributes_label Zone Attributs
 additional_attributes_hint Vous pouvez ajouter des attributs supplémentaires au nom de la boîte aux lettres en utilisant le formulaire
 additional_attributes D'autres attributs de la boîte
-attributes_desc_hint Lire la <a href='{wiki_link_cacheParams_en}' target='_blank'> description des attributs OC </a>.
+attributes_desc_hint Lire la <a href='{wiki_link_cacheAttrib_en}' target='_blank'> description des attributs OC </a>.
 description Description
 language Langue
 short_desc_label Description
@@ -333,7 +333,7 @@ hour heure
 dont_publish_yet Pas encore de publication
 log_password Mot de passe pour vous connecter
 no_password_label Laissez en blanc si aucun mot de passe
-please_read Please read <a href='{wiki_link_cacheParams_en}' target='_blank'>information about passwords in logs!</a>
+please_read Please read <a href='{wiki_link_cacheLogPass_en}' target='_blank'>information about passwords in logs!</a>
 password_info_label base de données de mot de passe dans le journal
 creating_cache Creating a new cache you accept <a href='{wiki_link_rules_en}' target='_blank'>Terms of Use</a> with all consequences.
 sort_by Résultat de la recherche Trier par
