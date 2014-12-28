@@ -2507,4 +2507,37 @@ Stats_t7_06 Provincie
 admin_users_remove_logs Verwijder alle logs van deze gebruiker
 admin_users_verify_all Contoleer alle nieuwe caches van deze gebruiker
 admin_users_verify_none Controleer niet alle nieuwe caches van deze gebruiker
+FNC F.N.C
+FoundNotFoundComment Gevonden-Niet gevonden-Commentaar
+Found Gevonden
+NotFound Niet gevonden
+Comment Commentaar
+F G
+N N
+C C
+Entry Logtekst
+Coordinates Coördinaten
+Distance Afstand
+TT T/M
+CacheOwner Cache eigenaar
+RecommendationNumber Aantal aanbevelingen
+TypeDateLastEntry Soort en datum (en inhoud) van laatste log
+LastTypeEntry Soort van laatste log
+LastEntryDate Datum van laatste log
+LastEntryContent Tekst van laatste log
+DirectionDistance Richting en afstand (km)
+TaskTerainDifficulty Moeilijkheid van cache/terrein
+SelectedPositionExport Download geselecteerde caches
+Selected Geselecteerd
+pos. pos.
+AllPosExport Download alle caches
+HideCols Verberg kolommen
+InteractiveSorting Interactieve sortering
+Descending Aflopend 
+Ascending Oplopend
+MaxSearchRec Aantal caches meer dan 5000. Interactive modus is uitgeschakeld.
+CachesNotMatchCryteria Er zijn geen caches gevonden.
+PageNr Paginanummer
+Disable Uitgeschakeld
+Enable Ingeschakeld
 
