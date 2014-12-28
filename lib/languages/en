@@ -2509,4 +2509,37 @@ history History OC
 admin_users_remove_logs Remove all logs from this user
 admin_users_verify_all Verify all new caches for this user
 admin_users_verify_none Don't verify all new caches for this user
-
+Hidden Hidden
+FNC F.N.C
+FoundNotFoundComment Found.NotFound.Commented
+Found Found
+NotFound Not Found
+Comment Commented
+F F
+N N
+C C
+Entry Entry
+Coordinates Coordinates
+Distance Distance
+TT T/T
+CacheOwner Owner of Cache
+RecommendationNumber Number of Recommendation 
+TypeDateLastEntry Type and date (and content) of last entry
+LastTypeEntry Type of last entry
+LastEntryDate Date of last entry
+LastEntryContent Content of last entry
+DirectionDistance Direction and distance (km)
+TaskTerainDifficulty Difficulty of task/terain
+SelectedPositionExport Export of selected caches
+Selected Selected
+pos. pos.
+AllPosExport Export of all caches
+HideCols Hide columns
+InteractiveSorting Interactive sorting
+Descending Descending 
+Ascending Ascending
+MaxSearchRec Number of caches exceeded 5 000. Mode of interactive sorting has been disabled.  
+CachesNotMatchCryteria Any cache doesn't match criteria.
+PageNr Number of page
+Disable Disable
+Enable Enable

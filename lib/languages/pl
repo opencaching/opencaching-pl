@@ -538,7 +538,7 @@ stat_picture Obrazek statystyk
 show_in_google_maps Pokaż w Google Maps
 download_for_various_apps Pobierz dla różnych aplikacji
 download Pobierz
-listing_from_to Wykaz od {startatp1} do {endat}
+listing_from_to Pozycje od {startatp1} do {endat}
 toggle_filters Przełącz filtry
 fullscreen Pełny ekran
 disable_fullscreen Wyłącz pełny ekran
@@ -2499,4 +2499,37 @@ admin_users_verify_none Pozwój na zakładanie nowych skrzynek bez weryfikacji
 medal_type_1 Województwo Małopolskie
 medal_type_2 Królewskie Miasto kraków
 medal_type_3 pierwsze 5 skrzynek tradycyjnych.
-
+Hidden Ukryto
+FNC Z.N.K
+FoundNotFoundComment Znaleziona.Nieznaleziona.Komentowana
+Found Znaleziona
+NotFound Nieznaleziona
+Comment Komentowana
+F Z
+N N
+C K
+Entry Wpis
+Coordinates Współrzędne
+Distance Odległość
+TT Z/T
+CacheOwner Właściciel skrzynki
+RecommendationNumber Ilość rekomendacji
+TypeDateLastEntry Typ i data (i treść) ostatniego wpisu
+LastTypeEntry Typ ostatniego wpisu
+LastEntryDate Data ostatniego wpisu
+LastEntryContent Treść ostatniego wpisu
+DirectionDistance Kierunek i odległość (km)
+TaskTerainDifficulty Trudność zadania/terenu
+SelectedPositionExport Eksport zaznaczonych skrzynek
+Selected Zaznaczono
+pos. poz.
+AllPosExport Eksport wszystkich skrzynek
+HideCols Ukryj kolmny
+InteractiveSorting Interaktywne sortowanie
+Descending Malejąco 
+Ascending Rosnąco
+MaxSearchRec Ilość wyników przekroczyła 5 000. Tryb interaktywnego sortowania został wyłączony.
+CachesNotMatchCryteria Brak skrzynek spełniających warunki
+PageNr Numer strony
+Disable Wyłącz
+Enable Włącz
