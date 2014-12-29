@@ -24,7 +24,7 @@
 
  * ************************************************************************** */
 setlocale(LC_TIME, 'pl_PL.UTF-8');
-global $content, $sqldebug, $usr, $hide_coords, $lang;
+global $content, $sqldebug, $usr, $hide_coords, $lang, $dbcSearch;
 
 set_time_limit(1800);
 
@@ -98,20 +98,24 @@ if ($usr || !$hide_coords) {
     $sqlLimit = ' LIMIT ' . $startat . ', ' . $count;
 
     // cleanup (old zipcontent lingers if zip-download is cancelled by user)
-    sql('DROP TEMPORARY TABLE IF EXISTS `zipcontent`');
+    $dbcSearch->simpleQuery('DROP TEMPORARY TABLE IF EXISTS `zipcontent`');
+    $dbcSearch->reset();
+    
     // temporäre tabelle erstellen
-    sql('CREATE TEMPORARY TABLE `zipcontent` ' . $sql . $sqlLimit);
+    $dbcSearch->simpleQuery('CREATE TEMPORARY TABLE `zipcontent` ' . $sql . $sqlLimit);
+    $dbcSearch->reset();
+    
     // echo $sql;
-    $rsCount = sql('SELECT COUNT(*) `count` FROM `zipcontent`');
-    $rCount = sql_fetch_array($rsCount);
-    mysql_free_result($rsCount);
+    $dbcSearch->simpleQuery('SELECT COUNT(*) `count` FROM `zipcontent`');
+    $rCount = $dbcSearch->dbResultFetch();
+    $dbcSearch->reset();
 
     $caches_count = $rCount['count'];
 
     if ($rCount['count'] == 1) {
-        $rsName = sql('SELECT `caches`.`wp_oc` `wp_oc` FROM `zipcontent`, `caches` WHERE `zipcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
-        $rName = sql_fetch_array($rsName);
-        mysql_free_result($rsName);
+        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `zipcontent`, `caches` WHERE `zipcontent`.`cache_id`=`caches`.`cache_id` LIMIT 1');
+        $rName = $dbcSearch->dbResultFetch();
+        $dbcSearch->reset();
 
         $sFilebasename = $rName['wp_oc'];
     } else {
@@ -170,15 +174,15 @@ if ($usr || !$hide_coords) {
         else
             $ziplimit = '';
         // OKAPI need only waypoints
-        $rs = sql('SELECT `caches`.`wp_oc` `wp_oc` FROM `zipcontent`, `caches` WHERE `zipcontent`.`cache_id`=`caches`.`cache_id`' . $ziplimit);
+        $dbcSearch->simpleQuery('SELECT `caches`.`wp_oc` `wp_oc` FROM `zipcontent`, `caches` WHERE `zipcontent`.`cache_id`=`caches`.`cache_id`' . $ziplimit);
 
         $waypoints_tab = array();
-        while ($r = sql_fetch_array($rs)) {
+        while ($r = $dbcSearch->dbResultFetch()) {
             $waypoints_tab[] = $r['wp_oc'];
         }
         $waypoints = implode("|", $waypoints_tab);
 
-        mysql_free_result($rs);
+        $dbcSearch->reset();
 
         // I don't know what this line doing, but other 'search.*.inc.php' files include this.
         if ($sqldebug == true)
