@@ -201,6 +201,7 @@ message Message
 register_confirm Registration confirmation
 impressum Over
 user Gebruiker
+user_or_email Gebruiker / e-mail
 password Wachtwoord
 logged_as Ingelogd als
 coords_other Andere coördinaatstelsels

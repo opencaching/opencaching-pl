@@ -191,6 +191,7 @@ message Mensaje
 register_confirm Inscripción
 impressum Acerca de
 user Usuario
+user_or_email Usuario / e-mail
 password Contrasena
 logged_as Firmado en como
 coords_other Las coordenadas de los otros sistemas

@@ -201,6 +201,7 @@ message Wiadomość
 register_confirm Potwierdzenie rejestracji
 impressum O projekcie
 user Użytkownik
+user_or_email Użytkownik / e-mail
 password Hasło
 logged_as Zalogowany jako
 coords_other Współrzędne w innych systemach

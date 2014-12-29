@@ -201,6 +201,7 @@ message Mesaj
 register_confirm Confirmarea înregistrării
 impressum Despre
 user Utilizator
+user_or_email Utilizator / e-mail
 password Parolă
 logged_as Conectat ca
 coords_other Alte sisteme de coordonate

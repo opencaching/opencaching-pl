@@ -191,6 +191,7 @@ message Zpráva
 register_confirm Registrace
 impressum O
 user Uživatel
+user_or_email Uživatel / e-mail
 password Heslo
 logged_as Přihlášeni jako
 coords_other Souřadnice dalších systémů

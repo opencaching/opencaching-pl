@@ -201,6 +201,7 @@ message Nachricht
 register_confirm Bestätigung
 impressum Über
 user Benutzer
+user_or_email Benutzer / E-Mail-Adresse
 password Passwort
 logged_as Eingeloggt als
 coords_other Koordinaten in andere Systeme

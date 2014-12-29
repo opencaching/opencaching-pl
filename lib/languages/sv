@@ -189,6 +189,7 @@ message Meddelande
 register_confirm Bekräfta registrering
 impressum Om
 user Användare
+user_or_email Användare / e-postadress
 password Lösenord
 logged_as Inloggad som
 coords_other Koordinater i andra system

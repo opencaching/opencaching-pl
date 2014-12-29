@@ -190,6 +190,7 @@ message Message
 register_confirm Inscription
 impressum A propos
 user Utilisateur
+user_or_email Utilisateur / e-mail
 password Mot de passe
 logged_as Signé en tant que
 coords_other Les coordonnées des autres systemes

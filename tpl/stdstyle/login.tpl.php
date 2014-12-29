@@ -44,7 +44,7 @@
             <col />
         </colgroup>
         <tr>
-            <td class="content-title-noshade">{{username_label}}:</td>
+            <td class="content-title-noshade">{{user_or_email}}:</td>
             <td><input name="email" maxlength="80" type="text" value="{username}" class="input150" /></td>
         </tr>
         <tr>
