@@ -59,7 +59,11 @@ class requestSigner
     {
         global $usr;
         if (is_array($usr)) {
-            $signature = $_SESSION['signature'];
+            if (isset($_SESSION['signature'] ))
+                $signature = $_SESSION['signature'];
+            else 
+                $signature = null;
+            
             if ($signature == null) {
                 // TODO grhhh, it's not cryptographically strong RNG
                 $signature = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
