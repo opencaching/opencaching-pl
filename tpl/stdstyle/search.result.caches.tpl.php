@@ -128,7 +128,7 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
         {pages}<br/>
     </p>
 </div>
-Czas trwania: {insecond} sek
+
 <div id='idGTC' align = "left" ></div>
 
 <?php if (!$SearchWithSort) echo "<div class='content-title-noshade'><p align='left'>"; ?>
