@@ -87,7 +87,7 @@ class requestSigner
     public static function extract_user()
     {
         global $usr;
-        if ($usr !== false || is_array($usr)) {
+        if (isset($usr) && is_array($usr)) {
             return;
         }
         if (isset($_GET['signature'])) {
