@@ -42,7 +42,6 @@
 
     // extract user data for KML search
     $usr = requestSigner::extract_user($usr);
-    //error_log('W search.php: '.print_r($usr, true));
     if ($usr == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target='.$target);

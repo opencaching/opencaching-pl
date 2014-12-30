@@ -77,28 +77,27 @@ class requestSigner
     }
 
     /**
-     * Retrieves user data ( $usr global variable ) from the signed request.
+     * Retrieves user data from the signed request. Use the following code pattern
+     *
+     *  $usr = requestSigner::extract_user($usr);
+     *
      * When this method returns, and request is properly signed, $usr variable
-     * is restored with data saved when get_signature_text() wass called.
+     * is restored with data saved when get_signature_text() was called.
      *
      * It will NOT override current user, if any is set.
      * It will NOT persist user information in a session.
      */
     public static function extract_user($usr)
     {
-        //global $usr;
-        //error_log('Aaaa ' . print_r($usr, true));
         if (isset($usr) && is_array($usr)) {
             return $usr;
         }
         if (isset($_GET['signature'])) {
             $signature = $_GET['signature'];
-            //error_log('Bbbb ' . $signature);
             $user = apc_fetch($signature);
             if ($user) {
                 $usr = $user;
             }
-            //error_log('Cccc ' . print_r($usr, true));
         }
         return $usr;
     }
