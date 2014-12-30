@@ -197,7 +197,7 @@ new_topic New topic
 page_error Site error
 contact Contact
 personal_data Personal data
-message Message
+message Logtekst
 register_confirm Registration confirmation
 impressum Over
 user Gebruiker
@@ -2508,7 +2508,8 @@ Stats_t7_06 Provincie
 admin_users_remove_logs Verwijder alle logs van deze gebruiker
 admin_users_verify_all Contoleer alle nieuwe caches van deze gebruiker
 admin_users_verify_none Controleer niet alle nieuwe caches van deze gebruiker
-FNC F.N.C
+Hidden Verborgen
+FNC G.N.C
 FoundNotFoundComment Gevonden-Niet gevonden-Commentaar
 Found Gevonden
 NotFound Niet gevonden
@@ -2516,7 +2517,7 @@ Comment Commentaar
 F G
 N N
 C C
-Entry Logtekst
+Entry Log
 Coordinates Coördinaten
 Distance Afstand
 TT T/M
