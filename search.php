@@ -16,13 +16,12 @@
   or HTML form fields
 
  ****************************************************************************/
-
     //prepare the templates and include all neccessary
     if (!isset($rootpath)) $rootpath = '';
     require_once('./lib/common.inc.php');
     require_once('./lib/search.inc.php');
     require_once('./lib/search-signatures.inc.php');
-    global $dbcSearch, $lang, $TestStartTime;
+    global $dbcSearch, $lang, $TestStartTime, $usr;
     
     //4test
     $TestStartTime = new DateTime('now');
@@ -42,8 +41,8 @@
     }
 
     // extract user data for KML search
-    requestSigner::extract_user();
-
+    $usr = requestSigner::extract_user($usr);
+    //error_log('W search.php: '.print_r($usr, true));
     if ($usr == false) {
         $target = urlencode(tpl_get_current_page());
         tpl_redirect('login.php?target='.$target);

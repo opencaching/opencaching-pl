@@ -39,7 +39,7 @@ global $usr;
  *
  *
  * In do.php, retrieve original user data
- * requestSigner::extract_user();
+ * $usr = requestSigner::extract_user($usr);
  *
  * if ($usr !== false){
  *     // user is authenticated, either because of session cookie (in precedense),
@@ -84,19 +84,23 @@ class requestSigner
      * It will NOT override current user, if any is set.
      * It will NOT persist user information in a session.
      */
-    public static function extract_user()
+    public static function extract_user($usr)
     {
-        global $usr;
+        //global $usr;
+        //error_log('Aaaa ' . print_r($usr, true));
         if (isset($usr) && is_array($usr)) {
-            return;
+            return $usr;
         }
         if (isset($_GET['signature'])) {
             $signature = $_GET['signature'];
+            //error_log('Bbbb ' . $signature);
             $user = apc_fetch($signature);
             if ($user) {
                 $usr = $user;
             }
+            //error_log('Cccc ' . print_r($usr, true));
         }
+        return $usr;
     }
 
 }
