@@ -71,14 +71,14 @@ if ( !$SearchWithSort &&  $NrColSortSearch != -1 )
     /* 3 */gct.addColumn('string', "<?php echo $colNameSearch[3]["C"]?>", 'font-size: 12px; text-align: left; ');
     /* 4 */gct.addColumn('string', "<?php echo $colNameSearch[4]["C"]?>", 'font-size: 12px; text-align: left; ');
     /* 5 */gct.addColumn('string', "<?php echo $colNameSearch[5]["C"]?>", 'font-size: 12px; text-align: center; ');
-    /* 6 */gct.addColumn('string', "<?php echo $colNameSearch[6]["C"]?>", 'text-align: left; font-size: 12px; ');
+    /* 6 */gct.addColumn('string', "<?php echo $colNameSearch[6]["C"]?>", 'text-align: left; font-size: 12px;');
     
     /* 7 */gct.addColumn('number', "<?php echo $colNameSearch[7]["C"]?>", 'font-size: 12px; text-align: center; color:green; ');
     /* 8 */gct.addColumn('number', "<?php echo $colNameSearch[8]["C"]?>", 'font-size: 12px; text-align: center; color:red; ');
     /* 9 */gct.addColumn('number', "<?php echo $colNameSearch[9]["C"]?>", 'font-size: 12px; text-align: center; color:black; ');
     
-    /* 10 */gct.addColumn('number', "<?php echo $colNameSearch[10]["C"]?>", 'font-size: 12px; text-align: center; color:green; font-weight: bold; ');
-    /* 11 */gct.addColumn('string', "<?php echo $colNameSearch[11]["C"]?>", 'font-size: 12px; text-align: left; width: 72px; ');
+    /* 10 */gct.addColumn('number', "<?php echo $colNameSearch[10]["C"]?>", 'font-size: 12px; text-align: center; color:green; font-weight: bold; width: 10px;');
+    /* 11 */gct.addColumn('string', "<?php echo $colNameSearch[11]["C"]?>", 'font-size: 12px; text-align: left; width: 88px; ');
     
     /* 12 */gct.addColumn('string', "<?php echo $colNameSearch[12]["C"]?>", 'font-size: 12px; text-align: left;');
     /* 13 */gct.addColumn('string', "<?php echo $colNameSearch[13]["C"]?>", 'font-size: 12px; text-align: left; ');

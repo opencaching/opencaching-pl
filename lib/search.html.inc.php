@@ -29,13 +29,13 @@
 
     ****************************************************************************/
 
-function findColumn( $name )
+function findColumn( $name, $type = "C" )
 {
     global $colNameSearch;
     
      for( $i = 0; $i < 19; $i++ )
      {
-        if ( $colNameSearch[ $i ][ "C"] == $name)
+        if ( $colNameSearch[ $i ][ $type ] == $name)
             return $i;
      }
 
@@ -113,7 +113,7 @@ function fHideColumn( $nr, $set )
     
     $colNameSearch = array(
                     0 => array("C" => "CacheID", "O" => "CacheID"),
-                    1 => array("C" => tr('type'), "O" => tr('cache_type')),
+                    1 => array("C" => "", "O" => tr('cache_type')),
                     2 => array("C" => tr('name_label'), "O" => tr('cache_label')),
                     3 => array("C" => "Krótki opis", "O" =>  tr('short_description')),
                     4 => array("C" => tr('owner'), "O" => tr('CacheOwner')),
@@ -130,7 +130,7 @@ function fHideColumn( $nr, $set )
                     15 => array("C" => tr('Coordinates'), "O" => tr('Coordinates') ),
                     16 => array("C" => tr('Distance'), "O" => tr('DirectionDistance')),
                     17 => array("C" => tr('TT'), "O" => tr('TaskTerainDifficulty')),
-                    18 => array("C" => "GPS", "O" => tr('srch_Send_to_GPS'))
+                    18 => array("C" => "", "O" => tr('srch_Send_to_GPS'))
     );
 
     $sDefCol4Search = "DefCol4Search";
@@ -234,7 +234,7 @@ function fHideColumn( $nr, $set )
         $CalcCoordinates = false;
 
     $CalcSendToGPS = true;
-    if ( fHideColumn( findColumn( tr('GPS') ), false ) == 1)
+    if ( fHideColumn( findColumn( tr('srch_Send_to_GPS'), "O" ), false ) == 1)
         $CalcSendToGPS = false;
 
     $CalcFNC = true;
@@ -244,9 +244,6 @@ function fHideColumn( $nr, $set )
     $CalcEntry = true;
     if ( fHideColumn( findColumn( tr('Entry') ), false ) == 1)
         $CalcEntry = false;
-    
-    
-    
     
     if ( $CalcSendToGPS )
         $CalcCoordinates = true;
@@ -382,7 +379,9 @@ function fHideColumn( $nr, $set )
         // sp2ong
 
 
-        $tmpline = str_replace('{date_created}', date($logdateformat_ymd, strtotime($caches_record['date_created'])), $tmpline);
+        $tmpline = str_replace('{date_created}', date($dateFormat, strtotime($caches_record['date_created'])), $tmpline);
+        $tmpline = str_replace('{date_created_sort}', date($logdateformat_ymd, strtotime($caches_record['date_created'])), $tmpline);
+        
         $ratingA = $caches_record['toprating'];
         if ($ratingA > 0) $ratingimg='<img src="images/rating-star.png" alt="'.$tr_Recommended.'" title="'.$tr_Recommended.'" />'; else $ratingimg='';
         $tmpline = str_replace('{toprating}', $ratingA, $tmpline);
@@ -475,7 +474,7 @@ function fHideColumn( $nr, $set )
                
                $log_text = PrepareText( $row['log_text'] );
     
-               $tmpline = str_replace('{logimage2}',"<span='".date($logdateformat_ymd, strtotime($row['date']))."'>".icon_log_type($row['icon_small'], $log_text).date($logdateformat_ymd, strtotime($row['date'])), $tmpline);
+               $tmpline = str_replace('{logimage2}',"<span='".date($logdateformat_ymd, strtotime($row['date']))."'/>".icon_log_type($row['icon_small'], $log_text).date($dateFormat, strtotime($row['date'])), $tmpline);
                $tmpline = str_replace('{logtype}',icon_log_type($row['icon_small'], $log_text), $tmpline);
                $tmpline = str_replace('{logdate}',date($logdateformat_ymd, strtotime($row['date'])), $tmpline);
                $tmpline = str_replace('{logdesc}',$log_text, $tmpline);
