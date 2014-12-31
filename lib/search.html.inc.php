@@ -115,7 +115,7 @@ function fHideColumn( $nr, $set )
                     0 => array("C" => "CacheID", "O" => "CacheID"),
                     1 => array("C" => "", "O" => tr('cache_type')),
                     2 => array("C" => tr('name_label'), "O" => tr('cache_label')),
-                    3 => array("C" => "Krótki opis", "O" =>  tr('short_description')),
+                    3 => array("C" => tr('short_description'), "O" =>  tr('short_description')),
                     4 => array("C" => tr('owner'), "O" => tr('CacheOwner')),
                     5 => array("C" => tr('Hidden'), "O" => tr('date_hidden_label')),
                     6 => array("C" => tr('FNC'), "O" => tr('FoundNotFoundComment')),
