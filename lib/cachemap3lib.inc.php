@@ -88,6 +88,7 @@ class CacheMap3Lib {
         }
         
         unset($val['showOnlyIfMore']);
+        unset($val['attribution']);
         
         $outMap = array();
         $outMapTypes = array();
@@ -100,9 +101,9 @@ class CacheMap3Lib {
         } elseif (isset($val['tileUrl'])) {
             $tileUrl = $val['tileUrl'];
             
-            $tileUrl = preg_replace('/{z([+-][0-9]+)?}/', '" + (z${1}) + "', $tileUrl);
-            $tileUrl = preg_replace('/{x([+-][0-9]+)?}/', '" + (p.x${1}) + "', $tileUrl);
-            $tileUrl = preg_replace('/{y([+-][0-9]+)?}/', '" + (p.y${1}) + "', $tileUrl);
+            $tileUrl = preg_replace('/{([0-9-]*[*]?[0-9]*)z([+*-][0-9]+)?}/', '" + (${1}z${2}) + "', $tileUrl);
+            $tileUrl = preg_replace('/{([0-9-]*[*]?[0-9]*)x([+*-][0-9]+)?}/', '" + (${1}p.x${2}) + "', $tileUrl);
+            $tileUrl = preg_replace('/{([0-9-]*[*]?[0-9]*)y([+*-][0-9]+)?}/', '" + (${1}p.y${2}) + "', $tileUrl);
             
             unset($val['tileUrl']);
             $getTileUrl = 'function(p,z){return "' . $tileUrl . '";}';
