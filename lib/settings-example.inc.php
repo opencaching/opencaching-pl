@@ -425,4 +425,83 @@ $dateFormat = 'Y-m-d';
 $datetimeFormat = 'Y-m-d H:i';
 
 $defaultCountryList = array("AT", "BE", "BY", "BG", "HR", "CZ", "DK", "EE", "FI", "FR", "GR", "ES", "NL", "IE", "LT", "MD", "DE", "NO", "PL", "PT", "SU", "RO", "SK", "SI", "CH", "SE", "TR", "UA", "IT", "HU", "GB",);
+
+/**
+ * Configuration for map v3 maps
+ *
+ * Two dimensional array:
+ *
+ * * first dimension
+ * KEYS - internal names
+ *
+ * * second dimension
+ * KEYS:
+ *  - hidden: boolean attribute to hide the map entirerly, without removing it from config
+ *  - showOnlyIfMore: show this map item only in large views (like full screen)
+ *  - attribution: the HTML snippet that will be shown in bottom-right part of the map
+ *  - imageMapTypeJS: the complete JS expression returning instance of google.maps.ImageMapType,
+ *      if set, not other properties below will work
+ *  - name: the name of the map
+ *  - tileUrl: URL to the tile, may contain following substitutions
+ *      - {z} - zoom, may include shifts, in form of i.e. {z+1}, {z-3}
+ *      - {x}, {y} - point coordinates
+ *  - tileUrlJS: the complete JS expression returning function for tileUrl retrieval,
+ *      if set, tileUrl property will not work
+ *  - tileSize: the tile size, either in form of WIDTHxHEIGHT, i.e. 256x128, or complete
+ *      JS expression returning instance of google.maps.Size
+ *  - maxZoom: maximum zoom available
+ *  - minZoom: minimum zoom available
+ *
+ * Other keys, will be passed as is, given that
+ *  - numerical and boolean values are passed as is to JS
+ *  - other types are passed as strings, unless they start with raw: prefix. In that case,
+ *      they are passed as JS expressions
+ */
+
+$mapsConfig = array(
+    'OSMapa' => array(
+        'attribution' => '&copy; <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a> | Hosting:<a href="http://trail.pl/" target="_blank">trail.pl</a> i <a href="http://centuria.pl/" target="_blank">centuria.pl</a>',
+        'name' => 'OSMapa',
+        'tileUrl' => 'http://tile.openstreetmap.pl/osmapa.pl/{z}/{x}/{y}.png',
+        'maxZoom' => 18,
+        'tileSize' => '256x256',
+    ),
+    'OSM' => array(
+        'name' => 'OSM',
+        'attribution' => '&copy; <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a>',
+        'tileUrl' => 'http://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        'maxZoom' => 18,
+        'tileSize' => '256x256',
+        'showOnlyIfMore' => true
+    ),
+    'UMP' => array(
+        'name' => 'UMP',
+        'attribution' => '&copy; Mapa z <a href="http://ump.waw.pl/" target="_blank">UMP-pcPL</a>',
+        'tileUrl' => 'http://tiles.ump.waw.pl/ump_tiles/{z}/{x}/{y}.png',
+        'maxZoom' => 18,
+        'tileSize' => '256x256',
+    ),
+    'Topo' => array(
+        'attribution' => '&copy; <a href="http://geoportal.gov.pl/" target="_blank">geoportal.gov.pl</a>',
+        'showOnlyIfMore' => true,
+        'imageMapTypeJS' => 'new google.maps.ImageMapType(new WMSImageMapTypeOptions(
+                                        "Topo",
+                                        "http://mapy.geoportal.gov.pl:80/wss/service/img/guest/TOPO/MapServer/WmsServer",
+                                        "Raster",
+                                        "",
+                                        "image/jpeg"))',
+    ),
+    'Orto' => array(
+        'attribution' => '&copy; <a href="http://geoportal.gov.pl/" target="_blank">geoportal.gov.pl</a>',
+        'showOnlyIfMore' => true,
+        'imageMapTypeJS' => 'new google.maps.ImageMapType(new WMSImageMapTypeOptions(
+                                        "Orto",
+                                        "http://mapy.geoportal.gov.pl:80/wss/service/img/guest/ORTO/MapServer/WmsServer",
+                                        "Raster",
+                                        "",
+                                        "image/jpeg"))',
+    ),
+);
+$config['mapsConfig'] = $mapsConfig;
+
 ?>

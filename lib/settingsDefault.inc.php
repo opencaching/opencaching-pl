@@ -77,5 +77,14 @@ $config = array(
     'medalsModuleSwitchedOn' => true,
     /** Nature2000 link - used in viewcache.php */
     'nature2000link' => '<a style="color:blue;" target="_blank" href="http://obszary.natura2000.org.pl/index.php?s=obszar&amp;id={linkid}">{sitename}&nbsp;&nbsp;-&nbsp;&nbsp;{sitecode}</a>',
-        
+    /** See settings-example.inc.php for explanation */ 
+    'mapsConfig' => array(
+        'OSM' => array(
+            'name' => 'OSM',    
+            'attribution' => '&copy; <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC BY-SA</a>',
+            'tileUrl' => 'http://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            'maxZoom' => 18,
+            'tileSize' => '256x256'
+        ), 
+    ),
 );

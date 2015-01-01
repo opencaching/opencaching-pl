@@ -3,7 +3,7 @@
 
 RewriteEngine On
 RewriteBase /lib/
-RewriteRule ^cachemap3\.\d+\.js$ cachemap3.js
+RewriteRule ^cachemap3(\.\d+)?\.js$ cachemap3.php
 
 
 
