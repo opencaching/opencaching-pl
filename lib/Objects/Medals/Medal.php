@@ -29,7 +29,7 @@ class Medal
     public function __construct($params)
     {
         $this->typeId = $params['type'];
-        $details = \lib\Controllers\medalsController::getMedalTypeDetails($this->typeId);
+        $details = \lib\Controllers\MedalsController::getMedalTypeDetails($this->typeId);
         $this->conditions = $details['conditions'];
         $this->name = $details['name'];
         $this->dateIntroduced = $details['dateIntroduced'];
