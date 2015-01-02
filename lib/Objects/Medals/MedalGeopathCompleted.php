@@ -1,18 +1,18 @@
 <?php
 
-namespace lib\Medals;
+namespace lib\Objects\Medals;
 
 /**
  * medal to be awarded when use complete specified geopath
  *
  * @author Łza
  */
-class MedalGeopathCompleted extends medal implements \lib\Medals\MedalInterface
+class MedalGeopathCompleted extends Medal implements \lib\Objects\Medals\MedalInterface
 {
 
     protected $conditions;
 
-    public function checkConditionsForUser(\lib\User\User $user)
+    public function checkConditionsForUser(\lib\Objects\User\User $user)
     {
 
         if ($this->conditions['geoPath']['ocNodeId'] !== $this->config->getOcNodeId()) { /* this medal is not available in current node */
@@ -26,6 +26,7 @@ class MedalGeopathCompleted extends medal implements \lib\Medals\MedalInterface
         $cacheCountArr = $db->dbResultFetchOneRowOnly();
         if ($cacheCountArr['completedLogCount'] == 1) {
             $this->prizedTime = date($this->config->getDbDateTimeFormat());
+            $this->level = 0;
         } else {
             $this->prizedTime = false;
         }

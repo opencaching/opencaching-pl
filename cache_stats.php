@@ -22,7 +22,7 @@ if ($error == false) {
         } else {
             $cache_id = 0;
         }
-        $geoCache = new \lib\GeoCache\GeoCache(array('cacheId' => $cache_id));
+        $geoCache = new \lib\Objects\GeoCache\GeoCache(array('cacheId' => $cache_id));
         $tplname = 'cache_stats';
         $content = "";
         $cachename = $geoCache->getCacheName();

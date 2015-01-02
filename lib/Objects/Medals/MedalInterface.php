@@ -1,6 +1,6 @@
 <?php
 
-namespace lib\Medals;
+namespace lib\Objects\Medals;
 
 /**
  * Description of medalInterface
@@ -10,5 +10,5 @@ namespace lib\Medals;
 interface MedalInterface
 {
 
-    public function checkConditionsForUser(\lib\User\User $user);
+    public function checkConditionsForUser(\lib\Objects\User\User $user);
 }

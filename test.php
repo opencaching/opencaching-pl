@@ -1,5 +1,3 @@
-<img src="http://xampp.opencaching.pl/osmMap.html">
-
 <?php
 require_once 'lib/kint/Kint.class.php';
 require_once 'lib/common.inc.php';
@@ -7,19 +5,9 @@ ini_set('max_execution_time', 600);
 error_reporting(-1);
 
 
-$a = file_get_contents('http://xampp.opencaching.pl/osmMap.html');
-d($a);
-exit;
-/* fill altitude table
-  $timStart = time();
-  fillAltitudeTable();
-  $time = time()-$timStart;
-  dd('koniec', $time);
- */
 
-$medals = new \lib\Medals\MedalsController();
+$medals = new \lib\Controllers\MedalsController();
 if ($medals->config->getMedalsModuleSwitchOn() === true) {
-//    $medals->checkMedalConditions(array('userId' => 433));
     $medals->checkAllUsersMedals();
 }
 

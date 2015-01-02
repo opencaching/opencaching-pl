@@ -1,6 +1,6 @@
 <?php
 
-namespace lib\Medals;
+namespace lib\Objects\OcConfig;
 
 /**
  * Description of ocConfig
@@ -38,7 +38,7 @@ final class OcConfig
 
     private function loadConfig()
     {
-        include __dir__ . '/../settings.inc.php';
+        include __dir__ . '/../../settings.inc.php';
         $this->medalsModuleSwitchedOn = $config['medalsModuleSwitchedOn'];
         $this->datetimeFormat = $datetimeFormat;
         $this->ocNodeId = $oc_nodeid;
