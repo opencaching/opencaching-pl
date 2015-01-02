@@ -238,9 +238,13 @@ function fHideColumn( $nr, $set )
         $CalcSendToGPS = false;
 
     $CalcFNC = true;
-    if ( fHideColumn( findColumn( tr('FNC') ), false ) == 1)
+    if ( fHideColumn( findColumn( tr('FNC') ), false ) == 1 &&
+        fHideColumn( findColumn( tr('F') ), false ) == 1 &&
+        fHideColumn( findColumn( tr('N') ), false ) == 1 &&
+        fHideColumn( findColumn( tr('C') ), false ) == 1)
         $CalcFNC = false;
-
+        
+        
     $CalcEntry = true;
     if ( fHideColumn( findColumn( tr('Entry') ), false ) == 1)
         $CalcEntry = false;
