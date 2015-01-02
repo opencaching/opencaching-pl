@@ -17,7 +17,7 @@ class Medal
     protected $dateIntroduced;
     protected $conditions;
     protected $prizedTime = false;
-    /* must be a instance of \lib\Objects\Medals\OcConfig */
+    /* must be a instance of  \lib\Objects\OcConfig\OcConfig */
     protected $config = null;
 
     /**

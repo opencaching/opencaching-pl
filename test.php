@@ -1,7 +1,7 @@
 <?php
 require_once 'lib/kint/Kint.class.php';
 require_once 'lib/common.inc.php';
-ini_set('max_execution_time', 600);
+ini_set('max_execution_time', 120);
 error_reporting(-1);
 
 
