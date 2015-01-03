@@ -51,9 +51,9 @@ class MedalGeographical extends Medal implements \lib\Objects\Medals\MedalInterf
                 . "AND caches.type IN (" . $this->buildCacheTypesSqlString() . ")";
         $code4 = isset($this->conditions['cacheLocation']['code4']) ? $this->conditions['cacheLocation']['code4'] : false;
         if ($code4) {
-            $db->multiVariableQuery($query, $this->conditions['cacheLocation']['code3'], $user->getUserId(), \lib\Objects\GeoCache\geoCacheLog::LOGTYPE_FOUNDIT, $this->dateIntroduced, $code4);
+            $db->multiVariableQuery($query, $this->conditions['cacheLocation']['code3'], $user->getUserId(), \lib\Objects\GeoCache\GeoCacheLog::LOGTYPE_FOUNDIT, $this->dateIntroduced, $code4);
         } else {
-            $db->multiVariableQuery($query, $this->conditions['cacheLocation']['code3'], $user->getUserId(), \lib\Objects\GeoCache\geoCacheLog::LOGTYPE_FOUNDIT, $this->dateIntroduced);
+            $db->multiVariableQuery($query, $this->conditions['cacheLocation']['code3'], $user->getUserId(), \lib\Objects\GeoCache\GeoCacheLog::LOGTYPE_FOUNDIT, $this->dateIntroduced);
         }
         $dbResult = $db->dbResultFetchOneRowOnly();
         return $dbResult['cacheCount'];

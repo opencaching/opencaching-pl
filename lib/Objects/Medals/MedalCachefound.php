@@ -44,7 +44,7 @@ class MedalCachefound extends Medal implements \lib\Objects\Medals\MedalInterfac
                 . "AND cache_logs.type = :2 "
                 . "AND cache_logs.date > :3 "
                 . "AND caches.type IN (" . $this->buildCacheTypesSqlString() . ")";
-        $db->multiVariableQuery($query, $user->getUserId(), \lib\Objects\GeoCache\geoCacheLog::LOGTYPE_FOUNDIT, $this->dateIntroduced);
+        $db->multiVariableQuery($query, $user->getUserId(), \lib\Objects\GeoCache\GeoCacheLog::LOGTYPE_FOUNDIT, $this->dateIntroduced);
         $dbResult = $db->dbResultFetchOneRowOnly();
         return $dbResult['cacheCount'];
     }

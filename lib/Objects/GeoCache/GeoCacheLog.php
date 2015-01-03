@@ -3,7 +3,7 @@
 namespace lib\Objects\GeoCache;
 
 /**
- * Description of geoCacheLog
+ * Description of GeoCacheLog
  * 1 	Found it 	log/16x16-found.png
  * 2 	Didn't find it 	log/16x16-dnf.png
  * 3 	Comment 	log/16x16-note.png
