@@ -2,7 +2,7 @@
 
 
 {ocTeamComment_02}: {cachename}
-{server}viewcache.php?cacheid={cacheid})
+({server}viewcache.php?cacheid={cacheid})
 {ocTeamComment_03}. 
 {ocTeamComment_04}.
 
