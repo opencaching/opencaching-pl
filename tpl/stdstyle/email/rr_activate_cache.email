@@ -2,7 +2,7 @@
 
 
 {rrActivateCache_02} {username} {rrActivateCache_03} {cachename}
-C{server}viewcache.php?cacheid={cacheid}),
+({server}viewcache.php?cacheid={cacheid}),
 {rrActivateCache_04}. 
 
 {rrActivateCache_05} 
