@@ -108,19 +108,23 @@ function ftsearch_split(&$str, $simple)
     $astr = mb_split(' ', $str);
     $str = '';
 
-    if ( $lang != 'pl')
-    {
-        $x = implode(',', $astr );
-        echo "<script type='text/javascript'>
-        alert('TEST NL2: $x' );
-        </script>; ";
-    }
+
     
     ftsearch_load_ignores();
     for ($i = count($astr) - 1; $i >= 0; $i--) {
         // ignore?
         if (array_search(mb_strtolower($astr[$i]), $ftsearch_ignores) !== false)
+        {
+            if ( $lang != 'pl')
+            {
+                //$x = implode(',', $astr );
+                echo "<script type='text/javascript'>
+                alert('TEST NL2: $astr[$i]' );
+                </script>; ";
+            }
+            
             unset($astr[$i]);
+        }
         else {
             if ($simple)
                 $astr[$i] = ftsearch_text2simple($astr[$i]);
