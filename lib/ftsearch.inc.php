@@ -70,14 +70,6 @@ function ftsearch_hash(&$str)
 
     $astr = ftsearch_split($str, true);
     
-    if ( $lang != 'pl')
-    {
-        $x = implode(',', $astr );
-        echo "<script type='text/javascript'>
-        alert('TEST NL1: $x' );
-        </script>; ";
-    }
-    
     foreach ($astr AS $k => $s) {
         if (strlen($s) > 2)
             $astr[$k] = sprintf("%u", crc32($s));
@@ -116,6 +108,14 @@ function ftsearch_split(&$str, $simple)
     $astr = mb_split(' ', $str);
     $str = '';
 
+    if ( $lang != 'pl')
+    {
+        $x = implode(',', $astr );
+        echo "<script type='text/javascript'>
+        alert('TEST NL2: $x' );
+        </script>; ";
+    }
+    
     ftsearch_load_ignores();
     for ($i = count($astr) - 1; $i >= 0; $i--) {
         // ignore?
