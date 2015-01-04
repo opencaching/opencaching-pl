@@ -110,7 +110,7 @@ function ftsearch_split(&$str, $simple)
 
 
     
-    ftsearch_load_ignores();
+    //ftsearch_load_ignores();
     
     //if ( $lang != 'pl')
     {
