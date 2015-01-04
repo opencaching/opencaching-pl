@@ -67,9 +67,7 @@ $ftsearch_simplerules[] = array('va', 'wa');
 function ftsearch_hash(&$str)
 {
     global $lang;
-    
-    $astr = ftsearch_split($str, true);
-    
+
     if ( $lang != 'pl')
     {
         $x = implode(',', $astr );
@@ -77,6 +75,8 @@ function ftsearch_hash(&$str)
         alert('TEST NL: $x' );
         </script>; ";
     }
+    
+    $astr = ftsearch_split($str, true);
     
     foreach ($astr AS $k => $s) {
         if (strlen($s) > 2)
