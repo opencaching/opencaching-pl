@@ -70,9 +70,9 @@ function ftsearch_hash(&$str)
 
     if ( $lang != 'pl')
     {
-        $x = implode(',', $astr );
+        //$x = implode(',', $astr );
         echo "<script type='text/javascript'>
-        alert('TEST NL: $x' );
+        alert('TEST NL1: $str' );
         </script>; ";
     }
     
