@@ -113,19 +113,17 @@ function ftsearch_split(&$str, $simple)
     //ftsearch_load_ignores();
     
     //if ( $lang != 'pl')
-    {
+/*     {
         $x = implode(',', $ftsearch_ignores );
         echo "<script type='text/javascript'>
         alert('TEST NL3: $x' );
         </script>; ";
     }
-    
+ */    
     for ($i = count($astr) - 1; $i >= 0; $i--) {
         // ignore?
-        if (array_search(mb_strtolower($astr[$i]), $ftsearch_ignores) !== false)
+        if ($ftsearch_ignores != "" && array_search(mb_strtolower($astr[$i]), $ftsearch_ignores) !== false)
         {
-
-            
             unset($astr[$i]);
         }
         else {
