@@ -70,7 +70,7 @@ function ftsearch_hash(&$str)
     
     $astr = ftsearch_split($str, true);
     
-    if ( $lang == 'nl')
+    if ( $lang != 'nl')
     {
     $str = implode(',', $astr );
     echo "<script type='text/javascript'>
