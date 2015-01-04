@@ -112,7 +112,7 @@ function ftsearch_split(&$str, $simple)
     
     ftsearch_load_ignores();
     
-    if ( $lang != 'pl')
+    //if ( $lang != 'pl')
     {
         $x = implode(',', $ftsearch_ignores );
         echo "<script type='text/javascript'>
