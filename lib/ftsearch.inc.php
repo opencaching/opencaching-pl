@@ -66,7 +66,18 @@ $ftsearch_simplerules[] = array('va', 'wa');
 
 function ftsearch_hash(&$str)
 {
+    global $lang;
+    
     $astr = ftsearch_split($str, true);
+    
+    if ( $lang == 'nl')
+    {
+    $str = implode(',', $astr );
+    echo "<script type='text/javascript'>
+    alert('TEST NL: $str' );
+    </script>; ";
+    }
+    
     foreach ($astr AS $k => $s) {
         if (strlen($s) > 2)
             $astr[$k] = sprintf("%u", crc32($s));
