@@ -68,15 +68,15 @@ function ftsearch_hash(&$str)
 {
     global $lang;
 
+    $astr = ftsearch_split($str, true);
+    
     if ( $lang != 'pl')
     {
-        //$x = implode(',', $astr );
+        $x = implode(',', $astr );
         echo "<script type='text/javascript'>
-        alert('TEST NL1: $str' );
+        alert('TEST NL1: $x' );
         </script>; ";
     }
-    
-    $astr = ftsearch_split($str, true);
     
     foreach ($astr AS $k => $s) {
         if (strlen($s) > 2)
