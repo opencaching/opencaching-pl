@@ -17,7 +17,7 @@
 
 if(isset($_REQUEST['newOc']) && $_REQUEST['newOc'] == 1) {
     session_start();
-    require_once 'lib/Controllers/OcController.php';
+    require_once __DIR__ . '/lib/Controllers/OcController.php';
     $ocRouter = new \lib\Controllers\OcController();
     $ocRouter->run($_REQUEST);
     exit;
