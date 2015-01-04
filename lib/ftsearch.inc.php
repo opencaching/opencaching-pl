@@ -119,7 +119,7 @@ function ftsearch_split(&$str, $simple)
             {
                 //$x = implode(',', $astr );
                 echo "<script type='text/javascript'>
-                alert('TEST NL2: $astr[$i]' );
+                alert('TEST NL3: $astr[$i]' );
                 </script>; ";
             }
             
