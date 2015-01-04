@@ -265,7 +265,6 @@ class MedalsController
     public function checkAllUsersMedals()
     {
         $query = 'SELECT user_id, username, founds_count, notfounds_count, hidden_count, latitude, longitude, country FROM `user` WHERE (`last_login` BETWEEN DATE_SUB(NOW(), INTERVAL 24 HOUR) AND NOW()) ';
-        $query = 'SELECT user_id, username, founds_count, notfounds_count, hidden_count, latitude, longitude, country FROM `user` WHERE (`last_login` BETWEEN DATE_SUB(NOW(), INTERVAL 24 HOUR) AND NOW()) LIMIT 100';
         /* @var $db \dataBase */
         $db = \lib\Database\DataBaseSingleton::Instance();
         $db->simpleQuery($query);

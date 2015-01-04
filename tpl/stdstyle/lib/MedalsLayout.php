@@ -21,17 +21,17 @@ class MedalsLayout
      * @var array
      */
     private $medalImages = array(
-        1 => array(/* malopolska */
+        1 => array( /* malopolska */
             1 => 'medal_11.png',
             2 => 'medal_12.png',
             3 => 'medal_13.png',
             4 => 'medal_14.png',
         ),
-        2 => array(/* krakow */
+        2 => array( /* krakow */
             1 => 'medal_21.png',
             2 => 'medal_22.png',
         ),
-        3 => array(/* Traditional Caches */
+        3 => array( /* Traditional Caches */
             1 => 'medal_31.png',
             2 => 'medal_32.png',
             3 => 'medal_33.png',
@@ -43,15 +43,15 @@ class MedalsLayout
             9 => 'medal_39.png',
             10 => 'medal_310.png',
         ),
-        4 => array(/* kotlina jeleniogorska */
+        4 => array( /* kotlina jeleniogorska */
             0 => 'GDKJ.jpg',
         ),
-        5 => array(/* Lubelski Geocaching */
-            1 => 'medal_51.png',
-            2 => 'medal_52.png',
-            3 => 'medal_53.png',
-            4 => 'medal_54.png',
-            5 => 'medal_55.png',
+        5 => array( /* Lubelski Geocaching */
+            1 => 'LubelskiGeocachingPopularny.jpg',
+            2 => 'LubelskiGeocachingBrazowy.jpg',
+            3 => 'LubelskiGeocachingSrebrny.jpg',
+            4 => 'LubelskiGeocachingZloty.jpg',
+            5 => 'LubelskiGeocachingHonorowy,jpg',
         ),
     );
 

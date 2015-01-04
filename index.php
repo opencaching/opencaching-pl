@@ -10,15 +10,20 @@
  * ************************************************************************* */
 
 /* * **************************************************************************
-
-  Unicode Reminder ăĄă˘
-
   Starting page of the OpenCaching website and template usage example
-
   used template(s): start
   parameter(s):     none
-
  * ************************************************************************** */
+
+if(isset($_REQUEST['newOc']) && $_REQUEST['newOc'] == 1) {
+    session_start();
+    require_once 'lib/Controllers/OcController.php';
+    $ocRouter = new \lib\Controllers\OcController();
+    $ocRouter->run($_REQUEST);
+    exit;
+}
+
+
 //prepare the templates and include all neccessary
 if (!isset($rootpath))
     $rootpath = __DIR__ . DIRECTORY_SEPARATOR;

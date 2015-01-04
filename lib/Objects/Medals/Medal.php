@@ -139,4 +139,9 @@ class Medal
         return $this->level;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
 }
