@@ -70,12 +70,12 @@ function ftsearch_hash(&$str)
     
     $astr = ftsearch_split($str, true);
     
-    if ( $lang != 'nl')
+    if ( $lang != 'pl')
     {
-    $str = implode(',', $astr );
-    echo "<script type='text/javascript'>
-    alert('TEST NL: $str' );
-    </script>; ";
+        $x = implode(',', $astr );
+        echo "<script type='text/javascript'>
+        alert('TEST NL: $x' );
+        </script>; ";
     }
     
     foreach ($astr AS $k => $s) {
