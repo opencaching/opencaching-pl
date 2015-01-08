@@ -6,7 +6,7 @@
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/jquery.datepick-{language4js}.js"></script>
 <script src="tpl/stdstyle/js/jquery_1.9.2_ocTheme/ui/timepicker.js"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language={language4js}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;language={language4js}"></script>
 <script type="text/javascript">
             tinymce.init({
             selector: "textarea",
@@ -988,8 +988,8 @@
     }
 
     function cancellAddNewUser2pt(){
-    // event.preventDefault();
-    $('#addUser').hide();
+        // event.preventDefault();
+        $('#addUser').hide();
             $('#dddx').show();
             $('.removeUserIcon').hide();
     }
@@ -1133,33 +1133,33 @@
 
 
     function toggle() {
-    var ele = document.getElementById("toggleText");
-            var text = document.getElementById("displayText1");
-            var text2 = document.getElementById("displayText2");
-            var os_tytul = document.getElementById("os_tytul");
-            var help_link1 = document.getElementById("help_link1");
-            var help_link2 = document.getElementById("help_link2");
-            var cialo = document.getElementById("cialo");
-            if (ele.style.display == "block")
-    {
-    ele.style.display = "none";
+        var ele = document.getElementById("toggleText");
+        var text = document.getElementById("displayText1");
+        var text2 = document.getElementById("displayText2");
+        var os_tytul = document.getElementById("os_tytul");
+        var help_link1 = document.getElementById("help_link1");
+        var help_link2 = document.getElementById("help_link2");
+        var cialo = document.getElementById("cialo");
+        if (ele.style.display == "block")
+        {
+            ele.style.display = "none";
             // os_tytul.style.display = "block";
             text.innerHTML = "{{os_zobo}}";
             text2.innerHTML = "{{os_zobo}}";
             help_link1.style.display = "block";
             help_link2.style.display = "none";
             cialo.style.display = "block";
-    }
-    else
-    {
-    ele.style.display = "block";
+        }
+        else
+        {
+            ele.style.display = "block";
             // os_tytul.style.display = "none";
             text.innerHTML = "{{os_powrot}}";
             text2.innerHTML = "{{os_powrot}}";
             help_link1.style.display = "none";
             help_link2.style.display = "block";
             cialo.style.display = "none";
-    }
+        }
     }
 
     /* maps */
@@ -1167,36 +1167,36 @@
     function initialize() {
 
     if ({mapInit} == '0') {
-    console.log('map is swithed off');
-            return false;
+        console.log('map is swithed off');
+        return false;
     }
     console.log('initialize ');
-            var ptMapCenterLat = {mapCenterLat};
-            var ptMapCenterLon = {mapCenterLon};
-            var mapZoom = {mapZoom};
-            var fullCountryMap = {fullCountryMap};
-            var caches = [ {ptList4map} ];
+    var ptMapCenterLat = {mapCenterLat};
+    var ptMapCenterLon = {mapCenterLon};
+    var mapZoom = {mapZoom};
+    var fullCountryMap = {fullCountryMap};
+    var caches = [ {ptList4map} ];
 //osm
-            var mapTypeIds = [];
-            for (var type in google.maps.MapTypeId) {
-    mapTypeIds.push(google.maps.MapTypeId[type]);
+    var mapTypeIds = [];
+    for (var type in google.maps.MapTypeId) {
+        mapTypeIds.push(google.maps.MapTypeId[type]);
     }
     mapTypeIds.push("OSM");
-            mapTypeIds.push("UMP");
+    mapTypeIds.push("UMP");
 //end osm
 
-            var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
-            var mapOptions = {
+    var myLatlng = new google.maps.LatLng(ptMapCenterLat, ptMapCenterLon);
+    var mapOptions = {
             zoom: mapZoom,
-                    zoomControl: {zoomControl},
-                    scrollwheel: {scrollwheel},
-                    scaleControl: {scaleControl},
-                    center: myLatlng,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    mapTypeControlOptions: {
-                    mapTypeIds: mapTypeIds
-                    }
+            zoomControl: {zoomControl},
+            scrollwheel: {scrollwheel},
+            scaleControl: {scaleControl},
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControlOptions: {
+                mapTypeIds: mapTypeIds
             }
+        }
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
             var bounds = new google.maps.LatLngBounds();
             map.mapTypes.set("OSM", new google.maps.ImageMapType({
